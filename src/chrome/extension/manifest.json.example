@@ -1,0 +1,26 @@
+{
+  "version": "0.1.0",
+  "name": "Title",
+  "manifest_version": 2,
+  "description": "Description",
+  "browser_action": {
+    "default_icon": "img/logo/48x48.png",
+    "default_title": "Title",
+    "default_popup": "popup.html"
+  },
+  "icons": {
+    "16": "img/logo/16x16.png",
+    "48": "img/logo/48x48.png",
+    "128": "img/logo/128x128.png"
+  },
+  "background": {
+    "page": "background.html"
+  },
+  "content_scripts": [],
+  "permissions": [
+    "contextMenus",
+    "activeTab",
+    "storage"
+  ],
+  "content_security_policy": "script-src 'self'; object-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:;"
+}

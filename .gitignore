@@ -1,0 +1,13 @@
+node_modules
+*.sw*
+*~
+npm-debug.log
+src/app/config/config.js
+build
+releases
+config.json
+test/config.yml
+src/android/android
+src/android/index.android.js
+src/android/node_modules
+src/android/stylesheet.js

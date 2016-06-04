@@ -1,0 +1,32 @@
+@charset "utf-8";
+
+// @Change and uncomment the ones you need
+// @import "react-select";
+// @import "confirmation-link";
+// @import "normalize";
+// @import "top-bar";
+
+body {
+  margin: auto;
+  width: 500px;
+  padding: 50px 10px;
+}
+
+text {
+  text-align: center;
+  font-family: sans-serif;
+}
+
+h1, p {
+  text-align: center;
+  font-family: sans-serif;
+}
+
+h1 {
+  font-weight: bold;
+  font-size: 24px;
+}
+
+address {
+  text-align: center;
+}
