@@ -79,3 +79,6 @@ Verify breaking news online
 
 * Run `npm run test` (you need `ruby` and `rubygems`, and need a file `test/config.yml`)
 * In order to test the browser extension, you need to add its id to `test/config.yml`, and to find out the id you need to install the extension in Google Chrome in developer mode, so you'll be able to see the id in `chrome://extensions`
+
+## Notes and tips
+* run `npm outdated --depth=0 | grep -v Package | awk '{print $1}' | xargs -I% npm install --save %@latest` to update package.json with latest versions of dependancies 
