@@ -9,7 +9,7 @@ class UserMenu extends Component {
     if (me) {
       return (<span className="current-user provider-{{me.provider}}">
                 <Avatar src={me.profile_image} size="32" className="avatar" />
-                <FlatButton label={me.name} icon={<FontIcon className="muidocs-icon-custom-github" />} />
+                <FlatButton label={me.name} />} />
               </span>);
     }
     else {
