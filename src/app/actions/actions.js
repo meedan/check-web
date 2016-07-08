@@ -1,18 +1,26 @@
-import { ERROR } from '../constants/ActionTypes';
+import { SUCCESS, ERROR } from '../constants/ActionTypes';
 import superagent from 'superagent';
 import config from '../config/config.js';
+import util from 'util';
 
-// Request information from the backend, after logged in
+// REST calls
 
-var request = function(method, endpoint, session, data, type, dispatch, view, previousView, callback) {
+// Request information from the backend
+// failureCallback: function(errorMessage)
+// successCallback: function(responseData)
+export function request(method, endpoint, failureCallback, successCallback, headers, data) {
 
-  // @Change the headers
-  var headers = {
-    'X-Token': session.token
-  };
+  // Default values for parameters
 
-  // @Change the host
-  var path = 'http://localhost/api/' + endpoint;
+  method = method.toLowerCase();
+  if (!headers) {
+    headers= {};
+  }
+  if (!data) {
+    data = {};
+  }
+
+  var path = config.restBaseUrl + endpoint;
 
   if (method === 'get' && Object.keys(data).length > 0) {
     path += '?'
@@ -29,66 +37,59 @@ var request = function(method, endpoint, session, data, type, dispatch, view, pr
     http.set(key, headers[key]);
   }
 
-  http.send(data);
+  http.withCredentials().send(data);
 
   http.end(function(err, response) {
     if (err) {
       if (err.response) {
         var json = JSON.parse(err.response.text);
-        dispatch({ type: ERROR, message: '<h2>' + json.data.message + '</h2>', view: 'message', session: session, previousView: previousView, image: 'error' })
+        failureCallback(json.data.message);
       }
       else {
-        dispatch({ type: ERROR, message: util.inspect(err), view: 'message', session: session, previousView: previousView, image: 'error-invalid-url' })
+        failureCallback(util.inspect(err));
       }
     }
     else {
       var json = JSON.parse(response.text);
       if (response.status === 200) {
-        callback(dispatch, json);
+        successCallback(json.data);
       }
       else {
-        dispatch({ type: ERROR, message: '<h2>' + json.data.message + '</h2>', view: 'message', session: session, previousView: previousView, image: 'error' })
+        failureCallback(json.data.message);
       }
     }
   });
 };
 
-// Request auth information from backend
-
-var requestAuth = function(provider, type, dispatch) {
-
-  // @Change the URL to the one that tells whether the user is authenticated
-  superagent.get('http://localhost/api/users')
-  .end(function(err, response) {
-
-    // Error
-    if (err) {
-      dispatch({ type: ERROR, message: '<h2>Could not connect to server</h2>', view: 'message', session: null, previousView: 'login' })
+var login = function(provider, dispatch) {
+  var win = window.open(config.restBaseUrl + 'users/auth/' + provider + '?destination=/close.html', provider);
+  var timer = window.setInterval(function() {
+    if (win.closed) {  
+      window.clearInterval(timer);
+      dispatch({ type: SUCCESS, error: false });
     }
-
-    // Not logged in
-    else if (response.text === 'null') {
-
-      // @Change to the authentication URL
-      var win = window.open('http://localhost/api/auth', provider);
-      var timer = window.setInterval(function() {   
-        if (win.closed) {  
-          window.clearInterval(timer);
-          requestAuth(provider, type, dispatch);
-        }  
-      }, 500);
-    }
-    else {
-      dispatch({ session: JSON.parse(response.text), type: type, provider: provider, view: 'menu', previousView: 'login' });
-    }
-  });
+  }, 500);
 };
 
-export function close() {
+export function loginFacebook() {
   return (dispatch, getState) => {
-    getState().extension.runtime.reload();
+    login('facebook', dispatch);
   };
-}
+};
+
+export function loginTwitter() {
+  return (dispatch, getState) => {
+    login('twitter', dispatch);
+  };
+};
+
+export function logout() {
+  return (dispatch, getState) => {
+    var failureCallback = function(message) { dispatch({ type: ERROR, message: message }); },
+        successCallback = function(data) { dispatch({ type: SUCCESS, loggedOut: true, message: 'Logged out successfully!' }); };
+    request('delete', 'users/sign_out', failureCallback, successCallback);
+  };
+};
 
 function disableButton(id) {
   var button = document.getElementById(id);
@@ -97,5 +98,3 @@ function disableButton(id) {
     button.innerHTML = 'Please wait...';
   }
 }
-
-// @Change the rest of this file in order to add the remaining functions

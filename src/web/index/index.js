@@ -9,8 +9,11 @@ window.storage = {
   },
 
   get: function(key, callback) {
-    var value = window.localStorage.getItem(key);
-    callback(value);
+    callback(this.getValue(key));
+  },
+
+  getValue: function(key) {
+    return window.localStorage.getItem(key);
   }
 };
 

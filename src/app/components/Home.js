@@ -1,19 +1,71 @@
 import React, { Component, PropTypes } from 'react';
-// Without Relay:
-// import Footer from './Footer';
+import Relay from 'react-relay';
+import util from 'util';
+import config from '../config/config.js';
+import Header from './Header';
 import FooterRelay from '../relay/FooterRelay';
+import LoginMenu from './LoginMenu';
+import Message from './Message';
+import { request } from '../actions/actions';
 
 class Home extends Component {
+  setUpGraphql(token) {
+    var headers = config.relayHeaders;
+    if (token) {
+      headers = {
+        'X-Checkdesk-Token': token
+      }
+    }
+    Relay.injectNetworkLayer(new Relay.DefaultNetworkLayer(config.relayPath, { headers: headers }));
+  }
+
+  startSession(state) {
+    var that = this;
+    if (!state.token && !state.error) {
+      var token = window.storage.getValue('token');
+      if (token) {
+        state.token = token;
+        that.forceUpdate();
+      }
+      else {
+        var failureCallback = function(message) {
+          state.message = message;
+          state.error = true;
+          that.forceUpdate();
+        };
+        var successCallback = function(data) {
+          if (data) {
+            state.token = data.token;
+          }
+          else {
+            state.error = true;
+          }
+          that.forceUpdate();
+        }
+        request('get', 'me', failureCallback, successCallback);
+      }
+    }
+  }
+
   render() {
-    const { close, state } = this.props;
-    // Without Relay, render `Footer` directly instead of `FooterRelay` below:
-    // let about = { name: 'Application Name', version: '0.0.1' };
-    // <Footer {...this.props} about={about} />
+    const { state } = this.props;
+
+    console.log(state);
+    
+    this.startSession(state.app);
+    
+    this.setUpGraphql(state.app.token);
+    
     return (
       <div>
         <h1>Checkdesk</h1>
-        <p>@Change to add your content here!</p>
-        <p><small>Current URL: <span id="url" dangerouslySetInnerHTML={{__html: state.extension.url}}></span></small></p>
+        <Header {...this.props} />
+        <Message {...this.props} />
+        {(() => {
+          if (!state.app.token) {
+            return (<LoginMenu {...this.props} />);
+          }
+        })()}
         <FooterRelay {...this.props} />
       </div>
     );
