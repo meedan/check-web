@@ -7,6 +7,14 @@ import FooterRelay from '../relay/FooterRelay';
 import LoginMenu from './LoginMenu';
 import Message from './Message';
 import { request } from '../actions/actions';
+import Colors from 'material-ui/lib/styles/colors';
+import getMuiTheme from 'material-ui/lib/styles/getMuiTheme';
+import themeDecorator from 'material-ui/lib/styles/theme-decorator';
+import AppBar from 'material-ui/lib/app-bar';
+
+const muiTheme = getMuiTheme({
+  accent1Color: Colors.deepOrange500,
+});
 
 class Home extends Component {
   setUpGraphql(token) {
@@ -58,8 +66,7 @@ class Home extends Component {
     
     return (
       <div>
-        <h1>Checkdesk</h1>
-        <Header {...this.props} />
+        <AppBar title="Checkdesk" className="top-bar" iconElementRight={<Header {...this.props} />} iconClassNameLeft={null} />
         <Message {...this.props} />
         {(() => {
           if (!state.app.token) {
@@ -72,4 +79,4 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default themeDecorator(muiTheme)(Home);

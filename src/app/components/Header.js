@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import UserMenuRelay from '../relay/UserMenuRelay';
+import FlatButton from 'material-ui/lib/flat-button';
 
 class Header extends Component {
   render() {
@@ -11,7 +12,7 @@ class Header extends Component {
             return (
               <div>
                 <UserMenuRelay {...this.props} />
-                <span onClick={logout}>Logout</span>
+                <FlatButton label="Logout" onClick={logout} />
               </div>
             );
           }
