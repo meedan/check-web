@@ -13,7 +13,14 @@ import themeDecorator from 'material-ui/lib/styles/theme-decorator';
 import AppBar from 'material-ui/lib/app-bar';
 
 const muiTheme = getMuiTheme({
-  accent1Color: Colors.deepOrange500,
+  palette: {
+    primary1Color: Colors.blueGrey400,
+    primary2Color: Colors.blueGrey600,
+    primary3Color: Colors.blueGrey800,
+    accent1Color: Colors.blue600,
+    accent2Color: Colors.blue700,
+    accent3Color: Colors.blue800
+  }
 });
 
 class Home extends Component {
@@ -67,7 +74,7 @@ class Home extends Component {
     return (
       <div>
         <AppBar title="Checkdesk" className="top-bar" iconElementRight={<Header {...this.props} />} iconClassNameLeft={null} />
-        <Message {...this.props} />
+        <Message message={state.app.message} />
         {(() => {
           if (!state.app.token) {
             return (<LoginMenu {...this.props} />);
