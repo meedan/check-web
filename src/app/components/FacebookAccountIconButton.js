@@ -1,17 +1,10 @@
 var React = require('react')
-import TextField from 'material-ui/TextField';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import RaisedButton from 'material-ui/RaisedButton';
-const muiTheme = getMuiTheme({
-  palette: {
-  },
-});
+import RaisedButton from 'material-ui/lib/raised-button';
+
  var FacebookAccountIconButton = React.createClass({
 
      render: function() {
          return (
-           <MuiThemeProvider muiTheme={muiTheme}>
            <div>
               <RaisedButton
                label="Facebook"
@@ -19,7 +12,6 @@ const muiTheme = getMuiTheme({
                onTouchTap={this.handleTouchTap}
                 />
            </div>
-           </MuiThemeProvider>
 
          )
      }

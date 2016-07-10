@@ -7,7 +7,7 @@ import FooterRelay from '../relay/FooterRelay';
 import LoginMenu from './LoginMenu';
 import Message from './Message';
 import { request } from '../actions/actions';
-var About = require('./About')
+var UserProfileViewer = require('./UserProfileViewer')
 class Home extends Component {
   setUpGraphql(token) {
     var headers = config.relayHeaders;
@@ -61,8 +61,8 @@ class Home extends Component {
         <h1>Checkdesk</h1>
         <Header {...this.props} />
         <Message {...this.props} />
-  
-        <About/>
+
+        <UserProfileViewer/>
         <FooterRelay {...this.props} />
       </div>
     );

@@ -1,7 +1,7 @@
 var React = require('react')
-var UserProfileViewsCounter = require('UserProfileViewsCounter')
-var UserProfileFollowersCounter = require('UserProfileFollowersCounter')
-var UserProfileCommentsCounter = require('UserProfileCommentsCounter')
+var UserProfileViewsCounter = require('./UserProfileViewsCounter')
+var UserProfileFollowersCounter = require('./UserProfileFollowersCounter')
+var UserProfileCommentsCounter = require('./UserProfileCommentsCounter')
 
 var UserProfileStates = React.createClass({
   render: function () {
