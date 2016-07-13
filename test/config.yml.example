@@ -1,3 +1,0 @@
-# Define here configurations needed by your tests (for example, user credentials)
-# key: value
-chrome_extension_id: 'the unique id of this extension, e.g.: cfhdojbkjhnklbpkdaibdccddilifddb'
