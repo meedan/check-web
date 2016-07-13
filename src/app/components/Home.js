@@ -7,7 +7,23 @@ import FooterRelay from '../relay/FooterRelay';
 import LoginMenu from './LoginMenu';
 import Message from './Message';
 import { request } from '../actions/actions';
-var UserProfileViewer = require('./UserProfileViewer')
+
+import Colors from 'material-ui/lib/styles/colors';
+import getMuiTheme from 'material-ui/lib/styles/getMuiTheme';
+import themeDecorator from 'material-ui/lib/styles/theme-decorator';
+import AppBar from 'material-ui/lib/app-bar';
+
+const muiTheme = getMuiTheme({
+  palette: {
+    primary1Color: Colors.blueGrey400,
+    primary2Color: Colors.blueGrey600,
+    primary3Color: Colors.blueGrey800,
+    accent1Color: Colors.blue600,
+    accent2Color: Colors.blue700,
+    accent3Color: Colors.blue800
+  }
+});
+
 class Home extends Component {
   setUpGraphql(token) {
     var headers = config.relayHeaders;
@@ -58,15 +74,17 @@ class Home extends Component {
 
     return (
       <div>
-        <h1>Checkdesk</h1>
-        <Header {...this.props} />
-        <Message {...this.props} />
-
-        <UserProfileViewer/>
+        <AppBar title="Checkdesk" className="top-bar" iconElementRight={<Header {...this.props} />} iconClassNameLeft={null} />
+        <Message message={state.app.message} />
+        {(() => {
+          if (!state.app.token) {
+            return (<LoginMenu {...this.props} />);
+          }
+        })()}
         <FooterRelay {...this.props} />
       </div>
     );
   }
 }
 
-export default Home;
+export default themeDecorator(muiTheme)(Home);

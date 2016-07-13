@@ -1,32 +1,73 @@
 @charset "utf-8";
 
-// @Change and uncomment the ones you need
-// @import "react-select";
-// @import "confirmation-link";
-// @import "normalize";
-// @import "top-bar";
+@import "variables";
+@import "font-awesome/font-awesome";
 
 body {
+  font-family: Roboto, sans-serif;
   margin: auto;
-  width: 500px;
-  padding: 50px 10px;
-}
-
-text {
-  text-align: center;
-  font-family: sans-serif;
-}
-
-h1, p {
-  text-align: center;
-  font-family: sans-serif;
+  width: 100%;
+  background: $lightgrey;
 }
 
 h1 {
-  font-weight: bold;
-  font-size: 24px;
+  text-indent: -5000em;
+}
+
+.hidden {
+  display: none;
+}
+
+.top-bar {
+  background: $white url('/images/logo.png') center center no-repeat !important;
+}
+
+header {
+  margin-top: 6px;
+}
+
+.current-user {
+  .avatar {
+    padding: 2px;
+    vertical-align: bottom;
+  }
 }
 
 address {
   text-align: center;
+  color: rgba($darkgrey, 0.5);
+  margin-top: 30px;
+  font-style: normal;
+  font-size: 12px;
+}
+
+.message {
+  background: $cream;
+  border: 1px solid $midgrey;
+  color: $darkergrey;
+  padding: 10px;
+  margin: 10px;
+  font-size: 14px;
+}
+
+#login-menu {
+  text-align: center;
+
+  h2 {
+    margin: 50px 0;
+    font-weight: normal;
+    color: $darkgrey;
+  }
+
+  .list {
+    width: 70%;
+    max-width: 400px;
+    margin: 10px auto;
+    padding: 0 !important;
+
+    .item {
+      color: $darkgrey;
+      text-align: left;
+    }
+  }
 }

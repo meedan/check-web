@@ -8,7 +8,7 @@ import util from 'util';
 // Request information from the backend
 // failureCallback: function(errorMessage)
 // successCallback: function(responseData)
-export function request(method, endpoint, failureCallback, successCallback, headers, data) {
+export function request(method, endpoint, failureCallback, successCallback, data, headers) {
 
   // Default values for parameters
 
@@ -43,7 +43,8 @@ export function request(method, endpoint, failureCallback, successCallback, head
     if (err) {
       if (err.response) {
         var json = JSON.parse(err.response.text);
-        failureCallback(json.data.message);
+        var message = json.data ? json.data.message : json.error;
+        failureCallback(message);
       }
       else {
         failureCallback(util.inspect(err));
@@ -55,7 +56,8 @@ export function request(method, endpoint, failureCallback, successCallback, head
         successCallback(json.data);
       }
       else {
-        failureCallback(json.data.message);
+        var message = json.data ? json.data.message : json.error;
+        failureCallback(message);
       }
     }
   });
@@ -80,6 +82,38 @@ export function loginFacebook() {
 export function loginTwitter() {
   return (dispatch, getState) => {
     login('twitter', dispatch);
+  };
+};
+
+export function loginEmail() {
+  return (dispatch, getState) => {
+    var form = document.forms.login,
+        params = {
+          api_user: {
+            email: form.email.value,
+            password: form.password.value
+          }
+        },
+        failureCallback = function(message) { dispatch({ type: ERROR, failure: message }); },
+        successCallback = function(data) { dispatch({ type: SUCCESS, error: false }); };
+    request('post', 'users/sign_in', failureCallback, successCallback, params);
+  };
+};
+
+export function registerEmail() {
+  return (dispatch, getState) => {
+    var form = document.forms.register,
+        params = {
+          api_user: {
+            email: form.email.value,
+            name: form.name.value,
+            password: form.password.value,
+            password_confirmation: form.password_confirmation.value
+          }
+        },
+        failureCallback = function(message) { dispatch({ type: ERROR, failure: message }); },
+        successCallback = function(data) { dispatch({ type: SUCCESS, error: false }); };
+    request('post', 'users', failureCallback, successCallback, params);
   };
 };
 
