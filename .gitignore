@@ -11,3 +11,4 @@ src/android/android
 src/android/index.android.js
 src/android/node_modules
 src/android/stylesheet.js
+/.project
