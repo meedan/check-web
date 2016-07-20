@@ -2,21 +2,16 @@
 
 const port = 3333;
 
-var util = require('util');
-
-var http = require('http'),
-    finalhandler = require('finalhandler'),
-    serveStatic = require('serve-static'),
-    serve = serveStatic('build/web');
-
-var server = http.createServer(function(req, res) {
-  var done = finalhandler(req, res);
-  serve(req, res, done);
-});
-
 // Local server
 
-server.listen(port);
+var express = require('express'),
+    serveStatic = require('serve-static'),
+    app = express();
+app.use(serveStatic('build/web', { 'index': ['index.html'] }))
+app.use(function(req, res, next) {
+  res.sendFile(process.cwd() + '/build/web/index.html');
+});
+app.listen(port)
 console.log('Webserver running locally at http://localhost:' + port);
 
 // Remote server
