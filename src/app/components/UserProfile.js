@@ -4,8 +4,9 @@ var AddProfileName = require('AddProfileName')
 var AddProfileSlogan = require('AddProfileSlogan')
 var ProfileAccountsList = require('ProfileAccountsList')
 var SaveProfileButton = require('SaveProfileButton')
-var UserProfile = React.createClass({
-  render: function () {
+
+class UserProfile extends Component {
+  render () {
     return(
 
     <div>
@@ -24,5 +25,4 @@ var UserProfile = React.createClass({
     )
   }
 })
-
-module.exports = UserProfile;
+export default UserProfile;

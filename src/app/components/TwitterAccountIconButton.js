@@ -1,12 +1,12 @@
 var React = require('react')
 import RaisedButton from 'material-ui/lib/raised-button';
 
- var TwitterAccountIconButton = React.createClass({
-   handleTouchTap: function(e)
+class TwitterAccountIconButton extends Component {
+   handleTouchTap(e)
    {
 
-   },
-     render: function() {
+   }
+     render() {
          return (
            <div>
               <RaisedButton
@@ -19,5 +19,4 @@ import RaisedButton from 'material-ui/lib/raised-button';
          )
      }
 })
-
-module.exports = TwitterAccountIconButton;
+export default TwitterAccountIconButton;

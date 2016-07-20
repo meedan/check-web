@@ -1,9 +1,9 @@
 var React = require('react')
 import RaisedButton from 'material-ui/lib/raised-button';
 
- var FacebookAccountIconButton = React.createClass({
+class FacebookAccountIconButton extends Component {
 
-     render: function() {
+     render{
          return (
            <div>
               <RaisedButton
@@ -17,4 +17,4 @@ import RaisedButton from 'material-ui/lib/raised-button';
      }
 })
 
-module.exports = FacebookAccountIconButton;
+export default FacebookAccountIconButton;

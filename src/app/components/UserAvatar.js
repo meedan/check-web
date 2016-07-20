@@ -1,8 +1,7 @@
 var React = require('react')
 import Avatar from 'material-ui/lib/Avatar';
- var UserAvatar = React.createClass({
-
-     render: function() {
+class UserAvatar extends Component {
+     render {
          return (
            <div>
                    <Avatar
@@ -12,5 +11,4 @@ import Avatar from 'material-ui/lib/Avatar';
          )
      }
 })
-
-module.exports = UserAvatar;
+export default UserAvatar;

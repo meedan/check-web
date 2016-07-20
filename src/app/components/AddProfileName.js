@@ -7,20 +7,21 @@ const muiTheme = getMuiTheme({
   palette: {
   },
 });
- var AddProfileName = React.createClass({
-   getInitialState: function() {
+class AddProfileName extends Component {
+
+   getInitialState {
          return {
              textFieldValue: ''
          };
-     },
+     }
 
-     _handleTextFieldChange: function(e) {
+     _handleTextFieldChange {
          this.setState({
              textFieldValue: e.target.value
          });
-     },
+     }
 
-     render: function() {
+     render {
          return (
            <MuiThemeProvider muiTheme={muiTheme}>
            <div>
@@ -37,4 +38,4 @@ const muiTheme = getMuiTheme({
      }
 })
 
-module.exports = AddProfileName;
+export default AddProfileName;

@@ -1,10 +1,9 @@
 var React = require('react')
 var UserProfileBasicInfo = require('./UserProfileBasicInfo')
 var AnnotationsListView = require('./AnnotationsListView')
+class UserProfileViewer extends Component {
 
-var UserProfileViewer = React.createClass({
-
-  render: function () {
+  render () {
     return(
 
     <div>
@@ -16,5 +15,4 @@ var UserProfileViewer = React.createClass({
     )
   }
 })
-
-module.exports = UserProfileViewer;
+export default UserProfileViewer;

@@ -8,8 +8,8 @@ const muiTheme = getMuiTheme({
   palette: {
   },
 });
- var ProfileAccountsList = React.createClass({
-  render: function () {
+class ProfileAccountsList extends Component {
+  render {
     return(
       <MuiThemeProvider muiTheme={muiTheme}>
       <div>
@@ -33,5 +33,4 @@ const muiTheme = getMuiTheme({
       </MuiThemeProvider>       )
   }
 })
-
-module.exports = ProfileAccountsList;
+export default ProfileAccountsList;

@@ -9,20 +9,20 @@ const muiTheme = getMuiTheme({
   palette: {
   },
 });
- var UploadProfilePhoto = React.createClass({
-   getInitialState: function(){
+class UploadProfilePhoto extends Component {
+   getInitialState(){
       return{
       };
-    },
+    }
 
-   _handleAvatarValueChange: function(e) {
+   _handleAvatarValueChange(e) {
      console.log('_handleAvatarValueChange');
 
        this.setState({
            avatarValue: 'https://www.fillmurray.com/300/300'
        });
-   },
-  render: function () {
+   }
+  render () {
     console.log('xx');
 
     return(
@@ -38,5 +38,4 @@ const muiTheme = getMuiTheme({
       </MuiThemeProvider>     )
   }
 })
-
-module.exports = UploadProfilePhoto;
+export default UploadProfilePhoto;

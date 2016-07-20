@@ -9,24 +9,25 @@ const muiTheme = getMuiTheme({
   palette: {
   },
 });
- var AddProfileSlogan = React.createClass({
-   getInitialState: function() {
+class AddProfileSlogan extends Component {
+
+   getInitialState() {
          return {
              textFieldValue: ''
          };
-     },
+     }
 
-     _handleTextFieldChange: function(e) {
+     _handleTextFieldChange(e) {
          this.setState({
              textFieldValue: e.target.value
          });
-     },
+     }
 
-  render: function () {
+  render () {
     return(
       <MuiThemeProvider muiTheme={muiTheme}>
       <div>
-      
+
           <TextField floatingLabelText= "Slogan" value={this.state.textFieldValue} onChange={this._handleTextFieldChange} />
 
 
@@ -35,4 +36,4 @@ const muiTheme = getMuiTheme({
   }
 })
 
-module.exports = AddProfileSlogan;
+export default AddProfileSlogan;

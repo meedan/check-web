@@ -1,10 +1,10 @@
 var React = require('react')
-var UserProfileViewsCounter = React.createClass({
-  render: function () {
+class UserProfileViewsCounter extends Component {
+
+  render () {
     return(
       <div> <button type="button">Views: {this.props.viewsCount}</button> </div>
     )
   }
 })
-
-module.exports = UserProfileViewsCounter;
+export default UserProfileViewsCounter;

@@ -2,9 +2,9 @@ var React = require('react')
 var UserProfileViewsCounter = require('./UserProfileViewsCounter')
 var UserProfileFollowersCounter = require('./UserProfileFollowersCounter')
 var UserProfileCommentsCounter = require('./UserProfileCommentsCounter')
+class UserProfileStates extends Component {
 
-var UserProfileStates = React.createClass({
-  render: function () {
+  render () {
     return(
     <div>
       <UserProfileViewsCounter viewsCount='120'/>
@@ -14,5 +14,4 @@ var UserProfileStates = React.createClass({
     )
   }
 })
-
-module.exports = UserProfileStates;
+export default UserProfileStates;

@@ -1,10 +1,9 @@
 var React = require('react')
-var UserProfileCommentsCounter = React.createClass({
-  render: function () {
+class UserProfileCommentsCounter extends Component {
+  render () {
     return(
       <div> <button type="button">Comments: {this.props.commentsCount}</button> </div>
     )
   }
 })
-
-module.exports = UserProfileCommentsCounter;
+export default UserProfileCommentsCounter;

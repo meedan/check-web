@@ -5,9 +5,9 @@ var UserProfileStates = require ('./UserProfileStates')
 var UserProfileAccountsList = require ('./UserProfileAccountsList')
 import TextField from 'material-ui/lib/TextField';
 
+class UserProfileBasicInfo extends Component {
 
- var UserProfileBasicInfo = React.createClass({
-  render: function () {
+  render () {
     return(
        <div>
         <UserAvatar url = 'http://pbs.twimg.com/profile_images/434022381770657792/RYsiZ7vR_normal.jpeg'/>
@@ -18,5 +18,4 @@ import TextField from 'material-ui/lib/TextField';
       )
   }
 })
-
-module.exports = UserProfileBasicInfo;
+export default UserProfileBasicInfo;

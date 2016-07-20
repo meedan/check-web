@@ -1,10 +1,11 @@
 var React = require('react')
-var UserProfileSlogan = React.createClass({
-  render: function () {
+
+class UserProfileSlogan extends Component {
+
+  render () {
     return(
     <div>{this.props.text}</div>
     )
   }
 })
-
-module.exports = UserProfileSlogan;
+export default UserProfileSlogan;

@@ -7,9 +7,10 @@ const muiTheme = getMuiTheme({
   palette: {
   },
 });
- var SaveProfileButton = React.createClass({
 
-     render: function() {
+class SaveProfileButton extends Component {
+
+     render {
          return (
            <MuiThemeProvider muiTheme={muiTheme}>
            <div>
@@ -24,5 +25,4 @@ const muiTheme = getMuiTheme({
          )
      }
 })
-
-module.exports = SaveProfileButton;
+export default SaveProfileButton;
