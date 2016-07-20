@@ -1,7 +1,7 @@
 var config = {};
 
-config.restBaseUrl = 'http://localhost:3000/api/';
-config.relayPath = 'http://localhost:3000/api/graphql';
+config.restBaseUrl = 'http://checkdesk-api.qa.checkdesk.org/api/';
+config.relayPath = 'http://checkdesk-api.qa.checkdesk.org/api/graphql';
 config.relayHeaders = {
   'X-Checkdesk-Token': 'dev'
 }
