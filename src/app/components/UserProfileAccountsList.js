@@ -1,6 +1,7 @@
-var React = require('react')
-var TwitterAccountIconButton = require('./TwitterAccountIconButton')
-var FacebookAccountIconButton = require('./FacebookAccountIconButton')
+import React, { Component, PropTypes } from 'react';
+import TwitterAccountIconButton from './TwitterAccountIconButton'
+import FacebookAccountIconButton from './FacebookAccountIconButton'
+
 class UserProfileAccountsList extends Component {
   render() {
     return(

@@ -1,4 +1,4 @@
-var React = require('react')
+import React, { Component, PropTypes } from 'react';
 import RaisedButton from 'material-ui/lib/raised-button';
 
 class TwitterAccountIconButton extends Component {

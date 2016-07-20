@@ -1,4 +1,4 @@
-var React = require('react')
+import React, { Component, PropTypes } from 'react';
 import TextField from 'material-ui/TextField';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';

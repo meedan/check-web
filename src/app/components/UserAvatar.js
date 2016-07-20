@@ -1,4 +1,4 @@
-var React = require('react')
+import React, { Component, PropTypes } from 'react';
 import Avatar from 'material-ui/lib/Avatar';
 class UserAvatar extends Component {
      render {

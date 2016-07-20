@@ -1,6 +1,7 @@
-var React = require('react')
-var UserProfileBasicInfo = require('./UserProfileBasicInfo')
-var AnnotationsListView = require('./AnnotationsListView')
+import React, { Component, PropTypes } from 'react';
+import UserProfileBasicInfo from './UserProfileBasicInfo'
+import AnnotationsListView from './AnnotationsListView'
+
 class UserProfileViewer extends Component {
 
   render () {

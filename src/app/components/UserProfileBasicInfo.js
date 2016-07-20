@@ -1,8 +1,8 @@
-var React = require('react')
-var UserAvatar = require('./UserAvatar')
-var UserProfileSlogan = require('./UserProfileSlogan')
-var UserProfileStates = require ('./UserProfileStates')
-var UserProfileAccountsList = require ('./UserProfileAccountsList')
+import React, { Component, PropTypes } from 'react';
+import UserAvatar from './UserAvatar'
+import UserProfileSlogan from './UserProfileSlogan'
+import UserProfileStates from './UserProfileStates'
+import UserProfileAccountsList from './UserProfileAccountsList'
 import TextField from 'material-ui/lib/TextField';
 
 class UserProfileBasicInfo extends Component {

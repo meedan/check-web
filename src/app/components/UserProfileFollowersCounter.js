@@ -1,4 +1,4 @@
-var React = require('react')
+import React, { Component, PropTypes } from 'react';
 class UserProfileFollowersCounter extends Component {
 
   render () {

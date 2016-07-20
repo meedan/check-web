@@ -1,9 +1,10 @@
-var React = require('react')
-var UploadProfilePhoto = require('UploadProfilePhoto')
-var AddProfileName = require('AddProfileName')
-var AddProfileSlogan = require('AddProfileSlogan')
-var ProfileAccountsList = require('ProfileAccountsList')
-var SaveProfileButton = require('SaveProfileButton')
+import React, { Component, PropTypes } from 'react';
+
+import UploadProfilePhoto from './UploadProfilePhoto'
+import AddProfileName from './AddProfileName'
+import AddProfileSlogan from './AddProfileSlogan'
+import ProfileAccountsList from './ProfileAccountsList'
+import SaveProfileButton from './SaveProfileButton'
 
 class UserProfile extends Component {
   render () {

@@ -1,7 +1,8 @@
-var React = require('react')
-var UserProfileViewsCounter = require('./UserProfileViewsCounter')
-var UserProfileFollowersCounter = require('./UserProfileFollowersCounter')
-var UserProfileCommentsCounter = require('./UserProfileCommentsCounter')
+import React, { Component, PropTypes } from 'react';
+import UserProfileViewsCounter from './UserProfileViewsCounter'
+import UserProfileFollowersCounter from './UserProfileFollowersCounter'
+import UserProfileCommentsCounter from './UserProfileCommentsCounter'
+
 class UserProfileStates extends Component {
 
   render () {
