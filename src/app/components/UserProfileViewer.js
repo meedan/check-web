@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import UserProfileBasicInfo from './UserProfileBasicInfo'
 import AnnotationsListView from './AnnotationsListView'
+import source from './Data_Source'
 
 class UserProfileViewer extends Component {
 
@@ -8,8 +9,8 @@ class UserProfileViewer extends Component {
     return(
 
     <div>
-      <UserProfileBasicInfo/>
-      <AnnotationsListView annotations={["1","2","3"]} />
+      <UserProfileBasicInfo source={source}/>
+      <AnnotationsListView annotations={source.annotations} />
 
     </div>
 
