@@ -32,5 +32,5 @@ class ProfileAccountsList extends Component {
        </div>
       </MuiThemeProvider>       )
   }
-})
+}
 export default ProfileAccountsList;

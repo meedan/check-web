@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import Avatar from 'material-ui/lib/Avatar';
 class UserAvatar extends Component {
-     render {
+     render (){
          return (
            <div>
                    <Avatar
@@ -10,5 +10,5 @@ class UserAvatar extends Component {
                    style={{border: 12}} />           </div>
          )
      }
-})
+}
 export default UserAvatar;

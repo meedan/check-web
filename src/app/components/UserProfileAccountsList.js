@@ -8,5 +8,5 @@ class UserProfileAccountsList extends Component {
     <div><TwitterAccountIconButton/><FacebookAccountIconButton/></div>
     )
   }
-})
+}
 export default UserProfileAccountsList;

@@ -5,5 +5,5 @@ class UserProfileCommentsCounter extends Component {
       <div> <button type="button">Comments: {this.props.commentsCount}</button> </div>
     )
   }
-})
+}
 export default UserProfileCommentsCounter;

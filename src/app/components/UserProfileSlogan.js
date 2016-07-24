@@ -1,4 +1,4 @@
-var React = require('react')
+import React, { Component, PropTypes } from 'react';
 
 class UserProfileSlogan extends Component {
 
@@ -7,5 +7,5 @@ class UserProfileSlogan extends Component {
     <div>{this.props.text}</div>
     )
   }
-})
+}
 export default UserProfileSlogan;

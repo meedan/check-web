@@ -17,5 +17,5 @@ class UserProfileBasicInfo extends Component {
        </div>
       )
   }
-})
+}
 export default UserProfileBasicInfo;

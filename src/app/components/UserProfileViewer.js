@@ -15,5 +15,5 @@ class UserProfileViewer extends Component {
 
     )
   }
-})
+}
 export default UserProfileViewer;

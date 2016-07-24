@@ -7,7 +7,7 @@ import FooterRelay from '../relay/FooterRelay';
 import LoginMenu from './LoginMenu';
 import Message from './Message';
 import { request } from '../actions/actions';
-
+import UserProfileViewer from './UserProfileViewer'
 import Colors from 'material-ui/lib/styles/colors';
 import getMuiTheme from 'material-ui/lib/styles/getMuiTheme';
 import themeDecorator from 'material-ui/lib/styles/theme-decorator';
@@ -74,6 +74,7 @@ class Home extends Component {
 
     return (
       <div>
+        <UserProfileViewer/>
         <AppBar title="Checkdesk" className="top-bar" iconElementRight={<Header {...this.props} />} iconClassNameLeft={null} />
         <Message message={state.app.message} />
         {(() => {

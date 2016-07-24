@@ -6,5 +6,5 @@ class UserProfileFollowersCounter extends Component {
     <div> <button type="button">Followers: {this.props.followersCount}</button> </div>
     )
   }
-})
+}
 export default UserProfileFollowersCounter;

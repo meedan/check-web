@@ -18,5 +18,5 @@ class TwitterAccountIconButton extends Component {
 
          )
      }
-})
+}
 export default TwitterAccountIconButton;

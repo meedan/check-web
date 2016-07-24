@@ -24,5 +24,5 @@ class SaveProfileButton extends Component {
 
          )
      }
-})
+}
 export default SaveProfileButton;

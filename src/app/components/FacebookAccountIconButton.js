@@ -3,7 +3,7 @@ import RaisedButton from 'material-ui/lib/raised-button';
 
 class FacebookAccountIconButton extends Component {
 
-     render{
+     render(){
          return (
            <div>
               <RaisedButton
@@ -15,6 +15,6 @@ class FacebookAccountIconButton extends Component {
 
          )
      }
-})
+}
 
 export default FacebookAccountIconButton;

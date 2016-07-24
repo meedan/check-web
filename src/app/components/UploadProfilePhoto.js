@@ -37,5 +37,5 @@ class UploadProfilePhoto extends Component {
       </div>
       </MuiThemeProvider>     )
   }
-})
+}
 export default UploadProfilePhoto;

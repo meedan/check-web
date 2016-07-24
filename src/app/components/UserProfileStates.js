@@ -14,5 +14,5 @@ class UserProfileStates extends Component {
     </div>
     )
   }
-})
+}
 export default UserProfileStates;

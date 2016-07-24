@@ -25,5 +25,5 @@ class UserProfile extends Component {
     // </div>
     )
   }
-})
+}
 export default UserProfile;
