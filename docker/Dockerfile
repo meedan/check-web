@@ -1,6 +1,6 @@
 # Dockerfile
 FROM ubuntu
-MAINTAINER Meedan
+MAINTAINER Meedan <sysops@meedan.com>
 
 # Constants
 ENV NVM_VERSION v0.29.0

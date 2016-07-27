@@ -2,12 +2,23 @@
 
 @import "variables";
 @import "font-awesome/font-awesome";
+@import url(https://fonts.googleapis.com/css?family=Merriweather);
 
 body {
-  font-family: Roboto, sans-serif;
+  font-family: "Merriweather", Georgia, "Times New Roman", Times, serif;
   margin: auto;
   width: 100%;
   background: $lightgrey;
+}
+
+p {
+  color: $darkgrey;
+  line-height: 26px;
+  font-size: 18px;
+}
+
+a, a:visited {
+  color: $blue;
 }
 
 h1 {
@@ -19,7 +30,15 @@ h1 {
 }
 
 .top-bar {
-  background: $white url('/images/logo.png') center center no-repeat !important;
+  background: $white !important;
+
+  #link-home {
+    background: $white url('/images/logo.png') center center no-repeat;
+    display: inline-block;
+    width: 67px;
+    height: 60px;
+    text-indent: -5000em;
+  }
 }
 
 header {
@@ -39,6 +58,23 @@ address {
   margin-top: 30px;
   font-style: normal;
   font-size: 12px;
+
+  span {
+    margin: 10px 0;
+    display: inline-block;
+
+    i {
+      font-style: normal;
+    }
+  }
+
+  a, a:visited {
+    color: rgba($darkgrey, 0.8);
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
 }
 
 .message {
@@ -69,5 +105,31 @@ address {
       color: $darkgrey;
       text-align: left;
     }
+  }
+}
+
+h2 {
+  text-align: center;
+  font-style: normal;
+  font-size: 40px;
+  line-height: 50px;
+  color: $grey;
+  margin: 30px 0 10px;
+  font-family: "Merriweather", Georgia, "Times New Roman", Times, serif;
+  font-weight: 400;
+}
+
+#tos {
+  margin: 10px;
+
+  p {
+    line-height: 1.5em;
+    text-align: justify;
+  }
+
+  h2 {
+    font-size: 22px;
+    text-align: left;
+    margin: 10px 0;
   }
 }

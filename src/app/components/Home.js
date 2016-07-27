@@ -12,6 +12,7 @@ import Colors from 'material-ui/lib/styles/colors';
 import getMuiTheme from 'material-ui/lib/styles/getMuiTheme';
 import themeDecorator from 'material-ui/lib/styles/theme-decorator';
 import AppBar from 'material-ui/lib/app-bar';
+import { Link } from 'react-router';
 
 const muiTheme = getMuiTheme({
   palette: {
@@ -74,12 +75,14 @@ class Home extends Component {
 
     return (
       <div>
-        <UserProfileViewer/>
-        <AppBar title="Checkdesk" className="top-bar" iconElementRight={<Header {...this.props} />} iconClassNameLeft={null} />
+        <AppBar title="Checkdesk" className="top-bar" iconElementRight={<Header {...this.props} />} iconClassNameLeft={null} iconElementLeft={<Link to="/" id="link-home">Checkdesk</Link>} />
         <Message message={state.app.message} />
         {(() => {
           if (!state.app.token) {
             return (<LoginMenu {...this.props} />);
+          }
+          else {
+            return (<div className="children">{this.props.children}</div>);
           }
         })()}
         <FooterRelay {...this.props} />
