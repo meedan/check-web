@@ -43,7 +43,7 @@ class Annotation extends Component {
           <CardText>{content}</CardText>
           <Divider />
           <CardActions>
-            <FlatButton label="Delete" onClick={this.handleDelete.bind(this, annotation.id)} />
+            <FlatButton label="Delete" onClick={this.handleDelete.bind(this, annotation.id)} className="delete-annotation" />
           </CardActions>
         </Card>
       </div>

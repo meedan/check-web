@@ -11,9 +11,9 @@ class LoginMenu extends Component {
       <div id="login-menu">
         <h2>Sign up / Sign in</h2>
         <List className="list">
-          <ListItem primaryText="Continue with Twitter" onClick={loginTwitter} leftIcon={<FontAwesome name="twitter" />} className="item" />
+          <ListItem primaryText="Continue with Twitter" onClick={loginTwitter} id="twitter-login" leftIcon={<FontAwesome name="twitter" />} className="item" />
           <Divider />
-          <ListItem primaryText="Continue with Facebook" onClick={loginFacebook} leftIcon={<FontAwesome name="facebook" />} className="item" />
+          <ListItem primaryText="Continue with Facebook" onClick={loginFacebook} id="facebook-login" leftIcon={<FontAwesome name="facebook" />} className="item" />
           <Divider />
           <LoginEmail {...this.props} />
         </List>

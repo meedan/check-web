@@ -8,7 +8,7 @@ class SourceComponent extends Component {
     const source = this.props.source;
 
     return (
-      <div className="source">
+      <div className="source" data-id={source.dbid} data-user-id={source.user_id}>
         <SourceHeader source={source} />
 
         <Tags tags={source.tags.edges} annotated={source} annotatedType="Source" />

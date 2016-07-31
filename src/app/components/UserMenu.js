@@ -10,7 +10,7 @@ class UserMenu extends Component {
     if (me) {
       return (<span className="current-user provider-{{me.provider}}">
                 <Avatar src={me.profile_image} size="32" className="avatar" />
-                <Link to="/me"><FlatButton label={me.name} /></Link>
+                <Link to="/me" id="link-me"><FlatButton id="user-name" label={me.name} /></Link>
               </span>);
     }
     else {

@@ -35,16 +35,19 @@ class LoginEmail extends Component {
 
     const actions = [
       <FlatButton
+        id="cancel-register-or-login"
         label="Cancel"
         secondary={true}
         onClick={this.handleClose.bind(this)}
       />,
       <FlatButton
+        id="submit-register-or-login"
         label="Submit"
         primary={true}
         onClick={ this.state.type === 'register' ? registerEmail.bind(this) : loginEmail.bind(this) }
       />,
       <FlatButton
+        id="register-or-login"
         label={ this.state.type === 'register' ? 'I already have an account' : 'Create a new account' }
         primary={true}
         onClick={this.handleSwitchType.bind(this)}
@@ -53,21 +56,21 @@ class LoginEmail extends Component {
 
     return (
       <span>
-        <ListItem primaryText="Continue with e-mail" onClick={this.handleOpen.bind(this)} leftIcon={<FontAwesome name="envelope" />} className="item" />
+        <ListItem id="login-email" primaryText="Continue with e-mail" onClick={this.handleOpen.bind(this)} leftIcon={<FontAwesome name="envelope" />} className="item" />
 
         <Dialog title="Sign up / Sign in with e-mail" actions={actions} modal={true} open={this.state.open}>
           <Message message={state.app.failure} />
           <form name={this.state.type}>
             <span className={this.state.type === 'login' ? 'hidden' : ''}>
-              <TextField hintText="Your full name" floatingLabelText="Name" fullWidth={true} name="name" /><br />
+              <TextField hintText="Your full name" floatingLabelText="Name" fullWidth={true} name="name" className="login-name" /><br />
             </span>
 
-            <TextField hintText="Your e-mail address" floatingLabelText="E-mail" fullWidth={true} name="email" /><br />
+            <TextField hintText="Your e-mail address" floatingLabelText="E-mail" fullWidth={true} name="email" className="login-email" /><br />
 
-            <TextField hintText="Minimum 8 characters" floatingLabelText="Password" type="password" fullWidth={true} name="password" /><br />            
+            <TextField hintText="Minimum 8 characters" floatingLabelText="Password" type="password" fullWidth={true} name="password" className="login-password" /><br />            
             
             <span className={this.state.type === 'login' ? 'hidden' : ''}>
-              <TextField hintText="Same as above" floatingLabelText="Password confirmation" type="password" fullWidth={true} name="password_confirmation" />
+              <TextField hintText="Same as above" floatingLabelText="Password confirmation" type="password" fullWidth={true} name="password_confirmation" className="login-password-confirmation" />
             </span>
           </form>
         </Dialog>

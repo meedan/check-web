@@ -81,7 +81,7 @@ class Home extends Component {
         
         <LeftNav open={true} width="68" className="sidebar">
           <MenuItem><Link to="/" id="link-home" activeClassName="active"><em>Checkdesk</em></Link></MenuItem>
-          <MenuItem><Link to="/sources" activeClassName="active"><FontAwesome name="users" /><em>Sources</em></Link></MenuItem>
+          <MenuItem><Link to="/sources" id="link-sources" activeClassName="active"><FontAwesome name="users" /><em>Sources</em></Link></MenuItem>
         </LeftNav>
         
         <Message message={state.app.message} />

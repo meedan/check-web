@@ -6,6 +6,7 @@ var sourceFragment = Relay.QL`
     dbid,
     name,
     image,
+    user_id,
     description,
     accounts(first: 20) {
       edges {
