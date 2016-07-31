@@ -1,0 +1,37 @@
+.tags-list {
+  padding: 0;
+  width: 90%;
+  margin: 20px auto;
+
+  br {
+    clear: both;
+  }
+
+  .tags-title {
+    display: none;
+  }
+
+  .ReactTags__tag, input {
+    color: $darkergrey;
+    padding: 10px;
+    border: 1px solid $darkergrey;
+    border-radius: 26px;
+    margin: 10px;
+    float: left;
+    font-size: 14px;
+  }
+
+  input {
+    margin: 12px;
+
+    &:focus {
+      outline: initial;
+    }
+  }
+
+  .ReactTags__remove {
+    margin-left: 5px;
+    color: $black;
+    cursor: pointer;
+  }
+}

@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import Avatar from 'material-ui/lib/avatar';
 import FontIcon from 'material-ui/lib/font-icon';
 import FlatButton from 'material-ui/lib/flat-button';
+import { Link } from 'react-router';
 
 class UserMenu extends Component {
   render() {
@@ -9,7 +10,7 @@ class UserMenu extends Component {
     if (me) {
       return (<span className="current-user provider-{{me.provider}}">
                 <Avatar src={me.profile_image} size="32" className="avatar" />
-                <FlatButton label={me.name} />
+                <Link to="/me"><FlatButton label={me.name} /></Link>
               </span>);
     }
     else {

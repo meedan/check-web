@@ -1,8 +1,12 @@
 @charset "utf-8";
 
-@import "variables";
-@import "font-awesome/font-awesome";
 @import url(https://fonts.googleapis.com/css?family=Merriweather);
+@import "font-awesome/font-awesome";
+@import "variables";
+@import "source";
+@import "tags";
+@import "annotations";
+@import "sidebar";
 
 body {
   font-family: "Merriweather", Georgia, "Times New Roman", Times, serif;
@@ -31,14 +35,6 @@ h1 {
 
 .top-bar {
   background: $white !important;
-
-  #link-home {
-    background: $white url('/images/logo.png') center center no-repeat;
-    display: inline-block;
-    width: 67px;
-    height: 60px;
-    text-indent: -5000em;
-  }
 }
 
 header {
@@ -132,4 +128,9 @@ h2 {
     text-align: left;
     margin: 10px 0;
   }
+}
+
+.children {
+  padding-left: 73px;
+  padding-right: 5px;
 }

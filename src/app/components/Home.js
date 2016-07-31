@@ -12,6 +12,9 @@ import getMuiTheme from 'material-ui/lib/styles/getMuiTheme';
 import themeDecorator from 'material-ui/lib/styles/theme-decorator';
 import AppBar from 'material-ui/lib/app-bar';
 import { Link } from 'react-router';
+import LeftNav from 'material-ui/lib/left-nav';
+import MenuItem from 'material-ui/lib/menus/menu-item';
+import FontAwesome from 'react-fontawesome';
 
 const muiTheme = getMuiTheme({
   palette: {
@@ -74,8 +77,15 @@ class Home extends Component {
 
     return (
       <div>
-        <AppBar title="Checkdesk" className="top-bar" iconElementRight={<Header {...this.props} />} iconClassNameLeft={null} iconElementLeft={<Link to="/" id="link-home">Checkdesk</Link>} />
+        <AppBar title="Checkdesk" className="top-bar" iconElementRight={<Header {...this.props} />} iconClassNameLeft={null} />
+        
+        <LeftNav open={true} width="68" className="sidebar">
+          <MenuItem><Link to="/" id="link-home" activeClassName="active"><em>Checkdesk</em></Link></MenuItem>
+          <MenuItem><Link to="/sources" activeClassName="active"><FontAwesome name="users" /><em>Sources</em></Link></MenuItem>
+        </LeftNav>
+        
         <Message message={state.app.message} />
+        
         {(() => {
           if (!state.app.token) {
             return (<LoginMenu {...this.props} />);
@@ -84,6 +94,7 @@ class Home extends Component {
             return (<div className="children">{this.props.children}</div>);
           }
         })()}
+        
         <FooterRelay {...this.props} />
       </div>
     );
