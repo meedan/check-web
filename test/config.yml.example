@@ -1,3 +1,6 @@
-# Define here configurations needed by your tests (for example, user credentials)
-# key: value
-chrome_extension_id: 'the unique id of this extension, e.g.: cfhdojbkjhnklbpkdaibdccddilifddb'
+twitter_user:
+twitter_password:
+twitter_name:
+facebook_user:
+facebook_password:
+facebook_name:
