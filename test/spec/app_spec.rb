@@ -26,11 +26,15 @@ describe 'app' do
   before :all do
     @web = Thread.new { Web.run! } if port_open?(3333)
     @email = 'sysops+' + Time.now.to_i.to_s + '@meedan.com'
+    @config = YAML.load_file('config.yml')
+
+    FileUtils.cp(@config['config_file_path'], '../build/web/js/config.js') unless @config['config_file_path'].nil?
   end
 
   # Close the testing webserver after all tests run
 
   after :all do
+    FileUtils.cp('../config.js', '../build/web/js/config.js')
     begin
       Thread.kill(@web) unless @web.nil?
       puts
@@ -42,8 +46,6 @@ describe 'app' do
   # Start Google Chrome before each test
 
   before :each do
-    @config = YAML.load_file('config.yml')
-
     Selenium::WebDriver::Chrome.driver_path = './chromedriver'
   
     if port_open?(9515)

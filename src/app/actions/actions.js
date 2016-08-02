@@ -1,7 +1,7 @@
 import { SUCCESS, ERROR } from '../constants/ActionTypes';
 import superagent from 'superagent';
-import config from '../config/config.js';
 import util from 'util';
+import config from 'config';
 
 // REST calls
 

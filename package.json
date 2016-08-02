@@ -3,33 +3,17 @@
   "version": "0.0.1",
   "description": "Verify breaking news online",
   "scripts": {
-    "start": "gulp",
-    "try": "cp config.json.example config.json && npm rebuild node-sass && PLATFORM=chrome npm run build && PLATFORM=web npm run build && PLATFORM=android npm run build",
-    "change": "grep -rnI '@Change' * --color",
-    "logo": "cd src/assets/img/logo && ./generate.sh && cd ..",
-    "clean": "rm -rf build src/chrome/extension/manifest.json src/app/config/config.js",
-    "dev": "gulp dev",
-    "style": "npm rebuild node-sass && mkdir -p build/chrome/css build/web/css build/android/css 2>/dev/null && node-sass src/app/styles/stylesheet.scss --output-style=compressed | postcss --use autoprefixer -o build/chrome/css/stylesheet.css && cp build/chrome/css/stylesheet.css build/web/css/stylesheet.css && react-native-css -i build/web/css/stylesheet.css -o build/android/css/stylesheet.js && cp -r src/app/styles/images build/web/",
-    "build": "npm run logo && npm run style && BABEL_ENV=production gulp build:$PLATFORM",
-    "release": "rm -rf releases/* && npm run style && BABEL_ENV=production gulp build:$PLATFORM && zip -r releases/$PLATFORM.zip build/$PLATFORM",
-    "publish": "./scripts/publish-$PLATFORM",
+    "logo": "cd src/assets/images/logo && ./generate.sh && cd ..",
+    "style": "npm rebuild node-sass && mkdir -p build/web/css 2>/dev/null && node-sass src/app/styles/stylesheet.scss --output-style=compressed | postcss --use autoprefixer -o build/web/css/stylesheet.css && cp -r src/app/styles/images build/web/",
+    "build": "rm -rf build/web && npm run logo && npm run style && BABEL_ENV=production gulp build:web",
+    "publish": "./scripts/publish-web",
     "test": "cd test && bundle install && rspec && cd .."
   },
   "keywords": [
     "react",
     "reactjs",
-    "boilerplate",
-    "hot",
-    "live",
-    "edit",
-    "webpack",
-    "flux",
     "redux",
-    "firefox",
-    "safari",
-    "chrome",
-    "app",
-    "extension"
+    "checkdesk"
   ],
   "authors": [
     "Meedan"

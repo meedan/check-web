@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 import util from 'util';
-import config from '../config/config.js';
 import Header from './Header';
 import FooterRelay from '../relay/FooterRelay';
 import LoginMenu from './LoginMenu';
@@ -15,6 +14,9 @@ import { Link } from 'react-router';
 import LeftNav from 'material-ui/lib/left-nav';
 import MenuItem from 'material-ui/lib/menus/menu-item';
 import FontAwesome from 'react-fontawesome';
+import config from 'config';
+
+console.log(config);
 
 const muiTheme = getMuiTheme({
   palette: {
