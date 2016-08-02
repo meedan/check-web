@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
 import app from './app';
-import extension from './extension';
+import { routerReducer } from 'react-router-redux';
 
-export default combineReducers({ app, extension });
+export default combineReducers({ app, routing: routerReducer });

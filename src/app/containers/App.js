@@ -1,12 +1,14 @@
 import { connect } from 'react-redux';
-
-import Router from '../components/Router';
 import * as actions from '../actions/actions';
+import Home from '../components/Home';
 
-function mapStateToProps(state) {
-  return { state: state };
+function mapStateToProps(state, ownProps) {
+  return {
+    state: state,
+    filter: ownProps.location.query.filter
+  };
 }
 
 const mapDispatchToProps = actions;
 
-export default connect(mapStateToProps, mapDispatchToProps)(Router);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

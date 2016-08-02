@@ -1,9 +1,0 @@
-var config = {};
-
-config.restBaseUrl = 'http://localhost:3000/api/';
-config.relayPath = 'http://localhost:3000/api/graphql';
-config.relayHeaders = {
-  'X-Checkdesk-Token': 'dev'
-}
-
-module.exports = config;
