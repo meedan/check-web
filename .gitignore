@@ -6,3 +6,4 @@ build
 test/config.yml
 .project
 config.js
+.DS_Store
