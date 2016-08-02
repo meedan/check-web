@@ -77,6 +77,10 @@ class Home extends Component {
     
     this.setUpGraphql(state.app.token);
 
+    if (!state.app.token) {
+      return (<LoginMenu {...this.props} />);
+    }
+
     return (
       <div>
         <AppBar title="Checkdesk" className="top-bar" iconElementRight={<Header {...this.props} />} iconClassNameLeft={null} />
@@ -89,14 +93,7 @@ class Home extends Component {
         
         <Message message={state.app.message} />
         
-        {(() => {
-          if (!state.app.token) {
-            return (<LoginMenu {...this.props} />);
-          }
-          else {
-            return (<div className="children">{this.props.children}</div>);
-          }
-        })()}
+        <div className="children">{this.props.children}</div>
         
         <FooterRelay {...this.props} />
       </div>
