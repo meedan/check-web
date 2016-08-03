@@ -27,7 +27,7 @@ const MeContainer = Relay.createContainer(MeComponent, {
 class Me extends Component {
   render() {
     var route = new MeRoute();
-    return (<Relay.RootContainer Component={MeContainer} route={route} />);
+    return (<Relay.RootContainer Component={MeContainer} route={route} forceFetch={true} />);
   }
 }
 

@@ -91,14 +91,27 @@ class Home extends Component {
         
         {(() => {
           if (!state.app.token) {
-            return (<LoginMenu {...this.props} />);
+            if (state.app.error) {
+              return (
+                <div>
+                  <LoginMenu {...this.props} />
+                  <FooterRelay {...this.props} />
+                </div>
+              );
+            }
+            else {
+              return null;
+            }
           }
           else {
-            return (<div className="children">{this.props.children}</div>);
+            return (
+              <div>
+                <div className="children">{this.props.children}</div>
+                <FooterRelay {...this.props} />
+              </div>
+            );
           }
         })()}
-        
-        <FooterRelay {...this.props} />
       </div>
     );
   }
