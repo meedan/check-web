@@ -4,4 +4,12 @@ node_modules
 npm-debug.log
 build
 test/config.yml
+<<<<<<< HEAD
+src/android/android
+src/android/index.android.js
+src/android/node_modules
+src/android/stylesheet.js
+/.project
+=======
 config.js
+>>>>>>> branch 'develop' of git@github.com:meedan/checkdesk-client.git
