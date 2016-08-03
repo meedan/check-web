@@ -8,3 +8,4 @@ export Message from './Message';
 export NotFound from './NotFound';
 export TermsOfService from './TermsOfService';
 export UserMenu from './UserMenu';
+export CreateAccount from './CreateAccount';

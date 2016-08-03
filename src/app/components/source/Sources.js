@@ -48,7 +48,7 @@ const SourcesContainer = Relay.createContainer(SourcesComponent, {
 class Sources extends Component {
   render() {
     var route = new RootRoute();
-    return (<Relay.RootContainer Component={SourcesContainer} route={route} />);
+    return (<Relay.RootContainer Component={SourcesContainer} route={route} forceFetch={true} />);
   }
 }
 

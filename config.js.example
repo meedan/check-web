@@ -3,5 +3,6 @@ window.config = {
   relayPath: 'http://localhost:3000/api/graphql',
   relayHeaders: {
     'X-Checkdesk-Token': 'dev'
-  }
+  },
+  penderUrl: 'http://localhost:3005'
 }

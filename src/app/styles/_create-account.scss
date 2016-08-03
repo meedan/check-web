@@ -1,0 +1,23 @@
+.create-account {
+  width: 100%;
+
+  h2 {
+    text-align: left;
+  }
+
+  h4 {
+    color: $midgrey;
+  }
+
+  .create-account-col {
+    width: 46%;
+    overflow: hidden;
+    float: left;
+    padding: 20px;
+    min-height: 1200px;
+  }
+
+  #account-preview {
+    border-left: 1px dotted $midgrey;
+  }
+}

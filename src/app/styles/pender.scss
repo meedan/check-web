@@ -1,0 +1,19 @@
+#pender-card {
+  position: relative;
+
+  #pender-card-loader {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 0;
+    font-size: 14px;
+    color: $midgrey;
+  }
+
+  iframe {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1;
+  }
+}

@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import App from './App';
-import { IndexComponent, TermsOfService, NotFound } from '../components';
+import { IndexComponent, TermsOfService, NotFound, CreateAccount } from '../components';
 import { Sources, Source, User, Me } from '../components/source';
 
 export default class Root extends Component {
@@ -22,6 +22,7 @@ export default class Root extends Component {
               <IndexRoute component={IndexComponent} />
               <Route path="tos" component={TermsOfService} />
               <Route path="sources" component={Sources} />
+              <Route path="sources/new" component={CreateAccount} />
               <Route path="source/:sourceId" component={Source} />
               <Route path="user/:userId" component={User} />
               <Route path="me" component={Me} />

@@ -82,8 +82,9 @@ class Home extends Component {
         <AppBar title="Checkdesk" className="top-bar" iconElementRight={<Header {...this.props} />} iconClassNameLeft={null} />
         
         <LeftNav open={true} width="68" className="sidebar">
-          <MenuItem><Link to="/" id="link-home" activeClassName="active"><em>Checkdesk</em></Link></MenuItem>
-          <MenuItem><Link to="/sources" id="link-sources" activeClassName="active"><FontAwesome name="users" /><em>Sources</em></Link></MenuItem>
+          <MenuItem><Link to="/" id="link-home" activeClassName="active" title="Home"><em>Checkdesk</em></Link></MenuItem>
+          <MenuItem><Link to="/sources" id="link-sources" activeClassName="active" title="Sources"><FontAwesome name="users" /><em>Sources</em></Link></MenuItem>
+          <MenuItem><Link to="/sources/new" id="link-sources-new" activeClassName="active" title="Create a source"><FontAwesome name="user-plus" /><em>Create a source</em></Link></MenuItem>
         </LeftNav>
         
         <Message message={state.app.message} />
