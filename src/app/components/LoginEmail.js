@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import {List, ListItem} from 'material-ui/lib/lists';
 import FontAwesome from 'react-fontawesome';
 import Dialog from 'material-ui/lib/dialog';
 import FlatButton from 'material-ui/lib/flat-button';
@@ -55,10 +54,10 @@ class LoginEmail extends Component {
     ];
 
     return (
-      <span>
-        <ListItem id="login-email" primaryText="Continue with e-mail" onClick={this.handleOpen.bind(this)} leftIcon={<FontAwesome name="envelope" />} className="item" />
+      <span className='login-email'>
+        <a id="login-email" onClick={this.handleOpen.bind(this)} className='login-email__link'>Sign in with e-mail</a>
 
-        <Dialog title="Sign up / Sign in with e-mail" actions={actions} modal={true} open={this.state.open}>
+        <Dialog title="Sign in with e-mail" actions={actions} modal={true} open={this.state.open}>
           <Message message={state.app.failure} />
           <form name={this.state.type}>
             <span className={this.state.type === 'login' ? 'hidden' : ''}>

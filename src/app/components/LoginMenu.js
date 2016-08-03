@@ -1,6 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import {List, ListItem} from 'material-ui/lib/lists';
-import Divider from 'material-ui/lib/divider';
 import FontAwesome from 'react-fontawesome';
 import LoginEmail from './LoginEmail';
 
@@ -8,15 +6,28 @@ class LoginMenu extends Component {
   render() {
     const { loginTwitter, loginFacebook } = this.props;
     return (
-      <div id="login-menu">
-        <h2>Sign up / Sign in</h2>
-        <List className="list">
-          <ListItem primaryText="Continue with Twitter" onClick={loginTwitter} id="twitter-login" leftIcon={<FontAwesome name="twitter" />} className="item" />
-          <Divider />
-          <ListItem primaryText="Continue with Facebook" onClick={loginFacebook} id="facebook-login" leftIcon={<FontAwesome name="facebook" />} className="item" />
-          <Divider />
-          <LoginEmail {...this.props} />
-        </List>
+      <div id="login-menu" className='login-menu'>
+        <img className='login-menu__icon' src='img/logo/logo-1.svg'/>
+        <h1 className='login-menu__heading'>Sign in</h1>
+        <p className='login-menu__blurb'>Verify breaking news with Checkdesk. <a href='/tour' className='login-menu__blurb-link'>Tour »</a></p>
+        <ul className="login-menu__options">
+          <li className="item">
+            <button onClick={loginTwitter} id="twitter-login" className='login-menu__button login-menu__button--twitter'>Sign in with Twitter</button>
+          </li>
+          <li>
+            <button disabled id="google-login" className='login-menu__button login-menu__button--google'>Sign in with Google</button>
+          </li>
+          <li>
+            <button onClick={loginFacebook} id="facebook-login" className='login-menu__button login-menu__button--facebook'>Sign in with Facebook</button>
+          </li>
+          <li>
+            <button disabled id="slack-login" className='login-menu__button login-menu__button--slack'>Sign in with Slack</button>
+          </li>
+          <li>
+            <LoginEmail {...this.props} />
+          </li>
+        </ul>
+        <p className='login-menu__footer'>By signing in, you agree to the Checkdesk <a href='/terms' className='login-menu__footer-link'>Terms of Service</a> and <a href='/privacy' className='login-menu__footer-link'>Privacy&nbsp;Policy</a>.</p>
       </div>
     );
   }

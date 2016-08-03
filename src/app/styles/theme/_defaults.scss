@@ -1,0 +1,27 @@
+html {
+  font-size: 16px;
+  background-color: #fff;
+}
+
+body {
+  font-family: $font-stack-sans;
+}
+
+a {
+  color: $blue-text;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+  &:visited {
+    color: mix($blue-text, purple, 70%);
+  }
+}
+
+p {
+  color: $dark-gray-text;
+}
+
+button {
+  @include button-medium;
+}

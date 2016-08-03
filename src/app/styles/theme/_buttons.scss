@@ -1,0 +1,14 @@
+@mixin button-medium {
+  @include button-defaults;
+  height: 43px;
+  font-size: 17px;
+  margin-bottom: 8px;
+}
+
+@mixin button-defaults {
+  cursor: pointer; 
+  border: none;
+  border-radius: 3px;
+  font-family: $font-stack-sans;
+  color: #fff;
+}

@@ -1,8 +1,15 @@
 @charset "utf-8";
 
-@import url(https://fonts.googleapis.com/css?family=Merriweather);
 @import "font-awesome/font-awesome";
 @import "variables";
+
+@import 'theme/colors';
+@import 'theme/typography';
+@import 'theme/buttons';
+@import 'theme/defaults';
+
+@import 'components/login-menu';
+@import 'components/login-email';
 @import "source";
 @import "tags";
 @import "annotations";
@@ -11,24 +18,8 @@
 @import "pender";
 
 body {
-  font-family: "Merriweather", Georgia, "Times New Roman", Times, serif;
   margin: auto;
   width: 100%;
-  background: $lightgrey;
-}
-
-p {
-  color: $darkgrey;
-  line-height: 26px;
-  font-size: 18px;
-}
-
-a, a:visited {
-  color: $blue;
-}
-
-h1 {
-  text-indent: -5000em;
 }
 
 .hidden {
@@ -82,28 +73,6 @@ address {
   padding: 10px;
   margin: 10px;
   font-size: 14px;
-}
-
-#login-menu {
-  text-align: center;
-
-  h2 {
-    margin: 50px 0;
-    font-weight: normal;
-    color: $darkgrey;
-  }
-
-  .list {
-    width: 70%;
-    max-width: 400px;
-    margin: 10px auto;
-    padding: 0 !important;
-
-    .item {
-      color: $darkgrey;
-      text-align: left;
-    }
-  }
 }
 
 h2 {

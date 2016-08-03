@@ -1,0 +1,20 @@
+$font-stack-sans: "Roboto", -apple-system, BlinkMacSystemFont, "Corbel", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Verdana, "Verdana Ref", sans-serif;
+$font-stack-sans-condensed: "Roboto Condensed", $font-stack-sans;
+$font-stack-serif: "Merriweather", Georgia, serif;
+
+@mixin onboarding-heading {
+  margin: 11px 0 20px 0;
+  font-size: 34px;
+  font-family: $font-stack-sans-condensed;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.035em;
+  color: hsl(206, 98%, 62%);
+}
+
+@mixin onboarding-blurb {
+  color: $dark-gray-text;
+  font-family: $font-stack-serif;
+  margin-bottom: 30px;
+  line-height: 1.45;
+}
