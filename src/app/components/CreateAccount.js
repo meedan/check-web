@@ -18,10 +18,17 @@ class CreateAccount extends Component {
   }
 
   handleSubmit(redirect) {
-    var url = document.getElementById('create-account-url').value;
+    var that = this,
+        url = document.getElementById('create-account-url').value;
 
     var onFailure = (transaction) => {
-      this.setState({ message: 'Sorry, could not create the source' });
+      transaction.getError().json().then(function(json) {
+        var message = 'Sorry, could not create the source';
+        if (json.error) {
+          message = json.error;
+        }
+        that.setState({ message: message });
+      });
     };
      
     var onSuccess = (response) => {

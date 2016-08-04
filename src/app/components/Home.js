@@ -77,7 +77,7 @@ class Home extends Component {
     
     this.setUpGraphql(state.app.token);
 
-    if (!state.app.token) {
+    if (!state.app.token && state.app.error) {
       return (<LoginMenu {...this.props} />);
     }
 
@@ -93,9 +93,19 @@ class Home extends Component {
         
         <Message message={state.app.message} />
         
-        <div className="children">{this.props.children}</div>
-        
-        <FooterRelay {...this.props} />
+        {(() => {
+          if (!state.app.token) {
+            return null;
+          }
+          else {
+            return (
+              <div>
+                <div className="children">{this.props.children}</div>
+                <FooterRelay {...this.props} />
+              </div>
+            );
+          }
+        })()}
       </div>
     );
   }
