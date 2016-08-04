@@ -1,8 +1,8 @@
 window.config = {
-  restBaseUrl: 'http://api:3000/api/',
-  relayPath: 'http://api:3000/api/graphql',
+  restBaseUrl: 'http://localhost:3000/api/',
+  relayPath: 'http://localhost:3000/api/graphql',
   relayHeaders: {
     'X-Checkdesk-Token': 'dev'
   },
-  penderUrl: 'http://pender:3200'
+  penderUrl: 'http://localhost:3200'
 }
