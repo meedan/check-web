@@ -93,8 +93,8 @@ class Home extends Component {
           <MenuItem><Link to="/sources" id="link-sources" activeClassName="active" title="Sources"><FontAwesome name="users" /><em>Sources</em></Link></MenuItem>
           <MenuItem><Link to="/sources/new" id="link-sources-new" activeClassName="active" title="Create a source"><FontAwesome name="user-plus" /><em>Create a source</em></Link></MenuItem>
         </LeftNav>
-        
-        <Message message={state.app.message} />
+
+        <div className="global-message"><Message message={state.app.message} /></div>
         
         <div className="children">{this.props.children}</div>
 
