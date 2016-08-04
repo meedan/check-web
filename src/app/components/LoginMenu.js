@@ -17,15 +17,19 @@ class LoginMenu extends Component {
           <li className="item">
             <button onClick={loginTwitter} id="twitter-login" className='login-menu__button login-menu__button--twitter'>Sign in with Twitter</button>
           </li>
+          {/*
           <li>
             <button disabled id="google-login" className='login-menu__button login-menu__button--google'>Sign in with Google</button>
           </li>
+          */}
           <li>
             <button onClick={loginFacebook} id="facebook-login" className='login-menu__button login-menu__button--facebook'>Sign in with Facebook</button>
           </li>
+          {/*
           <li>
             <button disabled id="slack-login" className='login-menu__button login-menu__button--slack'>Sign in with Slack</button>
           </li>
+          */}
           <li>
             <LoginEmail {...this.props} />
           </li>
