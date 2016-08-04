@@ -41,7 +41,7 @@ module AppSpecHelpers
   end
 
   def twitter_auth
-    @driver.find_element(:xpath, "//span[@id='twitter-login']").click
+    @driver.find_element(:xpath, "//button[@id='twitter-login']").click
     sleep 10
     window = @driver.window_handles.first
     @driver.switch_to.window(window)
@@ -57,7 +57,7 @@ module AppSpecHelpers
   def login_with_email
     @driver.navigate.to 'http://localhost:3333/'
     sleep 1
-    @driver.find_element(:xpath, "//span[@id='login-email']").click
+    @driver.find_element(:xpath, "//a[@id='login-email']").click
     fill_field('.login-email input', @email)
     fill_field('.login-password input', '12345678')
     press_button('#submit-register-or-login')
@@ -74,7 +74,7 @@ module AppSpecHelpers
   end
 
   def facebook_auth
-    @driver.find_element(:xpath, "//span[@id='facebook-login']").click
+    @driver.find_element(:xpath, "//button[@id='facebook-login']").click
     sleep 10
     window = @driver.window_handles.first
     @driver.switch_to.window(window)

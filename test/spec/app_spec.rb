@@ -66,8 +66,8 @@ describe 'app' do
   context "web" do
     it "should redirect to login screen if not logged in" do
       @driver.navigate.to 'http://localhost:3333/sources/'
-      title = get_element('h2')
-      expect(title.text == 'Sign up / Sign in').to be(true)
+      title = get_element('h1')
+      expect(title.text == 'SIGN IN').to be(true)
     end
 
     it "should login using Twitter and display user name on top right bar" do
@@ -79,12 +79,6 @@ describe 'app' do
       expect(title.text == 'Welcome to Checkdesk').to be(true)
     end
 
-    it "should have footer" do
-      @driver.navigate.to 'http://localhost:3333/'
-      message = get_element('address')
-      expect(message.text.include?(' v')).to be(true)
-    end
-
     it "should redirect to 404 page" do
       login_with_twitter
       @driver.navigate.to 'http://localhost:3333/something-that-does-not-exist'
@@ -92,23 +86,10 @@ describe 'app' do
       expect(title.text == 'Not Found').to be(true)
     end
 
-    it "should click to go to homepage" do
-      @driver.navigate.to 'http://localhost:3333/tos'
-      @driver.find_element(:xpath, "//a[@id='link-home']").click
-      expect(@driver.current_url.to_s == 'http://localhost:3333/').to be(true)
-    end
-
-    it "should click to go to Terms of Service" do
-      login_with_twitter
-      @driver.navigate.to 'http://localhost:3333/tos'
-      title = get_element('h2')
-      expect(title.text == 'Terms of Service').to be(true)
-    end
-
     it "should register using e-mail" do
       @driver.navigate.to 'http://localhost:3333/'
       sleep 1
-      @driver.find_element(:xpath, "//span[@id='login-email']").click
+      @driver.find_element(:xpath, "//a[@id='login-email']").click
       sleep 1
       @driver.find_element(:xpath, "//button[@id='register-or-login']").click
       sleep 1
@@ -126,6 +107,27 @@ describe 'app' do
       login_with_email
       displayed_name = get_element('#user-name span').text
       expect(displayed_name == 'USER WITH EMAIL').to be(true)
+    end
+
+    it "should click to go to homepage" do
+      login_with_email
+      @driver.navigate.to 'http://localhost:3333/tos'
+      @driver.find_element(:xpath, "//a[@id='link-home']").click
+      expect(@driver.current_url.to_s == 'http://localhost:3333/').to be(true)
+    end
+
+    it "should click to go to Terms of Service" do
+      login_with_email
+      @driver.navigate.to 'http://localhost:3333/tos'
+      title = get_element('h2')
+      expect(title.text == 'Terms of Service').to be(true)
+    end
+
+    it "should have footer" do
+      login_with_email
+      @driver.navigate.to 'http://localhost:3333/tos'
+      message = get_element('address')
+      expect(message.text.include?(' v')).to be(true)
     end
 
     it "should list sources" do

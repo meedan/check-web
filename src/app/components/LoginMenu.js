@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import FontAwesome from 'react-fontawesome';
 import LoginEmail from './LoginEmail';
+import { Link } from 'react-router';
 
 class LoginMenu extends Component {
   render() {
@@ -27,7 +28,7 @@ class LoginMenu extends Component {
             <LoginEmail {...this.props} />
           </li>
         </ul>
-        <p className='login-menu__footer'>By signing in, you agree to the Checkdesk <a href='/terms' className='login-menu__footer-link'>Terms of Service</a> and <a href='/privacy' className='login-menu__footer-link'>Privacy&nbsp;Policy</a>.</p>
+        <p className='login-menu__footer'>By signing in, you agree to the Checkdesk <Link to='/tos' className='login-menu__footer-link'>Terms of Service</Link> and <Link to='/privacy' className='login-menu__footer-link'>Privacy&nbsp;Policy</Link>.</p>
       </div>
     );
   }
