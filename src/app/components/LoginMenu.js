@@ -1,13 +1,15 @@
 import React, { Component, PropTypes } from 'react';
 import FontAwesome from 'react-fontawesome';
-import LoginEmail from './LoginEmail';
 import { Link } from 'react-router';
+import LoginEmail from './LoginEmail';
+import Message from './Message';
 
 class LoginMenu extends Component {
   render() {
-    const { loginTwitter, loginFacebook } = this.props;
+    const { loginTwitter, loginFacebook, state } = this.props;
     return (
       <div id="login-menu" className='login-menu'>
+        <Message message={state.app.message} />
         <img className='login-menu__icon' src='img/logo/logo-1.svg'/>
         <h1 className='login-menu__heading'>Sign in</h1>
         <p className='login-menu__blurb'>Verify breaking news with Checkdesk. <a href='/tour' className='login-menu__blurb-link'>Tour »</a></p>
