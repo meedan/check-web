@@ -39,7 +39,9 @@ class Tags extends Component {
       });
     };
      
-    var onSuccess = (response) => {};
+    var onSuccess = (response) => {
+      that.setState({ message: null });
+    };
 
     tagsList.map(function(tag) {
       Relay.Store.commitUpdate(
