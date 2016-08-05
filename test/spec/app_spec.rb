@@ -147,7 +147,7 @@ describe 'app' do
       expect(@driver.current_url.to_s == 'http://localhost:3333/sources').to be(true)
       sleep 1
       title = get_element('.sources__heading')
-      expect(title.text == 'Sources').to be(true)
+      expect(title.text == 'SOURCES').to be(true)
     end
 
     it "should go to user page" do
