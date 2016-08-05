@@ -7,9 +7,12 @@
 @import 'theme/typography';
 @import 'theme/buttons';
 @import 'theme/defaults';
+@import 'theme/layout';
 
+@import 'components/home';
 @import 'components/login-menu';
 @import 'components/login-email';
+@import 'components/team-sidebar';
 @import "source";
 @import "tags";
 @import "annotations";
@@ -79,17 +82,6 @@ address {
   .message {
     margin-left: 80px;
   }
-}
-
-h2 {
-  text-align: center;
-  font-style: normal;
-  font-size: 40px;
-  line-height: 50px;
-  color: $grey;
-  margin: 30px 0 10px;
-  font-family: "Merriweather", Georgia, "Times New Roman", Times, serif;
-  font-weight: 400;
 }
 
 #tos {

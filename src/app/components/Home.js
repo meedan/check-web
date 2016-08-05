@@ -10,9 +10,8 @@ import Colors from 'material-ui/lib/styles/colors';
 import getMuiTheme from 'material-ui/lib/styles/getMuiTheme';
 import themeDecorator from 'material-ui/lib/styles/theme-decorator';
 import AppBar from 'material-ui/lib/app-bar';
+import TeamSidebar from './TeamSidebar';
 import { Link } from 'react-router';
-import LeftNav from 'material-ui/lib/left-nav';
-import MenuItem from 'material-ui/lib/menus/menu-item';
 import FontAwesome from 'react-fontawesome';
 import config from 'config';
 
@@ -85,20 +84,18 @@ class Home extends Component {
     }
 
     return (
-      <div>
-        <AppBar title="Checkdesk" className="top-bar" iconElementRight={<Header {...this.props} />} iconClassNameLeft={null} />
-        
-        <LeftNav open={true} width="68" className="sidebar">
-          <MenuItem><Link to="/" id="link-home" activeClassName="active" title="Home"><em>Checkdesk</em></Link></MenuItem>
-          <MenuItem><Link to="/sources" id="link-sources" activeClassName="active" title="Sources"><FontAwesome name="users" /><em>Sources</em></Link></MenuItem>
-          <MenuItem><Link to="/sources/new" id="link-sources-new" activeClassName="active" title="Create a source"><FontAwesome name="user-plus" /><em>Create a source</em></Link></MenuItem>
-        </LeftNav>
+      <div className='home'>
+        <TeamSidebar />
 
-        <div className="global-message"><Message message={state.app.message} /></div>
-        
-        <div className="children">{this.props.children}</div>
+        <main className='home__content'>
+          <AppBar title="Checkdesk" className="top-bar" iconElementRight={<Header {...this.props} />} iconClassNameLeft={null} />
 
-        <FooterRelay {...this.props} />
+          <div className="global-message"><Message message={state.app.message} /></div>
+
+          <div className="children">{this.props.children}</div>
+
+          <FooterRelay {...this.props} />
+        </main>
       </div>
     );
   }

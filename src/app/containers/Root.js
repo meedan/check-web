@@ -16,20 +16,18 @@ export default class Root extends Component {
     const history = syncHistoryWithStore(browserHistory, store);
     return (
       <Provider store={store}>
-        <div>
-          <Router history={history}>
-            <Route path="/" component={App}>
-              <IndexRoute component={IndexComponent} />
-              <Route path="tos" component={TermsOfService} />
-              <Route path="sources" component={Sources} />
-              <Route path="sources/new" component={CreateAccount} />
-              <Route path="source/:sourceId" component={Source} />
-              <Route path="user/:userId" component={User} />
-              <Route path="me" component={Me} />
-              <Route path="*" component={NotFound} />
-            </Route>
-          </Router>
-        </div>
+        <Router history={history}>
+          <Route path="/" component={App}>
+            <IndexRoute component={IndexComponent} />
+            <Route path="tos" component={TermsOfService} />
+            <Route path="sources" component={Sources} />
+            <Route path="sources/new" component={CreateAccount} />
+            <Route path="source/:sourceId" component={Source} />
+            <Route path="user/:userId" component={User} />
+            <Route path="me" component={Me} />
+            <Route path="*" component={NotFound} />
+          </Route>
+        </Router>
       </Provider>
     );
   }
