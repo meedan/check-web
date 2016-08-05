@@ -15,8 +15,6 @@ import { Link } from 'react-router';
 import FontAwesome from 'react-fontawesome';
 import config from 'config';
 
-console.log(config);
-
 const muiTheme = getMuiTheme({
   palette: {
     primary1Color: Colors.blueGrey400,
@@ -70,10 +68,8 @@ class Home extends Component {
   render() {
     const { state } = this.props;
 
-    console.log(state);
-    
     this.startSession(state.app);
-    
+
     this.setUpGraphql(state.app.token);
 
     if (!state.app.token) {
