@@ -72,7 +72,7 @@ class Home extends Component {
 
     this.setUpGraphql(state.app.token);
 
-    if (!state.app.token) {
+    if (!this.props.children.props.route.public && !state.app.token) {
       if (state.app.error) {
         return (<LoginMenu {...this.props} />);
       }

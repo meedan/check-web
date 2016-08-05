@@ -19,13 +19,13 @@ export default class Root extends Component {
         <Router history={history}>
           <Route path="/" component={App}>
             <IndexRoute component={IndexComponent} />
-            <Route path="tos" component={TermsOfService} />
+            <Route path="tos" component={TermsOfService} public={true} />
             <Route path="sources" component={Sources} />
             <Route path="sources/new" component={CreateAccount} />
             <Route path="source/:sourceId" component={Source} />
             <Route path="user/:userId" component={User} />
             <Route path="me" component={Me} />
-            <Route path="*" component={NotFound} />
+            <Route path="*" component={NotFound} public={true} />
           </Route>
         </Router>
       </Provider>

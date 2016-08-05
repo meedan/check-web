@@ -65,6 +65,18 @@ describe 'app' do
   # The tests themselves start here
 
   context "web" do
+    it "should redirect to 404 page" do
+      @driver.navigate.to 'http://localhost:3333/something-that-does-not-exist'
+      title = get_element('.main-title')
+      expect(title.text == 'Not Found').to be(true)
+    end
+
+    it "should click to go to Terms of Service" do
+      @driver.navigate.to 'http://localhost:3333/tos'
+      title = get_element('.main-title')
+      expect(title.text == 'Terms of Service').to be(true)
+    end
+
     it "should redirect to login screen if not logged in" do
       @driver.navigate.to 'http://localhost:3333/sources/'
       title = get_element('.login-menu__heading')
@@ -106,13 +118,6 @@ describe 'app' do
       expect(displayed_name == 'USER WITH EMAIL').to be(true)
     end
 
-    it "should redirect to 404 page" do
-      login_with_email
-      @driver.navigate.to 'http://localhost:3333/something-that-does-not-exist'
-      title = get_element('.main-title')
-      expect(title.text == 'Not Found').to be(true)
-    end
-
     it "should login with e-mail" do
       login_with_email
       displayed_name = get_element('#user-name span').text
@@ -125,13 +130,6 @@ describe 'app' do
       sleep 1
       @driver.find_element(:xpath, "//a[@id='link-home']").click
       expect(@driver.current_url.to_s == 'http://localhost:3333/').to be(true)
-    end
-
-    it "should click to go to Terms of Service" do
-      login_with_email
-      @driver.navigate.to 'http://localhost:3333/tos'
-      title = get_element('.main-title')
-      expect(title.text == 'Terms of Service').to be(true)
     end
 
     it "should have footer" do
