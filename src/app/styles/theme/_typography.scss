@@ -18,3 +18,7 @@ $font-stack-serif: "Merriweather", Georgia, serif;
   margin-bottom: 30px;
   line-height: 1.45;
 }
+
+@mixin app-heading {
+  @include onboarding-heading;
+}

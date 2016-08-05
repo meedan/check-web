@@ -13,6 +13,7 @@
 @import 'components/login-menu';
 @import 'components/login-email';
 @import 'components/team-sidebar';
+@import 'components/sources';
 @import "source";
 @import "tags";
 @import "annotations";
@@ -31,6 +32,8 @@ body {
 
 .top-bar {
   background: $white !important;
+  box-shadow: none !important;
+  border-bottom: 1px solid hsl(204, 15%, 90%);
 }
 
 header {
@@ -97,9 +100,4 @@ address {
     text-align: left;
     margin: 10px 0;
   }
-}
-
-.children {
-  padding-left: 73px;
-  padding-right: 5px;
 }

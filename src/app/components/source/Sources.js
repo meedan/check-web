@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 import { Link } from 'react-router';
-import GridList from 'material-ui/lib/grid-list/grid-list';
 import GridTile from 'material-ui/lib/grid-list/grid-tile';
 import RootRoute from '../../relay/RootRoute';
 
@@ -9,17 +8,19 @@ class SourcesComponent extends Component {
   render() {
     return (
       <div className="sources">
-        <h2>Sources</h2>
-        
-        <GridList cellHeight={200}>
-        {this.props.root.sources.edges.map(source => (
-          <Link to={'/source/' + source.node.dbid}>
-            <GridTile key={source.node.id} title={source.node.name} subtitle={source.node.description}>
-              <img src={source.node.image} />
-            </GridTile>
-          </Link>
-        ))}
-        </GridList>
+        <h2 className='sources__heading'>Sources</h2>
+
+        <ul className='sources__list'>
+          {this.props.root.sources.edges.map(source => (
+            <li className='sources__source'>
+              <Link className='sources__source-link' to={'/source/' + source.node.dbid}>
+                <img className='sources__source-avatar' src={source.node.image} />
+                <span className='sources__source-name'>{source.node.name}</span>
+                <span className='sources__source-description'>{source.node.description}</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
       </div>
     );
   }

@@ -20,10 +20,14 @@ a {
   }
 }
 
+button {
+  @include button-medium;
+}
+
 p {
   color: $dark-gray-text;
 }
 
-button {
-  @include button-medium;
+ul {
+  list-style-type: none;
 }
