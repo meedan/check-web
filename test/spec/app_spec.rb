@@ -387,5 +387,37 @@ describe 'app' do
       expect(tag.empty?).to be(false)
       expect(@driver.page_source.include?('Tagged as "bli"')).to be(true)
     end
+
+    it "should not add a duplicated tag from tags list" do
+      login_with_email
+      @driver.navigate.to 'http://localhost:3333/me'
+      sleep 1
+
+      # Add tag from tags list
+      fill_field('.ReactTags__tagInput input', 'bla')
+      @driver.action.send_keys(:enter).perform
+      sleep 5
+
+      # Verify that tag is not added and that error message is displayed
+      tag = @driver.find_elements(:css, '.ReactTags__tag span').select{ |s| s.text == 'bla' }
+      expect(tag.size == 1).to be(true)
+      expect(@driver.page_source.include?('This tag already exists')).to be(true)
+    end
+
+    it "should not add a duplicated tag from command line" do
+      login_with_email
+      @driver.navigate.to 'http://localhost:3333/me'
+      sleep 1
+
+      # Add tag from tags list
+      fill_field('.cmd-input input', '/tag bla')
+      @driver.action.send_keys(:enter).perform
+      sleep 5
+
+      # Verify that tag is not added and that error message is displayed
+      tag = @driver.find_elements(:css, '.ReactTags__tag span').select{ |s| s.text == 'bla' }
+      expect(tag.size == 1).to be(true)
+      expect(@driver.page_source.include?('This tag already exists')).to be(true)
+    end
   end
 end

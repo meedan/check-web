@@ -38,7 +38,11 @@ class AddAnnotation extends Component {
     field.blur();
   }
 
-  addComment(annotated, annotated_id, annotated_type, comment) {
+  addComment(that, annotated, annotated_id, annotated_type, comment) {
+    var onFailure = (transaction) => {};
+     
+    var onSuccess = (response) => { that.success(); };
+
     Relay.Store.commitUpdate(
       new CreateCommentMutation({
         annotated: annotated,
@@ -47,12 +51,26 @@ class AddAnnotation extends Component {
           annotated_type: annotated_type,
           annotated_id: annotated_id
         }
-      })
+      }),
+      { onSuccess, onFailure }
     );
   }
 
-  addTag(annotated, annotated_id, annotated_type, tags) {
-    var tagsList = tags.split(',');
+  addTag(that, annotated, annotated_id, annotated_type, tags) {
+    var tagsList = [ ...new Set(tags.split(',')) ];
+
+    var onFailure = (transaction) => {
+      transaction.getError().json().then(function(json) {
+        var message = 'Sorry, could not create the tag';
+        if (json.error) {
+          message = json.error;
+        }
+        that.setState({ message: message });
+      });
+    };
+     
+    var onSuccess = (response) => { that.success(); };
+
     tagsList.map(function(tag) {
       Relay.Store.commitUpdate(
         new CreateTagMutation({
@@ -62,7 +80,8 @@ class AddAnnotation extends Component {
             annotated_type: annotated_type,
             annotated_id: annotated_id
           }
-        })
+        }),
+        { onSuccess, onFailure }
       );
     });
   }
@@ -88,8 +107,7 @@ class AddAnnotation extends Component {
       const annotated = this.props.annotated;
       const annotated_id = annotated.dbid;
       const annotated_type = this.props.annotatedType;
-      action(annotated, annotated_id, annotated_type, command.args);
-      this.success();
+      action(this, annotated, annotated_id, annotated_type, command.args);
     }
     else {
       this.failure();
