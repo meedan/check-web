@@ -51,17 +51,20 @@ class AddAnnotation extends Component {
     );
   }
 
-  addTag(annotated, annotated_id, annotated_type, tag) {
-    Relay.Store.commitUpdate(
-      new CreateTagMutation({
-        annotated: annotated,
-        annotation: {
-          tag: tag,
-          annotated_type: annotated_type,
-          annotated_id: annotated_id
-        }
-      })
-    );
+  addTag(annotated, annotated_id, annotated_type, tags) {
+    var tagsList = tags.split(',');
+    tagsList.map(function(tag) {
+      Relay.Store.commitUpdate(
+        new CreateTagMutation({
+          annotated: annotated,
+          annotation: {
+            tag: tag.trim(),
+            annotated_type: annotated_type,
+            annotated_id: annotated_id
+          }
+        })
+      );
+    });
   }
 
   handleFocus() {

@@ -347,5 +347,45 @@ describe 'app' do
       message = get_element('.create-account .message').text
       expect(message == 'Validation failed: Sorry, this is not a profile').to be(true)
     end
+
+    it "should tag source multiple times with commas with command" do
+      login_with_email
+      @driver.navigate.to 'http://localhost:3333/me'
+      sleep 1
+
+      # Add tags as a command
+      fill_field('.cmd-input input', '/tag foo, bar')
+      @driver.action.send_keys(:enter).perform
+      sleep 5
+
+      # Verify that tags were added to tags list and annotations list
+      tag = @driver.find_elements(:css, '.ReactTags__tag span').select{ |s| s.text == 'foo' }
+      expect(tag.empty?).to be(false)
+      expect(@driver.page_source.include?('Tagged as "foo"')).to be(true)
+
+      tag = @driver.find_elements(:css, '.ReactTags__tag span').select{ |s| s.text == 'bar' }
+      expect(tag.empty?).to be(false)
+      expect(@driver.page_source.include?('Tagged as "bar"')).to be(true)
+    end
+
+    it "should tag source multiple times with commas from tags list" do
+      login_with_email
+      @driver.navigate.to 'http://localhost:3333/me'
+      sleep 1
+
+      # Add tags from tags list
+      fill_field('.ReactTags__tagInput input', 'bla,bli')
+      @driver.action.send_keys(:enter).perform
+      sleep 5
+
+      # Verify that tags were added to tags list and annotations list
+      tag = @driver.find_elements(:css, '.ReactTags__tag span').select{ |s| s.text == 'bla' }
+      expect(tag.empty?).to be(false)
+      expect(@driver.page_source.include?('Tagged as "bla"')).to be(true)
+
+      tag = @driver.find_elements(:css, '.ReactTags__tag span').select{ |s| s.text == 'bli' }
+      expect(tag.empty?).to be(false)
+      expect(@driver.page_source.include?('Tagged as "bli"')).to be(true)
+    end
   end
 end

@@ -15,18 +15,22 @@ class Tags extends Component {
     );
   }
   
-  handleAddition(tag) {
+  handleAddition(tags) {
     const props = this.props;
-    Relay.Store.commitUpdate(
-      new CreateTagMutation({
-        annotated: props.annotated,
-        annotation: {
-          tag: tag,
-          annotated_type: props.annotatedType,
-          annotated_id: props.annotated.dbid
-        }
-      })
-    );
+    var tagsList = tags.split(',');
+
+    tagsList.map(function(tag) {
+      Relay.Store.commitUpdate(
+        new CreateTagMutation({
+          annotated: props.annotated,
+          annotation: {
+            tag: tag.trim(),
+            annotated_type: props.annotatedType,
+            annotated_id: props.annotated.dbid
+          }
+        })
+      );
+    });
   }
 
   render() {
