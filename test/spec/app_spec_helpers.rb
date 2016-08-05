@@ -33,7 +33,6 @@ module AppSpecHelpers
 
   def twitter_login
     @driver.navigate.to 'https://twitter.com/login'
-    wait = Selenium::WebDriver::Wait.new(timeout: 100)
     fill_field('.js-username-field', @config['twitter_user'])
     fill_field('.js-password-field', @config['twitter_password'])
     press_button
@@ -51,6 +50,7 @@ module AppSpecHelpers
   def login_with_twitter
     twitter_login
     @driver.navigate.to 'http://localhost:3333/'
+    sleep 1
     twitter_auth
   end
 
@@ -84,6 +84,7 @@ module AppSpecHelpers
   def login_with_facebook
     facebook_login
     @driver.navigate.to 'http://localhost:3333/'
+    sleep 1
     facebook_auth
   end
 end
