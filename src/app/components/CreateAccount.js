@@ -26,6 +26,12 @@ class CreateAccount extends Component {
         var message = 'Sorry, could not create the source';
         if (json.error) {
           message = json.error;
+          var matches = message.match(/^Validation failed: Account with this URL exists and has source id ([0-9]+)$/);
+          if (matches) {
+            var sid = matches[1];
+            message = null;
+            that.props.history.push('/source/' + sid);
+          }
         }
         that.setState({ message: message });
       });

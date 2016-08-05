@@ -332,9 +332,9 @@ describe 'app' do
       sleep 1
       press_button('#create-account-submit')
       sleep 10
-      expect(@driver.current_url.to_s.match(/^http:\/\/localhost:3333\/source\/[0-9]+/).nil?).to be(true)
-      message = get_element('.create-account .message').text
-      expect(message == 'Validation failed: Url has already been taken').to be(true)
+      expect(@driver.current_url.to_s.match(/^http:\/\/localhost:3333\/source\/[0-9]+/).nil?).to be(false)
+      title = get_element('.source-name').text
+      expect(title == 'Iron Maiden').to be(true)
     end
 
     it "should not create report as source" do
