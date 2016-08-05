@@ -67,7 +67,7 @@ describe 'app' do
   context "web" do
     it "should redirect to login screen if not logged in" do
       @driver.navigate.to 'http://localhost:3333/sources/'
-      title = get_element('h1')
+      title = get_element('.login-menu__heading')
       expect(title.text == 'SIGN IN').to be(true)
     end
 
@@ -75,7 +75,7 @@ describe 'app' do
       login_with_twitter
       displayed_name = get_element('#user-name span').text.upcase
       expected_name = @config['twitter_name'].upcase
-      title = get_element('h2')
+      title = get_element('.main-title')
       expect(displayed_name == expected_name).to be(true)
       expect(title.text == 'Welcome to Checkdesk').to be(true)
     end
@@ -84,7 +84,7 @@ describe 'app' do
       login_with_facebook
       displayed_name = get_element('#user-name span').text.upcase
       expected_name = @config['facebook_name'].upcase
-      title = get_element('h2')
+      title = get_element('.main-title')
       expect(displayed_name == expected_name).to be(true)
       expect(title.text == 'Welcome to Checkdesk').to be(true)
     end
@@ -109,7 +109,7 @@ describe 'app' do
     it "should redirect to 404 page" do
       login_with_email
       @driver.navigate.to 'http://localhost:3333/something-that-does-not-exist'
-      title = get_element('h2')
+      title = get_element('.main-title')
       expect(title.text == 'Not Found').to be(true)
     end
 
@@ -130,7 +130,7 @@ describe 'app' do
     it "should click to go to Terms of Service" do
       login_with_email
       @driver.navigate.to 'http://localhost:3333/tos'
-      title = get_element('h2')
+      title = get_element('.main-title')
       expect(title.text == 'Terms of Service').to be(true)
     end
 
@@ -145,7 +145,8 @@ describe 'app' do
       login_with_email
       @driver.find_element(:xpath, "//a[@id='link-sources']").click
       expect(@driver.current_url.to_s == 'http://localhost:3333/sources').to be(true)
-      title = get_element('h2')
+      sleep 1
+      title = get_element('.sources__heading')
       expect(title.text == 'Sources').to be(true)
     end
 
@@ -153,7 +154,7 @@ describe 'app' do
       login_with_email
       @driver.find_element(:xpath, "//a[@id='link-me']").click
       expect(@driver.current_url.to_s == 'http://localhost:3333/me').to be(true)
-      title = get_element('h2')
+      title = get_element('.source-name')
       expect(title.text == 'User With Email').to be(true)
     end
 
@@ -164,7 +165,7 @@ describe 'app' do
       source_id = @driver.find_element(:css, '.source').attribute('data-id')
       @driver.navigate.to 'http://localhost:3333/source/' + source_id.to_s
       sleep 1
-      title = get_element('h2')
+      title = get_element('.source-name')
       expect(title.text == 'User With Email').to be(true)
     end
 
@@ -175,7 +176,7 @@ describe 'app' do
       user_id = @driver.find_element(:css, '.source').attribute('data-user-id')
       @driver.navigate.to 'http://localhost:3333/user/' + user_id.to_s
       sleep 1
-      title = get_element('h2')
+      title = get_element('.source-name')
       expect(title.text == 'User With Email').to be(true)
     end
     
@@ -319,7 +320,7 @@ describe 'app' do
       press_button('#create-account-submit')
       sleep 10
       expect(@driver.current_url.to_s.match(/^http:\/\/localhost:3333\/source\/[0-9]+/).nil?).to be(false)
-      title = get_element('h2').text
+      title = get_element('.source-name').text
       expect(title == 'Iron Maiden').to be(true)
     end
 

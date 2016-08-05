@@ -8,7 +8,7 @@ class Tos extends Component {
     var about = this.props.about;
     return (
       <div>
-        <h2>Terms of Service</h2>
+        <h2 className="main-title">Terms of Service</h2>
         <div id="tos" dangerouslySetInnerHTML={{__html: marked(about.tos)}}></div>
       </div>
     );

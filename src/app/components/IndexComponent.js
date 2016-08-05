@@ -4,7 +4,7 @@ class IndexComponent extends Component {
   render() {
     return (
       <div>
-        <h2>Welcome to Checkdesk</h2>
+        <h2 className="main-title">Welcome to Checkdesk</h2>
       </div>
     );
   }
