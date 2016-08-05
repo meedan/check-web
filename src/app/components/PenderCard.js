@@ -5,6 +5,7 @@ class PenderCard extends Component {
     const script = document.createElement('script');
     script.src = this.props.penderUrl + '/api/medias.js?url=' + this.props.url;
     script.async = true;
+    script.type = 'text/javascript';
     document.getElementById('pender-card').appendChild(script);
   }
 

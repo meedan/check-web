@@ -15,7 +15,7 @@ end
 
 describe 'app' do
 
-  @driver = @config = @email = nil
+  @driver = @config = @email = @source_url = nil
 
   # Helpers
 
@@ -26,6 +26,7 @@ describe 'app' do
   before :all do
     @web = Thread.new { Web.run! } if port_open?(3333)
     @email = 'sysops+' + Time.now.to_i.to_s + '@meedan.com'
+    @source_url = 'https://www.facebook.com/ironmaiden/?fref=ts&timestamp=' + Time.now.to_i.to_s
     @config = YAML.load_file('config.yml')
 
     FileUtils.cp(@config['config_file_path'], '../build/web/js/config.js') unless @config['config_file_path'].nil?
@@ -295,6 +296,56 @@ describe 'app' do
       # Reload the page and verify that comment is not there anymore
       @driver.navigate.refresh
       expect(@driver.page_source.include?('This is my comment')).to be(false)
+    end
+
+    it "should preview source" do
+      login_with_email
+      @driver.navigate.to 'http://localhost:3333/sources/new'
+      sleep 1
+      expect(@driver.find_elements(:xpath, "//*[contains(@id, 'pender-iframe')]").empty?).to be(true)
+      fill_field('#create-account-url', 'https://www.facebook.com/ironmaiden/?fref=ts')
+      press_button('#create-account-preview')
+      sleep 10
+      expect(@driver.find_elements(:xpath, "//*[contains(@id, 'pender-iframe')]").empty?).to be(false)
+    end
+
+    it "should create source and redirect to newly created source" do
+      login_with_email
+      @driver.navigate.to 'http://localhost:3333/sources/new'
+      sleep 1
+      fill_field('#create-account-url', @source_url)
+      sleep 1
+      press_button('#create-account-submit')
+      sleep 10
+      expect(@driver.current_url.to_s.match(/^http:\/\/localhost:3333\/source\/[0-9]+/).nil?).to be(false)
+      title = get_element('h2').text
+      expect(title == 'Iron Maiden').to be(true)
+    end
+
+    it "should not create duplicated source" do
+      login_with_email
+      @driver.navigate.to 'http://localhost:3333/sources/new'
+      sleep 1
+      fill_field('#create-account-url', @source_url)
+      sleep 1
+      press_button('#create-account-submit')
+      sleep 10
+      expect(@driver.current_url.to_s.match(/^http:\/\/localhost:3333\/source\/[0-9]+/).nil?).to be(true)
+      message = get_element('.create-account .message').text
+      expect(message == 'Validation failed: Url has already been taken').to be(true)
+    end
+
+    it "should not create report as source" do
+      login_with_email
+      @driver.navigate.to 'http://localhost:3333/sources/new'
+      sleep 1
+      fill_field('#create-account-url', 'https://www.youtube.com/watch?v=b708rEG7spI')
+      sleep 1
+      press_button('#create-account-submit')
+      sleep 10
+      expect(@driver.current_url.to_s.match(/^http:\/\/localhost:3333\/source\/[0-9]+/).nil?).to be(true)
+      message = get_element('.create-account .message').text
+      expect(message == 'Validation failed: Sorry, this is not a profile').to be(true)
     end
   end
 end

@@ -10,7 +10,7 @@ class LoginMenu extends Component {
     return (
       <div id="login-menu" className='login-menu'>
         <Message message={state.app.message} />
-        <img className='login-menu__icon' src='img/logo/logo-1.svg'/>
+        <img className='login-menu__icon' src='/img/logo/logo-1.svg'/>
         <h1 className='login-menu__heading'>Sign in</h1>
         <p className='login-menu__blurb'>Verify breaking news with Checkdesk. <a href='/tour' className='login-menu__blurb-link'>Tour »</a></p>
         <ul className="login-menu__options">
