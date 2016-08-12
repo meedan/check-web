@@ -31,8 +31,8 @@ class AddAnnotation extends Component {
     this.setState({ message: 'Invalid command' });
   }
 
-  success() {
-    this.setState({ message: 'Your annotation was added!' });
+  success(annotation_type) {
+    this.setState({ message: 'Your ' + annotation_type + ' was added!' });
     var field = document.forms.addannotation.cmd;
     field.value = '';
     field.blur();
@@ -41,7 +41,7 @@ class AddAnnotation extends Component {
   addComment(that, annotated, annotated_id, annotated_type, comment) {
     var onFailure = (transaction) => {};
      
-    var onSuccess = (response) => { that.success(); };
+    var onSuccess = (response) => { that.success('comment'); };
 
     Relay.Store.commitUpdate(
       new CreateCommentMutation({
@@ -69,7 +69,7 @@ class AddAnnotation extends Component {
       });
     };
      
-    var onSuccess = (response) => { that.success(); };
+    var onSuccess = (response) => { that.success('tag'); };
 
     tagsList.map(function(tag) {
       Relay.Store.commitUpdate(
