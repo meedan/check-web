@@ -128,7 +128,7 @@ class CreateTeam extends Component {
 
         <form className='create-team__form'>
           <div className='create-team__team-display-name'>
-            <input type='text' name='teamDisplayName' id="team-name-container" className='create-team__team-display-name-input' onChange={this.handleDisplayNameChange.bind(this)} placeholder='Team Name (optional)' autocomplete="off" />
+            <input type='text' name='teamDisplayName' id="team-name-container" className='create-team__team-display-name-input' onChange={this.handleDisplayNameChange.bind(this)} placeholder='Team Name' autocomplete="off" />
             <label className={this.state.displayNameLabelClass}>Team Name</label>
           </div>
 
