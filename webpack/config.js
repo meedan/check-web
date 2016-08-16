@@ -2,6 +2,7 @@ import path from 'path';
 import webpack from 'webpack';
 
 export default {
+  bail: true, // exit 1 on build failure
   entryWeb: {
     index: [ path.join(__dirname, '../src/web/index/index') ]
   },
