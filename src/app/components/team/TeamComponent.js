@@ -60,7 +60,6 @@ class TeamComponent extends Component {
   }
   render() {
     const team = this.props.team;
-
     var isEditing = false; // or this.state.isEditing...
      return (
       <div className='team'>
@@ -73,8 +72,8 @@ class TeamComponent extends Component {
 
               return (
                 <div>
-                  <h1>  <input type='text'  id='team__name-container' className='team__name-input'/> </h1>
-                <p>  <input type='text' id='team__description-container' className='team__description-input'/>
+                  <h1>  <input type='text' id='team__name-container' defaultValue={team.name} className='team__name-input'></input> </h1>
+                <p>  <input type='text' id='team__description-container' defaultValue={team.description}  className='team__description-input'/>
                   <button onClick={this.handleEditTeam.bind(this)} className='team__edit'>Save</button></p>
                 </div>);
             } else {
