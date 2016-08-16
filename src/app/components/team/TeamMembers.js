@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import Avatar from 'material-ui/lib/Avatar';
+import Avatar from 'material-ui/lib/avatar';
 class TeamMembers extends Component {
   render() {
     var users = this.props.users;
