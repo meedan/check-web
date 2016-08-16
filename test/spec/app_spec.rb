@@ -118,13 +118,6 @@ describe 'app' do
       expect(displayed_name == 'USER WITH EMAIL').to be(true)
     end
 
-    it "should redirect to 404 page" do
-      login_with_email
-      @driver.navigate.to 'http://localhost:3333/something-that-does-not-exist'
-      title = get_element('.main-title')
-      expect(title.text == 'Not Found').to be(true)
-    end
-
     it "should login with e-mail" do
       login_with_email
       displayed_name = get_element('#user-name span').text
