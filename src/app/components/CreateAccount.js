@@ -36,7 +36,7 @@ class CreateAccount extends Component {
         that.setState({ message: message });
       });
     };
-     
+
     var onSuccess = (response) => {
       var sid = response.createAccount.account.source_id;
       this.props.history.push('/source/' + sid);
@@ -68,7 +68,7 @@ class CreateAccount extends Component {
           <FlatButton id="create-account-submit" primary={true} onClick={this.handleSubmit.bind(this)} label="Create" />
           <FlatButton id="create-account-preview" secondary={true} onClick={this.handlePreview.bind(this)} label="Preview" />
         </div>
-        
+
         <div id="account-preview" className="create-account-col">
           <h4>Preview</h4>
 

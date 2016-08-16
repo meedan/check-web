@@ -1,0 +1,78 @@
+.team {
+  padding: 15px;
+}
+
+// profile
+
+.team__profile {
+  text-align: center;
+}
+
+.team__avatar {
+  margin: 0 auto;
+  height: 100px;
+  width: 100px;
+  border-radius: 2px;
+}
+
+.team__name-input,
+.team__name,
+.team__name-link {
+  color: $dark-gray-text;
+  font-size: 21px;
+  margin: 10px 0;
+}
+ 
+
+.team__description-input,
+.team__description {
+  margin-top: 0;
+  color: $dark-gray-text;
+  font-family: $font-stack-serif;
+  // margin-bottom: 30px;
+}
+
+
+.team__contact-info,
+.team__location,
+.team__link,
+.team__add-link {
+  font-size: 14px;
+  color: $light-gray-text;
+}
+
+.team__location,
+.team__link,
+.team__add-link {
+  margin-right: 15px;
+}
+
+.team__location-icon,
+.team__link-icon,
+.team__add-link-icon {
+  margin-right: 4px;
+}
+
+.team__add-link {
+  // TODO: revisit semantics/interactions of button vs link
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+// content
+
+.team__content-tabs {
+  text-align: center;
+}
+
+.team__content-tab {
+  display: inline-block;
+  margin: 0 15px;
+  opacity: 0.3;
+}
+
+.team__content-tab--active {
+  opacity: 1;
+  border-bottom: 3px solid black;
+}

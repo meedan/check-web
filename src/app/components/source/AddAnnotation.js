@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
-import TextField from 'material-ui/lib/text-field'; 
+import TextField from 'material-ui/lib/text-field';
 import Colors from 'material-ui/lib/styles/colors';
 import CreateCommentMutation from '../../relay/CreateCommentMutation';
 import CreateTagMutation from '../../relay/CreateTagMutation';
@@ -40,7 +40,7 @@ class AddAnnotation extends Component {
 
   addComment(that, annotated, annotated_id, annotated_type, comment) {
     var onFailure = (transaction) => {};
-     
+
     var onSuccess = (response) => { that.success('comment'); };
 
     Relay.Store.commitUpdate(
@@ -70,6 +70,7 @@ class AddAnnotation extends Component {
     };
      
     var onSuccess = (response) => { that.success('tag'); };
+
 
     tagsList.map(function(tag) {
       Relay.Store.commitUpdate(

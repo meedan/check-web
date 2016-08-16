@@ -1,0 +1,61 @@
+.team-sidebar {
+  width: 200px;
+  border-right: 1px solid hsl(204, 15%, 90%); // TODO: organize grays
+  padding-top: 14px;
+  color: $light-gray-text;
+}
+
+.team-sidebar__team-avatar {
+  margin: 0 auto;
+  width: 50px;
+  height: 50px;
+  border-radius: 2px;
+  background-color: $light-gray-bg;
+}
+
+.team-sidebar__team-name {
+  text-align: center;
+  font-size: 16px;
+  margin: 7px 0 32px 0;
+}
+
+.team-sidebar__team-link {
+  &, &:visited { color: hsl(204, 15%, 29%); }
+}
+
+.team-sidebar__projects,
+.team-sidebar__sources {
+  margin-bottom: 40px;
+}
+
+.team-sidebar__projects-heading,
+.team-sidebar__sources-heading {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  padding: 0 14px;
+}
+
+.team-sidebar__projects-link,
+.team-sidebar__sources-link,
+.team-sidebar__new-source-link {
+  &, &:visited {
+    color: $light-gray-text;
+  }
+}
+
+.team-sidebar__projects-link:hover,
+.team-sidebar__projects-link--active,
+.team-sidebar__sources-link:hover,
+.team-sidebar__sources-link--active,
+.team-sidebar__new-source-link:hover,
+.team-sidebar__new-source-link--active {
+  color: hsl(204, 15%, 29%);
+}
+
+.team-sidebar__projects-list,
+.team-sidebar__sources-list {
+  font-size: 14px;
+  list-style-type: none;
+  padding: 0 14px;
+}

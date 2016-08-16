@@ -5,7 +5,8 @@ import { syncHistoryWithStore } from 'react-router-redux';
 import App from './App';
 import { IndexComponent, TermsOfService, NotFound, CreateAccount } from '../components';
 import { Sources, Source, User, Me } from '../components/source';
-
+import Team  from '../components/team/Team';
+import CreateTeam from '../components/Team/CreateTeam'
 export default class Root extends Component {
   static propTypes = {
     store: PropTypes.object.isRequired
@@ -25,6 +26,8 @@ export default class Root extends Component {
             <Route path="source/:sourceId" component={Source} />
             <Route path="user/:userId" component={User} />
             <Route path="me" component={Me} />
+            <Route path="team/:teamId" component={Team} />
+            <Route path="teams/new" component={CreateTeam} />
             <Route path="*" component={NotFound} public={true} />
           </Route>
         </Router>

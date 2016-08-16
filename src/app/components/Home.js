@@ -11,6 +11,7 @@ import getMuiTheme from 'material-ui/lib/styles/getMuiTheme';
 import themeDecorator from 'material-ui/lib/styles/theme-decorator';
 import AppBar from 'material-ui/lib/app-bar';
 import TeamSidebar from './TeamSidebar';
+
 import { Link } from 'react-router';
 import FontAwesome from 'react-fontawesome';
 import config from 'config';

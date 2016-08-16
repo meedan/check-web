@@ -22,7 +22,7 @@ describe 'app' do
   include AppSpecHelpers
 
   # Start a webserver for the web app before the tests
-  
+
   before :all do
     @web = Thread.new { Web.run! } if port_open?(3333)
     @email = 'sysops+' + Time.now.to_i.to_s + '@meedan.com'
@@ -48,7 +48,7 @@ describe 'app' do
 
   before :each do
     Selenium::WebDriver::Chrome.driver_path = './chromedriver'
-  
+
     if port_open?(9515)
       @driver = Selenium::WebDriver.for :chrome
     else
@@ -118,6 +118,13 @@ describe 'app' do
       expect(displayed_name == 'USER WITH EMAIL').to be(true)
     end
 
+    it "should redirect to 404 page" do
+      login_with_email
+      @driver.navigate.to 'http://localhost:3333/something-that-does-not-exist'
+      title = get_element('.main-title')
+      expect(title.text == 'Not Found').to be(true)
+    end
+
     it "should login with e-mail" do
       login_with_email
       displayed_name = get_element('#user-name span').text
@@ -131,7 +138,7 @@ describe 'app' do
       @driver.find_element(:xpath, "//a[@id='link-home']").click
       expect(@driver.current_url.to_s == 'http://localhost:3333/').to be(true)
     end
-
+ 
     it "should have footer" do
       login_with_email
       @driver.navigate.to 'http://localhost:3333/tos'
@@ -177,7 +184,7 @@ describe 'app' do
       title = get_element('.source-name')
       expect(title.text == 'User With Email').to be(true)
     end
-    
+
     it "should go back and forward in the history" do
       @driver.navigate.to 'http://localhost:3333/'
       expect(@driver.current_url.to_s == 'http://localhost:3333/').to be(true)
