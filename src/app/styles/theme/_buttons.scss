@@ -1,3 +1,14 @@
+@mixin button-defaults {
+  cursor: pointer;
+  border: none;
+  border-radius: 3px;
+  font-family: $font-stack-sans;
+  color: #fff;
+  &:disabled {
+    cursor: not-allowed;
+  }
+}
+
 @mixin button-medium {
   @include button-defaults;
   height: 43px;
@@ -5,10 +16,11 @@
   margin-bottom: 8px;
 }
 
-@mixin button-defaults {
-  cursor: pointer;
-  border: none;
-  border-radius: 3px;
-  font-family: $font-stack-sans;
-  color: #fff;
+@mixin button-large {
+  @include button-defaults;
+  height: 50px;
+  font-size: 20px;
+  padding-left: 44px;
+  padding-right: 44px;
+  margin-bottom: 8px;
 }

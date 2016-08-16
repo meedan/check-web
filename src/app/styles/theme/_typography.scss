@@ -13,6 +13,7 @@ $font-stack-serif: "Merriweather", Georgia, serif;
 }
 
 @mixin onboarding-blurb {
+  font-size: 17px;
   color: $dark-gray-text;
   font-family: $font-stack-serif;
   margin-bottom: 30px;
