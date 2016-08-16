@@ -1,7 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
-import RaisedButton from 'material-ui/lib/raised-button';
-import TextField from 'material-ui/lib/text-field';
 import CreateTeamMutation from '../../relay/CreateTeamMutation';
 import base64 from 'base-64';
 
