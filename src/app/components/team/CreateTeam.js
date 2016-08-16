@@ -2,6 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 import CreateTeamMutation from '../../relay/CreateTeamMutation';
 import base64 from 'base-64';
+import Message from '../Message';
+
 
 class CreateTeam extends Component {
   constructor(props) {
@@ -86,7 +88,13 @@ class CreateTeam extends Component {
      var onFailure = (transaction) => {
 
          console.log("onFailure")
-
+         transaction.getError().json().then(function(json) {
+           var message = 'Sorry, could not create the source';
+           if (json.error) {
+             message = json.error;
+           }
+           that.setState({ message: message });
+         });
 
      };
 
@@ -112,6 +120,8 @@ class CreateTeam extends Component {
   render() {
     return (
       <main className='create-team'>
+        <Message message={this.state.message} />
+
         <img className='create-team__icon' src='/images/logo/logo-alt.svg'/>
         <h1 className='create-team__heading'>Create a Team</h1>
         <p className='create-team__blurb'>Create a team for your organization, or just for yourself:</p>
