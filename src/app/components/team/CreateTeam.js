@@ -80,14 +80,11 @@ class CreateTeam extends Component {
 
   handleSubmit(e) {
      e.preventDefault();
-     console.log("handleSubmit");
      var that = this,
          name = document.getElementById('team-name-container').value;
-         console.log("HandleSubmit")
 
      var onFailure = (transaction) => {
 
-         console.log("onFailure")
          transaction.getError().json().then(function(json) {
            var message = 'Sorry, could not create the team';
            if (json.error) {
@@ -99,7 +96,6 @@ class CreateTeam extends Component {
      };
 
      var onSuccess = (response) => {
-       console.log("onSuccess")
        var tid = response.createTeam.team.id;
        var decodedId = base64.decode(tid);
        this.props.history.push('/' + decodedId);

@@ -23,16 +23,13 @@ class TeamComponent extends Component {
 
   handleEditTeam(e) {
      e.preventDefault();
-     console.log("Handle Edit");
      var that = this,
           name = document.getElementById('team__name-container').value;
      var description = document.getElementById('team__description-container').value;
 
-         console.log("HandleSubmit")
 
      var onFailure = (transaction) => {
 
-         console.log("onFailure")
          transaction.getError().json().then(function(json) {
            var message = 'Sorry, could not edit the team';
            if (json.error) {
@@ -47,7 +44,6 @@ class TeamComponent extends Component {
      };
 
      var onSuccess = (response) => {
-       console.log("onSuccess")
       //  var tid = response.createTeam.team.id;
       //  var decodedId = base64.decode(tid);
       //  this.props.history.push('/' + decodedId);
@@ -67,7 +63,6 @@ class TeamComponent extends Component {
   }
   handleEntreEditTeamNameAndDescription(e) {
     e.preventDefault();
-    console.log("handleEntreEditTeamNameAndDescription");
     this.setState({isEditingNameAndDescription: true});
   }
   render() {
@@ -81,7 +76,6 @@ class TeamComponent extends Component {
           <img className='team__avatar' src="https://pbs.twimg.com/profile_images/610557679249981440/2ARl7GLu.png" />
           {(() => {
             if (this.state.isEditingNameAndDescription) {
-              console.log('aywa true');
 
               return (
                 <div>
@@ -90,7 +84,6 @@ class TeamComponent extends Component {
                   <button onClick={this.handleEditTeam.bind(this)} className='team__edit'>Save</button></p>
                 </div>);
             } else {
-              console.log('aywa false');
               return (
                 <div>
                   <h1 className='team__name'><Link to='#' className='team__name-link'>{team.name}</Link></h1>
