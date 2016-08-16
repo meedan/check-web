@@ -6,7 +6,7 @@ import App from './App';
 import { IndexComponent, TermsOfService, NotFound, CreateAccount } from '../components';
 import { Sources, Source, User, Me } from '../components/source';
 import Team  from '../components/team/Team';
-import CreateTeam from '../components/Team/CreateTeam'
+import CreateTeam from '../components/team/CreateTeam'
 export default class Root extends Component {
   static propTypes = {
     store: PropTypes.object.isRequired
