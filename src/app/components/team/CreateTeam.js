@@ -89,7 +89,7 @@ class CreateTeam extends Component {
 
          console.log("onFailure")
          transaction.getError().json().then(function(json) {
-           var message = 'Sorry, could not create the source';
+           var message = 'Sorry, could not create the team';
            if (json.error) {
              message = json.error;
            }

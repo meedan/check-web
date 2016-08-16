@@ -9,6 +9,9 @@ import SocialProfiles from './SocialProfiles'
 import { Link } from 'react-router';
 import FontAwesome from 'react-fontawesome';
 import UpdateTeamMutation from '../../relay/UpdateTeamMutation';
+import Message from '../Message';
+
+
 class TeamComponent extends Component {
 
   constructor(props) {
@@ -21,7 +24,8 @@ class TeamComponent extends Component {
   handleEditTeam(e) {
      e.preventDefault();
      console.log("Handle Edit");
-     var name = document.getElementById('team__name-container').value;
+     var that = this,
+          name = document.getElementById('team__name-container').value;
      var description = document.getElementById('team__description-container').value;
 
          console.log("HandleSubmit")
@@ -29,6 +33,14 @@ class TeamComponent extends Component {
      var onFailure = (transaction) => {
 
          console.log("onFailure")
+         transaction.getError().json().then(function(json) {
+           var message = 'Sorry, could not edit the team';
+           if (json.error) {
+             message = json.error;
+           }
+           that.setState({ message: message });
+         });
+
          this.setState({isEditingNameAndDescription: false});
 
 
@@ -63,6 +75,7 @@ class TeamComponent extends Component {
     var isEditing = false; // or this.state.isEditing...
      return (
       <div className='team'>
+        <Message message={this.state.message} />
 
         <section className='team__profile'>
           <img className='team__avatar' src="https://pbs.twimg.com/profile_images/610557679249981440/2ARl7GLu.png" />
