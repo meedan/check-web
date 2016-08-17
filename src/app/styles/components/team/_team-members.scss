@@ -1,0 +1,95 @@
+.team-members {
+  padding: 15px;
+  position: relative;
+  max-width: 750px;
+  margin: 0 auto;
+}
+
+.team-members__main-heading {
+  @include app-heading;
+  text-align: center;
+}
+
+// edit buttons
+
+.team-members__edit-button {
+  @include button-medium;
+  position: absolute;
+  top: 30px; right: 15px;
+}
+
+.team-members__edit-icon {
+  // TODO: DRY
+  font-size: 0.9em;
+  opacity: 0.8;
+  margin-right: 0.1em;
+  display: inline-block;
+  position: relative;
+  left: -3px;
+}
+
+// blurb
+
+.team-members__blurb {
+  @include app-blurb;
+  text-align: center;
+}
+
+.team-members__blurb-graf--url {
+  font-family: $font-stack-sans;
+}
+
+// list
+
+.team-members__list {}
+
+.team-members__member {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.team-members__member-avatar {
+  $size: 50px; height: $size; width: $size;
+  border-radius: $size;
+  margin-right: 10px;
+}
+
+.team-members__member-details {
+  flex: 1;
+  margin-right: 10px;
+  display: flex;
+  align-items: baseline;
+}
+
+.team-members__member-name {
+  margin: 0 6px 0 0;
+}
+
+.team-members__member-username {
+  color: $light-gray-text;
+}
+
+// role select
+
+.team-members__member-role {
+  min-width: 120px;
+
+  .Select-control { transition: border-color 450ms ease; }
+  .Select-arrow-zone { transition: opacity 300ms ease; }
+  .Select-placeholder { transition: color 150ms ease; }
+
+  &.is-disabled {
+    .Select-control {
+      background-color: transparent !important;
+      border-color: transparent;
+      &:hover { box-shadow: none; }
+    }
+    .Select-arrow-zone {
+      opacity: 0.5;
+    }
+    .Select-placeholder {
+      color: $light-gray-text !important;
+    }
+  }
+}

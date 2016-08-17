@@ -13,10 +13,11 @@
 @import 'components/home';
 @import 'components/login-menu';
 @import 'components/login-email';
-
+@import 'components/team/create-team';
+@import 'components/team/join-team';
+@import 'components/team/team-members';
+@import 'components/team/team-sidebar';
 @import 'components/sources';
-@import 'components/teams/create-team';
-@import 'components/teams/team-sidebar';
 @import 'components/team';
 @import "source";
 @import "tags";
@@ -104,4 +105,8 @@ address {
     text-align: left;
     margin: 10px 0;
   }
+}
+
+.main-title {
+  text-align: center;
 }
