@@ -26,3 +26,7 @@
   padding-right: 44px;
   margin-bottom: 8px;
 }
+
+@mixin button-green {
+  background-color: rgb(71, 207, 152);
+}

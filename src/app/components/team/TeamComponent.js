@@ -21,6 +21,11 @@ class TeamComponent extends Component {
     };
   }
 
+  cancelEditTeam(e) {
+     e.preventDefault();
+     this.setState({isEditingNameAndDescription: false});
+  }
+
   handleEditTeam(e) {
      e.preventDefault();
      var that = this,
@@ -67,28 +72,53 @@ class TeamComponent extends Component {
   }
   render() {
     const team = this.props.team;
-    var isEditing = false; // or this.state.isEditing...
-     return (
+    const isEditing = this.state.isEditingNameAndDescription;
+    return (
       <div className='team'>
         <Message message={this.state.message} />
-
         <section className='team__profile'>
+
+          {(() => {
+            if (isEditing) {
+              return (
+                <div className='team__edit-profile team__edit-profile--editing'>
+                  <button onClick={this.cancelEditTeam.bind(this)} className='team__cancel-button'>Cancel</button>
+                  <button onClick={this.handleEditTeam.bind(this)} className='team__save-button'>Save</button>
+                </div>
+              );
+            } else {
+              return (
+                <div className='team__edit-profile'>
+                  <button onClick={this.handleEntreEditTeamNameAndDescription.bind(this)} className='team__edit-button'>
+                    <FontAwesome className='team__edit-icon' name='pencil'/> Edit profile
+                  </button>
+                </div>
+              );
+            }
+          })()}
+
           <img className='team__avatar' src="https://pbs.twimg.com/profile_images/610557679249981440/2ARl7GLu.png" />
           {(() => {
             if (this.state.isEditingNameAndDescription) {
 
               return (
                 <div>
-                  <h1>  <input type='text' id='team__name-container' defaultValue={team.name} className='team__name-input'></input> </h1>
-                <p>  <input type='text' id='team__description-container' defaultValue={team.description}  className='team__description-input'/>
-                  <button onClick={this.handleEditTeam.bind(this)} className='team__edit'>Save</button></p>
+                  <h1 className='team__name team__name--editing'>
+                    <input type='text'  id='team__name-container' className='team__name-input' defaultValue={team.name}/>
+                  </h1>
+                  <div className='team__description'>
+                    <input type='text' id='team__description-container' className='team__description-input' defaultValue={team.description}/>
+                  </div>
                 </div>);
             } else {
               return (
                 <div>
-                  <h1 className='team__name'><Link to='#' className='team__name-link'>{team.name}</Link></h1>
-                  <p className='team__description'>{team.description}
-                  <button onClick={this.handleEntreEditTeamNameAndDescription.bind(this)} className='team__edit'>Edit</button></p>
+                  <h1 className='team__name'>
+                    <Link to='#' className='team__name-link'>{team.name}</Link>
+                  </h1>
+                  <div className='team__description'>
+                    <p className='team__description-text'>{team.description}</p>
+                  </div>
                 </div>);
             }
           })()}
@@ -107,16 +137,17 @@ class TeamComponent extends Component {
               })()}
             </span>
 
-            {/* links: iterate through all contact info links user has added; switch spans to inputs on isEditing */}
+            {/* link: iterate through all contact info links user has added; switch spans to inputs on isEditing */}
             <Link to='https://bellingcat.com' className='team__link'>
               <FontAwesome name='link' className='team__link-icon' />
               <span className='team__link-text'>bellingcat.com</span>
             </Link>
 
-            {/* add link: show whenever is editing; clicking adds a new link input ^ */}
+            {/* add link: show whenever is editing; clicking adds a new link input ^
             <button className='team__add-link'>
               <FontAwesome name='plus' className='team__add-link-icon' />Add link...
             </button>
+            */}
           </div>
 
           {/* controls: probably should only be visible to team members/admins/etc. */}
@@ -124,36 +155,15 @@ class TeamComponent extends Component {
             <option value='public'>Public</option>
             <option value='private'>Private</option>
           </select>
-          <button   className='team__edit'>Edit</button>
-        </section>
-
-        <section className='team__request-access'>
-          <h2 className='team__request-access-header'>Join {team.name}</h2>
-          To request to join this team, please log in below. Your request will be sent to the team admins for approval.
-          {/* if logged out, show "log in" button; else show "request access" button */}
-          <button className='team__request-access-button'>Request Access</button>
         </section>
 
         <section className='team__content'>
           <h2 className='team__content-tabs'>
-            <span className='team__content-tab team__content-tab--active'>28 stories</span>
+            <span className='team__content-tab team__content-tab--active'>28 reports</span>
             <span className='team__content-tab'>4 projects</span>
-            <span className='team__content-tab'>12 members</span>
           </h2>
           <div className='team__content-body'>
             {(() => {
-              // // maybe something like this
-              // switch (this.state.activeContentTab) {
-              //   case 'stories';
-              //     return (<StoriesList stories={team.stories}/>);
-              //     break;
-              //   case 'projects';
-              //     return (<ProjectsList stories={team.stories}/>)
-              //     break;
-              //   case 'members'
-              //     return (<TeamMembers users = {team.users.edges}/>)
-              //     break;
-              // }
             })()}
           </div>
         </section>

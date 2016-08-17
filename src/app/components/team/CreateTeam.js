@@ -81,7 +81,8 @@ class CreateTeam extends Component {
   handleSubmit(e) {
      e.preventDefault();
      var that = this,
-         name = document.getElementById('team-name-container').value;
+         name = document.getElementById('team-name-container').value,
+         subdomain = document.getElementById('team-subdomain-container').value;
 
      var onFailure = (transaction) => {
 
@@ -106,7 +107,8 @@ class CreateTeam extends Component {
      Relay.Store.commitUpdate(
        new CreateTeamMutation({
         name: name,
-        description: ""
+        description: "",
+        subdomain: subdomain
       }),
       { onSuccess, onFailure }
     );
@@ -130,7 +132,7 @@ class CreateTeam extends Component {
 
           <div className='create-team__team-url'>
             <div className={this.state.subdomainClass}>
-              <input type='text' name='teamSubdomain' className='create-team__team-subdomain-input' onChange={this.handleSubdomainChange.bind(this)} placeholder='team-url' autocomplete="off" />
+              <input type='text' name='teamSubdomain' id="team-subdomain-container" className='create-team__team-subdomain-input' onChange={this.handleSubdomainChange.bind(this)} placeholder='team-url' autocomplete="off" />
               <label className={this.state.subdomainLabelClass}>Team URL</label>
               <p className='create-team__team-subdomain-message'>{this.state.subdomainMessage}</p>
             </div>
