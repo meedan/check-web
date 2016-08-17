@@ -80,6 +80,11 @@ class Home extends Component {
       return null;
     }
 
+    const routeIsFullscreen = this.props.children.props.route.fullscreen;
+    if (routeIsFullscreen) {
+      return (<div className='home home--fullscreen'>{this.props.children}</div>);
+    }
+
     return (
       <div className='home'>
         <TeamSidebar />
