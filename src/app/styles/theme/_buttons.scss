@@ -9,6 +9,15 @@
   }
 }
 
+@mixin button-small {
+  @include button-defaults;
+  height: 36px;
+  font-size: 16px;
+  margin-bottom: 8px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
 @mixin button-medium {
   @include button-defaults;
   height: 43px;
