@@ -17,7 +17,7 @@ class CreateTeamMutation extends Relay.Mutation {
   }
 
   getVariables() {
-    return { name: this.props.name, description: this.props.description };
+    return { name: this.props.name, description: this.props.description,subdomain: this.props.subdomain };
   }
 
   getConfigs() {
@@ -26,7 +26,7 @@ class CreateTeamMutation extends Relay.Mutation {
       children: [Relay.QL`
         fragment on CreateTeamPayload {
           team {
-            name,id,description
+            name,id,description,subdomain
           }
         }`
       ]
