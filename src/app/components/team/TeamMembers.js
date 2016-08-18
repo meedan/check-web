@@ -9,8 +9,7 @@ class TeamMembers extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // made this edit mode UI but seems possibly unnecessary now -- leaving isEditing at true for now. Can remove unnecessary code or restore functionality later as needed.
-      isEditing: true
+      isEditing: false
     };
   }
 
@@ -34,6 +33,10 @@ class TeamMembers extends Component {
 
     return (
       <div className='team-members'>
+        <button onClick={this.handleEditMembers.bind(this)} className='team-members__edit-button'>
+          <FontAwesome className='team-members__edit-icon' name='pencil'/>
+          {isEditing ? 'Done' : 'Edit'}
+        </button>
         <h1 className='team-members__main-heading'>Members</h1>
         <div className='team-members__blurb'>
           <p className='team-members__blurb-graf'>To invite colleagues to join {team.displayName}, send them this link:</p>
@@ -41,21 +44,6 @@ class TeamMembers extends Component {
         </div>
         <TeamMembershipRequests users={membershipRequests} />
         <ul className='team-members__list'>
-
-          {(() => {
-            if (isEditing) {
-              return (
-                <button onClick={this.handleEditMembers.bind(this)} className='team-members__edit-button team-members__edit-button--editing'>Done</button>
-              );
-            } else {
-              return (
-                <button onClick={this.handleEditMembers.bind(this)} className='team-members__edit-button'>
-                  <FontAwesome className='team-members__edit-icon' name='pencil'/> Edit
-                </button>
-              );
-            }
-          })()}
-
           {(() => {
             return members.map((member) => {
               return (
@@ -67,11 +55,11 @@ class TeamMembers extends Component {
                   </div>
 
                   <Select className='team-members__member-role' autosize={true} searchable={false} backspaceRemoves={false} clearable={false} disabled={!isEditing} options={roles} value='contributor'/>
+                  {isEditing ? (<button className='team-members__delete-member'><span className='team-members__delete-member-icon'>×</span></button>) : null }
                 </li>
               );
             })
           })()}
-
         </ul>
       </div>
     );

@@ -14,9 +14,9 @@
 
 .team-members__edit-button {
   position: absolute;
-  top: 30px; right: 15px;
+  top: 30px; right: 35px;
   @include button-small;
-  display: none; // made this edit mode UI but seems possibly unnecessary now -- can remove or restore later as needed.
+  // display: none; // made this edit mode UI but seems possibly unnecessary now -- can remove or restore later as needed.
 }
 
 .team-members__edit-icon {
@@ -50,6 +50,7 @@
 
 .team-membership-requests {
   background: hsl(208, 98%, 95%);
+  border-radius: 2px;
 }
 
 .team-membership-requests__heading {
@@ -90,7 +91,7 @@
   margin: 0 6px 0 0;
 }
 
-.team-members__member-username
+.team-members__member-username,
 .team-membership-requests__user-username {
   color: $light-gray-text;
 }
@@ -119,10 +120,22 @@
       &:hover { box-shadow: none; }
     }
     .Select-arrow-zone {
-      opacity: 0.5;
+      opacity: 0;
     }
     .Select-placeholder {
       color: $light-gray-text !important;
     }
+  }
+}
+
+.team-members__delete-member {
+  @include unbutton;
+  color: $light-gray-text;
+  font-weight: 200;
+  font-size: 30px;
+  margin-left: 15px;
+  &-icon {
+    position: relative;
+    top: -0.1em;
   }
 }

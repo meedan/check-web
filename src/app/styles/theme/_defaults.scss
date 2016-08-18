@@ -26,7 +26,7 @@ a {
 }
 
 button {
-  @include button-medium;
+  @include button-defaults;
 }
 
 p {
