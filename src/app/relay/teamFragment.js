@@ -5,6 +5,7 @@ var teamFragment = Relay.QL`
     id,
     name,
     description,
+    subdomain,
     team_users(first: 6) {
       edges {
         node {

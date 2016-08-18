@@ -6,9 +6,9 @@ import App from './App';
 import { IndexComponent, TermsOfService, NotFound, CreateAccount } from '../components';
 import { Sources, Source, User, Me } from '../components/source';
 import Team  from '../components/team/Team';
+import TeamMembers  from '../components/team/TeamMembers';
 import { CreateMedia } from '../components/media';
 import CreateTeam from '../components/team/CreateTeam'
-import TeamMembers from '../components/team/TeamMembers.js';
 import JoinTeam from '../components/team/JoinTeam.js';
 
 export default class Root extends Component {
@@ -31,9 +31,9 @@ export default class Root extends Component {
             <Route path="medias/new" component={CreateMedia} />
             <Route path="user/:userId" component={User} />
             <Route path="me" component={Me} />
+            <Route path="team/:teamId/members" component={TeamMembers} />
             <Route path="team/:teamId" component={Team} />
             <Route path="teams/new" component={CreateTeam} fullscreen={true} />
-            <Route path="members" component={TeamMembers} />
             <Route path="join" component={JoinTeam} />
             <Route path="*" component={NotFound} public={true} />
           </Route>
