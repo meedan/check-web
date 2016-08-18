@@ -1,0 +1,23 @@
+.create-media {
+  width: 100%;
+
+  h2 {
+    text-align: left;
+  }
+
+  h4 {
+    color: $midgrey;
+  }
+
+  .create-media-col {
+    width: 46%;
+    overflow: hidden;
+    float: left;
+    padding: 20px;
+    min-height: 1200px;
+  }
+
+  #media-preview {
+    border-left: 1px dotted $midgrey;
+  }
+}

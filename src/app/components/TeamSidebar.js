@@ -13,6 +13,15 @@ class TeamSidebar extends Component {
           </h1>
         </section>
 
+        <section className='team-sidebar__medias'>
+          <h2 className='team-sidebar__medias-heading'>medias</h2>
+          <ul className='team-sidebar__medias-list'>
+            <li className='team-sidebar__new-media'>
+              <Link to="/medias/new" id="link-medias-new" className='team-sidebar__new-media-link' activeClassName='team-sidebar__new-media-link--active' title="Create a media">+ New media...</Link>
+            </li>
+          </ul>
+        </section>
+
         <section className='team-sidebar__projects'>
           <h2 className='team-sidebar__projects-heading'>Projects</h2>
           <ul className='team-sidebar__projects-list'>

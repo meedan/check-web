@@ -24,11 +24,13 @@
 }
 
 .team-sidebar__projects,
+.team-sidebar__medias,
 .team-sidebar__sources {
   margin-bottom: 40px;
 }
 
 .team-sidebar__projects-heading,
+.team-sidebar__medias-heading,
 .team-sidebar__sources-heading {
   font-size: 12px;
   text-transform: uppercase;
@@ -37,7 +39,9 @@
 }
 
 .team-sidebar__projects-link,
+.team-sidebar__medias-link,
 .team-sidebar__sources-link,
+.team-sidebar__new-media-link,
 .team-sidebar__new-source-link {
   &, &:visited {
     color: $light-gray-text;
@@ -46,14 +50,19 @@
 
 .team-sidebar__projects-link:hover,
 .team-sidebar__projects-link--active,
+.team-sidebar__medias-link:hover,
+.team-sidebar__medias-link--active,
 .team-sidebar__sources-link:hover,
 .team-sidebar__sources-link--active,
 .team-sidebar__new-source-link:hover,
-.team-sidebar__new-source-link--active {
+.team-sidebar__new-source-link--active,
+.team-sidebar__new-media-link:hover,
+.team-sidebar__new-media-link--active {
   color: hsl(204, 15%, 29%);
 }
 
 .team-sidebar__projects-list,
+.team-sidebar__medias-list,
 .team-sidebar__sources-list {
   font-size: 14px;
   list-style-type: none;

@@ -6,7 +6,9 @@ import App from './App';
 import { IndexComponent, TermsOfService, NotFound, CreateAccount } from '../components';
 import { Sources, Source, User, Me } from '../components/source';
 import Team  from '../components/team/Team';
-import CreateTeam from '../components/team/CreateTeam'
+import CreateTeam from '../components/team/CreateTeam';
+import { CreateMedia } from '../components/media';
+
 export default class Root extends Component {
   static propTypes = {
     store: PropTypes.object.isRequired
@@ -25,6 +27,7 @@ export default class Root extends Component {
             <Route path="sources" component={Sources} />
             <Route path="sources/new" component={CreateAccount} />
             <Route path="source/:sourceId" component={Source} />
+            <Route path="medias/new" component={CreateMedia} />
             <Route path="user/:userId" component={User} />
             <Route path="me" component={Me} />
             <Route path="team/:teamId" component={Team} />
