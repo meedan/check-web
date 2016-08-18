@@ -23,3 +23,13 @@ $font-stack-serif: "Merriweather", Georgia, serif;
 @mixin app-heading {
   @include onboarding-heading;
 }
+
+@mixin app-blurb {
+  @include onboarding-blurb;
+}
+
+@mixin app-kicker {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}

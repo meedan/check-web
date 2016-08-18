@@ -1,0 +1,128 @@
+.team-members {
+  padding: 15px;
+  position: relative;
+  max-width: 750px;
+  margin: 0 auto;
+}
+
+.team-members__main-heading {
+  @include app-heading;
+  text-align: center;
+}
+
+// edit buttons
+
+.team-members__edit-button {
+  position: absolute;
+  top: 30px; right: 15px;
+  @include button-small;
+  display: none; // made this edit mode UI but seems possibly unnecessary now -- can remove or restore later as needed.
+}
+
+.team-members__edit-icon {
+  // TODO: DRY
+  font-size: 0.9em;
+  opacity: 0.8;
+  margin-right: 0.1em;
+  display: inline-block;
+  position: relative;
+  left: -3px;
+}
+
+// blurb
+
+.team-members__blurb {
+  @include app-blurb;
+  text-align: center;
+}
+
+.team-members__blurb-graf--url {
+  font-family: $font-stack-sans;
+  font-size: 21px;
+}
+
+// lists
+
+.team-members__list,
+.team-membership-requests {
+  padding: 10px 20px;
+}
+
+.team-membership-requests {
+  background: hsl(208, 98%, 95%);
+}
+
+.team-membership-requests__heading {
+  text-align: center;
+  @include app-kicker;
+  color: hsl(208, 98%, 62%);
+}
+
+.team-membership-requests__heading-parens {
+  font-weight: 300;
+  opacity: 0.8;
+}
+
+.team-members__member,
+.team-membership-requests__user {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.team-members__member-avatar,
+.team-membership-requests__user-avatar {
+  $size: 50px; height: $size; width: $size;
+  border-radius: $size;
+  margin-right: 10px;
+}
+
+.team-members__member-details,
+.team-membership-requests__user-details {
+  flex: 1;
+  margin-right: 10px;
+  display: flex;
+  align-items: baseline;
+}
+
+.team-members__member-name,
+.team-membership-requests__user-name {
+  margin: 0 6px 0 0;
+}
+
+.team-members__member-username
+.team-membership-requests__user-username {
+  color: $light-gray-text;
+}
+
+// user controls
+
+.team-member-requests__user-button {
+  @include button-small;
+  margin-left: 10px;
+  margin-bottom: 0;
+
+  &--approve { @include button-green; }
+}
+
+.team-members__member-role {
+  min-width: 120px;
+
+  .Select-control { transition: border-color 450ms ease; }
+  .Select-arrow-zone { transition: opacity 300ms ease; }
+  .Select-placeholder { transition: color 150ms ease; }
+
+  &.is-disabled {
+    .Select-control {
+      background-color: transparent !important;
+      border-color: transparent;
+      &:hover { box-shadow: none; }
+    }
+    .Select-arrow-zone {
+      opacity: 0.5;
+    }
+    .Select-placeholder {
+      color: $light-gray-text !important;
+    }
+  }
+}

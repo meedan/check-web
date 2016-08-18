@@ -32,9 +32,7 @@
 .team-sidebar__projects-heading,
 .team-sidebar__medias-heading,
 .team-sidebar__sources-heading {
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
+  @include app-kicker;
   padding: 0 14px;
 }
 

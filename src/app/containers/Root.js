@@ -6,8 +6,10 @@ import App from './App';
 import { IndexComponent, TermsOfService, NotFound, CreateAccount } from '../components';
 import { Sources, Source, User, Me } from '../components/source';
 import Team  from '../components/team/Team';
-import CreateTeam from '../components/team/CreateTeam';
 import { CreateMedia } from '../components/media';
+import CreateTeam from '../components/team/CreateTeam'
+import TeamMembers from '../components/team/TeamMembers.js';
+import JoinTeam from '../components/team/JoinTeam.js';
 
 export default class Root extends Component {
   static propTypes = {
@@ -20,7 +22,6 @@ export default class Root extends Component {
     return (
       <Provider store={store}>
         <Router history={history}>
-          <Route path="teams/new" component={CreateTeam} />
           <Route path="/" component={App}>
             <IndexRoute component={IndexComponent} />
             <Route path="tos" component={TermsOfService} public={true} />
@@ -31,6 +32,9 @@ export default class Root extends Component {
             <Route path="user/:userId" component={User} />
             <Route path="me" component={Me} />
             <Route path="team/:teamId" component={Team} />
+            <Route path="teams/new" component={CreateTeam} fullscreen={true} />
+            <Route path="members" component={TeamMembers} />
+            <Route path="join" component={JoinTeam} />
             <Route path="*" component={NotFound} public={true} />
           </Route>
         </Router>
