@@ -9,7 +9,8 @@ class TeamMembers extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isEditing: false
+      // made this edit mode UI but seems possibly unnecessary now -- leaving isEditing at true for now. Can remove unnecessary code or restore functionality later as needed.
+      isEditing: true
     };
   }
 
