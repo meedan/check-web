@@ -21,6 +21,19 @@ class TeamMembersComponent extends Component {
   render() {
     const isEditing = this.state.isEditing;
     const team = this.props.team;
+    const team_users = team.team_users
+    var team_users_requestingMembership= []
+    var team_users_members= []
+
+    team_users.edges.map((team_user) => {
+      if(team_user.node.status == "requested")
+      {
+        team_users_requestingMembership.push(team_user);
+      }else {
+        team_users_members.push(team_user)
+      }
+
+    })
     var people = [{name:'Karim Ratib',username:'kratib',avatarUrl:'https://pbs.twimg.com/profile_images/434022381770657792/RYsiZ7vR.jpeg'},{name:'An Xioa Mina',username:'axm',avatarUrl:'https://pbs.twimg.com/profile_images/543432219109244928/nuFAV2Ey.jpeg'},{name:'Chris Blow',username:'chris',avatarUrl:'https://pbs.twimg.com/profile_images/750129043429662720/36UDFbwz.jpg'},{name:'Ed Bice',username:'ed',avatarUrl:'https://pbs.twimg.com/profile_images/743824003844837377/oTeU_xyb.jpg'},{name:'Caio Almeida',username:'caiosba',avatarUrl:'https://pbs.twimg.com/profile_images/761634523809472512/9ln-qDZ6.jpg'},{name:'Ahmed Nasser',username:'ahmed',avatarUrl:'https://pbs.twimg.com/profile_images/610557679249981440/2ARl7GLu.png'},{name:'Tom Trewinnard',username:'tom',avatarUrl:'https://pbs.twimg.com/profile_images/752187533153357824/6CZ5qxF3.jpg'}];
     const membershipRequests = people.slice(0, 2);
     const members = people.slice(2);
@@ -42,16 +55,16 @@ class TeamMembersComponent extends Component {
           <p className='team-members__blurb-graf'>To invite colleagues to join {team.name}, send them this link:</p>
           <p className='team-members__blurb-graf--url'><a href={joinUrl}>{joinUrl}</a></p>
         </div>
-        <TeamMembershipRequests users={membershipRequests} />
+        <TeamMembershipRequests team_users={team_users_requestingMembership} />
         <ul className='team-members__list'>
           {(() => {
-            return members.map((member) => {
+            return team_users_members.map((team_user) => {
               return (
                 <li className='team-members__member'>
-                  <img src={member.avatarUrl} className='team-members__member-avatar' />
+                  <img src={team_user.node.user.profile_image} className='team-members__member-avatar' />
                   <div className='team-members__member-details'>
-                    <h3 className='team-members__member-name'>{member.name}</h3>
-                    <span className='team-members__member-username'>({member.username})</span>
+                    <h3 className='team-members__member-name'>{team_user.node.user.name}</h3>
+                    <span className='team-members__member-username'>({team_user.node.user.name})</span>
                   </div>
 
                   <Select className='team-members__member-role' autosize={true} searchable={false} backspaceRemoves={false} clearable={false} disabled={!isEditing} options={roles} value='contributor'/>
