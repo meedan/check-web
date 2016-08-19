@@ -1,45 +1,33 @@
-# Dockerfile
-FROM ubuntu:14.04
-MAINTAINER Meedan <sysops@meedan.com>
+FROM meedan/ruby
 
-# Constants
-ENV NVM_VERSION v0.29.0
-ENV NODE_VERSION v4.3.2
+# install dependencies
+ENV CHROMEDRIVER_VERSION 2.23
+RUN apt-get update -qq && apt-get install -y wget inkscape imagemagick unzip libnss3 xvfb --no-install-recommends && rm -rf /var/lib/apt/lists/*
+RUN gpg --keyserver ha.pool.sks-keyservers.net --recv-keys 6380DC428747F6C393FEACA59A84159D7001A4E5 \
+  && curl -o /usr/local/bin/tini -fSL "https://github.com/krallin/tini/releases/download/v0.9.0/tini" \
+  && curl -o /usr/local/bin/tini.asc -fSL "https://github.com/krallin/tini/releases/download/v0.9.0/tini.asc" \
+  && gpg --verify /usr/local/bin/tini.asc \
+  && rm /usr/local/bin/tini.asc \
+  && chmod +x /usr/local/bin/tini
+RUN wget http://chromedriver.storage.googleapis.com/${CHROMEDRIVER_VERSION}/chromedriver_linux64.zip \
+  && unzip -d /usr/local/bin chromedriver_linux64.zip \
+  && rm chromedriver_linux64.zip
+RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
+  && sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' \
+  && apt-get update -qq \
+  && apt-get install -y google-chrome-stable
+
+# install our testing system
+WORKDIR /app/test
+COPY ./test/Gemfile ./test/Gemfile.lock /app/test/
+RUN gem install bundler && bundle install --jobs 20 --retry 5
 ENV DISPLAY :99
-ENV LD_LIBRARY_PATH /usr/lib/x86_64-linux-gnu/
 
-# Replace shell with bash so we can source files
-RUN rm /bin/sh && ln -s /bin/bash /bin/sh
-
-# Install dependencies
-# Utilities: vim git man python-setuptools lsof unzip wget
-# Needed to generate the icons: inkscape imagemagick
-# Needed for the automated tests: ruby ruby-dev libnss3 libnss3-dev google-chrome-stable xvfb libexif-dev libnss3-1d x11vnc
-# Needed to build NVM and run NPM: npm nodejs curl build-essential libssl-dev
-RUN apt-get update && apt-get -y upgrade
-RUN DEBIAN_FRONTEND=noninteractive apt-get install wget vim git man python-setuptools lsof unzip inkscape imagemagick ruby ruby-dev libnss3 libnss3-dev xvfb libnss3-1d x11vnc libexif-dev npm nodejs curl build-essential libssl-dev -y
-RUN wget --no-check-certificate -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
-RUN echo deb http://dl.google.com/linux/chrome/deb/ stable main >> /etc/apt/sources.list.d/google-chrome.list
-RUN apt-get update
-RUN DEBIAN_FRONTEND=noninteractive apt-get install google-chrome-stable -y
-RUN easy_install supervisor
-RUN ln -s /usr/bin/nodejs /usr/bin/node
-
-# Configurations
-COPY ./docker/supervisord.conf /etc/supervisord.conf
-COPY ./docker/start /start
-
-# Install app
-COPY . /app
-RUN cd app && ./docker/install.sh 
-
+# install our app
 WORKDIR /app
+COPY . /app
 
-# Web app
+# startup
 EXPOSE 3333
-# chromedriver
-EXPOSE 9515
-# Ngrok
-EXPOSE 4040
-# VNC
-EXPOSE 5999
+ENTRYPOINT ["tini", "--"]
+CMD ["static", "-a", "0.0.0.0", "-p", "3333", "build/web"]
