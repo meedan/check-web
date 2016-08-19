@@ -19,13 +19,15 @@
 @import 'components/team/team-sidebar';
 @import 'components/sources';
 @import 'components/team';
-@import "source";
-@import "tags";
-@import "annotations";
-@import "sidebar";
-@import "create-account";
-@import "create-media";
-@import "pender";
+@import 'source';
+@import 'tags';
+@import 'annotations';
+@import 'sidebar';
+@import 'create-account';
+@import 'create-media';
+@import 'pender';
+@import 'media';
+@import 'tabs';
 
 body {
   margin: auto;

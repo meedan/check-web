@@ -1,0 +1,29 @@
+.media {
+  
+  .media-name {
+    text-align: center;
+  }
+
+  .media-description {
+    text-align: center;
+  }
+
+  .media-author {
+    text-align: center;
+    color: $darkgrey;
+    font-size: 12px;
+
+    img {
+      vertical-align: bottom;
+    }
+
+    a, a:visited {
+      color: $darkgrey;
+      text-decoration: underline;
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+}

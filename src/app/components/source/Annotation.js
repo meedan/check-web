@@ -13,6 +13,7 @@ class Annotation extends Component {
   handleDelete(id) {
     Relay.Store.commitUpdate(
       new DeleteAnnotationMutation({
+        parent_type: this.props.annotatedType.toLowerCase(),
         annotated: this.props.annotated,
         id: id
       })
@@ -30,6 +31,12 @@ class Annotation extends Component {
         break;
       case 'tag':
         content = 'Tagged as "' + content.tag + '"'
+        break;
+      case 'status':
+        content = 'Status set to "' + content.status + '"'
+        break;
+      case 'flag':
+        content = 'Flagged as "' + content.flag + '"'
         break;
       default:
         content = annotation.content;

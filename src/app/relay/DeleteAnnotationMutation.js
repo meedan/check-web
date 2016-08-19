@@ -17,29 +17,30 @@ class DeleteAnnotationMutation extends Relay.Mutation {
   }
   
   getFatQuery() {
-    return Relay.QL`
-      fragment on DestroyAnnotationPayload {
-        deletedId,
-        parent {
-          annotations,
-          tags,
-        },
-      }
-    `;
+    var query = '';
+    switch (this.props.parent_type) {
+      case 'source':
+        query = Relay.QL`fragment on DestroyAnnotationPayload { deletedId, source { annotations, tags } }`;
+        break;
+      case 'media':
+        query = Relay.QL`fragment on DestroyAnnotationPayload { deletedId, media { annotations, tags } }`;
+        break;
+    }
+    return query;
   }
   
   getConfigs() {
     return [
       {
         type: 'NODE_DELETE',
-        parentName: 'parent',
+        parentName: this.props.parent_type,
         parentID: this.props.annotated.id,
         connectionName: 'tags',
         deletedIDFieldName: 'deletedId',
       },
       {
         type: 'NODE_DELETE',
-        parentName: 'parent',
+        parentName: this.props.parent_type,
         parentID: this.props.annotated.id,
         connectionName: 'annotations',
         deletedIDFieldName: 'deletedId',

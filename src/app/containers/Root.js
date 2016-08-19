@@ -6,7 +6,7 @@ import App from './App';
 import { IndexComponent, TermsOfService, NotFound, CreateAccount } from '../components';
 import { Sources, Source, User, Me } from '../components/source';
 import Team  from '../components/team/Team';
-import { CreateMedia } from '../components/media';
+import { CreateMedia, Media } from '../components/media';
 import CreateTeam from '../components/team/CreateTeam'
 import TeamMembers from '../components/team/TeamMembers.js';
 import JoinTeam from '../components/team/JoinTeam.js';
@@ -29,6 +29,7 @@ export default class Root extends Component {
             <Route path="sources/new" component={CreateAccount} />
             <Route path="source/:sourceId" component={Source} />
             <Route path="medias/new" component={CreateMedia} />
+            <Route path="media/:mediaId" component={Media} />
             <Route path="user/:userId" component={User} />
             <Route path="me" component={Me} />
             <Route path="team/:teamId" component={Team} />

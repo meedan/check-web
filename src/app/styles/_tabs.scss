@@ -1,0 +1,26 @@
+.tabs {
+  li {
+    display: inline;
+  }
+
+  a, a:visited {
+    display: inline-block;
+    width: 50%;
+    text-align: center;
+    cursor: pointer;
+    padding: 10px 0;
+    text-transform: uppercase;
+    background: $lightestgrey;
+    color: $lightergrey;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  li.is-active a {
+    background: $white;
+    color: $black;
+  }
+}
