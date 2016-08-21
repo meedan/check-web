@@ -7,7 +7,7 @@ class TeamMembershipRequests extends Component {
     const usersCount = this.props.team_users.length;
 
     if (!usersCount) {
-      return;
+      return (<div></div>);
     }
 
     return (
