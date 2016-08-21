@@ -1,8 +1,34 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay';
 import UpdateTeamUserMutation from '../../relay/UpdateTeamUserMutation';
+import DeleteTeamUserMutation from '../../relay/DeleteTeamUserMutation';
 
 class TeamMembershipRequestsCell extends Component {
+  handleDeleteRequest(e) {
+     e.preventDefault();
+     var that = this
+     console.log("on delete handle");
+
+
+     var onFailure = (transaction) => {
+       transaction.getError().json().then(function(json) {
+         console.log("on failure");
+       });
+
+       this.setState({isEditingNameAndDescription: false});
+    };
+    var onSuccess = (response) => {
+      console.log("on sucess");
+
+    };
+
+    Relay.Store.commitUpdate(
+      new DeleteTeamUserMutation({
+       id: this.props.team_user.node.id,
+     }),
+     { onSuccess, onFailure }
+   );
+  }
 
   handleApproveRequest(e) {
      e.preventDefault();
@@ -45,7 +71,7 @@ class TeamMembershipRequestsCell extends Component {
           <span className='team-membership-requests__user-username'>({team_user.node.user.name})</span>
         </div>
         <button onClick={this.handleApproveRequest.bind(this)} className='team-member-requests__user-button team-member-requests__user-button--approve '>Approve</button>
-        <button className='team-member-requests__user-button team-member-requests__user-button--deny'>Ignore</button>
+        <button onClick={this.handleDeleteRequest.bind(this)} className='team-member-requests__user-button team-member-requests__user-button--deny'>Ignore</button>
       </li>
     );
   }
