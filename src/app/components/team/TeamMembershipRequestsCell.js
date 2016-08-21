@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay';
-import CreateTeamUserMutation from '../../relay/CreateTeamUserMutation';
+import UpdateTeamUserMutation from '../../relay/UpdateTeamUserMutation';
 
 class TeamMembershipRequestsCell extends Component {
 
@@ -23,9 +23,10 @@ class TeamMembershipRequestsCell extends Component {
     };
 
     Relay.Store.commitUpdate(
-      new CreateTeamUserMutation({
+      new UpdateTeamUserMutation({
        team_id: this.props.team_user.node.team_id,
        user_id: this.props.team_user.node.user_id,
+       id: this.props.team_user.node.id,
        status: "member"
      }),
      { onSuccess, onFailure }
