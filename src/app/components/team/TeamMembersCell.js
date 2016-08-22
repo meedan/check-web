@@ -6,7 +6,7 @@ import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 
 class TeamMembersCell extends Component {
-  handleDeleteRequest(e) {
+  handleDeleteTeamUser(e) {
      e.preventDefault();
      var that = this
      console.log("on delete handle");
@@ -32,35 +32,6 @@ class TeamMembersCell extends Component {
    );
   }
 
-  handleApproveRequest(e) {
-     e.preventDefault();
-     var that = this
-     console.log("on approve handle");
-
-
-     var onFailure = (transaction) => {
-       transaction.getError().json().then(function(json) {
-         console.log("on failure");
-       });
-
-       this.setState({isEditingNameAndDescription: false});
-    };
-    var onSuccess = (response) => {
-      console.log("on sucess");
-
-    };
-
-    Relay.Store.commitUpdate(
-      new UpdateTeamUserMutation({
-       team_id: this.props.team_user.node.team_id,
-       user_id: this.props.team_user.node.user_id,
-       id: this.props.team_user.node.id,
-       status: "member"
-     }),
-     { onSuccess, onFailure }
-   );
- }
-
 
   render() {
     const team_user = this.props.team_user
@@ -79,7 +50,7 @@ class TeamMembersCell extends Component {
         </div>
 
         <Select className='team-members__member-role' autosize={true} searchable={false} backspaceRemoves={false} clearable={false} disabled={!isEditing} options={roles} value='contributor'/>
-        {isEditing ? (<button className='team-members__delete-member'><span className='team-members__delete-member-icon'>×</span></button>) : null }
+        {isEditing ? (<button onClick={this.handleDeleteTeamUser.bind(this)} className='team-members__delete-member'><span className='team-members__delete-member-icon'>×</span></button>) : null }
       </li>
     );
   }
