@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import Tabs from 'react-simpletabs';
 import { Annotations, SourceHeader, Tags } from './';
+import Medias from '../media/Medias';
 
 class SourceComponent extends Component {
   render() {
@@ -17,7 +18,7 @@ class SourceComponent extends Component {
             <Annotations annotations={source.annotations.edges} annotated={source} annotatedType="Source" />
           </Tabs.Panel>
           <Tabs.Panel title="Medias">
-            <div>WIP</div>
+            <Medias medias={source.medias.edges} />
           </Tabs.Panel>
         </Tabs>
       </div>

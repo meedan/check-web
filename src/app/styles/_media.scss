@@ -1,5 +1,4 @@
 .media {
-  
   .media-name {
     text-align: center;
   }
@@ -25,5 +24,16 @@
         text-decoration: none;
       }
     }
+  }
+}
+
+.media-card {
+  img {
+    width: auto !important;
+    height: auto !important;
+  }
+
+  a, a:visited {
+    color: $darkgrey;
   }
 }

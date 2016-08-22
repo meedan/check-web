@@ -69,7 +69,7 @@ module AppSpecHelpers
     wait = Selenium::WebDriver::Wait.new(timeout: 100)
     fill_field('#email', @config['facebook_user'])
     fill_field('#pass', @config['facebook_password'])
-    press_button('#u_0_m')
+    press_button('#u_0_l')
     sleep 3
   end
 

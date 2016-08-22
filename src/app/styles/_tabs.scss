@@ -3,7 +3,11 @@
     display: inline;
   }
 
-  a, a:visited {
+  li > div {
+    margin-bottom: 10px;
+  }
+
+  .tabs-menu-item > a, .tabs-menu-item a:visited {
     display: inline-block;
     width: 50%;
     text-align: center;

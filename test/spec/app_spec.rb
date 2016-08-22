@@ -102,7 +102,7 @@ describe 'app' do
       expect(title.text == 'Welcome to Checkdesk').to be(true)
     end
 
-    it "should register using e-mail" do
+    it "should register and login using e-mail" do
       @driver.navigate.to 'http://localhost:3333/'
       sleep 1
       @driver.find_element(:xpath, "//a[@id='login-email']").click
@@ -211,6 +211,7 @@ describe 'app' do
 
       # Reload the page and verify that tags are still there
       @driver.navigate.refresh
+      sleep 1
       tag = get_element('.ReactTags__tag span')
       expect(tag.text == 'selenium').to be(true)
       expect(@driver.page_source.include?('Tagged as "selenium"')).to be(true)
@@ -225,6 +226,7 @@ describe 'app' do
 
       # Reload the page and verify that tags are not there anymore
       @driver.navigate.refresh
+      sleep 1
       expect(@driver.find_elements(:css, '.ReactTags__tag').empty?).to be(true)
       expect(@driver.page_source.include?('Tagged as "selenium"')).to be(false)
     end
@@ -250,6 +252,7 @@ describe 'app' do
 
       # Reload the page and verify that tags are still there
       @driver.navigate.refresh
+      sleep 1
       tag = get_element('.ReactTags__tag span')
       expect(tag.text == 'command').to be(true)
       expect(@driver.page_source.include?('Tagged as "command"')).to be(true)
@@ -264,6 +267,7 @@ describe 'app' do
 
       # Reload the page and verify that tags are not there anymore
       @driver.navigate.refresh
+      sleep 1
       expect(@driver.find_elements(:css, '.ReactTags__tag').empty?).to be(true)
       expect(@driver.page_source.include?('Tagged as "command"')).to be(false)
     end
@@ -285,6 +289,8 @@ describe 'app' do
       expect(@driver.page_source.include?('This is my comment')).to be(true)
 
       # Reload the page and verify that comment is still there
+      @driver.navigate.refresh
+      sleep 1
       expect(@driver.page_source.include?('This is my comment')).to be(true)
 
       # Remove a comment from annotation list
@@ -296,6 +302,7 @@ describe 'app' do
 
       # Reload the page and verify that comment is not there anymore
       @driver.navigate.refresh
+      sleep 1
       expect(@driver.page_source.include?('This is my comment')).to be(false)
     end
 
@@ -432,7 +439,7 @@ describe 'app' do
       expect(@driver.find_elements(:xpath, "//*[contains(@id, 'pender-iframe')]").empty?).to be(false)
     end
 
-    it "should create media and redirect to newly created media if registered" do
+    it "should register and redirect to newly created media" do
       login_with_email
       @driver.navigate.to 'http://localhost:3333/medias/new'
       sleep 1
@@ -440,7 +447,8 @@ describe 'app' do
       sleep 1
       press_button('#create-media-submit')
       sleep 10
-      expect(@driver.current_url.to_s.match(/^http:\/\/localhost:3333\/media\/[0-9]+/).nil?).to be(false)
+      ID = @driver.current_url.to_s.match(/^http:\/\/localhost:3333\/media\/([0-9]+)/)[1]
+      expect(ID.nil?).to be(false)
     end
 
     it "should not create duplicated media if registered" do
@@ -465,6 +473,190 @@ describe 'app' do
       expect(@driver.current_url.to_s.match(/^http:\/\/localhost:3333\/media\/[0-9]+/).nil?).to be(true)
       message = get_element('.create-media .message').text
       expect(message == 'Validation failed: Sorry, this is not a valid media item').to be(true)
+    end
+
+    it "should tag media from tags list" do
+      login_with_email
+      @driver.navigate.to 'http://localhost:3333/media/' + ID
+      sleep 1
+
+      # First, verify that there isn't any tag
+      expect(@driver.find_elements(:css, '.ReactTags__tag').empty?).to be(true)
+      expect(@driver.page_source.include?('Tagged as "selenium"')).to be(false)
+
+      # Add a tag from tags list
+      fill_field('.ReactTags__tagInput input', 'selenium')
+      @driver.action.send_keys(:enter).perform
+      sleep 5
+
+      # Verify that tag was added to tags list and annotations list
+      tag = get_element('.ReactTags__tag span')
+      expect(tag.text == 'selenium').to be(true)
+      expect(@driver.page_source.include?('Tagged as "selenium"')).to be(true)
+
+      # Reload the page and verify that tags are still there
+      @driver.navigate.refresh
+      sleep 1
+      tag = get_element('.ReactTags__tag span')
+      expect(tag.text == 'selenium').to be(true)
+      expect(@driver.page_source.include?('Tagged as "selenium"')).to be(true)
+
+      # Remove a tag from tags list
+      @driver.find_element(:css, '.ReactTags__remove').click
+      sleep 3
+
+      # Verify that tag was removed from tags list and annotations list
+      expect(@driver.find_elements(:css, '.ReactTags__tag').empty?).to be(true)
+      expect(@driver.page_source.include?('Tagged as "selenium"')).to be(false)
+
+      # Reload the page and verify that tags are not there anymore
+      @driver.navigate.refresh
+      sleep 1
+      expect(@driver.find_elements(:css, '.ReactTags__tag').empty?).to be(true)
+      expect(@driver.page_source.include?('Tagged as "selenium"')).to be(false)
+    end
+
+    it "should tag media as a command" do
+      login_with_email
+      @driver.navigate.to 'http://localhost:3333/media/' + ID
+      sleep 1
+
+      # First, verify that there isn't any tag
+      expect(@driver.find_elements(:css, '.ReactTags__tag').empty?).to be(true)
+      expect(@driver.page_source.include?('Tagged as "command"')).to be(false)
+
+      # Add a tag as a command
+      fill_field('.cmd-input input', '/tag command')
+      @driver.action.send_keys(:enter).perform
+      sleep 5
+
+      # Verify that tag was added to tags list and annotations list
+      tag = get_element('.ReactTags__tag span')
+      expect(tag.text == 'command').to be(true)
+      expect(@driver.page_source.include?('Tagged as "command"')).to be(true)
+
+      # Reload the page and verify that tags are still there
+      @driver.navigate.refresh
+      sleep 1
+      tag = get_element('.ReactTags__tag span')
+      expect(tag.text == 'command').to be(true)
+      expect(@driver.page_source.include?('Tagged as "command"')).to be(true)
+
+      # Remove a tag from annotation list
+      @driver.find_element(:css, '.delete-annotation').click
+      sleep 3
+
+      # Verify that tag was removed from tags list and annotations list
+      expect(@driver.find_elements(:css, '.ReactTags__tag').empty?).to be(true)
+      expect(@driver.page_source.include?('Tagged as "command"')).to be(false)
+
+      # Reload the page and verify that tags are not there anymore
+      @driver.navigate.refresh
+      sleep 1
+      expect(@driver.find_elements(:css, '.ReactTags__tag').empty?).to be(true)
+      expect(@driver.page_source.include?('Tagged as "command"')).to be(false)
+    end
+
+    it "should comment media as a command" do
+      login_with_email
+      @driver.navigate.to 'http://localhost:3333/media/' + ID
+      sleep 1
+
+      # First, verify that there isn't any comment
+      expect(@driver.page_source.include?('This is my comment')).to be(false)
+
+      # Add a comment as a command
+      fill_field('.cmd-input input', '/comment This is my comment')
+      @driver.action.send_keys(:enter).perform
+      sleep 5
+
+      # Verify that comment was added to annotations list
+      expect(@driver.page_source.include?('This is my comment')).to be(true)
+
+      # Reload the page and verify that comment is still there
+      @driver.navigate.refresh
+      sleep 1
+      expect(@driver.page_source.include?('This is my comment')).to be(true)
+
+      # Remove a comment from annotation list
+      @driver.find_element(:css, '.delete-annotation').click
+      sleep 3
+
+      # Verify that comment was removed from annotations list
+      expect(@driver.page_source.include?('This is my comment')).to be(false)
+
+      # Reload the page and verify that comment is not there anymore
+      @driver.navigate.refresh
+      sleep 1
+      expect(@driver.page_source.include?('This is my comment')).to be(false)
+    end
+
+    it "should set status to media as a command" do
+      login_with_email
+      @driver.navigate.to 'http://localhost:3333/media/' + ID
+      sleep 1
+
+      # First, verify that there isn't any status
+      expect(@driver.page_source.include?('Status')).to be(false)
+
+      # Add a status as a command
+      fill_field('.cmd-input input', '/status In Progress')
+      @driver.action.send_keys(:enter).perform
+      sleep 5
+
+      # Verify that status was added to annotations list
+      expect(@driver.page_source.include?('Status')).to be(true)
+
+      # Reload the page and verify that status is still there
+      @driver.navigate.refresh
+      sleep 1
+      expect(@driver.page_source.include?('Status')).to be(true)
+
+      # Remove a status from annotation list
+      @driver.find_element(:css, '.delete-annotation').click
+      sleep 3
+
+      # Verify that status was removed from annotations list
+      expect(@driver.page_source.include?('Status')).to be(false)
+
+      # Reload the page and verify that status is not there anymore
+      @driver.navigate.refresh
+      sleep 1
+      expect(@driver.page_source.include?('Status')).to be(false)
+    end
+
+    it "should flag media as a command" do
+      login_with_email
+      @driver.navigate.to 'http://localhost:3333/media/' + ID
+      sleep 1
+
+      # First, verify that there isn't any flag
+      expect(@driver.page_source.include?('Flag')).to be(false)
+
+      # Add a flag as a command
+      fill_field('.cmd-input input', '/flag Spam')
+      @driver.action.send_keys(:enter).perform
+      sleep 5
+
+      # Verify that flag was added to annotations list
+      expect(@driver.page_source.include?('Flag')).to be(true)
+
+      # Reload the page and verify that flag is still there
+      @driver.navigate.refresh
+      sleep 1
+      expect(@driver.page_source.include?('Flag')).to be(true)
+
+      # Remove a flag from annotation list
+      @driver.find_element(:css, '.delete-annotation').click
+      sleep 3
+
+      # Verify that flag was removed from annotations list
+      expect(@driver.page_source.include?('Flag')).to be(false)
+
+      # Reload the page and verify that flag is not there anymore
+      @driver.navigate.refresh
+      sleep 1
+      expect(@driver.page_source.include?('Flag')).to be(false)
     end
   end
 end
