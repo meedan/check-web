@@ -4,6 +4,7 @@ import FontAwesome from 'react-fontawesome';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import TeamMembershipRequests from './TeamMembershipRequests';
+import TeamMembersCell from './TeamMembersCell';
 
 class TeamMembersComponent extends Component {
   constructor(props) {
@@ -37,11 +38,6 @@ class TeamMembersComponent extends Component {
     var people = [{name:'Karim Ratib',username:'kratib',avatarUrl:'https://pbs.twimg.com/profile_images/434022381770657792/RYsiZ7vR.jpeg'},{name:'An Xioa Mina',username:'axm',avatarUrl:'https://pbs.twimg.com/profile_images/543432219109244928/nuFAV2Ey.jpeg'},{name:'Chris Blow',username:'chris',avatarUrl:'https://pbs.twimg.com/profile_images/750129043429662720/36UDFbwz.jpg'},{name:'Ed Bice',username:'ed',avatarUrl:'https://pbs.twimg.com/profile_images/743824003844837377/oTeU_xyb.jpg'},{name:'Caio Almeida',username:'caiosba',avatarUrl:'https://pbs.twimg.com/profile_images/761634523809472512/9ln-qDZ6.jpg'},{name:'Ahmed Nasser',username:'ahmed',avatarUrl:'https://pbs.twimg.com/profile_images/610557679249981440/2ARl7GLu.png'},{name:'Tom Trewinnard',username:'tom',avatarUrl:'https://pbs.twimg.com/profile_images/752187533153357824/6CZ5qxF3.jpg'}];
     const membershipRequests = people.slice(0, 2);
     const members = people.slice(2);
-    const roles = [
-      {value: 'contributor', label: 'Contributor'},
-      {value: 'journalist', label: 'Journalist'},
-      {value: 'editor', label: 'Editor'}
-    ];
     const joinUrl = 'https://' + team.subdomain + '.checkdesk.org/join';
 
     return (
@@ -60,16 +56,7 @@ class TeamMembersComponent extends Component {
           {(() => {
             return team_users_members.map((team_user) => {
               return (
-                <li className='team-members__member'>
-                  <img src={team_user.node.user.profile_image} className='team-members__member-avatar' />
-                  <div className='team-members__member-details'>
-                    <h3 className='team-members__member-name'>{team_user.node.user.name}</h3>
-                    <span className='team-members__member-username'>({team_user.node.user.name})</span>
-                  </div>
-
-                  <Select className='team-members__member-role' autosize={true} searchable={false} backspaceRemoves={false} clearable={false} disabled={!isEditing} options={roles} value='contributor'/>
-                  {isEditing ? (<button className='team-members__delete-member'><span className='team-members__delete-member-icon'>×</span></button>) : null }
-                </li>
+                <TeamMembersCell team_user={team_user} isEditing={isEditing}/>
               );
             })
           })()}
