@@ -658,5 +658,26 @@ describe 'app' do
       sleep 1
       expect(@driver.page_source.include?('Flag')).to be(false)
     end
+
+    it "should upload image when registering" do
+      @driver.navigate.to 'http://localhost:3333/'
+      sleep 1
+      @driver.find_element(:xpath, "//a[@id='login-email']").click
+      sleep 1
+      @driver.find_element(:xpath, "//button[@id='register-or-login']").click
+      sleep 1
+      fill_field('.login-name input', 'User With Email')
+      fill_field('.login-email input', @email)
+      fill_field('.login-password input', '12345678')
+      fill_field('.login-password-confirmation input', '12345678')
+      file = File.join(File.dirname(__FILE__), 'test.png')
+      fill_field('input[type=file]', file, :css, false)
+      press_button('#submit-register-or-login')
+      sleep 5
+      @driver.navigate.to 'http://localhost:3333/me'
+      sleep 10
+      image_path = @driver.find_element(:css, '.source-avatar').attribute('src')
+      expect(image_path.match(/test\.png$/).nil?).to be(false)
+    end
   end
 end
