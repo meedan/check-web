@@ -32,10 +32,10 @@ export default class Root extends Component {
             <Route path="media/:mediaId" component={Media} />
             <Route path="user/:userId" component={User} />
             <Route path="me" component={Me} />
+            <Route path="team/:teamId/join" component={JoinTeam} />
             <Route path="team/:teamId/members" component={TeamMembers} />
             <Route path="team/:teamId" component={Team} />
             <Route path="teams/new" component={CreateTeam} fullscreen={true} />
-            <Route path="join" component={JoinTeam} />
             <Route path="*" component={NotFound} public={true} />
           </Route>
         </Router>
