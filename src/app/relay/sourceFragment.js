@@ -37,6 +37,17 @@ var sourceFragment = Relay.QL`
           }
         }
       }
+    },
+    medias(first: 20) {
+      edges {
+        node {
+          id,
+          dbid,
+          url,
+          published,
+          jsondata
+        }
+      }
     }
   }
 `;

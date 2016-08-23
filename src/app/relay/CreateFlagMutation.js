@@ -1,10 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 
-class CreateCommentMutation extends Relay.Mutation {
+class CreateFlagMutation extends Relay.Mutation {
   getMutation() {
-    return Relay.QL`mutation createComment {
-      createComment
+    return Relay.QL`mutation createFlag {
+      createFlag
     }`;
   }
 
@@ -12,18 +12,18 @@ class CreateCommentMutation extends Relay.Mutation {
     var query = '';
     switch (this.props.parent_type) {
       case 'source':
-        query = Relay.QL`fragment on CreateCommentPayload { commentEdge, source { annotations } }`;
+        query = Relay.QL`fragment on CreateFlagPayload { flagEdge, source { annotations } }`;
         break;
       case 'media':
-        query = Relay.QL`fragment on CreateCommentPayload { commentEdge, media { annotations } }`;
+        query = Relay.QL`fragment on CreateFlagPayload { flagEdge, media { annotations } }`;
         break;
     }
     return query;
   }
 
   getVariables() {
-    var comment = this.props.annotation;
-    return { text: comment.text, annotated_id: comment.annotated_id + '', annotated_type: comment.annotated_type };
+    var flag = this.props.annotation;
+    return { flag: flag.flag, annotated_id: flag.annotated_id + '', annotated_type: flag.annotated_type };
   }
 
   getConfigs() {
@@ -32,7 +32,7 @@ class CreateCommentMutation extends Relay.Mutation {
       parentName: this.props.parent_type,
       parentID: this.props.annotated.id,
       connectionName: 'annotations',
-      edgeName: 'commentEdge',
+      edgeName: 'flagEdge',
       rangeBehaviors: {
         '': 'prepend'
       }
@@ -40,4 +40,4 @@ class CreateCommentMutation extends Relay.Mutation {
   }
 }
 
-export default CreateCommentMutation;
+export default CreateFlagMutation;

@@ -9,15 +9,16 @@ class CreateTagMutation extends Relay.Mutation {
   }
 
   getFatQuery() {
-    return Relay.QL`
-      fragment on CreateTagPayload {
-        tagEdge,
-        parent {
-          annotations,
-          tags,
-        },
-      }
-    `;
+    var query = '';
+    switch (this.props.parent_type) {
+      case 'source':
+        query = Relay.QL`fragment on CreateTagPayload { tagEdge, source { annotations, tags } }`;
+        break;
+      case 'media':
+        query = Relay.QL`fragment on CreateTagPayload { tagEdge, media { annotations, tags } }`;
+        break;
+    }
+    return query;
   }
 
   getVariables() {
@@ -25,15 +26,11 @@ class CreateTagMutation extends Relay.Mutation {
     return { tag: tag.tag, annotated_id: tag.annotated_id + '', annotated_type: tag.annotated_type };
   }
 
-  static fragments = {
-    parent: () => Relay.QL`fragment on Source { id }`, // FIXME: "Source" here should be polymorphic
-  };
-
   getConfigs() {
     return [
       {
         type: 'RANGE_ADD',
-        parentName: 'parent',
+        parentName: this.props.parent_type,
         parentID: this.props.annotated.id,
         connectionName: 'tags',
         edgeName: 'tagEdge',
@@ -43,7 +40,7 @@ class CreateTagMutation extends Relay.Mutation {
       },
       {
         type: 'RANGE_ADD',
-        parentName: 'parent',
+        parentName: this.props.parent_type,
         parentID: this.props.annotated.id,
         connectionName: 'annotations',
         edgeName: 'tagEdge',

@@ -11,7 +11,7 @@ class Annotations extends Component {
         <ul className="annotations-list">
         {props.annotations.map(function(annotation) {
           return (
-            <li><Annotation annotation={annotation.node} annotated={props.annotated} /></li>
+            <li><Annotation annotation={annotation.node} annotated={props.annotated} annotatedType={props.annotatedType} /></li>
           );
         })}
         </ul>

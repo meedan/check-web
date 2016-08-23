@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
-import Tabs from 'material-ui/lib/tabs/tabs';
-import Tab from 'material-ui/lib/tabs/tab';
+import Tabs from 'react-simpletabs';
 import { Annotations, SourceHeader, Tags } from './';
+import Medias from '../media/Medias';
 
 class SourceComponent extends Component {
   render() {
@@ -13,14 +13,14 @@ class SourceComponent extends Component {
 
         <Tags tags={source.tags.edges} annotated={source} annotatedType="Source" />
 
-        <Tabs className="tabs" initialSelectedIndex="1">
-          <Tab label="All Activity"></Tab>
-          <Tab label="Annotations"></Tab>
-          <Tab label="Reports"></Tab>
-          <Tab label="Credibility Reviews"></Tab>
+        <Tabs className="tabs">
+          <Tabs.Panel title="Annotations">
+            <Annotations annotations={source.annotations.edges} annotated={source} annotatedType="Source" />
+          </Tabs.Panel>
+          <Tabs.Panel title="Medias">
+            <Medias medias={source.medias.edges} />
+          </Tabs.Panel>
         </Tabs>
-            
-        <Annotations annotations={source.annotations.edges} annotated={source} annotatedType="Source" />
       </div>
     );
   }

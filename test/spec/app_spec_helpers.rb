@@ -56,7 +56,7 @@ module AppSpecHelpers
 
   def login_with_email
     @driver.navigate.to 'http://localhost:3333/'
-    sleep 1
+    sleep 2
     @driver.find_element(:xpath, "//a[@id='login-email']").click
     fill_field('.login-email input', @email)
     fill_field('.login-password input', '12345678')
@@ -69,7 +69,7 @@ module AppSpecHelpers
     wait = Selenium::WebDriver::Wait.new(timeout: 100)
     fill_field('#email', @config['facebook_user'])
     fill_field('#pass', @config['facebook_password'])
-    press_button('#u_0_m')
+    press_button('#u_0_l')
     sleep 3
   end
 

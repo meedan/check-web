@@ -26,6 +26,12 @@ class CreateMedia extends Component {
         var message = 'Sorry, could not create the media';
         if (json.error) {
           message = json.error;
+          var matches = message.match(/^Validation failed: Media with this URL exists and has id ([0-9]+)$/);
+          if (matches) {
+            var sid = matches[1];
+            message = null;
+            that.props.history.push('/media/' + sid);
+          }
         }
         that.setState({ message: message });
       });
