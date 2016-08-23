@@ -48,8 +48,6 @@ describe 'app' do
   # Start Google Chrome before each test
 
   before :each do
-    Selenium::WebDriver::Chrome.driver_path = './chromedriver'
-
     if port_open?(9515)
       @driver = Selenium::WebDriver.for :chrome
     else
@@ -132,7 +130,7 @@ describe 'app' do
       @driver.find_element(:xpath, "//a[@id='link-home']").click
       expect(@driver.current_url.to_s == 'http://localhost:3333/').to be(true)
     end
- 
+
     it "should have footer" do
       login_with_email
       @driver.navigate.to 'http://localhost:3333/tos'

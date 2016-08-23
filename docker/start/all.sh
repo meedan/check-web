@@ -1,6 +1,6 @@
 #!/bin/bash
 sleep 5
 echo 'Starting...'
-supervisord -c /etc/supervisord.conf
+supervisord -c /app/docker/supervisord.conf
 sleep 30
 tail -f /dev/null

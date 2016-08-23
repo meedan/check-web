@@ -8,8 +8,8 @@
     "build": "rm -rf build/web && npm run logo && npm run style && npm run build:gulp",
     "build:gulp": "BABEL_ENV=production gulp build:web",
     "watch:styles": "watch 'npm run style' ./src/app/styles",
-    "publish": "./scripts/publish-web",
-    "test": "cd test && bundle install && rspec && cd .."
+    "publish": "static -a 0.0.0.0 -p 3333 build/web",
+    "test": "cd test && rspec && cd .."
   },
   "keywords": [
     "react",
