@@ -1,68 +1,123 @@
 .team-sidebar {
-  width: 200px;
-  border-right: 1px solid hsl(204, 15%, 90%); // TODO: organize grays
+  width: 100%;
+  height: 100%;
   padding-top: 14px;
-  color: $light-gray-text;
+  padding-left: 30px;
+
+  background-color: hsl(204, 15%, 55%);
+  color: darken(#fff, 0%);
+}
+
+// team
+
+.team-sidebar__team {
+  display: flex;
+  margin-bottom: 30px;
 }
 
 .team-sidebar__team-avatar {
-  margin: 0 auto;
+  margin: 0 10px 0 0;
   width: 50px;
   height: 50px;
   border-radius: 2px;
   background-color: $light-gray-bg;
+  overflow: hidden;
+
+  & img { height: 100%; width: 100%; }
 }
 
 .team-sidebar__team-name {
+  // opacity: 0.38;
   text-align: center;
   font-size: 16px;
-  margin: 7px 0 32px 0;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  margin: 7px 0;
 }
 
 .team-sidebar__team-link {
-  &, &:visited { color: hsl(204, 15%, 29%); }
+  &, &:visited {
+    color: darken(#fff, 0%);
+  }
+}
+
+// projects & sources
+
+.team-sidebar__project,
+.team-sidebar__new-project,
+.team-sidebar__source,
+.team-sidebar__new-source, {
+  margin-bottom: 10px;
+}
+
+.team-sidebar__project {}
+
+.team-sidebar__project-icon,
+.team-sidebar__new-source-icon {
+  opacity: 0.4;
+  width: 17px;
+  margin-right: 9px;
+}
+
+.team-sidebar__project-link {
+  &, &:visited { color: inherit; }
+}
+
+.team-sidebar__new-project {
+  transition: opacity 100ms ease;
+}
+
+.team-sidebar__new-project-input {
+  width: 145px;
+  border: none;
+  padding: 0;
+  background: transparent;
+  color: #fff;
+  &:focus { outline: none; }
+  @include input-placeholder { color: transparentize(#fff, 0.6); }
 }
 
 .team-sidebar__projects,
-.team-sidebar__medias,
 .team-sidebar__sources {
   margin-bottom: 40px;
 }
 
 .team-sidebar__projects-heading,
-.team-sidebar__medias-heading,
 .team-sidebar__sources-heading {
   @include app-kicker;
-  padding: 0 14px;
 }
 
 .team-sidebar__projects-link,
-.team-sidebar__medias-link,
 .team-sidebar__sources-link,
 .team-sidebar__new-media-link,
 .team-sidebar__new-source-link {
   &, &:visited {
     color: $light-gray-text;
   }
+  &:hover {
+    color: #fff;
+  }
 }
 
-.team-sidebar__projects-link:hover,
-.team-sidebar__projects-link--active,
-.team-sidebar__medias-link:hover,
-.team-sidebar__medias-link--active,
-.team-sidebar__sources-link:hover,
-.team-sidebar__sources-link--active,
-.team-sidebar__new-source-link:hover,
-.team-sidebar__new-source-link--active,
-.team-sidebar__new-media-link:hover,
-.team-sidebar__new-media-link--active {
-  color: hsl(204, 15%, 29%);
-}
+// .team-sidebar__projects-link:hover,
+// .team-sidebar__projects-link--active,
+// .team-sidebar__sources-link:hover,
+// .team-sidebar__sources-link--active,
+// .team-sidebar__new-source-link:hover,
+// .team-sidebar__new-source-link--active {
+//   color: hsl(204, 15%, 29%);
+// }
+
+.team-sidebar__new-source-link,
+team-sidebar__sources-link
 
 .team-sidebar__projects-list,
-.team-sidebar__medias-list,
 .team-sidebar__sources-list {
-  font-size: 14px;
-  list-style-type: none;
-  padding: 0 14px;
+  // font-size: 14px;
+}
+
+// sources
+
+.team-sidebar__source-icon {
+  $size: 20px; height: $size; width: $size;
 }

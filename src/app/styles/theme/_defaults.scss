@@ -29,6 +29,10 @@ button {
   @include button-defaults;
 }
 
+input {
+  font-size: inherit;
+}
+
 p {
   color: $dark-gray-text;
 }
@@ -36,4 +40,5 @@ p {
 ul {
   list-style-type: none;
   padding-left: 0;
+  margin: 0;
 }
