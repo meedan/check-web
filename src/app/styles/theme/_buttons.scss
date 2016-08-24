@@ -3,6 +3,7 @@
   border: none;
   font-family: $font-stack-sans;
   background-color: $gray-350;
+  font-size: inherit;
 }
 
 @mixin unbutton { // elements that should semantically be <button> but not look like buttons
@@ -58,4 +59,11 @@
 
 @mixin button-green {
   background-color: rgb(71, 207, 152);
+}
+
+@mixin close-button {
+  @include unbutton;
+  color: $light-gray-text;
+  font-weight: 200;
+  font-size: 30px;
 }
