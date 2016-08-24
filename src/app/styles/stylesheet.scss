@@ -11,10 +11,15 @@
 @import 'theme/forms';
 
 @import 'components/home';
+@import 'components/layout/header';
+@import 'components/layout/footer';
 @import 'components/login-menu';
 @import 'components/login-email';
+@import 'components/project/project';
+@import 'components/project/project-header';
 @import 'components/team/create-team';
 @import 'components/team/join-team';
+@import 'components/team/switch-teams';
 @import 'components/team/team-members';
 @import 'components/team/team-sidebar';
 @import 'components/sources';
@@ -22,7 +27,6 @@
 @import 'source';
 @import 'tags';
 @import 'annotations';
-@import 'sidebar';
 @import 'create-account';
 @import 'create-media';
 @import 'pender';
@@ -42,10 +46,6 @@ body {
   background: $white !important;
   box-shadow: none !important;
   border-bottom: 1px solid hsl(204, 15%, 90%);
-}
-
-header {
-  margin-top: 6px;
 }
 
 .current-user {

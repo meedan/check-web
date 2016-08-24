@@ -5,3 +5,50 @@
   padding: 9px;
   color: $light-gray-text;
 }
+
+.upload-file > div {
+  width: 100% !important;
+  height: auto !important;
+  padding: 25px 2px !important;
+  border: 1px dashed #ccc !important;
+  color: #ccc !important;
+  text-align: center;
+  float: right;
+
+  &.with-file {
+    width: 80% !important;
+  }
+}
+
+.upload-file {
+  width: 100%;
+  margin-top: 10px;
+
+  br {
+    clear: both;
+  }
+}
+
+.preview {
+  position: relative;
+  display: inline-block;
+  float: left;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 71px;
+  padding: 0;
+  margin: 0;
+  border: 1px solid #ccc;
+  width: 19%;
+  margin-right: 1%;
+
+  .remove-image {
+    position: absolute;
+    top: -2px;
+    right: 1px;
+    z-index: 1;
+    color: #ccc;
+    cursor: pointer;
+  }
+}

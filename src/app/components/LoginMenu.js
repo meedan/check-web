@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import FontAwesome from 'react-fontawesome';
 import { Link } from 'react-router';
 import LoginEmail from './LoginEmail';
 import Message from './Message';
