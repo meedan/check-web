@@ -74,6 +74,10 @@ class Home extends Component {
     }
   }
 
+  toggleSidebar() {
+    this.setState({isSidebarActive: !this.state.isSidebarActive});
+  }
+
   sidebarActiveClass(baseClass) {
     return this.state.isSidebarActive ? [baseClass, baseClass + '--sidebar-active'].join(' ') : baseClass;
   }
@@ -113,9 +117,9 @@ class Home extends Component {
           <TeamSidebar team={team} />
         </div>
         <main className={this.sidebarActiveClass('home__content')}>
-          <div className={this.sidebarActiveClass('home__content-overlay')}></div>
+          <div className={this.sidebarActiveClass('home__content-overlay')} onClick={this.toggleSidebar.bind(this)}></div>
 
-          <Header {...this.props} team={team} />
+          <Header {...this.props} team={team} toggleSidebar={this.toggleSidebar.bind(this)} />
           <div className="global-message"><Message message={state.app.message} /></div>
           <div className='home__content-children'>{this.props.children}</div>
 
