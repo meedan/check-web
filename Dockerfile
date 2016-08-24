@@ -43,3 +43,5 @@ EXPOSE 9515
 EXPOSE 4040
 # VNC
 EXPOSE 5999
+
+CMD ["/start/all.sh"]
