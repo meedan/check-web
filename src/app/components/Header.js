@@ -4,6 +4,11 @@ import FlatButton from 'material-ui/lib/flat-button';
 import ProjectHeader from './project/ProjectHeader';
 
 class Header extends Component {
+
+  handleSidebarToggle() {
+    this.props.toggleSidebar();
+  }
+
   render() {
     const { state, logout } = this.props;
 
@@ -13,7 +18,7 @@ class Header extends Component {
 
     return (
       <header className='header'>
-        <div className='header__sidebar-toggle'>
+        <div className='header__sidebar-toggle' onClick={this.handleSidebarToggle.bind(this)}>
           <img className='header__sidebar-toggle-button' src={this.props.team.avatar} />
         </div>
         <div>

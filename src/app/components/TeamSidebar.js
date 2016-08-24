@@ -4,6 +4,22 @@ import FontAwesome from 'react-fontawesome';
 import CreateProject from './project/CreateProject';
 
 class TeamSidebar extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isSwitchTeamsActive: false
+    };
+  }
+
+  handleSwitchTeams() {
+    this.setState({isSwitchTeamsActive: true});
+  }
+
+  handleSwitchTeamsClose() {
+    this.setState({isSwitchTeamsActive: false});
+  }
+
   render() {
     var currentTeam = this.props.team;
 
@@ -19,7 +35,7 @@ class TeamSidebar extends Component {
         </section>
 
         <section className='team-sidebar__projects'>
-          {/* <h2 className='team-sidebar__projects-heading'>Projects</h2> */}
+          <h2 className='team-sidebar__projects-heading'>Verification Projects</h2>
           <ul className='team-sidebar__projects-list'>
             {currentTeam.projects.map(function(p) {
               return (
@@ -57,6 +73,19 @@ class TeamSidebar extends Component {
             </li>
           </ul>
         </section>
+
+        <footer className='team-sidebar__footer'>
+          <button onClick={this.handleSwitchTeams.bind(this)} className='team-sidebar__switch-teams'>
+            <FontAwesome className='team-sidebar__switch-teams-icon' name='random' />
+            <span>Switch Teams</span>
+          </button>
+
+          <section className={'switch-teams' + (this.state.isSwitchTeamsActive ? ' switch-teams--active' : '')} onClick={this.handleSwitchTeamsClose.bind(this)}>
+            <div className='switch-teams__modal'>
+              <button className='switch-teams__close' onClick={this.handleSwitchTeamsClose.bind(this)}>×</button>
+            </div>
+          </section>
+        </footer>
       </nav>
     );
   }
