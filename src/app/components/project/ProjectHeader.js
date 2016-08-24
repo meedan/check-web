@@ -14,11 +14,7 @@ class ProjectHeader extends Component {
   }
 
   render() {
-    // dummy data
-    var project = {
-      name: 'Project 1'
-    }
-    this.props.project = project;
+    const project = this.props.project;
 
     return (
       <div className='project-header'>{/* might will decompose to ProjectHeader.js component later */}
@@ -31,7 +27,7 @@ class ProjectHeader extends Component {
                   <form className='project-header__project-form'>
                     <div className={this.bemClass('project-header__project-form-overlay', this.state.isEditing, '--is-editing')}></div>
                     <h2 className='project-header__project-name'>
-                      <input className='project-header__project-name-input' name='name' type='text' value={project.name} placeholder='New project...' />
+                      <input className='project-header__project-name-input' name='name' type='text' value={project.title} placeholder='New project...' />
                     </h2>
                     <span className='project-header__project-description'>
                       <input
@@ -50,7 +46,7 @@ class ProjectHeader extends Component {
               } else {
                 return (
                   <div className={this.bemClass('project-header__project-copy2', this.state.isEditing, '--is-editing')}>
-                    <h2 className='project-header__project-name'>{project.name}</h2>
+                    <h2 className='project-header__project-name'>{project.title}</h2>
                     <span className='project-header__project-description'>{project.description}</span>
                   </div>
                 );

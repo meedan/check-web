@@ -1,14 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import FontAwesome from 'react-fontawesome';
+import CreateProject from './project/CreateProject';
 
 class TeamSidebar extends Component {
   render() {
     var currentTeam = this.props.team;
-    var sources = [
-      {name: 'Source 1', icon: 'https://pbs.twimg.com/profile_images/579014890788024320/Gr0R3XJy.jpeg'},
-      {name: 'Source 2', icon: 'https://pbs.twimg.com/profile_images/1980294624/DJT_Headshot_V2.jpg'}
-    ]
 
     return (
       <nav className='team-sidebar'>
@@ -34,7 +31,7 @@ class TeamSidebar extends Component {
             })}
             <li className='team-sidebar__new-project'>
               <FontAwesome className='team-sidebar__project-icon' name='folder' />
-              <input className='team-sidebar__new-project-input' placeholder='New project...' />
+              <CreateProject className='team-sidebar__new-project-input' history={this.props.history} />
             </li>
           </ul>
         </section>

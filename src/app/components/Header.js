@@ -11,26 +11,15 @@ class Header extends Component {
       return null;
     }
 
-    var headerContents;
-    var isProject = true; // not sure best way to tell if on project route
-
-    if (isProject) {
-      headerContents = <ProjectHeader {...this.props} />;
-    } else {
-      headerContents = (
-        <div>
-          <UserMenuRelay {...this.props} />
-          <FlatButton label="Logout" onClick={logout} />
-        </div>
-      );
-    }
-
     return (
       <header className='header'>
         <div className='header__sidebar-toggle'>
           <img className='header__sidebar-toggle-button' src={this.props.team.avatar} />
         </div>
-        {headerContents}
+        <div>
+          <UserMenuRelay {...this.props} />
+          <FlatButton label="Logout" onClick={logout} />
+        </div>
       </header>
     );
   }

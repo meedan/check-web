@@ -110,7 +110,7 @@ class Home extends Component {
     return (
       <div className='home'>
         <div className={this.sidebarActiveClass('home__sidebar')}>
-          <TeamSidebar team={team} />
+          <TeamSidebar team={team} history={this.props.history} />
         </div>
         <main className={this.sidebarActiveClass('home__content')}>
           <div className={this.sidebarActiveClass('home__content-overlay')}></div>
