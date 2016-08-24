@@ -10,6 +10,7 @@ import { Link } from 'react-router';
 import FontAwesome from 'react-fontawesome';
 import UpdateTeamMutation from '../../relay/UpdateTeamMutation';
 import Message from '../Message';
+import TeamContact from './TeamContact'
 
 
 class TeamComponent extends Component {
@@ -76,6 +77,7 @@ class TeamComponent extends Component {
     return (
       <div className='team'>
         <Message message={this.state.message} />
+        <TeamContact teamId= {this.props.team.id}/>
         <section className='team__profile'>
 
           {(() => {
