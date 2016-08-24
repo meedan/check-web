@@ -49,13 +49,13 @@ module AppSpecHelpers
 
   def login_with_twitter
     twitter_login
-    @driver.navigate.to 'http://localhost:3333/'
+    @driver.navigate.to @config['self_url'] + '/'
     sleep 1
     twitter_auth
   end
 
   def login_with_email
-    @driver.navigate.to 'http://localhost:3333/'
+    @driver.navigate.to @config['self_url'] + '/'
     sleep 2
     @driver.find_element(:xpath, "//a[@id='login-email']").click
     fill_field('.login-email input', @email)
@@ -83,7 +83,7 @@ module AppSpecHelpers
 
   def login_with_facebook
     facebook_login
-    @driver.navigate.to 'http://localhost:3333/'
+    @driver.navigate.to @config['self_url'] + '/'
     sleep 1
     facebook_auth
   end

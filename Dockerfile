@@ -13,7 +13,6 @@ RUN gpg --keyserver ha.pool.sks-keyservers.net --recv-keys 6380DC428747F6C393FEA
   && chmod +x /usr/local/bin/tini
 
 # install our app
-RUN npm install -g node-static
 ADD package.json /app/package.json
 RUN cd /app && npm install
 ADD test/Gemfile test/Gemfile.lock /app/test/
@@ -25,4 +24,4 @@ RUN npm run build
 # startup
 EXPOSE 3333
 ENTRYPOINT ["tini", "--"]
-CMD ["static", "-a", "0.0.0.0", "-p", "3333", "build/web"]
+CMD ["npm", "run", "publish"]

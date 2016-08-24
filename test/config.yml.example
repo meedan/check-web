@@ -4,5 +4,6 @@ twitter_name:
 facebook_user:
 facebook_password:
 facebook_name:
-chromedriver_url: 
+chromedriver_url: http://localhost:9515
+self_url: http://localhost:3333
 config_file_path: # Path to a different config.js to be used... if not set, the one on the root will be used

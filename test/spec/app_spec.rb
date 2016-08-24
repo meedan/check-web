@@ -24,7 +24,7 @@ describe 'app' do
   # Start a webserver for the web app before the tests
 
   before :all do
-    @web = Thread.new { Web.run! } if port_open?(3333)
+    #@web = Thread.new { Web.run! } if port_open?(3333)
     @email = 'sysops+' + Time.now.to_i.to_s + '@meedan.com'
     @source_url = 'https://www.facebook.com/ironmaiden/?fref=ts&timestamp=' + Time.now.to_i.to_s
     @media_url = 'https://www.facebook.com/ironmaiden/posts/10153654402607051/?t=' + Time.now.to_i.to_s
@@ -48,11 +48,7 @@ describe 'app' do
   # Start Google Chrome before each test
 
   before :each do
-    if port_open?(9515)
-      @driver = Selenium::WebDriver.for :chrome
-    else
-      @driver = Selenium::WebDriver.for :remote, url: 'http://localhost:9515'
-    end
+    @driver = Selenium::WebDriver.for :remote, url: @config['chromedriver_url'], :desired_capabilities => :chrome
   end
 
   # Close Google Chrome after each test
@@ -65,23 +61,24 @@ describe 'app' do
 
   context "web" do
     it "should redirect to 404 page" do
-      @driver.navigate.to 'http://localhost:3333/something-that-does-not-exist'
+      @driver.navigate.to @config['self_url'] + '/something-that-does-not-exist'
       title = get_element('.main-title')
       expect(title.text == 'Not Found').to be(true)
     end
 
     it "should click to go to Terms of Service" do
-      @driver.navigate.to 'http://localhost:3333/tos'
+      @driver.navigate.to @config['self_url'] + '/tos'
       title = get_element('.main-title')
       expect(title.text == 'Terms of Service').to be(true)
     end
 
     it "should redirect to login screen if not logged in" do
-      @driver.navigate.to 'http://localhost:3333/sources/'
+      @driver.navigate.to @config['self_url'] + '/sources/'
       title = get_element('.login-menu__heading')
       expect(title.text == 'SIGN IN').to be(true)
     end
 
+=begin
     it "should login using Twitter and display user name on top right bar" do
       login_with_twitter
       displayed_name = get_element('#user-name span').text.upcase
@@ -101,7 +98,7 @@ describe 'app' do
     end
 
     it "should register and login using e-mail" do
-      @driver.navigate.to 'http://localhost:3333/'
+      @driver.navigate.to @config['self_url'] + '/'
       sleep 1
       @driver.find_element(:xpath, "//a[@id='login-email']").click
       sleep 1
@@ -125,15 +122,15 @@ describe 'app' do
 
     it "should click to go to homepage" do
       login_with_email
-      @driver.navigate.to 'http://localhost:3333/tos'
+      @driver.navigate.to @config['self_url'] + '/tos'
       sleep 1
       @driver.find_element(:xpath, "//a[@id='link-home']").click
-      expect(@driver.current_url.to_s == 'http://localhost:3333/').to be(true)
+      expect(@driver.current_url.to_s == @config['self_url'] + '/').to be(true)
     end
 
     it "should have footer" do
       login_with_email
-      @driver.navigate.to 'http://localhost:3333/tos'
+      @driver.navigate.to @config['self_url'] + '/tos'
       message = get_element('address')
       expect(message.text.include?(' v')).to be(true)
     end
@@ -141,7 +138,7 @@ describe 'app' do
     it "should list sources" do
       login_with_email
       @driver.find_element(:xpath, "//a[@id='link-sources']").click
-      expect(@driver.current_url.to_s == 'http://localhost:3333/sources').to be(true)
+      expect(@driver.current_url.to_s == @config['self_url'] + '/sources').to be(true)
       sleep 1
       title = get_element('.sources__heading')
       expect(title.text == 'SOURCES').to be(true)
@@ -150,17 +147,17 @@ describe 'app' do
     it "should go to user page" do
       login_with_email
       @driver.find_element(:xpath, "//a[@id='link-me']").click
-      expect(@driver.current_url.to_s == 'http://localhost:3333/me').to be(true)
+      expect(@driver.current_url.to_s == @config['self_url'] + '/me').to be(true)
       title = get_element('.source-name')
       expect(title.text == 'User With Email').to be(true)
     end
 
     it "should go to source page through source/:id" do
       login_with_email
-      @driver.navigate.to 'http://localhost:3333/me'
+      @driver.navigate.to @config['self_url'] + '/me'
       sleep 1
       source_id = @driver.find_element(:css, '.source').attribute('data-id')
-      @driver.navigate.to 'http://localhost:3333/source/' + source_id.to_s
+      @driver.navigate.to @config['self_url'] + '/source/' + source_id.to_s
       sleep 1
       title = get_element('.source-name')
       expect(title.text == 'User With Email').to be(true)
@@ -168,29 +165,29 @@ describe 'app' do
 
     it "should go to source page through user/:id" do
       login_with_email
-      @driver.navigate.to 'http://localhost:3333/me'
+      @driver.navigate.to @config['self_url'] + '/me'
       sleep 1
       user_id = @driver.find_element(:css, '.source').attribute('data-user-id')
-      @driver.navigate.to 'http://localhost:3333/user/' + user_id.to_s
+      @driver.navigate.to @config['self_url'] + '/user/' + user_id.to_s
       sleep 1
       title = get_element('.source-name')
       expect(title.text == 'User With Email').to be(true)
     end
 
     it "should go back and forward in the history" do
-      @driver.navigate.to 'http://localhost:3333/'
-      expect(@driver.current_url.to_s == 'http://localhost:3333/').to be(true)
-      @driver.navigate.to 'http://localhost:3333/tos'
-      expect(@driver.current_url.to_s == 'http://localhost:3333/tos').to be(true)
+      @driver.navigate.to @config['self_url'] + '/'
+      expect(@driver.current_url.to_s == @config['self_url'] + '/').to be(true)
+      @driver.navigate.to @config['self_url'] + '/tos'
+      expect(@driver.current_url.to_s == @config['self_url'] + '/tos').to be(true)
       @driver.navigate.back
-      expect(@driver.current_url.to_s == 'http://localhost:3333/').to be(true)
+      expect(@driver.current_url.to_s == @config['self_url'] + '/').to be(true)
       @driver.navigate.forward
-      expect(@driver.current_url.to_s == 'http://localhost:3333/tos').to be(true)
+      expect(@driver.current_url.to_s == @config['self_url'] + '/tos').to be(true)
     end
 
     it "should tag source from tags list" do
       login_with_email
-      @driver.navigate.to 'http://localhost:3333/me'
+      @driver.navigate.to @config['self_url'] + '/me'
       sleep 1
 
       # First, verify that there isn't any tag
@@ -231,7 +228,7 @@ describe 'app' do
 
     it "should tag source as a command" do
       login_with_email
-      @driver.navigate.to 'http://localhost:3333/me'
+      @driver.navigate.to @config['self_url'] + '/me'
       sleep 1
 
       # First, verify that there isn't any tag
@@ -272,7 +269,7 @@ describe 'app' do
 
     it "should comment source as a command" do
       login_with_email
-      @driver.navigate.to 'http://localhost:3333/me'
+      @driver.navigate.to @config['self_url'] + '/me'
       sleep 1
 
       # First, verify that there isn't any comment
@@ -306,7 +303,7 @@ describe 'app' do
 
     it "should preview source" do
       login_with_email
-      @driver.navigate.to 'http://localhost:3333/sources/new'
+      @driver.navigate.to @config['self_url'] + '/sources/new'
       sleep 1
       expect(@driver.find_elements(:xpath, "//*[contains(@id, 'pender-iframe')]").empty?).to be(true)
       fill_field('#create-account-url', 'https://www.facebook.com/ironmaiden/?fref=ts')
@@ -317,7 +314,7 @@ describe 'app' do
 
     it "should create source and redirect to newly created source" do
       login_with_email
-      @driver.navigate.to 'http://localhost:3333/sources/new'
+      @driver.navigate.to @config['self_url'] + '/sources/new'
       sleep 1
       fill_field('#create-account-url', @source_url)
       sleep 1
@@ -330,7 +327,7 @@ describe 'app' do
 
     it "should not create duplicated source" do
       login_with_email
-      @driver.navigate.to 'http://localhost:3333/sources/new'
+      @driver.navigate.to @config['self_url'] + '/sources/new'
       sleep 1
       fill_field('#create-account-url', @source_url)
       sleep 1
@@ -343,7 +340,7 @@ describe 'app' do
 
     it "should not create report as source" do
       login_with_email
-      @driver.navigate.to 'http://localhost:3333/sources/new'
+      @driver.navigate.to @config['self_url'] + '/sources/new'
       sleep 1
       fill_field('#create-account-url', 'https://www.youtube.com/watch?v=b708rEG7spI')
       sleep 1
@@ -356,7 +353,7 @@ describe 'app' do
 
     it "should tag source multiple times with commas with command" do
       login_with_email
-      @driver.navigate.to 'http://localhost:3333/me'
+      @driver.navigate.to @config['self_url'] + '/me'
       sleep 1
 
       # Add tags as a command
@@ -376,7 +373,7 @@ describe 'app' do
 
     it "should tag source multiple times with commas from tags list" do
       login_with_email
-      @driver.navigate.to 'http://localhost:3333/me'
+      @driver.navigate.to @config['self_url'] + '/me'
       sleep 1
 
       # Add tags from tags list
@@ -396,7 +393,7 @@ describe 'app' do
 
     it "should not add a duplicated tag from tags list" do
       login_with_email
-      @driver.navigate.to 'http://localhost:3333/me'
+      @driver.navigate.to @config['self_url'] + '/me'
       sleep 1
 
       # Add tag from tags list
@@ -412,7 +409,7 @@ describe 'app' do
 
     it "should not add a duplicated tag from command line" do
       login_with_email
-      @driver.navigate.to 'http://localhost:3333/me'
+      @driver.navigate.to @config['self_url'] + '/me'
       sleep 1
 
       # Add tag from tags list
@@ -428,7 +425,7 @@ describe 'app' do
 
     it "should preview media if registered" do
       login_with_email
-      @driver.navigate.to 'http://localhost:3333/medias/new'
+      @driver.navigate.to @config['self_url'] + '/medias/new'
       sleep 1
       expect(@driver.find_elements(:xpath, "//*[contains(@id, 'pender-iframe')]").empty?).to be(true)
       fill_field('#create-media-url', @media_url)
@@ -439,7 +436,7 @@ describe 'app' do
 
     it "should register and redirect to newly created media" do
       login_with_email
-      @driver.navigate.to 'http://localhost:3333/medias/new'
+      @driver.navigate.to @config['self_url'] + '/medias/new'
       sleep 1
       fill_field('#create-media-url', @media_url)
       sleep 1
@@ -451,7 +448,7 @@ describe 'app' do
 
     it "should not create duplicated media if registered" do
       login_with_email
-      @driver.navigate.to 'http://localhost:3333/medias/new'
+      @driver.navigate.to @config['self_url'] + '/medias/new'
       sleep 1
       fill_field('#create-media-url', @media_url)
       sleep 2
@@ -462,7 +459,7 @@ describe 'app' do
 
     it "should not create source as media if registered" do
       login_with_email
-      @driver.navigate.to 'http://localhost:3333/medias/new'
+      @driver.navigate.to @config['self_url'] + '/medias/new'
       sleep 1
       fill_field('#create-media-url', 'https://www.facebook.com/ironmaidenbeer/?fref=ts')
       sleep 1
@@ -475,7 +472,7 @@ describe 'app' do
 
     it "should tag media from tags list" do
       login_with_email
-      @driver.navigate.to 'http://localhost:3333/media/' + ID
+      @driver.navigate.to @config['self_url'] + '/media/' + ID
       sleep 1
 
       # First, verify that there isn't any tag
@@ -516,7 +513,7 @@ describe 'app' do
 
     it "should tag media as a command" do
       login_with_email
-      @driver.navigate.to 'http://localhost:3333/media/' + ID
+      @driver.navigate.to @config['self_url'] + '/media/' + ID
       sleep 1
 
       # First, verify that there isn't any tag
@@ -557,7 +554,7 @@ describe 'app' do
 
     it "should comment media as a command" do
       login_with_email
-      @driver.navigate.to 'http://localhost:3333/media/' + ID
+      @driver.navigate.to @config['self_url'] + '/media/' + ID
       sleep 1
 
       # First, verify that there isn't any comment
@@ -591,7 +588,7 @@ describe 'app' do
 
     it "should set status to media as a command" do
       login_with_email
-      @driver.navigate.to 'http://localhost:3333/media/' + ID
+      @driver.navigate.to @config['self_url'] + '/media/' + ID
       sleep 1
 
       # First, verify that there isn't any status
@@ -625,7 +622,7 @@ describe 'app' do
 
     it "should flag media as a command" do
       login_with_email
-      @driver.navigate.to 'http://localhost:3333/media/' + ID
+      @driver.navigate.to @config['self_url'] + '/media/' + ID
       sleep 1
 
       # First, verify that there isn't any flag
@@ -656,5 +653,6 @@ describe 'app' do
       sleep 1
       expect(@driver.page_source.include?('Flag')).to be(false)
     end
+=end
   end
 end

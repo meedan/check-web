@@ -3,7 +3,7 @@
 //
 /*  supporting the Docker infrastructure
  *  http://checkdesk-api.qa.checkdesk.org/api/me
- * 
+ *
  */
 
 var express = require('express'),
@@ -20,9 +20,8 @@ app.use(function(req, res, next) {
 // static assets first
 app.use(serveStatic('build/web', { 'index': ['index.html'] }))
 
-// all other routes 
+// all other routes
 app.use(function(req, res, next) {
   res.sendFile(process.cwd() + '/build/web/index.html');
 });
-app.listen(8000)
-
+app.listen(process.env.CHECKDESK_CLIENT_PORT || 8000)
