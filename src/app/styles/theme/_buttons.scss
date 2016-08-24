@@ -2,6 +2,8 @@
   cursor: pointer;
   border: none;
   font-family: $font-stack-sans;
+  background-color: $gray-350;
+  font-size: inherit;
 }
 
 @mixin unbutton { // elements that should semantically be <button> but not look like buttons
@@ -18,6 +20,14 @@
   &:disabled {
     cursor: not-allowed;
   }
+}
+
+@mixin button-xsmall {
+  @include button-standard;
+  height: 30px;
+  font-size: 14px;
+  padding-left: 14px;
+  padding-right: 14px;
 }
 
 @mixin button-small {
@@ -49,4 +59,11 @@
 
 @mixin button-green {
   background-color: rgb(71, 207, 152);
+}
+
+@mixin close-button {
+  @include unbutton;
+  color: $light-gray-text;
+  font-weight: 200;
+  font-size: 30px;
 }
