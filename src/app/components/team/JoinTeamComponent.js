@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Relay from 'react-relay';
 import { Link } from 'react-router';
 import CreateTeamUserMutation from '../../relay/CreateTeamUserMutation';
+import Message from '../Message';
 
 class JoinTeamComponent extends Component {
   constructor(props) {
@@ -16,18 +17,18 @@ class JoinTeamComponent extends Component {
     this.setState({isRequestSent: true});
 
     var that = this
-    console.log("on delete handle");
-
 
     var onFailure = (transaction) => {
       transaction.getError().json().then(function(json) {
-        console.log("on failure");
+        var message = 'Sorry, could not send your request';
+        if (json.error) {
+          message = json.error;
+        }
+        that.setState({ message: message });
       });
 
-      this.setState({isEditingNameAndDescription: false});
    };
    var onSuccess = (response) => {
-     console.log("on sucess");
 
    };
 
@@ -49,6 +50,7 @@ class JoinTeamComponent extends Component {
 
     return (
       <div className='join-team'>
+        <Message message={this.state.message} />
         <h2 className='join-team__main-heading'>Request to Join</h2>
         <div className='join-team__blurb'>
           <p className='join-team__blurb-graf'>To request access to the <a href={teamUrl}>{team.name}</a> Checkdesk, {isLoggedIn ? 'click here:' : 'please sign in:'}</p>
