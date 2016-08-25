@@ -108,7 +108,9 @@ class Home extends Component {
         {name: 'Project 1', url: '/project/1'},
         {name: 'Project 2', url: '/project/2'},
         {name: 'Project 3', url: '/project/3'}
-      ]
+      ],
+      url: '/teams/1',
+      membersCount: 14
     };
 
     return (

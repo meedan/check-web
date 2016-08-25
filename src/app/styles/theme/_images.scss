@@ -1,0 +1,4 @@
+@mixin team-avatar {
+  $size: 50px; height: $size; width: $size;
+  border-radius: 2px;
+}
