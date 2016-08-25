@@ -1,9 +1,11 @@
 import React, { Component, PropTypes } from 'react';
+import Relay from 'react-relay';
 import { Link } from 'react-router';
 import FontAwesome from 'react-fontawesome';
 import CreateProject from './project/CreateProject';
+import MeRoute from '../relay/MeRoute';
 
-class TeamSidebar extends Component {
+class TeamSidebarComponent extends Component {
   constructor(props) {
     super(props);
 
@@ -21,35 +23,45 @@ class TeamSidebar extends Component {
   }
 
   render() {
-    var currentTeam = this.props.team;
+    var currentTeam = this.props.me.current_team;
 
     return (
       <nav className='team-sidebar'>
-        <section className='team-sidebar__team'>
-          <div className='team-sidebar__team-avatar'>
-            <img src={currentTeam.avatar} />
-          </div>
-          <h1 className='team-sidebar__team-name'>
-            <Link to="/" id="link-home" className='team-sidebar__team-link' activeClassName="team-sidebar__team-link--active" title="Home">{currentTeam.name}</Link>
-          </h1>
-        </section>
+        {(() => { 
+          if (currentTeam) {
+            return (
+              <section className='team-sidebar__team'>
+                <div className='team-sidebar__team-avatar'>
+                  <img src={currentTeam.avatar} />
+                </div>
+                <h1 className='team-sidebar__team-name'>
+                  <Link to="/" id="link-home" className='team-sidebar__team-link' activeClassName="team-sidebar__team-link--active" title="Home">{currentTeam.name}</Link>
+                </h1>
+              </section>
+            );
+          }
+        })()}
 
         <section className='team-sidebar__projects'>
           <h2 className='team-sidebar__projects-heading'>Verification Projects</h2>
-          <ul className='team-sidebar__projects-list'>
-            {currentTeam.projects.map(function(p) {
+          {(() => { 
+            if (currentTeam) {
               return (
-                <li className='team-sidebar__project'>
-                  <FontAwesome className='team-sidebar__project-icon' name='folder-open' />
-                  <a href={p.url} className='team-sidebar__project-link'>{p.name}</a>
-                </li>
+                <ul className='team-sidebar__projects-list'>
+                  {currentTeam.projects.edges.map(p => (
+                    <li className='team-sidebar__project'>
+                      <FontAwesome className='team-sidebar__project-icon' name='folder-open' />
+                      <Link to={'/project/' + p.node.dbid} className='team-sidebar__project-link'>{p.node.title}</Link>
+                    </li>
+                  ))}
+                  <li className='team-sidebar__new-project'>
+                    <FontAwesome className='team-sidebar__project-icon' name='folder' />
+                    <CreateProject className='team-sidebar__new-project-input' teamId={currentTeam.id} />
+                  </li>
+                </ul>
               );
-            })}
-            <li className='team-sidebar__new-project'>
-              <FontAwesome className='team-sidebar__project-icon' name='folder' />
-              <CreateProject className='team-sidebar__new-project-input' history={this.props.history} />
-            </li>
-          </ul>
+            }
+          })()}
         </section>
 
         <section className='team-sidebar__sources'>
@@ -88,6 +100,37 @@ class TeamSidebar extends Component {
         </footer>
       </nav>
     );
+  }
+}
+
+const TeamSidebarContainer = Relay.createContainer(TeamSidebarComponent, {
+  fragments: {
+    me: () => Relay.QL`
+      fragment on User {
+        current_team {
+          id,
+          name,
+          avatar,
+          projects(first: 20) {
+            edges {
+              node {
+                title,
+                dbid,
+                id,
+                description
+              }
+            }
+          }
+        }
+      }
+    `
+  }
+});
+
+class TeamSidebar extends Component {
+  render() {
+    var route = new MeRoute();
+    return (<Relay.RootContainer Component={TeamSidebarContainer} route={route} />);
   }
 }
 

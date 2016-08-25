@@ -18,9 +18,6 @@ class Header extends Component {
 
     return (
       <header className='header'>
-        <div className='header__sidebar-toggle' onClick={this.handleSidebarToggle.bind(this)}>
-          <img className='header__sidebar-toggle-button' src={this.props.team.avatar} />
-        </div>
         <div>
           <UserMenuRelay {...this.props} />
           <FlatButton label="Logout" onClick={logout} />

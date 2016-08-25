@@ -11,7 +11,8 @@ class CreateProjectMutation extends Relay.Mutation {
   getFatQuery() {
     return Relay.QL`
       fragment on CreateProjectPayload {
-        project
+        projectEdge,
+        team { projects }
       }
     `;
   }
@@ -21,16 +22,28 @@ class CreateProjectMutation extends Relay.Mutation {
   }
 
   getConfigs() {
-    return [{
-      type: 'REQUIRED_CHILDREN',
-      children: [Relay.QL`
-        fragment on CreateProjectPayload {
-          project {
-            dbid
-          }
-        }`
-      ]
-    }];
+    return [
+      {
+        type: 'REQUIRED_CHILDREN',
+        children: [Relay.QL`
+          fragment on CreateProjectPayload {
+            project {
+              dbid
+            }
+          }`
+        ]
+      },
+      {
+        type: 'RANGE_ADD',
+        parentName: 'team',
+        parentID: this.props.teamId,
+        connectionName: 'projects',
+        edgeName: 'projectEdge',
+        rangeBehaviors: {
+          '': 'append'
+        }
+      }
+    ];
   }
 }
 

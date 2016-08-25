@@ -97,9 +97,8 @@ class CreateTeam extends Component {
      };
 
      var onSuccess = (response) => {
-       var tid = response.createTeam.team.id;
-       var decodedId = base64.decode(tid);
-       this.props.history.push('/' + decodedId);
+       var tid = response.createTeam.team.dbid;
+       this.props.history.push('/team/' + tid);
        this.setState({ message: null });
 
      };

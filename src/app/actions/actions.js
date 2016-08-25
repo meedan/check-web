@@ -124,7 +124,10 @@ export function registerEmail() {
 export function logout() {
   return (dispatch, getState) => {
     var failureCallback = function(message) { dispatch({ type: ERROR, message: message }); },
-        successCallback = function(data) { dispatch({ type: SUCCESS, loggedOut: true, message: 'Logged out successfully!' }); };
+        successCallback = function(data) {
+          // Easiest way to clear all cache?
+          window.location.reload();
+        };
     request('delete', 'users/sign_out', failureCallback, successCallback);
   };
 };
