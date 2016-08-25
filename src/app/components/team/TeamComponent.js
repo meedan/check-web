@@ -10,7 +10,6 @@ import { Link } from 'react-router';
 import FontAwesome from 'react-fontawesome';
 import UpdateTeamMutation from '../../relay/UpdateTeamMutation';
 import Message from '../Message';
-import TeamContact from './TeamContact'
 
 
 class TeamComponent extends Component {
@@ -77,7 +76,7 @@ class TeamComponent extends Component {
     return (
       <div className='team'>
         <Message message={this.state.message} />
-        <TeamContact teamId= {this.props.team.id}/>
+        <TeamContacts contacts= {this.props.team.contacts.edges[0]}/>
         <section className='team__profile'>
 
           {(() => {
@@ -134,16 +133,30 @@ class TeamComponent extends Component {
                 if (isEditing) {
                   return (<input type='text' className='team__location-name-input'/>);
                 } else {
-                  return (<span className='team__location-name'>Cairo</span>);
+                  return (<span className='team__location-name'>{this.props.team.contacts.edges[0].node.location}</span>);
                 }
               })()}
             </span>
 
             {/* link: iterate through all contact info links user has added; switch spans to inputs on isEditing */}
-            <Link to='https://bellingcat.com' className='team__link'>
-              <FontAwesome name='link' className='team__link-icon' />
-              <span className='team__link-text'>bellingcat.com</span>
-            </Link>
+            {(() => {
+              if (isEditing) {
+                return (
+                  <span>
+                  <FontAwesome name='link' className='team__link-icon' />
+                  <input type='text' className='team__link-name-input'/>
+                  </span>);
+
+              } else {
+                return (
+                  <Link to='https://bellingcat.com' className='team__link'>
+                    <FontAwesome name='link' className='team__link-icon' />
+                    <span className='team__link-text'>{this.props.team.contacts.edges[0].node.web}</span>
+                  </Link>
+                );
+              }
+            })()}
+
 
             {/* add link: show whenever is editing; clicking adds a new link input ^
             <button className='team__add-link'>
