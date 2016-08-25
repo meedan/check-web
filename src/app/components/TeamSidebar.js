@@ -129,18 +129,24 @@ class TeamSidebarComponent extends Component {
               <ul className='switch-teams__teams'>
 
                 {/* 1. current team */}
-                <li className='switch-teams__team switch-teams__team--current'>
-                  <Link to={'/team/' + currentTeam.dbid} className='switch-teams__team-link'>
-                    <div className='switch-teams__team-avatar' style={{'background-image': 'url(' + currentTeam.avatar + ')'}}></div>
-                    <div className='switch-teams__team-copy'>
-                      <h3 className='switch-teams__team-name'>{currentTeam.name}</h3>
-                      <span className='switch-teams__team-members-count'>{membersCountString(currentTeam.members_count)}</span>
-                    </div>
-                    <div className='switch-teams__team-actions'>
-                      <FontAwesome className='switch-teams__team-caret' name='angle-right' />
-                    </div>
-                  </Link>
-                </li>
+                {(() => { 
+                  if (currentTeam) {
+                    return (
+                      <li className='switch-teams__team switch-teams__team--current'>
+                        <Link to={'/team/' + currentTeam.dbid} className='switch-teams__team-link'>
+                          <div className='switch-teams__team-avatar' style={{'background-image': 'url(' + currentTeam.avatar + ')'}}></div>
+                          <div className='switch-teams__team-copy'>
+                            <h3 className='switch-teams__team-name'>{currentTeam.name}</h3>
+                            <span className='switch-teams__team-members-count'>{membersCountString(currentTeam.members_count)}</span>
+                          </div>
+                          <div className='switch-teams__team-actions'>
+                            <FontAwesome className='switch-teams__team-caret' name='angle-right' />
+                          </div>
+                        </Link>
+                      </li>
+                    );
+                  }
+                })()}
 
                 {/* 2. iterate through other teams the user belongs to */}
                 {otherTeams.map(function(team) {
