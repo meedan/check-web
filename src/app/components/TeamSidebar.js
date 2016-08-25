@@ -24,6 +24,30 @@ class TeamSidebarComponent extends Component {
 
   render() {
     var currentTeam = this.props.me.current_team;
+    
+    // dummy data
+    var otherTeams = [
+      {
+        name: 'ProPublica',
+        avatar: 'https://pbs.twimg.com/profile_images/660147326091182081/Q4TLW_Fe.jpg',
+        url: '/teams/2',
+        membersCount: 10
+      }
+    ];
+    var pendingTeams = [
+      {
+        name: 'AntiPublica',
+        avatar: 'https://pbs.twimg.com/profile_images/660147326091182081/Q4TLW_Fe.jpg',
+        url: '/teams/3',
+      }
+    ]; 
+    // /dummy data
+
+    function membersCountString(count) {
+      if (typeof count === 'number') {
+        return count.toString() + ' member' + (count === 1 ? '' : 's');
+      }
+    }
 
     return (
       <nav className='team-sidebar'>
@@ -92,11 +116,71 @@ class TeamSidebarComponent extends Component {
             <span>Switch Teams</span>
           </button>
 
-          <section className={'switch-teams' + (this.state.isSwitchTeamsActive ? ' switch-teams--active' : '')} onClick={this.handleSwitchTeamsClose.bind(this)}>
-            <div className='switch-teams__modal'>
-              <button className='switch-teams__close' onClick={this.handleSwitchTeamsClose.bind(this)}>×</button>
-            </div>
-          </section>
+          {/* possibly should decompose into separate component */}
+          <div className={'switch-teams' + (this.state.isSwitchTeamsActive ? ' switch-teams--active' : '')} onClick={this.handleSwitchTeamsClose.bind(this)}>
+            <section className='switch-teams__modal'>
+              <button className='switch-teams__modal-close' onClick={this.handleSwitchTeamsClose.bind(this)}>×</button>
+
+              <h2 className='switch-teams__modal-title'>
+                <FontAwesome className='switch-teams__modal-title-icon' name='random' />
+                <span>Switch Teams</span>
+              </h2>
+
+              <ul className='switch-teams__teams'>
+
+                {/* 1. current team */}
+                <li className='switch-teams__team switch-teams__team--current'>
+                  <Link to={currentTeam.url} className='switch-teams__team-link'>
+                    <div className='switch-teams__team-avatar' style={{'background-image': 'url(' + currentTeam.avatar + ')'}}></div>
+                    <div className='switch-teams__team-copy'>
+                      <h3 className='switch-teams__team-name'>{currentTeam.name}</h3>
+                      <span className='switch-teams__team-members-count'>{membersCountString(currentTeam.membersCount)}</span>
+                    </div>
+                    <div className='switch-teams__team-actions'>
+                      <FontAwesome className='switch-teams__team-caret' name='angle-right' />
+                    </div>
+                  </Link>
+                </li>
+
+                {/* 2. iterate through other teams the user belongs to */}
+                {otherTeams.map(function(team) {
+                  return (
+                    <li className='switch-teams__team'>
+                      <Link to={team.url} className='switch-teams__team-link'>
+                        <div className='switch-teams__team-avatar' style={{'background-image': 'url(' + team.avatar + ')'}}></div>
+                        <div className='switch-teams__team-copy'>
+                          <h3 className='switch-teams__team-name'>{team.name}</h3>
+                          <span className='switch-teams__team-members-count'>{membersCountString(team.membersCount)}</span>
+                        </div>
+                        <div className='switch-teams__team-actions'>
+                          <FontAwesome className='switch-teams__team-caret' name='angle-right' />
+                        </div>
+                      </Link>
+                    </li>
+                  );
+                })}
+
+                {/* 3. iterate through any teams the user has requested to join but not been approved yet */}
+                {pendingTeams.map(function(team) {
+                  return (
+                    <li className='switch-teams__team switch-teams__team--pending'>
+                      <div className='switch-teams__team-avatar' style={{'background-image': 'url(' + team.avatar + ')'}}></div>
+                      <div className='switch-teams__team-copy'>
+                        <h3 className='switch-teams__team-name'><Link to={team.url}>{team.name}</Link></h3>
+                        <span className='switch-teams__team-join-request-message'>You requested to join</span>
+                      </div>
+                      <div className='switch-teams__team-actions'>
+                        <button className='switch-teams__cancel-join-request'>Cancel</button>
+                      </div>
+                    </li>
+                  );
+                })}
+              </ul>
+
+              {/* 4. new team */}
+              <Link to='/teams/new' className='switch-teams__new-team-link'>+ New team</Link>
+            </section>
+          </div>
         </footer>
       </nav>
     );
