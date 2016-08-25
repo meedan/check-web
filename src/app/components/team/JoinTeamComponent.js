@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import Relay from 'react-relay';
 import { Link } from 'react-router';
+import CreateTeamUserMutation from '../../relay/CreateTeamUserMutation';
 
 class JoinTeamComponent extends Component {
   constructor(props) {
@@ -12,6 +14,31 @@ class JoinTeamComponent extends Component {
   handleRequestAccess(e) {
     e.preventDefault();
     this.setState({isRequestSent: true});
+
+    var that = this
+    console.log("on delete handle");
+
+
+    var onFailure = (transaction) => {
+      transaction.getError().json().then(function(json) {
+        console.log("on failure");
+      });
+
+      this.setState({isEditingNameAndDescription: false});
+   };
+   var onSuccess = (response) => {
+     console.log("on sucess");
+
+   };
+
+   Relay.Store.commitUpdate(
+     new CreateTeamUserMutation({
+      team_id: this.props.team.dbid,
+      user_id: Checkdesk.currentUser.dbid,
+      status: "requested"
+    }),
+    { onSuccess, onFailure }
+  );
   }
 
   render() {
