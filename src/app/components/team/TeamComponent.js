@@ -3,7 +3,6 @@ import Relay from 'react-relay';
 import TeamMembers from './TeamMembers'
 import TeamActivities from './TeamActivities'
 import TeamProjects from './TeamProjects'
-import TeamContacts from './TeamContacts'
 import Tags from './Tags'
 import SocialProfiles from './SocialProfiles'
 import { Link } from 'react-router';
@@ -76,7 +75,6 @@ class TeamComponent extends Component {
     return (
       <div className='team'>
         <Message message={this.state.message} />
-        <TeamContacts contacts= {this.props.team.contacts.edges[0]}/>
         <section className='team__profile'>
 
           {(() => {
