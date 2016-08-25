@@ -3,6 +3,7 @@ import Relay from 'react-relay';
 var teamFragment = Relay.QL`
   fragment on Team {
     id,
+    dbid,
     name,
     description,
     subdomain,

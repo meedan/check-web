@@ -5,6 +5,18 @@ import ProjectRoute from '../../relay/ProjectRoute';
 import ProjectHeader from './ProjectHeader';
 
 class ProjectComponent extends Component {
+  setCurrentProject() {
+    Checkdesk.currentProject = this.props.project;
+  }
+
+  componentDidMount() {
+    this.setCurrentProject();
+  }
+
+  componentDidUpdate() {
+    this.setCurrentProject();
+  }
+
   render() {
     const project = this.props.project;
 

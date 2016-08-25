@@ -9,6 +9,7 @@ import { Link } from 'react-router';
 import FontAwesome from 'react-fontawesome';
 import UpdateTeamMutation from '../../relay/UpdateTeamMutation';
 import Message from '../Message';
+import CreateContactMutation from '../../relay/CreateContactMutation';
 
 
 class TeamComponent extends Component {
@@ -25,45 +26,94 @@ class TeamComponent extends Component {
      this.setState({isEditingNameAndDescription: false});
   }
 
+  editTeamInfo(){
+    var that = this,
+         name = document.getElementById('team__name-container').value;
+    var description = document.getElementById('team__description-container').value;
+
+
+    var onFailure = (transaction) => {
+
+        transaction.getError().json().then(function(json) {
+          var message = 'Sorry, could not edit the team';
+          if (json.error) {
+            message = json.error;
+          }
+          that.setState({ message: message });
+        });
+
+        this.setState({isEditingNameAndDescription: false});
+
+
+    };
+
+    var onSuccess = (response) => {
+     //  var tid = response.createTeam.team.id;
+     //  var decodedId = base64.decode(tid);
+     //  this.props.history.push('/' + decodedId);
+      this.setState({ message: null });
+      this.setState({isEditingNameAndDescription: false});
+
+    };
+
+    Relay.Store.commitUpdate(
+      new UpdateTeamMutation({
+       name: name,
+       description: description,
+       id: this.props.team.id
+     }),
+     { onSuccess, onFailure }
+   );
+  }
+
+  createTeamContacts(){
+    var that = this,
+         name = document.getElementById('team__name-container').value;
+    var description = document.getElementById('team__description-container').value;
+    console.log("create team start");
+    var onFailure = (transaction) => {
+
+        transaction.getError().json().then(function(json) {
+          var message = 'Sorry, could not edit the team';
+          if (json.error) {
+            message = json.error;
+          }
+          that.setState({ message: message });
+        });
+
+        this.setState({isEditingNameAndDescription: false});
+
+        console.log("create team fail");
+
+    };
+
+    var onSuccess = (response) => {
+     //  var tid = response.createTeam.team.id;
+     //  var decodedId = base64.decode(tid);
+     //  this.props.history.push('/' + decodedId);
+      this.setState({ message: null });
+      this.setState({isEditingNameAndDescription: false});
+      console.log("create team sucess");
+
+    };
+
+    Relay.Store.commitUpdate(
+      new CreateContactMutation({
+       location: "Cairo",
+       web: "example.com",
+       phone: "0020233838429",
+       team_id: this.props.team.dbid,
+       parent_id: this.props.team.id,
+       parent_type: "team"
+     }),
+     { onSuccess, onFailure }
+   );
+  }
+
   handleEditTeam(e) {
      e.preventDefault();
-     var that = this,
-          name = document.getElementById('team__name-container').value;
-     var description = document.getElementById('team__description-container').value;
-
-
-     var onFailure = (transaction) => {
-
-         transaction.getError().json().then(function(json) {
-           var message = 'Sorry, could not edit the team';
-           if (json.error) {
-             message = json.error;
-           }
-           that.setState({ message: message });
-         });
-
-         this.setState({isEditingNameAndDescription: false});
-
-
-     };
-
-     var onSuccess = (response) => {
-      //  var tid = response.createTeam.team.id;
-      //  var decodedId = base64.decode(tid);
-      //  this.props.history.push('/' + decodedId);
-       this.setState({ message: null });
-       this.setState({isEditingNameAndDescription: false});
-
-     };
-
-     Relay.Store.commitUpdate(
-       new UpdateTeamMutation({
-        name: name,
-        description: description,
-        id: this.props.team.id
-      }),
-      { onSuccess, onFailure }
-    );
+     this.editTeamInfo();
+     this.createTeamContacts();
   }
   handleEntreEditTeamNameAndDescription(e) {
     e.preventDefault();

@@ -20,6 +20,8 @@ export default class Root extends Component {
   render() {
     const { store } = this.props;
     const history = syncHistoryWithStore(browserHistory, store);
+    window.Checkdesk = { history: history }
+
     return (
       <Provider store={store}>
         <Router history={history}>
