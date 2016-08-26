@@ -23,7 +23,12 @@ class CreateCommentMutation extends Relay.Mutation {
 
   getVariables() {
     var comment = this.props.annotation;
-    return { text: comment.text, annotated_id: comment.annotated_id + '', annotated_type: comment.annotated_type };
+    var vars = { text: comment.text, annotated_id: comment.annotated_id + '', annotated_type: comment.annotated_type };
+    if (Checkdesk.currentProject) {
+      vars.context_type = 'Project';
+      vars.context_id = Checkdesk.currentProject.dbid.toString();
+    }
+    return vars;
   }
 
   getConfigs() {

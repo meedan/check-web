@@ -4,6 +4,9 @@ import MediaRoute from '../../relay/MediaRoute';
 import MediaComponent from './MediaComponent';
 
 const MediaContainer = Relay.createContainer(MediaComponent, {
+  initialVariables: {
+    contextId: null
+  },
   fragments: {
     media: () => Relay.QL`
       fragment on Media {
@@ -18,7 +21,7 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
             dbid
           }
         }
-        tags(first: 20) {
+        tags(first: 20, context_id: $contextId) {
           edges {
             node {
               tag,
@@ -26,7 +29,7 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
             }
           }
         }
-        annotations(first: 20) {
+        annotations(first: 20, context_id: $contextId) {
           edges {
             node {
               id,
