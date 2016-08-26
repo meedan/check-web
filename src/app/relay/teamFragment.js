@@ -19,7 +19,9 @@ var teamFragment = Relay.QL`
       edges {
         node {
           location,
-          web
+          web,
+          phone,
+          id
 
         }
       }

@@ -10,6 +10,7 @@ import FontAwesome from 'react-fontawesome';
 import UpdateTeamMutation from '../../relay/UpdateTeamMutation';
 import Message from '../Message';
 import CreateContactMutation from '../../relay/CreateContactMutation';
+import UpdateContactMutation from '../../relay/UpdateContactMutation';
 
 
 class TeamComponent extends Component {
@@ -66,6 +67,50 @@ class TeamComponent extends Component {
    );
   }
 
+  updateTeamContacts(){
+    var that = this,
+         name = document.getElementById('team__name-container').value,
+         contact = this.props.team.contacts.edges[0];
+    var description = document.getElementById('team__description-container').value;
+    console.log("create team start");
+    var onFailure = (transaction) => {
+
+        transaction.getError().json().then(function(json) {
+          var message = 'Sorry, could not edit the team';
+          if (json.error) {
+            message = json.error;
+          }
+          that.setState({ message: message });
+        });
+
+        this.setState({isEditingNameAndDescription: false});
+
+        console.log("create team fail");
+
+    };
+
+    var onSuccess = (response) => {
+     //  var tid = response.createTeam.team.id;
+     //  var decodedId = base64.decode(tid);
+     //  this.props.history.push('/' + decodedId);
+      this.setState({ message: null });
+      this.setState({isEditingNameAndDescription: false});
+      console.log("create team sucess");
+
+    };
+
+    Relay.Store.commitUpdate(
+      new UpdateContactMutation({
+       location: "Cairo2",
+       web: "example.com2",
+       phone: "0020233838429",
+       id: contact.node.id,
+       parent_id: this.props.team.id,
+       parent_type: "team"
+     }),
+     { onSuccess, onFailure }
+   );
+  }
   createTeamContacts(){
     var that = this,
          name = document.getElementById('team__name-container').value;
@@ -113,7 +158,8 @@ class TeamComponent extends Component {
   handleEditTeam(e) {
      e.preventDefault();
      this.editTeamInfo();
-     this.createTeamContacts();
+    //  this.createTeamContacts();
+     this.updateTeamContacts();
   }
   handleEntreEditTeamNameAndDescription(e) {
     e.preventDefault();
