@@ -146,6 +146,12 @@ describe 'app' do
       expect(displayed_name == 'USER WITH EMAIL').to be(true)
     end
 
+    it "should be possible to leave /teams/new" do
+      login_with_email
+      @driver.navigate.to 'http://localhost:3333/teams/new'
+      expect(@driver.find_elements(:css, 'a[href="/teams"]').empty?).to be(false)
+    end
+
     it "should have footer" do
       login_with_email
       @driver.navigate.to 'http://localhost:3333/tos'
