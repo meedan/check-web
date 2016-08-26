@@ -69,9 +69,9 @@ class TeamComponent extends Component {
 
   updateTeamContacts(){
     var that = this,
-         name = document.getElementById('team__name-container').value,
+         location = document.getElementById('team__location-container').value,
+         link = document.getElementById('team__link-container').value,
          contact = this.props.team.contacts.edges[0];
-    var description = document.getElementById('team__description-container').value;
     console.log("create team start");
     var onFailure = (transaction) => {
 
@@ -101,20 +101,17 @@ class TeamComponent extends Component {
 
     Relay.Store.commitUpdate(
       new UpdateContactMutation({
-       location: "Cairo2",
-       web: "example.com2",
-       phone: "0020233838429",
+       location: location,
+       web: link,
        id: contact.node.id,
-       parent_id: this.props.team.id,
-       parent_type: "team"
      }),
      { onSuccess, onFailure }
    );
   }
   createTeamContacts(){
     var that = this,
-         name = document.getElementById('team__name-container').value;
-    var description = document.getElementById('team__description-container').value;
+    location = document.getElementById('team__location-container').value,
+    link = document.getElementById('team__link-container').value;
     console.log("create team start");
     var onFailure = (transaction) => {
 
@@ -144,9 +141,8 @@ class TeamComponent extends Component {
 
     Relay.Store.commitUpdate(
       new CreateContactMutation({
-       location: "Cairo",
-       web: "example.com",
-       phone: "0020233838429",
+       location: location,
+       web: link,
        team_id: this.props.team.dbid,
        parent_id: this.props.team.id,
        parent_type: "team"
@@ -158,8 +154,11 @@ class TeamComponent extends Component {
   handleEditTeam(e) {
      e.preventDefault();
      this.editTeamInfo();
-    //  this.createTeamContacts();
-     this.updateTeamContacts();
+     if (this.props.team.contacts.edges[0]) {
+       this.createTeamContacts();
+     } else {
+       this.updateTeamContacts();
+     }
   }
   handleEntreEditTeamNameAndDescription(e) {
     e.preventDefault();
@@ -168,6 +167,7 @@ class TeamComponent extends Component {
   render() {
     const team = this.props.team;
     const isEditing = this.state.isEditingNameAndDescription;
+    const contact =this.props.team.contacts.edges[0];
     return (
       <div className='team'>
         <Message message={this.state.message} />
@@ -222,12 +222,21 @@ class TeamComponent extends Component {
 
             {/* location: show this span if location entered, hide if not; always show when isEditing */}
             <span className='team__location'>
-              <FontAwesome name='map-marker' className='team__location-icon' />
               {(() => {
                 if (isEditing) {
-                  return (<input type='text' className='team__location-name-input'/>);
+                  return (<span><FontAwesome name='map-marker' className='team__location-icon' />
+                          <input type='text' id='team__location-container' className='team__location-name-input'/></span>);
                 } else {
-                  return (<span className='team__location-name'>{this.props.team.contacts.edges[0].node.location}</span>);
+                  if(contact)
+                  {
+                    return (<span>
+                      <FontAwesome name='map-marker' className='team__location-icon' />
+                      <span className='team__location-name'>{this.props.team.contacts.edges[0].node.location}</span></span>);
+
+                  }else {
+                    return (<span className='team__location-name'></span>);
+
+                  }
                 }
               })()}
             </span>
@@ -238,16 +247,25 @@ class TeamComponent extends Component {
                 return (
                   <span>
                   <FontAwesome name='link' className='team__link-icon' />
-                  <input type='text' className='team__link-name-input'/>
+                  <input id='team__link-container' type='text' className='team__link-name-input'/>
                   </span>);
 
               } else {
-                return (
-                  <Link to='https://bellingcat.com' className='team__link'>
-                    <FontAwesome name='link' className='team__link-icon' />
-                    <span className='team__link-text'>{this.props.team.contacts.edges[0].node.web}</span>
-                  </Link>
-                );
+                if(contact)
+                {
+                  return (
+                    <Link  to= {this.props.team.contacts.edges[0].node.web} className='team__link'>
+                      <FontAwesome name='link' className='team__link-icon' />
+                      <span className='team__link-text'>{this.props.team.contacts.edges[0].node.web}</span>
+                    </Link>
+                  );
+                }else {
+                  return (
+                      <span className='team__link-text'></span>
+
+                  );
+                }
+
               }
             })()}
 
