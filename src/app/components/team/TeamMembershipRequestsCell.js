@@ -7,19 +7,14 @@ class TeamMembershipRequestsCell extends Component {
   handleDeleteRequest(e) {
      e.preventDefault();
      var that = this
-     console.log("on delete handle");
-
 
      var onFailure = (transaction) => {
        transaction.getError().json().then(function(json) {
-         console.log("on failure");
        });
 
        this.setState({isEditingNameAndDescription: false});
     };
     var onSuccess = (response) => {
-      console.log("on sucess");
-
     };
 
     Relay.Store.commitUpdate(
@@ -33,19 +28,14 @@ class TeamMembershipRequestsCell extends Component {
   handleApproveRequest(e) {
      e.preventDefault();
      var that = this
-     console.log("on approve handle");
-
 
      var onFailure = (transaction) => {
        transaction.getError().json().then(function(json) {
-         console.log("on failure");
        });
 
        this.setState({isEditingNameAndDescription: false});
     };
     var onSuccess = (response) => {
-      console.log("on sucess");
-
     };
 
     Relay.Store.commitUpdate(

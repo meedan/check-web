@@ -44,7 +44,8 @@ class JoinTeamComponent extends Component {
 
   render() {
     const team = this.props.team
-    const teamUrl = 'https://' + team.subdomain + '.checkdesk.org/';
+    const teamUrl = 'https://checkdesk.org/team/' + team.dbid + '/join';
+
     var isLoggedIn = true;
     var isRequestSent = this.state.isRequestSent;
 

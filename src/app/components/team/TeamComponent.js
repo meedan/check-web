@@ -72,7 +72,6 @@ class TeamComponent extends Component {
          location = document.getElementById('team__location-container').value,
          link = document.getElementById('team__link-container').value,
          contact = this.props.team.contacts.edges[0];
-    console.log("create team start");
     var onFailure = (transaction) => {
 
         transaction.getError().json().then(function(json) {
@@ -85,18 +84,12 @@ class TeamComponent extends Component {
 
         this.setState({isEditingNameAndDescription: false});
 
-        console.log("create team fail");
 
     };
 
     var onSuccess = (response) => {
-     //  var tid = response.createTeam.team.id;
-     //  var decodedId = base64.decode(tid);
-     //  this.props.history.push('/' + decodedId);
       this.setState({ message: null });
       this.setState({isEditingNameAndDescription: false});
-      console.log("create team sucess");
-
     };
 
     Relay.Store.commitUpdate(
@@ -112,7 +105,6 @@ class TeamComponent extends Component {
     var that = this,
     location = document.getElementById('team__location-container').value,
     link = document.getElementById('team__link-container').value;
-    console.log("create team contacccc start");
     var onFailure = (transaction) => {
 
         transaction.getError().json().then(function(json) {
@@ -125,17 +117,11 @@ class TeamComponent extends Component {
 
         this.setState({isEditingNameAndDescription: false});
 
-        console.log("create team fail");
-
     };
 
     var onSuccess = (response) => {
-     //  var tid = response.createTeam.team.id;
-     //  var decodedId = base64.decode(tid);
-     //  this.props.history.push('/' + decodedId);
       this.setState({ message: null });
       this.setState({isEditingNameAndDescription: false});
-      console.log("create team sucess");
 
     };
 
