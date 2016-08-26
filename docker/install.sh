@@ -16,4 +16,3 @@ echo 'inspect_addr: 0.0.0.0:4040' > /.ngrok
 
 # Only for the tests
 gem install bundler
-mv /app/test/chromedriver-64 /app/test/chromedriver
