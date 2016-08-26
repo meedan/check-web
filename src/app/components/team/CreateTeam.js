@@ -3,7 +3,7 @@ import Relay from 'react-relay';
 import CreateTeamMutation from '../../relay/CreateTeamMutation';
 import base64 from 'base-64';
 import Message from '../Message';
-
+import { Link } from 'react-router';
 
 class CreateTeam extends Component {
   constructor(props) {
@@ -117,6 +117,7 @@ class CreateTeam extends Component {
   render() {
     return (
       <main className='create-team'>
+        <Link to='/teams' className='create-team__cancel'>×</Link>
         <Message message={this.state.message} />
 
         <img className='create-team__icon' src='/images/logo/logo-alt.svg'/>
