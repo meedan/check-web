@@ -112,7 +112,7 @@ class TeamComponent extends Component {
     var that = this,
     location = document.getElementById('team__location-container').value,
     link = document.getElementById('team__link-container').value;
-    console.log("create team start");
+    console.log("create team contacccc start");
     var onFailure = (transaction) => {
 
         transaction.getError().json().then(function(json) {
@@ -155,10 +155,11 @@ class TeamComponent extends Component {
      e.preventDefault();
      this.editTeamInfo();
      if (this.props.team.contacts.edges[0]) {
-       this.createTeamContacts();
-     } else {
        this.updateTeamContacts();
-     }
+
+     } else {
+       this.createTeamContacts();
+          }
   }
   handleEntreEditTeamNameAndDescription(e) {
     e.preventDefault();
@@ -224,8 +225,16 @@ class TeamComponent extends Component {
             <span className='team__location'>
               {(() => {
                 if (isEditing) {
-                  return (<span><FontAwesome name='map-marker' className='team__location-icon' />
-                          <input type='text' id='team__location-container' className='team__location-name-input'/></span>);
+                  if (contact) {
+                    return (<span><FontAwesome name='map-marker' className='team__location-icon' />
+                            <input type='text' id='team__location-container' defaultValue={this.props.team.contacts.edges[0].node.location} className='team__location-name-input'/>
+                            </span>);
+                  }else {
+
+                    return (<span><FontAwesome name='map-marker' className='team__location-icon' />
+                            <input type='text' id='team__location-container' className='team__location-name-input'/>
+                            </span>);
+                  }
                 } else {
                   if(contact)
                   {
@@ -244,11 +253,21 @@ class TeamComponent extends Component {
             {/* link: iterate through all contact info links user has added; switch spans to inputs on isEditing */}
             {(() => {
               if (isEditing) {
-                return (
-                  <span>
-                  <FontAwesome name='link' className='team__link-icon' />
-                  <input id='team__link-container' type='text' className='team__link-name-input'/>
-                  </span>);
+                if (contact) {
+                  return (
+                    <span>
+                    <FontAwesome name='link' className='team__link-icon' />
+                    <input id='team__link-container' defaultValue={this.props.team.contacts.edges[0].node.web} type='text' className='team__link-name-input'/>
+                    </span>);
+
+                }else {
+                  return (
+                    <span>
+                    <FontAwesome name='link' className='team__link-icon' />
+                    <input id='team__link-container' type='text' className='team__link-name-input'/>
+                    </span>);
+
+                }
 
               } else {
                 if(contact)
