@@ -15,6 +15,17 @@ var teamFragment = Relay.QL`
         }
       }
     },
+    contacts(first: 1) {
+      edges {
+        node {
+          location,
+          web,
+          phone,
+          id
+
+        }
+      }
+    }
   }
 `;
 
