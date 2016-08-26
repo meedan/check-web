@@ -60,6 +60,27 @@ describe 'app' do
   # The tests themselves start here
 
   context "web" do
+    it "should upload image when registering" do
+      @driver.navigate.to @config['self_url'] + '/'
+      sleep 1
+      @driver.find_element(:xpath, "//a[@id='login-email']").click
+      sleep 1
+      @driver.find_element(:xpath, "//button[@id='register-or-login']").click
+      sleep 1
+      fill_field('.login-name input', 'User With Email And Photo')
+      fill_field('.login-email input', @email + '.br')
+      fill_field('.login-password input', '12345678')
+      fill_field('.login-password-confirmation input', '12345678')
+      file = File.join(File.dirname(__FILE__), 'test.png')
+      fill_field('input[type=file]', file, :css, false)
+      press_button('#submit-register-or-login')
+      sleep 5
+      @driver.navigate.to @config['self_url'] + '/me'
+      sleep 10
+      avatar = get_element('.source-avatar')
+      expect(avatar.attribute('src').match(/test\.png$/).nil?).to be(false)
+    end
+
     it "should redirect to 404 page" do
       @driver.navigate.to @config['self_url'] + '/something-that-does-not-exist'
       title = get_element('.main-title')
@@ -78,7 +99,6 @@ describe 'app' do
       expect(title.text == 'SIGN IN').to be(true)
     end
 
-=begin
     it "should login using Twitter and display user name on top right bar" do
       login_with_twitter
       displayed_name = get_element('#user-name span').text.upcase
@@ -97,7 +117,7 @@ describe 'app' do
       expect(title.text == 'Welcome to Checkdesk').to be(true)
     end
 
-    it "should register and login using e-mail" do
+    it "should register and login using e-mail to join a team" do
       @driver.navigate.to @config['self_url'] + '/'
       sleep 1
       @driver.find_element(:xpath, "//a[@id='login-email']").click
@@ -653,6 +673,31 @@ describe 'app' do
       sleep 1
       expect(@driver.page_source.include?('Flag')).to be(false)
     end
-=end
+
+    it "should create a team" do
+      login_with_email
+      @driver.navigate.to @config['self_url'] + '/teams/new'
+      sleep 1
+      fill_field('#team-name-container', "Team #{Time.now}")
+      sleep 1
+      fill_field('#team-subdomain-container', "team#{Time.now.to_i}")
+      sleep 1
+      press_button('.create-team__submit-button')
+      sleep 5
+      expect(@driver.current_url.to_s.match(/^http:\/\/localhost:3333\/team\/[0-9]+/).nil?).to be(false)
+    end
+
+    it "should create a project for a team" do
+      login_with_email
+      @driver.navigate.to @config['self_url'] + '/'
+      sleep 1
+      title = "Project #{Time.now}"
+      fill_field('#create-project-title', title)
+      @driver.action.send_keys(:enter).perform
+      sleep 5
+      expect(@driver.current_url.to_s.match(/^http:\/\/localhost:3333\/project\/[0-9]+/).nil?).to be(false)
+      link = get_element('.team-sidebar__project-link')
+      expect(link.text == title).to be(true)
+    end
   end
 end

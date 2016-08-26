@@ -28,6 +28,13 @@ export function request(method, endpoint, failureCallback, successCallback, data
       path += key + '=' + data[key] + '&'
     }
   }
+  else if (method === 'post') {
+    var formdata = new FormData();
+    for (var key in data) {
+      formdata.append(key, data[key]);
+    }
+    data = formdata;
+  }
 
   var http = superagent[method](path);
 
@@ -89,10 +96,8 @@ export function loginEmail() {
   return (dispatch, getState) => {
     var form = document.forms.login,
         params = {
-          api_user: {
-            email: form.email.value,
-            password: form.password.value
-          }
+          'api_user[email]': form.email.value,
+          'api_user[password]': form.password.value
         },
         failureCallback = function(message) { dispatch({ type: ERROR, failure: message }); },
         successCallback = function(data) { dispatch({ type: SUCCESS, error: false }); };
@@ -104,12 +109,11 @@ export function registerEmail() {
   return (dispatch, getState) => {
     var form = document.forms.register,
         params = {
-          api_user: {
-            email: form.email.value,
-            name: form.name.value,
-            password: form.password.value,
-            password_confirmation: form.password_confirmation.value
-          }
+          'api_user[email]': form.email.value,
+          'api_user[name]': form.name.value,
+          'api_user[password]': form.password.value,
+          'api_user[password_confirmation]': form.password_confirmation.value,
+          'api_user[image]': form.image
         },
         failureCallback = function(message) { dispatch({ type: ERROR, failure: message }); },
         successCallback = function(data) { dispatch({ type: SUCCESS, error: false }); };
@@ -120,7 +124,10 @@ export function registerEmail() {
 export function logout() {
   return (dispatch, getState) => {
     var failureCallback = function(message) { dispatch({ type: ERROR, message: message }); },
-        successCallback = function(data) { dispatch({ type: SUCCESS, loggedOut: true, message: 'Logged out successfully!' }); };
+        successCallback = function(data) {
+          // Easiest way to clear all cache?
+          window.location.reload();
+        };
     request('delete', 'users/sign_out', failureCallback, successCallback);
   };
 };

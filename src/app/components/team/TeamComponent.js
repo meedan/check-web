@@ -3,13 +3,14 @@ import Relay from 'react-relay';
 import TeamMembers from './TeamMembers'
 import TeamActivities from './TeamActivities'
 import TeamProjects from './TeamProjects'
-import TeamContacts from './TeamContacts'
 import Tags from './Tags'
 import SocialProfiles from './SocialProfiles'
 import { Link } from 'react-router';
 import FontAwesome from 'react-fontawesome';
 import UpdateTeamMutation from '../../relay/UpdateTeamMutation';
 import Message from '../Message';
+import CreateContactMutation from '../../relay/CreateContactMutation';
+import UpdateContactMutation from '../../relay/UpdateContactMutation';
 
 
 class TeamComponent extends Component {
@@ -26,45 +27,125 @@ class TeamComponent extends Component {
      this.setState({isEditingNameAndDescription: false});
   }
 
+  editTeamInfo(){
+    var that = this,
+         name = document.getElementById('team__name-container').value;
+    var description = document.getElementById('team__description-container').value;
+
+
+    var onFailure = (transaction) => {
+
+        transaction.getError().json().then(function(json) {
+          var message = 'Sorry, could not edit the team';
+          if (json.error) {
+            message = json.error;
+          }
+          that.setState({ message: message });
+        });
+
+        this.setState({isEditingNameAndDescription: false});
+
+
+    };
+
+    var onSuccess = (response) => {
+     //  var tid = response.createTeam.team.id;
+     //  var decodedId = base64.decode(tid);
+     //  this.props.history.push('/' + decodedId);
+      this.setState({ message: null });
+      this.setState({isEditingNameAndDescription: false});
+
+    };
+
+    Relay.Store.commitUpdate(
+      new UpdateTeamMutation({
+       name: name,
+       description: description,
+       id: this.props.team.id
+     }),
+     { onSuccess, onFailure }
+   );
+  }
+
+  updateTeamContacts(){
+    var that = this,
+         location = document.getElementById('team__location-container').value,
+         link = document.getElementById('team__link-container').value,
+         contact = this.props.team.contacts.edges[0];
+    var onFailure = (transaction) => {
+
+        transaction.getError().json().then(function(json) {
+          var message = 'Sorry, could not edit the team';
+          if (json.error) {
+            message = json.error;
+          }
+          that.setState({ message: message });
+        });
+
+        this.setState({isEditingNameAndDescription: false});
+
+
+    };
+
+    var onSuccess = (response) => {
+      this.setState({ message: null });
+      this.setState({isEditingNameAndDescription: false});
+    };
+
+    Relay.Store.commitUpdate(
+      new UpdateContactMutation({
+       location: location,
+       web: link,
+       id: contact.node.id,
+     }),
+     { onSuccess, onFailure }
+   );
+  }
+  createTeamContacts(){
+    var that = this,
+    location = document.getElementById('team__location-container').value,
+    link = document.getElementById('team__link-container').value;
+    var onFailure = (transaction) => {
+
+        transaction.getError().json().then(function(json) {
+          var message = 'Sorry, could not edit the team';
+          if (json.error) {
+            message = json.error;
+          }
+          that.setState({ message: message });
+        });
+
+        this.setState({isEditingNameAndDescription: false});
+
+    };
+
+    var onSuccess = (response) => {
+      this.setState({ message: null });
+      this.setState({isEditingNameAndDescription: false});
+
+    };
+
+    Relay.Store.commitUpdate(
+      new CreateContactMutation({
+       location: location,
+       web: link,
+       team_id: this.props.team.dbid,
+       parent_id: this.props.team.id,
+       parent_type: "team"
+     }),
+     { onSuccess, onFailure }
+   );
+  }
+
   handleEditTeam(e) {
      e.preventDefault();
-     var that = this,
-          name = document.getElementById('team__name-container').value;
-     var description = document.getElementById('team__description-container').value;
+     this.editTeamInfo();
+     if (this.props.team.contacts.edges[0]) {
+       this.updateTeamContacts();
 
-
-     var onFailure = (transaction) => {
-
-         transaction.getError().json().then(function(json) {
-           var message = 'Sorry, could not edit the team';
-           if (json.error) {
-             message = json.error;
-           }
-           that.setState({ message: message });
-         });
-
-         this.setState({isEditingNameAndDescription: false});
-
-
-     };
-
-     var onSuccess = (response) => {
-      //  var tid = response.createTeam.team.id;
-      //  var decodedId = base64.decode(tid);
-      //  this.props.history.push('/' + decodedId);
-       this.setState({ message: null });
-       this.setState({isEditingNameAndDescription: false});
-
-     };
-
-     Relay.Store.commitUpdate(
-       new UpdateTeamMutation({
-        name: name,
-        description: description,
-        id: this.props.team.id
-      }),
-      { onSuccess, onFailure }
-    );
+     } else {
+       this.createTeamContacts();
+          }
   }
   handleEntreEditTeamNameAndDescription(e) {
     e.preventDefault();
@@ -73,6 +154,7 @@ class TeamComponent extends Component {
   render() {
     const team = this.props.team;
     const isEditing = this.state.isEditingNameAndDescription;
+    const contact =this.props.team.contacts.edges[0];
     return (
       <div className='team'>
         <Message message={this.state.message} />
@@ -127,21 +209,71 @@ class TeamComponent extends Component {
 
             {/* location: show this span if location entered, hide if not; always show when isEditing */}
             <span className='team__location'>
-              <FontAwesome name='map-marker' className='team__location-icon' />
               {(() => {
                 if (isEditing) {
-                  return (<input type='text' className='team__location-name-input'/>);
+                  if (contact) {
+                    return (<span><FontAwesome name='map-marker' className='team__location-icon' />
+                            <input type='text' id='team__location-container' defaultValue={this.props.team.contacts.edges[0].node.location} className='team__location-name-input'/>
+                            </span>);
+                  }else {
+
+                    return (<span><FontAwesome name='map-marker' className='team__location-icon' />
+                            <input type='text' id='team__location-container' className='team__location-name-input'/>
+                            </span>);
+                  }
                 } else {
-                  return (<span className='team__location-name'>Cairo</span>);
+                  if(contact)
+                  {
+                    return (<span>
+                      <FontAwesome name='map-marker' className='team__location-icon' />
+                      <span className='team__location-name'>{this.props.team.contacts.edges[0].node.location}</span></span>);
+
+                  }else {
+                    return (<span className='team__location-name'></span>);
+
+                  }
                 }
               })()}
             </span>
 
             {/* link: iterate through all contact info links user has added; switch spans to inputs on isEditing */}
-            <Link to='https://bellingcat.com' className='team__link'>
-              <FontAwesome name='link' className='team__link-icon' />
-              <span className='team__link-text'>bellingcat.com</span>
-            </Link>
+            {(() => {
+              if (isEditing) {
+                if (contact) {
+                  return (
+                    <span>
+                    <FontAwesome name='link' className='team__link-icon' />
+                    <input id='team__link-container' defaultValue={this.props.team.contacts.edges[0].node.web} type='text' className='team__link-name-input'/>
+                    </span>);
+
+                }else {
+                  return (
+                    <span>
+                    <FontAwesome name='link' className='team__link-icon' />
+                    <input id='team__link-container' type='text' className='team__link-name-input'/>
+                    </span>);
+
+                }
+
+              } else {
+                if(contact)
+                {
+                  return (
+                    <Link  to= {this.props.team.contacts.edges[0].node.web} className='team__link'>
+                      <FontAwesome name='link' className='team__link-icon' />
+                      <span className='team__link-text'>{this.props.team.contacts.edges[0].node.web}</span>
+                    </Link>
+                  );
+                }else {
+                  return (
+                      <span className='team__link-text'></span>
+
+                  );
+                }
+
+              }
+            })()}
+
 
             {/* add link: show whenever is editing; clicking adds a new link input ^
             <button className='team__add-link'>

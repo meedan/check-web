@@ -28,6 +28,14 @@ const muiTheme = getMuiTheme({
 });
 
 class Home extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isSidebarActive: false
+    };
+  }
+
   setUpGraphql(token) {
     var headers = config.relayHeaders;
     if (token) {
@@ -59,11 +67,20 @@ class Home extends Component {
           else {
             state.error = true;
           }
+          window.Checkdesk.currentUser = data;
           that.forceUpdate();
         }
         request('get', 'me', failureCallback, successCallback);
       }
     }
+  }
+
+  toggleSidebar() {
+    this.setState({isSidebarActive: !this.state.isSidebarActive});
+  }
+
+  sidebarActiveClass(baseClass) {
+    return this.state.isSidebarActive ? [baseClass, baseClass + '--sidebar-active'].join(' ') : baseClass;
   }
 
   render() {
@@ -87,14 +104,15 @@ class Home extends Component {
 
     return (
       <div className='home'>
-        <TeamSidebar />
+        <div className={this.sidebarActiveClass('home__sidebar')}>
+          <TeamSidebar />
+        </div>
+        <main className={this.sidebarActiveClass('home__content')}>
+          <div className={this.sidebarActiveClass('home__content-overlay')} onClick={this.toggleSidebar.bind(this)}></div>
 
-        <main className='home__content'>
-          <AppBar title="Checkdesk" className="top-bar" iconElementRight={<Header {...this.props} />} iconClassNameLeft={null} />
-
+          <Header {...this.props} toggleSidebar={this.toggleSidebar.bind(this)} />
           <div className="global-message"><Message message={state.app.message} /></div>
-
-          <div className="children">{this.props.children}</div>
+          <div className='home__content-children'>{this.props.children}</div>
 
           <FooterRelay {...this.props} />
         </main>

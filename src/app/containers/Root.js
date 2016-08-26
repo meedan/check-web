@@ -10,6 +10,7 @@ import { CreateMedia, Media } from '../components/media';
 import TeamMembers  from '../components/team/TeamMembers';
 import CreateTeam from '../components/team/CreateTeam'
 import JoinTeam from '../components/team/JoinTeam.js';
+import Project from '../components/project/Project.js';
 
 export default class Root extends Component {
   static propTypes = {
@@ -19,6 +20,8 @@ export default class Root extends Component {
   render() {
     const { store } = this.props;
     const history = syncHistoryWithStore(browserHistory, store);
+    window.Checkdesk = { history: history }
+
     return (
       <Provider store={store}>
         <Router history={history}>
@@ -32,10 +35,11 @@ export default class Root extends Component {
             <Route path="media/:mediaId" component={Media} />
             <Route path="user/:userId" component={User} />
             <Route path="me" component={Me} />
+            <Route path="team/:teamId/join" component={JoinTeam} />
             <Route path="team/:teamId/members" component={TeamMembers} />
             <Route path="team/:teamId" component={Team} />
             <Route path="teams/new" component={CreateTeam} fullscreen={true} />
-            <Route path="join" component={JoinTeam} />
+            <Route path="project/:projectId" component={Project} />
             <Route path="*" component={NotFound} public={true} />
           </Route>
         </Router>

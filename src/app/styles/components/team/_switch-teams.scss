@@ -1,0 +1,136 @@
+.switch-teams {
+  background-color: rgba(0, 0, 0, 0.75);
+  position: fixed;
+  top: 0; right: 0; bottom: 0; left: 0;
+  width: 100vw; // required if ancestor has transform, e.g. active mobile sidebar. TODO: general solution for overlays
+  z-index: 10;
+
+  opacity: 0;
+  transition: opacity 200ms ease;
+  pointer-events: none;
+  &--active {
+    pointer-events: auto;
+    opacity: 1;
+  }
+}
+
+// modal
+
+.switch-teams__modal {
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 400px;
+  max-height: 100%;
+  padding: 15px 15px 30px 15px;
+  background-color: #fff;
+  color: $dark-gray-text;
+}
+
+.switch-teams__modal-title {
+  font-size: 14px;
+  font-weight: normal;
+  color: $light-gray-text;
+  margin: 10px 0 23px 13px;
+}
+
+.switch-teams__modal-title-icon {
+  margin-right: 7px;
+  font-size: 0.95em;
+}
+
+.switch-teams__modal-close {
+  @include close-button;
+  position: absolute; top: 11px; right: 24px;
+  opacity: 0.8;
+}
+
+// teams
+
+.switch-teams__teams, {
+  margin-bottom: 10px;
+}
+
+.switch-teams__team {
+  border-radius: 2px;
+  margin-bottom: 8px;
+  transition: background-color 70ms ease;
+  &:hover {
+    background-color: $light-gray-bg;
+  }
+}
+
+.switch-teams__team--current {
+  background-color: $light-gray-bg;
+  &:hover {
+    background-color: $medium-gray-bg;
+  }
+}
+
+.switch-teams__team--pending {
+  &:hover {
+    background-color: transparent;
+  }
+  .switch-teams__team-avatar,
+  .switch-teams__team-name { opacity: 0.4; }
+}
+
+.switch-teams__team-link,
+.switch-teams__team--pending {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+}
+
+.switch-teams__team-link {
+  &, &:hover { text-decoration: none; }
+  height: 100%; width: 100%;
+  text-decoration: none;
+}
+
+.switch-teams__team-avatar {
+  @include team-avatar;
+  color: $dark-gray-text;
+  background-size: cover;
+  background-position: center;
+  margin-right: 15px;
+}
+
+.switch-teams__team-copy {
+  flex: 1;
+}
+
+.switch-teams__team-name {
+  @include team-name;
+  color: $dark-gray-text;
+  margin: 3px 0;
+
+  & > a { color: inherit; &:hover { text-decoration: none; }}
+}
+
+.switch-teams__team-members-count,
+.switch-teams__team-join-request-message {
+  color: $light-gray-text;
+  font-size: 14px;
+}
+
+.switch-teams__team-join-request-message {
+  text-transform: uppercase;
+}
+
+.switch-teams__team-caret {
+  font-size: 24px;
+  color: hsl(204, 15%, 70%);
+}
+
+.switch-teams__cancel-join-request {
+  @include unbutton;
+  color: $red-500;
+}
+
+.switch-teams__new-team-link {
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin: 15px 12px;
+}

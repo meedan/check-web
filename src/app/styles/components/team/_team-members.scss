@@ -130,9 +130,7 @@
 
 .team-members__delete-member {
   @include unbutton;
-  color: $light-gray-text;
-  font-weight: 200;
-  font-size: 30px;
+  @include close-button;
   margin-left: 15px;
   &-icon {
     position: relative;

@@ -3,6 +3,7 @@ import Relay from 'react-relay';
 var teamFragment = Relay.QL`
   fragment on Team {
     id,
+    dbid,
     name,
     description,
     subdomain,
@@ -14,6 +15,17 @@ var teamFragment = Relay.QL`
         }
       }
     },
+    contacts(first: 1) {
+      edges {
+        node {
+          location,
+          web,
+          phone,
+          id
+
+        }
+      }
+    }
   }
 `;
 

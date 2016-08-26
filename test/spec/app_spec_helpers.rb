@@ -12,11 +12,15 @@ module AppSpecHelpers
     }
   end
 
-  def fill_field(selector, value, type = :css)
+  def fill_field(selector, value, type = :css, visible = true)
     wait = Selenium::WebDriver::Wait.new(timeout: 100)
     input = wait.until {
       element = @driver.find_element(type, selector)
-      element if element.displayed?
+      if visible
+        element if element.displayed?
+      else
+        element
+      end
     }
     sleep 1
     input.send_keys(value)

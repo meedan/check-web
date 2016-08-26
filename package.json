@@ -74,6 +74,7 @@
     "postcss-cli": "^2.3.2",
     "react": "^0.14.0",
     "react-dom": "^0.14.0",
+    "react-dropzone": "^3.5.3",
     "react-fontawesome": "^1.1.0",
     "react-redux": "^4.0.0",
     "react-relay": "^0.8.1",

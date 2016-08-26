@@ -18,7 +18,7 @@ const UserMenuContainer = Relay.createContainer(UserMenu, {
 class UserMenuRelay extends Component {
   render() {
     var route = new MeRoute();
-    return (<Relay.RootContainer Component={UserMenuContainer} route={route} forceFetch={true} />);
+    return (<Relay.RootContainer Component={UserMenuContainer} route={route} />);
   }
 }
 

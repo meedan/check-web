@@ -1,10 +1,10 @@
 import React, { Component, PropTypes } from 'react';
-import FontAwesome from 'react-fontawesome';
 import Dialog from 'material-ui/lib/dialog';
 import FlatButton from 'material-ui/lib/flat-button';
 import RaisedButton from 'material-ui/lib/raised-button';
 import TextField from 'material-ui/lib/text-field';
 import Message from './Message';
+import UploadImage from './UploadImage';
 
 class LoginEmail extends Component {
   constructor(props) {
@@ -27,6 +27,10 @@ class LoginEmail extends Component {
   handleSwitchType() {
     var type = this.state.type === 'login' ? 'register' : 'login';
     this.setState({ type: type });
+  }
+
+  onImage(file) {
+    document.forms.register.image = file;
   }
 
   render() {
@@ -70,6 +74,7 @@ class LoginEmail extends Component {
             
             <span className={this.state.type === 'login' ? 'hidden' : ''}>
               <TextField hintText="Same as above" floatingLabelText="Password confirmation" type="password" fullWidth={true} name="password_confirmation" className="login-password-confirmation" />
+              <UploadImage onImage={this.onImage.bind(this)} />
             </span>
           </form>
         </Dialog>

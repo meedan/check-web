@@ -9,18 +9,15 @@ class TeamMembersCell extends Component {
   handleDeleteTeamUser(e) {
      e.preventDefault();
      var that = this
-     console.log("on delete handle");
 
 
      var onFailure = (transaction) => {
        transaction.getError().json().then(function(json) {
-         console.log("on failure");
        });
 
        this.setState({isEditingNameAndDescription: false});
     };
     var onSuccess = (response) => {
-      console.log("on sucess");
 
     };
 
