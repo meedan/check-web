@@ -60,6 +60,7 @@ class Home extends Component {
           state.error = true;
           that.forceUpdate();
         };
+        that = this
         var successCallback = function(data) {
           if (data) {
             state.token = data.token;
@@ -68,6 +69,16 @@ class Home extends Component {
             state.error = true;
           }
           window.Checkdesk.currentUser = data;
+          var currentLocation = that.props.location.pathname;
+          console.log(currentLocation);
+          if (data && !data.current_team && currentLocation != '/teams/new') {
+            console.log("currentLocation1");
+
+            window.Checkdesk.history.push('/teams/new');
+
+          }
+          console.log("currentLocation2");
+
           that.forceUpdate();
         }
         request('get', 'me', failureCallback, successCallback);
