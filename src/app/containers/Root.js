@@ -26,7 +26,7 @@ export default class Root extends Component {
       <Provider store={store}>
         <Router history={history}>
           <Route path="/" component={App}>
-            <IndexRoute component={IndexComponent} />
+            <IndexRoute component={Index} />
             <Route path="tos" component={TermsOfService} public={true} />
             <Route path="sources" component={Sources} />
             <Route path="sources/new" component={CreateAccount} />
