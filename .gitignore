@@ -8,3 +8,4 @@ test/config.yml
 config.js
 .DS_Store
 releases/
+supervisord.pid
