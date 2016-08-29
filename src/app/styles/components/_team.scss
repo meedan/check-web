@@ -100,20 +100,23 @@
 .team__contact-info,
 .team__location,
 .team__link,
-.team__add-link {
+.team__add-link,
+.team__phone {
   font-size: 14px;
   color: $light-gray-text;
 }
 
 .team__location,
 .team__link,
-.team__add-link {
+.team__add-link,
+.team__phone {
   margin-right: 15px;
 }
 
 .team__location-icon,
 .team__link-icon,
-.team__add-link-icon {
+.team__add-link-icon,
+.team__phone-icon {
   margin-right: 4px;
 }
 

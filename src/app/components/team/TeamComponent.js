@@ -18,13 +18,13 @@ class TeamComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isEditingNameAndDescription: false
+      isEditing: false
     };
   }
 
   cancelEditTeam(e) {
      e.preventDefault();
-     this.setState({isEditingNameAndDescription: false});
+     this.setState({isEditing: false});
   }
 
   editTeamInfo(){
@@ -42,19 +42,11 @@ class TeamComponent extends Component {
           }
           that.setState({ message: message });
         });
-
-        this.setState({isEditingNameAndDescription: false});
-
-
     };
 
     var onSuccess = (response) => {
-     //  var tid = response.createTeam.team.id;
-     //  var decodedId = base64.decode(tid);
-     //  this.props.history.push('/' + decodedId);
       this.setState({ message: null });
-      this.setState({isEditingNameAndDescription: false});
-
+      this.setState({isEditing: false});
     };
 
     Relay.Store.commitUpdate(
@@ -71,6 +63,7 @@ class TeamComponent extends Component {
     var that = this,
          location = document.getElementById('team__location-container').value,
          link = document.getElementById('team__link-container').value,
+         phone = document.getElementById('team__phone-container').value,
          contact = this.props.team.contacts.edges[0];
     var onFailure = (transaction) => {
 
@@ -82,20 +75,21 @@ class TeamComponent extends Component {
           that.setState({ message: message });
         });
 
-        this.setState({isEditingNameAndDescription: false});
+        this.setState({isEditing: false});
 
 
     };
 
     var onSuccess = (response) => {
       this.setState({ message: null });
-      this.setState({isEditingNameAndDescription: false});
+      this.setState({isEditing: false});
     };
 
     Relay.Store.commitUpdate(
       new UpdateContactMutation({
        location: location,
        web: link,
+       phone:phone,
        id: contact.node.id,
      }),
      { onSuccess, onFailure }
@@ -114,14 +108,11 @@ class TeamComponent extends Component {
           }
           that.setState({ message: message });
         });
-
-        this.setState({isEditingNameAndDescription: false});
-
     };
 
     var onSuccess = (response) => {
       this.setState({ message: null });
-      this.setState({isEditingNameAndDescription: false});
+      this.setState({isEditing: false});
 
     };
 
@@ -149,11 +140,11 @@ class TeamComponent extends Component {
   }
   handleEntreEditTeamNameAndDescription(e) {
     e.preventDefault();
-    this.setState({isEditingNameAndDescription: true});
+    this.setState({isEditing: true});
   }
   render() {
     const team = this.props.team;
-    const isEditing = this.state.isEditingNameAndDescription;
+    const isEditing = this.state.isEditing;
     const contact =this.props.team.contacts.edges[0];
     return (
       <div className='team'>
@@ -181,7 +172,7 @@ class TeamComponent extends Component {
 
           <img className='team__avatar' src="https://pbs.twimg.com/profile_images/610557679249981440/2ARl7GLu.png" />
           {(() => {
-            if (this.state.isEditingNameAndDescription) {
+            if (this.state.isEditing) {
 
               return (
                 <div>
@@ -235,7 +226,33 @@ class TeamComponent extends Component {
                 }
               })()}
             </span>
+            <span className='team__phone'>
+              {(() => {
+                if (isEditing) {
+                  if (contact) {
+                    return ( <span>{/*<FontAwesome name='map-marker' className='team__phone-icon' /> */}
+                  <input type='text' id='team__phone-container' defaultValue={this.props.team.contacts.edges[0].node.phone} className='team__location-name-input'/>
+                            </span>);
+                  }else {
 
+                    return (<span><FontAwesome name='map-marker' className='team__phone-icon' />
+                            <input type='text' id='team__phone-container' className='team__location-name-input'/>
+                            </span>);
+                  }
+                } else {
+                  if(contact)
+                  {
+                    return (<span>
+                    {/*<FontAwesome name='map-marker' className='team__phone-icon' /> */}
+                      <span className='team__phone-name'>{this.props.team.contacts.edges[0].node.phone}</span></span>);
+
+                  }else {
+                    return (<span className='team__phone-name'></span>);
+
+                  }
+                }
+              })()}
+            </span>
             {/* link: iterate through all contact info links user has added; switch spans to inputs on isEditing */}
             {(() => {
               if (isEditing) {
