@@ -3,7 +3,7 @@ import Relay from 'react-relay';
 import CreateTeamMutation from '../../relay/CreateTeamMutation';
 import base64 from 'base-64';
 import Message from '../Message';
-
+import { Link } from 'react-router';
 
 class CreateTeam extends Component {
   constructor(props) {
@@ -36,6 +36,20 @@ class CreateTeam extends Component {
     const isTextEntered = e.target.value && e.target.value.length > 0;
     const newClass = isTextEntered ? this.displayNameLabelClass('--text-entered') : this.displayNameLabelClass();
     this.setState({displayNameLabelClass: newClass});
+  }
+
+  handleDisplayNameBlur(e) {
+    const displayName = e.target.value;
+    const subdomainInput = document.getElementsByClassName('create-team__team-subdomain-input')[0];
+
+    const subdomainSuggestion = slugify(displayName);
+    if (!subdomainInput.value && subdomainSuggestion.length) {
+      subdomainInput.value = subdomainSuggestion;
+    }
+
+    function slugify(text) {
+      return text.toString().toLowerCase().trim().replace(/&/g, '-and-').replace(/[\s\W-]+/g, '-');
+    }
   }
 
   handleSubdomainChange(e) {
@@ -98,7 +112,7 @@ class CreateTeam extends Component {
 
      var onSuccess = (response) => {
        var tid = response.createTeam.team.dbid;
-       this.props.history.push('/team/' + tid);
+       this.props.history.push('/');
        this.setState({ message: null });
 
      };
@@ -117,6 +131,7 @@ class CreateTeam extends Component {
   render() {
     return (
       <main className='create-team'>
+        <Link to='/teams' className='create-team__cancel'>×</Link>
         <Message message={this.state.message} />
 
         <img className='create-team__icon' src='/images/logo/logo-alt.svg'/>
@@ -125,7 +140,7 @@ class CreateTeam extends Component {
 
         <form className='create-team__form'>
           <div className='create-team__team-display-name'>
-            <input type='text' name='teamDisplayName' id="team-name-container" className='create-team__team-display-name-input' onChange={this.handleDisplayNameChange.bind(this)} placeholder='Team Name' autocomplete="off" />
+            <input type='text' name='teamDisplayName' id="team-name-container" className='create-team__team-display-name-input' onChange={this.handleDisplayNameChange.bind(this)} onBlur={this.handleDisplayNameBlur.bind(this)} placeholder='Team Name' autocomplete="off" />
             <label className={this.state.displayNameLabelClass}>Team Name</label>
           </div>
 
