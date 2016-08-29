@@ -69,15 +69,14 @@ class Home extends Component {
             state.error = true;
           }
           window.Checkdesk.currentUser = data;
-          var currentLocation = that.props.location.pathname;
-          console.log(currentLocation);
-          if (data && !data.current_team && currentLocation != '/teams/new') {
-            console.log("currentLocation1");
 
-            window.Checkdesk.history.push('/teams/new');
-
-          }
-          console.log("currentLocation2");
+          (function redirectIndexToTeam() {
+            if (data && currentLocation === '/') {
+              var team = data.current_team;
+              var teamDestination = (team && team.id) ? `/team/${team.id}` : '/teams/new';
+              window.Checkdesk.history.push(teamDestination);
+            }
+          })();
 
           that.forceUpdate();
         }
