@@ -71,11 +71,9 @@ class Home extends Component {
           window.Checkdesk.currentUser = data;
           var currentLocation = that.props.location.pathname;
 
-          (function redirectIndexToTeam() {
-            if (data && currentLocation === '/') {
-              var team = data.current_team;
-              var teamDestination = (team && team.id) ? `/team/${team.id}` : '/teams/new';
-              window.Checkdesk.history.push(teamDestination);
+          (function redirectIndexIfNoTeam() {
+            if (data && currentLocation === '/' && !data.current_team) {
+              window.Checkdesk.history.push('/teams/new');
             }
           })();
 
