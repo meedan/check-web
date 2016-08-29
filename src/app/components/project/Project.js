@@ -24,6 +24,7 @@ class ProjectComponent extends Component {
       <div className="project">
         <ProjectHeader project={project} />
         <h2 className="project-title">{project.title}</h2>
+        <p className="project-description">{project.description}</p>
         <Link to="/medias/new" id="link-medias-new" className="project__new-media-link" title="Create a report">+ New report...</Link>
       </div>
     );
