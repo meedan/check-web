@@ -69,6 +69,7 @@ class Home extends Component {
             state.error = true;
           }
           window.Checkdesk.currentUser = data;
+          var currentLocation = that.props.location.pathname;
 
           (function redirectIndexToTeam() {
             if (data && currentLocation === '/') {
