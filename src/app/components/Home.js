@@ -71,9 +71,19 @@ class Home extends Component {
           window.Checkdesk.currentUser = data;
           var currentLocation = that.props.location.pathname;
 
-          (function redirectIndexIfNoTeam() {
-            if (data && currentLocation === '/' && !data.current_team) {
-              window.Checkdesk.history.push('/teams/new');
+          (function redirectIndex() {
+            if (data && currentLocation === '/') {
+              // if no team, create one
+              const team = data.current_team;
+              if (!team) {
+                return Checkdesk.history.push('/teams/new');
+              }
+
+              // send to current team project
+              const project = team.projects[0]; // TODO: remember most-recently-viewed project
+              if (project && project.id) {
+                Checkdesk.history.push(`/project/${project.id}`);
+              }
             }
           })();
 
