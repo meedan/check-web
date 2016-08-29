@@ -112,7 +112,7 @@ class CreateTeam extends Component {
 
      var onSuccess = (response) => {
        var tid = response.createTeam.team.dbid;
-       this.props.history.push('/team/' + tid);
+       this.props.history.push('/');
        this.setState({ message: null });
 
      };
