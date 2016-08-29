@@ -45,8 +45,7 @@ class TeamComponent extends Component {
     };
 
     var onSuccess = (response) => {
-      this.setState({ message: null });
-      this.setState({isEditing: false});
+      this.setState({ message: null , isEditing: false});
     };
 
     Relay.Store.commitUpdate(
@@ -75,14 +74,12 @@ class TeamComponent extends Component {
           that.setState({ message: message });
         });
 
-        this.setState({isEditing: false});
 
 
     };
 
     var onSuccess = (response) => {
-      this.setState({ message: null });
-      this.setState({isEditing: false});
+      this.setState({ message: null , isEditing: false});
     };
 
     Relay.Store.commitUpdate(
@@ -111,8 +108,7 @@ class TeamComponent extends Component {
     };
 
     var onSuccess = (response) => {
-      this.setState({ message: null });
-      this.setState({isEditing: false});
+      this.setState({ message: null ,isEditing: false});
 
     };
 
