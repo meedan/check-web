@@ -38,7 +38,10 @@ const ProjectContainer = Relay.createContainer(ProjectComponent, {
         id,
         dbid,
         title,
-        description
+        description,
+        team {
+          id
+        }
       }
     `
   }

@@ -60,7 +60,6 @@ class Home extends Component {
           state.error = true;
           that.forceUpdate();
         };
-        that = this
         var successCallback = function(data) {
           if (data) {
             state.token = data.token;

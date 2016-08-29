@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 import UpdateProjectMutation from '../../relay/UpdateProjectMutation';
+import DeleteProjectMutation from '../../relay/DeleteProjectMutation';
 import Message from '../Message';
 
 class ProjectHeader extends Component {
@@ -25,7 +26,8 @@ class ProjectHeader extends Component {
   }
 
   updateProject(e) {
-    var id = this.props.project.id,
+    var that = this,
+        id = this.props.project.id,
         title = this.state.title, 
         description = this.state.description;
 
@@ -74,11 +76,41 @@ class ProjectHeader extends Component {
     return modifierBoolean ? baseClass : [baseClass, baseClass + modifierSuffix].join(' ');
   }
 
+  deleteProject() {
+    var that = this,
+        id = this.props.project.id,
+        teamId = this.props.project.team.id;
+
+    if (window.confirm("Are you sure? This can't be undone later!")) {
+      var onFailure = (transaction) => {
+        transaction.getError().json().then(function(json) {
+          var message = 'Sorry, could not delete the project';
+          if (json.error) {
+            message = json.error;
+          }
+          that.setState({ message: message });
+        });
+      };
+
+      var onSuccess = (response) => {
+        Checkdesk.history.push('/');
+      };
+
+      Relay.Store.commitUpdate(
+        new DeleteProjectMutation({
+          id: id,
+          teamId: teamId
+        }),
+        { onSuccess, onFailure }
+      );
+    }
+  }
+
   render() {
     const project = this.props.project;
 
     return (
-      <div className='project-header'>{/* might will decompose to ProjectHeader.js component later */}
+      <div className='project-header'>
         <Message message={this.state.message} />
         <div className='project-header__project'>
           <i className='project-header__project-icon / fa fa-folder-open'></i>
@@ -120,7 +152,7 @@ class ProjectHeader extends Component {
             <div className={this.bemClass('project-header__project-settings-overlay', this.state.settingsMenuClosed, '--active')}></div>
             <ul className={this.bemClass('project-header__project-settings-panel', this.state.settingsMenuClosed, '--active')}>
               <li className='project-header__project-setting project-header__project-setting--edit' onClick={this.enableEdit.bind(this)}>Edit project...</li>
-              <li className='project-header__project-setting project-header__project-setting--delete'>Delete project</li>
+              <li className='project-header__project-setting project-header__project-setting--delete' onClick={this.deleteProject.bind(this)}>Delete project</li>
             </ul>
           </div>
         </div>
