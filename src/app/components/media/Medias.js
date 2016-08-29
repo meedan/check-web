@@ -1,14 +1,17 @@
 import React, { Component, PropTypes } from 'react';
 import Card from 'material-ui/lib/card/card';
-import CardHeader from 'material-ui/lib/card/card-header';
 import CardText from 'material-ui/lib/card/card-text';
-import CardActions from 'material-ui/lib/card/card-actions';
-import Divider from 'material-ui/lib/divider';
 import TimeAgo from 'react-timeago';
-import FlatButton from 'material-ui/lib/flat-button';
 import { Link } from 'react-router';
  
 class Medias extends Component {
+  statusToClass(status) {
+    if (status === '') {
+      return '';
+    }
+    return 'media-last-status-' + status.toLowerCase().replace(' ', '-');
+  }
+
   render() {
     const props = this.props;
     const that = this;
@@ -22,17 +25,22 @@ class Medias extends Component {
           const data = JSON.parse(media.jsondata);
           
           return (
-            <li>
-              <Card>
-                <CardHeader title={<a href={media.url} target="_blank">{media.url}</a>} 
-                            subtitle={<TimeAgo date={media.created_at} live={false} />} 
-                            avatar={data.favicon} className="media-card" />
-                <CardText>{data.description}</CardText>
-                <Divider />
-                <CardActions>
-                  <Link to={'/media/' + media.dbid}><FlatButton label="View" className="view-media" /></Link>
-                </CardActions>
-              </Card>
+            <li className="media-card-link">
+              <Link to={'/media/' + media.dbid}>
+                <Card>
+                  <CardText>
+                    <span className={ 'media-card-col media-last-status ' + that.statusToClass(media.last_status) }>{media.last_status}</span>
+                    <div className="media-card-col">
+                      <p className="media-description">{data.description}</p>
+                      <ul className="media-data">
+                        <li>{media.annotations_count} notes</li>
+                        <li>{media.domain}</li>
+                        <li>{data.username}</li>
+                      </ul>
+                    </div>
+                  </CardText>
+                </Card>
+              </Link>
             </li>
           );
         })}

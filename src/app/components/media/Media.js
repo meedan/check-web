@@ -15,6 +15,9 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
         published,
         url,
         jsondata,
+        last_status,
+        annotations_count,
+        domain,
         user {
           name,
           source {
