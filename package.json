@@ -9,7 +9,8 @@
     "build:gulp": "BABEL_ENV=production gulp build:web",
     "watch:styles": "watch 'npm run style' ./src/app/styles",
     "publish": "./scripts/publish-web",
-    "test": "cd test && bundle install && rspec && cd .."
+    "test": "cd test && bundle install && rspec && cd ..",
+    "docker:publish": "docker exec checkdeskapp_web_1 npm run publish"
   },
   "keywords": [
     "react",
