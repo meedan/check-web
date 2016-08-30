@@ -1,50 +1,6 @@
 .switch-teams {
-  background-color: rgba(0, 0, 0, 0.75);
-  position: fixed;
-  top: 0; right: 0; bottom: 0; left: 0;
-  width: 100vw; // required if ancestor has transform, e.g. active mobile sidebar. TODO: general solution for overlays
-  z-index: 10;
-
-  opacity: 0;
-  transition: opacity 200ms ease;
-  pointer-events: none;
-  &--active {
-    pointer-events: auto;
-    opacity: 1;
-  }
-}
-
-// modal
-
-.switch-teams__modal {
-  position: absolute;
-  bottom: 0; left: 0;
-  width: 400px;
-  max-height: 100%;
-  padding: 15px 15px 30px 15px;
   background-color: #fff;
-  color: $dark-gray-text;
 }
-
-.switch-teams__modal-title {
-  font-size: 14px;
-  font-weight: normal;
-  color: $light-gray-text;
-  margin: 10px 0 23px 13px;
-}
-
-.switch-teams__modal-title-icon {
-  margin-right: 7px;
-  font-size: 0.95em;
-}
-
-.switch-teams__modal-close {
-  @include close-button;
-  position: absolute; top: 11px; right: 24px;
-  opacity: 0.8;
-}
-
-// teams
 
 .switch-teams__teams, {
   margin-bottom: 10px;
