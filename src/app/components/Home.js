@@ -71,23 +71,25 @@ class Home extends Component {
           var currentLocation = that.props.location.pathname;
 
           (function redirectIndex() {
-            const team = data.current_team;
-            var project = Checkdesk.currentProject;
-            
-            if (team && !project) {
-              project = team.projects[0]; // TODO: remember most-recently-viewed project
-              Checkdesk.currentProject = project;
-            }
-            
-            if (data && currentLocation === '/') {
-              // if no team, create one
-              if (!team) {
-                return Checkdesk.history.push('/teams/new');
+            if (data) {
+              const team = data.current_team;
+              var project = Checkdesk.currentProject;
+              
+              if (team && !project) {
+                project = team.projects[0]; // TODO: remember most-recently-viewed project
+                Checkdesk.currentProject = project;
               }
+              
+              if (currentLocation === '/') {
+                // if no team, create one
+                if (!team) {
+                  return Checkdesk.history.push('/teams/new');
+                }
 
-              // send to current team project
-              if (project && project.dbid) {
-                Checkdesk.history.push(`/project/${project.dbid}`);
+                // send to current team project
+                if (project && project.dbid) {
+                  Checkdesk.history.push(`/project/${project.dbid}`);
+                }
               }
             }
           })();
