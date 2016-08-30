@@ -157,6 +157,12 @@ describe 'app' do
       expect(@driver.find_elements(:css, 'a[href="/teams"]').empty?).to be(false)
     end
 
+    it "should show team options at /teams" do
+      login_with_email
+      @driver.navigate.to 'http://localhost:3333/teams'
+      expect(@driver.find_elements(:css, '.teams').empty?).to be(false)
+    end
+
     it "should have footer" do
       login_with_email
       @driver.navigate.to 'http://localhost:3333/tos'
