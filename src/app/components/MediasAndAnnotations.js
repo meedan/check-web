@@ -37,7 +37,6 @@ class MediasAndAnnotations extends Component {
     });
 
     items.sort(this.compare);
-    console.log(items.length);
     this.setState({ items: items });
   }
 
