@@ -11,26 +11,40 @@ class CreateMediaMutation extends Relay.Mutation {
   getFatQuery() {
     return Relay.QL`
       fragment on CreateMediaPayload {
-        media
+        mediaEdge,
+        media,
+        project { medias }
       }
     `;
   }
 
   getVariables() {
-    return { url: this.props.url, project_id: this.props.project_id };
+    return { url: this.props.url, project_id: this.props.project.dbid };
   }
 
   getConfigs() {
-    return [{
-      type: 'REQUIRED_CHILDREN',
-      children: [Relay.QL`
-        fragment on CreateMediaPayload {
-          media {
-            dbid
-          }
-        }`
-      ]
-    }];
+    return [
+      {
+        type: 'RANGE_ADD',
+        parentName: 'project',
+        parentID: this.props.project.id,
+        connectionName: 'medias',
+        edgeName: 'mediaEdge',
+        rangeBehaviors: {
+          '': 'append'
+        }
+      },
+      {
+        type: 'REQUIRED_CHILDREN',
+        children: [Relay.QL`
+          fragment on CreateMediaPayload {
+            media {
+              dbid
+            }
+          }`
+        ]
+      }
+    ];
   }
 }
 

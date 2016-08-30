@@ -5,7 +5,6 @@ import CardHeader from 'material-ui/lib/card/card-header';
 import CardText from 'material-ui/lib/card/card-text';
 import CardActions from 'material-ui/lib/card/card-actions';
 import FlatButton from 'material-ui/lib/flat-button';
-import Divider from 'material-ui/lib/divider';
 import TimeAgo from 'react-timeago';
 import DeleteAnnotationMutation from '../../relay/DeleteTagMutation';
 
@@ -48,7 +47,6 @@ class Annotation extends Component {
           <CardHeader title={annotation.annotator.name} subtitle={<TimeAgo date={annotation.created_at} live={false} />} 
                       avatar={annotation.annotator.profile_image} />
           <CardText>{content}</CardText>
-          <Divider />
           <CardActions>
             <FlatButton label="Delete" onClick={this.handleDelete.bind(this, annotation.id)} className="delete-annotation" />
           </CardActions>
