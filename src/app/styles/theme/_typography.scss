@@ -22,6 +22,7 @@ $font-stack-serif: "Merriweather", Georgia, serif;
 
 @mixin app-heading {
   @include onboarding-heading;
+  text-align: center;
 }
 
 @mixin app-blurb {
