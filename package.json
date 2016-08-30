@@ -10,7 +10,7 @@
     "watch:styles": "watch 'npm run style' ./src/app/styles",
     "publish": "./scripts/publish-web",
     "test": "cd test && bundle install && rspec && cd ..",
-    "docker:publish": "docker exec checkdeskapp_web_1 npm run publish"
+    "docker:publish": "docker-compose run web npm run publish"
   },
   "keywords": [
     "react",
