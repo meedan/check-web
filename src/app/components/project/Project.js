@@ -24,17 +24,17 @@ class ProjectComponent extends Component {
     return (
       <div className="project">
         <ProjectHeader project={project} />
-        <h2 className="project-title">{project.title}</h2>
-        <p className="project-description">{project.description}</p>
 
-        <MediasAndAnnotations 
-          medias={project.medias.edges} 
-          annotations={project.annotations.edges} 
-          annotated={project} 
-          annotatedType="Project" 
-          types={['comment']} />
+        <div className="project__content">
+          <MediasAndAnnotations
+            medias={project.medias.edges}
+            annotations={project.annotations.edges}
+            annotated={project}
+            annotatedType="Project"
+            types={['comment']} />
 
-        <Link to="/medias/new" id="link-medias-new" className="project__new-media-link" title="Create a report">+ New report...</Link>
+          <Link to="/medias/new" id="link-medias-new" className="project__new-media-link" title="Create a report">+ New report...</Link>
+        </div>
       </div>
     );
   }

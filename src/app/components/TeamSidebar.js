@@ -23,6 +23,19 @@ class TeamSidebarComponent extends Component {
     this.setState({isSwitchTeamsActive: false});
   }
 
+  isCurrentProject(projectId) {
+    // hack while Caio reworks Checkdesk.currentProject; remove when resolved
+    const currentPath = window.location.pathname;
+    const projectIdFromCurrentPath = parseInt(/^\/project\/(\d+)$/.exec(currentPath)[1]);
+    return projectId === projectIdFromCurrentPath;
+    // /hack
+
+    return projectId &&
+      Checkdesk.currentProject &&
+      Checkdesk.currentProject.dbid &&
+      Checkdesk.currentProject.dbid === projectId;
+  }
+
   render() {
     var currentTeam = this.props.me.current_team;
 
@@ -74,13 +87,11 @@ class TeamSidebarComponent extends Component {
               return (
                 <ul className='team-sidebar__projects-list'>
                   {currentTeam.projects.edges.map(p => (
-                    <li className='team-sidebar__project'>
-                      <FontAwesome className='team-sidebar__project-icon' name='folder-open' />
+                    <li className={'team-sidebar__project' + (this.isCurrentProject(p.node.dbid) ? ' team-sidebar__project--current' : '')}>
                       <Link to={'/project/' + p.node.dbid} className='team-sidebar__project-link'>{p.node.title}</Link>
                     </li>
                   ))}
                   <li className='team-sidebar__new-project'>
-                    <FontAwesome className='team-sidebar__project-icon' name='folder' />
                     <CreateProject className='team-sidebar__new-project-input' teamId={currentTeam.id} />
                   </li>
                 </ul>

@@ -1,17 +1,29 @@
-// grays
+// palettes
 
-$dark-gray-text: hsl(204, 15%, 5%);
-$light-gray-text: hsl(204, 15%, 70%);
-$medium-gray-bg: hsl(204, 15%, 80%);
-$light-gray-bg: hsl(204, 15%, 95%);
+//- grays
 
+@function theme-gray($brightness) { // 0% black, 100% white
+  @return hsl(205, 18%, $brightness);
+}
 
-// blues
+$dark-gray-text: theme-gray(5%);
+// $medium-dark-gray-text: theme-gray(27%);
+$light-gray-text: theme-gray(70%);
+$lighter-gray-text: theme-gray(80%);
+$medium-gray-bg: theme-gray(80%);
+$light-gray-bg: theme-gray(95%);
+$lighter-gray-bg: theme-gray(98.7%);
 
-$blue-text: hsl(208, 98%, 62%);
-$light-blue-text: hsl(208, 98%, 67%);
+//- blues
 
-// mui
+@function theme-blue($brightness) {
+  @return hsl(208, 98%, $brightness); // TODO: consider switch to MUI blues
+}
+
+$blue-text: theme-blue(62%);
+$light-blue-text: theme-blue(67%);
+
+//- mui
 
 $blue-100: #BBDEFB;
 $blue-300: #64B5F6;
@@ -22,3 +34,9 @@ $gray-350: mix(#E0E0E0, #BDBDBD);
 $gray-400: #BDBDBD;
 $green-500: #4CAF50;
 $red-500: #F44336;
+
+
+
+// application
+
+$project-bg: $lighter-gray-bg;
