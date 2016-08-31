@@ -26,14 +26,15 @@ class TeamSidebarComponent extends Component {
     var currentTeam = this.props.me.current_team;
 
     // dummy data
-    var otherTeams = [
-      {
-        name: 'ProPublica',
-        avatar: 'https://pbs.twimg.com/profile_images/660147326091182081/Q4TLW_Fe.jpg',
-        url: '/teams/2',
-        membersCount: 10
-      }
-    ];
+    var otherTeams = this.props.me.teams;
+    // var otherTeams = [
+    //   {
+    //     name: 'ProPublica',
+    //     avatar: 'https://pbs.twimg.com/profile_images/660147326091182081/Q4TLW_Fe.jpg',
+    //     url: '/teams/2',
+    //     membersCount: 10
+    //   }
+    // ];
     var pendingTeams = [
       {
         name: 'AntiPublica',
@@ -149,14 +150,14 @@ class TeamSidebarComponent extends Component {
                 })()}
 
                 {/* 2. iterate through other teams the user belongs to */}
-                {otherTeams.map(function(team) {
+                {otherTeams.edges.map(function(team) {
                   return (
                     <li className='switch-teams__team'>
-                      <Link to={team.url} className='switch-teams__team-link'>
-                        <div className='switch-teams__team-avatar' style={{'background-image': 'url(' + team.avatar + ')'}}></div>
+                      <Link to={team.node.name} className='switch-teams__team-link'>
+                        <div className='switch-teams__team-avatar' style={{'background-image': 'url(' + team.node.avatar + ')'}}></div>
                         <div className='switch-teams__team-copy'>
-                          <h3 className='switch-teams__team-name'>{team.name}</h3>
-                          <span className='switch-teams__team-members-count'>{membersCountString(team.membersCount)}</span>
+                          <h3 className='switch-teams__team-name'>{team.node.name}</h3>
+                          <span className='switch-teams__team-members-count'>{12}</span>
                         </div>
                         <div className='switch-teams__team-actions'>
                           <FontAwesome className='switch-teams__team-caret' name='angle-right' />
@@ -197,6 +198,15 @@ const TeamSidebarContainer = Relay.createContainer(TeamSidebarComponent, {
   fragments: {
     me: () => Relay.QL`
       fragment on User {
+        teams(first: 4) {
+        edges {
+          node {
+            id,
+            name,
+            avatar
+            }
+          }
+        },
         current_team {
           id,
           name,
