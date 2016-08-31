@@ -56,9 +56,10 @@ module AppSpecHelpers
     @driver.navigate.to 'http://localhost:3333/'
     sleep 1
     twitter_auth
+    create_team
   end
 
-  def login_with_email
+  def login_with_email(should_create_team = true)
     @driver.navigate.to 'http://localhost:3333/'
     sleep 2
     @driver.find_element(:xpath, "//a[@id='login-email']").click
@@ -66,6 +67,7 @@ module AppSpecHelpers
     fill_field('.login-password input', '12345678')
     press_button('#submit-register-or-login')
     sleep 3
+    create_team if should_create_team
   end
 
   def facebook_login
@@ -90,5 +92,36 @@ module AppSpecHelpers
     @driver.navigate.to 'http://localhost:3333/'
     sleep 1
     facebook_auth
+    create_team
+  end
+
+  def create_team
+    sleep 1
+    if @driver.find_elements(:css, '.create-team').size > 0
+      fill_field('#team-name-container', "Team #{Time.now}")
+      sleep 1
+      fill_field('#team-subdomain-container', "team#{Time.now.to_i}")
+      sleep 1
+      press_button('.create-team__submit-button')
+      sleep 5
+    end
+    @driver.navigate.to 'http://localhost:3333/'
+    sleep 3
+  end
+
+  def register_with_email(should_create_team = true)
+    @driver.navigate.to 'http://localhost:3333/'
+    sleep 1
+    @driver.find_element(:xpath, "//a[@id='login-email']").click
+    sleep 1
+    @driver.find_element(:xpath, "//button[@id='register-or-login']").click
+    sleep 1
+    fill_field('.login-name input', 'User With Email')
+    fill_field('.login-email input', @email)
+    fill_field('.login-password input', '12345678')
+    fill_field('.login-password-confirmation input', '12345678')
+    press_button('#submit-register-or-login')
+    sleep 3
+    create_team if should_create_team
   end
 end

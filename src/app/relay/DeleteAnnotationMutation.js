@@ -8,10 +8,6 @@ class DeleteAnnotationMutation extends Relay.Mutation {
     }`;
   }
 
-  static fragments = {
-    annotation: () => Relay.QL`fragment on Annotation { id }`,
-  };
-
   getVariables() {
     return { id: this.props.id };
   }
@@ -24,6 +20,9 @@ class DeleteAnnotationMutation extends Relay.Mutation {
         break;
       case 'media':
         query = Relay.QL`fragment on DestroyAnnotationPayload { deletedId, media { annotations, tags } }`;
+        break;
+      case 'project':
+        query = Relay.QL`fragment on DestroyAnnotationPayload { deletedId, project { annotations } }`;
         break;
     }
     return query;

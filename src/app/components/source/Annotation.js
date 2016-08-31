@@ -6,7 +6,7 @@ import CardText from 'material-ui/lib/card/card-text';
 import CardActions from 'material-ui/lib/card/card-actions';
 import FlatButton from 'material-ui/lib/flat-button';
 import TimeAgo from 'react-timeago';
-import DeleteAnnotationMutation from '../../relay/DeleteTagMutation';
+import DeleteAnnotationMutation from '../../relay/DeleteAnnotationMutation';
 
 class Annotation extends Component {
   handleDelete(id) {
