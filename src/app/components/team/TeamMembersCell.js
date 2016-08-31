@@ -10,7 +10,6 @@ class TeamMembersCell extends Component {
      e.preventDefault();
      var that = this
 
-
      var onFailure = (transaction) => {
        transaction.getError().json().then(function(json) {
        });
@@ -18,12 +17,14 @@ class TeamMembersCell extends Component {
        this.setState({isEditingNameAndDescription: false});
     };
     var onSuccess = (response) => {
-
     };
 
     Relay.Store.commitUpdate(
-      new DeleteTeamUserMutation({
+      new UpdateTeamUserMutation({
+       team_id: this.props.team_user.node.team_id,
+       user_id: this.props.team_user.node.user_id,
        id: this.props.team_user.node.id,
+       status: "banned"
      }),
      { onSuccess, onFailure }
    );

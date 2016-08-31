@@ -18,8 +18,11 @@ class TeamMembershipRequestsCell extends Component {
     };
 
     Relay.Store.commitUpdate(
-      new DeleteTeamUserMutation({
+      new UpdateTeamUserMutation({
+       team_id: this.props.team_user.node.team_id,
+       user_id: this.props.team_user.node.user_id,
        id: this.props.team_user.node.id,
+       status: "banned"
      }),
      { onSuccess, onFailure }
    );

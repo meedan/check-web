@@ -30,14 +30,12 @@ class TeamMembersComponent extends Component {
       if(team_user.node.status == "requested")
       {
         team_users_requestingMembership.push(team_user);
-      }else {
+      }else if(team_user.node.status == "member")
+      {
         team_users_members.push(team_user)
       }
 
     })
-    var people = [{name:'Karim Ratib',username:'kratib',avatarUrl:'https://pbs.twimg.com/profile_images/434022381770657792/RYsiZ7vR.jpeg'},{name:'An Xioa Mina',username:'axm',avatarUrl:'https://pbs.twimg.com/profile_images/543432219109244928/nuFAV2Ey.jpeg'},{name:'Chris Blow',username:'chris',avatarUrl:'https://pbs.twimg.com/profile_images/750129043429662720/36UDFbwz.jpg'},{name:'Ed Bice',username:'ed',avatarUrl:'https://pbs.twimg.com/profile_images/743824003844837377/oTeU_xyb.jpg'},{name:'Caio Almeida',username:'caiosba',avatarUrl:'https://pbs.twimg.com/profile_images/761634523809472512/9ln-qDZ6.jpg'},{name:'Ahmed Nasser',username:'ahmed',avatarUrl:'https://pbs.twimg.com/profile_images/610557679249981440/2ARl7GLu.png'},{name:'Tom Trewinnard',username:'tom',avatarUrl:'https://pbs.twimg.com/profile_images/752187533153357824/6CZ5qxF3.jpg'}];
-    const membershipRequests = people.slice(0, 2);
-    const members = people.slice(2);
     const joinUrl = 'https://checkdesk.org/team/' + team.dbid + '/join';
 
     return (
@@ -56,7 +54,7 @@ class TeamMembersComponent extends Component {
           {(() => {
             return team_users_members.map((team_user) => {
               return (
-                <TeamMembersCell team_user={team_user} isEditing={isEditing}/>
+                <TeamMembersCell team_user={team_user} team_id= {team.id} isEditing={isEditing}/>
               );
             })
           })()}

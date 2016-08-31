@@ -24,7 +24,7 @@ class TeamSidebarComponent extends Component {
 
   render() {
     var currentTeam = this.props.me.current_team;
-    
+
     // dummy data
     var otherTeams = [
       {
@@ -40,7 +40,7 @@ class TeamSidebarComponent extends Component {
         avatar: 'https://pbs.twimg.com/profile_images/660147326091182081/Q4TLW_Fe.jpg',
         url: '/teams/3',
       }
-    ]; 
+    ];
     // /dummy data
 
     function membersCountString(count) {
@@ -51,7 +51,7 @@ class TeamSidebarComponent extends Component {
 
     return (
       <nav className='team-sidebar'>
-        {(() => { 
+        {(() => {
           if (currentTeam) {
             return (
               <section className='team-sidebar__team'>
@@ -68,7 +68,7 @@ class TeamSidebarComponent extends Component {
 
         <section className='team-sidebar__projects'>
           <h2 className='team-sidebar__projects-heading'>Verification Projects</h2>
-          {(() => { 
+          {(() => {
             if (currentTeam) {
               return (
                 <ul className='team-sidebar__projects-list'>
@@ -129,7 +129,7 @@ class TeamSidebarComponent extends Component {
               <ul className='switch-teams__teams'>
 
                 {/* 1. current team */}
-                {(() => { 
+                {(() => {
                   if (currentTeam) {
                     return (
                       <li className='switch-teams__team switch-teams__team--current'>
