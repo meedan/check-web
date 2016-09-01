@@ -2,7 +2,7 @@ FROM meedan/ruby
 MAINTAINER Meedan <sysops@meedan.com>
 
 # install dependencies
-RUN apt-get update -qq && apt-get install -y vim libpq-dev nodejs graphviz inkscape wget imagemagick --no-install-recommends && rm -rf /var/lib/apt/lists/*
+RUN apt-get update -qq && apt-get install -y vim libpq-dev nodejs graphviz inkscape wget imagemagick lsof --no-install-recommends && rm -rf /var/lib/apt/lists/*
 RUN curl -o /usr/local/bin/gh-md-toc https://raw.githubusercontent.com/ekalinin/github-markdown-toc/master/gh-md-toc \
   && chmod +x /usr/local/bin/gh-md-toc
 RUN gpg --keyserver ha.pool.sks-keyservers.net --recv-keys 6380DC428747F6C393FEACA59A84159D7001A4E5 \
