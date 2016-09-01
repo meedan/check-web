@@ -11,6 +11,7 @@ export default {
     filename: '[name].bundle.js',
     chunkFilename: '[id].chunk.js'
   },
+  devtool: 'source-map',
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
