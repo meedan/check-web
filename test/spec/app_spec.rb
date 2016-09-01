@@ -61,7 +61,7 @@ describe 'app' do
 
   context "web" do
     it "should upload image when registering" do
-      @driver.navigate.to @config['self_url'] + '/'
+      @driver.navigate.to @config['self_url']
       sleep 1
       @driver.find_element(:xpath, "//a[@id='login-email']").click
       sleep 1
@@ -94,7 +94,7 @@ describe 'app' do
     end
 
     it "should redirect to login screen if not logged in" do
-      @driver.navigate.to @config['self_url'] + '/sources/'
+      @driver.navigate.to @config['self_url'] + '/sources'
       title = get_element('.login-menu__heading')
       expect(title.text == 'SIGN IN').to be(true)
     end
@@ -112,24 +112,11 @@ describe 'app' do
       login_with_facebook
       displayed_name = get_element('#user-name span').text.upcase
       expected_name = @config['facebook_name'].upcase
-      title = get_element('.main-title')
       expect(displayed_name == expected_name).to be(true)
-      expect(title.text == 'Welcome to Checkdesk').to be(true)
     end
 
     it "should register and login using e-mail to join a team" do
-      @driver.navigate.to @config['self_url'] + '/'
-      sleep 1
-      @driver.find_element(:xpath, "//a[@id='login-email']").click
-      sleep 1
-      @driver.find_element(:xpath, "//button[@id='register-or-login']").click
-      sleep 1
-      fill_field('.login-name input', 'User With Email')
-      fill_field('.login-email input', @email)
-      fill_field('.login-password input', '12345678')
-      fill_field('.login-password-confirmation input', '12345678')
-      press_button('#submit-register-or-login')
-      sleep 3
+      register_with_email
       displayed_name = get_element('#user-name span').text
       expect(displayed_name == 'USER WITH EMAIL').to be(true)
     end
@@ -140,12 +127,11 @@ describe 'app' do
       expect(displayed_name == 'USER WITH EMAIL').to be(true)
     end
 
-    it "should click to go to homepage" do
+    it "should show team options at /teams" do
       login_with_email
-      @driver.navigate.to @config['self_url'] + '/tos'
-      sleep 1
-      @driver.find_element(:xpath, "//a[@id='link-home']").click
-      expect(@driver.current_url.to_s == @config['self_url'] + '/').to be(true)
+      @driver.navigate.to @config['self_url'] + '/teams'
+      sleep 3
+      expect(@driver.find_elements(:css, '.teams').empty?).to be(false)
     end
 
     it "should have footer" do
@@ -175,7 +161,7 @@ describe 'app' do
     it "should go to source page through source/:id" do
       login_with_email
       @driver.navigate.to @config['self_url'] + '/me'
-      sleep 1
+      sleep 5
       source_id = @driver.find_element(:css, '.source').attribute('data-id')
       @driver.navigate.to @config['self_url'] + '/source/' + source_id.to_s
       sleep 1
@@ -186,7 +172,7 @@ describe 'app' do
     it "should go to source page through user/:id" do
       login_with_email
       @driver.navigate.to @config['self_url'] + '/me'
-      sleep 1
+      sleep 5
       user_id = @driver.find_element(:css, '.source').attribute('data-user-id')
       @driver.navigate.to @config['self_url'] + '/user/' + user_id.to_s
       sleep 1
@@ -195,7 +181,7 @@ describe 'app' do
     end
 
     it "should go back and forward in the history" do
-      @driver.navigate.to @config['self_url'] + '/'
+      @driver.navigate.to @config['self_url']
       expect(@driver.current_url.to_s == @config['self_url'] + '/').to be(true)
       @driver.navigate.to @config['self_url'] + '/tos'
       expect(@driver.current_url.to_s == @config['self_url'] + '/tos').to be(true)
@@ -443,6 +429,19 @@ describe 'app' do
       expect(@driver.page_source.include?('This tag already exists')).to be(true)
     end
 
+    it "should create a project for a team" do
+      login_with_email
+      @driver.navigate.to 'http://localhost:3333/'
+      sleep 1
+      title = "Project #{Time.now}"
+      fill_field('#create-project-title', title)
+      @driver.action.send_keys(:enter).perform
+      sleep 5
+      expect(@driver.current_url.to_s.match(/^http:\/\/localhost:3333\/project\/[0-9]+/).nil?).to be(false)
+      link = get_element('.team-sidebar__project-link')
+      expect(link.text == title).to be(true)
+    end
+
     it "should preview media if registered" do
       login_with_email
       @driver.navigate.to @config['self_url'] + '/medias/new'
@@ -674,30 +673,116 @@ describe 'app' do
       expect(@driver.page_source.include?('Flag')).to be(false)
     end
 
-    it "should create a team" do
+    it "should edit project" do
       login_with_email
-      @driver.navigate.to @config['self_url'] + '/teams/new'
-      sleep 1
-      fill_field('#team-name-container', "Team #{Time.now}")
-      sleep 1
-      fill_field('#team-subdomain-container', "team#{Time.now.to_i}")
-      sleep 1
-      press_button('.create-team__submit-button')
-      sleep 5
-      expect(@driver.current_url.to_s.match(/^http:\/\/localhost:3333\/team\/[0-9]+/).nil?).to be(false)
-    end
-
-    it "should create a project for a team" do
-      login_with_email
-      @driver.navigate.to @config['self_url'] + '/'
+      @driver.navigate.to @config['self_url']
       sleep 1
       title = "Project #{Time.now}"
       fill_field('#create-project-title', title)
       @driver.action.send_keys(:enter).perform
       sleep 5
-      expect(@driver.current_url.to_s.match(/^http:\/\/localhost:3333\/project\/[0-9]+/).nil?).to be(false)
-      link = get_element('.team-sidebar__project-link')
-      expect(link.text == title).to be(true)
+
+      @driver.find_element(:css, '.project-header__project-settings-icon').click
+      sleep 1
+      @driver.find_element(:css, '.project-header__project-setting--edit').click
+      sleep 1
+      fill_field('.project-header__project-name-input', 'Changed title')
+      fill_field('.project-header__project-description-input', 'Set description')
+      @driver.find_element(:css, '.project-header__project-editing-button--cancel').click
+      sleep 3
+      expect(@driver.page_source.include?('Changed title')).to be(false)
+      expect(@driver.page_source.include?('Set description')).to be(false)
+
+      @driver.find_element(:css, '.project-header__project-settings-icon').click
+      sleep 1
+      @driver.find_element(:css, '.project-header__project-setting--edit').click
+      sleep 1
+      fill_field('.project-header__project-name-input', 'Changed title')
+      fill_field('.project-header__project-description-input', 'Set description')
+      @driver.find_element(:css, '.project-header__project-editing-button--save').click
+      sleep 3
+      expect(@driver.page_source.include?('Changed title')).to be(true)
+      expect(@driver.page_source.include?('Set description')).to be(true)
+    end
+
+    it "should comment project as a command" do
+      login_with_email
+
+      @driver.navigate.to 'http://localhost:3333/'
+      sleep 1
+      title = "Project #{Time.now}"
+      fill_field('#create-project-title', title)
+      @driver.action.send_keys(:enter).perform
+      sleep 5
+
+      # First, verify that there isn't any comment
+      expect(@driver.page_source.include?('This is my comment')).to be(false)
+
+      # Add a comment as a command
+      fill_field('.cmd-input input', '/comment This is my comment')
+      @driver.action.send_keys(:enter).perform
+      sleep 5
+
+      # Verify that comment was added to annotations list
+      expect(@driver.page_source.include?('This is my comment')).to be(true)
+
+      # Reload the page and verify that comment is still there
+      @driver.navigate.refresh
+      sleep 3
+      expect(@driver.page_source.include?('This is my comment')).to be(true)
+
+      # Remove a comment from annotation list
+      @driver.find_element(:css, '.delete-annotation').click
+      sleep 5
+
+      # Verify that comment was removed from annotations list
+      expect(@driver.page_source.include?('This is my comment')).to be(false)
+
+      # Reload the page and verify that comment is not there anymore
+      @driver.navigate.refresh
+      sleep 1
+      expect(@driver.page_source.include?('This is my comment')).to be(false)
+    end
+
+    it "should create project media" do
+      login_with_email
+      @driver.navigate.to @config['self_url']
+      sleep 1
+      title = "Project #{Time.now}"
+      fill_field('#create-project-title', title)
+      @driver.action.send_keys(:enter).perform
+      sleep 5
+
+      expect(@driver.page_source.include?('This is a test')).to be(false)
+
+      @driver.find_element(:css, '#link-medias-new').click
+      sleep 3
+
+      fill_field('#create-media-url', 'https://twitter.com/marcouza/status/771009514732650497?t=' + Time.now.to_i.to_s)
+      sleep 1
+      press_button('#create-media-submit')
+      sleep 10
+      media_link = @driver.current_url.to_s
+
+      @driver.find_element(:link, title).click
+      sleep 3
+
+      expect(@driver.page_source.include?('This is a test')).to be(true)
+      expect(@driver.page_source.include?('Undetermined')).to be(true)
+      expect(@driver.page_source.include?('False')).to be(false)
+
+      @driver.navigate.to media_link
+      sleep 3
+      fill_field('.cmd-input input', '/status False')
+      @driver.action.send_keys(:enter).perform
+      sleep 3
+
+      @driver.find_element(:link, title).click
+      sleep 3
+
+      expect(@driver.page_source.include?('This is a test')).to be(true)
+      expect(@driver.page_source.include?('Undetermined')).to be(false)
+      expect(@driver.page_source.include?('False')).to be(true)
     end
   end
 end

@@ -23,7 +23,12 @@ class CreateTagMutation extends Relay.Mutation {
 
   getVariables() {
     var tag = this.props.annotation;
-    return { tag: tag.tag, annotated_id: tag.annotated_id + '', annotated_type: tag.annotated_type };
+    var vars = { tag: tag.tag, annotated_id: tag.annotated_id + '', annotated_type: tag.annotated_type };
+    if (Checkdesk.currentProject) {
+      vars.context_type = 'Project';
+      vars.context_id = Checkdesk.currentProject.dbid.toString();
+    }
+    return vars;
   }
 
   getConfigs() {

@@ -68,6 +68,32 @@ class Home extends Component {
             state.error = true;
           }
           window.Checkdesk.currentUser = data;
+          var currentLocation = that.props.location.pathname;
+
+          (function redirectIndex() {
+            if (data) {
+              const team = data.current_team;
+              var project = Checkdesk.currentProject;
+              
+              if (team && !project) {
+                project = team.projects[0]; // TODO: remember most-recently-viewed project
+                Checkdesk.currentProject = project;
+              }
+              
+              if (currentLocation === '/') {
+                // if no team, create one
+                if (!team) {
+                  return Checkdesk.history.push('/teams/new');
+                }
+
+                // send to current team project
+                if (project && project.dbid) {
+                  Checkdesk.history.push(`/project/${project.dbid}`);
+                }
+              }
+            }
+          })();
+
           that.forceUpdate();
         }
         request('get', 'me', failureCallback, successCallback);

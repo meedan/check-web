@@ -147,3 +147,12 @@
     background-color: rgb(71, 207, 152);
   }
 }
+
+.create-team__cancel {
+  @include close-button;
+  position: absolute; top: 11px; right: 24px;
+  opacity: 0.2;
+  &, &:hover, &:visited {
+    color: white;
+  }
+}

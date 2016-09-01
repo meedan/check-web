@@ -1,0 +1,13 @@
+.teams {
+  background-color: #fff;
+}
+
+.teams__content {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 15px;
+}
+
+.teams__main-heading {
+  @include app-heading;
+}

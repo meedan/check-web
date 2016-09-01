@@ -16,7 +16,7 @@ class Annotations extends Component {
         })}
         </ul>
 
-        <AddAnnotation annotated={props.annotated} annotatedType={props.annotatedType} />
+        <AddAnnotation annotated={props.annotated} annotatedType={props.annotatedType} types={props.types} />
       </div>
     );
   }

@@ -3,6 +3,18 @@ import MediaHeader from './MediaHeader';
 import { Annotations, Tags } from '../source';
 
 class MediaComponent extends Component {
+  setCurrentContext() {
+    this.props.relay.setVariables({ contextId: Checkdesk.currentProject.dbid });
+  }
+
+  componentDidMount() {
+    this.setCurrentContext();
+  }
+
+  componentDidUpdate() {
+    this.setCurrentContext();
+  }
+
   render() {
     const media = this.props.media;
 

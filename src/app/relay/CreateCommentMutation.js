@@ -17,13 +17,21 @@ class CreateCommentMutation extends Relay.Mutation {
       case 'media':
         query = Relay.QL`fragment on CreateCommentPayload { commentEdge, media { annotations } }`;
         break;
+      case 'project':
+        query = Relay.QL`fragment on CreateCommentPayload { commentEdge, project { annotations } }`;
+        break;
     }
     return query;
   }
 
   getVariables() {
     var comment = this.props.annotation;
-    return { text: comment.text, annotated_id: comment.annotated_id + '', annotated_type: comment.annotated_type };
+    var vars = { text: comment.text, annotated_id: comment.annotated_id + '', annotated_type: comment.annotated_type };
+    if (Checkdesk.currentProject) {
+      vars.context_type = 'Project';
+      vars.context_id = Checkdesk.currentProject.dbid.toString();
+    }
+    return vars;
   }
 
   getConfigs() {
@@ -34,7 +42,7 @@ class CreateCommentMutation extends Relay.Mutation {
       connectionName: 'annotations',
       edgeName: 'commentEdge',
       rangeBehaviors: {
-        '': 'prepend'
+        '': 'append'
       }
     }];
   }
