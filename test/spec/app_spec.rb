@@ -326,7 +326,7 @@ describe 'app' do
       sleep 1
       press_button('#create-account-submit')
       sleep 10
-      expect(@driver.current_url.to_s.match(/^http:\/\/localhost:3333\/source\/[0-9]+/).nil?).to be(false)
+      expect(@driver.current_url.to_s.match(Regexp.new(@config['self_url'] + '/source/[0-9]+')).nil?).to be(false)
       title = get_element('.source-name').text
       expect(title == 'Iron Maiden').to be(true)
     end
@@ -339,7 +339,7 @@ describe 'app' do
       sleep 1
       press_button('#create-account-submit')
       sleep 10
-      expect(@driver.current_url.to_s.match(/^http:\/\/localhost:3333\/source\/[0-9]+/).nil?).to be(false)
+      expect(@driver.current_url.to_s.match(Regexp.new(@config['self_url'] + '/source/[0-9]+')).nil?).to be(false)
       title = get_element('.source-name').text
       expect(title == 'Iron Maiden').to be(true)
     end
@@ -352,7 +352,7 @@ describe 'app' do
       sleep 1
       press_button('#create-account-submit')
       sleep 10
-      expect(@driver.current_url.to_s.match(/^http:\/\/localhost:3333\/source\/[0-9]+/).nil?).to be(true)
+      expect(@driver.current_url.to_s.match(Regexp.new(@config['self_url'] + '/source/[0-9]+')).nil?).to be(true)
       message = get_element('.create-account .message').text
       expect(message == 'Validation failed: Sorry, this is not a profile').to be(true)
     end
@@ -431,13 +431,13 @@ describe 'app' do
 
     it "should create a project for a team" do
       login_with_email
-      @driver.navigate.to 'http://localhost:3333/'
+      @driver.navigate.to @config['self_url']
       sleep 1
       title = "Project #{Time.now}"
       fill_field('#create-project-title', title)
       @driver.action.send_keys(:enter).perform
       sleep 5
-      expect(@driver.current_url.to_s.match(/^http:\/\/localhost:3333\/project\/[0-9]+/).nil?).to be(false)
+      expect(@driver.current_url.to_s.match(Regexp.new(@config['self_url'] + '/source/[0-9]+')).nil?).to be(false)
       link = get_element('.team-sidebar__project-link')
       expect(link.text == title).to be(true)
     end
@@ -461,7 +461,7 @@ describe 'app' do
       sleep 1
       press_button('#create-media-submit')
       sleep 10
-      ID = @driver.current_url.to_s.match(/^http:\/\/localhost:3333\/media\/([0-9]+)/)[1]
+      ID = @driver.current_url.to_s.match(Regexp.new(@config['self_url'] + '/source/([0-9]+)'))[1]
       expect(ID.nil?).to be(false)
     end
 
@@ -473,7 +473,7 @@ describe 'app' do
       sleep 2
       press_button('#create-media-submit')
       sleep 10
-      expect(@driver.current_url.to_s.match(/^http:\/\/localhost:3333\/media\/[0-9]+/).nil?).to be(false)
+      expect(@driver.current_url.to_s.match(Regexp.new(@config['self_url'] + '/source/[0-9]+')).nil?).to be(false)
     end
 
     it "should not create source as media if registered" do
@@ -484,7 +484,7 @@ describe 'app' do
       sleep 1
       press_button('#create-media-submit')
       sleep 10
-      expect(@driver.current_url.to_s.match(/^http:\/\/localhost:3333\/media\/[0-9]+/).nil?).to be(true)
+      expect(@driver.current_url.to_s.match(Regexp.new(@config['self_url'] + '/source/[0-9]+')).nil?).to be(true)
       message = get_element('.create-media .message').text
       expect(message == 'Validation failed: Sorry, this is not a valid media item').to be(true)
     end
@@ -708,7 +708,7 @@ describe 'app' do
     it "should comment project as a command" do
       login_with_email
 
-      @driver.navigate.to 'http://localhost:3333/'
+      @driver.navigate.to @config['self_url']
       sleep 1
       title = "Project #{Time.now}"
       fill_field('#create-project-title', title)

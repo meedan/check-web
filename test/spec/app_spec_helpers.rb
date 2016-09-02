@@ -105,12 +105,12 @@ module AppSpecHelpers
       press_button('.create-team__submit-button')
       sleep 5
     end
-    @driver.navigate.to 'http://localhost:3333/'
+    @driver.navigate.to @config['self_url']
     sleep 3
   end
 
   def register_with_email(should_create_team = true)
-    @driver.navigate.to 'http://localhost:3333/'
+    @driver.navigate.to @config['self_url']
     sleep 1
     @driver.find_element(:xpath, "//a[@id='login-email']").click
     sleep 1
