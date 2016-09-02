@@ -30,7 +30,7 @@ class MediaCard extends Component {
               <div className='media-card__metadata'>
                 <span className='media-card__metadatum'>{media.annotations_count} notes</span>
                 <span className='media-card__metadatum'>{media.domain}</span>
-                <span className='media-card__metadatum'>{data.username}</span>
+                <span className='media-card__metadatum'>{data.username ? '@' + data.username : null}</span>
               </div>
             {/*
             */}

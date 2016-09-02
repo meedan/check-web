@@ -86,7 +86,8 @@
 .project-header__project-description {
   flex: 1;
   display: block;
-  // margin-bottom: 7px;
+  height: 1.5em;
+  overflow: hidden;
 
   font-size: 14px;
   line-height: 1.3;

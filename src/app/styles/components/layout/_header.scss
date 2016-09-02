@@ -1,13 +1,29 @@
 .header {
   position: fixed; top: 0; right: 0; left: 0;
   z-index: 1;
-  padding: 15px 15px 15px 0;
+  padding: 15px 0;
   height: $layout-header-height;
   display: flex;
   align-items: center;
   background: #fff;
   border-bottom: $layout-border;
   box-shadow: 0 3px 0 transparentize(#000, 0.99);
+}
+
+.header--todo {
+  // TODO: give these pages proper headers
+
+  // background: transparent;
+  // border-bottom: none;
+  // box-shadow: none;
+
+  // padding-left: 15px; padding-right: 15px;
+
+  &__brand {
+    display: none;
+    // margin: 10px;
+    // height: 36px;
+  }
 }
 
 .header__team {

@@ -18,7 +18,7 @@
 .team-sidebar__sources-heading {
   @include app-kicker;
   margin: 0;
-  padding: 15px 25px 9px 25px;
+  padding: 30px 25px 9px 25px;
   // border-right: $layout-border;
 }
 
@@ -140,6 +140,9 @@
   // &:hover {
   //   color: #fff;
   // }
+
+  text-align: left;
+  padding-left: 25px;
 }
 
 .team-sidebar__switch-teams-icon {

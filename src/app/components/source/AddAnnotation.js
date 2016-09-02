@@ -175,7 +175,7 @@ class AddAnnotation extends Component {
 
   render() {
     return (
-      <form name="addannotation" onSubmit={this.submit.bind(this)}>
+      <form className='add-annotation' name="addannotation" onSubmit={this.submit.bind(this)}>
         <TextField hintText="Type your command here, e.g.: /command arguments" fullWidth={true} errorStyle={styles.errorStyle}
                    onFocus={this.handleFocus.bind(this)} ref={(ref) => this.cmd = ref} errorText={this.state.message} name="cmd"
                    className="cmd-input" />
