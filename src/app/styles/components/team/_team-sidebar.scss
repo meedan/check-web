@@ -3,44 +3,13 @@
   height: 100%;
   overflow-y: auto;
   @include hide-scrollbars;
-  background-color: #fff;
+  // background-color: #fff; // $layout-border;
 
   color: $lighter-gray-text;
   line-height: 1.45;
   display: flex;
   flex-direction: column;
   & > * { flex-shrink: 0; }
-  // border-right: $team-sidebar-border;
-}
-
-$team-sidebar-border: 1px solid theme-gray(91%);
-
-// team
-
-.team-sidebar__team {
-  text-align: center;
-  padding: 17px 25px 10px 25px;
-  border-right: $team-sidebar-border;
-}
-
-.team-sidebar__team-avatar {
-  @include team-avatar;
-
-  margin: 0 auto;
-  overflow: hidden;
-  & img { height: 100%; width: 100%; }
-}
-
-.team-sidebar__team-name {
-  @include team-name;
-  text-align: center;
-  margin: 9px 0;
-}
-
-.team-sidebar__team-link {
-  &, &:visited {
-    color: inherit;
-  }
 }
 
 // projects & sources
@@ -49,8 +18,8 @@ $team-sidebar-border: 1px solid theme-gray(91%);
 .team-sidebar__sources-heading {
   @include app-kicker;
   margin: 0;
-  padding: 0 25px 9px 25px;
-  border-right: $team-sidebar-border;
+  padding: 30px 25px 9px 25px;
+  // border-right: $layout-border;
 }
 
 .team-sidebar__projects-list,
@@ -70,12 +39,12 @@ $team-sidebar-border: 1px solid theme-gray(91%);
 }
 
 .team-sidebar__project {
-  border-right: $team-sidebar-border;
+  // border-right: $layout-border;
   &--current {
     color: $dark-gray-text;
-    background: $project-bg;
+    // background: $home-bg; // $layout-border;
     font-weight: 500;
-    border: $team-sidebar-border;
+    // border: $layout-border;
     border-right: none;
     border-top-left-radius: 3px;
     border-bottom-left-radius: 3px;
@@ -95,7 +64,7 @@ $team-sidebar-border: 1px solid theme-gray(91%);
 }
 
 .team-sidebar__new-project {
-  border-right: $team-sidebar-border;
+  // border-right: $layout-border;
 }
 
 .team-sidebar__new-project-input {
@@ -144,7 +113,7 @@ $team-sidebar-border: 1px solid theme-gray(91%);
 // sources
 
 .team-sidebar__new-source {
-  border-right: $team-sidebar-border;
+  // border-right: $layout-border;
 }
 
 .team-sidebar__source-icon {
@@ -156,7 +125,7 @@ $team-sidebar-border: 1px solid theme-gray(91%);
 .team-sidebar__footer {
   flex: 1 0 auto;
   position: relative;
-  border-right: $team-sidebar-border;
+  // border-right: $layout-border;
   padding-bottom: 60px;
 }
 
@@ -171,6 +140,9 @@ $team-sidebar-border: 1px solid theme-gray(91%);
   // &:hover {
   //   color: #fff;
   // }
+
+  text-align: left;
+  padding-left: 25px;
 }
 
 .team-sidebar__switch-teams-icon {

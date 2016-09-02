@@ -38,9 +38,10 @@ class CreateMedia extends Component {
     };
 
     var onSuccess = (response) => {
-      var rid = response.createMedia.media.dbid;
-      this.props.history.push('/media/' + rid);
-      this.setState({ message: null });
+      // var rid = response.createMedia.media.dbid;
+      // this.props.history.push('/media/' + rid);
+      this.setState({ message: null, url: null });
+      document.getElementById('create-media-url').value = '';
     };
 
     Relay.Store.commitUpdate(
@@ -58,26 +59,19 @@ class CreateMedia extends Component {
   }
 
   render() {
+    const isPreviewingUrl = (this.state.url !== '');
+
     return (
       <div className="create-media">
         <Message message={this.state.message} />
-
-        <div id="media-url-container" className="create-media-col">
-          <h4>Create a media</h4>
-          <h2>Media URL</h2>
-          <TextField hintText="Twitter, Facebook, YouTube..." fullWidth={true} name="url" id="create-media-url" /><br />
-          <FlatButton id="create-media-submit" primary={true} onClick={this.handleSubmit.bind(this)} label="Create" />
-          <FlatButton id="create-media-preview" secondary={true} onClick={this.handlePreview.bind(this)} label="Preview" />
+        <div id="media-preview" className="create-media__preview">
+          {isPreviewingUrl ? <PenderCard url={this.state.url} penderUrl={config.penderUrl} /> : null}
         </div>
 
-        <div id="media-preview" className="create-media-col">
-          <h4>Preview</h4>
-
-          {(() => {
-            if (this.state.url != '') {
-              return (<PenderCard url={this.state.url} penderUrl={config.penderUrl} />);
-            }
-          })()}
+        <div id="media-url-container" className="create-media__input">
+          <TextField hintText="Paste a link to unverified media..." fullWidth={true} name="url" id="create-media-url" />
+          <FlatButton id="create-media-preview" secondary={true} onClick={this.handlePreview.bind(this)} label="Preview" />
+          <FlatButton id="create-media-submit" primary={true} onClick={this.handleSubmit.bind(this)} label="Post" />
         </div>
       </div>
     );

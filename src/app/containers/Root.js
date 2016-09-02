@@ -11,6 +11,7 @@ import TeamMembers  from '../components/team/TeamMembers';
 import CreateTeam from '../components/team/CreateTeam'
 import JoinTeam from '../components/team/JoinTeam.js';
 import Project from '../components/project/Project.js';
+import ProjectHeader from '../components/project/ProjectHeader';
 import Teams from '../components/team/Teams.js';
 
 export default class Root extends Component {

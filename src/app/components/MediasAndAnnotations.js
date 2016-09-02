@@ -53,7 +53,7 @@ class MediasAndAnnotations extends Component {
     const props = that.props;
 
     return (
-      <div>
+      <div className='medias-and-annotations'>
         <ul className="medias-list annotations-list">
         
         {that.state.items.map(function(item) {
