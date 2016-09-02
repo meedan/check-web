@@ -24,16 +24,17 @@ class TeamSidebarComponent extends Component {
   }
 
   isCurrentProject(projectId) {
-    // hack while Caio reworks Checkdesk.currentProject; remove when resolved
-    const currentPath = window.location.pathname;
-    const projectIdFromCurrentPath = parseInt(/^\/project\/(\d+)$/.exec(currentPath)[1]);
-    return projectId === projectIdFromCurrentPath;
-    // /hack
+    var inProject = window.location.pathname.match(/\/project\/([0-9]+)/),
+        currentProjectId = null;
 
-    return projectId &&
-      Checkdesk.currentProject &&
-      Checkdesk.currentProject.dbid &&
-      Checkdesk.currentProject.dbid === projectId;
+    if (inProject) {
+      currentProjectId = parseInt(inProject[1]);
+    }
+    else if (Checkdesk.currentProject) {
+      currentProjectId = Checkdesk.currentProject.dbid;
+    }
+    
+    return projectId === currentProjectId;
   }
 
   render() {
