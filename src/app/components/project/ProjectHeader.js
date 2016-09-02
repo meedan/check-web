@@ -3,8 +3,11 @@ import Relay from 'react-relay';
 import UpdateProjectMutation from '../../relay/UpdateProjectMutation';
 import DeleteProjectMutation from '../../relay/DeleteProjectMutation';
 import Message from '../Message';
+import ProjectRoute from '../../relay/ProjectRoute';
+import UserMenuRelay from '../../relay/UserMenuRelay';
+import { logout } from '../../actions/actions';
 
-class ProjectHeader extends Component {
+class ProjectHeaderComponent extends Component {
   constructor(props) {
     super(props);
 
@@ -12,8 +15,8 @@ class ProjectHeader extends Component {
       isEditing: false,
       settingsMenuClosed: true,
       message: null,
-      title: this.props.project.title,
-      description: this.props.project.description
+      title: Checkdesk.currentProject.title,
+      description: Checkdesk.currentProject.description
     };
   }
 
@@ -28,7 +31,7 @@ class ProjectHeader extends Component {
   updateProject(e) {
     var that = this,
         id = this.props.project.id,
-        title = this.state.title, 
+        title = this.state.title,
         description = this.state.description;
 
     this.setState({ title: title, description: description });
@@ -51,7 +54,7 @@ class ProjectHeader extends Component {
       new UpdateProjectMutation({
         title: title,
         description: description,
-        id: id 
+        id: id
       }),
       { onSuccess, onFailure }
     );
@@ -147,16 +150,42 @@ class ProjectHeader extends Component {
             })()}
           </div>
           <div className={this.bemClass('project-header__project-settings', this.state.settingsMenuClosed, '--active')}>
+            <i className='project-header__project-search-icon fa fa-search' ></i>
             <i className='project-header__project-settings-icon fa fa-gear' onClick={this.toggleSettings.bind(this)}></i>
             <div className={this.bemClass('project-header__project-settings-overlay', this.state.settingsMenuClosed, '--active')}></div>
             <ul className={this.bemClass('project-header__project-settings-panel', this.state.settingsMenuClosed, '--active')}>
               <li className='project-header__project-setting project-header__project-setting--edit' onClick={this.enableEdit.bind(this)}>Edit project...</li>
               {/*<li className='project-header__project-setting project-header__project-setting--delete' onClick={this.deleteProject.bind(this)}>Delete project</li>*/}
+              <li className='TODO project-header__project-setting'>
+                <UserMenuRelay {...this.props} />
+              </li>
+              <li className='TODO project-header__project-setting' onClick={logout}>Sign Out</li>
             </ul>
           </div>
         </div>
       </div>
     );
+  }
+}
+
+const ProjectHeaderContainer = Relay.createContainer(ProjectHeaderComponent, {
+  fragments: {
+    project: () => Relay.QL`
+      fragment on Project {
+        id,
+        dbid,
+        title,
+        description
+      }
+    `
+  }
+});
+
+
+class ProjectHeader extends Component {
+  render() {
+    var route = new ProjectRoute({ projectId: this.props.params.projectId });
+    return (<Relay.RootContainer Component={ProjectHeaderContainer} route={route} />);
   }
 }
 

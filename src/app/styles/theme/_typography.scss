@@ -36,8 +36,8 @@ $font-stack-serif: "Merriweather", Georgia, serif;
   font-weight: 500;
 }
 
-@mixin team-name {
-  font-size: 17px;
+@mixin team-name($size: 17px) {
+  font-size: $size;
   font-weight: 600;
   letter-spacing: 0.02em;
   color: theme-gray(27%);
