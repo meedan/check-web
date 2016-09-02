@@ -28,14 +28,6 @@ const muiTheme = getMuiTheme({
 });
 
 class Home extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      isSidebarActive: false
-    };
-  }
-
   setUpGraphql(token) {
     var headers = config.relayHeaders;
     if (token) {
@@ -74,12 +66,12 @@ class Home extends Component {
             if (data) {
               const team = data.current_team;
               var project = Checkdesk.currentProject;
-              
+
               if (team && !project) {
                 project = team.projects[0]; // TODO: remember most-recently-viewed project
                 Checkdesk.currentProject = project;
               }
-              
+
               if (currentLocation === '/') {
                 // if no team, create one
                 if (!team) {
@@ -101,47 +93,34 @@ class Home extends Component {
     }
   }
 
-  toggleSidebar() {
-    this.setState({isSidebarActive: !this.state.isSidebarActive});
-  }
-
-  sidebarActiveClass(baseClass) {
-    return this.state.isSidebarActive ? [baseClass, baseClass + '--sidebar-active'].join(' ') : baseClass;
-  }
-
   render() {
-    const { state } = this.props;
+    const { state, children } = this.props;
 
     this.startSession(state.app);
 
     this.setUpGraphql(state.app.token);
 
-    if (!this.props.children.props.route.public && !state.app.token) {
+    const routeIsPublic = children && children.props.route.public;
+    if (!routeIsPublic && !state.app.token) {
       if (state.app.error) {
         return (<LoginMenu {...this.props} />);
       }
       return null;
     }
 
-    const routeIsFullscreen = this.props.children.props.route.fullscreen;
+    const routeIsFullscreen = children && children.props.route.fullscreen;
     if (routeIsFullscreen) {
-      return (<div className='home home--fullscreen'>{this.props.children}</div>);
+      return (<div className='home home--fullscreen'>{children}</div>);
     }
 
     return (
       <div className='home'>
-        <div className={this.sidebarActiveClass('home__sidebar')}>
-          <TeamSidebar />
-        </div>
-        <main className={this.sidebarActiveClass('home__content')}>
-          <div className={this.sidebarActiveClass('home__content-overlay')} onClick={this.toggleSidebar.bind(this)}></div>
-
-          <Header {...this.props} toggleSidebar={this.toggleSidebar.bind(this)} />
-          <div className="global-message"><Message message={state.app.message} /></div>
-          <div className='home__content-children'>{this.props.children}</div>
-
-          <FooterRelay {...this.props} />
+        <Header {...this.props} />
+        <main className='home__content'>
+          <div className="home__global-message global-message"><Message message={state.app.message} /></div>
+          <div className='home__main'>{children}</div>
         </main>
+        <FooterRelay {...this.props} />
       </div>
     );
   }

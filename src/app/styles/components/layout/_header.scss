@@ -1,40 +1,16 @@
 .header {
   // box-shadow: 0 3px 0 transparentize(#000, 0.98);
-  background: transparentize($home-bg, 0.02);
-
-  padding: 17px 42px;
-  // @media screen and (max-width: 768px) {
-  //   left: 0;
-  //   padding: 13px 15px;
-  // }
-
-  // @media screen and (min-width: 768px) {
-  //   padding: 13px $home-content-padding;
-  // }
-
-
+  position: fixed; top: 0; right: 0; left: 0;
+  z-index: 1;
+  padding: 15px 15px 15px 0;
+  height: $layout-header-height;
   display: flex;
   align-items: center;
+  background: #fff;
+  border-bottom: $layout-border;
 }
 
-.header__sidebar-toggle {
-  $size: 22px; height: $size; width: $size;
-  margin-right: 15px;
-  margin-bottom: 3px;
-
-  @media screen and (max-width: 768px) {
-    display: block;
-  }
-
-  @media screen and (min-width: 768px) {
-    display: none;
-  }
+.header__team {
+  flex: 0 0 $layout-sidebar-width;
+  width: $layout-sidebar-width;
 }
-
-.header__sidebar-toggle-button {
-  height: 100%;
-  width: 100%;
-  border-radius: 2px;
-  box-shadow: 0 0 1px rgba(0,0,0,0.1);
-}
-

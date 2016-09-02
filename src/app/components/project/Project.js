@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 import ProjectRoute from '../../relay/ProjectRoute';
 import ProjectHeader from './ProjectHeader';
 import MediasAndAnnotations from '../MediasAndAnnotations';
+import TeamSidebar from '../TeamSidebar';
 
 class ProjectComponent extends Component {
   setCurrentProject() {
@@ -23,8 +24,10 @@ class ProjectComponent extends Component {
 
     return (
       <div className="project">
-        <ProjectHeader project={project} />
 
+        <div className='project__team-sidebar'>{/* className={this.sidebarActiveClass('home__sidebar')} */}
+          <TeamSidebar />
+        </div>
         <div className="project__content">
           <MediasAndAnnotations
             medias={project.medias.edges}
