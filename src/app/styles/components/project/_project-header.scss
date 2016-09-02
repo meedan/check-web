@@ -1,6 +1,9 @@
 .project-header {
   flex: 1;
   display: flex;
+
+  padding-left: 15px;
+
   align-items: center;
 }
 
@@ -31,7 +34,6 @@
   font-size: 18px;
   display: flex;
   margin: 0;
-  margin-bottom: 20px;
 }
 
 .project-header__project {
@@ -84,11 +86,16 @@
 .project-header__project-description {
   flex: 1;
   display: block;
-  // margin-bottom: 7px;
+  height: 1.5em;
+  overflow: hidden;
 
   font-size: 14px;
   line-height: 1.3;
   color: $light-gray-text;
+
+  &:empty:before {
+    content: 'Verification Project';
+  }
 }
 
 .project-header__project-description-input {
