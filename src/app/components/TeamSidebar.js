@@ -41,15 +41,14 @@ class TeamSidebarComponent extends Component {
     var currentTeam = this.props.me.current_team;
 
     // dummy data
-    var otherTeams = this.props.me.teams;
-    // var otherTeams = [
-    //   {
-    //     name: 'ProPublica',
-    //     avatar: 'https://pbs.twimg.com/profile_images/660147326091182081/Q4TLW_Fe.jpg',
-    //     url: '/teams/2',
-    //     membersCount: 10
-    //   }
-    // ];
+    var otherTeams = [
+      {
+        name: 'ProPublica',
+        avatar: 'https://pbs.twimg.com/profile_images/660147326091182081/Q4TLW_Fe.jpg',
+        url: '/teams/2',
+        membersCount: 10
+      }
+    ];
     var pendingTeams = [
       {
         name: 'AntiPublica',
@@ -137,71 +136,6 @@ class TeamSidebarComponent extends Component {
                 <FontAwesome className='team-sidebar__switch-teams-title-icon' name='random' />
                 <span>Switch Teams</span>
               </h2>
-<<<<<<< HEAD
-
-              <ul className='switch-teams__teams'>
-
-                {/* 1. current team */}
-                {(() => {
-                  if (currentTeam) {
-                    return (
-                      <li className='switch-teams__team switch-teams__team--current'>
-                        <Link to={'/team/' + currentTeam.dbid} className='switch-teams__team-link'>
-                          <div className='switch-teams__team-avatar' style={{'background-image': 'url(' + currentTeam.avatar + ')'}}></div>
-                          <div className='switch-teams__team-copy'>
-                            <h3 className='switch-teams__team-name'>{currentTeam.name}</h3>
-                            <span className='switch-teams__team-members-count'>{membersCountString(currentTeam.members_count)}</span>
-                          </div>
-                          <div className='switch-teams__team-actions'>
-                            <FontAwesome className='switch-teams__team-caret' name='angle-right' />
-                          </div>
-                        </Link>
-                      </li>
-                    );
-                  }
-                })()}
-
-                {/* 2. iterate through other teams the user belongs to */}
-                {otherTeams.edges.map(function(team) {
-                  if (team.node.id == currentTeam.id) {
-                    return (<span></span>)
-                  }else {
-                    return (
-                      <li className='switch-teams__team'>
-                        <Link to={team.node.name} className='switch-teams__team-link'>
-                          <div className='switch-teams__team-avatar' style={{'background-image': 'url(' + team.node.avatar + ')'}}></div>
-                          <div className='switch-teams__team-copy'>
-                            <h3 className='switch-teams__team-name'>{team.node.name}</h3>
-                            <span className='switch-teams__team-members-count'>{12}</span>
-                          </div>
-                          <div className='switch-teams__team-actions'>
-                            <FontAwesome className='switch-teams__team-caret' name='angle-right' />
-                          </div>
-                        </Link>
-                      </li>
-                    );
-                  }
-                })}
-
-                {/* 3. iterate through any teams the user has requested to join but not been approved yet */}
-                {pendingTeams.map(function(team) {
-                  return (
-                    <li className='switch-teams__team switch-teams__team--pending'>
-                      <div className='switch-teams__team-avatar' style={{'background-image': 'url(' + team.avatar + ')'}}></div>
-                      <div className='switch-teams__team-copy'>
-                        <h3 className='switch-teams__team-name'><Link to={team.url}>{team.name}</Link></h3>
-                        <span className='switch-teams__team-join-request-message'>You requested to join</span>
-                      </div>
-                      <div className='switch-teams__team-actions'>
-                        <button className='switch-teams__cancel-join-request'>Cancel</button>
-                      </div>
-                    </li>
-                  );
-                })}
-              </ul>
-
-              {/* 4. new team */}
-              <Link to='/teams/new' className='switch-teams__new-team-link'>+ New team</Link>
               <SwitchTeams currentTeam={currentTeam} otherTeams={otherTeams} pendingTeams={pendingTeams} />
             </section>
           </div>
@@ -215,15 +149,6 @@ const TeamSidebarContainer = Relay.createContainer(TeamSidebarComponent, {
   fragments: {
     me: () => Relay.QL`
       fragment on User {
-        teams(first: 4) {
-        edges {
-          node {
-            id,
-            name,
-            avatar
-            }
-          }
-        },
         current_team {
           id,
           name,
