@@ -58,26 +58,22 @@ class CreateMedia extends Component {
   }
 
   render() {
+    const isPreviewingUrl = (this.state.url !== '');
+
     return (
       <div className="create-media">
         <Message message={this.state.message} />
-
-        <div id="media-url-container" className="create-media-col">
-          <h4>Create a media</h4>
-          <h2>Media URL</h2>
-          <TextField hintText="Twitter, Facebook, YouTube..." fullWidth={true} name="url" id="create-media-url" /><br />
-          <FlatButton id="create-media-submit" primary={true} onClick={this.handleSubmit.bind(this)} label="Create" />
-          <FlatButton id="create-media-preview" secondary={true} onClick={this.handlePreview.bind(this)} label="Preview" />
+        <div id="media-preview" className="create-media__preview">
+          {isPreviewingUrl ? <PenderCard url={this.state.url} penderUrl={config.penderUrl} /> : null}
         </div>
 
-        <div id="media-preview" className="create-media-col">
-          <h4>Preview</h4>
-
-          {(() => {
-            if (this.state.url != '') {
-              return (<PenderCard url={this.state.url} penderUrl={config.penderUrl} />);
-            }
-          })()}
+        <div id="media-url-container" className="create-media__form">
+          <button className="create-media__button create-media__button--new">+</button>
+          <TextField hintText="Paste a link to unverified media..." fullWidth={true} name="url" id="create-media-url" className='create-media__input' />
+          <div className="create-media__buttons">
+            <FlatButton id="create-media-preview" secondary={true} onClick={this.handlePreview.bind(this)} label="Preview" className='create-media__button create-media__button--preview' />
+            <FlatButton id="create-media-submit" primary={true} onClick={this.handleSubmit.bind(this)} label="Post" className='create-media__button create-media__button--submit' />
+          </div>
         </div>
       </div>
     );

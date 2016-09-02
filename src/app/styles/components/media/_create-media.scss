@@ -1,0 +1,24 @@
+.create-media {
+}
+
+.create-media__input {
+  // max-width: 85%; max-width: calc(99% - 70px); // TODO: restyle
+}
+
+.create-media__button--new {
+  display: none; // TODO: restyle
+  float: left;
+
+  @include button-defaults;
+  background: #2962FF; //A700
+  color: #fff;
+  $size: 60px; height: $size; width: $size;
+  font-size: $size * 0.8;
+  font-weight: 200;
+  border-radius: $size;
+  margin-right: 10px;
+}
+
+.create-media__buttons {
+  text-align: right;
+}
