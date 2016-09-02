@@ -139,29 +139,35 @@ class AddAnnotation extends Component {
     const command = this.parseCommand(document.forms.addannotation.cmd.value);
     let action = null;
 
-    switch (command.type) {
-      case 'comment':
-        action = this.addComment;
-        break;
-      case 'tag':
-        action = this.addTag;
-        break;
-      case 'status':
-        action = this.addStatus;
-        break;
-      case 'flag':
-        action = this.addFlag;
-        break;
+    if (this.props.types && this.props.types.indexOf(command.type) == -1) {
+      this.failure();
     }
 
-    if (action) {
-      const annotated = this.props.annotated;
-      const annotated_id = annotated.dbid;
-      const annotated_type = this.props.annotatedType;
-      action(this, annotated, annotated_id, annotated_type, command.args);
-    }
     else {
-      this.failure();
+      switch (command.type) {
+        case 'comment':
+          action = this.addComment;
+          break;
+        case 'tag':
+          action = this.addTag;
+          break;
+        case 'status':
+          action = this.addStatus;
+          break;
+        case 'flag':
+          action = this.addFlag;
+          break;
+      }
+
+      if (action) {
+        const annotated = this.props.annotated;
+        const annotated_id = annotated.dbid;
+        const annotated_type = this.props.annotatedType;
+        action(this, annotated, annotated_id, annotated_type, command.args);
+      }
+      else {
+        this.failure();
+      }
     }
 
     e.preventDefault();

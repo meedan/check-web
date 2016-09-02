@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 import FontAwesome from 'react-fontawesome';
 import CreateProject from './project/CreateProject';
 import MeRoute from '../relay/MeRoute';
+import SwitchTeams from './team/SwitchTeams';
 
 class TeamSidebarComponent extends Component {
   constructor(props) {
@@ -20,6 +21,20 @@ class TeamSidebarComponent extends Component {
 
   handleSwitchTeamsClose() {
     this.setState({isSwitchTeamsActive: false});
+  }
+
+  isCurrentProject(projectId) {
+    var inProject = window.location.pathname.match(/\/project\/([0-9]+)/),
+        currentProjectId = null;
+
+    if (inProject) {
+      currentProjectId = parseInt(inProject[1]);
+    }
+    else if (Checkdesk.currentProject) {
+      currentProjectId = Checkdesk.currentProject.dbid;
+    }
+
+    return projectId === currentProjectId;
   }
 
   render() {
@@ -74,13 +89,11 @@ class TeamSidebarComponent extends Component {
               return (
                 <ul className='team-sidebar__projects-list'>
                   {currentTeam.projects.edges.map(p => (
-                    <li className='team-sidebar__project'>
-                      <FontAwesome className='team-sidebar__project-icon' name='folder-open' />
+                    <li className={'team-sidebar__project' + (this.isCurrentProject(p.node.dbid) ? ' team-sidebar__project--current' : '')}>
                       <Link to={'/project/' + p.node.dbid} className='team-sidebar__project-link'>{p.node.title}</Link>
                     </li>
                   ))}
                   <li className='team-sidebar__new-project'>
-                    <FontAwesome className='team-sidebar__project-icon' name='folder' />
                     <CreateProject className='team-sidebar__new-project-input' teamId={currentTeam.id} />
                   </li>
                 </ul>
@@ -112,20 +125,19 @@ class TeamSidebarComponent extends Component {
         </section>
 
         <footer className='team-sidebar__footer'>
-          <button onClick={this.handleSwitchTeams.bind(this)} className='team-sidebar__switch-teams'>
+          <button onClick={this.handleSwitchTeams.bind(this)} className='team-sidebar__switch-teams-button'>
             <FontAwesome className='team-sidebar__switch-teams-icon' name='random' />
             <span>Switch Teams</span>
           </button>
 
-          {/* possibly should decompose into separate component */}
-          <div className={'switch-teams' + (this.state.isSwitchTeamsActive ? ' switch-teams--active' : '')} onClick={this.handleSwitchTeamsClose.bind(this)}>
-            <section className='switch-teams__modal'>
-              <button className='switch-teams__modal-close' onClick={this.handleSwitchTeamsClose.bind(this)}>×</button>
-
-              <h2 className='switch-teams__modal-title'>
-                <FontAwesome className='switch-teams__modal-title-icon' name='random' />
+          <div className={'team-sidebar__switch-teams-overlay' + (this.state.isSwitchTeamsActive ? ' team-sidebar__switch-teams-overlay--active' : '')} onClick={this.handleSwitchTeamsClose.bind(this)}>
+            <section className='team-sidebar__switch-teams-modal'>
+              <button className='team-sidebar__switch-teams-close' onClick={this.handleSwitchTeamsClose.bind(this)}>×</button>
+              <h2 className='team-sidebar__switch-teams-title'>
+                <FontAwesome className='team-sidebar__switch-teams-title-icon' name='random' />
                 <span>Switch Teams</span>
               </h2>
+<<<<<<< HEAD
 
               <ul className='switch-teams__teams'>
 
@@ -190,6 +202,7 @@ class TeamSidebarComponent extends Component {
 
               {/* 4. new team */}
               <Link to='/teams/new' className='switch-teams__new-team-link'>+ New team</Link>
+              <SwitchTeams currentTeam={currentTeam} otherTeams={otherTeams} pendingTeams={pendingTeams} />
             </section>
           </div>
         </footer>

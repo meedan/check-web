@@ -45,7 +45,10 @@ var sourceFragment = Relay.QL`
           dbid,
           url,
           published,
-          jsondata
+          jsondata,
+          annotations_count,
+          domain,
+          last_status
         }
       }
     }

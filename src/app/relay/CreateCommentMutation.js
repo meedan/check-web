@@ -17,6 +17,9 @@ class CreateCommentMutation extends Relay.Mutation {
       case 'media':
         query = Relay.QL`fragment on CreateCommentPayload { commentEdge, media { annotations } }`;
         break;
+      case 'project':
+        query = Relay.QL`fragment on CreateCommentPayload { commentEdge, project { annotations } }`;
+        break;
     }
     return query;
   }
@@ -39,7 +42,7 @@ class CreateCommentMutation extends Relay.Mutation {
       connectionName: 'annotations',
       edgeName: 'commentEdge',
       rangeBehaviors: {
-        '': 'prepend'
+        '': 'append'
       }
     }];
   }

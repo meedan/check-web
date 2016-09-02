@@ -3,6 +3,7 @@ import Relay from 'react-relay';
 import { Link } from 'react-router';
 import ProjectRoute from '../../relay/ProjectRoute';
 import ProjectHeader from './ProjectHeader';
+import MediasAndAnnotations from '../MediasAndAnnotations';
 
 class ProjectComponent extends Component {
   setCurrentProject() {
@@ -23,9 +24,17 @@ class ProjectComponent extends Component {
     return (
       <div className="project">
         <ProjectHeader project={project} />
-        <h2 className="project-title">{project.title}</h2>
-        <p className="project-description">{project.description}</p>
-        <Link to="/medias/new" id="link-medias-new" className="project__new-media-link" title="Create a report">+ New report...</Link>
+
+        <div className="project__content">
+          <MediasAndAnnotations
+            medias={project.medias.edges}
+            annotations={project.annotations.edges}
+            annotated={project}
+            annotatedType="Project"
+            types={['comment']} />
+
+          <Link to="/medias/new" id="link-medias-new" className="project__new-media-link" title="Create a report">+ New report...</Link>
+        </div>
       </div>
     );
   }
@@ -38,7 +47,38 @@ const ProjectContainer = Relay.createContainer(ProjectComponent, {
         id,
         dbid,
         title,
-        description
+        description,
+        team {
+          id
+        },
+        annotations(first: 20) {
+          edges {
+            node {
+              id,
+              content,
+              annotation_type,
+              created_at,
+              annotator {
+                name,
+                profile_image
+              }
+            }
+          }
+        },
+        medias(first: 20) {
+          edges {
+            node {
+              id,
+              dbid,
+              url,
+              published,
+              jsondata,
+              annotations_count,
+              domain,
+              last_status
+            }
+          }
+        }
       }
     `
   }

@@ -22,6 +22,7 @@ $font-stack-serif: "Merriweather", Georgia, serif;
 
 @mixin app-heading {
   @include onboarding-heading;
+  text-align: center;
 }
 
 @mixin app-blurb {
@@ -32,10 +33,12 @@ $font-stack-serif: "Merriweather", Georgia, serif;
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.15em;
+  font-weight: 500;
 }
 
 @mixin team-name {
-  font-size: 16px;
-  font-weight: 500;
+  font-size: 17px;
+  font-weight: 600;
   letter-spacing: 0.02em;
+  color: theme-gray(27%);
 }

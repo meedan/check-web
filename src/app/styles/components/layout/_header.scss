@@ -1,16 +1,17 @@
 .header {
-  box-shadow: 0 3px 0 transparentize(#000, 0.98);
+  // box-shadow: 0 3px 0 transparentize(#000, 0.98);
   background: transparentize($home-bg, 0.02);
   position: fixed; top: 0; right: 0;
 
-  @media screen and (max-width: 768px) {
-    left: 0;
-    padding: 13px 15px;
-  }
+  padding: 17px 42px;
+  // @media screen and (max-width: 768px) {
+  //   left: 0;
+  //   padding: 13px 15px;
+  // }
 
-  @media screen and (min-width: 768px) {
-    padding: 13px $home-content-padding;
-  }
+  // @media screen and (min-width: 768px) {
+  //   padding: 13px $home-content-padding;
+  // }
 
 
   display: flex;

@@ -1,3 +1,10 @@
 #root {
   height: 100%;
 }
+
+@mixin hide-scrollbars {
+  &::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+  }
+}

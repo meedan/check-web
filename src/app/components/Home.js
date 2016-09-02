@@ -60,7 +60,6 @@ class Home extends Component {
           state.error = true;
           that.forceUpdate();
         };
-        that = this
         var successCallback = function(data) {
           if (data) {
             state.token = data.token;
@@ -72,17 +71,25 @@ class Home extends Component {
           var currentLocation = that.props.location.pathname;
 
           (function redirectIndex() {
-            if (data && currentLocation === '/') {
-              // if no team, create one
+            if (data) {
               const team = data.current_team;
-              if (!team) {
-                return Checkdesk.history.push('/teams/new');
+              var project = Checkdesk.currentProject;
+              
+              if (team && !project) {
+                project = team.projects[0]; // TODO: remember most-recently-viewed project
+                Checkdesk.currentProject = project;
               }
+              
+              if (currentLocation === '/') {
+                // if no team, create one
+                if (!team) {
+                  return Checkdesk.history.push('/teams/new');
+                }
 
-              // send to current team project
-              const project = team.projects[0]; // TODO: remember most-recently-viewed project
-              if (project && project.id) {
-                Checkdesk.history.push(`/project/${project.id}`);
+                // send to current team project
+                if (project && project.dbid) {
+                  Checkdesk.history.push(`/project/${project.dbid}`);
+                }
               }
             }
           })();
