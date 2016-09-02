@@ -24,10 +24,36 @@ class TeamMembersCell extends Component {
        team_id: this.props.team_user.node.team_id,
        user_id: this.props.team_user.node.user_id,
        id: this.props.team_user.node.id,
-       status: "banned"
+       status: "banned",
+       role: this.this.props.team_user.node.role
      }),
      { onSuccess, onFailure }
    );
+  }
+
+  function handleRoleChange(val) {
+      console.log("Selected: " + val);
+      var that = this
+
+      var onFailure = (transaction) => {
+        transaction.getError().json().then(function(json) {
+        });
+
+        this.setState({isEditingNameAndDescription: false});
+     };
+     var onSuccess = (response) => {
+     };
+
+     Relay.Store.commitUpdate(
+       new UpdateTeamUserMutation({
+        team_id: this.props.team_user.node.team_id,
+        user_id: this.props.team_user.node.user_id,
+        id: this.props.team_user.node.id,
+        status: "banned",
+        role: val
+      }),
+      { onSuccess, onFailure }
+    );
   }
 
 
@@ -47,7 +73,7 @@ class TeamMembersCell extends Component {
           <span className='team-members__member-username'>({team_user.node.user.name})</span>
         </div>
 
-        <Select className='team-members__member-role' autosize={true} searchable={false} backspaceRemoves={false} clearable={false} disabled={!isEditing} options={roles} value='contributor'/>
+        <Select className='team-members__member-role'  onChange={handleRoleChange} autosize={true} searchable={false} backspaceRemoves={false} clearable={false} disabled={!isEditing} options={roles} value='contributor'/>
         {isEditing ? (<button onClick={this.handleDeleteTeamUser.bind(this)} className='team-members__delete-member'><span className='team-members__delete-member-icon'>×</span></button>) : null }
       </li>
     );

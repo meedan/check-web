@@ -151,20 +151,24 @@ class TeamSidebarComponent extends Component {
 
                 {/* 2. iterate through other teams the user belongs to */}
                 {otherTeams.edges.map(function(team) {
-                  return (
-                    <li className='switch-teams__team'>
-                      <Link to={team.node.name} className='switch-teams__team-link'>
-                        <div className='switch-teams__team-avatar' style={{'background-image': 'url(' + team.node.avatar + ')'}}></div>
-                        <div className='switch-teams__team-copy'>
-                          <h3 className='switch-teams__team-name'>{team.node.name}</h3>
-                          <span className='switch-teams__team-members-count'>{12}</span>
-                        </div>
-                        <div className='switch-teams__team-actions'>
-                          <FontAwesome className='switch-teams__team-caret' name='angle-right' />
-                        </div>
-                      </Link>
-                    </li>
-                  );
+                  if (team.node.id == currentTeam.id) {
+                    return (<span></span>)
+                  }else {
+                    return (
+                      <li className='switch-teams__team'>
+                        <Link to={team.node.name} className='switch-teams__team-link'>
+                          <div className='switch-teams__team-avatar' style={{'background-image': 'url(' + team.node.avatar + ')'}}></div>
+                          <div className='switch-teams__team-copy'>
+                            <h3 className='switch-teams__team-name'>{team.node.name}</h3>
+                            <span className='switch-teams__team-members-count'>{12}</span>
+                          </div>
+                          <div className='switch-teams__team-actions'>
+                            <FontAwesome className='switch-teams__team-caret' name='angle-right' />
+                          </div>
+                        </Link>
+                      </li>
+                    );
+                  }
                 })}
 
                 {/* 3. iterate through any teams the user has requested to join but not been approved yet */}

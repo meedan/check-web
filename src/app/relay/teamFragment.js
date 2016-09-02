@@ -10,7 +10,7 @@ var teamFragment = Relay.QL`
     team_users(first: 6) {
       edges {
         node {
-          user{name,profile_image},status,team_id,user_id,id
+          user{name,profile_image},status,team_id,user_id,id,role
 
         }
       }
