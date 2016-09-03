@@ -24,4 +24,4 @@ app.use(serveStatic('build/web', { 'index': ['index.html'] }))
 app.use(function(req, res, next) {
   res.sendFile(process.cwd() + '/build/web/index.html');
 });
-app.listen(process.env.CHECKDESK_CLIENT_PORT || 8000)
+app.listen(process.env.SERVER_PORT || 8000)
