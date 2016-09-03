@@ -1,26 +1,32 @@
 .team-sidebar {
   width: 100%;
   height: 100%;
-  padding: 15px 25px 60px 25px;
   overflow-y: auto;
+  @include hide-scrollbars;
+  background-color: #fff;
 
-  background-color: hsl(204, 15%, 55%);
-  color: darken(#fff, 0%);
-
+  color: $lighter-gray-text;
+  line-height: 1.45;
   display: flex;
   flex-direction: column;
+  & > * { flex-shrink: 0; }
+  // border-right: $team-sidebar-border;
 }
+
+$team-sidebar-border: 1px solid theme-gray(91%);
 
 // team
 
 .team-sidebar__team {
   text-align: center;
-  margin-bottom: 5px;
+  padding: 17px 25px 10px 25px;
+  border-right: $team-sidebar-border;
 }
 
 .team-sidebar__team-avatar {
   @include team-avatar;
-  margin: 0 auto 10px;
+
+  margin: 0 auto;
   overflow: hidden;
   & img { height: 100%; width: 100%; }
 }
@@ -28,25 +34,54 @@
 .team-sidebar__team-name {
   @include team-name;
   text-align: center;
-  margin: 7px 0;
+  margin: 9px 0;
 }
 
 .team-sidebar__team-link {
   &, &:visited {
-    color: darken(#fff, 0%);
+    color: inherit;
   }
 }
 
 // projects & sources
 
+.team-sidebar__projects-heading,
+.team-sidebar__sources-heading {
+  @include app-kicker;
+  margin: 0;
+  padding: 0 25px 9px 25px;
+  border-right: $team-sidebar-border;
+}
+
+.team-sidebar__projects-list,
+.team-sidebar__sources-list {
+  padding-left: 12px;
+  & > :last-child {
+    padding-bottom: 45px;
+  }
+}
+
 .team-sidebar__project,
 .team-sidebar__new-project,
 .team-sidebar__source,
 .team-sidebar__new-source, {
-  margin-bottom: 10px;
+  font-size: 15px;
+  padding: 0.4em 13px;
 }
 
-.team-sidebar__project {}
+.team-sidebar__project {
+  border-right: $team-sidebar-border;
+  &--current {
+    color: $dark-gray-text;
+    background: $project-bg;
+    font-weight: 500;
+    border: $team-sidebar-border;
+    border-right: none;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    // TODO: consolidate
+  }
+}
 
 .team-sidebar__project-icon,
 .team-sidebar__new-source-icon {
@@ -60,7 +95,7 @@
 }
 
 .team-sidebar__new-project {
-  transition: opacity 100ms ease;
+  border-right: $team-sidebar-border;
 }
 
 .team-sidebar__new-project-input {
@@ -68,32 +103,25 @@
   border: none;
   padding: 0;
   background: transparent;
-  color: #fff;
+  color: $dark-gray-text;
+  font-weight: 500;
+
   &:focus { outline: none; }
-  @include input-placeholder { color: transparentize(#fff, 0.6); }
+  @include input-placeholder {
+    color: $lighter-gray-text;
+    font-weight: 400;
+  }
 }
 
-.team-sidebar__projects,
-.team-sidebar__sources {
-  margin-bottom: 30px;
-}
-
-.team-sidebar__projects-heading,
-.team-sidebar__sources-heading {
-  @include app-kicker;
-  color: $light-gray-text;
-  margin-bottom: 15px;
-}
-
-.team-sidebar__projects-link,
+.team-sidebar__project-link,
 .team-sidebar__sources-link,
 .team-sidebar__new-media-link,
 .team-sidebar__new-source-link {
   &, &:visited {
-    color: $light-gray-text;
+    color: inherit;
   }
   &:hover {
-    color: #fff;
+    color: $dark-gray-text;
   }
 }
 
@@ -107,14 +135,17 @@
 // }
 
 .team-sidebar__new-source-link,
-team-sidebar__sources-link
-
+.team-sidebar__sources-link,
 .team-sidebar__projects-list,
 .team-sidebar__sources-list {
   // font-size: 14px;
 }
 
 // sources
+
+.team-sidebar__new-source {
+  border-right: $team-sidebar-border;
+}
 
 .team-sidebar__source-icon {
   $size: 20px; height: $size; width: $size;
@@ -123,8 +154,10 @@ team-sidebar__sources-link
 // footer
 
 .team-sidebar__footer {
-  flex: 1;
+  flex: 1 0 auto;
   position: relative;
+  border-right: $team-sidebar-border;
+  padding-bottom: 60px;
 }
 
 .team-sidebar__switch-teams-button {
@@ -132,12 +165,12 @@ team-sidebar__sources-link
   font-size: 14px;
   width: 100%;
   padding: 0 18px 0 0;
-  color: rgb(87, 107, 121);
-  position: absolute; bottom: 0;
-  transition: color 80ms ease;
-  &:hover {
-    color: #fff;
-  }
+  position: absolute; bottom: 60px;
+  color: inherit;
+  // transition: color 80ms ease;
+  // &:hover {
+  //   color: #fff;
+  // }
 }
 
 .team-sidebar__switch-teams-icon {

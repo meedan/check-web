@@ -113,7 +113,6 @@ class ProjectHeader extends Component {
       <div className='project-header'>
         <Message message={this.state.message} />
         <div className='project-header__project'>
-          <i className='project-header__project-icon / fa fa-folder-open'></i>
           <div className={this.bemClass('project-header__project-copy', this.state.isEditing, '--is-editing')}>
             {(() => {
               if (this.state.isEditing) {

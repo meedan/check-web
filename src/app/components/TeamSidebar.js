@@ -23,9 +23,23 @@ class TeamSidebarComponent extends Component {
     this.setState({isSwitchTeamsActive: false});
   }
 
+  isCurrentProject(projectId) {
+    var inProject = window.location.pathname.match(/\/project\/([0-9]+)/),
+        currentProjectId = null;
+
+    if (inProject) {
+      currentProjectId = parseInt(inProject[1]);
+    }
+    else if (Checkdesk.currentProject) {
+      currentProjectId = Checkdesk.currentProject.dbid;
+    }
+    
+    return projectId === currentProjectId;
+  }
+
   render() {
     var currentTeam = this.props.me.current_team;
-    
+
     // dummy data
     var otherTeams = [
       {
@@ -41,7 +55,7 @@ class TeamSidebarComponent extends Component {
         avatar: 'https://pbs.twimg.com/profile_images/660147326091182081/Q4TLW_Fe.jpg',
         url: '/teams/3',
       }
-    ]; 
+    ];
     // /dummy data
 
     function membersCountString(count) {
@@ -52,7 +66,7 @@ class TeamSidebarComponent extends Component {
 
     return (
       <nav className='team-sidebar'>
-        {(() => { 
+        {(() => {
           if (currentTeam) {
             return (
               <section className='team-sidebar__team'>
@@ -69,18 +83,16 @@ class TeamSidebarComponent extends Component {
 
         <section className='team-sidebar__projects'>
           <h2 className='team-sidebar__projects-heading'>Verification Projects</h2>
-          {(() => { 
+          {(() => {
             if (currentTeam) {
               return (
                 <ul className='team-sidebar__projects-list'>
                   {currentTeam.projects.edges.map(p => (
-                    <li className='team-sidebar__project'>
-                      <FontAwesome className='team-sidebar__project-icon' name='folder-open' />
+                    <li className={'team-sidebar__project' + (this.isCurrentProject(p.node.dbid) ? ' team-sidebar__project--current' : '')}>
                       <Link to={'/project/' + p.node.dbid} className='team-sidebar__project-link'>{p.node.title}</Link>
                     </li>
                   ))}
                   <li className='team-sidebar__new-project'>
-                    <FontAwesome className='team-sidebar__project-icon' name='folder' />
                     <CreateProject className='team-sidebar__new-project-input' teamId={currentTeam.id} />
                   </li>
                 </ul>

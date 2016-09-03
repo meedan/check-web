@@ -1,6 +1,6 @@
-$home-bg: darken(#fff, 3%);
+$home-bg: $project-bg; // deprecated
 $home-content-padding: 23px;
-$sidebar-width: 255px;
+$sidebar-width: 245px;
 
 .home {
   min-height: 100%;
@@ -40,7 +40,7 @@ $sidebar-width: 255px;
   min-height: 100%;
   overflow-x: hidden;
   background: $home-bg;
-  padding-top: 65px; // TODO: more intelligently tie to header height
+  // padding-top: 65px; // TODO: more intelligently tie to header height
 
   @media screen and (max-width: 768px) {
     transition: transform 400ms ease;
