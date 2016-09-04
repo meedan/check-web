@@ -30,7 +30,7 @@ class TeamMembersComponent extends Component {
       if(team_user.node.status == "requested")
       {
         team_users_requestingMembership.push(team_user);
-      }else if(team_user.node.status == "member")
+      }else if(team_user.node.status != "bannned")
       {
         team_users_members.push(team_user)
       }

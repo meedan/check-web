@@ -49,7 +49,7 @@ class TeamMembersCell extends Component {
         team_id: this.props.team_user.node.team_id,
         user_id: this.props.team_user.node.user_id,
         id: this.props.team_user.node.id,
-        status: "banned",
+        status: "member",
         role: val
       }),
       { onSuccess, onFailure }
