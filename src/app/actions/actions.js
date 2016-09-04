@@ -92,6 +92,12 @@ export function loginTwitter() {
   };
 };
 
+export function loginSlack() {
+  return (dispatch, getState) => {
+    login('slack', dispatch);
+  };
+};
+
 export function loginEmail() {
   return (dispatch, getState) => {
     var form = document.forms.login,

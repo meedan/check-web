@@ -121,6 +121,13 @@ describe 'app' do
       expect(displayed_name == expected_name).to be(true)
     end
 
+    it "should login using Slack and display user name on top right bar" do
+      login_with_slack
+      displayed_name = get_element('#user-name span').text.upcase
+      expected_name = @config['slack_name'].upcase
+      expect(displayed_name == expected_name).to be(true)
+    end
+
     it "should register and login using e-mail to join a team" do
       register_with_email
       displayed_name = get_element('#user-name span').text
