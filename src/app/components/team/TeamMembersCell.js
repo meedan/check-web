@@ -31,7 +31,7 @@ class TeamMembersCell extends Component {
    );
   }
 
-  function handleRoleChange(val) {
+  handleRoleChange(val) {
       console.log("Selected: " + val);
       var that = this
 
@@ -63,7 +63,8 @@ class TeamMembersCell extends Component {
     const roles = [
       {value: 'contributor', label: 'Contributor'},
       {value: 'journalist', label: 'Journalist'},
-      {value: 'editor', label: 'Editor'}
+      {value: 'editor', label: 'Editor'},
+      {value: 'owner', label: 'Owner'}
     ];
     return (
       <li className='team-members__member'>
@@ -73,7 +74,7 @@ class TeamMembersCell extends Component {
           <span className='team-members__member-username'>({team_user.node.user.name})</span>
         </div>
 
-        <Select className='team-members__member-role'  onChange={handleRoleChange} autosize={true} searchable={false} backspaceRemoves={false} clearable={false} disabled={!isEditing} options={roles} value='contributor'/>
+        <Select className='team-members__member-role'  onChange={this.handleRoleChange.bind(this)} autosize={true} searchable={false} backspaceRemoves={false} clearable={false} disabled={!isEditing} options={roles} value={team_user.node.role}/>
         {isEditing ? (<button onClick={this.handleDeleteTeamUser.bind(this)} className='team-members__delete-member'><span className='team-members__delete-member-icon'>×</span></button>) : null }
       </li>
     );
