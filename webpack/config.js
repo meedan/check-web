@@ -4,7 +4,7 @@ import webpack from 'webpack';
 export default {
   bail: true, // exit 1 on build failure
   entryWeb: {
-    index: [ path.join(__dirname, '../src/web/index/index') ]
+    index: [ 'babel-polyfill', path.join(__dirname, '../src/web/index/index') ]
   },
   output: {
     pathWeb: path.join(__dirname, '../build/web/js'),
