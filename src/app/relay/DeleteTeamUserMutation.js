@@ -26,12 +26,11 @@ class DeleteTeamUserMutation extends Relay.Mutation {
 
   getConfigs() {
     return [{
-      type: 'REQUIRED_CHILDREN',
-      children: [Relay.QL`
-        fragment on DestroyTeamUserPayload {
-          deletedId
-        }`
-      ]
+      type: 'NODE_DELETE',
+      parentName: this.props.parent_type,
+      parentID: this.props.parentID,
+      connectionName: 'users',
+      deletedIDFieldName: 'deletedId',
     }];
   }
 }

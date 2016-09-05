@@ -115,6 +115,13 @@ describe 'app' do
       expect(displayed_name == expected_name).to be(true)
     end
 
+    it "should login using Slack and display user name on top right bar" do
+      login_with_slack
+      displayed_name = get_element('#user-name span').text.upcase
+      expected_name = @config['slack_name'].upcase
+      expect(displayed_name == expected_name).to be(true)
+    end
+
     it "should register and login using e-mail to join a team" do
       register_with_email
       displayed_name = get_element('#user-name span').text
@@ -257,20 +264,6 @@ describe 'app' do
       tag = get_element('.ReactTags__tag span')
       expect(tag.text == 'command').to be(true)
       expect(@driver.page_source.include?('Tagged as "command"')).to be(true)
-
-      # Remove a tag from annotation list
-      @driver.find_element(:css, '.delete-annotation').click
-      sleep 3
-
-      # Verify that tag was removed from tags list and annotations list
-      expect(@driver.find_elements(:css, '.ReactTags__tag').empty?).to be(true)
-      expect(@driver.page_source.include?('Tagged as "command"')).to be(false)
-
-      # Reload the page and verify that tags are not there anymore
-      @driver.navigate.refresh
-      sleep 1
-      expect(@driver.find_elements(:css, '.ReactTags__tag').empty?).to be(true)
-      expect(@driver.page_source.include?('Tagged as "command"')).to be(false)
     end
 
     it "should comment source as a command" do
@@ -293,18 +286,6 @@ describe 'app' do
       @driver.navigate.refresh
       sleep 1
       expect(@driver.page_source.include?('This is my comment')).to be(true)
-
-      # Remove a comment from annotation list
-      @driver.find_element(:css, '.delete-annotation').click
-      sleep 3
-
-      # Verify that comment was removed from annotations list
-      expect(@driver.page_source.include?('This is my comment')).to be(false)
-
-      # Reload the page and verify that comment is not there anymore
-      @driver.navigate.refresh
-      sleep 1
-      expect(@driver.page_source.include?('This is my comment')).to be(false)
     end
 
     it "should preview source" do
@@ -555,20 +536,6 @@ describe 'app' do
       tag = get_element('.ReactTags__tag span')
       expect(tag.text == 'command').to be(true)
       expect(@driver.page_source.include?('Tagged as "command"')).to be(true)
-
-      # Remove a tag from annotation list
-      @driver.find_element(:css, '.delete-annotation').click
-      sleep 3
-
-      # Verify that tag was removed from tags list and annotations list
-      expect(@driver.find_elements(:css, '.ReactTags__tag').empty?).to be(true)
-      expect(@driver.page_source.include?('Tagged as "command"')).to be(false)
-
-      # Reload the page and verify that tags are not there anymore
-      @driver.navigate.refresh
-      sleep 1
-      expect(@driver.find_elements(:css, '.ReactTags__tag').empty?).to be(true)
-      expect(@driver.page_source.include?('Tagged as "command"')).to be(false)
     end
 
     it "should comment media as a command" do
@@ -591,18 +558,6 @@ describe 'app' do
       @driver.navigate.refresh
       sleep 1
       expect(@driver.page_source.include?('This is my comment')).to be(true)
-
-      # Remove a comment from annotation list
-      @driver.find_element(:css, '.delete-annotation').click
-      sleep 3
-
-      # Verify that comment was removed from annotations list
-      expect(@driver.page_source.include?('This is my comment')).to be(false)
-
-      # Reload the page and verify that comment is not there anymore
-      @driver.navigate.refresh
-      sleep 1
-      expect(@driver.page_source.include?('This is my comment')).to be(false)
     end
 
     it "should set status to media as a command" do
@@ -625,18 +580,6 @@ describe 'app' do
       @driver.navigate.refresh
       sleep 1
       expect(@driver.page_source.include?('Status')).to be(true)
-
-      # Remove a status from annotation list
-      @driver.find_element(:css, '.delete-annotation').click
-      sleep 3
-
-      # Verify that status was removed from annotations list
-      expect(@driver.page_source.include?('Status')).to be(false)
-
-      # Reload the page and verify that status is not there anymore
-      @driver.navigate.refresh
-      sleep 1
-      expect(@driver.page_source.include?('Status')).to be(false)
     end
 
     it "should flag media as a command" do
@@ -659,18 +602,6 @@ describe 'app' do
       @driver.navigate.refresh
       sleep 1
       expect(@driver.page_source.include?('Flag')).to be(true)
-
-      # Remove a flag from annotation list
-      @driver.find_element(:css, '.delete-annotation').click
-      sleep 3
-
-      # Verify that flag was removed from annotations list
-      expect(@driver.page_source.include?('Flag')).to be(false)
-
-      # Reload the page and verify that flag is not there anymore
-      @driver.navigate.refresh
-      sleep 1
-      expect(@driver.page_source.include?('Flag')).to be(false)
     end
 
     it "should edit project" do
@@ -730,18 +661,6 @@ describe 'app' do
       @driver.navigate.refresh
       sleep 3
       expect(@driver.page_source.include?('This is my comment')).to be(true)
-
-      # Remove a comment from annotation list
-      @driver.find_element(:css, '.delete-annotation').click
-      sleep 5
-
-      # Verify that comment was removed from annotations list
-      expect(@driver.page_source.include?('This is my comment')).to be(false)
-
-      # Reload the page and verify that comment is not there anymore
-      @driver.navigate.refresh
-      sleep 1
-      expect(@driver.page_source.include?('This is my comment')).to be(false)
     end
 
     it "should create project media" do
@@ -783,6 +702,14 @@ describe 'app' do
       expect(@driver.page_source.include?('This is a test')).to be(true)
       expect(@driver.page_source.include?('Undetermined')).to be(false)
       expect(@driver.page_source.include?('False')).to be(true)
+    end
+
+    it "should redirect to 404 page if id does not exist" do
+      register_with_email
+      @driver.navigate.to 'http://localhost:3333/project/this-is-not-an-id'
+      title = get_element('.main-title')
+      expect(title.text == 'Not Found').to be(true)
+      expect(@driver.current_url.to_s == 'http://localhost:3333/404').to be(true)
     end
   end
 end

@@ -5,7 +5,7 @@ import Message from './Message';
 
 class LoginMenu extends Component {
   render() {
-    const { loginTwitter, loginFacebook, state } = this.props;
+    const { loginTwitter, loginFacebook, loginSlack, state } = this.props;
     return (
       <div id="login-menu" className='login-menu'>
         <Message message={state.app.message} />
@@ -25,11 +25,9 @@ class LoginMenu extends Component {
           <li>
             <button onClick={loginFacebook} id="facebook-login" className='login-menu__button login-menu__button--facebook'>Sign in with Facebook</button>
           </li>
-          {/*
           <li>
-            <button disabled id="slack-login" className='login-menu__button login-menu__button--slack'>Sign in with Slack</button>
+            <button onClick={loginSlack} id="slack-login" className='login-menu__button login-menu__button--slack'>Sign in with Slack</button>
           </li>
-          */}
           <li>
             <LoginEmail {...this.props} />
           </li>

@@ -7,3 +7,7 @@ facebook_name:
 chromedriver_url: http://localhost:9515
 self_url: http://localhost:3333
 config_file_path: # Path to a different config.js to be used... if not set, the one on the root will be used
+slack_domain:
+slack_user:
+slack_password:
+slack_name:

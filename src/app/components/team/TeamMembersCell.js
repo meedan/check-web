@@ -10,7 +10,6 @@ class TeamMembersCell extends Component {
      e.preventDefault();
      var that = this
 
-
      var onFailure = (transaction) => {
        transaction.getError().json().then(function(json) {
        });
@@ -18,15 +17,43 @@ class TeamMembersCell extends Component {
        this.setState({isEditingNameAndDescription: false});
     };
     var onSuccess = (response) => {
-
     };
 
     Relay.Store.commitUpdate(
-      new DeleteTeamUserMutation({
+      new UpdateTeamUserMutation({
+       team_id: this.props.team_user.node.team_id,
+       user_id: this.props.team_user.node.user_id,
        id: this.props.team_user.node.id,
+       status: "banned",
+       role: this.this.props.team_user.node.role
      }),
      { onSuccess, onFailure }
    );
+  }
+
+  handleRoleChange(val) {
+      console.log("Selected: " + val);
+      var that = this
+
+      var onFailure = (transaction) => {
+        transaction.getError().json().then(function(json) {
+        });
+
+        this.setState({isEditingNameAndDescription: false});
+     };
+     var onSuccess = (response) => {
+     };
+
+     Relay.Store.commitUpdate(
+       new UpdateTeamUserMutation({
+        team_id: this.props.team_user.node.team_id,
+        user_id: this.props.team_user.node.user_id,
+        id: this.props.team_user.node.id,
+        status: "member",
+        role: val
+      }),
+      { onSuccess, onFailure }
+    );
   }
 
 
@@ -36,7 +63,8 @@ class TeamMembersCell extends Component {
     const roles = [
       {value: 'contributor', label: 'Contributor'},
       {value: 'journalist', label: 'Journalist'},
-      {value: 'editor', label: 'Editor'}
+      {value: 'editor', label: 'Editor'},
+      {value: 'owner', label: 'Owner'}
     ];
     return (
       <li className='team-members__member'>
@@ -46,7 +74,7 @@ class TeamMembersCell extends Component {
           <span className='team-members__member-username'>({team_user.node.user.name})</span>
         </div>
 
-        <Select className='team-members__member-role' autosize={true} searchable={false} backspaceRemoves={false} clearable={false} disabled={!isEditing} options={roles} value='contributor'/>
+        <Select className='team-members__member-role'  onChange={this.handleRoleChange.bind(this)} autosize={true} searchable={false} backspaceRemoves={false} clearable={false} disabled={!isEditing} options={roles} value={team_user.node.role}/>
         {isEditing ? (<button onClick={this.handleDeleteTeamUser.bind(this)} className='team-members__delete-member'><span className='team-members__delete-member-icon'>×</span></button>) : null }
       </li>
     );

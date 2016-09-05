@@ -33,7 +33,7 @@ class TeamSidebarComponent extends Component {
     else if (Checkdesk.currentProject) {
       currentProjectId = Checkdesk.currentProject.dbid;
     }
-    
+
     return projectId === currentProjectId;
   }
 

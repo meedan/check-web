@@ -13,7 +13,7 @@ const SourceContainer = Relay.createContainer(SourceComponent, {
 class Source extends Component {
   render() {
     var route = new SourceRoute({ sourceId: this.props.params.sourceId });
-    return (<Relay.RootContainer Component={SourceContainer} route={route} />);
+    return (<Relay.RootContainer Component={SourceContainer} route={route} forceFetch={true} />);
   }
 }
 

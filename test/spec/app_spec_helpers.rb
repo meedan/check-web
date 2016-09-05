@@ -59,6 +59,34 @@ module AppSpecHelpers
     create_team
   end
 
+  def slack_login
+    @driver.navigate.to "https://#{@config['slack_domain']}.slack.com"
+    fill_field('#email', @config['slack_user'])
+    fill_field('#password', @config['slack_password'])
+    press_button('#signin_btn')
+    sleep 3
+  end
+
+  def slack_auth
+    @driver.find_element(:xpath, "//button[@id='slack-login']").click
+    sleep 5
+    window = @driver.window_handles.last
+    @driver.switch_to.window(window)
+    press_button('#oauth_authorizify')
+    sleep 5
+    window = @driver.window_handles.first
+    @driver.switch_to.window(window)
+    sleep 1
+  end
+
+  def login_with_slack
+    slack_login
+    @driver.navigate.to 'http://localhost:3333/'
+    sleep 1
+    slack_auth
+    create_team
+  end
+
   def login_with_email(should_create_team = true)
     @driver.navigate.to @config['self_url']
     sleep 2

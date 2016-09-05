@@ -20,7 +20,7 @@ class MediaHeader extends Component {
         <p className="media-description">{data.description}</p>
 
         <p className="media-author">
-          Submitted by user <Link to={'source/' + media.user.source.dbid}>{media.user.name}</Link> under source <Link to={'source/' + media.account.source.dbid}>{media.account.source.name}</Link> <TimeAgo date={media.created_at} live={false} />
+          Submitted by user <Link to={'/source/' + media.user.source.dbid}>{media.user.name}</Link> under source <Link to={'/source/' + media.account.source.dbid}>{media.account.source.name}</Link> <TimeAgo date={media.created_at} live={false} />
         </p>
 
         <p className="media-author">
