@@ -705,7 +705,7 @@ describe 'app' do
     end
 
     it "should redirect to 404 page if id does not exist" do
-      register_with_email
+      login_with_email
       @driver.navigate.to 'http://localhost:3333/project/this-is-not-an-id'
       title = get_element('.main-title')
       expect(title.text == 'Not Found').to be(true)
