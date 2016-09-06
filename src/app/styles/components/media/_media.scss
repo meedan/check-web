@@ -1,0 +1,43 @@
+.media {
+  // gray bg? or inherit?
+}
+
+.media__contents {
+  border: $layout-border;
+  border-radius: 2px;
+  max-width: 700px;
+  margin: 30px auto 45px auto;
+  background: #fff;
+  padding: 15px;
+}
+
+.media-content__status { // TODO: DRY with media-card
+  $width: 152px;
+  width: $width;
+  flex: 0 0 $width;
+
+  &, &--new { color: $blue-500; }
+  &--true { color: $green-500; }
+  &--false { color: $red-500; }
+
+  margin-bottom: 15px;
+}
+
+.media-content__status-icon {
+  margin-right: 11px;
+  font-size: 11px;
+}
+
+.media-content__status-label {
+  @include app-kicker;
+  font-weight: 500;
+}
+
+// TODO: sort out stylesheet/BEM names once components/files are settled
+
+.media-content__metadata {
+  @include media-metadata;
+  img {
+    vertical-align: bottom;
+  }
+}

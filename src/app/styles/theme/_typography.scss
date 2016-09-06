@@ -42,3 +42,9 @@ $font-stack-serif: "Merriweather", Georgia, serif;
   letter-spacing: 0.02em;
   color: theme-gray(27%);
 }
+
+@mixin media-metadata {
+  color: theme-gray(70%);
+  font-size: 0.9em;
+  margin-bottom: 2px;
+}
