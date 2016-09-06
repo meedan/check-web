@@ -86,7 +86,7 @@ class Home extends Component {
               }
 
               // Ask to create a team
-              else {
+              else if (currentLocation != '/teams/new') {
                 return Checkdesk.history.push('/teams/new');
               }
             }
