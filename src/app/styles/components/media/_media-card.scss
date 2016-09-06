@@ -23,8 +23,9 @@
   flex: 0 0 $width;
 
   &, &--new { color: $blue-500; }
-  &--true { color: $green-500; }
+  &--verified { color: $green-500; }
   &--false { color: $red-500; }
+  &--not-applicable { color: $gray-350; }
 }
 
 .media-card__status-icon {

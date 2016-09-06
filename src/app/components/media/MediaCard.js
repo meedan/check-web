@@ -8,7 +8,7 @@ class MediaCard extends Component {
     if (status === '') {
       return '';
     }
-    return 'media-last-status-' + status.toLowerCase().replace(' ', '-');
+    return 'media-card__status--' + status.toLowerCase().replace(' ', '-');
   }
 
   render() {
@@ -20,9 +20,9 @@ class MediaCard extends Component {
     const prefix = '/team/' + Checkdesk.currentProject.team.dbid + '/project/' + Checkdesk.currentProject.dbid + '/media/';
           
     return (
-      <article className='media-card --last_status'>
+      <article className='media-card'>
         <Link to={prefix + media.dbid} className='media-card__clickable'>
-          <div className='media-card__status'>
+          <div className={'media-card__status ' + that.statusToClass(media.last_status)}>
             <i className="media-card__status-icon / fa fa-circle"></i>
             <span className='media-card__status-label'>{media.last_status}</span>
           </div>
