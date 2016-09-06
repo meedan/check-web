@@ -299,11 +299,11 @@ class TeamComponent extends Component {
               })()}
               {team.projects.edges.map(p => (
                 <li className='team__project'>
-                  <Link to={'/project/' + p.node.dbid} className='team__project-link'>{p.node.title}</Link>
+                  <Link to={'/team/' + team.dbid + '/project/' + p.node.dbid} className='team__project-link'>{p.node.title}</Link>
                 </li>
               ))}
               <li className='team__new-project'>
-                <CreateProject className='team__new-project-input' teamId={team.id} />
+                <CreateProject className='team__new-project-input' team={team} />
               </li>
             </ul>
           </div>

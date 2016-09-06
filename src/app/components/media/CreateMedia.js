@@ -31,7 +31,7 @@ class CreateMedia extends Component {
           if (matches) {
             var sid = matches[1];
             message = null;
-            that.props.history.push(prefix + sid);
+            Checkdesk.history.push(prefix + sid);
           }
         }
         that.setState({ message: message });
@@ -40,7 +40,7 @@ class CreateMedia extends Component {
 
     var onSuccess = (response) => {
       var rid = response.createMedia.media.dbid;
-      this.props.history.push(prefix + rid);
+      Checkdesk.history.push(prefix + rid);
       this.setState({ message: null });
     };
 

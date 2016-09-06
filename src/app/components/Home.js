@@ -67,21 +67,27 @@ class Home extends Component {
               const team = data.current_team;
               var project = Checkdesk.currentProject;
 
-              if (team && !project) {
-                project = team.projects[0]; // TODO: remember most-recently-viewed project
-                Checkdesk.currentProject = project;
+              // If user has a team, redirect to a project if he tries to access the root
+              if (team) {
+                if (!project) {
+                  project = team.projects[0];
+                  Checkdesk.currentProject = project;
+                }
+                if (currentLocation === '/') {
+                  // Redirect to project
+                  if (project && project.dbid) {
+                    Checkdesk.history.push('/team/' + team.dbid + '/project/' + project.dbid);
+                  }
+                  // Ask to create a project
+                  else {
+                    Checkdesk.history.push('/team/' + team.dbid);
+                  }
+                }
               }
 
-              if (currentLocation === '/') {
-                // if no team, create one
-                if (!team) {
-                  return Checkdesk.history.push('/teams/new');
-                }
-
-                // send to current team project
-                if (project && project.dbid) {
-                  Checkdesk.history.push('/team/' + team.dbid + '/project/' + project.dbid);
-                }
+              // Ask to create a team
+              else {
+                return Checkdesk.history.push('/teams/new');
               }
             }
           })();
