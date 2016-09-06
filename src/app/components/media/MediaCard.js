@@ -17,9 +17,10 @@ class MediaCard extends Component {
     const media = props.media;
     media.created_at = new Date(parseInt(media.published) * 1000);
     const data = JSON.parse(media.jsondata);
+    const prefix = '/team/' + Checkdesk.currentProject.team.dbid + '/project/' + Checkdesk.currentProject.dbid + '/media/';
           
     return (
-      <Link to={'/media/' + media.dbid}>
+      <Link to={prefix + media.dbid}>
         <Card>
           <CardText>
             <span className={ 'media-card-col media-last-status ' + that.statusToClass(media.last_status) }>{media.last_status}</span>

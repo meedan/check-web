@@ -6,6 +6,8 @@ import RootRoute from '../../relay/RootRoute';
 
 class SourcesComponent extends Component {
   render() {
+    const prefix = '/team/' + Checkdesk.currentProject.team.dbid + '/source/';
+
     return (
       <div className="sources">
         <h2 className='sources__heading'>Sources</h2>
@@ -13,7 +15,7 @@ class SourcesComponent extends Component {
         <ul className='sources__list'>
           {this.props.root.sources.edges.map(source => (
             <li className='sources__source'>
-              <Link className='sources__source-link' to={'/source/' + source.node.dbid}>
+              <Link className='sources__source-link' to={prefix + source.node.dbid}>
                 <img className='sources__source-avatar' src={source.node.image} />
                 <span className='sources__source-name'>{source.node.name}</span>
                 <span className='sources__source-description'>{source.node.description}</span>

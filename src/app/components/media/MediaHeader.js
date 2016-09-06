@@ -10,6 +10,7 @@ class MediaHeader extends Component {
     const media = this.props.media;
     media.created_at = new Date(parseInt(media.published) * 1000);
     const data = JSON.parse(media.jsondata);
+    const prefix = '/team/' + Checkdesk.currentProject.team.dbid + '/source/';
 
     return (
       <div className="media">
@@ -20,7 +21,7 @@ class MediaHeader extends Component {
         <p className="media-description">{data.description}</p>
 
         <p className="media-author">
-          Submitted by user <Link to={'/source/' + media.user.source.dbid}>{media.user.name}</Link> under source <Link to={'/source/' + media.account.source.dbid}>{media.account.source.name}</Link> <TimeAgo date={media.created_at} live={false} />
+          Submitted by user <Link to={prefix + media.user.source.dbid}>{media.user.name}</Link> under source <Link to={prefix + media.account.source.dbid}>{media.account.source.name}</Link> <TimeAgo date={media.created_at} live={false} />
         </p>
 
         <p className="media-author">

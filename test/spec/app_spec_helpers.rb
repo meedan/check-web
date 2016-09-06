@@ -152,4 +152,12 @@ module AppSpecHelpers
     sleep 3
     create_team if should_create_team
   end
+
+  def get_team
+    @driver.execute_script('return Checkdesk.currentProject.team.dbid').to_s
+  end
+
+  def get_project
+    @driver.execute_script('return Checkdesk.currentProject.dbid').to_s
+  end
 end

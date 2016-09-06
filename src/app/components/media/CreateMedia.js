@@ -17,9 +17,10 @@ class CreateMedia extends Component {
     };
   }
 
-  handleSubmit(redirect) {
+  handleSubmit() {
     var that = this,
-        url = document.getElementById('create-media-url').value;
+        url = document.getElementById('create-media-url').value,
+        prefix = '/team/' + Checkdesk.currentProject.team.dbid + '/project/' + Checkdesk.currentProject.dbid + '/media/';
 
     var onFailure = (transaction) => {
       transaction.getError().json().then(function(json) {
@@ -30,7 +31,7 @@ class CreateMedia extends Component {
           if (matches) {
             var sid = matches[1];
             message = null;
-            that.props.history.push('/media/' + sid);
+            that.props.history.push(prefix + sid);
           }
         }
         that.setState({ message: message });
@@ -39,7 +40,7 @@ class CreateMedia extends Component {
 
     var onSuccess = (response) => {
       var rid = response.createMedia.media.dbid;
-      this.props.history.push('/media/' + rid);
+      this.props.history.push(prefix + rid);
       this.setState({ message: null });
     };
 

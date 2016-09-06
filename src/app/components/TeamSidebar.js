@@ -89,11 +89,11 @@ class TeamSidebarComponent extends Component {
                 <ul className='team-sidebar__projects-list'>
                   {currentTeam.projects.edges.map(p => (
                     <li className={'team-sidebar__project' + (this.isCurrentProject(p.node.dbid) ? ' team-sidebar__project--current' : '')}>
-                      <Link to={'/project/' + p.node.dbid} className='team-sidebar__project-link'>{p.node.title}</Link>
+                      <Link to={'/team/' + currentTeam.dbid + '/project/' + p.node.dbid} className='team-sidebar__project-link'>{p.node.title}</Link>
                     </li>
                   ))}
                   <li className='team-sidebar__new-project'>
-                    <CreateProject className='team-sidebar__new-project-input' teamId={currentTeam.id} />
+                    <CreateProject className='team-sidebar__new-project-input' team={currentTeam} />
                   </li>
                 </ul>
               );
@@ -103,23 +103,35 @@ class TeamSidebarComponent extends Component {
 
         <section className='team-sidebar__sources'>
           <h2 className='team-sidebar__sources-heading'>
-            <Link to="/sources" id="link-sources" className='team-sidebar__sources-link' activeClassName='team-sidebar__sources-link--active' title="Sources">Sources</Link>
+          {(() => {
+            if (currentTeam) {
+              return (
+                <Link to={'/team/' + currentTeam.dbid + '/sources'} id="link-sources" className='team-sidebar__sources-link' activeClassName='team-sidebar__sources-link--active' title="Sources">Sources</Link>
+              );
+            }
+          })()}
           </h2>
           <ul className='team-sidebar__sources-list'>
             {/* Possibly list sources in sidebar but let's not worry about it right now
             <li className='team-sidebar__source'>
               <img src={sources[0].icon} className='team-sidebar__source-icon' />
-              <Link to="/sources/1" className='team-sidebar__source-link' activeClassName='team-sidebar__source-link--active'>{sources[0].name}</Link>
+              <Link to="/team/:teamId/sources/1" className='team-sidebar__source-link' activeClassName='team-sidebar__source-link--active'>{sources[0].name}</Link>
             </li>
             <li className='team-sidebar__source'>
               <img src={sources[1].icon} className='team-sidebar__source-icon' />
-              <Link to="/sources/2" className='team-sidebar__source-link' activeClassName='team-sidebar__source-link--active'>{sources[0].name}</Link>
+              <Link to="/team/:teamId/sources/2" className='team-sidebar__source-link' activeClassName='team-sidebar__source-link--active'>{sources[0].name}</Link>
             </li>
             */}
-            <li className='team-sidebar__new-source'>
-              <FontAwesome className='team-sidebar__new-source-icon' name='user' />
-              <Link to="/sources/new" id="link-sources-new" className='team-sidebar__new-source-link' activeClassName='team-sidebar__new-source-link--active' title="Create a source">New source...</Link>
-            </li>
+            {(() => {
+              if (currentTeam) {
+                return (
+                  <li className='team-sidebar__new-source'>
+                    <FontAwesome className='team-sidebar__new-source-icon' name='user' />
+                    <Link to={'/team/' + currentTeam.dbid + '/sources/new'} id="link-sources-new" className='team-sidebar__new-source-link' activeClassName='team-sidebar__new-source-link--active' title="Create a source">New source...</Link>
+                  </li>
+                );
+              }
+            })()}
           </ul>
         </section>
 
@@ -151,6 +163,7 @@ const TeamSidebarContainer = Relay.createContainer(TeamSidebarComponent, {
       fragment on User {
         current_team {
           id,
+          dbid,
           name,
           avatar,
           members_count,

@@ -88,7 +88,7 @@ class Home extends Component {
 
                 // send to current team project
                 if (project && project.dbid) {
-                  Checkdesk.history.push(`/project/${project.dbid}`);
+                  Checkdesk.history.push('/team/' + team.dbid + '/project/' + project.dbid);
                 }
               }
             }

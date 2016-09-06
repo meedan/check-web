@@ -19,7 +19,8 @@ class CreateAccount extends Component {
 
   handleSubmit(redirect) {
     var that = this,
-        url = document.getElementById('create-account-url').value;
+        url = document.getElementById('create-account-url').value,
+        prefix = '/team/' + Checkdesk.currentProject.team.dbid + '/source/';
 
     var onFailure = (transaction) => {
       transaction.getError().json().then(function(json) {
@@ -30,7 +31,7 @@ class CreateAccount extends Component {
           if (matches) {
             var sid = matches[1];
             message = null;
-            that.props.history.push('/source/' + sid);
+            that.props.history.push(prefix + sid);
           }
         }
         that.setState({ message: message });
@@ -39,7 +40,7 @@ class CreateAccount extends Component {
 
     var onSuccess = (response) => {
       var sid = response.createAccount.account.source_id;
-      this.props.history.push('/source/' + sid);
+      this.props.history.push(prefix + sid);
       this.setState({ message: null });
     };
 
