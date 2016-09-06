@@ -143,3 +143,62 @@
   opacity: 1;
   border-bottom: 3px solid black;
 }
+
+// projects
+
+.team__projects-heading {
+  @include app-kicker;
+  text-align: center;
+  margin: 0;
+  padding: 30px 25px 9px 25px;
+  // border-right: $layout-border;
+}
+
+.team__projects-list {
+  max-width: 350px;
+  margin: 15px auto;
+  color: $lighter-gray-text;
+  line-height: 1.45;
+  padding-left: 12px;
+  & > :last-child {
+    padding-bottom: 45px;
+  }
+}
+
+.team__project,
+.team__new-project {
+  font-size: 15px;
+  padding: 0.4em 13px;
+}
+
+.team__project-link {
+  &, &:visited { color: inherit; }
+}
+
+.team__new-project {
+  // border-right: $layout-border;
+}
+
+.team__new-project-input {
+  width: 145px;
+  border: none;
+  padding: 0;
+  background: transparent;
+  color: $dark-gray-text;
+  font-weight: 500;
+
+  &:focus { outline: none; }
+  @include input-placeholder {
+    color: $lighter-gray-text;
+    font-weight: 400;
+  }
+}
+
+.team__project-link {
+  &, &:visited {
+    color: inherit;
+  }
+  &:hover {
+    color: $dark-gray-text;
+  }
+}
