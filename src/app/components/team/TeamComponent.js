@@ -11,7 +11,7 @@ import UpdateTeamMutation from '../../relay/UpdateTeamMutation';
 import Message from '../Message';
 import CreateContactMutation from '../../relay/CreateContactMutation';
 import UpdateContactMutation from '../../relay/UpdateContactMutation';
-
+import CreateProject from '../project/CreateProject';
 
 class TeamComponent extends Component {
 
@@ -286,30 +286,26 @@ class TeamComponent extends Component {
 
               }
             })()}
-
-
-            {/* add link: show whenever is editing; clicking adds a new link input ^
-            <button className='team__add-link'>
-              <FontAwesome name='plus' className='team__add-link-icon' />Add link...
-            </button>
-            */}
           </div>
-
-          {/* controls: probably should only be visible to team members/admins/etc. */}
-          <select className='team__permissions' name='teamPermissions'>
-            <option value='public'>Public</option>
-            <option value='private'>Private</option>
-          </select>
         </section>
 
         <section className='team__content'>
-          <h2 className='team__content-tabs'>
-            <span className='team__content-tab team__content-tab--active'>28 reports</span>
-            <span className='team__content-tab'>4 projects</span>
-          </h2>
           <div className='team__content-body'>
-            {(() => {
-            })()}
+            <h3 className='team__projects-heading'>Verification Projects</h3>
+            <ul className='team__projects-list'>
+              {(() => {
+                console.log(this.props);
+                console.log(team);
+              })()}
+              {team.projects.edges.map(p => (
+                <li className='team__project'>
+                  <Link to={'/project/' + p.node.dbid} className='team__project-link'>{p.node.title}</Link>
+                </li>
+              ))}
+              <li className='team__new-project'>
+                <CreateProject className='team__new-project-input' teamId={team.id} />
+              </li>
+            </ul>
           </div>
         </section>
     </div>

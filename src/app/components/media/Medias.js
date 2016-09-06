@@ -7,12 +7,12 @@ class Medias extends Component {
     
     return (
       <div>
-        <ul className="medias-list">
+        <ul className="medias">
         {props.medias.map(function(node) {
           const media = node.node;
           
           return (
-            <li className="media-card-link">
+            <li className="medias__item">
               <MediaCard media={media} />
             </li>
           );

@@ -20,21 +20,22 @@ class MediaCard extends Component {
     const prefix = '/team/' + Checkdesk.currentProject.team.dbid + '/project/' + Checkdesk.currentProject.dbid + '/media/';
           
     return (
-      <Link to={prefix + media.dbid}>
-        <Card>
-          <CardText>
-            <span className={ 'media-card-col media-last-status ' + that.statusToClass(media.last_status) }>{media.last_status}</span>
-            <div className="media-card-col">
-              <p className="media-description">{data.description}</p>
-              <ul className="media-data">
-                <li>{media.annotations_count} notes</li>
-                <li>{media.domain}</li>
-                <li>{data.username}</li>
-              </ul>
+      <article className='media-card --last_status'>
+        <Link to={prefix + media.dbid} className='media-card__clickable'>
+          <div className='media-card__status'>
+            <i className="media-card__status-icon / fa fa-circle"></i>
+            <span className='media-card__status-label'>{media.last_status}</span>
+          </div>
+          <div className='media-card__content'>
+            <h3 className='media-card__title'>{data.description}</h3>
+            <div className='media-card__metadata'>
+              <span className='media-card__metadatum'>{media.annotations_count} notes</span>
+              <span className='media-card__metadatum'>{media.domain}</span>
+              <span className='media-card__metadatum'>{data.username ? '@' + data.username : null}</span>
             </div>
-          </CardText>
-        </Card>
-      </Link>
+          </div>
+        </Link>
+      </article>
     );
   }
 }

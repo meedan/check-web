@@ -4,6 +4,8 @@ import { Link } from 'react-router';
 import ProjectRoute from '../../relay/ProjectRoute';
 import ProjectHeader from './ProjectHeader';
 import MediasAndAnnotations from '../MediasAndAnnotations';
+import TeamSidebar from '../TeamSidebar';
+import { CreateMedia } from '../media';
 
 class ProjectComponent extends Component {
   setCurrentProject() {
@@ -23,8 +25,10 @@ class ProjectComponent extends Component {
 
     return (
       <div className="project">
-        <ProjectHeader project={project} />
 
+        <div className='project__team-sidebar'>{/* className={this.sidebarActiveClass('home__sidebar')} */}
+          <TeamSidebar />
+        </div>
         <div className="project__content">
           <MediasAndAnnotations
             medias={project.medias.edges}
@@ -33,7 +37,7 @@ class ProjectComponent extends Component {
             annotatedType="Project"
             types={['comment']} />
 
-          <Link to="/medias/new" id="link-medias-new" className="project__new-media-link" title="Create a report">+ New report...</Link>
+          <CreateMedia {...this.props} />
         </div>
       </div>
     );

@@ -20,11 +20,13 @@ class MediaComponent extends Component {
 
     return (
       <div className="media" data-id={media.dbid}>
-        <MediaHeader media={media} />
+        <article className='media__contents'>
 
-        <Tags tags={media.tags.edges} annotated={media} annotatedType="Media" />
+          <MediaHeader media={media} />
+          <Tags tags={media.tags.edges} annotated={media} annotatedType="Media" />
+          <Annotations annotations={media.annotations.edges} annotated={media} annotatedType="Media" />
 
-        <Annotations annotations={media.annotations.edges} annotated={media} annotatedType="Media" />
+        </article>
       </div>
     );
   }

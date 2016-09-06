@@ -66,21 +66,6 @@ class TeamSidebarComponent extends Component {
 
     return (
       <nav className='team-sidebar'>
-        {(() => {
-          if (currentTeam) {
-            return (
-              <section className='team-sidebar__team'>
-                <div className='team-sidebar__team-avatar'>
-                  <img src={currentTeam.avatar} />
-                </div>
-                <h1 className='team-sidebar__team-name'>
-                  <Link to="/" id="link-home" className='team-sidebar__team-link' activeClassName="team-sidebar__team-link--active" title="Home">{currentTeam.name}</Link>
-                </h1>
-              </section>
-            );
-          }
-        })()}
-
         <section className='team-sidebar__projects'>
           <h2 className='team-sidebar__projects-heading'>Verification Projects</h2>
           {(() => {
