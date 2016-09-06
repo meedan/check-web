@@ -147,12 +147,12 @@ describe 'app' do
       expect(@driver.find_elements(:css, '.teams').empty?).to be(false)
     end
 
-    it "should have footer" do
-      login_with_email
-      @driver.navigate.to 'http://localhost:3333/tos'
-      message = get_element('address')
-      expect(message.text.include?(' v')).to be(true)
-    end
+    # it "should have footer" do
+    #   login_with_email
+    #   @driver.navigate.to 'http://localhost:3333/tos'
+    #   message = get_element('address')
+    #   expect(message.text.include?(' v')).to be(true)
+    # end
 
     it "should list sources" do
       login_with_email
