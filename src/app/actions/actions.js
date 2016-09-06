@@ -128,14 +128,11 @@ export function registerEmail() {
 };
 
 export function logout() {
-  return (dispatch, getState) => {
-    var failureCallback = function(message) { dispatch({ type: ERROR, message: message }); },
-        successCallback = function(data) {
-          // Easiest way to clear all cache?
-          window.location.reload();
-        };
-    request('delete', 'users/sign_out', failureCallback, successCallback);
-  };
+  var failureCallback = function(message) { dispatch({ type: ERROR, message: message }); },
+      successCallback = function(data) {
+        window.location.assign(window.location.origin);
+      };
+  request('delete', 'users/sign_out', failureCallback, successCallback);
 };
 
 function disableButton(id) {

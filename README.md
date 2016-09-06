@@ -47,4 +47,7 @@ For better debugging, change `NODE_ENV` to `development` at `webpack/config.js`.
 
 ### Missing tests
 
-* ...
+* Onboarding: If user has a team and a project (current or first) and tries to access the root -> redirect to the project page
+* Onboarding: If user has a team, no project and tries to access the root -> redirect to the team page
+* Onboarding: If user doesn't have a team -> redirect to "create team" page
+* Logout
