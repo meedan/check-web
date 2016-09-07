@@ -706,10 +706,10 @@ describe 'app' do
 
     it "should redirect to 404 page if id does not exist" do
       login_with_email
-      @driver.navigate.to 'http://localhost:3333/project/this-is-not-an-id'
+      @driver.navigate.to @config['self_url'] + '/project/this-is-not-an-id'
       title = get_element('.main-title')
       expect(title.text == 'Not Found').to be(true)
-      expect(@driver.current_url.to_s == 'http://localhost:3333/404').to be(true)
+      expect(@driver.current_url.to_s == @config['self_url'] + '/404').to be(true)
     end
   end
 end

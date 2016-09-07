@@ -81,7 +81,7 @@ module AppSpecHelpers
 
   def login_with_slack
     slack_login
-    @driver.navigate.to 'http://localhost:3333/'
+    @driver.navigate.to @config['self_url']
     sleep 1
     slack_auth
     create_team
@@ -103,7 +103,7 @@ module AppSpecHelpers
     wait = Selenium::WebDriver::Wait.new(timeout: 100)
     fill_field('#email', @config['facebook_user'])
     fill_field('#pass', @config['facebook_password'])
-    press_button('#u_0_l')
+    press_button('#loginbutton input')
     sleep 3
   end
 
