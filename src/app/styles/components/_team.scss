@@ -37,11 +37,8 @@
 // profile
 
 .team__avatar {
-  margin: 0 auto;
-  height: 100px;
-  width: 100px;
-  border-radius: 2px;
-  box-shadow: 0 0 5px 1px transparentize(hsl(204, 15%, 5%), 0.95);
+  @include team-avatar(100px);
+  margin: 0px auto;
 }
 
 .team__name,

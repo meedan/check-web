@@ -166,7 +166,7 @@ class TeamComponent extends Component {
             }
           })()}
 
-          <img className='team__avatar' src="https://pbs.twimg.com/profile_images/610557679249981440/2ARl7GLu.png" />
+          <div className='team__avatar' style={{'background-image': 'url(' + team.avatar + ')'}}></div>
           {(() => {
             if (this.state.isEditing) {
 

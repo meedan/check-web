@@ -47,9 +47,6 @@
 
 .switch-teams__team-avatar {
   @include team-avatar;
-  color: $dark-gray-text;
-  background-size: cover;
-  background-position: center;
   margin-right: 15px;
 }
 

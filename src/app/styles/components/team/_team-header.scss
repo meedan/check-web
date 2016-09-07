@@ -30,8 +30,6 @@
 
 .team-header__avatar {
   @include team-avatar(40px);
-  background-size: cover;
-  background-position: center;
   margin-right: 10px;
 }
 
