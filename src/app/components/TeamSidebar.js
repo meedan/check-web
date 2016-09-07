@@ -40,23 +40,12 @@ class TeamSidebarComponent extends Component {
   render() {
     var currentTeam = this.props.me.current_team;
 
-    // dummy data
     var otherTeams = [
-      {
-        name: 'ProPublica',
-        avatar: 'https://pbs.twimg.com/profile_images/660147326091182081/Q4TLW_Fe.jpg',
-        url: '/teams/2',
-        membersCount: 10
-      }
+      // TODO
     ];
     var pendingTeams = [
-      {
-        name: 'AntiPublica',
-        avatar: 'https://pbs.twimg.com/profile_images/660147326091182081/Q4TLW_Fe.jpg',
-        url: '/teams/3',
-      }
+      // TODO
     ];
-    // /dummy data
 
     function membersCountString(count) {
       if (typeof count === 'number') {

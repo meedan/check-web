@@ -1,9 +1,11 @@
 .switch-teams {
   background-color: #fff;
+  margin-bottom: 11px;
 }
 
-.switch-teams__teams, {
+.switch-teams__teams {
   margin-bottom: 10px;
+  min-width: 300px;
 }
 
 .switch-teams__team {

@@ -9,21 +9,11 @@ class TeamsComponent extends Component {
   render() {
     var currentTeam = this.props.me.current_team;
 
-    // TODO: use real data
     var otherTeams = [
-      {
-        name: 'ProPublica',
-        avatar: 'https://pbs.twimg.com/profile_images/660147326091182081/Q4TLW_Fe.jpg',
-        url: '/team/2',
-        membersCount: 10
-      }
+      // TODO
     ];
     var pendingTeams = [
-      {
-        name: 'Bellingcat',
-        avatar: 'https://pbs.twimg.com/profile_images/615058568300097536/WpTJfNg3.png',
-        url: '/team/3',
-      }
+      // TODO
     ];
 
     return (
