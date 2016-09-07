@@ -4,6 +4,7 @@ import TimeAgo from 'react-timeago';
 import { Link } from 'react-router';
 import PenderCard from '../PenderCard';
 import config from 'config';
+import MediaStatus from './MediaStatus';
 
 class MediaHeader extends Component {
   render() {
@@ -14,10 +15,7 @@ class MediaHeader extends Component {
 
     return (
       <div className="media-content">
-        <div className='media-content__status'>
-          <i className="media-content__status-icon / fa fa-circle"></i>
-          <span className='media-content__status-label'>{media.last_status}</span>
-        </div>
+        <div className='media-content__status'><MediaStatus status={media.last_status} /></div>
 
         {/* <h2 className="media-name">{data.title}</h2> */}
 

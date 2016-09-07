@@ -1,6 +1,4 @@
-.media {
-  // gray bg? or inherit?
-}
+.media {}
 
 .media__contents {
   border: $layout-border;
@@ -11,29 +9,12 @@
   padding: 15px;
 }
 
-.media-content__status { // TODO: DRY with media-card
+.media-content__status {
   $width: 152px;
   width: $width;
   flex: 0 0 $width;
-
-  &, &--new { color: $blue-500; }
-  &--true { color: $green-500; }
-  &--false { color: $red-500; }
-
   margin-bottom: 15px;
 }
-
-.media-content__status-icon {
-  margin-right: 11px;
-  font-size: 11px;
-}
-
-.media-content__status-label {
-  @include app-kicker;
-  font-weight: 500;
-}
-
-// TODO: sort out stylesheet/BEM names once components/files are settled
 
 .media-content__metadata {
   @include media-metadata;
