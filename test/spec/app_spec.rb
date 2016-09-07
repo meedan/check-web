@@ -1,21 +1,8 @@
 require 'selenium-webdriver'
 require 'yaml'
-require 'sinatra/base'
 require File.join(File.expand_path(File.dirname(__FILE__)), 'app_spec_helpers')
 
-# A webserver for the web app
-
-class Web < Sinatra::Base
-  set :port, 3333
-  set :public_folder, '../build/web'
-  get '/*' do
-    File.read('../build/web/index.html')
-  end
-end
-
 describe 'app' do
-
-  @driver = @config = @email = @source_url = @media_url = nil
 
   # Helpers
 
@@ -24,11 +11,11 @@ describe 'app' do
   # Start a webserver for the web app before the tests
 
   before :all do
-    #@web = Thread.new { Web.run! } if port_open?(3333)
     @email = 'sysops+' + Time.now.to_i.to_s + '@meedan.com'
     @source_url = 'https://www.facebook.com/ironmaiden/?fref=ts&timestamp=' + Time.now.to_i.to_s
     @media_url = 'https://www.facebook.com/ironmaiden/posts/10153654402607051/?t=' + Time.now.to_i.to_s
     @config = YAML.load_file('config.yml')
+    $media_id = nil
 
     FileUtils.cp(@config['config_file_path'], '../build/web/js/config.js') unless @config['config_file_path'].nil?
   end
@@ -37,12 +24,6 @@ describe 'app' do
 
   after :all do
     FileUtils.cp('../config.js', '../build/web/js/config.js')
-    begin
-      Thread.kill(@web) unless @web.nil?
-      puts
-    rescue
-      puts 'Could not kill the Sinatra server, please do it manually'
-    end
   end
 
   # Start Google Chrome before each test
@@ -418,7 +399,7 @@ describe 'app' do
       fill_field('#create-project-title', title)
       @driver.action.send_keys(:enter).perform
       sleep 5
-      expect(@driver.current_url.to_s.match(Regexp.new(@config['self_url'] + '/source/[0-9]+')).nil?).to be(false)
+      expect(@driver.current_url.to_s.match(Regexp.new(@config['self_url'] + '/project/[0-9]+')).nil?).to be(false)
       link = get_element('.team-sidebar__project-link')
       expect(link.text == title).to be(true)
     end
@@ -442,8 +423,8 @@ describe 'app' do
       sleep 1
       press_button('#create-media-submit')
       sleep 10
-      ID = @driver.current_url.to_s.match(Regexp.new(@config['self_url'] + '/source/([0-9]+)'))[1]
-      expect(ID.nil?).to be(false)
+      $media_id = @driver.current_url.to_s.match(Regexp.new(@config['self_url'] + '/media/([0-9]+)'))[1]
+      expect($media_id.nil?).to be(false)
     end
 
     it "should not create duplicated media if registered" do
@@ -454,7 +435,7 @@ describe 'app' do
       sleep 2
       press_button('#create-media-submit')
       sleep 10
-      expect(@driver.current_url.to_s.match(Regexp.new(@config['self_url'] + '/source/[0-9]+')).nil?).to be(false)
+      expect(@driver.current_url.to_s.match(Regexp.new(@config['self_url'] + '/media/[0-9]+')).nil?).to be(false)
     end
 
     it "should not create source as media if registered" do
@@ -465,14 +446,14 @@ describe 'app' do
       sleep 1
       press_button('#create-media-submit')
       sleep 10
-      expect(@driver.current_url.to_s.match(Regexp.new(@config['self_url'] + '/source/[0-9]+')).nil?).to be(true)
+      expect(@driver.current_url.to_s.match(Regexp.new(@config['self_url'] + '/media/[0-9]+')).nil?).to be(true)
       message = get_element('.create-media .message').text
       expect(message == 'Validation failed: Sorry, this is not a valid media item').to be(true)
     end
 
     it "should tag media from tags list" do
       login_with_email
-      @driver.navigate.to @config['self_url'] + '/media/' + ID
+      @driver.navigate.to @config['self_url'] + '/media/' + $media_id
       sleep 1
 
       # First, verify that there isn't any tag
@@ -513,7 +494,7 @@ describe 'app' do
 
     it "should tag media as a command" do
       login_with_email
-      @driver.navigate.to @config['self_url'] + '/media/' + ID
+      @driver.navigate.to @config['self_url'] + '/media/' + $media_id
       sleep 1
 
       # First, verify that there isn't any tag
@@ -540,7 +521,7 @@ describe 'app' do
 
     it "should comment media as a command" do
       login_with_email
-      @driver.navigate.to @config['self_url'] + '/media/' + ID
+      @driver.navigate.to @config['self_url'] + '/media/' + $media_id
       sleep 1
 
       # First, verify that there isn't any comment
@@ -562,7 +543,7 @@ describe 'app' do
 
     it "should set status to media as a command" do
       login_with_email
-      @driver.navigate.to @config['self_url'] + '/media/' + ID
+      @driver.navigate.to @config['self_url'] + '/media/' + $media_id
       sleep 1
 
       # First, verify that there isn't any status
@@ -584,7 +565,7 @@ describe 'app' do
 
     it "should flag media as a command" do
       login_with_email
-      @driver.navigate.to @config['self_url'] + '/media/' + ID
+      @driver.navigate.to @config['self_url'] + '/media/' + $media_id
       sleep 1
 
       # First, verify that there isn't any flag
