@@ -293,10 +293,6 @@ class TeamComponent extends Component {
           <div className='team__content-body'>
             <h3 className='team__projects-heading'>Verification Projects</h3>
             <ul className='team__projects-list'>
-              {(() => {
-                console.log(this.props);
-                console.log(team);
-              })()}
               {team.projects.edges.map(p => (
                 <li className='team__project'>
                   <Link to={'/team/' + team.dbid + '/project/' + p.node.dbid} className='team__project-link'>{p.node.title}</Link>
