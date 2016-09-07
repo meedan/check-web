@@ -200,12 +200,12 @@ class TeamComponent extends Component {
                 if (isEditing) {
                   if (contact) {
                     return (<span><FontAwesome name='map-marker' className='team__location-icon' />
-                            <input type='text' id='team__location-container' defaultValue={this.props.team.contacts.edges[0].node.location} className='team__location-name-input'/>
+                            <input type='text' id='team__location-container' defaultValue={this.props.team.contacts.edges[0].node.location} className='team__location-name-input' placeholder='Location' />
                             </span>);
                   }else {
 
                     return (<span><FontAwesome name='map-marker' className='team__location-icon' />
-                            <input type='text' id='team__location-container' className='team__location-name-input'/>
+                            <input type='text' id='team__location-container' className='team__location-name-input' placeholder='Location' />
                             </span>);
                   }
                 } else {
@@ -226,20 +226,20 @@ class TeamComponent extends Component {
               {(() => {
                 if (isEditing) {
                   if (contact) {
-                    return ( <span>{/*<FontAwesome name='map-marker' className='team__phone-icon' /> */}
-                  <input type='text' id='team__phone-container' defaultValue={this.props.team.contacts.edges[0].node.phone} className='team__location-name-input'/>
+                    return ( <span><FontAwesome name='phone' className='team__phone-icon' />
+                  <input type='text' id='team__phone-container' defaultValue={this.props.team.contacts.edges[0].node.phone} className='team__location-name-input' placeholder='Phone number' />
                             </span>);
                   }else {
 
-                    return (<span><FontAwesome name='map-marker' className='team__phone-icon' />
-                            <input type='text' id='team__phone-container' className='team__location-name-input'/>
+                    return (<span><FontAwesome name='phone' className='team__phone-icon' />
+                            <input type='text' id='team__phone-container' className='team__location-name-input' placeholder='Phone number' />
                             </span>);
                   }
                 } else {
                   if(contact)
                   {
                     return (<span>
-                    {/*<FontAwesome name='map-marker' className='team__phone-icon' /> */}
+                      <FontAwesome name='phone' className='team__phone-icon' />
                       <span className='team__phone-name'>{this.props.team.contacts.edges[0].node.phone}</span></span>);
 
                   }else {
@@ -256,14 +256,14 @@ class TeamComponent extends Component {
                   return (
                     <span>
                     <FontAwesome name='link' className='team__link-icon' />
-                    <input id='team__link-container' defaultValue={this.props.team.contacts.edges[0].node.web} type='text' className='team__link-name-input'/>
+                    <input id='team__link-container' defaultValue={this.props.team.contacts.edges[0].node.web} type='text' className='team__link-name-input' placeholder='Link' />
                     </span>);
 
                 }else {
                   return (
                     <span>
                     <FontAwesome name='link' className='team__link-icon' />
-                    <input id='team__link-container' type='text' className='team__link-name-input'/>
+                    <input id='team__link-container' type='text' className='team__link-name-input' placeholder='Link' />
                     </span>);
 
                 }
