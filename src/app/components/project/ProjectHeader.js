@@ -15,8 +15,8 @@ class ProjectHeaderComponent extends Component {
       isEditing: false,
       settingsMenuClosed: true,
       message: null,
-      title: Checkdesk.currentProject.title,
-      description: Checkdesk.currentProject.description
+      title: this.props.project.title,
+      description: this.props.project.description
     };
   }
 
