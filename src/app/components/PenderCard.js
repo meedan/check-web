@@ -3,7 +3,7 @@ import React, { Component, PropTypes } from 'react';
 class PenderCard extends Component {
   addTag() {
     const script = document.createElement('script');
-    script.src = this.props.penderUrl + '/api/medias.js?url=' + this.props.url;
+    script.src = this.props.penderUrl + '/api/medias.js?url=' + encodeURIComponent(this.props.url);
     script.async = true;
     script.type = 'text/javascript';
     document.getElementById('pender-card').appendChild(script);
