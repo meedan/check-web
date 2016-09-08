@@ -1,0 +1,14 @@
+.media-header {
+  display: flex;
+  align-items: center;
+}
+
+.media-header__copy {
+  margin-left: 2px;
+  flex: 1;
+}
+
+.media-header__title {
+  @include media-title;
+  margin-bottom: 4px;
+}

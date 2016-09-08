@@ -72,9 +72,9 @@
   text-transform: uppercase;
 }
 
-.switch-teams__team-caret {
+.switch-teams__team-caret { // TODO: use Caret.js once stable
   font-size: 24px;
-  color: hsl(204, 15%, 70%);
+  color: theme-gray(80%);
 }
 
 .switch-teams__cancel-join-request {

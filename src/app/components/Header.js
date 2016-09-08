@@ -3,6 +3,7 @@ import FlatButton from 'material-ui/lib/flat-button';
 import TeamHeader from './team/TeamHeader';
 import ProjectHeader from './project/ProjectHeader';
 import ProjectBreadcrumb from './project/ProjectBreadcrumb';
+import MediaHeader from './media/MediaHeader';
 
 class Header extends Component {
   render() {
@@ -16,8 +17,9 @@ class Header extends Component {
     if (this.isMediaRoute(path)) {
       return (
         <header className='header header--media'>
-          <TeamHeader {...this.props} hideCopy={true} />
+          <TeamHeader {...this.props} />
           <ProjectBreadcrumb {...this.props} />
+          <MediaHeader {...this.props} />
 
         </header>
       );
