@@ -6,7 +6,7 @@ import PenderCard from '../PenderCard';
 import config from 'config';
 import MediaStatus from './MediaStatus';
 
-class MediaHeader extends Component {
+class MediaDetail extends Component {
   render() {
     const media = this.props.media;
     media.created_at = new Date(parseInt(media.published) * 1000);
@@ -14,8 +14,8 @@ class MediaHeader extends Component {
     const prefix = '/team/' + Checkdesk.currentProject.team.dbid + '/source/';
 
     return (
-      <div className="media-content">
-        <div className='media-content__status'><MediaStatus status={media.last_status} /></div>
+      <div className="media-detail">
+        <div className='media-detail__status'><MediaStatus status={media.last_status} /></div>
 
         {/* <h2 className="media-name">{data.title}</h2> */}
 
@@ -23,11 +23,11 @@ class MediaHeader extends Component {
 
         <p className="media-description">{data.description}</p>
 
-        <p className="media-content__metadata">
+        <p className="media-detail__metadata">
           Submitted by user <Link to={prefix + media.user.source.dbid}>{media.user.name}</Link> under source <Link to={prefix + media.account.source.dbid}>{media.account.source.name}</Link> <TimeAgo date={media.created_at} live={false} />
         </p>
 
-        <p className="media-content__metadata">
+        <p className="media-detail__metadata">
           <img src={data.favicon} /> <a href={data.url} target="_blank">Originally published</a> by <a href={data.author_url} target="_blank">{data.username}</a>
           {(() => {
             if (data.published_at) {
@@ -40,4 +40,4 @@ class MediaHeader extends Component {
   }
 }
 
-export default MediaHeader;
+export default MediaDetail;
