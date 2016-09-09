@@ -74,11 +74,16 @@ class Home extends Component {
 
               // If user has a team, redirect to a project if he tries to access the root
               if (team) {
+                Checkdesk.context.team = team;
+
                 if (!project) {
                   project = team.projects[0];
                   Checkdesk.context.project = project;
-                  Checkdesk.context.team = project.team;
+                  if (project) {
+                    Checkdesk.context.team = project.team;
+                  }
                 }
+                
                 if (currentLocation === '/') {
                   // Redirect to project
                   if (project && project.dbid) {
