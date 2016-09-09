@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import Spinner from 'react-spinner';
 
 class PenderCard extends Component {
   addTag() {
@@ -11,7 +12,8 @@ class PenderCard extends Component {
 
   removeTag() {
     const container = document.getElementById('pender-card');
-    container.innerHTML = '<span id="pender-card-loader">Loading...</span>';
+    const loader = document.getElementById('pender-card-loader');
+    container.innerHTML = loader.outerHTML;
   }
 
   componentDidMount() {
@@ -29,8 +31,8 @@ class PenderCard extends Component {
 
   render() {
     return (
-      <div id="pender-card">
-        <span id="pender-card-loader">Loading...</span> 
+      <div id="pender-card" className='pender-card'>
+        <div id="pender-card-loader" className='pender-card__loader'><Spinner /></div>
       </div>
     );
   }
