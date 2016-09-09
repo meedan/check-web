@@ -22,7 +22,7 @@ class MediaDetail extends Component {
 
     return (
       <div className="media-detail">
-        <div className='media-detail__status'><MediaStatus status={media.last_status} /></div>
+        <div className='media-detail__status'><MediaStatus media={media} /></div>
 
         <div className={'media-detail__media ' + this.statusToClass(media.last_status)}>
           <PenderCard url={media.url} penderUrl={config.penderUrl} />

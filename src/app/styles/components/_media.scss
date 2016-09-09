@@ -10,12 +10,20 @@ $media-card-padding: 8px 14px 14px 14px;
 
 @mixin media-metadata {
   color: theme-gray(75%);
-  font-size: 0.9em;
+  font-size: 14px;
   margin-bottom: 2px;
 
   a {
     color: inherit;
   }
+}
+
+@mixin media-status-colors {
+  &--undetermined { color: $blue-500; }
+  &--in-progress { color: $orange-500; }
+  &--verified { color: $green-500; }
+  &--false { color: $red-500; }
+  &--not-applicable { color: $gray-350; }
 }
 
 @mixin media-title($size: 19px) {

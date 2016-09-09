@@ -18,7 +18,7 @@ class MediaCard extends Component {
     return (
       <article className='media-card'>
         <Link to={prefix + media.dbid} className='media-card__clickable'>
-          <div className='media-card__status'><MediaStatus status={media.last_status} /></div>
+          <div className='media-card__status'><MediaStatus media={media} /></div>
           <div className='media-card__content'>
             <h3 className='media-card__title'>{data.title}</h3>
             <MediaMetadataSummary media={media} data={data} />
