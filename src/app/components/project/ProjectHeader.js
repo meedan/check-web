@@ -13,7 +13,7 @@ class ProjectHeaderComponent extends Component {
 
     this.state = {
       isEditing: false,
-      settingsMenuClosed: true,
+      isSettingsMenuOpen: false,
       message: null,
       title: this.props.project.title,
       description: this.props.project.description
@@ -21,11 +21,11 @@ class ProjectHeaderComponent extends Component {
   }
 
   toggleSettings() {
-    this.setState({ settingsMenuClosed: !this.state.settingsMenuClosed });
+    this.setState({ isSettingsMenuOpen: !this.state.isSettingsMenuOpen });
   }
 
   enableEdit() {
-    this.setState({ isEditing: true, settingsMenuClosed: true });
+    this.setState({ isEditing: true, isSettingsMenuOpen: false });
   }
 
   updateProject(e) {
@@ -76,7 +76,7 @@ class ProjectHeaderComponent extends Component {
   }
 
   bemClass(baseClass, modifierBoolean, modifierSuffix) {
-    return modifierBoolean ? baseClass : [baseClass, baseClass + modifierSuffix].join(' ');
+    return modifierBoolean ? [baseClass, baseClass + modifierSuffix].join(' ') : baseClass;
   }
 
   deleteProject() {
@@ -149,11 +149,11 @@ class ProjectHeaderComponent extends Component {
               }
             })()}
           </div>
-          <div className={this.bemClass('project-header__project-settings', this.state.settingsMenuClosed, '--active')}>
-            <i className='project-header__project-search-icon fa fa-search' ></i>
+          <div className={this.bemClass('project-header__project-settings', this.state.isSettingsMenuOpen, '--active')}>
+            <i className='project-header__project-search-icon fa fa-search'></i>
             <i className='project-header__project-settings-icon fa fa-gear' onClick={this.toggleSettings.bind(this)}></i>
-            <div className={this.bemClass('project-header__project-settings-overlay', this.state.settingsMenuClosed, '--active')}></div>
-            <ul className={this.bemClass('project-header__project-settings-panel', this.state.settingsMenuClosed, '--active')}>
+            <div className={this.bemClass('project-header__project-settings-overlay', this.state.isSettingsMenuOpen, '--active')} onClick={this.toggleSettings.bind(this)}></div>
+            <ul className={this.bemClass('project-header__project-settings-panel', this.state.isSettingsMenuOpen, '--active')}>
               <li className='project-header__project-setting project-header__project-setting--edit' onClick={this.enableEdit.bind(this)}>Edit project...</li>
               {/*<li className='project-header__project-setting project-header__project-setting--delete' onClick={this.deleteProject.bind(this)}>Delete project</li>*/}
               <li className='TODO project-header__project-setting'>

@@ -1,7 +1,7 @@
 .header {
   position: fixed; top: 0; right: 0; left: 0;
-  z-index: 1;
-  padding: 15px 0;
+  z-index: 2;
+  padding: 8px 0;
   height: $layout-header-height;
   display: flex;
   align-items: center;
@@ -10,9 +10,15 @@
   box-shadow: 0 3px 0 transparentize(#000, 0.99);
 }
 
-.header--todo {
-  // TODO: give these pages proper headers
+// media page
 
+.header--media {
+  .team-header__copy { display: none; } // TODO: do with JS or simpler selectors
+}
+
+// todo
+
+.header--todo {
   // background: transparent;
   // border-bottom: none;
   // box-shadow: none;

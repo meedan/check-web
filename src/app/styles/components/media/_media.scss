@@ -8,17 +8,3 @@
   background: #fff;
   padding: 15px;
 }
-
-.media-content__status {
-  $width: 152px;
-  width: $width;
-  flex: 0 0 $width;
-  margin-bottom: 15px;
-}
-
-.media-content__metadata {
-  @include media-metadata;
-  img {
-    vertical-align: bottom;
-  }
-}

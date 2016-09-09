@@ -2,6 +2,9 @@ import React, { Component, PropTypes } from 'react';
 import FlatButton from 'material-ui/lib/flat-button';
 import TeamHeader from './team/TeamHeader';
 import ProjectHeader from './project/ProjectHeader';
+import ProjectBreadcrumb from './project/ProjectBreadcrumb';
+import MediaHeader from './media/MediaHeader';
+import HeaderActions from './HeaderActions';
 
 class Header extends Component {
   render() {
@@ -12,19 +15,22 @@ class Header extends Component {
       return null;
     }
 
-    if (this.isProjectRoute(path)) {
+    if (this.isMediaRoute(path)) {
+      return (
+        <header className='header header--media'>
+          <TeamHeader {...this.props} />
+          <ProjectBreadcrumb {...this.props} />
+          <MediaHeader {...this.props} />
+          <HeaderActions {...this.props} />
+        </header>
+      );
+    }
+
+    else if (this.isProjectRoute(path)) {
       return (
         <header className='header header--project'>
           <div className='header__team'><TeamHeader {...this.props} /></div>
           <ProjectHeader {...this.props} />
-        </header>
-      );
-
-    } else if (this.isMediaRoute(path)) {
-      return (
-        <header className='header header--media'>
-          <div className='header__team'><TeamHeader {...this.props} /></div>
-          {/* TODO: get media's project for rendering a <ProjectHeader {...this.props} /> */}
         </header>
       );
 

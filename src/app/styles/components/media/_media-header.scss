@@ -1,0 +1,19 @@
+.media-header {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+
+  align-items: center;
+}
+
+.media-header__copy {
+  margin-left: 2px;
+  flex: 1;
+}
+
+.media-header__title {
+  @include media-title;
+  white-space: nowrap;
+  overflow: hidden;
+  margin-bottom: 4px;
+}

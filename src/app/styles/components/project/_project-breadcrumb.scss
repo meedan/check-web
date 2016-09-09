@@ -1,0 +1,14 @@
+.project-breadcrumb {
+  height: 100%;
+  display: flex;
+
+  align-items: center;
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.project-breadcrumb__project-name {
+  @include breadcrumb-heading;
+  margin-right: 9px;
+}

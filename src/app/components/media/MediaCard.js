@@ -3,6 +3,7 @@ import Card from 'material-ui/lib/card/card';
 import CardText from 'material-ui/lib/card/card-text';
 import { Link } from 'react-router';
 import MediaStatus from './MediaStatus';
+import MediaMetadataSummary from './MediaMetadataSummary';
 
 class MediaCard extends Component {
 
@@ -19,12 +20,8 @@ class MediaCard extends Component {
         <Link to={prefix + media.dbid} className='media-card__clickable'>
           <div className='media-card__status'><MediaStatus status={media.last_status} /></div>
           <div className='media-card__content'>
-            <h3 className='media-card__title'>{data.description}</h3>
-            <div className='media-card__metadata'>
-              <span className='media-card__metadatum'>{media.annotations_count} notes</span>
-              <span className='media-card__metadatum'>{media.domain}</span>
-              <span className='media-card__metadatum'>{data.username ? '@' + data.username : null}</span>
-            </div>
+            <h3 className='media-card__title'>{data.title}</h3>
+            <MediaMetadataSummary media={media} data={data} />
           </div>
         </Link>
       </article>
