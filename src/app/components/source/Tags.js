@@ -69,9 +69,7 @@ class Tags extends Component {
     return (
       <div className="tags-list">
         <Message message={this.state.message} />
-        <span className="tags-title">Tags</span>
         <ReactTags tags={tags} handleDelete={this.handleDelete.bind(this)} handleAddition={this.handleAddition.bind(this)} autofocus={false} />
-        <br />
       </div>
     );
   }
