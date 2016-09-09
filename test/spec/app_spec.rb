@@ -117,7 +117,7 @@ describe 'app' do
 
     it "should create a project for a team" do
       login_with_email
-      @driver.navigate.to 'http://localhost:3333/'
+      @driver.navigate.to @config['self_url']
       sleep 1
       title = "Project #{Time.now}"
       fill_field('#create-project-title', title)
@@ -137,7 +137,7 @@ describe 'app' do
 
     # it "should have footer" do
     #   login_with_email
-    #   @driver.navigate.to 'http://localhost:3333/tos'
+    #   @driver.navigate.to @config['self_url'] + '/tos'
     #   message = get_element('address')
     #   expect(message.text.include?(' v')).to be(true)
     # end
