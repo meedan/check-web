@@ -15,7 +15,7 @@ class CreateProject extends Component {
   handleSubmit(e) {
     var that = this,
         title = document.getElementById('create-project-title').value,
-        teamId = this.props.teamId;
+        team = this.props.team;
 
     var onFailure = (transaction) => {
       transaction.getError().json().then(function(json) {
@@ -29,14 +29,14 @@ class CreateProject extends Component {
 
     var onSuccess = (response) => {
       var pid = response.createProject.project.dbid;
-      window.Checkdesk.history.push('/project/' + pid);
+      window.Checkdesk.history.push('/team/' + team.dbid + '/project/' + pid);
       this.setState({ message: null });
     };
 
     Relay.Store.commitUpdate(
       new CreateProjectMutation({
         title: title,
-        teamId: teamId
+        team: team
       }),
       { onSuccess, onFailure }
     );

@@ -17,9 +17,10 @@ class CreateMedia extends Component {
     };
   }
 
-  handleSubmit(redirect) {
+  handleSubmit() {
     var that = this,
-        url = document.getElementById('create-media-url').value;
+        url = document.getElementById('create-media-url').value,
+        prefix = '/team/' + Checkdesk.context.team.dbid + '/project/' + Checkdesk.context.project.dbid + '/media/';
 
     var onFailure = (transaction) => {
       transaction.getError().json().then(function(json) {
@@ -30,7 +31,7 @@ class CreateMedia extends Component {
           if (matches) {
             var sid = matches[1];
             message = null;
-            that.props.history.push('/media/' + sid);
+            Checkdesk.history.push(prefix + sid);
           }
         }
         that.setState({ message: message });
@@ -39,14 +40,14 @@ class CreateMedia extends Component {
 
     var onSuccess = (response) => {
       var rid = response.createMedia.media.dbid;
-      this.props.history.push('/media/' + rid);
+      Checkdesk.history.push(prefix + rid);
       this.setState({ message: null });
     };
 
     Relay.Store.commitUpdate(
       new CreateMediaMutation({
         url: url,
-        project: Checkdesk.currentProject
+        project: Checkdesk.context.project
       }),
       { onSuccess, onFailure }
     );
@@ -58,26 +59,22 @@ class CreateMedia extends Component {
   }
 
   render() {
+    const isPreviewingUrl = (this.state.url !== '');
+
     return (
       <div className="create-media">
         <Message message={this.state.message} />
-
-        <div id="media-url-container" className="create-media-col">
-          <h4>Create a media</h4>
-          <h2>Media URL</h2>
-          <TextField hintText="Twitter, Facebook, YouTube..." fullWidth={true} name="url" id="create-media-url" /><br />
-          <FlatButton id="create-media-submit" primary={true} onClick={this.handleSubmit.bind(this)} label="Create" />
-          <FlatButton id="create-media-preview" secondary={true} onClick={this.handlePreview.bind(this)} label="Preview" />
+        <div id="media-preview" className="create-media__preview">
+          {isPreviewingUrl ? <PenderCard url={this.state.url} penderUrl={config.penderUrl} /> : null}
         </div>
 
-        <div id="media-preview" className="create-media-col">
-          <h4>Preview</h4>
-
-          {(() => {
-            if (this.state.url != '') {
-              return (<PenderCard url={this.state.url} penderUrl={config.penderUrl} />);
-            }
-          })()}
+        <div id="media-url-container" className="create-media__form">
+          <button className="create-media__button create-media__button--new">+</button>
+          <TextField hintText="Paste a link to unverified media..." fullWidth={true} name="url" id="create-media-url" className='create-media__input' />
+          <div className="create-media__buttons">
+            <FlatButton id="create-media-preview" secondary={true} onClick={this.handlePreview.bind(this)} label="Preview" className='create-media__button create-media__button--preview' />
+            <FlatButton id="create-media-submit" primary={true} onClick={this.handleSubmit.bind(this)} label="Post" className='create-media__button create-media__button--submit' />
+          </div>
         </div>
       </div>
     );

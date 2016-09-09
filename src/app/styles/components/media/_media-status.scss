@@ -1,0 +1,19 @@
+.media-status {
+  margin-bottom: 5px;
+
+  &--undetermined { color: $blue-500; }
+  &--in-progress { color: $amber-500; }
+  &--verified { color: $green-500; }
+  &--false { color: $red-500; }
+  &--not-applicable { color: $gray-350; }
+}
+
+.media-status__icon {
+  margin-right: 10px;
+  font-size: 12px;
+}
+
+.media-status__label {
+  @include app-kicker;
+  font-weight: 500;
+}

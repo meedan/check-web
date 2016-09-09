@@ -4,18 +4,21 @@ import { Link } from 'react-router';
 import ProjectRoute from '../../relay/ProjectRoute';
 import ProjectHeader from './ProjectHeader';
 import MediasAndAnnotations from '../MediasAndAnnotations';
+import TeamSidebar from '../TeamSidebar';
+import { CreateMedia } from '../media';
 
 class ProjectComponent extends Component {
-  setCurrentProject() {
-    Checkdesk.currentProject = this.props.project;
+  setContextProject() {
+    Checkdesk.context.project = this.props.project;
+    Checkdesk.context.team = this.props.project.team;
   }
 
   componentDidMount() {
-    this.setCurrentProject();
+    this.setContextProject();
   }
 
   componentDidUpdate() {
-    this.setCurrentProject();
+    this.setContextProject();
   }
 
   render() {
@@ -23,8 +26,10 @@ class ProjectComponent extends Component {
 
     return (
       <div className="project">
-        <ProjectHeader project={project} />
 
+        <div className='project__team-sidebar'>{/* className={this.sidebarActiveClass('home__sidebar')} */}
+          <TeamSidebar />
+        </div>
         <div className="project__content">
           <MediasAndAnnotations
             medias={project.medias.edges}
@@ -33,7 +38,7 @@ class ProjectComponent extends Component {
             annotatedType="Project"
             types={['comment']} />
 
-          <Link to="/medias/new" id="link-medias-new" className="project__new-media-link" title="Create a report">+ New report...</Link>
+          <CreateMedia {...this.props} />
         </div>
       </div>
     );
@@ -49,7 +54,17 @@ const ProjectContainer = Relay.createContainer(ProjectComponent, {
         title,
         description,
         team {
-          id
+          id,
+          dbid,
+          projects(first: 20) {
+            edges {
+              node {
+                id,
+                dbid,
+                title
+              }
+            }
+          }
         },
         annotations(first: 20) {
           edges {

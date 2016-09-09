@@ -18,7 +18,7 @@ class CreateProjectMutation extends Relay.Mutation {
   }
 
   getVariables() {
-    return { title: this.props.title };
+    return { title: this.props.title, team_id: this.props.team.dbid };
   }
 
   getConfigs() {
@@ -36,7 +36,7 @@ class CreateProjectMutation extends Relay.Mutation {
       {
         type: 'RANGE_ADD',
         parentName: 'team',
-        parentID: this.props.teamId,
+        parentID: this.props.team.id,
         connectionName: 'projects',
         edgeName: 'projectEdge',
         rangeBehaviors: {

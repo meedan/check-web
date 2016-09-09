@@ -9,8 +9,6 @@ import { request } from '../actions/actions';
 import Colors from 'material-ui/lib/styles/colors';
 import getMuiTheme from 'material-ui/lib/styles/getMuiTheme';
 import themeDecorator from 'material-ui/lib/styles/theme-decorator';
-import AppBar from 'material-ui/lib/app-bar';
-import TeamSidebar from './TeamSidebar';
 import { Link } from 'react-router';
 import FontAwesome from 'react-fontawesome';
 import config from 'config';
@@ -28,22 +26,21 @@ const muiTheme = getMuiTheme({
 });
 
 class Home extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      isSidebarActive: false
-    };
-  }
-
   setUpGraphql(token) {
-    var headers = config.relayHeaders;
-    if (token) {
-      headers = {
-        'X-Checkdesk-Token': token
-      }
-    }
-    Relay.injectNetworkLayer(new CheckdeskNetworkLayer(config.relayPath, { headers: headers }));
+    Relay.injectNetworkLayer(new CheckdeskNetworkLayer(config.relayPath, {
+      get headers() {
+        var headers = config.relayHeaders;
+        if (token) {
+          headers = {
+            'X-Checkdesk-Token': token
+          }
+        }
+        if (Checkdesk.context.team) {
+          headers['X-Checkdesk-Context-Team'] = Checkdesk.context.team.dbid;
+        }
+        return headers;
+      } 
+    }));
   }
 
   startSession(state) {
@@ -73,23 +70,30 @@ class Home extends Component {
           (function redirectIndex() {
             if (data) {
               const team = data.current_team;
-              var project = Checkdesk.currentProject;
-              
-              if (team && !project) {
-                project = team.projects[0]; // TODO: remember most-recently-viewed project
-                Checkdesk.currentProject = project;
-              }
-              
-              if (currentLocation === '/') {
-                // if no team, create one
-                if (!team) {
-                  return Checkdesk.history.push('/teams/new');
-                }
+              var project = Checkdesk.context.project;
 
-                // send to current team project
-                if (project && project.dbid) {
-                  Checkdesk.history.push(`/project/${project.dbid}`);
+              // If user has a team, redirect to a project if he tries to access the root
+              if (team) {
+                if (!project) {
+                  project = team.projects[0];
+                  Checkdesk.context.project = project;
+                  Checkdesk.context.team = project.team;
                 }
+                if (currentLocation === '/') {
+                  // Redirect to project
+                  if (project && project.dbid) {
+                    Checkdesk.history.push('/team/' + team.dbid + '/project/' + project.dbid);
+                  }
+                  // Ask to create a project
+                  else {
+                    Checkdesk.history.push('/team/' + team.dbid);
+                  }
+                }
+              }
+
+              // Ask to create a team
+              else if (currentLocation != '/teams/new') {
+                return Checkdesk.history.push('/teams/new');
               }
             }
           })();
@@ -101,47 +105,34 @@ class Home extends Component {
     }
   }
 
-  toggleSidebar() {
-    this.setState({isSidebarActive: !this.state.isSidebarActive});
-  }
-
-  sidebarActiveClass(baseClass) {
-    return this.state.isSidebarActive ? [baseClass, baseClass + '--sidebar-active'].join(' ') : baseClass;
-  }
-
   render() {
-    const { state } = this.props;
+    const { state, children } = this.props;
 
     this.startSession(state.app);
 
     this.setUpGraphql(state.app.token);
 
-    if (!this.props.children.props.route.public && !state.app.token) {
+    const routeIsPublic = children && children.props.route.public;
+    if (!routeIsPublic && !state.app.token) {
       if (state.app.error) {
         return (<LoginMenu {...this.props} />);
       }
       return null;
     }
 
-    const routeIsFullscreen = this.props.children.props.route.fullscreen;
+    const routeIsFullscreen = children && children.props.route.fullscreen;
     if (routeIsFullscreen) {
-      return (<div className='home home--fullscreen'>{this.props.children}</div>);
+      return (<div className='home home--fullscreen'>{children}</div>);
     }
 
     return (
       <div className='home'>
-        <div className={this.sidebarActiveClass('home__sidebar')}>
-          <TeamSidebar />
-        </div>
-        <main className={this.sidebarActiveClass('home__content')}>
-          <div className={this.sidebarActiveClass('home__content-overlay')} onClick={this.toggleSidebar.bind(this)}></div>
-
-          <Header {...this.props} toggleSidebar={this.toggleSidebar.bind(this)} />
-          <div className="global-message"><Message message={state.app.message} /></div>
-          <div className='home__content-children'>{this.props.children}</div>
-
-          <FooterRelay {...this.props} />
+        <Header {...this.props} />
+        <main className='home__content'>
+          <div className="home__global-message global-message"><Message message={state.app.message} /></div>
+          <div className='home__main'>{children}</div>
         </main>
+        <FooterRelay {...this.props} />
       </div>
     );
   }

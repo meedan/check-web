@@ -11,28 +11,29 @@
 @import 'theme/forms';
 @import 'theme/images';
 
+@import 'components/caret';
 @import 'components/home';
 @import 'components/layout/header';
 @import 'components/layout/footer';
 @import 'components/login-menu';
 @import 'components/login-email';
+@import 'components/media';
 @import 'components/project/project';
+@import 'components/project/project-breadcrumb';
 @import 'components/project/project-header';
+@import 'components/sources';
+@import 'components/team';
 @import 'components/team/create-team';
 @import 'components/team/join-team';
 @import 'components/team/switch-teams';
+@import 'components/team/team-header';
 @import 'components/team/team-members';
 @import 'components/team/team-sidebar';
 @import 'components/team/teams';
-@import 'components/sources';
-@import 'components/team';
 @import 'source';
 @import 'tags';
 @import 'annotations';
 @import 'create-account';
-@import 'create-media';
-@import 'pender';
-@import 'media';
 @import 'tabs';
 
 body {

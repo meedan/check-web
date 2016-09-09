@@ -30,15 +30,23 @@ $font-stack-serif: "Merriweather", Georgia, serif;
 }
 
 @mixin app-kicker {
-  font-size: 12px;
+  font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.15em;
   font-weight: 500;
 }
 
-@mixin team-name {
-  font-size: 17px;
+@mixin team-name($size: 17px) {
+  font-size: $size;
   font-weight: 600;
   letter-spacing: 0.02em;
   color: theme-gray(27%);
+}
+
+@mixin breadcrumb-heading {
+  display: inline-block;
+  font-size: 16px;
+  font-weight: 400;
+  color: theme-gray(75%);
+  margin: 2px 0 0 0;
 }

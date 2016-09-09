@@ -1,9 +1,11 @@
 .switch-teams {
   background-color: #fff;
+  margin-bottom: 11px;
 }
 
-.switch-teams__teams, {
+.switch-teams__teams {
   margin-bottom: 10px;
+  min-width: 300px;
 }
 
 .switch-teams__team {
@@ -45,9 +47,6 @@
 
 .switch-teams__team-avatar {
   @include team-avatar;
-  color: $dark-gray-text;
-  background-size: cover;
-  background-position: center;
   margin-right: 15px;
 }
 
@@ -73,9 +72,9 @@
   text-transform: uppercase;
 }
 
-.switch-teams__team-caret {
+.switch-teams__team-caret { // TODO: use Caret.js once stable
   font-size: 24px;
-  color: hsl(204, 15%, 70%);
+  color: theme-gray(80%);
 }
 
 .switch-teams__cancel-join-request {

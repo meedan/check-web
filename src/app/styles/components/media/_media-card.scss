@@ -1,0 +1,28 @@
+.media-card {
+  @include media-card;
+}
+
+.media-card__clickable {
+  display: block;
+
+  padding: $media-card-padding;
+
+  &, &:hover, &:visited {
+    text-decoration: none;
+    color: inherit;
+  }
+}
+
+.media-card__status {}
+
+.media-card__content {
+  // flex: 1;
+  // overflow: hidden;
+}
+
+.media-card__title {
+  @include media-title;
+  // white-space: nowrap;
+  // overflow: hidden;
+  margin: 0 0 6px 0;
+}

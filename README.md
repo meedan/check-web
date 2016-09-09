@@ -44,3 +44,10 @@ For better debugging, change `NODE_ENV` to `development` at `webpack/config.js`.
 * Compile the code with `npm run build`
 * Copy `test/config.yml.example` to `test/config.yml` and set the configurations 
 * Run `npm run test`
+
+### Missing tests
+
+* Onboarding: If user has a team and a project (current or first) and tries to access the root -> redirect to the project page
+* Onboarding: If user has a team, no project and tries to access the root -> redirect to the team page
+* Onboarding: If user doesn't have a team -> redirect to "create team" page
+* Logout

@@ -11,6 +11,7 @@ import TeamMembers  from '../components/team/TeamMembers';
 import CreateTeam from '../components/team/CreateTeam'
 import JoinTeam from '../components/team/JoinTeam.js';
 import Project from '../components/project/Project.js';
+import ProjectHeader from '../components/project/ProjectHeader';
 import Teams from '../components/team/Teams.js';
 
 export default class Root extends Component {
@@ -21,7 +22,7 @@ export default class Root extends Component {
   render() {
     const { store } = this.props;
     const history = syncHistoryWithStore(browserHistory, store);
-    window.Checkdesk = { history: history }
+    window.Checkdesk = { history: history, context: {} };
 
     return (
       <Provider store={store}>
@@ -29,11 +30,11 @@ export default class Root extends Component {
           <Route path="/" component={App}>
             <IndexRoute component={IndexComponent} />
             <Route path="tos" component={TermsOfService} public={true} />
-            <Route path="sources" component={Sources} />
-            <Route path="sources/new" component={CreateAccount} />
-            <Route path="source/:sourceId" component={Source} />
+            <Route path="team/:teamId/sources" component={Sources} />
+            <Route path="team/:teamId/sources/new" component={CreateAccount} />
+            <Route path="team/:teamId/source/:sourceId" component={Source} />
             <Route path="medias/new" component={CreateMedia} />
-            <Route path="media/:mediaId" component={Media} />
+            <Route path="team/:teamId/project/:projectId/media/:mediaId" component={Media} />
             <Route path="user/:userId" component={User} />
             <Route path="me" component={Me} />
             <Route path="team/:teamId/join" component={JoinTeam} />
@@ -41,7 +42,7 @@ export default class Root extends Component {
             <Route path="team/:teamId" component={Team} />
             <Route path="teams/new" component={CreateTeam} fullscreen={true} />
             <Route path="teams" component={Teams} fullscreen={true} />
-            <Route path="project/:projectId" component={Project} />
+            <Route path="team/:teamId/project/:projectId" component={Project} />
             <Route path="*" component={NotFound} public={true} />
           </Route>
         </Router>

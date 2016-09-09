@@ -1,75 +1,25 @@
-$home-bg: $project-bg; // deprecated
+$home-bg: $lighter-gray-bg;
 $home-content-padding: 23px;
-$sidebar-width: 245px;
 
 .home {
   min-height: 100%;
-  overflow-x: hidden;
   display: flex;
-
-  @media screen and (min-width: 768px) {
-  }
-
-  &--fullscreen {
-    flex-direction: column;
-  }
-}
-
-.home__sidebar {
-  position: fixed; top: 0; bottom: 0;
-  width: $sidebar-width;
-  z-index: 2;
-
-  @media screen and (max-width: 768px) { // TODO: test 768px case
-    right: 100%;
-    transition: transform 350ms ease;
-    &--sidebar-active {
-      transform: translate($sidebar-width);
-    }
-  }
-
-  @media screen and (min-width: 768px) {
-    left: 0;
-    flex: 0 0 $sidebar-width;
-  }
+  flex-direction: column;
+  background: $home-bg;
 }
 
 .home__content {
+  padding-top: $layout-header-height;
   flex: 1;
-  position: relative;
-  min-height: 100%;
-  overflow-x: hidden;
-  background: $home-bg;
-  // padding-top: 65px; // TODO: more intelligently tie to header height
-
-  @media screen and (max-width: 768px) {
-    transition: transform 400ms ease;
-    &--sidebar-active {
-      transform: translate(100px);
-    }
-    -webkit-tap-highlight-color: rgba(0,0,0,0);
-  }
-
-  @media screen and (min-width: 768px) {
-    margin-left: $sidebar-width;
-  }
-
   display: flex;
   flex-direction: column;
 }
 
-.home__content-overlay {
-  pointer-events: none;
-  position: absolute; top: 0; right: 0; bottom: 0; left: 0;
-  background-color: transparent;
-  transition: background-color 400ms ease;
-  z-index: 3;
-  &--sidebar-active {
-    pointer-events: auto;
-    background-color: rgba(0,0,0,0.8);
-  }
-}
+.home__global-message {}
 
-.home__content-children {
+.home__main {
   flex: 1;
+
+  display: flex;
+  flex-direction: column;
 }

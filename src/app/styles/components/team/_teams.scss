@@ -1,10 +1,14 @@
 .teams {
+  flex: 1;
   background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .teams__content {
   max-width: 400px;
-  margin: 0 auto;
   padding: 15px;
 }
 

@@ -5,14 +5,56 @@ import RaisedButton from 'material-ui/lib/raised-button';
 import TextField from 'material-ui/lib/text-field';
 import Message from './Message';
 import UploadImage from './UploadImage';
+import { request } from '../actions/actions';
 
 class LoginEmail extends Component {
   constructor(props) {
     super(props);
     this.state = {
       open: false,
-      type: 'login' // or 'register'
+      type: 'login', // or 'register'
+      message: null,
+      name: '',
+      email: '',
+      password: '',
+      password_confirmation: ''
     };
+  }
+
+  loginEmail() {
+    var that = this;
+    var params = {
+      'api_user[email]': this.state.email,
+      'api_user[password]': this.state.password
+    };
+    var failureCallback = function(message) { 
+          that.setState({ open: true, message: message });
+        },
+        successCallback = function(data) {
+          that.setState({ open: false, message: null });
+          Checkdesk.history.push('/');
+        };
+    request('post', 'users/sign_in', failureCallback, successCallback, params);
+  }
+
+  registerEmail() {
+    var that = this,
+        form = document.forms.register;
+    var params = {
+      'api_user[email]': this.state.email,
+      'api_user[name]': this.state.name,
+      'api_user[password]': this.state.password,
+      'api_user[password_confirmation]': this.state.password_confirmation,
+      'api_user[image]': form.image
+    };
+    var failureCallback = function(message) {
+          that.setState({ open: true, message: message });
+        },
+        successCallback = function(data) {
+          that.setState({ open: false, message: null });
+          Checkdesk.history.push('/');
+        };
+    request('post', 'users', failureCallback, successCallback, params);
   }
 
   handleOpen() {
@@ -33,8 +75,14 @@ class LoginEmail extends Component {
     document.forms.register.image = file;
   }
 
+  handleFieldChange(e) {
+    var state = {};
+    state[e.target.name] = e.target.value;
+    this.setState(state);
+  }
+
   render() {
-    const { state, loginEmail, registerEmail } = this.props;
+    const { state } = this.props;
 
     const actions = [
       <FlatButton
@@ -47,7 +95,7 @@ class LoginEmail extends Component {
         id="submit-register-or-login"
         label="Submit"
         primary={true}
-        onClick={ this.state.type === 'register' ? registerEmail.bind(this) : loginEmail.bind(this) }
+        onClick={ this.state.type === 'register' ? this.registerEmail.bind(this) : this.loginEmail.bind(this) }
       />,
       <FlatButton
         id="register-or-login"
@@ -61,19 +109,19 @@ class LoginEmail extends Component {
       <span className='login-email'>
         <a id="login-email" onClick={this.handleOpen.bind(this)} className='login-email__link'>Sign in with e-mail</a>
 
-        <Dialog title="Sign in with e-mail" actions={actions} modal={true} open={this.state.open}>
-          <Message message={state.app.failure} />
+        <Dialog title="Sign in with e-mail" actions={actions} modal={true} open={this.state.open} autoScrollBodyContent={true} autoDetectWindowHeight={true}>
+          <Message message={this.state.message} />
           <form name={this.state.type}>
             <span className={this.state.type === 'login' ? 'hidden' : ''}>
-              <TextField hintText="Your full name" floatingLabelText="Name" fullWidth={true} name="name" className="login-name" /><br />
+              <TextField hintText="Your full name" floatingLabelText="Name" fullWidth={true} name="name" className="login-name" value={this.state.name} onChange={this.handleFieldChange.bind(this)} /><br />
             </span>
 
-            <TextField hintText="Your e-mail address" floatingLabelText="E-mail" fullWidth={true} name="email" className="login-email" /><br />
+            <TextField hintText="Your e-mail address" floatingLabelText="E-mail" fullWidth={true} name="email" className="login-email" value={this.state.email} onChange={this.handleFieldChange.bind(this)} /><br />
 
-            <TextField hintText="Minimum 8 characters" floatingLabelText="Password" type="password" fullWidth={true} name="password" className="login-password" /><br />            
+            <TextField hintText="Minimum 8 characters" floatingLabelText="Password" type="password" fullWidth={true} name="password" className="login-password" value={this.state.password} onChange={this.handleFieldChange.bind(this)} /><br />
             
             <span className={this.state.type === 'login' ? 'hidden' : ''}>
-              <TextField hintText="Same as above" floatingLabelText="Password confirmation" type="password" fullWidth={true} name="password_confirmation" className="login-password-confirmation" />
+              <TextField hintText="Same as above" floatingLabelText="Password confirmation" type="password" fullWidth={true} name="password_confirmation" className="login-password-confirmation" value={this.state.password_confirmation} onChange={this.handleFieldChange.bind(this)} />
               <UploadImage onImage={this.onImage.bind(this)} />
             </span>
           </form>

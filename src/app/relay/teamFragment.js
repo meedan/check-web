@@ -5,6 +5,7 @@ var teamFragment = Relay.QL`
     id,
     dbid,
     name,
+    avatar,
     description,
     subdomain,
     team_users(first: 6) {
@@ -23,6 +24,16 @@ var teamFragment = Relay.QL`
           phone,
           id
 
+        }
+      }
+    },
+    projects(first: 20) {
+      edges {
+        node {
+          title,
+          dbid,
+          id,
+          description
         }
       }
     }

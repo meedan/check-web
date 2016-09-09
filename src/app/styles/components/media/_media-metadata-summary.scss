@@ -1,0 +1,7 @@
+.media-metadata-summary {
+  @include media-metadata;
+}
+
+.media-metadata-summary__datum {
+  margin-right: 15px;
+}

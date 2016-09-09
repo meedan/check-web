@@ -36,7 +36,8 @@ class TeamMembersComponent extends Component {
       }
 
     })
-    const joinUrl = 'https://checkdesk.org/team/' + team.dbid + '/join';
+    const teamUrl = '/team/' + team.dbid;
+    const joinUrl = teamUrl + '/join';
 
     return (
       <div className='team-members'>
@@ -46,7 +47,7 @@ class TeamMembersComponent extends Component {
         </button>
         <h1 className='team-members__main-heading'>Members</h1>
         <div className='team-members__blurb'>
-          <p className='team-members__blurb-graf'>To invite colleagues to join {team.name}, send them this link:</p>
+          <p className='team-members__blurb-graf'>To invite colleagues to join <Link to={teamUrl}>{team.name}</Link>, send them this link:</p>
           <p className='team-members__blurb-graf--url'><a href={joinUrl}>{joinUrl}</a></p>
         </div>
         <TeamMembershipRequests team_users={team_users_requestingMembership} />
