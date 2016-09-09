@@ -11,6 +11,7 @@ ENV DEPLOYDIR /app
 ENV PLATFORM web
 ENV APP checkdesk-client
 ENV BABEL_ENV production
+ENV NODE_ENV production
 
 # user config
 RUN useradd ${DEPLOYUSER} -s /bin/bash -m
@@ -30,7 +31,7 @@ COPY package.json ${DEPLOYDIR}/latest/package.json
 USER root
 RUN chown -R ${DEPLOYUSER}:www-data ${DEPLOYDIR}
 USER ${DEPLOYUSER}
-RUN npm install 
+RUN npm cache clean && npm install --production
 
 # copy in the code and move it into the same directory as the built node_modules
 COPY . ${DEPLOYDIR}/new
