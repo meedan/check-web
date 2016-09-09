@@ -41,9 +41,6 @@ USER ${DEPLOYUSER}
 RUN rm -rf mv ${DEPLOYDIR}/new/node_modules \
     && rsync -avp ${DEPLOYDIR}/new/* ${DEPLOYDIR}/latest/ 
 
-# logos
-RUN src/assets/images/logo/generate.sh
-
 # style
 RUN ./node_modules/.bin/node-sass src/app/styles/stylesheet.scss --output-style=compressed | ./node_modules/.bin/postcss --use autoprefixer -o build/web/css/stylesheet.css \
     && cp -r src/app/styles/images build/web/
