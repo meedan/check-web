@@ -175,7 +175,7 @@ class TeamComponent extends Component {
             }
           })()}
 
-          <div className='team__avatar' style={{'background-image': 'url(' + team.avatar + ')'}}></div>
+          <div className='team__avatar' style={{'background-image': 'url(' + team.avatar + ')'}} title="You can't change this right now, but we're hard at work to enable it soon!"></div>
 
           {(() => {
             if (this.state.isEditing) {
