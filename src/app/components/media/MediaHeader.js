@@ -24,7 +24,7 @@ class MediaHeaderComponent extends Component {
 
     return (
       <div className='media-header'>
-        <Caret />
+        <Caret left={true} />
         <div className='media-header__copy'>
           <h1 className='media-header__title'>{title}</h1>
           <MediaMetadataSummary media={media} data={data} />

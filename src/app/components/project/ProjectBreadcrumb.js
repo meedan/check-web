@@ -11,7 +11,6 @@ class ProjectBreadcrumbComponent extends Component {
 
     return (
       <Link to={projectUrl} className='project-breadcrumb'>
-        <Caret />
         <h2 className='project-breadcrumb__project-name' title={project.description}>{project.title}</h2>
       </Link>
     );
