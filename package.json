@@ -85,7 +85,7 @@
     "react-simpletabs": "^0.7.0",
     "react-spinner": "^0.2.6",
     "react-tag-input": "^2.3.0",
-    "react-timeago": "^3.1.2",
+    "react-timeago": "3.1.2",
     "redux": "^3.0.0",
     "redux-form": "^3.1.0",
     "redux-notify": "^0.1.1",
