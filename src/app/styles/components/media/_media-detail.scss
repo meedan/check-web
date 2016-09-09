@@ -1,15 +1,42 @@
 .media-detail {}
 
 .media-detail__status {
-  $width: 152px;
-  width: $width;
-  flex: 0 0 $width;
-  margin-bottom: 15px;
+  margin-bottom: 11px;
 }
 
-.media-detail__metadata {
+// op
+
+.media-detail__media {
+  border-radius: 2px;
+
+  position: relative;
+}
+
+.media-detail__original-metadata {
+  margin-top: 6px;
   @include media-metadata;
+
   img {
-    vertical-align: bottom;
+    display: none;
+    height: 1em;
+    margin-right: 2.5px;
+    margin-left: 3px;
+    vertical-align: -5%;
+    border-radius: 2px;
   }
+}
+
+// editorial
+
+.media-detail__title {
+  @include media-title(24px);
+  margin-top: 25px;
+}
+
+.media-detail__description {
+  margin-top: 9px;
+  max-width: 42em;
+  line-height: 1.35;
+
+  color: theme-gray(45%);
 }

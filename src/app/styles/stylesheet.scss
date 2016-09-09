@@ -17,15 +17,7 @@
 @import 'components/layout/footer';
 @import 'components/login-menu';
 @import 'components/login-email';
-@import 'components/media/create-media';
-@import 'components/media/media';
-@import 'components/media/media-card';
-@import 'components/media/media-detail';
-@import 'components/media/media-header';
-@import 'components/media/media-metadata-summary';
-@import 'components/media/media-status';
-@import 'components/media/medias';
-@import 'components/media/medias-and-annotations';
+@import 'components/media';
 @import 'components/project/project';
 @import 'components/project/project-breadcrumb';
 @import 'components/project/project-header';
@@ -42,7 +34,6 @@
 @import 'tags';
 @import 'annotations';
 @import 'create-account';
-@import 'pender';
 @import 'tabs';
 
 body {

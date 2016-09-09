@@ -1,4 +1,6 @@
 .media-status {
+  margin-bottom: 5px;
+
   &--undetermined { color: $blue-500; }
   &--in-progress { color: $amber-500; }
   &--verified { color: $green-500; }
@@ -7,8 +9,8 @@
 }
 
 .media-status__icon {
-  margin-right: 11px;
-  font-size: 11px;
+  margin-right: 10px;
+  font-size: 12px;
 }
 
 .media-status__label {

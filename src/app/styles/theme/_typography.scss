@@ -30,7 +30,7 @@ $font-stack-serif: "Merriweather", Georgia, serif;
 }
 
 @mixin app-kicker {
-  font-size: 12px;
+  font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.15em;
   font-weight: 500;
@@ -43,23 +43,10 @@ $font-stack-serif: "Merriweather", Georgia, serif;
   color: theme-gray(27%);
 }
 
-@mixin media-metadata {
-  color: theme-gray(75%);
-  font-size: 0.9em;
-  margin-bottom: 2px;
-}
-
 @mixin breadcrumb-heading {
   display: inline-block;
   font-size: 16px;
   font-weight: 400;
   color: theme-gray(75%);
   margin: 2px 0 0 0;
-}
-
-@mixin media-title($size: 18px) {
-  font-size: $size;
-  font-family: $font-stack-sans-condensed;
-  color: theme-gray(20%);
-  margin: 0;
 }

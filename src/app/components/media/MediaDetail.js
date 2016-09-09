@@ -16,27 +16,16 @@ class MediaDetail extends Component {
     return (
       <div className="media-detail">
         <div className='media-detail__status'><MediaStatus status={media.last_status} /></div>
-
-        {/* <h2 className="media-name">{data.title}</h2> */}
-
-        <PenderCard url={media.url} penderUrl={config.penderUrl} />
-
-        <p className="media-description">{data.description}</p>
-
-        <p className="media-detail__metadata">
-          Submitted by user <Link to={prefix + media.user.source.dbid}>{media.user.name}</Link> under source <Link to={prefix + media.account.source.dbid}>{media.account.source.name}</Link> <TimeAgo date={media.created_at} live={false} />
+        <div className='media-detail__media'>
+          <PenderCard url={media.url} penderUrl={config.penderUrl} />
+        </div>
+        <p className="media-detail__original-metadata">
+          <Link to={data.url} target="_blank">Posted</Link> by <Link to={prefix + media.account.source.dbid}>{media.account.source.name}</Link> (<Link to={data.author_url} target="_blank">@{data.username}</Link>) to <Link to={'https://' + media.domain}><img src={data.favicon} />{media.domain}</Link> {data.published_at ? <Link to={data.url} target="_blank"><TimeAgo date={data.published_at} live={false} /></Link> : null}
         </p>
-
-        <p className="media-detail__metadata">
-          <img src={data.favicon} /> <a href={data.url} target="_blank">Originally published</a> by <a href={data.author_url} target="_blank">{data.username}</a>
-          {(() => {
-            if (data.published_at) {
-              return (<span> <TimeAgo date={data.published_at} live={false} /></span>);
-            }
-          })()}
-        </p>
+        <h2 className="media-detail__title">{data.title}</h2>
+        <p className="media-detail__description">{data.description}</p>
       </div>
-    )
+    );
   }
 }
 
