@@ -16,8 +16,8 @@ ENV DEPLOYUSER=cddeploy \
     NODE_ENV=production
 
 # user config
-RUN useradd ${DEPLOYUSER} -s /bin/bash -m
-RUN chown -R ${DEPLOYUSER}:${DEPLOYUSER} /home/${DEPLOYUSER}
+RUN useradd ${DEPLOYUSER} -s /bin/bash -m \
+    && chown -R ${DEPLOYUSER}:${DEPLOYUSER} /home/${DEPLOYUSER}
 
 # deployment scripts
 COPY docker/production/bin /opt/bin
