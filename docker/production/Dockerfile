@@ -6,12 +6,14 @@ MAINTAINER sysops@meedan.com
 #
 # SYSTEM CONFIG
 #
-ENV DEPLOYUSER cddeploy
-ENV DEPLOYDIR /app
-ENV PLATFORM web
-ENV APP checkdesk-client
-ENV BABEL_ENV production
-ENV NODE_ENV production
+
+# consolidate ENV for one cache layer
+ENV DEPLOYUSER=cddeploy \
+    DEPLOYDIR=/app \
+    PLATFORM=web \
+    APP=checkdesk-client \
+    BABEL_ENV=production \
+    NODE_ENV=production
 
 # user config
 RUN useradd ${DEPLOYUSER} -s /bin/bash -m
