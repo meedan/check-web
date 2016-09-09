@@ -7,6 +7,13 @@ import config from 'config';
 import MediaStatus from './MediaStatus';
 
 class MediaDetail extends Component {
+  statusToClass(status) {
+    if (status === '') {
+      return '';
+    }
+    return 'media-detail__media--' + status.toLowerCase().replace(' ', '-');
+  }
+
   render() {
     const media = this.props.media;
     media.created_at = new Date(parseInt(media.published) * 1000);
@@ -16,7 +23,8 @@ class MediaDetail extends Component {
     return (
       <div className="media-detail">
         <div className='media-detail__status'><MediaStatus status={media.last_status} /></div>
-        <div className='media-detail__media'>
+
+        <div className={'media-detail__media ' + this.statusToClass(media.last_status)}>
           <PenderCard url={media.url} penderUrl={config.penderUrl} />
         </div>
         <p className="media-detail__original-metadata">
