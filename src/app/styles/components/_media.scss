@@ -1,0 +1,33 @@
+$media-card-padding: 8px 14px 14px 14px;
+
+@mixin media-card {
+  border: $layout-border;
+  border-radius: 2px;
+  background-color: #fff;
+  box-shadow: $layout-box-shadow;
+  margin: 15px auto;
+}
+
+@mixin media-metadata {
+  color: theme-gray(75%);
+  font-size: 0.9em;
+  margin-bottom: 2px;
+}
+
+@mixin media-title($size: 19px) {
+  font-size: $size;
+  font-family: $font-stack-sans-condensed;
+  color: theme-gray(20%);
+  margin: 0;
+}
+
+@import 'media/create-media';
+@import 'media/media';
+@import 'media/media-card';
+@import 'media/media-detail';
+@import 'media/media-header';
+@import 'media/media-metadata-summary';
+@import 'media/media-status';
+@import 'media/medias';
+@import 'media/medias-and-annotations';
+@import 'media/pender-card';

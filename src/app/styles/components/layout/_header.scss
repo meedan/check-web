@@ -7,7 +7,7 @@
   align-items: center;
   background: #fff;
   border-bottom: $layout-border;
-  box-shadow: 0 3px 0 transparentize(#000, 0.99);
+  box-shadow: $layout-box-shadow;
 }
 
 // media page

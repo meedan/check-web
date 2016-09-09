@@ -1,27 +1,19 @@
 .media-card {
-  box-shadow: 0 3px 0 #f7f7f7;
-  background-color: #fff;
-  border: 1px solid theme-gray(85%);
-  border-radius: 2px;
-  margin-bottom: 15px;
+  @include media-card;
 }
 
 .media-card__clickable {
-  padding: 15px 20px;
+  display: block;
 
-  display: flex;
-  align-items: center;
+  padding: $media-card-padding;
+
   &, &:hover, &:visited {
     text-decoration: none;
     color: inherit;
   }
 }
 
-.media-card__status {
-  $width: 152px;
-  width: $width;
-  flex: 0 0 $width;
-}
+.media-card__status {}
 
 .media-card__content {
   // flex: 1;
@@ -29,7 +21,8 @@
 }
 
 .media-card__title {
-  margin: 4px 0 9px 0;
-  line-height: 1.38;
-  color: theme-gray(27%);
+  @include media-title;
+  white-space: nowrap;
+  overflow: hidden;
+  margin: 0 0 6px 0;
 }

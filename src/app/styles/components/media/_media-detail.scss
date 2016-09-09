@@ -1,10 +1,14 @@
 .media-detail {}
 
 .media-detail__status {
-  $width: 152px;
-  width: $width;
-  flex: 0 0 $width;
-  margin-bottom: 15px;
+  margin-bottom: 11px;
+}
+
+.media-detail__media {
+  background: transparentize($blue-100, 0.9);
+  border-radius: 2px;
+
+  position: relative;
 }
 
 .media-detail__metadata {

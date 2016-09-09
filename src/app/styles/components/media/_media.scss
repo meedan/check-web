@@ -1,10 +1,8 @@
 .media {}
 
 .media__contents {
-  border: $layout-border;
-  border-radius: 2px;
-  max-width: 700px;
-  margin: 30px auto 45px auto;
-  background: #fff;
-  padding: 15px;
+  @include media-card;
+  padding: $media-card-padding;
+
+  max-width: 1000px;
 }
