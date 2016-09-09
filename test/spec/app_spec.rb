@@ -115,6 +115,40 @@ describe 'app' do
       expect(displayed_name == 'USER WITH EMAIL').to be(true)
     end
 
+    it "should redirect new users from / to /teams/new" do
+      login_with_email
+      expect(@driver.current_url.to_s == 'http://localhost:3333/teams/new').to be(true)
+    end
+
+    it "should autosuggest a subdomain when creating a team" do
+      login_with_email
+      @driver.navigate.to 'http://localhost:3333/teams/new'
+      sleep 1
+      team_name = " Team  Newsroom "
+      expected_slug = "team-newsroom"
+      fill_field('#team-name-container', team_name)
+      sleep 1
+      subdomain = get_element('#team-subdomain-container')
+      subdomain.click()
+      sleep 1
+      expect(subdomain.getAttribute("value") == '').to be(true)
+    end
+
+    it "should redirect / to a team page if user belongs to a team" do
+      login_with_email
+      @driver.navigate.to 'http://localhost:3333/teams/new'
+      sleep 1
+      fill_field('#team-name-container', "Team #{Time.now}")
+      sleep 1
+      fill_field('#team-subdomain-container', "team#{Time.now.to_i}")
+      sleep 1
+      press_button('.create-team__submit-button')
+      sleep 5
+      @driver.navigate.to 'http://localhost:3333/'
+      sleep 1
+      expect(@driver.current_url.to_s.match(/^http:\/\/localhost:3333\/team\/[0-9]+/).nil?).to be(false)
+    end
+
     it "should create a project for a team" do
       login_with_email
       @driver.navigate.to @config['self_url']
