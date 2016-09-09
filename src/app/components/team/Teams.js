@@ -33,6 +33,7 @@ const TeamsContainer = Relay.createContainer(TeamsComponent, {
       fragment on User {
         current_team {
           id,
+          dbid,
           name,
           avatar,
           members_count

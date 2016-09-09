@@ -34,7 +34,7 @@ class CheckdeskNetworkLayer extends Relay.DefaultNetworkLayer {
       ...this._init,
       body: JSON.stringify({
         query: request.getQueryString(),
-      variables: request.getVariables(),
+        variables: request.getVariables(),
       }),
       headers: {
         ...this._init.headers,

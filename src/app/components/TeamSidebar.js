@@ -3,7 +3,8 @@ import Relay from 'react-relay';
 import { Link } from 'react-router';
 import FontAwesome from 'react-fontawesome';
 import CreateProject from './project/CreateProject';
-import MeRoute from '../relay/MeRoute';
+import TeamRoute from '../relay/TeamRoute';
+import teamFragment from '../relay/teamFragment';
 import SwitchTeams from './team/SwitchTeams';
 
 class TeamSidebarComponent extends Component {
@@ -30,15 +31,15 @@ class TeamSidebarComponent extends Component {
     if (inProject) {
       currentProjectId = parseInt(inProject[1]);
     }
-    else if (Checkdesk.currentProject) {
-      currentProjectId = Checkdesk.currentProject.dbid;
+    else if (Checkdesk.context.project) {
+      currentProjectId = Checkdesk.context.project.dbid;
     }
 
     return projectId === currentProjectId;
   }
 
   render() {
-    var currentTeam = this.props.me.current_team;
+    var currentTeam = this.props.team;
 
     var otherTeams = [
       // TODO
@@ -133,33 +134,13 @@ class TeamSidebarComponent extends Component {
 
 const TeamSidebarContainer = Relay.createContainer(TeamSidebarComponent, {
   fragments: {
-    me: () => Relay.QL`
-      fragment on User {
-        current_team {
-          id,
-          dbid,
-          name,
-          avatar,
-          members_count,
-          projects(first: 20) {
-            edges {
-              node {
-                title,
-                dbid,
-                id,
-                description
-              }
-            }
-          }
-        }
-      }
-    `
+    team: () => teamFragment
   }
 });
 
 class TeamSidebar extends Component {
   render() {
-    var route = new MeRoute();
+    var route = new TeamRoute({ teamId: Checkdesk.context.team.dbid });
     return (<Relay.RootContainer Component={TeamSidebarContainer} route={route} />);
   }
 }

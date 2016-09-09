@@ -27,13 +27,20 @@ const muiTheme = getMuiTheme({
 
 class Home extends Component {
   setUpGraphql(token) {
-    var headers = config.relayHeaders;
-    if (token) {
-      headers = {
-        'X-Checkdesk-Token': token
-      }
-    }
-    Relay.injectNetworkLayer(new CheckdeskNetworkLayer(config.relayPath, { headers: headers }));
+    Relay.injectNetworkLayer(new CheckdeskNetworkLayer(config.relayPath, {
+      get headers() {
+        var headers = config.relayHeaders;
+        if (token) {
+          headers = {
+            'X-Checkdesk-Token': token
+          }
+        }
+        if (Checkdesk.context.team) {
+          headers['X-Checkdesk-Context-Team'] = Checkdesk.context.team.dbid;
+        }
+        return headers;
+      } 
+    }));
   }
 
   startSession(state) {
@@ -63,13 +70,14 @@ class Home extends Component {
           (function redirectIndex() {
             if (data) {
               const team = data.current_team;
-              var project = Checkdesk.currentProject;
+              var project = Checkdesk.context.project;
 
               // If user has a team, redirect to a project if he tries to access the root
               if (team) {
                 if (!project) {
                   project = team.projects[0];
-                  Checkdesk.currentProject = project;
+                  Checkdesk.context.project = project;
+                  Checkdesk.context.team = project.team;
                 }
                 if (currentLocation === '/') {
                   // Redirect to project

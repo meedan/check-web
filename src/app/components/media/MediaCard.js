@@ -13,7 +13,7 @@ class MediaCard extends Component {
     const media = props.media;
     media.created_at = new Date(parseInt(media.published) * 1000);
     const data = JSON.parse(media.jsondata);
-    const prefix = '/team/' + Checkdesk.currentProject.team.dbid + '/project/' + Checkdesk.currentProject.dbid + '/media/';
+    const prefix = '/team/' + Checkdesk.context.team.dbid + '/project/' + Checkdesk.context.project.dbid + '/media/';
 
     return (
       <article className='media-card'>

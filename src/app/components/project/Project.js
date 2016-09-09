@@ -8,16 +8,17 @@ import TeamSidebar from '../TeamSidebar';
 import { CreateMedia } from '../media';
 
 class ProjectComponent extends Component {
-  setCurrentProject() {
-    Checkdesk.currentProject = this.props.project;
+  setContextProject() {
+    Checkdesk.context.project = this.props.project;
+    Checkdesk.context.team = this.props.project.team;
   }
 
   componentDidMount() {
-    this.setCurrentProject();
+    this.setContextProject();
   }
 
   componentDidUpdate() {
-    this.setCurrentProject();
+    this.setContextProject();
   }
 
   render() {
@@ -54,7 +55,16 @@ const ProjectContainer = Relay.createContainer(ProjectComponent, {
         description,
         team {
           id,
-          dbid
+          dbid,
+          projects(first: 20) {
+            edges {
+              node {
+                id,
+                dbid,
+                title
+              }
+            }
+          }
         },
         annotations(first: 20) {
           edges {

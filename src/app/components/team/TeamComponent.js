@@ -14,7 +14,6 @@ import UpdateContactMutation from '../../relay/UpdateContactMutation';
 import CreateProject from '../project/CreateProject';
 
 class TeamComponent extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -22,26 +21,36 @@ class TeamComponent extends Component {
     };
   }
 
+  setContextTeam() {
+    Checkdesk.context.team = this.props.team;
+  }
+
+  componentDidMount() {
+    this.setContextTeam();
+  }
+
+  componentDidUpdate() {
+    this.setContextTeam();
+  }
+
   cancelEditTeam(e) {
      e.preventDefault();
      this.setState({isEditing: false});
   }
 
-  editTeamInfo(){
+  editTeamInfo() {
     var that = this,
          name = document.getElementById('team__name-container').value;
     var description = document.getElementById('team__description-container').value;
 
-
     var onFailure = (transaction) => {
-
-        transaction.getError().json().then(function(json) {
-          var message = 'Sorry, could not edit the team';
-          if (json.error) {
-            message = json.error;
-          }
-          that.setState({ message: message });
-        });
+      transaction.getError().json().then(function(json) {
+        var message = 'Sorry, could not edit the team';
+        if (json.error) {
+          message = json.error;
+        }
+        that.setState({ message: message });
+      });
     };
 
     var onSuccess = (response) => {
@@ -58,24 +67,21 @@ class TeamComponent extends Component {
    );
   }
 
-  updateTeamContacts(){
+  updateTeamContacts() {
     var that = this,
-         location = document.getElementById('team__location-container').value,
-         link = document.getElementById('team__link-container').value,
-         phone = document.getElementById('team__phone-container').value,
-         contact = this.props.team.contacts.edges[0];
+        location = document.getElementById('team__location-container').value,
+        link = document.getElementById('team__link-container').value,
+        phone = document.getElementById('team__phone-container').value,
+        contact = this.props.team.contacts.edges[0];
+    
     var onFailure = (transaction) => {
-
-        transaction.getError().json().then(function(json) {
-          var message = 'Sorry, could not edit the team';
-          if (json.error) {
-            message = json.error;
-          }
-          that.setState({ message: message });
-        });
-
-
-
+      transaction.getError().json().then(function(json) {
+        var message = 'Sorry, could not edit the team';
+        if (json.error) {
+          message = json.error;
+        }
+        that.setState({ message: message });
+      });
     };
 
     var onSuccess = (response) => {
@@ -92,24 +98,24 @@ class TeamComponent extends Component {
      { onSuccess, onFailure }
    );
   }
-  createTeamContacts(){
+
+  createTeamContacts() {
     var that = this,
     location = document.getElementById('team__location-container').value,
     link = document.getElementById('team__link-container').value;
-    var onFailure = (transaction) => {
 
-        transaction.getError().json().then(function(json) {
-          var message = 'Sorry, could not edit the team';
-          if (json.error) {
-            message = json.error;
-          }
-          that.setState({ message: message });
-        });
+    var onFailure = (transaction) => {
+      transaction.getError().json().then(function(json) {
+        var message = 'Sorry, could not edit the team';
+        if (json.error) {
+          message = json.error;
+        }
+        that.setState({ message: message });
+      });
     };
 
     var onSuccess = (response) => {
       this.setState({ message: null ,isEditing: false});
-
     };
 
     Relay.Store.commitUpdate(
@@ -125,23 +131,26 @@ class TeamComponent extends Component {
   }
 
   handleEditTeam(e) {
-     e.preventDefault();
-     this.editTeamInfo();
-     if (this.props.team.contacts.edges[0]) {
-       this.updateTeamContacts();
-
-     } else {
-       this.createTeamContacts();
-          }
-  }
-  handleEntreEditTeamNameAndDescription(e) {
+    this.editTeamInfo();
+    if (this.props.team.contacts.edges[0]) {
+      this.updateTeamContacts();
+    }
+    else {
+      this.createTeamContacts();
+    }
     e.preventDefault();
-    this.setState({isEditing: true});
   }
+
+  handleEntreEditTeamNameAndDescription(e) {
+    this.setState({ isEditing: true });
+    e.preventDefault();
+  }
+
   render() {
     const team = this.props.team;
     const isEditing = this.state.isEditing;
-    const contact =this.props.team.contacts.edges[0];
+    const contact = this.props.team.contacts.edges[0];
+
     return (
       <div className='team'>
         <Message message={this.state.message} />
@@ -167,9 +176,9 @@ class TeamComponent extends Component {
           })()}
 
           <div className='team__avatar' style={{'background-image': 'url(' + team.avatar + ')'}}></div>
+
           {(() => {
             if (this.state.isEditing) {
-
               return (
                 <div>
                   <h1 className='team__name team__name--editing'>
@@ -178,8 +187,10 @@ class TeamComponent extends Component {
                   <div className='team__description'>
                     <input type='text' id='team__description-container' className='team__description-input' defaultValue={team.description}/>
                   </div>
-                </div>);
-            } else {
+                </div>
+              );
+            }
+            else {
               return (
                 <div>
                   <h1 className='team__name'>
@@ -188,7 +199,8 @@ class TeamComponent extends Component {
                   <div className='team__description'>
                     <p className='team__description-text'>{team.description}</p>
                   </div>
-                </div>);
+                </div>
+              );
             }
           })()}
 

@@ -24,9 +24,9 @@ class CreateFlagMutation extends Relay.Mutation {
   getVariables() {
     var flag = this.props.annotation;
     var vars = { flag: flag.flag, annotated_id: flag.annotated_id + '', annotated_type: flag.annotated_type };
-    if (Checkdesk.currentProject) {
+    if (Checkdesk.context.project) {
       vars.context_type = 'Project';
-      vars.context_id = Checkdesk.currentProject.dbid.toString();
+      vars.context_id = Checkdesk.context.project.dbid.toString();
     }
     return vars;
   }

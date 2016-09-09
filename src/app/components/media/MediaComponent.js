@@ -4,7 +4,7 @@ import { Annotations, Tags } from '../source';
 
 class MediaComponent extends Component {
   setCurrentContext() {
-    this.props.relay.setVariables({ contextId: Checkdesk.currentProject.dbid });
+    this.props.relay.setVariables({ contextId: Checkdesk.context.project.dbid });
   }
 
   componentDidMount() {

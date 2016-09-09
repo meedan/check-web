@@ -6,7 +6,7 @@ import MediaMetadataSummary from './MediaMetadataSummary';
 
 class MediaHeaderComponent extends Component {
   setCurrentContext() {
-    this.props.relay.setVariables({ contextId: Checkdesk.currentProject.dbid });
+    this.props.relay.setVariables({ contextId: Checkdesk.context.project.dbid });
   }
 
   componentDidMount() {

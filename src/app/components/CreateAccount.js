@@ -20,7 +20,7 @@ class CreateAccount extends Component {
   handleSubmit(redirect) {
     var that = this,
         url = document.getElementById('create-account-url').value,
-        prefix = '/team/' + Checkdesk.currentProject.team.dbid + '/source/';
+        prefix = '/team/' + Checkdesk.context.team.dbid + '/source/';
 
     var onFailure = (transaction) => {
       transaction.getError().json().then(function(json) {

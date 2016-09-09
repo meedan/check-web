@@ -20,7 +20,7 @@ class CreateMedia extends Component {
   handleSubmit() {
     var that = this,
         url = document.getElementById('create-media-url').value,
-        prefix = '/team/' + Checkdesk.currentProject.team.dbid + '/project/' + Checkdesk.currentProject.dbid + '/media/';
+        prefix = '/team/' + Checkdesk.context.team.dbid + '/project/' + Checkdesk.context.project.dbid + '/media/';
 
     var onFailure = (transaction) => {
       transaction.getError().json().then(function(json) {
@@ -47,7 +47,7 @@ class CreateMedia extends Component {
     Relay.Store.commitUpdate(
       new CreateMediaMutation({
         url: url,
-        project: Checkdesk.currentProject
+        project: Checkdesk.context.project
       }),
       { onSuccess, onFailure }
     );

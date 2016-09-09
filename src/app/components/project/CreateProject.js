@@ -36,7 +36,7 @@ class CreateProject extends Component {
     Relay.Store.commitUpdate(
       new CreateProjectMutation({
         title: title,
-        teamId: team.id
+        team: team
       }),
       { onSuccess, onFailure }
     );
