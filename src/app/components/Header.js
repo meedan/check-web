@@ -4,6 +4,7 @@ import TeamHeader from './team/TeamHeader';
 import ProjectHeader from './project/ProjectHeader';
 import ProjectBreadcrumb from './project/ProjectBreadcrumb';
 import MediaHeader from './media/MediaHeader';
+import HeaderActions from './HeaderActions';
 
 class Header extends Component {
   render() {
@@ -20,7 +21,7 @@ class Header extends Component {
           <TeamHeader {...this.props} />
           <ProjectBreadcrumb {...this.props} />
           <MediaHeader {...this.props} />
-
+          <HeaderActions {...this.props} />
         </header>
       );
     }
