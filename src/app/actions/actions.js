@@ -98,35 +98,6 @@ export function loginSlack() {
   };
 };
 
-export function loginEmail() {
-  return (dispatch, getState) => {
-    var form = document.forms.login,
-        params = {
-          'api_user[email]': form.email.value,
-          'api_user[password]': form.password.value
-        },
-        failureCallback = function(message) { dispatch({ type: ERROR, failure: message }); },
-        successCallback = function(data) { dispatch({ type: SUCCESS, error: false }); };
-    request('post', 'users/sign_in', failureCallback, successCallback, params);
-  };
-};
-
-export function registerEmail() {
-  return (dispatch, getState) => {
-    var form = document.forms.register,
-        params = {
-          'api_user[email]': form.email.value,
-          'api_user[name]': form.name.value,
-          'api_user[password]': form.password.value,
-          'api_user[password_confirmation]': form.password_confirmation.value,
-          'api_user[image]': form.image
-        },
-        failureCallback = function(message) { dispatch({ type: ERROR, failure: message }); },
-        successCallback = function(data) { dispatch({ type: SUCCESS, error: false }); };
-    request('post', 'users', failureCallback, successCallback, params);
-  };
-};
-
 export function logout() {
   var failureCallback = function(message) { dispatch({ type: ERROR, message: message }); },
       successCallback = function(data) {
