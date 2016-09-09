@@ -37,7 +37,7 @@ class Header extends Component {
     } else {
       return (
         <header className='header header--todo'>
-          <img className='header--todo__brand' src='/img/logo/logo-1.svg'/>
+          <img className='header--todo__brand' src='/images/logo/logo-1.svg'/>
         </header>
       );
     }
