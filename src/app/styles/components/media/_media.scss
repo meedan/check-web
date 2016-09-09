@@ -6,3 +6,12 @@
 
   max-width: 1000px;
 }
+
+.media__notes-heading {
+  text-align: center;
+  font-size: 18px;
+  font-family: $font-stack-sans-condensed;
+  color: theme-gray(75%);
+  font-weight: 400;
+  margin: 25px 0;
+}

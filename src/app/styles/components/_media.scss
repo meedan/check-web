@@ -5,19 +5,23 @@ $media-card-padding: 8px 14px 14px 14px;
   border-radius: 2px;
   background-color: #fff;
   box-shadow: $layout-box-shadow;
-  margin: 15px auto;
+  margin: 10px auto;
 }
 
 @mixin media-metadata {
   color: theme-gray(75%);
   font-size: 0.9em;
   margin-bottom: 2px;
+
+  a {
+    color: inherit;
+  }
 }
 
 @mixin media-title($size: 19px) {
   font-size: $size;
   font-family: $font-stack-sans-condensed;
-  color: theme-gray(20%);
+  color: theme-gray(23%);
   margin: 0;
 }
 

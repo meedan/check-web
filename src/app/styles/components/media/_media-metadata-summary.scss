@@ -1,7 +1,5 @@
 .media-metadata-summary {
-  color: theme-gray(70%);
-  font-size: 0.9em;
-  margin-bottom: 2px;
+  @include media-metadata;
 }
 
 .media-metadata-summary__datum {

@@ -22,7 +22,7 @@
 
 .media-card__title {
   @include media-title;
-  white-space: nowrap;
-  overflow: hidden;
+  // white-space: nowrap;
+  // overflow: hidden;
   margin: 0 0 6px 0;
 }
