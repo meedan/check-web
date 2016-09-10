@@ -69,18 +69,37 @@ class Home extends Component {
       }
 
       window.Checkdesk.currentUser = userData;
-      that.setUpContext(userData);
       that.maybeRedirect(that.props.location.pathname, userData);
+      that.setContext();
       that.forceUpdate();
     }
     request('get', 'me', failureCallback, successCallback);
   }
 
-  setUpContext(userData) {
-    const project = Checkdesk.context.project;
-    if (project) {
-      Checkdesk.context.team = project.team;
+  // Get context team and project from URL
+  setContext() {
+    if (this.props.params) {
+      if (this.props.params.teamId && !Checkdesk.context.team) {
+        Checkdesk.context.team = { dbid: this.props.params.teamId };
+      }
+      if (this.props.params.projectId && !Checkdesk.context.project) {
+        Checkdesk.context.project = { dbid: this.props.params.projectId };
+      }
     }
+  }
+
+  // Set context team and project from information from the backend
+  setContextAndRedirect(team, project) {
+    var path = '/';
+    if (team) {
+      Checkdesk.context.team = team;
+      path += 'team/' + team.dbid;
+    }
+    if (project) {
+      Checkdesk.context.project = project;
+      path += '/project/' + project.dbid;
+    }
+    Checkdesk.history.push(path);
   }
 
   maybeRedirect(location, userData) {
@@ -93,10 +112,10 @@ class Home extends Component {
 
     const project = userCurrentTeam.projects[0];
     if (project && project.dbid) {
-      Checkdesk.history.push('/team/' + userCurrentTeam.dbid + '/project/' + project.dbid);
+      this.setContextAndRedirect(userCurrentTeam, project);
     }
     else {
-      Checkdesk.history.push('/team/' + userCurrentTeam.dbid);
+      this.setContextAndRedirect(userCurrentTeam, null);
     }
   }
 
