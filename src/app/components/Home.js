@@ -39,82 +39,70 @@ class Home extends Component {
           headers['X-Checkdesk-Context-Team'] = Checkdesk.context.team.dbid;
         }
         return headers;
-      } 
+      }
     }));
   }
 
   startSession(state) {
-    var that = this;
-    if (!state.token && !state.error) {
-      var token = window.storage.getValue('token');
-      if (token) {
-        state.token = token;
-        that.forceUpdate();
+    if (state.token || state.error) {
+      return;
+    }
+
+    const storedToken = window.storage.getValue('token');
+    if (storedToken) {
+      state.token = storedToken;
+      return that.forceUpdate();
+    }
+
+    const that = this;
+    var failureCallback = function(errorMessage) {
+      state.message = errorMessage;
+      state.error = true;
+      that.forceUpdate();
+    };
+    var successCallback = function(userData) {
+      if (userData) {
+        state.token = userData.token;
       }
       else {
-        var failureCallback = function(message) {
-          state.message = message;
-          state.error = true;
-          that.forceUpdate();
-        };
-        var successCallback = function(data) {
-          if (data) {
-            state.token = data.token;
-          }
-          else {
-            state.error = true;
-          }
-          window.Checkdesk.currentUser = data;
-          var currentLocation = that.props.location.pathname;
-
-          (function redirectIndex() {
-            if (data) {
-              const team = data.current_team;
-              var project = Checkdesk.context.project;
-
-              // If user has a team, redirect to a project if he tries to access the root
-              if (team) {
-                Checkdesk.context.team = team;
-
-                if (!project) {
-                  project = team.projects[0];
-                  Checkdesk.context.project = project;
-                  if (project) {
-                    Checkdesk.context.team = project.team;
-                  }
-                }
-                
-                if (currentLocation === '/') {
-                  // Redirect to project
-                  if (project && project.dbid) {
-                    Checkdesk.history.push('/team/' + team.dbid + '/project/' + project.dbid);
-                  }
-                  // Ask to create a project
-                  else {
-                    Checkdesk.history.push('/team/' + team.dbid);
-                  }
-                }
-              }
-
-              // Ask to create a team
-              else if (currentLocation != '/teams/new') {
-                return Checkdesk.history.push('/teams/new');
-              }
-            }
-          })();
-
-          that.forceUpdate();
-        }
-        request('get', 'me', failureCallback, successCallback);
+        state.error = true;
       }
+
+      window.Checkdesk.currentUser = userData;
+      that.setUpContext(userData);
+      that.maybeRedirect(that.props.location.pathname, userData);
+      that.forceUpdate();
+    }
+    request('get', 'me', failureCallback, successCallback);
+  }
+
+  setUpContext(userData) {
+    const project = Checkdesk.context.project;
+    if (project) {
+      Checkdesk.context.team = project.team;
+    }
+  }
+
+  maybeRedirect(location, userData) {
+    if (location !== '/' || !userData) { return; }
+
+    const userCurrentTeam = userData.current_team; // currently always null
+    if (!userCurrentTeam && location !== '/teams/new') {
+      return Checkdesk.history.push('/teams/new');
+    }
+
+    const project = userCurrentTeam.projects[0];
+    if (project && project.dbid) {
+      Checkdesk.history.push('/team/' + userCurrentTeam.dbid + '/project/' + project.dbid);
+    }
+    else {
+      Checkdesk.history.push('/team/' + userCurrentTeam.dbid);
     }
   }
 
   render() {
     const { state, children } = this.props;
-
     this.startSession(state.app);
-
     this.setUpGraphql(state.app.token);
 
     const routeIsPublic = children && children.props.route.public;
