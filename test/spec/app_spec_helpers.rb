@@ -154,10 +154,10 @@ module AppSpecHelpers
   end
 
   def get_team
-    @driver.execute_script('return Checkdesk.currentProject.team.dbid').to_s
+    @driver.execute_script('return Checkdesk.context.team ? Checkdesk.context.team.dbid : Checkdesk.currentUser.current_team.dbid').to_s
   end
 
   def get_project
-    @driver.execute_script('return Checkdesk.currentProject.dbid').to_s
+    @driver.execute_script('return Checkdesk.context.project.dbid').to_s
   end
 end

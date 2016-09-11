@@ -8,6 +8,9 @@ class CheckdeskNetworkLayer extends Relay.DefaultNetworkLayer {
           if (result.status === 404) {
             Checkdesk.history.push('/404');
           }
+          else if (result.status === 401 || result.status === 403) {
+            Checkdesk.history.push('/forbidden');
+          }
           return result.json();
         }).then(payload => {
           if (payload.hasOwnProperty('errors')) {
