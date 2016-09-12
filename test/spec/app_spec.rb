@@ -653,5 +653,62 @@ describe 'app' do
       expect(title.text == 'Not Found').to be(true)
       expect(@driver.current_url.to_s == @config['self_url'] + '/404').to be(true)
     end
+
+    it "should change a media status via the dropdown menu" do
+      # TODO: http://stackoverflow.com/a/36159452
+      @driver.navigate.to @config['self_url']
+      sleep 1
+      @driver.find_element(:xpath, "//a[@id='login-email']").click
+      sleep 1
+      @driver.find_element(:xpath, "//button[@id='register-or-login']").click
+      sleep 1
+      random = Time.now.to_i
+      fill_field('.login-name input', 'User With Email')
+      fill_field('.login-email input', "#{random}@foo.bar")
+      fill_field('.login-password input', '12345678')
+      fill_field('.login-password-confirmation input', '12345678')
+      press_button('#submit-register-or-login')
+      sleep 3
+
+      if @driver.find_elements(:css, '.create-team').size > 0
+        fill_field('#team-name-container', "Team #{Time.now.to_i}")
+        sleep 1
+        fill_field('#team-subdomain-container', "team#{Time.now.to_i}")
+        sleep 1
+        press_button('.create-team__submit-button')
+        sleep 5
+      end
+      @driver.navigate.to @config['self_url']
+      sleep 3
+
+      title = "Project #{Time.now}"
+      fill_field('#create-project-title', title)
+      @driver.action.send_keys(:enter).perform
+      sleep 5
+      expect(@driver.current_url.to_s.match(/\/project\/[0-9]+$/).nil?).to be(false)
+      link = get_element('.team-sidebar__project-link')
+      expect(link.text == title).to be(true)
+
+      fill_field('#create-media-url', @media_url)
+      sleep 1
+      press_button('#create-media-submit')
+      sleep 10
+      $media_id = @driver.current_url.to_s.match(/\/media\/([0-9]+)$/)[1]
+      expect($media_id.nil?).to be(false)
+
+      current_status = @driver.find_element(:css, '.media-status__label')
+      puts current_status
+      puts current_status.text
+      expect(current_status.text == 'UNDETERMINED').to be(true)
+
+      current_status.click
+      sleep 1
+      verified_menu_item = @driver.find_element(:css, '.media-status__menu-item--verified')
+      verified_menu_item.click
+      sleep 3
+      current_status = @driver.find_element(:css, '.media-status__label')
+      expect(current_status.text == 'VERIFIED').to be(true)
+      expect(@driver.page_source.include? 'Status set to "Verified"').to be(true)
+    end
   end
 end
