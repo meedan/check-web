@@ -32,7 +32,6 @@ class TeamMembersCell extends Component {
   }
 
   handleRoleChange(val) {
-      console.log("Selected: " + val);
       var that = this
 
       var onFailure = (transaction) => {
