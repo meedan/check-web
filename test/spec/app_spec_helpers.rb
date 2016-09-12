@@ -160,4 +160,8 @@ module AppSpecHelpers
   def get_project
     @driver.execute_script('return Checkdesk.context.project.dbid').to_s
   end
+
+  def console_logs
+    @driver.manage.logs.get("browser")
+  end
 end
