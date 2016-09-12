@@ -675,5 +675,17 @@ describe 'app' do
       expect(current_status.text == 'VERIFIED').to be(true)
       expect(@driver.page_source.include? 'Status set to "Verified"').to be(true)
     end
+
+    it "should logout" do
+      skip("Needs to be implemented")
+    end
+
+    it "should ask to join team" do
+      skip("Needs to be implemented")
+    end
+
+    it "should redirect to team page if user asking to join a team is already a member" do
+      skip("Needs to be implemented")
+    end
   end
 end

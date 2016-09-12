@@ -14,7 +14,7 @@ class JoinTeamComponent extends Component {
 
   handleRequestAccess(e) {
     e.preventDefault();
-    this.setState({isRequestSent: true});
+    this.setState({ isRequestSent: true });
 
     var that = this
 
@@ -26,10 +26,10 @@ class JoinTeamComponent extends Component {
         }
         that.setState({ message: message });
       });
-
    };
-   var onSuccess = (response) => {
 
+   var onSuccess = (response) => {
+     that.setState({ message: 'Thanks for your interest in joining ' + this.props.team.name + ' Check! A team leader will review your application soon.', isRequestSent: true });
    };
 
    Relay.Store.commitUpdate(
@@ -42,11 +42,25 @@ class JoinTeamComponent extends Component {
   );
   }
 
+  redirectIfMember() {
+    const teamId = parseInt(this.props.team.dbid);
+    if (Checkdesk.currentUser.team_ids.indexOf(teamId) > -1) {
+      Checkdesk.history.push('/team/' + teamId);
+    }
+  }
+
+  componentWillMount() {
+    this.redirectIfMember();
+  }
+
+  componentWillUpdate() {
+    this.redirectIfMember();
+  }
+
   render() {
     const team = this.props.team
     const teamUrl = '/team/' + team.dbid;
 
-    var isLoggedIn = true;
     var isRequestSent = this.state.isRequestSent;
 
     return (
@@ -54,25 +68,17 @@ class JoinTeamComponent extends Component {
         <Message message={this.state.message} />
         <h2 className='join-team__main-heading'>Request to Join</h2>
         <div className='join-team__blurb'>
-          <p className='join-team__blurb-graf'>To request access to the <a href={teamUrl}>{team.name}</a> Check, {isLoggedIn ? 'click here:' : 'please sign in:'}</p>
-          {(() => {
-            if (isLoggedIn) {
-              return (
-                <div>
-                  <button
-                    className={'join-team__button' + (isRequestSent ? ' join-team__button--submitted' : '')}
-                    onClick={this.handleRequestAccess.bind(this)}
-                    disabled={isRequestSent}
-                  >
-                    {isRequestSent ? 'Request Sent' : 'Request to Join'}
-                  </button>
-                  <p className='join-team__blurb-graf'>Your request {isRequestSent ? 'has been' : 'will be'} sent to the project admins for approval.</p>
-                </div>
-              );
-            } else {
-              return (<Link to='/signin' className='join-team__button-link'><button className='join-team__button'>Sign In »</button></Link>);
-            }
-          })()}
+          <p className='join-team__blurb-graf'>To request access to the <Link to={teamUrl}>{team.name}</Link> Check, click below:</p>
+            <div>
+              <button
+                className={'join-team__button' + (isRequestSent ? ' join-team__button--submitted' : '')}
+                onClick={this.handleRequestAccess.bind(this)}
+                disabled={isRequestSent}
+              >
+                {isRequestSent ? 'Request Sent' : 'Request to Join'}
+              </button>
+              <p className='join-team__blurb-graf'>Your request {isRequestSent ? 'has been' : 'will be'} sent to the project admins for approval.</p>
+            </div>
         </div>
       </div>
     );

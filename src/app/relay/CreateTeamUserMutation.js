@@ -17,9 +17,7 @@ class CreateTeamUserMutation extends Relay.Mutation {
   }
 
   getVariables() {
-    return { team_id: this.props.team_id,
-            user_id: this.props.user_id,
-            status: this.props.status,   };
+    return { team_id: this.props.team_id, user_id: this.props.user_id, status: this.props.status };
   }
 
   getConfigs() {
@@ -28,7 +26,8 @@ class CreateTeamUserMutation extends Relay.Mutation {
       children: [Relay.QL`
         fragment on CreateTeamUserPayload {
           team_user {
-            id,status
+            id,
+            status
           }
         }`
       ]
