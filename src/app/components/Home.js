@@ -127,6 +127,9 @@ class Home extends Component {
     const routeIsPublic = children && children.props.route.public;
     if (!routeIsPublic && !state.app.token) {
       if (state.app.error) {
+        if (!state.app.message && children.props.route.path === 'team/:teamId/join') {
+          state.app.message = 'First you need to register. Once registered, you can request to join the team.';
+        }
         return (<LoginMenu {...this.props} />);
       }
       return null;
