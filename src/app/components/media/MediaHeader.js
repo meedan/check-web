@@ -75,8 +75,6 @@ const MediaHeaderContainer = Relay.createContainer(MediaHeaderComponent, {
 
 class MediaHeader extends Component {
   render() {
-    console.log(this.props.params);
-    console.log(this.props);
     var route = new MediaRoute({ mediaId: this.props.params.mediaId });
     return (<Relay.RootContainer Component={MediaHeaderContainer} route={route} />);
   }

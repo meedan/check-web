@@ -1,5 +1,5 @@
 {
-  "name": "Checkdesk",
+  "name": "Check",
   "version": "0.0.1",
   "description": "Verify breaking news online",
   "private": true,
@@ -20,7 +20,7 @@
     "react",
     "reactjs",
     "redux",
-    "checkdesk"
+    "checkmedia"
   ],
   "authors": [
     "Meedan"

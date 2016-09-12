@@ -54,7 +54,7 @@ class JoinTeamComponent extends Component {
         <Message message={this.state.message} />
         <h2 className='join-team__main-heading'>Request to Join</h2>
         <div className='join-team__blurb'>
-          <p className='join-team__blurb-graf'>To request access to the <a href={teamUrl}>{team.name}</a> Checkdesk, {isLoggedIn ? 'click here:' : 'please sign in:'}</p>
+          <p className='join-team__blurb-graf'>To request access to the <a href={teamUrl}>{team.name}</a> Check, {isLoggedIn ? 'click here:' : 'please sign in:'}</p>
           {(() => {
             if (isLoggedIn) {
               return (
