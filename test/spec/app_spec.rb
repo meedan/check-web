@@ -278,7 +278,7 @@ describe 'app' do
       expect(@driver.find_elements(:xpath, "//*[contains(@id, 'pender-iframe')]").empty?).to be(true)
       fill_field('#create-account-url', 'https://www.facebook.com/ironmaiden/?fref=ts')
       press_button('#create-account-preview')
-      sleep 10
+      sleep 15
       expect(@driver.find_elements(:xpath, "//*[contains(@id, 'pender-iframe')]").empty?).to be(false)
     end
 
@@ -289,7 +289,7 @@ describe 'app' do
       fill_field('#create-account-url', @source_url)
       sleep 1
       press_button('#create-account-submit')
-      sleep 10
+      sleep 15
       expect(@driver.current_url.to_s.match(/\/source\/[0-9]+$/).nil?).to be(false)
       title = get_element('.source-name').text
       expect(title == 'Iron Maiden').to be(true)
@@ -628,7 +628,6 @@ describe 'app' do
       sleep 3
 
       expect(@driver.page_source.include?('This is a test')).to be(true)
-      expect(@driver.page_source.include?('Undetermined')).to be(true)
       expect(@driver.page_source.include?('Not Applicable')).to be(false)
 
       @driver.navigate.to media_link
@@ -638,10 +637,9 @@ describe 'app' do
       sleep 3
 
       @driver.navigate.to @config['self_url']
-      sleep 3
+      sleep 5
 
       expect(@driver.page_source.include?('This is a test')).to be(true)
-      expect(@driver.page_source.include?('Undetermined')).to be(false)
       expect(@driver.page_source.include?('Not Applicable')).to be(true)
     end
 
@@ -655,50 +653,16 @@ describe 'app' do
     end
 
     it "should change a media status via the dropdown menu" do
-      # TODO: http://stackoverflow.com/a/36159452
-      @driver.navigate.to @config['self_url']
-      sleep 1
-      @driver.find_element(:xpath, "//a[@id='login-email']").click
-      sleep 1
-      @driver.find_element(:xpath, "//button[@id='register-or-login']").click
-      sleep 1
-      random = Time.now.to_i
-      fill_field('.login-name input', 'User With Email')
-      fill_field('.login-email input', "#{random}@foo.bar")
-      fill_field('.login-password input', '12345678')
-      fill_field('.login-password-confirmation input', '12345678')
-      press_button('#submit-register-or-login')
-      sleep 3
-
-      if @driver.find_elements(:css, '.create-team').size > 0
-        fill_field('#team-name-container', "Team #{Time.now.to_i}")
-        sleep 1
-        fill_field('#team-subdomain-container', "team#{Time.now.to_i}")
-        sleep 1
-        press_button('.create-team__submit-button')
-        sleep 5
-      end
-      @driver.navigate.to @config['self_url']
-      sleep 3
-
-      title = "Project #{Time.now}"
-      fill_field('#create-project-title', title)
-      @driver.action.send_keys(:enter).perform
+      login_with_email
       sleep 5
-      expect(@driver.current_url.to_s.match(/\/project\/[0-9]+$/).nil?).to be(false)
-      link = get_element('.team-sidebar__project-link')
-      expect(link.text == title).to be(true)
-
-      fill_field('#create-media-url', @media_url)
+      
+      fill_field('#create-media-url', 'https://twitter.com/marcouza/status/771009514732650497?t=' + Time.now.to_i.to_s)
       sleep 1
       press_button('#create-media-submit')
       sleep 10
-      $media_id = @driver.current_url.to_s.match(/\/media\/([0-9]+)$/)[1]
-      expect($media_id.nil?).to be(false)
+      media_link = @driver.current_url.to_s
 
       current_status = @driver.find_element(:css, '.media-status__label')
-      puts current_status
-      puts current_status.text
       expect(current_status.text == 'UNDETERMINED').to be(true)
 
       current_status.click
@@ -707,6 +671,7 @@ describe 'app' do
       verified_menu_item.click
       sleep 3
       current_status = @driver.find_element(:css, '.media-status__label')
+      
       expect(current_status.text == 'VERIFIED').to be(true)
       expect(@driver.page_source.include? 'Status set to "Verified"').to be(true)
     end
