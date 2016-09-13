@@ -687,5 +687,21 @@ describe 'app' do
     it "should redirect to team page if user asking to join a team is already a member" do
       skip("Needs to be implemented")
     end
+
+    it "should reject member to join team" do
+      skip("Needs to be implemented")
+    end
+
+    it "should accept member to join team" do
+      skip("Needs to be implemented")
+    end
+
+    it "should change member role" do
+      skip("Needs to be implemented")
+    end
+
+    it "should delete member from team" do
+      skip("Needs to be implemented")
+    end
   end
 end
