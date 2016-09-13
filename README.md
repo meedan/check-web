@@ -47,9 +47,9 @@ For better debugging, change `NODE_ENV` to `development` at `webpack/config.js`.
 
 ### Missing tests
 
-If you don't have time to implement a test for your feature, still add a test for that, like this:
+If you don't have time to implement a test for your feature, please add a pending test for that, like this:
 
-```
+```ruby
 it "should do whatever my feature expects" do
   skip("Needs to be implemented")
 end
