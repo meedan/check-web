@@ -151,7 +151,7 @@ class CreateTeam extends Component {
               <label className={this.state.subdomainLabelClass}>Team URL</label>
               <p className='create-team__team-subdomain-message'>{this.state.subdomainMessage}</p>
             </div>
-            <span className='create-team__root-domain'>.checkdesk.org</span>
+            <span className='create-team__root-domain'>.checkmedia.org</span>
           </div>
 
           <button type='submit' onClick={this.handleSubmit.bind(this)} className='create-team__submit-button'>Create</button>
