@@ -703,5 +703,13 @@ describe 'app' do
     it "should delete member from team" do
       skip("Needs to be implemented")
     end
+
+    it "should delete annotation from annotations list (for media, source and project)" do
+      skip("Needs to be implemented")
+    end
+
+    it "should delete tag from tags list (for media and source)" do
+      skip("Needs to be implemented")
+    end
   end
 end
