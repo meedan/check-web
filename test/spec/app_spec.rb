@@ -139,12 +139,6 @@ describe 'app' do
       expect(@driver.find_elements(:css, '.teams').empty?).to be(false)
     end
 
-    it "should list sources" do
-      login_with_email
-      @driver.find_element(:xpath, "//a[@id='link-sources']").click
-      expect(@driver.current_url.match(/\/sources$/).nil?).to be(false)
-    end
-
     it "should go to user page" do
       login_with_email
       @driver.find_element(:css, '.fa-gear').click

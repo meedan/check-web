@@ -76,6 +76,7 @@ class TeamSidebarComponent extends Component {
           })()}
         </section>
 
+        {/*
         <section className='team-sidebar__sources'>
           <h2 className='team-sidebar__sources-heading'>
           {(() => {
@@ -87,16 +88,6 @@ class TeamSidebarComponent extends Component {
           })()}
           </h2>
           <ul className='team-sidebar__sources-list'>
-            {/* Possibly list sources in sidebar but let's not worry about it right now
-            <li className='team-sidebar__source'>
-              <img src={sources[0].icon} className='team-sidebar__source-icon' />
-              <Link to="/team/:teamId/sources/1" className='team-sidebar__source-link' activeClassName='team-sidebar__source-link--active'>{sources[0].name}</Link>
-            </li>
-            <li className='team-sidebar__source'>
-              <img src={sources[1].icon} className='team-sidebar__source-icon' />
-              <Link to="/team/:teamId/sources/2" className='team-sidebar__source-link' activeClassName='team-sidebar__source-link--active'>{sources[0].name}</Link>
-            </li>
-            */}
             {(() => {
               if (currentTeam) {
                 return (
@@ -109,6 +100,7 @@ class TeamSidebarComponent extends Component {
             })()}
           </ul>
         </section>
+        */}
 
         <footer className='team-sidebar__footer'>
           <button onClick={this.handleSwitchTeams.bind(this)} className='team-sidebar__switch-teams-button'>

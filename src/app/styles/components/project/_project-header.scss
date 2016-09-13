@@ -122,6 +122,10 @@
   cursor: pointer;
 }
 
+.project-header__project-search-icon {
+  display: none;
+}
+
 .project-header__project-settings-overlay {
   position: fixed;
   z-index: 1;
