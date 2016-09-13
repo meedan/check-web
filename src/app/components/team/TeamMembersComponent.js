@@ -51,7 +51,7 @@ class TeamMembersComponent extends Component {
         <h1 className='team-members__main-heading'>Members</h1>
         
         <div className='team-members__blurb'>
-          <p className='team-members__blurb-graf'>To invite colleagues to join {team.name}, send them this link:</p>
+          <p className='team-members__blurb-graf'>To invite colleagues to join <Link to={teamUrl}>{team.name}</Link>, send them this link:</p>
           <p className='team-members__blurb-graf--url'><a href={joinUrl}>{window.location.origin + joinUrl}</a></p>
         </div>
 

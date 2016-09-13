@@ -3,8 +3,10 @@ import Relay from 'react-relay';
 import UpdateProjectMutation from '../../relay/UpdateProjectMutation';
 import DeleteProjectMutation from '../../relay/DeleteProjectMutation';
 import Message from '../Message';
+import Can from '../Can';
 import ProjectRoute from '../../relay/ProjectRoute';
 import UserMenuRelay from '../../relay/UserMenuRelay';
+import { Link } from 'react-router';
 import { logout } from '../../actions/actions';
 
 class ProjectHeaderComponent extends Component {
@@ -153,12 +155,23 @@ class ProjectHeaderComponent extends Component {
             <i className='project-header__project-search-icon fa fa-search'></i>
             <i className='project-header__project-settings-icon fa fa-gear' onClick={this.toggleSettings.bind(this)}></i>
             <div className={this.bemClass('project-header__project-settings-overlay', this.state.isSettingsMenuOpen, '--active')} onClick={this.toggleSettings.bind(this)}></div>
+
             <ul className={this.bemClass('project-header__project-settings-panel', this.state.isSettingsMenuOpen, '--active')}>
-              <li className='project-header__project-setting project-header__project-setting--edit' onClick={this.enableEdit.bind(this)}>Edit project...</li>
-              {/*<li className='project-header__project-setting project-header__project-setting--delete' onClick={this.deleteProject.bind(this)}>Delete project</li>*/}
+              
               <li className='TODO project-header__project-setting'>
                 <UserMenuRelay {...this.props} />
               </li>
+              
+              <Can permissions={project.permissions} permission="update Project">
+                <li className='project-header__project-setting project-header__project-setting--edit' onClick={this.enableEdit.bind(this)}>Edit project...</li>
+              </Can>
+              
+              <Can permissions={project.team.permissions} permission="update Team">
+                <li className='project-header__project-setting project-header__project-setting--manage-team' onClick={Checkdesk.history.push.bind(this, '/team/' + project.team.dbid + '/members')}>Manage team...</li>
+              </Can>
+              
+              {/*<li className='project-header__project-setting project-header__project-setting--delete' onClick={this.deleteProject.bind(this)}>Delete project</li>*/}
+
               <li className='TODO project-header__project-setting' onClick={logout}>Sign Out</li>
             </ul>
           </div>
@@ -175,7 +188,13 @@ const ProjectHeaderContainer = Relay.createContainer(ProjectHeaderComponent, {
         id,
         dbid,
         title,
-        description
+        description,
+        permissions,
+        team {
+          id,
+          dbid,
+          permissions
+        }
       }
     `
   }

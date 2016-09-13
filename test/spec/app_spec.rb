@@ -711,5 +711,13 @@ describe 'app' do
     it "should delete tag from tags list (for media and source)" do
       skip("Needs to be implemented")
     end
+
+    it "should show 'manage team' link only to team owners" do
+      skip("Needs to be implemented")
+    end
+
+    it "should show 'edit project' link only to users with 'update project' permission" do
+      skip("Needs to be implemented")
+    end
   end
 end
