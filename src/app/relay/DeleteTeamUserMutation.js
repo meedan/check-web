@@ -25,13 +25,7 @@ class DeleteTeamUserMutation extends Relay.Mutation {
   }
 
   getConfigs() {
-    return [{
-      type: 'NODE_DELETE',
-      parentName: this.props.parent_type,
-      parentID: this.props.parentID,
-      connectionName: 'users',
-      deletedIDFieldName: 'deletedId',
-    }];
+    return [];
   }
 }
 

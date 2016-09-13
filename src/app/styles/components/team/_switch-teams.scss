@@ -43,6 +43,7 @@
   &, &:hover { text-decoration: none; }
   height: 100%; width: 100%;
   text-decoration: none;
+  cursor: pointer;
 }
 
 .switch-teams__team-avatar {
@@ -80,6 +81,7 @@
 .switch-teams__cancel-join-request {
   @include unbutton;
   color: $red-500;
+  margin-left: 20px;
 }
 
 .switch-teams__new-team-link {

@@ -713,5 +713,13 @@ describe 'app' do
     it "should show 'edit project' link only to users with 'update project' permission" do
       skip("Needs to be implemented")
     end
+
+    it "should switch teams" do
+      skip("Needs to be implemented")
+    end
+
+    it "should cancel request through switch teams" do
+      skip("Needs to be implemented")
+    end
   end
 end

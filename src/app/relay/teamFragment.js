@@ -27,7 +27,7 @@ var teamFragment = Relay.QL`
         }
       }
     },
-    projects(first: 20) {
+    projects(first: 10000) {
       edges {
         node {
           title,

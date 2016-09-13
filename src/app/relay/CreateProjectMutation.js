@@ -40,7 +40,7 @@ class CreateProjectMutation extends Relay.Mutation {
         connectionName: 'projects',
         edgeName: 'projectEdge',
         rangeBehaviors: {
-          '': 'append'
+          '': 'prepend'
         }
       }
     ];

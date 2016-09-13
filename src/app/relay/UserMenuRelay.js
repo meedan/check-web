@@ -2,16 +2,11 @@ import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 import MeRoute from './MeRoute';
 import UserMenu from '../components/UserMenu';
+import userFragment from './userFragment';
 
 const UserMenuContainer = Relay.createContainer(UserMenu, {
   fragments: {
-    me: () => Relay.QL`
-      fragment on User {
-        name,
-        provider,
-        profile_image
-      }
-    `
+    me: () => userFragment
   }
 });
 

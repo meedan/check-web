@@ -56,7 +56,7 @@ const ProjectContainer = Relay.createContainer(ProjectComponent, {
         team {
           id,
           dbid,
-          projects(first: 20) {
+          projects(first: 10000) {
             edges {
               node {
                 id,
@@ -66,7 +66,7 @@ const ProjectContainer = Relay.createContainer(ProjectComponent, {
             }
           }
         },
-        annotations(first: 20) {
+        annotations(first: 10000) {
           edges {
             node {
               id,
@@ -80,7 +80,7 @@ const ProjectContainer = Relay.createContainer(ProjectComponent, {
             }
           }
         },
-        medias(first: 20) {
+        medias(first: 10000) {
           edges {
             node {
               id,

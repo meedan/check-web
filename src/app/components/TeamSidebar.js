@@ -41,19 +41,6 @@ class TeamSidebarComponent extends Component {
   render() {
     var currentTeam = this.props.team;
 
-    var otherTeams = [
-      // TODO
-    ];
-    var pendingTeams = [
-      // TODO
-    ];
-
-    function membersCountString(count) {
-      if (typeof count === 'number') {
-        return count.toString() + ' member' + (count === 1 ? '' : 's');
-      }
-    }
-
     return (
       <nav className='team-sidebar'>
         <section className='team-sidebar__projects'>
@@ -115,7 +102,7 @@ class TeamSidebarComponent extends Component {
                 <FontAwesome className='team-sidebar__switch-teams-title-icon' name='random' />
                 <span>Switch Teams</span>
               </h2>
-              <SwitchTeams currentTeam={currentTeam} otherTeams={otherTeams} pendingTeams={pendingTeams} />
+              <SwitchTeams />
             </section>
           </div>
         </footer>
