@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import App from './App';
-import { IndexComponent, TermsOfService, NotFound, CreateAccount, AccessDenied } from '../components';
+import { IndexComponent, TermsOfService, NotFound, CreateAccount, AccessDenied, PrivacyPolicy } from '../components';
 import { Sources, Source, User, Me } from '../components/source';
 import Team  from '../components/team/Team';
 import { CreateMedia, Media } from '../components/media';
@@ -30,6 +30,7 @@ export default class Root extends Component {
           <Route path="/" component={App}>
             <IndexRoute component={IndexComponent} />
             <Route path="tos" component={TermsOfService} public={true} />
+            <Route path="privacy" component={PrivacyPolicy} public={true} />
             <Route path="team/:teamId/sources" component={Sources} />
             <Route path="team/:teamId/sources/new" component={CreateAccount} />
             <Route path="team/:teamId/source/:sourceId" component={Source} />

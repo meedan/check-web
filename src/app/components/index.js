@@ -10,3 +10,4 @@ export TermsOfService from './TermsOfService';
 export UserMenu from './UserMenu';
 export CreateAccount from './CreateAccount';
 export AccessDenied from './AccessDenied';
+export PrivacyPolicy from './PrivacyPolicy';
