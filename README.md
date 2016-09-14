@@ -21,7 +21,7 @@ Verify breaking news online
 * `npm run publish` (which basically serves the contents from `build/web`)
 * Open your browser and go to http://localhost:3333
 
-For better debugging, change `NODE_ENV` to `development` at `webpack/config.js`.
+For better debugging, set your `NODE_ENV` environment variable to `development` instead of `production`.
 
 ### Running on Docker
 
