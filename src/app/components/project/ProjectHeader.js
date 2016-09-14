@@ -111,6 +111,10 @@ class ProjectHeaderComponent extends Component {
     }
   }
 
+  contactHuman() {
+    window.location.href = 'mailto:check@meedan.com?subject=Support Request for Check';
+  }
+
   render() {
     const project = this.props.project;
 
@@ -171,6 +175,8 @@ class ProjectHeaderComponent extends Component {
               </Can>
               
               {/*<li className='project-header__project-setting project-header__project-setting--delete' onClick={this.deleteProject.bind(this)}>Delete project</li>*/}
+              
+              <li className='TODO project-header__project-setting' onClick={this.contactHuman.bind(this)}>Contact a Human</li>
 
               <li className='TODO project-header__project-setting' onClick={logout}>Sign Out</li>
             </ul>

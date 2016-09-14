@@ -19,6 +19,10 @@ class HeaderActions extends Component {
     return modifierBoolean ? [baseClass, baseClass + modifierSuffix].join(' ') : baseClass;
   }
 
+  contactHuman() {
+    window.location.href = 'mailto:check@meedan.com?subject=Support Request for Check';
+  }
+
   render() {
     const project = this.props.project;
 
@@ -29,6 +33,7 @@ class HeaderActions extends Component {
         <div className={this.bemClass('project-header__project-settings-overlay', this.state.isSettingsMenuOpen, '--active')} onClick={this.toggleSettingsMenu.bind(this)}></div>
         <ul className={this.bemClass('project-header__project-settings-panel', this.state.isSettingsMenuOpen, '--active')}>
           <li className='TODO project-header__project-setting'><UserMenuRelay {...this.props} /></li>
+          <li className='TODO project-header__project-setting' onClick={this.contactHuman.bind(this)}>Contact a Human</li>
           <li className='TODO project-header__project-setting' onClick={logout}>Sign Out</li>
         </ul>
       </div>
