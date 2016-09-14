@@ -28,6 +28,7 @@ class HeaderActions extends Component {
 
     return (
       <div className={this.bemClass('project-header__project-settings', this.state.isSettingsMenuOpen, '--active')}>
+        <span style="position: absolute; top: 0; right: 15px; font-size: 10px; border-radius: 0 0 4px 4px; background-color: #c00000; color: white!important; padding: 2px 4px;">EARLY DEMO</span>
         <i className='project-header__project-search-icon fa fa-search'></i>
         <i className='project-header__project-settings-icon fa fa-gear' onClick={this.toggleSettingsMenu.bind(this)}></i>
         <div className={this.bemClass('project-header__project-settings-overlay', this.state.isSettingsMenuOpen, '--active')} onClick={this.toggleSettingsMenu.bind(this)}></div>
