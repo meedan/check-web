@@ -12,7 +12,8 @@ class LoginMenu extends Component {
 
         <img className='login-menu__icon' src='/images/logo/logo-1.svg'/>
         <h1 className='login-menu__heading'>Sign in</h1>
-        <p className='login-menu__blurb'>Verify breaking news with Check. <a href='/tour' className='login-menu__blurb-link'>Tour »</a></p>
+        <p className='login-menu__blurb' style="margin: 0 auto 1em; max-width: 500px;">Welcome to Check. Invite your team and online community in a secure environment to work together to verify breaking news content. Then, quickly show the work to your audience on social media or your news site.</p>
+        <p>Currently in Beta. Optimized for Chrome desktop.</p>
         <ul className="login-menu__options">
           <li className="item">
             <button onClick={loginTwitter} id="twitter-login" className='login-menu__button login-menu__button--twitter'>Sign in with Twitter</button>
