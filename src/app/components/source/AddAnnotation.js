@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 import TextField from 'material-ui/lib/text-field';
+import FlatButton from 'material-ui/lib/flat-button';
 import Colors from 'material-ui/lib/styles/colors';
 import CreateCommentMutation from '../../relay/CreateCommentMutation';
 import CreateTagMutation from '../../relay/CreateTagMutation';
@@ -25,6 +26,9 @@ class AddAnnotation extends Component {
     if (matches !== null) {
       command.type = matches[1];
       command.args = matches[2];
+    }
+    else if (/^[^\/]/.test(input)) {
+      command = { type: 'comment', args: input };
     }
     return command;
   }
@@ -176,9 +180,16 @@ class AddAnnotation extends Component {
   render() {
     return (
       <form className='add-annotation' name="addannotation" onSubmit={this.submit.bind(this)}>
-        <TextField hintText="Type /status Verified or False to verify this report... (or /comment to comment)" fullWidth={true} errorStyle={styles.errorStyle}
-                   onFocus={this.handleFocus.bind(this)} ref={(ref) => this.cmd = ref} errorText={this.state.message} name="cmd"
+        <TextField hintText="Type /status Verified or False to verify this report... (or /comment to comment)"
+                   fullWidth={false}
+                   style={{width: '80%'}}
+                   errorStyle={styles.errorStyle}
+                   onFocus={this.handleFocus.bind(this)}
+                   ref={(ref) => this.cmd = ref}
+                   errorText={this.state.message}
+                   name="cmd"
                    className="cmd-input" />
+        <FlatButton label="Submit" primary={true} type="submit" style={{width: '20%'}} />
       </form>
     );
   }
