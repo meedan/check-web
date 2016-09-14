@@ -6,6 +6,11 @@ $home-content-padding: 23px;
   display: flex;
   flex-direction: column;
   background: $home-bg;
+  position: relative;
+}
+
+body.with-unsupported-browser-message .home {
+  margin-top: 32px;
 }
 
 .home__content {
@@ -25,9 +30,9 @@ $home-content-padding: 23px;
 }
 
 .home__demo-banner {
-  position: absolute;
+  position: fixed;
   top: 0;
-  right: 15px;
+  right: 20px;
   font-size: 10px;
   border-radius: 0 0 4px 4px;
   background-color: #c00000;

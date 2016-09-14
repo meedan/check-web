@@ -13,6 +13,7 @@ import { Link } from 'react-router';
 import FontAwesome from 'react-fontawesome';
 import config from 'config';
 import CheckdeskNetworkLayer from '../CheckdeskNetworkLayer';
+import BrowserSupport from './BrowserSupport'
 
 const muiTheme = getMuiTheme({
   palette: {
@@ -139,15 +140,18 @@ class Home extends Component {
     }
 
     return (
-      <div className='home'>
-        <span className='home__demo-banner'>EARLY DEMO</span>
-        <Header {...this.props} />
-        <main className='home__content'>
-          <div className='home__global-message global-message'><Message message={state.app.message} /></div>
-          <div className='home__main'>{children}</div>
-        </main>
-        <FooterRelay {...this.props} />
-      </div>
+      <span>
+        <BrowserSupport />
+        <div className='home'>
+          <span className='home__demo-banner'>EARLY DEMO</span>
+          <Header {...this.props} />
+          <main className='home__content'>
+            <div className='home__global-message global-message'><Message message={state.app.message} /></div>
+            <div className='home__main'>{children}</div>
+          </main>
+          <FooterRelay {...this.props} />
+        </div>
+      </span>
     );
   }
 }
