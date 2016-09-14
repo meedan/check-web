@@ -24,10 +24,10 @@ body.with-unsupported-browser-message .header {
   font-size: 14px;
   color: $black;
 
-  .fa-close {
+  .close {
     position: absolute;
     right: 5px;
-    top: 10px;
+    top: 0;
     cursor: pointer;
   }
 }

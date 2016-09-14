@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import FontAwesome from 'react-fontawesome';
 
 class BrowserSupport extends Component {
   constructor(props) {
@@ -57,7 +56,7 @@ class BrowserSupport extends Component {
       return (
         <div className='unsupported-browser'>
           <span>Check is optimized for Google Chrome on desktop </span>
-          <FontAwesome name='close' onClick={this.close.bind(this)} />
+          <span className='close' onClick={this.close.bind(this)}>✖</span>
         </div>);
     }
     else {
