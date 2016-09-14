@@ -31,9 +31,7 @@ class Home extends Component {
       get headers() {
         var headers = config.relayHeaders;
         if (token) {
-          headers = {
-            'X-Checkdesk-Token': token
-          }
+          headers['X-Checkdesk-Token'] = token;
         }
         if (Checkdesk.context.team) {
           headers['X-Checkdesk-Context-Team'] = Checkdesk.context.team.dbid;

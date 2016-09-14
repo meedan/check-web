@@ -99,29 +99,26 @@ class CreateTeam extends Component {
          subdomain = document.getElementById('team-subdomain-container').value;
 
      var onFailure = (transaction) => {
-
-         transaction.getError().json().then(function(json) {
-           var message = 'Sorry, could not create the team';
-           if (json.error) {
-             message = json.error;
-           }
-           that.setState({ message: message });
-         });
-
+       transaction.getError().json().then(function(json) {
+         var message = 'Sorry, could not create the team';
+         if (json.error) {
+           message = json.error;
+         }
+         that.setState({ message: message });
+       });
      };
 
      var onSuccess = (response) => {
-       var tid = response.createTeam.team.id;
-       var decodedId = base64.decode(tid).toLowerCase();
-       this.props.history.push('/' + decodedId);
        this.setState({ message: null });
-
+       const team = response.createTeam.team;
+       Checkdesk.context.team = team;
+       Checkdesk.history.push('/team/' + team.dbid);
      };
 
      Relay.Store.commitUpdate(
        new CreateTeamMutation({
         name: name,
-        description: "",
+        description: '',
         subdomain: subdomain
       }),
       { onSuccess, onFailure }
@@ -157,7 +154,6 @@ class CreateTeam extends Component {
           <button type='submit' onClick={this.handleSubmit.bind(this)} className='create-team__submit-button'>Create</button>
         </form>
       </main>
-
     );
   }
 }
