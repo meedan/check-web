@@ -136,8 +136,8 @@ class ProjectHeaderComponent extends Component {
                         autocomplete='off' />
                     </span>
                     <div className='project-header__project-editing-buttons'>
-                      <button className='project-header__project-editing-button project-header__project-editing-button--cancel' onClick={this.disableEdit.bind(this)}>Cancel</button>
                       <button className='project-header__project-editing-button project-header__project-editing-button--save'>Save</button>
+                      <button className='project-header__project-editing-button project-header__project-editing-button--cancel' onClick={this.disableEdit.bind(this)}>Cancel</button>
                     </div>
                   </form>
                 );
