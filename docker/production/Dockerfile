@@ -8,11 +8,10 @@ MAINTAINER sysops@meedan.com
 #
 
 # consolidate ENV for one cache layer
-ENV DEPLOYUSER=cddeploy \
+ENV DEPLOYUSER=checkdeploy \
     DEPLOYDIR=/app \
     PLATFORM=web \
-    APP=checkdesk-client \
-    BABEL_ENV=production \
+    APP=check-web \
     NODE_ENV=production
 
 # user config
