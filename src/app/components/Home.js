@@ -140,9 +140,10 @@ class Home extends Component {
 
     return (
       <div className='home'>
+        <span className='home__demo-banner'>EARLY DEMO</span>
         <Header {...this.props} />
         <main className='home__content'>
-          <div className="home__global-message global-message"><Message message={state.app.message} /></div>
+          <div className='home__global-message global-message'><Message message={state.app.message} /></div>
           <div className='home__main'>{children}</div>
         </main>
         <FooterRelay {...this.props} />
