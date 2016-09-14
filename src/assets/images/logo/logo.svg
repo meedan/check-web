@@ -1,68 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-
-<svg
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   version="1.1"
-   id="Layer_1"
-   x="0px"
-   y="0px"
-   width="844.5"
-   height="844.5"
-   viewBox="0 0 844.5 844.5"
-   enable-background="new 0 0 3413 844.5"
-   xml:space="preserve"
-   inkscape:version="0.48.3.1 r9886"
-   sodipodi:docname="checkdesk.svg"><metadata
-   id="metadata31"><rdf:RDF><cc:Work
-       rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
-         rdf:resource="http://purl.org/dc/dcmitype/StillImage" /></cc:Work></rdf:RDF></metadata><defs
-   id="defs29">
-	
-	
-
-		
-		
-		
-		
-		
-		
-		
-		
-		
-	</defs><sodipodi:namedview
-   pagecolor="#ffffff"
-   bordercolor="#666666"
-   borderopacity="1"
-   objecttolerance="10"
-   gridtolerance="10"
-   guidetolerance="10"
-   inkscape:pageopacity="0"
-   inkscape:pageshadow="2"
-   inkscape:window-width="1301"
-   inkscape:window-height="744"
-   id="namedview27"
-   showgrid="false"
-   inkscape:zoom="0.23867185"
-   inkscape:cx="1543.9766"
-   inkscape:cy="404.40554"
-   inkscape:window-x="65"
-   inkscape:window-y="24"
-   inkscape:window-maximized="1"
-   inkscape:current-layer="Layer_1" />
-<polygon
-   id="polygon5"
-   points="3413,844.4 3413,746.8 0,746.8 0,844.5 1594.4,844.5 1594.4,844.4 "
-   transform="scale(0.24743627,1)"
-   style="fill:#e2bc00;fill-opacity:1" /><path
-   d="m 563.9,268.8 c -34,-38.4 -58.6,-56.5 -110.8,-56.5 -36.9,0 -67.3,13.8 -92.7,40.5 -25.3,26.8 -37.7,60.8 -37.7,101.4 0,41.3 12.3,76 37.7,102.8 25.3,26.8 56.5,39.8 94.1,39.8 57.2,0 88.3,-21.7 123.8,-70.2 l 79.6,88.3 C 607.2,582.2 535.5,616.3 443.6,616.3 369,616.3 307.5,591.7 259,541.7 c -48.5,-50 -72.4,-113 -72.4,-187.5 0,-74.6 24.6,-136.1 73.9,-186.1 50,-50 111.5,-75.3 186.1,-75.3 81.8,0 149.2,30.4 200.6,90.5 l -83.3,85.5 z"
-   id="path9"
-   inkscape:connector-curvature="0"
-   style="fill:#e2bc00;fill-opacity:1" />
+<svg width="1024px" height="1024px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 39.1 (31720) - http://www.bohemiancoding.com/sketch -->
+    <title>Favicon</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Favicon" fill="#2E77FC">
+            <path d="M266,512.5 C266,470.302819 273.447055,432.077711 288.34139,397.823529 C303.235724,363.569347 323.591009,334.279979 349.407855,309.954545 C375.224701,285.629112 405.633511,266.88888 440.635196,253.733289 C475.636882,240.577697 512.996277,234 552.714502,234 C593.425682,234 631.902135,240.577697 668.145015,253.733289 C704.387895,266.88888 734.672587,284.636252 759,306.975936 L650.271903,438.034759 C640.342347,425.127386 627.930588,415.322894 613.036254,408.620989 C598.141919,401.919084 581.510162,398.568182 563.140483,398.568182 C548.246149,398.568182 534.344979,401.174439 521.436556,406.387032 C508.528133,411.599625 497.233432,419.170182 487.552115,429.09893 C477.870798,439.027679 470.299624,451.066106 464.838369,465.214572 C459.377113,479.363039 456.646526,495.12469 456.646526,512.5 C456.646526,529.87531 459.50123,545.388746 465.210725,559.040775 C470.92022,572.692804 478.615511,584.483016 488.296828,594.411765 C497.978145,604.340513 509.272846,611.91107 522.181269,617.123663 C535.089692,622.336256 548.742627,624.942513 563.140483,624.942513 C583.496074,624.942513 600.996654,620.722859 615.642749,612.283422 C630.288845,603.843986 641.831781,593.915387 650.271903,582.497326 L759,712.811497 C735.169065,736.640493 705.877314,755.62894 671.123867,769.777406 C636.37042,783.925873 596.901027,791 552.714502,791 C512.996277,791 475.636882,784.298195 440.635196,770.894385 C405.633511,757.490575 375.224701,738.502128 349.407855,713.928476 C323.591009,689.354824 303.235724,660.065455 288.34139,626.059492 C273.447055,592.053529 266,554.200743 266,512.5 L266,512.5 Z" id="Path"></path>
+        </g>
+    </g>
 </svg>
