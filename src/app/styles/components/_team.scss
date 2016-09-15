@@ -6,10 +6,12 @@
 
 .team {
   padding: 15px;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
 .team__profile {
-  text-align: center;
   position: relative;
 }
 
@@ -44,28 +46,30 @@
 
 .team__avatar {
   @include team-avatar(100px);
-  margin: 0px auto;
+  float: left;
+  margin-right: 15px;
+}
+
+.team__avatar + div { // TODO: add .team__copy class to markup
+  padding-top: 9px;
 }
 
 .team__name,
 .team__name-input,
 .team__name-link {
-  font-family: $font-stack-sans;
-  color: $dark-gray-text;
-  font-size: 21px;
-  font-weight: 600;
+  @include team-name(21px);
 }
 
 .team__name-input {
 }
 
 .team__name {
-  margin: 5px 0;
+  margin: 1px 0;
 }
 
 .team__name-link {
   display: inline-block;
-  margin: 5px 0;
+  margin: 1px 0;
 }
 
 .team__name-input,
@@ -73,25 +77,29 @@
   border: 1px solid hsl(204, 15%, 90%);
   border-radius: 2px;
   padding: 4px;
-  text-align: center;
   box-shadow: inset 0 0 2px 0px hsl(204, 15%, 97%);
 }
 
 .team__description,
 .team__description-input {
-  color: $dark-gray-text;
+  color: theme-gray(50%);
   font-size: 16px;
 }
 
 .team__description {
-  font-family: $font-stack-serif;
-  margin: 10px 0 15px 0;
-  height: 30px;
+  margin: 0 0 5px 0;
 }
 
 .team__description-text {
   margin: 0;
   padding: 5px 0;
+  color: inherit;
+
+  &:empty {
+    &:before {
+      content: "Verification Team"
+    }
+  }
 }
 
 .team__description-input {
@@ -132,46 +140,37 @@
 
 // content
 
-.team__content-tabs {
-  text-align: center;
-}
-
-.team__content-tab {
-  display: inline-block;
-  margin: 0 15px;
-  opacity: 0.3;
-}
-
-.team__content-tab--active {
-  opacity: 1;
-  border-bottom: 3px solid black;
+.team__content {
+  clear: left;
+  padding-top: 30px;
 }
 
 // projects
 
 .team__projects-heading {
   @include app-kicker;
-  text-align: center;
   margin: 0;
-  padding: 30px 25px 9px 25px;
-  // border-right: $layout-border;
+  color: theme-gray(75%);
 }
 
 .team__projects-list {
-  max-width: 350px;
   margin: 15px auto;
   color: $lighter-gray-text;
   line-height: 1.45;
-  padding-left: 12px;
   & > :last-child {
     padding-bottom: 45px;
+  }
+
+  & > :only-child {
+    font-size: 64px;
+    padding-top: 0;
   }
 }
 
 .team__project,
 .team__new-project {
-  font-size: 15px;
-  padding: 0.4em 13px;
+  font-size: 18px;
+  padding: 0.4em 0;
 }
 
 .team__project-link {
@@ -179,11 +178,9 @@
 }
 
 .team__new-project {
-  // border-right: $layout-border;
 }
 
 .team__new-project-input {
-  width: 145px;
   border: none;
   padding: 0;
   background: transparent;
