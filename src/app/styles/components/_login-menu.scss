@@ -15,6 +15,14 @@
 
 .login-menu__blurb {
   @include onboarding-blurb;
+  max-width: 500px;
+  margin: 0 auto 15px;
+}
+
+.login-menu__disclaimer {
+  color: theme-gray(75%);
+  font-size: 16px;
+  margin-bottom: 22px;
 }
 
 .login-menu__options {
