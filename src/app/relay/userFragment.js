@@ -13,7 +13,7 @@ var userFragment = Relay.QL`
       avatar,
       members_count
     },
-    team_users(first: 20) {
+    team_users(first: 10000) {
       edges {
         node {
           team {

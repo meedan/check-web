@@ -32,7 +32,7 @@ const SourcesContainer = Relay.createContainer(SourcesComponent, {
   fragments: {
     root: () => Relay.QL`
       fragment on RootLevel {
-        sources(first: 20) {
+        sources(first: 10000) {
           edges {
             node {
               id,

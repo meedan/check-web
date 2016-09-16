@@ -54,7 +54,7 @@ const MediaHeaderContainer = Relay.createContainer(MediaHeaderComponent, {
             dbid
           }
         }
-        tags(first: 20, context_id: $contextId) {
+        tags(first: 10000, context_id: $contextId) {
           edges {
             node {
               tag,

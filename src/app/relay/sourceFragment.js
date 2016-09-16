@@ -8,7 +8,7 @@ var sourceFragment = Relay.QL`
     image,
     user_id,
     description,
-    accounts(first: 20) {
+    accounts(first: 10000) {
       edges {
         node {
           url,
@@ -16,7 +16,7 @@ var sourceFragment = Relay.QL`
         }
       }
     },
-    tags(first: 20) {
+    tags(first: 10000) {
       edges {
         node {
           tag,
@@ -24,7 +24,7 @@ var sourceFragment = Relay.QL`
         }
       }
     },
-    annotations(first: 20) {
+    annotations(first: 10000) {
       edges {
         node {
           id,
@@ -38,7 +38,7 @@ var sourceFragment = Relay.QL`
         }
       }
     },
-    medias(first: 20) {
+    medias(first: 10000) {
       edges {
         node {
           id,
