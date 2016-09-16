@@ -8,7 +8,7 @@ var teamFragment = Relay.QL`
     avatar,
     description,
     subdomain,
-    team_users(first: 6) {
+    team_users(first: 10000) {
       edges {
         node {
           user{name,profile_image},status,team_id,user_id,id,role
