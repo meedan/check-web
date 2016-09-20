@@ -20,7 +20,7 @@ before_install:
 - cd check-api
 - bundle install
 - bundle exec rake db:migrate
-- rails s -p 3000 &
+- rails s -p 3000 >/dev/null &
 - cd -
 # pender
 - git clone https://github.com/meedan/pender.git
@@ -31,7 +31,7 @@ before_install:
 - bundle install
 - bundle exec rake db:migrate
 - rails runner 'a = ApiKey.create!; a.access_token = "test"; a.save!'
-- rails s -p 3005 &
+- rails s -p 3005 >/dev/null &
 - cd -
 # xvfb
 - export DISPLAY=:99.0
