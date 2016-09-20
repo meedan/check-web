@@ -11,7 +11,7 @@ before_install:
 - sudo apt-get install wget python-setuptools lsof unzip inkscape imagemagick ruby ruby-dev libnss3 libnss3-dev xvfb libnss3-1d libexif-dev curl build-essential libssl-dev libappindicator1 fonts-liberation -y
 # api
 - git clone https://github.com/meedan/check-api.git
-- openssl aes-256-cbc -K $encrypted_2e9696b0f841_key -iv $encrypted_2e9696b0f841_iv -in travis/check-api.enc -out check-api/config/config.yml -d
+- openssl aes-256-cbc -K $encrypted_6fe224c112de_key -iv $encrypted_6fe224c112de_iv -in travis/check-api.enc -out check-api/config/config.yml -d
 - cd check-api && bundle install
 - cp check-api/config/initializers/secret_token.rb.example check-api/config/initializers/secret_token.rb
 - cp check-api/config/database.yml.travis check-api/config/database.yml
@@ -20,12 +20,14 @@ before_install:
 # pender
 - git clone https://github.com/meedan/pender.git
 - openssl aes-256-cbc -K $encrypted_6fe224c112de_key -iv $encrypted_6fe224c112de_iv -in travis/pender.enc -out pender/config/config.yml -d
-- cd pender && bundle install
 - cp pender/config/initializers/secret_token.rb.example pender/config/initializers/secret_token.rb
 - cp pender/config/database.yml.travis pender/config/database.yml
+- cd pender
+- bundle install
 - RAILS_ENV=development bundle exec rake db:migrate
 - rails runner 'a = ApiKey.create!; a.access_token = "test"; a.save!'
 - rails s -p 3005 &
+- cd -
 # xvfb
 - export DISPLAY=:99.0
 - sh -e /etc/init.d/xvfb start
