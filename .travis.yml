@@ -5,12 +5,15 @@ node_js:
 services:
 - elasticsearch
 before_install:
+# decrypt configs
+- openssl aes-256-cbc -K $encrypted_6fe224c112de_key -iv $encrypted_6fe224c112de_iv -in travis.enc -out travis.zip -d
+- unzip travis.zip
 # apt dependencies
 - sudo apt-get -qq update
 - sudo apt-get install wget python-setuptools lsof unzip inkscape imagemagick ruby ruby-dev libnss3 libnss3-dev xvfb libnss3-1d libexif-dev curl build-essential libssl-dev libappindicator1 fonts-liberation -y
 # api
 - git clone https://github.com/meedan/check-api.git
-- openssl aes-256-cbc -K $encrypted_6a4fc03665e1_key -iv $encrypted_6a4fc03665e1_iv -in travis/check-api.enc -out check-api/config/config.yml -d
+- cp travis/check-api.yml check-api/config/config.yml
 - cp check-api/config/initializers/secret_token.rb.example check-api/config/initializers/secret_token.rb
 - cp check-api/config/database.yml.travis check-api/config/database.yml
 - cd check-api
@@ -20,7 +23,7 @@ before_install:
 - cd -
 # pender
 - git clone https://github.com/meedan/pender.git
-- openssl aes-256-cbc -K $encrypted_6a4fc03665e1_key -iv $encrypted_6a4fc03665e1_iv -in travis/pender.enc -out pender/config/config.yml -d
+- cp travis/pender.yml pender/config/config.yml
 - cp pender/config/initializers/secret_token.rb.example pender/config/initializers/secret_token.rb
 - cp pender/config/database.yml.travis pender/config/database.yml
 - cd pender
@@ -48,8 +51,8 @@ before_install:
 - gem install bundler
 - cd test && bundle install && cd -
 # config files
-- openssl aes-256-cbc -K $encrypted_6fe224c112de_key -iv $encrypted_6fe224c112de_iv -in travis/config.js.enc -out config.js -d
-- openssl aes-256-cbc -K $encrypted_2e9696b0f841_key -iv $encrypted_2e9696b0f841_iv -in travis/config.yml.enc -out test/config.yml -d
+- cp travis/config.js config.js
+- cp travis/config.yml test/config.yml
 before_script:
 - sleep 5
 - npm install

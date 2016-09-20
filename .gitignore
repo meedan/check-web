@@ -12,3 +12,5 @@ supervisord.pid
 supervisord.log
 config.js.travis
 config.yml.travis
+travis
+travis.zip
