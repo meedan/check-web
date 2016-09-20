@@ -53,6 +53,7 @@ before_install:
 - cd test && bundle install && cd -
 # config files
 - cp travis/config.js config.js
+- cp travis/config.js test/config.js
 - cp travis/config.yml test/config.yml
 before_script:
 - sleep 5
