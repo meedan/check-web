@@ -20,7 +20,7 @@ before_install:
 - sudo dpkg -i google-chrome*.deb
 - google-chrome --no-sandbox &
 # chromedriver
-- wget http://chromedriver.storage.googleapis.com/2.10/chromedriver_linux64.zip
+- wget http://chromedriver.storage.googleapis.com/2.20/chromedriver_linux64.zip
 - unzip chromedriver_linux64.zip
 - sudo mv chromedriver /usr/local/bin
 - sudo chmod a+x /usr/local/bin/chromedriver
