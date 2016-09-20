@@ -10,3 +10,5 @@ config.js
 releases/
 supervisord.pid
 supervisord.log
+config.js.travis
+config.yml.travis
