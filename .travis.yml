@@ -11,10 +11,10 @@ before_install:
 - sudo apt-get install wget python-setuptools lsof unzip inkscape imagemagick ruby ruby-dev libnss3 libnss3-dev xvfb libnss3-1d libexif-dev curl build-essential libssl-dev libappindicator1 fonts-liberation -y
 # api
 - git clone https://github.com/meedan/check-api.git
-- openssl aes-256-cbc -K $encrypted_2e9696b0f841_key -iv $encrypted_2e9696b0f841_iv -in travis/check-api.enc -out bridge-api/config/config.yml -d
+- openssl aes-256-cbc -K $encrypted_2e9696b0f841_key -iv $encrypted_2e9696b0f841_iv -in travis/check-api.enc -out check-api/config/config.yml -d
 - cd check-api && bundle install
-- cp bridge-api/config/initializers/secret_token.rb.example bridge-api/config/initializers/secret_token.rb
-- cp bridge-api/config/database.yml.travis bridge-api/config/database.yml
+- cp check-api/config/initializers/secret_token.rb.example check-api/config/initializers/secret_token.rb
+- cp check-api/config/database.yml.travis check-api/config/database.yml
 - RAILS_ENV=development bundle exec rake db:migrate
 - rails s -p 3000 &
 # pender
