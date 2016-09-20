@@ -6,7 +6,7 @@ before_install:
 - openssl aes-256-cbc -K $encrypted_2e9696b0f841_key -iv $encrypted_2e9696b0f841_iv -in test/config.yml.travis.enc -out test/config.yml -d
 - sudo apt-get -qq update
 - sudo apt-get install wget vim git man python-setuptools lsof unzip inkscape imagemagick ruby ruby-dev libnss3 libnss3-dev xvfb libnss3-1d x11vnc libexif-dev curl build-essential libssl-dev -y
-- wget --no-check-certificate -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+- wget --no-check-certificate -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
 - sudo echo 'deb http://dl.google.com/linux/chrome/deb/ stable main' >> /etc/apt/sources.list.d/google-chrome.list
 - sudo apt-get -qq update
 - sudo apt-get install google-chrome-stable -y
@@ -15,7 +15,7 @@ before_install:
 - sudo mv chromedriver /usr/local/bin
 - sudo chmod a+x /usr/local/bin/chromedriver
 - export DISPLAY=:99.0
-- sh -e /etc/init.d/xvfb start
+- sudo /etc/init.d/xvfb start
 - chromedriver &
 - google-chrome --no-sandbox &
 before_script:
