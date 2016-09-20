@@ -12,13 +12,14 @@ before_install:
 - sudo apt-get -qq update
 - sudo apt-get install wget python-setuptools lsof unzip inkscape imagemagick ruby ruby-dev libnss3 libnss3-dev xvfb libnss3-1d libexif-dev curl build-essential libssl-dev libappindicator1 fonts-liberation -y
 # api
+- export RAILS_ENV=development
 - git clone https://github.com/meedan/check-api.git
 - cp travis/check-api.yml check-api/config/config.yml
 - cp check-api/config/initializers/secret_token.rb.example check-api/config/initializers/secret_token.rb
 - cp check-api/config/database.yml.travis check-api/config/database.yml
 - cd check-api
 - bundle install
-- RAILS_ENV=development bundle exec rake db:migrate
+- bundle exec rake db:migrate
 - rails s -p 3000 &
 - cd -
 # pender
@@ -28,7 +29,7 @@ before_install:
 - cp pender/config/database.yml.travis pender/config/database.yml
 - cd pender
 - bundle install
-- RAILS_ENV=development bundle exec rake db:migrate
+- bundle exec rake db:migrate
 - rails runner 'a = ApiKey.create!; a.access_token = "test"; a.save!'
 - rails s -p 3005 &
 - cd -
