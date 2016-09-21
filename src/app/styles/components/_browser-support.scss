@@ -1,0 +1,50 @@
+$browser-support-height: 46px;
+$browser-support-height-mobile: 65px;
+
+.browser-support {
+  position: fixed;
+  top: 0;
+  height: $browser-support-height;
+  @media screen and (max-width: 500px) {
+    height: $browser-support-height-mobile;
+  }
+  width: 100%;
+  z-index: 6;
+
+  background: $orange-100;
+  padding: 15px 45px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $dark-gray-text;
+}
+
+.browser-support ~ .home {
+  &, & > .header {
+    top: $browser-support-height;
+    @media screen and (max-width: 500px) {
+      top: $browser-support-height-mobile;
+    }
+  }
+}
+
+.browser-support__message {
+  flex: 1;
+  margin-bottom: 0;
+
+  text-align: center;
+  line-height: 1.4;
+  font-size: 14px;
+}
+
+.browser-support__close {
+  position: absolute;
+  right: 17px;
+  top: 5px;
+
+  font-weight: 200;
+  font-size: 28px;
+  opacity: 0.2;
+  cursor: pointer;
+}

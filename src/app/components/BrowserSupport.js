@@ -30,23 +30,6 @@ class BrowserSupport extends Component {
     this.setState({ closed: true });
   }
 
-  toggleBodyClass() {
-    if (this.shouldShowMessage()) {
-      document.body.classList.add('with-unsupported-browser-message');
-    }
-    else {
-      document.body.classList.remove('with-unsupported-browser-message');
-    }
-  }
-
-  componentWillMount() {
-    this.toggleBodyClass();
-  }
-
-  componentWillUpdate() {
-    this.toggleBodyClass();
-  }
-
   shouldShowMessage() {
     return !this.supported() && !this.closed();
   }
@@ -54,9 +37,9 @@ class BrowserSupport extends Component {
   render() {
     if (this.shouldShowMessage()) {
       return (
-        <div className='unsupported-browser'>
-          <span>Check is optimized for Google Chrome on desktop </span>
-          <span className='close' onClick={this.close.bind(this)}>✖</span>
+        <div className='browser-support'>
+          <span className='browser-support__close' onClick={this.close.bind(this)}>×</span>
+          <p className='browser-support__message'>While in beta, Check is optimized for Google Chrome on desktop.</p>
         </div>);
     }
     else {

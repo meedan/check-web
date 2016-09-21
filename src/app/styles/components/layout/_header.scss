@@ -10,28 +10,6 @@
   box-shadow: $layout-box-shadow;
 }
 
-body.with-unsupported-browser-message .header {
-  top: 32px;
-}
-
-.unsupported-browser {
-  position: fixed; top: 0; right: 0; left: 0;
-  z-index: 4;
-  height: 32px;
-  line-height: 32px;
-  background: $mustard;
-  text-align: center;
-  font-size: 14px;
-  color: $black;
-
-  .close {
-    position: absolute;
-    right: 5px;
-    top: 0;
-    cursor: pointer;
-  }
-}
-
 // media page
 
 .header--media {
