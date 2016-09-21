@@ -21,7 +21,7 @@ class TeamHeaderComponent extends Component {
                 <div className='team-header__avatar' style={{'background-image': 'url(' + team.avatar + ')'}} title={team.name}></div>
                 <div className='team-header__copy'>
                   <h3 className='team-header__name'>{team.name}</h3>
-                  <span className='team-header__label'>Early Demo Team</span>
+                  <span className='team-header__label'>Team</span>
                 </div>
               </Link>
             );

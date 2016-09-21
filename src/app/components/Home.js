@@ -143,7 +143,7 @@ class Home extends Component {
       <span>
         <BrowserSupport />
         <div className='home'>
-          <span className='home__demo-banner'>EARLY DEMO</span>
+          <span className='home__disclaimer'>Beta</span>
           <Header {...this.props} />
           <main className='home__content'>
             <div className='home__global-message global-message'><Message message={state.app.message} /></div>
