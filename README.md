@@ -1,5 +1,7 @@
 # Check
 
+[![Travis](https://travis-ci.org/meedan/check-web.svg?branch=develop)](https://travis-ci.org/meedan/check-web/)
+
 Verify breaking news online
 
 ## Dependencies
