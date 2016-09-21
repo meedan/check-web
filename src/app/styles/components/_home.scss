@@ -9,10 +9,6 @@ $home-content-padding: 23px;
   position: relative;
 }
 
-body.with-unsupported-browser-message .home {
-  margin-top: 32px;
-}
-
 .home__content {
   padding-top: $layout-header-height;
   flex: 1;
