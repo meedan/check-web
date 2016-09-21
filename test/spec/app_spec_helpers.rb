@@ -4,7 +4,8 @@ module AppSpecHelpers
   end
 
   def get_element(selector, type = :css)
-    wait = Selenium::WebDriver::Wait.new(timeout: 15)
+    sleep 3
+    wait = Selenium::WebDriver::Wait.new(timeout: 5)
     return wait.until {
       element = @driver.find_element(type, selector)
       element if element.displayed?
@@ -21,6 +22,7 @@ module AppSpecHelpers
         element
       end
     }
+    sleep 1
     input.send_keys(value)
   end
 
