@@ -9,8 +9,7 @@ $media-card-padding: 8px 14px 14px 14px;
 }
 
 @mixin media-metadata {
-  color: theme-gray(75%);
-  font-size: 14px;
+  @include gray-text;
   margin-bottom: 2px;
 
   a {

@@ -27,7 +27,7 @@ class LoginEmail extends Component {
       'api_user[email]': this.state.email,
       'api_user[password]': this.state.password
     };
-    var failureCallback = function(message) { 
+    var failureCallback = function(message) {
           that.setState({ open: true, message: message });
         },
         successCallback = function(data) {
@@ -119,7 +119,9 @@ class LoginEmail extends Component {
             <TextField hintText="Your e-mail address" floatingLabelText="E-mail" fullWidth={true} name="email" className="login-email" value={this.state.email} onChange={this.handleFieldChange.bind(this)} /><br />
 
             <TextField hintText="Minimum 8 characters" floatingLabelText="Password" type="password" fullWidth={true} name="password" className="login-password" value={this.state.password} onChange={this.handleFieldChange.bind(this)} /><br />
-            
+
+            {this.state.type === 'login' ? (<p className='login-email__help-text'>Having trouble logging in? Please email check@meedan.com for assistance.</p>) : null}
+
             <span className={this.state.type === 'login' ? 'hidden' : ''}>
               <TextField hintText="Same as above" floatingLabelText="Password confirmation" type="password" fullWidth={true} name="password_confirmation" className="login-password-confirmation" value={this.state.password_confirmation} onChange={this.handleFieldChange.bind(this)} />
               <UploadImage onImage={this.onImage.bind(this)} />

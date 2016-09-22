@@ -50,3 +50,8 @@ $font-stack-serif: "Merriweather", Georgia, serif;
   color: theme-gray(75%);
   margin: 2px 0 0 0;
 }
+
+@mixin gray-text($size: 14px) {
+  color: theme-gray(75%);
+  font-size: $size;
+}

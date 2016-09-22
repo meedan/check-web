@@ -6,6 +6,11 @@
   color: $light-gray-text;
 }
 
+.login-email__help-text {
+  @include gray-text;
+  margin-top: 5px;
+}
+
 .upload-file > div {
   width: 100% !important;
   height: auto !important;
