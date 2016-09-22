@@ -17,9 +17,9 @@ import BrowserSupport from './BrowserSupport'
 
 const muiTheme = getMuiTheme({
   palette: {
-    primary1Color: Colors.blueGrey400,
-    primary2Color: Colors.blueGrey600,
-    primary3Color: Colors.blueGrey800,
+    primary1Color: Colors.blue500,
+    primary2Color: Colors.blue500,
+    primary3Color: Colors.blue500,
     accent1Color: Colors.blue600,
     accent2Color: Colors.blue700,
     accent3Color: Colors.blue800

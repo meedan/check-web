@@ -49,10 +49,10 @@ describe 'app' do
       sleep 1
       @driver.find_element(:xpath, "//button[@id='register-or-login']").click
       sleep 1
-      fill_field('.login-name input', 'User With Email And Photo')
-      fill_field('.login-email input', @email + '.br')
-      fill_field('.login-password input', '12345678')
-      fill_field('.login-password-confirmation input', '12345678')
+      fill_field('.login-email__name input', 'User With Email And Photo')
+      fill_field('.login-email__email input', @email + '.br')
+      fill_field('.login-email__password input', '12345678')
+      fill_field('.login-email__password-confirmation input', '12345678')
       file = File.join(File.dirname(__FILE__), 'test.png')
       fill_field('input[type=file]', file, :css, false)
       press_button('#submit-register-or-login')
@@ -649,7 +649,7 @@ describe 'app' do
     it "should change a media status via the dropdown menu" do
       login_with_email
       sleep 5
-      
+
       fill_field('#create-media-url', 'https://twitter.com/marcouza/status/771009514732650497?t=' + Time.now.to_i.to_s)
       sleep 1
       press_button('#create-media-submit')
@@ -665,7 +665,7 @@ describe 'app' do
       verified_menu_item.click
       sleep 3
       current_status = @driver.find_element(:css, '.media-status__label')
-      
+
       expect(current_status.text == 'VERIFIED').to be(true)
       expect(@driver.page_source.include? 'Status set to "Verified"').to be(true)
     end

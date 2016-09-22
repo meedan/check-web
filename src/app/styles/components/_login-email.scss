@@ -1,4 +1,28 @@
-.login-email {}
+.login-email {
+  text-align: left;
+}
+
+.login-email__modal {
+  position: absolute;
+  top: -10px;
+  left: 0; right: 0;
+  max-width: 500px;
+  margin: 0 auto;
+  transition:
+    top 300ms ease,
+    opacity 400ms ease;
+  pointer-events: none;
+  opacity: 0;
+
+  background: #fff;
+  padding-bottom: 60px;
+
+  &--open {
+    pointer-events: auto;
+    opacity: 1;
+    top: 0;
+  }
+}
 
 .login-email__link {
   display: inline-block;
@@ -6,10 +30,89 @@
   color: $light-gray-text;
 }
 
-.login-email__help-text {
-  @include gray-text;
-  margin-top: 5px;
+// modal
+
+.login-email__form {
+  padding: 0 50px;
 }
+
+.login-email__name,
+.login-email__email,
+.login-email__password,
+.login-email__password-confirmation {
+  margin-bottom: 30px - 5px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.login-email__name-input,
+.login-email__email-input,
+.login-email__password-input,
+.login-email__password-confirmation-input {
+  width: 100%;
+  order: 2;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(theme-gray(), 0.2);
+  transition: border-color 100ms ease;
+  font-size: 24px;
+  padding: 3px 0 6px;
+  &:focus {
+    outline: none;
+    border-color: hsl(208, 98%, 62%); // TODO: organize blues
+  }
+}
+
+.login-email__name-label,
+.login-email__email-label,
+.login-email__password-label,
+.login-email__password-confirmation-label {
+  order: 1;
+  display: block;
+  opacity: 0;
+  color: hsl(204, 15%, 50%);
+  transition:
+    color 200ms ease,
+    opacity 50ms ease;
+  font-size: 14px;
+  font-weight: 500;
+
+  &--text-entered {
+    opacity: 1;
+  }
+}
+
+// modal actions
+
+.login-email__actions {
+  padding-top: 10px;
+}
+
+.login-email__submit {
+  @include button-large;
+  @include button-green;
+  display: block;
+  // margin: 0 auto 21px;
+  // &--login { margin: 10px auto 75px; }
+  margin: 0 auto 75px;
+}
+
+.login-email__register-or-login,
+.login-email__cancel,
+.login-email__help-text {
+  @include gray-text(16px);
+  text-align: center;
+  margin: 0 0 17px;
+  width: 100%;
+}
+
+.login-email__register-or-login,
+.login-email__cancel {
+  @include unbutton;
+}
+
+//
 
 .upload-file > div {
   width: 100% !important;
@@ -27,7 +130,7 @@
 
 .upload-file {
   width: 100%;
-  margin-top: 10px;
+  margin: 10px 0;
 
   br {
     clear: both;

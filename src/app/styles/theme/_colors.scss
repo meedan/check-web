@@ -2,13 +2,13 @@
 
 //- grays
 
-@function theme-gray($brightness) { // 0% black, 100% white
+@function theme-gray($brightness: 50%) { // 0% black, 100% white
   @return hsl(205, 18%, $brightness);
 }
 
 $dark-gray-text: theme-gray(5%);
 // $medium-dark-gray-text: theme-gray(27%);
-$light-gray-text: theme-gray(74%);
+$light-gray-text: theme-gray(75%);
 $lighter-gray-text: theme-gray(80%);
 $medium-gray-bg: theme-gray(80%);
 $light-gray-bg: theme-gray(95%);

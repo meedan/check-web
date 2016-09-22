@@ -1,6 +1,7 @@
 .login-menu {
   padding: 15px;
   text-align: center;
+  position: relative;
 }
 
 .login-menu__icon {
@@ -13,10 +14,15 @@
   @include onboarding-heading;
 }
 
+.login-menu__content {
+  position: relative;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
 .login-menu__blurb {
   @include onboarding-blurb;
-  max-width: 500px;
-  margin: 0 auto 15px;
+  margin-bottom: 15px;
 }
 
 .login-menu__disclaimer {
@@ -27,7 +33,7 @@
 
 .login-menu__options {
   list-style-type: none;
-  padding: 0; 
+  padding: 0;
   max-width: 245px;
   margin: 0 auto 60px auto;
 }
