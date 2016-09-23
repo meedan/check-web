@@ -17,6 +17,16 @@ class LoginEmail extends Component {
     };
   }
 
+  onFormSubmit(e) {
+    e.preventDefault();
+
+    if (this.state.type === 'login') {
+      this.loginEmail();
+    } else {
+      this.registerEmail();
+    }
+  }
+
   loginEmail() {
     var that = this;
     var params = {
@@ -90,7 +100,7 @@ class LoginEmail extends Component {
 
         <section className={this.bemClass('login-email__modal', this.state.open, '--open')}>
           <Message message={this.state.message} />
-          <form name={this.state.type} className='login-email__form'>
+          <form name={this.state.type} onSubmit={this.onFormSubmit.bind(this)} className='login-email__form'>
             {this.state.type === 'login' ? null : (
               <div className='login-email__name'>
                 <input type='text' name='name' value={this.state.name} className='login-email__name-input' onChange={this.handleFieldChange.bind(this)} placeholder="Your name" />
