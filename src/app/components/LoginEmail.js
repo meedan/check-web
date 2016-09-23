@@ -64,7 +64,16 @@ class LoginEmail extends Component {
   }
 
   handleOpen() {
-    this.setState({ open: true });
+    this.setState({ open: true }, function() {
+      this.focusFirstInput();
+    });
+  }
+
+  focusFirstInput() {
+    const input = document.querySelector(".login-email input");
+    if (input) {
+      input.focus();
+    }
   }
 
   handleClose() {
@@ -73,8 +82,10 @@ class LoginEmail extends Component {
   }
 
   handleSwitchType() {
-    var type = this.state.type === 'login' ? 'register' : 'login';
-    this.setState({ type: type });
+    const type = this.state.type === 'login' ? 'register' : 'login';
+    this.setState({ type: type }, function() {
+      this.focusFirstInput();
+    });
   }
 
   onImage(file) {
