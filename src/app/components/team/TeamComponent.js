@@ -182,10 +182,10 @@ class TeamComponent extends Component {
               return (
                 <div>
                   <h1 className='team__name team__name--editing'>
-                    <input type='text'  id='team__name-container' className='team__name-input' defaultValue={team.name}/>
+                    <input type='text'  id='team__name-container' className='team__name-input' defaultValue={team.name} placeholder='Team name' />
                   </h1>
                   <div className='team__description'>
-                    <input type='text' id='team__description-container' className='team__description-input' defaultValue={team.description}/>
+                    <input type='text' id='team__description-container' className='team__description-input' defaultValue={team.description} placeholder='Team description' />
                   </div>
                 </div>
               );
