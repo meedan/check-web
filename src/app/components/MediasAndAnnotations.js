@@ -66,7 +66,7 @@ class MediasAndAnnotations extends Component {
 
           else if (item.itemType == 'media') {
             return (
-              <li className="media-card-link"><MediaCard media={item.node} /></li>
+              <li className="media-card-link"><MediaCard media={item.node} annotated={props.annotated} annotatedType={props.annotatedType} /></li>
             );
           }
 
