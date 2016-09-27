@@ -14,8 +14,12 @@ class MediaCard extends Component {
     media.created_at = new Date(parseInt(media.published) * 1000);
     const data = JSON.parse(media.jsondata);
 
-    const project = annotated;
-    linkUrl = '/team/' + project.team.dbid + '/project/' + project.dbid + '/media/' + media.dbid;
+    let linkUrl = null;
+    if (annotatedType === 'Project' && annotated && annotated.team) { // TODO: better support for media cards on sources
+      const project = annotated;
+      linkUrl = '/team/' + project.team.dbid + '/project/' + project.dbid + '/media/' + media.dbid;
+    }
+
     return (
       <article className='media-card'>
         <Link to={linkUrl} className='media-card__clickable'>{/* TODO: linkify more selectively */}
