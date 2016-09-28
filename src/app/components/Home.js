@@ -32,10 +32,12 @@ class Home extends Component {
       get headers() {
         var headers = config.relayHeaders;
         if (token) {
-          headers['X-Checkdesk-Token'] = token;
+          // TODO make the header name a configuration option
+          headers['X-Check-Token'] = token;
         }
         if (Checkdesk.context.team) {
-          headers['X-Checkdesk-Context-Team'] = Checkdesk.context.team.dbid;
+          // TODO make the header name a configuration option
+          headers['X-Check-Context-Team'] = Checkdesk.context.team.dbid;
         }
         return headers;
       }
