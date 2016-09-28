@@ -36,8 +36,6 @@ describe 'app' do
   # Close Google Chrome after each test
 
   after :each do
-    browser_console_output = console_logs
-    puts('Messages from browser console: ' + browser_console_output.inspect) unless browser_console_output.empty?
     @driver.quit
   end
 
