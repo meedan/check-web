@@ -37,7 +37,7 @@ class Home extends Component {
         }
         if (Checkdesk.context.team) {
           // TODO make the header name a configuration option
-          headers['X-Check-Context-Team'] = Checkdesk.context.team.dbid;
+          headers['X-Checkdesk-Context-Team'] = Checkdesk.context.team.dbid;
         }
         return headers;
       }
