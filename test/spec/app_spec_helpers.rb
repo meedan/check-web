@@ -87,6 +87,14 @@ module AppSpecHelpers
     create_team
   end
 
+  def login_or_register_with_email
+    login_with_email(false)
+    result = Selenium::WebDriver::Wait.new(timeout: 5).until {
+      @driver.find_element(:css, '.home, .message') # success / error
+    }
+    register_with_email(false) if result.attribute('class') == 'message'
+  end
+
   def login_with_email(should_create_team = true)
     @driver.navigate.to @config['self_url']
     sleep 2
@@ -137,6 +145,11 @@ module AppSpecHelpers
     sleep 3
   end
 
+  def create_project(title = "Project #{Time.now}")
+    fill_field('#create-project-title', title)
+    @driver.action.send_keys(:enter).perform
+  end
+
   def register_with_email(should_create_team = true)
     @driver.navigate.to @config['self_url']
     sleep 1
@@ -163,5 +176,10 @@ module AppSpecHelpers
 
   def console_logs
     @driver.manage.logs.get("browser")
+  end
+
+  def create_media(url)
+    fill_field('#create-media-url', url)
+    press_button('#create-media-submit')
   end
 end

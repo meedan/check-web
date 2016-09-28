@@ -716,7 +716,51 @@ describe 'app' do
     end
 
     it "should switch teams" do
-      skip("Needs to be implemented")
+      login_or_register_with_email
+      @driver.navigate.to "#{@config['self_url']}/teams/new"
+      create_team
+      wait = Selenium::WebDriver::Wait.new(timeout: 5)
+      team_1_id = (wait.until { @driver.current_url.to_s.match(/\/team\/([0-9]+)$/) })[1]
+      team_1_name = @driver.find_element(:css, '.team__name').text
+      create_project
+      project_1_id = (wait.until { @driver.current_url.to_s.match(/\/project\/([0-9]+)$/) })[1]
+      create_media(@media_url)
+      wait.until { @driver.find_element(:css, '.media') }
+
+      @driver.navigate.to "#{@config['self_url']}/teams/new"
+      wait.until { @driver.find_element(:css, '.create-team') }
+      create_team
+      team_2_id = (wait.until { @driver.current_url.to_s.match(/\/team\/([0-9]+)$/) })[1]
+      team_2_name = @driver.find_element(:css, '.team__name').text
+      create_project
+      project_2_id = (wait.until { @driver.current_url.to_s.match(/\/project\/([0-9]+)$/) })[1]
+      create_media(@media_url)
+      wait.until { @driver.find_element(:css, '.media') }
+
+      @driver.navigate.to @config['self_url']
+      (wait.until { @driver.find_element(:css, '.team-sidebar__switch-teams-button') }).click
+      (wait.until { @driver.find_element(:xpath, "//*[contains(text(), '#{team_1_name}')]") }).click
+      wait.until { @driver.find_element(:css, '.team') }
+      expect(@driver.current_url.to_s == "#{@config['self_url']}/team/#{team_1_id}").to be(true)
+      expect(@driver.find_element(:css, '.team__name').text == team_1_name).to be(true)
+      @driver.find_element(:css, '.team__project-link').click
+      wait.until { @driver.find_element(:css, '.project') }
+      url = @driver.current_url.to_s
+      expect(url == "#{@config['self_url']}/team/#{team_1_id}/project/#{project_1_id}").to be(true)
+      media_1_url = @driver.find_element(:css, '.media-card__clickable').attribute('href')
+      expect(media_1_url.include?("/team/#{team_1_id}/project/#{project_1_id}/media/")).to be(true)
+
+      (wait.until { @driver.find_element(:css, '.team-sidebar__switch-teams-button') }).click
+      (wait.until { @driver.find_element(:xpath, "//*[contains(text(), '#{team_2_name}')]") }).click
+      wait.until { @driver.find_element(:css, '.team') }
+      expect(@driver.current_url.to_s == "#{@config['self_url']}/team/#{team_2_id}").to be(true)
+      expect(@driver.find_element(:css, '.team__name').text == team_2_name).to be(true)
+      @driver.find_element(:css, '.team__project-link').click
+      wait.until { @driver.find_element(:css, '.project') }
+      url = @driver.current_url.to_s
+      expect(url == "#{@config['self_url']}/team/#{team_2_id}/project/#{project_2_id}").to be(true)
+      media_2_url = @driver.find_element(:css, '.media-card__clickable').attribute('href')
+      expect(media_2_url.include?("/team/#{team_2_id}/project/#{project_2_id}/media/")).to be(true)
     end
 
     it "should cancel request through switch teams" do
