@@ -1,4 +1,6 @@
 source 'https://rubygems.org'
 gem 'selenium-webdriver'
 gem 'rspec'
+gem 'rspec-retry'
 gem 'sinatra'
+gem 'httparty'

@@ -5,7 +5,12 @@ GEM
       ffi (~> 1.0, >= 1.0.11)
     diff-lcs (1.2.5)
     ffi (1.9.10)
+    httparty (0.13.5)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
+    json (1.8.3)
     multi_json (1.11.2)
+    multi_xml (0.5.5)
     rack (1.6.4)
     rack-protection (1.5.3)
       rack
@@ -21,6 +26,8 @@ GEM
     rspec-mocks (3.3.1)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.3.0)
+    rspec-retry (0.5.0)
+      rspec-core (~> 3.3)
     rspec-support (3.3.0)
     rubyzip (1.1.7)
     selenium-webdriver (2.48.1)
@@ -39,7 +46,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  httparty
   rspec
+  rspec-retry
   selenium-webdriver
   sinatra
 
