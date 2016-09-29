@@ -12,6 +12,8 @@ describe 'app' do
   # Start a webserver for the web app before the tests
 
   before :all do
+    @wait = Selenium::WebDriver::Wait.new(timeout: 5)
+
     @email = 'sysops+' + Time.now.to_i.to_s + '@meedan.com'
     @source_url = 'https://www.facebook.com/ironmaiden/?fref=ts&timestamp=' + Time.now.to_i.to_s
     @media_url = 'https://www.facebook.com/ironmaiden/posts/10153654402607051/?t=' + Time.now.to_i.to_s
@@ -672,7 +674,17 @@ describe 'app' do
     end
 
     it "should logout" do
-      skip("Needs to be implemented")
+      unless login_or_register_with_email
+        create_team
+        create_project
+      end
+      @driver.navigate.to @config['self_url']
+      menu = @wait.until { @driver.find_element(:css, '.fa-gear') }
+      menu.click
+      logout = @wait.until { @driver.find_element(:css, '.project-header__logout') }
+      logout.click
+      @wait.until { @driver.find_element(:css, '#login-menu') }
+      expect(@driver.page_source.include? 'Sign in').to be(true)
     end
 
     it "should ask to join team" do

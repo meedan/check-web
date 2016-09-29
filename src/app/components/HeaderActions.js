@@ -34,7 +34,7 @@ class HeaderActions extends Component {
         <ul className={this.bemClass('project-header__project-settings-panel', this.state.isSettingsMenuOpen, '--active')}>
           <li className='TODO project-header__project-setting'><UserMenuRelay {...this.props} /></li>
           <li className='TODO project-header__project-setting' onClick={this.contactHuman.bind(this)}>Contact a Human</li>
-          <li className='TODO project-header__project-setting' onClick={logout}>Sign Out</li>
+          <li className='TODO project-header__project-setting project-header__logout' onClick={logout}>Sign Out</li>
         </ul>
       </div>
     );

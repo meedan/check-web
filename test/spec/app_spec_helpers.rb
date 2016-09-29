@@ -92,7 +92,12 @@ module AppSpecHelpers
     result = Selenium::WebDriver::Wait.new(timeout: 5).until {
       @driver.find_element(:css, '.home, .message') # success / error
     }
-    register_with_email(false) if result.attribute('class') == 'message'
+    if result.attribute('class') == 'message'
+      register_with_email(false)
+      return false
+    else
+      return true
+    end
   end
 
   def login_with_email(should_create_team = true)
