@@ -20,7 +20,7 @@ Verify breaking news online
 * Copy `config.js.example` to `config.js` and define your configurations
 * `npm install`
 * `npm run build`
-* `npm run publish` (which basically serves the contents from `build/web`)
+* `SERVER_PORT=3333 npm run publish` (which basically serves the contents from `build/web`)
 * Open your browser and go to http://localhost:3333
 
 For better debugging, set your `NODE_ENV` environment variable to `development` instead of `production`.
@@ -45,6 +45,7 @@ For better debugging, set your `NODE_ENV` environment variable to `development` 
 
 * Compile the code with `npm run build`
 * Copy `test/config.yml.example` to `test/config.yml` and set the configurations
+* Start `chromedriver` and the application (`SERVER_PORT=3333 npm run publish`)
 * Run `npm run test`
 
 ### Missing tests
