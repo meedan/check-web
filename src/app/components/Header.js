@@ -15,7 +15,7 @@ class Header extends Component {
       return null;
     }
 
-    if (this.isMediaRoute(path)) {
+    if (path && path.match(/media\/[0-9]+/)) {
       return (
         <header className='header header--media'>
           <TeamHeader {...this.props} />
@@ -25,30 +25,31 @@ class Header extends Component {
         </header>
       );
     }
-
-    else if (this.isProjectRoute(path)) {
+    else if (path && path.match(/project\/[0-9]+/)) {
       return (
         <header className='header header--project'>
           <div className='header__team'><TeamHeader {...this.props} /></div>
           <ProjectHeader {...this.props} />
+          {/* TODO: <HeaderActions {...this.props} /> */}
         </header>
       );
 
-    } else {
+    }
+    else if (path && path.match(/team\/[0-9]+/)) {
+      return (
+        <header className='header header--team'>
+          <HeaderActions {...this.props} />
+        </header>
+      );
+
+    }
+    else {
       return (
         <header className='header header--todo'>
           <img className='header--todo__brand' src='/images/logo/logo-1.svg'/>
         </header>
       );
     }
-  }
-
-  isProjectRoute(path) {
-    return path && path.match(/project\/[0-9]+/);
-  }
-
-  isMediaRoute(path) {
-    return path && path.match(/media\/[0-9]+/);
   }
 }
 
