@@ -18,7 +18,6 @@ class Header extends Component {
     if (path && path.match(/media\/[0-9]+/)) {
       return (
         <header className='header header--media'>
-          <TeamHeader {...this.props} />
           <ProjectBreadcrumb {...this.props} />
           <MediaHeader {...this.props} />
           <HeaderActions {...this.props} />

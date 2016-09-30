@@ -10,9 +10,8 @@ class ProjectBreadcrumbComponent extends Component {
     const projectUrl = ('/team/' + project.team.dbid + '/project/' + project.dbid);
 
     return (
-      <Link to={projectUrl} className='project-breadcrumb'>
+      <Link to={projectUrl} className='project-breadcrumb' title={project.title}>
         <Caret left={true} />
-        <h2 className='project-breadcrumb__project-name' title={project.description}>{project.title}</h2>
       </Link>
     );
   }
