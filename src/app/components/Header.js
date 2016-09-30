@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import FlatButton from 'material-ui/lib/flat-button';
 import TeamHeader from './team/TeamHeader';
 import ProjectHeader from './project/ProjectHeader';
-import ProjectBreadcrumb from './project/ProjectBreadcrumb';
+import Breadcrumb from './layout/Breadcrumb';
 import MediaHeader from './media/MediaHeader';
 import HeaderActions from './HeaderActions';
 
@@ -16,9 +16,10 @@ class Header extends Component {
     }
 
     if (path && path.match(/media\/[0-9]+/)) {
+      const projectUrl = path.match(/(.*)\/media\/[0-9]+/)[1];
       return (
         <header className='header header--media'>
-          <ProjectBreadcrumb {...this.props} />
+          <Breadcrumb url={projectUrl} title='« Back to Project' />
           <MediaHeader {...this.props} />
           <HeaderActions {...this.props} />
         </header>
