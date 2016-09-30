@@ -26,7 +26,7 @@ class Header extends Component {
       return defaultHeader;
     }
 
-    if (path && path.match(/media\/[0-9]+/)) {
+    if (path.match(/media\/[0-9]+/)) {
       const projectUrl = path.match(/(.*)\/media\/[0-9]+/)[1];
       return (
         <header className='header header--media'>
@@ -36,7 +36,8 @@ class Header extends Component {
         </header>
       );
     }
-    else if (path && path.match(/project\/[0-9]+/)) {
+
+    if (path.match(/project\/[0-9]+/)) {
       return (
         <header className='header header--project'>
           <div className='header__team'><TeamHeader {...this.props} /></div>
@@ -46,7 +47,8 @@ class Header extends Component {
       );
 
     }
-    else if (path && path.match(/team\/[0-9]+/)) {
+
+    if (path.match(/team\/[0-9]+/)) {
       return (
         <header className='header header--team'>
           <HeaderActions {...this.props} />
