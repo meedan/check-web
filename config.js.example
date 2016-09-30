@@ -1,0 +1,8 @@
+window.config = {
+  restBaseUrl: 'http://localhost:3000/api/',
+  relayPath: 'http://localhost:3000/api/graphql',
+  relayHeaders: {
+    'X-Check-Token': 'dev'
+  },
+  penderUrl: 'http://localhost:3200'
+}

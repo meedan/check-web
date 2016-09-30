@@ -1,7 +1,9 @@
 import React from 'react';
 import { render } from 'react-dom';
 import Root from 'app/containers/Root';
-import configureStore from 'app/store/configureStore';
+import { createStore, applyMiddleware, compose } from 'redux';
+import rootReducer from 'app/reducers';
+import thunk from 'redux-thunk';
 
 window.storage = {
   set: function(key, value) {
@@ -9,20 +11,17 @@ window.storage = {
   },
 
   get: function(key, callback) {
-    var value = window.localStorage.getItem(key);
-    callback(value);
+    callback(this.getValue(key));
+  },
+
+  getValue: function(key) {
+    return window.localStorage.getItem(key);
   }
 };
 
-var url = document.location.search.replace(/^\?url=/, '');
+const store = compose(applyMiddleware(thunk))(createStore)(rootReducer);
 
-configureStore(store => {
-  var state = store.getState();
-  state.extension.url = url;
-  state.extension.runtime = {};
-
-  render(
-    <Root store={store} />,
-    document.getElementById('root')
-  );
-}, undefined);
+render(
+  <Root store={store} />,
+  document.getElementById('root')
+);

@@ -1,0 +1,17 @@
+.teams {
+  flex: 1;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.teams__content {
+  max-width: 400px;
+  padding: 15px;
+}
+
+.teams__main-heading {
+  @include app-heading;
+}

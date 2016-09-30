@@ -1,0 +1,172 @@
+.project-header {
+  flex: 1;
+  display: flex;
+
+  padding-left: 15px;
+
+  align-items: center;
+}
+
+.project-header__sidebar-toggle {
+  height: 20px;
+  width: 20px;
+  margin-right: 15px;
+  margin-bottom: 3px;
+
+  @media screen and (max-width: 768px) {
+    display: block;
+  }
+
+  @media screen and (min-width: 768px) {
+    display: none;
+  }
+}
+
+.project-header__sidebar-toggle-button {
+  height: 100%;
+  width: 100%;
+  border-radius: 2px;
+  box-shadow: 0 0 1px rgba(0,0,0,0.1);
+}
+
+.project-header__project,
+.project-header__project-form {
+  font-size: 18px;
+  display: flex;
+  margin: 0;
+}
+
+.project-header__project {
+  flex: 1;
+  align-items: center;
+}
+
+.project-header__project-icon {
+  width: 1.06em;
+  margin-right: 0.65em;
+}
+
+.project-header__project-form {
+  flex: 1;
+  align-items: flex-end;
+}
+
+.project-header__project-copy {
+  flex: 1;
+  display: flex;
+}
+
+.project-header__project-name-input,
+.project-header__project-description-input {
+  border: none;
+  border-bottom: 1px solid $gray-300;
+  background: transparent;
+  transition: border-color 300ms ease;
+  &:focus {
+    outline: none;
+    border-color: $blue-300;
+  }
+  margin-right: 10px;
+}
+
+.project-header__project-name {
+  font-size: inherit;
+  margin: 0 0 6px 0;
+}
+
+.project-header__project-name-input {
+  padding-bottom: 5px;
+  width: 175px;
+
+  font-weight: bold;
+}
+
+.project-header__project-description {
+  flex: 1;
+  display: block;
+  height: 1.5em;
+  overflow: hidden;
+
+  font-size: 14px;
+  line-height: 1.3;
+  color: $light-gray-text;
+
+  &:empty:before {
+    content: 'Verification Project';
+  }
+}
+
+.project-header__project-description-input {
+  width: 100%;
+  padding-bottom: 3px;
+}
+
+.project-header__project-editing-buttons {
+  margin-right: 14px;
+  margin-left: 10px;
+}
+
+.project-header__project-editing-button {
+  @include button-xsmall;
+  &:not(:last-child) { margin-right: 5px; }
+  &--save { @include button-green; }
+}
+
+.project-header__project-search-icon,
+.project-header__project-settings-icon {
+  color: theme-gray(85%);
+  font-size: 21px;
+  padding: 0 15px;
+  position: relative;
+  z-index: 3;
+  cursor: pointer;
+}
+
+.project-header__project-search-icon {
+  display: none;
+}
+
+.project-header__project-settings-overlay {
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: theme-gray(20%);
+
+  opacity: 0;
+  transition: opacity 100ms ease;
+  pointer-events: none;
+  &--active {
+    pointer-events: auto;
+    opacity: 0.5;
+  }
+}
+
+.project-header__project-settings-panel,
+.project-header__project-form-overlay {
+  background: $home-bg;
+  margin: 0;
+  position: absolute; right: 0;
+  padding: 2px;
+  min-width: 150px;
+  border-radius: 2px;
+  border: $layout-border;
+  border-top: none;
+  top: $layout-header-height;
+  display: none;
+  &--active {
+    display: block;
+  }
+  z-index: 2;
+}
+
+.project-header__project-setting {
+  // border-bottom: 1px solid darken($home-bg, 10%);
+  &:hover { background: darken($home-bg, 30%); }
+  font-size: 15px;
+  padding: 11px 15px;
+  cursor: pointer;
+}

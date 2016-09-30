@@ -1,0 +1,201 @@
+.team {
+  padding: 15px;
+}
+
+.team__profile {
+  text-align: center;
+  position: relative;
+}
+
+// edit profile
+
+.team__edit-profile {
+  position: absolute;
+  top: 0; right: 0;
+}
+
+.team__edit-button,
+.team__cancel-button,
+.team__save-button {
+  @include button-medium;
+  margin-left: 10px;
+}
+
+.team__edit-icon {
+  font-size: 0.9em;
+  opacity: 0.8;
+  margin-right: 0.1em;
+  display: inline-block;
+  position: relative;
+  left: -3px;
+}
+
+.team__save-button {
+  @include button-green;
+}
+
+// profile
+
+.team__avatar {
+  @include team-avatar(100px);
+  margin: 0px auto;
+}
+
+.team__name,
+.team__name-input,
+.team__name-link {
+  font-family: $font-stack-sans;
+  color: $dark-gray-text;
+  font-size: 21px;
+  font-weight: 600;
+}
+
+.team__name-input {
+}
+
+.team__name {
+  margin: 5px 0;
+}
+
+.team__name-link {
+  display: inline-block;
+  margin: 5px 0;
+}
+
+.team__name-input,
+.team__description-input {
+  border: 1px solid hsl(204, 15%, 90%);
+  border-radius: 2px;
+  padding: 4px;
+  text-align: center;
+  box-shadow: inset 0 0 2px 0px hsl(204, 15%, 97%);
+}
+
+.team__description,
+.team__description-input {
+  color: $dark-gray-text;
+  font-size: 16px;
+}
+
+.team__description {
+  font-family: $font-stack-serif;
+  margin: 10px 0 15px 0;
+  height: 30px;
+}
+
+.team__description-text {
+  margin: 0;
+  padding: 5px 0;
+}
+
+.team__description-input {
+  font-family: $font-stack-sans;
+  width: 50%;
+}
+
+
+.team__contact-info,
+.team__location,
+.team__link,
+.team__add-link,
+.team__phone {
+  font-size: 14px;
+  color: $light-gray-text;
+}
+
+.team__location,
+.team__link,
+.team__add-link,
+.team__phone {
+  margin-right: 15px;
+}
+
+.team__location-icon,
+.team__link-icon,
+.team__add-link-icon,
+.team__phone-icon {
+  margin-right: 4px;
+}
+
+.team__add-link {
+  // TODO: revisit semantics/interactions of button vs link
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+// content
+
+.team__content-tabs {
+  text-align: center;
+}
+
+.team__content-tab {
+  display: inline-block;
+  margin: 0 15px;
+  opacity: 0.3;
+}
+
+.team__content-tab--active {
+  opacity: 1;
+  border-bottom: 3px solid black;
+}
+
+// projects
+
+.team__projects-heading {
+  @include app-kicker;
+  text-align: center;
+  margin: 0;
+  padding: 30px 25px 9px 25px;
+  // border-right: $layout-border;
+}
+
+.team__projects-list {
+  max-width: 350px;
+  margin: 15px auto;
+  color: $lighter-gray-text;
+  line-height: 1.45;
+  padding-left: 12px;
+  & > :last-child {
+    padding-bottom: 45px;
+  }
+}
+
+.team__project,
+.team__new-project {
+  font-size: 15px;
+  padding: 0.4em 13px;
+}
+
+.team__project-link {
+  &, &:visited { color: inherit; }
+}
+
+.team__new-project {
+  // border-right: $layout-border;
+}
+
+.team__new-project-input {
+  width: 145px;
+  border: none;
+  padding: 0;
+  background: transparent;
+  color: $dark-gray-text;
+  font-weight: 500;
+
+  &:focus { outline: none; }
+  @include input-placeholder {
+    color: $lighter-gray-text;
+    font-weight: 400;
+  }
+}
+
+.team__project-link {
+  &, &:visited {
+    color: inherit;
+  }
+  &:hover {
+    color: $dark-gray-text;
+  }
+}

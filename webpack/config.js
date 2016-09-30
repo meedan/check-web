@@ -2,25 +2,20 @@ import path from 'path';
 import webpack from 'webpack';
 
 export default {
-  entryChrome: {
-    background: [ path.join(__dirname, '../src/chrome/extension/background/index') ],
-    window: [ path.join(__dirname, '../src/chrome/window/index') ],
-    popup: [ path.join(__dirname, '../src/chrome/extension/popup/index') ],
-    inject: [ path.join(__dirname, '../src/chrome/extension/inject/index') ]
-  },
+  bail: true, // exit 1 on build failure
   entryWeb: {
-    index: [ path.join(__dirname, '../src/web/index/index') ]
+    index: [ 'babel-polyfill', path.join(__dirname, '../src/web/index/index') ]
   },
   output: {
-    pathChrome: path.join(__dirname, '../build/chrome/js'),
     pathWeb: path.join(__dirname, '../build/web/js'),
     filename: '[name].bundle.js',
     chunkFilename: '[id].chunk.js'
   },
+  devtool: 'source-map',
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: '"production"'
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'production')
       },
       __DEVELOPMENT__: false
     }),
@@ -46,5 +41,8 @@ export default {
       test: /\.css?$/,
       loaders: ['style', 'raw']
     }]
+  },
+  externals: {
+    'config': 'config'
   }
 };

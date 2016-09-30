@@ -1,0 +1,77 @@
+.login-menu {
+  padding: 15px;
+  text-align: center;
+  position: relative;
+}
+
+.login-menu__icon {
+  // might want to abstract into a header later, but not sure how much will be reused yet
+  margin-top: 10px;
+  height: 36px;
+}
+
+.login-menu__heading {
+  @include onboarding-heading;
+}
+
+.login-menu__content {
+  position: relative;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.login-menu__blurb {
+  @include onboarding-blurb;
+  margin-bottom: 15px;
+}
+
+.login-menu__disclaimer {
+  color: theme-gray(75%);
+  font-size: 16px;
+  margin-bottom: 22px;
+}
+
+.login-menu__options {
+  list-style-type: none;
+  padding: 0;
+  max-width: 245px;
+  margin: 0 auto 60px auto;
+}
+
+.login-menu__button {
+  @include button-medium;
+  width: 100%;
+}
+
+.login-menu__button {
+  transition: background-color 400ms ease;
+  &:hover { transition: background-color 80ms ease; }
+}
+
+.login-menu__button--twitter {
+  background-color: #0095FF;
+  &:hover { background-color: darken(saturate(#0095FF, 10%), 10%); }
+}
+
+.login-menu__button--facebook {
+  background-color: #3B5999;
+  &:hover { background-color: darken(saturate(#3B5999, 10%), 10%); }
+}
+
+.login-menu__button--google {
+  background-color: #DB4437;
+  &:hover { background-color: darken(saturate(#DB4437, 10%), 10%); }
+}
+
+.login-menu__button--slack {
+  background-color: #2AB27B;
+  &:hover { background-color: darken(saturate(#2AB27B, 10%), 10%); }
+}
+
+.login-menu__footer {
+  color: $light-gray-text;
+}
+
+.login-menu__footer-link {
+  color: $light-blue-text;
+}

@@ -1,32 +1,120 @@
 @charset "utf-8";
 
-// @Change and uncomment the ones you need
-// @import "react-select";
-// @import "confirmation-link";
-// @import "normalize";
-// @import "top-bar";
+@import "font-awesome/font-awesome";
+@import "variables";
+
+@import 'theme/colors';
+@import 'theme/typography';
+@import 'theme/buttons';
+@import 'theme/defaults';
+@import 'theme/layout';
+@import 'theme/forms';
+@import 'theme/images';
+
+@import 'components/browser-support';
+@import 'components/caret';
+@import 'components/home';
+@import 'components/layout/header';
+@import 'components/layout/header-actions';
+@import 'components/layout/footer';
+@import 'components/login-menu';
+@import 'components/login-email';
+@import 'components/media';
+@import 'components/project/project';
+@import 'components/project/project-breadcrumb';
+@import 'components/project/project-header';
+@import 'components/sources';
+@import 'components/team';
+@import 'components/team/create-team';
+@import 'components/team/join-team';
+@import 'components/team/switch-teams';
+@import 'components/team/team-header';
+@import 'components/team/team-members';
+@import 'components/team/team-sidebar';
+@import 'components/team/teams';
+@import 'source';
+@import 'tags';
+@import 'annotations';
+@import 'create-account';
+@import 'tabs';
 
 body {
   margin: auto;
-  width: 500px;
-  padding: 50px 10px;
+  width: 100%;
 }
 
-text {
-  text-align: center;
-  font-family: sans-serif;
+.hidden {
+  display: none;
 }
 
-h1, p {
-  text-align: center;
-  font-family: sans-serif;
+.top-bar {
+  background: $white !important;
+  box-shadow: none !important;
+  border-bottom: 1px solid hsl(204, 15%, 90%);
 }
 
-h1 {
-  font-weight: bold;
-  font-size: 24px;
+.current-user {
+  .avatar {
+    padding: 2px;
+    vertical-align: bottom;
+  }
 }
 
 address {
+  text-align: center;
+  color: rgba($darkgrey, 0.5);
+  margin-top: 30px;
+  font-style: normal;
+  font-size: 12px;
+
+  span {
+    margin: 10px 0;
+    display: inline-block;
+
+    i {
+      font-style: normal;
+    }
+  }
+
+  a, a:visited {
+    color: rgba($darkgrey, 0.8);
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+
+.message {
+  background: $cream;
+  border: 1px solid $midgrey;
+  color: $darkergrey;
+  padding: 10px;
+  margin: 10px;
+  font-size: 14px;
+}
+
+.global-message {
+  .message {
+    margin-left: 80px;
+  }
+}
+
+#tos, #privacy-policy {
+  margin: 10px;
+
+  p {
+    line-height: 1.5em;
+    text-align: justify;
+  }
+
+  h2 {
+    font-size: 22px;
+    text-align: left;
+    margin: 10px 0;
+  }
+}
+
+.main-title {
   text-align: center;
 }

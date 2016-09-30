@@ -1,0 +1,25 @@
+.project {
+  flex: 1;
+  height: 100%;
+  width: 100%;
+  position: relative;
+
+  display: flex;
+}
+
+.project__team-sidebar {
+  flex: 0 0 $layout-sidebar-width;
+  width: $layout-sidebar-width;
+}
+
+.project__content {
+  flex: 1;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.create-project {
+  display: inline;
+}

@@ -1,0 +1,68 @@
+sudo: required
+dist: trusty
+language: node_js
+node_js:
+- "4.3.2"
+before_install:
+# decrypt configs
+- openssl aes-256-cbc -K $encrypted_6fe224c112de_key -iv $encrypted_6fe224c112de_iv -in travis.enc -out travis.zip -d
+- unzip travis.zip
+# apt dependencies
+- sudo apt-get -qq update
+- sudo apt-get install wget python-setuptools lsof unzip inkscape imagemagick ruby ruby-dev libnss3 libnss3-dev xvfb libnss3-1d libexif-dev curl build-essential libssl-dev libappindicator1 fonts-liberation -y
+# api
+- export RAILS_ENV=development
+- curl -O https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.2.4.deb && sudo dpkg -i --force-confnew elasticsearch-1.2.4.deb && sudo service elasticsearch restart
+- git clone https://github.com/meedan/check-api.git
+- cp travis/check-api.yml check-api/config/config.yml
+- cp check-api/config/initializers/secret_token.rb.example check-api/config/initializers/secret_token.rb
+- cp check-api/config/database.yml.travis check-api/config/database.yml
+- cd check-api
+- bundle install
+- bundle exec rake db:migrate
+- rails s -p 3000 >/dev/null &
+- cd -
+# pender
+- git clone https://github.com/meedan/pender.git
+- cp travis/pender.yml pender/config/config.yml
+- cp pender/config/initializers/secret_token.rb.example pender/config/initializers/secret_token.rb
+- cp pender/config/database.yml.travis pender/config/database.yml
+- cd pender
+- bundle install
+- bundle exec rake db:migrate
+- rails runner 'a = ApiKey.create!; a.access_token = "test"; a.save!'
+- rails s -p 3005 >/dev/null &
+- cd -
+# xvfb
+- export DISPLAY=:99.0
+- sh -e /etc/init.d/xvfb start
+# google chrome
+- export CHROME_BIN=/usr/bin/google-chrome
+- sudo apt-get -qq update
+- wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+- sudo dpkg -i google-chrome*.deb
+- google-chrome --no-sandbox &
+# chromedriver
+- wget http://chromedriver.storage.googleapis.com/2.20/chromedriver_linux64.zip
+- unzip chromedriver_linux64.zip
+- sudo mv chromedriver /usr/local/bin
+- sudo chmod a+x /usr/local/bin/chromedriver
+- chromedriver >/dev/null 2>/dev/null &
+# ruby / bundler / rspec
+- gem install bundler
+- cd test && bundle install && cd -
+# config files
+- cp travis/config.js config.js
+- cp travis/config.js test/config.js
+- cp travis/config.yml test/config.yml
+before_script:
+- sleep 5
+- npm install
+- npm run build
+- export SERVER_PORT=3333
+- npm run publish &
+- sleep 5
+script: npm run test
+notifications:
+  slack:
+    secure: TAPzV/OeN5hl8JSGrqPcAtFO/NWa9IqMbyzuUpCZgNP9EbobmlTPx55mopI647rwVIQZM1RL+2SapHJbT7XCAjJ+uvzSQd0b/LaS/aXLKFcS3bBDcvKAUeCcCYUiDz7x832EYg0fsVErR2dZPxvuPtWtwrOlOaOo8HB1uVHjvKo20Wnr/J4+VNTGvhQ5awdmpHMh+KrWpjQi4Ta9zWOTmSYh3qhgaLKjIKXanoaWen87VJB6Jy8nJ3Bo6t3r3+sbCRN9/LUZ8sVcJnvzlKdOtiLGkz8u2YG2c8UD+iUt2VOk0o5L/o8YPoeukJyFuAHAdLrjOelwHCAD2dRfrpQG7y/8G0vjJRXg8DRaVBVIl9vpYM6lyVIw5I6a9XDbUeOnBAWHE3uj/xH0X0vcRREE5py6tbt1KPUBS9rc8JGdCW3ZXVZAXA+1cijR3AAZUZ0YEf9WKLYhsTFW9lYlDcmkrWgVD9vbtPGDg95sbtuB+H5dkEAOBkf2YGkqzO+aaQKLDHkib/1v4C1+T5lXqlWZUrP8EuRwWs6xJlhi6w72AZLo7kVmfGA3ZdKfVcPCqr83YBfhL0WbwgT94L+5STELxw/PhsyNyOM/sRLQgR24ga/lcg2+L395VIPrQvhgKc26yHBuqW2P6FSOEGMyEcZ34N1TMTtRF7/lkRmXyKt4zuc=

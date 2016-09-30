@@ -1,2 +1,2 @@
 #!/bin/bash
-cd /app/test && ./chromedriver
+cd /app && ./node_modules/.bin/chromedriver

@@ -1,5 +1,5 @@
 import { ERROR } from '../constants/ActionTypes';
-import { sendNotification } from '../actions/extension';
+import { sendNotification } from '../actions/notifications';
 
 const events = [
   {

@@ -1,84 +1,62 @@
-# Checkdesk
+# Check
+
+[![Travis](https://travis-ci.org/meedan/check-web.svg?branch=develop)](https://travis-ci.org/meedan/check-web/)
 
 Verify breaking news online
 
 ## Dependencies
 
 * Node.js (tested with version 4.3.2)
-* Inkscape and ImageMagick (to generate the icons)
+* Inkscape and ImageMagick (to generate the favicon)
 * Ruby and RubyGems (to run the tests)
 
 ## Structure
 
-- `src/app`: React cross-browser application.
-- `src/chrome`: Sources for the Google Chrome extension.
-- `src/web`: Sources for the web application.
-- `src/android`: Sources for the Android application.
+* `src/app`: Application code
+* `src/app/styles`: Theme (SASS) files
 
-## How to install
+## How to use it
 
-* Copy `config.json.example` to `config.json` and define your configurations
-* `npm install react-native react-native-css ngrok -g`
+* Copy `config.js.example` to `config.js` and define your configurations
 * `npm install`
-* `npm rebuild node-sass`
+* `npm run build`
+* `SERVER_PORT=3333 npm run publish` (which basically serves the contents from `build/web`)
+* Open your browser and go to http://localhost:3333
+
+For better debugging, set your `NODE_ENV` environment variable to `development` instead of `production`.
 
 ### Running on Docker
 
 *Building and running*
 
-* Copy `config.json.example` to `config.json` and define your configurations
+* Copy `config.js.example` to `config.js` and define your configurations
 * Execute `./docker/run.sh`
-* Enter the container with `./docker/shell.sh` and compile the code (`PLATFORM=web npm run build`, `PLATFORM=chrome npm run build`, etc.)
-* Still inside the container, run the test with `npm run test` (see at the bottom more information on running tests) 
+* Enter the container with `./docker/shell.sh` and compile the code (`npm run build`)
+* Still inside the container, run the test with `npm run test` (see at the bottom more information on running tests)
 
 *Interacting*
 
 * The directories `build` and `releases` are shared between the host and the container - that's where your compiled code will be located
 * The web application will be available locally in port 3333 of the host
 * The web application will be available for the world through Ngrok (check `releases/web.log` for the generated URL)
-* While you run the tests from inside the container using `npm run test`, you can see what's going on by connecting to VNC, on port 5999 and password "keefer" 
-
-## How to build
-
-* `PLATFORM=<chrome|web|android> npm run build`
-
-## How to develop
-
-* The theme files (SASS files) are under `src/app/styles`
-* Other development files are under `src/app/`
-* In order to reflect your changes, run `PLATFORM=<chrome|web|android> npm run build`
-* In order to use the Relay features, add the `relay.json` file to `data/` directory
-
-## How to use
-
-### Chrome extension
-
-* Go to Google Chrome / Chromium
-* Type `chrome://extensions`
-* Hit "Load unpacked extension..."
-* Choose the `build/chrome` directory
-* An icon will be added to your Google Chrome toolbar
-
-### Web
-
-* Start a webserver in `build/web` (or run `PLATFORM=web npm run publish`)
-
-### Android application
-
-* Run `PLATFORM=android npm run build` and the APK will be compiled and sent to your device (real or virtual)
-
-## How to release a new version
-
-* Run `PLATFORM=<chrome|web> npm run release`, which will bump version number and create zip files under `releases/` directory
-
-## How to publish a new version
-
-* Run `PLATFORM=<chrome|web> npm run publish`, which will upload and publish the item to the internet (e.g., Chrome extension to Chrome store or a Ngrok server for the web app)
+* While you run the tests from inside the container using `npm run test`, you can see what's going on by connecting to VNC, on port 5999 and password "keefer"
 
 ## How to test
 
-* Run `npm run test` (you need `ruby` and `rubygems`, and need a file `test/config.yml`)
-* In order to test the browser extension, you need to add its id to `test/config.yml`, and to find out the id you need to install the extension in Google Chrome in developer mode, so you'll be able to see the id in `chrome://extensions`
+* Compile the code with `npm run build`
+* Copy `test/config.yml.example` to `test/config.yml` and set the configurations
+* Start `chromedriver` and the application (`SERVER_PORT=3333 npm run publish`)
+* Run `npm run test`
+
+### Missing tests
+
+If you don't have time to implement a test for your feature, please add a pending test for that, like this:
+
+```ruby
+it "should do whatever my feature expects" do
+  skip("Needs to be implemented")
+end
+```
 
 ## Notes and tips
 * run `npm install babel-register -g` if you faced errors related to `babel-register`

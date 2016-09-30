@@ -1,0 +1,9 @@
+@mixin team-avatar($size: 60px) {
+  width: $size;
+  height: $size;
+  border: 1px solid theme-gray(95%);
+  border-radius: 3px;
+  box-shadow: 0 0 2px theme-gray(98%);
+  background-size: cover;
+  background-position: center;
+}

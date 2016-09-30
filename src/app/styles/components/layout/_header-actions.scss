@@ -1,0 +1,60 @@
+.header-actions {
+  flex: 1;
+  text-align: right;
+}
+
+.header-actions__settings-icon {
+  color: theme-gray(85%);
+  font-size: 21px;
+  padding: 0 15px;
+  position: relative;
+  z-index: 3;
+  cursor: pointer;
+}
+
+.header-actions__settings-overlay {
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: theme-gray(20%);
+
+  opacity: 0;
+  transition: opacity 100ms ease;
+  pointer-events: none;
+  &--active {
+    pointer-events: auto;
+    opacity: 0.5;
+  }
+}
+
+.header-actions__settings-panel {
+  z-index: 2;
+  margin: 0;
+  border: $layout-border;
+  border-top: none;
+  border-radius: 2px;
+  position: absolute; right: 0;
+  min-width: 150px;
+  top: $layout-header-height;
+  display: none;
+  &--active {
+    display: block;
+  }
+
+  background: $home-bg;
+  padding: 2px;
+
+  text-align: left;
+}
+
+.header-actions__setting {
+  // border-bottom: 1px solid darken($home-bg, 10%);
+  &:hover { background: darken($home-bg, 30%); }
+  font-size: 15px;
+  padding: 11px 15px;
+  cursor: pointer;
+}

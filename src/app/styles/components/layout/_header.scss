@@ -1,0 +1,38 @@
+.header {
+  position: fixed; top: 0; right: 0; left: 0;
+  z-index: 4;
+  padding: 8px 0;
+  height: $layout-header-height;
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-bottom: $layout-border;
+  box-shadow: $layout-box-shadow;
+}
+
+// media page
+
+.header--media {
+  .team-header__copy { display: none; } // TODO: do with JS or simpler selectors
+}
+
+// todo
+
+.header--todo {
+  // background: transparent;
+  // border-bottom: none;
+  // box-shadow: none;
+
+  // padding-left: 15px; padding-right: 15px;
+
+  &__brand {
+    display: none;
+    // margin: 10px;
+    // height: 36px;
+  }
+}
+
+.header__team {
+  flex: 0 0 $layout-sidebar-width;
+  width: $layout-sidebar-width;
+}
