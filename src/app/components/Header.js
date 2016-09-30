@@ -45,12 +45,22 @@ class Header extends Component {
           {/* TODO: <HeaderActions {...this.props} /> */}
         </header>
       );
+    }
 
+    if (path.match(/team\/[0-9]+\/(join|members)/)) {
+      const teamUrl = path.match(/(.*)\/(join|members)/)[1];
+      return (
+        <header className='header header--team-subpage'>
+          <Breadcrumb url={teamUrl} title='« Back to Team' />
+          <HeaderActions {...this.props} />
+        </header>
+      );
     }
 
     if (path.match(/team\/[0-9]+/)) {
       return (
         <header className='header header--team'>
+          <Breadcrumb url='/teams' title='« Your Teams' />
           <HeaderActions {...this.props} />
         </header>
       );
