@@ -15,6 +15,17 @@ class Header extends Component {
       return null;
     }
 
+    const defaultHeader = (
+      <header className='header header--default'>
+        <Breadcrumb url='/' title={null} />
+        <HeaderActions {...this.props} />
+      </header>
+    );
+
+    if (!path) {
+      return defaultHeader;
+    }
+
     if (path && path.match(/media\/[0-9]+/)) {
       const projectUrl = path.match(/(.*)\/media\/[0-9]+/)[1];
       return (
@@ -41,15 +52,9 @@ class Header extends Component {
           <HeaderActions {...this.props} />
         </header>
       );
+    }
 
-    }
-    else {
-      return (
-        <header className='header header--todo'>
-          <img className='header--todo__brand' src='/images/logo/logo-1.svg'/>
-        </header>
-      );
-    }
+    return defaultHeader;
   }
 }
 
