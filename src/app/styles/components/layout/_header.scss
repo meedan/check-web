@@ -16,22 +16,6 @@
   .team-header__copy { display: none; } // TODO: do with JS or simpler selectors
 }
 
-// todo
-
-.header--todo {
-  // background: transparent;
-  // border-bottom: none;
-  // box-shadow: none;
-
-  // padding-left: 15px; padding-right: 15px;
-
-  &__brand {
-    display: none;
-    // margin: 10px;
-    // height: 36px;
-  }
-}
-
 .header__team {
   flex: 0 0 $layout-sidebar-width;
   width: $layout-sidebar-width;

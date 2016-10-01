@@ -1,6 +1,11 @@
 .header-actions {
-  flex: 1;
   text-align: right;
+  flex: 1;
+}
+
+ // TODO: better fix to keep actions at right during media header xhr
+.media-header + .header-actions {
+  flex: 0;
 }
 
 .header-actions__settings-icon {
