@@ -147,7 +147,7 @@ describe 'app' do
       @driver.find_element(:css, '.fa-gear').click
       sleep 1
       @driver.find_element(:xpath, "//a[@id='link-me']").click
-      expect(@driver.current_url.to_s == @config['self_url'] + '/me').to be(true)
+      expect((@driver.current_url.to_s =~ /\/me$/).nil?).to be(false)
       title = get_element('.source-name')
       expect(title.text == 'User With Email').to be(true)
     end
@@ -176,13 +176,13 @@ describe 'app' do
 
     it "should go back and forward in the history" do
       @driver.navigate.to @config['self_url']
-      expect(@driver.current_url.to_s == @config['self_url'] + '/').to be(true)
+      expect((@driver.current_url.to_s =~ /\/$/).nil?).to be(false)
       @driver.navigate.to @config['self_url'] + '/tos'
-      expect(@driver.current_url.to_s == @config['self_url'] + '/tos').to be(true)
+      expect((@driver.current_url.to_s =~ /\/tos$/).nil?).to be(false)
       @driver.navigate.back
-      expect(@driver.current_url.to_s == @config['self_url'] + '/').to be(true)
+      expect((@driver.current_url.to_s =~ /\/$/).nil?).to be(false)
       @driver.navigate.forward
-      expect(@driver.current_url.to_s == @config['self_url'] + '/tos').to be(true)
+      expect((@driver.current_url.to_s =~ /\/tos$/).nil?).to be(false)
     end
 
     it "should tag source from tags list" do
@@ -243,7 +243,7 @@ describe 'app' do
       @driver.navigate.to team_url('source/' + $source_id.to_s)
       title = get_element('.main-title')
       expect(title.text == 'Access Denied').to be(true)
-      expect(@driver.current_url.to_s == @config['self_url'] + '/forbidden').to be(true)
+      expect((@driver.current_url.to_s =~ /\/forbidden$/).nil?).to be(false)
     end
 
     it "should comment source as a command" do
@@ -646,7 +646,7 @@ describe 'app' do
       @driver.navigate.to url.gsub(/project\/([0-9]+).*/, 'project/99999999999999')
       title = get_element('.main-title')
       expect(title.text == 'Not Found').to be(true)
-      expect(@driver.current_url.to_s == @config['self_url'] + '/404').to be(true)
+      expect((@driver.current_url.to_s =~ /\/404$/).nil?).to be(false)
     end
 
     it "should change a media status via the dropdown menu" do
@@ -732,7 +732,6 @@ describe 'app' do
       @driver.navigate.to "#{@config['self_url']}/teams/new"
       create_team
       wait = Selenium::WebDriver::Wait.new(timeout: 5)
-      team_1_id = (wait.until { @driver.current_url.to_s.match(/\/team\/([0-9]+)$/) })[1]
       team_1_name = @driver.find_element(:css, '.team__name').text
       create_project
       project_1_id = (wait.until { @driver.current_url.to_s.match(/\/project\/([0-9]+)$/) })[1]
@@ -742,7 +741,6 @@ describe 'app' do
       @driver.navigate.to "#{@config['self_url']}/teams/new"
       wait.until { @driver.find_element(:css, '.create-team') }
       create_team
-      team_2_id = (wait.until { @driver.current_url.to_s.match(/\/team\/([0-9]+)$/) })[1]
       team_2_name = @driver.find_element(:css, '.team__name').text
       create_project
       project_2_id = (wait.until { @driver.current_url.to_s.match(/\/project\/([0-9]+)$/) })[1]
