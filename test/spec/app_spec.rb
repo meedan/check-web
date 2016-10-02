@@ -152,12 +152,12 @@ describe 'app' do
       expect(title.text == 'User With Email').to be(true)
     end
 
-    it "should go to source page through team/:id/source/:id" do
+    it "should go to source page through source/:id" do
       login_with_email
       @driver.navigate.to @config['self_url'] + '/me'
       sleep 5
       source_id = $source_id = @driver.find_element(:css, '.source').attribute('data-id')
-      @driver.navigate.to @config['self_url'] + '/team/' + get_team + '/source/' + source_id.to_s
+      @driver.navigate.to team_url('source/' + source_id.to_s)
       sleep 1
       title = get_element('.source-name')
       expect(title.text == 'User With Email').to be(true)
@@ -240,7 +240,7 @@ describe 'app' do
 
     it "should redirect to access denied page" do
       login_with_twitter
-      @driver.navigate.to @config['self_url'] + '/team/' + get_team + '/source/' + $source_id.to_s
+      @driver.navigate.to team_url('source/' + $source_id.to_s)
       title = get_element('.main-title')
       expect(title.text == 'Access Denied').to be(true)
       expect(@driver.current_url.to_s == @config['self_url'] + '/forbidden').to be(true)
@@ -270,7 +270,7 @@ describe 'app' do
 
     it "should preview source" do
       login_with_email
-      @driver.navigate.to @config['self_url'] + '/team/' + get_team + '/sources/new'
+      @driver.navigate.to team_url('sources/new')
       sleep 1
       expect(@driver.find_elements(:xpath, "//*[contains(@id, 'pender-iframe')]").empty?).to be(true)
       fill_field('#create-account-url', 'https://www.facebook.com/ironmaiden/?fref=ts')
@@ -281,7 +281,7 @@ describe 'app' do
 
     it "should create source and redirect to newly created source" do
       login_with_email
-      @driver.navigate.to @config['self_url'] + '/team/' + get_team + '/sources/new'
+      @driver.navigate.to team_url('sources/new')
       sleep 1
       fill_field('#create-account-url', @source_url)
       sleep 1
@@ -294,7 +294,7 @@ describe 'app' do
 
     it "should not create duplicated source" do
       login_with_email
-      @driver.navigate.to @config['self_url'] + '/team/' + get_team + '/sources/new'
+      @driver.navigate.to team_url('sources/new')
       sleep 1
       fill_field('#create-account-url', @source_url)
       sleep 1
@@ -307,7 +307,7 @@ describe 'app' do
 
     it "should not create report as source" do
       login_with_email
-      @driver.navigate.to @config['self_url'] + '/team/' + get_team + '/sources/new'
+      @driver.navigate.to team_url('sources/new')
       sleep 1
       fill_field('#create-account-url', 'https://www.youtube.com/watch?v=b708rEG7spI')
       sleep 1
@@ -436,7 +436,7 @@ describe 'app' do
 
     it "should tag media from tags list" do
       login_with_email
-      @driver.navigate.to @config['self_url'] + '/team/' + get_team + '/project/' + get_project + '/media/' + $media_id
+      @driver.navigate.to team_url('project/' + get_project + '/media/' + $media_id)
       sleep 1
 
       # First, verify that there isn't any tag
@@ -462,7 +462,7 @@ describe 'app' do
 
     it "should tag media as a command" do
       login_with_email
-      @driver.navigate.to @config['self_url'] + '/team/' + get_team + '/project/' + get_project + '/media/' + $media_id
+      @driver.navigate.to team_url('project/' + get_project + '/media/' + $media_id)
       sleep 1
 
       # First, verify that there isn't any tag
@@ -488,7 +488,7 @@ describe 'app' do
 
     it "should comment media as a command" do
       login_with_email
-      @driver.navigate.to @config['self_url'] + '/team/' + get_team + '/project/' + get_project + '/media/' + $media_id
+      @driver.navigate.to team_url('project/' + get_project + '/media/' + $media_id)
       sleep 1
 
       # First, verify that there isn't any comment
@@ -510,7 +510,7 @@ describe 'app' do
 
     it "should set status to media as a command" do
       login_with_email
-      @driver.navigate.to @config['self_url'] + '/team/' + get_team + '/project/' + get_project + '/media/' + $media_id
+      @driver.navigate.to team_url('project/' + get_project + '/media/' + $media_id)
       sleep 1
 
       # First, verify that there isn't any status
@@ -532,7 +532,7 @@ describe 'app' do
 
     it "should flag media as a command" do
       login_with_email
-      @driver.navigate.to @config['self_url'] + '/team/' + get_team + '/project/' + get_project + '/media/' + $media_id
+      @driver.navigate.to team_url('project/' + get_project + '/media/' + $media_id)
       sleep 1
 
       # First, verify that there isn't any flag
@@ -753,26 +753,22 @@ describe 'app' do
       (wait.until { @driver.find_element(:css, '.team-sidebar__switch-teams-button') }).click
       (wait.until { @driver.find_element(:xpath, "//*[contains(text(), '#{team_1_name}')]") }).click
       wait.until { @driver.find_element(:css, '.team') }
-      expect(@driver.current_url.to_s == "#{@config['self_url']}/team/#{team_1_id}").to be(true)
       expect(@driver.find_element(:css, '.team__name').text == team_1_name).to be(true)
       @driver.find_element(:css, '.team__project-link').click
       wait.until { @driver.find_element(:css, '.project') }
       url = @driver.current_url.to_s
-      expect(url == "#{@config['self_url']}/team/#{team_1_id}/project/#{project_1_id}").to be(true)
       media_1_url = @driver.find_element(:css, '.media-card__clickable').attribute('href')
-      expect(media_1_url.include?("/team/#{team_1_id}/project/#{project_1_id}/media/")).to be(true)
+      expect(media_1_url.include?("/project/#{project_1_id}/media/")).to be(true)
 
       (wait.until { @driver.find_element(:css, '.team-sidebar__switch-teams-button') }).click
       (wait.until { @driver.find_element(:xpath, "//*[contains(text(), '#{team_2_name}')]") }).click
       wait.until { @driver.find_element(:css, '.team') }
-      expect(@driver.current_url.to_s == "#{@config['self_url']}/team/#{team_2_id}").to be(true)
       expect(@driver.find_element(:css, '.team__name').text == team_2_name).to be(true)
       @driver.find_element(:css, '.team__project-link').click
       wait.until { @driver.find_element(:css, '.project') }
       url = @driver.current_url.to_s
-      expect(url == "#{@config['self_url']}/team/#{team_2_id}/project/#{project_2_id}").to be(true)
       media_2_url = @driver.find_element(:css, '.media-card__clickable').attribute('href')
-      expect(media_2_url.include?("/team/#{team_2_id}/project/#{project_2_id}/media/")).to be(true)
+      expect(media_2_url.include?("project/#{project_2_id}/media/")).to be(true)
     end
 
     it "should cancel request through switch teams" do

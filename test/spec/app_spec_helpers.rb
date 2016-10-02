@@ -172,7 +172,7 @@ module AppSpecHelpers
   end
 
   def get_team
-    @driver.execute_script('return Checkdesk.context.team ? Checkdesk.context.team.dbid : Checkdesk.currentUser.current_team.dbid').to_s
+    @driver.execute_script('return Checkdesk.context.team ? Checkdesk.context.team.subdomain : Checkdesk.currentUser.current_team.subdomain').to_s
   end
 
   def get_project
@@ -186,5 +186,9 @@ module AppSpecHelpers
   def create_media(url)
     fill_field('#create-media-url', url)
     press_button('#create-media-submit')
+  end
+
+  def team_url(path)
+    @config['self_url'].gsub('//', '//' + get_team + '.') + '/' + path
   end
 end
