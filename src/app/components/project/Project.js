@@ -8,9 +8,21 @@ import TeamSidebar from '../TeamSidebar';
 import { CreateMedia } from '../media';
 
 class ProjectComponent extends Component {
+  redirect() {
+    var path = window.location.protocol + '//' + 
+               Checkdesk.context.team.subdomain + '.' + 
+               config.selfHost + 
+               '/project/' + 
+               Checkdesk.context.project.dbid;
+    window.location.href = path;
+  }
+
   setContextProject() {
     Checkdesk.context.project = this.props.project;
-    Checkdesk.context.team = this.props.project.team;
+    if (!Checkdesk.context.team || Checkdesk.context.team.subdomain != this.props.project.team.subdomain) {
+      Checkdesk.context.team = this.props.project.team;
+      this.redirect();
+    }
   }
 
   componentDidMount() {
@@ -56,6 +68,7 @@ const ProjectContainer = Relay.createContainer(ProjectComponent, {
         team {
           id,
           dbid,
+          subdomain,
           projects(first: 10000) {
             edges {
               node {

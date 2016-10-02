@@ -35,10 +35,6 @@ class Home extends Component {
           // TODO make the header name a configuration option
           headers['X-Check-Token'] = token;
         }
-        if (Checkdesk.context.team) {
-          // TODO make the header name a configuration option
-          headers['X-Checkdesk-Context-Team'] = Checkdesk.context.team.dbid;
-        }
         return headers;
       }
     }));
@@ -77,46 +73,60 @@ class Home extends Component {
     request('get', 'me', failureCallback, successCallback);
   }
 
+  getSubdomain() {
+    const host = window.location.host;
+    const regexp = new RegExp('^([a-zA-Z0-9\\-]+)\\.' + config.selfHost);
+    var subdomain = null;
+    if (regexp.test(host)) {
+      subdomain = host.match(regexp)[1];
+    }
+    return subdomain;
+  }
+
   // Get context team and project from URL
   setContext() {
     if (this.props.params) {
-      if (this.props.params.teamId && !Checkdesk.context.team) {
-        Checkdesk.context.team = { dbid: this.props.params.teamId };
+      const subdomain = this.getSubdomain();
+      if (subdomain != null && !Checkdesk.context.team) {
+        Checkdesk.context.team = { subdomain: subdomain };
       }
       if (this.props.params.projectId && !Checkdesk.context.project) {
-        Checkdesk.context.project = { dbid: this.props.params.projectId };
+        Checkdesk.context.project = { dbid: parseInt(this.props.params.projectId) };
       }
     }
   }
 
   // Set context team and project from information from the backend
   setContextAndRedirect(team, project) {
-    var path = '/';
+    var path = window.location.protocol + '//';
     if (team) {
       Checkdesk.context.team = team;
-      path += 'team/' + team.dbid;
+      path += team.subdomain + '.';
     }
+    path += config.selfHost;
     if (project) {
       Checkdesk.context.project = project;
       path += '/project/' + project.dbid;
     }
-    Checkdesk.history.push(path);
+    window.location.href = path;
   }
 
   maybeRedirect(location, userData) {
     if (location !== '/' || !userData) { return; }
 
-    const userCurrentTeam = userData.current_team; // currently always null
+    const userCurrentTeam = userData.current_team;
     if (!userCurrentTeam && location !== '/teams/new') {
       return Checkdesk.history.push('/teams/new');
     }
 
-    const project = userCurrentTeam.projects[0];
-    if (project && project.dbid) {
-      this.setContextAndRedirect(userCurrentTeam, project);
-    }
-    else {
-      this.setContextAndRedirect(userCurrentTeam, null);
+    if (!this.getSubdomain()) {
+      const project = userCurrentTeam.projects[0];
+      if (project && project.dbid) {
+        this.setContextAndRedirect(userCurrentTeam, project);
+      }
+      else {
+        this.setContextAndRedirect(userCurrentTeam, null);
+      }
     }
   }
 
@@ -128,7 +138,7 @@ class Home extends Component {
     const routeIsPublic = children && children.props.route.public;
     if (!routeIsPublic && !state.app.token) {
       if (state.app.error) {
-        if (!state.app.message && children.props.route.path === 'team/:teamId/join') {
+        if (!state.app.message && children.props.route.path === 'join') {
           state.app.message = 'First you need to register. Once registered, you can request to join the team.';
         }
         return (<LoginMenu {...this.props} />);

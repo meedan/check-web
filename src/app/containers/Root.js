@@ -28,22 +28,21 @@ export default class Root extends Component {
       <Provider store={store}>
         <Router history={history}>
           <Route path="/" component={App}>
-            <IndexRoute component={IndexComponent} />
+            <IndexRoute component={Team} />
             <Route path="tos" component={TermsOfService} public={true} />
             <Route path="privacy" component={PrivacyPolicy} public={true} />
-            <Route path="team/:teamId/sources" component={Sources} />
-            <Route path="team/:teamId/sources/new" component={CreateAccount} />
-            <Route path="team/:teamId/source/:sourceId" component={Source} />
+            <Route path="sources" component={Sources} />
+            <Route path="sources/new" component={CreateAccount} />
+            <Route path="source/:sourceId" component={Source} />
             <Route path="medias/new" component={CreateMedia} />
-            <Route path="team/:teamId/project/:projectId/media/:mediaId" component={Media} />
+            <Route path="project/:projectId/media/:mediaId" component={Media} />
             <Route path="user/:userId" component={User} />
             <Route path="me" component={Me} />
-            <Route path="team/:teamId/join" component={JoinTeam} />
-            <Route path="team/:teamId/members" component={TeamMembers} />
-            <Route path="team/:teamId" component={Team} />
+            <Route path="join" component={JoinTeam} />
+            <Route path="members" component={TeamMembers} />
             <Route path="teams/new" component={CreateTeam} fullscreen={true} />
             <Route path="teams" component={Teams} fullscreen={true} />
-            <Route path="team/:teamId/project/:projectId" component={Project} />
+            <Route path="project/:projectId" component={Project} />
             <Route path="forbidden" component={AccessDenied} public={true} />
             <Route path="*" component={NotFound} public={true} />
           </Route>

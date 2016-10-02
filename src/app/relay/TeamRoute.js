@@ -5,7 +5,7 @@ class TeamRoute extends Relay.Route {
     team: () => Relay.QL`query Team { team(id: $teamId) }`,
   };
   static paramDefinitions = {
-    teamId: { required: true }
+    teamId: { required: false }
   };
   static routeName = 'TeamRoute';
 };

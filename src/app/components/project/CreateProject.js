@@ -29,7 +29,7 @@ class CreateProject extends Component {
 
     var onSuccess = (response) => {
       var pid = response.createProject.project.dbid;
-      window.Checkdesk.history.push('/team/' + team.dbid + '/project/' + pid);
+      window.Checkdesk.history.push('/project/' + pid);
       this.setState({ message: null });
     };
 

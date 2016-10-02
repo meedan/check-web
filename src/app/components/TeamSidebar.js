@@ -51,7 +51,7 @@ class TeamSidebarComponent extends Component {
                 <ul className='team-sidebar__projects-list'>
                   {currentTeam.projects.edges.map(p => (
                     <li className={'team-sidebar__project' + (this.isCurrentProject(p.node.dbid) ? ' team-sidebar__project--current' : '')}>
-                      <Link to={'/team/' + currentTeam.dbid + '/project/' + p.node.dbid} className='team-sidebar__project-link'>{p.node.title}</Link>
+                      <Link to={'/project/' + p.node.dbid} className='team-sidebar__project-link'>{p.node.title}</Link>
                     </li>
                   ))}
                   <li className='team-sidebar__new-project'>
@@ -69,7 +69,7 @@ class TeamSidebarComponent extends Component {
           {(() => {
             if (currentTeam) {
               return (
-                <Link to={'/team/' + currentTeam.dbid + '/sources'} id="link-sources" className='team-sidebar__sources-link' activeClassName='team-sidebar__sources-link--active' title="Sources">Sources</Link>
+                <Link to={'/sources'} id="link-sources" className='team-sidebar__sources-link' activeClassName='team-sidebar__sources-link--active' title="Sources">Sources</Link>
               );
             }
           })()}
@@ -80,7 +80,7 @@ class TeamSidebarComponent extends Component {
                 return (
                   <li className='team-sidebar__new-source'>
                     <FontAwesome className='team-sidebar__new-source-icon' name='user' />
-                    <Link to={'/team/' + currentTeam.dbid + '/sources/new'} id="link-sources-new" className='team-sidebar__new-source-link' activeClassName='team-sidebar__new-source-link--active' title="Create a source">New source...</Link>
+                    <Link to={'/sources/new'} id="link-sources-new" className='team-sidebar__new-source-link' activeClassName='team-sidebar__new-source-link--active' title="Create a source">New source...</Link>
                   </li>
                 );
               }
@@ -119,7 +119,7 @@ const TeamSidebarContainer = Relay.createContainer(TeamSidebarComponent, {
 
 class TeamSidebar extends Component {
   render() {
-    var route = new TeamRoute({ teamId: Checkdesk.context.team.dbid });
+    var route = new TeamRoute({ teamId: '' });
     return (<Relay.RootContainer Component={TeamSidebarContainer} route={route} />);
   }
 }

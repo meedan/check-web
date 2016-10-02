@@ -22,7 +22,11 @@ class TeamComponent extends Component {
   }
 
   setContextTeam() {
-    Checkdesk.context.team = this.props.team;
+    if (Checkdesk.context.team.subdomain != this.props.team.subdomain) {
+      Checkdesk.context.team = this.props.team;
+      var path = window.location.protocol + '//' + Checkdesk.context.team.subdomain + '.' + config.selfHost;
+      window.location.href = path;
+    }
   }
 
   componentDidMount() {
@@ -307,7 +311,7 @@ class TeamComponent extends Component {
             <ul className='team__projects-list'>
               {team.projects.edges.map(p => (
                 <li className='team__project'>
-                  <Link to={'/team/' + team.dbid + '/project/' + p.node.dbid} className='team__project-link'>{p.node.title}</Link>
+                  <Link to={'/project/' + p.node.dbid} className='team__project-link'>{p.node.title}</Link>
                 </li>
               ))}
               <li className='team__new-project'>

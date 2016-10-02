@@ -20,7 +20,7 @@ class CreateMedia extends Component {
   handleSubmit() {
     var that = this,
         url = document.getElementById('create-media-url').value,
-        prefix = '/team/' + Checkdesk.context.team.dbid + '/project/' + Checkdesk.context.project.dbid + '/media/';
+        prefix = '/project/' + Checkdesk.context.project.dbid + '/media/';
 
     var onFailure = (transaction) => {
       transaction.getError().json().then(function(json) {

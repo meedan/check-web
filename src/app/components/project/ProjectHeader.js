@@ -171,7 +171,7 @@ class ProjectHeaderComponent extends Component {
               </Can>
               
               <Can permissions={project.team.permissions} permission="update Team">
-                <li className='project-header__project-setting project-header__project-setting--manage-team' onClick={Checkdesk.history.push.bind(this, '/team/' + project.team.dbid + '/members')}>Manage team...</li>
+                <li className='project-header__project-setting project-header__project-setting--manage-team' onClick={Checkdesk.history.push.bind(this, '/members')}>Manage team...</li>
               </Can>
               
               {/*<li className='project-header__project-setting project-header__project-setting--delete' onClick={this.deleteProject.bind(this)}>Delete project</li>*/}
@@ -199,6 +199,7 @@ const ProjectHeaderContainer = Relay.createContainer(ProjectHeaderComponent, {
         team {
           id,
           dbid,
+          subdomain,
           permissions
         }
       }
