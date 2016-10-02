@@ -9,7 +9,11 @@ before_install:
 - unzip travis.zip
 # apt dependencies
 - sudo apt-get -qq update
-- sudo apt-get install wget python-setuptools lsof unzip inkscape imagemagick ruby ruby-dev libnss3 libnss3-dev xvfb libnss3-1d libexif-dev curl build-essential libssl-dev libappindicator1 fonts-liberation -y
+- sudo apt-get install wget python-setuptools lsof unzip inkscape imagemagick ruby ruby-dev libnss3 libnss3-dev xvfb libnss3-1d libexif-dev curl build-essential libssl-dev libappindicator1 fonts-liberation dnsmasq -y
+# dnsmasq (resolve any domain under *.localhost)
+- sudo kill -9 $(lsof -ti tcp:53) 2>/dev/null
+- sudo echo 'address=/localhost/127.0.0.1' >> /etc/dnsmasq.conf
+- sudo service dnsmasq restart
 # api
 - export RAILS_ENV=development
 - curl -O https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.2.4.deb && sudo dpkg -i --force-confnew elasticsearch-1.2.4.deb && sudo service elasticsearch restart
