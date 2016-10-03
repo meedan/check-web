@@ -41,6 +41,8 @@ For better debugging, set your `NODE_ENV` environment variable to `development` 
 * The web application will be available for the world through Ngrok (check `releases/web.log` for the generated URL)
 * While you run the tests from inside the container using `npm run test`, you can see what's going on by connecting to VNC, on port 5999 and password "keefer"
 
+In order to use subdomains, install `dnsmasq` and configure it to accept any subdomain.
+
 ## How to test
 
 * Compile the code with `npm run build`
