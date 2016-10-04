@@ -1,10 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
-import Card from 'material-ui/lib/card/card';
-import CardHeader from 'material-ui/lib/card/card-header';
-import CardActions from 'material-ui/lib/card/card-actions';
-import FlatButton from 'material-ui/lib/flat-button';
-import CardText from 'material-ui/lib/card/card-text';
 import TimeAgo from 'react-timeago';
 import DeleteAnnotationMutation from '../../relay/DeleteAnnotationMutation';
 
@@ -57,14 +52,17 @@ class Annotation extends Component {
 
     return (
       <div className="annotation" id={'annotation-' + annotation.dbid}>
-        <Card>
-          <CardHeader title={annotation.annotator.name} subtitle={<TimeAgo date={annotation.created_at} live={false} />} 
-                      avatar={annotation.annotator.profile_image} />
-          <CardText>{content}</CardText>
-          <CardActions>
-            <FlatButton label="Delete" onClick={this.handleDelete.bind(this, annotation.id)} />
-          </CardActions>
-        </Card>
+        <div className='annotation__avatar' style={{backgroundImage: `url(${annotation.annotator.profile_image})`}}></div>
+        <section className='annotation__content'>
+          <div className='annotation__header'>
+            <h4 className='annotation__author-name'>{annotation.annotator.name}</h4>
+            <span className='annotation__timestamp'><TimeAgo date={annotation.created_at} live={false} /></span>
+            <div className='annotation__actions'>
+              <button className='annotation__delete' onClick={this.handleDelete.bind(this, annotation.id)} title='Delete'>×</button>
+            </div>
+          </div>
+          <div className='annotation__body'>{content}</div>
+        </section>
       </div>
     );
   }

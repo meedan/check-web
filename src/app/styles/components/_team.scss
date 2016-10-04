@@ -1,3 +1,9 @@
+@mixin team-avatar($size: 60px) {
+  @include avatar($size);
+}
+
+// TODO: move below to components/team/team
+
 .team {
   padding: 15px;
 }

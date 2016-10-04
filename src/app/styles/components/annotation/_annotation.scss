@@ -1,0 +1,57 @@
+.annotation {
+  padding: 15px 0;
+
+  display: flex;
+  font-size: $annotation-font-size;
+}
+
+.annotation__avatar {
+  @include user-avatar(36px);
+  margin: 1px 12px 12px 0;
+}
+
+.annotation__content {
+  flex: 1;
+}
+
+// header
+
+.annotation__header {
+  display: flex;
+
+  margin-bottom: 2px;
+}
+
+.annotation__author-name {
+  font-weight: 600;
+  font-size: $annotation-font-size;
+  color: theme-gray(28%);
+  margin: 0;
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.annotation__timestamp {
+  @include gray-text(12.5px);
+}
+
+.annotation__actions {
+  flex: 1;
+
+  text-align: right;
+  position: relative;
+}
+
+.annotation__delete {
+  @include close-button(21px);
+  position: absolute;
+  top: -10px;
+  right: 15px;
+  // @include gray-text(12.5px);
+}
+
+// body
+
+.annotation__body {
+  color: theme-gray(27%);
+}
