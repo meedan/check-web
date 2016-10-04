@@ -21,7 +21,8 @@ class ProjectComponent extends Component {
     Checkdesk.context.project = this.props.project;
     if (!Checkdesk.context.team || Checkdesk.context.team.subdomain != this.props.project.team.subdomain) {
       Checkdesk.context.team = this.props.project.team;
-      this.redirect();
+      // this.redirect();
+      Checkdesk.history.push('/404');
     }
   }
 
