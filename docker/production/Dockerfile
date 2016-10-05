@@ -1,4 +1,4 @@
-# meedan/checkdeskclient web
+# meedan/check-web
 
 FROM meedan/nodejs
 MAINTAINER sysops@meedan.com
@@ -39,7 +39,7 @@ COPY . ${DEPLOYDIR}/new
 USER root
 RUN chown -R ${DEPLOYUSER}:www-data ${DEPLOYDIR}/new
 USER ${DEPLOYUSER}
-RUN rm -rf mv ${DEPLOYDIR}/new/node_modules \
+RUN rm -rf ${DEPLOYDIR}/new/node_modules \
     && rsync -avp ${DEPLOYDIR}/new/* ${DEPLOYDIR}/latest/ 
 
 # style
