@@ -11,6 +11,7 @@ var userFragment = Relay.QL`
       dbid,
       name,
       avatar,
+      subdomain,
       members_count
     },
     team_users(first: 10000) {
@@ -21,6 +22,7 @@ var userFragment = Relay.QL`
             dbid,
             name,
             avatar,
+            subdomain,
             members_count
           }
           id,

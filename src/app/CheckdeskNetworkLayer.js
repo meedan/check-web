@@ -1,4 +1,5 @@
 import Relay from 'react-relay';
+import util from 'util';
 
 class CheckdeskNetworkLayer extends Relay.DefaultNetworkLayer {
   sendQueries(requests: Array<RelayQueryRequest>): ?Promise<any> {
@@ -48,5 +49,15 @@ class CheckdeskNetworkLayer extends Relay.DefaultNetworkLayer {
     });
   }
 };
+
+function createRequestError(request, responseStatus, payload) {
+  const errorReason: string = 'Server response had an error status ' + responseStatus + ' and error ' + util.inspect(payload);
+  
+  const error = new Error(errorReason);
+  (error: any).source = payload;
+  (error: any).status = responseStatus;
+  
+  return error;
+}
 
 export default CheckdeskNetworkLayer;

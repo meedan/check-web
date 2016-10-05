@@ -6,6 +6,7 @@ import UpdateUserMutation from '../../relay/UpdateUserMutation';
 import DeleteTeamUserMutation from '../../relay/DeleteTeamUserMutation';
 import FontAwesome from 'react-fontawesome';
 import { Link } from 'react-router';
+import config from 'config';
 
 class SwitchTeamsComponent extends Component {
   membersCountString(count) {
@@ -25,7 +26,7 @@ class SwitchTeamsComponent extends Component {
   setCurrentTeam(team) {
     var onFailure = (transaction) => {
       transaction.getError().json().then(function(json) {
-        var message = 'Sorry, could not update the project';
+        var message = 'Sorry, could not switch teams';
         if (json.error) {
           message = json.error;
         }
@@ -34,7 +35,7 @@ class SwitchTeamsComponent extends Component {
     };
 
     var onSuccess = (response) => {
-      Checkdesk.history.push('/team/' + team.dbid);
+      window.location.href = window.location.protocol + '//' + team.subdomain + '.' + config.selfHost;
     };
 
     Relay.Store.commitUpdate(
@@ -67,6 +68,8 @@ class SwitchTeamsComponent extends Component {
       }
     });
 
+    const buildUrl = function(team) { return window.location.protocol + '//' + team.subdomain + '.' + config.selfHost };
+
     return (
       <div className='switch-teams'>
         <ul className='switch-teams__teams'>
@@ -75,7 +78,7 @@ class SwitchTeamsComponent extends Component {
             if (currentTeam) {
               return (
                 <li className='switch-teams__team switch-teams__team--current'>
-                  <Link to={'/team/' + currentTeam.dbid} className='switch-teams__team-link'>
+                  <a href={buildUrl(currentTeam)} className='switch-teams__team-link'>
                     <div className='switch-teams__team-avatar' style={{'background-image': 'url(' + currentTeam.avatar + ')'}}></div>
                     <div className='switch-teams__team-copy'>
                       <h3 className='switch-teams__team-name'>{currentTeam.name}</h3>
@@ -84,7 +87,7 @@ class SwitchTeamsComponent extends Component {
                     <div className='switch-teams__team-actions'>
                       <FontAwesome className='switch-teams__team-caret' name='angle-right' />
                     </div>
-                  </Link>
+                  </a>
                 </li>
               );
             }
@@ -112,7 +115,7 @@ class SwitchTeamsComponent extends Component {
               <li className='switch-teams__team switch-teams__team--pending'>
                 <div className='switch-teams__team-avatar' style={{'background-image': 'url(' + team.avatar + ')'}}></div>
                 <div className='switch-teams__team-copy'>
-                  <h3 className='switch-teams__team-name'><Link to={'/team/' + team.dbid}>{team.name}</Link></h3>
+                  <h3 className='switch-teams__team-name'><a href={buildUrl(team)}>{team.name}</a></h3>
                   <span className='switch-teams__team-join-request-message'>You requested to join</span>
                 </div>
                 <div className='switch-teams__team-actions'>

@@ -1,7 +1,6 @@
 export Footer from './Footer';
 export Header from './Header';
 export Home from './Home';
-export IndexComponent from './IndexComponent';
 export LoginEmail from './LoginEmail';
 export LoginMenu from './LoginMenu';
 export Message from './Message';
