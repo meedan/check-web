@@ -13,12 +13,12 @@ RUN gpg --keyserver ha.pool.sks-keyservers.net --recv-keys 6380DC428747F6C393FEA
   && chmod +x /usr/local/bin/tini
 
 # install our app
-ADD package.json /app/package.json
+COPY package.json /app/package.json
 RUN cd /app && npm install
-ADD test/Gemfile test/Gemfile.lock /app/test/
+COPY test/Gemfile test/Gemfile.lock /app/test/
 RUN cd /app/test && gem install bundler && bundle install --jobs 20 --retry 5
 WORKDIR /app
-ADD . /app
+COPY . /app
 RUN npm run build
 
 # startup
