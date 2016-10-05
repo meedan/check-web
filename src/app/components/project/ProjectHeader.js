@@ -127,7 +127,7 @@ class ProjectHeaderComponent extends Component {
               if (this.state.isEditing) {
                 return (
                   <form className='project-header__project-form' onSubmit={this.updateProject.bind(this)}>
-                    <input className='project-header__project-name-input' id='project-title-field' name='name' type='text' value={this.state.title} placeholder='Add project' autocomplete='off' onChange={this.handleTitleChange.bind(this)} />
+                    <input className='project-header__project-name-input' id='project-title-field' name='name' type='text' value={this.state.title} placeholder='Add project +' autocomplete='off' onChange={this.handleTitleChange.bind(this)} />
                     <span className='project-header__project-description'>
                       <input
                         className='project-header__project-description-input'

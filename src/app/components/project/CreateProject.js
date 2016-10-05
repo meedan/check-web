@@ -47,7 +47,7 @@ class CreateProject extends Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit.bind(this)} className="create-project">
-        <input className={this.props.className} placeholder="Add project" id="create-project-title" />
+        <input className={this.props.className} placeholder="Add project +" id="create-project-title" />
         <Message message={this.state.message} />
       </form>
     );
