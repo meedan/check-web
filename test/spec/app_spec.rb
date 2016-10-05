@@ -222,7 +222,7 @@ describe 'app' do
 
       # First, verify that there isn't any tag
       expect(@driver.find_elements(:css, '.ReactTags__tag').empty?).to be(true)
-      expect(@driver.page_source.include?('Tagged as "selenium"')).to be(false)
+      expect(@driver.page_source.include?('Tagged #selenium')).to be(false)
 
       # Add a tag from tags list
       fill_field('.ReactTags__tagInput input', 'selenium')
@@ -232,14 +232,14 @@ describe 'app' do
       # Verify that tag was added to tags list and annotations list
       tag = get_element('.ReactTags__tag span')
       expect(tag.text == 'selenium').to be(true)
-      expect(@driver.page_source.include?('Tagged as "selenium"')).to be(true)
+      expect(@driver.page_source.include?('Tagged #selenium')).to be(true)
 
       # Reload the page and verify that tags are still there
       @driver.navigate.refresh
       sleep 1
       tag = get_element('.ReactTags__tag span')
       expect(tag.text == 'selenium').to be(true)
-      expect(@driver.page_source.include?('Tagged as "selenium"')).to be(true)
+      expect(@driver.page_source.include?('Tagged #selenium')).to be(true)
     end
 
     it "should tag source as a command" do
@@ -248,7 +248,7 @@ describe 'app' do
       sleep 1
 
       # First, verify that there isn't any tag
-      expect(@driver.page_source.include?('Tagged as "command"')).to be(false)
+      expect(@driver.page_source.include?('Tagged #command')).to be(true)
 
       # Add a tag as a command
       fill_field('.cmd-input input', '/tag command')
@@ -258,14 +258,14 @@ describe 'app' do
       # Verify that tag was added to tags list and annotations list
       tag = get_element('.ReactTags__tag span')
       expect(tag.text == 'command').to be(true)
-      expect(@driver.page_source.include?('Tagged as "command"')).to be(true)
+      expect(@driver.page_source.include?('Tagged #command')).to be(true)
 
       # Reload the page and verify that tags are still there
       @driver.navigate.refresh
       sleep 1
       tag = get_element('.ReactTags__tag span')
       expect(tag.text == 'command').to be(true)
-      expect(@driver.page_source.include?('Tagged as "command"')).to be(true)
+      expect(@driver.page_source.include?('Tagged #command')).to be(true)
     end
 
     it "should redirect to access denied page" do
@@ -361,11 +361,11 @@ describe 'app' do
       # Verify that tags were added to tags list and annotations list
       tag = @driver.find_elements(:css, '.ReactTags__tag span').select{ |s| s.text == 'foo' }
       expect(tag.empty?).to be(false)
-      expect(@driver.page_source.include?('Tagged as "foo"')).to be(true)
+      expect(@driver.page_source.include?('Tagged #foo')).to be(true)
 
       tag = @driver.find_elements(:css, '.ReactTags__tag span').select{ |s| s.text == 'bar' }
       expect(tag.empty?).to be(false)
-      expect(@driver.page_source.include?('Tagged as "bar"')).to be(true)
+      expect(@driver.page_source.include?('Tagged #bar')).to be(true)
     end
 
     it "should tag source multiple times with commas from tags list" do
@@ -381,11 +381,11 @@ describe 'app' do
       # Verify that tags were added to tags list and annotations list
       tag = @driver.find_elements(:css, '.ReactTags__tag span').select{ |s| s.text == 'bla' }
       expect(tag.empty?).to be(false)
-      expect(@driver.page_source.include?('Tagged as "bla"')).to be(true)
+      expect(@driver.page_source.include?('Tagged #bla')).to be(true)
 
       tag = @driver.find_elements(:css, '.ReactTags__tag span').select{ |s| s.text == 'bli' }
       expect(tag.empty?).to be(false)
-      expect(@driver.page_source.include?('Tagged as "bli"')).to be(true)
+      expect(@driver.page_source.include?('Tagged #bli')).to be(true)
     end
 
     it "should not add a duplicated tag from tags list" do
@@ -448,7 +448,7 @@ describe 'app' do
       sleep 1
 
       # First, verify that there isn't any tag
-      expect(@driver.page_source.include?('Tagged as "selenium"')).to be(false)
+      expect(@driver.page_source.include?('Tagged #selenium')).to be(false)
 
       # Add a tag from tags list
       fill_field('.ReactTags__tagInput input', 'selenium')
@@ -458,14 +458,14 @@ describe 'app' do
       # Verify that tag was added to tags list and annotations list
       tag = get_element('.ReactTags__tag span')
       expect(tag.text == 'selenium').to be(true)
-      expect(@driver.page_source.include?('Tagged as "selenium"')).to be(true)
+      expect(@driver.page_source.include?('Tagged #selenium')).to be(true)
 
       # Reload the page and verify that tags are still there
       @driver.navigate.refresh
       sleep 1
       tag = get_element('.ReactTags__tag span')
       expect(tag.text == 'selenium').to be(true)
-      expect(@driver.page_source.include?('Tagged as "selenium"')).to be(true)
+      expect(@driver.page_source.include?('Tagged #selenium')).to be(true)
     end
 
     it "should tag media as a command" do
@@ -474,7 +474,7 @@ describe 'app' do
       sleep 1
 
       # First, verify that there isn't any tag
-      expect(@driver.page_source.include?('Tagged as "command"')).to be(false)
+      expect(@driver.page_source.include?('Tagged #command')).to be(false)
 
       # Add a tag as a command
       fill_field('.cmd-input input', '/tag command')
@@ -484,14 +484,14 @@ describe 'app' do
       # Verify that tag was added to tags list and annotations list
       tag = get_element('.ReactTags__tag span')
       expect(tag.text == 'command').to be(true)
-      expect(@driver.page_source.include?('Tagged as "command"')).to be(true)
+      expect(@driver.page_source.include?('Tagged #command')).to be(true)
 
       # Reload the page and verify that tags are still there
       @driver.navigate.refresh
       sleep 1
       tag = get_element('.ReactTags__tag span')
       expect(tag.text == 'command').to be(true)
-      expect(@driver.page_source.include?('Tagged as "command"')).to be(true)
+      expect(@driver.page_source.include?('Tagged #command')).to be(true)
     end
 
     it "should comment media as a command" do

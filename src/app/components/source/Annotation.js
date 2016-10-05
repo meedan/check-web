@@ -31,40 +31,97 @@ class Annotation extends Component {
   render() {
     const annotation = this.props.annotation;
 
-    // Display is different, based on annotation type
     let content = JSON.parse(annotation.content);
+    let template;
     switch (annotation.annotation_type) {
       case 'comment':
         content = content.text;
-        break;
-      case 'tag':
-        content = 'Tagged as "' + content.tag + '"'
+        template = (
+          <div className="annotation annotation--comment" id={'annotation-' + annotation.dbid}>
+            <div className='annotation__avatar' style={{backgroundImage: `url(${annotation.annotator.profile_image})`}}></div>
+            <section className='annotation__content'>
+              <div className='annotation__header'>
+                <h4 className='annotation__author-name'>{annotation.annotator.name}</h4>
+                <span className='annotation__timestamp'><TimeAgo date={annotation.created_at} live={false} /></span>
+                <div className='annotation__actions'>
+                  <button className='annotation__delete' onClick={this.handleDelete.bind(this, annotation.id)} title='Delete'>×</button>
+                </div>
+              </div>
+              <div className='annotation__body'>{content}</div>
+            </section>
+          </div>
+        );
         break;
       case 'status':
-        content = 'Status set to "' + content.status + '"'
+        const statusCode = content.status.toLowerCase().replace(' ', '-');
+        template = (
+          <div className="annotation annotation--status" id={'annotation-' + annotation.dbid}>
+            <section className='annotation__content'>
+              <div className='annotation__header'>
+                <span>Status set to </span>
+                <span className={`annotation__status annotation__status--${statusCode}`}>{content.status}</span>
+                <span> by </span>
+                <span className='annotation__author-name'>{annotation.annotator.name}</span> <span className='annotation__timestamp'><TimeAgo date={annotation.created_at} live={false} /></span>
+
+                <div className='annotation__actions'>
+                  <button className='annotation__delete' onClick={this.handleDelete.bind(this, annotation.id)} title='Delete'>×</button>
+                </div>
+              </div>
+            </section>
+          </div>
+        );
+        break;
+      case 'tag':
+        const message = `Tagged #${content.tag} by`;
+        template = (
+          <div className="annotation annotation--tag" id={'annotation-' + annotation.dbid}>
+            <section className='annotation__content'>
+              <div className='annotation__header'>
+                <span>{message}</span>
+                <span className='annotation__author-name'>{annotation.annotator.name}</span> <span className='annotation__timestamp'><TimeAgo date={annotation.created_at} live={false} /></span>
+
+                <div className='annotation__actions'>
+                  <button className='annotation__delete' onClick={this.handleDelete.bind(this, annotation.id)} title='Delete'>×</button>
+                </div>
+              </div>
+            </section>
+          </div>
+        );
         break;
       case 'flag':
-        content = 'Flagged as "' + content.flag + '"'
+        template = (
+          <div className="annotation annotation--flag" id={'annotation-' + annotation.dbid}>
+            <section className='annotation__content'>
+              <div className='annotation__header'>
+                <span>Flagged as {content.flag} by </span>
+                <span className='annotation__author-name'>{annotation.annotator.name}</span> <span className='annotation__timestamp'><TimeAgo date={annotation.created_at} live={false} /></span>
+
+                <div className='annotation__actions'>
+                  <button className='annotation__delete' onClick={this.handleDelete.bind(this, annotation.id)} title='Delete'>×</button>
+                </div>
+              </div>
+            </section>
+          </div>
+        );
         break;
       default:
         content = annotation.content;
+        template = (
+          <div className="annotation annotation--default" id={'annotation-' + annotation.dbid}>
+            <div className='annotation__timeline-dot'></div>
+            <section className='annotation__content'>
+              <div className='annotation__header'>
+                {content}
+                <div className='annotation__actions'>
+                  <button className='annotation__delete' onClick={this.handleDelete.bind(this, annotation.id)} title='Delete'>×</button>
+                </div>
+              </div>
+            </section>
+          </div>
+        );
     }
 
-    return (
-      <div className="annotation" id={'annotation-' + annotation.dbid}>
-        <div className='annotation__avatar' style={{backgroundImage: `url(${annotation.annotator.profile_image})`}}></div>
-        <section className='annotation__content'>
-          <div className='annotation__header'>
-            <h4 className='annotation__author-name'>{annotation.annotator.name}</h4>
-            <span className='annotation__timestamp'><TimeAgo date={annotation.created_at} live={false} /></span>
-            <div className='annotation__actions'>
-              <button className='annotation__delete' onClick={this.handleDelete.bind(this, annotation.id)} title='Delete'>×</button>
-            </div>
-          </div>
-          <div className='annotation__body'>{content}</div>
-        </section>
-      </div>
-    );
+    return template;
   }
 }
 

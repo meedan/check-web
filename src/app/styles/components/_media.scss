@@ -17,14 +17,6 @@ $media-card-padding: 8px 14px 14px 14px;
   }
 }
 
-@mixin media-status-colors {
-  &--undetermined { color: $blue-500; }
-  &--in-progress { color: $orange-500; }
-  &--verified { color: $green-500; }
-  &--false { color: $red-500; }
-  &--not-applicable { color: $gray-350; }
-}
-
 @mixin media-title($size: 19px) {
   font-size: $size;
   font-family: $font-stack-sans-condensed;
