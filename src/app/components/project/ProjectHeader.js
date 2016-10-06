@@ -153,6 +153,8 @@ class ProjectHeaderComponent extends Component {
               );
             }
           })()}
+
+          {/* DEPRECATED – replace with HeaderActions */}
           <div className={this.bemClass('project-header__project-settings', this.state.isSettingsMenuOpen, '--active')}>
             <i className='project-header__project-search-icon fa fa-search'></i>
             <i className='project-header__project-settings-icon fa fa-gear' onClick={this.toggleSettings.bind(this)}></i>
@@ -177,6 +179,8 @@ class ProjectHeaderComponent extends Component {
               <li className='TODO project-header__project-setting' onClick={this.contactHuman.bind(this)}>Contact a Human</li>
 
               <li className='TODO project-header__project-setting project-header__logout' onClick={logout}>Sign Out</li>
+              <li className='header-actions__setting'><a className='header-actions__link' href='/tos'>Terms of Service</a></li>
+              <li className='header-actions__setting'><a className='header-actions__link' href='/privacy'>Privacy Policy</a></li>
             </ul>
           </div>
         </div>

@@ -60,8 +60,17 @@
 
 .header-actions__setting {
   // border-bottom: 1px solid darken($home-bg, 10%);
-  &:hover { background: darken($home-bg, 30%); }
+  &:hover { background: darken($home-bg, 5%); }
   font-size: 15px;
   padding: 11px 15px;
   cursor: pointer;
+}
+
+.header-actions__link {
+  color: inherit;
+  &, &:hover { text-decoration: none; }
+
+  &:nth-last-child(-n + 2) {
+    color: $light-gray-text;
+  }
 }
