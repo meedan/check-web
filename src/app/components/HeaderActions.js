@@ -32,7 +32,7 @@ class HeaderActions extends Component {
         {/*<FontAwesome name='search' className='header-actions__search-icon'/>*/}
 
         {/* TODO: rename to reflect expand role (not just settings) */}
-        <FontAwesome name='gear' className='header-actions__settings-icon' onClick={this.toggleSettingsMenu.bind(this)} />
+        <FontAwesome name='ellipsis-h' className='header-actions__settings-icon' onClick={this.toggleSettingsMenu.bind(this)} />
         <div className={this.bemClass('header-actions__settings-overlay', this.state.isSettingsMenuOpen, '--active')} onClick={this.toggleSettingsMenu.bind(this)}></div>
         <ul className={this.bemClass('header-actions__settings-panel', this.state.isSettingsMenuOpen, '--active')}>
           <li className='header-actions__setting'><UserMenuRelay {...this.props} /></li>

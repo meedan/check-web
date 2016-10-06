@@ -144,7 +144,7 @@ describe 'app' do
 
     it "should go to user page" do
       login_with_email
-      @driver.find_element(:css, '.fa-gear').click
+      @driver.find_element(:css, '.fa-ellipsis-h').click
       sleep 1
       @driver.find_element(:xpath, "//a[@id='link-me']").click
       expect((@driver.current_url.to_s =~ /\/me$/).nil?).to be(false)
@@ -679,7 +679,7 @@ describe 'app' do
         create_project
       end
       @driver.navigate.to @config['self_url']
-      menu = @wait.until { @driver.find_element(:css, '.fa-gear') }
+      menu = @wait.until { @driver.find_element(:css, '.fa-ellipsis-h') }
       menu.click
       logout = @wait.until { @driver.find_element(:css, '.project-header__logout') }
       logout.click

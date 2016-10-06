@@ -157,7 +157,7 @@ class ProjectHeaderComponent extends Component {
           {/* DEPRECATED – replace with HeaderActions */}
           <div className={this.bemClass('project-header__project-settings', this.state.isSettingsMenuOpen, '--active')}>
             <i className='project-header__project-search-icon fa fa-search'></i>
-            <i className='project-header__project-settings-icon fa fa-gear' onClick={this.toggleSettings.bind(this)}></i>
+            <i className='project-header__project-settings-icon fa fa-ellipsis-h' onClick={this.toggleSettings.bind(this)}></i>
             <div className={this.bemClass('project-header__project-settings-overlay', this.state.isSettingsMenuOpen, '--active')} onClick={this.toggleSettings.bind(this)}></div>
 
             <ul className={this.bemClass('project-header__project-settings-panel', this.state.isSettingsMenuOpen, '--active')}>
