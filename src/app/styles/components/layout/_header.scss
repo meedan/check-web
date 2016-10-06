@@ -1,10 +1,10 @@
 .header {
   position: fixed; top: 0; right: 0; left: 0;
   z-index: 4;
-  padding: 8px 0;
-  height: $layout-header-height;
+  padding: 8px 0 10px 0;
+  min-height: $layout-header-height;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   background: #fff;
   border-bottom: $layout-border;
   box-shadow: $layout-box-shadow;
@@ -19,4 +19,5 @@
 .header__team {
   flex: 0 0 $layout-sidebar-width;
   width: $layout-sidebar-width;
+  padding-top: 3px;
 }

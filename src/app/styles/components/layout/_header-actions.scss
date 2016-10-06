@@ -1,6 +1,8 @@
 .header-actions {
-  text-align: right;
+  align-self: center;
   flex: 1;
+
+  text-align: right;
 }
 
  // TODO: better fix to keep actions at right during media header xhr
@@ -11,7 +13,7 @@
 .header-actions__settings-icon {
   color: theme-gray(85%);
   font-size: 21px;
-  padding: 0 15px;
+  padding: 6px 15px 0px 15px;
   position: relative;
   z-index: 3;
   cursor: pointer;
