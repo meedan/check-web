@@ -122,39 +122,37 @@ class ProjectHeaderComponent extends Component {
       <div className='project-header'>
         <Message message={this.state.message} />
         <div className='project-header__project'>
-          <div className={this.bemClass('project-header__project-copy', this.state.isEditing, '--is-editing')}>
-            {(() => {
-              if (this.state.isEditing) {
-                return (
-                  <form className='project-header__project-form' onSubmit={this.updateProject.bind(this)}>
+          {(() => {
+            if (this.state.isEditing) {
+              return (
+                <form className='project-header__project-form' onSubmit={this.updateProject.bind(this)}>
+                  <div className={this.bemClass('project-header__project-copy', true, '--is-editing')}>
                     <input className='project-header__project-name-input' id='project-title-field' name='name' type='text' value={this.state.title} placeholder='Add project +' autocomplete='off' onChange={this.handleTitleChange.bind(this)} />
-                    <span className='project-header__project-description'>
-                      <input
-                        className='project-header__project-description-input'
-                        name='description'
-                        type='text'
-                        value={this.state.description}
-                        onChange={this.handleDescriptionChange.bind(this)}
-                        placeholder='Add description'
-                        id='project-description-field'
-                        autocomplete='off' />
-                    </span>
-                    <div className='project-header__project-editing-buttons'>
-                      <button className='project-header__project-editing-button project-header__project-editing-button--save'>Save</button>
-                      <button className='project-header__project-editing-button project-header__project-editing-button--cancel' onClick={this.disableEdit.bind(this)}>Cancel</button>
-                    </div>
-                  </form>
-                );
-              } else {
-                return (
-                  <div className={this.bemClass('project-header__project-copy2', this.state.isEditing, '--is-editing')}>
-                    <h2 className='project-header__project-name'>{project.title}</h2>
-                    <span className='project-header__project-description'>{project.description}</span>
+                    <input
+                      className='project-header__project-description-input'
+                      name='description'
+                      type='text'
+                      value={this.state.description}
+                      onChange={this.handleDescriptionChange.bind(this)}
+                      placeholder='Add description'
+                      id='project-description-field'
+                      autocomplete='off' />
                   </div>
-                );
-              }
-            })()}
-          </div>
+                  <div className='project-header__project-editing-buttons'>
+                    <button className='project-header__project-editing-button project-header__project-editing-button--save'>Save</button>
+                    <button className='project-header__project-editing-button project-header__project-editing-button--cancel' onClick={this.disableEdit.bind(this)}>Cancel</button>
+                  </div>
+                </form>
+              );
+            } else {
+              return (
+                <div className='project-header__project-copy'>
+                  <h2 className='project-header__project-name'>{project.title}</h2>
+                  <span className='project-header__project-description'>{project.description}</span>
+                </div>
+              );
+            }
+          })()}
           <div className={this.bemClass('project-header__project-settings', this.state.isSettingsMenuOpen, '--active')}>
             <i className='project-header__project-search-icon fa fa-search'></i>
             <i className='project-header__project-settings-icon fa fa-gear' onClick={this.toggleSettings.bind(this)}></i>
