@@ -9,10 +9,22 @@ class MediaComponent extends Component {
 
   componentDidMount() {
     this.setCurrentContext();
+    this.scrollToAnnotation();
   }
 
   componentDidUpdate() {
     this.setCurrentContext();
+    this.scrollToAnnotation();
+  }
+
+  scrollToAnnotation() {
+    if (window.location.hash != '') {
+      var id = window.location.hash.replace(/^#/, ''),
+          element = document.getElementById(id);
+      if (element.scrollIntoView != undefined) {
+        element.scrollIntoView();
+      }
+    }
   }
 
   render() {
