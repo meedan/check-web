@@ -8,6 +8,7 @@ var sourceFragment = Relay.QL`
     image,
     user_id,
     description,
+    permissions,
     accounts(first: 10000) {
       edges {
         node {
