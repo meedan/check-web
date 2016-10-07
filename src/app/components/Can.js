@@ -1,8 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 
 function can(permissionsData, permission) {
-  const permissions = JSON.parse(permissionsData);
-  return permissions[permission];
+  try {
+    const permissions = JSON.parse(permissionsData);
+    return permissions[permission];
+  } catch (e) {
+    throw `Error parsing permissions data: ${permissionsData}`
+  }
 }
 
 class Can extends Component {
