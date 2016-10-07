@@ -56,6 +56,7 @@
 }
 
 .project-header__project-name-input,
+.project-header__project-slack-channel-input,
 .project-header__project-description-input {
   border: none;
   border-bottom: 1px solid $gray-300;
@@ -112,6 +113,7 @@
   }
 }
 
+.project-header__project-slack-channel-input,
 .project-header__project-description-input {
   font-size: 14px;
   width: 100%;
