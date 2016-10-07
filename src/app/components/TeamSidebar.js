@@ -6,6 +6,7 @@ import CreateProject from './project/CreateProject';
 import TeamRoute from '../relay/TeamRoute';
 import teamFragment from '../relay/teamFragment';
 import SwitchTeams from './team/SwitchTeams';
+import Can from './Can';
 
 class TeamSidebarComponent extends Component {
   constructor(props) {
@@ -54,9 +55,12 @@ class TeamSidebarComponent extends Component {
                       <Link to={'/project/' + p.node.dbid} className='team-sidebar__project-link'>{p.node.title}</Link>
                     </li>
                   ))}
-                  <li className='team-sidebar__new-project'>
-                    <CreateProject className='team-sidebar__new-project-input' team={team} />
-                  </li>
+
+                  <Can permissions={team.permissions} permission="create Project">
+                    <li className='team-sidebar__new-project'>
+                      <CreateProject className='team-sidebar__new-project-input' team={team} />
+                    </li>
+                  </Can>
                 </ul>
               );
             }
