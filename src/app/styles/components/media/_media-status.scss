@@ -6,7 +6,7 @@ $menu-status-item-padding: 11px 15px 11px 13px;
   left: -15px;
 
   margin-bottom: 5px;
-  cursor: pointer;
+  &--editable { cursor: pointer; }
 }
 
 .media-status__icon {

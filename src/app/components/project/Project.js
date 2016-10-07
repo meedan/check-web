@@ -104,7 +104,8 @@ const ProjectContainer = Relay.createContainer(ProjectComponent, {
               jsondata,
               annotations_count,
               domain,
-              last_status
+              last_status,
+              permissions
             }
           }
         }

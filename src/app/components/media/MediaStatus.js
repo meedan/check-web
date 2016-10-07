@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import FontAwesome from 'react-fontawesome';
 import Relay from 'react-relay';
 import CreateStatusMutation from '../../relay/CreateStatusMutation';
+import Can, { can } from '../Can';
 
 class MediaStatus extends Component {
   constructor(props) {
@@ -13,8 +14,13 @@ class MediaStatus extends Component {
     };
   }
 
+  canUpdate() {
+    return can(this.props.media.permissions, "update Media");
+  }
+
   toggleMediaStatusMenu() {
-    this.setState({ isMediaStatusMenuOpen: !this.state.isMediaStatusMenuOpen });
+    const newState = this.canUpdate() ? !this.state.isMediaStatusMenuOpen : false;
+    this.setState({ isMediaStatusMenuOpen: newState });
   }
 
   bemClass(baseClass, modifierBoolean, modifierSuffix) {
@@ -74,13 +80,15 @@ class MediaStatus extends Component {
     const status = media.last_status;
 
     return (
-      <div className={this.bemClass('media-status', this.state.isMediaStatusMenuOpen, '--active')} onClick={this.toggleMediaStatusMenu.bind(this)}>
+      <div className={this.bemClass('media-status', this.canUpdate(), '--editable')} onClick={this.toggleMediaStatusMenu.bind(this)}>
         <div className={this.bemClass('media-status__overlay', this.state.isMediaStatusMenuOpen, '--active')} onClick={this.toggleMediaStatusMenu.bind(this)}></div>
 
         <div className={'media-status__current' + this.currentStatusToClass(status)}>
           <i className="media-status__icon media-status__icon--circle / fa fa-circle"></i>
           <span className='media-status__label'>{status}</span>
-          <i className="media-status__icon media-status__icon--caret / fa fa-caret-down"></i>
+          <Can permissions={media.permissions} permission="update Media">
+            <i className="media-status__icon media-status__icon--caret / fa fa-caret-down"></i>
+          </Can>
           <span className='media-status__message'>{this.state.message}</span>
         </div>
         <ul className={this.bemClass('media-status__menu', this.state.isMediaStatusMenuOpen, '--active')}>
