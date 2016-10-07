@@ -127,7 +127,7 @@ class ProjectHeaderComponent extends Component {
               return (
                 <form className='project-header__project-form' onSubmit={this.updateProject.bind(this)}>
                   <div className={this.bemClass('project-header__project-copy', true, '--is-editing')}>
-                    <input className='project-header__project-name-input' id='project-title-field' name='name' type='text' value={this.state.title} placeholder='Add project +' autocomplete='off' onChange={this.handleTitleChange.bind(this)} />
+                    <input className='project-header__project-name-input' id='project-title-field' name='name' type='text' value={this.state.title} placeholder='Project name' autocomplete='off' onChange={this.handleTitleChange.bind(this)} />
                     <input
                       className='project-header__project-description-input'
                       name='description'
