@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import Annotation from './Annotation';
 import AddAnnotation from './AddAnnotation';
- 
+import Can, { can } from '../Can';
+
 class Annotations extends Component {
   render() {
     const props = this.props;
@@ -16,7 +17,9 @@ class Annotations extends Component {
         })}
         </ul>
 
-        <AddAnnotation annotated={props.annotated} annotatedType={props.annotatedType} types={props.types} />
+        <Can permissions={props.annotated.permissions} permission={`update ${props.annotatedType}`}>
+          <AddAnnotation annotated={props.annotated} annotatedType={props.annotatedType} types={props.types} />
+        </Can>
       </div>
     );
   }
