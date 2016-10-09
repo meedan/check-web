@@ -21,7 +21,7 @@ class UpdateTeamMutation extends Relay.Mutation {
   getVariables() {
     return { id: this.props.id , name: this.props.name, description: this.props.description,
              set_slack_notifications_enabled: this.props.set_slack_notifications_enabled, set_slack_webhook: this.props.set_slack_webhook,
-             set_slack_channel: this.props.set_slack_channel };
+             set_slack_channel: this.props.set_slack_channel, contact: this.props.contact };
   }
 
   getConfigs() {
