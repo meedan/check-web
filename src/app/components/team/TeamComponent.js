@@ -1,3 +1,5 @@
+// FIXME: This whole component is too complex!
+
 import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 import TeamMembers from './TeamMembers'
@@ -17,7 +19,9 @@ class TeamComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isEditing: false
+      message: null,
+      isEditing: false,
+      values: {}
     };
   }
 
@@ -38,14 +42,12 @@ class TeamComponent extends Component {
   }
 
   cancelEditTeam(e) {
-     e.preventDefault();
-     this.setState({isEditing: false});
+    e.preventDefault();
+    this.setState({isEditing: false});
   }
 
   editTeamInfo() {
-    var that = this,
-         name = document.getElementById('team__name-container').value;
-    var description = document.getElementById('team__description-container').value;
+    var that = this;
 
     var onFailure = (transaction) => {
       transaction.getError().json().then(function(json) {
@@ -58,17 +60,20 @@ class TeamComponent extends Component {
     };
 
     var onSuccess = (response) => {
-      this.setState({ message: null , isEditing: false});
+      this.setState({ message: 'Team information updated successfully!', isEditing: false});
     };
 
     Relay.Store.commitUpdate(
       new UpdateTeamMutation({
-       name: name,
-       description: description,
-       id: this.props.team.id
-     }),
-     { onSuccess, onFailure }
-   );
+        name: that.state.values.name,
+        description: that.state.values.description,
+        set_slack_notifications_enabled: that.state.values.slackNotificationsEnabled,
+        set_slack_webhook: that.state.values.slackWebhook,
+        set_slack_channel: that.state.values.slackChannel,
+        id: that.props.team.id
+      }),
+      { onSuccess, onFailure }
+    );
   }
 
   updateTeamContacts() {
@@ -134,20 +139,25 @@ class TeamComponent extends Component {
    );
   }
 
-  handleEditTeam(e) {
+  handleEditTeam() {
     this.editTeamInfo();
-    if (this.props.team.contacts.edges[0]) {
-      this.updateTeamContacts();
-    }
-    else {
-      this.createTeamContacts();
-    }
-    e.preventDefault();
+    // if (this.props.team.contacts.edges[0]) {
+    //   this.updateTeamContacts();
+    // }
+    // else {
+    //   this.createTeamContacts();
+    // }
   }
 
   handleEntreEditTeamNameAndDescription(e) {
     this.setState({ isEditing: true });
     e.preventDefault();
+  }
+
+  handleChange(key, e) {
+    var values = this.state.values;
+    values[key] = e.target.value;
+    this.setState({ values: values });
   }
 
   render() {
@@ -186,10 +196,10 @@ class TeamComponent extends Component {
               return (
                 <div>
                   <h1 className='team__name team__name--editing'>
-                    <input type='text'  id='team__name-container' className='team__name-input' defaultValue={team.name} placeholder='Team name' />
+                    <input type='text'  id='team__name-container' className='team__name-input' defaultValue={team.name} value={this.state.values.name} onChange={this.handleChange.bind(this, 'name')} placeholder='Team name' />
                   </h1>
                   <div className='team__description'>
-                    <input type='text' id='team__description-container' className='team__description-input' defaultValue={team.description} placeholder='Team description' />
+                    <input type='text' id='team__description-container' className='team__description-input' defaultValue={team.description} placeholder='Team description' value={this.state.values.description} onChange={this.handleChange.bind(this, 'description')} />
                   </div>
                 </div>
               );
@@ -304,6 +314,18 @@ class TeamComponent extends Component {
             })()}
           </div>
         </section>
+
+        {(() => {
+          if (isEditing) {
+            return(
+              <section className='team__settings'>
+                <span><input type='checkbox' id='team__settings-slack-notifications-enabled' value='1' defaultChecked={team.get_slack_notifications_enabled === '1'} onChange={this.handleChange.bind(this, 'slackNotificationsEnabled')} /> <label htmlFor='team__settings-slack-notifications-enabled'>Enable Slack notifications</label></span>
+                <span><input type='text' id='team__settings-slack-webhook' defaultValue={team.get_slack_webhook} placeholder='Slack webhook' value={this.state.values.slackWebhook} onChange={this.handleChange.bind(this, 'slackWebhook')} /></span>
+                <span><input type='text' id='team__settings-slack-channel' defaultValue={team.get_slack_channel} placeholder='Slack default channel' value={this.state.values.slackChannel} onChange={this.handleChange.bind(this, 'slackChannel')} /></span>
+              </section>
+            );
+          }
+        })()}
 
         <section className='team__content'>
           <div className='team__content-body'>
