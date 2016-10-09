@@ -36,6 +36,7 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
           edges {
             node {
               id,
+              dbid,
               content,
               annotation_type,
               created_at,

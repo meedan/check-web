@@ -18,7 +18,8 @@ class ProjectHeaderComponent extends Component {
       isSettingsMenuOpen: false,
       message: null,
       title: this.props.project.title,
-      description: this.props.project.description
+      description: this.props.project.description,
+      slackChannel: this.props.project.get_slack_channel
     };
   }
 
@@ -34,9 +35,10 @@ class ProjectHeaderComponent extends Component {
     var that = this,
         id = this.props.project.id,
         title = this.state.title,
-        description = this.state.description;
+        description = this.state.description,
+        slackChannel = this.state.slackChannel;
 
-    this.setState({ title: title, description: description });
+    this.setState({ title: title, description: description, slackChannel: slackChannel });
 
     var onFailure = (transaction) => {
       transaction.getError().json().then(function(json) {
@@ -56,6 +58,7 @@ class ProjectHeaderComponent extends Component {
       new UpdateProjectMutation({
         title: title,
         description: description,
+        slackChannel: slackChannel,
         id: id
       }),
       { onSuccess, onFailure }
@@ -75,6 +78,10 @@ class ProjectHeaderComponent extends Component {
 
   handleDescriptionChange(e) {
     this.setState({ description: e.target.value });
+  }
+
+  handleSlackChannelChange(e) {
+    this.setState({ slackChannel: e.target.value });
   }
 
   bemClass(baseClass, modifierBoolean, modifierSuffix) {
@@ -137,6 +144,17 @@ class ProjectHeaderComponent extends Component {
                       placeholder='Add description'
                       id='project-description-field'
                       autocomplete='off' />
+                    { project.team.get_slack_notifications_enabled === '1' ?
+                    <input
+                      className='project-header__project-slack-channel-input'
+                      name='slack-channel'
+                      type='text'
+                      value={this.state.slackChannel}
+                      onChange={this.handleSlackChannelChange.bind(this)}
+                      placeholder='Add a Slack #channel to be notified about activity in this project'
+                      id='project-slack-channel-field'
+                      autocomplete='off' />
+                    : null }
                   </div>
                   <div className='project-header__project-editing-buttons'>
                     <button className='project-header__project-editing-button project-header__project-editing-button--save'>Save</button>
@@ -198,11 +216,13 @@ const ProjectHeaderContainer = Relay.createContainer(ProjectHeaderComponent, {
         title,
         description,
         permissions,
+        get_slack_channel,
         team {
           id,
           dbid,
           subdomain,
-          permissions
+          permissions,
+          get_slack_notifications_enabled
         }
       }
     `

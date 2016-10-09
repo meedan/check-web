@@ -9,6 +9,9 @@ var teamFragment = Relay.QL`
     description,
     subdomain,
     permissions,
+    get_slack_notifications_enabled,
+    get_slack_webhook,
+    get_slack_channel,
     team_users(first: 10000) {
       edges {
         node {

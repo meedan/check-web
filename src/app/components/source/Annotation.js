@@ -56,7 +56,7 @@ class Annotation extends Component {
     }
 
     return (
-      <div className="annotation">
+      <div className="annotation" id={'annotation-' + annotation.dbid}>
         <Card>
           <CardHeader title={annotation.annotator.name} subtitle={<TimeAgo date={annotation.created_at} live={false} />} 
                       avatar={annotation.annotator.profile_image} />
