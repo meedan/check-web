@@ -17,10 +17,21 @@ import Can from '../Can';
 class TeamComponent extends Component {
   constructor(props) {
     super(props);
+    const team = this.props.team,
+          contact = team.contacts.edges[0] || { node: {} };
     this.state = {
       message: null,
       isEditing: false,
-      values: {}
+      values: {
+        name: team.name,
+        description: team.description,
+        slackNotificationsEnabled: team.get_slack_notifications_enabled,
+        slackWebhook: team.get_slack_webhook,
+        slackChannel: team.get_slack_channel,
+        contact_location: contact.node.location,
+        contact_phone: contact.node.phone,
+        contact_web: contact.node.web
+      }
     };
   }
 
@@ -91,7 +102,7 @@ class TeamComponent extends Component {
     if (e.target.type === 'checkbox' && !e.target.checked) {
       value = '0';
     }
-    var values = this.state.values;
+    var values = Object.assign({}, this.state.values);
     values[key] = value;
     this.setState({ values: values });
   }
@@ -132,10 +143,10 @@ class TeamComponent extends Component {
               return (
                 <div>
                   <h1 className='team__name team__name--editing'>
-                    <input type='text'  id='team__name-container' className='team__name-input' defaultValue={team.name} value={this.state.values.name} onChange={this.handleChange.bind(this, 'name')} placeholder='Team name' />
+                    <input type='text'  id='team__name-container' className='team__name-input' defaultValue={team.name} onChange={this.handleChange.bind(this, 'name')} placeholder='Team name' />
                   </h1>
                   <div className='team__description'>
-                    <input type='text' id='team__description-container' className='team__description-input' defaultValue={team.description} placeholder='Team description' value={this.state.values.description} onChange={this.handleChange.bind(this, 'description')} />
+                    <input type='text' id='team__description-container' className='team__description-input' defaultValue={team.description} placeholder='Team description' onChange={this.handleChange.bind(this, 'description')} />
                   </div>
                 </div>
               );
@@ -160,7 +171,7 @@ class TeamComponent extends Component {
                 if (isEditing) {
                     return (<span><FontAwesome name='map-marker' className='team__location-icon' />
                             <input type='text' id='team__location-container' defaultValue={contact ? contact.node.location : ''} 
-                             className='team__location-name-input' placeholder='Location' value={this.state.values.contact_location}
+                             className='team__location-name-input' placeholder='Location'
                              onChange={this.handleChange.bind(this, 'contact_location')} /></span>);
                 }
                 else {
@@ -179,7 +190,7 @@ class TeamComponent extends Component {
                 if (isEditing) {
                   return (<span><FontAwesome name='phone' className='team__phone-icon' />
                           <input type='text' id='team__phone-container' defaultValue={contact ? contact.node.phone : ''}
-                           className='team__location-name-input' placeholder='Phone number' value={this.state.values.contact_phone}
+                           className='team__location-name-input' placeholder='Phone number'
                            onChange={this.handleChange.bind(this, 'contact_phone')} /></span>);
                 } else {
                   if (contact && !!contact.node.phone) {
@@ -197,7 +208,7 @@ class TeamComponent extends Component {
                 if (isEditing) {
                   return (<span><FontAwesome name='link' className='team__link-icon' />
                           <input type='text' id='team__link-container' defaultValue={contact ? contact.node.web : ''}
-                           className='team__location-name-input' placeholder='Website' value={this.state.values.contact_web}
+                           className='team__location-name-input' placeholder='Website'
                            onChange={this.handleChange.bind(this, 'contact_web')} /></span>);
                 } else {
                   if (contact && !!contact.node.web) {
@@ -218,8 +229,8 @@ class TeamComponent extends Component {
             return(
               <section className='team__settings'>
                 <span><input type='checkbox' id='team__settings-slack-notifications-enabled' value='1' defaultChecked={team.get_slack_notifications_enabled === '1'} onChange={this.handleChange.bind(this, 'slackNotificationsEnabled')} /> <label htmlFor='team__settings-slack-notifications-enabled'>Enable Slack notifications</label></span>
-                <span><input type='text' id='team__settings-slack-webhook' defaultValue={team.get_slack_webhook} placeholder='Slack webhook' value={this.state.values.slackWebhook} onChange={this.handleChange.bind(this, 'slackWebhook')} /></span>
-                <span><input type='text' id='team__settings-slack-channel' defaultValue={team.get_slack_channel} placeholder='Slack default #channel' value={this.state.values.slackChannel} onChange={this.handleChange.bind(this, 'slackChannel')} /></span>
+                <span><input type='text' id='team__settings-slack-webhook' defaultValue={team.get_slack_webhook} placeholder='Slack webhook' onChange={this.handleChange.bind(this, 'slackWebhook')} /></span>
+                <span><input type='text' id='team__settings-slack-channel' defaultValue={team.get_slack_channel} placeholder='Slack default #channel' onChange={this.handleChange.bind(this, 'slackChannel')} /></span>
               </section>
             );
           }
