@@ -218,7 +218,7 @@ class TeamComponent extends Component {
               <section className='team__settings'>
                 <span><input type='checkbox' id='team__settings-slack-notifications-enabled' value='1' defaultChecked={team.get_slack_notifications_enabled === '1'} onChange={this.handleChange.bind(this, 'slackNotificationsEnabled')} /> <label htmlFor='team__settings-slack-notifications-enabled'>Enable Slack notifications</label></span>
                 <span><input type='text' id='team__settings-slack-webhook' defaultValue={team.get_slack_webhook} placeholder='Slack webhook' value={this.state.values.slackWebhook} onChange={this.handleChange.bind(this, 'slackWebhook')} /></span>
-                <span><input type='text' id='team__settings-slack-channel' defaultValue={team.get_slack_channel} placeholder='Slack default channel' value={this.state.values.slackChannel} onChange={this.handleChange.bind(this, 'slackChannel')} /></span>
+                <span><input type='text' id='team__settings-slack-channel' defaultValue={team.get_slack_channel} placeholder='Slack default #channel' value={this.state.values.slackChannel} onChange={this.handleChange.bind(this, 'slackChannel')} /></span>
               </section>
             );
           }
