@@ -5,5 +5,7 @@ window.config = {
   relayHeaders: {
     'X-Check-Token': 'dev'
   },
-  penderUrl: 'http://localhost:3200'
+  penderUrl: 'http://localhost:3200',
+  pusherKey: '',
+  pusherDebug: true
 }
