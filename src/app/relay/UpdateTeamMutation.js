@@ -12,7 +12,7 @@ class UpdateTeamMutation extends Relay.Mutation {
     return Relay.QL`
       fragment on UpdateTeamPayload {
         team {
-          name, id, description, get_slack_notifications_enabled, get_slack_webhook, get_slack_channel
+          name, id, description, get_slack_notifications_enabled, get_slack_webhook, get_slack_channel, contacts
         }
       }
     `;
@@ -31,7 +31,8 @@ class UpdateTeamMutation extends Relay.Mutation {
         children: [Relay.QL`
           fragment on UpdateTeamPayload {
             team {
-              name, id, description, get_slack_notifications_enabled, get_slack_webhook, get_slack_channel
+              name, id, description, get_slack_notifications_enabled, get_slack_webhook, get_slack_channel,
+              contacts(first: 1) { edges { node { web, location, phone } } }
             }
           }`
         ]
