@@ -776,5 +776,9 @@ describe 'app' do
     it "should cancel request through switch teams" do
       skip("Needs to be implemented")
     end
+
+    it "should auto refresh project page when media is created remotely" do
+      skip("Needs to be implemented")
+    end
   end
 end
