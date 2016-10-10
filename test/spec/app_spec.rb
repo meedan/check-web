@@ -719,6 +719,10 @@ describe 'app' do
       skip("Needs to be implemented")
     end
 
+    it "should edit team" do
+      skip("Needs to be implemented")
+    end
+
     it "should show 'manage team' link only to team owners" do
       skip("Needs to be implemented")
     end
