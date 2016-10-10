@@ -6,6 +6,7 @@ import ProjectHeader from './ProjectHeader';
 import MediasAndAnnotations from '../MediasAndAnnotations';
 import TeamSidebar from '../TeamSidebar';
 import { CreateMedia } from '../media';
+import Can from '../Can';
 
 class ProjectComponent extends Component {
   redirect() {
@@ -51,7 +52,9 @@ class ProjectComponent extends Component {
             annotatedType="Project"
             types={['comment']} />
 
-          <CreateMedia {...this.props} />
+          <Can permissions={project.permissions} permission='create Media'>
+            <CreateMedia {...this.props} />
+          </Can>
         </div>
       </div>
     );
@@ -66,6 +69,7 @@ const ProjectContainer = Relay.createContainer(ProjectComponent, {
         dbid,
         title,
         description,
+        permissions,
         team {
           id,
           dbid,

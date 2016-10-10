@@ -12,6 +12,7 @@ import Message from '../Message';
 import CreateContactMutation from '../../relay/CreateContactMutation';
 import UpdateContactMutation from '../../relay/UpdateContactMutation';
 import CreateProject from '../project/CreateProject';
+import Can from '../Can';
 
 class TeamComponent extends Component {
   constructor(props) {
@@ -233,9 +234,11 @@ class TeamComponent extends Component {
                   <Link to={'/project/' + p.node.dbid} className='team__project-link'>{p.node.title}</Link>
                 </li>
               ))}
-              <li className='team__new-project'>
-                <CreateProject className='team__new-project-input' team={team} />
-              </li>
+              <Can permissions={team.permissions} permission="create Project">
+                <li className='team__new-project'>
+                  <CreateProject className='team__new-project-input' team={team} />
+                </li>
+              </Can>
             </ul>
           </div>
         </section>
