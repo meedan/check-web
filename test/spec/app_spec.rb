@@ -52,6 +52,19 @@ describe 'app' do
       expect(displayed_name == 'User With Email').to be(true)
     end
 
+    it "should create a project for a team" do
+      login_with_email
+      @driver.navigate.to @config['self_url']
+      sleep 1
+      title = "Project #{Time.now}"
+      fill_field('#create-project-title', title)
+      @driver.action.send_keys(:enter).perform
+      sleep 5
+      expect(@driver.current_url.to_s.match(/\/project\/[0-9]+$/).nil?).to be(false)
+      link = get_element('.team-sidebar__project-link')
+      expect(link.text == title).to be(true)
+    end
+
     it "should preview media if registered" do
       login_with_email
       @driver.navigate.to @config['self_url'] + '/medias/new'
@@ -142,19 +155,6 @@ describe 'app' do
       @driver.navigate.to @config['self_url'] + '/me'
       displayed_name = get_element('h2.source-name').text
       expect(displayed_name == 'User With Email').to be(true)
-    end
-
-    it "should create a project for a team" do
-      login_with_email
-      @driver.navigate.to @config['self_url']
-      sleep 1
-      title = "Project #{Time.now}"
-      fill_field('#create-project-title', title)
-      @driver.action.send_keys(:enter).perform
-      sleep 5
-      expect(@driver.current_url.to_s.match(/\/project\/[0-9]+$/).nil?).to be(false)
-      link = get_element('.team-sidebar__project-link')
-      expect(link.text == title).to be(true)
     end
 
     it "should show team options at /teams" do
