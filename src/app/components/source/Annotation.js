@@ -72,7 +72,7 @@ class Annotation extends Component {
         );
         break;
       case 'tag':
-        const message = `Tagged #${content.tag} by`;
+        const message = `Tagged #${content.tag} by `;
         template = (
           <div className="annotation annotation--tag" id={'annotation-' + annotation.dbid}>
             <section className='annotation__content'>
