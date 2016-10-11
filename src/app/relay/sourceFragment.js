@@ -32,6 +32,7 @@ var sourceFragment = Relay.QL`
           content,
           annotation_type,
           created_at,
+          permissions,
           annotator {
             name,
             profile_image
@@ -49,7 +50,8 @@ var sourceFragment = Relay.QL`
           jsondata,
           annotations_count,
           domain,
-          last_status
+          last_status,
+          permissions
         }
       }
     }
