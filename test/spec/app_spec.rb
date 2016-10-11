@@ -108,7 +108,7 @@ describe 'app' do
       expect(displayed_name == expected_name).to be(true)
     end
 
-    it "should register using e-mail bli" do
+    it "should register using e-mail" do
       register_with_email
       @driver.navigate.to @config['self_url'] + '/me'
       displayed_name = get_element('h2.source-name').text
@@ -122,7 +122,7 @@ describe 'app' do
       expect(displayed_name == 'User With Email').to be(true)
     end
 
-    it "should create a project for a team bli" do
+    it "should create a project for a team" do
       login_with_email
       @driver.navigate.to @config['self_url']
       sleep 1
@@ -401,7 +401,7 @@ describe 'app' do
       expect(@driver.find_elements(:xpath, "//*[contains(@id, 'pender-iframe')]").empty?).to be(false)
     end
 
-    it "should register and redirect to newly created media bli" do
+    it "should register and redirect to newly created media" do
       login_with_email
       sleep 3
       fill_field('#create-media-url', @media_url)
