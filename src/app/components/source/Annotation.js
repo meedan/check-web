@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 import TimeAgo from 'react-timeago';
 import DeleteAnnotationMutation from '../../relay/DeleteAnnotationMutation';
+import Can from '../Can';
 
 class Annotation extends Component {
   handleDelete(id) {
@@ -32,7 +33,9 @@ class Annotation extends Component {
     const annotation = this.props.annotation;
     const annotationActions = (
       <div className='annotation__actions'>
-        <button className='annotation__delete' onClick={this.handleDelete.bind(this, annotation.id)} title='Delete'>×</button>
+        <Can permissions={annotation.permissions} permission='delete Annotation'>
+          <button className='annotation__delete' onClick={this.handleDelete.bind(this, annotation.id)} title='Delete'>×</button>
+        </Can>
       </div>
     );
     let content = JSON.parse(annotation.content);
