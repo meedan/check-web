@@ -248,7 +248,7 @@ describe 'app' do
       sleep 1
 
       # First, verify that there isn't any tag
-      expect(@driver.page_source.include?('Tagged #command')).to be(true)
+      expect(@driver.page_source.include?('Tagged #command')).to be(false)
 
       # Add a tag as a command
       fill_field('.cmd-input input', '/tag command')
