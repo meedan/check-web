@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react';
+import Pusher from 'pusher-js';
 import MediaDetail from './MediaDetail';
 import { Annotations, Tags } from '../source';
+import config from 'config';
 
 class MediaComponent extends Component {
   setCurrentContext() {
@@ -10,6 +12,7 @@ class MediaComponent extends Component {
   componentDidMount() {
     this.setCurrentContext();
     this.scrollToAnnotation();
+    this.subscribe();
   }
 
   componentDidUpdate() {
@@ -24,6 +27,20 @@ class MediaComponent extends Component {
       if (element.scrollIntoView != undefined) {
         element.scrollIntoView();
       }
+    }
+  }
+
+  subscribe() {
+    if (config.pusherKey) {
+      const that = this;
+      Pusher.logToConsole = !!config.pusherDebug;
+      const pusher = new Pusher(config.pusherKey, { encrypted: true });
+      pusher.subscribe(this.props.media.pusher_channel).bind('media_updated', function(data) {
+        var annotation = JSON.parse(data.message);
+        if (parseInt(annotation.context_id) === Checkdesk.context.project.dbid) {
+          that.props.relay.forceFetch();
+        }
+      });
     }
   }
 

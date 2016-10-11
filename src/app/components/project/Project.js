@@ -34,7 +34,7 @@ class ProjectComponent extends Component {
       const that = this;
       Pusher.logToConsole = !!config.pusherDebug;
       const pusher = new Pusher(config.pusherKey, { encrypted: true });
-      pusher.subscribe(this.props.project.pusher_channel).bind('media_added', function(data) {
+      pusher.subscribe(this.props.project.pusher_channel).bind('media_updated', function(data) {
         that.props.relay.forceFetch();
       });
     }

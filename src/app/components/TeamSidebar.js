@@ -2,11 +2,13 @@ import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 import { Link } from 'react-router';
 import FontAwesome from 'react-fontawesome';
+import Pusher from 'pusher-js';
 import CreateProject from './project/CreateProject';
 import TeamRoute from '../relay/TeamRoute';
 import teamFragment from '../relay/teamFragment';
 import SwitchTeams from './team/SwitchTeams';
 import Can from './Can';
+import config from 'config';
 
 class TeamSidebarComponent extends Component {
   constructor(props) {
@@ -15,6 +17,21 @@ class TeamSidebarComponent extends Component {
     this.state = {
       isSwitchTeamsActive: false
     };
+  }
+
+  subscribe() {
+    if (config.pusherKey) {
+      const that = this;
+      Pusher.logToConsole = !!config.pusherDebug;
+      const pusher = new Pusher(config.pusherKey, { encrypted: true });
+      pusher.subscribe(this.props.team.pusher_channel).bind('project_created', function(data) {
+        that.props.relay.forceFetch();
+      });
+    }
+  }
+
+  componentDidMount() {
+    this.subscribe();
   }
 
   handleSwitchTeams() {

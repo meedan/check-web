@@ -19,6 +19,7 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
         annotations_count,
         domain,
         permissions,
+        pusher_channel,
         user {
           name,
           source {
