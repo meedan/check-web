@@ -38,7 +38,15 @@ describe 'app' do
 
   # Close Google Chrome after each test
 
-  after :each do
+  after :each do |example|
+    if example.exception
+      require 'rest-client'
+      path = '/tmp/' + (0...8).map{ (65 + rand(26)).chr }.join + '.png'
+      @driver.save_screenshot(path)
+      response = RestClient.post('https://file.io?expires=2', file: File.new(path))
+      link = JSON.parse(response.body)['link']
+      puts "Test \"#{example.to_s}\" failed! Check screenshot at #{link} and following browser output: #{console_logs}"
+    end
     @driver.quit
   end
 
