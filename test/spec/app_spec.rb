@@ -16,7 +16,7 @@ describe 'app' do
 
     @email = 'sysops+' + Time.now.to_i.to_s + '@meedan.com'
     @source_url = 'https://www.facebook.com/ironmaiden/?fref=ts&timestamp=' + Time.now.to_i.to_s
-    @media_url = 'https://www.facebook.com/ironmaiden/posts/10153654402607051/?t=' + Time.now.to_i.to_s
+    @media_url = 'https://twitter.com/meedan/status/773947372527288320/?t=' + Time.now.to_i.to_s
     @config = YAML.load_file('config.yml')
     $source_id = nil
     $media_id = nil
@@ -45,6 +45,35 @@ describe 'app' do
   # The tests themselves start here
 
   context "web" do
+    it "should register using e-mail" do
+      register_with_email
+      @driver.navigate.to @config['self_url'] + '/me'
+      displayed_name = get_element('h2.source-name').text
+      expect(displayed_name == 'User With Email').to be(true)
+    end
+
+    it "should preview media if registered" do
+      login_with_email
+      @driver.navigate.to @config['self_url'] + '/medias/new'
+      sleep 1
+      expect(@driver.find_elements(:xpath, "//*[contains(@id, 'pender-iframe')]").empty?).to be(true)
+      fill_field('#create-media-url', @media_url)
+      press_button('#create-media-preview')
+      sleep 10
+      expect(@driver.find_elements(:xpath, "//*[contains(@id, 'pender-iframe')]").empty?).to be(false)
+    end
+
+    it "should register and redirect to newly created media" do
+      login_with_email
+      sleep 3
+      fill_field('#create-media-url', @media_url)
+      sleep 1
+      press_button('#create-media-submit')
+      sleep 20
+      $media_id = @driver.current_url.to_s.match(/\/media\/([0-9]+)$/)[1]
+      expect($media_id.nil?).to be(false)
+    end
+
     it "should upload image when registering" do
       @driver.navigate.to @config['self_url']
       sleep 1
@@ -106,13 +135,6 @@ describe 'app' do
       displayed_name = get_element('h2.source-name').text.upcase
       expected_name = @config['slack_name'].upcase
       expect(displayed_name == expected_name).to be(true)
-    end
-
-    it "should register using e-mail" do
-      register_with_email
-      @driver.navigate.to @config['self_url'] + '/me'
-      displayed_name = get_element('h2.source-name').text
-      expect(displayed_name == 'User With Email').to be(true)
     end
 
     it "should login with e-mail" do
@@ -388,28 +410,6 @@ describe 'app' do
       tag = @driver.find_elements(:css, '.ReactTags__tag span').select{ |s| s.text == 'bla' }
       expect(tag.size == 1).to be(true)
       expect(@driver.page_source.include?('This tag already exists')).to be(true)
-    end
-
-    it "should preview media if registered" do
-      login_with_email
-      @driver.navigate.to @config['self_url'] + '/medias/new'
-      sleep 1
-      expect(@driver.find_elements(:xpath, "//*[contains(@id, 'pender-iframe')]").empty?).to be(true)
-      fill_field('#create-media-url', @media_url)
-      press_button('#create-media-preview')
-      sleep 10
-      expect(@driver.find_elements(:xpath, "//*[contains(@id, 'pender-iframe')]").empty?).to be(false)
-    end
-
-    it "should register and redirect to newly created media" do
-      login_with_email
-      sleep 3
-      fill_field('#create-media-url', @media_url)
-      sleep 1
-      press_button('#create-media-submit')
-      sleep 20
-      $media_id = @driver.current_url.to_s.match(/\/media\/([0-9]+)$/)[1]
-      expect($media_id.nil?).to be(false)
     end
 
     it "should not create duplicated media if registered" do
