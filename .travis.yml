@@ -18,6 +18,7 @@ before_install:
 - echo "user=root" | sudo tee -a /etc/dnsmasq.conf > /dev/null
 - sudo service dnsmasq restart
 # api
+- redis-server &
 - export RAILS_ENV=development
 - curl -O https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.2.4.deb && sudo dpkg -i --force-confnew elasticsearch-1.2.4.deb && sudo service elasticsearch restart
 - git clone https://github.com/meedan/check-api.git
