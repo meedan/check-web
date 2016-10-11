@@ -678,7 +678,7 @@ describe 'app' do
       current_status = @driver.find_element(:css, '.media-status__label')
 
       expect(current_status.text == 'VERIFIED').to be(true)
-      expect(@driver.page_source.include? 'Status set to "Verified"').to be(true)
+      expect(!!@driver.find_element(:css, '.annotation__status--verified')).to be(true)
     end
 
     it "should logout" do
