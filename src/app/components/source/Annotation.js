@@ -31,9 +31,10 @@ class Annotation extends Component {
 
   render() {
     const annotation = this.props.annotation;
+    const permissionType = `${annotation.annotation_type.charAt(0).toUpperCase()}${annotation.annotation_type.slice(1)}`;
     const annotationActions = (
       <div className='annotation__actions'>
-        <Can permissions={annotation.permissions} permission='delete Annotation'>
+        <Can permissions={annotation.permissions} permission={`destroy ${permissionType}`}>
           <button className='annotation__delete' onClick={this.handleDelete.bind(this, annotation.id)} title='Delete'>×</button>
         </Can>
       </div>
