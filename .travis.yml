@@ -46,9 +46,8 @@ before_install:
 - sh -e /etc/init.d/xvfb start
 # google chrome
 - sudo apt-get -qq update
+- apt-get install chromium-browser -y
 - export CHROME_BIN=/usr/bin/chromium-browser
-- wget http://security.ubuntu.com/ubuntu/pool/universe/c/chromium-browser/chromium-browser_53.0.2785.143-0ubuntu0.16.04.1.1254_amd64.deb
-- sudo dpkg -i chromium-browser*.deb
 - sudo ln -s /usr/bin/chromium-browser /usr/bin/google-chrome
 - chromium-browser --no-sandbox &
 # chromedriver
