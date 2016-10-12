@@ -48,7 +48,6 @@ before_install:
 - sudo apt-get -qq update
 - sudo apt-get install chromium-browser -y
 - export CHROME_BIN=/usr/bin/chromium-browser
-- sudo ln -s /usr/bin/chromium-browser /usr/bin/google-chrome
 - chromium-browser --no-sandbox &
 # chromedriver
 - wget http://chromedriver.storage.googleapis.com/2.20/chromedriver_linux64.zip
