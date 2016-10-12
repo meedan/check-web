@@ -27,7 +27,7 @@
   ],
   "license": "MIT",
   "devDependencies": {
-    "chromedriver": "^2.19.0",
+    "chromedriver": "2.24.0",
     "eslint": "^1.7.1",
     "eslint-config-airbnb": "^0.1.0",
     "eslint-plugin-react": "^3.2.3",
