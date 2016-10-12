@@ -127,11 +127,13 @@ class TeamComponent extends Component {
               );
             } else {
               return (
-                <div className='team__edit-profile'>
-                  <button onClick={this.handleEntreEditTeamNameAndDescription.bind(this)} className='team__edit-button'>
-                    <FontAwesome className='team__edit-icon' name='pencil'/> Edit profile
-                  </button>
-                </div>
+                <Can permissions={team.permissions} permission="update Team">
+                  <div className='team__edit-profile'>
+                    <button onClick={this.handleEntreEditTeamNameAndDescription.bind(this)} className='team__edit-button'>
+                      <FontAwesome className='team__edit-icon' name='pencil'/> Edit profile
+                    </button>
+                  </div>
+                </Can>
               );
             }
           })()}
