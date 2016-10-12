@@ -46,7 +46,7 @@ before_install:
 - sh -e /etc/init.d/xvfb start
 # google chrome
 - sudo apt-get -qq update
-- apt-get install chromium-browser -y
+- sudo apt-get install chromium-browser -y
 - export CHROME_BIN=/usr/bin/chromium-browser
 - sudo ln -s /usr/bin/chromium-browser /usr/bin/google-chrome
 - chromium-browser --no-sandbox &
