@@ -55,7 +55,7 @@ before_install:
 - unzip chromedriver_linux64.zip
 - sudo mv chromedriver /usr/local/bin
 - sudo chmod a+x /usr/local/bin/chromedriver
-- /usr/local/bin/chromedriver >/dev/null 2>/dev/null &
+- chromedriver &
 # ruby / bundler / rspec
 - gem install bundler
 - cd test && bundle install && cd -
