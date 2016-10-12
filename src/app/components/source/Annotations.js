@@ -18,7 +18,7 @@ class Annotations extends Component {
         </ul>
 
         {props.annotatedType === 'Media' ? ( // TODO: remove to support Source as well
-          <Can permissions={props.annotated.permissions} permission={`update ${props.annotatedType}`}>
+          <Can permissions={props.annotated.permissions} permission='create Comment'>
             <AddAnnotation annotated={props.annotated} annotatedType={props.annotatedType} types={props.types} />
           </Can>
         ) : <AddAnnotation annotated={props.annotated} annotatedType={props.annotatedType} types={props.types} />}
