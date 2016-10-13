@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { Provider } from 'react-redux';
 import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
+import ReactGA from 'react-ga';
 import App from './App';
 import { IndexComponent, TermsOfService, NotFound, CreateAccount, AccessDenied, PrivacyPolicy } from '../components';
 import { Sources, Source, User, Me } from '../components/source';
@@ -13,11 +14,25 @@ import JoinTeam from '../components/team/JoinTeam.js';
 import Project from '../components/project/Project.js';
 import ProjectHeader from '../components/project/ProjectHeader';
 import Teams from '../components/team/Teams.js';
+import config from 'config';
 
 export default class Root extends Component {
   static propTypes = {
     store: PropTypes.object.isRequired
   };
+
+  componentDidMount() {
+    if (config.googleAnalyticsCode) {
+      ReactGA.initialize(config.googleAnalyticsCode, { debug: true });
+    }
+  }
+
+  logPageView() {
+    if (config.googleAnalyticsCode) {
+      ReactGA.set({ page: window.location.pathname });
+      ReactGA.pageview(window.location.pathname);
+    }
+  }
 
   render() {
     const { store } = this.props;
@@ -26,7 +41,7 @@ export default class Root extends Component {
 
     return (
       <Provider store={store}>
-        <Router history={history}>
+        <Router history={history} onUpdate={this.logPageView.bind(this)}>
           <Route path="/" component={App}>
             <IndexRoute component={Team} />
             <Route path="tos" component={TermsOfService} public={true} />
