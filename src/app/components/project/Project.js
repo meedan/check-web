@@ -51,6 +51,7 @@ class ProjectComponent extends Component {
 
   render() {
     const project = this.props.project;
+    var that = this;
 
     return (
       <div className="project">
@@ -67,7 +68,7 @@ class ProjectComponent extends Component {
             types={['comment']} />
 
           <Can permissions={project.permissions} permission='create Media'>
-            <CreateMedia {...this.props} />
+            <CreateMedia projectComponent={that} />
           </Can>
         </div>
       </div>

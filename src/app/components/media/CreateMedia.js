@@ -29,6 +29,7 @@ class CreateMedia extends Component {
           message = json.error;
           var matches = message.match(/^Validation failed: Media with this URL exists and has id ([0-9]+)$/);
           if (matches) {
+            that.props.projectComponent.props.relay.forceFetch();
             var sid = matches[1];
             message = null;
             Checkdesk.history.push(prefix + sid);
