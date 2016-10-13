@@ -1,3 +1,9 @@
+@mixin team-avatar($size: 60px) {
+  @include avatar($size);
+}
+
+// TODO: move below to components/team/team
+
 .team {
   padding: 15px;
 }
@@ -197,5 +203,23 @@
   }
   &:hover {
     color: $dark-gray-text;
+  }
+}
+
+.team__settings {
+  text-align: center;
+  margin-top: 20px;
+
+  input, label {
+    font-size: 14px;
+    color: $light-gray-text;
+  }
+
+  label {
+    margin-right: 14px;
+  }
+
+  input[type=text] {
+    margin: 0 16px;
   }
 }

@@ -2,10 +2,13 @@ import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 import { Link } from 'react-router';
 import FontAwesome from 'react-fontawesome';
+import Pusher from 'pusher-js';
 import CreateProject from './project/CreateProject';
 import TeamRoute from '../relay/TeamRoute';
 import teamFragment from '../relay/teamFragment';
 import SwitchTeams from './team/SwitchTeams';
+import Can from './Can';
+import config from 'config';
 
 class TeamSidebarComponent extends Component {
   constructor(props) {
@@ -14,6 +17,21 @@ class TeamSidebarComponent extends Component {
     this.state = {
       isSwitchTeamsActive: false
     };
+  }
+
+  subscribe() {
+    if (config.pusherKey) {
+      const that = this;
+      Pusher.logToConsole = !!config.pusherDebug;
+      const pusher = new Pusher(config.pusherKey, { encrypted: true });
+      pusher.subscribe(this.props.team.pusher_channel).bind('project_created', function(data) {
+        that.props.relay.forceFetch();
+      });
+    }
+  }
+
+  componentDidMount() {
+    this.subscribe();
   }
 
   handleSwitchTeams() {
@@ -39,55 +57,32 @@ class TeamSidebarComponent extends Component {
   }
 
   render() {
-    var currentTeam = this.props.team;
+    var team = this.props.team;
 
     return (
       <nav className='team-sidebar'>
         <section className='team-sidebar__projects'>
           <h2 className='team-sidebar__projects-heading'>Verification Projects</h2>
           {(() => {
-            if (currentTeam) {
+            if (team) {
               return (
                 <ul className='team-sidebar__projects-list'>
-                  {currentTeam.projects.edges.map(p => (
+                  {team.projects.edges.map(p => (
                     <li className={'team-sidebar__project' + (this.isCurrentProject(p.node.dbid) ? ' team-sidebar__project--current' : '')}>
                       <Link to={'/project/' + p.node.dbid} className='team-sidebar__project-link'>{p.node.title}</Link>
                     </li>
                   ))}
-                  <li className='team-sidebar__new-project'>
-                    <CreateProject className='team-sidebar__new-project-input' team={currentTeam} />
-                  </li>
+
+                  <Can permissions={team.permissions} permission="create Project">
+                    <li className='team-sidebar__new-project'>
+                      <CreateProject className='team-sidebar__new-project-input' team={team} />
+                    </li>
+                  </Can>
                 </ul>
               );
             }
           })()}
         </section>
-
-        {/*
-        <section className='team-sidebar__sources'>
-          <h2 className='team-sidebar__sources-heading'>
-          {(() => {
-            if (currentTeam) {
-              return (
-                <Link to={'/sources'} id="link-sources" className='team-sidebar__sources-link' activeClassName='team-sidebar__sources-link--active' title="Sources">Sources</Link>
-              );
-            }
-          })()}
-          </h2>
-          <ul className='team-sidebar__sources-list'>
-            {(() => {
-              if (currentTeam) {
-                return (
-                  <li className='team-sidebar__new-source'>
-                    <FontAwesome className='team-sidebar__new-source-icon' name='user' />
-                    <Link to={'/sources/new'} id="link-sources-new" className='team-sidebar__new-source-link' activeClassName='team-sidebar__new-source-link--active' title="Create a source">New source...</Link>
-                  </li>
-                );
-              }
-            })()}
-          </ul>
-        </section>
-        */}
 
         <footer className='team-sidebar__footer'>
           <button onClick={this.handleSwitchTeams.bind(this)} className='team-sidebar__switch-teams-button'>

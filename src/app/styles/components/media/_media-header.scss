@@ -1,20 +1,27 @@
 .media-header {
   flex: 1;
-  display: flex;
   overflow: hidden;
-
-  align-items: center;
 }
 
 .media-header__copy {
-  margin-left: 2px;
-  flex: 1;
+  margin: 0 auto;
+  width: 195px; // ellipsis truncation requires explicit width
+  @media screen and (min-width: 400px) { width: 300px };
+  @media screen and (min-width: 500px) { width: 400px };
+  @media screen and (min-width: 600px) { width: 500px };
+  @media screen and (min-width: 700px) { width: 600px };
+  @media screen and (min-width: 800px) { width: 700px };
+  @media screen and (min-width: 900px) { width: 800px };
+
   text-align: center;
 }
 
 .media-header__title {
   @include media-title;
+
+  margin: 0 0 6px 0;
+
   white-space: nowrap;
   overflow: hidden;
-  margin: 0 0 6px 0;
+  text-overflow: ellipsis;
 }

@@ -18,6 +18,8 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
         last_status,
         annotations_count,
         domain,
+        permissions,
+        pusher_channel,
         user {
           name,
           source {
@@ -36,9 +38,11 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
           edges {
             node {
               id,
+              dbid,
               content,
               annotation_type,
               created_at,
+              permissions,
               annotator {
                 name,
                 profile_image

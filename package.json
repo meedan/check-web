@@ -4,8 +4,8 @@
   "description": "Verify breaking news online",
   "private": true,
   "repository": {
-	  "type": "git",
-	  "url": "git://github.com/meedan/checkdesk-client.git"
+    "type": "git",
+    "url": "git://github.com/meedan/checkdesk-client.git"
   },
   "scripts": {
     "logo": "cd src/assets/images/logo && ./generate.sh && cd ..",
@@ -27,7 +27,7 @@
   ],
   "license": "MIT",
   "devDependencies": {
-    "chromedriver": "^2.19.0",
+    "chromedriver": "2.24.0",
     "eslint": "^1.7.1",
     "eslint-config-airbnb": "^0.1.0",
     "eslint-plugin-react": "^3.2.3",
@@ -74,6 +74,7 @@
     "material-ui": "^0.14.4",
     "node-sass": "^3.4.2",
     "postcss-cli": "^2.3.2",
+    "pusher-js": "^3.2.1",
     "raw-loader": "^0.5.1",
     "react": "^0.14.0",
     "react-dom": "^0.14.0",
@@ -98,6 +99,6 @@
     "style-loader": "^0.12.4",
     "superagent": "^1.4.0",
     "util": "^0.10.3",
-   	"webpack": "^1.12.2"
+    "webpack": "^1.12.2"
   }
 }

@@ -1,11 +1,14 @@
 import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
+import Pusher from 'pusher-js';
 import { Link } from 'react-router';
 import ProjectRoute from '../../relay/ProjectRoute';
 import ProjectHeader from './ProjectHeader';
 import MediasAndAnnotations from '../MediasAndAnnotations';
 import TeamSidebar from '../TeamSidebar';
 import { CreateMedia } from '../media';
+import Can from '../Can';
+import config from 'config';
 
 class ProjectComponent extends Component {
   redirect() {
@@ -26,8 +29,20 @@ class ProjectComponent extends Component {
     }
   }
 
+  subscribe() {
+    if (config.pusherKey) {
+      const that = this;
+      Pusher.logToConsole = !!config.pusherDebug;
+      const pusher = new Pusher(config.pusherKey, { encrypted: true });
+      pusher.subscribe(this.props.project.pusher_channel).bind('media_updated', function(data) {
+        that.props.relay.forceFetch();
+      });
+    }
+  }
+
   componentDidMount() {
     this.setContextProject();
+    this.subscribe();
   }
 
   componentDidUpdate() {
@@ -51,7 +66,9 @@ class ProjectComponent extends Component {
             annotatedType="Project"
             types={['comment']} />
 
-          <CreateMedia {...this.props} />
+          <Can permissions={project.permissions} permission='create Media'>
+            <CreateMedia {...this.props} />
+          </Can>
         </div>
       </div>
     );
@@ -66,6 +83,8 @@ const ProjectContainer = Relay.createContainer(ProjectComponent, {
         dbid,
         title,
         description,
+        pusher_channel,
+        permissions,
         team {
           id,
           dbid,
@@ -104,7 +123,8 @@ const ProjectContainer = Relay.createContainer(ProjectComponent, {
               jsondata,
               annotations_count,
               domain,
-              last_status
+              last_status,
+              permissions
             }
           }
         }
