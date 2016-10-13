@@ -15,7 +15,7 @@ class CreateTagMutation extends Relay.Mutation {
         query = Relay.QL`fragment on CreateTagPayload { tagEdge, source { annotations, tags } }`;
         break;
       case 'media':
-        query = Relay.QL`fragment on CreateTagPayload { tagEdge, media { annotations, tags } }`;
+        query = Relay.QL`fragment on CreateTagPayload { tagEdge, media { annotations, tags, annotations_count } }`;
         break;
     }
     return query;
@@ -32,6 +32,9 @@ class CreateTagMutation extends Relay.Mutation {
   }
 
   getConfigs() {
+    var fieldIds = {};
+    fieldIds[this.props.parent_type] = this.props.annotated.id;
+
     return [
       {
         type: 'RANGE_ADD',
@@ -52,6 +55,10 @@ class CreateTagMutation extends Relay.Mutation {
         rangeBehaviors: {
           '': 'prepend'
         }
+      },
+      {
+        type: 'FIELDS_CHANGE',
+        fieldIDs: fieldIds
       }
     ];
   }
