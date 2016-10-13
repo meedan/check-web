@@ -23,7 +23,7 @@ export default class Root extends Component {
 
   componentDidMount() {
     if (config.googleAnalyticsCode) {
-      ReactGA.initialize(config.googleAnalyticsCode, { debug: true });
+      ReactGA.initialize(config.googleAnalyticsCode, { debug: false });
     }
   }
 
