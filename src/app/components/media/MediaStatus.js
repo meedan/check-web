@@ -15,7 +15,7 @@ class MediaStatus extends Component {
   }
 
   canUpdate() {
-    return can(this.props.media.permissions, "update Media");
+    return can(this.props.media.permissions, "create Status");
   }
 
   toggleMediaStatusMenu() {
@@ -86,7 +86,7 @@ class MediaStatus extends Component {
         <div className={'media-status__current' + this.currentStatusToClass(status)}>
           <i className="media-status__icon media-status__icon--circle / fa fa-circle"></i>
           <span className='media-status__label'>{status}</span>
-          <Can permissions={media.permissions} permission="update Media">
+          <Can permissions={media.permissions} permission="create Status">
             <i className="media-status__icon media-status__icon--caret / fa fa-caret-down"></i>
           </Can>
           <span className='media-status__message'>{this.state.message}</span>
