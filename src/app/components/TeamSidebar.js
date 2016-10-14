@@ -20,11 +20,9 @@ class TeamSidebarComponent extends Component {
   }
 
   subscribe() {
-    if (config.pusherKey) {
+    if (window.Checkdesk.pusher) {
       const that = this;
-      Pusher.logToConsole = !!config.pusherDebug;
-      const pusher = new Pusher(config.pusherKey, { encrypted: true });
-      pusher.subscribe(this.props.team.pusher_channel).bind('project_created', function(data) {
+      window.Checkdesk.pusher.subscribe(this.props.team.pusher_channel).bind('project_created', function(data) {
         that.props.relay.forceFetch();
       });
     }
@@ -32,6 +30,16 @@ class TeamSidebarComponent extends Component {
 
   componentDidMount() {
     this.subscribe();
+  }
+
+  unsubscribe() {
+    if (window.Checkdesk.pusher) {
+      window.Checkdesk.pusher.unsubscribe(this.props.team.pusher_channel);
+    }
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
   }
 
   handleSwitchTeams() {

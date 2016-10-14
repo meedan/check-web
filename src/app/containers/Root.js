@@ -22,8 +22,15 @@ export default class Root extends Component {
   };
 
   componentDidMount() {
+    if (!window.Checkdesk) {
+      window.Checkdesk = {};
+    }
     if (config.googleAnalyticsCode) {
       ReactGA.initialize(config.googleAnalyticsCode, { debug: false });
+    }
+    if (config.pusherKey) {
+      Pusher.logToConsole = !!config.pusherDebug;
+      window.Checkdesk.pusher = new Pusher(config.pusherKey, { encrypted: true });
     }
   }
 

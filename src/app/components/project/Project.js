@@ -30,14 +30,22 @@ class ProjectComponent extends Component {
   }
 
   subscribe() {
-    if (config.pusherKey) {
+    if (window.Checkdesk.pusher) {
       const that = this;
-      Pusher.logToConsole = !!config.pusherDebug;
-      const pusher = new Pusher(config.pusherKey, { encrypted: true });
-      pusher.subscribe(this.props.project.pusher_channel).bind('media_updated', function(data) {
+      window.Checkdesk.pusher.subscribe(this.props.project.pusher_channel).bind('media_updated', function(data) {
         that.props.relay.forceFetch();
       });
     }
+  }
+
+  unsubscribe() {
+    if (window.Checkdesk.pusher) {
+      window.Checkdesk.pusher.unsubscribe(this.props.project.pusher_channel);
+    }
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
   }
 
   componentDidMount() {
