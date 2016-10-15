@@ -651,7 +651,7 @@ describe 'app' do
     it "should redirect to 404 page if id does not exist" do
       login_with_email
       url = @driver.current_url.to_s
-      @driver.navigate.to url.gsub(/project\/([0-9]+).*/, 'project/99999999999999')
+      @driver.navigate.to url.gsub(/project\/([0-9]+).*/, 'project/999')
       title = get_element('.main-title')
       expect(title.text == 'Not Found').to be(true)
       expect((@driver.current_url.to_s =~ /\/404$/).nil?).to be(false)
