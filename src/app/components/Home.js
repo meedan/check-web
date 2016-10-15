@@ -115,7 +115,7 @@ class Home extends Component {
     if (location !== '/' || !userData) { return; }
 
     const userCurrentTeam = userData.current_team;
-    if (!userCurrentTeam && location !== '/teams/new') {
+    if (!userCurrentTeam && location !== '/teams/new' && location !== '/join') {
       return Checkdesk.history.push('/teams/new');
     }
 

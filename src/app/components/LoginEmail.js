@@ -34,12 +34,12 @@ class LoginEmail extends Component {
       'api_user[password]': this.state.password
     };
     var failureCallback = function(message) {
-          that.setState({ open: true, message: message });
-        },
-        successCallback = function(data) {
-          that.setState({ open: false, message: null });
-          Checkdesk.history.push('/');
-        };
+      that.setState({ open: true, message: message });
+    },
+    successCallback = function(data) {
+      that.setState({ open: false, message: null });
+      Checkdesk.history.push('/');
+    };
     request('post', 'users/sign_in', failureCallback, successCallback, params);
   }
 
@@ -54,12 +54,12 @@ class LoginEmail extends Component {
       'api_user[image]': form.image
     };
     var failureCallback = function(message) {
-          that.setState({ open: true, message: message });
-        },
-        successCallback = function(data) {
-          that.setState({ open: false, message: null });
-          Checkdesk.history.push('/');
-        };
+      that.setState({ open: true, message: message });
+    },
+    successCallback = function(data) {
+      that.setState({ open: false, message: null });
+      Checkdesk.history.push(window.location.pathname);
+    };
     request('post', 'users', failureCallback, successCallback, params);
   }
 
