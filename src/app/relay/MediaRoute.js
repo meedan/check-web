@@ -2,10 +2,10 @@ import Relay from 'react-relay';
 
 class MediaRoute extends Relay.Route {
   static queries = {
-    media: () => Relay.QL`query Media { media(id: $mediaId) }`, 
+    media: () => Relay.QL`query Media { media(ids: $ids) }`, 
   };
   static paramDefinitions = {
-    mediaId: { required: true }
+    ids: { required: true }
   };
   static routeName = 'MediaRoute';
 };
