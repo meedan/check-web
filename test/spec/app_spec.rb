@@ -788,5 +788,9 @@ describe 'app' do
     it "should auto refresh project page when media is created remotely" do
       skip("Needs to be implemented")
     end
+
+    it "should give 404 when trying to acess a media that is not related to the project on the URL" do
+      skip("Needs to be implemented")
+    end
   end
 end
