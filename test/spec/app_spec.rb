@@ -658,21 +658,19 @@ describe 'app' do
     end
 
     it "should change a media status via the dropdown menu" do
-      login_with_email
-      sleep 5
-
-      fill_field('#create-media-url', 'https://twitter.com/marcouza/status/771009514732650497?t=' + Time.now.to_i.to_s)
-      sleep 1
-      press_button('#create-media-submit')
-      sleep 10
-      media_link = @driver.current_url.to_s
+      register_with_email(true, 'sysops+' + Time.now.to_i.to_s + '@meedan.com')
+      wait = Selenium::WebDriver::Wait.new(timeout: 10)
+      wait.until { @driver.find_element(:css, '.team') }
+      create_project
+      wait.until { @driver.find_element(:css, '.project') }
+      create_media('https://twitter.com/marcouza/status/771009514732650497?t=' + Time.now.to_i.to_s)
+      wait.until { @driver.find_element(:css, '.media') }
 
       current_status = @driver.find_element(:css, '.media-status__label')
       expect(current_status.text == 'UNDETERMINED').to be(true)
 
       current_status.click
-      sleep 1
-      verified_menu_item = @driver.find_element(:css, '.media-status__menu-item--verified')
+      verified_menu_item = (wait.until { @driver.find_element(:css, '.media-status__menu-item--verified') })
       verified_menu_item.click
       sleep 3
       current_status = @driver.find_element(:css, '.media-status__label')
