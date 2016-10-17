@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import Message from './Message';
 import UploadImage from './UploadImage';
 import { request } from '../actions/actions';
+import { Link } from 'react-router';
 
 class LoginEmail extends Component {
   constructor(props) {
@@ -150,7 +151,7 @@ class LoginEmail extends Component {
               <button type="button" id="cancel-register-or-login" onClick={this.handleClose.bind(this)} className='login-email__cancel'>Sign in with Twitter, Facebook, or Slack</button>
             </div>
           </form>
-          {this.state.type === 'login' ? (<p className='login-email__help-text'>Having trouble logging in? Please email check@meedan.com for&nbsp;assistance.</p>) : null}
+          {this.state.type === 'login' ? (<p className='login-email__help-text'>Having trouble logging in? Please email <Link to='mailto:check@meedan.com'>check@meedan.com</Link> for&nbsp;assistance.</p>) : null}
         </section>
       </span>
     );
