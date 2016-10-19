@@ -24,21 +24,24 @@ class CreateMedia extends Component {
 
     // TODO: parse inputValue into URL/text
 
-    var onFailure = (transaction) => {
-      transaction.getError().json().then(function(json) {
-        var message = 'Sorry, could not create the media';
-        if (json.error) {
-          message = json.error;
-          var matches = message.match(/^Validation failed: Media with this URL exists and has id ([0-9]+)$/);
-          if (matches) {
-            that.props.projectComponent.props.relay.forceFetch();
-            var sid = matches[1];
-            message = null;
-            Checkdesk.history.push(prefix + sid);
-          }
+    const handleError = (json) => {
+      var message = 'Sorry, could not create the media';
+      if (json && json.error) {
+        message = json.error;
+        var matches = message.match(/^Validation failed: Media with this URL exists and has id ([0-9]+)$/);
+        if (matches) {
+          that.props.projectComponent.props.relay.forceFetch();
+          var sid = matches[1];
+          message = null;
+          Checkdesk.history.push(prefix + sid);
         }
-        that.setState({ message: message });
-      });
+      }
+      that.setState({ message: message });
+    }
+
+    var onFailure = (transaction) => {
+      const transactionError = transaction.getError();
+      transactionError.json ? transactionError.json().then(handleError) : handleError(JSON.stringify(transactionError));
     };
 
     var onSuccess = (response) => {
