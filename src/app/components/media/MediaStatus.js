@@ -97,7 +97,7 @@ class MediaStatus extends Component {
             <i className="media-status__icon media-status__icon--radio-button / fa fa-circle-o"></i>
             <span className='media-status__label'>Undetermined</span>
           </li>
-          <li className={this.bemClass('media-status__menu-item', (status === 'in progress'), '--current') + ' media-status__menu-item--in-progress'} onClick={this.handleStatusClick.bind(this, 'in progress')}>
+          <li className={this.bemClass('media-status__menu-item', (status === 'in_progress'), '--current') + ' media-status__menu-item--in-progress'} onClick={this.handleStatusClick.bind(this, 'in_progress')}>
             <i className="media-status__icon media-status__icon--radio-button-selected / fa fa-circle"></i>
             <i className="media-status__icon media-status__icon--radio-button / fa fa-circle-o"></i>
             <span className='media-status__label'>In Progress</span>
