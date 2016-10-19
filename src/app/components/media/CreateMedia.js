@@ -18,9 +18,11 @@ class CreateMedia extends Component {
   }
 
   handleSubmit() {
-    var that = this,
-        url = document.getElementById('create-media-url').value,
+    const that = this,
+        inputValue = document.getElementById('create-media-input').value.trim(),
         prefix = '/project/' + Checkdesk.context.project.dbid + '/media/';
+
+    // TODO: parse inputValue into URL/text
 
     var onFailure = (transaction) => {
       transaction.getError().json().then(function(json) {
@@ -47,7 +49,7 @@ class CreateMedia extends Component {
 
     Relay.Store.commitUpdate(
       new CreateMediaMutation({
-        url: url,
+        url: inputValue,
         project: Checkdesk.context.project
       }),
       { onSuccess, onFailure }
@@ -55,7 +57,7 @@ class CreateMedia extends Component {
   }
 
   handlePreview() {
-    var url = document.getElementById('create-media-url').value;
+    var url = document.getElementById('create-media-input').value;
     this.setState({ url: url, message: null });
   }
 
@@ -71,7 +73,7 @@ class CreateMedia extends Component {
 
         <div id="media-url-container" className="create-media__form">
           <button className="create-media__button create-media__button--new">+</button>
-          <TextField hintText="Paste a Twitter, Instagram, Facebook or YouTube link" fullWidth={true} name="url" id="create-media-url" className='create-media__input' />
+          <TextField hintText="Paste a Twitter, Instagram, Facebook or YouTube link" fullWidth={true} name="url" id="create-media-input" className='create-media__input' />
           <div className="create-media__buttons">
             <FlatButton id="create-media-preview" secondary={true} onClick={this.handlePreview.bind(this)} label="Preview" className='create-media__button create-media__button--preview' />
             <FlatButton id="create-media-submit" primary={true} onClick={this.handleSubmit.bind(this)} label="Post" className='create-media__button create-media__button--submit' />

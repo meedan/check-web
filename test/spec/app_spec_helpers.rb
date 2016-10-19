@@ -184,7 +184,7 @@ module AppSpecHelpers
   end
 
   def create_media(url)
-    fill_field('#create-media-url', url)
+    fill_field('#create-media-input', url)
     press_button('#create-media-submit')
   end
 

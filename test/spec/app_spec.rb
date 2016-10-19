@@ -77,7 +77,7 @@ describe 'app' do
       login_with_email
       sleep 5
 
-      fill_field('#create-media-url', 'https://twitter.com/marcouza/status/771009514732650497?t=' + Time.now.to_i.to_s)
+      fill_field('#create-media-input', 'https://twitter.com/marcouza/status/771009514732650497?t=' + Time.now.to_i.to_s)
       sleep 1
       press_button('#create-media-submit')
       sleep 10
@@ -109,7 +109,7 @@ describe 'app' do
       @driver.navigate.to @config['self_url'] + '/medias/new'
       sleep 1
       expect(@driver.find_elements(:xpath, "//*[contains(@id, 'pender-iframe')]").empty?).to be(true)
-      fill_field('#create-media-url', @media_url)
+      fill_field('#create-media-input', @media_url)
       press_button('#create-media-preview')
       sleep 10
       expect(@driver.find_elements(:xpath, "//*[contains(@id, 'pender-iframe')]").empty?).to be(false)
@@ -118,7 +118,7 @@ describe 'app' do
     it "should register and redirect to newly created media" do
       login_with_email
       sleep 3
-      fill_field('#create-media-url', @media_url)
+      fill_field('#create-media-input', @media_url)
       sleep 1
       press_button('#create-media-submit')
       sleep 20
@@ -454,7 +454,7 @@ describe 'app' do
     it "should not create duplicated media if registered" do
       login_with_email
       sleep 3
-      fill_field('#create-media-url', @media_url)
+      fill_field('#create-media-input', @media_url)
       sleep 2
       press_button('#create-media-submit')
       sleep 10
@@ -464,7 +464,7 @@ describe 'app' do
     it "should not create source as media if registered" do
       login_with_email
       sleep 3
-      fill_field('#create-media-url', 'https://www.facebook.com/ironmaidenbeer/?fref=ts')
+      fill_field('#create-media-input', 'https://www.facebook.com/ironmaidenbeer/?fref=ts')
       sleep 1
       press_button('#create-media-submit')
       sleep 10
