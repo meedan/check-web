@@ -9,6 +9,7 @@ import teamFragment from '../relay/teamFragment';
 import SwitchTeams from './team/SwitchTeams';
 import Can from './Can';
 import config from 'config';
+import '../helpers.js';
 
 class TeamSidebarComponent extends Component {
   constructor(props) {
@@ -75,7 +76,7 @@ class TeamSidebarComponent extends Component {
             if (team) {
               return (
                 <ul className='team-sidebar__projects-list'>
-                  {team.projects.edges.map(p => (
+                  {team.projects.edges.sortp((a,b) => a.node.title.localeCompare(b.node.title) ).map(p => (
                     <li className={'team-sidebar__project' + (this.isCurrentProject(p.node.dbid) ? ' team-sidebar__project--current' : '')}>
                       <Link to={'/project/' + p.node.dbid} className='team-sidebar__project-link'>{p.node.title}</Link>
                     </li>
