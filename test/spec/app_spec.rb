@@ -73,6 +73,37 @@ describe 'app' do
       expect(link.text == title).to be(true)
     end
 
+    it "should create project media" do
+      login_with_email
+      sleep 5
+
+      fill_field('#create-media-url', 'https://twitter.com/marcouza/status/771009514732650497?t=' + Time.now.to_i.to_s)
+      sleep 1
+      press_button('#create-media-submit')
+      sleep 10
+      media_link = @driver.current_url.to_s
+
+      @driver.navigate.to @config['self_url']
+      sleep 3
+
+      expect(@driver.page_source.include?('This is a test')).to be(true)
+      status = get_element('.media-status__label')
+      expect(status.text == 'IN PROGRESS').to be(false)
+
+      @driver.navigate.to media_link
+      sleep 3
+      fill_field('.cmd-input input', '/status In Progress')
+      @driver.action.send_keys(:enter).perform
+      sleep 3
+
+      @driver.navigate.to @config['self_url']
+      sleep 5
+
+      expect(@driver.page_source.include?('This is a test')).to be(true)
+      status = get_element('.media-status__label')
+      expect(status.text == 'IN PROGRESS').to be(true)
+    end
+
     it "should preview media if registered" do
       login_with_email
       @driver.navigate.to @config['self_url'] + '/medias/new'
@@ -618,35 +649,6 @@ describe 'app' do
     #   sleep 3
     #   expect(@driver.page_source.include?('This is my comment')).to be(true)
     # end
-
-    it "should create project media" do
-      login_with_email
-      sleep 5
-
-      fill_field('#create-media-url', 'https://twitter.com/marcouza/status/771009514732650497?t=' + Time.now.to_i.to_s)
-      sleep 1
-      press_button('#create-media-submit')
-      sleep 10
-      media_link = @driver.current_url.to_s
-
-      @driver.navigate.to @config['self_url']
-      sleep 3
-
-      expect(@driver.page_source.include?('This is a test')).to be(true)
-      expect(@driver.page_source.include?('In Progress')).to be(false)
-
-      @driver.navigate.to media_link
-      sleep 3
-      fill_field('.cmd-input input', '/status In Progress')
-      @driver.action.send_keys(:enter).perform
-      sleep 3
-
-      @driver.navigate.to @config['self_url']
-      sleep 5
-
-      expect(@driver.page_source.include?('This is a test')).to be(true)
-      expect(@driver.page_source.include?('In Progress')).to be(true)
-    end
 
     it "should redirect to 404 page if id does not exist" do
       login_with_email
