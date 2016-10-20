@@ -9,6 +9,7 @@ var sourceFragment = Relay.QL`
     user_id,
     description,
     permissions,
+    verification_statuses,
     accounts(first: 10000) {
       edges {
         node {
@@ -50,8 +51,9 @@ var sourceFragment = Relay.QL`
           jsondata,
           annotations_count,
           domain,
-          last_status,
-          permissions
+          last_status(context_id: $contextId),
+          permissions,
+          verification_statuses
         }
       }
     }

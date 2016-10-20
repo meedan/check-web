@@ -27,6 +27,7 @@ class ProjectComponent extends Component {
       // this.redirect();
       Checkdesk.history.push('/404');
     }
+    this.props.relay.setVariables({ contextId: Checkdesk.context.project.dbid });
   }
 
   subscribe() {
@@ -85,6 +86,9 @@ class ProjectComponent extends Component {
 }
 
 const ProjectContainer = Relay.createContainer(ProjectComponent, {
+  initialVariables: {
+    contextId: null
+  },
   fragments: {
     project: () => Relay.QL`
       fragment on Project {
@@ -132,8 +136,9 @@ const ProjectContainer = Relay.createContainer(ProjectComponent, {
               jsondata,
               annotations_count,
               domain,
-              last_status,
-              permissions
+              last_status(context_id: $contextId),
+              permissions,
+              verification_statuses
             }
           }
         }

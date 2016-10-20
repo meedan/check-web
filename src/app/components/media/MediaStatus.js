@@ -31,7 +31,7 @@ class MediaStatus extends Component {
     if (status === '') {
       return '';
     }
-    return ' media-status__current--' + status.toLowerCase().replace(' ', '-');
+    return ' media-status__current--' + status.toLowerCase().replace(/[ _]/g, '-');
   }
 
   handleStatusClick(clickedStatus, r) {
@@ -75,43 +75,47 @@ class MediaStatus extends Component {
     // this.setState({ message: 'Status updated.' });
   }
 
+  statusIdToLabel(id) {
+    const statuses = JSON.parse(this.props.media.verification_statuses).statuses;
+    let label = '';
+    statuses.forEach(function(status) {
+      if (status.id === id) {
+        label = status.label;
+      }
+    });
+    return label;
+  }
+
   render() {
+    const that = this;
     const { media } = this.props;
-    const status = media.last_status;
+    const statuses = JSON.parse(media.verification_statuses).statuses;
+    const currentStatus = this.statusIdToLabel(media.last_status);
 
     return (
       <div className={this.bemClass('media-status', this.canUpdate(), '--editable')} onClick={this.toggleMediaStatusMenu.bind(this)}>
         <div className={this.bemClass('media-status__overlay', this.state.isMediaStatusMenuOpen, '--active')} onClick={this.toggleMediaStatusMenu.bind(this)}></div>
 
-        <div className={'media-status__current' + this.currentStatusToClass(status)}>
+        <div className={'media-status__current' + this.currentStatusToClass(currentStatus)}>
           <i className="media-status__icon media-status__icon--circle / fa fa-circle"></i>
-          <span className='media-status__label'>{status}</span>
+          <span className='media-status__label'>{currentStatus}</span>
           <Can permissions={media.permissions} permission="create Status">
             <i className="media-status__icon media-status__icon--caret / fa fa-caret-down"></i>
           </Can>
           <span className='media-status__message'>{this.state.message}</span>
         </div>
         <ul className={this.bemClass('media-status__menu', this.state.isMediaStatusMenuOpen, '--active')}>
-          <li className={this.bemClass('media-status__menu-item', (status === 'undetermined'), '--current') + ' media-status__menu-item--undetermined'} onClick={this.handleStatusClick.bind(this, 'undetermined')}>
-            <i className="media-status__icon media-status__icon--radio-button-selected / fa fa-circle"></i>
-            <i className="media-status__icon media-status__icon--radio-button / fa fa-circle-o"></i>
-            <span className='media-status__label'>Undetermined</span>
-          </li>
-          <li className={this.bemClass('media-status__menu-item', (status === 'in_progress'), '--current') + ' media-status__menu-item--in-progress'} onClick={this.handleStatusClick.bind(this, 'in_progress')}>
-            <i className="media-status__icon media-status__icon--radio-button-selected / fa fa-circle"></i>
-            <i className="media-status__icon media-status__icon--radio-button / fa fa-circle-o"></i>
-            <span className='media-status__label'>In Progress</span>
-          </li>
-          <li className={this.bemClass('media-status__menu-item', (status === 'verified'), '--current') + ' media-status__menu-item--verified'} onClick={this.handleStatusClick.bind(this, 'verified')}>
-            <i className="media-status__icon media-status__icon--radio-button-selected / fa fa-circle"></i>
-            <i className="media-status__icon media-status__icon--radio-button / fa fa-circle-o"></i>
-            <span className='media-status__label'>Verified</span>
-          </li>
-          <li className={this.bemClass('media-status__menu-item', (status === 'false'), '--current') + ' media-status__menu-item--false'} onClick={this.handleStatusClick.bind(this, 'false')}>
-            <i className="media-status__icon media-status__icon--radio-button-selected / fa fa-circle"></i>
-            <i className="media-status__icon media-status__icon--radio-button / fa fa-circle-o"></i>
-            <span className='media-status__label'>False</span>
-          </li>
+        
+          {statuses.map(function(status) {
+            return (
+              <li className={that.bemClass('media-status__menu-item', (currentStatus === status.id), '--current') + ' media-status__menu-item--' + status.id.replace('_', '-')} onClick={that.handleStatusClick.bind(that, status.id)}>
+                <i className="media-status__icon media-status__icon--radio-button-selected / fa fa-circle"></i>
+                <i className="media-status__icon media-status__icon--radio-button / fa fa-circle-o"></i>
+                <span className='media-status__label'>{status.label}</span>
+              </li>
+            );
+          })}
+
         </ul>
       </div>
     );

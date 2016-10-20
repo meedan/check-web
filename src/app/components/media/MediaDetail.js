@@ -11,7 +11,7 @@ class MediaDetail extends Component {
     if (status === '') {
       return '';
     }
-    return 'media-detail__media--' + status.toLowerCase().replace(' ', '-');
+    return 'media-detail__media--' + status.toLowerCase().replace(/[ _]/g, '-');
   }
 
   render() {

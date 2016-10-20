@@ -29,6 +29,17 @@ class Annotation extends Component {
     );
   }
 
+  statusIdToLabel(id) {
+    const statuses = JSON.parse(this.props.annotated.verification_statuses).statuses;
+    let label = '';
+    statuses.forEach(function(status) {
+      if (status.id === id) {
+        label = status.label;
+      }
+    });
+    return label;
+  }
+
   render() {
     const annotation = this.props.annotation;
     const permissionType = `${annotation.annotation_type.charAt(0).toUpperCase()}${annotation.annotation_type.slice(1)}`;
@@ -57,12 +68,12 @@ class Annotation extends Component {
         );
         break;
       case 'status':
-        const statusCode = content.status.toLowerCase().replace(' ', '-');
+        const statusCode = content.status.toLowerCase().replace(/[ _]/g, '-');
         contentTemplate = (
           <section className='annotation__content'>
             <div className='annotation__header'>
               <span>Status set to </span>
-              <span className={`annotation__status annotation__status--${statusCode}`}>{content.status}</span>
+              <span className={`annotation__status annotation__status--${statusCode}`}>{this.statusIdToLabel(content.status)}</span>
               <span> by </span>
               <span className='annotation__author-name'>{annotation.annotator.name}</span> <span className='annotation__timestamp'><TimeAgo date={annotation.created_at} live={false} /></span>
               {annotationActions}

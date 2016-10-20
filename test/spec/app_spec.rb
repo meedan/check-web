@@ -633,7 +633,7 @@ describe 'app' do
       sleep 3
 
       expect(@driver.page_source.include?('This is a test')).to be(true)
-      expect(@driver.page_source.include?('Status')).to be(false)
+      expect(@driver.page_source.include?('In Progress')).to be(false)
 
       @driver.navigate.to media_link
       sleep 3
@@ -645,7 +645,7 @@ describe 'app' do
       sleep 5
 
       expect(@driver.page_source.include?('This is a test')).to be(true)
-      expect(@driver.page_source.include?('Status')).to be(true)
+      expect(@driver.page_source.include?('In Progress')).to be(true)
     end
 
     it "should redirect to 404 page if id does not exist" do
