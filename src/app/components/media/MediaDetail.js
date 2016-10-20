@@ -49,8 +49,8 @@ class MediaDetail extends Component {
           to <Link to={'https://' + media.domain}><img src={data.favicon} />{media.domain}</Link> {data.published_at ? <Link to={data.url} target="_blank"><TimeAgo date={data.published_at} live={false} /></Link> : null}
 
         </p>
-        <h2 className="media-detail__title">{hide.title[data.provider] ? null : data.title}</h2>
-        <p className="media-detail__description">{hide.description[data.provider] ? null : data.description}</p>
+        {hide.title[data.provider] ? null : (<h2 className="media-detail__title">{data.title}</h2>)}
+        {hide.description[data.provider] ? null : (<p className="media-detail__description">{data.description}</p>)}
       </div>
     );
   }
