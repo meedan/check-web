@@ -51,7 +51,7 @@ var sourceFragment = Relay.QL`
           jsondata,
           annotations_count,
           domain,
-          last_status(context_id: $contextId),
+          last_status,
           permissions,
           verification_statuses
         }
