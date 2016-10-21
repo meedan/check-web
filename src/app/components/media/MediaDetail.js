@@ -26,6 +26,8 @@ class MediaDetail extends Component {
     };
 
     const username = data.username ? ('@' + data.username) : data.author_url;
+    const byUser = (media.user && media.user.source && media.user.source.dbid && media.user.name !== 'Pender') ?
+      (<span>by <Link to={`/source/${media.user.source.dbid}`}>{media.user.name}</Link></span>) : '';
 
     return (
       <div className={this.statusToClass('media-detail', media.last_status)}>
@@ -33,18 +35,12 @@ class MediaDetail extends Component {
         <div className={this.statusToClass('media-detail__media', media.last_status)}>
           <PenderCard url={media.url} penderUrl={config.penderUrl} />
         </div>
-        {(() => {
-          if (media.user && media.user.source && media.user.source.dbid && media.user.name) {
-            return (
-              <p className='media-detail__check-metadata'>
-                <span className='media-detail__check-added-by'>Added by <Link to={`/source/${media.user.source.dbid}`}>{media.user.name}</Link></span> <span className='media-detail__check-added-at'>{media.created_at ?
-                  <Link to={window.location.href}><TimeAgo date={media.created_at} live={false} /></Link>
-                  : null
-                }</span> <span className='media-detail__check-notes-count'>{media.annotations_count} notes</span>
-              </p>
-            );
-          }
-        })()}
+        <p className='media-detail__check-metadata'>
+          <span className='media-detail__check-added-by'>Added {byUser}</span> <span className='media-detail__check-added-at'>{media.created_at ?
+            <Link to={window.location.href}><TimeAgo date={media.created_at} live={false} /></Link>
+            : null
+          }</span> <span className='media-detail__check-notes-count'>{media.annotations_count} notes</span>
+        </p>
         <MediaTags tags={media.tags.edges} />
         {hide.title[data.provider] ? null : (<h2 className="media-detail__title">{data.title}</h2>)}
         {hide.description[data.provider] ? null : (<p className="media-detail__description">{data.description}</p>)}
