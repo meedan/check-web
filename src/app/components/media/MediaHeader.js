@@ -3,6 +3,7 @@ import Relay from 'react-relay';
 import MediaRoute from '../../relay/MediaRoute';
 import Caret from '../Caret';
 import MediaMetadataSummary from './MediaMetadataSummary';
+import util from './MediaUtil';
 
 class MediaHeaderComponent extends Component {
   setCurrentContext() {
@@ -20,7 +21,7 @@ class MediaHeaderComponent extends Component {
   render() {
     const media = this.props.media;
     const data = JSON.parse(media.jsondata);
-    const title = data.title; // TODO: revisit definition of media title
+    const title = util.title(media, data);
 
     return (
       <div className='media-header'>
