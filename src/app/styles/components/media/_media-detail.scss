@@ -48,3 +48,8 @@
 
   color: theme-gray(45%);
 }
+
+.media-detail__title,
+.media-detail__description {
+  display: none; // no need to display for now; restore once check-user-editable title/desc are ready
+}
