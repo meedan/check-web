@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 import TimeAgo from 'react-timeago';
+import Linkify from 'react-linkify';
 import DeleteAnnotationMutation from '../../relay/DeleteAnnotationMutation';
 import Can from '../Can';
 
@@ -63,7 +64,7 @@ class Annotation extends Component {
               <span className='annotation__timestamp'><TimeAgo date={annotation.created_at} live={false} /></span>
               {annotationActions}
             </div>
-            <div className='annotation__body'>{commentText}</div>
+            <div className='annotation__body'><Linkify properties={{ target: '_blank' }}>{commentText}</Linkify></div>
           </section>
         );
         break;
