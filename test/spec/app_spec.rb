@@ -792,5 +792,9 @@ describe 'app' do
     it "should give 404 when trying to acess a media that is not related to the project on the URL" do
       skip("Needs to be implemented")
     end
+
+    it "should linkify URLs on comments" do
+      skip("Needs to be implemented")
+    end
   end
 end
