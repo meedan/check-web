@@ -5,13 +5,13 @@ import { Link } from 'react-router';
 import PenderCard from '../PenderCard';
 import config from 'config';
 import MediaStatus from './MediaStatus';
+import MediaTags from './MediaTags';
 
 class MediaDetail extends Component {
-  statusToClass(status) {
-    if (status === '') {
-      return '';
-    }
-    return 'media-detail__media--' + status.toLowerCase().replace(/[ _]/g, '-');
+  statusToClass(baseClass, status) {
+    return status.length ?
+      [baseClass, `${baseClass}--${status.toLowerCase().replace(/[ _]/g, '-')}`].join(' ') :
+      baseClass;
   }
 
   render() {
@@ -28,27 +28,24 @@ class MediaDetail extends Component {
     const username = data.username ? ('@' + data.username) : data.author_url;
 
     return (
-      <div className="media-detail">
+      <div className={this.statusToClass('media-detail', media.last_status)}>
         <div className='media-detail__status'><MediaStatus media={media} /></div>
-
-        <div className={'media-detail__media ' + this.statusToClass(media.last_status)}>
+        <div className={this.statusToClass('media-detail__media', media.last_status)}>
           <PenderCard url={media.url} penderUrl={config.penderUrl} />
         </div>
-        <p className="media-detail__original-metadata">
-          
-          <span><Link to={data.url} target="_blank">Posted</Link> </span>
-          
-          {(() => {
-            if (media.account && media.account.source && media.account.source.name) {
-              return (
-                <span>by {media.account.source.name} (<Link to={data.author_url} target="_blank">{username}</Link>) </span>
-              );
-            }
-          })()}
-          
-          to <Link to={'https://' + media.domain}><img src={data.favicon} />{media.domain}</Link> {data.published_at ? <Link to={data.url} target="_blank"><TimeAgo date={data.published_at} live={false} /></Link> : null}
-
-        </p>
+        {(() => {
+          if (media.user && media.user.source && media.user.source.dbid && media.user.name) {
+            return (
+              <p className='media-detail__check-metadata'>
+                <span className='media-detail__check-added-by'>Added by <Link to={`/source/${media.user.source.dbid}`}>{media.user.name}</Link></span> <span className='media-detail__check-added-at'>{media.created_at ?
+                  <Link to={window.location.href}><TimeAgo date={media.created_at} live={false} /></Link>
+                  : null
+                }</span> <span className='media-detail__check-notes-count'>{media.annotations_count} notes</span>
+              </p>
+            );
+          }
+        })()}
+        <MediaTags tags={media.tags.edges} />
         {hide.title[data.provider] ? null : (<h2 className="media-detail__title">{data.title}</h2>)}
         {hide.description[data.provider] ? null : (<p className="media-detail__description">{data.description}</p>)}
       </div>

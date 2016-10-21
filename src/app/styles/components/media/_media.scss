@@ -1,10 +1,8 @@
 .media {}
 
 .media__contents {
-  @include media-card;
-  padding: $media-card-padding;
-
-  max-width: 1000px;
+  margin: 15px auto;
+  max-width: $media-max-width;
 }
 
 .media__notes-heading {

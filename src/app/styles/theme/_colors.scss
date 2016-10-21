@@ -46,6 +46,50 @@ $red-500: #F44336;
 $red-900: #B71C1C;
 
 // media
+//
+// - TODO: DRY once settled
+// - TODO: merge with proto colors:
+//
+$check-blue: #2E77FC;
+$firefly-5: #F3F4F4;
+$firefly-10: #E7E8EA;
+$firefly-20: #CFD3D5;
+$firefly-30: #B7BCC0;
+$firefly-40: #9FA6AC;
+$firefly-60: #6F7A82;
+$firefly-80: #404D59;
+$firefly-90: #283743;
+$firefly: #10212F;
+$heather-grey: #C4D1DB;
+$monza-red: #D0021B;
+$porcelain-grey: #FAFBFB;
+$regent-grey: #8799A6;
+//
+// Verification colors
+$hawkes-blue: #E4EEFC;
+$seashell-peach: #FFF6F0;
+$hint-green: #E5FFEF;
+$pippin-red: #FFE5E5;
+//
+// Firefly with alpha for blending
+$firefly-60-1: rgba($firefly-60, 0.1);
+$firefly-60-2: rgba($firefly-60, 0.2);
+$firefly-60-5: rgba($firefly-60, 0.5);
+$firefly-60-8: rgba($firefly-60, 0.8);
+//
+//   // Statuses
+//   &.media-detail__media--verified {
+//     background-color: $hint-green;
+//   }
+//   &.media-detail__media--undetermined {
+//     background-color: $hawkes-blue;
+//   }
+//   &.media-detail__media--in-progress {
+//     background-color: $seashell-peach;
+//   }
+//   &.media-detail__media--false {
+//     background-color: $pippin-red;
+//   }
 
 @mixin media-status-colors {
   &--undetermined { color: $blue-500; }
@@ -53,4 +97,23 @@ $red-900: #B71C1C;
   &--verified { color: $green-500; }
   &--false { color: $red-500; }
   &--not-applicable { color: $gray-350; }
+}
+
+@mixin media-status-bg-colors {
+  $alpha: 0.17;
+  &--undetermined { background: rgba($blue-100, $alpha); }
+  &--in-progress { background: rgba($orange-100, $alpha); }
+  &--verified { background: rgba($green-100, $alpha); }
+  &--false { background: rgba($red-100, $alpha); }
+  &--inconclusive { background: rgba($gray-100, $alpha); }
+}
+
+@mixin media-status-border-colors {
+  $saturation: 50%;
+  $alpha: 0.75;
+  &--undetermined { border-color: rgba(mix($blue-500, $layout-border-color, $saturation), $alpha); }
+  &--in-progress { border-color: rgba(mix($orange-500, $layout-border-color, $saturation), $alpha); }
+  &--verified { border-color: rgba(mix($green-500, $layout-border-color, $saturation), $alpha); }
+  &--false { border-color: rgba(mix($red-500, $layout-border-color, $saturation), $alpha); }
+  &--not-applicable { border-color: rgba(mix($gray-350, $layout-border-color, $saturation), $alpha); }
 }
