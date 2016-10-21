@@ -155,7 +155,7 @@ module AppSpecHelpers
     @driver.action.send_keys(:enter).perform
   end
 
-  def register_with_email(should_create_team = true)
+  def register_with_email(should_create_team = true, email = @email)
     @driver.navigate.to @config['self_url']
     sleep 1
     @driver.find_element(:xpath, "//a[@id='login-email']").click
@@ -163,7 +163,7 @@ module AppSpecHelpers
     @driver.find_element(:xpath, "//button[@id='register-or-login']").click
     sleep 1
     fill_field('.login-email__name input', 'User With Email')
-    fill_field('.login-email__email input', @email)
+    fill_field('.login-email__email input', email)
     fill_field('.login-email__password input', '12345678')
     fill_field('.login-email__password-confirmation input', '12345678')
     press_button('#submit-register-or-login')
@@ -172,7 +172,7 @@ module AppSpecHelpers
   end
 
   def get_team
-    @driver.execute_script('return Checkdesk.context.team ? Checkdesk.context.team.dbid : Checkdesk.currentUser.current_team.dbid').to_s
+    @driver.execute_script('return Checkdesk.context.team ? Checkdesk.context.team.subdomain : Checkdesk.currentUser.current_team.subdomain').to_s
   end
 
   def get_project
@@ -186,5 +186,9 @@ module AppSpecHelpers
   def create_media(url)
     fill_field('#create-media-url', url)
     press_button('#create-media-submit')
+  end
+
+  def team_url(path)
+    @config['self_url'].gsub('//', '//' + get_team + '.') + '/' + path
   end
 end

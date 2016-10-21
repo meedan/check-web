@@ -5,6 +5,7 @@ import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import TeamMembershipRequests from './TeamMembershipRequests';
 import TeamMembersCell from './TeamMembersCell';
+import config from 'config';
 
 class TeamMembersComponent extends Component {
   constructor(props) {
@@ -38,7 +39,7 @@ class TeamMembersComponent extends Component {
       }
     });
 
-    const teamUrl = '/team/' + team.dbid;
+    const teamUrl = window.location.protocol + '//' + team.subdomain + '.' + config.selfHost
     const joinUrl = teamUrl + '/join';
 
     return (
@@ -52,7 +53,7 @@ class TeamMembersComponent extends Component {
         
         <div className='team-members__blurb'>
           <p className='team-members__blurb-graf'>To invite colleagues to join <Link to={teamUrl}>{team.name}</Link>, send them this link:</p>
-          <p className='team-members__blurb-graf--url'><a href={joinUrl}>{window.location.origin + joinUrl}</a></p>
+          <p className='team-members__blurb-graf--url'><a href={joinUrl}>{joinUrl}</a></p>
         </div>
 
         <TeamMembershipRequests team_users={team_users_requestingMembership} />

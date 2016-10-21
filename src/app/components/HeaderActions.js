@@ -30,12 +30,16 @@ class HeaderActions extends Component {
     return (
       <div className={this.bemClass('header-actions', this.state.isSettingsMenuOpen, '--active')}>
         {/*<FontAwesome name='search' className='header-actions__search-icon'/>*/}
-        <FontAwesome name='gear' className='header-actions__settings-icon' onClick={this.toggleSettingsMenu.bind(this)} />
+
+        {/* TODO: rename to reflect expand role (not just settings) */}
+        <FontAwesome name='ellipsis-h' className='header-actions__settings-icon' onClick={this.toggleSettingsMenu.bind(this)} />
         <div className={this.bemClass('header-actions__settings-overlay', this.state.isSettingsMenuOpen, '--active')} onClick={this.toggleSettingsMenu.bind(this)}></div>
         <ul className={this.bemClass('header-actions__settings-panel', this.state.isSettingsMenuOpen, '--active')}>
           <li className='header-actions__setting'><UserMenuRelay {...this.props} /></li>
           <li className='header-actions__setting' onClick={this.contactHuman.bind(this)}>Contact a Human</li>
           <li className='header-actions__setting' onClick={logout}>Sign Out</li>
+          <li className='header-actions__setting'><a className='header-actions__link' href='/tos'>Terms of Service</a></li>
+          <li className='header-actions__setting'><a className='header-actions__link' href='/privacy'>Privacy Policy</a></li>
         </ul>
       </div>
     );

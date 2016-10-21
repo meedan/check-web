@@ -45,8 +45,12 @@ class JoinTeamComponent extends Component {
   redirectIfMember() {
     const teamId = parseInt(this.props.team.dbid);
     if (Checkdesk.currentUser.team_ids.indexOf(teamId) > -1) {
-      Checkdesk.history.push('/team/' + teamId);
+      window.location.href = this.buildUrl(this.props.team);
     }
+  }
+
+  buildUrl(team) {
+    return window.location.protocol + '//' + team.subdomain + '.' + config.selfHost;
   }
 
   componentWillMount() {
@@ -59,7 +63,7 @@ class JoinTeamComponent extends Component {
 
   render() {
     const team = this.props.team
-    const teamUrl = '/team/' + team.dbid;
+    const teamUrl = this.buildUrl(team);
 
     var isRequestSent = this.state.isRequestSent;
 
@@ -68,7 +72,7 @@ class JoinTeamComponent extends Component {
         <Message message={this.state.message} />
         <h2 className='join-team__main-heading'>Request to Join</h2>
         <div className='join-team__blurb'>
-          <p className='join-team__blurb-graf'>To request access to the <Link to={teamUrl}>{team.name}</Link> Check, click below:</p>
+          <p className='join-team__blurb-graf'>To request access to the <a href={teamUrl}>{team.name}</a> Check, click below:</p>
             <div>
               <button
                 className={'join-team__button' + (isRequestSent ? ' join-team__button--submitted' : '')}

@@ -15,9 +15,12 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
         published,
         url,
         jsondata,
-        last_status,
+        last_status(context_id: $contextId),
         annotations_count,
         domain,
+        permissions,
+        pusher_channel,
+        verification_statuses,
         user {
           name,
           source {
@@ -36,9 +39,11 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
           edges {
             node {
               id,
+              dbid,
               content,
               annotation_type,
               created_at,
+              permissions,
               annotator {
                 name,
                 profile_image
@@ -59,7 +64,11 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
 
 class Media extends Component {
   render() {
-    var route = new MediaRoute({ mediaId: this.props.params.mediaId });
+    var projectId = 0;
+    if (Checkdesk.context.project) {
+      projectId = Checkdesk.context.project.dbid;
+    }
+    var route = new MediaRoute({ ids: this.props.params.mediaId + ',' + projectId });
     return (<Relay.RootContainer Component={MediaContainer} route={route} />);
   }
 }

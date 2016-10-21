@@ -20,7 +20,7 @@ class CreateMedia extends Component {
   handleSubmit() {
     var that = this,
         url = document.getElementById('create-media-url').value,
-        prefix = '/team/' + Checkdesk.context.team.dbid + '/project/' + Checkdesk.context.project.dbid + '/media/';
+        prefix = '/project/' + Checkdesk.context.project.dbid + '/media/';
 
     var onFailure = (transaction) => {
       transaction.getError().json().then(function(json) {
@@ -29,6 +29,7 @@ class CreateMedia extends Component {
           message = json.error;
           var matches = message.match(/^Validation failed: Media with this URL exists and has id ([0-9]+)$/);
           if (matches) {
+            that.props.projectComponent.props.relay.forceFetch();
             var sid = matches[1];
             message = null;
             Checkdesk.history.push(prefix + sid);

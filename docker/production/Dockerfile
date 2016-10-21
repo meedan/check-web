@@ -11,6 +11,7 @@ MAINTAINER sysops@meedan.com
 ENV DEPLOYUSER=checkdeploy \
     DEPLOYDIR=/app \
     PLATFORM=web \
+    PRODUCT=check \
     APP=check-web \
     NODE_ENV=production
 

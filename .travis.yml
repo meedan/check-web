@@ -9,8 +9,16 @@ before_install:
 - unzip travis.zip
 # apt dependencies
 - sudo apt-get -qq update
-- sudo apt-get install wget python-setuptools lsof unzip inkscape imagemagick ruby ruby-dev libnss3 libnss3-dev xvfb libnss3-1d libexif-dev curl build-essential libssl-dev libappindicator1 fonts-liberation -y
+- sudo apt-get install wget python-setuptools lsof unzip inkscape imagemagick ruby ruby-dev libnss3 libnss3-dev xvfb libnss3-1d libexif-dev curl build-essential libssl-dev libappindicator1 fonts-liberation dnsmasq redis-server -y
+# dnsmasq (resolve any domain under *.localhost)
+- sudo kill -9 $(lsof -ti tcp:53) 2>/dev/null
+- echo "listen-address=127.0.0.1" | sudo tee -a /etc/dnsmasq.conf > /dev/null
+- echo "bind-interfaces" | sudo tee -a /etc/dnsmasq.conf > /dev/null
+- echo "address=/localhost/127.0.0.1" | sudo tee -a /etc/dnsmasq.conf > /dev/null
+- echo "user=root" | sudo tee -a /etc/dnsmasq.conf > /dev/null
+- sudo service dnsmasq restart
 # api
+- redis-server &
 - export RAILS_ENV=development
 - curl -O https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.2.4.deb && sudo dpkg -i --force-confnew elasticsearch-1.2.4.deb && sudo service elasticsearch restart
 - git clone https://github.com/meedan/check-api.git
@@ -37,11 +45,10 @@ before_install:
 - export DISPLAY=:99.0
 - sh -e /etc/init.d/xvfb start
 # google chrome
-- export CHROME_BIN=/usr/bin/google-chrome
 - sudo apt-get -qq update
-- wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-- sudo dpkg -i google-chrome*.deb
-- google-chrome --no-sandbox &
+- sudo apt-get install chromium-browser -y
+- export CHROME_BIN=/usr/bin/chromium-browser
+- chromium-browser --no-sandbox &
 # chromedriver
 - wget http://chromedriver.storage.googleapis.com/2.20/chromedriver_linux64.zip
 - unzip chromedriver_linux64.zip

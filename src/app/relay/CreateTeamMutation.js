@@ -29,8 +29,8 @@ class CreateTeamMutation extends Relay.Mutation {
             id,
             name,
             dbid,
-            description,
-            subdomain
+            subdomain,
+            description
           }
         }`
       ]

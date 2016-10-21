@@ -8,6 +8,8 @@ var sourceFragment = Relay.QL`
     image,
     user_id,
     description,
+    permissions,
+    verification_statuses,
     accounts(first: 10000) {
       edges {
         node {
@@ -31,6 +33,7 @@ var sourceFragment = Relay.QL`
           content,
           annotation_type,
           created_at,
+          permissions,
           annotator {
             name,
             profile_image
@@ -48,7 +51,9 @@ var sourceFragment = Relay.QL`
           jsondata,
           annotations_count,
           domain,
-          last_status
+          last_status,
+          permissions,
+          verification_statuses
         }
       }
     }

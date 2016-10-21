@@ -4,17 +4,19 @@ import { Link } from 'react-router';
 import FontAwesome from 'react-fontawesome';
 import TeamRoute from '../../relay/TeamRoute';
 import teamFragment from '../../relay/teamFragment';
+import config from 'config';
 
 class TeamHeaderComponent extends Component {
   render() {
     const team = this.props.team;
+    const teamUrl = window.location.protocol + '//' + team.subdomain + '.' + config.selfHost;
 
     return (
       <nav className='team-header'>
         {(() => {
           if (team) {
             return (
-              <Link to={'/team/' + team.dbid} className='team-header__clickable'>
+              <a href={teamUrl} className='team-header__clickable'>
                 <div className='team-header__icon'>
                   <FontAwesome className='team-header__caret' name='angle-left' />
                 </div>
@@ -23,7 +25,7 @@ class TeamHeaderComponent extends Component {
                   <h3 className='team-header__name'>{team.name}</h3>
                   <span className='team-header__label'>Team</span>
                 </div>
-              </Link>
+              </a>
             );
           }
         })()}
@@ -40,7 +42,7 @@ const TeamHeaderContainer = Relay.createContainer(TeamHeaderComponent, {
 
 class TeamHeader extends Component {
   render() {
-    var route = new TeamRoute({ teamId: Checkdesk.context.team.dbid });
+    var route = new TeamRoute({ teamId: '' });
     return (<Relay.RootContainer Component={TeamHeaderContainer} route={route} />);
   }
 }

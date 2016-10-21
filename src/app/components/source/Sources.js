@@ -6,7 +6,7 @@ import RootRoute from '../../relay/RootRoute';
 
 class SourcesComponent extends Component {
   render() {
-    const prefix = '/team/' + Checkdesk.context.team.dbid + '/source/';
+    const prefix = '/source/';
 
     return (
       <div className="sources">

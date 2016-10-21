@@ -16,7 +16,7 @@ describe 'app' do
 
     @email = 'sysops+' + Time.now.to_i.to_s + '@meedan.com'
     @source_url = 'https://www.facebook.com/ironmaiden/?fref=ts&timestamp=' + Time.now.to_i.to_s
-    @media_url = 'https://www.facebook.com/ironmaiden/posts/10153654402607051/?t=' + Time.now.to_i.to_s
+    @media_url = 'https://twitter.com/meedan/status/773947372527288320/?t=' + Time.now.to_i.to_s
     @config = YAML.load_file('config.yml')
     $source_id = nil
     $media_id = nil
@@ -38,13 +38,94 @@ describe 'app' do
 
   # Close Google Chrome after each test
 
-  after :each do
+  after :each do |example|
+    if example.exception
+      require 'rest-client'
+      path = '/tmp/' + (0...8).map{ (65 + rand(26)).chr }.join + '.png'
+      @driver.save_screenshot(path)
+      response = RestClient.post('https://file.io?expires=2', file: File.new(path))
+      link = JSON.parse(response.body)['link']
+      puts "Test \"#{example.to_s}\" failed! Check screenshot at #{link} and following browser output: #{console_logs}"
+    end
     @driver.quit
   end
 
   # The tests themselves start here
 
   context "web" do
+    it "should register using e-mail" do
+      register_with_email
+      @driver.navigate.to @config['self_url'] + '/me'
+      displayed_name = get_element('h2.source-name').text
+      expect(displayed_name == 'User With Email').to be(true)
+    end
+
+    it "should create a project for a team" do
+      login_with_email
+      @driver.navigate.to @config['self_url']
+      sleep 1
+      title = "Project #{Time.now}"
+      fill_field('#create-project-title', title)
+      @driver.action.send_keys(:enter).perform
+      sleep 5
+      expect(@driver.current_url.to_s.match(/\/project\/[0-9]+$/).nil?).to be(false)
+      link = get_element('.team-sidebar__project-link')
+      expect(link.text == title).to be(true)
+    end
+
+    it "should create project media" do
+      login_with_email
+      sleep 5
+
+      fill_field('#create-media-url', 'https://twitter.com/marcouza/status/771009514732650497?t=' + Time.now.to_i.to_s)
+      sleep 1
+      press_button('#create-media-submit')
+      sleep 10
+      media_link = @driver.current_url.to_s
+
+      @driver.navigate.to @config['self_url']
+      sleep 3
+
+      expect(@driver.page_source.include?('This is a test')).to be(true)
+      status = get_element('.media-status__label')
+      expect(status.text == 'IN PROGRESS').to be(false)
+
+      @driver.navigate.to media_link
+      sleep 3
+      fill_field('.cmd-input input', '/status In Progress')
+      @driver.action.send_keys(:enter).perform
+      sleep 3
+
+      @driver.navigate.to @config['self_url']
+      sleep 5
+
+      expect(@driver.page_source.include?('This is a test')).to be(true)
+      status = get_element('.media-status__label')
+      expect(status.text == 'IN PROGRESS').to be(true)
+    end
+
+    it "should preview media if registered" do
+      login_with_email
+      @driver.navigate.to @config['self_url'] + '/medias/new'
+      sleep 1
+      expect(@driver.find_elements(:xpath, "//*[contains(@id, 'pender-iframe')]").empty?).to be(true)
+      fill_field('#create-media-url', @media_url)
+      press_button('#create-media-preview')
+      sleep 10
+      expect(@driver.find_elements(:xpath, "//*[contains(@id, 'pender-iframe')]").empty?).to be(false)
+    end
+
+    it "should register and redirect to newly created media" do
+      login_with_email
+      sleep 3
+      fill_field('#create-media-url', @media_url)
+      sleep 1
+      press_button('#create-media-submit')
+      sleep 20
+      $media_id = @driver.current_url.to_s.match(/\/media\/([0-9]+)$/)[1]
+      expect($media_id.nil?).to be(false)
+    end
+
     it "should upload image when registering" do
       @driver.navigate.to @config['self_url']
       sleep 1
@@ -108,31 +189,11 @@ describe 'app' do
       expect(displayed_name == expected_name).to be(true)
     end
 
-    it "should register using e-mail" do
-      register_with_email
-      @driver.navigate.to @config['self_url'] + '/me'
-      displayed_name = get_element('h2.source-name').text
-      expect(displayed_name == 'User With Email').to be(true)
-    end
-
     it "should login with e-mail" do
       login_with_email
       @driver.navigate.to @config['self_url'] + '/me'
       displayed_name = get_element('h2.source-name').text
       expect(displayed_name == 'User With Email').to be(true)
-    end
-
-    it "should create a project for a team" do
-      login_with_email
-      @driver.navigate.to @config['self_url']
-      sleep 1
-      title = "Project #{Time.now}"
-      fill_field('#create-project-title', title)
-      @driver.action.send_keys(:enter).perform
-      sleep 5
-      expect(@driver.current_url.to_s.match(/\/project\/[0-9]+$/).nil?).to be(false)
-      link = get_element('.team-sidebar__project-link')
-      expect(link.text == title).to be(true)
     end
 
     it "should show team options at /teams" do
@@ -144,20 +205,20 @@ describe 'app' do
 
     it "should go to user page" do
       login_with_email
-      @driver.find_element(:css, '.fa-gear').click
+      @driver.find_element(:css, '.fa-ellipsis-h').click
       sleep 1
       @driver.find_element(:xpath, "//a[@id='link-me']").click
-      expect(@driver.current_url.to_s == @config['self_url'] + '/me').to be(true)
+      expect((@driver.current_url.to_s =~ /\/me$/).nil?).to be(false)
       title = get_element('.source-name')
       expect(title.text == 'User With Email').to be(true)
     end
 
-    it "should go to source page through team/:id/source/:id" do
+    it "should go to source page through source/:id" do
       login_with_email
       @driver.navigate.to @config['self_url'] + '/me'
       sleep 5
       source_id = $source_id = @driver.find_element(:css, '.source').attribute('data-id')
-      @driver.navigate.to @config['self_url'] + '/team/' + get_team + '/source/' + source_id.to_s
+      @driver.navigate.to team_url('source/' + source_id.to_s)
       sleep 1
       title = get_element('.source-name')
       expect(title.text == 'User With Email').to be(true)
@@ -176,13 +237,13 @@ describe 'app' do
 
     it "should go back and forward in the history" do
       @driver.navigate.to @config['self_url']
-      expect(@driver.current_url.to_s == @config['self_url'] + '/').to be(true)
+      expect((@driver.current_url.to_s =~ /\/$/).nil?).to be(false)
       @driver.navigate.to @config['self_url'] + '/tos'
-      expect(@driver.current_url.to_s == @config['self_url'] + '/tos').to be(true)
+      expect((@driver.current_url.to_s =~ /\/tos$/).nil?).to be(false)
       @driver.navigate.back
-      expect(@driver.current_url.to_s == @config['self_url'] + '/').to be(true)
+      expect((@driver.current_url.to_s =~ /\/$/).nil?).to be(false)
       @driver.navigate.forward
-      expect(@driver.current_url.to_s == @config['self_url'] + '/tos').to be(true)
+      expect((@driver.current_url.to_s =~ /\/tos$/).nil?).to be(false)
     end
 
     it "should tag source from tags list" do
@@ -192,7 +253,7 @@ describe 'app' do
 
       # First, verify that there isn't any tag
       expect(@driver.find_elements(:css, '.ReactTags__tag').empty?).to be(true)
-      expect(@driver.page_source.include?('Tagged as "selenium"')).to be(false)
+      expect(@driver.page_source.include?('Tagged #selenium')).to be(false)
 
       # Add a tag from tags list
       fill_field('.ReactTags__tagInput input', 'selenium')
@@ -202,14 +263,14 @@ describe 'app' do
       # Verify that tag was added to tags list and annotations list
       tag = get_element('.ReactTags__tag span')
       expect(tag.text == 'selenium').to be(true)
-      expect(@driver.page_source.include?('Tagged as "selenium"')).to be(true)
+      expect(@driver.page_source.include?('Tagged #selenium')).to be(true)
 
       # Reload the page and verify that tags are still there
       @driver.navigate.refresh
       sleep 1
       tag = get_element('.ReactTags__tag span')
       expect(tag.text == 'selenium').to be(true)
-      expect(@driver.page_source.include?('Tagged as "selenium"')).to be(true)
+      expect(@driver.page_source.include?('Tagged #selenium')).to be(true)
     end
 
     it "should tag source as a command" do
@@ -218,7 +279,7 @@ describe 'app' do
       sleep 1
 
       # First, verify that there isn't any tag
-      expect(@driver.page_source.include?('Tagged as "command"')).to be(false)
+      expect(@driver.page_source.include?('Tagged #command')).to be(false)
 
       # Add a tag as a command
       fill_field('.cmd-input input', '/tag command')
@@ -228,22 +289,22 @@ describe 'app' do
       # Verify that tag was added to tags list and annotations list
       tag = get_element('.ReactTags__tag span')
       expect(tag.text == 'command').to be(true)
-      expect(@driver.page_source.include?('Tagged as "command"')).to be(true)
+      expect(@driver.page_source.include?('Tagged #command')).to be(true)
 
       # Reload the page and verify that tags are still there
       @driver.navigate.refresh
       sleep 1
       tag = get_element('.ReactTags__tag span')
       expect(tag.text == 'command').to be(true)
-      expect(@driver.page_source.include?('Tagged as "command"')).to be(true)
+      expect(@driver.page_source.include?('Tagged #command')).to be(true)
     end
 
     it "should redirect to access denied page" do
       login_with_twitter
-      @driver.navigate.to @config['self_url'] + '/team/' + get_team + '/source/' + $source_id.to_s
+      @driver.navigate.to team_url('source/' + $source_id.to_s)
       title = get_element('.main-title')
       expect(title.text == 'Access Denied').to be(true)
-      expect(@driver.current_url.to_s == @config['self_url'] + '/forbidden').to be(true)
+      expect((@driver.current_url.to_s =~ /\/forbidden$/).nil?).to be(false)
     end
 
     it "should comment source as a command" do
@@ -270,7 +331,7 @@ describe 'app' do
 
     it "should preview source" do
       login_with_email
-      @driver.navigate.to @config['self_url'] + '/team/' + get_team + '/sources/new'
+      @driver.navigate.to team_url('sources/new')
       sleep 1
       expect(@driver.find_elements(:xpath, "//*[contains(@id, 'pender-iframe')]").empty?).to be(true)
       fill_field('#create-account-url', 'https://www.facebook.com/ironmaiden/?fref=ts')
@@ -281,7 +342,7 @@ describe 'app' do
 
     it "should create source and redirect to newly created source" do
       login_with_email
-      @driver.navigate.to @config['self_url'] + '/team/' + get_team + '/sources/new'
+      @driver.navigate.to team_url('sources/new')
       sleep 1
       fill_field('#create-account-url', @source_url)
       sleep 1
@@ -294,7 +355,7 @@ describe 'app' do
 
     it "should not create duplicated source" do
       login_with_email
-      @driver.navigate.to @config['self_url'] + '/team/' + get_team + '/sources/new'
+      @driver.navigate.to team_url('sources/new')
       sleep 1
       fill_field('#create-account-url', @source_url)
       sleep 1
@@ -307,7 +368,7 @@ describe 'app' do
 
     it "should not create report as source" do
       login_with_email
-      @driver.navigate.to @config['self_url'] + '/team/' + get_team + '/sources/new'
+      @driver.navigate.to team_url('sources/new')
       sleep 1
       fill_field('#create-account-url', 'https://www.youtube.com/watch?v=b708rEG7spI')
       sleep 1
@@ -331,11 +392,11 @@ describe 'app' do
       # Verify that tags were added to tags list and annotations list
       tag = @driver.find_elements(:css, '.ReactTags__tag span').select{ |s| s.text == 'foo' }
       expect(tag.empty?).to be(false)
-      expect(@driver.page_source.include?('Tagged as "foo"')).to be(true)
+      expect(@driver.page_source.include?('Tagged #foo')).to be(true)
 
       tag = @driver.find_elements(:css, '.ReactTags__tag span').select{ |s| s.text == 'bar' }
       expect(tag.empty?).to be(false)
-      expect(@driver.page_source.include?('Tagged as "bar"')).to be(true)
+      expect(@driver.page_source.include?('Tagged #bar')).to be(true)
     end
 
     it "should tag source multiple times with commas from tags list" do
@@ -351,16 +412,16 @@ describe 'app' do
       # Verify that tags were added to tags list and annotations list
       tag = @driver.find_elements(:css, '.ReactTags__tag span').select{ |s| s.text == 'bla' }
       expect(tag.empty?).to be(false)
-      expect(@driver.page_source.include?('Tagged as "bla"')).to be(true)
+      expect(@driver.page_source.include?('Tagged #bla')).to be(true)
 
       tag = @driver.find_elements(:css, '.ReactTags__tag span').select{ |s| s.text == 'bli' }
       expect(tag.empty?).to be(false)
-      expect(@driver.page_source.include?('Tagged as "bli"')).to be(true)
+      expect(@driver.page_source.include?('Tagged #bli')).to be(true)
     end
 
     it "should not add a duplicated tag from tags list" do
       login_with_email
-      @driver.navigate.to @config['self_url'] + '/me'
+      @driver.navigate.to team_url('project/' + get_project + '/media/' + $media_id)
       sleep 1
 
       # Add tag from tags list
@@ -376,7 +437,7 @@ describe 'app' do
 
     it "should not add a duplicated tag from command line" do
       login_with_email
-      @driver.navigate.to @config['self_url'] + '/me'
+      @driver.navigate.to team_url('project/' + get_project + '/media/' + $media_id)
       sleep 1
 
       # Add tag from tags list
@@ -388,28 +449,6 @@ describe 'app' do
       tag = @driver.find_elements(:css, '.ReactTags__tag span').select{ |s| s.text == 'bla' }
       expect(tag.size == 1).to be(true)
       expect(@driver.page_source.include?('This tag already exists')).to be(true)
-    end
-
-    it "should preview media if registered" do
-      login_with_email
-      @driver.navigate.to @config['self_url'] + '/medias/new'
-      sleep 1
-      expect(@driver.find_elements(:xpath, "//*[contains(@id, 'pender-iframe')]").empty?).to be(true)
-      fill_field('#create-media-url', @media_url)
-      press_button('#create-media-preview')
-      sleep 10
-      expect(@driver.find_elements(:xpath, "//*[contains(@id, 'pender-iframe')]").empty?).to be(false)
-    end
-
-    it "should register and redirect to newly created media" do
-      login_with_email
-      sleep 3
-      fill_field('#create-media-url', @media_url)
-      sleep 1
-      press_button('#create-media-submit')
-      sleep 10
-      $media_id = @driver.current_url.to_s.match(/\/media\/([0-9]+)$/)[1]
-      expect($media_id.nil?).to be(false)
     end
 
     it "should not create duplicated media if registered" do
@@ -436,11 +475,11 @@ describe 'app' do
 
     it "should tag media from tags list" do
       login_with_email
-      @driver.navigate.to @config['self_url'] + '/team/' + get_team + '/project/' + get_project + '/media/' + $media_id
+      @driver.navigate.to team_url('project/' + get_project + '/media/' + $media_id)
       sleep 1
 
       # First, verify that there isn't any tag
-      expect(@driver.page_source.include?('Tagged as "selenium"')).to be(false)
+      expect(@driver.page_source.include?('Tagged #selenium')).to be(false)
 
       # Add a tag from tags list
       fill_field('.ReactTags__tagInput input', 'selenium')
@@ -450,23 +489,23 @@ describe 'app' do
       # Verify that tag was added to tags list and annotations list
       tag = get_element('.ReactTags__tag span')
       expect(tag.text == 'selenium').to be(true)
-      expect(@driver.page_source.include?('Tagged as "selenium"')).to be(true)
+      expect(@driver.page_source.include?('Tagged #selenium')).to be(true)
 
       # Reload the page and verify that tags are still there
       @driver.navigate.refresh
       sleep 1
       tag = get_element('.ReactTags__tag span')
       expect(tag.text == 'selenium').to be(true)
-      expect(@driver.page_source.include?('Tagged as "selenium"')).to be(true)
+      expect(@driver.page_source.include?('Tagged #selenium')).to be(true)
     end
 
     it "should tag media as a command" do
       login_with_email
-      @driver.navigate.to @config['self_url'] + '/team/' + get_team + '/project/' + get_project + '/media/' + $media_id
+      @driver.navigate.to team_url('project/' + get_project + '/media/' + $media_id)
       sleep 1
 
       # First, verify that there isn't any tag
-      expect(@driver.page_source.include?('Tagged as "command"')).to be(false)
+      expect(@driver.page_source.include?('Tagged #command')).to be(false)
 
       # Add a tag as a command
       fill_field('.cmd-input input', '/tag command')
@@ -476,19 +515,19 @@ describe 'app' do
       # Verify that tag was added to tags list and annotations list
       tag = get_element('.ReactTags__tag span')
       expect(tag.text == 'command').to be(true)
-      expect(@driver.page_source.include?('Tagged as "command"')).to be(true)
+      expect(@driver.page_source.include?('Tagged #command')).to be(true)
 
       # Reload the page and verify that tags are still there
       @driver.navigate.refresh
       sleep 1
       tag = get_element('.ReactTags__tag span')
       expect(tag.text == 'command').to be(true)
-      expect(@driver.page_source.include?('Tagged as "command"')).to be(true)
+      expect(@driver.page_source.include?('Tagged #command')).to be(true)
     end
 
     it "should comment media as a command" do
       login_with_email
-      @driver.navigate.to @config['self_url'] + '/team/' + get_team + '/project/' + get_project + '/media/' + $media_id
+      @driver.navigate.to team_url('project/' + get_project + '/media/' + $media_id)
       sleep 1
 
       # First, verify that there isn't any comment
@@ -510,7 +549,7 @@ describe 'app' do
 
     it "should set status to media as a command" do
       login_with_email
-      @driver.navigate.to @config['self_url'] + '/team/' + get_team + '/project/' + get_project + '/media/' + $media_id
+      @driver.navigate.to team_url('project/' + get_project + '/media/' + $media_id)
       sleep 1
 
       # First, verify that there isn't any status
@@ -532,7 +571,7 @@ describe 'app' do
 
     it "should flag media as a command" do
       login_with_email
-      @driver.navigate.to @config['self_url'] + '/team/' + get_team + '/project/' + get_project + '/media/' + $media_id
+      @driver.navigate.to team_url('project/' + get_project + '/media/' + $media_id)
       sleep 1
 
       # First, verify that there isn't any flag
@@ -611,66 +650,35 @@ describe 'app' do
     #   expect(@driver.page_source.include?('This is my comment')).to be(true)
     # end
 
-    it "should create project media" do
-      login_with_email
-      sleep 5
-
-      fill_field('#create-media-url', 'https://twitter.com/marcouza/status/771009514732650497?t=' + Time.now.to_i.to_s)
-      sleep 1
-      press_button('#create-media-submit')
-      sleep 10
-      media_link = @driver.current_url.to_s
-
-      @driver.navigate.to @config['self_url']
-      sleep 3
-
-      expect(@driver.page_source.include?('This is a test')).to be(true)
-      expect(@driver.page_source.include?('Not Applicable')).to be(false)
-
-      @driver.navigate.to media_link
-      sleep 3
-      fill_field('.cmd-input input', '/status Not Applicable')
-      @driver.action.send_keys(:enter).perform
-      sleep 3
-
-      @driver.navigate.to @config['self_url']
-      sleep 5
-
-      expect(@driver.page_source.include?('This is a test')).to be(true)
-      expect(@driver.page_source.include?('Not Applicable')).to be(true)
-    end
-
     it "should redirect to 404 page if id does not exist" do
       login_with_email
       url = @driver.current_url.to_s
-      @driver.navigate.to url.gsub(/project\/([0-9]+).*/, 'project/99999999999999')
+      @driver.navigate.to url.gsub(/project\/([0-9]+).*/, 'project/999')
       title = get_element('.main-title')
       expect(title.text == 'Not Found').to be(true)
-      expect(@driver.current_url.to_s == @config['self_url'] + '/404').to be(true)
+      expect((@driver.current_url.to_s =~ /\/404$/).nil?).to be(false)
     end
 
     it "should change a media status via the dropdown menu" do
-      login_with_email
-      sleep 5
-
-      fill_field('#create-media-url', 'https://twitter.com/marcouza/status/771009514732650497?t=' + Time.now.to_i.to_s)
-      sleep 1
-      press_button('#create-media-submit')
-      sleep 10
-      media_link = @driver.current_url.to_s
+      register_with_email(true, 'sysops+' + Time.now.to_i.to_s + '@meedan.com')
+      wait = Selenium::WebDriver::Wait.new(timeout: 10)
+      wait.until { @driver.find_element(:css, '.team') }
+      create_project
+      wait.until { @driver.find_element(:css, '.project') }
+      create_media('https://twitter.com/marcouza/status/771009514732650497?t=' + Time.now.to_i.to_s)
+      wait.until { @driver.find_element(:css, '.media') }
 
       current_status = @driver.find_element(:css, '.media-status__label')
       expect(current_status.text == 'UNDETERMINED').to be(true)
 
       current_status.click
-      sleep 1
-      verified_menu_item = @driver.find_element(:css, '.media-status__menu-item--verified')
+      verified_menu_item = (wait.until { @driver.find_element(:css, '.media-status__menu-item--verified') })
       verified_menu_item.click
       sleep 3
       current_status = @driver.find_element(:css, '.media-status__label')
 
       expect(current_status.text == 'VERIFIED').to be(true)
-      expect(@driver.page_source.include? 'Status set to "Verified"').to be(true)
+      expect(!!@driver.find_element(:css, '.annotation__status--verified')).to be(true)
     end
 
     it "should logout" do
@@ -679,7 +687,7 @@ describe 'app' do
         create_project
       end
       @driver.navigate.to @config['self_url']
-      menu = @wait.until { @driver.find_element(:css, '.fa-gear') }
+      menu = @wait.until { @driver.find_element(:css, '.fa-ellipsis-h') }
       menu.click
       logout = @wait.until { @driver.find_element(:css, '.project-header__logout') }
       logout.click
@@ -719,6 +727,10 @@ describe 'app' do
       skip("Needs to be implemented")
     end
 
+    it "should edit team" do
+      skip("Needs to be implemented")
+    end
+
     it "should show 'manage team' link only to team owners" do
       skip("Needs to be implemented")
     end
@@ -732,7 +744,6 @@ describe 'app' do
       @driver.navigate.to "#{@config['self_url']}/teams/new"
       create_team
       wait = Selenium::WebDriver::Wait.new(timeout: 5)
-      team_1_id = (wait.until { @driver.current_url.to_s.match(/\/team\/([0-9]+)$/) })[1]
       team_1_name = @driver.find_element(:css, '.team__name').text
       create_project
       project_1_id = (wait.until { @driver.current_url.to_s.match(/\/project\/([0-9]+)$/) })[1]
@@ -742,7 +753,6 @@ describe 'app' do
       @driver.navigate.to "#{@config['self_url']}/teams/new"
       wait.until { @driver.find_element(:css, '.create-team') }
       create_team
-      team_2_id = (wait.until { @driver.current_url.to_s.match(/\/team\/([0-9]+)$/) })[1]
       team_2_name = @driver.find_element(:css, '.team__name').text
       create_project
       project_2_id = (wait.until { @driver.current_url.to_s.match(/\/project\/([0-9]+)$/) })[1]
@@ -753,29 +763,37 @@ describe 'app' do
       (wait.until { @driver.find_element(:css, '.team-sidebar__switch-teams-button') }).click
       (wait.until { @driver.find_element(:xpath, "//*[contains(text(), '#{team_1_name}')]") }).click
       wait.until { @driver.find_element(:css, '.team') }
-      expect(@driver.current_url.to_s == "#{@config['self_url']}/team/#{team_1_id}").to be(true)
       expect(@driver.find_element(:css, '.team__name').text == team_1_name).to be(true)
       @driver.find_element(:css, '.team__project-link').click
       wait.until { @driver.find_element(:css, '.project') }
       url = @driver.current_url.to_s
-      expect(url == "#{@config['self_url']}/team/#{team_1_id}/project/#{project_1_id}").to be(true)
       media_1_url = @driver.find_element(:css, '.media-card__clickable').attribute('href')
-      expect(media_1_url.include?("/team/#{team_1_id}/project/#{project_1_id}/media/")).to be(true)
+      expect(media_1_url.include?("/project/#{project_1_id}/media/")).to be(true)
 
       (wait.until { @driver.find_element(:css, '.team-sidebar__switch-teams-button') }).click
       (wait.until { @driver.find_element(:xpath, "//*[contains(text(), '#{team_2_name}')]") }).click
       wait.until { @driver.find_element(:css, '.team') }
-      expect(@driver.current_url.to_s == "#{@config['self_url']}/team/#{team_2_id}").to be(true)
       expect(@driver.find_element(:css, '.team__name').text == team_2_name).to be(true)
       @driver.find_element(:css, '.team__project-link').click
       wait.until { @driver.find_element(:css, '.project') }
       url = @driver.current_url.to_s
-      expect(url == "#{@config['self_url']}/team/#{team_2_id}/project/#{project_2_id}").to be(true)
       media_2_url = @driver.find_element(:css, '.media-card__clickable').attribute('href')
-      expect(media_2_url.include?("/team/#{team_2_id}/project/#{project_2_id}/media/")).to be(true)
+      expect(media_2_url.include?("project/#{project_2_id}/media/")).to be(true)
     end
 
     it "should cancel request through switch teams" do
+      skip("Needs to be implemented")
+    end
+
+    it "should auto refresh project page when media is created remotely" do
+      skip("Needs to be implemented")
+    end
+
+    it "should give 404 when trying to acess a media that is not related to the project on the URL" do
+      skip("Needs to be implemented")
+    end
+
+    it "should linkify URLs on comments" do
       skip("Needs to be implemented")
     end
   end

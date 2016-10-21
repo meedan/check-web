@@ -1,0 +1,79 @@
+.annotation {
+  border-top: $layout-border-light;
+
+  padding: 15px 0;
+
+  display: flex;
+  font-size: $annotation-font-size;
+}
+
+.annotation__avatar {
+  @include user-avatar(36px);
+  margin: 1px 12px 0 0;
+}
+
+.annotation__content {
+  flex: 1;
+}
+
+.annotation__header {
+  display: flex;
+  align-items: baseline;
+  white-space: pre;
+
+  margin-bottom: 1.5px;
+  @include gray-text($annotation-font-size);
+}
+
+.annotation__author-name {
+  font-weight: 400;
+  font-size: $annotation-font-size;
+  color: inherit;
+  margin: 0;
+  display: inline-block;
+  margin-right: 10px;
+
+  &:first-child {
+    color: theme-gray(28%);
+    font-weight: 600;
+  }
+}
+
+.annotation__timestamp {
+  @include gray-text(12.5px);
+}
+
+.annotation__actions {
+  flex: 1;
+  align-self: flex-start;
+
+  text-align: right;
+  position: relative;
+}
+
+.annotation__delete {
+  @include close-button(21px);
+  position: absolute;
+  top: -4px;
+  right: 15px;
+  // @include gray-text(12.5px);
+}
+
+.annotation__body {
+  color: theme-gray(27%);
+}
+
+// non-comments
+
+.annotation__status {
+  @include app-kicker(11px);
+  @include media-status-colors;
+  margin-left: 3px;
+  margin-right: 2px;
+}
+
+.annotation__tag {
+  &:before {
+    content: '#';
+  }
+}

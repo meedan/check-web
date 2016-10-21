@@ -61,11 +61,11 @@
   background-color: rgb(71, 207, 152);
 }
 
-@mixin close-button {
+@mixin close-button($size: 30px) {
   @include unbutton;
   color: $light-gray-text;
   font-weight: 200;
-  font-size: 30px;
+  font-size: $size;
   &, &:hover {
     text-decoration: none;
   }

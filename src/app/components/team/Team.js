@@ -12,7 +12,7 @@ const TeamContainer = Relay.createContainer(TeamComponent, {
 
 class Team extends Component {
   render() {
-    var route = new TeamRoute({ teamId: this.props.params.teamId });
+    var route = new TeamRoute({ teamId: '' });
     return (<Relay.RootContainer Component={TeamContainer} route={route} />);
   }
 }

@@ -11,9 +11,11 @@
 @import 'theme/forms';
 @import 'theme/images';
 
+@import 'components/annotation';
 @import 'components/browser-support';
 @import 'components/caret';
 @import 'components/home';
+@import 'components/layout/breadcrumb';
 @import 'components/layout/header';
 @import 'components/layout/header-actions';
 @import 'components/layout/footer';
@@ -21,7 +23,6 @@
 @import 'components/login-email';
 @import 'components/media';
 @import 'components/project/project';
-@import 'components/project/project-breadcrumb';
 @import 'components/project/project-header';
 @import 'components/sources';
 @import 'components/team';
@@ -34,7 +35,6 @@
 @import 'components/team/teams';
 @import 'source';
 @import 'tags';
-@import 'annotations';
 @import 'create-account';
 @import 'tabs';
 

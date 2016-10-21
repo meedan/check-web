@@ -18,7 +18,8 @@ class ProjectHeaderComponent extends Component {
       isSettingsMenuOpen: false,
       message: null,
       title: this.props.project.title,
-      description: this.props.project.description
+      description: this.props.project.description,
+      slackChannel: this.props.project.get_slack_channel
     };
   }
 
@@ -34,9 +35,10 @@ class ProjectHeaderComponent extends Component {
     var that = this,
         id = this.props.project.id,
         title = this.state.title,
-        description = this.state.description;
+        description = this.state.description,
+        slackChannel = this.state.slackChannel;
 
-    this.setState({ title: title, description: description });
+    this.setState({ title: title, description: description, slackChannel: slackChannel });
 
     var onFailure = (transaction) => {
       transaction.getError().json().then(function(json) {
@@ -56,6 +58,7 @@ class ProjectHeaderComponent extends Component {
       new UpdateProjectMutation({
         title: title,
         description: description,
+        slackChannel: slackChannel,
         id: id
       }),
       { onSuccess, onFailure }
@@ -75,6 +78,10 @@ class ProjectHeaderComponent extends Component {
 
   handleDescriptionChange(e) {
     this.setState({ description: e.target.value });
+  }
+
+  handleSlackChannelChange(e) {
+    this.setState({ slackChannel: e.target.value });
   }
 
   bemClass(baseClass, modifierBoolean, modifierSuffix) {
@@ -122,42 +129,53 @@ class ProjectHeaderComponent extends Component {
       <div className='project-header'>
         <Message message={this.state.message} />
         <div className='project-header__project'>
-          <div className={this.bemClass('project-header__project-copy', this.state.isEditing, '--is-editing')}>
-            {(() => {
-              if (this.state.isEditing) {
-                return (
-                  <form className='project-header__project-form' onSubmit={this.updateProject.bind(this)}>
-                    <input className='project-header__project-name-input' id='project-title-field' name='name' type='text' value={this.state.title} placeholder='Add project' autocomplete='off' onChange={this.handleTitleChange.bind(this)} />
-                    <span className='project-header__project-description'>
-                      <input
-                        className='project-header__project-description-input'
-                        name='description'
-                        type='text'
-                        value={this.state.description}
-                        onChange={this.handleDescriptionChange.bind(this)}
-                        placeholder='Add description'
-                        id='project-description-field'
-                        autocomplete='off' />
-                    </span>
-                    <div className='project-header__project-editing-buttons'>
-                      <button className='project-header__project-editing-button project-header__project-editing-button--save'>Save</button>
-                      <button className='project-header__project-editing-button project-header__project-editing-button--cancel' onClick={this.disableEdit.bind(this)}>Cancel</button>
-                    </div>
-                  </form>
-                );
-              } else {
-                return (
-                  <div className={this.bemClass('project-header__project-copy2', this.state.isEditing, '--is-editing')}>
-                    <h2 className='project-header__project-name'>{project.title}</h2>
-                    <span className='project-header__project-description'>{project.description}</span>
+          {(() => {
+            if (this.state.isEditing) {
+              return (
+                <form className='project-header__project-form' onSubmit={this.updateProject.bind(this)}>
+                  <div className={this.bemClass('project-header__project-copy', true, '--is-editing')}>
+                    <input className='project-header__project-name-input' id='project-title-field' name='name' type='text' value={this.state.title} placeholder='Project name' autocomplete='off' onChange={this.handleTitleChange.bind(this)} />
+                    <input
+                      className='project-header__project-description-input'
+                      name='description'
+                      type='text'
+                      value={this.state.description}
+                      onChange={this.handleDescriptionChange.bind(this)}
+                      placeholder='Add description'
+                      id='project-description-field'
+                      autocomplete='off' />
+                    { project.team.get_slack_notifications_enabled === '1' ?
+                    <input
+                      className='project-header__project-slack-channel-input'
+                      name='slack-channel'
+                      type='text'
+                      value={this.state.slackChannel}
+                      onChange={this.handleSlackChannelChange.bind(this)}
+                      placeholder='Add a Slack #channel to be notified about activity in this project'
+                      id='project-slack-channel-field'
+                      autocomplete='off' />
+                    : null }
                   </div>
-                );
-              }
-            })()}
-          </div>
+                  <div className='project-header__project-editing-buttons'>
+                    <button className='project-header__project-editing-button project-header__project-editing-button--save'>Save</button>
+                    <button className='project-header__project-editing-button project-header__project-editing-button--cancel' onClick={this.disableEdit.bind(this)}>Cancel</button>
+                  </div>
+                </form>
+              );
+            } else {
+              return (
+                <div className='project-header__project-copy'>
+                  <h2 className='project-header__project-name'>{project.title}</h2>
+                  <span className='project-header__project-description'>{project.description}</span>
+                </div>
+              );
+            }
+          })()}
+
+          {/* DEPRECATED – replace with HeaderActions */}
           <div className={this.bemClass('project-header__project-settings', this.state.isSettingsMenuOpen, '--active')}>
             <i className='project-header__project-search-icon fa fa-search'></i>
-            <i className='project-header__project-settings-icon fa fa-gear' onClick={this.toggleSettings.bind(this)}></i>
+            <i className='project-header__project-settings-icon fa fa-ellipsis-h' onClick={this.toggleSettings.bind(this)}></i>
             <div className={this.bemClass('project-header__project-settings-overlay', this.state.isSettingsMenuOpen, '--active')} onClick={this.toggleSettings.bind(this)}></div>
 
             <ul className={this.bemClass('project-header__project-settings-panel', this.state.isSettingsMenuOpen, '--active')}>
@@ -171,7 +189,7 @@ class ProjectHeaderComponent extends Component {
               </Can>
               
               <Can permissions={project.team.permissions} permission="update Team">
-                <li className='project-header__project-setting project-header__project-setting--manage-team' onClick={Checkdesk.history.push.bind(this, '/team/' + project.team.dbid + '/members')}>Manage team...</li>
+                <li className='project-header__project-setting project-header__project-setting--manage-team' onClick={Checkdesk.history.push.bind(this, '/members')}>Manage team...</li>
               </Can>
               
               {/*<li className='project-header__project-setting project-header__project-setting--delete' onClick={this.deleteProject.bind(this)}>Delete project</li>*/}
@@ -179,6 +197,8 @@ class ProjectHeaderComponent extends Component {
               <li className='TODO project-header__project-setting' onClick={this.contactHuman.bind(this)}>Contact a Human</li>
 
               <li className='TODO project-header__project-setting project-header__logout' onClick={logout}>Sign Out</li>
+              <li className='header-actions__setting'><a className='header-actions__link' href='/tos'>Terms of Service</a></li>
+              <li className='header-actions__setting'><a className='header-actions__link' href='/privacy'>Privacy Policy</a></li>
             </ul>
           </div>
         </div>
@@ -196,10 +216,13 @@ const ProjectHeaderContainer = Relay.createContainer(ProjectHeaderComponent, {
         title,
         description,
         permissions,
+        get_slack_channel,
         team {
           id,
           dbid,
-          permissions
+          subdomain,
+          permissions,
+          get_slack_notifications_enabled
         }
       }
     `

@@ -4,6 +4,7 @@ import CreateTeamMutation from '../../relay/CreateTeamMutation';
 import base64 from 'base-64';
 import Message from '../Message';
 import { Link } from 'react-router';
+import config from 'config';
 
 class CreateTeam extends Component {
   constructor(props) {
@@ -111,8 +112,8 @@ class CreateTeam extends Component {
      var onSuccess = (response) => {
        this.setState({ message: null });
        const team = response.createTeam.team;
-       Checkdesk.context.team = team;
-       Checkdesk.history.push('/team/' + team.dbid);
+       
+       window.location.href = window.location.protocol + '//' + team.subdomain + '.' + config.selfHost;
      };
 
      Relay.Store.commitUpdate(

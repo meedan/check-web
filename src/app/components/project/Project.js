@@ -1,20 +1,57 @@
 import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
+import Pusher from 'pusher-js';
 import { Link } from 'react-router';
 import ProjectRoute from '../../relay/ProjectRoute';
 import ProjectHeader from './ProjectHeader';
 import MediasAndAnnotations from '../MediasAndAnnotations';
 import TeamSidebar from '../TeamSidebar';
 import { CreateMedia } from '../media';
+import Can from '../Can';
+import config from 'config';
 
 class ProjectComponent extends Component {
+  redirect() {
+    var path = window.location.protocol + '//' + 
+               Checkdesk.context.team.subdomain + '.' + 
+               config.selfHost + 
+               '/project/' + 
+               Checkdesk.context.project.dbid;
+    window.location.href = path;
+  }
+
   setContextProject() {
     Checkdesk.context.project = this.props.project;
-    Checkdesk.context.team = this.props.project.team;
+    if (!Checkdesk.context.team || Checkdesk.context.team.subdomain != this.props.project.team.subdomain) {
+      Checkdesk.context.team = this.props.project.team;
+      // this.redirect();
+      Checkdesk.history.push('/404');
+    }
+    this.props.relay.setVariables({ contextId: Checkdesk.context.project.dbid });
+  }
+
+  subscribe() {
+    if (window.Checkdesk.pusher) {
+      const that = this;
+      window.Checkdesk.pusher.subscribe(this.props.project.pusher_channel).bind('media_updated', function(data) {
+        that.props.relay.forceFetch();
+      });
+    }
+  }
+
+  unsubscribe() {
+    if (window.Checkdesk.pusher) {
+      window.Checkdesk.pusher.unsubscribe(this.props.project.pusher_channel);
+    }
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
   }
 
   componentDidMount() {
     this.setContextProject();
+    this.subscribe();
   }
 
   componentDidUpdate() {
@@ -23,6 +60,7 @@ class ProjectComponent extends Component {
 
   render() {
     const project = this.props.project;
+    var that = this;
 
     return (
       <div className="project">
@@ -38,7 +76,9 @@ class ProjectComponent extends Component {
             annotatedType="Project"
             types={['comment']} />
 
-          <CreateMedia {...this.props} />
+          <Can permissions={project.permissions} permission='create Media'>
+            <CreateMedia projectComponent={that} />
+          </Can>
         </div>
       </div>
     );
@@ -46,6 +86,9 @@ class ProjectComponent extends Component {
 }
 
 const ProjectContainer = Relay.createContainer(ProjectComponent, {
+  initialVariables: {
+    contextId: null
+  },
   fragments: {
     project: () => Relay.QL`
       fragment on Project {
@@ -53,9 +96,12 @@ const ProjectContainer = Relay.createContainer(ProjectComponent, {
         dbid,
         title,
         description,
+        pusher_channel,
+        permissions,
         team {
           id,
           dbid,
+          subdomain,
           projects(first: 10000) {
             edges {
               node {
@@ -90,7 +136,9 @@ const ProjectContainer = Relay.createContainer(ProjectComponent, {
               jsondata,
               annotations_count,
               domain,
-              last_status
+              last_status(context_id: $contextId),
+              permissions,
+              verification_statuses
             }
           }
         }

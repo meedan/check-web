@@ -1,0 +1,10 @@
+.breadcrumb {
+  align-self: center;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  &:hover {
+    text-decoration: none;
+  }
+}

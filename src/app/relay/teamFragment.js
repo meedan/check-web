@@ -8,11 +8,22 @@ var teamFragment = Relay.QL`
     avatar,
     description,
     subdomain,
+    permissions,
+    get_slack_notifications_enabled,
+    get_slack_webhook,
+    get_slack_channel,
+    pusher_channel,
+    media_verification_statuses,
+    source_verification_statuses,
     team_users(first: 10000) {
       edges {
         node {
-          user{name,profile_image},status,team_id,user_id,id,role
-
+          user{ name, profile_image },
+          status,
+          team_id,
+          user_id,
+          id,
+          role
         }
       }
     },
@@ -23,7 +34,6 @@ var teamFragment = Relay.QL`
           web,
           phone,
           id
-
         }
       }
     },

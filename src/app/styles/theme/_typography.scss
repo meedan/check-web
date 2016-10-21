@@ -29,11 +29,11 @@ $font-stack-serif: "Merriweather", Georgia, serif;
   @include onboarding-blurb;
 }
 
-@mixin app-kicker {
-  font-size: 11px;
+@mixin app-kicker($size: 11px) {
+  font-size: $size;
   text-transform: uppercase;
-  letter-spacing: 0.15em;
-  font-weight: 500;
+  letter-spacing: 0.17em;
+  font-weight: 600;
 }
 
 @mixin team-name($size: 17px) {

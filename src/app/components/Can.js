@@ -1,13 +1,17 @@
 import React, { Component, PropTypes } from 'react';
 
-class Can extends Component {
-  can(permission) {
-    const permissions = JSON.parse(this.props.permissions);
+function can(permissionsData, permission) {
+  try {
+    const permissions = JSON.parse(permissionsData);
     return permissions[permission];
+  } catch (e) {
+    throw `Error parsing permissions data: ${permissionsData}`
   }
+}
 
+class Can extends Component {
   render() {
-    if (this.can(this.props.permission)) {
+    if (can(this.props.permissions, this.props.permission)) {
       return (this.props.children);
     }
     else {
@@ -16,4 +20,4 @@ class Can extends Component {
   }
 }
 
-export default Can;
+export { Can as default, can };

@@ -180,7 +180,7 @@ class AddAnnotation extends Component {
   render() {
     return (
       <form className='add-annotation' name="addannotation" onSubmit={this.submit.bind(this)}>
-        <TextField hintText="Type /status Verified or False to verify this report... (or /comment to comment)"
+        <TextField hintText="Add a note about this report"
                    fullWidth={false}
                    style={{width: '80%'}}
                    errorStyle={styles.errorStyle}

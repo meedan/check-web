@@ -2,7 +2,7 @@ require 'httparty'
 require 'rspec/retry'
 
 RSpec.configure do |config|
-  config.verbose_retry = true
+  config.verbose_retry = false
   config.default_retry_count = 3
   config.default_sleep_interval = 3
 

@@ -1,9 +1,19 @@
-@mixin team-avatar($size: 60px) {
+@mixin background-cover {
+  background-size: cover;
+  background-position: center;
+}
+
+@mixin avatar($size) {
   width: $size;
   height: $size;
   border: 1px solid theme-gray(95%);
   border-radius: 3px;
   box-shadow: 0 0 2px theme-gray(98%);
-  background-size: cover;
-  background-position: center;
+  @include background-cover;
+}
+
+@mixin user-avatar($size) {
+  @include avatar($size);
+  border-radius: 50%;
+  box-shadow: 0 0 2px theme-gray(98%);
 }

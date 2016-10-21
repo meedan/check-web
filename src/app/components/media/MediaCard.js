@@ -17,7 +17,7 @@ class MediaCard extends Component {
     let linkUrl = null;
     if (annotatedType === 'Project' && annotated && annotated.team) { // TODO: better support for media cards on sources
       const project = annotated;
-      linkUrl = '/team/' + project.team.dbid + '/project/' + project.dbid + '/media/' + media.dbid;
+      linkUrl = '/project/' + project.dbid + '/media/' + media.dbid;
     }
 
     return (

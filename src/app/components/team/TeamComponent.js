@@ -12,17 +12,35 @@ import Message from '../Message';
 import CreateContactMutation from '../../relay/CreateContactMutation';
 import UpdateContactMutation from '../../relay/UpdateContactMutation';
 import CreateProject from '../project/CreateProject';
+import Can from '../Can';
 
 class TeamComponent extends Component {
   constructor(props) {
     super(props);
+    const team = this.props.team,
+          contact = team.contacts.edges[0] || { node: {} };
     this.state = {
-      isEditing: false
+      message: null,
+      isEditing: false,
+      values: {
+        name: team.name,
+        description: team.description,
+        slackNotificationsEnabled: team.get_slack_notifications_enabled,
+        slackWebhook: team.get_slack_webhook,
+        slackChannel: team.get_slack_channel,
+        contact_location: contact.node.location,
+        contact_phone: contact.node.phone,
+        contact_web: contact.node.web
+      }
     };
   }
 
   setContextTeam() {
-    Checkdesk.context.team = this.props.team;
+    if (Checkdesk.context.team.subdomain != this.props.team.subdomain) {
+      Checkdesk.context.team = this.props.team;
+      var path = window.location.protocol + '//' + Checkdesk.context.team.subdomain + '.' + config.selfHost;
+      window.location.href = path;
+    }
   }
 
   componentDidMount() {
@@ -34,14 +52,12 @@ class TeamComponent extends Component {
   }
 
   cancelEditTeam(e) {
-     e.preventDefault();
-     this.setState({isEditing: false});
+    e.preventDefault();
+    this.setState({isEditing: false});
   }
 
   editTeamInfo() {
-    var that = this,
-         name = document.getElementById('team__name-container').value;
-    var description = document.getElementById('team__description-container').value;
+    var that = this;
 
     var onFailure = (transaction) => {
       transaction.getError().json().then(function(json) {
@@ -54,91 +70,26 @@ class TeamComponent extends Component {
     };
 
     var onSuccess = (response) => {
-      this.setState({ message: null , isEditing: false});
+      this.setState({ message: 'Team information updated successfully!', isEditing: false});
     };
 
+    var values = that.state.values;
     Relay.Store.commitUpdate(
       new UpdateTeamMutation({
-       name: name,
-       description: description,
-       id: this.props.team.id
-     }),
-     { onSuccess, onFailure }
-   );
+        name: values.name,
+        description: values.description,
+        set_slack_notifications_enabled: values.slackNotificationsEnabled,
+        set_slack_webhook: values.slackWebhook,
+        set_slack_channel: values.slackChannel,
+        contact: JSON.stringify({ location: values.contact_location, phone: values.contact_phone, web: values.contact_web }),
+        id: that.props.team.id
+      }),
+      { onSuccess, onFailure }
+    );
   }
 
-  updateTeamContacts() {
-    var that = this,
-        location = document.getElementById('team__location-container').value,
-        link = document.getElementById('team__link-container').value,
-        phone = document.getElementById('team__phone-container').value,
-        contact = this.props.team.contacts.edges[0];
-    
-    var onFailure = (transaction) => {
-      transaction.getError().json().then(function(json) {
-        var message = 'Sorry, could not edit the team';
-        if (json.error) {
-          message = json.error;
-        }
-        that.setState({ message: message });
-      });
-    };
-
-    var onSuccess = (response) => {
-      this.setState({ message: null , isEditing: false});
-    };
-
-    Relay.Store.commitUpdate(
-      new UpdateContactMutation({
-       location: location,
-       web: link,
-       phone:phone,
-       id: contact.node.id,
-     }),
-     { onSuccess, onFailure }
-   );
-  }
-
-  createTeamContacts() {
-    var that = this,
-    location = document.getElementById('team__location-container').value,
-    link = document.getElementById('team__link-container').value;
-
-    var onFailure = (transaction) => {
-      transaction.getError().json().then(function(json) {
-        var message = 'Sorry, could not edit the team';
-        if (json.error) {
-          message = json.error;
-        }
-        that.setState({ message: message });
-      });
-    };
-
-    var onSuccess = (response) => {
-      this.setState({ message: null ,isEditing: false});
-    };
-
-    Relay.Store.commitUpdate(
-      new CreateContactMutation({
-       location: location,
-       web: link,
-       team_id: this.props.team.dbid,
-       parent_id: this.props.team.id,
-       parent_type: "team"
-     }),
-     { onSuccess, onFailure }
-   );
-  }
-
-  handleEditTeam(e) {
+  handleEditTeam() {
     this.editTeamInfo();
-    if (this.props.team.contacts.edges[0]) {
-      this.updateTeamContacts();
-    }
-    else {
-      this.createTeamContacts();
-    }
-    e.preventDefault();
   }
 
   handleEntreEditTeamNameAndDescription(e) {
@@ -146,10 +97,20 @@ class TeamComponent extends Component {
     e.preventDefault();
   }
 
+  handleChange(key, e) {
+    var value = e.target.value;
+    if (e.target.type === 'checkbox' && !e.target.checked) {
+      value = '0';
+    }
+    var values = Object.assign({}, this.state.values);
+    values[key] = value;
+    this.setState({ values: values });
+  }
+
   render() {
     const team = this.props.team;
     const isEditing = this.state.isEditing;
-    const contact = this.props.team.contacts.edges[0];
+    const contact = team.contacts.edges[0];
 
     return (
       <div className='team'>
@@ -166,11 +127,13 @@ class TeamComponent extends Component {
               );
             } else {
               return (
-                <div className='team__edit-profile'>
-                  <button onClick={this.handleEntreEditTeamNameAndDescription.bind(this)} className='team__edit-button'>
-                    <FontAwesome className='team__edit-icon' name='pencil'/> Edit profile
-                  </button>
-                </div>
+                <Can permissions={team.permissions} permission="update Team">
+                  <div className='team__edit-profile'>
+                    <button onClick={this.handleEntreEditTeamNameAndDescription.bind(this)} className='team__edit-button'>
+                      <FontAwesome className='team__edit-icon' name='pencil'/> Edit profile
+                    </button>
+                  </div>
+                </Can>
               );
             }
           })()}
@@ -182,10 +145,10 @@ class TeamComponent extends Component {
               return (
                 <div>
                   <h1 className='team__name team__name--editing'>
-                    <input type='text'  id='team__name-container' className='team__name-input' defaultValue={team.name} placeholder='Team name' />
+                    <input type='text'  id='team__name-container' className='team__name-input' defaultValue={team.name} onChange={this.handleChange.bind(this, 'name')} placeholder='Team name' />
                   </h1>
                   <div className='team__description'>
-                    <input type='text' id='team__description-container' className='team__description-input' defaultValue={team.description} placeholder='Team description' />
+                    <input type='text' id='team__description-container' className='team__description-input' defaultValue={team.description} placeholder='Team description' onChange={this.handleChange.bind(this, 'description')} />
                   </div>
                 </div>
               );
@@ -205,31 +168,21 @@ class TeamComponent extends Component {
           })()}
 
           <div className='team__contact-info'>
-
-            {/* location: show this span if location entered, hide if not; always show when isEditing */}
             <span className='team__location'>
               {(() => {
                 if (isEditing) {
-                  if (contact) {
                     return (<span><FontAwesome name='map-marker' className='team__location-icon' />
-                            <input type='text' id='team__location-container' defaultValue={this.props.team.contacts.edges[0].node.location} className='team__location-name-input' placeholder='Location' />
-                            </span>);
-                  }else {
-
+                            <input type='text' id='team__location-container' defaultValue={contact ? contact.node.location : ''} 
+                             className='team__location-name-input' placeholder='Location'
+                             onChange={this.handleChange.bind(this, 'contact_location')} /></span>);
+                }
+                else {
+                  if (contact && !!contact.node.location) {
                     return (<span><FontAwesome name='map-marker' className='team__location-icon' />
-                            <input type='text' id='team__location-container' className='team__location-name-input' placeholder='Location' />
-                            </span>);
+                            <span className='team__location-name'>{contact.node.location}</span></span>);
                   }
-                } else {
-                  if(contact)
-                  {
-                    return (<span>
-                      <FontAwesome name='map-marker' className='team__location-icon' />
-                      <span className='team__location-name'>{this.props.team.contacts.edges[0].node.location}</span></span>);
-
-                  }else {
+                  else {
                     return (<span className='team__location-name'></span>);
-
                   }
                 }
               })()}
@@ -237,69 +190,53 @@ class TeamComponent extends Component {
             <span className='team__phone'>
               {(() => {
                 if (isEditing) {
-                  if (contact) {
-                    return ( <span><FontAwesome name='phone' className='team__phone-icon' />
-                  <input type='text' id='team__phone-container' defaultValue={this.props.team.contacts.edges[0].node.phone} className='team__location-name-input' placeholder='Phone number' />
-                            </span>);
-                  }else {
-
-                    return (<span><FontAwesome name='phone' className='team__phone-icon' />
-                            <input type='text' id='team__phone-container' className='team__location-name-input' placeholder='Phone number' />
-                            </span>);
-                  }
+                  return (<span><FontAwesome name='phone' className='team__phone-icon' />
+                          <input type='text' id='team__phone-container' defaultValue={contact ? contact.node.phone : ''}
+                           className='team__location-name-input' placeholder='Phone number'
+                           onChange={this.handleChange.bind(this, 'contact_phone')} /></span>);
                 } else {
-                  if(contact)
-                  {
-                    return (<span>
-                      <FontAwesome name='phone' className='team__phone-icon' />
-                      <span className='team__phone-name'>{this.props.team.contacts.edges[0].node.phone}</span></span>);
-
-                  }else {
+                  if (contact && !!contact.node.phone) {
+                    return (<span><FontAwesome name='phone' className='team__phone-icon' />
+                            <span className='team__phone-name'>{contact.node.phone}</span></span>);
+                  }
+                  else {
                     return (<span className='team__phone-name'></span>);
-
                   }
                 }
               })()}
             </span>
-            {/* link: iterate through all contact info links user has added; switch spans to inputs on isEditing */}
-            {(() => {
-              if (isEditing) {
-                if (contact) {
-                  return (
-                    <span>
-                    <FontAwesome name='link' className='team__link-icon' />
-                    <input id='team__link-container' defaultValue={this.props.team.contacts.edges[0].node.web} type='text' className='team__link-name-input' placeholder='Link' />
-                    </span>);
-
-                }else {
-                  return (
-                    <span>
-                    <FontAwesome name='link' className='team__link-icon' />
-                    <input id='team__link-container' type='text' className='team__link-name-input' placeholder='Link' />
-                    </span>);
-
+            <span className='team__web'>
+              {(() => {
+                if (isEditing) {
+                  return (<span><FontAwesome name='link' className='team__link-icon' />
+                          <input type='text' id='team__link-container' defaultValue={contact ? contact.node.web : ''}
+                           className='team__location-name-input' placeholder='Website'
+                           onChange={this.handleChange.bind(this, 'contact_web')} /></span>);
+                } else {
+                  if (contact && !!contact.node.web) {
+                    return (<span><FontAwesome name='link' className='team__link-icon' />
+                            <span className='team__link-name'>{contact.node.web}</span></span>);
+                  }
+                  else {
+                    return (<span className='team__link-name'></span>);
+                  }
                 }
-
-              } else {
-                if(contact)
-                {
-                  return (
-                    <Link  to= {this.props.team.contacts.edges[0].node.web} className='team__link'>
-                      <FontAwesome name='link' className='team__link-icon' />
-                      <span className='team__link-text'>{this.props.team.contacts.edges[0].node.web}</span>
-                    </Link>
-                  );
-                }else {
-                  return (
-                      <span className='team__link-text'></span>
-
-                  );
-                }
-
-              }
-            })()}
+              })()}
+            </span>
           </div>
         </section>
+
+        {(() => {
+          if (isEditing) {
+            return(
+              <section className='team__settings'>
+                <span><input type='checkbox' id='team__settings-slack-notifications-enabled' value='1' defaultChecked={team.get_slack_notifications_enabled === '1'} onChange={this.handleChange.bind(this, 'slackNotificationsEnabled')} /> <label htmlFor='team__settings-slack-notifications-enabled'>Enable Slack notifications</label></span>
+                <span><input type='text' id='team__settings-slack-webhook' defaultValue={team.get_slack_webhook} placeholder='Slack webhook' onChange={this.handleChange.bind(this, 'slackWebhook')} /></span>
+                <span><input type='text' id='team__settings-slack-channel' defaultValue={team.get_slack_channel} placeholder='Slack default #channel' onChange={this.handleChange.bind(this, 'slackChannel')} /></span>
+              </section>
+            );
+          }
+        })()}
 
         <section className='team__content'>
           <div className='team__content-body'>
@@ -307,12 +244,14 @@ class TeamComponent extends Component {
             <ul className='team__projects-list'>
               {team.projects.edges.map(p => (
                 <li className='team__project'>
-                  <Link to={'/team/' + team.dbid + '/project/' + p.node.dbid} className='team__project-link'>{p.node.title}</Link>
+                  <Link to={'/project/' + p.node.dbid} className='team__project-link'>{p.node.title}</Link>
                 </li>
               ))}
-              <li className='team__new-project'>
-                <CreateProject className='team__new-project-input' team={team} />
-              </li>
+              <Can permissions={team.permissions} permission="create Project">
+                <li className='team__new-project'>
+                  <CreateProject className='team__new-project-input' team={team} />
+                </li>
+              </Can>
             </ul>
           </div>
         </section>

@@ -43,4 +43,14 @@ $orange-500: #FF9800;
 
 $red-100: #FFCDD2;
 $red-500: #F44336;
-$red-900: #B71C1C
+$red-900: #B71C1C;
+
+// media
+
+@mixin media-status-colors {
+  &--undetermined { color: $blue-500; }
+  &--in-progress { color: $orange-500; }
+  &--verified { color: $green-500; }
+  &--false { color: $red-500; }
+  &--not-applicable { color: $gray-350; }
+}
