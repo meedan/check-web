@@ -105,10 +105,10 @@ class MediaStatus extends Component {
           <span className='media-status__message'>{this.state.message}</span>
         </div>
         <ul className={this.bemClass('media-status__menu', this.state.isMediaStatusMenuOpen, '--active')}>
-        
+
           {statuses.map(function(status) {
             return (
-              <li className={that.bemClass('media-status__menu-item', (currentStatus === status.id), '--current') + ' media-status__menu-item--' + status.id.replace('_', '-')} onClick={that.handleStatusClick.bind(that, status.id)}>
+              <li className={that.bemClass('media-status__menu-item', (media.last_status === status.id), '--current') + ' media-status__menu-item--' + status.id.replace('_', '-')} onClick={that.handleStatusClick.bind(that, status.id)}>
                 <i className="media-status__icon media-status__icon--radio-button-selected / fa fa-circle"></i>
                 <i className="media-status__icon media-status__icon--radio-button / fa fa-circle-o"></i>
                 <span className='media-status__label'>{status.label}</span>
