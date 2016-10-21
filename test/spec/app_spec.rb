@@ -421,7 +421,7 @@ describe 'app' do
 
     it "should not add a duplicated tag from tags list" do
       login_with_email
-      @driver.navigate.to @config['self_url'] + '/me'
+      @driver.navigate.to team_url('project/' + get_project + '/media/' + $media_id)
       sleep 1
 
       # Add tag from tags list
@@ -437,7 +437,7 @@ describe 'app' do
 
     it "should not add a duplicated tag from command line" do
       login_with_email
-      @driver.navigate.to @config['self_url'] + '/me'
+      @driver.navigate.to team_url('project/' + get_project + '/media/' + $media_id)
       sleep 1
 
       # Add tag from tags list
@@ -790,6 +790,10 @@ describe 'app' do
     end
 
     it "should give 404 when trying to acess a media that is not related to the project on the URL" do
+      skip("Needs to be implemented")
+    end
+
+    it "should linkify URLs on comments" do
       skip("Needs to be implemented")
     end
   end
