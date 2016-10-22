@@ -29,27 +29,22 @@ $blue-100: #BBDEFB;
 $blue-300: #64B5F6;
 $blue-400: #42A5F5;
 $blue-500: #2196F3;
-
 $gray-100: #F5F5F5;
 $gray-300: #E0E0E0;
 $gray-350: mix(#E0E0E0, #BDBDBD);
 $gray-400: #BDBDBD;
-
 $green-100: #C8E6C9;
 $green-500: #4CAF50;
-
 $orange-100: #FFE0B2;
 $orange-500: #FF9800;
-
 $red-100: #FFCDD2;
 $red-500: #F44336;
 $red-900: #B71C1C;
 
-// media
+// media colors from prototype
 //
-// - TODO: DRY once settled
-// - TODO: merge with proto colors:
-//
+// - TODO: merge and DRY more once settled
+
 $check-blue: #2E77FC;
 $firefly-5: #F3F4F4;
 $firefly-10: #E7E8EA;
@@ -64,56 +59,55 @@ $heather-grey: #C4D1DB;
 $monza-red: #D0021B;
 $porcelain-grey: #FAFBFB;
 $regent-grey: #8799A6;
-//
-// Verification colors
+
 $hawkes-blue: #E4EEFC;
 $seashell-peach: #FFF6F0;
 $hint-green: #E5FFEF;
 $pippin-red: #FFE5E5;
-//
+
 // Firefly with alpha for blending
 $firefly-60-1: rgba($firefly-60, 0.1);
 $firefly-60-2: rgba($firefly-60, 0.2);
 $firefly-60-5: rgba($firefly-60, 0.5);
 $firefly-60-8: rgba($firefly-60, 0.8);
-//
-//   // Statuses
-//   &.media-detail__media--verified {
-//     background-color: $hint-green;
-//   }
-//   &.media-detail__media--undetermined {
-//     background-color: $hawkes-blue;
-//   }
-//   &.media-detail__media--in-progress {
-//     background-color: $seashell-peach;
-//   }
-//   &.media-detail__media--false {
-//     background-color: $pippin-red;
-//   }
+
+// media status colors
+
+$media-status-blue: $blue-500;
+$media-status-orange: $orange-500;
+$media-status-green: $green-500;
+$media-status-red: $red-500;
+$media-status-gray: $gray-350;
+
+$media-status-blue-bg: $hawkes-blue;
+$media-status-orange-bg: $seashell-peach;
+$media-status-green-bg: $hint-green;
+$media-status-red-bg: $pippin-red;
+$media-status-gray-bg: $gray-100;
 
 @mixin media-status-colors {
-  &--undetermined { color: $blue-500; }
-  &--in-progress { color: $orange-500; }
-  &--verified { color: $green-500; }
-  &--false { color: $red-500; }
-  &--not-applicable { color: $gray-350; }
+  &--undetermined { color: $media-status-blue; }
+  &--in-progress { color: $media-status-orange; }
+  &--verified { color: $media-status-green; }
+  &--false { color: $media-status-red; }
+  &--not-applicable { color: $media-status-gray; }
 }
 
 @mixin media-status-bg-colors {
   $alpha: 0.17;
-  &--undetermined { background: rgba($blue-100, $alpha); }
-  &--in-progress { background: rgba($orange-100, $alpha); }
-  &--verified { background: rgba($green-100, $alpha); }
-  &--false { background: rgba($red-100, $alpha); }
-  &--inconclusive { background: rgba($gray-100, $alpha); }
+  &--undetermined { background: $media-status-blue-bg; }
+  &--in-progress { background: $media-status-orange-bg; }
+  &--verified { background: $media-status-green-bg; }
+  &--false { background: $media-status-red-bg; }
+  &--inconclusive { background: $media-status-gray-bg; }
 }
 
 @mixin media-status-border-colors {
-  $saturation: 50%;
-  $alpha: 0.75;
-  &--undetermined { border-color: rgba(mix($blue-500, $layout-border-color, $saturation), $alpha); }
-  &--in-progress { border-color: rgba(mix($orange-500, $layout-border-color, $saturation), $alpha); }
-  &--verified { border-color: rgba(mix($green-500, $layout-border-color, $saturation), $alpha); }
-  &--false { border-color: rgba(mix($red-500, $layout-border-color, $saturation), $alpha); }
-  &--not-applicable { border-color: rgba(mix($gray-350, $layout-border-color, $saturation), $alpha); }
+  $saturation: 100%;
+  $alpha: 1.0;
+  &--undetermined { border-color: $media-status-blue; }
+  &--in-progress { border-color: $media-status-orange; }
+  &--verified { border-color: $media-status-green; }
+  &--false { border-color: $media-status-red; }
+  &--not-applicable { border-color: $media-status-gray; }
 }
