@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
+import util from './MediaUtil';
 
 class MediaMetadataSummary extends Component {
 
@@ -11,7 +12,7 @@ class MediaMetadataSummary extends Component {
       <div className='media-metadata-summary'>
         <span className='media-metadata-summary__datum'>{annotationsCount} note{annotationsCount === 1 ? '' : 's'}</span>
         <span className='media-metadata-summary__datum'>{media.domain}</span>
-        <span className='media-metadata-summary__datum'>{data.username ? '@' + data.username : null}</span>
+        <span className='media-metadata-summary__datum'>{util.authorUsername(media, data)}</span>
       </div>
     );
   }
