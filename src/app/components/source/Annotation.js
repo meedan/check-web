@@ -105,16 +105,6 @@ class Annotation extends Component {
           </section>
         );
         break;
-      default:
-        content = annotation.content;
-        contentTemplate = (
-          <section className='annotation__content'>
-            <div className='annotation__header'>
-              {content}
-              {annotationActions}
-            </div>
-          </section>
-        );
     }
 
     return (
