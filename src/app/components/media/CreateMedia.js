@@ -6,6 +6,7 @@ import PenderCard from '../PenderCard';
 import CreateMediaMutation from '../../relay/CreateMediaMutation';
 import Message from '../Message';
 import config from 'config';
+import urlRegex from 'url-regex';
 
 class CreateMedia extends Component {
   constructor(props) {
@@ -20,9 +21,13 @@ class CreateMedia extends Component {
   handleSubmit() {
     const that = this,
         inputValue = document.getElementById('create-media-input').value.trim(),
-        prefix = '/project/' + Checkdesk.context.project.dbid + '/media/';
-
-    // TODO: parse inputValue into URL/text
+        prefix = '/project/' + Checkdesk.context.project.dbid + '/media/',
+        urls = inputValue.match(urlRegex()),
+        information = {},
+        url = (urls && urls[0]) ? urls[0] : '';
+    if (!url.length || inputValue !== url) { // if anything other than a single url
+      information.quote = inputValue;
+    }
 
     const handleError = (json) => {
       var message = 'Sorry, could not create the media';
@@ -52,7 +57,8 @@ class CreateMedia extends Component {
 
     Relay.Store.commitUpdate(
       new CreateMediaMutation({
-        url: inputValue,
+        url: url,
+        information: JSON.stringify(information),
         project: Checkdesk.context.project
       }),
       { onSuccess, onFailure }
