@@ -249,7 +249,7 @@ class TeamComponent extends Component {
               ))}
               <Can permissions={team.permissions} permission="create Project">
                 <li className='team__new-project'>
-                  <CreateProject className='team__new-project-input' team={team} />
+                  <CreateProject className='team__new-project-input' team={team} autofocus={true} />
                 </li>
               </Can>
             </ul>

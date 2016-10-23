@@ -18,7 +18,8 @@ class CreateMedia extends Component {
     };
   }
 
-  handleSubmit() {
+  handleSubmit(event) {
+    event.preventDefault();
     const that = this,
         inputValue = document.getElementById('create-media-input').value.trim(),
         prefix = '/project/' + Checkdesk.context.project.dbid + '/media/',
@@ -70,6 +71,10 @@ class CreateMedia extends Component {
     this.setState({ url: url, message: null });
   }
 
+  componentDidMount(){
+    this.mediaInput.focus();
+  }
+
   render() {
     const isPreviewingUrl = (this.state.url !== '');
 
@@ -80,14 +85,14 @@ class CreateMedia extends Component {
           {isPreviewingUrl ? <PenderCard url={this.state.url} penderUrl={config.penderUrl} /> : null}
         </div>
 
-        <div id="media-url-container" className="create-media__form">
+        <form id="media-url-container" className="create-media__form" onSubmit={this.handleSubmit.bind(this)}>
           <button className="create-media__button create-media__button--new">+</button>
-          <TextField hintText="Paste a Twitter, Instagram, Facebook or YouTube link" fullWidth={true} name="url" id="create-media-input" className='create-media__input' />
+          <TextField hintText="Paste a Twitter, Instagram, Facebook or YouTube link" fullWidth={true} name="url" id="create-media-input" className='create-media__input' ref={(input) => this.mediaInput = input} />
           <div className="create-media__buttons">
             <FlatButton id="create-media-preview" secondary={true} onClick={this.handlePreview.bind(this)} label="Preview" className='create-media__button create-media__button--preview' />
             <FlatButton id="create-media-submit" primary={true} onClick={this.handleSubmit.bind(this)} label="Post" className='create-media__button create-media__button--submit' />
           </div>
-        </div>
+        </form>
       </div>
     );
   }

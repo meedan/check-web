@@ -126,6 +126,9 @@ class CreateTeam extends Component {
     );
   }
 
+  componentDidMount(){
+    this.teamNameInput.focus();
+  }
 
   render() {
     return (
@@ -139,7 +142,7 @@ class CreateTeam extends Component {
 
         <form className='create-team__form'>
           <div className='create-team__team-display-name'>
-            <input type='text' name='teamDisplayName' id="team-name-container" className='create-team__team-display-name-input' onChange={this.handleDisplayNameChange.bind(this)} onBlur={this.handleDisplayNameBlur.bind(this)} placeholder='Team Name' autocomplete="off" />
+            <input type='text' name='teamDisplayName' id="team-name-container" className='create-team__team-display-name-input' onChange={this.handleDisplayNameChange.bind(this)} onBlur={this.handleDisplayNameBlur.bind(this)} placeholder='Team Name' autocomplete="off" ref={(input) => this.teamNameInput = input} />
             <label className={this.state.displayNameLabelClass}>Team Name</label>
           </div>
 
