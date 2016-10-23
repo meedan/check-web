@@ -4,6 +4,7 @@ import CardText from 'material-ui/lib/card/card-text';
 import { Link } from 'react-router';
 import MediaStatus from './MediaStatus';
 import MediaMetadataSummary from './MediaMetadataSummary';
+import util from './MediaUtil';
 
 class MediaCard extends Component {
 
@@ -25,7 +26,7 @@ class MediaCard extends Component {
         <Link to={linkUrl} className='media-card__clickable'>{/* TODO: linkify more selectively */}
           <div className='media-card__status'><MediaStatus media={media} /></div>
           <div className='media-card__content'>
-            <h3 className='media-card__title'>{data.title}</h3>
+            <h3 className='media-card__title'>{util.title(media, data)}</h3>
             <MediaMetadataSummary media={media} data={data} />
           </div>
         </Link>
