@@ -31,9 +31,9 @@ class MediaDetail extends Component {
       (<span>by <Link to={`/source/${media.user.source.dbid}`}>{media.user.name}</Link></span>) : '';
 
     const embedCard = (media, data) => {
-      if (data && data.quote && data.quote.length) {
-        return <QuoteMediaCard quoteText={data.quote} attributionName={null} attributionUrl={null}/>;
-      }
+      // if (data && data.quote && data.quote.length) {
+      //   return <QuoteMediaCard quoteText={data.quote} attributionName={null} attributionUrl={null}/>;
+      // }
       return <PenderCard url={media.url} penderUrl={config.penderUrl}/>;
     }(media, data);
 
