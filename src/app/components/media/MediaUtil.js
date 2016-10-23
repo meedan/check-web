@@ -44,7 +44,7 @@ const MediaUtil = {
       'facebook.com': 'Facebook post',
       'instagram.com': 'Instagram',
       'youtube.com': 'Video'
-    }[media.domain] || (data.quote ? 'Claim' : 'Page'));
+    }[media.domain] || (data && data.quote ? 'Claim' : 'Page'));
   },
 
   title(media, data) {
