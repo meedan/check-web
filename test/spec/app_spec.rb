@@ -94,7 +94,7 @@ describe 'app' do
       @driver.navigate.to @config['self_url']
       sleep 3
 
-      expect(@driver.page_source.include?('This is a test')).to be(true)
+      expect(@driver.page_source.include?('Tweet by')).to be(true)
       status = get_element('.media-status__label')
       expect(status.text == 'IN PROGRESS').to be(false)
 
@@ -107,7 +107,7 @@ describe 'app' do
       @driver.navigate.to @config['self_url']
       sleep 5
 
-      expect(@driver.page_source.include?('This is a test')).to be(true)
+      expect(@driver.page_source.include?('Tweet by')).to be(true)
       status = get_element('.media-status__label')
       expect(status.text == 'IN PROGRESS').to be(true)
     end
