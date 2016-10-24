@@ -62,7 +62,7 @@ class MediaComponent extends Component {
           <MediaDetail media={media} />
           <Tags tags={media.tags.edges} annotated={media} annotatedType="Media" />
           <h3 className='media__notes-heading'>Verification Timeline</h3>
-          <Annotations annotations={media.annotations.edges} annotated={media} annotatedType="Media" />
+          <Annotations annotations={media.annotations.edges.reverse()} annotated={media} annotatedType="Media" />
 
         </article>
       </div>
