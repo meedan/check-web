@@ -96,7 +96,7 @@ class MediaStatus extends Component {
       <div className={this.bemClass('media-status', this.canUpdate(), '--editable')} onClick={this.toggleMediaStatusMenu.bind(this)}>
         <div className={this.bemClass('media-status__overlay', this.state.isMediaStatusMenuOpen, '--active')} onClick={this.toggleMediaStatusMenu.bind(this)}></div>
 
-        <div className={'media-status__current' + this.currentStatusToClass(currentStatus)}>
+        <div className={'media-status__current' + this.currentStatusToClass(media.last_status)}>
           <i className="media-status__icon media-status__icon--circle / fa fa-circle"></i>
           <span className='media-status__label'>{currentStatus}</span>
           <Can permissions={media.permissions} permission="create Status">
