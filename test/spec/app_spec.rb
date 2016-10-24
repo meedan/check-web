@@ -669,7 +669,7 @@ describe 'app' do
       wait.until { @driver.find_element(:css, '.media') }
 
       current_status = @driver.find_element(:css, '.media-status__label')
-      expect(current_status.text == 'UNDETERMINED').to be(true)
+      expect(current_status.text == 'UNSTARTED').to be(true)
 
       current_status.click
       verified_menu_item = (wait.until { @driver.find_element(:css, '.media-status__menu-item--verified') })
