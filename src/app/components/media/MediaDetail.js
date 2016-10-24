@@ -26,7 +26,6 @@ class MediaDetail extends Component {
       description: { twitter: true, oembed: true, instagram: true }
     };
 
-    const username = data.username ? ('@' + data.username) : data.author_url;
     const byUser = (media.user && media.user.source && media.user.source.dbid && media.user.name !== 'Pender') ?
       (<span>by <Link to={`/source/${media.user.source.dbid}`}>{media.user.name}</Link></span>) : '';
 
@@ -50,8 +49,8 @@ class MediaDetail extends Component {
           }</span> <span className='media-detail__check-notes-count'>{media.annotations_count} notes</span>
         </p>
         <MediaTags tags={media.tags.edges} />
-        {hide.title[data.provider] ? null : (<h2 className="media-detail__title">{data.title}</h2>)}
-        {hide.description[data.provider] ? null : (<p className="media-detail__description">{data.description}</p>)}
+        {!data || hide.title[data.provider] ? null : (<h2 className="media-detail__title">{data.title}</h2>)}
+        {!data || hide.description[data.provider] ? null : (<p className="media-detail__description">{data.description}</p>)}
       </div>
     );
   }

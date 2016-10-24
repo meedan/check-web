@@ -19,7 +19,7 @@ const MediaUtil = {
       case 'instagram.com':
         return data.username;
       default:
-        return data.user_name || data.username || '';
+        return (data ? data.user_name || data.username || '' : '');
     }
   },
 
@@ -34,17 +34,28 @@ const MediaUtil = {
       case 'youtube.com':
         return `@${data.username}`;
       default:
-        return data.username || '';
+        return (data ? data.username || '' : '');
     }
   },
 
   typeLabel(media, data) {
-    return ({
+    const socialMedia = ({
       'twitter.com': 'Tweet',
       'facebook.com': 'Facebook post',
       'instagram.com': 'Instagram',
       'youtube.com': 'Video'
-    }[media.domain] || (data && data.quote ? 'Claim' : 'Page'));
+    }[media.domain]);
+
+    if (socialMedia) {
+      return socialMedia;
+    }
+    if (data && data.quote) {
+     return 'Claim';
+    }
+    if (media && media.domain) {
+      return 'Page';
+    }
+    return 'Report';
   },
 
   title(media, data) {
@@ -57,7 +68,8 @@ const MediaUtil = {
       return `${typeLabel}${text ? ': ' + text : ''}`;
     }
     else {
-      return `${typeLabel} by ${this.authorName(media, data)}`;
+      const attribution = this.authorName(media, data);
+      return `${typeLabel}${attribution ? ' by ' + attribution : ''}`;
     }
   },
 
