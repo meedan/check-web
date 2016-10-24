@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 
 class MediaTags extends Component {
   render() {
-    console.log(this.props.tags);
     return (
       <ul className='media-tags'>
         {this.props.tags.map((tag) => {

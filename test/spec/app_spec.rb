@@ -53,6 +53,14 @@ describe 'app' do
   # The tests themselves start here
 
   context "web" do
+    it "should login using Facebook" do
+      login_with_facebook
+      @driver.navigate.to @config['self_url'] + '/me'
+      displayed_name = get_element('h2.source-name').text.upcase
+      expected_name = @config['facebook_name'].upcase
+      expect(displayed_name == expected_name).to be(true)
+    end
+
     it "should register using e-mail" do
       register_with_email
       @driver.navigate.to @config['self_url'] + '/me'
@@ -170,14 +178,6 @@ describe 'app' do
       @driver.navigate.to @config['self_url'] + '/me'
       displayed_name = get_element('h2.source-name').text.upcase
       expected_name = @config['twitter_name'].upcase
-      expect(displayed_name == expected_name).to be(true)
-    end
-
-    it "should login using Facebook" do
-      login_with_facebook
-      @driver.navigate.to @config['self_url'] + '/me'
-      displayed_name = get_element('h2.source-name').text.upcase
-      expected_name = @config['facebook_name'].upcase
       expect(displayed_name == expected_name).to be(true)
     end
 

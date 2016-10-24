@@ -44,6 +44,29 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
               annotation_type,
               created_at,
               permissions,
+              medias(first: 10000) {
+                edges {
+                  node {
+                    id,
+                    dbid,
+                    published,
+                    url,
+                    jsondata,
+                    project_id,
+                    last_status,
+                    annotations_count,
+                    permissions,
+                    verification_statuses,
+                    domain,
+                    user {
+                      name,
+                      source {
+                        dbid
+                      }
+                    }
+                  }
+                }
+              }
               annotator {
                 name,
                 profile_image
