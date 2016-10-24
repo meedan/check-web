@@ -14,18 +14,23 @@ class CreateMedia extends Component {
 
     this.state = {
       url: '',
-      message: null
+      message: null,
+      isSubmitting: false
     };
   }
 
   handleSubmit(event) {
     event.preventDefault();
+
     const that = this,
         inputValue = document.getElementById('create-media-input').value.trim(),
         prefix = '/project/' + Checkdesk.context.project.dbid + '/media/',
         urls = inputValue.match(urlRegex()),
         information = {},
         url = (urls && urls[0]) ? urls[0] : '';
+    if (!inputValue || !inputValue.length || this.state.isSubmitting) { return; }
+    this.setState({isSubmitting: true, message: 'Submitting...'});
+
     if (!url.length || inputValue !== url) { // if anything other than a single url
       information.quote = inputValue;
     }
@@ -42,7 +47,7 @@ class CreateMedia extends Component {
           Checkdesk.history.push(prefix + sid);
         }
       }
-      that.setState({ message: message });
+      that.setState({ message: message, isSubmitting: false });
     }
 
     var onFailure = (transaction) => {
@@ -53,7 +58,7 @@ class CreateMedia extends Component {
     var onSuccess = (response) => {
       var rid = response.createMedia.media.dbid;
       Checkdesk.history.push(prefix + rid);
-      this.setState({ message: null });
+      this.setState({ message: null, isSubmitting: false });
     };
 
     Relay.Store.commitUpdate(
