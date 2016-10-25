@@ -45,7 +45,7 @@ const MediaHeaderContainer = Relay.createContainer(MediaHeaderComponent, {
         dbid,
         published,
         url,
-        jsondata,
+        jsondata(context_id: $contextId),
         last_status(context_id: $contextId),
         annotations_count,
         verification_statuses,
