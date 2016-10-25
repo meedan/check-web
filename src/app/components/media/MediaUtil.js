@@ -2,6 +2,7 @@ import truncate from 'lodash.truncate';
 
 const MediaUtil = {
   networkIconName(media) {
+    if (!media.domain) { return ''; }
     return ({
       'facebook.com': 'facebook-square',
       'youtube.com': 'youtube-play',
@@ -9,6 +10,7 @@ const MediaUtil = {
   },
 
   authorName(media, data) {
+    if (!data) { return ''; }
     switch (media.domain) {
       case 'twitter.com':
         return data.user ? data.user.name : '';
@@ -19,11 +21,12 @@ const MediaUtil = {
       case 'instagram.com':
         return data.username;
       default:
-        return (data ? data.user_name || data.username || '' : '');
+        return data.user_name || data.username || '';
     }
   },
 
   authorUsername(media, data) {
+    if (!data) { return ''; }
     switch (media.domain) {
       case 'twitter.com':
         return data.user ? `@${data.user.screen_name}` : ''; // data.username?
@@ -34,7 +37,7 @@ const MediaUtil = {
       case 'youtube.com':
         return `@${data.username}`;
       default:
-        return (data ? data.username || '' : '');
+        return data.username || '';
     }
   },
 
