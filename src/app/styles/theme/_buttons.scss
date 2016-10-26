@@ -70,3 +70,24 @@
     text-decoration: none;
   }
 }
+
+@mixin chicklet {
+  border-radius: 3px;
+  background-color: $firefly-60-1;
+  color: $regent-grey;
+  display: inline-block;
+  font-size: 14px;
+  // font-weight: 200;
+  padding: 2px 11px !important;
+  margin: 0 4px 4px 0;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  &--selected {
+    background-color: $firefly-60;
+    color: $firefly-5;
+  }
+  &--active {
+  }
+  &--hover {
+    cursor: pointer;
+  }
+}

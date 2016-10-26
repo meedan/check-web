@@ -69,9 +69,15 @@ class Tags extends Component {
     return (
       <div className="tags-list">
         <Message message={this.state.message} />
-        <ReactTags tags={tags} handleDelete={this.handleDelete.bind(this)} handleAddition={this.handleAddition.bind(this)} autofocus={false} />
+        <ReactTags tags={tags} handleDelete={this.handleDelete.bind(this)} handleAddition={this.handleAddition.bind(this)} autofocus={false} removeComponent={TagsRemove} />
       </div>
     );
+  }
+}
+
+class TagsRemove extends React.Component {
+  render() {
+    return (<button {...this.props}>×</button>);
   }
 }
 

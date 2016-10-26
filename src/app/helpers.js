@@ -4,3 +4,9 @@
 Array.prototype.sortp = function(fn) {
   return [].concat(this).sort(fn);
 }
+
+function bemClass(baseClass, modifierBoolean, modifierSuffix) {
+  return modifierBoolean ? [baseClass, baseClass + modifierSuffix].join(' ') : baseClass;
+}
+
+export { bemClass }

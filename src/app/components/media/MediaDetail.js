@@ -10,6 +10,7 @@ import SocialMediaCard from './SocialMediaCard';
 import MediaActions from './MediaActions';
 import util from './MediaUtil';
 import Tags from '../source/Tags';
+import DefaultButton from '../inputs/DefaultButton';
 
 class MediaDetail extends Component {
   constructor(props) {
@@ -64,8 +65,8 @@ class MediaDetail extends Component {
 
           {this.state.isEditing ? (
             <span className='media-detail__editing-buttons'>
-              <button onClick={this.handleCancel.bind(this)} className='media-detail__cancel-edits'>Cancel</button>
-              <button onClick={this.handleSave.bind(this)} className='media-detail__save-edits'>Save</button>
+              {/*<DefaultButton onClick={this.handleCancel.bind(this)} className='media-detail__cancel-edits' size='xsmall'>Cancel</DefaultButton>*/}
+              <DefaultButton onClick={this.handleSave.bind(this)} className='media-detail__save-edits' size='xsmall' style='primary'>Done</DefaultButton>
             </span>
             ) :
             <MediaActions media={media} handleEdit={this.handleEdit.bind(this)} />
@@ -83,10 +84,7 @@ class MediaDetail extends Component {
           }</span> <span className='media-detail__check-notes-count'>{media.annotations_count} notes</span>
         </p>
 
-        {this.state.isEditing ?
-          <Tags tags={media.tags.edges} annotated={media} annotatedType="Media" /> :
-          <MediaTags tags={media.tags.edges} />
-        }
+        <MediaTags media={media} tags={media.tags.edges} isEditing={this.state.isEditing} />
       </div>
     );
   }
