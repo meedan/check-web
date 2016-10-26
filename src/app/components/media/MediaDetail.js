@@ -2,11 +2,11 @@ import React, { Component, PropTypes } from 'react';
 import FontAwesome from 'react-fontawesome';
 import TimeAgo from 'react-timeago';
 import { Link } from 'react-router';
-import PenderCard from '../PenderCard';
 import config from 'config';
 import MediaStatus from './MediaStatus';
 import MediaTags from './MediaTags';
 import QuoteMediaCard from './QuoteMediaCard';
+import SocialMediaCard from './SocialMediaCard';
 import MediaActions from './MediaActions';
 import util from './MediaUtil';
 import Tags from '../source/Tags';
@@ -51,7 +51,10 @@ class MediaDetail extends Component {
       if (data && data.quote && data.quote.length) {
         return <QuoteMediaCard quoteText={data.quote} attributionName={null} attributionUrl={null}/>;
       }
-      return <PenderCard url={media.url} penderUrl={config.penderUrl}/>;
+      if (media.url) {
+        return <SocialMediaCard media={media} data={data} />
+      }
+      return null; // TODO: fallback
     }(media, data);
 
     return (
