@@ -78,6 +78,10 @@ const MediaUtil = {
 
   notesCount(media, data) {
     return media.annotations_count; // TODO: filter to visible notes
+  },
+
+  createdAt(media) {
+    return new Date(parseInt(media.published) * 1000);
   }
 }
 

@@ -7,6 +7,11 @@
   box-shadow: $layout-box-shadow;
 }
 
+.media-detail__header {
+  display: flex;
+  justify-content: space-between;
+}
+
 .media-detail__status {
   display: inline-block;
   margin-bottom: 4px;
