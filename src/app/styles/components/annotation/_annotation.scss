@@ -63,6 +63,12 @@
   color: theme-gray(27%);
 }
 
+.annotation__embedded-media {
+  .media-card__title {
+    font-size: 16px;
+  }
+}
+
 // non-comments
 
 .annotation__status {

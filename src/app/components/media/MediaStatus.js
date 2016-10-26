@@ -96,7 +96,7 @@ class MediaStatus extends Component {
       <div className={this.bemClass('media-status', this.canUpdate(), '--editable')} onClick={this.toggleMediaStatusMenu.bind(this)}>
         <div className={this.bemClass('media-status__overlay', this.state.isMediaStatusMenuOpen, '--active')} onClick={this.toggleMediaStatusMenu.bind(this)}></div>
 
-        <div className={'media-status__current' + this.currentStatusToClass(currentStatus)}>
+        <div className={'media-status__current' + this.currentStatusToClass(media.last_status)}>
           <i className="media-status__icon media-status__icon--circle / fa fa-circle"></i>
           <span className='media-status__label'>{currentStatus}</span>
           <Can permissions={media.permissions} permission="create Status">
@@ -105,10 +105,10 @@ class MediaStatus extends Component {
           <span className='media-status__message'>{this.state.message}</span>
         </div>
         <ul className={this.bemClass('media-status__menu', this.state.isMediaStatusMenuOpen, '--active')}>
-        
+
           {statuses.map(function(status) {
             return (
-              <li className={that.bemClass('media-status__menu-item', (currentStatus === status.id), '--current') + ' media-status__menu-item--' + status.id.replace('_', '-')} onClick={that.handleStatusClick.bind(that, status.id)}>
+              <li className={that.bemClass('media-status__menu-item', (media.last_status === status.id), '--current') + ' media-status__menu-item--' + status.id.replace('_', '-')} onClick={that.handleStatusClick.bind(that, status.id)}>
                 <i className="media-status__icon media-status__icon--radio-button-selected / fa fa-circle"></i>
                 <i className="media-status__icon media-status__icon--radio-button / fa fa-circle-o"></i>
                 <span className='media-status__label'>{status.label}</span>
