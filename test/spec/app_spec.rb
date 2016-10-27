@@ -424,7 +424,19 @@ describe 'app' do
       @driver.navigate.to team_url('project/' + get_project + '/media/' + $media_id)
       sleep 1
 
+      # Validate assumption that tag does not exist
+      get_element('.media-actions').click
+      get_element('.media-actions__menu-item').click
+      tag = @driver.find_elements(:css, '.ReactTags__tag span').select{ |s| s.text == 'bla' }
+      expect(tag.size == 0).to be(true)
+
       # Add tag from tags list
+      fill_field('.ReactTags__tagInput input', 'bla')
+      @driver.action.send_keys(:enter).perform
+      tag = get_element('.ReactTags__tag span')
+      expect(tag.text == 'bla').to be(true)
+
+      # Try to add duplicate
       fill_field('.ReactTags__tagInput input', 'bla')
       @driver.action.send_keys(:enter).perform
       sleep 5
