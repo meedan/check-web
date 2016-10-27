@@ -40,6 +40,11 @@
 .team-header__name {
   @include team-name(14px);
   margin: 3px 0 2px 0;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 180px;
 }
 
 .team-header__label {

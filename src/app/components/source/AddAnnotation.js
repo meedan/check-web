@@ -177,6 +177,10 @@ class AddAnnotation extends Component {
     e.preventDefault();
   }
 
+  componentDidMount(){
+    this.annotationInput.focus();
+  }
+
   render() {
     return (
       <form className='add-annotation' name="addannotation" onSubmit={this.submit.bind(this)}>
@@ -188,7 +192,8 @@ class AddAnnotation extends Component {
                    ref={(ref) => this.cmd = ref}
                    errorText={this.state.message}
                    name="cmd"
-                   className="cmd-input" />
+                   className="cmd-input"
+                   ref={(input) => this.annotationInput = input} />
         <FlatButton label="Submit" primary={true} type="submit" style={{width: '20%'}} />
       </form>
     );

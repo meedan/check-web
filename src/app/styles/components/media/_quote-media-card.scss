@@ -1,0 +1,47 @@
+.quote-media-card {
+  background-color: #fff;
+  border: $layout-border;
+  border-color: $firefly-60-2;
+  border-radius: 4px;
+  padding: 10px;
+  min-height: none;
+  color: $firefly-80;
+}
+
+.quote-media-card__body-text {
+  font-size: 24px;
+  font-weight: 100;
+  margin-left: 50px;
+  margin-bottom: 15px;
+  &:before {
+    color: $firefly-20;
+    content: "\f10d";
+    display: inline-block;
+    font-family: FontAwesome;
+    font-size: 30px;
+    margin-left: -50px;
+    padding: 0 10px;
+  }
+}
+
+.quote-media-card__attribution {
+  padding-left: 55%;
+}
+
+.quote-media-card__attribution-name,
+.quote-media-card__attribution-link {
+  color: $firefly-30;
+  margin: 3px 7px;
+  font-weight: 200;
+  font-size: 14px;
+  max-width: 200px;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.quote-media-card__attribution-name {
+  font-size: 16px;
+  max-width: 300px;
+}

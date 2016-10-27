@@ -53,6 +53,14 @@ describe 'app' do
   # The tests themselves start here
 
   context "web" do
+    it "should login using Facebook" do
+      login_with_facebook
+      @driver.navigate.to @config['self_url'] + '/me'
+      displayed_name = get_element('h2.source-name').text.upcase
+      expected_name = @config['facebook_name'].upcase
+      expect(displayed_name == expected_name).to be(true)
+    end
+
     it "should register using e-mail" do
       register_with_email
       @driver.navigate.to @config['self_url'] + '/me'
@@ -77,7 +85,7 @@ describe 'app' do
       login_with_email
       sleep 5
 
-      fill_field('#create-media-url', 'https://twitter.com/marcouza/status/771009514732650497?t=' + Time.now.to_i.to_s)
+      fill_field('#create-media-input', 'https://twitter.com/marcouza/status/771009514732650497?t=' + Time.now.to_i.to_s)
       sleep 1
       press_button('#create-media-submit')
       sleep 10
@@ -86,7 +94,7 @@ describe 'app' do
       @driver.navigate.to @config['self_url']
       sleep 3
 
-      expect(@driver.page_source.include?('This is a test')).to be(true)
+      expect(@driver.page_source.include?('Tweet by')).to be(true)
       status = get_element('.media-status__label')
       expect(status.text == 'IN PROGRESS').to be(false)
 
@@ -99,7 +107,7 @@ describe 'app' do
       @driver.navigate.to @config['self_url']
       sleep 5
 
-      expect(@driver.page_source.include?('This is a test')).to be(true)
+      expect(@driver.page_source.include?('Tweet by')).to be(true)
       status = get_element('.media-status__label')
       expect(status.text == 'IN PROGRESS').to be(true)
     end
@@ -109,7 +117,7 @@ describe 'app' do
       @driver.navigate.to @config['self_url'] + '/medias/new'
       sleep 1
       expect(@driver.find_elements(:xpath, "//*[contains(@id, 'pender-iframe')]").empty?).to be(true)
-      fill_field('#create-media-url', @media_url)
+      fill_field('#create-media-input', @media_url)
       press_button('#create-media-preview')
       sleep 10
       expect(@driver.find_elements(:xpath, "//*[contains(@id, 'pender-iframe')]").empty?).to be(false)
@@ -118,7 +126,7 @@ describe 'app' do
     it "should register and redirect to newly created media" do
       login_with_email
       sleep 3
-      fill_field('#create-media-url', @media_url)
+      fill_field('#create-media-input', @media_url)
       sleep 1
       press_button('#create-media-submit')
       sleep 20
@@ -170,14 +178,6 @@ describe 'app' do
       @driver.navigate.to @config['self_url'] + '/me'
       displayed_name = get_element('h2.source-name').text.upcase
       expected_name = @config['twitter_name'].upcase
-      expect(displayed_name == expected_name).to be(true)
-    end
-
-    it "should login using Facebook" do
-      login_with_facebook
-      @driver.navigate.to @config['self_url'] + '/me'
-      displayed_name = get_element('h2.source-name').text.upcase
-      expected_name = @config['facebook_name'].upcase
       expect(displayed_name == expected_name).to be(true)
     end
 
@@ -454,7 +454,7 @@ describe 'app' do
     it "should not create duplicated media if registered" do
       login_with_email
       sleep 3
-      fill_field('#create-media-url', @media_url)
+      fill_field('#create-media-input', @media_url)
       sleep 2
       press_button('#create-media-submit')
       sleep 10
@@ -464,7 +464,7 @@ describe 'app' do
     it "should not create source as media if registered" do
       login_with_email
       sleep 3
-      fill_field('#create-media-url', 'https://www.facebook.com/ironmaidenbeer/?fref=ts')
+      fill_field('#create-media-input', 'https://www.facebook.com/ironmaidenbeer/?fref=ts')
       sleep 1
       press_button('#create-media-submit')
       sleep 10
@@ -669,7 +669,7 @@ describe 'app' do
       wait.until { @driver.find_element(:css, '.media') }
 
       current_status = @driver.find_element(:css, '.media-status__label')
-      expect(current_status.text == 'UNDETERMINED').to be(true)
+      expect(current_status.text == 'UNSTARTED').to be(true)
 
       current_status.click
       verified_menu_item = (wait.until { @driver.find_element(:css, '.media-status__menu-item--verified') })

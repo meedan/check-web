@@ -7,6 +7,10 @@ import MediaHeader from './media/MediaHeader';
 import HeaderActions from './HeaderActions';
 
 class Header extends Component {
+  isSubdomain(hostname) {
+    return (hostname !== 'checkmedia.org' && hostname !== 'qa.checkmedia.org');
+  }
+
   render() {
     const { state } = this.props;
     const path = this.props.location ? this.props.location.pathname : null;
@@ -47,7 +51,7 @@ class Header extends Component {
       );
     }
 
-    if (path.match(/team\/[0-9]+\/(join|members)/)) {
+    if (this.isSubdomain(window.location.hostname) && path.match(/^\/(join|members)/)) {
       const teamUrl = path.match(/(.*)\/(join|members)/)[1];
       return (
         <header className='header header--team-subpage'>
@@ -57,7 +61,7 @@ class Header extends Component {
       );
     }
 
-    if (path.match(/team\/[0-9]+/)) {
+    if (this.isSubdomain(window.location.hostname) && path.match(/^\/$/)) {
       return (
         <header className='header header--team'>
           <Breadcrumb url='/teams' title='« Your Teams' />

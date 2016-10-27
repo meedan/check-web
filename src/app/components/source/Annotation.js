@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 import TimeAgo from 'react-timeago';
 import Linkify from 'react-linkify';
+import MediaCard from '../media/MediaCard';
 import DeleteAnnotationMutation from '../../relay/DeleteAnnotationMutation';
 import Can from '../Can';
 
@@ -65,6 +66,14 @@ class Annotation extends Component {
               {annotationActions}
             </div>
             <div className='annotation__body'><Linkify properties={{ target: '_blank' }}>{commentText}</Linkify></div>
+            
+            {annotation.medias.edges.map(function(media) {
+              return (
+                <div className='annotation__embedded-media'>
+                  <MediaCard media={media.node} />
+                </div>
+              );
+            })}
           </section>
         );
         break;
@@ -105,16 +114,6 @@ class Annotation extends Component {
           </section>
         );
         break;
-      default:
-        content = annotation.content;
-        contentTemplate = (
-          <section className='annotation__content'>
-            <div className='annotation__header'>
-              {content}
-              {annotationActions}
-            </div>
-          </section>
-        );
     }
 
     return (

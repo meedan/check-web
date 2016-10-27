@@ -69,16 +69,16 @@ class ProjectComponent extends Component {
           <TeamSidebar />
         </div>
         <div className="project__content">
+          <Can permissions={project.permissions} permission='create Media'>
+            <CreateMedia projectComponent={that} />
+          </Can>
+
           <MediasAndAnnotations
             medias={project.medias.edges}
             annotations={project.annotations.edges}
             annotated={project}
             annotatedType="Project"
             types={['comment']} />
-
-          <Can permissions={project.permissions} permission='create Media'>
-            <CreateMedia projectComponent={that} />
-          </Can>
         </div>
       </div>
     );
@@ -133,7 +133,7 @@ const ProjectContainer = Relay.createContainer(ProjectComponent, {
               dbid,
               url,
               published,
-              jsondata,
+              jsondata(context_id: $contextId),
               annotations_count,
               domain,
               last_status(context_id: $contextId),

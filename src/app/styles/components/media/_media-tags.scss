@@ -1,0 +1,9 @@
+.media-tags {
+  display: inline;
+  @include media-metadata;
+}
+
+.media-tags__tag {
+  display: inline-block;
+  margin-right: 15px;
+}

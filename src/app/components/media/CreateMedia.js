@@ -6,6 +6,7 @@ import PenderCard from '../PenderCard';
 import CreateMediaMutation from '../../relay/CreateMediaMutation';
 import Message from '../Message';
 import config from 'config';
+import urlRegex from 'url-regex';
 
 class CreateMedia extends Component {
   constructor(props) {
@@ -13,41 +14,57 @@ class CreateMedia extends Component {
 
     this.state = {
       url: '',
-      message: null
+      message: null,
+      isSubmitting: false
     };
   }
 
-  handleSubmit() {
-    var that = this,
-        url = document.getElementById('create-media-url').value,
-        prefix = '/project/' + Checkdesk.context.project.dbid + '/media/';
+  handleSubmit(event) {
+    event.preventDefault();
+
+    const that = this,
+        inputValue = document.getElementById('create-media-input').value.trim(),
+        prefix = '/project/' + Checkdesk.context.project.dbid + '/media/',
+        urls = inputValue.match(urlRegex()),
+        information = {},
+        url = (urls && urls[0]) ? urls[0] : '';
+    if (!inputValue || !inputValue.length || this.state.isSubmitting) { return; }
+    this.setState({isSubmitting: true, message: 'Submitting...'});
+
+    if (!url.length || inputValue !== url) { // if anything other than a single url
+      information.quote = inputValue;
+    }
+
+    const handleError = (json) => {
+      var message = 'Sorry, could not create the media';
+      if (json && json.error) {
+        message = json.error;
+        var matches = message.match(/^Validation failed: Media with this URL exists and has id ([0-9]+)$/);
+        if (matches) {
+          that.props.projectComponent.props.relay.forceFetch();
+          var sid = matches[1];
+          message = null;
+          Checkdesk.history.push(prefix + sid);
+        }
+      }
+      that.setState({ message: message, isSubmitting: false });
+    }
 
     var onFailure = (transaction) => {
-      transaction.getError().json().then(function(json) {
-        var message = 'Sorry, could not create the media';
-        if (json.error) {
-          message = json.error;
-          var matches = message.match(/^Validation failed: Media with this URL exists and has id ([0-9]+)$/);
-          if (matches) {
-            that.props.projectComponent.props.relay.forceFetch();
-            var sid = matches[1];
-            message = null;
-            Checkdesk.history.push(prefix + sid);
-          }
-        }
-        that.setState({ message: message });
-      });
+      const transactionError = transaction.getError();
+      transactionError.json ? transactionError.json().then(handleError) : handleError(JSON.stringify(transactionError));
     };
 
     var onSuccess = (response) => {
       var rid = response.createMedia.media.dbid;
       Checkdesk.history.push(prefix + rid);
-      this.setState({ message: null });
+      this.setState({ message: null, isSubmitting: false });
     };
 
     Relay.Store.commitUpdate(
       new CreateMediaMutation({
         url: url,
+        information: JSON.stringify(information),
         project: Checkdesk.context.project
       }),
       { onSuccess, onFailure }
@@ -55,8 +72,12 @@ class CreateMedia extends Component {
   }
 
   handlePreview() {
-    var url = document.getElementById('create-media-url').value;
+    var url = document.getElementById('create-media-input').value;
     this.setState({ url: url, message: null });
+  }
+
+  componentDidMount(){
+    this.mediaInput.focus();
   }
 
   render() {
@@ -69,14 +90,14 @@ class CreateMedia extends Component {
           {isPreviewingUrl ? <PenderCard url={this.state.url} penderUrl={config.penderUrl} /> : null}
         </div>
 
-        <div id="media-url-container" className="create-media__form">
+        <form id="media-url-container" className="create-media__form" onSubmit={this.handleSubmit.bind(this)}>
           <button className="create-media__button create-media__button--new">+</button>
-          <TextField hintText="Paste a Twitter, Instagram, Facebook or YouTube link" fullWidth={true} name="url" id="create-media-url" className='create-media__input' />
+          <TextField hintText="Paste a Twitter, Instagram, Facebook or YouTube link" fullWidth={true} name="url" id="create-media-input" className='create-media__input' ref={(input) => this.mediaInput = input} />
           <div className="create-media__buttons">
             <FlatButton id="create-media-preview" secondary={true} onClick={this.handlePreview.bind(this)} label="Preview" className='create-media__button create-media__button--preview' />
             <FlatButton id="create-media-submit" primary={true} onClick={this.handleSubmit.bind(this)} label="Post" className='create-media__button create-media__button--submit' />
           </div>
-        </div>
+        </form>
       </div>
     );
   }
