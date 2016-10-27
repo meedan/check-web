@@ -55,6 +55,10 @@ class MediaComponent extends Component {
   render() {
     const media = this.props.media;
 
+    if (this.props.relay.variables.contextId === null) {
+      return null;
+    }
+
     return (
       <div className="media" data-id={media.dbid}>
         <article className='media__contents'>
