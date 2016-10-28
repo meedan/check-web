@@ -127,7 +127,21 @@ const ProjectContainer = Relay.createContainer(ProjectComponent, {
               domain,
               last_status(context_id: $contextId),
               permissions,
-              verification_statuses
+              verification_statuses,
+              user(context_id: $contextId), {
+                name,
+                source {
+                  dbid
+                }
+              }
+              tags(first: 10000, context_id: $contextId) {
+                edges {
+                  node {
+                    tag,
+                    id
+                  }
+                }
+              }
             }
           }
         }

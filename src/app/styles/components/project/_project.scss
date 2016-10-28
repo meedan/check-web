@@ -96,9 +96,15 @@
   }
 }
 
-// hack
+// hacks
 
 .project {
+  .media-status {
+    &, &--editable { 
+      cursor: auto; 
+      pointer-events: none;
+    }
+  }
   .media-status__menu {
     display: none; // TODO: refactor media card vs. detail
   }

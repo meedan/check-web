@@ -5,6 +5,7 @@
   @include media-status-border-colors;
   @include media-status-bg-colors;
   box-shadow: $layout-box-shadow;
+  margin-bottom: 14px;
 }
 
 .media-detail__header {
