@@ -1,0 +1,19 @@
+.default-button {
+  @include button-standard;
+
+  &--xsmall {
+    @include button-xsmall; height: 24px; // TODO: resolve
+  }
+
+  &--small {
+    @include button-small;
+  }
+
+  &--medium {
+    @include button-medium;
+  }
+
+  &--primary {
+    @include button-green;
+  }
+}

@@ -34,6 +34,7 @@ $media-max-width: $layout-default-max-width;
 
 @import 'media/create-media';
 @import 'media/media';
+@import 'media/media-actions';
 @import 'media/media-card';
 @import 'media/media-detail';
 @import 'media/media-header';
@@ -44,3 +45,4 @@ $media-max-width: $layout-default-max-width;
 @import 'media/medias-and-annotations';
 @import 'media/pender-card';
 @import 'media/quote-media-card';
+@import 'media/social-media-card';
