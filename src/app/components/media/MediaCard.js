@@ -12,7 +12,6 @@ class MediaCard extends Component {
     const that = this;
     const props = that.props;
     const { media, annotated, annotatedType } = props;
-    media.created_at = new Date(parseInt(media.published) * 1000);
     const data = JSON.parse(media.jsondata);
 
     let linkUrl = '#';

@@ -1,4 +1,5 @@
 import lodashTruncate from 'lodash.truncate';
+import numerous from 'numerous';
 
 const MediaUtil = {
   url(media, data) {
@@ -128,8 +129,13 @@ const MediaUtil = {
     return lodashTruncate(text, {length: 50, separator: /,? +/, ellipsis: '…'});
   },
 
+  // Return a text fragment "X notes" with proper pluralization.
   notesCount(media, data) {
-    return media.annotations_count; // TODO: filter to visible notes
+    const word = numerous.pluralize('en', media.annotations_count, {
+      one: 'note',
+      other: 'notes'
+    });
+    return "" + media.annotations_count + " " + word;
   },
 
   createdAt(media) { // check media
