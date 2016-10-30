@@ -14,6 +14,7 @@ import JoinTeam from '../components/team/JoinTeam.js';
 import Project from '../components/project/Project.js';
 import ProjectHeader from '../components/project/ProjectHeader';
 import Teams from '../components/team/Teams.js';
+import Search from '../components/Search.js';
 import config from 'config';
 
 export default class Root extends Component {
@@ -65,6 +66,7 @@ export default class Root extends Component {
             <Route path="teams/new" component={CreateTeam} fullscreen={true} />
             <Route path="teams" component={Teams} fullscreen={true} />
             <Route path="project/:projectId" component={Project} />
+            <Route path="search(/:query)" component={Search} />
             <Route path="forbidden" component={AccessDenied} public={true} />
             <Route path="*" component={NotFound} public={true} />
           </Route>
