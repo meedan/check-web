@@ -1712,7 +1712,16 @@
               "name": "annotations_count",
               "description": null,
               "args": [
-
+                {
+                  "name": "context_id",
+                  "description": null,
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                }
               ],
               "type": {
                 "kind": "SCALAR",

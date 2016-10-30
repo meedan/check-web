@@ -43,7 +43,8 @@ class MediaDetail extends Component {
   render() {
     const media = this.props.media;
     const data = JSON.parse(media.jsondata);
-    media.created_at = util.createdAt(media);
+    const createdAt = util.createdAt(media);
+    const annotationsCount = util.notesCount(media, data);
 
     const byUser = (media.user && media.user.source && media.user.source.dbid && media.user.name !== 'Pender') ?
       (<span>by <Link to={`/source/${media.user.source.dbid}`}>{media.user.name}</Link></span>) : '';
@@ -78,10 +79,10 @@ class MediaDetail extends Component {
         </div>
 
         <p className='media-detail__check-metadata'>
-          <span className='media-detail__check-added-by'>Added {byUser}</span> <span className='media-detail__check-added-at'>{media.created_at ?
-            <Link to={window.location.href}><TimeAgo date={media.created_at} live={false} /></Link>
+          <span className='media-detail__check-added-by'>Added {byUser}</span> <span className='media-detail__check-added-at'>{createdAt ?
+            <Link to={window.location.href}><TimeAgo date={createdAt} live={false} /></Link>
             : null
-          }</span> <span className='media-detail__check-notes-count'>{media.annotations_count} notes</span>
+          }</span> <span className='media-detail__check-notes-count'>{annotationsCount}</span>
         </p>
 
         <MediaTags media={media} tags={media.tags.edges} isEditing={this.state.isEditing} />

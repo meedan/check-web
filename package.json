@@ -74,6 +74,7 @@
     "marked": "^0.3.5",
     "material-ui": "^0.14.4",
     "node-sass": "^3.4.2",
+    "numerous": "^1.0.2",
     "postcss-cli": "^2.3.2",
     "pusher-js": "^3.2.1",
     "raw-loader": "^0.5.1",
