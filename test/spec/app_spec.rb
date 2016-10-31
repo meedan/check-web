@@ -424,7 +424,19 @@ describe 'app' do
       @driver.navigate.to team_url('project/' + get_project + '/media/' + $media_id)
       sleep 1
 
+      # Validate assumption that tag does not exist
+      get_element('.media-actions').click
+      get_element('.media-actions__menu-item').click
+      tag = @driver.find_elements(:css, '.ReactTags__tag span').select{ |s| s.text == 'bla' }
+      expect(tag.size == 0).to be(true)
+
       # Add tag from tags list
+      fill_field('.ReactTags__tagInput input', 'bla')
+      @driver.action.send_keys(:enter).perform
+      tag = get_element('.ReactTags__tag span')
+      expect(tag.text == 'bla').to be(true)
+
+      # Try to add duplicate
       fill_field('.ReactTags__tagInput input', 'bla')
       @driver.action.send_keys(:enter).perform
       sleep 5
@@ -440,7 +452,13 @@ describe 'app' do
       @driver.navigate.to team_url('project/' + get_project + '/media/' + $media_id)
       sleep 1
 
-      # Add tag from tags list
+      # Validate assumption that tag exists
+      get_element('.media-actions').click
+      get_element('.media-actions__menu-item').click
+      tag = @driver.find_elements(:css, '.ReactTags__tag span').select{ |s| s.text == 'bla' }
+      expect(tag.size == 1).to be(true)
+
+      # Try to add duplicate from command line
       fill_field('.cmd-input input', '/tag bla')
       @driver.action.send_keys(:enter).perform
       sleep 5
@@ -482,6 +500,8 @@ describe 'app' do
       expect(@driver.page_source.include?('Tagged #selenium')).to be(false)
 
       # Add a tag from tags list
+      get_element('.media-actions').click
+      get_element('.media-actions__menu-item').click
       fill_field('.ReactTags__tagInput input', 'selenium')
       @driver.action.send_keys(:enter).perform
       sleep 5
@@ -494,6 +514,8 @@ describe 'app' do
       # Reload the page and verify that tags are still there
       @driver.navigate.refresh
       sleep 1
+      get_element('.media-actions').click
+      get_element('.media-actions__menu-item').click
       tag = get_element('.ReactTags__tag span')
       expect(tag.text == 'selenium').to be(true)
       expect(@driver.page_source.include?('Tagged #selenium')).to be(true)
@@ -513,14 +535,14 @@ describe 'app' do
       sleep 5
 
       # Verify that tag was added to tags list and annotations list
-      tag = get_element('.ReactTags__tag span')
+      tag = get_element('.media-tags__tag')
       expect(tag.text == 'command').to be(true)
       expect(@driver.page_source.include?('Tagged #command')).to be(true)
 
       # Reload the page and verify that tags are still there
       @driver.navigate.refresh
       sleep 1
-      tag = get_element('.ReactTags__tag span')
+      tag = get_element('.media-tags__tag')
       expect(tag.text == 'command').to be(true)
       expect(@driver.page_source.include?('Tagged #command')).to be(true)
     end
@@ -794,6 +816,10 @@ describe 'app' do
     end
 
     it "should linkify URLs on comments" do
+      skip("Needs to be implemented")
+    end
+
+    it "should add and remove suggested tags" do
       skip("Needs to be implemented")
     end
   end

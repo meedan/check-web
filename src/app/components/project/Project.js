@@ -62,6 +62,10 @@ class ProjectComponent extends Component {
     const project = this.props.project;
     var that = this;
 
+    if (this.props.relay.variables.contextId === null) {
+      return null;
+    }
+
     return (
       <div className="project">
 

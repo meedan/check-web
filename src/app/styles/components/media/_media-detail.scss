@@ -7,6 +7,11 @@
   box-shadow: $layout-box-shadow;
 }
 
+.media-detail__header {
+  display: flex;
+  justify-content: space-between;
+}
+
 .media-detail__status {
   display: inline-block;
   margin-bottom: 4px;
@@ -24,7 +29,6 @@
 
 .media-detail__check-metadata {
   margin-top: 11px;
-  display: inline-block;
   @include media-metadata;
 }
 

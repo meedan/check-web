@@ -2,13 +2,38 @@ import React, { Component, PropTypes } from 'react';
 import FontAwesome from 'react-fontawesome';
 import TimeAgo from 'react-timeago';
 import { Link } from 'react-router';
-import PenderCard from '../PenderCard';
 import config from 'config';
 import MediaStatus from './MediaStatus';
 import MediaTags from './MediaTags';
 import QuoteMediaCard from './QuoteMediaCard';
+import SocialMediaCard from './SocialMediaCard';
+import MediaActions from './MediaActions';
+import util from './MediaUtil';
+import Tags from '../source/Tags';
+import DefaultButton from '../inputs/DefaultButton';
 
 class MediaDetail extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      isEditing: false
+    }
+  }
+
+  handleEdit() {
+    this.setState({isEditing: true});
+  }
+
+  handleSave() {
+    // TODO: mutation
+    this.setState({isEditing: false});
+  }
+
+  handleCancel() {
+    this.setState({isEditing: false});
+  }
+
   statusToClass(baseClass, status) {
     return status.length ?
       [baseClass, `${baseClass}--${status.toLowerCase().replace(/[ _]/g, '-')}`].join(' ') :
@@ -17,14 +42,9 @@ class MediaDetail extends Component {
 
   render() {
     const media = this.props.media;
-    media.created_at = new Date(parseInt(media.published) * 1000);
     const data = JSON.parse(media.jsondata);
-    const prefix = '/source/';
-
-    const hide = {
-      title: { twitter: true, instagram: true },
-      description: { twitter: true, oembed: true, instagram: true }
-    };
+    const createdAt = util.createdAt(media);
+    const annotationsCount = util.notesCount(media, data);
 
     const byUser = (media.user && media.user.source && media.user.source.dbid && media.user.name !== 'Pender') ?
       (<span>by <Link to={`/source/${media.user.source.dbid}`}>{media.user.name}</Link></span>) : '';
@@ -33,24 +53,39 @@ class MediaDetail extends Component {
       if (data && data.quote && data.quote.length) {
         return <QuoteMediaCard quoteText={data.quote} attributionName={null} attributionUrl={null}/>;
       }
-      return <PenderCard url={media.url} penderUrl={config.penderUrl}/>;
+      if (media.url) {
+        return <SocialMediaCard media={media} data={data} />
+      }
+      return null; // TODO: fallback
     }(media, data);
 
     return (
       <div className={this.statusToClass('media-detail', media.last_status)}>
-        <div className='media-detail__status'><MediaStatus media={media} /></div>
+        <div className='media-detail__header'>
+          <div className='media-detail__status'><MediaStatus media={media} /></div>
+
+          {this.state.isEditing ? (
+            <span className='media-detail__editing-buttons'>
+              {/*<DefaultButton onClick={this.handleCancel.bind(this)} className='media-detail__cancel-edits' size='xsmall'>Cancel</DefaultButton>*/}
+              <DefaultButton onClick={this.handleSave.bind(this)} className='media-detail__save-edits' size='xsmall' style='primary'>Done</DefaultButton>
+            </span>
+            ) :
+            <MediaActions media={media} handleEdit={this.handleEdit.bind(this)} />
+          }
+        </div>
+
         <div className={this.statusToClass('media-detail__media', media.last_status)}>
           {embedCard}
         </div>
+
         <p className='media-detail__check-metadata'>
-          <span className='media-detail__check-added-by'>Added {byUser}</span> <span className='media-detail__check-added-at'>{media.created_at ?
-            <Link to={window.location.href}><TimeAgo date={media.created_at} live={false} /></Link>
+          <span className='media-detail__check-added-by'>Added {byUser}</span> <span className='media-detail__check-added-at'>{createdAt ?
+            <Link to={window.location.href}><TimeAgo date={createdAt} live={false} /></Link>
             : null
-          }</span> <span className='media-detail__check-notes-count'>{media.annotations_count} notes</span>
+          }</span> <span className='media-detail__check-notes-count'>{annotationsCount}</span>
         </p>
-        <MediaTags tags={media.tags.edges} />
-        {!data || hide.title[data.provider] ? null : (<h2 className="media-detail__title">{data.title}</h2>)}
-        {!data || hide.description[data.provider] ? null : (<p className="media-detail__description">{data.description}</p>)}
+
+        <MediaTags media={media} tags={media.tags.edges} isEditing={this.state.isEditing} />
       </div>
     );
   }
