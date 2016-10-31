@@ -11,23 +11,12 @@ import Can from '../Can';
 import config from 'config';
 
 class ProjectComponent extends Component {
-  redirect() {
-    var path = window.location.protocol + '//' + 
-               Checkdesk.context.team.subdomain + '.' + 
-               config.selfHost + 
-               '/project/' + 
-               Checkdesk.context.project.dbid;
-    window.location.href = path;
-  }
-
   setContextProject() {
     Checkdesk.context.project = this.props.project;
     if (!Checkdesk.context.team || Checkdesk.context.team.subdomain != this.props.project.team.subdomain) {
       Checkdesk.context.team = this.props.project.team;
-      // this.redirect();
       Checkdesk.history.push('/404');
     }
-    this.props.relay.setVariables({ contextId: Checkdesk.context.project.dbid });
   }
 
   subscribe() {
@@ -50,21 +39,12 @@ class ProjectComponent extends Component {
   }
 
   componentDidMount() {
-    this.setContextProject();
     this.subscribe();
-  }
-
-  componentDidUpdate() {
-    this.setContextProject();
   }
 
   render() {
     const project = this.props.project;
     var that = this;
-
-    if (this.props.relay.variables.contextId === null) {
-      return null;
-    }
 
     return (
       <div className="project">
@@ -94,7 +74,7 @@ const ProjectContainer = Relay.createContainer(ProjectComponent, {
     contextId: null
   },
   fragments: {
-    project: () => Relay.QL`
+    project: ({Component, contextId}) => Relay.QL`
       fragment on Project {
         id,
         dbid,
@@ -153,7 +133,8 @@ const ProjectContainer = Relay.createContainer(ProjectComponent, {
 
 class Project extends Component {
   render() {
-    var route = new ProjectRoute({ projectId: this.props.params.projectId });
+    const projectId = this.props.params.projectId;
+    var route = new ProjectRoute({ contextId: parseInt(projectId) });
     return (<Relay.RootContainer Component={ProjectContainer} route={route} />);
   }
 }
