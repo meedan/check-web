@@ -2,21 +2,23 @@ FROM meedan/ruby
 MAINTAINER Meedan <sysops@meedan.com>
 
 # install dependencies
-RUN apt-get update -qq && apt-get install -y vim libpq-dev nodejs graphviz inkscape wget imagemagick lsof --no-install-recommends && rm -rf /var/lib/apt/lists/*
-RUN curl -o /usr/local/bin/gh-md-toc https://raw.githubusercontent.com/ekalinin/github-markdown-toc/master/gh-md-toc \
-  && chmod +x /usr/local/bin/gh-md-toc
-RUN gpg --keyserver ha.pool.sks-keyservers.net --recv-keys 6380DC428747F6C393FEACA59A84159D7001A4E5 \
-  && curl -o /usr/local/bin/tini -fSL "https://github.com/krallin/tini/releases/download/v0.9.0/tini" \
-  && curl -o /usr/local/bin/tini.asc -fSL "https://github.com/krallin/tini/releases/download/v0.9.0/tini.asc" \
-  && gpg --verify /usr/local/bin/tini.asc \
-  && rm /usr/local/bin/tini.asc \
-  && chmod +x /usr/local/bin/tini
+# TODO are these really dependecies for meedan/check-web?  these seem like vestiges of meedan/check-api
 
-# install our app
+
+RUN apt-get update -qq && apt-get install -y libpq-dev imagemagick && rm -rf /var/lib/apt/lists/*
+
+# node modules
 COPY package.json /app/package.json
 RUN cd /app && npm install
+
+# TODO tempting to have another Dockerfile for testing
+# this Dockerfile becomes FROM meedan/nodejs and leave the tests in a FROM meedan/ruby based image
+
+# ruby gems
 COPY test/Gemfile test/Gemfile.lock /app/test/
 RUN cd /app/test && gem install bundler && bundle install --jobs 20 --retry 5
+
+# install code
 WORKDIR /app
 COPY . /app
 RUN npm run build
@@ -24,4 +26,5 @@ RUN npm run build
 # startup
 EXPOSE 3333
 ENTRYPOINT ["tini", "--"]
-CMD ["npm", "run", "publish"]
+# CMD ["npm", "run", "publish"]
+CMD ["node", "./scripts/server.js"]
