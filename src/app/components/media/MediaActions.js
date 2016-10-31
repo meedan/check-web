@@ -23,7 +23,7 @@ class MediaActions extends Component {
     const { media, handleEdit } = this.props;
     const menuItems = [];
 
-    if (can(media.permissions, 'update Media')) {
+    if (can(media.permissions, 'create Tag')) {
       menuItems.push(<li className='media-actions__menu-item' onClick={handleEdit}>Edit...</li>);
     }
 
