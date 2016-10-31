@@ -92,7 +92,7 @@ class CreateMedia extends Component {
 
         <form id="media-url-container" className="create-media__form" onSubmit={this.handleSubmit.bind(this)}>
           <button className="create-media__button create-media__button--new">+</button>
-          <TextField hintText="Paste a Twitter, Instagram, Facebook or YouTube link" fullWidth={true} name="url" id="create-media-input" className='create-media__input' ref={(input) => this.mediaInput = input} />
+          <TextField hintText="Paste a link or start typing to add a quote." fullWidth={true} name="url" id="create-media-input" className='create-media__input' ref={(input) => this.mediaInput = input} />
           <div className="create-media__buttons">
             <FlatButton id="create-media-preview" secondary={true} onClick={this.handlePreview.bind(this)} label="Preview" className='create-media__button create-media__button--preview' />
             <FlatButton id="create-media-submit" primary={true} onClick={this.handleSubmit.bind(this)} label="Post" className='create-media__button create-media__button--submit' />

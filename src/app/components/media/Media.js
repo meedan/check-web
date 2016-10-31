@@ -12,16 +12,16 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
       fragment on Media {
         id,
         dbid,
-        published,
+        published(context_id: $contextId),
         url,
         jsondata(context_id: $contextId),
         last_status(context_id: $contextId),
-        annotations_count,
+        annotations_count(context_id: $contextId),
         domain,
         permissions,
         pusher_channel,
         verification_statuses,
-        user {
+        user(context_id: $contextId) {
           name,
           source {
             dbid
