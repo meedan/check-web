@@ -51,17 +51,16 @@ class MediaDetail extends Component {
       (<span>by <Link to={`/source/${media.user.source.dbid}`}>{media.user.name}</Link></span>) : '';
 
     const embedCard = (media, data) => {
-      // if Media page:
-      return <PenderCard url={media.url} penderUrl={config.penderUrl} />
-
-      // TODO: if Project page:
-      // if (data && data.quote && data.quote.length) {
-      //   return <QuoteMediaCard quoteText={data.quote} attributionName={null} attributionUrl={null}/>;
-      // }
-      // if (media.url) {
-      //   return <SocialMediaCard media={media} data={data} />
-      // }
-      // return null; // TODO: fallback
+      if (data && data.quote && data.quote.length) {
+        return <QuoteMediaCard quoteText={data.quote} attributionName={null} attributionUrl={null}/>;
+      }
+      if (media.url) {
+        // if Media page:
+        return <PenderCard url={media.url} penderUrl={config.penderUrl} />
+        // TODO: if Project page:
+        // return <SocialMediaCard media={media} data={data} />
+      }
+      return null; // TODO: fallback
     }(media, data);
 
     return (
