@@ -10,6 +10,8 @@ var express = require('express'),
     serveStatic = require('serve-static'),
     app = express();
 
+var port = process.env.SERVER_PORT || 8000;
+
 // CORS
 app.use(function(req, res, next) {
 	  res.header("Access-Control-Allow-Origin", "*");
@@ -25,4 +27,5 @@ app.use(serveStatic('build/web', { 'index': ['index.html'] }))
 app.use(function(req, res, next) {
   res.sendFile(process.cwd() + '/build/web/index.html');
 });
-app.listen(process.env.SERVER_PORT || 8000)
+console.log("starting server on :" + port);
+app.listen(port);
