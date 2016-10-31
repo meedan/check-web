@@ -11,6 +11,7 @@ import MediaActions from './MediaActions';
 import util from './MediaUtil';
 import Tags from '../source/Tags';
 import DefaultButton from '../inputs/DefaultButton';
+import PenderCard from '../PenderCard';
 
 class MediaDetail extends Component {
   constructor(props) {
@@ -50,13 +51,17 @@ class MediaDetail extends Component {
       (<span>by <Link to={`/source/${media.user.source.dbid}`}>{media.user.name}</Link></span>) : '';
 
     const embedCard = (media, data) => {
-      if (data && data.quote && data.quote.length) {
-        return <QuoteMediaCard quoteText={data.quote} attributionName={null} attributionUrl={null}/>;
-      }
-      if (media.url) {
-        return <SocialMediaCard media={media} data={data} />
-      }
-      return null; // TODO: fallback
+      // if Media page:
+      return <PenderCard url={media.url} penderUrl={config.penderUrl} />
+
+      // TODO: if Project page:
+      // if (data && data.quote && data.quote.length) {
+      //   return <QuoteMediaCard quoteText={data.quote} attributionName={null} attributionUrl={null}/>;
+      // }
+      // if (media.url) {
+      //   return <SocialMediaCard media={media} data={data} />
+      // }
+      // return null; // TODO: fallback
     }(media, data);
 
     return (
