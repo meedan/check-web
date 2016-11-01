@@ -123,7 +123,7 @@ const ProjectContainer = Relay.createContainer(ProjectComponent, {
               url,
               published,
               jsondata(context_id: $contextId),
-              annotations_count,
+              annotations_count(context_id: $contextId),
               domain,
               last_status(context_id: $contextId),
               permissions,

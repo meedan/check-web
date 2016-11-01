@@ -23,6 +23,10 @@ class MediaHeaderComponent extends Component {
     const data = JSON.parse(media.jsondata);
     const title = util.title(media, data);
 
+    if (this.props.relay.variables.contextId === null) {
+      return null;
+    }
+
     return (
       <div className='media-header'>
         <div className='media-header__copy'>
@@ -47,7 +51,7 @@ const MediaHeaderContainer = Relay.createContainer(MediaHeaderComponent, {
         url,
         jsondata(context_id: $contextId),
         last_status(context_id: $contextId),
-        annotations_count,
+        annotations_count(context_id: $contextId),
         verification_statuses,
         domain,
         user {
