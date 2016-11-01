@@ -39,7 +39,12 @@ class ProjectComponent extends Component {
   }
 
   componentDidMount() {
+    this.setContextProject();
     this.subscribe();
+  }
+
+  componentDidUpdate() {
+    this.setContextProject();
   }
 
   render() {
