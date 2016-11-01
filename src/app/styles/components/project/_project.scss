@@ -23,3 +23,11 @@
 .create-project {
   display: inline;
 }
+
+// hack
+
+.project {
+  .media-status__menu {
+    display: none; // TODO: refactor media card vs. detail
+  }
+}
