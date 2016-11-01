@@ -31,7 +31,7 @@ class CreateMediaMutation extends Relay.Mutation {
         connectionName: 'medias',
         edgeName: 'mediaEdge',
         rangeBehaviors: {
-          '': 'append'
+          '': 'prepend'
         }
       },
       {
