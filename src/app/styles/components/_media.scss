@@ -1,5 +1,5 @@
 $media-card-padding: 8px 14px 14px 14px;
-$media-max-width: $layout-default-max-width;
+$media-max-width: $layout-column-width-narrow;
 
 @mixin media-card {
   border: $layout-border;

@@ -18,13 +18,12 @@
 .team-sidebar__sources-heading {
   @include app-kicker;
   margin: 0;
-  padding: 30px 25px 9px 25px;
+  padding: 30px 25px 9px 0;
   // border-right: $layout-border;
 }
 
 .team-sidebar__projects-list,
 .team-sidebar__sources-list {
-  padding-left: 12px;
   & > :last-child {
     padding-bottom: 45px;
   }
@@ -35,7 +34,7 @@
 .team-sidebar__source,
 .team-sidebar__new-source, {
   font-size: 15px;
-  padding: 0.4em 13px;
+  padding: 0.4em 13px 0.4em 0;
 }
 
 .team-sidebar__project {
