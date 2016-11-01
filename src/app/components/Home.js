@@ -157,9 +157,9 @@ class Home extends Component {
         <div className='home'>
           <span className='home__disclaimer'>Beta</span>
           <Header {...this.props} />
-          <main className='home__content'>
+          <main className='home__main'>
             <div className='home__global-message global-message'><Message message={state.app.message} /></div>
-            <div className='home__main'>{children}</div>
+            <div className='home__content'>{children}</div>
           </main>
           <FooterRelay {...this.props} />
         </div>
