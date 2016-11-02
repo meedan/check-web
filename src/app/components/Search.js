@@ -3,10 +3,12 @@ import Relay from 'react-relay';
 import TextField from 'material-ui/lib/text-field';
 import FlatButton from 'material-ui/lib/flat-button';
 import SearchRoute from '../relay/SearchRoute';
+import TeamRoute from '../relay/TeamRoute';
 import MediaCard from './media/MediaCard';
 import { bemClass } from '../helpers';
+import teamFragment from '../relay/teamFragment';
 
-class SearchComponent extends Component {
+class SearchQueryComponent extends Component {
   constructor(props) {
     super(props);
 
@@ -70,16 +72,15 @@ class SearchComponent extends Component {
   }
 
   render() {
-    const medias = this.props.search ? this.props.search.medias.edges : [];
-    const mediaStatuses = [ // TODO: get team-specific statuses
-      {code: 'unstarted', label: 'Unstarted'},
-      {code: 'verified', label: 'Verified'},
-      {code: 'in_progress', label: 'In Progress'},
-      {code: 'false', label: 'False'}
-    ];
+    var mediaStatuses;
+    try {
+      mediaStatuses = JSON.parse(this.props.team.media_verification_statuses).statuses;
+    } catch (e) {
+      mediaStatuses = [];
+    }
 
     return (
-      <div className="search">
+      <div className="search__query">
         <form id="search-form" className="search__form" onSubmit={this.handleSubmit.bind(this)}>
           <input placeholder="Search" name="search-input" id="search-input" className="search__input" defaultValue={this.state.query.keyword || ''}/>
         </form>
@@ -90,37 +91,48 @@ class SearchComponent extends Component {
             <h4>Status</h4>
             {/* chicklet markup/logic from MediaTags. TODO: fix classnames */}
             <ul className="/ media-tags__suggestions-list // electionland_categories">
-              {mediaStatuses.map((status) => {
-                return <li onClick={this.handleStatusClick.bind(this, status.code)} className={bemClass('media-tags__suggestion', this.statusIsSelected(status.code), '--selected')}>{status.label}</li>;
+              {mediaStatuses.map((status) => { // TODO: set and use styles in `status.style`
+                return <li title={status.description} onClick={this.handleStatusClick.bind(this, status.id)} className={bemClass('media-tags__suggestion', this.statusIsSelected(status.id), '--selected')}>{status.label}</li>;
               })}
             </ul>
           </div>
         </section>
-
-        <div className="search__results / results">
-          <h3 className='search__results-heading'>{medias.length} Results</h3>
-          <h4>Most recent activity first <i className="media-status__icon media-status__icon--caret fa fa-caret-down"></i></h4>
-          <ul className="search__results-list / results medias-list">
-          {medias.map(function(node) {
-            const media = node.node;
-
-            const annotated = null;
-            const annotatedType = null;
-
-            return (
-              <li className="medias__item">
-                <MediaCard media={media} annotated={annotated} annotatedType={annotatedType} />
-              </li>
-            );
-          })}
-          </ul>
-        </div>
       </div>
     );
   }
 }
 
-const SearchContainer = Relay.createContainer(SearchComponent, {
+const SearchQueryContainer = Relay.createContainer(SearchQueryComponent, {
+  fragments: {
+    team: () => teamFragment
+  }
+});
+
+class SearchResultsComponent extends Component {
+  render() {
+    const medias = this.props.search ? this.props.search.medias.edges : [];
+
+    return (
+      <div className="search__results / results">
+        <h3 className='search__results-heading'>{medias.length} Results</h3>
+        {/* <h4>Most recent activity first <i className="media-status__icon media-status__icon--caret fa fa-caret-down"></i></h4> */}
+        <ul className="search__results-list / results medias-list">
+        {medias.map(function(node) {
+          const media = node.node;
+
+          return (
+            <li className="/ medias__item">
+              <MediaCard media={media} />
+            </li>
+          );
+        })}
+        </ul>
+      </div>
+    );
+  }
+}
+
+const SearchResultsContainer = Relay.createContainer(SearchResultsComponent, {
   fragments: {
     search: () => Relay.QL`
       fragment on CheckSearch {
@@ -147,15 +159,17 @@ const SearchContainer = Relay.createContainer(SearchComponent, {
 
 class Search extends Component {
   render() {
-    const urlQuery = this.props.params.query;
-    const query = queryFromUrlQuery(urlQuery);
-    if (query) {
-      const route = new SearchRoute({ query: JSON.stringify(query) });
-      return (<Relay.RootContainer Component={SearchContainer} route={route} />);
-    }
-    else {
-      return (<SearchComponent />);
-    }
+    const query = queryFromUrlQuery(this.props.params.query);
+
+    const queryRoute = new TeamRoute({ teamId: '' });
+    const resultsRoute = new SearchRoute({ query: JSON.stringify(query) });
+
+    return (
+      <div className='search'>
+        <Relay.RootContainer Component={SearchQueryContainer} route={queryRoute} />
+        <Relay.RootContainer Component={SearchResultsContainer} route={resultsRoute} />
+      </div>
+    )
   }
 }
 
