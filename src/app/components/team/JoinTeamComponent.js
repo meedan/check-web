@@ -16,7 +16,7 @@ class JoinTeamComponent extends Component {
     e.preventDefault();
     this.setState({ isRequestSent: true });
 
-    var that = this
+    var that = this;
 
     var onFailure = (transaction) => {
       transaction.getError().json().then(function(json) {
