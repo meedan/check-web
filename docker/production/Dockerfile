@@ -51,7 +51,7 @@ RUN ./node_modules/.bin/gulp build:${PLATFORM}
 
 # config
 # RUN /opt/bin/find_and_link_config_files.sh ${DEPLOYDIR}/latest
-RUN rm ${DEPLOYDIR}/latest/build/web/js/config.js \
+RUN rm -f ${DEPLOYDIR}/latest/build/web/js/config.js \
     && ln -s ${DEPLOYDIR}/shared/config/src/app/config/config.js ${DEPLOYDIR}/latest/build/web/js/config.js
 
 WORKDIR ${DEPLOYDIR}
