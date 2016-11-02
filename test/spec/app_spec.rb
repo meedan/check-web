@@ -822,5 +822,21 @@ describe 'app' do
     it "should add and remove suggested tags" do
       skip("Needs to be implemented")
     end
+
+    it "should find all medias with an empty search" do
+      skip("Needs to be implemented")
+    end
+
+    it "should find medias when searching by keyword" do
+      skip("Needs to be implemented")
+    end
+
+    it "should find medias when searching by status" do
+      skip("Needs to be implemented")
+    end
+
+    it "should find medias when searching by tag" do
+      skip("Needs to be implemented")
+    end
   end
 end
