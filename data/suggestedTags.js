@@ -11,5 +11,6 @@ const elCategories = [
 ];
 
 export default {
-  "electionland-categories": elCategories
+  "electionland-categories": elCategories,
+  "electionland": elCategories,
 }
