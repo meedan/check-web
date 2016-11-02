@@ -7,6 +7,7 @@ import TeamRoute from '../relay/TeamRoute';
 import MediaCard from './media/MediaCard';
 import { bemClass } from '../helpers';
 import teamFragment from '../relay/teamFragment';
+import suggestedTagsData from '../../../data/suggestedTags';
 
 class SearchQueryComponent extends Component {
   constructor(props) {
@@ -45,15 +46,33 @@ class SearchQueryComponent extends Component {
     })
   }
 
+  urlQueryFromQuery(queryObject) {
+    const newQuery = JSON.parse(JSON.stringify(queryObject));
+
+    if (newQuery.tags) {
+      newQuery.tags = newQuery.tags.map((tag) => { return encodeURIComponent(tag) });
+    }
+    if (newQuery.status) {
+      newQuery.status = newQuery.status.map((status) => { return encodeURIComponent(status) });
+    }
+
+    const jsonQuery = JSON.stringify(newQuery);
+    return jsonQuery.substring(1, jsonQuery.length - 1) // strip %7D %7B for readability
+  }
+
   componentDidUpdate(prevProps, prevState) {
-    const jsonQuery = JSON.stringify(prevState.query);
-    const urlQuery = jsonQuery.substring(1, jsonQuery.length - 1) // strip %7D %7B for readability
+    const urlQuery = this.urlQueryFromQuery(prevState.query);
     Checkdesk.history.push('/search/' + urlQuery);
   }
 
   statusIsSelected(statusCode, state = this.state) {
     const selectedStatuses = state.query.status || []; // TODO: avoid ambiguous reference
     return selectedStatuses.length ? selectedStatuses.includes(statusCode) : false;
+  }
+
+  tagIsSelected(tag, state = this.state) {
+    const selectedTags = state.query.tags || [];
+    return selectedTags.length ? selectedTags.includes(tag) : false;
   }
 
   handleStatusClick(statusCode) {
@@ -71,6 +90,22 @@ class SearchQueryComponent extends Component {
     })
   }
 
+  handleTagClick(tag) {
+    const that = this;
+    this.setState((prevState, props) => {
+      const tagIsSelected = that.tagIsSelected(tag, prevState);
+      const selectedTags = prevState.query.tags || [];
+
+      if (tagIsSelected) {
+        selectedTags.splice(selectedTags.indexOf(tag), 1); // remove from array
+      }
+      else {
+        prevState.query.tags = selectedTags.concat(tag);
+      }
+      return {query: prevState.query};
+    })
+  }
+
   render() {
     var mediaStatuses;
     try {
@@ -78,6 +113,7 @@ class SearchQueryComponent extends Component {
     } catch (e) {
       mediaStatuses = [];
     }
+    const suggestedTags = suggestedTagsData[window.location.hostname.split('.')[0]] || [];
 
     return (
       <div className="search__query">
@@ -95,6 +131,16 @@ class SearchQueryComponent extends Component {
                 return <li title={status.description} onClick={this.handleStatusClick.bind(this, status.id)} className={bemClass('media-tags__suggestion', this.statusIsSelected(status.id), '--selected')}>{status.label}</li>;
               })}
             </ul>
+          </div>
+          <div>
+            {suggestedTags.length ? <h4>Electionland</h4> : null}
+            {/* chicklet markup/logic from MediaTags. TODO: fix classnames */}
+            {suggestedTags.length ? <ul className="/ media-tags__suggestions-list // electionland_categories">
+                {suggestedTags.map((tag) => {
+                  return <li title={null} onClick={this.handleTagClick.bind(this, tag)} className={bemClass('media-tags__suggestion', this.tagIsSelected(tag), '--selected')}>{tag}</li>;
+                })}
+              </ul>
+            : null}
           </div>
         </section>
       </div>
