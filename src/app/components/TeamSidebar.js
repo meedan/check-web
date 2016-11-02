@@ -106,7 +106,12 @@ class TeamSidebarComponent extends Component {
                 <FontAwesome className='team-sidebar__switch-teams-title-icon' name='random' />
                 <span>Switch Teams</span>
               </h2>
-              <SwitchTeams />
+
+              {(() => {
+                if (this.state.isSwitchTeamsActive) {
+                  return (<SwitchTeams />);
+                }
+              })()}
             </section>
           </div>
         </footer>
