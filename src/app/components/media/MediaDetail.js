@@ -55,10 +55,9 @@ class MediaDetail extends Component {
         return <QuoteMediaCard quoteText={data.quote} attributionName={null} attributionUrl={null}/>;
       }
       if (media.url) {
-        // if Media page:
-        return <PenderCard url={media.url} penderUrl={config.penderUrl} />
-        // TODO: if Project page:
-        // return <SocialMediaCard media={media} data={data} />
+        return this.props.condensed ?
+            <SocialMediaCard media={media} data={data} /> :
+            <PenderCard url={media.url} penderUrl={config.penderUrl} />;
       }
       return null; // TODO: fallback
     }(media, data);
@@ -83,10 +82,11 @@ class MediaDetail extends Component {
         </div>
 
         <p className='media-detail__check-metadata'>
-          <span className='media-detail__check-added-by'>Added {byUser}</span> <span className='media-detail__check-added-at'>{createdAt ?
+          {byUser ? <span className='media-detail__check-added-by'>Added {byUser} </span> : null}
+          {createdAt ? <span className='media-detail__check-added-at'>
             <Link to={window.location.href}><TimeAgo date={createdAt} live={false} /></Link>
-            : null
-          }</span> <span className='media-detail__check-notes-count'>{annotationsCount}</span>
+          </span> : null}
+          <span className='media-detail__check-notes-count'>{annotationsCount}</span>
         </p>
 
         <MediaTags media={media} tags={media.tags.edges} isEditing={this.state.isEditing} />

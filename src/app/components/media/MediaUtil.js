@@ -139,7 +139,7 @@ const MediaUtil = {
   },
 
   createdAt(media) { // check media
-    return new Date(parseInt(media.published) * 1000);
+    return media.published ? new Date(parseInt(media.published) * 1000) : null;
   },
 
   embedPublishedAt(media, data) { // embedded media

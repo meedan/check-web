@@ -4,7 +4,7 @@ import TextField from 'material-ui/lib/text-field';
 import FlatButton from 'material-ui/lib/flat-button';
 import SearchRoute from '../relay/SearchRoute';
 import TeamRoute from '../relay/TeamRoute';
-import MediaCard from './media/MediaCard';
+import MediaDetail from './media/MediaDetail';
 import { bemClass } from '../helpers';
 import teamFragment from '../relay/teamFragment';
 import suggestedTagsData from '../../../data/suggestedTags';
@@ -194,12 +194,11 @@ class SearchResultsComponent extends Component {
         <h3 className='search__results-heading'>{medias.length} Results</h3>
         {/* <h4>Most recent activity first <i className="media-status__icon media-status__icon--caret fa fa-caret-down"></i></h4> */}
         <ul className="search__results-list / results medias-list">
-        {medias.map(function(node) {
-          const media = node.node;
+        {medias.map(function(media) {
 
           return (
             <li className="/ medias__item">
-              <MediaCard media={media} />
+              <MediaDetail media={media.node} condensed={true}/>
             </li>
           );
         })}
@@ -225,7 +224,21 @@ const SearchResultsContainer = Relay.createContainer(SearchResultsComponent, {
               domain,
               last_status,
               permissions,
-              verification_statuses
+              verification_statuses,
+              user {
+                name,
+                source {
+                  dbid
+                }
+              }
+              tags(first: 10000) {
+                edges {
+                  node {
+                    tag,
+                    id
+                  }
+                }
+              }
             }
           }
         }

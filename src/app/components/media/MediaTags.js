@@ -92,11 +92,11 @@ class MediaTags extends Component {
               })}
             </ul>
           ) : null}
-          <ul className='media-tags__list'>
+          {remainingTags.length ? <ul className='media-tags__list'>
             {remainingTags.map((tag) => {
               return (<li className='media-tags__tag'>{tag.node.tag}</li>);
             })}
-          </ul>
+          </ul> : null}
         </div>
       );
     }
