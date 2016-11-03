@@ -112,17 +112,6 @@ describe 'app' do
       expect(status.text == 'IN PROGRESS').to be(true)
     end
 
-    it "should preview media if registered" do
-      login_with_email
-      @driver.navigate.to @config['self_url'] + '/medias/new'
-      sleep 1
-      expect(@driver.find_elements(:xpath, "//*[contains(@id, 'pender-iframe')]").empty?).to be(true)
-      fill_field('#create-media-input', @media_url)
-      press_button('#create-media-preview')
-      sleep 10
-      expect(@driver.find_elements(:xpath, "//*[contains(@id, 'pender-iframe')]").empty?).to be(false)
-    end
-
     it "should register and redirect to newly created media" do
       login_with_email
       sleep 3
@@ -327,17 +316,6 @@ describe 'app' do
       @driver.navigate.refresh
       sleep 1
       expect(@driver.page_source.include?('This is my comment')).to be(true)
-    end
-
-    it "should preview source" do
-      login_with_email
-      @driver.navigate.to team_url('sources/new')
-      sleep 1
-      expect(@driver.find_elements(:xpath, "//*[contains(@id, 'pender-iframe')]").empty?).to be(true)
-      fill_field('#create-account-url', 'https://www.facebook.com/ironmaiden/?fref=ts')
-      press_button('#create-account-preview')
-      sleep 15
-      expect(@driver.find_elements(:xpath, "//*[contains(@id, 'pender-iframe')]").empty?).to be(false)
     end
 
     it "should create source and redirect to newly created source" do
