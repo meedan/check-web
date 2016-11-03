@@ -134,6 +134,7 @@ class SearchQueryComponent extends Component {
       mediaStatuses = [];
     }
     const suggestedTags = suggestedTagsData[window.location.hostname.split('.')[0]] || [];
+    const projects = this.props.team.projects.edges;
 
     return (
       <div className="search__query">
