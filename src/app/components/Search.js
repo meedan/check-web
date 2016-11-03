@@ -66,13 +66,14 @@ class SearchQueryComponent extends Component {
   }
 
   statusIsSelected(statusCode, state = this.state) {
-    const selectedStatuses = state.query.status || []; // TODO: avoid ambiguous reference
-    return selectedStatuses.length ? selectedStatuses.includes(statusCode) : false;
+    const selectedStatuses = state.query.status || [];
+    return selectedStatuses.length && selectedStatuses.includes(statusCode);
+  }
   }
 
   tagIsSelected(tag, state = this.state) {
     const selectedTags = state.query.tags || [];
-    return selectedTags.length ? selectedTags.includes(tag) : false;
+    return selectedTags.length && selectedTags.includes(tag)
   }
 
   handleStatusClick(statusCode) {
