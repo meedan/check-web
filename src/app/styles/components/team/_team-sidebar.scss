@@ -123,10 +123,15 @@
 
 .team-sidebar__footer {
   flex: 1 0 auto;
-  position: relative;
+  // position: relative;
   // border-right: $layout-border;
-  padding-bottom: 30px;
-  margin-top: 50px;
+  padding: 8px 0 16px 0;
+  // margin-top: 32px;
+
+  background: $home-bg;
+  position: fixed;
+  bottom: 0;
+  width: $layout-sidebar-width;
 }
 
 .team-sidebar__switch-teams-button {
@@ -134,7 +139,7 @@
   font-size: 14px;
   width: 100%;
   padding: 0 18px 0 0;
-  position: absolute; bottom: 60px;
+  // position: absolute; bottom: 60px;
   color: inherit;
   // transition: color 80ms ease;
   // &:hover {
