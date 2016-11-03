@@ -1,7 +1,6 @@
 .login-menu {
   text-align: center;
   position: relative;
-  margin-top: 45px;
   padding: 45px 0 0 0;
   p {
     color: $firefly-60;
@@ -13,8 +12,7 @@
 }
 
 .login-menu__icon {
-  // might want to abstract into a header later, but not sure how much will be reused yet
-  margin-top: 10px;
+  margin-top: 50px;
   height: 36px;
 }
 
