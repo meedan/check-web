@@ -66,13 +66,18 @@ class SearchQueryComponent extends Component {
   }
 
   statusIsSelected(statusCode, state = this.state) {
-    const selectedStatuses = state.query.status || []; // TODO: avoid ambiguous reference
-    return selectedStatuses.length ? selectedStatuses.includes(statusCode) : false;
+    const selectedStatuses = state.query.status || [];
+    return selectedStatuses.length && selectedStatuses.includes(statusCode);
+  }
+
+  projectIsSelected(projectId, state = this.state) {
+    const selectedProjects = state.query.projects || [];
+    return selectedProjects.length && selectedProjects.includes(projectId);
   }
 
   tagIsSelected(tag, state = this.state) {
     const selectedTags = state.query.tags || [];
-    return selectedTags.length ? selectedTags.includes(tag) : false;
+    return selectedTags.length && selectedTags.includes(tag)
   }
 
   handleStatusClick(statusCode) {
@@ -85,6 +90,21 @@ class SearchQueryComponent extends Component {
       }
       else {
         prevState.query.status = selectedStatuses.concat(statusCode);
+      }
+      return {query: prevState.query};
+    })
+  }
+
+  handleProjectClick(projectId) {
+    this.setState((prevState, props) => {
+      const projectIsSelected = this.projectIsSelected(projectId, prevState);
+      const selectedProjects = prevState.query.projects || [];
+
+      if (projectIsSelected) {
+        selectedProjects.splice(selectedProjects.indexOf(projectId), 1);
+      }
+      else {
+        prevState.query.projects = selectedProjects.concat(projectId);
       }
       return {query: prevState.query};
     })
@@ -129,6 +149,16 @@ class SearchQueryComponent extends Component {
             <ul className="/ media-tags__suggestions-list // electionland_categories">
               {mediaStatuses.map((status) => { // TODO: set and use styles in `status.style`
                 return <li title={status.description} onClick={this.handleStatusClick.bind(this, status.id)} className={bemClass('media-tags__suggestion', this.statusIsSelected(status.id), '--selected')}>{status.label}</li>;
+              })}
+            </ul>
+          </div>
+          <div>
+            <h4>Project</h4>
+            {/* chicklet markup/logic from MediaTags. TODO: fix classnames */}
+            <ul className="/ media-tags__suggestions-list // electionland_categories">
+              {projects.map((project) => {
+                console.log(project);
+                return <li title={project.node.description} onClick={this.handleProjectClick.bind(this, project.node.dbid)} className={bemClass('media-tags__suggestion', this.projectIsSelected(project.node.dbid), '--selected')}>{project.node.title}</li>;
               })}
             </ul>
           </div>
