@@ -137,6 +137,7 @@ module AppSpecHelpers
   end
 
   def create_team
+    @driver.navigate.to @config['self_url'] + '/teams/new'
     sleep 1
     if @driver.find_elements(:css, '.create-team').size > 0
       fill_field('#team-name-container', "Team #{Time.now}")
