@@ -10,6 +10,7 @@
   "scripts": {
     "logo": "cd src/assets/images/logo && ./generate.sh && cd ..",
     "style": "node-sass src/app/styles/stylesheet.scss --output-style=compressed | postcss --use autoprefixer -o build/web/css/stylesheet.css && cp -r src/app/styles/images build/web/",
+    "style:rebuild": "npm rebuild node-sass && mkdir -p build/web/css 2>/dev/null && npm run style",
     "build": "rm -rf build/web && npm run style && npm run build:gulp",
     "build:gulp": "BABEL_ENV=production gulp build:web",
     "watch:styles": "watch 'npm run style' ./src/app/styles",
