@@ -3,6 +3,7 @@ import Relay from 'react-relay';
 import Pusher from 'pusher-js';
 import { Link } from 'react-router';
 import InfiniteScroll from 'react-infinite-scroller';
+import DocumentTitle from 'react-document-title';
 import ProjectRoute from '../../relay/ProjectRoute';
 import ProjectHeader from './ProjectHeader';
 import MediasAndAnnotations from '../MediasAndAnnotations';
@@ -61,28 +62,30 @@ class ProjectComponent extends Component {
     var that = this;
 
     return (
-      <div className="project">
+      <DocumentTitle title={project.title + " (Check)"} >
+        <div className="project">
 
-        <div className='project__team-sidebar'>{/* className={this.sidebarActiveClass('home__sidebar')} */}
-          <TeamSidebar />
-        </div>
-        <div className="project__content">
-          <Can permissions={project.permissions} permission='create Media'>
-            <CreateMedia projectComponent={that} />
-          </Can>
+          <div className='project__team-sidebar'>{/* className={this.sidebarActiveClass('home__sidebar')} */}
+            <TeamSidebar />
+          </div>
+          <div className="project__content">
+            <Can permissions={project.permissions} permission='create Media'>
+              <CreateMedia projectComponent={that} />
+            </Can>
 
-          <InfiniteScroll hasMore={true} loadMore={this.loadMore.bind(this)}>
-          
-            <MediasAndAnnotations
-              medias={project.medias.edges}
-              annotations={project.annotations.edges}
-              annotated={project}
-              annotatedType="Project"
-              types={['comment']} />
-          
-          </InfiniteScroll>
+            <InfiniteScroll hasMore={true} loadMore={this.loadMore.bind(this)}>
+
+              <MediasAndAnnotations
+                medias={project.medias.edges}
+                annotations={project.annotations.edges}
+                annotated={project}
+                annotatedType="Project"
+                types={['comment']} />
+
+            </InfiniteScroll>
+          </div>
         </div>
-      </div>
+      </DocumentTitle>
     );
   }
 }

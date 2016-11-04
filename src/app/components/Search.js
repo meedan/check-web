@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
+import DocumentTitle from 'react-document-title';
 import TextField from 'material-ui/lib/text-field';
 import FlatButton from 'material-ui/lib/flat-button';
 import SearchRoute from '../relay/SearchRoute';
@@ -126,6 +127,20 @@ class SearchQueryComponent extends Component {
     })
   }
 
+  // Create title out of query parameters
+  // To understand this code:
+  // - http://stackoverflow.com/a/10865042/209184 for `[].concat.apply`
+  // - http://stackoverflow.com/a/19888749/209184 for `filter(Boolean)`
+  title() {
+    const query = this.state.query;
+    return [].concat.apply([], [
+      query.keyword,
+      query.status,
+      query.project,
+      query.tags
+    ].filter(Boolean)).join(' ').trim() || "Search";
+  }
+
   render() {
     var mediaStatuses;
     try {
@@ -135,46 +150,49 @@ class SearchQueryComponent extends Component {
     }
     const suggestedTags = suggestedTagsData[window.location.hostname.split('.')[0]] || [];
     const projects = this.props.team.projects.edges;
+    const title = this.title();
 
     return (
-      <div className="search__query">
-        <form id="search-form" className="search__form" onSubmit={this.handleSubmit.bind(this)}>
-          <input placeholder="Search" name="search-input" id="search-input" className="search__input" defaultValue={this.state.query.keyword || ''}/>
-        </form>
+      <DocumentTitle title={title + " (Check)"}>
+        <div className="search__query">
+          <form id="search-form" className="search__form" onSubmit={this.handleSubmit.bind(this)}>
+            <input placeholder="Search" name="search-input" id="search-input" className="search__input" defaultValue={this.state.query.keyword || ''}/>
+          </form>
 
-        <section className='search__filters / filters'>
-          <h3 className="search__filters-heading">Filters</h3>
-          <div>
-            <h4>Status</h4>
-            {/* chicklet markup/logic from MediaTags. TODO: fix classnames */}
-            <ul className="/ media-tags__suggestions-list // electionland_categories">
-              {mediaStatuses.map((status) => { // TODO: set and use styles in `status.style`
-                return <li title={status.description} onClick={this.handleStatusClick.bind(this, status.id)} className={bemClass('media-tags__suggestion', this.statusIsSelected(status.id), '--selected')}>{status.label}</li>;
-              })}
-            </ul>
-          </div>
-          <div>
-            <h4>Project</h4>
-            {/* chicklet markup/logic from MediaTags. TODO: fix classnames */}
-            <ul className="/ media-tags__suggestions-list // electionland_categories">
-              {projects.map((project) => {
-                console.log(project);
-                return <li title={project.node.description} onClick={this.handleProjectClick.bind(this, project.node.dbid)} className={bemClass('media-tags__suggestion', this.projectIsSelected(project.node.dbid), '--selected')}>{project.node.title}</li>;
-              })}
-            </ul>
-          </div>
-          <div>
-            {suggestedTags.length ? <h4>Electionland</h4> : null}
-            {/* chicklet markup/logic from MediaTags. TODO: fix classnames */}
-            {suggestedTags.length ? <ul className="/ media-tags__suggestions-list // electionland_categories">
-                {suggestedTags.map((tag) => {
-                  return <li title={null} onClick={this.handleTagClick.bind(this, tag)} className={bemClass('media-tags__suggestion', this.tagIsSelected(tag), '--selected')}>{tag}</li>;
+          <section className='search__filters / filters'>
+            <h3 className="search__filters-heading">Filters</h3>
+            <div>
+              <h4>Status</h4>
+              {/* chicklet markup/logic from MediaTags. TODO: fix classnames */}
+              <ul className="/ media-tags__suggestions-list // electionland_categories">
+                {mediaStatuses.map((status) => { // TODO: set and use styles in `status.style`
+                  return <li title={status.description} onClick={this.handleStatusClick.bind(this, status.id)} className={bemClass('media-tags__suggestion', this.statusIsSelected(status.id), '--selected')}>{status.label}</li>;
                 })}
               </ul>
-            : null}
-          </div>
-        </section>
-      </div>
+            </div>
+            <div>
+              <h4>Project</h4>
+              {/* chicklet markup/logic from MediaTags. TODO: fix classnames */}
+              <ul className="/ media-tags__suggestions-list // electionland_categories">
+                {projects.map((project) => {
+                  console.log(project);
+                  return <li title={project.node.description} onClick={this.handleProjectClick.bind(this, project.node.dbid)} className={bemClass('media-tags__suggestion', this.projectIsSelected(project.node.dbid), '--selected')}>{project.node.title}</li>;
+                })}
+              </ul>
+            </div>
+            <div>
+              {suggestedTags.length ? <h4>Electionland</h4> : null}
+              {/* chicklet markup/logic from MediaTags. TODO: fix classnames */}
+              {suggestedTags.length ? <ul className="/ media-tags__suggestions-list // electionland_categories">
+                  {suggestedTags.map((tag) => {
+                    return <li title={null} onClick={this.handleTagClick.bind(this, tag)} className={bemClass('media-tags__suggestion', this.tagIsSelected(tag), '--selected')}>{tag}</li>;
+                  })}
+                </ul>
+              : null}
+            </div>
+          </section>
+        </div>
+      </DocumentTitle>
     );
   }
 }

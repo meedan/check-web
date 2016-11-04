@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import Pusher from 'pusher-js';
+import DocumentTitle from 'react-document-title';
 import MediaDetail from './MediaDetail';
+import util from './MediaUtil';
 import { Annotations, Tags } from '../source';
 import config from 'config';
 
@@ -54,21 +56,24 @@ class MediaComponent extends Component {
 
   render() {
     const media = this.props.media;
+    const data = JSON.parse(media.jsondata);
 
     if (this.props.relay.variables.contextId === null) {
       return null;
     }
 
     return (
-      <div className="media" data-id={media.dbid}>
-        <article className='media__contents'>
+      <DocumentTitle title={util.title(media, data) + " (Check)"}>
+        <div className="media" data-id={media.dbid}>
+          <article className='media__contents'>
 
-          <MediaDetail media={media} />
-          <h3 className='media__notes-heading'>Verification Timeline</h3>
-          <Annotations annotations={media.annotations.edges.reverse()} annotated={media} annotatedType="Media" />
+            <MediaDetail media={media} />
+            <h3 className='media__notes-heading'>Verification Timeline</h3>
+            <Annotations annotations={media.annotations.edges.reverse()} annotated={media} annotatedType="Media" />
 
-        </article>
-      </div>
+          </article>
+        </div>
+      </DocumentTitle>
     );
   }
 }
