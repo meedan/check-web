@@ -36,7 +36,7 @@
 
 // hacks
 
-.project {
+.project, .search {
   .media-status {
     &, &--editable {
       cursor: auto;
@@ -46,6 +46,7 @@
   .media-status__menu {
     display: none; // TODO: refactor media card vs. detail
   }
+  .media-status__icon--caret { display: none; }
 }
 
 @media all and (max-width: $layout-mobile-breakpoint) {
