@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 import Pusher from 'pusher-js';
 import { Link } from 'react-router';
+import InfiniteScroll from 'react-infinite-scroller';
 import ProjectRoute from '../../relay/ProjectRoute';
 import ProjectHeader from './ProjectHeader';
 import MediasAndAnnotations from '../MediasAndAnnotations';
@@ -9,6 +10,8 @@ import TeamSidebar from '../TeamSidebar';
 import { CreateMedia } from '../media';
 import Can from '../Can';
 import config from 'config';
+
+const pageSize = 20;
 
 class ProjectComponent extends Component {
   setContextProject() {
@@ -47,6 +50,12 @@ class ProjectComponent extends Component {
     this.setContextProject();
   }
 
+  loadMore() {
+    this.props.relay.setVariables({
+      pageSize: this.props.project.medias.edges.length + pageSize
+    });
+  }
+
   render() {
     const project = this.props.project;
     var that = this;
@@ -62,12 +71,16 @@ class ProjectComponent extends Component {
             <CreateMedia projectComponent={that} />
           </Can>
 
-          <MediasAndAnnotations
-            medias={project.medias.edges}
-            annotations={project.annotations.edges}
-            annotated={project}
-            annotatedType="Project"
-            types={['comment']} />
+          <InfiniteScroll hasMore={true} loadMore={this.loadMore.bind(this)}>
+          
+            <MediasAndAnnotations
+              medias={project.medias.edges}
+              annotations={project.annotations.edges}
+              annotated={project}
+              annotatedType="Project"
+              types={['comment']} />
+          
+          </InfiniteScroll>
         </div>
       </div>
     );
@@ -76,7 +89,8 @@ class ProjectComponent extends Component {
 
 const ProjectContainer = Relay.createContainer(ProjectComponent, {
   initialVariables: {
-    contextId: null
+    contextId: null,
+    pageSize: pageSize
   },
   fragments: {
     project: ({Component, contextId}) => Relay.QL`
@@ -115,7 +129,7 @@ const ProjectContainer = Relay.createContainer(ProjectComponent, {
             }
           }
         },
-        medias(first: 10000) {
+        medias(first: $pageSize) {
           edges {
             node {
               id,
