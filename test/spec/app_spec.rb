@@ -477,19 +477,19 @@ describe 'app' do
       sleep 1
 
       # First, verify that there isn't any tag
-      expect(@driver.page_source.include?('Tagged #selenium')).to be(false)
+      expect(@driver.page_source.include?('Tagged #tellurium')).to be(false)
 
       # Add a tag from tags list
       get_element('.media-actions').click
       get_element('.media-actions__menu-item').click
-      fill_field('.ReactTags__tagInput input', 'selenium')
+      fill_field('.ReactTags__tagInput input', 'tellurium')
       @driver.action.send_keys(:enter).perform
       sleep 5
 
       # Verify that tag was added to tags list and annotations list
       tag = get_element('.ReactTags__tag span')
-      expect(tag.text == 'selenium').to be(true)
-      expect(@driver.page_source.include?('Tagged #selenium')).to be(true)
+      expect(tag.text == 'tellurium').to be(true)
+      expect(@driver.page_source.include?('Tagged #tellurium')).to be(true)
 
       # Reload the page and verify that tags are still there
       @driver.navigate.refresh
@@ -497,8 +497,8 @@ describe 'app' do
       get_element('.media-actions').click
       get_element('.media-actions__menu-item').click
       tag = get_element('.ReactTags__tag span')
-      expect(tag.text == 'selenium').to be(true)
-      expect(@driver.page_source.include?('Tagged #selenium')).to be(true)
+      expect(tag.text == 'tellurium').to be(true)
+      expect(@driver.page_source.include?('Tagged #tellurium')).to be(true)
     end
 
     it "should tag media as a command" do
@@ -813,6 +813,10 @@ describe 'app' do
     end
 
     it "should find medias when searching by tag" do
+      skip("Needs to be implemented")
+    end
+
+    it "should edit the title of a media" do
       skip("Needs to be implemented")
     end
   end

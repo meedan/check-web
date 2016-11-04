@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import Relay from 'react-relay';
 import FontAwesome from 'react-fontawesome';
 import TimeAgo from 'react-timeago';
 import { Link } from 'react-router';
@@ -12,6 +13,7 @@ import util from './MediaUtil';
 import Tags from '../source/Tags';
 import DefaultButton from '../inputs/DefaultButton';
 import PenderCard from '../PenderCard';
+import UpdateMediaMutation from '../../relay/UpdateMediaMutation';
 
 class MediaDetail extends Component {
   constructor(props) {
@@ -26,8 +28,33 @@ class MediaDetail extends Component {
     this.setState({isEditing: true});
   }
 
-  handleSave() {
-    // TODO: mutation
+  handleSave(media, event) {
+    if (event) {
+      event.preventDefault();
+    }
+
+    const titleInput = document.querySelector(`#media-detail-title-input-${media.dbid}`);
+    const newTitle = (titleInput.value || '').trim();
+
+    const onFailure = (transaction) => {
+      const transactionError = transaction.getError();
+      transactionError.json ? transactionError.json().then(handleError) : handleError(JSON.stringify(transactionError));
+    };
+
+    const onSuccess = (response) => {
+      var rid = response.createMedia.media.dbid;
+      Checkdesk.history.push(prefix + rid);
+      this.setState({ message: null, isSubmitting: false });
+    };
+
+    Relay.Store.commitUpdate(
+      new UpdateMediaMutation({
+        information: JSON.stringify({title: newTitle}),
+        id: media.id
+      }),
+      { onSuccess, onFailure }
+    );
+
     this.setState({isEditing: false});
   }
 
@@ -75,13 +102,18 @@ class MediaDetail extends Component {
 
           {this.state.isEditing ? (
             <span className='media-detail__editing-buttons'>
-              {/*<DefaultButton onClick={this.handleCancel.bind(this)} className='media-detail__cancel-edits' size='xsmall'>Cancel</DefaultButton>*/}
-              <DefaultButton onClick={this.handleSave.bind(this)} className='media-detail__save-edits' size='xsmall' style='primary'>Done</DefaultButton>
+              <DefaultButton onClick={this.handleCancel.bind(this)} className='media-detail__cancel-edits' size='xsmall'>Cancel</DefaultButton>
+              <DefaultButton onClick={this.handleSave.bind(this, media)} className='media-detail__save-edits' size='xsmall' style='primary'>Done</DefaultButton>
             </span>
             ) :
             <MediaActions media={media} handleEdit={this.handleEdit.bind(this)} />
           }
         </div>
+
+        {this.state.isEditing ?
+          <form onSubmit={this.handleSave.bind(this, media)}><input type='text' id={`media-detail-title-input-${media.dbid}`} className='media-detail__title-input' placeholder='Title' defaultValue={util.truncatedTitle(media, data)} /></form> :
+          <h2 className="media-detail__title">{util.truncatedTitle(media, data)}</h2>
+        }
 
         <div className={this.statusToClass('media-detail__media', media.last_status)}>
           {embedCard}
