@@ -89,7 +89,7 @@ class MediaDetail extends Component {
         <p className='media-detail__check-metadata'>
           {byUser ? <span className='media-detail__check-added-by'>Added {byUser} </span> : null}
           {createdAt ? <span className='media-detail__check-added-at'>
-            <Link to={mediaUrl}><TimeAgo date={createdAt} live={false} /></Link>
+            <Link className='media-detail__check-timestamp' to={mediaUrl}><TimeAgo date={createdAt} live={false} /></Link>
           </span> : null}
           <Link to={mediaUrl} className='media-detail__check-notes-count'>{annotationsCount}</Link>
         </p>
