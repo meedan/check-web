@@ -51,9 +51,7 @@ class ProjectComponent extends Component {
   }
 
   loadMore() {
-    this.props.relay.setVariables({
-      pageSize: this.props.project.medias.edges.length + pageSize
-    });
+    this.props.relay.setVariables({ pageSize: this.props.project.medias.edges.length + pageSize });
   }
 
   render() {
@@ -71,7 +69,7 @@ class ProjectComponent extends Component {
             <CreateMedia projectComponent={that} />
           </Can>
 
-          <InfiniteScroll hasMore={true} loadMore={this.loadMore.bind(this)}>
+          <InfiniteScroll hasMore={true} loadMore={this.loadMore.bind(this)} threshold={500}>
           
             <MediasAndAnnotations
               medias={project.medias.edges}
@@ -81,6 +79,13 @@ class ProjectComponent extends Component {
               types={['comment']} />
           
           </InfiniteScroll>
+
+          {(() => {
+            if (this.props.project.medias.edges.length < this.props.project.medias_count) {
+              return (<p className="project__medias-loader">Loading...</p>);
+            }
+          })()}
+
         </div>
       </div>
     );
@@ -101,6 +106,7 @@ const ProjectContainer = Relay.createContainer(ProjectComponent, {
         description,
         pusher_channel,
         permissions,
+        medias_count,
         team {
           id,
           dbid,
