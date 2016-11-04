@@ -1,27 +1,99 @@
-.project {
-  flex: 1;
-  height: 100%;
-  width: 100%;
-  position: relative;
 
-  display: flex;
+// Project page: Small screens
+// 
+@media all and (max-width: 680px) {
+
+  // Refine padding
+  .home__content {
+    padding: 0 8px;
+  }
+
+  // Hide the sidebar
+  .project__team-sidebar {
+    display: none;
+  }
+
+  // Adjust header from desktop defaults
+  .page__project .header {
+    display: block;
+    font-size: 0.6em;
+    position: static;
+    width: 100%;
+
+    .project-header__project {
+      margin-top: 15px;
+    }
+
+    .header__team {
+      display: block;
+      width: 100%;
+    }
+
+    .team-header__clickable {
+      height: auto;
+    }
+  }
 }
 
-.project__team-sidebar {
-  flex: 0 0 $layout-sidebar-width;
-  width: $layout-sidebar-width;
-}
+// Project page: desktop
+//
+@media all and (min-width: 681px) {
 
-.project__content {
-  flex: 1;
-  padding: 15px 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-}
+  // WARNING this body class currently exists only in the prototype
+  // — 2016-10-19 CGB
+  //
+  body.page__project {
+    height: 100vh;
+    overflow-x: hidden;
+  }
 
-.create-project {
-  display: inline;
+  .project__team-sidebar {
+    flex: 0 0 $layout-sidebar-width;
+    width: $layout-sidebar-width;
+  }
+
+  .create-project {
+    display: inline;
+  }
+
+  // Ensure the project panel scrolls (separately)
+  .project {
+    display: flex;
+    flex: 1;
+    height: 100%;
+    overflow-y: auto;
+    position: relative;
+    width: 100%;
+  }
+  
+  .project__content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    justify-content: flex-start;
+    padding: 15px;
+  }
+
+  // Ensure the sidebar scrolls
+  .team-sidebar {
+    padding-bottom: 15em;
+    position: fixed;
+    width: $layout-sidebar-width;
+  }
+
+  // Ensure the team switcher stays at the bottom
+  // And has the correct size
+  .team-sidebar__switch-teams-button {
+    padding-top: 1em;
+    position: static;
+    width: $layout-sidebar-width;
+  }
+
+  .team-sidebar__footer {
+    background-color: $home-bg;
+    bottom: 0;
+    position: fixed;
+  }
 }
 
 // hack
