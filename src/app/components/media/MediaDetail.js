@@ -47,10 +47,11 @@ class MediaDetail extends Component {
     const createdAt = util.createdAt(media);
     const annotationsCount = util.notesCount(media, data);
 
-    let mediaUrl;
-    if (annotatedType === 'Project' && annotated) {
-      mediaUrl = '/project/' + annotated.dbid + '/media/' + media.dbid;
+    let projectId = media.project_id;
+    if (!projectId && annotated && annotatedType === 'Project') {
+      projectId = annotated.dbid
     }
+    const mediaUrl = projectId ? `/project/${projectId}/media/${media.dbid}` : null;
 
     const byUser = (media.user && media.user.source && media.user.source.dbid && media.user.name !== 'Pender') ?
       (<span>by {media.user.name}</span>) : '';
