@@ -554,9 +554,6 @@ describe 'app' do
       @driver.navigate.to team_url('project/' + get_project + '/media/' + $media_id)
       sleep 1
 
-      # First, verify that there isn't any status
-      expect(@driver.page_source.include?('Status')).to be(false)
-
       # Add a status as a command
       fill_field('.cmd-input input', '/status In Progress')
       @driver.action.send_keys(:enter).perform

@@ -131,26 +131,27 @@ class SearchQueryComponent extends Component {
   // To understand this code:
   // - http://stackoverflow.com/a/10865042/209184 for `[].concat.apply`
   // - http://stackoverflow.com/a/19888749/209184 for `filter(Boolean)`
-  title() {
+  title(statuses, projects) {
     const query = this.state.query;
     return [].concat.apply([], [
       query.keyword,
-      query.status,
-      query.project,
+      query.status ? query.status.map( (s) => {
+        const status = statuses.find( (so) => so.id == s );
+        return status ? status.label : '';
+      }) : [],
+      query.projects ? query.projects.map( (p) => {
+        const project = projects.find( (pr) => pr.node.dbid == p );
+        return project ? project.node.title : '';
+      }) : [],
       query.tags
     ].filter(Boolean)).join(' ').trim() || "Search";
   }
 
   render() {
-    var mediaStatuses;
-    try {
-      mediaStatuses = JSON.parse(this.props.team.media_verification_statuses).statuses;
-    } catch (e) {
-      mediaStatuses = [];
-    }
-    const suggestedTags = suggestedTagsData[window.location.hostname.split('.')[0]] || [];
+    const statuses = JSON.parse(this.props.team.media_verification_statuses).statuses;
     const projects = this.props.team.projects.edges;
-    const title = this.title();
+    const suggestedTags = suggestedTagsData[window.location.hostname.split('.')[0]] || [];
+    const title = this.title(statuses, projects);
 
     return (
       <DocumentTitle title={title + " (Check)"}>
@@ -165,7 +166,7 @@ class SearchQueryComponent extends Component {
               <h4>Status</h4>
               {/* chicklet markup/logic from MediaTags. TODO: fix classnames */}
               <ul className="/ media-tags__suggestions-list // electionland_categories">
-                {mediaStatuses.map((status) => { // TODO: set and use styles in `status.style`
+                {statuses.map((status) => { // TODO: set and use styles in `status.style`
                   return <li title={status.description} onClick={this.handleStatusClick.bind(this, status.id)} className={bemClass('media-tags__suggestion', this.statusIsSelected(status.id), '--selected')}>{status.label}</li>;
                 })}
               </ul>
@@ -175,7 +176,6 @@ class SearchQueryComponent extends Component {
               {/* chicklet markup/logic from MediaTags. TODO: fix classnames */}
               <ul className="/ media-tags__suggestions-list // electionland_categories">
                 {projects.map((project) => {
-                  console.log(project);
                   return <li title={project.node.description} onClick={this.handleProjectClick.bind(this, project.node.dbid)} className={bemClass('media-tags__suggestion', this.projectIsSelected(project.node.dbid), '--selected')}>{project.node.title}</li>;
                 })}
               </ul>
