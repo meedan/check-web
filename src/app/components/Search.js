@@ -3,6 +3,7 @@ import Relay from 'react-relay';
 import DocumentTitle from 'react-document-title';
 import TextField from 'material-ui/lib/text-field';
 import FlatButton from 'material-ui/lib/flat-button';
+import numerous from 'numerous';
 import SearchRoute from '../relay/SearchRoute';
 import TeamRoute from '../relay/TeamRoute';
 import MediaDetail from './media/MediaDetail';
@@ -149,7 +150,7 @@ class SearchQueryComponent extends Component {
 
   render() {
     const statuses = JSON.parse(this.props.team.media_verification_statuses).statuses;
-    const projects = this.props.team.projects.edges;
+    const projects = this.props.team.projects.edges.sortp((a,b) => a.node.title.localeCompare(b.node.title));
     const suggestedTags = suggestedTagsData[window.location.hostname.split('.')[0]] || [];
     const title = this.title(statuses, projects);
 
@@ -206,10 +207,14 @@ const SearchQueryContainer = Relay.createContainer(SearchQueryComponent, {
 class SearchResultsComponent extends Component {
   render() {
     const medias = this.props.search ? this.props.search.medias.edges : [];
+    const mediasCount = "" + medias.length + " " + numerous.pluralize('en', medias.length, {
+      one: 'Result',
+      other: 'Results'
+    });
 
     return (
       <div className="search__results / results">
-        <h3 className='search__results-heading'>{medias.length} Results</h3>
+        <h3 className='search__results-heading'>{mediasCount}</h3>
         {/* <h4>Most recent activity first <i className="media-status__icon media-status__icon--caret fa fa-caret-down"></i></h4> */}
         <ul className="search__results-list / results medias-list">
         {medias.map(function(media) {
