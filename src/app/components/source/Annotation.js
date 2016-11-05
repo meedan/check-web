@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 import TimeAgo from 'react-timeago';
+import Linkify from 'react-linkify';
+import MediaCard from '../media/MediaCard';
 import DeleteAnnotationMutation from '../../relay/DeleteAnnotationMutation';
 import Can from '../Can';
 
@@ -29,6 +31,17 @@ class Annotation extends Component {
     );
   }
 
+  statusIdToLabel(id) {
+    const statuses = JSON.parse(this.props.annotated.verification_statuses).statuses;
+    let label = '';
+    statuses.forEach(function(status) {
+      if (status.id === id) {
+        label = status.label;
+      }
+    });
+    return label;
+  }
+
   render() {
     const annotation = this.props.annotation;
     const permissionType = `${annotation.annotation_type.charAt(0).toUpperCase()}${annotation.annotation_type.slice(1)}`;
@@ -52,17 +65,25 @@ class Annotation extends Component {
               <span className='annotation__timestamp'><TimeAgo date={annotation.created_at} live={false} /></span>
               {annotationActions}
             </div>
-            <div className='annotation__body'>{commentText}</div>
+            <div className='annotation__body'><Linkify properties={{ target: '_blank' }}>{commentText}</Linkify></div>
+            
+            {annotation.medias.edges.map(function(media) {
+              return (
+                <div className='annotation__embedded-media'>
+                  <MediaCard media={media.node} />
+                </div>
+              );
+            })}
           </section>
         );
         break;
       case 'status':
-        const statusCode = content.status.toLowerCase().replace(' ', '-');
+        const statusCode = content.status.toLowerCase().replace(/[ _]/g, '-');
         contentTemplate = (
           <section className='annotation__content'>
             <div className='annotation__header'>
               <span>Status set to </span>
-              <span className={`annotation__status annotation__status--${statusCode}`}>{content.status}</span>
+              <span className={`annotation__status annotation__status--${statusCode}`}>{this.statusIdToLabel(content.status)}</span>
               <span> by </span>
               <span className='annotation__author-name'>{annotation.annotator.name}</span> <span className='annotation__timestamp'><TimeAgo date={annotation.created_at} live={false} /></span>
               {annotationActions}
@@ -93,16 +114,6 @@ class Annotation extends Component {
           </section>
         );
         break;
-      default:
-        content = annotation.content;
-        contentTemplate = (
-          <section className='annotation__content'>
-            <div className='annotation__header'>
-              {content}
-              {annotationActions}
-            </div>
-          </section>
-        );
     }
 
     return (

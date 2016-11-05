@@ -8,12 +8,15 @@
 }
 
 .annotation__avatar {
-  @include user-avatar(36px);
+  $width: 36px;
+  @include user-avatar($width);
+  flex: 0 0 $width;
   margin: 1px 12px 0 0;
 }
 
 .annotation__content {
   flex: 1;
+  width: 100%;
 }
 
 .annotation__header {
@@ -61,6 +64,12 @@
 
 .annotation__body {
   color: theme-gray(27%);
+}
+
+.annotation__embedded-media {
+  .media-card__title {
+    font-size: 16px;
+  }
 }
 
 // non-comments

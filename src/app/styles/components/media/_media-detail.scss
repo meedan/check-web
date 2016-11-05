@@ -1,38 +1,45 @@
-.media-detail {}
+.media-detail {
+  padding: 8px 14px 10px 14px;
+  border: $layout-border;
+  border-radius: 2px;
+  @include media-status-border-colors;
+  @include media-status-bg-colors;
+  box-shadow: $layout-box-shadow;
+  margin-bottom: 14px;
+}
+
+.media-detail__header {
+  display: flex;
+  justify-content: space-between;
+}
 
 .media-detail__status {
   display: inline-block;
-  margin-bottom: 11px;
+  margin-bottom: 4px;
 }
 
 // op
 
 .media-detail__media {
-  // &--undetermined { background: transparentize($blue-100, 0.9); }
-  // &--in-progress { background: transparentize($orange-100, 0.9); }
-  // &--verified { background: transparentize($green-100, 0.9); }
-  // &--false { background: transparentize($red-100, 0.9); }
-  // &--not-applicable { background: transparentize($gray-100, 0.9); }
   border-radius: 2px;
-
   position: relative;
+  // background: #fff;
 }
 
-.media-detail__original-metadata {
-  margin-top: 6px;
+// check
+
+.media-detail__check-metadata {
+  margin-top: 11px;
   @include media-metadata;
-
-  img {
-    display: none;
-    height: 1em;
-    margin-right: 2.5px;
-    margin-left: 3px;
-    vertical-align: -5%;
-    border-radius: 2px;
-  }
 }
 
-// editorial
+.media-detail__check-added-at {
+  margin-right: 15px;
+}
+
+.media-detail__check-notes-count {
+  margin-right: 15px;
+}
 
 .media-detail__title {
   @include media-title(24px);
@@ -45,4 +52,9 @@
   line-height: 1.35;
 
   color: theme-gray(45%);
+}
+
+.media-detail__title,
+.media-detail__description {
+  display: none; // no need to display for now; restore once check-user-editable title/desc are ready
 }

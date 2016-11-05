@@ -53,6 +53,14 @@ describe 'app' do
   # The tests themselves start here
 
   context "web" do
+    it "should login using Facebook" do
+      login_with_facebook
+      @driver.navigate.to @config['self_url'] + '/me'
+      displayed_name = get_element('h2.source-name').text.upcase
+      expected_name = @config['facebook_name'].upcase
+      expect(displayed_name == expected_name).to be(true)
+    end
+
     it "should register using e-mail" do
       register_with_email
       @driver.navigate.to @config['self_url'] + '/me'
@@ -73,21 +81,43 @@ describe 'app' do
       expect(link.text == title).to be(true)
     end
 
-    it "should preview media if registered" do
+    it "should create project media" do
       login_with_email
-      @driver.navigate.to @config['self_url'] + '/medias/new'
+      sleep 5
+
+      fill_field('#create-media-input', 'https://twitter.com/marcouza/status/771009514732650497?t=' + Time.now.to_i.to_s)
       sleep 1
-      expect(@driver.find_elements(:xpath, "//*[contains(@id, 'pender-iframe')]").empty?).to be(true)
-      fill_field('#create-media-url', @media_url)
-      press_button('#create-media-preview')
+      press_button('#create-media-submit')
       sleep 10
-      expect(@driver.find_elements(:xpath, "//*[contains(@id, 'pender-iframe')]").empty?).to be(false)
+      media_link = @driver.current_url.to_s
+
+      @driver.navigate.to @config['self_url']
+      sleep 3
+
+      expect(@driver.page_source.include?('Added')).to be(true)
+      expect(@driver.page_source.include?('User With Email')).to be(true)
+      status = get_element('.media-status__label')
+      expect(status.text == 'IN PROGRESS').to be(false)
+
+      @driver.navigate.to media_link
+      sleep 3
+      fill_field('.cmd-input input', '/status In Progress')
+      @driver.action.send_keys(:enter).perform
+      sleep 3
+
+      @driver.navigate.to @config['self_url']
+      sleep 5
+
+      expect(@driver.page_source.include?('Added')).to be(true)
+      expect(@driver.page_source.include?('User With Email')).to be(true)
+      status = get_element('.media-status__label')
+      expect(status.text == 'IN PROGRESS').to be(true)
     end
 
     it "should register and redirect to newly created media" do
       login_with_email
       sleep 3
-      fill_field('#create-media-url', @media_url)
+      fill_field('#create-media-input', @media_url)
       sleep 1
       press_button('#create-media-submit')
       sleep 20
@@ -139,14 +169,6 @@ describe 'app' do
       @driver.navigate.to @config['self_url'] + '/me'
       displayed_name = get_element('h2.source-name').text.upcase
       expected_name = @config['twitter_name'].upcase
-      expect(displayed_name == expected_name).to be(true)
-    end
-
-    it "should login using Facebook" do
-      login_with_facebook
-      @driver.navigate.to @config['self_url'] + '/me'
-      displayed_name = get_element('h2.source-name').text.upcase
-      expected_name = @config['facebook_name'].upcase
       expect(displayed_name == expected_name).to be(true)
     end
 
@@ -298,17 +320,6 @@ describe 'app' do
       expect(@driver.page_source.include?('This is my comment')).to be(true)
     end
 
-    it "should preview source" do
-      login_with_email
-      @driver.navigate.to team_url('sources/new')
-      sleep 1
-      expect(@driver.find_elements(:xpath, "//*[contains(@id, 'pender-iframe')]").empty?).to be(true)
-      fill_field('#create-account-url', 'https://www.facebook.com/ironmaiden/?fref=ts')
-      press_button('#create-account-preview')
-      sleep 15
-      expect(@driver.find_elements(:xpath, "//*[contains(@id, 'pender-iframe')]").empty?).to be(false)
-    end
-
     it "should create source and redirect to newly created source" do
       login_with_email
       @driver.navigate.to team_url('sources/new')
@@ -390,10 +401,22 @@ describe 'app' do
 
     it "should not add a duplicated tag from tags list" do
       login_with_email
-      @driver.navigate.to @config['self_url'] + '/me'
+      @driver.navigate.to team_url('project/' + get_project + '/media/' + $media_id)
       sleep 1
 
+      # Validate assumption that tag does not exist
+      get_element('.media-actions').click
+      get_element('.media-actions__menu-item').click
+      tag = @driver.find_elements(:css, '.ReactTags__tag span').select{ |s| s.text == 'bla' }
+      expect(tag.size == 0).to be(true)
+
       # Add tag from tags list
+      fill_field('.ReactTags__tagInput input', 'bla')
+      @driver.action.send_keys(:enter).perform
+      tag = get_element('.ReactTags__tag span')
+      expect(tag.text == 'bla').to be(true)
+
+      # Try to add duplicate
       fill_field('.ReactTags__tagInput input', 'bla')
       @driver.action.send_keys(:enter).perform
       sleep 5
@@ -406,10 +429,16 @@ describe 'app' do
 
     it "should not add a duplicated tag from command line" do
       login_with_email
-      @driver.navigate.to @config['self_url'] + '/me'
+      @driver.navigate.to team_url('project/' + get_project + '/media/' + $media_id)
       sleep 1
 
-      # Add tag from tags list
+      # Validate assumption that tag exists
+      get_element('.media-actions').click
+      get_element('.media-actions__menu-item').click
+      tag = @driver.find_elements(:css, '.ReactTags__tag span').select{ |s| s.text == 'bla' }
+      expect(tag.size == 1).to be(true)
+
+      # Try to add duplicate from command line
       fill_field('.cmd-input input', '/tag bla')
       @driver.action.send_keys(:enter).perform
       sleep 5
@@ -423,7 +452,7 @@ describe 'app' do
     it "should not create duplicated media if registered" do
       login_with_email
       sleep 3
-      fill_field('#create-media-url', @media_url)
+      fill_field('#create-media-input', @media_url)
       sleep 2
       press_button('#create-media-submit')
       sleep 10
@@ -433,7 +462,7 @@ describe 'app' do
     it "should not create source as media if registered" do
       login_with_email
       sleep 3
-      fill_field('#create-media-url', 'https://www.facebook.com/ironmaidenbeer/?fref=ts')
+      fill_field('#create-media-input', 'https://www.facebook.com/ironmaidenbeer/?fref=ts')
       sleep 1
       press_button('#create-media-submit')
       sleep 10
@@ -451,6 +480,8 @@ describe 'app' do
       expect(@driver.page_source.include?('Tagged #selenium')).to be(false)
 
       # Add a tag from tags list
+      get_element('.media-actions').click
+      get_element('.media-actions__menu-item').click
       fill_field('.ReactTags__tagInput input', 'selenium')
       @driver.action.send_keys(:enter).perform
       sleep 5
@@ -463,6 +494,8 @@ describe 'app' do
       # Reload the page and verify that tags are still there
       @driver.navigate.refresh
       sleep 1
+      get_element('.media-actions').click
+      get_element('.media-actions__menu-item').click
       tag = get_element('.ReactTags__tag span')
       expect(tag.text == 'selenium').to be(true)
       expect(@driver.page_source.include?('Tagged #selenium')).to be(true)
@@ -482,14 +515,14 @@ describe 'app' do
       sleep 5
 
       # Verify that tag was added to tags list and annotations list
-      tag = get_element('.ReactTags__tag span')
+      tag = get_element('.media-tags__tag')
       expect(tag.text == 'command').to be(true)
       expect(@driver.page_source.include?('Tagged #command')).to be(true)
 
       # Reload the page and verify that tags are still there
       @driver.navigate.refresh
       sleep 1
-      tag = get_element('.ReactTags__tag span')
+      tag = get_element('.media-tags__tag')
       expect(tag.text == 'command').to be(true)
       expect(@driver.page_source.include?('Tagged #command')).to be(true)
     end
@@ -619,60 +652,29 @@ describe 'app' do
     #   expect(@driver.page_source.include?('This is my comment')).to be(true)
     # end
 
-    it "should create project media" do
-      login_with_email
-      sleep 5
-
-      fill_field('#create-media-url', 'https://twitter.com/marcouza/status/771009514732650497?t=' + Time.now.to_i.to_s)
-      sleep 1
-      press_button('#create-media-submit')
-      sleep 10
-      media_link = @driver.current_url.to_s
-
-      @driver.navigate.to @config['self_url']
-      sleep 3
-
-      expect(@driver.page_source.include?('This is a test')).to be(true)
-      expect(@driver.page_source.include?('Not Applicable')).to be(false)
-
-      @driver.navigate.to media_link
-      sleep 3
-      fill_field('.cmd-input input', '/status Not Applicable')
-      @driver.action.send_keys(:enter).perform
-      sleep 3
-
-      @driver.navigate.to @config['self_url']
-      sleep 5
-
-      expect(@driver.page_source.include?('This is a test')).to be(true)
-      expect(@driver.page_source.include?('Not Applicable')).to be(true)
-    end
-
     it "should redirect to 404 page if id does not exist" do
       login_with_email
       url = @driver.current_url.to_s
-      @driver.navigate.to url.gsub(/project\/([0-9]+).*/, 'project/99999999999999')
+      @driver.navigate.to url.gsub(/project\/([0-9]+).*/, 'project/999')
       title = get_element('.main-title')
       expect(title.text == 'Not Found').to be(true)
       expect((@driver.current_url.to_s =~ /\/404$/).nil?).to be(false)
     end
 
     it "should change a media status via the dropdown menu" do
-      login_with_email
-      sleep 5
-
-      fill_field('#create-media-url', 'https://twitter.com/marcouza/status/771009514732650497?t=' + Time.now.to_i.to_s)
-      sleep 1
-      press_button('#create-media-submit')
-      sleep 10
-      media_link = @driver.current_url.to_s
+      register_with_email(true, 'sysops+' + Time.now.to_i.to_s + '@meedan.com')
+      wait = Selenium::WebDriver::Wait.new(timeout: 10)
+      wait.until { @driver.find_element(:css, '.team') }
+      create_project
+      wait.until { @driver.find_element(:css, '.project') }
+      create_media('https://twitter.com/marcouza/status/771009514732650497?t=' + Time.now.to_i.to_s)
+      wait.until { @driver.find_element(:css, '.media') }
 
       current_status = @driver.find_element(:css, '.media-status__label')
-      expect(current_status.text == 'UNDETERMINED').to be(true)
+      expect(current_status.text == 'UNSTARTED').to be(true)
 
       current_status.click
-      sleep 1
-      verified_menu_item = @driver.find_element(:css, '.media-status__menu-item--verified')
+      verified_menu_item = (wait.until { @driver.find_element(:css, '.media-status__menu-item--verified') })
       verified_menu_item.click
       sleep 3
       current_status = @driver.find_element(:css, '.media-status__label')
@@ -767,7 +769,7 @@ describe 'app' do
       @driver.find_element(:css, '.team__project-link').click
       wait.until { @driver.find_element(:css, '.project') }
       url = @driver.current_url.to_s
-      media_1_url = @driver.find_element(:css, '.media-card__clickable').attribute('href')
+      media_1_url = @driver.find_element(:css, '.media-detail__check-timestamp').attribute('href')
       expect(media_1_url.include?("/project/#{project_1_id}/media/")).to be(true)
 
       (wait.until { @driver.find_element(:css, '.team-sidebar__switch-teams-button') }).click
@@ -777,7 +779,7 @@ describe 'app' do
       @driver.find_element(:css, '.team__project-link').click
       wait.until { @driver.find_element(:css, '.project') }
       url = @driver.current_url.to_s
-      media_2_url = @driver.find_element(:css, '.media-card__clickable').attribute('href')
+      media_2_url = @driver.find_element(:css, '.media-detail__check-timestamp').attribute('href')
       expect(media_2_url.include?("project/#{project_2_id}/media/")).to be(true)
     end
 
@@ -786,6 +788,34 @@ describe 'app' do
     end
 
     it "should auto refresh project page when media is created remotely" do
+      skip("Needs to be implemented")
+    end
+
+    it "should give 404 when trying to acess a media that is not related to the project on the URL" do
+      skip("Needs to be implemented")
+    end
+
+    it "should linkify URLs on comments" do
+      skip("Needs to be implemented")
+    end
+
+    it "should add and remove suggested tags" do
+      skip("Needs to be implemented")
+    end
+
+    it "should find all medias with an empty search" do
+      skip("Needs to be implemented")
+    end
+
+    it "should find medias when searching by keyword" do
+      skip("Needs to be implemented")
+    end
+
+    it "should find medias when searching by status" do
+      skip("Needs to be implemented")
+    end
+
+    it "should find medias when searching by tag" do
       skip("Needs to be implemented")
     end
   end

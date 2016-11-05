@@ -1,4 +1,4 @@
-# meedan/checkdeskclient web
+# meedan/check-web
 
 FROM meedan/nodejs
 MAINTAINER sysops@meedan.com
@@ -11,6 +11,7 @@ MAINTAINER sysops@meedan.com
 ENV DEPLOYUSER=checkdeploy \
     DEPLOYDIR=/app \
     PLATFORM=web \
+    PRODUCT=check \
     APP=check-web \
     NODE_ENV=production
 
@@ -39,7 +40,7 @@ COPY . ${DEPLOYDIR}/new
 USER root
 RUN chown -R ${DEPLOYUSER}:www-data ${DEPLOYDIR}/new
 USER ${DEPLOYUSER}
-RUN rm -rf mv ${DEPLOYDIR}/new/node_modules \
+RUN rm -rf ${DEPLOYDIR}/new/node_modules \
     && rsync -avp ${DEPLOYDIR}/new/* ${DEPLOYDIR}/latest/ 
 
 # style
@@ -50,7 +51,8 @@ RUN ./node_modules/.bin/gulp build:${PLATFORM}
 
 # config
 # RUN /opt/bin/find_and_link_config_files.sh ${DEPLOYDIR}/latest
-RUN ln -s ${DEPLOYDIR}/shared/config/src/app/config/config.js ${DEPLOYDIR}/latest/build/web/js/config.js
+RUN rm -f ${DEPLOYDIR}/latest/build/web/js/config.js \
+    && ln -s ${DEPLOYDIR}/shared/config/src/app/config/config.js ${DEPLOYDIR}/latest/build/web/js/config.js
 
 WORKDIR ${DEPLOYDIR}
 RUN mv ./latest ./${APP}-$(date -I) && ln -s ./${APP}-$(date -I) ./current

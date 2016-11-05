@@ -10,19 +10,36 @@ var express = require('express'),
     serveStatic = require('serve-static'),
     app = express();
 
-// CORS
+var port = process.env.SERVER_PORT || 8000;
+
+// standard headers
 app.use(function(req, res, next) {
-	  res.header("Access-Control-Allow-Origin", "*");
-	  res.header("X-Check-Web", "1");
-	  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-	  next();
-	});
+   // CORS
+   res.header("Access-Control-Allow-Origin", "*");
+   res.header("X-Check-Web", "1");
+   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+
+   // cacheing
+   // s-maxage is for cloudflare
+   // https://support.cloudflare.com/hc/en-us/articles/202775670-How-Do-I-Tell-CloudFlare-What-to-Cache-
+   // cloudflare will cache for 15 minutes
+   // browser will cache for 5 minutes
+   // so the longest a user can go without getting a fresh item from this webserver is ~20 min (14:59 + 5:00)
+
+   // there is a page rule set at Cloudflare to enforce cacheing index.html which is not a CF default
+   // https://support.cloudflare.com/hc/en-us/articles/200172256
+
+   res.header("Cache-Control", "public, s-maxage=900, max-age=300");
+
+   next();
+});
 
 // static assets first
 app.use(serveStatic('build/web', { 'index': ['index.html'] }))
 
 // all other routes
 app.use(function(req, res, next) {
-  res.sendFile(process.cwd() + '/build/web/index.html');
+   res.sendFile(process.cwd() + '/build/web/index.html');
 });
-app.listen(process.env.SERVER_PORT || 8000)
+console.log("starting server on :" + port);
+app.listen(port);

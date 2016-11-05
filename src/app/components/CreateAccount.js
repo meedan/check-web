@@ -67,7 +67,6 @@ class CreateAccount extends Component {
           <h2>Source URL</h2>
           <TextField hintText="Twitter, Facebook, YouTube..." fullWidth={true} name="url" id="create-account-url" /><br />
           <FlatButton id="create-account-submit" primary={true} onClick={this.handleSubmit.bind(this)} label="Create" />
-          <FlatButton id="create-account-preview" secondary={true} onClick={this.handlePreview.bind(this)} label="Preview" />
         </div>
 
         <div id="account-preview" className="create-account-col">

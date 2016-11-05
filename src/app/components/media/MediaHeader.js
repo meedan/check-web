@@ -3,6 +3,7 @@ import Relay from 'react-relay';
 import MediaRoute from '../../relay/MediaRoute';
 import Caret from '../Caret';
 import MediaMetadataSummary from './MediaMetadataSummary';
+import util from './MediaUtil';
 
 class MediaHeaderComponent extends Component {
   setCurrentContext() {
@@ -20,7 +21,11 @@ class MediaHeaderComponent extends Component {
   render() {
     const media = this.props.media;
     const data = JSON.parse(media.jsondata);
-    const title = data.title; // TODO: revisit definition of media title
+    const title = util.title(media, data);
+
+    if (this.props.relay.variables.contextId === null) {
+      return null;
+    }
 
     return (
       <div className='media-header'>
@@ -42,11 +47,12 @@ const MediaHeaderContainer = Relay.createContainer(MediaHeaderComponent, {
       fragment on Media {
         id,
         dbid,
-        published,
+        published(context_id: $contextId),
         url,
-        jsondata,
-        last_status,
-        annotations_count,
+        jsondata(context_id: $contextId),
+        last_status(context_id: $contextId),
+        annotations_count(context_id: $contextId),
+        verification_statuses,
         domain,
         user {
           name,
@@ -75,7 +81,11 @@ const MediaHeaderContainer = Relay.createContainer(MediaHeaderComponent, {
 
 class MediaHeader extends Component {
   render() {
-    var route = new MediaRoute({ mediaId: this.props.params.mediaId });
+    var projectId = 0;
+    if (Checkdesk.context.project) {
+      projectId = Checkdesk.context.project.dbid;
+    }
+    var route = new MediaRoute({ ids: this.props.params.mediaId + ',' + projectId });
     return (<Relay.RootContainer Component={MediaHeaderContainer} route={route} />);
   }
 }

@@ -127,11 +127,13 @@ class TeamComponent extends Component {
               );
             } else {
               return (
-                <div className='team__edit-profile'>
-                  <button onClick={this.handleEntreEditTeamNameAndDescription.bind(this)} className='team__edit-button'>
-                    <FontAwesome className='team__edit-icon' name='pencil'/> Edit profile
-                  </button>
-                </div>
+                <Can permissions={team.permissions} permission="update Team">
+                  <div className='team__edit-profile'>
+                    <button onClick={this.handleEntreEditTeamNameAndDescription.bind(this)} className='team__edit-button'>
+                      <FontAwesome className='team__edit-icon' name='pencil'/> Edit profile
+                    </button>
+                  </div>
+                </Can>
               );
             }
           })()}
@@ -170,7 +172,7 @@ class TeamComponent extends Component {
               {(() => {
                 if (isEditing) {
                     return (<span><FontAwesome name='map-marker' className='team__location-icon' />
-                            <input type='text' id='team__location-container' defaultValue={contact ? contact.node.location : ''} 
+                            <input type='text' id='team__location-container' defaultValue={contact ? contact.node.location : ''}
                              className='team__location-name-input' placeholder='Location'
                              onChange={this.handleChange.bind(this, 'contact_location')} /></span>);
                 }
@@ -240,14 +242,14 @@ class TeamComponent extends Component {
           <div className='team__content-body'>
             <h3 className='team__projects-heading'>Verification Projects</h3>
             <ul className='team__projects-list'>
-              {team.projects.edges.map(p => (
+              {team.projects.edges.sortp((a,b) => a.node.title.localeCompare(b.node.title)).map(p => (
                 <li className='team__project'>
                   <Link to={'/project/' + p.node.dbid} className='team__project-link'>{p.node.title}</Link>
                 </li>
               ))}
               <Can permissions={team.permissions} permission="create Project">
                 <li className='team__new-project'>
-                  <CreateProject className='team__new-project-input' team={team} />
+                  <CreateProject className='team__new-project-input' team={team} autofocus={true} />
                 </li>
               </Can>
             </ul>

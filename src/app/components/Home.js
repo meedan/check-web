@@ -111,22 +111,23 @@ class Home extends Component {
     window.location.href = path;
   }
 
+  // When accessing Check root, redirect to a friendlier location if needed:
+  // - if no team, go to `/teams/new`
+  // - if team but no current project, go to team root
+  // - if team and current project, go to project page
   maybeRedirect(location, userData) {
-    if (location !== '/' || !userData) { return; }
+    if (location !== '/' || this.getSubdomain() || !userData) return;
 
     const userCurrentTeam = userData.current_team;
-    if (!userCurrentTeam && location !== '/teams/new') {
+    if (!userCurrentTeam) {
       return Checkdesk.history.push('/teams/new');
     }
-
-    if (!this.getSubdomain()) {
-      const project = userCurrentTeam.projects[0];
-      if (project && project.dbid) {
-        this.setContextAndRedirect(userCurrentTeam, project);
-      }
-      else {
-        this.setContextAndRedirect(userCurrentTeam, null);
-      }
+    const project = userCurrentTeam.projects[0];
+    if (project && project.dbid) {
+      this.setContextAndRedirect(userCurrentTeam, project);
+    }
+    else {
+      this.setContextAndRedirect(userCurrentTeam, null);
     }
   }
 
@@ -157,9 +158,9 @@ class Home extends Component {
         <div className='home'>
           <span className='home__disclaimer'>Beta</span>
           <Header {...this.props} />
-          <main className='home__content'>
+          <main className='home__main'>
             <div className='home__global-message global-message'><Message message={state.app.message} /></div>
-            <div className='home__main'>{children}</div>
+            <div className='home__content'>{children}</div>
           </main>
           <FooterRelay {...this.props} />
         </div>

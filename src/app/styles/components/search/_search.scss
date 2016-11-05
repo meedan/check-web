@@ -1,0 +1,80 @@
+.search {
+  // TODO: conform prototype styles to app conventions
+  & {
+    padding-top: 15px; // TODO
+  }
+
+  .search__input {
+    background: 10px 12px url("/images/search.png") #fff no-repeat;
+    border: $layout-border;
+    border-radius: 4px;
+    flex: 20;
+    height: 44px;
+    width: 100%;
+    min-width: 500px;
+    padding-left: 50px;
+    margin-top: 4px;
+  }
+
+  .search__filters {
+    padding: 32px 16px;
+    max-width: 1200px;
+    margin: 0 auto;
+    div {
+      display: flex;
+      margin-top: 2em;
+      max-height: 160px;
+      overflow-y: auto;
+      h4 {
+        flex: 1;
+        color: $firefly-80;
+        margin: 0;
+        vertical-align: top;
+        display: inline-block;
+        margin-right: 16px;
+        min-width: 80px;
+        text-align: right;
+      }
+      ul {
+        flex: 10;
+      }
+    }
+  }
+
+  .search__filters-heading {
+    color: $firefly-80;
+    margin-top: 20px;
+    text-align: center;
+  }
+
+  .search__results {
+    padding: 16px;
+
+    & > h4 {
+      text-align: center;
+      color: $firefly-30;
+      font-weight: 200;
+    }
+    ul.results {
+      max-width: $layout-column-width-narrow;
+      margin: 0 auto;
+      & > li {
+        margin-top: 8px;
+      }
+    }
+  }
+
+  .search__results-heading {
+    color: $firefly-80;
+    margin-top: 20px;
+    text-align: center;
+  }
+}
+
+// hack
+
+.search {
+  .media-status__menu {
+    display: none; // TODO: refactor media card vs. detail vs search
+  }
+}

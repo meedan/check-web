@@ -155,7 +155,7 @@ module AppSpecHelpers
     @driver.action.send_keys(:enter).perform
   end
 
-  def register_with_email(should_create_team = true)
+  def register_with_email(should_create_team = true, email = @email)
     @driver.navigate.to @config['self_url']
     sleep 1
     @driver.find_element(:xpath, "//a[@id='login-email']").click
@@ -163,7 +163,7 @@ module AppSpecHelpers
     @driver.find_element(:xpath, "//button[@id='register-or-login']").click
     sleep 1
     fill_field('.login-email__name input', 'User With Email')
-    fill_field('.login-email__email input', @email)
+    fill_field('.login-email__email input', email)
     fill_field('.login-email__password input', '12345678')
     fill_field('.login-email__password-confirmation input', '12345678')
     press_button('#submit-register-or-login')
@@ -184,7 +184,7 @@ module AppSpecHelpers
   end
 
   def create_media(url)
-    fill_field('#create-media-url', url)
+    fill_field('#create-media-input', url)
     press_button('#create-media-submit')
   end
 

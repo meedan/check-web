@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import Message from './Message';
 import UploadImage from './UploadImage';
 import { request } from '../actions/actions';
+import { Link } from 'react-router';
 
 class LoginEmail extends Component {
   constructor(props) {
@@ -34,12 +35,12 @@ class LoginEmail extends Component {
       'api_user[password]': this.state.password
     };
     var failureCallback = function(message) {
-          that.setState({ open: true, message: message });
-        },
-        successCallback = function(data) {
-          that.setState({ open: false, message: null });
-          Checkdesk.history.push('/');
-        };
+      that.setState({ open: true, message: message });
+    },
+    successCallback = function(data) {
+      that.setState({ open: false, message: null });
+      Checkdesk.history.push('/');
+    };
     request('post', 'users/sign_in', failureCallback, successCallback, params);
   }
 
@@ -54,12 +55,12 @@ class LoginEmail extends Component {
       'api_user[image]': form.image
     };
     var failureCallback = function(message) {
-          that.setState({ open: true, message: message });
-        },
-        successCallback = function(data) {
-          that.setState({ open: false, message: null });
-          Checkdesk.history.push('/');
-        };
+      that.setState({ open: true, message: message });
+    },
+    successCallback = function(data) {
+      that.setState({ open: false, message: null });
+      Checkdesk.history.push(window.location.pathname);
+    };
     request('post', 'users', failureCallback, successCallback, params);
   }
 
@@ -150,7 +151,7 @@ class LoginEmail extends Component {
               <button type="button" id="cancel-register-or-login" onClick={this.handleClose.bind(this)} className='login-email__cancel'>Sign in with Twitter, Facebook, or Slack</button>
             </div>
           </form>
-          {this.state.type === 'login' ? (<p className='login-email__help-text'>Having trouble logging in? Please email check@meedan.com for&nbsp;assistance.</p>) : null}
+          {this.state.type === 'login' ? (<p className='login-email__help-text'>Having trouble logging in? Please email <Link to='mailto:check@meedan.com'>check@meedan.com</Link> for&nbsp;assistance.</p>) : null}
         </section>
       </span>
     );

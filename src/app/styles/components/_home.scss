@@ -9,7 +9,7 @@ $home-content-padding: 23px;
   position: relative;
 }
 
-.home__content {
+.home__main {
   padding-top: $layout-header-height;
   flex: 1;
   display: flex;
@@ -18,8 +18,12 @@ $home-content-padding: 23px;
 
 .home__global-message {}
 
-.home__main {
+.home__content {
   flex: 1;
+  width: 100%;
+  max-width: $layout-column-width-wide;
+  margin: 0 auto;
+  padding: 0 15px;
 
   display: flex;
   flex-direction: column;

@@ -13,6 +13,8 @@ var teamFragment = Relay.QL`
     get_slack_webhook,
     get_slack_channel,
     pusher_channel,
+    media_verification_statuses,
+    source_verification_statuses,
     team_users(first: 10000) {
       edges {
         node {

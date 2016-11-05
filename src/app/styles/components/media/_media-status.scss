@@ -2,8 +2,6 @@ $menu-status-item-padding: 11px 15px 11px 13px;
 
 .media-status {
   position: relative;
-  top: -11px;
-  left: -15px;
 
   margin-bottom: 5px;
   &--editable { cursor: pointer; }
@@ -30,7 +28,6 @@ $menu-status-item-padding: 11px 15px 11px 13px;
 
 .media-status__current {
   position: relative;
-  padding: $menu-status-item-padding;
   border-left: 1px solid transparent;
 
   @include media-status-colors;
@@ -67,9 +64,9 @@ $menu-status-item-padding: 11px 15px 11px 13px;
 .media-status__menu {
   z-index: 3;
   position: absolute;
-  top: bottom;
-  left: 0;
-  min-width: 190px;
+  top: 31px;
+  left: -15px;
+  min-width: 250px;
 
   opacity: 0;
   pointer-events: none;

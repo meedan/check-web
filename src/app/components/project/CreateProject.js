@@ -44,10 +44,16 @@ class CreateProject extends Component {
     e.preventDefault();
   }
 
+  componentDidMount(){
+    if (this.props.autofocus) {
+      this.projectInput.focus();
+    }
+  }
+
   render() {
     return (
       <form onSubmit={this.handleSubmit.bind(this)} className="create-project">
-        <input className={this.props.className} placeholder="Add project +" id="create-project-title" />
+        <input className={this.props.className} placeholder="Add project +" id="create-project-title" ref={(input) => this.projectInput = input} />
         <Message message={this.state.message} />
       </form>
     );

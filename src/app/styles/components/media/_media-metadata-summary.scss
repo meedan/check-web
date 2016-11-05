@@ -2,6 +2,6 @@
   @include media-metadata;
 }
 
-.media-metadata-summary__datum {
+.media-metadata-summary__datum:not(:last-child) {
   margin-right: 15px;
 }

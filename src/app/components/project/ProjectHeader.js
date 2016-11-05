@@ -232,7 +232,7 @@ const ProjectHeaderContainer = Relay.createContainer(ProjectHeaderComponent, {
 
 class ProjectHeader extends Component {
   render() {
-    var route = new ProjectRoute({ projectId: this.props.params.projectId });
+    var route = new ProjectRoute({ contextId: this.props.params.projectId });
     return (<Relay.RootContainer Component={ProjectHeaderContainer} route={route} />);
   }
 }

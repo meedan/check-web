@@ -24,8 +24,8 @@
   }
 
   .ReactTags__remove {
-    margin-left: 5px;
+    margin: 0 5px;
     color: theme-gray(80%);
-    cursor: pointer;
+    @include close-button(14px);
   }
 }

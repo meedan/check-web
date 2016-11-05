@@ -11,33 +11,31 @@ import Can from '../Can';
 import config from 'config';
 
 class ProjectComponent extends Component {
-  redirect() {
-    var path = window.location.protocol + '//' + 
-               Checkdesk.context.team.subdomain + '.' + 
-               config.selfHost + 
-               '/project/' + 
-               Checkdesk.context.project.dbid;
-    window.location.href = path;
-  }
-
   setContextProject() {
     Checkdesk.context.project = this.props.project;
     if (!Checkdesk.context.team || Checkdesk.context.team.subdomain != this.props.project.team.subdomain) {
       Checkdesk.context.team = this.props.project.team;
-      // this.redirect();
       Checkdesk.history.push('/404');
     }
   }
 
   subscribe() {
-    if (config.pusherKey) {
+    if (window.Checkdesk.pusher) {
       const that = this;
-      Pusher.logToConsole = !!config.pusherDebug;
-      const pusher = new Pusher(config.pusherKey, { encrypted: true });
-      pusher.subscribe(this.props.project.pusher_channel).bind('media_updated', function(data) {
+      window.Checkdesk.pusher.subscribe(this.props.project.pusher_channel).bind('media_updated', function(data) {
         that.props.relay.forceFetch();
       });
     }
+  }
+
+  unsubscribe() {
+    if (window.Checkdesk.pusher) {
+      window.Checkdesk.pusher.unsubscribe(this.props.project.pusher_channel);
+    }
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
   }
 
   componentDidMount() {
@@ -51,6 +49,7 @@ class ProjectComponent extends Component {
 
   render() {
     const project = this.props.project;
+    var that = this;
 
     return (
       <div className="project">
@@ -59,16 +58,16 @@ class ProjectComponent extends Component {
           <TeamSidebar />
         </div>
         <div className="project__content">
+          <Can permissions={project.permissions} permission='create Media'>
+            <CreateMedia projectComponent={that} />
+          </Can>
+
           <MediasAndAnnotations
             medias={project.medias.edges}
             annotations={project.annotations.edges}
             annotated={project}
             annotatedType="Project"
             types={['comment']} />
-
-          <Can permissions={project.permissions} permission='create Media'>
-            <CreateMedia {...this.props} />
-          </Can>
         </div>
       </div>
     );
@@ -76,8 +75,11 @@ class ProjectComponent extends Component {
 }
 
 const ProjectContainer = Relay.createContainer(ProjectComponent, {
+  initialVariables: {
+    contextId: null
+  },
   fragments: {
-    project: () => Relay.QL`
+    project: ({Component, contextId}) => Relay.QL`
       fragment on Project {
         id,
         dbid,
@@ -119,12 +121,27 @@ const ProjectContainer = Relay.createContainer(ProjectComponent, {
               id,
               dbid,
               url,
-              published,
-              jsondata,
-              annotations_count,
+              published(context_id: $contextId),
+              jsondata(context_id: $contextId),
+              annotations_count(context_id: $contextId),
               domain,
-              last_status,
-              permissions
+              last_status(context_id: $contextId),
+              permissions,
+              verification_statuses,
+              user(context_id: $contextId), {
+                name,
+                source {
+                  dbid
+                }
+              }
+              tags(first: 10000, context_id: $contextId) {
+                edges {
+                  node {
+                    tag,
+                    id
+                  }
+                }
+              }
             }
           }
         }
@@ -135,7 +152,8 @@ const ProjectContainer = Relay.createContainer(ProjectComponent, {
 
 class Project extends Component {
   render() {
-    var route = new ProjectRoute({ projectId: this.props.params.projectId });
+    const projectId = this.props.params.projectId;
+    var route = new ProjectRoute({ contextId: parseInt(projectId) });
     return (<Relay.RootContainer Component={ProjectContainer} route={route} />);
   }
 }

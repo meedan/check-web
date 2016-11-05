@@ -9,6 +9,7 @@ var sourceFragment = Relay.QL`
     user_id,
     description,
     permissions,
+    verification_statuses,
     accounts(first: 10000) {
       edges {
         node {
@@ -33,6 +34,29 @@ var sourceFragment = Relay.QL`
           annotation_type,
           created_at,
           permissions,
+          medias(first: 10000) {
+            edges {
+              node {
+                id,
+                dbid,
+                published,
+                url,
+                jsondata,
+                project_id,
+                last_status,
+                annotations_count,
+                permissions,
+                verification_statuses,
+                domain,
+                user {
+                  name,
+                  source {
+                    dbid
+                  }
+                }
+              }
+            }
+          },
           annotator {
             name,
             profile_image
@@ -51,7 +75,8 @@ var sourceFragment = Relay.QL`
           annotations_count,
           domain,
           last_status,
-          permissions
+          permissions,
+          verification_statuses
         }
       }
     }

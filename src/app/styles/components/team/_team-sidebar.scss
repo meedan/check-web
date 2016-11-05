@@ -18,13 +18,12 @@
 .team-sidebar__sources-heading {
   @include app-kicker;
   margin: 0;
-  padding: 30px 25px 9px 25px;
+  padding: 30px 25px 9px 0;
   // border-right: $layout-border;
 }
 
 .team-sidebar__projects-list,
 .team-sidebar__sources-list {
-  padding-left: 12px;
   & > :last-child {
     padding-bottom: 45px;
   }
@@ -35,7 +34,7 @@
 .team-sidebar__source,
 .team-sidebar__new-source, {
   font-size: 15px;
-  padding: 0.4em 13px;
+  padding: 0.4em 13px 0.4em 0;
 }
 
 .team-sidebar__project {
@@ -124,10 +123,15 @@
 
 .team-sidebar__footer {
   flex: 1 0 auto;
-  position: relative;
+  // position: relative;
   // border-right: $layout-border;
-  padding-bottom: 30px;
-  margin-top: 50px;
+  padding: 8px 0 16px 0;
+  // margin-top: 32px;
+
+  background: $home-bg;
+  position: fixed;
+  bottom: 0;
+  width: $layout-sidebar-width;
 }
 
 .team-sidebar__switch-teams-button {
@@ -135,7 +139,7 @@
   font-size: 14px;
   width: 100%;
   padding: 0 18px 0 0;
-  position: absolute; bottom: 60px;
+  // position: absolute; bottom: 60px;
   color: inherit;
   // transition: color 80ms ease;
   // &:hover {

@@ -12,15 +12,16 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
       fragment on Media {
         id,
         dbid,
-        published,
+        published(context_id: $contextId),
         url,
-        jsondata,
-        last_status,
-        annotations_count,
+        jsondata(context_id: $contextId),
+        last_status(context_id: $contextId),
+        annotations_count(context_id: $contextId),
         domain,
         permissions,
         pusher_channel,
-        user {
+        verification_statuses,
+        user(context_id: $contextId) {
           name,
           source {
             dbid
@@ -43,6 +44,29 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
               annotation_type,
               created_at,
               permissions,
+              medias(first: 10000) {
+                edges {
+                  node {
+                    id,
+                    dbid,
+                    published,
+                    url,
+                    jsondata,
+                    project_id,
+                    last_status,
+                    annotations_count,
+                    permissions,
+                    verification_statuses,
+                    domain,
+                    user {
+                      name,
+                      source {
+                        dbid
+                      }
+                    }
+                  }
+                }
+              }
               annotator {
                 name,
                 profile_image
@@ -63,7 +87,11 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
 
 class Media extends Component {
   render() {
-    var route = new MediaRoute({ mediaId: this.props.params.mediaId });
+    var projectId = 0;
+    if (Checkdesk.context.project) {
+      projectId = Checkdesk.context.project.dbid;
+    }
+    var route = new MediaRoute({ ids: this.props.params.mediaId + ',' + projectId });
     return (<Relay.RootContainer Component={MediaContainer} route={route} />);
   }
 }

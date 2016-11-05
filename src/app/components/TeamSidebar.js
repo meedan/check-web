@@ -9,6 +9,7 @@ import teamFragment from '../relay/teamFragment';
 import SwitchTeams from './team/SwitchTeams';
 import Can from './Can';
 import config from 'config';
+import '../helpers.js';
 
 class TeamSidebarComponent extends Component {
   constructor(props) {
@@ -20,11 +21,9 @@ class TeamSidebarComponent extends Component {
   }
 
   subscribe() {
-    if (config.pusherKey) {
+    if (window.Checkdesk.pusher) {
       const that = this;
-      Pusher.logToConsole = !!config.pusherDebug;
-      const pusher = new Pusher(config.pusherKey, { encrypted: true });
-      pusher.subscribe(this.props.team.pusher_channel).bind('project_created', function(data) {
+      window.Checkdesk.pusher.subscribe(this.props.team.pusher_channel).bind('project_created', function(data) {
         that.props.relay.forceFetch();
       });
     }
@@ -32,6 +31,16 @@ class TeamSidebarComponent extends Component {
 
   componentDidMount() {
     this.subscribe();
+  }
+
+  unsubscribe() {
+    if (window.Checkdesk.pusher) {
+      window.Checkdesk.pusher.unsubscribe(this.props.team.pusher_channel);
+    }
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
   }
 
   handleSwitchTeams() {
@@ -67,7 +76,7 @@ class TeamSidebarComponent extends Component {
             if (team) {
               return (
                 <ul className='team-sidebar__projects-list'>
-                  {team.projects.edges.map(p => (
+                  {team.projects.edges.sortp((a,b) => a.node.title.localeCompare(b.node.title)).map(p => (
                     <li className={'team-sidebar__project' + (this.isCurrentProject(p.node.dbid) ? ' team-sidebar__project--current' : '')}>
                       <Link to={'/project/' + p.node.dbid} className='team-sidebar__project-link'>{p.node.title}</Link>
                     </li>
@@ -97,7 +106,12 @@ class TeamSidebarComponent extends Component {
                 <FontAwesome className='team-sidebar__switch-teams-title-icon' name='random' />
                 <span>Switch Teams</span>
               </h2>
-              <SwitchTeams />
+
+              {(() => {
+                if (this.state.isSwitchTeamsActive) {
+                  return (<SwitchTeams />);
+                }
+              })()}
             </section>
           </div>
         </footer>
