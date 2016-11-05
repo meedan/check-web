@@ -138,15 +138,15 @@ class SearchQueryComponent extends Component {
   title(statuses, projects) {
     const query = this.state.query;
     return [].concat.apply([], [
-      query.keyword,
-      query.status ? query.status.map( (s) => {
-        const status = statuses.find( (so) => so.id == s );
-        return status ? status.label : '';
-      }) : [],
       query.projects ? query.projects.map( (p) => {
         const project = projects.find( (pr) => pr.node.dbid == p );
         return project ? project.node.title : '';
       }) : [],
+      query.status ? query.status.map( (s) => {
+        const status = statuses.find( (so) => so.id == s );
+        return status ? status.label : '';
+      }) : [],
+      query.keyword,
       query.tags
     ].filter(Boolean)).join(' ').trim() || "Search";
   }
@@ -226,7 +226,7 @@ class SearchResultsComponent extends Component {
         {/* <h4>Most recent activity first <i className="media-status__icon media-status__icon--caret fa fa-caret-down"></i></h4> */}
 
         <InfiniteScroll hasMore={true} loadMore={this.loadMore.bind(this)} threshold={500}>
-        
+
           <ul className="search__results-list / results medias-list">
           {medias.map(function(media) {
             return (
