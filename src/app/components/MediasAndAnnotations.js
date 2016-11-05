@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import MediaCard from './media/MediaCard';
+import MediaDetail from './media/MediaDetail';
 import Annotation from './source/Annotation';
 import AddAnnotation from './source/AddAnnotation';
 
@@ -66,7 +66,7 @@ class MediasAndAnnotations extends Component {
 
           else if (item.itemType == 'media') {
             return (
-              <li className="media-card-link"><MediaCard media={item.node} annotated={props.annotated} annotatedType={props.annotatedType} /></li>
+              <li className="media-card-link"><MediaDetail media={item.node} annotated={props.annotated} annotatedType={props.annotatedType} condensed={true} /></li>
             );
           }
 

@@ -18,8 +18,6 @@ $menu-status-item-padding: 11px 15px 11px 13px;
   }
 }
 
-.project .media-status__icon--caret { display: none; } // TODO: enable status change on project page
-
 .media-status__label {
   @include app-kicker;
 }

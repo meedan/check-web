@@ -94,7 +94,8 @@ describe 'app' do
       @driver.navigate.to @config['self_url']
       sleep 3
 
-      expect(@driver.page_source.include?('Tweet by')).to be(true)
+      expect(@driver.page_source.include?('Added')).to be(true)
+      expect(@driver.page_source.include?('User With Email')).to be(true)
       status = get_element('.media-status__label')
       expect(status.text == 'IN PROGRESS').to be(false)
 
@@ -107,7 +108,8 @@ describe 'app' do
       @driver.navigate.to @config['self_url']
       sleep 5
 
-      expect(@driver.page_source.include?('Tweet by')).to be(true)
+      expect(@driver.page_source.include?('Added')).to be(true)
+      expect(@driver.page_source.include?('User With Email')).to be(true)
       status = get_element('.media-status__label')
       expect(status.text == 'IN PROGRESS').to be(true)
     end
@@ -552,9 +554,6 @@ describe 'app' do
       @driver.navigate.to team_url('project/' + get_project + '/media/' + $media_id)
       sleep 1
 
-      # First, verify that there isn't any status
-      expect(@driver.page_source.include?('Status')).to be(false)
-
       # Add a status as a command
       fill_field('.cmd-input input', '/status In Progress')
       @driver.action.send_keys(:enter).perform
@@ -767,7 +766,7 @@ describe 'app' do
       @driver.find_element(:css, '.team__project-link').click
       wait.until { @driver.find_element(:css, '.project') }
       url = @driver.current_url.to_s
-      media_1_url = @driver.find_element(:css, '.media-card__clickable').attribute('href')
+      media_1_url = @driver.find_element(:css, '.media-detail__check-timestamp').attribute('href')
       expect(media_1_url.include?("/project/#{project_1_id}/media/")).to be(true)
 
       (wait.until { @driver.find_element(:css, '.team-sidebar__switch-teams-button') }).click
@@ -777,7 +776,7 @@ describe 'app' do
       @driver.find_element(:css, '.team__project-link').click
       wait.until { @driver.find_element(:css, '.project') }
       url = @driver.current_url.to_s
-      media_2_url = @driver.find_element(:css, '.media-card__clickable').attribute('href')
+      media_2_url = @driver.find_element(:css, '.media-detail__check-timestamp').attribute('href')
       expect(media_2_url.include?("project/#{project_2_id}/media/")).to be(true)
     end
 

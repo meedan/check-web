@@ -24,6 +24,9 @@ a {
   &:visited {
     color: mix($blue-text, purple, 70%);
   }
+  &:not([href]) {
+    &, &:hover { text-decoration: none; }
+  }
 }
 
 button {

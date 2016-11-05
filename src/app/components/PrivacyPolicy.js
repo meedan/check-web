@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
+import DocumentTitle from 'react-document-title';
 import AboutRoute from '../relay/AboutRoute';
 import marked from 'marked';
 
@@ -7,10 +8,12 @@ class PrivacyPolicyComponent extends Component {
   render() {
     var about = this.props.about;
     return (
-      <div>
-        <h2 className="main-title">Privacy Policy</h2>
-        <div id="privacy-policy" dangerouslySetInnerHTML={{__html: marked(about.privacy_policy)}}></div>
-      </div>
+      <DocumentTitle title="Privacy Policy (Check)">
+        <div>
+          <h2 className="main-title">Privacy Policy</h2>
+          <div id="privacy-policy" dangerouslySetInnerHTML={{__html: marked(about.privacy_policy)}}></div>
+        </div>
+      </DocumentTitle>
     );
   }
 }

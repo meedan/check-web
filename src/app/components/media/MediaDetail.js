@@ -42,13 +42,19 @@ class MediaDetail extends Component {
   }
 
   render() {
-    const media = this.props.media;
+    const { media, annotated, annotatedType } = this.props;
     const data = JSON.parse(media.jsondata);
     const createdAt = util.createdAt(media);
     const annotationsCount = util.notesCount(media, data);
 
+    let projectId = media.project_id;
+    if (!projectId && annotated && annotatedType === 'Project') {
+      projectId = annotated.dbid
+    }
+    const mediaUrl = projectId ? `/project/${projectId}/media/${media.dbid}` : null;
+
     const byUser = (media.user && media.user.source && media.user.source.dbid && media.user.name !== 'Pender') ?
-      (<span>by <Link to={`/source/${media.user.source.dbid}`}>{media.user.name}</Link></span>) : '';
+      (<span>by {media.user.name}</span>) : '';
 
     const embedCard = (media, data) => {
       if (data && data.quote && data.quote.length) {
@@ -84,9 +90,9 @@ class MediaDetail extends Component {
         <p className='media-detail__check-metadata'>
           {byUser ? <span className='media-detail__check-added-by'>Added {byUser} </span> : null}
           {createdAt ? <span className='media-detail__check-added-at'>
-            <Link to={window.location.href}><TimeAgo date={createdAt} live={false} /></Link>
+            <Link className='media-detail__check-timestamp' to={mediaUrl}><TimeAgo date={createdAt} live={false} /></Link>
           </span> : null}
-          <span className='media-detail__check-notes-count'>{annotationsCount}</span>
+          <Link to={mediaUrl} className='media-detail__check-notes-count'>{annotationsCount}</Link>
         </p>
 
         <MediaTags media={media} tags={media.tags.edges} isEditing={this.state.isEditing} />

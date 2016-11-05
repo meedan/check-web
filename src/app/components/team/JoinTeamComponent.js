@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay';
+import DocumentTitle from 'react-document-title';
 import { Link } from 'react-router';
 import CreateTeamUserMutation from '../../relay/CreateTeamUserMutation';
 import Message from '../Message';
@@ -43,8 +44,7 @@ class JoinTeamComponent extends Component {
   }
 
   redirectIfMember() {
-    const teamId = parseInt(this.props.team.dbid);
-    if (Checkdesk.currentUser.team_ids.indexOf(teamId) > -1) {
+    if (Checkdesk.currentUser.team_ids.indexOf(this.props.team.dbid) > -1) {
       window.location.href = this.buildUrl(this.props.team);
     }
   }
@@ -62,29 +62,31 @@ class JoinTeamComponent extends Component {
   }
 
   render() {
-    const team = this.props.team
+    const team = this.props.team;
     const teamUrl = this.buildUrl(team);
 
     var isRequestSent = this.state.isRequestSent;
 
     return (
-      <div className='join-team'>
-        <Message message={this.state.message} />
-        <h2 className='join-team__main-heading'>Request to Join</h2>
-        <div className='join-team__blurb'>
-          <p className='join-team__blurb-graf'>To request access to the <a href={teamUrl}>{team.name}</a> Check, click below:</p>
-            <div>
-              <button
-                className={'join-team__button' + (isRequestSent ? ' join-team__button--submitted' : '')}
-                onClick={this.handleRequestAccess.bind(this)}
-                disabled={isRequestSent}
-              >
-                {isRequestSent ? 'Request Sent' : 'Request to Join'}
-              </button>
-              <p className='join-team__blurb-graf'>Your request {isRequestSent ? 'has been' : 'will be'} sent to the project admins for approval.</p>
-            </div>
+      <DocumentTitle title={"Join " + team.name + " (Check)"}>
+        <div className='join-team'>
+          <Message message={this.state.message} />
+          <h2 className='join-team__main-heading'>Request to Join</h2>
+          <div className='join-team__blurb'>
+            <p className='join-team__blurb-graf'>To request access to the <a href={teamUrl}>{team.name}</a> Check, click below:</p>
+              <div>
+                <button
+                  className={'join-team__button' + (isRequestSent ? ' join-team__button--submitted' : '')}
+                  onClick={this.handleRequestAccess.bind(this)}
+                  disabled={isRequestSent}
+                >
+                  {isRequestSent ? 'Request Sent' : 'Request to Join'}
+                </button>
+                <p className='join-team__blurb-graf'>Your request {isRequestSent ? 'has been' : 'will be'} sent to the project admins for approval.</p>
+              </div>
+          </div>
         </div>
-      </div>
+      </DocumentTitle>
     );
   }
 }

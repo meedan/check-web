@@ -2,6 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 import Pusher from 'pusher-js';
 import { Link } from 'react-router';
+import InfiniteScroll from 'react-infinite-scroller';
+import DocumentTitle from 'react-document-title';
 import ProjectRoute from '../../relay/ProjectRoute';
 import ProjectHeader from './ProjectHeader';
 import MediasAndAnnotations from '../MediasAndAnnotations';
@@ -9,6 +11,8 @@ import TeamSidebar from '../TeamSidebar';
 import { CreateMedia } from '../media';
 import Can from '../Can';
 import config from 'config';
+
+const pageSize = 20;
 
 class ProjectComponent extends Component {
   setContextProject() {
@@ -47,36 +51,54 @@ class ProjectComponent extends Component {
     this.setContextProject();
   }
 
+  loadMore() {
+    this.props.relay.setVariables({ pageSize: this.props.project.medias.edges.length + pageSize });
+  }
+
   render() {
     const project = this.props.project;
     var that = this;
 
     return (
-      <div className="project">
+      <DocumentTitle title={project.title + " (Check)"} >
+        <div className="project">
 
-        <div className='project__team-sidebar'>{/* className={this.sidebarActiveClass('home__sidebar')} */}
-          <TeamSidebar />
-        </div>
-        <div className="project__content">
-          <Can permissions={project.permissions} permission='create Media'>
-            <CreateMedia projectComponent={that} />
-          </Can>
+          <div className='project__team-sidebar'>{/* className={this.sidebarActiveClass('home__sidebar')} */}
+            <TeamSidebar />
+          </div>
+          <div className="project__content">
+            <Can permissions={project.permissions} permission='create Media'>
+              <CreateMedia projectComponent={that} />
+            </Can>
 
-          <MediasAndAnnotations
-            medias={project.medias.edges}
-            annotations={project.annotations.edges}
-            annotated={project}
-            annotatedType="Project"
-            types={['comment']} />
+            <InfiniteScroll hasMore={true} loadMore={this.loadMore.bind(this)} threshold={500}>
+
+              <MediasAndAnnotations
+                medias={project.medias.edges}
+                annotations={project.annotations.edges}
+                annotated={project}
+                annotatedType="Project"
+                types={['comment']} />
+
+            </InfiniteScroll>
+
+            {(() => {
+              if (this.props.project.medias.edges.length < this.props.project.medias_count) {
+                return (<p className="project__medias-loader">Loading...</p>);
+              }
+            })()}
+          </div>
+          
         </div>
-      </div>
+      </DocumentTitle>
     );
   }
 }
 
 const ProjectContainer = Relay.createContainer(ProjectComponent, {
   initialVariables: {
-    contextId: null
+    contextId: null,
+    pageSize: pageSize
   },
   fragments: {
     project: ({Component, contextId}) => Relay.QL`
@@ -87,6 +109,7 @@ const ProjectContainer = Relay.createContainer(ProjectComponent, {
         description,
         pusher_channel,
         permissions,
+        medias_count,
         team {
           id,
           dbid,
@@ -115,7 +138,7 @@ const ProjectContainer = Relay.createContainer(ProjectComponent, {
             }
           }
         },
-        medias(first: 10000) {
+        medias(first: $pageSize) {
           edges {
             node {
               id,
@@ -127,7 +150,21 @@ const ProjectContainer = Relay.createContainer(ProjectComponent, {
               domain,
               last_status(context_id: $contextId),
               permissions,
-              verification_statuses
+              verification_statuses,
+              user(context_id: $contextId), {
+                name,
+                source {
+                  dbid
+                }
+              }
+              tags(first: 10000, context_id: $contextId) {
+                edges {
+                  node {
+                    tag,
+                    id
+                  }
+                }
+              }
             }
           }
         }
