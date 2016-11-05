@@ -4,12 +4,15 @@ import DocumentTitle from 'react-document-title';
 import TextField from 'material-ui/lib/text-field';
 import FlatButton from 'material-ui/lib/flat-button';
 import numerous from 'numerous';
+import InfiniteScroll from 'react-infinite-scroller';
 import SearchRoute from '../relay/SearchRoute';
 import TeamRoute from '../relay/TeamRoute';
 import MediaDetail from './media/MediaDetail';
 import { bemClass } from '../helpers';
 import teamFragment from '../relay/teamFragment';
 import suggestedTagsData from '../../../data/suggestedTags';
+
+const pageSize = 20;
 
 class SearchQueryComponent extends Component {
   constructor(props) {
@@ -205,9 +208,14 @@ const SearchQueryContainer = Relay.createContainer(SearchQueryComponent, {
 });
 
 class SearchResultsComponent extends Component {
+  loadMore() {
+    this.props.relay.setVariables({ pageSize: this.props.search.medias.edges.length + pageSize });
+  }
+
   render() {
     const medias = this.props.search ? this.props.search.medias.edges : [];
-    const mediasCount = "" + medias.length + " " + numerous.pluralize('en', medias.length, {
+    const count = this.props.search ? this.props.search.number_of_results : 0
+    const mediasCount = "" + count + " " + numerous.pluralize('en', count, {
       one: 'Result',
       other: 'Results'
     });
@@ -216,26 +224,34 @@ class SearchResultsComponent extends Component {
       <div className="search__results / results">
         <h3 className='search__results-heading'>{mediasCount}</h3>
         {/* <h4>Most recent activity first <i className="media-status__icon media-status__icon--caret fa fa-caret-down"></i></h4> */}
-        <ul className="search__results-list / results medias-list">
-        {medias.map(function(media) {
 
-          return (
-            <li className="/ medias__item">
-              <MediaDetail media={media.node} condensed={true}/>
-            </li>
-          );
-        })}
-        </ul>
+        <InfiniteScroll hasMore={true} loadMore={this.loadMore.bind(this)} threshold={500}>
+        
+          <ul className="search__results-list / results medias-list">
+          {medias.map(function(media) {
+            return (
+              <li className="/ medias__item">
+                <MediaDetail media={media.node} condensed={true}/>
+              </li>
+            );
+          })}
+          </ul>
+
+        </InfiniteScroll>
       </div>
     );
   }
 }
 
 const SearchResultsContainer = Relay.createContainer(SearchResultsComponent, {
+  initialVariables: {
+    pageSize: pageSize
+  },
   fragments: {
     search: () => Relay.QL`
       fragment on CheckSearch {
-        medias(first: 10000) {
+        id,
+        medias(first: $pageSize) {
           edges {
             node {
               id,
@@ -265,7 +281,8 @@ const SearchResultsContainer = Relay.createContainer(SearchResultsComponent, {
               }
             }
           }
-        }
+        },
+        number_of_results
       }
     `
   }
