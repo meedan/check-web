@@ -72,7 +72,7 @@ class MediaComponent extends Component {
           <div className="electionland-checklist">
             <aside>
               <h3><img className="electionland-logo" width="20" src="/images/Electionland_small.svg" alt=" " title=" " /> Electionland essential verification checklist</h3>
-              <p>Look for these things in your work. See the full <a href="https://sites.google.com/site/fdelectionland/election-day-feeder-desk/verification-checklist-feeders">checklist</a>. Reports discovered via social media are meant solely as tips. Contact the source before sharing publicly.</p>
+              <p>Look for these things in your work. See the full <a href="https://sites.google.com/site/fdelectionland/election-day-feeder-desk/verification-checklist-feeders">checklist</a>. Reports discovered via social media are meant solely as tips. Always contact the source before sharing publicly.</p>
             </aside>
             <ul>
               <li>
