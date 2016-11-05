@@ -238,6 +238,12 @@ class SearchResultsComponent extends Component {
           </ul>
 
         </InfiniteScroll>
+
+        {(() => {
+          if (medias.length < count) {
+            return (<p className="search__results-loader">Loading...</p>);
+          }
+        })()}
       </div>
     );
   }
