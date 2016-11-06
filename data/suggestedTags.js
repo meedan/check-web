@@ -6,7 +6,7 @@ const elCategories = [
   "Ballots — not enough/provisional",
   "Equipment problems",
   "Accessibility — language or disabled",
-  "General information",
+  "Long lines",
   "Intimidation or challenges"
 ];
 
