@@ -94,7 +94,7 @@ class MediaTags extends Component {
           ) : null}
           {remainingTags.length ? <ul className='media-tags__list'>
             {remainingTags.map((tag) => {
-              return (<li className='media-tags__tag'>{tag.node.tag}</li>);
+              return (<li className='media-tags__tag'>{tag.node.tag.replace(/^#/, '')}</li>);
             })}
           </ul> : null}
         </div>
