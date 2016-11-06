@@ -86,62 +86,57 @@ $media-status-green-bg: $hint-green;
 $media-status-red-bg: $pippin-red;
 $media-status-gray-bg: $gray-100;
 
+$orange-selectors: "&--in-progress, &--important-in-progress, &--important-in_progress";
+$blue-selectors: "&--undetermined";
+$green-selectors: "&--verified, &--important-authenticated";
+$red-selectors: "&--false, &--important-false";
+$gray-selectors: "&--not-applicable_2, &--not-applicable-2, &--marked-for-deletion &--marked-for_deletion";
+
 @mixin media-status-font-colors {
-  &--undetermined { 
+  
+  #{$blue-selectors} { 
     color: $media-status-blue; 
-  }
+  } 
   
-  &--in-progress,
-  &--important-in-progress { 
+  #{$orange-selectors} { 
     color: $media-status-orange; 
-  }
+  } 
   
-  &--verified,
-  &--important-authenticated { 
+  #{$green-selectors} { 
     color: $media-status-green; 
-  }
+  } 
   
-  &--false,
-  &--important-false { 
+  #{$red-selectors} { 
     color: $media-status-red; 
-  }
+  } 
   
-  &--not-applicable,
-  &--important-inconclusive,
-  &--not-applicable-2,
-  &--marked-for-deletion { 
-    color: $media-status-gray; 
+  #{$gray-selectors} { 
+    color: $media-status-gray;
   }
 }
 
 @mixin media-status-background-and-border-colors {
-  &--undetermined { 
+  #{$blue-selectors} { 
     background: $media-status-blue-bg;
     border-color: $media-status-blue;
   }
 
-  &--in-progress, 
-  &--important-in-progress { 
+  #{$orange-selectors} { 
     background: $media-status-orange-bg;
     border-color: $media-status-orange; 
   }
 
-  &--verified, 
-  &--important-authenticated { 
+  #{$green-selectors} { 
     background: $media-status-green-bg;
     border-color: $media-status-green; 
   }
   
-  &--false, 
-  &--important-false { 
+  #{$red-selectors} { 
     background: $media-status-red-bg;
     border-color: $media-status-red; 
   }
 
-  &--not-applicable, 
-  &--important-inconclusive,
-  &--not-applicable-2,
-  &--marked-for-deletion { 
+  #{$gray-selectors} { 
     background: $media-status-gray-bg; 
     border-color: $media-status-gray;
   }

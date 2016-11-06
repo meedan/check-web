@@ -106,7 +106,8 @@ $menu-status-item-padding: 11px 15px 11px 13px;
 
   &--not-applicable-2:hover,
   &--not-applicable:hover,
-  &--important-inconclusive:hover { 
+  &--important-inconclusive:hover,
+  &--inconclusive:hover { 
     background: rgba($gray-100, $hover-bg-opacity); 
   }
 
