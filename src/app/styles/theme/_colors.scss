@@ -86,29 +86,63 @@ $media-status-green-bg: $hint-green;
 $media-status-red-bg: $pippin-red;
 $media-status-gray-bg: $gray-100;
 
-@mixin media-status-colors {
-  &--undetermined { color: $media-status-blue; }
-  &--in-progress { color: $media-status-orange; }
-  &--verified { color: $media-status-green; }
-  &--false { color: $media-status-red; }
-  &--not-applicable { color: $media-status-gray; }
+@mixin media-status-font-colors {
+  &--undetermined { 
+    color: $media-status-blue; 
+  }
+  
+  &--in-progress,
+  &--important-in-progress { 
+    color: $media-status-orange; 
+  }
+  
+  &--verified,
+  &--important-authenticated { 
+    color: $media-status-green; 
+  }
+  
+  &--false,
+  &--important-false { 
+    color: $media-status-red; 
+  }
+  
+  &--not-applicable,
+  &--important-inconclusive,
+  &--not-applicable-2,
+  &--marked-for-deletion { 
+    color: $media-status-gray; 
+  }
 }
 
-@mixin media-status-bg-colors {
-  $alpha: 0.17;
-  &--undetermined { background: $media-status-blue-bg; }
-  &--in-progress { background: $media-status-orange-bg; }
-  &--verified { background: $media-status-green-bg; }
-  &--false { background: $media-status-red-bg; }
-  &--inconclusive { background: $media-status-gray-bg; }
-}
+@mixin media-status-background-and-border-colors {
+  &--undetermined { 
+    background: $media-status-blue-bg;
+    border-color: $media-status-blue;
+  }
 
-@mixin media-status-border-colors {
-  $saturation: 100%;
-  $alpha: 1.0;
-  &--undetermined { border-color: $media-status-blue; }
-  &--in-progress { border-color: $media-status-orange; }
-  &--verified { border-color: $media-status-green; }
-  &--false { border-color: $media-status-red; }
-  &--not-applicable { border-color: $media-status-gray; }
+  &--in-progress, 
+  &--important-in-progress { 
+    background: $media-status-orange-bg;
+    border-color: $media-status-orange; 
+  }
+
+  &--verified, 
+  &--important-authenticated { 
+    background: $media-status-green-bg;
+    border-color: $media-status-green; 
+  }
+  
+  &--false, 
+  &--important-false { 
+    background: $media-status-red-bg;
+    border-color: $media-status-red; 
+  }
+
+  &--not-applicable, 
+  &--important-inconclusive,
+  &--not-applicable-2,
+  &--marked-for-deletion { 
+    background: $media-status-gray-bg; 
+    border-color: $media-status-gray;
+  }
 }
