@@ -76,7 +76,7 @@
 
 .annotation__status {
   @include app-kicker(11px);
-  @include media-status-colors;
+  @include media-status-font-colors;
   margin-left: 3px;
   margin-right: 2px;
 }

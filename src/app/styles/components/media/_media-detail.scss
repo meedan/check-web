@@ -2,8 +2,7 @@
   padding: 8px 14px 10px 14px;
   border: $layout-border;
   border-radius: 2px;
-  @include media-status-border-colors;
-  @include media-status-bg-colors;
+  @include media-status-background-and-border-colors;
   box-shadow: $layout-box-shadow;
   margin-bottom: 14px;
 }
