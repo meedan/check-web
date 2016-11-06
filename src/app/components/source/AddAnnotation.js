@@ -178,7 +178,7 @@ class AddAnnotation extends Component {
   }
 
   componentDidMount(){
-    this.annotationInput.focus();
+    // this.annotationInput.focus();
   }
 
   render() {

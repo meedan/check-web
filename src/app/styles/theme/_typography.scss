@@ -47,11 +47,11 @@ $font-stack-serif: "Merriweather", Georgia, serif;
   display: inline-block;
   font-size: 16px;
   font-weight: 400;
-  color: theme-gray(75%);
+  color: $light-gray-text;
   margin: 2px 0 0 0;
 }
 
 @mixin gray-text($size: 14px) {
-  color: theme-gray(67%);
+  color: $light-gray-text;
   font-size: $size;
 }

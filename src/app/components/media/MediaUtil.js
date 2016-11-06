@@ -105,6 +105,10 @@ const MediaUtil = {
   },
 
   title(media, data) {
+    if (data && data.title && data.title.trim().length) {
+      return this.truncate(data.title);
+    }
+
     var typeLabel;
     try {
       typeLabel = this.typeLabel(media, data);
@@ -112,12 +116,12 @@ const MediaUtil = {
         return `${typeLabel} on ${media.domain}`;
       }
       else if (typeLabel === 'Claim') {
-        const text = this.truncate(data.quote);
+        const text = data.quote;
         return `${typeLabel}${text ? ': ' + text : ''}`;
       }
       else {
         const attribution = this.authorName(media, data);
-        const text = this.truncate(this.bodyText(media, data));
+        const text = this.bodyText(media, data);
         return `${typeLabel}${attribution ? ' by ' + attribution : ''}${text && text.length ? ': ' + text : ''}`;
       }
     } catch (e) {
@@ -125,8 +129,12 @@ const MediaUtil = {
     }
   },
 
-  truncate(text) {
-    return lodashTruncate(text, {length: 50, separator: /,? +/, ellipsis: '…'});
+  truncatedTitle(media, data) {
+    return this.truncate(this.title(media, data));
+  },
+
+  truncate(text, length = 60) {
+    return lodashTruncate(text, {length: length, separator: /,? +/, ellipsis: '…'});
   },
 
   // Return a text fragment "X notes" with proper pluralization.

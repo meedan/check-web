@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
+import DocumentTitle from 'react-document-title';
 import CreateTeamMutation from '../../relay/CreateTeamMutation';
 import base64 from 'base-64';
 import Message from '../Message';
@@ -112,7 +113,7 @@ class CreateTeam extends Component {
      var onSuccess = (response) => {
        this.setState({ message: null });
        const team = response.createTeam.team;
-       
+
        window.location.href = window.location.protocol + '//' + team.subdomain + '.' + config.selfHost;
      };
 
@@ -132,32 +133,34 @@ class CreateTeam extends Component {
 
   render() {
     return (
-      <main className='create-team'>
-        <Link to='/teams' className='create-team__cancel'>×</Link>
-        <Message message={this.state.message} />
+      <DocumentTitle title="Create a Team (Check)">
+        <main className='create-team'>
+          <Link to='/teams' className='create-team__cancel'>×</Link>
+          <Message message={this.state.message} />
 
-        <img className='create-team__icon' src='/images/logo/logo-alt.svg'/>
-        <h1 className='create-team__heading'>Create a Team</h1>
-        <p className='create-team__blurb'>Create a team for your organization, or just for yourself:</p>
+          <img className='create-team__icon' src='/images/logo/logo-alt.svg'/>
+          <h1 className='create-team__heading'>Create a Team</h1>
+          <p className='create-team__blurb'>Create a team for your organization, or just for yourself:</p>
 
-        <form className='create-team__form'>
-          <div className='create-team__team-display-name'>
-            <input type='text' name='teamDisplayName' id="team-name-container" className='create-team__team-display-name-input' onChange={this.handleDisplayNameChange.bind(this)} onBlur={this.handleDisplayNameBlur.bind(this)} placeholder='Team Name' autocomplete="off" ref={(input) => this.teamNameInput = input} />
-            <label className={this.state.displayNameLabelClass}>Team Name</label>
-          </div>
-
-          <div className='create-team__team-url'>
-            <div className={this.state.subdomainClass}>
-              <input type='text' name='teamSubdomain' id="team-subdomain-container" className='create-team__team-subdomain-input' onChange={this.handleSubdomainChange.bind(this)} placeholder='team-url' autocomplete="off" />
-              <label className={this.state.subdomainLabelClass}>Team URL</label>
-              <p className='create-team__team-subdomain-message'>{this.state.subdomainMessage}</p>
+          <form className='create-team__form'>
+            <div className='create-team__team-display-name'>
+              <input type='text' name='teamDisplayName' id="team-name-container" className='create-team__team-display-name-input' onChange={this.handleDisplayNameChange.bind(this)} onBlur={this.handleDisplayNameBlur.bind(this)} placeholder='Team Name' autocomplete="off" ref={(input) => this.teamNameInput = input} />
+              <label className={this.state.displayNameLabelClass}>Team Name</label>
             </div>
-            <span className='create-team__root-domain'>.checkmedia.org</span>
-          </div>
 
-          <button type='submit' onClick={this.handleSubmit.bind(this)} className='create-team__submit-button'>Create</button>
-        </form>
-      </main>
+            <div className='create-team__team-url'>
+              <div className={this.state.subdomainClass}>
+                <input type='text' name='teamSubdomain' id="team-subdomain-container" className='create-team__team-subdomain-input' onChange={this.handleSubdomainChange.bind(this)} placeholder='team-url' autocomplete="off" />
+                <label className={this.state.subdomainLabelClass}>Team URL</label>
+                <p className='create-team__team-subdomain-message'>{this.state.subdomainMessage}</p>
+              </div>
+              <span className='create-team__root-domain'>.checkmedia.org</span>
+            </div>
+
+            <button type='submit' onClick={this.handleSubmit.bind(this)} className='create-team__submit-button'>Create</button>
+          </form>
+        </main>
+      </DocumentTitle>
     );
   }
 }

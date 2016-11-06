@@ -21,7 +21,7 @@ class MediaHeaderComponent extends Component {
   render() {
     const media = this.props.media;
     const data = JSON.parse(media.jsondata);
-    const title = util.title(media, data);
+    const title = util.truncatedTitle(media, data);
 
     if (this.props.relay.variables.contextId === null) {
       return null;

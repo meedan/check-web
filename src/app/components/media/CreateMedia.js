@@ -36,7 +36,7 @@ class CreateMedia extends Component {
     }
 
     const handleError = (json) => {
-      var message = 'Sorry, could not create the media';
+      var message = 'Something went wrong! Try pasting the text of this post instead, or adding a different link.';
       if (json && json.error) {
         message = json.error;
         var matches = message.match(/^Validation failed: Media with this URL exists and has id ([0-9]+)$/);

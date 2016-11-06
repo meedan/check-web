@@ -92,7 +92,7 @@ class Annotation extends Component {
         );
         break;
       case 'tag':
-        const message = `Tagged #${content.tag} by `;
+        const message = `Tagged #${content.tag.replace(/^#/, '')} by `;
         contentTemplate = (
           <section className='annotation__content'>
             <div className='annotation__header'>

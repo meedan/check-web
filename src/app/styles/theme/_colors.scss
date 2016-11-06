@@ -7,9 +7,10 @@
 }
 
 $dark-gray-text: theme-gray(5%);
-// $medium-dark-gray-text: theme-gray(27%);
-$light-gray-text: theme-gray(75%);
-$lighter-gray-text: theme-gray(80%);
+$medium-gray-text: theme-gray(27%);
+$light-gray-text: theme-gray(55%);
+$lighter-gray-text: theme-gray(65%);
+$lightest-gray-text: theme-gray(75%);
 $medium-gray-bg: theme-gray(80%);
 $light-gray-bg: theme-gray(95%);
 $lighter-gray-bg: theme-gray(98.7%);
@@ -59,6 +60,7 @@ $heather-grey: #C4D1DB;
 $monza-red: #D0021B;
 $porcelain-grey: #FAFBFB;
 $regent-grey: #8799A6;
+$thatch: #B89892;
 
 $hawkes-blue: #E4EEFC;
 $seashell-peach: #FFF6F0;
@@ -71,43 +73,169 @@ $firefly-60-2: rgba($firefly-60, 0.2);
 $firefly-60-5: rgba($firefly-60, 0.5);
 $firefly-60-8: rgba($firefly-60, 0.8);
 
-// media status colors
-
+// Media status colors (font and border color)
+//
 $media-status-blue: $blue-500;
 $media-status-orange: $orange-500;
 $media-status-green: $green-500;
 $media-status-red: $red-500;
-$media-status-gray: $gray-350;
+$media-status-gray: $firefly-40;
+$media-status-black: $firefly-90;
 
+// Media status background colors
+//
 $media-status-blue-bg: $hawkes-blue;
 $media-status-orange-bg: $seashell-peach;
 $media-status-green-bg: $hint-green;
 $media-status-red-bg: $pippin-red;
 $media-status-gray-bg: $gray-100;
+$media-status-black-bg: $gray-300;
 
-@mixin media-status-colors {
-  &--undetermined { color: $media-status-blue; }
-  &--in-progress { color: $media-status-orange; }
-  &--verified { color: $media-status-green; }
-  &--false { color: $media-status-red; }
-  &--not-applicable { color: $media-status-gray; }
+// Media status menu hover background colors
+//
+$hover-bg-opacity: 0.15;
+$media-status-blue-hover-bg: rgba($blue-100, $hover-bg-opacity);
+$media-status-orange-hover-bg: rgba($orange-100, $hover-bg-opacity); 
+$media-status-green-hover-bg: rgba($green-100, $hover-bg-opacity); 
+$media-status-red-hover-bg: rgba($red-100, $hover-bg-opacity); 
+$media-status-grey-hover-bg: rgba($gray-300, $hover-bg-opacity);
+$media-status-black-hover-bg: rgba($firefly-40, $hover-bg-opacity);
+
+// Cheatsheet (because the text labels don't match the classes)
+//
+// BLUE 
+// • "New" = --undetermined
+//
+// ORANGE
+// • "In progress" = --in-progress
+// • "Important/In Progress" = --important-in_progress, --important-in-progress (EL ONLY)
+//
+// GREEN
+// • "Authenticated" = --verified 
+// • "Important/authenticated" = --important-authenticated (EL ONLY)
+//
+// RED
+// • "False" = --false 
+// • "Important/false" = --important-false (EL ONLY)
+// 
+// GREY
+// • "Not applicable" = --not-applicable_2, --not-applicable-2 (EL ONLY)
+// • "Marked for deletion" = --marked-for_deletion, --marked-for-deletion (EL ONLY)
+//
+// BLACK
+// • "Important/Inconclusive" = --important-inconclusive (EL ONLY)
+// • "Inconclusive" = --inconclusive 
+//
+
+// Status selectors
+//
+// Currently includes custom Electionland selectors — CGB 2016-11-5
+$orange-selectors: "&--in-progress, &--important-in-progress, &--important-in_progress";
+$blue-selectors: "&--undetermined";
+$green-selectors: "&--verified, &--important-authenticated";
+$red-selectors: "&--false, &--important-false";
+$gray-selectors: "&--not-applicable_2, &--not-applicable-2, &--marked-for-deletion, &--marked-for_deletion";
+$black-selectors: "&--not-applicable, &--important-inconclusive, &--inconclusive";
+
+// Font colors of media status labels
+// 
+@mixin media-status-font-colors {
+  
+  #{$blue-selectors} { 
+    color: $media-status-blue; 
+  } 
+  
+  #{$orange-selectors} { 
+    color: $media-status-orange; 
+  } 
+  
+  #{$green-selectors} { 
+    color: $media-status-green; 
+  } 
+  
+  #{$red-selectors} { 
+    color: $media-status-red; 
+  } 
+
+  #{$gray-selectors} { 
+    color: $media-status-gray;
+  }
+  
+  #{$black-selectors} {
+    color: $media-status-black;
+  }
 }
 
-@mixin media-status-bg-colors {
-  $alpha: 0.17;
-  &--undetermined { background: $media-status-blue-bg; }
-  &--in-progress { background: $media-status-orange-bg; }
-  &--verified { background: $media-status-green-bg; }
-  &--false { background: $media-status-red-bg; }
-  &--inconclusive { background: $media-status-gray-bg; }
+// Borders and backgrounds of media items
+//
+@mixin media-status-background-and-border-colors {
+  #{$blue-selectors} { 
+    background: $media-status-blue-bg;
+    border-color: $media-status-blue;
+  }
+
+  #{$orange-selectors} { 
+    background: $media-status-orange-bg;
+    border-color: $media-status-orange; 
+  }
+
+  #{$green-selectors} { 
+    background: $media-status-green-bg;
+    border-color: $media-status-green; 
+  }
+  
+  #{$red-selectors} { 
+    background: $media-status-red-bg;
+    border-color: $media-status-red; 
+  }
+
+  #{$gray-selectors} { 
+    background: $media-status-gray-bg; 
+    border-color: $media-status-gray;
+  }
+
+  #{$black-selectors} {
+    background: $media-status-black-bg; 
+    border-color: $media-status-black;
+  }
 }
 
-@mixin media-status-border-colors {
-  $saturation: 100%;
-  $alpha: 1.0;
-  &--undetermined { border-color: $media-status-blue; }
-  &--in-progress { border-color: $media-status-orange; }
-  &--verified { border-color: $media-status-green; }
-  &--false { border-color: $media-status-red; }
-  &--not-applicable { border-color: $media-status-gray; }
+// Backgrounds in the status menu
+//
+@mixin media-status-menu-hover-colors {
+  #{$blue-selectors} {
+    &:hover { 
+     background: $media-status-blue-hover-bg; 
+    }
+  }
+
+  #{$orange-selectors} { 
+    &:hover {
+      background: $media-status-orange-hover-bg;
+    }
+  }
+
+  #{$green-selectors} { 
+    &:hover {
+      background: $media-status-green-hover-bg;
+    }
+  }
+
+  #{$red-selectors} { 
+    &:hover {
+      background: $media-status-red-hover-bg;
+    }
+  }
+
+  #{$gray-selectors} {
+    &:hover {
+      background: $media-status-grey-hover-bg;
+    }
+  }
+  
+  #{$black-selectors} {
+    &:hover {
+      background: $media-status-black-hover-bg;
+    }
+  }
 }

@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
+import DocumentTitle from 'react-document-title';
 import AboutRoute from '../relay/AboutRoute';
 import marked from 'marked';
 
@@ -7,10 +8,12 @@ class Tos extends Component {
   render() {
     var about = this.props.about;
     return (
-      <div>
-        <h2 className="main-title">Terms of Service</h2>
-        <div id="tos" dangerouslySetInnerHTML={{__html: marked(about.tos)}}></div>
-      </div>
+      <DocumentTitle title="Terms of Service (Check)">
+        <div>
+          <h2 className="main-title">Terms of Service</h2>
+          <div id="tos" dangerouslySetInnerHTML={{__html: marked(about.tos)}}></div>
+        </div>
+      </DocumentTitle>
     );
   }
 }

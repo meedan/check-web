@@ -2,8 +2,7 @@
   padding: 8px 14px 10px 14px;
   border: $layout-border;
   border-radius: 2px;
-  @include media-status-border-colors;
-  @include media-status-bg-colors;
+  @include media-status-background-and-border-colors;
   box-shadow: $layout-box-shadow;
   margin-bottom: 14px;
 }
@@ -42,8 +41,21 @@
 }
 
 .media-detail__title {
-  @include media-title(24px);
-  margin-top: 25px;
+  @include media-title(20px);
+  margin: 0 0 17px 1px;
+}
+
+.media-detail__title-input {
+  // color: #879cab;
+  padding: 3px 5px 3px 5px;
+  border: 1px solid #e1e6ea;
+  border-radius: 4px;
+  margin: -1px 0 15px 0;
+  font-size: 19px;
+  font-family: $font-stack-sans-condensed;
+  font-weight: 600;
+  width: 100%;
+  max-width: 500px;
 }
 
 .media-detail__description {
@@ -54,7 +66,6 @@
   color: theme-gray(45%);
 }
 
-.media-detail__title,
-.media-detail__description {
-  display: none; // no need to display for now; restore once check-user-editable title/desc are ready
+.media-detail__cancel-edits {
+  margin-right: 8px;
 }
