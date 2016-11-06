@@ -157,6 +157,11 @@ class SearchQueryComponent extends Component {
     const suggestedTags = suggestedTagsData[window.location.hostname.split('.')[0]] || [];
     const title = this.title(statuses, projects);
 
+    // Reset the project context.
+    // TODO: Move the whole context-setting logic out of `render()`
+    // and into the routing mechanism.
+    delete Checkdesk.context.project;
+
     return (
       <DocumentTitle title={title + " (Check)"}>
         <div className="search__query">
