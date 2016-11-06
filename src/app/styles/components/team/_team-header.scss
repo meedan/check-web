@@ -1,11 +1,5 @@
 .team-header {
   border-radius: 2px;
-  transition: opacity 200ms ease-in-out;
-  opacity: 0.5;
-  &:hover {
-    opacity: 1;
-  }
-
   padding-left: 14px; // TODO: rationalize layout padding
 }
 
