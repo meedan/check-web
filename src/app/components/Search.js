@@ -28,7 +28,7 @@ class SearchQueryComponent extends Component {
     try {
       query = queryFromUrlQuery(window.location.pathname.match(/^\/search\/(.*)/)[1]);
     } catch (e) {
-      query = queryFromUrlQuery();
+      query = {};
     }
     this.setState({query: query});
   }
@@ -51,18 +51,8 @@ class SearchQueryComponent extends Component {
     })
   }
 
-  urlQueryFromQuery(queryObject) {
-    const newQuery = JSON.parse(JSON.stringify(queryObject));
-
-    if (newQuery.tags) {
-      newQuery.tags = newQuery.tags.map((tag) => { return encodeURIComponent(tag) });
-    }
-    if (newQuery.status) {
-      newQuery.status = newQuery.status.map((status) => { return encodeURIComponent(status) });
-    }
-
-    const jsonQuery = JSON.stringify(newQuery);
-    return jsonQuery.substring(1, jsonQuery.length - 1) // strip %7D %7B for readability
+  urlQueryFromQuery(query) {
+    return encodeURIComponent(JSON.stringify(query));
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -317,7 +307,7 @@ class Search extends Component {
 
 function queryFromUrlQuery(urlQuery) {
   try {
-    return JSON.parse('{' + decodeURIComponent(urlQuery || '') + '}');
+    return JSON.parse(decodeURIComponent(urlQuery));
   } catch (e) {
     return {};
   }
