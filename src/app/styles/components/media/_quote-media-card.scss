@@ -1,11 +1,10 @@
 .quote-media-card {
   background-color: #fff;
   border: $layout-border;
-  border-color: $firefly-60-2;
   border-radius: 4px;
   padding: 10px;
   min-height: none;
-  color: $firefly-80;
+  color: $light-gray-text;
 }
 
 .quote-media-card__body-text {
@@ -14,7 +13,7 @@
   margin-left: 50px;
   margin-bottom: 15px;
   &:before {
-    color: $firefly-20;
+    color: $lightest-gray-text;
     content: "\f10d";
     display: inline-block;
     font-family: FontAwesome;
