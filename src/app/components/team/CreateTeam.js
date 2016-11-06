@@ -6,6 +6,7 @@ import base64 from 'base-64';
 import Message from '../Message';
 import { Link } from 'react-router';
 import config from 'config';
+import { pageTitle } from '../../helpers';
 
 class CreateTeam extends Component {
   constructor(props) {
@@ -133,7 +134,7 @@ class CreateTeam extends Component {
 
   render() {
     return (
-      <DocumentTitle title="Create a Team (Check)">
+      <DocumentTitle title={pageTitle('Create a Team', true)}>
         <main className='create-team'>
           <Link to='/teams' className='create-team__cancel'>×</Link>
           <Message message={this.state.message} />

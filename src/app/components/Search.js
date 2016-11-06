@@ -11,6 +11,7 @@ import MediaDetail from './media/MediaDetail';
 import { bemClass } from '../helpers';
 import teamFragment from '../relay/teamFragment';
 import suggestedTagsData from '../../../data/suggestedTags';
+import { pageTitle } from '../helpers';
 
 const pageSize = 20;
 
@@ -158,7 +159,7 @@ class SearchQueryComponent extends Component {
     const title = this.title(statuses, projects);
 
     return (
-      <DocumentTitle title={title + " (Check)"}>
+      <DocumentTitle title={pageTitle(title)}>
         <div className="search__query">
           <form id="search-form" className="search__form" onSubmit={this.handleSubmit.bind(this)}>
             <input placeholder="Search" name="search-input" id="search-input" className="search__input" defaultValue={this.state.query.keyword || ''}/>

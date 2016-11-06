@@ -5,6 +5,7 @@ import MediaDetail from './MediaDetail';
 import util from './MediaUtil';
 import { Annotations, Tags } from '../source';
 import config from 'config';
+import { pageTitle } from '../../helpers';
 
 class MediaComponent extends Component {
   setCurrentContext() {
@@ -63,7 +64,7 @@ class MediaComponent extends Component {
     }
 
     return (
-      <DocumentTitle title={util.title(media, data) + " (Check)"}>
+      <DocumentTitle title={pageTitle(util.title(media, data))}>
         <div className="media" data-id={media.dbid}>
           <article className='media__contents'>
 

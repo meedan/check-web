@@ -9,7 +9,7 @@ import teamFragment from '../relay/teamFragment';
 import SwitchTeams from './team/SwitchTeams';
 import Can from './Can';
 import config from 'config';
-import '../helpers.js';
+import '../helpers';
 
 class TeamSidebarComponent extends Component {
   constructor(props) {
