@@ -13,7 +13,7 @@
 
 .team-members__edit-button {
   position: absolute;
-  top: 30px; right: 35px;
+  top: 30px; right: 25px;
   @include button-small;
   // display: none; // made this edit mode UI but seems possibly unnecessary now -- can remove or restore later as needed.
 }
