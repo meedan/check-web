@@ -197,8 +197,7 @@ class AddAnnotation extends Component {
                    onFocus={this.handleFocus.bind(this)}
                    ref={(ref) => this.cmd = ref}
                    errorText={this.state.message}
-                   name="cmd"
-                   className="cmd-input"
+                   name="cmd" id="cmd-input"
                    multiLine={true}
                    onKeyPress={this.handleKeyPress.bind(this)}
                    ref={(input) => this.annotationInput = input} />

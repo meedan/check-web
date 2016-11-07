@@ -101,7 +101,7 @@ describe 'app' do
 
       @driver.navigate.to media_link
       sleep 3
-      fill_field('.cmd-input', '/status In Progress')
+      fill_field('#cmd-input', '/status In Progress')
       @driver.action.send_keys(:enter).perform
       sleep 3
 
@@ -273,7 +273,7 @@ describe 'app' do
       expect(@driver.page_source.include?('Tagged #command')).to be(false)
 
       # Add a tag as a command
-      fill_field('.cmd-input', '/tag command')
+      fill_field('#cmd-input', '/tag command')
       @driver.action.send_keys(:enter).perform
       sleep 5
 
@@ -307,7 +307,7 @@ describe 'app' do
       expect(@driver.page_source.include?('This is my comment')).to be(false)
 
       # Add a comment as a command
-      fill_field('.cmd-input', '/comment This is my comment')
+      fill_field('#cmd-input', '/comment This is my comment')
       @driver.action.send_keys(:enter).perform
       sleep 5
 
@@ -365,7 +365,7 @@ describe 'app' do
       sleep 1
 
       # Add tags as a command
-      fill_field('.cmd-input', '/tag foo, bar')
+      fill_field('#cmd-input', '/tag foo, bar')
       @driver.action.send_keys(:enter).perform
       sleep 5
 
@@ -439,7 +439,7 @@ describe 'app' do
       expect(tag.size == 1).to be(true)
 
       # Try to add duplicate from command line
-      fill_field('.cmd-input', '/tag bla')
+      fill_field('#cmd-input', '/tag bla')
       @driver.action.send_keys(:enter).perform
       sleep 5
 
@@ -510,7 +510,7 @@ describe 'app' do
       expect(@driver.page_source.include?('Tagged #command')).to be(false)
 
       # Add a tag as a command
-      fill_field('.cmd-input', '/tag command')
+      fill_field('#cmd-input', '/tag command')
       @driver.action.send_keys(:enter).perform
       sleep 5
 
@@ -536,7 +536,7 @@ describe 'app' do
       expect(@driver.page_source.include?('This is my comment')).to be(false)
 
       # Add a comment as a command
-      fill_field('.cmd-input', '/comment This is my comment')
+      fill_field('#cmd-input', '/comment This is my comment')
       @driver.action.send_keys(:enter).perform
       sleep 5
 
@@ -555,7 +555,7 @@ describe 'app' do
       sleep 1
 
       # Add a status as a command
-      fill_field('.cmd-input', '/status In Progress')
+      fill_field('#cmd-input', '/status In Progress')
       @driver.action.send_keys(:enter).perform
       sleep 5
 
@@ -577,7 +577,7 @@ describe 'app' do
       expect(@driver.page_source.include?('Flag')).to be(false)
 
       # Add a flag as a command
-      fill_field('.cmd-input', '/flag Spam')
+      fill_field('#cmd-input', '/flag Spam')
       @driver.action.send_keys(:enter).perform
       sleep 5
 
@@ -636,7 +636,7 @@ describe 'app' do
     #   expect(@driver.page_source.include?('This is my comment')).to be(false)
 
     #   # Add a comment as a command
-    #   fill_field('.cmd-input', '/comment This is my comment')
+    #   fill_field('#cmd-input', '/comment This is my comment')
     #   @driver.action.send_keys(:enter).perform
     #   sleep 5
 
