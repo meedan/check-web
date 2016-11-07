@@ -133,7 +133,7 @@ const MediaUtil = {
     return this.truncate(this.title(media, data));
   },
 
-  truncate(text, length = 60) {
+  truncate(text, length = 100) {
     return lodashTruncate(text, {length: length, separator: /,? +/, ellipsis: '…'});
   },
 
