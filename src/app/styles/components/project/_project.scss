@@ -1,3 +1,6 @@
+// Project page
+// Larger than mobile breakpoint
+//
 @media all and (min-width: $layout-mobile-breakpoint + 1) {
   .project {
     flex: 1;
@@ -34,9 +37,37 @@
   }
 }
 
-// hacks
+// Project page: Mobile and smaller
+//
+@media all and (max-width: $layout-mobile-breakpoint) {
 
-.project, .search {
+  .project__team-sidebar {
+    display: none;
+  }
+
+  header.header--project {
+    position: static;
+  }
+
+  .header__container {
+    display: block;
+  }
+
+  .project-header__project {
+    padding-top: 16px;
+  }
+}
+
+// Hacks 
+
+// Reports appearing in project page and search page
+//
+// TODO: revist — 
+// Why is search here? 
+// Why not apply these at report component? — CGB 2016-11-2
+//
+.project, 
+.search {
   .media-status {
     &, &--editable {
       cursor: auto;
@@ -47,11 +78,4 @@
     display: none; // TODO: refactor media card vs. detail
   }
   .media-status__icon--caret { display: none; }
-}
-
-@media all and (max-width: $layout-mobile-breakpoint) {
-
-  .project__team-sidebar {
-    display: none;
-  }
 }
