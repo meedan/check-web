@@ -147,7 +147,14 @@ const MediaUtil = {
   },
 
   createdAt(media) { // check media
-    return media.published ? new Date(parseInt(media.published) * 1000) : null;
+    var date = '';
+    try {
+      date = new Date(parseInt(media.published) * 1000);
+    }
+    catch(e) {
+      date = media.published;
+    }
+    return date;
   },
 
   embedPublishedAt(media, data) { // embedded media
