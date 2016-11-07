@@ -32,22 +32,18 @@
 .team-sidebar__project,
 .team-sidebar__new-project,
 .team-sidebar__source,
-.team-sidebar__new-source, {
+.team-sidebar__new-source {
   font-size: 15px;
   padding: 0.4em 13px 0.4em 0;
 }
 
 .team-sidebar__project {
-  // border-right: $layout-border;
   &--current {
     color: $dark-gray-text;
-    // background: $home-bg; // $layout-border;
     font-weight: 500;
-    // border: $layout-border;
     border-right: none;
     border-top-left-radius: 3px;
     border-bottom-left-radius: 3px;
-    // TODO: consolidate
   }
 }
 

@@ -16,8 +16,7 @@
     "watch:styles": "watch 'npm run style' ./src/app/styles",
     "publish": "node scripts/server.js",
     "test": "cd test && rspec && cd ..",
-    "lint:styles": "sass-lint --config .sass-lint.yml '**/*.scss' --verbose --no-exit --ignore 'test/**/*.scss, node_modules/**.*.scss'
-"
+    "lint:styles": "sass-lint --config .sass-lint.yml './**/*.scss' --verbose --ignore './test/**/*.scss, ./node_modules/**/*.scss'"
   },
   "keywords": [
     "react",
