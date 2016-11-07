@@ -28,7 +28,7 @@ $media-max-width: $layout-column-width-narrow;
 @mixin media-title($size: 19px) {
   font-size: $size;
   font-family: $font-stack-sans-condensed;
-  color: theme-gray(23%);
+  &, & > a { color: theme-gray(23%); }
   margin: 0;
 }
 
