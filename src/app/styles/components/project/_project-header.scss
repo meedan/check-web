@@ -34,6 +34,9 @@
   font-size: 18px;
   display: flex;
   margin: 0;
+  @media all and (max-width: $layout-mobile-breakpoint) {
+    line-height: 1.9;
+  }
 }
 
 .project-header__project {
@@ -185,7 +188,7 @@
   &--active {
     display: block;
   }
-  z-index: 2;
+  z-index: 3;
 }
 
 .project-header__project-setting {

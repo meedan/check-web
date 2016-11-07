@@ -15,7 +15,8 @@
     "build:gulp": "BABEL_ENV=production gulp build:web",
     "watch:styles": "watch 'npm run style' ./src/app/styles",
     "publish": "node scripts/server.js",
-    "test": "cd test && rspec && cd .."
+    "test": "cd test && rspec && cd ..",
+    "lint:styles": "sass-lint --config .sass-lint.yml './**/*.scss' --verbose --ignore './test/**/*.scss, ./node_modules/**/*.scss'"
   },
   "keywords": [
     "react",
@@ -101,6 +102,7 @@
     "redux-notify": "^0.1.1",
     "redux-persist": "^2.0.0-rc2",
     "redux-thunk": "^1.0.0",
+    "sass-lint": "^1.10.0",
     "scriptjs": "^2.5.8",
     "serve-static": "^1.10.2",
     "style-loader": "^0.12.4",
