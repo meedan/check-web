@@ -76,7 +76,9 @@
     }
   }
   .media-status__menu {
-    display: none; // TODO: refactor media card vs. detail
+    display: none;
   }
-  .media-status__icon--caret { display: none; }
+  .media-status__icon--caret { 
+    display: none; 
+  }
 }
