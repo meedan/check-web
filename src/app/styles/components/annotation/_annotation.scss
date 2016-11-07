@@ -1,11 +1,10 @@
 .annotation {
   border-top: $layout-border-light;
-
   padding: 15px 0;
-
   display: flex;
   font-size: $annotation-font-size;
   position: relative;
+  overflow-x: hidden;
 }
 
 .annotation__avatar {
