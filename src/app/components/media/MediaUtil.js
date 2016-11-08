@@ -160,7 +160,7 @@ const MediaUtil = {
   embedPublishedAt(media, data) { // embedded media
     var date = '';
     try {
-      date = new Date(parseInt(data.published_at) * 1000);
+      date = new Date(data.published_at);
       if (isNaN(date)) date = null;
     } catch (e) {
       date = null;
