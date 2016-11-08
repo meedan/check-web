@@ -32,7 +32,16 @@ class PenderCard extends Component {
   render() {
     return (
       <div id="pender-card" className='pender-card'>
-        <div id="pender-card-loader" className='pender-card__loader'><Spinner /></div>
+        <div id="pender-card-loader" className='pender-card__loader'>
+          {(() => {
+            if (this.props.fallback) {
+              return (this.props.fallback);
+            }
+            else {
+              return (<Spinner />);
+            }
+          })()}
+        </div>
       </div>
     );
   }

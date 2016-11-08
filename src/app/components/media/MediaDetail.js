@@ -90,7 +90,7 @@ class MediaDetail extends Component {
       if (media.url) {
         return this.props.condensed ?
             <SocialMediaCard media={media} data={data} /> :
-            <PenderCard url={media.url} penderUrl={config.penderUrl} />;
+            <PenderCard url={media.url} penderUrl={config.penderUrl} fallback={<SocialMediaCard media={media} data={data} />} />;
       }
       return null; // TODO: fallback
     }(media, data);
