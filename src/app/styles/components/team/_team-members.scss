@@ -15,7 +15,12 @@
   position: absolute;
   top: 30px; right: 25px;
   @include button-small;
-  // display: none; // made this edit mode UI but seems possibly unnecessary now -- can remove or restore later as needed.
+
+  @media screen and (max-width: 680px) {
+    position: static;
+    display: block;
+    margin: 8px auto 0;
+  }
 }
 
 .team-members__edit-icon {
@@ -68,7 +73,7 @@
 .team-membership-requests__user {
   display: flex;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 32px;
   flex-wrap: wrap;
 }
 
@@ -81,11 +86,12 @@
 
 .team-members__member-details,
 .team-membership-requests__user-details {
-  flex: 1;
+  flex: 1 0 180px;
   margin-right: 10px;
   display: flex;
   align-items: baseline;
   flex-wrap: wrap;
+
 }
 
 .team-members__member-name,
@@ -110,6 +116,7 @@
 
 .team-members__member-role {
   min-width: 120px;
+  margin: 8px 0 8px auto;
 
   .Select-control { transition: border-color 450ms ease; }
   .Select-arrow-zone { transition: opacity 300ms ease; }
@@ -142,4 +149,8 @@
   @media screen and (max-width: 680px) {
     display: none;
   }
+}
+
+.team-members__member-username {
+  display: none;
 }
