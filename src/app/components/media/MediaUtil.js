@@ -150,19 +150,22 @@ const MediaUtil = {
     var date = '';
     try {
       date = new Date(parseInt(media.published) * 1000);
-    }
-    catch(e) {
-      date = media.published;
+      if (isNaN(date)) date = null;
+    } catch (e) {
+      date = null;
     }
     return date;
   },
 
   embedPublishedAt(media, data) { // embedded media
+    var date = '';
     try {
-      return data.published_at;
+      date = new Date(data.published_at);
+      if (isNaN(date)) date = null;
     } catch (e) {
-      return '';
+      date = null;
     }
+    return date;
   },
 
   bodyText(media, data) {
