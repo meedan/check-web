@@ -1,8 +1,8 @@
 .team-members {
-  padding: 15px;
   position: relative;
   max-width: 750px;
   margin: 0 auto;
+  width: 100%;
 }
 
 .team-members__main-heading {
@@ -44,7 +44,6 @@
 
 .team-members__list,
 .team-membership-requests {
-  padding: 10px 20px;
 }
 
 .team-membership-requests {
@@ -68,6 +67,7 @@
   display: flex;
   align-items: center;
   margin-bottom: 20px;
+  flex-wrap: wrap;
 }
 
 .team-members__member-avatar,
@@ -83,6 +83,7 @@
   margin-right: 10px;
   display: flex;
   align-items: baseline;
+  flex-wrap: wrap;
 }
 
 .team-members__member-name,
