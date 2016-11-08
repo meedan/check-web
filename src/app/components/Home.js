@@ -142,6 +142,11 @@ class Home extends Component {
         if (!state.app.message && children.props.route.path === 'join') {
           state.app.message = 'First you need to register. Once registered, you can request to join the team.';
         }
+
+        if (state.app.error && state.app.message && state.app.message.match(/\{ \[Error\: Request has been terminated/)) {
+          state.app.message = "Something went wrong – please refresh your browser or try again later."
+        }
+
         return (<LoginMenu {...this.props} />);
       }
       return null;
