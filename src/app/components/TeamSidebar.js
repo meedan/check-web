@@ -122,7 +122,43 @@ class TeamSidebarComponent extends Component {
 
 const TeamSidebarContainer = Relay.createContainer(TeamSidebarComponent, {
   fragments: {
-    team: () => teamFragment
+    team: () => Relay.QL`
+      fragment on Team {
+        id,
+        dbid,
+        name,
+        avatar,
+        description,
+        subdomain,
+        permissions,
+        get_slack_notifications_enabled,
+        get_slack_webhook,
+        get_slack_channel,
+        pusher_channel,
+        media_verification_statuses,
+        source_verification_statuses,
+        contacts(first: 1) {
+          edges {
+            node {
+              location,
+              web,
+              phone,
+              id
+            }
+          }
+        },
+        projects(first: 10000) {
+          edges {
+            node {
+              title,
+              dbid,
+              id,
+              description
+            }
+          }
+        }
+      }
+    `
   }
 });
 
