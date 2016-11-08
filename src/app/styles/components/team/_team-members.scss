@@ -38,6 +38,8 @@
 .team-members__blurb-graf--url {
   font-family: $font-stack-sans;
   font-size: 18px;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
 // lists
