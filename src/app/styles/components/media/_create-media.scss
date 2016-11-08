@@ -4,6 +4,8 @@
 
 .create-media__input {
   // max-width: 85%; max-width: calc(99% - 70px); // TODO: restyle
+
+  & > :first-child { padding: 0 5px; }
 }
 
 .create-media__button--new {
