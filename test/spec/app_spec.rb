@@ -758,8 +758,8 @@ describe 'app' do
       create_media(@media_url)
       wait.until { @driver.find_element(:css, '.media') }
 
-      @driver.navigate.to @config['self_url']
-      (wait.until { @driver.find_element(:css, '.team-sidebar__switch-teams-button') }).click
+      @driver.navigate.to @config['self_url'] + '/teams'
+      wait.until { @driver.find_element(:css, '.teams') }
       (wait.until { @driver.find_element(:xpath, "//*[contains(text(), '#{team_1_name}')]") }).click
       wait.until { @driver.find_element(:css, '.team') }
       expect(@driver.find_element(:css, '.team__name').text == team_1_name).to be(true)
@@ -769,7 +769,8 @@ describe 'app' do
       media_1_url = @driver.find_element(:css, '.media-detail__check-timestamp').attribute('href')
       expect(media_1_url.include?("/project/#{project_1_id}/media/")).to be(true)
 
-      (wait.until { @driver.find_element(:css, '.team-sidebar__switch-teams-button') }).click
+      @driver.navigate.to @config['self_url'] + '/teams'
+      wait.until { @driver.find_element(:css, '.teams') }
       (wait.until { @driver.find_element(:xpath, "//*[contains(text(), '#{team_2_name}')]") }).click
       wait.until { @driver.find_element(:css, '.team') }
       expect(@driver.find_element(:css, '.team__name').text == team_2_name).to be(true)
