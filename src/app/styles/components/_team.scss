@@ -223,3 +223,19 @@
     margin: 0 16px;
   }
 }
+
+// hack
+
+.team__contact-info {
+  display: flex;
+  .team__link { order: 1; }
+  .team__location { order: 2; }
+  .team__phone { order: 3; }
+
+  @media screen and (max-width: 680px) {
+    .team__location-icon,
+    .team__link-icon,
+    .team__add-link-icon,
+    .team__phone-icon { display: none; }
+  }
+}
