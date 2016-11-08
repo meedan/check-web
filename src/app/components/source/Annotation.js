@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 import TimeAgo from 'react-timeago';
 import Linkify from 'react-linkify';
+import nl2br from 'react-nl2br';
 import MediaCard from '../media/MediaCard';
 import DeleteAnnotationMutation from '../../relay/DeleteAnnotationMutation';
 import Can from '../Can';
@@ -72,8 +73,7 @@ class Annotation extends Component {
               {createdAt ? <span className='annotation__timestamp'><TimeAgo date={createdAt} live={false} /></span> : null}
               {annotationActions}
             </div>
-            <div className='annotation__body'><Linkify properties={{ target: '_blank' }}>{commentText}</Linkify></div>
-
+            <div className='annotation__body'><Linkify properties={{ target: '_blank' }}>{nl2br(commentText)}</Linkify></div>
             {annotation.medias.edges.map(function(media) {
               return (
                 <div className='annotation__embedded-media'>

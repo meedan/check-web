@@ -76,8 +76,14 @@ class CreateMedia extends Component {
     this.setState({ url: url, message: null });
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.mediaInput.focus();
+  }
+
+  handleKeyPress(e) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      this.handleSubmit(e);
+    }
   }
 
   render() {
@@ -92,7 +98,13 @@ class CreateMedia extends Component {
 
         <form id="media-url-container" className="create-media__form" onSubmit={this.handleSubmit.bind(this)}>
           <button className="create-media__button create-media__button--new">+</button>
-          <TextField hintText="Paste a link or start typing to add a quote." fullWidth={true} name="url" id="create-media-input" className='create-media__input' ref={(input) => this.mediaInput = input} />
+          <TextField hintText="Paste a link or start typing to add a quote."
+                     fullWidth={true}
+                     name="url" id="create-media-input"
+                     className='create-media__input'
+                     multiLine={true}
+                     onKeyPress={this.handleKeyPress.bind(this)}
+                     ref={(input) => this.mediaInput = input} />
           <div className="create-media__buttons">
             <FlatButton id="create-media-submit" primary={true} onClick={this.handleSubmit.bind(this)} label="Post" className='create-media__button create-media__button--submit' />
           </div>
