@@ -44,6 +44,7 @@
 body {
   margin: auto;
   width: 100%;
+  overflow-x: hidden;
 }
 
 .hidden {
@@ -92,7 +93,7 @@ address {
   background: $cream;
   color: $light-gray-text;
   padding: 10px;
-  margin: 10px;
+  // margin: 10px;
   font-size: 14px;
 }
 

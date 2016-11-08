@@ -10,6 +10,7 @@
 .media-detail__header {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .media-detail__status {
@@ -64,6 +65,10 @@
   line-height: 1.35;
 
   color: theme-gray(45%);
+}
+
+.media-detail__editing-buttons {
+  margin-bottom: 8px;
 }
 
 .media-detail__cancel-edits {

@@ -1,8 +1,8 @@
 .team-members {
-  padding: 15px;
   position: relative;
   max-width: 750px;
   margin: 0 auto;
+  width: 100%;
 }
 
 .team-members__main-heading {
@@ -15,7 +15,12 @@
   position: absolute;
   top: 30px; right: 25px;
   @include button-small;
-  // display: none; // made this edit mode UI but seems possibly unnecessary now -- can remove or restore later as needed.
+
+  @media screen and (max-width: 680px) {
+    position: static;
+    display: block;
+    margin: 8px auto 0;
+  }
 }
 
 .team-members__edit-icon {
@@ -38,18 +43,21 @@
 .team-members__blurb-graf--url {
   font-family: $font-stack-sans;
   font-size: 18px;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
 // lists
 
 .team-members__list,
 .team-membership-requests {
-  padding: 10px 20px;
 }
 
 .team-membership-requests {
   background: hsl(208, 98%, 95%);
   border-radius: 2px;
+  padding: 8px;
+  margin-bottom: 16px;
 }
 
 .team-membership-requests__heading {
@@ -67,7 +75,8 @@
 .team-membership-requests__user {
   display: flex;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
 }
 
 .team-members__member-avatar,
@@ -79,10 +88,12 @@
 
 .team-members__member-details,
 .team-membership-requests__user-details {
-  flex: 1;
+  flex: 1 0 180px;
   margin-right: 10px;
   display: flex;
   align-items: baseline;
+  flex-wrap: wrap;
+
 }
 
 .team-members__member-name,
@@ -107,6 +118,7 @@
 
 .team-members__member-role {
   min-width: 120px;
+  margin: 8px 0 8px auto;
 
   .Select-control { transition: border-color 450ms ease; }
   .Select-arrow-zone { transition: opacity 300ms ease; }
@@ -135,4 +147,12 @@
     position: relative;
     top: -0.1em;
   }
+
+  @media screen and (max-width: 680px) {
+    display: none;
+  }
+}
+
+.team-members__member-username {
+  display: none;
 }
