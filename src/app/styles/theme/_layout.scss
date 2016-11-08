@@ -15,6 +15,11 @@ $layout-border-light: 1px solid theme-gray(90%);
 $layout-box-shadow: 0 3px 0 transparentize(theme-gray(20%), 0.99);
 $layout-header-height: 72px;
 $layout-sidebar-width: 245px;
+
 $layout-column-width-narrow: 900px;
 $layout-column-width-wide: 1200px + 30px;
+
+$layout-mobile-breakpoint-smallest: 320px;
 $layout-mobile-breakpoint: 680px;
+$layout-tablet-breakpoint: $layout-column-width-narrow;
+$layout-widescreen-breakpoint: $layout-column-width-wide;

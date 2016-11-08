@@ -25,16 +25,16 @@ class SocialMediaCard extends Component {
           <FontAwesome className='social-media-card__network-icon' name={networkIconName}/>
           {authorAvatarUrl ? <img src={authorAvatarUrl} className='social-media-card__author-avatar'/> : null}
           <div className='social-media-card__header-text-primary / header-text-primary'>
-            <Link to={authorUrl} className='social-media-card__name'>{authorName || authorUsername}</Link>
+            <a href={authorUrl} className='social-media-card__name'>{authorName || authorUsername}</a>
             {authorName ?
-              <Link to={authorUrl} className='social-media-card__username'>{authorUsername}</Link> : null
+              <a href={authorUrl} className='social-media-card__username'>{authorUsername}</a> : null
             }
           </div>
 
           <span className='social-media-card__header-text-secondary'>
-            <Link to={url}>
+            <a href={url}>
               {embedPublishedAt ? <TimeAgo date={embedPublishedAt} live={false} /> : 'Link'}
-            </Link>
+            </a>
           </span>
         </div>
 

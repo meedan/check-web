@@ -133,7 +133,7 @@ const MediaUtil = {
     return this.truncate(this.title(media, data));
   },
 
-  truncate(text, length = 60) {
+  truncate(text, length = 100) {
     return lodashTruncate(text, {length: length, separator: /,? +/, ellipsis: '…'});
   },
 
@@ -147,15 +147,25 @@ const MediaUtil = {
   },
 
   createdAt(media) { // check media
-    return media.published ? new Date(parseInt(media.published) * 1000) : null;
+    var date = '';
+    try {
+      date = new Date(parseInt(media.published) * 1000);
+      if (isNaN(date)) date = null;
+    } catch (e) {
+      date = null;
+    }
+    return date;
   },
 
   embedPublishedAt(media, data) { // embedded media
+    var date = '';
     try {
-      return data.published_at;
+      date = new Date(data.published_at);
+      if (isNaN(date)) date = null;
     } catch (e) {
-      return '';
+      date = null;
     }
+    return date;
   },
 
   bodyText(media, data) {

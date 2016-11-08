@@ -75,6 +75,15 @@ class SearchQueryComponent extends Component {
     return selectedTags.length && selectedTags.includes(tag)
   }
 
+  sortIsSelected(sortParam, state = this.state) {
+    if (['recent_added', 'recent_activity'].includes(sortParam)) {
+      return state.query.sort === sortParam || (!state.query.sort && sortParam === 'recent_added');
+    }
+    else if (['ASC', 'DESC'].includes(sortParam)) {
+      return state.query.sort_type === sortParam || (!state.query.sort_type && sortParam === 'DESC');
+    }
+  }
+
   handleStatusClick(statusCode) {
     this.setState((prevState, props) => {
       const statusIsSelected = this.statusIsSelected(statusCode, prevState);
@@ -119,6 +128,19 @@ class SearchQueryComponent extends Component {
       }
       return {query: prevState.query};
     })
+  }
+
+  handleSortClick(sortParam) {
+    this.setState((prevState, props) => {
+      if (['recent_added', 'recent_activity'].includes(sortParam)) {
+        prevState.query.sort = sortParam;
+        return {query: prevState.query};
+      }
+      else if (['ASC', 'DESC'].includes(sortParam)) {
+        prevState.query.sort_type = sortParam;
+        return {query: prevState.query};
+      }
+    });
   }
 
   // Create title out of query parameters
@@ -188,6 +210,16 @@ class SearchQueryComponent extends Component {
                   })}
                 </ul>
               : null}
+            </div>
+            <div>
+              <h4>Sort</h4>
+              {/* chicklet markup/logic from MediaTags. TODO: fix classnames */}
+              <ul className="search-query__sort-actions / media-tags__suggestions-list">
+                <li onClick={this.handleSortClick.bind(this, 'recent_added')} className={bemClass('media-tags__suggestion', this.sortIsSelected('recent_added'), '--selected')}>Created</li>
+                <li onClick={this.handleSortClick.bind(this, 'recent_activity')} className={bemClass('media-tags__suggestion', this.sortIsSelected('recent_activity'), '--selected')}>Recent activity</li>
+                <li onClick={this.handleSortClick.bind(this, 'DESC')} className={bemClass('media-tags__suggestion', this.sortIsSelected('DESC'), '--selected')}>Newest first</li>
+                <li onClick={this.handleSortClick.bind(this, 'ASC')} className={bemClass('media-tags__suggestion', this.sortIsSelected('ASC'), '--selected')}>Oldest first</li>
+              </ul>
             </div>
           </section>
         </div>

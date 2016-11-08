@@ -112,7 +112,7 @@ class MediaDetail extends Component {
 
         {this.state.isEditing ?
           <form onSubmit={this.handleSave.bind(this, media)}><input type='text' id={`media-detail-title-input-${media.dbid}`} className='media-detail__title-input' placeholder='Title' defaultValue={util.truncatedTitle(media, data)} /></form> :
-          <h2 className="media-detail__title">{util.truncatedTitle(media, data)}</h2>
+          <h2 className="media-detail__title"><Link to={mediaUrl}>{this.props.condensed ? util.truncatedTitle(media, data) : util.title(media, data)}</Link></h2>
         }
 
         <div className={this.statusToClass('media-detail__media', media.last_status)}>

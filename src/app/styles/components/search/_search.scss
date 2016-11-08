@@ -14,6 +14,9 @@
     min-width: 500px;
     padding-left: 50px;
     margin-top: 4px;
+    @media all and (max-width: $layout-mobile-breakpoint) {
+      min-width: 300px;
+    }
   }
 
   .search__filters {
@@ -71,10 +74,9 @@
   }
 }
 
-// hack
-
-.search {
-  .media-status__menu {
-    display: none; // TODO: refactor media card vs. detail vs search
-  }
+// Report tagging in search results
+// Embargoed 2016-11-6 — CB 
+//
+.search__results .media-actions__icon {
+  display: none;
 }
