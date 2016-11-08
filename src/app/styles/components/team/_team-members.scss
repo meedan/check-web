@@ -136,4 +136,8 @@
     position: relative;
     top: -0.1em;
   }
+
+  @media screen and (max-width: 680px) {
+    display: none;
+  }
 }
