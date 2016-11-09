@@ -14,12 +14,16 @@
 
 .pender-card__loader {
   display: inline-block;
-  $size: 35px; width: $size; height: $size;
+  $size: 100%; width: $size; height: $size;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 
+  .social-media-card {
+    border: 0;
+    padding-top: 40px;
+  }
 
   .react-spinner {
     position: relative;

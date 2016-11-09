@@ -29,6 +29,8 @@ $menu-status-item-padding: 11px 15px 11px 13px;
   border-left: 1px solid transparent;
 
   @include media-status-font-colors;
+
+  white-space: nowrap;
 }
 
 .media-status__message {

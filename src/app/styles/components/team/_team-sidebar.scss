@@ -29,6 +29,10 @@
   }
 }
 
+.team-sidebar__projects-list {
+  padding-bottom: 70px;
+}
+
 .team-sidebar__project,
 .team-sidebar__new-project,
 .team-sidebar__source,
@@ -196,4 +200,8 @@
 .team-sidebar__switch-teams-title-icon {
   margin-right: 7px;
   font-size: 0.95em;
+}
+
+.team-sidebar__footer {
+  display: none;
 }

@@ -192,7 +192,7 @@ class AddAnnotation extends Component {
       <form className='add-annotation' name="addannotation" onSubmit={this.handleSubmit.bind(this)}>
         <TextField hintText="Add a note about this report"
                    fullWidth={false}
-                   style={{width: '80%'}}
+                   style={{width: '100%'}}
                    errorStyle={styles.errorStyle}
                    onFocus={this.handleFocus.bind(this)}
                    ref={(ref) => this.cmd = ref}
@@ -201,7 +201,7 @@ class AddAnnotation extends Component {
                    multiLine={true}
                    onKeyPress={this.handleKeyPress.bind(this)}
                    ref={(input) => this.annotationInput = input} />
-        <FlatButton label="Submit" primary={true} type="submit" style={{width: '20%'}} />
+        <FlatButton label="Submit" primary={true} type="submit" style={{float: 'right'}} />
       </form>
     );
   }

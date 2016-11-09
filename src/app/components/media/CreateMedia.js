@@ -38,8 +38,7 @@ class CreateMedia extends Component {
     const handleError = (json) => {
       var message = 'Something went wrong! Try pasting the text of this post instead, or adding a different link.';
       if (json && json.error) {
-        message = json.error;
-        var matches = message.match(/^Validation failed: Media with this URL exists and has id ([0-9]+)$/);
+        var matches = json.error.match(/^Validation failed: Media with this URL exists and has id ([0-9]+)$/);
         if (matches) {
           that.props.projectComponent.props.relay.forceFetch();
           var sid = matches[1];

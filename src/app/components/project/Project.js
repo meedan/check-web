@@ -113,16 +113,7 @@ const ProjectContainer = Relay.createContainer(ProjectComponent, {
         team {
           id,
           dbid,
-          subdomain,
-          projects(first: 10000) {
-            edges {
-              node {
-                id,
-                dbid,
-                title
-              }
-            }
-          }
+          subdomain
         },
         annotations(first: 10000) {
           edges {

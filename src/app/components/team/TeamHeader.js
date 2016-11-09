@@ -16,7 +16,7 @@ class TeamHeaderComponent extends Component {
         {(() => {
           if (team) {
             return (
-              <a href={teamUrl} className='team-header__clickable'>
+              <Link to='/' className='team-header__clickable'>
                 <div className='team-header__icon'>
                   <FontAwesome className='team-header__caret' name='angle-left' />
                 </div>
@@ -25,7 +25,7 @@ class TeamHeaderComponent extends Component {
                   <h3 className='team-header__name'>{team.name}</h3>
                   <span className='team-header__label'>Team</span>
                 </div>
-              </a>
+              </Link>
             );
           }
         })()}
