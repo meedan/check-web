@@ -53,6 +53,18 @@ describe 'app' do
   # The tests themselves start here
 
   context "web" do
+    it "should access user confirmed page" do
+      @driver.navigate.to @config['self_url'] + '/user/confirmed'
+      title = get_element('.main-title')
+      expect(title.text == 'Account Confirmed').to be(true)
+    end
+
+    it "should access user unconfirmed page" do
+      @driver.navigate.to @config['self_url'] + '/user/unconfirmed'
+      title = get_element('.main-title')
+      expect(title.text == 'Error').to be(true)
+    end
+
     it "should login using Facebook" do
       login_with_facebook
       @driver.navigate.to @config['self_url'] + '/me'
