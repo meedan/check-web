@@ -138,6 +138,7 @@ describe 'app' do
     end
 
     it "should upload image when registering" do
+      email = @email + '.br'
       @driver.navigate.to @config['self_url']
       sleep 1
       @driver.find_element(:xpath, "//a[@id='login-email']").click
@@ -145,13 +146,16 @@ describe 'app' do
       @driver.find_element(:xpath, "//button[@id='register-or-login']").click
       sleep 1
       fill_field('.login-email__name input', 'User With Email And Photo')
-      fill_field('.login-email__email input', @email + '.br')
+      fill_field('.login-email__email input', email)
       fill_field('.login-email__password input', '12345678')
       fill_field('.login-email__password-confirmation input', '12345678')
       file = File.join(File.dirname(__FILE__), 'test.png')
       fill_field('input[type=file]', file, :css, false)
       press_button('#submit-register-or-login')
-      sleep 5
+      sleep 3
+      confirm_email(email)
+      sleep 1
+      login_with_email(true, email)
       @driver.navigate.to @config['self_url'] + '/me'
       sleep 10
       avatar = get_element('.source-avatar')

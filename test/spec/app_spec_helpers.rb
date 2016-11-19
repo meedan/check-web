@@ -100,11 +100,11 @@ module AppSpecHelpers
     end
   end
 
-  def login_with_email(should_create_team = true)
+  def login_with_email(should_create_team = true, email = @email)
     @driver.navigate.to @config['self_url']
     sleep 2
     @driver.find_element(:xpath, "//a[@id='login-email']").click
-    fill_field('.login-email__email input', @email)
+    fill_field('.login-email__email input', email)
     fill_field('.login-email__password input', '12345678')
     press_button('#submit-register-or-login')
     sleep 3
@@ -170,7 +170,7 @@ module AppSpecHelpers
     sleep 3
     confirm_email(email)
     sleep 1
-    login_with_email
+    login_with_email(true, email)
   end
 
   def get_team
