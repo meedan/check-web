@@ -24,11 +24,11 @@ before_install:
 - git clone https://github.com/meedan/check-api.git
 - cp travis/check-api.yml check-api/config/config.yml
 - cp check-api/config/initializers/secret_token.rb.example check-api/config/initializers/secret_token.rb
-- cp check-api/config/database.yml.travis check-api/config/database.yml
+- cp travis/check-api-database.yml check-api/config/database.yml
 - cd check-api
 - bundle install
-- bundle exec rake db:migrate
-- rails s -p 3000 >/dev/null &
+- bundle exec rake db:migrate RAILS_ENV=test
+- rails s -e test -p 3000 >/dev/null &
 - cd -
 # pender
 - git clone https://github.com/meedan/pender.git
