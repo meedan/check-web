@@ -10,7 +10,6 @@ import TeamRoute from '../relay/TeamRoute';
 import MediaDetail from './media/MediaDetail';
 import { bemClass } from '../helpers';
 import teamFragment from '../relay/teamFragment';
-import suggestedTagsData from '../../../data/suggestedTags';
 
 const pageSize = 20;
 
@@ -166,7 +165,7 @@ class SearchQueryComponent extends Component {
   render() {
     const statuses = JSON.parse(this.props.team.media_verification_statuses).statuses;
     const projects = this.props.team.projects.edges.sortp((a,b) => a.node.title.localeCompare(b.node.title));
-    const suggestedTags = suggestedTagsData[window.location.hostname.split('.')[0]] || [];
+    const suggestedTags = this.props.team.get_suggested_tags ? this.props.team.get_suggested_tags.split(',') : [];
     const title = this.title(statuses, projects);
 
     // Reset the project context.
@@ -202,7 +201,7 @@ class SearchQueryComponent extends Component {
               </ul>
             </div>
             <div>
-              {suggestedTags.length ? <h4>Electionland</h4> : null}
+              {suggestedTags.length ? <h4>Categories</h4> : null}
               {/* chicklet markup/logic from MediaTags. TODO: fix classnames */}
               {suggestedTags.length ? <ul className="/ media-tags__suggestions-list // electionland_categories">
                   {suggestedTags.map((tag) => {
