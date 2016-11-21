@@ -15,7 +15,7 @@ describe 'app' do
     @wait = Selenium::WebDriver::Wait.new(timeout: 5)
 
     @email = 'sysops+' + Time.now.to_i.to_s + '@meedan.com'
-    @source_url = 'https://www.facebook.com/ironmaiden/?fref=ts&timestamp=' + Time.now.to_i.to_s
+    @source_url = 'https://twitter.com/ironmaiden?timestamp=' + Time.now.to_i.to_s
     @media_url = 'https://twitter.com/meedan/status/773947372527288320/?t=' + Time.now.to_i.to_s
     @config = YAML.load_file('config.yml')
     $source_id = nil
