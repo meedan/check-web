@@ -9,12 +9,12 @@ class HeaderActions extends Component {
     super(props);
 
     this.state = {
-      isSettingsMenuOpen: false,
+      isMenuOpen: false,
     };
   }
 
   toggleSettingsMenu() {
-    this.setState({ isSettingsMenuOpen: !this.state.isSettingsMenuOpen });
+    this.setState({ isMenuOpen: !this.state.isMenuOpen });
   }
 
   bemClass(baseClass, modifierBoolean, modifierSuffix) {
@@ -29,20 +29,19 @@ class HeaderActions extends Component {
     const project = this.props.project;
 
     return (
-      <div className={this.bemClass('header-actions', this.state.isSettingsMenuOpen, '--active')}>
+      <div className={this.bemClass('header-actions', this.state.isMenuOpen, '--active')}>
         {/*<FontAwesome name='search' className='header-actions__search-icon'/>*/}
 
-        {/* TODO: rename to reflect expand role (not just settings) */}
-        <FontAwesome name='ellipsis-h' className='header-actions__settings-icon' onClick={this.toggleSettingsMenu.bind(this)} />
-        <div className={this.bemClass('header-actions__settings-overlay', this.state.isSettingsMenuOpen, '--active')} onClick={this.toggleSettingsMenu.bind(this)}></div>
-        <ul className={this.bemClass('header-actions__settings-panel', this.state.isSettingsMenuOpen, '--active')}>
-          <li className='header-actions__setting'><UserMenuRelay {...this.props} /></li>
+        <FontAwesome name='ellipsis-h' className='header-actions__menu-toggle' onClick={this.toggleSettingsMenu.bind(this)} />
+        <div className={this.bemClass('header-actions__menu-overlay', this.state.isMenuOpen, '--active')} onClick={this.toggleSettingsMenu.bind(this)}></div>
+        <ul className={this.bemClass('header-actions__menu', this.state.isMenuOpen, '--active')}>
+          <li className='header-actions__menu-item'><UserMenuRelay {...this.props} /></li>
           <TeamMenuRelay />
-          <li className='header-actions__setting' onClick={this.contactHuman.bind(this)}>Contact a Human</li>
-          <li className='header-actions__setting header-actions__setting--logout' onClick={logout}>Sign Out</li>
-          <li className='header-actions__setting'><a className='header-actions__link' href='/tos'>Terms of Service</a></li>
-          <li className='header-actions__setting'><a className='header-actions__link' href='/privacy'>Privacy Policy</a></li>
-          <li className='header-actions__setting'><a className='header-actions__link' href='http://meedan.com/check'>About Check</a></li>
+          <li className='header-actions__menu-item' onClick={this.contactHuman.bind(this)}>Contact a Human</li>
+          <li className='header-actions__menu-item header-actions__menu-item--logout' onClick={logout}>Sign Out</li>
+          <li className='header-actions__menu-item'><a className='header-actions__link' href='/tos'>Terms of Service</a></li>
+          <li className='header-actions__menu-item'><a className='header-actions__link' href='/privacy'>Privacy Policy</a></li>
+          <li className='header-actions__menu-item'><a className='header-actions__link' href='http://meedan.com/check'>About Check</a></li>
         </ul>
       </div>
     );

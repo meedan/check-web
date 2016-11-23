@@ -5,7 +5,7 @@ module LoggedInPage
     menu = element('.fa-ellipsis-h')
     menu.click
 
-    logout = element('.header-actions__setting--logout')
+    logout = element('.header-actions__menu-item--logout')
     logout.click
 
     wait_for_element('#login-menu')
