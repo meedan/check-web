@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import UserMenuRelay from '../relay/UserMenuRelay';
 import { logout } from '../actions/actions';
 import FontAwesome from 'react-fontawesome';
+import TeamMenuRelay from '../relay/TeamMenuRelay';
 
 class HeaderActions extends Component {
   constructor(props) {
@@ -36,6 +37,7 @@ class HeaderActions extends Component {
         <div className={this.bemClass('header-actions__settings-overlay', this.state.isSettingsMenuOpen, '--active')} onClick={this.toggleSettingsMenu.bind(this)}></div>
         <ul className={this.bemClass('header-actions__settings-panel', this.state.isSettingsMenuOpen, '--active')}>
           <li className='header-actions__setting'><UserMenuRelay {...this.props} /></li>
+          <TeamMenuRelay />
           <li className='header-actions__setting' onClick={this.contactHuman.bind(this)}>Contact a Human</li>
           <li className='header-actions__setting header-actions__setting--logout' onClick={logout}>Sign Out</li>
           <li className='header-actions__setting'><a className='header-actions__link' href='/tos'>Terms of Service</a></li>

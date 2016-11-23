@@ -188,10 +188,6 @@ class ProjectHeaderComponent extends Component {
                 <li className='project-header__project-setting project-header__project-setting--edit' onClick={this.enableEdit.bind(this)}>Edit project...</li>
               </Can>
               
-              <Can permissions={project.team.permissions} permission="update Team">
-                <li className='project-header__project-setting project-header__project-setting--manage-team' onClick={Checkdesk.history.push.bind(this, '/members')}>Manage team...</li>
-              </Can>
-              
               {/*<li className='project-header__project-setting project-header__project-setting--delete' onClick={this.deleteProject.bind(this)}>Delete project</li>*/}
               
               <li className='TODO project-header__project-setting' onClick={this.contactHuman.bind(this)}>Contact a Human</li>
