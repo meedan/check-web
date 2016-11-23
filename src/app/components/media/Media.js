@@ -80,6 +80,9 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
             name
           }
         }
+        team {
+          get_suggested_tags
+        }
       }
     `
   }

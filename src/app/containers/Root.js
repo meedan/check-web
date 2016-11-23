@@ -4,7 +4,7 @@ import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import ReactGA from 'react-ga';
 import App from './App';
-import { IndexComponent, TermsOfService, NotFound, CreateAccount, AccessDenied, PrivacyPolicy } from '../components';
+import { IndexComponent, TermsOfService, NotFound, CreateAccount, AccessDenied, PrivacyPolicy, UserConfirmed, UserUnconfirmed } from '../components';
 import { Sources, Source, User, Me } from '../components/source';
 import Team  from '../components/team/Team';
 import { CreateMedia, Media } from '../components/media';
@@ -59,6 +59,8 @@ export default class Root extends Component {
             <Route path="source/:sourceId" component={Source} />
             <Route path="medias/new" component={CreateMedia} />
             <Route path="project/:projectId/media/:mediaId" component={Media} />
+            <Route path="user/confirmed" component={UserConfirmed} public={true} />
+            <Route path="user/unconfirmed" component={UserUnconfirmed} public={true} />
             <Route path="user/:userId" component={User} />
             <Route path="me" component={Me} />
             <Route path="join" component={JoinTeam} />

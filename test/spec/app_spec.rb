@@ -15,7 +15,7 @@ describe 'app' do
     @wait = Selenium::WebDriver::Wait.new(timeout: 5)
 
     @email = 'sysops+' + Time.now.to_i.to_s + '@meedan.com'
-    @source_url = 'https://www.facebook.com/ironmaiden/?fref=ts&timestamp=' + Time.now.to_i.to_s
+    @source_url = 'https://twitter.com/ironmaiden?timestamp=' + Time.now.to_i.to_s
     @media_url = 'https://twitter.com/meedan/status/773947372527288320/?t=' + Time.now.to_i.to_s
     @config = YAML.load_file('config.yml')
     $source_id = nil
@@ -53,6 +53,18 @@ describe 'app' do
   # The tests themselves start here
 
   context "web" do
+    it "should access user confirmed page" do
+      @driver.navigate.to @config['self_url'] + '/user/confirmed'
+      title = get_element('.main-title')
+      expect(title.text == 'Account Confirmed').to be(true)
+    end
+
+    it "should access user unconfirmed page" do
+      @driver.navigate.to @config['self_url'] + '/user/unconfirmed'
+      title = get_element('.main-title')
+      expect(title.text == 'Error').to be(true)
+    end
+
     it "should login using Facebook" do
       login_with_facebook
       @driver.navigate.to @config['self_url'] + '/me'
@@ -126,6 +138,7 @@ describe 'app' do
     end
 
     it "should upload image when registering" do
+      email = @email + '.br'
       @driver.navigate.to @config['self_url']
       sleep 1
       @driver.find_element(:xpath, "//a[@id='login-email']").click
@@ -133,13 +146,16 @@ describe 'app' do
       @driver.find_element(:xpath, "//button[@id='register-or-login']").click
       sleep 1
       fill_field('.login-email__name input', 'User With Email And Photo')
-      fill_field('.login-email__email input', @email + '.br')
+      fill_field('.login-email__email input', email)
       fill_field('.login-email__password input', '12345678')
       fill_field('.login-email__password-confirmation input', '12345678')
       file = File.join(File.dirname(__FILE__), 'test.png')
       fill_field('input[type=file]', file, :css, false)
       press_button('#submit-register-or-login')
-      sleep 5
+      sleep 3
+      confirm_email(email)
+      sleep 1
+      login_with_email(true, email)
       @driver.navigate.to @config['self_url'] + '/me'
       sleep 10
       avatar = get_element('.source-avatar')
