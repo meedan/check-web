@@ -18,6 +18,7 @@
     "watch:styles": "watch 'npm run style' ./src/app/styles",
     "publish": "node scripts/server.js",
     "test": "cd test && rspec && cd ..",
+    "test:ff": "cd test && rspec --fail-fast && cd ..",
     "lint:styles": "sass-lint --config .sass-lint.yml './**/*.scss' --verbose --ignore './test/**/*.scss, ./node_modules/**/*.scss'"
   },
   "keywords": [
