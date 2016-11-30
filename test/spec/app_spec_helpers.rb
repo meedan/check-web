@@ -13,7 +13,7 @@ module AppSpecHelpers
   end
 
   def fill_field(selector, value, type = :css, visible = true)
-    wait = Selenium::WebDriver::Wait.new(timeout: 100)
+    wait = Selenium::WebDriver::Wait.new(timeout: 50)
     input = wait.until {
       element = @driver.find_element(type, selector)
       if visible
@@ -40,7 +40,9 @@ module AppSpecHelpers
     fill_field('.js-username-field', @config['twitter_user'])
     fill_field('.js-password-field', @config['twitter_password'])
     press_button
-    sleep 3
+    @wait.until {
+      @driver.page_source.include?("#{@config['twitter_name']}")
+    }
   end
 
   def twitter_auth
@@ -48,7 +50,6 @@ module AppSpecHelpers
     sleep 10
     window = @driver.window_handles.first
     @driver.switch_to.window(window)
-    sleep 1
   end
 
   def login_with_twitter
@@ -137,17 +138,14 @@ module AppSpecHelpers
   end
 
   def create_team
-    sleep 1
     if @driver.find_elements(:css, '.create-team').size > 0
       fill_field('#team-name-container', "Team #{Time.now}")
-      sleep 1
       fill_field('#team-subdomain-container', "team#{Time.now.to_i}")
-      sleep 1
       press_button('.create-team__submit-button')
-      sleep 5
+      sleep 2
     end
     @driver.navigate.to @config['self_url']
-    sleep 3
+    sleep 2
   end
 
   def create_project(title = "Project #{Time.now}")

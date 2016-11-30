@@ -2,6 +2,8 @@ require 'selenium-webdriver'
 require 'yaml'
 require File.join(File.expand_path(File.dirname(__FILE__)), 'spec_helper')
 require File.join(File.expand_path(File.dirname(__FILE__)), 'app_spec_helpers')
+require_relative './pages/login_page.rb'
+require_relative './pages/me_page.rb'
 
 describe 'app' do
 
@@ -15,6 +17,7 @@ describe 'app' do
     @wait = Selenium::WebDriver::Wait.new(timeout: 5)
 
     @email = 'sysops+' + Time.now.to_i.to_s + '@meedan.com'
+    @password = '12345678'
     @source_url = 'https://twitter.com/ironmaiden?timestamp=' + Time.now.to_i.to_s
     @media_url = 'https://twitter.com/meedan/status/773947372527288320/?t=' + Time.now.to_i.to_s
     @config = YAML.load_file('config.yml')
@@ -22,6 +25,13 @@ describe 'app' do
     $media_id = nil
 
     FileUtils.cp(@config['config_file_path'], '../build/web/js/config.js') unless @config['config_file_path'].nil?
+
+    LoginPage.new(config: @config)
+        .register_and_login_with_email(@email, @password)
+        .create_team
+        .create_project
+        .create_media(input: @media_url)
+        .logout_and_close
   end
 
   # Close the testing webserver after all tests run
@@ -73,24 +83,25 @@ describe 'app' do
       expect(displayed_name == expected_name).to be(true)
     end
 
-    it "should register using e-mail" do
-      register_with_email
-      @driver.navigate.to @config['self_url'] + '/me'
-      displayed_name = get_element('h2.source-name').text
+    it "should register and login using e-mail" do
+      login_pg = LoginPage.new(config: @config)
+      email, password = ['sysops+' + Time.now.to_i.to_s + '@meedan.com', '22345678']
+      login_pg.register_and_login_with_email(email, password)
+
+      me_pg = MePage.new(config: @config, driver: login_pg.driver).load # reuse tab
+      displayed_name = me_pg.title
       expect(displayed_name == 'User With Email').to be(true)
     end
 
     it "should create a project for a team" do
-      login_with_email
-      @driver.navigate.to @config['self_url']
-      sleep 1
-      title = "Project #{Time.now}"
-      fill_field('#create-project-title', title)
-      @driver.action.send_keys(:enter).perform
-      sleep 5
-      expect(@driver.current_url.to_s.match(/\/project\/[0-9]+$/).nil?).to be(false)
-      link = get_element('.team-sidebar__project-link')
-      expect(link.text == title).to be(true)
+      project_name = "Project #{Time.now}"
+      project_pg = LoginPage.new(config: @config)
+          .register_and_login_with_email('sysops+' + Time.now.to_i.to_s + '@meedan.com', Time.now.to_i.to_s)
+          .create_team
+          .create_project(name: project_name)
+
+      expect(project_pg.driver.current_url.to_s.match(/\/project\/[0-9]+$/).nil?).to be(false)
+      expect(project_pg.element('.team-sidebar__project-link').text == project_name).to be(true)
     end
 
     it "should create project media" do
@@ -194,13 +205,6 @@ describe 'app' do
       displayed_name = get_element('h2.source-name').text.upcase
       expected_name = @config['slack_name'].upcase
       expect(displayed_name == expected_name).to be(true)
-    end
-
-    it "should login with e-mail" do
-      login_with_email
-      @driver.navigate.to @config['self_url'] + '/me'
-      displayed_name = get_element('h2.source-name').text
-      expect(displayed_name == 'User With Email').to be(true)
     end
 
     it "should show team options at /teams" do
@@ -307,11 +311,22 @@ describe 'app' do
     end
 
     it "should redirect to access denied page" do
-      login_with_twitter
-      @driver.navigate.to team_url('source/' + $source_id.to_s)
-      title = get_element('.main-title')
-      expect(title.text == 'Access Denied').to be(true)
-      expect((@driver.current_url.to_s =~ /\/forbidden$/).nil?).to be(false)
+      user_1 = {email: 'sysops+' + Time.now.to_i.to_s + '@meedan.com', password: '12345678'}
+      login_pg = LoginPage.new(config: @config)
+      login_pg.register_and_login_with_email(user_1[:email], user_1[:password])
+
+      me_pg = MePage.new(config: @config, driver: login_pg.driver).load
+      user_1_source_id = me_pg.source_id
+      me_pg.logout_and_close
+
+      user_2 = {email: 'sysops+' + Time.now.to_i.to_s + '@meedan.com', password: '22345678'}
+      login_pg = LoginPage.new(config: @config)
+      login_pg.register_and_login_with_email(user_2[:email], user_2[:password])
+      unauthorized_pg = SourcePage.new(id: user_1_source_id, config: @config, driver: login_pg.driver).load
+      @wait.until { unauthorized_pg.contains_string?('Access Denied') }
+
+      expect(unauthorized_pg.contains_string?('Access Denied')).to be(true)
+      expect((unauthorized_pg.driver.current_url.to_s =~ /\/forbidden$/).nil?).to be(false)
     end
 
     it "should comment source as a command" do
@@ -444,25 +459,25 @@ describe 'app' do
     end
 
     it "should not add a duplicated tag from command line" do
-      login_with_email
-      @driver.navigate.to team_url('project/' + get_project + '/media/' + $media_id)
-      sleep 1
+      media_pg = LoginPage.new(config: @config)
+          .login_with_email(@email, @password)
+          .click_media
+      new_tag = Time.now.to_i.to_s
 
-      # Validate assumption that tag exists
-      get_element('.media-actions').click
-      get_element('.media-actions__menu-item').click
-      tag = @driver.find_elements(:css, '.ReactTags__tag span').select{ |s| s.text == 'bla' }
-      expect(tag.size == 1).to be(true)
+      # Validate assumption that tag does not exist
+      expect(media_pg.has_tag?(new_tag)).to be(false)
+
+      # Try to add from command line
+      media_pg.add_annotation("/tag #{new_tag}")
+      Selenium::WebDriver::Wait.new(timeout: 10).until { media_pg.has_tag?(new_tag) } # TODO: wait inside MediaPage
+      expect(media_pg.has_tag?(new_tag)).to be(true)
 
       # Try to add duplicate from command line
-      fill_field('#cmd-input', '/tag bla')
-      @driver.action.send_keys(:enter).perform
-      sleep 5
+      media_pg.add_annotation("/tag #{new_tag}")
 
       # Verify that tag is not added and that error message is displayed
-      tag = @driver.find_elements(:css, '.ReactTags__tag span').select{ |s| s.text == 'bla' }
-      expect(tag.size == 1).to be(true)
-      expect(@driver.page_source.include?('This tag already exists')).to be(true)
+      expect(media_pg.tags.count(new_tag)).to be(1)
+      expect(media_pg.contains_string?('This tag already exists')).to be(true)
     end
 
     it "should not create duplicated media if registered" do

@@ -37,7 +37,7 @@ class HeaderActions extends Component {
         <ul className={this.bemClass('header-actions__settings-panel', this.state.isSettingsMenuOpen, '--active')}>
           <li className='header-actions__setting'><UserMenuRelay {...this.props} /></li>
           <li className='header-actions__setting' onClick={this.contactHuman.bind(this)}>Contact a Human</li>
-          <li className='header-actions__setting' onClick={logout}>Sign Out</li>
+          <li className='header-actions__setting header-actions__setting--logout' onClick={logout}>Sign Out</li>
           <li className='header-actions__setting'><a className='header-actions__link' href='/tos'>Terms of Service</a></li>
           <li className='header-actions__setting'><a className='header-actions__link' href='/privacy'>Privacy Policy</a></li>
           <li className='header-actions__setting'><a className='header-actions__link' href='http://meedan.com/check'>About Check</a></li>
