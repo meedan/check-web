@@ -200,7 +200,7 @@ module AppSpecHelpers
 
   def request_api(path, params)
     require 'net/http'
-    api_path = @driver.execute_script("return config.restBaseUrl.replace(/\\/api.*/, '#{path}')").to_s
+    api_path = @driver.execute_script("return config.restBaseUrl.replace(/\\/api\\/.*/, '#{path}')").to_s
     uri = URI(api_path)
     uri.query = URI.encode_www_form(params)
     Net::HTTP.get_response(uri)
