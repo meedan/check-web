@@ -9,7 +9,7 @@ class PrivacyPolicyComponent extends Component {
   render() {
     var about = this.props.about;
     return (
-      <DocumentTitle title={pageTitle('PrivacyPolicy')}>
+      <DocumentTitle title={pageTitle('Privacy Policy')}>
         <div>
           <h2 className="main-title">Privacy Policy</h2>
           <div id="privacy-policy" dangerouslySetInnerHTML={{__html: marked(about.privacy_policy)}}></div>
