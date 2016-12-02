@@ -19,23 +19,10 @@ class LoginMenu extends Component {
           
           <h2 className="login-menu__heading">Sign in</h2>
 
-          <div className="nudge-electionland">
-            <img className="electionland-logo" width="30" src="/images/Electionland_small.svg" alt=" " title=" " />
-            <p>New Electionland members should sign in with Slack! <strong>When asked for your Slack team, choose Electionland.</strong></p>
-            <img className="arrow" src="/images/arrow-left.png" alt=" " title=" " />
-          </div>
-
           <ul className="login-menu__options">
             <li>
               <button onClick={loginSlack} id="slack-login" className='login-menu__button login-menu__button--slack'>Sign in with Slack</button>
             </li>
-          </ul>
-          
-          <p>Reports discovered via social media are meant solely as <em>tips</em>. Always contact the source before sharing publicly.</p>
-
-          <p className="other-method">If you’ve already connected with another method or aren’t on the Electionland team, you have other options.</p>
-
-          <ul className="login-menu__options">
             <li className="item">
               <button onClick={loginTwitter} id="twitter-login" className='login-menu__button login-menu__button--twitter'>Sign in with Twitter</button>
             </li>

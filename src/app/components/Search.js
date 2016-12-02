@@ -10,7 +10,6 @@ import TeamRoute from '../relay/TeamRoute';
 import MediaDetail from './media/MediaDetail';
 import { bemClass } from '../helpers';
 import teamFragment from '../relay/teamFragment';
-import suggestedTagsData from '../../../data/suggestedTags';
 import { pageTitle } from '../helpers';
 
 const pageSize = 20;
@@ -29,7 +28,7 @@ class SearchQueryComponent extends Component {
     try {
       query = queryFromUrlQuery(window.location.pathname.match(/^\/search\/(.*)/)[1]);
     } catch (e) {
-      query = queryFromUrlQuery();
+      query = {};
     }
     this.setState({query: query});
   }
@@ -52,18 +51,8 @@ class SearchQueryComponent extends Component {
     })
   }
 
-  urlQueryFromQuery(queryObject) {
-    const newQuery = JSON.parse(JSON.stringify(queryObject));
-
-    if (newQuery.tags) {
-      newQuery.tags = newQuery.tags.map((tag) => { return encodeURIComponent(tag) });
-    }
-    if (newQuery.status) {
-      newQuery.status = newQuery.status.map((status) => { return encodeURIComponent(status) });
-    }
-
-    const jsonQuery = JSON.stringify(newQuery);
-    return jsonQuery.substring(1, jsonQuery.length - 1) // strip %7D %7B for readability
+  urlQueryFromQuery(query) {
+    return encodeURIComponent(JSON.stringify(query));
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -84,6 +73,15 @@ class SearchQueryComponent extends Component {
   tagIsSelected(tag, state = this.state) {
     const selectedTags = state.query.tags || [];
     return selectedTags.length && selectedTags.includes(tag)
+  }
+
+  sortIsSelected(sortParam, state = this.state) {
+    if (['recent_added', 'recent_activity'].includes(sortParam)) {
+      return state.query.sort === sortParam || (!state.query.sort && sortParam === 'recent_added');
+    }
+    else if (['ASC', 'DESC'].includes(sortParam)) {
+      return state.query.sort_type === sortParam || (!state.query.sort_type && sortParam === 'DESC');
+    }
   }
 
   handleStatusClick(statusCode) {
@@ -132,6 +130,19 @@ class SearchQueryComponent extends Component {
     })
   }
 
+  handleSortClick(sortParam) {
+    this.setState((prevState, props) => {
+      if (['recent_added', 'recent_activity'].includes(sortParam)) {
+        prevState.query.sort = sortParam;
+        return {query: prevState.query};
+      }
+      else if (['ASC', 'DESC'].includes(sortParam)) {
+        prevState.query.sort_type = sortParam;
+        return {query: prevState.query};
+      }
+    });
+  }
+
   // Create title out of query parameters
   // To understand this code:
   // - http://stackoverflow.com/a/10865042/209184 for `[].concat.apply`
@@ -155,8 +166,13 @@ class SearchQueryComponent extends Component {
   render() {
     const statuses = JSON.parse(this.props.team.media_verification_statuses).statuses;
     const projects = this.props.team.projects.edges.sortp((a,b) => a.node.title.localeCompare(b.node.title));
-    const suggestedTags = suggestedTagsData[window.location.hostname.split('.')[0]] || [];
+    const suggestedTags = this.props.team.get_suggested_tags ? this.props.team.get_suggested_tags.split(',') : [];
     const title = this.title(statuses, projects);
+
+    // Reset the project context.
+    // TODO: Move the whole context-setting logic out of `render()`
+    // and into the routing mechanism.
+    delete Checkdesk.context.project;
 
     return (
       <DocumentTitle title={pageTitle(title)}>
@@ -186,7 +202,7 @@ class SearchQueryComponent extends Component {
               </ul>
             </div>
             <div>
-              {suggestedTags.length ? <h4>Electionland</h4> : null}
+              {suggestedTags.length ? <h4>Categories</h4> : null}
               {/* chicklet markup/logic from MediaTags. TODO: fix classnames */}
               {suggestedTags.length ? <ul className="/ media-tags__suggestions-list // electionland_categories">
                   {suggestedTags.map((tag) => {
@@ -194,6 +210,16 @@ class SearchQueryComponent extends Component {
                   })}
                 </ul>
               : null}
+            </div>
+            <div>
+              <h4>Sort</h4>
+              {/* chicklet markup/logic from MediaTags. TODO: fix classnames */}
+              <ul className="search-query__sort-actions / media-tags__suggestions-list">
+                <li onClick={this.handleSortClick.bind(this, 'recent_added')} className={bemClass('media-tags__suggestion', this.sortIsSelected('recent_added'), '--selected')}>Created</li>
+                <li onClick={this.handleSortClick.bind(this, 'recent_activity')} className={bemClass('media-tags__suggestion', this.sortIsSelected('recent_activity'), '--selected')}>Recent activity</li>
+                <li onClick={this.handleSortClick.bind(this, 'DESC')} className={bemClass('media-tags__suggestion', this.sortIsSelected('DESC'), '--selected')}>Newest first</li>
+                <li onClick={this.handleSortClick.bind(this, 'ASC')} className={bemClass('media-tags__suggestion', this.sortIsSelected('ASC'), '--selected')}>Oldest first</li>
+              </ul>
             </div>
           </section>
         </div>
@@ -313,7 +339,7 @@ class Search extends Component {
 
 function queryFromUrlQuery(urlQuery) {
   try {
-    return JSON.parse('{' + decodeURIComponent(urlQuery || '') + '}');
+    return JSON.parse(decodeURIComponent(urlQuery));
   } catch (e) {
     return {};
   }

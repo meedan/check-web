@@ -86,34 +86,6 @@
   &:hover { background-color: $firefly-80; }
 }
 
-// Electionland customizations
-//
-.nudge-electionland {
-  width: 90%;
-  display: flex;
-  margin: 0 auto;
-  align-items: flex-start;
-  justify-content: middle;
-  position: relative;
-  padding: 8px;
-  .arrow {
-    position: absolute;
-    bottom: -20px;
-    left: 60px;
-    width: 25px;
-    opacity: 50%;
-  }
-  p {
-    text-align: left;
-    flex: 10;
-    padding-left: 8px;
-  }
-  em {
-    background-color: yellow;
-    font-style: normal;
-  }
-}
-
 p.other-method {
   border-top: 1px solid $firefly-20;
   padding: 32px 16px 16px;

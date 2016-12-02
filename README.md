@@ -61,4 +61,5 @@ end
 ```
 
 ## Notes and tips
-* run `npm install babel-register -g` if you faced errors related to `babel-register`
+
+* Run `npm install babel-register -g` if you face errors related to `babel-register`

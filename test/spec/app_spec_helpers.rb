@@ -100,11 +100,11 @@ module AppSpecHelpers
     end
   end
 
-  def login_with_email(should_create_team = true)
+  def login_with_email(should_create_team = true, email = @email)
     @driver.navigate.to @config['self_url']
     sleep 2
     @driver.find_element(:xpath, "//a[@id='login-email']").click
-    fill_field('.login-email__email input', @email)
+    fill_field('.login-email__email input', email)
     fill_field('.login-email__password input', '12345678')
     press_button('#submit-register-or-login')
     sleep 3
@@ -168,7 +168,9 @@ module AppSpecHelpers
     fill_field('.login-email__password-confirmation input', '12345678')
     press_button('#submit-register-or-login')
     sleep 3
-    create_team if should_create_team
+    confirm_email(email)
+    sleep 1
+    login_with_email(true, email)
   end
 
   def get_team
@@ -190,5 +192,17 @@ module AppSpecHelpers
 
   def team_url(path)
     @config['self_url'].gsub('//', '//' + get_team + '.') + '/' + path
+  end
+
+  def confirm_email(email)
+    request_api('/test/confirm_user', { email: email })
+  end
+
+  def request_api(path, params)
+    require 'net/http'
+    api_path = @driver.execute_script("return config.restBaseUrl.replace(/\\/api.*/, '#{path}')").to_s
+    uri = URI(api_path)
+    uri.query = URI.encode_www_form(params)
+    Net::HTTP.get_response(uri)
   end
 end

@@ -28,7 +28,9 @@ $menu-status-item-padding: 11px 15px 11px 13px;
   position: relative;
   border-left: 1px solid transparent;
 
-  @include media-status-colors;
+  @include media-status-font-colors;
+
+  white-space: nowrap;
 }
 
 .media-status__message {
@@ -82,14 +84,8 @@ $menu-status-item-padding: 11px 15px 11px 13px;
 }
 
 .media-status__menu-item {
-  @include media-status-colors;
-
-  $hover-bg-opacity: 0.15;
-  &--undetermined:hover { background: rgba($blue-100, $hover-bg-opacity); }
-  &--in-progress:hover { background: rgba($orange-100, $hover-bg-opacity); }
-  &--verified:hover { background: rgba($green-100, $hover-bg-opacity); }
-  &--false:hover { background: rgba($red-100, $hover-bg-opacity); }
-  &--not-applicable:hover { background: rgba($gray-100, $hover-bg-opacity); }
+  @include media-status-font-colors;
+  @include media-status-menu-hover-colors;
 
   border-bottom: $layout-border; // TODO: consistent opacity
   padding: $menu-status-item-padding;

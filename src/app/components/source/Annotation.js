@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 import TimeAgo from 'react-timeago';
 import Linkify from 'react-linkify';
+import nl2br from 'react-nl2br';
 import MediaCard from '../media/MediaCard';
 import DeleteAnnotationMutation from '../../relay/DeleteAnnotationMutation';
 import Can from '../Can';
@@ -42,6 +43,12 @@ class Annotation extends Component {
     return label;
   }
 
+  createdAt(annotation) {
+    var date = new Date(annotation.created_at);
+    if (isNaN(date)) date = null;
+    return date;
+  }
+
   render() {
     const annotation = this.props.annotation;
     const permissionType = `${annotation.annotation_type.charAt(0).toUpperCase()}${annotation.annotation_type.slice(1)}`;
@@ -52,7 +59,8 @@ class Annotation extends Component {
         </Can>
       </div>
     );
-    let content = JSON.parse(annotation.content);
+    const createdAt = this.createdAt(annotation);
+    const content = JSON.parse(annotation.content);
     let contentTemplate;
 
     switch (annotation.annotation_type) {
@@ -62,11 +70,10 @@ class Annotation extends Component {
           <section className='annotation__content'>
             <div className='annotation__header'>
               <h4 className='annotation__author-name'>{annotation.annotator.name}</h4>
-              <span className='annotation__timestamp'><TimeAgo date={annotation.created_at} live={false} /></span>
+              {createdAt ? <span className='annotation__timestamp'><TimeAgo date={createdAt} live={false} /></span> : null}
               {annotationActions}
             </div>
-            <div className='annotation__body'><Linkify properties={{ target: '_blank' }}>{commentText}</Linkify></div>
-            
+            <div className='annotation__body'><Linkify properties={{ target: '_blank' }}>{nl2br(commentText)}</Linkify></div>
             {annotation.medias.edges.map(function(media) {
               return (
                 <div className='annotation__embedded-media'>
@@ -85,19 +92,21 @@ class Annotation extends Component {
               <span>Status set to </span>
               <span className={`annotation__status annotation__status--${statusCode}`}>{this.statusIdToLabel(content.status)}</span>
               <span> by </span>
-              <span className='annotation__author-name'>{annotation.annotator.name}</span> <span className='annotation__timestamp'><TimeAgo date={annotation.created_at} live={false} /></span>
+              <span className='annotation__author-name'>{annotation.annotator.name}</span>
+              {createdAt ? <span className='annotation__timestamp'><TimeAgo date={createdAt} live={false} /></span> : null}
               {annotationActions}
             </div>
           </section>
         );
         break;
       case 'tag':
-        const message = `Tagged #${content.tag} by `;
+        const message = `Tagged #${content.tag.replace(/^#/, '')} by `;
         contentTemplate = (
           <section className='annotation__content'>
             <div className='annotation__header'>
               <span>{message}</span>
-              <span className='annotation__author-name'>{annotation.annotator.name}</span> <span className='annotation__timestamp'><TimeAgo date={annotation.created_at} live={false} /></span>
+              <span className='annotation__author-name'>{annotation.annotator.name}</span>
+              {createdAt ? <span className='annotation__timestamp'><TimeAgo date={createdAt} live={false} /></span> : null}
               {annotationActions}
             </div>
           </section>
@@ -108,7 +117,8 @@ class Annotation extends Component {
           <section className='annotation__content'>
             <div className='annotation__header'>
               <span>Flagged as {content.flag} by </span>
-              <span className='annotation__author-name'>{annotation.annotator.name}</span> <span className='annotation__timestamp'><TimeAgo date={annotation.created_at} live={false} /></span>
+              <span className='annotation__author-name'>{annotation.annotator.name}</span>
+              {createdAt ? <span className='annotation__timestamp'><TimeAgo date={createdAt} live={false} /></span> : null}
               {annotationActions}
             </div>
           </section>

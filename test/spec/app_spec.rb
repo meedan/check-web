@@ -15,7 +15,7 @@ describe 'app' do
     @wait = Selenium::WebDriver::Wait.new(timeout: 5)
 
     @email = 'sysops+' + Time.now.to_i.to_s + '@meedan.com'
-    @source_url = 'https://www.facebook.com/ironmaiden/?fref=ts&timestamp=' + Time.now.to_i.to_s
+    @source_url = 'https://twitter.com/ironmaiden?timestamp=' + Time.now.to_i.to_s
     @media_url = 'https://twitter.com/meedan/status/773947372527288320/?t=' + Time.now.to_i.to_s
     @config = YAML.load_file('config.yml')
     $source_id = nil
@@ -53,6 +53,18 @@ describe 'app' do
   # The tests themselves start here
 
   context "web" do
+    it "should access user confirmed page" do
+      @driver.navigate.to @config['self_url'] + '/user/confirmed'
+      title = get_element('.main-title')
+      expect(title.text == 'Account Confirmed').to be(true)
+    end
+
+    it "should access user unconfirmed page" do
+      @driver.navigate.to @config['self_url'] + '/user/unconfirmed'
+      title = get_element('.main-title')
+      expect(title.text == 'Error').to be(true)
+    end
+
     it "should login using Facebook" do
       login_with_facebook
       @driver.navigate.to @config['self_url'] + '/me'
@@ -101,7 +113,7 @@ describe 'app' do
 
       @driver.navigate.to media_link
       sleep 3
-      fill_field('.cmd-input input', '/status In Progress')
+      fill_field('#cmd-input', '/status In Progress')
       @driver.action.send_keys(:enter).perform
       sleep 3
 
@@ -126,6 +138,7 @@ describe 'app' do
     end
 
     it "should upload image when registering" do
+      email = @email + '.br'
       @driver.navigate.to @config['self_url']
       sleep 1
       @driver.find_element(:xpath, "//a[@id='login-email']").click
@@ -133,13 +146,16 @@ describe 'app' do
       @driver.find_element(:xpath, "//button[@id='register-or-login']").click
       sleep 1
       fill_field('.login-email__name input', 'User With Email And Photo')
-      fill_field('.login-email__email input', @email + '.br')
+      fill_field('.login-email__email input', email)
       fill_field('.login-email__password input', '12345678')
       fill_field('.login-email__password-confirmation input', '12345678')
       file = File.join(File.dirname(__FILE__), 'test.png')
       fill_field('input[type=file]', file, :css, false)
       press_button('#submit-register-or-login')
-      sleep 5
+      sleep 3
+      confirm_email(email)
+      sleep 1
+      login_with_email(true, email)
       @driver.navigate.to @config['self_url'] + '/me'
       sleep 10
       avatar = get_element('.source-avatar')
@@ -273,7 +289,7 @@ describe 'app' do
       expect(@driver.page_source.include?('Tagged #command')).to be(false)
 
       # Add a tag as a command
-      fill_field('.cmd-input input', '/tag command')
+      fill_field('#cmd-input', '/tag command')
       @driver.action.send_keys(:enter).perform
       sleep 5
 
@@ -307,7 +323,7 @@ describe 'app' do
       expect(@driver.page_source.include?('This is my comment')).to be(false)
 
       # Add a comment as a command
-      fill_field('.cmd-input input', '/comment This is my comment')
+      fill_field('#cmd-input', '/comment This is my comment')
       @driver.action.send_keys(:enter).perform
       sleep 5
 
@@ -365,7 +381,7 @@ describe 'app' do
       sleep 1
 
       # Add tags as a command
-      fill_field('.cmd-input input', '/tag foo, bar')
+      fill_field('#cmd-input', '/tag foo, bar')
       @driver.action.send_keys(:enter).perform
       sleep 5
 
@@ -439,7 +455,7 @@ describe 'app' do
       expect(tag.size == 1).to be(true)
 
       # Try to add duplicate from command line
-      fill_field('.cmd-input input', '/tag bla')
+      fill_field('#cmd-input', '/tag bla')
       @driver.action.send_keys(:enter).perform
       sleep 5
 
@@ -468,7 +484,7 @@ describe 'app' do
       sleep 10
       expect(@driver.current_url.to_s.match(/\/media\/[0-9]+$/).nil?).to be(true)
       message = get_element('.create-media .message').text
-      expect(message == 'Validation failed: Sorry, this is not a valid media item').to be(true)
+      expect(message == 'Something went wrong! Try pasting the text of this post instead, or adding a different link.').to be(true)
     end
 
     it "should tag media from tags list" do
@@ -477,19 +493,19 @@ describe 'app' do
       sleep 1
 
       # First, verify that there isn't any tag
-      expect(@driver.page_source.include?('Tagged #selenium')).to be(false)
+      expect(@driver.page_source.include?('Tagged #tellurium')).to be(false)
 
       # Add a tag from tags list
       get_element('.media-actions').click
       get_element('.media-actions__menu-item').click
-      fill_field('.ReactTags__tagInput input', 'selenium')
+      fill_field('.ReactTags__tagInput input', 'tellurium')
       @driver.action.send_keys(:enter).perform
       sleep 5
 
       # Verify that tag was added to tags list and annotations list
       tag = get_element('.ReactTags__tag span')
-      expect(tag.text == 'selenium').to be(true)
-      expect(@driver.page_source.include?('Tagged #selenium')).to be(true)
+      expect(tag.text == 'tellurium').to be(true)
+      expect(@driver.page_source.include?('Tagged #tellurium')).to be(true)
 
       # Reload the page and verify that tags are still there
       @driver.navigate.refresh
@@ -497,8 +513,8 @@ describe 'app' do
       get_element('.media-actions').click
       get_element('.media-actions__menu-item').click
       tag = get_element('.ReactTags__tag span')
-      expect(tag.text == 'selenium').to be(true)
-      expect(@driver.page_source.include?('Tagged #selenium')).to be(true)
+      expect(tag.text == 'tellurium').to be(true)
+      expect(@driver.page_source.include?('Tagged #tellurium')).to be(true)
     end
 
     it "should tag media as a command" do
@@ -510,7 +526,7 @@ describe 'app' do
       expect(@driver.page_source.include?('Tagged #command')).to be(false)
 
       # Add a tag as a command
-      fill_field('.cmd-input input', '/tag command')
+      fill_field('#cmd-input', '/tag command')
       @driver.action.send_keys(:enter).perform
       sleep 5
 
@@ -536,7 +552,7 @@ describe 'app' do
       expect(@driver.page_source.include?('This is my comment')).to be(false)
 
       # Add a comment as a command
-      fill_field('.cmd-input input', '/comment This is my comment')
+      fill_field('#cmd-input', '/comment This is my comment')
       @driver.action.send_keys(:enter).perform
       sleep 5
 
@@ -555,7 +571,7 @@ describe 'app' do
       sleep 1
 
       # Add a status as a command
-      fill_field('.cmd-input input', '/status In Progress')
+      fill_field('#cmd-input', '/status In Progress')
       @driver.action.send_keys(:enter).perform
       sleep 5
 
@@ -577,7 +593,7 @@ describe 'app' do
       expect(@driver.page_source.include?('Flag')).to be(false)
 
       # Add a flag as a command
-      fill_field('.cmd-input input', '/flag Spam')
+      fill_field('#cmd-input', '/flag Spam')
       @driver.action.send_keys(:enter).perform
       sleep 5
 
@@ -636,7 +652,7 @@ describe 'app' do
     #   expect(@driver.page_source.include?('This is my comment')).to be(false)
 
     #   # Add a comment as a command
-    #   fill_field('.cmd-input input', '/comment This is my comment')
+    #   fill_field('#cmd-input', '/comment This is my comment')
     #   @driver.action.send_keys(:enter).perform
     #   sleep 5
 
@@ -758,8 +774,8 @@ describe 'app' do
       create_media(@media_url)
       wait.until { @driver.find_element(:css, '.media') }
 
-      @driver.navigate.to @config['self_url']
-      (wait.until { @driver.find_element(:css, '.team-sidebar__switch-teams-button') }).click
+      @driver.navigate.to @config['self_url'] + '/teams'
+      wait.until { @driver.find_element(:css, '.teams') }
       (wait.until { @driver.find_element(:xpath, "//*[contains(text(), '#{team_1_name}')]") }).click
       wait.until { @driver.find_element(:css, '.team') }
       expect(@driver.find_element(:css, '.team__name').text == team_1_name).to be(true)
@@ -769,7 +785,8 @@ describe 'app' do
       media_1_url = @driver.find_element(:css, '.media-detail__check-timestamp').attribute('href')
       expect(media_1_url.include?("/project/#{project_1_id}/media/")).to be(true)
 
-      (wait.until { @driver.find_element(:css, '.team-sidebar__switch-teams-button') }).click
+      @driver.navigate.to @config['self_url'] + '/teams'
+      wait.until { @driver.find_element(:css, '.teams') }
       (wait.until { @driver.find_element(:xpath, "//*[contains(text(), '#{team_2_name}')]") }).click
       wait.until { @driver.find_element(:css, '.team') }
       expect(@driver.find_element(:css, '.team__name').text == team_2_name).to be(true)
@@ -813,6 +830,10 @@ describe 'app' do
     end
 
     it "should find medias when searching by tag" do
+      skip("Needs to be implemented")
+    end
+
+    it "should edit the title of a media" do
       skip("Needs to be implemented")
     end
   end

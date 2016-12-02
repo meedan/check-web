@@ -19,17 +19,17 @@ before_install:
 - sudo service dnsmasq restart
 # api
 - redis-server &
-- export RAILS_ENV=development
 - curl -O https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.2.4.deb && sudo dpkg -i --force-confnew elasticsearch-1.2.4.deb && sudo service elasticsearch restart
 - git clone https://github.com/meedan/check-api.git
 - cp travis/check-api.yml check-api/config/config.yml
 - cp check-api/config/initializers/secret_token.rb.example check-api/config/initializers/secret_token.rb
-- cp check-api/config/database.yml.travis check-api/config/database.yml
+- cp travis/check-api-database.yml check-api/config/database.yml
 - cd check-api
 - bundle install
-- bundle exec rake db:migrate
-- rails s -p 3000 >/dev/null &
+- bundle exec rake db:migrate RAILS_ENV=test
+- rails s -e test -p 3000 >/dev/null &
 - cd -
+- export RAILS_ENV=development
 # pender
 - git clone https://github.com/meedan/pender.git
 - cp travis/pender.yml pender/config/config.yml

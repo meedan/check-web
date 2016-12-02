@@ -199,6 +199,7 @@ class ProjectHeaderComponent extends Component {
               <li className='TODO project-header__project-setting project-header__logout' onClick={logout}>Sign Out</li>
               <li className='header-actions__setting'><a className='header-actions__link' href='/tos'>Terms of Service</a></li>
               <li className='header-actions__setting'><a className='header-actions__link' href='/privacy'>Privacy Policy</a></li>
+              <li className='header-actions__setting'><a className='header-actions__link' href='http://meedan.com/check'>About Check</a></li>
             </ul>
           </div>
         </div>

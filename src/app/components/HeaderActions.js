@@ -40,6 +40,7 @@ class HeaderActions extends Component {
           <li className='header-actions__setting' onClick={logout}>Sign Out</li>
           <li className='header-actions__setting'><a className='header-actions__link' href='/tos'>Terms of Service</a></li>
           <li className='header-actions__setting'><a className='header-actions__link' href='/privacy'>Privacy Policy</a></li>
+          <li className='header-actions__setting'><a className='header-actions__link' href='http://meedan.com/check'>About Check</a></li>
         </ul>
       </div>
     );

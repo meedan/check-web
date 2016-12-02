@@ -139,7 +139,7 @@ class AddAnnotation extends Component {
     this.setState({ message: null });
   }
 
-  submit(e) {
+  handleSubmit(e) {
     const command = this.parseCommand(document.forms.addannotation.cmd.value);
     let action = null;
 
@@ -177,24 +177,31 @@ class AddAnnotation extends Component {
     e.preventDefault();
   }
 
-  componentDidMount(){
-    this.annotationInput.focus();
+  componentDidMount() {
+    // this.annotationInput.focus();
+  }
+
+  handleKeyPress(e) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      this.handleSubmit(e);
+    }
   }
 
   render() {
     return (
-      <form className='add-annotation' name="addannotation" onSubmit={this.submit.bind(this)}>
+      <form className='add-annotation' name="addannotation" onSubmit={this.handleSubmit.bind(this)}>
         <TextField hintText="Add a note about this report"
                    fullWidth={false}
-                   style={{width: '80%'}}
+                   style={{width: '100%'}}
                    errorStyle={styles.errorStyle}
                    onFocus={this.handleFocus.bind(this)}
                    ref={(ref) => this.cmd = ref}
                    errorText={this.state.message}
-                   name="cmd"
-                   className="cmd-input"
+                   name="cmd" id="cmd-input"
+                   multiLine={true}
+                   onKeyPress={this.handleKeyPress.bind(this)}
                    ref={(input) => this.annotationInput = input} />
-        <FlatButton label="Submit" primary={true} type="submit" style={{width: '20%'}} />
+        <FlatButton label="Submit" primary={true} type="submit" style={{float: 'right'}} />
       </form>
     );
   }

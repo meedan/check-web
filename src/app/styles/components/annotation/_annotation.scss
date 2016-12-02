@@ -1,10 +1,10 @@
 .annotation {
   border-top: $layout-border-light;
-
   padding: 15px 0;
-
   display: flex;
   font-size: $annotation-font-size;
+  position: relative;
+  overflow-x: hidden;
 }
 
 .annotation__avatar {
@@ -49,21 +49,23 @@
 .annotation__actions {
   flex: 1;
   align-self: flex-start;
-
   text-align: right;
-  position: relative;
 }
 
 .annotation__delete {
   @include close-button(21px);
   position: absolute;
-  top: -4px;
-  right: 15px;
-  // @include gray-text(12.5px);
+  top: 10px;
+  right: 0;
+  height: 30px;
+  width: 30px;
+  background-color: $home-bg;
+  border-radius: 30px;
 }
 
 .annotation__body {
   color: theme-gray(27%);
+  word-break: break-word;
 }
 
 .annotation__embedded-media {
@@ -76,7 +78,7 @@
 
 .annotation__status {
   @include app-kicker(11px);
-  @include media-status-colors;
+  @include media-status-font-colors;
   margin-left: 3px;
   margin-right: 2px;
 }

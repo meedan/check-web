@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 import CreateTagMutation from '../../relay/CreateTagMutation';
 import DeleteTagMutation from '../../relay/DeleteTagMutation';
-import suggestedTagsData from '../../../../data/suggestedTags';
 import Tags from '../source/Tags';
 
 class MediaTags extends Component {
@@ -78,7 +77,7 @@ class MediaTags extends Component {
 
   render() {
     const { media, tags } = this.props;
-    const suggestedTags = suggestedTagsData[window.location.hostname.split('.')[0]] || [];
+    const suggestedTags = (media.team && media.team.get_suggested_tags) ? media.team.get_suggested_tags.split(',') : [];
     const activeSuggestedTags = tags.filter((tag) => { return suggestedTags.includes(tag.node.tag); });
     const remainingTags = tags.filter((tag) => { return !suggestedTags.includes(tag.node.tag); });
 
@@ -94,7 +93,7 @@ class MediaTags extends Component {
           ) : null}
           {remainingTags.length ? <ul className='media-tags__list'>
             {remainingTags.map((tag) => {
-              return (<li className='media-tags__tag'>{tag.node.tag}</li>);
+              return (<li className='media-tags__tag'>{tag.node.tag.replace(/^#/, '')}</li>);
             })}
           </ul> : null}
         </div>

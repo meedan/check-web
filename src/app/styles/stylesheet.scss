@@ -39,11 +39,11 @@
 @import 'tags';
 @import 'create-account';
 @import 'tabs';
-@import 'electionland-checklist';
 
 body {
   margin: auto;
   width: 100%;
+  overflow-x: hidden;
 }
 
 .hidden {
@@ -90,10 +90,9 @@ address {
 
 .message {
   background: $cream;
-  border: 1px solid $midgrey;
-  color: $darkergrey;
+  color: $light-gray-text;
   padding: 10px;
-  margin: 10px;
+  // margin: 10px;
   font-size: 14px;
 }
 
