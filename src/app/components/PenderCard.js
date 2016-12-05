@@ -3,8 +3,12 @@ import Spinner from 'react-spinner';
 
 class PenderCard extends Component {
   addTag() {
+    let src = this.props.penderUrl + '/api/medias.js?url=' + encodeURIComponent(this.props.url);
+    if (this.props.embedTag) {
+      src = this.props.embedTag.match(/.*src="([^"]+)".*/)[1];
+    }
     const script = document.createElement('script');
-    script.src = this.props.penderUrl + '/api/medias.js?url=' + encodeURIComponent(this.props.url);
+    script.src = src;
     script.async = true;
     script.type = 'text/javascript';
     document.getElementById('pender-card').appendChild(script);
