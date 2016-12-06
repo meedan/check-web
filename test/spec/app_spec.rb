@@ -691,49 +691,49 @@ describe 'app' do
       expect(@driver.page_source.include? 'Sign in').to be(true)
     end
 
-    it "should ask to join team" do
-      skip("Needs to be implemented")
-    end
+    # it "should ask to join team" do
+    #   skip("Needs to be implemented")
+    # end
 
-    it "should redirect to team page if user asking to join a team is already a member" do
-      skip("Needs to be implemented")
-    end
+    # it "should redirect to team page if user asking to join a team is already a member" do
+    #   skip("Needs to be implemented")
+    # end
 
-    it "should reject member to join team" do
-      skip("Needs to be implemented")
-    end
+    # it "should reject member to join team" do
+    #   skip("Needs to be implemented")
+    # end
 
-    it "should accept member to join team" do
-      skip("Needs to be implemented")
-    end
+    # it "should accept member to join team" do
+    #   skip("Needs to be implemented")
+    # end
 
-    it "should change member role" do
-      skip("Needs to be implemented")
-    end
+    # it "should change member role" do
+    #   skip("Needs to be implemented")
+    # end
 
-    it "should delete member from team" do
-      skip("Needs to be implemented")
-    end
+    # it "should delete member from team" do
+    #   skip("Needs to be implemented")
+    # end
 
-    it "should delete annotation from annotations list (for media, source and project)" do
-      skip("Needs to be implemented")
-    end
+    # it "should delete annotation from annotations list (for media, source and project)" do
+    #   skip("Needs to be implemented")
+    # end
 
-    it "should delete tag from tags list (for media and source)" do
-      skip("Needs to be implemented")
-    end
+    # it "should delete tag from tags list (for media and source)" do
+    #   skip("Needs to be implemented")
+    # end
 
-    it "should edit team" do
-      skip("Needs to be implemented")
-    end
+    # it "should edit team" do
+    #   skip("Needs to be implemented")
+    # end
 
-    it "should show 'manage team' link only to team owners" do
-      skip("Needs to be implemented")
-    end
+    # it "should show 'manage team' link only to team owners" do
+    #   skip("Needs to be implemented")
+    # end
 
-    it "should show 'edit project' link only to users with 'update project' permission" do
-      skip("Needs to be implemented")
-    end
+    # it "should show 'edit project' link only to users with 'update project' permission" do
+    #   skip("Needs to be implemented")
+    # end
 
     it "should navigate between teams" do
       # setup
@@ -766,44 +766,44 @@ describe 'app' do
       expect(page.project_names.include?('Team 1 Project')).to be(false)
     end
 
-    it "should cancel request through switch teams" do
-      skip("Needs to be implemented")
-    end
+    # it "should cancel request through switch teams" do
+    #   skip("Needs to be implemented")
+    # end
 
-    it "should auto refresh project page when media is created remotely" do
-      skip("Needs to be implemented")
-    end
+    # it "should auto refresh project page when media is created remotely" do
+    #   skip("Needs to be implemented")
+    # end
 
-    it "should give 404 when trying to acess a media that is not related to the project on the URL" do
-      skip("Needs to be implemented")
-    end
+    # it "should give 404 when trying to acess a media that is not related to the project on the URL" do
+    #   skip("Needs to be implemented")
+    # end
 
-    it "should linkify URLs on comments" do
-      skip("Needs to be implemented")
-    end
+    # it "should linkify URLs on comments" do
+    #   skip("Needs to be implemented")
+    # end
 
-    it "should add and remove suggested tags" do
-      skip("Needs to be implemented")
-    end
+    # it "should add and remove suggested tags" do
+    #   skip("Needs to be implemented")
+    # end
 
-    it "should find all medias with an empty search" do
-      skip("Needs to be implemented")
-    end
+    # it "should find all medias with an empty search" do
+    #   skip("Needs to be implemented")
+    # end
 
-    it "should find medias when searching by keyword" do
-      skip("Needs to be implemented")
-    end
+    # it "should find medias when searching by keyword" do
+    #   skip("Needs to be implemented")
+    # end
 
-    it "should find medias when searching by status" do
-      skip("Needs to be implemented")
-    end
+    # it "should find medias when searching by status" do
+    #   skip("Needs to be implemented")
+    # end
 
-    it "should find medias when searching by tag" do
-      skip("Needs to be implemented")
-    end
+    # it "should find medias when searching by tag" do
+    #   skip("Needs to be implemented")
+    # end
 
-    it "should edit the title of a media" do
-      skip("Needs to be implemented")
-    end
+    # it "should edit the title of a media" do
+    #   skip("Needs to be implemented")
+    # end
   end
 end
