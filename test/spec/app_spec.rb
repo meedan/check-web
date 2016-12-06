@@ -151,27 +151,12 @@ describe 'app' do
     end
 
     it "should upload image when registering" do
-      email = @email + '.br'
-      @driver.navigate.to @config['self_url']
-      sleep 1
-      @driver.find_element(:xpath, "//a[@id='login-email']").click
-      sleep 1
-      @driver.find_element(:xpath, "//button[@id='register-or-login']").click
-      sleep 1
-      fill_field('.login-email__name input', 'User With Email And Photo')
-      fill_field('.login-email__email input', email)
-      fill_field('.login-email__password input', '12345678')
-      fill_field('.login-email__password-confirmation input', '12345678')
-      file = File.join(File.dirname(__FILE__), 'test.png')
-      fill_field('input[type=file]', file, :css, false)
-      press_button('#submit-register-or-login')
-      sleep 3
-      confirm_email(email)
-      sleep 1
-      login_with_email(true, email)
-      @driver.navigate.to @config['self_url'] + '/me'
-      sleep 10
-      avatar = get_element('.source-avatar')
+      email, password, avatar = [@email + '.br', '12345678', File.join(File.dirname(__FILE__), 'test.png')]
+      page = LoginPage.new(config: @config)
+          .register_and_login_with_email(email: email, password: password, file: avatar)
+
+      me_page = MePage.new(config: @config, driver: page.driver).load
+      avatar = me_page.avatar
       expect(avatar.attribute('src').match(/test\.png$/).nil?).to be(false)
     end
 

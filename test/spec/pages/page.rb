@@ -14,12 +14,12 @@ class Page
     self
   end
 
-  def element(selector, timeout = nil)
-    wait = timeout ? @wait = Selenium::WebDriver::Wait.new(timeout: timeout) : @wait
+  def element(selector, options = {})
+    wait = options[:timeout] ? Selenium::WebDriver::Wait.new(timeout: options[:timeout]) : @wait
 
     wait.until {
       element = @driver.find_element(:css, selector)
-      element if element.displayed?
+      element if element.displayed? || options[:hidden]
     }
   end
 
@@ -27,8 +27,8 @@ class Page
     element(selector).click
   end
 
-  def wait_for_element(selector, timeout = nil)
-    element(selector, timeout)
+  def wait_for_element(selector, options = {})
+    element(selector, options)
     nil
   end
 
@@ -38,8 +38,8 @@ class Page
     }
   end
 
-  def fill_input(selector, value)
-    input = element(selector)
+  def fill_input(selector, value, options = {})
+    input = element(selector, options)
     input.send_keys(value)
   end
 

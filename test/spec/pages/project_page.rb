@@ -9,7 +9,7 @@ class ProjectPage < Page
     fill_input('#create-media-input', options[:input])
     press(:enter)
 
-    wait_for_element('.media', 15)
+    wait_for_element('.media', { timeout: 15 })
     MediaPage.new(config: @config, driver: @driver)
   end
 

@@ -21,6 +21,7 @@ class LoginPage < Page
     fill_input('.login-email__email input', options[:email])
     fill_input('.login-email__password input', options[:password])
     fill_input('.login-email__password-confirmation input', options[:password])
+    fill_input('input[type=file]', options[:file], { hidden: true }) if options[:file]
     click_button('#submit-register-or-login')
 
     @wait.until { @driver.page_source.include?("You have to confirm your email address before continuing.") }
