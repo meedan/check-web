@@ -126,13 +126,15 @@ describe 'app' do
     end
 
     it "should register and redirect to newly created media" do
-      login_with_email
-      sleep 3
-      fill_field('#create-media-input', @media_url)
-      sleep 1
-      press_button('#create-media-submit')
-      sleep 20
-      $media_id = @driver.current_url.to_s.match(/\/media\/([0-9]+)$/)[1]
+      page = LoginPage.new(config: @config)
+          .login_with_email(email: @email, password: @password)
+          .create_media(input: @media_url)
+
+      expect(page.contains_string?('Added')).to be(true)
+      expect(page.contains_string?('User With Email')).to be(true)
+      expect(page.status_label == 'UNSTARTED').to be(true)
+
+      $media_id = page.driver.current_url.to_s.match(/\/media\/([0-9]+)$/)[1]
       expect($media_id.nil?).to be(false)
     end
 
