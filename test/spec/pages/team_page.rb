@@ -5,6 +5,14 @@ require_relative './project_page.rb'
 class TeamPage < Page
   include LoggedInPage
 
+  def team_name
+    element('.team__name').text
+  end
+
+  def project_names
+    elements('.team__project').map(&:text)
+  end
+
   def create_project(options = {})
     name = options[:name] || "Project #{Time.now.to_i}"
 

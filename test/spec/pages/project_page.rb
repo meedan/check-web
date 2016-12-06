@@ -5,6 +5,10 @@ require_relative './media_page.rb'
 class ProjectPage < Page
   include LoggedInPage
 
+  def project_name
+    element('.project-header__project-name').text
+  end
+
   def create_media(options = {})
     fill_input('#create-media-input', options[:input])
     press(:enter)

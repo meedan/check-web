@@ -23,6 +23,14 @@ class Page
     }
   end
 
+  def elements(selector, options = {})
+    wait = options[:timeout] ? Selenium::WebDriver::Wait.new(timeout: options[:timeout]) : @wait
+
+    wait.until {
+      @driver.find_elements(:css, selector)
+    }
+  end
+
   def click(selector)
     element(selector).click
   end

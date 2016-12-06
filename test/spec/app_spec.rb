@@ -4,6 +4,7 @@ require File.join(File.expand_path(File.dirname(__FILE__)), 'spec_helper')
 require File.join(File.expand_path(File.dirname(__FILE__)), 'app_spec_helpers')
 require_relative './pages/login_page.rb'
 require_relative './pages/me_page.rb'
+require_relative './pages/teams_page.rb'
 
 describe 'app' do
 
@@ -748,47 +749,35 @@ describe 'app' do
       skip("Needs to be implemented")
     end
 
-    it "should switch teams" do
-      login_or_register_with_email
-      @driver.navigate.to "#{@config['self_url']}/teams/new"
-      create_team
-      wait = Selenium::WebDriver::Wait.new(timeout: 5)
-      team_1_name = @driver.find_element(:css, '.team__name').text
-      create_project
-      project_1_id = (wait.until { @driver.current_url.to_s.match(/\/project\/([0-9]+)$/) })[1]
-      create_media(@media_url)
-      wait.until { @driver.find_element(:css, '.media') }
+    it "should navigate between teams" do
+      # setup
+      page = LoginPage.new(config: @config, driver: @driver)
+          .register_and_login_with_email(email: 'sysops+' + Time.now.to_i.to_s + '@meedan.com', password: @password)
+          .create_team(name: 'Team 1')
+      expect(page.team_name).to eq('Team 1')
+      page = page.create_project(name: 'Team 1 Project')
+      expect(page.project_name).to eq('Team 1 Project')
 
-      @driver.navigate.to "#{@config['self_url']}/teams/new"
-      wait.until { @driver.find_element(:css, '.create-team') }
-      create_team
-      team_2_name = @driver.find_element(:css, '.team__name').text
-      create_project
-      project_2_id = (wait.until { @driver.current_url.to_s.match(/\/project\/([0-9]+)$/) })[1]
-      create_media(@media_url)
-      wait.until { @driver.find_element(:css, '.media') }
+      page = CreateTeamPage.new(config: @config, driver: page.driver).load
+          .create_team(name: 'Team 2')
+      expect(page.team_name).to eq('Team 2')
+      page = page.create_project(name: 'Team 2 Project')
+      expect(page.project_name).to eq('Team 2 Project')
 
-      @driver.navigate.to @config['self_url'] + '/teams'
-      wait.until { @driver.find_element(:css, '.teams') }
-      (wait.until { @driver.find_element(:xpath, "//*[contains(text(), '#{team_1_name}')]") }).click
-      wait.until { @driver.find_element(:css, '.team') }
-      expect(@driver.find_element(:css, '.team__name').text == team_1_name).to be(true)
-      @driver.find_element(:css, '.team__project-link').click
-      wait.until { @driver.find_element(:css, '.project') }
-      url = @driver.current_url.to_s
-      media_1_url = @driver.find_element(:css, '.media-detail__check-timestamp').attribute('href')
-      expect(media_1_url.include?("/project/#{project_1_id}/media/")).to be(true)
+      # test
+      page = TeamsPage.new(config: @config, driver: page.driver).load
+          .select_team(name: 'Team 1')
 
-      @driver.navigate.to @config['self_url'] + '/teams'
-      wait.until { @driver.find_element(:css, '.teams') }
-      (wait.until { @driver.find_element(:xpath, "//*[contains(text(), '#{team_2_name}')]") }).click
-      wait.until { @driver.find_element(:css, '.team') }
-      expect(@driver.find_element(:css, '.team__name').text == team_2_name).to be(true)
-      @driver.find_element(:css, '.team__project-link').click
-      wait.until { @driver.find_element(:css, '.project') }
-      url = @driver.current_url.to_s
-      media_2_url = @driver.find_element(:css, '.media-detail__check-timestamp').attribute('href')
-      expect(media_2_url.include?("project/#{project_2_id}/media/")).to be(true)
+      expect(page.team_name).to eq('Team 1')
+      expect(page.project_names.include?('Team 1 Project')).to be(true)
+      expect(page.project_names.include?('Team 2 Project')).to be(false)
+
+      page = TeamsPage.new(config: @config, driver: page.driver).load
+          .select_team(name: 'Team 2')
+
+      expect(page.team_name).to eq('Team 2')
+      expect(page.project_names.include?('Team 2 Project')).to be(true)
+      expect(page.project_names.include?('Team 1 Project')).to be(false)
     end
 
     it "should cancel request through switch teams" do
