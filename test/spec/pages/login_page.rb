@@ -9,11 +9,11 @@ class LoginPage < Page
 
   def register_and_login_with_email(options)
     register_with_email(options)
+    load
     login_with_email(options)
   end
 
   def register_with_email(options)
-    @driver.navigate.to url
     email_button.click
     toggle_email_mode unless email_mode == 'register'
 
@@ -29,7 +29,6 @@ class LoginPage < Page
   end
 
   def login_with_email(options)
-    @driver.navigate.to url
     email_button.click
     toggle_email_mode unless email_mode == 'login'
 
