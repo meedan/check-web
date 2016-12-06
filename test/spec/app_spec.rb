@@ -107,36 +107,22 @@ describe 'app' do
     end
 
     it "should create project media" do
-      login_with_email
-      sleep 5
 
-      fill_field('#create-media-input', 'https://twitter.com/marcouza/status/771009514732650497?t=' + Time.now.to_i.to_s)
-      sleep 1
-      press_button('#create-media-submit')
-      sleep 10
-      media_link = @driver.current_url.to_s
+      page = LoginPage.new(config: @config)
+          .login_with_email(email: @email, password: @password)
+          .create_media(input: 'https://twitter.com/marcouza/status/771009514732650497?t=' + Time.now.to_i.to_s)
 
-      @driver.navigate.to @config['self_url']
-      sleep 3
+      expect(page.contains_string?('Added')).to be(true)
+      expect(page.contains_string?('User With Email')).to be(true)
+      expect(page.status_label == 'UNSTARTED').to be(true)
 
-      expect(@driver.page_source.include?('Added')).to be(true)
-      expect(@driver.page_source.include?('User With Email')).to be(true)
-      status = get_element('.media-status__label')
-      expect(status.text == 'IN PROGRESS').to be(false)
+      page.driver.navigate.to @config['self_url']
+      page.wait_for_element('.project')
 
-      @driver.navigate.to media_link
-      sleep 3
-      fill_field('#cmd-input', '/status In Progress')
-      @driver.action.send_keys(:enter).perform
-      sleep 3
+      expect(page.contains_string?('Added')).to be(true)
+      expect(page.contains_string?('User With Email')).to be(true)
+      expect(page.status_label == 'UNSTARTED').to be(true)
 
-      @driver.navigate.to @config['self_url']
-      sleep 5
-
-      expect(@driver.page_source.include?('Added')).to be(true)
-      expect(@driver.page_source.include?('User With Email')).to be(true)
-      status = get_element('.media-status__label')
-      expect(status.text == 'IN PROGRESS').to be(true)
     end
 
     it "should register and redirect to newly created media" do

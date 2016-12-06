@@ -4,6 +4,10 @@ require_relative './logged_in_page.rb'
 class MediaPage < Page
   include LoggedInPage
 
+  def status_label
+    element('.media-status__label').text
+  end
+
   def tags
     @driver.find_elements(:css, '.media-tags__tag').map(&:text)
   end
