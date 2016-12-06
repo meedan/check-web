@@ -190,13 +190,17 @@ describe 'app' do
     end
 
     it "should go to user page" do
-      login_with_email
-      @driver.find_element(:css, '.fa-ellipsis-h').click
-      sleep 1
-      @driver.find_element(:xpath, "//a[@id='link-me']").click
-      expect((@driver.current_url.to_s =~ /\/me$/).nil?).to be(false)
-      title = get_element('.source-name')
-      expect(title.text == 'User With Email').to be(true)
+      page = LoginPage.new(config: @config)
+          .login_with_email(email: @email, password: @password)
+
+      page.element('.fa-ellipsis-h').click
+      page.element('#link-me').click
+      page.wait_for_element('.source')
+      me_page = MePage.new(config: @config, driver: page.driver)
+
+      expect((me_page.driver.current_url.to_s =~ /\/me$/).nil?).to be(false)
+      title = me_page.title
+      expect(title).to eq('User With Email')
     end
 
     it "should go to source page through source/:id" do
