@@ -76,11 +76,13 @@ describe 'app' do
     end
 
     it "should login using Facebook" do
-      login_with_facebook
-      @driver.navigate.to @config['self_url'] + '/me'
-      displayed_name = get_element('h2.source-name').text.upcase
-      expected_name = @config['facebook_name'].upcase
-      expect(displayed_name == expected_name).to be(true)
+      login_pg = LoginPage.new(config: @config)
+      login_pg.login_with_facebook
+
+      me_pg = MePage.new(config: @config, driver: login_pg.driver).load
+      displayed_name = me_pg.title
+      expected_name = @config['facebook_name']
+      expect(displayed_name).to eq(expected_name)
     end
 
     it "should register and login using e-mail" do

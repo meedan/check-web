@@ -41,6 +41,21 @@ class LoginPage < Page
     return ProjectPage.new(config: @config, driver: @driver) if contains_element?('.project')
   end
 
+  def login_with_facebook
+    @driver.navigate.to 'https://www.facebook.com'
+    fill_input('#email', @config['facebook_user'])
+    fill_input('#pass', @config['facebook_password'])
+    click_button('#loginbutton input')
+    sleep 2
+
+    @driver.navigate.to url
+    click_button('#facebook-login')
+    sleep 3
+    window = @driver.window_handles.first
+    @driver.switch_to.window(window)
+    wait_for_element('.home')
+  end
+
   private
 
   def email_button
