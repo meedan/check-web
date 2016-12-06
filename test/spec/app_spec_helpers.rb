@@ -142,10 +142,10 @@ module AppSpecHelpers
       fill_field('#team-name-container', "Team #{Time.now}")
       fill_field('#team-subdomain-container', "team#{Time.now.to_i}")
       press_button('.create-team__submit-button')
-      sleep 2
+      sleep 0.5
     end
     @driver.navigate.to @config['self_url']
-    sleep 2
+    sleep 0.5
   end
 
   def create_project(title = "Project #{Time.now}")
