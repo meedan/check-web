@@ -483,33 +483,19 @@ describe 'app' do
     end
 
     it "should tag media from tags list" do
-      login_with_email
-      @driver.navigate.to team_url('project/' + get_project + '/media/' + $media_id)
-      sleep 1
+      media_pg = LoginPage.new(config: @config, driver: @driver)
+          .login_with_email(email: @email, password: @password)
+          .click_media
 
-      # First, verify that there isn't any tag
-      expect(@driver.page_source.include?('Tagged #tellurium')).to be(false)
+      expect(media_pg.contains_string?('Tagged #tellurium')).to be(false)
+      media_pg.add_tag('tellurium')
+      expect(media_pg.has_tag?('tellurium')).to be(true)
+      expect(media_pg.contains_string?('Tagged #tellurium')).to be(true)
 
-      # Add a tag from tags list
-      get_element('.media-actions').click
-      get_element('.media-actions__menu-item').click
-      fill_field('.ReactTags__tagInput input', 'tellurium')
-      @driver.action.send_keys(:enter).perform
-      sleep 5
-
-      # Verify that tag was added to tags list and annotations list
-      tag = get_element('.ReactTags__tag span')
-      expect(tag.text == 'tellurium').to be(true)
-      expect(@driver.page_source.include?('Tagged #tellurium')).to be(true)
-
-      # Reload the page and verify that tags are still there
-      @driver.navigate.refresh
-      sleep 1
-      get_element('.media-actions').click
-      get_element('.media-actions__menu-item').click
-      tag = get_element('.ReactTags__tag span')
-      expect(tag.text == 'tellurium').to be(true)
-      expect(@driver.page_source.include?('Tagged #tellurium')).to be(true)
+      media_pg.driver.navigate.refresh
+      media_pg.wait_for_element('.media')
+      expect(media_pg.has_tag?('tellurium')).to be(true)
+      expect(media_pg.contains_string?('Tagged #tellurium')).to be(true)
     end
 
     it "should tag media as a command" do

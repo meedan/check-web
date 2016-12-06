@@ -12,6 +12,13 @@ class MediaPage < Page
     @driver.find_elements(:css, '.media-tags__tag').map(&:text)
   end
 
+  def add_tag(string)
+    element('.media-actions').click
+    element('.media-actions__menu-item').click
+    fill_input('.ReactTags__tagInput input', string)
+    press(:enter)
+  end
+
   def has_tag?(tag)
     tags.include?(tag)
   end
