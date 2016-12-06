@@ -411,31 +411,24 @@ describe 'app' do
     end
 
     it "should not add a duplicated tag from tags list" do
-      login_with_email
-      @driver.navigate.to team_url('project/' + get_project + '/media/' + $media_id)
-      sleep 1
+      page = LoginPage.new(config: @config, driver: @driver)
+          .login_with_email(email: @email, password: @password)
+          .click_media
+      new_tag = Time.now.to_i.to_s
 
       # Validate assumption that tag does not exist
-      get_element('.media-actions').click
-      get_element('.media-actions__menu-item').click
-      tag = @driver.find_elements(:css, '.ReactTags__tag span').select{ |s| s.text == 'bla' }
-      expect(tag.size == 0).to be(true)
+      expect(page.has_tag?(new_tag)).to be(false)
 
       # Add tag from tags list
-      fill_field('.ReactTags__tagInput input', 'bla')
-      @driver.action.send_keys(:enter).perform
-      tag = get_element('.ReactTags__tag span')
-      expect(tag.text == 'bla').to be(true)
+      page.add_tag(new_tag)
+      expect(page.has_tag?(new_tag)).to be(true)
 
       # Try to add duplicate
-      fill_field('.ReactTags__tagInput input', 'bla')
-      @driver.action.send_keys(:enter).perform
-      sleep 5
+      page.add_tag(new_tag)
 
       # Verify that tag is not added and that error message is displayed
-      tag = @driver.find_elements(:css, '.ReactTags__tag span').select{ |s| s.text == 'bla' }
-      expect(tag.size == 1).to be(true)
-      expect(@driver.page_source.include?('This tag already exists')).to be(true)
+      expect(page.tags.count(new_tag)).to be(1)
+      expect(page.contains_string?('This tag already exists')).to be(true)
     end
 
     it "should not add a duplicated tag from command line" do
@@ -483,45 +476,41 @@ describe 'app' do
     end
 
     it "should tag media from tags list" do
-      media_pg = LoginPage.new(config: @config, driver: @driver)
+      page = LoginPage.new(config: @config, driver: @driver).load
           .login_with_email(email: @email, password: @password)
           .click_media
 
-      expect(media_pg.contains_string?('Tagged #tellurium')).to be(false)
-      media_pg.add_tag('tellurium')
-      expect(media_pg.has_tag?('tellurium')).to be(true)
-      expect(media_pg.contains_string?('Tagged #tellurium')).to be(true)
+      new_tag = Time.now.to_i.to_s
+      expect(page.contains_string?("Tagged \##{new_tag}")).to be(false)
+      page.add_tag(new_tag)
+      expect(page.has_tag?(new_tag)).to be(true)
+      expect(page.contains_string?("Tagged \##{new_tag}")).to be(true)
 
-      media_pg.driver.navigate.refresh
-      media_pg.wait_for_element('.media')
-      expect(media_pg.has_tag?('tellurium')).to be(true)
-      expect(media_pg.contains_string?('Tagged #tellurium')).to be(true)
+      page.driver.navigate.refresh
+      page.wait_for_element('.media')
+      expect(page.has_tag?(new_tag)).to be(true)
+      expect(page.contains_string?("Tagged \##{new_tag}")).to be(true)
     end
 
     it "should tag media as a command" do
-      login_with_email
-      @driver.navigate.to team_url('project/' + get_project + '/media/' + $media_id)
-      sleep 1
-
-      # First, verify that there isn't any tag
-      expect(@driver.page_source.include?('Tagged #command')).to be(false)
+      page = LoginPage.new(config: @config, driver: @driver)
+          .login_with_email(email: @email, password: @password)
+          .click_media
+      expect(page.has_tag?('command')).to be(false)
+      expect(page.contains_string?('Tagged #command')).to be(false)
 
       # Add a tag as a command
-      fill_field('#cmd-input', '/tag command')
-      @driver.action.send_keys(:enter).perform
-      sleep 5
+      page.add_annotation('/tag command')
 
       # Verify that tag was added to tags list and annotations list
-      tag = get_element('.media-tags__tag')
-      expect(tag.text == 'command').to be(true)
-      expect(@driver.page_source.include?('Tagged #command')).to be(true)
+      expect(page.has_tag?('command')).to be(true)
+      expect(page.contains_string?('Tagged #command')).to be(true)
 
       # Reload the page and verify that tags are still there
-      @driver.navigate.refresh
-      sleep 1
-      tag = get_element('.media-tags__tag')
-      expect(tag.text == 'command').to be(true)
-      expect(@driver.page_source.include?('Tagged #command')).to be(true)
+      page.driver.navigate.refresh
+      page.wait_for_element('.media')
+      expect(page.has_tag?('command')).to be(true)
+      expect(page.contains_string?('Tagged #command')).to be(true)
     end
 
     it "should comment media as a command" do

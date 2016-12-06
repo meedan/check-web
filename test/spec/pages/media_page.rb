@@ -14,15 +14,30 @@ class MediaPage < Page
     element('.media-status__label').text
   end
 
+  def editing_mode?
+    contains_element?('.ReactTags__tags')
+  end
+
+  def edit
+    element('.media-actions').click
+    element('.media-actions__menu-item').click
+    @wait.until { editing_mode? }
+  end
+
   def tags
-    @driver.find_elements(:css, '.media-tags__tag').map(&:text)
+    if editing_mode?
+      elements('.ReactTags__tag > span').map(&:text)
+    else
+      elements('.media-tags__tag').map(&:text)
+    end
   end
 
   def add_tag(string)
-    element('.media-actions').click
-    element('.media-actions__menu-item').click
+    edit unless editing_mode?
     fill_input('.ReactTags__tagInput input', string)
     press(:enter)
+
+    @wait.until { has_tag?(string)}
   end
 
   def has_tag?(tag)
