@@ -577,35 +577,27 @@ describe 'app' do
     end
 
     it "should edit project" do
-      login_with_email
-      @driver.navigate.to @config['self_url']
-      sleep 1
-      title = "Project #{Time.now}"
-      fill_field('#create-project-title', title)
-      @driver.action.send_keys(:enter).perform
-      sleep 5
+      page = LoginPage.new(config: @config, driver: @driver)
+          .login_with_email(email: @email, password: @password)
 
-      @driver.find_element(:css, '.project-header__project-settings-icon').click
-      sleep 1
-      @driver.find_element(:css, '.project-header__project-setting--edit').click
-      sleep 1
-      fill_field('.project-header__project-name-input', 'Changed title')
-      fill_field('.project-header__project-description-input', 'Set description')
-      @driver.find_element(:css, '.project-header__project-editing-button--cancel').click
-      sleep 3
-      expect(@driver.page_source.include?('Changed title')).to be(false)
-      expect(@driver.page_source.include?('Set description')).to be(false)
+      page.element('.project-header__project-settings-icon').click
+      page.element('.project-header__project-setting--edit').click
+      page.fill_input('.project-header__project-name-input', 'Changed title')
+      page.fill_input('.project-header__project-description-input', 'Set description')
+      page.element('.project-header__project-editing-button--cancel').click
+      page.wait_for_element('.project-header__project-name')
 
-      @driver.find_element(:css, '.project-header__project-settings-icon').click
-      sleep 1
-      @driver.find_element(:css, '.project-header__project-setting--edit').click
-      sleep 1
-      fill_field('.project-header__project-name-input', 'Changed title')
-      fill_field('.project-header__project-description-input', 'Set description')
-      @driver.find_element(:css, '.project-header__project-editing-button--save').click
-      sleep 3
-      expect(@driver.page_source.include?('Changed title')).to be(true)
-      expect(@driver.page_source.include?('Set description')).to be(true)
+      expect(page.contains_string?('Changed title')).to be(false)
+      expect(page.contains_string?('Set description')).to be(false)
+
+      page.element('.project-header__project-settings-icon').click
+      page.element('.project-header__project-setting--edit').click
+      page.fill_input('.project-header__project-name-input', 'Changed title')
+      page.fill_input('.project-header__project-description-input', 'Set description')
+      page.element('.project-header__project-editing-button--save').click
+
+      expect(page.contains_string?('Changed title')).to be(true)
+      expect(page.contains_string?('Set description')).to be(true)
     end
 
     # it "should comment project as a command" do
