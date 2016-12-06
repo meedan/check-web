@@ -297,7 +297,7 @@ describe 'app' do
 
       me_pg = MePage.new(config: @config, driver: login_pg.driver).load
       user_1_source_id = me_pg.source_id
-      me_pg.logout_and_close
+      me_pg.logout
 
       user_2 = {email: 'sysops+' + Time.now.to_i.to_s + '@meedan.com', password: '22345678'}
       login_pg = LoginPage.new(config: @config, driver: @driver)
