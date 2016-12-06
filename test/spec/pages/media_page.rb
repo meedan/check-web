@@ -4,6 +4,12 @@ require_relative './logged_in_page.rb'
 class MediaPage < Page
   include LoggedInPage
 
+  def change_status(status)
+    element('.media-status__label').click
+    element(".media-status__menu-item--#{status.to_s}").click
+    wait_for_element(".media-status__current--#{status.to_s}")
+  end
+
   def status_label
     element('.media-status__label').text
   end
