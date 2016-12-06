@@ -31,7 +31,7 @@ describe 'app' do
         .register_and_login_with_email(email: @email, password: @password)
         .create_team
         .create_project
-        .create_media(input: @media_url)
+        .create_media(input: 'Claim')
         .logout_and_close
   end
 
