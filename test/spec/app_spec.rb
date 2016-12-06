@@ -27,7 +27,7 @@ describe 'app' do
     FileUtils.cp(@config['config_file_path'], '../build/web/js/config.js') unless @config['config_file_path'].nil?
 
     LoginPage.new(config: @config)
-        .register_and_login_with_email(@email, @password)
+        .register_and_login_with_email(email: @email, password: @password)
         .create_team
         .create_project
         .create_media(input: @media_url)
@@ -86,7 +86,7 @@ describe 'app' do
     it "should register and login using e-mail" do
       login_pg = LoginPage.new(config: @config)
       email, password = ['sysops+' + Time.now.to_i.to_s + '@meedan.com', '22345678']
-      login_pg.register_and_login_with_email(email, password)
+      login_pg.register_and_login_with_email(email: email, password: password)
 
       me_pg = MePage.new(config: @config, driver: login_pg.driver).load # reuse tab
       displayed_name = me_pg.title
@@ -96,7 +96,7 @@ describe 'app' do
     it "should create a project for a team" do
       project_name = "Project #{Time.now}"
       project_pg = LoginPage.new(config: @config)
-          .register_and_login_with_email('sysops+' + Time.now.to_i.to_s + '@meedan.com', Time.now.to_i.to_s)
+          .register_and_login_with_email(email: 'sysops+' + Time.now.to_i.to_s + '@meedan.com', password: Time.now.to_i.to_s)
           .create_team
           .create_project(name: project_name)
 
@@ -313,7 +313,7 @@ describe 'app' do
     it "should redirect to access denied page" do
       user_1 = {email: 'sysops+' + Time.now.to_i.to_s + '@meedan.com', password: '12345678'}
       login_pg = LoginPage.new(config: @config)
-      login_pg.register_and_login_with_email(user_1[:email], user_1[:password])
+      login_pg.register_and_login_with_email(email: user_1[:email], password: user_1[:password])
 
       me_pg = MePage.new(config: @config, driver: login_pg.driver).load
       user_1_source_id = me_pg.source_id
@@ -321,7 +321,7 @@ describe 'app' do
 
       user_2 = {email: 'sysops+' + Time.now.to_i.to_s + '@meedan.com', password: '22345678'}
       login_pg = LoginPage.new(config: @config)
-      login_pg.register_and_login_with_email(user_2[:email], user_2[:password])
+      login_pg.register_and_login_with_email(email: user_2[:email], password: user_2[:password])
       unauthorized_pg = SourcePage.new(id: user_1_source_id, config: @config, driver: login_pg.driver).load
       @wait.until { unauthorized_pg.contains_string?('Access Denied') }
 
@@ -460,7 +460,7 @@ describe 'app' do
 
     it "should not add a duplicated tag from command line" do
       media_pg = LoginPage.new(config: @config)
-          .login_with_email(@email, @password)
+          .login_with_email(email: @email, password: @password)
           .click_media
       new_tag = Time.now.to_i.to_s
 

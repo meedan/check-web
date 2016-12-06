@@ -7,33 +7,33 @@ class LoginPage < Page
     @config['self_url']
   end
 
-  def register_and_login_with_email(email, password)
-    register_with_email(email, password)
-    login_with_email(email, password)
+  def register_and_login_with_email(options)
+    register_with_email(options)
+    login_with_email(options)
   end
 
-  def register_with_email(email, password)
+  def register_with_email(options)
     @driver.navigate.to url
     email_button.click
     toggle_email_mode unless email_mode == 'register'
 
     fill_input('.login-email__name input', 'User With Email')
-    fill_input('.login-email__email input', email)
-    fill_input('.login-email__password input', password)
-    fill_input('.login-email__password-confirmation input', password)
+    fill_input('.login-email__email input', options[:email])
+    fill_input('.login-email__password input', options[:password])
+    fill_input('.login-email__password-confirmation input', options[:password])
     click_button('#submit-register-or-login')
 
     @wait.until { @driver.page_source.include?("You have to confirm your email address before continuing.") }
-    confirm_email(email)
+    confirm_email(options[:email])
   end
 
-  def login_with_email(email, password)
+  def login_with_email(options)
     @driver.navigate.to url
     email_button.click
     toggle_email_mode unless email_mode == 'login'
 
-    fill_input('.login-email__email input', email)
-    fill_input('.login-email__password input', password)
+    fill_input('.login-email__email input', options[:email])
+    fill_input('.login-email__password input', options[:password])
     click_button('#submit-register-or-login')
 
     wait_for_element('.home')
