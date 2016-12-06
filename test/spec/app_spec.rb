@@ -183,10 +183,10 @@ describe 'app' do
     end
 
     it "should show team options at /teams" do
-      login_with_email
-      @driver.navigate.to @config['self_url'] + '/teams'
-      sleep 3
-      expect(@driver.find_elements(:css, '.teams').empty?).to be(false)
+      page = LoginPage.new(config: @config).login_with_email(email: @email, password: @password)
+      page.driver.navigate.to @config['self_url'] + '/teams'
+      page.wait_for_element('.teams')
+      expect(page.driver.find_elements(:css, '.teams').empty?).to be(false)
     end
 
     it "should go to user page" do
