@@ -76,7 +76,7 @@ describe 'app' do
     end
 
     it "should login using Facebook" do
-      login_pg = LoginPage.new(config: @config)
+      login_pg = LoginPage.new(config: @config, driver: @driver)
       login_pg.login_with_facebook
 
       me_pg = MePage.new(config: @config, driver: login_pg.driver).load
@@ -86,7 +86,7 @@ describe 'app' do
     end
 
     it "should register and login using e-mail" do
-      login_pg = LoginPage.new(config: @config)
+      login_pg = LoginPage.new(config: @config, driver: @driver)
       email, password = ['sysops+' + Time.now.to_i.to_s + '@meedan.com', '22345678']
       login_pg.register_and_login_with_email(email: email, password: password)
 
@@ -97,7 +97,7 @@ describe 'app' do
 
     it "should create a project for a team" do
       project_name = "Project #{Time.now}"
-      project_pg = LoginPage.new(config: @config)
+      project_pg = LoginPage.new(config: @config, driver: @driver)
           .register_and_login_with_email(email: 'sysops+' + Time.now.to_i.to_s + '@meedan.com', password: Time.now.to_i.to_s)
           .create_team
           .create_project(name: project_name)
@@ -108,7 +108,7 @@ describe 'app' do
 
     it "should create project media" do
 
-      page = LoginPage.new(config: @config)
+      page = LoginPage.new(config: @config, driver: @driver)
           .login_with_email(email: @email, password: @password)
           .create_media(input: 'https://twitter.com/marcouza/status/771009514732650497?t=' + Time.now.to_i.to_s)
 
@@ -126,7 +126,7 @@ describe 'app' do
     end
 
     it "should register and redirect to newly created media" do
-      page = LoginPage.new(config: @config)
+      page = LoginPage.new(config: @config, driver: @driver)
           .login_with_email(email: @email, password: @password)
           .create_media(input: @media_url)
 
@@ -140,7 +140,7 @@ describe 'app' do
 
     it "should upload image when registering" do
       email, password, avatar = [@email + '.br', '12345678', File.join(File.dirname(__FILE__), 'test.png')]
-      page = LoginPage.new(config: @config)
+      page = LoginPage.new(config: @config, driver: @driver)
           .register_and_login_with_email(email: email, password: password, file: avatar)
 
       me_page = MePage.new(config: @config, driver: page.driver).load
@@ -183,14 +183,14 @@ describe 'app' do
     end
 
     it "should show team options at /teams" do
-      page = LoginPage.new(config: @config).login_with_email(email: @email, password: @password)
+      page = LoginPage.new(config: @config, driver: @driver).login_with_email(email: @email, password: @password)
       page.driver.navigate.to @config['self_url'] + '/teams'
       page.wait_for_element('.teams')
       expect(page.driver.find_elements(:css, '.teams').empty?).to be(false)
     end
 
     it "should go to user page" do
-      page = LoginPage.new(config: @config)
+      page = LoginPage.new(config: @config, driver: @driver)
           .login_with_email(email: @email, password: @password)
 
       page.element('.fa-ellipsis-h').click
@@ -291,7 +291,7 @@ describe 'app' do
 
     it "should redirect to access denied page" do
       user_1 = {email: 'sysops+' + Time.now.to_i.to_s + '@meedan.com', password: '12345678'}
-      login_pg = LoginPage.new(config: @config)
+      login_pg = LoginPage.new(config: @config, driver: @driver)
       login_pg.register_and_login_with_email(email: user_1[:email], password: user_1[:password])
 
       me_pg = MePage.new(config: @config, driver: login_pg.driver).load
@@ -299,7 +299,7 @@ describe 'app' do
       me_pg.logout_and_close
 
       user_2 = {email: 'sysops+' + Time.now.to_i.to_s + '@meedan.com', password: '22345678'}
-      login_pg = LoginPage.new(config: @config)
+      login_pg = LoginPage.new(config: @config, driver: @driver)
       login_pg.register_and_login_with_email(email: user_2[:email], password: user_2[:password])
       unauthorized_pg = SourcePage.new(id: user_1_source_id, config: @config, driver: login_pg.driver).load
       @wait.until { unauthorized_pg.contains_string?('Access Denied') }
@@ -438,7 +438,7 @@ describe 'app' do
     end
 
     it "should not add a duplicated tag from command line" do
-      media_pg = LoginPage.new(config: @config)
+      media_pg = LoginPage.new(config: @config, driver: @driver)
           .login_with_email(email: @email, password: @password)
           .click_media
       new_tag = Time.now.to_i.to_s
