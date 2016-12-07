@@ -3,6 +3,7 @@ import Relay from 'react-relay';
 import TeamRoute from './TeamRoute';
 import teamFragment from './teamFragment';
 import Can from '../components/Can';
+import { teamSubdomain } from '../helpers';
 
 class TeamMenu extends Component {
   render() {
@@ -24,8 +25,13 @@ const TeamMenuContainer = Relay.createContainer(TeamMenu, {
 
 class TeamMenuRelay extends Component {
   render() {
-    const route = new TeamRoute({ teamId: '' });
-    return (<Relay.RootContainer Component={TeamMenuContainer} route={route} />);
+    if (teamSubdomain()) {
+      const route = new TeamRoute({ teamId: '' });
+      return (<Relay.RootContainer Component={TeamMenuContainer} route={route} />);
+    }
+    else {
+      return null;
+    }
   }
 }
 

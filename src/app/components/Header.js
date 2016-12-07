@@ -7,7 +7,7 @@ import MediaHeader from './media/MediaHeader';
 import HeaderActions from './HeaderActions';
 
 class Header extends Component {
-  isSubdomain(hostname) {
+  isSubdomain(hostname) { // TODO: replace with helpers.js::teamSubdomain or similar
     return (hostname !== 'checkmedia.org' && hostname !== 'qa.checkmedia.org');
   }
 
