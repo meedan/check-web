@@ -10,6 +10,15 @@
   flex: 0;
 }
 
+.header-actions__search-icon {
+  color: $light-gray-text;
+  font-size: 21px;
+  padding: 6px 15px 0px 15px;
+  // position: relative;
+  // z-index: 3;
+  // cursor: pointer;
+}
+
 .header-actions__menu-toggle {
   color: $light-gray-text;
   font-size: 21px;

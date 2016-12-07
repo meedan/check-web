@@ -4,6 +4,7 @@ import { logout } from '../actions/actions';
 import FontAwesome from 'react-fontawesome';
 import TeamMenuRelay from '../relay/TeamMenuRelay';
 import { bemClass } from '../helpers';
+import { Link } from 'react-router';
 
 class HeaderActions extends Component {
   constructor(props) {
@@ -27,8 +28,7 @@ class HeaderActions extends Component {
 
     return (
       <div className={bemClass('header-actions', this.state.isMenuOpen, '--active')}>
-        {/*<FontAwesome name='search' className='header-actions__search-icon'/>*/}
-
+        <Link to='/search'><FontAwesome name='search' className='header-actions__search-icon'/></Link>
         <FontAwesome name='ellipsis-h' className='header-actions__menu-toggle' onClick={this.toggleSettingsMenu.bind(this)} />
         <div className={bemClass('header-actions__menu-overlay', this.state.isMenuOpen, '--active')} onClick={this.toggleSettingsMenu.bind(this)}></div>
         <ul className={bemClass('header-actions__menu', this.state.isMenuOpen, '--active')}>
