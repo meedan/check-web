@@ -58,11 +58,10 @@ class Header extends Component {
     }
 
     if (this.isSubdomain(window.location.hostname) && path.match(/^\/(join|members)/)) {
-      const teamUrl = path.match(/(.*)\/(join|members)/)[1];
       return (
         <header className='header header--team-subpage'>
           <div className='header__container'>
-            <Breadcrumb url={teamUrl} title='« Back to Team' />
+            <Breadcrumb url='/' title='« Back to Team' />
             <HeaderActions {...this.props} />
           </div>
         </header>
