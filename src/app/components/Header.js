@@ -37,6 +37,7 @@ class Header extends Component {
       return (
         <header className='header header--media'>
           <div className='header__container'>
+            <span style={{display: 'none'}}><TeamHeader {...this.props} /></span>
             <Breadcrumb url={projectUrl} title='« Back to Project' />
             <MediaHeader {...this.props} />
             <HeaderActions {...this.props} />
@@ -61,6 +62,7 @@ class Header extends Component {
       return (
         <header className='header header--team-subpage'>
           <div className='header__container'>
+            <span style={{display: 'none'}}><TeamHeader {...this.props} /></span>
             <Breadcrumb url='/' title='« Back to Team' />
             <HeaderActions {...this.props} />
           </div>
@@ -72,6 +74,7 @@ class Header extends Component {
       return (
         <header className='header header--team'>
           <div className='header__container'>
+            <span style={{display: 'none'}}><TeamHeader {...this.props} /></span>
             <Breadcrumb url='/teams' title='« Your Teams' />
             <HeaderActions {...this.props} />
           </div>
