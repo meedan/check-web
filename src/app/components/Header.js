@@ -69,7 +69,7 @@ class Header extends Component {
       );
     }
 
-    if (this.isSubdomain(window.location.hostname) && path.match(/^\/$/)) {
+    if (this.isSubdomain(window.location.hostname) && path.match(/^\/(teams\/new)?$/)) {
       return (
         <header className='header header--team'>
           <div className='header__container'>

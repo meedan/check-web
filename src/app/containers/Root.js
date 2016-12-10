@@ -65,7 +65,7 @@ export default class Root extends Component {
             <Route path="me" component={Me} />
             <Route path="join" component={JoinTeam} />
             <Route path="members" component={TeamMembers} />
-            <Route path="teams/new" component={CreateTeam} fullscreen={true} />
+            <Route path="teams/new" component={CreateTeam} />
             <Route path="teams" component={Teams} fullscreen={true} />
             <Route path="project/:projectId" component={Project} />
             <Route path="search(/:query)" component={Search} />
