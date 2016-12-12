@@ -19,7 +19,7 @@ class Header extends Component {
     const defaultHeader = (
       <header className='header header--default'>
         <div className='header__container'>
-          <Breadcrumb url='/' title={null} />
+          <div className='header__breadcrumb'><Breadcrumb url='/' title={null} /></div>
           <HeaderActions {...this.props} />
         </div>
       </header>
@@ -35,7 +35,7 @@ class Header extends Component {
         <header className='header header--media'>
           <div className='header__container'>
             <span style={{display: 'none'}}><TeamHeader {...this.props} /></span>
-            <Breadcrumb url={projectUrl} title='« Back to Project' />
+            <div className='header__breadcrumb'><Breadcrumb url={projectUrl} title='« Back to Project' /></div>
             <MediaHeader {...this.props} />
             <HeaderActions {...this.props} />
           </div>
@@ -60,7 +60,7 @@ class Header extends Component {
         <header className='header header--team-subpage'>
           <div className='header__container'>
             <span style={{display: 'none'}}><TeamHeader {...this.props} /></span>
-            <Breadcrumb url='/' title='« Back to Team' />
+            <div className='header__breadcrumb'><Breadcrumb url='/' title='« Back to Team' /></div>
             <HeaderActions {...this.props} />
           </div>
         </header>
@@ -72,7 +72,7 @@ class Header extends Component {
         <header className='header header--team'>
           <div className='header__container'>
             <span style={{display: 'none'}}><TeamHeader {...this.props} /></span>
-            <Breadcrumb url='/teams' title='« Your Teams' />
+            <div className='header__breadcrumb'><Breadcrumb url='/teams' title='« Your Teams' /></div>
             <HeaderActions {...this.props} />
           </div>
         </header>
