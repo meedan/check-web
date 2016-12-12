@@ -5,12 +5,9 @@ import ProjectHeader from './project/ProjectHeader';
 import Breadcrumb from './layout/Breadcrumb';
 import MediaHeader from './media/MediaHeader';
 import HeaderActions from './HeaderActions';
+import { teamSubdomain } from '../helpers';
 
 class Header extends Component {
-  isSubdomain(hostname) { // TODO: replace with helpers.js::teamSubdomain or similar
-    return (hostname !== 'checkmedia.org' && hostname !== 'qa.checkmedia.org');
-  }
-
   render() {
     const { state } = this.props;
     const path = this.props.location ? this.props.location.pathname : null;
@@ -37,6 +34,7 @@ class Header extends Component {
       return (
         <header className='header header--media'>
           <div className='header__container'>
+            <span style={{display: 'none'}}><TeamHeader {...this.props} /></span>
             <Breadcrumb url={projectUrl} title='« Back to Project' />
             <MediaHeader {...this.props} />
             <HeaderActions {...this.props} />
@@ -57,22 +55,23 @@ class Header extends Component {
       );
     }
 
-    if (this.isSubdomain(window.location.hostname) && path.match(/^\/(join|members)/)) {
-      const teamUrl = path.match(/(.*)\/(join|members)/)[1];
+    if (teamSubdomain(window.location.hostname) && path.match(/^\/(join|members)/)) {
       return (
         <header className='header header--team-subpage'>
           <div className='header__container'>
-            <Breadcrumb url={teamUrl} title='« Back to Team' />
+            <span style={{display: 'none'}}><TeamHeader {...this.props} /></span>
+            <Breadcrumb url='/' title='« Back to Team' />
             <HeaderActions {...this.props} />
           </div>
         </header>
       );
     }
 
-    if (this.isSubdomain(window.location.hostname) && path.match(/^\/$/)) {
+    if (teamSubdomain(window.location.hostname) && path.match(/^\/(teams\/new)?$/)) {
       return (
         <header className='header header--team'>
           <div className='header__container'>
+            <span style={{display: 'none'}}><TeamHeader {...this.props} /></span>
             <Breadcrumb url='/teams' title='« Your Teams' />
             <HeaderActions {...this.props} />
           </div>

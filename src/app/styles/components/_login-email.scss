@@ -50,18 +50,8 @@
 .login-email__email-input,
 .login-email__password-input,
 .login-email__password-confirmation-input {
+  @include text-input;
   width: 100%;
-  order: 2;
-  background: transparent;
-  border: none;
-  border-bottom: 1px solid rgba(theme-gray(), 0.2);
-  transition: border-color 100ms ease;
-  font-size: 24px;
-  padding: 3px 0 6px;
-  &:focus {
-    outline: none;
-    border-color: hsl(208, 98%, 62%); // TODO: organize blues
-  }
 }
 
 .login-email__name-label,

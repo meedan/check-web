@@ -17,12 +17,15 @@
 @import 'components/home';
 @import 'components/inputs/default-button';
 @import 'components/layout/breadcrumb';
+@import 'components/layout/content-column';
 @import 'components/layout/header';
+@import 'components/layout/heading';
 @import 'components/layout/header-actions';
 @import 'components/layout/footer';
 @import 'components/login-menu';
 @import 'components/login-email';
 @import 'components/media';
+@import 'components/message';
 @import 'components/search/search';
 @import 'components/sources';
 @import 'components/team';
@@ -85,20 +88,6 @@ address {
     &:hover {
       text-decoration: none;
     }
-  }
-}
-
-.message {
-  background: $cream;
-  color: $light-gray-text;
-  padding: 10px;
-  // margin: 10px;
-  font-size: 14px;
-}
-
-.global-message {
-  .message {
-    margin-left: 80px;
   }
 }
 
