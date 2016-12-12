@@ -8,6 +8,7 @@ import ProjectRoute from '../../relay/ProjectRoute';
 import UserMenuRelay from '../../relay/UserMenuRelay';
 import { Link } from 'react-router';
 import { logout } from '../../actions/actions';
+import FontAwesome from 'react-fontawesome';
 
 class ProjectHeaderComponent extends Component {
   constructor(props) {
@@ -174,7 +175,7 @@ class ProjectHeaderComponent extends Component {
 
           {/* DEPRECATED – replace with HeaderActions */}
           <div className={this.bemClass('project-header__project-settings', this.state.isSettingsMenuOpen, '--active')}>
-            <i className='project-header__project-search-icon fa fa-search'></i>
+            <Link to='/search'><FontAwesome name='search' className='header-actions__search-icon'/></Link>
             <i className='project-header__project-settings-icon fa fa-ellipsis-h' onClick={this.toggleSettings.bind(this)}></i>
             <div className={this.bemClass('project-header__project-settings-overlay', this.state.isSettingsMenuOpen, '--active')} onClick={this.toggleSettings.bind(this)}></div>
 

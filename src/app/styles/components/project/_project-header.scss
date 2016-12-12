@@ -154,11 +154,12 @@
 .project-header__project-settings {
   // Deprecated – hope to replace with HeaderActions soon
   align-self: flex-start;
-  margin-top: 16px;
-}
-
-.project-header__project-search-icon {
-  display: none;
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center
 }
 
 .project-header__project-settings-overlay {
