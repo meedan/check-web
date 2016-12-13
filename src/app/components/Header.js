@@ -19,6 +19,7 @@ class Header extends Component {
     const defaultHeader = (
       <header className='header header--default'>
         <div className='header__container'>
+          <span style={{display: 'none'}}><TeamHeader {...this.props} /></span>
           <div className='header__breadcrumb'><Breadcrumb url='/' title={null} /></div>
           <HeaderActions {...this.props} />
         </div>

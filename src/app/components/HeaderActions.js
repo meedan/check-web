@@ -36,9 +36,9 @@ class HeaderActions extends Component {
           <TeamMenuRelay />
           <li className='header-actions__menu-item' onClick={this.contactHuman.bind(this)}>Contact a Human</li>
           <li className='header-actions__menu-item header-actions__menu-item--logout' onClick={logout}>Sign Out</li>
-          <li className='header-actions__menu-item'><a className='header-actions__link' href='/tos'>Terms of Service</a></li>
-          <li className='header-actions__menu-item'><a className='header-actions__link' href='/privacy'>Privacy Policy</a></li>
-          <li className='header-actions__menu-item'><a className='header-actions__link' href='http://meedan.com/check'>About Check</a></li>
+          <li className='header-actions__menu-item'><Link className='header-actions__link' to='/tos'>Terms of Service</Link></li>
+          <li className='header-actions__menu-item'><Link className='header-actions__link' to='/privacy'>Privacy Policy</Link></li>
+          <li className='header-actions__menu-item'><a className='header-actions__link' target="_blank" rel="noopener noreferrer" href='http://meedan.com/check'>About Check</a></li>
         </ul>
       </div>
     );
