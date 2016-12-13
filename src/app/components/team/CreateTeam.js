@@ -6,6 +6,7 @@ import base64 from 'base-64';
 import Message from '../Message';
 import { Link } from 'react-router';
 import config from 'config';
+import { pageTitle } from '../../helpers';
 import ContentColumn from '../layout/ContentColumn'
 import Heading from '../layout/Heading'
 
@@ -135,7 +136,7 @@ class CreateTeam extends Component {
 
   render() {
     return (
-      <DocumentTitle title="Create a Team (Check)">
+      <DocumentTitle title={pageTitle('Create a Team', true)}>
         <main className='create-team'>
           <Message message={this.state.message} />
           <ContentColumn>

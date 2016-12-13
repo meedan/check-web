@@ -4,6 +4,7 @@ import DocumentTitle from 'react-document-title';
 import { Link } from 'react-router';
 import CreateTeamUserMutation from '../../relay/CreateTeamUserMutation';
 import Message from '../Message';
+import { pageTitle } from '../../helpers';
 
 class JoinTeamComponent extends Component {
   constructor(props) {
@@ -68,7 +69,7 @@ class JoinTeamComponent extends Component {
     var isRequestSent = this.state.isRequestSent;
 
     return (
-      <DocumentTitle title={"Join " + team.name + " (Check)"}>
+      <DocumentTitle title={pageTitle('Join Team')}>
         <div className='join-team'>
           <Message message={this.state.message} />
           <h2 className='join-team__main-heading'>Request to Join</h2>

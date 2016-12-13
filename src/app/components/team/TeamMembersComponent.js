@@ -7,6 +7,7 @@ import 'react-select/dist/react-select.css';
 import TeamMembershipRequests from './TeamMembershipRequests';
 import TeamMembersCell from './TeamMembersCell';
 import config from 'config';
+import { pageTitle } from '../../helpers';
 
 class TeamMembersComponent extends Component {
   constructor(props) {
@@ -44,7 +45,7 @@ class TeamMembersComponent extends Component {
     const joinUrl = teamUrl + '/join';
 
     return (
-      <DocumentTitle title={team.name + " Members (Check)"}>
+      <DocumentTitle title={pageTitle('Team Members')}>
         <div className='team-members'>
           <button onClick={this.handleEditMembers.bind(this)} className='team-members__edit-button'>
             <FontAwesome className='team-members__edit-icon' name='pencil'/>

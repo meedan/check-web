@@ -18,4 +18,20 @@ function teamSubdomain() {
   }
 }
 
-export { bemClass, teamSubdomain }
+// Make a Check page title as `prefix | team Check`.
+// Try to get the current team's name and fallback to just `Check`.
+// Skip team name if `skipTeam` is true.
+// Skip `prefix |` if `prefix` empty.
+function pageTitle(prefix, skipTeam) {
+  var suffix = 'Check';
+  if (!skipTeam) {
+    try {
+      suffix = Checkdesk.context.team.name + ' Check';
+    } catch (e) {
+      if (!(e instanceof TypeError)) throw e;
+    }
+  }
+  return (prefix ? (prefix + ' | ') : '') + suffix;
+}
+
+export { bemClass, pageTitle, teamSubdomain }
