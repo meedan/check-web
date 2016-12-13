@@ -17,7 +17,10 @@ const styles = {
 class AddAnnotation extends Component {
   constructor(props) {
     super(props);
-    this.state = { message: null };
+    this.state = {
+      message: null,
+      isSubmitting: false
+    };
   }
 
   parseCommand(input) {
@@ -34,11 +37,11 @@ class AddAnnotation extends Component {
   }
 
   failure() {
-    this.setState({ message: 'Invalid command' });
+    this.setState({ message: 'Invalid command', isSubmitting: false });
   }
 
   success(annotation_type) {
-    this.setState({ message: 'Your ' + annotation_type + ' was added!' });
+    this.setState({ message: 'Your ' + annotation_type + ' was added!', isSubmitting: false });
     var field = document.forms.addannotation.cmd;
     field.value = '';
     field.blur();
@@ -51,7 +54,7 @@ class AddAnnotation extends Component {
       if (json.error) {
         message = json.error;
       }
-      that.setState({ message: message });
+      that.setState({ message: message, isSubmitting: false });
     });
   }
 
@@ -141,6 +144,9 @@ class AddAnnotation extends Component {
 
   handleSubmit(e) {
     const command = this.parseCommand(document.forms.addannotation.cmd.value);
+    if (this.state.isSubmitting) { return e.preventDefault(); }
+
+    this.setState({ isSubmitting: true });
     let action = null;
 
     if (this.props.types && this.props.types.indexOf(command.type) == -1) {

@@ -5,12 +5,9 @@ import ProjectHeader from './project/ProjectHeader';
 import Breadcrumb from './layout/Breadcrumb';
 import MediaHeader from './media/MediaHeader';
 import HeaderActions from './HeaderActions';
+import { teamSubdomain } from '../helpers';
 
 class Header extends Component {
-  isSubdomain(hostname) {
-    return (hostname !== 'checkmedia.org' && hostname !== 'qa.checkmedia.org');
-  }
-
   render() {
     const { state } = this.props;
     const path = this.props.location ? this.props.location.pathname : null;
@@ -22,7 +19,7 @@ class Header extends Component {
     const defaultHeader = (
       <header className='header header--default'>
         <div className='header__container'>
-          <Breadcrumb url='/' title={null} />
+          <div className='header__breadcrumb'><Breadcrumb url='/' title={null} /></div>
           <HeaderActions {...this.props} />
         </div>
       </header>
@@ -37,7 +34,8 @@ class Header extends Component {
       return (
         <header className='header header--media'>
           <div className='header__container'>
-            <Breadcrumb url={projectUrl} title='« Back to Project' />
+            <span style={{display: 'none'}}><TeamHeader {...this.props} /></span>
+            <div className='header__breadcrumb'><Breadcrumb url={projectUrl} title='« Back to Project' /></div>
             <MediaHeader {...this.props} />
             <HeaderActions {...this.props} />
           </div>
@@ -57,23 +55,24 @@ class Header extends Component {
       );
     }
 
-    if (this.isSubdomain(window.location.hostname) && path.match(/^\/(join|members)/)) {
-      const teamUrl = path.match(/(.*)\/(join|members)/)[1];
+    if (teamSubdomain(window.location.hostname) && path.match(/^\/(join|members)/)) {
       return (
         <header className='header header--team-subpage'>
           <div className='header__container'>
-            <Breadcrumb url={teamUrl} title='« Back to Team' />
+            <span style={{display: 'none'}}><TeamHeader {...this.props} /></span>
+            <div className='header__breadcrumb'><Breadcrumb url='/' title='« Back to Team' /></div>
             <HeaderActions {...this.props} />
           </div>
         </header>
       );
     }
 
-    if (this.isSubdomain(window.location.hostname) && path.match(/^\/$/)) {
+    if (teamSubdomain(window.location.hostname) && path.match(/^\/(teams\/new)?$/)) {
       return (
         <header className='header header--team'>
           <div className='header__container'>
-            <Breadcrumb url='/teams' title='« Your Teams' />
+            <span style={{display: 'none'}}><TeamHeader {...this.props} /></span>
+            <div className='header__breadcrumb'><Breadcrumb url='/teams' title='« Your Teams' /></div>
             <HeaderActions {...this.props} />
           </div>
         </header>

@@ -19,6 +19,12 @@
   align-items: flex-start;
 }
 
+.header__breadcrumb {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+}
+
 // media page
 
 .header--media {

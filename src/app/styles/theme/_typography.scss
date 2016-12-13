@@ -3,7 +3,7 @@ $font-stack-sans-condensed: "Roboto Condensed", $font-stack-sans;
 $font-stack-serif: "Merriweather", Georgia, serif;
 
 @mixin onboarding-heading {
-  margin: 11px 0 20px 0;
+  margin: 25px 0 20px 0;
   font-size: 34px;
   font-family: $font-stack-sans-condensed;
   font-weight: 700;

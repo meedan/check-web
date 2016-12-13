@@ -8,6 +8,7 @@ import ProjectRoute from '../../relay/ProjectRoute';
 import UserMenuRelay from '../../relay/UserMenuRelay';
 import { Link } from 'react-router';
 import { logout } from '../../actions/actions';
+import FontAwesome from 'react-fontawesome';
 
 class ProjectHeaderComponent extends Component {
   constructor(props) {
@@ -128,10 +129,10 @@ class ProjectHeaderComponent extends Component {
     return (
       <div className='project-header'>
         <Message message={this.state.message} />
-        <div className='project-header__project'>
-          {(() => {
-            if (this.state.isEditing) {
-              return (
+        {(() => {
+          if (this.state.isEditing) {
+            return (
+              <div className='project-header__project'>
                 <form className='project-header__project-form' onSubmit={this.updateProject.bind(this)}>
                   <div className={this.bemClass('project-header__project-copy', true, '--is-editing')}>
                     <input className='project-header__project-name-input' id='project-title-field' name='name' type='text' value={this.state.title} placeholder='Project name' autocomplete='off' onChange={this.handleTitleChange.bind(this)} />
@@ -161,48 +162,45 @@ class ProjectHeaderComponent extends Component {
                     <button className='project-header__project-editing-button project-header__project-editing-button--cancel' onClick={this.disableEdit.bind(this)}>Cancel</button>
                   </div>
                 </form>
-              );
-            } else {
-              return (
+              </div>
+            );
+          } else {
+            return (
+              <div className='project-header__project'>
                 <div className='project-header__project-copy'>
                   <h2 className='project-header__project-name'>{project.title}</h2>
                   <span className='project-header__project-description'>{project.description}</span>
                 </div>
-              );
-            }
-          })()}
+                {/* DEPRECATED – replace with HeaderActions */}
+                <div className={this.bemClass('project-header__project-settings', this.state.isSettingsMenuOpen, '--active')}>
+                  <Link to='/search'><FontAwesome name='search' className='header-actions__search-icon'/></Link>
+                  <i className='project-header__project-settings-icon fa fa-ellipsis-h' onClick={this.toggleSettings.bind(this)}></i>
+                  <div className={this.bemClass('project-header__project-settings-overlay', this.state.isSettingsMenuOpen, '--active')} onClick={this.toggleSettings.bind(this)}></div>
 
-          {/* DEPRECATED – replace with HeaderActions */}
-          <div className={this.bemClass('project-header__project-settings', this.state.isSettingsMenuOpen, '--active')}>
-            <i className='project-header__project-search-icon fa fa-search'></i>
-            <i className='project-header__project-settings-icon fa fa-ellipsis-h' onClick={this.toggleSettings.bind(this)}></i>
-            <div className={this.bemClass('project-header__project-settings-overlay', this.state.isSettingsMenuOpen, '--active')} onClick={this.toggleSettings.bind(this)}></div>
+                  <ul className={this.bemClass('project-header__project-settings-panel', this.state.isSettingsMenuOpen, '--active')}>
 
-            <ul className={this.bemClass('project-header__project-settings-panel', this.state.isSettingsMenuOpen, '--active')}>
-              
-              <li className='TODO project-header__project-setting'>
-                <UserMenuRelay {...this.props} />
-              </li>
-              
-              <Can permissions={project.permissions} permission="update Project">
-                <li className='project-header__project-setting project-header__project-setting--edit' onClick={this.enableEdit.bind(this)}>Edit project...</li>
-              </Can>
-              
-              <Can permissions={project.team.permissions} permission="update Team">
-                <li className='project-header__project-setting project-header__project-setting--manage-team' onClick={Checkdesk.history.push.bind(this, '/members')}>Manage team...</li>
-              </Can>
-              
-              {/*<li className='project-header__project-setting project-header__project-setting--delete' onClick={this.deleteProject.bind(this)}>Delete project</li>*/}
-              
-              <li className='TODO project-header__project-setting' onClick={this.contactHuman.bind(this)}>Contact a Human</li>
+                    <li className='TODO project-header__project-setting'>
+                      <UserMenuRelay {...this.props} />
+                    </li>
 
-              <li className='TODO project-header__project-setting project-header__logout' onClick={logout}>Sign Out</li>
-              <li className='header-actions__setting'><a className='header-actions__link' href='/tos'>Terms of Service</a></li>
-              <li className='header-actions__setting'><a className='header-actions__link' href='/privacy'>Privacy Policy</a></li>
-              <li className='header-actions__setting'><a className='header-actions__link' href='http://meedan.com/check'>About Check</a></li>
-            </ul>
-          </div>
-        </div>
+                    <Can permissions={project.permissions} permission="update Project">
+                      <li className='project-header__project-setting project-header__project-setting--edit' onClick={this.enableEdit.bind(this)}>Edit project...</li>
+                    </Can>
+
+                    {/*<li className='project-header__project-setting project-header__project-setting--delete' onClick={this.deleteProject.bind(this)}>Delete project</li>*/}
+
+                    <li className='TODO project-header__project-setting' onClick={this.contactHuman.bind(this)}>Contact a Human</li>
+
+                    <li className='TODO project-header__project-setting project-header__logout' onClick={logout}>Sign Out</li>
+                    <li className='header-actions__menu-item'><a className='header-actions__link' href='/tos'>Terms of Service</a></li>
+                    <li className='header-actions__menu-item'><a className='header-actions__link' href='/privacy'>Privacy Policy</a></li>
+                    <li className='header-actions__menu-item'><a className='header-actions__link' href='http://meedan.com/check'>About Check</a></li>
+                  </ul>
+                </div>
+              </div>
+            )
+          }
+        })()}
       </div>
     );
   }

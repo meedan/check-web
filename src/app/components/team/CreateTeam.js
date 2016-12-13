@@ -7,6 +7,8 @@ import Message from '../Message';
 import { Link } from 'react-router';
 import config from 'config';
 import { pageTitle } from '../../helpers';
+import ContentColumn from '../layout/ContentColumn'
+import Heading from '../layout/Heading'
 
 class CreateTeam extends Component {
   constructor(props) {
@@ -136,30 +138,44 @@ class CreateTeam extends Component {
     return (
       <DocumentTitle title={pageTitle('Create a Team', true)}>
         <main className='create-team'>
-          <Link to='/teams' className='create-team__cancel'>×</Link>
           <Message message={this.state.message} />
-
-          <img className='create-team__icon' src='/images/logo/logo-alt.svg'/>
-          <h1 className='create-team__heading'>Create a Team</h1>
-          <p className='create-team__blurb'>Create a team for your organization, or just for yourself:</p>
-
-          <form className='create-team__form'>
-            <div className='create-team__team-display-name'>
-              <input type='text' name='teamDisplayName' id="team-name-container" className='create-team__team-display-name-input' onChange={this.handleDisplayNameChange.bind(this)} onBlur={this.handleDisplayNameBlur.bind(this)} placeholder='Team Name' autocomplete="off" ref={(input) => this.teamNameInput = input} />
-              <label className={this.state.displayNameLabelClass}>Team Name</label>
-            </div>
-
-            <div className='create-team__team-url'>
-              <div className={this.state.subdomainClass}>
-                <input type='text' name='teamSubdomain' id="team-subdomain-container" className='create-team__team-subdomain-input' onChange={this.handleSubdomainChange.bind(this)} placeholder='team-url' autocomplete="off" />
-                <label className={this.state.subdomainLabelClass}>Team URL</label>
-                <p className='create-team__team-subdomain-message'>{this.state.subdomainMessage}</p>
+          <ContentColumn>
+            <Heading>Create a Team</Heading>
+            <p className='create-team__blurb'>Create a team for your organization, or just for yourself:</p>
+            <form className='create-team__form'>
+              <div className='create-team__team-display-name'>
+                <input
+                  type='text'
+                  name='teamDisplayName'
+                  id="team-name-container"
+                  className='create-team__team-display-name-input'
+                  onChange={this.handleDisplayNameChange.bind(this)}
+                  onBlur={this.handleDisplayNameBlur.bind(this)}
+                  placeholder='Team Name'
+                  autocomplete="off"
+                  ref={(input) => this.teamNameInput = input}
+                />
+                <label className={this.state.displayNameLabelClass}>Team Name</label>
               </div>
-              <span className='create-team__root-domain'>.checkmedia.org</span>
-            </div>
-
-            <button type='submit' onClick={this.handleSubmit.bind(this)} className='create-team__submit-button'>Create</button>
-          </form>
+              <div className='create-team__team-url'>
+                <div className={this.state.subdomainClass}>
+                  <input
+                    type='text'
+                    name='teamSubdomain'
+                    id="team-subdomain-container"
+                    className='create-team__team-subdomain-input'
+                    onChange={this.handleSubdomainChange.bind(this)}
+                    placeholder='team-url'
+                    autocomplete="off"
+                  />
+                  <label className={this.state.subdomainLabelClass}>Team URL</label>
+                  <p className='create-team__team-subdomain-message'>{this.state.subdomainMessage}</p>
+                </div>
+                <span className='create-team__root-domain'>.checkmedia.org</span>
+              </div>
+              <button type='submit' onClick={this.handleSubmit.bind(this)} className='create-team__submit-button'>Create</button>
+            </form>
+          </ContentColumn>
         </main>
       </DocumentTitle>
     );

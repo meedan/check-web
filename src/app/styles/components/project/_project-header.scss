@@ -154,11 +154,12 @@
 .project-header__project-settings {
   // Deprecated – hope to replace with HeaderActions soon
   align-self: flex-start;
-  margin-top: 16px;
-}
-
-.project-header__project-search-icon {
-  display: none;
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center
 }
 
 .project-header__project-settings-overlay {
@@ -186,7 +187,7 @@
   margin: 0;
   position: absolute; right: 0;
   padding: 2px;
-  min-width: 150px;
+  min-width: 250px;
   border-radius: 2px;
   border: $layout-border;
   border-top: none;

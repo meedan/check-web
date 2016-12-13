@@ -57,27 +57,3 @@
     padding-top: 16px;
   }
 }
-
-// Hacks 
-
-// Reports appearing in project page and search page
-//
-// TODO: revist — 
-// Why is search here? 
-// Why not apply these at report component? — CGB 2016-11-2
-//
-.project, 
-.search {
-  .media-status {
-    &, &--editable {
-      cursor: auto;
-      pointer-events: none;
-    }
-  }
-  .media-status__menu {
-    display: none;
-  }
-  .media-status__icon--caret { 
-    display: none; 
-  }
-}
