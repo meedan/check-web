@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
-import TextField from 'material-ui/lib/text-field';
-import FlatButton from 'material-ui/lib/flat-button';
-import Colors from 'material-ui/lib/styles/colors';
+import TextField from 'material-ui/TextField';
+import FlatButton from 'material-ui/FlatButton';
+import { orange500 } from 'material-ui/styles/colors';
 import CreateCommentMutation from '../../relay/CreateCommentMutation';
 import CreateTagMutation from '../../relay/CreateTagMutation';
 import CreateStatusMutation from '../../relay/CreateStatusMutation';
@@ -10,7 +10,7 @@ import CreateFlagMutation from '../../relay/CreateFlagMutation';
 
 const styles = {
   errorStyle: {
-    color: Colors.orange500,
+    color: orange500,
   }
 };
 

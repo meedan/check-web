@@ -6,9 +6,9 @@ import FooterRelay from '../relay/FooterRelay';
 import LoginMenu from './LoginMenu';
 import Message from './Message';
 import { request } from '../actions/actions';
-import Colors from 'material-ui/lib/styles/colors';
-import getMuiTheme from 'material-ui/lib/styles/getMuiTheme';
-import themeDecorator from 'material-ui/lib/styles/theme-decorator';
+import { blue500, blue600, blue700, blue800 } from 'material-ui/styles/colors';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { Link } from 'react-router';
 import FontAwesome from 'react-fontawesome';
 import config from 'config';
@@ -17,12 +17,12 @@ import BrowserSupport from './BrowserSupport'
 
 const muiTheme = getMuiTheme({
   palette: {
-    primary1Color: Colors.blue500,
-    primary2Color: Colors.blue500,
-    primary3Color: Colors.blue500,
-    accent1Color: Colors.blue600,
-    accent2Color: Colors.blue700,
-    accent3Color: Colors.blue800
+    primary1Color: blue500,
+    primary2Color: blue500,
+    primary3Color: blue500,
+    accent1Color: blue600,
+    accent2Color: blue700,
+    accent3Color: blue800
   }
 });
 
@@ -158,20 +158,22 @@ class Home extends Component {
     }
 
     return (
-      <span>
-        <BrowserSupport />
-        <div className='home'>
-          <span className='home__disclaimer'>Beta</span>
-          <Header {...this.props} />
-          <main className='home__main'>
-            <div className='home__global-message global-message'><Message message={state.app.message} /></div>
-            <div className='home__content'>{children}</div>
-          </main>
-          <FooterRelay {...this.props} />
-        </div>
-      </span>
+      <MuiThemeProvider muiTheme={muiTheme}>
+        <span>
+          <BrowserSupport />
+          <div className='home'>
+            <span className='home__disclaimer'>Beta</span>
+            <Header {...this.props} />
+            <main className='home__main'>
+              <div className='home__global-message global-message'><Message message={state.app.message} /></div>
+              <div className='home__content'>{children}</div>
+            </main>
+            <FooterRelay {...this.props} />
+          </div>
+        </span>
+      </MuiThemeProvider>
     );
   }
 }
 
-export default themeDecorator(muiTheme)(Home);
+export default Home;

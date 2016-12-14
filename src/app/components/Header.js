@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import FlatButton from 'material-ui/lib/flat-button';
+import FlatButton from 'material-ui/FlatButton';
 import TeamHeader from './team/TeamHeader';
 import ProjectHeader from './project/ProjectHeader';
 import Breadcrumb from './layout/Breadcrumb';

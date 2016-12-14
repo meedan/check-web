@@ -3,9 +3,7 @@ import Relay from 'react-relay';
 import DocumentTitle from 'react-document-title';
 import TeamMembers from './TeamMembers'
 import TeamActivities from './TeamActivities'
-import TeamProjects from './TeamProjects'
 import Tags from './Tags'
-import SocialProfiles from './SocialProfiles'
 import { Link } from 'react-router';
 import FontAwesome from 'react-fontawesome';
 import UpdateTeamMutation from '../../relay/UpdateTeamMutation';

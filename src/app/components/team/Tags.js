@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import FlatButton from 'material-ui/lib/flat-button';
+import FlatButton from 'material-ui/FlatButton';
 class Tags extends Component {
   render() {
 

@@ -83,17 +83,15 @@ class MediaDetail extends Component {
     const byUser = (media.user && media.user.source && media.user.source.dbid && media.user.name !== 'Pender') ?
       (<span>by {media.user.name}</span>) : '';
 
-    const embedCard = (media, data) => {
-      if (data && data.quote && data.quote.length) {
-        return <QuoteMediaCard quoteText={data.quote} attributionName={null} attributionUrl={null}/>;
-      }
-      if (media.url) {
-        return this.props.condensed ?
-            <SocialMediaCard media={media} data={data} /> :
-            <PenderCard url={media.url} penderUrl={config.penderUrl} fallback={<SocialMediaCard media={media} data={data} />} />;
-      }
-      return null; // TODO: fallback
-    }(media, data);
+    let embedCard = null;
+    if (data && data.quote && data.quote.length) {
+      embedCard = <QuoteMediaCard quoteText={data.quote} attributionName={null} attributionUrl={null}/>;
+    }
+    else if (media.url) {
+      embedCard = this.props.condensed ?
+        <SocialMediaCard media={media} data={data} /> :
+        <PenderCard url={media.url} penderUrl={config.penderUrl} fallback={<SocialMediaCard media={media} data={data} />} />;
+    }
 
     return (
       <div className={this.statusToClass('media-detail', media.last_status)}>

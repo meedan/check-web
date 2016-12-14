@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import Card from 'material-ui/lib/card/card';
-import CardText from 'material-ui/lib/card/card-text';
+import { Card, CardText } from 'material-ui/Card';
 import { Link } from 'react-router';
 import MediaStatus from './MediaStatus';
 import MediaMetadataSummary from './MediaMetadataSummary';
