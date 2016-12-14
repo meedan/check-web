@@ -19,7 +19,6 @@ class Header extends Component {
     const defaultHeader = (
       <header className='header header--default'>
         <div className='header__container'>
-          <span style={{display: 'none'}}><TeamHeader {...this.props} /></span>
           <div className='header__breadcrumb'><Breadcrumb url='/' title={null} /></div>
           <HeaderActions {...this.props} />
         </div>
@@ -51,6 +50,18 @@ class Header extends Component {
             <div className='header__team'><TeamHeader {...this.props} /></div>
             <ProjectHeader {...this.props} />
             {/* TODO: <HeaderActions {...this.props} /> */}
+          </div>
+        </header>
+      );
+    }
+
+    if (path.match(/^search\/?/)) {
+      return (
+        <header className='header header--default'>
+          <div className='header__container'>
+            <span style={{display: 'none'}}><TeamHeader {...this.props} /></span>
+            <div className='header__breadcrumb'><Breadcrumb url='/' title={null} /></div>
+            <HeaderActions {...this.props} />
           </div>
         </header>
       );
