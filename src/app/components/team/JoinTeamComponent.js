@@ -21,27 +21,29 @@ class JoinTeamComponent extends Component {
     var that = this;
 
     var onFailure = (transaction) => {
-      transaction.getError().json().then(function(json) {
-        var message = 'Sorry, could not send your request';
+      let error = transaction.getError();
+      let message = 'Sorry, could not send your request';
+      try {
+        let json = JSON.parse(error.source);
         if (json.error) {
           message = json.error;
         }
-        that.setState({ message: message });
-      });
-   };
+      } catch (e) { }
+      that.setState({ message: message });
+    };
 
-   var onSuccess = (response) => {
-     that.setState({ message: 'Thanks for your interest in joining ' + this.props.team.name + ' Check! A team leader will review your application soon.', isRequestSent: true });
-   };
+    var onSuccess = (response) => {
+      that.setState({ message: 'Thanks for your interest in joining ' + this.props.team.name + ' Check! A team leader will review your application soon.', isRequestSent: true });
+    };
 
-   Relay.Store.commitUpdate(
-     new CreateTeamUserMutation({
-      team_id: this.props.team.dbid,
-      user_id: Checkdesk.currentUser.dbid,
-      status: "requested"
-    }),
-    { onSuccess, onFailure }
-  );
+    Relay.Store.commitUpdate(
+      new CreateTeamUserMutation({
+        team_id: this.props.team.dbid,
+        user_id: Checkdesk.currentUser.dbid,
+        status: "requested"
+      }),
+      { onSuccess, onFailure }
+    );
   }
 
   redirectIfMember() {

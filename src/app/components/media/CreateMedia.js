@@ -51,7 +51,13 @@ class CreateMedia extends Component {
 
     var onFailure = (transaction) => {
       const transactionError = transaction.getError();
-      transactionError.json ? transactionError.json().then(handleError) : handleError(JSON.stringify(transactionError));
+      try {
+        let json = JSON.parse(transactionError.source);
+        handleError(json);
+      }
+      catch (e) {
+        handleError(JSON.stringify(transactionError));
+      }
     };
 
     var onSuccess = (response) => {

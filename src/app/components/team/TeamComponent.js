@@ -60,13 +60,15 @@ class TeamComponent extends Component {
     var that = this;
 
     var onFailure = (transaction) => {
-      transaction.getError().json().then(function(json) {
-        var message = 'Sorry, could not edit the team';
+      let error = transaction.getError();
+      let message = 'Sorry, could not edit the team';
+      try {
+        let json = JSON.parse(error.source);
         if (json.error) {
           message = json.error;
         }
-        that.setState({ message: message });
-      });
+      } catch (e) { }
+      that.setState({ message: message });
     };
 
     var onSuccess = (response) => {

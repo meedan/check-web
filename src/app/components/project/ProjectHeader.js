@@ -42,13 +42,15 @@ class ProjectHeaderComponent extends Component {
     this.setState({ title: title, description: description, slackChannel: slackChannel });
 
     var onFailure = (transaction) => {
-      transaction.getError().json().then(function(json) {
-        var message = 'Sorry, could not update the project';
+      let error = transaction.getError();
+      let message = 'Sorry, could not update the project';
+      try {
+        let json = JSON.parse(error.source);
         if (json.error) {
           message = json.error;
         }
-        that.setState({ message: message });
-      });
+      } catch (e) { }
+      that.setState({ message: message });
     };
 
     var onSuccess = (response) => {
@@ -96,13 +98,15 @@ class ProjectHeaderComponent extends Component {
 
     if (window.confirm("Are you sure? This can't be undone later!")) {
       var onFailure = (transaction) => {
-        transaction.getError().json().then(function(json) {
-          var message = 'Sorry, could not delete the project';
+        let error = transaction.getError();
+        let message = 'Sorry, could not delete the project';
+        try {
+          let json = JSON.parse(error.source);
           if (json.error) {
             message = json.error;
           }
-          that.setState({ message: message });
-        });
+        } catch (e) { }
+        that.setState({ message: message });
       };
 
       var onSuccess = (response) => {

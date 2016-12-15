@@ -104,13 +104,15 @@ class CreateTeam extends Component {
          subdomain = document.getElementById('team-subdomain-container').value;
 
      var onFailure = (transaction) => {
-       transaction.getError().json().then(function(json) {
-         var message = 'Sorry, could not create the team';
+       let error = transaction.getError();
+       let message = 'Sorry, could not create the team';
+       try {
+         let json = JSON.parse(error.source);
          if (json.error) {
            message = json.error;
          }
-         that.setState({ message: message });
-       });
+       } catch (e) { }
+       that.setState({ message: message });
      };
 
      var onSuccess = (response) => {

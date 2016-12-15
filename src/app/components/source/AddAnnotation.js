@@ -49,13 +49,15 @@ class AddAnnotation extends Component {
 
   fail(transaction) {
     var that = this;
-    transaction.getError().json().then(function(json) {
-      var message = 'Sorry, could not create the tag';
+    let error = transaction.getError();
+    let message = 'Sorry, could not create the tag';
+    try {
+      let json = JSON.parse(error.source);
       if (json.error) {
         message = json.error;
       }
-      that.setState({ message: message, isSubmitting: false });
-    });
+    } catch (e) { }
+    that.setState({ message: message, isSubmitting: false });
   }
 
   addComment(that, annotated, annotated_id, annotated_type, comment) {

@@ -23,8 +23,10 @@ class CreateAccount extends Component {
         prefix = '/source/';
 
     var onFailure = (transaction) => {
-      transaction.getError().json().then(function(json) {
-        var message = 'Sorry, could not create the source';
+      let error = transaction.getError();
+      let message = 'Sorry, could not create the source';
+      try {
+        let json = JSON.parse(error.source);
         if (json.error) {
           message = json.error;
           var matches = message.match(/^Validation failed: Account with this URL exists and has source id ([0-9]+)$/);
@@ -34,8 +36,8 @@ class CreateAccount extends Component {
             that.props.history.push(prefix + sid);
           }
         }
-        that.setState({ message: message });
-      });
+      } catch (e) { }
+      that.setState({ message: message });
     };
 
     var onSuccess = (response) => {

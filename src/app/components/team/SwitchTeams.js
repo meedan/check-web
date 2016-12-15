@@ -25,13 +25,15 @@ class SwitchTeamsComponent extends Component {
 
   setCurrentTeam(team) {
     var onFailure = (transaction) => {
-      transaction.getError().json().then(function(json) {
-        var message = 'Sorry, could not switch teams';
+      let error = transaction.getError();
+      let message = 'Sorry, could not switch teams';
+      try {
+        let json = JSON.parse(error.source);
         if (json.error) {
           message = json.error;
         }
-        window.alert(message);
-      });
+      } catch (e) { }
+      window.alert(message);
     };
 
     var onSuccess = (response) => {
