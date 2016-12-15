@@ -28,6 +28,11 @@ RUN mkdir -p ${DEPLOYDIR}
 
 WORKDIR ${DEPLOYDIR}/latest
 
+# node 6
+RUN apt-get purge -y nodejs npm
+RUN curl -sL https://deb.nodesource.com/setup_6.x | bash 
+RUN apt-get install -y nodejs
+
 # copy in package.json and run npm install to populate node_modules
 COPY package.json ${DEPLOYDIR}/latest/package.json
 USER root
