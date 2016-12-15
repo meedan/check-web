@@ -6,7 +6,7 @@ Verify breaking news online
 
 ## Dependencies
 
-* Node.js (tested with version 5.8.0)
+* Node.js (tested with version 6.9.2)
 * Inkscape and ImageMagick (to generate the favicon)
 * Ruby and RubyGems (to run the tests)
 
