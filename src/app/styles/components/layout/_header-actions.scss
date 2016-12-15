@@ -1,16 +1,18 @@
 .header-actions {
   align-self: center;
-  flex: 1;
 
+  position: absolute;
+  right: 0;
   text-align: right;
 }
 
- // TODO: better fix to keep actions at right during media header xhr
-.media-header + .header-actions {
-  flex: 0;
+.header-actions__search-icon {
+  color: $light-gray-text;
+  font-size: 21px;
+  padding: 6px 15px 0px 15px;
 }
 
-.header-actions__settings-icon {
+.header-actions__menu-toggle {
   color: $light-gray-text;
   font-size: 21px;
   padding: 6px 15px 0px 15px;
@@ -19,7 +21,7 @@
   cursor: pointer;
 }
 
-.header-actions__settings-overlay {
+.header-actions__menu-overlay {
   position: fixed;
   z-index: 1;
   left: 0;
@@ -38,7 +40,7 @@
   }
 }
 
-.header-actions__settings-panel {
+.header-actions__menu {
   z-index: 2;
   margin: 0;
   border: $layout-border;
@@ -58,7 +60,7 @@
   text-align: left;
 }
 
-.header-actions__setting {
+.header-actions__menu-item {
   // border-bottom: 1px solid darken($home-bg, 10%);
   &:hover { background: darken($home-bg, 5%); }
   font-size: 15px;

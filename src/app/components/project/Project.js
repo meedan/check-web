@@ -11,6 +11,7 @@ import TeamSidebar from '../TeamSidebar';
 import { CreateMedia } from '../media';
 import Can from '../Can';
 import config from 'config';
+import { pageTitle } from '../../helpers';
 
 const pageSize = 20;
 
@@ -60,7 +61,7 @@ class ProjectComponent extends Component {
     var that = this;
 
     return (
-      <DocumentTitle title={project.title + " (Check)"} >
+      <DocumentTitle title={pageTitle(project.title)} >
         <div className="project">
 
           <div className='project__team-sidebar'>{/* className={this.sidebarActiveClass('home__sidebar')} */}
@@ -88,7 +89,7 @@ class ProjectComponent extends Component {
               }
             })()}
           </div>
-          
+
         </div>
       </DocumentTitle>
     );

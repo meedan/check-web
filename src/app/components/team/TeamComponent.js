@@ -14,6 +14,7 @@ import CreateContactMutation from '../../relay/CreateContactMutation';
 import UpdateContactMutation from '../../relay/UpdateContactMutation';
 import CreateProject from '../project/CreateProject';
 import Can from '../Can';
+import { pageTitle } from '../../helpers';
 
 class TeamComponent extends Component {
   constructor(props) {
@@ -114,7 +115,7 @@ class TeamComponent extends Component {
     const contact = team.contacts.edges[0];
 
     return (
-      <DocumentTitle title={team.name + " (Check)"}>
+      <DocumentTitle title={pageTitle()}>
         <div className='team'>
           <Message message={this.state.message} />
           <section className='team__profile'>

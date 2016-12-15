@@ -3,12 +3,13 @@ import Relay from 'react-relay';
 import DocumentTitle from 'react-document-title';
 import AboutRoute from '../relay/AboutRoute';
 import marked from 'marked';
+import { pageTitle } from '../helpers';
 
 class Tos extends Component {
   render() {
     var about = this.props.about;
     return (
-      <DocumentTitle title="Terms of Service (Check)">
+      <DocumentTitle title={pageTitle('Terms of Service', true)}>
         <div>
           <h2 className="main-title">Terms of Service</h2>
           <div id="tos" dangerouslySetInnerHTML={{__html: marked(about.tos)}}></div>

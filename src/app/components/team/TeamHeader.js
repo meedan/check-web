@@ -9,6 +9,8 @@ import config from 'config';
 class TeamHeaderComponent extends Component {
   render() {
     const team = this.props.team;
+    // FIXME #5415
+    Checkdesk.context.team = team;
     const teamUrl = window.location.protocol + '//' + team.subdomain + '.' + config.selfHost;
 
     return (

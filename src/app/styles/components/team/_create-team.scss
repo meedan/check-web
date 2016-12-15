@@ -1,56 +1,44 @@
 .create-team {
   height: 100%;
   flex: 1;
-  padding: 15px;
-  text-align: center;
-  background: hsl(204, 15%, 30%); // revisit color strategy in conjunction with team sidebar
-}
 
-.create-team__icon {
-  // might want to abstract into a header later, but not sure how much will be reused yet
-  margin-top: 10px;
-  height: 36px;
-  opacity: 0.15;
-}
-
-.create-team__heading {
-  @include onboarding-heading;
+  .message {
+    margin: 0 (-1 * $layout-padding);
+  }
 }
 
 .create-team__blurb {
   @include onboarding-blurb;
-  color: hsl(204, 15%, 90%);
+  text-align: center;
 }
 
 .create-team__form {
   max-width: 380px;
   margin: 0 auto;
-  text-align: left;
 }
 
-.create-team__team-display-name,
+.create-team__team-display-name {
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+.create-team__team-display-name-input {
+  @include text-input;
+}
+
 .create-team__team-url {
   margin-bottom: 30px;
 }
 
-.create-team__team-display-name,
 .create-team__team-subdomain {
   display: flex;
   flex-direction: column;
 }
 
-.create-team__team-subdomain--error {
-  // generally avoid nested selectors in BEM, but this approach seems less complex than others
-  .create-team__team-subdomain-message { color: rgb(253, 161, 40); }
-  .create-team__team-subdomain-input,
-  .create-team__team-subdomain-input:focus { border-color: rgb(253, 161, 40); }
-}
-
-.create-team__team-subdomain--success {
-  // generally avoid nested selectors in BEM, but this approach seems less complex than others
-  .create-team__team-subdomain-message { color: rgb(69, 203, 148); }
-  .create-team__team-subdomain-input,
-  .create-team__team-subdomain-input:focus { border-color: rgb(69, 203, 148); }
+.create-team__team-subdomain-input {
+  @include text-input;
+  text-align: right;
 }
 
 .create-team__team-display-name-label,
@@ -58,7 +46,7 @@
   order: 1;
   display: block;
   opacity: 0;
-  color: hsl(204, 15%, 50%);
+  color: theme-gray(50%);
   transition:
     color 200ms ease,
     opacity 50ms ease;
@@ -71,32 +59,7 @@
   opacity: 1;
 }
 
-.create-team__team-display-name-input,
-.create-team__team-subdomain-input {
-  order: 2;
-  background: transparent;
-  border: none;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  transition: border-color 100ms ease;
-  font-size: 24px;
-  padding: 7px 0;
-  &:focus {
-    outline: none;
-    border-color: hsl(208, 98%, 62%); // TODO: organize blues
-  }
-  @include input-placeholder {
-    color: white;
-    opacity: 0.55;
-  }
-  color: white;
-}
-
-.create-team__team-subdomain-input {
-  text-align: right;
-}
-
 .create-team__root-domain {
-  color: white;
   opacity: 0.2;
 }
 
@@ -129,7 +92,7 @@
   font-weight: 500;
   text-align: center;
   width: 100%;
-  color: hsl(204, 15%, 50%);
+  color: theme-gray(50%);
   transition: color 100ms ease;
 }
 
@@ -145,14 +108,5 @@
   &:not(:disabled) {
     opacity: 1;
     background-color: rgb(71, 207, 152);
-  }
-}
-
-.create-team__cancel {
-  @include close-button;
-  position: absolute; top: 11px; right: 24px;
-  opacity: 0.2;
-  &, &:hover, &:visited {
-    color: white;
   }
 }
