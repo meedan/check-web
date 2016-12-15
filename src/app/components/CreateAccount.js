@@ -33,7 +33,7 @@ class CreateAccount extends Component {
           if (matches) {
             var sid = matches[1];
             message = null;
-            that.props.history.push(prefix + sid);
+            Checkdesk.history.push(prefix + sid);
           }
         }
       } catch (e) { }
@@ -42,7 +42,7 @@ class CreateAccount extends Component {
 
     var onSuccess = (response) => {
       var sid = response.createAccount.account.source_id;
-      this.props.history.push(prefix + sid);
+      Checkdesk.history.push(prefix + sid);
       this.setState({ message: null });
     };
 
