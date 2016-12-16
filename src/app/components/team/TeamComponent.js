@@ -3,9 +3,7 @@ import Relay from 'react-relay';
 import DocumentTitle from 'react-document-title';
 import TeamMembers from './TeamMembers'
 import TeamActivities from './TeamActivities'
-import TeamProjects from './TeamProjects'
 import Tags from './Tags'
-import SocialProfiles from './SocialProfiles'
 import { Link } from 'react-router';
 import FontAwesome from 'react-fontawesome';
 import UpdateTeamMutation from '../../relay/UpdateTeamMutation';
@@ -62,13 +60,15 @@ class TeamComponent extends Component {
     var that = this;
 
     var onFailure = (transaction) => {
-      transaction.getError().json().then(function(json) {
-        var message = 'Sorry, could not edit the team';
+      let error = transaction.getError();
+      let message = 'Sorry, could not edit the team';
+      try {
+        let json = JSON.parse(error.source);
         if (json.error) {
           message = json.error;
         }
-        that.setState({ message: message });
-      });
+      } catch (e) { }
+      that.setState({ message: message });
     };
 
     var onSuccess = (response) => {

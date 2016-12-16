@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
-import FlatButton from 'material-ui/lib/flat-button';
-import TextField from 'material-ui/lib/text-field';
+import FlatButton from 'material-ui/FlatButton';
+import TextField from 'material-ui/TextField';
 import PenderCard from './PenderCard';
 import CreateAccountMutation from '../relay/CreateAccountMutation';
 import Message from './Message';
@@ -23,24 +23,26 @@ class CreateAccount extends Component {
         prefix = '/source/';
 
     var onFailure = (transaction) => {
-      transaction.getError().json().then(function(json) {
-        var message = 'Sorry, could not create the source';
+      let error = transaction.getError();
+      let message = 'Sorry, could not create the source';
+      try {
+        let json = JSON.parse(error.source);
         if (json.error) {
           message = json.error;
           var matches = message.match(/^Validation failed: Account with this URL exists and has source id ([0-9]+)$/);
           if (matches) {
             var sid = matches[1];
             message = null;
-            that.props.history.push(prefix + sid);
+            Checkdesk.history.push(prefix + sid);
           }
         }
-        that.setState({ message: message });
-      });
+      } catch (e) { }
+      that.setState({ message: message });
     };
 
     var onSuccess = (response) => {
       var sid = response.createAccount.account.source_id;
-      this.props.history.push(prefix + sid);
+      Checkdesk.history.push(prefix + sid);
       this.setState({ message: null });
     };
 

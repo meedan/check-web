@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 import DocumentTitle from 'react-document-title';
-import TextField from 'material-ui/lib/text-field';
-import FlatButton from 'material-ui/lib/flat-button';
+import TextField from 'material-ui/TextField';
+import FlatButton from 'material-ui/FlatButton';
 import numerous from 'numerous';
 import InfiniteScroll from 'react-infinite-scroller';
 import SearchRoute from '../relay/SearchRoute';

@@ -10,13 +10,15 @@ import Can from '../Can';
 class Annotation extends Component {
   handleDelete(id) {
     var onFailure = (transaction) => {
-      transaction.getError().json().then(function(json) {
-        var message = 'Could not delete annotation';
+      let error = transaction.getError();
+      let message = 'Could not delete annotation';
+      try {
+        let json = JSON.parse(error.source);
         if (json.error) {
           message = json.error;
         }
-        window.alert(message);
-      });
+      } catch (e) { }
+      window.alert(message);
     };
 
     var onSuccess = (response) => {

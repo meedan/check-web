@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import Avatar from 'material-ui/lib/avatar';
+import Avatar from 'material-ui/Avatar';
 import FontAwesome from 'react-fontawesome';
 
 class SourceHeader extends Component {

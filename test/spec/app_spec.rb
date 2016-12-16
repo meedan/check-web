@@ -252,15 +252,15 @@ describe 'app' do
       sleep 5
 
       # Verify that tag was added to tags list and annotations list
-      tag = get_element('.ReactTags__tag span')
-      expect(tag.text == 'selenium').to be(true)
+      tag = get_element('.ReactTags__tag')
+      expect(tag.text.gsub(/<[^>]+>|×/, '') == 'selenium').to be(true)
       expect(@driver.page_source.include?('Tagged #selenium')).to be(true)
 
       # Reload the page and verify that tags are still there
       @driver.navigate.refresh
       sleep 1
-      tag = get_element('.ReactTags__tag span')
-      expect(tag.text == 'selenium').to be(true)
+      tag = get_element('.ReactTags__tag')
+      expect(tag.text.gsub(/<[^>]+>|×/, '') == 'selenium').to be(true)
       expect(@driver.page_source.include?('Tagged #selenium')).to be(true)
     end
 
@@ -278,15 +278,15 @@ describe 'app' do
       sleep 5
 
       # Verify that tag was added to tags list and annotations list
-      tag = get_element('.ReactTags__tag span')
-      expect(tag.text == 'command').to be(true)
+      tag = get_element('.ReactTags__tag')
+      expect(tag.text.gsub(/<[^>]+>|×/, '') == 'command').to be(true)
       expect(@driver.page_source.include?('Tagged #command')).to be(true)
 
       # Reload the page and verify that tags are still there
       @driver.navigate.refresh
       sleep 1
-      tag = get_element('.ReactTags__tag span')
-      expect(tag.text == 'command').to be(true)
+      tag = get_element('.ReactTags__tag')
+      expect(tag.text.gsub(/<[^>]+>|×/, '') == 'command').to be(true)
       expect(@driver.page_source.include?('Tagged #command')).to be(true)
     end
 
@@ -381,11 +381,11 @@ describe 'app' do
       sleep 5
 
       # Verify that tags were added to tags list and annotations list
-      tag = @driver.find_elements(:css, '.ReactTags__tag span').select{ |s| s.text == 'foo' }
+      tag = @driver.find_elements(:css, '.ReactTags__tag').select{ |s| s.text.gsub(/<[^>]+>|×/, '') == 'foo' }
       expect(tag.empty?).to be(false)
       expect(@driver.page_source.include?('Tagged #foo')).to be(true)
 
-      tag = @driver.find_elements(:css, '.ReactTags__tag span').select{ |s| s.text == 'bar' }
+      tag = @driver.find_elements(:css, '.ReactTags__tag').select{ |s| s.text.gsub(/<[^>]+>|×/, '') == 'bar' }
       expect(tag.empty?).to be(false)
       expect(@driver.page_source.include?('Tagged #bar')).to be(true)
     end
@@ -401,11 +401,11 @@ describe 'app' do
       sleep 5
 
       # Verify that tags were added to tags list and annotations list
-      tag = @driver.find_elements(:css, '.ReactTags__tag span').select{ |s| s.text == 'bla' }
+      tag = @driver.find_elements(:css, '.ReactTags__tag').select{ |s| s.text.gsub(/<[^>]+>|×/, '') == 'bla' }
       expect(tag.empty?).to be(false)
       expect(@driver.page_source.include?('Tagged #bla')).to be(true)
 
-      tag = @driver.find_elements(:css, '.ReactTags__tag span').select{ |s| s.text == 'bli' }
+      tag = @driver.find_elements(:css, '.ReactTags__tag').select{ |s| s.text.gsub(/<[^>]+>|×/, '') == 'bli' }
       expect(tag.empty?).to be(false)
       expect(@driver.page_source.include?('Tagged #bli')).to be(true)
     end

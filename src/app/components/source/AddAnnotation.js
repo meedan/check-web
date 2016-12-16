@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
-import TextField from 'material-ui/lib/text-field';
-import FlatButton from 'material-ui/lib/flat-button';
-import Colors from 'material-ui/lib/styles/colors';
+import TextField from 'material-ui/TextField';
+import FlatButton from 'material-ui/FlatButton';
+import { orange500 } from 'material-ui/styles/colors';
 import CreateCommentMutation from '../../relay/CreateCommentMutation';
 import CreateTagMutation from '../../relay/CreateTagMutation';
 import CreateStatusMutation from '../../relay/CreateStatusMutation';
@@ -10,7 +10,7 @@ import CreateFlagMutation from '../../relay/CreateFlagMutation';
 
 const styles = {
   errorStyle: {
-    color: Colors.orange500,
+    color: orange500,
   }
 };
 
@@ -49,13 +49,15 @@ class AddAnnotation extends Component {
 
   fail(transaction) {
     var that = this;
-    transaction.getError().json().then(function(json) {
-      var message = 'Sorry, could not create the tag';
+    let error = transaction.getError();
+    let message = 'Sorry, could not create the tag';
+    try {
+      let json = JSON.parse(error.source);
       if (json.error) {
         message = json.error;
       }
-      that.setState({ message: message, isSubmitting: false });
-    });
+    } catch (e) { }
+    that.setState({ message: message, isSubmitting: false });
   }
 
   addComment(that, annotated, annotated_id, annotated_type, comment) {

@@ -18,13 +18,15 @@ class CreateProject extends Component {
         team = this.props.team;
 
     var onFailure = (transaction) => {
-      transaction.getError().json().then(function(json) {
-        var message = 'Sorry, could not create the project';
+      let error = transaction.getError();
+      let message = 'Sorry, could not create the project';
+      try {
+        let json = JSON.parse(error.source);
         if (json.error) {
           message = json.error;
         }
-        that.setState({ message: message });
-      });
+      } catch (e) { }
+      that.setState({ message: message });
     };
 
     var onSuccess = (response) => {

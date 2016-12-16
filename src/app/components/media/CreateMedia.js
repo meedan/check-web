@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
-import FlatButton from 'material-ui/lib/flat-button';
-import TextField from 'material-ui/lib/text-field';
+import FlatButton from 'material-ui/FlatButton';
+import TextField from 'material-ui/TextField';
 import PenderCard from '../PenderCard';
 import CreateMediaMutation from '../../relay/CreateMediaMutation';
 import Message from '../Message';
@@ -51,7 +51,13 @@ class CreateMedia extends Component {
 
     var onFailure = (transaction) => {
       const transactionError = transaction.getError();
-      transactionError.json ? transactionError.json().then(handleError) : handleError(JSON.stringify(transactionError));
+      try {
+        let json = JSON.parse(transactionError.source);
+        handleError(json);
+      }
+      catch (e) {
+        handleError(JSON.stringify(transactionError));
+      }
     };
 
     var onSuccess = (response) => {

@@ -37,13 +37,15 @@ class MediaTags extends Component {
     const { media } = this.props;
 
     var onFailure = (transaction) => {
-      transaction.getError().json().then(function(json) {
-        var message = 'Sorry – we had trouble adding that tag.';
+      let error = transaction.getError();
+      let message = 'Sorry – we had trouble adding that tag.';
+      try {
+        let json = JSON.parse(error.source);
         if (json.error) {
           message = json.error;
         }
-        that.setState({ message: message });
-      });
+      } catch (e) { }
+      that.setState({ message: message });
     };
 
     var onSuccess = (response) => {

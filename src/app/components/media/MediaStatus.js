@@ -62,13 +62,15 @@ class MediaStatus extends Component {
 
   fail(transaction) {
     const that = this;
-    transaction.getError().json().then(function(json) {
-      let message = "We're sorry, but we encountered an error trying to update the status.";
+    let error = transaction.getError();
+    let message = "We're sorry, but we encountered an error trying to update the status.";
+    try {
+      let json = JSON.parse(error.source);
       if (json.error) {
         message = json.error;
       }
-      that.setState({ message: message });
-    });
+    } catch (e) { }
+    that.setState({ message: message });
   }
 
   success(response) {
