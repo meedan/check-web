@@ -47,11 +47,12 @@ RUN chown -R ${DEPLOYUSER}:www-data ${DEPLOYDIR}/new
 USER ${DEPLOYUSER}
 RUN rm -rf ${DEPLOYDIR}/new/node_modules \
     && rsync -avp ${DEPLOYDIR}/new/* ${DEPLOYDIR}/latest/ 
+COPY ./.babelrc ${DEPLOYDIR}/latest/.babelrc
 
 # style
 RUN ./node_modules/.bin/node-sass src/app/styles/stylesheet.scss --output-style=compressed | ./node_modules/.bin/postcss --use autoprefixer -o build/web/css/stylesheet.css \
     && cp -r src/app/styles/images build/web/
-    
+
 RUN ./node_modules/.bin/gulp build:${PLATFORM}    
 
 # config
