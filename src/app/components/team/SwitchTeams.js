@@ -23,7 +23,7 @@ class SwitchTeamsComponent extends Component {
     );
   }
 
-  setCurrentTeam(team) {
+  setCurrentTeam(team, user) {
     var onFailure = (transaction) => {
       let error = transaction.getError();
       let message = 'Sorry, could not switch teams';
@@ -42,13 +42,15 @@ class SwitchTeamsComponent extends Component {
 
     Relay.Store.commitUpdate(
       new UpdateUserMutation({
-        current_team_id: team.dbid
+        current_team_id: team.dbid,
+        current_user_id: user.id
       }),
       { onSuccess, onFailure }
     );
   }
 
   render() {
+    const currentUser = this.props.me;
     const currentTeam = this.props.me.current_team;
     const team_users = this.props.me.team_users.edges;
     const that = this;
@@ -98,7 +100,7 @@ class SwitchTeamsComponent extends Component {
           {otherTeams.map(function(team) {
             return (
               <li className='switch-teams__team'>
-                <div onClick={that.setCurrentTeam.bind(this, team)} className='switch-teams__team-link'>
+                <div onClick={that.setCurrentTeam.bind(this, team, currentUser)} className='switch-teams__team-link'>
                   <div className='switch-teams__team-avatar' style={{'background-image': 'url(' + team.avatar + ')'}}></div>
                   <div className='switch-teams__team-copy'>
                     <h3 className='switch-teams__team-name'>{team.name}</h3>

@@ -5,6 +5,7 @@ import { Link } from 'react-router';
 import CreateTeamUserMutation from '../../relay/CreateTeamUserMutation';
 import Message from '../Message';
 import { pageTitle } from '../../helpers';
+import CheckContext from '../../CheckContext';
 
 class JoinTeamComponent extends Component {
   constructor(props) {
@@ -12,6 +13,11 @@ class JoinTeamComponent extends Component {
     this.state = {
       isRequestSent: false
     };
+  }
+
+  getContext() {
+    const context = new CheckContext(this).getContextStore();
+    return context;
   }
 
   handleRequestAccess(e) {
@@ -39,15 +45,15 @@ class JoinTeamComponent extends Component {
     Relay.Store.commitUpdate(
       new CreateTeamUserMutation({
         team_id: this.props.team.dbid,
-        user_id: Checkdesk.currentUser.dbid,
-        status: "requested"
+        user_id: that.getContext().currentUser.dbid,
+        status: 'requested'
       }),
       { onSuccess, onFailure }
     );
   }
 
   redirectIfMember() {
-    if (Checkdesk.currentUser.team_ids.indexOf(this.props.team.dbid) > -1) {
+    if (this.getContext().currentUser.team_ids.indexOf(this.props.team.dbid) > -1) {
       window.location.href = this.buildUrl(this.props.team);
     }
   }
@@ -93,5 +99,9 @@ class JoinTeamComponent extends Component {
     );
   }
 }
+
+JoinTeamComponent.contextTypes = {
+  store: React.PropTypes.object
+};
 
 export default JoinTeamComponent;
