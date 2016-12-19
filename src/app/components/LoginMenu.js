@@ -2,17 +2,22 @@ import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import LoginEmail from './LoginEmail';
 import Message from './Message';
+import { login } from '../actions/actions';
 
 class LoginMenu extends Component {
+  login(provider) {
+    login(provider, this.props.loginCallback);
+  }
+
   render() {
-    const { loginTwitter, loginFacebook, loginSlack, state } = this.props;
     return (
 
       <div id="login-menu" className="login-menu">
         <div className="browser-support">
           <p className="browser-support__message">Best viewed with <i className='fa fa-chrome'></i> <a href="https://www.google.com/chrome/browser/desktop/">Chrome for Desktop</a>.</p>
         </div>
-        <Message message={state.app.message} />
+        
+        <Message message={this.props.message} />
 
         <img width="36" className="login-menu__icon" src="/images/logo/logo-1.svg" />
         <div className="login-menu__content">
@@ -21,16 +26,16 @@ class LoginMenu extends Component {
 
           <ul className="login-menu__options">
             <li>
-              <button onClick={loginSlack} id="slack-login" className='login-menu__button login-menu__button--slack'>Sign in with Slack</button>
+              <button onClick={this.login.bind(this, 'slack')} id="slack-login" className='login-menu__button login-menu__button--slack'>Sign in with Slack</button>
             </li>
             <li className="item">
-              <button onClick={loginTwitter} id="twitter-login" className='login-menu__button login-menu__button--twitter'>Sign in with Twitter</button>
+              <button onClick={this.login.bind(this, 'twitter')} id="twitter-login" className='login-menu__button login-menu__button--twitter'>Sign in with Twitter</button>
             </li>
             <li>
-              <button onClick={loginFacebook} id="facebook-login" className='login-menu__button login-menu__button--facebook'>Sign in with Facebook</button>
+              <button onClick={this.login.bind(this, 'facebook')} id="facebook-login" className='login-menu__button login-menu__button--facebook'>Sign in with Facebook</button>
             </li>
             <li>
-              <LoginEmail {...this.props}/>
+              <LoginEmail loginCallback={this.props.loginCallback} />
             </li>
           </ul>
 

@@ -39,6 +39,7 @@ class LoginEmail extends Component {
     },
     successCallback = function(data) {
       that.setState({ open: false, message: null });
+      that.props.loginCallback();
       Checkdesk.history.push('/');
     };
     request('post', 'users/sign_in', failureCallback, successCallback, params);
@@ -59,6 +60,7 @@ class LoginEmail extends Component {
     },
     successCallback = function(data) {
       that.setState({ open: false, message: null });
+      that.props.loginCallback();
       Checkdesk.history.push(window.location.pathname);
     };
     request('post', 'users', failureCallback, successCallback, params);

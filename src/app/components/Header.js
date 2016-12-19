@@ -12,10 +12,6 @@ class Header extends Component {
     const { state } = this.props;
     const path = this.props.location ? this.props.location.pathname : null;
 
-    if (!state.app.token) {
-      return null;
-    }
-
     const defaultHeader = (
       <header className='header header--default'>
         <div className='header__container'>

@@ -70,32 +70,14 @@ export function request(method, endpoint, failureCallback, successCallback, data
   });
 };
 
-var login = function(provider, dispatch) {
+export function login(provider, callback) {
   var win = window.open(config.restBaseUrl + 'users/auth/' + provider + '?destination=/close.html', provider);
   var timer = window.setInterval(function() {
     if (win.closed) {  
       window.clearInterval(timer);
-      dispatch({ type: SUCCESS, error: false });
+      callback();
     }
   }, 500);
-};
-
-export function loginFacebook() {
-  return (dispatch, getState) => {
-    login('facebook', dispatch);
-  };
-};
-
-export function loginTwitter() {
-  return (dispatch, getState) => {
-    login('twitter', dispatch);
-  };
-};
-
-export function loginSlack() {
-  return (dispatch, getState) => {
-    login('slack', dispatch);
-  };
 };
 
 export function logout() {
