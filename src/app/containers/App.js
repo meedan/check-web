@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-import * as actions from '../actions/actions';
 import Home from '../components/Home';
 
 function mapStateToProps(state, ownProps) {
@@ -9,6 +8,6 @@ function mapStateToProps(state, ownProps) {
   };
 }
 
-const mapDispatchToProps = actions;
+const mapDispatchToProps = {};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

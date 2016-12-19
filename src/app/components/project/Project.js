@@ -12,14 +12,36 @@ import { CreateMedia } from '../media';
 import Can from '../Can';
 import config from 'config';
 import { pageTitle } from '../../helpers';
+import CheckContext from '../../CheckContext';
 
 const pageSize = 20;
 
 class ProjectComponent extends Component {
+  getContext() {
+    const context = new CheckContext(this);
+    return context;
+  }
+
+  currentContext() {
+    return this.getContext().getContextStore();
+  }
+
   setContextProject() {
-    Checkdesk.context.project = this.props.project;
-    if (!Checkdesk.context.team || Checkdesk.context.team.subdomain != this.props.project.team.subdomain) {
-      Checkdesk.context.team = this.props.project.team;
+    const context = this.getContext(),
+          currentContext = this.currentContext(),
+          newContext = {};
+
+    newContext.project = this.props.project;
+
+    let notFound = false;
+    if (!currentContext.team || currentContext.team.subdomain != this.props.project.team.subdomain) {
+      newContext.team = this.props.project.team;
+      notFound = true;
+    }
+      
+    context.setContextStore(newContext);
+      
+    if (notFound) {
       Checkdesk.history.push('/404');
     }
   }
@@ -61,7 +83,7 @@ class ProjectComponent extends Component {
     var that = this;
 
     return (
-      <DocumentTitle title={pageTitle(project.title)} >
+      <DocumentTitle title={pageTitle(project.title, false, this.currentContext().team)} >
         <div className="project">
 
           <div className='project__team-sidebar'>{/* className={this.sidebarActiveClass('home__sidebar')} */}
@@ -95,6 +117,10 @@ class ProjectComponent extends Component {
     );
   }
 }
+
+ProjectComponent.contextTypes = {
+  store: React.PropTypes.object
+};
 
 const ProjectContainer = Relay.createContainer(ProjectComponent, {
   initialVariables: {

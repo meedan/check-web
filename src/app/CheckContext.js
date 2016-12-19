@@ -1,4 +1,5 @@
 import Relay from 'react-relay';
+import { SET_CONTEXT } from './constants/ActionTypes';
 import { request } from './actions/actions';
 import CheckdeskNetworkLayer from './CheckdeskNetworkLayer';
 import config from 'config';
@@ -8,6 +9,25 @@ import config from 'config';
 class CheckContext {
   constructor(caller) {
     this.caller = caller;
+  }
+
+  getContextStore() {
+    return this.caller.context.store.getState().app.context || {};
+  }
+
+  setContextStore(data) {
+    let newContext = this.getContextStore();
+    newContext.type = SET_CONTEXT;
+    for (var key in data) {
+      const value = data[key];
+      if (value === null) {
+        delete newContext[key];
+      }
+      else {
+        newContext[key] = value;
+      }
+    }
+    this.caller.context.store.dispatch(newContext);
   }
 
   startNetwork(token) {
@@ -44,7 +64,7 @@ class CheckContext {
         newState.error = true;
       }
 
-      window.Checkdesk.currentUser = userData;
+      that.setContextStore({ currentUser: userData });
 
       that.maybeRedirect(caller.props.location.pathname, userData);
       that.setContext();
@@ -69,27 +89,32 @@ class CheckContext {
   setContext() {
     if (this.caller.props.params) {
       const subdomain = this.getSubdomain();
-      if (subdomain != null && !Checkdesk.context.team) {
-        Checkdesk.context.team = { subdomain: subdomain };
+      let newContext = {};
+      let currentContext = this.getContextStore();
+      if (subdomain != null && !currentContext.team) {
+        newContext.team = { subdomain: subdomain };
       }
-      if (this.caller.props.params.projectId && !Checkdesk.context.project) {
-        Checkdesk.context.project = { dbid: parseInt(this.caller.props.params.projectId) };
+      if (this.caller.props.params.projectId && !currentContext.project) {
+        newContext.project = { dbid: parseInt(this.caller.props.params.projectId) };
       }
+      this.setContextStore(newContext);
     }
   }
 
   // Set context team and project from information from the backend
   setContextAndRedirect(team, project) {
-    var path = window.location.protocol + '//';
+    let path = window.location.protocol + '//';
+    let newContext = {};
     if (team) {
-      Checkdesk.context.team = team;
+      newContext.team = team;
       path += team.subdomain + '.';
     }
     path += config.selfHost;
     if (project) {
-      Checkdesk.context.project = project;
+      newContext.project = project;
       path += '/project/' + project.dbid;
     }
+    this.setContextStore(newContext);
     window.location.href = path;
   }
 

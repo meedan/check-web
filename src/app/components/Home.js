@@ -54,6 +54,8 @@ class Home extends Component {
     if (!this.state.token && !this.state.error) {
       context.startSession();
     }
+    context.maybeRedirect(this.props.location.pathname, context.getContextStore().userData);
+    context.setContext();
     context.startNetwork(this.state.token);
   }
 
@@ -101,5 +103,9 @@ class Home extends Component {
     );
   }
 }
+
+Home.contextTypes = {
+  store: React.PropTypes.object
+};
 
 export default Home;

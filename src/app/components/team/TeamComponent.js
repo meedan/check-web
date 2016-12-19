@@ -12,6 +12,7 @@ import UpdateContactMutation from '../../relay/UpdateContactMutation';
 import CreateProject from '../project/CreateProject';
 import Can from '../Can';
 import { pageTitle } from '../../helpers';
+import CheckContext from '../../CheckContext';
 
 class TeamComponent extends Component {
   constructor(props) {
@@ -35,9 +36,10 @@ class TeamComponent extends Component {
   }
 
   setContextTeam() {
-    if (Checkdesk.context.team.subdomain != this.props.team.subdomain) {
-      Checkdesk.context.team = this.props.team;
-      var path = window.location.protocol + '//' + Checkdesk.context.team.subdomain + '.' + config.selfHost;
+    const context = new CheckContext(this).getContextStore();
+    if (context.team.subdomain != this.props.team.subdomain) {
+      context.team = this.props.team;
+      var path = window.location.protocol + '//' + context.team.subdomain + '.' + config.selfHost;
       window.location.href = path;
     }
   }
@@ -114,7 +116,7 @@ class TeamComponent extends Component {
     const contact = team.contacts.edges[0];
 
     return (
-      <DocumentTitle title={pageTitle()}>
+      <DocumentTitle title={pageTitle(false, false, team)}>
         <div className='team'>
           <Message message={this.state.message} />
           <section className='team__profile'>
@@ -262,5 +264,9 @@ class TeamComponent extends Component {
     );
   }
 }
+
+TeamComponent.contextTypes = {
+  store: React.PropTypes.object
+};
 
 export default TeamComponent;

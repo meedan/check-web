@@ -7,6 +7,7 @@ import CreateProject from './project/CreateProject';
 import TeamRoute from '../relay/TeamRoute';
 import teamFragment from '../relay/teamFragment';
 import SwitchTeams from './team/SwitchTeams';
+import CheckContext from '../CheckContext';
 import Can from './Can';
 import config from 'config';
 import '../helpers';
@@ -53,13 +54,14 @@ class TeamSidebarComponent extends Component {
 
   isCurrentProject(projectId) {
     var inProject = window.location.pathname.match(/\/project\/([0-9]+)/),
-        currentProjectId = null;
+        currentProjectId = null,
+        context = new CheckContext(this).getContextStore();
 
     if (inProject) {
       currentProjectId = parseInt(inProject[1]);
     }
-    else if (Checkdesk.context.project) {
-      currentProjectId = Checkdesk.context.project.dbid;
+    else if (context.project) {
+      currentProjectId = context.project.dbid;
     }
 
     return projectId === currentProjectId;
@@ -119,6 +121,10 @@ class TeamSidebarComponent extends Component {
     );
   }
 }
+
+TeamSidebarComponent.contextTypes = {
+  store: React.PropTypes.object
+};
 
 const TeamSidebarContainer = Relay.createContainer(TeamSidebarComponent, {
   fragments: {

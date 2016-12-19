@@ -81,7 +81,7 @@ export function login(provider, callback) {
 };
 
 export function logout() {
-  var failureCallback = function(message) { dispatch({ type: ERROR, message: message }); },
+  var failureCallback = function(message) { console.log(message); },
       successCallback = function(data) {
         window.location.assign(window.location.origin);
       };

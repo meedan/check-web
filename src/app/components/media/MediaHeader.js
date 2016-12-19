@@ -4,10 +4,12 @@ import MediaRoute from '../../relay/MediaRoute';
 import Caret from '../Caret';
 import MediaMetadataSummary from './MediaMetadataSummary';
 import util from './MediaUtil';
+import CheckContext from '../../CheckContext';
 
 class MediaHeaderComponent extends Component {
   setCurrentContext() {
-    this.props.relay.setVariables({ contextId: Checkdesk.context.project.dbid });
+    let context = new CheckContext(this).getContextStore();
+    this.props.relay.setVariables({ contextId: context.project.dbid });
   }
 
   componentDidMount() {
@@ -37,6 +39,10 @@ class MediaHeaderComponent extends Component {
     );
   }
 }
+
+MediaHeaderComponent.contextTypes = {
+  store: React.PropTypes.object
+};
 
 const MediaHeaderContainer = Relay.createContainer(MediaHeaderComponent, {
   initialVariables: {
@@ -81,13 +87,18 @@ const MediaHeaderContainer = Relay.createContainer(MediaHeaderComponent, {
 
 class MediaHeader extends Component {
   render() {
-    var projectId = 0;
-    if (Checkdesk.context.project) {
-      projectId = Checkdesk.context.project.dbid;
+    let projectId = 0;
+    let context = new CheckContext(this).getContextStore();
+    if (context.project) {
+      projectId = context.project.dbid;
     }
     var route = new MediaRoute({ ids: this.props.params.mediaId + ',' + projectId });
     return (<Relay.RootContainer Component={MediaHeaderContainer} route={route} />);
   }
 }
+
+MediaHeader.contextTypes = {
+  store: React.PropTypes.object
+};
 
 export default MediaHeader;

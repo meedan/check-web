@@ -45,7 +45,7 @@ export default class Root extends Component {
   render() {
     const { store } = this.props;
     const history = syncHistoryWithStore(browserHistory, store);
-    window.Checkdesk = { history: history, context: {} };
+    window.Checkdesk = { history: history, context: {}, store: store };
 
     return (
       <Provider store={store}>

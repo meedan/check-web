@@ -3,6 +3,7 @@ import Relay from 'react-relay';
 import CreateTagMutation from '../../relay/CreateTagMutation';
 import DeleteTagMutation from '../../relay/DeleteTagMutation';
 import Tags from '../source/Tags';
+import CheckContext from '../../CheckContext';
 
 class MediaTags extends Component {
   constructor(props) {
@@ -35,6 +36,7 @@ class MediaTags extends Component {
   createTag(tagString) {
     const that = this;
     const { media } = this.props;
+    const context = new CheckContext(this).getContextStore();
 
     var onFailure = (transaction) => {
       let error = transaction.getError();
@@ -56,6 +58,7 @@ class MediaTags extends Component {
       new CreateTagMutation({
         annotated: media,
         parent_type: 'media',
+        context: context,
         annotation: {
           tag: tagString.trim(),
           annotated_type: 'Media',
@@ -124,5 +127,9 @@ class MediaTags extends Component {
     );
   }
 }
+
+MediaTags.contextTypes = {
+  store: React.PropTypes.object
+};
 
 export default MediaTags;

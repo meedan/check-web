@@ -22,11 +22,11 @@ function teamSubdomain() {
 // Try to get the current team's name and fallback to just `Check`.
 // Skip team name if `skipTeam` is true.
 // Skip `prefix |` if `prefix` empty.
-function pageTitle(prefix, skipTeam) {
+function pageTitle(prefix, skipTeam, team) {
   var suffix = 'Check';
   if (!skipTeam) {
     try {
-      suffix = Checkdesk.context.team.name + ' Check';
+      suffix = team.name + ' Check';
     } catch (e) {
       if (!(e instanceof TypeError)) throw e;
     }

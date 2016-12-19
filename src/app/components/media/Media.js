@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
+import CheckContext from '../../CheckContext';
 import MediaRoute from '../../relay/MediaRoute';
 import MediaComponent from './MediaComponent';
 
@@ -90,13 +91,18 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
 
 class Media extends Component {
   render() {
-    var projectId = 0;
-    if (Checkdesk.context.project) {
-      projectId = Checkdesk.context.project.dbid;
+    let projectId = 0;
+    let context = new CheckContext(this).getContextStore();
+    if (context.project) {
+      projectId = context.project.dbid;
     }
     var route = new MediaRoute({ ids: this.props.params.mediaId + ',' + projectId });
     return (<Relay.RootContainer Component={MediaContainer} route={route} />);
   }
 }
+
+Media.contextTypes = {
+  store: React.PropTypes.object
+};
 
 export default Media;

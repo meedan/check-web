@@ -45,7 +45,7 @@ class TeamMembersComponent extends Component {
     const joinUrl = teamUrl + '/join';
 
     return (
-      <DocumentTitle title={pageTitle('Team Members')}>
+      <DocumentTitle title={pageTitle('Team Members', false, team)}>
         <div className='team-members'>
           <button onClick={this.handleEditMembers.bind(this)} className='team-members__edit-button'>
             <FontAwesome className='team-members__edit-icon' name='pencil'/>

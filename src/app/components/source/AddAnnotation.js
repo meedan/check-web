@@ -7,6 +7,7 @@ import CreateCommentMutation from '../../relay/CreateCommentMutation';
 import CreateTagMutation from '../../relay/CreateTagMutation';
 import CreateStatusMutation from '../../relay/CreateStatusMutation';
 import CreateFlagMutation from '../../relay/CreateFlagMutation';
+import CheckContext from '../../CheckContext';
 
 const styles = {
   errorStyle: {
@@ -60,6 +61,11 @@ class AddAnnotation extends Component {
     that.setState({ message: message, isSubmitting: false });
   }
 
+  getContext() {
+    const context = new CheckContext(this).getContextStore();
+    return context;
+  }
+
   addComment(that, annotated, annotated_id, annotated_type, comment) {
     var onFailure = (transaction) => { that.fail(transaction); };
 
@@ -69,6 +75,7 @@ class AddAnnotation extends Component {
       new CreateCommentMutation({
         parent_type: annotated_type.toLowerCase(),
         annotated: annotated,
+        context: that.getContext(),
         annotation: {
           text: comment,
           annotated_type: annotated_type,
@@ -86,11 +93,14 @@ class AddAnnotation extends Component {
 
     var onSuccess = (response) => { that.success('tag'); };
 
+    const context = that.getContext();
+
     tagsList.map(function(tag) {
       Relay.Store.commitUpdate(
         new CreateTagMutation({
           annotated: annotated,
           parent_type: annotated_type.toLowerCase(),
+          context: context,
           annotation: {
             tag: tag.trim(),
             annotated_type: annotated_type,
@@ -111,6 +121,7 @@ class AddAnnotation extends Component {
       new CreateStatusMutation({
         parent_type: annotated_type.toLowerCase(),
         annotated: annotated,
+        context: that.getContext(),
         annotation: {
           status: status,
           annotated_type: annotated_type,
@@ -130,6 +141,7 @@ class AddAnnotation extends Component {
       new CreateFlagMutation({
         parent_type: annotated_type.toLowerCase(),
         annotated: annotated,
+        context: that.getContext(),
         annotation: {
           flag: flag,
           annotated_type: annotated_type,
@@ -214,5 +226,9 @@ class AddAnnotation extends Component {
     );
   }
 }
+
+AddAnnotation.contextTypes = {
+  store: React.PropTypes.object
+};
 
 export default AddAnnotation;

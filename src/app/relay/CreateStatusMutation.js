@@ -24,9 +24,10 @@ class CreateStatusMutation extends Relay.Mutation {
   getVariables() {
     var status = this.props.annotation;
     var vars = { status: status.status, annotated_id: status.annotated_id + '', annotated_type: status.annotated_type };
-    if (Checkdesk.context.project) {
+    var context = this.props.context;
+    if (context && context.project) {
       vars.context_type = 'Project';
-      vars.context_id = Checkdesk.context.project.dbid.toString();
+      vars.context_id = context.project.dbid.toString();
     }
     return vars;
   }

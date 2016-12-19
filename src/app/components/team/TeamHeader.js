@@ -5,12 +5,23 @@ import FontAwesome from 'react-fontawesome';
 import TeamRoute from '../../relay/TeamRoute';
 import teamFragment from '../../relay/teamFragment';
 import config from 'config';
+import CheckContext from '../../CheckContext';
 
 class TeamHeaderComponent extends Component {
+  updateContext() {
+    new CheckContext(this).setContextStore({ team: this.props.team });
+  }
+
+  componentWillMount() {
+    this.updateContext();
+  }
+
+  componentWillUpdate() {
+    this.updateContext();
+  }
+
   render() {
     const team = this.props.team;
-    // FIXME #5415
-    Checkdesk.context.team = team;
     const teamUrl = window.location.protocol + '//' + team.subdomain + '.' + config.selfHost;
 
     return (
@@ -35,6 +46,10 @@ class TeamHeaderComponent extends Component {
     );
   }
 }
+
+TeamHeaderComponent.contextTypes = {
+  store: React.PropTypes.object
+};
 
 const TeamHeaderContainer = Relay.createContainer(TeamHeaderComponent, {
   fragments: {

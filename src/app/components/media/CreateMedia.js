@@ -5,6 +5,7 @@ import TextField from 'material-ui/TextField';
 import PenderCard from '../PenderCard';
 import CreateMediaMutation from '../../relay/CreateMediaMutation';
 import Message from '../Message';
+import CheckContext from '../../CheckContext';
 import config from 'config';
 import urlRegex from 'url-regex';
 
@@ -23,11 +24,13 @@ class CreateMedia extends Component {
     event.preventDefault();
 
     const that = this,
-        inputValue = document.getElementById('create-media-input').value.trim(),
-        prefix = '/project/' + Checkdesk.context.project.dbid + '/media/',
-        urls = inputValue.match(urlRegex()),
-        information = {},
-        url = (urls && urls[0]) ? urls[0] : '';
+          context = new CheckContext(this).getContextStore(),
+          inputValue = document.getElementById('create-media-input').value.trim(),
+          prefix = '/project/' + context.project.dbid + '/media/',
+          urls = inputValue.match(urlRegex()),
+          information = {},
+          url = (urls && urls[0]) ? urls[0] : '';
+
     if (!inputValue || !inputValue.length || this.state.isSubmitting) { return; }
     this.setState({isSubmitting: true, message: 'Submitting...'});
 
@@ -70,7 +73,7 @@ class CreateMedia extends Component {
       new CreateMediaMutation({
         url: url,
         information: JSON.stringify(information),
-        project: Checkdesk.context.project
+        project: context.project
       }),
       { onSuccess, onFailure }
     );
@@ -118,5 +121,9 @@ class CreateMedia extends Component {
     );
   }
 }
+
+CreateMedia.contextTypes = {
+  store: React.PropTypes.object
+};
 
 export default CreateMedia;

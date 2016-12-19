@@ -71,7 +71,7 @@ class JoinTeamComponent extends Component {
     var isRequestSent = this.state.isRequestSent;
 
     return (
-      <DocumentTitle title={pageTitle('Join Team')}>
+      <DocumentTitle title={pageTitle('Join Team', false, team)}>
         <div className='join-team'>
           <Message message={this.state.message} />
           <h2 className='join-team__main-heading'>Request to Join</h2>

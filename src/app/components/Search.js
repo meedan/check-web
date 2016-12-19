@@ -11,6 +11,7 @@ import MediaDetail from './media/MediaDetail';
 import { bemClass } from '../helpers';
 import teamFragment from '../relay/teamFragment';
 import { pageTitle } from '../helpers';
+import CheckContext from '../CheckContext';
 
 const pageSize = 20;
 
@@ -24,13 +25,17 @@ class SearchQueryComponent extends Component {
   }
 
   setQueryFromUrl() {
-    var query;
-    try {
-      query = queryFromUrlQuery(window.location.pathname.match(/^\/search\/(.*)/)[1]);
-    } catch (e) {
-      query = {};
+    const context = new CheckContext(this);
+    if (context.getContextStore().project) {
+      context.setContextStore({ project: null });
     }
-    this.setState({query: query});
+
+    let queryString = window.location.pathname.match(/^\/search\/(.*)/);
+    let query = queryString === null ? {} : queryFromUrlQuery(queryString[1]);
+
+    if (JSON.stringify(this.state.query) === '{}') {
+      this.setState({ query: query });
+    }
   }
 
   componentWillMount() {
@@ -46,8 +51,9 @@ class SearchQueryComponent extends Component {
     const keywordInput = document.getElementById('search-input').value;
 
     this.setState((prevState, props) => {
-      prevState.query.keyword = keywordInput;
-      return {query: prevState.query};
+      let state = Object.assign({}, prevState);
+      state.query.keyword = keywordInput;
+      return {query: state.query};
     })
   }
 
@@ -56,8 +62,10 @@ class SearchQueryComponent extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const urlQuery = this.urlQueryFromQuery(prevState.query);
-    Checkdesk.history.push('/search/' + urlQuery);
+    const url = '/search/' + this.urlQueryFromQuery(prevState.query);
+    if (url != window.location.pathname) {
+      Checkdesk.history.push(url);
+    }
   }
 
   statusIsSelected(statusCode, state = this.state) {
@@ -86,59 +94,64 @@ class SearchQueryComponent extends Component {
 
   handleStatusClick(statusCode) {
     this.setState((prevState, props) => {
-      const statusIsSelected = this.statusIsSelected(statusCode, prevState);
-      const selectedStatuses = prevState.query.status || []; // TODO: avoid ambiguous reference
+      let state = Object.assign({}, prevState);
+      const statusIsSelected = this.statusIsSelected(statusCode, state);
+      const selectedStatuses = state.query.status || []; // TODO: avoid ambiguous reference
 
       if (statusIsSelected) {
         selectedStatuses.splice(selectedStatuses.indexOf(statusCode), 1); // remove from array
       }
       else {
-        prevState.query.status = selectedStatuses.concat(statusCode);
+        state.query.status = selectedStatuses.concat(statusCode);
       }
-      return {query: prevState.query};
+
+      return { query: state.query };
     })
   }
 
   handleProjectClick(projectId) {
     this.setState((prevState, props) => {
-      const projectIsSelected = this.projectIsSelected(projectId, prevState);
-      const selectedProjects = prevState.query.projects || [];
+      let state = Object.assign({}, prevState);
+      const projectIsSelected = this.projectIsSelected(projectId, state);
+      const selectedProjects = state.query.projects || [];
 
       if (projectIsSelected) {
         selectedProjects.splice(selectedProjects.indexOf(projectId), 1);
       }
       else {
-        prevState.query.projects = selectedProjects.concat(projectId);
+        state.query.projects = selectedProjects.concat(projectId);
       }
-      return {query: prevState.query};
+      return { query: state.query };
     })
   }
 
   handleTagClick(tag) {
     const that = this;
     this.setState((prevState, props) => {
-      const tagIsSelected = that.tagIsSelected(tag, prevState);
-      const selectedTags = prevState.query.tags || [];
+      let state = Object.assign({}, prevState);
+      const tagIsSelected = that.tagIsSelected(tag, state);
+      const selectedTags = state.query.tags || [];
 
       if (tagIsSelected) {
         selectedTags.splice(selectedTags.indexOf(tag), 1); // remove from array
       }
       else {
-        prevState.query.tags = selectedTags.concat(tag);
+        state.query.tags = selectedTags.concat(tag);
       }
-      return {query: prevState.query};
+      return {query: state.query};
     })
   }
 
   handleSortClick(sortParam) {
     this.setState((prevState, props) => {
+      let state = Object.assign({}, prevState);
       if (['recent_added', 'recent_activity'].includes(sortParam)) {
-        prevState.query.sort = sortParam;
-        return {query: prevState.query};
+        state.query.sort = sortParam;
+        return {query: state.query};
       }
       else if (['ASC', 'DESC'].includes(sortParam)) {
-        prevState.query.sort_type = sortParam;
-        return {query: prevState.query};
+        state.query.sort_type = sortParam;
+        return {query: state.query};
       }
     });
   }
@@ -169,13 +182,8 @@ class SearchQueryComponent extends Component {
     const suggestedTags = this.props.team.get_suggested_tags ? this.props.team.get_suggested_tags.split(',') : [];
     const title = this.title(statuses, projects);
 
-    // Reset the project context.
-    // TODO: Move the whole context-setting logic out of `render()`
-    // and into the routing mechanism.
-    delete Checkdesk.context.project;
-
     return (
-      <DocumentTitle title={pageTitle(title)}>
+      <DocumentTitle title={pageTitle(title, false, this.props.team)}>
         <div className="search__query">
           <form id="search-form" className="search__form" onSubmit={this.handleSubmit.bind(this)}>
             <input placeholder="Search" name="search-input" id="search-input" className="search__input" defaultValue={this.state.query.keyword || ''}/>
@@ -227,6 +235,10 @@ class SearchQueryComponent extends Component {
     );
   }
 }
+
+SearchQueryComponent.contextTypes = {
+  store: React.PropTypes.object
+};
 
 const SearchQueryContainer = Relay.createContainer(SearchQueryComponent, {
   fragments: {

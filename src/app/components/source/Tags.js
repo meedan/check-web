@@ -4,6 +4,7 @@ import { WithContext as ReactTags } from 'react-tag-input';
 import Message from '../Message';
 import CreateTagMutation from '../../relay/CreateTagMutation';
 import DeleteTagMutation from '../../relay/DeleteTagMutation';
+import CheckContext from '../../CheckContext';
 
 class Tags extends Component {
   constructor(props) {
@@ -48,11 +49,14 @@ class Tags extends Component {
       that.setState({ message: null });
     };
 
+    const context = new CheckContext(this).getContextStore();
+
     tagsList.map(function(tag) {
       Relay.Store.commitUpdate(
         new CreateTagMutation({
           annotated: props.annotated,
           parent_type: props.annotatedType.toLowerCase(),
+          context: context,
           annotation: {
             tag: tag.trim(),
             annotated_type: props.annotatedType,
@@ -78,6 +82,10 @@ class Tags extends Component {
     );
   }
 }
+
+Tags.contextTypes = {
+  store: React.PropTypes.object
+};
 
 class TagsRemove extends React.Component {
   render() {

@@ -3,6 +3,7 @@ import FontAwesome from 'react-fontawesome';
 import Relay from 'react-relay';
 import CreateStatusMutation from '../../relay/CreateStatusMutation';
 import Can, { can } from '../Can';
+import CheckContext from '../../CheckContext';
 
 class MediaStatus extends Component {
   constructor(props) {
@@ -50,6 +51,7 @@ class MediaStatus extends Component {
       new CreateStatusMutation({
         parent_type: "media",
         annotated: media,
+        context: new CheckContext(this).getContextStore(),
         annotation: {
           status: status,
           annotated_type: "Media",
@@ -123,5 +125,9 @@ class MediaStatus extends Component {
     );
   }
 }
+
+MediaStatus.contextTypes = {
+  store: React.PropTypes.object
+};
 
 export default MediaStatus;
