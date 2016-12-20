@@ -4,8 +4,8 @@ import { sendNotification } from '../actions/notifications';
 const events = [
   {
     catch: [ERROR],
-    dispatch: sendNotification
-  }
+    dispatch: sendNotification,
+  },
 ];
 
 export default events;

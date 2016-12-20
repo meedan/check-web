@@ -3,8 +3,8 @@ import Home from '../components/Home';
 
 function mapStateToProps(state, ownProps) {
   return {
-    state: state,
-    filter: ownProps.location.query.filter
+    state,
+    filter: ownProps.location.query.filter,
   };
 }
 

@@ -31,8 +31,8 @@ class CreateContactMutation extends Relay.Mutation {
             phone,
             location
           }
-        }`
-      ]
+        }`,
+      ],
     }];
   }
 }

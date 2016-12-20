@@ -31,8 +31,8 @@ class CreateMediaMutation extends Relay.Mutation {
         connectionName: 'medias',
         edgeName: 'mediaEdge',
         rangeBehaviors: {
-          '': 'prepend'
-        }
+          '': 'prepend',
+        },
       },
       {
         type: 'REQUIRED_CHILDREN',
@@ -41,9 +41,9 @@ class CreateMediaMutation extends Relay.Mutation {
             media {
               dbid
             }
-          }`
-        ]
-      }
+          }`,
+        ],
+      },
     ];
   }
 }

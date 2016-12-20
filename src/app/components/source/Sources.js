@@ -10,15 +10,15 @@ class SourcesComponent extends Component {
 
     return (
       <div className="sources">
-        <h2 className='sources__heading'>Sources</h2>
+        <h2 className="sources__heading">Sources</h2>
 
-        <ul className='sources__list'>
+        <ul className="sources__list">
           {this.props.root.sources.edges.map(source => (
-            <li className='sources__source'>
-              <Link className='sources__source-link' to={prefix + source.node.dbid}>
-                <img className='sources__source-avatar' src={source.node.image} />
-                <span className='sources__source-name'>{source.node.name}</span>
-                <span className='sources__source-description'>{source.node.description}</span>
+            <li className="sources__source">
+              <Link className="sources__source-link" to={prefix + source.node.dbid}>
+                <img className="sources__source-avatar" src={source.node.image} />
+                <span className="sources__source-name">{source.node.name}</span>
+                <span className="sources__source-description">{source.node.description}</span>
               </Link>
             </li>
           ))}
@@ -44,14 +44,14 @@ const SourcesContainer = Relay.createContainer(SourcesComponent, {
           }
         }
       }
-    `
-  }
+    `,
+  },
 });
 
 class Sources extends Component {
   render() {
-    var route = new RootRoute();
-    return (<Relay.RootContainer Component={SourcesContainer} route={route} forceFetch={true} />);
+    const route = new RootRoute();
+    return (<Relay.RootContainer Component={SourcesContainer} route={route} forceFetch />);
   }
 }
 

@@ -20,8 +20,8 @@ class SearchQueryComponent extends Component {
     super(props);
 
     this.state = {
-      query: {}
-    }
+      query: {},
+    };
   }
 
   setQueryFromUrl() {
@@ -30,11 +30,11 @@ class SearchQueryComponent extends Component {
       context.setContextStore({ project: null });
     }
 
-    let queryString = window.location.pathname.match(/^\/search\/(.*)/);
-    let query = queryString === null ? {} : queryFromUrlQuery(queryString[1]);
+    const queryString = window.location.pathname.match(/^\/search\/(.*)/);
+    const query = queryString === null ? {} : queryFromUrlQuery(queryString[1]);
 
     if (JSON.stringify(this.state.query) === '{}') {
-      this.setState({ query: query });
+      this.setState({ query });
     }
   }
 
@@ -51,10 +51,10 @@ class SearchQueryComponent extends Component {
     const keywordInput = document.getElementById('search-input').value;
 
     this.setState((prevState, props) => {
-      let state = Object.assign({}, prevState);
+      const state = Object.assign({}, prevState);
       state.query.keyword = keywordInput;
-      return {query: state.query};
-    })
+      return { query: state.query };
+    });
   }
 
   urlQueryFromQuery(query) {
@@ -62,7 +62,7 @@ class SearchQueryComponent extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const url = '/search/' + this.urlQueryFromQuery(prevState.query);
+    const url = `/search/${this.urlQueryFromQuery(prevState.query)}`;
     if (url != window.location.pathname) {
       Checkdesk.history.push(url);
     }
@@ -80,78 +80,73 @@ class SearchQueryComponent extends Component {
 
   tagIsSelected(tag, state = this.state) {
     const selectedTags = state.query.tags || [];
-    return selectedTags.length && selectedTags.includes(tag)
+    return selectedTags.length && selectedTags.includes(tag);
   }
 
   sortIsSelected(sortParam, state = this.state) {
     if (['recent_added', 'recent_activity'].includes(sortParam)) {
       return state.query.sort === sortParam || (!state.query.sort && sortParam === 'recent_added');
-    }
-    else if (['ASC', 'DESC'].includes(sortParam)) {
+    } else if (['ASC', 'DESC'].includes(sortParam)) {
       return state.query.sort_type === sortParam || (!state.query.sort_type && sortParam === 'DESC');
     }
   }
 
   handleStatusClick(statusCode) {
     this.setState((prevState, props) => {
-      let state = Object.assign({}, prevState);
+      const state = Object.assign({}, prevState);
       const statusIsSelected = this.statusIsSelected(statusCode, state);
       const selectedStatuses = state.query.status || []; // TODO: avoid ambiguous reference
 
       if (statusIsSelected) {
         selectedStatuses.splice(selectedStatuses.indexOf(statusCode), 1); // remove from array
-      }
-      else {
+      } else {
         state.query.status = selectedStatuses.concat(statusCode);
       }
 
       return { query: state.query };
-    })
+    });
   }
 
   handleProjectClick(projectId) {
     this.setState((prevState, props) => {
-      let state = Object.assign({}, prevState);
+      const state = Object.assign({}, prevState);
       const projectIsSelected = this.projectIsSelected(projectId, state);
       const selectedProjects = state.query.projects || [];
 
       if (projectIsSelected) {
         selectedProjects.splice(selectedProjects.indexOf(projectId), 1);
-      }
-      else {
+      } else {
         state.query.projects = selectedProjects.concat(projectId);
       }
       return { query: state.query };
-    })
+    });
   }
 
   handleTagClick(tag) {
     const that = this;
     this.setState((prevState, props) => {
-      let state = Object.assign({}, prevState);
+      const state = Object.assign({}, prevState);
       const tagIsSelected = that.tagIsSelected(tag, state);
       const selectedTags = state.query.tags || [];
 
       if (tagIsSelected) {
         selectedTags.splice(selectedTags.indexOf(tag), 1); // remove from array
-      }
-      else {
+      } else {
         state.query.tags = selectedTags.concat(tag);
       }
-      return {query: state.query};
-    })
+      return { query: state.query };
+    });
   }
 
   handleSortClick(sortParam) {
     this.setState((prevState, props) => {
-      let state = Object.assign({}, prevState);
+      const state = Object.assign({}, prevState);
       if (['recent_added', 'recent_activity'].includes(sortParam)) {
         state.query.sort = sortParam;
-        return {query: state.query};
-      }
-      else if (['ASC', 'DESC'].includes(sortParam)) {
+        return { query: state.query };
+      } else if (['ASC', 'DESC'].includes(sortParam)) {
         state.query.sort_type = sortParam;
-        return {query: state.query};
+        return { query: state.query };
       }
     });
   }
@@ -163,22 +158,22 @@ class SearchQueryComponent extends Component {
   title(statuses, projects) {
     const query = this.state.query;
     return [].concat.apply([], [
-      query.projects ? query.projects.map( (p) => {
-        const project = projects.find( (pr) => pr.node.dbid == p );
+      query.projects ? query.projects.map((p) => {
+        const project = projects.find(pr => pr.node.dbid == p);
         return project ? project.node.title : '';
       }) : [],
-      query.status ? query.status.map( (s) => {
-        const status = statuses.find( (so) => so.id == s );
+      query.status ? query.status.map((s) => {
+        const status = statuses.find(so => so.id == s);
         return status ? status.label : '';
       }) : [],
       query.keyword,
-      query.tags
-    ].filter(Boolean)).join(' ').trim() || "Search";
+      query.tags,
+    ].filter(Boolean)).join(' ').trim() || 'Search';
   }
 
   render() {
     const statuses = JSON.parse(this.props.team.media_verification_statuses).statuses;
-    const projects = this.props.team.projects.edges.sortp((a,b) => a.node.title.localeCompare(b.node.title));
+    const projects = this.props.team.projects.edges.sortp((a, b) => a.node.title.localeCompare(b.node.title));
     const suggestedTags = this.props.team.get_suggested_tags ? this.props.team.get_suggested_tags.split(',') : [];
     const title = this.title(statuses, projects);
 
@@ -186,37 +181,32 @@ class SearchQueryComponent extends Component {
       <DocumentTitle title={pageTitle(title, false, this.props.team)}>
         <div className="search__query">
           <form id="search-form" className="search__form" onSubmit={this.handleSubmit.bind(this)}>
-            <input placeholder="Search" name="search-input" id="search-input" className="search__input" defaultValue={this.state.query.keyword || ''}/>
+            <input placeholder="Search" name="search-input" id="search-input" className="search__input" defaultValue={this.state.query.keyword || ''} />
           </form>
 
-          <section className='search__filters / filters'>
+          <section className="search__filters / filters">
             <h3 className="search__filters-heading">Filters</h3>
             <div>
               <h4>Status</h4>
               {/* chicklet markup/logic from MediaTags. TODO: fix classnames */}
               <ul className="/ media-tags__suggestions-list // electionland_categories">
-                {statuses.map((status) => { // TODO: set and use styles in `status.style`
-                  return <li title={status.description} onClick={this.handleStatusClick.bind(this, status.id)} className={bemClass('media-tags__suggestion', this.statusIsSelected(status.id), '--selected')}>{status.label}</li>;
-                })}
+                {statuses.map(status =>  // TODO: set and use styles in `status.style`
+                  <li title={status.description} onClick={this.handleStatusClick.bind(this, status.id)} className={bemClass('media-tags__suggestion', this.statusIsSelected(status.id), '--selected')}>{status.label}</li>)}
               </ul>
             </div>
             <div>
               <h4>Project</h4>
               {/* chicklet markup/logic from MediaTags. TODO: fix classnames */}
               <ul className="/ media-tags__suggestions-list // electionland_categories">
-                {projects.map((project) => {
-                  return <li title={project.node.description} onClick={this.handleProjectClick.bind(this, project.node.dbid)} className={bemClass('media-tags__suggestion', this.projectIsSelected(project.node.dbid), '--selected')}>{project.node.title}</li>;
-                })}
+                {projects.map(project => <li title={project.node.description} onClick={this.handleProjectClick.bind(this, project.node.dbid)} className={bemClass('media-tags__suggestion', this.projectIsSelected(project.node.dbid), '--selected')}>{project.node.title}</li>)}
               </ul>
             </div>
             <div>
               {suggestedTags.length ? <h4>Categories</h4> : null}
               {/* chicklet markup/logic from MediaTags. TODO: fix classnames */}
               {suggestedTags.length ? <ul className="/ media-tags__suggestions-list // electionland_categories">
-                  {suggestedTags.map((tag) => {
-                    return <li title={null} onClick={this.handleTagClick.bind(this, tag)} className={bemClass('media-tags__suggestion', this.tagIsSelected(tag), '--selected')}>{tag}</li>;
-                  })}
-                </ul>
+                {suggestedTags.map(tag => <li title={null} onClick={this.handleTagClick.bind(this, tag)} className={bemClass('media-tags__suggestion', this.tagIsSelected(tag), '--selected')}>{tag}</li>)}
+              </ul>
               : null}
             </div>
             <div>
@@ -237,13 +227,13 @@ class SearchQueryComponent extends Component {
 }
 
 SearchQueryComponent.contextTypes = {
-  store: React.PropTypes.object
+  store: React.PropTypes.object,
 };
 
 const SearchQueryContainer = Relay.createContainer(SearchQueryComponent, {
   fragments: {
-    team: () => teamFragment
-  }
+    team: () => teamFragment,
+  },
 });
 
 class SearchResultsComponent extends Component {
@@ -253,27 +243,25 @@ class SearchResultsComponent extends Component {
 
   render() {
     const medias = this.props.search ? this.props.search.medias.edges : [];
-    const count = this.props.search ? this.props.search.number_of_results : 0
-    const mediasCount = "" + count + " " + numerous.pluralize('en', count, {
+    const count = this.props.search ? this.props.search.number_of_results : 0;
+    const mediasCount = `${count} ${numerous.pluralize('en', count, {
       one: 'Result',
-      other: 'Results'
-    });
+      other: 'Results',
+    })}`;
 
     return (
       <div className="search__results / results">
-        <h3 className='search__results-heading'>{mediasCount}</h3>
+        <h3 className="search__results-heading">{mediasCount}</h3>
         {/* <h4>Most recent activity first <i className="media-status__icon media-status__icon--caret fa fa-caret-down"></i></h4> */}
 
-        <InfiniteScroll hasMore={true} loadMore={this.loadMore.bind(this)} threshold={500}>
+        <InfiniteScroll hasMore loadMore={this.loadMore.bind(this)} threshold={500}>
 
           <ul className="search__results-list / results medias-list">
-          {medias.map(function(media) {
-            return (
+            {medias.map(media => (
               <li className="/ medias__item">
-                <MediaDetail media={media.node} condensed={true}/>
+                <MediaDetail media={media.node} condensed />
               </li>
-            );
-          })}
+            ))}
           </ul>
 
         </InfiniteScroll>
@@ -290,7 +278,7 @@ class SearchResultsComponent extends Component {
 
 const SearchResultsContainer = Relay.createContainer(SearchResultsComponent, {
   initialVariables: {
-    pageSize: pageSize
+    pageSize,
   },
   fragments: {
     search: () => Relay.QL`
@@ -329,8 +317,8 @@ const SearchResultsContainer = Relay.createContainer(SearchResultsComponent, {
         },
         number_of_results
       }
-    `
-  }
+    `,
+  },
 });
 
 class Search extends Component {
@@ -341,11 +329,11 @@ class Search extends Component {
     const resultsRoute = new SearchRoute({ query: JSON.stringify(query) });
 
     return (
-      <div className='search'>
+      <div className="search">
         <Relay.RootContainer Component={SearchQueryContainer} route={queryRoute} />
         <Relay.RootContainer Component={SearchResultsContainer} route={resultsRoute} />
       </div>
-    )
+    );
   }
 }
 

@@ -8,45 +8,45 @@ class CreateProject extends Component {
     super(props);
 
     this.state = {
-      message: null
+      message: null,
     };
   }
 
   handleSubmit(e) {
-    var that = this,
-        title = document.getElementById('create-project-title').value,
-        team = this.props.team;
+    let that = this,
+      title = document.getElementById('create-project-title').value,
+      team = this.props.team;
 
-    var onFailure = (transaction) => {
-      let error = transaction.getError();
+    const onFailure = (transaction) => {
+      const error = transaction.getError();
       let message = 'Sorry, could not create the project';
       try {
-        let json = JSON.parse(error.source);
+        const json = JSON.parse(error.source);
         if (json.error) {
           message = json.error;
         }
       } catch (e) { }
-      that.setState({ message: message });
+      that.setState({ message });
     };
 
-    var onSuccess = (response) => {
-      var pid = response.createProject.project.dbid;
-      window.Checkdesk.history.push('/project/' + pid);
+    const onSuccess = (response) => {
+      const pid = response.createProject.project.dbid;
+      window.Checkdesk.history.push(`/project/${pid}`);
       this.setState({ message: null });
     };
 
     Relay.Store.commitUpdate(
       new CreateProjectMutation({
-        title: title,
-        team: team
+        title,
+        team,
       }),
-      { onSuccess, onFailure }
+      { onSuccess, onFailure },
     );
 
     e.preventDefault();
   }
 
-  componentDidMount(){
+  componentDidMount() {
     if (this.props.autofocus) {
       this.projectInput.focus();
     }
@@ -55,7 +55,7 @@ class CreateProject extends Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit.bind(this)} className="create-project">
-        <input className={this.props.className} placeholder="Add project +" id="create-project-title" ref={(input) => this.projectInput = input} />
+        <input className={this.props.className} placeholder="Add project +" id="create-project-title" ref={input => this.projectInput = input} />
         <Message message={this.state.message} />
       </form>
     );

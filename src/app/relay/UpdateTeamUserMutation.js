@@ -11,9 +11,9 @@ class UpdateTeamUserMutation extends Relay.Mutation {
   static fragments = {
     team_user: () => Relay.QL`fragment on TeamUser { id, team_id, user_id, status, role }`,
   };
-  
+
   getVariables() {
-    return { team_id: this.props.team_id, user_id: this.props.user_id, status: this.props.status, id:this.props.id, role: this.props.role };
+    return { team_id: this.props.team_id, user_id: this.props.user_id, status: this.props.status, id: this.props.id, role: this.props.role };
   }
 
   getFatQuery() {
@@ -32,8 +32,8 @@ class UpdateTeamUserMutation extends Relay.Mutation {
           team_user {
             id, team_id, user_id, status, role
           }
-        }`
-      ]
+        }`,
+      ],
     }];
   }
 }

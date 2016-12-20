@@ -16,7 +16,7 @@ class CreateMedia extends Component {
     this.state = {
       url: '',
       message: null,
-      isSubmitting: false
+      isSubmitting: false,
     };
   }
 
@@ -24,64 +24,63 @@ class CreateMedia extends Component {
     event.preventDefault();
 
     const that = this,
-          context = new CheckContext(this).getContextStore(),
-          inputValue = document.getElementById('create-media-input').value.trim(),
-          prefix = '/project/' + context.project.dbid + '/media/',
-          urls = inputValue.match(urlRegex()),
-          information = {},
-          url = (urls && urls[0]) ? urls[0] : '';
+      context = new CheckContext(this).getContextStore(),
+      inputValue = document.getElementById('create-media-input').value.trim(),
+      prefix = `/project/${context.project.dbid}/media/`,
+      urls = inputValue.match(urlRegex()),
+      information = {},
+      url = (urls && urls[0]) ? urls[0] : '';
 
     if (!inputValue || !inputValue.length || this.state.isSubmitting) { return; }
-    this.setState({isSubmitting: true, message: 'Submitting...'});
+    this.setState({ isSubmitting: true, message: 'Submitting...' });
 
     if (!url.length || inputValue !== url) { // if anything other than a single url
       information.quote = inputValue;
     }
 
     const handleError = (json) => {
-      var message = 'Something went wrong! Try pasting the text of this post instead, or adding a different link.';
+      let message = 'Something went wrong! Try pasting the text of this post instead, or adding a different link.';
       if (json && json.error) {
-        var matches = json.error.match(/^Validation failed: Media with this URL exists and has id ([0-9]+)$/);
+        const matches = json.error.match(/^Validation failed: Media with this URL exists and has id ([0-9]+)$/);
         if (matches) {
           that.props.projectComponent.props.relay.forceFetch();
-          var sid = matches[1];
+          const sid = matches[1];
           message = null;
           Checkdesk.history.push(prefix + sid);
         }
       }
-      that.setState({ message: message, isSubmitting: false });
-    }
+      that.setState({ message, isSubmitting: false });
+    };
 
-    var onFailure = (transaction) => {
+    const onFailure = (transaction) => {
       const transactionError = transaction.getError();
       try {
-        let json = JSON.parse(transactionError.source);
+        const json = JSON.parse(transactionError.source);
         handleError(json);
-      }
-      catch (e) {
+      } catch (e) {
         handleError(JSON.stringify(transactionError));
       }
     };
 
-    var onSuccess = (response) => {
-      var rid = response.createMedia.media.dbid;
+    const onSuccess = (response) => {
+      const rid = response.createMedia.media.dbid;
       Checkdesk.history.push(prefix + rid);
       this.setState({ message: null, isSubmitting: false });
     };
 
     Relay.Store.commitUpdate(
       new CreateMediaMutation({
-        url: url,
+        url,
         information: JSON.stringify(information),
-        project: context.project
+        project: context.project,
       }),
-      { onSuccess, onFailure }
+      { onSuccess, onFailure },
     );
   }
 
   handlePreview() {
-    var url = document.getElementById('create-media-input').value;
-    this.setState({ url: url, message: null });
+    const url = document.getElementById('create-media-input').value;
+    this.setState({ url, message: null });
   }
 
   componentDidMount() {
@@ -106,15 +105,17 @@ class CreateMedia extends Component {
 
         <form id="media-url-container" className="create-media__form" onSubmit={this.handleSubmit.bind(this)}>
           <button className="create-media__button create-media__button--new">+</button>
-          <TextField hintText="Paste a link or start typing to add a quote."
-                     fullWidth={true}
-                     name="url" id="create-media-input"
-                     className='create-media__input'
-                     multiLine={true}
-                     onKeyPress={this.handleKeyPress.bind(this)}
-                     ref={(input) => this.mediaInput = input} />
+          <TextField
+            hintText="Paste a link or start typing to add a quote."
+            fullWidth
+            name="url" id="create-media-input"
+            className="create-media__input"
+            multiLine
+            onKeyPress={this.handleKeyPress.bind(this)}
+            ref={input => this.mediaInput = input}
+          />
           <div className="create-media__buttons">
-            <FlatButton id="create-media-submit" primary={true} onClick={this.handleSubmit.bind(this)} label="Post" className='create-media__button create-media__button--submit' />
+            <FlatButton id="create-media-submit" primary onClick={this.handleSubmit.bind(this)} label="Post" className="create-media__button create-media__button--submit" />
           </div>
         </form>
       </div>
@@ -123,7 +124,7 @@ class CreateMedia extends Component {
 }
 
 CreateMedia.contextTypes = {
-  store: React.PropTypes.object
+  store: React.PropTypes.object,
 };
 
 export default CreateMedia;

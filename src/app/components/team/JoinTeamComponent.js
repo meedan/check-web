@@ -11,7 +11,7 @@ class JoinTeamComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isRequestSent: false
+      isRequestSent: false,
     };
   }
 
@@ -24,31 +24,31 @@ class JoinTeamComponent extends Component {
     e.preventDefault();
     this.setState({ isRequestSent: true });
 
-    var that = this;
+    const that = this;
 
-    var onFailure = (transaction) => {
-      let error = transaction.getError();
+    const onFailure = (transaction) => {
+      const error = transaction.getError();
       let message = 'Sorry, could not send your request';
       try {
-        let json = JSON.parse(error.source);
+        const json = JSON.parse(error.source);
         if (json.error) {
           message = json.error;
         }
       } catch (e) { }
-      that.setState({ message: message });
+      that.setState({ message });
     };
 
-    var onSuccess = (response) => {
-      that.setState({ message: 'Thanks for your interest in joining ' + this.props.team.name + ' Check! A team leader will review your application soon.', isRequestSent: true });
+    const onSuccess = (response) => {
+      that.setState({ message: `Thanks for your interest in joining ${this.props.team.name} Check! A team leader will review your application soon.`, isRequestSent: true });
     };
 
     Relay.Store.commitUpdate(
       new CreateTeamUserMutation({
         team_id: this.props.team.dbid,
         user_id: that.getContext().currentUser.dbid,
-        status: 'requested'
+        status: 'requested',
       }),
-      { onSuccess, onFailure }
+      { onSuccess, onFailure },
     );
   }
 
@@ -59,7 +59,7 @@ class JoinTeamComponent extends Component {
   }
 
   buildUrl(team) {
-    return window.location.protocol + '//' + team.subdomain + '.' + config.selfHost;
+    return `${window.location.protocol}//${team.subdomain}.${config.selfHost}`;
   }
 
   componentWillMount() {
@@ -74,25 +74,25 @@ class JoinTeamComponent extends Component {
     const team = this.props.team;
     const teamUrl = this.buildUrl(team);
 
-    var isRequestSent = this.state.isRequestSent;
+    const isRequestSent = this.state.isRequestSent;
 
     return (
       <DocumentTitle title={pageTitle('Join Team', false, team)}>
-        <div className='join-team'>
+        <div className="join-team">
           <Message message={this.state.message} />
-          <h2 className='join-team__main-heading'>Request to Join</h2>
-          <div className='join-team__blurb'>
-            <p className='join-team__blurb-graf'>To request access to the <a href={teamUrl}>{team.name}</a> Check, click below:</p>
-              <div>
-                <button
-                  className={'join-team__button' + (isRequestSent ? ' join-team__button--submitted' : '')}
-                  onClick={this.handleRequestAccess.bind(this)}
-                  disabled={isRequestSent}
-                >
-                  {isRequestSent ? 'Request Sent' : 'Request to Join'}
-                </button>
-                <p className='join-team__blurb-graf'>Your request {isRequestSent ? 'has been' : 'will be'} sent to the project admins for approval.</p>
-              </div>
+          <h2 className="join-team__main-heading">Request to Join</h2>
+          <div className="join-team__blurb">
+            <p className="join-team__blurb-graf">To request access to the <a href={teamUrl}>{team.name}</a> Check, click below:</p>
+            <div>
+              <button
+                className={`join-team__button${isRequestSent ? ' join-team__button--submitted' : ''}`}
+                onClick={this.handleRequestAccess.bind(this)}
+                disabled={isRequestSent}
+              >
+                {isRequestSent ? 'Request Sent' : 'Request to Join'}
+              </button>
+              <p className="join-team__blurb-graf">Your request {isRequestSent ? 'has been' : 'will be'} sent to the project admins for approval.</p>
+            </div>
           </div>
         </div>
       </DocumentTitle>
@@ -101,7 +101,7 @@ class JoinTeamComponent extends Component {
 }
 
 JoinTeamComponent.contextTypes = {
-  store: React.PropTypes.object
+  store: React.PropTypes.object,
 };
 
 export default JoinTeamComponent;

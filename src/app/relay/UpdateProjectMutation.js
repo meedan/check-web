@@ -29,8 +29,8 @@ class UpdateProjectMutation extends Relay.Mutation {
     return [
       {
         type: 'FIELDS_CHANGE',
-        fieldIDs: { project: this.props.id }
-      }
+        fieldIDs: { project: this.props.id },
+      },
     ];
   }
 }

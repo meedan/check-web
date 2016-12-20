@@ -1,6 +1,6 @@
 import Relay from 'react-relay';
 
-var sourceFragment = Relay.QL`
+const sourceFragment = Relay.QL`
   fragment on Source {
     id,
     dbid,

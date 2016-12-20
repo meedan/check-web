@@ -15,20 +15,20 @@ class DeleteTagMutation extends Relay.Mutation {
   getVariables() {
     return { id: this.props.id };
   }
-  
+
   getFatQuery() {
-    var query = '';
+    let query = '';
     switch (this.props.parent_type) {
-      case 'source':
-        query = Relay.QL`fragment on DestroyTagPayload { deletedId, source { annotations, tags } }`;
-        break;
-      case 'media':
-        query = Relay.QL`fragment on DestroyTagPayload { deletedId, media { annotations, tags } }`;
-        break;
+    case 'source':
+      query = Relay.QL`fragment on DestroyTagPayload { deletedId, source { annotations, tags } }`;
+      break;
+    case 'media':
+      query = Relay.QL`fragment on DestroyTagPayload { deletedId, media { annotations, tags } }`;
+      break;
     }
     return query;
   }
-  
+
   getConfigs() {
     return [
       {
@@ -44,7 +44,7 @@ class DeleteTagMutation extends Relay.Mutation {
         parentID: this.props.annotated.id,
         connectionName: 'annotations',
         deletedIDFieldName: 'deletedId',
-      }
+      },
     ];
   }
 }
