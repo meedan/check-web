@@ -19,7 +19,7 @@ class CreateMediaMutation extends Relay.Mutation {
   }
 
   getVariables() {
-    return { url: this.props.url, quote: this.props.quote, information: this.props.information, project_id: this.props.project.dbid };
+    return { url: this.props.url, quote: this.props.quote, project_id: this.props.project.dbid };
   }
 
   getConfigs() {
