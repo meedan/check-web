@@ -29,8 +29,8 @@ class CreateTeamUserMutation extends Relay.Mutation {
             id,
             status
           }
-        }`
-      ]
+        }`,
+      ],
     }];
   }
 }

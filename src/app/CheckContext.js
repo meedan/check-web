@@ -16,14 +16,13 @@ class CheckContext {
   }
 
   setContextStore(data) {
-    let newContext = this.getContextStore();
+    const newContext = this.getContextStore();
     newContext.type = SET_CONTEXT;
-    for (var key in data) {
+    for (const key in data) {
       const value = data[key];
       if (value === null) {
         delete newContext[key];
-      }
-      else {
+      } else {
         newContext[key] = value;
       }
     }
@@ -33,12 +32,12 @@ class CheckContext {
   startNetwork(token) {
     Relay.injectNetworkLayer(new CheckdeskNetworkLayer(config.relayPath, {
       get headers() {
-        var headers = config.relayHeaders;
+        const headers = config.relayHeaders;
         if (token) {
           headers['X-Check-Token'] = token;
         }
         return headers;
-      }
+      },
     }));
   }
 
@@ -48,19 +47,18 @@ class CheckContext {
     const that = this;
 
     // Failed login
-    var failureCallback = function(errorMessage) {
+    const failureCallback = function (errorMessage) {
       caller.setState({ message: errorMessage, error: true });
     };
-    
+
     // Successful login
-    var successCallback = function(userData) {
-      let newState = {};
+    const successCallback = function (userData) {
+      const newState = {};
 
       if (userData) {
         newState.token = userData.token;
         that.startNetwork(userData.token);
-      }
-      else {
+      } else {
         newState.error = true;
       }
 
@@ -70,15 +68,15 @@ class CheckContext {
       that.setContext();
 
       caller.setState(newState);
-    }
-    
+    };
+
     request('get', 'me', failureCallback, successCallback);
   }
 
   getSubdomain() {
     const host = window.location.host;
-    const regexp = new RegExp('^([a-zA-Z0-9\\-]+)\\.' + config.selfHost);
-    var subdomain = null;
+    const regexp = new RegExp(`^([a-zA-Z0-9\\-]+)\\.${config.selfHost}`);
+    let subdomain = null;
     if (regexp.test(host)) {
       subdomain = host.match(regexp)[1];
     }
@@ -89,10 +87,10 @@ class CheckContext {
   setContext() {
     if (this.caller.props.params) {
       const subdomain = this.getSubdomain();
-      let newContext = {};
-      let currentContext = this.getContextStore();
+      const newContext = {};
+      const currentContext = this.getContextStore();
       if (subdomain != null && !currentContext.team) {
-        newContext.team = { subdomain: subdomain };
+        newContext.team = { subdomain };
       }
       if (this.caller.props.params.projectId && !currentContext.project) {
         newContext.project = { dbid: parseInt(this.caller.props.params.projectId) };
@@ -103,16 +101,16 @@ class CheckContext {
 
   // Set context team and project from information from the backend
   setContextAndRedirect(team, project) {
-    let path = window.location.protocol + '//';
-    let newContext = {};
+    let path = `${window.location.protocol}//`;
+    const newContext = {};
     if (team) {
       newContext.team = team;
-      path += team.subdomain + '.';
+      path += `${team.subdomain}.`;
     }
     path += config.selfHost;
     if (project) {
       newContext.project = project;
-      path += '/project/' + project.dbid;
+      path += `/project/${project.dbid}`;
     }
     this.setContextStore(newContext);
     window.location.href = path;
@@ -132,8 +130,7 @@ class CheckContext {
     const project = userCurrentTeam.projects[0];
     if (project && project.dbid) {
       this.setContextAndRedirect(userCurrentTeam, project);
-    }
-    else {
+    } else {
       this.setContextAndRedirect(userCurrentTeam, null);
     }
   }

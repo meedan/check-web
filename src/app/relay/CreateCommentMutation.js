@@ -9,25 +9,25 @@ class CreateCommentMutation extends Relay.Mutation {
   }
 
   getFatQuery() {
-    var query = '';
+    let query = '';
     switch (this.props.parent_type) {
-      case 'source':
-        query = Relay.QL`fragment on CreateCommentPayload { commentEdge, source { annotations } }`;
-        break;
-      case 'media':
-        query = Relay.QL`fragment on CreateCommentPayload { commentEdge, media { annotations, annotations_count } }`;
-        break;
-      case 'project':
-        query = Relay.QL`fragment on CreateCommentPayload { commentEdge, project { annotations } }`;
-        break;
+    case 'source':
+      query = Relay.QL`fragment on CreateCommentPayload { commentEdge, source { annotations } }`;
+      break;
+    case 'media':
+      query = Relay.QL`fragment on CreateCommentPayload { commentEdge, media { annotations, annotations_count } }`;
+      break;
+    case 'project':
+      query = Relay.QL`fragment on CreateCommentPayload { commentEdge, project { annotations } }`;
+      break;
     }
     return query;
   }
 
   getVariables() {
-    var comment = this.props.annotation;
-    var vars = { text: comment.text, annotated_id: comment.annotated_id + '', annotated_type: comment.annotated_type };
-    var context = this.props.context;
+    const comment = this.props.annotation;
+    const vars = { text: comment.text, annotated_id: `${comment.annotated_id}`, annotated_type: comment.annotated_type };
+    const context = this.props.context;
     if (context && context.project) {
       vars.context_type = 'Project';
       vars.context_id = context.project.dbid.toString();
@@ -36,7 +36,7 @@ class CreateCommentMutation extends Relay.Mutation {
   }
 
   getConfigs() {
-    var fieldIds = {};
+    const fieldIds = {};
     fieldIds[this.props.parent_type] = this.props.annotated.id;
 
     return [
@@ -47,13 +47,13 @@ class CreateCommentMutation extends Relay.Mutation {
         connectionName: 'annotations',
         edgeName: 'commentEdge',
         rangeBehaviors: {
-          '': 'append'
-        }
+          '': 'append',
+        },
       },
       {
         type: 'FIELDS_CHANGE',
-        fieldIDs: fieldIds
-      }
+        fieldIDs: fieldIds,
+      },
     ];
   }
 }

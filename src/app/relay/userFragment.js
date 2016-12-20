@@ -1,6 +1,6 @@
 import Relay from 'react-relay';
 
-var userFragment = Relay.QL`
+const userFragment = Relay.QL`
   fragment on User {
     id,
     name,

@@ -5,7 +5,7 @@ class BrowserSupport extends Component {
     super(props);
 
     this.state = {
-      closed: this.closed()
+      closed: this.closed(),
     };
   }
 
@@ -14,8 +14,7 @@ class BrowserSupport extends Component {
 
     if (/Chrome/i.test(ua) && !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|mobile|CriOS/i.test(ua)) {
       return true;
-    }
-    else {
+    } else {
       return false;
     }
   }
@@ -37,12 +36,11 @@ class BrowserSupport extends Component {
   render() {
     if (this.shouldShowMessage()) {
       return (
-        <div className='browser-support'>
-          <span className='browser-support__close' onClick={this.close.bind(this)}>×</span>
-          <p className='browser-support__message'>While in beta, Check is optimized for Google Chrome on desktop.</p>
+        <div className="browser-support">
+          <span className="browser-support__close" onClick={this.close.bind(this)}>×</span>
+          <p className="browser-support__message">While in beta, Check is optimized for Google Chrome on desktop.</p>
         </div>);
-    }
-    else {
+    } else {
       return null;
     }
   }

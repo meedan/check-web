@@ -20,13 +20,13 @@ const UserContainer = Relay.createContainer(UserComponent, {
           ${sourceFragment}
         }
       }
-    `
-  }
+    `,
+  },
 });
 
 class User extends Component {
   render() {
-    var route = new UserRoute({ userId: this.props.params.userId });
+    const route = new UserRoute({ userId: this.props.params.userId });
     return (<Relay.RootContainer Component={UserContainer} route={route} />);
   }
 }

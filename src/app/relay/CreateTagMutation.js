@@ -9,22 +9,22 @@ class CreateTagMutation extends Relay.Mutation {
   }
 
   getFatQuery() {
-    var query = '';
+    let query = '';
     switch (this.props.parent_type) {
-      case 'source':
-        query = Relay.QL`fragment on CreateTagPayload { tagEdge, source { annotations, tags } }`;
-        break;
-      case 'media':
-        query = Relay.QL`fragment on CreateTagPayload { tagEdge, media { annotations, tags, annotations_count } }`;
-        break;
+    case 'source':
+      query = Relay.QL`fragment on CreateTagPayload { tagEdge, source { annotations, tags } }`;
+      break;
+    case 'media':
+      query = Relay.QL`fragment on CreateTagPayload { tagEdge, media { annotations, tags, annotations_count } }`;
+      break;
     }
     return query;
   }
 
   getVariables() {
-    var tag = this.props.annotation;
-    var vars = { tag: tag.tag, annotated_id: tag.annotated_id + '', annotated_type: tag.annotated_type };
-    var context = this.props.context;
+    const tag = this.props.annotation;
+    const vars = { tag: tag.tag, annotated_id: `${tag.annotated_id}`, annotated_type: tag.annotated_type };
+    const context = this.props.context;
     if (context && context.project) {
       vars.context_type = 'Project';
       vars.context_id = context.project.dbid.toString();
@@ -33,7 +33,7 @@ class CreateTagMutation extends Relay.Mutation {
   }
 
   getConfigs() {
-    var fieldIds = {};
+    const fieldIds = {};
     fieldIds[this.props.parent_type] = this.props.annotated.id;
 
     return [
@@ -44,8 +44,8 @@ class CreateTagMutation extends Relay.Mutation {
         connectionName: 'tags',
         edgeName: 'tagEdge',
         rangeBehaviors: {
-          '': 'prepend'
-        }
+          '': 'prepend',
+        },
       },
       {
         type: 'RANGE_ADD',
@@ -54,13 +54,13 @@ class CreateTagMutation extends Relay.Mutation {
         connectionName: 'annotations',
         edgeName: 'tagEdge',
         rangeBehaviors: {
-          '': 'prepend'
-        }
+          '': 'prepend',
+        },
       },
       {
         type: 'FIELDS_CHANGE',
-        fieldIDs: fieldIds
-      }
+        fieldIDs: fieldIds,
+      },
     ];
   }
 }

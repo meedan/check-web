@@ -6,6 +6,7 @@ build
 test/config.yml
 .project
 config.js
+!test/unit/config.js
 .DS_Store
 releases/
 supervisord.pid

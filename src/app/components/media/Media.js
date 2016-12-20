@@ -6,7 +6,7 @@ import MediaComponent from './MediaComponent';
 
 const MediaContainer = Relay.createContainer(MediaComponent, {
   initialVariables: {
-    contextId: null
+    contextId: null,
   },
   fragments: {
     media: () => Relay.QL`
@@ -85,24 +85,24 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
           get_suggested_tags
         }
       }
-    `
-  }
+    `,
+  },
 });
 
 class Media extends Component {
   render() {
     let projectId = 0;
-    let context = new CheckContext(this).getContextStore();
+    const context = new CheckContext(this).getContextStore();
     if (context.project) {
       projectId = context.project.dbid;
     }
-    var route = new MediaRoute({ ids: this.props.params.mediaId + ',' + projectId });
+    const route = new MediaRoute({ ids: `${this.props.params.mediaId},${projectId}` });
     return (<Relay.RootContainer Component={MediaContainer} route={route} />);
   }
 }
 
 Media.contextTypes = {
-  store: React.PropTypes.object
+  store: React.PropTypes.object,
 };
 
 export default Media;

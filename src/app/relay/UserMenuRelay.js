@@ -6,13 +6,13 @@ import userFragment from './userFragment';
 
 const UserMenuContainer = Relay.createContainer(UserMenu, {
   fragments: {
-    me: () => userFragment
-  }
+    me: () => userFragment,
+  },
 });
 
 class UserMenuRelay extends Component {
   render() {
-    var route = new MeRoute();
+    const route = new MeRoute();
     return (<Relay.RootContainer Component={UserMenuContainer} route={route} />);
   }
 }

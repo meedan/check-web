@@ -6,22 +6,22 @@ import rootReducer from 'app/reducers';
 import thunk from 'redux-thunk';
 
 window.storage = {
-  set: function(key, value) {
+  set(key, value) {
     window.localStorage.setItem(key, value);
   },
 
-  get: function(key, callback) {
+  get(key, callback) {
     callback(this.getValue(key));
   },
 
-  getValue: function(key) {
+  getValue(key) {
     return window.localStorage.getItem(key);
-  }
+  },
 };
 
 const store = compose(applyMiddleware(thunk))(createStore)(rootReducer);
 
 render(
   <Root store={store} />,
-  document.getElementById('root')
+  document.getElementById('root'),
 );

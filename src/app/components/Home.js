@@ -11,7 +11,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { Link } from 'react-router';
 import FontAwesome from 'react-fontawesome';
 import config from 'config';
-import BrowserSupport from './BrowserSupport'
+import BrowserSupport from './BrowserSupport';
 import CheckContext from '../CheckContext';
 
 const muiTheme = getMuiTheme({
@@ -21,8 +21,8 @@ const muiTheme = getMuiTheme({
     primary3Color: blue500,
     accent1Color: blue600,
     accent2Color: blue700,
-    accent3Color: blue800
-  }
+    accent3Color: blue800,
+  },
 });
 
 class Home extends Component {
@@ -32,7 +32,7 @@ class Home extends Component {
     this.state = {
       message: null,
       token: null,
-      error: false
+      error: false,
     };
   }
 
@@ -82,19 +82,19 @@ class Home extends Component {
 
     const routeIsFullscreen = children && children.props.route.fullscreen;
     if (routeIsFullscreen) {
-      return (<div className='home home--fullscreen'>{children}</div>);
+      return (<div className="home home--fullscreen">{children}</div>);
     }
 
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
         <span>
           <BrowserSupport />
-          <div className='home'>
-            <span className='home__disclaimer'>Beta</span>
+          <div className="home">
+            <span className="home__disclaimer">Beta</span>
             { this.state.token ? <Header {...this.props} /> : null }
-            <main className='home__main'>
-              <div className='home__global-message global-message'><Message message={this.state.message} /></div>
-              <div className='home__content'>{children}</div>
+            <main className="home__main">
+              <div className="home__global-message global-message"><Message message={this.state.message} /></div>
+              <div className="home__content">{children}</div>
             </main>
             <FooterRelay {...this.props} />
           </div>
@@ -105,7 +105,7 @@ class Home extends Component {
 }
 
 Home.contextTypes = {
-  store: React.PropTypes.object
+  store: React.PropTypes.object,
 };
 
 export default Home;

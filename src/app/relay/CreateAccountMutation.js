@@ -28,8 +28,8 @@ class CreateAccountMutation extends Relay.Mutation {
           account {
             source_id
           }
-        }`
-      ]
+        }`,
+      ],
     }];
   }
 }

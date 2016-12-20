@@ -17,14 +17,14 @@ class TeamSidebarComponent extends Component {
     super(props);
 
     this.state = {
-      isSwitchTeamsActive: false
+      isSwitchTeamsActive: false,
     };
   }
 
   subscribe() {
     if (window.Checkdesk.pusher) {
       const that = this;
-      window.Checkdesk.pusher.subscribe(this.props.team.pusher_channel).bind('project_created', function(data) {
+      window.Checkdesk.pusher.subscribe(this.props.team.pusher_channel).bind('project_created', (data) => {
         that.props.relay.forceFetch();
       });
     }
@@ -45,22 +45,21 @@ class TeamSidebarComponent extends Component {
   }
 
   handleSwitchTeams() {
-    this.setState({isSwitchTeamsActive: true});
+    this.setState({ isSwitchTeamsActive: true });
   }
 
   handleSwitchTeamsClose() {
-    this.setState({isSwitchTeamsActive: false});
+    this.setState({ isSwitchTeamsActive: false });
   }
 
   isCurrentProject(projectId) {
-    var inProject = window.location.pathname.match(/\/project\/([0-9]+)/),
-        currentProjectId = null,
-        context = new CheckContext(this).getContextStore();
+    let inProject = window.location.pathname.match(/\/project\/([0-9]+)/),
+      currentProjectId = null,
+      context = new CheckContext(this).getContextStore();
 
     if (inProject) {
       currentProjectId = parseInt(inProject[1]);
-    }
-    else if (context.project) {
+    } else if (context.project) {
       currentProjectId = context.project.dbid;
     }
 
@@ -68,25 +67,25 @@ class TeamSidebarComponent extends Component {
   }
 
   render() {
-    var team = this.props.team;
+    const team = this.props.team;
 
     return (
-      <nav className='team-sidebar'>
-        <section className='team-sidebar__projects'>
-          <h2 className='team-sidebar__projects-heading'>Verification Projects</h2>
+      <nav className="team-sidebar">
+        <section className="team-sidebar__projects">
+          <h2 className="team-sidebar__projects-heading">Verification Projects</h2>
           {(() => {
             if (team) {
               return (
-                <ul className='team-sidebar__projects-list'>
-                  {team.projects.edges.sortp((a,b) => a.node.title.localeCompare(b.node.title)).map(p => (
-                    <li className={'team-sidebar__project' + (this.isCurrentProject(p.node.dbid) ? ' team-sidebar__project--current' : '')}>
-                      <Link to={'/project/' + p.node.dbid} className='team-sidebar__project-link'>{p.node.title}</Link>
+                <ul className="team-sidebar__projects-list">
+                  {team.projects.edges.sortp((a, b) => a.node.title.localeCompare(b.node.title)).map(p => (
+                    <li className={`team-sidebar__project${this.isCurrentProject(p.node.dbid) ? ' team-sidebar__project--current' : ''}`}>
+                      <Link to={`/project/${p.node.dbid}`} className="team-sidebar__project-link">{p.node.title}</Link>
                     </li>
                   ))}
 
                   <Can permissions={team.permissions} permission="create Project">
-                    <li className='team-sidebar__new-project'>
-                      <CreateProject className='team-sidebar__new-project-input' team={team} />
+                    <li className="team-sidebar__new-project">
+                      <CreateProject className="team-sidebar__new-project-input" team={team} />
                     </li>
                   </Can>
                 </ul>
@@ -95,17 +94,17 @@ class TeamSidebarComponent extends Component {
           })()}
         </section>
 
-        <footer className='team-sidebar__footer'>
-          <button onClick={this.handleSwitchTeams.bind(this)} className='team-sidebar__switch-teams-button'>
-            <FontAwesome className='team-sidebar__switch-teams-icon' name='random' />
+        <footer className="team-sidebar__footer">
+          <button onClick={this.handleSwitchTeams.bind(this)} className="team-sidebar__switch-teams-button">
+            <FontAwesome className="team-sidebar__switch-teams-icon" name="random" />
             <span>Switch Teams</span>
           </button>
 
-          <div className={'team-sidebar__switch-teams-overlay' + (this.state.isSwitchTeamsActive ? ' team-sidebar__switch-teams-overlay--active' : '')} onClick={this.handleSwitchTeamsClose.bind(this)}>
-            <section className='team-sidebar__switch-teams-modal'>
-              <button className='team-sidebar__switch-teams-close' onClick={this.handleSwitchTeamsClose.bind(this)}>×</button>
-              <h2 className='team-sidebar__switch-teams-title'>
-                <FontAwesome className='team-sidebar__switch-teams-title-icon' name='random' />
+          <div className={`team-sidebar__switch-teams-overlay${this.state.isSwitchTeamsActive ? ' team-sidebar__switch-teams-overlay--active' : ''}`} onClick={this.handleSwitchTeamsClose.bind(this)}>
+            <section className="team-sidebar__switch-teams-modal">
+              <button className="team-sidebar__switch-teams-close" onClick={this.handleSwitchTeamsClose.bind(this)}>×</button>
+              <h2 className="team-sidebar__switch-teams-title">
+                <FontAwesome className="team-sidebar__switch-teams-title-icon" name="random" />
                 <span>Switch Teams</span>
               </h2>
 
@@ -123,7 +122,7 @@ class TeamSidebarComponent extends Component {
 }
 
 TeamSidebarComponent.contextTypes = {
-  store: React.PropTypes.object
+  store: React.PropTypes.object,
 };
 
 const TeamSidebarContainer = Relay.createContainer(TeamSidebarComponent, {
@@ -164,13 +163,13 @@ const TeamSidebarContainer = Relay.createContainer(TeamSidebarComponent, {
           }
         }
       }
-    `
-  }
+    `,
+  },
 });
 
 class TeamSidebar extends Component {
   render() {
-    var route = new TeamRoute({ teamId: '' });
+    const route = new TeamRoute({ teamId: '' });
     return (<Relay.RootContainer Component={TeamSidebarContainer} route={route} />);
   }
 }

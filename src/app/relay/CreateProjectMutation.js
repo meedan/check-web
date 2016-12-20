@@ -30,8 +30,8 @@ class CreateProjectMutation extends Relay.Mutation {
             project {
               dbid
             }
-          }`
-        ]
+          }`,
+        ],
       },
       {
         type: 'RANGE_ADD',
@@ -40,9 +40,9 @@ class CreateProjectMutation extends Relay.Mutation {
         connectionName: 'projects',
         edgeName: 'projectEdge',
         rangeBehaviors: {
-          '': 'prepend'
-        }
-      }
+          '': 'prepend',
+        },
+      },
     ];
   }
 }

@@ -32,8 +32,8 @@ class CreateTeamMutation extends Relay.Mutation {
             subdomain,
             description
           }
-        }`
-      ]
+        }`,
+      ],
     }];
   }
 }

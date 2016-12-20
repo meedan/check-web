@@ -20,7 +20,7 @@ class ProjectHeaderComponent extends Component {
       message: null,
       title: this.props.project.title,
       description: this.props.project.description,
-      slackChannel: this.props.project.get_slack_channel
+      slackChannel: this.props.project.get_slack_channel,
     };
   }
 
@@ -33,38 +33,38 @@ class ProjectHeaderComponent extends Component {
   }
 
   updateProject(e) {
-    var that = this,
-        id = this.props.project.id,
-        title = this.state.title,
-        description = this.state.description,
-        slackChannel = this.state.slackChannel;
+    let that = this,
+      id = this.props.project.id,
+      title = this.state.title,
+      description = this.state.description,
+      slackChannel = this.state.slackChannel;
 
-    this.setState({ title: title, description: description, slackChannel: slackChannel });
+    this.setState({ title, description, slackChannel });
 
-    var onFailure = (transaction) => {
-      let error = transaction.getError();
+    const onFailure = (transaction) => {
+      const error = transaction.getError();
       let message = 'Sorry, could not update the project';
       try {
-        let json = JSON.parse(error.source);
+        const json = JSON.parse(error.source);
         if (json.error) {
           message = json.error;
         }
       } catch (e) { }
-      that.setState({ message: message });
+      that.setState({ message });
     };
 
-    var onSuccess = (response) => {
+    const onSuccess = (response) => {
       this.setState({ message: null, isEditing: false });
     };
 
     Relay.Store.commitUpdate(
       new UpdateProjectMutation({
-        title: title,
-        description: description,
-        slackChannel: slackChannel,
-        id: id
+        title,
+        description,
+        slackChannel,
+        id,
       }),
-      { onSuccess, onFailure }
+      { onSuccess, onFailure },
     );
 
     e.preventDefault();
@@ -92,33 +92,33 @@ class ProjectHeaderComponent extends Component {
   }
 
   deleteProject() {
-    var that = this,
-        id = this.props.project.id,
-        teamId = this.props.project.team.id;
+    let that = this,
+      id = this.props.project.id,
+      teamId = this.props.project.team.id;
 
     if (window.confirm("Are you sure? This can't be undone later!")) {
-      var onFailure = (transaction) => {
-        let error = transaction.getError();
+      const onFailure = (transaction) => {
+        const error = transaction.getError();
         let message = 'Sorry, could not delete the project';
         try {
-          let json = JSON.parse(error.source);
+          const json = JSON.parse(error.source);
           if (json.error) {
             message = json.error;
           }
         } catch (e) { }
-        that.setState({ message: message });
+        that.setState({ message });
       };
 
-      var onSuccess = (response) => {
+      const onSuccess = (response) => {
         Checkdesk.history.push('/');
       };
 
       Relay.Store.commitUpdate(
         new DeleteProjectMutation({
-          id: id,
-          teamId: teamId
+          id,
+          teamId,
         }),
-        { onSuccess, onFailure }
+        { onSuccess, onFailure },
       );
     }
   }
@@ -131,78 +131,80 @@ class ProjectHeaderComponent extends Component {
     const project = this.props.project;
 
     return (
-      <div className='project-header'>
+      <div className="project-header">
         <Message message={this.state.message} />
         {(() => {
           if (this.state.isEditing) {
             return (
-              <div className='project-header__project'>
-                <form className='project-header__project-form' onSubmit={this.updateProject.bind(this)}>
+              <div className="project-header__project">
+                <form className="project-header__project-form" onSubmit={this.updateProject.bind(this)}>
                   <div className={this.bemClass('project-header__project-copy', true, '--is-editing')}>
-                    <input className='project-header__project-name-input' id='project-title-field' name='name' type='text' value={this.state.title} placeholder='Project name' autocomplete='off' onChange={this.handleTitleChange.bind(this)} />
+                    <input className="project-header__project-name-input" id="project-title-field" name="name" type="text" value={this.state.title} placeholder="Project name" autoComplete="off" onChange={this.handleTitleChange.bind(this)} />
                     <input
-                      className='project-header__project-description-input'
-                      name='description'
-                      type='text'
+                      className="project-header__project-description-input"
+                      name="description"
+                      type="text"
                       value={this.state.description}
                       onChange={this.handleDescriptionChange.bind(this)}
-                      placeholder='Add description'
-                      id='project-description-field'
-                      autocomplete='off' />
+                      placeholder="Add description"
+                      id="project-description-field"
+                      autoComplete="off"
+                    />
                     { project.team.get_slack_notifications_enabled === '1' ?
-                    <input
-                      className='project-header__project-slack-channel-input'
-                      name='slack-channel'
-                      type='text'
-                      value={this.state.slackChannel}
-                      onChange={this.handleSlackChannelChange.bind(this)}
-                      placeholder='Add a Slack #channel to be notified about activity in this project'
-                      id='project-slack-channel-field'
-                      autocomplete='off' />
+                      <input
+                        className="project-header__project-slack-channel-input"
+                        name="slack-channel"
+                        type="text"
+                        value={this.state.slackChannel}
+                        onChange={this.handleSlackChannelChange.bind(this)}
+                        placeholder="Add a Slack #channel to be notified about activity in this project"
+                        id="project-slack-channel-field"
+                        autoComplete="off"
+                      />
                     : null }
                   </div>
-                  <div className='project-header__project-editing-buttons'>
-                    <button className='project-header__project-editing-button project-header__project-editing-button--save'>Save</button>
-                    <button className='project-header__project-editing-button project-header__project-editing-button--cancel' onClick={this.disableEdit.bind(this)}>Cancel</button>
+                  <div className="project-header__project-editing-buttons">
+                    <button className="project-header__project-editing-button project-header__project-editing-button--save">Save</button>
+                    <button className="project-header__project-editing-button project-header__project-editing-button--cancel" onClick={this.disableEdit.bind(this)}>Cancel</button>
                   </div>
                 </form>
               </div>
             );
           } else {
             return (
-              <div className='project-header__project'>
-                <div className='project-header__project-copy'>
-                  <h2 className='project-header__project-name'>{project.title}</h2>
-                  <span className='project-header__project-description'>{project.description}</span>
+              <div className="project-header__project">
+                <div className="project-header__project-copy">
+                  <h2 className="project-header__project-name">{project.title}</h2>
+                  <span className="project-header__project-description">{project.description}</span>
                 </div>
                 {/* DEPRECATED – replace with HeaderActions */}
                 <div className={this.bemClass('project-header__project-settings', this.state.isSettingsMenuOpen, '--active')}>
-                  <Link to='/search'><FontAwesome name='search' className='header-actions__search-icon'/></Link>
-                  <i className='project-header__project-settings-icon fa fa-ellipsis-h' onClick={this.toggleSettings.bind(this)}></i>
-                  <div className={this.bemClass('project-header__project-settings-overlay', this.state.isSettingsMenuOpen, '--active')} onClick={this.toggleSettings.bind(this)}></div>
+                  <Link to="/search"><FontAwesome name="search" className="header-actions__search-icon" /></Link>
+                  <i className="project-header__project-settings-icon fa fa-ellipsis-h" onClick={this.toggleSettings.bind(this)} />
+                  <div className={this.bemClass('project-header__project-settings-overlay', this.state.isSettingsMenuOpen, '--active')} onClick={this.toggleSettings.bind(this)} />
 
                   <ul className={this.bemClass('project-header__project-settings-panel', this.state.isSettingsMenuOpen, '--active')}>
 
-                    <li className='TODO project-header__project-setting'>
+                    <li className="TODO project-header__project-setting">
                       <UserMenuRelay {...this.props} />
                     </li>
 
                     <Can permissions={project.permissions} permission="update Project">
-                      <li className='project-header__project-setting project-header__project-setting--edit' onClick={this.enableEdit.bind(this)}>Edit project...</li>
+                      <li className="project-header__project-setting project-header__project-setting--edit" onClick={this.enableEdit.bind(this)}>Edit project...</li>
                     </Can>
 
-                    {/*<li className='project-header__project-setting project-header__project-setting--delete' onClick={this.deleteProject.bind(this)}>Delete project</li>*/}
+                    {/* <li className='project-header__project-setting project-header__project-setting--delete' onClick={this.deleteProject.bind(this)}>Delete project</li>*/}
 
-                    <li className='TODO project-header__project-setting' onClick={this.contactHuman.bind(this)}>Contact a Human</li>
+                    <li className="TODO project-header__project-setting" onClick={this.contactHuman.bind(this)}>Contact a Human</li>
 
-                    <li className='TODO project-header__project-setting project-header__logout' onClick={logout}>Sign Out</li>
-                    <li className='header-actions__menu-item'><Link className='header-actions__link' to='/tos' >Terms of Service</Link></li>
-                    <li className='header-actions__menu-item'><Link className='header-actions__link' to='/privacy'>Privacy Policy</Link></li>
-                    <li className='header-actions__menu-item'><a className='header-actions__link' target="_blank" rel="noopener noreferrer" href='http://meedan.com/check'>About Check</a></li>
+                    <li className="TODO project-header__project-setting project-header__logout" onClick={logout}>Sign Out</li>
+                    <li className="header-actions__menu-item"><Link className="header-actions__link" to="/tos" >Terms of Service</Link></li>
+                    <li className="header-actions__menu-item"><Link className="header-actions__link" to="/privacy">Privacy Policy</Link></li>
+                    <li className="header-actions__menu-item"><a className="header-actions__link" target="_blank" rel="noopener noreferrer" href="http://meedan.com/check">About Check</a></li>
                   </ul>
                 </div>
               </div>
-            )
+            );
           }
         })()}
       </div>
@@ -228,14 +230,14 @@ const ProjectHeaderContainer = Relay.createContainer(ProjectHeaderComponent, {
           get_slack_notifications_enabled
         }
       }
-    `
-  }
+    `,
+  },
 });
 
 
 class ProjectHeader extends Component {
   render() {
-    var route = new ProjectRoute({ contextId: this.props.params.projectId });
+    const route = new ProjectRoute({ contextId: this.props.params.projectId });
     return (<Relay.RootContainer Component={ProjectHeaderContainer} route={route} />);
   }
 }

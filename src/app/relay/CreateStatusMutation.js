@@ -9,22 +9,22 @@ class CreateStatusMutation extends Relay.Mutation {
   }
 
   getFatQuery() {
-    var query = '';
+    let query = '';
     switch (this.props.parent_type) {
-      case 'source':
-        query = Relay.QL`fragment on CreateStatusPayload { statusEdge, source { annotations, id } }`;
-        break;
-      case 'media':
-        query = Relay.QL`fragment on CreateStatusPayload { statusEdge, media { annotations, id, last_status, annotations_count } }`;
-        break;
+    case 'source':
+      query = Relay.QL`fragment on CreateStatusPayload { statusEdge, source { annotations, id } }`;
+      break;
+    case 'media':
+      query = Relay.QL`fragment on CreateStatusPayload { statusEdge, media { annotations, id, last_status, annotations_count } }`;
+      break;
     }
     return query;
   }
 
   getVariables() {
-    var status = this.props.annotation;
-    var vars = { status: status.status, annotated_id: status.annotated_id + '', annotated_type: status.annotated_type };
-    var context = this.props.context;
+    const status = this.props.annotation;
+    const vars = { status: status.status, annotated_id: `${status.annotated_id}`, annotated_type: status.annotated_type };
+    const context = this.props.context;
     if (context && context.project) {
       vars.context_type = 'Project';
       vars.context_id = context.project.dbid.toString();
@@ -33,7 +33,7 @@ class CreateStatusMutation extends Relay.Mutation {
   }
 
   getConfigs() {
-    var fieldIds = {};
+    const fieldIds = {};
     fieldIds[this.props.parent_type] = this.props.annotated.id;
 
     return [
@@ -44,13 +44,13 @@ class CreateStatusMutation extends Relay.Mutation {
         connectionName: 'annotations',
         edgeName: 'statusEdge',
         rangeBehaviors: {
-          '': 'prepend'
-        }
+          '': 'prepend',
+        },
       },
       {
         type: 'FIELDS_CHANGE',
-        fieldIDs: fieldIds
-      }
+        fieldIDs: fieldIds,
+      },
     ];
   }
 }
