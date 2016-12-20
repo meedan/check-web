@@ -44,7 +44,7 @@ class MediaComponent extends Component {
       const that = this;
       window.Checkdesk.pusher.subscribe(this.props.media.pusher_channel).bind('media_updated', function(data) {
         var annotation = JSON.parse(data.message);
-        if (parseInt(annotation.context_id) === this.getContext().project.dbid) {
+        if (parseInt(annotation.context_id) === that.getContext().project.dbid) {
           that.props.relay.forceFetch();
         }
       });
