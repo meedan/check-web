@@ -28,9 +28,9 @@ class CreateMedia extends Component {
           inputValue = document.getElementById('create-media-input').value.trim(),
           prefix = '/project/' + context.project.dbid + '/media/',
           urls = inputValue.match(urlRegex()),
-          information = {},
-          quote = '',
           url = (urls && urls[0]) ? urls[0] : '';
+
+    let quote = '';
 
     if (!inputValue || !inputValue.length || this.state.isSubmitting) { return; }
     this.setState({isSubmitting: true, message: 'Submitting...'});
@@ -74,7 +74,6 @@ class CreateMedia extends Component {
       new CreateMediaMutation({
         url: url,
         quote: quote,
-        information: JSON.stringify(information),
         project: context.project
       }),
       { onSuccess, onFailure }
