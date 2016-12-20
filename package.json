@@ -19,7 +19,7 @@
     "publish": "node scripts/server.js",
     "test": "npm run test:unit && npm run test:integration",
     "test:integration": "cd test && rspec && cd ..",
-    "test:unit": "cd test/unit && BABEL_ENV=production mocha setup.js *.spec.js",
+    "test:unit": "cd test/unit && NODE_PATH=$NODE_PATH:. BABEL_ENV=production mocha setup.js *.spec.js",
     "test:ff": "cd test && rspec --fail-fast && cd ..",
     "lint:styles": "sass-lint --config .sass-lint.yml './**/*.scss' --verbose --ignore './test/**/*.scss, ./node_modules/**/*.scss'"
   },
