@@ -28,14 +28,15 @@ class CreateMedia extends Component {
       inputValue = document.getElementById('create-media-input').value.trim(),
       prefix = `/project/${context.project.dbid}/media/`,
       urls = inputValue.match(urlRegex()),
-      information = {},
       url = (urls && urls[0]) ? urls[0] : '';
+
+    let quote = '';
 
     if (!inputValue || !inputValue.length || this.state.isSubmitting) { return; }
     this.setState({ isSubmitting: true, message: 'Submitting...' });
 
     if (!url.length || inputValue !== url) { // if anything other than a single url
-      information.quote = inputValue;
+      quote = inputValue;
     }
 
     const handleError = (json) => {
@@ -70,8 +71,8 @@ class CreateMedia extends Component {
 
     Relay.Store.commitUpdate(
       new CreateMediaMutation({
-        url,
-        information: JSON.stringify(information),
+        url: url,
+        quote: quote,
         project: context.project,
       }),
       { onSuccess, onFailure },
