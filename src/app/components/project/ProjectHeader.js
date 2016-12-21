@@ -6,6 +6,7 @@ import Message from '../Message';
 import Can from '../Can';
 import ProjectRoute from '../../relay/ProjectRoute';
 import UserMenuRelay from '../../relay/UserMenuRelay';
+import CheckContext from '../../CheckContext';
 import { Link } from 'react-router';
 import { logout } from '../../actions/actions';
 import FontAwesome from 'react-fontawesome';
@@ -94,7 +95,8 @@ class ProjectHeaderComponent extends Component {
   deleteProject() {
     var that = this,
         id = this.props.project.id,
-        teamId = this.props.project.team.id;
+        teamId = this.props.project.team.id,
+        history = new CheckContext(this).getContextStore().history;
 
     if (window.confirm("Are you sure? This can't be undone later!")) {
       var onFailure = (transaction) => {
@@ -110,7 +112,7 @@ class ProjectHeaderComponent extends Component {
       };
 
       var onSuccess = (response) => {
-        Checkdesk.history.push('/');
+        history.push('/');
       };
 
       Relay.Store.commitUpdate(
@@ -209,6 +211,10 @@ class ProjectHeaderComponent extends Component {
     );
   }
 }
+
+ProjectHeaderComponent.contextTypes = {
+  store: React.PropTypes.object
+};
 
 const ProjectHeaderContainer = Relay.createContainer(ProjectHeaderComponent, {
   fragments: {

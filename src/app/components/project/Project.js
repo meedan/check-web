@@ -42,22 +42,24 @@ class ProjectComponent extends Component {
     context.setContextStore(newContext);
       
     if (notFound) {
-      Checkdesk.history.push('/404');
+      currentContext.history.push('/404');
     }
   }
 
   subscribe() {
-    if (window.Checkdesk.pusher) {
+    const pusher = this.getContext().pusher;
+    if (pusher) {
       const that = this;
-      window.Checkdesk.pusher.subscribe(this.props.project.pusher_channel).bind('media_updated', function(data) {
+      pusher.subscribe(this.props.project.pusher_channel).bind('media_updated', function(data) {
         that.props.relay.forceFetch();
       });
     }
   }
 
   unsubscribe() {
-    if (window.Checkdesk.pusher) {
-      window.Checkdesk.pusher.unsubscribe(this.props.project.pusher_channel);
+    const pusher = this.getContext().pusher;
+    if (pusher) {
+      pusher.unsubscribe(this.props.project.pusher_channel);
     }
   }
 

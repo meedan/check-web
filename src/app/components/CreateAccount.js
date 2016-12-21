@@ -5,6 +5,7 @@ import TextField from 'material-ui/TextField';
 import PenderCard from './PenderCard';
 import CreateAccountMutation from '../relay/CreateAccountMutation';
 import Message from './Message';
+import CheckContext from '../CheckContext';
 import config from 'config';
 
 class CreateAccount extends Component {
@@ -20,7 +21,8 @@ class CreateAccount extends Component {
   handleSubmit(redirect) {
     var that = this,
         url = document.getElementById('create-account-url').value,
-        prefix = '/source/';
+        prefix = '/source/',
+        history = new CheckContext(this).getContextStore().history;
 
     var onFailure = (transaction) => {
       let error = transaction.getError();
@@ -33,7 +35,7 @@ class CreateAccount extends Component {
           if (matches) {
             var sid = matches[1];
             message = null;
-            Checkdesk.history.push(prefix + sid);
+            history.push(prefix + sid);
           }
         }
       } catch (e) { }
@@ -42,7 +44,7 @@ class CreateAccount extends Component {
 
     var onSuccess = (response) => {
       var sid = response.createAccount.account.source_id;
-      Checkdesk.history.push(prefix + sid);
+      history.push(prefix + sid);
       this.setState({ message: null });
     };
 
@@ -84,5 +86,9 @@ class CreateAccount extends Component {
     );
   }
 }
+
+CreateAccount.contextTypes = {
+  store: React.PropTypes.object
+};
 
 export default CreateAccount;

@@ -40,9 +40,10 @@ class MediaComponent extends Component {
   }
 
   subscribe() {
-    if (window.Checkdesk.pusher) {
+    const pusher = this.getContext().pusher;
+    if (pusher) {
       const that = this;
-      window.Checkdesk.pusher.subscribe(this.props.media.pusher_channel).bind('media_updated', function(data) {
+      pusher.subscribe(this.props.media.pusher_channel).bind('media_updated', function(data) {
         var annotation = JSON.parse(data.message);
         if (parseInt(annotation.context_id) === that.getContext().project.dbid) {
           that.props.relay.forceFetch();
@@ -52,8 +53,9 @@ class MediaComponent extends Component {
   }
 
   unsubscribe() {
-    if (window.Checkdesk.pusher) {
-      window.Checkdesk.pusher.unsubscribe(this.props.media.pusher_channel);
+    const pusher = this.getContext().pusher;
+    if (pusher) {
+      pusher.unsubscribe(this.props.media.pusher_channel);
     }
   }
 

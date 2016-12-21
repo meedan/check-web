@@ -22,9 +22,10 @@ class TeamSidebarComponent extends Component {
   }
 
   subscribe() {
-    if (window.Checkdesk.pusher) {
+    const pusher = this.getContext().pusher;
+    if (pusher) {
       const that = this;
-      window.Checkdesk.pusher.subscribe(this.props.team.pusher_channel).bind('project_created', function(data) {
+      pusher.subscribe(this.props.team.pusher_channel).bind('project_created', function(data) {
         that.props.relay.forceFetch();
       });
     }
@@ -35,8 +36,9 @@ class TeamSidebarComponent extends Component {
   }
 
   unsubscribe() {
-    if (window.Checkdesk.pusher) {
-      window.Checkdesk.pusher.unsubscribe(this.props.team.pusher_channel);
+    const pusher = this.getContext().pusher;
+    if (pusher) {
+      pusher.unsubscribe(this.props.team.pusher_channel);
     }
   }
 
@@ -52,10 +54,15 @@ class TeamSidebarComponent extends Component {
     this.setState({isSwitchTeamsActive: false});
   }
 
+  getContext() {
+    const context = new CheckContext(this);
+    return context.getContextStore();
+  }
+
   isCurrentProject(projectId) {
     var inProject = window.location.pathname.match(/\/project\/([0-9]+)/),
         currentProjectId = null,
-        context = new CheckContext(this).getContextStore();
+        context = this.getContext();
 
     if (inProject) {
       currentProjectId = parseInt(inProject[1]);

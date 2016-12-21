@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 import CreateProjectMutation from '../../relay/CreateProjectMutation';
 import Message from '../Message';
+import CheckContext from '../../CheckContext';
 
 class CreateProject extends Component {
   constructor(props) {
@@ -15,7 +16,8 @@ class CreateProject extends Component {
   handleSubmit(e) {
     var that = this,
         title = document.getElementById('create-project-title').value,
-        team = this.props.team;
+        team = this.props.team,
+        history = new CheckContext(this).getContextStore().history;
 
     var onFailure = (transaction) => {
       let error = transaction.getError();
@@ -31,7 +33,7 @@ class CreateProject extends Component {
 
     var onSuccess = (response) => {
       var pid = response.createProject.project.dbid;
-      window.Checkdesk.history.push('/project/' + pid);
+      history.push('/project/' + pid);
       this.setState({ message: null });
     };
 
@@ -61,5 +63,9 @@ class CreateProject extends Component {
     );
   }
 }
+
+CreateProject.contextTypes = {
+  store: React.PropTypes.object
+};
 
 export default CreateProject;

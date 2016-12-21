@@ -46,7 +46,7 @@ class CreateMedia extends Component {
           that.props.projectComponent.props.relay.forceFetch();
           var sid = matches[1];
           message = null;
-          Checkdesk.history.push(prefix + sid);
+          context.history.push(prefix + sid);
         }
       }
       that.setState({ message: message, isSubmitting: false });
@@ -65,7 +65,7 @@ class CreateMedia extends Component {
 
     var onSuccess = (response) => {
       var rid = response.createMedia.media.dbid;
-      Checkdesk.history.push(prefix + rid);
+      context.history.push(prefix + rid);
       this.setState({ message: null, isSubmitting: false });
     };
 

@@ -15,6 +15,7 @@ import Project from '../components/project/Project.js';
 import ProjectHeader from '../components/project/ProjectHeader';
 import Teams from '../components/team/Teams.js';
 import Search from '../components/Search.js';
+import CheckContext from '../CheckContext';
 import config from 'config';
 
 export default class Root extends Component {
@@ -22,16 +23,38 @@ export default class Root extends Component {
     store: PropTypes.object.isRequired
   };
 
+  getContext() {
+    const context = new CheckContext(this);
+    return context;
+  }
+
+  setHistory() {
+    const history = syncHistoryWithStore(browserHistory, this.props.store);
+    const context = this.getContext();
+    const store = context.store || this.props.store;
+    context.setContextStore({ history: history }, store);
+    this.setState({ history: history });
+  }
+
+  componentWillMount() {
+    this.setHistory();
+  }
+
+  componentWillUpdate() {
+    this.setHistory();
+  }
+
   componentDidMount() {
-    if (!window.Checkdesk) {
-      window.Checkdesk = {};
-    }
     if (config.googleAnalyticsCode) {
       ReactGA.initialize(config.googleAnalyticsCode, { debug: false });
     }
     if (config.pusherKey) {
       Pusher.logToConsole = !!config.pusherDebug;
-      window.Checkdesk.pusher = new Pusher(config.pusherKey, { encrypted: true });
+      const pusher = new Pusher(config.pusherKey, { encrypted: true });
+      const context = this.getContext();
+      if (context.store) {
+        context.setContextStore({ pusher: pusher });
+      }
     }
   }
 
@@ -44,12 +67,11 @@ export default class Root extends Component {
 
   render() {
     const { store } = this.props;
-    const history = syncHistoryWithStore(browserHistory, store);
-    window.Checkdesk = { history: history, context: {}, store: store };
+    window.Checkdesk = { store: store };
 
     return (
       <Provider store={store}>
-        <Router history={history} onUpdate={this.logPageView.bind(this)}>
+        <Router history={this.state.history} onUpdate={this.logPageView.bind(this)}>
           <Route path="/" component={App}>
             <IndexRoute component={Team} />
             <Route path="tos" component={TermsOfService} public={true} />
@@ -77,3 +99,7 @@ export default class Root extends Component {
     );
   }
 }
+
+Root.contextTypes = {
+  store: React.PropTypes.object
+};

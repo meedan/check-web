@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import Message from './Message';
 import UploadImage from './UploadImage';
+import CheckContext from '../CheckContext';
 import { request } from '../actions/actions';
 import { Link } from 'react-router';
 
@@ -28,7 +29,13 @@ class LoginEmail extends Component {
     }
   }
 
+  getHistory() {
+    const history = new CheckContext(this).getContextStore().history;
+    return history;
+  }
+
   loginEmail() {
+    const history = this.getHistory();
     var that = this;
     var params = {
       'api_user[email]': this.state.email,
@@ -40,12 +47,13 @@ class LoginEmail extends Component {
     successCallback = function(data) {
       that.setState({ open: false, message: null });
       that.props.loginCallback();
-      Checkdesk.history.push('/');
+      history.push('/');
     };
     request('post', 'users/sign_in', failureCallback, successCallback, params);
   }
 
   registerEmail() {
+    const history = this.getHistory();
     var that = this,
         form = document.forms.register;
     var params = {
@@ -61,7 +69,7 @@ class LoginEmail extends Component {
     successCallback = function(data) {
       that.setState({ open: false, message: null });
       that.props.loginCallback();
-      Checkdesk.history.push(window.location.pathname);
+      history.push(window.location.pathname);
     };
     request('post', 'users', failureCallback, successCallback, params);
   }
@@ -159,5 +167,9 @@ class LoginEmail extends Component {
     );
   }
 }
+
+LoginEmail.contextTypes = {
+  store: React.PropTypes.object
+};
 
 export default LoginEmail;

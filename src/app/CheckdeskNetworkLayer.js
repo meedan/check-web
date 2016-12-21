@@ -6,11 +6,12 @@ class CheckdeskNetworkLayer extends Relay.DefaultNetworkLayer {
     return Promise.all(requests.map(request => (
       this._sendQuery(request).then(
         result => {
+          const history = this._init.history;
           if (result.status === 404 && window.location.pathname != '/404') {
-            Checkdesk.history.push('/404');
+            history.push('/404');
           }
           else if ((result.status === 401 || result.status === 403) && window.location.pathname != '/forbidden') {
-            Checkdesk.history.push('/forbidden');
+            history.push('/forbidden');
           }
           return result.json();
         }).then(payload => {

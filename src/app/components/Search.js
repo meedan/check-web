@@ -24,8 +24,13 @@ class SearchQueryComponent extends Component {
     }
   }
 
-  setQueryFromUrl() {
+  getContext() {
     const context = new CheckContext(this);
+    return context;
+  }
+
+  setQueryFromUrl() {
+    const context = this.getContext();
     if (context.getContextStore().project) {
       context.setContextStore({ project: null });
     }
@@ -64,7 +69,7 @@ class SearchQueryComponent extends Component {
   componentDidUpdate(prevProps, prevState) {
     const url = '/search/' + this.urlQueryFromQuery(prevState.query);
     if (url != window.location.pathname) {
-      Checkdesk.history.push(url);
+      this.getContext().getContextStore().history.push(url);
     }
   }
 

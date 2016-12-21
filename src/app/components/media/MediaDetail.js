@@ -14,6 +14,7 @@ import Tags from '../source/Tags';
 import DefaultButton from '../inputs/DefaultButton';
 import PenderCard from '../PenderCard';
 import UpdateMediaMutation from '../../relay/UpdateMediaMutation';
+import CheckContext from '../../CheckContext';
 
 class MediaDetail extends Component {
   constructor(props) {
@@ -41,9 +42,11 @@ class MediaDetail extends Component {
       transactionError.json ? transactionError.json().then(handleError) : handleError(JSON.stringify(transactionError));
     };
 
+    const history = new CheckContext(this).getContextStore().history;
+
     const onSuccess = (response) => {
       var rid = response.createMedia.media.dbid;
-      Checkdesk.history.push(prefix + rid);
+      history.push(prefix + rid);
       this.setState({ message: null, isSubmitting: false });
     };
 
@@ -130,5 +133,9 @@ class MediaDetail extends Component {
     );
   }
 }
+
+MediaDetail.contextTypes = {
+  store: React.PropTypes.object
+};
 
 export default MediaDetail;

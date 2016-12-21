@@ -11,12 +11,18 @@ class CheckContext {
     this.caller = caller;
   }
 
-  getContextStore() {
-    return this.caller.context.store.getState().app.context || {};
+  getContextStore(store) {
+    if (!store) {
+      store = this.caller.context.store;
+    }
+    return store.getState().app.context || {};
   }
 
-  setContextStore(data) {
-    let newContext = this.getContextStore();
+  setContextStore(data, store) {
+    if (!store) {
+      store = this.caller.context.store;
+    }
+    let newContext = this.getContextStore(store);
     newContext.type = SET_CONTEXT;
     for (var key in data) {
       const value = data[key];
@@ -27,11 +33,13 @@ class CheckContext {
         newContext[key] = value;
       }
     }
-    this.caller.context.store.dispatch(newContext);
+    store.dispatch(newContext);
   }
 
   startNetwork(token) {
+    const history = this.getContextStore().history;
     Relay.injectNetworkLayer(new CheckdeskNetworkLayer(config.relayPath, {
+      history: history,
       get headers() {
         var headers = config.relayHeaders;
         if (token) {
@@ -127,7 +135,7 @@ class CheckContext {
 
     const userCurrentTeam = userData.current_team;
     if (!userCurrentTeam) {
-      return Checkdesk.history.push('/teams/new');
+      return this.getContextStore().history.push('/teams/new');
     }
     const project = userCurrentTeam.projects[0];
     if (project && project.dbid) {
