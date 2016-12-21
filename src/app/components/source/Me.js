@@ -20,13 +20,13 @@ const MeContainer = Relay.createContainer(MeComponent, {
           ${sourceFragment}
         }
       }
-    `
-  }
+    `,
+  },
 });
 
 class Me extends Component {
   render() {
-    var route = new MeRoute();
+    const route = new MeRoute();
     return (<Relay.RootContainer Component={MeContainer} route={route} />);
   }
 }

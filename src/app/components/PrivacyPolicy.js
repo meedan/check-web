@@ -7,12 +7,12 @@ import { pageTitle } from '../helpers';
 
 class PrivacyPolicyComponent extends Component {
   render() {
-    var about = this.props.about;
+    const about = this.props.about;
     return (
       <DocumentTitle title={pageTitle('Privacy Policy', true)}>
         <div>
           <h2 className="main-title">Privacy Policy</h2>
-          <div id="privacy-policy" dangerouslySetInnerHTML={{__html: marked(about.privacy_policy)}}></div>
+          <div id="privacy-policy" dangerouslySetInnerHTML={{ __html: marked(about.privacy_policy) }} />
         </div>
       </DocumentTitle>
     );
@@ -25,13 +25,13 @@ const PrivacyPolicyContainer = Relay.createContainer(PrivacyPolicyComponent, {
       fragment on About {
         privacy_policy
       }
-    `
-  }
+    `,
+  },
 });
 
 class PrivacyPolicy extends Component {
   render() {
-    var route = new AboutRoute();
+    const route = new AboutRoute();
     return (<Relay.RootContainer Component={PrivacyPolicyContainer} route={route} />);
   }
 }

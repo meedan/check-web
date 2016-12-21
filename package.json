@@ -21,7 +21,8 @@
     "test:integration": "cd test && rspec && cd ..",
     "test:unit": "cd test/unit && NODE_PATH=$NODE_PATH:. BABEL_ENV=production mocha setup.js *.spec.js",
     "test:ff": "cd test && rspec --fail-fast && cd ..",
-    "lint:styles": "sass-lint --config .sass-lint.yml './**/*.scss' --verbose --ignore './test/**/*.scss, ./node_modules/**/*.scss'"
+    "lint:styles": "sass-lint --config .sass-lint.yml './**/*.scss' --verbose --ignore './test/**/*.scss, ./node_modules/**/*.scss'",
+    "lint:src": "eslint src --fix"
   },
   "keywords": [
     "react",
@@ -40,6 +41,8 @@
     "enzyme": "^2.6.0",
     "eslint": "^3.12.2",
     "eslint-config-airbnb": "^13.0.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^2.2.3",
     "eslint-plugin-react": "^6.8.0",
     "expect": "^1.12.2",
     "legit-tests": "^1.1.2",

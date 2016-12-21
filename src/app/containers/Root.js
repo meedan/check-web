@@ -6,10 +6,10 @@ import ReactGA from 'react-ga';
 import App from './App';
 import { IndexComponent, TermsOfService, NotFound, CreateAccount, AccessDenied, PrivacyPolicy, UserConfirmed, UserUnconfirmed } from '../components';
 import { Sources, Source, User, Me } from '../components/source';
-import Team  from '../components/team/Team';
+import Team from '../components/team/Team';
 import { CreateMedia, Media } from '../components/media';
-import TeamMembers  from '../components/team/TeamMembers';
-import CreateTeam from '../components/team/CreateTeam'
+import TeamMembers from '../components/team/TeamMembers';
+import CreateTeam from '../components/team/CreateTeam';
 import JoinTeam from '../components/team/JoinTeam.js';
 import Project from '../components/project/Project.js';
 import ProjectHeader from '../components/project/ProjectHeader';
@@ -20,7 +20,7 @@ import config from 'config';
 
 export default class Root extends Component {
   static propTypes = {
-    store: PropTypes.object.isRequired
+    store: PropTypes.object.isRequired,
   };
 
   getContext() {
@@ -74,15 +74,15 @@ export default class Root extends Component {
         <Router history={this.state.history} onUpdate={this.logPageView.bind(this)}>
           <Route path="/" component={App}>
             <IndexRoute component={Team} />
-            <Route path="tos" component={TermsOfService} public={true} />
-            <Route path="privacy" component={PrivacyPolicy} public={true} />
+            <Route path="tos" component={TermsOfService} public />
+            <Route path="privacy" component={PrivacyPolicy} public />
             <Route path="sources" component={Sources} />
             <Route path="sources/new" component={CreateAccount} />
             <Route path="source/:sourceId" component={Source} />
             <Route path="medias/new" component={CreateMedia} />
             <Route path="project/:projectId/media/:mediaId" component={Media} />
-            <Route path="user/confirmed" component={UserConfirmed} public={true} />
-            <Route path="user/unconfirmed" component={UserUnconfirmed} public={true} />
+            <Route path="user/confirmed" component={UserConfirmed} public />
+            <Route path="user/unconfirmed" component={UserUnconfirmed} public />
             <Route path="user/:userId" component={User} />
             <Route path="me" component={Me} />
             <Route path="join" component={JoinTeam} />
@@ -91,8 +91,8 @@ export default class Root extends Component {
             <Route path="teams" component={Teams} />
             <Route path="project/:projectId" component={Project} />
             <Route path="search(/:query)" component={Search} />
-            <Route path="forbidden" component={AccessDenied} public={true} />
-            <Route path="*" component={NotFound} public={true} />
+            <Route path="forbidden" component={AccessDenied} public />
+            <Route path="*" component={NotFound} public />
           </Route>
         </Router>
       </Provider>

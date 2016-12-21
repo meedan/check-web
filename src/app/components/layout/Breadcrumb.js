@@ -7,8 +7,8 @@ class Breadcrumb extends Component {
     const { url, title } = this.props;
 
     return (
-      <Link to={url} className='breadcrumb' title={title}>
-        <Caret left={true} />
+      <Link to={url} className="breadcrumb" title={title}>
+        <Caret left />
       </Link>
     );
   }

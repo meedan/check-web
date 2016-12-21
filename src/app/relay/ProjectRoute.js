@@ -8,14 +8,14 @@ class ProjectRoute extends Relay.Route {
           ${Component.getFragment('project', contextId)}
         }
       }
-    `, 
+    `,
   };
-  
+
   static paramDefinitions = {
-    contextId: { required: true }
+    contextId: { required: true },
   };
 
   static routeName = 'ProjectRoute';
-};
+}
 
 export default ProjectRoute;

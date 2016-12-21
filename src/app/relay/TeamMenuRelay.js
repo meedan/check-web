@@ -13,7 +13,7 @@ class TeamMenu extends Component {
 
     return (
       <Can permissions={team.permissions} permission="update Team">
-        <li className='header-actions__menu-item' onClick={history.push.bind(this, '/members')}>Manage team...</li>
+        <li className="header-actions__menu-item" onClick={history.push.bind(this, '/members')}>Manage team...</li>
       </Can>
     );
   }
@@ -25,8 +25,8 @@ TeamMenu.contextTypes = {
 
 const TeamMenuContainer = Relay.createContainer(TeamMenu, {
   fragments: {
-    team: () => teamFragment
-  }
+    team: () => teamFragment,
+  },
 });
 
 class TeamMenuRelay extends Component {
@@ -34,8 +34,7 @@ class TeamMenuRelay extends Component {
     if (teamSubdomain()) {
       const route = new TeamRoute({ teamId: '' });
       return (<Relay.RootContainer Component={TeamMenuContainer} route={route} />);
-    }
-    else {
+    } else {
       return null;
     }
   }

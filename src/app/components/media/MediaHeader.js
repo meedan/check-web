@@ -8,7 +8,7 @@ import CheckContext from '../../CheckContext';
 
 class MediaHeaderComponent extends Component {
   setCurrentContext() {
-    let context = new CheckContext(this).getContextStore();
+    const context = new CheckContext(this).getContextStore();
     this.props.relay.setVariables({ contextId: context.project.dbid });
   }
 
@@ -30,9 +30,9 @@ class MediaHeaderComponent extends Component {
     }
 
     return (
-      <div className='media-header'>
-        <div className='media-header__copy'>
-          <h1 className='media-header__title'>{title}</h1>
+      <div className="media-header">
+        <div className="media-header__copy">
+          <h1 className="media-header__title">{title}</h1>
           <MediaMetadataSummary media={media} data={data} />
         </div>
       </div>
@@ -41,12 +41,12 @@ class MediaHeaderComponent extends Component {
 }
 
 MediaHeaderComponent.contextTypes = {
-  store: React.PropTypes.object
+  store: React.PropTypes.object,
 };
 
 const MediaHeaderContainer = Relay.createContainer(MediaHeaderComponent, {
   initialVariables: {
-    contextId: null
+    contextId: null,
   },
   fragments: {
     media: () => Relay.QL`
@@ -81,24 +81,24 @@ const MediaHeaderContainer = Relay.createContainer(MediaHeaderComponent, {
           }
         }
       }
-    `
-  }
+    `,
+  },
 });
 
 class MediaHeader extends Component {
   render() {
     let projectId = 0;
-    let context = new CheckContext(this).getContextStore();
+    const context = new CheckContext(this).getContextStore();
     if (context.project) {
       projectId = context.project.dbid;
     }
-    var route = new MediaRoute({ ids: this.props.params.mediaId + ',' + projectId });
+    const route = new MediaRoute({ ids: `${this.props.params.mediaId},${projectId}` });
     return (<Relay.RootContainer Component={MediaHeaderContainer} route={route} />);
   }
 }
 
 MediaHeader.contextTypes = {
-  store: React.PropTypes.object
+  store: React.PropTypes.object,
 };
 
 export default MediaHeader;

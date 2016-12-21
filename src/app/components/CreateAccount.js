@@ -14,51 +14,51 @@ class CreateAccount extends Component {
 
     this.state = {
       url: '',
-      message: null
+      message: null,
     };
   }
 
   handleSubmit(redirect) {
-    var that = this,
+    let that = this,
         url = document.getElementById('create-account-url').value,
         prefix = '/source/',
         history = new CheckContext(this).getContextStore().history;
 
-    var onFailure = (transaction) => {
-      let error = transaction.getError();
+    const onFailure = (transaction) => {
+      const error = transaction.getError();
       let message = 'Sorry, could not create the source';
       try {
-        let json = JSON.parse(error.source);
+        const json = JSON.parse(error.source);
         if (json.error) {
           message = json.error;
-          var matches = message.match(/^Validation failed: Account with this URL exists and has source id ([0-9]+)$/);
+          const matches = message.match(/^Validation failed: Account with this URL exists and has source id ([0-9]+)$/);
           if (matches) {
-            var sid = matches[1];
+            const sid = matches[1];
             message = null;
             history.push(prefix + sid);
           }
         }
       } catch (e) { }
-      that.setState({ message: message });
+      that.setState({ message });
     };
 
-    var onSuccess = (response) => {
-      var sid = response.createAccount.account.source_id;
+    const onSuccess = (response) => {
+      const sid = response.createAccount.account.source_id;
       history.push(prefix + sid);
       this.setState({ message: null });
     };
 
     Relay.Store.commitUpdate(
       new CreateAccountMutation({
-        url: url
+        url,
       }),
-      { onSuccess, onFailure }
+      { onSuccess, onFailure },
     );
   }
 
   handlePreview() {
-    var url = document.getElementById('create-account-url').value;
-    this.setState({ url: url, message: null });
+    const url = document.getElementById('create-account-url').value;
+    this.setState({ url, message: null });
   }
 
   render() {
@@ -69,8 +69,8 @@ class CreateAccount extends Component {
         <div id="account-url-container" className="create-account-col">
           <h4>Create a source</h4>
           <h2>Source URL</h2>
-          <TextField hintText="Twitter, Facebook, YouTube..." fullWidth={true} name="url" id="create-account-url" /><br />
-          <FlatButton id="create-account-submit" primary={true} onClick={this.handleSubmit.bind(this)} label="Create" />
+          <TextField hintText="Twitter, Facebook, YouTube..." fullWidth name="url" id="create-account-url" /><br />
+          <FlatButton id="create-account-submit" primary onClick={this.handleSubmit.bind(this)} label="Create" />
         </div>
 
         <div id="account-preview" className="create-account-col">

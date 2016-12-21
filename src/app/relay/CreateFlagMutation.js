@@ -9,22 +9,22 @@ class CreateFlagMutation extends Relay.Mutation {
   }
 
   getFatQuery() {
-    var query = '';
+    let query = '';
     switch (this.props.parent_type) {
-      case 'source':
-        query = Relay.QL`fragment on CreateFlagPayload { flagEdge, source { annotations } }`;
-        break;
-      case 'media':
-        query = Relay.QL`fragment on CreateFlagPayload { flagEdge, media { annotations, annotations_count } }`;
-        break;
+    case 'source':
+      query = Relay.QL`fragment on CreateFlagPayload { flagEdge, source { annotations } }`;
+      break;
+    case 'media':
+      query = Relay.QL`fragment on CreateFlagPayload { flagEdge, media { annotations, annotations_count } }`;
+      break;
     }
     return query;
   }
 
   getVariables() {
-    var flag = this.props.annotation;
-    var vars = { flag: flag.flag, annotated_id: flag.annotated_id + '', annotated_type: flag.annotated_type };
-    var context = this.props.context;
+    const flag = this.props.annotation;
+    const vars = { flag: flag.flag, annotated_id: `${flag.annotated_id}`, annotated_type: flag.annotated_type };
+    const context = this.props.context;
     if (context && context.project) {
       vars.context_type = 'Project';
       vars.context_id = context.project.dbid.toString();
@@ -33,7 +33,7 @@ class CreateFlagMutation extends Relay.Mutation {
   }
 
   getConfigs() {
-    var fieldIds = {};
+    const fieldIds = {};
     fieldIds[this.props.parent_type] = this.props.annotated.id;
 
     return [
@@ -44,13 +44,13 @@ class CreateFlagMutation extends Relay.Mutation {
         connectionName: 'annotations',
         edgeName: 'flagEdge',
         rangeBehaviors: {
-          '': 'prepend'
-        }
+          '': 'prepend',
+        },
       },
       {
         type: 'FIELDS_CHANGE',
-        fieldIDs: fieldIds
-      }
+        fieldIDs: fieldIds,
+      },
     ];
   }
 }
