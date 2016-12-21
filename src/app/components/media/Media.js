@@ -92,11 +92,14 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
 class Media extends Component {
   render() {
     let projectId = 0;
-    const context = new CheckContext(this).getContextStore();
-    if (context.project) {
-      projectId = context.project.dbid;
+    const context = new CheckContext(this);
+    context.setContext();
+    const store = context.getContextStore();
+    if (store.project) {
+      projectId = store.project.dbid;
     }
-    const route = new MediaRoute({ ids: `${this.props.params.mediaId},${projectId}` });
+    const ids = `${this.props.params.mediaId},${projectId}`;
+    const route = new MediaRoute({ ids: ids });
     return (<Relay.RootContainer Component={MediaContainer} route={route} />);
   }
 }

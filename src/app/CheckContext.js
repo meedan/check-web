@@ -22,7 +22,7 @@ class CheckContext {
     if (!store) {
       store = this.caller.context.store;
     }
-    const newContext = this.getContextStore(store);
+    const newContext = Object.assign({}, this.getContextStore(store));
     newContext.type = SET_CONTEXT;
     for (const key in data) {
       const value = data[key];
@@ -98,7 +98,7 @@ class CheckContext {
       const newContext = {};
       const currentContext = this.getContextStore();
       if (subdomain != null && !currentContext.team) {
-        newContext.team = { subdomain };
+        newContext.team = { subdomain: subdomain };
       }
       if (this.caller.props.params.projectId && !currentContext.project) {
         newContext.project = { dbid: parseInt(this.caller.props.params.projectId) };
