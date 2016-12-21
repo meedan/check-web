@@ -28,33 +28,34 @@ export default class Root extends Component {
     return context;
   }
 
-  setHistory() {
+  setStore() {
     const history = syncHistoryWithStore(browserHistory, this.props.store);
     const context = this.getContext();
     const store = context.store || this.props.store;
-    context.setContextStore({ history: history }, store);
-    this.setState({ history: history });
+
+    let data = { history: history };
+
+    if (config.pusherKey) {
+      Pusher.logToConsole = !!config.pusherDebug;
+      const pusher = new Pusher(config.pusherKey, { encrypted: true });
+      data.pusher = pusher;
+    }
+
+    context.setContextStore(data, store);
+    this.setState(data);
   }
 
   componentWillMount() {
-    this.setHistory();
+    this.setStore();
   }
 
   componentWillUpdate() {
-    this.setHistory();
+    this.setStore();
   }
 
   componentDidMount() {
     if (config.googleAnalyticsCode) {
       ReactGA.initialize(config.googleAnalyticsCode, { debug: false });
-    }
-    if (config.pusherKey) {
-      Pusher.logToConsole = !!config.pusherDebug;
-      const pusher = new Pusher(config.pusherKey, { encrypted: true });
-      const context = this.getContext();
-      if (context.store) {
-        context.setContextStore({ pusher: pusher });
-      }
     }
   }
 
