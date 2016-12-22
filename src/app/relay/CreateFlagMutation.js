@@ -21,6 +21,26 @@ class CreateFlagMutation extends Relay.Mutation {
     return query;
   }
 
+  getOptimisticResponse() {
+    const flag = {
+      id: this.props.id,
+      created_at: new Date().toString(),
+      annotation_type: 'flag',
+      permissions: '{"destroy Annotation":true,"destroy Flag":true}',
+      content: JSON.stringify({ flag: this.props.annotation.flag }),
+      annotated_id: this.props.annotation.annotated_id,
+      annotator: {
+        name: this.props.annotator.name,
+        profile_image: this.props.annotator.profile_image
+      },
+      medias: {
+        edges: []
+      }
+    };
+    
+    return { flagEdge: { node: flag }};
+  }
+
   getVariables() {
     const flag = this.props.annotation;
     const vars = { flag: flag.flag, annotated_id: `${flag.annotated_id}`, annotated_type: flag.annotated_type };
@@ -43,8 +63,8 @@ class CreateFlagMutation extends Relay.Mutation {
         parentID: this.props.annotated.id,
         connectionName: 'annotations',
         edgeName: 'flagEdge',
-        rangeBehaviors: {
-          '': 'prepend',
+        rangeBehaviors: (calls) => {
+          return 'prepend';
         },
       },
       {

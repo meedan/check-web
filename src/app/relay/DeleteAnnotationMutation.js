@@ -28,6 +28,10 @@ class DeleteAnnotationMutation extends Relay.Mutation {
     return query;
   }
 
+  getOptimisticResponse() {
+    return { deletedId: this.props.id };
+  }
+
   getConfigs() {
     const fieldIds = {};
     fieldIds[this.props.parent_type] = this.props.annotated.id;

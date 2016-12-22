@@ -94,6 +94,8 @@ class AddAnnotation extends Component {
     const onFailure = (transaction) => { that.fail(transaction); };
 
     const onSuccess = (response) => { that.success('tag'); };
+    
+    const annotator = that.getContext().currentUser;
 
     const context = that.getContext();
 
@@ -101,6 +103,7 @@ class AddAnnotation extends Component {
       Relay.Store.commitUpdate(
         new CreateTagMutation({
           annotated,
+          annotator,
           parent_type: annotated_type.toLowerCase(),
           context,
           annotation: {
@@ -118,11 +121,14 @@ class AddAnnotation extends Component {
     const onFailure = (transaction) => { that.fail(transaction); };
 
     const onSuccess = (response) => { that.success('status'); };
+    
+    const annotator = that.getContext().currentUser;
 
     Relay.Store.commitUpdate(
       new CreateStatusMutation({
         parent_type: annotated_type.toLowerCase(),
         annotated,
+        annotator,
         context: that.getContext(),
         annotation: {
           status,
@@ -138,11 +144,14 @@ class AddAnnotation extends Component {
     const onFailure = (transaction) => { that.fail(transaction); };
 
     const onSuccess = (response) => { that.success('flag'); };
+    
+    const annotator = that.getContext().currentUser;
 
     Relay.Store.commitUpdate(
       new CreateFlagMutation({
         parent_type: annotated_type.toLowerCase(),
         annotated,
+        annotator,
         context: that.getContext(),
         annotation: {
           flag,

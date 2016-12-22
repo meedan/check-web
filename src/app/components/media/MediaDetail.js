@@ -45,9 +45,7 @@ class MediaDetail extends Component {
     const history = new CheckContext(this).getContextStore().history;
 
     const onSuccess = (response) => {
-      const rid = response.createMedia.media.dbid;
-      history.push(prefix + rid);
-      this.setState({ message: null, isSubmitting: false });
+      this.setState({ isEditing: false });
     };
 
     Relay.Store.commitUpdate(

@@ -55,6 +55,7 @@ class Tags extends Component {
       Relay.Store.commitUpdate(
         new CreateTagMutation({
           annotated: props.annotated,
+          annotator: context.currentUser,
           parent_type: props.annotatedType.toLowerCase(),
           context,
           annotation: {
