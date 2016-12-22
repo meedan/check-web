@@ -69,10 +69,13 @@ class AddAnnotation extends Component {
     const onFailure = (transaction) => { that.fail(transaction); };
 
     const onSuccess = (response) => { that.success('comment'); };
+      
+    const annotator = that.getContext().currentUser;
 
     Relay.Store.commitUpdate(
       new CreateCommentMutation({
         parent_type: annotated_type.toLowerCase(),
+        annotator,
         annotated,
         context: that.getContext(),
         annotation: {

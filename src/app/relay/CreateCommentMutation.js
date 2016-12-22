@@ -24,6 +24,26 @@ class CreateCommentMutation extends Relay.Mutation {
     return query;
   }
 
+  getOptimisticResponse() {
+    const comment = {
+      id: this.props.id,
+      created_at: new Date().toString(),
+      annotation_type: 'comment',
+      permissions: '{"destroy Annotation":true,"destroy Comment":true}',
+      content: JSON.stringify({ text: this.props.annotation.text }),
+      annotated_id: this.props.annotation.annotated_id,
+      annotator: {
+        name: this.props.annotator.name,
+        profile_image: this.props.annotator.profile_image
+      },
+      medias: {
+        edges: []
+      }
+    };
+    
+    return { commentEdge: { node: comment }};
+  }
+
   getVariables() {
     const comment = this.props.annotation;
     const vars = { text: comment.text, annotated_id: `${comment.annotated_id}`, annotated_type: comment.annotated_type };
@@ -46,8 +66,8 @@ class CreateCommentMutation extends Relay.Mutation {
         parentID: this.props.annotated.id,
         connectionName: 'annotations',
         edgeName: 'commentEdge',
-        rangeBehaviors: {
-          '': 'append',
+        rangeBehaviors: (calls) => {
+          return 'prepend';
         },
       },
       {
