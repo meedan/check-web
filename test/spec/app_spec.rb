@@ -33,7 +33,6 @@ describe 'app' do
   # Start Google Chrome before each test
 
   before :each do
-    #@driver = Selenium::WebDriver.for :remote, url: @config['chromedriver_url'], :desired_capabilities => :chrome
     proxy = Selenium::WebDriver::Proxy.new(
       :http     => @config['proxy'],
       :ftp      => @config['proxy'],
