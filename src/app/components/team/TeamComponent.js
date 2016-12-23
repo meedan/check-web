@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 import DocumentTitle from 'react-document-title';
-import TeamMembers from './TeamMembers';
 import Tags from './Tags';
 import { Link } from 'react-router';
 import FontAwesome from 'react-fontawesome';

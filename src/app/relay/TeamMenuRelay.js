@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 import TeamRoute from './TeamRoute';
-import teamFragment from './teamFragment';
 import Can from '../components/Can';
 import CheckContext from '../CheckContext';
 import { teamSubdomain } from '../helpers';
@@ -25,7 +24,14 @@ TeamMenu.contextTypes = {
 
 const TeamMenuContainer = Relay.createContainer(TeamMenu, {
   fragments: {
-    team: () => teamFragment,
+    team: () => Relay.QL`
+      fragment on Team {
+        id,
+        dbid,
+        name,
+        permissions,
+      }
+    `
   },
 });
 

@@ -5,7 +5,6 @@ import FontAwesome from 'react-fontawesome';
 import Pusher from 'pusher-js';
 import CreateProject from './project/CreateProject';
 import TeamRoute from '../relay/TeamRoute';
-import teamFragment from '../relay/teamFragment';
 import SwitchTeams from './team/SwitchTeams';
 import CheckContext from '../CheckContext';
 import Can from './Can';

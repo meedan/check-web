@@ -9,7 +9,6 @@ import SearchRoute from '../relay/SearchRoute';
 import TeamRoute from '../relay/TeamRoute';
 import MediaDetail from './media/MediaDetail';
 import { bemClass } from '../helpers';
-import teamFragment from '../relay/teamFragment';
 import { pageTitle } from '../helpers';
 import CheckContext from '../CheckContext';
 
@@ -237,7 +236,25 @@ SearchQueryComponent.contextTypes = {
 
 const SearchQueryContainer = Relay.createContainer(SearchQueryComponent, {
   fragments: {
-    team: () => teamFragment,
+    team: () => Relay.QL`
+      fragment on Team {
+        id,
+        dbid,
+        media_verification_statuses,
+        get_suggested_tags,
+        name,
+        projects(first: 10000) {
+          edges {
+            node {
+              title,
+              dbid,
+              id,
+              description
+            }
+          }
+        }
+      }
+    `
   },
 });
 
