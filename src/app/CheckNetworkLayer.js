@@ -1,7 +1,7 @@
 import Relay from 'react-relay';
 import util from 'util';
 
-class CheckdeskNetworkLayer extends Relay.DefaultNetworkLayer {
+class CheckNetworkLayer extends Relay.DefaultNetworkLayer {
   sendQueries(requests: Array<RelayQueryRequest>): ?Promise<any> {
     return Promise.all(requests.map(request => (
       this._sendQuery(request).then(
@@ -60,4 +60,4 @@ function createRequestError(request, responseStatus, payload) {
   return error;
 }
 
-export default CheckdeskNetworkLayer;
+export default CheckNetworkLayer;
