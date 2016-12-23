@@ -295,6 +295,7 @@ const SearchResultsContainer = Relay.createContainer(SearchResultsComponent, {
               id,
               dbid,
               url,
+              quote,
               published,
               jsondata,
               annotations_count,
