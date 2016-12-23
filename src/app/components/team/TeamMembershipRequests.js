@@ -7,21 +7,17 @@ class TeamMembershipRequests extends Component {
     const usersCount = this.props.team_users.length;
 
     if (!usersCount) {
-      return (<div></div>);
+      return (<div />);
     }
 
     return (
-      <section className='team-membership-requests'>
-        <h2 className='team-membership-requests__heading'>Requests to join <span className='team-membership-requests__heading-parens'>({usersCount})</span></h2>
+      <section className="team-membership-requests">
+        <h2 className="team-membership-requests__heading">Requests to join <span className="team-membership-requests__heading-parens">({usersCount})</span></h2>
 
-        <ul className='team-membership-requests__requests'>
-          {(() => {
-            return usersRequestingMembership.map((team_user) => {
-              return (
-                <TeamMembershipRequestsCell team_user={team_user} />
-              );
-            });
-          })()}
+        <ul className="team-membership-requests__requests">
+          {(() => usersRequestingMembership.map(team_user => (
+            <TeamMembershipRequestsCell team_user={team_user} />
+              )))()}
         </ul>
       </section>
     );

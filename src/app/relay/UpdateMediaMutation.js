@@ -20,7 +20,7 @@ class UpdateMediaMutation extends Relay.Mutation {
     return {
       id: this.props.id,
       // url: this.props.url
-      information: this.props.information
+      information: this.props.information,
       // project_id: this.props.project.dbid
     };
   }
@@ -29,8 +29,8 @@ class UpdateMediaMutation extends Relay.Mutation {
     return [
       {
         type: 'FIELDS_CHANGE',
-        fieldIDs: { media: this.props.id }
-      }
+        fieldIDs: { media: this.props.id },
+      },
     ];
   }
 }

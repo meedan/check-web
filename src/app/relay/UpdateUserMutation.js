@@ -10,11 +10,11 @@ class UpdateUserMutation extends Relay.Mutation {
   }
 
   static fragments = {
-    user: () => userFragment
+    user: () => userFragment,
   };
-  
+
   getVariables() {
-    return { id: Checkdesk.currentUser.id, current_team_id: this.props.current_team_id };
+    return { id: this.props.current_user_id, current_team_id: this.props.current_team_id };
   }
 
   getFatQuery() {
@@ -34,8 +34,8 @@ class UpdateUserMutation extends Relay.Mutation {
             id,
             current_team_id
           }
-        }`
-      ]
+        }`,
+      ],
     }];
   }
 }

@@ -25,11 +25,13 @@ class MediaPage < Page
   end
 
   def tags
+    list = []
     if editing_mode?
-      elements('.ReactTags__tag > span').map(&:text)
+      list = elements('.ReactTags__tag')
     else
-      elements('.media-tags__tag').map(&:text)
+      list = elements('.media-tags__tag')
     end
+    list.map(&:text).collect{ |t| t.gsub(/<[^>]+>|×/, '') }
   end
 
   def add_tag(string)

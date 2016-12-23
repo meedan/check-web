@@ -15,11 +15,11 @@ class DeleteProjectMutation extends Relay.Mutation {
   getVariables() {
     return { id: this.props.id };
   }
-  
+
   getFatQuery() {
     return Relay.QL`fragment on DestroyProjectPayload { deletedId, team { projects } }`;
   }
-  
+
   getConfigs() {
     return [
       {
@@ -28,7 +28,7 @@ class DeleteProjectMutation extends Relay.Mutation {
         parentID: this.props.teamId,
         connectionName: 'projects',
         deletedIDFieldName: 'deletedId',
-      }
+      },
     ];
   }
 }

@@ -6,13 +6,13 @@ import teamFragment from '../../relay/teamFragment';
 
 const TeamContainer = Relay.createContainer(TeamComponent, {
   fragments: {
-    team: () => teamFragment
-  }
+    team: () => teamFragment,
+  },
 });
 
 class Team extends Component {
   render() {
-    var route = new TeamRoute({ teamId: '' });
+    const route = new TeamRoute({ teamId: '' });
     return (<Relay.RootContainer Component={TeamContainer} route={route} />);
   }
 }

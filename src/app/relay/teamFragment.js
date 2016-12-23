@@ -1,6 +1,6 @@
 import Relay from 'react-relay';
 
-var teamFragment = Relay.QL`
+const teamFragment = Relay.QL`
   fragment on Team {
     id,
     dbid,

@@ -1,17 +1,19 @@
 import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
+import CheckContext from '../../CheckContext';
 import MediaRoute from '../../relay/MediaRoute';
 import MediaComponent from './MediaComponent';
 
 const MediaContainer = Relay.createContainer(MediaComponent, {
   initialVariables: {
-    contextId: null
+    contextId: null,
   },
   fragments: {
     media: () => Relay.QL`
       fragment on Media {
         id,
         dbid,
+        quote,
         published(context_id: $contextId),
         url,
         jsondata(context_id: $contextId),
@@ -84,19 +86,27 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
           get_suggested_tags
         }
       }
-    `
-  }
+    `,
+  },
 });
 
 class Media extends Component {
   render() {
-    var projectId = 0;
-    if (Checkdesk.context.project) {
-      projectId = Checkdesk.context.project.dbid;
+    let projectId = 0;
+    const context = new CheckContext(this);
+    context.setContext();
+    const store = context.getContextStore();
+    if (store.project) {
+      projectId = store.project.dbid;
     }
-    var route = new MediaRoute({ ids: this.props.params.mediaId + ',' + projectId });
+    const ids = `${this.props.params.mediaId},${projectId}`;
+    const route = new MediaRoute({ ids: ids });
     return (<Relay.RootContainer Component={MediaContainer} route={route} />);
   }
 }
+
+Media.contextTypes = {
+  store: React.PropTypes.object,
+};
 
 export default Media;

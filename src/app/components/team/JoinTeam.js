@@ -12,13 +12,13 @@ const TeamContainer = Relay.createContainer(JoinTeamComponent, {
         dbid,
         subdomain
       }
-    `
-  }
+    `,
+  },
 });
 
 class JoinTeam extends Component {
   render() {
-    var route = new PublicTeamRoute();
+    const route = new PublicTeamRoute();
     return (<Relay.RootContainer Component={TeamContainer} route={route} />);
   }
 }

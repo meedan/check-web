@@ -10,13 +10,13 @@ const FooterContainer = Relay.createContainer(Footer, {
         name,
         version
       }
-    `
-  }
+    `,
+  },
 });
 
 class FooterRelay extends Component {
   render() {
-    var route = new AboutRoute();
+    const route = new AboutRoute();
     return (<Relay.RootContainer Component={FooterContainer} route={route} />);
   }
 }

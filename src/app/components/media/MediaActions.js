@@ -7,7 +7,7 @@ class MediaActions extends Component {
     super(props);
 
     this.state = {
-      isMenuOpen: false
+      isMenuOpen: false,
     };
   }
 
@@ -24,13 +24,13 @@ class MediaActions extends Component {
     const menuItems = [];
 
     if (can(media.permissions, 'create Tag')) {
-      menuItems.push(<li className='media-actions__menu-item' onClick={handleEdit}>Edit...</li>);
+      menuItems.push(<li className="media-actions__menu-item" onClick={handleEdit}>Edit...</li>);
     }
 
     return menuItems.length ? (
       <div className={this.bemClass('media-actions', this.state.isMenuOpen, '--active')}>
-        <FontAwesome name='ellipsis-h' className='media-actions__icon' onClick={this.toggleMenu.bind(this)} />
-        <div className={this.bemClass('media-actions__overlay', this.state.isMenuOpen, '--active')} onClick={this.toggleMenu.bind(this)}></div>
+        <FontAwesome name="ellipsis-h" className="media-actions__icon" onClick={this.toggleMenu.bind(this)} />
+        <div className={this.bemClass('media-actions__overlay', this.state.isMenuOpen, '--active')} onClick={this.toggleMenu.bind(this)} />
         <ul className={this.bemClass('media-actions__menu', this.state.isMenuOpen, '--active')}>
           {menuItems}
         </ul>

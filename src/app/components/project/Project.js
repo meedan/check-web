@@ -12,30 +12,54 @@ import { CreateMedia } from '../media';
 import Can from '../Can';
 import config from 'config';
 import { pageTitle } from '../../helpers';
+import CheckContext from '../../CheckContext';
 
 const pageSize = 20;
 
 class ProjectComponent extends Component {
+  getContext() {
+    const context = new CheckContext(this);
+    return context;
+  }
+
+  currentContext() {
+    return this.getContext().getContextStore();
+  }
+
   setContextProject() {
-    Checkdesk.context.project = this.props.project;
-    if (!Checkdesk.context.team || Checkdesk.context.team.subdomain != this.props.project.team.subdomain) {
-      Checkdesk.context.team = this.props.project.team;
-      Checkdesk.history.push('/404');
+    const context = this.getContext(),
+      currentContext = this.currentContext(),
+      newContext = {};
+
+    newContext.project = this.props.project;
+
+    let notFound = false;
+    if (!currentContext.team || currentContext.team.subdomain != this.props.project.team.subdomain) {
+      newContext.team = this.props.project.team;
+      notFound = true;
+    }
+
+    context.setContextStore(newContext);
+
+    if (notFound) {
+      currentContext.history.push('/404');
     }
   }
 
   subscribe() {
-    if (window.Checkdesk.pusher) {
+    const pusher = this.getContext().pusher;
+    if (pusher) {
       const that = this;
-      window.Checkdesk.pusher.subscribe(this.props.project.pusher_channel).bind('media_updated', function(data) {
+      pusher.subscribe(this.props.project.pusher_channel).bind('media_updated', (data) => {
         that.props.relay.forceFetch();
       });
     }
   }
 
   unsubscribe() {
-    if (window.Checkdesk.pusher) {
-      window.Checkdesk.pusher.unsubscribe(this.props.project.pusher_channel);
+    const pusher = this.getContext().pusher;
+    if (pusher) {
+      pusher.unsubscribe(this.props.project.pusher_channel);
     }
   }
 
@@ -58,28 +82,29 @@ class ProjectComponent extends Component {
 
   render() {
     const project = this.props.project;
-    var that = this;
+    const that = this;
 
     return (
-      <DocumentTitle title={pageTitle(project.title)} >
+      <DocumentTitle title={pageTitle(project.title, false, this.currentContext().team)} >
         <div className="project">
 
-          <div className='project__team-sidebar'>{/* className={this.sidebarActiveClass('home__sidebar')} */}
+          <div className="project__team-sidebar">{/* className={this.sidebarActiveClass('home__sidebar')} */}
             <TeamSidebar />
           </div>
           <div className="project__content">
-            <Can permissions={project.permissions} permission='create Media'>
+            <Can permissions={project.permissions} permission="create Media">
               <CreateMedia projectComponent={that} />
             </Can>
 
-            <InfiniteScroll hasMore={true} loadMore={this.loadMore.bind(this)} threshold={500}>
+            <InfiniteScroll hasMore loadMore={this.loadMore.bind(this)} threshold={500}>
 
               <MediasAndAnnotations
                 medias={project.medias.edges}
                 annotations={project.annotations.edges}
                 annotated={project}
                 annotatedType="Project"
-                types={['comment']} />
+                types={['comment']}
+              />
 
             </InfiniteScroll>
 
@@ -96,13 +121,17 @@ class ProjectComponent extends Component {
   }
 }
 
+ProjectComponent.contextTypes = {
+  store: React.PropTypes.object,
+};
+
 const ProjectContainer = Relay.createContainer(ProjectComponent, {
   initialVariables: {
     contextId: null,
-    pageSize: pageSize
+    pageSize,
   },
   fragments: {
-    project: ({Component, contextId}) => Relay.QL`
+    project: ({ Component, contextId }) => Relay.QL`
       fragment on Project {
         id,
         dbid,
@@ -136,6 +165,7 @@ const ProjectContainer = Relay.createContainer(ProjectComponent, {
               id,
               dbid,
               url,
+              quote,
               published(context_id: $contextId),
               jsondata(context_id: $contextId),
               annotations_count(context_id: $contextId),
@@ -161,14 +191,14 @@ const ProjectContainer = Relay.createContainer(ProjectComponent, {
           }
         }
       }
-    `
-  }
+    `,
+  },
 });
 
 class Project extends Component {
   render() {
     const projectId = this.props.params.projectId;
-    var route = new ProjectRoute({ contextId: parseInt(projectId) });
+    const route = new ProjectRoute({ contextId: parseInt(projectId) });
     return (<Relay.RootContainer Component={ProjectContainer} route={route} />);
   }
 }

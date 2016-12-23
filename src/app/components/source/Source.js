@@ -6,14 +6,14 @@ import sourceFragment from '../../relay/sourceFragment';
 
 const SourceContainer = Relay.createContainer(SourceComponent, {
   fragments: {
-    source: () => sourceFragment
-  }
+    source: () => sourceFragment,
+  },
 });
 
 class Source extends Component {
   render() {
-    var route = new SourceRoute({ sourceId: this.props.params.sourceId });
-    return (<Relay.RootContainer Component={SourceContainer} route={route} forceFetch={true} />);
+    const route = new SourceRoute({ sourceId: this.props.params.sourceId });
+    return (<Relay.RootContainer Component={SourceContainer} route={route} forceFetch />);
   }
 }
 

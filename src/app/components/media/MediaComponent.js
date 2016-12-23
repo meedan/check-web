@@ -6,10 +6,16 @@ import util from './MediaUtil';
 import { Annotations, Tags } from '../source';
 import config from 'config';
 import { pageTitle } from '../../helpers';
+import CheckContext from '../../CheckContext';
 
 class MediaComponent extends Component {
+  getContext() {
+    const context = new CheckContext(this).getContextStore();
+    return context;
+  }
+
   setCurrentContext() {
-    this.props.relay.setVariables({ contextId: Checkdesk.context.project.dbid });
+    this.props.relay.setVariables({ contextId: this.getContext().project.dbid });
   }
 
   componentDidMount() {
@@ -25,8 +31,8 @@ class MediaComponent extends Component {
 
   scrollToAnnotation() {
     if (window.location.hash != '') {
-      var id = window.location.hash.replace(/^#/, ''),
-          element = document.getElementById(id);
+      let id = window.location.hash.replace(/^#/, ''),
+        element = document.getElementById(id);
       if (element.scrollIntoView != undefined) {
         element.scrollIntoView();
       }
@@ -34,11 +40,12 @@ class MediaComponent extends Component {
   }
 
   subscribe() {
-    if (window.Checkdesk.pusher) {
+    const pusher = this.getContext().pusher;
+    if (pusher) {
       const that = this;
-      window.Checkdesk.pusher.subscribe(this.props.media.pusher_channel).bind('media_updated', function(data) {
-        var annotation = JSON.parse(data.message);
-        if (parseInt(annotation.context_id) === Checkdesk.context.project.dbid) {
+      pusher.subscribe(this.props.media.pusher_channel).bind('media_updated', (data) => {
+        const annotation = JSON.parse(data.message);
+        if (parseInt(annotation.context_id) === that.getContext().project.dbid) {
           that.props.relay.forceFetch();
         }
       });
@@ -46,8 +53,9 @@ class MediaComponent extends Component {
   }
 
   unsubscribe() {
-    if (window.Checkdesk.pusher) {
-      window.Checkdesk.pusher.unsubscribe(this.props.media.pusher_channel);
+    const pusher = this.getContext().pusher;
+    if (pusher) {
+      pusher.unsubscribe(this.props.media.pusher_channel);
     }
   }
 
@@ -64,11 +72,11 @@ class MediaComponent extends Component {
     }
 
     return (
-      <DocumentTitle title={pageTitle(util.title(media, data))}>
+      <DocumentTitle title={pageTitle(util.title(media, data), false, this.getContext().team)}>
         <div className="media" data-id={media.dbid}>
-          <article className='media__contents'>
+          <article className="media__contents">
             <MediaDetail media={media} />
-            <h3 className='media__notes-heading'>Verification Timeline</h3>
+            <h3 className="media__notes-heading">Verification Timeline</h3>
             <Annotations annotations={media.annotations.edges.reverse()} annotated={media} annotatedType="Media" />
           </article>
         </div>
@@ -76,5 +84,9 @@ class MediaComponent extends Component {
     );
   }
 }
+
+MediaComponent.contextTypes = {
+  store: React.PropTypes.object,
+};
 
 export default MediaComponent;

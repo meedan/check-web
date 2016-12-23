@@ -9,33 +9,35 @@ import Can from '../Can';
 
 class Annotation extends Component {
   handleDelete(id) {
-    var onFailure = (transaction) => {
-      transaction.getError().json().then(function(json) {
-        var message = 'Could not delete annotation';
+    const onFailure = (transaction) => {
+      const error = transaction.getError();
+      let message = 'Could not delete annotation';
+      try {
+        const json = JSON.parse(error.source);
         if (json.error) {
           message = json.error;
         }
-        window.alert(message);
-      });
+      } catch (e) { }
+      window.alert(message);
     };
 
-    var onSuccess = (response) => {
+    const onSuccess = (response) => {
     };
 
     Relay.Store.commitUpdate(
       new DeleteAnnotationMutation({
         parent_type: this.props.annotatedType.toLowerCase(),
         annotated: this.props.annotated,
-        id: id
+        id,
       }),
-      { onSuccess, onFailure }
+      { onSuccess, onFailure },
     );
   }
 
   statusIdToLabel(id) {
     const statuses = JSON.parse(this.props.annotated.verification_statuses).statuses;
     let label = '';
-    statuses.forEach(function(status) {
+    statuses.forEach((status) => {
       if (status.id === id) {
         label = status.label;
       }
@@ -44,7 +46,7 @@ class Annotation extends Component {
   }
 
   createdAt(annotation) {
-    var date = new Date(annotation.created_at);
+    let date = new Date(annotation.created_at);
     if (isNaN(date)) date = null;
     return date;
   }
@@ -53,9 +55,9 @@ class Annotation extends Component {
     const annotation = this.props.annotation;
     const permissionType = `${annotation.annotation_type.charAt(0).toUpperCase()}${annotation.annotation_type.slice(1)}`;
     const annotationActions = (
-      <div className='annotation__actions'>
+      <div className="annotation__actions">
         <Can permissions={annotation.permissions} permission={`destroy ${permissionType}`}>
-          <button className='annotation__delete' onClick={this.handleDelete.bind(this, annotation.id)} title='Delete'>×</button>
+          <button className="annotation__delete" onClick={this.handleDelete.bind(this, annotation.id)} title="Delete">×</button>
         </Can>
       </div>
     );
@@ -64,76 +66,74 @@ class Annotation extends Component {
     let contentTemplate;
 
     switch (annotation.annotation_type) {
-      case 'comment':
-        const commentText = content.text;
-        contentTemplate = (
-          <section className='annotation__content'>
-            <div className='annotation__header'>
-              <h4 className='annotation__author-name'>{annotation.annotator.name}</h4>
-              {createdAt ? <span className='annotation__timestamp'><TimeAgo date={createdAt} live={false} /></span> : null}
-              {annotationActions}
+    case 'comment':
+      const commentText = content.text;
+      contentTemplate = (
+        <section className="annotation__content">
+          <div className="annotation__header">
+            <h4 className="annotation__author-name">{annotation.annotator.name}</h4>
+            {createdAt ? <span className="annotation__timestamp"><TimeAgo date={createdAt} live={false} /></span> : null}
+            {annotationActions}
+          </div>
+          <div className="annotation__body"><Linkify properties={{ target: '_blank' }}>{nl2br(commentText)}</Linkify></div>
+          {annotation.medias.edges.map(media => (
+            <div className="annotation__embedded-media">
+              <MediaCard media={media.node} />
             </div>
-            <div className='annotation__body'><Linkify properties={{ target: '_blank' }}>{nl2br(commentText)}</Linkify></div>
-            {annotation.medias.edges.map(function(media) {
-              return (
-                <div className='annotation__embedded-media'>
-                  <MediaCard media={media.node} />
-                </div>
-              );
-            })}
-          </section>
+              ))}
+        </section>
         );
-        break;
-      case 'status':
-        const statusCode = content.status.toLowerCase().replace(/[ _]/g, '-');
-        contentTemplate = (
-          <section className='annotation__content'>
-            <div className='annotation__header'>
-              <span>Status set to </span>
-              <span className={`annotation__status annotation__status--${statusCode}`}>{this.statusIdToLabel(content.status)}</span>
-              <span> by </span>
-              <span className='annotation__author-name'>{annotation.annotator.name}</span>
-              {createdAt ? <span className='annotation__timestamp'><TimeAgo date={createdAt} live={false} /></span> : null}
-              {annotationActions}
-            </div>
-          </section>
+      break;
+    case 'status':
+      const statusCode = content.status.toLowerCase().replace(/[ _]/g, '-');
+      contentTemplate = (
+        <section className="annotation__content">
+          <div className="annotation__header">
+            <span>Status set to </span>
+            <span className={`annotation__status annotation__status--${statusCode}`}>{this.statusIdToLabel(content.status)}</span>
+            <span> by </span>
+            <span className="annotation__author-name">{annotation.annotator.name}</span>
+            {createdAt ? <span className="annotation__timestamp"><TimeAgo date={createdAt} live={false} /></span> : null}
+            {annotationActions}
+          </div>
+        </section>
         );
-        break;
-      case 'tag':
-        const message = `Tagged #${content.tag.replace(/^#/, '')} by `;
-        contentTemplate = (
-          <section className='annotation__content'>
-            <div className='annotation__header'>
-              <span>{message}</span>
-              <span className='annotation__author-name'>{annotation.annotator.name}</span>
-              {createdAt ? <span className='annotation__timestamp'><TimeAgo date={createdAt} live={false} /></span> : null}
-              {annotationActions}
-            </div>
-          </section>
+      break;
+    case 'tag':
+      const message = `Tagged #${content.tag.replace(/^#/, '')} by `;
+      contentTemplate = (
+        <section className="annotation__content">
+          <div className="annotation__header">
+            <span>{message}</span>
+            <span className="annotation__author-name">{annotation.annotator.name}</span>
+            {createdAt ? <span className="annotation__timestamp"><TimeAgo date={createdAt} live={false} /></span> : null}
+            {annotationActions}
+          </div>
+        </section>
         );
-        break;
-      case 'flag':
-        contentTemplate = (
-          <section className='annotation__content'>
-            <div className='annotation__header'>
-              <span>Flagged as {content.flag} by </span>
-              <span className='annotation__author-name'>{annotation.annotator.name}</span>
-              {createdAt ? <span className='annotation__timestamp'><TimeAgo date={createdAt} live={false} /></span> : null}
-              {annotationActions}
-            </div>
-          </section>
+      break;
+    case 'flag':
+      contentTemplate = (
+        <section className="annotation__content">
+          <div className="annotation__header">
+            <span>Flagged as {content.flag} by </span>
+            <span className="annotation__author-name">{annotation.annotator.name}</span>
+            {createdAt ? <span className="annotation__timestamp"><TimeAgo date={createdAt} live={false} /></span> : null}
+            {annotationActions}
+          </div>
+        </section>
         );
-        break;
+      break;
     }
 
     return (
-      <div className={`annotation annotation--${annotation.annotation_type}`} id={'annotation-' + annotation.dbid}>
+      <div className={`annotation annotation--${annotation.annotation_type}`} id={`annotation-${annotation.dbid}`}>
         {annotation.annotation_type === 'comment' ? (
-          <div className='annotation__avatar' style={{backgroundImage: `url(${annotation.annotator.profile_image})`}}></div>
+          <div className="annotation__avatar" style={{ backgroundImage: `url(${annotation.annotator.profile_image})` }} />
         ) : null}
         {contentTemplate}
       </div>
-    )
+    );
   }
 }
 

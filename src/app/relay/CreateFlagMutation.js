@@ -9,30 +9,51 @@ class CreateFlagMutation extends Relay.Mutation {
   }
 
   getFatQuery() {
-    var query = '';
+    let query = '';
     switch (this.props.parent_type) {
-      case 'source':
-        query = Relay.QL`fragment on CreateFlagPayload { flagEdge, source { annotations } }`;
-        break;
-      case 'media':
-        query = Relay.QL`fragment on CreateFlagPayload { flagEdge, media { annotations, annotations_count } }`;
-        break;
+    case 'source':
+      query = Relay.QL`fragment on CreateFlagPayload { flagEdge, source { annotations } }`;
+      break;
+    case 'media':
+      query = Relay.QL`fragment on CreateFlagPayload { flagEdge, media { annotations, annotations_count } }`;
+      break;
     }
     return query;
   }
 
+  getOptimisticResponse() {
+    const flag = {
+      id: this.props.id,
+      created_at: new Date().toString(),
+      annotation_type: 'flag',
+      permissions: '{"destroy Annotation":true,"destroy Flag":true}',
+      content: JSON.stringify({ flag: this.props.annotation.flag }),
+      annotated_id: this.props.annotation.annotated_id,
+      annotator: {
+        name: this.props.annotator.name,
+        profile_image: this.props.annotator.profile_image
+      },
+      medias: {
+        edges: []
+      }
+    };
+    
+    return { flagEdge: { node: flag }};
+  }
+
   getVariables() {
-    var flag = this.props.annotation;
-    var vars = { flag: flag.flag, annotated_id: flag.annotated_id + '', annotated_type: flag.annotated_type };
-    if (Checkdesk.context.project) {
+    const flag = this.props.annotation;
+    const vars = { flag: flag.flag, annotated_id: `${flag.annotated_id}`, annotated_type: flag.annotated_type };
+    const context = this.props.context;
+    if (context && context.project) {
       vars.context_type = 'Project';
-      vars.context_id = Checkdesk.context.project.dbid.toString();
+      vars.context_id = context.project.dbid.toString();
     }
     return vars;
   }
 
   getConfigs() {
-    var fieldIds = {};
+    const fieldIds = {};
     fieldIds[this.props.parent_type] = this.props.annotated.id;
 
     return [
@@ -42,14 +63,14 @@ class CreateFlagMutation extends Relay.Mutation {
         parentID: this.props.annotated.id,
         connectionName: 'annotations',
         edgeName: 'flagEdge',
-        rangeBehaviors: {
-          '': 'prepend'
-        }
+        rangeBehaviors: (calls) => {
+          return 'prepend';
+        },
       },
       {
         type: 'FIELDS_CHANGE',
-        fieldIDs: fieldIds
-      }
+        fieldIDs: fieldIds,
+      },
     ];
   }
 }
