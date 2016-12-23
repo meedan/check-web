@@ -47,11 +47,14 @@ class MediaStatus extends Component {
     const onFailure = (transaction) => { context.fail(transaction); };
     const onSuccess = (response) => { context.success('status'); };
 
+    const store = new CheckContext(this).getContextStore();
+
     Relay.Store.commitUpdate(
       new CreateStatusMutation({
         parent_type: 'media',
         annotated: media,
-        context: new CheckContext(this).getContextStore(),
+        annotator: store.currentUser,
+        context: store,
         annotation: {
           status,
           annotated_type: 'Media',

@@ -32,6 +32,27 @@ class CreateTagMutation extends Relay.Mutation {
     return vars;
   }
 
+  getOptimisticResponse() {
+    const tag = {
+      id: this.props.id,
+      created_at: new Date().toString(),
+      annotation_type: 'tag',
+      permissions: '{"destroy Annotation":true,"destroy Tag":true}',
+      content: JSON.stringify({ tag: this.props.annotation.tag }),
+      tag: this.props.annotation.tag,
+      annotated_id: this.props.annotation.annotated_id,
+      annotator: {
+        name: this.props.annotator.name,
+        profile_image: this.props.annotator.profile_image
+      },
+      medias: {
+        edges: []
+      }
+    };
+    
+    return { tagEdge: { node: tag }};
+  }
+
   getConfigs() {
     const fieldIds = {};
     fieldIds[this.props.parent_type] = this.props.annotated.id;
@@ -43,8 +64,8 @@ class CreateTagMutation extends Relay.Mutation {
         parentID: this.props.annotated.id,
         connectionName: 'tags',
         edgeName: 'tagEdge',
-        rangeBehaviors: {
-          '': 'prepend',
+        rangeBehaviors: (calls) => {
+          return 'prepend';
         },
       },
       {
@@ -53,8 +74,8 @@ class CreateTagMutation extends Relay.Mutation {
         parentID: this.props.annotated.id,
         connectionName: 'annotations',
         edgeName: 'tagEdge',
-        rangeBehaviors: {
-          '': 'prepend',
+        rangeBehaviors: (calls) => {
+          return 'prepend';
         },
       },
       {

@@ -56,6 +56,7 @@ class MediaTags extends Component {
     Relay.Store.commitUpdate(
       new CreateTagMutation({
         annotated: media,
+        annotator: context.currentUser,
         parent_type: 'media',
         context,
         annotation: {

@@ -45,9 +45,7 @@ class MediaDetail extends Component {
     const history = new CheckContext(this).getContextStore().history;
 
     const onSuccess = (response) => {
-      const rid = response.createMedia.media.dbid;
-      history.push(prefix + rid);
-      this.setState({ message: null, isSubmitting: false });
+      this.setState({ isEditing: false });
     };
 
     Relay.Store.commitUpdate(
@@ -87,8 +85,8 @@ class MediaDetail extends Component {
       (<span>by {media.user.name}</span>) : '';
 
     let embedCard = null;
-    if (data && data.quote && data.quote.length) {
-      embedCard = <QuoteMediaCard quoteText={data.quote} attributionName={null} attributionUrl={null} />;
+    if (media.quote && media.quote.length) {
+      embedCard = <QuoteMediaCard quoteText={media.quote} attributionName={null} attributionUrl={null} />;
     } else if (media.url) {
       embedCard = this.props.condensed ?
         <SocialMediaCard media={media} data={data} /> :
