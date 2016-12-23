@@ -4,7 +4,7 @@ import webpack from 'webpack';
 export default {
   bail: true, // exit 1 on build failure
   entryWeb: {
-    index: [ 'babel-polyfill', path.join(__dirname, '../src/web/index/index') ]
+    index: [ 'babel-polyfill', 'whatwg-fetch', path.join(__dirname, '../src/web/index/index') ]
   },
   output: {
     pathWeb: path.join(__dirname, '../build/web/js'),
@@ -36,7 +36,7 @@ export default {
     loaders: [{
       test: /\.js$/,
       loader: ['babel'],
-      exclude: /node_modules/, 
+      exclude: /node_modules/,
       query: { presets: ['es2015', 'stage-0', 'react'], plugins: [path.join(__dirname, '../src/plugins/babelRelayPlugin.js')]}
     }, {
       test: /\.css?$/,
