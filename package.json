@@ -127,6 +127,7 @@
     "superagent": "^3.3.0",
     "url-regex": "^3.2.0",
     "util": "^0.10.3",
-    "webpack": "^1.12.2"
+    "webpack": "^1.12.2",
+    "whatwg-fetch": "^2.0.1"
   }
 }
