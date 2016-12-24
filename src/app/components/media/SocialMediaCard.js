@@ -2,22 +2,22 @@ import React, { Component, PropTypes } from 'react';
 import FontAwesome from 'react-fontawesome';
 import { Link } from 'react-router';
 import TimeAgo from 'react-timeago';
-import util from './MediaUtil';
+import MediaUtil from './MediaUtil';
 
 class SocialMediaCard extends Component {
   render() {
     const { media, data } = this.props;
     // TODO: make less verbose
-    const url = util.url(media, data);
-    const embedPublishedAt = util.embedPublishedAt(media, data);
-    const networkIconName = util.networkIconName(media);
-    const authorAvatarUrl = util.authorAvatarUrl(media, data);
-    const authorName = util.authorName(media, data);
-    const authorUsername = util.authorUsername(media, data);
-    const authorUrl = util.authorUrl(media, data);
-    const bodyText = util.bodyText(media, data);
-    const bodyImageUrl = util.bodyImageUrl(media, data);
-    const stats = util.stats(media, data);
+    const url = MediaUtil.url(media, data);
+    const embedPublishedAt = MediaUtil.embedPublishedAt(media, data);
+    const networkIconName = MediaUtil.networkIconName(media);
+    const authorAvatarUrl = MediaUtil.authorAvatarUrl(media, data);
+    const authorName = MediaUtil.authorName(media, data);
+    const authorUsername = MediaUtil.authorUsername(media, data);
+    const authorUrl = MediaUtil.authorUrl(media, data);
+    const bodyText = MediaUtil.bodyText(media, data);
+    const bodyImageUrl = MediaUtil.bodyImageUrl(media, data);
+    const stats = MediaUtil.stats(media, data);
 
     return (
       <article className="social-media-card">

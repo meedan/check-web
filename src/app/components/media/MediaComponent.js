@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import Pusher from 'pusher-js';
 import DocumentTitle from 'react-document-title';
 import MediaDetail from './MediaDetail';
-import util from './MediaUtil';
+import MediaUtil from './MediaUtil';
 import { Annotations, Tags } from '../source';
 import config from 'config';
 import { pageTitle } from '../../helpers';
@@ -72,7 +72,7 @@ class MediaComponent extends Component {
     }
 
     return (
-      <DocumentTitle title={pageTitle(util.title(media, data), false, this.getContext().team)}>
+      <DocumentTitle title={pageTitle(MediaUtil.title(media, data), false, this.getContext().team)}>
         <div className="media" data-id={media.dbid}>
           <article className="media__contents">
             <MediaDetail media={media} />

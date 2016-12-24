@@ -1,13 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
-import util from './MediaUtil';
+import MediaUtil from './MediaUtil';
 
 class MediaMetadataSummary extends Component {
 
   render() {
     const { media, data } = this.props;
-    const annotationsCount = util.notesCount(media, data);
-    const authorUsername = util.authorUsername(media, data);
+    const annotationsCount = MediaUtil.notesCount(media, data);
+    const authorUsername = MediaUtil.authorUsername(media, data);
 
     return (
       <div className="media-metadata-summary">

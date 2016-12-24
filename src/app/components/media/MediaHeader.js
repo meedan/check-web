@@ -3,7 +3,7 @@ import Relay from 'react-relay';
 import MediaRoute from '../../relay/MediaRoute';
 import Caret from '../Caret';
 import MediaMetadataSummary from './MediaMetadataSummary';
-import util from './MediaUtil';
+import MediaUtil from './MediaUtil';
 import CheckContext from '../../CheckContext';
 
 class MediaHeaderComponent extends Component {
@@ -23,7 +23,7 @@ class MediaHeaderComponent extends Component {
   render() {
     const media = this.props.media;
     const data = JSON.parse(media.jsondata);
-    const title = util.truncatedTitle(media, data);
+    const title = MediaUtil.truncatedTitle(media, data);
 
     if (this.props.relay.variables.contextId === null) {
       return null;

@@ -24,62 +24,19 @@ const MediaUtil = {
   },
 
   authorAvatarUrl(media, data) {
-    try {
-      return ({
-        'twitter.com': data.picture,
-        'facebook.com': data.picture,
-        // 'instagram.com': data.picture, // returns media image url
-        // 'youtube.com': data.picture // returns media image url
-      }[media.domain]);
-    } catch (e) {
-      return '';
-    }
+    return data.author_picture;
   },
 
   authorName(media, data) {
-    try {
-      switch (media.domain) {
-      case 'twitter.com':
-        return data.user ? data.user.name : '';
-      case 'facebook.com':
-        return data.user_name;
-      case 'youtube.com':
-        return data.username;
-      case 'instagram.com':
-        return data.username;
-      default:
-        return data.user_name || data.username || '';
-      }
-    } catch (e) {
-      return '';
-    }
+    return data.username;
   },
 
   authorUsername(media, data) {
-    try {
-      switch (media.domain) {
-      case 'twitter.com':
-        return data.user ? `@${data.user.screen_name}` : ''; // data.username?
-      case 'facebook.com':
-        return '';
-      case 'instagram.com':
-        return `@${data.author_name}`;
-      case 'youtube.com':
-        return `@${data.username}`;
-      default:
-        return data.username || '';
-      }
-    } catch (e) {
-      return '';
-    }
+    return `@${data.username}`;
   },
 
   authorUrl(media, data) {
-    try {
-      return data.author_url;
-    } catch (e) {
-      return '';
-    }
+    return data.author_url;
   },
 
   typeLabel(media, data) {
@@ -167,16 +124,7 @@ const MediaUtil = {
   },
 
   bodyText(media, data) {
-    try {
-      return ({
-        'twitter.com': data.text,
-        'facebook.com': data.text,
-        'instagram.com': data.description,
-        'youtube.com': 'Video',
-      }[media.domain] || data.text || data.description || '');
-    } catch (e) {
-      return '';
-    }
+    return data.description;
   },
 
   bodyImageUrl(media, data) {

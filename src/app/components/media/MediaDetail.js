@@ -9,7 +9,7 @@ import MediaTags from './MediaTags';
 import QuoteMediaCard from './QuoteMediaCard';
 import SocialMediaCard from './SocialMediaCard';
 import MediaActions from './MediaActions';
-import util from './MediaUtil';
+import MediaUtil from './MediaUtil';
 import Tags from '../source/Tags';
 import DefaultButton from '../inputs/DefaultButton';
 import PenderCard from '../PenderCard';
@@ -72,8 +72,8 @@ class MediaDetail extends Component {
   render() {
     const { media, annotated, annotatedType } = this.props;
     const data = JSON.parse(media.jsondata);
-    const createdAt = util.createdAt(media);
-    const annotationsCount = util.notesCount(media, data);
+    const createdAt = MediaUtil.createdAt(media);
+    const annotationsCount = MediaUtil.notesCount(media, data);
 
     let projectId = media.project_id;
     if (!projectId && annotated && annotatedType === 'Project') {
@@ -109,8 +109,8 @@ class MediaDetail extends Component {
         </div>
 
         {this.state.isEditing ?
-          <form onSubmit={this.handleSave.bind(this, media)}><input type="text" id={`media-detail-title-input-${media.dbid}`} className="media-detail__title-input" placeholder="Title" defaultValue={util.truncatedTitle(media, data)} /></form> :
-          <h2 className="media-detail__title"><Link to={mediaUrl}>{this.props.condensed ? util.truncatedTitle(media, data) : util.title(media, data)}</Link></h2>
+          <form onSubmit={this.handleSave.bind(this, media)}><input type="text" id={`media-detail-title-input-${media.dbid}`} className="media-detail__title-input" placeholder="Title" defaultValue={MediaUtil.truncatedTitle(media, data)} /></form> :
+          <h2 className="media-detail__title"><Link to={mediaUrl}>{this.props.condensed ? MediaUtil.truncatedTitle(media, data) : MediaUtil.title(media, data)}</Link></h2>
         }
 
         <div className={this.statusToClass('media-detail__media', media.last_status)}>
