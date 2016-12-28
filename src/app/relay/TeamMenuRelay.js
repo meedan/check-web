@@ -12,7 +12,7 @@ class TeamMenu extends Component {
 
     return (
       <Can permissions={team.permissions} permission="update Team">
-        <li className="header-actions__menu-item" onClick={history.push.bind(this, '/members')}>Manage team...</li>
+        <li className="header-actions__menu-item" onClick={history.push.bind(this, '/members')}>Manage team</li>
       </Can>
     );
   }
