@@ -78,7 +78,7 @@ class Annotation extends Component {
           <div className="annotation__body"><Linkify properties={{ target: '_blank' }}>{nl2br(commentText)}</Linkify></div>
           {annotation.medias.edges.map(media => (
             <div className="annotation__embedded-media">
-              <MediaDetail media={media.node} condensed={true} />
+              <MediaDetail media={media.node} condensed={true} readonly={true} />
             </div>
               ))}
         </section>

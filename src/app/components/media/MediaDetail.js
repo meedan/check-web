@@ -93,16 +93,17 @@ class MediaDetail extends Component {
     return (
       <div className={this.statusToClass('media-detail', media.last_status)}>
         <div className="media-detail__header">
-          <div className="media-detail__status"><MediaStatus media={media} /></div>
-
-          {this.state.isEditing ? (
-            <span className="media-detail__editing-buttons">
-              <DefaultButton onClick={this.handleCancel.bind(this)} className="media-detail__cancel-edits" size="xsmall">Cancel</DefaultButton>
-              <DefaultButton onClick={this.handleSave.bind(this, media)} className="media-detail__save-edits" size="xsmall" style="primary">Done</DefaultButton>
-            </span>
-            ) :
-            <MediaActions media={media} handleEdit={this.handleEdit.bind(this)} />
-          }
+          <div className="media-detail__status"><MediaStatus media={media} readonly={this.props.readonly} /></div>
+            {this.state.isEditing ? (
+              <span className="media-detail__editing-buttons">
+                <DefaultButton onClick={this.handleCancel.bind(this)} className="media-detail__cancel-edits" size="xsmall">Cancel</DefaultButton>
+                <DefaultButton onClick={this.handleSave.bind(this, media)} className="media-detail__save-edits" size="xsmall" style="primary">Done</DefaultButton>
+              </span>
+              ) : null
+            }
+            {this.props.readonly || this.state.isEditing ? null :
+              <MediaActions media={media} handleEdit={this.handleEdit.bind(this)} />
+            }
         </div>
 
         {this.state.isEditing ?
