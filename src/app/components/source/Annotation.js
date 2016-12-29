@@ -3,7 +3,7 @@ import Relay from 'react-relay';
 import TimeAgo from 'react-timeago';
 import Linkify from 'react-linkify';
 import nl2br from 'react-nl2br';
-import MediaCard from '../media/MediaCard';
+import MediaDetail from '../media/MediaDetail';
 import DeleteAnnotationMutation from '../../relay/DeleteAnnotationMutation';
 import Can from '../Can';
 
@@ -78,7 +78,7 @@ class Annotation extends Component {
           <div className="annotation__body"><Linkify properties={{ target: '_blank' }}>{nl2br(commentText)}</Linkify></div>
           {annotation.medias.edges.map(media => (
             <div className="annotation__embedded-media">
-              <MediaCard media={media.node} />
+              <MediaDetail media={media.node} condensed={true} />
             </div>
               ))}
         </section>

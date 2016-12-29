@@ -13,7 +13,7 @@ class Medias extends Component {
 
             return (
               <li className="medias__item">
-                <MediaCard media={media} />
+                <MediaDetail media={media} condensed={true} />
               </li>
             );
           })}

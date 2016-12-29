@@ -51,6 +51,7 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
                   node {
                     id,
                     dbid,
+                    quote,
                     published,
                     url,
                     jsondata,
