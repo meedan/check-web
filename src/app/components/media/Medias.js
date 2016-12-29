@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import MediaCard from './MediaCard';
+import MediaDetail from './MediaDetail';
 
 class Medias extends Component {
   render() {
