@@ -122,7 +122,7 @@ class MediaDetail extends Component {
           <Link to={mediaUrl} className="media-detail__check-notes-count">{annotationsCount}</Link>
         </p>
 
-        <MediaTags media={media} tags={media.tags.edges} isEditing={this.state.isEditing} />
+        {media.tags ? <MediaTags media={media} tags={media.tags.edges} isEditing={this.state.isEditing} /> : null}
       </div>
     );
   }
