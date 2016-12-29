@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
-import FontAwesome from 'react-fontawesome';
 import TimeAgo from 'react-timeago';
 import { Link } from 'react-router';
 import config from 'config';
@@ -41,8 +40,6 @@ class MediaDetail extends Component {
       const transactionError = transaction.getError();
       transactionError.json ? transactionError.json().then(handleError) : handleError(JSON.stringify(transactionError));
     };
-
-    const history = new CheckContext(this).getContextStore().history;
 
     const onSuccess = (response) => {
       this.setState({ isEditing: false });
