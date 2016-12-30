@@ -1,10 +1,13 @@
 require 'selenium-webdriver'
+require 'appium_lib'
 require 'yaml'
 require File.join(File.expand_path(File.dirname(__FILE__)), 'spec_helper')
 require File.join(File.expand_path(File.dirname(__FILE__)), 'app_spec_helpers')
 require_relative './pages/login_page.rb'
 require_relative './pages/me_page.rb'
 require_relative './pages/teams_page.rb'
+
+AppSpec = lambda do |webdriver_url, browser_capabilities|
 
 describe 'app' do
 
@@ -27,7 +30,11 @@ describe 'app' do
 
     FileUtils.cp(@config['config_file_path'], '../build/web/js/config.js') unless @config['config_file_path'].nil?
 
-    LoginPage.new(config: @config).load
+    @driver = browser_capabilities['appiumVersion'] ?
+      Appium::Driver.new({ appium_lib: { server_url: webdriver_url}, caps: browser_capabilities }).start_driver :
+      Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: browser_capabilities)
+
+    LoginPage.new(config: @config, driver: @driver).load
         .register_and_login_with_email(email: @email, password: @password)
         .create_team
         .create_project
@@ -44,7 +51,9 @@ describe 'app' do
   # Start Google Chrome before each test
 
   before :each do
-    @driver = Selenium::WebDriver.for :remote, url: @config['chromedriver_url'], :desired_capabilities => :chrome
+    @driver = browser_capabilities['appiumVersion'] ?
+      Appium::Driver.new({ appium_lib: { server_url: webdriver_url}, caps: browser_capabilities }).start_driver :
+      Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: browser_capabilities)
   end
 
   # Close Google Chrome after each test
@@ -778,4 +787,5 @@ describe 'app' do
     #   skip("Needs to be implemented")
     # end
   end
+end
 end

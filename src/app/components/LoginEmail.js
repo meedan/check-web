@@ -152,7 +152,7 @@ class LoginEmail extends Component {
             )}
 
             <div className="login-email__actions">
-              <button type="submit" id="submit-register-or-login" onClick={this.onFormSubmit.bind(this)} className={`login-email__submit login-email__submit--${this.state.type}`}>
+              <button type="submit" id="submit-register-or-login" className={`login-email__submit login-email__submit--${this.state.type}`}>
                 {this.state.type === 'login' ? 'Sign in »' : 'Sign up »'}
               </button>
               <button type="button" id="register-or-login" onClick={this.handleSwitchType.bind(this)} className="login-email__register-or-login">

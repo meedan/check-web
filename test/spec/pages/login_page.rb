@@ -22,7 +22,8 @@ class LoginPage < Page
     fill_input('.login-email__password input', options[:password])
     fill_input('.login-email__password-confirmation input', options[:password])
     fill_input('input[type=file]', options[:file], { hidden: true }) if options[:file]
-    click_button('#submit-register-or-login')
+    # TODO: fix or remove click_button() for mobile browsers
+    (@wait.until { @driver.find_element(:xpath, "//button[@id='submit-register-or-login']") }).click
 
     @wait.until { @driver.page_source.include?("You have to confirm your email address before continuing.") }
     confirm_email(options[:email])
@@ -34,7 +35,8 @@ class LoginPage < Page
 
     fill_input('.login-email__email input', options[:email])
     fill_input('.login-email__password input', options[:password])
-    click_button('#submit-register-or-login')
+    # TODO: fix or remove click_button() for mobile browsers
+    (@wait.until { @driver.find_element(:xpath, "//button[@id='submit-register-or-login']") }).click
 
     wait_for_element('.home')
     return CreateTeamPage.new(config: @config, driver: @driver) if contains_element?('.create-team')
