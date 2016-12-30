@@ -7,4 +7,10 @@
   &:hover {
     text-decoration: none;
   }
+  color: $light-gray-text;
+}
+
+.breadcrumb__label {
+  font-size: 14px;
+  padding-top: 2px
 }
