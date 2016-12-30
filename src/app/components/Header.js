@@ -15,7 +15,7 @@ class Header extends Component {
     const defaultHeader = (
       <header className="header header--default">
         <div className="header__container">
-          <div className="header__breadcrumb"><Breadcrumb url="/" title={null} /></div>
+          <div className="header__breadcrumb"><Breadcrumb url="/" label={null} /></div>
           <HeaderActions {...this.props} />
         </div>
       </header>
@@ -31,7 +31,7 @@ class Header extends Component {
         <header className="header header--media">
           <div className="header__container">
             <span style={{ display: 'none' }}><TeamHeader {...this.props} /></span>
-            <div className="header__breadcrumb"><Breadcrumb url={projectUrl} title="« Back to Project" /></div>
+            <div className="header__breadcrumb"><Breadcrumb url={projectUrl} label="Back to Project" /></div>
             <MediaHeader {...this.props} />
             <HeaderActions {...this.props} />
           </div>
@@ -56,7 +56,7 @@ class Header extends Component {
         <header className="header header--default">
           <div className="header__container">
             <span style={{ display: 'none' }}><TeamHeader {...this.props} /></span>
-            <div className="header__breadcrumb"><Breadcrumb url="/" title={null} /></div>
+            <div className="header__breadcrumb"><Breadcrumb url="/" label={null} /></div>
             <HeaderActions {...this.props} />
           </div>
         </header>
@@ -68,7 +68,7 @@ class Header extends Component {
         <header className="header header--team-subpage">
           <div className="header__container">
             <span style={{ display: 'none' }}><TeamHeader {...this.props} /></span>
-            <div className="header__breadcrumb"><Breadcrumb url="/" title="« Back to Team" /></div>
+            <div className="header__breadcrumb"><Breadcrumb url="/" label="Back to Team" /></div>
             <HeaderActions {...this.props} />
           </div>
         </header>
@@ -80,7 +80,7 @@ class Header extends Component {
         <header className="header header--team">
           <div className="header__container">
             <span style={{ display: 'none' }}><TeamHeader {...this.props} /></span>
-            <div className="header__breadcrumb"><Breadcrumb url="/teams" title="« Your Teams" /></div>
+            <div className="header__breadcrumb"><Breadcrumb url="/teams" label="Teams" /></div>
             <HeaderActions {...this.props} />
           </div>
         </header>
