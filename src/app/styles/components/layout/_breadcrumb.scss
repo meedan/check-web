@@ -7,7 +7,7 @@
   &:hover {
     text-decoration: none;
   }
-  color: $light-gray-text;
+  &, &:visited { color: $light-gray-text; }
 }
 
 .breadcrumb__label {
