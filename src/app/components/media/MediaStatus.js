@@ -57,7 +57,7 @@ class MediaStatus extends Component {
         context: store,
         annotation: {
           status,
-          annotated_type: 'Media',
+          annotated_type: 'ProjectMedia',
           annotated_id: media.dbid,
         },
       }),

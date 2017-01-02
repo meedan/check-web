@@ -28,7 +28,7 @@ class CreateMediaMutation extends Relay.Mutation {
         type: 'RANGE_ADD',
         parentName: 'project',
         parentID: this.props.project.id,
-        connectionName: 'medias',
+        connectionName: 'project_medias',
         edgeName: 'mediaEdge',
         rangeBehaviors: {
           '': 'prepend',
