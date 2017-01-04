@@ -51,7 +51,7 @@ class MediaStatus extends Component {
 
     Relay.Store.commitUpdate(
       new CreateStatusMutation({
-        parent_type: 'media',
+        parent_type: 'project_media',
         annotated: media,
         annotator: store.currentUser,
         context: store,
