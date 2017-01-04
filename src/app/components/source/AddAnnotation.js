@@ -126,7 +126,7 @@ class AddAnnotation extends Component {
 
     Relay.Store.commitUpdate(
       new CreateStatusMutation({
-        parent_type: annotated_type.toLowerCase(),
+        parent_type: annotated_type.replace(/([a-z])([A-Z])/, '$1_$2').toLowerCase(),
         annotated,
         annotator,
         context: that.getContext(),

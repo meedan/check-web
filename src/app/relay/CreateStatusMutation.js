@@ -14,7 +14,7 @@ class CreateStatusMutation extends Relay.Mutation {
     case 'source':
       query = Relay.QL`fragment on CreateStatusPayload { statusEdge, source { annotations, id } }`;
       break;
-    case 'media':
+    case 'project_media':
       query = Relay.QL`fragment on CreateStatusPayload { statusEdge, project_media { annotations, id, last_status, annotations_count } }`;
       break;
     }
@@ -42,7 +42,7 @@ class CreateStatusMutation extends Relay.Mutation {
     const media = Object.assign({}, this.props.annotated);
     media.last_status = this.props.annotation.status;
 
-    return { statusEdge: { node: status }, media };
+    return { statusEdge: { node: status }, project_media: media };
   }
 
   getVariables() {
