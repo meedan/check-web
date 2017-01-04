@@ -64,7 +64,7 @@ class CreateMedia extends Component {
     };
 
     const onSuccess = (response) => {
-      const rid = response.createMedia.media.dbid;
+      const rid = response.createMedia.media.pm_dbid;
       context.history.push(prefix + rid);
       this.setState({ message: null, isSubmitting: false });
     };

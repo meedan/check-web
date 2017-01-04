@@ -40,6 +40,7 @@ class CreateMediaMutation extends Relay.Mutation {
           fragment on CreateMediaPayload {
             media {
               dbid
+              pm_dbid
             }
           }`,
         ],

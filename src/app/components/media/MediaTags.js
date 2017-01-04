@@ -61,7 +61,7 @@ class MediaTags extends Component {
         context,
         annotation: {
           tag: tagString.trim(),
-          annotated_type: 'Media',
+          annotated_type: 'ProjectMedia',
           annotated_id: media.dbid,
         },
       }),
@@ -116,7 +116,7 @@ class MediaTags extends Component {
           </div>
         ) : null}
 
-        <Tags tags={remainingTags} annotated={media} annotatedType="Media" />
+        <Tags tags={remainingTags} annotated={media} annotatedType="ProjectMedia" />
       </div>
     );
   }
