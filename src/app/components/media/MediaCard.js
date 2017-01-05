@@ -11,7 +11,7 @@ class MediaCard extends Component {
     const that = this;
     const props = that.props;
     const { media, annotated, annotatedType } = props;
-    const data = JSON.parse(media.jsondata);
+    const data = JSON.parse(media.embed);
 
     let linkUrl = '#';
     if (annotatedType === 'Project' && annotated && annotated.team) { // TODO: better support for media cards on sources

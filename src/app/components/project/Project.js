@@ -167,7 +167,7 @@ const ProjectContainer = Relay.createContainer(ProjectComponent, {
               url,
               quote,
               published,
-              jsondata,
+              embed,
               annotations_count,
               domain,
               last_status,

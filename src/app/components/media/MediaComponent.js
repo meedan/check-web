@@ -65,7 +65,7 @@ class MediaComponent extends Component {
 
   render() {
     const media = this.props.media;
-    const data = JSON.parse(media.jsondata);
+    const data = JSON.parse(media.embed);
 
     if (this.props.relay.variables.contextId === null) {
       return null;
