@@ -82,3 +82,4 @@ it("should do whatever my unit expects");
 ## Notes and tips
 
 * Run `npm install babel-register -g` if you face errors related to `babel-register`
+* Remove your `node_modules` directory if you face errors related to `npm install`

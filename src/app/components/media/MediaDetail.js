@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
-import FontAwesome from 'react-fontawesome';
 import TimeAgo from 'react-timeago';
 import { Link } from 'react-router';
 import config from 'config';
@@ -41,8 +40,6 @@ class MediaDetail extends Component {
       const transactionError = transaction.getError();
       transactionError.json ? transactionError.json().then(handleError) : handleError(JSON.stringify(transactionError));
     };
-
-    const history = new CheckContext(this).getContextStore().history;
 
     const onSuccess = (response) => {
       this.setState({ isEditing: false });
@@ -96,16 +93,17 @@ class MediaDetail extends Component {
     return (
       <div className={this.statusToClass('media-detail', media.last_status)}>
         <div className="media-detail__header">
-          <div className="media-detail__status"><MediaStatus media={media} /></div>
-
-          {this.state.isEditing ? (
-            <span className="media-detail__editing-buttons">
-              <DefaultButton onClick={this.handleCancel.bind(this)} className="media-detail__cancel-edits" size="xsmall">Cancel</DefaultButton>
-              <DefaultButton onClick={this.handleSave.bind(this, media)} className="media-detail__save-edits" size="xsmall" style="primary">Done</DefaultButton>
-            </span>
-            ) :
-            <MediaActions media={media} handleEdit={this.handleEdit.bind(this)} />
-          }
+          <div className="media-detail__status"><MediaStatus media={media} readonly={this.props.readonly} /></div>
+            {this.state.isEditing ? (
+              <span className="media-detail__editing-buttons">
+                <DefaultButton onClick={this.handleCancel.bind(this)} className="media-detail__cancel-edits" size="xsmall">Cancel</DefaultButton>
+                <DefaultButton onClick={this.handleSave.bind(this, media)} className="media-detail__save-edits" size="xsmall" style="primary">Done</DefaultButton>
+              </span>
+              ) : null
+            }
+            {this.props.readonly || this.state.isEditing ? null :
+              <MediaActions media={media} handleEdit={this.handleEdit.bind(this)} />
+            }
         </div>
 
         {this.state.isEditing ?
@@ -125,7 +123,7 @@ class MediaDetail extends Component {
           <Link to={mediaUrl} className="media-detail__check-notes-count">{annotationsCount}</Link>
         </p>
 
-        <MediaTags media={media} tags={media.tags.edges} isEditing={this.state.isEditing} />
+        {media.tags ? <MediaTags media={media} tags={media.tags.edges} isEditing={this.state.isEditing} /> : null}
       </div>
     );
   }
