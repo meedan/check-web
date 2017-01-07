@@ -7,9 +7,9 @@ class Breadcrumb extends Component {
     const { url, label } = this.props;
 
     return (
-      <Link to={url} className="breadcrumb" title={label ? `« #{label}` : null}>
+      <Link to={url} className="breadcrumb" title={label ? '« #{label}' : null}>
         <Caret left />
-        {label ? <span className='breadcrumb__label'>{label}</span> : null}
+        {label ? <span className="breadcrumb__label">{label}</span> : null}
       </Link>
     );
   }

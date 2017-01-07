@@ -39,38 +39,38 @@ class LoginEmail extends Component {
     const that = this;
     const params = {
       'api_user[email]': this.state.email,
-      'api_user[password]': this.state.password
+      'api_user[password]': this.state.password,
     };
     let failureCallback = function (message) {
-      that.setState({ open: true, message: message });
-    },
-    successCallback = function (data) {
-      that.setState({ open: false, message: null });
-      that.props.loginCallback();
-      history.push('/');
-    };
+        that.setState({ open: true, message });
+      },
+      successCallback = function (data) {
+        that.setState({ open: false, message: null });
+        that.props.loginCallback();
+        history.push('/');
+      };
     request('post', 'users/sign_in', failureCallback, successCallback, params);
   }
 
   registerEmail() {
     const history = this.getHistory();
     let that = this,
-        form = document.forms.register;
+      form = document.forms.register;
     const params = {
       'api_user[email]': this.state.email,
       'api_user[name]': this.state.name,
       'api_user[password]': this.state.password,
       'api_user[password_confirmation]': this.state.password_confirmation,
-      'api_user[image]': form.image
+      'api_user[image]': form.image,
     };
     let failureCallback = function (message) {
-      that.setState({ open: true, message: message });
-    },
-    successCallback = function (data) {
-      that.setState({ open: false, message: null });
-      that.props.loginCallback();
-      history.push(window.location.pathname);
-    };
+        that.setState({ open: true, message });
+      },
+      successCallback = function (data) {
+        that.setState({ open: false, message: null });
+        that.props.loginCallback();
+        history.push(window.location.pathname);
+      };
     request('post', 'users', failureCallback, successCallback, params);
   }
 
@@ -169,7 +169,7 @@ class LoginEmail extends Component {
 }
 
 LoginEmail.contextTypes = {
-  store: React.PropTypes.object
+  store: React.PropTypes.object,
 };
 
 export default LoginEmail;

@@ -95,7 +95,7 @@ class MediaHeader extends Component {
       projectId = store.project.dbid;
     }
     const ids = `${this.props.params.mediaId},${projectId}`;
-    const route = new MediaRoute({ ids: ids });
+    const route = new MediaRoute({ ids });
     return (<Relay.RootContainer Component={MediaHeaderContainer} route={route} />);
   }
 }

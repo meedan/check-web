@@ -69,7 +69,7 @@ class AddAnnotation extends Component {
     const onFailure = (transaction) => { that.fail(transaction); };
 
     const onSuccess = (response) => { that.success('comment'); };
-      
+
     const annotator = that.getContext().currentUser;
 
     Relay.Store.commitUpdate(
@@ -94,7 +94,7 @@ class AddAnnotation extends Component {
     const onFailure = (transaction) => { that.fail(transaction); };
 
     const onSuccess = (response) => { that.success('tag'); };
-    
+
     const annotator = that.getContext().currentUser;
 
     const context = that.getContext();
@@ -121,7 +121,7 @@ class AddAnnotation extends Component {
     const onFailure = (transaction) => { that.fail(transaction); };
 
     const onSuccess = (response) => { that.success('status'); };
-    
+
     const annotator = that.getContext().currentUser;
 
     Relay.Store.commitUpdate(
@@ -144,7 +144,7 @@ class AddAnnotation extends Component {
     const onFailure = (transaction) => { that.fail(transaction); };
 
     const onSuccess = (response) => { that.success('flag'); };
-    
+
     const annotator = that.getContext().currentUser;
 
     Relay.Store.commitUpdate(

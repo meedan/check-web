@@ -254,7 +254,7 @@ const SearchQueryContainer = Relay.createContainer(SearchQueryComponent, {
           }
         }
       }
-    `
+    `,
   },
 });
 

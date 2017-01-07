@@ -38,7 +38,7 @@ class CheckContext {
   startNetwork(token) {
     const history = this.getContextStore().history;
     Relay.injectNetworkLayer(new CheckNetworkLayer(config.relayPath, {
-      history: history,
+      history,
       get headers() {
         const headers = config.relayHeaders;
         if (token) {

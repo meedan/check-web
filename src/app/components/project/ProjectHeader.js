@@ -94,9 +94,9 @@ class ProjectHeaderComponent extends Component {
 
   deleteProject() {
     let that = this,
-        id = this.props.project.id,
-        teamId = this.props.project.team.id,
-        history = new CheckContext(this).getContextStore().history;
+      id = this.props.project.id,
+      teamId = this.props.project.team.id,
+      history = new CheckContext(this).getContextStore().history;
 
     if (window.confirm("Are you sure? This can't be undone later!")) {
       const onFailure = (transaction) => {
@@ -215,7 +215,7 @@ class ProjectHeaderComponent extends Component {
 }
 
 ProjectHeaderComponent.contextTypes = {
-  store: React.PropTypes.object
+  store: React.PropTypes.object,
 };
 
 const ProjectHeaderContainer = Relay.createContainer(ProjectHeaderComponent, {

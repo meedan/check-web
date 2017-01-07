@@ -43,14 +43,14 @@ class CreateTagMutation extends Relay.Mutation {
       annotated_id: this.props.annotation.annotated_id,
       annotator: {
         name: this.props.annotator.name,
-        profile_image: this.props.annotator.profile_image
+        profile_image: this.props.annotator.profile_image,
       },
       medias: {
-        edges: []
-      }
+        edges: [],
+      },
     };
-    
-    return { tagEdge: { node: tag }};
+
+    return { tagEdge: { node: tag } };
   }
 
   getConfigs() {
@@ -64,9 +64,7 @@ class CreateTagMutation extends Relay.Mutation {
         parentID: this.props.annotated.id,
         connectionName: 'tags',
         edgeName: 'tagEdge',
-        rangeBehaviors: (calls) => {
-          return 'prepend';
-        },
+        rangeBehaviors: calls => 'prepend',
       },
       {
         type: 'RANGE_ADD',
@@ -74,9 +72,7 @@ class CreateTagMutation extends Relay.Mutation {
         parentID: this.props.annotated.id,
         connectionName: 'annotations',
         edgeName: 'tagEdge',
-        rangeBehaviors: (calls) => {
-          return 'prepend';
-        },
+        rangeBehaviors: calls => 'prepend',
       },
       {
         type: 'FIELDS_CHANGE',

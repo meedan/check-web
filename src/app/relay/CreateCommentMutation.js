@@ -34,14 +34,14 @@ class CreateCommentMutation extends Relay.Mutation {
       annotated_id: this.props.annotation.annotated_id,
       annotator: {
         name: this.props.annotator.name,
-        profile_image: this.props.annotator.profile_image
+        profile_image: this.props.annotator.profile_image,
       },
       medias: {
-        edges: []
-      }
+        edges: [],
+      },
     };
-    
-    return { commentEdge: { node: comment }};
+
+    return { commentEdge: { node: comment } };
   }
 
   getVariables() {
@@ -66,9 +66,7 @@ class CreateCommentMutation extends Relay.Mutation {
         parentID: this.props.annotated.id,
         connectionName: 'annotations',
         edgeName: 'commentEdge',
-        rangeBehaviors: (calls) => {
-          return 'prepend';
-        },
+        rangeBehaviors: calls => 'prepend',
       },
       {
         type: 'FIELDS_CHANGE',

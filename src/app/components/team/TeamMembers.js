@@ -24,7 +24,7 @@ const TeamContainer = Relay.createContainer(TeamMembersComponent, {
           }
         },
       }
-    `
+    `,
   },
 });
 
