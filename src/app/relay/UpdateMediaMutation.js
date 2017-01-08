@@ -20,7 +20,7 @@ class UpdateMediaMutation extends Relay.Mutation {
     return {
       id: this.props.id,
       // url: this.props.url
-      embed_data: this.props.embed_data,
+      embed: this.props.embed,
       // project_id: this.props.project.dbid
     };
   }

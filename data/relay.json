@@ -11361,7 +11361,7 @@
               "defaultValue": null
             },
             {
-              "name": "embed_data",
+              "name": "embed",
               "description": null,
               "type": {
                 "kind": "SCALAR",
