@@ -6,7 +6,7 @@ import MediaDetail from '../../src/app/components/media/MediaDetail';
 
 describe('<MediaDetail />', () => {
   const media = {
-    jsondata: JSON.stringify({}),
+    embed: JSON.stringify({}),
     last_status: 'verified',
     verification_statuses: JSON.stringify({statuses: [{label: 'verified'}]}),
     annotations_count: 0,
