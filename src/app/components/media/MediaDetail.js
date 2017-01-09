@@ -47,7 +47,7 @@ class MediaDetail extends Component {
 
     Relay.Store.commitUpdate(
       new UpdateMediaMutation({
-        embed_data: JSON.stringify({ title: newTitle }),
+        embed: JSON.stringify({ title: newTitle }),
         id: media.id,
       }),
       { onSuccess, onFailure },
