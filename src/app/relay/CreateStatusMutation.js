@@ -32,11 +32,11 @@ class CreateStatusMutation extends Relay.Mutation {
       annotated_id: this.props.annotation.annotated_id,
       annotator: {
         name: this.props.annotator.name,
-        profile_image: this.props.annotator.profile_image
+        profile_image: this.props.annotator.profile_image,
       },
       medias: {
-        edges: []
-      }
+        edges: [],
+      },
     };
 
     const media = Object.assign({}, this.props.annotated);
@@ -67,9 +67,7 @@ class CreateStatusMutation extends Relay.Mutation {
         parentID: this.props.annotated.id,
         connectionName: 'annotations',
         edgeName: 'statusEdge',
-        rangeBehaviors: (calls) => {
-          return 'prepend';
-        },
+        rangeBehaviors: calls => 'prepend',
       },
       {
         type: 'FIELDS_CHANGE',

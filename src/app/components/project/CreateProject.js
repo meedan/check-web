@@ -15,9 +15,9 @@ class CreateProject extends Component {
 
   handleSubmit(e) {
     let that = this,
-        title = document.getElementById('create-project-title').value,
-        team = this.props.team,
-        history = new CheckContext(this).getContextStore().history;
+      title = document.getElementById('create-project-title').value,
+      team = this.props.team,
+      history = new CheckContext(this).getContextStore().history;
 
     const onFailure = (transaction) => {
       const error = transaction.getError();
@@ -65,7 +65,7 @@ class CreateProject extends Component {
 }
 
 CreateProject.contextTypes = {
-  store: React.PropTypes.object
+  store: React.PropTypes.object,
 };
 
 export default CreateProject;

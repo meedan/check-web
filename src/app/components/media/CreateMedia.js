@@ -71,8 +71,8 @@ class CreateMedia extends Component {
 
     Relay.Store.commitUpdate(
       new CreateMediaMutation({
-        url: url,
-        quote: quote,
+        url,
+        quote,
         project: context.project,
       }),
       { onSuccess, onFailure },

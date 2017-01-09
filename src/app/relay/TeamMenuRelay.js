@@ -19,7 +19,7 @@ class TeamMenu extends Component {
 }
 
 TeamMenu.contextTypes = {
-  store: React.PropTypes.object
+  store: React.PropTypes.object,
 };
 
 const TeamMenuContainer = Relay.createContainer(TeamMenu, {
@@ -31,7 +31,7 @@ const TeamMenuContainer = Relay.createContainer(TeamMenu, {
         name,
         permissions,
       }
-    `
+    `,
   },
 });
 
