@@ -13,10 +13,14 @@ class CreateTeamPage < Page
     name = options[:name] || "Team #{Time.now}"
     subdomain = options[:subdomain] || "team#{Time.now.to_i}#{Process.pid}"
 
+    element('.create-team__team-display-name-input').click
+    sleep 1 # TODO: better soft keyboard strategies
     fill_input('.create-team__team-display-name-input', name)
-    press(:tab)
-    press(:backspace)
+
+    element('.create-team__team-subdomain-input').click
+    sleep 1 # TODO: better soft keyboard strategies
     fill_input('.create-team__team-subdomain-input', subdomain)
+
     click_button('.create-team__submit-button')
 
     wait_for_element('.team')
