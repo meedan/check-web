@@ -22,6 +22,7 @@
     "test:integration": "cd test && rspec spec/integration_spec.rb && cd ..",
     "test:proxy": "cd test && ruby spec/sauce/sauce_connect.rb && cd ..",
     "test:browsers": "cd test && rspec spec/browser_spec.rb && cd ..",
+    "test:browsers:parallel": "cd test && PARALLEL_SPLIT_TEST_PROCESSES=2 parallel_split_test spec/browser_spec.rb && cd ..",
     "test:ff": "cd test && rspec --fail-fast && cd ..",
     "lint:styles": "sass-lint --config .sass-lint.yml './**/*.scss' --verbose --ignore './test/**/*.scss, ./node_modules/**/*.scss'",
     "lint:src": "eslint src --fix"

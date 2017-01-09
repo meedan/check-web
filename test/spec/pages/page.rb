@@ -6,7 +6,7 @@ class Page
   def initialize(options)
     @config = options[:config]
     @driver = options[:driver]
-    @wait = Selenium::WebDriver::Wait.new(timeout: 5)
+    @wait = Selenium::WebDriver::Wait.new(timeout: 10)
   end
 
   def load

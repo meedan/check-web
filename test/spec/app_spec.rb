@@ -7,9 +7,7 @@ require_relative './pages/login_page.rb'
 require_relative './pages/me_page.rb'
 require_relative './pages/teams_page.rb'
 
-AppSpec = lambda do |webdriver_url, browser_capabilities|
-
-describe 'app' do
+shared_examples 'app' do |webdriver_url, browser_capabilities|
 
   # Helpers
 
@@ -18,9 +16,9 @@ describe 'app' do
   # Start a webserver for the web app before the tests
 
   before :all do
-    @wait = Selenium::WebDriver::Wait.new(timeout: 5)
+    @wait = Selenium::WebDriver::Wait.new(timeout: 10)
 
-    @email = 'sysops+' + Time.now.to_i.to_s + '@meedan.com'
+    @email = "sysops+#{Time.now.to_i}#{Process.pid}@meedan.com"
     @password = '12345678'
     @source_url = 'https://twitter.com/ironmaiden?timestamp=' + Time.now.to_i.to_s
     @media_url = 'https://twitter.com/meedan/status/773947372527288320/?t=' + Time.now.to_i.to_s
@@ -34,12 +32,18 @@ describe 'app' do
       Appium::Driver.new({ appium_lib: { server_url: webdriver_url}, caps: browser_capabilities }).start_driver :
       Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: browser_capabilities)
 
-    LoginPage.new(config: @config, driver: @driver).load
-        .register_and_login_with_email(email: @email, password: @password)
-        .create_team
-        .create_project
-        .create_media(input: 'Claim')
-        .logout_and_close
+    # TODO: better initialization w/ parallelization
+    page = LoginPage.new(config: @config, driver: @driver).load
+    begin
+      page = page.register_and_login_with_email(email: @email, password: @password)
+    rescue
+      page = page.login_with_email(email: @email, password: @password)
+    end
+    page
+      .create_team
+      .create_project
+      .create_media(input: 'Claim')
+      .logout_and_close
   end
 
   # Close the testing webserver after all tests run
@@ -787,5 +791,4 @@ describe 'app' do
     #   skip("Needs to be implemented")
     # end
   end
-end
 end

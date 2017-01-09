@@ -51,6 +51,8 @@ GEM
       rspec-core (~> 3.3)
     rspec-support (3.3.0)
     rubyzip (1.2.0)
+    sauce_whisk (0.0.12)
+      rest-client
     selenium-webdriver (3.0.5)
       childprocess (~> 0.5)
       rubyzip (~> 1.0)
@@ -76,6 +78,7 @@ DEPENDENCIES
   rest-client
   rspec
   rspec-retry
+  sauce_whisk
   selenium-webdriver
   sinatra
 

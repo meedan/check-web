@@ -3,4 +3,6 @@ require_relative './app_spec.rb'
 
 config = YAML.load_file('config.yml')
 
-AppSpec.call(config['chromedriver_url'], :chrome)
+describe "integration (chrome)" do
+  include_examples "app", config['chromedriver_url'], :chrome
+end

@@ -11,7 +11,7 @@ class CreateTeamPage < Page
 
   def create_team(options = {})
     name = options[:name] || "Team #{Time.now}"
-    subdomain = options[:subdomain] || "team#{Time.now.to_i}"
+    subdomain = options[:subdomain] || "team#{Time.now.to_i}#{Process.pid}"
 
     fill_input('.create-team__team-display-name-input', name)
     press(:tab)
