@@ -65,7 +65,7 @@ class MediaComponent extends Component {
 
   render() {
     const media = this.props.media;
-    const data = JSON.parse(media.jsondata);
+    const data = JSON.parse(media.embed);
 
     if (this.props.relay.variables.contextId === null) {
       return null;
@@ -77,7 +77,7 @@ class MediaComponent extends Component {
           <article className="media__contents">
             <MediaDetail media={media} />
             <h3 className="media__notes-heading">Verification Timeline</h3>
-            <Annotations annotations={media.annotations.edges.reverse()} annotated={media} annotatedType="Media" />
+            <Annotations annotations={media.annotations.edges.reverse()} annotated={media} annotatedType="ProjectMedia" />
           </article>
         </div>
       </DocumentTitle>

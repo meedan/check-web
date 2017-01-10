@@ -47,7 +47,7 @@ class MediaDetail extends Component {
 
     Relay.Store.commitUpdate(
       new UpdateMediaMutation({
-        information: JSON.stringify({ title: newTitle }),
+        embed: JSON.stringify({ title: newTitle }),
         id: media.id,
       }),
       { onSuccess, onFailure },
@@ -68,7 +68,7 @@ class MediaDetail extends Component {
 
   render() {
     const { media, annotated, annotatedType } = this.props;
-    const data = JSON.parse(media.jsondata);
+    const data = JSON.parse(media.embed);
     const createdAt = MediaUtil.createdAt(media);
     const annotationsCount = MediaUtil.notesCount(media, data);
 

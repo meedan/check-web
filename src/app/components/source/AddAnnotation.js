@@ -74,7 +74,7 @@ class AddAnnotation extends Component {
 
     Relay.Store.commitUpdate(
       new CreateCommentMutation({
-        parent_type: annotated_type.toLowerCase(),
+        parent_type: annotated_type.replace(/([a-z])([A-Z])/, '$1_$2').toLowerCase(),
         annotator,
         annotated,
         context: that.getContext(),
@@ -104,7 +104,7 @@ class AddAnnotation extends Component {
         new CreateTagMutation({
           annotated,
           annotator,
-          parent_type: annotated_type.toLowerCase(),
+          parent_type: annotated_type.replace(/([a-z])([A-Z])/, '$1_$2').toLowerCase(),
           context,
           annotation: {
             tag: tag.trim(),
@@ -126,7 +126,7 @@ class AddAnnotation extends Component {
 
     Relay.Store.commitUpdate(
       new CreateStatusMutation({
-        parent_type: annotated_type.toLowerCase(),
+        parent_type: annotated_type.replace(/([a-z])([A-Z])/, '$1_$2').toLowerCase(),
         annotated,
         annotator,
         context: that.getContext(),
@@ -149,7 +149,7 @@ class AddAnnotation extends Component {
 
     Relay.Store.commitUpdate(
       new CreateFlagMutation({
-        parent_type: annotated_type.toLowerCase(),
+        parent_type: annotated_type.replace(/([a-z])([A-Z])/, '$1_$2').toLowerCase(),
         annotated,
         annotator,
         context: that.getContext(),

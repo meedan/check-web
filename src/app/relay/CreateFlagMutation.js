@@ -14,8 +14,8 @@ class CreateFlagMutation extends Relay.Mutation {
     case 'source':
       query = Relay.QL`fragment on CreateFlagPayload { flagEdge, source { annotations } }`;
       break;
-    case 'media':
-      query = Relay.QL`fragment on CreateFlagPayload { flagEdge, media { annotations, annotations_count } }`;
+    case 'project_media':
+      query = Relay.QL`fragment on CreateFlagPayload { flagEdge, project_media { annotations, annotations_count } }`;
       break;
     }
     return query;

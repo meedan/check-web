@@ -14,8 +14,8 @@ class CreateTagMutation extends Relay.Mutation {
     case 'source':
       query = Relay.QL`fragment on CreateTagPayload { tagEdge, source { annotations, tags } }`;
       break;
-    case 'media':
-      query = Relay.QL`fragment on CreateTagPayload { tagEdge, media { annotations, tags, annotations_count } }`;
+    case 'project_media':
+      query = Relay.QL`fragment on CreateTagPayload { tagEdge, project_media { annotations, tags, annotations_count } }`;
       break;
     }
     return query;
