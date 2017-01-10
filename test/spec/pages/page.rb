@@ -6,7 +6,13 @@ class Page
   def initialize(options)
     @config = options[:config]
     @driver = options[:driver]
-    @wait = Selenium::WebDriver::Wait.new(timeout: 10)
+    @is_appium = $driver && $driver.is_a?(Appium::Driver)
+  end
+
+  def wait_for(seconds = 10, &block)
+    return @is_appium ?
+      $driver.wait({timeout: seconds}, &block) :
+      Selenium::WebDriver::Wait.new(timeout: seconds).until(&block)
   end
 
   def load
@@ -15,18 +21,14 @@ class Page
   end
 
   def element(selector, options = {})
-    wait = options[:timeout] ? Selenium::WebDriver::Wait.new(timeout: options[:timeout]) : @wait
-
-    wait.until {
+    wait_for {
       element = @driver.find_element(:css, selector)
       element if element.displayed? || options[:hidden]
     }
   end
 
   def elements(selector, options = {})
-    wait = options[:timeout] ? Selenium::WebDriver::Wait.new(timeout: options[:timeout]) : @wait
-
-    wait.until {
+    wait_for {
       @driver.find_elements(:css, selector)
     }
   end

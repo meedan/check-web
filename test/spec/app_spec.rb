@@ -28,7 +28,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     FileUtils.cp(@config['config_file_path'], '../build/web/js/config.js') unless @config['config_file_path'].nil?
 
-    @driver = browser_capabilities['appiumVersion'] ?
+    @driver = browser_capabilities[:appiumVersion] ?
+      # NB: Appium sets $driver to Appium::Driver, and .start_driver returns a Selenium::WebDriver
       Appium::Driver.new({ appium_lib: { server_url: webdriver_url}, caps: browser_capabilities }).start_driver :
       Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: browser_capabilities)
 
@@ -55,7 +56,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
   # Start Google Chrome before each test
 
   before :each do
-    @driver = browser_capabilities['appiumVersion'] ?
+    @driver = browser_capabilities[:appiumVersion] ?
       Appium::Driver.new({ appium_lib: { server_url: webdriver_url}, caps: browser_capabilities }).start_driver :
       Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: browser_capabilities)
   end

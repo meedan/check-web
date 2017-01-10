@@ -23,9 +23,9 @@ class LoginPage < Page
     fill_input('.login-email__password-confirmation input', options[:password])
     fill_input('input[type=file]', options[:file], { hidden: true }) if options[:file]
     # TODO: fix or remove click_button() for mobile browsers
-    (@wait.until { @driver.find_element(:xpath, "//button[@id='submit-register-or-login']") }).click
+    (wait_for { @driver.find_element(:css, '#submit-register-or-login') }).click
 
-    @wait.until { @driver.page_source.include?("You have to confirm your email address before continuing.") }
+    wait_for { @driver.page_source.include?("You have to confirm your email address before continuing.") }
     confirm_email(options[:email])
   end
 
@@ -37,7 +37,7 @@ class LoginPage < Page
     fill_input('.login-email__email input', options[:email])
     fill_input('.login-email__password input', options[:password])
     # TODO: fix or remove click_button() for mobile browsers
-    (@wait.until { @driver.find_element(:xpath, "//button[@id='submit-register-or-login']") }).click
+    (wait_for { @driver.find_element(:xpath, "//button[@id='submit-register-or-login']") }).click
 
     wait_for_element('.home')
     return CreateTeamPage.new(config: @config, driver: @driver) if contains_element?('.create-team')
@@ -62,15 +62,15 @@ class LoginPage < Page
   private
 
   def email_button
-    @wait.until { @driver.find_element(:xpath, "//a[@id='login-email']") }
+    wait_for { @driver.find_element(:xpath, "//a[@id='login-email']") }
   end
 
   def email_mode
-    (@wait.until { @driver.find_element(:css, '.login-email__form') }).attribute('name')
+    (wait_for { @driver.find_element(:css, '.login-email__form') }).attribute('name')
   end
 
   def toggle_email_mode
-    (@wait.until { @driver.find_element(:xpath, "//button[@id='register-or-login']") }).click
+    (wait_for { @driver.find_element(:xpath, "//button[@id='register-or-login']") }).click
   end
 
   def confirm_email(email) # TODO: test real email confirmation flow
