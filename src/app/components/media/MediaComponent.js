@@ -3,6 +3,7 @@ import Pusher from 'pusher-js';
 import DocumentTitle from 'react-document-title';
 import MediaDetail from './MediaDetail';
 import MediaUtil from './MediaUtil';
+import MediaChecklist from './MediaChecklist';
 import { Annotations, Tags } from '../source';
 import config from 'config';
 import { pageTitle } from '../../helpers';
@@ -78,6 +79,7 @@ class MediaComponent extends Component {
             <MediaDetail media={media} />
             <h3 className="media__notes-heading">Verification Timeline</h3>
             <Annotations annotations={media.annotations.edges.reverse()} annotated={media} annotatedType="ProjectMedia" />
+            <MediaChecklist />
           </article>
         </div>
       </DocumentTitle>
