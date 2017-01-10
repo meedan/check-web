@@ -28,6 +28,11 @@ RUN mkdir -p ${DEPLOYDIR}
 
 WORKDIR ${DEPLOYDIR}/latest
 
+# node 6
+RUN apt-get purge -y nodejs npm
+RUN curl -sL https://deb.nodesource.com/setup_6.x | bash 
+RUN apt-get install -y nodejs
+
 # copy in package.json and run npm install to populate node_modules
 COPY package.json ${DEPLOYDIR}/latest/package.json
 USER root
@@ -42,11 +47,12 @@ RUN chown -R ${DEPLOYUSER}:www-data ${DEPLOYDIR}/new
 USER ${DEPLOYUSER}
 RUN rm -rf ${DEPLOYDIR}/new/node_modules \
     && rsync -avp ${DEPLOYDIR}/new/* ${DEPLOYDIR}/latest/ 
+COPY ./.babelrc ${DEPLOYDIR}/latest/.babelrc
 
 # style
 RUN ./node_modules/.bin/node-sass src/app/styles/stylesheet.scss --output-style=compressed | ./node_modules/.bin/postcss --use autoprefixer -o build/web/css/stylesheet.css \
     && cp -r src/app/styles/images build/web/
-    
+
 RUN ./node_modules/.bin/gulp build:${PLATFORM}    
 
 # config

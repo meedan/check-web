@@ -6,6 +6,6 @@ class PublicTeamRoute extends Relay.Route {
   };
   static paramDefinitions = {};
   static routeName = 'PublicTeamRoute';
-};
+}
 
 export default PublicTeamRoute;

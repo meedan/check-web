@@ -3,11 +3,13 @@ import Relay from 'react-relay';
 import MediaRoute from '../../relay/MediaRoute';
 import Caret from '../Caret';
 import MediaMetadataSummary from './MediaMetadataSummary';
-import util from './MediaUtil';
+import MediaUtil from './MediaUtil';
+import CheckContext from '../../CheckContext';
 
 class MediaHeaderComponent extends Component {
   setCurrentContext() {
-    this.props.relay.setVariables({ contextId: Checkdesk.context.project.dbid });
+    const context = new CheckContext(this).getContextStore();
+    this.props.relay.setVariables({ contextId: context.project.dbid });
   }
 
   componentDidMount() {
@@ -20,17 +22,17 @@ class MediaHeaderComponent extends Component {
 
   render() {
     const media = this.props.media;
-    const data = JSON.parse(media.jsondata);
-    const title = util.truncatedTitle(media, data);
+    const data = JSON.parse(media.embed);
+    const title = MediaUtil.truncatedTitle(media, data);
 
     if (this.props.relay.variables.contextId === null) {
       return null;
     }
 
     return (
-      <div className='media-header'>
-        <div className='media-header__copy'>
-          <h1 className='media-header__title'>{title}</h1>
+      <div className="media-header">
+        <div className="media-header__copy">
+          <h1 className="media-header__title">{title}</h1>
           <MediaMetadataSummary media={media} data={data} />
         </div>
       </div>
@@ -38,20 +40,24 @@ class MediaHeaderComponent extends Component {
   }
 }
 
+MediaHeaderComponent.contextTypes = {
+  store: React.PropTypes.object,
+};
+
 const MediaHeaderContainer = Relay.createContainer(MediaHeaderComponent, {
   initialVariables: {
-    contextId: null
+    contextId: null,
   },
   fragments: {
     media: () => Relay.QL`
-      fragment on Media {
+      fragment on ProjectMedia {
         id,
         dbid,
-        published(context_id: $contextId),
+        published,
         url,
-        jsondata(context_id: $contextId),
-        last_status(context_id: $contextId),
-        annotations_count(context_id: $contextId),
+        embed,
+        last_status,
+        annotations_count,
         verification_statuses,
         domain,
         user {
@@ -60,7 +66,7 @@ const MediaHeaderContainer = Relay.createContainer(MediaHeaderComponent, {
             dbid
           }
         }
-        tags(first: 10000, context_id: $contextId) {
+        tags(first: 10000) {
           edges {
             node {
               tag,
@@ -75,19 +81,27 @@ const MediaHeaderContainer = Relay.createContainer(MediaHeaderComponent, {
           }
         }
       }
-    `
-  }
+    `,
+  },
 });
 
 class MediaHeader extends Component {
   render() {
-    var projectId = 0;
-    if (Checkdesk.context.project) {
-      projectId = Checkdesk.context.project.dbid;
+    let projectId = 0;
+    const context = new CheckContext(this);
+    context.setContext();
+    const store = context.getContextStore();
+    if (store.project) {
+      projectId = store.project.dbid;
     }
-    var route = new MediaRoute({ ids: this.props.params.mediaId + ',' + projectId });
+    const ids = this.props.params.mediaId;
+    const route = new MediaRoute({ ids });
     return (<Relay.RootContainer Component={MediaHeaderContainer} route={route} />);
   }
 }
+
+MediaHeader.contextTypes = {
+  store: React.PropTypes.object,
+};
 
 export default MediaHeader;

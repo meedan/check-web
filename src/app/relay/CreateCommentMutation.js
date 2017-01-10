@@ -9,33 +9,54 @@ class CreateCommentMutation extends Relay.Mutation {
   }
 
   getFatQuery() {
-    var query = '';
+    let query = '';
     switch (this.props.parent_type) {
-      case 'source':
-        query = Relay.QL`fragment on CreateCommentPayload { commentEdge, source { annotations } }`;
-        break;
-      case 'media':
-        query = Relay.QL`fragment on CreateCommentPayload { commentEdge, media { annotations, annotations_count } }`;
-        break;
-      case 'project':
-        query = Relay.QL`fragment on CreateCommentPayload { commentEdge, project { annotations } }`;
-        break;
+    case 'source':
+      query = Relay.QL`fragment on CreateCommentPayload { commentEdge, source { annotations } }`;
+      break;
+    case 'project_media':
+      query = Relay.QL`fragment on CreateCommentPayload { commentEdge, project_media { annotations, annotations_count } }`;
+      break;
+    case 'project':
+      query = Relay.QL`fragment on CreateCommentPayload { commentEdge, project { annotations } }`;
+      break;
     }
     return query;
   }
 
+  getOptimisticResponse() {
+    const comment = {
+      id: this.props.id,
+      created_at: new Date().toString(),
+      annotation_type: 'comment',
+      permissions: '{"destroy Annotation":true,"destroy Comment":true}',
+      content: JSON.stringify({ text: this.props.annotation.text }),
+      annotated_id: this.props.annotation.annotated_id,
+      annotator: {
+        name: this.props.annotator.name,
+        profile_image: this.props.annotator.profile_image,
+      },
+      medias: {
+        edges: [],
+      },
+    };
+
+    return { commentEdge: { node: comment } };
+  }
+
   getVariables() {
-    var comment = this.props.annotation;
-    var vars = { text: comment.text, annotated_id: comment.annotated_id + '', annotated_type: comment.annotated_type };
-    if (Checkdesk.context.project) {
+    const comment = this.props.annotation;
+    const vars = { text: comment.text, annotated_id: `${comment.annotated_id}`, annotated_type: comment.annotated_type };
+    const context = this.props.context;
+    if (context && context.project) {
       vars.context_type = 'Project';
-      vars.context_id = Checkdesk.context.project.dbid.toString();
+      vars.context_id = context.project.dbid.toString();
     }
     return vars;
   }
 
   getConfigs() {
-    var fieldIds = {};
+    const fieldIds = {};
     fieldIds[this.props.parent_type] = this.props.annotated.id;
 
     return [
@@ -45,14 +66,12 @@ class CreateCommentMutation extends Relay.Mutation {
         parentID: this.props.annotated.id,
         connectionName: 'annotations',
         edgeName: 'commentEdge',
-        rangeBehaviors: {
-          '': 'append'
-        }
+        rangeBehaviors: calls => 'prepend',
       },
       {
         type: 'FIELDS_CHANGE',
-        fieldIDs: fieldIds
-      }
+        fieldIDs: fieldIds,
+      },
     ];
   }
 }

@@ -3,6 +3,7 @@ import FontAwesome from 'react-fontawesome';
 import Relay from 'react-relay';
 import CreateStatusMutation from '../../relay/CreateStatusMutation';
 import Can, { can } from '../Can';
+import CheckContext from '../../CheckContext';
 
 class MediaStatus extends Component {
   constructor(props) {
@@ -10,12 +11,12 @@ class MediaStatus extends Component {
 
     this.state = {
       isMediaStatusMenuOpen: false,
-      message: null
+      message: null,
     };
   }
 
   canUpdate() {
-    return can(this.props.media.permissions, "create Status");
+    return !this.props.readonly && can(this.props.media.permissions, 'create Status');
   }
 
   toggleMediaStatusMenu() {
@@ -31,7 +32,7 @@ class MediaStatus extends Component {
     if (status === '') {
       return '';
     }
-    return ' media-status__current--' + status.toLowerCase().replace(/[ _]/g, '-');
+    return ` media-status__current--${status.toLowerCase().replace(/[ _]/g, '-')}`;
   }
 
   handleStatusClick(clickedStatus, r) {
@@ -46,29 +47,35 @@ class MediaStatus extends Component {
     const onFailure = (transaction) => { context.fail(transaction); };
     const onSuccess = (response) => { context.success('status'); };
 
+    const store = new CheckContext(this).getContextStore();
+
     Relay.Store.commitUpdate(
       new CreateStatusMutation({
-        parent_type: "media",
+        parent_type: 'project_media',
         annotated: media,
+        annotator: store.currentUser,
+        context: store,
         annotation: {
-          status: status,
-          annotated_type: "Media",
-          annotated_id: media.dbid
-        }
+          status,
+          annotated_type: 'ProjectMedia',
+          annotated_id: media.dbid,
+        },
       }),
-      { onSuccess, onFailure }
+      { onSuccess, onFailure },
     );
   }
 
   fail(transaction) {
     const that = this;
-    transaction.getError().json().then(function(json) {
-      let message = "We're sorry, but we encountered an error trying to update the status.";
+    const error = transaction.getError();
+    let message = "We're sorry, but we encountered an error trying to update the status.";
+    try {
+      const json = JSON.parse(error.source);
       if (json.error) {
         message = json.error;
       }
-      that.setState({ message: message });
-    });
+    } catch (e) { }
+    that.setState({ message });
   }
 
   success(response) {
@@ -78,7 +85,7 @@ class MediaStatus extends Component {
   statusIdToLabel(id) {
     const statuses = JSON.parse(this.props.media.verification_statuses).statuses;
     let label = '';
-    statuses.forEach(function(status) {
+    statuses.forEach((status) => {
       if (status.id === id) {
         label = status.label;
       }
@@ -94,32 +101,37 @@ class MediaStatus extends Component {
 
     return (
       <div className={this.bemClass('media-status', this.canUpdate(), '--editable')} onClick={this.toggleMediaStatusMenu.bind(this)}>
-        <div className={this.bemClass('media-status__overlay', this.state.isMediaStatusMenuOpen, '--active')} onClick={this.toggleMediaStatusMenu.bind(this)}></div>
+        <div className={this.bemClass('media-status__overlay', this.state.isMediaStatusMenuOpen, '--active')} onClick={this.toggleMediaStatusMenu.bind(this)} />
 
-        <div className={'media-status__current' + this.currentStatusToClass(media.last_status)}>
-          <i className="media-status__icon media-status__icon--circle / fa fa-circle"></i>
-          <span className='media-status__label'>{currentStatus}</span>
-          <Can permissions={media.permissions} permission="create Status">
-            <i className="media-status__icon media-status__icon--caret / fa fa-caret-down"></i>
-          </Can>
-          <span className='media-status__message'>{this.state.message}</span>
+        <div className={`media-status__current${this.currentStatusToClass(media.last_status)}`}>
+          <i className="media-status__icon media-status__icon--circle / fa fa-circle" />
+          <span className="media-status__label">{currentStatus}</span>
+          {this.canUpdate() ?
+            <i className="media-status__icon media-status__icon--caret / fa fa-caret-down" />
+            : null
+          }
+          <span className="media-status__message">{this.state.message}</span>
         </div>
-        <ul className={this.bemClass('media-status__menu', this.state.isMediaStatusMenuOpen, '--active')}>
 
-          {statuses.map(function(status) {
-            return (
-              <li className={that.bemClass('media-status__menu-item', (media.last_status === status.id), '--current') + ' media-status__menu-item--' + status.id.replace('_', '-')} onClick={that.handleStatusClick.bind(that, status.id)}>
-                <i className="media-status__icon media-status__icon--radio-button-selected / fa fa-circle"></i>
-                <i className="media-status__icon media-status__icon--radio-button / fa fa-circle-o"></i>
-                <span className='media-status__label'>{status.label}</span>
+        {this.canUpdate() ?
+          <ul className={this.bemClass('media-status__menu', this.state.isMediaStatusMenuOpen, '--active')}>
+            {statuses.map(status => (
+              <li className={`${that.bemClass('media-status__menu-item', (media.last_status === status.id), '--current')} media-status__menu-item--${status.id.replace('_', '-')}`} onClick={that.handleStatusClick.bind(that, status.id)}>
+                <i className="media-status__icon media-status__icon--radio-button-selected / fa fa-circle" />
+                <i className="media-status__icon media-status__icon--radio-button / fa fa-circle-o" />
+                <span className="media-status__label">{status.label}</span>
               </li>
-            );
-          })}
-
-        </ul>
+              ))}
+          </ul>
+          : null
+        }
       </div>
     );
   }
 }
+
+MediaStatus.contextTypes = {
+  store: React.PropTypes.object,
+};
 
 export default MediaStatus;

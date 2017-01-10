@@ -3,12 +3,8 @@ import Spinner from 'react-spinner';
 
 class PenderCard extends Component {
   addTag() {
-    let src = this.props.penderUrl + '/api/medias.js?url=' + encodeURIComponent(this.props.url);
-    if (this.props.embedTag) {
-      src = this.props.embedTag.match(/.*src="([^"]+)".*/)[1];
-    }
     const script = document.createElement('script');
-    script.src = src;
+    script.src = `${this.props.penderUrl}/api/medias.js?url=${encodeURIComponent(this.props.url)}`;
     script.async = true;
     script.type = 'text/javascript';
     document.getElementById('pender-card').appendChild(script);
@@ -35,13 +31,12 @@ class PenderCard extends Component {
 
   render() {
     return (
-      <div id="pender-card" className='pender-card'>
-        <div id="pender-card-loader" className='pender-card__loader'>
+      <div id="pender-card" className="pender-card">
+        <div id="pender-card-loader" className="pender-card__loader">
           {(() => {
             if (this.props.fallback) {
               return (this.props.fallback);
-            }
-            else {
+            } else {
               return (<Spinner />);
             }
           })()}

@@ -2,49 +2,53 @@ import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 import CreateProjectMutation from '../../relay/CreateProjectMutation';
 import Message from '../Message';
+import CheckContext from '../../CheckContext';
 
 class CreateProject extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      message: null
+      message: null,
     };
   }
 
   handleSubmit(e) {
-    var that = this,
-        title = document.getElementById('create-project-title').value,
-        team = this.props.team;
+    let that = this,
+      title = document.getElementById('create-project-title').value,
+      team = this.props.team,
+      history = new CheckContext(this).getContextStore().history;
 
-    var onFailure = (transaction) => {
-      transaction.getError().json().then(function(json) {
-        var message = 'Sorry, could not create the project';
+    const onFailure = (transaction) => {
+      const error = transaction.getError();
+      let message = 'Sorry, could not create the project';
+      try {
+        const json = JSON.parse(error.source);
         if (json.error) {
           message = json.error;
         }
-        that.setState({ message: message });
-      });
+      } catch (e) { }
+      that.setState({ message });
     };
 
-    var onSuccess = (response) => {
-      var pid = response.createProject.project.dbid;
-      window.Checkdesk.history.push('/project/' + pid);
+    const onSuccess = (response) => {
+      const pid = response.createProject.project.dbid;
+      history.push(`/project/${pid}`);
       this.setState({ message: null });
     };
 
     Relay.Store.commitUpdate(
       new CreateProjectMutation({
-        title: title,
-        team: team
+        title,
+        team,
       }),
-      { onSuccess, onFailure }
+      { onSuccess, onFailure },
     );
 
     e.preventDefault();
   }
 
-  componentDidMount(){
+  componentDidMount() {
     if (this.props.autofocus) {
       this.projectInput.focus();
     }
@@ -53,11 +57,15 @@ class CreateProject extends Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit.bind(this)} className="create-project">
-        <input className={this.props.className} placeholder="Add project +" id="create-project-title" ref={(input) => this.projectInput = input} />
+        <input className={this.props.className} placeholder="Add project +" id="create-project-title" ref={input => this.projectInput = input} />
         <Message message={this.state.message} />
       </form>
     );
   }
 }
+
+CreateProject.contextTypes = {
+  store: React.PropTypes.object,
+};
 
 export default CreateProject;

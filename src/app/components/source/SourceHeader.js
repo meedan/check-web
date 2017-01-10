@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import Avatar from 'material-ui/lib/avatar';
+import Avatar from 'material-ui/Avatar';
 import FontAwesome from 'react-fontawesome';
 
 class SourceHeader extends Component {
@@ -12,19 +12,19 @@ class SourceHeader extends Component {
         <p className="source-slogan">{source.description}</p>
 
         <ul className="source-accounts">
-        {source.accounts.edges.map(function(account) {
-          const node = account.node;
-          return (
-            <li>
-              <a href={node.url} target="_blank">
-                <FontAwesome name={node.provider} />
-              </a>
-            </li>
-          );
-        })}
+          {source.accounts.edges.map((account) => {
+            const node = account.node;
+            return (
+              <li>
+                <a href={node.url} target="_blank">
+                  <FontAwesome name={node.provider} />
+                </a>
+              </li>
+            );
+          })}
         </ul>
       </div>
-    )
+    );
   }
 }
 

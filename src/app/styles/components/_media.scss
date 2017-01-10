@@ -1,13 +1,4 @@
-$media-card-padding: 8px 14px 14px 14px;
 $media-max-width: $layout-column-width-narrow;
-
-@mixin media-card {
-  border: $layout-border;
-  border-radius: 2px;
-  background-color: #fff;
-  box-shadow: $layout-box-shadow;
-  margin: 10px auto;
-}
 
 @mixin media-metadata {
   @include gray-text;
@@ -35,7 +26,7 @@ $media-max-width: $layout-column-width-narrow;
 @import 'media/create-media';
 @import 'media/media';
 @import 'media/media-actions';
-@import 'media/media-card';
+@import 'media/media-checklist';
 @import 'media/media-detail';
 @import 'media/media-header';
 @import 'media/media-metadata-summary';

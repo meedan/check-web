@@ -4,13 +4,14 @@ import { WithContext as ReactTags } from 'react-tag-input';
 import Message from '../Message';
 import CreateTagMutation from '../../relay/CreateTagMutation';
 import DeleteTagMutation from '../../relay/DeleteTagMutation';
+import CheckContext from '../../CheckContext';
 
 class Tags extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      message: null
+      message: null,
     };
   }
 
@@ -19,50 +20,58 @@ class Tags extends Component {
     Relay.Store.commitUpdate(
       new DeleteTagMutation({
         annotated: props.annotated,
-        parent_type: props.annotatedType.toLowerCase(),
-        id: props.tags[i].node.id
-      })
+        parent_type: props.annotatedType.replace(/([a-z])([A-Z])/, '$1_$2').toLowerCase(),
+        id: props.tags[i].node.id,
+      }),
     );
   }
-  
+
   handleAddition(tags) {
     const props = this.props;
-    var tagsList = [ ...new Set(tags.split(',')) ],
-        that = this;
+    let tagsList = [...new Set(tags.split(','))],
+      that = this;
 
-    var onFailure = (transaction) => {
-      transaction.getError().json().then(function(json) {
-        var message = 'Sorry, could not create the tag';
+    const onFailure = function (transaction) {
+      const error = transaction.getError();
+      let message = 'Sorry, could not create the tag';
+
+      try {
+        const json = JSON.parse(error.source);
         if (json.error) {
           message = json.error;
         }
-        that.setState({ message: message });
-      });
+      } catch (e) { }
+
+      that.setState({ message });
     };
-     
-    var onSuccess = (response) => {
+
+    const onSuccess = function (response) {
       that.setState({ message: null });
     };
 
-    tagsList.map(function(tag) {
+    const context = new CheckContext(this).getContextStore();
+
+    tagsList.map((tag) => {
       Relay.Store.commitUpdate(
         new CreateTagMutation({
           annotated: props.annotated,
-          parent_type: props.annotatedType.toLowerCase(),
+          annotator: context.currentUser,
+          parent_type: props.annotatedType.replace(/([a-z])([A-Z])/, '$1_$2').toLowerCase(),
+          context,
           annotation: {
             tag: tag.trim(),
             annotated_type: props.annotatedType,
-            annotated_id: props.annotated.dbid
-          }
+            annotated_id: props.annotated.dbid,
+          },
         }),
-        { onSuccess, onFailure }
+        { onSuccess, onFailure },
       );
     });
   }
 
   render() {
-    let tags = [];
-    this.props.tags.map(function(tag) {
+    const tags = [];
+    this.props.tags.map((tag) => {
       tags.push({ id: tag.node.id, text: tag.node.tag });
     });
 
@@ -74,6 +83,10 @@ class Tags extends Component {
     );
   }
 }
+
+Tags.contextTypes = {
+  store: React.PropTypes.object,
+};
 
 class TagsRemove extends React.Component {
   render() {

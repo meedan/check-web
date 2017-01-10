@@ -7,6 +7,6 @@ class MeRoute extends Relay.Route {
   static paramDefinitions = {
   };
   static routeName = 'MeRoute';
-};
+}
 
 export default MeRoute;

@@ -13,7 +13,7 @@ module AppSpecHelpers
   end
 
   def fill_field(selector, value, type = :css, visible = true)
-    wait = Selenium::WebDriver::Wait.new(timeout: 100)
+    wait = Selenium::WebDriver::Wait.new(timeout: 50)
     input = wait.until {
       element = @driver.find_element(type, selector)
       if visible
@@ -40,7 +40,9 @@ module AppSpecHelpers
     fill_field('.js-username-field', @config['twitter_user'])
     fill_field('.js-password-field', @config['twitter_password'])
     press_button
-    sleep 3
+    @wait.until {
+      @driver.page_source.include?("#{@config['twitter_name']}")
+    }
   end
 
   def twitter_auth
@@ -48,7 +50,6 @@ module AppSpecHelpers
     sleep 10
     window = @driver.window_handles.first
     @driver.switch_to.window(window)
-    sleep 1
   end
 
   def login_with_twitter
@@ -137,17 +138,14 @@ module AppSpecHelpers
   end
 
   def create_team
-    sleep 1
     if @driver.find_elements(:css, '.create-team').size > 0
       fill_field('#team-name-container', "Team #{Time.now}")
-      sleep 1
-      fill_field('#team-subdomain-container', "team#{Time.now.to_i}")
-      sleep 1
+      fill_field('#team-subdomain-container', "team#{Time.now.to_i}#{Process.pid}")
       press_button('.create-team__submit-button')
-      sleep 5
+      sleep 0.5
     end
     @driver.navigate.to @config['self_url']
-    sleep 3
+    sleep 0.5
   end
 
   def create_project(title = "Project #{Time.now}")
@@ -174,11 +172,11 @@ module AppSpecHelpers
   end
 
   def get_team
-    @driver.execute_script('return Checkdesk.context.team ? Checkdesk.context.team.subdomain : Checkdesk.currentUser.current_team.subdomain').to_s
+    @driver.execute_script('var context = Checkdesk.store.getState().app.context; return context.team ? context.team.subdomain : context.currentUser.current_team.subdomain').to_s
   end
 
   def get_project
-    @driver.execute_script('return Checkdesk.context.project.dbid').to_s
+    @driver.execute_script('return Checkdesk.store.getState().app.context.project.dbid').to_s
   end
 
   def console_logs
@@ -200,7 +198,7 @@ module AppSpecHelpers
 
   def request_api(path, params)
     require 'net/http'
-    api_path = @driver.execute_script("return config.restBaseUrl.replace(/\\/api.*/, '#{path}')").to_s
+    api_path = @driver.execute_script("return config.restBaseUrl.replace(/\\/api\\/.*/, '#{path}')").to_s
     uri = URI(api_path)
     uri.query = URI.encode_www_form(params)
     Net::HTTP.get_response(uri)

@@ -46,4 +46,10 @@ gulp.task('copy:build:web', () => {
   gulp.src('./config.js').pipe(gulp.dest('./build/web/js'));
 });
 
+gulp.task('copy:build:web:test', () => {
+  gulp.src('./src/assets/**/*').pipe(gulp.dest('./build/web'));
+  gulp.src('./test/config.js').pipe(gulp.dest('./build/web/js'));
+});
+
 gulp.task('build:web', ['replace-webpack-code', 'webpack:build:web', 'views:build:web', 'copy:build:web']);
+gulp.task('build:web:test', ['replace-webpack-code', 'webpack:build:web', 'views:build:web', 'copy:build:web:test']);

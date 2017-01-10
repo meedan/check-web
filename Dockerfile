@@ -4,8 +4,12 @@ MAINTAINER Meedan <sysops@meedan.com>
 # install dependencies
 # TODO are these really dependecies for meedan/check-web?  these seem like vestiges of meedan/check-api
 
+RUN apt-get update -qq && apt-get install -y libpq-dev imagemagick curl && rm -rf /var/lib/apt/lists/*
 
-RUN apt-get update -qq && apt-get install -y libpq-dev imagemagick && rm -rf /var/lib/apt/lists/*
+# node 6
+RUN apt-get purge -y nodejs npm
+RUN curl -sL https://deb.nodesource.com/setup_6.x | bash 
+RUN apt-get install -y nodejs
 
 # node modules
 COPY package.json /app/package.json
@@ -17,6 +21,13 @@ RUN cd /app && npm install
 # ruby gems
 COPY test/Gemfile test/Gemfile.lock /app/test/
 RUN cd /app/test && gem install bundler && bundle install --jobs 20 --retry 5
+
+# Sauce Labs proxy
+RUN mkdir -p /app/test/spec/sauce
+RUN cd /app/test/spec/sauce && curl -O https://saucelabs.com/downloads/sc-4.4.2-linux.tar.gz
+# TODO: throw error if `openssl sha1 sc-4.4.2-linux.tar.gz` != '57a07a14c5d95d72b6606ba34fceaf5bf76c2865'
+RUN pwd
+RUN cd /app/test/spec/sauce && tar -zxvf sc-4.4.2-linux.tar.gz
 
 # install code
 WORKDIR /app

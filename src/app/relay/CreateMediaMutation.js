@@ -19,7 +19,7 @@ class CreateMediaMutation extends Relay.Mutation {
   }
 
   getVariables() {
-    return { url: this.props.url, information: this.props.information, project_id: this.props.project.dbid };
+    return { url: this.props.url, quote: this.props.quote, project_id: this.props.project.dbid };
   }
 
   getConfigs() {
@@ -28,11 +28,11 @@ class CreateMediaMutation extends Relay.Mutation {
         type: 'RANGE_ADD',
         parentName: 'project',
         parentID: this.props.project.id,
-        connectionName: 'medias',
+        connectionName: 'project_medias',
         edgeName: 'mediaEdge',
         rangeBehaviors: {
-          '': 'prepend'
-        }
+          '': 'prepend',
+        },
       },
       {
         type: 'REQUIRED_CHILDREN',
@@ -40,10 +40,11 @@ class CreateMediaMutation extends Relay.Mutation {
           fragment on CreateMediaPayload {
             media {
               dbid
+              pm_dbid
             }
-          }`
-        ]
-      }
+          }`,
+        ],
+      },
     ];
   }
 }

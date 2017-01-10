@@ -1,33 +1,35 @@
 import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
+import CheckContext from '../../CheckContext';
 import MediaRoute from '../../relay/MediaRoute';
 import MediaComponent from './MediaComponent';
 
 const MediaContainer = Relay.createContainer(MediaComponent, {
   initialVariables: {
-    contextId: null
+    contextId: null,
   },
   fragments: {
     media: () => Relay.QL`
-      fragment on Media {
+      fragment on ProjectMedia {
         id,
         dbid,
-        published(context_id: $contextId),
+        quote,
+        published,
         url,
-        jsondata(context_id: $contextId),
-        last_status(context_id: $contextId),
-        annotations_count(context_id: $contextId),
+        embed,
+        last_status,
+        annotations_count,
         domain,
         permissions,
         pusher_channel,
         verification_statuses,
-        user(context_id: $contextId) {
+        user {
           name,
           source {
             dbid
           }
         }
-        tags(first: 10000, context_id: $contextId) {
+        tags(first: 10000) {
           edges {
             node {
               tag,
@@ -35,7 +37,7 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
             }
           }
         }
-        annotations(first: 10000, context_id: $contextId) {
+        annotations(first: 10000) {
           edges {
             node {
               id,
@@ -49,9 +51,10 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
                   node {
                     id,
                     dbid,
+                    quote,
                     published,
                     url,
-                    jsondata,
+                    embed,
                     project_id,
                     last_status,
                     annotations_count,
@@ -84,19 +87,27 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
           get_suggested_tags
         }
       }
-    `
-  }
+    `,
+  },
 });
 
 class Media extends Component {
   render() {
-    var projectId = 0;
-    if (Checkdesk.context.project) {
-      projectId = Checkdesk.context.project.dbid;
+    let projectId = 0;
+    const context = new CheckContext(this);
+    context.setContext();
+    const store = context.getContextStore();
+    if (store.project) {
+      projectId = store.project.dbid;
     }
-    var route = new MediaRoute({ ids: this.props.params.mediaId + ',' + projectId });
+    const ids = this.props.params.mediaId;
+    const route = new MediaRoute({ ids });
     return (<Relay.RootContainer Component={MediaContainer} route={route} />);
   }
 }
+
+Media.contextTypes = {
+  store: React.PropTypes.object,
+};
 
 export default Media;

@@ -12,7 +12,7 @@ class UpdateContactMutation extends Relay.Mutation {
      contact: () => Relay.QL`fragment on Contact { id,location,web,phone }`,
    };
   getVariables() {
-    return { id: this.props.id , location: this.props.location, web: this.props.web,phone: this.props.phone };
+    return { id: this.props.id, location: this.props.location, web: this.props.web, phone: this.props.phone };
   }
 
   getFatQuery() {
@@ -31,9 +31,9 @@ class UpdateContactMutation extends Relay.Mutation {
           contact {
             id,location,web,phone
           }
-        }`
-      ]
+        }`,
+      ],
     }];
-}
+  }
 }
 export default UpdateContactMutation;

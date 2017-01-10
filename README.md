@@ -6,7 +6,7 @@ Verify breaking news online
 
 ## Dependencies
 
-* Node.js (tested with version 4.3.2)
+* Node.js (tested with version 6.9.2)
 * Inkscape and ImageMagick (to generate the favicon)
 * Ruby and RubyGems (to run the tests)
 
@@ -45,6 +45,19 @@ In order to use subdomains, install `dnsmasq` and configure it to accept any sub
 
 ## How to test
 
+*Integration tests*
+
+* Compile the code with `npm run build`
+* Copy `test/config.yml.example` to `test/config.yml` and set the configurations
+* Start `chromedriver` and the application (`SERVER_PORT=3333 npm run publish`)
+* Run `npm run test:integration`
+
+*Unit tests*
+
+* Run `npm run test:unit`
+
+*All tests*
+
 * Compile the code with `npm run build`
 * Copy `test/config.yml.example` to `test/config.yml` and set the configurations
 * Start `chromedriver` and the application (`SERVER_PORT=3333 npm run publish`)
@@ -52,7 +65,7 @@ In order to use subdomains, install `dnsmasq` and configure it to accept any sub
 
 ### Missing tests
 
-If you don't have time to implement a test for your feature, please add a pending test for that, like this:
+If you don't have time to implement an integration test for your feature, please add a pending test for that, like this:
 
 ```ruby
 it "should do whatever my feature expects" do
@@ -60,6 +73,13 @@ it "should do whatever my feature expects" do
 end
 ```
 
+In order to implement a pending unit test, do this:
+
+```javascript
+it("should do whatever my unit expects");
+```
+
 ## Notes and tips
 
 * Run `npm install babel-register -g` if you face errors related to `babel-register`
+* Remove your `node_modules` directory if you face errors related to `npm install`
