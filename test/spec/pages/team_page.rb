@@ -16,6 +16,8 @@ class TeamPage < Page
   def create_project(options = {})
     name = options[:name] || "Project #{Time.now.to_i}"
 
+    element('.create-project > input').click
+    sleep 1 # TODO better soft keyboard strategies
     fill_input('.create-project > input', name)
     press(:enter)
 

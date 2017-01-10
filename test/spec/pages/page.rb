@@ -5,8 +5,8 @@ class Page
 
   def initialize(options)
     @config = options[:config]
-    @driver = options[:driver] || (Selenium::WebDriver.for :remote, url: @config['chromedriver_url'], :desired_capabilities => :chrome)
-    @wait = Selenium::WebDriver::Wait.new(timeout: 5)
+    @driver = options[:driver]
+    @wait = Selenium::WebDriver::Wait.new(timeout: 10)
   end
 
   def load

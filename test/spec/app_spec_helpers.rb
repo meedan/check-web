@@ -140,7 +140,7 @@ module AppSpecHelpers
   def create_team
     if @driver.find_elements(:css, '.create-team').size > 0
       fill_field('#team-name-container', "Team #{Time.now}")
-      fill_field('#team-subdomain-container', "team#{Time.now.to_i}")
+      fill_field('#team-subdomain-container', "team#{Time.now.to_i}#{Process.pid}")
       press_button('.create-team__submit-button')
       sleep 0.5
     end
