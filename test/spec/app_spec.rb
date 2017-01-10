@@ -25,13 +25,11 @@ describe 'app' do
   end
 
   # Close the testing webserver after all tests run
-
   after :all do
     FileUtils.cp('../config.js', '../build/web/js/config.js')
   end
 
   # Start Google Chrome before each test
-
   before :each do
     if @config.key?('proxy')
       proxy = Selenium::WebDriver::Proxy.new(
@@ -47,7 +45,6 @@ describe 'app' do
   end
 
   # Close Google Chrome after each test
-
   after :each do |example|
     if example.exception
       require 'rest-client'
