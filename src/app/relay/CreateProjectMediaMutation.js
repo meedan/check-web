@@ -17,28 +17,17 @@ class CreateProjectMediaMutation extends Relay.Mutation {
   }
 
   getVariables() {
-    return { url: this.props.url, quote: this.props.quote, project_id: this.props.project.dbid };
+    return { url: this.props.url, quote: this.props.quote, project_id: this.props.project_id };
   }
 
   getConfigs() {
     return [
-      {
-        type: 'RANGE_ADD',
-        parentName: 'project',
-        parentID: this.props.project.id,
-        connectionName: 'project_medias',
-        edgeName: 'mediaEdge',
-        rangeBehaviors: {
-          '': 'prepend',
-        },
-      },
       {
         type: 'REQUIRED_CHILDREN',
         children: [Relay.QL`
           fragment on CreateProjectMediaPayload {
             project_media {
               dbid
-              project_id
             }
           }`,
         ],

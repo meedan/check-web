@@ -1,4 +1,4 @@
-export CreateMedia from './CreateMedia';
+export CreateProjectMedia from './CreateMedia';
 export MediaComponent from './MediaComponent';
 export MediaDetail from './MediaDetail';
-export Media from './Media';
+export ProjectMedia from './Media';

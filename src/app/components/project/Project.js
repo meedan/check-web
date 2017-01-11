@@ -8,7 +8,7 @@ import ProjectRoute from '../../relay/ProjectRoute';
 import ProjectHeader from './ProjectHeader';
 import MediasAndAnnotations from '../MediasAndAnnotations';
 import TeamSidebar from '../TeamSidebar';
-import { CreateMedia } from '../media';
+import { CreateProjectMedia } from '../media';
 import Can from '../Can';
 import config from 'config';
 import { pageTitle } from '../../helpers';
@@ -93,7 +93,7 @@ class ProjectComponent extends Component {
           </div>
           <div className="project__content">
             <Can permissions={project.permissions} permission="create Media">
-              <CreateMedia projectComponent={that} />
+              <CreateProjectMedia projectComponent={that} />
             </Can>
 
             <InfiniteScroll hasMore loadMore={this.loadMore.bind(this)} threshold={500}>
@@ -173,6 +173,10 @@ const ProjectContainer = Relay.createContainer(ProjectComponent, {
               last_status,
               permissions,
               verification_statuses,
+              media {
+                url,
+                quote
+              }
               user {
                 name,
                 source {

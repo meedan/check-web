@@ -23,6 +23,10 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
         permissions,
         pusher_channel,
         verification_statuses,
+        media {
+          url,
+          quote
+        }
         user {
           name,
           source {
