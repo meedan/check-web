@@ -8,6 +8,7 @@ import Message from '../Message';
 import CheckContext from '../../CheckContext';
 import config from 'config';
 import urlRegex from 'url-regex';
+import ContentColumn from '../layout/ContentColumn';
 
 class CreateProjectMedia extends Component {
   constructor(props) {
@@ -100,25 +101,27 @@ class CreateProjectMedia extends Component {
     return (
       <div className="create-media">
         <Message message={this.state.message} />
-        <div id="media-preview" className="create-media__preview">
-          {isPreviewingUrl ? <PenderCard url={this.state.url} penderUrl={config.penderUrl} /> : null}
-        </div>
-
-        <form id="media-url-container" className="create-media__form" onSubmit={this.handleSubmit.bind(this)}>
-          <button className="create-media__button create-media__button--new">+</button>
-          <TextField
-            hintText="Paste a link or start typing to add a quote."
-            fullWidth
-            name="url" id="create-media-input"
-            className="create-media__input"
-            multiLine
-            onKeyPress={this.handleKeyPress.bind(this)}
-            ref={input => this.mediaInput = input}
-          />
-          <div className="create-media__buttons">
-            <FlatButton id="create-media-submit" primary onClick={this.handleSubmit.bind(this)} label="Post" className="create-media__button create-media__button--submit" />
+        <ContentColumn>
+          <div id="media-preview" className="create-media__preview">
+            {isPreviewingUrl ? <PenderCard url={this.state.url} penderUrl={config.penderUrl} /> : null}
           </div>
-        </form>
+
+          <form id="media-url-container" className="create-media__form" onSubmit={this.handleSubmit.bind(this)}>
+            <button className="create-media__button create-media__button--new">+</button>
+            <TextField
+              hintText="Paste a link or start typing to add a quote."
+              fullWidth
+              name="url" id="create-media-input"
+              className="create-media__input"
+              multiLine
+              onKeyPress={this.handleKeyPress.bind(this)}
+              ref={input => this.mediaInput = input}
+            />
+            <div className="create-media__buttons">
+              <FlatButton id="create-media-submit" primary onClick={this.handleSubmit.bind(this)} label="Post" className="create-media__button create-media__button--submit" />
+            </div>
+          </form>
+        </ContentColumn>
       </div>
     );
   }

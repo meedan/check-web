@@ -22,22 +22,7 @@
 }
 
 .header-actions__menu-overlay {
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: theme-gray(20%);
-
-  opacity: 0;
-  transition: opacity 100ms ease;
-  pointer-events: none;
-  &--active {
-    pointer-events: auto;
-    opacity: 0.5;
-  }
+  @include modal-overlay;
 }
 
 .header-actions__menu {
@@ -47,8 +32,8 @@
   border-top: none;
   border-radius: 2px;
   position: absolute; right: 0;
-  min-width: 150px;
-  top: $layout-header-height;
+  min-width: 250px;
+  top: 53px;
   display: none;
   &--active {
     display: block;

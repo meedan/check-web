@@ -20,7 +20,7 @@ $home-content-padding: 23px;
   width: 100%;
   max-width: $layout-column-width-wide;
   margin: 0 auto;
-  padding: 0 $layout-padding;
+  padding: $layout-padding;
 
   display: flex;
   flex-direction: column;
