@@ -3,13 +3,13 @@ import Relay from 'react-relay';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import PenderCard from '../PenderCard';
-import CreateMediaMutation from '../../relay/CreateMediaMutation';
+import CreateProjectMediaMutation from '../../relay/CreateProjectMediaMutation';
 import Message from '../Message';
 import CheckContext from '../../CheckContext';
 import config from 'config';
 import urlRegex from 'url-regex';
 
-class CreateMedia extends Component {
+class CreateProjectMedia extends Component {
   constructor(props) {
     super(props);
 
@@ -64,13 +64,13 @@ class CreateMedia extends Component {
     };
 
     const onSuccess = (response) => {
-      const rid = response.createMedia.media.pm_dbid;
+      const rid = response.createProjectMedia.media.dbid;
       context.history.push(prefix + rid);
       this.setState({ message: null, isSubmitting: false });
     };
 
     Relay.Store.commitUpdate(
-      new CreateMediaMutation({
+      new CreateProjectMediaMutation({
         url,
         quote,
         project: context.project,
@@ -124,8 +124,8 @@ class CreateMedia extends Component {
   }
 }
 
-CreateMedia.contextTypes = {
+CreateProjectMedia.contextTypes = {
   store: React.PropTypes.object,
 };
 
-export default CreateMedia;
+export default CreateProjectMedia;

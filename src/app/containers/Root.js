@@ -7,7 +7,7 @@ import App from './App';
 import { IndexComponent, TermsOfService, NotFound, CreateAccount, AccessDenied, PrivacyPolicy, UserConfirmed, UserUnconfirmed } from '../components';
 import { Sources, Source, User, Me } from '../components/source';
 import Team from '../components/team/Team';
-import { CreateMedia, Media } from '../components/media';
+import { CreateProjectMedia, ProjectMedia } from '../components/media';
 import TeamMembers from '../components/team/TeamMembers';
 import CreateTeam from '../components/team/CreateTeam';
 import JoinTeam from '../components/team/JoinTeam.js';
@@ -80,8 +80,8 @@ export default class Root extends Component {
             <Route path="sources" component={Sources} />
             <Route path="sources/new" component={CreateAccount} />
             <Route path="source/:sourceId" component={Source} />
-            <Route path="medias/new" component={CreateMedia} />
-            <Route path="project/:projectId/media/:mediaId" component={Media} />
+            <Route path="medias/new" component={CreateProjectMedia} />
+            <Route path="project/:projectId/media/:mediaId" component={ProjectMedia} />
             <Route path="user/confirmed" component={UserConfirmed} public />
             <Route path="user/unconfirmed" component={UserUnconfirmed} public />
             <Route path="user/:userId" component={User} />

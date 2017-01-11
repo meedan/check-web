@@ -77,7 +77,7 @@ class ProjectComponent extends Component {
   }
 
   loadMore() {
-    this.props.relay.setVariables({ pageSize: this.props.project.medias.edges.length + pageSize });
+    this.props.relay.setVariables({ pageSize: this.props.project.project_medias.edges.length + pageSize });
   }
 
   render() {
@@ -99,7 +99,7 @@ class ProjectComponent extends Component {
             <InfiniteScroll hasMore loadMore={this.loadMore.bind(this)} threshold={500}>
 
               <MediasAndAnnotations
-                medias={project.medias.edges}
+                medias={project.project_medias.edges}
                 annotations={project.annotations.edges}
                 annotated={project}
                 annotatedType="Project"
@@ -109,7 +109,7 @@ class ProjectComponent extends Component {
             </InfiniteScroll>
 
             {(() => {
-              if (this.props.project.medias.edges.length < this.props.project.medias_count) {
+              if (this.props.project.project_medias.edges.length < this.props.project.project_medias_count) {
                 return (<p className="project__medias-loader">Loading...</p>);
               }
             })()}
@@ -159,7 +159,7 @@ const ProjectContainer = Relay.createContainer(ProjectComponent, {
             }
           }
         },
-        medias(first: $pageSize) {
+        project_medias(first: $pageSize) {
           edges {
             node {
               id,

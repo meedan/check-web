@@ -1,19 +1,17 @@
 import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 
-class CreateMediaMutation extends Relay.Mutation {
+class CreateProjectMediaMutation extends Relay.Mutation {
   getMutation() {
-    return Relay.QL`mutation createMedia {
-      createMedia
+    return Relay.QL`mutation createProjectMedia {
+      createProjectMedia
     }`;
   }
 
   getFatQuery() {
     return Relay.QL`
-      fragment on CreateMediaPayload {
-        mediaEdge,
-        media,
-        project { medias }
+      fragment on CreateProjectMediaPayload {
+        project_media
       }
     `;
   }
@@ -37,10 +35,10 @@ class CreateMediaMutation extends Relay.Mutation {
       {
         type: 'REQUIRED_CHILDREN',
         children: [Relay.QL`
-          fragment on CreateMediaPayload {
-            media {
+          fragment on CreateProjectMediaPayload {
+            project_media {
               dbid
-              pm_dbid
+              project_id
             }
           }`,
         ],
@@ -49,4 +47,4 @@ class CreateMediaMutation extends Relay.Mutation {
   }
 }
 
-export default CreateMediaMutation;
+export default CreateProjectMediaMutation;
