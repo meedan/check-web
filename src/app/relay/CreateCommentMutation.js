@@ -46,13 +46,7 @@ class CreateCommentMutation extends Relay.Mutation {
 
   getVariables() {
     const comment = this.props.annotation;
-    const vars = { text: comment.text, annotated_id: `${comment.annotated_id}`, annotated_type: comment.annotated_type };
-    const context = this.props.context;
-    if (context && context.project) {
-      vars.context_type = 'Project';
-      vars.context_id = context.project.dbid.toString();
-    }
-    return vars;
+    return { text: comment.text, annotated_id: `${comment.annotated_id}`, annotated_type: comment.annotated_type };
   }
 
   getConfigs() {
