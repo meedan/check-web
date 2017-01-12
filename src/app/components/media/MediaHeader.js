@@ -22,7 +22,7 @@ class MediaHeaderComponent extends Component {
 
   render() {
     const media = this.props.media;
-    const data = JSON.parse(media.jsondata);
+    const data = JSON.parse(media.embed);
     const title = MediaUtil.truncatedTitle(media, data);
 
     if (this.props.relay.variables.contextId === null) {
@@ -50,14 +50,14 @@ const MediaHeaderContainer = Relay.createContainer(MediaHeaderComponent, {
   },
   fragments: {
     media: () => Relay.QL`
-      fragment on Media {
+      fragment on ProjectMedia {
         id,
         dbid,
-        published(context_id: $contextId),
+        published,
         url,
-        jsondata(context_id: $contextId),
-        last_status(context_id: $contextId),
-        annotations_count(context_id: $contextId),
+        embed,
+        last_status,
+        annotations_count,
         verification_statuses,
         domain,
         user {
@@ -66,7 +66,7 @@ const MediaHeaderContainer = Relay.createContainer(MediaHeaderComponent, {
             dbid
           }
         }
-        tags(first: 10000, context_id: $contextId) {
+        tags(first: 10000) {
           edges {
             node {
               tag,
@@ -94,8 +94,8 @@ class MediaHeader extends Component {
     if (store.project) {
       projectId = store.project.dbid;
     }
-    const ids = `${this.props.params.mediaId},${projectId}`;
-    const route = new MediaRoute({ ids: ids });
+    const ids = this.props.params.mediaId;
+    const route = new MediaRoute({ ids });
     return (<Relay.RootContainer Component={MediaHeaderContainer} route={route} />);
   }
 }

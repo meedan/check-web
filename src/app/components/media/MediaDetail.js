@@ -47,7 +47,7 @@ class MediaDetail extends Component {
 
     Relay.Store.commitUpdate(
       new UpdateMediaMutation({
-        information: JSON.stringify({ title: newTitle }),
+        embed: JSON.stringify({ title: newTitle }),
         id: media.id,
       }),
       { onSuccess, onFailure },
@@ -68,7 +68,7 @@ class MediaDetail extends Component {
 
   render() {
     const { media, annotated, annotatedType } = this.props;
-    const data = JSON.parse(media.jsondata);
+    const data = JSON.parse(media.embed);
     const createdAt = MediaUtil.createdAt(media);
     const annotationsCount = MediaUtil.notesCount(media, data);
 
@@ -94,15 +94,15 @@ class MediaDetail extends Component {
       <div className={this.statusToClass('media-detail', media.last_status)}>
         <div className="media-detail__header">
           <div className="media-detail__status"><MediaStatus media={media} readonly={this.props.readonly} /></div>
-            {this.state.isEditing ? (
-              <span className="media-detail__editing-buttons">
-                <DefaultButton onClick={this.handleCancel.bind(this)} className="media-detail__cancel-edits" size="xsmall">Cancel</DefaultButton>
-                <DefaultButton onClick={this.handleSave.bind(this, media)} className="media-detail__save-edits" size="xsmall" style="primary">Done</DefaultButton>
-              </span>
+          {this.state.isEditing ? (
+            <span className="media-detail__editing-buttons">
+              <DefaultButton onClick={this.handleCancel.bind(this)} className="media-detail__cancel-edits" size="xsmall">Cancel</DefaultButton>
+              <DefaultButton onClick={this.handleSave.bind(this, media)} className="media-detail__save-edits" size="xsmall" style="primary">Done</DefaultButton>
+            </span>
               ) : null
             }
-            {this.props.readonly || this.state.isEditing ? null :
-              <MediaActions media={media} handleEdit={this.handleEdit.bind(this)} />
+          {this.props.readonly || this.state.isEditing ? null :
+          <MediaActions media={media} handleEdit={this.handleEdit.bind(this)} />
             }
         </div>
 
@@ -130,7 +130,7 @@ class MediaDetail extends Component {
 }
 
 MediaDetail.contextTypes = {
-  store: React.PropTypes.object
+  store: React.PropTypes.object,
 };
 
 export default MediaDetail;

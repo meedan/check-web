@@ -20,7 +20,7 @@ class Tags extends Component {
     Relay.Store.commitUpdate(
       new DeleteTagMutation({
         annotated: props.annotated,
-        parent_type: props.annotatedType.toLowerCase(),
+        parent_type: props.annotatedType.replace(/([a-z])([A-Z])/, '$1_$2').toLowerCase(),
         id: props.tags[i].node.id,
       }),
     );
@@ -56,7 +56,7 @@ class Tags extends Component {
         new CreateTagMutation({
           annotated: props.annotated,
           annotator: context.currentUser,
-          parent_type: props.annotatedType.toLowerCase(),
+          parent_type: props.annotatedType.replace(/([a-z])([A-Z])/, '$1_$2').toLowerCase(),
           context,
           annotation: {
             tag: tag.trim(),

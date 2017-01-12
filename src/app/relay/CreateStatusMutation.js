@@ -14,8 +14,8 @@ class CreateStatusMutation extends Relay.Mutation {
     case 'source':
       query = Relay.QL`fragment on CreateStatusPayload { statusEdge, source { annotations, id } }`;
       break;
-    case 'media':
-      query = Relay.QL`fragment on CreateStatusPayload { statusEdge, media { annotations, id, last_status, annotations_count } }`;
+    case 'project_media':
+      query = Relay.QL`fragment on CreateStatusPayload { statusEdge, project_media { annotations, id, last_status, annotations_count } }`;
       break;
     }
     return query;
@@ -32,17 +32,17 @@ class CreateStatusMutation extends Relay.Mutation {
       annotated_id: this.props.annotation.annotated_id,
       annotator: {
         name: this.props.annotator.name,
-        profile_image: this.props.annotator.profile_image
+        profile_image: this.props.annotator.profile_image,
       },
       medias: {
-        edges: []
-      }
+        edges: [],
+      },
     };
 
     const media = Object.assign({}, this.props.annotated);
     media.last_status = this.props.annotation.status;
-    
-    return { statusEdge: { node: status }, media };
+
+    return { statusEdge: { node: status }, project_media: media };
   }
 
   getVariables() {
@@ -67,9 +67,7 @@ class CreateStatusMutation extends Relay.Mutation {
         parentID: this.props.annotated.id,
         connectionName: 'annotations',
         edgeName: 'statusEdge',
-        rangeBehaviors: (calls) => {
-          return 'prepend';
-        },
+        rangeBehaviors: calls => 'prepend',
       },
       {
         type: 'FIELDS_CHANGE',

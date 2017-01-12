@@ -33,7 +33,7 @@ export default class Root extends Component {
     const context = this.getContext();
     const store = context.store || this.props.store;
 
-    let data = { history: history };
+    const data = { history };
 
     if (config.pusherKey) {
       Pusher.logToConsole = !!config.pusherDebug;
@@ -68,7 +68,7 @@ export default class Root extends Component {
 
   render() {
     const { store } = this.props;
-    window.Checkdesk = { store: store };
+    window.Checkdesk = { store };
 
     return (
       <Provider store={store}>
@@ -102,5 +102,5 @@ export default class Root extends Component {
 }
 
 Root.contextTypes = {
-  store: React.PropTypes.object
+  store: React.PropTypes.object,
 };

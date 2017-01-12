@@ -26,7 +26,7 @@ class Annotation extends Component {
 
     Relay.Store.commitUpdate(
       new DeleteAnnotationMutation({
-        parent_type: this.props.annotatedType.toLowerCase(),
+        parent_type: this.props.annotatedType.replace(/([a-z])([A-Z])/, '$1_$2').toLowerCase(),
         annotated: this.props.annotated,
         id,
       }),
@@ -78,7 +78,7 @@ class Annotation extends Component {
           <div className="annotation__body"><Linkify properties={{ target: '_blank' }}>{nl2br(commentText)}</Linkify></div>
           {annotation.medias.edges.map(media => (
             <div className="annotation__embedded-media">
-              <MediaDetail media={media.node} condensed={true} readonly={true} />
+              <MediaDetail media={media.node} condensed readonly />
             </div>
               ))}
         </section>

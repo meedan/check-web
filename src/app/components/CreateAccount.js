@@ -20,9 +20,9 @@ class CreateAccount extends Component {
 
   handleSubmit(redirect) {
     let that = this,
-        url = document.getElementById('create-account-url').value,
-        prefix = '/source/',
-        history = new CheckContext(this).getContextStore().history;
+      url = document.getElementById('create-account-url').value,
+      prefix = '/source/',
+      history = new CheckContext(this).getContextStore().history;
 
     const onFailure = (transaction) => {
       const error = transaction.getError();
@@ -88,7 +88,7 @@ class CreateAccount extends Component {
 }
 
 CreateAccount.contextTypes = {
-  store: React.PropTypes.object
+  store: React.PropTypes.object,
 };
 
 export default CreateAccount;

@@ -166,20 +166,20 @@ const ProjectContainer = Relay.createContainer(ProjectComponent, {
               dbid,
               url,
               quote,
-              published(context_id: $contextId),
-              jsondata(context_id: $contextId),
-              annotations_count(context_id: $contextId),
+              published,
+              embed,
+              annotations_count,
               domain,
-              last_status(context_id: $contextId),
+              last_status,
               permissions,
               verification_statuses,
-              user(context_id: $contextId), {
+              user {
                 name,
                 source {
                   dbid
                 }
               }
-              tags(first: 10000, context_id: $contextId) {
+              tags(first: 10000) {
                 edges {
                   node {
                     tag,

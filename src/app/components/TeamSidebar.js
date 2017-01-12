@@ -43,8 +43,8 @@ class TeamSidebarComponent extends Component {
 
   isCurrentProject(projectId) {
     let inProject = window.location.pathname.match(/\/project\/([0-9]+)/),
-        currentProjectId = null,
-        context = this.getContext();
+      currentProjectId = null,
+      context = this.getContext();
 
     if (inProject) {
       currentProjectId = parseInt(inProject[1]);
