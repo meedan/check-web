@@ -11,7 +11,9 @@ class CreateProjectMediaMutation extends Relay.Mutation {
   getFatQuery() {
     return Relay.QL`
       fragment on CreateProjectMediaPayload {
-        project_media
+        project_mediaEdge,
+        project_media,
+        project { project_medias }
       }
     `;
   }
