@@ -23,6 +23,16 @@ class CreateProjectMediaMutation extends Relay.Mutation {
   getConfigs() {
     return [
       {
+        type: 'RANGE_ADD',
+        parentName: 'project',
+        parentID: this.props.project_id,
+        connectionName: 'project_medias',
+        edgeName: 'project_mediaEdge',
+        rangeBehaviors: {
+          '': 'prepend',
+        },
+      },
+      {
         type: 'REQUIRED_CHILDREN',
         children: [Relay.QL`
           fragment on CreateProjectMediaPayload {
