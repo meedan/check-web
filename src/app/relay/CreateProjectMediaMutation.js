@@ -19,7 +19,7 @@ class CreateProjectMediaMutation extends Relay.Mutation {
   }
 
   getVariables() {
-    return { url: this.props.url, quote: this.props.quote, project_id: this.props.project_id };
+    return { url: this.props.url, quote: this.props.quote, project_id: this.props.project.dbid };
   }
 
   getConfigs() {
@@ -27,7 +27,7 @@ class CreateProjectMediaMutation extends Relay.Mutation {
       {
         type: 'RANGE_ADD',
         parentName: 'project',
-        parentID: this.props.project_id,
+        parentID: this.props.project.id,
         connectionName: 'project_medias',
         edgeName: 'project_mediaEdge',
         rangeBehaviors: {

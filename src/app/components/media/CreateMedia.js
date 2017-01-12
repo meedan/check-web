@@ -73,7 +73,7 @@ class CreateProjectMedia extends Component {
       new CreateProjectMediaMutation({
         url,
         quote,
-        project_id: context.project.dbid,
+        project: context.project,
       }),
       { onSuccess, onFailure },
     );
