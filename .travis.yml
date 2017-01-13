@@ -17,7 +17,7 @@ before_install:
 - echo "address=/localhost/127.0.0.1" | sudo tee -a /etc/dnsmasq.conf > /dev/null
 - echo "user=root" | sudo tee -a /etc/dnsmasq.conf > /dev/null
 - sudo service dnsmasq restart
-# api
+# check api
 - redis-server &
 - curl -O https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.2.4.deb && sudo dpkg -i --force-confnew elasticsearch-1.2.4.deb && sudo service elasticsearch restart
 - git clone https://github.com/meedan/check-api.git --branch feature/5590-image-report
