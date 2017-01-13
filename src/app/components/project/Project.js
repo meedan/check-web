@@ -100,7 +100,7 @@ class ProjectComponent extends Component {
 
               <MediasAndAnnotations
                 medias={project.project_medias.edges}
-                annotations={project.annotations.edges}
+                annotations={[]}
                 annotated={project}
                 annotatedType="Project"
                 types={['comment']}
