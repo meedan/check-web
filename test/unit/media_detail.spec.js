@@ -10,7 +10,8 @@ describe('<MediaDetail />', () => {
     last_status: 'verified',
     verification_statuses: JSON.stringify({statuses: [{label: 'verified'}]}),
     annotations_count: 0,
-    permissions: JSON.stringify({})
+    permissions: JSON.stringify({}),
+    media: {url: '', quote: ''}
   };
 
   it('renders', function() {
