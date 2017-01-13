@@ -145,20 +145,6 @@ const ProjectContainer = Relay.createContainer(ProjectComponent, {
           dbid,
           subdomain
         },
-        annotations(first: 10000) {
-          edges {
-            node {
-              id,
-              content,
-              annotation_type,
-              created_at,
-              annotator {
-                name,
-                profile_image
-              }
-            }
-          }
-        },
         project_medias(first: $pageSize) {
           edges {
             node {
