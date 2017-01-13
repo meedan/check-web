@@ -13,7 +13,7 @@ class UpdateTeamUserMutation extends Relay.Mutation {
   };
 
   getVariables() {
-    return { team_id: this.props.team_id, user_id: this.props.user_id, status: this.props.status, id: this.props.id, role: this.props.role };
+    return { team_id: this.props.team_id, user_id: this.props.user_id, status: this.props.status, id: this.props.id, role: this.props.role.value };
   }
 
   getFatQuery() {
