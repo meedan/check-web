@@ -17,6 +17,15 @@ class ProjectPage < Page
     MediaPage.new(config: @config, driver: @driver)
   end
 
+  def create_image_media(file)
+    @driver.find_element(:css, '#create-media__switcher').click
+    fill_input('input[type=file]', file, { hidden: true })
+    sleep 3
+    @driver.find_element(:css, '#create-media-submit').click
+    wait_for_element('.image-media-card')
+    MediaPage.new(config: @config, driver: @driver)
+  end
+
   def click_media
     click('.media-detail__check-timestamp')
 

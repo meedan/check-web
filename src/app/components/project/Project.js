@@ -161,7 +161,9 @@ const ProjectContainer = Relay.createContainer(ProjectComponent, {
               verification_statuses,
               media {
                 url,
-                quote
+                quote,
+                embed_path,
+                thumbnail_path
               }
               user {
                 name,
