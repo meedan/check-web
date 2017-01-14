@@ -53,10 +53,7 @@ class CreateProjectMedia extends Component {
     this.setState({ isSubmitting: true, message: 'Submitting...' });
 
     const handleError = (json) => {
-      let message = 'Something went wrong! Try pasting the text of this post instead, or adding a different link.';
-      if (json && json.error) {
-        message = json.error;
-      }
+      const message = 'Something went wrong! Try pasting the text of this post instead, or adding a different link.';
       that.setState({ message, isSubmitting: false });
     };
 
