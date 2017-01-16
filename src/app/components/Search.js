@@ -321,6 +321,10 @@ const SearchResultsContainer = Relay.createContainer(SearchResultsComponent, {
               permissions,
               verification_statuses,
               project_id,
+              media {
+                url
+                quote
+              }
               user {
                 name,
                 source {

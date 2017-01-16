@@ -23,6 +23,10 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
         permissions,
         pusher_channel,
         verification_statuses,
+        media {
+          url,
+          quote
+        }
         user {
           name,
           source {
@@ -91,7 +95,7 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
   },
 });
 
-class Media extends Component {
+class ProjectMedia extends Component {
   render() {
     let projectId = 0;
     const context = new CheckContext(this);
@@ -106,8 +110,8 @@ class Media extends Component {
   }
 }
 
-Media.contextTypes = {
+ProjectMedia.contextTypes = {
   store: React.PropTypes.object,
 };
 
-export default Media;
+export default ProjectMedia;

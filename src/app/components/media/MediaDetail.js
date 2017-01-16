@@ -82,6 +82,8 @@ class MediaDetail extends Component {
       (<span>by {media.user.name}</span>) : '';
 
     let embedCard = null;
+    media.url = media.media.url
+    media.quote = media.media.quote
     if (media.quote && media.quote.length) {
       embedCard = <QuoteMediaCard quoteText={media.quote} attributionName={null} attributionUrl={null} />;
     } else if (media.url) {

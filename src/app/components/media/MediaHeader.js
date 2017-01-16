@@ -24,11 +24,11 @@ class MediaHeaderComponent extends Component {
     const media = this.props.media;
     const data = JSON.parse(media.embed);
     const title = MediaUtil.truncatedTitle(media, data);
-
+    media.url = media.media.url
+    media.quote = media.media.quote
     if (this.props.relay.variables.contextId === null) {
       return null;
     }
-
     return (
       <div className="media-header">
         <div className="media-header__copy">
@@ -55,11 +55,16 @@ const MediaHeaderContainer = Relay.createContainer(MediaHeaderComponent, {
         dbid,
         published,
         url,
+        quote,
         embed,
         last_status,
         annotations_count,
         verification_statuses,
         domain,
+        media {
+          url
+          quote
+        }
         user {
           name,
           source {
