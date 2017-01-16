@@ -468,12 +468,24 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should not create duplicated media if registered" do
       login_with_email
+
       sleep 3
       fill_field('#create-media-input', @media_url)
       sleep 2
       press_button('#create-media-submit')
       sleep 10
-      expect(@driver.current_url.to_s.match(/\/media\/[0-9]+$/).nil?).to be(false)
+      id1 = @driver.current_url.to_s.gsub(/.*\/media\//, '').to_i
+      
+      @driver.navigate.to @driver.current_url.to_s.gsub(/\/media\/[0-9]+$/, '')
+
+      sleep 3
+      fill_field('#create-media-input', @media_url)
+      sleep 2
+      press_button('#create-media-submit')
+      sleep 10
+      id2 = @driver.current_url.to_s.gsub(/.*\/media\//, '').to_i
+
+      expect(id1 == id2).to be(true)
     end
 
     it "should not create source as media if registered" do
