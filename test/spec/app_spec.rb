@@ -496,7 +496,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       press_button('#create-media-submit')
       sleep 10
       id1 = @driver.current_url.to_s.gsub(/.*\/media\//, '').to_i
-
       @driver.navigate.to @driver.current_url.to_s.gsub(/\/media\/[0-9]+$/, '')
 
       sleep 3

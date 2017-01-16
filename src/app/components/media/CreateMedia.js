@@ -42,12 +42,12 @@ class CreateProjectMedia extends Component {
     const handleError = (json) => {
       let message = 'Something went wrong! Try pasting the text of this post instead, or adding a different link.';
       if (json && json.error) {
-        const matches = json.error.match(/^Validation failed: Media with this URL exists and has id ([0-9]+)$/);
+        const matches = json.error.match(/^Validation failed: This media already exists in this project and has id ([0-9]+)$/);
         if (matches) {
           that.props.projectComponent.props.relay.forceFetch();
-          const sid = matches[1];
+          const pmid = matches[1];
           message = null;
-          context.history.push(prefix + sid);
+          context.history.push(prefix + pmid);
         }
       }
       that.setState({ message, isSubmitting: false });
