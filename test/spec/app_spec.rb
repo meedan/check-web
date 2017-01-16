@@ -28,9 +28,20 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     FileUtils.cp(@config['config_file_path'], '../build/web/js/config.js') unless @config['config_file_path'].nil?
 
-    @driver = browser_capabilities['appiumVersion'] ?
-      Appium::Driver.new({ appium_lib: { server_url: webdriver_url}, caps: browser_capabilities }).start_driver :
-      Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: browser_capabilities)
+    if @config.key?('proxy')
+      proxy = Selenium::WebDriver::Proxy.new(
+        :http     => @config['proxy'],
+        :ftp      => @config['proxy'],
+        :ssl      => @config['proxy']
+      )
+      caps = Selenium::WebDriver::Remote::Capabilities.chrome(:proxy => proxy)
+      @driver = Selenium::WebDriver.for(:chrome, :desired_capabilities => caps , :url => @config['chromedriver_url'])
+    else
+      @driver = browser_capabilities['appiumVersion'] ?
+        Appium::Driver.new({ appium_lib: { server_url: webdriver_url}, caps: browser_capabilities }).start_driver :
+        Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: browser_capabilities)
+    end
+
 
     # TODO: better initialization w/ parallelization
     page = LoginPage.new(config: @config, driver: @driver).load
@@ -47,11 +58,13 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
   end
 
   # Close the testing webserver after all tests run
+
   after :all do
     FileUtils.cp('../config.js', '../build/web/js/config.js')
   end
 
   # Start Google Chrome before each test
+
   before :each do
     if @config.key?('proxy')
       proxy = Selenium::WebDriver::Proxy.new(
@@ -69,6 +82,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
   end
 
   # Close Google Chrome after each test
+
   after :each do |example|
     if example.exception
       require 'rest-client'
@@ -475,12 +489,24 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should not create duplicated media if registered" do
       login_with_email
+
       sleep 3
       fill_field('#create-media-input', @media_url)
       sleep 2
       press_button('#create-media-submit')
       sleep 10
-      expect(@driver.current_url.to_s.match(/\/media\/[0-9]+$/).nil?).to be(false)
+      id1 = @driver.current_url.to_s.gsub(/.*\/media\//, '').to_i
+
+      @driver.navigate.to @driver.current_url.to_s.gsub(/\/media\/[0-9]+$/, '')
+
+      sleep 3
+      fill_field('#create-media-input', @media_url)
+      sleep 2
+      press_button('#create-media-submit')
+      sleep 10
+      id2 = @driver.current_url.to_s.gsub(/.*\/media\//, '').to_i
+
+      expect(id1 == id2).to be(true)
     end
 
     it "should not create source as media if registered" do
