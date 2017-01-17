@@ -12,6 +12,7 @@ import { bemClass } from '../helpers';
 import { pageTitle } from '../helpers';
 import CheckContext from '../CheckContext';
 import ContentColumn from './layout/ContentColumn';
+import MediasLoading from './media/MediasLoading';
 
 const pageSize = 20;
 
@@ -383,24 +384,7 @@ class Search extends Component {
           Component={SearchResultsContainer}
           route={resultsRoute}
           renderLoading={function() {
-            return (
-              <div className="search__results search__results--loading">
-                <ContentColumn>
-                  <h3 className="search__results-heading">Loading...</h3>
-                  <div className="/ content">
-                    <div className="/ report">
-                      <div></div><div></div><div></div><div></div>
-                    </div>
-                    <div className="/ report">
-                      <div></div><div></div><div></div><div></div>
-                    </div>
-                    <div className="/ report">
-                      <div></div><div></div><div></div><div></div>
-                    </div>
-                  </div>
-                </ContentColumn>
-              </div>
-            );
+            return (<MediasLoading />);
           }}
         />
       </div>

@@ -14,6 +14,7 @@ import config from 'config';
 import { pageTitle } from '../../helpers';
 import CheckContext from '../../CheckContext';
 import ContentColumn from '../layout/ContentColumn';
+import MediasLoading from '../media/MediasLoading';
 
 const pageSize = 20;
 
@@ -189,23 +190,7 @@ class Project extends Component {
         Component={ProjectContainer}
         route={route}
         renderLoading={function() {
-          return (
-            <div className="project--loading">
-              <ContentColumn>
-                <div className="project--loading__medias">
-                  <div className="project--loading__media">
-                    <div></div><div></div><div></div><div></div>
-                  </div>
-                  <div className="project--loading__media">
-                    <div></div><div></div><div></div><div></div>
-                  </div>
-                  <div className="project--loading__media">
-                    <div></div><div></div><div></div><div></div>
-                  </div>
-                </div>
-              </ContentColumn>
-            </div>
-          )
+          return (<MediasLoading />);
         }}
       />
     );
