@@ -1,7 +1,7 @@
 // Project page
 // Larger than mobile breakpoint
 //
-@media all and (min-width: $layout-mobile-breakpoint + 1) {
+// @media all and (min-width: $layout-mobile-breakpoint + 1) {
   .project {
     &, &--loading {
       flex: 1;
@@ -38,28 +38,14 @@
   .create-project {
     display: inline;
   }
-}
+// }
 
-// Project page
-// Mobile and smaller
-//
-@media all and (max-width: $layout-mobile-breakpoint) {
+// // Project page
+// // Mobile and smaller
+// //
+// @media all and (max-width: $layout-mobile-breakpoint) {
 
-  .project__team-sidebar {
-    display: none;
-  }
-
-  header.header--project {
-    position: static;
-    .header__container {
-      display: block;
-    }
-  }
-
-  .project-header__project {
-    padding-top: 16px;
-  }
-}
+// }
 
 // Loading reports
 

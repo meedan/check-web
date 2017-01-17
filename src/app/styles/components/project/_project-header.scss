@@ -1,8 +1,12 @@
 .project-header {
-  flex: 1;
+  height: 100%;
 }
 
 .project-header__copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
   margin: 0 auto;
   width: 195px; // ellipsis truncation requires explicit width
   @media screen and (min-width: 400px) { width: 200px };

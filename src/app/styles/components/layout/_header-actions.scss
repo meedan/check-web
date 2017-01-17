@@ -1,21 +1,23 @@
 .header-actions {
-  align-self: center;
-
   position: absolute;
+  height: 100%;
+  top: 0;
   right: 0;
+  display: flex;
+  align-items: center;
   text-align: right;
 }
 
 .header-actions__search-icon {
   color: $light-gray-text;
   font-size: 21px;
-  padding: 6px 15px 0px 15px;
+  padding-right: 16px;
 }
 
 .header-actions__menu-toggle {
   color: $light-gray-text;
   font-size: 21px;
-  padding: 6px 15px 0px 15px;
+  padding-right: 16px;
   position: relative;
   z-index: 3;
   cursor: pointer;

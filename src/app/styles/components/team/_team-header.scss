@@ -2,6 +2,7 @@
   border-radius: 2px;
   padding-left: 14px; // TODO: rationalize layout padding
   display: flex;
+  height: 100%;
 }
 
 .team-header__clickable {
@@ -22,8 +23,12 @@
 .team-header__copy {
   flex: 1;
   height: 100%;
-  display: flex;
-  align-items: center;
+
+  display: none;
+  @media screen and (min-width: $layout-mobile-breakpoint) {
+    display: flex;
+    align-items: center;
+  }
 }
 
 .team-header__name {
@@ -39,7 +44,7 @@
 .team-header__project-list {
   display: none;
   position: absolute;
-  top: 80%;
+  top: 100%;
 }
 
 .team-header__copy {
