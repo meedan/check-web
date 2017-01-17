@@ -13,6 +13,7 @@ import CreateTeam from '../components/team/CreateTeam';
 import JoinTeam from '../components/team/JoinTeam.js';
 import Project from '../components/project/Project.js';
 import ProjectHeader from '../components/project/ProjectHeader';
+import ProjectEdit from '../components/project/ProjectEdit';
 import Teams from '../components/team/Teams.js';
 import Search from '../components/Search.js';
 import CheckContext from '../CheckContext';
@@ -91,6 +92,7 @@ export default class Root extends Component {
             <Route path="teams/new" component={CreateTeam} />
             <Route path="teams" component={Teams} />
             <Route path="project/:projectId" component={Project} />
+            <Route path="project/:projectId/edit" component={ProjectEdit} />
             <Route path="search(/:query)" component={Search} />
             <Route path="forbidden" component={AccessDenied} public />
             <Route path="*" component={NotFound} public />

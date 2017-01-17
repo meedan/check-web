@@ -11,6 +11,7 @@ import MediaDetail from './media/MediaDetail';
 import { bemClass } from '../helpers';
 import { pageTitle } from '../helpers';
 import CheckContext from '../CheckContext';
+import ContentColumn from './layout/ContentColumn';
 
 const pageSize = 20;
 
@@ -48,6 +49,10 @@ class SearchQueryComponent extends Component {
 
   componentWillUpdate(nextProps, nextState) {
     this.setQueryFromUrl();
+  }
+
+  componentDidMount() {
+    this.searchQueryInput.focus();
   }
 
   handleSubmit(e) {
@@ -183,48 +188,50 @@ class SearchQueryComponent extends Component {
 
     return (
       <DocumentTitle title={pageTitle(title, false, this.props.team)}>
-        <div className="search__query">
-          <form id="search-form" className="search__form" onSubmit={this.handleSubmit.bind(this)}>
-            <input placeholder="Search" name="search-input" id="search-input" className="search__input" defaultValue={this.state.query.keyword || ''} />
-          </form>
+        <ContentColumn>
+          <div className="search__query">
+            <form id="search-form" className="search__form" onSubmit={this.handleSubmit.bind(this)}>
+              <input placeholder="Search" name="search-input" id="search-input" className="search__input" defaultValue={this.state.query.keyword || ''} ref={input => this.searchQueryInput = input} />
+            </form>
 
-          <section className="search__filters / filters">
-            <h3 className="search__filters-heading">Filters</h3>
-            <div>
-              <h4>Status</h4>
-              {/* chicklet markup/logic from MediaTags. TODO: fix classnames */}
-              <ul className="/ media-tags__suggestions-list // electionland_categories">
-                {statuses.map(status =>  // TODO: set and use styles in `status.style`
-                  <li title={status.description} onClick={this.handleStatusClick.bind(this, status.id)} className={bemClass('media-tags__suggestion', this.statusIsSelected(status.id), '--selected')}>{status.label}</li>)}
-              </ul>
-            </div>
-            <div>
-              <h4>Project</h4>
-              {/* chicklet markup/logic from MediaTags. TODO: fix classnames */}
-              <ul className="/ media-tags__suggestions-list // electionland_categories">
-                {projects.map(project => <li title={project.node.description} onClick={this.handleProjectClick.bind(this, project.node.dbid)} className={bemClass('media-tags__suggestion', this.projectIsSelected(project.node.dbid), '--selected')}>{project.node.title}</li>)}
-              </ul>
-            </div>
-            <div>
-              {suggestedTags.length ? <h4>Categories</h4> : null}
-              {/* chicklet markup/logic from MediaTags. TODO: fix classnames */}
-              {suggestedTags.length ? <ul className="/ media-tags__suggestions-list // electionland_categories">
-                {suggestedTags.map(tag => <li title={null} onClick={this.handleTagClick.bind(this, tag)} className={bemClass('media-tags__suggestion', this.tagIsSelected(tag), '--selected')}>{tag}</li>)}
-              </ul>
-              : null}
-            </div>
-            <div>
-              <h4>Sort</h4>
-              {/* chicklet markup/logic from MediaTags. TODO: fix classnames */}
-              <ul className="search-query__sort-actions / media-tags__suggestions-list">
-                <li onClick={this.handleSortClick.bind(this, 'recent_added')} className={bemClass('media-tags__suggestion', this.sortIsSelected('recent_added'), '--selected')}>Created</li>
-                <li onClick={this.handleSortClick.bind(this, 'recent_activity')} className={bemClass('media-tags__suggestion', this.sortIsSelected('recent_activity'), '--selected')}>Recent activity</li>
-                <li onClick={this.handleSortClick.bind(this, 'DESC')} className={bemClass('media-tags__suggestion', this.sortIsSelected('DESC'), '--selected')}>Newest first</li>
-                <li onClick={this.handleSortClick.bind(this, 'ASC')} className={bemClass('media-tags__suggestion', this.sortIsSelected('ASC'), '--selected')}>Oldest first</li>
-              </ul>
-            </div>
-          </section>
-        </div>
+            <section className="search__filters / filters">
+              <h3 className="search__filters-heading">Filters</h3>
+              <div>
+                <h4>Status</h4>
+                {/* chicklet markup/logic from MediaTags. TODO: fix classnames */}
+                <ul className="/ media-tags__suggestions-list // electionland_categories">
+                  {statuses.map(status =>  // TODO: set and use styles in `status.style`
+                    <li title={status.description} onClick={this.handleStatusClick.bind(this, status.id)} className={bemClass('media-tags__suggestion', this.statusIsSelected(status.id), '--selected')}>{status.label}</li>)}
+                </ul>
+              </div>
+              <div>
+                <h4>Project</h4>
+                {/* chicklet markup/logic from MediaTags. TODO: fix classnames */}
+                <ul className="/ media-tags__suggestions-list // electionland_categories">
+                  {projects.map(project => <li title={project.node.description} onClick={this.handleProjectClick.bind(this, project.node.dbid)} className={bemClass('media-tags__suggestion', this.projectIsSelected(project.node.dbid), '--selected')}>{project.node.title}</li>)}
+                </ul>
+              </div>
+              {suggestedTags.length ? (
+                <div>
+                  <h4>Categories</h4>
+                  <ul className="/ media-tags__suggestions-list // electionland_categories">
+                    {suggestedTags.map(tag => <li title={null} onClick={this.handleTagClick.bind(this, tag)} className={bemClass('media-tags__suggestion', this.tagIsSelected(tag), '--selected')}>{tag}</li>)}
+                  </ul>
+                </div>
+              ) : null }
+              <div>
+                <h4>Sort</h4>
+                {/* chicklet markup/logic from MediaTags. TODO: fix classnames */}
+                <ul className="search-query__sort-actions / media-tags__suggestions-list">
+                  <li onClick={this.handleSortClick.bind(this, 'recent_added')} className={bemClass('media-tags__suggestion', this.sortIsSelected('recent_added'), '--selected')}>Created</li>
+                  <li onClick={this.handleSortClick.bind(this, 'recent_activity')} className={bemClass('media-tags__suggestion', this.sortIsSelected('recent_activity'), '--selected')}>Recent activity</li>
+                  <li onClick={this.handleSortClick.bind(this, 'DESC')} className={bemClass('media-tags__suggestion', this.sortIsSelected('DESC'), '--selected')}>Newest first</li>
+                  <li onClick={this.handleSortClick.bind(this, 'ASC')} className={bemClass('media-tags__suggestion', this.sortIsSelected('ASC'), '--selected')}>Oldest first</li>
+                </ul>
+              </div>
+            </section>
+          </div>
+        </ContentColumn>
       </DocumentTitle>
     );
   }
@@ -357,8 +364,45 @@ class Search extends Component {
 
     return (
       <div className="search">
-        <Relay.RootContainer Component={SearchQueryContainer} route={queryRoute} />
-        <Relay.RootContainer Component={SearchResultsContainer} route={resultsRoute} />
+        <Relay.RootContainer
+          Component={SearchQueryContainer}
+          route={queryRoute}
+          renderLoading={function() {
+            return (
+              <ContentColumn>
+                <div className="search__query">
+                  <div className="search__form search__form--loading">
+                    <input disabled placeholder="Loading..." name="search-input" id="search-input" className="search__input"/>
+                  </div>
+                </div>
+              </ContentColumn>
+            );
+          }}
+        />
+        <Relay.RootContainer
+          Component={SearchResultsContainer}
+          route={resultsRoute}
+          renderLoading={function() {
+            return (
+              <div className="search__results search__results--loading">
+                <ContentColumn>
+                  <h3 className="search__results-heading">Loading...</h3>
+                  <div className="/ content">
+                    <div className="/ report">
+                      <div></div><div></div><div></div><div></div>
+                    </div>
+                    <div className="/ report">
+                      <div></div><div></div><div></div><div></div>
+                    </div>
+                    <div className="/ report">
+                      <div></div><div></div><div></div><div></div>
+                    </div>
+                  </div>
+                </ContentColumn>
+              </div>
+            );
+          }}
+        />
       </div>
     );
   }

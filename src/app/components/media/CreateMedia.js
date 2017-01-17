@@ -11,6 +11,7 @@ import Message from '../Message';
 import CheckContext from '../../CheckContext';
 import config from 'config';
 import urlRegex from 'url-regex';
+import ContentColumn from '../layout/ContentColumn';
 
 class CreateProjectMedia extends Component {
   constructor(props) {
@@ -53,7 +54,16 @@ class CreateProjectMedia extends Component {
     this.setState({ isSubmitting: true, message: 'Submitting...' });
 
     const handleError = (json) => {
-      const message = 'Something went wrong! Try pasting the text of this post instead, or adding a different link.';
+      let message = 'Something went wrong! Try pasting the text of this post instead, or adding a different link.';
+      if (json && json.error) {
+        const matches = json.error.match(/^Validation failed: This media already exists in this project and has id ([0-9]+)$/);
+        if (matches) {
+          that.props.projectComponent.props.relay.forceFetch();
+          const pmid = matches[1];
+          message = null;
+          context.history.push(prefix + pmid);
+        }
+      }
       that.setState({ message, isSubmitting: false });
     };
 
@@ -113,40 +123,42 @@ class CreateProjectMedia extends Component {
     return (
       <div className="create-media">
         <Message message={this.state.message} />
-        <div id="media-preview" className="create-media__preview">
-          {isPreviewingUrl ? <PenderCard url={this.state.url} penderUrl={config.penderUrl} /> : null}
-        </div>
-
-        <form name="media" id="media-url-container" className="create-media__form" onSubmit={this.handleSubmit.bind(this)}>
-          <button className="create-media__button create-media__button--new">+</button>
-
-          <div id="create-media__field">
-            {(() => {
-              if (this.state.fileMode) {
-                return (
-                  <UploadImage onImage={this.onImage.bind(this)} />
-                );
-              } else {
-                return (
-                  <TextField
-                    hintText="Paste a link, type to add a quote or click on the icon to upload an image"
-                    fullWidth
-                    name="url" id="create-media-input"
-                    className="create-media__input"
-                    multiLine
-                    onKeyPress={this.handleKeyPress.bind(this)}
-                    ref={input => this.mediaInput = input}
-                  />
-                );
-              }
-            })()}
-            <FontAwesome id="create-media__switcher" size="2x" title="Upload an image" name="picture-o" className={this.state.fileMode ? 'create-media__file' : ''} onClick={this.switchMode.bind(this)} />
+        <ContentColumn>
+          <div id="media-preview" className="create-media__preview">
+            {isPreviewingUrl ? <PenderCard url={this.state.url} penderUrl={config.penderUrl} /> : null}
           </div>
 
-          <div className="create-media__buttons">
-            <FlatButton id="create-media-submit" primary onClick={this.handleSubmit.bind(this)} label="Post" className="create-media__button create-media__button--submit" />
-          </div>
-        </form>
+          <form name="media" id="media-url-container" className="create-media__form" onSubmit={this.handleSubmit.bind(this)}>
+            <button className="create-media__button create-media__button--new">+</button>
+
+            <div id="create-media__field">
+              {(() => {
+                if (this.state.fileMode) {
+                  return (
+                    <UploadImage onImage={this.onImage.bind(this)} />
+                  );
+                } else {
+                  return (
+                    <TextField
+                      hintText="Paste a link, type to add a quote or click on the icon to upload an image"
+                      fullWidth
+                      name="url" id="create-media-input"
+                      className="create-media__input"
+                      multiLine
+                      onKeyPress={this.handleKeyPress.bind(this)}
+                      ref={input => this.mediaInput = input}
+                    />
+                  );
+                }
+              })()}
+              <FontAwesome id="create-media__switcher" size="2x" title="Upload an image" name="picture-o" className={this.state.fileMode ? 'create-media__file' : ''} onClick={this.switchMode.bind(this)} />
+            </div>
+
+            <div className="create-media__buttons">
+              <FlatButton id="create-media-submit" primary onClick={this.handleSubmit.bind(this)} label="Post" className="create-media__button create-media__button--submit" />
+            </div>
+          </form>
+        </ContentColumn>
       </div>
     );
   }

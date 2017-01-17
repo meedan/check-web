@@ -13,6 +13,7 @@ import Can from '../Can';
 import config from 'config';
 import { pageTitle } from '../../helpers';
 import CheckContext from '../../CheckContext';
+import ContentColumn from '../layout/ContentColumn';
 
 const pageSize = 20;
 
@@ -87,17 +88,12 @@ class ProjectComponent extends Component {
     return (
       <DocumentTitle title={pageTitle(project.title, false, this.currentContext().team)} >
         <div className="project">
+          <Can permissions={project.permissions} permission="create Media">
+            <CreateProjectMedia projectComponent={that} />
+          </Can>
 
-          <div className="project__team-sidebar">{/* className={this.sidebarActiveClass('home__sidebar')} */}
-            <TeamSidebar />
-          </div>
-          <div className="project__content">
-            <Can permissions={project.permissions} permission="create Media">
-              <CreateProjectMedia projectComponent={that} />
-            </Can>
-
+          <ContentColumn>
             <InfiniteScroll hasMore loadMore={this.loadMore.bind(this)} threshold={500}>
-
               <MediasAndAnnotations
                 medias={project.project_medias.edges}
                 annotations={[]}
@@ -105,7 +101,6 @@ class ProjectComponent extends Component {
                 annotatedType="Project"
                 types={['comment']}
               />
-
             </InfiniteScroll>
 
             {(() => {
@@ -113,7 +108,7 @@ class ProjectComponent extends Component {
                 return (<p className="project__medias-loader">Loading...</p>);
               }
             })()}
-          </div>
+          </ContentColumn>
 
         </div>
       </DocumentTitle>
@@ -191,7 +186,31 @@ class Project extends Component {
   render() {
     const projectId = this.props.params.projectId;
     const route = new ProjectRoute({ contextId: parseInt(projectId) });
-    return (<Relay.RootContainer Component={ProjectContainer} route={route} />);
+    return (
+      <Relay.RootContainer
+        Component={ProjectContainer}
+        route={route}
+        renderLoading={function() {
+          return (
+            <div className="project--loading">
+              <ContentColumn>
+                <div className="project--loading__medias">
+                  <div className="project--loading__media">
+                    <div></div><div></div><div></div><div></div>
+                  </div>
+                  <div className="project--loading__media">
+                    <div></div><div></div><div></div><div></div>
+                  </div>
+                  <div className="project--loading__media">
+                    <div></div><div></div><div></div><div></div>
+                  </div>
+                </div>
+              </ContentColumn>
+            </div>
+          )
+        }}
+      />
+    );
   }
 }
 
