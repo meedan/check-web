@@ -364,8 +364,45 @@ class Search extends Component {
 
     return (
       <div className="search">
-        <Relay.RootContainer Component={SearchQueryContainer} route={queryRoute} />
-        <Relay.RootContainer Component={SearchResultsContainer} route={resultsRoute} />
+        <Relay.RootContainer
+          Component={SearchQueryContainer}
+          route={queryRoute}
+          renderLoading={function() {
+            return (
+              <ContentColumn>
+                <div className="search__query">
+                  <div className="search__form search__form--loading">
+                    <input disabled placeholder="Loading..." name="search-input" id="search-input" className="search__input"/>
+                  </div>
+                </div>
+              </ContentColumn>
+            );
+          }}
+        />
+        <Relay.RootContainer
+          Component={SearchResultsContainer}
+          route={resultsRoute}
+          renderLoading={function() {
+            return (
+              <div className="search__results search__results--loading">
+                <ContentColumn>
+                  <h3 className="search__results-heading">Loading...</h3>
+                  <div className="/ content">
+                    <div className="/ report">
+                      <div></div><div></div><div></div><div></div>
+                    </div>
+                    <div className="/ report">
+                      <div></div><div></div><div></div><div></div>
+                    </div>
+                    <div className="/ report">
+                      <div></div><div></div><div></div><div></div>
+                    </div>
+                  </div>
+                </ContentColumn>
+              </div>
+            );
+          }}
+        />
       </div>
     );
   }

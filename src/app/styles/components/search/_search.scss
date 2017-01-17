@@ -48,6 +48,12 @@
     text-align: center;
   }
 
+  .search__filters-loader {
+    text-align: center;
+    @include gray-text;
+    margin: 2em 0;
+  }
+
   .search__results {
     padding: 0 16px 16px;
 

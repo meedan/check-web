@@ -184,7 +184,31 @@ class Project extends Component {
   render() {
     const projectId = this.props.params.projectId;
     const route = new ProjectRoute({ contextId: parseInt(projectId) });
-    return (<Relay.RootContainer Component={ProjectContainer} route={route} />);
+    return (
+      <Relay.RootContainer
+        Component={ProjectContainer}
+        route={route}
+        renderLoading={function() {
+          return (
+            <div className="project--loading">
+              <ContentColumn>
+                <div className="project--loading__medias">
+                  <div className="project--loading__media">
+                    <div></div><div></div><div></div><div></div>
+                  </div>
+                  <div className="project--loading__media">
+                    <div></div><div></div><div></div><div></div>
+                  </div>
+                  <div className="project--loading__media">
+                    <div></div><div></div><div></div><div></div>
+                  </div>
+                </div>
+              </ContentColumn>
+            </div>
+          )
+        }}
+      />
+    );
   }
 }
 

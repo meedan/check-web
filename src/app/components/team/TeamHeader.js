@@ -54,7 +54,21 @@ const TeamHeaderContainer = Relay.createContainer(TeamHeaderComponent, {
 class TeamHeader extends Component {
   render() {
     const route = new TeamRoute({ teamId: '' });
-    return (<Relay.RootContainer Component={TeamHeaderContainer} route={route} />);
+    return (
+      <Relay.RootContainer
+        Component={TeamHeaderContainer}
+        route={route}
+        renderLoading={function() {
+          return (
+            <nav className="team-header team-header--loading">
+              <Link to="/" className="team-header__clickable" title='Back to team'>
+                <div className="team-header__avatar"></div>
+              </Link>
+            </nav>
+          );
+        }}
+      />
+    );
   }
 }
 
