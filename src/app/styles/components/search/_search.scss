@@ -1,18 +1,16 @@
 .search {
   // TODO: conform prototype styles to app conventions
-  & {
-    padding-top: 15px; // TODO
-  }
 
   .search__input {
-    background: 10px 12px url("/images/search.png") #fff no-repeat;
+    background: 15px 13px url(/images/search.png) #fff no-repeat;
+    background-size: 18px;
     border: $layout-border;
     border-radius: 4px;
     flex: 20;
     height: 44px;
     width: 100%;
     min-width: 500px;
-    padding-left: 50px;
+    padding-left: 45px;
     margin-top: 4px;
     @media all and (max-width: $layout-mobile-breakpoint) {
       min-width: 300px;
@@ -20,12 +18,12 @@
   }
 
   .search__filters {
-    padding: 32px 16px;
+    padding: 16px;
     max-width: 1200px;
     margin: 0 auto;
     div {
       display: flex;
-      margin-top: 2em;
+      margin-top: 1em;
       max-height: 160px;
       overflow-y: auto;
       h4 {
@@ -51,7 +49,7 @@
   }
 
   .search__results {
-    padding: 16px;
+    padding: 0 16px 16px;
 
     & > h4 {
       text-align: center;
