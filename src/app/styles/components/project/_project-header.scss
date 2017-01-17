@@ -33,6 +33,7 @@
   width: 100%;
   @include gray-text;
   position: relative;
+  z-index: 1;
 
   .project-header__description-summary {
     display: inline-block;
