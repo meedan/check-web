@@ -1,6 +1,7 @@
 # Check
 
 [![Travis](https://travis-ci.org/meedan/check-web.svg?branch=develop)](https://travis-ci.org/meedan/check-web/)
+![BrowserStack Status](https://www.browserstack.com/automate/badge.svg?badge_key=OFArdXhHVG9nZUZ4aFpqQ09wS1Z2N3YzNUh5ejRZZnF6OEgrNG9tRkVvQT0tLWxLWTBjcUN0dEZKem55ZFVCNllWdHc9PQ==--8db0f3b60bfdb56ee4b0d031897ed43a51070079)
 
 Verify breaking news online
 
@@ -83,3 +84,8 @@ it("should do whatever my unit expects");
 
 * Run `npm install babel-register -g` if you face errors related to `babel-register`
 * Remove your `node_modules` directory if you face errors related to `npm install`
+
+
+![https://www.browserstack.com/](https://github.com/meedan/check-web/blob/feature/5126-browser-testing-rebase/browserstack.jpeg?raw=true) 
+
+This project uses [Browserstack] (https://www.browserstack.com/) for cross browser compatibility tests.
