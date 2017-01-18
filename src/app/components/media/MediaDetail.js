@@ -11,7 +11,6 @@ import MediaActions from './MediaActions';
 import MediaUtil from './MediaUtil';
 import Tags from '../source/Tags';
 import DefaultButton from '../inputs/DefaultButton';
-import PenderCard from '../PenderCard';
 import UpdateMediaMutation from '../../relay/UpdateMediaMutation';
 import CheckContext from '../../CheckContext';
 
@@ -67,7 +66,7 @@ class MediaDetail extends Component {
   }
 
   render() {
-    const { media, annotated, annotatedType } = this.props;
+    const { media, annotated, annotatedType, condensed } = this.props;
     const data = JSON.parse(media.embed);
     const createdAt = MediaUtil.createdAt(media);
     const annotationsCount = MediaUtil.notesCount(media, data);
@@ -87,9 +86,7 @@ class MediaDetail extends Component {
     if (media.quote && media.quote.length) {
       embedCard = <QuoteMediaCard quoteText={media.quote} attributionName={null} attributionUrl={null} />;
     } else if (media.url) {
-      embedCard = this.props.condensed ?
-        <SocialMediaCard media={media} data={data} /> :
-        <PenderCard url={media.url} penderUrl={config.penderUrl} fallback={<SocialMediaCard media={media} data={data} />} />;
+      embedCard = <SocialMediaCard media={media} data={data} condensed={condensed} />;
     }
 
     return (

@@ -65,6 +65,11 @@
   @media all and (max-width: $layout-mobile-breakpoint-small) {
     flex-wrap: wrap;
   }
+
+  cursor: pointer;
+  &--condensed {
+    cursor: auto;
+  }
 }
 
 .social-media-card__body-text {
@@ -72,7 +77,7 @@
 }
 
 .social-media-card__body-image {
-  @include image(72px);
+  @include image(200px, 100px);
   flex-shrink: 0;
   @media all and (max-width: $layout-mobile-breakpoint-small) {
     margin-top: 8px;

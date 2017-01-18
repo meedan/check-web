@@ -3,6 +3,7 @@ import Relay from 'react-relay';
 import CheckContext from '../../CheckContext';
 import MediaRoute from '../../relay/MediaRoute';
 import MediaComponent from './MediaComponent';
+import MediasLoading from './MediasLoading';
 
 const MediaContainer = Relay.createContainer(MediaComponent, {
   initialVariables: {
@@ -106,7 +107,16 @@ class ProjectMedia extends Component {
     }
     const ids = this.props.params.mediaId;
     const route = new MediaRoute({ ids });
-    return (<Relay.RootContainer Component={MediaContainer} route={route} />);
+
+    return (
+      <Relay.RootContainer
+        Component={MediaContainer}
+        route={route}
+        renderLoading={function() {
+          return <MediasLoading count={1} />;
+        }}
+      />
+    );
   }
 }
 
