@@ -17,6 +17,7 @@ $loader-grid-unit: 16px;
   border: 1px solid theme-gray(93%);
   border-radius: 3px;
   margin: $loader-grid-unit 0;
+  &:first-child { margin-top: 0; }
   min-height: 200px;
   padding: $loader-grid-unit;
   position: relative;

@@ -384,7 +384,12 @@ class Search extends Component {
           Component={SearchResultsContainer}
           route={resultsRoute}
           renderLoading={function() {
-            return (<MediasLoading />);
+            return (
+              <div>
+                <h3 className="search__results-heading search__results-heading--loading">Loading...</h3>
+                <MediasLoading />
+              </div>
+            );
           }}
         />
       </div>
