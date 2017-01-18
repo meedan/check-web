@@ -9,7 +9,7 @@ class TeamPage < Page
     element('.team__name').text
   end
 
-  def project_names
+  def project_titles
     elements('.team__project').map(&:text)
   end
 

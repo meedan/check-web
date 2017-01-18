@@ -7,12 +7,13 @@ import App from './App';
 import { IndexComponent, TermsOfService, NotFound, CreateAccount, AccessDenied, PrivacyPolicy, UserConfirmed, UserUnconfirmed } from '../components';
 import { Sources, Source, User, Me } from '../components/source';
 import Team from '../components/team/Team';
-import { CreateMedia, Media } from '../components/media';
+import { CreateProjectMedia, ProjectMedia } from '../components/media';
 import TeamMembers from '../components/team/TeamMembers';
 import CreateTeam from '../components/team/CreateTeam';
 import JoinTeam from '../components/team/JoinTeam.js';
 import Project from '../components/project/Project.js';
 import ProjectHeader from '../components/project/ProjectHeader';
+import ProjectEdit from '../components/project/ProjectEdit';
 import Teams from '../components/team/Teams.js';
 import Search from '../components/Search.js';
 import CheckContext from '../CheckContext';
@@ -80,8 +81,8 @@ export default class Root extends Component {
             <Route path="sources" component={Sources} />
             <Route path="sources/new" component={CreateAccount} />
             <Route path="source/:sourceId" component={Source} />
-            <Route path="medias/new" component={CreateMedia} />
-            <Route path="project/:projectId/media/:mediaId" component={Media} />
+            <Route path="medias/new" component={CreateProjectMedia} />
+            <Route path="project/:projectId/media/:mediaId" component={ProjectMedia} />
             <Route path="user/confirmed" component={UserConfirmed} public />
             <Route path="user/unconfirmed" component={UserUnconfirmed} public />
             <Route path="user/:userId" component={User} />
@@ -91,6 +92,7 @@ export default class Root extends Component {
             <Route path="teams/new" component={CreateTeam} />
             <Route path="teams" component={Teams} />
             <Route path="project/:projectId" component={Project} />
+            <Route path="project/:projectId/edit" component={ProjectEdit} />
             <Route path="search(/:query)" component={Search} />
             <Route path="forbidden" component={AccessDenied} public />
             <Route path="*" component={NotFound} public />

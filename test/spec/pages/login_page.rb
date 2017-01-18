@@ -40,7 +40,7 @@ class LoginPage < Page
     (wait_for { @driver.find_element(:xpath, "//button[@id='submit-register-or-login']") }).click
 
     wait_for_element('.home')
-    return CreateTeamPage.new(config: @config, driver: @driver) if contains_element?('.create-team')
+    return CreateTeamPage.new(config: @config, driver: @driver) if contains_element?('.create-team', {timeout: 1})
     return ProjectPage.new(config: @config, driver: @driver) if contains_element?('.project')
   end
 

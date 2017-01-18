@@ -9,6 +9,25 @@
   }
 }
 
+@mixin modal-overlay {
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(theme-gray(20%), 0.5);
+
+  opacity: 0;
+  transition: opacity 100ms ease;
+  pointer-events: none;
+  &--active {
+    pointer-events: auto;
+    opacity: 1;
+  }
+}
+
 $layout-border-color: theme-gray(90%);
 $layout-border: 1px solid $layout-border-color;
 $layout-border-light: 1px solid theme-gray(90%);

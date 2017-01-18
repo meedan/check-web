@@ -17,10 +17,7 @@ $media-max-width: $layout-column-width-narrow;
 }
 
 @mixin media-title($size: 19px) {
-  font-size: $size;
-  font-family: $font-stack-sans-condensed;
-  &, & > a { color: theme-gray(23%); }
-  margin: 0;
+  @include header-title($size);
 }
 
 @import 'media/create-media';
@@ -33,6 +30,7 @@ $media-max-width: $layout-column-width-narrow;
 @import 'media/media-status';
 @import 'media/media-tags';
 @import 'media/medias';
+@import 'media/medias-loading';
 @import 'media/medias-and-annotations';
 @import 'media/pender-card';
 @import 'media/quote-media-card';

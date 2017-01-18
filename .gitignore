@@ -16,3 +16,4 @@ config.yml.travis
 travis
 travis.zip
 linters
+test/spec/sauce

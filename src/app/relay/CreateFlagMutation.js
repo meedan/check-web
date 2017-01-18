@@ -43,13 +43,7 @@ class CreateFlagMutation extends Relay.Mutation {
 
   getVariables() {
     const flag = this.props.annotation;
-    const vars = { flag: flag.flag, annotated_id: `${flag.annotated_id}`, annotated_type: flag.annotated_type };
-    const context = this.props.context;
-    if (context && context.project) {
-      vars.context_type = 'Project';
-      vars.context_id = context.project.dbid.toString();
-    }
-    return vars;
+    return { flag: flag.flag, annotated_id: `${flag.annotated_id}`, annotated_type: flag.annotated_type };
   }
 
   getConfigs() {
