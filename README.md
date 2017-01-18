@@ -86,6 +86,8 @@ it("should do whatever my unit expects");
 * Remove your `node_modules` directory if you face errors related to `npm install`
 
 
+##
+
 ![https://www.browserstack.com/](https://github.com/meedan/check-web/blob/feature/5126-browser-testing-rebase/browserstack.jpeg?raw=true) 
 
 This project uses [Browserstack] (https://www.browserstack.com/) for cross browser compatibility tests.
