@@ -90,4 +90,4 @@ it("should do whatever my unit expects");
 
 ![https://www.browserstack.com/](https://github.com/meedan/check-web/blob/feature/5126-browser-testing-rebase/browserstack.jpeg?raw=true) 
 
-This project uses [Browserstack] (https://www.browserstack.com/) for cross browser compatibility tests.
+This project uses [BrowserStack] (https://www.browserstack.com/) for cross browser compatibility tests.
