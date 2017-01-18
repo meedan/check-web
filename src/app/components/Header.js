@@ -6,6 +6,7 @@ import Breadcrumb from './layout/Breadcrumb';
 import MediaHeader from './media/MediaHeader';
 import HeaderActions from './HeaderActions';
 import { teamSubdomain } from '../helpers';
+import Can from './Can';
 
 class Header extends Component {
   render() {
@@ -39,13 +40,27 @@ class Header extends Component {
       );
     }
 
+    if (path.match(/project\/[0-9]+\/edit/)) {
+      const projectUrl = path.match(/(.*)\/edit$/)[1];
+      return (
+        <header className="header header--project-edit">
+          <div className="header__container">
+            <span style={{ display: 'none' }}><TeamHeader {...this.props} /></span>
+            <div className="header__breadcrumb"><Breadcrumb url={projectUrl} label="Back to Project" /></div>
+            <ProjectHeader {...this.props} />
+            <HeaderActions {...this.props} />
+          </div>
+        </header>
+      );
+    }
+
     if (path.match(/project\/[0-9]+/)) {
       return (
         <header className="header header--project">
           <div className="header__container">
             <div className="header__team"><TeamHeader {...this.props} /></div>
             <ProjectHeader {...this.props} />
-            {/* TODO: <HeaderActions {...this.props} /> */}
+            <HeaderActions {...this.props} />
           </div>
         </header>
       );

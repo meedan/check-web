@@ -117,11 +117,11 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
           .create_project(name: project_name)
 
       expect(project_pg.driver.current_url.to_s.match(/\/project\/[0-9]+$/).nil?).to be(false)
-      expect(project_pg.element('.team-sidebar__project-link').text == project_name).to be(true)
+      team_pg = project_pg.click_team_avatar
+      expect(team_pg.project_titles.include?(project_name)).to be(true)
     end
 
     it "should create project media" do
-
       page = LoginPage.new(config: @config, driver: @driver).load
           .login_with_email(email: @email, password: @password)
           .create_media(input: 'https://twitter.com/marcouza/status/771009514732650497?t=' + Time.now.to_i.to_s)
@@ -131,7 +131,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(page.status_label == 'UNSTARTED').to be(true)
 
       page.driver.navigate.to @config['self_url']
-      page.wait_for_element('.project')
+      page.wait_for_element('.project .medias-and-annotations')
 
       expect(page.contains_string?('Added')).to be(true)
       expect(page.contains_string?('User With Email')).to be(true)
@@ -468,12 +468,24 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should not create duplicated media if registered" do
       login_with_email
+
       sleep 3
       fill_field('#create-media-input', @media_url)
       sleep 2
       press_button('#create-media-submit')
       sleep 10
-      expect(@driver.current_url.to_s.match(/\/media\/[0-9]+$/).nil?).to be(false)
+      id1 = @driver.current_url.to_s.gsub(/.*\/media\//, '').to_i
+      
+      @driver.navigate.to @driver.current_url.to_s.gsub(/\/media\/[0-9]+$/, '')
+
+      sleep 3
+      fill_field('#create-media-input', @media_url)
+      sleep 2
+      press_button('#create-media-submit')
+      sleep 10
+      id2 = @driver.current_url.to_s.gsub(/.*\/media\//, '').to_i
+
+      expect(id1 == id2).to be(true)
     end
 
     it "should not create source as media if registered" do
@@ -568,49 +580,38 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should flag media as a command" do
-      login_with_email
-      @driver.navigate.to team_url('project/' + get_project + '/media/' + $media_id)
-      sleep 1
+      media_pg = LoginPage.new(config: @config, driver: @driver).load
+          .login_with_email(email: @email, password: @password)
+          .create_media(input: "Media #{Time.now.to_i}")
 
-      # First, verify that there isn't any flag
-      expect(@driver.page_source.include?('Flag')).to be(false)
+      expect(media_pg.contains_string?('Flag')).to be(false)
 
-      # Add a flag as a command
-      fill_field('#cmd-input', '/flag Spam')
-      @driver.action.send_keys(:enter).perform
-      sleep 5
+      media_pg.fill_input('#cmd-input', '/flag Spam')
+      media_pg.element('#cmd-input').submit
 
-      # Verify that flag was added to annotations list
-      expect(@driver.page_source.include?('Flag')).to be(true)
-
-      # Reload the page and verify that flag is still there
-      @driver.navigate.refresh
-      sleep 3
-      expect(@driver.page_source.include?('Flag')).to be(true)
+      expect(media_pg.contains_string?('Flag')).to be(true)
+      media_pg.driver.navigate.refresh
+      media_pg.wait_for_element('.media')
+      expect(media_pg.contains_string?('Flag')).to be(true)
     end
 
     it "should edit project" do
-      page = LoginPage.new(config: @config, driver: @driver).load
+      project_pg = LoginPage.new(config: @config, driver: @driver).load
           .login_with_email(email: @email, password: @password)
+          .click_team_avatar
+          .create_project
 
-      page.element('.project-header__project-settings-icon').click
-      page.element('.project-header__project-setting--edit').click
-      page.fill_input('.project-header__project-name-input', 'Changed title')
-      page.fill_input('.project-header__project-description-input', 'Set description')
-      page.element('.project-header__project-editing-button--cancel').click
-      page.wait_for_element('.project-header__project-name')
+      new_title = "Changed title #{Time.now.to_i}"
+      new_description = "Set description #{Time.now.to_i}"
+      expect(project_pg.contains_string?(new_title)).to be(false)
+      expect(project_pg.contains_string?(new_description)).to be(false)
 
-      expect(page.contains_string?('Changed title')).to be(false)
-      expect(page.contains_string?('Set description')).to be(false)
+      project_pg.edit(title: new_title, description: new_description)
 
-      page.element('.project-header__project-settings-icon').click
-      page.element('.project-header__project-setting--edit').click
-      page.fill_input('.project-header__project-name-input', 'Changed title')
-      page.fill_input('.project-header__project-description-input', 'Set description')
-      page.element('.project-header__project-editing-button--save').click
-
-      expect(page.contains_string?('Changed title')).to be(true)
-      expect(page.contains_string?('Set description')).to be(true)
+      project_pg.wait_for_element('.project-header__title')
+      expect(project_pg.contains_string?(new_title)).to be(true)
+      project_pg.wait_for_element('.project-header__description')
+      expect(project_pg.contains_string?(new_description)).to be(true)
     end
 
     # it "should comment project as a command" do
@@ -663,17 +664,11 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should logout" do
-      unless login_or_register_with_email
-        create_team
-        create_project
-      end
-      @driver.navigate.to @config['self_url']
-      menu = @wait.until { @driver.find_element(:css, '.fa-ellipsis-h') }
-      menu.click
-      logout = @wait.until { @driver.find_element(:css, '.project-header__logout') }
-      logout.click
-      @wait.until { @driver.find_element(:css, '#login-menu') }
-      expect(@driver.page_source.include? 'Sign in').to be(true)
+      page = LoginPage.new(config: @config, driver: @driver).load
+          .login_with_email(email: @email, password: @password)
+          .logout
+
+      expect(page.contains_string?('Sign in')).to be(true)
     end
 
     # it "should ask to join team" do
@@ -727,28 +722,28 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
           .create_team(name: 'Team 1')
       expect(page.team_name).to eq('Team 1')
       page = page.create_project(name: 'Team 1 Project')
-      expect(page.project_name).to eq('Team 1 Project')
+      expect(page.project_title).to eq('Team 1 Project')
 
       page = CreateTeamPage.new(config: @config, driver: page.driver).load
           .create_team(name: 'Team 2')
       expect(page.team_name).to eq('Team 2')
       page = page.create_project(name: 'Team 2 Project')
-      expect(page.project_name).to eq('Team 2 Project')
+      expect(page.project_title).to eq('Team 2 Project')
 
       # test
       page = TeamsPage.new(config: @config, driver: page.driver).load
           .select_team(name: 'Team 1')
 
       expect(page.team_name).to eq('Team 1')
-      expect(page.project_names.include?('Team 1 Project')).to be(true)
-      expect(page.project_names.include?('Team 2 Project')).to be(false)
+      expect(page.project_titles.include?('Team 1 Project')).to be(true)
+      expect(page.project_titles.include?('Team 2 Project')).to be(false)
 
       page = TeamsPage.new(config: @config, driver: page.driver).load
           .select_team(name: 'Team 2')
 
       expect(page.team_name).to eq('Team 2')
-      expect(page.project_names.include?('Team 2 Project')).to be(true)
-      expect(page.project_names.include?('Team 1 Project')).to be(false)
+      expect(page.project_titles.include?('Team 2 Project')).to be(true)
+      expect(page.project_titles.include?('Team 1 Project')).to be(false)
     end
 
     # it "should cancel request through switch teams" do

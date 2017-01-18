@@ -47,13 +47,7 @@ class CreateStatusMutation extends Relay.Mutation {
 
   getVariables() {
     const status = this.props.annotation;
-    const vars = { status: status.status, annotated_id: `${status.annotated_id}`, annotated_type: status.annotated_type };
-    const context = this.props.context;
-    if (context && context.project) {
-      vars.context_type = 'Project';
-      vars.context_id = context.project.dbid.toString();
-    }
-    return vars;
+    return { status: status.status, annotated_id: `${status.annotated_id}`, annotated_type: status.annotated_type };
   }
 
   getConfigs() {

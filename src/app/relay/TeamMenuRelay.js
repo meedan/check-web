@@ -6,13 +6,22 @@ import CheckContext from '../CheckContext';
 import { teamSubdomain } from '../helpers';
 
 class TeamMenu extends Component {
+  handleClick () {
+    const overlay = document.querySelector('.header-actions__menu-overlay--active')
+    if (overlay) {
+      overlay.click(); // TODO: better way to clear overlay e.g. passing fn from HeaderActions
+    }
+
+    const history = new CheckContext(this).getContextStore().history;
+    history.push('/members');
+  }
+
   render() {
     const { team } = this.props;
-    const history = new CheckContext(this).getContextStore().history;
 
     return (
       <Can permissions={team.permissions} permission="update Team">
-        <li className="header-actions__menu-item" onClick={history.push.bind(this, '/members')}>Manage team</li>
+        <li className="header-actions__menu-item" onClick={this.handleClick.bind(this)}>Manage team</li>
       </Can>
     );
   }
