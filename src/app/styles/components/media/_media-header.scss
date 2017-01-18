@@ -1,9 +1,14 @@
 .media-header {
   flex: 1;
   overflow: hidden;
+  height: 100%;
 }
 
 .media-header__copy {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   margin: 0 auto;
   width: 195px; // ellipsis truncation requires explicit width
   @media screen and (min-width: 400px) { width: 300px };

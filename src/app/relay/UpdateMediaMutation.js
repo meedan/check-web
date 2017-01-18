@@ -3,15 +3,15 @@ import Relay from 'react-relay';
 
 class UpdateMediaMutation extends Relay.Mutation {
   getMutation() {
-    return Relay.QL`mutation updateMedia {
-      updateMedia
+    return Relay.QL`mutation updateProjectMedia {
+      updateProjectMedia
     }`;
   }
 
   getFatQuery() {
     return Relay.QL`
-      fragment on UpdateMediaPayload {
-        media
+      fragment on UpdateProjectMediaPayload {
+        project_media
       }
     `;
   }
@@ -20,7 +20,7 @@ class UpdateMediaMutation extends Relay.Mutation {
     return {
       id: this.props.id,
       // url: this.props.url
-      information: this.props.information,
+      embed: this.props.embed,
       // project_id: this.props.project.dbid
     };
   }
@@ -29,7 +29,7 @@ class UpdateMediaMutation extends Relay.Mutation {
     return [
       {
         type: 'FIELDS_CHANGE',
-        fieldIDs: { media: this.props.id },
+        fieldIDs: { project_media: this.props.id },
       },
     ];
   }

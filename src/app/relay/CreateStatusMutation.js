@@ -14,8 +14,8 @@ class CreateStatusMutation extends Relay.Mutation {
     case 'source':
       query = Relay.QL`fragment on CreateStatusPayload { statusEdge, source { annotations, id } }`;
       break;
-    case 'media':
-      query = Relay.QL`fragment on CreateStatusPayload { statusEdge, media { annotations, id, last_status, annotations_count } }`;
+    case 'project_media':
+      query = Relay.QL`fragment on CreateStatusPayload { statusEdge, project_media { annotations, id, last_status, annotations_count } }`;
       break;
     }
     return query;
@@ -32,28 +32,22 @@ class CreateStatusMutation extends Relay.Mutation {
       annotated_id: this.props.annotation.annotated_id,
       annotator: {
         name: this.props.annotator.name,
-        profile_image: this.props.annotator.profile_image
+        profile_image: this.props.annotator.profile_image,
       },
       medias: {
-        edges: []
-      }
+        edges: [],
+      },
     };
 
     const media = Object.assign({}, this.props.annotated);
     media.last_status = this.props.annotation.status;
-    
-    return { statusEdge: { node: status }, media };
+
+    return { statusEdge: { node: status }, project_media: media };
   }
 
   getVariables() {
     const status = this.props.annotation;
-    const vars = { status: status.status, annotated_id: `${status.annotated_id}`, annotated_type: status.annotated_type };
-    const context = this.props.context;
-    if (context && context.project) {
-      vars.context_type = 'Project';
-      vars.context_id = context.project.dbid.toString();
-    }
-    return vars;
+    return { status: status.status, annotated_id: `${status.annotated_id}`, annotated_type: status.annotated_type };
   }
 
   getConfigs() {
@@ -67,9 +61,7 @@ class CreateStatusMutation extends Relay.Mutation {
         parentID: this.props.annotated.id,
         connectionName: 'annotations',
         edgeName: 'statusEdge',
-        rangeBehaviors: (calls) => {
-          return 'prepend';
-        },
+        rangeBehaviors: calls => 'prepend',
       },
       {
         type: 'FIELDS_CHANGE',

@@ -1,9 +1,6 @@
 .header {
-  position: fixed; top: 0; right: 0; left: 0;
-  z-index: 4;
-  padding: 8px 0 10px 0;
   width: 100%;
-  min-height: $layout-header-height;
+  height: $layout-header-height;
   background: #fff;
   border-bottom: $layout-border;
   box-shadow: $layout-box-shadow;
@@ -11,12 +8,10 @@
 
 .header__container {
   width: 100%;
-  min-height: $layout-header-height - 18px; // TODO: better
+  height: 100%;
+  position: relative;
   max-width: $layout-column-width-wide;
   margin: 0 auto;
-
-  display: flex;
-  align-items: flex-start;
 }
 
 .header__breadcrumb {
@@ -32,7 +27,8 @@
 }
 
 .header__team {
-  flex: 0 0 $layout-sidebar-width;
-  width: $layout-sidebar-width;
-  padding-top: 3px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  display: flex;
 }

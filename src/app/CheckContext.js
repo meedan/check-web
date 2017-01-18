@@ -1,7 +1,7 @@
 import Relay from 'react-relay';
 import { SET_CONTEXT } from './constants/ActionTypes';
 import { request } from './actions/actions';
-import CheckdeskNetworkLayer from './CheckdeskNetworkLayer';
+import CheckNetworkLayer from './CheckNetworkLayer';
 import config from 'config';
 
 // Verify if user is logged in, if so, start a session and set the context based on session information
@@ -37,8 +37,8 @@ class CheckContext {
 
   startNetwork(token) {
     const history = this.getContextStore().history;
-    Relay.injectNetworkLayer(new CheckdeskNetworkLayer(config.relayPath, {
-      history: history,
+    Relay.injectNetworkLayer(new CheckNetworkLayer(config.relayPath, {
+      history,
       get headers() {
         const headers = config.relayHeaders;
         if (token) {

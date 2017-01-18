@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import MediaCard from './MediaCard';
+import MediaDetail from './MediaDetail';
 
 class Medias extends Component {
   render() {
@@ -13,7 +13,7 @@ class Medias extends Component {
 
             return (
               <li className="medias__item">
-                <MediaCard media={media} />
+                <MediaDetail media={media} condensed />
               </li>
             );
           })}

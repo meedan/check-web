@@ -16,7 +16,7 @@ class MediaStatus extends Component {
   }
 
   canUpdate() {
-    return can(this.props.media.permissions, 'create Status');
+    return !this.props.readonly && can(this.props.media.permissions, 'create Status');
   }
 
   toggleMediaStatusMenu() {
@@ -51,13 +51,13 @@ class MediaStatus extends Component {
 
     Relay.Store.commitUpdate(
       new CreateStatusMutation({
-        parent_type: 'media',
+        parent_type: 'project_media',
         annotated: media,
         annotator: store.currentUser,
         context: store,
         annotation: {
           status,
-          annotated_type: 'Media',
+          annotated_type: 'ProjectMedia',
           annotated_id: media.dbid,
         },
       }),
@@ -106,22 +106,25 @@ class MediaStatus extends Component {
         <div className={`media-status__current${this.currentStatusToClass(media.last_status)}`}>
           <i className="media-status__icon media-status__icon--circle / fa fa-circle" />
           <span className="media-status__label">{currentStatus}</span>
-          <Can permissions={media.permissions} permission="create Status">
+          {this.canUpdate() ?
             <i className="media-status__icon media-status__icon--caret / fa fa-caret-down" />
-          </Can>
+            : null
+          }
           <span className="media-status__message">{this.state.message}</span>
         </div>
-        <ul className={this.bemClass('media-status__menu', this.state.isMediaStatusMenuOpen, '--active')}>
 
-          {statuses.map(status => (
-            <li className={`${that.bemClass('media-status__menu-item', (media.last_status === status.id), '--current')} media-status__menu-item--${status.id.replace('_', '-')}`} onClick={that.handleStatusClick.bind(that, status.id)}>
-              <i className="media-status__icon media-status__icon--radio-button-selected / fa fa-circle" />
-              <i className="media-status__icon media-status__icon--radio-button / fa fa-circle-o" />
-              <span className="media-status__label">{status.label}</span>
-            </li>
-            ))}
-
-        </ul>
+        {this.canUpdate() ?
+          <ul className={this.bemClass('media-status__menu', this.state.isMediaStatusMenuOpen, '--active')}>
+            {statuses.map(status => (
+              <li className={`${that.bemClass('media-status__menu-item', (media.last_status === status.id), '--current')} media-status__menu-item--${status.id.replace('_', '-')}`} onClick={that.handleStatusClick.bind(that, status.id)}>
+                <i className="media-status__icon media-status__icon--radio-button-selected / fa fa-circle" />
+                <i className="media-status__icon media-status__icon--radio-button / fa fa-circle-o" />
+                <span className="media-status__label">{status.label}</span>
+              </li>
+              ))}
+          </ul>
+          : null
+        }
       </div>
     );
   }

@@ -4,11 +4,12 @@ import Caret from '../Caret';
 
 class Breadcrumb extends Component {
   render() {
-    const { url, title } = this.props;
+    const { url, label } = this.props;
 
     return (
-      <Link to={url} className="breadcrumb" title={title}>
+      <Link to={url} className="breadcrumb" title={label ? `« ${label}` : null}>
         <Caret left />
+        {label ? <span className="breadcrumb__label">{label}</span> : null}
       </Link>
     );
   }

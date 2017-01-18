@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 import PublicTeamRoute from '../../relay/PublicTeamRoute';
 import JoinTeamComponent from './JoinTeamComponent';
-import teamFragment from '../../relay/teamFragment';
 
 const TeamContainer = Relay.createContainer(JoinTeamComponent, {
   fragments: {

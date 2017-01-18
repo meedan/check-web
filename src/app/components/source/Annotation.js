@@ -3,7 +3,7 @@ import Relay from 'react-relay';
 import TimeAgo from 'react-timeago';
 import Linkify from 'react-linkify';
 import nl2br from 'react-nl2br';
-import MediaCard from '../media/MediaCard';
+import MediaDetail from '../media/MediaDetail';
 import DeleteAnnotationMutation from '../../relay/DeleteAnnotationMutation';
 import Can from '../Can';
 
@@ -26,7 +26,7 @@ class Annotation extends Component {
 
     Relay.Store.commitUpdate(
       new DeleteAnnotationMutation({
-        parent_type: this.props.annotatedType.toLowerCase(),
+        parent_type: this.props.annotatedType.replace(/([a-z])([A-Z])/, '$1_$2').toLowerCase(),
         annotated: this.props.annotated,
         id,
       }),
@@ -78,7 +78,7 @@ class Annotation extends Component {
           <div className="annotation__body"><Linkify properties={{ target: '_blank' }}>{nl2br(commentText)}</Linkify></div>
           {annotation.medias.edges.map(media => (
             <div className="annotation__embedded-media">
-              <MediaCard media={media.node} />
+              <MediaDetail media={media.node} condensed readonly />
             </div>
               ))}
         </section>

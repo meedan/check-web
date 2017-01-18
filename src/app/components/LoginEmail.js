@@ -39,38 +39,38 @@ class LoginEmail extends Component {
     const that = this;
     const params = {
       'api_user[email]': this.state.email,
-      'api_user[password]': this.state.password
+      'api_user[password]': this.state.password,
     };
     let failureCallback = function (message) {
-      that.setState({ open: true, message: message });
-    },
-    successCallback = function (data) {
-      that.setState({ open: false, message: null });
-      that.props.loginCallback();
-      history.push('/');
-    };
+        that.setState({ open: true, message });
+      },
+      successCallback = function (data) {
+        that.setState({ open: false, message: null });
+        that.props.loginCallback();
+        history.push('/');
+      };
     request('post', 'users/sign_in', failureCallback, successCallback, params);
   }
 
   registerEmail() {
     const history = this.getHistory();
     let that = this,
-        form = document.forms.register;
+      form = document.forms.register;
     const params = {
       'api_user[email]': this.state.email,
       'api_user[name]': this.state.name,
       'api_user[password]': this.state.password,
       'api_user[password_confirmation]': this.state.password_confirmation,
-      'api_user[image]': form.image
+      'api_user[image]': form.image,
     };
     let failureCallback = function (message) {
-      that.setState({ open: true, message: message });
-    },
-    successCallback = function (data) {
-      that.setState({ open: false, message: null });
-      that.props.loginCallback();
-      history.push(window.location.pathname);
-    };
+        that.setState({ open: true, message });
+      },
+      successCallback = function (data) {
+        that.setState({ open: false, message: null });
+        that.props.loginCallback();
+        history.push(window.location.pathname);
+      };
     request('post', 'users', failureCallback, successCallback, params);
   }
 
@@ -152,7 +152,7 @@ class LoginEmail extends Component {
             )}
 
             <div className="login-email__actions">
-              <button type="submit" id="submit-register-or-login" onClick={this.onFormSubmit.bind(this)} className={`login-email__submit login-email__submit--${this.state.type}`}>
+              <button type="submit" id="submit-register-or-login" className={`login-email__submit login-email__submit--${this.state.type}`}>
                 {this.state.type === 'login' ? 'Sign in »' : 'Sign up »'}
               </button>
               <button type="button" id="register-or-login" onClick={this.handleSwitchType.bind(this)} className="login-email__register-or-login">
@@ -169,7 +169,7 @@ class LoginEmail extends Component {
 }
 
 LoginEmail.contextTypes = {
-  store: React.PropTypes.object
+  store: React.PropTypes.object,
 };
 
 export default LoginEmail;

@@ -2,7 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import Pusher from 'pusher-js';
 import DocumentTitle from 'react-document-title';
 import MediaDetail from './MediaDetail';
-import util from './MediaUtil';
+import MediaUtil from './MediaUtil';
+import MediaChecklist from './MediaChecklist';
 import { Annotations, Tags } from '../source';
 import config from 'config';
 import { pageTitle } from '../../helpers';
@@ -65,19 +66,21 @@ class MediaComponent extends Component {
 
   render() {
     const media = this.props.media;
-    const data = JSON.parse(media.jsondata);
-
+    const data = JSON.parse(media.embed);
+    media.url = media.media.url
+    media.quote = media.media.quote
     if (this.props.relay.variables.contextId === null) {
       return null;
     }
 
     return (
-      <DocumentTitle title={pageTitle(util.title(media, data), false, this.getContext().team)}>
+      <DocumentTitle title={pageTitle(MediaUtil.title(media, data), false, this.getContext().team)}>
         <div className="media" data-id={media.dbid}>
           <article className="media__contents">
             <MediaDetail media={media} />
             <h3 className="media__notes-heading">Verification Timeline</h3>
-            <Annotations annotations={media.annotations.edges.reverse()} annotated={media} annotatedType="Media" />
+            <Annotations annotations={media.annotations.edges.reverse()} annotated={media} annotatedType="ProjectMedia" />
+            <MediaChecklist />
           </article>
         </div>
       </DocumentTitle>

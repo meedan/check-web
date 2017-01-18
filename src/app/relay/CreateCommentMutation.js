@@ -14,11 +14,8 @@ class CreateCommentMutation extends Relay.Mutation {
     case 'source':
       query = Relay.QL`fragment on CreateCommentPayload { commentEdge, source { annotations } }`;
       break;
-    case 'media':
-      query = Relay.QL`fragment on CreateCommentPayload { commentEdge, media { annotations, annotations_count } }`;
-      break;
-    case 'project':
-      query = Relay.QL`fragment on CreateCommentPayload { commentEdge, project { annotations } }`;
+    case 'project_media':
+      query = Relay.QL`fragment on CreateCommentPayload { commentEdge, project_media { annotations, annotations_count } }`;
       break;
     }
     return query;
@@ -34,25 +31,19 @@ class CreateCommentMutation extends Relay.Mutation {
       annotated_id: this.props.annotation.annotated_id,
       annotator: {
         name: this.props.annotator.name,
-        profile_image: this.props.annotator.profile_image
+        profile_image: this.props.annotator.profile_image,
       },
       medias: {
-        edges: []
-      }
+        edges: [],
+      },
     };
-    
-    return { commentEdge: { node: comment }};
+
+    return { commentEdge: { node: comment } };
   }
 
   getVariables() {
     const comment = this.props.annotation;
-    const vars = { text: comment.text, annotated_id: `${comment.annotated_id}`, annotated_type: comment.annotated_type };
-    const context = this.props.context;
-    if (context && context.project) {
-      vars.context_type = 'Project';
-      vars.context_id = context.project.dbid.toString();
-    }
-    return vars;
+    return { text: comment.text, annotated_id: `${comment.annotated_id}`, annotated_type: comment.annotated_type };
   }
 
   getConfigs() {
@@ -66,9 +57,7 @@ class CreateCommentMutation extends Relay.Mutation {
         parentID: this.props.annotated.id,
         connectionName: 'annotations',
         edgeName: 'commentEdge',
-        rangeBehaviors: (calls) => {
-          return 'prepend';
-        },
+        rangeBehaviors: calls => 'prepend',
       },
       {
         type: 'FIELDS_CHANGE',

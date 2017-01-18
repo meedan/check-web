@@ -9,11 +9,11 @@ class LoginPage < Page
 
   def register_and_login_with_email(options)
     register_with_email(options)
-    load
     login_with_email(options)
   end
 
   def register_with_email(options)
+    load
     email_button.click
     toggle_email_mode unless email_mode == 'register'
 
@@ -22,22 +22,25 @@ class LoginPage < Page
     fill_input('.login-email__password input', options[:password])
     fill_input('.login-email__password-confirmation input', options[:password])
     fill_input('input[type=file]', options[:file], { hidden: true }) if options[:file]
-    click_button('#submit-register-or-login')
+    # TODO: fix or remove click_button() for mobile browsers
+    (@wait.until { @driver.find_element(:xpath, "//button[@id='submit-register-or-login']") }).click
 
     @wait.until { @driver.page_source.include?("You have to confirm your email address before continuing.") }
     confirm_email(options[:email])
   end
 
   def login_with_email(options)
+    load
     email_button.click
     toggle_email_mode unless email_mode == 'login'
 
     fill_input('.login-email__email input', options[:email])
     fill_input('.login-email__password input', options[:password])
-    click_button('#submit-register-or-login')
+    # TODO: fix or remove click_button() for mobile browsers
+    (@wait.until { @driver.find_element(:xpath, "//button[@id='submit-register-or-login']") }).click
 
     wait_for_element('.home')
-    return CreateTeamPage.new(config: @config, driver: @driver) if contains_element?('.create-team')
+    return CreateTeamPage.new(config: @config, driver: @driver) if contains_element?('.create-team', {timeout: 1})
     return ProjectPage.new(config: @config, driver: @driver) if contains_element?('.project')
   end
 

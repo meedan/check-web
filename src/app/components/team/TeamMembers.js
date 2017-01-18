@@ -2,11 +2,29 @@ import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 import TeamRoute from '../../relay/TeamRoute';
 import TeamMembersComponent from './TeamMembersComponent';
-import teamFragment from '../../relay/teamFragment';
 
 const TeamContainer = Relay.createContainer(TeamMembersComponent, {
   fragments: {
-    team: () => teamFragment,
+    team: () => Relay.QL`
+      fragment on Team {
+        id,
+        dbid,
+        name,
+        subdomain,
+        team_users(first: 10000) {
+          edges {
+            node {
+              user{ name, profile_image },
+              status,
+              team_id,
+              user_id,
+              id,
+              role
+            }
+          }
+        },
+      }
+    `,
   },
 });
 

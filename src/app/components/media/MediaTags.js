@@ -57,11 +57,11 @@ class MediaTags extends Component {
       new CreateTagMutation({
         annotated: media,
         annotator: context.currentUser,
-        parent_type: 'media',
+        parent_type: 'project_media',
         context,
         annotation: {
           tag: tagString.trim(),
-          annotated_type: 'Media',
+          annotated_type: 'ProjectMedia',
           annotated_id: media.dbid,
         },
       }),
@@ -74,7 +74,7 @@ class MediaTags extends Component {
     Relay.Store.commitUpdate(
       new DeleteTagMutation({
         annotated: media,
-        parent_type: 'media',
+        parent_type: 'project_media',
         id: tagId,
       }),
     );
@@ -116,7 +116,7 @@ class MediaTags extends Component {
           </div>
         ) : null}
 
-        <Tags tags={remainingTags} annotated={media} annotatedType="Media" />
+        <Tags tags={remainingTags} annotated={media} annotatedType="ProjectMedia" />
       </div>
     );
   }

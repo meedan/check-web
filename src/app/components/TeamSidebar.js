@@ -5,22 +5,12 @@ import FontAwesome from 'react-fontawesome';
 import Pusher from 'pusher-js';
 import CreateProject from './project/CreateProject';
 import TeamRoute from '../relay/TeamRoute';
-import teamFragment from '../relay/teamFragment';
-import SwitchTeams from './team/SwitchTeams';
 import CheckContext from '../CheckContext';
 import Can from './Can';
 import config from 'config';
 import '../helpers';
 
 class TeamSidebarComponent extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      isSwitchTeamsActive: false,
-    };
-  }
-
   subscribe() {
     const pusher = this.getContext().pusher;
     if (pusher) {
@@ -46,14 +36,6 @@ class TeamSidebarComponent extends Component {
     this.unsubscribe();
   }
 
-  handleSwitchTeams() {
-    this.setState({ isSwitchTeamsActive: true });
-  }
-
-  handleSwitchTeamsClose() {
-    this.setState({ isSwitchTeamsActive: false });
-  }
-
   getContext() {
     const context = new CheckContext(this);
     return context.getContextStore();
@@ -61,8 +43,8 @@ class TeamSidebarComponent extends Component {
 
   isCurrentProject(projectId) {
     let inProject = window.location.pathname.match(/\/project\/([0-9]+)/),
-        currentProjectId = null,
-        context = this.getContext();
+      currentProjectId = null,
+      context = this.getContext();
 
     if (inProject) {
       currentProjectId = parseInt(inProject[1]);
@@ -100,29 +82,6 @@ class TeamSidebarComponent extends Component {
             }
           })()}
         </section>
-
-        <footer className="team-sidebar__footer">
-          <button onClick={this.handleSwitchTeams.bind(this)} className="team-sidebar__switch-teams-button">
-            <FontAwesome className="team-sidebar__switch-teams-icon" name="random" />
-            <span>Switch Teams</span>
-          </button>
-
-          <div className={`team-sidebar__switch-teams-overlay${this.state.isSwitchTeamsActive ? ' team-sidebar__switch-teams-overlay--active' : ''}`} onClick={this.handleSwitchTeamsClose.bind(this)}>
-            <section className="team-sidebar__switch-teams-modal">
-              <button className="team-sidebar__switch-teams-close" onClick={this.handleSwitchTeamsClose.bind(this)}>×</button>
-              <h2 className="team-sidebar__switch-teams-title">
-                <FontAwesome className="team-sidebar__switch-teams-title-icon" name="random" />
-                <span>Switch Teams</span>
-              </h2>
-
-              {(() => {
-                if (this.state.isSwitchTeamsActive) {
-                  return (<SwitchTeams />);
-                }
-              })()}
-            </section>
-          </div>
-        </footer>
       </nav>
     );
   }
