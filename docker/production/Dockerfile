@@ -1,6 +1,6 @@
 # meedan/check-web
 
-FROM meedan/nodejs:6
+FROM meedan/nodejs
 MAINTAINER sysops@meedan.com
 
 #
