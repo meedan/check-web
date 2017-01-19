@@ -12,5 +12,10 @@
 
 .breadcrumb__label {
   font-size: 14px;
-  padding-top: 2px
+  padding-top: 2px;
+  display: none;
+
+  @media screen and (min-width: $layout-mobile-breakpoint) {
+    display: initial;
+  }
 }
