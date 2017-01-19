@@ -1,6 +1,5 @@
 require 'rubygems'
 require 'selenium-webdriver'
-require 'appium_lib'
 require 'yaml'
 require File.join(File.expand_path(File.dirname(__FILE__)), 'spec_helper')
 require File.join(File.expand_path(File.dirname(__FILE__)), 'app_spec_helpers')
@@ -29,8 +28,18 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     FileUtils.cp(@config['config_file_path'], '../build/web/js/config.js') unless @config['config_file_path'].nil?
 
-		p "url: ",webdriver_url," desired_capabilities: ",browser_capabilities
-    @driver =  Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: browser_capabilities)
+
+    if @config.key?('proxy') and !webdriver_url.include? "browserstack"
+      proxy = Selenium::WebDriver::Proxy.new(
+        :http     => @config['proxy'],
+        :ftp      => @config['proxy'],
+        :ssl      => @config['proxy']
+      )
+      caps = Selenium::WebDriver::Remote::Capabilities.chrome(:proxy => proxy)
+      @driver = Selenium::WebDriver.for(:chrome, :desired_capabilities => caps , :url => @config['chromedriver_url'])
+    else
+	    @driver =  Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: browser_capabilities)
+    end
 
 
     # TODO: better initialization w/ parallelization
@@ -56,7 +65,17 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
   # Start Google Chrome before each test
 
   before :each do
-      @driver =  Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: browser_capabilities)
+    if @config.key?('proxy') and !webdriver_url.include? "browserstack"
+      proxy = Selenium::WebDriver::Proxy.new(
+        :http     => @config['proxy'],
+        :ftp      => @config['proxy'],
+        :ssl      => @config['proxy']
+      )
+      caps = Selenium::WebDriver::Remote::Capabilities.chrome(:proxy => proxy)
+      @driver = Selenium::WebDriver.for(:chrome, :desired_capabilities => caps , :url => @config['chromedriver_url'])
+    else
+	    @driver =  Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: browser_capabilities)
+    end
   end
 
   # Close Google Chrome after each test
