@@ -32,7 +32,7 @@ class Header extends Component {
         <header className="header header--media">
           <div className="header__container">
             <span style={{ display: 'none' }}><TeamHeader {...this.props} /></span>
-            <div className="header__breadcrumb"><Breadcrumb url={projectUrl} label="Back to Project" /></div>
+            <div className="header__breadcrumb"><Breadcrumb url={projectUrl} label="Project" /></div>
             <MediaHeader {...this.props} />
             <HeaderActions {...this.props} />
           </div>
@@ -46,7 +46,7 @@ class Header extends Component {
         <header className="header header--project-edit">
           <div className="header__container">
             <span style={{ display: 'none' }}><TeamHeader {...this.props} /></span>
-            <div className="header__breadcrumb"><Breadcrumb url={projectUrl} label="Back to Project" /></div>
+            <div className="header__breadcrumb"><Breadcrumb url={projectUrl} label="Project" /></div>
             <ProjectHeader {...this.props} />
             <HeaderActions {...this.props} />
           </div>
@@ -83,7 +83,7 @@ class Header extends Component {
         <header className="header header--team-subpage">
           <div className="header__container">
             <span style={{ display: 'none' }}><TeamHeader {...this.props} /></span>
-            <div className="header__breadcrumb"><Breadcrumb url="/" label="Back to Team" /></div>
+            <div className="header__breadcrumb"><Breadcrumb url="/" label="Team" /></div>
             <HeaderActions {...this.props} />
           </div>
         </header>
