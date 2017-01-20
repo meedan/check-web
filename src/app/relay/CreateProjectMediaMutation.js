@@ -22,6 +22,10 @@ class CreateProjectMediaMutation extends Relay.Mutation {
     return { url: this.props.url, quote: this.props.quote, project_id: this.props.project.dbid };
   }
 
+  getFiles() {
+    return { file: this.props.image };
+  }
+
   getConfigs() {
     return [
       {

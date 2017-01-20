@@ -11,6 +11,8 @@ import MediaActions from './MediaActions';
 import MediaUtil from './MediaUtil';
 import Tags from '../source/Tags';
 import DefaultButton from '../inputs/DefaultButton';
+import PenderCard from '../PenderCard';
+import ImageMediaCard from './ImageMediaCard';
 import UpdateMediaMutation from '../../relay/UpdateMediaMutation';
 import CheckContext from '../../CheckContext';
 
@@ -81,9 +83,13 @@ class MediaDetail extends Component {
       (<span>by {media.user.name}</span>) : '';
 
     let embedCard = null;
-    media.url = media.media.url
-    media.quote = media.media.quote
-    if (media.quote && media.quote.length) {
+    media.url = media.media.url;
+    media.quote = media.media.quote;
+    
+    if (media.media.embed_path) {
+      const path = this.props.condensed ? media.media.thumbnail_path : media.media.embed_path;
+      embedCard = <ImageMediaCard imagePath={path} />;
+    } else if (media.quote && media.quote.length) {
       embedCard = <QuoteMediaCard quoteText={media.quote} attributionName={null} attributionUrl={null} />;
     } else if (media.url) {
       embedCard = <SocialMediaCard media={media} data={data} condensed={condensed} />;

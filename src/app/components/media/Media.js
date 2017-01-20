@@ -26,7 +26,9 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
         verification_statuses,
         media {
           url,
-          quote
+          quote,
+          embed_path,
+          thumbnail_path
         }
         user {
           name,
@@ -66,6 +68,10 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
                     permissions,
                     verification_statuses,
                     domain,
+                    media {
+                      embed_path,
+                      thumbnail_path
+                    }
                     user {
                       name,
                       source {
