@@ -77,7 +77,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
   # The tests themselves start here
 
   context "web" do
-    it "bli" do
+    it "should localize interface based on browser language" do
       unless browser_capabilities['appiumVersion']
         caps = Selenium::WebDriver::Remote::Capabilities.chrome(chromeOptions: { prefs: { 'intl.accept_languages' => 'fr' } })
         driver = Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: caps)
