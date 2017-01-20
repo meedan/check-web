@@ -1,0 +1,7 @@
+const conf = {
+  "transifex": {
+    "user": "",
+    "password": ""
+  }
+};
+module.exports = conf;

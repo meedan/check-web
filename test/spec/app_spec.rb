@@ -77,6 +77,24 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
   # The tests themselves start here
 
   context "web" do
+    it "bli" do
+      unless browser_capabilities['appiumVersion']
+        caps = Selenium::WebDriver::Remote::Capabilities.chrome(chromeOptions: { prefs: { 'intl.accept_languages' => 'fr' } })
+        driver = Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: caps)
+        driver.navigate.to @config['self_url']
+        sleep 1
+        expect(driver.find_element(:css, '.login-menu__heading span').text == 'SE CONNECTER').to be(true)
+        driver.quit
+
+        caps = Selenium::WebDriver::Remote::Capabilities.chrome(chromeOptions: { prefs: { 'intl.accept_languages' => 'pt' } })
+        driver = Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: caps)
+        driver.navigate.to @config['self_url']
+        sleep 1
+        expect(driver.find_element(:css, '.login-menu__heading span').text == 'ENTRAR').to be(true)
+        driver.quit
+      end
+    end
+
     it "should access user confirmed page" do
       @driver.navigate.to @config['self_url'] + '/user/confirmed'
       title = get_element('.main-title')
