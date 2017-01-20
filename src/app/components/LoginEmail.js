@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { FormattedHTMLMessage, FormattedMessage } from 'react-intl';
 import Message from './Message';
 import UploadImage from './UploadImage';
 import CheckContext from '../CheckContext';
@@ -118,7 +119,7 @@ class LoginEmail extends Component {
 
     return (
       <span className="login-email">
-        <a id="login-email" onClick={this.handleOpen.bind(this)} className="login-email__link">Sign in with e-mail</a>
+        <a id="login-email" onClick={this.handleOpen.bind(this)} className="login-email__link"><FormattedMessage id="login.with" defaultMessage={`Sign in with {provider}`} values={{ provider: 'e-mail' }} /></a>
 
         <section className={this.bemClass('login-email__modal', this.state.open, '--open')}>
           <Message message={this.state.message} />
@@ -158,10 +159,12 @@ class LoginEmail extends Component {
               <button type="button" id="register-or-login" onClick={this.handleSwitchType.bind(this)} className="login-email__register-or-login">
                 {this.state.type === 'register' ? 'I already have an account' : 'Create a new account'}
               </button>
-              <button type="button" id="cancel-register-or-login" onClick={this.handleClose.bind(this)} className="login-email__cancel">Sign in with Twitter, Facebook, or Slack</button>
+              <button type="button" id="cancel-register-or-login" onClick={this.handleClose.bind(this)} className="login-email__cancel">
+                <FormattedMessage id="login.email.cancel" defaultMessage="Sign in with Twitter, Facebook, or Slack" />
+              </button>
             </div>
           </form>
-          {this.state.type === 'login' ? (<p className="login-email__help-text">Having trouble logging in? Please email <Link to="mailto:check@meedan.com">check@meedan.com</Link> for&nbsp;assistance.</p>) : null}
+          {this.state.type === 'login' ? (<p className="login-email__help-text"><FormattedMessage id="login.trouble" defaultMessage={`Having trouble logging in? Please email {email} for&nbsp;assistance.`} values={{ email: <Link to="mailto:check@meedan.com">check@meedan.com</Link> }} /></p>) : null}
         </section>
       </span>
     );
