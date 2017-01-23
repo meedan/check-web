@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import FontAwesome from 'react-fontawesome';
 import Relay from 'react-relay';
 import CreateStatusMutation from '../../relay/CreateStatusMutation';
+import UpdateStatusMutation from '../../relay/UpdateStatusMutation';
 import Can, { can } from '../Can';
 import CheckContext from '../../CheckContext';
 
@@ -44,13 +45,18 @@ class MediaStatus extends Component {
   }
 
   setStatus(context, media, status) {
+
     const onFailure = (transaction) => { context.fail(transaction); };
     const onSuccess = (response) => { context.success('status'); };
 
     const store = new CheckContext(this).getContextStore();
 
-    Relay.Store.commitUpdate(
-      new CreateStatusMutation({
+    let status_id = '';
+    if (media.last_status_obj !== null) {
+      console.log("I am in")
+      status_id = media.last_status_obj.id;
+    }
+    let status_attr = {
         parent_type: 'project_media',
         annotated: media,
         annotator: store.currentUser,
@@ -59,10 +65,22 @@ class MediaStatus extends Component {
           status,
           annotated_type: 'ProjectMedia',
           annotated_id: media.dbid,
+          status_id: status_id,
         },
-      }),
-      { onSuccess, onFailure },
-    );
+      };
+
+    // Add or Update status
+    if (status_id && status_id.length) {
+      Relay.Store.commitUpdate(
+        new UpdateStatusMutation(status_attr),
+        { onSuccess, onFailure },
+      );
+    } else {
+      Relay.Store.commitUpdate(
+        new CreateStatusMutation(status_attr),
+        { onSuccess, onFailure },
+      );
+    }
   }
 
   fail(transaction) {
