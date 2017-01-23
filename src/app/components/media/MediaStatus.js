@@ -53,7 +53,6 @@ class MediaStatus extends Component {
 
     let status_id = '';
     if (media.last_status_obj !== null) {
-      console.log("I am in")
       status_id = media.last_status_obj.id;
     }
     let status_attr = {

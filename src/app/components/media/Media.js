@@ -89,6 +89,11 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
                 name,
                 profile_image
               }
+              version {
+                id
+                item_id
+                item_type
+              }
             }
           }
         }

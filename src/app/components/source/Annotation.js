@@ -5,6 +5,7 @@ import Linkify from 'react-linkify';
 import nl2br from 'react-nl2br';
 import MediaDetail from '../media/MediaDetail';
 import DeleteAnnotationMutation from '../../relay/DeleteAnnotationMutation';
+import DeleteVersionMutation from '../../relay/DeleteVersionMutation';
 import Can from '../Can';
 
 class Annotation extends Component {
@@ -23,15 +24,25 @@ class Annotation extends Component {
 
     const onSuccess = (response) => {
     };
-
-    Relay.Store.commitUpdate(
-      new DeleteAnnotationMutation({
-        parent_type: this.props.annotatedType.replace(/([a-z])([A-Z])/, '$1_$2').toLowerCase(),
-        annotated: this.props.annotated,
-        id,
-      }),
-      { onSuccess, onFailure },
-    );
+    if (this.props.annotation.version === null) {
+      Relay.Store.commitUpdate(
+        new DeleteAnnotationMutation({
+          parent_type: this.props.annotatedType.replace(/([a-z])([A-Z])/, '$1_$2').toLowerCase(),
+          annotated: this.props.annotated,
+          id,
+        }),
+        { onSuccess, onFailure },
+      );
+    } else {
+      Relay.Store.commitUpdate(
+        new DeleteVersionMutation({
+          parent_type: this.props.annotatedType.replace(/([a-z])([A-Z])/, '$1_$2').toLowerCase(),
+          annotated: this.props.annotated,
+          id: this.props.annotation.version,
+        }),
+        { onSuccess, onFailure },
+      );
+    }
   }
 
   statusIdToLabel(id) {
