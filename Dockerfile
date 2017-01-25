@@ -2,13 +2,11 @@ FROM meedan/ruby
 MAINTAINER Meedan <sysops@meedan.com>
 
 # install dependencies
-# TODO are these really dependecies for meedan/check-web?  these seem like vestiges of meedan/check-api
-
 RUN apt-get update -qq && apt-get install -y libpq-dev imagemagick curl && rm -rf /var/lib/apt/lists/*
 
 # node 6
 RUN apt-get purge -y nodejs npm
-RUN curl -sL https://deb.nodesource.com/setup_6.x | bash 
+RUN curl -sL https://deb.nodesource.com/setup_6.x | bash
 RUN apt-get install -y nodejs
 
 # node modules

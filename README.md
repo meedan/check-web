@@ -1,6 +1,6 @@
 # Check
 
-[![Travis](https://travis-ci.org/meedan/check-web.svg?branch=develop)](https://travis-ci.org/meedan/check-web/)
+[![Travis](https://travis-ci.org/meedan/bridge-web.svg?branch=develop)](https://travis-ci.org/meedan/bridge-web/)
 
 Verify breaking news online
 
