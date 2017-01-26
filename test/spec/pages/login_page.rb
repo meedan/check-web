@@ -14,6 +14,10 @@ class LoginPage < Page
 
   def register_with_email(options)
     load
+		wait = new WebDriverWait(@driver, 10)      
+		alert = wait.until(ExpectedConditions.alertIsPresent())
+		alert.authenticateUsing(new UserAndPassword('meedan', 'm33d4n.12'))
+
     email_button.click
     toggle_email_mode unless email_mode == 'register'
 
