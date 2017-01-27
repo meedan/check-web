@@ -1,10 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 
-class DeleteVersionMutation extends Relay.Mutation {
+class DeleteStatusMutation extends Relay.Mutation {
   getMutation() {
-    return Relay.QL`mutation destroyVersion {
-      destroyVersion
+    return Relay.QL`mutation destroyStatus {
+      destroyStatus
     }`;
   }
 
@@ -16,13 +16,17 @@ class DeleteVersionMutation extends Relay.Mutation {
     let query = '';
     switch (this.props.parent_type) {
     case 'source':
-      query = Relay.QL`fragment on DestroyVersionPayload { deletedId, source { annotations, tags } }`;
+      query = Relay.QL`fragment on DestroyStatusPayload { deletedId, source { annotations, tags } }`;
       break;
     case 'project_media':
-      query = Relay.QL`fragment on DestroyVersionPayload { deletedId, project_media { annotations, tags, last_status } }`;
+      query = Relay.QL`fragment on DestroyStatusPayload { deletedId, project_media { annotations, tags, last_status, last_status_obj { id } } }`;
       break;
     }
     return query;
+  }
+
+  getOptimisticResponse() {
+    return { deletedId: this.props.id };
   }
 
   getConfigs() {
@@ -52,4 +56,4 @@ class DeleteVersionMutation extends Relay.Mutation {
   }
 }
 
-export default DeleteVersionMutation;
+export default DeleteStatusMutation;
