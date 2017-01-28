@@ -74,6 +74,7 @@ class LoginPage < Page
   end
 
   def confirm_email(email) # TODO: test real email confirmation flow
-    request_api('/test/confirm_user', { email: email })
+    p "LOAD"
+    load_api('/test/confirm_user', { email: email })
   end
 end
