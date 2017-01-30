@@ -36,11 +36,14 @@ class TeamComponent extends Component {
   }
 
   setContextTeam() {
-    const context = new CheckContext(this).getContextStore();
-    if (context.team.subdomain != this.props.team.subdomain) {
-      context.team = this.props.team;
-      const path = `${window.location.protocol}//${context.team.subdomain}.${config.selfHost}`;
-      window.location.href = path;
+    const context = new CheckContext(this);
+    const store = context.getContextStore();
+    const team = this.props.team;
+
+    if (store.team.slug != team.slug) {
+      context.setContextStore({ team: team });
+      const path = `/${team.slug}`;
+      store.history.push(path);
     }
   }
 
@@ -244,7 +247,7 @@ class TeamComponent extends Component {
                 <ul className="team__projects-list">
                   {team.projects.edges.sortp((a, b) => a.node.title.localeCompare(b.node.title)).map(p => (
                     <li className="team__project">
-                      <Link to={`/project/${p.node.dbid}`} className="team__project-link">{p.node.title}</Link>
+                      <Link to={`/${team.slug}/project/${p.node.dbid}`} className="team__project-link">{p.node.title}</Link>
                     </li>
                   ))}
                   <Can permissions={team.permissions} permission="create Project">

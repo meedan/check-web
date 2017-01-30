@@ -6,7 +6,7 @@ class TeamsPage < Page
   include LoggedInPage
 
   def url
-    @config['self_url'] + "/teams"
+    @config['self_url'] + "/check/teams"
   end
 
   def select_team(options)

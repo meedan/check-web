@@ -8,6 +8,7 @@ import { Link } from 'react-router';
 import config from 'config';
 import { pageTitle } from '../../helpers';
 import ContentColumn from '../layout/ContentColumn';
+import CheckContext from '../../CheckContext';
 import Heading from '../layout/Heading';
 
 class CreateTeam extends Component {
@@ -15,11 +16,16 @@ class CreateTeam extends Component {
     super(props);
     this.state = {
       displayNameLabelClass: this.displayNameLabelClass(),
-      subdomainClass: this.subdomainClass(),
-      subdomainLabelClass: this.subdomainLabelClass(),
-      subdomainMessage: '',
+      slugClass: this.slugClass(),
+      slugLabelClass: this.slugLabelClass(),
+      slugMessage: '',
       buttonIsDisabled: true,
     };
+  }
+
+  getContext() {
+    const context = new CheckContext(this);
+    return context.getContextStore();
   }
 
   displayNameLabelClass(suffix) {
@@ -27,13 +33,13 @@ class CreateTeam extends Component {
     return suffix ? [defaultClass, defaultClass + suffix].join(' ') : defaultClass;
   }
 
-  subdomainClass(suffix) {
-    const defaultClass = 'create-team__team-subdomain';
+  slugClass(suffix) {
+    const defaultClass = 'create-team__team-slug';
     return suffix ? [defaultClass, defaultClass + suffix].join(' ') : defaultClass;
   }
 
-  subdomainLabelClass(suffix) {
-    const defaultClass = 'create-team__team-subdomain-label';
+  slugLabelClass(suffix) {
+    const defaultClass = 'create-team__team-slug-label';
     return suffix ? [defaultClass, defaultClass + suffix].join(' ') : defaultClass;
   }
 
@@ -45,11 +51,11 @@ class CreateTeam extends Component {
 
   handleDisplayNameBlur(e) {
     const displayName = e.target.value;
-    const subdomainInput = document.getElementsByClassName('create-team__team-subdomain-input')[0];
+    const slugInput = document.getElementsByClassName('create-team__team-slug-input')[0];
 
-    const subdomainSuggestion = slugify(displayName);
-    if (!subdomainInput.value && subdomainSuggestion.length) {
-      subdomainInput.value = subdomainSuggestion;
+    const slugSuggestion = slugify(displayName);
+    if (!slugInput.value && slugSuggestion.length) {
+      slugInput.value = slugSuggestion;
     }
 
     function slugify(text) {
@@ -57,41 +63,41 @@ class CreateTeam extends Component {
     }
   }
 
-  handleSubdomainChange(e) {
-    const subdomain = e.target.value;
-    const isTextEntered = subdomain && subdomain.length > 0;
+  handleSlugChange(e) {
+    const slug = e.target.value;
+    const isTextEntered = slug && slug.length > 0;
 
     this.setState({
-      subdomainLabelClass: (isTextEntered ? this.subdomainLabelClass('--text-entered') : this.subdomainLabelClass()),
+      slugLabelClass: (isTextEntered ? this.slugLabelClass('--text-entered') : this.slugLabelClass()),
     });
 
     // stubs pending real/API implementation; may need debouncing?
-    const subdomainIsPending = false;
-    const subdomainIsAvailable = false;
-    const subdomainIsUnavailable = false;
+    const slugIsPending = false;
+    const slugIsAvailable = false;
+    const slugIsUnavailable = false;
 
-    if (subdomainIsPending) {
+    if (slugIsPending) {
       this.setState({
-        subdomainClass: this.subdomainClass(),
-        subdomainMessage: 'Checking availability...',
+        slugClass: this.slugClass(),
+        slugMessage: 'Checking availability...',
         buttonIsDisabled: true,
       });
-    } else if (subdomainIsAvailable) {
+    } else if (slugIsAvailable) {
       this.setState({
-        subdomainClass: this.subdomainClass('--success'),
-        subdomainMessage: 'Available!',
+        slugClass: this.slugClass('--success'),
+        slugMessage: 'Available!',
         buttonIsDisabled: false,
       });
-    } else if (subdomainIsUnavailable) {
+    } else if (slugIsUnavailable) {
       this.setState({
-        subdomainClass: this.subdomainClass('--error'),
-        subdomainMessage: 'That URL is unavailable.',
+        slugClass: this.slugClass('--error'),
+        slugMessage: 'That URL is unavailable.',
         buttonIsDisabled: true,
       });
     } else {
       this.setState({
-        subdomainClass: this.subdomainClass(),
-        subdomainMessage: '',
+        slugClass: this.slugClass(),
+        slugMessage: '',
         buttonIsDisabled: true,
       });
     }
@@ -101,7 +107,7 @@ class CreateTeam extends Component {
     e.preventDefault();
     let that = this,
       name = document.getElementById('team-name-container').value,
-      subdomain = document.getElementById('team-subdomain-container').value;
+      slug = document.getElementById('team-slug-container').value;
 
     const onFailure = (transaction) => {
       const error = transaction.getError();
@@ -118,15 +124,15 @@ class CreateTeam extends Component {
     const onSuccess = (response) => {
       this.setState({ message: null });
       const team = response.createTeam.team;
-
-      window.location.href = `${window.location.protocol}//${team.subdomain}.${config.selfHost}`;
+      const path = `/${team.slug}`;
+      that.getContext().history.push(path);
     };
 
     Relay.Store.commitUpdate(
        new CreateTeamMutation({
          name,
          description: '',
-         subdomain,
+         slug,
        }),
       { onSuccess, onFailure },
     );
@@ -160,20 +166,20 @@ class CreateTeam extends Component {
                 <label className={this.state.displayNameLabelClass}>Team Name</label>
               </div>
               <div className="create-team__team-url">
-                <div className={this.state.subdomainClass}>
+                <span className="create-team__root-domain">checkmedia.org/</span>
+                <div className={this.state.slugClass}>
                   <input
                     type="text"
-                    name="teamSubdomain"
-                    id="team-subdomain-container"
-                    className="create-team__team-subdomain-input"
-                    onChange={this.handleSubdomainChange.bind(this)}
-                    placeholder="team-url"
+                    name="teamSlug"
+                    id="team-slug-container"
+                    className="create-team__team-slug-input"
+                    onChange={this.handleSlugChange.bind(this)}
+                    placeholder="team-slug"
                     autoComplete="off"
                   />
-                  <label className={this.state.subdomainLabelClass}>Team URL</label>
-                  <p className="create-team__team-subdomain-message">{this.state.subdomainMessage}</p>
+                  <label className={this.state.slugLabelClass}>Team URL</label>
+                  <p className="create-team__team-slug-message">{this.state.slugMessage}</p>
                 </div>
-                <span className="create-team__root-domain">.checkmedia.org</span>
               </div>
               <button type="submit" onClick={this.handleSubmit.bind(this)} className="create-team__submit-button">Create</button>
             </form>
@@ -183,5 +189,9 @@ class CreateTeam extends Component {
     );
   }
 }
+
+CreateTeam.contextTypes = {
+  store: React.PropTypes.object,
+};
 
 export default CreateTeam;

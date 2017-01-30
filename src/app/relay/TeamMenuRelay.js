@@ -3,7 +3,6 @@ import Relay from 'react-relay';
 import TeamRoute from './TeamRoute';
 import Can from '../components/Can';
 import CheckContext from '../CheckContext';
-import { teamSubdomain } from '../helpers';
 
 class TeamMenu extends Component {
   handleClick () {
@@ -13,7 +12,7 @@ class TeamMenu extends Component {
     }
 
     const history = new CheckContext(this).getContextStore().history;
-    history.push('/members');
+    history.push(`/${this.props.team.slug}/members`);
   }
 
   render() {
@@ -38,6 +37,7 @@ const TeamMenuContainer = Relay.createContainer(TeamMenu, {
         id,
         dbid,
         name,
+        slug,
         permissions,
       }
     `,
@@ -46,8 +46,8 @@ const TeamMenuContainer = Relay.createContainer(TeamMenu, {
 
 class TeamMenuRelay extends Component {
   render() {
-    if (teamSubdomain()) {
-      const route = new TeamRoute({ teamId: '' });
+    if (this.props.params.team) {
+      const route = new TeamRoute({ teamSlug: this.props.params.team });
       return (<Relay.RootContainer Component={TeamMenuContainer} route={route} />);
     } else {
       return null;

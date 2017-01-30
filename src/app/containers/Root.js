@@ -92,25 +92,30 @@ export default class Root extends Component {
           <Router history={this.state.history} onUpdate={this.logPageView.bind(this)}>
             <Route path="/" component={App}>
               <IndexRoute component={Team} />
-              <Route path="tos" component={TermsOfService} public />
-              <Route path="privacy" component={PrivacyPolicy} public />
-              <Route path="sources" component={Sources} />
-              <Route path="sources/new" component={CreateAccount} />
-              <Route path="source/:sourceId" component={Source} />
-              <Route path="medias/new" component={CreateProjectMedia} />
-              <Route path="project/:projectId/media/:mediaId" component={ProjectMedia} />
-              <Route path="user/confirmed" component={UserConfirmed} public />
-              <Route path="user/unconfirmed" component={UserUnconfirmed} public />
-              <Route path="user/:userId" component={User} />
-              <Route path="me" component={Me} />
-              <Route path="join" component={JoinTeam} />
-              <Route path="members" component={TeamMembers} />
-              <Route path="teams/new" component={CreateTeam} />
-              <Route path="teams" component={Teams} />
-              <Route path="project/:projectId" component={Project} />
-              <Route path="project/:projectId/edit" component={ProjectEdit} />
-              <Route path="search(/:query)" component={Search} />
-              <Route path="forbidden" component={AccessDenied} public />
+              <Route path="check/tos" component={TermsOfService} public />
+              <Route path="check/privacy" component={PrivacyPolicy} public />
+              <Route path="check/user/confirmed" component={UserConfirmed} public />
+              <Route path="check/user/unconfirmed" component={UserUnconfirmed} public />
+              <Route path="check/forbidden" component={AccessDenied} public />
+              <Route path="check/404" component={NotFound} public />
+              
+              <Route path="check/sources" component={Sources} />
+              <Route path="check/sources/new" component={CreateAccount} />
+              <Route path="check/source/:sourceId" component={Source} />
+              <Route path="check/user/:userId" component={User} />
+              <Route path="check/me" component={Me} />
+              <Route path="check/teams/new" component={CreateTeam} />
+              <Route path="check/teams" component={Teams} />
+              
+              <Route path=":team/medias/new" component={CreateProjectMedia} />
+              <Route path=":team/project/:projectId/media/:mediaId" component={ProjectMedia} />
+              <Route path=":team/join" component={JoinTeam} />
+              <Route path=":team/members" component={TeamMembers} />
+              <Route path=":team/project/:projectId" component={Project} />
+              <Route path=":team/project/:projectId/edit" component={ProjectEdit} />
+              <Route path=":team/search(/:query)" component={Search} />
+              <Route path=":team" component={Team} />
+              
               <Route path="*" component={NotFound} public />
             </Route>
           </Router>

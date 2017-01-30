@@ -218,6 +218,16 @@
                     "ofType": null
                   },
                   "defaultValue": null
+                },
+                {
+                  "name": "slug",
+                  "description": null,
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  },
+                  "defaultValue": null
                 }
               ],
               "type": {
@@ -4252,21 +4262,7 @@
               "deprecationReason": null
             },
             {
-              "name": "source_verification_statuses",
-              "description": null,
-              "args": [
-
-              ],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "subdomain",
+              "name": "slug",
               "description": null,
               "args": [
 
@@ -4279,6 +4275,20 @@
                   "name": "String",
                   "ofType": null
                 }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "source_verification_statuses",
+              "description": null,
+              "args": [
+
+              ],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -6671,7 +6681,7 @@
               "deprecationReason": null
             },
             {
-              "name": "subdomain",
+              "name": "slug",
               "description": null,
               "args": [
 
@@ -9417,7 +9427,7 @@
               "defaultValue": null
             },
             {
-              "name": "subdomain",
+              "name": "slug",
               "description": null,
               "type": {
                 "kind": "NON_NULL",

@@ -36,9 +36,17 @@ class CheckContext {
   }
 
   startNetwork(token) {
+    const that = this;
     const history = this.getContextStore().history;
     Relay.injectNetworkLayer(new CheckNetworkLayer(config.relayPath, {
       history,
+      team: () => {
+        const team = that.getContextStore().team;
+        if (team) {
+          return team.slug;
+        }
+        return '';
+      },
       get headers() {
         const headers = config.relayHeaders;
         if (token) {
@@ -81,24 +89,22 @@ class CheckContext {
     request('get', 'me', failureCallback, successCallback);
   }
 
-  getSubdomain() {
-    const host = window.location.host;
-    const regexp = new RegExp(`^([a-zA-Z0-9\\-]+)\\.${config.selfHost}`);
-    let subdomain = null;
-    if (regexp.test(host)) {
-      subdomain = host.match(regexp)[1];
+  getTeamSlug() {
+    let slug = null;
+    if (this.caller.props.params && this.caller.props.params.team) {
+      slug = this.caller.props.params.team;
     }
-    return subdomain;
+    return slug;
   }
 
   // Get context team and project from URL
   setContext() {
     if (this.caller.props.params) {
-      const subdomain = this.getSubdomain();
+      const slug = this.getTeamSlug();
       const newContext = {};
       const currentContext = this.getContextStore();
-      if (subdomain != null && !currentContext.team) {
-        newContext.team = { subdomain: subdomain };
+      if (slug != null && (!currentContext.team || currentContext.team.slug != slug)) {
+        newContext.team = { slug };
       }
       if (this.caller.props.params.projectId && !currentContext.project) {
         newContext.project = { dbid: parseInt(this.caller.props.params.projectId) };
@@ -109,31 +115,30 @@ class CheckContext {
 
   // Set context team and project from information from the backend
   setContextAndRedirect(team, project) {
-    let path = `${window.location.protocol}//`;
+    let path = '';
     const newContext = {};
     if (team) {
       newContext.team = team;
-      path += `${team.subdomain}.`;
+      path += `/${team.slug}`;
     }
-    path += config.selfHost;
     if (project) {
       newContext.project = project;
       path += `/project/${project.dbid}`;
     }
     this.setContextStore(newContext);
-    window.location.href = path;
+    this.getContextStore().history.push(path);
   }
 
   // When accessing Check root, redirect to a friendlier location if needed:
-  // - if no team, go to `/teams/new`
+  // - if no team, go to `/check/teams/new`
   // - if team but no current project, go to team root
   // - if team and current project, go to project page
   maybeRedirect(location, userData) {
-    if (location !== '/' || this.getSubdomain() || !userData) return;
+    if (location !== '/' || this.getTeamSlug() || !userData) return;
 
     const userCurrentTeam = userData.current_team;
     if (!userCurrentTeam) {
-      return this.getContextStore().history.push('/teams/new');
+      return this.getContextStore().history.push('/check/teams/new');
     }
     const project = userCurrentTeam.projects[0];
     if (project && project.dbid) {

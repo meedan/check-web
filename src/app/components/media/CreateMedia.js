@@ -30,7 +30,7 @@ class CreateProjectMedia extends Component {
 
     const that = this,
       context = new CheckContext(this).getContextStore(),
-      prefix = `/project/${context.project.dbid}/media/`;
+      prefix = `/${context.team.slug}/project/${context.project.dbid}/media/`;
 
     let image = '',
         inputValue = '',

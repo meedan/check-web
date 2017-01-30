@@ -54,12 +54,13 @@ class JoinTeamComponent extends Component {
 
   redirectIfMember() {
     if (this.getContext().currentUser.team_ids.indexOf(this.props.team.dbid) > -1) {
-      window.location.href = this.buildUrl(this.props.team);
+      const path = this.buildUrl(this.props.team);
+      this.getContext().history.push(path);
     }
   }
 
   buildUrl(team) {
-    return `${window.location.protocol}//${team.subdomain}.${config.selfHost}`;
+    return `${window.location.protocol}//${config.selfHost}/${team.slug}`;
   }
 
   componentWillMount() {

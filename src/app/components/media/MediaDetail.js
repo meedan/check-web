@@ -77,7 +77,7 @@ class MediaDetail extends Component {
     if (!projectId && annotated && annotatedType === 'Project') {
       projectId = annotated.dbid;
     }
-    const mediaUrl = projectId ? `/project/${projectId}/media/${media.dbid}` : null;
+    const mediaUrl = (projectId && media.team) ? `/${media.team.slug}/project/${projectId}/media/${media.dbid}` : null;
 
     const byUser = (media.user && media.user.source && media.user.source.dbid && media.user.name !== 'Pender') ?
       (<span>by {media.user.name}</span>) : '';

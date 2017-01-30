@@ -40,7 +40,7 @@ const ProjectHeaderContainer = Relay.createContainer(ProjectHeaderComponent, {
         team {
           id,
           dbid,
-          subdomain,
+          slug,
           permissions,
           get_slack_notifications_enabled
         }
