@@ -6,6 +6,7 @@ import { orange500 } from 'material-ui/styles/colors';
 import CreateCommentMutation from '../../relay/CreateCommentMutation';
 import CreateTagMutation from '../../relay/CreateTagMutation';
 import CreateStatusMutation from '../../relay/CreateStatusMutation';
+import UpdateStatusMutation from '../../relay/UpdateStatusMutation';
 import CreateFlagMutation from '../../relay/CreateFlagMutation';
 import CheckContext from '../../CheckContext';
 
@@ -124,8 +125,11 @@ class AddAnnotation extends Component {
 
     const annotator = that.getContext().currentUser;
 
-    Relay.Store.commitUpdate(
-      new CreateStatusMutation({
+    let status_id = '';
+    if (annotated.last_status_obj !== null) {
+      status_id = annotated.last_status_obj.id;
+    }
+    let status_attr = {
         parent_type: annotated_type.replace(/([a-z])([A-Z])/, '$1_$2').toLowerCase(),
         annotated,
         annotator,
@@ -134,10 +138,22 @@ class AddAnnotation extends Component {
           status,
           annotated_type,
           annotated_id,
+          status_id: status_id,
         },
-      }),
-      { onSuccess, onFailure },
-    );
+      };
+    // Add or Update status
+    if (status_id && status_id.length) {
+      Relay.Store.commitUpdate(
+        new UpdateStatusMutation(status_attr),
+        { onSuccess, onFailure },
+      );
+    } else {
+      Relay.Store.commitUpdate(
+        new CreateStatusMutation(status_attr),
+        { onSuccess, onFailure },
+      );
+    }
+
   }
 
   addFlag(that, annotated, annotated_id, annotated_type, flag) {

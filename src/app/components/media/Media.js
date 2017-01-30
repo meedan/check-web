@@ -36,6 +36,10 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
             dbid
           }
         }
+        last_status_obj {
+          id
+          dbid
+        }
         tags(first: 10000) {
           edges {
             node {
@@ -84,6 +88,11 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
               annotator {
                 name,
                 profile_image
+              }
+              version {
+                id
+                item_id
+                item_type
               }
             }
           }

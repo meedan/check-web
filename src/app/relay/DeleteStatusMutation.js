@@ -1,10 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 
-class DeleteAnnotationMutation extends Relay.Mutation {
+class DeleteStatusMutation extends Relay.Mutation {
   getMutation() {
-    return Relay.QL`mutation destroyAnnotation {
-      destroyAnnotation
+    return Relay.QL`mutation destroyStatus {
+      destroyStatus
     }`;
   }
 
@@ -16,10 +16,10 @@ class DeleteAnnotationMutation extends Relay.Mutation {
     let query = '';
     switch (this.props.parent_type) {
     case 'source':
-      query = Relay.QL`fragment on DestroyAnnotationPayload { deletedId, source { annotations, tags } }`;
+      query = Relay.QL`fragment on DestroyStatusPayload { deletedId, source { annotations, tags } }`;
       break;
     case 'project_media':
-      query = Relay.QL`fragment on DestroyAnnotationPayload { deletedId, project_media { annotations, tags, last_status, last_status_obj { id } } }`;
+      query = Relay.QL`fragment on DestroyStatusPayload { deletedId, project_media { annotations, tags, last_status, last_status_obj { id } } }`;
       break;
     }
     return query;
@@ -56,4 +56,4 @@ class DeleteAnnotationMutation extends Relay.Mutation {
   }
 }
 
-export default DeleteAnnotationMutation;
+export default DeleteStatusMutation;
