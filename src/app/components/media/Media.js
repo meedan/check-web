@@ -120,7 +120,7 @@ class ProjectMedia extends Component {
     if (store.project) {
       projectId = store.project.dbid;
     }
-    const ids = this.props.params.mediaId;
+    const ids = `${this.props.params.mediaId},${projectId}`;
     const route = new MediaRoute({ ids });
 
     return (
