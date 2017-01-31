@@ -36,6 +36,10 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
             dbid
           }
         }
+        last_status_obj {
+          id
+          dbid
+        }
         tags(first: 10000) {
           edges {
             node {
@@ -85,6 +89,11 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
                 name,
                 profile_image
               }
+              version {
+                id
+                item_id
+                item_type
+              }
             }
           }
         }
@@ -112,7 +121,7 @@ class ProjectMedia extends Component {
     if (store.project) {
       projectId = store.project.dbid;
     }
-    const ids = this.props.params.mediaId;
+    const ids = `${this.props.params.mediaId},${projectId}`;
     const route = new MediaRoute({ ids });
 
     return (

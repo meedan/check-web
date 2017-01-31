@@ -1,21 +1,21 @@
 import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 
-class CreateStatusMutation extends Relay.Mutation {
+class UpdateStatusMutation extends Relay.Mutation {
   getMutation() {
-    return Relay.QL`mutation createStatus {
-      createStatus
+    return Relay.QL`mutation updateStatus {
+      updateStatus
     }`;
   }
 
-  getFatQuery() {
+ getFatQuery() {
     let query = '';
     switch (this.props.parent_type) {
     case 'source':
-      query = Relay.QL`fragment on CreateStatusPayload { statusEdge, source { annotations, id } }`;
+      query = Relay.QL`fragment on UpdateStatusPayload { statusEdge, source { annotations, id } }`;
       break;
     case 'project_media':
-      query = Relay.QL`fragment on CreateStatusPayload { statusEdge, project_media { annotations, id, last_status, annotations_count, last_status_obj { id } } }`;
+      query = Relay.QL`fragment on UpdateStatusPayload { statusEdge, project_media { annotations, id, last_status, annotations_count } }`;
       break;
     }
     return query;
@@ -45,9 +45,10 @@ class CreateStatusMutation extends Relay.Mutation {
     return { statusEdge: { node: status }, project_media: media };
   }
 
-  getVariables() {
+ getVariables() {
     const status = this.props.annotation;
-    return { status: status.status, annotated_id: `${status.annotated_id}`, annotated_type: status.annotated_type };
+    return { id: status.status_id,
+      status: status.status};
   }
 
   getConfigs() {
@@ -70,5 +71,5 @@ class CreateStatusMutation extends Relay.Mutation {
     ];
   }
 }
+export default UpdateStatusMutation;
 
-export default CreateStatusMutation;
