@@ -98,17 +98,17 @@
             },
             {
               "name": "project_media",
-              "description": "Information about a project media, given its id and its team id",
+              "description": "Information about a project media, The argument should be given like this: \"project_media_id,project_id\"",
               "args": [
                 {
-                  "name": "id",
+                  "name": "ids",
                   "description": null,
                   "type": {
                     "kind": "NON_NULL",
                     "name": "Non-Null",
                     "ofType": {
                       "kind": "SCALAR",
-                      "name": "ID",
+                      "name": "String",
                       "ofType": null
                     }
                   },
@@ -5582,6 +5582,20 @@
           "name": "Version",
           "description": "Version type",
           "fields": [
+            {
+              "name": "dbid",
+              "description": null,
+              "args": [
+
+              ],
+              "type": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
             {
               "name": "event",
               "description": null,
