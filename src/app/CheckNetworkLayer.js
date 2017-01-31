@@ -91,7 +91,19 @@ class CheckNetworkLayer extends Relay.DefaultNetworkLayer {
         method: 'POST'
       });
     }
-    return fetch(this._uri, init);
+    return fetch(this._uri, init).then(function (response) {
+      return throwOnServerError(request, response);
+    });
+  }
+}
+
+function throwOnServerError(request, response) {
+  if (response.status >= 200 && response.status < 300) {
+    return response;
+  } else {
+    return response.text().then(function (payload) {
+      throw createRequestError(request, response.status, payload);
+    });
   }
 }
 

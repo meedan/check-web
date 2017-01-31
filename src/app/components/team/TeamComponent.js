@@ -40,7 +40,7 @@ class TeamComponent extends Component {
     const store = context.getContextStore();
     const team = this.props.team;
 
-    if (store.team.slug != team.slug) {
+    if (!store.team || store.team.slug != team.slug) {
       context.setContextStore({ team: team });
       const path = `/${team.slug}`;
       store.history.push(path);
