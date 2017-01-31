@@ -153,6 +153,10 @@ const ProjectContainer = Relay.createContainer(ProjectComponent, {
               annotations_count,
               domain,
               last_status,
+              last_status_obj {
+                id,
+                dbid
+              }
               permissions,
               verification_statuses,
               media {

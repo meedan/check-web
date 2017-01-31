@@ -16,10 +16,10 @@ class DeleteStatusMutation extends Relay.Mutation {
     let query = '';
     switch (this.props.parent_type) {
     case 'source':
-      query = Relay.QL`fragment on DestroyStatusPayload { deletedId, source { annotations, tags } }`;
+      query = Relay.QL`fragment on DestroyStatusPayload { deletedId, source { annotations } }`;
       break;
     case 'project_media':
-      query = Relay.QL`fragment on DestroyStatusPayload { deletedId, project_media { annotations, tags, last_status, last_status_obj { id } } }`;
+      query = Relay.QL`fragment on DestroyStatusPayload { deletedId, project_media { annotations, last_status, last_status_obj { id } } }`;
       break;
     }
     return query;
@@ -34,13 +34,6 @@ class DeleteStatusMutation extends Relay.Mutation {
     fieldIds[this.props.parent_type] = this.props.annotated.id;
 
     return [
-      {
-        type: 'NODE_DELETE',
-        parentName: this.props.parent_type,
-        parentID: this.props.annotated.id,
-        connectionName: 'tags',
-        deletedIDFieldName: 'deletedId',
-      },
       {
         type: 'NODE_DELETE',
         parentName: this.props.parent_type,

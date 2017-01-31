@@ -326,6 +326,10 @@ const SearchResultsContainer = Relay.createContainer(SearchResultsComponent, {
               annotations_count,
               domain,
               last_status,
+              last_status_obj {
+                id,
+                dbid
+              }
               permissions,
               verification_statuses,
               project_id,
