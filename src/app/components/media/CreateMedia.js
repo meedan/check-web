@@ -63,6 +63,9 @@ class CreateProjectMedia extends Component {
           message = null;
           context.history.push(prefix + pmid);
         }
+        else if (/file/i.test(json.error)) {
+          message = json.error;
+        }
       }
       that.setState({ message, isSubmitting: false });
     };
