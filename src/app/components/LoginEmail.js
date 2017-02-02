@@ -164,7 +164,7 @@ class LoginEmail extends Component {
               </button>
             </div>
           </form>
-          {this.state.type === 'login' ? (<p className="login-email__help-text"><FormattedMessage id="login.trouble" defaultMessage={`Having trouble logging in? Please email {email} for&nbsp;assistance.`} values={{ email: <Link to="mailto:check@meedan.com">check@meedan.com</Link> }} /></p>) : null}
+          {this.state.type === 'login' ? (<p className="login-email__help-text"><FormattedMessage id="login.trouble" defaultMessage={`Having trouble logging in? Please email {email} for assistance.`} values={{ email: <Link to="mailto:check@meedan.com">check@meedan.com</Link> }} /></p>) : null}
         </section>
       </span>
     );
