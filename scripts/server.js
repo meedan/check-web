@@ -16,7 +16,6 @@ var port = process.env.SERVER_PORT || 8000;
 app.use(function(req, res, next) {
    // CORS
    res.header("Access-Control-Allow-Origin", "*");
-   res.header("X-Check-Web", "1");
    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 
    // cacheing

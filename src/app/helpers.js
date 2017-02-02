@@ -9,15 +9,6 @@ function bemClass(baseClass, modifierBoolean, modifierSuffix) {
   return modifierBoolean ? [baseClass, baseClass + modifierSuffix].join(' ') : baseClass;
 }
 
-function teamSubdomain() {
-  const baseDomain = config.selfHost;
-  const currentDomain = window.location.host;
-
-  if (currentDomain.indexOf(baseDomain) > 1) {
-    return currentDomain.slice(0, currentDomain.indexOf(baseDomain) - 1);
-  }
-}
-
 // Make a Check page title as `prefix | team Check`.
 // Try to get the current team's name and fallback to just `Check`.
 // Skip team name if `skipTeam` is true.
@@ -34,4 +25,4 @@ function pageTitle(prefix, skipTeam, team) {
   return (prefix ? (`${prefix} | `) : '') + suffix;
 }
 
-export { bemClass, pageTitle, teamSubdomain };
+export { bemClass, pageTitle };

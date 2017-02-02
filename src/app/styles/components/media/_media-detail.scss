@@ -1,5 +1,5 @@
 .media-detail {
-  padding: 8px 14px 24px 14px;
+  padding: 8px 14px 14px 14px;
   border: $layout-border;
   border-radius: 2px;
   @include media-status-background-and-border-colors;
@@ -73,4 +73,8 @@
 
 .media-detail__cancel-edits {
   margin-right: 8px;
+}
+
+.image-media-card img {
+  width: 100%;
 }

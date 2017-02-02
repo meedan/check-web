@@ -13,7 +13,7 @@ class ProjectMenu extends Component {
     }
 
     const history = new CheckContext(this).getContextStore().history;
-    const editPath = `${window.location.pathname.match(/^\/project\/\d+/)[0]}/edit`;
+    const editPath = `${window.location.pathname.match(/.*\/project\/\d+/)[0]}/edit`;
     history.push(editPath);
   }
 
@@ -47,7 +47,7 @@ const ProjectMenuContainer = Relay.createContainer(ProjectMenu, {
         team {
           id,
           dbid,
-          subdomain,
+          slug,
           permissions,
           get_slack_notifications_enabled
         }

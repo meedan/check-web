@@ -40,7 +40,7 @@ class TeamMembersComponent extends Component {
       }
     });
 
-    const teamUrl = `${window.location.protocol}//${team.subdomain}.${config.selfHost}`;
+    const teamUrl = `${window.location.protocol}//${config.selfHost}/${team.slug}`;
     const joinUrl = `${teamUrl}/join`;
 
     return (

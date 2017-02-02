@@ -1,6 +1,32 @@
 import React, { Component, PropTypes } from 'react';
+import Relay from 'react-relay';
 import Dropzone from 'react-dropzone';
 import FontAwesome from 'react-fontawesome';
+import AboutRoute from '../relay/AboutRoute';
+
+class UploadLabel extends Component {
+  render() {
+    const about = this.props.about;
+    return (<span>Try dropping an image file here, or click to upload a file (max: {about.max_upload_size})</span>);
+  }
+}
+
+const UploadLabelContainer = Relay.createContainer(UploadLabel, {
+  fragments: {
+    about: () => Relay.QL`
+      fragment on About {
+        max_upload_size
+      }
+    `,
+  },
+});
+
+class UploadLabelRelay extends Component {
+  render() {
+    const route = new AboutRoute();
+    return (<Relay.RootContainer Component={UploadLabelContainer} route={route} />);
+  }
+}
 
 class UploadImage extends Component {
   constructor(props) {
@@ -29,8 +55,8 @@ class UploadImage extends Component {
         { this.state.file ? <span className="preview" style={style}><FontAwesome name="remove" className="remove-image" onClick={this.onDelete.bind(this)} /></span> : null }
 
         <Dropzone onDrop={this.onDrop.bind(this)} multiple={false} className={this.state.file ? 'with-file' : 'without-file'}>
-          <div><b>Profile image: </b>
-            { this.state.file ? (`${this.state.file.name} (click or drop to change)`) : 'Try dropping an image file here, or click to upload a file' }
+          <div><b>Image: </b>
+            { this.state.file ? (`${this.state.file.name} (click or drop to change)`) : <UploadLabelRelay /> }
           </div>
         </Dropzone>
 

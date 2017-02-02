@@ -140,7 +140,7 @@ module AppSpecHelpers
   def create_team
     if @driver.find_elements(:css, '.create-team').size > 0
       fill_field('#team-name-container', "Team #{Time.now}")
-      fill_field('#team-subdomain-container', "team#{Time.now.to_i}#{Process.pid}")
+      fill_field('#team-slug-container', "team#{Time.now.to_i}#{Process.pid}")
       press_button('.create-team__submit-button')
       sleep 0.5
     end
@@ -172,7 +172,7 @@ module AppSpecHelpers
   end
 
   def get_team
-    @driver.execute_script('var context = Checkdesk.store.getState().app.context; return context.team ? context.team.subdomain : context.currentUser.current_team.subdomain').to_s
+    @driver.execute_script('var context = Checkdesk.store.getState().app.context; return context.team ? context.team.slug : context.currentUser.current_team.slug').to_s
   end
 
   def get_project
@@ -189,7 +189,7 @@ module AppSpecHelpers
   end
 
   def team_url(path)
-    @config['self_url'].gsub('//', '//' + get_team + '.') + '/' + path
+    @config['self_url'] + '/' + get_team + '/' + path
   end
 
   def confirm_email(email)

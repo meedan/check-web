@@ -7,10 +7,10 @@ class CheckNetworkLayer extends Relay.DefaultNetworkLayer {
       this._sendQuery(request).then(
         (result) => {
           const history = this._init.history;
-          if (result.status === 404 && window.location.pathname != '/404') {
-            history.push('/404');
-          } else if ((result.status === 401 || result.status === 403) && window.location.pathname != '/forbidden') {
-            history.push('/forbidden');
+          if (result.status === 404 && window.location.pathname != '/check/404') {
+            history.push('/check/404');
+          } else if ((result.status === 401 || result.status === 403) && window.location.pathname != '/check/forbidden') {
+            history.push('/check/forbidden');
           }
           return result.json();
         }).then((payload) => {
@@ -39,6 +39,7 @@ class CheckNetworkLayer extends Relay.DefaultNetworkLayer {
       body: JSON.stringify({
         query: request.getQueryString(),
         variables: request.getVariables(),
+        team: this._init.team()
       }),
       headers: {
         ...this._init.headers,
@@ -46,6 +47,62 @@ class CheckNetworkLayer extends Relay.DefaultNetworkLayer {
         'Content-Type': 'application/json',
       },
       method: 'POST',
+    });
+  }
+
+  _sendMutation(request) {
+    var _interopRequireDefault = function(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
+
+    var init = void 0;
+    var files = request.getFiles();
+    var _extends3 = _interopRequireDefault(require('babel-runtime/helpers/extends'));
+    var _stringify2 = _interopRequireDefault(require('babel-runtime/core-js/json/stringify'));
+
+    const that = this;
+
+    if (files) {
+      if (!global.FormData) {
+        throw new Error('Uploading files without `FormData` not supported.');
+      }
+      var formData = new FormData();
+      formData.append('query', request.getQueryString());
+      formData.append('variables', (0, _stringify2['default'])(request.getVariables()));
+      formData.append('team', that._init.team());
+      for (var filename in files) {
+        if (files.hasOwnProperty(filename)) {
+          formData.append(filename, files[filename]);
+        }
+      }
+      init = (0, _extends3['default'])({}, this._init, {
+        body: formData,
+        method: 'POST'
+      });
+    } else {
+      init = (0, _extends3['default'])({}, this._init, {
+        body: (0, _stringify2['default'])({
+          query: request.getQueryString(),
+          variables: request.getVariables(),
+          team: that._init.team()
+        }),
+        headers: (0, _extends3['default'])({}, this._init.headers, {
+          'Accept': '*/*',
+          'Content-Type': 'application/json'
+        }),
+        method: 'POST'
+      });
+    }
+    return fetch(this._uri, init).then(function (response) {
+      return throwOnServerError(request, response);
+    });
+  }
+}
+
+function throwOnServerError(request, response) {
+  if (response.status >= 200 && response.status < 300) {
+    return response;
+  } else {
+    return response.text().then(function (payload) {
+      throw createRequestError(request, response.status, payload);
     });
   }
 }

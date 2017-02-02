@@ -1,5 +1,42 @@
 .create-media {
   margin-bottom: 15px;
+
+  .preview {
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 300px;
+    padding: 0;
+    margin: 0;
+    border: 1px solid #ccc;
+    border-bottom: 0;
+    width: 100%;
+  
+    .remove-image {
+      position: absolute;
+      top: -2px;
+      right: 1px;
+      z-index: 1;
+      color: #ccc;
+      cursor: pointer;
+    }
+  }
+  
+  .upload-file > div.with-file {
+    width: 100% !important;
+    border-top: 0 !important;
+    border-style: solid !important;
+  }
+  
+  .upload-file > div {
+    height: 48px !important;
+    line-height: 48px !important;
+    padding: 0 !important;
+  }
+
+  .upload-file {
+    margin: 0;
+  }
 }
 
 .create-media__input {
@@ -24,4 +61,20 @@
 
 .create-media__buttons {
   text-align: right;
+}
+
+#create-media__field {
+  position: relative;
+}
+
+#create-media__switcher {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  cursor: pointer;
+  color: #ccc; 
+
+  &.create-media__file, &:hover {
+    color: #2196f3;
+  }
 }

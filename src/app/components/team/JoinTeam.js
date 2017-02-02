@@ -9,7 +9,7 @@ const TeamContainer = Relay.createContainer(JoinTeamComponent, {
       fragment on PublicTeam {
         name,
         dbid,
-        subdomain
+        slug
       }
     `,
   },
