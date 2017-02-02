@@ -9,6 +9,6 @@
   },
   {
     "id": "login.trouble",
-    "defaultMessage": "Having trouble logging in? Please email {email} for&nbsp;assistance."
+    "defaultMessage": "Having trouble logging in? Please email {email} for assistance."
   }
 ]
