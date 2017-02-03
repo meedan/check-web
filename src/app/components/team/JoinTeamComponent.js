@@ -52,12 +52,42 @@ class JoinTeamComponent extends Component {
     );
   }
 
+  redirectIfMember() {
+    if (this.alreadyMember()) {
+      const team = this.props.team;
+      const user = this.getContext().currentUser;
+      const userTeams = JSON.parse(user.teams);
+      let redirect = true;
+      for (var teamName in userTeams) {
+        const t = userTeams[teamName];
+        if (t.id == team.dbid && team.private && t.status != 'member') {
+          redirect = false;
+        }
+      }
+      if (redirect) {
+        this.getContext().history.push(`/${team.slug}`);
+      }
+    }
+  }
+
+  alreadyMember() {
+    return (this.getContext().currentUser.team_ids.indexOf(this.props.team.dbid) > -1);
+  }
+
+  componentWillMount() {
+    this.redirectIfMember();
+  }
+
+  componentWillUpdate() {
+    this.redirectIfMember();
+  }
+
   render() {
     const team = this.props.team;
 
     const isRequestSent = this.state.isRequestSent;
 
-    if (this.getContext().currentUser.team_ids.indexOf(team.dbid) > -1) {
+    if (this.alreadyMember()) {
       return (
         <DocumentTitle title={pageTitle('Join Team', false, team)}>
           <div className="join-team">
