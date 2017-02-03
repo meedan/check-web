@@ -87,12 +87,14 @@ class MediaDetail extends Component {
     media.quote = media.media.quote;
     
     if (media.media.embed_path) {
-      const path = this.props.condensed ? media.media.thumbnail_path : media.media.embed_path;
+      const path = condensed ? media.media.thumbnail_path : media.media.embed_path;
       embedCard = <ImageMediaCard imagePath={path} />;
     } else if (media.quote && media.quote.length) {
       embedCard = <QuoteMediaCard quoteText={media.quote} attributionName={null} attributionUrl={null} />;
     } else if (media.url) {
-      embedCard = <SocialMediaCard media={media} data={data} condensed={condensed} />;
+       embedCard = condensed ?
+                   <SocialMediaCard media={media} data={data} condensed={condensed} /> :
+                   <PenderCard url={media.url} penderUrl={config.penderUrl} fallback={<SocialMediaCard media={media} data={data} condensed={condensed} />} />;
     }
 
     return (
