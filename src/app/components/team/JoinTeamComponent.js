@@ -52,30 +52,20 @@ class JoinTeamComponent extends Component {
     );
   }
 
-  redirectIfMember() {
-    if (this.getContext().currentUser.team_ids.indexOf(this.props.team.dbid) > -1) {
-      const path = this.buildUrl(this.props.team);
-      this.getContext().history.push(path);
-    }
-  }
-
-  buildUrl(team) {
-    return `${window.location.protocol}//${config.selfHost}/${team.slug}`;
-  }
-
-  componentWillMount() {
-    this.redirectIfMember();
-  }
-
-  componentWillUpdate() {
-    this.redirectIfMember();
-  }
-
   render() {
     const team = this.props.team;
-    const teamUrl = this.buildUrl(team);
 
     const isRequestSent = this.state.isRequestSent;
+
+    if (this.getContext().currentUser.team_ids.indexOf(team.dbid) > -1) {
+      return (
+        <DocumentTitle title={pageTitle('Join Team', false, team)}>
+          <div className="join-team">
+            <p className="join-team__blurb-graf">You already requested to join <Link to={`/${team.slug}`}>{team.name}</Link> Check.</p>
+          </div>
+        </DocumentTitle>
+      );
+    }
 
     return (
       <DocumentTitle title={pageTitle('Join Team', false, team)}>
@@ -83,7 +73,7 @@ class JoinTeamComponent extends Component {
           <Message message={this.state.message} />
           <h2 className="join-team__main-heading">Request to Join</h2>
           <div className="join-team__blurb">
-            <p className="join-team__blurb-graf">To request access to the <a href={teamUrl}>{team.name}</a> Check, click below:</p>
+            <p className="join-team__blurb-graf">To request access to the <Link to={`/${team.slug}`}>{team.name}</Link> Check, click below:</p>
             <div>
               <button
                 className={`join-team__button${isRequestSent ? ' join-team__button--submitted' : ''}`}

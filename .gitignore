@@ -18,3 +18,5 @@ travis.zip
 linters
 test/spec/sauce
 config-build.js
+.tmp
+localization

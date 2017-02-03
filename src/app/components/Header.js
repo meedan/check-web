@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import FlatButton from 'material-ui/FlatButton';
 import TeamHeader from './team/TeamHeader';
+import TeamPublicHeader from './team/TeamPublicHeader';
 import ProjectHeader from './project/ProjectHeader';
 import Breadcrumb from './layout/Breadcrumb';
 import MediaHeader from './media/MediaHeader';
@@ -77,13 +78,23 @@ class Header extends Component {
       );
     }
 
-    if (path.match(/\/(join|members)/)) {
+    if (path.match(/\/members/)) {
       return (
         <header className="header header--team-subpage">
           <div className="header__container">
             <span style={{ display: 'none' }}><TeamHeader {...this.props} /></span>
             <div className="header__breadcrumb"><Breadcrumb url={`/${this.props.params.team}`} label="Team" /></div>
             <HeaderActions {...this.props} />
+          </div>
+        </header>
+      );
+    }
+
+    if (path.match(/\/join/)) {
+      return (
+        <header className="header header--team-subpage">
+          <div className="header__container">
+            <TeamPublicHeader {...this.props} />
           </div>
         </header>
       );

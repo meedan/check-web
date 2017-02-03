@@ -125,9 +125,18 @@
             },
             {
               "name": "public_team",
-              "description": "Public information about the current team",
+              "description": "Public information about a team",
               "args": [
-
+                {
+                  "name": "slug",
+                  "description": null,
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                }
               ],
               "type": {
                 "kind": "OBJECT",
@@ -6939,6 +6948,20 @@
           "name": "PublicTeam",
           "description": "Public team type",
           "fields": [
+            {
+              "name": "avatar",
+              "description": null,
+              "args": [
+
+              ],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
             {
               "name": "dbid",
               "description": null,
