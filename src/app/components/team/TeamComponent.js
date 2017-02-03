@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 import DocumentTitle from 'react-document-title';
+import FormattedMessage from 'react-intl';
 import Tags from './Tags';
 import { Link } from 'react-router';
 import FontAwesome from 'react-fontawesome';
@@ -243,7 +244,7 @@ class TeamComponent extends Component {
 
             <section className="team__content">
               <div className="team__content-body">
-                <h3 className="team__projects-heading">Verification Projects</h3>
+                <h3 className="team__projects-heading"><FormattedMessage id="teamComponent.title" defaultMessage="Verification Projects" /></h3>
                 <ul className="team__projects-list">
                   {team.projects.edges.sortp((a, b) => a.node.title.localeCompare(b.node.title)).map(p => (
                     <li className="team__project">
