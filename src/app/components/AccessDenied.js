@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import FormattedMessage from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 
 class AccessDenied extends Component {
   render() {

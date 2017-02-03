@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 import DocumentTitle from 'react-document-title';
-import FormattedMessage from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import Tags from './Tags';
 import { Link } from 'react-router';
 import FontAwesome from 'react-fontawesome';
