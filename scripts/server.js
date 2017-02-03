@@ -1,10 +1,4 @@
-// production webserver
-// August 2016 Benjamin Foote
-//
-/*  supporting the Docker infrastructure
- *  http://checkdesk-api.qa.checkdesk.org/api/me
- *
- */
+// Check app webserver
 
 var express = require('express'),
     serveStatic = require('serve-static'),
@@ -28,7 +22,12 @@ app.use(function(req, res, next) {
    // there is a page rule set at Cloudflare to enforce cacheing index.html which is not a CF default
    // https://support.cloudflare.com/hc/en-us/articles/200172256
 
-   res.header("Cache-Control", "public, s-maxage=900, max-age=300");
+   if (process.env.NODE_ENV === 'production') {
+     res.header("Cache-Control", "public, s-maxage=900, max-age=300");
+   }
+   else {
+     res.header("Cache-Control", "public, no-cache");
+   }
 
    next();
 });
