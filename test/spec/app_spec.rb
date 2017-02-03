@@ -183,6 +183,17 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect($media_id.nil?).to be(false)
     end
 
+    it "should search for image" do
+      page = LoginPage.new(config: @config, driver: @driver).load
+          .login_with_email(email: @email, password: @password)
+          .create_image_media(File.join(File.dirname(__FILE__), 'test.png'))
+
+      @driver.navigate.to @config['self_url'] + '/' + get_team + '/search'
+      sleep 3
+      imgsrc = @driver.find_element(:css, '.image-media-card img').attribute('src')
+      expect(imgsrc.match(/test\.png$/).nil?).to be(false)
+    end
+
     it "should upload image when registering" do
       email, password, avatar = [@email + '.br', '12345678', File.join(File.dirname(__FILE__), 'test.png')]
       page = LoginPage.new(config: @config, driver: @driver).load

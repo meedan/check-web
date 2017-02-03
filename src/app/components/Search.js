@@ -339,6 +339,8 @@ const SearchResultsContainer = Relay.createContainer(SearchResultsComponent, {
               media {
                 url
                 quote
+                embed_path
+                thumbnail_path
               }
               user {
                 name,
