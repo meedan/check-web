@@ -540,7 +540,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 10
       expect(@driver.current_url.to_s.match(/\/media\/[0-9]+$/).nil?).to be(true)
       message = get_element('.create-media .message').text
-      expect(message == 'Something went wrong! Try pasting the text of this post instead, or adding a different link.').to be(true)
+      expect(message.match(/^Something went wrong! Try pasting the text of this post instead, or adding a different link/).nil?).to be(false)
     end
 
     it "should tag media from tags list" do
