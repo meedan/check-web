@@ -6,7 +6,7 @@ import rename from 'gulp-rename';
 import transifex from 'gulp-transifex';
 import jsonEditor from 'gulp-json-editor';
 import webpack from 'webpack';
-import mergeTransifex from './gulp-merge-transifex-translations'; 
+import mergeTransifex from './webpack/gulp-merge-transifex-translations'; 
 import webpackConfig from './webpack/config';
 
 let buildConfig;

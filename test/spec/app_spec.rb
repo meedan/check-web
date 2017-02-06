@@ -183,6 +183,17 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect($media_id.nil?).to be(false)
     end
 
+    it "should search for image" do
+      page = LoginPage.new(config: @config, driver: @driver).load
+          .login_with_email(email: @email, password: @password)
+          .create_image_media(File.join(File.dirname(__FILE__), 'test.png'))
+
+      @driver.navigate.to @config['self_url'] + '/' + get_team + '/search'
+      sleep 3
+      imgsrc = @driver.find_element(:css, '.image-media-card img').attribute('src')
+      expect(imgsrc.match(/test\.png$/).nil?).to be(false)
+    end
+
     it "should upload image when registering" do
       email, password, avatar = [@email + '.br', '12345678', File.join(File.dirname(__FILE__), 'test.png')]
       page = LoginPage.new(config: @config, driver: @driver).load
@@ -234,19 +245,19 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(page.driver.find_elements(:css, '.teams').empty?).to be(false)
     end
 
-    it "should go to user page" do
-      page = LoginPage.new(config: @config, driver: @driver).load
-          .login_with_email(email: @email, password: @password)
-
-      page.element('.fa-ellipsis-h').click
-      page.element('#link-me').click
-      page.wait_for_element('.source')
-      me_page = MePage.new(config: @config, driver: page.driver)
-
-      expect((me_page.driver.current_url.to_s =~ /\/me$/).nil?).to be(false)
-      title = me_page.title
-      expect(title).to eq('User With Email')
-    end
+    # it "should go to user page" do
+    #   page = LoginPage.new(config: @config, driver: @driver).load
+    #       .login_with_email(email: @email, password: @password)
+    #
+    #   page.element('.fa-ellipsis-h').click
+    #   page.element('#link-me').click
+    #   page.wait_for_element('.source')
+    #   me_page = MePage.new(config: @config, driver: page.driver)
+    #
+    #   expect((me_page.driver.current_url.to_s =~ /\/me$/).nil?).to be(false)
+    #   title = me_page.title
+    #   expect(title).to eq('User With Email')
+    # end
 
     it "should go to source page through source/:id" do
       login_with_email
@@ -507,7 +518,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       press_button('#create-media-submit')
       sleep 10
       id1 = @driver.current_url.to_s.gsub(/.*\/media\//, '').to_i
-      
+
       @driver.navigate.to @driver.current_url.to_s.gsub(/\/media\/[0-9]+$/, '')
 
       sleep 3
