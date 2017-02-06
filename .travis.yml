@@ -2,21 +2,17 @@ sudo: required
 dist: trusty
 language: node_js
 node_js:
-- 6.9.2
+- "6.9.2"
 before_install:
-- openssl aes-256-cbc -K $encrypted_cb9f41d2595a_key -iv $encrypted_cb9f41d2595a_iv
-  -in travis.enc -out travis.zip -d
-- openssl aes-256-cbc -K $encrypted_6fe224c112de_key -iv $encrypted_6fe224c112de_iv
-  -in travis.enc -out travis.zip -d
+# decrypt configs
+- openssl aes-256-cbc -K $encrypted_cb9f41d2595a_key -iv $encrypted_cb9f41d2595a_iv -in travis.enc -out travis.zip -d
 - unzip travis.zip
+# apt dependencies
 - sudo apt-get -qq update
-- sudo apt-get install wget python-setuptools lsof unzip inkscape imagemagick ruby
-  ruby-dev libnss3 libnss3-dev xvfb libnss3-1d libexif-dev curl build-essential libssl-dev
-  libappindicator1 fonts-liberation redis-server -y
+- sudo apt-get install wget python-setuptools lsof unzip inkscape imagemagick ruby ruby-dev libnss3 libnss3-dev xvfb libnss3-1d libexif-dev curl build-essential libssl-dev libappindicator1 fonts-liberation redis-server -y
+# check api
 - redis-server &
-- curl -O https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.2.4.deb
-  && sudo dpkg -i --force-confnew elasticsearch-1.2.4.deb && sudo service elasticsearch
-  restart
+- curl -O https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.2.4.deb && sudo dpkg -i --force-confnew elasticsearch-1.2.4.deb && sudo service elasticsearch restart
 - git clone https://github.com/meedan/check-api.git --branch fix/5630-broken-links
 - cp travis/check-api.yml check-api/config/config.yml
 - cp check-api/config/initializers/secret_token.rb.example check-api/config/initializers/secret_token.rb
@@ -27,6 +23,7 @@ before_install:
 - rails s -e test -p 3000 >/dev/null &
 - cd -
 - export RAILS_ENV=development
+# pender
 - git clone https://github.com/meedan/pender.git
 - cp travis/pender.yml pender/config/config.yml
 - cp pender/config/initializers/secret_token.rb.example pender/config/initializers/secret_token.rb
@@ -37,19 +34,24 @@ before_install:
 - rails runner 'a = ApiKey.create!; a.access_token = "test"; a.save!'
 - rails s -p 3005 >/dev/null &
 - cd -
+# xvfb
 - export DISPLAY=:99.0
 - sh -e /etc/init.d/xvfb start
+# google chrome
 - sudo apt-get -qq update
 - sudo apt-get install chromium-browser -y
 - export CHROME_BIN=/usr/bin/chromium-browser
 - chromium-browser --no-sandbox &
+# chromedriver
 - wget http://chromedriver.storage.googleapis.com/2.25/chromedriver_linux64.zip
 - unzip chromedriver_linux64.zip
 - sudo mv chromedriver /usr/local/bin
 - sudo chmod a+x /usr/local/bin/chromedriver
 - chromedriver >/dev/null 2>/dev/null &
+# ruby / bundler / rspec
 - gem install bundler
 - cd test && bundle install && cd -
+# config files
 - cp travis/config.js config.js
 - cp travis/config.js test/config.js
 - cp travis/config.yml test/config.yml
