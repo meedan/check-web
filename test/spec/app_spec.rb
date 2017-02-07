@@ -789,6 +789,20 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(page.project_titles.include?('Team 1 Project')).to be(false)
     end
 
+    it "should update notes count after delete annotation" do
+      media_pg = LoginPage.new(config: @config, driver: @driver).load
+        .login_with_email(email: @email, password: @password)
+        .create_media(input: "Media #{Time.now.to_i}")
+      media_pg.fill_input('#cmd-input', '/flag Spam')
+      media_pg.element('#cmd-input').submit
+      sleep 1
+      media_pg.element('.annotation__delete').click
+      notes = get_element('.media-metadata-summary__datum')
+      expect(notes.text == '0 notes').to be(true)
+      notes = get_element('.media-detail__check-notes-count')
+      expect(notes.text == '0 notes').to be(true)
+    end
+
     # it "should cancel request through switch teams" do
     #   skip("Needs to be implemented")
     # end

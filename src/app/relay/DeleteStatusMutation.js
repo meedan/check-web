@@ -19,7 +19,7 @@ class DeleteStatusMutation extends Relay.Mutation {
       query = Relay.QL`fragment on DestroyStatusPayload { deletedId, source { annotations } }`;
       break;
     case 'project_media':
-      query = Relay.QL`fragment on DestroyStatusPayload { deletedId, project_media { annotations, last_status, last_status_obj { id } } }`;
+      query = Relay.QL`fragment on DestroyStatusPayload { deletedId, project_media { annotations, last_status, annotations_count, last_status_obj { id } } }`;
       break;
     }
     return query;
