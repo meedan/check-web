@@ -54,7 +54,7 @@ class CreateProjectMedia extends Component {
     this.setState({ isSubmitting: true, message: 'Submitting...' });
 
     const handleError = (json) => {
-      let message = 'Something went wrong! Try pasting the text of this post instead, or adding a different link.';
+      let message = 'Something went wrong! Try pasting the text of this post instead, or adding a different link. <b id="close-message">✖</b>';
       if (json && json.error) {
         const matches = json.error.match(/^Validation failed: This media already exists in this project and has id ([0-9]+)$/);
         if (matches) {
@@ -101,6 +101,11 @@ class CreateProjectMedia extends Component {
 
   componentDidMount() {
     this.mediaInput.focus();
+    window.addEventListener('mousedown', this.handleClickOutside.bind(this), false);
+  }
+
+  handleClickOutside(e) {
+    this.setState({ message: null });
   }
 
   handleKeyPress(e) {

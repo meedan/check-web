@@ -251,6 +251,7 @@ const SearchQueryContainer = Relay.createContainer(SearchQueryComponent, {
         media_verification_statuses,
         get_suggested_tags,
         name,
+        slug,
         projects(first: 10000) {
           edges {
             node {

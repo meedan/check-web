@@ -5,7 +5,7 @@ node_js:
 - "6.9.2"
 before_install:
 # decrypt configs
-- openssl aes-256-cbc -K $encrypted_6fe224c112de_key -iv $encrypted_6fe224c112de_iv -in travis.enc -out travis.zip -d
+- openssl aes-256-cbc -K $encrypted_cb9f41d2595a_key -iv $encrypted_cb9f41d2595a_iv -in travis.enc -out travis.zip -d
 - unzip travis.zip
 # apt dependencies
 - sudo apt-get -qq update
