@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay';
 import { Link } from 'react-router';
 import Message from '../Message';
@@ -167,7 +168,9 @@ class ProjectEditComponent extends Component {
                 />
               : null }
               <div className="project-edit__editing-buttons">
-                <button type='submit' className="project-edit__editing-button project-edit__editing-button--save">Save</button>
+                <button type='submit' className="project-edit__editing-button project-edit__editing-button--save">
+                  <FormattedMessage id="projectEdit.saveButton" defaultMessage="Save" />
+                </button>
               </div>
             </form>
 

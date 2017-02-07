@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay';
 import Pusher from 'pusher-js';
 import { Link } from 'react-router';
@@ -106,7 +107,7 @@ class ProjectComponent extends Component {
 
             {(() => {
               if (this.props.project.project_medias.edges.length < this.props.project.project_medias_count) {
-                return (<p className="project__medias-loader">Loading...</p>);
+                return (<p className="project__medias-loader"><FormattedMessage id="project.loading" defaultMessage="Loading..." /></p>);
               }
             })()}
           </ContentColumn>
