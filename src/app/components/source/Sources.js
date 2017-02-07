@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay';
 import { Link } from 'react-router';
 import { GridTile } from 'material-ui/GridList';
@@ -10,7 +11,7 @@ class SourcesComponent extends Component {
 
     return (
       <div className="sources">
-        <h2 className="sources__heading">Sources</h2>
+        <h2 className="sources__heading"><FormattedMessage id="sources.heading" defaultMessage="Sources" /></h2>
 
         <ul className="sources__list">
           {this.props.root.sources.edges.map(source => (

@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay';
 import TimeAgo from 'react-timeago';
 import Linkify from 'react-linkify';
@@ -111,10 +112,10 @@ class Annotation extends Component {
       contentTemplate = (
         <section className="annotation__content">
           <div className="annotation__header">
-            <span>Status set to </span>
-            <span className={`annotation__status annotation__status--${statusCode}`}>{this.statusIdToLabel(content.status)}</span>
-            <span> by </span>
-            <span className="annotation__author-name">{annotation.annotator.name}</span>
+            <FormattedMessage id="annotation.statusSetHeader"
+                  defaultMessage={`Status set to {status} by {author}`}
+                          values={{ status: <span className={`annotation__status annotation__status--${statusCode}`}>{this.statusIdToLabel(content.status)}</span>,
+                                    author: <span className="annotation__author-name">{annotation.annotator.name}</span> }} />
             {createdAt ? <span className="annotation__timestamp"><TimeAgo date={createdAt} live={false} /></span> : null}
             {annotationActions}
           </div>
@@ -122,12 +123,12 @@ class Annotation extends Component {
         );
       break;
     case 'tag':
-      const message = `Tagged #${content.tag.replace(/^#/, '')} by `;
       contentTemplate = (
         <section className="annotation__content">
           <div className="annotation__header">
-            <span>{message}</span>
-            <span className="annotation__author-name">{annotation.annotator.name}</span>
+            <FormattedMessage id="annotation.taggedHeader"
+                  defaultMessage={`Tagged #{tag} by {author}`}
+                  values={{ tag: content.tag.replace(/^#/, ''), author: <span className="annotation__author-name">{annotation.annotator.name}</span> }} />
             {createdAt ? <span className="annotation__timestamp"><TimeAgo date={createdAt} live={false} /></span> : null}
             {annotationActions}
           </div>
@@ -138,8 +139,9 @@ class Annotation extends Component {
       contentTemplate = (
         <section className="annotation__content">
           <div className="annotation__header">
-            <span>Flagged as {content.flag} by </span>
-            <span className="annotation__author-name">{annotation.annotator.name}</span>
+            <FormattedMessage id="annotation.flaggedHeader"
+                  defaultMessage={`Flagged as {flag} by {author}`}
+                  values={{ flag: content.flag, author: <span className="annotation__author-name">{annotation.annotator.name}</span> }} />
             {createdAt ? <span className="annotation__timestamp"><TimeAgo date={createdAt} live={false} /></span> : null}
             {annotationActions}
           </div>
