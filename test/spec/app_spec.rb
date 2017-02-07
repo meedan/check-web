@@ -796,11 +796,14 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       media_pg.fill_input('#cmd-input', '/flag Spam')
       media_pg.element('#cmd-input').submit
       sleep 1
+      notes_t = get_element('.media-metadata-summary__datum')
+      notes_v = get_element('.media-detail__check-notes-count')
+      expect(notes_t.text == '1 note').to be(true)
+      expect(notes_v.text == '1 note').to be(true)
       media_pg.element('.annotation__delete').click
-      notes = get_element('.media-metadata-summary__datum')
-      expect(notes.text == '0 notes').to be(true)
-      notes = get_element('.media-detail__check-notes-count')
-      expect(notes.text == '0 notes').to be(true)
+      sleep 1
+      expect(notes_t.text == '0 notes').to be(true)
+      expect(notes_v.text == '0 notes').to be(true)
     end
 
     # it "should cancel request through switch teams" do
