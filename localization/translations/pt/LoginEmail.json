@@ -1,5 +1,5 @@
 {
   "login.with": "Entrar com {provider}",
   "login.email.cancel": "Entrar com Twitter, Facebook ou Slack",
-  "login.trouble": "Problemas com o login? Por favor envie um email para {email}."
+  "login.trouble": "Problemas para entrar? Por favor, contacte {email} para assistência."
 }
