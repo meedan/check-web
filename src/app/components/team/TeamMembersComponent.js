@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import FontAwesome from 'react-fontawesome';
+import { FormattedMessage } from 'react-intl';
 import Select from 'react-select';
 import DocumentTitle from 'react-document-title';
 import 'react-select/dist/react-select.css';
@@ -48,13 +49,17 @@ class TeamMembersComponent extends Component {
         <div className="team-members">
           <button onClick={this.handleEditMembers.bind(this)} className="team-members__edit-button">
             <FontAwesome className="team-members__edit-icon" name="pencil" />
-            {isEditing ? 'Done' : 'Edit'}
+            {isEditing ? <FormattedMessage id="teamMembersComponent.editDoneButton" defaultMessage="Done" /> : <FormattedMessage id="teamMembersComponent.editButton" defaultMessage="Edit" />}
           </button>
 
-          <h1 className="team-members__main-heading">Members</h1>
+          <h1 className="team-members__main-heading"><FormattedMessage id="teamMembersComponent.mainHeading" defaultMessage="Members" /></h1>
 
           <div className="team-members__blurb">
-            <p className="team-members__blurb-graf">To invite colleagues to join <Link to={teamUrl}>{team.name}</Link>, send them this link:</p>
+            <p className="team-members__blurb-graf">
+              <FormattedMessage id="teamMembersComponent.inviteLink"
+                    defaultMessage={`To invite colleagues to join {link}, send them this link:`}
+                            values={{link: <Link to={teamUrl}>{team.name}</Link>}} />
+            </p>
             <p className="team-members__blurb-graf--url"><a href={joinUrl}>{joinUrl}</a></p>
           </div>
 

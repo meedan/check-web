@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 import DocumentTitle from 'react-document-title';
+import { FormattedMessage } from 'react-intl';
 import CreateTeamMutation from '../../relay/CreateTeamMutation';
 import base64 from 'base-64';
 import Message from '../Message';
@@ -148,8 +149,8 @@ class CreateTeam extends Component {
         <main className="create-team">
           <Message message={this.state.message} />
           <ContentColumn>
-            <Heading>Create a Team</Heading>
-            <p className="create-team__blurb">Create a team for your organization, or just for yourself:</p>
+            <Heading><FormattedMessage id="createTeam.mainHeading" defaultMessage="Create a Team" /></Heading>
+            <p className="create-team__blurb"><FormattedMessage id="createTeam.blurb" defaultMessage="Create a team for your organization, or just for yourself:" /></p>
             <form className="create-team__form">
               <div className="create-team__team-display-name">
                 <input
@@ -163,7 +164,7 @@ class CreateTeam extends Component {
                   autoComplete="off"
                   ref={input => this.teamNameInput = input}
                 />
-                <label className={this.state.displayNameLabelClass}>Team Name</label>
+                <label className={this.state.displayNameLabelClass}><FormattedMessage id="createTeam.displayName" defaultMessage="Team Name" /></label>
               </div>
               <div className="create-team__team-url">
                 <span className="create-team__root-domain">checkmedia.org/</span>
@@ -177,11 +178,13 @@ class CreateTeam extends Component {
                     placeholder="team-slug"
                     autoComplete="off"
                   />
-                  <label className={this.state.slugLabelClass}>Team URL</label>
+                  <label className={this.state.slugLabelClass}><FormattedMessage id="createTeam.url" defaultMessage="Team URL" /></label>
                   <p className="create-team__team-slug-message">{this.state.slugMessage}</p>
                 </div>
               </div>
-              <button type="submit" onClick={this.handleSubmit.bind(this)} className="create-team__submit-button">Create</button>
+              <button type="submit" onClick={this.handleSubmit.bind(this)} className="create-team__submit-button">
+                <FormattedMessage id="createTeam.submitButton" defaultMessage="Create" />
+              </button>
             </form>
           </ContentColumn>
         </main>

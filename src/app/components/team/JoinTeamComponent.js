@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay';
 import DocumentTitle from 'react-document-title';
+import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router';
 import CreateTeamUserMutation from '../../relay/CreateTeamUserMutation';
 import Message from '../Message';
@@ -91,7 +92,11 @@ class JoinTeamComponent extends Component {
       return (
         <DocumentTitle title={pageTitle('Join Team', false, team)}>
           <div className="join-team">
-            <p className="join-team__blurb-graf">You already requested to join <Link to={`/${team.slug}`}>{team.name}</Link> Check.</p>
+            <p className="join-team__blurb-graf">
+            <FormattedMessage id="joinTeamComponent.alreadyRequested"
+                  defaultMessage={`You already requested to join {team} Check.`}
+                  values={{team:<Link to={`/${team.slug}`}>{team.name}</Link>}} />
+            </p>
           </div>
         </DocumentTitle>
       );
@@ -101,18 +106,23 @@ class JoinTeamComponent extends Component {
       <DocumentTitle title={pageTitle('Join Team', false, team)}>
         <div className="join-team">
           <Message message={this.state.message} />
-          <h2 className="join-team__main-heading">Request to Join</h2>
+          <h2 className="join-team__main-heading"><FormattedMessage id="joinTeamComponent.mainHeading" defaultMessage="Request to Join" /></h2>
           <div className="join-team__blurb">
-            <p className="join-team__blurb-graf">To request access to the <Link to={`/${team.slug}`}>{team.name}</Link> Check, click below:</p>
+            <p className="join-team__blurb-graf">
+              <FormattedMessage id="joinTeamComponent.blurbGraf"
+                    defaultMessage={`To request access to the {link} Check, click below:`}
+                    values={{link:<Link to={`/${team.slug}`}>{team.name}</Link>}} />
+            </p>
             <div>
               <button
                 className={`join-team__button${isRequestSent ? ' join-team__button--submitted' : ''}`}
                 onClick={this.handleRequestAccess.bind(this)}
-                disabled={isRequestSent}
-              >
-                {isRequestSent ? 'Request Sent' : 'Request to Join'}
+                disabled={isRequestSent}>
+                {isRequestSent ? <FormattedMessage id="joinTeamComponent.buttonSubmitted" defaultMessage="Request Sent" /> : <FormattedMessage id="joinTeamComponent.buttonSubmit" defaultMessage="Request to Join" />}
               </button>
-              <p className="join-team__blurb-graf">Your request {isRequestSent ? 'has been' : 'will be'} sent to the project admins for approval.</p>
+              <p className="join-team__blurb-graf">
+                {isRequestSent ? <FormattedMessage id="joinTeamComponent.requestHasBeenSent" defaultMessage="Your request has been sent to the project admins for approval." /> : <FormattedMessage id="joinTeamComponent.requestWillBeSent" defaultMessage="Your request will be sent to the project admins for approval." />}
+              </p>
             </div>
           </div>
         </div>

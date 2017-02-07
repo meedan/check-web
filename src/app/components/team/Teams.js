@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { FormattedMessage } from 'react-intl';
 import SwitchTeams from './SwitchTeams.js';
 import DocumentTitle from 'react-document-title';
 import { pageTitle } from '../../helpers';
@@ -11,7 +12,7 @@ class Teams extends Component {
       <DocumentTitle title={pageTitle('Teams', true)}>
         <section className="teams">
           <ContentColumn>
-            <Heading>Your Teams</Heading>
+            <Heading><FormattedMessage id="teams.yourTeams" defaultMessage="Your Teams" /></Heading>
             <SwitchTeams />
           </ContentColumn>
         </section>
