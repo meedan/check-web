@@ -81,32 +81,3 @@
     width: auto;
   }
 }
-
-// Report tagging in search results
-// Embargoed 2016-11-6 — CB 
-//
-.search__results .media-actions__icon {
-  display: none;
-}
-
-// hack
-
-// Reports appearing in search page
-//
-// TODO: revist — 
-// Why not apply these at report component? — CGB 2016-11-2
-//
-.search {
-  .media-status {
-    &, &--editable {
-      cursor: auto;
-      pointer-events: none;
-    }
-  }
-  .media-status__menu {
-    display: none;
-  }
-  .media-status__icon--caret {
-    display: none;
-  }
-}
