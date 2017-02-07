@@ -36,7 +36,7 @@ class ProjectComponent extends Component {
     newContext.project = this.props.project;
 
     let notFound = false;
-    if (!currentContext.team || currentContext.team.subdomain != this.props.project.team.subdomain) {
+    if (!currentContext.team || currentContext.team.slug != this.props.project.team.slug) {
       newContext.team = this.props.project.team;
       notFound = true;
     }
@@ -44,7 +44,7 @@ class ProjectComponent extends Component {
     context.setContextStore(newContext);
 
     if (notFound) {
-      currentContext.history.push('/404');
+      currentContext.history.push('/check/404');
     }
   }
 
@@ -139,7 +139,7 @@ const ProjectContainer = Relay.createContainer(ProjectComponent, {
         team {
           id,
           dbid,
-          subdomain
+          slug
         },
         project_medias(first: $pageSize) {
           edges {
@@ -153,11 +153,20 @@ const ProjectContainer = Relay.createContainer(ProjectComponent, {
               annotations_count,
               domain,
               last_status,
+              last_status_obj {
+                id,
+                dbid
+              }
               permissions,
               verification_statuses,
               media {
                 url,
-                quote
+                quote,
+                embed_path,
+                thumbnail_path
+              }
+              team {
+                slug
               }
               user {
                 name,

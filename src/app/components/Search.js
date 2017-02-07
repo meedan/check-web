@@ -36,7 +36,7 @@ class SearchQueryComponent extends Component {
       context.setContextStore({ project: null });
     }
 
-    const queryString = window.location.pathname.match(/^\/search\/(.*)/);
+    const queryString = window.location.pathname.match(/.*\/search\/(.*)/);
     const query = queryString === null ? {} : queryFromUrlQuery(queryString[1]);
 
     if (JSON.stringify(this.state.query) === '{}') {
@@ -72,7 +72,7 @@ class SearchQueryComponent extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const url = `/search/${this.urlQueryFromQuery(prevState.query)}`;
+    const url = `/${this.props.team.slug}/search/${this.urlQueryFromQuery(prevState.query)}`;
     if (url != window.location.pathname) {
       this.getContext().getContextStore().history.push(url);
     }
@@ -251,6 +251,7 @@ const SearchQueryContainer = Relay.createContainer(SearchQueryComponent, {
         media_verification_statuses,
         get_suggested_tags,
         name,
+        slug,
         projects(first: 10000) {
           edges {
             node {
@@ -326,12 +327,21 @@ const SearchResultsContainer = Relay.createContainer(SearchResultsComponent, {
               annotations_count,
               domain,
               last_status,
+              last_status_obj {
+                id,
+                dbid
+              }
               permissions,
               verification_statuses,
               project_id,
+              team {
+                slug
+              }
               media {
                 url
                 quote
+                embed_path
+                thumbnail_path
               }
               user {
                 name,
@@ -360,7 +370,7 @@ class Search extends Component {
   render() {
     const query = queryFromUrlQuery(this.props.params.query);
 
-    const queryRoute = new TeamRoute({ teamId: '' });
+    const queryRoute = new TeamRoute({ teamSlug: this.props.params.team });
     const resultsRoute = new SearchRoute({ query: JSON.stringify(query) });
 
     return (
@@ -383,6 +393,7 @@ class Search extends Component {
         <Relay.RootContainer
           Component={SearchResultsContainer}
           route={resultsRoute}
+          forceFetch={true}
           renderLoading={function() {
             return (
               <div>

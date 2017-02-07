@@ -5,19 +5,12 @@ node_js:
 - "6.9.2"
 before_install:
 # decrypt configs
-- openssl aes-256-cbc -K $encrypted_6fe224c112de_key -iv $encrypted_6fe224c112de_iv -in travis.enc -out travis.zip -d
+- openssl aes-256-cbc -K $encrypted_cb9f41d2595a_key -iv $encrypted_cb9f41d2595a_iv -in travis.enc -out travis.zip -d
 - unzip travis.zip
 # apt dependencies
 - sudo apt-get -qq update
-- sudo apt-get install wget python-setuptools lsof unzip inkscape imagemagick ruby ruby-dev libnss3 libnss3-dev xvfb libnss3-1d libexif-dev curl build-essential libssl-dev libappindicator1 fonts-liberation dnsmasq redis-server -y
-# dnsmasq (resolve any domain under *.localhost)
-- sudo kill -9 $(lsof -ti tcp:53) 2>/dev/null
-- echo "listen-address=127.0.0.1" | sudo tee -a /etc/dnsmasq.conf > /dev/null
-- echo "bind-interfaces" | sudo tee -a /etc/dnsmasq.conf > /dev/null
-- echo "address=/localhost/127.0.0.1" | sudo tee -a /etc/dnsmasq.conf > /dev/null
-- echo "user=root" | sudo tee -a /etc/dnsmasq.conf > /dev/null
-- sudo service dnsmasq restart
-# api
+- sudo apt-get install wget python-setuptools lsof unzip inkscape imagemagick ruby ruby-dev libnss3 libnss3-dev xvfb libnss3-1d libexif-dev curl build-essential libssl-dev libappindicator1 fonts-liberation redis-server -y
+# check api
 - redis-server &
 - curl -O https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.2.4.deb && sudo dpkg -i --force-confnew elasticsearch-1.2.4.deb && sudo service elasticsearch restart
 - git clone https://github.com/meedan/check-api.git

@@ -4,6 +4,7 @@ import MeRoute from '../../relay/MeRoute';
 import userFragment from '../../relay/userFragment';
 import UpdateUserMutation from '../../relay/UpdateUserMutation';
 import DeleteTeamUserMutation from '../../relay/DeleteTeamUserMutation';
+import CheckContext from '../../CheckContext';
 import FontAwesome from 'react-fontawesome';
 import { Link } from 'react-router';
 import config from 'config';
@@ -24,6 +25,13 @@ class SwitchTeamsComponent extends Component {
   }
 
   setCurrentTeam(team, user) {
+    const context = new CheckContext(this);
+    const history = context.getContextStore().history;
+    
+    const currentUser = context.getContextStore().currentUser;
+    currentUser.current_team = team;
+    context.setContextStore({ team, currentUser });
+
     const onFailure = (transaction) => {
       const error = transaction.getError();
       let message = 'Sorry, could not switch teams';
@@ -37,9 +45,10 @@ class SwitchTeamsComponent extends Component {
     };
 
     const onSuccess = (response) => {
-      window.location.href = `${window.location.protocol}//${team.subdomain}.${config.selfHost}`;
+      const path = `/${team.slug}`;
+      history.push(path);
     };
-
+    
     Relay.Store.commitUpdate(
       new UpdateUserMutation({
         current_team_id: team.dbid,
@@ -71,7 +80,7 @@ class SwitchTeamsComponent extends Component {
       }
     });
 
-    const buildUrl = function (team) { return `${window.location.protocol}//${team.subdomain}.${config.selfHost}`; };
+    const buildUrl = function (team) { return `${window.location.protocol}//${config.selfHost}/${team.slug}`; };
 
     return (
       <div className="switch-teams">
@@ -99,7 +108,7 @@ class SwitchTeamsComponent extends Component {
           {otherTeams.map(function (team) {
             return (
               <li className="switch-teams__team">
-                <div onClick={that.setCurrentTeam.bind(this, team, currentUser)} className="switch-teams__team-link">
+                <div onClick={that.setCurrentTeam.bind(that, team, currentUser)} className="switch-teams__team-link">
                   <div className="switch-teams__team-avatar" style={{ 'background-image': `url(${team.avatar})` }} />
                   <div className="switch-teams__team-copy">
                     <h3 className="switch-teams__team-name">{team.name}</h3>
@@ -135,11 +144,15 @@ class SwitchTeamsComponent extends Component {
           })}
         </ul>
 
-        <Link to="/teams/new" className="switch-teams__new-team-link">+ New team</Link>
+        <Link to="/check/teams/new" className="switch-teams__new-team-link">+ New team</Link>
       </div>
     );
   }
 }
+
+SwitchTeamsComponent.contextTypes = {
+  store: React.PropTypes.object,
+};
 
 const SwitchTeamsContainer = Relay.createContainer(SwitchTeamsComponent, {
   fragments: {

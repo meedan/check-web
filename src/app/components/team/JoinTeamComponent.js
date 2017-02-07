@@ -53,13 +53,25 @@ class JoinTeamComponent extends Component {
   }
 
   redirectIfMember() {
-    if (this.getContext().currentUser.team_ids.indexOf(this.props.team.dbid) > -1) {
-      window.location.href = this.buildUrl(this.props.team);
+    if (this.alreadyMember()) {
+      const team = this.props.team;
+      const user = this.getContext().currentUser;
+      const userTeams = JSON.parse(user.teams);
+      let redirect = true;
+      for (var teamName in userTeams) {
+        const t = userTeams[teamName];
+        if (t.id == team.dbid && team.private && t.status != 'member') {
+          redirect = false;
+        }
+      }
+      if (redirect) {
+        this.getContext().history.push(`/${team.slug}`);
+      }
     }
   }
 
-  buildUrl(team) {
-    return `${window.location.protocol}//${team.subdomain}.${config.selfHost}`;
+  alreadyMember() {
+    return (this.getContext().currentUser.team_ids.indexOf(this.props.team.dbid) > -1);
   }
 
   componentWillMount() {
@@ -72,9 +84,18 @@ class JoinTeamComponent extends Component {
 
   render() {
     const team = this.props.team;
-    const teamUrl = this.buildUrl(team);
 
     const isRequestSent = this.state.isRequestSent;
+
+    if (this.alreadyMember()) {
+      return (
+        <DocumentTitle title={pageTitle('Join Team', false, team)}>
+          <div className="join-team">
+            <p className="join-team__blurb-graf">You already requested to join <Link to={`/${team.slug}`}>{team.name}</Link> Check.</p>
+          </div>
+        </DocumentTitle>
+      );
+    }
 
     return (
       <DocumentTitle title={pageTitle('Join Team', false, team)}>
@@ -82,7 +103,7 @@ class JoinTeamComponent extends Component {
           <Message message={this.state.message} />
           <h2 className="join-team__main-heading">Request to Join</h2>
           <div className="join-team__blurb">
-            <p className="join-team__blurb-graf">To request access to the <a href={teamUrl}>{team.name}</a> Check, click below:</p>
+            <p className="join-team__blurb-graf">To request access to the <Link to={`/${team.slug}`}>{team.name}</Link> Check, click below:</p>
             <div>
               <button
                 className={`join-team__button${isRequestSent ? ' join-team__button--submitted' : ''}`}

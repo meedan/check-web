@@ -44,7 +44,7 @@ class ProjectEditComponent extends Component {
     newContext.project = this.props.project;
 
     let notFound = false;
-    if (!currentContext.team || currentContext.team.subdomain != this.props.project.team.subdomain) {
+    if (!currentContext.team || currentContext.team.slug != this.props.project.team.slug) {
       newContext.team = this.props.project.team;
       notFound = true;
     }
@@ -52,7 +52,7 @@ class ProjectEditComponent extends Component {
     context.setContextStore(newContext);
 
     if (notFound) {
-      currentContext.history.push('/404');
+      currentContext.history.push('/check/404');
     }
   }
 
@@ -112,7 +112,7 @@ class ProjectEditComponent extends Component {
     );
 
     e.preventDefault();
-    this.currentContext().history.push(window.location.pathname.match(/^\/project\/\d+/)[0]);
+    this.currentContext().history.push(window.location.pathname.match(/.*\/project\/\d+/)[0]);
   }
 
   render() {
@@ -197,7 +197,7 @@ const ProjectEditContainer = Relay.createContainer(ProjectEditComponent, {
         team {
           id,
           dbid,
-          subdomain
+          slug
         }
       }
     `,

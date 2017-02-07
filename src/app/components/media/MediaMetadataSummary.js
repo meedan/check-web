@@ -7,7 +7,7 @@ class MediaMetadataSummary extends Component {
   render() {
     const { media, data } = this.props;
     const annotationsCount = MediaUtil.notesCount(media, data);
-    const authorUsername = MediaUtil.authorUsername(media, data);
+    const authorUsername = data.username ? MediaUtil.authorUsername(media, data) : null;
 
     return (
       <div className="media-metadata-summary">

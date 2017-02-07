@@ -7,7 +7,7 @@ class Footer extends Component {
     return (
       <footer className="footer">
         <address>
-          <span><Link to="/tos">Terms of Service</Link></span>
+          <span><Link to="/check/tos">Terms of Service</Link></span>
           <br />
           <span><i dangerouslySetInnerHTML={{ __html: about.name }} />, v<i dangerouslySetInnerHTML={{ __html: about.version }} /></span>
         </address>
