@@ -130,8 +130,12 @@ class TeamComponent extends Component {
                 if (isEditing) {
                   return (
                     <div className="team__edit-profile team__edit-profile--editing">
-                      <button onClick={this.cancelEditTeam.bind(this)} className="team__cancel-button">Cancel</button>
-                      <button onClick={this.handleEditTeam.bind(this)} className="team__save-button">Save</button>
+                      <button onClick={this.cancelEditTeam.bind(this)} className="team__cancel-button">
+                        <FormattedMessage id="teamComponent.cancelButton" defaultMessage="Cancel" />
+                      </button>
+                      <button onClick={this.handleEditTeam.bind(this)} className="team__save-button">
+                        <FormattedMessage id="teamComponent.saveButton" defaultMessage="Save" />
+                      </button>
                     </div>
                   );
                 } else {
@@ -139,7 +143,8 @@ class TeamComponent extends Component {
                     <Can permissions={team.permissions} permission="update Team">
                       <div className="team__edit-profile">
                         <button onClick={this.handleEntreEditTeamNameAndDescription.bind(this)} className="team__edit-button">
-                          <FontAwesome className="team__edit-icon" name="pencil" /> Edit profile
+                          <FontAwesome className="team__edit-icon" name="pencil" />&nbsp;
+                          <FormattedMessage id="teamComponent.editButton" defaultMessage="Edit profile" />
                         </button>
                       </div>
                     </Can>
@@ -234,7 +239,10 @@ class TeamComponent extends Component {
               if (isEditing) {
                 return (
                   <section className="team__settings">
-                    <span><input type="checkbox" id="team__settings-slack-notifications-enabled" value="1" defaultChecked={team.get_slack_notifications_enabled === '1'} onChange={this.handleChange.bind(this, 'slackNotificationsEnabled')} /> <label htmlFor="team__settings-slack-notifications-enabled">Enable Slack notifications</label></span>
+                    <span>
+                      <input type="checkbox" id="team__settings-slack-notifications-enabled" value="1" defaultChecked={team.get_slack_notifications_enabled === '1'} onChange={this.handleChange.bind(this, 'slackNotificationsEnabled')} />
+                      <label htmlFor="team__settings-slack-notifications-enabled"><FormattedMessage id="teamComponent.slackNotificationsEnabled" defaultMessage="Enable Slack notifications" /></label>
+                    </span>
                     <span><input type="text" id="team__settings-slack-webhook" defaultValue={team.get_slack_webhook} placeholder="Slack webhook" onChange={this.handleChange.bind(this, 'slackWebhook')} /></span>
                     <span><input type="text" id="team__settings-slack-channel" defaultValue={team.get_slack_channel} placeholder="Slack default #channel" onChange={this.handleChange.bind(this, 'slackChannel')} /></span>
                   </section>
