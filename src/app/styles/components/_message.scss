@@ -5,4 +5,11 @@
   font-size: 14px;
   text-align: center;
   box-shadow: $layout-box-shadow;
+  position: relative;
+
+  #close-message {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+  }
 }
