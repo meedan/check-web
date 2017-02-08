@@ -55,7 +55,7 @@ class TeamHeaderComponent extends Component {
 
     return (
       <nav className="team-header">
-        <Link to="/" className="team-header__clickable" title={team.name}>
+        <Link to={`/${team.slug}`} className="team-header__clickable" title={team.name}>
           <div className="team-header__avatar" style={{ backgroundImage: `url(${team.avatar})` }}></div>
         </Link>
         <div className="team-header__copy">
@@ -93,7 +93,7 @@ class TeamHeader extends Component {
         renderLoading={function() {
           return (
             <nav className="team-header team-header--loading">
-              <Link to="/" className="team-header__clickable" title='Back to team'>
+              <Link to={`/${teamSlug}`} className="team-header__clickable" title='Back to team'>
                 <div className="team-header__avatar"></div>
               </Link>
             </nav>
