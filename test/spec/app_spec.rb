@@ -806,11 +806,53 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(notes_v.text == '0 notes').to be(true)
     end
 
-    # it "should cancel request through switch teams" do
-    #   skip("Needs to be implemented")
-    # end
+    it "should auto refresh project when media is created" do
+      project_name = "Project #{Time.now}"
+      project_pg = LoginPage.new(config: @config, driver: @driver).load
+          .register_and_login_with_email(email: 'sysops+' + Time.now.to_i.to_s + '@meedan.com', password: Time.now.to_i.to_s)
+          .create_team
+          .create_project(name: project_name)
 
-    # it "should auto refresh project page when media is created remotely" do
+      url = project_pg.driver.current_url
+      sleep 3
+      expect(@driver.page_source.include?('Auto-Refresh')).to be(false)
+
+      current_window = @driver.window_handles.last
+      @driver.execute_script("window.open('#{url}')")
+      @driver.switch_to.window(@driver.window_handles.last)
+      fill_field('#create-media-input', 'Auto-Refresh')
+      press_button('#create-media-submit')
+      sleep 5
+      @driver.execute_script('window.close()')
+      @driver.switch_to.window(current_window)
+      
+      sleep 5
+      expect(@driver.page_source.include?('Auto-Refresh')).to be(true)
+    end
+
+    it "should auto refresh media when annotation is created" do
+      media_pg = LoginPage.new(config: @config, driver: @driver).load
+        .login_with_email(email: @email, password: @password)
+        .create_media(input: "Media #{Time.now.to_i}")
+
+      url = media_pg.driver.current_url
+      sleep 3
+      expect(@driver.page_source.include?('Auto-Refresh')).to be(false)
+
+      current_window = @driver.window_handles.last
+      @driver.execute_script("window.open('#{url}')")
+      @driver.switch_to.window(@driver.window_handles.last)
+      media_pg.fill_input('#cmd-input', 'Auto-Refresh')
+      media_pg.element('#cmd-input').submit
+      sleep 5
+      @driver.execute_script('window.close()')
+      @driver.switch_to.window(current_window)
+      
+      sleep 5
+      expect(@driver.page_source.include?('Auto-Refresh')).to be(true)
+    end
+
+    # it "should cancel request through switch teams" do
     #   skip("Needs to be implemented")
     # end
 
