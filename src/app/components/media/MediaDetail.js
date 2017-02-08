@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay';
 import TimeAgo from 'react-timeago';
 import { Link } from 'react-router';
@@ -80,12 +81,12 @@ class MediaDetail extends Component {
     const mediaUrl = (projectId && media.team) ? `/${media.team.slug}/project/${projectId}/media/${media.dbid}` : null;
 
     const byUser = (media.user && media.user.source && media.user.source.dbid && media.user.name !== 'Pender') ?
-      (<span>by {media.user.name}</span>) : '';
+      (<FormattedMessage id="mediaDetail.byUser" defaultMessage={`by {username}`} values={{username: media.user.name}} />) : '';
 
     let embedCard = null;
     media.url = media.media.url;
     media.quote = media.media.quote;
-    
+
     if (media.media.embed_path) {
       const path = condensed ? media.media.thumbnail_path : media.media.embed_path;
       embedCard = <ImageMediaCard imagePath={path} />;
@@ -103,8 +104,12 @@ class MediaDetail extends Component {
           <div className="media-detail__status"><MediaStatus media={media} readonly={this.props.readonly} /></div>
           {this.state.isEditing ? (
             <span className="media-detail__editing-buttons">
-              <DefaultButton onClick={this.handleCancel.bind(this)} className="media-detail__cancel-edits" size="xsmall">Cancel</DefaultButton>
-              <DefaultButton onClick={this.handleSave.bind(this, media)} className="media-detail__save-edits" size="xsmall" style="primary">Done</DefaultButton>
+              <DefaultButton onClick={this.handleCancel.bind(this)} className="media-detail__cancel-edits" size="xsmall">
+                <FormattedMessage id="mediaDetail.cancelButton" defaultMessage="Cancel" />
+              </DefaultButton>
+              <DefaultButton onClick={this.handleSave.bind(this, media)} className="media-detail__save-edits" size="xsmall" style="primary">
+                <FormattedMessage id="mediaDetail.doneButton" defaultMessage="Done" />
+              </DefaultButton>
             </span>
               ) : null
             }
@@ -123,7 +128,7 @@ class MediaDetail extends Component {
         </div>
 
         <p className="media-detail__check-metadata">
-          {byUser ? <span className="media-detail__check-added-by">Added {byUser} </span> : null}
+          {byUser ? <span className="media-detail__check-added-by"><FormattedMessage id="mediaDetail.added" defaultMessage={`Added {byUser}`} values={{byUser: byUser}} /> </span> : null}
           {createdAt ? <span className="media-detail__check-added-at">
             <Link className="media-detail__check-timestamp" to={mediaUrl}><TimeAgo date={createdAt} live={false} /></Link>
           </span> : null}

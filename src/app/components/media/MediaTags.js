@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay';
 import CreateTagMutation from '../../relay/CreateTagMutation';
 import DeleteTagMutation from '../../relay/DeleteTagMutation';
@@ -104,7 +105,7 @@ class MediaTags extends Component {
     return (
       <div className="media-tags media-tags--editing">
         <div className="media-tags__header">
-          <h4 className="media-tags__heading">Tags</h4>
+          <h4 className="media-tags__heading"><FormattedMessage id="mediaTags.heading" defaultMessage="Tags" /></h4>
           <span className="media-tags__message">{this.state.message}</span>
         </div>
 

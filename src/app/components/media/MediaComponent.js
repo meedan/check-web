@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { FormattedMessage } from 'react-intl';
 import Pusher from 'pusher-js';
 import DocumentTitle from 'react-document-title';
 import MediaDetail from './MediaDetail';
@@ -78,7 +79,7 @@ class MediaComponent extends Component {
         <div className="media" data-id={media.dbid}>
           <article className="media__contents">
             <MediaDetail media={media} />
-            <h3 className="media__notes-heading">Verification Timeline</h3>
+            <h3 className="media__notes-heading"><FormattedMessage id="mediaComponent.verificationTimeline" defaultMessage="Verification Timeline" /></h3>
             <Annotations annotations={media.annotations.edges.reverse()} annotated={media} annotatedType="ProjectMedia" />
             <MediaChecklist />
           </article>
