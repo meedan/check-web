@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
@@ -67,14 +68,14 @@ class CreateAccount extends Component {
         <Message message={this.state.message} />
 
         <div id="account-url-container" className="create-account-col">
-          <h4>Create a source</h4>
-          <h2>Source URL</h2>
+          <h4><FormattedMessage id="createAccount.createSource" defaultMessage="Create a source" /></h4>
+          <h2><FormattedMessage id="createAccount.sourceUrl" defaultMessage="Source URL" /></h2>
           <TextField hintText="Twitter, Facebook, YouTube..." fullWidth name="url" id="create-account-url" /><br />
           <FlatButton id="create-account-submit" primary onClick={this.handleSubmit.bind(this)} label="Create" />
         </div>
 
         <div id="account-preview" className="create-account-col">
-          <h4>Preview</h4>
+          <h4><FormattedMessage id="createAccount.preview" defaultMessage="Preview" /></h4>
 
           {(() => {
             if (this.state.url != '') {

@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay';
 import DocumentTitle from 'react-document-title';
 import AboutRoute from '../relay/AboutRoute';
@@ -11,7 +12,7 @@ class PrivacyPolicyComponent extends Component {
     return (
       <DocumentTitle title={pageTitle('Privacy Policy', true)}>
         <div>
-          <h2 className="main-title">Privacy Policy</h2>
+          <h2 className="main-title"><FormattedMessage id="privacyPolicy.title" defaultMessage="Privacy Policy" /></h2>
           <div id="privacy-policy" dangerouslySetInnerHTML={{ __html: marked(about.privacy_policy) }} />
         </div>
       </DocumentTitle>

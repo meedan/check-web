@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 import DocumentTitle from 'react-document-title';
+import { FormattedMessage } from 'react-intl';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import numerous from 'numerous';
@@ -196,9 +197,9 @@ class SearchQueryComponent extends Component {
             </form>
 
             <section className="search__filters / filters">
-              <h3 className="search__filters-heading">Filters</h3>
+              <h3 className="search__filters-heading"><FormattedMessage id="search.filtersHeading" defaultMessage="Filters" /></h3>
               <div>
-                <h4>Status</h4>
+                <h4><FormattedMessage id="search.statusHeading" defaultMessage="Status" /></h4>
                 {/* chicklet markup/logic from MediaTags. TODO: fix classnames */}
                 <ul className="/ media-tags__suggestions-list // electionland_categories">
                   {statuses.map(status =>  // TODO: set and use styles in `status.style`
@@ -206,7 +207,7 @@ class SearchQueryComponent extends Component {
                 </ul>
               </div>
               <div>
-                <h4>Project</h4>
+                <h4><FormattedMessage id="search.projectHeading" defaultMessage="Project" /></h4>
                 {/* chicklet markup/logic from MediaTags. TODO: fix classnames */}
                 <ul className="/ media-tags__suggestions-list // electionland_categories">
                   {projects.map(project => <li title={project.node.description} onClick={this.handleProjectClick.bind(this, project.node.dbid)} className={bemClass('media-tags__suggestion', this.projectIsSelected(project.node.dbid), '--selected')}>{project.node.title}</li>)}
@@ -214,20 +215,28 @@ class SearchQueryComponent extends Component {
               </div>
               {suggestedTags.length ? (
                 <div>
-                  <h4>Categories</h4>
+                  <h4><FormattedMessage id="status.categoriesHeading" defaultMessage="Categories" /></h4>
                   <ul className="/ media-tags__suggestions-list // electionland_categories">
                     {suggestedTags.map(tag => <li title={null} onClick={this.handleTagClick.bind(this, tag)} className={bemClass('media-tags__suggestion', this.tagIsSelected(tag), '--selected')}>{tag}</li>)}
                   </ul>
                 </div>
               ) : null }
               <div>
-                <h4>Sort</h4>
+                <h4><FormattedMessage id="search.sort" defaultMessage="Sort" /></h4>
                 {/* chicklet markup/logic from MediaTags. TODO: fix classnames */}
                 <ul className="search-query__sort-actions / media-tags__suggestions-list">
-                  <li onClick={this.handleSortClick.bind(this, 'recent_added')} className={bemClass('media-tags__suggestion', this.sortIsSelected('recent_added'), '--selected')}>Created</li>
-                  <li onClick={this.handleSortClick.bind(this, 'recent_activity')} className={bemClass('media-tags__suggestion', this.sortIsSelected('recent_activity'), '--selected')}>Recent activity</li>
-                  <li onClick={this.handleSortClick.bind(this, 'DESC')} className={bemClass('media-tags__suggestion', this.sortIsSelected('DESC'), '--selected')}>Newest first</li>
-                  <li onClick={this.handleSortClick.bind(this, 'ASC')} className={bemClass('media-tags__suggestion', this.sortIsSelected('ASC'), '--selected')}>Oldest first</li>
+                  <li onClick={this.handleSortClick.bind(this, 'recent_added')} className={bemClass('media-tags__suggestion', this.sortIsSelected('recent_added'), '--selected')}>
+                    <FormattedMessage id="search.sortByCreated" defaultMessage="Created" />
+                  </li>
+                  <li onClick={this.handleSortClick.bind(this, 'recent_activity')} className={bemClass('media-tags__suggestion', this.sortIsSelected('recent_activity'), '--selected')}>
+                    <FormattedMessage id="search.sortByRecentActivity" defaultMessage="Recent activity" />
+                  </li>
+                  <li onClick={this.handleSortClick.bind(this, 'DESC')} className={bemClass('media-tags__suggestion', this.sortIsSelected('DESC'), '--selected')}>
+                    <FormattedMessage id="search.sortByNewest" defaultMessage="Newest first" />
+                  </li>
+                  <li onClick={this.handleSortClick.bind(this, 'ASC')} className={bemClass('media-tags__suggestion', this.sortIsSelected('ASC'), '--selected')}>
+                    <FormattedMessage id="search.sortByOldest" defaultMessage="Oldest first" />
+                  </li>
                 </ul>
               </div>
             </section>
@@ -299,7 +308,7 @@ class SearchResultsComponent extends Component {
 
         {(() => {
           if (medias.length < count) {
-            return (<p className="search__results-loader">Loading...</p>);
+            return (<p className="search__results-loader"><FormattedMessage id="search.loading" defaultMessage="Loading..." /></p>);
           }
         })()}
       </div>
@@ -397,7 +406,7 @@ class Search extends Component {
           renderLoading={function() {
             return (
               <div>
-                <h3 className="search__results-heading search__results-heading--loading">Loading...</h3>
+                <h3 className="search__results-heading search__results-heading--loading"><FormattedMessage id="search.loading" defaultMessage="Loading..." /></h3>
                 <MediasLoading />
               </div>
             );

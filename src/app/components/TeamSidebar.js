@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay';
 import { Link } from 'react-router';
 import FontAwesome from 'react-fontawesome';
@@ -61,7 +62,7 @@ class TeamSidebarComponent extends Component {
     return (
       <nav className="team-sidebar">
         <section className="team-sidebar__projects">
-          <h2 className="team-sidebar__projects-heading">Verification Projects</h2>
+          <h2 className="team-sidebar__projects-heading"><FormattedMessage id="teamSidebar.projectsHeading" defaultMessage="Verification Projects" /></h2>
           {(() => {
             if (team) {
               return (

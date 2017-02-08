@@ -2,12 +2,17 @@ import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 import Dropzone from 'react-dropzone';
 import FontAwesome from 'react-fontawesome';
+import { FormattedMessage } from 'react-intl';
 import AboutRoute from '../relay/AboutRoute';
 
 class UploadLabel extends Component {
   render() {
     const about = this.props.about;
-    return (<span>Try dropping an image file here, or click to upload a file (max: {about.max_upload_size})</span>);
+    return (
+      <FormattedMessage id="uploadLabel.message"
+            defaultMessage="Try dropping an image file here, or click to upload a file (max: {max_upload_size})"
+                    values={{max_upload_size: about.max_upload_size}} />
+    );
   }
 }
 

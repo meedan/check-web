@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { FormattedMessage } from 'react-intl';
 
 class BrowserSupport extends Component {
   constructor(props) {
@@ -38,7 +39,9 @@ class BrowserSupport extends Component {
       return (
         <div className="browser-support">
           <span className="browser-support__close" onClick={this.close.bind(this)}>×</span>
-          <p className="browser-support__message">While in beta, Check is optimized for Google Chrome on desktop.</p>
+          <p className="browser-support__message">
+            <FormattedMessage id="browserSupport.message" defaultMessage="While in beta, Check is optimized for Google Chrome on desktop." />
+          </p>
         </div>);
     } else {
       return null;

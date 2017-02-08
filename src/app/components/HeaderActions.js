@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import UserMenuRelay from '../relay/UserMenuRelay';
 import { logout } from '../actions/actions';
 import FontAwesome from 'react-fontawesome';
+import { FormattedMessage } from 'react-intl';
 import TeamMenuRelay from '../relay/TeamMenuRelay';
 import ProjectMenuRelay from '../relay/ProjectMenuRelay';
 import { bemClass } from '../helpers';
@@ -38,11 +39,21 @@ class HeaderActions extends Component {
           <li className="header-actions__menu-item" style={{ cursor: 'default' }}><UserMenuRelay {...this.props} /></li>
           <ProjectMenuRelay {...this.props} />
           <TeamMenuRelay {...this.props} />
-          <li className="header-actions__menu-item" onClick={this.contactHuman.bind(this)}>Contact a Human</li>
-          <li className="header-actions__menu-item header-actions__menu-item--logout" onClick={logout}>Sign Out</li>
-          <li className="header-actions__menu-item"><Link className="header-actions__link" to="/check/tos">Terms of Service</Link></li>
-          <li className="header-actions__menu-item"><Link className="header-actions__link" to="/check/privacy">Privacy Policy</Link></li>
-          <li className="header-actions__menu-item"><a className="header-actions__link" target="_blank" rel="noopener noreferrer" href="http://meedan.com/check">About Check</a></li>
+          <li className="header-actions__menu-item" onClick={this.contactHuman.bind(this)}>
+            <FormattedMessage id="headerActions.contactHuman" defaultMessage="Contact a Human" />
+          </li>
+          <li className="header-actions__menu-item header-actions__menu-item--logout" onClick={logout}>
+            <FormattedMessage id="headerActions.signOut" defaultMessage="Sign Out" />
+          </li>
+          <li className="header-actions__menu-item">
+            <Link className="header-actions__link" to="/check/tos"><FormattedMessage id="headerActions.tos" defaultMessage="Terms of Service" /></Link>
+          </li>
+          <li className="header-actions__menu-item">
+            <Link className="header-actions__link" to="/check/privacy"><FormattedMessage id="headerActions.privacyPolicy" defaultMessage="Privacy Policy" /></Link>
+          </li>
+          <li className="header-actions__menu-item">
+            <a className="header-actions__link" target="_blank" rel="noopener noreferrer" href="http://meedan.com/check"><FormattedMessage id="headerActions.aboutCheck" defaultMessage="About Check" /></a>
+          </li>
         </ul>
       </div>
     );
