@@ -69,10 +69,11 @@
 
 #create-media__switcher {
   position: absolute;
-  right: 8px;
+  right: 16px;
   top: 8px;
   cursor: pointer;
-  color: #ccc; 
+  color: #ccc;
+  font-size: 24px;
 
   &.create-media__file, &:hover {
     color: #2196f3;
