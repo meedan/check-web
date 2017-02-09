@@ -24,7 +24,7 @@ class CreateStatusMutation extends Relay.Mutation {
   getOptimisticResponse() {
     const status = {
       id: this.props.id,
-      created_at: new Date().toString(),
+      updated_at: new Date().toString(),
       annotation_type: 'status',
       permissions: '{"destroy Annotation":true,"destroy Status":true}',
       content: JSON.stringify({ status: this.props.annotation.status }),
