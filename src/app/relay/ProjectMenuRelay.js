@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay';
 import ProjectRoute from './ProjectRoute';
 import Can from '../components/Can';
@@ -23,7 +24,7 @@ class ProjectMenu extends Component {
     return (
       <Can permissions={project.permissions} permission="update Project">
         <li className="project-menu / header-actions__menu-item" onClick={this.handleEditClick.bind(this)}>
-          <span>Edit project</span>
+          <FormattedMessage id="projectMenuRelay.editProject" defaultMessage="Edit project" />
         </li>
       </Can>
     );

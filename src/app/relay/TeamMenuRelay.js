@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay';
 import TeamRoute from './TeamRoute';
 import Can from '../components/Can';
@@ -20,7 +21,9 @@ class TeamMenu extends Component {
 
     return (
       <Can permissions={team.permissions} permission="update Team">
-        <li className="header-actions__menu-item" onClick={this.handleClick.bind(this)}>Manage team</li>
+        <li className="header-actions__menu-item" onClick={this.handleClick.bind(this)}>
+          <FormattedMessage id="teamMenuRelay.manageTeam" defaultMessage="Manage team" />
+        </li>
       </Can>
     );
   }
