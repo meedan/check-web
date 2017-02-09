@@ -484,7 +484,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Verify that tag is not added and that error message is displayed
       expect(page.tags.count(new_tag)).to be(1)
-      expect(page.contains_string?('Validation failed: Data has already been taken')).to be(true)
+      expect(page.contains_string?('Validation failed: Tag already exists')).to be(true)
     end
 
     it "should not add a duplicated tag from command line" do
@@ -506,7 +506,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Verify that tag is not added and that error message is displayed
       expect(media_pg.tags.count(new_tag)).to be(1)
-      expect(media_pg.contains_string?('Validation failed: Data has already been taken')).to be(true)
+      expect(media_pg.contains_string?('Validation failed: Tag already exists')).to be(true)
     end
 
     it "should not create duplicated media if registered" do
