@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay';
 import util from 'util';
 import Header from './Header';
@@ -90,7 +91,7 @@ class Home extends Component {
         <span>
           <BrowserSupport />
           <div className="home">
-            <span className="home__disclaimer">Beta</span>
+            <span className="home__disclaimer"><FormattedMessage id="home.beta" defaultMessage="Beta" /></span>
             { this.state.token ? <Header {...this.props} /> : null }
             <main className="home__main">
               <div className="home__global-message global-message"><Message message={this.state.message} /></div>
