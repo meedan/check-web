@@ -1,0 +1,18 @@
+[
+  {
+    "id": "teamMembersComponent.editDoneButton",
+    "defaultMessage": "Done"
+  },
+  {
+    "id": "teamMembersComponent.editButton",
+    "defaultMessage": "Edit"
+  },
+  {
+    "id": "teamMembersComponent.mainHeading",
+    "defaultMessage": "Members"
+  },
+  {
+    "id": "teamMembersComponent.inviteLink",
+    "defaultMessage": "To invite colleagues to join {link}, send them this link:"
+  }
+]

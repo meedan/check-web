@@ -1,0 +1,18 @@
+[
+  {
+    "id": "mediaDetail.byUser",
+    "defaultMessage": "by {username}"
+  },
+  {
+    "id": "mediaDetail.cancelButton",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "mediaDetail.doneButton",
+    "defaultMessage": "Done"
+  },
+  {
+    "id": "mediaDetail.added",
+    "defaultMessage": "Added {byUser}"
+  }
+]

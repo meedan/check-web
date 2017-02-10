@@ -4,6 +4,38 @@
     "defaultMessage": "Sign in with {provider}"
   },
   {
+    "id": "loginEmail.nameLabel",
+    "defaultMessage": "Your name"
+  },
+  {
+    "id": "loginEmail.emailLabel",
+    "defaultMessage": "Email address"
+  },
+  {
+    "id": "loginEmail.passwordLabel",
+    "defaultMessage": "Password (minimum 8 characters)"
+  },
+  {
+    "id": "loginEmail.passwordConfirmLabel",
+    "defaultMessage": "Password confirmation"
+  },
+  {
+    "id": "loginEmail.signIn",
+    "defaultMessage": "Sign in »"
+  },
+  {
+    "id": "loginEmail.signUp",
+    "defaultMessage": "Sign up »"
+  },
+  {
+    "id": "loginEmail.alreadyHasAccount",
+    "defaultMessage": "I already have an account"
+  },
+  {
+    "id": "loginEmail.newAccount",
+    "defaultMessage": "Create a new account"
+  },
+  {
     "id": "login.email.cancel",
     "defaultMessage": "Sign in with Twitter, Facebook, or Slack"
   },

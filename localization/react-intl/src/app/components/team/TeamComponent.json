@@ -1,0 +1,22 @@
+[
+  {
+    "id": "teamComponent.cancelButton",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "teamComponent.saveButton",
+    "defaultMessage": "Save"
+  },
+  {
+    "id": "teamComponent.editButton",
+    "defaultMessage": "Edit profile"
+  },
+  {
+    "id": "teamComponent.slackNotificationsEnabled",
+    "defaultMessage": "Enable Slack notifications"
+  },
+  {
+    "id": "teamComponent.title",
+    "defaultMessage": "Verification Projects"
+  }
+]

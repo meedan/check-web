@@ -1,0 +1,14 @@
+[
+  {
+    "id": "createAccount.createSource",
+    "defaultMessage": "Create a source"
+  },
+  {
+    "id": "createAccount.sourceUrl",
+    "defaultMessage": "Source URL"
+  },
+  {
+    "id": "createAccount.preview",
+    "defaultMessage": "Preview"
+  }
+]

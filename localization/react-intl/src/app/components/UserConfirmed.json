@@ -1,0 +1,14 @@
+[
+  {
+    "id": "userConfirmed.heading",
+    "defaultMessage": "Account Confirmed"
+  },
+  {
+    "id": "userConfirmed.message",
+    "defaultMessage": "Thanks for confirming your e-mail address! Now you can {login}."
+  },
+  {
+    "id": "userConfirmed.login",
+    "defaultMessage": "login"
+  }
+]

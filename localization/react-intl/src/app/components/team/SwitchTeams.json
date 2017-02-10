@@ -1,0 +1,18 @@
+[
+  {
+    "id": "switchTeams.joinRequestMessage",
+    "defaultMessage": "You requested to join"
+  },
+  {
+    "id": "switchTeams.cancelJoinRequest",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "switchTeams.bannedJoinRequest",
+    "defaultMessage": "Cancelled"
+  },
+  {
+    "id": "switchTeams.newTeamLink",
+    "defaultMessage": "+ New team"
+  }
+]

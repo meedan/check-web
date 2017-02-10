@@ -1,0 +1,14 @@
+[
+  {
+    "id": "annotation.statusSetHeader",
+    "defaultMessage": "Status set to {status} by {author}"
+  },
+  {
+    "id": "annotation.taggedHeader",
+    "defaultMessage": "Tagged #{tag} by {author}"
+  },
+  {
+    "id": "annotation.flaggedHeader",
+    "defaultMessage": "Flagged as {flag} by {author}"
+  }
+]
