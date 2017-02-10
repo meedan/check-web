@@ -1,8 +1,16 @@
 import React, { Component, PropTypes } from 'react';
+import { defineMessages, injectIntl, intlShape } from 'react-intl';
 import Relay from 'react-relay';
 import CreateProjectMutation from '../../relay/CreateProjectMutation';
 import Message from '../Message';
 import CheckContext from '../../CheckContext';
+
+const messages = defineMessages({
+    addProject: {
+        id: 'createProject.addProject',
+        defaultMessage: 'Add project +',
+    }
+});
 
 class CreateProject extends Component {
   constructor(props) {
@@ -58,15 +66,19 @@ class CreateProject extends Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit.bind(this)} className="create-project">
-        <input className={this.props.className} placeholder="Add project +" id="create-project-title" ref={input => this.projectInput = input} />
+        <input className={this.props.className} placeholder={this.props.intl.formatMessage(messages.addProject)} id="create-project-title" ref={input => this.projectInput = input} />
         <Message message={this.state.message} />
       </form>
     );
   }
 }
 
+CreateProject.propTypes = {
+  intl: intlShape.isRequired
+};
+
 CreateProject.contextTypes = {
   store: React.PropTypes.object,
 };
 
-export default CreateProject;
+export default injectIntl(CreateProject);
