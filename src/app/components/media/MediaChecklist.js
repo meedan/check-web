@@ -11,27 +11,27 @@ class MediaChecklist extends Component {
         </aside>
         <ul>
           <li>
-            <h4><FormattedMessage id="mediaChecklist.headingWho" defaultMessage="Who" /></h4>
+            <h4><FormattedMessage id="mediaChecklist.headingWho" defaultMessage="Who" />&nbsp;</h4>
             <FormattedHTMLMessage id="mediaChecklist.messageWho" defaultMessage="Who’s the contact? Indicate information like <em>@username</em> and <em>Email</em> or <em>Phone</em>" />.
           </li>
           <li>
-            <h4><FormattedMessage id="mediaChecklist.headingWhat" defaultMessage="What" /></h4>
+            <h4><FormattedMessage id="mediaChecklist.headingWhat" defaultMessage="What" />&nbsp;</h4>
             <FormattedMessage id="mediaChecklist.messageWhat" defaultMessage="What’s the issue? Clearly explain which facts are in question." />
           </li>
           <li>
-            <h4><FormattedMessage id="mediaChecklist.headingWhere" defaultMessage="Where" /></h4>
+            <h4><FormattedMessage id="mediaChecklist.headingWhere" defaultMessage="Where" />&nbsp;</h4>
             <FormattedMessage id="mediaChecklist.messageWhere" defaultMessage="Where’s the location? Indicate specific city names and regions." />
           </li>
           <li>
-            <h4><FormattedMessage id="mediaChecklist.headingWhen" defaultMessage="When" /></h4>
+            <h4><FormattedMessage id="mediaChecklist.headingWhen" defaultMessage="When" />&nbsp;</h4>
             <FormattedHTMLMessage id="mediaChecklist.messageWhen" defaultMessage="When did it happen? Include a timestamp with time zone, like <em>9/11/2016 HH:MM PM EST</em>." />
           </li>
           <li>
-            <h4><FormattedMessage id="mediaChecklist.headingOriginal" defaultMessage="Original" /></h4>
+            <h4><FormattedMessage id="mediaChecklist.headingOriginal" defaultMessage="Original" />&nbsp;</h4>
             <FormattedHTMLMessage id="mediaChecklist.messageOriginal" defaultMessage="Is this just a retweet? Indicate <em>Is original</em> or <em>Is not original</em> or <em>Unsure</em>." />
           </li>
           <li>
-            <h4><FormattedMessage id="mediaChecklist.headingDetails" defaultMessage="Details" /></h4>
+            <h4><FormattedMessage id="mediaChecklist.headingDetails" defaultMessage="Details" />&nbsp;</h4>
             <FormattedMessage id="mediaChecklist.messageDetails" defaultMessage="Anything else? Indicate additional info including social media exchanges or interviews." />
           </li>
         </ul>
