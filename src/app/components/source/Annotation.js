@@ -68,8 +68,8 @@ class Annotation extends Component {
     return label;
   }
 
-  createdAt(annotation) {
-    let date = new Date(annotation.created_at);
+  updatedAt(annotation) {
+    let date = new Date(annotation.updated_at);
     if (isNaN(date)) date = null;
     return date;
   }
@@ -84,7 +84,7 @@ class Annotation extends Component {
         </Can>
       </div>
     );
-    const createdAt = this.createdAt(annotation);
+    const updatedAt = this.updatedAt(annotation);
     const content = JSON.parse(annotation.content);
     let contentTemplate;
 
@@ -95,7 +95,7 @@ class Annotation extends Component {
         <section className="annotation__content">
           <div className="annotation__header">
             <h4 className="annotation__author-name">{annotation.annotator.name}</h4>
-            {createdAt ? <span className="annotation__timestamp"><TimeAgo date={createdAt} live={false} /></span> : null}
+            {updatedAt ? <span className="annotation__timestamp"><TimeAgo date={updatedAt} live={false} /></span> : null}
             {annotationActions}
           </div>
           <div className="annotation__body"><Linkify properties={{ target: '_blank' }}>{nl2br(commentText)}</Linkify></div>
@@ -116,7 +116,7 @@ class Annotation extends Component {
                   defaultMessage={`Status set to {status} by {author}`}
                           values={{ status: <span className={`annotation__status annotation__status--${statusCode}`}>{this.statusIdToLabel(content.status)}</span>,
                                     author: <span className="annotation__author-name">{annotation.annotator.name}</span> }} />
-            {createdAt ? <span className="annotation__timestamp"><TimeAgo date={createdAt} live={false} /></span> : null}
+            {updatedAt ? <span className="annotation__timestamp"><TimeAgo date={updatedAt} live={false} /></span> : null}
             {annotationActions}
           </div>
         </section>
@@ -129,7 +129,7 @@ class Annotation extends Component {
             <FormattedMessage id="annotation.taggedHeader"
                   defaultMessage={`Tagged #{tag} by {author}`}
                   values={{ tag: content.tag.replace(/^#/, ''), author: <span className="annotation__author-name">{annotation.annotator.name}</span> }} />
-            {createdAt ? <span className="annotation__timestamp"><TimeAgo date={createdAt} live={false} /></span> : null}
+            {updatedAt ? <span className="annotation__timestamp"><TimeAgo date={updatedAt} live={false} /></span> : null}
             {annotationActions}
           </div>
         </section>
@@ -142,7 +142,7 @@ class Annotation extends Component {
             <FormattedMessage id="annotation.flaggedHeader"
                   defaultMessage={`Flagged as {flag} by {author}`}
                   values={{ flag: content.flag, author: <span className="annotation__author-name">{annotation.annotator.name}</span> }} />
-            {createdAt ? <span className="annotation__timestamp"><TimeAgo date={createdAt} live={false} /></span> : null}
+            {updatedAt ? <span className="annotation__timestamp"><TimeAgo date={updatedAt} live={false} /></span> : null}
             {annotationActions}
           </div>
         </section>

@@ -50,7 +50,7 @@ class ProjectComponent extends Component {
   }
 
   subscribe() {
-    const pusher = this.getContext().pusher;
+    const pusher = this.currentContext().pusher;
     if (pusher) {
       const that = this;
       pusher.subscribe(this.props.project.pusher_channel).bind('media_updated', (data) => {
@@ -71,8 +71,8 @@ class ProjectComponent extends Component {
   }
 
   componentDidMount() {
-    this.setContextProject();
     this.subscribe();
+    this.setContextProject();
   }
 
   componentDidUpdate() {

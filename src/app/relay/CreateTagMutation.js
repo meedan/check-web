@@ -29,7 +29,7 @@ class CreateTagMutation extends Relay.Mutation {
   getOptimisticResponse() {
     const tag = {
       id: this.props.id,
-      created_at: new Date().toString(),
+      updated_at: new Date().toString(),
       annotation_type: 'tag',
       permissions: '{"destroy Annotation":true,"destroy Tag":true}',
       content: JSON.stringify({ tag: this.props.annotation.tag }),

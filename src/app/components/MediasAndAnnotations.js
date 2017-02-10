@@ -25,7 +25,7 @@ class MediasAndAnnotations extends Component {
     annotations.forEach((annotation) => {
       const item = annotation;
       item.itemType = 'annotation';
-      item.timestamp = new Date(item.node.created_at).getTime();
+      item.timestamp = new Date(item.node.updated_at).getTime();
       items.push(item);
     });
 

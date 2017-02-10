@@ -24,7 +24,7 @@ class CreateFlagMutation extends Relay.Mutation {
   getOptimisticResponse() {
     const flag = {
       id: this.props.id,
-      created_at: new Date().toString(),
+      updated_at: new Date().toString(),
       annotation_type: 'flag',
       permissions: '{"destroy Annotation":true,"destroy Flag":true}',
       content: JSON.stringify({ flag: this.props.annotation.flag }),

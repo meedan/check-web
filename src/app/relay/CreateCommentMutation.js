@@ -24,7 +24,7 @@ class CreateCommentMutation extends Relay.Mutation {
   getOptimisticResponse() {
     const comment = {
       id: this.props.id,
-      created_at: new Date().toString(),
+      updated_at: new Date().toString(),
       annotation_type: 'comment',
       permissions: '{"destroy Annotation":true,"destroy Comment":true}',
       content: JSON.stringify({ text: this.props.annotation.text }),

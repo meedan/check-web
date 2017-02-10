@@ -47,7 +47,7 @@ class MediaComponent extends Component {
       const that = this;
       pusher.subscribe(this.props.media.pusher_channel).bind('media_updated', (data) => {
         const annotation = JSON.parse(data.message);
-        if (parseInt(annotation.context_id) === that.getContext().project.dbid) {
+        if (annotation.annotated_id === that.props.media.dbid) {
           that.props.relay.forceFetch();
         }
       });
