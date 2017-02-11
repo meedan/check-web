@@ -8,7 +8,11 @@ import CheckContext from '../../CheckContext';
 const messages = defineMessages({
     addProject: {
         id: 'createProject.addProject',
-        defaultMessage: 'Add project +',
+        defaultMessage: 'Add project +'
+    },
+    error: {
+      id: 'createProject.error',
+      defaultMessage: 'Sorry, could not create the project'
     }
 });
 
@@ -30,7 +34,7 @@ class CreateProject extends Component {
 
     const onFailure = (transaction) => {
       const error = transaction.getError();
-      let message = 'Sorry, could not create the project';
+      let message = this.props.intl.formatMessage(messages.error);
       try {
         const json = JSON.parse(error.source);
         if (json.error) {

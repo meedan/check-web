@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 import DocumentTitle from 'react-document-title';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import Tags from './Tags';
 import { Link } from 'react-router';
 import FontAwesome from 'react-fontawesome';
@@ -14,6 +14,49 @@ import Can from '../Can';
 import { pageTitle } from '../../helpers';
 import CheckContext from '../../CheckContext';
 import ContentColumn from '../layout/ContentColumn';
+
+const messages = defineMessages({
+  editError: {
+    id: 'teamComponent.editError',
+    defaultMessage: 'Sorry, could not edit the team'
+  },
+  editSuccess: {
+    id: 'teamComponent.editSuccess',
+    defaultMessage: 'Team information updated successfully!'
+  },
+  changeAvatar: {
+    id: 'teamComponent.changeAvatar',
+    defaultMessage: "You can't change this right now, but we're hard at work to enable it soon!"
+  },
+  teamName: {
+    id: 'teamComponent.teamName',
+    defaultMessage: 'Team name'
+  },
+  teamDescription: {
+    id: 'teamComponent.teamDescription',
+    defaultMessage: 'Team description'
+  },
+  location: {
+    id: 'teamComponent.location',
+    defaultMessage: 'Location'
+  },
+  phone: {
+    id: 'teamComponent.phone',
+    defaultMessage: 'Phone number'
+  },
+  website: {
+    id: 'teamComponent.website',
+    defaultMessage: 'Website'
+  },
+  slackWebhook: {
+    id: 'teamComponent.slackWebhook',
+    defaultMessage: 'Slack webhook'
+  },
+  slackChannel: {
+    id: 'teamComponent.slackChannel',
+    defaultMessage: 'Slack default #channel'
+  }
+});
 
 class TeamComponent extends Component {
   constructor(props) {
@@ -66,7 +109,7 @@ class TeamComponent extends Component {
 
     const onFailure = (transaction) => {
       const error = transaction.getError();
-      let message = 'Sorry, could not edit the team';
+      let message = this.props.intl.formatMessage(messages.editError);
       try {
         const json = JSON.parse(error.source);
         if (json.error) {
@@ -77,7 +120,7 @@ class TeamComponent extends Component {
     };
 
     const onSuccess = (response) => {
-      this.setState({ message: 'Team information updated successfully!', isEditing: false });
+      this.setState({ message: this.props.intl.formatMessage(messages.editSuccess), isEditing: false });
     };
 
     const values = that.state.values;
@@ -152,17 +195,17 @@ class TeamComponent extends Component {
                 }
               })()}
 
-              <div className="team__avatar" style={{ 'background-image': `url(${team.avatar})` }} title="You can't change this right now, but we're hard at work to enable it soon!" />
+              <div className="team__avatar" style={{ 'background-image': `url(${team.avatar})` }} title={this.props.intl.formatMessage(messages.changeAvatar)} />
 
               {(() => {
                 if (this.state.isEditing) {
                   return (
                     <div>
                       <h1 className="team__name team__name--editing">
-                        <input type="text" id="team__name-container" className="team__name-input" defaultValue={team.name} onChange={this.handleChange.bind(this, 'name')} placeholder="Team name" />
+                        <input type="text" id="team__name-container" className="team__name-input" defaultValue={team.name} onChange={this.handleChange.bind(this, 'name')} placeholder={this.props.intl.formatMessage(messages.teamName)} />
                       </h1>
                       <div className="team__description">
-                        <input type="text" id="team__description-container" className="team__description-input" defaultValue={team.description} placeholder="Team description" onChange={this.handleChange.bind(this, 'description')} />
+                        <input type="text" id="team__description-container" className="team__description-input" defaultValue={team.description} placeholder={this.props.intl.formatMessage(messages.teamDescription)} onChange={this.handleChange.bind(this, 'description')} />
                       </div>
                     </div>
                   );
@@ -187,7 +230,7 @@ class TeamComponent extends Component {
                       return (<span><FontAwesome name="map-marker" className="team__location-icon" />
                         <input
                           type="text" id="team__location-container" defaultValue={contact ? contact.node.location : ''}
-                          className="team__location-name-input" placeholder="Location"
+                          className="team__location-name-input" placeholder={this.props.intl.formatMessage(messages.location)}
                           onChange={this.handleChange.bind(this, 'contact_location')}
                         /></span>);
                     } else if (contact && !!contact.node.location) {
@@ -204,7 +247,7 @@ class TeamComponent extends Component {
                       return (<span><FontAwesome name="phone" className="team__phone-icon" />
                         <input
                           type="text" id="team__phone-container" defaultValue={contact ? contact.node.phone : ''}
-                          className="team__location-name-input" placeholder="Phone number"
+                          className="team__location-name-input" placeholder={this.props.intl.formatMessage(messages.phone)}
                           onChange={this.handleChange.bind(this, 'contact_phone')}
                         /></span>);
                     } else if (contact && !!contact.node.phone) {
@@ -221,7 +264,7 @@ class TeamComponent extends Component {
                       return (<span><FontAwesome name="link" className="team__link-icon" />
                         <input
                           type="text" id="team__link-container" defaultValue={contact ? contact.node.web : ''}
-                          className="team__location-name-input" placeholder="Website"
+                          className="team__location-name-input" placeholder={this.props.intl.formatMessage(messages.website)}
                           onChange={this.handleChange.bind(this, 'contact_web')}
                         /></span>);
                     } else if (contact && !!contact.node.web) {
@@ -243,8 +286,8 @@ class TeamComponent extends Component {
                       <input type="checkbox" id="team__settings-slack-notifications-enabled" value="1" defaultChecked={team.get_slack_notifications_enabled === '1'} onChange={this.handleChange.bind(this, 'slackNotificationsEnabled')} />
                       <label htmlFor="team__settings-slack-notifications-enabled"><FormattedMessage id="teamComponent.slackNotificationsEnabled" defaultMessage="Enable Slack notifications" /></label>
                     </span>
-                    <span><input type="text" id="team__settings-slack-webhook" defaultValue={team.get_slack_webhook} placeholder="Slack webhook" onChange={this.handleChange.bind(this, 'slackWebhook')} /></span>
-                    <span><input type="text" id="team__settings-slack-channel" defaultValue={team.get_slack_channel} placeholder="Slack default #channel" onChange={this.handleChange.bind(this, 'slackChannel')} /></span>
+                    <span><input type="text" id="team__settings-slack-webhook" defaultValue={team.get_slack_webhook} placeholder={this.props.intl.formatMessage(messages.slackWebhook)} onChange={this.handleChange.bind(this, 'slackWebhook')} /></span>
+                    <span><input type="text" id="team__settings-slack-channel" defaultValue={team.get_slack_channel} placeholder={this.props.intl.formatMessage(messages.slackChannel)} onChange={this.handleChange.bind(this, 'slackChannel')} /></span>
                   </section>
                 );
               }
@@ -274,8 +317,12 @@ class TeamComponent extends Component {
   }
 }
 
+TeamComponent.propTypes = {
+  intl: intlShape.isRequired
+};
+
 TeamComponent.contextTypes = {
   store: React.PropTypes.object,
 };
 
-export default TeamComponent;
+export default injectIntl(TeamComponent);

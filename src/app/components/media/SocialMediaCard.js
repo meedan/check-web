@@ -1,10 +1,18 @@
 import React, { Component, PropTypes } from 'react';
 import FontAwesome from 'react-fontawesome';
+import { defineMessages, injectIntl, intlShape } from 'react-intl';
 import { Link } from 'react-router';
 import TimeAgo from 'react-timeago';
 import MediaUtil from './MediaUtil';
 import MediaInspector from './MediaInspector';
 import { bemClass } from '../../helpers';
+
+const messages = defineMessages({
+  link: {
+    id: 'socialMediaCard.link',
+    defaultMessage: 'Link'
+  }
+});
 
 class SocialMediaCard extends Component {
   constructor(props) {
@@ -56,7 +64,7 @@ class SocialMediaCard extends Component {
 
           <span className="social-media-card__header-text-secondary">
             <a href={url}>
-              {embedPublishedAt ? <TimeAgo date={embedPublishedAt} live={false} /> : 'Link'}
+              {embedPublishedAt ? <TimeAgo date={embedPublishedAt} live={false} /> : this.props.intl.formatMessage(messages.link)}
             </a>
           </span>
         </div>
@@ -75,4 +83,8 @@ class SocialMediaCard extends Component {
   }
 }
 
-export default SocialMediaCard;
+SocialMediaCard.propTypes = {
+  intl: intlShape.isRequired
+};
+
+export default injectIntl(SocialMediaCard);

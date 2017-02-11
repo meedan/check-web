@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { defineMessages, injectIntl, intlShape } from 'react-intl';
 import FlatButton from 'material-ui/FlatButton';
 import TeamHeader from './team/TeamHeader';
 import TeamPublicHeader from './team/TeamPublicHeader';
@@ -8,10 +9,26 @@ import MediaHeader from './media/MediaHeader';
 import HeaderActions from './HeaderActions';
 import Can from './Can';
 
+const messages = defineMessages({
+  projectLabel: {
+    id: 'header.projectLabel',
+    defaultMessage: 'Project'
+  },
+  teamLabel: {
+    id: 'header.teamLabel',
+    defaultMessage: 'Team'
+  },
+  teamsLabel: {
+    id: 'header.teamsLabel',
+    defaultMessage: 'Teams'
+  }
+});
+
 class Header extends Component {
   render() {
     const { state } = this.props;
     const path = this.props.location ? this.props.location.pathname : null;
+    const { formatMessage } = this.props.intl;
 
     const defaultHeader = (
       <header className="header header--default">
@@ -32,7 +49,7 @@ class Header extends Component {
         <header className="header header--media">
           <div className="header__container">
             <span style={{ display: 'none' }}><TeamHeader {...this.props} /></span>
-            <div className="header__breadcrumb"><Breadcrumb url={projectUrl} label="Project" /></div>
+            <div className="header__breadcrumb"><Breadcrumb url={projectUrl} label={formatMessage(messages.projectLabel)} /></div>
             <MediaHeader {...this.props} />
             <HeaderActions {...this.props} />
           </div>
@@ -46,7 +63,7 @@ class Header extends Component {
         <header className="header header--project-edit">
           <div className="header__container">
             <span style={{ display: 'none' }}><TeamHeader {...this.props} /></span>
-            <div className="header__breadcrumb"><Breadcrumb url={projectUrl} label="Project" /></div>
+            <div className="header__breadcrumb"><Breadcrumb url={projectUrl} label={formatMessage(messages.projectLabel)} /></div>
             <ProjectHeader {...this.props} />
             <HeaderActions {...this.props} />
           </div>
@@ -83,7 +100,7 @@ class Header extends Component {
         <header className="header header--team-subpage">
           <div className="header__container">
             <span style={{ display: 'none' }}><TeamHeader {...this.props} /></span>
-            <div className="header__breadcrumb"><Breadcrumb url={`/${this.props.params.team}`} label="Team" /></div>
+            <div className="header__breadcrumb"><Breadcrumb url={`/${this.props.params.team}`} label={formatMessage(messages.teamLabel)} /></div>
             <HeaderActions {...this.props} />
           </div>
         </header>
@@ -104,7 +121,7 @@ class Header extends Component {
       return (
         <header className="header header--team">
           <div className="header__container">
-            <div className="header__breadcrumb"><Breadcrumb url="/check/teams" label="Teams" /></div>
+            <div className="header__breadcrumb"><Breadcrumb url="/check/teams" label={formatMessage(messages.teamsLabel)} /></div>
             <HeaderActions {...this.props} />
           </div>
         </header>
@@ -115,4 +132,8 @@ class Header extends Component {
   }
 }
 
-export default Header;
+Header.propTypes = {
+  intl: intlShape.isRequired
+};
+
+export default injectIntl(Header);

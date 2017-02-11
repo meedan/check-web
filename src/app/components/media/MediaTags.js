@@ -1,10 +1,17 @@
 import React, { Component, PropTypes } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, defineMessages, intlShape, injectIntl } from 'react-intl';
 import Relay from 'react-relay';
 import CreateTagMutation from '../../relay/CreateTagMutation';
 import DeleteTagMutation from '../../relay/DeleteTagMutation';
 import Tags from '../source/Tags';
 import CheckContext from '../../CheckContext';
+
+const messages = defineMessages({
+  loading: {
+    id: 'mediaTags.loading',
+    defaultMessage: 'Loading...'
+  }
+});
 
 class MediaTags extends Component {
   constructor(props) {
@@ -23,7 +30,7 @@ class MediaTags extends Component {
   }
 
   handleClick(tagString) {
-    this.setState({ message: 'Loading...' });
+    this.setState({ message: this.props.intl.formatMessage(messages.loading) });
     const tag = this.findTag(tagString);
 
     if (tag) {
@@ -123,8 +130,12 @@ class MediaTags extends Component {
   }
 }
 
+MediaTags.propTypes = {
+  intl: intlShape.isRequired
+};
+
 MediaTags.contextTypes = {
   store: React.PropTypes.object,
 };
 
-export default MediaTags;
+export default injectIntl(MediaTags);

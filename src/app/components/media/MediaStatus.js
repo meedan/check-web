@@ -1,10 +1,18 @@
 import React, { Component, PropTypes } from 'react';
 import FontAwesome from 'react-fontawesome';
+import { defineMessages, injectIntl, intlShape } from 'react-intl';
 import Relay from 'react-relay';
 import CreateStatusMutation from '../../relay/CreateStatusMutation';
 import UpdateStatusMutation from '../../relay/UpdateStatusMutation';
 import Can, { can } from '../Can';
 import CheckContext from '../../CheckContext';
+
+const messages = defineMessages({
+  error: {
+    id: 'mediaStatus.error',
+    defaultMessage: "We're sorry, but we encountered an error trying to update the status."
+  }
+});
 
 class MediaStatus extends Component {
   constructor(props) {
@@ -85,7 +93,7 @@ class MediaStatus extends Component {
   fail(transaction) {
     const that = this;
     const error = transaction.getError();
-    let message = "We're sorry, but we encountered an error trying to update the status.";
+    let message = this.props.intl.formatMessage(messages.error);
     try {
       const json = JSON.parse(error.source);
       if (json.error) {
@@ -147,8 +155,12 @@ class MediaStatus extends Component {
   }
 }
 
+MediaStatus.propTypes = {
+  intl: intlShape.isRequired
+};
+
 MediaStatus.contextTypes = {
   store: React.PropTypes.object,
 };
 
-export default MediaStatus;
+export default injectIntl(MediaStatus);
