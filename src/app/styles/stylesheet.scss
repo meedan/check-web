@@ -2,7 +2,6 @@
 
 @import "font-awesome/font-awesome";
 @import "variables";
-
 @import 'theme/colors';
 @import 'theme/typography';
 @import 'theme/buttons';
@@ -12,7 +11,6 @@
 @import 'theme/images';
 @import 'theme/lists';
 @import 'theme/animation';
-
 @import 'components/annotation';
 @import 'components/browser-support';
 @import 'components/caret';
@@ -74,7 +72,7 @@ body {
 
 address {
   text-align: center;
-  color: rgba($darkgrey, 0.5);
+  color: rgba($darkgrey, .5);
   margin-top: 30px;
   font-style: normal;
   font-size: 12px;
@@ -88,8 +86,9 @@ address {
     }
   }
 
-  a, a:visited {
-    color: rgba($darkgrey, 0.8);
+  a,
+  a:visited {
+    color: rgba($darkgrey, .8);
 
     &:hover {
       text-decoration: none;
@@ -97,7 +96,8 @@ address {
   }
 }
 
-#tos, #privacy-policy {
+#tos,
+#privacy-policy {
   margin: 10px;
 
   p {
