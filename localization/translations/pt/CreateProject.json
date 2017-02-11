@@ -1,3 +1,4 @@
 {
-  "createProject.addProject": "Novo projeto +"
+  "createProject.addProject": "Novo projeto +",
+  "createProject.error": "Sorry, could not create the project"
 }

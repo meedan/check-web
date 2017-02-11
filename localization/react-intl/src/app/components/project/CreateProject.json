@@ -2,5 +2,9 @@
   {
     "id": "createProject.addProject",
     "defaultMessage": "Add project +"
+  },
+  {
+    "id": "createProject.error",
+    "defaultMessage": "Sorry, could not create the project"
   }
 ]

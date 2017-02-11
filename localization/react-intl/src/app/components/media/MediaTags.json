@@ -1,5 +1,9 @@
 [
   {
+    "id": "mediaTags.loading",
+    "defaultMessage": "Loading..."
+  },
+  {
     "id": "mediaTags.heading",
     "defaultMessage": "Tags"
   }
