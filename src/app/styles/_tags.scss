@@ -7,7 +7,8 @@
     flex-wrap: wrap;
   }
 
-  .ReactTags__tag, input {
+  .ReactTags__tag,
+  input {
     color: theme-gray(60%);
     padding: 9px 12px;
     border: 1px solid theme-gray(90%);

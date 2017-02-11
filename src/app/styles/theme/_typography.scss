@@ -3,12 +3,12 @@ $font-stack-sans-condensed: "Roboto Condensed", $font-stack-sans;
 $font-stack-serif: "Merriweather", Georgia, serif;
 
 @mixin onboarding-heading {
-  margin: 25px 0 20px 0;
+  margin: 25px 0 20px;
   font-size: 34px;
   font-family: $font-stack-sans-condensed;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.035em;
+  letter-spacing: .035em;
   color: hsl(206, 98%, 62%);
 }
 
@@ -32,21 +32,25 @@ $font-stack-serif: "Merriweather", Georgia, serif;
 @mixin header-title($size: 19px) {
   font-size: $size;
   font-family: $font-stack-sans-condensed;
-  &, & > a { color: theme-gray(23%); }
   margin: 0;
+
+  &,
+  & > a {
+    color: theme-gray(23%);
+  }
 }
 
 @mixin app-kicker($size: 11px) {
   font-size: $size;
   text-transform: uppercase;
-  letter-spacing: 0.17em;
+  letter-spacing: .17em;
   font-weight: 600;
 }
 
 @mixin team-name($size: 17px) {
   font-size: $size;
   font-weight: 600;
-  letter-spacing: 0.02em;
+  letter-spacing: .02em;
   color: theme-gray(27%);
 }
 
@@ -55,7 +59,7 @@ $font-stack-serif: "Merriweather", Georgia, serif;
   font-size: 16px;
   font-weight: 400;
   color: $light-gray-text;
-  margin: 2px 0 0 0;
+  margin: 2px 0 0;
 }
 
 @mixin gray-text($size: 14px) {

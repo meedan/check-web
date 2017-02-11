@@ -13,13 +13,20 @@
 }
 
 @mixin app-menu-item {
-  &:hover { background: darken($home-bg, 5%); }
   font-size: 15px;
   padding: 11px 15px;
   cursor: pointer;
 
+  &:hover {
+    background: darken($home-bg, 5%);
+  }
+
   & > a {
     color: inherit;
-    &, &:hover { text-decoration: none; }
+
+    &,
+    &:hover {
+      text-decoration: none;
+    }
   }
 }
