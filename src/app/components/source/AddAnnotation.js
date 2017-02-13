@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { defineMessages, injectIntl, intlShape } from 'react-intl';
 import Relay from 'react-relay';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
@@ -9,6 +10,29 @@ import CreateStatusMutation from '../../relay/CreateStatusMutation';
 import UpdateStatusMutation from '../../relay/UpdateStatusMutation';
 import CreateFlagMutation from '../../relay/CreateFlagMutation';
 import CheckContext from '../../CheckContext';
+
+const messages = defineMessages({
+  invalidCommand: {
+    id: 'addannotation.invalidCommand',
+    defaultMessage: 'Invalid command'
+  },
+  annotationAdded: {
+    id: 'addannotation.annotationAdded',
+    defaultMessage: 'Your {type} was added!'
+  },
+  createTagFailed: {
+    id: 'addannotation.createTagFailed',
+    defaultMessage: 'Sorry, could not create the tag'
+  },
+  inputHint: {
+    id: 'addannotation.inputHint',
+    defaultMessage: 'Add a note about this report'
+  },
+  submitButton: {
+    id: 'addannotation.submitButton',
+    defaultMessage: 'Submit'
+  }
+});
 
 const styles = {
   errorStyle: {
@@ -38,11 +62,11 @@ class AddAnnotation extends Component {
   }
 
   failure() {
-    this.setState({ message: 'Invalid command', isSubmitting: false });
+    this.setState({ message: this.props.intl.formatMessage(messages.invalidCommand), isSubmitting: false });
   }
 
   success(annotation_type) {
-    this.setState({ message: `Your ${annotation_type} was added!`, isSubmitting: false });
+    this.setState({ message: this.props.intl.formatMessage(messages.annotationAdded, {type: annotation_type}), isSubmitting: false });
     const field = document.forms.addannotation.cmd;
     field.value = '';
     field.blur();
@@ -51,7 +75,7 @@ class AddAnnotation extends Component {
   fail(transaction) {
     const that = this;
     const error = transaction.getError();
-    let message = 'Sorry, could not create the tag';
+    let message = this.props.intl.formatMessage(messages.createTagFailed);
     try {
       const json = JSON.parse(error.source);
       if (json.error) {
@@ -235,7 +259,7 @@ class AddAnnotation extends Component {
     return (
       <form className="add-annotation" name="addannotation" onSubmit={this.handleSubmit.bind(this)}>
         <TextField
-          hintText="Add a note about this report"
+          hintText={this.props.intl.formatMessage(messages.inputHint)}
           fullWidth={false}
           style={{ width: '100%' }}
           errorStyle={styles.errorStyle}
@@ -247,14 +271,18 @@ class AddAnnotation extends Component {
           onKeyPress={this.handleKeyPress.bind(this)}
           ref={input => this.annotationInput = input}
         />
-        <FlatButton label="Submit" primary type="submit" style={{ float: 'right' }} />
+        <FlatButton label={this.props.intl.formatMessage(messages.submitButton)} primary type="submit" style={{ float: 'right' }} />
       </form>
     );
   }
 }
 
+AddAnnotation.propTypes = {
+  intl:intlShape.isRequired
+};
+
 AddAnnotation.contextTypes = {
   store: React.PropTypes.object,
 };
 
-export default AddAnnotation;
+export default injectIntl(AddAnnotation);
