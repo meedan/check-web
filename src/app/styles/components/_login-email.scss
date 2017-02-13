@@ -5,15 +5,13 @@
 .login-email__modal {
   position: absolute;
   top: -10px;
-  left: 0; right: 0;
+  left: 0;
+  right: 0;
   max-width: 500px;
   margin: 0 auto;
-  transition:
-    top 300ms ease,
-    opacity 400ms ease;
+  transition: top 300ms ease, opacity 400ms ease;
   pointer-events: none;
   opacity: 0;
-
   background: #fff;
   padding-bottom: 190px;
 
@@ -31,7 +29,6 @@
 }
 
 // modal
-
 .login-email__form {
   padding: 0 50px;
 }
@@ -41,7 +38,6 @@
 .login-email__password,
 .login-email__password-confirmation {
   margin-bottom: 30px - 5px;
-
   display: flex;
   flex-direction: column;
 }
@@ -62,9 +58,7 @@
   display: block;
   opacity: 0;
   color: hsl(204, 15%, 50%);
-  transition:
-    color 200ms ease,
-    opacity 50ms ease;
+  transition: color 200ms ease, opacity 50ms ease;
   font-size: 14px;
   font-weight: 500;
 
@@ -74,7 +68,6 @@
 }
 
 // modal actions
-
 .login-email__actions {
   padding-top: 10px;
 }
@@ -83,8 +76,6 @@
   @include button-large;
   @include button-green;
   display: block;
-  // margin: 0 auto 21px;
-  // &--login { margin: 10px auto 75px; }
   margin: 0 auto 75px;
 }
 
@@ -106,12 +97,10 @@
   font-weight: 600;
 }
 
-//
-
 .upload-file > div {
   width: 100% !important;
   height: auto !important;
-  padding: 25px 2px !important;     
+  padding: 25px 2px !important;
   border: 1px dashed #ccc !important;
   color: #ccc !important;
   text-align: center;

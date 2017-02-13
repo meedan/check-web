@@ -1,20 +1,22 @@
 .media-tags {
   @include media-metadata;
-  margin: 5px 0 0 0;
+  margin: 5px 0 0;
 
-  &:empty { display: none; }
+  &:empty {
+    display: none;
+  }
 }
 
 .media-tags__header {
   display: flex;
   align-items: baseline;
-  margin: 21px 0 7px 0;
+  margin: 21px 0 7px;
 }
 
 .media-tags__heading {
+  @include app-kicker;
   margin: 4px 15px 1px 0;
   color: theme-gray(27%);
-  @include app-kicker;
 }
 
 .media-tags__message {
@@ -33,36 +35,37 @@
 }
 
 .media-tags__list {
-  margin: 5px 0 0 0;
+  margin: 5px 0 0;
   display: inline-block;
 }
 
 .media-tags__tag,
-.media-tags .tags-list .ReactTags__tag { // TODO: refactor, hacky
-  &:before {
-    content: '#';
-    opacity: 0.6;
-  }
+.media-tags .tags-list .ReactTags__tag {
   display: inline-block;
   margin-right: 15px;
   padding: 3px 0;
-  border: none;
+  border: 0;
   margin: 0 10px 0 0;
   font-size: 14px;
   font-weight: 400;
+
+  &::before {
+    content: '#';
+    opacity: .6;
+  }
 }
 
-.media-tags .tags-list { // TODO: refactor, hacky
-  margin: 5px 0 0 0;
+.media-tags .tags-list {
+  margin: 5px 0 0 ;
   display: inline-block;
 }
 
 .media-tags .tags-list input {
   color: #879cab;
-  padding: 3px 5px 3px 5px;
+  padding: 3px 5px;
   border: 1px solid #e1e6ea;
   border-radius: 4px;
-  margin: 0 0 5px 0;
+  margin: 0 0 5px ;
   font-size: 13px;
   font-weight: 400;
 }

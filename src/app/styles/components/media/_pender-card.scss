@@ -13,8 +13,10 @@
 }
 
 .pender-card__loader {
+  $size: 100%;
   display: inline-block;
-  $size: 100%; width: $size; height: $size;
+  width: $size;
+  height: $size;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -45,8 +47,16 @@
   }
 
   @keyframes spinner {
-    0% { opacity: 0; }
-    20% { opacity: 0.25; }
-    100% { opacity: 0; }
+    0% {
+      opacity: 0;
+    }
+
+    20% {
+      opacity: .25;
+    }
+
+    100% {
+      opacity: 0;
+    }
   }
 }

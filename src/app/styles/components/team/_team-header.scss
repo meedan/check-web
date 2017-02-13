@@ -1,6 +1,6 @@
 .team-header {
   border-radius: 2px;
-  padding-left: 14px; // TODO: rationalize layout padding
+  padding-left: 14px;
   display: flex;
   height: 100%;
 }
@@ -8,11 +8,18 @@
 .team-header__clickable {
   height: 100%;
   width: 100%;
-
   display: flex;
   align-items: center;
-  &, &:hover { text-decoration: none; }
-  &, &:visited { color: inherit; }
+
+  &,
+  &:hover {
+    text-decoration: none;
+  }
+
+  &,
+  &:visited {
+    color: inherit;
+  }
 }
 
 .team-header__avatar {
@@ -23,8 +30,9 @@
 .team-header__copy {
   flex: 1;
   height: 100%;
-
   display: none;
+  position: relative;
+
   @media screen and (min-width: $layout-mobile-breakpoint) {
     display: flex;
     align-items: center;
@@ -33,8 +41,7 @@
 
 .team-header__name {
   @include team-name(14px);
-  margin: 3px 0 2px 0;
-
+  margin: 3px 0 2px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -46,10 +53,6 @@
   position: absolute;
   top: 100%;
   z-index: 2;
-}
-
-.team-header__copy {
-  position: relative;
 }
 
 .team-header__copy:hover .team-header__project-list,

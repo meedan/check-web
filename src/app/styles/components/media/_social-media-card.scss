@@ -21,8 +21,8 @@
 }
 
 .social-media-card__author-avatar {
-  margin-right: 14px;
   @include avatar(40px);
+  margin-right: 14px;
 }
 
 .social-media-card__header-text-primary {
@@ -30,10 +30,17 @@
   overflow: hidden;
   flex-direction: column;
   flex: 10;
+
   a {
     color: $firefly-80;
-    &:hover { color: $check-blue; }
-    &:active { color: $firefly; }
+
+    &:hover {
+      color: $check-blue;
+    }
+
+    &:active {
+      color: $firefly;
+    }
   }
 }
 
@@ -50,10 +57,14 @@
 
 .social-media-card__header-text-secondary {
   font-size: 14px;
-  &, & > a { color: $firefly-40; }
   margin-right: 20px;
   text-align: right;
   padding-left: 10px;
+
+  &,
+  & > a {
+    color: $firefly-40;
+  }
 }
 
 .social-media-card__body {
@@ -62,11 +73,11 @@
   justify-content: space-between;
   align-items: flex-start;
   font-size: 18px;
+  cursor: pointer;
   @media all and (max-width: $layout-mobile-breakpoint-small) {
     flex-wrap: wrap;
   }
 
-  cursor: pointer;
   &--condensed {
     cursor: auto;
   }
@@ -91,5 +102,6 @@
 
 .social-media-card__footer-stat {
   @include media-metadata;
+
   margin-right: 15px;
 }

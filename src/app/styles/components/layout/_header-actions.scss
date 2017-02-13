@@ -31,33 +31,39 @@
   z-index: 2;
   margin: 0;
   border: $layout-border;
-  border-top: none;
+  border-top: 0;
   border-radius: 2px;
-  position: absolute; right: 0;
+  position: absolute;
+  right: 0;
   min-width: 250px;
   top: 72px;
   display: none;
+  background: $home-bg;
+  padding: 2px;
+  text-align: left;
+
   &--active {
     display: block;
   }
-
-  background: $home-bg;
-  padding: 2px;
-
-  text-align: left;
 }
 
 .header-actions__menu-item {
-  // border-bottom: 1px solid darken($home-bg, 10%);
-  &:hover { background: darken($home-bg, 5%); }
   font-size: 15px;
   padding: 11px 15px;
   cursor: pointer;
+
+  &:hover {
+    background: darken($home-bg, 5%);
+  }
 }
 
 .header-actions__link {
   color: inherit;
-  &, &:hover { text-decoration: none; }
+
+  &,
+  &:hover {
+    text-decoration: none;
+  }
 
   &:nth-last-child(-n + 2) {
     color: $light-gray-text;
