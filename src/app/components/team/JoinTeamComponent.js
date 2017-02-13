@@ -1,12 +1,27 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay';
 import DocumentTitle from 'react-document-title';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import { Link } from 'react-router';
 import CreateTeamUserMutation from '../../relay/CreateTeamUserMutation';
 import Message from '../Message';
 import { pageTitle } from '../../helpers';
 import CheckContext from '../../CheckContext';
+
+const messages = defineMessages({
+  error: {
+    id: 'joinTeamComponent.error',
+    defaultMessage: 'Sorry, could not send your request'
+  },
+  success: {
+    id: 'joinTeamComponent.success',
+    defaultMessage: 'Thanks for your interest in joining {team} Check! A team leader will review your application soon.'
+  },
+  title: {
+    id: 'joinTeamComponent.title',
+    defaultMessage: 'Join Team'
+  }
+});
 
 class JoinTeamComponent extends Component {
   constructor(props) {
@@ -29,7 +44,7 @@ class JoinTeamComponent extends Component {
 
     const onFailure = (transaction) => {
       const error = transaction.getError();
-      let message = 'Sorry, could not send your request';
+      let message = this.props.intl.formatMessage(messages.error);
       try {
         const json = JSON.parse(error.source);
         if (json.error) {
@@ -40,7 +55,7 @@ class JoinTeamComponent extends Component {
     };
 
     const onSuccess = (response) => {
-      that.setState({ message: `Thanks for your interest in joining ${this.props.team.name} Check! A team leader will review your application soon.`, isRequestSent: true });
+      that.setState({ message: this.props.intl.formatMessage(joinTeamComponent.sucess,{team: this.props.team.name}), isRequestSent: true });
     };
 
     Relay.Store.commitUpdate(
@@ -90,7 +105,7 @@ class JoinTeamComponent extends Component {
 
     if (this.alreadyMember()) {
       return (
-        <DocumentTitle title={pageTitle('Join Team', false, team)}>
+        <DocumentTitle title={pageTitle(this.props.intl.formatMessage(messages.title), false, team)}>
           <div className="join-team">
             <p className="join-team__blurb-graf">
             <FormattedMessage id="joinTeamComponent.alreadyRequested"
@@ -103,7 +118,7 @@ class JoinTeamComponent extends Component {
     }
 
     return (
-      <DocumentTitle title={pageTitle('Join Team', false, team)}>
+      <DocumentTitle title={pageTitle(this.props.intl.formatMessage(messages.title), false, team)}>
         <div className="join-team">
           <Message message={this.state.message} />
           <h2 className="join-team__main-heading"><FormattedMessage id="joinTeamComponent.mainHeading" defaultMessage="Request to Join" /></h2>
@@ -131,8 +146,12 @@ class JoinTeamComponent extends Component {
   }
 }
 
+JoinTeamComponent.propTypes = {
+  intl: intlShape.isRequired
+};
+
 JoinTeamComponent.contextTypes = {
   store: React.PropTypes.object,
 };
 
-export default JoinTeamComponent;
+export default injectIntl(JoinTeamComponent);

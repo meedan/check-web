@@ -13,23 +13,23 @@ import CheckContext from '../../CheckContext';
 
 const messages = defineMessages({
   invalidCommand: {
-    id: 'addannotation.invalidCommand',
+    id: 'addAnnotation.invalidCommand',
     defaultMessage: 'Invalid command'
   },
   annotationAdded: {
-    id: 'addannotation.annotationAdded',
+    id: 'addAnnotation.annotationAdded',
     defaultMessage: 'Your {type} was added!'
   },
   createTagFailed: {
-    id: 'addannotation.createTagFailed',
+    id: 'addAnnotation.createTagFailed',
     defaultMessage: 'Sorry, could not create the tag'
   },
   inputHint: {
-    id: 'addannotation.inputHint',
+    id: 'addAnnotation.inputHint',
     defaultMessage: 'Add a note about this report'
   },
   submitButton: {
-    id: 'addannotation.submitButton',
+    id: 'addAnnotation.submitButton',
     defaultMessage: 'Submit'
   }
 });

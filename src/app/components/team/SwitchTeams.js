@@ -6,9 +6,16 @@ import UpdateUserMutation from '../../relay/UpdateUserMutation';
 import DeleteTeamUserMutation from '../../relay/DeleteTeamUserMutation';
 import CheckContext from '../../CheckContext';
 import FontAwesome from 'react-fontawesome';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import { Link } from 'react-router';
 import config from 'config';
+
+const messages = defineMessages({
+  switchTeamsError: {
+    id: 'switchTeams.error',
+    defaultMessage: 'Sorry, could not switch teams'
+  }
+});
 
 class SwitchTeamsComponent extends Component {
   membersCountString(count) {
@@ -35,7 +42,7 @@ class SwitchTeamsComponent extends Component {
 
     const onFailure = (transaction) => {
       const error = transaction.getError();
-      let message = 'Sorry, could not switch teams';
+      let message = this.props.intl.formatMessage(messages.switchTeamsError);
       try {
         const json = JSON.parse(error.source);
         if (json.error) {
@@ -155,11 +162,15 @@ class SwitchTeamsComponent extends Component {
   }
 }
 
+SwitchTeamsComponent.propTypes = {
+  intl: intlShape.isRequired
+};
+
 SwitchTeamsComponent.contextTypes = {
   store: React.PropTypes.object,
 };
 
-const SwitchTeamsContainer = Relay.createContainer(SwitchTeamsComponent, {
+const SwitchTeamsContainer = Relay.createContainer(injectIntl(SwitchTeamsComponent), {
   fragments: {
     me: () => userFragment,
   },

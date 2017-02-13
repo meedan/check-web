@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { defineMessages, injectIntl, intlShape } from 'react-intl';
 import Relay from 'react-relay';
 import { Link } from 'react-router';
 import Pusher from 'pusher-js';
@@ -6,6 +7,13 @@ import TeamRoute from '../../relay/TeamRoute';
 import teamFragment from '../../relay/teamFragment';
 import CheckContext from '../../CheckContext';
 import ProjectList from '../project/ProjectList';
+
+const messages = defineMessages({
+  back: {
+    id: 'teamHeader.back',
+    defaultMessage: 'Back to team'
+  }
+});
 
 class TeamHeaderComponent extends Component {
   getPusher() {
@@ -93,7 +101,7 @@ class TeamHeader extends Component {
         renderLoading={function() {
           return (
             <nav className="team-header team-header--loading">
-              <Link to={`/${teamSlug}`} className="team-header__clickable" title='Back to team'>
+              <Link to={`/${teamSlug}`} className="team-header__clickable" title={this.props.intl.formatMessage(messages.back)}>
                 <div className="team-header__avatar"></div>
               </Link>
             </nav>
@@ -104,4 +112,8 @@ class TeamHeader extends Component {
   }
 }
 
-export default TeamHeader;
+TeamHeader.propTypes = {
+  intl: intlShape.isRequired
+};
+
+export default injectIntl(TeamHeader);

@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 import DocumentTitle from 'react-document-title';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import numerous from 'numerous';
@@ -16,6 +16,17 @@ import ContentColumn from './layout/ContentColumn';
 import MediasLoading from './media/MediasLoading';
 
 const pageSize = 20;
+
+const messages = defineMessages({
+  title: {
+    id: 'search.title',
+    defaultMessage: 'Search'
+  },
+  loading: {
+    id: 'search.loading',
+    defaultMessage: 'Loading...'
+  }
+});
 
 class SearchQueryComponent extends Component {
   constructor(props) {
@@ -179,7 +190,7 @@ class SearchQueryComponent extends Component {
       }) : [],
       query.keyword,
       query.tags,
-    ].filter(Boolean)).join(' ').trim() || 'Search';
+    ].filter(Boolean)).join(' ').trim() || this.props.intl.formatMessage(messages.title);
   }
 
   render() {
@@ -247,11 +258,15 @@ class SearchQueryComponent extends Component {
   }
 }
 
+SearchQueryComponent.propTypes = {
+  intl: intlShape.isRequired
+};
+
 SearchQueryComponent.contextTypes = {
   store: React.PropTypes.object,
 };
 
-const SearchQueryContainer = Relay.createContainer(SearchQueryComponent, {
+const SearchQueryContainer = Relay.createContainer(injectIntl(SearchQueryComponent), {
   fragments: {
     team: () => Relay.QL`
       fragment on Team {
@@ -392,7 +407,7 @@ class Search extends Component {
               <ContentColumn>
                 <div className="search__query">
                   <div className="search__form search__form--loading">
-                    <input disabled placeholder="Loading..." name="search-input" id="search-input" className="search__input"/>
+                    <input disabled placeholder={this.props.intl.formatMessage(messages.loading)} name="search-input" id="search-input" className="search__input"/>
                   </div>
                 </div>
               </ContentColumn>
@@ -425,4 +440,8 @@ function queryFromUrlQuery(urlQuery) {
   }
 }
 
-export default Search;
+Search.propTypes = {
+  intl: intlShape.isRequired
+};
+
+export default injectIntl(Search);

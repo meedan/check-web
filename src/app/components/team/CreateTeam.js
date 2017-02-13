@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 import DocumentTitle from 'react-document-title';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import CreateTeamMutation from '../../relay/CreateTeamMutation';
 import base64 from 'base-64';
 import Message from '../Message';
@@ -11,6 +11,37 @@ import { pageTitle } from '../../helpers';
 import ContentColumn from '../layout/ContentColumn';
 import CheckContext from '../../CheckContext';
 import Heading from '../layout/Heading';
+
+const messages = defineMessages({
+  slugChecking: {
+      id: 'createTeam.slugChecking',
+      defaultMessage: 'Checking availability...'
+  },
+  slugAvailable: {
+      id: 'createTeam.slugAvailable',
+      defaultMessage: 'Available!'
+  },
+  slugUnavailable: {
+      id: 'createTeam.slugUnavailable',
+      defaultMessage: 'That URL is unavailable.'
+  },
+  createTeamError: {
+    id: 'createTeam.createTeamError',
+    defaultMessage: 'Sorry, could not create the team'
+  },
+  title: {
+    id: 'createTeam.title',
+    defaultMessage: 'Create a Team'
+  },
+  teamNameHint: {
+    id: 'createTeam.teamNameHint',
+    defaultMessage: 'Team Name'
+  },
+  teamSlugHint: {
+    id: 'createTeam.teamSlugHint',
+    defaultMessage: 'team-slug'
+  }
+});
 
 class CreateTeam extends Component {
   constructor(props) {
@@ -80,19 +111,19 @@ class CreateTeam extends Component {
     if (slugIsPending) {
       this.setState({
         slugClass: this.slugClass(),
-        slugMessage: 'Checking availability...',
+        slugMessage: this.props.intl.formatMessage(messages.slugChecking),
         buttonIsDisabled: true,
       });
     } else if (slugIsAvailable) {
       this.setState({
         slugClass: this.slugClass('--success'),
-        slugMessage: 'Available!',
+        slugMessage: this.props.intl.formatMessage(messages.slugAvailable),
         buttonIsDisabled: false,
       });
     } else if (slugIsUnavailable) {
       this.setState({
         slugClass: this.slugClass('--error'),
-        slugMessage: 'That URL is unavailable.',
+        slugMessage: this.props.intl.formatMessage(messages.slugUnavailable),
         buttonIsDisabled: true,
       });
     } else {
@@ -112,7 +143,7 @@ class CreateTeam extends Component {
 
     const onFailure = (transaction) => {
       const error = transaction.getError();
-      let message = 'Sorry, could not create the team';
+      let message = this.props.intl.formatMessage(messages.createTeamError);
       try {
         const json = JSON.parse(error.source);
         if (json.error) {
@@ -145,7 +176,7 @@ class CreateTeam extends Component {
 
   render() {
     return (
-      <DocumentTitle title={pageTitle('Create a Team', true)}>
+      <DocumentTitle title={pageTitle(this.props.intl.formatMessage(messages.title), true)}>
         <main className="create-team">
           <Message message={this.state.message} />
           <ContentColumn>
@@ -160,7 +191,7 @@ class CreateTeam extends Component {
                   className="create-team__team-display-name-input"
                   onChange={this.handleDisplayNameChange.bind(this)}
                   onBlur={this.handleDisplayNameBlur.bind(this)}
-                  placeholder="Team Name"
+                  placeholder={this.props.intl.formatMessage(messages.teamNameHint)}
                   autoComplete="off"
                   ref={input => this.teamNameInput = input}
                 />
@@ -175,7 +206,7 @@ class CreateTeam extends Component {
                     id="team-slug-container"
                     className="create-team__team-slug-input"
                     onChange={this.handleSlugChange.bind(this)}
-                    placeholder="team-slug"
+                    placeholder={this.props.intl.formatMessage(messages.teamSlugHint)}
                     autoComplete="off"
                   />
                   <label className={this.state.slugLabelClass}><FormattedMessage id="createTeam.url" defaultMessage="Team URL" /></label>
@@ -193,8 +224,12 @@ class CreateTeam extends Component {
   }
 }
 
+CreateTeam.propTypes = {
+  intl: intlShape.isRequired
+};
+
 CreateTeam.contextTypes = {
   store: React.PropTypes.object,
 };
 
-export default CreateTeam;
+export default injectIntl(CreateTeam);

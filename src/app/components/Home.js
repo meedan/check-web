@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import Relay from 'react-relay';
 import util from 'util';
 import Header from './Header';
@@ -14,6 +14,17 @@ import FontAwesome from 'react-fontawesome';
 import config from 'config';
 import BrowserSupport from './BrowserSupport';
 import CheckContext from '../CheckContext';
+
+const messages = defineMessages({
+  needRegister: {
+    id: 'home.needRegister',
+    defaultMessage: 'First you need to register. Once registered, you can request to join the team.'
+  },
+  somethingWrong: {
+    id: 'home.somethingWrong',
+    defaultMessage: 'Something went wrong – please refresh your browser or try again later.'
+  }
+});
 
 const muiTheme = getMuiTheme({
   palette: {
@@ -69,11 +80,11 @@ class Home extends Component {
         let message = this.state.message;
 
         if (!message && /^[^\/]+\/join$/.test(children.props.route.path)) {
-          message = 'First you need to register. Once registered, you can request to join the team.';
+          message = this.props.intl.formatMessage(messages.needRegister);
         }
 
         if (this.state.error && message && message.match(/\{ \[Error\: Request has been terminated/)) {
-          message = 'Something went wrong – please refresh your browser or try again later.';
+          message = this.props.intl.formatMessage(messages.somethingWrong);
         }
 
         return (<LoginMenu loginCallback={this.loginCallback.bind(this)} message={message} />);
@@ -105,8 +116,12 @@ class Home extends Component {
   }
 }
 
+Home.propTypes = {
+  intl: intlShape.isRequired
+};
+
 Home.contextTypes = {
   store: React.PropTypes.object,
 };
 
-export default Home;
+export default injectIntl(Home);

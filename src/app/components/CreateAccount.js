@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import Relay from 'react-relay';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
@@ -8,6 +8,21 @@ import CreateAccountMutation from '../relay/CreateAccountMutation';
 import Message from './Message';
 import CheckContext from '../CheckContext';
 import config from 'config';
+
+const messages = defineMessages({
+  createSourceError: {
+    id: 'createAccount.createSourceError',
+    defaultMessage: 'Sorry, could not create the source'
+  },
+  sourceUrlHint: {
+    id: 'createAccount.sourceUrlHint',
+    defaultMessage: 'Twitter, Facebook, YouTube...'
+  },
+  createButton: {
+    id: 'createAccount.createButton',
+    defaultMessage: 'Create'
+  }
+});
 
 class CreateAccount extends Component {
   constructor(props) {
@@ -27,7 +42,7 @@ class CreateAccount extends Component {
 
     const onFailure = (transaction) => {
       const error = transaction.getError();
-      let message = 'Sorry, could not create the source';
+      let message = this.props.intl.formatMessage(messages.createSourceError);
       try {
         const json = JSON.parse(error.source);
         if (json.error) {
@@ -70,8 +85,8 @@ class CreateAccount extends Component {
         <div id="account-url-container" className="create-account-col">
           <h4><FormattedMessage id="createAccount.createSource" defaultMessage="Create a source" /></h4>
           <h2><FormattedMessage id="createAccount.sourceUrl" defaultMessage="Source URL" /></h2>
-          <TextField hintText="Twitter, Facebook, YouTube..." fullWidth name="url" id="create-account-url" /><br />
-          <FlatButton id="create-account-submit" primary onClick={this.handleSubmit.bind(this)} label="Create" />
+          <TextField hintText={this.props.intl.formatMessage(messages.sourceUrlHint)} fullWidth name="url" id="create-account-url" /><br />
+          <FlatButton id="create-account-submit" primary onClick={this.handleSubmit.bind(this)} label={this.props.intl.formatMessage(createAccount.createButton)} />
         </div>
 
         <div id="account-preview" className="create-account-col">
@@ -88,8 +103,12 @@ class CreateAccount extends Component {
   }
 }
 
+CreateAccount.propTypes = {
+  intl: intlShape.isRequired
+};
+
 CreateAccount.contextTypes = {
   store: React.PropTypes.object,
 };
 
-export default CreateAccount;
+export default injectIntl(CreateAccount);
