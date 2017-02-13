@@ -15,10 +15,10 @@
   border: $layout-border;
   border-radius: 2px;
   @include box-shadow(1);
-  margin-bottom: 14px;
+  margin-bottom: 16px;
 }
 
-// Header and status
+// Row with the status and actions menu button
 //
 .media-detail__header {
   display: flex;
@@ -28,14 +28,13 @@
 
 .media-detail__status {
   display: inline-block;
-  margin-bottom: 4px;
 }
 
 // Optional title
 //
 .media-detail__title {
-  @include media-title(20px);
-  margin: 0 0 17px 1px;
+  @include header-title(24px);
+  margin: 2px 0 14px;
 }
 
 // Optional description

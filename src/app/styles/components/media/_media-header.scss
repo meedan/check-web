@@ -40,7 +40,7 @@
 }
 
 .media-header__title {
-  @include media-title;
+  @include header-title(16px);
   margin: 0 0 6px;
   white-space: nowrap;
   overflow: hidden;

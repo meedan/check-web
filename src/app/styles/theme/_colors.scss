@@ -14,12 +14,9 @@ $lightest-gray-text: theme-gray(75%);
 $medium-gray-bg: theme-gray(80%);
 $light-gray-bg: theme-gray(95%);
 $lighter-gray-bg: theme-gray(98.7%);
-
 $home-bg: $lighter-gray-bg;
 
-
-//- blues
-
+// Blues
 @function theme-blue($brightness) {
   @return hsl(208, 98%, $brightness); // TODO: consider switch to MUI blues
 }
@@ -242,3 +239,24 @@ $black-selectors: "&--not-applicable, &--important-inconclusive, &--inconclusive
     }
   }
 }
+
+
+// Material blacks
+// Useful when you want to blend with the background color.
+//
+$black-87: rgba(0, 0, 0, 0.87);
+$black-54: rgba(0, 0, 0, 0.54);
+$black-38: rgba(0, 0, 0, 0.38);
+$black-16: rgba(0, 0, 0, 0.16);
+$black-05: rgba(0, 0, 0, 0.05);
+$black-02: rgba(0, 0, 0, 0.02);
+
+// Material blacks, opaque
+// Useful when the partial opacity technique is not appropriate. 
+//
+$opaque-black-87: #212121;
+$opaque-black-54: #757575;
+$opaque-black-38: #9E9E9E;
+$opaque-black-16: #D6D6D6;
+$opaque-black-05: #F2F2F2;
+$opaque-black-02: #FAFAFA;
