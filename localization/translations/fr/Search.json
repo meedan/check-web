@@ -1,4 +1,6 @@
 {
+  "search.title": "Search",
+  "search.loading": "En chargement...",
   "search.filtersHeading": "Filtres",
   "search.statusHeading": "Statut",
   "search.projectHeading": "Projet",
@@ -7,6 +9,5 @@
   "search.sortByCreated": "Créé",
   "search.sortByRecentActivity": "Activité récente",
   "search.sortByNewest": "Les plus récents d'abord",
-  "search.sortByOldest": "Les plus anciens d'abord",
-  "search.loading": "En chargement..."
+  "search.sortByOldest": "Les plus anciens d'abord"
 }

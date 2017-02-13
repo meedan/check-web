@@ -1,4 +1,5 @@
 {
+  "switchTeams.error": "Sorry, could not switch teams",
   "switchTeams.joinRequestMessage": "You requested to join",
   "switchTeams.cancelJoinRequest": "Cancel",
   "switchTeams.bannedJoinRequest": "Cancelled",

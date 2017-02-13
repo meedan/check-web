@@ -1,5 +1,17 @@
 [
   {
+    "id": "createAccount.createSourceError",
+    "defaultMessage": "Sorry, could not create the source"
+  },
+  {
+    "id": "createAccount.sourceUrlHint",
+    "defaultMessage": "Twitter, Facebook, YouTube..."
+  },
+  {
+    "id": "createAccount.createButton",
+    "defaultMessage": "Create"
+  },
+  {
     "id": "createAccount.createSource",
     "defaultMessage": "Create a source"
   },

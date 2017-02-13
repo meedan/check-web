@@ -1,4 +1,6 @@
 {
+  "search.title": "Search",
+  "search.loading": "Loading...",
   "search.filtersHeading": "Filters",
   "search.statusHeading": "Status",
   "search.projectHeading": "Project",
@@ -7,6 +9,5 @@
   "search.sortByCreated": "Created",
   "search.sortByRecentActivity": "Recent activity",
   "search.sortByNewest": "Newest first",
-  "search.sortByOldest": "Oldest first",
-  "search.loading": "Loading..."
+  "search.sortByOldest": "Oldest first"
 }

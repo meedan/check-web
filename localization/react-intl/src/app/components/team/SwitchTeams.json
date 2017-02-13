@@ -1,5 +1,9 @@
 [
   {
+    "id": "switchTeams.error",
+    "defaultMessage": "Sorry, could not switch teams"
+  },
+  {
     "id": "switchTeams.joinRequestMessage",
     "defaultMessage": "You requested to join"
   },

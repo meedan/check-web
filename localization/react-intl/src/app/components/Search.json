@@ -1,5 +1,13 @@
 [
   {
+    "id": "search.title",
+    "defaultMessage": "Search"
+  },
+  {
+    "id": "search.loading",
+    "defaultMessage": "Loading..."
+  },
+  {
     "id": "search.filtersHeading",
     "defaultMessage": "Filters"
   },
@@ -34,9 +42,5 @@
   {
     "id": "search.sortByOldest",
     "defaultMessage": "Oldest first"
-  },
-  {
-    "id": "search.loading",
-    "defaultMessage": "Loading..."
   }
 ]

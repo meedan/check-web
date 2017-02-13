@@ -1,5 +1,17 @@
 [
   {
+    "id": "joinTeamComponent.error",
+    "defaultMessage": "Sorry, could not send your request"
+  },
+  {
+    "id": "joinTeamComponent.success",
+    "defaultMessage": "Thanks for your interest in joining {team} Check! A team leader will review your application soon."
+  },
+  {
+    "id": "joinTeamComponent.title",
+    "defaultMessage": "Join Team"
+  },
+  {
     "id": "joinTeamComponent.alreadyRequested",
     "defaultMessage": "You already requested to join {team} Check."
   },

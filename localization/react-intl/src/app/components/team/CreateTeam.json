@@ -1,5 +1,33 @@
 [
   {
+    "id": "createTeam.slugChecking",
+    "defaultMessage": "Checking availability..."
+  },
+  {
+    "id": "createTeam.slugAvailable",
+    "defaultMessage": "Available!"
+  },
+  {
+    "id": "createTeam.slugUnavailable",
+    "defaultMessage": "That URL is unavailable."
+  },
+  {
+    "id": "createTeam.createTeamError",
+    "defaultMessage": "Sorry, could not create the team"
+  },
+  {
+    "id": "createTeam.title",
+    "defaultMessage": "Create a Team"
+  },
+  {
+    "id": "createTeam.teamNameHint",
+    "defaultMessage": "Team Name"
+  },
+  {
+    "id": "createTeam.teamSlugHint",
+    "defaultMessage": "team-slug"
+  },
+  {
     "id": "createTeam.mainHeading",
     "defaultMessage": "Create a Team"
   },
