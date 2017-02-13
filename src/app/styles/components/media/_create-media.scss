@@ -11,7 +11,7 @@
     border: 1px solid #ccc;
     border-bottom: 0;
     width: 100%;
-  
+
     .remove-image {
       position: absolute;
       top: -2px;
@@ -21,13 +21,13 @@
       cursor: pointer;
     }
   }
-  
+
   .upload-file > div.with-file {
     width: 100% !important;
     border-top: 0 !important;
     border-style: solid !important;
   }
-  
+
   .upload-file > div {
     height: 48px !important;
     line-height: 48px !important;
@@ -40,20 +40,21 @@
 }
 
 .create-media__input {
-  // max-width: 85%; max-width: calc(99% - 70px); // TODO: restyle
-
-  & > :first-child { padding: 0 5px; }
+  & > :first-child {
+    padding: 0 5px;
+  }
 }
 
 .create-media__button--new {
-  display: none; // TODO: restyle
-  float: left;
-
   @include button-defaults;
-  background: #2962FF; //A700
+  display: none;
+  float: left;
+  background: #2962ff;
   color: #fff;
-  $size: 60px; height: $size; width: $size;
-  font-size: $size * 0.8;
+  $size: 60px;
+  height: $size;
+  width: $size;
+  font-size: $size * .8;
   font-weight: 200;
   border-radius: $size;
   margin-right: 10px;
@@ -75,7 +76,8 @@
   color: #ccc;
   font-size: 24px;
 
-  &.create-media__file, &:hover {
+  &.create-media__file,
+  &:hover {
     color: #2196f3;
   }
 }

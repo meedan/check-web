@@ -20,12 +20,11 @@
 }
 
 .annotation__header {
+  @include gray-text($annotation-font-size);
   display: flex;
   align-items: baseline;
   white-space: pre;
-
   margin-bottom: 1.5px;
-  @include gray-text($annotation-font-size);
 }
 
 .annotation__author-name {
@@ -74,7 +73,6 @@
 }
 
 // non-comments
-
 .annotation__status {
   @include app-kicker(11px);
   @include media-status-font-colors;
@@ -83,7 +81,7 @@
 }
 
 .annotation__tag {
-  &:before {
+  &::before {
     content: '#';
   }
 }

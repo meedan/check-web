@@ -7,13 +7,6 @@ $media-max-width: $layout-column-width-narrow;
   a {
     color: inherit;
   }
-  // TODO: merge with
-  // %metadata {
-  //   color: $firefly-60-5;
-  //   font-weight: 200;
-  //   padding: 5px 10px;
-  //   font-size: 14px;
-  // }
 }
 
 @mixin media-title($size: 19px) {

@@ -13,9 +13,10 @@
   font-weight: 100;
   margin-left: 50px;
   margin-bottom: 15px;
-  &:before {
+
+  &::before {
     color: $lightest-gray-text;
-    content: "\f10d";
+    content: '\f10d';
     display: inline-block;
     font-family: FontAwesome;
     font-size: 30px;
@@ -35,7 +36,6 @@
   font-weight: 200;
   font-size: 14px;
   max-width: 200px;
-
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

@@ -1,7 +1,8 @@
 .login-menu {
   text-align: center;
   position: relative;
-  padding: 45px 0 0 0;
+  padding: 45px 0 0;
+
   p {
     color: $firefly-60;
   }
@@ -35,37 +36,49 @@
   list-style-type: none;
   padding: 0;
   max-width: 245px;
-  margin: 0 auto 60px auto;
+  margin: 0 auto 60px;
 }
 
 .login-menu__button {
   @include button-medium;
   width: 100%;
-}
-
-.login-menu__button {
   transition: background-color 400ms ease;
-  &:hover { transition: background-color 80ms ease; }
+
+  &:hover {
+    transition: background-color 80ms ease;
+  }
 }
 
 .login-menu__button--twitter {
-  background-color: #0095FF;
-  &:hover { background-color: darken(saturate(#0095FF, 10%), 10%); }
+  background-color: #0095ff;
+
+  &:hover {
+    background-color: darken(saturate(#0095ff, 10%), 10%);
+  }
 }
 
 .login-menu__button--facebook {
-  background-color: #3B5999;
-  &:hover { background-color: darken(saturate(#3B5999, 10%), 10%); }
+  background-color: #3b5999;
+
+  &:hover {
+    background-color: darken(saturate(#3b5999, 10%), 10%);
+  }
 }
 
 .login-menu__button--google {
-  background-color: #DB4437;
-  &:hover { background-color: darken(saturate(#DB4437, 10%), 10%); }
+  background-color: #db4437;
+
+  &:hover {
+    background-color: darken(saturate(#db4437, 10%), 10%);
+  }
 }
 
 .login-menu__button--slack {
-  background-color: #2AB27B;
-  &:hover { background-color: darken(saturate(#2AB27B, 10%), 10%); }
+  background-color: #2ab27b;
+
+  &:hover {
+    background-color: darken(saturate(#2ab27b, 10%), 10%);
+  }
 }
 
 .login-menu__footer {
@@ -77,13 +90,16 @@
 }
 
 .login-email__link {
-  @include button-medium;
   @extend .login-menu__button;
-  color: white!important;
+  @include button-medium;
+  color: white !important;
   background-color: $firefly-40;
   text-align: center;
   text-decoration: none;
-  &:hover { background-color: $firefly-80; }
+
+  &:hover {
+    background-color: $firefly-80;
+  }
 }
 
 p.other-method {

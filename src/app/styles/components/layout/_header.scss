@@ -21,9 +21,11 @@
 }
 
 // media page
-
 .header--media {
-  .team-header__copy { display: none; } // TODO: do with JS or simpler selectors
+  .team-header__copy {
+    display: none;
+  }
+  // TODO: do with JS or simpler selectors
 }
 
 .header__team {

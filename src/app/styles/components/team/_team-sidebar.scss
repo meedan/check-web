@@ -1,25 +1,24 @@
 .team-sidebar {
+  @include hide-scrollbars;
   width: 100%;
   height: 100%;
   overflow-y: auto;
-  @include hide-scrollbars;
-  // background-color: #fff; // $layout-border;
-
   color: $lighter-gray-text;
   line-height: 1.45;
   display: flex;
   flex-direction: column;
-  & > * { flex-shrink: 0; }
+
+  & > * {
+    flex-shrink: 0;
+  }
 }
 
 // projects & sources
-
 .team-sidebar__projects-heading,
 .team-sidebar__sources-heading {
   @include app-kicker;
   margin: 0;
   padding: 30px 25px 9px 0;
-  // border-right: $layout-border;
 }
 
 .team-sidebar__projects-list,
@@ -38,14 +37,14 @@
 .team-sidebar__source,
 .team-sidebar__new-source {
   font-size: 15px;
-  padding: 0.4em 13px 0.4em 0;
+  padding: .4em 13px .4em 0;
 }
 
 .team-sidebar__project {
   &--current {
     color: $dark-gray-text;
     font-weight: 500;
-    border-right: none;
+    border-right: 0;
     border-top-left-radius: 3px;
     border-bottom-left-radius: 3px;
   }
@@ -53,28 +52,30 @@
 
 .team-sidebar__project-icon,
 .team-sidebar__new-source-icon {
-  opacity: 0.4;
+  opacity: .4;
   width: 17px;
   margin-right: 9px;
 }
 
 .team-sidebar__project-link {
-  &, &:visited { color: inherit; }
-}
-
-.team-sidebar__new-project {
-  // border-right: $layout-border;
+  &, 
+  &:visited {
+    color: inherit;
+  }
 }
 
 .team-sidebar__new-project-input {
   width: 145px;
-  border: none;
+  border: 0;
   padding: 0;
   background: transparent;
   color: $dark-gray-text;
   font-weight: 500;
 
-  &:focus { outline: none; }
+  &:focus {
+    outline: none;
+  }
+
   @include input-placeholder {
     color: $lighter-gray-text;
     font-weight: 400;
@@ -85,49 +86,28 @@
 .team-sidebar__sources-link,
 .team-sidebar__new-media-link,
 .team-sidebar__new-source-link {
-  &, &:visited {
+  &,
+  &:visited {
     color: inherit;
   }
+
   &:hover {
     color: $dark-gray-text;
   }
 }
 
-// .team-sidebar__projects-link:hover,
-// .team-sidebar__projects-link--active,
-// .team-sidebar__sources-link:hover,
-// .team-sidebar__sources-link--active,
-// .team-sidebar__new-source-link:hover,
-// .team-sidebar__new-source-link--active {
-//   color: hsl(204, 15%, 29%);
-// }
-
-.team-sidebar__new-source-link,
-.team-sidebar__sources-link,
-.team-sidebar__projects-list,
-.team-sidebar__sources-list {
-  // font-size: 14px;
-}
-
 // sources
-
-.team-sidebar__new-source {
-  // border-right: $layout-border;
-}
-
 .team-sidebar__source-icon {
-  $size: 20px; height: $size; width: $size;
+  $size: 20px;
+
+  height: $size;
+  width: $size;
 }
 
 // footer
-
 .team-sidebar__footer {
   flex: 1 0 auto;
-  // position: relative;
-  // border-right: $layout-border;
-  padding: 8px 0 16px 0;
-  // margin-top: 32px;
-
+  padding: 8px 0 16px;
   background: $home-bg;
   position: fixed;
   bottom: 0;
@@ -136,37 +116,37 @@
 
 .team-sidebar__switch-teams-button {
   @include unbutton;
+
   font-size: 14px;
   width: 100%;
   padding: 0 18px 0 0;
-  // position: absolute; bottom: 60px;
   color: inherit;
-  // transition: color 80ms ease;
-  // &:hover {
-  //   color: #fff;
-  // }
-
   text-align: left;
   padding-left: 25px;
 }
 
 .team-sidebar__switch-teams-icon {
   margin-right: 7px;
-  font-size: 0.95em;
+  font-size: .95em;
 }
 
 // switch teams modal
-
 .team-sidebar__switch-teams-overlay {
-  background-color: rgba(0, 0, 0, 0.75);
+  background-color: rgba(0, 0, 0, .75);
   position: fixed;
-  top: 0; right: 0; bottom: 0; left: 0;
-  width: 100vw; // required if ancestor has transform, e.g. active mobile sidebar. TODO: general solution for overlays
-  z-index: 10;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
 
+  // required if ancestor has transform, e.g. active mobile sidebar. 
+  // TODO: general solution for overlays
+  z-index: 10;
   opacity: 0;
   transition: opacity 200ms ease;
   pointer-events: none;
+
   &--active {
     pointer-events: auto;
     opacity: 1;
@@ -175,10 +155,11 @@
 
 .team-sidebar__switch-teams-modal {
   position: absolute;
-  bottom: 0; left: 0;
+  bottom: 0;
+  left: 0;
   width: 400px;
   max-height: 100%;
-  padding: 15px 15px 30px 15px;
+  padding: 15px 15px 30px;
   background-color: #fff;
   color: $dark-gray-text;
   overflow: auto;
@@ -186,8 +167,10 @@
 
 .team-sidebar__switch-teams-close {
   @include close-button;
-  position: absolute; top: 11px; right: 24px;
-  opacity: 0.8;
+  position: absolute;
+  top: 11px;
+  right: 24px;
+  opacity: .8;
 }
 
 .team-sidebar__switch-teams-title {
@@ -199,5 +182,5 @@
 
 .team-sidebar__switch-teams-title-icon {
   margin-right: 7px;
-  font-size: 0.95em;
+  font-size: .95em;
 }

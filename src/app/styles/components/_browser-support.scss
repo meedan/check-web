@@ -21,7 +21,8 @@ $browser-support-height-mobile: 65px;
 }
 
 .browser-support ~ .home {
-  &, & > .header {
+  &,
+  & > .header {
     top: $browser-support-height;
     @media screen and (max-width: 500px) {
       top: $browser-support-height-mobile;
@@ -45,6 +46,6 @@ $browser-support-height-mobile: 65px;
 
   font-weight: 200;
   font-size: 28px;
-  opacity: 0.2;
+  opacity: .2;
   cursor: pointer;
 }

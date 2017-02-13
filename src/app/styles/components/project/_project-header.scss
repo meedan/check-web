@@ -8,30 +8,47 @@
   justify-content: center;
   height: 100%;
   margin: 0 auto;
-  width: 195px; // ellipsis truncation requires explicit width
-  @media screen and (min-width: 400px) { width: 200px };
-  @media screen and (min-width: 500px) { width: 300px };
-  @media screen and (min-width: 600px) { width: 400px };
-  @media screen and (min-width: 700px) { width: 500px };
-  @media screen and (min-width: 800px) { width: 600px };
-  @media screen and (min-width: 900px) { width: 700px };
+  width: 195px;
+
+  // ellipsis truncation requires explicit width
+  @media screen and (min-width: 400px) {
+    width: 200px;
+  }
+
+  @media screen and (min-width: 500px) {
+    width: 300px;
+  }
+
+  @media screen and (min-width: 600px) {
+    width: 400px;
+  }
+
+  @media screen and (min-width: 700px) {
+    width: 500px;
+  }
+
+  @media screen and (min-width: 800px) {
+    width: 600px;
+  }
+
+  @media screen and (min-width: 900px) {
+    width: 700px;
+  }
 
   text-align: center;
 }
 
 .project-header__title {
   @include header-title;
-
-  margin: 0 0 6px 0;
-
+  margin: 0 0 6px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .project-header__description {
-  width: 100%;
   @include gray-text;
+  width: 100%;
   position: relative;
   z-index: 1;
 

@@ -12,16 +12,22 @@
 
 .sources__source {
   padding: 5px;
-  margin-bottom: 10px; 
-  &:hover { background-color: $light-gray-bg; }
+  margin-bottom: 10px;
   border-radius: 2px;
+
+  &:hover {
+    background-color: $light-gray-bg;
+  }
 }
 
 .sources__source-link {
   display: flex;
   align-items: center;
-  &, &:hover, &:visited { 
-    color: $dark-gray-text; 
+
+  &,
+  &:hover,
+  &:visited {
+    color: $dark-gray-text;
     text-decoration: none;
   }
 }
