@@ -1,0 +1,14 @@
+// Media mixins
+//
+@mixin media-metadata {
+  @include gray-text;
+  margin-bottom: 2px;
+
+  a {
+    color: inherit;
+  }
+}
+
+@mixin media-title($size: 19px) {
+  @include header-title($size);
+}

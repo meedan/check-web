@@ -1,13 +1,15 @@
-.media__contents {
-  margin: 15px auto;
-  max-width: $media-max-width;
-}
-
-.media__notes-heading {
-  text-align: center;
-  font-size: 18px;
-  font-family: $font-stack-sans-condensed;
-  color: $light-gray-text;
-  font-weight: 400;
-  margin: 65px 0 25px;
-}
+@import 'mixins';
+@import 'create-media';
+@import 'media-actions';
+@import 'media-checklist';
+@import 'media-detail';
+@import 'media-header';
+@import 'media-inspector';
+@import 'media-metadata-summary';
+@import 'media-status';
+@import 'media-tags';
+@import 'medias-loading';
+@import 'pender-card';
+@import 'media-card-quote';
+@import 'media-card-social';
+@import 'media-card-image-uploaded';

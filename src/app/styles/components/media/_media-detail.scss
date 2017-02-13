@@ -1,3 +1,14 @@
+// An outer wrapper only on the report page 
+// 
+.media__contents {
+  margin: 15px auto;
+  max-width: $layout-column-width-narrow;
+}
+
+// Wrapper around all reports (globally)
+// TODO: This should be renamed to avoid misleading use of "detail"
+// Since it does not only apply to the detail view. — CGB 
+// 
 .media-detail {
   @include media-status-background-and-border-colors;
   padding: 8px 14px 14px;
@@ -7,6 +18,8 @@
   margin-bottom: 14px;
 }
 
+// Header and status
+//
 .media-detail__header {
   display: flex;
   justify-content: space-between;
@@ -18,12 +31,32 @@
   margin-bottom: 4px;
 }
 
+// Optional title
+//
+.media-detail__title {
+  @include media-title(20px);
+  margin: 0 0 17px 1px;
+}
+
+// Optional description
+//
+.media-detail__description {
+  margin-top: 9px;
+  max-width: 42em;
+  line-height: 1.35;
+  color: theme-gray(45%);
+}
+
+// The "inner card"
+// This contains the "original upstream" media
+//
 .media-detail__media {
   border-radius: 2px;
   position: relative;
 }
 
-// check
+// Check metadata
+//
 .media-detail__check-metadata {
   @include media-metadata;
   margin-top: 11px;
@@ -37,11 +70,8 @@
   margin-right: 15px;
 }
 
-.media-detail__title {
-  @include media-title(20px);
-  margin: 0 0 17px 1px;
-}
-
+// Edit mode
+//
 .media-detail__title-input {
   padding: 3px 5px;
   border: 1px solid #e1e6ea;
@@ -54,13 +84,6 @@
   max-width: 500px;
 }
 
-.media-detail__description {
-  margin-top: 9px;
-  max-width: 42em;
-  line-height: 1.35;
-  color: theme-gray(45%);
-}
-
 .media-detail__editing-buttons {
   margin-bottom: 8px;
 }
@@ -69,6 +92,13 @@
   margin-right: 8px;
 }
 
-.image-media-card img {
-  width: 100%;
+// The headline that says "Verification timeline"
+//
+.media__notes-heading {
+  text-align: center;
+  font-size: 18px;
+  font-family: $font-stack-sans-condensed;
+  color: $light-gray-text;
+  font-weight: 400;
+  margin: 65px 0 25px;
 }
