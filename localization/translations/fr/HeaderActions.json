@@ -1,7 +1,7 @@
 {
-  "headerActions.contactHuman": "Contact a Human",
-  "headerActions.signOut": "Sign Out",
-  "headerActions.tos": "Terms of Service",
-  "headerActions.privacyPolicy": "Privacy Policy",
-  "headerActions.aboutCheck": "About Check"
+  "headerActions.contactHuman": "Contactez un humain",
+  "headerActions.signOut": "Déconnexion",
+  "headerActions.tos": "Conditions d'utilisation",
+  "headerActions.privacyPolicy": "Politique de confidentialité",
+  "headerActions.aboutCheck": "À propos de \"Check\""
 }

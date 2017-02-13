@@ -1,5 +1,13 @@
 [
   {
+    "id": "annotation.error",
+    "defaultMessage": "Could not delete annotation"
+  },
+  {
+    "id": "annotation.deleteButton",
+    "defaultMessage": "Delete"
+  },
+  {
     "id": "annotation.statusSetHeader",
     "defaultMessage": "Status set to {status} by {author}"
   },

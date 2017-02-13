@@ -1,5 +1,9 @@
 [
   {
+    "id": "teamMembersComponent.title",
+    "defaultMessage": "Team Members"
+  },
+  {
     "id": "teamMembersComponent.editDoneButton",
     "defaultMessage": "Done"
   },

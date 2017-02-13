@@ -1,9 +1,9 @@
 {
   "joinTeamComponent.alreadyRequested": "You already requested to join {team} Check.",
-  "joinTeamComponent.mainHeading": "Request to Join",
-  "joinTeamComponent.blurbGraf": "To request access to the {link} Check, click below:",
-  "joinTeamComponent.buttonSubmitted": "Request Sent",
-  "joinTeamComponent.buttonSubmit": "Request to Join",
+  "joinTeamComponent.mainHeading": "Demandez à rejoindre",
+  "joinTeamComponent.blurbGraf": "Pour demander l'accès à {link} Check, cliquez ci-dessous:",
+  "joinTeamComponent.buttonSubmitted": "Demande envoyée",
+  "joinTeamComponent.buttonSubmit": "Demandez à rejoindre",
   "joinTeamComponent.requestHasBeenSent": "Your request has been sent to the project admins for approval.",
-  "joinTeamComponent.requestWillBeSent": "Your request will be sent to the project admins for approval."
+  "joinTeamComponent.requestWillBeSent": "Votre demande sera envoyée aux administrateurs du projet pour leur accord."
 }

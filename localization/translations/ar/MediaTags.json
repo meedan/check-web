@@ -1,4 +1,5 @@
 {
   "mediaTags.loading": "Loading...",
+  "mediaTags.error": "Sorry – we had trouble adding that tag.",
   "mediaTags.heading": "Tags"
 }

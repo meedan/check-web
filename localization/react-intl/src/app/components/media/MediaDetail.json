@@ -1,5 +1,9 @@
 [
   {
+    "id": "mediaDetail.mediaTitle",
+    "defaultMessage": "Title"
+  },
+  {
     "id": "mediaDetail.byUser",
     "defaultMessage": "by {username}"
   },

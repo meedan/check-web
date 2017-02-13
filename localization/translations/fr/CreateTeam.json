@@ -1,7 +1,7 @@
 {
-  "createTeam.mainHeading": "Create a Team",
-  "createTeam.blurb": "Create a team for your organization, or just for yourself:",
-  "createTeam.displayName": "Team Name",
+  "createTeam.mainHeading": "Créer une équipe",
+  "createTeam.blurb": "Créez une équipe pour votre organisation ou simplement pour vous-même:",
+  "createTeam.displayName": "Nom de l'équipe",
   "createTeam.url": "Team URL",
-  "createTeam.submitButton": "Create"
+  "createTeam.submitButton": "créer"
 }

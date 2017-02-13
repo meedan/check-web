@@ -1,7 +1,7 @@
 {
-  "createMedia.submitting": "Submitting...",
+  "createMedia.submitting": "En chargement...",
   "createMedia.error": "Something went wrong! Try pasting the text of this post instead, or adding a different link.",
-  "createMedia.mediaInput": "Paste a link, type to add a quote or click on the icon to upload an image",
+  "createMedia.mediaInput": "Copiez-collez un lien, tapez une citation ou cliquez sur la vignette de l'image pour télécharger une image",
   "createMedia.uploadImage": "Upload an image",
   "createMedia.submitButton": "Post"
 }

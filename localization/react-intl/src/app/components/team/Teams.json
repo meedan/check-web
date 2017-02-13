@@ -1,5 +1,9 @@
 [
   {
+    "id": "teams.title",
+    "defaultMessage": "Teams"
+  },
+  {
     "id": "teams.yourTeams",
     "defaultMessage": "Your Teams"
   }

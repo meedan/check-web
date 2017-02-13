@@ -1,7 +1,7 @@
 {
-  "mediaChecklist.heading": "Verification checklist",
-  "mediaChecklist.instructions": "Here are some common steps in collaborative media verification. Complete as many tasks as you can so we have a complete, transparent record of our investigation.",
-  "mediaChecklist.headingWho": "Who",
+  "mediaChecklist.heading": "Liste de contrôle",
+  "mediaChecklist.instructions": "Voici quelques étapes communes pour la vérification collaborative. Complétez autant de tâches que vous le pouvez afin que nous ayons un dossier complet et transparent de notre enquête.",
+  "mediaChecklist.headingWho": "Qui",
   "mediaChecklist.messageWho": "Who’s the contact? Indicate information like <em>@username</em> and <em>Email</em> or <em>Phone</em>",
   "mediaChecklist.headingWhat": "What",
   "mediaChecklist.messageWhat": "What’s the issue? Clearly explain which facts are in question.",
