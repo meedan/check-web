@@ -1,12 +1,12 @@
 {
-  "search.filtersHeading": "Filters",
-  "search.statusHeading": "Status",
-  "search.projectHeading": "Project",
+  "search.filtersHeading": "Filtres",
+  "search.statusHeading": "Statut",
+  "search.projectHeading": "Projet",
   "status.categoriesHeading": "Categories",
-  "search.sort": "Sort",
-  "search.sortByCreated": "Created",
-  "search.sortByRecentActivity": "Recent activity",
-  "search.sortByNewest": "Newest first",
-  "search.sortByOldest": "Oldest first",
-  "search.loading": "Loading..."
+  "search.sort": "Trier",
+  "search.sortByCreated": "Créé",
+  "search.sortByRecentActivity": "Activité récente",
+  "search.sortByNewest": "Les plus récents d'abord",
+  "search.sortByOldest": "Les plus anciens d'abord",
+  "search.loading": "En chargement..."
 }

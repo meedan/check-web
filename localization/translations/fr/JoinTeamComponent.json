@@ -4,6 +4,6 @@
   "joinTeamComponent.blurbGraf": "Pour demander l'accès à {link} Check, cliquez ci-dessous:",
   "joinTeamComponent.buttonSubmitted": "Demande envoyée",
   "joinTeamComponent.buttonSubmit": "Demandez à rejoindre",
-  "joinTeamComponent.requestHasBeenSent": "Your request has been sent to the project admins for approval.",
+  "joinTeamComponent.requestHasBeenSent": "Nous avons envoyé votre demande aux administrateurs du projet pour leur accord.",
   "joinTeamComponent.requestWillBeSent": "Votre demande sera envoyée aux administrateurs du projet pour leur accord."
 }

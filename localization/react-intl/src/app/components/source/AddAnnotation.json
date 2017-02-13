@@ -1,0 +1,22 @@
+[
+  {
+    "id": "addannotation.invalidCommand",
+    "defaultMessage": "Invalid command"
+  },
+  {
+    "id": "addannotation.annotationAdded",
+    "defaultMessage": "Your {type} was added!"
+  },
+  {
+    "id": "addannotation.createTagFailed",
+    "defaultMessage": "Sorry, could not create the tag"
+  },
+  {
+    "id": "addannotation.inputHint",
+    "defaultMessage": "Add a note about this report"
+  },
+  {
+    "id": "addannotation.submitButton",
+    "defaultMessage": "Submit"
+  }
+]

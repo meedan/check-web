@@ -1,0 +1,7 @@
+{
+  "addannotation.invalidCommand": "Invalid command",
+  "addannotation.annotationAdded": "Your {type} was added!",
+  "addannotation.createTagFailed": "Sorry, could not create the tag",
+  "addannotation.inputHint": "Add a note about this report",
+  "addannotation.submitButton": "Submit"
+}
