@@ -146,6 +146,18 @@ class Annotation extends Component {
         </section>
         );
       break;
+    case 'embed':
+      contentTemplate = (
+        <section className="annotation__content">
+          <div className="annotation__header">
+            <span>Title changed to {content.title} by </span>
+            <span className="annotation__author-name">{annotation.annotator.name}</span>
+            {updatedAt ? <span className="annotation__timestamp"><TimeAgo date={updatedAt} live={false} /></span> : null}
+            {annotationActions}
+          </div>
+        </section>
+        );
+      break;
     }
 
     return (

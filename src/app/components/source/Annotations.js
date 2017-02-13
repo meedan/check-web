@@ -6,7 +6,7 @@ import Can, { can } from '../Can';
 class Annotations extends Component {
   render() {
     const props = this.props;
-    const annotations = props.annotations.filter(annotation => ['comment', 'status', 'tag', 'flag'].includes(annotation.node.annotation_type));
+    const annotations = props.annotations.filter(annotation => ['comment', 'status', 'tag', 'flag', 'embed'].includes(annotation.node.annotation_type));
 
     return (
       <div>
