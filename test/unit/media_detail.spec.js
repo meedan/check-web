@@ -1,4 +1,5 @@
 import React from 'react';
+import { IntlProvider } from 'react-intl';
 import { render, shallow } from 'enzyme';
 import { expect } from 'chai';
 
@@ -17,7 +18,7 @@ describe('<MediaDetail />', () => {
   };
 
   it('renders', function() {
-    const mediaDetail = render(<MediaDetail media={media} />);
+    const mediaDetail = render(<IntlProvider locale="en"><MediaDetail media={media} /></IntlProvider>);
     expect(mediaDetail.find('.media-detail')).to.have.length(1);
   });
 
