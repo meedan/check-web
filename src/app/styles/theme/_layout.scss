@@ -36,24 +36,3 @@
     opacity: 1;
   }
 }
-
-// Layout theme variables
-// TODO these should be conslidated with other variables I think. CGB 2017-2-12
-//
-$layout-border-color: theme-gray(90%);
-$layout-border: 1px solid $layout-border-color;
-$layout-border-light: 1px solid theme-gray(90%);
-$layout-box-shadow: 0 3px 0 transparentize(theme-gray(20%), .99);
-$layout-header-height: 72px;
-$layout-padding: 16px;
-$layout-sidebar-width: 245px;
-
-// Columns and breakpoint variables
-//
-$layout-column-width-narrow: 900px;
-$layout-column-width-wide: 1200px + 30px;
-$layout-mobile-breakpoint-smallest: 320px;
-$layout-mobile-breakpoint-small: 450px;
-$layout-mobile-breakpoint: 680px;
-$layout-tablet-breakpoint: $layout-column-width-narrow;
-$layout-widescreen-breakpoint: $layout-column-width-wide;

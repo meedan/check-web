@@ -4,7 +4,7 @@
   padding: 10px;
   font-size: 14px;
   text-align: center;
-  box-shadow: $layout-box-shadow;
+  @include box-shadow(1);
   position: relative;
 
   #close-message {

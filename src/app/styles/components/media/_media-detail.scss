@@ -11,10 +11,10 @@
 // 
 .media-detail {
   @include media-status-background-and-border-colors;
-  padding: 8px 14px 14px;
+  padding: 12px 24px 16px;
   border: $layout-border;
   border-radius: 2px;
-  box-shadow: $layout-box-shadow;
+  @include box-shadow(1);
   margin-bottom: 14px;
 }
 
