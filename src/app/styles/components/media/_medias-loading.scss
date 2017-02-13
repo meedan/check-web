@@ -10,9 +10,8 @@
   flex: 3;
 }
 
-$loader-grid-unit: 16px;
-
 .medias-loading__media {
+  $loader-grid-unit: 16px;
   background: #fff;
   border: 1px solid theme-gray(93%);
   border-radius: 3px;
