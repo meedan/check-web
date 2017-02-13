@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import FontAwesome from 'react-fontawesome';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import Select from 'react-select';
 import DocumentTitle from 'react-document-title';
 import 'react-select/dist/react-select.css';
@@ -9,6 +9,13 @@ import TeamMembershipRequests from './TeamMembershipRequests';
 import TeamMembersCell from './TeamMembersCell';
 import config from 'config';
 import { pageTitle } from '../../helpers';
+
+const messages = defineMessages({
+  title: {
+    id: 'teamMembersComponent.title',
+    defaultMessage: 'Team Members'
+  }
+});
 
 class TeamMembersComponent extends Component {
   constructor(props) {
@@ -45,7 +52,7 @@ class TeamMembersComponent extends Component {
     const joinUrl = `${teamUrl}/join`;
 
     return (
-      <DocumentTitle title={pageTitle('Team Members', false, team)}>
+      <DocumentTitle title={pageTitle(this.props.intl.formatMessage(messages.title), false, team)}>
         <div className="team-members">
           <button onClick={this.handleEditMembers.bind(this)} className="team-members__edit-button">
             <FontAwesome className="team-members__edit-icon" name="pencil" />
@@ -76,4 +83,8 @@ class TeamMembersComponent extends Component {
   }
 }
 
-export default TeamMembersComponent;
+TeamMembersComponent.propTypes = {
+  intl: intlShape.isRequired
+};
+
+export default injectIntl(TeamMembersComponent);

@@ -10,6 +10,10 @@ const messages = defineMessages({
   loading: {
     id: 'mediaTags.loading',
     defaultMessage: 'Loading...'
+  },
+  error: {
+    id: 'mediaTags.error',
+    defaultMessage: 'Sorry – we had trouble adding that tag.'
   }
 });
 
@@ -47,7 +51,7 @@ class MediaTags extends Component {
 
     const onFailure = (transaction) => {
       const error = transaction.getError();
-      let message = 'Sorry – we had trouble adding that tag.';
+      let message = this.props.intl.formatMessage(messages.error);
       try {
         const json = JSON.parse(error.source);
         if (json.error) {

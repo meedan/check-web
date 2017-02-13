@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import Relay from 'react-relay';
 import TimeAgo from 'react-timeago';
 import { Link } from 'react-router';
@@ -16,6 +16,13 @@ import PenderCard from '../PenderCard';
 import ImageMediaCard from './ImageMediaCard';
 import UpdateMediaMutation from '../../relay/UpdateMediaMutation';
 import CheckContext from '../../CheckContext';
+
+const messages = defineMessages({
+  mediaTitle: {
+    id: 'mediaDetail.mediaTitle',
+    defaultMessage: 'Title'
+  }
+});
 
 class MediaDetail extends Component {
   constructor(props) {
@@ -119,7 +126,7 @@ class MediaDetail extends Component {
         </div>
 
         {this.state.isEditing ?
-          <form onSubmit={this.handleSave.bind(this, media)}><input type="text" id={`media-detail-title-input-${media.dbid}`} className="media-detail__title-input" placeholder="Title" defaultValue={MediaUtil.truncatedTitle(media, data)} /></form> :
+          <form onSubmit={this.handleSave.bind(this, media)}><input type="text" id={`media-detail-title-input-${media.dbid}`} className="media-detail__title-input" placeholder={this.props.intl.formatMessage(messages.mediaTitle)} defaultValue={MediaUtil.truncatedTitle(media, data)} /></form> :
           <h2 className="media-detail__title"><Link to={mediaUrl}>{this.props.condensed ? MediaUtil.truncatedTitle(media, data) : MediaUtil.title(media, data)}</Link></h2>
         }
 
@@ -141,8 +148,12 @@ class MediaDetail extends Component {
   }
 }
 
+MediaDetail.propTypes = {
+  intl: intlShape.isRequired
+};
+
 MediaDetail.contextTypes = {
   store: React.PropTypes.object,
 };
 
-export default MediaDetail;
+export default injectIntl(MediaDetail);

@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import Relay from 'react-relay';
 import TimeAgo from 'react-timeago';
 import Linkify from 'react-linkify';
@@ -10,11 +10,22 @@ import DeleteStatusMutation from '../../relay/DeleteStatusMutation';
 import DeleteVersionMutation from '../../relay/DeleteVersionMutation';
 import Can from '../Can';
 
+const messages = defineMessages({
+  error: {
+    id: 'annotation.error',
+    defaultMessage: 'Could not delete annotation'
+  },
+  deleteButton: {
+    id: 'annotation.deleteButton',
+    defaultMessage: 'Delete'
+  }
+});
+
 class Annotation extends Component {
   handleDelete(id) {
     const onFailure = (transaction) => {
       const error = transaction.getError();
-      let message = 'Could not delete annotation';
+      let message = this.props.intl.formatMessage(messages.error);
       try {
         const json = JSON.parse(error.source);
         if (json.error) {
@@ -80,7 +91,7 @@ class Annotation extends Component {
     const annotationActions = (
       <div className="annotation__actions">
         <Can permissions={annotation.permissions} permission={`destroy ${permissionType}`}>
-          <button className="annotation__delete" onClick={this.handleDelete.bind(this, annotation.id)} title="Delete">×</button>
+          <button className="annotation__delete" onClick={this.handleDelete.bind(this, annotation.id)} title={this.props.intl.formatMessage(messages.deleteButton)}>×</button>
         </Can>
       </div>
     );
@@ -161,4 +172,8 @@ class Annotation extends Component {
   }
 }
 
-export default Annotation;
+Annotation.propTypes = {
+  intl: intlShape.isRequired
+};
+
+export default injectIntl(Annotation);

@@ -1,15 +1,22 @@
 import React, { Component, PropTypes } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import SwitchTeams from './SwitchTeams.js';
 import DocumentTitle from 'react-document-title';
 import { pageTitle } from '../../helpers';
 import ContentColumn from '../layout/ContentColumn';
 import Heading from '../layout/Heading';
 
+const messages = defineMessages({
+  title: {
+    id: 'teams.title',
+    defaultMessage: 'Teams'
+  }
+});
+
 class Teams extends Component {
   render() {
     return (
-      <DocumentTitle title={pageTitle('Teams', true)}>
+      <DocumentTitle title={pageTitle(this.props.intl.formatMessage(messages.title), true)}>
         <section className="teams">
           <ContentColumn>
             <Heading><FormattedMessage id="teams.yourTeams" defaultMessage="Your Teams" /></Heading>
@@ -21,4 +28,8 @@ class Teams extends Component {
   }
 }
 
-export default Teams;
+Teams.propTypes = {
+  intl: intlShape.isRequired
+};
+
+export default injectIntl(Teams);

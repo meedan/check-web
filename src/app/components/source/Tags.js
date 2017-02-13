@@ -1,10 +1,18 @@
 import React, { Component, PropTypes } from 'react';
+import { defineMessages, injectIntl, intlShape } from 'react-intl';
 import Relay from 'react-relay';
 import { WithContext as ReactTags } from 'react-tag-input';
 import Message from '../Message';
 import CreateTagMutation from '../../relay/CreateTagMutation';
 import DeleteTagMutation from '../../relay/DeleteTagMutation';
 import CheckContext from '../../CheckContext';
+
+const messages = defineMessages({
+  error: {
+    id: 'tags.error',
+    defaultMessage: 'Sorry, could not create the tag'
+  }
+});
 
 class Tags extends Component {
   constructor(props) {
@@ -33,7 +41,7 @@ class Tags extends Component {
 
     const onFailure = function (transaction) {
       const error = transaction.getError();
-      let message = 'Sorry, could not create the tag';
+      let message = this.props.intl.formatMessage(tags.error);
 
       try {
         const json = JSON.parse(error.source);
@@ -84,6 +92,10 @@ class Tags extends Component {
   }
 }
 
+Tags.propTypes = {
+  intl: intlShape.isRequired
+};
+
 Tags.contextTypes = {
   store: React.PropTypes.object,
 };
@@ -94,4 +106,4 @@ class TagsRemove extends React.Component {
   }
 }
 
-export default Tags;
+export default injectIntl(Tags);
