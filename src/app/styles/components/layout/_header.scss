@@ -3,7 +3,7 @@
   height: $layout-header-height;
   background: #fff;
   border-bottom: $layout-border;
-  box-shadow: $layout-box-shadow;
+  @include box-shadow(1);
 }
 
 .header__container {
