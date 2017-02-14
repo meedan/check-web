@@ -5,7 +5,6 @@ import Linkify from 'react-linkify';
 import nl2br from 'react-nl2br';
 import MediaDetail from '../media/MediaDetail';
 import DeleteAnnotationMutation from '../../relay/DeleteAnnotationMutation';
-import DeleteStatusMutation from '../../relay/DeleteStatusMutation';
 import DeleteVersionMutation from '../../relay/DeleteVersionMutation';
 import Can from '../Can';
 
@@ -26,30 +25,21 @@ class Annotation extends Component {
     const onSuccess = (response) => {
     };
 
-    // Either to destroy status or annotations
+    // Either to destroy versions or annotations
     const destroy_attr = {
       parent_type: this.props.annotatedType.replace(/([a-z])([A-Z])/, '$1_$2').toLowerCase(),
       annotated: this.props.annotated,
       id,
     };
-    if (this.props.annotation.annotation_type === 'status') {
-      // Destroy version or status
-      if (this.props.annotation.version === null) {
-        destroy_attr.id = this.props.annotated.last_status_obj.id;
-        Relay.Store.commitUpdate(
-          new DeleteStatusMutation(destroy_attr),
-          { onSuccess, onFailure },
-        );
-      } else {
-        destroy_attr.id = this.props.annotation.version.id;
-        Relay.Store.commitUpdate(
-          new DeleteVersionMutation(destroy_attr),
-          { onSuccess, onFailure },
-        );
-      }
-    } else {
+    if (this.props.annotation.version === null) {
       Relay.Store.commitUpdate(
         new DeleteAnnotationMutation(destroy_attr),
+        { onSuccess, onFailure },
+      );
+    } else {
+      destroy_attr.id = this.props.annotation.version.id;
+      Relay.Store.commitUpdate(
+        new DeleteVersionMutation(destroy_attr),
         { onSuccess, onFailure },
       );
     }
@@ -150,7 +140,7 @@ class Annotation extends Component {
       contentTemplate = (
         <section className="annotation__content">
           <div className="annotation__header">
-            <span>Title changed to {content.title} by </span>
+            <span>Title changed to <b>{content.title}</b> by </span>
             <span className="annotation__author-name">{annotation.annotator.name}</span>
             {updatedAt ? <span className="annotation__timestamp"><TimeAgo date={updatedAt} live={false} /></span> : null}
             {annotationActions}
