@@ -12,7 +12,7 @@
 .media-detail {
   @include media-status-background-and-border-colors;
   @include box-shadow(1);
-  padding: 12px 24px 0;
+  padding: 12px 0 0 24px;
   border-left: 4px solid;
   border-radius: 2px;
   margin-bottom: 24px;
@@ -35,7 +35,7 @@
 //
 .media-detail__title {
   @include header-title(24px);
-  margin: 2px 0 14px;
+  margin: 2px 24px 14px 0;
 }
 
 // Optional description
@@ -64,6 +64,7 @@
   align-items: center;
   border-top: 1px solid $black-05;
   margin-top: 24px;
+  font-size: 12px;
 }
 
 .media-detail__check-added-at,
