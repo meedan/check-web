@@ -1,9 +1,9 @@
 @charset "utf-8";
 
 @import "font-awesome/font-awesome";
-@import "variables";
 @import "mixins";
 @import 'theme/colors';
+@import "variables";
 @import 'theme/typography';
 @import 'theme/buttons';
 @import 'theme/defaults';
@@ -12,7 +12,6 @@
 @import 'theme/images';
 @import 'theme/lists';
 @import 'theme/animation';
-@import 'components/annotation';
 @import 'components/browser-support';
 @import 'components/caret';
 @import 'components/close-button';
@@ -27,6 +26,7 @@
 @import 'components/login-menu';
 @import 'components/login-email';
 @import 'components/media/media';
+@import 'components/annotation/annotation';
 @import 'components/message';
 @import 'components/search/search';
 @import 'components/sources';

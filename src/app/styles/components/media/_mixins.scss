@@ -8,3 +8,101 @@
     color: inherit;
   }
 }
+
+
+// Font colors of media status labels
+// 
+@mixin media-status-font-colors {
+
+  #{$blue-selectors} {
+    color: $media-status-blue;
+  }
+
+  #{$orange-selectors} {
+    color: $media-status-orange;
+  }
+
+  #{$green-selectors} {
+    color: $media-status-green;
+  }
+
+  #{$red-selectors} {
+    color: $media-status-red;
+  }
+
+  #{$gray-selectors} {
+    color: $media-status-gray;
+  }
+
+  #{$black-selectors} {
+    color: $media-status-black;
+  }
+}
+
+// Borders and backgrounds of media items
+//
+@mixin media-status-background-and-border-colors {
+  #{$blue-selectors} {
+    border-color: $media-status-blue;
+  }
+
+  #{$orange-selectors} {
+    border-color: $media-status-orange;
+  }
+
+  #{$green-selectors} {
+    border-color: $media-status-green;
+  }
+
+  #{$red-selectors} {
+    border-color: $media-status-red;
+  }
+
+  #{$gray-selectors} {
+    border-color: $media-status-gray;
+  }
+
+  #{$black-selectors} {
+    border-color: $media-status-black;
+  }
+}
+
+// Backgrounds in the status menu
+//
+@mixin media-status-menu-hover-colors {
+  #{$blue-selectors} {
+    &:hover {
+      background: $media-status-blue-hover-bg;
+    }
+  }
+
+  #{$orange-selectors} {
+    &:hover {
+      background: $media-status-orange-hover-bg;
+    }
+  }
+
+  #{$green-selectors} {
+    &:hover {
+      background: $media-status-green-hover-bg;
+    }
+  }
+
+  #{$red-selectors} {
+    &:hover {
+      background: $media-status-red-hover-bg;
+    }
+  }
+
+  #{$gray-selectors} {
+    &:hover {
+      background: $media-status-grey-hover-bg;
+    }
+  }
+
+  #{$black-selectors} {
+    &:hover {
+      background: $media-status-black-hover-bg;
+    }
+  }
+}
