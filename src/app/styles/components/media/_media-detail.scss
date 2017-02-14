@@ -59,7 +59,6 @@
 //
 .media-detail__check-metadata {
   @include media-metadata;
-  height: 48px;
   display: flex;
   align-items: center;
   border-top: 1px solid $black-05;
@@ -71,6 +70,13 @@
 .media-detail__check-added-by,
 .media-detail__check-notes-count {
   margin-right: 16px;
+  min-width: 50px;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  span {
+    padding-left: 3px;
+  }
 }
 
 // Edit mode
@@ -88,12 +94,11 @@
 }
 
 .media-detail__editing-buttons {
-  margin-bottom: 8px;
-  margin-left: auto;
-}
-
-.media-detail__cancel-edits {
-  margin-right: 8px;
+  margin: 8px 8px 8px auto;
+  span {
+    display: block;
+    margin: 8px 4px;
+  }
 }
 
 // The headline that says "Verification timeline"

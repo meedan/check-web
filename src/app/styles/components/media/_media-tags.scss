@@ -1,6 +1,5 @@
 .media-tags {
   @include media-metadata;
-  margin: 4px 0 0;
 
   &:empty {
     display: none;
@@ -43,7 +42,7 @@
   margin-right: 15px;
   padding: 3px 16px;
   border: 0;
-  margin: 0 10px 0 0;
+  margin: 4px 10px 4px 0;
   font-size: 12px;
   font-weight: 400;
   color: $black-54;
@@ -52,10 +51,10 @@
   min-width: 52px;
 }
 
+// Tags list in both modes
 .media-tags__list,
 .media-tags .tags-list {
-  margin: 4px 0 16px ;
-  display: inline-block;
+  // TBD
 }
 
 .media-tags .tags-list input {
@@ -63,7 +62,7 @@
   padding: 3px 5px;
   border: 1px solid $black-16;
   border-radius: 4px;
-  margin: 0 0 5px ;
+  margin: 4px 10px 5px;
   font-size: 12px;
   font-weight: 400;
 }

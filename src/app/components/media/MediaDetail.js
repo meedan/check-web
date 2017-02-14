@@ -113,6 +113,7 @@ class MediaDetail extends Component {
         </div>
 
         <div className="media-detail__check-metadata">
+          {media.tags ? <MediaTags media={media} tags={media.tags.edges} isEditing={this.state.isEditing} /> : null}
           {byUser ? <span className="media-detail__check-added-by">Added {byUser} </span> : null}
           {createdAt ? <span className="media-detail__check-added-at">
             <Link className="media-detail__check-timestamp" to={mediaUrl}><TimeAgo date={createdAt} live={false} /></Link>
@@ -129,8 +130,6 @@ class MediaDetail extends Component {
           <MediaActions media={media} handleEdit={this.handleEdit.bind(this)} />
             }
         </div>
-
-        {media.tags ? <MediaTags media={media} tags={media.tags.edges} isEditing={this.state.isEditing} /> : null}
       </div>
     );
   }
