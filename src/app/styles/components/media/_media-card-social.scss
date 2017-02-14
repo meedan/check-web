@@ -1,5 +1,6 @@
 .social-media-card {
   color: $black-87;
+  display: flex;
 }
 
 .social-media-card__header {
@@ -16,7 +17,6 @@
   display: flex;
   overflow: hidden;
   flex-direction: column;
-  flex: 10;
 
   a {
     color: $black-87;
@@ -84,6 +84,7 @@
 .social-media-card__footer {
   padding-left: 0;
   padding-right: 20px;
+  margin-top: 12px;
 }
 
 .social-media-card__footer-stat {
