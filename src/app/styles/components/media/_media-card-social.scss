@@ -1,23 +1,11 @@
 .social-media-card {
-  background-color: #fff;
-  border: $layout-border;
-  border-color: $firefly-60-2;
-  border-radius: 4px;
   padding: 10px;
-  min-height: none;
-  color: $medium-gray-text;
+  color: $black-87;
 }
 
 .social-media-card__header {
   display: flex;
   align-items: flex-start;
-}
-
-.social-media-card__network-icon {
-  width: 24px;
-  font-size: 24px;
-  margin-right: 10px;
-  color: theme-gray(60%);
 }
 
 .social-media-card__author-avatar {
@@ -68,7 +56,7 @@
 }
 
 .social-media-card__body {
-  margin: 18px 20px 18px 36px;
+  margin: 18px 20px 18px 0;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
