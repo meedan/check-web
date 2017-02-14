@@ -147,7 +147,6 @@ $gray-selectors: "&--not-applicable_2, &--not-applicable-2, &--marked-for-deleti
 $black-selectors: "&--not-applicable, &--important-inconclusive, &--inconclusive";
 
 // Material blacks
-// Useful when you want to blend with the background color.
 //
 $black-87: rgba(0, 0, 0, .87);
 $black-54: rgba(0, 0, 0, .54);
@@ -157,7 +156,6 @@ $black-05: rgba(0, 0, 0, .05);
 $black-02: rgba(0, 0, 0, .02);
 
 // Material blacks, opaque
-// Useful when the partial opacity technique is not appropriate. 
 //
 $opaque-black-87: #212121;
 $opaque-black-54: #757575;
@@ -166,4 +164,4 @@ $opaque-black-16: #d6d6d6;
 $opaque-black-05: #f2f2f2;
 $opaque-black-02: #fafafa;
 
-$home-bg: $black-02;
+$home-bg: $opaque-black-02;
