@@ -63,6 +63,6 @@ $font-stack-serif: "Merriweather", Georgia, serif;
 }
 
 @mixin gray-text($size: 14px) {
-  color: $light-gray-text;
+  color: $black-54;
   font-size: $size;
 }

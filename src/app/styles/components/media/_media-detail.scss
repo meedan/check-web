@@ -11,10 +11,10 @@
 // 
 .media-detail {
   @include media-status-background-and-border-colors;
-  padding: 12px 24px 16px;
+  @include box-shadow(1);
+  padding: 12px 24px 0;
   border-left: 4px solid;
   border-radius: 2px;
-  @include box-shadow(1);
   margin-bottom: 16px;
 }
 
@@ -58,15 +58,16 @@
 //
 .media-detail__check-metadata {
   @include media-metadata;
-  margin-top: 11px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  border-top: 1px solid $black-05;
 }
 
-.media-detail__check-added-at {
-  margin-right: 15px;
-}
-
+.media-detail__check-added-at,
+.media-detail__check-added-by,
 .media-detail__check-notes-count {
-  margin-right: 15px;
+  margin-right: 16px;
 }
 
 // Edit mode
@@ -85,6 +86,7 @@
 
 .media-detail__editing-buttons {
   margin-bottom: 8px;
+  margin-left: auto;
 }
 
 .media-detail__cancel-edits {

@@ -1,18 +1,3 @@
-$media-max-width: $layout-column-width-narrow;
-
-@mixin media-metadata {
-  @include gray-text;
-  margin-bottom: 2px;
-
-  a {
-    color: inherit;
-  }
-}
-
-@mixin media-title($size: 19px) {
-  @include header-title($size);
-}
-
 @import 'media/create-media';
 @import 'media/media';
 @import 'media/media-actions';

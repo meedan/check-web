@@ -1,7 +1,10 @@
+
+// This is in the header of the detail page
+//
 .media-metadata-summary {
   @include media-metadata;
 }
 
 .media-metadata-summary__datum:not(:last-child) {
-  margin-right: 15px;
+  margin-right: 16px;
 }

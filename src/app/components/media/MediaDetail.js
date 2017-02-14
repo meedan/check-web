@@ -109,6 +109,23 @@ class MediaDetail extends Component {
       <div className={this.statusToClass('media-detail', media.last_status)}>
         <div className="media-detail__header">
           <div className="media-detail__status"><MediaStatus media={media} readonly={this.props.readonly} /></div>
+        </div>
+
+        {this.state.isEditing ?
+          <form onSubmit={this.handleSave.bind(this, media)}><input type="text" id={`media-detail-title-input-${media.dbid}`} className="media-detail__title-input" placeholder={this.props.intl.formatMessage(messages.mediaTitle)} defaultValue={MediaUtil.truncatedTitle(media, data)} /></form> :
+          <h2 className="media-detail__title"><Link to={mediaUrl}>{this.props.condensed ? MediaUtil.truncatedTitle(media, data) : MediaUtil.title(media, data)}</Link></h2>
+        }
+
+        <div className={this.statusToClass('media-detail__media', media.last_status)}>
+          {embedCard}
+        </div>
+
+        <div className="media-detail__check-metadata">
+          {byUser ? <span className="media-detail__check-added-by"><FormattedMessage id="mediaDetail.added" defaultMessage={`Added {byUser}`} values={{byUser: byUser}} /> </span> : null}
+          {createdAt ? <span className="media-detail__check-added-at">
+            <Link className="media-detail__check-timestamp" to={mediaUrl}><TimeBefore date={createdAt} /></Link>
+          </span> : null}
+          <Link to={mediaUrl} className="media-detail__check-notes-count">{annotationsCount}</Link>
           {this.state.isEditing ? (
             <span className="media-detail__editing-buttons">
               <DefaultButton onClick={this.handleCancel.bind(this)} className="media-detail__cancel-edits" size="xsmall">
@@ -124,23 +141,6 @@ class MediaDetail extends Component {
           <MediaActions media={media} handleEdit={this.handleEdit.bind(this)} />
             }
         </div>
-
-        {this.state.isEditing ?
-          <form onSubmit={this.handleSave.bind(this, media)}><input type="text" id={`media-detail-title-input-${media.dbid}`} className="media-detail__title-input" placeholder={this.props.intl.formatMessage(messages.mediaTitle)} defaultValue={MediaUtil.truncatedTitle(media, data)} /></form> :
-          <h2 className="media-detail__title"><Link to={mediaUrl}>{this.props.condensed ? MediaUtil.truncatedTitle(media, data) : MediaUtil.title(media, data)}</Link></h2>
-        }
-
-        <div className={this.statusToClass('media-detail__media', media.last_status)}>
-          {embedCard}
-        </div>
-
-        <p className="media-detail__check-metadata">
-          {byUser ? <span className="media-detail__check-added-by"><FormattedMessage id="mediaDetail.added" defaultMessage={`Added {byUser}`} values={{byUser: byUser}} /> </span> : null}
-          {createdAt ? <span className="media-detail__check-added-at">
-            <Link className="media-detail__check-timestamp" to={mediaUrl}><TimeBefore date={createdAt} /></Link>
-          </span> : null}
-          <Link to={mediaUrl} className="media-detail__check-notes-count">{annotationsCount}</Link>
-        </p>
 
         {media.tags ? <MediaTags media={media} tags={media.tags.edges} isEditing={this.state.isEditing} /> : null}
       </div>
