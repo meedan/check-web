@@ -1,5 +1,12 @@
 .create-media {
-  margin-bottom: 15px;
+  padding-top: 32px;
+  padding-bottom: 12px;
+  margin: 32px auto 24px;
+  background-color: $white;
+  @include box-shadow(1);
+  border-radius: 4px;
+  max-width: $layout-column-width-narrow;
+  width: 100%;
 
   .preview {
     background-position: center center;
@@ -71,10 +78,10 @@
 #create-media__switcher {
   position: absolute;
   right: 24px;
-  top: 8px;
+  top: 12px;
   cursor: pointer;
   color: #ccc;
-  font-size: 24px;
+  font-size: 20px;
 
   &.create-media__file,
   &:hover {
