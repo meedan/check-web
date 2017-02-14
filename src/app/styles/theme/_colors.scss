@@ -25,7 +25,6 @@ $lightest-gray-text: theme-gray(75%);
 $medium-gray-bg: theme-gray(80%);
 $light-gray-bg: theme-gray(95%);
 $lighter-gray-bg: theme-gray(98.7%);
-$home-bg: $lighter-gray-bg;
 
 // Blues
 @function theme-blue($brightness) {
@@ -166,3 +165,5 @@ $opaque-black-38: #9e9e9e;
 $opaque-black-16: #d6d6d6;
 $opaque-black-05: #f2f2f2;
 $opaque-black-02: #fafafa;
+
+$home-bg: $black-02;
