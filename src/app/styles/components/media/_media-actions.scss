@@ -1,15 +1,11 @@
 .media-actions {
   position: relative;
-  align-self: center;
   text-align: right;
+  margin-left: auto;
 }
 
 .media-actions__icon {
-  color: $light-gray-text;
-  font-size: 20px;
-  padding-left: 15px;
-  position: relative;
-  cursor: pointer;
+  @extend %icon;
 }
 
 .media-actions__overlay {

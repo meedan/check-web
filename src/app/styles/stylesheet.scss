@@ -1,9 +1,10 @@
 @charset "utf-8";
 
 @import "font-awesome/font-awesome";
-@import "mixins";
 @import 'theme/colors';
 @import "variables";
+@import "mixins";
+@import "placeholders";
 @import 'theme/typography';
 @import 'theme/buttons';
 @import 'theme/defaults';
