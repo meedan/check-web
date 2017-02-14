@@ -18,5 +18,21 @@
   {
     "id": "addAnnotation.submitButton",
     "defaultMessage": "Submit"
+  },
+  {
+    "id": "addAnnotation.typeComment",
+    "defaultMessage": "comment"
+  },
+  {
+    "id": "addAnnotation.typeTag",
+    "defaultMessage": "tag"
+  },
+  {
+    "id": "addAnnotation.typeStatus",
+    "defaultMessage": "status"
+  },
+  {
+    "id": "addAnnotation.typeFlag",
+    "defaultMessage": "flag"
   }
 ]

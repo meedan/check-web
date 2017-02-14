@@ -31,7 +31,23 @@ const messages = defineMessages({
   submitButton: {
     id: 'addAnnotation.submitButton',
     defaultMessage: 'Submit'
-  }
+  },
+  typeComment: {
+    id: 'addAnnotation.typeComment',
+    defaultMessage: 'comment'
+  },
+  typeTag: {
+    id: 'addAnnotation.typeTag',
+    defaultMessage: 'tag'
+  },
+  typeStatus: {
+    id: 'addAnnotation.typeStatus',
+    defaultMessage: 'status'
+  },
+  typeFlag: {
+    id: 'addAnnotation.typeFlag',
+    defaultMessage: 'flag'
+  },
 });
 
 const styles = {
@@ -93,7 +109,7 @@ class AddAnnotation extends Component {
   addComment(that, annotated, annotated_id, annotated_type, comment) {
     const onFailure = (transaction) => { that.fail(transaction); };
 
-    const onSuccess = (response) => { that.success('comment'); };
+    const onSuccess = (response) => { that.success(this.props.intl.formatMessage(messages.typeComment)); };
 
     const annotator = that.getContext().currentUser;
 
@@ -118,7 +134,7 @@ class AddAnnotation extends Component {
 
     const onFailure = (transaction) => { that.fail(transaction); };
 
-    const onSuccess = (response) => { that.success('tag'); };
+    const onSuccess = (response) => { that.success(this.props.intl.formatMessage(messages.typeTag)); };
 
     const annotator = that.getContext().currentUser;
 
@@ -145,7 +161,7 @@ class AddAnnotation extends Component {
   addStatus(that, annotated, annotated_id, annotated_type, status) {
     const onFailure = (transaction) => { that.fail(transaction); };
 
-    const onSuccess = (response) => { that.success('status'); };
+    const onSuccess = (response) => { that.success(this.props.intl.formatMessage(messages.typeStatus)); };
 
     const annotator = that.getContext().currentUser;
 
@@ -183,7 +199,7 @@ class AddAnnotation extends Component {
   addFlag(that, annotated, annotated_id, annotated_type, flag) {
     const onFailure = (transaction) => { that.fail(transaction); };
 
-    const onSuccess = (response) => { that.success('flag'); };
+    const onSuccess = (response) => { that.success(this.props.intl.formatMessage(messages.typeFlag)); };
 
     const annotator = that.getContext().currentUser;
 

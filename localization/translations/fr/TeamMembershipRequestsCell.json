@@ -1,4 +1,4 @@
 {
-  "teamMembershipRequestsCell.approve": "Approve",
-  "teamMembershipRequestsCell.deny": "Ignore"
+  "teamMembershipRequestsCell.approve": "Approuver",
+  "teamMembershipRequestsCell.deny": "Ignorer"
 }
