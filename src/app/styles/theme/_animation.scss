@@ -19,7 +19,7 @@
 // Fade in things
 @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
 
-li {
+.medias_list li {
   opacity:0;  /* start hidden */
   animation:fadeIn ease-in 1;
   animation-fill-mode:forwards;
