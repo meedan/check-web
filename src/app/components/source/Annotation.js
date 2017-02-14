@@ -4,6 +4,7 @@ import TimeAgo from 'react-timeago';
 import Linkify from 'react-linkify';
 import nl2br from 'react-nl2br';
 import MediaDetail from '../media/MediaDetail';
+import DynamicAnnotation from '../annotations/DynamicAnnotation';
 import DeleteAnnotationMutation from '../../relay/DeleteAnnotationMutation';
 import DeleteStatusMutation from '../../relay/DeleteStatusMutation';
 import DeleteVersionMutation from '../../relay/DeleteVersionMutation';
@@ -75,8 +76,8 @@ class Annotation extends Component {
 
   render() {
     const annotation = this.props.annotation;
-    const permissionType = `${annotation.annotation_type.charAt(0).toUpperCase()}${annotation.annotation_type.slice(1)}`;
-    const annotationActions = (
+    let permissionType = `${annotation.annotation_type.charAt(0).toUpperCase()}${annotation.annotation_type.slice(1)}`;
+    let annotationActions = (
       <div className="annotation__actions">
         <Can permissions={annotation.permissions} permission={`destroy ${permissionType}`}>
           <button className="annotation__delete" onClick={this.handleDelete.bind(this, annotation.id)} title="Delete">×</button>
@@ -142,6 +143,27 @@ class Annotation extends Component {
             <span className="annotation__author-name">{annotation.annotator.name}</span>
             {updatedAt ? <span className="annotation__timestamp"><TimeAgo date={updatedAt} live={false} /></span> : null}
             {annotationActions}
+          </div>
+        </section>
+        );
+      break;
+    default:
+      annotationActions = (
+        <div className="annotation__actions">
+          <Can permissions={annotation.permissions} permission="destroy Dynamic">
+            <button className="annotation__delete" onClick={this.handleDelete.bind(this, annotation.id)} title="Delete">×</button>
+          </Can>
+        </div>
+      );
+      contentTemplate = (
+        <section className="annotation__content">
+          <div className="annotation__header">
+            <h4 className="annotation__author-name">{annotation.annotator.name}</h4>
+            {updatedAt ? <span className="annotation__timestamp"><TimeAgo date={updatedAt} live={false} /></span> : null}
+            {annotationActions}
+          </div>
+          <div className="annotation__body">
+            <DynamicAnnotation annotation={annotation} />
           </div>
         </section>
         );

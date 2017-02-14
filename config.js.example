@@ -9,5 +9,6 @@ window.config = {
   pusherKey: '',
   pusherDebug: true,
   locale: 'en',
-  googleAnalyticsCode: 'UA-00000000-1' // Optional
+  googleAnalyticsCode: 'UA-00000000-1', // Optional
+  googleStaticMapsKey: '' // Optional
 }
