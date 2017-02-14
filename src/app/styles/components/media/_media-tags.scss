@@ -1,6 +1,6 @@
 .media-tags {
   @include media-metadata;
-  margin: 5px 0 0;
+  margin: 4px 0 0;
 
   &:empty {
     display: none;
@@ -8,19 +8,22 @@
 }
 
 .media-tags__header {
-  display: flex;
-  align-items: baseline;
-  margin: 21px 0 7px;
+  // display: flex;
+  // align-items: baseline;
+  // margin: 21px 0 7px;
+  //
+  // TODO remove in markup 
+  display: none;
 }
 
 .media-tags__heading {
   @include app-kicker;
-  margin: 4px 15px 1px 0;
-  color: theme-gray(27%);
+  margin: 4px 16px 1px 0;
+  color: $black-54;
 }
 
 .media-tags__message {
-  color: theme-gray(67%);
+  color: $black-54;
   font-size: 13px;
   margin: 0;
 }
@@ -34,20 +37,19 @@
   @include chicklet;
 }
 
-.media-tags__list {
-  margin: 5px 0 0;
-  display: inline-block;
-}
-
 .media-tags__tag,
 .media-tags .tags-list .ReactTags__tag {
   display: inline-block;
   margin-right: 15px;
-  padding: 3px 0;
+  padding: 3px 16px;
   border: 0;
   margin: 0 10px 0 0;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 400;
+  color: $black-54;
+  background-color: $black-05;
+  border-radius: 24px;
+  min-width: 52px;
 
   &::before {
     content: '#';
@@ -55,17 +57,18 @@
   }
 }
 
+.media-tags__list,
 .media-tags .tags-list {
-  margin: 5px 0 0 ;
+  margin: 4px 0 16px ;
   display: inline-block;
 }
 
 .media-tags .tags-list input {
-  color: #879cab;
+  color: $black-38;
   padding: 3px 5px;
-  border: 1px solid #e1e6ea;
+  border: 1px solid $black-16;
   border-radius: 4px;
   margin: 0 0 5px ;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 400;
 }
