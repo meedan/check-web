@@ -1,5 +1,4 @@
 .social-media-card {
-  padding: 10px;
   color: $black-87;
 }
 
@@ -10,7 +9,7 @@
 
 .social-media-card__author-avatar {
   @include avatar(40px);
-  margin-right: 14px;
+  margin-right: 8px;
 }
 
 .social-media-card__header-text-primary {
@@ -20,7 +19,7 @@
   flex: 10;
 
   a {
-    color: $firefly-80;
+    color: $black-87;
 
     &:hover {
       color: $check-blue;
@@ -33,9 +32,8 @@
 }
 
 .social-media-card__name {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
-  color: $firefly-80;
 }
 
 .social-media-card__username {
@@ -51,7 +49,7 @@
 
   &,
   & > a {
-    color: $firefly-40;
+    color: $black-54;
   }
 }
 
@@ -60,7 +58,7 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  font-size: 18px;
+  font-size: 14px;
   cursor: pointer;
   @media all and (max-width: $layout-mobile-breakpoint-small) {
     flex-wrap: wrap;
@@ -90,5 +88,5 @@
 
 .social-media-card__footer-stat {
   @include media-metadata;
-  margin-right: 15px;
+  margin-right: 16px;
 }
