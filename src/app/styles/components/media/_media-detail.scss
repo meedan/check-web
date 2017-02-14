@@ -12,7 +12,7 @@
 .media-detail {
   @include media-status-background-and-border-colors;
   padding: 12px 24px 16px;
-  border: $layout-border;
+  border-left: 4px solid;
   border-radius: 2px;
   @include box-shadow(1);
   margin-bottom: 16px;

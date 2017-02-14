@@ -1,21 +1,6 @@
-// Colors
-$black: #000;
-$white: #fff;
-$lightestgrey: #eee;
-$lightergrey: #8b939a;
-$lightgrey: #fbfaf9;
-$midgrey: #d7d7d7;
-$darkgrey: #3e4c57;
-$darkergrey: #444;
-$cream: #ffd;
-$grey: #283743;
-$blue: #034fda;
-$mustard: #ffd980;
-
 // Layout theme variables
-// TODO these should be conslidated with other variables I think. CGB 2017-2-12
 //
-$layout-border-color: theme-gray(90%);
+$layout-border-color: $black-05;
 $layout-border: 1px solid $layout-border-color;
 $layout-border-light: 1px solid theme-gray(90%);
 $layout-header-height: 72px;
