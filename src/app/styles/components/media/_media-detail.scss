@@ -17,6 +17,7 @@
   border-radius: 2px;
   margin-bottom: 24px;
   background-color: $white;
+  overflow-x: hidden;
 }
 
 // Row with the status and actions menu button
@@ -36,6 +37,9 @@
 .media-detail__title {
   @include header-title(24px);
   margin: 2px 24px 14px 0;
+  @media all and (max-width: 500px) {
+    font-size: 16px;
+  }
 }
 
 // Optional description
@@ -64,6 +68,7 @@
   border-top: 1px solid $black-05;
   margin-top: 24px;
   font-size: 12px;
+  flex-flow: wrap row;
 }
 
 .media-detail__check-added-at,
@@ -74,6 +79,7 @@
   min-height: 48px;
   display: flex;
   align-items: center;
+  flex-shrink: 0;
   span {
     padding-left: 3px;
   }
