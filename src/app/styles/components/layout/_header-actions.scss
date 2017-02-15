@@ -6,17 +6,16 @@
   display: flex;
   align-items: center;
   text-align: right;
+  font-size: 40px;
 }
 
 .header-actions__search-icon {
-  color: $light-gray-text;
-  font-size: 21px;
+  color: $black-54;
   padding-right: 16px;
 }
 
 .header-actions__menu-toggle {
-  color: $light-gray-text;
-  font-size: 21px;
+  color: $black-54;
   padding-right: 16px;
   position: relative;
   z-index: 1;
