@@ -108,3 +108,9 @@
   letter-spacing: .03em;
   margin: 15px 12px;
 }
+
+.switch-teams__team-actions {
+  svg {
+    @extend %icon;
+  }
+}

@@ -10,7 +10,12 @@
 
   &,
   &:visited {
-    color: $light-gray-text;
+    color: $black-54;
+  }
+
+  svg {
+    @extend %icon;
+    margin-left: 16px;
   }
 }
 
