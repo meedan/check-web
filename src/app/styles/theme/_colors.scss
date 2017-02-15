@@ -70,7 +70,6 @@ $monza-red: #d0021b;
 $porcelain-grey: #fafbfb;
 $regent-grey: #8799a6;
 $thatch: #b89892;
-$hawkes-blue: #e4eefc;
 $seashell-peach: #fff6f0;
 $hint-green: #e5ffef;
 $pippin-red: #ffe5e5;
@@ -80,24 +79,6 @@ $firefly-60-1: rgba($firefly-60, .1);
 $firefly-60-2: rgba($firefly-60, .2);
 $firefly-60-5: rgba($firefly-60, .5);
 $firefly-60-8: rgba($firefly-60, .8);
-
-// Media status colors (font and border color)
-//
-$media-status-blue: $blue-500;
-$media-status-orange: $orange-500;
-$media-status-green: $green-500;
-$media-status-red: $red-500;
-$media-status-gray: $firefly-40;
-$media-status-black: $firefly-90;
-
-// Media status background colors
-//
-$media-status-blue-bg: $hawkes-blue;
-$media-status-orange-bg: $seashell-peach;
-$media-status-green-bg: $hint-green;
-$media-status-red-bg: $pippin-red;
-$media-status-gray-bg: $gray-100;
-$media-status-black-bg: $gray-300;
 
 // Media status menu hover background colors
 //
@@ -165,3 +146,21 @@ $opaque-black-05: #f2f2f2;
 $opaque-black-02: #fafafa;
 
 $home-bg: $opaque-black-02;
+
+// Media status font color
+//
+$media-status-blue: $blue-500;
+$media-status-orange: #efac51;
+$media-status-green: #5cae73;
+$media-status-red: #f04747;
+$media-status-gray: $black-54;
+$media-status-black: $black-87;
+
+// Media status background colors
+//
+$media-status-blue-bg: $check-blue;
+$media-status-orange-bg: #ffbb5d;
+$media-status-green-bg: #72d18d;
+$media-status-red-bg: $media-status-red;
+$media-status-gray-bg: $black-16;
+$media-status-black-bg: $black-87;

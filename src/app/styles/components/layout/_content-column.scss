@@ -3,6 +3,9 @@
   max-width: $layout-column-width-narrow;
   margin: 0 auto;
   padding: 0 16px;
+  @media all and (max-width: 500px) {
+  	padding: 0;
+  }
 
   &--flex {
     display: flex;

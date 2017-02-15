@@ -38,9 +38,37 @@
   }
 }
 
+// Background of media detail page 
+//
+@mixin media-status-background-colors {
+  #{$blue-selectors} {
+    background-color: $media-status-blue-bg;
+  }
+
+  #{$orange-selectors} {
+    background-color: $media-status-orange-bg;
+  }
+
+  #{$green-selectors} {
+    background-color: $media-status-green-bg;
+  }
+
+  #{$red-selectors} {
+    background-color: $media-status-red-bg;
+  }
+
+  #{$gray-selectors} {
+    background-color: $media-status-gray-bg;
+  }
+
+  #{$black-selectors} {
+    background-color: $media-status-black-bg;
+  }
+}
+
 // Borders and backgrounds of media items
 //
-@mixin media-status-background-and-border-colors {
+@mixin media-status-border-colors {
   #{$blue-selectors} {
     border-color: $media-status-blue;
   }
