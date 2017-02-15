@@ -10,14 +10,13 @@
 // Since it does not only apply to the detail view. — CGB 
 // 
 .media-detail {
-  @include media-status-background-and-border-colors;
+  @include media-status-border-colors;
   @include box-shadow(1);
   padding: 12px 0 0 24px;
   border-left: 4px solid;
   border-radius: 2px;
   margin-bottom: 24px;
   background-color: $white;
-  overflow-x: hidden;
 }
 
 // Row with the status and actions menu button

@@ -145,7 +145,7 @@ class CreateProjectMedia extends Component {
                 } else {
                   return (
                     <TextField
-                      hintText="Paste a link, type to add a quote or click on the icon to upload an image"
+                      hintText="Paste a link, type to add a quote"
                       fullWidth
                       name="url" id="create-media-input"
                       className="create-media__input"

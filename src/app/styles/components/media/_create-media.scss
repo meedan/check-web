@@ -49,6 +49,9 @@
 .create-media__input {
   & > :first-child {
     padding: 0 5px;
+    @media all and (max-width: 400px) {
+      font-size: 12px;
+    }
   }
 }
 
