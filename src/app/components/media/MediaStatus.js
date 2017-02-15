@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import FontAwesome from 'react-fontawesome';
 import { defineMessages, injectIntl, intlShape } from 'react-intl';
 import Relay from 'react-relay';
 import CreateStatusMutation from '../../relay/CreateStatusMutation';
