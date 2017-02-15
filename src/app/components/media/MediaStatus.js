@@ -130,7 +130,7 @@ class MediaStatus extends Component {
         <div className={this.bemClass('media-status__overlay', this.state.isMediaStatusMenuOpen, '--active')} onClick={this.toggleMediaStatusMenu.bind(this)} />
 
         <div className={`media-status__current${this.currentStatusToClass(media.last_status)}`}>
-          <span className="media-status__label">{currentStatus}</span>
+          <span className="media-status__label media-status__label--current">{currentStatus}</span>
           {this.canUpdate() ?
             <MdArrowDropDown />
             : null
@@ -144,7 +144,7 @@ class MediaStatus extends Component {
               <li className={`${that.bemClass('media-status__menu-item', (media.last_status === status.id), '--current')} media-status__menu-item--${status.id.replace('_', '-')}`} onClick={that.handleStatusClick.bind(that, status.id)}>
 
                 <FaCircleO className="media-status__icon media-status__icon--radio-button-selected" />
-                
+
                 <FaCircle className="media-status__icon media-status__icon--radio-button" />
 
                 <span className="media-status__label">{status.label}</span>

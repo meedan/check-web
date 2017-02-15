@@ -40,11 +40,10 @@ $font-stack-serif: "Merriweather", Georgia, serif;
   }
 }
 
-@mixin app-kicker($size: 11px) {
+@mixin app-kicker($size: 14px) {
   font-size: $size;
   text-transform: uppercase;
-  letter-spacing: .17em;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 @mixin team-name($size: 17px) {

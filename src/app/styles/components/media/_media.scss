@@ -1,16 +1,59 @@
-@import 'mixins';
-@import 'media-colors';
-@import 'create-media';
-@import 'media-actions';
-@import 'media-checklist';
-@import 'media-detail';
-@import 'media-header';
-@import 'media-inspector';
-@import 'media-metadata-summary';
-@import 'media-status';
-@import 'media-tags';
-@import 'medias-loading';
-@import 'pender-card';
-@import 'media-card-quote';
-@import 'media-card-social';
-@import 'media-card-image-uploaded';
+.media {
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+.media__expanded {
+  // slide under header
+  margin-top: -($layout-header-height + $layout-padding);
+  padding-top: ($layout-header-height + $layout-padding);
+  @include media-status-background-colors;
+  transition: background-color 500ms ease;
+  padding-bottom: 48px;
+
+  .content-column {
+    padding-top: 76px;
+  }
+}
+
+.media__title {
+  margin: 0 0 10px 0;
+  font-size: 24px;
+  color: $white;
+  font-weight: 500;
+}
+
+.media__status {
+  &,
+  .media-status__label--current {
+    color: $black-54;
+    margin-bottom: 18px;
+  }
+  .media-status__menu {
+    left: 0;
+    top: 35;
+  }
+}
+
+// The headline that says "Verification log"
+//
+.media__notes-heading {
+  text-align: center;
+  font-size: 16px;
+  color: $black-54;
+  margin: 64px 0;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+// MediaDetail overrides – use sparingly
+//
+.media {
+  .media-detail {
+    border-left: 0;
+  }
+  .media-detail__header,
+  .media-detail__title {
+    display: none;
+  }
+}
+

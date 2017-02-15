@@ -3,13 +3,13 @@
 $layout-border-color: $black-05;
 $layout-border: 1px solid $layout-border-color;
 $layout-border-light: 1px solid $black-02;
-$layout-header-height: 72px;
+$layout-header-height: 48px;
 $layout-padding: 16px;
 $layout-sidebar-width: 245px;
 
 // Columns and breakpoint variables
 //
-$layout-column-width-narrow: 900px;
+$layout-column-width-narrow: 784px;
 $layout-column-width-wide: 1200px + 30px;
 $layout-mobile-breakpoint-smallest: 320px;
 $layout-mobile-breakpoint-small: 450px;

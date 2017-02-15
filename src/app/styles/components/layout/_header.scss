@@ -1,9 +1,8 @@
 .header {
   width: 100%;
   height: $layout-header-height;
-  background: #fff;
-  border-bottom: $layout-border;
-  @include box-shadow(1);
+  background: rgba(#000000, 0.05);
+  position: absolute;
 }
 
 .header__container {
@@ -12,12 +11,14 @@
   position: relative;
   max-width: $layout-column-width-wide;
   margin: 0 auto;
+  display: flex;
+}
+
+.header__team {
+  display: flex;
 }
 
 .header__breadcrumb {
-  position: absolute;
-  top: 0;
-  bottom: 0;
 }
 
 // media page
@@ -26,11 +27,4 @@
     display: none;
   }
   // TODO: do with JS or simpler selectors
-}
-
-.header__team {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  display: flex;
 }

@@ -76,7 +76,7 @@ $annotation-font-size: 14px;
 
 // non-comments
 .annotation__status {
-  @include app-kicker(11px);
+  @include app-kicker;
   @include media-status-font-colors;
   margin-left: 3px;
   margin-right: 2px;
