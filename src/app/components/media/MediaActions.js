@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import mui from 'material-ui';
-import MoreHoriz from 'react-icons/lib/md/more-horiz';
+import MdMoreHoriz from 'react-icons/lib/md/more-horiz';
 import { can } from '../Can';
 
 class MediaActions extends Component {
@@ -30,7 +30,7 @@ class MediaActions extends Component {
 
     return menuItems.length ? (
       <div className={this.bemClass('media-actions', this.state.isMenuOpen, '--active')}>
-        <MoreHoriz className="media-actions__icon" onClick={this.toggleMenu.bind(this)} />
+        <MdMoreHoriz className="media-actions__icon" onClick={this.toggleMenu.bind(this)} />
         <div className={this.bemClass('media-actions__overlay', this.state.isMenuOpen, '--active')} onClick={this.toggleMenu.bind(this)} />
         <ul className={this.bemClass('media-actions__menu', this.state.isMenuOpen, '--active')}>
           {menuItems}
