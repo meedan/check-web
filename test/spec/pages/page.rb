@@ -85,8 +85,7 @@ class Page
     api_path = @driver.execute_script("return config.restBaseUrl.replace(/\\/api\\/.*/, '#{path}')").to_s
     uri = URI(api_path)
     uri.query = URI.encode_www_form(params)
-    p uri
-	  @driver.navigate.to uri
+    @driver.navigate.to uri
   end
 
 
