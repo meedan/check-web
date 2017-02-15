@@ -22,6 +22,7 @@ import translations from '../../../localization/translations/translations';
 import config from 'config';
 
 // Localization
+global.Intl = require('intl'); // polyfill
 let locale = config.locale || navigator.languages || navigator.language || navigator.userLanguage || 'en';
 if (locale.constructor === Array) {
   locale = locale[0];

@@ -97,6 +97,7 @@
     "gulp-zip": "^3.0.2",
     "html-webpack-plugin": "^2.24.1",
     "http": "0.0.0",
+    "intl": "^1.2.5",
     "lodash.truncate": "^4.4.2",
     "marked": "^0.3.5",
     "material-ui": "^0.16.5",
