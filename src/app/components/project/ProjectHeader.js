@@ -3,7 +3,6 @@ import Relay from 'react-relay';
 import Can from '../Can';
 import ProjectRoute from '../../relay/ProjectRoute';
 import { Link } from 'react-router';
-import FontAwesome from 'react-fontawesome';
 
 class ProjectHeaderComponent extends Component {
   render() {
