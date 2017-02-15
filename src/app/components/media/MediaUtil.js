@@ -48,6 +48,23 @@ const MediaUtil = {
     return '';
   },
 
+  attributedType(media, data) {
+    let typeLabel;
+    try {
+      typeLabel = this.typeLabel(media, data);
+      if (typeLabel === 'Page') {
+        return `${typeLabel} on ${media.domain}`;
+      } else if (typeLabel === 'Claim') {
+        return `${typeLabel}`;
+      } else {
+        const attribution = this.authorName(media, data);
+        return `${typeLabel}${attribution ? ` by ${attribution}` : ''}`;
+      }
+    } catch (e) {
+      return typeLabel || '';
+    }
+  },
+
   title(media, data) {
     if (data && data.title && data.title.trim().length) {
       return this.truncate(data.title);

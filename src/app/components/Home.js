@@ -91,10 +91,7 @@ class Home extends Component {
           <div className="home">
             <span className="home__disclaimer">Beta</span>
             { this.state.token ? <Header {...this.props} /> : null }
-            <main className="home__main">
-              <div className="home__global-message global-message"><Message message={this.state.message} /></div>
-              <div className="home__content">{children}</div>
-            </main>
+            <div className="home__content">{children}</div>
             <FooterRelay {...this.props} />
           </div>
         </span>

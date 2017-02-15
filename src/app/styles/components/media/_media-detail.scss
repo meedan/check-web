@@ -1,14 +1,7 @@
-// An outer wrapper only on the report page 
-// 
-.media__contents {
-  margin: 15px auto;
-  max-width: $layout-column-width-narrow;
-}
-
 // Wrapper around all reports (globally)
 // TODO: This should be renamed to avoid misleading use of "detail"
-// Since it does not only apply to the detail view. — CGB 
-// 
+// Since it does not only apply to the detail view. — CGB
+//
 .media-detail {
   @include media-status-border-colors;
   @include box-shadow(1);
@@ -108,15 +101,4 @@
     display: block;
     margin: 8px 4px;
   }
-}
-
-// The headline that says "Verification timeline"
-//
-.media__notes-heading {
-  text-align: center;
-  font-size: 18px;
-  font-family: $font-stack-sans-condensed;
-  color: $black-54;
-  font-weight: 400;
-  margin: 65px 0 25px;
 }

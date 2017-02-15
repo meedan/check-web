@@ -62,6 +62,7 @@ class MediaDetail extends Component {
   }
 
   statusToClass(baseClass, status) {
+    // TODO: replace with helpers.js#bemClassFromMediaStatus
     return status.length ?
       [baseClass, `${baseClass}--${status.toLowerCase().replace(/[ _]/g, '-')}`].join(' ') :
       baseClass;

@@ -4,7 +4,6 @@ import TeamHeader from './team/TeamHeader';
 import TeamPublicHeader from './team/TeamPublicHeader';
 import ProjectHeader from './project/ProjectHeader';
 import Breadcrumb from './layout/Breadcrumb';
-import MediaHeader from './media/MediaHeader';
 import HeaderActions from './HeaderActions';
 import Can from './Can';
 
@@ -31,9 +30,8 @@ class Header extends Component {
       return (
         <header className="header header--media">
           <div className="header__container">
-            <span style={{ display: 'none' }}><TeamHeader {...this.props} /></span>
+            <div className="header__team"><TeamHeader {...this.props} /></div>
             <div className="header__breadcrumb"><Breadcrumb url={projectUrl} label="Project" /></div>
-            <MediaHeader {...this.props} />
             <HeaderActions {...this.props} />
           </div>
         </header>
@@ -45,7 +43,7 @@ class Header extends Component {
       return (
         <header className="header header--project-edit">
           <div className="header__container">
-            <span style={{ display: 'none' }}><TeamHeader {...this.props} /></span>
+            <div className="header__team"><TeamHeader {...this.props} /></div>
             <div className="header__breadcrumb"><Breadcrumb url={projectUrl} label="Project" /></div>
             <ProjectHeader {...this.props} />
             <HeaderActions {...this.props} />
@@ -70,7 +68,7 @@ class Header extends Component {
       return (
         <header className="header header--default">
           <div className="header__container">
-            <span style={{ display: 'none' }}><TeamHeader {...this.props} /></span>
+            <div className="header__team"><TeamHeader {...this.props} /></div>
             <div className="header__breadcrumb"><Breadcrumb url={`/${this.props.params.team}`} label={null} /></div>
             <HeaderActions {...this.props} />
           </div>
@@ -82,7 +80,7 @@ class Header extends Component {
       return (
         <header className="header header--team-subpage">
           <div className="header__container">
-            <span style={{ display: 'none' }}><TeamHeader {...this.props} /></span>
+            <div className="header__team"><TeamHeader {...this.props} /></div>
             <div className="header__breadcrumb"><Breadcrumb url={`/${this.props.params.team}`} label="Team" /></div>
             <HeaderActions {...this.props} />
           </div>
