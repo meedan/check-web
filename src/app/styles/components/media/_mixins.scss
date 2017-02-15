@@ -42,55 +42,55 @@
 //
 @mixin media-status-background-colors {
   #{$blue-selectors} {
-    background-color: $media-status-blue-bg;
+    background-color: $media-status-blue-page-bg;
   }
 
   #{$orange-selectors} {
-    background-color: $media-status-orange-bg;
+    background-color: $media-status-orange-page-bg;
   }
 
   #{$green-selectors} {
-    background-color: $media-status-green-bg;
+    background-color: $media-status-green-page-bg;
   }
 
   #{$red-selectors} {
-    background-color: $media-status-red-bg;
+    background-color: $media-status-red-page-bg;
   }
 
   #{$gray-selectors} {
-    background-color: $media-status-gray-bg;
+    background-color: $media-status-gray-page-bg;
   }
 
   #{$black-selectors} {
-    background-color: $media-status-black-bg;
+    background-color: $media-status-black-page-bg;
   }
 }
 
-// Borders and backgrounds of media items
+// Borders of media items
 //
 @mixin media-status-border-colors {
   #{$blue-selectors} {
-    border-color: $media-status-blue;
+    border-color: $media-status-blue-page-bg;
   }
 
   #{$orange-selectors} {
-    border-color: $media-status-orange;
+    border-color: $media-status-orange-page-bg;
   }
 
   #{$green-selectors} {
-    border-color: $media-status-green;
+    border-color: $media-status-green-page-bg;
   }
 
   #{$red-selectors} {
-    border-color: $media-status-red;
+    border-color: $media-status-red-page-bg;
   }
 
   #{$gray-selectors} {
-    border-color: $media-status-gray;
+    border-color: $media-status-gray-page-bg;
   }
 
   #{$black-selectors} {
-    border-color: $media-status-black;
+    border-color: $media-status-black-page-bg;
   }
 }
 
@@ -99,37 +99,37 @@
 @mixin media-status-menu-hover-colors {
   #{$blue-selectors} {
     &:hover {
-      background: $media-status-blue-hover-bg;
+      background: $media-status-blue-menu-hover-bg;
     }
   }
 
   #{$orange-selectors} {
     &:hover {
-      background: $media-status-orange-hover-bg;
+      background: $media-status-orange-menu-hover-bg;
     }
   }
 
   #{$green-selectors} {
     &:hover {
-      background: $media-status-green-hover-bg;
+      background: $media-status-green-menu-hover-bg;
     }
   }
 
   #{$red-selectors} {
     &:hover {
-      background: $media-status-red-hover-bg;
+      background: $media-status-red-menu-hover-bg;
     }
   }
 
   #{$gray-selectors} {
     &:hover {
-      background: $media-status-grey-hover-bg;
+      background: $media-status-grey-menu-hover-bg;
     }
   }
 
   #{$black-selectors} {
     &:hover {
-      background: $media-status-black-hover-bg;
+      background: $media-status-black-menu-hover-bg;
     }
   }
 }
