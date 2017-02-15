@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-import FontAwesome from 'react-fontawesome';
+import { FaFacebookSquare, FaInstagram, FaTwitter, FaYoutubePlay } from 'react-icons/lib/fa';
+import MdLink from 'react-icons/lib/md/link';
 import { Link } from 'react-router';
 import TimeAgo from 'react-timeago';
 import MediaUtil from './MediaUtil';
@@ -30,7 +31,6 @@ class SocialMediaCard extends Component {
     // TODO: make less verbose
     const url = MediaUtil.url(media, data);
     const embedPublishedAt = MediaUtil.embedPublishedAt(media, data);
-    const networkIconName = MediaUtil.networkIconName(media);
     const authorAvatarUrl = MediaUtil.authorAvatarUrl(media, data);
     const authorName = MediaUtil.authorName(media, data);
     const authorUsername = MediaUtil.authorUsername(media, data);
@@ -56,7 +56,23 @@ class SocialMediaCard extends Component {
           <div className={bemClass("social-media-card__body", condensed, '--condensed')} onClick={this.handleBodyClick.bind(this)}>
             <div className="social-media-card__body-text">{bodyText}</div>
           </div>
-          <FontAwesome className="social-media-card__network-icon" name={networkIconName} />
+
+          {/* TODO: Needs code review — CGB 2017-2-14 */} 
+          {(() => {
+            switch (media.domain) {
+              case 'twitter.com':
+                return <FaTwitter />
+              case 'youtube.com':
+                return <FaYoutubePlay />
+              case 'instagram.com':
+                return <FaInstagram />
+              case 'facebook.com':
+                return <FaFacebookSquare />
+              default :
+                return <MdLink />
+             }
+          })()}
+
           <span className="social-media-card__header-text-secondary">
             <a href={url}>
               {embedPublishedAt ? <TimeAgo date={embedPublishedAt} live={false} /> : 'Link'}

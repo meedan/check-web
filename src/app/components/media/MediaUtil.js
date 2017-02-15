@@ -10,19 +10,6 @@ const MediaUtil = {
     }
   },
 
-  networkIconName(media) {
-    try {
-      return ({ // uncomment in font-awesome/_icons.scss
-        'facebook.com': 'facebook-square',
-        'instagram.com': 'instagram',
-        'twitter.com': 'twitter',
-        'youtube.com': 'youtube-play',
-      }[media.domain] || 'link');
-    } catch (e) {
-      return '';
-    }
-  },
-
   authorAvatarUrl(media, data) {
     return data.author_picture;
   },
