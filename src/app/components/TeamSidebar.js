@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 import { Link } from 'react-router';
-import FontAwesome from 'react-fontawesome';
 import Pusher from 'pusher-js';
 import CreateProject from './project/CreateProject';
 import TeamRoute from '../relay/TeamRoute';
