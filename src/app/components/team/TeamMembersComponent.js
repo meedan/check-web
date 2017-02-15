@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
-import FontAwesome from 'react-fontawesome';
+import MdCreate from 'react-icons/lib/md/create';
 import Select from 'react-select';
 import DocumentTitle from 'react-document-title';
 import 'react-select/dist/react-select.css';
@@ -47,7 +47,7 @@ class TeamMembersComponent extends Component {
       <DocumentTitle title={pageTitle('Team Members', false, team)}>
         <div className="team-members">
           <button onClick={this.handleEditMembers.bind(this)} className="team-members__edit-button">
-            <FontAwesome className="team-members__edit-icon" name="pencil" />
+            <MdCreate className="team-members__edit-icon" />
             {isEditing ? 'Done' : 'Edit'}
           </button>
 
