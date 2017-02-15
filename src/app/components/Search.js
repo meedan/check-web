@@ -396,6 +396,7 @@ class Search extends Component {
 
     const queryRoute = new TeamRoute({ teamSlug: this.props.params.team });
     const resultsRoute = new SearchRoute({ query: JSON.stringify(query) });
+    const { formatMessage } = this.props.intl;
 
     return (
       <div className="search">
@@ -407,7 +408,7 @@ class Search extends Component {
               <ContentColumn>
                 <div className="search__query">
                   <div className="search__form search__form--loading">
-                    <input disabled placeholder={this.props.intl.formatMessage(messages.loading)} name="search-input" id="search-input" className="search__input"/>
+                    <input disabled placeholder={formatMessage(messages.loading)} name="search-input" id="search-input" className="search__input"/>
                   </div>
                 </div>
               </ContentColumn>

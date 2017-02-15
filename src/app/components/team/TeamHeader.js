@@ -94,6 +94,7 @@ class TeamHeader extends Component {
   render() {
     const teamSlug = (this.props.params && this.props.params.team) ? this.props.params.team : '';
     const route = new TeamRoute({ teamSlug });
+    const { formatMessage } = this.props.intl;
     return (
       <Relay.RootContainer
         Component={TeamHeaderContainer}
@@ -101,7 +102,7 @@ class TeamHeader extends Component {
         renderLoading={function() {
           return (
             <nav className="team-header team-header--loading">
-              <Link to={`/${teamSlug}`} className="team-header__clickable" title={this.props.intl.formatMessage(messages.back)}>
+              <Link to={`/${teamSlug}`} className="team-header__clickable" title={formatMessage(messages.back)}>
                 <div className="team-header__avatar"></div>
               </Link>
             </nav>
