@@ -2,6 +2,7 @@ import React from 'react';
 import { IntlProvider } from 'react-intl';
 import { render, shallow } from 'enzyme';
 import { expect } from 'chai';
+import { shallowWithIntl } from './helpers/intl-enzyme-test-helper.js';
 
 import MediaDetail from '../../src/app/components/media/MediaDetail';
 import SocialMediaCard from '../../src/app/components/media/SocialMediaCard';
@@ -23,13 +24,13 @@ describe('<MediaDetail />', () => {
   });
 
   it('renders SocialMediaCard if media has URL and mode is condensed', function() {
-    const mediaDetail = shallow(<MediaDetail media={media} condensed={true} />);
+    const mediaDetail = shallowWithIntl(<MediaDetail media={media} condensed={true} />);
     expect(mediaDetail.find(SocialMediaCard)).to.have.length(1);
     expect(mediaDetail.find(PenderCard)).to.have.length(0);
   });
 
   it('renders PenderCard if media has URL and mode is not condensed', function() {
-    const mediaDetail = shallow(<MediaDetail media={media} condensed={false} />);
+    const mediaDetail = shallowWithIntl(<MediaDetail media={media} condensed={false} />);
     expect(mediaDetail.find(SocialMediaCard)).to.have.length(0);
     expect(mediaDetail.find(PenderCard)).to.have.length(1);
   });
