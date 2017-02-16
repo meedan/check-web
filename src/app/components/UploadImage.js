@@ -7,7 +7,7 @@ import AboutRoute from '../relay/AboutRoute';
 class UploadLabel extends Component {
   render() {
     const about = this.props.about;
-    return (<span>Try dropping an image file here, or click to upload a file (max: {about.max_upload_size})</span>);
+    return (<span>Drop image here! <br/> Or click to upload. (max: {about.max_upload_size})</span>);
   }
 }
 
