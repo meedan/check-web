@@ -81,8 +81,8 @@ class AddAnnotation extends Component {
     this.setState({ message: this.props.intl.formatMessage(messages.invalidCommand), isSubmitting: false });
   }
 
-  success(annotation_type) {
-    this.setState({ message: this.props.intl.formatMessage(messages.annotationAdded, {type: annotation_type}), isSubmitting: false });
+  success(message) {
+    this.setState({ message: message, isSubmitting: false });
     const field = document.forms.addannotation.cmd;
     field.value = '';
     field.blur();
@@ -107,9 +107,11 @@ class AddAnnotation extends Component {
   }
 
   addComment(that, annotated, annotated_id, annotated_type, comment) {
+    const { formatMessage } = this.props.intl;
+
     const onFailure = (transaction) => { that.fail(transaction); };
 
-    const onSuccess = (response) => { that.success(this.props.intl.formatMessage(messages.typeComment)); };
+    const onSuccess = (response) => { that.success(formatMessage(messages.annotationAdded, {type: formatMessage(messages.typeComment)})) };
 
     const annotator = that.getContext().currentUser;
 
@@ -132,9 +134,11 @@ class AddAnnotation extends Component {
   addTag(that, annotated, annotated_id, annotated_type, tags) {
     const tagsList = [...new Set(tags.split(','))];
 
+    const { formatMessage } = this.props.intl;
+
     const onFailure = (transaction) => { that.fail(transaction); };
 
-    const onSuccess = (response) => { that.success(this.props.intl.formatMessage(messages.typeTag)); };
+    const onSuccess = (response) => { that.success(formatMessage(messages.annotationAdded, {type: formatMessage(messages.typeTag)})) };
 
     const annotator = that.getContext().currentUser;
 
@@ -159,9 +163,11 @@ class AddAnnotation extends Component {
   }
 
   addStatus(that, annotated, annotated_id, annotated_type, status) {
+    const { formatMessage } = this.props.intl;
+
     const onFailure = (transaction) => { that.fail(transaction); };
 
-    const onSuccess = (response) => { that.success(this.props.intl.formatMessage(messages.typeStatus)); };
+    const onSuccess = (response) => { that.success(formatMessage(messages.annotationAdded, {type: formatMessage(messages.typeStatus)})) };
 
     const annotator = that.getContext().currentUser;
 
@@ -197,9 +203,11 @@ class AddAnnotation extends Component {
   }
 
   addFlag(that, annotated, annotated_id, annotated_type, flag) {
+    const { formatMessage } = this.props.intl;
+
     const onFailure = (transaction) => { that.fail(transaction); };
 
-    const onSuccess = (response) => { that.success(this.props.intl.formatMessage(messages.typeFlag)); };
+    const onSuccess = (response) => { that.success(formatMessage(messages.annotationAdded, {type: formatMessage(messages.typeFlag)})) };
 
     const annotator = that.getContext().currentUser;
 
@@ -235,16 +243,16 @@ class AddAnnotation extends Component {
     } else {
       switch (command.type) {
       case 'comment':
-        action = this.addComment;
+        action = this.addComment.bind(this);
         break;
       case 'tag':
-        action = this.addTag;
+        action = this.addTag.bind(this);
         break;
       case 'status':
-        action = this.addStatus;
+        action = this.addStatus.bind(this);
         break;
       case 'flag':
-        action = this.addFlag;
+        action = this.addFlag.bind(this);
         break;
       }
 

@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import FontAwesome from 'react-fontawesome';
 import { defineMessages, injectIntl, intlShape } from 'react-intl';
 import { Link } from 'react-router';
-import TimeAgo from 'react-timeago';
 import MediaUtil from './MediaUtil';
 import MediaInspector from './MediaInspector';
 import { bemClass } from '../../helpers';
@@ -64,7 +63,7 @@ class SocialMediaCard extends Component {
 
           <span className="social-media-card__header-text-secondary">
             <a href={url}>
-              {embedPublishedAt ? <TimeAgo date={embedPublishedAt} live={false} /> : this.props.intl.formatMessage(messages.link)}
+              {embedPublishedAt ? this.props.intl.formatRelative(embedPublishedAt) : this.props.intl.formatMessage(messages.link)}
             </a>
           </span>
         </div>

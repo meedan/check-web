@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import Relay from 'react-relay';
-import TimeAgo from 'react-timeago';
 import Linkify from 'react-linkify';
 import nl2br from 'react-nl2br';
 import MediaDetail from '../media/MediaDetail';
@@ -106,7 +105,7 @@ class Annotation extends Component {
         <section className="annotation__content">
           <div className="annotation__header">
             <h4 className="annotation__author-name">{annotation.annotator.name}</h4>
-            {updatedAt ? <span className="annotation__timestamp"><TimeAgo date={updatedAt} live={false} /></span> : null}
+            {updatedAt ? <span className="annotation__timestamp">{this.props.intl.formatRelative(updatedAt)}</span> : null}
             {annotationActions}
           </div>
           <div className="annotation__body"><Linkify properties={{ target: '_blank' }}>{nl2br(commentText)}</Linkify></div>
@@ -127,7 +126,7 @@ class Annotation extends Component {
                   defaultMessage={`Status set to {status} by {author}`}
                           values={{ status: <span className={`annotation__status annotation__status--${statusCode}`}>{this.statusIdToLabel(content.status)}</span>,
                                     author: <span className="annotation__author-name">{annotation.annotator.name}</span> }} />
-            {updatedAt ? <span className="annotation__timestamp"><TimeAgo date={updatedAt} live={false} /></span> : null}
+            {updatedAt ? <span className="annotation__timestamp">{this.props.intl.formatRelative(updatedAt)}</span> : null}
             {annotationActions}
           </div>
         </section>
@@ -140,7 +139,7 @@ class Annotation extends Component {
             <FormattedMessage id="annotation.taggedHeader"
                   defaultMessage={`Tagged #{tag} by {author}`}
                   values={{ tag: content.tag.replace(/^#/, ''), author: <span className="annotation__author-name">{annotation.annotator.name}</span> }} />
-            {updatedAt ? <span className="annotation__timestamp"><TimeAgo date={updatedAt} live={false} /></span> : null}
+            {updatedAt ? <span className="annotation__timestamp">{this.props.intl.formatRelative(updatedAt)}</span> : null}
             {annotationActions}
           </div>
         </section>
@@ -153,7 +152,7 @@ class Annotation extends Component {
             <FormattedMessage id="annotation.flaggedHeader"
                   defaultMessage={`Flagged as {flag} by {author}`}
                   values={{ flag: content.flag, author: <span className="annotation__author-name">{annotation.annotator.name}</span> }} />
-            {updatedAt ? <span className="annotation__timestamp"><TimeAgo date={updatedAt} live={false} /></span> : null}
+            {updatedAt ? <span className="annotation__timestamp">{this.props.intl.formatRelative(updatedAt)}</span> : null}
             {annotationActions}
           </div>
         </section>
