@@ -7,6 +7,7 @@ import TeamRoute from '../../relay/TeamRoute';
 import teamFragment from '../../relay/teamFragment';
 import CheckContext from '../../CheckContext';
 import ProjectList from '../project/ProjectList';
+import MdArrowDropDown from 'react-icons/lib/md/arrow-drop-down';
 
 const messages = defineMessages({
   back: {
@@ -69,7 +70,7 @@ class TeamHeaderComponent extends Component {
         <div className="team-header__copy">
           <h3 className="team-header__name">
             {team.name}
-            <i className="team-header__caret / fa fa-chevron-down" aria-hidden="true"></i>
+            <MdArrowDropDown />
           </h3>
           <div className="team-header__project-list">
             <ProjectList team={team} />

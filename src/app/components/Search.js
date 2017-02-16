@@ -311,7 +311,7 @@ class SearchResultsComponent extends Component {
     return (
       <div className="search__results / results">
         <h3 className="search__results-heading">{mediasCount}</h3>
-        {/* <h4>Most recent activity first <i className="media-status__icon media-status__icon--caret fa fa-caret-down"></i></h4> */}
+        {/* <h4>Most recent activity first</h4> */}
 
         <InfiniteScroll hasMore loadMore={this.loadMore.bind(this)} threshold={500}>
 
