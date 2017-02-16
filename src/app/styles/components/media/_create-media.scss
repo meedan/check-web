@@ -1,8 +1,7 @@
 .create-media {
   @include box-shadow(1);
-  padding-top: 32px;
-  padding-bottom: 12px;
-  margin: 32px auto 24px;
+  margin: 24px auto;
+  padding: 16px;
   background-color: $white;
   border-radius: 4px;
   max-width: $layout-column-width-narrow;
@@ -15,7 +14,7 @@
     height: 300px;
     padding: 0;
     margin: 0;
-    border: 1px solid #ccc;
+    border: 1px solid $black-38;
     border-bottom: 0;
     width: 100%;
 
@@ -24,7 +23,7 @@
       top: -2px;
       right: 1px;
       z-index: 1;
-      color: #ccc;
+      color: $black-38;
       cursor: pointer;
     }
   }
@@ -36,7 +35,7 @@
   }
 
   .upload-file > div {
-    height: 48px !important;
+    height: 148px !important;
     line-height: 48px !important;
     padding: 0 !important;
   }
@@ -59,8 +58,8 @@
   @include button-defaults;
   display: none;
   float: left;
-  background: #2962ff;
-  color: #fff;
+  background: $check-blue;
+  color: $white;
   $size: 60px;
   height: $size;
   width: $size;
@@ -83,6 +82,7 @@
   position: absolute;
   right: 12px;
   top: 12px;
+
   path {
     color: $black-16;
   }
