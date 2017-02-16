@@ -94,7 +94,7 @@ class MediaDetail extends Component {
     } else if (media.url) {
        embedCard = condensed ?
                    <SocialMediaCard media={media} data={data} condensed={condensed} /> :
-                   <PenderCard url={media.url} penderUrl={config.penderUrl} fallback={<SocialMediaCard media={media} data={data} condensed={condensed} />} />;
+                   <PenderCard url={media.url} penderUrl={config.penderUrl} fallback={null} />;
     }
 
     return (
