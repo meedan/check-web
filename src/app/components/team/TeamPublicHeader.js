@@ -3,6 +3,7 @@ import Relay from 'react-relay';
 import { Link } from 'react-router';
 import PublicTeamRoute from '../../relay/PublicTeamRoute';
 import CheckContext from '../../CheckContext';
+import MdArrowDropDown from 'react-icons/lib/md/arrow-drop-down';
 
 class TeamPublicHeaderComponent extends Component {
   updateContext() {
@@ -28,7 +29,7 @@ class TeamPublicHeaderComponent extends Component {
         <div className="team-header__copy">
           <h3 className="team-header__name">
             {team.name}
-            <i className="team-header__caret / fa fa-chevron-down" aria-hidden="true"></i>
+            <MdArrowDropDown />
           </h3>
         </div>
       </nav>
