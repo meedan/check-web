@@ -4,7 +4,7 @@
   border: $layout-border;
   border-radius: 2px;
   min-width: 250px;
-  background: #fff;
+  background: $white;
   padding: 2px;
 
   & > li {
@@ -18,7 +18,7 @@
   cursor: pointer;
 
   &:hover {
-    background: darken($home-bg, 5%);
+    background: $opaque-black-05;
   }
 
   & > a {

@@ -4,11 +4,11 @@
   padding: 45px 0 0;
 
   p {
-    color: $firefly-60;
+    color: $black-54;
   }
 
   a {
-    color: $firefly-60;
+    color: $black-54;
   }
 }
 
@@ -50,63 +50,59 @@
 }
 
 .login-menu__button--twitter {
-  background-color: #0095ff;
+  background-color: $twitter-blue;
 
   &:hover {
-    background-color: darken(saturate(#0095ff, 10%), 10%);
+    background-color: darken(saturate($twitter-blue, 10%), 10%);
   }
 }
 
 .login-menu__button--facebook {
-  background-color: #3b5999;
+  background-color: $facebook-blue;
 
   &:hover {
-    background-color: darken(saturate(#3b5999, 10%), 10%);
+    background-color: darken(saturate($facebook-blue, 10%), 10%);
   }
 }
 
 .login-menu__button--google {
-  background-color: #db4437;
+  background-color: $google-orange;
 
   &:hover {
-    background-color: darken(saturate(#db4437, 10%), 10%);
+    background-color: darken(saturate($google-orange, 10%), 10%);
   }
 }
 
 .login-menu__button--slack {
-  background-color: #2ab27b;
+  background-color: $slack-green;
 
   &:hover {
-    background-color: darken(saturate(#2ab27b, 10%), 10%);
+    background-color: darken(saturate($slack-green, 10%), 10%);
   }
 }
 
 .login-menu__footer {
-  color: $light-gray-text;
+  color: $black-54;
 }
 
 .login-menu__footer-link {
-  color: $light-blue-text;
+  color: $check-blue;
 }
 
 .login-email__link {
   @extend .login-menu__button;
   @include button-medium;
-  color: white !important;
-  background-color: $firefly-40;
+  color: $white !important;
+  background-color: $black-54;
   text-align: center;
   text-decoration: none;
 
   &:hover {
-    background-color: $firefly-80;
+    background-color: $black-87;
   }
 }
 
 p.other-method {
-  border-top: 1px solid $firefly-20;
+  border-top: 1px solid $black-16;
   padding: 32px 16px 16px;
-}
-
-.browser-support a {
-  color: #0a0d0f;
 }

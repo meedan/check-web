@@ -1,115 +1,16 @@
 // Basic colors
-$black: #000;
 $white: #fff;
-$lightestgrey: #eee;
-$lightergrey: #8b939a;
-$lightgrey: #fbfaf9;
-$midgrey: #d7d7d7;
-$darkgrey: #3e4c57;
-$darkergrey: #444;
-$cream: #ffd;
-$grey: #283743;
-$blue: #034fda;
-$mustard: #ffd980;
-
-// Grays
-@function theme-gray($brightness: 50%) {// 0% black, 100% white
-  @return hsl(205, 18%, $brightness);
-}
-
-$dark-gray-text: theme-gray(5%);
-$medium-gray-text: theme-gray(27%);
-$light-gray-text: theme-gray(55%);
-$lighter-gray-text: theme-gray(65%);
-$lightest-gray-text: theme-gray(75%);
-$medium-gray-bg: theme-gray(80%);
-$light-gray-bg: theme-gray(95%);
-$lighter-gray-bg: theme-gray(98.7%);
-
-// Blues
-@function theme-blue($brightness) {
-  @return hsl(208, 98%, $brightness);// TODO: consider switch to MUI blues
-}
-
-$blue-text: theme-blue(62%);
-$light-blue-text: theme-blue(67%);
-
-// Material pallette
-// https://material.google.com/style/color.html#color-color-palette
-$blue-100: #bbdefb;
-$blue-300: #64b5f6;
-$blue-400: #42a5f5;
-$blue-500: #2196f3;
-$gray-100: #f5f5f5;
-$gray-300: #e0e0e0;
-$gray-350: mix(#e0e0e0, #bdbdbd);
-$gray-400: #bdbdbd;
-$green-100: #c8e6c9;
-$green-500: #4caf50;
-$orange-100: #ffe0b2;
-$orange-500: #ff9800;
-$red-100: #ffcdd2;
-$red-500: #f44336;
-$red-900: #b71c1c;
-
-// media colors from prototype
-//
-// TODO: merge and DRY more once settled
-$check-blue: #2e77fc;
-$firefly-5: #f3f4f4;
-$firefly-10: #e7e8ea;
-$firefly-20: #cfd3d5;
-$firefly-30: #b7bcc0;
-$firefly-40: #9fa6ac;
-$firefly-60: #6f7a82;
-$firefly-80: #404d59;
-$firefly-90: #283743;
-$firefly: #10212f;
-$heather-grey: #c4d1db;
 $monza-red: #d0021b;
-$porcelain-grey: #fafbfb;
-$regent-grey: #8799a6;
-$thatch: #b89892;
-$seashell-peach: #fff6f0;
-$hint-green: #e5ffef;
-$pippin-red: #ffe5e5;
+$check-blue: #2e77fc;
+$facebook-blue: #3b5999;
+$twitter-blue: #0095ff;
+$google-orange: #db4437;
+$slack-green: #2ab27b;
+$hyperlink-blue: #0000ee;
+$visited-hyperlink-purple: #551a8b;
 
-// Cheatsheet (because the text labels don't match the classes)
-//
-// BLUE 
-// • "New" = --undetermined
-//
-// ORANGE
-// • "In progress" = --in-progress
-// • "Important/In Progress" = --important-in_progress, 
-// --important-in-progress (EL ONLY)
-//
-// GREEN
-// • "Authenticated" = --verified 
-// • "Important/authenticated" = --important-authenticated (EL ONLY)
-//
-// RED
-// • "False" = --false 
-// • "Important/false" = --important-false (EL ONLY)
-// 
-// GREY
-// • "Not applicable" = --not-applicable_2, --not-applicable-2 (EL ONLY)
-// • "Marked for deletion" = --marked-for_deletion, --marked-for-deletion (EL ONLY)
-//
-// BLACK
-// • "Important/Inconclusive" = --important-inconclusive (EL ONLY)
-// • "Inconclusive" = --inconclusive 
-//
-
-// Status selectors
-//
-// Currently includes custom Electionland selectors — CGB 2016-11-5
-$orange-selectors: "&--in-progress, &--important-in-progress, &--important-in_progress";
-$blue-selectors: "&--undetermined";
-$green-selectors: "&--verified, &--important-authenticated";
-$red-selectors: "&--false, &--important-false";
-$gray-selectors: "&--not-applicable_2, &--not-applicable-2, &--marked-for-deletion, &--marked-for_deletion";
-$black-selectors: "&--not-applicable, &--important-inconclusive, &--inconclusive";
+// Modals
+$midnight-blue-90: rgba(0, 15, 41, .9);
 
 // Material blacks
 //
@@ -129,16 +30,14 @@ $opaque-black-16: #d6d6d6;
 $opaque-black-05: #f2f2f2;
 $opaque-black-02: #fafafa;
 
-$home-bg: $opaque-black-02;
-
 // Media status font color
 //
 $media-status-blue: $check-blue;
 $media-status-orange: #efac51;
 $media-status-green: #5cae73;
 $media-status-red: #f04747;
-$media-status-gray: $black-54;
-$media-status-black: $black-87;
+$media-status-gray: $black-38;
+$media-status-black: $black-54;
 
 // Media status page background colors
 //
@@ -149,13 +48,12 @@ $media-status-red-page-bg: $media-status-red;
 $media-status-gray-page-bg: $black-16;
 $media-status-black-page-bg: $black-87;
 
-
 // Media status menu hover background colors
 //
-$menu-hover-bg-opacity: .15;
-$media-status-blue-menu-hover-bg: rgba($blue-100, $menu-hover-bg-opacity);
-$media-status-orange-menu-hover-bg: rgba($orange-100, $menu-hover-bg-opacity);
-$media-status-green-menu-hover-bg: rgba($green-100, $menu-hover-bg-opacity);
-$media-status-red-menu-hover-bg: rgba($red-100, $menu-hover-bg-opacity);
-$media-status-grey-menu-hover-bg: rgba($gray-300, $menu-hover-bg-opacity);
-$media-status-black-menu-hover-bg: rgba($firefly-40, $menu-hover-bg-opacity);
+$menu-hover-bg-opacity: .02;
+$media-status-blue-menu-hover-bg: rgba($media-status-blue, $menu-hover-bg-opacity);
+$media-status-orange-menu-hover-bg: rgba($media-status-orange, $menu-hover-bg-opacity);
+$media-status-green-menu-hover-bg: rgba($media-status-green, $menu-hover-bg-opacity);
+$media-status-red-menu-hover-bg: rgba($media-status-red, $menu-hover-bg-opacity);
+$media-status-grey-menu-hover-bg: rgba($media-status-gray, $menu-hover-bg-opacity);
+$media-status-black-menu-hover-bg: rgba($media-status-black, $menu-hover-bg-opacity);

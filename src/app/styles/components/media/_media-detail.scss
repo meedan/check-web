@@ -79,6 +79,7 @@
   display: flex;
   align-items: center;
   flex-shrink: 0;
+
   span {
     padding-left: 3px;
   }
@@ -88,7 +89,7 @@
 //
 .media-detail__title-input {
   padding: 3px 5px;
-  border: 1px solid #e1e6ea;
+  border: 1px solid $black-05;
   border-radius: 4px;
   margin: -1px 0 15px;
   font-size: 19px;
@@ -100,6 +101,7 @@
 
 .media-detail__editing-buttons {
   margin: 8px 8px 8px auto;
+
   span {
     display: block;
     margin: 8px 4px;
@@ -112,7 +114,7 @@
   text-align: center;
   font-size: 18px;
   font-family: $font-stack-sans-condensed;
-  color: $light-gray-text;
+  color: $black-54;
   font-weight: 400;
   margin: 65px 0 25px;
 }

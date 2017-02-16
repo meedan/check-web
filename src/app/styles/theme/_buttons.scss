@@ -2,7 +2,7 @@
   cursor: pointer;
   border: 0;
   font-family: $font-stack-sans;
-  background-color: $gray-350;
+  background-color: $black-38;
   font-size: inherit;
 }
 
@@ -70,13 +70,13 @@
   margin-bottom: 8px;
 }
 
-@mixin button-green {
-  background-color: rgb(71, 207, 152);
+@mixin button-primary {
+  background-color: $check-blue;
 }
 
 @mixin close-button($size: 30px) {
   @include unbutton;
-  color: $light-gray-text;
+  color: $black-16;
   font-weight: 200;
   font-size: $size;
 

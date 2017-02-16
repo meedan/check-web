@@ -61,7 +61,6 @@ body {
 .top-bar {
   background: $white !important;
   box-shadow: none !important;
-  border-bottom: 1px solid hsl(204, 15%, 90%);
 }
 
 .current-user {
@@ -73,7 +72,7 @@ body {
 
 address {
   text-align: center;
-  color: rgba($darkgrey, .5);
+  color: $black-87;
   margin-top: 30px;
   font-style: normal;
   font-size: 12px;
@@ -89,7 +88,7 @@ address {
 
   a,
   a:visited {
-    color: rgba($darkgrey, .8);
+    color: $visited-hyperlink-purple;
 
     &:hover {
       text-decoration: none;

@@ -10,13 +10,13 @@
   order: 2;
   background: transparent;
   border: 0;
-  border-bottom: 2px solid rgba(theme-gray(), .2);
+  border-bottom: 2px solid $black-02;
   transition: border-color 100ms ease;
   font-size: 24px;
   padding: 3px 0 6px;
 
   &:focus {
     outline: none;
-    border-color: theme-blue(62%);
+    border-color: $check-blue;
   }
 }

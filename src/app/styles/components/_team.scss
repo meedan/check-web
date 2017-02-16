@@ -41,7 +41,7 @@
 }
 
 .team__save-button {
-  @include button-green;
+  @include button-primary;
 }
 
 // profile
@@ -73,10 +73,10 @@
 
 .team__name-input,
 .team__description-input {
-  border: 1px solid hsl(204, 15%, 90%);
+  border: 1px solid $black-05;
   border-radius: 2px;
   padding: 4px;
-  box-shadow: inset 0 0 2px 0 hsl(204, 15%, 97%);
+  box-shadow: inset 0 0 2px 0 $black-02;
 }
 
 .team__description,
@@ -112,7 +112,7 @@
 .team__add-link,
 .team__phone {
   font-size: 14px;
-  color: $light-gray-text;
+  color: $black-54;
 }
 
 .team__location,
@@ -146,12 +146,12 @@
 .team__projects-heading {
   @include app-kicker;
   margin: 0;
-  color: $light-gray-text;
+  color: $black-54;
 }
 
 .team__projects-list {
   margin: 15px auto;
-  color: $lighter-gray-text;
+  color: $black-38;
   line-height: 1.45;
 
   & > :last-child {
@@ -174,12 +174,12 @@
   border: 0;
   padding: 0;
   background: transparent;
-  color: $dark-gray-text;
+  color: $black-87;
   font-weight: 500;
 
   &:focus { outline: none; }
   @include input-placeholder {
-    color: $lighter-gray-text;
+    color: $black-38;
     font-weight: 400;
   }
 }
@@ -191,7 +191,7 @@
   }
 
   &:hover {
-    color: $dark-gray-text;
+    color: $black-87;
   }
 }
 
@@ -202,7 +202,7 @@
   input,
   label {
     font-size: 14px;
-    color: $light-gray-text;
+    color: $black-54;
   }
 
   label {

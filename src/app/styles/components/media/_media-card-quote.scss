@@ -1,10 +1,10 @@
 .quote-media-card {
-  background-color: #fff;
+  background-color: $white;
   border: $layout-border;
   border-radius: 4px;
   padding: 10px;
   min-height: none;
-  color: $medium-gray-text;
+  color: $black-54;
   overflow-x: hidden;
 }
 
@@ -15,10 +15,9 @@
   margin-bottom: 15px;
 
   &::before {
-    color: $lightest-gray-text;
-    content: '\f10d';
+    color: $black-16;
+    content: '“';
     display: inline-block;
-    font-family: FontAwesome;
     font-size: 30px;
     margin-left: -50px;
     padding: 0 10px;
@@ -31,7 +30,7 @@
 
 .quote-media-card__attribution-name,
 .quote-media-card__attribution-link {
-  color: $medium-gray-text;
+  color: $black-54;
   margin: 3px 7px;
   font-weight: 200;
   font-size: 14px;

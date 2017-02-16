@@ -34,7 +34,7 @@ $menu-status-item-padding: 11px 15px 11px 13px;
 
 .media-status__message {
   font-size: 14px;
-  color: theme-gray(75%);
+  color: $black-87;
 }
 
 // menu
@@ -46,7 +46,7 @@ $menu-status-item-padding: 11px 15px 11px 13px;
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: theme-gray(20%);
+  background-color: $white;
   opacity: 0;
   pointer-events: none;
   transition: opacity 100ms ease;
@@ -58,6 +58,7 @@ $menu-status-item-padding: 11px 15px 11px 13px;
 }
 
 .media-status__menu {
+  @include box-shadow(2);
   z-index: 3;
   position: absolute;
   top: 31px;
@@ -69,7 +70,6 @@ $menu-status-item-padding: 11px 15px 11px 13px;
   background: #fff;
   border-radius: 3px;
   border: $layout-border;
-  box-shadow: 3px 3px 0 transparentize(theme-gray(20%), .99);
 
   &--active {
     pointer-events: auto;

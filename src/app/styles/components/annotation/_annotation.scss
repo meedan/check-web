@@ -38,7 +38,7 @@ $annotation-font-size: 14px;
   margin-right: 10px;
 
   &:first-child {
-    color: theme-gray(28%);
+    color: $black-38;
     font-weight: 600;
   }
 }
@@ -60,12 +60,12 @@ $annotation-font-size: 14px;
   right: 0;
   height: 30px;
   width: 30px;
-  background-color: $home-bg;
+  background-color: $opaque-black-02;
   border-radius: 30px;
 }
 
 .annotation__body {
-  color: theme-gray(27%);
+  color: $black-54;
   word-break: break-word;
 }
 

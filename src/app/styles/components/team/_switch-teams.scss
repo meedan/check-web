@@ -14,15 +14,15 @@
   transition: background-color 70ms ease;
 
   &:hover {
-    background-color: $light-gray-bg;
+    background-color: $black-05;
   }
 }
 
 .switch-teams__team--current {
-  background-color: $light-gray-bg;
+  background-color: $black-02;
 
   &:hover {
-    background-color: $medium-gray-bg;
+    background-color: $black-05;
   }
 }
 
@@ -67,7 +67,7 @@
 
 .switch-teams__team-name {
   @include team-name;
-  color: $dark-gray-text;
+  color: $black-87;
   margin: 3px 0;
 
   & > a {
@@ -81,7 +81,7 @@
 
 .switch-teams__team-members-count,
 .switch-teams__team-join-request-message {
-  color: $light-gray-text;
+  color: $black-87;
   font-size: 14px;
 }
 
@@ -97,7 +97,7 @@
 
 .switch-teams__cancel-join-request {
   @include unbutton;
-  color: $red-500;
+  color: $monza-red;
   margin-left: 20px;
 }
 

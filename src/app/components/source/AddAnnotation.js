@@ -13,7 +13,7 @@ import CheckContext from '../../CheckContext';
 
 const styles = {
   errorStyle: {
-    color: orange500,
+    color: "#757575",
   },
 };
 
