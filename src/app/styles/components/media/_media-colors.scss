@@ -1,0 +1,27 @@
+// Media status font color
+//
+$media-status-blue: $check-blue;
+$media-status-orange: #efac51;
+$media-status-green: #5cae73;
+$media-status-red: #f04747;
+$media-status-gray: $black-38;
+$media-status-black: $black-54;
+
+// Media status page background colors
+//
+$media-status-blue-page-bg: $media-status-blue;
+$media-status-orange-page-bg: #ffbb5d;
+$media-status-green-page-bg: #72d18d;
+$media-status-red-page-bg: $media-status-red;
+$media-status-gray-page-bg: $black-16;
+$media-status-black-page-bg: $black-87;
+
+// Media status menu hover background colors
+//
+$menu-hover-bg-opacity: .02;
+$media-status-blue-menu-hover-bg: rgba($media-status-blue, $menu-hover-bg-opacity);
+$media-status-orange-menu-hover-bg: rgba($media-status-orange, $menu-hover-bg-opacity);
+$media-status-green-menu-hover-bg: rgba($media-status-green, $menu-hover-bg-opacity);
+$media-status-red-menu-hover-bg: rgba($media-status-red, $menu-hover-bg-opacity);
+$media-status-grey-menu-hover-bg: rgba($media-status-gray, $menu-hover-bg-opacity);
+$media-status-black-menu-hover-bg: rgba($media-status-black, $menu-hover-bg-opacity);
