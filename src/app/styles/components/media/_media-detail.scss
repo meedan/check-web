@@ -89,7 +89,7 @@
 //
 .media-detail__title-input {
   padding: 3px 5px;
-  border: 1px solid $black-05;
+  border: 2px solid $black-05;
   border-radius: 4px;
   margin: -1px 0 15px;
   font-size: 19px;
@@ -101,7 +101,8 @@
 
 .media-detail__editing-buttons {
   margin: 8px 8px 8px auto;
-
+  display: flex;
+  flex-flow: wrap row;
   span {
     display: block;
     margin: 8px 4px;
