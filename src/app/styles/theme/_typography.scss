@@ -9,7 +9,7 @@ $font-stack-serif: "Merriweather", Georgia, serif;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: .035em;
-  color: hsl(206, 98%, 62%);
+  color: $check-blue;
 }
 
 @mixin onboarding-blurb {

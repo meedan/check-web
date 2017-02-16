@@ -16,7 +16,7 @@ class LoginMenu extends Component {
       <div id="login-menu" className="login-menu">
         <div className="browser-support">
           <p className="browser-support__message">
-            <FormattedHTMLMessage id='browser.support.message' defaultMessage='Best viewed with <i class="fa fa-chrome"></i> <a href="https://www.google.com/chrome/browser/desktop/">Chrome for Desktop</a>.' />
+            <FormattedHTMLMessage id='browser.support.message' defaultMessage='Best viewed with <a href="https://www.google.com/chrome/browser/desktop/">Chrome for Desktop</a>.' />
           </p>
         </div>
 
