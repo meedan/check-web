@@ -1,7 +1,7 @@
 .create-media {
   @include box-shadow(1);
-  margin: 24px auto;
-  padding: 16px;
+  margin: 16px auto;
+  padding: 16px 16px 8px;
   background-color: $white;
   border-radius: 4px;
   max-width: $layout-column-width-narrow;
@@ -20,8 +20,8 @@
 
     .remove-image {
       position: absolute;
-      top: -2px;
-      right: 1px;
+      top: 2px;
+      right: 2px;
       z-index: 1;
       color: $black-38;
       cursor: pointer;
@@ -35,23 +35,32 @@
   }
 
   .upload-file > div {
-    height: 148px !important;
-    line-height: 48px !important;
     padding: 0 !important;
+    height: 148px !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .upload-file {
-    margin: 0;
+    margin: 0 0 7px;
   }
 }
 
 .create-media__input {
   & > :first-child {
-    padding: 0 5px;
+    padding: 0;
     @media all and (max-width: 400px) {
       font-size: 12px;
     }
   }
+}
+
+.create-media__helper {
+  font-size: 11px;
+  color: $black-38;
+  margin-right: auto;
+  margin-top: -3px;
 }
 
 .create-media__button--new {
