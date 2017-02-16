@@ -1,4 +1,5 @@
 @mixin app-menu {
+  @include box-shadow(2);
   z-index: 2;
   margin: 0;
   border: $layout-border;
