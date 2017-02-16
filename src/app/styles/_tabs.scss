@@ -15,8 +15,8 @@
     cursor: pointer;
     padding: 10px 0;
     text-transform: uppercase;
-    background: $lightestgrey;
-    color: $lightergrey;
+    background: $black-05;
+    color: $black-54;
     text-decoration: none;
 
     &:hover {
@@ -26,6 +26,6 @@
 
   li.is-active a {
     background: $white;
-    color: $black;
+    color: $black-87;
   }
 }

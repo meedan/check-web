@@ -9,6 +9,12 @@
 
 .project-edit__editing-button {
   @include button-medium;
-  &:not(:last-child) { margin-right: 5px; }
-  &--save { @include button-green; }
+
+  &:not(:last-child) {
+    margin-right: 5px;
+ 	}
+
+  &--save {
+    @include button-primary;
+  }
 }

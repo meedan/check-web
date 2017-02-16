@@ -20,7 +20,7 @@
 
 .media-inspector__overlay {
   @include modal-overlay;
-  background-color: rgba(theme-gray(5%), .95);
+  background-color: $midnight-blue-90;
 }
 
 .media-inspector__media {
@@ -34,7 +34,7 @@
 }
 
 .media-inspector__caption-url {
-  color: $light-gray-text;
+  color: $black-38;
   font-size: 14px;
   margin: 12px 0;
   word-wrap: break-word;

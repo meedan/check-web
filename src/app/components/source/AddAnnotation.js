@@ -53,7 +53,7 @@ const messages = defineMessages({
 
 const styles = {
   errorStyle: {
-    color: orange500,
+    color: "#757575",
   },
 };
 

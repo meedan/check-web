@@ -10,14 +10,12 @@ $browser-support-height-mobile: 65px;
   }
   width: 100%;
   z-index: 6;
-
-  background: $orange-100;
+  background-color: $white;
   padding: 15px 45px;
-
   display: flex;
   align-items: center;
   justify-content: center;
-  color: $dark-gray-text;
+  color: $black-54;
 }
 
 .browser-support ~ .home {
@@ -48,4 +46,8 @@ $browser-support-height-mobile: 65px;
   font-size: 28px;
   opacity: .2;
   cursor: pointer;
+}
+
+.browser-support a {
+  color: $black-87;
 }

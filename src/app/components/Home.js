@@ -27,9 +27,9 @@ const messages = defineMessages({
 
 const muiTheme = getMuiTheme({
   palette: {
-    primary1Color: blue500,
-    primary2Color: blue500,
-    primary3Color: blue500,
+    primary1Color: "#2e77fc",
+    primary2Color: "#2e77fc",
+    primary3Color: "#2e77fc",
     accent1Color: blue600,
     accent2Color: blue700,
     accent3Color: blue800,

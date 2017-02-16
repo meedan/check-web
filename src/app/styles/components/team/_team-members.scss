@@ -49,7 +49,6 @@
 }
 
 .team-membership-requests {
-  background: hsl(208, 98%, 95%);
   border-radius: 2px;
   padding: 8px;
   margin-bottom: 16px;
@@ -57,9 +56,8 @@
 
 .team-membership-requests__heading {
   @include app-kicker;
-
   text-align: center;
-  color: hsl(208, 98%, 62%);
+  color: $check-blue;
 }
 
 .team-membership-requests__heading-parens {
@@ -78,7 +76,6 @@
 .team-members__member-avatar,
 .team-membership-requests__user-avatar {
   $size: 50px;
-
   height: $size;
   width: $size;
   border-radius: $size;
@@ -101,7 +98,7 @@
 
 .team-members__member-username,
 .team-membership-requests__user-username {
-  color: $light-gray-text;
+  color: $black-38;
 }
 
 // user controls
@@ -111,7 +108,7 @@
   margin-bottom: 0;
 
   &--approve {
-    @include button-green;
+    @include button-primary;
   }
 }
 
@@ -146,7 +143,7 @@
     }
 
     .Select-placeholder {
-      color: $light-gray-text !important;
+      color: $black-38 !important;
     }
   }
 }
