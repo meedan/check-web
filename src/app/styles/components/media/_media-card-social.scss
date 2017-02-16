@@ -2,7 +2,10 @@
   color: $black-87;
   display: flex;
   margin-right: 24px;
-  flex-flow: wrap row;
+  flex-flow: nowrap row;
+  @media all and (max-width: 700px) {
+    flex-wrap: wrap;
+  }
 }
 
 .social-media-card__header {
@@ -70,7 +73,7 @@
 }
 
 .social-media-card__body {
-  margin: 18px 20px 18px 0;
+  margin: 16px 24px 16px 0;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
