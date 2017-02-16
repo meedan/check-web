@@ -1,7 +1,7 @@
 {
   "annotation.error": "Could not delete annotation",
   "annotation.deleteButton": "Delete",
-  "annotation.statusSetHeader": "Status set to {status} by {author}",
-  "annotation.taggedHeader": "Tagged #{tag} by {author}",
+  "annotation.statusSetHeader": "Statut fixé à {status} par {author}",
+  "annotation.taggedHeader": "Classé #{tag} par {author}",
   "annotation.flaggedHeader": "Flagged as {flag} by {author}"
 }

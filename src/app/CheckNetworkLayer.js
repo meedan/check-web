@@ -9,8 +9,13 @@ class CheckNetworkLayer extends Relay.DefaultNetworkLayer {
           const history = this._init.history;
           if (result.status === 404 && window.location.pathname != '/check/404') {
             history.push('/check/404');
-          } else if ((result.status === 401 || result.status === 403) && window.location.pathname != '/check/forbidden') {
-            history.push('/check/forbidden');
+          } else if (result.status === 401 || result.status === 403) {
+            const team = this._init.team();
+            if (team != '') {
+              history.push(`/${team}/join`);
+            } else {
+              history.push('/check/forbidden');
+            }
           }
           return result.json();
         }).then((payload) => {

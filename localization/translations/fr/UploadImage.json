@@ -1,5 +1,5 @@
 {
-  "uploadImage.changeFile": "{filename} (click or drop to change)",
+  "uploadImage.changeFile": "{filename} (cliquer ou déposer pour changer)",
   "uploadImage.imageLabel": "Image: ",
   "uploadLabel.message": "Essayez de glisser-déposer un fichier image ici, ou cliquez pour télécharger un fichier (max: {max_upload_size})"
 }

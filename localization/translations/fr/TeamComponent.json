@@ -1,7 +1,7 @@
 {
-  "teamComponent.editError": "Sorry, could not edit the team",
-  "teamComponent.editSuccess": "Team information updated successfully!",
-  "teamComponent.changeAvatar": "You can't change this right now, but we're hard at work to enable it soon!",
+  "teamComponent.editError": "Désolé, ce n'était pas possible d'editer l'équipe",
+  "teamComponent.editSuccess": "L'information d'équipe a été mis à jour avec succès!",
+  "teamComponent.changeAvatar": "Vous ne pouvez pas changer ceci pour l'instant, mais nous travaillons pour l'activer bientôt!",
   "teamComponent.teamName": "Nom de l'équipe ",
   "teamComponent.teamDescription": "Description de l'équipe ",
   "teamComponent.location": "Endroit",
