@@ -1,3 +1,15 @@
+%chip {
+  padding: 3px 16px;
+  border: 0;
+  margin: 4px 10px 4px 0;
+  font-size: 12px;
+  font-weight: 400;
+  color: $black-54;
+  background-color: $black-05;
+  border-radius: 24px;
+  display: inline-block;
+}
+
 
 %icon {
   cursor: pointer;
@@ -7,13 +19,13 @@
 
   path {
     color: $black-54;
-  	transition: color .2s;
+    transition: color .2s;
   }
 
   &:hover {
-		path {
-		  color: $check-blue;
-  		transition: color .4s;
-		}  	
+    path {
+      color: $check-blue;
+      transition: color .4s;
+		}
   }
 }
