@@ -12,8 +12,8 @@
 
 .medias-loading__media {
   $loader-grid-unit: 16px;
-  background: #fff;
-  border: 1px solid theme-gray(93%);
+  background: $white;
+  border: 1px solid $black-05;
   border-radius: 3px;
   margin: $loader-grid-unit 0;
   min-height: 200px;
