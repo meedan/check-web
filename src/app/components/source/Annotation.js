@@ -75,6 +75,16 @@ class Annotation extends Component {
     return date;
   }
 
+  timeElementWrapper(date){
+    const datetimeLabel = new Date(+date - date.getTimezoneOffset() * 60 * 1000).toISOString().split('.')[0].replace('T',' ').slice(0,-3);
+
+    return (
+      <time title={datetimeLabel}>
+        {this.props.intl.formatRelative(date)}
+      </time>
+    );
+  }
+
   render() {
     const annotation = this.props.annotation;
     let permissionType = `${annotation.annotation_type.charAt(0).toUpperCase()}${annotation.annotation_type.slice(1)}`;
@@ -96,7 +106,7 @@ class Annotation extends Component {
         <section className="annotation__content">
           <div className="annotation__header">
             <h4 className="annotation__author-name">{annotation.annotator.name}</h4>
-            {updatedAt ? <span className="annotation__timestamp">{this.props.intl.formatRelative(updatedAt)}</span> : null}
+            {updatedAt ? <span className="annotation__timestamp">{this.timeElementWrapper(updatedAt)}</span> : null}
             {annotationActions}
           </div>
           <div className="annotation__body"><Linkify properties={{ target: '_blank' }}>{nl2br(commentText)}</Linkify></div>
@@ -117,7 +127,7 @@ class Annotation extends Component {
                   defaultMessage={`Status set to {status} by {author}`}
                           values={{ status: <span className={`annotation__status annotation__status--${statusCode}`}>{this.statusIdToLabel(content.status)}</span>,
                                     author: <span className="annotation__author-name">{annotation.annotator.name}</span> }} />
-            {updatedAt ? <span className="annotation__timestamp">{this.props.intl.formatRelative(updatedAt)}</span> : null}
+            {updatedAt ? <span className="annotation__timestamp">{this.timeElementWrapper(updatedAt)}</span> : null}
             {annotationActions}
           </div>
         </section>
@@ -130,7 +140,7 @@ class Annotation extends Component {
             <FormattedMessage id="annotation.taggedHeader"
                   defaultMessage={`Tagged #{tag} by {author}`}
                   values={{ tag: content.tag.replace(/^#/, ''), author: <span className="annotation__author-name">{annotation.annotator.name}</span> }} />
-            {updatedAt ? <span className="annotation__timestamp">{this.props.intl.formatRelative(updatedAt)}</span> : null}
+            {updatedAt ? <span className="annotation__timestamp">{this.timeElementWrapper(updatedAt)}</span> : null}
             {annotationActions}
           </div>
         </section>
@@ -143,7 +153,7 @@ class Annotation extends Component {
             <FormattedMessage id="annotation.flaggedHeader"
                   defaultMessage={`Flagged as {flag} by {author}`}
                   values={{ flag: content.flag, author: <span className="annotation__author-name">{annotation.annotator.name}</span> }} />
-            {updatedAt ? <span className="annotation__timestamp">{this.props.intl.formatRelative(updatedAt)}</span> : null}
+            {updatedAt ? <span className="annotation__timestamp">{this.timeElementWrapper(updatedAt)}</span> : null}
             {annotationActions}
           </div>
         </section>
