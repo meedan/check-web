@@ -1,27 +1,15 @@
 .quote-media-card {
-  background-color: $white;
-  border: $layout-border;
   border-radius: 4px;
-  padding: 10px;
   min-height: none;
   color: $black-54;
   overflow-x: hidden;
+  margin-right: 24px;
 }
 
 .quote-media-card__body-text {
   font-size: 24px;
   font-weight: 100;
-  margin-left: 50px;
   margin-bottom: 15px;
-
-  &::before {
-    color: $black-16;
-    content: '“';
-    display: inline-block;
-    font-size: 30px;
-    margin-left: -50px;
-    padding: 0 10px;
-  }
 }
 
 .quote-media-card__attribution {
