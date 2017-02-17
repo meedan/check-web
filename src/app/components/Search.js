@@ -25,6 +25,10 @@ const messages = defineMessages({
   loading: {
     id: 'search.loading',
     defaultMessage: 'Loading...'
+  },
+  searchInputHint: {
+    id: 'search.inputHint',
+    defaultMessage: 'Search'
   }
 });
 
@@ -204,7 +208,7 @@ class SearchQueryComponent extends Component {
         <ContentColumn>
           <div className="search__query">
             <form id="search-form" className="search__form" onSubmit={this.handleSubmit.bind(this)}>
-              <input placeholder="Search" name="search-input" id="search-input" className="search__input" defaultValue={this.state.query.keyword || ''} ref={input => this.searchQueryInput = input} />
+              <input placeholder={this.props.intl.formatMessage(messages.searchInputHint)} name="search-input" id="search-input" className="search__input" defaultValue={this.state.query.keyword || ''} ref={input => this.searchQueryInput = input} />
             </form>
 
             <section className="search__filters / filters">
