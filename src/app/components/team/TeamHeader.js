@@ -1,13 +1,18 @@
 import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 import { Link } from 'react-router';
-import FontAwesome from 'react-fontawesome';
+import Pusher from 'pusher-js';
 import TeamRoute from '../../relay/TeamRoute';
 import teamFragment from '../../relay/teamFragment';
-import config from 'config';
 import CheckContext from '../../CheckContext';
+import ProjectList from '../project/ProjectList';
 
 class TeamHeaderComponent extends Component {
+  getPusher() {
+    const context = new CheckContext(this);
+    return context.getContextStore().pusher;
+  }
+
   updateContext() {
     new CheckContext(this).setContextStore({ team: this.props.team });
   }
@@ -20,28 +25,48 @@ class TeamHeaderComponent extends Component {
     this.updateContext();
   }
 
+  subscribe() {
+    const pusher = this.getPusher();
+    if (pusher) {
+      const that = this;
+      pusher.subscribe(this.props.team.pusher_channel).bind('project_created', (data) => {
+        that.props.relay.forceFetch();
+      });
+    }
+  }
+
+  componentDidMount() {
+    this.subscribe();
+  }
+
+  unsubscribe() {
+    const pusher = this.getPusher();
+    if (pusher) {
+      pusher.unsubscribe(this.props.team.pusher_channel);
+    }
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
+
   render() {
     const team = this.props.team;
-    const teamUrl = `${window.location.protocol}//${team.subdomain}.${config.selfHost}`;
 
     return (
       <nav className="team-header">
-        {(() => {
-          if (team) {
-            return (
-              <Link to="/" className="team-header__clickable">
-                <div className="team-header__icon">
-                  <FontAwesome className="team-header__caret" name="angle-left" />
-                </div>
-                <div className="team-header__avatar" style={{ 'background-image': `url(${team.avatar})` }} title={team.name} />
-                <div className="team-header__copy">
-                  <h3 className="team-header__name">{team.name}</h3>
-                  <span className="team-header__label">Team</span>
-                </div>
-              </Link>
-            );
-          }
-        })()}
+        <Link to={`/${team.slug}`} className="team-header__clickable" title={team.name}>
+          <div className="team-header__avatar" style={{ backgroundImage: `url(${team.avatar})` }}></div>
+        </Link>
+        <div className="team-header__copy">
+          <h3 className="team-header__name">
+            {team.name}
+            <i className="team-header__caret / fa fa-chevron-down" aria-hidden="true"></i>
+          </h3>
+          <div className="team-header__project-list">
+            <ProjectList team={team} />
+          </div>
+        </div>
       </nav>
     );
   }
@@ -59,8 +84,23 @@ const TeamHeaderContainer = Relay.createContainer(TeamHeaderComponent, {
 
 class TeamHeader extends Component {
   render() {
-    const route = new TeamRoute({ teamId: '' });
-    return (<Relay.RootContainer Component={TeamHeaderContainer} route={route} />);
+    const teamSlug = (this.props.params && this.props.params.team) ? this.props.params.team : '';
+    const route = new TeamRoute({ teamSlug });
+    return (
+      <Relay.RootContainer
+        Component={TeamHeaderContainer}
+        route={route}
+        renderLoading={function() {
+          return (
+            <nav className="team-header team-header--loading">
+              <Link to={`/${teamSlug}`} className="team-header__clickable" title='Back to team'>
+                <div className="team-header__avatar"></div>
+              </Link>
+            </nav>
+          );
+        }}
+      />
+    );
   }
 }
 

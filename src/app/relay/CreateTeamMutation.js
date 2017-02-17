@@ -17,7 +17,7 @@ class CreateTeamMutation extends Relay.Mutation {
   }
 
   getVariables() {
-    return { name: this.props.name, description: this.props.description, subdomain: this.props.subdomain };
+    return { name: this.props.name, description: this.props.description, slug: this.props.slug };
   }
 
   getConfigs() {
@@ -29,7 +29,7 @@ class CreateTeamMutation extends Relay.Mutation {
             id,
             name,
             dbid,
-            subdomain,
+            slug,
             description
           }
         }`,

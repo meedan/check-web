@@ -10,10 +10,13 @@
 @import 'theme/layout';
 @import 'theme/forms';
 @import 'theme/images';
+@import 'theme/lists';
+@import 'theme/animation';
 
 @import 'components/annotation';
 @import 'components/browser-support';
 @import 'components/caret';
+@import 'components/close-button';
 @import 'components/home';
 @import 'components/inputs/default-button';
 @import 'components/layout/breadcrumb';
@@ -37,7 +40,9 @@
 @import 'components/team/team-sidebar';
 @import 'components/team/teams';
 @import 'components/project/project';
+@import 'components/project/project-edit';
 @import 'components/project/project-header';
+@import 'components/project/project-list';
 @import 'source';
 @import 'tags';
 @import 'create-account';

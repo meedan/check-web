@@ -6,7 +6,9 @@ import { orange500 } from 'material-ui/styles/colors';
 import CreateCommentMutation from '../../relay/CreateCommentMutation';
 import CreateTagMutation from '../../relay/CreateTagMutation';
 import CreateStatusMutation from '../../relay/CreateStatusMutation';
+import UpdateStatusMutation from '../../relay/UpdateStatusMutation';
 import CreateFlagMutation from '../../relay/CreateFlagMutation';
+import CreateDynamicMutation from '../../relay/CreateDynamicMutation';
 import CheckContext from '../../CheckContext';
 
 const styles = {
@@ -25,7 +27,7 @@ class AddAnnotation extends Component {
   }
 
   parseCommand(input) {
-    const matches = input.match(/^\/(comment|tag|status|flag) (.*)/);
+    const matches = input.match(/^\/([a-z_]+) (.*)/);
     let command = { type: 'unk', args: null };
     if (matches !== null) {
       command.type = matches[1];
@@ -65,7 +67,7 @@ class AddAnnotation extends Component {
     return context;
   }
 
-  addComment(that, annotated, annotated_id, annotated_type, comment) {
+  addComment(that, annotated, annotated_id, annotated_type, comment, annotation_type) {
     const onFailure = (transaction) => { that.fail(transaction); };
 
     const onSuccess = (response) => { that.success('comment'); };
@@ -88,7 +90,7 @@ class AddAnnotation extends Component {
     );
   }
 
-  addTag(that, annotated, annotated_id, annotated_type, tags) {
+  addTag(that, annotated, annotated_id, annotated_type, tags, annotation_type) {
     const tagsList = [...new Set(tags.split(','))];
 
     const onFailure = (transaction) => { that.fail(transaction); };
@@ -117,15 +119,18 @@ class AddAnnotation extends Component {
     });
   }
 
-  addStatus(that, annotated, annotated_id, annotated_type, status) {
+  addStatus(that, annotated, annotated_id, annotated_type, status, annotation_type) {
     const onFailure = (transaction) => { that.fail(transaction); };
 
     const onSuccess = (response) => { that.success('status'); };
 
     const annotator = that.getContext().currentUser;
 
-    Relay.Store.commitUpdate(
-      new CreateStatusMutation({
+    let status_id = '';
+    if (annotated.last_status_obj !== null) {
+      status_id = annotated.last_status_obj.id;
+    }
+    let status_attr = {
         parent_type: annotated_type.replace(/([a-z])([A-Z])/, '$1_$2').toLowerCase(),
         annotated,
         annotator,
@@ -134,13 +139,25 @@ class AddAnnotation extends Component {
           status,
           annotated_type,
           annotated_id,
+          status_id: status_id,
         },
-      }),
-      { onSuccess, onFailure },
-    );
+      };
+    // Add or Update status
+    if (status_id && status_id.length) {
+      Relay.Store.commitUpdate(
+        new UpdateStatusMutation(status_attr),
+        { onSuccess, onFailure },
+      );
+    } else {
+      Relay.Store.commitUpdate(
+        new CreateStatusMutation(status_attr),
+        { onSuccess, onFailure },
+      );
+    }
+
   }
 
-  addFlag(that, annotated, annotated_id, annotated_type, flag) {
+  addFlag(that, annotated, annotated_id, annotated_type, flag, annotation_type) {
     const onFailure = (transaction) => { that.fail(transaction); };
 
     const onSuccess = (response) => { that.success('flag'); };
@@ -155,6 +172,37 @@ class AddAnnotation extends Component {
         context: that.getContext(),
         annotation: {
           flag,
+          annotated_type,
+          annotated_id,
+        },
+      }),
+      { onSuccess, onFailure },
+    );
+  }
+
+  addDynamic(that, annotated, annotated_id, annotated_type, params, annotation_type) {
+    const onFailure = (transaction) => { that.fail(transaction); };
+
+    const onSuccess = (response) => { that.success(annotation_type); };
+
+    const annotator = that.getContext().currentUser;
+
+    // /location location_name=Salvador&location_position=-12.9016241,-38.4198075
+    const fields = {};
+    params.split('&').forEach((part) => {
+      const pair = part.split('=');
+      fields[pair[0]] = pair[1];
+    });
+
+    Relay.Store.commitUpdate(
+      new CreateDynamicMutation({
+        parent_type: annotated_type.replace(/([a-z])([A-Z])/, '$1_$2').toLowerCase(),
+        annotator,
+        annotated,
+        context: that.getContext(),
+        annotation: {
+          fields,
+          annotation_type,
           annotated_type,
           annotated_id,
         },
@@ -190,13 +238,16 @@ class AddAnnotation extends Component {
       case 'flag':
         action = this.addFlag;
         break;
+      default:
+        action = this.addDynamic;
+        break;
       }
 
       if (action) {
         const annotated = this.props.annotated;
         const annotated_id = annotated.dbid;
         const annotated_type = this.props.annotatedType;
-        action(this, annotated, annotated_id, annotated_type, command.args);
+        action(this, annotated, annotated_id, annotated_type, command.args, command.type);
       } else {
         this.failure();
       }

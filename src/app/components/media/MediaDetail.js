@@ -12,6 +12,7 @@ import MediaUtil from './MediaUtil';
 import Tags from '../source/Tags';
 import DefaultButton from '../inputs/DefaultButton';
 import PenderCard from '../PenderCard';
+import ImageMediaCard from './ImageMediaCard';
 import UpdateMediaMutation from '../../relay/UpdateMediaMutation';
 import CheckContext from '../../CheckContext';
 
@@ -67,7 +68,7 @@ class MediaDetail extends Component {
   }
 
   render() {
-    const { media, annotated, annotatedType } = this.props;
+    const { media, annotated, annotatedType, condensed } = this.props;
     const data = JSON.parse(media.embed);
     const createdAt = MediaUtil.createdAt(media);
     const annotationsCount = MediaUtil.notesCount(media, data);
@@ -76,20 +77,24 @@ class MediaDetail extends Component {
     if (!projectId && annotated && annotatedType === 'Project') {
       projectId = annotated.dbid;
     }
-    const mediaUrl = projectId ? `/project/${projectId}/media/${media.dbid}` : null;
+    const mediaUrl = (projectId && media.team) ? `/${media.team.slug}/project/${projectId}/media/${media.dbid}` : null;
 
     const byUser = (media.user && media.user.source && media.user.source.dbid && media.user.name !== 'Pender') ?
       (<span>by {media.user.name}</span>) : '';
 
     let embedCard = null;
-    media.url = media.media.url
-    media.quote = media.media.quote
-    if (media.quote && media.quote.length) {
+    media.url = media.media.url;
+    media.quote = media.media.quote;
+    
+    if (media.media.embed_path) {
+      const path = condensed ? media.media.thumbnail_path : media.media.embed_path;
+      embedCard = <ImageMediaCard imagePath={path} />;
+    } else if (media.quote && media.quote.length) {
       embedCard = <QuoteMediaCard quoteText={media.quote} attributionName={null} attributionUrl={null} />;
     } else if (media.url) {
-      embedCard = this.props.condensed ?
-        <SocialMediaCard media={media} data={data} /> :
-        <PenderCard url={media.url} penderUrl={config.penderUrl} fallback={<SocialMediaCard media={media} data={data} />} />;
+       embedCard = condensed ?
+                   <SocialMediaCard media={media} data={data} condensed={condensed} /> :
+                   <PenderCard url={media.url} penderUrl={config.penderUrl} fallback={null} />;
     }
 
     return (

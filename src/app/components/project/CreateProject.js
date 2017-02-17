@@ -17,7 +17,8 @@ class CreateProject extends Component {
     let that = this,
       title = document.getElementById('create-project-title').value,
       team = this.props.team,
-      history = new CheckContext(this).getContextStore().history;
+      context = new CheckContext(this),
+      history = context.getContextStore().history;
 
     const onFailure = (transaction) => {
       const error = transaction.getError();
@@ -32,9 +33,9 @@ class CreateProject extends Component {
     };
 
     const onSuccess = (response) => {
-      const pid = response.createProject.project.dbid;
-      history.push(`/project/${pid}`);
-      this.setState({ message: null });
+      const project = response.createProject.project;
+      const path = `/${team.slug}/project/${project.dbid}`;
+      history.push(path);
     };
 
     Relay.Store.commitUpdate(

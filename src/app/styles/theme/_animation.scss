@@ -1,0 +1,17 @@
+@keyframes placeHolderShimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+%shimmer {
+  animation: placeHolderShimmer .7s ease-out infinite;
+  animation-fill-mode: forwards;
+  background: linear-gradient(90deg, theme-gray(97%), theme-gray(97%), theme-gray(98%), theme-gray(98%), theme-gray(100%), theme-gray(98%), theme-gray(97%), theme-gray(97%));
+  background-size: 400%;
+}
+

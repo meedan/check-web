@@ -3,6 +3,7 @@ import Relay from 'react-relay';
 import CheckContext from '../../CheckContext';
 import MediaRoute from '../../relay/MediaRoute';
 import MediaComponent from './MediaComponent';
+import MediasLoading from './MediasLoading';
 
 const MediaContainer = Relay.createContainer(MediaComponent, {
   initialVariables: {
@@ -25,13 +26,19 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
         verification_statuses,
         media {
           url,
-          quote
+          quote,
+          embed_path,
+          thumbnail_path
         }
         user {
           name,
           source {
             dbid
           }
+        }
+        last_status_obj {
+          id
+          dbid
         }
         tags(first: 10000) {
           edges {
@@ -48,7 +55,7 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
               dbid,
               content,
               annotation_type,
-              created_at,
+              updated_at,
               permissions,
               medias(first: 10000) {
                 edges {
@@ -65,6 +72,10 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
                     permissions,
                     verification_statuses,
                     domain,
+                    media {
+                      embed_path,
+                      thumbnail_path
+                    }
                     user {
                       name,
                       source {
@@ -78,6 +89,11 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
                 name,
                 profile_image
               }
+              version {
+                id
+                item_id
+                item_type
+              }
             }
           }
         }
@@ -88,7 +104,8 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
           }
         }
         team {
-          get_suggested_tags
+          get_suggested_tags,
+          slug
         }
       }
     `,
@@ -104,9 +121,18 @@ class ProjectMedia extends Component {
     if (store.project) {
       projectId = store.project.dbid;
     }
-    const ids = this.props.params.mediaId;
+    const ids = `${this.props.params.mediaId},${projectId}`;
     const route = new MediaRoute({ ids });
-    return (<Relay.RootContainer Component={MediaContainer} route={route} />);
+
+    return (
+      <Relay.RootContainer
+        Component={MediaContainer}
+        route={route}
+        renderLoading={function() {
+          return <MediasLoading count={1} />;
+        }}
+      />
+    );
   }
 }
 

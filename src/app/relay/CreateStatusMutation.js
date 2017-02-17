@@ -15,7 +15,7 @@ class CreateStatusMutation extends Relay.Mutation {
       query = Relay.QL`fragment on CreateStatusPayload { statusEdge, source { annotations, id } }`;
       break;
     case 'project_media':
-      query = Relay.QL`fragment on CreateStatusPayload { statusEdge, project_media { annotations, id, last_status, annotations_count } }`;
+      query = Relay.QL`fragment on CreateStatusPayload { statusEdge, project_media { annotations, id, last_status, annotations_count, last_status_obj { id } } }`;
       break;
     }
     return query;
@@ -24,7 +24,7 @@ class CreateStatusMutation extends Relay.Mutation {
   getOptimisticResponse() {
     const status = {
       id: this.props.id,
-      created_at: new Date().toString(),
+      updated_at: new Date().toString(),
       annotation_type: 'status',
       permissions: '{"destroy Annotation":true,"destroy Status":true}',
       content: JSON.stringify({ status: this.props.annotation.status }),

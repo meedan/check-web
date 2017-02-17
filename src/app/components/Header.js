@@ -1,11 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import FlatButton from 'material-ui/FlatButton';
 import TeamHeader from './team/TeamHeader';
+import TeamPublicHeader from './team/TeamPublicHeader';
 import ProjectHeader from './project/ProjectHeader';
 import Breadcrumb from './layout/Breadcrumb';
 import MediaHeader from './media/MediaHeader';
 import HeaderActions from './HeaderActions';
-import { teamSubdomain } from '../helpers';
+import Can from './Can';
 
 class Header extends Component {
   render() {
@@ -15,7 +16,7 @@ class Header extends Component {
     const defaultHeader = (
       <header className="header header--default">
         <div className="header__container">
-          <div className="header__breadcrumb"><Breadcrumb url="/" label={null} /></div>
+          <div className="header__breadcrumb"><Breadcrumb url="/check/teams" label={null} /></div>
           <HeaderActions {...this.props} />
         </div>
       </header>
@@ -31,8 +32,22 @@ class Header extends Component {
         <header className="header header--media">
           <div className="header__container">
             <span style={{ display: 'none' }}><TeamHeader {...this.props} /></span>
-            <div className="header__breadcrumb"><Breadcrumb url={projectUrl} label="Back to Project" /></div>
+            <div className="header__breadcrumb"><Breadcrumb url={projectUrl} label="Project" /></div>
             <MediaHeader {...this.props} />
+            <HeaderActions {...this.props} />
+          </div>
+        </header>
+      );
+    }
+
+    if (path.match(/project\/[0-9]+\/edit/)) {
+      const projectUrl = path.match(/(.*)\/edit$/)[1];
+      return (
+        <header className="header header--project-edit">
+          <div className="header__container">
+            <span style={{ display: 'none' }}><TeamHeader {...this.props} /></span>
+            <div className="header__breadcrumb"><Breadcrumb url={projectUrl} label="Project" /></div>
+            <ProjectHeader {...this.props} />
             <HeaderActions {...this.props} />
           </div>
         </header>
@@ -45,42 +60,51 @@ class Header extends Component {
           <div className="header__container">
             <div className="header__team"><TeamHeader {...this.props} /></div>
             <ProjectHeader {...this.props} />
-            {/* TODO: <HeaderActions {...this.props} /> */}
+            <HeaderActions {...this.props} />
           </div>
         </header>
       );
     }
 
-    if (path.match(/^search\/?/)) {
+    if (path.match(/search\/?/)) {
       return (
         <header className="header header--default">
           <div className="header__container">
             <span style={{ display: 'none' }}><TeamHeader {...this.props} /></span>
-            <div className="header__breadcrumb"><Breadcrumb url="/" label={null} /></div>
+            <div className="header__breadcrumb"><Breadcrumb url={`/${this.props.params.team}`} label={null} /></div>
             <HeaderActions {...this.props} />
           </div>
         </header>
       );
     }
 
-    if (teamSubdomain(window.location.hostname) && path.match(/^\/(join|members)/)) {
+    if (path.match(/\/members/)) {
       return (
         <header className="header header--team-subpage">
           <div className="header__container">
             <span style={{ display: 'none' }}><TeamHeader {...this.props} /></span>
-            <div className="header__breadcrumb"><Breadcrumb url="/" label="Back to Team" /></div>
+            <div className="header__breadcrumb"><Breadcrumb url={`/${this.props.params.team}`} label="Team" /></div>
             <HeaderActions {...this.props} />
           </div>
         </header>
       );
     }
 
-    if (teamSubdomain(window.location.hostname) && path.match(/^\/(teams\/new)?$/)) {
+    if (path.match(/\/join/)) {
+      return (
+        <header className="header header--team-subpage">
+          <div className="header__container">
+            <TeamPublicHeader {...this.props} />
+          </div>
+        </header>
+      );
+    }
+
+    if (path.match(/\/(teams\/new)?$/)) {
       return (
         <header className="header header--team">
           <div className="header__container">
-            <span style={{ display: 'none' }}><TeamHeader {...this.props} /></span>
-            <div className="header__breadcrumb"><Breadcrumb url="/teams" label="Teams" /></div>
+            <div className="header__breadcrumb"><Breadcrumb url="/check/teams" label="Teams" /></div>
             <HeaderActions {...this.props} />
           </div>
         </header>

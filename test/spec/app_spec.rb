@@ -98,14 +98,32 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
   # The tests themselves start here
 
   context "web" do
+    it "should localize interface based on browser language" do
+      unless browser_capabilities['appiumVersion']
+        caps = Selenium::WebDriver::Remote::Capabilities.chrome(chromeOptions: { prefs: { 'intl.accept_languages' => 'fr' } })
+        driver = Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: caps)
+        driver.navigate.to @config['self_url']
+        sleep 1
+        expect(driver.find_element(:css, '.login-menu__heading span').text == 'SE CONNECTER').to be(true)
+        driver.quit
+
+        caps = Selenium::WebDriver::Remote::Capabilities.chrome(chromeOptions: { prefs: { 'intl.accept_languages' => 'pt' } })
+        driver = Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: caps)
+        driver.navigate.to @config['self_url']
+        sleep 1
+        expect(driver.find_element(:css, '.login-menu__heading span').text == 'ENTRAR').to be(true)
+        driver.quit
+      end
+    end
+
     it "should access user confirmed page" do
-      @driver.navigate.to @config['self_url'] + '/user/confirmed'
+      @driver.navigate.to @config['self_url'] + '/check/user/confirmed'
       title = get_element('.main-title')
       expect(title.text == 'Account Confirmed').to be(true)
     end
 
     it "should access user unconfirmed page" do
-      @driver.navigate.to @config['self_url'] + '/user/unconfirmed'
+      @driver.navigate.to @config['self_url'] + '/check/user/unconfirmed'
       title = get_element('.main-title')
       expect(title.text == 'Error').to be(true)
     end
@@ -138,11 +156,11 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
           .create_project(name: project_name)
 
       expect(project_pg.driver.current_url.to_s.match(/\/project\/[0-9]+$/).nil?).to be(false)
-      expect(project_pg.element('.team-sidebar__project-link').text == project_name).to be(true)
+      team_pg = project_pg.click_team_avatar
+      expect(team_pg.project_titles.include?(project_name)).to be(true)
     end
 
     it "should create project media" do
-
       page = LoginPage.new(config: @config, driver: @driver).load
           .login_with_email(email: @email, password: @password)
           .create_media(input: 'https://twitter.com/marcouza/status/771009514732650497?t=' + Time.now.to_i.to_s)
@@ -152,7 +170,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(page.status_label == 'UNSTARTED').to be(true)
 
       page.driver.navigate.to @config['self_url']
-      page.wait_for_element('.project')
+      page.wait_for_element('.project .medias-and-annotations')
 
       expect(page.contains_string?('Added')).to be(true)
       expect(page.contains_string?('User With Email')).to be(true)
@@ -173,6 +191,30 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect($media_id.nil?).to be(false)
     end
 
+    it "should register and redirect to newly created image media" do
+      page = LoginPage.new(config: @config, driver: @driver).load
+          .login_with_email(email: @email, password: @password)
+          .create_image_media(File.join(File.dirname(__FILE__), 'test.png'))
+
+      expect(page.contains_string?('Added')).to be(true)
+      expect(page.contains_string?('User With Email')).to be(true)
+      expect(page.status_label == 'UNSTARTED').to be(true)
+
+      $media_id = page.driver.current_url.to_s.match(/\/media\/([0-9]+)$/)[1]
+      expect($media_id.nil?).to be(false)
+    end
+
+    it "should search for image" do
+      page = LoginPage.new(config: @config, driver: @driver).load
+          .login_with_email(email: @email, password: @password)
+          .create_image_media(File.join(File.dirname(__FILE__), 'test.png'))
+
+      @driver.navigate.to @config['self_url'] + '/' + get_team + '/search'
+      sleep 3
+      imgsrc = @driver.find_element(:css, '.image-media-card img').attribute('src')
+      expect(imgsrc.match(/test\.png$/).nil?).to be(false)
+    end
+
     it "should upload image when registering" do
       email, password, avatar = [@email + '.br', '12345678', File.join(File.dirname(__FILE__), 'test.png')]
       page = LoginPage.new(config: @config, driver: @driver).load
@@ -184,26 +226,26 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should redirect to 404 page" do
-      @driver.navigate.to @config['self_url'] + '/something-that-does-not-exist'
+      @driver.navigate.to @config['self_url'] + '/something-that/does-not-exist'
       title = get_element('.main-title')
       expect(title.text == 'Not Found').to be(true)
     end
 
     it "should click to go to Terms of Service" do
-      @driver.navigate.to @config['self_url'] + '/tos'
+      @driver.navigate.to @config['self_url'] + '/check/tos'
       title = get_element('.main-title')
       expect(title.text == 'Terms of Service').to be(true)
     end
 
     it "should redirect to login screen if not logged in" do
-      @driver.navigate.to @config['self_url'] + '/teams'
+      @driver.navigate.to @config['self_url'] + '/check/teams'
       title = get_element('.login-menu__heading')
       expect(title.text == 'SIGN IN').to be(true)
     end
 
     it "should login using Twitter" do
       login_with_twitter
-      @driver.navigate.to @config['self_url'] + '/me'
+      @driver.navigate.to @config['self_url'] + '/check/me'
       displayed_name = get_element('h2.source-name').text.upcase
       expected_name = @config['twitter_name'].upcase
       expect(displayed_name == expected_name).to be(true)
@@ -211,7 +253,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should login using Slack" do
       login_with_slack
-      @driver.navigate.to @config['self_url'] + '/me'
+      @driver.navigate.to @config['self_url'] + '/check/me'
       displayed_name = get_element('h2.source-name').text.upcase
       expected_name = @config['slack_name'].upcase
       expect(displayed_name == expected_name).to be(true)
@@ -219,31 +261,31 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should show team options at /teams" do
       page = LoginPage.new(config: @config, driver: @driver).load.login_with_email(email: @email, password: @password)
-      page.driver.navigate.to @config['self_url'] + '/teams'
+      page.driver.navigate.to @config['self_url'] + '/check/teams'
       page.wait_for_element('.teams')
       expect(page.driver.find_elements(:css, '.teams').empty?).to be(false)
     end
 
-    it "should go to user page" do
-      page = LoginPage.new(config: @config, driver: @driver).load
-          .login_with_email(email: @email, password: @password)
-
-      page.element('.fa-ellipsis-h').click
-      page.element('#link-me').click
-      page.wait_for_element('.source')
-      me_page = MePage.new(config: @config, driver: page.driver)
-
-      expect((me_page.driver.current_url.to_s =~ /\/me$/).nil?).to be(false)
-      title = me_page.title
-      expect(title).to eq('User With Email')
-    end
+    # it "should go to user page" do
+    #   page = LoginPage.new(config: @config, driver: @driver).load
+    #       .login_with_email(email: @email, password: @password)
+    #
+    #   page.element('.fa-ellipsis-h').click
+    #   page.element('#link-me').click
+    #   page.wait_for_element('.source')
+    #   me_page = MePage.new(config: @config, driver: page.driver)
+    #
+    #   expect((me_page.driver.current_url.to_s =~ /\/me$/).nil?).to be(false)
+    #   title = me_page.title
+    #   expect(title).to eq('User With Email')
+    # end
 
     it "should go to source page through source/:id" do
       login_with_email
-      @driver.navigate.to @config['self_url'] + '/me'
+      @driver.navigate.to @config['self_url'] + '/check/me'
       sleep 5
       source_id = $source_id = @driver.find_element(:css, '.source').attribute('data-id')
-      @driver.navigate.to team_url('source/' + source_id.to_s)
+      @driver.navigate.to @config['self_url'] + '/check/source/' + source_id.to_s
       sleep 1
       title = get_element('.source-name')
       expect(title.text == 'User With Email').to be(true)
@@ -251,10 +293,10 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should go to source page through user/:id" do
       login_with_email
-      @driver.navigate.to @config['self_url'] + '/me'
+      @driver.navigate.to @config['self_url'] + '/check/me'
       sleep 5
       user_id = @driver.find_element(:css, '.source').attribute('data-user-id')
-      @driver.navigate.to @config['self_url'] + '/user/' + user_id.to_s
+      @driver.navigate.to @config['self_url'] + '/check/user/' + user_id.to_s
       sleep 1
       title = get_element('.source-name')
       expect(title.text == 'User With Email').to be(true)
@@ -263,7 +305,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should go back and forward in the history" do
       @driver.navigate.to @config['self_url']
       expect((@driver.current_url.to_s =~ /\/$/).nil?).to be(false)
-      @driver.navigate.to @config['self_url'] + '/tos'
+      @driver.navigate.to @config['self_url'] + '/check/tos'
       expect((@driver.current_url.to_s =~ /\/tos$/).nil?).to be(false)
       @driver.navigate.back
       expect((@driver.current_url.to_s =~ /\/$/).nil?).to be(false)
@@ -273,7 +315,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should tag source from tags list" do
       login_with_email
-      @driver.navigate.to @config['self_url'] + '/me'
+      @driver.navigate.to @config['self_url'] + '/check/me'
       sleep 1
 
       # First, verify that there isn't any tag
@@ -300,7 +342,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should tag source as a command" do
       login_with_email
-      @driver.navigate.to @config['self_url'] + '/me'
+      @driver.navigate.to @config['self_url'] + '/check/me'
       sleep 1
 
       # First, verify that there isn't any tag
@@ -345,7 +387,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should comment source as a command" do
       login_with_email
-      @driver.navigate.to @config['self_url'] + '/me'
+      @driver.navigate.to @config['self_url'] + '/check/me'
       sleep 1
 
       # First, verify that there isn't any comment
@@ -367,7 +409,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should create source and redirect to newly created source" do
       login_with_email
-      @driver.navigate.to team_url('sources/new')
+      @driver.navigate.to @config['self_url'] + '/check/sources/new'
       sleep 1
       fill_field('#create-account-url', @source_url)
       sleep 1
@@ -380,7 +422,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should not create duplicated source" do
       login_with_email
-      @driver.navigate.to team_url('sources/new')
+      @driver.navigate.to @config['self_url'] + '/check/sources/new'
       sleep 1
       fill_field('#create-account-url', @source_url)
       sleep 1
@@ -393,7 +435,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should not create report as source" do
       login_with_email
-      @driver.navigate.to team_url('sources/new')
+      @driver.navigate.to @config['self_url'] + '/check/sources/new'
       sleep 1
       fill_field('#create-account-url', 'https://www.youtube.com/watch?v=b708rEG7spI')
       sleep 1
@@ -406,7 +448,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should tag source multiple times with commas with command" do
       login_with_email
-      @driver.navigate.to @config['self_url'] + '/me'
+      @driver.navigate.to @config['self_url'] + '/check/me'
       sleep 1
 
       # Add tags as a command
@@ -426,7 +468,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should tag source multiple times with commas from tags list" do
       login_with_email
-      @driver.navigate.to @config['self_url'] + '/me'
+      @driver.navigate.to @config['self_url'] + '/check/me'
       sleep 1
 
       # Add tags from tags list
@@ -459,10 +501,11 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Try to add duplicate
       page.add_tag(new_tag)
+      sleep 2
 
       # Verify that tag is not added and that error message is displayed
       expect(page.tags.count(new_tag)).to be(1)
-      expect(page.contains_string?('Validation failed: Data has already been taken')).to be(true)
+      expect(page.contains_string?('Validation failed: Tag already exists')).to be(true)
     end
 
     it "should not add a duplicated tag from command line" do
@@ -484,7 +527,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Verify that tag is not added and that error message is displayed
       expect(media_pg.tags.count(new_tag)).to be(1)
-      expect(media_pg.contains_string?('Validation failed: Data has already been taken')).to be(true)
+      expect(media_pg.contains_string?('Validation failed: Tag already exists')).to be(true)
     end
 
     it "should not create duplicated media if registered" do
@@ -496,6 +539,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       press_button('#create-media-submit')
       sleep 10
       id1 = @driver.current_url.to_s.gsub(/.*\/media\//, '').to_i
+
       @driver.navigate.to @driver.current_url.to_s.gsub(/\/media\/[0-9]+$/, '')
 
       sleep 3
@@ -517,7 +561,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 10
       expect(@driver.current_url.to_s.match(/\/media\/[0-9]+$/).nil?).to be(true)
       message = get_element('.create-media .message').text
-      expect(message == 'Something went wrong! Try pasting the text of this post instead, or adding a different link.').to be(true)
+      expect(message.match(/^Something went wrong! Try pasting the text of this post instead, or adding a different link/).nil?).to be(false)
     end
 
     it "should tag media from tags list" do
@@ -600,49 +644,38 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should flag media as a command" do
-      login_with_email
-      @driver.navigate.to team_url('project/' + get_project + '/media/' + $media_id)
-      sleep 1
+      media_pg = LoginPage.new(config: @config, driver: @driver).load
+          .login_with_email(email: @email, password: @password)
+          .create_media(input: "Media #{Time.now.to_i}")
 
-      # First, verify that there isn't any flag
-      expect(@driver.page_source.include?('Flag')).to be(false)
+      expect(media_pg.contains_string?('Flag')).to be(false)
 
-      # Add a flag as a command
-      fill_field('#cmd-input', '/flag Spam')
-      @driver.action.send_keys(:enter).perform
-      sleep 5
+      media_pg.fill_input('#cmd-input', '/flag Spam')
+      media_pg.element('#cmd-input').submit
 
-      # Verify that flag was added to annotations list
-      expect(@driver.page_source.include?('Flag')).to be(true)
-
-      # Reload the page and verify that flag is still there
-      @driver.navigate.refresh
-      sleep 3
-      expect(@driver.page_source.include?('Flag')).to be(true)
+      expect(media_pg.contains_string?('Flag')).to be(true)
+      media_pg.driver.navigate.refresh
+      media_pg.wait_for_element('.media')
+      expect(media_pg.contains_string?('Flag')).to be(true)
     end
 
     it "should edit project" do
-      page = LoginPage.new(config: @config, driver: @driver).load
+      project_pg = LoginPage.new(config: @config, driver: @driver).load
           .login_with_email(email: @email, password: @password)
+          .click_team_avatar
+          .create_project
 
-      page.element('.project-header__project-settings-icon').click
-      page.element('.project-header__project-setting--edit').click
-      page.fill_input('.project-header__project-name-input', 'Changed title')
-      page.fill_input('.project-header__project-description-input', 'Set description')
-      page.element('.project-header__project-editing-button--cancel').click
-      page.wait_for_element('.project-header__project-name')
+      new_title = "Changed title #{Time.now.to_i}"
+      new_description = "Set description #{Time.now.to_i}"
+      expect(project_pg.contains_string?(new_title)).to be(false)
+      expect(project_pg.contains_string?(new_description)).to be(false)
 
-      expect(page.contains_string?('Changed title')).to be(false)
-      expect(page.contains_string?('Set description')).to be(false)
+      project_pg.edit(title: new_title, description: new_description)
 
-      page.element('.project-header__project-settings-icon').click
-      page.element('.project-header__project-setting--edit').click
-      page.fill_input('.project-header__project-name-input', 'Changed title')
-      page.fill_input('.project-header__project-description-input', 'Set description')
-      page.element('.project-header__project-editing-button--save').click
-
-      expect(page.contains_string?('Changed title')).to be(true)
-      expect(page.contains_string?('Set description')).to be(true)
+      project_pg.wait_for_element('.project-header__title')
+      expect(project_pg.contains_string?(new_title)).to be(true)
+      project_pg.wait_for_element('.project-header__description')
+      expect(project_pg.contains_string?(new_description)).to be(true)
     end
 
     # it "should comment project as a command" do
@@ -695,17 +728,11 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should logout" do
-      unless login_or_register_with_email
-        create_team
-        create_project
-      end
-      @driver.navigate.to @config['self_url']
-      menu = @wait.until { @driver.find_element(:css, '.fa-ellipsis-h') }
-      menu.click
-      logout = @wait.until { @driver.find_element(:css, '.project-header__logout') }
-      logout.click
-      @wait.until { @driver.find_element(:css, '#login-menu') }
-      expect(@driver.page_source.include? 'Sign in').to be(true)
+      page = LoginPage.new(config: @config, driver: @driver).load
+          .login_with_email(email: @email, password: @password)
+          .logout
+
+      expect(page.contains_string?('Sign in')).to be(true)
     end
 
     # it "should ask to join team" do
@@ -759,35 +786,94 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
           .create_team(name: 'Team 1')
       expect(page.team_name).to eq('Team 1')
       page = page.create_project(name: 'Team 1 Project')
-      expect(page.project_name).to eq('Team 1 Project')
+      expect(page.project_title).to eq('Team 1 Project')
 
       page = CreateTeamPage.new(config: @config, driver: page.driver).load
           .create_team(name: 'Team 2')
       expect(page.team_name).to eq('Team 2')
       page = page.create_project(name: 'Team 2 Project')
-      expect(page.project_name).to eq('Team 2 Project')
+      expect(page.project_title).to eq('Team 2 Project')
 
       # test
       page = TeamsPage.new(config: @config, driver: page.driver).load
           .select_team(name: 'Team 1')
 
       expect(page.team_name).to eq('Team 1')
-      expect(page.project_names.include?('Team 1 Project')).to be(true)
-      expect(page.project_names.include?('Team 2 Project')).to be(false)
+      expect(page.project_titles.include?('Team 1 Project')).to be(true)
+      expect(page.project_titles.include?('Team 2 Project')).to be(false)
 
       page = TeamsPage.new(config: @config, driver: page.driver).load
           .select_team(name: 'Team 2')
 
       expect(page.team_name).to eq('Team 2')
-      expect(page.project_names.include?('Team 2 Project')).to be(true)
-      expect(page.project_names.include?('Team 1 Project')).to be(false)
+      expect(page.project_titles.include?('Team 2 Project')).to be(true)
+      expect(page.project_titles.include?('Team 1 Project')).to be(false)
+    end
+
+    it "should update notes count after delete annotation" do
+      media_pg = LoginPage.new(config: @config, driver: @driver).load
+        .login_with_email(email: @email, password: @password)
+        .create_media(input: "Media #{Time.now.to_i}")
+      media_pg.fill_input('#cmd-input', '/flag Spam')
+      media_pg.element('#cmd-input').submit
+      sleep 1
+      notes_t = get_element('.media-metadata-summary__datum')
+      notes_v = get_element('.media-detail__check-notes-count')
+      expect(notes_t.text == '1 note').to be(true)
+      expect(notes_v.text == '1 note').to be(true)
+      media_pg.element('.annotation__delete').click
+      sleep 1
+      expect(notes_t.text == '0 notes').to be(true)
+      expect(notes_v.text == '0 notes').to be(true)
+    end
+
+    it "should auto refresh project when media is created" do
+      project_name = "Project #{Time.now}"
+      project_pg = LoginPage.new(config: @config, driver: @driver).load
+          .register_and_login_with_email(email: 'sysops+' + Time.now.to_i.to_s + '@meedan.com', password: Time.now.to_i.to_s)
+          .create_team
+          .create_project(name: project_name)
+
+      url = project_pg.driver.current_url
+      sleep 3
+      expect(@driver.page_source.include?('Auto-Refresh')).to be(false)
+
+      current_window = @driver.window_handles.last
+      @driver.execute_script("window.open('#{url}')")
+      @driver.switch_to.window(@driver.window_handles.last)
+      fill_field('#create-media-input', 'Auto-Refresh')
+      press_button('#create-media-submit')
+      sleep 5
+      @driver.execute_script('window.close()')
+      @driver.switch_to.window(current_window)
+
+      sleep 5
+      expect(@driver.page_source.include?('Auto-Refresh')).to be(true)
+    end
+
+    it "should auto refresh media when annotation is created" do
+      media_pg = LoginPage.new(config: @config, driver: @driver).load
+        .login_with_email(email: @email, password: @password)
+        .create_media(input: "Media #{Time.now.to_i}")
+
+      url = media_pg.driver.current_url
+      sleep 3
+      expect(@driver.page_source.include?('Auto-Refresh')).to be(false)
+
+      current_window = @driver.window_handles.last
+      @driver.execute_script("window.open('#{url}')")
+      @driver.switch_to.window(@driver.window_handles.last)
+      media_pg.fill_input('#cmd-input', 'Auto-Refresh')
+      media_pg.element('#cmd-input').submit
+      sleep 5
+      @driver.execute_script('window.close()')
+      @driver.switch_to.window(current_window)
+
+      sleep 5
+      expect(@driver.page_source.include?('Auto-Refresh')).to be(true)
     end
 
     # it "should cancel request through switch teams" do
-    #   skip("Needs to be implemented")
-    # end
-
-    # it "should auto refresh project page when media is created remotely" do
     #   skip("Needs to be implemented")
     # end
 

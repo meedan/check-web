@@ -1,4 +1,11 @@
 .content-column {
-  max-width: $layout-mobile-breakpoint;
+  width: 100%;
+  max-width: $layout-column-width-narrow;
   margin: 0 auto;
+  padding: 0 16px;
+
+  &--flex {
+    display: flex;
+    flex-direction: column;
+  }
 }

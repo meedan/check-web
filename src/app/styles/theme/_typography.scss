@@ -29,6 +29,13 @@ $font-stack-serif: "Merriweather", Georgia, serif;
   @include onboarding-blurb;
 }
 
+@mixin header-title($size: 19px) {
+  font-size: $size;
+  font-family: $font-stack-sans-condensed;
+  &, & > a { color: theme-gray(23%); }
+  margin: 0;
+}
+
 @mixin app-kicker($size: 11px) {
   font-size: $size;
   text-transform: uppercase;

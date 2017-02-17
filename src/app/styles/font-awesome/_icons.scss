@@ -65,9 +65,9 @@
 // .#{$fa-css-prefix}-outdent:before { content: $fa-var-outdent; }
 // .#{$fa-css-prefix}-indent:before { content: $fa-var-indent; }
 // .#{$fa-css-prefix}-video-camera:before { content: $fa-var-video-camera; }
-// .#{$fa-css-prefix}-photo:before,
-// .#{$fa-css-prefix}-image:before,
-// .#{$fa-css-prefix}-picture-o:before { content: $fa-var-picture-o; }
+.#{$fa-css-prefix}-photo:before,
+.#{$fa-css-prefix}-image:before,
+.#{$fa-css-prefix}-picture-o:before { content: $fa-var-picture-o; }
 .#{$fa-css-prefix}-pencil:before { content: $fa-var-pencil; }
 .#{$fa-css-prefix}-map-marker:before { content: $fa-var-map-marker; }
 // .#{$fa-css-prefix}-adjust:before { content: $fa-var-adjust; }

@@ -21,7 +21,7 @@ class CreateAccount extends Component {
   handleSubmit(redirect) {
     let that = this,
       url = document.getElementById('create-account-url').value,
-      prefix = '/source/',
+      prefix = '/check/source/',
       history = new CheckContext(this).getContextStore().history;
 
     const onFailure = (transaction) => {

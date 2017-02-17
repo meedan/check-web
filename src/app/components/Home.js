@@ -67,7 +67,7 @@ class Home extends Component {
       if (this.state.error) {
         let message = this.state.message;
 
-        if (!message && children.props.route.path === 'join') {
+        if (!message && /^[^\/]+\/join$/.test(children.props.route.path)) {
           message = 'First you need to register. Once registered, you can request to join the team.';
         }
 
