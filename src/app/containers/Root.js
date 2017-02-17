@@ -31,7 +31,8 @@ locale = locale.replace(/[-_].*$/, '');
 if (!global.Intl) {
   require(['intl'], function(intl){
     global.Intl = intl;
-    require('intl/locale-data/jsonp/' + locale + '.js');
+//    Commented out while build is not optimized for this!
+//    require('intl/locale-data/jsonp/' + locale + '.js');
   });
 }
 
