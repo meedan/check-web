@@ -1,7 +1,7 @@
 .header {
   width: 100%;
   height: $layout-header-height;
-  background: rgba(#000000, 0.05);
+  background: $black-05;
   position: absolute;
 }
 
@@ -19,6 +19,9 @@
 }
 
 .header__breadcrumb {
+  svg path {
+    color: $black-54;
+  }
 }
 
 // media page
