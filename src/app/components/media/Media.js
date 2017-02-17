@@ -48,6 +48,27 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
             }
           }
         }
+        tasks(first: 10000) {
+          edges {
+            node {
+              id,
+              dbid,
+              label,
+              type,
+              description,
+              permissions,
+              first_response {
+                id,
+                dbid,
+                permissions,
+                content,
+                annotator {
+                  name
+                }
+              }
+            }
+          }
+        }
         annotations(first: 10000) {
           edges {
             node {
@@ -56,6 +77,7 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
               content,
               annotation_type,
               updated_at,
+              created_at,
               permissions,
               medias(first: 10000) {
                 edges {

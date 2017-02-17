@@ -79,6 +79,27 @@ const MediaHeaderContainer = Relay.createContainer(MediaHeaderComponent, {
             }
           }
         }
+        tasks(first: 10000) {
+          edges {
+            node {
+              id,
+              dbid,
+              label,
+              type,
+              description,
+              permissions,
+              first_response {
+                id,
+                dbid,
+                permissions,
+                content,
+                annotator {
+                  name
+                }
+              }
+            }
+          }
+        }
         account {
           source {
             dbid,

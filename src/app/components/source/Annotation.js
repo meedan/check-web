@@ -66,6 +66,7 @@ class Annotation extends Component {
 
   render() {
     const annotation = this.props.annotation;
+    const annotated = this.props.annotated;
     let permissionType = `${annotation.annotation_type.charAt(0).toUpperCase()}${annotation.annotation_type.slice(1)}`;
     let annotationActions = (
       <div className="annotation__actions">
@@ -119,6 +120,44 @@ class Annotation extends Component {
           <div className="annotation__header">
             <span>{message}</span>
             <span className="annotation__author-name">{annotation.annotator.name}</span>
+            {updatedAt ? <span className="annotation__timestamp"><TimeAgo date={updatedAt} live={false} /></span> : null}
+            {annotationActions}
+          </div>
+        </section>
+        );
+      break;
+    case 'task':
+      const desc = `Task "${content.label}" created by `;
+      const createdAt = new Date(annotation.created_at);
+      contentTemplate = (
+        <section className="annotation__content">
+          <div className="annotation__header">
+            <span>{desc}</span>
+            <span className="annotation__author-name">{annotation.annotator.name}</span>
+            {createdAt ? <span className="annotation__timestamp"><TimeAgo date={createdAt} live={false} /></span> : null}
+            {annotationActions}
+          </div>
+        </section>
+        );
+      break;
+    case 'task_response_free_text': case 'task_response_yes_no': case 'task_response_single_choice': case 'task_response_multiple_choice':
+      let data = JSON.parse(annotation.content);
+      let title = '';
+      data.forEach((field) => {
+        if (field.field_type === 'task_reference') {
+          annotated.tasks.edges.forEach((task) => {
+            if (task.node.dbid == parseInt(field.value)) {
+              title = task.node.label;
+            }
+          });
+        }
+      });
+      const resolved = `Task "${title}" resolved by `;
+      contentTemplate = (
+        <section className="annotation__content">
+          <div className="annotation__header">
+            <span>{resolved}</span>
+            <span className="annotation__author-name">{annotation.annotator.name} </span>
             {updatedAt ? <span className="annotation__timestamp"><TimeAgo date={updatedAt} live={false} /></span> : null}
             {annotationActions}
           </div>
