@@ -20,7 +20,6 @@
 
 .media-inspector__overlay {
   @include modal-overlay;
-  background-color: $midnight-blue-90;
 }
 
 .media-inspector__media {
