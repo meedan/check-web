@@ -71,7 +71,7 @@ class UploadImage extends Component {
         { this.state.file ? <span className="preview" style={style}><FontAwesome name="remove" className="remove-image" onClick={this.onDelete.bind(this)} /></span> : null }
 
         <Dropzone onDrop={this.onDrop.bind(this)} multiple={false} className={this.state.file ? 'with-file' : 'without-file'}>
-          <div><b>this.props.intl.formatMessage(messages.imageLabel)&nbsp;</b>
+          <div><b>{this.props.intl.formatMessage(messages.imageLabel)}&nbsp;</b>
             { this.state.file ? this.props.intl.formatMessage(messages.changeFile, {filename: this.state.file.name}) : <UploadLabelRelay /> }
           </div>
         </Dropzone>
@@ -86,4 +86,4 @@ UploadImage.propTypes = {
   intl: intlShape.isRequired
 };
 
-export default UploadImage;
+export default injectIntl(UploadImage);
