@@ -1,5 +1,21 @@
 [
   {
+    "id": "loginEmail.nameInputHint",
+    "defaultMessage": "Your name"
+  },
+  {
+    "id": "loginEmail.emailInputHint",
+    "defaultMessage": "Email address"
+  },
+  {
+    "id": "loginEmail.passwordInputHint",
+    "defaultMessage": "Password"
+  },
+  {
+    "id": "loginEmail.passwordConfirmInputHint",
+    "defaultMessage": "Password confirmation"
+  },
+  {
     "id": "login.with",
     "defaultMessage": "Sign in with {provider}"
   },

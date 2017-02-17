@@ -8,6 +8,10 @@
     "defaultMessage": "Loading..."
   },
   {
+    "id": "search.inputHint",
+    "defaultMessage": "Search"
+  },
+  {
     "id": "search.filtersHeading",
     "defaultMessage": "Filters"
   },
