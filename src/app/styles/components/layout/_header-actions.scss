@@ -22,24 +22,16 @@
 }
 
 .header-actions__menu-overlay {
-  @include modal-overlay;
+  @include modal-overlay(transparent);
 }
 
 .header-actions__menu {
-  // TODO I think this should be unified with the menu mixin 2017-2-16 CGB 
-  z-index: 2;
-  margin: 0;
-  border: $layout-border;
-  border-top: 0;
-  border-radius: 2px;
+  @include app-menu;
   position: absolute;
-  right: 0;
+  right: 16px;
   min-width: 250px;
-  top: 72px;
+  top: 16px;
   display: none;
-  background: $opaque-black-02;
-  padding: 2px;
-  text-align: left;
 
   &--active {
     display: block;
