@@ -2,27 +2,29 @@ $menu-status-item-padding: 16px;
 
 .media-status {
   position: relative;
-  margin-bottom: 5px;
+  margin: 0 0 5px -5px;
+  padding: 3px 3px 0 5px;
+  border-radius: 2px;
+  display: inline-block;
 
   &--editable {
     cursor: pointer;
   }
 
-  &:hover {
-    .media-status__icon--caret {
-      opacity: 1;
-    }
-  }
-}
-
-.media-status__icon {
-  margin-right: 10px;
-  font-size: 12px;
-
-  &--caret {
-    margin-left: 16px;
+  &__caret {
+    width: 24px;
+    height: 24px;
     opacity: 0;
-    transition: opacity 100ms ease-in-out;
+  }
+
+  &:hover {
+    background-color: $black-05;
+    transition: .2s;
+  }
+
+  &:hover &__caret {
+    color: $black-54;
+    opacity: 1;
   }
 }
 

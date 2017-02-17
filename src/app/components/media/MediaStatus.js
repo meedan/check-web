@@ -124,7 +124,7 @@ class MediaStatus extends Component {
         <div className={`media-status__current${this.currentStatusToClass(media.last_status)}`}>
           <span className="media-status__label media-status__label--current">{currentStatus}</span>
           {this.canUpdate() ?
-            <MdArrowDropDown />
+            <MdArrowDropDown className="media-status__caret" />
             : null
           }
           <span className="media-status__message">{this.state.message}</span>

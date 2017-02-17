@@ -32,19 +32,3 @@
   animation-fill-mode: forwards;
   animation-duration: $speed;
 }
-
-.medias_list li {
-  @include fade-in(.6s);
-
-  &:nth-of-type(1) {
-    animation-duration: .4s;
-  }
-
-  &:nth-of-type(2) {
-    animation-duration: .6s;
-  }
-
-  &:nth-of-type(3) {
-    animation-duration: .8s;
-  }
-}
