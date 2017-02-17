@@ -31,7 +31,6 @@ $font-stack-serif: "Merriweather", Georgia, serif;
 
 @mixin header-title($size: 19px) {
   font-size: $size;
-  font-family: $font-stack-sans-condensed;
   margin: 0;
 
   &,

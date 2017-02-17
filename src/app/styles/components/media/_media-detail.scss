@@ -27,8 +27,12 @@
 // Optional title
 //
 .media-detail__title {
-  @include header-title(24px);
-  margin: 2px 24px 14px 0;
+  font-size: 18px;
+  &,
+  & > a {
+    color: $black-87;
+  }
+  margin: 2px 24px 16px 0;
   @media all and (max-width: 500px) {
     font-size: 16px;
   }
@@ -84,7 +88,6 @@
   border-radius: 4px;
   margin: -1px 0 15px;
   font-size: 19px;
-  font-family: $font-stack-sans-condensed;
   font-weight: 600;
   width: 100%;
   max-width: 500px;
