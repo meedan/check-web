@@ -50,18 +50,29 @@ $font-stack-serif: "Merriweather", Georgia, serif;
   font-size: $size;
   font-weight: 600;
   letter-spacing: .02em;
-  color: $black-54;
 }
 
 @mixin breadcrumb-heading {
   display: inline-block;
   font-size: 16px;
   font-weight: 400;
-  color: $black-54;
   margin: 2px 0 0;
 }
 
-@mixin gray-text($size: 14px) {
-  color: $black-54;
-  font-size: $size;
+// Default typography
+//
+body {
+  color: $opaque-black-54;
+  font: $font-stack-sans;
+  font-size: 14px;
+
+  a,
+  a:visited {
+    color: $opaque-black-54;
+  }
+
+  a:hover {
+    color: $opaque-black-87;
+    transition: color .4s;
+  }
 }

@@ -42,7 +42,7 @@
 // profile
 
 .team__avatar {
-  @include team-avatar(100px);
+  @include avatar(100px);
   float: left;
   margin-right: 15px;
 }
@@ -101,15 +101,6 @@
   width: 50%;
 }
 
-.team__contact-info,
-.team__location,
-.team__link,
-.team__add-link,
-.team__phone {
-  font-size: 14px;
-  color: $black-54;
-}
-
 .team__location,
 .team__link,
 .team__add-link,
@@ -141,7 +132,6 @@
 .team__projects-heading {
   @include app-kicker;
   margin: 0;
-  color: $black-54;
 }
 
 .team__projects-list {
@@ -193,12 +183,6 @@
 .team__settings {
   text-align: center;
   margin-top: 20px;
-
-  input,
-  label {
-    font-size: 14px;
-    color: $black-54;
-  }
 
   label {
     margin-right: 14px;

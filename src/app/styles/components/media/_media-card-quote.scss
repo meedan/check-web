@@ -1,7 +1,6 @@
 .quote-media-card {
   border-radius: 4px;
   min-height: none;
-  color: $black-54;
   overflow-x: hidden;
   margin-right: 24px;
 }
@@ -18,10 +17,8 @@
 
 .quote-media-card__attribution-name,
 .quote-media-card__attribution-link {
-  color: $black-54;
   margin: 3px 7px;
   font-weight: 200;
-  font-size: 14px;
   max-width: 200px;
   white-space: nowrap;
   overflow: hidden;

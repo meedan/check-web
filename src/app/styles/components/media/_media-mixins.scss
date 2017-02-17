@@ -1,14 +1,3 @@
-// Media mixins
-//
-@mixin media-metadata {
-  @include gray-text;
-
-  a {
-    color: inherit;
-  }
-}
-
-
 // Report Selectors
 //
 // Handy Cheatsheet (because the text labels don't always match the classes)

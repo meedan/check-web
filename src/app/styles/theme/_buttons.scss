@@ -21,7 +21,7 @@
 @mixin button-standard {
   @include button-defaults;
   border-radius: 3px;
-  color: #fff;
+  color: $white;
 
   &:disabled {
     cursor: not-allowed;
@@ -31,13 +31,11 @@
 @mixin button-xsmall {
   @include button-standard;
   height: 30px;
-  font-size: 14px;
   padding-left: 14px;
   padding-right: 14px;
 
   @media screen and (max-width: 500px) {
     height: 30px;
-    font-size: 14px;
     padding-left: 8px;
     padding-right: 8px;
   }

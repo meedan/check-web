@@ -47,7 +47,6 @@
 }
 
 .project-header__description {
-  @include gray-text;
   width: 100%;
   position: relative;
   z-index: 1;
@@ -65,7 +64,7 @@
     width: 100%;
     position: absolute;
     top: 0;
-    background: white;
+    background: $white;
     border: $layout-border;
     border-radius: 2px;
     padding: 8px;

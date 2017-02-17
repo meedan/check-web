@@ -54,7 +54,6 @@
 // Check metadata
 //
 .media-detail__check-metadata {
-  @include media-metadata;
   display: flex;
   align-items: center;
   border-top: 1px solid $black-05;

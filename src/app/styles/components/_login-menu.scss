@@ -2,14 +2,6 @@
   text-align: center;
   position: relative;
   padding: 45px 0 0;
-
-  p {
-    color: $black-54;
-  }
-
-  a {
-    color: $black-54;
-  }
 }
 
 .login-menu__icon {
@@ -79,10 +71,6 @@
   &:hover {
     background-color: darken(saturate($slack-green, 10%), 10%);
   }
-}
-
-.login-menu__footer {
-  color: $black-54;
 }
 
 .login-menu__footer-link {

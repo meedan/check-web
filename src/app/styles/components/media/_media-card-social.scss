@@ -39,18 +39,15 @@
 // Name and username
 // 
 .social-media-card__name {
-  font-size: 14px;
   font-weight: 600;
 }
 
 .social-media-card__username {
-  font-size: 14px;
-  color: $black-54;
   overflow-x: hidden;
 }
 
 // Truncate when smaller
-.social-media-card__name, 
+.social-media-card__name,
 .social-media-card__username {
   @media all and (max-width: 400px) {
     width: 150px;
@@ -61,15 +58,9 @@
 }
 
 .social-media-card__header-text-secondary {
-  font-size: 14px;
   margin-right: 20px;
   text-align: right;
   padding-left: 10px;
-
-  &,
-  & > a {
-    color: $black-54;
-  }
 }
 
 .social-media-card__body {
@@ -77,7 +68,6 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  font-size: 14px;
   cursor: pointer;
   @media all and (max-width: $layout-mobile-breakpoint-small) {
     flex-wrap: wrap;
@@ -107,6 +97,5 @@
 }
 
 .social-media-card__footer-stat {
-  @include media-metadata;
   margin-right: 16px;
 }
