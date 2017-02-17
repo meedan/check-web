@@ -9,6 +9,7 @@ import { Annotations, Tags } from '../source';
 import config from 'config';
 import { pageTitle } from '../../helpers';
 import CheckContext from '../../CheckContext';
+import Tasks from '../task/Tasks';
 
 class MediaComponent extends Component {
   getContext() {
@@ -79,6 +80,7 @@ class MediaComponent extends Component {
         <div className="media" data-id={media.dbid}>
           <article className="media__contents">
             <MediaDetail media={media} />
+            <Tasks media={media} />
             <h3 className="media__notes-heading"><FormattedMessage id="mediaComponent.verificationTimeline" defaultMessage="Verification Timeline" /></h3>
             <Annotations annotations={media.annotations.edges.reverse()} annotated={media} annotatedType="ProjectMedia" />
             <MediaChecklist />
