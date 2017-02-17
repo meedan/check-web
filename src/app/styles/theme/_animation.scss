@@ -27,8 +27,9 @@
 }
 
 @mixin fade-in($speed: .3s) {
-  opacity: 0;  /* start hidden */
-  animation: fade-in ease-in 1;
-  animation-fill-mode: forwards;
-  animation-duration: $speed;
+  // WIP because it affects stacking context... CGB 2017-2-16
+  // opacity: 0;
+  // animation: fade-in ease-in 1;
+  // animation-fill-mode: forwards;
+  // animation-duration: $speed;
 }

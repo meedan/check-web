@@ -5,7 +5,7 @@
 .media-detail {
   @include media-status-border-colors;
   @include box-shadow(1);
-  @include fade-in(1s);
+  @include fade-in;
   padding: 12px 0 0 24px;
   border-left: 4px solid;
   border-radius: 2px;
