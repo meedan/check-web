@@ -146,7 +146,7 @@ class Annotation extends Component {
           <div className="annotation__header">
             <span>{desc}</span>
             <span className="annotation__author-name">{annotation.annotator.name}</span>
-            {createdAt ? <span className="annotation__timestamp"><TimeAgo date={createdAt} live={false} /></span> : null}
+            {createdAt ? <span className="annotation__timestamp"><TimeBefore date={createdAt} live={false} /></span> : null}
             {annotationActions}
           </div>
         </section>
@@ -170,7 +170,7 @@ class Annotation extends Component {
           <div className="annotation__header">
             <span>{resolved}</span>
             <span className="annotation__author-name">{annotation.annotator.name} </span>
-            {updatedAt ? <span className="annotation__timestamp"><TimeAgo date={updatedAt} live={false} /></span> : null}
+            {updatedAt ? <span className="annotation__timestamp"><TimeBefore date={updatedAt} live={false} /></span> : null}
             {annotationActions}
           </div>
         </section>
