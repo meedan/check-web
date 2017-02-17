@@ -38,7 +38,7 @@ const MediaUtil = {
       if (socialMedia) {
         return socialMedia;
       }
-      if (data && data.quote) {
+      if (media && media.quote) {
         return 'Claim';
       }
       if (media && media.domain) {

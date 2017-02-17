@@ -15,6 +15,7 @@ import PenderCard from '../PenderCard';
 import ImageMediaCard from './ImageMediaCard';
 import UpdateMediaMutation from '../../relay/UpdateMediaMutation';
 import CheckContext from '../../CheckContext';
+import { bemClass } from '../../helpers';
 
 class MediaDetail extends Component {
   constructor(props) {
@@ -99,7 +100,7 @@ class MediaDetail extends Component {
     }
 
     return (
-      <div className={this.statusToClass('media-detail', media.last_status)}>
+      <div className={this.statusToClass('media-detail', media.last_status) + ' ' + 'media-detail--' + MediaUtil.typeLabel(media, data).toLowerCase()}>
         <div className="media-detail__header">
           <div className="media-detail__status"><MediaStatus media={media} readonly={this.props.readonly} /></div>
         </div>

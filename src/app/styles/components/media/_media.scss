@@ -1,12 +1,12 @@
 .media {
-  background-color: rgba(0, 0, 0, 0.03);
+  background-color: $black-02;
 }
 
 .media__expanded {
   // slide under header
+  @include media-status-background-colors;
   margin-top: -($layout-header-height + $layout-padding);
   padding-top: ($layout-header-height + $layout-padding);
-  @include media-status-background-colors;
   transition: background-color 500ms ease;
   padding-bottom: 48px;
 
@@ -16,7 +16,7 @@
 }
 
 .media__title {
-  margin: 0 0 10px 0;
+  margin: 0 0 10px;
   font-size: 24px;
   color: $white;
   font-weight: 500;
@@ -27,6 +27,7 @@
   .media-status__label--current {
     margin-bottom: 18px;
   }
+
   .media-status__menu {
     left: 0;
     top: 35;
@@ -49,6 +50,7 @@
   .media-detail {
     border-left: 0;
   }
+
   .media-detail__header,
   .media-detail__title {
     display: none;
