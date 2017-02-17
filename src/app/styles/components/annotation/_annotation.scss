@@ -1,10 +1,7 @@
-$annotation-font-size: 14px;
-
 .annotation {
   border-top: $layout-border-light;
   padding: 15px 0;
   display: flex;
-  font-size: $annotation-font-size;
   position: relative;
   overflow-x: hidden;
 }
@@ -22,7 +19,6 @@ $annotation-font-size: 14px;
 }
 
 .annotation__header {
-  @include gray-text($annotation-font-size);
   display: flex;
   align-items: baseline;
   white-space: pre;
@@ -31,7 +27,6 @@ $annotation-font-size: 14px;
 
 .annotation__author-name {
   font-weight: 400;
-  font-size: $annotation-font-size;
   color: inherit;
   margin: 0;
   display: inline-block;
@@ -44,7 +39,7 @@ $annotation-font-size: 14px;
 }
 
 .annotation__timestamp {
-  @include gray-text(12.5px);
+  font-size: 12px;
 }
 
 .annotation__actions {
@@ -65,7 +60,6 @@ $annotation-font-size: 14px;
 }
 
 .annotation__body {
-  color: $black-54;
   word-break: break-word;
 }
 

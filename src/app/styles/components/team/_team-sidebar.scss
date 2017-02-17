@@ -116,8 +116,6 @@
 
 .team-sidebar__switch-teams-button {
   @include unbutton;
-
-  font-size: 14px;
   width: 100%;
   padding: 0 18px 0 0;
   color: inherit;
@@ -174,9 +172,7 @@
 }
 
 .team-sidebar__switch-teams-title {
-  font-size: 14px;
   font-weight: normal;
-  color: $black-54;
   margin: 10px 0 23px 13px;
 }
 

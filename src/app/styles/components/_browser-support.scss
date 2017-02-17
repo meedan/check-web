@@ -15,7 +15,6 @@ $browser-support-height-mobile: 65px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: $black-54;
 }
 
 .browser-support ~ .home {
@@ -31,17 +30,14 @@ $browser-support-height-mobile: 65px;
 .browser-support__message {
   flex: 1;
   margin-bottom: 0;
-
   text-align: center;
   line-height: 1.4;
-  font-size: 14px;
 }
 
 .browser-support__close {
   position: absolute;
   right: 17px;
   top: 5px;
-
   font-weight: 200;
   font-size: 28px;
   opacity: .2;

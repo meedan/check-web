@@ -1,6 +1,4 @@
 .media-tags {
-  @include media-metadata;
-
   &:empty {
     display: none;
   }
@@ -18,11 +16,9 @@
 .media-tags__heading {
   @include app-kicker;
   margin: 4px 16px 1px 0;
-  color: $black-54;
 }
 
 .media-tags__message {
-  color: $black-54;
   font-size: 13px;
   margin: 0;
 }
