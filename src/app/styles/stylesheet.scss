@@ -86,32 +86,6 @@ body {
   }
 }
 
-address {
-  text-align: center;
-  color: $black-87;
-  margin-top: 30px;
-  font-style: normal;
-  font-size: 12px;
-
-  span {
-    margin: 10px 0;
-    display: inline-block;
-
-    i {
-      font-style: normal;
-    }
-  }
-
-  a,
-  a:visited {
-    color: $visited-hyperlink-purple;
-
-    &:hover {
-      text-decoration: none;
-    }
-  }
-}
-
 #tos,
 #privacy-policy {
   margin: 10px;
