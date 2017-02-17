@@ -1,6 +1,6 @@
 {
-  "annotation.error": "Could not delete annotation",
-  "annotation.deleteButton": "Delete",
+  "annotation.error": "Ce n'était pas possible d'effacer le commentaire",
+  "annotation.deleteButton": "Effacer",
   "annotation.statusSetHeader": "Statut fixé à {status} par {author}",
   "annotation.taggedHeader": "Classé #{tag} par {author}",
   "annotation.flaggedHeader": "Flagged as {flag} by {author}"
