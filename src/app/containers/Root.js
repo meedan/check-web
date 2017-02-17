@@ -22,12 +22,19 @@ import translations from '../../../localization/translations/translations';
 import config from 'config';
 
 // Localization
-global.Intl = require('intl'); // polyfill
 let locale = config.locale || navigator.languages || navigator.language || navigator.userLanguage || 'en';
 if (locale.constructor === Array) {
   locale = locale[0];
 }
 locale = locale.replace(/[-_].*$/, '');
+
+if (!global.Intl) {
+  require(['intl'], function(intl){
+    global.Intl = intl;
+    require('intl/locale-data/jsonp/' + locale + '.js');
+  });
+}
+
 try {
   const localeData = require('react-intl/locale-data/' + locale);
   addLocaleData([...localeData]);
@@ -99,7 +106,7 @@ export default class Root extends Component {
               <Route path="check/user/unconfirmed" component={UserUnconfirmed} public />
               <Route path="check/forbidden" component={AccessDenied} public />
               <Route path="check/404" component={NotFound} public />
-              
+
               <Route path="check/sources" component={Sources} />
               <Route path="check/sources/new" component={CreateAccount} />
               <Route path="check/source/:sourceId" component={Source} />
@@ -107,7 +114,7 @@ export default class Root extends Component {
               <Route path="check/me" component={Me} />
               <Route path="check/teams/new" component={CreateTeam} />
               <Route path="check/teams" component={Teams} />
-              
+
               <Route path=":team/medias/new" component={CreateProjectMedia} />
               <Route path=":team/project/:projectId/media/:mediaId" component={ProjectMedia} />
               <Route path=":team/join" component={JoinTeam} />
@@ -116,7 +123,7 @@ export default class Root extends Component {
               <Route path=":team/project/:projectId/edit" component={ProjectEdit} />
               <Route path=":team/search(/:query)" component={Search} />
               <Route path=":team" component={Team} />
-              
+
               <Route path="*" component={NotFound} public />
             </Route>
           </Router>
