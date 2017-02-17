@@ -79,11 +79,11 @@ class MediaComponent extends Component {
     }
 
     return (
-      <DocumentTitle title={pageTitle(MediaUtil.attributedType(media, data), false, this.getContext().team)}>
+      <DocumentTitle title={pageTitle(MediaUtil.title(media, data), false, this.getContext().team)}>
         <div className='media' data-id={media.dbid}>
           <div className={bemClassFromMediaStatus('media__expanded', media.last_status)}>
             <ContentColumn>
-              <h1 className='media__title'>{MediaUtil.title(media, data)}</h1>
+              <h1 className='media__title'>{MediaUtil.attributedType(media, data)}</h1>
               <div className="media__status">
                 <MediaStatus media={media} readonly={this.props.readonly} />
               </div>
