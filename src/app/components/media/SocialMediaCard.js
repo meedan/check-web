@@ -4,6 +4,7 @@ import { defineMessages, injectIntl, intlShape } from 'react-intl';
 import { Link } from 'react-router';
 import MediaUtil from './MediaUtil';
 import MediaInspector from './MediaInspector';
+import TimeBefore from '../TimeBefore';
 import { bemClass } from '../../helpers';
 
 const messages = defineMessages({
@@ -63,7 +64,7 @@ class SocialMediaCard extends Component {
 
           <span className="social-media-card__header-text-secondary">
             <a href={url}>
-              {embedPublishedAt ? this.props.intl.formatRelative(embedPublishedAt) : this.props.intl.formatMessage(messages.link)}
+              {embedPublishedAt ? <TimeBefore date={embedPublishedAt} /> : this.props.intl.formatMessage(messages.link)}
             </a>
           </span>
         </div>

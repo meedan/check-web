@@ -12,6 +12,7 @@ import MediaUtil from './MediaUtil';
 import Tags from '../source/Tags';
 import DefaultButton from '../inputs/DefaultButton';
 import PenderCard from '../PenderCard';
+import TimeBefore from '../TimeBefore';
 import ImageMediaCard from './ImageMediaCard';
 import UpdateMediaMutation from '../../relay/UpdateMediaMutation';
 import CheckContext from '../../CheckContext';
@@ -136,7 +137,7 @@ class MediaDetail extends Component {
         <p className="media-detail__check-metadata">
           {byUser ? <span className="media-detail__check-added-by"><FormattedMessage id="mediaDetail.added" defaultMessage={`Added {byUser}`} values={{byUser: byUser}} /> </span> : null}
           {createdAt ? <span className="media-detail__check-added-at">
-            <Link className="media-detail__check-timestamp" to={mediaUrl}>{this.props.intl.formatRelative(createdAt)}</Link>
+            <Link className="media-detail__check-timestamp" to={mediaUrl}><TimeBefore date={createdAt} /></Link>
           </span> : null}
           <Link to={mediaUrl} className="media-detail__check-notes-count">{annotationsCount}</Link>
         </p>
