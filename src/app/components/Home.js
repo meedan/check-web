@@ -4,7 +4,6 @@ import util from 'util';
 import Header from './Header';
 import FooterRelay from '../relay/FooterRelay';
 import LoginMenu from './LoginMenu';
-import Message from './Message';
 import { blue500, blue600, blue700, blue800 } from 'material-ui/styles/colors';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -77,11 +76,6 @@ class Home extends Component {
         return (<LoginMenu loginCallback={this.loginCallback.bind(this)} message={message} />);
       }
       return null;
-    }
-
-    const routeIsFullscreen = children && children.props.route.fullscreen;
-    if (routeIsFullscreen) {
-      return (<div className="home home--fullscreen">{children}</div>);
     }
 
     return (
