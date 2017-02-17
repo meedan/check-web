@@ -1,0 +1,14 @@
+{
+  "createTeam.slugChecking": "Checking availability...",
+  "createTeam.slugAvailable": "Available!",
+  "createTeam.slugUnavailable": "That URL is unavailable.",
+  "createTeam.createTeamError": "Sorry, could not create the team",
+  "createTeam.title": "Créer une équipe",
+  "createTeam.teamNameHint": "Nom de l'équipe",
+  "createTeam.teamSlugHint": "team-slug",
+  "createTeam.mainHeading": "Créer une équipe",
+  "createTeam.blurb": "Créez une équipe pour votre organisation ou simplement pour vous-même:",
+  "createTeam.displayName": "Nom de l'équipe",
+  "createTeam.url": "Team URL",
+  "createTeam.submitButton": "créer"
+}

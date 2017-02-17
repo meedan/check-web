@@ -1,9 +1,21 @@
 import React, { Component, PropTypes } from 'react';
+import { FormattedMessage, defineMessages, intlShape, injectIntl } from 'react-intl';
 import Relay from 'react-relay';
 import CreateTagMutation from '../../relay/CreateTagMutation';
 import DeleteTagMutation from '../../relay/DeleteTagMutation';
 import Tags from '../source/Tags';
 import CheckContext from '../../CheckContext';
+
+const messages = defineMessages({
+  loading: {
+    id: 'mediaTags.loading',
+    defaultMessage: 'Loading...'
+  },
+  error: {
+    id: 'mediaTags.error',
+    defaultMessage: 'Sorry – we had trouble adding that tag.'
+  }
+});
 
 class MediaTags extends Component {
   constructor(props) {
@@ -22,7 +34,7 @@ class MediaTags extends Component {
   }
 
   handleClick(tagString) {
-    this.setState({ message: 'Loading...' });
+    this.setState({ message: this.props.intl.formatMessage(messages.loading) });
     const tag = this.findTag(tagString);
 
     if (tag) {
@@ -39,7 +51,7 @@ class MediaTags extends Component {
 
     const onFailure = (transaction) => {
       const error = transaction.getError();
-      let message = 'Sorry – we had trouble adding that tag.';
+      let message = this.props.intl.formatMessage(messages.error);
       try {
         const json = JSON.parse(error.source);
         if (json.error) {
@@ -104,7 +116,7 @@ class MediaTags extends Component {
     return (
       <div className="media-tags media-tags--editing">
         <div className="media-tags__header">
-          <h4 className="media-tags__heading">Tags</h4>
+          <h4 className="media-tags__heading"><FormattedMessage id="mediaTags.heading" defaultMessage="Tags" /></h4>
           <span className="media-tags__message">{this.state.message}</span>
         </div>
 
@@ -122,8 +134,12 @@ class MediaTags extends Component {
   }
 }
 
+MediaTags.propTypes = {
+  intl: intlShape.isRequired
+};
+
 MediaTags.contextTypes = {
   store: React.PropTypes.object,
 };
 
-export default MediaTags;
+export default injectIntl(MediaTags);

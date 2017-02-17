@@ -1,0 +1,46 @@
+[
+  {
+    "id": "search.title",
+    "defaultMessage": "Search"
+  },
+  {
+    "id": "search.loading",
+    "defaultMessage": "Loading..."
+  },
+  {
+    "id": "search.filtersHeading",
+    "defaultMessage": "Filters"
+  },
+  {
+    "id": "search.statusHeading",
+    "defaultMessage": "Status"
+  },
+  {
+    "id": "search.projectHeading",
+    "defaultMessage": "Project"
+  },
+  {
+    "id": "status.categoriesHeading",
+    "defaultMessage": "Categories"
+  },
+  {
+    "id": "search.sort",
+    "defaultMessage": "Sort"
+  },
+  {
+    "id": "search.sortByCreated",
+    "defaultMessage": "Created"
+  },
+  {
+    "id": "search.sortByRecentActivity",
+    "defaultMessage": "Recent activity"
+  },
+  {
+    "id": "search.sortByNewest",
+    "defaultMessage": "Newest first"
+  },
+  {
+    "id": "search.sortByOldest",
+    "defaultMessage": "Oldest first"
+  }
+]

@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { defineMessages, injectIntl, intlShape } from 'react-intl';
 import Relay from 'react-relay';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
@@ -12,6 +13,29 @@ import CheckContext from '../../CheckContext';
 import config from 'config';
 import urlRegex from 'url-regex';
 import ContentColumn from '../layout/ContentColumn';
+
+const messages = defineMessages({
+  submitting: {
+    id: 'createMedia.submitting',
+    defaultMessage: 'Submitting...'
+  },
+  error: {
+    id: 'createMedia.error',
+    defaultMessage: 'Something went wrong! Try pasting the text of this post instead, or adding a different link.'
+  },
+  mediaInput: {
+    id: 'createMedia.mediaInput',
+    defaultMessage: 'Paste a link, type to add a quote or click on the icon to upload an image'
+  },
+  uploadImage:{
+    id: 'createMedia.uploadImage',
+    defaultMessage: 'Upload an image'
+  },
+  submitButton: {
+    id: 'createMedia.submitButton',
+    defaultMessage: 'Post'
+  }
+});
 
 class CreateProjectMedia extends Component {
   constructor(props) {
@@ -51,12 +75,12 @@ class CreateProjectMedia extends Component {
       }
     }
 
-    this.setState({ isSubmitting: true, message: 'Submitting...' });
+    this.setState({ isSubmitting: true, message: this.props.intl.formatMessage(messages.submitting) });
 
     const handleError = (json) => {
-      let message = 'Something went wrong! Try pasting the text of this post instead, or adding a different link. <b id="close-message">✖</b>';
+      let message = this.props.intl.formatMessage(messages.error) + ' <b id="close-message">✖</b>';
       if (json && json.error) {
-        const matches = json.error.match(/^Validation failed: This media already exists in this project and has id ([0-9]+)$/);
+        const matches = json.error.match(/^This media already exists in this project and has id ([0-9]+)$/);
         if (matches) {
           that.props.projectComponent.props.relay.forceFetch();
           const pmid = matches[1];
@@ -145,7 +169,7 @@ class CreateProjectMedia extends Component {
                 } else {
                   return (
                     <TextField
-                      hintText="Paste a link, type to add a quote or click on the icon to upload an image"
+                      hintText={this.props.intl.formatMessage(messages.mediaInput)}
                       fullWidth
                       name="url" id="create-media-input"
                       className="create-media__input"
@@ -156,11 +180,11 @@ class CreateProjectMedia extends Component {
                   );
                 }
               })()}
-              <FontAwesome id="create-media__switcher" size="2x" title="Upload an image" name="picture-o" className={this.state.fileMode ? 'create-media__file' : ''} onClick={this.switchMode.bind(this)} />
+              <FontAwesome id="create-media__switcher" size="2x" title={this.props.intl.formatMessage(messages.uploadImage)} name="picture-o" className={this.state.fileMode ? 'create-media__file' : ''} onClick={this.switchMode.bind(this)} />
             </div>
 
             <div className="create-media__buttons">
-              <FlatButton id="create-media-submit" primary onClick={this.handleSubmit.bind(this)} label="Post" className="create-media__button create-media__button--submit" />
+              <FlatButton id="create-media-submit" primary onClick={this.handleSubmit.bind(this)} label={this.props.intl.formatMessage(messages.submitButton)} className="create-media__button create-media__button--submit" />
             </div>
           </form>
         </ContentColumn>
@@ -169,8 +193,12 @@ class CreateProjectMedia extends Component {
   }
 }
 
+CreateProjectMedia.propTypes = {
+  intl: intlShape.isRequired
+};
+
 CreateProjectMedia.contextTypes = {
   store: React.PropTypes.object,
 };
 
-export default CreateProjectMedia;
+export default injectIntl(CreateProjectMedia);

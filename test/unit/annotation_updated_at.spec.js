@@ -1,4 +1,5 @@
 import React from 'react';
+import { IntlProvider } from 'react-intl';
 import { expect } from 'chai';
 import { render } from 'enzyme';
 
@@ -17,7 +18,7 @@ describe('<Annotations />', () => {
   let annotated = {};
 
   it('should render annotaion updated_at time', function() {
-    const wrapper = render(<Annotation annotation={annotation} annotated={annotated} annotatedType={"ProjectMedia"} />);
+    const wrapper = render(<IntlProvider locale="en"><Annotation annotation={annotation} annotated={annotated} annotatedType={"ProjectMedia"} /></IntlProvider>);
     const container = wrapper.find('.annotation__timestamp > time')
     expect(container.length).to.equal(1)
     expect(container.prop('title')).to.equal('2017-02-08 17:19');

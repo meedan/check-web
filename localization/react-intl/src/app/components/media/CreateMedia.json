@@ -1,0 +1,22 @@
+[
+  {
+    "id": "createMedia.submitting",
+    "defaultMessage": "Submitting..."
+  },
+  {
+    "id": "createMedia.error",
+    "defaultMessage": "Something went wrong! Try pasting the text of this post instead, or adding a different link."
+  },
+  {
+    "id": "createMedia.mediaInput",
+    "defaultMessage": "Paste a link, type to add a quote or click on the icon to upload an image"
+  },
+  {
+    "id": "createMedia.uploadImage",
+    "defaultMessage": "Upload an image"
+  },
+  {
+    "id": "createMedia.submitButton",
+    "defaultMessage": "Post"
+  }
+]

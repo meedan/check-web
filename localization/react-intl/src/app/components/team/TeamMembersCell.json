@@ -1,0 +1,18 @@
+[
+  {
+    "id": "teamMembersCell.contributor",
+    "defaultMessage": "Contributor"
+  },
+  {
+    "id": "teamMembersCell.journalist",
+    "defaultMessage": "Journalist"
+  },
+  {
+    "id": "teamMembersCell.editor",
+    "defaultMessage": "Editor"
+  },
+  {
+    "id": "teamMembersCell.owner",
+    "defaultMessage": "Owner"
+  }
+]

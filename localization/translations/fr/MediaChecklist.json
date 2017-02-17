@@ -1,0 +1,16 @@
+{
+  "mediaChecklist.heading": "Liste de contrôle",
+  "mediaChecklist.instructions": "Voici quelques étapes communes pour la vérification collaborative. Complétez autant de tâches que vous le pouvez afin que nous ayons un dossier complet et transparent de notre enquête.",
+  "mediaChecklist.headingWho": "QUI",
+  "mediaChecklist.messageWho": "Qui est votre contact? Indiquez des informations telles que <em>@nomdutilisateur</em> et <em>adresse email</em> ou <em>téléphone</em>",
+  "mediaChecklist.headingWhat": "QUOI",
+  "mediaChecklist.messageWhat": "Quel est le problème? Expliquez clairement les faits qui sont en cause.",
+  "mediaChecklist.headingWhere": "OÙ",
+  "mediaChecklist.messageWhere": "Où est l'endroit? Indiquez des noms de villes et des régions spécifiques.",
+  "mediaChecklist.headingWhen": "QUAND",
+  "mediaChecklist.messageWhen": "Quand est-ce l'évènement a eu lieu? Inclure un horodatage avec fuseau horaire, comme <em>9/11/2016 HH: MM PM CET</em>.",
+  "mediaChecklist.headingOriginal": "ORIGINAL",
+  "mediaChecklist.messageOriginal": "Est-ce juste un retweet? Indiquez <em>\"Original\"</em> ou <em>\"N'est pas l'original\"</em> ou <em>\"Pas sûr\"</em>.",
+  "mediaChecklist.headingDetails": "DÉTAILS",
+  "mediaChecklist.messageDetails": "Autre chose? Indiquez des informations supplémentaires, y compris des échanges dans les médias sociaux ou des interviews."
+}

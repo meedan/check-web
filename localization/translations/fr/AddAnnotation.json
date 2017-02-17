@@ -1,0 +1,11 @@
+{
+  "addAnnotation.invalidCommand": "Commande non valide",
+  "addAnnotation.annotationAdded": "Votre {type} a été ajouté!",
+  "addAnnotation.createTagFailed": "Désolè, nous ne pourrions pas rajouter ce tag",
+  "addAnnotation.inputHint": "Rajouter un remarque à propos ce reportage",
+  "addAnnotation.submitButton": "Soumettre",
+  "addAnnotation.typeComment": "commentaire",
+  "addAnnotation.typeTag": "tag",
+  "addAnnotation.typeStatus": "Statut",
+  "addAnnotation.typeFlag": "flag"
+}

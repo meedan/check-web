@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import FontAwesome from 'react-fontawesome';
+import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import Select from 'react-select';
 import DocumentTitle from 'react-document-title';
 import 'react-select/dist/react-select.css';
@@ -8,6 +9,13 @@ import TeamMembershipRequests from './TeamMembershipRequests';
 import TeamMembersCell from './TeamMembersCell';
 import config from 'config';
 import { pageTitle } from '../../helpers';
+
+const messages = defineMessages({
+  title: {
+    id: 'teamMembersComponent.title',
+    defaultMessage: 'Team Members'
+  }
+});
 
 class TeamMembersComponent extends Component {
   constructor(props) {
@@ -44,17 +52,21 @@ class TeamMembersComponent extends Component {
     const joinUrl = `${teamUrl}/join`;
 
     return (
-      <DocumentTitle title={pageTitle('Team Members', false, team)}>
+      <DocumentTitle title={pageTitle(this.props.intl.formatMessage(messages.title), false, team)}>
         <div className="team-members">
           <button onClick={this.handleEditMembers.bind(this)} className="team-members__edit-button">
             <FontAwesome className="team-members__edit-icon" name="pencil" />
-            {isEditing ? 'Done' : 'Edit'}
+            {isEditing ? <FormattedMessage id="teamMembersComponent.editDoneButton" defaultMessage="Done" /> : <FormattedMessage id="teamMembersComponent.editButton" defaultMessage="Edit" />}
           </button>
 
-          <h1 className="team-members__main-heading">Members</h1>
+          <h1 className="team-members__main-heading"><FormattedMessage id="teamMembersComponent.mainHeading" defaultMessage="Members" /></h1>
 
           <div className="team-members__blurb">
-            <p className="team-members__blurb-graf">To invite colleagues to join <Link to={teamUrl}>{team.name}</Link>, send them this link:</p>
+            <p className="team-members__blurb-graf">
+              <FormattedMessage id="teamMembersComponent.inviteLink"
+                    defaultMessage={`To invite colleagues to join {link}, send them this link:`}
+                            values={{link: <Link to={teamUrl}>{team.name}</Link>}} />
+            </p>
             <p className="team-members__blurb-graf--url"><a href={joinUrl}>{joinUrl}</a></p>
           </div>
 
@@ -71,4 +83,8 @@ class TeamMembersComponent extends Component {
   }
 }
 
-export default TeamMembersComponent;
+TeamMembersComponent.propTypes = {
+  intl: intlShape.isRequired
+};
+
+export default injectIntl(TeamMembersComponent);

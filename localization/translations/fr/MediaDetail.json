@@ -1,0 +1,7 @@
+{
+  "mediaDetail.mediaTitle": "Titre",
+  "mediaDetail.byUser": "par {username}",
+  "mediaDetail.cancelButton": "Annuler",
+  "mediaDetail.doneButton": "Terminé",
+  "mediaDetail.added": "Rajouté par {byUser}"
+}

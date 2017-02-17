@@ -1,0 +1,14 @@
+[
+  {
+    "id": "home.needRegister",
+    "defaultMessage": "First you need to register. Once registered, you can request to join the team."
+  },
+  {
+    "id": "home.somethingWrong",
+    "defaultMessage": "Something went wrong – please refresh your browser or try again later."
+  },
+  {
+    "id": "home.beta",
+    "defaultMessage": "Beta"
+  }
+]

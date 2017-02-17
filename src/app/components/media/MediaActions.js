@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import FontAwesome from 'react-fontawesome';
+import { FormattedMessage } from 'react-intl';
 import { can } from '../Can';
 
 class MediaActions extends Component {
@@ -24,7 +25,7 @@ class MediaActions extends Component {
     const menuItems = [];
 
     if (can(media.permissions, 'create Tag')) {
-      menuItems.push(<li className="media-actions__menu-item" onClick={handleEdit}>Edit...</li>);
+      menuItems.push(<li className="media-actions__menu-item" onClick={handleEdit}><FormattedMessage id="mediaActions.edit" defaultMessage="Edit..." /></li>);
     }
 
     return menuItems.length ? (

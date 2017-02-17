@@ -1,0 +1,22 @@
+[
+  {
+    "id": "headerActions.contactHuman",
+    "defaultMessage": "Contact a Human"
+  },
+  {
+    "id": "headerActions.signOut",
+    "defaultMessage": "Sign Out"
+  },
+  {
+    "id": "headerActions.tos",
+    "defaultMessage": "Terms of Service"
+  },
+  {
+    "id": "headerActions.privacyPolicy",
+    "defaultMessage": "Privacy Policy"
+  },
+  {
+    "id": "headerActions.aboutCheck",
+    "defaultMessage": "About Check"
+  }
+]

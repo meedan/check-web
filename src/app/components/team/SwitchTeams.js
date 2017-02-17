@@ -6,8 +6,16 @@ import UpdateUserMutation from '../../relay/UpdateUserMutation';
 import DeleteTeamUserMutation from '../../relay/DeleteTeamUserMutation';
 import CheckContext from '../../CheckContext';
 import FontAwesome from 'react-fontawesome';
+import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import { Link } from 'react-router';
 import config from 'config';
+
+const messages = defineMessages({
+  switchTeamsError: {
+    id: 'switchTeams.error',
+    defaultMessage: 'Sorry, could not switch teams'
+  }
+});
 
 class SwitchTeamsComponent extends Component {
   membersCountString(count) {
@@ -27,14 +35,14 @@ class SwitchTeamsComponent extends Component {
   setCurrentTeam(team, user) {
     const context = new CheckContext(this);
     const history = context.getContextStore().history;
-    
+
     const currentUser = context.getContextStore().currentUser;
     currentUser.current_team = team;
     context.setContextStore({ team, currentUser });
 
     const onFailure = (transaction) => {
       const error = transaction.getError();
-      let message = 'Sorry, could not switch teams';
+      let message = this.props.intl.formatMessage(messages.switchTeamsError);
       try {
         const json = JSON.parse(error.source);
         if (json.error) {
@@ -48,7 +56,7 @@ class SwitchTeamsComponent extends Component {
       const path = `/${team.slug}`;
       history.push(path);
     };
-    
+
     Relay.Store.commitUpdate(
       new UpdateUserMutation({
         current_team_id: team.dbid,
@@ -128,14 +136,18 @@ class SwitchTeamsComponent extends Component {
                 <div className="switch-teams__team-avatar" style={{ 'background-image': `url(${team.avatar})` }} />
                 <div className="switch-teams__team-copy">
                   <h3 className="switch-teams__team-name"><a href={buildUrl(team)}>{team.name}</a></h3>
-                  <span className="switch-teams__team-join-request-message">You requested to join</span>
+                  <span className="switch-teams__team-join-request-message">
+                    <FormattedMessage id="switchTeams.joinRequestMessage" defaultMessage="You requested to join" />
+                  </span>
                 </div>
                 <div className="switch-teams__team-actions">
                   {(() => {
                     if (team.status === 'requested') {
-                      return (<button className="switch-teams__cancel-join-request" onClick={that.cancelRequest.bind(this, team)}>Cancel</button>);
+                      return (<button className="switch-teams__cancel-join-request" onClick={that.cancelRequest.bind(this, team)}>
+                        <FormattedMessage id="switchTeams.cancelJoinRequest" defaultMessage="Cancel" />
+                      </button>);
                     } else if (team.status === 'banned') {
-                      return (<span>Cancelled</span>);
+                      return (<FormattedMessage id="switchTeams.bannedJoinRequest" defaultMessage="Cancelled" />);
                     }
                   })()}
                 </div>
@@ -144,17 +156,21 @@ class SwitchTeamsComponent extends Component {
           })}
         </ul>
 
-        <Link to="/check/teams/new" className="switch-teams__new-team-link">+ New team</Link>
+        <Link to="/check/teams/new" className="switch-teams__new-team-link"><FormattedMessage id="switchTeams.newTeamLink" defaultMessage="+ New team" /></Link>
       </div>
     );
   }
 }
 
+SwitchTeamsComponent.propTypes = {
+  intl: intlShape.isRequired
+};
+
 SwitchTeamsComponent.contextTypes = {
   store: React.PropTypes.object,
 };
 
-const SwitchTeamsContainer = Relay.createContainer(SwitchTeamsComponent, {
+const SwitchTeamsContainer = Relay.createContainer(injectIntl(SwitchTeamsComponent), {
   fragments: {
     me: () => userFragment,
   },

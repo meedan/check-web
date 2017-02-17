@@ -1,0 +1,13 @@
+{
+  "search.title": "Search",
+  "search.loading": "Loading...",
+  "search.filtersHeading": "Filters",
+  "search.statusHeading": "Status",
+  "search.projectHeading": "Project",
+  "status.categoriesHeading": "Categories",
+  "search.sort": "Sort",
+  "search.sortByCreated": "Created",
+  "search.sortByRecentActivity": "Recent activity",
+  "search.sortByNewest": "Newest first",
+  "search.sortByOldest": "Oldest first"
+}
