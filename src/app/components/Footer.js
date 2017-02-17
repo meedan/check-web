@@ -6,11 +6,7 @@ class Footer extends Component {
     const about = this.props.about;
     return (
       <footer className="footer">
-        <address>
-          <span><Link to="/check/tos">Terms of Service</Link></span>
-          <br />
-          <span><i dangerouslySetInnerHTML={{ __html: about.name }} />, v<i dangerouslySetInnerHTML={{ __html: about.version }} /></span>
-        </address>
+        <span>Made with ✨ by <a href="http://meedan.com">Meedan</a></span>
       </footer>
     );
   }
