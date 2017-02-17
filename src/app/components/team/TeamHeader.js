@@ -6,8 +6,6 @@ import Pusher from 'pusher-js';
 import TeamRoute from '../../relay/TeamRoute';
 import teamFragment from '../../relay/teamFragment';
 import CheckContext from '../../CheckContext';
-import ProjectList from '../project/ProjectList';
-import MdArrowDropDown from 'react-icons/lib/md/arrow-drop-down';
 
 const messages = defineMessages({
   back: {
@@ -66,16 +64,10 @@ class TeamHeaderComponent extends Component {
       <nav className="team-header">
         <Link to={`/${team.slug}`} className="team-header__clickable" title={team.name}>
           <div className="team-header__avatar" style={{ backgroundImage: `url(${team.avatar})` }}></div>
-        </Link>
-        <div className="team-header__copy">
           <h3 className="team-header__name">
             {team.name}
-            <MdArrowDropDown />
           </h3>
-          <div className="team-header__project-list">
-            <ProjectList team={team} />
-          </div>
-        </div>
+        </Link>
       </nav>
     );
   }

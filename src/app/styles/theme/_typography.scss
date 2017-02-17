@@ -29,12 +29,14 @@ $font-stack-serif: "Merriweather", Georgia, serif;
   @include onboarding-blurb;
 }
 
-@mixin header-title($size: 19px) {
+@mixin header-title($size: 16px) {
+  font-weight: 400;
   font-size: $size;
   margin: 0;
 
   &,
-  & > a {
+  & > a,
+  & > a:visited {
     color: $black-87;
   }
 }
@@ -47,8 +49,6 @@ $font-stack-serif: "Merriweather", Georgia, serif;
 
 @mixin team-name($size: 17px) {
   font-size: $size;
-  font-weight: 600;
-  letter-spacing: .02em;
 }
 
 @mixin breadcrumb-heading {

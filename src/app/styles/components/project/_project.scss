@@ -24,3 +24,34 @@
 .create-project {
   display: inline;
 }
+
+
+
+// .project-header__description {
+//   width: 100%;
+//   position: relative;
+//   z-index: 1;
+
+//   .project-header__description-summary {
+//     display: inline-block;
+//     width: 100%;
+//     white-space: nowrap;
+//     overflow: hidden;
+//     text-overflow: ellipsis;
+//   }
+
+//   .project-header__description-fulltext {
+//     display: none;
+//     width: 100%;
+//     position: absolute;
+//     top: 0;
+//     background: $white;
+//     border: $layout-border;
+//     border-radius: 2px;
+//     padding: 8px;
+//   }
+
+//   &:hover .project-header__description-fulltext {
+//     display: block;
+//   }
+// }

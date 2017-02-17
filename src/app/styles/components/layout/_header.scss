@@ -9,7 +9,8 @@
   width: 100%;
   height: 100%;
   position: relative;
-  max-width: $layout-column-width-wide;
+  max-width: $layout-column-width-wide + (16px * 2);
+  padding: 0 16px;
   margin: 0 auto;
   display: flex;
 }
