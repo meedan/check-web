@@ -10,6 +10,13 @@
     min-width: 500px;
     padding-left: 45px;
     margin-top: 4px;
+    outline: none;
+    transition: box-shadow .2s;
+
+    &:focus {
+      @include box-shadow(2);
+      transition: box-shadow .4s;
+    }
 
     @media all and (max-width: $layout-mobile-breakpoint) {
       min-width: 300px;
