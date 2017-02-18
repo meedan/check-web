@@ -143,9 +143,9 @@ class MediaStatus extends Component {
             {statuses.map(status => (
               <li className={`${that.bemClass('media-status__menu-item', (media.last_status === status.id), '--current')} media-status__menu-item--${status.id.replace('_', '-')}`} onClick={that.handleStatusClick.bind(that, status.id)}>
 
-                <FaCircleO className="media-status__icon media-status__icon--radio-button-selected" />
+                <FaCircle className="media-status__icon media-status__icon--radio-button-selected" />
 
-                <FaCircle className="media-status__icon media-status__icon--radio-button" />
+                <FaCircleO className="media-status__icon media-status__icon--radio-button" />
 
                 <span className="media-status__label">{status.label}</span>
               </li>
