@@ -65,23 +65,21 @@ class SocialMediaCard extends Component {
             <div className="social-media-card__body-text">{bodyText}</div>
           </div>
 
-          {/* TODO: Needs code review — CGB 2017-2-14 */}
-          {(() => {
-            switch (media.domain) {
-              case 'twitter.com':
-                return <FaTwitter />
-              case 'youtube.com':
-                return <FaYoutubePlay />
-              case 'instagram.com':
-                return <FaInstagram />
-              case 'facebook.com':
-                return <FaFacebookSquare />
-              default :
-                return <MdLink />
-             }
-          })()}
-
           <span className="social-media-card__header-text-secondary">
+            {(() => {
+              switch (media.domain) {
+                case 'twitter.com':
+                  return <FaTwitter />
+                case 'youtube.com':
+                  return <FaYoutubePlay />
+                case 'instagram.com':
+                  return <FaInstagram />
+                case 'facebook.com':
+                  return <FaFacebookSquare />
+                default :
+                  return <MdLink />
+               }
+            })()}
             <a href={url}>
               {embedPublishedAt ? <TimeBefore date={embedPublishedAt} /> : this.props.intl.formatMessage(messages.link)}
             </a>
