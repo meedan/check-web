@@ -9,7 +9,7 @@ class CreateTaskMutation extends Relay.Mutation {
   }
 
   getFatQuery() {
-    return Relay.QL`fragment on CreateTaskPayload { taskEdge, project_media { tasks, annotations, annotations_count } }`;
+    return Relay.QL`fragment on CreateTaskPayload { taskEdge, project_media { annotations_count } }`;
   }
 
   getVariables() {
@@ -28,7 +28,9 @@ class CreateTaskMutation extends Relay.Mutation {
         parentID: this.props.annotated_id,
         connectionName: 'tasks',
         edgeName: 'taskEdge',
-        rangeBehaviors: calls => 'prepend',
+        rangeBehaviors: {
+          '': 'prepend'
+        }
       },
       {
         type: 'RANGE_ADD',
@@ -36,7 +38,9 @@ class CreateTaskMutation extends Relay.Mutation {
         parentID: this.props.annotated_id,
         connectionName: 'annotations',
         edgeName: 'taskEdge',
-        rangeBehaviors: calls => 'prepend',
+        rangeBehaviors: {
+          '': 'prepend'
+        }
       },
       {
         type: 'FIELDS_CHANGE',

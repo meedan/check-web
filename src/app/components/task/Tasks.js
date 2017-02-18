@@ -11,6 +11,7 @@ import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
 import Can from '../Can';
 import CreateTaskMutation from '../../relay/CreateTaskMutation';
+import { FormattedMessage } from 'react-intl';
 
 class Tasks extends Component {
   constructor(props) {
@@ -54,7 +55,7 @@ class Tasks extends Component {
 
     const onFailure = (transaction) => {
       const error = transaction.getError();
-      let message = 'Sorry, could not create the task';
+      let message = error.source;
       try {
         const json = JSON.parse(error.source);
         if (json.error) {
@@ -92,37 +93,39 @@ class Tasks extends Component {
   }
 
   render() {
-    const media = this.props.media;
+    const { media, tasks } = this.props;
 
     const actions = [
-      <FlatButton label="Cancel" primary={true} onClick={this.handleCloseDialog.bind(this)} />,
-      <FlatButton label="Add" primary={true} keyboardFocused={true} onClick={this.handleSubmitTask.bind(this)} />,
+      <FlatButton label={<FormattedMessage id="tasks.cancelAdd" defaultMessage="Cancel" />} primary={true} onClick={this.handleCloseDialog.bind(this)} />,
+      <FlatButton label={<FormattedMessage id="tasks.add" defaultMessage="Add" />} primary={true} keyboardFocused={true} onClick={this.handleSubmitTask.bind(this)} />,
     ];
 
     return (
       <div>
         
         <Can permissions={media.permissions} permission="create Task">
-          <FlatButton onClick={this.handleClick.bind(this)} label="Add task" />
+          <FlatButton onClick={this.handleClick.bind(this)} label={<FormattedMessage id="tasks.addTask" defaultMessage="Add task" />} />
         </Can>
 
         <Popover open={this.state.menuOpen} anchorEl={this.state.anchorEl} anchorOrigin={{horizontal: 'left', vertical: 'bottom'}} targetOrigin={{horizontal: 'left', vertical: 'top'}} onRequestClose={this.handleRequestClose.bind(this)}>
           <Menu>
-            <MenuItem onClick={this.handleOpenDialog.bind(this, 'free_text')} leftIcon={<FontAwesome name="align-left" />} primaryText="Short answer" />
+            <MenuItem onClick={this.handleOpenDialog.bind(this, 'free_text')} leftIcon={<FontAwesome name="align-left" />} primaryText={<FormattedMessage id="tasks.shortAnswer" defaultMessage="Short answer" />} />
+            {/* 
             <MenuItem onClick={this.handleOpenDialog.bind(this, 'yes_no')} leftIcon={<FontAwesome name="toggle-on" />} primaryText="Yes or no" />
             <MenuItem onClick={this.handleOpenDialog.bind(this, 'single_choice')} leftIcon={<FontAwesome name="circle-o" />} primaryText="Choose one" />
             <MenuItem onClick={this.handleOpenDialog.bind(this, 'multiple_choice')} leftIcon={<FontAwesome name="check-square" />} primaryText="Choose multiple" />
+            */}
           </Menu>
         </Popover>
 
-        <Dialog title="Add Task" actions={actions} modal={false} open={this.state.dialogOpen} onRequestClose={this.handleCloseDialog.bind(this)}>
+        <Dialog actions={actions} modal={false} open={this.state.dialogOpen} onRequestClose={this.handleCloseDialog.bind(this)}>
           <Message message={this.state.message} />
-          <TextField floatingLabelText="Task label" onChange={this.handleLabelChange.bind(this)} />
-          <TextField floatingLabelText="Description" onChange={this.handleDescriptionChange.bind(this)} />
+          <TextField floatingLabelText={<FormattedMessage id="tasks.taskLabel" defaultMessage="Task label" />} onChange={this.handleLabelChange.bind(this)} />
+          <TextField floatingLabelText={<FormattedMessage id="tasks.description" defaultMessage="Description" />} onChange={this.handleDescriptionChange.bind(this)} />
         </Dialog>
 
         <ul className="tasks-list">
-          {media.tasks.edges.map(task => (
+          {tasks.map(task => (
             <li><Task task={task.node} media={media} /></li>
           ))}
         </ul>

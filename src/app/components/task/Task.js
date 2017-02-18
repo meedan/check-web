@@ -5,6 +5,7 @@ import TextField from 'material-ui/TextField';
 import { blue500 } from 'material-ui/styles/colors';
 import Message from '../Message';
 import UpdateTaskMutation from '../../relay/UpdateTaskMutation';
+import { FormattedMessage } from 'react-intl';
 
 class Task extends Component {
   constructor(props) {
@@ -30,7 +31,7 @@ class Task extends Component {
 
     const onFailure = (transaction) => {
       const error = transaction.getError();
-      let message = 'Sorry, could not resolve this task';
+      let message = error.source;
       try {
         const json = JSON.parse(error.source);
         if (json.error) {
@@ -96,7 +97,7 @@ class Task extends Component {
     }
 
     return (
-      <Card onClick={this.handleClick.bind(this)} style={{ marginBottom: 10 }}>
+      <Card onClick={this.handleClick.bind(this)} className="task">
         <CardText>
           <Message message={this.state.message} />
           {response === null ?
@@ -108,25 +109,19 @@ class Task extends Component {
                        onKeyPress={this.handleKeyPress.bind(this)}
                        fullWidth={true} />
             <div style={{ display: this.state.focus ? 'block' : 'none' }}>
-              <TextField hintText="Add a note to this task"
+              <TextField hintText={<FormattedMessage id="task.noteLabel" defaultMessage="Note any additional details here." />}
                          name="note"
                          onKeyPress={this.handleKeyPress.bind(this)}
                          fullWidth={true} />
-              <small style={{ textAlign: 'right' }}>Press return to resolve</small>
+              <p className="task__resolver"><small><FormattedMessage id="task.pressReturnToSave" defaultMessage="Press return to save your response" /></small></p>
             </div>
           </form>
           :
-          <div>
-            <TextField floatingLabelText={task.label} 
-                       disabled={true}
-                       defaultValue={response}
-                       fullWidth={true} />
-            <TextField hintText="Add a note to this task"
-                       disabled={true}
-                       defaultValue={note}
-                       style={{ display: note ? 'block' : 'none' }}
-                       fullWidth={true} />
-            <small style={{ textAlign: 'right' }}>Resolved by {by}</small>
+          <div className="task__resolved">
+            <p className="task__label">{task.label}</p>
+            <p className="task__response">{response}</p>
+            <p style={{ display: note ? 'block' : 'none' }} className="task__note">{note}</p>
+            <p className="task__resolver"><small><FormattedMessage id="task.resolvedBy" defaultMessage={`Resolved by {by}`} values={{ by }} /></small></p>
           </div>
           }
         </CardText>
