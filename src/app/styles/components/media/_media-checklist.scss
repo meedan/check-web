@@ -8,6 +8,10 @@
   background-color: $black-02;
   max-width: 1000px;
 
+  @media all and (max-width: 400px) {
+    display: none;
+  }
+
   aside {
     padding: 0 32px 0 0;
     width: 260px;
