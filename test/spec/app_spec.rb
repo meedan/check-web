@@ -653,7 +653,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       project_pg.wait_for_element('.project-header__title')
       expect(project_pg.contains_string?(new_title)).to be(true)
-      project_pg.wait_for_element('.project-header__description')
+      project_pg.wait_for_element('.project__description')
       expect(project_pg.contains_string?(new_description)).to be(true)
     end
 
