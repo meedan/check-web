@@ -1,8 +1,4 @@
 {
-  "loginEmail.nameInputHint": "Your name",
-  "loginEmail.emailInputHint": "Email address",
-  "loginEmail.passwordInputHint": "Password",
-  "loginEmail.passwordConfirmInputHint": "Password confirmation",
   "login.with": "Entrar com {provider}",
   "loginEmail.nameLabel": "Your name",
   "loginEmail.emailLabel": "Email address",
