@@ -2,7 +2,6 @@ $menu-status-item-padding: 16px;
 
 .media-status {
   position: relative;
-  margin: 0 0 5px -5px;
   padding: 3px 3px 0 5px;
   border-radius: 2px;
   display: inline-block;
@@ -95,9 +94,14 @@ $menu-status-item-padding: 16px;
   cursor: pointer;
   opacity: .7;
   transition: opacity 200ms ease;
+  margin-right: 5px;
 
   .media-status__icon--radio-button-selected {
     display: none;
+  }
+
+  svg {
+    margin-right: 8px;
   }
 
   &:hover {
