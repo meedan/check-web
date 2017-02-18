@@ -3,5 +3,5 @@
   "createMedia.error": "Quelque chose s'est mal passé! Essayez plutôt de coller le texte de ce message ou d'ajouter un lien différent.",
   "createMedia.mediaInput": "Copiez-collez un lien, tapez une citation ou cliquez sur la vignette de l'image pour télécharger une image",
   "createMedia.uploadImage": "Télécharger une image",
-  "createMedia.submitButton": "Post"
+  "createMedia.submitButton": "Envoyer"
 }

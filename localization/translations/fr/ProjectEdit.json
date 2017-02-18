@@ -1,5 +1,5 @@
 {
-  "projectEdit.error": "Désolè, nous ne pourrions pas mettre le projet à jour",
+  "projectEdit.error": "Désolé, ce n'était pas possible de mettre le projet à jour",
   "projectEdit.titleField": "Titre de projet",
   "projectEdit.descriptionField": "Description de projet",
   "projectEdit.slackChannelField": "#Canal Slack ",
