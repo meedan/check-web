@@ -20,6 +20,7 @@
     "test": "npm run test:unit; npm run test:integration",
     "test:unit": "cp test/unit/config.js node_modules/config.webpack-node.js && NODE_PATH=$NODE_PATH:. BABEL_ENV=production mocha-webpack --webpack-config webpack/test.babel.js --require test/unit/setup.js \"test/unit/*.spec.js\"",
     "test:integration": "cd test && rspec spec/integration_spec.rb && cd ..",
+    "test:rebuild": "npm run build && npm run test",
     "test:proxy": "cd test && ruby spec/sauce/sauce_connect.rb && cd ..",
     "test:browsers": "cd test && rspec spec/browser_spec.rb && cd ..",
     "test:browsers:parallel": "cd test && PARALLEL_SPLIT_TEST_PROCESSES=2 parallel_split_test spec/browser_spec.rb && cd ..",
