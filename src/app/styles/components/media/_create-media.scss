@@ -18,6 +18,7 @@
 
     .create-media__buttons {
       margin-left: auto;
+      margin-top: -5px;
     }
   }
 
@@ -44,6 +45,7 @@
 
   .upload-file {
     cursor: pointer;
+    margin: 0 0 7px;
   }
 
   .upload-file > div.with-file {
@@ -62,12 +64,8 @@
     border-radius: 8px;
 
     &:hover {
-      border-color: $check-blue!important;
+      border-color: $check-blue !important;
     }
-  }
-
-  .upload-file {
-    margin: 0 0 7px;
   }
 }
 
@@ -79,21 +77,6 @@
       font-size: 12px;
     }
   }
-}
-
-.create-media__button--new {
-  @include button-defaults;
-  display: none;
-  float: left;
-  background: $check-blue;
-  color: $white;
-  $size: 60px;
-  height: $size;
-  width: $size;
-  font-size: $size * .8;
-  font-weight: 200;
-  border-radius: $size;
-  margin-right: 10px;
 }
 
 #create-media__field {
