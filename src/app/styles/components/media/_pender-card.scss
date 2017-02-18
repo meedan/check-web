@@ -1,6 +1,8 @@
 .pender-card {
   min-height: 200px;
   position: relative;
+  max-height: 2000px;
+  overflow-y: hidden;
 
   iframe {
     position: relative;
