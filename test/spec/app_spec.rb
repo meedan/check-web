@@ -238,7 +238,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(displayed_name == expected_name).to be(true)
     end
 
-    it "should show team options at /teams" do
+    it "should show teams at /check/teams" do
       page = LoginPage.new(config: @config, driver: @driver).load.login_with_email(email: @email, password: @password)
       page.driver.navigate.to @config['self_url'] + '/check/teams'
       page.wait_for_element('.teams')
