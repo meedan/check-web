@@ -59,14 +59,13 @@ class TeamHeaderComponent extends Component {
 
   render() {
     const team = this.props.team;
+    const isProjectUrl = /(.*\/project\/[0-9]+)/.test(window.location.pathname);
 
     return (
       <nav className="team-header">
         <Link to={`/${team.slug}`} className="team-header__clickable" title={team.name}>
           <div className="team-header__avatar" style={{ backgroundImage: `url(${team.avatar})` }}></div>
-          <h3 className="team-header__name">
-            {team.name}
-          </h3>
+          { isProjectUrl ? null : <h3 className="team-header__name">{team.name}</h3> }
         </Link>
       </nav>
     );
