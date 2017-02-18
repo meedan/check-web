@@ -21,10 +21,6 @@ class HeaderActions extends Component {
     this.setState({ isMenuOpen: !this.state.isMenuOpen });
   }
 
-  contactHuman() {
-    window.location.href = 'mailto:check@meedan.com?subject=Support Request for Check';
-  }
-
   render() {
     return (
       <div className={bemClass('header-actions', this.state.isMenuOpen, '--active')}>
@@ -39,11 +35,11 @@ class HeaderActions extends Component {
           <li className="header-actions__menu-item" style={{ cursor: 'default' }}><UserMenuRelay {...this.props} /></li>
           <ProjectMenuRelay {...this.props} />
           <TeamMenuRelay {...this.props} />
-          <li className="header-actions__menu-item" onClick={this.contactHuman.bind(this)}>
-            <FormattedMessage id="headerActions.contactHuman" defaultMessage="Contact a Human" />
-          </li>
           <li className="header-actions__menu-item header-actions__menu-item--logout" onClick={logout}>
             <FormattedMessage id="headerActions.signOut" defaultMessage="Sign Out" />
+          </li>
+          <li className="header-actions__menu-item">
+            <a className="header-actions__link" target="_blank" rel="noopener noreferrer" href="https://docs.google.com/forms/d/e/1FAIpQLSdctP7RhxeHjTnevnvRi6AKs4fX3wNnxecVdBFwKe7GRVcchg/viewform"><FormattedMessage id="headerActions.contactHuman" defaultMessage="Contact a Human" /></a>
           </li>
           <li className="header-actions__menu-item">
             <Link className="header-actions__link" to="/check/tos"><FormattedMessage id="headerActions.tos" defaultMessage="Terms of Service" /></Link>
@@ -52,7 +48,7 @@ class HeaderActions extends Component {
             <Link className="header-actions__link" to="/check/privacy"><FormattedMessage id="headerActions.privacyPolicy" defaultMessage="Privacy Policy" /></Link>
           </li>
           <li className="header-actions__menu-item">
-            <a className="header-actions__link" target="_blank" rel="noopener noreferrer" href="http://meedan.com/check"><FormattedMessage id="headerActions.aboutCheck" defaultMessage="About Check" /></a>
+            <a className="header-actions__link" target="_blank" rel="noopener noreferrer" href="https://meedan.com/check"><FormattedMessage id="headerActions.aboutCheck" defaultMessage="About Check" /></a>
           </li>
         </ul>
       </div>
