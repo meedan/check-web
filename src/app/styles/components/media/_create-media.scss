@@ -9,16 +9,38 @@
 
   footer {
     display: flex;
+    align-items: top;
 
     .create-media__helper {
       font-size: 11px;
       color: $black-38;
-      margin-right: auto;
+      @media all and (max-width: 500px) {
+        display: none;
+      }
     }
 
     .create-media__buttons {
       margin-left: auto;
-      margin-top: -5px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+
+      // The button to show the dropzone
+      //
+      .create-media__insert-photo {
+        @include tooltip("Upload photo", down);
+        display: flex;
+
+        svg {
+          @extend %icon;
+          margin-right: 0;
+
+          path {
+            color: $black-16;
+          }
+        }
+      }
     }
   }
 
@@ -69,8 +91,8 @@
   }
 }
 
-// The placeholder
 .create-media__input {
+  // The placeholder
   & > :first-child {
     padding: 0;
     @media all and (max-width: 400px) {
@@ -81,15 +103,4 @@
 
 #create-media__field {
   position: relative;
-}
-
-#create-media__switcher {
-  @extend %icon;
-  position: absolute;
-  right: 12px;
-  top: 12px;
-
-  path {
-    color: $black-16;
-  }
 }
