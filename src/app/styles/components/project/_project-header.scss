@@ -50,6 +50,11 @@
   justify-content: center;
   height: 100%;
   padding: 4px;
+  opacity: 0;
+  transition: opacity 100ms ease;
+}
+.project-header__menu-toggle-label:hover .project-header__caret {
+  opacity: 1;
 }
 
 // toggle menu
