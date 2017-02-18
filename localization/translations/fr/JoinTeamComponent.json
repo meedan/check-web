@@ -1,5 +1,5 @@
 {
-  "joinTeamComponent.error": "Désolé, ce n'était pas possible d'envoyer de votre demande",
+  "joinTeamComponent.error": "Désolé, ce n'était pas possible d'envoyer votre demande",
   "joinTeamComponent.success": "Merci de votre intérêt à rejoindre {team} Check! Un chef d'équipe examinera bientôt votre demande.",
   "joinTeamComponent.title": "Rejoindre l'équipe",
   "joinTeamComponent.alreadyRequested": "Vous avez déjà demandé à rejoindre {team} Check.",
