@@ -29,13 +29,3 @@
   font-size: 16px;
   max-width: 300px;
 }
-
-// Hide the title of claims
-// And the title input, when editing
-// TODO standardize on "Claim" not "Quote" — 2017-2-16 CGB
-.media-detail--claim {
-  .media-detail__title-input,
-  .media-detail__title {
-    display: none;
-  }
-}
