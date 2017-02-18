@@ -15,15 +15,22 @@
   width: 24px;
   height: 24px;
   margin-right: 16px;
+  border-radius: 24px;
+  background-color: transparent;
 
   path {
     transition: color .2s;
   }
 
   &:hover {
+
     path {
       color: $black-87;
       transition: color .4s;
 		}
+  }
+
+  &:active {
+    background-color: $black-05;
   }
 }
