@@ -33,6 +33,7 @@ class HeaderActions extends Component {
         <div className={bemClass('header-actions__menu-overlay', this.state.isMenuOpen, '--active')} onClick={this.toggleSettingsMenu.bind(this)} />
         <ul className={bemClass('header-actions__menu', this.state.isMenuOpen, '--active')}>
           <li className="header-actions__menu-item" style={{ cursor: 'default' }}><UserMenuRelay {...this.props} /></li>
+          <li className="header-actions__menu-item"><Link to='/check/teams'>Your teams</Link></li>
           <ProjectMenuRelay {...this.props} />
           <TeamMenuRelay {...this.props} />
           <li className="header-actions__menu-item header-actions__menu-item--logout" onClick={logout}>
