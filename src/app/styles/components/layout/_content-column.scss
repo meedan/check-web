@@ -3,6 +3,7 @@
   max-width: $layout-column-width-narrow;
   margin: 0 auto;
   padding: 0;
+  @include fade-in;
 
   &--flex {
     display: flex;
