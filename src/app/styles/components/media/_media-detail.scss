@@ -5,8 +5,8 @@
 .media-detail {
   @include media-status-border-colors;
   @include box-shadow(1);
-  padding: 12px 0 0 24px;
-  border-left: 4px solid;
+  padding: 12px 0 0 16px;
+  border-left: 8px solid;
   border-radius: 2px;
   margin-bottom: 24px;
   background-color: $white;
