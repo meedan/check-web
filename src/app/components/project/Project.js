@@ -90,10 +90,11 @@ class ProjectComponent extends Component {
     return (
       <DocumentTitle title={pageTitle(project.title, false, this.currentContext().team)} >
         <div className="project">
-          <div className='project__description'>
-            <p className='project__description-container'>{project.description}</p>
-          </div>
-
+          { project.description && project.description.trim().length ? (
+            <div className='project__description'>
+              <p className='project__description-container'>{project.description}</p>
+            </div>
+          ) : null }
           <Can permissions={project.permissions} permission="create Media">
             <CreateProjectMedia projectComponent={that} />
           </Can>

@@ -1,4 +1,4 @@
-// Project page 
+// Project page
 //
 .project {
   flex: 1;
@@ -19,17 +19,17 @@
 }
 
 .project__description { // see also .header__container
+  margin: -16px -16px 0 -16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   background: $black-05;
-  transition: min-height 500s ease-in-out;
-  min-height: 0;
-  &:not(:empty) {
-    min-height: 52px;
-  }
+  min-height: 48px;
 
   &-container {
     width: 100%;
     max-width: $layout-column-width-wide + (16px * 2);
-    padding: 0 16px 0 (16px + 11px);
+    padding: 16px 16px 16px 27px;
     margin: 0 auto;
     display: flex;
 
