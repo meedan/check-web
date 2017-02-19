@@ -8,7 +8,6 @@ import UpdateTaskMutation from '../../relay/UpdateTaskMutation';
 import DeleteAnnotationMutation from '../../relay/DeleteAnnotationMutation';
 import { FormattedMessage } from 'react-intl';
 import Dialog from 'material-ui/Dialog';
-import FontAwesome from 'react-fontawesome';
 import FlatButton from 'material-ui/FlatButton';
 import Can from '../Can';
 
@@ -167,10 +166,10 @@ class Task extends Component {
       <div>
         <Card onClick={this.handleClick.bind(this)} className="task">
           <Can permissions={task.permissions} permission="update Task">
-            <FontAwesome name="pencil" id="task__edit-button" onClick={this.handleEdit.bind(this)} />
+            <span id="task__edit-button" onClick={this.handleEdit.bind(this)}>✐</span>
           </Can>
           <Can permissions={task.permissions} permission="destroy Task">
-            <FontAwesome name="trash" id="task__remove-button" onClick={this.handleDelete.bind(this)} />
+            <span id="task__remove-button" onClick={this.handleDelete.bind(this)}>✖</span>
           </Can>
           <CardText>
             <Message message={this.state.message} />
