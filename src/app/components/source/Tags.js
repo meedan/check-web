@@ -37,11 +37,11 @@ class Tags extends Component {
   handleAddition(tags) {
     const props = this.props;
     let tagsList = [...new Set(tags.split(','))],
-      that = this;
+        that = this;
 
     const onFailure = function (transaction) {
       const error = transaction.getError();
-      let message = this.props.intl.formatMessage(tags.error);
+      let message = that.props.intl.formatMessage(tags.error);
 
       try {
         const json = JSON.parse(error.source);

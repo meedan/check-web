@@ -42,7 +42,7 @@ class CreateAccount extends Component {
 
     const onFailure = (transaction) => {
       const error = transaction.getError();
-      let message = this.props.intl.formatMessage(messages.createSourceError);
+      let message = that.props.intl.formatMessage(messages.createSourceError);
       try {
         const json = JSON.parse(error.source);
         if (json.error) {
