@@ -25,7 +25,7 @@ const messages = defineMessages({
   },
   mediaInput: {
     id: 'createMedia.mediaInput',
-    defaultMessage: 'Paste a link, type to add a quote or click on the icon to upload an image'
+    defaultMessage: 'Paste or type'
   },
   uploadImage:{
     id: 'createMedia.uploadImage',
