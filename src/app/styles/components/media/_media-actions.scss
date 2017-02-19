@@ -24,9 +24,9 @@
   }
 }
 
-.media-actions__menu-item {
+.media-actions__menu-item { // TODO: merge with header-actions and app-menu-item
   font-size: 15px;
-  padding: 11px 15px;
+  padding: 0 16px;
   cursor: pointer;
 
   &:hover {
