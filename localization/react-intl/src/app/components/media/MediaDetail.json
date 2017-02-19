@@ -8,15 +8,15 @@
     "defaultMessage": "by {username}"
   },
   {
+    "id": "mediaDetail.added",
+    "defaultMessage": "Added {byUser}"
+  },
+  {
     "id": "mediaDetail.cancelButton",
     "defaultMessage": "Cancel"
   },
   {
     "id": "mediaDetail.doneButton",
     "defaultMessage": "Done"
-  },
-  {
-    "id": "mediaDetail.added",
-    "defaultMessage": "Added {byUser}"
   }
 ]

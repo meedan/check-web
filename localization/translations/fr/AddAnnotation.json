@@ -3,7 +3,7 @@
   "addAnnotation.annotationAdded": "Votre {type} a été ajouté!",
   "addAnnotation.createTagFailed": "Désolé, ce n'était pas possible de rajouter ce tag",
   "addAnnotation.inputHint": "Rajouter un remarque à propos ce reportage",
-  "addAnnotation.submitButton": "Soumettre",
+  "addAnnotation.submitButton": "Envoyer",
   "addAnnotation.typeComment": "commentaire",
   "addAnnotation.typeTag": "tag",
   "addAnnotation.typeStatus": "statut",
