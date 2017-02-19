@@ -55,6 +55,10 @@ const messages = defineMessages({
   slackChannel: {
     id: 'teamComponent.slackChannel',
     defaultMessage: 'Slack default #channel'
+  },
+  verificationTeam: {
+    id: 'teamComponent.verificationTeam',
+    defaultMessage: 'Verification Team'
   }
 });
 
@@ -216,7 +220,7 @@ class TeamComponent extends Component {
                         <Link to="#" className="team__name-link">{team.name}</Link>
                       </h1>
                       <div className="team__description">
-                        <p className="team__description-text">{team.description}</p>
+                        <p className="team__description-text">{team.description || this.props.intl.formatMessage(messages.verificationTeam)}</p>
                       </div>
                     </div>
                   );

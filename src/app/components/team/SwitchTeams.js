@@ -14,13 +14,21 @@ const messages = defineMessages({
   switchTeamsError: {
     id: 'switchTeams.error',
     defaultMessage: 'Sorry, could not switch teams'
+  },
+  switchTeamsMember: {
+    id: 'switchTeams.member',
+    defaultMessage: 'member'
+  },
+  switchTeamsMembers: {
+    id: 'switchTeams.members',
+    defaultMessage: 'members'
   }
 });
 
 class SwitchTeamsComponent extends Component {
   membersCountString(count) {
     if (typeof count === 'number') {
-      return `${count.toString()} member${count === 1 ? '' : 's'}`;
+      return `${count.toString()} ${count === 1 ? this.props.intl.formatMessage(messages.switchTeamsMember) : this.props.intl.formatMessage(messages.switchTeamsMembers)}`;
     }
   }
 

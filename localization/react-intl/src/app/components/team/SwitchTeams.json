@@ -4,6 +4,14 @@
     "defaultMessage": "Sorry, could not switch teams"
   },
   {
+    "id": "switchTeams.member",
+    "defaultMessage": "member"
+  },
+  {
+    "id": "switchTeams.members",
+    "defaultMessage": "members"
+  },
+  {
     "id": "switchTeams.joinRequestMessage",
     "defaultMessage": "You requested to join"
   },

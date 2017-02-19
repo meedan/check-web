@@ -29,6 +29,14 @@ const messages = defineMessages({
   searchInputHint: {
     id: 'search.inputHint',
     defaultMessage: 'Search'
+  },
+  searchResult: {
+    id: 'search.result',
+    defaultMessage: 'Result'
+  },
+  searchResults: {
+    id: 'search.results',
+    defaultMessage: 'Results'
   }
 });
 
@@ -303,10 +311,7 @@ class SearchResultsComponent extends Component {
   render() {
     const medias = this.props.search ? this.props.search.medias.edges : [];
     const count = this.props.search ? this.props.search.number_of_results : 0;
-    const mediasCount = `${count} ${numerous.pluralize('en', count, {
-      one: 'Result',
-      other: 'Results',
-    })}`;
+    const mediasCount = `${count} ${count === 1 ? this.props.intl.formatMessage(messages.searchResult) : this.props.intl.formatMessage(messages.searchResults)}`;
 
     return (
       <div className="search__results / results">
@@ -335,7 +340,11 @@ class SearchResultsComponent extends Component {
   }
 }
 
-const SearchResultsContainer = Relay.createContainer(SearchResultsComponent, {
+SearchResultsComponent.propTypes = {
+  intl: intlShape.isRequired
+};
+
+const SearchResultsContainer = Relay.createContainer(injectIntl(SearchResultsComponent), {
   initialVariables: {
     pageSize,
   },

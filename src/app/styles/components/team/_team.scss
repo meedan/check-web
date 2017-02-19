@@ -87,12 +87,6 @@
   margin: 0;
   padding: 5px 0;
   color: inherit;
-
-  &:empty {
-    &::before {
-      content: 'Verification Team';
-    }
-  }
 }
 
 .team__description-input {

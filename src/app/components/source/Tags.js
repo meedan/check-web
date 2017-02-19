@@ -11,6 +11,10 @@ const messages = defineMessages({
   error: {
     id: 'tags.error',
     defaultMessage: 'Sorry, could not create the tag'
+  },
+  addNewTag: {
+    id: 'tags.addNewTag',
+    defaultMessage: 'Add new tag'
   }
 });
 
@@ -86,7 +90,7 @@ class Tags extends Component {
     return (
       <div className="tags-list">
         <Message message={this.state.message} />
-        <ReactTags tags={tags} handleDelete={this.handleDelete.bind(this)} handleAddition={this.handleAddition.bind(this)} autofocus={false} removeComponent={TagsRemove} />
+        <ReactTags tags={tags} handleDelete={this.handleDelete.bind(this)} handleAddition={this.handleAddition.bind(this)} autofocus={false} removeComponent={TagsRemove} placeholder={this.props.intl.formatMessage(messages.addNewTag)}/>
       </div>
     );
   }

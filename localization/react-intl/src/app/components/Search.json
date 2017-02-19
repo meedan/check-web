@@ -12,6 +12,14 @@
     "defaultMessage": "Search"
   },
   {
+    "id": "search.result",
+    "defaultMessage": "Result"
+  },
+  {
+    "id": "search.results",
+    "defaultMessage": "Results"
+  },
+  {
     "id": "search.filtersHeading",
     "defaultMessage": "Filters"
   },
