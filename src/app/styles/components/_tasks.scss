@@ -28,4 +28,11 @@
   #task__remove-button {
     margin-right: 8px;
   }
+
+  #task__cancel-button,
+  #task__edit-response-button {
+    color: #ccc;
+    margin-left: 5px;
+    cursor: pointer;
+  }
 }

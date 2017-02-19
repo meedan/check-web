@@ -5,6 +5,7 @@ import TextField from 'material-ui/TextField';
 import { blue500 } from 'material-ui/styles/colors';
 import Message from '../Message';
 import UpdateTaskMutation from '../../relay/UpdateTaskMutation';
+import UpdateDynamicMutation from '../../relay/UpdateDynamicMutation';
 import DeleteAnnotationMutation from '../../relay/DeleteAnnotationMutation';
 import { FormattedMessage } from 'react-intl';
 import Dialog from 'material-ui/Dialog';
@@ -17,9 +18,9 @@ class Task extends Component {
 
     this.state = {
       focus: false,
-      message: null,
       editing: false,
       message: null,
+      editingResponse: false,
     };
   }
 
@@ -133,6 +134,59 @@ class Task extends Component {
     );
   }
 
+  handleCancelEditResponse() {
+    this.setState({ editingResponse: false });
+  }
+
+  handleEditResponse() {
+    this.setState({ editingResponse: true });
+  }
+
+  handleKeyPressUpdate(e) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      this.handleSubmitUpdate(e);
+    }
+  }
+
+  handleSubmitUpdate(e) {
+    const that = this;
+    const task = this.props.task;
+
+    const onFailure = (transaction) => {
+      const error = transaction.getError();
+      let message = error.source;
+      try {
+        const json = JSON.parse(error.source);
+        if (json.error) {
+          message = json.error;
+        }
+      } catch (e) { }
+      that.setState({ message });
+    };
+
+    const onSuccess = (response) => {
+      that.setState({ message: null, editingResponse: false });
+    };
+
+    const form = document.forms[`edit-response-${task.first_response.id}`];
+    const fields = {};
+    fields[`response_${task.type}`] = form.editedresponse.value;
+    fields[`note_${task.type}`] = form.editednote.value;
+
+    Relay.Store.commitUpdate(
+      new UpdateDynamicMutation({
+        annotated: that.props.media,
+        dynamic: {
+          id: task.first_response.id,
+          fields,
+        },
+      }),
+      { onSuccess, onFailure },
+    );
+
+    e.preventDefault();
+  }
+
   componentDidMount() {
     const that = this;
     window.addEventListener('click', () => { that.setState({ focus: false }) });
@@ -189,14 +243,36 @@ class Task extends Component {
                 <p className="task__resolver"><small><FormattedMessage id="task.pressReturnToSave" defaultMessage="Press return to save your response" /></small></p>
               </div>
             </form>
+            : (this.state.editingResponse ? 
+            <div className="task__editing">
+              <form onSubmit={this.handleSubmitUpdate.bind(this)} name={`edit-response-${task.first_response.id}`}>
+                <TextField floatingLabelText={task.label} 
+                           hintText={task.description}
+                           defaultValue={response}
+                           name="editedresponse"
+                           onKeyPress={this.handleKeyPressUpdate.bind(this)}
+                           fullWidth={true} />
+                <TextField hintText={<FormattedMessage id="task.noteLabel" defaultMessage="Note any additional details here." />}
+                           defaultValue={note}
+                           name="editednote"
+                           onKeyPress={this.handleKeyPressUpdate.bind(this)}
+                           fullWidth={true} />
+                <p className="task__resolver"><small><FormattedMessage id="task.pressReturnToSave" defaultMessage="Press return to save your response" /></small> <span id="task__cancel-button" onClick={this.handleCancelEditResponse.bind(this)}>✖</span></p>
+              </form>
+            </div>
             :
             <div className="task__resolved">
               <p className="task__label">{task.label}</p>
               <p className="task__response">{response}</p>
               <p style={{ display: note ? 'block' : 'none' }} className="task__note">{note}</p>
-              <p className="task__resolver"><small><FormattedMessage id="task.resolvedBy" defaultMessage={`Resolved by {by}`} values={{ by }} /></small></p>
+              <p className="task__resolver">
+                <small><FormattedMessage id="task.resolvedBy" defaultMessage={`Resolved by {by}`} values={{ by }} /></small> 
+                <Can permissions={task.first_response.permissions} permission="update Dynamic">
+                  <span id="task__edit-response-button" onClick={this.handleEditResponse.bind(this)}>✐</span>
+                </Can>
+              </p>
             </div>
-            }
+            )}
           </CardText>
         </Card>
 
