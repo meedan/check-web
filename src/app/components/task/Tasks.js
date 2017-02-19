@@ -11,6 +11,7 @@ import TextField from 'material-ui/TextField';
 import Can from '../Can';
 import CreateTaskMutation from '../../relay/CreateTaskMutation';
 import { FormattedMessage } from 'react-intl';
+import { MdFormatAlignLeft } from 'react-icons/lib/md';
 
 class Tasks extends Component {
   constructor(props) {
@@ -108,7 +109,7 @@ class Tasks extends Component {
 
         <Popover open={this.state.menuOpen} anchorEl={this.state.anchorEl} anchorOrigin={{horizontal: 'left', vertical: 'bottom'}} targetOrigin={{horizontal: 'left', vertical: 'top'}} onRequestClose={this.handleRequestClose.bind(this)}>
           <Menu>
-            <MenuItem onClick={this.handleOpenDialog.bind(this, 'free_text')} primaryText={<FormattedMessage id="tasks.shortAnswer" defaultMessage="Short answer" />} />
+            <MenuItem onClick={this.handleOpenDialog.bind(this, 'free_text')} leftIcon={<MdFormatAlignLeft />} primaryText={<FormattedMessage id="tasks.shortAnswer" defaultMessage="Short answer" />} />
             {/*
             <MenuItem onClick={this.handleOpenDialog.bind(this, 'yes_no')} leftIcon={<FontAwesome name="toggle-on" />} primaryText="Yes or no" />
             <MenuItem onClick={this.handleOpenDialog.bind(this, 'single_choice')} leftIcon={<FontAwesome name="circle-o" />} primaryText="Choose one" />
