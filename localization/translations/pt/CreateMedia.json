@@ -3,5 +3,6 @@
   "createMedia.error": "Something went wrong! Try pasting the text of this post instead, or adding a different link.",
   "createMedia.mediaInput": "Paste a link, type to add a quote or click on the icon to upload an image",
   "createMedia.uploadImage": "Upload an image",
-  "createMedia.submitButton": "Post"
+  "createMedia.submitButton": "Post",
+  "createMedia.helper": "Add a link, quote or image for verification"
 }

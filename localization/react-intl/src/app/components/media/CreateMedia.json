@@ -18,5 +18,9 @@
   {
     "id": "createMedia.submitButton",
     "defaultMessage": "Post"
+  },
+  {
+    "id": "createMedia.helper",
+    "defaultMessage": "Add a link, quote or image for verification"
   }
 ]

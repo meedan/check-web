@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { defineMessages, injectIntl, intlShape } from 'react-intl';
+import { defineMessages, injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import Relay from 'react-relay';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
@@ -183,7 +183,7 @@ class CreateProjectMedia extends Component {
             </div>
 
             <footer>
-              <div className="create-media__helper">Add a link, quote or image for verification</div>
+              <div className="create-media__helper"><FormattedMessage id="createMedia.helper" defaultMessage="Add a link, quote or image for verification"/></div>
               <div className="create-media__buttons">
                 <div className="create-media__insert-photo">
                   <MdInsertPhoto id="create-media__switcher" title={this.props.intl.formatMessage(messages.uploadImage)} className={this.state.fileMode ? 'create-media__file' : ''} onClick={this.switchMode.bind(this)} />
