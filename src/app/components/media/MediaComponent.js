@@ -10,6 +10,9 @@ import config from 'config';
 import { pageTitle } from '../../helpers';
 import CheckContext from '../../CheckContext';
 import Tasks from '../task/Tasks';
+import { bemClassFromMediaStatus } from '../../helpers';
+import ContentColumn from '../layout/ContentColumn';
+import MediaStatus from './MediaStatus';
 
 class MediaComponent extends Component {
   getContext() {
@@ -77,14 +80,23 @@ class MediaComponent extends Component {
 
     return (
       <DocumentTitle title={pageTitle(MediaUtil.title(media, data), false, this.getContext().team)}>
-        <div className="media" data-id={media.dbid}>
-          <article className="media__contents">
-            <MediaDetail media={media} />
-            <Tasks tasks={media.tasks.edges} media={media} />
+        <div className='media' data-id={media.dbid}>
+          <div className={bemClassFromMediaStatus('media__expanded', media.last_status)}>
+            <ContentColumn>
+              <h1 className='media__title'>{MediaUtil.title(media, data)}</h1>
+              <div className="media__status">
+                <MediaStatus media={media} readonly={this.props.readonly} />
+              </div>
+              <MediaDetail media={media} />
+              <Tasks tasks={media.tasks.edges} media={media} />
+            </ContentColumn>
+          </div>
+
+          <ContentColumn>
             <h3 className="media__notes-heading"><FormattedMessage id="mediaComponent.verificationTimeline" defaultMessage="Verification Timeline" /></h3>
             <Annotations annotations={media.annotations.edges.reverse()} annotated={media} annotatedType="ProjectMedia" />
             <MediaChecklist />
-          </article>
+          </ContentColumn>
         </div>
       </DocumentTitle>
     );

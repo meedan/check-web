@@ -1,0 +1,26 @@
+// Uploaded images
+//  
+
+// On the project page
+//
+.project .image-media-card img {
+  width: auto;
+}
+
+.image-media-card {
+	padding: 0;
+}
+// On the detail view
+//
+.image-media-card img {
+  width: 100%;
+}
+
+// TODO fix this selector. 
+// It should be something like ".media-detail--uploaded-image" — CGB 2017-2-16
+.media__expanded .media-detail-- {
+	padding: 0;
+	.media-detail__check-metadata {
+		margin-left: 16px;
+	}
+}

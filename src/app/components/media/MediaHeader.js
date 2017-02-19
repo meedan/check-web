@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 import MediaRoute from '../../relay/MediaRoute';
-import Caret from '../Caret';
 import MediaMetadataSummary from './MediaMetadataSummary';
 import MediaUtil from './MediaUtil';
 import CheckContext from '../../CheckContext';
@@ -31,10 +30,7 @@ class MediaHeaderComponent extends Component {
     }
     return (
       <div className="media-header">
-        <div className="media-header__copy">
-          <h1 className="media-header__title">{title}</h1>
-          <MediaMetadataSummary media={media} data={data} />
-        </div>
+        {/* TODO: assess component for deletion now that we don't display copy here */}
       </div>
     );
   }

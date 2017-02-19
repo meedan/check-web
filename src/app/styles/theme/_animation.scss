@@ -9,9 +9,26 @@
 }
 
 %shimmer {
-  animation: placeHolderShimmer .7s ease-out infinite;
+  animation: placeHolderShimmer 1s ease-out infinite;
   animation-fill-mode: forwards;
-  background: linear-gradient(90deg, theme-gray(97%), theme-gray(97%), theme-gray(98%), theme-gray(98%), theme-gray(100%), theme-gray(98%), theme-gray(97%), theme-gray(97%));
+  background: linear-gradient(90deg, $black-05, $black-05, $black-02, $black-02, $white, $black-02, $black-05, $black-05);
   background-size: 400%;
 }
 
+// Fade in things
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@mixin fade-in($speed: .3s) {
+  opacity: 0;
+  animation: fade-in ease-in 1;
+  animation-fill-mode: forwards;
+  animation-duration: $speed;
+}

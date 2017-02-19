@@ -1,8 +1,9 @@
 .content-column {
+  @include fade-in;
   width: 100%;
   max-width: $layout-column-width-narrow;
   margin: 0 auto;
-  padding: 0 16px;
+  padding: 0 8px;
 
   &--flex {
     display: flex;

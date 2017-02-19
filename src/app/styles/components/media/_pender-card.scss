@@ -1,6 +1,8 @@
 .pender-card {
   min-height: 200px;
   position: relative;
+  max-height: 2000px;
+  overflow-y: hidden;
 
   iframe {
     position: relative;
@@ -13,40 +15,19 @@
 }
 
 .pender-card__loader {
-  display: inline-block;
-  $size: 100%; width: $size; height: $size;
+  $size: 100%;
+  width: $size;
+  height: $size;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   .social-media-card {
     border: 0;
     padding-top: 40px;
-  }
-
-  .react-spinner {
-    position: relative;
-    top: 50%;
-    left: 50%;
-    width: 64px;
-    height: 64px;
-  }
-
-  .react-spinner_bar {
-    animation: spinner 1.2s linear infinite;
-    border-radius: 5px;
-    background-color: theme-gray(50%);
-    position: absolute;
-    width: 20%;
-    height: 8%;
-    top: -4%;
-    left: -10%;
-  }
-
-  @keyframes spinner {
-    0% { opacity: 0; }
-    20% { opacity: 0.25; }
-    100% { opacity: 0; }
   }
 }

@@ -1,0 +1,132 @@
+$gutter-large: 56px;
+$gutter-medium: 24px;
+$gutter-small: 16px;
+
+.social-media-card {
+  color: $black-87;
+  display: flex;
+  margin-right: $gutter-medium;
+  justify-content: space-between;
+
+  @media all and (max-width: 700px) {
+    flex-direction: column;
+    width: 100%;
+    &__body-image {
+      margin-left: $gutter-large;
+      margin-top: 8px;
+    }
+  }
+
+  &__header {
+    display: flex;
+    align-items: flex-start;
+  }
+
+  &__author-avatar {
+    @include avatar(40px);
+  }
+
+  &__header-text-primary {
+    display: flex;
+    overflow: hidden;
+    flex-direction: column;
+    margin-left: $gutter-small;
+
+    a {
+      color: $black-87;
+
+      &:hover {
+        color: $check-blue;
+      }
+
+      &:active {
+        color: $black-87;
+      }
+    }
+  }
+
+  &__username {
+    overflow-x: hidden;
+  }
+
+  // Truncate when smaller
+  &__name,
+  &__username {
+    @media all and (max-width: 400px) {
+      width: 150px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+  &__header-text-secondary {
+    margin-right: 20px;
+    text-align: right;
+    margin-left: $gutter-large;
+
+    time {
+      margin-left: 8px;
+    }
+
+    svg {
+      path {
+        color: $black-54;
+      }
+    }
+  }
+
+  &__body {
+    margin: $gutter-small $gutter-medium $gutter-small $gutter-large;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    cursor: pointer;
+    @media all and (max-width: $layout-mobile-breakpoint-small) {
+      flex-wrap: wrap;
+    }
+
+    &--condensed {
+      cursor: auto;
+    }
+  }
+
+  &__body-text {
+    padding-right: 10px;
+    font-weight: 500;
+  }
+
+  &__body-image {
+    @include image(200px, 100px);
+    flex-shrink: 0;
+    @media all and (max-width: $layout-mobile-breakpoint-small) {
+      margin-top: 8px;
+    }
+  }
+
+  &__footer {
+    padding-left: 0;
+    padding-right: 20px;
+    margin-top: 12px;
+    margin-left: $gutter-large;
+  }
+
+  &__footer-stat {
+    margin-right: $gutter-small;
+    color: $black-54;
+  }
+}
+
+
+// Page-type reports don't have avatar
+// Override to flush left.
+.media-detail--page {
+  .social-media-card {
+    &__body,
+    &__header-text-primary,
+    &__header-text-secondary,
+    &__footer {
+      margin-left: 0;
+    }
+  }
+}
