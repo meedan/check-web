@@ -55,7 +55,7 @@ class JoinTeamComponent extends Component {
     };
 
     const onSuccess = (response) => {
-      that.setState({ message: that.props.intl.formatMessage(joinTeamComponent.sucess,{team: this.props.team.name}), isRequestSent: true });
+      that.setState({ message: that.props.intl.formatMessage(messages.sucess,{team: this.props.team.name}), isRequestSent: true });
     };
 
     Relay.Store.commitUpdate(

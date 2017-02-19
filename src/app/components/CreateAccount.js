@@ -47,7 +47,7 @@ class CreateAccount extends Component {
         const json = JSON.parse(error.source);
         if (json.error) {
           message = json.error;
-          const matches = message.match(/^Validation failed: Account with this URL exists and has source id ([0-9]+)$/);
+          const matches = message.match(/Account with this URL exists and has source id ([0-9]+)$/);
           if (matches) {
             const sid = matches[1];
             message = null;
@@ -86,7 +86,7 @@ class CreateAccount extends Component {
           <h4><FormattedMessage id="createAccount.createSource" defaultMessage="Create a source" /></h4>
           <h2><FormattedMessage id="createAccount.sourceUrl" defaultMessage="Source URL" /></h2>
           <TextField hintText={this.props.intl.formatMessage(messages.sourceUrlHint)} fullWidth name="url" id="create-account-url" /><br />
-          <FlatButton id="create-account-submit" primary onClick={this.handleSubmit.bind(this)} label={this.props.intl.formatMessage(createAccount.createButton)} />
+          <FlatButton id="create-account-submit" primary onClick={this.handleSubmit.bind(this)} label={this.props.intl.formatMessage(messages.createButton)} />
         </div>
 
         <div id="account-preview" className="create-account-col">

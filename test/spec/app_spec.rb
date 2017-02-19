@@ -416,13 +416,13 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       login_with_email
       @driver.navigate.to @config['self_url'] + '/check/sources/new'
       sleep 1
-      fill_field('#create-account-url', 'https://www.youtube.com/watch?v=b708rEG7spI')
+      fill_field('#create-account-url', 'https://twitter.com/IronMaiden/status/832726327459446784')
       sleep 1
       press_button('#create-account-submit')
       sleep 10
       expect(@driver.current_url.to_s.match(/\/source\/[0-9]+$/).nil?).to be(true)
       message = get_element('.create-account .message').text
-      expect(message == 'Validation failed: Sorry, this is not a profile').to be(true)
+      expect(message.match(/Sorry, this is not a profile/).nil?).to be(false)
     end
 
     it "should tag source multiple times with commas with command" do
@@ -484,7 +484,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Verify that tag is not added and that error message is displayed
       expect(page.tags.count(new_tag)).to be(1)
-      expect(page.contains_string?('Validation failed: Tag already exists')).to be(true)
+      expect(page.contains_string?('Tag already exists')).to be(true)
     end
 
     it "should not add a duplicated tag from command line" do
@@ -506,7 +506,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Verify that tag is not added and that error message is displayed
       expect(media_pg.tags.count(new_tag)).to be(1)
-      expect(media_pg.contains_string?('Validation failed: Tag already exists')).to be(true)
+      expect(media_pg.contains_string?('Tag already exists')).to be(true)
     end
 
     it "should not create duplicated media if registered" do

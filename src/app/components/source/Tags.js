@@ -41,7 +41,7 @@ class Tags extends Component {
 
     const onFailure = function (transaction) {
       const error = transaction.getError();
-      let message = that.props.intl.formatMessage(tags.error);
+      let message = that.props.intl.formatMessage(messages.error);
 
       try {
         const json = JSON.parse(error.source);
