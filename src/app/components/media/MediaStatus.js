@@ -1,10 +1,19 @@
 import React, { Component, PropTypes } from 'react';
-import FontAwesome from 'react-fontawesome';
+import { defineMessages, injectIntl, intlShape } from 'react-intl';
 import Relay from 'react-relay';
 import CreateStatusMutation from '../../relay/CreateStatusMutation';
 import UpdateStatusMutation from '../../relay/UpdateStatusMutation';
 import Can, { can } from '../Can';
 import CheckContext from '../../CheckContext';
+import MdArrowDropDown from 'react-icons/lib/md/arrow-drop-down';
+import { FaCircle, FaCircleO } from 'react-icons/lib/fa';
+
+const messages = defineMessages({
+  error: {
+    id: 'mediaStatus.error',
+    defaultMessage: "We're sorry, but we encountered an error trying to update the status."
+  }
+});
 
 class MediaStatus extends Component {
   constructor(props) {
@@ -85,7 +94,7 @@ class MediaStatus extends Component {
   fail(transaction) {
     const that = this;
     const error = transaction.getError();
-    let message = "We're sorry, but we encountered an error trying to update the status.";
+    let message = this.props.intl.formatMessage(messages.error);
     try {
       const json = JSON.parse(error.source);
       if (json.error) {
@@ -121,10 +130,9 @@ class MediaStatus extends Component {
         <div className={this.bemClass('media-status__overlay', this.state.isMediaStatusMenuOpen, '--active')} onClick={this.toggleMediaStatusMenu.bind(this)} />
 
         <div className={`media-status__current${this.currentStatusToClass(media.last_status)}`}>
-          <i className="media-status__icon media-status__icon--circle / fa fa-circle" />
-          <span className="media-status__label">{currentStatus}</span>
+          <span className="media-status__label media-status__label--current">{currentStatus}</span>
           {this.canUpdate() ?
-            <i className="media-status__icon media-status__icon--caret / fa fa-caret-down" />
+            <MdArrowDropDown className="media-status__caret" />
             : null
           }
           <span className="media-status__message">{this.state.message}</span>
@@ -134,8 +142,11 @@ class MediaStatus extends Component {
           <ul className={this.bemClass('media-status__menu', this.state.isMediaStatusMenuOpen, '--active')}>
             {statuses.map(status => (
               <li className={`${that.bemClass('media-status__menu-item', (media.last_status === status.id), '--current')} media-status__menu-item--${status.id.replace('_', '-')}`} onClick={that.handleStatusClick.bind(that, status.id)}>
-                <i className="media-status__icon media-status__icon--radio-button-selected / fa fa-circle" />
-                <i className="media-status__icon media-status__icon--radio-button / fa fa-circle-o" />
+
+                <FaCircle className="media-status__icon media-status__icon--radio-button-selected" />
+
+                <FaCircleO className="media-status__icon media-status__icon--radio-button" />
+
                 <span className="media-status__label">{status.label}</span>
               </li>
               ))}
@@ -147,8 +158,12 @@ class MediaStatus extends Component {
   }
 }
 
+MediaStatus.propTypes = {
+  intl: intlShape.isRequired
+};
+
 MediaStatus.contextTypes = {
   store: React.PropTypes.object,
 };
 
-export default MediaStatus;
+export default injectIntl(MediaStatus);

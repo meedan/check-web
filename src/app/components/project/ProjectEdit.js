@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import Relay from 'react-relay';
 import { Link } from 'react-router';
 import Message from '../Message';
@@ -13,6 +14,29 @@ import CheckContext from '../../CheckContext';
 import ContentColumn from '../layout/ContentColumn';
 import { bemClass } from '../../helpers';
 import TextField from 'material-ui/TextField';
+
+const messages = defineMessages({
+  error: {
+    id: 'projectEdit.error',
+    defaultMessage: 'Sorry, could not update the project'
+  },
+  titleField: {
+    id: 'projectEdit.titleField',
+    defaultMessage: 'Project Title'
+  },
+  descriptionField: {
+    id: 'projectEdit.descriptionField',
+    defaultMessage: 'Project Description'
+  },
+  slackChannelField: {
+    id: 'projectEdit.slackChannelField',
+    defaultMessage: 'Slack #channel'
+  },
+  slackChannelPlaceholder: {
+    id: 'projectEdit.slackChannelPlaceholder',
+    defaultMessage: 'Add a Slack #channel to be notified about activity in this project'
+  }
+});
 
 class ProjectEditComponent extends Component {
   constructor(props) {
@@ -87,7 +111,7 @@ class ProjectEditComponent extends Component {
 
     const onFailure = (transaction) => {
       const error = transaction.getError();
-      let message = 'Sorry, could not update the project';
+      let message = that.props.intl.formatMessage(messages.error);
       try {
         const json = JSON.parse(error.source);
         if (json.error) {
@@ -134,7 +158,7 @@ class ProjectEditComponent extends Component {
                 type="text"
                 fullWidth={true}
                 value={this.state.title}
-                floatingLabelText="Project Title"
+                floatingLabelText={this.props.intl.formatMessage(messages.titleField)}
                 autoComplete="off"
                 onChange={this.handleTitleChange.bind(this)}
               />
@@ -147,7 +171,7 @@ class ProjectEditComponent extends Component {
                 fullWidth={true}
                 multiLine={true}
                 value={this.state.description}
-                floatingLabelText="Project Description"
+                floatingLabelText={this.props.intl.formatMessage(messages.descriptionField)}
                 autoComplete="off"
                 onChange={this.handleDescriptionChange.bind(this)}
               />
@@ -159,15 +183,17 @@ class ProjectEditComponent extends Component {
                   type="text"
                   fullWidth={true}
                   value={this.state.slackChannel}
-                  placeholder="Add a Slack #channel to be notified about activity in this project"
-                  floatingLabelText="Slack #channel"
+                  placeholder={this.props.intl.formatMessage(messages.slackChannelPlaceholder)}
+                  floatingLabelText={this.props.intl.formatMessage(messages.slackChannelField)}
                   floatingLabelFixed={true}
                   autoComplete="off"
                   onChange={this.handleSlackChannelChange.bind(this)}
                 />
               : null }
               <div className="project-edit__editing-buttons">
-                <button type='submit' className="project-edit__editing-button project-edit__editing-button--save">Save</button>
+                <button type='submit' className="project-edit__editing-button project-edit__editing-button--save">
+                  <FormattedMessage id="projectEdit.saveButton" defaultMessage="Save" />
+                </button>
               </div>
             </form>
 
@@ -178,11 +204,15 @@ class ProjectEditComponent extends Component {
   }
 }
 
+ProjectEditComponent.propTypes = {
+  intl: intlShape.isRequired
+};
+
 ProjectEditComponent.contextTypes = {
   store: React.PropTypes.object,
 };
 
-const ProjectEditContainer = Relay.createContainer(ProjectEditComponent, {
+const ProjectEditContainer = Relay.createContainer(injectIntl(ProjectEditComponent), {
   initialVariables: {
     contextId: null
   },

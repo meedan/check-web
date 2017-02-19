@@ -1,6 +1,5 @@
 .team-header {
   border-radius: 2px;
-  padding-left: 14px; // TODO: rationalize layout padding
   display: flex;
   height: 100%;
 }
@@ -8,51 +7,31 @@
 .team-header__clickable {
   height: 100%;
   width: 100%;
-
   display: flex;
   align-items: center;
-  &, &:hover { text-decoration: none; }
-  &, &:visited { color: inherit; }
-}
 
-.team-header__avatar {
-  @include team-avatar(40px);
-  margin-right: 9px;
-}
+  &,
+  &:hover {
+    text-decoration: none;
+  }
 
-.team-header__copy {
-  flex: 1;
-  height: 100%;
-
-  display: none;
-  @media screen and (min-width: $layout-mobile-breakpoint) {
-    display: flex;
-    align-items: center;
+  &,
+  &:visited {
+    color: inherit;
   }
 }
 
-.team-header__name {
-  @include team-name(14px);
-  margin: 3px 0 2px 0;
+.team-header__avatar {
+  @include team-avatar(32px);
+  @include fade-in(.5s);
+  margin-right: 16px;
+  background-color: $white;
+}
 
+
+.team-header__name {
+  @include header-title;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  width: 180px;
-}
-
-.team-header__project-list {
-  display: none;
-  position: absolute;
-  top: 100%;
-  z-index: 2;
-}
-
-.team-header__copy {
-  position: relative;
-}
-
-.team-header__copy:hover .team-header__project-list,
-.team-header__project-list:hover {
-  display: block;
 }

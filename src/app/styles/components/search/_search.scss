@@ -1,8 +1,6 @@
 .search {
-  // TODO: conform prototype styles to app conventions
-
   .search__input {
-    background: 15px 13px url(/images/search.png) #fff no-repeat;
+    background: 15px 13px url('/images/search.svg') $white no-repeat;
     background-size: 18px;
     border: $layout-border;
     border-radius: 4px;
@@ -12,6 +10,14 @@
     min-width: 500px;
     padding-left: 45px;
     margin-top: 4px;
+    outline: none;
+    transition: box-shadow .2s;
+
+    &:focus {
+      @include box-shadow(2);
+      transition: box-shadow .4s;
+    }
+
     @media all and (max-width: $layout-mobile-breakpoint) {
       min-width: 300px;
     }
@@ -21,14 +27,16 @@
     padding: 16px;
     max-width: 1200px;
     margin: 0 auto;
+
     div {
       display: flex;
       margin-top: 1em;
       max-height: 160px;
       overflow-y: auto;
+
       h4 {
         flex: 1;
-        color: $firefly-80;
+        color: $black-87;
         margin: 0;
         vertical-align: top;
         display: inline-block;
@@ -36,6 +44,7 @@
         min-width: 80px;
         text-align: right;
       }
+
       ul {
         flex: 10;
       }
@@ -43,14 +52,13 @@
   }
 
   .search__filters-heading {
-    color: $firefly-80;
+    color: $black-87;
     margin-top: 20px;
     text-align: center;
   }
 
   .search__filters-loader {
     text-align: center;
-    @include gray-text;
     margin: 2em 0;
   }
 
@@ -59,12 +67,14 @@
 
     & > h4 {
       text-align: center;
-      color: $firefly-30;
+      color: $black-38;
       font-weight: 200;
     }
+
     ul.results {
       max-width: $layout-column-width-narrow;
       margin: 0 auto;
+
       & > li {
         margin-top: 8px;
       }
@@ -72,7 +82,7 @@
   }
 
   .search__results-heading {
-    color: $firefly-80;
+    color: $black-87;
     margin-top: 20px;
     text-align: center;
   }

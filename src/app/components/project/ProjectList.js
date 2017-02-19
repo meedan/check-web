@@ -15,7 +15,7 @@ class ProjectList extends Component {
           const projectPath = `/${team.slug}/project/${p.node.dbid}`;
           return (
             <li className="project-list__project">
-              <Link to={projectPath} className={bemClass("project-list__link", projectPath === window.location.pathname, '--active')}>{p.node.title}</Link>
+              <Link to={projectPath} className={bemClass("project-list__link", window.location.pathname.includes(projectPath) , '--active')}>{p.node.title}</Link>
             </li>
           );
         })}

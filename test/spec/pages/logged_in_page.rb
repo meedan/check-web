@@ -2,7 +2,7 @@ require_relative './login_page.rb'
 
 module LoggedInPage
   def logout
-    menu = element('.fa-ellipsis-h')
+    menu = element('.header-actions__menu-toggle')
     menu.click
 
     logout = element('.header-actions__menu-item--logout')

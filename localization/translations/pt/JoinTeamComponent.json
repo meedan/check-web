@@ -1,0 +1,12 @@
+{
+  "joinTeamComponent.error": "Sorry, could not send your request",
+  "joinTeamComponent.success": "Thanks for your interest in joining {team} Check! A team leader will review your application soon.",
+  "joinTeamComponent.title": "Join Team",
+  "joinTeamComponent.alreadyRequested": "You already requested to join {team} Check.",
+  "joinTeamComponent.mainHeading": "Request to Join",
+  "joinTeamComponent.blurbGraf": "To request access to the {link} Check, click below:",
+  "joinTeamComponent.buttonSubmitted": "Request Sent",
+  "joinTeamComponent.buttonSubmit": "Request to Join",
+  "joinTeamComponent.requestHasBeenSent": "Your request has been sent to the project admins for approval.",
+  "joinTeamComponent.requestWillBeSent": "Your request will be sent to the project admins for approval."
+}

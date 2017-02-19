@@ -1,60 +1,83 @@
 .project-header {
   height: 100%;
+
+  // ellipsis truncation requires explicit width
+  width: 195px;
+  @media screen and (min-width: 400px) {
+    width: 200px;
+  }
+
+  @media screen and (min-width: 500px) {
+    width: 300px;
+  }
+
+  @media screen and (min-width: 600px) {
+    width: 400px;
+  }
+
+  @media screen and (min-width: 700px) {
+    width: 500px;
+  }
+
+  @media screen and (min-width: 800px) {
+    width: 600px;
+  }
+
+  @media screen and (min-width: 900px) {
+    width: 700px;
+  }
 }
 
-.project-header__copy {
+.project-header__menu-toggle-label {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  align-items: center;
   height: 100%;
-  margin: 0 auto;
-  width: 195px; // ellipsis truncation requires explicit width
-  @media screen and (min-width: 400px) { width: 200px };
-  @media screen and (min-width: 500px) { width: 300px };
-  @media screen and (min-width: 600px) { width: 400px };
-  @media screen and (min-width: 700px) { width: 500px };
-  @media screen and (min-width: 800px) { width: 600px };
-  @media screen and (min-width: 900px) { width: 700px };
-
-  text-align: center;
+  cursor: pointer;
 }
 
 .project-header__title {
   @include header-title;
-
-  margin: 0 0 6px 0;
-
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.project-header__description {
-  width: 100%;
-  @include gray-text;
-  position: relative;
+.project-header__caret {
+  @include header-title;
+  font-size: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  padding: 4px;
+  opacity: 0;
+  transition: opacity 100ms ease;
+}
+.project-header__menu-toggle-label:hover .project-header__caret {
+  opacity: 1;
+}
+
+// toggle menu
+.project-header__project-list {
+  display: none;
+  position: absolute;
+  top: 100%;
+  z-index: 2;
+}
+.project-header__menu-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   z-index: 1;
-
-  .project-header__description-summary {
-    display: inline-block;
-    width: 100%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .project-header__description-fulltext {
-    display: none;
-    width: 100%;
-    position: absolute;
-    top: 0;
-    background: white;
-    border: $layout-border;
-    border-radius: 2px;
-    padding: 8px;
-  }
-
-  &:hover .project-header__description-fulltext {
+}
+.project-header__menu-toggle:checked + .project-header__menu-toggle-label {
+  .project-header__menu-overlay {
     display: block;
   }
+}
+.project-header__menu-toggle:checked ~ .project-header__project-list {
+  display: block;
 }

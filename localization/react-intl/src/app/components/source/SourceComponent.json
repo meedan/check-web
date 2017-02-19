@@ -1,0 +1,10 @@
+[
+  {
+    "id": "sourceComponent.annotationsTab",
+    "defaultMessage": "Annotations"
+  },
+  {
+    "id": "sourceComponent.mediasTab",
+    "defaultMessage": "Medias"
+  }
+]

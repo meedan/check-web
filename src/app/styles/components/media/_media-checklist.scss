@@ -1,68 +1,65 @@
 .media-checklist {
   font-size: 13px;
   display: flex;
-  color: $firefly-60;
-  margin: 16px auto 0;
+  color: $black-87;
+  margin: 52px auto;
   width: 100%;
   padding: 32px 2% 80px;
-  background-color: lighten($firefly-5, 3%);
+  background-color: $black-02;
   max-width: 1000px;
+
+  @media all and (max-width: 400px) {
+    display: none;
+  }
+
   aside {
     padding: 0 32px 0 0;
     width: 260px;
+
     h3 {
       @extend .media__notes-heading;
       text-align: right;
       margin-top: 8px;
     }
+
     p {
       margin: 0 auto;
       text-align: right;
-      color: $firefly-60;
-      a {
-
-      }
     }
   }
 
   ul {
     padding: 0;
-    border-left: 1px solid $firefly-20;
+    border-left: 1px solid $black-16;
   }
+
   li {
     padding: 8px 8px 8px 32px;
     margin: 0;
-    // list-style-type: disc;
     list-style-position: outside;
-    // border-bottom: 1px solid $firefly-10;
   }
+
   h4 {
     background-color: transparent;
     font-weight: 700;
-    color: $firefly-80;
+    color: $black-87;
     margin: 0;
     display: inline-block;
     text-transform: uppercase;
     font-size: 12px;
   }
-  &>span {
-    &:before {
-      content: " — ";
-    }
+
+  & > span {
     margin-left: 0;
     display: inline-block;
+
+    &::before {
+      content: ' – ';
+    }
   }
-  span.fa-ellipsis-h {
-    font-family: FontAwesome;
-    display: inline-block;
-    background-color: $firefly-5;
-    padding: 0 2px;
-    border-radius: 2px;
-    font-size: 20px;
-  }
+
   em {
     font-style: normal;
     font-family: Courier, Monaco, mono;
-    color: $thatch;
   }
 }

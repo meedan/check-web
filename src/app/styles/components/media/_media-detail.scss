@@ -1,12 +1,19 @@
+// Wrapper around all reports (globally)
+// TODO: This should be renamed to avoid misleading use of "detail"
+// Since it does not only apply to the detail view. — CGB
+//
 .media-detail {
-  padding: 8px 14px 14px 14px;
-  border: $layout-border;
+  @include media-status-border-colors;
+  @include box-shadow(1);
+  padding: 12px 0 0 16px;
+  border-left: 8px solid;
   border-radius: 2px;
-  @include media-status-background-and-border-colors;
-  box-shadow: $layout-box-shadow;
-  margin-bottom: 14px;
+  margin-bottom: 24px;
+  background-color: $white;
 }
 
+// Row with the status and actions menu button
+//
 .media-detail__header {
   display: flex;
   justify-content: space-between;
@@ -15,66 +22,88 @@
 
 .media-detail__status {
   display: inline-block;
-  margin-bottom: 4px;
 }
 
-// op
+// Optional title
+//
+.media-detail__title {
+  font-size: 18px;
+  &,
+  & > a {
+    color: $black-87;
+  }
+  margin: 2px 24px 16px 0;
+  @media all and (max-width: 500px) {
+    font-size: 16px;
+  }
+}
 
+// Optional description
+//
+.media-detail__description {
+  margin-top: 9px;
+  max-width: 42em;
+  line-height: 1.35;
+}
+
+// The "inner card"
+// This contains the "original upstream" media
+//
 .media-detail__media {
   border-radius: 2px;
   position: relative;
-  // background: #fff;
 }
 
-// check
-
+// Check metadata
+//
 .media-detail__check-metadata {
-  margin-top: 11px;
-  @include media-metadata;
+  display: flex;
+  align-items: center;
+  border-top: 1px solid $black-05;
+  margin-top: 24px;
+  font-size: 12px;
+  flex-flow: wrap row;
 }
 
-.media-detail__check-added-at {
-  margin-right: 15px;
-}
-
+.media-detail__check-added-at,
+.media-detail__check-added-by,
 .media-detail__check-notes-count {
-  margin-right: 15px;
+  margin-right: 16px;
+  min-width: 50px;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+
+  span {
+    padding-left: 3px;
+  }
 }
 
-.media-detail__title {
-  @include media-title(20px);
-  margin: 0 0 17px 1px;
-}
-
+// Edit mode
+//
 .media-detail__title-input {
-  // color: #879cab;
-  padding: 3px 5px 3px 5px;
-  border: 1px solid #e1e6ea;
+  padding: 3px 5px;
+  border: 2px solid $black-05;
   border-radius: 4px;
-  margin: -1px 0 15px 0;
+  margin: -1px 0 15px;
   font-size: 19px;
-  font-family: $font-stack-sans-condensed;
   font-weight: 600;
   width: 100%;
   max-width: 500px;
 }
 
-.media-detail__description {
-  margin-top: 9px;
-  max-width: 42em;
-  line-height: 1.35;
-
-  color: theme-gray(45%);
-}
-
 .media-detail__editing-buttons {
-  margin-bottom: 8px;
+  margin: 4px 8px 4px auto;
+  display: flex;
+  flex-flow: wrap row;
+
+  span {
+    display: block;
+    margin: 4px;
+  }
 }
 
-.media-detail__cancel-edits {
-  margin-right: 8px;
-}
-
-.image-media-card img {
-  width: 100%;
+.create-media__button {
+  display: none;
 }

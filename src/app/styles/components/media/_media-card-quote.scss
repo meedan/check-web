@@ -1,0 +1,31 @@
+.quote-media-card {
+  border-radius: 4px;
+  min-height: none;
+  overflow-x: hidden;
+  margin-right: 24px;
+}
+
+.quote-media-card__body-text {
+  font-size: 24px;
+  font-weight: 100;
+  margin-bottom: 15px;
+}
+
+.quote-media-card__attribution {
+  padding-left: 55%;
+}
+
+.quote-media-card__attribution-name,
+.quote-media-card__attribution-link {
+  margin: 3px 7px;
+  font-weight: 200;
+  max-width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.quote-media-card__attribution-name {
+  font-size: 16px;
+  max-width: 300px;
+}

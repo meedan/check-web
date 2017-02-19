@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay';
 import Pusher from 'pusher-js';
 import { Link } from 'react-router';
@@ -49,7 +50,7 @@ class ProjectComponent extends Component {
   }
 
   subscribe() {
-    const pusher = this.getContext().pusher;
+    const pusher = this.currentContext().pusher;
     if (pusher) {
       const that = this;
       pusher.subscribe(this.props.project.pusher_channel).bind('media_updated', (data) => {
@@ -70,8 +71,8 @@ class ProjectComponent extends Component {
   }
 
   componentDidMount() {
-    this.setContextProject();
     this.subscribe();
+    this.setContextProject();
   }
 
   componentDidUpdate() {
@@ -89,6 +90,11 @@ class ProjectComponent extends Component {
     return (
       <DocumentTitle title={pageTitle(project.title, false, this.currentContext().team)} >
         <div className="project">
+          { project.description && project.description.trim().length ? (
+            <div className='project__description'>
+              <p className='project__description-container'>{project.description}</p>
+            </div>
+          ) : null }
           <Can permissions={project.permissions} permission="create Media">
             <CreateProjectMedia projectComponent={that} />
           </Can>
@@ -106,7 +112,7 @@ class ProjectComponent extends Component {
 
             {(() => {
               if (this.props.project.project_medias.edges.length < this.props.project.project_medias_count) {
-                return (<p className="project__medias-loader">Loading...</p>);
+                return (<p className="project__medias-loader"><FormattedMessage id="project.loading" defaultMessage="Loading..." /></p>);
               }
             })()}
           </ContentColumn>
@@ -179,6 +185,27 @@ const ProjectContainer = Relay.createContainer(ProjectComponent, {
                   node {
                     tag,
                     id
+                  }
+                }
+              }
+              tasks(first: 10000) {
+                edges {
+                  node {
+                    id,
+                    dbid,
+                    label,
+                    type,
+                    description,
+                    permissions,
+                    first_response {
+                      id,
+                      dbid,
+                      permissions,
+                      content,
+                      annotator {
+                        name
+                      }
+                    }
                   }
                 }
               }

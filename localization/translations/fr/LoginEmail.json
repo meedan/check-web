@@ -1,5 +1,17 @@
 {
-  "login.with": "Connectez-vous avec {provider}",
+  "loginEmail.nameInputHint": "Votre nom",
+  "loginEmail.emailInputHint": "Courriel",
+  "loginEmail.passwordInputHint": "Mot de passe",
+  "loginEmail.passwordConfirmInputHint": "Confirmation du mot de passe",
+  "login.with": "Se connecter avec {provider}",
+  "loginEmail.nameLabel": "Votre nom",
+  "loginEmail.emailLabel": "Adresse e-mail",
+  "loginEmail.passwordLabel": "Mot de passe (au moins 8 caractères)",
+  "loginEmail.passwordConfirmLabel": "Confirmation du mot de passe",
+  "loginEmail.signIn": "Se connecter",
+  "loginEmail.signUp": "S'inscrire",
+  "loginEmail.alreadyHasAccount": "J'ai déjà un compte",
+  "loginEmail.newAccount": "Créer un nouveau compte",
   "login.email.cancel": "Connectez-vous avec Twitter, Facebook ou Slack",
-  "login.trouble": "Vous avez des difficultés à vous connecter? Veuillez envoyer un courriel à {email} pour obtenir de l'aide."
+  "login.trouble": "Vous avez des difficultés à vous connecter? Veuillez envoyer un email à {email} pour obtenir de l'aide."
 }

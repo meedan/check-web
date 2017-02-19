@@ -1,5 +1,17 @@
 {
+  "loginEmail.nameInputHint": "Your name",
+  "loginEmail.emailInputHint": "Email address",
+  "loginEmail.passwordInputHint": "Password",
+  "loginEmail.passwordConfirmInputHint": "Password confirmation",
   "login.with": "Entrar com {provider}",
+  "loginEmail.nameLabel": "Your name",
+  "loginEmail.emailLabel": "Email address",
+  "loginEmail.passwordLabel": "Password (minimum 8 characters)",
+  "loginEmail.passwordConfirmLabel": "Password confirmation",
+  "loginEmail.signIn": "Sign in »",
+  "loginEmail.signUp": "Sign up »",
+  "loginEmail.alreadyHasAccount": "I already have an account",
+  "loginEmail.newAccount": "Create a new account",
   "login.email.cancel": "Entrar com Twitter, Facebook ou Slack",
-  "login.trouble": "Problemas com o login? Por favor envie um email para {email}."
+  "login.trouble": "Problemas para entrar? Por favor, contacte {email} para assistência."
 }

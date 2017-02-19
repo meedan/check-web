@@ -1,3 +1,4 @@
+// TODO I think this is handled by Autoprefixer, can we remove it? CGB 2017-2-12
 @mixin input-placeholder {
   &::-webkit-input-placeholder {@content}
   &:-moz-placeholder           {@content}
@@ -8,13 +9,14 @@
 @mixin text-input {
   order: 2;
   background: transparent;
-  border: none;
-  border-bottom: 2px solid rgba(theme-gray(), 0.2);
+  border: 0;
+  border-bottom: 2px solid $black-05;
   transition: border-color 100ms ease;
   font-size: 24px;
-  padding: 3px 0 6px; // padding: 7px 0;
+  padding: 3px 0 6px;
+
   &:focus {
     outline: none;
-    border-color: theme-blue(62%);
+    border-color: $check-blue;
   }
 }

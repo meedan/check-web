@@ -1,0 +1,7 @@
+{
+  "mediaDetail.mediaTitle": "Title",
+  "mediaDetail.byUser": "by {username}",
+  "mediaDetail.added": "Added {byUser}",
+  "mediaDetail.cancelButton": "Cancel",
+  "mediaDetail.doneButton": "Done"
+}

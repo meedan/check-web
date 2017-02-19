@@ -188,6 +188,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
           .login_with_email(email: @email, password: @password)
           .create_image_media(File.join(File.dirname(__FILE__), 'test.png'))
 
+      sleep 8 # wait for Sidekiq
+
       @driver.navigate.to @config['self_url'] + '/' + get_team + '/search'
       sleep 3
       imgsrc = @driver.find_element(:css, '.image-media-card img').attribute('src')
@@ -238,7 +240,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(displayed_name == expected_name).to be(true)
     end
 
-    it "should show team options at /teams" do
+    it "should show teams at /check/teams" do
       page = LoginPage.new(config: @config, driver: @driver).load.login_with_email(email: @email, password: @password)
       page.driver.navigate.to @config['self_url'] + '/check/teams'
       page.wait_for_element('.teams')
@@ -416,13 +418,13 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       login_with_email
       @driver.navigate.to @config['self_url'] + '/check/sources/new'
       sleep 1
-      fill_field('#create-account-url', 'https://www.youtube.com/watch?v=b708rEG7spI')
+      fill_field('#create-account-url', 'https://twitter.com/IronMaiden/status/832726327459446784')
       sleep 1
       press_button('#create-account-submit')
       sleep 10
       expect(@driver.current_url.to_s.match(/\/source\/[0-9]+$/).nil?).to be(true)
       message = get_element('.create-account .message').text
-      expect(message == 'Validation failed: Sorry, this is not a profile').to be(true)
+      expect(message.match(/Sorry, this is not a profile/).nil?).to be(false)
     end
 
     it "should tag source multiple times with commas with command" do
@@ -484,7 +486,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Verify that tag is not added and that error message is displayed
       expect(page.tags.count(new_tag)).to be(1)
-      expect(page.contains_string?('Validation failed: Data has already been taken')).to be(true)
+      expect(page.contains_string?('Tag already exists')).to be(true)
     end
 
     it "should not add a duplicated tag from command line" do
@@ -506,7 +508,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Verify that tag is not added and that error message is displayed
       expect(media_pg.tags.count(new_tag)).to be(1)
-      expect(media_pg.contains_string?('Validation failed: Data has already been taken')).to be(true)
+      expect(media_pg.contains_string?('Tag already exists')).to be(true)
     end
 
     it "should not create duplicated media if registered" do
@@ -653,7 +655,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       project_pg.wait_for_element('.project-header__title')
       expect(project_pg.contains_string?(new_title)).to be(true)
-      project_pg.wait_for_element('.project-header__description')
+      project_pg.wait_for_element('.project__description')
       expect(project_pg.contains_string?(new_description)).to be(true)
     end
 
@@ -789,11 +791,67 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(page.project_titles.include?('Team 1 Project')).to be(false)
     end
 
-    # it "should cancel request through switch teams" do
-    #   skip("Needs to be implemented")
-    # end
+    it "should update notes count after delete annotation" do
+      media_pg = LoginPage.new(config: @config, driver: @driver).load
+        .login_with_email(email: @email, password: @password)
+        .create_media(input: "Media #{Time.now.to_i}")
+      media_pg.fill_input('#cmd-input', '/flag Spam')
+      media_pg.element('#cmd-input').submit
+      sleep 1
+      notes_count = get_element('.media-detail__check-notes-count')
+      expect(notes_count.text == '1 note').to be(true)
+      media_pg.element('.annotation__delete').click
+      sleep 1
+      expect(notes_count.text == '0 notes').to be(true)
+    end
 
-    # it "should auto refresh project page when media is created remotely" do
+    it "should auto refresh project when media is created" do
+      project_name = "Project #{Time.now}"
+      project_pg = LoginPage.new(config: @config, driver: @driver).load
+          .register_and_login_with_email(email: 'sysops+' + Time.now.to_i.to_s + '@meedan.com', password: Time.now.to_i.to_s)
+          .create_team
+          .create_project(name: project_name)
+
+      url = project_pg.driver.current_url
+      sleep 3
+      expect(@driver.page_source.include?('Auto-Refresh')).to be(false)
+
+      current_window = @driver.window_handles.last
+      @driver.execute_script("window.open('#{url}')")
+      @driver.switch_to.window(@driver.window_handles.last)
+      fill_field('#create-media-input', 'Auto-Refresh')
+      press_button('#create-media-submit')
+      sleep 5
+      @driver.execute_script('window.close()')
+      @driver.switch_to.window(current_window)
+      
+      sleep 5
+      expect(@driver.page_source.include?('Auto-Refresh')).to be(true)
+    end
+
+    it "should auto refresh media when annotation is created" do
+      media_pg = LoginPage.new(config: @config, driver: @driver).load
+        .login_with_email(email: @email, password: @password)
+        .create_media(input: "Media #{Time.now.to_i}")
+
+      url = media_pg.driver.current_url
+      sleep 3
+      expect(@driver.page_source.include?('Auto-Refresh')).to be(false)
+
+      current_window = @driver.window_handles.last
+      @driver.execute_script("window.open('#{url}')")
+      @driver.switch_to.window(@driver.window_handles.last)
+      media_pg.fill_input('#cmd-input', 'Auto-Refresh')
+      media_pg.element('#cmd-input').submit
+      sleep 5
+      @driver.execute_script('window.close()')
+      @driver.switch_to.window(current_window)
+      
+      sleep 5
+      expect(@driver.page_source.include?('Auto-Refresh')).to be(true)
+    end
+
+    # it "should cancel request through switch teams" do
     #   skip("Needs to be implemented")
     # end
 

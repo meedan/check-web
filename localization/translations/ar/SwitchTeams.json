@@ -1,0 +1,9 @@
+{
+  "switchTeams.error": "Sorry, could not switch teams",
+  "switchTeams.member": "member",
+  "switchTeams.members": "members",
+  "switchTeams.joinRequestMessage": "You requested to join",
+  "switchTeams.cancelJoinRequest": "Cancel",
+  "switchTeams.bannedJoinRequest": "Cancelled",
+  "switchTeams.newTeamLink": "+ New team"
+}

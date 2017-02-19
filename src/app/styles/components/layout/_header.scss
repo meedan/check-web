@@ -1,34 +1,42 @@
-.header {
+.header { // see also .project__description
   width: 100%;
   height: $layout-header-height;
-  background: #fff;
-  border-bottom: $layout-border;
-  box-shadow: $layout-box-shadow;
+  background: $black-05;
+  position: absolute;
 }
 
 .header__container {
   width: 100%;
   height: 100%;
   position: relative;
-  max-width: $layout-column-width-wide;
+  max-width: $layout-column-width-wide + (16px * 2);
+  padding: 0 16px;
   margin: 0 auto;
+  display: flex;
 }
 
-.header__breadcrumb {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-}
-
-// media page
-
-.header--media {
-  .team-header__copy { display: none; } // TODO: do with JS or simpler selectors
+.header__app-link {
+  display: flex;
+  align-items: center;
+  img {
+    width: 64px;
+    height: 28px;
+  }
 }
 
 .header__team {
-  position: absolute;
-  top: 0;
-  bottom: 0;
   display: flex;
+}
+
+.header__breadcrumb {
+  svg path {
+    color: $black-54;
+  }
+}
+
+// media page
+.header--media {
+  .team-header__copy {
+    display: none;
+  }
 }

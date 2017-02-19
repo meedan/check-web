@@ -1,11 +1,18 @@
 import React, { Component, PropTypes } from 'react';
+import { defineMessages, injectIntl, intlShape } from 'react-intl';
 import Relay from 'react-relay';
 import { Link } from 'react-router';
 import Pusher from 'pusher-js';
 import TeamRoute from '../../relay/TeamRoute';
 import teamFragment from '../../relay/teamFragment';
 import CheckContext from '../../CheckContext';
-import ProjectList from '../project/ProjectList';
+
+const messages = defineMessages({
+  back: {
+    id: 'teamHeader.back',
+    defaultMessage: 'Back to team'
+  }
+});
 
 class TeamHeaderComponent extends Component {
   getPusher() {
@@ -52,21 +59,14 @@ class TeamHeaderComponent extends Component {
 
   render() {
     const team = this.props.team;
+    const isProjectUrl = /(.*\/project\/[0-9]+)/.test(window.location.pathname);
 
     return (
       <nav className="team-header">
-        <Link to="/" className="team-header__clickable" title={team.name}>
+        <Link to={`/${team.slug}`} className="team-header__clickable" title={team.name}>
           <div className="team-header__avatar" style={{ backgroundImage: `url(${team.avatar})` }}></div>
+          { isProjectUrl ? null : <h3 className="team-header__name">{team.name}</h3> }
         </Link>
-        <div className="team-header__copy">
-          <h3 className="team-header__name">
-            {team.name}
-            <i className="team-header__caret / fa fa-chevron-down" aria-hidden="true"></i>
-          </h3>
-          <div className="team-header__project-list">
-            <ProjectList team={team} />
-          </div>
-        </div>
       </nav>
     );
   }
@@ -86,6 +86,7 @@ class TeamHeader extends Component {
   render() {
     const teamSlug = (this.props.params && this.props.params.team) ? this.props.params.team : '';
     const route = new TeamRoute({ teamSlug });
+    const { formatMessage } = this.props.intl;
     return (
       <Relay.RootContainer
         Component={TeamHeaderContainer}
@@ -93,7 +94,7 @@ class TeamHeader extends Component {
         renderLoading={function() {
           return (
             <nav className="team-header team-header--loading">
-              <Link to="/" className="team-header__clickable" title='Back to team'>
+              <Link to={`/${teamSlug}`} className="team-header__clickable" title={formatMessage(messages.back)}>
                 <div className="team-header__avatar"></div>
               </Link>
             </nav>
@@ -104,4 +105,8 @@ class TeamHeader extends Component {
   }
 }
 
-export default TeamHeader;
+TeamHeader.propTypes = {
+  intl: intlShape.isRequired
+};
+
+export default injectIntl(TeamHeader);

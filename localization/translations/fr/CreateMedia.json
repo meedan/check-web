@@ -1,0 +1,8 @@
+{
+  "createMedia.submitting": "En chargement...",
+  "createMedia.error": "Quelque chose s'est mal passé! Essayez plutôt de coller le texte de ce message ou d'ajouter un lien différent.",
+  "createMedia.mediaInput": "Copiez-collez ou tapez",
+  "createMedia.uploadImage": "Télécharger une image",
+  "createMedia.submitButton": "Envoyer",
+  "createMedia.helper": "Ajoutez un lien, une citation, ou une image à vérifier"
+}

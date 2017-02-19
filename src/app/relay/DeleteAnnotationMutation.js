@@ -19,7 +19,7 @@ class DeleteAnnotationMutation extends Relay.Mutation {
       query = Relay.QL`fragment on DestroyAnnotationPayload { deletedId, source { annotations, tags } }`;
       break;
     case 'project_media':
-      query = Relay.QL`fragment on DestroyAnnotationPayload { deletedId, project_media { annotations, tags, last_status, last_status_obj { id } } }`;
+      query = Relay.QL`fragment on DestroyAnnotationPayload { deletedId, project_media { annotations, tags, tasks, embed, annotations_count, last_status, last_status_obj { id } } }`;
       break;
     }
     return query;
@@ -39,6 +39,13 @@ class DeleteAnnotationMutation extends Relay.Mutation {
         parentName: this.props.parent_type,
         parentID: this.props.annotated.id,
         connectionName: 'tags',
+        deletedIDFieldName: 'deletedId',
+      },
+      {
+        type: 'NODE_DELETE',
+        parentName: this.props.parent_type,
+        parentID: this.props.annotated.id,
+        connectionName: 'tasks',
         deletedIDFieldName: 'deletedId',
       },
       {

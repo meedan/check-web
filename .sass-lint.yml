@@ -1,5 +1,5 @@
 options:
-  formatter: html
+  # formatter: html
   # Output file instead of logging results
   # output-file: './linters/sass-lint.html'
   # Raise an error if more than 50 warnings are generated
@@ -10,7 +10,7 @@ rules:
   # Extends
   extends-before-mixins: 1
   extends-before-declarations: 1
-  placeholder-in-extend: 1
+  placeholder-in-extend: 0
 
   # Mixins
   mixins-before-declarations: 1
@@ -26,18 +26,18 @@ rules:
   no-color-keywords: 1
   no-color-literals: 1
   no-combinators: 0
-  no-css-comments: 1
+  no-css-comments: 0
   no-debug: 1
   no-disallowed-properties: 0
   no-duplicate-properties: 1
   no-empty-rulesets: 1
   no-extends: 0
-  no-ids: 1
-  no-important: 1
+  no-ids: 0
+  no-important: 0
   no-invalid-hex: 1
   no-mergeable-selectors: 1
   no-misspelled-properties: 1
-  no-qualifying-elements: 1
+  no-qualifying-elements: 0
   no-trailing-whitespace: 1
   no-trailing-zero: 1
   no-transition-all: 1
@@ -50,9 +50,9 @@ rules:
 
   # Nesting
   declarations-before-nesting: 1
-  force-attribute-nesting: 1
-  force-element-nesting: 1
-  force-pseudo-nesting: 1
+  force-attribute-nesting: 0
+  force-element-nesting: 0
+  force-pseudo-nesting: 0
 
   # Name Formats
   class-name-format: 0
@@ -75,7 +75,7 @@ rules:
   leading-zero: 1
   max-line-length: 0
   max-file-line-count: 0
-  nesting-depth: 1
+  nesting-depth: 0
   property-sort-order: 0
   pseudo-element: 1
   quotes: 0

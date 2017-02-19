@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
+import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import Relay from 'react-relay';
-import TimeAgo from 'react-timeago';
 import { Link } from 'react-router';
 import config from 'config';
 import MediaStatus from './MediaStatus';
@@ -12,9 +12,18 @@ import MediaUtil from './MediaUtil';
 import Tags from '../source/Tags';
 import DefaultButton from '../inputs/DefaultButton';
 import PenderCard from '../PenderCard';
+import TimeBefore from '../TimeBefore';
 import ImageMediaCard from './ImageMediaCard';
 import UpdateMediaMutation from '../../relay/UpdateMediaMutation';
 import CheckContext from '../../CheckContext';
+import { bemClass } from '../../helpers';
+
+const messages = defineMessages({
+  mediaTitle: {
+    id: 'mediaDetail.mediaTitle',
+    defaultMessage: 'Title'
+  }
+});
 
 class MediaDetail extends Component {
   constructor(props) {
@@ -62,6 +71,7 @@ class MediaDetail extends Component {
   }
 
   statusToClass(baseClass, status) {
+    // TODO: replace with helpers.js#bemClassFromMediaStatus
     return status.length ?
       [baseClass, `${baseClass}--${status.toLowerCase().replace(/[ _]/g, '-')}`].join(' ') :
       baseClass;
@@ -80,12 +90,12 @@ class MediaDetail extends Component {
     const mediaUrl = (projectId && media.team) ? `/${media.team.slug}/project/${projectId}/media/${media.dbid}` : null;
 
     const byUser = (media.user && media.user.source && media.user.source.dbid && media.user.name !== 'Pender') ?
-      (<span>by {media.user.name}</span>) : '';
+      (<FormattedMessage id="mediaDetail.byUser" defaultMessage={`by {username}`} values={{username: media.user.name}} />) : '';
 
     let embedCard = null;
     media.url = media.media.url;
     media.quote = media.media.quote;
-    
+
     if (media.media.embed_path) {
       const path = condensed ? media.media.thumbnail_path : media.media.embed_path;
       embedCard = <ImageMediaCard imagePath={path} />;
@@ -94,27 +104,17 @@ class MediaDetail extends Component {
     } else if (media.url) {
        embedCard = condensed ?
                    <SocialMediaCard media={media} data={data} condensed={condensed} /> :
-                   <PenderCard url={media.url} penderUrl={config.penderUrl} fallback={<SocialMediaCard media={media} data={data} condensed={condensed} />} />;
+                   <PenderCard url={media.url} penderUrl={config.penderUrl} fallback={null} />;
     }
 
     return (
-      <div className={this.statusToClass('media-detail', media.last_status)}>
+      <div className={this.statusToClass('media-detail', media.last_status) + ' ' + 'media-detail--' + MediaUtil.typeLabel(media, data).toLowerCase()}>
         <div className="media-detail__header">
           <div className="media-detail__status"><MediaStatus media={media} readonly={this.props.readonly} /></div>
-          {this.state.isEditing ? (
-            <span className="media-detail__editing-buttons">
-              <DefaultButton onClick={this.handleCancel.bind(this)} className="media-detail__cancel-edits" size="xsmall">Cancel</DefaultButton>
-              <DefaultButton onClick={this.handleSave.bind(this, media)} className="media-detail__save-edits" size="xsmall" style="primary">Done</DefaultButton>
-            </span>
-              ) : null
-            }
-          {this.props.readonly || this.state.isEditing ? null :
-          <MediaActions media={media} handleEdit={this.handleEdit.bind(this)} />
-            }
         </div>
 
         {this.state.isEditing ?
-          <form onSubmit={this.handleSave.bind(this, media)}><input type="text" id={`media-detail-title-input-${media.dbid}`} className="media-detail__title-input" placeholder="Title" defaultValue={MediaUtil.truncatedTitle(media, data)} /></form> :
+          <form onSubmit={this.handleSave.bind(this, media)}><input type="text" id={`media-detail-title-input-${media.dbid}`} className="media-detail__title-input" placeholder={this.props.intl.formatMessage(messages.mediaTitle)} defaultValue={MediaUtil.truncatedTitle(media, data)} /></form> :
           <h2 className="media-detail__title"><Link to={mediaUrl}>{this.props.condensed ? MediaUtil.truncatedTitle(media, data) : MediaUtil.title(media, data)}</Link></h2>
         }
 
@@ -122,22 +122,39 @@ class MediaDetail extends Component {
           {embedCard}
         </div>
 
-        <p className="media-detail__check-metadata">
-          {byUser ? <span className="media-detail__check-added-by">Added {byUser} </span> : null}
+        <div className="media-detail__check-metadata">
+          {media.tags ? <MediaTags media={media} tags={media.tags.edges} isEditing={this.state.isEditing} /> : null}
+          {byUser ? <span className="media-detail__check-added-by"><FormattedMessage id="mediaDetail.added" defaultMessage={`Added {byUser}`} values={{byUser: byUser}} /> </span> : null}
           {createdAt ? <span className="media-detail__check-added-at">
-            <Link className="media-detail__check-timestamp" to={mediaUrl}><TimeAgo date={createdAt} live={false} /></Link>
+            <Link className="media-detail__check-timestamp" to={mediaUrl}><TimeBefore date={createdAt} /></Link>
           </span> : null}
           <Link to={mediaUrl} className="media-detail__check-notes-count">{annotationsCount}</Link>
-        </p>
-
-        {media.tags ? <MediaTags media={media} tags={media.tags.edges} isEditing={this.state.isEditing} /> : null}
+          {this.state.isEditing ? (
+            <span className="media-detail__editing-buttons">
+              <DefaultButton onClick={this.handleCancel.bind(this)} className="media-detail__cancel-edits" size="xsmall">
+                <FormattedMessage id="mediaDetail.cancelButton" defaultMessage="Cancel" />
+              </DefaultButton>
+              <DefaultButton onClick={this.handleSave.bind(this, media)} className="media-detail__save-edits" size="xsmall" style="primary">
+                <FormattedMessage id="mediaDetail.doneButton" defaultMessage="Done" />
+              </DefaultButton>
+            </span>
+              ) : null
+            }
+          {this.props.readonly || this.state.isEditing ? null :
+          <MediaActions media={media} handleEdit={this.handleEdit.bind(this)} />
+            }
+        </div>
       </div>
     );
   }
 }
 
+MediaDetail.propTypes = {
+  intl: intlShape.isRequired
+};
+
 MediaDetail.contextTypes = {
   store: React.PropTypes.object,
 };
 
-export default MediaDetail;
+export default injectIntl(MediaDetail);

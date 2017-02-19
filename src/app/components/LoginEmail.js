@@ -1,10 +1,29 @@
 import React, { Component, PropTypes } from 'react';
-import { FormattedHTMLMessage, FormattedMessage } from 'react-intl';
+import { FormattedHTMLMessage, FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import Message from './Message';
 import UploadImage from './UploadImage';
 import CheckContext from '../CheckContext';
 import { request } from '../actions/actions';
 import { Link } from 'react-router';
+
+const messages = defineMessages({
+  nameInputHint: {
+    id: 'loginEmail.nameInputHint',
+    defaultMessage: 'Your name'
+  },
+  emailInputHint: {
+    id: 'loginEmail.emailInputHint',
+    defaultMessage: 'Email address'
+  },
+  passwordInputHint: {
+    id: 'loginEmail.passwordInputHint',
+    defaultMessage: 'Password'
+  },
+  passwordConfirmInputHint: {
+    id: 'loginEmail.passwordConfirmInputHint',
+    defaultMessage: 'Password confirmation'
+  },
+});
 
 class LoginEmail extends Component {
   constructor(props) {
@@ -126,25 +145,25 @@ class LoginEmail extends Component {
           <form name={this.state.type} onSubmit={this.onFormSubmit.bind(this)} className="login-email__form">
             {this.state.type === 'login' ? null : (
               <div className="login-email__name">
-                <input type="text" name="name" value={this.state.name} className="login-email__name-input" onChange={this.handleFieldChange.bind(this)} placeholder="Your name" />
-                <label className={this.bemClass('login-email__name-label', !!this.state.name, '--text-entered')}>Your name</label>
+                <input type="text" name="name" value={this.state.name} className="login-email__name-input" onChange={this.handleFieldChange.bind(this)} placeholder={this.props.intl.formatMessage(messages.nameInputHint)} />
+                <label className={this.bemClass('login-email__name-label', !!this.state.name, '--text-entered')}><FormattedMessage id="loginEmail.nameLabel" defaultMessage="Your name" /></label>
               </div>
             )}
 
             <div className="login-email__email">
-              <input type="email" name="email" value={this.state.email} className="login-email__email-input" onChange={this.handleFieldChange.bind(this)} placeholder="Email address" />
-              <label className={this.bemClass('login-email__email-label', !!this.state.email, '--text-entered')}>Email address</label>
+              <input type="email" name="email" value={this.state.email} className="login-email__email-input" onChange={this.handleFieldChange.bind(this)} placeholder={this.props.intl.formatMessage(messages.emailInputHint)} />
+              <label className={this.bemClass('login-email__email-label', !!this.state.email, '--text-entered')}><FormattedMessage id="loginEmail.emailLabel" defaultMessage="Email address" /></label>
             </div>
 
             <div className="login-email__password">
-              <input type="password" name="password" value={this.state.password} className="login-email__password-input" onChange={this.handleFieldChange.bind(this)} placeholder="Password" />
-              <label className={this.bemClass('login-email__password-label', !!this.state.password, '--text-entered')}>Password (minimum 8 characters)</label>
+              <input type="password" name="password" value={this.state.password} className="login-email__password-input" onChange={this.handleFieldChange.bind(this)} placeholder={this.props.intl.formatMessage(messages.passwordInputHint)} />
+              <label className={this.bemClass('login-email__password-label', !!this.state.password, '--text-entered')}><FormattedMessage id="loginEmail.passwordLabel" defaultMessage="Password (minimum 8 characters)" /></label>
             </div>
 
             {this.state.type === 'login' ? null : (
               <div className="login-email__password-confirmation">
-                <input type="password" name="password_confirmation" value={this.state.password_confirmation} className="login-email__password-confirmation-input" onChange={this.handleFieldChange.bind(this)} placeholder="Password confirmation" />
-                <label className={this.bemClass('login-email__password-confirmation-label', !!this.state.password_confirmation, '--text-entered')}>Password confirmation</label>
+                <input type="password" name="password_confirmation" value={this.state.password_confirmation} className="login-email__password-confirmation-input" onChange={this.handleFieldChange.bind(this)} placeholder={this.props.intl.formatMessage(messages.passwordConfirmInputHint)} />
+                <label className={this.bemClass('login-email__password-confirmation-label', !!this.state.password_confirmation, '--text-entered')}><FormattedMessage id="loginEmail.passwordConfirmLabel" defaultMessage="Password confirmation" /></label>
               </div>
             )}
 
@@ -154,10 +173,10 @@ class LoginEmail extends Component {
 
             <div className="login-email__actions">
               <button type="submit" id="submit-register-or-login" className={`login-email__submit login-email__submit--${this.state.type}`}>
-                {this.state.type === 'login' ? 'Sign in »' : 'Sign up »'}
+                {this.state.type === 'login' ? <FormattedMessage id="loginEmail.signIn" defaultMessage="Sign in »" /> : <FormattedMessage id="loginEmail.signUp" defaultMessage="Sign up »" />}
               </button>
               <button type="button" id="register-or-login" onClick={this.handleSwitchType.bind(this)} className="login-email__register-or-login">
-                {this.state.type === 'register' ? 'I already have an account' : 'Create a new account'}
+                {this.state.type === 'register' ? <FormattedMessage id="loginEmail.alreadyHasAccount" defaultMessage="I already have an account" /> : <FormattedMessage id="loginEmail.newAccount" defaultMessage="Create a new account" />}
               </button>
               <button type="button" id="cancel-register-or-login" onClick={this.handleClose.bind(this)} className="login-email__cancel">
                 <FormattedMessage id="login.email.cancel" defaultMessage="Sign in with Twitter, Facebook, or Slack" />
@@ -171,8 +190,12 @@ class LoginEmail extends Component {
   }
 }
 
+LoginEmail.propTypes = {
+  intl: intlShape.isRequired
+};
+
 LoginEmail.contextTypes = {
   store: React.PropTypes.object,
 };
 
-export default LoginEmail;
+export default injectIntl(LoginEmail);
