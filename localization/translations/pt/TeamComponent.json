@@ -9,6 +9,7 @@
   "teamComponent.website": "Website",
   "teamComponent.slackWebhook": "Slack webhook",
   "teamComponent.slackChannel": "Slack default #channel",
+  "teamComponent.verificationTeam": "Verification Team",
   "teamComponent.cancelButton": "Cancel",
   "teamComponent.saveButton": "Save",
   "teamComponent.editButton": "Edit profile",
