@@ -5,8 +5,8 @@ import userFragment from '../../relay/userFragment';
 import UpdateUserMutation from '../../relay/UpdateUserMutation';
 import DeleteTeamUserMutation from '../../relay/DeleteTeamUserMutation';
 import CheckContext from '../../CheckContext';
-import FontAwesome from 'react-fontawesome';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
+import MdChevronRight from 'react-icons/lib/md/chevron-right';
 import { Link } from 'react-router';
 import config from 'config';
 
@@ -105,7 +105,7 @@ class SwitchTeamsComponent extends Component {
                       <span className="switch-teams__team-members-count">{that.membersCountString(currentTeam.members_count)}</span>
                     </div>
                     <div className="switch-teams__team-actions">
-                      <FontAwesome className="switch-teams__team-caret" name="angle-right" />
+                      <MdChevronRight className="switch-teams__team-caret" />
                     </div>
                   </a>
                 </li>
@@ -123,7 +123,7 @@ class SwitchTeamsComponent extends Component {
                     <span className="switch-teams__team-members-count">{that.membersCountString(team.members_count)}</span>
                   </div>
                   <div className="switch-teams__team-actions">
-                    <FontAwesome className="switch-teams__team-caret" name="angle-right" />
+                    <MdChevronRight className="switch-teams__team-caret" />
                   </div>
                 </div>
               </li>

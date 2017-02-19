@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 import Dropzone from 'react-dropzone';
-import FontAwesome from 'react-fontawesome';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
+import MdHighlightRemove from 'react-icons/lib/md/highlight-remove';
 import AboutRoute from '../relay/AboutRoute';
 
 const messages = defineMessages({
@@ -68,7 +68,7 @@ class UploadImage extends Component {
 
     return (
       <div className="upload-file">
-        { this.state.file ? <span className="preview" style={style}><FontAwesome name="remove" className="remove-image" onClick={this.onDelete.bind(this)} /></span> : null }
+        { this.state.file ? <span className="preview" style={style}><MdHighlightRemove className="remove-image" onClick={this.onDelete.bind(this)} /></span> : null }
 
         <Dropzone onDrop={this.onDrop.bind(this)} multiple={false} className={this.state.file ? 'with-file' : 'without-file'}>
           <div><b>{this.props.intl.formatMessage(messages.imageLabel)}&nbsp;</b>

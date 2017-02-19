@@ -6,7 +6,6 @@ import Pusher from 'pusher-js';
 import TeamRoute from '../../relay/TeamRoute';
 import teamFragment from '../../relay/teamFragment';
 import CheckContext from '../../CheckContext';
-import ProjectList from '../project/ProjectList';
 
 const messages = defineMessages({
   back: {
@@ -60,21 +59,14 @@ class TeamHeaderComponent extends Component {
 
   render() {
     const team = this.props.team;
+    const isProjectUrl = /(.*\/project\/[0-9]+)/.test(window.location.pathname);
 
     return (
       <nav className="team-header">
         <Link to={`/${team.slug}`} className="team-header__clickable" title={team.name}>
           <div className="team-header__avatar" style={{ backgroundImage: `url(${team.avatar})` }}></div>
+          { isProjectUrl ? null : <h3 className="team-header__name">{team.name}</h3> }
         </Link>
-        <div className="team-header__copy">
-          <h3 className="team-header__name">
-            {team.name}
-            <i className="team-header__caret / fa fa-chevron-down" aria-hidden="true"></i>
-          </h3>
-          <div className="team-header__project-list">
-            <ProjectList team={team} />
-          </div>
-        </div>
       </nav>
     );
   }

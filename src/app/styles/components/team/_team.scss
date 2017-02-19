@@ -1,9 +1,3 @@
-@mixin team-avatar($size: 60px) {
-  @include avatar($size);
-}
-
-// TODO: move below to components/team/team
-
 .team {
   padding: 15px 0;
   width: 100%;
@@ -15,10 +9,10 @@
 }
 
 // edit profile
-
 .team__edit-profile {
   position: absolute;
-  top: 0; right: 0;
+  top: 0;
+  right: 0;
 }
 
 .team__edit-button,
@@ -33,22 +27,22 @@
 }
 
 .team__edit-icon {
-  font-size: 0.9em;
-  opacity: 0.8;
-  margin-right: 0.1em;
+  font-size: 20px;
+  opacity: .8;
+  margin-right: 8px;
   display: inline-block;
   position: relative;
-  left: -3px;
+  vertical-align: top;
 }
 
 .team__save-button {
-  @include button-green;
+  @include button-primary;
 }
 
 // profile
 
 .team__avatar {
-  @include team-avatar(100px);
+  @include avatar(100px);
   float: left;
   margin-right: 15px;
 }
@@ -63,9 +57,6 @@
   @include team-name(21px);
 }
 
-.team__name-input {
-}
-
 .team__name {
   margin: 1px 0;
 }
@@ -77,20 +68,19 @@
 
 .team__name-input,
 .team__description-input {
-  border: 1px solid hsl(204, 15%, 90%);
+  border: 1px solid $black-05;
   border-radius: 2px;
   padding: 4px;
-  box-shadow: inset 0 0 2px 0px hsl(204, 15%, 97%);
+  box-shadow: inset 0 0 2px 0 $black-02;
 }
 
 .team__description,
 .team__description-input {
-  color: theme-gray(50%);
   font-size: 16px;
 }
 
 .team__description {
-  margin: 0 0 5px 0;
+  margin: 0 0 5px;
 }
 
 .team__description-text {
@@ -99,8 +89,8 @@
   color: inherit;
 
   &:empty {
-    &:before {
-      content: "Verification Team"
+    &::before {
+      content: 'Verification Team';
     }
   }
 }
@@ -108,16 +98,6 @@
 .team__description-input {
   font-family: $font-stack-sans;
   width: 50%;
-}
-
-
-.team__contact-info,
-.team__location,
-.team__link,
-.team__add-link,
-.team__phone {
-  font-size: 14px;
-  color: $light-gray-text;
 }
 
 .team__location,
@@ -137,29 +117,27 @@
 .team__add-link {
   // TODO: revisit semantics/interactions of button vs link
   background: none;
-  border: none;
+  border: 0;
   padding: 0;
 }
 
 // content
-
 .team__content {
   clear: left;
   padding-top: 30px;
 }
 
 // projects
-
 .team__projects-heading {
   @include app-kicker;
   margin: 0;
-  color: $light-gray-text;
 }
 
 .team__projects-list {
   margin: 15px auto;
-  color: $lighter-gray-text;
+  color: $black-38;
   line-height: 1.45;
+
   & > :last-child {
     padding-bottom: 45px;
   }
@@ -173,36 +151,31 @@
 .team__project,
 .team__new-project {
   font-size: 18px;
-  padding: 0.4em 0;
-}
-
-.team__project-link {
-  &, &:visited { color: inherit; }
-}
-
-.team__new-project {
+  padding: .4em 0;
 }
 
 .team__new-project-input {
-  border: none;
+  border: 0;
   padding: 0;
   background: transparent;
-  color: $dark-gray-text;
+  color: $black-87;
   font-weight: 500;
 
   &:focus { outline: none; }
   @include input-placeholder {
-    color: $lighter-gray-text;
+    color: $black-38;
     font-weight: 400;
   }
 }
 
 .team__project-link {
-  &, &:visited {
+  &,
+  &:visited {
     color: inherit;
   }
+
   &:hover {
-    color: $dark-gray-text;
+    color: $black-87;
   }
 }
 
@@ -210,32 +183,37 @@
   text-align: center;
   margin-top: 20px;
 
-  input, label {
-    font-size: 14px;
-    color: $light-gray-text;
-  }
-
   label {
     margin-right: 14px;
   }
 
-  input[type=text] {
+  input[type='text'] {
     margin: 0 16px;
   }
 }
 
 // hack
-
 .team__contact-info {
   display: flex;
-  .team__link { order: 1; }
-  .team__location { order: 2; }
-  .team__phone { order: 3; }
+
+  .team__link {
+    order: 1;
+  }
+
+  .team__location {
+    order: 2;
+  }
+
+  .team__phone {
+    order: 3;
+  }
 
   @media screen and (max-width: 680px) {
     .team__location-icon,
     .team__link-icon,
     .team__add-link-icon,
-    .team__phone-icon { display: none; }
+    .team__phone-icon {
+      display: none;
+    }
   }
 }

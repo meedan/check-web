@@ -4,7 +4,7 @@ import DocumentTitle from 'react-document-title';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import Tags from './Tags';
 import { Link } from 'react-router';
-import FontAwesome from 'react-fontawesome';
+import { MdLink, MdCreate, MdLocationOn, MdLocalPhone } from 'react-icons/lib/md';
 import UpdateTeamMutation from '../../relay/UpdateTeamMutation';
 import Message from '../Message';
 import CreateContactMutation from '../../relay/CreateContactMutation';
@@ -186,7 +186,7 @@ class TeamComponent extends Component {
                     <Can permissions={team.permissions} permission="update Team">
                       <div className="team__edit-profile">
                         <button onClick={this.handleEntreEditTeamNameAndDescription.bind(this)} className="team__edit-button">
-                          <FontAwesome className="team__edit-icon" name="pencil" />&nbsp;
+                          <MdCreate className="team__edit-icon" />&nbsp;
                           <FormattedMessage id="teamComponent.editButton" defaultMessage="Edit profile" />
                         </button>
                       </div>
@@ -227,14 +227,14 @@ class TeamComponent extends Component {
                 <span className="team__location">
                   {(() => {
                     if (isEditing) {
-                      return (<span><FontAwesome name="map-marker" className="team__location-icon" />
+                      return (<span><MdLocationOn className="team__location-icon" />
                         <input
                           type="text" id="team__location-container" defaultValue={contact ? contact.node.location : ''}
                           className="team__location-name-input" placeholder={this.props.intl.formatMessage(messages.location)}
                           onChange={this.handleChange.bind(this, 'contact_location')}
                         /></span>);
                     } else if (contact && !!contact.node.location) {
-                      return (<span><FontAwesome name="map-marker" className="team__location-icon" />
+                      return (<span><MdLocationOn className="team__location-icon" />
                         <span className="team__location-name">{contact.node.location}</span></span>);
                     } else {
                       return (<span className="team__location-name" />);
@@ -244,14 +244,14 @@ class TeamComponent extends Component {
                 <span className="team__phone">
                   {(() => {
                     if (isEditing) {
-                      return (<span><FontAwesome name="phone" className="team__phone-icon" />
+                      return (<span><MdLocalPhone className="team__phone-icon" />
                         <input
                           type="text" id="team__phone-container" defaultValue={contact ? contact.node.phone : ''}
                           className="team__location-name-input" placeholder={this.props.intl.formatMessage(messages.phone)}
                           onChange={this.handleChange.bind(this, 'contact_phone')}
                         /></span>);
                     } else if (contact && !!contact.node.phone) {
-                      return (<span><FontAwesome name="phone" className="team__phone-icon" />
+                      return (<span><MdLocalPhone className="team__phone-icon" />
                         <span className="team__phone-name">{contact.node.phone}</span></span>);
                     } else {
                       return (<span className="team__phone-name" />);
@@ -261,14 +261,14 @@ class TeamComponent extends Component {
                 <span className="team__web">
                   {(() => {
                     if (isEditing) {
-                      return (<span><FontAwesome name="link" className="team__link-icon" />
+                      return (<span><MdLink className="team__link-icon" />
                         <input
                           type="text" id="team__link-container" defaultValue={contact ? contact.node.web : ''}
                           className="team__location-name-input" placeholder={this.props.intl.formatMessage(messages.website)}
                           onChange={this.handleChange.bind(this, 'contact_web')}
                         /></span>);
                     } else if (contact && !!contact.node.web) {
-                      return (<span><FontAwesome name="link" className="team__link-icon" />
+                      return (<span><MdLink className="team__link-icon" />
                         <span className="team__link-name">{contact.node.web}</span></span>);
                     } else {
                       return (<span className="team__link-name" />);

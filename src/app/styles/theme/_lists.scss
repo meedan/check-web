@@ -1,11 +1,14 @@
 @mixin app-menu {
-  z-index: 2;
+  @include box-shadow(2);
+  @include fade-in(.2s);
+  z-index: 3;
   margin: 0;
   border: $layout-border;
   border-radius: 2px;
-  min-width: 250px;
-  background: #fff;
-  padding: 2px;
+  min-width: 160px;
+  background: $white;
+  padding: 8px 0;
+  text-align: left;
 
   & > li {
     @include app-menu-item;
@@ -13,13 +16,27 @@
 }
 
 @mixin app-menu-item {
-  &:hover { background: darken($home-bg, 5%); }
-  font-size: 15px;
-  padding: 11px 15px;
+  font-size: 14px;
+  font-weight: 400;
+  color: $black-87;
+  line-height: 48px;
   cursor: pointer;
+
+  img {
+    vertical-align: middle!important;
+  }
+
+  &:hover {
+    background: $opaque-black-05;
+    transition: background .2s;
+  }
 
   & > a {
     color: inherit;
-    &, &:hover { text-decoration: none; }
+
+    &,
+    &:hover {
+      text-decoration: none;
+    }
   }
 }

@@ -10,19 +10,6 @@ const MediaUtil = {
     }
   },
 
-  networkIconName(media) {
-    try {
-      return ({ // uncomment in font-awesome/_icons.scss
-        'facebook.com': 'facebook-square',
-        'instagram.com': 'instagram',
-        'twitter.com': 'twitter',
-        'youtube.com': 'youtube-play',
-      }[media.domain] || 'link');
-    } catch (e) {
-      return '';
-    }
-  },
-
   authorAvatarUrl(media, data) {
     return data.author_picture;
   },
@@ -51,7 +38,7 @@ const MediaUtil = {
       if (socialMedia) {
         return socialMedia;
       }
-      if (data && data.quote) {
+      if (media && media.quote) {
         return 'Claim';
       }
       if (media && media.domain) {
@@ -59,6 +46,23 @@ const MediaUtil = {
       }
     } catch (e) {}
     return '';
+  },
+
+  attributedType(media, data) {
+    let typeLabel;
+    try {
+      typeLabel = this.typeLabel(media, data);
+      if (typeLabel === 'Page') {
+        return `${typeLabel} on ${media.domain}`;
+      } else if (typeLabel === 'Claim') {
+        return `${typeLabel}`;
+      } else {
+        const attribution = this.authorName(media, data);
+        return `${typeLabel}${attribution ? ` by ${attribution}` : ''}`;
+      }
+    } catch (e) {
+      return typeLabel || '';
+    }
   },
 
   title(media, data) {

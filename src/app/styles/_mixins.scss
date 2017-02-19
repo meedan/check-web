@@ -1,0 +1,73 @@
+
+// Material design box shadows
+//
+@mixin box_shadow ($level) {
+  @if $level == 1 {
+    box-shadow: 0 1px 3px rgba($black, .12), 0 1px 2px rgba($black, .24);
+  } @else if $level == 2 {
+    box-shadow: 0 3px 6px rgba($black, .16), 0 3px 6px rgba($black, .23);
+  } @else if $level == 3 {
+    box-shadow: 0 10px 20px rgba($black, .19), 0 6px 6px rgba($black, .23);
+  } @else if $level == 4 {
+    box-shadow: 0 14px 28px rgba($black, .25), 0 10px 10px rgba($black, .22);
+  } @else if $level == 5 {
+    box-shadow: 0 19px 38px rgba($black, .30), 0 15px 12px rgba($black, .22);
+  }
+}
+
+
+// Tooltip 
+//
+@mixin tooltip($content: "Click here", $direction: up) {
+  position: relative;
+
+  &::before {
+    content: '';
+    display: none;
+    position: absolute;
+    z-index: 9;
+    left: 8px;
+    width: 0;
+    height: 0;
+    @if $direction == up {
+      top: 35px;
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+      border-bottom: 8px solid $check-blue;
+    } @else {
+      top: -8px;
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+      border-top: 8px solid $check-blue;
+    }
+  }
+
+  &::after {
+    content: $content;
+    display: none;
+    position: absolute;
+    z-index: 10;
+    @if $direction == up {
+      top: 43px;
+    } @else {
+      top: -43px;
+    }
+    left: -10px;
+    width: 114px;
+    height: 36px;
+    color: $white;
+    font-size: 12px;
+    line-height: 36px;
+    text-align: center;
+    background: $check-blue;
+    border-radius: 3px;
+  }
+
+  &:hover {
+
+    &::before,
+    &::after {
+      display: block;
+    }
+  }
+}

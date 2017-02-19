@@ -1,4 +1,21 @@
 .footer {
-  display: none; /* temporarily until we figure out what it should contain on what pages */
-  padding-bottom: 30px;
+  text-align: center;
+  color: $opaque-black-38;
+  margin-top: 30px;
+  font-style: normal;
+  font-size: 12px;
+
+  span {
+    margin: 10px 0;
+    display: inline-block;
+
+    i {
+      font-style: normal;
+    }
+  }
+
+  a,
+  a:hover {
+    color: $opaque-black-38;
+  }
 }

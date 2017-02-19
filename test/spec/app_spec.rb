@@ -238,7 +238,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(displayed_name == expected_name).to be(true)
     end
 
-    it "should show team options at /teams" do
+    it "should show teams at /check/teams" do
       page = LoginPage.new(config: @config, driver: @driver).load.login_with_email(email: @email, password: @password)
       page.driver.navigate.to @config['self_url'] + '/check/teams'
       page.wait_for_element('.teams')
@@ -653,7 +653,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       project_pg.wait_for_element('.project-header__title')
       expect(project_pg.contains_string?(new_title)).to be(true)
-      project_pg.wait_for_element('.project-header__description')
+      project_pg.wait_for_element('.project__description')
       expect(project_pg.contains_string?(new_description)).to be(true)
     end
 
@@ -796,14 +796,11 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       media_pg.fill_input('#cmd-input', '/flag Spam')
       media_pg.element('#cmd-input').submit
       sleep 1
-      notes_t = get_element('.media-metadata-summary__datum')
-      notes_v = get_element('.media-detail__check-notes-count')
-      expect(notes_t.text == '1 note').to be(true)
-      expect(notes_v.text == '1 note').to be(true)
+      notes_count = get_element('.media-detail__check-notes-count')
+      expect(notes_count.text == '1 note').to be(true)
       media_pg.element('.annotation__delete').click
       sleep 1
-      expect(notes_t.text == '0 notes').to be(true)
-      expect(notes_v.text == '0 notes').to be(true)
+      expect(notes_count.text == '0 notes').to be(true)
     end
 
     it "should auto refresh project when media is created" do

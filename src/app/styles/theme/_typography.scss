@@ -3,18 +3,18 @@ $font-stack-sans-condensed: "Roboto Condensed", $font-stack-sans;
 $font-stack-serif: "Merriweather", Georgia, serif;
 
 @mixin onboarding-heading {
-  margin: 25px 0 20px 0;
+  margin: 25px 0 20px;
   font-size: 34px;
   font-family: $font-stack-sans-condensed;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.035em;
-  color: hsl(206, 98%, 62%);
+  letter-spacing: .035em;
+  color: $check-blue;
 }
 
 @mixin onboarding-blurb {
   font-size: 17px;
-  color: $dark-gray-text;
+  color: $black-87;
   font-family: $font-stack-serif;
   margin-bottom: 30px;
   line-height: 1.45;
@@ -29,36 +29,49 @@ $font-stack-serif: "Merriweather", Georgia, serif;
   @include onboarding-blurb;
 }
 
-@mixin header-title($size: 19px) {
+@mixin header-title($size: 16px) {
+  font-weight: 400;
   font-size: $size;
-  font-family: $font-stack-sans-condensed;
-  &, & > a { color: theme-gray(23%); }
   margin: 0;
+
+  &,
+  & > a,
+  & > a:visited {
+    color: $black-87;
+  }
 }
 
-@mixin app-kicker($size: 11px) {
+@mixin app-kicker($size: 14px) {
   font-size: $size;
   text-transform: uppercase;
-  letter-spacing: 0.17em;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 @mixin team-name($size: 17px) {
   font-size: $size;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  color: theme-gray(27%);
 }
 
 @mixin breadcrumb-heading {
   display: inline-block;
   font-size: 16px;
   font-weight: 400;
-  color: $light-gray-text;
-  margin: 2px 0 0 0;
+  margin: 2px 0 0;
 }
 
-@mixin gray-text($size: 14px) {
-  color: $light-gray-text;
-  font-size: $size;
+// Default typography
+//
+body {
+  color: $opaque-black-54;
+  font: $font-stack-sans;
+  font-size: 14px;
+
+  a,
+  a:visited {
+    color: $opaque-black-54;
+  }
+
+  a:hover {
+    color: $opaque-black-87;
+    transition: color .4s;
+  }
 }
