@@ -7,7 +7,7 @@ class Footer extends Component {
     const about = this.props.about;
     return (
       <footer className="footer">
-        <span>Made with ✨ by <a href="http://meedan.com">Meedan</a></span>
+        <span><FormattedMessage id="footer.madeBy" defaultMessage="Made with ✨ by" /> <a href="http://meedan.com">Meedan</a></span>
       </footer>
     );
   }
