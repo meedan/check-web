@@ -14,7 +14,6 @@ $menu-status-item-padding: 16px;
   &__caret {
     width: 24px;
     height: 24px;
-    opacity: 0;
   }
 
   &:hover {
@@ -24,7 +23,6 @@ $menu-status-item-padding: 16px;
 
   &:hover &__caret {
     color: $black-54;
-    opacity: 1;
   }
 }
 
