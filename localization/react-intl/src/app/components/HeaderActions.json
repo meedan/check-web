@@ -1,5 +1,9 @@
 [
   {
+    "id": "headerActions.userTeams",
+    "defaultMessage": "Your Teams"
+  },
+  {
     "id": "headerActions.signOut",
     "defaultMessage": "Sign Out"
   },
