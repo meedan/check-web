@@ -6,7 +6,7 @@
   "login.with": "Se connecter avec {provider}",
   "loginEmail.nameLabel": "Votre nom",
   "loginEmail.emailLabel": "Adresse e-mail",
-  "loginEmail.passwordLabel": "Mot de passe (Votre mot de passe doit comporter au moins 8 caractères)",
+  "loginEmail.passwordLabel": "Mot de passe (au moins 8 caractères)",
   "loginEmail.passwordConfirmLabel": "Confirmation du mot de passe",
   "loginEmail.signIn": "Se connecter",
   "loginEmail.signUp": "S'inscrire",

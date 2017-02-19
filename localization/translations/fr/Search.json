@@ -2,6 +2,8 @@
   "search.title": "Recherche",
   "search.loading": "En chargement...",
   "search.inputHint": "Recherche",
+  "search.result": "Résultat",
+  "search.results": "Résultats",
   "search.filtersHeading": "Filtres",
   "search.statusHeading": "Statut",
   "search.projectHeading": "Projet",
