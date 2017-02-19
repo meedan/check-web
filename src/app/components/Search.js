@@ -30,11 +30,11 @@ const messages = defineMessages({
     id: 'search.inputHint',
     defaultMessage: 'Search'
   },
-  searchResults: {
+  searchResult: {
     id: 'search.result',
     defaultMessage: 'Result'
   },
-  searchResult: {
+  searchResults: {
     id: 'search.results',
     defaultMessage: 'Results'
   }
