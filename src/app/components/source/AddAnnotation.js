@@ -108,7 +108,7 @@ class AddAnnotation extends Component {
   }
 
   addComment(that, annotated, annotated_id, annotated_type, comment, annotation_type) {
-    const { formatMessage } = this.props.intl;
+    const { formatMessage } = that.props.intl;
 
     const onFailure = (transaction) => { that.fail(transaction); };
 
@@ -135,7 +135,7 @@ class AddAnnotation extends Component {
   addTag(that, annotated, annotated_id, annotated_type, tags, annotation_type) {
     const tagsList = [...new Set(tags.split(','))];
 
-    const { formatMessage } = this.props.intl;
+    const { formatMessage } = that.props.intl;
 
     const onFailure = (transaction) => { that.fail(transaction); };
 
@@ -164,7 +164,7 @@ class AddAnnotation extends Component {
   }
 
   addStatus(that, annotated, annotated_id, annotated_type, status, annotation_type) {
-    const { formatMessage } = this.props.intl;
+    const { formatMessage } = that.props.intl;
 
     const onFailure = (transaction) => { that.fail(transaction); };
 
@@ -204,7 +204,7 @@ class AddAnnotation extends Component {
   }
 
   addFlag(that, annotated, annotated_id, annotated_type, flag, annotation_type) {
-    const { formatMessage } = this.props.intl;
+    const { formatMessage } = that.props.intl;
 
     const onFailure = (transaction) => { that.fail(transaction); };
 

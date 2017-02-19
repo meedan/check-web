@@ -33,6 +33,7 @@ class SwitchTeamsComponent extends Component {
   }
 
   setCurrentTeam(team, user) {
+    const that = this;
     const context = new CheckContext(this);
     const history = context.getContextStore().history;
 
@@ -42,7 +43,7 @@ class SwitchTeamsComponent extends Component {
 
     const onFailure = (transaction) => {
       const error = transaction.getError();
-      let message = this.props.intl.formatMessage(messages.switchTeamsError);
+      let message = that.props.intl.formatMessage(messages.switchTeamsError);
       try {
         const json = JSON.parse(error.source);
         if (json.error) {

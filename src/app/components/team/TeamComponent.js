@@ -109,7 +109,7 @@ class TeamComponent extends Component {
 
     const onFailure = (transaction) => {
       const error = transaction.getError();
-      let message = this.props.intl.formatMessage(messages.editError);
+      let message = that.props.intl.formatMessage(messages.editError);
       try {
         const json = JSON.parse(error.source);
         if (json.error) {
@@ -120,7 +120,7 @@ class TeamComponent extends Component {
     };
 
     const onSuccess = (response) => {
-      this.setState({ message: this.props.intl.formatMessage(messages.editSuccess), isEditing: false });
+      this.setState({ message: that.props.intl.formatMessage(messages.editSuccess), isEditing: false });
     };
 
     const values = that.state.values;

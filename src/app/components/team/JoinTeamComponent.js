@@ -44,7 +44,7 @@ class JoinTeamComponent extends Component {
 
     const onFailure = (transaction) => {
       const error = transaction.getError();
-      let message = this.props.intl.formatMessage(messages.error);
+      let message = that.props.intl.formatMessage(messages.error);
       try {
         const json = JSON.parse(error.source);
         if (json.error) {
@@ -55,7 +55,7 @@ class JoinTeamComponent extends Component {
     };
 
     const onSuccess = (response) => {
-      that.setState({ message: this.props.intl.formatMessage(joinTeamComponent.sucess,{team: this.props.team.name}), isRequestSent: true });
+      that.setState({ message: that.props.intl.formatMessage(joinTeamComponent.sucess,{team: this.props.team.name}), isRequestSent: true });
     };
 
     Relay.Store.commitUpdate(

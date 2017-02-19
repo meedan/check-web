@@ -143,7 +143,7 @@ class CreateTeam extends Component {
 
     const onFailure = (transaction) => {
       const error = transaction.getError();
-      let message = this.props.intl.formatMessage(messages.createTeamError);
+      let message = that.props.intl.formatMessage(messages.createTeamError);
       try {
         const json = JSON.parse(error.source);
         if (json.error) {
