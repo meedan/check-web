@@ -7,10 +7,18 @@ import Message from '../Message';
 import UpdateTaskMutation from '../../relay/UpdateTaskMutation';
 import UpdateDynamicMutation from '../../relay/UpdateDynamicMutation';
 import DeleteAnnotationMutation from '../../relay/DeleteAnnotationMutation';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import Can from '../Can';
+import MdMoreHoriz from 'react-icons/lib/md/more-horiz';
+
+const messages = defineMessages({
+  confirmDelete: {
+    id: 'task.confirmDelete',
+    defaultMessage: 'Are you sure you want to delete this task?'
+  }
+});
 
 class Task extends Component {
   constructor(props) {
@@ -21,6 +29,7 @@ class Task extends Component {
       editing: false,
       message: null,
       editingResponse: false,
+      isMenuOpen: false
     };
   }
 
@@ -80,7 +89,7 @@ class Task extends Component {
   }
 
   handleEdit() {
-    this.setState({ editing: true });
+    this.setState({ editing: true, isMenuOpen: false });
   }
 
   handleCancelEdit() {
@@ -124,14 +133,17 @@ class Task extends Component {
   }
 
   handleDelete() {
-    const that = this;
-    Relay.Store.commitUpdate(
-      new DeleteAnnotationMutation({
-        parent_type: 'project_media',
-        annotated: that.props.media,
-        id: that.props.task.id
-      })
-    );
+    if (window.confirm(this.props.intl.formatMessage(messages.confirmDelete))) { 
+      const that = this;
+      Relay.Store.commitUpdate(
+        new DeleteAnnotationMutation({
+          parent_type: 'project_media',
+          annotated: that.props.media,
+          id: that.props.task.id
+        })
+      );
+    }
+    this.setState({ isMenuOpen: false });
   }
 
   handleCancelEditResponse() {
@@ -187,6 +199,14 @@ class Task extends Component {
     e.preventDefault();
   }
 
+  toggleMenu() {
+    this.setState({ isMenuOpen: !this.state.isMenuOpen });
+  }
+
+  bemClass(baseClass, modifierBoolean, modifierSuffix) {
+    return modifierBoolean ? [baseClass, baseClass + modifierSuffix].join(' ') : baseClass;
+  }
+
   componentDidMount() {
     const that = this;
     window.addEventListener('click', () => { that.setState({ focus: false }) });
@@ -219,12 +239,20 @@ class Task extends Component {
     return (
       <div>
         <Card onClick={this.handleClick.bind(this)} className="task">
+
           <Can permissions={task.permissions} permission="update Task">
-            <span id="task__edit-button" onClick={this.handleEdit.bind(this)}>✐</span>
+            <div className={this.bemClass('media-actions', this.state.isMenuOpen, '--active')}>
+              <MdMoreHoriz className="media-actions__icon" onClick={this.toggleMenu.bind(this)} />
+              <div className={this.bemClass('media-actions__overlay', this.state.isMenuOpen, '--active')} onClick={this.toggleMenu.bind(this)} />
+              <ul className={this.bemClass('media-actions__menu', this.state.isMenuOpen, '--active')}>
+                <li className="media-actions__menu-item" onClick={this.handleEdit.bind(this)}><FormattedMessage id="task.edit" defaultMessage="Edit" /></li>
+                <Can permissions={task.permissions} permission="destroy Task">
+                  <li className="media-actions__menu-item" onClick={this.handleDelete.bind(this)}><FormattedMessage id="task.delete" defaultMessage="Delete" /></li>
+                </Can>
+              </ul>
+            </div>
           </Can>
-          <Can permissions={task.permissions} permission="destroy Task">
-            <span id="task__remove-button" onClick={this.handleDelete.bind(this)}>✖</span>
-          </Can>
+
           <CardText>
             <Message message={this.state.message} />
             {response === null ?
@@ -288,4 +316,8 @@ class Task extends Component {
   }
 }
 
-export default Task;
+Task.propTypes = {
+  intl: intlShape.isRequired
+};
+
+export default injectIntl(Task);

@@ -1,6 +1,9 @@
 {
+  "task.confirmDelete": "Voulez-vous vraiment effacer cette tâche ?",
   "tasks.cancelEdit": "Annuler",
   "tasks.save": "Sauvegarder",
+  "task.edit": "Modifier",
+  "task.delete": "Effacer",
   "task.noteLabel": "Ajouter ici des détails supplémentaires.",
   "task.pressReturnToSave": "Pressez \"entrée\" pour sauvegarder votre réponse.",
   "task.resolvedBy": "Résolue par {by}",
