@@ -188,6 +188,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
           .login_with_email(email: @email, password: @password)
           .create_image_media(File.join(File.dirname(__FILE__), 'test.png'))
 
+      sleep 8 # wait for Sidekiq
+
       @driver.navigate.to @config['self_url'] + '/' + get_team + '/search'
       sleep 3
       imgsrc = @driver.find_element(:css, '.image-media-card img').attribute('src')
