@@ -1,5 +1,7 @@
 {
   "switchTeams.error": "Désolé, ce n'était pas possible de changer d'équipe",
+  "switchTeams.member": "membre",
+  "switchTeams.members": "membres",
   "switchTeams.joinRequestMessage": "Vous avez demandé à rejoindre",
   "switchTeams.cancelJoinRequest": "Annuler",
   "switchTeams.bannedJoinRequest": "Annulé",
