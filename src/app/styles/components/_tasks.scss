@@ -4,13 +4,28 @@
   .task__label {
     font-size: 12px;
   }
+
   .task__response {
     font-size: 16px;
   }
+
   .task__resolver {
     text-align: right;
   }
+
   .task__resolved p {
     margin: 3px 0;
+  }
+
+  #task__remove-button,
+  #task__edit-button {
+    float: right;
+    color: #ccc;
+    margin: 5px 5px 0 0;
+    cursor: pointer;
+  }
+  
+  #task__remove-button {
+    margin-right: 8px;
   }
 }

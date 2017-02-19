@@ -1,5 +1,13 @@
 [
   {
+    "id": "tasks.cancelEdit",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "tasks.save",
+    "defaultMessage": "Save"
+  },
+  {
     "id": "task.noteLabel",
     "defaultMessage": "Note any additional details here."
   },
@@ -10,5 +18,13 @@
   {
     "id": "task.resolvedBy",
     "defaultMessage": "Resolved by {by}"
+  },
+  {
+    "id": "tasks.taskLabel",
+    "defaultMessage": "Task label"
+  },
+  {
+    "id": "tasks.description",
+    "defaultMessage": "Description"
   }
 ]

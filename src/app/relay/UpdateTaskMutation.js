@@ -14,7 +14,15 @@ class UpdateTaskMutation extends Relay.Mutation {
 
  getVariables() {
     const task = this.props.task;
-    return { id: task.id, response: JSON.stringify({ annotation_type: task.annotation_type, set_fields: JSON.stringify(task.fields) }) };
+    let params = { id: task.id };
+    if (task.annotation_type && task.fields) {
+      params.response = JSON.stringify({ annotation_type: task.annotation_type, set_fields: JSON.stringify(task.fields) });
+    }
+    else if (task.label) {
+      params.label = task.label;
+      params.description = task.description;
+    }
+    return params;
   }
 
   getConfigs() {
