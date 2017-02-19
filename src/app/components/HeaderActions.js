@@ -26,7 +26,7 @@ class HeaderActions extends Component {
       <div className={bemClass('header-actions', this.state.isMenuOpen, '--active')}>
         {(() => {
           if (this.props.params && this.props.params.team) {
-            return (<Link to={`/${this.props.params.team}/search`}><MdSearch name="search" className="header-actions__search-icon" /></Link>);
+            //return (<Link to={`/${this.props.params.team}/search`}><MdSearch name="search" className="header-actions__search-icon" /></Link>);
           }
         })()}
         <MdMoreVert className="header-actions__menu-toggle" onClick={this.toggleSettingsMenu.bind(this)} />
