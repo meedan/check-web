@@ -4,7 +4,7 @@ import Relay from 'react-relay';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import Dropzone from 'react-dropzone';
-import FontAwesome from 'react-fontawesome';
+import MdInsertPhoto from 'react-icons/lib/md/insert-photo';
 import UploadImage from '../UploadImage';
 import PenderCard from '../PenderCard';
 import CreateProjectMediaMutation from '../../relay/CreateProjectMediaMutation';
@@ -180,12 +180,17 @@ class CreateProjectMedia extends Component {
                   );
                 }
               })()}
-              <FontAwesome id="create-media__switcher" size="2x" title={this.props.intl.formatMessage(messages.uploadImage)} name="picture-o" className={this.state.fileMode ? 'create-media__file' : ''} onClick={this.switchMode.bind(this)} />
             </div>
 
-            <div className="create-media__buttons">
-              <FlatButton id="create-media-submit" primary onClick={this.handleSubmit.bind(this)} label={this.props.intl.formatMessage(messages.submitButton)} className="create-media__button create-media__button--submit" />
-            </div>
+            <footer>
+              <div className="create-media__helper">Add a link, quote or image for verification</div>
+              <div className="create-media__buttons">
+                <div className="create-media__insert-photo">
+                  <MdInsertPhoto id="create-media__switcher" title={this.props.intl.formatMessage(messages.uploadImage)} className={this.state.fileMode ? 'create-media__file' : ''} onClick={this.switchMode.bind(this)} />
+                </div>
+                <FlatButton id="create-media-submit" primary onClick={this.handleSubmit.bind(this)} label={this.props.intl.formatMessage(messages.submitButton)} className="create-media__button create-media__button--submit" />
+              </div>
+            </footer>
           </form>
         </ContentColumn>
       </div>

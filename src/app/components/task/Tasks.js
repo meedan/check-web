@@ -6,12 +6,12 @@ import FlatButton from 'material-ui/FlatButton';
 import Popover from 'material-ui/Popover';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
-import FontAwesome from 'react-fontawesome';
 import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
 import Can from '../Can';
 import CreateTaskMutation from '../../relay/CreateTaskMutation';
 import { FormattedMessage } from 'react-intl';
+import { MdFormatAlignLeft } from 'react-icons/lib/md';
 
 class Tasks extends Component {
   constructor(props) {
@@ -109,8 +109,8 @@ class Tasks extends Component {
 
         <Popover open={this.state.menuOpen} anchorEl={this.state.anchorEl} anchorOrigin={{horizontal: 'left', vertical: 'bottom'}} targetOrigin={{horizontal: 'left', vertical: 'top'}} onRequestClose={this.handleRequestClose.bind(this)}>
           <Menu>
-            <MenuItem onClick={this.handleOpenDialog.bind(this, 'free_text')} leftIcon={<FontAwesome name="align-left" />} primaryText={<FormattedMessage id="tasks.shortAnswer" defaultMessage="Short answer" />} />
-            {/* 
+            <MenuItem onClick={this.handleOpenDialog.bind(this, 'free_text')} leftIcon={<MdFormatAlignLeft />} primaryText={<FormattedMessage id="tasks.shortAnswer" defaultMessage="Short answer" />} />
+            {/*
             <MenuItem onClick={this.handleOpenDialog.bind(this, 'yes_no')} leftIcon={<FontAwesome name="toggle-on" />} primaryText="Yes or no" />
             <MenuItem onClick={this.handleOpenDialog.bind(this, 'single_choice')} leftIcon={<FontAwesome name="circle-o" />} primaryText="Choose one" />
             <MenuItem onClick={this.handleOpenDialog.bind(this, 'multiple_choice')} leftIcon={<FontAwesome name="check-square" />} primaryText="Choose multiple" />

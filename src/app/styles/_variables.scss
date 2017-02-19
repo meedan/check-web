@@ -1,14 +1,18 @@
-// Colors
+// Layout theme variables
+//
+$layout-border-color: $black-16;
+$layout-border: 1px solid $layout-border-color;
+$layout-border-light: 1px solid $black-05;
+$layout-header-height: 48px;
+$layout-padding: 16px;
+$layout-sidebar-width: 245px;
 
-$black: #000;
-$white: #FFF;
-$lightestgrey: #EEE;
-$lightergrey: #8B939A;
-$lightgrey: #FBFAF9;
-$midgrey: #D7D7D7;
-$darkgrey: #3E4C57;
-$darkergrey: #444;
-$cream: #FFD;
-$grey: #283743;
-$blue: #034fda;
-$mustard: #FFD980;
+// Columns and breakpoint variables
+//
+$layout-column-width-narrow: 784px;
+$layout-column-width-wide: 1200px + 30px;
+$layout-mobile-breakpoint-smallest: 320px;
+$layout-mobile-breakpoint-small: 450px;
+$layout-mobile-breakpoint: 680px;
+$layout-tablet-breakpoint: $layout-column-width-narrow;
+$layout-widescreen-breakpoint: $layout-column-width-wide;

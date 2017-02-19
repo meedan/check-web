@@ -5,12 +5,10 @@ import util from 'util';
 import Header from './Header';
 import FooterRelay from '../relay/FooterRelay';
 import LoginMenu from './LoginMenu';
-import Message from './Message';
 import { blue500, blue600, blue700, blue800 } from 'material-ui/styles/colors';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { Link } from 'react-router';
-import FontAwesome from 'react-fontawesome';
 import config from 'config';
 import BrowserSupport from './BrowserSupport';
 import CheckContext from '../CheckContext';
@@ -28,9 +26,9 @@ const messages = defineMessages({
 
 const muiTheme = getMuiTheme({
   palette: {
-    primary1Color: blue500,
-    primary2Color: blue500,
-    primary3Color: blue500,
+    primary1Color: "#2e77fc",
+    primary2Color: "#2e77fc",
+    primary3Color: "#2e77fc",
     accent1Color: blue600,
     accent2Color: blue700,
     accent3Color: blue800,
@@ -92,11 +90,6 @@ class Home extends Component {
       return null;
     }
 
-    const routeIsFullscreen = children && children.props.route.fullscreen;
-    if (routeIsFullscreen) {
-      return (<div className="home home--fullscreen">{children}</div>);
-    }
-
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
         <span>
@@ -104,10 +97,7 @@ class Home extends Component {
           <div className="home">
             <span className="home__disclaimer"><FormattedMessage id="home.beta" defaultMessage="Beta" /></span>
             { this.state.token ? <Header {...this.props} /> : null }
-            <main className="home__main">
-              <div className="home__global-message global-message"><Message message={this.state.message} /></div>
-              <div className="home__content">{children}</div>
-            </main>
+            <div className="home__content">{children}</div>
             <FooterRelay {...this.props} />
           </div>
         </span>

@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
-import FontAwesome from 'react-fontawesome';
 import { defineMessages, injectIntl, intlShape } from 'react-intl';
+import { FaFacebookSquare, FaInstagram, FaTwitter, FaYoutubePlay } from 'react-icons/lib/fa';
+import MdLink from 'react-icons/lib/md/link';
 import { Link } from 'react-router';
 import MediaUtil from './MediaUtil';
 import MediaInspector from './MediaInspector';
@@ -38,7 +39,6 @@ class SocialMediaCard extends Component {
     // TODO: make less verbose
     const url = MediaUtil.url(media, data);
     const embedPublishedAt = MediaUtil.embedPublishedAt(media, data);
-    const networkIconName = MediaUtil.networkIconName(media);
     const authorAvatarUrl = MediaUtil.authorAvatarUrl(media, data);
     const authorName = MediaUtil.authorName(media, data);
     const authorUsername = MediaUtil.authorUsername(media, data);
@@ -49,34 +49,50 @@ class SocialMediaCard extends Component {
 
     return (
       <article className="social-media-card">
-
         <MediaInspector media={media} isActive={this.state.isInspectorActive} dismiss={this.handleInspectorDismiss.bind(this)} />
+        <div className="social-media-column-alpha">
+          <div className="social-media-card__header / card-header">
+            {authorAvatarUrl ? <img src={authorAvatarUrl} className="social-media-card__author-avatar" /> : null}
+            <div className="social-media-card__header-text-primary / header-text-primary">
+              <a href={authorUrl} className="social-media-card__name">{authorName || authorUsername}</a>
+              {authorName ?
+                <a href={authorUrl} className="social-media-card__username">{authorUsername}</a> : null
+              }
+            </div>
+          </div>
 
-        <div className="social-media-card__header / card-header">
-          <FontAwesome className="social-media-card__network-icon" name={networkIconName} />
-          {authorAvatarUrl ? <img src={authorAvatarUrl} className="social-media-card__author-avatar" /> : null}
-          <div className="social-media-card__header-text-primary / header-text-primary">
-            <a href={authorUrl} className="social-media-card__name">{authorName || authorUsername}</a>
-            {authorName ?
-              <a href={authorUrl} className="social-media-card__username">{authorUsername}</a> : null
-            }
+          <div className={bemClass("social-media-card__body", condensed, '--condensed')} onClick={this.handleBodyClick.bind(this)}>
+            <div className="social-media-card__body-text">{bodyText}</div>
           </div>
 
           <span className="social-media-card__header-text-secondary">
+            {(() => {
+              switch (media.domain) {
+                case 'twitter.com':
+                  return <FaTwitter />
+                case 'youtube.com':
+                  return <FaYoutubePlay />
+                case 'instagram.com':
+                  return <FaInstagram />
+                case 'facebook.com':
+                  return <FaFacebookSquare />
+                default :
+                  return <MdLink />
+               }
+            })()}
             <a href={url}>
               {embedPublishedAt ? <TimeBefore date={embedPublishedAt} /> : this.props.intl.formatMessage(messages.link)}
             </a>
           </span>
+          <div className="social-media-card__footer">
+            {stats.map(stat => <span className="social-media-card__footer-stat">{stat}</span>)}
+          </div>
         </div>
 
-        <div className={bemClass("social-media-card__body", condensed, '--condensed')} onClick={this.handleBodyClick.bind(this)}>
-          <div className="social-media-card__body-text">{bodyText}</div>
+        <div className="social-media-column-omega">
           {bodyImageUrl ?
             <div className="social-media-card__body-image" style={{ backgroundImage: `url(${bodyImageUrl})` }} />
           : null }
-        </div>
-        <div className="social-media-card__footer">
-          {stats.map(stat => <span className="social-media-card__footer-stat">{stat}</span>)}
         </div>
       </article>
     );

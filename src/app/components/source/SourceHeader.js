@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import Avatar from 'material-ui/Avatar';
-import FontAwesome from 'react-fontawesome';
 
 class SourceHeader extends Component {
   render() {
@@ -17,7 +16,7 @@ class SourceHeader extends Component {
             return (
               <li>
                 <a href={node.url} target="_blank">
-                  <FontAwesome name={node.provider} />
+                  {/* Icon goes here, but react-fontawesome was removed. CGB 2017-2-14 */}
                 </a>
               </li>
             );

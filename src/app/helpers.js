@@ -9,6 +9,14 @@ function bemClass(baseClass, modifierBoolean, modifierSuffix) {
   return modifierBoolean ? [baseClass, baseClass + modifierSuffix].join(' ') : baseClass;
 }
 
+function bemClassFromMediaStatus(baseClass, mediaStatus) {
+  return bemClass(
+    baseClass,
+    (mediaStatus && mediaStatus.length),
+    `--${mediaStatus.toLowerCase().replace(/[ _]/g, '-')}`
+  );
+}
+
 // Make a Check page title as `prefix | team Check`.
 // Try to get the current team's name and fallback to just `Check`.
 // Skip team name if `skipTeam` is true.
@@ -25,4 +33,8 @@ function pageTitle(prefix, skipTeam, team) {
   return (prefix ? (`${prefix} | `) : '') + suffix;
 }
 
-export { bemClass, pageTitle };
+export {
+  bemClass,
+  bemClassFromMediaStatus,
+  pageTitle
+};

@@ -2,18 +2,13 @@
   @include app-menu;
 }
 
-.project-list__project {
-}
-
 .project-list__link {
+  padding: 0 16px;
+  display: inline-block;
+  height: 100%;
+  width: 100%;
   &--active {
     font-weight: bold;
   }
   display: block;;
 }
-
-// .project-list__new {
-// }
-
-// .project-list__input {
-// }
