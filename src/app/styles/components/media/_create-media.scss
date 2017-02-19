@@ -29,7 +29,7 @@
       // The button to show the dropzone
       //
       .create-media__insert-photo {
-        @include tooltip("Upload photo", down);
+        // @include tooltip("Upload photo", down);
         display: flex;
 
         svg {
