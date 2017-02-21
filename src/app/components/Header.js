@@ -11,7 +11,7 @@ import { Link } from 'react-router';
 class Header extends Component {
   render() {
     const { state } = this.props;
-    const path = window.location.pathname;
+    const path = this.props.location ? this.props.location.pathname : window.location.pathname;
     const showCheckLogo = /^\/(check(\/.*)?)?$/.test(path);
     const joinPage = /^\/([^\/]+)\/join$/.test(path);
 
