@@ -38,11 +38,13 @@ class HeaderActions extends Component {
           <li className="header-actions__menu-item" style={{ cursor: 'default' }}><UserMenuRelay {...this.props} /></li>
           <li className="header-actions__menu-item"><Link to='/check/teams'><FormattedMessage id="headerActions.userTeams" defaultMessage="Your Teams" /></Link></li>
           {(() => {
-            if (joinPage) {
-              <div>
-                <ProjectMenuRelay {...this.props} />
-                <TeamMenuRelay {...this.props} />
-              </div>
+            if (!joinPage) {
+              return (
+                <div>
+                  <ProjectMenuRelay {...this.props} />
+                  <TeamMenuRelay {...this.props} />
+                </div>
+              );
             }
           })()}
           <li className="header-actions__menu-item header-actions__menu-item--logout" onClick={logout}>
