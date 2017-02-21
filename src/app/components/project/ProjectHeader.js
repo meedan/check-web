@@ -1,19 +1,42 @@
 import React, { Component, PropTypes } from 'react';
-import { defineMessages, injectIntl, intlShape } from 'react-intl';
 import Relay from 'react-relay';
 import Can from '../Can';
 import ProjectRoute from '../../relay/ProjectRoute';
 import MdArrowDropDown from 'react-icons/lib/md/arrow-drop-down';
 import ProjectList from './ProjectList';
-
-const messages = defineMessages({
-  description: {
-    id: 'projectHeader.description',
-    defaultMessage: 'Verification Project'
-  }
-});
+import CheckContext from '../../CheckContext';
 
 class ProjectHeaderComponent extends Component {
+  getPusher() {
+    const context = new CheckContext(this);
+    return context.getContextStore().pusher;
+  }
+
+  subscribe() {
+    const pusher = this.getPusher();
+    if (pusher) {
+      const that = this;
+      pusher.subscribe(this.props.project.team.pusher_channel).bind('project_created', (data) => {
+        that.props.relay.forceFetch();
+      });
+    }
+  }
+
+  componentDidMount() {
+    this.subscribe();
+  }
+
+  unsubscribe() {
+    const pusher = this.getPusher();
+    if (pusher) {
+      pusher.unsubscribe(this.props.project.team.pusher_channel);
+    }
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
+
   render() {
     const project = this.props.project;
     const projectUrl = window.location.pathname.match(/(.*\/project\/[0-9]+)/)[1];
@@ -32,15 +55,11 @@ class ProjectHeaderComponent extends Component {
   }
 }
 
-ProjectHeaderComponent.PropTypes = {
-  intl: intlShape.isRequired
-};
-
 ProjectHeaderComponent.contextTypes = {
-  store: React.PropTypes.object,
+  store: React.PropTypes.object
 };
 
-const ProjectHeaderContainer = Relay.createContainer(injectIntl(ProjectHeaderComponent), {
+const ProjectHeaderContainer = Relay.createContainer(ProjectHeaderComponent, {
   fragments: {
     project: () => Relay.QL`
       fragment on Project {
@@ -55,6 +74,7 @@ const ProjectHeaderContainer = Relay.createContainer(injectIntl(ProjectHeaderCom
           dbid,
           slug,
           permissions,
+          pusher_channel,
           get_slack_notifications_enabled,
           projects(first: 10000) {
             edges {

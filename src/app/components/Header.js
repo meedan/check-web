@@ -11,15 +11,16 @@ import { Link } from 'react-router';
 class Header extends Component {
   render() {
     const { state } = this.props;
-    const path = this.props.location ? this.props.location.pathname : null;
+    const path = window.location.pathname;
     const showCheckLogo = /^\/(check(\/.*)?)?$/.test(path);
+    const joinPage = /^\/([^\/]+)\/join$/.test(path);
 
     const defaultHeader = (
       <header className="header header--default">
         <div className="header__container">
           { showCheckLogo ?
             (<Link to='/check/teams' className='header__app-link'><img src='/images/logo/check.svg' /></Link>) :
-            (<div className="header__team"><TeamHeader {...this.props} /></div>)
+            (joinPage ? (<div className="header__team"><TeamPublicHeader {...this.props} /></div>) : (<div className="header__team"><TeamHeader {...this.props} /></div>))
           }
           <ProjectHeader {...this.props} />
           <HeaderActions {...this.props} />

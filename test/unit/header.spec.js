@@ -9,14 +9,14 @@ import TeamPublicHeader from '../../src/app/components/team/TeamPublicHeader';
 
 describe('<Header />', () => {
   it('renders full team header on members page', function() {
-    const location = { pathname: '/members' };
+    const location = { pathname: '/team/members' };
     const header = shallow(<Header location={location} params={{}} />);
     expect(header.find(TeamHeader)).to.have.length(1);
     expect(header.find(TeamPublicHeader)).to.have.length(0);
   });
 
   it('renders public team header on team join page', function() {
-    const location = { pathname: '/join' };
+    const location = { pathname: '/team/join' };
     const header = shallow(<Header location={location} params={{}} />);
     expect(header.find(TeamHeader)).to.have.length(0);
     expect(header.find(TeamPublicHeader)).to.have.length(1);
