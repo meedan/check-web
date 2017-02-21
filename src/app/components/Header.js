@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import { defineMessages, injectIntl, intlShape } from 'react-intl';
 import FlatButton from 'material-ui/FlatButton';
 import TeamHeader from './team/TeamHeader';
 import TeamPublicHeader from './team/TeamPublicHeader';
@@ -9,26 +8,10 @@ import HeaderActions from './HeaderActions';
 import Can from './Can';
 import { Link } from 'react-router';
 
-const messages = defineMessages({
-  projectLabel: {
-    id: 'header.projectLabel',
-    defaultMessage: 'Project'
-  },
-  teamLabel: {
-    id: 'header.teamLabel',
-    defaultMessage: 'Team'
-  },
-  teamsLabel: {
-    id: 'header.teamsLabel',
-    defaultMessage: 'Teams'
-  }
-});
-
 class Header extends Component {
   render() {
     const { state } = this.props;
     const path = this.props.location ? this.props.location.pathname : null;
-    const { formatMessage } = this.props.intl;
     const showCheckLogo = /^\/(check(\/.*)?)?$/.test(path);
 
     const defaultHeader = (
@@ -48,8 +31,4 @@ class Header extends Component {
   }
 }
 
-Header.propTypes = {
-  intl: intlShape.isRequired
-};
-
-export default injectIntl(Header);
+export default Header;
