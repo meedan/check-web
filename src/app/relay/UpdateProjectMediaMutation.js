@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 
-class UpdateMediaMutation extends Relay.Mutation {
+class UpdateProjectMediaMutation extends Relay.Mutation {
   getMutation() {
     return Relay.QL`mutation updateProjectMedia {
       updateProjectMedia
@@ -35,4 +35,4 @@ class UpdateMediaMutation extends Relay.Mutation {
   }
 }
 
-export default UpdateMediaMutation;
+export default UpdateProjectMediaMutation;

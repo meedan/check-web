@@ -14,7 +14,7 @@ import DefaultButton from '../inputs/DefaultButton';
 import PenderCard from '../PenderCard';
 import TimeBefore from '../TimeBefore';
 import ImageMediaCard from './ImageMediaCard';
-import UpdateMediaMutation from '../../relay/UpdateMediaMutation';
+import UpdateProjectMediaMutation from '../../relay/UpdateProjectMediaMutation';
 import CheckContext from '../../CheckContext';
 import { bemClass } from '../../helpers';
 
@@ -56,7 +56,7 @@ class MediaDetail extends Component {
     };
 
     Relay.Store.commitUpdate(
-      new UpdateMediaMutation({
+      new UpdateProjectMediaMutation({
         embed: JSON.stringify({ title: newTitle }),
         id: media.id,
       }),

@@ -12,7 +12,16 @@ const userFragment = Relay.QL`
       name,
       avatar,
       slug,
-      members_count
+      members_count,
+      projects(first: 10000) {
+        edges {
+          node {
+            id,
+            dbid,
+            title
+          }
+        }
+      }
     },
     team_users(first: 10000) {
       edges {
@@ -23,7 +32,16 @@ const userFragment = Relay.QL`
             name,
             avatar,
             slug,
-            members_count
+            members_count,
+            projects(first: 10000) {
+              edges {
+                node {
+                  id,
+                  dbid,
+                  title
+                }
+              }
+            }
           }
           id,
           status,
