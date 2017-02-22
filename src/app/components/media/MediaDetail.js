@@ -38,6 +38,10 @@ class MediaDetail extends Component {
     this.setState({ isEditing: true });
   }
 
+  handleMove() {
+    // a modal dialog must show up;
+  }
+
   handleSave(media, event) {
     if (event) {
       event.preventDefault();

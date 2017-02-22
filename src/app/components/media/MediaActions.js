@@ -22,11 +22,15 @@ class MediaActions extends Component {
   }
 
   render() {
-    const { media, handleEdit } = this.props;
+    const { media, handleEdit, handleMove } = this.props;
     const menuItems = [];
 
     if (can(media.permissions, 'create Tag')) {
       menuItems.push(<li className="media-actions__menu-item" onClick={handleEdit}><FormattedMessage id="mediaActions.edit" defaultMessage="Edit..." /></li>);
+    }
+
+    if (can(media.permissions, 'update ProjectMedia')) {
+      menuItems.push(<li className="media-actions__menu-item" onClick={handleMove}><FormattedMessage id="mediaActions.move" defaultMessage="Move" /></li>);
     }
 
     return menuItems.length ? (
