@@ -3,6 +3,10 @@ import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-i
 import Relay from 'react-relay';
 import { Link } from 'react-router';
 import config from 'config';
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
+import RadioButton from 'material-ui/RadioButton';
+import RadioButtonGroup from 'material-ui/RadioButton';
 import MediaStatus from './MediaStatus';
 import MediaTags from './MediaTags';
 import QuoteMediaCard from './QuoteMediaCard';
@@ -39,7 +43,7 @@ class MediaDetail extends Component {
   }
 
   handleMove() {
-    // a modal dialog must show up;
+    this.setState({ openMoveDialog: true });
   }
 
   handleSave(media, event) {
@@ -72,6 +76,14 @@ class MediaDetail extends Component {
 
   handleCancel() {
     this.setState({ isEditing: false });
+  }
+
+  handleCloseDialog() {
+    this.setState({ openMoveDialog: false });
+  }
+
+  handleMoveProjectMedia() { //maybe rename to submit of perform
+    console.log('should move media between projects');
   }
 
   statusToClass(baseClass, status) {
@@ -111,6 +123,11 @@ class MediaDetail extends Component {
                    <PenderCard url={media.url} penderUrl={config.penderUrl} fallback={null} />;
     }
 
+    const actions = [
+      <FlatButton label={<FormattedMessage id="mediaDetail.cancel" defaultMessage="Nevermind" />} primary={true} onClick={this.handleCloseDialog.bind(this)} />,
+      <FlatButton label={<FormattedMessage id="mediaDetail.move" defaultMessage="Move" />} primary={true} keyboardFocused={true} onClick={this.handleMoveProjectMedia.bind(this)} />
+    ];
+
     return (
       <div className={this.statusToClass('media-detail', media.last_status) + ' ' + 'media-detail--' + MediaUtil.typeLabel(media, data).toLowerCase()}>
         <div className="media-detail__header">
@@ -145,8 +162,20 @@ class MediaDetail extends Component {
               ) : null
             }
           {this.props.readonly || this.state.isEditing ? null :
-          <MediaActions media={media} handleEdit={this.handleEdit.bind(this)} />
+          <MediaActions media={media} handleEdit={this.handleEdit.bind(this)} handleMove={this.handleMove.bind(this)}/>
             }
+
+          <Dialog actions={actions} modal={true} open={this.state.openMoveDialog} onRequestClose={this.handleCloseDialog.bind(this)}>
+            <h4>Move this project_media.media.type to a different project</h4>
+            <small>Currently filed under project_media.team.name > project_media.project.title</small>
+            <form name="move-dialog-test">
+              <ul>
+                {/* <RadioButtonGroup children={projectRadios} /> */}
+                  <li><RadioButton label="Project A" /></li>
+                  <li><RadioButton label="Project B" /></li>
+              </ul>
+            </form>
+          </Dialog>
         </div>
       </div>
     );
