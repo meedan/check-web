@@ -78,7 +78,7 @@ class CreateProjectMedia extends Component {
     this.setState({ isSubmitting: true, message: this.props.intl.formatMessage(messages.submitting) });
 
     const handleError = (json) => {
-      let message = this.props.intl.formatMessage(messages.error) + ' <b id="close-message">✖</b>';
+      let message = this.props.intl.formatMessage(messages.error);
       if (json && json.error) {
         const matches = json.error.match(/^This media already exists in this project and has id ([0-9]+)$/);
         if (matches) {
@@ -87,15 +87,17 @@ class CreateProjectMedia extends Component {
           message = null;
           context.history.push(prefix + pmid);
         }
+        else {
+          message = json.error;
+        }
       }
-      that.setState({ message, isSubmitting: false });
+      that.setState({ message + ' <b id="close-message">✖</b>', isSubmitting: false });
     };
 
     const onFailure = (transaction) => {
       const transactionError = transaction.getError();
       try {
-        const json = JSON.parse(transactionError.source);
-        handleError(json);
+        handleError(JSON.parse(transactionError.source));
       } catch (e) {
         handleError(JSON.stringify(transactionError));
       }
