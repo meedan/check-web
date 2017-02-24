@@ -15,7 +15,7 @@ class CreateFlagMutation extends Relay.Mutation {
       query = Relay.QL`fragment on CreateFlagPayload { flagEdge, source { annotations } }`;
       break;
     case 'project_media':
-      query = Relay.QL`fragment on CreateFlagPayload { flagEdge, project_media { annotations, annotations_count } }`;
+      query = Relay.QL`fragment on CreateFlagPayload { flagEdge, project_media { log, annotations_count } }`;
       break;
     }
     return query;
@@ -51,14 +51,6 @@ class CreateFlagMutation extends Relay.Mutation {
     fieldIds[this.props.parent_type] = this.props.annotated.id;
 
     return [
-      {
-        type: 'RANGE_ADD',
-        parentName: this.props.parent_type,
-        parentID: this.props.annotated.id,
-        connectionName: 'annotations',
-        edgeName: 'flagEdge',
-        rangeBehaviors: calls => 'prepend',
-      },
       {
         type: 'FIELDS_CHANGE',
         fieldIDs: fieldIds,

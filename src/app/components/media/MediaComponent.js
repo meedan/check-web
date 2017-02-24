@@ -94,7 +94,7 @@ class MediaComponent extends Component {
 
           <ContentColumn>
             <h3 className="media__notes-heading"><FormattedMessage id="mediaComponent.verificationTimeline" defaultMessage="Verification Timeline" /></h3>
-            <Annotations annotations={media.annotations.edges.reverse()} annotated={media} annotatedType="ProjectMedia" />
+            <Annotations annotations={media.log.edges} annotated={media} annotatedType="ProjectMedia" />
             <MediaChecklist />
           </ContentColumn>
         </div>

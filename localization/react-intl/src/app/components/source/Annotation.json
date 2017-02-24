@@ -16,7 +16,35 @@
     "defaultMessage": "Tagged #{tag} by {author}"
   },
   {
+    "id": "annotation.taskResolve",
+    "defaultMessage": "Task \"{task}\" answered by {author}: {response}"
+  },
+  {
     "id": "annotation.flaggedHeader",
     "defaultMessage": "Flagged as {flag} by {author}"
+  },
+  {
+    "id": "annotation.titleChanged",
+    "defaultMessage": "Title changed to {title} by {author}"
+  },
+  {
+    "id": "annotation.projectMoved",
+    "defaultMessage": "Moved from project {previousProject} to {currentProject} by {author}"
+  },
+  {
+    "id": "annotation.taskLabelUpdated",
+    "defaultMessage": "Task \"{from}\" edited to \"{to}\" by {author}"
+  },
+  {
+    "id": "annotation.taskNoteUpdated",
+    "defaultMessage": "Task \"{title}\" has note edited from \"{from}\" to \"{to}\" by {author}"
+  },
+  {
+    "id": "annotation.taskNoteCreated",
+    "defaultMessage": "Task \"{title}\" has new note \"{note}\" by {author}"
+  },
+  {
+    "id": "annotation.taskResolved",
+    "defaultMessage": "Task \"{title}\" resolved by {author}"
   }
 ]

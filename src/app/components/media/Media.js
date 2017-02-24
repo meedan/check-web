@@ -69,52 +69,82 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
             }
           }
         }
-        annotations(first: 10000) {
+        log(first: 10000) {
           edges {
             node {
               id,
               dbid,
-              content,
-              annotation_type,
-              updated_at,
+              item_type,
+              item_id,
+              event,
+              event_type,
               created_at,
-              permissions,
-              medias(first: 10000) {
+              object_after,
+              object_changes_json,
+              meta,
+              projects(first: 2) {
                 edges {
                   node {
                     id,
                     dbid,
-                    quote,
-                    published,
-                    url,
-                    embed,
-                    project_id,
-                    last_status,
-                    annotations_count,
-                    permissions,
-                    verification_statuses,
-                    domain,
-                    media {
-                      embed_path,
-                      thumbnail_path
-                    }
-                    user {
-                      name,
-                      source {
-                        dbid
+                    title
+                  }
+                }
+              }
+              user {
+                name,
+                profile_image
+              }
+              task {
+                id,
+                dbid,
+                label
+              }
+              annotation {
+                id,
+                dbid,
+                content,
+                annotation_type,
+                updated_at,
+                created_at,
+                permissions,
+                medias(first: 10000) {
+                  edges {
+                    node {
+                      id,
+                      dbid,
+                      quote,
+                      published,
+                      url,
+                      embed,
+                      project_id,
+                      last_status,
+                      annotations_count,
+                      permissions,
+                      verification_statuses,
+                      domain,
+                      media {
+                        embed_path,
+                        thumbnail_path
+                      }
+                      user {
+                        name,
+                        source {
+                          dbid
+                        }
                       }
                     }
                   }
                 }
-              }
-              annotator {
-                name,
-                profile_image
-              }
-              version {
-                id
-                item_id
-                item_type
+                annotator {
+                  name,
+                  profile_image
+                }
+                version {
+                  id
+                  item_id
+                  item_type
+                }
               }
             }
           }
