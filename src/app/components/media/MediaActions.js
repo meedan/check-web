@@ -30,7 +30,7 @@ class MediaActions extends Component {
     }
 
     if (can(media.permissions, 'update ProjectMedia')) {
-      menuItems.push(<li className="media-actions__menu-item" onClick={handleMove}><FormattedMessage id="mediaActions.move" defaultMessage="Move" /></li>);
+      menuItems.push(<li className="media-actions__menu-item" onClick={handleMove}><FormattedMessage id="mediaActions.move" defaultMessage="Move..." /></li>);
     }
 
     return menuItems.length ? (
