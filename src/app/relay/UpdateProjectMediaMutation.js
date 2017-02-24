@@ -11,7 +11,8 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
   getFatQuery() {
     return Relay.QL`
       fragment on UpdateProjectMediaPayload {
-        project_media
+        project_media,
+        project
       }
     `;
   }
@@ -29,8 +30,8 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
     return [
       {
         type: 'FIELDS_CHANGE',
-        fieldIDs: { project_media: this.props.id },
-      },
+        fieldIDs: { project_media: this.props.id, project: this.props.project_id },
+      }
     ];
   }
 }

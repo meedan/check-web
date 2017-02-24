@@ -211,10 +211,10 @@ class MediaDetail extends Component {
           }
 
           <Dialog actions={actions} modal={true} open={this.state.openMoveDialog} onRequestClose={this.handleCloseDialog.bind(this)}>
-            <h4>{`Move this ${MediaUtil.typeLabel(media, data)} to a different project`}</h4>
-            <small>{`Currently filed under ${current_team.name} > ${currentProject.title}`}</small>
-            <RadioButtonGroup name="moveMedia" onChange={this.handleSelectDestProject.bind(this)}>
-              {destinationProjects.map((proj) => { return (<RadioButton label={proj.title} value={proj.dbid} />);})}
+            <h4 className="media-detail__dialog-header">{`Move this ${MediaUtil.typeLabel(media, data)} to a different project`}</h4>
+            <small className="media-detail__dialog-media-path">{`Currently filed under ${current_team.name} > ${currentProject.title}`}</small>
+            <RadioButtonGroup name="moveMedia" className="media-detail__dialog-radio-group" onChange={this.handleSelectDestProject.bind(this)}>
+              {destinationProjects.map((proj) => { return (<RadioButton label={proj.title} value={proj.dbid} style={{ padding:'5px' }} />);})}
             </RadioButtonGroup>
             </Dialog>
         </div>
