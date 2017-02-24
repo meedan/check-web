@@ -5,8 +5,7 @@ import { Link } from 'react-router';
 import config from 'config';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
-import RadioButton from 'material-ui/RadioButton';
-import RadioButtonGroup from 'material-ui/RadioButton';
+import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 import MediaStatus from './MediaStatus';
 import MediaTags from './MediaTags';
 import QuoteMediaCard from './QuoteMediaCard';
@@ -36,6 +35,11 @@ class MediaDetail extends Component {
     this.state = {
       isEditing: false,
     };
+  }
+
+  getContext() {
+    const context = new CheckContext(this).getContextStore();
+    return context;
   }
 
   handleEdit() {
@@ -82,8 +86,33 @@ class MediaDetail extends Component {
     this.setState({ openMoveDialog: false });
   }
 
+  handleSelectDestProject(event, id){
+    this.setState({ destProjectId: id });
+  }
+
   handleMoveProjectMedia() { //maybe rename to submit of perform
-    console.log('should move media between projects');
+    const { media } = this.props;
+    const projectId = this.state.destProjectId;
+    const history = this.getContext().history;
+
+    const onFailure = (transaction) => {
+      const transactionError = transaction.getError();
+      transactionError.json ? transactionError.json().then(handleError) : handleError(JSON.stringify(transactionError));
+    };
+
+    const onSuccess = (response) => {
+      history.push(`/${media.team.slug}/project/${projectId}/media/${media.dbid}`)
+    };
+
+    Relay.Store.commitUpdate(
+      new UpdateProjectMediaMutation({
+        project_id: projectId,
+        id: media.id,
+      }),
+      { onSuccess, onFailure },
+    );
+
+    this.setState({ openMoveDialog: false });
   }
 
   statusToClass(baseClass, status) {
@@ -93,17 +122,33 @@ class MediaDetail extends Component {
       baseClass;
   }
 
+  currentProject(projectId, projects){
+    return projects[projects.findIndex((p) => { return (p.dbid === projectId) })];
+  }
+
+  destinationProjects(projectId, projects){
+    return projects.filter((p) => { return (p.dbid !== projectId) });
+  }
+
   render() {
     const { media, annotated, annotatedType, condensed } = this.props;
     const data = JSON.parse(media.embed);
     const createdAt = MediaUtil.createdAt(media);
     const annotationsCount = MediaUtil.notesCount(media, data);
 
+    const context = this.getContext();
+    const { project } = context;
+    const { projects } = context.currentUser.current_team;
+    const { current_team } = context.currentUser;
+
     let projectId = media.project_id;
     if (!projectId && annotated && annotatedType === 'Project') {
       projectId = annotated.dbid;
     }
     const mediaUrl = (projectId && media.team) ? `/${media.team.slug}/project/${projectId}/media/${media.dbid}` : null;
+
+    const currentProject = this.currentProject(project.dbid, projects);
+    const destinationProjects = this.destinationProjects(project.dbid, projects);
 
     const byUser = (media.user && media.user.source && media.user.source.dbid && media.user.name !== 'Pender') ?
       (<FormattedMessage id="mediaDetail.byUser" defaultMessage={`by {username}`} values={{username: media.user.name}} />) : '';
@@ -162,20 +207,16 @@ class MediaDetail extends Component {
               ) : null
             }
           {this.props.readonly || this.state.isEditing ? null :
-          <MediaActions media={media} handleEdit={this.handleEdit.bind(this)} handleMove={this.handleMove.bind(this)}/>
-            }
+            <MediaActions media={media} handleEdit={this.handleEdit.bind(this)} handleMove={this.handleMove.bind(this)}/>
+          }
 
           <Dialog actions={actions} modal={true} open={this.state.openMoveDialog} onRequestClose={this.handleCloseDialog.bind(this)}>
-            <h4>Move this project_media.media.type to a different project</h4>
-            <small>Currently filed under project_media.team.name > project_media.project.title</small>
-            <form name="move-dialog-test">
-              <ul>
-                {/* <RadioButtonGroup children={projectRadios} /> */}
-                  <li><RadioButton label="Project A" /></li>
-                  <li><RadioButton label="Project B" /></li>
-              </ul>
-            </form>
-          </Dialog>
+            <h4>{`Move this ${MediaUtil.typeLabel(media, data)} to a different project`}</h4>
+            <small>{`Currently filed under ${current_team.name} > ${currentProject.title}`}</small>
+            <RadioButtonGroup name="moveMedia" onChange={this.handleSelectDestProject.bind(this)}>
+              {destinationProjects.map((proj) => { return (<RadioButton label={proj.title} value={proj.dbid} />);})}
+            </RadioButtonGroup>
+            </Dialog>
         </div>
       </div>
     );

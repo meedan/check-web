@@ -21,7 +21,7 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
       id: this.props.id,
       // url: this.props.url
       embed: this.props.embed,
-      // project_id: this.props.project.dbid
+      project_id: this.props.project_id
     };
   }
 
