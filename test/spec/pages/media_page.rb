@@ -10,12 +10,21 @@ class MediaPage < Page
     wait_for_element(".media-status__current--#{status.to_s}")
   end
 
+  def set_title(string)
+    edit
+    fill_input('.media-detail__title-input', string, {clear: true})
+    click('.media-detail__save-edits') # Done
+    @wait.until {
+      string == primary_heading.text
+    }
+  end
+
   def status_label
     element('.media-status__label').text
   end
 
   def editing_mode?
-    contains_element?('.ReactTags__tags')
+    contains_element?('.media-detail__title-input')
   end
 
   def edit
@@ -49,6 +58,19 @@ class MediaPage < Page
   def add_annotation(string)
     fill_input('#cmd-input', string)
     press(:enter)
+  end
+
+  def primary_heading
+    element('.media__primary-heading')
+  end
+
+  def go_to_project
+    click('.project-header__title')
+    click('.project-list__link--active')
+    click('.project-header__menu-overlay')
+
+    @wait.until { element('.project') }
+    return ProjectPage.new(config: @config, driver: @driver)
   end
 end
 
