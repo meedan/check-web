@@ -11,7 +11,7 @@
 %shimmer {
   animation: placeHolderShimmer 1s ease-out infinite;
   animation-fill-mode: forwards;
-  background: linear-gradient(90deg, $black-05, $black-05, $black-02, $black-02, $white, $black-02, $black-05, $black-05);
+  background: linear-gradient(90deg, $opaque-black-05, $opaque-black-05, $opaque-black-02, $opaque-black-02, $white, $opaque-black-02, $opaque-black-05, $opaque-black-05);
   background-size: 400%;
 }
 
