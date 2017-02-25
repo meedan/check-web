@@ -34,7 +34,6 @@ function pageTitle(prefix, skipTeam, team) {
 }
 
 function safelyParseJSON(jsonString) {
-  console.log(jsonString);
   try {
     return JSON.parse(jsonString)
   } catch (e) {}
