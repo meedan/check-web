@@ -542,7 +542,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 10
       expect(@driver.current_url.to_s.match(/\/media\/[0-9]+$/).nil?).to be(true)
       message = get_element('.create-media .message').text
-      expect(message.match(/^Something went wrong! Try pasting the text of this post instead, or adding a different link/).nil?).to be(false)
+      expect(message.match(/^Validation failed: Media can't be blank/).nil?).to be(false)
     end
 
     it "should tag media from tags list" do
@@ -824,7 +824,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 5
       @driver.execute_script('window.close()')
       @driver.switch_to.window(current_window)
-      
+
       sleep 5
       expect(@driver.page_source.include?('Auto-Refresh')).to be(true)
     end
@@ -846,7 +846,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 5
       @driver.execute_script('window.close()')
       @driver.switch_to.window(current_window)
-      
+
       sleep 5
       expect(@driver.page_source.include?('Auto-Refresh')).to be(true)
     end

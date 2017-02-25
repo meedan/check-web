@@ -21,8 +21,14 @@ class UploadLabel extends Component {
     const about = this.props.about;
     return (
       <FormattedMessage id="uploadLabel.message"
-            defaultMessage="Try dropping an image file here, or click to upload a file (max: {max_upload_size})"
-                    values={{max_upload_size: about.max_upload_size}} />
+            defaultMessage="Try dropping an image file here, or click to upload a file (max size: {upload_max_size}, allowed extensions: {upload_extensions}, allowed dimensions between {upload_min_dimensions} and {upload_max_dimensions} pixels)"
+                    values={{
+                      upload_max_size: about.upload_max_size,
+                      upload_extensions: about.upload_extensions,
+                      upload_max_dimensions: about.upload_max_dimensions,
+                      upload_min_dimensions: about.upload_min_dimensions
+                    }}
+      />
     );
   }
 }
@@ -31,7 +37,10 @@ const UploadLabelContainer = Relay.createContainer(UploadLabel, {
   fragments: {
     about: () => Relay.QL`
       fragment on About {
-        max_upload_size
+        upload_max_size,
+        upload_extensions,
+        upload_max_dimensions,
+        upload_min_dimensions
       }
     `,
   },
