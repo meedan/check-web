@@ -33,8 +33,16 @@ function pageTitle(prefix, skipTeam, team) {
   return (prefix ? (`${prefix} | `) : '') + suffix;
 }
 
+function safelyParseJSON(jsonString) {
+  console.log(jsonString);
+  try {
+    return JSON.parse(jsonString)
+  } catch (e) {}
+}
+
 export {
   bemClass,
   bemClassFromMediaStatus,
-  pageTitle
+  pageTitle,
+  safelyParseJSON
 };

@@ -19,7 +19,7 @@ import TimeBefore from '../TimeBefore';
 import ImageMediaCard from './ImageMediaCard';
 import UpdateProjectMediaMutation from '../../relay/UpdateProjectMediaMutation';
 import CheckContext from '../../CheckContext';
-import { bemClass } from '../../helpers';
+import { bemClass, safelyParseJSON } from '../../helpers';
 
 const messages = defineMessages({
   mediaTitle: {
@@ -135,6 +135,9 @@ class MediaDetail extends Component {
     const data = JSON.parse(media.embed);
     const createdAt = MediaUtil.createdAt(media);
     const annotationsCount = MediaUtil.notesCount(media, data);
+    const userOverrides = safelyParseJSON(media.overridden);
+    const heading = (userOverrides && userOverrides.title) ?
+        MediaUtil.title(media, data) : MediaUtil.attributedType(media, data);
 
     const context = this.getContext();
     const { project } = context;
@@ -181,7 +184,7 @@ class MediaDetail extends Component {
 
         {this.state.isEditing ?
           <form onSubmit={this.handleSave.bind(this, media)}><input type="text" id={`media-detail-title-input-${media.dbid}`} className="media-detail__title-input" placeholder={this.props.intl.formatMessage(messages.mediaTitle)} defaultValue={MediaUtil.truncatedTitle(media, data)} /></form> :
-          <h2 className="media-detail__title"><Link to={mediaUrl}>{this.props.condensed ? MediaUtil.truncatedTitle(media, data) : MediaUtil.title(media, data)}</Link></h2>
+          <h2 className="media-detail__heading"><Link to={mediaUrl}>{heading}</Link></h2>
         }
 
         <div className={this.statusToClass('media-detail__media', media.last_status)}>

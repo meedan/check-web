@@ -10,7 +10,7 @@ import config from 'config';
 import { pageTitle } from '../../helpers';
 import CheckContext from '../../CheckContext';
 import Tasks from '../task/Tasks';
-import { bemClassFromMediaStatus } from '../../helpers';
+import { bemClassFromMediaStatus, safelyParseJSON } from '../../helpers';
 import ContentColumn from '../layout/ContentColumn';
 import MediaStatus from './MediaStatus';
 
@@ -70,20 +70,24 @@ class MediaComponent extends Component {
   }
 
   render() {
+    if (this.props.relay.variables.contextId === null) {
+      return null;
+    }
+
     const media = this.props.media;
     const data = JSON.parse(media.embed);
     media.url = media.media.url
     media.quote = media.media.quote
-    if (this.props.relay.variables.contextId === null) {
-      return null;
-    }
+    const userOverrides = safelyParseJSON(media.overridden);
+    const primaryHeading = (userOverrides && userOverrides.title) ?
+        MediaUtil.title(media, data) : MediaUtil.attributedType(media, data);
 
     return (
       <DocumentTitle title={pageTitle(MediaUtil.title(media, data), false, this.getContext().team)}>
         <div className='media' data-id={media.dbid}>
           <div className={bemClassFromMediaStatus('media__expanded', media.last_status)}>
             <ContentColumn>
-              <h1 className='media__title'>{MediaUtil.title(media, data)}</h1>
+              <h1 className='media__primary-heading'>{primaryHeading}</h1>
               <div className="media__status">
                 <MediaStatus media={media} readonly={this.props.readonly} />
               </div>
