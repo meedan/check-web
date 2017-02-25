@@ -67,7 +67,7 @@ class MediaPage < Page
   def go_to_project
     click('.project-header__title')
     click('.project-list__link--active')
-    click('.project-header__menu-overlay')
+    click('.project-header__menu-toggle-label')
 
     @wait.until { element('.project') }
     return ProjectPage.new(config: @config, driver: @driver)
