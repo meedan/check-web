@@ -73,6 +73,7 @@
 .project-header__menu-toggle:checked + .project-header__menu-toggle-label {
   .project-header__menu-overlay {
     display: block;
+    pointer-events: auto;
   }
 }
 
