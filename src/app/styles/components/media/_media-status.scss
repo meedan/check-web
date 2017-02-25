@@ -1,24 +1,25 @@
 $menu-status-item-padding: 16px;
+$menu-status-offset: 5px;
 
 .media-status {
   position: relative;
-  padding: 3px 3px 0 5px;
+  padding: 3px 3px 0 $menu-status-offset;
   border-radius: 2px;
   display: inline-block;
 
   &--editable {
     cursor: pointer;
-    margin-left: -4px;
+    margin-left: -$menu-status-offset;
+
+    &:hover {
+      background-color: $black-05;
+      transition: .2s;
+    }
   }
 
   &__caret {
-    width: 24px;
-    height: 24px;
-  }
-
-  &:hover {
-    background-color: $black-05;
-    transition: .2s;
+    width: 20px;
+    height: 20px;
   }
 
   &:hover &__caret {
@@ -34,11 +35,10 @@ $menu-status-item-padding: 16px;
   }
 }
 
-// current
+// The text of the currently applied status
 .media-status__current {
   @include media-status-font-colors;
   position: relative;
-  border-left: 1px solid transparent;
   white-space: nowrap;
 }
 
@@ -46,54 +46,18 @@ $menu-status-item-padding: 16px;
   color: $black-87;
 }
 
-// menu
+// The status menu
 .media-status__overlay {
-  position: fixed;
-  z-index: 2;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: $white;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 100ms ease;
-
-  &--active {
-    pointer-events: auto;
-  }
+  @include modal-overlay(transparent);
 }
 
 .media-status__menu {
-  // TODO This should probably be based on @mixin app-menu CGB 2017-2-16
-  @include box-shadow(2);
-  z-index: 3;
-  position: absolute;
-  top: 31px;
-  left: -15px;
-  min-width: 250px;
-  padding: 8px 0;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 200ms ease;
-  background: $white;
-
-  &--active {
-    pointer-events: auto;
-    opacity: 1;
-  }
+  @include app-menu;
 }
 
 .media-status__menu-item {
-  @include media-status-font-colors;
   @include media-status-menu-hover-colors;
-  padding: $menu-status-item-padding;
-  font-size: 15px;
-  cursor: pointer;
-  opacity: .7;
-  transition: opacity 200ms ease;
-  margin-right: 5px;
+  @include media-status-font-colors;
 
   .media-status__icon--radio-button-selected {
     display: none;
