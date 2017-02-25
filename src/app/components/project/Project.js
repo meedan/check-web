@@ -165,6 +165,7 @@ const ProjectContainer = Relay.createContainer(ProjectComponent, {
               }
               permissions,
               verification_statuses,
+              overridden,
               media {
                 url,
                 quote,
