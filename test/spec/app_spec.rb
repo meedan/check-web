@@ -914,6 +914,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       media_pg.set_title('Edited media title')
 
       expect(media_pg.primary_heading.text).to eq('Edited media title')
+      project_pg = media_pg.go_to_project
+      expect(project_pg.element('.media-detail__heading').text).to eq('Edited media title')
     end
   end
 end
