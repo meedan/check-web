@@ -8,17 +8,17 @@ $menu-status-item-padding: 16px;
 
   &--editable {
     cursor: pointer;
-    margin-left: -4px;
+    margin-left: -5px;
+
+    &:hover {
+      background-color: $black-05;
+      transition: .2s;
+    }
   }
 
   &__caret {
-    width: 24px;
-    height: 24px;
-  }
-
-  &:hover {
-    background-color: $black-05;
-    transition: .2s;
+    width: 20px;
+    height: 20px;
   }
 
   &:hover &__caret {
@@ -34,7 +34,7 @@ $menu-status-item-padding: 16px;
   }
 }
 
-// current
+// The text of the currently applied status
 .media-status__current {
   @include media-status-font-colors;
   position: relative;
@@ -46,7 +46,7 @@ $menu-status-item-padding: 16px;
   color: $black-87;
 }
 
-// menu
+// The status menu
 .media-status__overlay {
   position: fixed;
   z-index: 2;
@@ -70,8 +70,7 @@ $menu-status-item-padding: 16px;
   @include box-shadow(2);
   z-index: 3;
   position: absolute;
-  top: 31px;
-  left: -15px;
+  top: 27px;
   min-width: 250px;
   padding: 8px 0;
   opacity: 0;
