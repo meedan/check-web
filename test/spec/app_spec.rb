@@ -886,8 +886,39 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     #   skip("Needs to be implemented")
     # end
 
-    # it "should edit the title of a media" do
-    #   skip("Needs to be implemented")
-    # end
+    it "should display a default title for new media" do
+      # Tweets
+      media_pg = LoginPage.new(config: @config, driver: @driver).load
+          .login_with_email(email: @email, password: @password)
+          .create_media(input: 'https://twitter.com/joeyayoub/status/829060304642383873?t=' + Time.now.to_i.to_s)
+      expect(media_pg.primary_heading.text).to eq('Tweet by joeyayoub')
+      project_pg = media_pg.go_to_project
+      expect(project_pg.element('.media-detail__heading').text).to eq('Tweet by joeyayoub')
+
+      # YouTube
+      media_pg = project_pg.create_media(input: 'https://www.youtube.com/watch?v=ykLgjhBnik0?t=' + Time.now.to_i.to_s)
+      expect(media_pg.primary_heading.text).to eq('Video by FirstDraftNews')
+      project_pg = media_pg.go_to_project
+      expect(project_pg.element('.media-detail__heading').text).to eq('Video by FirstDraftNews')
+
+      # Facebook
+      media_pg = project_pg.create_media(input: 'https://www.facebook.com/FirstDraftNews/posts/1808121032783161?t=' + Time.now.to_i.to_s)
+      expect(media_pg.primary_heading.text).to eq('Facebook post by First Draft News')
+      project_pg = media_pg.go_to_project
+      expect(project_pg.element('.media-detail__heading').text).to eq('Facebook post by First Draft News')
+    end
+
+    it "should edit the title of a media" do
+      media_pg = LoginPage.new(config: @config, driver: @driver).load
+          .login_with_email(email: @email, password: @password)
+          .create_media(input: 'https://twitter.com/softlandscapes/status/834385935240462338?t=' + Time.now.to_i.to_s)
+      expect(media_pg.primary_heading.text).to eq('Tweet by softlandscapes')
+      sleep 2 # :/ clicks can misfire if pender iframe moves the button position at the wrong moment
+      media_pg.set_title('Edited media title')
+
+      expect(media_pg.primary_heading.text).to eq('Edited media title')
+      project_pg = media_pg.go_to_project
+      expect(project_pg.element('.media-detail__heading').text).to eq('Edited media title')
+    end
   end
 end
