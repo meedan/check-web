@@ -42,9 +42,5 @@
   {
     "id": "annotation.taskNoteCreated",
     "defaultMessage": "Task \"{title}\" has new note \"{note}\" by {author}"
-  },
-  {
-    "id": "annotation.taskResolved",
-    "defaultMessage": "Task \"{title}\" resolved by {author}"
   }
 ]

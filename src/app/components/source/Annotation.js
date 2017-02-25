@@ -254,19 +254,6 @@ class Annotation extends Component {
             </section>
           );
         }
-        else {
-          contentTemplate = (
-            <section className="annotation__content">
-              <div className="annotation__header">
-                <span className="annotation__update-task">
-                  <FormattedMessage id="annotation.taskResolved" defaultMessage={`Task "{title}" resolved by {author}`} values={{ title: to.label, author }} />
-                </span>
-                {updatedAt ? <span className="annotation__timestamp"><TimeBefore date={updatedAt} /></span> : null}
-                {annotationActions}
-              </div>
-            </section>
-          );
-        }
       }
       break;
     default:
