@@ -5,19 +5,19 @@
 .media-detail {
   @include media-status-border-colors;
   @include box-shadow(1);
-  padding: 12px 0 0 16px;
+  background-color: $white;
   border-left: 8px solid;
   border-radius: 2px;
   margin-bottom: 24px;
-  background-color: $white;
+  padding: 12px 0 0 16px;
 }
 
 // Row with the status and actions menu button
 //
 .media-detail__header {
   display: flex;
-  justify-content: space-between;
   flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 .media-detail__status {
@@ -28,22 +28,49 @@
 //
 .media-detail__heading {
   font-size: 18px;
+  margin: 2px 24px 16px 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
   &,
-  & > a {
+  & > a,
+  & > a:visited {
     color: $black-87;
   }
-  margin: 2px 24px 16px 0;
-  @media all and (max-width: 500px) {
-    font-size: 16px;
+
+  // ellipsis truncation requires explicit width
+  @media screen and (min-width: 400px) {
+    width: 300px;
+  }
+
+  @media screen and (min-width: 500px) {
+    width: 400px;
+  }
+
+  @media screen and (min-width: 600px) {
+    width: 500px;
+  }
+
+  @media screen and (min-width: 700px) {
+    width: 600px;
+  }
+
+  @media screen and (min-width: 800px) {
+    width: 700px;
+  }
+
+  @media screen and (min-width: 900px) {
+    width: 800px;
   }
 }
 
 // Optional description
 //
 .media-detail__description {
+  line-height: 1.35;
   margin-top: 9px;
   max-width: 42em;
-  line-height: 1.35;
 }
 
 // The "inner card"
@@ -57,23 +84,23 @@
 // Check metadata
 //
 .media-detail__check-metadata {
-  display: flex;
   align-items: center;
   border-top: 1px solid $black-05;
-  margin-top: 24px;
-  font-size: 12px;
+  display: flex;
   flex-flow: wrap row;
+  font-size: 12px;
+  margin-top: 24px;
 }
 
 .media-detail__check-added-at,
 .media-detail__check-added-by,
 .media-detail__check-notes-count {
-  margin-right: 16px;
-  min-width: 50px;
-  min-height: 48px;
-  display: flex;
   align-items: center;
+  display: flex;
   flex-shrink: 0;
+  margin-right: 16px;
+  min-height: 48px;
+  min-width: 50px;
 
   span {
     padding-left: 3px;
@@ -83,20 +110,20 @@
 // Edit mode
 //
 .media-detail__title-input {
-  padding: 3px 5px;
-  border: 2px solid $black-05;
   border-radius: 4px;
-  margin: -1px 0 15px;
+  border: 2px solid $black-05;
   font-size: 19px;
   font-weight: 600;
-  width: 100%;
+  margin: -1px 0 15px;
   max-width: 500px;
+  padding: 3px 5px;
+  width: 100%;
 }
 
 .media-detail__editing-buttons {
-  margin: 4px 8px 4px auto;
   display: flex;
   flex-flow: wrap row;
+  margin: 4px 8px 4px auto;
 
   span {
     display: block;

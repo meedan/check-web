@@ -27,35 +27,11 @@
 
 .header-actions__menu {
   @include app-menu;
-  position: absolute;
   right: 16px;
-  min-width: 250px;
   top: 44px;
-  display: none;
-
-  &--active {
-    display: block;
-  }
-}
-
-.header-actions__menu-item {
-  font-size: 15px;
-  padding: 0 16px;
-  cursor: pointer;
-
-  &:hover {
-    background: $opaque-black-05;
-  }
 }
 
 .header-actions__link {
-  color: inherit;
-
-  &,
-  &:hover {
-    text-decoration: none;
-  }
-
   &:nth-last-child(-n + 2) {
     color: $black-38;
   }

@@ -9,6 +9,9 @@
   font-size: 24px;
   font-weight: 100;
   margin-bottom: 15px;
+  @media all and (max-width: 600px) {
+    font-size: 16px;
+  }
 }
 
 .quote-media-card__attribution {
