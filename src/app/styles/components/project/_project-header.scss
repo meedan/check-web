@@ -50,9 +50,10 @@
   justify-content: center;
   height: 100%;
   padding: 4px;
-  opacity: 0;
+  opacity: .4;
   transition: opacity 100ms ease;
 }
+
 .project-header__menu-toggle-label:hover .project-header__caret {
   opacity: 1;
 }
@@ -64,20 +65,21 @@
   top: 100%;
   z-index: 2;
 }
+
 .project-header__menu-overlay {
-  display: none;
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 1;
+  @include modal-overlay(transparent);
 }
+
 .project-header__menu-toggle:checked + .project-header__menu-toggle-label {
   .project-header__menu-overlay {
     display: block;
   }
 }
+
 .project-header__menu-toggle:checked ~ .project-header__project-list {
   display: block;
+
+  .project-list {
+    display: block;
+  }
 }
