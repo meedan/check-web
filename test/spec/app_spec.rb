@@ -519,7 +519,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 2
       press_button('#create-media-submit')
       sleep 10
-      id1 = @driver.current_url.to_s.gsub(/.*\/media\//, '').to_i
+      id1 = @driver.current_url.to_s.gsub(/^.*\/media\//, '').to_i
+      expect(id1 > 0).to be(true)
 
       @driver.navigate.to @driver.current_url.to_s.gsub(/\/media\/[0-9]+$/, '')
 
@@ -528,8 +529,10 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 2
       press_button('#create-media-submit')
       sleep 10
-      id2 = @driver.current_url.to_s.gsub(/.*\/media\//, '').to_i
 
+      id2 = @driver.current_url.to_s.gsub(/^.*\/media\//, '').to_i
+      expect(id2 > 0).to be(true)
+      
       expect(id1 == id2).to be(true)
     end
 

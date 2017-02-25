@@ -80,7 +80,7 @@ class CreateProjectMedia extends Component {
     const handleError = (json) => {
       let message = this.props.intl.formatMessage(messages.error) + ' <b id="close-message">✖</b>';
       if (json && json.error) {
-        const matches = json.error.match(/^This media already exists in this project and has id ([0-9]+)$/);
+        const matches = json.error.match(/This media already exists in this project and has id ([0-9]+)$/);
         if (matches) {
           that.props.projectComponent.props.relay.forceFetch();
           const pmid = matches[1];
