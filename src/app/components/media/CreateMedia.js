@@ -91,7 +91,7 @@ class CreateProjectMedia extends Component {
           message = json.error;
         }
       }
-      that.setState({ message: message + ' <b id="close-message">✖</b>', isSubmitting: false });
+      that.setState({ message, isSubmitting: false });
     };
 
     const onFailure = (transaction) => {
