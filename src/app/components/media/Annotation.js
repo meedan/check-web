@@ -187,19 +187,21 @@ class Annotation extends Component {
         </section>
         );
       break;
-    case 'update_embed':
-      contentTemplate = (
-        <section className="annotation__content">
-          <div className="annotation__header">
-            <span>
-              <FormattedMessage id="annotation.titleChanged" defaultMessage={`Title changed to {title} by {author}`}
-               values={{ title: <b>{content.title}</b>, author: <span className="annotation__author-name">{activity.user.name} </span> }} />
-            </span>
-            {updatedAt ? <span className="annotation__timestamp"><TimeBefore date={updatedAt} /></span> : null}
-            {annotationActions}
-          </div>
-        </section>
+    case 'update_embed': case 'create_embed':
+      if (content.title) {
+        contentTemplate = (
+          <section className="annotation__content">
+            <div className="annotation__header">
+              <span>
+                <FormattedMessage id="annotation.titleChanged" defaultMessage={`Title changed to {title} by {author}`}
+                 values={{ title: <b>{content.title}</b>, author: <span className="annotation__author-name">{activity.user.name} </span> }} />
+              </span>
+              {updatedAt ? <span className="annotation__timestamp"><TimeBefore date={updatedAt} /></span> : null}
+              {annotationActions}
+            </div>
+          </section>
         );
+      }
       break;
     case 'update_projectmedia':
       if (activity.projects.edges.length > 0 && activity.user) {
