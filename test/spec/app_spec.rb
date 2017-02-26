@@ -799,7 +799,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should update notes count after delete annotation" do
       media_pg = LoginPage.new(config: @config, driver: @driver).load
         .login_with_email(email: @email, password: @password)
-        .create_media(input: "Media #{Time.now.to_i}")
+        .create_media(input: 'https://twitter.com/joeyayoub/status/829060304642383873?t=' + Time.now.to_i.to_s)
       media_pg.fill_input('#cmd-input', '/flag Spam')
       media_pg.element('#cmd-input').submit
       sleep 1
