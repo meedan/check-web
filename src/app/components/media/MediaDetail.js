@@ -140,7 +140,6 @@ class MediaDetail extends Component {
         MediaUtil.title(media, data) : MediaUtil.attributedType(media, data);
 
     const context = this.getContext();
-    const { project } = context;
     const { projects } = context.currentUser.current_team;
     const { current_team } = context.currentUser;
 
@@ -150,8 +149,8 @@ class MediaDetail extends Component {
     }
     const mediaUrl = (projectId && media.team) ? `/${media.team.slug}/project/${projectId}/media/${media.dbid}` : null;
 
-    const currentProject = this.currentProject(project.dbid, projects);
-    const destinationProjects = this.destinationProjects(project.dbid, projects);
+    const currentProject = this.currentProject(media.project.dbid, projects);
+    const destinationProjects = this.destinationProjects(media.project.dbid, projects);
 
     const byUser = (media.user && media.user.source && media.user.source.dbid && media.user.name !== 'Pender') ?
       (<FormattedMessage id="mediaDetail.byUser" defaultMessage={`by {username}`} values={{username: media.user.name}} />) : '';

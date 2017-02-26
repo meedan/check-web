@@ -164,6 +164,12 @@ const ProjectContainer = Relay.createContainer(ProjectComponent, {
                 dbid
               }
               permissions,
+              project {
+                id,
+                dbid,
+                title
+              },
+              project_id,
               verification_statuses,
               overridden,
               media {
