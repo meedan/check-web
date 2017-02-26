@@ -3,5 +3,11 @@
   "annotation.deleteButton": "Delete",
   "annotation.statusSetHeader": "Status set to {status} by {author}",
   "annotation.taggedHeader": "Tagged #{tag} by {author}",
-  "annotation.flaggedHeader": "Flagged as {flag} by {author}"
+  "annotation.taskResolve": "Task \"{task}\" answered by {author}: {response}",
+  "annotation.flaggedHeader": "Flagged as {flag} by {author}",
+  "annotation.titleChanged": "Title changed to {title} by {author}",
+  "annotation.projectMoved": "Moved from project {previousProject} to {currentProject} by {author}",
+  "annotation.taskLabelUpdated": "Task \"{from}\" edited to \"{to}\" by {author}",
+  "annotation.taskNoteUpdated": "Task \"{title}\" has note edited from \"{from}\" to \"{to}\" by {author}",
+  "annotation.taskNoteCreated": "Task \"{title}\" has new note \"{note}\" by {author}"
 }
