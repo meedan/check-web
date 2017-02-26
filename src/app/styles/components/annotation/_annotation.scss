@@ -38,6 +38,16 @@
   }
 }
 
+.annotation__task-resolved {
+  .annotation__author-name {
+    margin-right: 0;
+  }
+
+  em {
+    margin-right: 10px;
+  }
+}
+
 .annotation__timestamp {
   font-size: 12px;
 }
@@ -79,4 +89,8 @@
   &::before {
     content: '#';
   }
+}
+
+.annotation__update-task > span {
+  display: block;
 }

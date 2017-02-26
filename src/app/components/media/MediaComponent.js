@@ -5,7 +5,8 @@ import DocumentTitle from 'react-document-title';
 import MediaDetail from './MediaDetail';
 import MediaUtil from './MediaUtil';
 import MediaChecklist from './MediaChecklist';
-import { Annotations, Tags } from '../source';
+import { Tags } from '../source';
+import Annotations from './Annotations';
 import config from 'config';
 import { pageTitle } from '../../helpers';
 import CheckContext from '../../CheckContext';
@@ -98,7 +99,7 @@ class MediaComponent extends Component {
 
           <ContentColumn>
             <h3 className="media__notes-heading"><FormattedMessage id="mediaComponent.verificationTimeline" defaultMessage="Verification Timeline" /></h3>
-            <Annotations annotations={media.annotations.edges.reverse()} annotated={media} annotatedType="ProjectMedia" />
+            <Annotations annotations={media.log.edges} annotated={media} annotatedType="ProjectMedia" />
             <MediaChecklist />
           </ContentColumn>
         </div>

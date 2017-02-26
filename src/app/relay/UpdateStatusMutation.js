@@ -15,7 +15,7 @@ class UpdateStatusMutation extends Relay.Mutation {
       query = Relay.QL`fragment on UpdateStatusPayload { statusEdge, source { annotations, id } }`;
       break;
     case 'project_media':
-      query = Relay.QL`fragment on UpdateStatusPayload { statusEdge, project_media { annotations, id, last_status, annotations_count } }`;
+      query = Relay.QL`fragment on UpdateStatusPayload { statusEdge, project_media { log, id, last_status, annotations_count } }`;
       break;
     }
     return query;
@@ -56,14 +56,6 @@ class UpdateStatusMutation extends Relay.Mutation {
     fieldIds[this.props.parent_type] = this.props.annotated.id;
 
     return [
-      {
-        type: 'RANGE_ADD',
-        parentName: this.props.parent_type,
-        parentID: this.props.annotated.id,
-        connectionName: 'annotations',
-        edgeName: 'statusEdge',
-        rangeBehaviors: calls => 'prepend',
-      },
       {
         type: 'FIELDS_CHANGE',
         fieldIDs: fieldIds,
