@@ -557,6 +557,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(page.contains_string?("Tagged \##{new_tag}")).to be(false)
       page.add_tag(new_tag)
       expect(page.has_tag?(new_tag)).to be(true)
+      sleep 2
       expect(page.contains_string?("Tagged \##{new_tag}")).to be(true)
 
       page.driver.navigate.refresh
@@ -636,6 +637,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       media_pg.fill_input('#cmd-input', '/flag Spam')
       media_pg.element('#cmd-input').submit
+      sleep 2
 
       expect(media_pg.contains_string?('Flag')).to be(true)
       media_pg.driver.navigate.refresh

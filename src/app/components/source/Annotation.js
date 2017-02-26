@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { FormattedMessage, FormattedHTMLMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
+import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import Relay from 'react-relay';
 import Linkify from 'react-linkify';
 import nl2br from 'react-nl2br';
@@ -9,7 +9,6 @@ import DeleteAnnotationMutation from '../../relay/DeleteAnnotationMutation';
 import DeleteVersionMutation from '../../relay/DeleteVersionMutation';
 import Can from '../Can';
 import TimeBefore from '../TimeBefore';
-import { Link } from 'react-router';
 
 const messages = defineMessages({
   error: {
@@ -47,18 +46,19 @@ class Annotation extends Component {
       annotated: this.props.annotated,
       id,
     };
-    if (this.props.annotation.annotation.version === null) {
+    if (this.props.annotation.version === null) {
       Relay.Store.commitUpdate(
         new DeleteAnnotationMutation(destroy_attr),
         { onSuccess, onFailure },
       );
     } else {
-      destroy_attr.id = this.props.annotation.annotation.version.id;
+      destroy_attr.id = this.props.annotation.version.id;
       Relay.Store.commitUpdate(
         new DeleteVersionMutation(destroy_attr),
         { onSuccess, onFailure },
       );
     }
+
   }
 
   statusIdToLabel(id) {
@@ -72,42 +72,34 @@ class Annotation extends Component {
     return label;
   }
 
-  updatedAt(activity) {
-    let date = new Date(activity.created_at);
+  updatedAt(annotation) {
+    let date = new Date(annotation.updated_at);
     if (isNaN(date)) date = null;
     return date;
   }
 
   render() {
-    const activity = this.props.annotation;
-    const annotation = activity.annotation;
+    const annotation = this.props.annotation;
     const annotated = this.props.annotated;
+    let permissionType = `${annotation.annotation_type.charAt(0).toUpperCase()}${annotation.annotation_type.slice(1)}`;
+    let annotationActions = (
+      <div className="annotation__actions">
+        <Can permissions={annotation.permissions} permission={`destroy ${permissionType}`}>
+          <button className="annotation__delete" onClick={this.handleDelete.bind(this, annotation.id)} title={this.props.intl.formatMessage(messages.deleteButton)}>×</button>
+        </Can>
+      </div>
+    );
+    const updatedAt = this.updatedAt(annotation);
+    const content = JSON.parse(annotation.content);
+    let contentTemplate;
 
-    let annotationActions = null;
-    if (annotation) {
-      let permissionType = `${annotation.annotation_type.charAt(0).toUpperCase()}${annotation.annotation_type.slice(1)}`;
-      annotationActions = (
-        <div className="annotation__actions">
-          <Can permissions={annotation.permissions} permission={`destroy ${permissionType}`}>
-            <button className="annotation__delete" onClick={this.handleDelete.bind(this, annotation.id)} title={this.props.intl.formatMessage(messages.deleteButton)}>×</button>
-          </Can>
-        </div>
-      );
-    }
-    
-    const updatedAt = this.updatedAt(activity);
-    const object = JSON.parse(activity.object_after);
-    const content = object.data;
-    const activityType = activity.event_type;
-    let contentTemplate = null;
-
-    switch (activityType) {
-    case 'create_comment':
+    switch (annotation.annotation_type) {
+    case 'comment':
       const commentText = content.text;
       contentTemplate = (
         <section className="annotation__content">
           <div className="annotation__header">
-            <h4 className="annotation__author-name">{activity.user.name}</h4>
+            <h4 className="annotation__author-name">{annotation.annotator.name}</h4>
             {updatedAt ? <span className="annotation__timestamp"><TimeBefore date={updatedAt} /></span> : null}
             {annotationActions}
           </div>
@@ -116,11 +108,11 @@ class Annotation extends Component {
             <div className="annotation__embedded-media">
               <MediaDetail media={media.node} condensed readonly />
             </div>
-          ))}
+              ))}
         </section>
         );
       break;
-    case 'update_status':
+    case 'status':
       const statusCode = content.status.toLowerCase().replace(/[ _]/g, '-');
       contentTemplate = (
         <section className="annotation__content">
@@ -128,148 +120,120 @@ class Annotation extends Component {
             <FormattedMessage id="annotation.statusSetHeader"
                   defaultMessage={`Status set to {status} by {author}`}
                           values={{ status: <span className={`annotation__status annotation__status--${statusCode}`}>{this.statusIdToLabel(content.status)}</span>,
-                                    author: <span className="annotation__author-name">{activity.user.name}</span> }} />
+                                    author: <span className="annotation__author-name">{annotation.annotator.name}</span> }} />
             {updatedAt ? <span className="annotation__timestamp"><TimeBefore date={updatedAt} /></span> : null}
             {annotationActions}
           </div>
         </section>
         );
       break;
-    case 'create_tag':
+    case 'tag':
       contentTemplate = (
         <section className="annotation__content">
           <div className="annotation__header">
             <FormattedMessage id="annotation.taggedHeader"
                   defaultMessage={`Tagged #{tag} by {author}`}
-                  values={{ tag: content.tag.replace(/^#/, ''), author: <span className="annotation__author-name">{activity.user.name}</span> }} />
+                  values={{ tag: content.tag.replace(/^#/, ''), author: <span className="annotation__author-name">{annotation.annotator.name}</span> }} />
             {updatedAt ? <span className="annotation__timestamp"><TimeBefore date={updatedAt} /></span> : null}
             {annotationActions}
           </div>
         </section>
         );
       break;
-    case 'create_task':
+    case 'task':
       const desc = `Task "${content.label}" created by `;
+      const createdAt = new Date(annotation.created_at);
       contentTemplate = (
         <section className="annotation__content">
           <div className="annotation__header">
             <span>{desc}</span>
-            <span className="annotation__author-name">{activity.user.name}</span>
+            <span className="annotation__author-name">{annotation.annotator.name}</span>
+            {createdAt ? <span className="annotation__timestamp"><TimeBefore date={createdAt} live={false} /></span> : null}
+          </div>
+        </section>
+        );
+      break;
+    case 'task_response_free_text': case 'task_response_yes_no': case 'task_response_single_choice': case 'task_response_multiple_choice':
+      let data = JSON.parse(annotation.content);
+      let title = '';
+      data.forEach((field) => {
+        if (field.field_type === 'task_reference') {
+          annotated.tasks.edges.forEach((task) => {
+            if (task.node.dbid == parseInt(field.value)) {
+              title = task.node.label;
+            }
+          });
+        }
+      });
+      const resolved = `Task "${title}" resolved by `;
+      contentTemplate = (
+        <section className="annotation__content">
+          <div className="annotation__header">
+            <span>{resolved}</span>
+            <span className="annotation__author-name">{annotation.annotator.name} </span>
             {updatedAt ? <span className="annotation__timestamp"><TimeBefore date={updatedAt} live={false} /></span> : null}
           </div>
         </section>
         );
       break;
-    case 'create_dynamicannotationfield': case 'update_dynamicannotationfield':
-      if (object.field_name === 'response_free_text' && activity.task) {
-        contentTemplate = (
-          <section className="annotation__content">
-            <div className="annotation__header annotation__task-resolved">
-              <span>
-                <FormattedMessage id="annotation.taskResolve" defaultMessage={`Task "{task}" answered by {author}: {response} `}
-                 values={{ task: activity.task.label, author: <span className="annotation__author-name">{activity.user.name}</span>, response: <em>{`"${object.value}"`}</em> }} />
-              </span> {updatedAt ? <span className="annotation__timestamp"><TimeBefore date={updatedAt} live={false} /></span> : null}
-            </div>
-          </section>
-        );
-      }
-      break;
-    case 'create_flag':
+    case 'flag':
       contentTemplate = (
         <section className="annotation__content">
           <div className="annotation__header">
             <FormattedMessage id="annotation.flaggedHeader"
                   defaultMessage={`Flagged as {flag} by {author}`}
-                  values={{ flag: content.flag, author: <span className="annotation__author-name">{activity.user.name}</span> }} />
+                  values={{ flag: content.flag, author: <span className="annotation__author-name">{annotation.annotator.name}</span> }} />
             {updatedAt ? <span className="annotation__timestamp"><TimeBefore date={updatedAt} /></span> : null}
             {annotationActions}
           </div>
         </section>
         );
       break;
-    case 'update_embed':
+    case 'embed':
       contentTemplate = (
         <section className="annotation__content">
           <div className="annotation__header">
-            <span>
-              <FormattedMessage id="annotation.titleChanged" defaultMessage={`Title changed to {title} by {author}`}
-               values={{ title: <b>{content.title}</b>, author: <span className="annotation__author-name">{activity.user.name} </span> }} />
-            </span>
+            <span>Title changed to <b>{content.title}</b> by </span>
+            <span className="annotation__author-name">{annotation.annotator.name}</span>
             {updatedAt ? <span className="annotation__timestamp"><TimeBefore date={updatedAt} /></span> : null}
             {annotationActions}
           </div>
         </section>
         );
       break;
-    case 'update_projectmedia':
-      if (activity.projects.edges.length > 0 && activity.user) {
-        const previousProject = activity.projects.edges[0].node;
-        const currentProject = activity.projects.edges[1].node;
-        const urlPrefix = `/${annotated.team.slug}/project/`;
+    default:
+      annotationActions = (
+        <div className="annotation__actions">
+          <Can permissions={annotation.permissions} permission="destroy Dynamic">
+            <button className="annotation__delete" onClick={this.handleDelete.bind(this, annotation.id)} title="Delete">×</button>
+          </Can>
+        </div>
+      );
+      const fields = JSON.parse(annotation.content);
+      if (fields.constructor === Array) {
+        annotation.fields = fields;
         contentTemplate = (
           <section className="annotation__content">
             <div className="annotation__header">
-              <span>
-                <FormattedMessage id="annotation.projectMoved" defaultMessage={`Moved from project {previousProject} to {currentProject} by {author}`}
-                values={{ previousProject: <Link to={urlPrefix + previousProject.dbid}><b>{previousProject.title}</b></Link>, currentProject: <Link to={urlPrefix + currentProject.dbid}><b>{currentProject.title}</b></Link>, author: <span className="annotation__author-name">{activity.user.name}</span> }} />
-              </span>
+              <h4 className="annotation__author-name">{annotation.annotator.name}</h4>
               {updatedAt ? <span className="annotation__timestamp"><TimeBefore date={updatedAt} /></span> : null}
               {annotationActions}
             </div>
+            <div className="annotation__body">
+              <DynamicAnnotation annotation={annotation} />
+            </div>
           </section>
         );
+      } else {
+        contentTemplate = null;
       }
-      break;
-    case 'update_task':
-      const changes = JSON.parse(activity.object_changes_json);
-      if (changes.data) {
-        let from = changes.data[0];
-        let to = changes.data[1];
-        let editedTitle = false;
-        let editedNote = false;
-        let createdNote = false;
-        if (from.label && to.label && from.label != to.label) {
-          editedTitle = true;
-        }
-        if (to.description && from.description != to.description) {
-          editedNote = true;
-        }
-        if (!from.description && to.description) {
-          editedNote = false;
-          createdNote = true;
-        }
-        let author = (<span className="annotation__author-name">{activity.user.name}</span>);
-        if (editedTitle || editedNote || createdNote) {
-          contentTemplate = (
-            <section className="annotation__content">
-              <div className="annotation__header">
-                <span className="annotation__update-task">
-                  { editedTitle ? <FormattedMessage id="annotation.taskLabelUpdated" defaultMessage={`Task "{from}" edited to "{to}" by {author}`} values={{ from: from.label, to: to.label, author }} /> : null }
-                  { editedNote ? <FormattedMessage id="annotation.taskNoteUpdated" defaultMessage={`Task "{title}" has note edited from "{from}" to "{to}" by {author}`} values={{ title: to.label, from: from.description, to: to.description, author }} /> : null }
-                  { createdNote ? <FormattedMessage id="annotation.taskNoteCreated" defaultMessage={`Task "{title}" has new note "{note}" by {author}`} values={{ title: to.label, note: to.description, author }} /> : null }
-                </span>
-                {updatedAt ? <span className="annotation__timestamp"><TimeBefore date={updatedAt} /></span> : null}
-                {annotationActions}
-              </div>
-            </section>
-          );
-        }
-      }
-      break;
-    default:
-      contentTemplate = null;
       break;
     }
 
-    if (contentTemplate === null) {
-      return null;
-    }
-
-    const className = annotation ? `annotation--${annotation.annotation_type}` : '';
     return (
-      <div className={`annotation ${className}`} id={`annotation-${activity.dbid}`}>
-        {activityType === 'create_comment' ? (
-          <div className="annotation__avatar" style={{ backgroundImage: `url(${activity.user.profile_image})` }} />
+      <div className={`annotation annotation--${annotation.annotation_type}`} id={`annotation-${annotation.dbid}`}>
+        {annotation.annotation_type === 'comment' ? (
+          <div className="annotation__avatar" style={{ backgroundImage: `url(${annotation.annotator.profile_image})` }} />
         ) : null}
         {contentTemplate}
       </div>
