@@ -123,11 +123,11 @@ class MediaDetail extends Component {
   }
 
   currentProject(projectId, projects){
-    return projects[projects.findIndex((p) => { return (p.dbid === projectId) })];
+    return projects[projects.findIndex((p) => { return (p.node.dbid === projectId) })];
   }
 
   destinationProjects(projectId, projects){
-    return projects.filter((p) => { return (p.dbid !== projectId) });
+    return projects.filter((p) => { return (p.node.dbid !== projectId) });
   }
 
   render() {
@@ -140,7 +140,7 @@ class MediaDetail extends Component {
         MediaUtil.title(media, data) : MediaUtil.attributedType(media, data);
 
     const context = this.getContext();
-    const { projects } = context.currentUser.current_team;
+    const projects = context.team.projects.edges;
     const { current_team } = context.currentUser;
 
     let projectId = media.project_id;
@@ -214,9 +214,9 @@ class MediaDetail extends Component {
 
           <Dialog actions={actions} modal={true} open={this.state.openMoveDialog} onRequestClose={this.handleCloseDialog.bind(this)}>
             <h4 className="media-detail__dialog-header">{`Move this ${MediaUtil.typeLabel(media, data)} to a different project`}</h4>
-            <small className="media-detail__dialog-media-path">{`Currently filed under ${current_team.name} > ${currentProject.title}`}</small>
+            <small className="media-detail__dialog-media-path">{`Currently filed under ${current_team.name} > ${currentProject.node.title}`}</small>
             <RadioButtonGroup name="moveMedia" className="media-detail__dialog-radio-group" onChange={this.handleSelectDestProject.bind(this)}>
-              {destinationProjects.map((proj) => { return (<RadioButton label={proj.title} value={proj.dbid} style={{ padding:'5px' }} />);})}
+              {destinationProjects.map((proj) => { return (<RadioButton label={proj.node.title} value={proj.node.dbid} style={{ padding:'5px' }} />);})}
             </RadioButtonGroup>
             </Dialog>
         </div>
