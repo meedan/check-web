@@ -11,8 +11,13 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
   getFatQuery() {
     return Relay.QL`
       fragment on UpdateProjectMediaPayload {
-        project_media,
-        project
+        project_media {
+          id,
+          project_id
+        },
+        project {
+          project_medias
+        },
       }
     `;
   }
@@ -30,8 +35,17 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
     return [
       {
         type: 'FIELDS_CHANGE',
-        fieldIDs: { project_media: this.props.id, project: this.props.project_id },
-      }
+        //fieldIDs: { project_media: this.props.id, project_was: this.props.srcProj.id },
+        fieldIDs: { project_media: this.props.id },
+      },
+      // {
+      //   type: 'RANGE_DELETE',
+      //   parentName: 'project',
+      //   parentID: this.props.srcProj.id,
+      //   connectionName: 'project_medias',
+      //   deletedIDFieldName: ['project_media','id'],
+      //   pathToConnection: ['project','project_medias']
+      // }
     ];
   }
 }

@@ -83,17 +83,18 @@ class MediaDetail extends Component {
   }
 
   handleCloseDialog() {
-    this.setState({ openMoveDialog: false });
+    this.setState({ openMoveDialog: false, dstProj: null });
   }
 
-  handleSelectDestProject(event, id){
-    this.setState({ destProjectId: id });
+  handleSelectDestProject(event, dstProj){
+    this.setState({ dstProj });
   }
 
-  handleMoveProjectMedia() { //maybe rename to submit of perform
+  submitMoveProjectMedia() {
     const { media } = this.props;
-    const projectId = this.state.destProjectId;
+    const projectId = this.state.dstProj.dbid;
     const history = this.getContext().history;
+    const that = this;
 
     const onFailure = (transaction) => {
       const transactionError = transaction.getError();
@@ -108,6 +109,8 @@ class MediaDetail extends Component {
       new UpdateProjectMediaMutation({
         project_id: projectId,
         id: media.id,
+        srcProj: that.currentProject().node,
+        dstProj: this.state.dstProj
       }),
       { onSuccess, onFailure },
     );
@@ -122,11 +125,19 @@ class MediaDetail extends Component {
       baseClass;
   }
 
-  currentProject(projectId, projects){
+  currentProject(){
+    const projectId = this.props.media.project_id;
+    const context = this.getContext();
+    const projects = context.team.projects.edges;
+
     return projects[projects.findIndex((p) => { return (p.node.dbid === projectId) })];
   }
 
-  destinationProjects(projectId, projects){
+  destinationProjects(){
+    const projectId = this.props.media.project_id;
+    const context = this.getContext();
+    const projects = context.team.projects.edges;
+
     return projects.filter((p) => { return (p.node.dbid !== projectId) });
   }
 
@@ -140,7 +151,6 @@ class MediaDetail extends Component {
         MediaUtil.title(media, data) : MediaUtil.attributedType(media, data);
 
     const context = this.getContext();
-    const projects = context.team.projects.edges;
     const { current_team } = context.currentUser;
 
     let projectId = media.project_id;
@@ -149,8 +159,8 @@ class MediaDetail extends Component {
     }
     const mediaUrl = (projectId && media.team) ? `/${media.team.slug}/project/${projectId}/media/${media.dbid}` : null;
 
-    const currentProject = this.currentProject(media.project.dbid, projects);
-    const destinationProjects = this.destinationProjects(media.project.dbid, projects);
+    const currentProject = this.currentProject();
+    const destinationProjects = this.destinationProjects();
 
     const byUser = (media.user && media.user.source && media.user.source.dbid && media.user.name !== 'Pender') ?
       (<FormattedMessage id="mediaDetail.byUser" defaultMessage={`by {username}`} values={{username: media.user.name}} />) : '';
@@ -172,7 +182,7 @@ class MediaDetail extends Component {
 
     const actions = [
       <FlatButton label={<FormattedMessage id="mediaDetail.cancel" defaultMessage="Nevermind" />} primary={true} onClick={this.handleCloseDialog.bind(this)} />,
-      <FlatButton label={<FormattedMessage id="mediaDetail.move" defaultMessage="Move" />} primary={true} keyboardFocused={true} onClick={this.handleMoveProjectMedia.bind(this)} />
+      <FlatButton label={<FormattedMessage id="mediaDetail.move" defaultMessage="Move" />} primary={true} keyboardFocused={true} onClick={this.submitMoveProjectMedia.bind(this)} disabled={!this.state.dstProj} />
     ];
 
     return (
@@ -216,7 +226,7 @@ class MediaDetail extends Component {
             <h4 className="media-detail__dialog-header">{`Move this ${MediaUtil.typeLabel(media, data)} to a different project`}</h4>
             <small className="media-detail__dialog-media-path">{`Currently filed under ${current_team.name} > ${currentProject.node.title}`}</small>
             <RadioButtonGroup name="moveMedia" className="media-detail__dialog-radio-group" onChange={this.handleSelectDestProject.bind(this)}>
-              {destinationProjects.map((proj) => { return (<RadioButton label={proj.node.title} value={proj.node.dbid} style={{ padding:'5px' }} />);})}
+              {destinationProjects.map((proj) => { return (<RadioButton label={proj.node.title} value={proj.node} style={{ padding:'5px' }} />);})}
             </RadioButtonGroup>
             </Dialog>
         </div>
