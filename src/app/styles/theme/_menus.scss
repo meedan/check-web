@@ -38,7 +38,8 @@
     transition: background .2s;
   }
 
-  & > a {
+  & > a,
+  & > span {
     height: 100%;
     width: 100%;
     display: block;
