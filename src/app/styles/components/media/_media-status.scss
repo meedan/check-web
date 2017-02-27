@@ -58,6 +58,7 @@ $menu-status-offset: 5px;
 .media-status__menu-item {
   @include media-status-menu-hover-colors;
   @include media-status-font-colors;
+  padding-left: 16px;
 
   .media-status__icon--radio-button-selected {
     display: none;

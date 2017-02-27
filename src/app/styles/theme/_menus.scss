@@ -28,7 +28,6 @@
   font-size: 14px;
   font-weight: 400;
   line-height: 48px;
-  padding-left: 16px;
 
   img {
     vertical-align: middle !important;
@@ -39,7 +38,12 @@
     transition: background .2s;
   }
 
-  & > a {
+  & > a,
+  & > span:first-child {
+    height: 100%;
+    width: 100%;
+    display: block;
+    padding: 0 16px;
     color: inherit;
 
     &,
