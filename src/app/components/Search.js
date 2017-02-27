@@ -312,6 +312,7 @@ class SearchResultsComponent extends Component {
     const medias = this.props.search ? this.props.search.medias.edges : [];
     const count = this.props.search ? this.props.search.number_of_results : 0;
     const mediasCount = `${count} ${count === 1 ? this.props.intl.formatMessage(messages.searchResult) : this.props.intl.formatMessage(messages.searchResults)}`;
+    const that = this;
 
     return (
       <div className="search__results / results">
@@ -323,7 +324,7 @@ class SearchResultsComponent extends Component {
           <ul className="search__results-list / results medias-list">
             {medias.map(media => (
               <li className="/ medias__item">
-                <MediaDetail media={media.node} condensed />
+                <MediaDetail media={media.node} condensed parentComponent={that} />
               </li>
             ))}
           </ul>

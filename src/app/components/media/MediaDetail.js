@@ -114,7 +114,9 @@ class MediaDetail extends Component {
     };
 
     const onSuccess = (response) => {
-      if (/\/media\/[0-9]+$/.test(window.location.pathname)) {
+      if (/^\/[^\/]+\/search\//.test(window.location.pathname)) {
+        that.props.parentComponent.props.relay.forceFetch();
+      } else if (/\/media\/[0-9]+$/.test(window.location.pathname)) {
         history.push(`/${media.team.slug}/project/${projectId}/media/${media.dbid}`)
       }
     };
