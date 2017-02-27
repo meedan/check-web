@@ -124,7 +124,7 @@ class Tasks extends Component {
           <input className='tasks__add-task-description' id='tasks__add-task-description' type='checkbox'/>
           <TextField className='tasks__task-description-input' floatingLabelText={<FormattedMessage id="tasks.description" defaultMessage="Description" />} onChange={this.handleDescriptionChange.bind(this)} multiLine={true}/>
           <label className='tasks__add-task-description-label' htmlFor='tasks__add-task-description'>
-            <span>+</span> <FormattedMessage id="tasks.addDescription" defaultMessage="Add a description" />
+            <span className='tasks__add-task-description-icon'>+</span> <FormattedMessage id="tasks.addDescription" defaultMessage="Add a description" />
           </label>
         </Dialog>
 

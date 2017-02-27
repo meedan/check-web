@@ -25,12 +25,13 @@
   bottom: 16px;
   left: 16px;
   font-size: 12px;
-  & > span {
-    font-size: 24px;
-    margin-right: 16px;
-    position: relative;
-    top: 4px;
-  }
+}
+
+.tasks__add-task-description-icon {
+  font-size: 24px;
+  margin-right: 16px;
+  position: relative;
+  top: 4px;
 }
 
 .tasks__add-task-description { // hidden checkbox
