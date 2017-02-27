@@ -114,7 +114,9 @@ class MediaDetail extends Component {
     };
 
     const onSuccess = (response) => {
-      history.push(`/${media.team.slug}/project/${projectId}/media/${media.dbid}`)
+      if (/\/media\/[0-9]+$/.test(window.location.pathname)) {
+        history.push(`/${media.team.slug}/project/${projectId}/media/${media.dbid}`)
+      }
     };
 
     Relay.Store.commitUpdate(
@@ -163,7 +165,6 @@ class MediaDetail extends Component {
         MediaUtil.title(media, data) : MediaUtil.attributedType(media, data);
 
     const context = this.getContext();
-    const { current_team } = context.currentUser;
 
     let projectId = media.project_id;
     if (!projectId && annotated && annotatedType === 'Project') {
@@ -239,7 +240,7 @@ class MediaDetail extends Component {
               <FormattedMessage id="mediaDetail.dialogHeader" defaultMessage={"Move this {mediaType} to a different project"} values={{mediaType: MediaUtil.typeLabel(media, data)}} />
             </h4>
             <small className="media-detail__dialog-media-path">
-              <FormattedMessage id="mediaDetail.dialogMediaPath" defaultMessage={"Currently filed under {teamName} > {projectTitle}"} values={{teamName: current_team.name, projectTitle: currentProject.node.title}} />
+              <FormattedMessage id="mediaDetail.dialogMediaPath" defaultMessage={"Currently filed under {teamName} > {projectTitle}"} values={{teamName: context.team.name, projectTitle: currentProject.node.title}} />
             </small>
             <RadioButtonGroup name="moveMedia" className="media-detail__dialog-radio-group" onChange={this.handleSelectDestProject.bind(this)}>
               {destinationProjects.map((proj) => { return (<RadioButton label={proj.node.title} value={proj.node} style={{ padding:'5px' }} />);})}
