@@ -12,8 +12,15 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
     return Relay.QL`
       fragment on UpdateProjectMediaPayload {
         project_media {
-          id,
-          project_id
+          project_id,
+          log,
+          annotations_count
+        }
+        project {
+          project_medias
+        }
+        project_was {
+          project_medias
         }
       }
     `;
@@ -22,9 +29,9 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
   getVariables() {
     return {
       id: this.props.id,
-      // url: this.props.url
       embed: this.props.embed,
-      project_id: this.props.project_id
+      project_id: this.props.project_id,
+      previous_project_id: this.props.srcProj.dbid
     };
   }
 
@@ -32,16 +39,8 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
     return [
       {
         type: 'FIELDS_CHANGE',
-        fieldIDs: { project_media: this.props.id }
-      },
-      // {
-      //   type: 'RANGE_DELETE',
-      //   parentName: 'project',
-      //   parentID: this.props.srcProj.id,
-      //   connectionName: 'project_medias',
-      //   deletedIDFieldName: ['project_media','id'],
-      //   pathToConnection: ['project','project_medias']
-      // }
+        fieldIDs: { project_media: this.props.id, project_was: this.props.srcProj.id, project: this.props.dstProj.id }
+      }
     ];
   }
 }

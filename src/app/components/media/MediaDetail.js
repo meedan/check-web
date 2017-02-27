@@ -114,7 +114,9 @@ class MediaDetail extends Component {
     };
 
     const onSuccess = (response) => {
-      history.push(`/${media.team.slug}/project/${projectId}/media/${media.dbid}`)
+      if (/\/media\/[0-9]+$/.test(window.location.pathname)) {
+        history.push(`/${media.team.slug}/project/${projectId}/media/${media.dbid}`)
+      }
     };
 
     Relay.Store.commitUpdate(
