@@ -14,10 +14,7 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
         project_media {
           id,
           project_id
-        },
-        project {
-          project_medias
-        },
+        }
       }
     `;
   }
@@ -35,8 +32,7 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
     return [
       {
         type: 'FIELDS_CHANGE',
-        //fieldIDs: { project_media: this.props.id, project_was: this.props.srcProj.id },
-        fieldIDs: { project_media: this.props.id },
+        fieldIDs: { project_media: this.props.id }
       },
       // {
       //   type: 'RANGE_DELETE',

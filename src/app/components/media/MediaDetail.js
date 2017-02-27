@@ -22,6 +22,10 @@ import CheckContext from '../../CheckContext';
 import { bemClass, safelyParseJSON } from '../../helpers';
 
 const messages = defineMessages({
+  error: {
+    id: 'mediaDetail.moveFailed',
+    defaultMessage: 'Sorry, we could not move this report'
+  },
   mediaTitle: {
     id: 'mediaDetail.mediaTitle',
     defaultMessage: 'Title'
@@ -95,6 +99,14 @@ class MediaDetail extends Component {
     const projectId = this.state.dstProj.dbid;
     const history = this.getContext().history;
     const that = this;
+
+    const handleError = (json) => {
+      let message = this.props.intl.formatMessage(messages.error) + ' <b id="close-message">✖</b>';
+      if (json && json.error) {
+          message = json.error;
+        }
+      that.setState({ message });
+    };
 
     const onFailure = (transaction) => {
       const transactionError = transaction.getError();
@@ -223,12 +235,16 @@ class MediaDetail extends Component {
           }
 
           <Dialog actions={actions} modal={true} open={this.state.openMoveDialog} onRequestClose={this.handleCloseDialog.bind(this)}>
-            <h4 className="media-detail__dialog-header">{`Move this ${MediaUtil.typeLabel(media, data)} to a different project`}</h4>
-            <small className="media-detail__dialog-media-path">{`Currently filed under ${current_team.name} > ${currentProject.node.title}`}</small>
+            <h4 className="media-detail__dialog-header">
+              <FormattedMessage id="mediaDetail.dialogHeader" defaultMessage={"Move this {mediaType} to a different project"} values={{mediaType: MediaUtil.typeLabel(media, data)}} />
+            </h4>
+            <small className="media-detail__dialog-media-path">
+              <FormattedMessage id="mediaDetail.dialogMediaPath" defaultMessage={"Currently filed under {teamName} > {projectTitle}"} values={{teamName: current_team.name, projectTitle: currentProject.node.title}} />
+            </small>
             <RadioButtonGroup name="moveMedia" className="media-detail__dialog-radio-group" onChange={this.handleSelectDestProject.bind(this)}>
               {destinationProjects.map((proj) => { return (<RadioButton label={proj.node.title} value={proj.node} style={{ padding:'5px' }} />);})}
             </RadioButtonGroup>
-            </Dialog>
+          </Dialog>
         </div>
       </div>
     );
