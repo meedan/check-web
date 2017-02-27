@@ -22,6 +22,12 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
         annotations_count,
         domain,
         permissions,
+        project {
+          id,
+          dbid,
+          title
+        },
+        project_id,
         pusher_channel,
         verification_statuses,
         overridden,

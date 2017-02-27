@@ -3,6 +3,9 @@ import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-i
 import Relay from 'react-relay';
 import { Link } from 'react-router';
 import config from 'config';
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
+import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 import MediaStatus from './MediaStatus';
 import MediaTags from './MediaTags';
 import QuoteMediaCard from './QuoteMediaCard';
@@ -19,6 +22,10 @@ import CheckContext from '../../CheckContext';
 import { bemClass, safelyParseJSON } from '../../helpers';
 
 const messages = defineMessages({
+  error: {
+    id: 'mediaDetail.moveFailed',
+    defaultMessage: 'Sorry, we could not move this report'
+  },
   mediaTitle: {
     id: 'mediaDetail.mediaTitle',
     defaultMessage: 'Title'
@@ -34,8 +41,17 @@ class MediaDetail extends Component {
     };
   }
 
+  getContext() {
+    const context = new CheckContext(this).getContextStore();
+    return context;
+  }
+
   handleEdit() {
     this.setState({ isEditing: true });
+  }
+
+  handleMove() {
+    this.setState({ openMoveDialog: true });
   }
 
   handleSave(media, event) {
@@ -70,11 +86,71 @@ class MediaDetail extends Component {
     this.setState({ isEditing: false });
   }
 
+  handleCloseDialog() {
+    this.setState({ openMoveDialog: false, dstProj: null });
+  }
+
+  handleSelectDestProject(event, dstProj){
+    this.setState({ dstProj });
+  }
+
+  submitMoveProjectMedia() {
+    const { media } = this.props;
+    const projectId = this.state.dstProj.dbid;
+    const history = this.getContext().history;
+    const that = this;
+
+    const handleError = (json) => {
+      let message = this.props.intl.formatMessage(messages.error) + ' <b id="close-message">✖</b>';
+      if (json && json.error) {
+          message = json.error;
+        }
+      that.setState({ message });
+    };
+
+    const onFailure = (transaction) => {
+      const transactionError = transaction.getError();
+      transactionError.json ? transactionError.json().then(handleError) : handleError(JSON.stringify(transactionError));
+    };
+
+    const onSuccess = (response) => {
+      history.push(`/${media.team.slug}/project/${projectId}/media/${media.dbid}`)
+    };
+
+    Relay.Store.commitUpdate(
+      new UpdateProjectMediaMutation({
+        project_id: projectId,
+        id: media.id,
+        srcProj: that.currentProject().node,
+        dstProj: this.state.dstProj
+      }),
+      { onSuccess, onFailure },
+    );
+
+    this.setState({ openMoveDialog: false });
+  }
+
   statusToClass(baseClass, status) {
     // TODO: replace with helpers.js#bemClassFromMediaStatus
     return status.length ?
       [baseClass, `${baseClass}--${status.toLowerCase().replace(/[ _]/g, '-')}`].join(' ') :
       baseClass;
+  }
+
+  currentProject(){
+    const projectId = this.props.media.project_id;
+    const context = this.getContext();
+    const projects = context.team.projects.edges;
+
+    return projects[projects.findIndex((p) => { return (p.node.dbid === projectId) })];
+  }
+
+  destinationProjects(){
+    const projectId = this.props.media.project_id;
+    const context = this.getContext();
+    const projects = context.team.projects.edges;
+
+    return projects.filter((p) => { return (p.node.dbid !== projectId) });
   }
 
   render() {
@@ -86,11 +162,17 @@ class MediaDetail extends Component {
     const heading = (userOverrides && userOverrides.title) ?
         MediaUtil.title(media, data) : MediaUtil.attributedType(media, data);
 
+    const context = this.getContext();
+    const { current_team } = context.currentUser;
+
     let projectId = media.project_id;
     if (!projectId && annotated && annotatedType === 'Project') {
       projectId = annotated.dbid;
     }
     const mediaUrl = (projectId && media.team) ? `/${media.team.slug}/project/${projectId}/media/${media.dbid}` : null;
+
+    const currentProject = this.currentProject();
+    const destinationProjects = this.destinationProjects();
 
     const byUser = (media.user && media.user.source && media.user.source.dbid && media.user.name !== 'Pender') ?
       (<FormattedMessage id="mediaDetail.byUser" defaultMessage={`by {username}`} values={{username: media.user.name}} />) : '';
@@ -109,6 +191,11 @@ class MediaDetail extends Component {
                    <SocialMediaCard media={media} data={data} condensed={condensed} /> :
                    <PenderCard url={media.url} penderUrl={config.penderUrl} fallback={null} />;
     }
+
+    const actions = [
+      <FlatButton label={<FormattedMessage id="mediaDetail.cancel" defaultMessage="Nevermind" />} primary={true} onClick={this.handleCloseDialog.bind(this)} />,
+      <FlatButton label={<FormattedMessage id="mediaDetail.move" defaultMessage="Move" />} primary={true} keyboardFocused={true} onClick={this.submitMoveProjectMedia.bind(this)} disabled={!this.state.dstProj} />
+    ];
 
     return (
       <div className={this.statusToClass('media-detail', media.last_status) + ' ' + 'media-detail--' + MediaUtil.typeLabel(media, data).toLowerCase()}>
@@ -144,8 +231,20 @@ class MediaDetail extends Component {
               ) : null
             }
           {this.props.readonly || this.state.isEditing ? null :
-          <MediaActions media={media} handleEdit={this.handleEdit.bind(this)} />
-            }
+            <MediaActions media={media} handleEdit={this.handleEdit.bind(this)} handleMove={this.handleMove.bind(this)}/>
+          }
+
+          <Dialog actions={actions} modal={true} open={this.state.openMoveDialog} onRequestClose={this.handleCloseDialog.bind(this)} autoScrollBodyContent={true}>
+            <h4 className="media-detail__dialog-header">
+              <FormattedMessage id="mediaDetail.dialogHeader" defaultMessage={"Move this {mediaType} to a different project"} values={{mediaType: MediaUtil.typeLabel(media, data)}} />
+            </h4>
+            <small className="media-detail__dialog-media-path">
+              <FormattedMessage id="mediaDetail.dialogMediaPath" defaultMessage={"Currently filed under {teamName} > {projectTitle}"} values={{teamName: current_team.name, projectTitle: currentProject.node.title}} />
+            </small>
+            <RadioButtonGroup name="moveMedia" className="media-detail__dialog-radio-group" onChange={this.handleSelectDestProject.bind(this)}>
+              {destinationProjects.map((proj) => { return (<RadioButton label={proj.node.title} value={proj.node} style={{ padding:'5px' }} />);})}
+            </RadioButtonGroup>
+          </Dialog>
         </div>
       </div>
     );
