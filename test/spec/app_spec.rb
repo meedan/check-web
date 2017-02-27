@@ -659,6 +659,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       project_pg.edit(title: new_title, description: new_description)
 
       project_pg.wait_for_element('.project-header__title')
+      sleep 3
       expect(project_pg.contains_string?(new_title)).to be(true)
       project_pg.wait_for_element('.project__description')
       expect(project_pg.contains_string?(new_description)).to be(true)
