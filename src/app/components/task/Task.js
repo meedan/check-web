@@ -258,16 +258,17 @@ class Task extends Component {
             {response === null ?
             <form onSubmit={this.handleSubmit.bind(this)} name={`task-response-${task.id}`}>
               <TextField floatingLabelText={task.label} 
-                         hintText={task.description}
                          onFocus={this.handleFocus.bind(this)}
                          name="response"
                          onKeyPress={this.handleKeyPress.bind(this)}
-                         fullWidth={true} />
+                         fullWidth={true}
+                         multiLine={true}/>
               <div style={{ display: this.state.focus ? 'block' : 'none' }}>
                 <TextField hintText={<FormattedMessage id="task.noteLabel" defaultMessage="Note any additional details here." />}
                            name="note"
                            onKeyPress={this.handleKeyPress.bind(this)}
-                           fullWidth={true} />
+                           fullWidth={true}
+                           multiLine={true}/>
                 <p className="task__resolver"><small><FormattedMessage id="task.pressReturnToSave" defaultMessage="Press return to save your response" /></small></p>
               </div>
             </form>
@@ -275,16 +276,17 @@ class Task extends Component {
             <div className="task__editing">
               <form onSubmit={this.handleSubmitUpdate.bind(this)} name={`edit-response-${task.first_response.id}`}>
                 <TextField floatingLabelText={task.label} 
-                           hintText={task.description}
                            defaultValue={response}
                            name="editedresponse"
                            onKeyPress={this.handleKeyPressUpdate.bind(this)}
-                           fullWidth={true} />
+                           fullWidth={true}
+                           multiLine={true}/>
                 <TextField hintText={<FormattedMessage id="task.noteLabel" defaultMessage="Note any additional details here." />}
                            defaultValue={note}
                            name="editednote"
                            onKeyPress={this.handleKeyPressUpdate.bind(this)}
-                           fullWidth={true} />
+                           fullWidth={true}
+                           multiLine={true}/>
                 <p className="task__resolver"><small><FormattedMessage id="task.pressReturnToSave" defaultMessage="Press return to save your response" /></small> <span id="task__cancel-button" onClick={this.handleCancelEditResponse.bind(this)}>✖</span></p>
               </form>
             </div>
@@ -307,8 +309,18 @@ class Task extends Component {
         <Dialog actions={actions} modal={false} open={!!this.state.editing} onRequestClose={this.handleCancelEdit.bind(this)}>
           <Message message={this.state.message} />
           <form name={`edit-task-${task.dbid}`}>
-            <TextField name="label" floatingLabelText={<FormattedMessage id="tasks.taskLabel" defaultMessage="Task label" />} defaultValue={task.label} />
-            <TextField name="description" floatingLabelText={<FormattedMessage id="tasks.description" defaultMessage="Description" />} defaultValue={task.description} />
+            <TextField
+              name="label"
+              floatingLabelText={<FormattedMessage id="tasks.taskLabel" defaultMessage="Task label" />}
+              defaultValue={task.label}
+              fullWidth={true}
+              multiLine={true}/>
+            <TextField
+              name="description"
+              floatingLabelText={<FormattedMessage id="tasks.description" defaultMessage="Description" />}
+              defaultValue={task.description}
+              fullWidth={true}
+              multiLine={true}/>
           </form>
         </Dialog>
       </div>

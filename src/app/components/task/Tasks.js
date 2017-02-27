@@ -97,14 +97,14 @@ class Tasks extends Component {
 
     const actions = [
       <FlatButton label={<FormattedMessage id="tasks.cancelAdd" defaultMessage="Cancel" />} primary={true} onClick={this.handleCloseDialog.bind(this)} />,
-      <FlatButton label={<FormattedMessage id="tasks.add" defaultMessage="Add" />} primary={true} keyboardFocused={true} onClick={this.handleSubmitTask.bind(this)} />,
+      <FlatButton className='tasks__dialog-submit-button' label={<FormattedMessage id="tasks.add" defaultMessage="Add" />} primary={true} keyboardFocused={true} onClick={this.handleSubmitTask.bind(this)} />,
     ];
 
     return (
-      <div>
-        
+      <div className='tasks'>
+
         <Can permissions={media.permissions} permission="create Task">
-          <FlatButton onClick={this.handleClick.bind(this)} label={<FormattedMessage id="tasks.addTask" defaultMessage="Add task" />} />
+          <FlatButton className='tasks__add-button' onClick={this.handleClick.bind(this)} label={<FormattedMessage id="tasks.addTask" defaultMessage="Add task" />} />
         </Can>
 
         <Popover open={this.state.menuOpen} anchorEl={this.state.anchorEl} anchorOrigin={{horizontal: 'left', vertical: 'bottom'}} targetOrigin={{horizontal: 'left', vertical: 'top'}} onRequestClose={this.handleRequestClose.bind(this)}>
@@ -120,8 +120,12 @@ class Tasks extends Component {
 
         <Dialog actions={actions} modal={false} open={this.state.dialogOpen} onRequestClose={this.handleCloseDialog.bind(this)}>
           <Message message={this.state.message} />
-          <TextField floatingLabelText={<FormattedMessage id="tasks.taskLabel" defaultMessage="Task label" />} onChange={this.handleLabelChange.bind(this)} />
-          <TextField floatingLabelText={<FormattedMessage id="tasks.description" defaultMessage="Description" />} onChange={this.handleDescriptionChange.bind(this)} />
+          <TextField className='tasks__task-label-input' floatingLabelText={<FormattedMessage id="tasks.taskLabel" defaultMessage="Task label" />} onChange={this.handleLabelChange.bind(this)} multiLine={true}/>
+          <input className='tasks__add-task-description' id='tasks__add-task-description' type='checkbox'/>
+          <TextField className='tasks__task-description-input' floatingLabelText={<FormattedMessage id="tasks.description" defaultMessage="Description" />} onChange={this.handleDescriptionChange.bind(this)} multiLine={true}/>
+          <label className='tasks__add-task-description-label' htmlFor='tasks__add-task-description'>
+            <span>+</span> <FormattedMessage id="tasks.addDescription" defaultMessage="Add a description" />
+          </label>
         </Dialog>
 
         <ul className="tasks-list">
