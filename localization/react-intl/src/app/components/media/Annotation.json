@@ -16,6 +16,10 @@
     "defaultMessage": "Tagged #{tag} by {author}"
   },
   {
+    "id": "annotation.taskCreated",
+    "defaultMessage": "Task \"{task}\" created by {author}"
+  },
+  {
     "id": "annotation.taskResolve",
     "defaultMessage": "Task \"{task}\" answered by {author}: {response}"
   },

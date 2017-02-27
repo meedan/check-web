@@ -94,7 +94,7 @@ class Annotation extends Component {
         </div>
       );
     }
-    
+
     const updatedAt = this.updatedAt(activity);
     const object = JSON.parse(activity.object_after);
     const content = object.data;
@@ -149,12 +149,12 @@ class Annotation extends Component {
         );
       break;
     case 'create_task':
-      const desc = `Task "${content.label}" created by `;
       contentTemplate = (
         <section className="annotation__content">
           <div className="annotation__header">
-            <span>{desc}</span>
-            <span className="annotation__author-name">{activity.user.name}</span>
+            <FormattedMessage id="annotation.taskCreated"
+                  defaultMessage={`Task "{task}" created by {author}`}
+                          values={{ task: content.label, author: <span className="annotation__author-name">{activity.user.name}</span> }} />
             {updatedAt ? <span className="annotation__timestamp"><TimeBefore date={updatedAt} live={false} /></span> : null}
           </div>
         </section>
@@ -165,10 +165,10 @@ class Annotation extends Component {
         contentTemplate = (
           <section className="annotation__content">
             <div className="annotation__header annotation__task-resolved">
-              <span>
-                <FormattedMessage id="annotation.taskResolve" defaultMessage={`Task "{task}" answered by {author}: {response} `}
-                 values={{ task: activity.task.label, author: <span className="annotation__author-name">{activity.user.name}</span>, response: <em>{`"${object.value}"`}</em> }} />
-              </span> {updatedAt ? <span className="annotation__timestamp"><TimeBefore date={updatedAt} live={false} /></span> : null}
+              <FormattedMessage id="annotation.taskResolve"
+                    defaultMessage={`Task "{task}" answered by {author}: {response} `}
+                            values={{ task: activity.task.label, author: <span className="annotation__author-name">{activity.user.name}</span>, response: <em>{`"${object.value}"`}</em> }} />
+              {updatedAt ? <span className="annotation__timestamp"><TimeBefore date={updatedAt} live={false} /></span> : null}
             </div>
           </section>
         );
