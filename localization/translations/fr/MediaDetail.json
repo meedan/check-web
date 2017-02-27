@@ -2,7 +2,6 @@
   "mediaDetail.moveFailed": "Désolé, ce n'était pas possible de transférer ce rapport",
   "mediaDetail.mediaTitle": "Titre",
   "mediaDetail.byUser": "par {username}",
-  "mediaDetail.cancel": "Annuler",
   "mediaDetail.move": "Transférer",
   "mediaDetail.added": "Rajouté {byUser}",
   "mediaDetail.cancelButton": "Annuler",

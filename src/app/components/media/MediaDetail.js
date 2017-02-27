@@ -154,7 +154,7 @@ class MediaDetail extends Component {
   destinationProjects(){
     const projectId = this.props.media.project_id;
     const context = this.getContext();
-    const projects = context.team.projects.edges;
+    const projects = context.team.projects.edges.sortp((a, b) => a.node.title.localeCompare(b.node.title));
 
     return projects.filter((p) => { return (p.node.dbid !== projectId) });
   }
@@ -198,7 +198,7 @@ class MediaDetail extends Component {
     }
 
     const actions = [
-      <FlatButton label={<FormattedMessage id="mediaDetail.cancel" defaultMessage="Nevermind" />} primary={true} onClick={this.handleCloseDialog.bind(this)} />,
+      <FlatButton label={<FormattedMessage id="mediaDetail.cancelButton" defaultMessage="Cancel" />} primary={true} onClick={this.handleCloseDialog.bind(this)} />,
       <FlatButton label={<FormattedMessage id="mediaDetail.move" defaultMessage="Move" />} primary={true} keyboardFocused={true} onClick={this.submitMoveProjectMedia.bind(this)} disabled={!this.state.dstProj} />
     ];
 

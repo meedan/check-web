@@ -2,7 +2,6 @@
   "mediaDetail.moveFailed": "Sorry, we could not move this report",
   "mediaDetail.mediaTitle": "Title",
   "mediaDetail.byUser": "by {username}",
-  "mediaDetail.cancel": "Nevermind",
   "mediaDetail.move": "Move",
   "mediaDetail.added": "Added {byUser}",
   "mediaDetail.cancelButton": "Cancel",

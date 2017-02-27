@@ -12,8 +12,8 @@
     "defaultMessage": "by {username}"
   },
   {
-    "id": "mediaDetail.cancel",
-    "defaultMessage": "Nevermind"
+    "id": "mediaDetail.cancelButton",
+    "defaultMessage": "Cancel"
   },
   {
     "id": "mediaDetail.move",
@@ -22,10 +22,6 @@
   {
     "id": "mediaDetail.added",
     "defaultMessage": "Added {byUser}"
-  },
-  {
-    "id": "mediaDetail.cancelButton",
-    "defaultMessage": "Cancel"
   },
   {
     "id": "mediaDetail.doneButton",
