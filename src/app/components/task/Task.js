@@ -133,7 +133,7 @@ class Task extends Component {
   }
 
   handleDelete() {
-    if (window.confirm(this.props.intl.formatMessage(messages.confirmDelete))) { 
+    if (window.confirm(this.props.intl.formatMessage(messages.confirmDelete))) {
       const that = this;
       Relay.Store.commitUpdate(
         new DeleteAnnotationMutation({
@@ -257,7 +257,8 @@ class Task extends Component {
             <Message message={this.state.message} />
             {response === null ?
             <form onSubmit={this.handleSubmit.bind(this)} name={`task-response-${task.id}`}>
-              <TextField floatingLabelText={task.label} 
+              <TextField floatingLabelText={task.label}
+                         hintText={task.description}
                          onFocus={this.handleFocus.bind(this)}
                          name="response"
                          onKeyPress={this.handleKeyPress.bind(this)}
@@ -272,10 +273,11 @@ class Task extends Component {
                 <p className="task__resolver"><small><FormattedMessage id="task.pressReturnToSave" defaultMessage="Press return to save your response" /></small></p>
               </div>
             </form>
-            : (this.state.editingResponse ? 
+            : (this.state.editingResponse ?
             <div className="task__editing">
               <form onSubmit={this.handleSubmitUpdate.bind(this)} name={`edit-response-${task.first_response.id}`}>
-                <TextField floatingLabelText={task.label} 
+                <TextField floatingLabelText={task.label}
+                           hintText={task.description}
                            defaultValue={response}
                            name="editedresponse"
                            onKeyPress={this.handleKeyPressUpdate.bind(this)}
@@ -296,7 +298,7 @@ class Task extends Component {
               <p className="task__response">{response}</p>
               <p style={{ display: note ? 'block' : 'none' }} className="task__note">{note}</p>
               <p className="task__resolver">
-                <small><FormattedMessage id="task.resolvedBy" defaultMessage={`Resolved by {by}`} values={{ by }} /></small> 
+                <small><FormattedMessage id="task.resolvedBy" defaultMessage={`Resolved by {by}`} values={{ by }} /></small>
                 <Can permissions={task.first_response.permissions} permission="update Dynamic">
                   <span id="task__edit-response-button" onClick={this.handleEditResponse.bind(this)}>✐</span>
                 </Can>
