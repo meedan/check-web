@@ -123,7 +123,7 @@ class MediaDetail extends Component {
       if (/^\/[^\/]+\/search\//.test(window.location.pathname)) {
         that.props.parentComponent.props.relay.forceFetch();
       } else if (/^\/[^\/]+\/project\/[0-9]+\/media\/[0-9]+$/.test(window.location.pathname)) {
-        history.push(path + `/${media.dbid}`);
+        history.push(path + `/media/${media.dbid}`);
       }
     };
 
