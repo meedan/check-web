@@ -119,17 +119,29 @@ class MediaStatus extends Component {
     return label;
   }
 
+  statusIdToStyle(id) {
+    const statuses = JSON.parse(this.props.media.verification_statuses).statuses;
+    let style = '';
+    statuses.forEach((status) => {
+      if (status.id === id) {
+        style = status.style;
+      }
+    });
+    return style;
+  }
+
   render() {
     const that = this;
     const { media } = this.props;
     const statuses = JSON.parse(media.verification_statuses).statuses;
     const currentStatus = this.statusIdToLabel(media.last_status);
+    const statusStyle = this.statusIdToStyle(media.last_status);
 
     return (
       <div className={this.bemClass('media-status', this.canUpdate(), '--editable')} onClick={this.toggleMediaStatusMenu.bind(this)}>
         <div className={this.bemClass('media-status__overlay', this.state.isMediaStatusMenuOpen, '--active')} onClick={this.toggleMediaStatusMenu.bind(this)} />
 
-        <div className={`media-status__current${this.currentStatusToClass(media.last_status)}`}>
+        <div className={`media-status__current${this.currentStatusToClass(media.last_status)}`} style={{color: statusStyle.color}}>
           <span className="media-status__label media-status__label--current">{currentStatus}</span>
           {this.canUpdate() ?
             <MdArrowDropDown className="media-status__caret" />
@@ -141,7 +153,7 @@ class MediaStatus extends Component {
         {this.canUpdate() ?
           <ul className={this.bemClass('media-status__menu', this.state.isMediaStatusMenuOpen, '--active')}>
             {statuses.map(status => (
-              <li className={`${that.bemClass('media-status__menu-item', (media.last_status === status.id), '--current')} media-status__menu-item--${status.id.replace('_', '-')}`} onClick={that.handleStatusClick.bind(that, status.id)}>
+              <li className={`${that.bemClass('media-status__menu-item', (media.last_status === status.id), '--current')} media-status__menu-item--${status.id.replace('_', '-')}`} onClick={that.handleStatusClick.bind(that, status.id)} style={{color: status.style.color}}>
 
                 <FaCircle className="media-status__icon media-status__icon--radio-button-selected" />
 
