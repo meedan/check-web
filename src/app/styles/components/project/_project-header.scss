@@ -1,5 +1,6 @@
 .project-header {
   height: 100%;
+  display: flex;
 
   // ellipsis truncation requires explicit width
   width: 195px;
@@ -26,6 +27,39 @@
   @media screen and (min-width: 900px) {
     width: 700px;
   }
+}
+
+.project-header__back-button {
+  height: 100%; // larger click target
+  display: flex; // center icon
+  flex-direction: column;
+  justify-content: center;
+  $_size: 23px;
+  & > svg {
+    height: $_size;
+    width: $_size;
+  }
+  &,
+  &:visited {
+    color: $black-54 !important;
+  }
+  a:hover {
+    text-decoration: none;
+  }
+
+  // toggle
+  width: 0;
+  opacity: 0;
+  margin-right: 0;
+  &--displayed {
+    width: $_size;
+    opacity: 1;
+    margin-right: 8px;
+  }
+  transition:
+    opacity 200ms ease,
+    width 200ms ease,
+    margin 200ms ease;
 }
 
 .project-header__menu-toggle-label {
