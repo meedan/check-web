@@ -119,7 +119,7 @@ class MediaStatus extends Component {
       <div className={this.bemClass('media-status', this.canUpdate(), '--editable')} onClick={this.toggleMediaStatusMenu.bind(this)}>
         <div className={this.bemClass('media-status__overlay', this.state.isMediaStatusMenuOpen, '--active')} onClick={this.toggleMediaStatusMenu.bind(this)} />
 
-        <div className={`media-status__current${this.currentStatusToClass(media.last_status)}`} style={{color: status.color}}>
+        <div className={`media-status__current${this.currentStatusToClass(media.last_status)}`} style={{color: status.style.color}}>
           <span className="media-status__label media-status__label--current">{status.label}</span>
           {this.canUpdate() ?
             <MdArrowDropDown className="media-status__caret" />

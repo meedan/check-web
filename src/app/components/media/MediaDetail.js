@@ -213,7 +213,7 @@ class MediaDetail extends Component {
     const status = getStatus(this.props.media.verification_statuses, media.last_status);
 
     return (
-      <div className={this.statusToClass('media-detail', media.last_status) + ' ' + 'media-detail--' + MediaUtil.typeLabel(media, data).toLowerCase()} style={{borderColor: status.borderColor}}>
+      <div className={this.statusToClass('media-detail', media.last_status) + ' ' + 'media-detail--' + MediaUtil.typeLabel(media, data).toLowerCase()} style={{borderColor: status.style.borderColor}}>
         <div className="media-detail__header">
           <div className="media-detail__status"><MediaStatus media={media} readonly={this.props.readonly} /></div>
         </div>
