@@ -10,6 +10,7 @@ import DeleteVersionMutation from '../../relay/DeleteVersionMutation';
 import Can from '../Can';
 import TimeBefore from '../TimeBefore';
 import { Link } from 'react-router';
+import { getStatus } from '../../helpers';
 
 const messages = defineMessages({
   error: {
@@ -59,28 +60,6 @@ class Annotation extends Component {
         { onSuccess, onFailure },
       );
     }
-  }
-
-  statusIdToLabel(id) {
-    const statuses = JSON.parse(this.props.annotated.verification_statuses).statuses;
-    let label = '';
-    statuses.forEach((status) => {
-      if (status.id === id) {
-        label = status.label;
-      }
-    });
-    return label;
-  }
-
-  statusIdToStyle(id) {
-    const statuses = JSON.parse(this.props.annotated.verification_statuses).statuses;
-    let style = '';
-    statuses.forEach((status) => {
-      if (status.id === id) {
-        style = status.style;
-      }
-    });
-    return style;
   }
 
   updatedAt(activity) {
@@ -133,12 +112,13 @@ class Annotation extends Component {
       break;
     case 'update_status':
       const statusCode = content.status.toLowerCase().replace(/[ _]/g, '-');
+      const status = getStatus(this.props.annotated.verification_statuses, content.status);
       contentTemplate = (
         <section className="annotation__content">
           <div className="annotation__header">
             <FormattedMessage id="annotation.statusSetHeader"
                   defaultMessage={`Status set to {status} by {author}`}
-                          values={{ status: <span className={`annotation__status annotation__status--${statusCode}`} style={{color: this.statusIdToStyle(content.status).color}}>{this.statusIdToLabel(content.status)}</span>,
+                          values={{ status: <span className={`annotation__status annotation__status--${statusCode}`} style={{color: status.style.color}}>{status.label}</span>,
                                     author: <span className="annotation__author-name">{activity.user.name}</span> }} />
             {updatedAt ? <span className="annotation__timestamp"><TimeBefore date={updatedAt} /></span> : null}
             {annotationActions}

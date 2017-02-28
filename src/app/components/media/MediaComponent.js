@@ -11,7 +11,7 @@ import config from 'config';
 import { pageTitle } from '../../helpers';
 import CheckContext from '../../CheckContext';
 import Tasks from '../task/Tasks';
-import { bemClassFromMediaStatus, safelyParseJSON } from '../../helpers';
+import { bemClassFromMediaStatus, safelyParseJSON, getStatus } from '../../helpers';
 import ContentColumn from '../layout/ContentColumn';
 import MediaStatus from './MediaStatus';
 
@@ -70,17 +70,6 @@ class MediaComponent extends Component {
     this.unsubscribe();
   }
 
-  statusIdToStyle(id) {
-    const statuses = JSON.parse(this.props.media.verification_statuses).statuses;
-    let style = '';
-    statuses.forEach((status) => {
-      if (status.id === id) {
-        style = status.style;
-      }
-    });
-    return style;
-  }
-
   render() {
     if (this.props.relay.variables.contextId === null) {
       return null;
@@ -93,12 +82,12 @@ class MediaComponent extends Component {
     const userOverrides = safelyParseJSON(media.overridden);
     const primaryHeading = (userOverrides && userOverrides.title) ?
         MediaUtil.title(media, data) : MediaUtil.attributedType(media, data);
-    const statusStyle = this.statusIdToStyle(media.last_status);
+    const status = getStatus(this.props.media.verification_statuses, media.last_status);
 
     return (
       <DocumentTitle title={pageTitle(MediaUtil.title(media, data), false, this.getContext().team)}>
         <div className='media' data-id={media.dbid}>
-          <div className={bemClassFromMediaStatus('media__expanded', media.last_status)} style={{backgroundColor: statusStyle.backgroundColor}}>
+          <div className={bemClassFromMediaStatus('media__expanded', media.last_status)} style={{backgroundColor: status.style.backgroundColor}}>
             <ContentColumn>
               <h1 className='media__primary-heading'>{primaryHeading}</h1>
               <div className="media__status">
