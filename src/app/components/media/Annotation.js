@@ -72,6 +72,17 @@ class Annotation extends Component {
     return label;
   }
 
+  statusIdToStyle(id) {
+    const statuses = JSON.parse(this.props.annotated.verification_statuses).statuses;
+    let style = '';
+    statuses.forEach((status) => {
+      if (status.id === id) {
+        style = status.style;
+      }
+    });
+    return style;
+  }
+
   updatedAt(activity) {
     let date = new Date(activity.created_at);
     if (isNaN(date)) date = null;
@@ -127,7 +138,7 @@ class Annotation extends Component {
           <div className="annotation__header">
             <FormattedMessage id="annotation.statusSetHeader"
                   defaultMessage={`Status set to {status} by {author}`}
-                          values={{ status: <span className={`annotation__status annotation__status--${statusCode}`}>{this.statusIdToLabel(content.status)}</span>,
+                          values={{ status: <span className={`annotation__status annotation__status--${statusCode}`} style={{color: this.statusIdToStyle(content.status).color}}>{this.statusIdToLabel(content.status)}</span>,
                                     author: <span className="annotation__author-name">{activity.user.name}</span> }} />
             {updatedAt ? <span className="annotation__timestamp"><TimeBefore date={updatedAt} /></span> : null}
             {annotationActions}

@@ -143,6 +143,17 @@ class MediaDetail extends Component {
       baseClass;
   }
 
+  statusIdToStyle(id) {
+    const statuses = JSON.parse(this.props.media.verification_statuses).statuses;
+    let style = '';
+    statuses.forEach((status) => {
+      if (status.id === id) {
+        style = status.style;
+      }
+    });
+    return style;
+  }
+
   currentProject(){
     const projectId = this.props.media.project_id;
     const context = this.getContext();
@@ -201,9 +212,10 @@ class MediaDetail extends Component {
       <FlatButton label={<FormattedMessage id="mediaDetail.cancel" defaultMessage="Nevermind" />} primary={true} onClick={this.handleCloseDialog.bind(this)} />,
       <FlatButton label={<FormattedMessage id="mediaDetail.move" defaultMessage="Move" />} primary={true} keyboardFocused={true} onClick={this.submitMoveProjectMedia.bind(this)} disabled={!this.state.dstProj} />
     ];
+    const statusStyle = this.statusIdToStyle(media.last_status);
 
     return (
-      <div className={this.statusToClass('media-detail', media.last_status) + ' ' + 'media-detail--' + MediaUtil.typeLabel(media, data).toLowerCase()}>
+      <div className={this.statusToClass('media-detail', media.last_status) + ' ' + 'media-detail--' + MediaUtil.typeLabel(media, data).toLowerCase()} style={{borderColor: statusStyle.borderColor}}>
         <div className="media-detail__header">
           <div className="media-detail__status"><MediaStatus media={media} readonly={this.props.readonly} /></div>
         </div>

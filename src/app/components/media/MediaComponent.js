@@ -70,6 +70,17 @@ class MediaComponent extends Component {
     this.unsubscribe();
   }
 
+  statusIdToStyle(id) {
+    const statuses = JSON.parse(this.props.media.verification_statuses).statuses;
+    let style = '';
+    statuses.forEach((status) => {
+      if (status.id === id) {
+        style = status.style;
+      }
+    });
+    return style;
+  }
+
   render() {
     if (this.props.relay.variables.contextId === null) {
       return null;
@@ -82,11 +93,12 @@ class MediaComponent extends Component {
     const userOverrides = safelyParseJSON(media.overridden);
     const primaryHeading = (userOverrides && userOverrides.title) ?
         MediaUtil.title(media, data) : MediaUtil.attributedType(media, data);
+    const statusStyle = this.statusIdToStyle(media.last_status);
 
     return (
       <DocumentTitle title={pageTitle(MediaUtil.title(media, data), false, this.getContext().team)}>
         <div className='media' data-id={media.dbid}>
-          <div className={bemClassFromMediaStatus('media__expanded', media.last_status)}>
+          <div className={bemClassFromMediaStatus('media__expanded', media.last_status)} style={{backgroundColor: statusStyle.backgroundColor}}>
             <ContentColumn>
               <h1 className='media__primary-heading'>{primaryHeading}</h1>
               <div className="media__status">

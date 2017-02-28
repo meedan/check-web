@@ -225,8 +225,8 @@ class SearchQueryComponent extends Component {
                 <h4><FormattedMessage id="search.statusHeading" defaultMessage="Status" /></h4>
                 {/* chicklet markup/logic from MediaTags. TODO: fix classnames */}
                 <ul className="/ media-tags__suggestions-list // electionland_categories">
-                  {statuses.map(status =>  // TODO: set and use styles in `status.style`
-                    <li title={status.description} onClick={this.handleStatusClick.bind(this, status.id)} className={bemClass('media-tags__suggestion', this.statusIsSelected(status.id), '--selected')}>{status.label}</li>)}
+                  {statuses.map(status =>
+                    <li title={status.description} onClick={this.handleStatusClick.bind(this, status.id)} className={bemClass('media-tags__suggestion', this.statusIsSelected(status.id), '--selected')} style={{backgroundColor: status.style.backgroundColor}} >{status.label}</li>)}
                 </ul>
               </div>
               <div>
