@@ -97,6 +97,7 @@ class MediaDetail extends Component {
   submitMoveProjectMedia() {
     const { media } = this.props;
     const projectId = this.state.dstProj.dbid;
+    const previousProjectId = this.currentProject().node.dbid;
     const history = this.getContext().history;
     const that = this;
 
@@ -109,19 +110,27 @@ class MediaDetail extends Component {
     };
 
     const onFailure = (transaction) => {
+      if (/^\/[^\/]+\/project\/[0-9]+$/.test(window.location.pathname)) {
+        history.push(`/${media.team.slug}/project/${previousProjectId}`);
+      }
       const transactionError = transaction.getError();
       transactionError.json ? transactionError.json().then(handleError) : handleError(JSON.stringify(transactionError));
     };
 
+    const path = `/${media.team.slug}/project/${projectId}`; 
+
     const onSuccess = (response) => {
       if (/^\/[^\/]+\/search\//.test(window.location.pathname)) {
         that.props.parentComponent.props.relay.forceFetch();
-      } else if (/\/media\/[0-9]+$/.test(window.location.pathname)) {
-        history.push(`/${media.team.slug}/project/${projectId}/media/${media.dbid}`)
-      } else if (/\/project\/[0-9]+$/.test(window.location.pathname)) {
-        history.push(`/${media.team.slug}/project/${projectId}`)
+      } else if (/^\/[^\/]+\/project\/[0-9]+\/media\/[0-9]+$/.test(window.location.pathname)) {
+        history.push(path + `/${media.dbid}`);
       }
     };
+
+    // Optimistic-redirect to target project
+    if (/^\/[^\/]+\/project\/[0-9]+$/.test(window.location.pathname)) {
+      history.push(path);
+    }
 
     Relay.Store.commitUpdate(
       new UpdateProjectMediaMutation({
