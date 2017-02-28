@@ -7,6 +7,7 @@ import Can, { can } from '../Can';
 import CheckContext from '../../CheckContext';
 import MdArrowDropDown from 'react-icons/lib/md/arrow-drop-down';
 import { FaCircle, FaCircleO } from 'react-icons/lib/fa';
+import { getStatus } from '../../helpers';
 
 const messages = defineMessages({
   error: {
@@ -108,41 +109,18 @@ class MediaStatus extends Component {
     // this.setState({ message: 'Status updated.' });
   }
 
-  statusIdToLabel(id) {
-    const statuses = JSON.parse(this.props.media.verification_statuses).statuses;
-    let label = '';
-    statuses.forEach((status) => {
-      if (status.id === id) {
-        label = status.label;
-      }
-    });
-    return label;
-  }
-
-  statusIdToStyle(id) {
-    const statuses = JSON.parse(this.props.media.verification_statuses).statuses;
-    let style = '';
-    statuses.forEach((status) => {
-      if (status.id === id) {
-        style = status.style;
-      }
-    });
-    return style;
-  }
-
   render() {
     const that = this;
     const { media } = this.props;
     const statuses = JSON.parse(media.verification_statuses).statuses;
-    const currentStatus = this.statusIdToLabel(media.last_status);
-    const statusStyle = this.statusIdToStyle(media.last_status);
+    const status = getStatus(this.props.media.verification_statuses, media.last_status);
 
     return (
       <div className={this.bemClass('media-status', this.canUpdate(), '--editable')} onClick={this.toggleMediaStatusMenu.bind(this)}>
         <div className={this.bemClass('media-status__overlay', this.state.isMediaStatusMenuOpen, '--active')} onClick={this.toggleMediaStatusMenu.bind(this)} />
 
-        <div className={`media-status__current${this.currentStatusToClass(media.last_status)}`} style={{color: statusStyle.color}}>
-          <span className="media-status__label media-status__label--current">{currentStatus}</span>
+        <div className={`media-status__current${this.currentStatusToClass(media.last_status)}`} style={{color: status.color}}>
+          <span className="media-status__label media-status__label--current">{status.label}</span>
           {this.canUpdate() ?
             <MdArrowDropDown className="media-status__caret" />
             : null

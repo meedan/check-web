@@ -17,6 +17,17 @@ function bemClassFromMediaStatus(baseClass, mediaStatus) {
   );
 }
 
+function getStatus(verification_statuses, id) {
+  const statuses = safelyParseJSON(verification_statuses).statuses;
+  let status = '';
+  statuses.forEach((st) => {
+    if (st.id === id) {
+      status = st;
+    }
+  });
+  return status;
+}
+
 // Make a Check page title as `prefix | team Check`.
 // Try to get the current team's name and fallback to just `Check`.
 // Skip team name if `skipTeam` is true.
@@ -43,5 +54,6 @@ export {
   bemClass,
   bemClassFromMediaStatus,
   pageTitle,
-  safelyParseJSON
+  safelyParseJSON,
+  getStatus
 };
