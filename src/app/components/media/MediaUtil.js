@@ -15,11 +15,12 @@ const MediaUtil = {
   },
 
   authorName(media, data) {
-    return data.username;
+    return (media.domain === 'twitter.com') ? data.user.name : data.username;
   },
 
   authorUsername(media, data) {
-    return `@${data.username}`;
+    return (media.domain === 'twitter.com' || media.domain === 'instagram.com') ?
+    `@${data.username}` : data.username;
   },
 
   authorUrl(media, data) {
