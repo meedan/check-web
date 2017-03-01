@@ -29,7 +29,8 @@ class Task extends Component {
       editing: false,
       message: null,
       editingResponse: false,
-      isMenuOpen: false
+      isMenuOpen: false,
+      taskAnswerDisabled: false
     };
   }
 
@@ -84,7 +85,17 @@ class Task extends Component {
 
   handleKeyPress(e) {
     if (e.key === 'Enter' && !e.shiftKey) {
-      this.handleSubmit(e);
+      if (!this.state.taskAnswerDisabled) {
+        this.setState({ taskAnswerDisabled: true });
+        this.handleSubmit(e);
+      }
+      e.preventDefault();
+    }
+  }
+  
+  handleChange(e) {
+    if (this.state.taskAnswerDisabled) {
+      this.setState({ taskAnswerDisabled: false });
     }
   }
 
@@ -156,7 +167,11 @@ class Task extends Component {
 
   handleKeyPressUpdate(e) {
     if (e.key === 'Enter' && !e.shiftKey) {
-      this.handleSubmitUpdate(e);
+      if (!this.state.taskAnswerDisabled) {
+        this.setState({ taskAnswerDisabled: true });
+        this.handleSubmitUpdate(e);
+      }
+      e.preventDefault();
     }
   }
 
@@ -262,12 +277,14 @@ class Task extends Component {
                          onFocus={this.handleFocus.bind(this)}
                          name="response"
                          onKeyPress={this.handleKeyPress.bind(this)}
+                         onChange={this.handleChange.bind(this)}
                          fullWidth={true}
                          multiLine={true}/>
               <div style={{ display: this.state.focus ? 'block' : 'none' }}>
                 <TextField hintText={<FormattedMessage id="task.noteLabel" defaultMessage="Note any additional details here." />}
                            name="note"
                            onKeyPress={this.handleKeyPress.bind(this)}
+                           onChange={this.handleChange.bind(this)}
                            fullWidth={true}
                            multiLine={true}/>
                 <p className="task__resolver"><small><FormattedMessage id="task.pressReturnToSave" defaultMessage="Press return to save your response" /></small></p>
@@ -281,12 +298,14 @@ class Task extends Component {
                            defaultValue={response}
                            name="editedresponse"
                            onKeyPress={this.handleKeyPressUpdate.bind(this)}
+                           onChange={this.handleChange.bind(this)}
                            fullWidth={true}
                            multiLine={true}/>
                 <TextField hintText={<FormattedMessage id="task.noteLabel" defaultMessage="Note any additional details here." />}
                            defaultValue={note}
                            name="editednote"
                            onKeyPress={this.handleKeyPressUpdate.bind(this)}
+                           onChange={this.handleChange.bind(this)}
                            fullWidth={true}
                            multiLine={true}/>
                 <p className="task__resolver"><small><FormattedMessage id="task.pressReturnToSave" defaultMessage="Press return to save your response" /></small> <span id="task__cancel-button" onClick={this.handleCancelEditResponse.bind(this)}>✖</span></p>
