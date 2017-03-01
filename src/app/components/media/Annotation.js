@@ -180,18 +180,33 @@ class Annotation extends Component {
       break;
     case 'update_embed': case 'create_embed':
       if (content.title) {
-        contentTemplate = (
-          <section className="annotation__content">
-            <div className="annotation__header">
-              <span>
-                <FormattedMessage id="annotation.titleChanged" defaultMessage={`Title changed to {title} by {author}`}
-                 values={{ title: <b>{content.title}</b>, author: <span className="annotation__author-name">{activity.user.name} </span> }} />
-              </span>
-              {updatedAt ? <span className="annotation__timestamp"><TimeBefore date={updatedAt} /></span> : null}
-              {annotationActions}
-            </div>
-          </section>
-        );
+        if (annotated.quote && annotated.quote === content.title) {
+          contentTemplate = (
+            <section className="annotation__content">
+              <div className="annotation__header">
+                <span>
+                  <FormattedMessage id="annotation.newClaim" defaultMessage={`New claim added by {author}`}
+                   values={{ author: <span className="annotation__author-name">{activity.user.name} </span> }} />
+                </span>
+                {updatedAt ? <span className="annotation__timestamp"><TimeBefore date={updatedAt} /></span> : null}
+                {annotationActions}
+              </div>
+            </section>
+          );
+        } else {
+          contentTemplate = (
+            <section className="annotation__content">
+              <div className="annotation__header">
+                <span>
+                  <FormattedMessage id="annotation.titleChanged" defaultMessage={`Title changed to {title} by {author}`}
+                   values={{ title: <b>{content.title}</b>, author: <span className="annotation__author-name">{activity.user.name} </span> }} />
+                </span>
+                {updatedAt ? <span className="annotation__timestamp"><TimeBefore date={updatedAt} /></span> : null}
+                {annotationActions}
+              </div>
+            </section>
+          );
+        }
       }
       break;
     case 'update_projectmedia':
