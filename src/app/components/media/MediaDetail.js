@@ -193,7 +193,7 @@ class MediaDetail extends Component {
     media.url = media.media.url;
     media.quote = media.media.quote;
     media.embed_path = media.media.embed_path;
-    
+   
     const heading = (userOverrides && userOverrides.title) ? MediaUtil.title(media, data) : MediaUtil.attributedType(media, data);
 
     if (media.media.embed_path) {
