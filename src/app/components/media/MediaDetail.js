@@ -174,8 +174,6 @@ class MediaDetail extends Component {
     const createdAt = MediaUtil.createdAt(media);
     const annotationsCount = MediaUtil.notesCount(media, data);
     const userOverrides = safelyParseJSON(media.overridden);
-    const heading = (userOverrides && userOverrides.title) ?
-        MediaUtil.title(media, data) : MediaUtil.attributedType(media, data);
 
     const context = this.getContext();
 
@@ -194,6 +192,9 @@ class MediaDetail extends Component {
     let embedCard = null;
     media.url = media.media.url;
     media.quote = media.media.quote;
+    media.embed_path = media.media.embed_path;
+    
+    const heading = (userOverrides && userOverrides.title) ? MediaUtil.title(media, data) : MediaUtil.attributedType(media, data);
 
     if (media.media.embed_path) {
       const path = condensed ? media.media.thumbnail_path : media.media.embed_path;

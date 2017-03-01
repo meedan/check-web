@@ -79,6 +79,7 @@ class MediaComponent extends Component {
     const data = JSON.parse(media.embed);
     media.url = media.media.url
     media.quote = media.media.quote
+    media.embed_path = media.media.embed_path;
     const userOverrides = safelyParseJSON(media.overridden);
     const primaryHeading = (userOverrides && userOverrides.title) ?
         MediaUtil.title(media, data) : MediaUtil.attributedType(media, data);

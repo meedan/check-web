@@ -13,6 +13,8 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
       fragment on UpdateProjectMediaPayload {
         project_media {
           project_id,
+          overridden,
+          embed,
           log,
           annotations_count
         }

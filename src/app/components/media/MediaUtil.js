@@ -41,6 +41,9 @@ const MediaUtil = {
       if (media && media.quote) {
         return 'Claim';
       }
+      if (media && media.embed_path) {
+        return data.title || 'Image';
+      }
       if (media && media.domain) {
         return 'Page';
       }
