@@ -55,7 +55,7 @@ class SocialMediaCard extends Component {
             {authorAvatarUrl ? <img src={authorAvatarUrl} className="social-media-card__author-avatar" /> : null}
             <div className="social-media-card__header-text-primary / header-text-primary">
               <a href={authorUrl} className="social-media-card__name">{authorName || authorUsername}</a>
-              {authorName ?
+              { (authorName && authorUsername) ?
                 <a href={authorUrl} className="social-media-card__username">{authorUsername}</a> : null
               }
             </div>
