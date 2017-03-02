@@ -532,7 +532,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       id2 = @driver.current_url.to_s.gsub(/^.*\/media\//, '').to_i
       expect(id2 > 0).to be(true)
-      
+
       expect(id1 == id2).to be(true)
     end
 
@@ -830,7 +830,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 5
       @driver.execute_script('window.close()')
       @driver.switch_to.window(current_window)
-      
+
       sleep 5
       expect(@driver.page_source.include?('Auto-Refresh')).to be(true)
     end
@@ -852,7 +852,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 5
       @driver.execute_script('window.close()')
       @driver.switch_to.window(current_window)
-      
+
       sleep 5
       expect(@driver.page_source.include?('Auto-Refresh')).to be(true)
     end
@@ -894,9 +894,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       media_pg = LoginPage.new(config: @config, driver: @driver).load
           .login_with_email(email: @email, password: @password)
           .create_media(input: 'https://twitter.com/firstdraftnews/status/835587295394869249?t=' + Time.now.to_i.to_s)
-      expect(media_pg.primary_heading.text).to eq('Tweet by firstdraftnews')
+      expect(media_pg.primary_heading.text).to eq('Tweet by First Draft')
       project_pg = media_pg.go_to_project
-      expect(project_pg.element('.media-detail__heading').text).to eq('Tweet by firstdraftnews')
+      expect(project_pg.element('.media-detail__heading').text).to eq('Tweet by First Draft')
 
       # YouTube
       media_pg = project_pg.create_media(input: 'https://www.youtube.com/watch?v=ykLgjhBnik0?t=' + Time.now.to_i.to_s)
@@ -915,7 +915,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       media_pg = LoginPage.new(config: @config, driver: @driver).load
           .login_with_email(email: @email, password: @password)
           .create_media(input: 'https://twitter.com/softlandscapes/status/834385935240462338?t=' + Time.now.to_i.to_s)
-      expect(media_pg.primary_heading.text).to eq('Tweet by softlandscapes')
+      expect(media_pg.primary_heading.text).to eq('Tweet by soft landscapes')
       sleep 2 # :/ clicks can misfire if pender iframe moves the button position at the wrong moment
       media_pg.set_title('Edited media title')
 
