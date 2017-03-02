@@ -12,6 +12,9 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import Can from '../Can';
 import MdMoreHoriz from 'react-icons/lib/md/more-horiz';
+import MdInfoOutline from 'react-icons/lib/md/info-outline';
+import Tooltip from 'rc-tooltip';
+import 'rc-tooltip/assets/bootstrap.css';
 
 const messages = defineMessages({
   confirmDelete: {
@@ -92,7 +95,7 @@ class Task extends Component {
       e.preventDefault();
     }
   }
-  
+
   handleChange(e) {
     if (this.state.taskAnswerDisabled) {
       this.setState({ taskAnswerDisabled: false });
@@ -251,6 +254,21 @@ class Task extends Component {
       <FlatButton label={<FormattedMessage id="tasks.save" defaultMessage="Save" />} primary={true} keyboardFocused={true} onClick={this.handleUpdateTask.bind(this)} />,
     ];
 
+    const taskQuestion = (
+      <p>
+        { task.description ? (
+          <Tooltip
+            placement="left"
+            trigger={['click']}
+            overlay={<span>{task.description}</span>}
+            overlayClassName='task__description-tooltip'>
+            <MdInfoOutline className='task__description-icon' title={task.description}/>
+          </Tooltip>
+        ) : <em>{task.description}</em> }
+        <span className='task__label'>{task.label}</span>
+      </p>
+    );
+
     return (
       <div>
         <Card onClick={this.handleClick.bind(this)} className="task">
@@ -272,8 +290,9 @@ class Task extends Component {
             <Message message={this.state.message} />
             {response === null ?
             <form onSubmit={this.handleSubmit.bind(this)} name={`task-response-${task.id}`}>
-              <TextField floatingLabelText={task.label}
-                         hintText={task.description}
+              {taskQuestion}
+              {/* "response" */}
+              <TextField className='task__response-input'
                          onFocus={this.handleFocus.bind(this)}
                          name="response"
                          onKeyPress={this.handleKeyPress.bind(this)}
@@ -293,8 +312,9 @@ class Task extends Component {
             : (this.state.editingResponse ?
             <div className="task__editing">
               <form onSubmit={this.handleSubmitUpdate.bind(this)} name={`edit-response-${task.first_response.id}`}>
-                <TextField floatingLabelText={task.label}
-                           hintText={task.description}
+                {taskQuestion}
+                {/* "response" */}
+                <TextField className='task__response-input'
                            defaultValue={response}
                            name="editedresponse"
                            onKeyPress={this.handleKeyPressUpdate.bind(this)}
@@ -313,7 +333,7 @@ class Task extends Component {
             </div>
             :
             <div className="task__resolved">
-              <p className="task__label">{task.label}</p>
+              {taskQuestion}
               <p className="task__response">{response}</p>
               <p style={{ display: note ? 'block' : 'none' }} className="task__note">{note}</p>
               <p className="task__resolver">

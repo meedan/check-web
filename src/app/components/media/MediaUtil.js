@@ -15,11 +15,27 @@ const MediaUtil = {
   },
 
   authorName(media, data) {
-    return data.username;
+    switch (media.domain) {
+      case 'twitter.com':
+       return data.user.name;
+      case 'instagram.com':
+        return '';
+      default:
+        return data.username || media.domain;
+    }
   },
 
   authorUsername(media, data) {
-    return `@${data.username}`;
+    switch (media.domain) {
+      case 'twitter.com':
+      case 'instagram.com':
+        return `@${data.username}`;
+      case 'facebook.com':
+      case 'youtube.com':
+        return '';
+      default:
+        return data.username;
+    }
   },
 
   authorUrl(media, data) {
@@ -42,7 +58,7 @@ const MediaUtil = {
         return 'Claim';
       }
       if (media && media.embed_path) {
-        return data.title || 'Image';
+        return 'Image';
       }
       if (media && media.domain) {
         return 'Page';
@@ -57,8 +73,10 @@ const MediaUtil = {
       typeLabel = this.typeLabel(media, data);
       if (typeLabel === 'Page') {
         return `${typeLabel} on ${media.domain}`;
+      } else if (typeLabel === 'Image') {
+        return data.title || typeLabel;
       } else if (typeLabel === 'Claim') {
-        return `${typeLabel}`;
+        return (data.title && data.title != media.quote) ? data.title : typeLabel;
       } else {
         const attribution = this.authorName(media, data);
         return `${typeLabel}${attribution ? ` by ${attribution}` : ''}`;

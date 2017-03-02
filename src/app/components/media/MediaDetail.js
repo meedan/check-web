@@ -19,7 +19,7 @@ import TimeBefore from '../TimeBefore';
 import ImageMediaCard from './ImageMediaCard';
 import UpdateProjectMediaMutation from '../../relay/UpdateProjectMediaMutation';
 import CheckContext from '../../CheckContext';
-import { bemClass, safelyParseJSON, getStatus } from '../../helpers';
+import { bemClass, safelyParseJSON, getStatus, getStatusStyle } from '../../helpers';
 
 const messages = defineMessages({
   error: {
@@ -193,7 +193,7 @@ class MediaDetail extends Component {
     media.url = media.media.url;
     media.quote = media.media.quote;
     media.embed_path = media.media.embed_path;
-    
+   
     const heading = (userOverrides && userOverrides.title) ? MediaUtil.title(media, data) : MediaUtil.attributedType(media, data);
 
     if (media.media.embed_path) {
@@ -214,7 +214,7 @@ class MediaDetail extends Component {
     const status = getStatus(this.props.media.verification_statuses, media.last_status);
 
     return (
-      <div className={this.statusToClass('media-detail', media.last_status) + ' ' + 'media-detail--' + MediaUtil.typeLabel(media, data).toLowerCase()} style={{borderColor: status.style.borderColor}}>
+      <div className={this.statusToClass('media-detail', media.last_status) + ' ' + 'media-detail--' + MediaUtil.typeLabel(media, data).toLowerCase()} style={{borderColor: getStatusStyle(status, 'borderColor')}}>
         <div className="media-detail__header">
           <div className="media-detail__status"><MediaStatus media={media} readonly={this.props.readonly} /></div>
         </div>

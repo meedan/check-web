@@ -6,6 +6,7 @@
   "annotation.taskCreated": "Task \"{task}\" created by {author}",
   "annotation.taskResolve": "Task \"{task}\" answered by {author}: {response}",
   "annotation.flaggedHeader": "Flagged as {flag} by {author}",
+  "annotation.newClaim": "New claim added by {author}",
   "annotation.titleChanged": "Title changed to {title} by {author}",
   "annotation.projectMoved": "Moved from project {previousProject} to {currentProject} by {author}",
   "annotation.taskLabelUpdated": "Task \"{from}\" edited to \"{to}\" by {author}",

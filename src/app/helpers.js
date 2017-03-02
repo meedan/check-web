@@ -28,6 +28,14 @@ function getStatus(verification_statuses, id) {
   return status;
 }
 
+function getStatusStyle(status, property) {
+  let style = '';
+  if (status && status.style) {
+    style = status.style[property];
+  }
+  return style;
+}
+
 // Make a Check page title as `prefix | team Check`.
 // Try to get the current team's name and fallback to just `Check`.
 // Skip team name if `skipTeam` is true.
@@ -55,5 +63,6 @@ export {
   bemClassFromMediaStatus,
   pageTitle,
   safelyParseJSON,
-  getStatus
+  getStatus,
+  getStatusStyle
 };

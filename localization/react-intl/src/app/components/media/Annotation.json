@@ -28,6 +28,10 @@
     "defaultMessage": "Flagged as {flag} by {author}"
   },
   {
+    "id": "annotation.newClaim",
+    "defaultMessage": "New claim added by {author}"
+  },
+  {
     "id": "annotation.titleChanged",
     "defaultMessage": "Title changed to {title} by {author}"
   },
