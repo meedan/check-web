@@ -10,7 +10,7 @@
 @import 'theme/layout';
 @import 'theme/forms';
 @import 'theme/images';
-@import 'theme/lists';
+@import 'theme/menus';
 @import 'theme/animation';
 @import 'components/browser-support';
 @import 'components/caret';
@@ -58,7 +58,8 @@
 @import 'components/project/project-edit';
 @import 'components/project/project-header';
 @import 'components/project/project-list';
-@import 'components/tasks';
+@import 'components/task/task';
+@import 'components/task/tasks';
 @import 'source';
 @import 'tags';
 @import 'create-account';

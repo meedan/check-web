@@ -4,5 +4,6 @@
   "tasks.addTask": "Ajouter une tâche",
   "tasks.shortAnswer": "Réponse courte",
   "tasks.taskLabel": "Étiquette de la tâche",
-  "tasks.description": "Description"
+  "tasks.description": "Description",
+  "tasks.addDescription": "Ajouter une description"
 }

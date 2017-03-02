@@ -3,6 +3,8 @@
 
   .task__label {
     font-size: 12px;
+    color: $black-38;
+    word-wrap: break-word;
   }
 
   .task__response {
@@ -10,11 +12,15 @@
   }
 
   .task__resolver {
+    color: $black-38;
     text-align: right;
   }
 
-  .task__resolved p {
-    margin: 3px 0;
+  .task__resolved {
+    p {
+      margin: 8px 0;
+      word-wrap: break-word;
+    }
   }
 
   #task__remove-button,
@@ -24,7 +30,7 @@
     margin: 5px 5px 0 0;
     cursor: pointer;
   }
-  
+
   #task__remove-button {
     margin-right: 8px;
   }
@@ -38,5 +44,20 @@
 
   .media-actions__icon {
     margin-top: 10px;
+  }
+
+  .task__description-icon {
+    float: right;
+    margin: 0 9px 8px 16px;
+  }
+}
+
+.task__description-tooltip { // via rc-tooltip, outside Task.js markup tree
+  max-width: 600px;
+  @media (max-width: $layout-mobile-breakpoint) {
+    max-width: 80vw;
+  }
+  span {
+    word-wrap: break-word;
   }
 }

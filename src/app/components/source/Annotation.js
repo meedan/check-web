@@ -9,6 +9,7 @@ import DeleteAnnotationMutation from '../../relay/DeleteAnnotationMutation';
 import DeleteVersionMutation from '../../relay/DeleteVersionMutation';
 import Can from '../Can';
 import TimeBefore from '../TimeBefore';
+import { getStatus } from '../../helpers';
 
 const messages = defineMessages({
   error: {
@@ -61,17 +62,6 @@ class Annotation extends Component {
 
   }
 
-  statusIdToLabel(id) {
-    const statuses = JSON.parse(this.props.annotated.verification_statuses).statuses;
-    let label = '';
-    statuses.forEach((status) => {
-      if (status.id === id) {
-        label = status.label;
-      }
-    });
-    return label;
-  }
-
   updatedAt(annotation) {
     let date = new Date(annotation.updated_at);
     if (isNaN(date)) date = null;
@@ -114,12 +104,14 @@ class Annotation extends Component {
       break;
     case 'status':
       const statusCode = content.status.toLowerCase().replace(/[ _]/g, '-');
+      const status = getStatus(this.props.annotated.verification_statuses, content.status);
+
       contentTemplate = (
         <section className="annotation__content">
           <div className="annotation__header">
             <FormattedMessage id="annotation.statusSetHeader"
                   defaultMessage={`Status set to {status} by {author}`}
-                          values={{ status: <span className={`annotation__status annotation__status--${statusCode}`}>{this.statusIdToLabel(content.status)}</span>,
+                          values={{ status: <span className={`annotation__status annotation__status--${statusCode}`}>{status.label}</span>,
                                     author: <span className="annotation__author-name">{annotation.annotator.name}</span> }} />
             {updatedAt ? <span className="annotation__timestamp"><TimeBefore date={updatedAt} /></span> : null}
             {annotationActions}

@@ -15,7 +15,7 @@ class CreateCommentMutation extends Relay.Mutation {
       query = Relay.QL`fragment on CreateCommentPayload { commentEdge, source { annotations } }`;
       break;
     case 'project_media':
-      query = Relay.QL`fragment on CreateCommentPayload { commentEdge, project_media { annotations, annotations_count } }`;
+      query = Relay.QL`fragment on CreateCommentPayload { commentEdge, project_media { log, annotations_count } }`;
       break;
     }
     return query;
@@ -51,14 +51,6 @@ class CreateCommentMutation extends Relay.Mutation {
     fieldIds[this.props.parent_type] = this.props.annotated.id;
 
     return [
-      {
-        type: 'RANGE_ADD',
-        parentName: this.props.parent_type,
-        parentID: this.props.annotated.id,
-        connectionName: 'annotations',
-        edgeName: 'commentEdge',
-        rangeBehaviors: calls => 'prepend',
-      },
       {
         type: 'FIELDS_CHANGE',
         fieldIDs: fieldIds,

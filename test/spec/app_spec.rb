@@ -519,7 +519,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 2
       press_button('#create-media-submit')
       sleep 10
-      id1 = @driver.current_url.to_s.gsub(/.*\/media\//, '').to_i
+      id1 = @driver.current_url.to_s.gsub(/^.*\/media\//, '').to_i
+      expect(id1 > 0).to be(true)
 
       @driver.navigate.to @driver.current_url.to_s.gsub(/\/media\/[0-9]+$/, '')
 
@@ -528,8 +529,10 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 2
       press_button('#create-media-submit')
       sleep 10
-      id2 = @driver.current_url.to_s.gsub(/.*\/media\//, '').to_i
 
+      id2 = @driver.current_url.to_s.gsub(/^.*\/media\//, '').to_i
+      expect(id2 > 0).to be(true)
+      
       expect(id1 == id2).to be(true)
     end
 
@@ -554,6 +557,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(page.contains_string?("Tagged \##{new_tag}")).to be(false)
       page.add_tag(new_tag)
       expect(page.has_tag?(new_tag)).to be(true)
+      sleep 2
       expect(page.contains_string?("Tagged \##{new_tag}")).to be(true)
 
       page.driver.navigate.refresh
@@ -633,6 +637,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       media_pg.fill_input('#cmd-input', '/flag Spam')
       media_pg.element('#cmd-input').submit
+      sleep 2
 
       expect(media_pg.contains_string?('Flag')).to be(true)
       media_pg.driver.navigate.refresh
@@ -654,6 +659,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       project_pg.edit(title: new_title, description: new_description)
 
       project_pg.wait_for_element('.project-header__title')
+      sleep 3
       expect(project_pg.contains_string?(new_title)).to be(true)
       project_pg.wait_for_element('.project__description')
       expect(project_pg.contains_string?(new_description)).to be(true)
@@ -794,7 +800,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should update notes count after delete annotation" do
       media_pg = LoginPage.new(config: @config, driver: @driver).load
         .login_with_email(email: @email, password: @password)
-        .create_media(input: "Media #{Time.now.to_i}")
+        .create_media(input: 'https://twitter.com/joeyayoub/status/829060304642383873?t=' + Time.now.to_i.to_s)
       media_pg.fill_input('#cmd-input', '/flag Spam')
       media_pg.element('#cmd-input').submit
       sleep 1
@@ -883,8 +889,39 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     #   skip("Needs to be implemented")
     # end
 
-    # it "should edit the title of a media" do
-    #   skip("Needs to be implemented")
-    # end
+    it "should display a default title for new media" do
+      # Tweets
+      media_pg = LoginPage.new(config: @config, driver: @driver).load
+          .login_with_email(email: @email, password: @password)
+          .create_media(input: 'https://twitter.com/firstdraftnews/status/835587295394869249?t=' + Time.now.to_i.to_s)
+      expect(media_pg.primary_heading.text).to eq('Tweet by firstdraftnews')
+      project_pg = media_pg.go_to_project
+      expect(project_pg.element('.media-detail__heading').text).to eq('Tweet by firstdraftnews')
+
+      # YouTube
+      media_pg = project_pg.create_media(input: 'https://www.youtube.com/watch?v=ykLgjhBnik0?t=' + Time.now.to_i.to_s)
+      expect(media_pg.primary_heading.text).to eq('Video by FirstDraftNews')
+      project_pg = media_pg.go_to_project
+      expect(project_pg.element('.media-detail__heading').text).to eq('Video by FirstDraftNews')
+
+      # Facebook
+      media_pg = project_pg.create_media(input: 'https://www.facebook.com/FirstDraftNews/posts/1808121032783161?t=' + Time.now.to_i.to_s)
+      expect(media_pg.primary_heading.text).to eq('Facebook post by First Draft News')
+      project_pg = media_pg.go_to_project
+      expect(project_pg.element('.media-detail__heading').text).to eq('Facebook post by First Draft News')
+    end
+
+    it "should edit the title of a media" do
+      media_pg = LoginPage.new(config: @config, driver: @driver).load
+          .login_with_email(email: @email, password: @password)
+          .create_media(input: 'https://twitter.com/softlandscapes/status/834385935240462338?t=' + Time.now.to_i.to_s)
+      expect(media_pg.primary_heading.text).to eq('Tweet by softlandscapes')
+      sleep 2 # :/ clicks can misfire if pender iframe moves the button position at the wrong moment
+      media_pg.set_title('Edited media title')
+
+      expect(media_pg.primary_heading.text).to eq('Edited media title')
+      project_pg = media_pg.go_to_project
+      expect(project_pg.element('.media-detail__heading').text).to eq('Edited media title')
+    end
   end
 end

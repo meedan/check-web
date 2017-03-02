@@ -10,7 +10,7 @@ import SearchRoute from '../relay/SearchRoute';
 import TeamRoute from '../relay/TeamRoute';
 import MediaDetail from './media/MediaDetail';
 import { bemClass } from '../helpers';
-import { pageTitle } from '../helpers';
+import { pageTitle, getStatusStyle } from '../helpers';
 import CheckContext from '../CheckContext';
 import ContentColumn from './layout/ContentColumn';
 import MediasLoading from './media/MediasLoading';
@@ -225,8 +225,8 @@ class SearchQueryComponent extends Component {
                 <h4><FormattedMessage id="search.statusHeading" defaultMessage="Status" /></h4>
                 {/* chicklet markup/logic from MediaTags. TODO: fix classnames */}
                 <ul className="/ media-tags__suggestions-list // electionland_categories">
-                  {statuses.map(status =>  // TODO: set and use styles in `status.style`
-                    <li title={status.description} onClick={this.handleStatusClick.bind(this, status.id)} className={bemClass('media-tags__suggestion', this.statusIsSelected(status.id), '--selected')}>{status.label}</li>)}
+                  {statuses.map(status =>
+                    <li title={status.description} onClick={this.handleStatusClick.bind(this, status.id)} className={bemClass('media-tags__suggestion', this.statusIsSelected(status.id), '--selected')} style={{backgroundColor: getStatusStyle(status, 'backgroundColor')}} >{status.label}</li>)}
                 </ul>
               </div>
               <div>
@@ -312,6 +312,7 @@ class SearchResultsComponent extends Component {
     const medias = this.props.search ? this.props.search.medias.edges : [];
     const count = this.props.search ? this.props.search.number_of_results : 0;
     const mediasCount = `${count} ${count === 1 ? this.props.intl.formatMessage(messages.searchResult) : this.props.intl.formatMessage(messages.searchResults)}`;
+    const that = this;
 
     return (
       <div className="search__results / results">
@@ -323,7 +324,7 @@ class SearchResultsComponent extends Component {
           <ul className="search__results-list / results medias-list">
             {medias.map(media => (
               <li className="/ medias__item">
-                <MediaDetail media={media.node} condensed />
+                <MediaDetail media={media.node} condensed parentComponent={that} />
               </li>
             ))}
           </ul>
