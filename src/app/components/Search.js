@@ -10,7 +10,7 @@ import SearchRoute from '../relay/SearchRoute';
 import TeamRoute from '../relay/TeamRoute';
 import MediaDetail from './media/MediaDetail';
 import { bemClass } from '../helpers';
-import { pageTitle } from '../helpers';
+import { pageTitle, getStatusStyle } from '../helpers';
 import CheckContext from '../CheckContext';
 import ContentColumn from './layout/ContentColumn';
 import MediasLoading from './media/MediasLoading';
@@ -226,7 +226,7 @@ class SearchQueryComponent extends Component {
                 {/* chicklet markup/logic from MediaTags. TODO: fix classnames */}
                 <ul className="/ media-tags__suggestions-list // electionland_categories">
                   {statuses.map(status =>
-                    <li title={status.description} onClick={this.handleStatusClick.bind(this, status.id)} className={bemClass('media-tags__suggestion', this.statusIsSelected(status.id), '--selected')} style={{backgroundColor: status.style.backgroundColor}} >{status.label}</li>)}
+                    <li title={status.description} onClick={this.handleStatusClick.bind(this, status.id)} className={bemClass('media-tags__suggestion', this.statusIsSelected(status.id), '--selected')} style={{backgroundColor: getStatusStyle(status, 'backgroundColor')}} >{status.label}</li>)}
                 </ul>
               </div>
               <div>

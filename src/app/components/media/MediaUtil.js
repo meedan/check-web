@@ -42,6 +42,9 @@ const MediaUtil = {
       if (media && media.quote) {
         return 'Claim';
       }
+      if (media && media.embed_path) {
+        return 'Image';
+      }
       if (media && media.domain) {
         return 'Page';
       }
@@ -55,8 +58,10 @@ const MediaUtil = {
       typeLabel = this.typeLabel(media, data);
       if (typeLabel === 'Page') {
         return `${typeLabel} on ${media.domain}`;
+      } else if (typeLabel === 'Image') {
+        return data.title || typeLabel;
       } else if (typeLabel === 'Claim') {
-        return `${typeLabel}`;
+        return (data.title && data.title != media.quote) ? data.title : typeLabel;
       } else {
         const attribution = this.authorName(media, data);
         return `${typeLabel}${attribution ? ` by ${attribution}` : ''}`;

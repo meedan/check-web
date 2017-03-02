@@ -13,6 +13,8 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
       fragment on UpdateProjectMediaPayload {
         project_media {
           project_id,
+          overridden,
+          embed,
           log,
           annotations_count
         }
@@ -51,7 +53,23 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
       {
         type: 'FIELDS_CHANGE',
         fieldIDs: ids
-      }
+      },
+      {
+        type: 'REQUIRED_CHILDREN',
+        children: [Relay.QL`
+          fragment on UpdateProjectMediaPayload {
+            project {
+              project_medias(first: 20) {
+                edges {
+                  node {
+                    id
+                  }
+                }
+              }
+            },
+          }`,
+        ],
+      },
     ];
   }
 }
