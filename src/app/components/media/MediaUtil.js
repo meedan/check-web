@@ -15,12 +15,27 @@ const MediaUtil = {
   },
 
   authorName(media, data) {
-    return (media.domain === 'twitter.com') ? data.user.name : data.username;
+    switch (media.domain) {
+      case 'twitter.com':
+       return data.user.name;
+      case 'instagram.com':
+        return '';
+      default:
+        return data.username || media.domain;
+    }
   },
 
   authorUsername(media, data) {
-    return (media.domain === 'twitter.com' || media.domain === 'instagram.com') ?
-    `@${data.username}` : data.username;
+    switch (media.domain) {
+      case 'twitter.com':
+      case 'instagram.com':
+        return `@${data.username}`;
+      case 'facebook.com':
+      case 'youtube.com':
+        return '';
+      default:
+        return data.username;
+    }
   },
 
   authorUrl(media, data) {
