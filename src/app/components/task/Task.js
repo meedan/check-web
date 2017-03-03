@@ -249,13 +249,29 @@ class Task extends Component {
       });
     }
 
-    const actions = [
+    const dialogActions = [
       <FlatButton label={<FormattedMessage id="tasks.cancelEdit" defaultMessage="Cancel" />} primary={true} onClick={this.handleCancelEdit.bind(this)} />,
       <FlatButton label={<FormattedMessage id="tasks.save" defaultMessage="Save" />} primary={true} keyboardFocused={true} onClick={this.handleUpdateTask.bind(this)} />,
     ];
 
+    const taskActions = (
+      <Can permissions={task.permissions} permission="update Task">
+        {/* TODO: abstract media-actions into @mixin or component to remove these classes */}
+        <div className={'task__actions ' + this.bemClass('media-actions', this.state.isMenuOpen, '--active')}>
+          <MdMoreHoriz className="media-actions__icon" onClick={this.toggleMenu.bind(this)} />
+          <div className={this.bemClass('media-actions__overlay', this.state.isMenuOpen, '--active')} onClick={this.toggleMenu.bind(this)} />
+          <ul className={this.bemClass('media-actions__menu', this.state.isMenuOpen, '--active')}>
+            <li className="media-actions__menu-item" onClick={this.handleEdit.bind(this)}><FormattedMessage id="task.edit" defaultMessage="Edit" /></li>
+            <Can permissions={task.permissions} permission="destroy Task">
+              <li className="media-actions__menu-item" onClick={this.handleDelete.bind(this)}><FormattedMessage id="task.delete" defaultMessage="Delete" /></li>
+            </Can>
+          </ul>
+        </div>
+      </Can>
+    );
+
     const taskQuestion = (
-      <p>
+      <div className='task__question'>
         { task.description ? (
           <Tooltip
             placement="left"
@@ -266,28 +282,15 @@ class Task extends Component {
           </Tooltip>
         ) : <em>{task.description}</em> }
         <span className='task__label'>{task.label}</span>
-      </p>
+      </div>
     );
 
     return (
       <div>
         <Card onClick={this.handleClick.bind(this)} className="task">
-
-          <Can permissions={task.permissions} permission="update Task">
-            <div className={this.bemClass('media-actions', this.state.isMenuOpen, '--active')}>
-              <MdMoreHoriz className="media-actions__icon" onClick={this.toggleMenu.bind(this)} />
-              <div className={this.bemClass('media-actions__overlay', this.state.isMenuOpen, '--active')} onClick={this.toggleMenu.bind(this)} />
-              <ul className={this.bemClass('media-actions__menu', this.state.isMenuOpen, '--active')}>
-                <li className="media-actions__menu-item" onClick={this.handleEdit.bind(this)}><FormattedMessage id="task.edit" defaultMessage="Edit" /></li>
-                <Can permissions={task.permissions} permission="destroy Task">
-                  <li className="media-actions__menu-item" onClick={this.handleDelete.bind(this)}><FormattedMessage id="task.delete" defaultMessage="Delete" /></li>
-                </Can>
-              </ul>
-            </div>
-          </Can>
-
-          <CardText>
+          <CardText className='task__card-text'>
             <Message message={this.state.message} />
+            {taskActions}
             {response === null ?
             <form onSubmit={this.handleSubmit.bind(this)} name={`task-response-${task.id}`}>
               {taskQuestion}
@@ -347,7 +350,7 @@ class Task extends Component {
           </CardText>
         </Card>
 
-        <Dialog actions={actions} modal={false} open={!!this.state.editing} onRequestClose={this.handleCancelEdit.bind(this)}>
+        <Dialog actions={dialogActions} modal={false} open={!!this.state.editing} onRequestClose={this.handleCancelEdit.bind(this)}>
           <Message message={this.state.message} />
           <form name={`edit-task-${task.dbid}`}>
             <TextField
