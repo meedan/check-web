@@ -15,4 +15,13 @@ class TeamsPage < Page
     wait_for_element('.team')
     TeamPage.new(config: @config, driver: @driver)
   end
+
+  def ask_join_team(options = {})
+    subdomain = options[:subdomain] 
+    @driver.navigate.to @config['self_url'] + "/"+subdomain+"/join"
+    sleep 2 # TODO: better soft keyboard strategies
+	  expect_element('.join-team__button')
+		click_button('.join-team__button')
+  end
+
 end
