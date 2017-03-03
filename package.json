@@ -5,7 +5,7 @@
   "private": true,
   "repository": {
     "type": "git",
-    "url": "git://github.com/meedan/checkdesk-client.git"
+    "url": "git://github.com/meedan/check-web.git"
   },
   "scripts": {
     "logo": "cd src/assets/images/logo && ./generate.sh && cd ..",

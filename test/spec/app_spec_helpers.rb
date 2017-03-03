@@ -172,11 +172,11 @@ module AppSpecHelpers
   end
 
   def get_team
-    @driver.execute_script('var context = Checkdesk.store.getState().app.context; return context.team ? context.team.slug : context.currentUser.current_team.slug').to_s
+    @driver.execute_script('var context = Check.store.getState().app.context; return context.team ? context.team.slug : context.currentUser.current_team.slug').to_s
   end
 
   def get_project
-    @driver.execute_script('return Checkdesk.store.getState().app.context.project.dbid').to_s
+    @driver.execute_script('return Check.store.getState().app.context.project.dbid').to_s
   end
 
   def console_logs
