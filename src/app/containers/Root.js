@@ -93,7 +93,7 @@ export default class Root extends Component {
 
   render() {
     const { store } = this.props;
-    window.Checkdesk = { store };
+    window.Check = { store };
 
     return (
       <IntlProvider locale={locale} messages={translations[locale]}>
