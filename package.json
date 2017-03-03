@@ -114,6 +114,7 @@
     "react-dropzone": "^3.5.3",
     "react-ga": "^2.1.2",
     "react-icons": "^2.2.3",
+    "react-image-lightbox": "^3.4.2",
     "react-infinite-scroller": "^1.0.1",
     "react-intl": "^2.2.3",
     "react-linkify": "^0.1.3",

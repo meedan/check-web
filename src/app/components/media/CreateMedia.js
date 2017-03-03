@@ -3,7 +3,6 @@ import { defineMessages, injectIntl, intlShape, FormattedMessage } from 'react-i
 import Relay from 'react-relay';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
-import Dropzone from 'react-dropzone';
 import MdInsertPhoto from 'react-icons/lib/md/insert-photo';
 import UploadImage from '../UploadImage';
 import PenderCard from '../PenderCard';
