@@ -806,7 +806,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 1
       notes_count = get_element('.media-detail__check-notes-count')
       expect(notes_count.text == '1 note').to be(true)
-      media_pg.element('.annotation__delete').click
+      media_pg.delete_annotation
       sleep 1
       expect(notes_count.text == '0 notes').to be(true)
     end
@@ -944,12 +944,12 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Verify that comment was added to annotations list
       expect(@driver.page_source.include?('This is my comment with image')).to be(true)
-      imgsrc = @driver.find_element(:css, '.annotation__body img').attribute('src')
+      imgsrc = @driver.find_element(:css, '.annotation__card-thumbnail').attribute('src')
       expect(imgsrc.match(/test\.png$/).nil?).to be(false)
-      
+
       # Zoom image
       expect(@driver.find_elements(:css, '.image-current').empty?).to be(true)
-      @driver.find_element(:css, '.annotation__body img').click
+      @driver.find_element(:css, '.annotation__card-thumbnail').click
       expect(@driver.find_elements(:css, '.image-current').empty?).to be(false)
       @driver.action.send_keys(:escape).perform
       expect(@driver.find_elements(:css, '.image-current').empty?).to be(true)
@@ -958,7 +958,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       @driver.navigate.refresh
       sleep 3
       expect(@driver.page_source.include?('This is my comment with image')).to be(true)
-      imgsrc = @driver.find_element(:css, '.annotation__body img').attribute('src')
+      imgsrc = @driver.find_element(:css, '.annotation__card-thumbnail').attribute('src')
       expect(imgsrc.match(/test\.png$/).nil?).to be(false)
     end
 
@@ -967,7 +967,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
                  .login_with_email(email: @email, password: @password)
                  .create_media(input: 'Tasks')
       sleep 3
-      
+
       # Create a task
       expect(@driver.page_source.include?('Foo or bar?')).to be(false)
       expect(@driver.page_source.include?('Task "Foo or bar?" created by')).to be(false)
@@ -995,7 +995,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       @driver.find_element(:css, '.task__save').click
       sleep 2
       expect(@driver.page_source.include?('Task "Foo or bar?" edited to "Foo or bar???" by')).to be(true)
-      
+
       # Edit task answer
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Task "Foo or bar???" answered by User With Email: "Foo edited"')).to be(false)
       @driver.find_element(:css, '#task__edit-response-button').click

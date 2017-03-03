@@ -1,98 +1,182 @@
 .annotation {
-  border-top: $layout-border-light;
-  padding: 15px 0;
+  padding: 12px 0;
   display: flex;
   position: relative;
-  overflow-x: hidden;
-}
 
-.annotation__avatar {
-  $width: 36px;
-  @include user-avatar($width);
-  flex: 0 0 $width;
-  margin: 1px 12px 0 0;
-}
+  .annotation__default {
+    padding-left: 80px;
+    flex: 1;
+    font-size: 12px;
+    color: $black-87;
+    display: flex;
+    max-width: 704px;
 
-.annotation__content {
-  flex: 1;
-  width: 100%;
-}
+    &, * {
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+      hyphens: auto;
+      // TODO: consider `word-break: break-all` for long URLs etc.
+    }
 
-.annotation__header {
-  display: flex;
-  align-items: baseline;
-  white-space: pre;
-  margin-bottom: 1.5px;
-}
+    &-content {
+      margin-right: 12px;
+    }
 
-.annotation__author-name {
-  font-weight: 400;
-  color: inherit;
-  margin: 0;
-  display: inline-block;
-  margin-right: 10px;
+    a, a:visited {
+      color: inherit;
+    }
 
-  &:first-child {
-    color: $black-38;
-    font-weight: 600;
+    .menu-button {
+      color: $black-38;
+    }
   }
-}
 
-.annotation__task-resolved {
+  .annotation__card {
+    width: 100%;
+    max-width: 704px;
+    z-index: initial !important;
+    & > div {
+      padding-bottom: 0 !important;
+    }
+
+    img {
+      cursor: pointer;
+    }
+  }
+
+  .annotation__card-text {
+    display: flex;
+    padding: 24px 0 0 24px !important;
+  }
+
+  .annotation__card-avatar-col {
+    margin-right: 24px;
+  }
+
+  .annotation__card-avatar {
+    $width: 32px;
+    @include user-avatar($width);
+    // flex: 0 0 $width;
+    // margin: 1px 12px 0 0;
+  }
+
+  .annotation__card-main-col {
+    flex: 1;
+  }
+
+  .annotation__card-content {
+    font-size: 14px;
+    width: 100%;
+    display: flex;
+
+    & > span:first-child {
+      flex: 1; // TODO: proper text/thumbnail templates
+    }
+  }
+
+  .annotation__card-thumbnail {
+    float: right;
+    padding: 8px;
+  }
+
+  .annotation__card-footer {
+    flex: 1;
+    padding-right: 12px;
+
+    // see also .media-detail__check-metadata
+    align-items: center;
+    border-top: 1px solid $black-05;
+    display: flex;
+    flex-flow: wrap row;
+    font-size: 12px;
+    margin-top: 24px;
+    height: 44px;
+
+    font-size: 12px;
+    color: $black-54;
+  }
+
+  .annotation__card-footer-text {
+    margin-right: 12px;
+    flex: 1;
+  }
+
+  .annotation__card-author {
+    font-size: 14px;
+    font-weight: 500;
+    color: $black-87;
+    margin-right: 12px;
+  }
+
+  .annotation__content {
+    flex: 1;
+    width: 100%;
+  }
+
+  .annotation__header {
+    display: flex;
+    align-items: baseline;
+    white-space: pre;
+    margin-bottom: 1.5px;
+  }
+
   .annotation__author-name {
-    margin-right: 0;
   }
 
-  em {
-    margin-right: 10px;
+  .annotation__task-resolved {
   }
-}
 
-.annotation__timestamp {
-  font-size: 12px;
-}
-
-.annotation__actions {
-  flex: 1;
-  align-self: flex-start;
-  text-align: right;
-}
-
-.annotation__delete {
-  @include close-button(21px);
-  position: absolute;
-  top: 10px;
-  right: 0;
-  height: 30px;
-  width: 30px;
-  border-radius: 30px;
-}
-
-.annotation__body {
-  word-break: break-word;
-}
-
-.annotation__embedded-media {
-  padding-top: 8px;
-  padding-bottom: 8px;
-}
-
-// non-comments
-.annotation__status {
-  @include app-kicker;
-  @include media-status-font-colors;
-  margin-left: 3px;
-  margin-right: 2px;
-}
-
-.annotation__tag {
-  &::before {
-    content: '#';
+  .annotation__timestamp {
+    // letter-spacing: -0.5px;
+    color: $black-38;
+    display: inline;
+    margin-right: 12px;
+    flex: 1;
   }
-}
 
-.annotation__update-task > span {
-  display: block;
+  .annotation__actions {
+    display: none;
+    flex: 1;
+    align-self: flex-start;
+    text-align: right;
+  }
+
+  .annotation__delete {
+    @include close-button(21px);
+    position: absolute;
+    top: 10px;
+    right: 0;
+    height: 30px;
+    width: 30px;
+    border-radius: 30px;
+  }
+
+  .annotation__body {
+    word-break: break-word;
+  }
+
+  .annotation__embedded-media {
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+
+  // non-comments
+  .annotation__status {
+    @include app-kicker(12px);
+    @include media-status-font-colors;
+    margin-left: 3px;
+    margin-right: 2px;
+  }
+
+  .annotation__tag {
+    &::before {
+      content: '#';
+    }
+  }
+
+  .annotation__update-task > span {
+    display: block;
+  }
 }
 
 .annotation__comment {
@@ -122,14 +206,14 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
-  
+
     .add-annotation__insert-photo {
       display: inline-block;
-    
+
       svg {
         @extend %icon;
         margin-right: 0;
-    
+
         path {
           color: $black-16;
         }
