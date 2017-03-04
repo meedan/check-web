@@ -7,5 +7,6 @@
   "addAnnotation.typeComment": "commentaire",
   "addAnnotation.typeTag": "tag",
   "addAnnotation.typeStatus": "statut",
-  "addAnnotation.typeFlag": "indicateur"
+  "addAnnotation.typeFlag": "indicateur",
+  "addAnnotation.addImage": "Charger une image"
 }
