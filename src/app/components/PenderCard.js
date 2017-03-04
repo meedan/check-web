@@ -6,7 +6,10 @@ class PenderCard extends Component {
     script.src = `${this.props.penderUrl}/api/medias.js?url=${encodeURIComponent(this.props.url)}`;
     script.async = true;
     script.type = 'text/javascript';
-    document.getElementById('pender-card').appendChild(script);
+    const card = document.getElementById('pender-card');
+    if (card) {
+      card.appendChild(script);
+    }
   }
 
   removeTag() {

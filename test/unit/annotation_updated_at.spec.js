@@ -21,7 +21,7 @@ describe('<Annotations />', () => {
     const wrapper = render(<IntlProvider locale="en"><Annotation annotation={annotation} annotated={annotated} annotatedType={"ProjectMedia"} /></IntlProvider>);
     const container = wrapper.find('.annotation__timestamp > time')
     expect(container.length).to.equal(1)
-    expect(container.prop('title')).to.equal('2017-02-08 17:19');
+    expect(container.prop('title')).to.contain('2017-02-08');
   });
 
 });

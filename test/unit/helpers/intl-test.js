@@ -9,6 +9,7 @@
 
 import React from 'react';
 import { IntlProvider, intlShape } from 'react-intl';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import { mount, shallow } from 'enzyme';
 
 // You can pass your messages to the IntlProvider. Optional: remove if unneeded.
@@ -26,16 +27,37 @@ function nodeWithIntlProp(node) {
   return React.cloneElement(node, { intl });
 }
 
-/**
- * Export these methods.
- */
-export function shallowWithIntl(node) {
-  return shallow(nodeWithIntlProp(node), { context: { intl } });
+const store = {
+  getState: function() {
+    return {
+      app: {
+        context: {
+          team: {
+            projects: {
+              edges: [
+                { node: { dbid: 1 } }
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+};
+
+const muiTheme = getMuiTheme();
+
+export function getStore() {
+  return store;
 }
 
 export function mountWithIntl(node) {
   return mount(nodeWithIntlProp(node), {
-    context: { intl },
-    childContextTypes: { intl: intlShape }
+    context: { intl, store, muiTheme },
+    childContextTypes: { intl: intlShape, store, muiTheme }
   });
+}
+
+export function shallowWithIntl(node) {
+  return shallow(nodeWithIntlProp(node), { context: { intl, store, muiTheme } });
 }
