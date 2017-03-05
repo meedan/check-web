@@ -15,9 +15,8 @@ class BrowserSupport extends Component {
 
     if (/Chrome/i.test(ua) && !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|mobile|CriOS/i.test(ua)) {
       return true;
-    } else {
-      return false;
     }
+    return false;
   }
 
   closed() {
@@ -43,9 +42,8 @@ class BrowserSupport extends Component {
             <FormattedMessage id="browserSupport.message" defaultMessage="While in beta, Check is optimized for Google Chrome on desktop." />
           </p>
         </div>);
-    } else {
-      return null;
     }
+    return null;
   }
 }
 

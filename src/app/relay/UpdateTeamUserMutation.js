@@ -13,11 +13,11 @@ class UpdateTeamUserMutation extends Relay.Mutation {
   };
 
   getVariables() {
-    let role = this.props.role
+    let role = this.props.role;
     if (typeof role !== 'undefined') {
-      role = role.value
+      role = role.value;
     }
-    return { team_id: this.props.team_id, user_id: this.props.user_id, status: this.props.status, id: this.props.id, role: role };
+    return { team_id: this.props.team_id, user_id: this.props.user_id, status: this.props.status, id: this.props.id, role };
   }
 
   getFatQuery() {

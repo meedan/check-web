@@ -6,8 +6,8 @@ import Can from '../components/Can';
 import CheckContext from '../CheckContext';
 
 class TeamMenu extends Component {
-  handleClick () {
-    const overlay = document.querySelector('.header-actions__menu-overlay--active')
+  handleClick() {
+    const overlay = document.querySelector('.header-actions__menu-overlay--active');
     if (overlay) {
       overlay.click(); // TODO: better way to clear overlay e.g. passing fn from HeaderActions
     }
@@ -52,9 +52,8 @@ class TeamMenuRelay extends Component {
     if (this.props.params.team) {
       const route = new TeamRoute({ teamSlug: this.props.params.team });
       return (<Relay.RootContainer Component={TeamMenuContainer} route={route} />);
-    } else {
-      return null;
     }
+    return null;
   }
 }
 

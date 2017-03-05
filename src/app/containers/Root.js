@@ -29,7 +29,7 @@ if (locale.constructor === Array) {
 locale = locale.replace(/[-_].*$/, '');
 
 if (!global.Intl) {
-  require(['intl'], function(intl){
+  require(['intl'], (intl) => {
     global.Intl = intl;
 //    Commented out while build is not optimized for this!
 //    require('intl/locale-data/jsonp/' + locale + '.js');
@@ -37,7 +37,7 @@ if (!global.Intl) {
 }
 
 try {
-  const localeData = require('react-intl/locale-data/' + locale);
+  const localeData = require(`react-intl/locale-data/${locale}`);
   addLocaleData([...localeData]);
 } catch (e) {
   locale = 'en';

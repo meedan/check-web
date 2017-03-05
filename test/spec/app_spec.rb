@@ -923,5 +923,43 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       project_pg = media_pg.go_to_project
       expect(project_pg.element('.media-detail__heading').text).to eq('Edited media title')
     end
+
+    it "should add image to media comment" do
+      media_pg = LoginPage.new(config: @config, driver: @driver).load
+                 .login_with_email(email: @email, password: @password)
+                 .create_media(input: 'Images in comments')
+      sleep 3
+
+      # First, verify that there isn't any comment with image
+      expect(@driver.page_source.include?('This is my comment with image')).to be(false)
+
+      # Add a comment as a command
+      fill_field('#cmd-input', 'This is my comment with image')
+      @driver.find_element(:css, '.add-annotation__insert-photo').click
+      input = @driver.find_element(:css, 'input[type=file]')
+      input.send_keys(File.join(File.dirname(__FILE__), 'test.png'))
+      sleep 3
+      @driver.find_element(:css, '.add-annotation__buttons button').click
+      sleep 5
+
+      # Verify that comment was added to annotations list
+      expect(@driver.page_source.include?('This is my comment with image')).to be(true)
+      imgsrc = @driver.find_element(:css, '.annotation__body img').attribute('src')
+      expect(imgsrc.match(/test\.png$/).nil?).to be(false)
+      
+      # Zoom image
+      expect(@driver.find_elements(:css, '.image-current').empty?).to be(true)
+      @driver.find_element(:css, '.annotation__body img').click
+      expect(@driver.find_elements(:css, '.image-current').empty?).to be(false)
+      @driver.action.send_keys(:escape).perform
+      expect(@driver.find_elements(:css, '.image-current').empty?).to be(true)
+
+      # Reload the page and verify that comment is still there
+      @driver.navigate.refresh
+      sleep 3
+      expect(@driver.page_source.include?('This is my comment with image')).to be(true)
+      imgsrc = @driver.find_element(:css, '.annotation__body img').attribute('src')
+      expect(imgsrc.match(/test\.png$/).nil?).to be(false)
+    end
   end
 end

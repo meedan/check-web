@@ -11,11 +11,11 @@ import CheckContext from '../../CheckContext';
 const messages = defineMessages({
   error: {
     id: 'joinTeamComponent.error',
-    defaultMessage: 'Sorry, could not send your request'
+    defaultMessage: 'Sorry, could not send your request',
   },
   success: {
     id: 'joinTeamComponent.success',
-    defaultMessage: 'Thanks for your interest in joining {team} Check! A team leader will review your application soon.'
+    defaultMessage: 'Thanks for your interest in joining {team} Check! A team leader will review your application soon.',
   },
   auto_approve: {
     id: 'joinTeamComponent.auto_approve',
@@ -23,8 +23,8 @@ const messages = defineMessages({
   },
   title: {
     id: 'joinTeamComponent.title',
-    defaultMessage: 'Join Team'
-  }
+    defaultMessage: 'Join Team',
+  },
 });
 
 class JoinTeamComponent extends Component {
@@ -83,7 +83,7 @@ class JoinTeamComponent extends Component {
       const user = this.getContext().currentUser;
       const userTeams = JSON.parse(user.teams);
       let redirect = true;
-      for (var teamName in userTeams) {
+      for (const teamName in userTeams) {
         const t = userTeams[teamName];
         if (t.id == team.dbid && team.private && t.status != 'member') {
           redirect = false;
@@ -119,9 +119,11 @@ class JoinTeamComponent extends Component {
         <DocumentTitle title={pageTitle(this.props.intl.formatMessage(messages.title), false, team)}>
           <div className="join-team">
             <p className="join-team__blurb-graf">
-            <FormattedMessage id="joinTeamComponent.alreadyRequested"
-                  defaultMessage={`You already requested to join {team} Check.`}
-                  values={{team:<Link to={`/${team.slug}`}>{team.name}</Link>}} />
+              <FormattedMessage
+                id="joinTeamComponent.alreadyRequested"
+                defaultMessage={'You already requested to join {team} Check.'}
+                values={{ team: <Link to={`/${team.slug}`}>{team.name}</Link> }}
+              />
             </p>
           </div>
         </DocumentTitle>
@@ -135,9 +137,11 @@ class JoinTeamComponent extends Component {
           <h2 className="join-team__main-heading"><FormattedMessage id="joinTeamComponent.mainHeading" defaultMessage="Request to Join" /></h2>
           <div className="join-team__blurb">
             <p className="join-team__blurb-graf">
-              <FormattedMessage id="joinTeamComponent.blurbGraf"
-                    defaultMessage={`To request access to the {link} Check, click below:`}
-                    values={{link:<Link to={`/${team.slug}`}>{team.name}</Link>}} />
+              <FormattedMessage
+                id="joinTeamComponent.blurbGraf"
+                defaultMessage={'To request access to the {link} Check, click below:'}
+                values={{ link: <Link to={`/${team.slug}`}>{team.name}</Link> }}
+              />
             </p>
             <div>
               <button
@@ -174,7 +178,7 @@ class JoinTeamComponent extends Component {
 }
 
 JoinTeamComponent.propTypes = {
-  intl: intlShape.isRequired
+  intl: intlShape.isRequired,
 };
 
 JoinTeamComponent.contextTypes = {
