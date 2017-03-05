@@ -54,7 +54,7 @@ export function getStore() {
 export function mountWithIntl(node) {
   return mount(nodeWithIntlProp(node), {
     context: { intl, store, muiTheme },
-    childContextTypes: { intl: intlShape, store, muiTheme }
+    childContextTypes: { intl: intlShape, store: React.PropTypes.object, muiTheme: React.PropTypes.object }
   });
 }
 
