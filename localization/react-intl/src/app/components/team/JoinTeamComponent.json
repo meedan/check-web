@@ -32,12 +32,20 @@
     "defaultMessage": "Request Sent"
   },
   {
+    "id": "joinTeamComponent.buttonApproved",
+    "defaultMessage": "Request Approved"
+  },
+  {
     "id": "joinTeamComponent.buttonSubmit",
     "defaultMessage": "Request to Join"
   },
   {
     "id": "joinTeamComponent.requestHasBeenSent",
     "defaultMessage": "Your request has been sent to the project admins for approval."
+  },
+  {
+    "id": "joinTeamComponent.requestHasBeenApproved",
+    "defaultMessage": "Your request has been approved."
   },
   {
     "id": "joinTeamComponent.requestWillBeSent",

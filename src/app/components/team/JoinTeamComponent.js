@@ -31,7 +31,7 @@ class JoinTeamComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isRequestSent: false,
+      requestStatus: '',
     };
   }
 
@@ -42,7 +42,7 @@ class JoinTeamComponent extends Component {
 
   handleRequestAccess(e) {
     e.preventDefault();
-    this.setState({ isRequestSent: true });
+    this.setState({ requestStatus: 'requested' });
 
     const that = this;
 
@@ -59,11 +59,12 @@ class JoinTeamComponent extends Component {
     };
 
     const onSuccess = (response) => {
+      const status = response.createTeamUser.team_user.status
       let message = messages.success
-      if (response.createTeamUser.team_user.status == 'member') {
+      if (status == 'member') {
         message = messages.auto_approve;
       }
-      that.setState({ message: that.props.intl.formatMessage(messages.success,{team: that.props.team.name}), isRequestSent: true });
+      that.setState({ message: that.props.intl.formatMessage(message,{team: that.props.team.name}), requestStatus: status });
     };
 
     Relay.Store.commitUpdate(
@@ -109,7 +110,9 @@ class JoinTeamComponent extends Component {
   render() {
     const team = this.props.team;
 
-    const isRequestSent = this.state.isRequestSent;
+    const isRequestSent = this.state.requestStatus;
+
+    const disable_request = (isRequestSent == '') ? false : true;
 
     if (this.alreadyMember()) {
       return (
@@ -138,13 +141,29 @@ class JoinTeamComponent extends Component {
             </p>
             <div>
               <button
-                className={`join-team__button${isRequestSent ? ' join-team__button--submitted' : ''}`}
+                className={`join-team__button${isRequestSent == '' ? '' : ' join-team__button--submitted'}`}
                 onClick={this.handleRequestAccess.bind(this)}
-                disabled={isRequestSent}>
-                {isRequestSent ? <FormattedMessage id="joinTeamComponent.buttonSubmitted" defaultMessage="Request Sent" /> : <FormattedMessage id="joinTeamComponent.buttonSubmit" defaultMessage="Request to Join" />}
+                disabled={disable_request}>
+                {(() => {
+                  if (isRequestSent == 'requested') {
+                    return (<FormattedMessage id="joinTeamComponent.buttonSubmitted" defaultMessage="Request Sent" />);
+                  } else if (isRequestSent == 'member') {
+                    return (<FormattedMessage id="joinTeamComponent.buttonApproved" defaultMessage="Request Approved" />);
+                  } else {
+                    return (<FormattedMessage id="joinTeamComponent.buttonSubmit" defaultMessage="Request to Join" />);
+                  }
+                })()}
               </button>
               <p className="join-team__blurb-graf">
-                {isRequestSent ? <FormattedMessage id="joinTeamComponent.requestHasBeenSent" defaultMessage="Your request has been sent to the project admins for approval." /> : <FormattedMessage id="joinTeamComponent.requestWillBeSent" defaultMessage="Your request will be sent to the project admins for approval." />}
+              {(() => {
+                if (isRequestSent == 'requested') {
+                  return (<FormattedMessage id="joinTeamComponent.requestHasBeenSent" defaultMessage="Your request has been sent to the project admins for approval." />);
+                } else if (isRequestSent == 'member') {
+                  return (<FormattedMessage id="joinTeamComponent.requestHasBeenApproved" defaultMessage="Your request has been approved." />);
+                } else {
+                  return (<FormattedMessage id="joinTeamComponent.requestWillBeSent" defaultMessage="Your request will be sent to the project admins for approval." />);
+                }
+              })()}
               </p>
             </div>
           </div>
