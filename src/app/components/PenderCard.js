@@ -31,6 +31,10 @@ class PenderCard extends Component {
     this.removeTag();
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    return nextProps.url != this.props.url;
+  }
+
   render() {
     return (
       <div id="pender-card" className="pender-card">
