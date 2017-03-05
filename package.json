@@ -54,6 +54,7 @@
     "mocha-webpack": "^0.7.0",
     "react-addons-test-utils": "^15.4.1",
     "react-dom": "^15.4.1",
+    "react-tap-event-plugin": "^2.0.1",
     "react-transform-catch-errors": "^1.0.0",
     "react-transform-hmr": "^1.0.1",
     "redbox-react": "^1.0.1",

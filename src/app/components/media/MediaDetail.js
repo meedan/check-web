@@ -20,6 +20,9 @@ import ImageMediaCard from './ImageMediaCard';
 import UpdateProjectMediaMutation from '../../relay/UpdateProjectMediaMutation';
 import CheckContext from '../../CheckContext';
 import { bemClass, safelyParseJSON, getStatus, getStatusStyle } from '../../helpers';
+// Needed for onTouchTap
+import injectTapEventPlugin from 'react-tap-event-plugin';
+injectTapEventPlugin();
 
 const messages = defineMessages({
   error: {
@@ -38,6 +41,7 @@ class MediaDetail extends Component {
 
     this.state = {
       isEditing: false,
+      openMoveDialog: false
     };
   }
 
@@ -117,7 +121,7 @@ class MediaDetail extends Component {
       transactionError.json ? transactionError.json().then(handleError) : handleError(JSON.stringify(transactionError));
     };
 
-    const path = `/${media.team.slug}/project/${projectId}`; 
+    const path = `/${media.team.slug}/project/${projectId}`;
 
     const onSuccess = (response) => {
       if (/^\/[^\/]+\/search\//.test(window.location.pathname)) {
@@ -193,7 +197,7 @@ class MediaDetail extends Component {
     media.url = media.media.url;
     media.quote = media.media.quote;
     media.embed_path = media.media.embed_path;
-   
+
     const heading = (userOverrides && userOverrides.title) ? MediaUtil.title(media, data) : MediaUtil.attributedType(media, data);
 
     if (media.media.embed_path) {

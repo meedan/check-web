@@ -17,7 +17,7 @@ describe('<Annotations />', () => {
   }
   let annotated = {};
 
-  it('should render annotaion updated_at time', function() {
+  it('should render annotation updated_at time', function() {
     const wrapper = render(<IntlProvider locale="en"><Annotation annotation={annotation} annotated={annotated} annotatedType={"ProjectMedia"} /></IntlProvider>);
     const container = wrapper.find('.annotation__timestamp > time')
     expect(container.length).to.equal(1)
