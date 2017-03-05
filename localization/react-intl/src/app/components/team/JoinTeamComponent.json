@@ -8,6 +8,10 @@
     "defaultMessage": "Thanks for your interest in joining {team} Check! A team leader will review your application soon."
   },
   {
+    "id": "joinTeamComponent.auto_approve",
+    "defaultMessage": "Thanks for joining {team} Check! You can start contributing right away."
+  },
+  {
     "id": "joinTeamComponent.title",
     "defaultMessage": "Join Team"
   },
