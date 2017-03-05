@@ -1,27 +1,106 @@
 .create-media {
-  margin-bottom: 15px;
+  @include box-shadow(1);
+  margin: 16px auto;
+  padding: 16px 16px 8px;
+  background-color: $white;
+  border-radius: 4px;
+  max-width: $layout-column-width-narrow;
+  width: 100%;
+
+  footer {
+    display: flex;
+    align-items: top;
+
+    .create-media__helper {
+      font-size: 11px;
+      color: $black-38;
+      @media all and (max-width: 500px) {
+        display: none;
+      }
+    }
+
+    .create-media__buttons {
+      margin-left: auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+
+      // The button to show the dropzone
+      //
+      .create-media__insert-photo {
+        // @include tooltip("Upload photo", down);
+        display: flex;
+
+        svg {
+          @extend %icon;
+          margin-right: 0;
+
+          path {
+            color: $black-16;
+          }
+        }
+      }
+    }
+  }
+
+  .preview {
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 300px;
+    padding: 0;
+    margin: 0;
+    border: 1px solid $black-38;
+    border-bottom: 0;
+    width: 100%;
+
+    .remove-image {
+      position: absolute;
+      top: 2px;
+      right: 2px;
+      z-index: 1;
+      color: $black-38;
+      cursor: pointer;
+    }
+  }
+
+  .upload-file {
+    cursor: pointer;
+    margin: 0 0 7px;
+  }
+
+  .upload-file > div.with-file {
+    width: 100% !important;
+    border-top: 0 !important;
+    border-style: solid !important;
+  }
+
+  .upload-file > div {
+    padding: 0 !important;
+    height: 148px !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-width: 3px;
+    border-radius: 8px;
+
+    &:hover {
+      border-color: $check-blue !important;
+    }
+  }
 }
 
 .create-media__input {
-  // max-width: 85%; max-width: calc(99% - 70px); // TODO: restyle
-
-  & > :first-child { padding: 0 5px; }
+  // The placeholder
+  & > :first-child {
+    padding: 0;
+    @media all and (max-width: 400px) {
+      font-size: 12px;
+    }
+  }
 }
 
-.create-media__button--new {
-  display: none; // TODO: restyle
-  float: left;
-
-  @include button-defaults;
-  background: #2962FF; //A700
-  color: #fff;
-  $size: 60px; height: $size; width: $size;
-  font-size: $size * 0.8;
-  font-weight: 200;
-  border-radius: $size;
-  margin-right: 10px;
-}
-
-.create-media__buttons {
-  text-align: right;
+#create-media__field {
+  position: relative;
 }

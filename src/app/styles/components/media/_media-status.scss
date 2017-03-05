@@ -1,104 +1,86 @@
-$menu-status-item-padding: 11px 15px 11px 13px;
+$menu-status-item-padding: 16px;
+$menu-status-offset: 5px;
 
 .media-status {
   position: relative;
+  padding: 3px 3px 0 $menu-status-offset;
+  border-radius: 2px;
+  display: inline-block;
 
-  margin-bottom: 5px;
-  &--editable { cursor: pointer; }
-}
+  &--editable {
+    cursor: pointer;
+    margin-left: -$menu-status-offset;
 
-.media-status__icon {
-  margin-right: 10px;
-  font-size: 12px;
+    &:hover {
+      background-color: $black-05;
+      transition: .2s;
+    }
+  }
 
-  &--caret {
-    margin-left: 5px;
-    opacity: 0.85;
-    font-size: 11px;
+  &__caret {
+    width: 20px;
+    height: 20px;
+  }
+
+  &:hover &__caret {
+    color: $black-54;
   }
 }
 
 .media-status__label {
-  @include app-kicker;
+  @include app-kicker(14px);
+
+  &--current {
+    height: 24px;
+  }
 }
 
-// current
-
+// The text of the currently applied status
 .media-status__current {
-  position: relative;
-  border-left: 1px solid transparent;
-
   @include media-status-font-colors;
-
+  position: relative;
   white-space: nowrap;
 }
 
 .media-status__message {
-  font-size: 14px;
-  color: theme-gray(75%);
-  font-size: 14px;
+  color: $black-87;
 }
 
-// menu
-
+// The status menu
 .media-status__overlay {
-  // TODO: mixinify?
-  position: fixed;
-  z-index: 2;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: theme-gray(20%);
-
-  opacity: 0;
-  pointer-events: none;
-  &--active {
-    pointer-events: auto;
-    opacity: 0.15;
-  }
-  transition: opacity 100ms ease;
+  @include modal-overlay(transparent);
 }
 
 .media-status__menu {
-  z-index: 3;
-  position: absolute;
-  top: 31px;
-  left: -15px;
-  min-width: 250px;
-
-  opacity: 0;
-  pointer-events: none;
-  &--active {
-    pointer-events: auto;
-    opacity: 1;
-  }
-  transition: opacity 200ms ease;
-
-  // style
-  background: #fff;
-  border-radius: 3px;
-  border: $layout-border;
-  box-shadow: 3px 3px 0 transparentize(theme-gray(20%), 0.99);
+  @include app-menu;
 }
 
 .media-status__menu-item {
-  @include media-status-font-colors;
   @include media-status-menu-hover-colors;
+  @include media-status-font-colors;
+  padding-left: 16px;
 
-  border-bottom: $layout-border; // TODO: consistent opacity
-  padding: $menu-status-item-padding;
+  .media-status__icon--radio-button-selected {
+    display: none;
+  }
 
-  font-size: 15px;
-  cursor: pointer;
+  svg {
+    margin-right: 8px;
+  }
 
-  opacity: 0.7; &:hover { opacity: 1; }
-  transition: opacity 200ms ease;
-  .media-status__icon--radio-button-selected { display: none; }
+  &:hover {
+    opacity: 1;
+  }
+
   &--current {
-    opacity: 0.9;
-    .media-status__icon--radio-button-selected { display: inline-block; }
-    .media-status__icon--radio-button { display: none; }
+    opacity: .9;
+
+    .media-status__icon--radio-button-selected {
+      display: inline-block;
+    }
+
+    .media-status__icon--radio-button {
+      display: none;
+    }
   }
 }

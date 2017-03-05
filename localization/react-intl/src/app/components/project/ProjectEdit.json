@@ -1,0 +1,26 @@
+[
+  {
+    "id": "projectEdit.error",
+    "defaultMessage": "Sorry, could not update the project"
+  },
+  {
+    "id": "projectEdit.titleField",
+    "defaultMessage": "Project Title"
+  },
+  {
+    "id": "projectEdit.descriptionField",
+    "defaultMessage": "Project Description"
+  },
+  {
+    "id": "projectEdit.slackChannelField",
+    "defaultMessage": "Slack #channel"
+  },
+  {
+    "id": "projectEdit.slackChannelPlaceholder",
+    "defaultMessage": "Add a Slack #channel to be notified about activity in this project"
+  },
+  {
+    "id": "projectEdit.saveButton",
+    "defaultMessage": "Save"
+  }
+]

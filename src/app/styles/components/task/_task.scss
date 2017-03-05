@@ -1,0 +1,88 @@
+.task {
+  margin-bottom: 15px;
+  position: relative;
+
+  .task__card-text {
+    padding-bottom: 8px !important; // material-ui/Card>div override
+  }
+
+  .task__actions {
+    position: absolute;
+    right: 16px;
+  }
+
+  .task__question {
+    margin-right: 32px;
+  }
+
+  .task__label {
+    font-size: 12px;
+    color: $black-38;
+    word-wrap: break-word;
+  }
+
+  .task__response {
+    font-size: 16px;
+  }
+
+  .task__resolver {
+    color: $black-38;
+    text-align: right;
+  }
+
+  .task__resolved {
+    p {
+      margin: 8px 0;
+      word-wrap: break-word;
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  #task__remove-button,
+  #task__edit-button {
+    float: right;
+    color: #ccc;
+    margin: 5px 5px 0 0;
+    cursor: pointer;
+  }
+
+  #task__remove-button {
+    margin-right: 8px;
+  }
+
+  #task__cancel-button,
+  #task__edit-response-button {
+    color: #ccc;
+    margin-left: 5px;
+    cursor: pointer;
+  }
+
+  .media-actions__icon {
+    margin: 0 4px 0 0;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    color: $black-38;
+  }
+
+  .task__description-icon {
+    float: right;
+    margin: 0 4px 8px 16px;
+    width: 24px;
+    height: 24px;
+    padding: 2px;
+    color: $black-38;
+  }
+}
+
+.task__description-tooltip { // via rc-tooltip, outside Task.js markup tree
+  max-width: 600px;
+  @media (max-width: $layout-mobile-breakpoint) {
+    max-width: 80vw;
+  }
+  span {
+    word-wrap: break-word;
+  }
+}

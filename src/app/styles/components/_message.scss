@@ -1,8 +1,21 @@
 .message {
-  background: $cream;
-  color: $light-gray-text;
+  background: $black-54;
+  color: $white;
   padding: 10px;
   font-size: 14px;
   text-align: center;
-  box-shadow: $layout-box-shadow;
+  position: relative;
+  margin-bottom: 16px;
+  border-radius: 2px;
+
+  a {
+    color: $white !important;
+    text-decoration: underline;
+  }
+
+  #close-message {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+  }
 }

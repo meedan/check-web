@@ -1,11 +1,13 @@
 html {
   height: 100%;
   font-size: 16px;
-  background-color: #fff;
+  background-color: $white;
   box-sizing: border-box;
 }
 
-*, *:before, *:after {
+*,
+*::before,
+*::after {
   box-sizing: inherit;
 }
 
@@ -16,16 +18,22 @@ body {
 }
 
 a {
-  color: $blue-text;
+  color: $check-blue;
   text-decoration: none;
+
   &:hover {
     text-decoration: underline;
   }
+
   &:visited {
-    color: mix($blue-text, purple, 70%);
+    color: $check-blue;
   }
+
   &:not([href]) {
-    &, &:hover { text-decoration: none; }
+    &,
+    &:hover {
+      text-decoration: none;
+    }
   }
 }
 
@@ -39,8 +47,7 @@ input {
 
 p {
   margin-top: 0;
-
-  color: $dark-gray-text;
+  color: $black-87;
 }
 
 ul {

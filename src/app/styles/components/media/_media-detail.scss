@@ -1,76 +1,160 @@
+// Wrapper around all reports (globally)
+// TODO: This should be renamed to avoid misleading use of "detail"
+// Since it does not only apply to the detail view. — CGB
+//
 .media-detail {
-  padding: 8px 14px 24px 14px;
-  border: $layout-border;
+  @include media-status-border-colors;
+  @include box-shadow(1);
+  background-color: $white;
+  border-left: 8px solid;
   border-radius: 2px;
-  @include media-status-background-and-border-colors;
-  box-shadow: $layout-box-shadow;
-  margin-bottom: 14px;
+  padding: 12px 0 0 16px;
+  margin-bottom: 16px;
 }
 
+// Row with the status and actions menu button
+//
 .media-detail__header {
   display: flex;
-  justify-content: space-between;
   flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 .media-detail__status {
   display: inline-block;
-  margin-bottom: 4px;
 }
 
-// op
+// Optional title
+//
+.media-detail__heading {
+  font-size: 18px;
+  margin: 2px 24px 16px 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 
+  &,
+  & > a,
+  & > a:visited {
+    color: $black-87;
+  }
+
+  // ellipsis truncation requires explicit width
+  @media screen and (min-width: 400px) {
+    width: 300px;
+  }
+
+  @media screen and (min-width: 500px) {
+    width: 400px;
+  }
+
+  @media screen and (min-width: 600px) {
+    width: 500px;
+  }
+
+  @media screen and (min-width: 700px) {
+    width: 600px;
+  }
+
+  @media screen and (min-width: 800px) {
+    width: 700px;
+  }
+}
+
+// Optional description
+//
+.media-detail__description {
+  line-height: 1.35;
+  margin-top: 9px;
+  max-width: 42em;
+}
+
+// The "inner card"
+// This contains the "original upstream" media
+//
 .media-detail__media {
   border-radius: 2px;
   position: relative;
-  // background: #fff;
 }
 
-// check
-
+// Check metadata
+//
 .media-detail__check-metadata {
-  margin-top: 11px;
-  @include media-metadata;
+  align-items: center;
+  border-top: 1px solid $black-05;
+  display: flex;
+  flex-flow: wrap row;
+  font-size: 12px;
+  margin-top: 24px;
 }
 
-.media-detail__check-added-at {
-  margin-right: 15px;
-}
-
+.media-detail__check-added-at,
+.media-detail__check-added-by,
 .media-detail__check-notes-count {
-  margin-right: 15px;
+  align-items: center;
+  display: flex;
+  flex-shrink: 0;
+  margin-right: 16px;
+  min-height: 48px;
+  min-width: 50px;
+
+  span {
+    padding-left: 3px;
+  }
 }
 
-.media-detail__title {
-  @include media-title(20px);
-  margin: 0 0 17px 1px;
-}
-
+// Edit mode
+//
 .media-detail__title-input {
-  // color: #879cab;
-  padding: 3px 5px 3px 5px;
-  border: 1px solid #e1e6ea;
   border-radius: 4px;
-  margin: -1px 0 15px 0;
+  border: 2px solid $black-05;
   font-size: 19px;
-  font-family: $font-stack-sans-condensed;
   font-weight: 600;
-  width: 100%;
+  margin: -1px 0 15px;
   max-width: 500px;
-}
-
-.media-detail__description {
-  margin-top: 9px;
-  max-width: 42em;
-  line-height: 1.35;
-
-  color: theme-gray(45%);
+  padding: 3px 5px;
+  width: 100%;
 }
 
 .media-detail__editing-buttons {
-  margin-bottom: 8px;
+  display: flex;
+  flex-flow: wrap row;
+  margin: 4px 8px 4px auto;
+
+  span {
+    display: block;
+    margin: 4px;
+  }
 }
 
-.media-detail__cancel-edits {
-  margin-right: 8px;
+// Move dialog
+//
+.media-detail__dialog-header {
+  color: rgba(0, 0, 0, 0.87);
+  margin: 4px 8px 4px auto;
+  height: 28px;
+  font-family: Roboto;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+.media-detail__dialog-media-path {
+  margin-bottom: 30px;
+  height: 16px;
+  font-family: Roboto;
+  font-size: 12px;
+  line-height: 1.33;
+  text-align: left;
+  color: rgba(0, 0, 0, 0.4);
+}
+
+.media-detail__dialog-radio-group {
+  margin-left: 30px;
+  margin-top: 30px;
+}
+
+.create-media__button {
+  display: none;
 }

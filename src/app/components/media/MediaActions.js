@@ -1,5 +1,7 @@
 import React, { Component, PropTypes } from 'react';
-import FontAwesome from 'react-fontawesome';
+import { FormattedMessage } from 'react-intl';
+import mui from 'material-ui';
+import MdMoreHoriz from 'react-icons/lib/md/more-horiz';
 import { can } from '../Can';
 
 class MediaActions extends Component {
@@ -20,16 +22,20 @@ class MediaActions extends Component {
   }
 
   render() {
-    const { media, handleEdit } = this.props;
+    const { media, handleEdit, handleMove } = this.props;
     const menuItems = [];
 
     if (can(media.permissions, 'create Tag')) {
-      menuItems.push(<li className="media-actions__menu-item" onClick={handleEdit}>Edit...</li>);
+      menuItems.push(<li className="media-actions__menu-item" onClick={handleEdit}><FormattedMessage id="mediaActions.edit" defaultMessage="Edit..." /></li>);
+    }
+
+    if (can(media.permissions, 'update ProjectMedia')) {
+      menuItems.push(<li className="media-actions__menu-item" onClick={handleMove}><FormattedMessage id="mediaActions.move" defaultMessage="Move..." /></li>);
     }
 
     return menuItems.length ? (
       <div className={this.bemClass('media-actions', this.state.isMenuOpen, '--active')}>
-        <FontAwesome name="ellipsis-h" className="media-actions__icon" onClick={this.toggleMenu.bind(this)} />
+        <MdMoreHoriz className="media-actions__icon" onClick={this.toggleMenu.bind(this)} />
         <div className={this.bemClass('media-actions__overlay', this.state.isMenuOpen, '--active')} onClick={this.toggleMenu.bind(this)} />
         <ul className={this.bemClass('media-actions__menu', this.state.isMenuOpen, '--active')}>
           {menuItems}

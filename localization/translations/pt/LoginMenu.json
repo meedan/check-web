@@ -1,0 +1,9 @@
+{
+  "browser.support.message": "Best viewed with <a href=\"https://www.google.com/chrome/browser/desktop/\">Chrome for Desktop</a>.",
+  "login.title": "Entrar",
+  "login.with": "Entrar com {provider}",
+  "forgot.password": "Esqueceu sua senha? Não consegue encontrar o seu time? Em caso de problemas, entre em contato com uma pessoa em <a href=\"mailto:check@meedan.com\">check@meedan.com</a>.",
+  "agree.terms": "Ao registrar-se você concorda com os {tosLink} e {ppLink} do Check.",
+  "tos.title": "Termos de Serviço",
+  "privacy.policy.title": "Política de Privacidade"
+}

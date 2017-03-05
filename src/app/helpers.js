@@ -9,13 +9,31 @@ function bemClass(baseClass, modifierBoolean, modifierSuffix) {
   return modifierBoolean ? [baseClass, baseClass + modifierSuffix].join(' ') : baseClass;
 }
 
-function teamSubdomain() {
-  const baseDomain = config.selfHost;
-  const currentDomain = window.location.host;
+function bemClassFromMediaStatus(baseClass, mediaStatus) {
+  return bemClass(
+    baseClass,
+    (mediaStatus && mediaStatus.length),
+    `--${mediaStatus.toLowerCase().replace(/[ _]/g, '-')}`
+  );
+}
 
-  if (currentDomain.indexOf(baseDomain) > 1) {
-    return currentDomain.slice(0, currentDomain.indexOf(baseDomain) - 1);
+function getStatus(verification_statuses, id) {
+  const statuses = safelyParseJSON(verification_statuses).statuses;
+  let status = '';
+  statuses.forEach((st) => {
+    if (st.id === id) {
+      status = st;
+    }
+  });
+  return status;
+}
+
+function getStatusStyle(status, property) {
+  let style = '';
+  if (status && status.style) {
+    style = status.style[property];
   }
+  return style;
 }
 
 // Make a Check page title as `prefix | team Check`.
@@ -34,4 +52,17 @@ function pageTitle(prefix, skipTeam, team) {
   return (prefix ? (`${prefix} | `) : '') + suffix;
 }
 
-export { bemClass, pageTitle, teamSubdomain };
+function safelyParseJSON(jsonString) {
+  try {
+    return JSON.parse(jsonString)
+  } catch (e) {}
+}
+
+export {
+  bemClass,
+  bemClassFromMediaStatus,
+  pageTitle,
+  safelyParseJSON,
+  getStatus,
+  getStatusStyle
+};

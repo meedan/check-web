@@ -15,10 +15,7 @@ class CreateCommentMutation extends Relay.Mutation {
       query = Relay.QL`fragment on CreateCommentPayload { commentEdge, source { annotations } }`;
       break;
     case 'project_media':
-      query = Relay.QL`fragment on CreateCommentPayload { commentEdge, project_media { annotations, annotations_count } }`;
-      break;
-    case 'project':
-      query = Relay.QL`fragment on CreateCommentPayload { commentEdge, project { annotations } }`;
+      query = Relay.QL`fragment on CreateCommentPayload { commentEdge, project_media { log, annotations_count } }`;
       break;
     }
     return query;
@@ -27,7 +24,7 @@ class CreateCommentMutation extends Relay.Mutation {
   getOptimisticResponse() {
     const comment = {
       id: this.props.id,
-      created_at: new Date().toString(),
+      updated_at: new Date().toString(),
       annotation_type: 'comment',
       permissions: '{"destroy Annotation":true,"destroy Comment":true}',
       content: JSON.stringify({ text: this.props.annotation.text }),
@@ -46,13 +43,11 @@ class CreateCommentMutation extends Relay.Mutation {
 
   getVariables() {
     const comment = this.props.annotation;
-    const vars = { text: comment.text, annotated_id: `${comment.annotated_id}`, annotated_type: comment.annotated_type };
-    const context = this.props.context;
-    if (context && context.project) {
-      vars.context_type = 'Project';
-      vars.context_id = context.project.dbid.toString();
-    }
-    return vars;
+    return { text: comment.text, annotated_id: `${comment.annotated_id}`, annotated_type: comment.annotated_type };
+  }
+
+  getFiles() {
+    return { file: this.props.image };
   }
 
   getConfigs() {
@@ -60,14 +55,6 @@ class CreateCommentMutation extends Relay.Mutation {
     fieldIds[this.props.parent_type] = this.props.annotated.id;
 
     return [
-      {
-        type: 'RANGE_ADD',
-        parentName: this.props.parent_type,
-        parentID: this.props.annotated.id,
-        connectionName: 'annotations',
-        edgeName: 'commentEdge',
-        rangeBehaviors: calls => 'prepend',
-      },
       {
         type: 'FIELDS_CHANGE',
         fieldIDs: fieldIds,

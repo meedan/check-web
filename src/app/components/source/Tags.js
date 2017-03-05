@@ -1,10 +1,22 @@
 import React, { Component, PropTypes } from 'react';
+import { defineMessages, injectIntl, intlShape } from 'react-intl';
 import Relay from 'react-relay';
 import { WithContext as ReactTags } from 'react-tag-input';
 import Message from '../Message';
 import CreateTagMutation from '../../relay/CreateTagMutation';
 import DeleteTagMutation from '../../relay/DeleteTagMutation';
 import CheckContext from '../../CheckContext';
+
+const messages = defineMessages({
+  error: {
+    id: 'tags.error',
+    defaultMessage: 'Sorry, could not create the tag'
+  },
+  addNewTag: {
+    id: 'tags.addNewTag',
+    defaultMessage: 'Add new tag'
+  }
+});
 
 class Tags extends Component {
   constructor(props) {
@@ -29,11 +41,11 @@ class Tags extends Component {
   handleAddition(tags) {
     const props = this.props;
     let tagsList = [...new Set(tags.split(','))],
-      that = this;
+        that = this;
 
     const onFailure = function (transaction) {
       const error = transaction.getError();
-      let message = 'Sorry, could not create the tag';
+      let message = that.props.intl.formatMessage(messages.error);
 
       try {
         const json = JSON.parse(error.source);
@@ -78,11 +90,15 @@ class Tags extends Component {
     return (
       <div className="tags-list">
         <Message message={this.state.message} />
-        <ReactTags tags={tags} handleDelete={this.handleDelete.bind(this)} handleAddition={this.handleAddition.bind(this)} autofocus={false} removeComponent={TagsRemove} />
+        <ReactTags tags={tags} handleDelete={this.handleDelete.bind(this)} handleAddition={this.handleAddition.bind(this)} autofocus={false} removeComponent={TagsRemove} placeholder={this.props.intl.formatMessage(messages.addNewTag)}/>
       </div>
     );
   }
 }
+
+Tags.propTypes = {
+  intl: intlShape.isRequired
+};
 
 Tags.contextTypes = {
   store: React.PropTypes.object,
@@ -94,4 +110,4 @@ class TagsRemove extends React.Component {
   }
 }
 
-export default Tags;
+export default injectIntl(Tags);

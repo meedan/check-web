@@ -1,0 +1,38 @@
+%chip {
+  padding: 3px 16px;
+  border: 0;
+  margin: 4px 10px 4px 0;
+  font-size: 12px;
+  font-weight: 400;
+  background-color: $black-05;
+  border-radius: 24px;
+  display: inline-block;
+  color: $black-54;
+}
+
+
+%icon {
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  padding: 6px;
+  margin-right: 16px;
+  border-radius: 24px;
+  background-color: transparent;
+
+  path {
+    transition: color .2s;
+  }
+
+  &:hover {
+
+    path {
+      color: $black-87;
+      transition: color .4s;
+		}
+  }
+
+  &:active {
+    background-color: $black-05;
+  }
+}

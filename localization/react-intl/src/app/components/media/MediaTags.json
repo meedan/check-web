@@ -1,0 +1,14 @@
+[
+  {
+    "id": "mediaTags.loading",
+    "defaultMessage": "Loading..."
+  },
+  {
+    "id": "mediaTags.error",
+    "defaultMessage": "Sorry – we had trouble adding that tag."
+  },
+  {
+    "id": "mediaTags.heading",
+    "defaultMessage": "Tags"
+  }
+]

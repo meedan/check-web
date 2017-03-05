@@ -2,18 +2,15 @@ FROM meedan/ruby
 MAINTAINER Meedan <sysops@meedan.com>
 
 # install dependencies
-RUN apt-get update -qq && apt-get install -y libpq-dev imagemagick curl && rm -rf /var/lib/apt/lists/*
+# TODO are these really dependecies for meedan/check-web?  these seem like vestiges of meedan/check-api
 
-# node 6
-RUN apt-get purge -y nodejs npm
-RUN curl -sL https://deb.nodesource.com/setup_6.x | bash
-RUN apt-get install -y nodejs
+RUN apt-get update -qq && apt-get install -y imagemagick && rm -rf /var/lib/apt/lists/*
 
 # node modules
 COPY package.json /app/package.json
 RUN cd /app && npm install
 
-# TODO tempting to have another Dockerfile for testing
+# TODO tempting to have a separate Dockerfile for testing
 # this Dockerfile becomes FROM meedan/nodejs and leave the tests in a FROM meedan/ruby based image
 
 # ruby gems

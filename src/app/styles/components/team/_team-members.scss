@@ -10,11 +10,12 @@
 }
 
 // edit buttons
-
 .team-members__edit-button {
-  position: absolute;
-  top: 30px; right: 25px;
   @include button-small;
+
+  position: absolute;
+  top: 30px;
+  right: 25px;
 
   @media screen and (max-width: 680px) {
     position: static;
@@ -25,18 +26,18 @@
 
 .team-members__edit-icon {
   // TODO: DRY
-  font-size: 0.9em;
-  opacity: 0.8;
-  margin-right: 0.1em;
+  font-size: .9em;
+  opacity: .8;
+  margin-right: .1em;
   display: inline-block;
   position: relative;
   left: -3px;
 }
 
 // blurb
-
 .team-members__blurb {
   @include app-blurb;
+
   text-align: center;
 }
 
@@ -47,28 +48,21 @@
   word-wrap: break-word;
 }
 
-// lists
-
-.team-members__list,
 .team-membership-requests {
-}
-
-.team-membership-requests {
-  background: hsl(208, 98%, 95%);
   border-radius: 2px;
   padding: 8px;
   margin-bottom: 16px;
 }
 
 .team-membership-requests__heading {
-  text-align: center;
   @include app-kicker;
-  color: hsl(208, 98%, 62%);
+  text-align: center;
+  color: $check-blue;
 }
 
 .team-membership-requests__heading-parens {
   font-weight: 300;
-  opacity: 0.8;
+  opacity: .8;
 }
 
 .team-members__member,
@@ -81,7 +75,9 @@
 
 .team-members__member-avatar,
 .team-membership-requests__user-avatar {
-  $size: 50px; height: $size; width: $size;
+  $size: 50px;
+  height: $size;
+  width: $size;
   border-radius: $size;
   margin-right: 10px;
 }
@@ -93,7 +89,6 @@
   display: flex;
   align-items: baseline;
   flex-wrap: wrap;
-
 }
 
 .team-members__member-name,
@@ -103,38 +98,52 @@
 
 .team-members__member-username,
 .team-membership-requests__user-username {
-  color: $light-gray-text;
+  color: $black-38;
 }
 
 // user controls
-
 .team-member-requests__user-button {
   @include button-small;
   margin-left: 10px;
   margin-bottom: 0;
 
-  &--approve { @include button-green; }
+  &--approve {
+    @include button-primary;
+  }
 }
 
 .team-members__member-role {
   min-width: 120px;
   margin: 8px 0 8px auto;
 
-  .Select-control { transition: border-color 450ms ease; }
-  .Select-arrow-zone { transition: opacity 300ms ease; }
-  .Select-placeholder { transition: color 150ms ease; }
+  .Select-control {
+    transition: border-color 450ms ease;
+  }
+
+  .Select-arrow-zone {
+    transition: opacity 300ms ease;
+  }
+
+  .Select-placeholder {
+    transition: color 150ms ease;
+  }
 
   &.is-disabled {
     .Select-control {
       background-color: transparent !important;
       border-color: transparent;
-      &:hover { box-shadow: none; }
+
+      &:hover {
+        box-shadow: none;
+      }
     }
+
     .Select-arrow-zone {
       opacity: 0;
     }
+
     .Select-placeholder {
-      color: $light-gray-text !important;
+      color: $black-38 !important;
     }
   }
 }
@@ -143,9 +152,10 @@
   @include unbutton;
   @include close-button;
   margin-left: 15px;
+
   &-icon {
     position: relative;
-    top: -0.1em;
+    top: -.1em;
   }
 
   @media screen and (max-width: 680px) {

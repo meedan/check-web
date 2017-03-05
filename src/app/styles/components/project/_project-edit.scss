@@ -1,0 +1,20 @@
+.project-edit__form {
+  max-width: 550px;
+  margin: 0 auto;
+}
+
+.project-edit__editing-buttons {
+  text-align: right;
+}
+
+.project-edit__editing-button {
+  @include button-medium;
+
+  &:not(:last-child) {
+    margin-right: 5px;
+ 	}
+
+  &--save {
+    @include button-primary;
+  }
+}

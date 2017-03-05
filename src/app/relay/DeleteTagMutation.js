@@ -23,26 +23,26 @@ class DeleteTagMutation extends Relay.Mutation {
       query = Relay.QL`fragment on DestroyTagPayload { deletedId, source { annotations, tags } }`;
       break;
     case 'project_media':
-      query = Relay.QL`fragment on DestroyTagPayload { deletedId, project_media { annotations, tags } }`;
+      query = Relay.QL`fragment on DestroyTagPayload { deletedId, project_media { log, tags, annotations_count } }`;
       break;
     }
     return query;
   }
 
   getConfigs() {
+    const fieldIds = {};
+    fieldIds[this.props.parent_type] = this.props.annotated.id;
+
     return [
       {
-        type: 'NODE_DELETE',
-        parentName: this.props.parent_type,
-        parentID: this.props.annotated.id,
-        connectionName: 'tags',
-        deletedIDFieldName: 'deletedId',
+        type: 'FIELDS_CHANGE',
+        fieldIDs: fieldIds,
       },
       {
         type: 'NODE_DELETE',
         parentName: this.props.parent_type,
         parentID: this.props.annotated.id,
-        connectionName: 'annotations',
+        connectionName: 'tags',
         deletedIDFieldName: 'deletedId',
       },
     ];

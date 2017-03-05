@@ -10,7 +10,7 @@ class SourcePage < Page
   end
 
   def url
-    @config['self_url'] + "/source/#{@id}" # TODO: support subdomains
+    @config['self_url'] + "/check/source/#{@id}"
   end
 
   def title

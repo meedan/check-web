@@ -2,7 +2,6 @@
   border-top: $layout-border-light;
   padding: 15px 0;
   display: flex;
-  font-size: $annotation-font-size;
   position: relative;
   overflow-x: hidden;
 }
@@ -23,27 +22,34 @@
   display: flex;
   align-items: baseline;
   white-space: pre;
-
   margin-bottom: 1.5px;
-  @include gray-text($annotation-font-size);
 }
 
 .annotation__author-name {
   font-weight: 400;
-  font-size: $annotation-font-size;
   color: inherit;
   margin: 0;
   display: inline-block;
   margin-right: 10px;
 
   &:first-child {
-    color: theme-gray(28%);
+    color: $black-38;
     font-weight: 600;
   }
 }
 
+.annotation__task-resolved {
+  .annotation__author-name {
+    margin-right: 0;
+  }
+
+  em {
+    margin-right: 10px;
+  }
+}
+
 .annotation__timestamp {
-  @include gray-text(12.5px);
+  font-size: 12px;
 }
 
 .annotation__actions {
@@ -59,12 +65,10 @@
   right: 0;
   height: 30px;
   width: 30px;
-  background-color: $home-bg;
   border-radius: 30px;
 }
 
 .annotation__body {
-  color: theme-gray(27%);
   word-break: break-word;
 }
 
@@ -74,16 +78,108 @@
 }
 
 // non-comments
-
 .annotation__status {
-  @include app-kicker(11px);
+  @include app-kicker;
   @include media-status-font-colors;
   margin-left: 3px;
   margin-right: 2px;
 }
 
 .annotation__tag {
-  &:before {
+  &::before {
     content: '#';
+  }
+}
+
+.annotation__update-task > span {
+  display: block;
+}
+
+.annotation__comment {
+  margin-top: 5px;
+
+  .annotation__comment-text {
+    float: left;
+    width: 80%;
+  }
+
+  img {
+    max-width: 20%;
+    min-width: 50px;
+    float: right;
+    cursor: zoom-in
+  }
+
+  br {
+    clear: both;
+  }
+}
+
+
+.add-annotation {
+  .add-annotation__buttons {
+    margin-left: auto;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  
+    .add-annotation__insert-photo {
+      display: inline-block;
+    
+      svg {
+        @extend %icon;
+        margin-right: 0;
+    
+        path {
+          color: $black-16;
+        }
+      }
+    }
+  }
+
+  .preview {
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 300px;
+    padding: 0;
+    margin: 0;
+    border: 1px solid $black-38;
+    border-bottom: 0;
+    width: 100%;
+
+    .remove-image {
+      position: absolute;
+      top: 2px;
+      right: 2px;
+      z-index: 1;
+      color: $black-38;
+      cursor: pointer;
+    }
+  }
+
+  .upload-file {
+    cursor: pointer;
+    margin: 0 0 7px;
+  }
+
+  .upload-file > div.with-file {
+    width: 100% !important;
+    border-top: 0 !important;
+    border-style: solid !important;
+  }
+
+  .upload-file > div {
+    padding: 0 !important;
+    height: 148px !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-width: 3px;
+    border-radius: 8px;
+
+    &:hover {
+      border-color: $check-blue !important;
+    }
   }
 }

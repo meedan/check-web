@@ -15,7 +15,7 @@ class CreateTagMutation extends Relay.Mutation {
       query = Relay.QL`fragment on CreateTagPayload { tagEdge, source { annotations, tags } }`;
       break;
     case 'project_media':
-      query = Relay.QL`fragment on CreateTagPayload { tagEdge, project_media { annotations, tags, annotations_count } }`;
+      query = Relay.QL`fragment on CreateTagPayload { tagEdge, project_media { log, tags, annotations_count } }`;
       break;
     }
     return query;
@@ -23,19 +23,13 @@ class CreateTagMutation extends Relay.Mutation {
 
   getVariables() {
     const tag = this.props.annotation;
-    const vars = { tag: tag.tag, annotated_id: `${tag.annotated_id}`, annotated_type: tag.annotated_type };
-    const context = this.props.context;
-    if (context && context.project) {
-      vars.context_type = 'Project';
-      vars.context_id = context.project.dbid.toString();
-    }
-    return vars;
+    return { tag: tag.tag, annotated_id: `${tag.annotated_id}`, annotated_type: tag.annotated_type };
   }
 
   getOptimisticResponse() {
     const tag = {
       id: this.props.id,
-      created_at: new Date().toString(),
+      updated_at: new Date().toString(),
       annotation_type: 'tag',
       permissions: '{"destroy Annotation":true,"destroy Tag":true}',
       content: JSON.stringify({ tag: this.props.annotation.tag }),
@@ -63,14 +57,6 @@ class CreateTagMutation extends Relay.Mutation {
         parentName: this.props.parent_type,
         parentID: this.props.annotated.id,
         connectionName: 'tags',
-        edgeName: 'tagEdge',
-        rangeBehaviors: calls => 'prepend',
-      },
-      {
-        type: 'RANGE_ADD',
-        parentName: this.props.parent_type,
-        parentID: this.props.annotated.id,
-        connectionName: 'annotations',
         edgeName: 'tagEdge',
         rangeBehaviors: calls => 'prepend',
       },

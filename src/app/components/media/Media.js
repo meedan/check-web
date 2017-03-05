@@ -3,6 +3,7 @@ import Relay from 'react-relay';
 import CheckContext from '../../CheckContext';
 import MediaRoute from '../../relay/MediaRoute';
 import MediaComponent from './MediaComponent';
+import MediasLoading from './MediasLoading';
 
 const MediaContainer = Relay.createContainer(MediaComponent, {
   initialVariables: {
@@ -21,13 +22,30 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
         annotations_count,
         domain,
         permissions,
+        project {
+          id,
+          dbid,
+          title
+        },
+        project_id,
         pusher_channel,
         verification_statuses,
+        overridden,
+        media {
+          url,
+          quote,
+          embed_path,
+          thumbnail_path
+        }
         user {
           name,
           source {
             dbid
           }
+        }
+        last_status_obj {
+          id
+          dbid
         }
         tags(first: 10000) {
           edges {
@@ -37,42 +55,103 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
             }
           }
         }
-        annotations(first: 10000) {
+        tasks(first: 10000) {
           edges {
             node {
               id,
               dbid,
-              content,
-              annotation_type,
-              created_at,
+              label,
+              type,
+              description,
               permissions,
-              medias(first: 10000) {
+              first_response {
+                id,
+                dbid,
+                permissions,
+                content,
+                annotator {
+                  name
+                }
+              }
+            }
+          }
+        }
+        log(first: 10000) {
+          edges {
+            node {
+              id,
+              dbid,
+              item_type,
+              item_id,
+              event,
+              event_type,
+              created_at,
+              object_after,
+              object_changes_json,
+              meta,
+              projects(first: 2) {
                 edges {
                   node {
                     id,
                     dbid,
-                    quote,
-                    published,
-                    url,
-                    embed,
-                    project_id,
-                    last_status,
-                    annotations_count,
-                    permissions,
-                    verification_statuses,
-                    domain,
-                    user {
-                      name,
-                      source {
-                        dbid
+                    title
+                  }
+                }
+              }
+              user {
+                name,
+                profile_image
+              }
+              task {
+                id,
+                dbid,
+                label
+              }
+              annotation {
+                id,
+                dbid,
+                content,
+                annotation_type,
+                updated_at,
+                created_at,
+                permissions,
+                medias(first: 10000) {
+                  edges {
+                    node {
+                      id,
+                      dbid,
+                      quote,
+                      published,
+                      url,
+                      embed,
+                      project_id,
+                      last_status,
+                      annotations_count,
+                      permissions,
+                      verification_statuses,
+                      domain,
+                      media {
+                        embed_path,
+                        thumbnail_path
+                      }
+                      user {
+                        name,
+                        source {
+                          dbid
+                        }
                       }
                     }
                   }
                 }
-              }
-              annotator {
-                name,
-                profile_image
+                annotator {
+                  name,
+                  profile_image
+                }
+                version {
+                  id
+                  item_id
+                  item_type
+                }
               }
             }
           }
@@ -84,14 +163,15 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
           }
         }
         team {
-          get_suggested_tags
+          get_suggested_tags,
+          slug
         }
       }
     `,
   },
 });
 
-class Media extends Component {
+class ProjectMedia extends Component {
   render() {
     let projectId = 0;
     const context = new CheckContext(this);
@@ -100,14 +180,23 @@ class Media extends Component {
     if (store.project) {
       projectId = store.project.dbid;
     }
-    const ids = this.props.params.mediaId;
+    const ids = `${this.props.params.mediaId},${projectId}`;
     const route = new MediaRoute({ ids });
-    return (<Relay.RootContainer Component={MediaContainer} route={route} />);
+
+    return (
+      <Relay.RootContainer
+        Component={MediaContainer}
+        route={route}
+        renderLoading={function() {
+          return <MediasLoading count={1} />;
+        }}
+      />
+    );
   }
 }
 
-Media.contextTypes = {
+ProjectMedia.contextTypes = {
   store: React.PropTypes.object,
 };
 
-export default Media;
+export default ProjectMedia;

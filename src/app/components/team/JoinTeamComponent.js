@@ -1,11 +1,27 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay';
 import DocumentTitle from 'react-document-title';
+import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import { Link } from 'react-router';
 import CreateTeamUserMutation from '../../relay/CreateTeamUserMutation';
 import Message from '../Message';
 import { pageTitle } from '../../helpers';
 import CheckContext from '../../CheckContext';
+
+const messages = defineMessages({
+  error: {
+    id: 'joinTeamComponent.error',
+    defaultMessage: 'Sorry, could not send your request'
+  },
+  success: {
+    id: 'joinTeamComponent.success',
+    defaultMessage: 'Thanks for your interest in joining {team} Check! A team leader will review your application soon.'
+  },
+  title: {
+    id: 'joinTeamComponent.title',
+    defaultMessage: 'Join Team'
+  }
+});
 
 class JoinTeamComponent extends Component {
   constructor(props) {
@@ -28,7 +44,7 @@ class JoinTeamComponent extends Component {
 
     const onFailure = (transaction) => {
       const error = transaction.getError();
-      let message = 'Sorry, could not send your request';
+      let message = that.props.intl.formatMessage(messages.error);
       try {
         const json = JSON.parse(error.source);
         if (json.error) {
@@ -39,7 +55,7 @@ class JoinTeamComponent extends Component {
     };
 
     const onSuccess = (response) => {
-      that.setState({ message: `Thanks for your interest in joining ${this.props.team.name} Check! A team leader will review your application soon.`, isRequestSent: true });
+      that.setState({ message: that.props.intl.formatMessage(messages.success,{team: that.props.team.name}), isRequestSent: true });
     };
 
     Relay.Store.commitUpdate(
@@ -53,13 +69,25 @@ class JoinTeamComponent extends Component {
   }
 
   redirectIfMember() {
-    if (this.getContext().currentUser.team_ids.indexOf(this.props.team.dbid) > -1) {
-      window.location.href = this.buildUrl(this.props.team);
+    if (this.alreadyMember()) {
+      const team = this.props.team;
+      const user = this.getContext().currentUser;
+      const userTeams = JSON.parse(user.teams);
+      let redirect = true;
+      for (var teamName in userTeams) {
+        const t = userTeams[teamName];
+        if (t.id == team.dbid && team.private && t.status != 'member') {
+          redirect = false;
+        }
+      }
+      if (redirect) {
+        this.getContext().history.push(`/${team.slug}`);
+      }
     }
   }
 
-  buildUrl(team) {
-    return `${window.location.protocol}//${team.subdomain}.${config.selfHost}`;
+  alreadyMember() {
+    return (this.getContext().currentUser.team_ids.indexOf(this.props.team.dbid) > -1);
   }
 
   componentWillMount() {
@@ -72,26 +100,44 @@ class JoinTeamComponent extends Component {
 
   render() {
     const team = this.props.team;
-    const teamUrl = this.buildUrl(team);
 
     const isRequestSent = this.state.isRequestSent;
 
+    if (this.alreadyMember()) {
+      return (
+        <DocumentTitle title={pageTitle(this.props.intl.formatMessage(messages.title), false, team)}>
+          <div className="join-team">
+            <p className="join-team__blurb-graf">
+            <FormattedMessage id="joinTeamComponent.alreadyRequested"
+                  defaultMessage={`You already requested to join {team} Check.`}
+                  values={{team:<Link to={`/${team.slug}`}>{team.name}</Link>}} />
+            </p>
+          </div>
+        </DocumentTitle>
+      );
+    }
+
     return (
-      <DocumentTitle title={pageTitle('Join Team', false, team)}>
+      <DocumentTitle title={pageTitle(this.props.intl.formatMessage(messages.title), false, team)}>
         <div className="join-team">
           <Message message={this.state.message} />
-          <h2 className="join-team__main-heading">Request to Join</h2>
+          <h2 className="join-team__main-heading"><FormattedMessage id="joinTeamComponent.mainHeading" defaultMessage="Request to Join" /></h2>
           <div className="join-team__blurb">
-            <p className="join-team__blurb-graf">To request access to the <a href={teamUrl}>{team.name}</a> Check, click below:</p>
+            <p className="join-team__blurb-graf">
+              <FormattedMessage id="joinTeamComponent.blurbGraf"
+                    defaultMessage={`To request access to the {link} Check, click below:`}
+                    values={{link:<Link to={`/${team.slug}`}>{team.name}</Link>}} />
+            </p>
             <div>
               <button
                 className={`join-team__button${isRequestSent ? ' join-team__button--submitted' : ''}`}
                 onClick={this.handleRequestAccess.bind(this)}
-                disabled={isRequestSent}
-              >
-                {isRequestSent ? 'Request Sent' : 'Request to Join'}
+                disabled={isRequestSent}>
+                {isRequestSent ? <FormattedMessage id="joinTeamComponent.buttonSubmitted" defaultMessage="Request Sent" /> : <FormattedMessage id="joinTeamComponent.buttonSubmit" defaultMessage="Request to Join" />}
               </button>
-              <p className="join-team__blurb-graf">Your request {isRequestSent ? 'has been' : 'will be'} sent to the project admins for approval.</p>
+              <p className="join-team__blurb-graf">
+                {isRequestSent ? <FormattedMessage id="joinTeamComponent.requestHasBeenSent" defaultMessage="Your request has been sent to the project admins for approval." /> : <FormattedMessage id="joinTeamComponent.requestWillBeSent" defaultMessage="Your request will be sent to the project admins for approval." />}
+              </p>
             </div>
           </div>
         </div>
@@ -100,8 +146,12 @@ class JoinTeamComponent extends Component {
   }
 }
 
+JoinTeamComponent.propTypes = {
+  intl: intlShape.isRequired
+};
+
 JoinTeamComponent.contextTypes = {
   store: React.PropTypes.object,
 };
 
-export default JoinTeamComponent;
+export default injectIntl(JoinTeamComponent);

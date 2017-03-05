@@ -1,0 +1,10 @@
+[
+  {
+    "id": "teamMembershipRequestsCell.approve",
+    "defaultMessage": "Approve"
+  },
+  {
+    "id": "teamMembershipRequestsCell.deny",
+    "defaultMessage": "Ignore"
+  }
+]

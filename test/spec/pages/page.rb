@@ -48,6 +48,7 @@ class Page
 
   def fill_input(selector, value, options = {})
     input = element(selector, options)
+    input.clear if options[:clear]
     input.send_keys(value)
   end
 
@@ -63,9 +64,9 @@ class Page
     @driver.page_source.include?(string)
   end
 
-  def contains_element?(selector)
+  def contains_element?(selector, options = {})
     begin
-      element(selector)
+      element(selector, options)
     rescue
       return false
     end

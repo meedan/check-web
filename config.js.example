@@ -8,5 +8,7 @@ window.config = {
   penderUrl: 'http://localhost:3200',
   pusherKey: '',
   pusherDebug: true,
-  googleAnalyticsCode: 'UA-00000000-1' // Optional
+  locale: 'en',
+  googleAnalyticsCode: 'UA-00000000-1', // Optional
+  googleStaticMapsKey: '' // Optional
 }

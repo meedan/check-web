@@ -1,19 +1,20 @@
 @charset "utf-8";
 
-@import "font-awesome/font-awesome";
-@import "variables";
-
 @import 'theme/colors';
+@import "variables";
+@import "mixins";
+@import "placeholders";
 @import 'theme/typography';
 @import 'theme/buttons';
 @import 'theme/defaults';
 @import 'theme/layout';
 @import 'theme/forms';
 @import 'theme/images';
-
-@import 'components/annotation';
+@import 'theme/menus';
+@import 'theme/animation';
 @import 'components/browser-support';
 @import 'components/caret';
+@import 'components/close-button';
 @import 'components/home';
 @import 'components/inputs/default-button';
 @import 'components/layout/breadcrumb';
@@ -24,11 +25,28 @@
 @import 'components/layout/footer';
 @import 'components/login-menu';
 @import 'components/login-email';
-@import 'components/media';
+@import 'components/media/media-colors';
+@import 'components/media/media-mixins';
+@import 'components/media/create-media';
+@import 'components/media/media';
+@import 'components/media/media-actions';
+@import 'components/media/media-checklist';
+@import 'components/media/media-detail';
+@import 'components/media/media-inspector';
+@import 'components/media/media-metadata-summary';
+@import 'components/media/media-status';
+@import 'components/media/media-tags';
+@import 'components/media/medias-loading';
+@import 'components/media/pender-card';
+@import 'components/media/media-card-quote';
+@import 'components/media/media-card-social';
+@import 'components/media/media-card-image-uploaded';
+@import 'components/annotation/annotation';
 @import 'components/message';
 @import 'components/search/search';
 @import 'components/sources';
-@import 'components/team';
+@import 'components/team/team-mixins';
+@import 'components/team/team';
 @import 'components/team/create-team';
 @import 'components/team/join-team';
 @import 'components/team/switch-teams';
@@ -37,16 +55,22 @@
 @import 'components/team/team-sidebar';
 @import 'components/team/teams';
 @import 'components/project/project';
+@import 'components/project/project-edit';
 @import 'components/project/project-header';
+@import 'components/project/project-list';
+@import 'components/task/task';
+@import 'components/task/tasks';
 @import 'source';
 @import 'tags';
 @import 'create-account';
 @import 'tabs';
+@import "spinner";
 
 body {
   margin: auto;
   width: 100%;
   overflow-x: hidden;
+  cursor: default;
 }
 
 .hidden {
@@ -56,7 +80,6 @@ body {
 .top-bar {
   background: $white !important;
   box-shadow: none !important;
-  border-bottom: 1px solid hsl(204, 15%, 90%);
 }
 
 .current-user {
@@ -66,32 +89,8 @@ body {
   }
 }
 
-address {
-  text-align: center;
-  color: rgba($darkgrey, 0.5);
-  margin-top: 30px;
-  font-style: normal;
-  font-size: 12px;
-
-  span {
-    margin: 10px 0;
-    display: inline-block;
-
-    i {
-      font-style: normal;
-    }
-  }
-
-  a, a:visited {
-    color: rgba($darkgrey, 0.8);
-
-    &:hover {
-      text-decoration: none;
-    }
-  }
-}
-
-#tos, #privacy-policy {
+#tos,
+#privacy-policy {
   margin: 10px;
 
   p {

@@ -1,24 +1,24 @@
 .media-tags {
-  @include media-metadata;
-  margin: 5px 0 0 0;
-
-  &:empty { display: none; }
+  &:empty {
+    display: none;
+  }
 }
 
 .media-tags__header {
-  display: flex;
-  align-items: baseline;
-  margin: 21px 0 7px 0;
+  // display: flex;
+  // align-items: baseline;
+  // margin: 21px 0 7px;
+  //
+  // TODO remove in markup 
+  display: none;
 }
 
 .media-tags__heading {
-  margin: 4px 15px 1px 0;
-  color: theme-gray(27%);
   @include app-kicker;
+  margin: 4px 16px 1px 0;
 }
 
 .media-tags__message {
-  color: theme-gray(67%);
   font-size: 13px;
   margin: 0;
 }
@@ -32,37 +32,25 @@
   @include chicklet;
 }
 
-.media-tags__list {
-  margin: 5px 0 0 0;
-  display: inline-block;
-}
-
 .media-tags__tag,
-.media-tags .tags-list .ReactTags__tag { // TODO: refactor, hacky
-  &:before {
-    content: '#';
-    opacity: 0.6;
-  }
-  display: inline-block;
+.media-tags .tags-list .ReactTags__tag {
+  @extend %chip;
   margin-right: 15px;
-  padding: 3px 0;
-  border: none;
-  margin: 0 10px 0 0;
-  font-size: 14px;
-  font-weight: 400;
+  min-width: 52px;
 }
 
-.media-tags .tags-list { // TODO: refactor, hacky
-  margin: 5px 0 0 0;
-  display: inline-block;
+// Tags list in both modes
+.media-tags__list,
+.media-tags .tags-list {
+  // TBD
 }
 
 .media-tags .tags-list input {
-  color: #879cab;
-  padding: 3px 5px 3px 5px;
-  border: 1px solid #e1e6ea;
+  color: $black-38;
+  padding: 3px 5px;
+  border: 1px solid $black-16;
   border-radius: 4px;
-  margin: 0 0 5px 0;
-  font-size: 13px;
+  margin: 4px 10px 5px;
+  font-size: 12px;
   font-weight: 400;
 }

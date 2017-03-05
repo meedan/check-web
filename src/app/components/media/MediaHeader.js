@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 import MediaRoute from '../../relay/MediaRoute';
-import Caret from '../Caret';
 import MediaMetadataSummary from './MediaMetadataSummary';
 import MediaUtil from './MediaUtil';
 import CheckContext from '../../CheckContext';
@@ -24,17 +23,14 @@ class MediaHeaderComponent extends Component {
     const media = this.props.media;
     const data = JSON.parse(media.embed);
     const title = MediaUtil.truncatedTitle(media, data);
-
+    media.url = media.media.url
+    media.quote = media.media.quote
     if (this.props.relay.variables.contextId === null) {
       return null;
     }
-
     return (
       <div className="media-header">
-        <div className="media-header__copy">
-          <h1 className="media-header__title">{title}</h1>
-          <MediaMetadataSummary media={media} data={data} />
-        </div>
+        {/* TODO: assess component for deletion now that we don't display copy here */}
       </div>
     );
   }
@@ -55,11 +51,16 @@ const MediaHeaderContainer = Relay.createContainer(MediaHeaderComponent, {
         dbid,
         published,
         url,
+        quote,
         embed,
         last_status,
         annotations_count,
         verification_statuses,
         domain,
+        media {
+          url
+          quote
+        }
         user {
           name,
           source {
@@ -71,6 +72,27 @@ const MediaHeaderContainer = Relay.createContainer(MediaHeaderComponent, {
             node {
               tag,
               id
+            }
+          }
+        }
+        tasks(first: 10000) {
+          edges {
+            node {
+              id,
+              dbid,
+              label,
+              type,
+              description,
+              permissions,
+              first_response {
+                id,
+                dbid,
+                permissions,
+                content,
+                annotator {
+                  name
+                }
+              }
             }
           }
         }
@@ -94,7 +116,7 @@ class MediaHeader extends Component {
     if (store.project) {
       projectId = store.project.dbid;
     }
-    const ids = this.props.params.mediaId;
+    const ids = `${this.props.params.mediaId},${projectId}`;
     const route = new MediaRoute({ ids });
     return (<Relay.RootContainer Component={MediaHeaderContainer} route={route} />);
   }

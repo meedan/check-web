@@ -1,15 +1,42 @@
 import React, { Component, PropTypes } from 'react';
+import { defineMessages, injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import Relay from 'react-relay';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
+import MdInsertPhoto from 'react-icons/lib/md/insert-photo';
+import UploadImage from '../UploadImage';
 import PenderCard from '../PenderCard';
-import CreateMediaMutation from '../../relay/CreateMediaMutation';
+import CreateProjectMediaMutation from '../../relay/CreateProjectMediaMutation';
 import Message from '../Message';
 import CheckContext from '../../CheckContext';
 import config from 'config';
 import urlRegex from 'url-regex';
+import ContentColumn from '../layout/ContentColumn';
 
-class CreateMedia extends Component {
+const messages = defineMessages({
+  submitting: {
+    id: 'createMedia.submitting',
+    defaultMessage: 'Submitting...'
+  },
+  error: {
+    id: 'createMedia.error',
+    defaultMessage: 'Something went wrong! Try pasting the text of this post instead, or adding a different link.'
+  },
+  mediaInput: {
+    id: 'createMedia.mediaInput',
+    defaultMessage: 'Paste or type'
+  },
+  uploadImage:{
+    id: 'createMedia.uploadImage',
+    defaultMessage: 'Upload an image'
+  },
+  submitButton: {
+    id: 'createMedia.submitButton',
+    defaultMessage: 'Post'
+  }
+});
+
+class CreateProjectMedia extends Component {
   constructor(props) {
     super(props);
 
@@ -17,6 +44,7 @@ class CreateMedia extends Component {
       url: '',
       message: null,
       isSubmitting: false,
+      fileMode: false
     };
   }
 
@@ -25,29 +53,38 @@ class CreateMedia extends Component {
 
     const that = this,
       context = new CheckContext(this).getContextStore(),
+      prefix = `/${context.team.slug}/project/${context.project.dbid}/media/`;
+
+    let image = '',
+        inputValue = '',
+        urls = '',
+        url = '',
+        quote = '';
+
+    if (this.state.fileMode) {
+      image = document.forms.media.image;
+      if (!image || this.state.isSubmitting) { return; }
+    } else {
       inputValue = document.getElementById('create-media-input').value.trim(),
-      prefix = `/project/${context.project.dbid}/media/`,
       urls = inputValue.match(urlRegex()),
       url = (urls && urls[0]) ? urls[0] : '';
-
-    let quote = '';
-
-    if (!inputValue || !inputValue.length || this.state.isSubmitting) { return; }
-    this.setState({ isSubmitting: true, message: 'Submitting...' });
-
-    if (!url.length || inputValue !== url) { // if anything other than a single url
-      quote = inputValue;
+      if (!inputValue || !inputValue.length || this.state.isSubmitting) { return; }
+      if (!url.length || inputValue !== url) { // if anything other than a single url
+        quote = inputValue;
+      }
     }
 
+    this.setState({ isSubmitting: true, message: this.props.intl.formatMessage(messages.submitting) });
+
     const handleError = (json) => {
-      let message = 'Something went wrong! Try pasting the text of this post instead, or adding a different link.';
+      let message = this.props.intl.formatMessage(messages.error) + ' <b id="close-message">✖</b>';
       if (json && json.error) {
-        const matches = json.error.match(/^Validation failed: Media with this URL exists and has id ([0-9]+)$/);
+        const matches = json.error.match(/This media already exists in this project and has id ([0-9]+)$/);
         if (matches) {
           that.props.projectComponent.props.relay.forceFetch();
-          const sid = matches[1];
+          const pmid = matches[1];
           message = null;
-          context.history.push(prefix + sid);
+          context.history.push(prefix + pmid);
         }
       }
       that.setState({ message, isSubmitting: false });
@@ -64,15 +101,16 @@ class CreateMedia extends Component {
     };
 
     const onSuccess = (response) => {
-      const rid = response.createMedia.media.pm_dbid;
+      const rid = response.createProjectMedia.project_media.dbid;
       context.history.push(prefix + rid);
       this.setState({ message: null, isSubmitting: false });
     };
 
     Relay.Store.commitUpdate(
-      new CreateMediaMutation({
+      new CreateProjectMediaMutation({
         url,
         quote,
+        image,
         project: context.project,
       }),
       { onSuccess, onFailure },
@@ -86,6 +124,11 @@ class CreateMedia extends Component {
 
   componentDidMount() {
     this.mediaInput.focus();
+    window.addEventListener('mousedown', this.handleClickOutside.bind(this), false);
+  }
+
+  handleClickOutside(e) {
+    this.setState({ message: null });
   }
 
   handleKeyPress(e) {
@@ -94,38 +137,72 @@ class CreateMedia extends Component {
     }
   }
 
+  onImage(file) {
+    document.forms.media.image = file;
+  }
+
+  switchMode() {
+    this.setState({ fileMode: !this.state.fileMode });
+  }
+
   render() {
     const isPreviewingUrl = (this.state.url !== '');
 
     return (
       <div className="create-media">
         <Message message={this.state.message} />
-        <div id="media-preview" className="create-media__preview">
-          {isPreviewingUrl ? <PenderCard url={this.state.url} penderUrl={config.penderUrl} /> : null}
-        </div>
-
-        <form id="media-url-container" className="create-media__form" onSubmit={this.handleSubmit.bind(this)}>
-          <button className="create-media__button create-media__button--new">+</button>
-          <TextField
-            hintText="Paste a link or start typing to add a quote."
-            fullWidth
-            name="url" id="create-media-input"
-            className="create-media__input"
-            multiLine
-            onKeyPress={this.handleKeyPress.bind(this)}
-            ref={input => this.mediaInput = input}
-          />
-          <div className="create-media__buttons">
-            <FlatButton id="create-media-submit" primary onClick={this.handleSubmit.bind(this)} label="Post" className="create-media__button create-media__button--submit" />
+        <ContentColumn>
+          <div id="media-preview" className="create-media__preview">
+            {isPreviewingUrl ? <PenderCard url={this.state.url} penderUrl={config.penderUrl} /> : null}
           </div>
-        </form>
+
+          <form name="media" id="media-url-container" className="create-media__form" onSubmit={this.handleSubmit.bind(this)}>
+            <button className="create-media__button create-media__button--new">+</button>
+
+            <div id="create-media__field">
+              {(() => {
+                if (this.state.fileMode) {
+                  return (
+                    <UploadImage onImage={this.onImage.bind(this)} />
+                  );
+                } else {
+                  return (
+                    <TextField
+                      hintText={this.props.intl.formatMessage(messages.mediaInput)}
+                      fullWidth
+                      name="url" id="create-media-input"
+                      className="create-media__input"
+                      multiLine
+                      onKeyPress={this.handleKeyPress.bind(this)}
+                      ref={input => this.mediaInput = input}
+                    />
+                  );
+                }
+              })()}
+            </div>
+
+            <footer>
+              <div className="create-media__helper"><FormattedMessage id="createMedia.helper" defaultMessage="Add a link, quote or image for verification"/></div>
+              <div className="create-media__buttons">
+                <div className="create-media__insert-photo">
+                  <MdInsertPhoto id="create-media__switcher" title={this.props.intl.formatMessage(messages.uploadImage)} className={this.state.fileMode ? 'create-media__file' : ''} onClick={this.switchMode.bind(this)} />
+                </div>
+                <FlatButton id="create-media-submit" primary onClick={this.handleSubmit.bind(this)} label={this.props.intl.formatMessage(messages.submitButton)} className="create-media__button create-media__button--submit" />
+              </div>
+            </footer>
+          </form>
+        </ContentColumn>
       </div>
     );
   }
 }
 
-CreateMedia.contextTypes = {
+CreateProjectMedia.propTypes = {
+  intl: intlShape.isRequired
+};
+
+CreateProjectMedia.contextTypes = {
   store: React.PropTypes.object,
 };
 
-export default CreateMedia;
+export default injectIntl(CreateProjectMedia);

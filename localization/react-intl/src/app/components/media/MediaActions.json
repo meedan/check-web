@@ -1,0 +1,10 @@
+[
+  {
+    "id": "mediaActions.edit",
+    "defaultMessage": "Edit..."
+  },
+  {
+    "id": "mediaActions.move",
+    "defaultMessage": "Move..."
+  }
+]

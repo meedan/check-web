@@ -1,0 +1,9 @@
+{
+  "browser.support.message": "Optimisé pour <a href=\"https://www.google.com/chrome/browser/desktop/\">Chrome pour ordinateur</a>.",
+  "login.title": "Se connecter",
+  "login.with": "Se connecter avec {provider}",
+  "forgot.password": "Mot de passe oublié ? Vous ne trouvez pas votre équipe ? Si vous rencontrez des problèmes, contactez un humain via <a href=\"mailto:check@meedan.com\">check@meedan.com</a>.",
+  "agree.terms": "En vous connectant, vous acceptez les {tosLink} et {ppLink} de Check.",
+  "tos.title": "Conditions d'utilisation",
+  "privacy.policy.title": "Politique de Confidentialité"
+}

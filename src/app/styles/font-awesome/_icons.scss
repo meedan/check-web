@@ -56,7 +56,7 @@
 // .#{$fa-css-prefix}-italic:before { content: $fa-var-italic; }
 // .#{$fa-css-prefix}-text-height:before { content: $fa-var-text-height; }
 // .#{$fa-css-prefix}-text-width:before { content: $fa-var-text-width; }
-// .#{$fa-css-prefix}-align-left:before { content: $fa-var-align-left; }
+.#{$fa-css-prefix}-align-left:before { content: $fa-var-align-left; }
 // .#{$fa-css-prefix}-align-center:before { content: $fa-var-align-center; }
 // .#{$fa-css-prefix}-align-right:before { content: $fa-var-align-right; }
 // .#{$fa-css-prefix}-align-justify:before { content: $fa-var-align-justify; }
@@ -65,9 +65,9 @@
 // .#{$fa-css-prefix}-outdent:before { content: $fa-var-outdent; }
 // .#{$fa-css-prefix}-indent:before { content: $fa-var-indent; }
 // .#{$fa-css-prefix}-video-camera:before { content: $fa-var-video-camera; }
-// .#{$fa-css-prefix}-photo:before,
-// .#{$fa-css-prefix}-image:before,
-// .#{$fa-css-prefix}-picture-o:before { content: $fa-var-picture-o; }
+.#{$fa-css-prefix}-photo:before,
+.#{$fa-css-prefix}-image:before,
+.#{$fa-css-prefix}-picture-o:before { content: $fa-var-picture-o; }
 .#{$fa-css-prefix}-pencil:before { content: $fa-var-pencil; }
 .#{$fa-css-prefix}-map-marker:before { content: $fa-var-map-marker; }
 // .#{$fa-css-prefix}-adjust:before { content: $fa-var-adjust; }
@@ -332,7 +332,7 @@
 // .#{$fa-css-prefix}-minus-square-o:before { content: $fa-var-minus-square-o; }
 // .#{$fa-css-prefix}-level-up:before { content: $fa-var-level-up; }
 // .#{$fa-css-prefix}-level-down:before { content: $fa-var-level-down; }
-// .#{$fa-css-prefix}-check-square:before { content: $fa-var-check-square; }
+.#{$fa-css-prefix}-check-square:before { content: $fa-var-check-square; }
 // .#{$fa-css-prefix}-pencil-square:before { content: $fa-var-pencil-square; }
 // .#{$fa-css-prefix}-external-link-square:before { content: $fa-var-external-link-square; }
 // .#{$fa-css-prefix}-share-square:before { content: $fa-var-share-square; }
@@ -534,7 +534,7 @@
 // .#{$fa-css-prefix}-cc-stripe:before { content: $fa-var-cc-stripe; }
 // .#{$fa-css-prefix}-bell-slash:before { content: $fa-var-bell-slash; }
 // .#{$fa-css-prefix}-bell-slash-o:before { content: $fa-var-bell-slash-o; }
-// .#{$fa-css-prefix}-trash:before { content: $fa-var-trash; }
+.#{$fa-css-prefix}-trash:before { content: $fa-var-trash; }
 // .#{$fa-css-prefix}-copyright:before { content: $fa-var-copyright; }
 // .#{$fa-css-prefix}-at:before { content: $fa-var-at; }
 // .#{$fa-css-prefix}-eyedropper:before { content: $fa-var-eyedropper; }
@@ -546,7 +546,7 @@
 // .#{$fa-css-prefix}-lastfm:before { content: $fa-var-lastfm; }
 // .#{$fa-css-prefix}-lastfm-square:before { content: $fa-var-lastfm-square; }
 // .#{$fa-css-prefix}-toggle-off:before { content: $fa-var-toggle-off; }
-// .#{$fa-css-prefix}-toggle-on:before { content: $fa-var-toggle-on; }
+.#{$fa-css-prefix}-toggle-on:before { content: $fa-var-toggle-on; }
 // .#{$fa-css-prefix}-bicycle:before { content: $fa-var-bicycle; }
 // .#{$fa-css-prefix}-bus:before { content: $fa-var-bus; }
 // .#{$fa-css-prefix}-ioxhost:before { content: $fa-var-ioxhost; }

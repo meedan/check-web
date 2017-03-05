@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay';
 import Pusher from 'pusher-js';
 import { Link } from 'react-router';
@@ -8,11 +9,13 @@ import ProjectRoute from '../../relay/ProjectRoute';
 import ProjectHeader from './ProjectHeader';
 import MediasAndAnnotations from '../MediasAndAnnotations';
 import TeamSidebar from '../TeamSidebar';
-import { CreateMedia } from '../media';
+import { CreateProjectMedia } from '../media';
 import Can from '../Can';
 import config from 'config';
 import { pageTitle } from '../../helpers';
 import CheckContext from '../../CheckContext';
+import ContentColumn from '../layout/ContentColumn';
+import MediasLoading from '../media/MediasLoading';
 
 const pageSize = 20;
 
@@ -34,7 +37,7 @@ class ProjectComponent extends Component {
     newContext.project = this.props.project;
 
     let notFound = false;
-    if (!currentContext.team || currentContext.team.subdomain != this.props.project.team.subdomain) {
+    if (!currentContext.team || currentContext.team.slug != this.props.project.team.slug) {
       newContext.team = this.props.project.team;
       notFound = true;
     }
@@ -42,12 +45,12 @@ class ProjectComponent extends Component {
     context.setContextStore(newContext);
 
     if (notFound) {
-      currentContext.history.push('/404');
+      currentContext.history.push('/check/404');
     }
   }
 
   subscribe() {
-    const pusher = this.getContext().pusher;
+    const pusher = this.currentContext().pusher;
     if (pusher) {
       const that = this;
       pusher.subscribe(this.props.project.pusher_channel).bind('media_updated', (data) => {
@@ -68,8 +71,8 @@ class ProjectComponent extends Component {
   }
 
   componentDidMount() {
-    this.setContextProject();
     this.subscribe();
+    this.setContextProject();
   }
 
   componentDidUpdate() {
@@ -77,7 +80,7 @@ class ProjectComponent extends Component {
   }
 
   loadMore() {
-    this.props.relay.setVariables({ pageSize: this.props.project.medias.edges.length + pageSize });
+    this.props.relay.setVariables({ pageSize: this.props.project.project_medias.edges.length + pageSize });
   }
 
   render() {
@@ -87,33 +90,32 @@ class ProjectComponent extends Component {
     return (
       <DocumentTitle title={pageTitle(project.title, false, this.currentContext().team)} >
         <div className="project">
+          { project.description && project.description.trim().length ? (
+            <div className='project__description'>
+              <p className='project__description-container'>{project.description}</p>
+            </div>
+          ) : null }
+          <Can permissions={project.permissions} permission="create Media">
+            <CreateProjectMedia projectComponent={that} />
+          </Can>
 
-          <div className="project__team-sidebar">{/* className={this.sidebarActiveClass('home__sidebar')} */}
-            <TeamSidebar />
-          </div>
-          <div className="project__content">
-            <Can permissions={project.permissions} permission="create Media">
-              <CreateMedia projectComponent={that} />
-            </Can>
-
+          <ContentColumn>
             <InfiniteScroll hasMore loadMore={this.loadMore.bind(this)} threshold={500}>
-
               <MediasAndAnnotations
-                medias={project.medias.edges}
-                annotations={project.annotations.edges}
+                medias={project.project_medias.edges}
+                annotations={[]}
                 annotated={project}
                 annotatedType="Project"
                 types={['comment']}
               />
-
             </InfiniteScroll>
 
             {(() => {
-              if (this.props.project.medias.edges.length < this.props.project.medias_count) {
-                return (<p className="project__medias-loader">Loading...</p>);
+              if (this.props.project.project_medias.edges.length < this.props.project.project_medias_count) {
+                return (<p className="project__medias-loader"><FormattedMessage id="project.loading" defaultMessage="Loading..." /></p>);
               }
             })()}
-          </div>
+          </ContentColumn>
 
         </div>
       </DocumentTitle>
@@ -143,23 +145,9 @@ const ProjectContainer = Relay.createContainer(ProjectComponent, {
         team {
           id,
           dbid,
-          subdomain
+          slug
         },
-        annotations(first: 10000) {
-          edges {
-            node {
-              id,
-              content,
-              annotation_type,
-              created_at,
-              annotator {
-                name,
-                profile_image
-              }
-            }
-          }
-        },
-        medias(first: $pageSize) {
+        project_medias(first: $pageSize) {
           edges {
             node {
               id,
@@ -171,8 +159,28 @@ const ProjectContainer = Relay.createContainer(ProjectComponent, {
               annotations_count,
               domain,
               last_status,
+              last_status_obj {
+                id,
+                dbid
+              }
               permissions,
+              project {
+                id,
+                dbid,
+                title
+              },
+              project_id,
               verification_statuses,
+              overridden,
+              media {
+                url,
+                quote,
+                embed_path,
+                thumbnail_path
+              }
+              team {
+                slug
+              }
               user {
                 name,
                 source {
@@ -184,6 +192,27 @@ const ProjectContainer = Relay.createContainer(ProjectComponent, {
                   node {
                     tag,
                     id
+                  }
+                }
+              }
+              tasks(first: 10000) {
+                edges {
+                  node {
+                    id,
+                    dbid,
+                    label,
+                    type,
+                    description,
+                    permissions,
+                    first_response {
+                      id,
+                      dbid,
+                      permissions,
+                      content,
+                      annotator {
+                        name
+                      }
+                    }
                   }
                 }
               }
@@ -199,7 +228,15 @@ class Project extends Component {
   render() {
     const projectId = this.props.params.projectId;
     const route = new ProjectRoute({ contextId: parseInt(projectId) });
-    return (<Relay.RootContainer Component={ProjectContainer} route={route} />);
+    return (
+      <Relay.RootContainer
+        Component={ProjectContainer}
+        route={route}
+        renderLoading={function() {
+          return (<MediasLoading />);
+        }}
+      />
+    );
   }
 }
 

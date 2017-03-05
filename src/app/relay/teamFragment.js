@@ -7,7 +7,7 @@ const teamFragment = Relay.QL`
     name,
     avatar,
     description,
-    subdomain,
+    slug,
     permissions,
     get_slack_notifications_enabled,
     get_slack_webhook,

@@ -1,59 +1,77 @@
 // Project page
-// Larger than mobile breakpoint
 //
-@media all and (min-width: $layout-mobile-breakpoint + 1) {
-  .project {
-    flex: 1;
-    width: 100%;
-    height: 100%;
-    overflow-y: visible;
-    position: relative;
+.project {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  overflow-y: visible;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 0 16px;
 
-    display: flex;
-  }
-
-  .project__team-sidebar {
-    flex: 0 0 $layout-sidebar-width;
-    width: $layout-sidebar-width;
-  }
-
-  .project__content {
-    flex: 1;
-
-    padding: 15px 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-  }
-
-  .team-sidebar { // move later
-    padding-bottom: 32px;
-    position: fixed;
-    width: $layout-sidebar-width;
-  }
-
-  .create-project {
-    display: inline;
-  }
-}
-
-// Project page
-// Mobile and smaller
-//
-@media all and (max-width: $layout-mobile-breakpoint) {
-
-  .project__team-sidebar {
+  // Add annotations
+  // TODO This element should not be present on the project page. 2017-2-13 CGB
+  //
+  .add-annotation {
     display: none;
   }
+}
 
-  header.header--project {
-    position: static;
-    .header__container {
-      display: block;
-    }
-  }
+.project__description { // see also .header__container
+  margin: -16px -16px 0 -16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: $black-05;
+  min-height: 48px;
 
-  .project-header__project {
-    padding-top: 16px;
+  &-container {
+    width: 100%;
+    max-width: $layout-column-width-wide + (16px * 2);
+    padding: 16px 16px 16px 27px;
+    margin: 0 auto;
+    display: flex;
+
+    color: $black-54;
+    font-size: 14px;
   }
 }
+
+//  Create projet button on the team page
+//
+// TODO move this to team page stylesheet
+.create-project {
+  display: inline;
+}
+
+
+
+// .project-header__description {
+//   width: 100%;
+//   position: relative;
+//   z-index: 1;
+
+//   .project-header__description-summary {
+//     display: inline-block;
+//     width: 100%;
+//     white-space: nowrap;
+//     overflow: hidden;
+//     text-overflow: ellipsis;
+//   }
+
+//   .project-header__description-fulltext {
+//     display: none;
+//     width: 100%;
+//     position: absolute;
+//     top: 0;
+//     background: $white;
+//     border: $layout-border;
+//     border-radius: 2px;
+//     padding: 8px;
+//   }
+
+//   &:hover .project-header__description-fulltext {
+//     display: block;
+//   }
+// }

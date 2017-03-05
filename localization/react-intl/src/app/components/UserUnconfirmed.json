@@ -1,0 +1,10 @@
+[
+  {
+    "id": "userUnconfirmed.heading",
+    "defaultMessage": "Error"
+  },
+  {
+    "id": "userUnconfirmed.message",
+    "defaultMessage": "Your account could not be confirmed. Please contact the support."
+  }
+]

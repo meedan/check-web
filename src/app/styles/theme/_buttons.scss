@@ -1,22 +1,28 @@
 @mixin button-defaults {
   cursor: pointer;
-  border: none;
+  border: 0;
   font-family: $font-stack-sans;
-  background-color: $gray-350;
+  background-color: $black-38;
   font-size: inherit;
 }
 
-@mixin unbutton { // elements that should semantically be <button> but not look like buttons
+// elements that should semantically be <button> but not look like buttons
+//
+@mixin unbutton {
   @include button-defaults;
   background-color: transparent;
   padding: 0;
-  &:focus { outline: none; }
+
+  &:focus {
+    outline: none;
+  }
 }
 
 @mixin button-standard {
   @include button-defaults;
   border-radius: 3px;
-  color: #fff;
+  color: $white;
+
   &:disabled {
     cursor: not-allowed;
   }
@@ -25,13 +31,11 @@
 @mixin button-xsmall {
   @include button-standard;
   height: 30px;
-  font-size: 14px;
   padding-left: 14px;
   padding-right: 14px;
 
   @media screen and (max-width: 500px) {
     height: 30px;
-    font-size: 14px;
     padding-left: 8px;
     padding-right: 8px;
   }
@@ -64,37 +68,32 @@
   margin-bottom: 8px;
 }
 
-@mixin button-green {
-  background-color: rgb(71, 207, 152);
+@mixin button-primary {
+  background-color: $check-blue;
 }
 
 @mixin close-button($size: 30px) {
   @include unbutton;
-  color: $light-gray-text;
+  color: $black-16;
   font-weight: 200;
   font-size: $size;
-  &, &:hover {
+
+  &,
+  &:hover {
     text-decoration: none;
   }
 }
 
 @mixin chicklet {
-  border-radius: 3px;
-  background-color: $firefly-60-1;
-  color: $regent-grey;
-  display: inline-block;
-  font-size: 14px;
-  // font-weight: 200;
-  padding: 2px 11px !important;
-  margin: 0 4px 4px 0;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  @extend %chip;
+  cursor: pointer;
+
   &--selected {
-    background-color: $firefly-60;
-    color: $firefly-5;
+    background-color: $black-54;
+    color: $white;
   }
-  &--active {
-  }
-  &--hover {
-    cursor: pointer;
+
+  &:hover {
+    background-color: $black-16;
   }
 }

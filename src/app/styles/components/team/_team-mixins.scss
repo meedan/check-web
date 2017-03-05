@@ -1,0 +1,3 @@
+@mixin team-avatar($size: 60px) {
+  @include avatar($size);
+}

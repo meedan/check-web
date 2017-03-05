@@ -10,29 +10,32 @@ const MediaUtil = {
     }
   },
 
-  networkIconName(media) {
-    try {
-      return ({ // uncomment in font-awesome/_icons.scss
-        'facebook.com': 'facebook-square',
-        'instagram.com': 'instagram',
-        'twitter.com': 'twitter',
-        'youtube.com': 'youtube-play',
-      }[media.domain] || 'link');
-    } catch (e) {
-      return '';
-    }
-  },
-
   authorAvatarUrl(media, data) {
     return data.author_picture;
   },
 
   authorName(media, data) {
-    return data.username;
+    switch (media.domain) {
+      case 'twitter.com':
+       return data.user.name;
+      case 'instagram.com':
+        return '';
+      default:
+        return data.username || media.domain;
+    }
   },
 
   authorUsername(media, data) {
-    return `@${data.username}`;
+    switch (media.domain) {
+      case 'twitter.com':
+      case 'instagram.com':
+        return `@${data.username}`;
+      case 'facebook.com':
+      case 'youtube.com':
+        return '';
+      default:
+        return data.username;
+    }
   },
 
   authorUrl(media, data) {
@@ -51,14 +54,36 @@ const MediaUtil = {
       if (socialMedia) {
         return socialMedia;
       }
-      if (data && data.quote) {
+      if (media && media.quote) {
         return 'Claim';
+      }
+      if (media && media.embed_path) {
+        return 'Image';
       }
       if (media && media.domain) {
         return 'Page';
       }
     } catch (e) {}
     return '';
+  },
+
+  attributedType(media, data) {
+    let typeLabel;
+    try {
+      typeLabel = this.typeLabel(media, data);
+      if (typeLabel === 'Page') {
+        return `${typeLabel} on ${media.domain}`;
+      } else if (typeLabel === 'Image') {
+        return data.title || typeLabel;
+      } else if (typeLabel === 'Claim') {
+        return (data.title && data.title != media.quote) ? data.title : typeLabel;
+      } else {
+        const attribution = this.authorName(media, data);
+        return `${typeLabel}${attribution ? ` by ${attribution}` : ''}`;
+      }
+    } catch (e) {
+      return typeLabel || '';
+    }
   },
 
   title(media, data) {

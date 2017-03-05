@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
+import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay';
 import { Link } from 'react-router';
-import FontAwesome from 'react-fontawesome';
 import Pusher from 'pusher-js';
 import CreateProject from './project/CreateProject';
 import TeamRoute from '../relay/TeamRoute';
@@ -61,14 +61,14 @@ class TeamSidebarComponent extends Component {
     return (
       <nav className="team-sidebar">
         <section className="team-sidebar__projects">
-          <h2 className="team-sidebar__projects-heading">Verification Projects</h2>
+          <h2 className="team-sidebar__projects-heading"><FormattedMessage id="teamSidebar.projectsHeading" defaultMessage="Verification Projects" /></h2>
           {(() => {
             if (team) {
               return (
                 <ul className="team-sidebar__projects-list">
                   {team.projects.edges.sortp((a, b) => a.node.title.localeCompare(b.node.title)).map(p => (
                     <li className={`team-sidebar__project${this.isCurrentProject(p.node.dbid) ? ' team-sidebar__project--current' : ''}`}>
-                      <Link to={`/project/${p.node.dbid}`} className="team-sidebar__project-link">{p.node.title}</Link>
+                      <Link to={`/${team.slug}/project/${p.node.dbid}`} className="team-sidebar__project-link">{p.node.title}</Link>
                     </li>
                   ))}
 
@@ -100,7 +100,7 @@ const TeamSidebarContainer = Relay.createContainer(TeamSidebarComponent, {
         name,
         avatar,
         description,
-        subdomain,
+        slug,
         permissions,
         get_slack_notifications_enabled,
         get_slack_webhook,
@@ -135,7 +135,7 @@ const TeamSidebarContainer = Relay.createContainer(TeamSidebarComponent, {
 
 class TeamSidebar extends Component {
   render() {
-    const route = new TeamRoute({ teamId: '' });
+    const route = new TeamRoute({ teamSlug: '' });
     return (<Relay.RootContainer Component={TeamSidebarContainer} route={route} />);
   }
 }
