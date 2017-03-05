@@ -13,9 +13,8 @@ class Can extends Component {
   render() {
     if (can(this.props.permissions, this.props.permission)) {
       return (this.props.children);
-    } else {
-      return null;
     }
+    return null;
   }
 }
 

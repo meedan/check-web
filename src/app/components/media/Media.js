@@ -187,7 +187,7 @@ class ProjectMedia extends Component {
       <Relay.RootContainer
         Component={MediaContainer}
         route={route}
-        renderLoading={function() {
+        renderLoading={function () {
           return <MediasLoading count={1} />;
         }}
       />

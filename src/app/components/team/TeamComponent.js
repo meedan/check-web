@@ -18,48 +18,48 @@ import ContentColumn from '../layout/ContentColumn';
 const messages = defineMessages({
   editError: {
     id: 'teamComponent.editError',
-    defaultMessage: 'Sorry, could not edit the team'
+    defaultMessage: 'Sorry, could not edit the team',
   },
   editSuccess: {
     id: 'teamComponent.editSuccess',
-    defaultMessage: 'Team information updated successfully!'
+    defaultMessage: 'Team information updated successfully!',
   },
   changeAvatar: {
     id: 'teamComponent.changeAvatar',
-    defaultMessage: "You can't change this right now, but we're hard at work to enable it soon!"
+    defaultMessage: "You can't change this right now, but we're hard at work to enable it soon!",
   },
   teamName: {
     id: 'teamComponent.teamName',
-    defaultMessage: 'Team name'
+    defaultMessage: 'Team name',
   },
   teamDescription: {
     id: 'teamComponent.teamDescription',
-    defaultMessage: 'Team description'
+    defaultMessage: 'Team description',
   },
   location: {
     id: 'teamComponent.location',
-    defaultMessage: 'Location'
+    defaultMessage: 'Location',
   },
   phone: {
     id: 'teamComponent.phone',
-    defaultMessage: 'Phone number'
+    defaultMessage: 'Phone number',
   },
   website: {
     id: 'teamComponent.website',
-    defaultMessage: 'Website'
+    defaultMessage: 'Website',
   },
   slackWebhook: {
     id: 'teamComponent.slackWebhook',
-    defaultMessage: 'Slack webhook'
+    defaultMessage: 'Slack webhook',
   },
   slackChannel: {
     id: 'teamComponent.slackChannel',
-    defaultMessage: 'Slack default #channel'
+    defaultMessage: 'Slack default #channel',
   },
   verificationTeam: {
     id: 'teamComponent.verificationTeam',
-    defaultMessage: 'Verification Team'
-  }
+    defaultMessage: 'Verification Team',
+  },
 });
 
 class TeamComponent extends Component {
@@ -89,7 +89,7 @@ class TeamComponent extends Component {
     const team = this.props.team;
 
     if (!store.team || store.team.slug != team.slug) {
-      context.setContextStore({ team: team });
+      context.setContextStore({ team });
       const path = `/${team.slug}`;
       store.history.push(path);
     }
@@ -185,18 +185,17 @@ class TeamComponent extends Component {
                       </button>
                     </div>
                   );
-                } else {
-                  return (
-                    <Can permissions={team.permissions} permission="update Team">
-                      <div className="team__edit-profile">
-                        <button onClick={this.handleEntreEditTeamNameAndDescription.bind(this)} className="team__edit-button">
-                          <MdCreate className="team__edit-icon" />&nbsp;
-                          <FormattedMessage id="teamComponent.editButton" defaultMessage="Edit profile" />
-                        </button>
-                      </div>
-                    </Can>
-                  );
                 }
+                return (
+                  <Can permissions={team.permissions} permission="update Team">
+                    <div className="team__edit-profile">
+                      <button onClick={this.handleEntreEditTeamNameAndDescription.bind(this)} className="team__edit-button">
+                        <MdCreate className="team__edit-icon" />&nbsp;
+                        <FormattedMessage id="teamComponent.editButton" defaultMessage="Edit profile" />
+                      </button>
+                    </div>
+                  </Can>
+                );
               })()}
 
               <div className="team__avatar" style={{ 'background-image': `url(${team.avatar})` }} title={this.props.intl.formatMessage(messages.changeAvatar)} />
@@ -213,18 +212,17 @@ class TeamComponent extends Component {
                       </div>
                     </div>
                   );
-                } else {
-                  return (
-                    <div>
-                      <h1 className="team__name">
-                        <Link to="#" className="team__name-link">{team.name}</Link>
-                      </h1>
-                      <div className="team__description">
-                        <p className="team__description-text">{team.description || this.props.intl.formatMessage(messages.verificationTeam)}</p>
-                      </div>
-                    </div>
-                  );
                 }
+                return (
+                  <div>
+                    <h1 className="team__name">
+                      <Link to="#" className="team__name-link">{team.name}</Link>
+                    </h1>
+                    <div className="team__description">
+                      <p className="team__description-text">{team.description || this.props.intl.formatMessage(messages.verificationTeam)}</p>
+                    </div>
+                  </div>
+                );
               })()}
 
               <div className="team__contact-info">
@@ -240,9 +238,8 @@ class TeamComponent extends Component {
                     } else if (contact && !!contact.node.location) {
                       return (<span><MdLocationOn className="team__location-icon" />
                         <span className="team__location-name">{contact.node.location}</span></span>);
-                    } else {
-                      return (<span className="team__location-name" />);
                     }
+                    return (<span className="team__location-name" />);
                   })()}
                 </span>
                 <span className="team__phone">
@@ -257,9 +254,8 @@ class TeamComponent extends Component {
                     } else if (contact && !!contact.node.phone) {
                       return (<span><MdLocalPhone className="team__phone-icon" />
                         <span className="team__phone-name">{contact.node.phone}</span></span>);
-                    } else {
-                      return (<span className="team__phone-name" />);
                     }
+                    return (<span className="team__phone-name" />);
                   })()}
                 </span>
                 <span className="team__web">
@@ -274,9 +270,8 @@ class TeamComponent extends Component {
                     } else if (contact && !!contact.node.web) {
                       return (<span><MdLink className="team__link-icon" />
                         <span className="team__link-name">{contact.node.web}</span></span>);
-                    } else {
-                      return (<span className="team__link-name" />);
                     }
+                    return (<span className="team__link-name" />);
                   })()}
                 </span>
               </div>
@@ -322,7 +317,7 @@ class TeamComponent extends Component {
 }
 
 TeamComponent.propTypes = {
-  intl: intlShape.isRequired
+  intl: intlShape.isRequired,
 };
 
 TeamComponent.contextTypes = {

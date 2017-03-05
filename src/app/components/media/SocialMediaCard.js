@@ -11,27 +11,27 @@ import { bemClass } from '../../helpers';
 const messages = defineMessages({
   link: {
     id: 'socialMediaCard.link',
-    defaultMessage: 'Link'
-  }
+    defaultMessage: 'Link',
+  },
 });
 
 class SocialMediaCard extends Component {
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
-      isInspectorActive: false
-    }
+      isInspectorActive: false,
+    };
   }
 
   handleBodyClick(e) {
     if (!this.props.condensed) { // only open inspector on media page
-      this.setState({isInspectorActive: true});
+      this.setState({ isInspectorActive: true });
     }
   }
 
   handleInspectorDismiss(e) {
-    this.setState({isInspectorActive: false});
+    this.setState({ isInspectorActive: false });
   }
 
   render() {
@@ -61,24 +61,24 @@ class SocialMediaCard extends Component {
             </div>
           </div>
 
-          <div className={bemClass("social-media-card__body", condensed, '--condensed')} onClick={this.handleBodyClick.bind(this)}>
+          <div className={bemClass('social-media-card__body', condensed, '--condensed')} onClick={this.handleBodyClick.bind(this)}>
             <div className="social-media-card__body-text">{bodyText}</div>
           </div>
 
           <span className="social-media-card__header-text-secondary">
             {(() => {
               switch (media.domain) {
-                case 'twitter.com':
-                  return <FaTwitter />
-                case 'youtube.com':
-                  return <FaYoutubePlay />
-                case 'instagram.com':
-                  return <FaInstagram />
-                case 'facebook.com':
-                  return <FaFacebookSquare />
-                default :
-                  return <MdLink />
-               }
+              case 'twitter.com':
+                return <FaTwitter />;
+              case 'youtube.com':
+                return <FaYoutubePlay />;
+              case 'instagram.com':
+                return <FaInstagram />;
+              case 'facebook.com':
+                return <FaFacebookSquare />;
+              default :
+                return <MdLink />;
+              }
             })()}
             <a href={url}>
               {embedPublishedAt ? <TimeBefore date={embedPublishedAt} /> : this.props.intl.formatMessage(messages.link)}
@@ -100,7 +100,7 @@ class SocialMediaCard extends Component {
 }
 
 SocialMediaCard.propTypes = {
-  intl: intlShape.isRequired
+  intl: intlShape.isRequired,
 };
 
 export default injectIntl(SocialMediaCard);

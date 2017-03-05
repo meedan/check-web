@@ -9,12 +9,12 @@ import CheckContext from '../../CheckContext';
 const messages = defineMessages({
   loading: {
     id: 'mediaTags.loading',
-    defaultMessage: 'Loading...'
+    defaultMessage: 'Loading...',
   },
   error: {
     id: 'mediaTags.error',
-    defaultMessage: 'Sorry – we had trouble adding that tag.'
-  }
+    defaultMessage: 'Sorry – we had trouble adding that tag.',
+  },
 });
 
 class MediaTags extends Component {
@@ -135,7 +135,7 @@ class MediaTags extends Component {
 }
 
 MediaTags.propTypes = {
-  intl: intlShape.isRequired
+  intl: intlShape.isRequired,
 };
 
 MediaTags.contextTypes = {

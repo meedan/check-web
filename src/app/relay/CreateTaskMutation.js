@@ -19,7 +19,7 @@ class CreateTaskMutation extends Relay.Mutation {
 
   getConfigs() {
     const fieldIds = {};
-    fieldIds['project_media'] = this.props.annotated_id;
+    fieldIds.project_media = this.props.annotated_id;
 
     return [
       {
@@ -29,8 +29,8 @@ class CreateTaskMutation extends Relay.Mutation {
         connectionName: 'tasks',
         edgeName: 'taskEdge',
         rangeBehaviors: {
-          '': 'prepend'
-        }
+          '': 'prepend',
+        },
       },
       {
         type: 'FIELDS_CHANGE',

@@ -91,8 +91,8 @@ class ProjectComponent extends Component {
       <DocumentTitle title={pageTitle(project.title, false, this.currentContext().team)} >
         <div className="project">
           { project.description && project.description.trim().length ? (
-            <div className='project__description'>
-              <p className='project__description-container'>{project.description}</p>
+            <div className="project__description">
+              <p className="project__description-container">{project.description}</p>
             </div>
           ) : null }
           <Can permissions={project.permissions} permission="create Media">
@@ -232,7 +232,7 @@ class Project extends Component {
       <Relay.RootContainer
         Component={ProjectContainer}
         route={route}
-        renderLoading={function() {
+        renderLoading={function () {
           return (<MediasLoading />);
         }}
       />

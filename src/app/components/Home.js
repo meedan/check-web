@@ -16,19 +16,19 @@ import CheckContext from '../CheckContext';
 const messages = defineMessages({
   needRegister: {
     id: 'home.needRegister',
-    defaultMessage: 'First you need to register. Once registered, you can request to join the team.'
+    defaultMessage: 'First you need to register. Once registered, you can request to join the team.',
   },
   somethingWrong: {
     id: 'home.somethingWrong',
-    defaultMessage: 'Something went wrong – please refresh your browser or try again later.'
-  }
+    defaultMessage: 'Something went wrong – please refresh your browser or try again later.',
+  },
 });
 
 const muiTheme = getMuiTheme({
   palette: {
-    primary1Color: "#2e77fc",
-    primary2Color: "#2e77fc",
-    primary3Color: "#2e77fc",
+    primary1Color: '#2e77fc',
+    primary2Color: '#2e77fc',
+    primary3Color: '#2e77fc',
     accent1Color: blue600,
     accent2Color: blue700,
     accent3Color: blue800,
@@ -107,7 +107,7 @@ class Home extends Component {
 }
 
 Home.propTypes = {
-  intl: intlShape.isRequired
+  intl: intlShape.isRequired,
 };
 
 Home.contextTypes = {
