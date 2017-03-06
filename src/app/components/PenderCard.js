@@ -15,7 +15,9 @@ class PenderCard extends Component {
   removeTag() {
     const container = document.getElementById('pender-card');
     const loader = document.getElementById('pender-card-loader');
-    container.innerHTML = loader.outerHTML;
+    if (loader) {
+      container.innerHTML = loader.outerHTML;
+    }
   }
 
   componentDidMount() {
