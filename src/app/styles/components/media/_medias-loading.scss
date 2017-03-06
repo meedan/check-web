@@ -28,6 +28,7 @@
     @extend %shimmer;
 
     height: $loader-grid-unit;
+    border-radius: 50px;
 
     &:nth-of-type(1) {
       margin-top: $loader-grid-unit;
