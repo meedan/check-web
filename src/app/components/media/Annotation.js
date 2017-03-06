@@ -83,6 +83,16 @@ class Annotation extends Component {
     return date;
   }
 
+  profileLink(user){
+    let url = user.email ? 'mailto:' + user.email : '';
+
+    if (user && user.source && user.source.accounts && user.source.accounts.edges && user.source.accounts.edges.length > 0){
+      url = user.source.accounts.edges[0].node.url;
+    }
+
+    return url ? <a href={url}>{user.name}</a> : user.name;
+  }
+
   render() {
     const activity = this.props.annotation;
     const annotation = activity.annotation;
@@ -113,7 +123,7 @@ class Annotation extends Component {
       contentTemplate = (
         <section className="annotation__content">
           <div className="annotation__header">
-            <h4 className="annotation__author-name">{activity.user.name}</h4>
+            <h4 className="annotation__author-name">{this.profileLink(activity.user)}</h4>
             {updatedAt ? <span className="annotation__timestamp"><TimeBefore date={updatedAt} /></span> : null}
             {annotationActions}
           </div>
@@ -146,7 +156,7 @@ class Annotation extends Component {
               id="annotation.statusSetHeader"
               defaultMessage={'Status set to {status} by {author}'}
               values={{ status: <span className={`annotation__status annotation__status--${statusCode}`} style={{ color: getStatusStyle(status, 'color') }}>{status.label}</span>,
-                author: <span className="annotation__author-name">{activity.user.name}</span> }}
+                author: <span className="annotation__author-name">{this.profileLink(activity.user)}</span> }}
             />
             {updatedAt ? <span className="annotation__timestamp"><TimeBefore date={updatedAt} /></span> : null}
             {annotationActions}
@@ -161,7 +171,7 @@ class Annotation extends Component {
             <FormattedMessage
               id="annotation.taggedHeader"
               defaultMessage={'Tagged #{tag} by {author}'}
-              values={{ tag: content.tag.replace(/^#/, ''), author: <span className="annotation__author-name">{activity.user.name}</span> }}
+              values={{ tag: content.tag.replace(/^#/, ''), author: <span className="annotation__author-name">{this.profileLink(activity.user)}</span> }}
             />
             {updatedAt ? <span className="annotation__timestamp"><TimeBefore date={updatedAt} /></span> : null}
             {annotationActions}
@@ -176,7 +186,7 @@ class Annotation extends Component {
             <FormattedMessage
               id="annotation.taskCreated"
               defaultMessage={'Task "{task}" created by {author}'}
-              values={{ task: content.label, author: <span className="annotation__author-name">{activity.user.name}</span> }}
+              values={{ task: content.label, author: <span className="annotation__author-name">{this.profileLink(activity.user)}</span> }}
             />
             {updatedAt ? <span className="annotation__timestamp"><TimeBefore date={updatedAt} live={false} /></span> : null}
           </div>
@@ -191,7 +201,7 @@ class Annotation extends Component {
               <FormattedMessage
                 id="annotation.taskResolve"
                 defaultMessage={'Task "{task}" answered by {author}: {response} '}
-                values={{ task: activity.task.label, author: <span className="annotation__author-name">{activity.user.name}</span>, response: <em>{`"${object.value}"`}</em> }}
+                values={{ task: activity.task.label, author: <span className="annotation__author-name">{this.profileLink(activity.user)}</span>, response: <em>{`"${object.value}"`}</em> }}
               />
               {updatedAt ? <span className="annotation__timestamp"><TimeBefore date={updatedAt} live={false} /></span> : null}
             </div>
@@ -206,7 +216,7 @@ class Annotation extends Component {
             <FormattedMessage
               id="annotation.flaggedHeader"
               defaultMessage={'Flagged as {flag} by {author}'}
-              values={{ flag: content.flag, author: <span className="annotation__author-name">{activity.user.name}</span> }}
+              values={{ flag: content.flag, author: <span className="annotation__author-name">{this.profileLink(activity.user)}</span> }}
             />
             {updatedAt ? <span className="annotation__timestamp"><TimeBefore date={updatedAt} /></span> : null}
             {annotationActions}
@@ -223,7 +233,7 @@ class Annotation extends Component {
                 <span>
                   <FormattedMessage
                     id="annotation.newClaim" defaultMessage={'New claim added by {author}'}
-                    values={{ author: <span className="annotation__author-name">{activity.user.name} </span> }}
+                    values={{ author: <span className="annotation__author-name">{this.profileLink(activity.user)} </span> }}
                   />
                 </span>
                 {updatedAt ? <span className="annotation__timestamp"><TimeBefore date={updatedAt} /></span> : null}
@@ -238,7 +248,7 @@ class Annotation extends Component {
                 <span>
                   <FormattedMessage
                     id="annotation.titleChanged" defaultMessage={'Title changed to {title} by {author}'}
-                    values={{ title: <b>{content.title}</b>, author: <span className="annotation__author-name">{activity.user.name} </span> }}
+                    values={{ title: <b>{content.title}</b>, author: <span className="annotation__author-name">{this.profileLink(activity.user)} </span> }}
                   />
                 </span>
                 {updatedAt ? <span className="annotation__timestamp"><TimeBefore date={updatedAt} /></span> : null}
@@ -260,7 +270,7 @@ class Annotation extends Component {
               <span>
                 <FormattedMessage
                   id="annotation.projectMoved" defaultMessage={'Moved from project {previousProject} to {currentProject} by {author}'}
-                  values={{ previousProject: <Link to={urlPrefix + previousProject.dbid}><b>{previousProject.title}</b></Link>, currentProject: <Link to={urlPrefix + currentProject.dbid}><b>{currentProject.title}</b></Link>, author: <span className="annotation__author-name">{activity.user.name}</span> }}
+                  values={{ previousProject: <Link to={urlPrefix + previousProject.dbid}><b>{previousProject.title}</b></Link>, currentProject: <Link to={urlPrefix + currentProject.dbid}><b>{currentProject.title}</b></Link>, author: <span className="annotation__author-name">{this.profileLink(activity.user)}</span> }}
                 />
               </span>
               {updatedAt ? <span className="annotation__timestamp"><TimeBefore date={updatedAt} /></span> : null}
@@ -288,7 +298,7 @@ class Annotation extends Component {
           editedNote = false;
           createdNote = true;
         }
-        const author = (<span className="annotation__author-name">{activity.user.name}</span>);
+        const author = (<span className="annotation__author-name">{this.profileLink(activity.user)}</span>);
         if (editedTitle || editedNote || createdNote) {
           contentTemplate = (
             <section className="annotation__content">

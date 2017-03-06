@@ -172,6 +172,16 @@ class MediaDetail extends Component {
     return projects.filter(p => (p.node.dbid !== projectId));
   }
 
+  profileLink(user){
+    let url = user.email ? 'mailto:' + user.email : '';
+
+    if (user && user.source && user.source.accounts && user.source.accounts.edges && user.source.accounts.edges.length > 0){
+      url = user.source.accounts.edges[0].node.url;
+    }
+
+    return url ? <a href={url}>{user.name}</a> : user.name;
+  }
+
   render() {
     const { media, annotated, annotatedType, condensed } = this.props;
     const data = JSON.parse(media.embed);
@@ -191,7 +201,7 @@ class MediaDetail extends Component {
     const destinationProjects = this.destinationProjects();
 
     const byUser = (media.user && media.user.source && media.user.source.dbid && media.user.name !== 'Pender') ?
-      (<FormattedMessage id="mediaDetail.byUser" defaultMessage={'by {username}'} values={{ username: media.user.name }} />) : '';
+      (<FormattedMessage id="mediaDetail.byUser" defaultMessage={'by {username}'} values={{ username: this.profileLink(media.user) }} />) : '';
 
     let embedCard = null;
     media.url = media.media.url;
