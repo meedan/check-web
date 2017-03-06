@@ -17,8 +17,8 @@ const messages = defineMessages({
     id: 'joinTeamComponent.success',
     defaultMessage: 'Thanks for your interest in joining {team} Check! A team leader will review your application soon.',
   },
-  auto_approve: {
-    id: 'joinTeamComponent.auto_approve',
+  autoApprove: {
+    id: 'joinTeamComponent.autoApprove',
     defaultMessage: 'Thanks for joining {team} Check! You can start contributing right away.'
   },
   title: {
@@ -62,7 +62,7 @@ class JoinTeamComponent extends Component {
       const status = response.createTeamUser.team_user.status;
       let message = messages.success
       if (status === 'member') {
-        message = messages.auto_approve;
+        message = messages.autoApprove;
       }
       that.setState({ message: that.props.intl.formatMessage(message, { team: that.props.team.name }), requestStatus: status });
     };
