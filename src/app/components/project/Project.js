@@ -183,8 +183,16 @@ const ProjectContainer = Relay.createContainer(ProjectComponent, {
               }
               user {
                 name,
+                email,
                 source {
-                  dbid
+                  dbid,
+                  accounts(first: 10000) {
+                    edges {
+                      node {
+                        url
+                      }
+                    }
+                  }
                 }
               }
               tags(first: 10000) {
