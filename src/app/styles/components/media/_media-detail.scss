@@ -38,27 +38,6 @@
   & > a:visited {
     color: $black-87;
   }
-
-  // ellipsis truncation requires explicit width
-  @media screen and (min-width: 400px) {
-    width: 300px;
-  }
-
-  @media screen and (min-width: 500px) {
-    width: 400px;
-  }
-
-  @media screen and (min-width: 600px) {
-    width: 500px;
-  }
-
-  @media screen and (min-width: 700px) {
-    width: 600px;
-  }
-
-  @media screen and (min-width: 800px) {
-    width: 700px;
-  }
 }
 
 // Optional description
@@ -130,14 +109,13 @@
 // Move dialog
 //
 .media-detail__dialog-header {
-  color: rgba(0, 0, 0, 0.87);
   margin: 4px 8px 4px auto;
   height: 28px;
   font-family: Roboto;
   font-size: 20px;
   font-weight: 500;
   line-height: 1.4;
-  color: rgba(0, 0, 0, 0.87);
+  color: $black-87;
 }
 
 .media-detail__dialog-media-path {
@@ -147,7 +125,7 @@
   font-size: 12px;
   line-height: 1.33;
   text-align: left;
-  color: rgba(0, 0, 0, 0.4);
+  color: $black-05;
 }
 
 .media-detail__dialog-radio-group {
