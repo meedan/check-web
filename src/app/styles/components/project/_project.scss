@@ -16,9 +16,13 @@
   .add-annotation {
     display: none;
   }
+
+  & > .content-column {
+    padding: 0;
+  }
 }
 
-.project__description { 
+.project__description {
   // TODO remove magic numbers
   // see also .header__container
   margin: -16px -16px 0;
