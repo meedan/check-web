@@ -67,6 +67,7 @@ gulp.task('views:build:web', () => {
 gulp.task('copy:build:web', () => {
   gulp.src('./src/assets/**/*').pipe(gulp.dest('./build/web'));
   gulp.src('./config.js').pipe(gulp.dest('./build/web/js'));
+  gulp.src('./src/assets/newrelic.js').pipe(gulp.dest('./build/web/js'));
 });
 
 gulp.task('copy:build:web:test', () => {
