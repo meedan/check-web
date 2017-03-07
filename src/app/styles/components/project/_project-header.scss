@@ -1,65 +1,61 @@
+
 .project-header {
-  height: 100%;
+  z-index: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   display: flex;
+  align-items: center;
 
-  // ellipsis truncation requires explicit width
-  width: 195px;
-  @media screen and (min-width: 400px) {
-    width: 200px;
+  label {
+    overflow: hidden;
   }
 
-  @media screen and (min-width: 500px) {
-    width: 300px;
-  }
+  &__title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    border-radius: 2px;
+    display: inline;
+    vertical-align: middle;
 
-  @media screen and (min-width: 600px) {
-    width: 400px;
-  }
-
-  @media screen and (min-width: 700px) {
-    width: 500px;
-  }
-
-  @media screen and (min-width: 800px) {
-    width: 600px;
-  }
-
-  @media screen and (min-width: 900px) {
-    width: 700px;
+    &:hover {
+      background-color: $black-05;
+      transition: background-color 250ms;
+    }
   }
 }
 
 .project-header__back-button {
-  height: 100%; // larger click target
-  display: flex; // center icon
+  $_size: 23px;
+  height: 100%;
+  display: flex;
   flex-direction: column;
   justify-content: center;
-  $_size: 23px;
+  width: 0;
+  opacity: 0;
+  margin-right: 0;
+  transition: opacity 200ms ease, width 200ms ease, margin 200ms ease;
+
   & > svg {
     height: $_size;
     width: $_size;
   }
+
   &,
   &:visited {
     color: $black-54 !important;
   }
+
   a:hover {
     text-decoration: none;
   }
 
-  // toggle
-  width: 0;
-  opacity: 0;
-  margin-right: 0;
   &--displayed {
     width: $_size;
     opacity: 1;
     margin-right: 8px;
   }
-  transition:
-    opacity 200ms ease,
-    width 200ms ease,
-    margin 200ms ease;
 }
 
 .project-header__menu-toggle-label {
