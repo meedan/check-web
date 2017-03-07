@@ -3,6 +3,7 @@ import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-i
 import Relay from 'react-relay';
 import util from 'util';
 import Header from './Header';
+import NewRelic from './NewRelic';
 import FooterRelay from '../relay/FooterRelay';
 import LoginMenu from './LoginMenu';
 import { blue500, blue600, blue700, blue800 } from 'material-ui/styles/colors';
@@ -100,6 +101,7 @@ class Home extends Component {
             <div className="home__content">{children}</div>
             <FooterRelay {...this.props} />
           </div>
+          <NewRelic />
         </span>
       </MuiThemeProvider>
     );
