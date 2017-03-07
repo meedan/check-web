@@ -10,7 +10,5 @@ window.config = {
   pusherDebug: true,
   locale: 'en',
   googleAnalyticsCode: 'UA-00000000-1', // Optional
-  googleStaticMapsKey: '', // Optional
-  newRelicLicenseKey: '',
-  newRelicAppId: ''
+  googleStaticMapsKey: '' // Optional
 }

@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import { FormattedHTMLMessage, FormattedMessage } from 'react-intl';
 import LoginEmail from './LoginEmail';
-import NewRelic from './NewRelic';
 import Message from './Message';
 import { login } from '../actions/actions';
 
@@ -60,7 +59,6 @@ class LoginMenu extends Component {
             />
           </p>
         </div>
-        <NewRelic />
       </div>
     );
   }
