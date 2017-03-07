@@ -77,6 +77,14 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
   # The tests themselves start here
 
   context "web" do
+    it "should login using Slack" do
+      login_with_slack
+      @driver.navigate.to @config['self_url'] + '/check/me'
+      displayed_name = get_element('h2.source-name').text.upcase
+      expected_name = @config['slack_name'].upcase
+      expect(displayed_name == expected_name).to be(true)
+    end
+
     it "should localize interface based on browser language" do
       unless browser_capabilities['appiumVersion']
         caps = Selenium::WebDriver::Remote::Capabilities.chrome(chromeOptions: { prefs: { 'intl.accept_languages' => 'fr' } })
@@ -229,14 +237,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       @driver.navigate.to @config['self_url'] + '/check/me'
       displayed_name = get_element('h2.source-name').text.upcase
       expected_name = @config['twitter_name'].upcase
-      expect(displayed_name == expected_name).to be(true)
-    end
-
-    it "should login using Slack" do
-      login_with_slack
-      @driver.navigate.to @config['self_url'] + '/check/me'
-      displayed_name = get_element('h2.source-name').text.upcase
-      expected_name = @config['slack_name'].upcase
       expect(displayed_name == expected_name).to be(true)
     end
 
