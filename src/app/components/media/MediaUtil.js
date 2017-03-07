@@ -19,7 +19,9 @@ const MediaUtil = {
     case 'twitter.com':
       return data.user.name;
     case 'instagram.com':
-      return '';
+      return data.author_name;
+    case 'facebook.com':
+      return data.user_name;
     default:
       return data.username || media.domain;
     }
@@ -31,6 +33,7 @@ const MediaUtil = {
     case 'instagram.com':
       return `@${data.username}`;
     case 'facebook.com':
+      return data.username;
     case 'youtube.com':
       return '';
     default:
