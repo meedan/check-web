@@ -7,12 +7,13 @@ import Can, { can } from '../Can';
 import CheckContext from '../../CheckContext';
 import MdArrowDropDown from 'react-icons/lib/md/arrow-drop-down';
 import { FaCircle, FaCircleO } from 'react-icons/lib/fa';
+import { getStatus, getStatusStyle } from '../../helpers';
 
 const messages = defineMessages({
   error: {
     id: 'mediaStatus.error',
-    defaultMessage: "We're sorry, but we encountered an error trying to update the status."
-  }
+    defaultMessage: "We're sorry, but we encountered an error trying to update the status.",
+  },
 });
 
 class MediaStatus extends Component {
@@ -54,7 +55,6 @@ class MediaStatus extends Component {
   }
 
   setStatus(context, media, status) {
-
     const onFailure = (transaction) => { context.fail(transaction); };
     const onSuccess = (response) => { context.success('status'); };
 
@@ -64,18 +64,18 @@ class MediaStatus extends Component {
     if (media.last_status_obj !== null) {
       status_id = media.last_status_obj.id;
     }
-    let status_attr = {
-        parent_type: 'project_media',
-        annotated: media,
-        annotator: store.currentUser,
-        context: store,
-        annotation: {
-          status,
-          annotated_type: 'ProjectMedia',
-          annotated_id: media.dbid,
-          status_id: status_id,
-        },
-      };
+    const status_attr = {
+      parent_type: 'project_media',
+      annotated: media,
+      annotator: store.currentUser,
+      context: store,
+      annotation: {
+        status,
+        annotated_type: 'ProjectMedia',
+        annotated_id: media.dbid,
+        status_id,
+      },
+    };
 
     // Add or Update status
     if (status_id && status_id.length) {
@@ -108,29 +108,18 @@ class MediaStatus extends Component {
     // this.setState({ message: 'Status updated.' });
   }
 
-  statusIdToLabel(id) {
-    const statuses = JSON.parse(this.props.media.verification_statuses).statuses;
-    let label = '';
-    statuses.forEach((status) => {
-      if (status.id === id) {
-        label = status.label;
-      }
-    });
-    return label;
-  }
-
   render() {
     const that = this;
     const { media } = this.props;
     const statuses = JSON.parse(media.verification_statuses).statuses;
-    const currentStatus = this.statusIdToLabel(media.last_status);
+    const status = getStatus(this.props.media.verification_statuses, media.last_status);
 
     return (
       <div className={this.bemClass('media-status', this.canUpdate(), '--editable')} onClick={this.toggleMediaStatusMenu.bind(this)}>
         <div className={this.bemClass('media-status__overlay', this.state.isMediaStatusMenuOpen, '--active')} onClick={this.toggleMediaStatusMenu.bind(this)} />
 
-        <div className={`media-status__current${this.currentStatusToClass(media.last_status)}`}>
-          <span className="media-status__label media-status__label--current">{currentStatus}</span>
+        <div className={`media-status__current${this.currentStatusToClass(media.last_status)}`} style={{ color: getStatusStyle(status, 'color') }}>
+          <span className="media-status__label media-status__label--current">{status.label}</span>
           {this.canUpdate() ?
             <MdArrowDropDown className="media-status__caret" />
             : null
@@ -141,7 +130,7 @@ class MediaStatus extends Component {
         {this.canUpdate() ?
           <ul className={this.bemClass('media-status__menu', this.state.isMediaStatusMenuOpen, '--active')}>
             {statuses.map(status => (
-              <li className={`${that.bemClass('media-status__menu-item', (media.last_status === status.id), '--current')} media-status__menu-item--${status.id.replace('_', '-')}`} onClick={that.handleStatusClick.bind(that, status.id)}>
+              <li className={`${that.bemClass('media-status__menu-item', (media.last_status === status.id), '--current')} media-status__menu-item--${status.id.replace('_', '-')}`} onClick={that.handleStatusClick.bind(that, status.id)} style={{ color: getStatusStyle(status, 'color') }}>
 
                 <FaCircle className="media-status__icon media-status__icon--radio-button-selected" />
 
@@ -159,7 +148,7 @@ class MediaStatus extends Component {
 }
 
 MediaStatus.propTypes = {
-  intl: intlShape.isRequired
+  intl: intlShape.isRequired,
 };
 
 MediaStatus.contextTypes = {

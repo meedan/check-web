@@ -9,8 +9,8 @@ import { pageTitle } from '../helpers';
 const messages = defineMessages({
   title: {
     id: 'tos.title',
-    defaultMessage: 'Terms of Service'
-  }
+    defaultMessage: 'Terms of Service',
+  },
 });
 
 class Tos extends Component {
@@ -28,7 +28,7 @@ class Tos extends Component {
 }
 
 Tos.propTypes = {
-  intl: intlShape.isRequired
+  intl: intlShape.isRequired,
 };
 
 const TosContainer = Relay.createContainer(injectIntl(Tos), {

@@ -1,5 +1,6 @@
 .project-header {
   height: 100%;
+  display: flex;
 
   // ellipsis truncation requires explicit width
   width: 195px;
@@ -28,6 +29,39 @@
   }
 }
 
+.project-header__back-button {
+  height: 100%; // larger click target
+  display: flex; // center icon
+  flex-direction: column;
+  justify-content: center;
+  $_size: 23px;
+  & > svg {
+    height: $_size;
+    width: $_size;
+  }
+  &,
+  &:visited {
+    color: $black-54 !important;
+  }
+  a:hover {
+    text-decoration: none;
+  }
+
+  // toggle
+  width: 0;
+  opacity: 0;
+  margin-right: 0;
+  &--displayed {
+    width: $_size;
+    opacity: 1;
+    margin-right: 8px;
+  }
+  transition:
+    opacity 200ms ease,
+    width 200ms ease,
+    margin 200ms ease;
+}
+
 .project-header__menu-toggle-label {
   display: flex;
   align-items: center;
@@ -50,9 +84,10 @@
   justify-content: center;
   height: 100%;
   padding: 4px;
-  opacity: 0;
+  opacity: .4;
   transition: opacity 100ms ease;
 }
+
 .project-header__menu-toggle-label:hover .project-header__caret {
   opacity: 1;
 }
@@ -64,20 +99,22 @@
   top: 100%;
   z-index: 2;
 }
+
 .project-header__menu-overlay {
-  display: none;
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 1;
+  @include modal-overlay(transparent);
 }
+
 .project-header__menu-toggle:checked + .project-header__menu-toggle-label {
   .project-header__menu-overlay {
     display: block;
+    pointer-events: auto;
   }
 }
+
 .project-header__menu-toggle:checked ~ .project-header__project-list {
   display: block;
+
+  .project-list {
+    display: block;
+  }
 }

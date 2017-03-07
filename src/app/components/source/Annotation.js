@@ -9,16 +9,17 @@ import DeleteAnnotationMutation from '../../relay/DeleteAnnotationMutation';
 import DeleteVersionMutation from '../../relay/DeleteVersionMutation';
 import Can from '../Can';
 import TimeBefore from '../TimeBefore';
+import { getStatus } from '../../helpers';
 
 const messages = defineMessages({
   error: {
     id: 'annotation.error',
-    defaultMessage: 'Could not delete annotation'
+    defaultMessage: 'Could not delete annotation',
   },
   deleteButton: {
     id: 'annotation.deleteButton',
-    defaultMessage: 'Delete'
-  }
+    defaultMessage: 'Delete',
+  },
 });
 
 class Annotation extends Component {
@@ -58,18 +59,6 @@ class Annotation extends Component {
         { onSuccess, onFailure },
       );
     }
-
-  }
-
-  statusIdToLabel(id) {
-    const statuses = JSON.parse(this.props.annotated.verification_statuses).statuses;
-    let label = '';
-    statuses.forEach((status) => {
-      if (status.id === id) {
-        label = status.label;
-      }
-    });
-    return label;
   }
 
   updatedAt(annotation) {
@@ -81,7 +70,7 @@ class Annotation extends Component {
   render() {
     const annotation = this.props.annotation;
     const annotated = this.props.annotated;
-    let permissionType = `${annotation.annotation_type.charAt(0).toUpperCase()}${annotation.annotation_type.slice(1)}`;
+    const permissionType = `${annotation.annotation_type.charAt(0).toUpperCase()}${annotation.annotation_type.slice(1)}`;
     let annotationActions = (
       <div className="annotation__actions">
         <Can permissions={annotation.permissions} permission={`destroy ${permissionType}`}>
@@ -114,13 +103,17 @@ class Annotation extends Component {
       break;
     case 'status':
       const statusCode = content.status.toLowerCase().replace(/[ _]/g, '-');
+      const status = getStatus(this.props.annotated.verification_statuses, content.status);
+
       contentTemplate = (
         <section className="annotation__content">
           <div className="annotation__header">
-            <FormattedMessage id="annotation.statusSetHeader"
-                  defaultMessage={`Status set to {status} by {author}`}
-                          values={{ status: <span className={`annotation__status annotation__status--${statusCode}`}>{this.statusIdToLabel(content.status)}</span>,
-                                    author: <span className="annotation__author-name">{annotation.annotator.name}</span> }} />
+            <FormattedMessage
+              id="annotation.statusSetHeader"
+              defaultMessage={'Status set to {status} by {author}'}
+              values={{ status: <span className={`annotation__status annotation__status--${statusCode}`}>{status.label}</span>,
+                author: <span className="annotation__author-name">{annotation.annotator.name}</span> }}
+            />
             {updatedAt ? <span className="annotation__timestamp"><TimeBefore date={updatedAt} /></span> : null}
             {annotationActions}
           </div>
@@ -131,9 +124,11 @@ class Annotation extends Component {
       contentTemplate = (
         <section className="annotation__content">
           <div className="annotation__header">
-            <FormattedMessage id="annotation.taggedHeader"
-                  defaultMessage={`Tagged #{tag} by {author}`}
-                  values={{ tag: content.tag.replace(/^#/, ''), author: <span className="annotation__author-name">{annotation.annotator.name}</span> }} />
+            <FormattedMessage
+              id="annotation.taggedHeader"
+              defaultMessage={'Tagged #{tag} by {author}'}
+              values={{ tag: content.tag.replace(/^#/, ''), author: <span className="annotation__author-name">{annotation.annotator.name}</span> }}
+            />
             {updatedAt ? <span className="annotation__timestamp"><TimeBefore date={updatedAt} /></span> : null}
             {annotationActions}
           </div>
@@ -154,7 +149,7 @@ class Annotation extends Component {
         );
       break;
     case 'task_response_free_text': case 'task_response_yes_no': case 'task_response_single_choice': case 'task_response_multiple_choice':
-      let data = JSON.parse(annotation.content);
+      const data = JSON.parse(annotation.content);
       let title = '';
       data.forEach((field) => {
         if (field.field_type === 'task_reference') {
@@ -180,9 +175,11 @@ class Annotation extends Component {
       contentTemplate = (
         <section className="annotation__content">
           <div className="annotation__header">
-            <FormattedMessage id="annotation.flaggedHeader"
-                  defaultMessage={`Flagged as {flag} by {author}`}
-                  values={{ flag: content.flag, author: <span className="annotation__author-name">{annotation.annotator.name}</span> }} />
+            <FormattedMessage
+              id="annotation.flaggedHeader"
+              defaultMessage={'Flagged as {flag} by {author}'}
+              values={{ flag: content.flag, author: <span className="annotation__author-name">{annotation.annotator.name}</span> }}
+            />
             {updatedAt ? <span className="annotation__timestamp"><TimeBefore date={updatedAt} /></span> : null}
             {annotationActions}
           </div>
@@ -242,7 +239,7 @@ class Annotation extends Component {
 }
 
 Annotation.propTypes = {
-  intl: intlShape.isRequired
+  intl: intlShape.isRequired,
 };
 
 export default injectIntl(Annotation);

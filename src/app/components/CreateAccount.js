@@ -12,16 +12,16 @@ import config from 'config';
 const messages = defineMessages({
   createSourceError: {
     id: 'createAccount.createSourceError',
-    defaultMessage: 'Sorry, could not create the source'
+    defaultMessage: 'Sorry, could not create the source',
   },
   sourceUrlHint: {
     id: 'createAccount.sourceUrlHint',
-    defaultMessage: 'Twitter, Facebook, YouTube...'
+    defaultMessage: 'Twitter, Facebook, YouTube...',
   },
   createButton: {
     id: 'createAccount.createButton',
-    defaultMessage: 'Create'
-  }
+    defaultMessage: 'Create',
+  },
 });
 
 class CreateAccount extends Component {
@@ -104,7 +104,7 @@ class CreateAccount extends Component {
 }
 
 CreateAccount.propTypes = {
-  intl: intlShape.isRequired
+  intl: intlShape.isRequired,
 };
 
 CreateAccount.contextTypes = {

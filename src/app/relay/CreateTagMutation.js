@@ -15,7 +15,7 @@ class CreateTagMutation extends Relay.Mutation {
       query = Relay.QL`fragment on CreateTagPayload { tagEdge, source { annotations, tags } }`;
       break;
     case 'project_media':
-      query = Relay.QL`fragment on CreateTagPayload { tagEdge, project_media { annotations, tags, annotations_count } }`;
+      query = Relay.QL`fragment on CreateTagPayload { tagEdge, project_media { log, tags, annotations_count } }`;
       break;
     }
     return query;
@@ -57,14 +57,6 @@ class CreateTagMutation extends Relay.Mutation {
         parentName: this.props.parent_type,
         parentID: this.props.annotated.id,
         connectionName: 'tags',
-        edgeName: 'tagEdge',
-        rangeBehaviors: calls => 'prepend',
-      },
-      {
-        type: 'RANGE_ADD',
-        parentName: this.props.parent_type,
-        parentID: this.props.annotated.id,
-        connectionName: 'annotations',
         edgeName: 'tagEdge',
         rangeBehaviors: calls => 'prepend',
       },

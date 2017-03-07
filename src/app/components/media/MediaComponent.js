@@ -5,12 +5,13 @@ import DocumentTitle from 'react-document-title';
 import MediaDetail from './MediaDetail';
 import MediaUtil from './MediaUtil';
 import MediaChecklist from './MediaChecklist';
-import { Annotations, Tags } from '../source';
+import { Tags } from '../source';
+import Annotations from './Annotations';
 import config from 'config';
 import { pageTitle } from '../../helpers';
 import CheckContext from '../../CheckContext';
 import Tasks from '../task/Tasks';
-import { bemClassFromMediaStatus } from '../../helpers';
+import { bemClassFromMediaStatus, safelyParseJSON, getStatus, getStatusStyle } from '../../helpers';
 import ContentColumn from '../layout/ContentColumn';
 import MediaStatus from './MediaStatus';
 
@@ -70,20 +71,29 @@ class MediaComponent extends Component {
   }
 
   render() {
-    const media = this.props.media;
-    const data = JSON.parse(media.embed);
-    media.url = media.media.url
-    media.quote = media.media.quote
     if (this.props.relay.variables.contextId === null) {
       return null;
     }
 
+    const media = this.props.media;
+    const data = JSON.parse(media.embed);
+    media.url = media.media.url;
+    media.quote = media.media.quote;
+    media.embed_path = media.media.embed_path;
+    const userOverrides = safelyParseJSON(media.overridden);
+    const primaryHeading = (userOverrides && userOverrides.title) ?
+        MediaUtil.title(media, data) : MediaUtil.attributedType(media, data);
+    const status = getStatus(this.props.media.verification_statuses, media.last_status);
+
     return (
       <DocumentTitle title={pageTitle(MediaUtil.title(media, data), false, this.getContext().team)}>
-        <div className='media' data-id={media.dbid}>
-          <div className={bemClassFromMediaStatus('media__expanded', media.last_status)}>
+        <div className="media" data-id={media.dbid}>
+          <div
+            className={bemClassFromMediaStatus('media__expanded',
+          media.last_status)} style={{ backgroundColor: getStatusStyle(status, 'backgroundColor') }}
+          >
             <ContentColumn>
-              <h1 className='media__title'>{MediaUtil.title(media, data)}</h1>
+              <h1 className="media__primary-heading">{primaryHeading}</h1>
               <div className="media__status">
                 <MediaStatus media={media} readonly={this.props.readonly} />
               </div>
@@ -94,7 +104,7 @@ class MediaComponent extends Component {
 
           <ContentColumn>
             <h3 className="media__notes-heading"><FormattedMessage id="mediaComponent.verificationTimeline" defaultMessage="Verification Timeline" /></h3>
-            <Annotations annotations={media.annotations.edges.reverse()} annotated={media} annotatedType="ProjectMedia" />
+            <Annotations annotations={media.log.edges} annotated={media} annotatedType="ProjectMedia" />
             <MediaChecklist />
           </ContentColumn>
         </div>

@@ -38,6 +38,16 @@
   }
 }
 
+.annotation__task-resolved {
+  .annotation__author-name {
+    margin-right: 0;
+  }
+
+  em {
+    margin-right: 10px;
+  }
+}
+
 .annotation__timestamp {
   font-size: 12px;
 }
@@ -78,5 +88,98 @@
 .annotation__tag {
   &::before {
     content: '#';
+  }
+}
+
+.annotation__update-task > span {
+  display: block;
+}
+
+.annotation__comment {
+  margin-top: 5px;
+
+  .annotation__comment-text {
+    float: left;
+    width: 80%;
+  }
+
+  img {
+    max-width: 20%;
+    min-width: 50px;
+    float: right;
+    cursor: zoom-in
+  }
+
+  br {
+    clear: both;
+  }
+}
+
+
+.add-annotation {
+  .add-annotation__buttons {
+    margin-left: auto;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  
+    .add-annotation__insert-photo {
+      display: inline-block;
+    
+      svg {
+        @extend %icon;
+        margin-right: 0;
+    
+        path {
+          color: $black-16;
+        }
+      }
+    }
+  }
+
+  .preview {
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 300px;
+    padding: 0;
+    margin: 0;
+    border: 1px solid $black-38;
+    border-bottom: 0;
+    width: 100%;
+
+    .remove-image {
+      position: absolute;
+      top: 2px;
+      right: 2px;
+      z-index: 1;
+      color: $black-38;
+      cursor: pointer;
+    }
+  }
+
+  .upload-file {
+    cursor: pointer;
+    margin: 0 0 7px;
+  }
+
+  .upload-file > div.with-file {
+    width: 100% !important;
+    border-top: 0 !important;
+    border-style: solid !important;
+  }
+
+  .upload-file > div {
+    padding: 0 !important;
+    height: 148px !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-width: 3px;
+    border-radius: 8px;
+
+    &:hover {
+      border-color: $check-blue !important;
+    }
   }
 }

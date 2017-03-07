@@ -3,7 +3,6 @@ import { defineMessages, injectIntl, intlShape, FormattedMessage } from 'react-i
 import Relay from 'react-relay';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
-import Dropzone from 'react-dropzone';
 import MdInsertPhoto from 'react-icons/lib/md/insert-photo';
 import UploadImage from '../UploadImage';
 import PenderCard from '../PenderCard';
@@ -17,24 +16,24 @@ import ContentColumn from '../layout/ContentColumn';
 const messages = defineMessages({
   submitting: {
     id: 'createMedia.submitting',
-    defaultMessage: 'Submitting...'
+    defaultMessage: 'Submitting...',
   },
   error: {
     id: 'createMedia.error',
-    defaultMessage: 'Something went wrong! Try pasting the text of this post instead, or adding a different link.'
+    defaultMessage: 'Something went wrong! Try pasting the text of this post instead, or adding a different link.',
   },
   mediaInput: {
     id: 'createMedia.mediaInput',
-    defaultMessage: 'Paste or type'
+    defaultMessage: 'Paste or type',
   },
-  uploadImage:{
+  uploadImage: {
     id: 'createMedia.uploadImage',
-    defaultMessage: 'Upload an image'
+    defaultMessage: 'Upload an image',
   },
   submitButton: {
     id: 'createMedia.submitButton',
-    defaultMessage: 'Post'
-  }
+    defaultMessage: 'Post',
+  },
 });
 
 class CreateProjectMedia extends Component {
@@ -45,7 +44,7 @@ class CreateProjectMedia extends Component {
       url: '',
       message: null,
       isSubmitting: false,
-      fileMode: false
+      fileMode: false,
     };
   }
 
@@ -57,10 +56,10 @@ class CreateProjectMedia extends Component {
       prefix = `/${context.team.slug}/project/${context.project.dbid}/media/`;
 
     let image = '',
-        inputValue = '',
-        urls = '',
-        url = '',
-        quote = '';
+      inputValue = '',
+      urls = '',
+      url = '',
+      quote = '';
 
     if (this.state.fileMode) {
       image = document.forms.media.image;
@@ -80,7 +79,7 @@ class CreateProjectMedia extends Component {
     const handleError = (json) => {
       let message = this.props.intl.formatMessage(messages.error);
       if (json && json.error) {
-        const matches = json.error.match(/^This media already exists in this project and has id ([0-9]+)$/);
+        const matches = json.error.match(/This media already exists in this project and has id ([0-9]+)$/);
         if (matches) {
           that.props.projectComponent.props.relay.forceFetch();
           const pmid = matches[1];
@@ -168,24 +167,23 @@ class CreateProjectMedia extends Component {
                   return (
                     <UploadImage onImage={this.onImage.bind(this)} />
                   );
-                } else {
-                  return (
-                    <TextField
-                      hintText={this.props.intl.formatMessage(messages.mediaInput)}
-                      fullWidth
-                      name="url" id="create-media-input"
-                      className="create-media__input"
-                      multiLine
-                      onKeyPress={this.handleKeyPress.bind(this)}
-                      ref={input => this.mediaInput = input}
-                    />
-                  );
                 }
+                return (
+                  <TextField
+                    hintText={this.props.intl.formatMessage(messages.mediaInput)}
+                    fullWidth
+                    name="url" id="create-media-input"
+                    className="create-media__input"
+                    multiLine
+                    onKeyPress={this.handleKeyPress.bind(this)}
+                    ref={input => this.mediaInput = input}
+                  />
+                );
               })()}
             </div>
 
             <footer>
-              <div className="create-media__helper"><FormattedMessage id="createMedia.helper" defaultMessage="Add a link, quote or image for verification"/></div>
+              <div className="create-media__helper"><FormattedMessage id="createMedia.helper" defaultMessage="Add a link, quote or image for verification" /></div>
               <div className="create-media__buttons">
                 <div className="create-media__insert-photo">
                   <MdInsertPhoto id="create-media__switcher" title={this.props.intl.formatMessage(messages.uploadImage)} className={this.state.fileMode ? 'create-media__file' : ''} onClick={this.switchMode.bind(this)} />
@@ -201,7 +199,7 @@ class CreateProjectMedia extends Component {
 }
 
 CreateProjectMedia.propTypes = {
-  intl: intlShape.isRequired
+  intl: intlShape.isRequired,
 };
 
 CreateProjectMedia.contextTypes = {

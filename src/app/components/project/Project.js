@@ -91,8 +91,8 @@ class ProjectComponent extends Component {
       <DocumentTitle title={pageTitle(project.title, false, this.currentContext().team)} >
         <div className="project">
           { project.description && project.description.trim().length ? (
-            <div className='project__description'>
-              <p className='project__description-container'>{project.description}</p>
+            <div className="project__description">
+              <p className="project__description-container">{project.description}</p>
             </div>
           ) : null }
           <Can permissions={project.permissions} permission="create Media">
@@ -164,7 +164,14 @@ const ProjectContainer = Relay.createContainer(ProjectComponent, {
                 dbid
               }
               permissions,
+              project {
+                id,
+                dbid,
+                title
+              },
+              project_id,
               verification_statuses,
+              overridden,
               media {
                 url,
                 quote,
@@ -176,8 +183,16 @@ const ProjectContainer = Relay.createContainer(ProjectComponent, {
               }
               user {
                 name,
+                email,
                 source {
-                  dbid
+                  dbid,
+                  accounts(first: 10000) {
+                    edges {
+                      node {
+                        url
+                      }
+                    }
+                  }
                 }
               }
               tags(first: 10000) {
@@ -225,7 +240,7 @@ class Project extends Component {
       <Relay.RootContainer
         Component={ProjectContainer}
         route={route}
-        renderLoading={function() {
+        renderLoading={function () {
           return (<MediasLoading />);
         }}
       />

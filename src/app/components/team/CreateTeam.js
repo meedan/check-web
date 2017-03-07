@@ -14,33 +14,33 @@ import Heading from '../layout/Heading';
 
 const messages = defineMessages({
   slugChecking: {
-      id: 'createTeam.slugChecking',
-      defaultMessage: 'Checking availability...'
+    id: 'createTeam.slugChecking',
+    defaultMessage: 'Checking availability...',
   },
   slugAvailable: {
-      id: 'createTeam.slugAvailable',
-      defaultMessage: 'Available!'
+    id: 'createTeam.slugAvailable',
+    defaultMessage: 'Available!',
   },
   slugUnavailable: {
-      id: 'createTeam.slugUnavailable',
-      defaultMessage: 'That URL is unavailable.'
+    id: 'createTeam.slugUnavailable',
+    defaultMessage: 'That URL is unavailable.',
   },
   createTeamError: {
     id: 'createTeam.createTeamError',
-    defaultMessage: 'Sorry, could not create the team'
+    defaultMessage: 'Sorry, could not create the team',
   },
   title: {
     id: 'createTeam.title',
-    defaultMessage: 'Create a Team'
+    defaultMessage: 'Create a Team',
   },
   teamNameHint: {
     id: 'createTeam.teamNameHint',
-    defaultMessage: 'Team Name'
+    defaultMessage: 'Team Name',
   },
   teamSlugHint: {
     id: 'createTeam.teamSlugHint',
-    defaultMessage: 'team-slug'
-  }
+    defaultMessage: 'team-slug',
+  },
 });
 
 class CreateTeam extends Component {
@@ -225,7 +225,7 @@ class CreateTeam extends Component {
 }
 
 CreateTeam.propTypes = {
-  intl: intlShape.isRequired
+  intl: intlShape.isRequired,
 };
 
 CreateTeam.contextTypes = {

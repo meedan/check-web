@@ -1,5 +1,9 @@
 [
   {
+    "id": "mediaDetail.moveFailed",
+    "defaultMessage": "Sorry, we could not move this report"
+  },
+  {
     "id": "mediaDetail.mediaTitle",
     "defaultMessage": "Title"
   },
@@ -8,15 +12,27 @@
     "defaultMessage": "by {username}"
   },
   {
-    "id": "mediaDetail.added",
-    "defaultMessage": "Added {byUser}"
-  },
-  {
     "id": "mediaDetail.cancelButton",
     "defaultMessage": "Cancel"
   },
   {
+    "id": "mediaDetail.move",
+    "defaultMessage": "Move"
+  },
+  {
+    "id": "mediaDetail.added",
+    "defaultMessage": "Added {byUser}"
+  },
+  {
     "id": "mediaDetail.doneButton",
     "defaultMessage": "Done"
+  },
+  {
+    "id": "mediaDetail.dialogHeader",
+    "defaultMessage": "Move this {mediaType} to a different project"
+  },
+  {
+    "id": "mediaDetail.dialogMediaPath",
+    "defaultMessage": "Currently filed under {teamName} > {projectTitle}"
   }
 ]

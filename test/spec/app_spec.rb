@@ -519,7 +519,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 2
       press_button('#create-media-submit')
       sleep 10
-      id1 = @driver.current_url.to_s.gsub(/.*\/media\//, '').to_i
+      id1 = @driver.current_url.to_s.gsub(/^.*\/media\//, '').to_i
+      expect(id1 > 0).to be(true)
 
       @driver.navigate.to @driver.current_url.to_s.gsub(/\/media\/[0-9]+$/, '')
 
@@ -528,7 +529,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 2
       press_button('#create-media-submit')
       sleep 10
-      id2 = @driver.current_url.to_s.gsub(/.*\/media\//, '').to_i
+
+      id2 = @driver.current_url.to_s.gsub(/^.*\/media\//, '').to_i
+      expect(id2 > 0).to be(true)
 
       expect(id1 == id2).to be(true)
     end
@@ -554,6 +557,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(page.contains_string?("Tagged \##{new_tag}")).to be(false)
       page.add_tag(new_tag)
       expect(page.has_tag?(new_tag)).to be(true)
+      sleep 2
       expect(page.contains_string?("Tagged \##{new_tag}")).to be(true)
 
       page.driver.navigate.refresh
@@ -633,6 +637,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       media_pg.fill_input('#cmd-input', '/flag Spam')
       media_pg.element('#cmd-input').submit
+      sleep 2
 
       expect(media_pg.contains_string?('Flag')).to be(true)
       media_pg.driver.navigate.refresh
@@ -654,6 +659,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       project_pg.edit(title: new_title, description: new_description)
 
       project_pg.wait_for_element('.project-header__title')
+      sleep 3
       expect(project_pg.contains_string?(new_title)).to be(true)
       project_pg.wait_for_element('.project__description')
       expect(project_pg.contains_string?(new_description)).to be(true)
@@ -794,7 +800,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should update notes count after delete annotation" do
       media_pg = LoginPage.new(config: @config, driver: @driver).load
         .login_with_email(email: @email, password: @password)
-        .create_media(input: "Media #{Time.now.to_i}")
+        .create_media(input: 'https://twitter.com/joeyayoub/status/829060304642383873?t=' + Time.now.to_i.to_s)
       media_pg.fill_input('#cmd-input', '/flag Spam')
       media_pg.element('#cmd-input').submit
       sleep 1
@@ -883,8 +889,128 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     #   skip("Needs to be implemented")
     # end
 
-    # it "should edit the title of a media" do
-    #   skip("Needs to be implemented")
-    # end
+    it "should display a default title for new media" do
+      # Tweets
+      media_pg = LoginPage.new(config: @config, driver: @driver).load
+          .login_with_email(email: @email, password: @password)
+          .create_media(input: 'https://twitter.com/firstdraftnews/status/835587295394869249?t=' + Time.now.to_i.to_s)
+      expect(media_pg.primary_heading.text).to eq('Tweet by First Draft')
+      project_pg = media_pg.go_to_project
+      expect(project_pg.element('.media-detail__heading').text).to eq('Tweet by First Draft')
+
+      # YouTube
+      media_pg = project_pg.create_media(input: 'https://www.youtube.com/watch?v=ykLgjhBnik0?t=' + Time.now.to_i.to_s)
+      expect(media_pg.primary_heading.text).to eq('Video by FirstDraftNews')
+      project_pg = media_pg.go_to_project
+      expect(project_pg.element('.media-detail__heading').text).to eq('Video by FirstDraftNews')
+
+      # Facebook
+      media_pg = project_pg.create_media(input: 'https://www.facebook.com/FirstDraftNews/posts/1808121032783161?t=' + Time.now.to_i.to_s)
+      expect(media_pg.primary_heading.text).to eq('Facebook post by First Draft News')
+      project_pg = media_pg.go_to_project
+      expect(project_pg.element('.media-detail__heading').text).to eq('Facebook post by First Draft News')
+    end
+
+    it "should edit the title of a media" do
+      media_pg = LoginPage.new(config: @config, driver: @driver).load
+          .login_with_email(email: @email, password: @password)
+          .create_media(input: 'https://twitter.com/softlandscapes/status/834385935240462338?t=' + Time.now.to_i.to_s)
+      expect(media_pg.primary_heading.text).to eq('Tweet by soft landscapes')
+      sleep 2 # :/ clicks can misfire if pender iframe moves the button position at the wrong moment
+      media_pg.set_title('Edited media title')
+
+      expect(media_pg.primary_heading.text).to eq('Edited media title')
+      project_pg = media_pg.go_to_project
+      expect(project_pg.element('.media-detail__heading').text).to eq('Edited media title')
+    end
+
+    it "should add image to media comment" do
+      media_pg = LoginPage.new(config: @config, driver: @driver).load
+                 .login_with_email(email: @email, password: @password)
+                 .create_media(input: 'Images in comments')
+      sleep 3
+
+      # First, verify that there isn't any comment with image
+      expect(@driver.page_source.include?('This is my comment with image')).to be(false)
+
+      # Add a comment as a command
+      fill_field('#cmd-input', 'This is my comment with image')
+      @driver.find_element(:css, '.add-annotation__insert-photo').click
+      input = @driver.find_element(:css, 'input[type=file]')
+      input.send_keys(File.join(File.dirname(__FILE__), 'test.png'))
+      sleep 3
+      @driver.find_element(:css, '.add-annotation__buttons button').click
+      sleep 5
+
+      # Verify that comment was added to annotations list
+      expect(@driver.page_source.include?('This is my comment with image')).to be(true)
+      imgsrc = @driver.find_element(:css, '.annotation__body img').attribute('src')
+      expect(imgsrc.match(/test\.png$/).nil?).to be(false)
+      
+      # Zoom image
+      expect(@driver.find_elements(:css, '.image-current').empty?).to be(true)
+      @driver.find_element(:css, '.annotation__body img').click
+      expect(@driver.find_elements(:css, '.image-current').empty?).to be(false)
+      @driver.action.send_keys(:escape).perform
+      expect(@driver.find_elements(:css, '.image-current').empty?).to be(true)
+
+      # Reload the page and verify that comment is still there
+      @driver.navigate.refresh
+      sleep 3
+      expect(@driver.page_source.include?('This is my comment with image')).to be(true)
+      imgsrc = @driver.find_element(:css, '.annotation__body img').attribute('src')
+      expect(imgsrc.match(/test\.png$/).nil?).to be(false)
+    end
+
+    it "should add, edit, answer, update answer and delete task" do
+      media_pg = LoginPage.new(config: @config, driver: @driver).load
+                 .login_with_email(email: @email, password: @password)
+                 .create_media(input: 'Tasks')
+      sleep 3
+      
+      # Create a task
+      expect(@driver.page_source.include?('Foo or bar?')).to be(false)
+      expect(@driver.page_source.include?('Task "Foo or bar?" created by')).to be(false)
+      @driver.find_element(:css, '.tasks__add-button').click
+      @driver.find_element(:css, '.tasks__add-short-answer').click
+      sleep 1
+      fill_field('#task-label-input', 'Foo or bar?')
+      @driver.find_element(:css, '.tasks__dialog-submit-button').click
+      sleep 2
+      expect(@driver.page_source.include?('Foo or bar?')).to be(true)
+      expect(@driver.page_source.include?('Task "Foo or bar?" created by')).to be(true)
+
+      # Answer task
+      expect(@driver.page_source.include?('Task "Foo or bar?" answered by')).to be(false)
+      fill_field('textarea[name="response"]', 'Foo')
+      @driver.action.send_keys(:enter).perform
+      sleep 2
+      expect(@driver.page_source.include?('Task "Foo or bar?" answered by')).to be(true)
+
+      # Edit task
+      expect(@driver.page_source.include?('Task "Foo or bar?" edited to "This or that?" by')).to be(false)
+      @driver.find_element(:css, '.task__actions svg').click
+      @driver.find_elements(:css, '.media-actions__menu--active span').first.click
+      fill_field('textarea[name="label"]', '??')
+      @driver.find_element(:css, '.task__save').click
+      sleep 2
+      expect(@driver.page_source.include?('Task "Foo or bar?" edited to "Foo or bar???" by')).to be(true)
+      
+      # Edit task answer
+      expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Task "Foo or bar???" answered by User With Email: "Foo edited"')).to be(false)
+      @driver.find_element(:css, '#task__edit-response-button').click
+      fill_field('textarea[name="editedresponse"]', ' edited')
+      @driver.action.send_keys(:enter).perform
+      sleep 2
+      expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Task "Foo or bar???" answered by User With Email: "Foo edited"')).to be(true)
+
+      # Delete task
+      expect(@driver.page_source.include?('Foo')).to be(true)
+      @driver.find_element(:css, '.task__actions svg').click
+      @driver.find_elements(:css, '.media-actions__menu--active span').last.click
+      @driver.switch_to.alert.accept
+      sleep 3
+      expect(@driver.page_source.include?('Foo')).to be(false)
+    end
   end
 end

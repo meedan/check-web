@@ -19,7 +19,7 @@ class DeleteVersionMutation extends Relay.Mutation {
       query = Relay.QL`fragment on DestroyVersionPayload { deletedId, source { annotations } }`;
       break;
     case 'project_media':
-      query = Relay.QL`fragment on DestroyVersionPayload { deletedId, project_media { annotations, last_status, annotations_count, last_status, last_status_obj { id } } }`;
+      query = Relay.QL`fragment on DestroyVersionPayload { deletedId, project_media { log, last_status, annotations_count, last_status, last_status_obj { id } } }`;
       break;
     }
     return query;
@@ -30,13 +30,6 @@ class DeleteVersionMutation extends Relay.Mutation {
     fieldIds[this.props.parent_type] = this.props.annotated.id;
 
     return [
-      {
-        type: 'NODE_DELETE',
-        parentName: this.props.parent_type,
-        parentID: this.props.annotated.id,
-        connectionName: 'annotations',
-        deletedIDFieldName: 'deletedId',
-      },
       {
         type: 'FIELDS_CHANGE',
         fieldIDs: fieldIds,

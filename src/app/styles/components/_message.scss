@@ -1,10 +1,17 @@
 .message {
-  background: $black-02;
-  color: $black-38;
+  background: $black-54;
+  color: $white;
   padding: 10px;
   font-size: 14px;
   text-align: center;
   position: relative;
+  margin-bottom: 16px;
+  border-radius: 2px;
+
+  a {
+    color: $white !important;
+    text-decoration: underline;
+  }
 
   #close-message {
     position: absolute;

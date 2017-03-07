@@ -2,8 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import { injectIntl, intlShape } from 'react-intl';
 
 class TimeBefore extends Component {
-  timeElementWrapper(date){
-    const datetimeLabel = new Date(+date - date.getTimezoneOffset() * 60 * 1000).toISOString().split('.')[0].replace('T',' ').slice(0,-3);
+  timeElementWrapper(date) {
+    const datetimeLabel = new Date(+date - date.getTimezoneOffset() * 60 * 1000).toISOString().split('.')[0].replace('T', ' ').slice(0, -3);
 
     return (
       <time title={datetimeLabel}>
@@ -18,7 +18,7 @@ class TimeBefore extends Component {
 }
 
 TimeBefore.propTypes = {
-  intl: intlShape.isRequired
+  intl: intlShape.isRequired,
 };
 
 export default injectIntl(TimeBefore);

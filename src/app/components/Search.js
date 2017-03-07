@@ -10,7 +10,7 @@ import SearchRoute from '../relay/SearchRoute';
 import TeamRoute from '../relay/TeamRoute';
 import MediaDetail from './media/MediaDetail';
 import { bemClass } from '../helpers';
-import { pageTitle } from '../helpers';
+import { pageTitle, getStatusStyle } from '../helpers';
 import CheckContext from '../CheckContext';
 import ContentColumn from './layout/ContentColumn';
 import MediasLoading from './media/MediasLoading';
@@ -20,24 +20,24 @@ const pageSize = 20;
 const messages = defineMessages({
   title: {
     id: 'search.title',
-    defaultMessage: 'Search'
+    defaultMessage: 'Search',
   },
   loading: {
     id: 'search.loading',
-    defaultMessage: 'Loading...'
+    defaultMessage: 'Loading...',
   },
   searchInputHint: {
     id: 'search.inputHint',
-    defaultMessage: 'Search'
+    defaultMessage: 'Search',
   },
   searchResult: {
     id: 'search.result',
-    defaultMessage: 'Result'
+    defaultMessage: 'Result',
   },
   searchResults: {
     id: 'search.results',
-    defaultMessage: 'Results'
-  }
+    defaultMessage: 'Results',
+  },
 });
 
 class SearchQueryComponent extends Component {
@@ -225,8 +225,8 @@ class SearchQueryComponent extends Component {
                 <h4><FormattedMessage id="search.statusHeading" defaultMessage="Status" /></h4>
                 {/* chicklet markup/logic from MediaTags. TODO: fix classnames */}
                 <ul className="/ media-tags__suggestions-list // electionland_categories">
-                  {statuses.map(status =>  // TODO: set and use styles in `status.style`
-                    <li title={status.description} onClick={this.handleStatusClick.bind(this, status.id)} className={bemClass('media-tags__suggestion', this.statusIsSelected(status.id), '--selected')}>{status.label}</li>)}
+                  {statuses.map(status =>
+                    <li title={status.description} onClick={this.handleStatusClick.bind(this, status.id)} className={bemClass('media-tags__suggestion', this.statusIsSelected(status.id), '--selected')} style={{ backgroundColor: getStatusStyle(status, 'backgroundColor') }} >{status.label}</li>)}
                 </ul>
               </div>
               <div>
@@ -271,7 +271,7 @@ class SearchQueryComponent extends Component {
 }
 
 SearchQueryComponent.propTypes = {
-  intl: intlShape.isRequired
+  intl: intlShape.isRequired,
 };
 
 SearchQueryComponent.contextTypes = {
@@ -312,6 +312,7 @@ class SearchResultsComponent extends Component {
     const medias = this.props.search ? this.props.search.medias.edges : [];
     const count = this.props.search ? this.props.search.number_of_results : 0;
     const mediasCount = `${count} ${count === 1 ? this.props.intl.formatMessage(messages.searchResult) : this.props.intl.formatMessage(messages.searchResults)}`;
+    const that = this;
 
     return (
       <div className="search__results / results">
@@ -323,7 +324,7 @@ class SearchResultsComponent extends Component {
           <ul className="search__results-list / results medias-list">
             {medias.map(media => (
               <li className="/ medias__item">
-                <MediaDetail media={media.node} condensed />
+                <MediaDetail media={media.node} condensed parentComponent={that} />
               </li>
             ))}
           </ul>
@@ -341,7 +342,7 @@ class SearchResultsComponent extends Component {
 }
 
 SearchResultsComponent.propTypes = {
-  intl: intlShape.isRequired
+  intl: intlShape.isRequired,
 };
 
 const SearchResultsContainer = Relay.createContainer(injectIntl(SearchResultsComponent), {
@@ -437,12 +438,12 @@ class Search extends Component {
         <Relay.RootContainer
           Component={SearchQueryContainer}
           route={queryRoute}
-          renderLoading={function() {
+          renderLoading={function () {
             return (
               <ContentColumn>
                 <div className="search__query">
                   <div className="search__form search__form--loading">
-                    <input disabled placeholder={formatMessage(messages.loading)} name="search-input" id="search-input" className="search__input"/>
+                    <input disabled placeholder={formatMessage(messages.loading)} name="search-input" id="search-input" className="search__input" />
                   </div>
                 </div>
               </ContentColumn>
@@ -452,8 +453,8 @@ class Search extends Component {
         <Relay.RootContainer
           Component={SearchResultsContainer}
           route={resultsRoute}
-          forceFetch={true}
-          renderLoading={function() {
+          forceFetch
+          renderLoading={function () {
             return (
               <div>
                 <h3 className="search__results-heading search__results-heading--loading"><FormattedMessage id="search.loading" defaultMessage="Loading..." /></h3>
@@ -476,7 +477,7 @@ function queryFromUrlQuery(urlQuery) {
 }
 
 Search.propTypes = {
-  intl: intlShape.isRequired
+  intl: intlShape.isRequired,
 };
 
 export default injectIntl(Search);

@@ -22,8 +22,15 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
         annotations_count,
         domain,
         permissions,
+        project {
+          id,
+          dbid,
+          title
+        },
+        project_id,
         pusher_channel,
         verification_statuses,
+        overridden,
         media {
           url,
           quote,
@@ -32,8 +39,16 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
         }
         user {
           name,
+          email,
           source {
-            dbid
+            dbid,
+            accounts(first: 10000) {
+              edges {
+                node {
+                  url
+                }
+              }
+            }
           }
         }
         last_status_obj {
@@ -69,52 +84,93 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
             }
           }
         }
-        annotations(first: 10000) {
+        log(first: 10000) {
           edges {
             node {
               id,
               dbid,
-              content,
-              annotation_type,
-              updated_at,
+              item_type,
+              item_id,
+              event,
+              event_type,
               created_at,
-              permissions,
-              medias(first: 10000) {
+              object_after,
+              object_changes_json,
+              meta,
+              projects(first: 2) {
                 edges {
                   node {
                     id,
                     dbid,
-                    quote,
-                    published,
-                    url,
-                    embed,
-                    project_id,
-                    last_status,
-                    annotations_count,
-                    permissions,
-                    verification_statuses,
-                    domain,
-                    media {
-                      embed_path,
-                      thumbnail_path
-                    }
-                    user {
-                      name,
-                      source {
-                        dbid
+                    title
+                  }
+                }
+              }
+              user {
+                name,
+                profile_image,
+                email,
+                source {
+                  dbid,
+                  accounts(first: 10000) {
+                    edges {
+                      node {
+                        url
                       }
                     }
                   }
                 }
               }
-              annotator {
-                name,
-                profile_image
+              task {
+                id,
+                dbid,
+                label
               }
-              version {
-                id
-                item_id
-                item_type
+              annotation {
+                id,
+                dbid,
+                content,
+                annotation_type,
+                updated_at,
+                created_at,
+                permissions,
+                medias(first: 10000) {
+                  edges {
+                    node {
+                      id,
+                      dbid,
+                      quote,
+                      published,
+                      url,
+                      embed,
+                      project_id,
+                      last_status,
+                      annotations_count,
+                      permissions,
+                      verification_statuses,
+                      domain,
+                      media {
+                        embed_path,
+                        thumbnail_path
+                      }
+                      user {
+                        name,
+                        source {
+                          dbid
+                        }
+                      }
+                    }
+                  }
+                }
+                annotator {
+                  name,
+                  profile_image
+                }
+                version {
+                  id
+                  item_id
+                  item_type
+                }
               }
             }
           }
@@ -150,7 +206,7 @@ class ProjectMedia extends Component {
       <Relay.RootContainer
         Component={MediaContainer}
         route={route}
-        renderLoading={function() {
+        renderLoading={function () {
           return <MediasLoading count={1} />;
         }}
       />

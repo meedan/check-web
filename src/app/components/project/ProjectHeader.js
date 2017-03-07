@@ -3,8 +3,11 @@ import Relay from 'react-relay';
 import Can from '../Can';
 import ProjectRoute from '../../relay/ProjectRoute';
 import MdArrowDropDown from 'react-icons/lib/md/arrow-drop-down';
+import MdArrowBack from 'react-icons/lib/md/arrow-back';
 import ProjectList from './ProjectList';
 import CheckContext from '../../CheckContext';
+import { bemClass } from '../../helpers.js';
+import { Link } from 'react-router';
 
 class ProjectHeaderComponent extends Component {
   getPusher() {
@@ -40,14 +43,16 @@ class ProjectHeaderComponent extends Component {
   render() {
     const project = this.props.project;
     const projectUrl = window.location.pathname.match(/(.*\/project\/[0-9]+)/)[1];
+    const isProjectSubpage = window.location.pathname.length > projectUrl.length;
 
     return (
       <div className="project-header">
-        <input type='checkbox' className='project-header__menu-toggle' id='project-header-menu-toggle' style={{display: 'none'}}/>
-        <label className='project-header__menu-toggle-label' htmlFor='project-header-menu-toggle'>
+        <Link to={projectUrl} className={bemClass('project-header__back-button', isProjectSubpage, '--displayed')}><MdArrowBack /></Link>
+        <input type="checkbox" className="project-header__menu-toggle" id="project-header-menu-toggle" style={{ display: 'none' }} />
+        <label className="project-header__menu-toggle-label" htmlFor="project-header-menu-toggle">
           <h2 className="project-header__title">{project.title}</h2>
           <span className="project-header__caret"><MdArrowDropDown /></span>
-          <div className='project-header__menu-overlay'></div>
+          <div className="project-header__menu-overlay" />
         </label>
         <div className="project-header__project-list"><ProjectList team={project.team} /></div>
       </div>
@@ -56,7 +61,7 @@ class ProjectHeaderComponent extends Component {
 }
 
 ProjectHeaderComponent.contextTypes = {
-  store: React.PropTypes.object
+  store: React.PropTypes.object,
 };
 
 const ProjectHeaderContainer = Relay.createContainer(ProjectHeaderComponent, {
@@ -98,9 +103,7 @@ class ProjectHeader extends Component {
       const route = new ProjectRoute({ contextId: this.props.params.projectId });
       return (<Relay.RootContainer Component={ProjectHeaderContainer} route={route} />);
     }
-    else {
-      return null;
-    }
+    return null;
   }
 }
 

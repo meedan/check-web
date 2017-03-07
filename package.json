@@ -5,7 +5,7 @@
   "private": true,
   "repository": {
     "type": "git",
-    "url": "git://github.com/meedan/checkdesk-client.git"
+    "url": "git://github.com/meedan/check-web.git"
   },
   "scripts": {
     "logo": "cd src/assets/images/logo && ./generate.sh && cd ..",
@@ -17,7 +17,7 @@
     "transifex:upload": "gulp transifex:prepare && gulp transifex:upload",
     "watch:styles": "watch 'npm run style' ./src/app/styles",
     "publish": "node scripts/server.js",
-    "test": "npm run test:unit; npm run test:integration",
+    "test": "npm run test:unit && npm run test:integration",
     "test:unit": "cp test/unit/config.js node_modules/config.webpack-node.js && NODE_PATH=$NODE_PATH:. BABEL_ENV=production mocha-webpack --webpack-config webpack/test.babel.js --require test/unit/setup.js \"test/unit/*.spec.js\"",
     "test:integration": "cd test && rspec spec/integration_spec.rb && cd ..",
     "test:rebuild": "npm run build && npm run test",
@@ -107,12 +107,14 @@
     "postcss-cli": "^2.3.2",
     "pusher-js": "^4.0.0",
     "raw-loader": "^0.5.1",
+    "rc-tooltip": "^3.4.2",
     "react": "^15.4.1",
     "react-document-title": "^2.0.2",
     "react-dom": "^15.4.1",
     "react-dropzone": "^3.5.3",
     "react-ga": "^2.1.2",
     "react-icons": "^2.2.3",
+    "react-image-lightbox": "^3.4.2",
     "react-infinite-scroller": "^1.0.1",
     "react-intl": "^2.2.3",
     "react-linkify": "^0.1.3",
@@ -124,6 +126,7 @@
     "react-select": "1.0.0-rc.2",
     "react-simpletabs": "^0.7.0",
     "react-tag-input": "^4.6.1",
+    "react-tap-event-plugin": "^2.0.1",
     "redux": "^3.0.0",
     "redux-form": "^6.3.2",
     "redux-notify": "^0.2.0",
@@ -132,6 +135,7 @@
     "sass-lint": "^1.10.0",
     "scriptjs": "^2.5.8",
     "serve-static": "^1.10.2",
+    "sinon": "^1.17.7",
     "style-loader": "^0.13.1",
     "superagent": "^3.3.0",
     "url-regex": "^3.2.0",

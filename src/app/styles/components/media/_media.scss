@@ -15,7 +15,7 @@
   }
 }
 
-.media__title {
+.media__primary-heading {
   margin: 0 0 10px;
   font-size: 24px;
   color: $white;
@@ -53,7 +53,7 @@
   }
 
   .media-detail__header,
-  .media-detail__title {
+  .media-detail__heading {
     display: none;
   }
 }

@@ -1,14 +1,22 @@
 @mixin app-menu {
   @include box-shadow(2);
   @include fade-in(.2s);
-  z-index: 3;
-  margin: 0;
-  border: $layout-border;
-  border-radius: 2px;
-  min-width: 160px;
   background: $white;
+  border-radius: 2px;
+  border: $layout-border;
+  color: $black-87;
+  display: none;
+  margin: 0;
+  min-width: 250px;
   padding: 8px 0;
+  position: absolute;
   text-align: left;
+  z-index: 3;
+
+  &--active {
+    opacity: 1;
+    display: block;
+  }
 
   & > li {
     @include app-menu-item;
@@ -16,14 +24,13 @@
 }
 
 @mixin app-menu-item {
+  cursor: pointer;
   font-size: 14px;
   font-weight: 400;
-  color: $black-87;
   line-height: 48px;
-  cursor: pointer;
 
   img {
-    vertical-align: middle!important;
+    vertical-align: middle !important;
   }
 
   &:hover {
@@ -31,12 +38,21 @@
     transition: background .2s;
   }
 
-  & > a {
+  & > a,
+  & > span:first-child {
+    height: 100%;
+    width: 100%;
+    display: block;
+    padding: 0 16px;
     color: inherit;
 
     &,
     &:hover {
       text-decoration: none;
+    }
+
+    &[class$="--active"] {
+      font-weight: bold;
     }
   }
 }
