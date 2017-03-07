@@ -9,19 +9,19 @@ import { Link } from 'react-router';
 const messages = defineMessages({
   nameInputHint: {
     id: 'loginEmail.nameInputHint',
-    defaultMessage: 'Your name'
+    defaultMessage: 'Your name',
   },
   emailInputHint: {
     id: 'loginEmail.emailInputHint',
-    defaultMessage: 'Email address'
+    defaultMessage: 'Email address',
   },
   passwordInputHint: {
     id: 'loginEmail.passwordInputHint',
-    defaultMessage: 'Password'
+    defaultMessage: 'Password',
   },
   passwordConfirmInputHint: {
     id: 'loginEmail.passwordConfirmInputHint',
-    defaultMessage: 'Password confirmation'
+    defaultMessage: 'Password confirmation',
   },
 });
 
@@ -138,7 +138,7 @@ class LoginEmail extends Component {
 
     return (
       <span className="login-email">
-        <a id="login-email" onClick={this.handleOpen.bind(this)} className="login-email__link"><FormattedMessage id="login.with" defaultMessage={`Sign in with {provider}`} values={{ provider: 'e-mail' }} /></a>
+        <a id="login-email" onClick={this.handleOpen.bind(this)} className="login-email__link"><FormattedMessage id="login.with" defaultMessage={'Sign in with {provider}'} values={{ provider: 'e-mail' }} /></a>
 
         <section className={this.bemClass('login-email__modal', this.state.open, '--open')}>
           <Message message={this.state.message} />
@@ -183,7 +183,7 @@ class LoginEmail extends Component {
               </button>
             </div>
           </form>
-          {this.state.type === 'login' ? (<p className="login-email__help-text"><FormattedMessage id="login.trouble" defaultMessage={`Having trouble logging in? Please email {email} for assistance.`} values={{ email: <Link to="mailto:check@meedan.com">check@meedan.com</Link> }} /></p>) : null}
+          {this.state.type === 'login' ? (<p className="login-email__help-text"><FormattedMessage id="login.trouble" defaultMessage={'Having trouble logging in? Please email {email} for assistance.'} values={{ email: <Link to="mailto:check@meedan.com">check@meedan.com</Link> }} /></p>) : null}
         </section>
       </span>
     );
@@ -191,7 +191,7 @@ class LoginEmail extends Component {
 }
 
 LoginEmail.propTypes = {
-  intl: intlShape.isRequired
+  intl: intlShape.isRequired,
 };
 
 LoginEmail.contextTypes = {

@@ -13,7 +13,7 @@ function bemClassFromMediaStatus(baseClass, mediaStatus) {
   return bemClass(
     baseClass,
     (mediaStatus && mediaStatus.length),
-    `--${mediaStatus.toLowerCase().replace(/[ _]/g, '-')}`
+    `--${mediaStatus.toLowerCase().replace(/[ _]/g, '-')}`,
   );
 }
 
@@ -54,7 +54,7 @@ function pageTitle(prefix, skipTeam, team) {
 
 function safelyParseJSON(jsonString) {
   try {
-    return JSON.parse(jsonString)
+    return JSON.parse(jsonString);
   } catch (e) {}
 }
 
@@ -64,5 +64,5 @@ export {
   pageTitle,
   safelyParseJSON,
   getStatus,
-  getStatusStyle
+  getStatusStyle,
 };

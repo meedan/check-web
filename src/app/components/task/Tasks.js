@@ -23,7 +23,7 @@ class Tasks extends Component {
       type: null,
       label: null,
       description: null,
-      message: null
+      message: null,
     };
   }
 
@@ -77,7 +77,7 @@ class Tasks extends Component {
           description: that.state.description,
           annotated_type: 'ProjectMedia',
           annotated_id: that.props.media.id,
-          annotated_dbid: `${that.props.media.dbid}`
+          annotated_dbid: `${that.props.media.dbid}`,
         }),
         { onSuccess, onFailure },
       );
@@ -96,20 +96,20 @@ class Tasks extends Component {
     const { media, tasks } = this.props;
 
     const actions = [
-      <FlatButton label={<FormattedMessage id="tasks.cancelAdd" defaultMessage="Cancel" />} primary={true} onClick={this.handleCloseDialog.bind(this)} />,
-      <FlatButton className='tasks__dialog-submit-button' label={<FormattedMessage id="tasks.add" defaultMessage="Add" />} primary={true} keyboardFocused={true} onClick={this.handleSubmitTask.bind(this)} />,
+      <FlatButton label={<FormattedMessage id="tasks.cancelAdd" defaultMessage="Cancel" />} primary onClick={this.handleCloseDialog.bind(this)} />,
+      <FlatButton className="tasks__dialog-submit-button" label={<FormattedMessage id="tasks.add" defaultMessage="Add" />} primary keyboardFocused onClick={this.handleSubmitTask.bind(this)} />,
     ];
 
     return (
-      <div className='tasks'>
+      <div className="tasks">
 
         <Can permissions={media.permissions} permission="create Task">
-          <FlatButton className='tasks__add-button' onClick={this.handleClick.bind(this)} label={<FormattedMessage id="tasks.addTask" defaultMessage="Add task" />} />
+          <FlatButton className="tasks__add-button" onClick={this.handleClick.bind(this)} label={<FormattedMessage id="tasks.addTask" defaultMessage="Add task" />} />
         </Can>
 
-        <Popover open={this.state.menuOpen} anchorEl={this.state.anchorEl} anchorOrigin={{horizontal: 'left', vertical: 'bottom'}} targetOrigin={{horizontal: 'left', vertical: 'top'}} onRequestClose={this.handleRequestClose.bind(this)}>
+        <Popover open={this.state.menuOpen} anchorEl={this.state.anchorEl} anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }} targetOrigin={{ horizontal: 'left', vertical: 'top' }} onRequestClose={this.handleRequestClose.bind(this)}>
           <Menu>
-            <MenuItem onClick={this.handleOpenDialog.bind(this, 'free_text')} leftIcon={<MdFormatAlignLeft />} primaryText={<FormattedMessage id="tasks.shortAnswer" defaultMessage="Short answer" />} />
+            <MenuItem className="tasks__add-short-answer" onClick={this.handleOpenDialog.bind(this, 'free_text')} leftIcon={<MdFormatAlignLeft />} primaryText={<FormattedMessage id="tasks.shortAnswer" defaultMessage="Short answer" />} />
             {/*
             <MenuItem onClick={this.handleOpenDialog.bind(this, 'yes_no')} leftIcon={<FontAwesome name="toggle-on" />} primaryText="Yes or no" />
             <MenuItem onClick={this.handleOpenDialog.bind(this, 'single_choice')} leftIcon={<FontAwesome name="circle-o" />} primaryText="Choose one" />
@@ -120,11 +120,11 @@ class Tasks extends Component {
 
         <Dialog actions={actions} modal={false} open={this.state.dialogOpen} onRequestClose={this.handleCloseDialog.bind(this)}>
           <Message message={this.state.message} />
-          <TextField className='tasks__task-label-input' floatingLabelText={<FormattedMessage id="tasks.taskLabel" defaultMessage="Task label" />} onChange={this.handleLabelChange.bind(this)} multiLine={true}/>
-          <input className='tasks__add-task-description' id='tasks__add-task-description' type='checkbox'/>
-          <TextField className='tasks__task-description-input' floatingLabelText={<FormattedMessage id="tasks.description" defaultMessage="Description" />} onChange={this.handleDescriptionChange.bind(this)} multiLine={true}/>
-          <label className='tasks__add-task-description-label' htmlFor='tasks__add-task-description'>
-            <span className='tasks__add-task-description-icon'>+</span> <FormattedMessage id="tasks.addDescription" defaultMessage="Add a description" />
+          <TextField id="task-label-input" className="tasks__task-label-input" floatingLabelText={<FormattedMessage id="tasks.taskLabel" defaultMessage="Task label" />} onChange={this.handleLabelChange.bind(this)} multiLine />
+          <input className="tasks__add-task-description" id="tasks__add-task-description" type="checkbox" />
+          <TextField id="task-description-input" className="tasks__task-description-input" floatingLabelText={<FormattedMessage id="tasks.description" defaultMessage="Description" />} onChange={this.handleDescriptionChange.bind(this)} multiLine />
+          <label className="tasks__add-task-description-label" htmlFor="tasks__add-task-description">
+            <span className="tasks__add-task-description-icon">+</span> <FormattedMessage id="tasks.addDescription" defaultMessage="Add a description" />
           </label>
         </Dialog>
 

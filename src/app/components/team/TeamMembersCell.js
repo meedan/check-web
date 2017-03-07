@@ -72,7 +72,7 @@ class TeamMembersCell extends Component {
 }
 
 TeamMembersCell.propTypes = {
-  intl: intlShape.isRequired
+  intl: intlShape.isRequired,
 };
 
 export default injectIntl(TeamMembersCell);

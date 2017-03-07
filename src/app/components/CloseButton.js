@@ -5,7 +5,7 @@ class CloseButton extends Component {
     const { onClick } = this.props;
 
     return (
-      <button className='close-button' onClick={onClick} title="Close">×</button>
+      <button className="close-button" onClick={onClick} title="Close">×</button>
     );
   }
 }

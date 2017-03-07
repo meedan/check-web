@@ -13,16 +13,16 @@ import config from 'config';
 const messages = defineMessages({
   switchTeamsError: {
     id: 'switchTeams.error',
-    defaultMessage: 'Sorry, could not switch teams'
+    defaultMessage: 'Sorry, could not switch teams',
   },
   switchTeamsMember: {
     id: 'switchTeams.member',
-    defaultMessage: 'member'
+    defaultMessage: 'member',
   },
   switchTeamsMembers: {
     id: 'switchTeams.members',
-    defaultMessage: 'members'
-  }
+    defaultMessage: 'members',
+  },
 });
 
 class SwitchTeamsComponent extends Component {
@@ -122,22 +122,20 @@ class SwitchTeamsComponent extends Component {
             }
           })()}
 
-          {otherTeams.map(function (team) {
-            return (
-              <li className="switch-teams__team">
-                <div onClick={that.setCurrentTeam.bind(that, team, currentUser)} className="switch-teams__team-link">
-                  <div className="switch-teams__team-avatar" style={{ 'background-image': `url(${team.avatar})` }} />
-                  <div className="switch-teams__team-copy">
-                    <h3 className="switch-teams__team-name">{team.name}</h3>
-                    <span className="switch-teams__team-members-count">{that.membersCountString(team.members_count)}</span>
-                  </div>
-                  <div className="switch-teams__team-actions">
-                    <MdChevronRight className="switch-teams__team-caret" />
-                  </div>
+          {otherTeams.map(team => (
+            <li className="switch-teams__team">
+              <div onClick={that.setCurrentTeam.bind(that, team, currentUser)} className="switch-teams__team-link">
+                <div className="switch-teams__team-avatar" style={{ 'background-image': `url(${team.avatar})` }} />
+                <div className="switch-teams__team-copy">
+                  <h3 className="switch-teams__team-name">{team.name}</h3>
+                  <span className="switch-teams__team-members-count">{that.membersCountString(team.members_count)}</span>
                 </div>
-              </li>
-            );
-          })}
+                <div className="switch-teams__team-actions">
+                  <MdChevronRight className="switch-teams__team-caret" />
+                </div>
+              </div>
+            </li>
+            ))}
 
           {pendingTeams.map(function (team) {
             return (
@@ -172,7 +170,7 @@ class SwitchTeamsComponent extends Component {
 }
 
 SwitchTeamsComponent.propTypes = {
-  intl: intlShape.isRequired
+  intl: intlShape.isRequired,
 };
 
 SwitchTeamsComponent.contextTypes = {

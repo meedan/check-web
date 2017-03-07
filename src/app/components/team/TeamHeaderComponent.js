@@ -23,7 +23,7 @@ class TeamHeaderComponent extends Component {
     return (
       <nav className="team-header">
         <Link to={`/${team.slug}`} className="team-header__clickable" title={team.name}>
-          <div className="team-header__avatar" style={{ backgroundImage: `url(${team.avatar})` }}></div>
+          <div className="team-header__avatar" style={{ backgroundImage: `url(${team.avatar})` }} />
           { isProjectUrl ? null : <h3 className="team-header__name">{team.name}</h3> }
         </Link>
       </nav>
@@ -32,7 +32,7 @@ class TeamHeaderComponent extends Component {
 }
 
 TeamHeaderComponent.contextTypes = {
-  store: React.PropTypes.object
+  store: React.PropTypes.object,
 };
 
 export default TeamHeaderComponent;

@@ -34,5 +34,9 @@
   {
     "id": "addAnnotation.typeFlag",
     "defaultMessage": "flag"
+  },
+  {
+    "id": "addAnnotation.addImage",
+    "defaultMessage": "Add an image"
   }
 ]

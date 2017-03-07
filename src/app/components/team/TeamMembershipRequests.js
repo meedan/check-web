@@ -14,9 +14,11 @@ class TeamMembershipRequests extends Component {
     return (
       <section className="team-membership-requests">
         <h2 className="team-membership-requests__heading">
-          <FormattedMessage id="teamMembershipRequests.requestsToJoin"
-                defaultMessage={`Requests to join {count}`}
-                values={{count: <span className="team-membership-requests__heading-parens">({usersCount})</span>}} />
+          <FormattedMessage
+            id="teamMembershipRequests.requestsToJoin"
+            defaultMessage={'Requests to join {count}'}
+            values={{ count: <span className="team-membership-requests__heading-parens">({usersCount})</span> }}
+          />
         </h2>
 
         <ul className="team-membership-requests__requests">

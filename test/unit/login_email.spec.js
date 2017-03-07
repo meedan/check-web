@@ -1,12 +1,16 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 import { expect } from 'chai';
+import { render } from 'enzyme';
+import { IntlProvider } from 'react-intl';
 
 import LoginEmail from '../../src/app/components/LoginEmail';
 
+const intlProvider = new IntlProvider({ locale: 'en', messages: {} }, {});
+const { intl } = intlProvider.getChildContext();
+
 describe('<LoginEmail />', () => {
   it('should have collapsed form by default', function() {
-    const wrapper = shallow(<LoginEmail loginCallback={function() { }} />);
-    expect(wrapper.state().open).to.equal(false);
+    const wrapper = render(<IntlProvider locale="en"><LoginEmail intl={intl} /></IntlProvider>);
+    expect(wrapper.find('.login-email__modal--open')).to.have.length(0);
   });
 });
