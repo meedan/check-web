@@ -5,9 +5,8 @@ class Message extends Component {
     const { message } = this.props;
     if (message) {
       return (<div className="message" dangerouslySetInnerHTML={{ __html: message }} />);
-    } else {
-      return null;
     }
+    return null;
   }
 }
 

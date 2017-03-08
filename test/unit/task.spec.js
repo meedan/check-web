@@ -2,7 +2,7 @@
 // import { IntlProvider } from 'react-intl';
 // import { render, shallow } from 'enzyme';
 // import { expect } from 'chai';
-// import { shallowWithIntl } from './helpers/intl-enzyme-test-helper.js';
+// import { shallowWithIntl } from './helpers/intl-test';
 
 // import Task from '../../src/app/components/task/task';
 

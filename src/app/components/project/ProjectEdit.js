@@ -18,24 +18,24 @@ import TextField from 'material-ui/TextField';
 const messages = defineMessages({
   error: {
     id: 'projectEdit.error',
-    defaultMessage: 'Sorry, could not update the project'
+    defaultMessage: 'Sorry, could not update the project',
   },
   titleField: {
     id: 'projectEdit.titleField',
-    defaultMessage: 'Project Title'
+    defaultMessage: 'Project Title',
   },
   descriptionField: {
     id: 'projectEdit.descriptionField',
-    defaultMessage: 'Project Description'
+    defaultMessage: 'Project Description',
   },
   slackChannelField: {
     id: 'projectEdit.slackChannelField',
-    defaultMessage: 'Slack #channel'
+    defaultMessage: 'Slack #channel',
   },
   slackChannelPlaceholder: {
     id: 'projectEdit.slackChannelPlaceholder',
-    defaultMessage: 'Add a Slack #channel to be notified about activity in this project'
-  }
+    defaultMessage: 'Add a Slack #channel to be notified about activity in this project',
+  },
 });
 
 class ProjectEditComponent extends Component {
@@ -145,7 +145,7 @@ class ProjectEditComponent extends Component {
 
     return (
       <DocumentTitle title={pageTitle(project.title, false, this.currentContext().team)}>
-        <section className='project-edit'>
+        <section className="project-edit">
           <Message message={this.state.message} />
           <ContentColumn>
 
@@ -154,9 +154,9 @@ class ProjectEditComponent extends Component {
               <TextField
                 name="name"
                 id="project-title-field"
-                className='project-edit__title-field'
+                className="project-edit__title-field"
                 type="text"
-                fullWidth={true}
+                fullWidth
                 value={this.state.title}
                 floatingLabelText={this.props.intl.formatMessage(messages.titleField)}
                 autoComplete="off"
@@ -168,8 +168,8 @@ class ProjectEditComponent extends Component {
                 id="project-description-field"
                 className="project-edit__description-field"
                 type="text"
-                fullWidth={true}
-                multiLine={true}
+                fullWidth
+                multiLine
                 value={this.state.description}
                 floatingLabelText={this.props.intl.formatMessage(messages.descriptionField)}
                 autoComplete="off"
@@ -181,17 +181,17 @@ class ProjectEditComponent extends Component {
                   className="project-edit__slack-channel-input"
                   id="project-slack-channel-field"
                   type="text"
-                  fullWidth={true}
+                  fullWidth
                   value={this.state.slackChannel}
                   placeholder={this.props.intl.formatMessage(messages.slackChannelPlaceholder)}
                   floatingLabelText={this.props.intl.formatMessage(messages.slackChannelField)}
-                  floatingLabelFixed={true}
+                  floatingLabelFixed
                   autoComplete="off"
                   onChange={this.handleSlackChannelChange.bind(this)}
                 />
               : null }
               <div className="project-edit__editing-buttons">
-                <button type='submit' className="project-edit__editing-button project-edit__editing-button--save">
+                <button type="submit" className="project-edit__editing-button project-edit__editing-button--save">
                   <FormattedMessage id="projectEdit.saveButton" defaultMessage="Save" />
                 </button>
               </div>
@@ -205,7 +205,7 @@ class ProjectEditComponent extends Component {
 }
 
 ProjectEditComponent.propTypes = {
-  intl: intlShape.isRequired
+  intl: intlShape.isRequired,
 };
 
 ProjectEditComponent.contextTypes = {
@@ -214,7 +214,7 @@ ProjectEditComponent.contextTypes = {
 
 const ProjectEditContainer = Relay.createContainer(injectIntl(ProjectEditComponent), {
   initialVariables: {
-    contextId: null
+    contextId: null,
   },
   fragments: {
     project: ({ Component, contextId }) => Relay.QL`

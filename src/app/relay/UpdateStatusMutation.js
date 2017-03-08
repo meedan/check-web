@@ -8,7 +8,7 @@ class UpdateStatusMutation extends Relay.Mutation {
     }`;
   }
 
- getFatQuery() {
+  getFatQuery() {
     let query = '';
     switch (this.props.parent_type) {
     case 'source':
@@ -45,10 +45,10 @@ class UpdateStatusMutation extends Relay.Mutation {
     return { statusEdge: { node: status }, project_media: media };
   }
 
- getVariables() {
+  getVariables() {
     const status = this.props.annotation;
     return { id: status.status_id,
-      status: status.status};
+      status: status.status };
   }
 
   getConfigs() {

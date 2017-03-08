@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import { render, shallow, mount } from 'enzyme';
 import { expect } from 'chai';
-import { mountWithIntl } from './helpers/intl-enzyme-test-helper.js';
+import { mountWithIntl } from './helpers/intl-test';
 
 import TeamHeader from '../../src/app/components/team/TeamHeader';
 

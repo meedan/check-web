@@ -7,12 +7,12 @@ import Medias from '../media/Medias';
 const messages = defineMessages({
   annotationsTab: {
     id: 'sourceComponent.annotationsTab',
-    defaultMessage: 'Annotations'
+    defaultMessage: 'Annotations',
   },
   mediasTab: {
     id: 'sourceComponent.mediasTab',
-    defaultMessage: 'Medias'
-  }
+    defaultMessage: 'Medias',
+  },
 });
 
 class SourceComponent extends Component {
@@ -39,7 +39,7 @@ class SourceComponent extends Component {
 }
 
 SourceComponent.propTypes = {
-  intl: intlShape.isRequired
+  intl: intlShape.isRequired,
 };
 
 export default injectIntl(SourceComponent);

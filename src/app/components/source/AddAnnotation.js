@@ -13,53 +13,54 @@ import CreateDynamicMutation from '../../relay/CreateDynamicMutation';
 import CheckContext from '../../CheckContext';
 import MdInsertPhoto from 'react-icons/lib/md/insert-photo';
 import UploadImage from '../UploadImage';
+import ContentColumn from '../layout/ContentColumn';
 
 const messages = defineMessages({
   invalidCommand: {
     id: 'addAnnotation.invalidCommand',
-    defaultMessage: 'Invalid command'
+    defaultMessage: 'Invalid command',
   },
   annotationAdded: {
     id: 'addAnnotation.annotationAdded',
-    defaultMessage: 'Your {type} was added!'
+    defaultMessage: 'Your {type} was added!',
   },
   createTagFailed: {
     id: 'addAnnotation.createTagFailed',
-    defaultMessage: 'Sorry, could not create the tag'
+    defaultMessage: 'Sorry, could not create the tag',
   },
   inputHint: {
     id: 'addAnnotation.inputHint',
-    defaultMessage: 'Add a note about this report'
+    defaultMessage: 'Add a note about this report',
   },
   submitButton: {
     id: 'addAnnotation.submitButton',
-    defaultMessage: 'Submit'
+    defaultMessage: 'Submit',
   },
   typeComment: {
     id: 'addAnnotation.typeComment',
-    defaultMessage: 'comment'
+    defaultMessage: 'comment',
   },
   typeTag: {
     id: 'addAnnotation.typeTag',
-    defaultMessage: 'tag'
+    defaultMessage: 'tag',
   },
   typeStatus: {
     id: 'addAnnotation.typeStatus',
-    defaultMessage: 'status'
+    defaultMessage: 'status',
   },
   typeFlag: {
     id: 'addAnnotation.typeFlag',
-    defaultMessage: 'flag'
+    defaultMessage: 'flag',
   },
-  addImage:{
+  addImage: {
     id: 'addAnnotation.addImage',
-    defaultMessage: 'Add an image'
+    defaultMessage: 'Add an image',
   },
 });
 
 const styles = {
   errorStyle: {
-    color: "#757575",
+    color: '#757575',
   },
 };
 
@@ -69,7 +70,7 @@ class AddAnnotation extends Component {
     this.state = {
       message: null,
       isSubmitting: false,
-      fileMode: false
+      fileMode: false,
     };
   }
 
@@ -90,7 +91,7 @@ class AddAnnotation extends Component {
   }
 
   success(message) {
-    this.setState({ message: message, isSubmitting: false, fileMode: false });
+    this.setState({ message, isSubmitting: false, fileMode: false });
     const field = document.forms.addannotation.cmd;
     document.forms.addannotation.image = null;
     field.value = '';
@@ -121,7 +122,7 @@ class AddAnnotation extends Component {
     const onFailure = (transaction) => { that.fail(transaction); };
 
     const onSuccess = (response) => {
-      that.success(formatMessage(messages.annotationAdded, { type: formatMessage(messages.typeComment) }))
+      that.success(formatMessage(messages.annotationAdded, { type: formatMessage(messages.typeComment) }));
     };
 
     const annotator = that.getContext().currentUser;
@@ -155,7 +156,7 @@ class AddAnnotation extends Component {
 
     const onFailure = (transaction) => { that.fail(transaction); };
 
-    const onSuccess = (response) => { that.success(formatMessage(messages.annotationAdded, {type: formatMessage(messages.typeTag)})) };
+    const onSuccess = (response) => { that.success(formatMessage(messages.annotationAdded, { type: formatMessage(messages.typeTag) })); };
 
     const annotator = that.getContext().currentUser;
 
@@ -184,7 +185,7 @@ class AddAnnotation extends Component {
 
     const onFailure = (transaction) => { that.fail(transaction); };
 
-    const onSuccess = (response) => { that.success(formatMessage(messages.annotationAdded, {type: formatMessage(messages.typeStatus)})) };
+    const onSuccess = (response) => { that.success(formatMessage(messages.annotationAdded, { type: formatMessage(messages.typeStatus) })); };
 
     const annotator = that.getContext().currentUser;
 
@@ -192,18 +193,18 @@ class AddAnnotation extends Component {
     if (annotated.last_status_obj !== null) {
       status_id = annotated.last_status_obj.id;
     }
-    let status_attr = {
-        parent_type: annotated_type.replace(/([a-z])([A-Z])/, '$1_$2').toLowerCase(),
-        annotated,
-        annotator,
-        context: that.getContext(),
-        annotation: {
-          status,
-          annotated_type,
-          annotated_id,
-          status_id: status_id,
-        },
-      };
+    const status_attr = {
+      parent_type: annotated_type.replace(/([a-z])([A-Z])/, '$1_$2').toLowerCase(),
+      annotated,
+      annotator,
+      context: that.getContext(),
+      annotation: {
+        status,
+        annotated_type,
+        annotated_id,
+        status_id,
+      },
+    };
     // Add or Update status
     if (status_id && status_id.length) {
       Relay.Store.commitUpdate(
@@ -216,7 +217,6 @@ class AddAnnotation extends Component {
         { onSuccess, onFailure },
       );
     }
-
   }
 
   addFlag(that, annotated, annotated_id, annotated_type, flag, annotation_type) {
@@ -224,7 +224,7 @@ class AddAnnotation extends Component {
 
     const onFailure = (transaction) => { that.fail(transaction); };
 
-    const onSuccess = (response) => { that.success(formatMessage(messages.annotationAdded, {type: formatMessage(messages.typeFlag)})) };
+    const onSuccess = (response) => { that.success(formatMessage(messages.annotationAdded, { type: formatMessage(messages.typeFlag) })); };
 
     const annotator = that.getContext().currentUser;
 
@@ -247,7 +247,7 @@ class AddAnnotation extends Component {
   addDynamic(that, annotated, annotated_id, annotated_type, params, annotation_type) {
     const onFailure = (transaction) => { that.fail(transaction); };
 
-    const onSuccess = (response) => { that.success(formatMessage(messages.annotationAdded, {type: annotation_type})) };
+    const onSuccess = (response) => { that.success(formatMessage(messages.annotationAdded, { type: annotation_type })); };
 
     const annotator = that.getContext().currentUser;
 
@@ -341,41 +341,41 @@ class AddAnnotation extends Component {
   render() {
     return (
       <form className="add-annotation" name="addannotation" onSubmit={this.handleSubmit.bind(this)}>
-        <TextField
-          hintText={this.props.intl.formatMessage(messages.inputHint)}
-          fullWidth={false}
-          style={{ width: '100%' }}
-          errorStyle={styles.errorStyle}
-          onFocus={this.handleFocus.bind(this)}
-          ref={ref => this.cmd = ref}
-          errorText={this.state.message}
-          name="cmd" id="cmd-input"
-          multiLine
-          onKeyPress={this.handleKeyPress.bind(this)}
-          ref={input => this.annotationInput = input}
-        />
-        
-        {(() => {
-          if (this.state.fileMode) {
-            return (
-              <UploadImage onImage={this.onImage.bind(this)} />
-            );
-          }
-        })()}
-        
-        <div className="add-annotation__buttons">
-          <div className="add-annotation__insert-photo">
-            <MdInsertPhoto id="add-annotation__switcher" title={this.props.intl.formatMessage(messages.addImage)} className={this.state.fileMode ? 'add-annotation__file' : ''} onClick={this.switchMode.bind(this)} />
+        <ContentColumn flex>
+          <TextField
+            hintText={this.props.intl.formatMessage(messages.inputHint)}
+            fullWidth={false}
+            style={{ width: '100%' }}
+            errorStyle={styles.errorStyle}
+            onFocus={this.handleFocus.bind(this)}
+            ref={ref => this.cmd = ref}
+            errorText={this.state.message}
+            name="cmd" id="cmd-input"
+            multiLine
+            onKeyPress={this.handleKeyPress.bind(this)}
+            ref={input => this.annotationInput = input}
+          />
+          {(() => {
+            if (this.state.fileMode) {
+              return (
+                <UploadImage onImage={this.onImage.bind(this)} />
+              );
+            }
+          })()}
+          <div className="add-annotation__buttons">
+            <div className="add-annotation__insert-photo">
+              <MdInsertPhoto id="add-annotation__switcher" title={this.props.intl.formatMessage(messages.addImage)} className={this.state.fileMode ? 'add-annotation__file' : ''} onClick={this.switchMode.bind(this)} />
+            </div>
+            <FlatButton label={this.props.intl.formatMessage(messages.submitButton)} primary type="submit" />
           </div>
-          <FlatButton label={this.props.intl.formatMessage(messages.submitButton)} primary type="submit" style={{ float: 'right' }} />
-        </div>
+        </ContentColumn>
       </form>
     );
   }
 }
 
 AddAnnotation.propTypes = {
-  intl:intlShape.isRequired
+  intl: intlShape.isRequired,
 };
 
 AddAnnotation.contextTypes = {

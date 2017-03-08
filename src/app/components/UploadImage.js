@@ -8,21 +8,23 @@ import AboutRoute from '../relay/AboutRoute';
 const messages = defineMessages({
   changeFile: {
     id: 'uploadImage.changeFile',
-    defaultMessage: '{filename} (click or drop to change)'
+    defaultMessage: '{filename} (click or drop to change)',
   },
   imageLabel: {
     id: 'uploadImage.imageLabel',
-    defaultMessage: 'Image:'
-  }
+    defaultMessage: 'Image:',
+  },
 
 });
 class UploadLabel extends Component {
   render() {
     const about = this.props.about;
     return (
-      <FormattedMessage id="uploadLabel.message"
-            defaultMessage="Try dropping an image file here, or click to upload a file (max: {max_upload_size})"
-                    values={{max_upload_size: about.max_upload_size}} />
+      <FormattedMessage
+        id="uploadLabel.message"
+        defaultMessage="Try dropping an image file here, or click to upload a file (max: {max_upload_size})"
+        values={{ max_upload_size: about.max_upload_size }}
+      />
     );
   }
 }
@@ -72,7 +74,7 @@ class UploadImage extends Component {
 
         <Dropzone onDrop={this.onDrop.bind(this)} multiple={false} className={this.state.file ? 'with-file' : 'without-file'}>
           <div><b>{this.props.intl.formatMessage(messages.imageLabel)}&nbsp;</b>
-            { this.state.file ? this.props.intl.formatMessage(messages.changeFile, {filename: this.state.file.name}) : <UploadLabelRelay /> }
+            { this.state.file ? this.props.intl.formatMessage(messages.changeFile, { filename: this.state.file.name }) : <UploadLabelRelay /> }
           </div>
         </Dropzone>
 
@@ -83,7 +85,7 @@ class UploadImage extends Component {
 }
 
 UploadImage.propTypes = {
-  intl: intlShape.isRequired
+  intl: intlShape.isRequired,
 };
 
 export default injectIntl(UploadImage);

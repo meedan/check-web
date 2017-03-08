@@ -8,17 +8,16 @@ class UpdateTaskMutation extends Relay.Mutation {
     }`;
   }
 
- getFatQuery() {
-   return Relay.QL`fragment on UpdateTaskPayload { taskEdge, project_media { tasks, log, id, annotations_count } }`;
- }
+  getFatQuery() {
+    return Relay.QL`fragment on UpdateTaskPayload { taskEdge, project_media { tasks, log, id, annotations_count } }`;
+  }
 
- getVariables() {
+  getVariables() {
     const task = this.props.task;
-    let params = { id: task.id };
+    const params = { id: task.id };
     if (task.annotation_type && task.fields) {
       params.response = JSON.stringify({ annotation_type: task.annotation_type, set_fields: JSON.stringify(task.fields) });
-    }
-    else if (task.label) {
+    } else if (task.label) {
       params.label = task.label;
       params.description = task.description;
     }
@@ -27,7 +26,7 @@ class UpdateTaskMutation extends Relay.Mutation {
 
   getConfigs() {
     const fieldIds = {};
-    fieldIds['project_media'] = this.props.annotated.id;
+    fieldIds.project_media = this.props.annotated.id;
 
     return [
       {

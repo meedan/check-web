@@ -9,8 +9,8 @@ import Heading from '../layout/Heading';
 const messages = defineMessages({
   title: {
     id: 'teams.title',
-    defaultMessage: 'Teams'
-  }
+    defaultMessage: 'Teams',
+  },
 });
 
 class Teams extends Component {
@@ -29,7 +29,7 @@ class Teams extends Component {
 }
 
 Teams.propTypes = {
-  intl: intlShape.isRequired
+  intl: intlShape.isRequired,
 };
 
 export default injectIntl(Teams);

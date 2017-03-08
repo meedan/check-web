@@ -1,6 +1,7 @@
 import React from 'react';
-import { render } from 'enzyme';
+import { render, mount } from 'enzyme';
 import { expect } from 'chai';
+import sinon from 'sinon';
 
 import PenderCard from '../../src/app/components/PenderCard';
 
@@ -13,5 +14,17 @@ describe('<PenderCard />', () => {
   it('does not contain an SVG spinner component if fallback is provided', function() {
     const wrapper = render(<PenderCard fallback={<div></div>} />);
     expect(wrapper.find('.spinner')).to.have.length(0);
+  });
+
+  it('does not reload if URL did not change', function() {
+    sinon.spy(PenderCard.prototype, 'componentDidUpdate');
+    const wrapper = mount(<PenderCard url='http://meedan.com' />);
+    expect(PenderCard.prototype.componentDidUpdate).to.have.property('callCount', 0);
+    wrapper.setProps({ url: 'http://meedan.com' });
+    expect(PenderCard.prototype.componentDidUpdate).to.have.property('callCount', 0);
+    wrapper.setProps({ url: 'http://meedan.com/check' });
+    expect(PenderCard.prototype.componentDidUpdate).to.have.property('callCount', 1);
+    wrapper.setProps({ url: 'http://meedan.com/check' });
+    expect(PenderCard.prototype.componentDidUpdate).to.have.property('callCount', 1);
   });
 });

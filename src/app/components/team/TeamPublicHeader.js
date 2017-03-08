@@ -26,11 +26,11 @@ class TeamPublicHeader extends Component {
       <Relay.RootContainer
         Component={TeamPublicHeaderContainer}
         route={route}
-        renderLoading={function() {
+        renderLoading={function () {
           return (
             <nav className="team-header team-header--loading">
               <Link to={`/${teamSlug}`} className="team-header__clickable">
-                <div className="team-header__avatar"></div>
+                <div className="team-header__avatar" />
               </Link>
             </nav>
           );
