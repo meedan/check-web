@@ -6,7 +6,7 @@ class ContentColumn extends Component {
     const { flex } = this.props;
 
     return (
-      <div className={bemClass("content-column", flex, '--flex')}>
+      <div className={bemClass('content-column', flex, '--flex')}>
         {this.props.children}
       </div>
     );

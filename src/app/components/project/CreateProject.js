@@ -6,14 +6,14 @@ import Message from '../Message';
 import CheckContext from '../../CheckContext';
 
 const messages = defineMessages({
-    addProject: {
-        id: 'createProject.addProject',
-        defaultMessage: 'Add project +'
-    },
-    error: {
-      id: 'createProject.error',
-      defaultMessage: 'Sorry, could not create the project'
-    }
+  addProject: {
+    id: 'createProject.addProject',
+    defaultMessage: 'Add project +',
+  },
+  error: {
+    id: 'createProject.error',
+    defaultMessage: 'Sorry, could not create the project',
+  },
 });
 
 class CreateProject extends Component {
@@ -78,7 +78,7 @@ class CreateProject extends Component {
 }
 
 CreateProject.propTypes = {
-  intl: intlShape.isRequired
+  intl: intlShape.isRequired,
 };
 
 CreateProject.contextTypes = {

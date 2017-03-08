@@ -27,13 +27,13 @@
 }
 
 @mixin fade-in($speed: .3s) {
-  opacity: 0;
-  animation: fade-in ease-in 1;
-  animation-fill-mode: forwards;
-  animation-duration: $speed;
+  // opacity: 0;
+  // animation: fade-in ease-in 1;
+  // animation-fill-mode: forwards;
+  // animation-duration: $speed;
 
-  &--active {
-    opacity: 1;
-    display: block;
-  }
+  // &--active {
+  //   opacity: 1;
+  //   display: block;
+  // }
 }

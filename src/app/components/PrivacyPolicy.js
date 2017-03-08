@@ -9,8 +9,8 @@ import { pageTitle } from '../helpers';
 const messages = defineMessages({
   title: {
     id: 'privacyPolicy.title',
-    defaultMessage: 'Privacy Policy'
-  }
+    defaultMessage: 'Privacy Policy',
+  },
 });
 
 class PrivacyPolicyComponent extends Component {
@@ -28,7 +28,7 @@ class PrivacyPolicyComponent extends Component {
 }
 
 PrivacyPolicyComponent.propTypes = {
-  intl: intlShape.isRequired
+  intl: intlShape.isRequired,
 };
 
 const PrivacyPolicyContainer = Relay.createContainer(injectIntl(PrivacyPolicyComponent), {

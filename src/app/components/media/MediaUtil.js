@@ -16,25 +16,28 @@ const MediaUtil = {
 
   authorName(media, data) {
     switch (media.domain) {
-      case 'twitter.com':
-       return data.user.name;
-      case 'instagram.com':
-        return '';
-      default:
-        return data.username || media.domain;
+    case 'twitter.com':
+      return data.user.name;
+    case 'instagram.com':
+      return data.author_name;
+    case 'facebook.com':
+      return data.user_name;
+    default:
+      return data.username || media.domain;
     }
   },
 
   authorUsername(media, data) {
     switch (media.domain) {
-      case 'twitter.com':
-      case 'instagram.com':
-        return `@${data.username}`;
-      case 'facebook.com':
-      case 'youtube.com':
-        return '';
-      default:
-        return data.username;
+    case 'twitter.com':
+    case 'instagram.com':
+      return `@${data.username}`;
+    case 'facebook.com':
+      return data.username;
+    case 'youtube.com':
+      return '';
+    default:
+      return data.username;
     }
   },
 
@@ -77,10 +80,9 @@ const MediaUtil = {
         return data.title || typeLabel;
       } else if (typeLabel === 'Claim') {
         return (data.title && data.title != media.quote) ? data.title : typeLabel;
-      } else {
-        const attribution = this.authorName(media, data);
-        return `${typeLabel}${attribution ? ` by ${attribution}` : ''}`;
       }
+      const attribution = this.authorName(media, data);
+      return `${typeLabel}${attribution ? ` by ${attribution}` : ''}`;
     } catch (e) {
       return typeLabel || '';
     }
@@ -99,11 +101,10 @@ const MediaUtil = {
       } else if (typeLabel === 'Claim') {
         const text = data.quote;
         return `${typeLabel}${text ? `: ${text}` : ''}`;
-      } else {
-        const attribution = this.authorName(media, data);
-        const text = this.bodyText(media, data);
-        return `${typeLabel}${attribution ? ` by ${attribution}` : ''}${text && text.length ? `: ${text}` : ''}`;
       }
+      const attribution = this.authorName(media, data);
+      const text = this.bodyText(media, data);
+      return `${typeLabel}${attribution ? ` by ${attribution}` : ''}${text && text.length ? `: ${text}` : ''}`;
     } catch (e) {
       return typeLabel || '';
     }

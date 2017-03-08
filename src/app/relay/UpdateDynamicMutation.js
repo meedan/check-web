@@ -19,7 +19,7 @@ class UpdateDynamicMutation extends Relay.Mutation {
 
   getConfigs() {
     const fieldIds = {};
-    fieldIds['project_media'] = this.props.annotated.id;
+    fieldIds.project_media = this.props.annotated.id;
 
     return [
       {

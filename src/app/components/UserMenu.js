@@ -10,11 +10,10 @@ class UserMenu extends Component {
     if (me) {
       return (<span className="current-user provider-{{me.provider}}">
         <Avatar src={me.profile_image} size="32" className="avatar" />
-        <FlatButton id="user-name" label={me.name} disabled={true} style={{ color: 'rgba(0, 0, 0, 0.870588)' }} />
+        <FlatButton id="user-name" label={me.name} disabled style={{ color: 'rgba(0, 0, 0, 0.870588)' }} />
       </span>);
-    } else {
-      return null;
     }
+    return null;
   }
 }
 

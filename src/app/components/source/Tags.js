@@ -10,12 +10,12 @@ import CheckContext from '../../CheckContext';
 const messages = defineMessages({
   error: {
     id: 'tags.error',
-    defaultMessage: 'Sorry, could not create the tag'
+    defaultMessage: 'Sorry, could not create the tag',
   },
   addNewTag: {
     id: 'tags.addNewTag',
-    defaultMessage: 'Add new tag'
-  }
+    defaultMessage: 'Add new tag',
+  },
 });
 
 class Tags extends Component {
@@ -41,7 +41,7 @@ class Tags extends Component {
   handleAddition(tags) {
     const props = this.props;
     let tagsList = [...new Set(tags.split(','))],
-        that = this;
+      that = this;
 
     const onFailure = function (transaction) {
       const error = transaction.getError();
@@ -90,14 +90,14 @@ class Tags extends Component {
     return (
       <div className="tags-list">
         <Message message={this.state.message} />
-        <ReactTags tags={tags} handleDelete={this.handleDelete.bind(this)} handleAddition={this.handleAddition.bind(this)} autofocus={false} removeComponent={TagsRemove} placeholder={this.props.intl.formatMessage(messages.addNewTag)}/>
+        <ReactTags tags={tags} handleDelete={this.handleDelete.bind(this)} handleAddition={this.handleAddition.bind(this)} autofocus={false} removeComponent={TagsRemove} placeholder={this.props.intl.formatMessage(messages.addNewTag)} />
       </div>
     );
   }
 }
 
 Tags.propTypes = {
-  intl: intlShape.isRequired
+  intl: intlShape.isRequired,
 };
 
 Tags.contextTypes = {

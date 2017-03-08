@@ -39,8 +39,16 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
         }
         user {
           name,
+          email,
           source {
-            dbid
+            dbid,
+            accounts(first: 10000) {
+              edges {
+                node {
+                  url
+                }
+              }
+            }
           }
         }
         last_status_obj {
@@ -100,7 +108,18 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
               }
               user {
                 name,
-                profile_image
+                profile_image,
+                email,
+                source {
+                  dbid,
+                  accounts(first: 10000) {
+                    edges {
+                      node {
+                        url
+                      }
+                    }
+                  }
+                }
               }
               task {
                 id,
@@ -187,7 +206,7 @@ class ProjectMedia extends Component {
       <Relay.RootContainer
         Component={MediaContainer}
         route={route}
-        renderLoading={function() {
+        renderLoading={function () {
           return <MediasLoading count={1} />;
         }}
       />

@@ -15,14 +15,14 @@ class MediaInspector extends Component {
 
     return (
       <div className={bemClass('media-inspector', isActive, '--active')} onClick={dismiss}>
-        <div className={bemClass('media-inspector__overlay', isActive, '--active')}></div>
+        <div className={bemClass('media-inspector__overlay', isActive, '--active')} />
 
-        <div className='media-inspector__media'>
-          <ContentColumn flex={true}>
+        <div className="media-inspector__media">
+          <ContentColumn flex>
             <CloseButton onClick={dismiss} />
-            <PenderCard url={media.url} penderUrl={config.penderUrl} onClick={console.log.bind(this, 'click .pender-card')}/>
-            <div className='media-inspector__caption' onClick={this.handleCaptionClick.bind(this)}>
-              <p className='media-inspector__caption-url'>{media.url}</p>
+            <PenderCard url={media.url} penderUrl={config.penderUrl} onClick={console.log.bind(this, 'click .pender-card')} />
+            <div className="media-inspector__caption" onClick={this.handleCaptionClick.bind(this)}>
+              <p className="media-inspector__caption-url">{media.url}</p>
             </div>
           </ContentColumn>
         </div>
