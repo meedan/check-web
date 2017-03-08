@@ -46,6 +46,10 @@ class CreateCommentMutation extends Relay.Mutation {
     return { text: comment.text, annotated_id: `${comment.annotated_id}`, annotated_type: comment.annotated_type };
   }
 
+  getFiles() {
+    return { file: this.props.image };
+  }
+
   getConfigs() {
     const fieldIds = {};
     fieldIds[this.props.parent_type] = this.props.annotated.id;

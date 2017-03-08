@@ -11,6 +11,7 @@ import Can from '../Can';
 import TimeBefore from '../TimeBefore';
 import { Link } from 'react-router';
 import { getStatus, getStatusStyle } from '../../helpers';
+import Lightbox from 'react-image-lightbox';
 
 const messages = defineMessages({
   error: {
@@ -24,6 +25,20 @@ const messages = defineMessages({
 });
 
 class Annotation extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = { zoomedCommentImage: false };
+  }
+
+  handleCloseCommentImage() {
+    this.setState({ zoomedCommentImage: false });
+  }
+  
+  handleOpenCommentImage(image) {
+    this.setState({ zoomedCommentImage: image });
+  }
+
   handleDelete(id) {
     const that = this;
 
@@ -94,6 +109,7 @@ class Annotation extends Component {
     switch (activityType) {
     case 'create_comment':
       const commentText = content.text;
+      const commentContent = JSON.parse(annotation.content);
       contentTemplate = (
         <section className="annotation__content">
           <div className="annotation__header">
@@ -101,12 +117,22 @@ class Annotation extends Component {
             {updatedAt ? <span className="annotation__timestamp"><TimeBefore date={updatedAt} /></span> : null}
             {annotationActions}
           </div>
-          <div className="annotation__body"><Linkify properties={{ target: '_blank' }}>{nl2br(commentText)}</Linkify></div>
+          <div className="annotation__body annotation__comment">
+            <span className="annotation__comment-text"><Linkify properties={{ target: '_blank' }}>{nl2br(commentText)}</Linkify></span>
+            { commentContent.original ? 
+              <img src={commentContent.thumbnail} alt="" onClick={this.handleOpenCommentImage.bind(this, commentContent.original)} /> 
+            : null }
+            <br />
+          </div>
           {annotation.medias.edges.map(media => (
             <div className="annotation__embedded-media">
               <MediaDetail media={media.node} condensed readonly />
             </div>
           ))}
+
+          { (commentContent.original && !!this.state.zoomedCommentImage) ? 
+            <Lightbox onCloseRequest={this.handleCloseCommentImage.bind(this)} mainSrc={this.state.zoomedCommentImage} />
+          : null }
         </section>
         );
       break;

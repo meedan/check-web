@@ -6,6 +6,7 @@ require File.join(File.expand_path(File.dirname(__FILE__)), 'app_spec_helpers')
 require_relative './pages/login_page.rb'
 require_relative './pages/me_page.rb'
 require_relative './pages/teams_page.rb'
+require_relative './pages/page.rb'
 
 shared_examples 'app' do |webdriver_url, browser_capabilities|
 
@@ -25,7 +26,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     @config = YAML.load_file('config.yml')
     $source_id = nil
     $media_id = nil
-		@e1 = 'sysops+' + Time.now.to_i.to_s + '@meedan.com'
 
     FileUtils.cp(@config['config_file_path'], '../build/web/js/config.js') unless @config['config_file_path'].nil?
 
@@ -33,11 +33,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     # TODO: better initialization w/ parallelization
     page = LoginPage.new(config: @config, driver: @driver).load
-    begin
-      page = page.register_and_login_with_email(email: @email, password: @password)
-    rescue
-      page = page.login_with_email(email: @email, password: @password)
-    end
   end
 
   # Close the testing webserver after all tests run
@@ -69,10 +64,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
   # The tests themselves start here
 
   context "web" do
-		#Sign in/Sign up:
-		#Login by any of these.
-		#Sign up using an email.
-=begin
+
     it "should register and login using e-mail" do
       login_pg = LoginPage.new(config: @config, driver: @driver).load
       email, password = ['sysops+' + Time.now.to_i.to_s + '@meedan.com', '22345678']
@@ -83,7 +75,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(displayed_name == 'User With Email').to be(true)
     end
 
-		#Sign up using Twitter or Facebook account.
     it "should login using Facebook" do
       login_pg = LoginPage.new(config: @config, driver: @driver).load
       login_pg.login_with_facebook
@@ -94,7 +85,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(displayed_name).to eq(expected_name)
     end
 
-
     it "should login using Slack" do
       login_with_slack
       @driver.navigate.to @config['self_url'] + '/check/me'
@@ -103,7 +93,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(displayed_name == expected_name).to be(true)
     end
 
-		#Sign up using Slack
+
     it "should login using Twitter" do
       login_with_twitter
       @driver.navigate.to @config['self_url'] + '/check/me'
@@ -111,27 +101,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expected_name = @config['twitter_name'].upcase
       expect(displayed_name == expected_name).to be(true)
     end
-=end
-    #Create two new teams. 
-    it "should create 2 teams" do
-      # setup
-      page = LoginPage.new(config: @config, driver: @driver).load
-          .register_and_login_with_email(email: @e1, password: @password)
-          .create_team(name: 'team1')
-      expect(page.team_name).to eq('team1')
 
-      page = CreateTeamPage.new(config: @config, driver: page.driver).load
-          .create_team(name: 'team2')
-      expect(page.team_name).to eq('team2')
-    end
-
-		#As a different user, request to join one team.
-    it "should join team" do
-      page = LoginPage.new(config: @config, driver: @driver).load
-          .register_and_login_with_email(email: 'sysops+' + Time.now.to_i.to_s + '@meedan.com', password: '22345678')
-
-      page = TeamsPage.new(config: @config, driver: @driver).load
-          .ask_join_team(subdomain: 'team1team1')    
-		end
   end
 end
