@@ -44,10 +44,11 @@ module AppSpecHelpers
       @driver.page_source.include?("#{@config['twitter_name']}")
     }
   end
-
+	#<button id="twitter-login" class="login-menu__button login-menu__button--twitter"><span>Sign in with Twitter</span></button>
   def twitter_auth
+		sleep 5
     @driver.find_element(:xpath, "//button[@id='twitter-login']").click
-    sleep 10
+    sleep 5
     window = @driver.window_handles.first
     @driver.switch_to.window(window)
   end

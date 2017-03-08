@@ -56,4 +56,15 @@ class ProjectPage < Page
     wait_for_element('.team')
     TeamPage.new(config: @config, driver: @driver)
   end
+
+  def new_project(options = {})
+    p "TO AQUI",options
+    name = options[:name] || "Project #{Time.now.to_i}"
+    element('.team__new-project-input').click
+    element('.team__new-project-input').clear
+    fill_input('.team__new-project-input', name)
+    press(:enter)
+  end
+
+
 end

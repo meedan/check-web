@@ -7,6 +7,7 @@ require_relative './pages/login_page.rb'
 require_relative './pages/me_page.rb'
 require_relative './pages/teams_page.rb'
 require_relative './pages/page.rb'
+require_relative './pages/project_page.rb'
 
 shared_examples 'app' do |webdriver_url, browser_capabilities|
 
@@ -67,7 +68,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
   # The tests themselves start here
 
   context "web" do
-=begin
+
     it "should register and login using e-mail" do
       login_pg = LoginPage.new(config: @config, driver: @driver).load
       email, password = ['sysops+' + Time.now.to_i.to_s + '@meedan.com', '22345678']
@@ -88,15 +89,15 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(displayed_name).to eq(expected_name)
     end
 
-    it "should login using Slack" do
-      login_with_slack
+    #it "should login using Slack" do
+      #login_with_slack
       #@driver.navigate.to @config['self_url'] + '/check/me'
 			#sleep 3
       #displayed_name = get_element('h2.source-name').text.upcase
 			#p 'displayed_name', displayed_name, expected_name 
       #expected_name = @config['slack_name'].upcase
       #expect(displayed_name == expected_name).to be(true)
-    end
+    #end
 
     it "should login using Twitter" do
       login_with_twitter
@@ -105,7 +106,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expected_name = @config['twitter_name'].upcase
       expect(displayed_name == expected_name).to be(true)
     end
-=end
+
     #Create two new teams. 
     it "should create 2 teams" do
       # setup
@@ -113,10 +114,11 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
           .register_and_login_with_email(email: @e1, password: @password)
           .create_team(name: @t1, slug:@t1)
 
-      page = CreateTeamPage.new(config: @config, driver: page.driver).load
-          .create_team(name: 'team2')
+      #page = CreateTeamPage.new(config: @config, driver: page.driver).load
+      #    .create_team(name: @t2, slug:@t2)
       #expect(page.team_name).to eq(@t2, slug:@t2)
     end
+
 		#As a different user, request to join one team.
     it "should join team" do
       page = LoginPage.new(config: @config, driver: @driver).load
@@ -144,16 +146,20 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       page = TeamsPage.new(config: @config, driver: @driver).load
           .select_team(name: @t2)
 		end
+
 		#Create a new project.
 		#Add slack notificatios to the project by editing it and adding https://hooks.slack.com/services/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 to the slack webhook 
 		#field and check the “Enable slack notifications” box. Make sure slack notifications are shown.
     it "should create a project for a team" do
-      project_name = "Project #{Time.now}"
-			p project_name
+			p "should create a project for a team"
       page = LoginPage.new(config: @config, driver: @driver).load
           .login_with_email(email: @e1, password: @password, project: true)
-			    .new_project(name: project_name)
-
+		  name = "Project #{Time.now}"
+			element = @driver.find_element(:id, "create-project-title")
+		  sleep 3
+		  element.click
+		  element.send_keys name
+			@driver.action.send_keys("\n").perform
       #expect(project_pg.driver.current_url.to_s.match(/\/project\/[0-9]+$/).nil?).to be(false)
       #team_pg = project_pg.click_team_avatar
       #expect(team_pg.project_titles.include?(project_name)).to be(true)
