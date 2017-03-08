@@ -43,11 +43,23 @@
   margin: 64px 0;
   font-weight: 400;
   text-transform: uppercase;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  & > svg {
+    opacity: 0.6;
+    margin-left: 12px;
+    width: 24px;
+    height: 24px;
+    padding: 1px 1px 2px 0;
+    color: $black-38;
+  }
 }
 
-// MediaDetail overrides – use sparingly
+// overrides – use sparingly
 //
-.media {
+.media__expanded {
   .media-detail {
     border-left: 0;
   }
@@ -58,3 +70,8 @@
   }
 }
 
+.home--media {
+  .footer {
+    display: none;
+  }
+}
