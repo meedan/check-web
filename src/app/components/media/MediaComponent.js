@@ -14,6 +14,8 @@ import Tasks from '../task/Tasks';
 import { bemClassFromMediaStatus, safelyParseJSON, getStatus, getStatusStyle } from '../../helpers';
 import ContentColumn from '../layout/ContentColumn';
 import MediaStatus from './MediaStatus';
+import MdInfoOutline from 'react-icons/lib/md/info-outline';
+import Tooltip from 'rc-tooltip';
 
 class MediaComponent extends Component {
   getContext() {
@@ -103,10 +105,14 @@ class MediaComponent extends Component {
           </div>
 
           <ContentColumn>
-            <h3 className="media__notes-heading"><FormattedMessage id="mediaComponent.verificationTimeline" defaultMessage="Verification Timeline" /></h3>
-            <Annotations annotations={media.log.edges} annotated={media} annotatedType="ProjectMedia" />
-            <MediaChecklist />
+            <Tooltip placement="bottom" trigger={['click']} overlay={<MediaChecklist/>} overlayClassName="">
+              <h3 className="media__notes-heading">
+                <FormattedMessage id="mediaComponent.verificationTimeline" defaultMessage="Verification Timeline" />
+                <MdInfoOutline/>
+              </h3>
+            </Tooltip>
           </ContentColumn>
+          <Annotations annotations={media.log.edges} annotated={media} annotatedType="ProjectMedia" />
         </div>
       </DocumentTitle>
     );
