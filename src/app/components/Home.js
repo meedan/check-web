@@ -13,6 +13,7 @@ import config from 'config';
 import BrowserSupport from './BrowserSupport';
 import CheckContext from '../CheckContext';
 import { bemClass } from '../helpers';
+import ContentColumn from './layout/ContentColumn';
 
 const messages = defineMessages({
   needRegister: {
@@ -106,7 +107,7 @@ class Home extends Component {
         <span>
           <BrowserSupport />
           <div className={bemClass("home", routeSlug, `--${routeSlug}`)}>
-            <span className="home__disclaimer"><FormattedMessage id="home.beta" defaultMessage="Beta" /></span>
+            <ContentColumn wide className="home__disclaimer"><span><FormattedMessage id="home.beta" defaultMessage="Beta" /></span></ContentColumn>
             { this.state.token ? <Header {...this.props} /> : null }
             <div className="home__content">{children}</div>
             <FooterRelay {...this.props} />

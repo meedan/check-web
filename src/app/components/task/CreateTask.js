@@ -12,6 +12,7 @@ import Can from '../Can';
 import CreateTaskMutation from '../../relay/CreateTaskMutation';
 import { FormattedMessage } from 'react-intl';
 import { MdFormatAlignLeft } from 'react-icons/lib/md';
+import MdAddCircle from 'react-icons/lib/md/add-circle';
 
 class CreateTask extends Component {
   constructor(props) {
@@ -104,7 +105,10 @@ class CreateTask extends Component {
       <div className="create-task">
 
         <Can permissions={media.permissions} permission="create Task">
-          <FlatButton className="create-task__add-button" onClick={this.handleClick.bind(this)} label={<FormattedMessage id="tasks.addTask" defaultMessage="Add task" />} />
+          { this.props.plusIcon ?
+            <MdAddCircle className="create-task__add-button create-task__add-button--plus" onClick={this.handleClick.bind(this)} label={<FormattedMessage id="tasks.addTask" defaultMessage="Add task" />}/> :
+            <FlatButton className="create-task__add-button create-task__add-button--default" onClick={this.handleClick.bind(this)} label={<FormattedMessage id="tasks.addTask" defaultMessage="Add task" />} />
+          }
         </Can>
 
         <Popover open={this.state.menuOpen} anchorEl={this.state.anchorEl} anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }} targetOrigin={{ horizontal: 'left', vertical: 'top' }} onRequestClose={this.handleRequestClose.bind(this)}>

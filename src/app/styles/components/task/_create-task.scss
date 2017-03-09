@@ -1,10 +1,12 @@
 // TODO: consider !important vs. react inline styles
 
 .create-task__add-button {
-  display: inline-block !important;
-  margin: 0 auto 18px 0 !important;
-  &:hover {
-    background-color: rgba($black-87, 0.12) !important;
+  &--default {
+    display: inline-block !important;
+    margin: 0 auto 18px 0 !important;
+    &:hover {
+      background-color: rgba($black-87, 0.12) !important;
+    }
   }
 }
 
