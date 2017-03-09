@@ -11,6 +11,7 @@ import config from 'config';
 import { pageTitle } from '../../helpers';
 import CheckContext from '../../CheckContext';
 import Tasks from '../task/Tasks';
+import CreateTask from '../task/CreateTask';
 import { bemClassFromMediaStatus, safelyParseJSON, getStatus, getStatusStyle } from '../../helpers';
 import ContentColumn from '../layout/ContentColumn';
 import MediaStatus from './MediaStatus';
@@ -94,12 +95,15 @@ class MediaComponent extends Component {
             className={bemClassFromMediaStatus('media__expanded',
           media.last_status)} style={{ backgroundColor: getStatusStyle(status, 'backgroundColor') }}
           >
-            <ContentColumn>
+            <ContentColumn className='media__media-container'>
               <h1 className="media__primary-heading">{primaryHeading}</h1>
               <div className="media__status">
                 <MediaStatus media={media} readonly={this.props.readonly} />
               </div>
               <MediaDetail media={media} />
+              <CreateTask media={media} />
+            </ContentColumn>
+            <ContentColumn className='media__tasks-container'>
               <Tasks tasks={media.tasks.edges} media={media} />
             </ContentColumn>
           </div>

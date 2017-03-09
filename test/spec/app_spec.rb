@@ -959,11 +959,11 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       # Create a task
       expect(@driver.page_source.include?('Foo or bar?')).to be(false)
       expect(@driver.page_source.include?('Task "Foo or bar?" created by')).to be(false)
-      @driver.find_element(:css, '.tasks__add-button').click
-      @driver.find_element(:css, '.tasks__add-short-answer').click
+      @driver.find_element(:css, '.create-task__add-button').click
+      @driver.find_element(:css, '.create-task__add-short-answer').click
       sleep 1
       fill_field('#task-label-input', 'Foo or bar?')
-      @driver.find_element(:css, '.tasks__dialog-submit-button').click
+      @driver.find_element(:css, '.create-task__dialog-submit-button').click
       sleep 2
       expect(@driver.page_source.include?('Foo or bar?')).to be(true)
       expect(@driver.page_source.include?('Task "Foo or bar?" created by')).to be(true)
