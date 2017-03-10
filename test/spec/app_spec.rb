@@ -536,18 +536,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(id1 == id2).to be(true)
     end
 
-    it "should not create source as media if registered" do
-      login_with_email
-      sleep 3
-      fill_field('#create-media-input', 'https://www.facebook.com/ironmaidenbeer/?fref=ts')
-      sleep 1
-      press_button('#create-media-submit')
-      sleep 10
-      expect(@driver.current_url.to_s.match(/\/media\/[0-9]+$/).nil?).to be(true)
-      message = get_element('.create-media .message').text
-      expect(message.match(/^Something went wrong! Try pasting the text of this post instead, or adding a different link/).nil?).to be(false)
-    end
-
     it "should tag media from tags list" do
       page = LoginPage.new(config: @config, driver: @driver).load
           .login_with_email(email: @email, password: @password)
