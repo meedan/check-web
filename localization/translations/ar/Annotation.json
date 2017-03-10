@@ -1,10 +1,13 @@
 {
   "annotation.error": "Could not delete annotation",
   "annotation.deleteButton": "Delete",
+  "annotation.reverseImageTooltip": "Search Google for potential duplicates on the web.",
   "annotation.statusSetHeader": "Status set to {status} by {author}",
   "annotation.taggedHeader": "Tagged #{tag} by {author}",
   "annotation.taskCreated": "Task \"{task}\" created by {author}",
   "annotation.taskResolve": "Task \"{task}\" answered by {author}: {response}",
+  "annotation.reverseImage": "Media contains one image. Click Search to look for duplicates on Google.",
+  "annotation.reverseImageSearch": "Search",
   "annotation.flaggedHeader": "Flagged as {flag} by {author}",
   "annotation.newClaim": "New claim added by {author}",
   "annotation.titleChanged": "Title changed to {title} by {author}",

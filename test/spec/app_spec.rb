@@ -1012,5 +1012,19 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 3
       expect(@driver.page_source.include?('Foo')).to be(false)
     end
+
+    it "should search for reverse images" do
+      page = LoginPage.new(config: @config, driver: @driver).load
+          .login_with_email(email: @email, password: @password)
+          .create_media(input: 'https://www.instagram.com/p/BRYob0dA1SC/')
+      sleep 2
+      expect(@driver.page_source.include?('Media contains one image. Click Search to look for duplicates on Google.')).to be(true)
+      expect((@driver.current_url.to_s =~ /google/).nil?).to be(true)
+      current_window = @driver.window_handles.last
+      @driver.find_element(:css, '.annotation__reverse-image-search').click
+      @driver.switch_to.window(@driver.window_handles.last)
+      expect((@driver.current_url.to_s =~ /google/).nil?).to be(false)
+      @driver.switch_to.window(current_window)
+    end
   end
 end
