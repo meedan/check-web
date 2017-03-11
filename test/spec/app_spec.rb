@@ -536,18 +536,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(id1 == id2).to be(true)
     end
 
-    it "should not create source as media if registered" do
-      login_with_email
-      sleep 3
-      fill_field('#create-media-input', 'https://www.facebook.com/ironmaidenbeer/?fref=ts')
-      sleep 1
-      press_button('#create-media-submit')
-      sleep 10
-      expect(@driver.current_url.to_s.match(/\/media\/[0-9]+$/).nil?).to be(true)
-      message = get_element('.create-media .message').text
-      expect(message.match(/^Validation failed: Media can't be blank/).nil?).to be(false)
-    end
-
     it "should tag media from tags list" do
       page = LoginPage.new(config: @config, driver: @driver).load
           .login_with_email(email: @email, password: @password)
@@ -971,11 +959,11 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       # Create a task
       expect(@driver.page_source.include?('Foo or bar?')).to be(false)
       expect(@driver.page_source.include?('Task "Foo or bar?" created by')).to be(false)
-      @driver.find_element(:css, '.tasks__add-button').click
-      @driver.find_element(:css, '.tasks__add-short-answer').click
+      @driver.find_element(:css, '.create-task__add-button').click
+      @driver.find_element(:css, '.create-task__add-short-answer').click
       sleep 1
       fill_field('#task-label-input', 'Foo or bar?')
-      @driver.find_element(:css, '.tasks__dialog-submit-button').click
+      @driver.find_element(:css, '.create-task__dialog-submit-button').click
       sleep 2
       expect(@driver.page_source.include?('Foo or bar?')).to be(true)
       expect(@driver.page_source.include?('Task "Foo or bar?" created by')).to be(true)

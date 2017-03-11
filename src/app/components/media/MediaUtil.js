@@ -17,7 +17,7 @@ const MediaUtil = {
   authorName(media, data) {
     switch (media.domain) {
     case 'twitter.com':
-      return data.user.name;
+      return data.user ? data.user.name : '';
     case 'instagram.com':
       return data.author_name;
     case 'facebook.com':
