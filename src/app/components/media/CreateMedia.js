@@ -143,6 +143,10 @@ class CreateProjectMedia extends Component {
     document.forms.media.image = file;
   }
 
+  onImageError(file, message) {
+    this.setState({ message });
+  }
+
   switchMode() {
     this.setState({ fileMode: !this.state.fileMode });
   }
@@ -165,7 +169,7 @@ class CreateProjectMedia extends Component {
               {(() => {
                 if (this.state.fileMode) {
                   return (
-                    <UploadImage onImage={this.onImage.bind(this)} />
+                    <UploadImage onImage={this.onImage.bind(this)} onError={this.onImageError.bind(this)} />
                   );
                 }
                 return (
