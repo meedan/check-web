@@ -8,4 +8,8 @@
     display: flex;
     flex-direction: column;
   }
+
+  &--wide {
+    max-width: $layout-column-width-wide;
+  }
 }

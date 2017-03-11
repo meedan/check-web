@@ -11,7 +11,8 @@ import config from 'config';
 import { pageTitle } from '../../helpers';
 import CheckContext from '../../CheckContext';
 import Tasks from '../task/Tasks';
-import { bemClassFromMediaStatus, safelyParseJSON, getStatus, getStatusStyle } from '../../helpers';
+import CreateTask from '../task/CreateTask';
+import { bemClass, bemClassFromMediaStatus, safelyParseJSON, getStatus, getStatusStyle } from '../../helpers';
 import ContentColumn from '../layout/ContentColumn';
 import MediaStatus from './MediaStatus';
 import MdInfoOutline from 'react-icons/lib/md/info-outline';
@@ -89,18 +90,32 @@ class MediaComponent extends Component {
 
     return (
       <DocumentTitle title={pageTitle(MediaUtil.title(media, data), false, this.getContext().team)}>
-        <div className="media" data-id={media.dbid}>
+        <div className={bemClass("media", media.tasks.edges.length, '--has-tasks')} data-id={media.dbid}>
           <div
-            className={bemClassFromMediaStatus('media__expanded',
-          media.last_status)} style={{ backgroundColor: getStatusStyle(status, 'backgroundColor') }}
+            className={bemClassFromMediaStatus('media__expanded', media.last_status)}
+            style={{ backgroundColor: getStatusStyle(status, 'backgroundColor') }}
           >
-            <ContentColumn>
+
+            <div className='media__expanded-header'>
               <h1 className="media__primary-heading">{primaryHeading}</h1>
               <div className="media__status">
                 <MediaStatus media={media} readonly={this.props.readonly} />
               </div>
-              <MediaDetail media={media} />
-              <Tasks tasks={media.tasks.edges} media={media} />
+            </div>
+
+            <ContentColumn wide className='media__expanded-column-wrapper'>
+              <ContentColumn className='media__media-column'>
+                <MediaDetail media={media} />
+                <CreateTask media={media} />
+              </ContentColumn>
+              <ContentColumn className='media__tasks-column'>
+                <div className='media__tasks-header'>
+                  <h2><FormattedMessage id="mediaComponent.verificationTasks" defaultMessage="Verification tasks" /></h2>
+                  <span>{media.tasks.edges.filter((t) => { return !!t.node.first_response; }).length}/{media.tasks.edges.length} <FormattedMessage id="mediaComponent.resolved" defaultMessage="resolved" /></span>
+                  <CreateTask media={media} plusIcon/>
+                </div>
+                <Tasks tasks={media.tasks.edges} media={media} />
+              </ContentColumn>
             </ContentColumn>
           </div>
 
