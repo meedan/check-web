@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 import { Card, CardText } from 'material-ui/Card';
+import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 import TextField from 'material-ui/TextField';
 import { blue500 } from 'material-ui/styles/colors';
 import Message from '../Message';
@@ -230,6 +231,32 @@ class Task extends Component {
     window.addEventListener('click', () => { that.setState({ focus: false }); });
   }
 
+  handleSelectRadio() {
+
+  }
+
+  renderOptions(response) {
+    const { task } = this.props;
+    let options = null;
+
+    if (task.jsonoptions) {
+      options = JSON.parse(task.jsonoptions);
+    }
+
+    if (Array.isArray(options) && options.length > 0) {
+      if (task.type === 'single_choice') {
+        return (<div>
+          <RadioButtonGroup name="response" className="task__radio-group" onChange={this.handleSelectRadio.bind(this)} defaultSelected={response}>
+            { options.map( (item, index) => <RadioButton label={item.label} value={item.label} style={{ padding: '5px' }} disabled={!!response}/>) }
+          </RadioButtonGroup>
+          { response ? null : <FlatButton className="task__submit" label={<FormattedMessage id="tasks.submit" defaultMessage="Submit" />} primary keyboardFocused onClick={this.handleSubmit.bind(this)} /> }
+        </div>);
+      } else if (task.type === 'multiple_choice') {
+        /* render checkboxes */
+      }
+    }
+  }
+
   render() {
     const { task } = this.props;
 
@@ -296,15 +323,18 @@ class Task extends Component {
               <form onSubmit={this.handleSubmit.bind(this)} name={`task-response-${task.id}`}>
                 {taskQuestion}
                 {/* "response" */}
-                <TextField
+                {/*  TODO: Render appropriate response form based on task.type */}
+
+                { task.type === 'single_choice' ? this.renderOptions() : <TextField
                   className="task__response-input"
                   onFocus={this.handleFocus.bind(this)}
                   name="response"
                   onKeyPress={this.handleKeyPress.bind(this)}
                   onChange={this.handleChange.bind(this)}
                   fullWidth
-                  multiLine
-                />
+                  multiLine />
+                }
+
                 <div style={{ display: this.state.focus ? 'block' : 'none' }}>
                   <TextField
                     hintText={<FormattedMessage id="task.noteLabel" defaultMessage="Note any additional details here." />}
@@ -322,7 +352,7 @@ class Task extends Component {
                 <form onSubmit={this.handleSubmitUpdate.bind(this)} name={`edit-response-${task.first_response.id}`}>
                   {taskQuestion}
                   {/* "response" */}
-                  <TextField
+                  { task.type === 'single_choice' ? this.renderOptions(response) : <TextField
                     className="task__response-input"
                     defaultValue={response}
                     name="editedresponse"
@@ -330,7 +360,7 @@ class Task extends Component {
                     onChange={this.handleChange.bind(this)}
                     fullWidth
                     multiLine
-                  />
+                  /> }
                   <TextField
                     hintText={<FormattedMessage id="task.noteLabel" defaultMessage="Note any additional details here." />}
                     defaultValue={note}
@@ -346,7 +376,7 @@ class Task extends Component {
             :
               <div className="task__resolved">
                 {taskQuestion}
-                <p className="task__response">{response}</p>
+                { task.type === 'single_choice' ? this.renderOptions(response) : <p className="task__response">{response}</p> }
                 <p style={{ display: note ? 'block' : 'none' }} className="task__note">{note}</p>
                 <p className="task__resolver">
                   <small><FormattedMessage id="task.resolvedBy" defaultMessage={'Resolved by {by}'} values={{ by }} /></small>
