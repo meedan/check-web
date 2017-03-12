@@ -9,7 +9,7 @@
   "annotation.reverseImage": "Ce média contient une ou plusieurs images. Clickez sur \"Recherche\" pour chercher des copies sur Google.",
   "annotation.reverseImageSearch": "Recherche",
   "annotation.flaggedHeader": "Marqué {flag} par {author}",
-  "annotation.newClaim": "Nouvelle citation ajoutée par {author}",
+  "annotation.newClaim": "Nouveau témoignage ajouté par {author}",
   "annotation.titleChanged": "Titre modifié par {author} : {title}",
   "annotation.projectMoved": "Transféré du projet {previousProject} à {currentProject} par {author}",
   "annotation.taskLabelUpdated": "Tâche \"{from}\" modifiée par {author} : {to}",
