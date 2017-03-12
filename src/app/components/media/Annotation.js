@@ -98,7 +98,7 @@ class Annotation extends Component {
     }
 
     return url ?
-        <a className="annotation__author-name" href={url}>{user.name}</a> :
+        <a target="_blank" rel="noopener noreferrer" className="annotation__author-name" href={url}>{user.name}</a> :
         <span className="annotation__author-name">{user.name}</span>;
   }
 
