@@ -179,7 +179,7 @@ class MediaDetail extends Component {
       url = user.source.accounts.edges[0].node.url;
     }
 
-    return url ? <a href={url}>{user.name}</a> : user.name;
+    return url ? <a target="_blank" rel="noopener noreferrer" href={url}>{user.name}</a> : user.name;
   }
 
   render() {

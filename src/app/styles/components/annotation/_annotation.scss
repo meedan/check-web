@@ -28,6 +28,7 @@
 
     .menu-button {
       color: $black-38;
+      margin-right: 12px;
     }
   }
 
@@ -139,16 +140,6 @@
     flex: 1;
     align-self: flex-start;
     text-align: right;
-  }
-
-  .annotation__delete {
-    @include close-button(21px);
-    position: absolute;
-    top: 10px;
-    right: 0;
-    height: 30px;
-    width: 30px;
-    border-radius: 30px;
   }
 
   .annotation__body {
@@ -266,4 +257,12 @@
       border-color: $check-blue !important;
     }
   }
+}
+
+.annotation__reverse-image-search {
+  text-transform: uppercase;
+  font-weight: bold;
+  cursor: pointer;
+  display: inline-block;
+  margin: 0 10px;
 }

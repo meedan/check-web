@@ -14,6 +14,7 @@ import { getStatus, getStatusStyle } from '../../helpers';
 import Lightbox from 'react-image-lightbox';
 import { Card, CardText } from 'material-ui/Card';
 import MenuButton from '../MenuButton';
+import { MdImage } from 'react-icons/lib/md';
 
 const messages = defineMessages({
   error: {
@@ -23,6 +24,10 @@ const messages = defineMessages({
   deleteButton: {
     id: 'annotation.deleteButton',
     defaultMessage: 'Delete',
+  },
+  reverseImageTooltip: {
+    id: 'annotation.reverseImageTooltip',
+    defaultMessage: 'Search Google for potential duplicates on the web.',
   },
 });
 
@@ -93,8 +98,12 @@ class Annotation extends Component {
     }
 
     return url ?
-        <a className="annotation__author-name" href={url}>{user.name}</a> :
+        <a target="_blank" rel="noopener noreferrer" className="annotation__author-name" href={url}>{user.name}</a> :
         <span className="annotation__author-name">{user.name}</span>;
+  }
+
+  handleReverseImageSearch(imagePath) {
+    window.open('https://www.google.com/searchbyimage?&image_url=' + imagePath);
   }
 
   render() {
@@ -181,6 +190,12 @@ class Annotation extends Component {
             defaultMessage={'Task "{task}" answered by {author}: {response}'}
             values={{ task: activity.task.label, author: authorName, response: <span>{`"${object.value}"`}</span> }}
           />
+        </span>);
+      }
+      if (object.field_name === 'reverse_image_path') {
+        contentTemplate = (<span className="annotation__reverse-image">
+          <MdImage /> <FormattedMessage id="annotation.reverseImage" defaultMessage={'Media contains one image. Click Search to look for duplicates on Google.'} />
+          <span className="annotation__reverse-image-search" title={this.props.intl.formatMessage(messages.reverseImageTooltip)} onClick={this.handleReverseImageSearch.bind(this, object.value)}><FormattedMessage id="annotation.reverseImageSearch" defaultMessage="Search" /></span>
         </span>);
       }
       break;

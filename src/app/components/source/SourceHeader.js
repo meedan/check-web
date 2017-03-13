@@ -15,7 +15,7 @@ class SourceHeader extends Component {
             const node = account.node;
             return (
               <li>
-                <a href={node.url} target="_blank">
+                <a href={node.url} rel="noopener noreferrer" target="_blank">
                   {/* Icon goes here, but react-fontawesome was removed. CGB 2017-2-14 */}
                 </a>
               </li>

@@ -77,7 +77,7 @@ class CreateProjectMedia extends Component {
     this.setState({ isSubmitting: true, message: this.props.intl.formatMessage(messages.submitting) });
 
     const handleError = (json) => {
-      let message = `${this.props.intl.formatMessage(messages.error)} <b id="close-message">✖</b>`;
+      let message = this.props.intl.formatMessage(messages.error);
       if (json && json.error) {
         const matches = json.error.match(/This media already exists in this project and has id ([0-9]+)$/);
         if (matches) {
@@ -86,6 +86,9 @@ class CreateProjectMedia extends Component {
           message = null;
           context.history.push(prefix + pmid);
         }
+        else {
+          message = json.error;
+        }
       }
       that.setState({ message, isSubmitting: false });
     };
@@ -93,8 +96,7 @@ class CreateProjectMedia extends Component {
     const onFailure = (transaction) => {
       const transactionError = transaction.getError();
       try {
-        const json = JSON.parse(transactionError.source);
-        handleError(json);
+        handleError(JSON.parse(transactionError.source));
       } catch (e) {
         handleError(JSON.stringify(transactionError));
       }
@@ -141,6 +143,10 @@ class CreateProjectMedia extends Component {
     document.forms.media.image = file;
   }
 
+  onImageError(file, message) {
+    this.setState({ message });
+  }
+
   switchMode() {
     this.setState({ fileMode: !this.state.fileMode });
   }
@@ -163,7 +169,7 @@ class CreateProjectMedia extends Component {
               {(() => {
                 if (this.state.fileMode) {
                   return (
-                    <UploadImage onImage={this.onImage.bind(this)} />
+                    <UploadImage onImage={this.onImage.bind(this)} onError={this.onImageError.bind(this)} />
                   );
                 }
                 return (
