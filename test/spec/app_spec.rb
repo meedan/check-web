@@ -28,9 +28,20 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     FileUtils.cp(@config['config_file_path'], '../build/web/js/config.js') unless @config['config_file_path'].nil?
 
-    @driver = browser_capabilities['appiumVersion'] ?
-      Appium::Driver.new({ appium_lib: { server_url: webdriver_url}, caps: browser_capabilities }).start_driver :
-      Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: browser_capabilities)
+    if @config.key?('proxy')
+      proxy = Selenium::WebDriver::Proxy.new(
+        :http     => @config['proxy'],
+        :ftp      => @config['proxy'],
+        :ssl      => @config['proxy']
+      )
+      caps = Selenium::WebDriver::Remote::Capabilities.chrome(:proxy => proxy)
+      @driver = Selenium::WebDriver.for(:chrome, :desired_capabilities => caps , :url => @config['chromedriver_url'])
+    else
+      @driver = browser_capabilities['appiumVersion'] ?
+        Appium::Driver.new({ appium_lib: { server_url: webdriver_url}, caps: browser_capabilities }).start_driver :
+        Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: browser_capabilities)
+    end
+
 
     # TODO: better initialization w/ parallelization
     page = LoginPage.new(config: @config, driver: @driver).load
@@ -55,9 +66,19 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
   # Start Google Chrome before each test
 
   before :each do
-    @driver = browser_capabilities['appiumVersion'] ?
-      Appium::Driver.new({ appium_lib: { server_url: webdriver_url}, caps: browser_capabilities }).start_driver :
-      Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: browser_capabilities)
+    if @config.key?('proxy')
+      proxy = Selenium::WebDriver::Proxy.new(
+        :http     => @config['proxy'],
+        :ftp      => @config['proxy'],
+        :ssl      => @config['proxy']
+      )
+      caps = Selenium::WebDriver::Remote::Capabilities.chrome(:proxy => proxy)
+      @driver = Selenium::WebDriver.for(:chrome, :desired_capabilities => caps , :url => @config['chromedriver_url'])
+    else
+      @driver = browser_capabilities['appiumVersion'] ?
+        Appium::Driver.new({ appium_lib: { server_url: webdriver_url}, caps: browser_capabilities }).start_driver :
+        Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: browser_capabilities)
+    end
   end
 
   # Close Google Chrome after each test

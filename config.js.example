@@ -1,11 +1,11 @@
 window.config = {
-  selfHost: 'localhost:3333',
-  restBaseUrl: 'http://localhost:3000/api/',
-  relayPath: 'http://localhost:3000/api/graphql',
+  selfHost: 'http://test.localdev.checkmedia.org:3333',
+  restBaseUrl: 'http://test.localdev.checkmedia.org:3000/api/',
+  relayPath: 'http://test.localdev.checkmedia.org:3000/api/graphql',
   relayHeaders: {
     'X-Check-Token': 'dev'
   },
-  penderUrl: 'http://localhost:3200',
+  penderUrl: 'http://test.localdev.checkmedia.org:3200',
   pusherKey: '',
   pusherDebug: true,
   locale: 'en',

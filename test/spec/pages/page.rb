@@ -81,6 +81,15 @@ class Page
     Net::HTTP.get_response(uri)
   end
 
+  def load_api(path, params)
+    require 'net/http'
+    api_path = @driver.execute_script("return config.restBaseUrl.replace(/\\/api\\/.*/, '#{path}')").to_s
+    uri = URI(api_path)
+    uri.query = URI.encode_www_form(params)
+    @driver.navigate.to uri
+  end
+
+
   def close
     @driver.quit
   end
