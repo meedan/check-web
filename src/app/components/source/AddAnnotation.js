@@ -253,7 +253,7 @@ class AddAnnotation extends Component {
 
     // /location location_name=Salvador&location_position=-12.9016241,-38.4198075
     const fields = {};
-    params.split('&').forEach((part) => {
+    if (params) params.split('&').forEach((part) => {
       const pair = part.split('=');
       fields[pair[0]] = pair[1];
     });
@@ -334,6 +334,10 @@ class AddAnnotation extends Component {
     document.forms.addannotation.image = file;
   }
 
+  onImageError(file, message) {
+    this.setState({ message });
+  }
+
   switchMode() {
     this.setState({ fileMode: !this.state.fileMode });
   }
@@ -358,7 +362,7 @@ class AddAnnotation extends Component {
           {(() => {
             if (this.state.fileMode) {
               return (
-                <UploadImage onImage={this.onImage.bind(this)} />
+                <UploadImage onImage={this.onImage.bind(this)} onError={this.onImageError.bind(this)} />
               );
             }
           })()}

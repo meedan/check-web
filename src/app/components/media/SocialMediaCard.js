@@ -54,9 +54,9 @@ class SocialMediaCard extends Component {
           <div className="social-media-card__header / card-header">
             {authorAvatarUrl ? <img src={authorAvatarUrl} className="social-media-card__author-avatar" /> : null}
             <div className="social-media-card__header-text-primary / header-text-primary">
-              <a href={authorUrl} className="social-media-card__name">{authorName || authorUsername}</a>
+              <a href={authorUrl} target="_blank" rel="noopener noreferrer" className="social-media-card__name">{authorName || authorUsername}</a>
               { ((authorName && authorUsername) && (authorName !== authorUsername)) ?
-                <a href={authorUrl} className="social-media-card__username">{authorUsername}</a> : null
+                <a href={authorUrl} target="_blank" rel="noopener noreferrer" className="social-media-card__username">{authorUsername}</a> : null
               }
             </div>
           </div>
@@ -80,7 +80,7 @@ class SocialMediaCard extends Component {
                 return <MdLink />;
               }
             })()}
-            <a href={url}>
+            <a href={url} target="_blank" rel="noopener noreferrer">
               {embedPublishedAt ? <TimeBefore date={embedPublishedAt} /> : this.props.intl.formatMessage(messages.link)}
             </a>
           </span>

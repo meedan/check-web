@@ -6875,6 +6875,20 @@
               "deprecationReason": null
             },
             {
+              "name": "picture",
+              "description": null,
+              "args": [
+
+              ],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "project_id",
               "description": null,
               "args": [
@@ -7506,20 +7520,6 @@
               "deprecationReason": null
             },
             {
-              "name": "max_upload_size",
-              "description": "Maximum upload size",
-              "args": [
-
-              ],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "name",
               "description": "Application name",
               "args": [
@@ -7550,6 +7550,62 @@
             {
               "name": "tos",
               "description": "Terms of Service",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "upload_extensions",
+              "description": "Allowed upload types",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "upload_max_dimensions",
+              "description": "Maximum image dimensions",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "upload_max_size",
+              "description": "Maximum upload size",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "upload_min_dimensions",
+              "description": "Minimum image dimensions",
               "args": [
 
               ],
