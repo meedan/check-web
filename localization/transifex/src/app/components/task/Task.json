@@ -1,5 +1,6 @@
 {
   "task.confirmDelete": "Are you sure you want to delete this task?",
+  "tasks.submit": "Submit",
   "tasks.cancelEdit": "Cancel",
   "tasks.save": "Save",
   "task.edit": "Edit",

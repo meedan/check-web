@@ -69,7 +69,7 @@ class Task extends Component {
     const form = document.forms[`task-response-${task.id}`];
     const fields = {};
     fields[`response_${task.type}`] = form.response.value;
-    fields[`note_${task.type}`] = form.note.value;
+    fields[`note_${task.type}`] = form.note ? form.note.value : '';
     fields[`task_${task.type}`] = task.dbid;
 
     Relay.Store.commitUpdate(
@@ -202,7 +202,7 @@ class Task extends Component {
     const form = document.forms[`edit-response-${task.first_response.id}`];
     const fields = {};
     fields[`response_${task.type}`] = form.editedresponse.value;
-    fields[`note_${task.type}`] = form.editednote.value;
+    fields[`note_${task.type}`] = form.editednote ? form.editednote.value : '';
 
     Relay.Store.commitUpdate(
       new UpdateDynamicMutation({
@@ -231,13 +231,12 @@ class Task extends Component {
     window.addEventListener('click', () => { that.setState({ focus: false }); });
   }
 
-  handleSelectRadio() {
-
-  }
-
   renderOptions(response) {
     const { task } = this.props;
     let options = null;
+    const editable =  !response || this.state.editingResponse;
+    const submitCallback = this.state.editingResponse ? this.handleSubmitUpdate.bind(this) : this.handleSubmit.bind(this);
+    const formName = this.state.editingResponse ? 'editedresponse' : 'response';
 
     if (task.jsonoptions) {
       options = JSON.parse(task.jsonoptions);
@@ -246,10 +245,10 @@ class Task extends Component {
     if (Array.isArray(options) && options.length > 0) {
       if (task.type === 'single_choice') {
         return (<div>
-          <RadioButtonGroup name="response" className="task__radio-group" onChange={this.handleSelectRadio.bind(this)} defaultSelected={response}>
-            { options.map( (item, index) => <RadioButton label={item.label} value={item.label} style={{ padding: '5px' }} disabled={!!response}/>) }
+          <RadioButtonGroup name={formName} className="task__radio-group" onChange={this.handleFocus.bind(this)} defaultSelected={response}>
+            { options.map( (item, index) => <RadioButton label={item.label} value={item.label} style={{ padding: '5px' }} disabled={!editable}/>) }
           </RadioButtonGroup>
-          { response ? null : <FlatButton className="task__submit" label={<FormattedMessage id="tasks.submit" defaultMessage="Submit" />} primary keyboardFocused onClick={this.handleSubmit.bind(this)} /> }
+          { this.state.focus && editable ? <FlatButton className="task__submit" label={<FormattedMessage id="tasks.submit" defaultMessage="Submit" />} primary onClick={submitCallback} /> : null }
         </div>);
       } else if (task.type === 'multiple_choice') {
         /* render checkboxes */
@@ -325,34 +324,33 @@ class Task extends Component {
                 {/* "response" */}
                 {/*  TODO: Render appropriate response form based on task.type */}
 
-                { task.type === 'single_choice' ? this.renderOptions() : <TextField
+                { task.type === 'single_choice' ? this.renderOptions() : [<TextField
                   className="task__response-input"
                   onFocus={this.handleFocus.bind(this)}
                   name="response"
                   onKeyPress={this.handleKeyPress.bind(this)}
                   onChange={this.handleChange.bind(this)}
                   fullWidth
-                  multiLine />
+                  multiLine />,
+                  <div style={{ display: this.state.focus ? 'block' : 'none' }}>
+                    <TextField
+                      hintText={<FormattedMessage id="task.noteLabel" defaultMessage="Note any additional details here." />}
+                      name="note"
+                      onKeyPress={this.handleKeyPress.bind(this)}
+                      onChange={this.handleChange.bind(this)}
+                      fullWidth
+                      multiLine
+                    />
+                    <p className="task__resolver"><small><FormattedMessage id="task.pressReturnToSave" defaultMessage="Press return to save your response" /></small></p>
+                  </div>]
                 }
-
-                <div style={{ display: this.state.focus ? 'block' : 'none' }}>
-                  <TextField
-                    hintText={<FormattedMessage id="task.noteLabel" defaultMessage="Note any additional details here." />}
-                    name="note"
-                    onKeyPress={this.handleKeyPress.bind(this)}
-                    onChange={this.handleChange.bind(this)}
-                    fullWidth
-                    multiLine
-                  />
-                  <p className="task__resolver"><small><FormattedMessage id="task.pressReturnToSave" defaultMessage="Press return to save your response" /></small></p>
-                </div>
               </form>
             : (this.state.editingResponse ?
               <div className="task__editing">
                 <form onSubmit={this.handleSubmitUpdate.bind(this)} name={`edit-response-${task.first_response.id}`}>
                   {taskQuestion}
                   {/* "response" */}
-                  { task.type === 'single_choice' ? this.renderOptions(response) : <TextField
+                  { task.type === 'single_choice' ? this.renderOptions(response) : [<TextField
                     className="task__response-input"
                     defaultValue={response}
                     name="editedresponse"
@@ -360,7 +358,7 @@ class Task extends Component {
                     onChange={this.handleChange.bind(this)}
                     fullWidth
                     multiLine
-                  /> }
+                  />,
                   <TextField
                     hintText={<FormattedMessage id="task.noteLabel" defaultMessage="Note any additional details here." />}
                     defaultValue={note}
@@ -369,8 +367,9 @@ class Task extends Component {
                     onChange={this.handleChange.bind(this)}
                     fullWidth
                     multiLine
-                  />
-                  <p className="task__resolver"><small><FormattedMessage id="task.pressReturnToSave" defaultMessage="Press return to save your response" /></small> <span id="task__cancel-button" onClick={this.handleCancelEditResponse.bind(this)}>✖</span></p>
+                  />,
+                  <p className="task__resolver"><small><FormattedMessage id="task.pressReturnToSave" defaultMessage="Press return to save your response" /></small> <span id="task__cancel-button" onClick={this.handleCancelEditResponse.bind(this)}>✖</span></p>]
+                }
                 </form>
               </div>
             :

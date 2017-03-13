@@ -11,9 +11,20 @@ import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
 import Can from '../Can';
 import CreateTaskMutation from '../../relay/CreateTaskMutation';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import { MdShortText, MdRadioButtonChecked, MdRadioButtonUnchecked } from 'react-icons/lib/md';
 import MdAddCircle from 'react-icons/lib/md/add-circle';
+
+const messages = defineMessages({
+  addValue: {
+    id: 'createTask.addValue',
+    defaultMessage: 'Add Value'
+  },
+  value: {
+    id: 'createTask.value',
+    defaultMessage: 'Value'
+  }
+});
 
 class CreateTask extends Component {
   constructor(props) {
@@ -45,7 +56,7 @@ class CreateTask extends Component {
   }
 
   handleOpenDialog(type) {
-    let options = [];
+    let options = [{label: this.props.intl.formatMessage(messages.value)}, {label: this.props.intl.formatMessage(messages.value) + ' 2'}];
     this.setState({ dialogOpen: true, menuOpen: false, type, options, hasOther: false });
   }
 
@@ -98,7 +109,7 @@ class CreateTask extends Component {
 
   handleAddValue(){
     let options = Array.isArray(this.state.options) ? this.state.options.slice(0) : [];
-    let label = 'Value' + ' ';
+    let label = this.props.intl.formatMessage(messages.value) + ' ';
     this.state.hasOther ? label += (options.length) : label += (options.length + 1);
     this.state.hasOther ? options.splice(-1, 0, { label }) : options.push({ label });
     this.setState({ options });
@@ -115,23 +126,20 @@ class CreateTask extends Component {
 
   handleEditOption(e){
     let options = this.state.options.slice(0);
-    console.log('handleEditOption');
-    console.log(e.target.id);
     options[parseInt(e.target.id)].label = e.target.value;
     this.setState({ options });
-    console.log(JSON.stringify(options));
   }
 
   renderChooseOneDialog(){
     return (
       <div>
         <TextField id="task-label-input" className="tasks__task-label-input" floatingLabelText={<FormattedMessage id="tasks.taskPrompt" defaultMessage="Prompt" />} onChange={this.handleLabelChange.bind(this)} multiLine />
-        {/*<RadioButtonGroup name="chooseOneDialog" className="task__dialog-radio-group">*/}
-          {/*this.state.options.map(item => <RadioButton label={item.label} value={`0`} style={{ padding: '5px' }} />)*/}
           { this.state.options.map((item, index) => <div><MdRadioButtonUnchecked /> <TextField style={{ padding: '5px' }} id={index.toString()} onChange={this.handleEditOption.bind(this)} placeholder={item.label} /></div>) }
-        {/*</RadioButtonGroup>*/}
-        <FlatButton label={`Add Value`} primary onClick={this.handleAddValue.bind(this)} />
-        <FlatButton label={`Add "Other"`} primary onClick={this.handleAddOther.bind(this)} />
+        <div>
+          <FlatButton label={this.props.intl.formatMessage(messages.addValue)} primary onClick={this.handleAddValue.bind(this)} />
+          {/* Hiding AddOther for the moment*/}
+          {/* <FlatButton label={`Add "Other"`} primary onClick={this.handleAddOther.bind(this)} /> */}
+        </div>
       </div>
     );
   }
@@ -157,7 +165,7 @@ class CreateTask extends Component {
         <Popover open={this.state.menuOpen} anchorEl={this.state.anchorEl} anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }} targetOrigin={{ horizontal: 'left', vertical: 'top' }} onRequestClose={this.handleRequestClose.bind(this)}>
           <Menu>
             <MenuItem className="create-task__add-short-answer" onClick={this.handleOpenDialog.bind(this, 'free_text')} leftIcon={<MdShortText />} primaryText={<FormattedMessage id="tasks.shortAnswer" defaultMessage="Short answer" />} />
-            <MenuItem className="create-task__add-choose-one" onClick={this.handleOpenDialog.bind(this, 'single_choice')} leftIcon={<MdRadioButtonChecked />} primaryText="Choose one" />
+            <MenuItem className="create-task__add-choose-one" onClick={this.handleOpenDialog.bind(this, 'single_choice')} leftIcon={<MdRadioButtonChecked />} primaryText={<FormattedMessage id="tasks.chooseOne" defaultMessage="Choose one" />} />
             {/*
             <MenuItem onClick={this.handleOpenDialog.bind(this, 'yes_no')} leftIcon={<FontAwesome name="toggle-on" />} primaryText="Yes or no" />
             <MenuItem onClick={this.handleOpenDialog.bind(this, 'multiple_choice')} leftIcon={<FontAwesome name="check-square" />} primaryText="Choose multiple" />
@@ -182,4 +190,8 @@ class CreateTask extends Component {
   }
 }
 
-export default CreateTask;
+CreateTask.propTypes = {
+  intl: intlShape.isRequired,
+};
+
+export default injectIntl(CreateTask);

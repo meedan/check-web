@@ -1,8 +1,8 @@
 {
-  "createAccount.createSourceError": "Sorry, could not create the source",
-  "createAccount.sourceUrlHint": "Twitter, Facebook, YouTube...",
-  "createAccount.createButton": "Create",
-  "createAccount.createSource": "Create a source",
-  "createAccount.sourceUrl": "Source URL",
-  "createAccount.preview": "Preview"
+  "createAccount.createSourceError": "عذراً، لم نستطع إضافة هذا المصدر",
+  "createAccount.sourceUrlHint": "تويتر، فيسبوك، يوتيوب...",
+  "createAccount.createButton": "انشئ",
+  "createAccount.createSource": "انشئ مصدر",
+  "createAccount.sourceUrl": "رابط المصدر",
+  "createAccount.preview": "عرض"
 }
