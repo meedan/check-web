@@ -34,7 +34,7 @@ class PenderCard extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return nextProps.url != this.props.url;
+    return ((nextProps.url != this.props.url) || (nextProps.mediaVersion != this.props.mediaVersion));
   }
 
   render() {
