@@ -14,6 +14,7 @@ import FlatButton from 'material-ui/FlatButton';
 import Can from '../Can';
 import MdMoreHoriz from 'react-icons/lib/md/more-horiz';
 import MdInfoOutline from 'react-icons/lib/md/info-outline';
+import { MdRadioButtonChecked, MdRadioButtonUnchecked } from 'react-icons/lib/md';
 import Tooltip from 'rc-tooltip';
 import 'rc-tooltip/assets/bootstrap.css';
 
@@ -256,6 +257,30 @@ class Task extends Component {
     }
   }
 
+  renderOptionsAnswered(response) {
+    const { task } = this.props;
+    let options = null;
+    const editable =  !response || this.state.editingResponse;
+    const submitCallback = this.state.editingResponse ? this.handleSubmitUpdate.bind(this) : this.handleSubmit.bind(this);
+    const formName = this.state.editingResponse ? 'editedresponse' : 'response';
+
+    if (task.jsonoptions) {
+      options = JSON.parse(task.jsonoptions);
+    }
+
+    if (Array.isArray(options) && options.length > 0) {
+      if (task.type === 'single_choice') {
+        return (<div className="task__options-answered">
+            { options.map( item => <div className="task__options-answered-item">
+                { item.label === response ? <MdRadioButtonChecked /> : <MdRadioButtonUnchecked /> } {item.label}
+              </div>) }
+        </div>);
+      } else if (task.type === 'multiple_choice') {
+        /* render checkboxes */
+      }
+    }
+  }
+
   render() {
     const { task } = this.props;
 
@@ -375,7 +400,7 @@ class Task extends Component {
             :
               <div className="task__resolved">
                 {taskQuestion}
-                { task.type === 'single_choice' ? this.renderOptions(response) : <p className="task__response">{response}</p> }
+                { task.type === 'single_choice' ? this.renderOptionsAnswered(response) : <p className="task__response">{response}</p> }
                 <p style={{ display: note ? 'block' : 'none' }} className="task__note">{note}</p>
                 <p className="task__resolver">
                   <small><FormattedMessage id="task.resolvedBy" defaultMessage={'Resolved by {by}'} values={{ by }} /></small>
