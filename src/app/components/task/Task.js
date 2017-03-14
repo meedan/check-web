@@ -288,7 +288,11 @@ class Task extends Component {
 
     return (
       <div>
-        <Card onClick={this.handleClick.bind(this)} className="task">
+        <Card
+            onClick={this.handleClick.bind(this)}
+            className="task"
+            style={{'zIndex': 'auto'}}
+          >
           <CardText className="task__card-text">
             <Message message={this.state.message} />
             {taskActions}
