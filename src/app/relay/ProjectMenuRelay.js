@@ -8,7 +8,7 @@ import { bemClass } from '../helpers';
 
 class ProjectMenu extends Component {
   handleEditClick() {
-    const overlay = document.querySelector('.header-actions__menu-overlay--active')
+    const overlay = document.querySelector('.header-actions__menu-overlay--active');
     if (overlay) {
       overlay.click(); // TODO: better way to clear overlay e.g. passing fn from HeaderActions
     }
@@ -54,7 +54,7 @@ const ProjectMenuContainer = Relay.createContainer(ProjectMenu, {
         }
       }
     `,
-  }
+  },
 });
 
 class ProjectMenuRelay extends Component {
@@ -63,9 +63,7 @@ class ProjectMenuRelay extends Component {
       const route = new ProjectRoute({ contextId: this.props.params.projectId });
       return (<Relay.RootContainer Component={ProjectMenuContainer} route={route} />);
     }
-    else {
-      return null;
-    }
+    return null;
   }
 }
 

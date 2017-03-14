@@ -27,12 +27,12 @@ injectTapEventPlugin();
 const messages = defineMessages({
   error: {
     id: 'mediaDetail.moveFailed',
-    defaultMessage: 'Sorry, we could not move this report'
+    defaultMessage: 'Sorry, we could not move this report',
   },
   mediaTitle: {
     id: 'mediaDetail.mediaTitle',
-    defaultMessage: 'Title'
-  }
+    defaultMessage: 'Title',
+  },
 });
 
 class MediaDetail extends Component {
@@ -41,7 +41,7 @@ class MediaDetail extends Component {
 
     this.state = {
       isEditing: false,
-      openMoveDialog: false
+      openMoveDialog: false,
     };
   }
 
@@ -94,7 +94,7 @@ class MediaDetail extends Component {
     this.setState({ openMoveDialog: false, dstProj: null });
   }
 
-  handleSelectDestProject(event, dstProj){
+  handleSelectDestProject(event, dstProj) {
     this.setState({ dstProj });
   }
 
@@ -106,10 +106,10 @@ class MediaDetail extends Component {
     const that = this;
 
     const handleError = (json) => {
-      let message = this.props.intl.formatMessage(messages.error) + ' <b id="close-message">✖</b>';
+      let message = `${this.props.intl.formatMessage(messages.error)} <b id="close-message">✖</b>`;
       if (json && json.error) {
-          message = json.error;
-        }
+        message = json.error;
+      }
       that.setState({ message });
     };
 
@@ -127,7 +127,7 @@ class MediaDetail extends Component {
       if (/^\/[^\/]+\/search\//.test(window.location.pathname)) {
         that.props.parentComponent.props.relay.forceFetch();
       } else if (/^\/[^\/]+\/project\/[0-9]+\/media\/[0-9]+$/.test(window.location.pathname)) {
-        history.push(path + `/media/${media.dbid}`);
+        history.push(`${path}/media/${media.dbid}`);
       }
     };
 
@@ -141,7 +141,7 @@ class MediaDetail extends Component {
         project_id: projectId,
         id: media.id,
         srcProj: that.currentProject().node,
-        dstProj: this.state.dstProj
+        dstProj: this.state.dstProj,
       }),
       { onSuccess, onFailure },
     );
@@ -156,20 +156,30 @@ class MediaDetail extends Component {
       baseClass;
   }
 
-  currentProject(){
+  currentProject() {
     const projectId = this.props.media.project_id;
     const context = this.getContext();
     const projects = context.team.projects.edges;
 
-    return projects[projects.findIndex((p) => { return (p.node.dbid === projectId) })];
+    return projects[projects.findIndex(p => (p.node.dbid === projectId))];
   }
 
-  destinationProjects(){
+  destinationProjects() {
     const projectId = this.props.media.project_id;
     const context = this.getContext();
     const projects = context.team.projects.edges.sortp((a, b) => a.node.title.localeCompare(b.node.title));
 
-    return projects.filter((p) => { return (p.node.dbid !== projectId) });
+    return projects.filter(p => (p.node.dbid !== projectId));
+  }
+
+  profileLink(user){
+    let url = user.email ? 'mailto:' + user.email : '';
+
+    if (user && user.source && user.source.accounts && user.source.accounts.edges && user.source.accounts.edges.length > 0){
+      url = user.source.accounts.edges[0].node.url;
+    }
+
+    return url ? <a target="_blank" rel="noopener noreferrer" href={url}>{user.name}</a> : user.name;
   }
 
   render() {
@@ -191,7 +201,7 @@ class MediaDetail extends Component {
     const destinationProjects = this.destinationProjects();
 
     const byUser = (media.user && media.user.source && media.user.source.dbid && media.user.name !== 'Pender') ?
-      (<FormattedMessage id="mediaDetail.byUser" defaultMessage={`by {username}`} values={{username: media.user.name}} />) : '';
+      (<FormattedMessage id="mediaDetail.byUser" defaultMessage={'by {username}'} values={{ username: this.profileLink(media.user) }} />) : '';
 
     let embedCard = null;
     media.url = media.media.url;
@@ -206,19 +216,19 @@ class MediaDetail extends Component {
     } else if (media.quote && media.quote.length) {
       embedCard = <QuoteMediaCard quoteText={media.quote} attributionName={null} attributionUrl={null} />;
     } else if (media.url) {
-       embedCard = condensed ?
-                   <SocialMediaCard media={media} data={data} condensed={condensed} /> :
-                   <PenderCard url={media.url} penderUrl={config.penderUrl} fallback={null} />;
+      embedCard = condensed ?
+        <SocialMediaCard media={media} data={data} condensed={condensed} /> :
+        <PenderCard url={media.url} penderUrl={config.penderUrl} fallback={null} />;
     }
 
     const actions = [
-      <FlatButton label={<FormattedMessage id="mediaDetail.cancelButton" defaultMessage="Cancel" />} primary={true} onClick={this.handleCloseDialog.bind(this)} />,
-      <FlatButton label={<FormattedMessage id="mediaDetail.move" defaultMessage="Move" />} primary={true} keyboardFocused={true} onClick={this.submitMoveProjectMedia.bind(this)} disabled={!this.state.dstProj} />
+      <FlatButton label={<FormattedMessage id="mediaDetail.cancelButton" defaultMessage="Cancel" />} primary onClick={this.handleCloseDialog.bind(this)} />,
+      <FlatButton label={<FormattedMessage id="mediaDetail.move" defaultMessage="Move" />} primary keyboardFocused onClick={this.submitMoveProjectMedia.bind(this)} disabled={!this.state.dstProj} />,
     ];
     const status = getStatus(this.props.media.verification_statuses, media.last_status);
 
     return (
-      <div className={this.statusToClass('media-detail', media.last_status) + ' ' + 'media-detail--' + MediaUtil.typeLabel(media, data).toLowerCase()} style={{borderColor: getStatusStyle(status, 'borderColor')}}>
+      <div className={`${this.statusToClass('media-detail', media.last_status)} ` + `media-detail--${MediaUtil.typeLabel(media, data).toLowerCase()}`} style={{ borderColor: getStatusStyle(status, 'borderColor') }}>
         <div className="media-detail__header">
           <div className="media-detail__status"><MediaStatus media={media} readonly={this.props.readonly} /></div>
         </div>
@@ -234,7 +244,7 @@ class MediaDetail extends Component {
 
         <div className="media-detail__check-metadata">
           {media.tags ? <MediaTags media={media} tags={media.tags.edges} isEditing={this.state.isEditing} /> : null}
-          {byUser ? <span className="media-detail__check-added-by"><FormattedMessage id="mediaDetail.added" defaultMessage={`Added {byUser}`} values={{byUser: byUser}} /> </span> : null}
+          {byUser ? <span className="media-detail__check-added-by"><FormattedMessage id="mediaDetail.added" defaultMessage={'Added {byUser}'} values={{ byUser }} /> </span> : null}
           {createdAt ? <span className="media-detail__check-added-at">
             <Link className="media-detail__check-timestamp" to={mediaUrl}><TimeBefore date={createdAt} /></Link>
           </span> : null}
@@ -251,18 +261,18 @@ class MediaDetail extends Component {
               ) : null
             }
           {this.props.readonly || this.state.isEditing ? null :
-            <MediaActions media={media} handleEdit={this.handleEdit.bind(this)} handleMove={this.handleMove.bind(this)}/>
+          <MediaActions media={media} handleEdit={this.handleEdit.bind(this)} handleMove={this.handleMove.bind(this)} />
           }
 
-          <Dialog actions={actions} modal={true} open={this.state.openMoveDialog} onRequestClose={this.handleCloseDialog.bind(this)} autoScrollBodyContent={true}>
+          <Dialog actions={actions} modal open={this.state.openMoveDialog} onRequestClose={this.handleCloseDialog.bind(this)} autoScrollBodyContent>
             <h4 className="media-detail__dialog-header">
-              <FormattedMessage id="mediaDetail.dialogHeader" defaultMessage={"Move this {mediaType} to a different project"} values={{mediaType: MediaUtil.typeLabel(media, data)}} />
+              <FormattedMessage id="mediaDetail.dialogHeader" defaultMessage={'Move this {mediaType} to a different project'} values={{ mediaType: MediaUtil.typeLabel(media, data) }} />
             </h4>
             <small className="media-detail__dialog-media-path">
-              <FormattedMessage id="mediaDetail.dialogMediaPath" defaultMessage={"Currently filed under {teamName} > {projectTitle}"} values={{teamName: context.team.name, projectTitle: currentProject.node.title}} />
+              <FormattedMessage id="mediaDetail.dialogMediaPath" defaultMessage={'Currently filed under {teamName} > {projectTitle}'} values={{ teamName: context.team.name, projectTitle: currentProject.node.title }} />
             </small>
             <RadioButtonGroup name="moveMedia" className="media-detail__dialog-radio-group" onChange={this.handleSelectDestProject.bind(this)}>
-              {destinationProjects.map((proj) => { return (<RadioButton label={proj.node.title} value={proj.node} style={{ padding:'5px' }} />);})}
+              {destinationProjects.map(proj => (<RadioButton label={proj.node.title} value={proj.node} style={{ padding: '5px' }} />))}
             </RadioButtonGroup>
           </Dialog>
         </div>
@@ -272,7 +282,7 @@ class MediaDetail extends Component {
 }
 
 MediaDetail.propTypes = {
-  intl: intlShape.isRequired
+  intl: intlShape.isRequired,
 };
 
 MediaDetail.contextTypes = {

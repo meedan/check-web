@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import Annotation from './Annotation';
 import AddAnnotation from '../source/AddAnnotation';
 import Can, { can } from '../Can';
+import ContentColumn from '../layout/ContentColumn';
 
 class Annotations extends Component {
   render() {
@@ -9,13 +10,14 @@ class Annotations extends Component {
     const annotations = props.annotations;
 
     return (
-      <div>
-        <ul className="annotations-list">
-          {annotations.map(annotation => (
-            <li><Annotation annotation={annotation.node} annotated={props.annotated} annotatedType={props.annotatedType} /></li>
-          ))}
-        </ul>
-
+      <div className='annotations'>
+        <ContentColumn>
+          <ul className="annotations__list / annotations-list">
+            {annotations.map(annotation => (
+              <li className='annotations__list-item'><Annotation annotation={annotation.node} annotated={props.annotated} annotatedType={props.annotatedType} /></li>
+            ))}
+          </ul>
+        </ContentColumn>
         {props.annotatedType === 'ProjectMedia' ? ( // TODO: remove to support Source as well
           <Can permissions={props.annotated.permissions} permission="create Comment">
             <AddAnnotation annotated={props.annotated} annotatedType={props.annotatedType} types={props.types} />

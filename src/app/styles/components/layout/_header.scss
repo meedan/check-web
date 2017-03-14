@@ -6,18 +6,14 @@
 }
 
 .header__container {
-  width: 100%;
-  height: 100%;
   position: relative;
-  max-width: $layout-column-width-wide + (16px * 2);
-  padding: 0 16px;
-  margin: 0 auto;
   display: flex;
 }
 
 .header__app-link {
   display: flex;
   align-items: center;
+
   img {
     width: 64px;
     height: 28px;

@@ -29,30 +29,30 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
   }
 
   getVariables() {
-    let vars = {
+    const vars = {
       id: this.props.id,
       embed: this.props.embed,
-      project_id: this.props.project_id
+      project_id: this.props.project_id,
     };
     if (this.props.srcProj) {
-      vars['previous_project_id'] = this.props.srcProj.dbid;
+      vars.previous_project_id = this.props.srcProj.dbid;
     }
     return vars;
   }
 
   getConfigs() {
-    let ids = { project_media: this.props.id };
+    const ids = { project_media: this.props.id };
     if (this.props.srcProj) {
-      ids['project_was'] = this.props.srcProj.id;
+      ids.project_was = this.props.srcProj.id;
     }
     if (this.props.dstProj) {
-      ids['project'] = this.props.dstProj.id;
+      ids.project = this.props.dstProj.id;
     }
 
     return [
       {
         type: 'FIELDS_CHANGE',
-        fieldIDs: ids
+        fieldIDs: ids,
       },
       {
         type: 'REQUIRED_CHILDREN',

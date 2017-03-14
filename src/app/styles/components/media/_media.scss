@@ -1,5 +1,27 @@
 .media {
+  flex: 1;
   background-color: $black-02;
+}
+
+// Use 2-column view on desktop if tasks
+@media screen and (min-width: $layout-column-width-wide) {
+  .media--has-tasks {
+    .media__expanded-header { // TODO: possibly DRY with ContentColumn#wide
+      max-width: 1216px;
+    }
+    .media__expanded-column-wrapper {
+      flex-direction: row;
+      .media__media-column {
+        flex: 5;
+      }
+      .media__tasks-column {
+        flex: 4;
+      }
+    }
+    .media__tasks-header {
+      display: flex;
+    }
+  }
 }
 
 .media__expanded {
@@ -9,10 +31,19 @@
   padding-top: ($layout-header-height + $layout-padding);
   transition: background-color 500ms ease;
   padding-bottom: 48px;
+}
 
-  .content-column {
-    padding-top: 54px;
-  }
+.media__expanded-header { // TODO: possibly DRY with ContentColumn#wide
+  margin: 0 auto;
+  padding: 0 8px;
+  padding-top: 54px;
+  max-width: $layout-column-width-narrow;
+}
+
+.media__expanded-column-wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
 }
 
 .media__primary-heading {
@@ -35,6 +66,33 @@
   }
 }
 
+.media__tasks-header {
+  display: none;
+  align-items: baseline;
+  margin-bottom: 16px;
+  h2 {
+    font-size: 20px;
+    font-weight: 500;
+    color: $black-87;
+    margin: 0;
+    flex: 1;
+  }
+  & > span {
+    font-size: 16px;
+    color: $black-54;
+    margin-right: 12px;
+  }
+  .create-task {
+    cursor: pointer;
+    color: $black-16;
+    align-self: center;
+    svg {
+      height: 24px;
+      width: 24px;
+    }
+  }
+}
+
 // The headline that says "Verification log"
 //
 .media__notes-heading {
@@ -43,11 +101,23 @@
   margin: 64px 0;
   font-weight: 400;
   text-transform: uppercase;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  & > svg {
+    opacity: 0.6;
+    margin-left: 12px;
+    width: 24px;
+    height: 24px;
+    padding: 1px 1px 2px 0;
+    color: $black-38;
+  }
 }
 
-// MediaDetail overrides – use sparingly
+// overrides – use sparingly
 //
-.media {
+.media__expanded {
   .media-detail {
     border-left: 0;
   }
@@ -58,3 +128,8 @@
   }
 }
 
+.home--media {
+  .footer {
+    display: none;
+  }
+}

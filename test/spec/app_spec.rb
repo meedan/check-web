@@ -55,9 +55,19 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
   # Start Google Chrome before each test
 
   before :each do
-    @driver = browser_capabilities['appiumVersion'] ?
-      Appium::Driver.new({ appium_lib: { server_url: webdriver_url}, caps: browser_capabilities }).start_driver :
-      Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: browser_capabilities)
+    if @config.key?('proxy')
+      proxy = Selenium::WebDriver::Proxy.new(
+        :http     => @config['proxy'],
+        :ftp      => @config['proxy'],
+        :ssl      => @config['proxy']
+      )
+      caps = Selenium::WebDriver::Remote::Capabilities.chrome(:proxy => proxy)
+      @driver = Selenium::WebDriver.for(:chrome, :desired_capabilities => caps , :url => @config['chromedriver_url'])
+    else
+      @driver = browser_capabilities['appiumVersion'] ?
+        Appium::Driver.new({ appium_lib: { server_url: webdriver_url}, caps: browser_capabilities }).start_driver :
+        Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: browser_capabilities)
+    end
   end
 
   # Close Google Chrome after each test
@@ -77,6 +87,14 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
   # The tests themselves start here
 
   context "web" do
+    it "should login using Slack" do
+      login_with_slack
+      @driver.navigate.to @config['self_url'] + '/check/me'
+      displayed_name = get_element('h2.source-name').text.upcase
+      expected_name = @config['slack_name'].upcase
+      expect(displayed_name == expected_name).to be(true)
+    end
+
     it "should localize interface based on browser language" do
       unless browser_capabilities['appiumVersion']
         caps = Selenium::WebDriver::Remote::Capabilities.chrome(chromeOptions: { prefs: { 'intl.accept_languages' => 'fr' } })
@@ -229,14 +247,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       @driver.navigate.to @config['self_url'] + '/check/me'
       displayed_name = get_element('h2.source-name').text.upcase
       expected_name = @config['twitter_name'].upcase
-      expect(displayed_name == expected_name).to be(true)
-    end
-
-    it "should login using Slack" do
-      login_with_slack
-      @driver.navigate.to @config['self_url'] + '/check/me'
-      displayed_name = get_element('h2.source-name').text.upcase
-      expected_name = @config['slack_name'].upcase
       expect(displayed_name == expected_name).to be(true)
     end
 
@@ -536,18 +546,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(id1 == id2).to be(true)
     end
 
-    it "should not create source as media if registered" do
-      login_with_email
-      sleep 3
-      fill_field('#create-media-input', 'https://www.facebook.com/ironmaidenbeer/?fref=ts')
-      sleep 1
-      press_button('#create-media-submit')
-      sleep 10
-      expect(@driver.current_url.to_s.match(/\/media\/[0-9]+$/).nil?).to be(true)
-      message = get_element('.create-media .message').text
-      expect(message.match(/^Something went wrong! Try pasting the text of this post instead, or adding a different link/).nil?).to be(false)
-    end
-
     it "should tag media from tags list" do
       page = LoginPage.new(config: @config, driver: @driver).load
           .login_with_email(email: @email, password: @password)
@@ -806,7 +804,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 1
       notes_count = get_element('.media-detail__check-notes-count')
       expect(notes_count.text == '1 note').to be(true)
-      media_pg.element('.annotation__delete').click
+      media_pg.delete_annotation
       sleep 1
       expect(notes_count.text == '0 notes').to be(true)
     end
@@ -922,6 +920,109 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(media_pg.primary_heading.text).to eq('Edited media title')
       project_pg = media_pg.go_to_project
       expect(project_pg.element('.media-detail__heading').text).to eq('Edited media title')
+    end
+
+    it "should add image to media comment" do
+      media_pg = LoginPage.new(config: @config, driver: @driver).load
+                 .login_with_email(email: @email, password: @password)
+                 .create_media(input: 'Images in comments')
+      sleep 3
+
+      # First, verify that there isn't any comment with image
+      expect(@driver.page_source.include?('This is my comment with image')).to be(false)
+
+      # Add a comment as a command
+      fill_field('#cmd-input', 'This is my comment with image')
+      @driver.find_element(:css, '.add-annotation__insert-photo').click
+      input = @driver.find_element(:css, 'input[type=file]')
+      input.send_keys(File.join(File.dirname(__FILE__), 'test.png'))
+      sleep 3
+      @driver.find_element(:css, '.add-annotation__buttons button').click
+      sleep 5
+
+      # Verify that comment was added to annotations list
+      expect(@driver.page_source.include?('This is my comment with image')).to be(true)
+      imgsrc = @driver.find_element(:css, '.annotation__card-thumbnail').attribute('src')
+      expect(imgsrc.match(/test\.png$/).nil?).to be(false)
+
+      # Zoom image
+      expect(@driver.find_elements(:css, '.image-current').empty?).to be(true)
+      @driver.find_element(:css, '.annotation__card-thumbnail').click
+      expect(@driver.find_elements(:css, '.image-current').empty?).to be(false)
+      @driver.action.send_keys(:escape).perform
+      expect(@driver.find_elements(:css, '.image-current').empty?).to be(true)
+
+      # Reload the page and verify that comment is still there
+      @driver.navigate.refresh
+      sleep 3
+      expect(@driver.page_source.include?('This is my comment with image')).to be(true)
+      imgsrc = @driver.find_element(:css, '.annotation__card-thumbnail').attribute('src')
+      expect(imgsrc.match(/test\.png$/).nil?).to be(false)
+    end
+
+    it "should add, edit, answer, update answer and delete task" do
+      media_pg = LoginPage.new(config: @config, driver: @driver).load
+                 .login_with_email(email: @email, password: @password)
+                 .create_media(input: 'Tasks')
+      sleep 3
+
+      # Create a task
+      expect(@driver.page_source.include?('Foo or bar?')).to be(false)
+      expect(@driver.page_source.include?('Task "Foo or bar?" created by')).to be(false)
+      @driver.find_element(:css, '.create-task__add-button').click
+      @driver.find_element(:css, '.create-task__add-short-answer').click
+      sleep 1
+      fill_field('#task-label-input', 'Foo or bar?')
+      @driver.find_element(:css, '.create-task__dialog-submit-button').click
+      sleep 2
+      expect(@driver.page_source.include?('Foo or bar?')).to be(true)
+      expect(@driver.page_source.include?('Task "Foo or bar?" created by')).to be(true)
+
+      # Answer task
+      expect(@driver.page_source.include?('Task "Foo or bar?" answered by')).to be(false)
+      fill_field('textarea[name="response"]', 'Foo')
+      @driver.action.send_keys(:enter).perform
+      sleep 2
+      expect(@driver.page_source.include?('Task "Foo or bar?" answered by')).to be(true)
+
+      # Edit task
+      expect(@driver.page_source.include?('Task "Foo or bar?" edited to "This or that?" by')).to be(false)
+      @driver.find_element(:css, '.task__actions svg').click
+      @driver.find_elements(:css, '.media-actions__menu--active span').first.click
+      fill_field('textarea[name="label"]', '??')
+      @driver.find_element(:css, '.task__save').click
+      sleep 2
+      expect(@driver.page_source.include?('Task "Foo or bar?" edited to "Foo or bar???" by')).to be(true)
+
+      # Edit task answer
+      expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Task "Foo or bar???" answered by User With Email: "Foo edited"')).to be(false)
+      @driver.find_element(:css, '#task__edit-response-button').click
+      fill_field('textarea[name="editedresponse"]', ' edited')
+      @driver.action.send_keys(:enter).perform
+      sleep 2
+      expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Task "Foo or bar???" answered by User With Email: "Foo edited"')).to be(true)
+
+      # Delete task
+      expect(@driver.page_source.include?('Foo')).to be(true)
+      @driver.find_element(:css, '.task__actions svg').click
+      @driver.find_elements(:css, '.media-actions__menu--active span').last.click
+      @driver.switch_to.alert.accept
+      sleep 3
+      expect(@driver.page_source.include?('Foo')).to be(false)
+    end
+
+    it "should search for reverse images" do
+      page = LoginPage.new(config: @config, driver: @driver).load
+          .login_with_email(email: @email, password: @password)
+          .create_media(input: 'https://www.instagram.com/p/BRYob0dA1SC/')
+      sleep 2
+      expect(@driver.page_source.include?('Media contains one image. Click Search to look for duplicates on Google.')).to be(true)
+      expect((@driver.current_url.to_s =~ /google/).nil?).to be(true)
+      current_window = @driver.window_handles.last
+      @driver.find_element(:css, '.annotation__reverse-image-search').click
+      @driver.switch_to.window(@driver.window_handles.last)
+      expect((@driver.current_url.to_s =~ /google/).nil?).to be(false)
+      @driver.switch_to.window(current_window)
     end
   end
 end

@@ -13,8 +13,8 @@ import { pageTitle } from '../../helpers';
 const messages = defineMessages({
   title: {
     id: 'teamMembersComponent.title',
-    defaultMessage: 'Team Members'
-  }
+    defaultMessage: 'Team Members',
+  },
 });
 
 class TeamMembersComponent extends Component {
@@ -63,9 +63,11 @@ class TeamMembersComponent extends Component {
 
           <div className="team-members__blurb">
             <p className="team-members__blurb-graf">
-              <FormattedMessage id="teamMembersComponent.inviteLink"
-                    defaultMessage={`To invite colleagues to join {link}, send them this link:`}
-                            values={{link: <Link to={teamUrl}>{team.name}</Link>}} />
+              <FormattedMessage
+                id="teamMembersComponent.inviteLink"
+                defaultMessage={'To invite colleagues to join {link}, send them this link:'}
+                values={{ link: <Link to={teamUrl}>{team.name}</Link> }}
+              />
             </p>
             <p className="team-members__blurb-graf--url"><a href={joinUrl}>{joinUrl}</a></p>
           </div>
@@ -84,7 +86,7 @@ class TeamMembersComponent extends Component {
 }
 
 TeamMembersComponent.propTypes = {
-  intl: intlShape.isRequired
+  intl: intlShape.isRequired,
 };
 
 export default injectIntl(TeamMembersComponent);

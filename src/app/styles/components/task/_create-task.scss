@@ -1,0 +1,54 @@
+// TODO: consider !important vs. react inline styles
+
+.create-task__add-button {
+  &--default {
+    display: inline-block !important;
+    margin: 0 auto 18px 0 !important;
+    &:hover {
+      background-color: rgba($black-87, 0.12) !important;
+    }
+  }
+}
+
+// Dialog
+//
+.create-task__task-label-input {
+  width: 100% !important;
+}
+
+.create-task__task-description-input {
+  width: 100% !important;
+  display: none !important;
+}
+
+.create-task__add-task-description-label {
+  padding-left: 8px;
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  font-size: 12px;
+}
+
+.create-task__add-task-description-icon {
+  font-size: 24px;
+  margin-right: 16px;
+  position: relative;
+  top: 4px;
+}
+
+.create-task__add-task-description { // hidden checkbox
+  display: none;
+  &:checked {
+    & ~ .create-task__task-description-input {
+      display: block !important;
+    }
+    & ~ .create-task__add-task-description-label {
+      display: none !important;
+    }
+  }
+}
+
+.create-task__dialog-submit-button {
+  background: $check-blue;
+  color: white;
+}

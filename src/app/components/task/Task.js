@@ -19,8 +19,8 @@ import 'rc-tooltip/assets/bootstrap.css';
 const messages = defineMessages({
   confirmDelete: {
     id: 'task.confirmDelete',
-    defaultMessage: 'Are you sure you want to delete this task?'
-  }
+    defaultMessage: 'Are you sure you want to delete this task?',
+  },
 });
 
 class Task extends Component {
@@ -33,7 +33,7 @@ class Task extends Component {
       message: null,
       editingResponse: false,
       isMenuOpen: false,
-      taskAnswerDisabled: false
+      taskAnswerDisabled: false,
     };
   }
 
@@ -137,7 +137,7 @@ class Task extends Component {
         task: {
           id: task.id,
           label: form.label.value,
-          description: form.description.value
+          description: form.description.value,
         },
       }),
       { onSuccess, onFailure },
@@ -153,8 +153,8 @@ class Task extends Component {
         new DeleteAnnotationMutation({
           parent_type: 'project_media',
           annotated: that.props.media,
-          id: that.props.task.id
-        })
+          id: that.props.task.id,
+        }),
       );
     }
     this.setState({ isMenuOpen: false });
@@ -227,7 +227,7 @@ class Task extends Component {
 
   componentDidMount() {
     const that = this;
-    window.addEventListener('click', () => { that.setState({ focus: false }) });
+    window.addEventListener('click', () => { that.setState({ focus: false }); });
   }
 
   render() {
@@ -250,14 +250,14 @@ class Task extends Component {
     }
 
     const dialogActions = [
-      <FlatButton label={<FormattedMessage id="tasks.cancelEdit" defaultMessage="Cancel" />} primary={true} onClick={this.handleCancelEdit.bind(this)} />,
-      <FlatButton label={<FormattedMessage id="tasks.save" defaultMessage="Save" />} primary={true} keyboardFocused={true} onClick={this.handleUpdateTask.bind(this)} />,
+      <FlatButton label={<FormattedMessage id="tasks.cancelEdit" defaultMessage="Cancel" />} primary onClick={this.handleCancelEdit.bind(this)} />,
+      <FlatButton className="task__save" label={<FormattedMessage id="tasks.save" defaultMessage="Save" />} primary keyboardFocused onClick={this.handleUpdateTask.bind(this)} />,
     ];
 
     const taskActions = (
       <Can permissions={task.permissions} permission="update Task">
         {/* TODO: abstract media-actions into @mixin or component to remove these classes */}
-        <div className={'task__actions ' + this.bemClass('media-actions', this.state.isMenuOpen, '--active')}>
+        <div className={`task__actions ${this.bemClass('media-actions', this.state.isMenuOpen, '--active')}`}>
           <MdMoreHoriz className="media-actions__icon" onClick={this.toggleMenu.bind(this)} />
           <div className={this.bemClass('media-actions__overlay', this.state.isMenuOpen, '--active')} onClick={this.toggleMenu.bind(this)} />
           <ul className={this.bemClass('media-actions__menu', this.state.isMenuOpen, '--active')}>
@@ -271,81 +271,90 @@ class Task extends Component {
     );
 
     const taskQuestion = (
-      <div className='task__question'>
+      <div className="task__question">
         { task.description ? (
           <Tooltip
             placement="left"
             trigger={['click']}
             overlay={<span>{task.description}</span>}
-            overlayClassName='task__description-tooltip'>
-            <MdInfoOutline className='task__description-icon' title={task.description}/>
+            overlayClassName="task__description-tooltip"
+          >
+            <MdInfoOutline className="task__description-icon" title={task.description} />
           </Tooltip>
         ) : <em>{task.description}</em> }
-        <span className='task__label'>{task.label}</span>
+        <span className="task__label">{task.label}</span>
       </div>
     );
 
     return (
       <div>
         <Card onClick={this.handleClick.bind(this)} className="task">
-          <CardText className='task__card-text'>
+          <CardText className="task__card-text">
             <Message message={this.state.message} />
             {taskActions}
             {response === null ?
-            <form onSubmit={this.handleSubmit.bind(this)} name={`task-response-${task.id}`}>
-              {taskQuestion}
-              {/* "response" */}
-              <TextField className='task__response-input'
-                         onFocus={this.handleFocus.bind(this)}
-                         name="response"
-                         onKeyPress={this.handleKeyPress.bind(this)}
-                         onChange={this.handleChange.bind(this)}
-                         fullWidth={true}
-                         multiLine={true}/>
-              <div style={{ display: this.state.focus ? 'block' : 'none' }}>
-                <TextField hintText={<FormattedMessage id="task.noteLabel" defaultMessage="Note any additional details here." />}
-                           name="note"
-                           onKeyPress={this.handleKeyPress.bind(this)}
-                           onChange={this.handleChange.bind(this)}
-                           fullWidth={true}
-                           multiLine={true}/>
-                <p className="task__resolver"><small><FormattedMessage id="task.pressReturnToSave" defaultMessage="Press return to save your response" /></small></p>
-              </div>
-            </form>
-            : (this.state.editingResponse ?
-            <div className="task__editing">
-              <form onSubmit={this.handleSubmitUpdate.bind(this)} name={`edit-response-${task.first_response.id}`}>
+              <form onSubmit={this.handleSubmit.bind(this)} name={`task-response-${task.id}`}>
                 {taskQuestion}
                 {/* "response" */}
-                <TextField className='task__response-input'
-                           defaultValue={response}
-                           name="editedresponse"
-                           onKeyPress={this.handleKeyPressUpdate.bind(this)}
-                           onChange={this.handleChange.bind(this)}
-                           fullWidth={true}
-                           multiLine={true}/>
-                <TextField hintText={<FormattedMessage id="task.noteLabel" defaultMessage="Note any additional details here." />}
-                           defaultValue={note}
-                           name="editednote"
-                           onKeyPress={this.handleKeyPressUpdate.bind(this)}
-                           onChange={this.handleChange.bind(this)}
-                           fullWidth={true}
-                           multiLine={true}/>
-                <p className="task__resolver"><small><FormattedMessage id="task.pressReturnToSave" defaultMessage="Press return to save your response" /></small> <span id="task__cancel-button" onClick={this.handleCancelEditResponse.bind(this)}>✖</span></p>
+                <TextField
+                  className="task__response-input"
+                  onFocus={this.handleFocus.bind(this)}
+                  name="response"
+                  onKeyPress={this.handleKeyPress.bind(this)}
+                  onChange={this.handleChange.bind(this)}
+                  fullWidth
+                  multiLine
+                />
+                <div style={{ display: this.state.focus ? 'block' : 'none' }}>
+                  <TextField
+                    hintText={<FormattedMessage id="task.noteLabel" defaultMessage="Note any additional details here." />}
+                    name="note"
+                    onKeyPress={this.handleKeyPress.bind(this)}
+                    onChange={this.handleChange.bind(this)}
+                    fullWidth
+                    multiLine
+                  />
+                  <p className="task__resolver"><small><FormattedMessage id="task.pressReturnToSave" defaultMessage="Press return to save your response" /></small></p>
+                </div>
               </form>
-            </div>
+            : (this.state.editingResponse ?
+              <div className="task__editing">
+                <form onSubmit={this.handleSubmitUpdate.bind(this)} name={`edit-response-${task.first_response.id}`}>
+                  {taskQuestion}
+                  {/* "response" */}
+                  <TextField
+                    className="task__response-input"
+                    defaultValue={response}
+                    name="editedresponse"
+                    onKeyPress={this.handleKeyPressUpdate.bind(this)}
+                    onChange={this.handleChange.bind(this)}
+                    fullWidth
+                    multiLine
+                  />
+                  <TextField
+                    hintText={<FormattedMessage id="task.noteLabel" defaultMessage="Note any additional details here." />}
+                    defaultValue={note}
+                    name="editednote"
+                    onKeyPress={this.handleKeyPressUpdate.bind(this)}
+                    onChange={this.handleChange.bind(this)}
+                    fullWidth
+                    multiLine
+                  />
+                  <p className="task__resolver"><small><FormattedMessage id="task.pressReturnToSave" defaultMessage="Press return to save your response" /></small> <span id="task__cancel-button" onClick={this.handleCancelEditResponse.bind(this)}>✖</span></p>
+                </form>
+              </div>
             :
-            <div className="task__resolved">
-              {taskQuestion}
-              <p className="task__response">{response}</p>
-              <p style={{ display: note ? 'block' : 'none' }} className="task__note">{note}</p>
-              <p className="task__resolver">
-                <small><FormattedMessage id="task.resolvedBy" defaultMessage={`Resolved by {by}`} values={{ by }} /></small>
-                <Can permissions={task.first_response.permissions} permission="update Dynamic">
-                  <span id="task__edit-response-button" onClick={this.handleEditResponse.bind(this)}>✐</span>
-                </Can>
-              </p>
-            </div>
+              <div className="task__resolved">
+                {taskQuestion}
+                <p className="task__response">{response}</p>
+                <p style={{ display: note ? 'block' : 'none' }} className="task__note">{note}</p>
+                <p className="task__resolver">
+                  <small><FormattedMessage id="task.resolvedBy" defaultMessage={'Resolved by {by}'} values={{ by }} /></small>
+                  <Can permissions={task.first_response.permissions} permission="update Dynamic">
+                    <span id="task__edit-response-button" onClick={this.handleEditResponse.bind(this)}>✐</span>
+                  </Can>
+                </p>
+              </div>
             )}
           </CardText>
         </Card>
@@ -357,14 +366,16 @@ class Task extends Component {
               name="label"
               floatingLabelText={<FormattedMessage id="tasks.taskLabel" defaultMessage="Task label" />}
               defaultValue={task.label}
-              fullWidth={true}
-              multiLine={true}/>
+              fullWidth
+              multiLine
+            />
             <TextField
               name="description"
               floatingLabelText={<FormattedMessage id="tasks.description" defaultMessage="Description" />}
               defaultValue={task.description}
-              fullWidth={true}
-              multiLine={true}/>
+              fullWidth
+              multiLine
+            />
           </form>
         </Dialog>
       </div>
@@ -373,7 +384,7 @@ class Task extends Component {
 }
 
 Task.propTypes = {
-  intl: intlShape.isRequired
+  intl: intlShape.isRequired,
 };
 
 export default injectIntl(Task);
