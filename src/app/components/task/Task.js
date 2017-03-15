@@ -45,7 +45,7 @@ class Task extends Component {
   }
 
   handleCancelFocus(){
-    this.setState({ focus: false });
+    this.setState({ focus: false, response: null });
   }
 
   handleClick(e) {
@@ -168,7 +168,7 @@ class Task extends Component {
   }
 
   handleCancelEditResponse() {
-    this.setState({ editingResponse: false });
+    this.setState({ editingResponse: false, response: null });
   }
 
   handleEditResponse() {
@@ -237,6 +237,10 @@ class Task extends Component {
     window.addEventListener('click', () => { that.setState({ focus: false }); });
   }
 
+  handleSelectRadio(e) {
+    this.setState({ focus: true, response: e.target.value });
+  }
+
   renderOptions(response) {
     const { task } = this.props;
     let options = null;
@@ -256,34 +260,10 @@ class Task extends Component {
     if (Array.isArray(options) && options.length > 0) {
       if (task.type === 'single_choice') {
         return (<div>
-          <RadioButtonGroup name={formName} className="task__radio-group" onChange={this.handleFocus.bind(this)} defaultSelected={response}>
+          <RadioButtonGroup name={formName} className="task__radio-group" onChange={this.handleSelectRadio.bind(this)} valueSelected={this.state.response || response}>
             { options.map( (item, index) => <RadioButton label={item.label} value={item.label} style={{ padding: '5px' }} disabled={!editable}/>) }
           </RadioButtonGroup>
           { (this.state.focus && editable) || this.state.editingResponse ? actionBtns : null }
-        </div>);
-      } else if (task.type === 'multiple_choice') {
-        /* render checkboxes */
-      }
-    }
-  }
-
-  renderOptionsAnswered(response) {
-    const { task } = this.props;
-    let options = null;
-
-    const submitCallback = this.state.editingResponse ? this.handleSubmitUpdate.bind(this) : this.handleSubmit.bind(this);
-    const formName = this.state.editingResponse ? 'editedresponse' : 'response';
-
-    if (task.jsonoptions) {
-      options = JSON.parse(task.jsonoptions);
-    }
-
-    if (Array.isArray(options) && options.length > 0) {
-      if (task.type === 'single_choice') {
-        return (<div className="task__options-answered">
-            { options.map( item => <div className="task__options-answered-item">
-                { item.label === response ? <MdRadioButtonChecked /> : <MdRadioButtonUnchecked /> } {item.label}
-              </div>) }
         </div>);
       } else if (task.type === 'multiple_choice') {
         /* render checkboxes */
@@ -428,7 +408,7 @@ class Task extends Component {
             :
               <div className="task__resolved">
                 {taskQuestion}
-                { task.type === 'single_choice' ? this.renderOptionsAnswered(response) : <p className="task__response">{response}</p> }
+                { task.type === 'single_choice' ? this.renderOptions(response) : <p className="task__response">{response}</p> }
                 <p style={{ display: note ? 'block' : 'none' }} className="task__note">{note}</p>
                 <p className="task__resolver">
                   <small><FormattedMessage id="task.resolvedBy" defaultMessage={'Resolved by {by}'} values={{ by }} /></small>
