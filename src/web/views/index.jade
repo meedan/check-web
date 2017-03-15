@@ -5,7 +5,6 @@ html
     meta(charset='UTF-8')
     meta(name="viewport" content="width=device-width, initial-scale=1")
     title Check
-    link(href='/css/stylesheet.css', rel='stylesheet')
     link(href='/images/logo/favicon.ico', rel='icon')
     script(src='/js/config.js')
     script(src='/js/newrelic.js')
@@ -15,17 +14,25 @@ html
     #root
   script(src='/js/index.bundle.js')
 
+  //- Temporary logic for RTL stylesheets — 2017-3-15 CGB
   script.
-    document.addEventListener("DOMContentLoaded", function(){
       (function(){
-        //- set a lang attribute to facilitate styling 
+        //- 1. Add a locale-based attribute to facilitate styling 
         document.body.setAttribute("lang", config.locale);
 
-        //- add an rtl stylesheet if appropriate
-        var rtlStylesheet = document.createElement("link");
-        rtlStylesheet.href = "/css/stylesheet-rtl.css";
-        rtlStylesheet.setAttribute('rel', 'stylesheet');
-        rtlStylesheet.setAttribute('type', 'text/css');
-        document.head.appendChild(rtlStylesheet);
+        //- 2. Add (only one) stylesheet appropriate for the locale
+        if (config.locale == "ar") {
+          var rtlStylesheet = document.createElement("link");
+          rtlStylesheet.href = "/css/stylesheet-rtl.css";
+          rtlStylesheet.setAttribute('rel', 'stylesheet');
+          rtlStylesheet.setAttribute('type', 'text/css');
+          document.head.appendChild(rtlStylesheet);
+        } else {
+          var ltrStylesheet = document.createElement("link");
+          ltrStylesheet.href = "/css/stylesheet.css";
+          ltrStylesheet.setAttribute('rel', 'stylesheet');
+          ltrStylesheet.setAttribute('type', 'text/css');
+          document.head.appendChild(ltrStylesheet);
+        }
       })()
-    })
+
