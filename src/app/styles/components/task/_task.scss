@@ -27,7 +27,7 @@
 
   .task__resolver {
     color: $black-38;
-    text-align: right;
+    text-align: $to-direction;
   }
 
   .task__resolved {
@@ -72,7 +72,7 @@
   }
 
   .task__description-icon {
-    float: right;
+    float: $to-direction;
     margin-top: 0;
     margin-#{$to-direction}: 4px;
     margin-#{$from-direction}: 16px;

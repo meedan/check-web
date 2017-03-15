@@ -2,7 +2,7 @@
   direction: rtl;
 }
 
-$from-direction: right;
+$from-direction: $to-direction;
 $to-direction: left;
 
 @import "stylesheet";

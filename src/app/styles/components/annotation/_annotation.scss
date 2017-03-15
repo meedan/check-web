@@ -11,7 +11,8 @@
     display: flex;
     max-width: 704px;
 
-    &, * {
+    &,
+    * {
       overflow-wrap: break-word;
       word-wrap: break-word;
       hyphens: auto;
@@ -22,7 +23,8 @@
       margin-#{$to-direction}: 12px;
     }
 
-    a, a:visited {
+    a,
+    a:visited {
       color: inherit;
     }
 
@@ -58,8 +60,6 @@
   .annotation__card-avatar {
     $width: 32px;
     @include user-avatar($width);
-    // flex: 0 0 $width;
-    // margin: 1px 12px 0 0;
   }
 
   .annotation__card-main-col {
@@ -77,7 +77,7 @@
   }
 
   .annotation__card-thumbnail {
-    float: right;
+    float: $to-direction;
     padding: 8px;
   }
 
@@ -182,7 +182,7 @@
   img {
     max-width: 20%;
     min-width: 50px;
-    float: right;
+    float: $to-direction;
     cursor: zoom-in
   }
 

@@ -36,7 +36,7 @@
 .login-email__email,
 .login-email__password,
 .login-email__password-confirmation {
-  margin-bottom: 30px - 5px;
+  margin-bottom: 30px -5px;
   display: flex;
   flex-direction: column;
 }
@@ -100,7 +100,7 @@
   border: 1px dashed $black-38 !important;
   color: $black-38 !important;
   text-align: center;
-  float: right;
+  float: $to-direction;
 
   &.with-file {
     width: 80% !important;

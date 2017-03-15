@@ -62,7 +62,7 @@ $gutter-small: 16px;
 
   &__header-text-secondary {
     margin-#{$to-direction}: 20px;
-    text-align: right;
+    text-align: $to-direction;
     margin-#{$from-direction}: $gutter-large;
 
     @media all and (max-width: $layout-mobile-breakpoint-small) {
