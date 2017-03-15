@@ -42,6 +42,7 @@ class LoginPage < Page
     wait_for_element('.home')
     return CreateTeamPage.new(config: @config, driver: @driver) if contains_element?('.create-team', {timeout: 1})
     return ProjectPage.new(config: @config, driver: @driver) if contains_element?('.project')
+    return ProjectPage.new(config: @config, driver: @driver) if options[:project]
   end
 
   def login_with_facebook

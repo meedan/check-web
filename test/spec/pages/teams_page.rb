@@ -18,7 +18,6 @@ class TeamsPage < Page
 
   def ask_join_team(options = {})
     subdomain = options[:subdomain]
-		p @config['self_url'] + "/"+subdomain+"/join" 
     @driver.navigate.to @config['self_url'] + "/"+subdomain+"/join"
     sleep 2 # TODO: better soft keyboard strategies
 		click_button('.join-team__button')
@@ -27,7 +26,6 @@ class TeamsPage < Page
 
   def approve_join_team(options = {})
     subdomain = options[:subdomain] 
-		p @config['self_url'] + '/'+subdomain+'/members'
     @driver.navigate.to @config['self_url'] + '/'+subdomain+'/members'
     sleep 2 # TODO: better soft keyboard strategies
 		click_button('.team-member-requests__user-button--approve')

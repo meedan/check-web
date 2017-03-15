@@ -51,6 +51,11 @@ class MediaPage < Page
     @wait.until { has_tag?(string)}
   end
 
+  def delete_tag(string)
+		element = @driver.find_element(:class,"ReactTags__remove")
+		element.click
+  end
+
   def has_tag?(tag)
     tags.include?(tag)
   end
@@ -58,12 +63,6 @@ class MediaPage < Page
   def add_annotation(string)
     fill_input('#cmd-input', string)
     press(:enter)
-  end
-
-  def delete_annotation
-    # TODO: specify particular annotation
-    element('.annotation .menu-button').click
-    element('.annotation__delete').click
   end
 
   def primary_heading

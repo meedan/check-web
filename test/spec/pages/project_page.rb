@@ -58,7 +58,6 @@ class ProjectPage < Page
   end
 
   def new_project(options = {})
-    p "TO AQUI",options
     name = options[:name] || "Project #{Time.now.to_i}"
     element('.team__new-project-input').click
     element('.team__new-project-input').clear
