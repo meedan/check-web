@@ -42,7 +42,7 @@ class MediaDetail extends Component {
     this.state = {
       isEditing: false,
       openMoveDialog: false,
-      mediaVersion: 0,
+      mediaVersion: false,
     };
   }
 
@@ -66,7 +66,7 @@ class MediaDetail extends Component {
     };
 
     const onSuccess = (response) => {
-      this.setState({ mediaVersion: this.state.mediaVersion + 1 });
+      this.setState({ mediaVersion: JSON.parse(response.updateProjectMedia.project_media.embed).version });
     };
 
     Relay.Store.commitUpdate(
@@ -238,7 +238,7 @@ class MediaDetail extends Component {
     } else if (media.url) {
       embedCard = condensed ?
         <SocialMediaCard media={media} data={data} condensed={condensed} /> :
-        <PenderCard url={media.url} penderUrl={config.penderUrl} fallback={null} mediaVersion={this.state.mediaVersion} />;
+        <PenderCard url={media.url} penderUrl={config.penderUrl} fallback={null} mediaVersion={this.state.mediaVersion || data.version} />;
     }
 
     const actions = [
