@@ -35,10 +35,12 @@
   &-container {
     width: 100%;
     max-width: $layout-column-width-wide + (16px * 2);
-    padding: 16px 16px 16px 27px;
+    padding-top: 16px;
+    padding-#{$to-direction}: 16px;
+    padding-bottom: 16px;
+    padding-#{$from-direction}: 27px;
     margin: 0 auto;
     display: flex;
-
     color: $black-54;
     font-size: 14px;
   }

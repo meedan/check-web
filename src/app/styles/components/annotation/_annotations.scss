@@ -1,6 +1,8 @@
 .annotations {
   .annotations__list { // TODO: BEMify
     position: relative;
+    padding-bottom: 5px;
+
     &::before {
       content: '';
       display: block;
@@ -11,11 +13,11 @@
       width: 2px;
       #{$from-direction}: 40px;
     }
-    padding-bottom: 5px;
   }
 
   .annotations__list-item {
     position: relative;
+
     &::before {
       content: '';
       position: absolute;

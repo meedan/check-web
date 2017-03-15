@@ -18,6 +18,7 @@
 
 // Tooltip 
 //
+// TODO I think we're using a component for this and this mixin can be remove CGB 2017-3-15
 @mixin tooltip($content: "Click here", $direction: up) {
   position: relative;
 

@@ -41,8 +41,8 @@
 .team-sidebar__new-source {
   font-size: 15px;
   padding-top: .4em;
-  padding-bottom: .4em;
   padding-#{$to-direction}: 13px;
+  padding-bottom: .4em;
   padding-#{$from-direction}: 0;
 }
 
@@ -51,8 +51,8 @@
     color: $black-87;
     font-weight: 500;
     border-right: 0;
-    border-top-left-radius: 3px;
-    border-bottom-left-radius: 3px;
+    border-top-#{$from-direction}-radius: 3px;
+    border-bottom-#{$from-direction}-radius: 3px;
   }
 }
 

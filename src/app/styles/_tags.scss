@@ -12,7 +12,10 @@
     padding: 9px 12px;
     border: 1px solid $black-54;
     border-radius: 26px;
-    margin: 0 6px 4px 0;
+    margin-top: 0;
+    margin-#{$to-direction}: 6px;
+    margin-bottom: 4px;
+    margin-#{$from-direction}: 0;
     font-size: 13px;
     font-weight: 500;
   }

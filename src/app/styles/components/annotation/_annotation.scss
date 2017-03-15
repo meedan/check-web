@@ -50,7 +50,10 @@
 
   .annotation__card-text {
     display: flex;
-    padding: 24px 0 0 24px !important;
+    padding-top: 24px;
+    padding-#{$to-direction}: 0 !important;
+    padding-bottom: 0 !important;
+    padding-#{$from-direction}: 24px !important;
   }
 
   .annotation__card-avatar-col {
@@ -84,16 +87,13 @@
   .annotation__card-footer {
     flex: 1;
     padding-#{$to-direction}: 12px;
-
     // see also .media-detail__check-metadata
     align-items: center;
     border-top: 1px solid $black-05;
     display: flex;
     flex-flow: wrap row;
-    font-size: 12px;
     margin-top: 24px;
     height: 44px;
-
     font-size: 12px;
     color: $black-54;
   }
@@ -122,14 +122,7 @@
     margin-bottom: 1.5px;
   }
 
-  .annotation__author-name {
-  }
-
-  .annotation__task-resolved {
-  }
-
   .annotation__timestamp {
-    // letter-spacing: -0.5px;
     color: $black-38;
     display: inline;
     margin-#{$to-direction}: 12px;
@@ -183,7 +176,7 @@
     max-width: 20%;
     min-width: 50px;
     float: $to-direction;
-    cursor: zoom-in
+    cursor: zoom-in;
   }
 
   br {
@@ -227,7 +220,7 @@
     .remove-image {
       position: absolute;
       top: 2px;
-       #{$to-direction}: 2px;
+      #{$to-direction}: 2px;
       z-index: 1;
       color: $black-38;
       cursor: pointer;

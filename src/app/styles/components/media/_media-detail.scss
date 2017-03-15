@@ -29,7 +29,10 @@
 //
 .media-detail__heading {
   font-size: 18px;
-  margin: 2px 24px 16px 0;
+  margin-top: 2px;
+  margin-#{$to-direction}: 24px;
+  margin-bottom: 16px;
+  margin-#{$from-direction}: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -100,7 +103,10 @@
 .media-detail__editing-buttons {
   display: flex;
   flex-flow: wrap row;
-  margin: 4px 8px 4px auto;
+  margin-top: 4px;
+  margin-#{$to-direction}: 8px;
+  margin-bottom: 4px;
+  margin-#{$from-direction}: auto;
 
   span {
     display: block;
@@ -111,7 +117,10 @@
 // Move dialog
 //
 .media-detail__dialog-header {
-  margin: 4px 8px 4px auto;
+  margin-top: 4px;
+  margin-#{$to-direction}: 8px;
+  margin-bottom: 4px;
+  margin-#{$from-direction}: auto;
   height: 28px;
   font-family: Roboto;
   font-size: 20px;

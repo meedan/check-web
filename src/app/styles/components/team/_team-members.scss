@@ -12,7 +12,6 @@
 // edit buttons
 .team-members__edit-button {
   @include button-small;
-
   position: absolute;
   top: 30px;
   #{$to-direction}: 25px;
@@ -37,7 +36,6 @@
 // blurb
 .team-members__blurb {
   @include app-blurb;
-
   text-align: center;
 }
 
@@ -115,9 +113,10 @@
 
 .team-members__member-role {
   min-width: 120px;
-  margin: 8px 0 8px auto;
-  margin-#{$from-direction}: auto;
+  margin-top: 8px;
   margin-#{$to-direction}: 0;
+  margin-bottom: 8px;
+  margin-#{$from-direction}: auto;
 
   .Select-control {
     transition: border-color 450ms ease;

@@ -47,8 +47,8 @@
 }
 
 .is-open > .Select-control {
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
+  border-bottom-#{$from-direction}-radius: 0;
+  border-bottom-#{$$to-direction}-radius: 0;
   background: #fff;
   border-color: #b3b3b3 #ccc #d9d9d9;
 }

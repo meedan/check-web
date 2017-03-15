@@ -27,6 +27,7 @@
 }
 
 @mixin fade-in($speed: .3s) {
+  // Disabled temporarily due to a bug with z-indexes CGB 2017-3-15
   // opacity: 0;
   // animation: fade-in ease-in 1;
   // animation-fill-mode: forwards;
