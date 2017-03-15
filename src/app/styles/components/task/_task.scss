@@ -18,7 +18,32 @@
   .task__label {
     font-size: 12px;
     color: $black-38;
-    word-wrap: break-word;
+    &--truncated {
+      white-space: nowrap;
+      label {
+        font-size: 12px;
+        color: $black-38;
+        text-decoration: underline;
+        padding: 0 4px;
+      }
+    }
+    &--full {
+      word-wrap: break-word;
+      word-break: break-all;
+      display: none;
+    }
+  }
+
+  .task__label-truncated-toggle {
+    display: none;
+    &:checked {
+      & ~ .task__label--full {
+        display: inline;
+      }
+      & ~ .task__label--truncated {
+        display: none;
+      }
+    }
   }
 
   .task__response {

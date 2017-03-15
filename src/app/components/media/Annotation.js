@@ -309,11 +309,13 @@ class Annotation extends Component {
               </CardText>
             </Card>
           ) : (
-            <span className='annotation__default'>
-              <span className='annotation__default-content'>{contentTemplate}</span>
-              {timestamp}
+            <div className='annotation__default'>
+              <span className='annotation__default-text'>
+                <span className='annotation__default-content'>{contentTemplate}</span>
+                {timestamp}
+              </span>
               {annotationActions}
-            </span>
+            </div>
           )
         }
       </section>

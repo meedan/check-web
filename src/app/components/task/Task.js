@@ -17,6 +17,7 @@ import MdInfoOutline from 'react-icons/lib/md/info-outline';
 import { MdRadioButtonChecked, MdRadioButtonUnchecked } from 'react-icons/lib/md';
 import Tooltip from 'rc-tooltip';
 import 'rc-tooltip/assets/bootstrap.css';
+import Truncate from 'react-truncate';
 
 const messages = defineMessages({
   confirmDelete: {
@@ -342,13 +343,31 @@ class Task extends Component {
             <MdInfoOutline className="task__description-icon" title={task.description} />
           </Tooltip>
         ) : <em>{task.description}</em> }
-        <span className="task__label">{task.label}</span>
+
+        {/* TODO: abstract pattern into ExpandableText component */}
+        <input
+            type='checkbox'
+            className='task__label-truncated-toggle'
+            id={`task-${task.id}-label-truncated-toggle`}
+          />
+        <Truncate
+            className='task__label task__label--truncated'
+            lines={1}
+            ellipsis={<span>... <label htmlFor={`task-${task.id}-label-truncated-toggle`} title={task.label}>More</label></span>}
+          >
+          {task.label}
+        </Truncate>
+        <span className='task__label task__label--full'>{task.label}</span>
       </div>
     );
 
     return (
       <div>
-        <Card onClick={this.handleClick.bind(this)} className="task">
+        <Card
+            onClick={this.handleClick.bind(this)}
+            className="task"
+            style={{'zIndex': 'auto'}}
+          >
           <CardText className="task__card-text">
             <Message message={this.state.message} />
             {taskActions}

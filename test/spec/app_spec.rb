@@ -55,9 +55,19 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
   # Start Google Chrome before each test
 
   before :each do
-    @driver = browser_capabilities['appiumVersion'] ?
-      Appium::Driver.new({ appium_lib: { server_url: webdriver_url}, caps: browser_capabilities }).start_driver :
-      Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: browser_capabilities)
+    if @config.key?('proxy')
+      proxy = Selenium::WebDriver::Proxy.new(
+        :http     => @config['proxy'],
+        :ftp      => @config['proxy'],
+        :ssl      => @config['proxy']
+      )
+      caps = Selenium::WebDriver::Remote::Capabilities.chrome(:proxy => proxy)
+      @driver = Selenium::WebDriver.for(:chrome, :desired_capabilities => caps , :url => @config['chromedriver_url'])
+    else
+      @driver = browser_capabilities['appiumVersion'] ?
+        Appium::Driver.new({ appium_lib: { server_url: webdriver_url}, caps: browser_capabilities }).start_driver :
+        Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: browser_capabilities)
+    end
   end
 
   # Close Google Chrome after each test
@@ -1013,6 +1023,21 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       @driver.switch_to.window(@driver.window_handles.last)
       expect((@driver.current_url.to_s =~ /google/).nil?).to be(false)
       @driver.switch_to.window(current_window)
+    end
+
+    it "should refresh media" do
+      page = LoginPage.new(config: @config, driver: @driver).load
+          .login_with_email(email: @email, password: @password)
+          .create_media(input: 'http://ca.ios.ba/files/meedan/random.php')
+      sleep 2
+      title1 = @driver.title
+      expect((title1 =~ /Random/).nil?).to be(false)
+      @driver.find_element(:css, '.media-actions__icon').click
+      @driver.find_element(:css, '#media-actions__refresh').click
+      sleep 5
+      title2 = @driver.title
+      expect((title2 =~ /Random/).nil?).to be(false)
+      expect(title1 != title2).to be(true)
     end
   end
 end
