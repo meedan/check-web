@@ -8,11 +8,11 @@
   "annotation.taskResolve": "تم إجابة السؤال \"{task}\" بواسطة {author} : {response}",
   "annotation.reverseImage": "تحتوي الميديا على صورة واحدة. اضغط بحث لإيجاد مكررات على جوجل.",
   "annotation.reverseImageSearch": "بحث",
-  "annotation.flaggedHeader": "Flagged as {flag} by {author}",
+  "annotation.flaggedHeader": "تم وسمه #{tag} بواسطة {author}",
   "annotation.newClaim": "New claim added by {author}",
   "annotation.titleChanged": "تم تغيير العنوان إلى {title} بواسطة {author}",
   "annotation.projectMoved": "تم نقله من {previousProject} إلى {currentProject} بواسطة {author}",
   "annotation.taskLabelUpdated": "تم تعديل السؤال من \"{from}\" إلى \"{to}\" بواسطة {author}",
-  "annotation.taskNoteUpdated": "\nتم تعديل التفصيلة الإضافية للسؤال \"{title}\" من \"{from}\" إلى \"{to}\" بواسطة {author}",
+  "annotation.taskNoteUpdated": "تم تعديل التفصيلة الإضافية للسؤال \"{title}\" من \"{from}\" إلى \"{to}\" بواسطة {author}",
   "annotation.taskNoteCreated": "تم إضافة تفصيلة جديدة \"{note}\"  للسؤال \"{title}\" بواسطة {author}"
 }

@@ -18,8 +18,32 @@
   .task__label {
     font-size: 12px;
     color: $black-38;
-    word-wrap: break-word;
-    word-break: break-all;
+    &--truncated {
+      white-space: nowrap;
+      label {
+        font-size: 12px;
+        color: $black-38;
+        text-decoration: underline;
+        padding: 0 4px;
+      }
+    }
+    &--full {
+      word-wrap: break-word;
+      word-break: break-all;
+      display: none;
+    }
+  }
+
+  .task__label-truncated-toggle {
+    display: none;
+    &:checked {
+      & ~ .task__label--full {
+        display: inline;
+      }
+      & ~ .task__label--truncated {
+        display: none;
+      }
+    }
   }
 
   .task__response {
@@ -38,6 +62,24 @@
       &:last-child {
         margin-bottom: 0;
       }
+    }
+  }
+
+  .task__radio-group {
+    margin-top: 13px;
+  }
+
+  .task__options-answered {
+    margin-top: 13px;
+    color: rgba(0, 0, 0, 0.38);
+  }
+
+  .task__options-answered-item {
+    padding: 5px;
+    svg {
+      width: 24px;
+      height: 24px;
+      margin-right: 12px;
     }
   }
 

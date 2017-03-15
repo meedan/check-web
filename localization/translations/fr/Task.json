@@ -6,7 +6,7 @@
   "task.delete": "Effacer",
   "task.noteLabel": "Ajouter ici des détails supplémentaires.",
   "task.pressReturnToSave": "Pressez \"entrée\" pour sauvegarder votre réponse.",
-  "task.resolvedBy": "Résolu par {by}",
+  "task.resolvedBy": "Résolue par {by}",
   "tasks.taskLabel": "Étiquette de la tâche",
   "tasks.description": "Description"
 }
