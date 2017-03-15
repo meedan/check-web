@@ -3,6 +3,7 @@
   position: relative;
   max-height: 2000px;
   overflow-y: hidden;
+  overflow-x: hidden;
 
   iframe {
     position: relative;
@@ -21,7 +22,7 @@
   position: absolute;
   top: 50%;
   #{$from-direction}: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, 50%);
   display: flex;
   align-items: center;
   justify-content: center;
