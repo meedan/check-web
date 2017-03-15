@@ -66,7 +66,7 @@ class MediaDetail extends Component {
     };
 
     const onSuccess = (response) => {
-      this.setState({ mediaVersion: JSON.parse(response.updateProjectMedia.project_media.embed).version });
+      this.setState({ mediaVersion: JSON.parse(response.updateProjectMedia.project_media.embed).refreshes_count });
     };
 
     Relay.Store.commitUpdate(
@@ -238,7 +238,7 @@ class MediaDetail extends Component {
     } else if (media.url) {
       embedCard = condensed ?
         <SocialMediaCard media={media} data={data} condensed={condensed} /> :
-        <PenderCard url={media.url} penderUrl={config.penderUrl} fallback={null} mediaVersion={this.state.mediaVersion || data.version} />;
+        <PenderCard url={media.url} penderUrl={config.penderUrl} fallback={null} mediaVersion={this.state.mediaVersion || data.refreshes_count} />;
     }
 
     const actions = [
