@@ -17,11 +17,11 @@
   },
   {
     "id": "task.edit",
-    "defaultMessage": "Edit"
+    "defaultMessage": "Edit task"
   },
   {
     "id": "task.delete",
-    "defaultMessage": "Delete"
+    "defaultMessage": "Delete task"
   },
   {
     "id": "task.more",
