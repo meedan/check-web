@@ -7,8 +7,8 @@
   "createTeam.teamNameHint": "إسم الفريق",
   "createTeam.teamSlugHint": "team-slug",
   "createTeam.mainHeading": "أضف فريق",
-  "createTeam.blurb": "Create a team for your organization, or just for yourself:",
-  "createTeam.displayName": "Team Name",
-  "createTeam.url": "Team URL",
-  "createTeam.submitButton": "Create"
+  "createTeam.blurb": "أضف فريق لمؤسستك أو لك:",
+  "createTeam.displayName": "إسم الفريق",
+  "createTeam.url": "رابط الفريق",
+  "createTeam.submitButton": "أضف"
 }
