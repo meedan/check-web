@@ -43,6 +43,10 @@ class Task extends Component {
     this.setState({ focus: true });
   }
 
+  handleCancelFocus(){
+    this.setState({ focus: false });
+  }
+
   handleClick(e) {
     e.stopPropagation();
   }
@@ -237,7 +241,12 @@ class Task extends Component {
     let options = null;
     const editable =  !response || this.state.editingResponse;
     const submitCallback = this.state.editingResponse ? this.handleSubmitUpdate.bind(this) : this.handleSubmit.bind(this);
+    const cancelCallback = this.state.editingResponse ? this.handleCancelEditResponse.bind(this) : this.handleCancelFocus.bind(this);
     const formName = this.state.editingResponse ? 'editedresponse' : 'response';
+    const actionBtns = (<div>
+        <FlatButton label={<FormattedMessage id="tasks.cancelEdit" defaultMessage="Cancel" />} primary onClick={cancelCallback} />
+        <FlatButton className="task__submit" label={<FormattedMessage id="tasks.submit" defaultMessage="Submit" />} primary onClick={submitCallback} />
+      </div>);
 
     if (task.jsonoptions) {
       options = JSON.parse(task.jsonoptions);
@@ -249,7 +258,7 @@ class Task extends Component {
           <RadioButtonGroup name={formName} className="task__radio-group" onChange={this.handleFocus.bind(this)} defaultSelected={response}>
             { options.map( (item, index) => <RadioButton label={item.label} value={item.label} style={{ padding: '5px' }} disabled={!editable}/>) }
           </RadioButtonGroup>
-          { this.state.focus && editable ? <FlatButton className="task__submit" label={<FormattedMessage id="tasks.submit" defaultMessage="Submit" />} primary onClick={submitCallback} /> : null }
+          { (this.state.focus && editable) || this.state.editingResponse ? actionBtns : null }
         </div>);
       } else if (task.type === 'multiple_choice') {
         /* render checkboxes */
@@ -260,7 +269,7 @@ class Task extends Component {
   renderOptionsAnswered(response) {
     const { task } = this.props;
     let options = null;
-    const editable =  !response || this.state.editingResponse;
+
     const submitCallback = this.state.editingResponse ? this.handleSubmitUpdate.bind(this) : this.handleSubmit.bind(this);
     const formName = this.state.editingResponse ? 'editedresponse' : 'response';
 
