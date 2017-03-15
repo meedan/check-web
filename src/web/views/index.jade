@@ -14,3 +14,18 @@ html
   body
     #root
   script(src='/js/index.bundle.js')
+
+  script.
+    document.addEventListener("DOMContentLoaded", function(){
+      (function(){
+        //- set a lang attribute to facilitate styling 
+        document.body.setAttribute("lang", config.locale);
+
+        //- add an rtl stylesheet if appropriate
+        var rtlStylesheet = document.createElement("link");
+        rtlStylesheet.href = "/css/stylesheet-rtl.css";
+        rtlStylesheet.setAttribute('rel', 'stylesheet');
+        rtlStylesheet.setAttribute('type', 'text/css');
+        document.head.appendChild(rtlStylesheet);
+      })()
+    })
