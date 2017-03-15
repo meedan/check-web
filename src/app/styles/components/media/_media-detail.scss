@@ -6,9 +6,10 @@
   @include media-status-border-colors;
   @include box-shadow(1);
   background-color: $white;
-  border-left: 8px solid;
+  border-#{$from-direction}: 8px solid;
   border-radius: 2px;
-  padding: 12px 0 0 16px;
+  padding: 12px 0 0;
+  padding-#{$from-direction}: 16px;
   margin-bottom: 16px;
 }
 
@@ -74,12 +75,12 @@
   align-items: center;
   display: flex;
   flex-shrink: 0;
-  margin-right: 16px;
+  margin-#{$to-direction}: 16px;
   min-height: 48px;
   min-width: 50px;
 
   span {
-    padding-left: 3px;
+    padding-#{$from-direction}: 3px;
   }
 }
 
@@ -125,12 +126,12 @@
   font-family: Roboto;
   font-size: 12px;
   line-height: 1.33;
-  text-align: left;
+  text-align: #{$from-direction};
   color: $black-05;
 }
 
 .media-detail__dialog-radio-group {
-  margin-left: 30px;
+  margin-#{$from-direction}: 30px;
   margin-top: 30px;
 }
 

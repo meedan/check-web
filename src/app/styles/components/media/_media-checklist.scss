@@ -38,7 +38,7 @@
   }
 
   & > span {
-    margin-left: 0;
+    margin-#{$from-direction}: 0;
     display: inline-block;
   }
 

@@ -24,7 +24,7 @@
 
   .menu-button__menu {
     @include app-menu;
-    right: -13px;
+    #{$to-direction}: -13px;
     top: 100%;
     z-index: 6; // TODO: better z-index strategy
   }

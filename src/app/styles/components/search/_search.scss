@@ -1,5 +1,6 @@
 .search {
   .search__input {
+    // TODO: RTL this background image — 2017-3-14 CGB
     background: 15px 13px url('/images/search.svg') $white no-repeat;
     background-size: 18px;
     border: $layout-border;
@@ -8,7 +9,7 @@
     height: 44px;
     width: 100%;
     min-width: 500px;
-    padding-left: 45px;
+    padding-#{$from-direction}: 45px;
     margin-top: 4px;
     outline: none;
     transition: box-shadow .2s;
@@ -40,9 +41,9 @@
         margin: 0;
         vertical-align: top;
         display: inline-block;
-        margin-right: 16px;
+        margin-#{$to-direction}: 16px;
         min-width: 80px;
-        text-align: right;
+        text-align: $to-direction;
       }
 
       ul {

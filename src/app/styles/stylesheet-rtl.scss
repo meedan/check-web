@@ -3,6 +3,6 @@
 }
 
 $from-direction: right;
-$to-direction: left;
+$to-direction: #{$from-direction};
 
 @import "stylesheet";

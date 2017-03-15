@@ -18,7 +18,10 @@
 .team-sidebar__sources-heading {
   @include app-kicker;
   margin: 0;
-  padding: 30px 25px 9px 0;
+  padding-top: 30px;
+  padding-bottom: 9px;
+  padding-#{$from-direction}: 0;
+  padding-#{$to-direction}: 25px;
 }
 
 .team-sidebar__projects-list,
@@ -37,7 +40,10 @@
 .team-sidebar__source,
 .team-sidebar__new-source {
   font-size: 15px;
-  padding: .4em 13px .4em 0;
+  padding-top: .4em;
+  padding-bottom: .4em;
+  padding-#{$to-direction}: 13px;
+  padding-#{$from-direction}: 0;
 }
 
 .team-sidebar__project {
@@ -54,11 +60,11 @@
 .team-sidebar__new-source-icon {
   opacity: .4;
   width: 17px;
-  margin-right: 9px;
+  margin-#{$to-direction}: 9px;
 }
 
 .team-sidebar__project-link {
-  &, 
+  &,
   &:visited {
     color: inherit;
   }
@@ -99,7 +105,6 @@
 // sources
 .team-sidebar__source-icon {
   $size: 20px;
-
   height: $size;
   width: $size;
 }
@@ -117,14 +122,15 @@
 .team-sidebar__switch-teams-button {
   @include unbutton;
   width: 100%;
-  padding: 0 18px 0 0;
+  padding: 0;
+  padding-#{$to-direction}: 18px;
+  padding-#{$from-direction}: 25px;
   color: inherit;
-  text-align: left;
-  padding-left: 25px;
+  text-align: $from-direction;
 }
 
 .team-sidebar__switch-teams-icon {
-  margin-right: 7px;
+  margin-#{$to-direction}: 7px;
   font-size: .95em;
 }
 
@@ -133,9 +139,9 @@
   background-color: $midnight-blue-90;
   position: fixed;
   top: 0;
-  right: 0;
   bottom: 0;
-  left: 0;
+  #{$to-direction}: 0;
+  #{$from-direction}: 0;
   width: 100vw;
 
   // required if ancestor has transform, e.g. active mobile sidebar. 
@@ -154,7 +160,7 @@
 .team-sidebar__switch-teams-modal {
   position: absolute;
   bottom: 0;
-  left: 0;
+  #{$from-direction}: 0;
   width: 400px;
   max-height: 100%;
   padding: 15px 15px 30px;
@@ -167,16 +173,17 @@
   @include close-button;
   position: absolute;
   top: 11px;
-  right: 24px;
+  #{$to-direction}: 24px;
   opacity: .8;
 }
 
 .team-sidebar__switch-teams-title {
   font-weight: normal;
-  margin: 10px 0 23px 13px;
+  margin: 10px 0 23px;
+  margin-#{$from-direction}: 13px;
 }
 
 .team-sidebar__switch-teams-title-icon {
-  margin-right: 7px;
+  margin-#{$to-direction}: 7px;
   font-size: .95em;
 }

@@ -8,11 +8,11 @@
 
   .task__actions {
     position: absolute;
-    right: 16px;
+    #{$to-direction}: 16px;
   }
 
   .task__question {
-    margin-right: 32px;
+    margin-#{$to-direction}: 32px;
   }
 
   .task__label {
@@ -34,6 +34,7 @@
     p {
       margin: 8px 0;
       word-wrap: break-word;
+
       &:last-child {
         margin-bottom: 0;
       }
@@ -42,25 +43,28 @@
 
   #task__remove-button,
   #task__edit-button {
-    float: right;
+    float: $to-direction;
     color: #ccc;
-    margin: 5px 5px 0 0;
+    margin: 0;
+    margin-top: 5px;
+    margin-#{$to-direction}: 5px;
     cursor: pointer;
   }
 
   #task__remove-button {
-    margin-right: 8px;
+    margin-#{$to-direction}: 8px;
   }
 
   #task__cancel-button,
   #task__edit-response-button {
     color: #ccc;
-    margin-left: 5px;
+    margin-#{$from-direction}: 5px;
     cursor: pointer;
   }
 
   .media-actions__icon {
-    margin: 0 4px 0 0;
+    margin: 0;
+    margin-#{$to-direction}: 4px;
     width: 24px;
     height: 24px;
     padding: 0;
@@ -69,7 +73,10 @@
 
   .task__description-icon {
     float: right;
-    margin: 0 4px 8px 16px;
+    margin-top: 0;
+    margin-#{$to-direction}: 4px;
+    margin-#{$from-direction}: 16px;
+    margin-bottom: 8px;
     width: 24px;
     height: 24px;
     padding: 2px;
@@ -82,6 +89,7 @@
   @media (max-width: $layout-mobile-breakpoint) {
     max-width: 80vw;
   }
+
   span {
     word-wrap: break-word;
   }

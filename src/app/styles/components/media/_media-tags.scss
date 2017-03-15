@@ -15,7 +15,10 @@
 
 .media-tags__heading {
   @include app-kicker;
-  margin: 4px 16px 1px 0;
+  margin-top: 4px;
+  margin-#{$to-direction}: 16px;
+  margin-bottom: 1px;
+  margin-#{$from-direction}: 0;
 }
 
 .media-tags__message {
@@ -25,7 +28,10 @@
 
 .media-tags__suggestions {
   display: inline-block;
-  margin: 5px 10px 0 0;
+  margin-top: 5px;
+  margin-#{$to-direction}: 10px;
+  margin-bottom: 0;
+  margin-#{$from-direction}: 0;
 }
 
 .media-tags__suggestion {
@@ -35,7 +41,7 @@
 .media-tags__tag,
 .media-tags .tags-list .ReactTags__tag {
   @extend %chip;
-  margin-right: 15px;
+  margin-#{$to-direction}: 15px;
   min-width: 52px;
 }
 
@@ -51,6 +57,7 @@
   border: 1px solid $black-16;
   border-radius: 4px;
   margin: 4px 10px 5px;
+  margin-top: 4px;
   font-size: 12px;
   font-weight: 400;
 }

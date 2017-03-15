@@ -20,8 +20,9 @@ $home-content-padding: 23px;
 .home__disclaimer { // container
   position: absolute;
   top: 0;
-  left: 0;
-  right: 0;
+  #{$from-direction}: 0;
+  #{$to-direction}: 0;
+
   & > span { // badge
     font-size: 8px;
     border-radius: 0 0 3px 3px;
@@ -32,6 +33,6 @@ $home-content-padding: 23px;
     text-transform: uppercase;
     letter-spacing: .02em;
     position: absolute;
-    right: 109px;
+    #{$to-direction}: 109px;
   }
 }
