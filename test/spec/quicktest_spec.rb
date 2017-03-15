@@ -98,21 +98,16 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(displayed_name == expected_name).to be(true)
     end
 
-=begin
-		THIS TEST IS NOT WORKING 
     it "should login using Slack" do
 			p "should login using Slack"
 		  @driver.navigate.to "https://#{@config['slack_domain']}.slack.com"
 		  fill_field('#email', @config['slack_user'])
 		  fill_field('#password', @config['slack_password'])
 		  press_button('#signin_btn')
-
-			sleep 2
-			@driver.navigate.to @config['self_url']
-			p "**",@driver.find_element(:id, "slack-login")
-			element = @driver.find_element(:id, "slack-login")
+      page = LoginPage.new(config: @config, driver: @driver).load
+			sleep 10
+			element = page.driver.find_element(:id, "slack-login")
 		  element.click
-
 		  sleep 2
 		  window = @driver.window_handles.last
 		  @driver.switch_to.window(window)
@@ -121,16 +116,10 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 		  window = @driver.window_handles.first
 		  @driver.switch_to.window(window)
       @driver.navigate.to @config['self_url'] + '/check/me'
-			sleep 20
-
-
-			#sleep 3
-      #displayed_name = get_element('h2.source-name').text.upcase
-			#p 'displayed_name', displayed_name, expected_name 
-      #expected_name = @config['slack_name'].upcase
-      #expect(displayed_name == expected_name).to be(true)
+			sleep 10
+			expect(get_element('h2.source-name').text.nil?).to be(false)
     end
-=end
+
     #Create two new teams. 
     it "should create 2 teams" do
 			p "should create 2 teams"
