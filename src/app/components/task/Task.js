@@ -299,7 +299,7 @@ class Task extends Component {
       <Can permissions={task.permissions} permission="update Task">
         {/* TODO: abstract media-actions into @mixin or component to remove these classes */}
         <div className={`task__actions ${this.bemClass('media-actions', this.state.isMenuOpen, '--active')}`}>
-          <MdMoreHoriz className="media-actions__icon" onClick={this.toggleMenu.bind(this)} />
+          <MdMoreHoriz className="task__actions-icon / media-actions__icon" onClick={this.toggleMenu.bind(this)} />
           <div className={this.bemClass('media-actions__overlay', this.state.isMenuOpen, '--active')} onClick={this.toggleMenu.bind(this)} />
           <ul className={this.bemClass('media-actions__menu', this.state.isMenuOpen, '--active')}>
             <li className="media-actions__menu-item" onClick={this.handleEdit.bind(this)}><FormattedMessage id="task.edit" defaultMessage="Edit" /></li>
@@ -322,7 +322,7 @@ class Task extends Component {
           >
             <MdInfoOutline className="task__description-icon" title={task.description} />
           </Tooltip>
-        ) : <em>{task.description}</em> }
+        ) : null }
 
         {/* TODO: abstract pattern into ExpandableText component */}
         <input
@@ -330,14 +330,16 @@ class Task extends Component {
             className='task__label-truncated-toggle'
             id={`task-${task.id}-label-truncated-toggle`}
           />
-        <Truncate
-            className='task__label task__label--truncated'
-            lines={1}
-            ellipsis={<span>... <label htmlFor={`task-${task.id}-label-truncated-toggle`} title={task.label}>More</label></span>}
-          >
-          {task.label}
-        </Truncate>
-        <span className='task__label task__label--full'>{task.label}</span>
+        <div className='task__label-container'>
+          <Truncate
+              className='task__label task__label--truncated'
+              lines={1}
+              ellipsis={<span>... <label htmlFor={`task-${task.id}-label-truncated-toggle`} title={task.label}>More</label></span>}
+            >
+            {task.label}
+          </Truncate>
+          <span className='task__label task__label--full'>{task.label}</span>
+        </div>
       </div>
     );
 
@@ -353,29 +355,35 @@ class Task extends Component {
             {taskActions}
             {response === null ?
               <form onSubmit={this.handleSubmit.bind(this)} name={`task-response-${task.id}`}>
-                {taskQuestion}
-                {/* "response" */}
+                <input type='checkbox' className='task__response-toggle' id={`task-${task.id}-response-toggle`} />
+                <label htmlFor={`task-${task.id}-response-toggle`}>
+                  {taskQuestion}
+                </label>
                 {/*  TODO: Render appropriate response form based on task.type */}
-
-                { task.type === 'single_choice' ? this.renderOptions() : [<TextField
-                  className="task__response-input"
-                  onFocus={this.handleFocus.bind(this)}
-                  name="response"
-                  onKeyPress={this.handleKeyPress.bind(this)}
-                  onChange={this.handleChange.bind(this)}
-                  fullWidth
-                  multiLine />,
-                  <div style={{ display: this.state.focus ? 'block' : 'none' }}>
+                { task.type === 'single_choice' ?
+                  <div className='task__response-inputs'>{this.renderOptions()}</div> :
+                  <div className='task__response-inputs'>
                     <TextField
-                      hintText={<FormattedMessage id="task.noteLabel" defaultMessage="Note any additional details here." />}
-                      name="note"
-                      onKeyPress={this.handleKeyPress.bind(this)}
-                      onChange={this.handleChange.bind(this)}
-                      fullWidth
-                      multiLine
-                    />
+                        className="task__response-input"
+                        onFocus={this.handleFocus.bind(this)}
+                        name="response"
+                        onKeyPress={this.handleKeyPress.bind(this)}
+                        onChange={this.handleChange.bind(this)}
+                        fullWidth
+                        multiLine
+                        style={{display: ''}}
+                      />
+                    <TextField
+                        className="task__response-note-input"
+                        hintText={<FormattedMessage id="task.noteLabel" defaultMessage="Note any additional details here." />}
+                        name="note"
+                        onKeyPress={this.handleKeyPress.bind(this)}
+                        onChange={this.handleChange.bind(this)}
+                        fullWidth
+                        multiLine
+                      />
                     <p className="task__resolver"><small><FormattedMessage id="task.pressReturnToSave" defaultMessage="Press return to save your response" /></small></p>
-                  </div>]
+                  </div>
                 }
               </form>
             : (this.state.editingResponse ?
