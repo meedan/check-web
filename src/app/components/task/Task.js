@@ -334,7 +334,7 @@ class Task extends Component {
           <Truncate
               className='task__label task__label--truncated'
               lines={1}
-              ellipsis={<span>... <label htmlFor={`task-${task.id}-label-truncated-toggle`} title={task.label}>More</label></span>}
+              ellipsis={<span>... <label htmlFor={`task-${task.id}-label-truncated-toggle`} title={task.label}><FormattedMessage id="task.more" defaultMessage="More" /></label></span>}
             >
             {task.label}
           </Truncate>
