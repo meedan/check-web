@@ -42,6 +42,7 @@ class MediaDetail extends Component {
     this.state = {
       isEditing: false,
       openMoveDialog: false,
+      mediaVersion: false,
     };
   }
 
@@ -56,6 +57,25 @@ class MediaDetail extends Component {
 
   handleMove() {
     this.setState({ openMoveDialog: true });
+  }
+
+  handleRefresh() {
+    const onFailure = (transaction) => {
+      const transactionError = transaction.getError();
+      transactionError.json ? transactionError.json().then(handleError) : handleError(JSON.stringify(transactionError));
+    };
+
+    const onSuccess = (response) => {
+      this.setState({ mediaVersion: JSON.parse(response.updateProjectMedia.project_media.embed).refreshes_count });
+    };
+
+    Relay.Store.commitUpdate(
+      new UpdateProjectMediaMutation({
+        refresh_media: 1,
+        id: this.props.media.id,
+      }),
+      { onSuccess, onFailure },
+    );
   }
 
   handleSave(media, event) {
@@ -179,7 +199,7 @@ class MediaDetail extends Component {
       url = user.source.accounts.edges[0].node.url;
     }
 
-    return url ? <a href={url}>{user.name}</a> : user.name;
+    return url ? <a target="_blank" rel="noopener noreferrer" href={url}>{user.name}</a> : user.name;
   }
 
   render() {
@@ -218,7 +238,7 @@ class MediaDetail extends Component {
     } else if (media.url) {
       embedCard = condensed ?
         <SocialMediaCard media={media} data={data} condensed={condensed} /> :
-        <PenderCard url={media.url} penderUrl={config.penderUrl} fallback={null} />;
+        <PenderCard url={media.url} penderUrl={config.penderUrl} fallback={null} mediaVersion={this.state.mediaVersion || data.refreshes_count} />;
     }
 
     const actions = [
@@ -261,7 +281,7 @@ class MediaDetail extends Component {
               ) : null
             }
           {this.props.readonly || this.state.isEditing ? null :
-          <MediaActions media={media} handleEdit={this.handleEdit.bind(this)} handleMove={this.handleMove.bind(this)} />
+          <MediaActions media={media} handleEdit={this.handleEdit.bind(this)} handleMove={this.handleMove.bind(this)} handleRefresh={this.handleRefresh.bind(this)} />
           }
 
           <Dialog actions={actions} modal open={this.state.openMoveDialog} onRequestClose={this.handleCloseDialog.bind(this)} autoScrollBodyContent>

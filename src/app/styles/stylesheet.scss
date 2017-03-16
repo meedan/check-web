@@ -41,7 +41,10 @@
 @import 'components/media/media-card-quote';
 @import 'components/media/media-card-social';
 @import 'components/media/media-card-image-uploaded';
+@import 'components/annotation/add-annotation';
 @import 'components/annotation/annotation';
+@import 'components/annotation/annotations';
+@import 'components/menu-button';
 @import 'components/message';
 @import 'components/search/search';
 @import 'components/sources';
@@ -58,6 +61,7 @@
 @import 'components/project/project-edit';
 @import 'components/project/project-header';
 @import 'components/project/project-list';
+@import 'components/task/create-task';
 @import 'components/task/task';
 @import 'components/task/tasks';
 @import 'source';

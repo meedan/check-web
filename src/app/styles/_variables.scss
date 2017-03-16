@@ -10,7 +10,7 @@ $layout-sidebar-width: 245px;
 // Columns and breakpoint variables
 //
 $layout-column-width-narrow: 784px;
-$layout-column-width-wide: 1200px + 30px;
+$layout-column-width-wide: 1200px + (2 * 8px);
 $layout-mobile-breakpoint-smallest: 320px;
 $layout-mobile-breakpoint-small: 450px;
 $layout-mobile-breakpoint: 680px;

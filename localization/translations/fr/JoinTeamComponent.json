@@ -1,12 +1,15 @@
 {
   "joinTeamComponent.error": "Désolé, ce n'était pas possible d'envoyer votre demande",
-  "joinTeamComponent.success": "Merci de votre intérêt à rejoindre {team} Check! Un chef d'équipe examinera bientôt votre demande.",
-  "joinTeamComponent.title": "Rejoindre l'équipe",
+  "joinTeamComponent.success": "Merci de votre intérêt à rejoindre {team} Check ! Un chef d'équipe examinera bientôt votre demande.",
+  "joinTeamComponent.autoApprove": "Merci de vous inscrire à l'équipe {team} Check ! Vous pouvez commencer à contribuer dès maintenant.",
+  "joinTeamComponent.title": "Joindre l'équipe",
   "joinTeamComponent.alreadyRequested": "Vous avez déjà demandé à rejoindre {team} Check.",
-  "joinTeamComponent.mainHeading": "Demandez à rejoindre",
+  "joinTeamComponent.mainHeading": "Demandez à joindre",
   "joinTeamComponent.blurbGraf": "Pour demander l'accès à {link} Check, cliquez ci-dessous:",
   "joinTeamComponent.buttonSubmitted": "Demande envoyée",
-  "joinTeamComponent.buttonSubmit": "Demandez à rejoindre",
+  "joinTeamComponent.buttonApproved": "Demande approuvée",
+  "joinTeamComponent.buttonSubmit": "Demandez à joindre",
   "joinTeamComponent.requestHasBeenSent": "Nous avons envoyé votre demande aux administrateurs du projet pour leur accord.",
+  "joinTeamComponent.requestHasBeenApproved": "Votre demande a été approuvée.",
   "joinTeamComponent.requestWillBeSent": "Votre demande sera envoyée aux administrateurs du projet pour leur accord."
 }

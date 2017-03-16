@@ -13,6 +13,7 @@ import CreateDynamicMutation from '../../relay/CreateDynamicMutation';
 import CheckContext from '../../CheckContext';
 import MdInsertPhoto from 'react-icons/lib/md/insert-photo';
 import UploadImage from '../UploadImage';
+import ContentColumn from '../layout/ContentColumn';
 
 const messages = defineMessages({
   invalidCommand: {
@@ -252,7 +253,7 @@ class AddAnnotation extends Component {
 
     // /location location_name=Salvador&location_position=-12.9016241,-38.4198075
     const fields = {};
-    params.split('&').forEach((part) => {
+    if (params) params.split('&').forEach((part) => {
       const pair = part.split('=');
       fields[pair[0]] = pair[1];
     });
@@ -333,6 +334,10 @@ class AddAnnotation extends Component {
     document.forms.addannotation.image = file;
   }
 
+  onImageError(file, message) {
+    this.setState({ message });
+  }
+
   switchMode() {
     this.setState({ fileMode: !this.state.fileMode });
   }
@@ -340,34 +345,34 @@ class AddAnnotation extends Component {
   render() {
     return (
       <form className="add-annotation" name="addannotation" onSubmit={this.handleSubmit.bind(this)}>
-        <TextField
-          hintText={this.props.intl.formatMessage(messages.inputHint)}
-          fullWidth={false}
-          style={{ width: '100%' }}
-          errorStyle={styles.errorStyle}
-          onFocus={this.handleFocus.bind(this)}
-          ref={ref => this.cmd = ref}
-          errorText={this.state.message}
-          name="cmd" id="cmd-input"
-          multiLine
-          onKeyPress={this.handleKeyPress.bind(this)}
-          ref={input => this.annotationInput = input}
-        />
-
-        {(() => {
-          if (this.state.fileMode) {
-            return (
-              <UploadImage onImage={this.onImage.bind(this)} />
-            );
-          }
-        })()}
-
-        <div className="add-annotation__buttons">
-          <div className="add-annotation__insert-photo">
-            <MdInsertPhoto id="add-annotation__switcher" title={this.props.intl.formatMessage(messages.addImage)} className={this.state.fileMode ? 'add-annotation__file' : ''} onClick={this.switchMode.bind(this)} />
+        <ContentColumn flex>
+          <TextField
+            hintText={this.props.intl.formatMessage(messages.inputHint)}
+            fullWidth={false}
+            style={{ width: '100%' }}
+            errorStyle={styles.errorStyle}
+            onFocus={this.handleFocus.bind(this)}
+            ref={ref => this.cmd = ref}
+            errorText={this.state.message}
+            name="cmd" id="cmd-input"
+            multiLine
+            onKeyPress={this.handleKeyPress.bind(this)}
+            ref={input => this.annotationInput = input}
+          />
+          {(() => {
+            if (this.state.fileMode) {
+              return (
+                <UploadImage onImage={this.onImage.bind(this)} onError={this.onImageError.bind(this)} />
+              );
+            }
+          })()}
+          <div className="add-annotation__buttons">
+            <div className="add-annotation__insert-photo">
+              <MdInsertPhoto id="add-annotation__switcher" title={this.props.intl.formatMessage(messages.addImage)} className={this.state.fileMode ? 'add-annotation__file' : ''} onClick={this.switchMode.bind(this)} />
+            </div>
+            <FlatButton label={this.props.intl.formatMessage(messages.submitButton)} primary type="submit" />
           </div>
-          <FlatButton label={this.props.intl.formatMessage(messages.submitButton)} primary type="submit" style={{ float: 'right' }} />
-        </div>
+        </ContentColumn>
       </form>
     );
   }

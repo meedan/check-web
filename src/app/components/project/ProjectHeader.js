@@ -40,6 +40,10 @@ class ProjectHeaderComponent extends Component {
     this.unsubscribe();
   }
 
+  dismiss() {
+    document.getElementById('project-header-menu-toggle').checked = false
+  }
+
   render() {
     const project = this.props.project;
     const projectUrl = window.location.pathname.match(/(.*\/project\/[0-9]+)/)[1];
@@ -54,7 +58,7 @@ class ProjectHeaderComponent extends Component {
           <span className="project-header__caret"><MdArrowDropDown /></span>
           <div className="project-header__menu-overlay" />
         </label>
-        <div className="project-header__project-list"><ProjectList team={project.team} /></div>
+        <div className="project-header__project-list" onClick={this.dismiss.bind(this)}><ProjectList team={project.team}/></div>
       </div>
     );
   }

@@ -12,6 +12,8 @@ import { Link } from 'react-router';
 import config from 'config';
 import BrowserSupport from './BrowserSupport';
 import CheckContext from '../CheckContext';
+import { bemClass } from '../helpers';
+import ContentColumn from './layout/ContentColumn';
 
 const messages = defineMessages({
   needRegister: {
@@ -69,8 +71,18 @@ class Home extends Component {
     context.startNetwork(this.state.token);
   }
 
+  routeSlug(children) {
+    if (!(children && children.props.route)) {
+      return null;
+    }
+    if (/\/media\/\:mediaId/.test(children.props.route.path)) {
+      return 'media'; // TODO: other pages as needed
+    }
+  }
+
   render() {
     const { state, children } = this.props;
+    const routeSlug = this.routeSlug(children);
 
     const routeIsPublic = children && children.props.route.public;
     if (!routeIsPublic && !this.state.token) {
@@ -94,8 +106,8 @@ class Home extends Component {
       <MuiThemeProvider muiTheme={muiTheme}>
         <span>
           <BrowserSupport />
-          <div className="home">
-            <span className="home__disclaimer"><FormattedMessage id="home.beta" defaultMessage="Beta" /></span>
+          <div className={bemClass("home", routeSlug, `--${routeSlug}`)}>
+            <ContentColumn wide className="home__disclaimer"><span><FormattedMessage id="home.beta" defaultMessage="Beta" /></span></ContentColumn>
             { this.state.token ? <Header {...this.props} /> : null }
             <div className="home__content">{children}</div>
             <FooterRelay {...this.props} />
