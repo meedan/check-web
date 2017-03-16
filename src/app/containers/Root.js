@@ -43,6 +43,14 @@ try {
   locale = 'en';
 }
 
+class RootLocale extends Component {
+  render() {
+    document.body.setAttribute("lang", this.props.locale);
+    const stylesheet = this.props.locale === 'ar' ? "/css/stylesheet-rtl.css" : "/css/stylesheet.css";
+    return <link rel="stylesheet" href={stylesheet} />
+  }
+}
+
 export default class Root extends Component {
   static propTypes = {
     store: PropTypes.object.isRequired,
@@ -96,40 +104,43 @@ export default class Root extends Component {
     window.Check = { store };
 
     return (
-      <IntlProvider locale={locale} messages={translations[locale]}>
-        <Provider store={store}>
-          <Router history={this.state.history} onUpdate={this.logPageView.bind(this)}>
-            <Route path="/" component={App}>
-              <IndexRoute component={Team} />
-              <Route path="check/tos" component={TermsOfService} public />
-              <Route path="check/privacy" component={PrivacyPolicy} public />
-              <Route path="check/user/confirmed" component={UserConfirmed} public />
-              <Route path="check/user/unconfirmed" component={UserUnconfirmed} public />
-              <Route path="check/forbidden" component={AccessDenied} public />
-              <Route path="check/404" component={NotFound} public />
+      <div>
+        <RootLocale locale={locale} />
+        <IntlProvider locale={locale} messages={translations[locale]}>
+          <Provider store={store}>
+            <Router history={this.state.history} onUpdate={this.logPageView.bind(this)}>
+              <Route path="/" component={App}>
+                <IndexRoute component={Team} />
+                <Route path="check/tos" component={TermsOfService} public />
+                <Route path="check/privacy" component={PrivacyPolicy} public />
+                <Route path="check/user/confirmed" component={UserConfirmed} public />
+                <Route path="check/user/unconfirmed" component={UserUnconfirmed} public />
+                <Route path="check/forbidden" component={AccessDenied} public />
+                <Route path="check/404" component={NotFound} public />
 
-              <Route path="check/sources" component={Sources} />
-              <Route path="check/sources/new" component={CreateAccount} />
-              <Route path="check/source/:sourceId" component={Source} />
-              <Route path="check/user/:userId" component={User} />
-              <Route path="check/me" component={Me} />
-              <Route path="check/teams/new" component={CreateTeam} />
-              <Route path="check/teams" component={Teams} />
+                <Route path="check/sources" component={Sources} />
+                <Route path="check/sources/new" component={CreateAccount} />
+                <Route path="check/source/:sourceId" component={Source} />
+                <Route path="check/user/:userId" component={User} />
+                <Route path="check/me" component={Me} />
+                <Route path="check/teams/new" component={CreateTeam} />
+                <Route path="check/teams" component={Teams} />
 
-              <Route path=":team/medias/new" component={CreateProjectMedia} />
-              <Route path=":team/project/:projectId/media/:mediaId" component={ProjectMedia} />
-              <Route path=":team/join" component={JoinTeam} />
-              <Route path=":team/members" component={TeamMembers} />
-              <Route path=":team/project/:projectId" component={Project} />
-              <Route path=":team/project/:projectId/edit" component={ProjectEdit} />
-              <Route path=":team/search(/:query)" component={Search} />
-              <Route path=":team" component={Team} />
+                <Route path=":team/medias/new" component={CreateProjectMedia} />
+                <Route path=":team/project/:projectId/media/:mediaId" component={ProjectMedia} />
+                <Route path=":team/join" component={JoinTeam} />
+                <Route path=":team/members" component={TeamMembers} />
+                <Route path=":team/project/:projectId" component={Project} />
+                <Route path=":team/project/:projectId/edit" component={ProjectEdit} />
+                <Route path=":team/search(/:query)" component={Search} />
+                <Route path=":team" component={Team} />
 
-              <Route path="*" component={NotFound} public />
-            </Route>
-          </Router>
-        </Provider>
-      </IntlProvider>
+                <Route path="*" component={NotFound} public />
+              </Route>
+            </Router>
+          </Provider>
+        </IntlProvider>
+      </div>
     );
   }
 }
