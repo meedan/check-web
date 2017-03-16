@@ -1,4 +1,5 @@
 {
   "mediaActions.edit": "Modifier...",
-  "mediaActions.move": "Transférer..."
+  "mediaActions.move": "Transférer...",
+  "mediaActions.refresh": "Rafraîchir"
 }

@@ -12,10 +12,14 @@
     .media__expanded-column-wrapper {
       flex-direction: row;
       .media__media-column {
-        flex: 5;
+        $_width: 674px;
+        width: $_width;
+        flex-basis: $_width;
       }
       .media__tasks-column {
-        flex: 4;
+        $_width: 542px;
+        width: $_width;
+        flex-basis: $_width;
       }
     }
     .media__tasks-header {

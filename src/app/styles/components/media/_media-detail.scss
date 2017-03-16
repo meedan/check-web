@@ -78,7 +78,7 @@
   min-height: 48px;
   min-width: 50px;
 
-  span {
+  & > span {
     padding-left: 3px;
   }
 }

@@ -8,16 +8,24 @@
     "defaultMessage": "Cancel"
   },
   {
+    "id": "tasks.submit",
+    "defaultMessage": "Submit"
+  },
+  {
     "id": "tasks.save",
     "defaultMessage": "Save"
   },
   {
     "id": "task.edit",
-    "defaultMessage": "Edit"
+    "defaultMessage": "Edit task"
   },
   {
     "id": "task.delete",
-    "defaultMessage": "Delete"
+    "defaultMessage": "Delete task"
+  },
+  {
+    "id": "task.more",
+    "defaultMessage": "More"
   },
   {
     "id": "task.noteLabel",

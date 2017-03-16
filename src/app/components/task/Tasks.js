@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import Task from './Task';
 
 class Tasks extends Component {
+
   render() {
     const { media, tasks } = this.props;
 

@@ -1,14 +1,14 @@
 {
   "createTeam.slugChecking": "Checking availability...",
-  "createTeam.slugAvailable": "Available!",
-  "createTeam.slugUnavailable": "That URL is unavailable.",
-  "createTeam.createTeamError": "Sorry, could not create the team",
-  "createTeam.title": "Create a Team",
-  "createTeam.teamNameHint": "Team Name",
+  "createTeam.slugAvailable": "متاح!",
+  "createTeam.slugUnavailable": "الرابط غير متاح.",
+  "createTeam.createTeamError": "عذراً، لم نستطع إضافة الفريق.",
+  "createTeam.title": "أضف فريق",
+  "createTeam.teamNameHint": "إسم الفريق",
   "createTeam.teamSlugHint": "team-slug",
-  "createTeam.mainHeading": "Create a Team",
-  "createTeam.blurb": "Create a team for your organization, or just for yourself:",
-  "createTeam.displayName": "Team Name",
-  "createTeam.url": "Team URL",
-  "createTeam.submitButton": "Create"
+  "createTeam.mainHeading": "أضف فريق",
+  "createTeam.blurb": "أضف فريق لمؤسستك أو لك:",
+  "createTeam.displayName": "إسم الفريق",
+  "createTeam.url": "رابط الفريق",
+  "createTeam.submitButton": "أضف"
 }
