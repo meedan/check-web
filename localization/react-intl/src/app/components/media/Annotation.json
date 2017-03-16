@@ -29,7 +29,7 @@
   },
   {
     "id": "annotation.reverseImage",
-    "defaultMessage": "This item contains at least one image. Click Search to look for duplicates on Google."
+    "defaultMessage": "This item contains at least one image. Click Search to look for potential duplicates on Google."
   },
   {
     "id": "annotation.reverseImageSearch",

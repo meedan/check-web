@@ -194,7 +194,7 @@ class Annotation extends Component {
       }
       if (object.field_name === 'reverse_image_path') {
         contentTemplate = (<span className="annotation__reverse-image">
-          <MdImage /> <FormattedMessage id="annotation.reverseImage" defaultMessage={'This item contains at least one image. Click Search to look for potential duplicates on Google'} />
+          <MdImage /> <FormattedMessage id="annotation.reverseImage" defaultMessage={'This item contains at least one image. Click Search to look for potential duplicates on Google.'} />
           <span className="annotation__reverse-image-search" title={this.props.intl.formatMessage(messages.reverseImageTooltip)} onClick={this.handleReverseImageSearch.bind(this, object.value)}><FormattedMessage id="annotation.reverseImageSearch" defaultMessage="Search" /></span>
         </span>);
       }
