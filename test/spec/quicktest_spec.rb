@@ -69,6 +69,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
   # The tests themselves start here
 
   context "web" do
+=begin
     it "should register and login using e-mail" do
 			p "should register and login using e-mail"
       login_pg = LoginPage.new(config: @config, driver: @driver).load
@@ -119,7 +120,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 			sleep 10
 			expect(get_element('h2.source-name').text.nil?).to be(false)
     end
-
+=end
     #Create two new teams. 
     it "should create 2 teams" do
 			p "should create 2 teams"
@@ -128,6 +129,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
           .create_team(name: @t1, slug:@t1)
       page = CreateTeamPage.new(config: @config, driver: page.driver).load
           .create_team(name: @t2, slug:@t2)
+			expect(get_element('h1.team__name').text.nil?).to be(false)
     end
 
 		#As a different user, request to join one team.
@@ -136,16 +138,19 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       page = LoginPage.new(config: @config, driver: @driver).load
           .register_and_login_with_email(email: 'newsysops+' + Time.now.to_i.to_s + '@meedan.com', password: '22345678')
       page = TeamsPage.new(config: @config, driver: @driver).load
-          .ask_join_team(subdomain: @t1)    
+          .ask_join_team(subdomain: @t1)
+			sleep 3
+			expect(@driver.find_element(:class, "message").nil?).to be(false)
 		end
-
 
 		#As the group creator, go to the members page and approve the joining request.
     it "should as the group creator, go to the members page and approve the joining request" do
 			p ".approve_join_team"      
       page = LoginPage.new(config: @config, driver: @driver).load.login_with_email(email: @e1, password: @password)
 			page = TeamsPage.new(config: @config, driver: @driver).load
-          .approve_join_team(subdomain: @t1)    
+          .approve_join_team(subdomain: @t1)
+			elems = @driver.find_elements(:css => ".team-members__list > li")
+			expect(elems.size).to be > 1
 		end
 
 		#Switch teams
@@ -156,6 +161,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
           .select_team(name: @t1)
       page = TeamsPage.new(config: @config, driver: @driver).load
           .select_team(name: @t2)
+			sleep 3
+      expect(page.team_name).to eq(@t2)
 		end
 
 		#Add slack notificatios to a team 
@@ -181,6 +188,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 		  sleep 2
 			element = @driver.find_element(:class, "team__save-button")
 		  element.click
+			expect(@driver.find_element(:class, "message").nil?).to be(false)
     end
 
 		#Create a new project.
