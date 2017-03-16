@@ -82,7 +82,7 @@
   min-height: 48px;
   min-width: 50px;
 
-  span {
+  & > span {
     padding-#{$from-direction}: 3px;
   }
 }

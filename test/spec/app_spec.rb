@@ -1025,7 +1025,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
           .login_with_email(email: @email, password: @password)
           .create_media(input: 'https://www.instagram.com/p/BRYob0dA1SC/')
       sleep 2
-      expect(@driver.page_source.include?('Media contains one image. Click Search to look for duplicates on Google.')).to be(true)
+      expect(@driver.page_source.include?('This item contains at least one image. Click Search to look for potential duplicates on Google.')).to be(true)
       expect((@driver.current_url.to_s =~ /google/).nil?).to be(true)
       current_window = @driver.window_handles.last
       @driver.find_element(:css, '.annotation__reverse-image-search').click
