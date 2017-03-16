@@ -18,6 +18,7 @@ import { MdRadioButtonChecked, MdRadioButtonUnchecked } from 'react-icons/lib/md
 import Tooltip from 'rc-tooltip';
 import 'rc-tooltip/assets/bootstrap.css';
 import Truncate from 'react-truncate';
+import ParsedText from '../ParsedText';
 
 const messages = defineMessages({
   confirmDelete: {
@@ -416,7 +417,7 @@ class Task extends Component {
             :
               <div className="task__resolved">
                 {taskQuestion}
-                { task.type === 'single_choice' ? this.renderOptions(response) : <p className="task__response">{response}</p> }
+                { task.type === 'single_choice' ? this.renderOptions(response) : <p className="task__response"><ParsedText text={response} /></p> }
                 <p style={{ display: note ? 'block' : 'none' }} className="task__note">{note}</p>
                 <p className="task__resolver">
                   <small><FormattedMessage id="task.resolvedBy" defaultMessage={'Resolved by {by}'} values={{ by }} /></small>
