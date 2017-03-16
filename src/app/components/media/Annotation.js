@@ -183,7 +183,7 @@ class Annotation extends Component {
       </span>);
       break;
     case 'create_dynamicannotationfield': case 'update_dynamicannotationfield':
-      if (object.field_name === 'response_free_text' && activity.task) {
+      if (/^response_/.test(object.field_name) && activity.task) {
         contentTemplate = (<span className="// annotation__task-resolved">
           <FormattedMessage
             id="annotation.taskResolve"
@@ -309,11 +309,13 @@ class Annotation extends Component {
               </CardText>
             </Card>
           ) : (
-            <span className='annotation__default'>
-              <span className='annotation__default-content'>{contentTemplate}</span>
-              {timestamp}
+            <div className='annotation__default'>
+              <span className='annotation__default-text'>
+                <span className='annotation__default-content'>{contentTemplate}</span>
+                {timestamp}
+              </span>
               {annotationActions}
-            </span>
+            </div>
           )
         }
       </section>

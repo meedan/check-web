@@ -50,10 +50,7 @@
 
   .annotation__card-text {
     display: flex;
-    padding-top: 24px;
-    padding-#{$to-direction}: 0 !important;
-    padding-bottom: 0 !important;
-    padding-#{$from-direction}: 24px !important;
+    padding: 24px 0 0 24px !important;
   }
 
   .annotation__card-avatar-col {
@@ -123,6 +120,7 @@
   }
 
   .annotation__timestamp {
+    white-space: pre;
     color: $black-38;
     display: inline;
     margin-#{$to-direction}: 12px;

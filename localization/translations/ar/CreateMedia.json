@@ -1,8 +1,8 @@
 {
-  "createMedia.submitting": "Submitting...",
-  "createMedia.error": "Something went wrong! Try pasting the text of this post instead, or adding a different link.",
-  "createMedia.mediaInput": "Paste or type",
-  "createMedia.uploadImage": "Upload an image",
-  "createMedia.submitButton": "Post",
-  "createMedia.helper": "Add a link, quote or image for verification"
+  "createMedia.submitting": "يتم النشر...",
+  "createMedia.error": "لقد حدث خطأ ما! حاول لصق نص الرابط كبديل، أو أضف رابط آخر.",
+  "createMedia.mediaInput": "إلصق أو اكتب",
+  "createMedia.uploadImage": "ارفع صورة",
+  "createMedia.submitButton": "انشر",
+  "createMedia.helper": "أضف رابط، اقتباس أو صورة للتحقق من صحة معلوماتهم"
 }

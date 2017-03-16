@@ -1,0 +1,13 @@
+{
+  "createTask.addValue": "Add Value",
+  "createTask.value": "Value",
+  "tasks.taskPrompt": "Prompt",
+  "tasks.cancelAdd": "الغ",
+  "tasks.add": "أضف",
+  "tasks.addTask": "أضف مهمة",
+  "tasks.shortAnswer": "إجابة قصيرة",
+  "tasks.chooseOne": "Choose one",
+  "tasks.taskLabel": "عنوان المهمة",
+  "tasks.description": "وصف",
+  "tasks.addDescription": "أضف وصف"
+}

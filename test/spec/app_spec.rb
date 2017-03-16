@@ -960,6 +960,10 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(imgsrc.match(/test\.png$/).nil?).to be(false)
     end
 
+    # it "should move media to another project" do
+    #   skip("Needs to be implemented")
+    # end
+
     it "should add, edit, answer, update answer and delete task" do
       media_pg = LoginPage.new(config: @config, driver: @driver).load
                  .login_with_email(email: @email, password: @password)
@@ -980,6 +984,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Answer task
       expect(@driver.page_source.include?('Task "Foo or bar?" answered by')).to be(false)
+      @driver.find_element(:css, '.task__label').click
       fill_field('textarea[name="response"]', 'Foo')
       @driver.action.send_keys(:enter).perform
       sleep 2
@@ -1010,6 +1015,10 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 3
       expect(@driver.page_source.include?('Foo')).to be(false)
     end
+
+    # it "should add, edit, answer, update answer and delete single_choice task" do
+    #   skip("Needs to be implemented")
+    # end
 
     it "should search for reverse images" do
       page = LoginPage.new(config: @config, driver: @driver).load
