@@ -24,10 +24,9 @@
 .team-header__avatar {
   @include team-avatar(32px);
   @include fade-in(.5s);
-  margin-right: 16px;
+  margin-#{$to-direction}: 16px;
   background-color: $white;
 }
-
 
 .team-header__name {
   @include header-title;

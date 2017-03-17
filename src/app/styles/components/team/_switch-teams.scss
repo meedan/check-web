@@ -57,7 +57,7 @@
 
 .switch-teams__team-avatar {
   @include avatar(60px);
-  margin-right: 15px;
+  margin-#{$to-direction}: 15px;
 }
 
 .switch-teams__team-copy {
@@ -95,7 +95,7 @@
 .switch-teams__cancel-join-request {
   @include unbutton;
   color: $monza-red;
-  margin-left: 20px;
+  margin-#{$from-direction}: 20px;
 }
 
 .switch-teams__new-team-link {

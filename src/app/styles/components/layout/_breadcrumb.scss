@@ -10,7 +10,7 @@
 
   svg {
     @extend %icon;
-    margin-right: 12px;
+    margin-#{$to-direction}: 12px;
   }
 }
 

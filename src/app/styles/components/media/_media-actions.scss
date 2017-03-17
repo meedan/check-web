@@ -1,7 +1,7 @@
 .media-actions {
   position: relative;
-  text-align: right;
-  margin-left: auto;
+  text-align: $to-direction;
+  margin-#{$from-direction}: auto;
 }
 
 .media-actions__icon {
@@ -15,7 +15,7 @@
 .media-actions__menu {
   @include app-menu;
   position: absolute;
-  right: 0;
+  #{$to-direction}: 0;
   top: 27px;
   display: none;
 

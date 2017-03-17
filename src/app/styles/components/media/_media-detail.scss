@@ -6,9 +6,10 @@
   @include media-status-border-colors;
   @include box-shadow(1);
   background-color: $white;
-  border-left: 8px solid;
+  border-#{$from-direction}: 8px solid;
   border-radius: 2px;
-  padding: 12px 0 0 16px;
+  padding: 12px 0 0;
+  padding-#{$from-direction}: 16px;
   margin-bottom: 16px;
 }
 
@@ -28,7 +29,10 @@
 //
 .media-detail__heading {
   font-size: 18px;
-  margin: 2px 24px 16px 0;
+  margin-top: 2px;
+  margin-#{$to-direction}: 24px;
+  margin-bottom: 16px;
+  margin-#{$from-direction}: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -74,12 +78,12 @@
   align-items: center;
   display: flex;
   flex-shrink: 0;
-  margin-right: 16px;
+  margin-#{$to-direction}: 16px;
   min-height: 48px;
   min-width: 50px;
 
   & > span {
-    padding-left: 3px;
+    padding-#{$from-direction}: 3px;
   }
 }
 
@@ -99,7 +103,10 @@
 .media-detail__editing-buttons {
   display: flex;
   flex-flow: wrap row;
-  margin: 4px 8px 4px auto;
+  margin-top: 4px;
+  margin-#{$to-direction}: 8px;
+  margin-bottom: 4px;
+  margin-#{$from-direction}: auto;
 
   span {
     display: block;
@@ -110,7 +117,10 @@
 // Move dialog
 //
 .media-detail__dialog-header {
-  margin: 4px 8px 4px auto;
+  margin-top: 4px;
+  margin-#{$to-direction}: 8px;
+  margin-bottom: 4px;
+  margin-#{$from-direction}: auto;
   height: 28px;
   font-family: Roboto;
   font-size: 20px;
@@ -125,12 +135,12 @@
   font-family: Roboto;
   font-size: 12px;
   line-height: 1.33;
-  text-align: left;
+  text-align: #{$from-direction};
   color: $black-05;
 }
 
 .media-detail__dialog-radio-group {
-  margin-left: 30px;
+  margin-#{$from-direction}: 30px;
   margin-top: 30px;
 }
 
