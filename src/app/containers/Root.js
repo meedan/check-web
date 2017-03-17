@@ -5,22 +5,43 @@ import { syncHistoryWithStore } from 'react-router-redux';
 import ReactGA from 'react-ga';
 import { IntlProvider, addLocaleData } from 'react-intl';
 import App from './App';
-import { IndexComponent, TermsOfService, NotFound, CreateAccount, AccessDenied, PrivacyPolicy, UserConfirmed, UserUnconfirmed } from '../components';
-import { Sources, Source, User, Me } from '../components/source';
-import Team from '../components/team/Team';
-import { CreateProjectMedia, ProjectMedia } from '../components/media';
-import TeamMembers from '../components/team/TeamMembers';
-import CreateTeam from '../components/team/CreateTeam';
-import JoinTeam from '../components/team/JoinTeam.js';
-import Project from '../components/project/Project.js';
-import ProjectHeader from '../components/project/ProjectHeader';
-import ProjectEdit from '../components/project/ProjectEdit';
-import Teams from '../components/team/Teams.js';
-import Search from '../components/Search.js';
+import {
+  RootLocale,
+  IndexComponent,
+  TermsOfService,
+  NotFound,
+  CreateAccount,
+  AccessDenied,
+  PrivacyPolicy,
+  UserConfirmed,
+  UserUnconfirmed
+} from '../components';
+import {
+  Sources,
+  Source,
+  User,
+  Me
+} from '../components/source';
+import {
+  Team,
+  TeamMembers,
+  CreateTeam,
+  JoinTeam,
+  Teams
+} from '../components/team';
+import {
+  CreateProjectMedia,
+  ProjectMedia
+} from '../components/media';
+import {
+  Project,
+  ProjectHeader,
+  ProjectEdit
+} from '../components/project';
+import Search from '../components/Search';
 import CheckContext from '../CheckContext';
 import translations from '../../../localization/translations/translations';
 import config from 'config';
-import rtlDetect from 'rtl-detect';
 
 // Localization
 let locale = config.locale || navigator.languages || navigator.language || navigator.userLanguage || 'en';
@@ -42,14 +63,6 @@ try {
   addLocaleData([...localeData]);
 } catch (e) {
   locale = 'en';
-}
-
-class RootLocale extends Component {
-  render() {
-    document.documentElement.setAttribute("lang", this.props.locale);
-    const stylesheet = rtlDetect.isRtlLang(this.props.locale) ? "/css/stylesheet-rtl.css" : "/css/stylesheet.css";
-    return <link rel="stylesheet" href={stylesheet} />
-  }
 }
 
 export default class Root extends Component {
