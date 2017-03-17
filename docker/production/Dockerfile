@@ -1,6 +1,6 @@
 # meedan/check-web
 
-FROM meedan/nodejs
+FROM meedan/ruby
 MAINTAINER sysops@meedan.com
 
 #
@@ -14,6 +14,7 @@ ENV DEPLOYUSER=checkdeploy \
     PRODUCT=check \
     APP=check-web \
     NODE_ENV=production
+
 
 # user config
 RUN useradd ${DEPLOYUSER} -s /bin/bash -m \
@@ -57,11 +58,14 @@ RUN rm -f ${DEPLOYDIR}/latest/build/web/js/config.js \
 WORKDIR ${DEPLOYDIR}
 RUN mv ./latest ./${APP}-$(date -I) && ln -s ./${APP}-$(date -I) ./current
 
+USER root
+RUN rm /etc/nginx/passenger.conf /etc/nginx/conf.d/passenger.conf /etc/nginx/sites-enabled/default
+COPY docker/production/config/nginx.conf /etc/nginx/sites-enabled/${APP}
+
 #
 # RUNTIME ELEMENTS
 # expose, cmd
 #
-USER root
 EXPOSE 8000
 WORKDIR ${DEPLOYDIR}/current/build/web
 CMD ["/opt/bin/start.sh"]
