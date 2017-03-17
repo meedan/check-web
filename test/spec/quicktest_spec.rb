@@ -67,9 +67,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
   end
 
   # The tests themselves start here
-
   context "web" do
-=begin
+		## Prioritized Script for Automation ##	
     it "should register and login using e-mail" do
 			p "should register and login using e-mail"
       login_pg = LoginPage.new(config: @config, driver: @driver).load
@@ -120,7 +119,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 			sleep 10
 			expect(get_element('h2.source-name').text.nil?).to be(false)
     end
-=end
     #Create two new teams. 
     it "should create 2 teams" do
 			p "should create 2 teams"
@@ -131,7 +129,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
           .create_team(name: @t2, slug:@t2)
 			expect(get_element('h1.team__name').text.nil?).to be(false)
     end
-
 		#As a different user, request to join one team.
     it "should join team" do
 			p "should join team"
@@ -166,11 +163,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 		end
 
 		#Add slack notificatios to a team 
-		#by editing it and enabling slack notifications by 
-		#adding https://hooks.slack.com/services/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 to the slack webhook field 
-		#and check the “Enable slack notifications” box. Make sure slack notifications are shown.
-    it "should add slack notificatios to a team " do
-			p "should add slack notificatios to a team "
+    it "should add slack notifications to a team " do
+			p "should add slack notifications to a team "
       page = LoginPage.new(config: @config, driver: @driver).load
           .login_with_email(email: @e1, password: @password)
       @driver.navigate.to @config['self_url'] + '/' + @t2
@@ -188,6 +182,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 		  sleep 2
 			element = @driver.find_element(:class, "team__save-button")
 		  element.click
+		  sleep 2
 			expect(@driver.find_element(:class, "message").nil?).to be(false)
     end
 
@@ -203,14 +198,11 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 		  element.send_keys name
 			@driver.action.send_keys("\n").perform
 			sleep 2
+			expect(get_element('h2.project-header__title').text.nil?).to be(false)
 		end
 
 
-		#Create a new media using a link from:
-		#Facebook
-		#YouTube
-		#Twitter
-		#	Instagram
+		#Create a new media using a link from: 		#Facebook  		#YouTube 		#Twitter 		#	Instagram
     it "should create project media" do
 			p "should create project media"
       media_pg = LoginPage.new(config: @config, driver: @driver).load
@@ -290,6 +282,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       page.add_tag(@new_tag)
 			sleep 2
       expect(page.has_tag?(@new_tag)).to be(true)
+
 			#Delete this tag.
 			p "delete this tag"
       page.delete_tag(@new_tag)
