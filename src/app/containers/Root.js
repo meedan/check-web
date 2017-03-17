@@ -20,6 +20,7 @@ import Search from '../components/Search.js';
 import CheckContext from '../CheckContext';
 import translations from '../../../localization/translations/translations';
 import config from 'config';
+import rtlDetect from 'rtl-detect';
 
 // Localization
 let locale = config.locale || navigator.languages || navigator.language || navigator.userLanguage || 'en';
@@ -46,7 +47,7 @@ try {
 class RootLocale extends Component {
   render() {
     document.documentElement.setAttribute("lang", this.props.locale);
-    const stylesheet = this.props.locale === 'ar' ? "/css/stylesheet-rtl.css" : "/css/stylesheet.css";
+    const stylesheet = rtlDetect.isRtlLang(this.props.locale) ? "/css/stylesheet-rtl.css" : "/css/stylesheet.css";
     return <link rel="stylesheet" href={stylesheet} />
   }
 }
