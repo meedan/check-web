@@ -25,7 +25,7 @@
   },
   {
     "id": "annotation.taskResolve",
-    "defaultMessage": "Task \"{task}\" answered by {author}: {response}"
+    "defaultMessage": "Task \"{task}\" answered by {author}: \"{response}\""
   },
   {
     "id": "annotation.reverseImage",

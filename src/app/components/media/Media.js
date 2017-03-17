@@ -152,7 +152,9 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
                       domain,
                       media {
                         embed_path,
-                        thumbnail_path
+                        thumbnail_path,
+                        url,
+                        quote
                       }
                       user {
                         name,
