@@ -66,6 +66,6 @@ COPY docker/production/config/nginx.conf /etc/nginx/sites-enabled/${APP}
 # RUNTIME ELEMENTS
 # expose, cmd
 #
-EXPOSE 8000
+EXPOSE 80
 WORKDIR ${DEPLOYDIR}/current/build/web
 CMD ["/opt/bin/start.sh"]
