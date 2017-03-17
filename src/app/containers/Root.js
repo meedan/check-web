@@ -45,7 +45,7 @@ try {
 
 class RootLocale extends Component {
   render() {
-    document.body.setAttribute("lang", this.props.locale);
+    document.documentElement.setAttribute("lang", this.props.locale);
     const stylesheet = this.props.locale === 'ar' ? "/css/stylesheet-rtl.css" : "/css/stylesheet.css";
     return <link rel="stylesheet" href={stylesheet} />
   }
