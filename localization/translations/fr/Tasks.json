@@ -3,7 +3,7 @@
   "tasks.add": "Ajouter",
   "tasks.addTask": "Ajouter une tâche",
   "tasks.shortAnswer": "Réponse courte",
-  "tasks.taskLabel": "Étiquette de la tâche",
+  "tasks.taskLabel": "Étiquette",
   "tasks.description": "Description",
   "tasks.addDescription": "Ajouter une description"
 }

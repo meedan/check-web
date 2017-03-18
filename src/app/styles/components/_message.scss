@@ -15,7 +15,7 @@
 
   #close-message {
     position: absolute;
-    right: 10px;
+    #{$to-direction}: 10px;
     cursor: pointer;
   }
 }

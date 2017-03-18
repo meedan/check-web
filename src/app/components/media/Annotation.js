@@ -1,8 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { FormattedMessage, FormattedHTMLMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import Relay from 'react-relay';
-import Linkify from 'react-linkify';
-import nl2br from 'react-nl2br';
 import MediaDetail from './MediaDetail';
 import DynamicAnnotation from '../annotations/DynamicAnnotation';
 import DeleteAnnotationMutation from '../../relay/DeleteAnnotationMutation';
@@ -15,6 +13,7 @@ import Lightbox from 'react-image-lightbox';
 import { Card, CardText } from 'material-ui/Card';
 import MenuButton from '../MenuButton';
 import { MdImage } from 'react-icons/lib/md';
+import ParsedText from '../ParsedText';
 
 const messages = defineMessages({
   error: {
@@ -137,21 +136,29 @@ class Annotation extends Component {
     case 'create_comment':
       const commentText = content.text;
       const commentContent = JSON.parse(annotation.content);
-      contentTemplate = (<div className='annotation__card-content'>
-        <Linkify properties={{ target: '_blank' }}>{nl2br(commentText)}</Linkify>
-        {/* thumbnail */ }
-        { commentContent.original ?
-          <img src={commentContent.thumbnail} className='annotation__card-thumbnail' alt="" onClick={this.handleOpenCommentImage.bind(this, commentContent.original)} />
-        : null }
-        {/* embedded medias */ }
-        {annotation.medias.edges.map(media => (
-          <div><MediaDetail media={media.node} condensed readonly /></div>
-        ))}
-        {/* lightbox */ }
-        { (commentContent.original && !!this.state.zoomedCommentImage) ?
-          <Lightbox onCloseRequest={this.handleCloseCommentImage.bind(this)} mainSrc={this.state.zoomedCommentImage} />
-        : null }
-      </div>);
+      contentTemplate = (
+        <div>
+          <div className='annotation__card-content'>
+            <ParsedText text={commentText} />
+            {/* thumbnail */ }
+            { commentContent.original ?
+              <img src={commentContent.thumbnail} className='annotation__card-thumbnail' alt="" onClick={this.handleOpenCommentImage.bind(this, commentContent.original)} />
+            : null }
+          </div>
+
+          {/* embedded medias */ }
+          <div className="annotation__card-embedded-medias">
+          {annotation.medias.edges.map(media => (
+            <div><MediaDetail media={media.node} condensed readonly /></div>
+          ))}
+          </div>
+
+          {/* lightbox */ }
+          { (commentContent.original && !!this.state.zoomedCommentImage) ?
+            <Lightbox onCloseRequest={this.handleCloseCommentImage.bind(this)} mainSrc={this.state.zoomedCommentImage} />
+          : null }
+        </div>
+      );
       break;
     case 'update_status':
       const statusCode = content.status.toLowerCase().replace(/[ _]/g, '-');
@@ -183,18 +190,18 @@ class Annotation extends Component {
       </span>);
       break;
     case 'create_dynamicannotationfield': case 'update_dynamicannotationfield':
-      if (object.field_name === 'response_free_text' && activity.task) {
+      if (/^response_/.test(object.field_name) && activity.task) {
         contentTemplate = (<span className="// annotation__task-resolved">
           <FormattedMessage
             id="annotation.taskResolve"
-            defaultMessage={'Task "{task}" answered by {author}: {response}'}
-            values={{ task: activity.task.label, author: authorName, response: <span>{`"${object.value}"`}</span> }}
+            defaultMessage={'Task "{task}" answered by {author}: "{response}"'}
+            values={{ task: activity.task.label, author: authorName, response: <ParsedText text={object.value} /> }}
           />
         </span>);
       }
       if (object.field_name === 'reverse_image_path') {
         contentTemplate = (<span className="annotation__reverse-image">
-          <MdImage /> <FormattedMessage id="annotation.reverseImage" defaultMessage={'Media contains one image. Click Search to look for duplicates on Google.'} />
+          <MdImage /> <FormattedMessage id="annotation.reverseImage" defaultMessage={'This item contains at least one image. Click Search to look for potential duplicates on Google.'} />
           <span className="annotation__reverse-image-search" title={this.props.intl.formatMessage(messages.reverseImageTooltip)} onClick={this.handleReverseImageSearch.bind(this, object.value)}><FormattedMessage id="annotation.reverseImageSearch" defaultMessage="Search" /></span>
         </span>);
       }
@@ -309,11 +316,13 @@ class Annotation extends Component {
               </CardText>
             </Card>
           ) : (
-            <span className='annotation__default'>
-              <span className='annotation__default-content'>{contentTemplate}</span>
-              {timestamp}
+            <div className='annotation__default'>
+              <span className='annotation__default-text'>
+                <span className='annotation__default-content'>{contentTemplate}</span>
+                {timestamp}
+              </span>
               {annotationActions}
-            </span>
+            </div>
           )
         }
       </section>

@@ -1,15 +1,15 @@
 {
-  "joinTeamComponent.error": "Sorry, could not send your request",
-  "joinTeamComponent.success": "Thanks for your interest in joining {team} Check! A team leader will review your application soon.",
-  "joinTeamComponent.autoApprove": "Thanks for joining {team} Check! You can start contributing right away.",
-  "joinTeamComponent.title": "Join Team",
-  "joinTeamComponent.alreadyRequested": "You already requested to join {team} Check.",
-  "joinTeamComponent.mainHeading": "Request to Join",
-  "joinTeamComponent.blurbGraf": "To request access to the {link} Check, click below:",
-  "joinTeamComponent.buttonSubmitted": "Request Sent",
-  "joinTeamComponent.buttonApproved": "Request Approved",
-  "joinTeamComponent.buttonSubmit": "Request to Join",
-  "joinTeamComponent.requestHasBeenSent": "Your request has been sent to the project admins for approval.",
-  "joinTeamComponent.requestHasBeenApproved": "Your request has been approved.",
-  "joinTeamComponent.requestWillBeSent": "Your request will be sent to the project admins for approval."
+  "joinTeamComponent.error": "عفواً، لم نستطيع إرسال طلبك.",
+  "joinTeamComponent.success": "شكراً على رغبتك في الإلتحاق  بفريق {team} Check!سوف يراجع مدير الفريق طلبك عاجلاً.",
+  "joinTeamComponent.autoApprove": "شكراً على إلتحاقك بفريق {team} Check! يمكنك بدء المشاركة على الفور.",
+  "joinTeamComponent.title": "إلتحق بالفريق",
+  "joinTeamComponent.alreadyRequested": "لقد طلبت بالفعل الإلتحاق بفريق {team} Check.",
+  "joinTeamComponent.mainHeading": "أرسل طلب للإلتحاق",
+  "joinTeamComponent.blurbGraf": "لترسل طلب الإلتحاق بفريق {link} Check، انقر الرابط التالي:",
+  "joinTeamComponent.buttonSubmitted": "تم إرسال طلبك",
+  "joinTeamComponent.buttonApproved": "تم الموافقة على طلبك",
+  "joinTeamComponent.buttonSubmit": "أرسل طلب للإلتحاق",
+  "joinTeamComponent.requestHasBeenSent": "تم إرسال طلبك إلى مديري المشاريع للموافقة.",
+  "joinTeamComponent.requestHasBeenApproved": "تم الموافقة على طلبك",
+  "joinTeamComponent.requestWillBeSent": "سوف يتم إرسال طلبك إلى مديري المشاريع للموافقة."
 }

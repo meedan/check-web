@@ -1,5 +1,17 @@
 [
   {
+    "id": "createTask.addValue",
+    "defaultMessage": "Add Value"
+  },
+  {
+    "id": "createTask.value",
+    "defaultMessage": "Value"
+  },
+  {
+    "id": "tasks.taskPrompt",
+    "defaultMessage": "Prompt"
+  },
+  {
     "id": "tasks.cancelAdd",
     "defaultMessage": "Cancel"
   },
@@ -14,6 +26,10 @@
   {
     "id": "tasks.shortAnswer",
     "defaultMessage": "Short answer"
+  },
+  {
+    "id": "tasks.chooseOne",
+    "defaultMessage": "Choose one"
   },
   {
     "id": "tasks.taskLabel",

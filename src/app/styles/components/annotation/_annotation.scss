@@ -4,14 +4,15 @@
   position: relative;
 
   .annotation__default {
-    padding-left: 80px;
+    padding-#{$from-direction}: 80px;
     flex: 1;
     font-size: 12px;
     color: $black-87;
     display: flex;
     max-width: 704px;
 
-    &, * {
+    &,
+    * {
       overflow-wrap: break-word;
       word-wrap: break-word;
       hyphens: auto;
@@ -19,16 +20,17 @@
     }
 
     &-content {
-      margin-right: 12px;
+      margin-#{$to-direction}: 12px;
     }
 
-    a, a:visited {
+    a,
+    a:visited {
       color: inherit;
     }
 
     .menu-button {
       color: $black-38;
-      margin-right: 12px;
+      margin-#{$to-direction}: 12px;
     }
   }
 
@@ -36,6 +38,7 @@
     width: 100%;
     max-width: 704px;
     z-index: initial !important;
+
     & > div {
       padding-bottom: 0 !important;
     }
@@ -51,14 +54,12 @@
   }
 
   .annotation__card-avatar-col {
-    margin-right: 24px;
+    margin-#{$to-direction}: 24px;
   }
 
   .annotation__card-avatar {
     $width: 32px;
     @include user-avatar($width);
-    // flex: 0 0 $width;
-    // margin: 1px 12px 0 0;
   }
 
   .annotation__card-main-col {
@@ -76,29 +77,26 @@
   }
 
   .annotation__card-thumbnail {
-    float: right;
+    float: $to-direction;
     padding: 8px;
   }
 
   .annotation__card-footer {
     flex: 1;
-    padding-right: 12px;
-
+    padding-#{$to-direction}: 12px;
     // see also .media-detail__check-metadata
     align-items: center;
     border-top: 1px solid $black-05;
     display: flex;
     flex-flow: wrap row;
-    font-size: 12px;
     margin-top: 24px;
     height: 44px;
-
     font-size: 12px;
     color: $black-54;
   }
 
   .annotation__card-footer-text {
-    margin-right: 12px;
+    margin-#{$to-direction}: 12px;
     flex: 1;
   }
 
@@ -106,7 +104,7 @@
     font-size: 14px;
     font-weight: 500;
     color: $black-87;
-    margin-right: 12px;
+    margin-#{$to-direction}: 12px;
   }
 
   .annotation__content {
@@ -121,17 +119,11 @@
     margin-bottom: 1.5px;
   }
 
-  .annotation__author-name {
-  }
-
-  .annotation__task-resolved {
-  }
-
   .annotation__timestamp {
-    // letter-spacing: -0.5px;
+    white-space: pre;
     color: $black-38;
     display: inline;
-    margin-right: 12px;
+    margin-#{$to-direction}: 12px;
     flex: 1;
   }
 
@@ -139,7 +131,7 @@
     display: none;
     flex: 1;
     align-self: flex-start;
-    text-align: right;
+    text-align: #{$to-direction};
   }
 
   .annotation__body {
@@ -155,8 +147,8 @@
   .annotation__status {
     @include app-kicker(12px);
     @include media-status-font-colors;
-    margin-left: 3px;
-    margin-right: 2px;
+    margin-#{$from-direction}: 3px;
+    margin-#{$to-direction}: 2px;
   }
 
   .annotation__tag {
@@ -174,15 +166,15 @@
   margin-top: 5px;
 
   .annotation__comment-text {
-    float: left;
+    float: #{$from-direction};
     width: 80%;
   }
 
   img {
     max-width: 20%;
     min-width: 50px;
-    float: right;
-    cursor: zoom-in
+    float: $to-direction;
+    cursor: zoom-in;
   }
 
   br {
@@ -193,7 +185,7 @@
 
 .add-annotation {
   .add-annotation__buttons {
-    margin-left: auto;
+    margin-#{$from-direction}: auto;
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -203,7 +195,7 @@
 
       svg {
         @extend %icon;
-        margin-right: 0;
+        margin-#{$to-direction}: 0;
 
         path {
           color: $black-16;
@@ -226,7 +218,7 @@
     .remove-image {
       position: absolute;
       top: 2px;
-      right: 2px;
+      #{$to-direction}: 2px;
       z-index: 1;
       color: $black-38;
       cursor: pointer;
@@ -265,4 +257,9 @@
   cursor: pointer;
   display: inline-block;
   margin: 0 10px;
+}
+
+.annotation__card-embedded-medias {
+  clear: both;
+  margin-top: 5px;
 }

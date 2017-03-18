@@ -22,7 +22,7 @@ class MediaActions extends Component {
   }
 
   render() {
-    const { media, handleEdit, handleMove } = this.props;
+    const { media, handleEdit, handleMove, handleRefresh } = this.props;
     const menuItems = [];
 
     if (can(media.permissions, 'create Tag')) {
@@ -31,6 +31,9 @@ class MediaActions extends Component {
 
     if (can(media.permissions, 'update ProjectMedia')) {
       menuItems.push(<li className="media-actions__menu-item" onClick={handleMove}><FormattedMessage id="mediaActions.move" defaultMessage="Move..." /></li>);
+      if (media.url) {
+        menuItems.push(<li className="media-actions__menu-item" id="media-actions__refresh" onClick={handleRefresh}><FormattedMessage id="mediaActions.refresh" defaultMessage="Refresh" /></li>);
+      }
     }
 
     return menuItems.length ? (

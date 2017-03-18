@@ -3,13 +3,16 @@ $menu-status-offset: 5px;
 
 .media-status {
   position: relative;
-  padding: 3px 3px 0 $menu-status-offset;
+  padding-top: 3px;
+  padding-#{$to-direction}: 3px;
+  padding-bottom: 0;
+  padding-#{$from-direction}: $menu-status-offset;
   border-radius: 2px;
   display: inline-block;
 
   &--editable {
     cursor: pointer;
-    margin-left: -$menu-status-offset;
+    margin-#{$from-direction}: -$menu-status-offset;
 
     &:hover {
       background-color: $black-05;
@@ -58,14 +61,14 @@ $menu-status-offset: 5px;
 .media-status__menu-item {
   @include media-status-menu-hover-colors;
   @include media-status-font-colors;
-  padding-left: 16px;
+  padding-#{$from-direction}: 16px;
 
   .media-status__icon--radio-button-selected {
     display: none;
   }
 
   svg {
-    margin-right: 8px;
+    margin-#{$to-direction}: 8px;
   }
 
   &:hover {

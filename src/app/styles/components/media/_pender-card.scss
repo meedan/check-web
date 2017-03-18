@@ -3,13 +3,14 @@
   position: relative;
   max-height: 2000px;
   overflow-y: hidden;
+  overflow-x: hidden;
 
   iframe {
     position: relative;
-    left: 0;
+    #{$from-direction}: 0;
     top: 0;
     bottom: 0;
-    right: 0;
+    #{$to-direction}: 0;
     z-index: 1;
   }
 }
@@ -20,8 +21,8 @@
   height: $size;
   position: absolute;
   top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  #{$from-direction}: 50%;
+  transform: translate(-50%, 50%);
   display: flex;
   align-items: center;
   justify-content: center;

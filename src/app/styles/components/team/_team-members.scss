@@ -12,10 +12,9 @@
 // edit buttons
 .team-members__edit-button {
   @include button-small;
-
   position: absolute;
   top: 30px;
-  right: 25px;
+  #{$to-direction}: 25px;
 
   @media screen and (max-width: 680px) {
     position: static;
@@ -28,16 +27,15 @@
   // TODO: DRY
   font-size: .9em;
   opacity: .8;
-  margin-right: .1em;
+  margin-#{$to-direction}: .1em;
   display: inline-block;
   position: relative;
-  left: -3px;
+  #{$from-direction}: -3px;
 }
 
 // blurb
 .team-members__blurb {
   @include app-blurb;
-
   text-align: center;
 }
 
@@ -79,13 +77,13 @@
   height: $size;
   width: $size;
   border-radius: $size;
-  margin-right: 10px;
+  margin-#{$to-direction}: 10px;
 }
 
 .team-members__member-details,
 .team-membership-requests__user-details {
   flex: 1 0 180px;
-  margin-right: 10px;
+  margin-#{$to-direction}: 10px;
   display: flex;
   align-items: baseline;
   flex-wrap: wrap;
@@ -93,7 +91,8 @@
 
 .team-members__member-name,
 .team-membership-requests__user-name {
-  margin: 0 6px 0 0;
+  margin: 0;
+  margin-#{$to-direction}: 6px;
 }
 
 .team-members__member-username,
@@ -104,7 +103,7 @@
 // user controls
 .team-member-requests__user-button {
   @include button-small;
-  margin-left: 10px;
+  margin-#{$from-direction}: 10px;
   margin-bottom: 0;
 
   &--approve {
@@ -114,7 +113,10 @@
 
 .team-members__member-role {
   min-width: 120px;
-  margin: 8px 0 8px auto;
+  margin-top: 8px;
+  margin-#{$to-direction}: 0;
+  margin-bottom: 8px;
+  margin-#{$from-direction}: auto;
 
   .Select-control {
     transition: border-color 450ms ease;
@@ -151,7 +153,7 @@
 .team-members__delete-member {
   @include unbutton;
   @include close-button;
-  margin-left: 15px;
+  margin-#{$from-direction}: 15px;
 
   &-icon {
     position: relative;

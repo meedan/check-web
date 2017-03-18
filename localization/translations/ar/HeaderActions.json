@@ -1,8 +1,8 @@
 {
-  "headerActions.userTeams": "Your Teams",
-  "headerActions.signOut": "Sign Out",
+  "headerActions.userTeams": "فرقك",
+  "headerActions.signOut": "خروج",
   "headerActions.contactHuman": "Contact a Human",
-  "headerActions.tos": "Terms of Service",
-  "headerActions.privacyPolicy": "Privacy Policy",
-  "headerActions.aboutCheck": "About Check"
+  "headerActions.tos": "شروط الإستخدام",
+  "headerActions.privacyPolicy": "سياسة الخصوصية",
+  "headerActions.aboutCheck": "عن Check"
 }

@@ -25,11 +25,11 @@
   },
   {
     "id": "annotation.taskResolve",
-    "defaultMessage": "Task \"{task}\" answered by {author}: {response}"
+    "defaultMessage": "Task \"{task}\" answered by {author}: \"{response}\""
   },
   {
     "id": "annotation.reverseImage",
-    "defaultMessage": "Media contains one image. Click Search to look for duplicates on Google."
+    "defaultMessage": "This item contains at least one image. Click Search to look for potential duplicates on Google."
   },
   {
     "id": "annotation.reverseImageSearch",

@@ -960,6 +960,10 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(imgsrc.match(/test\.png$/).nil?).to be(false)
     end
 
+    # it "should move media to another project" do
+    #   skip("Needs to be implemented")
+    # end
+
     it "should add, edit, answer, update answer and delete task" do
       media_pg = LoginPage.new(config: @config, driver: @driver).load
                  .login_with_email(email: @email, password: @password)
@@ -980,6 +984,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Answer task
       expect(@driver.page_source.include?('Task "Foo or bar?" answered by')).to be(false)
+      @driver.find_element(:css, '.task__label').click
       fill_field('textarea[name="response"]', 'Foo')
       @driver.action.send_keys(:enter).perform
       sleep 2
@@ -1011,18 +1016,38 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Foo')).to be(false)
     end
 
+    # it "should add, edit, answer, update answer and delete single_choice task" do
+    #   skip("Needs to be implemented")
+    # end
+
     it "should search for reverse images" do
       page = LoginPage.new(config: @config, driver: @driver).load
           .login_with_email(email: @email, password: @password)
           .create_media(input: 'https://www.instagram.com/p/BRYob0dA1SC/')
       sleep 2
-      expect(@driver.page_source.include?('Media contains one image. Click Search to look for duplicates on Google.')).to be(true)
+      expect(@driver.page_source.include?('This item contains at least one image. Click Search to look for potential duplicates on Google.')).to be(true)
       expect((@driver.current_url.to_s =~ /google/).nil?).to be(true)
       current_window = @driver.window_handles.last
       @driver.find_element(:css, '.annotation__reverse-image-search').click
+      sleep 3
       @driver.switch_to.window(@driver.window_handles.last)
       expect((@driver.current_url.to_s =~ /google/).nil?).to be(false)
       @driver.switch_to.window(current_window)
+    end
+
+    it "should refresh media" do
+      page = LoginPage.new(config: @config, driver: @driver).load
+          .login_with_email(email: @email, password: @password)
+          .create_media(input: 'http://ca.ios.ba/files/meedan/random.php')
+      sleep 2
+      title1 = @driver.title
+      expect((title1 =~ /Random/).nil?).to be(false)
+      @driver.find_element(:css, '.media-actions__icon').click
+      @driver.find_element(:css, '#media-actions__refresh').click
+      sleep 5
+      title2 = @driver.title
+      expect((title2 =~ /Random/).nil?).to be(false)
+      expect(title1 != title2).to be(true)
     end
   end
 end

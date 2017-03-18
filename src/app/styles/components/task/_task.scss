@@ -8,59 +8,126 @@
 
   .task__actions {
     position: absolute;
-    right: 16px;
+    #{$to-direction}: 16px;
+	top: 14px;
   }
 
   .task__question {
-    margin-right: 32px;
+    margin-#{$to-direction}: 32px;
+  }
+
+  .task__label-container {
+    width: 416px;
   }
 
   .task__label {
     font-size: 12px;
     color: $black-38;
-    word-wrap: break-word;
+    &--truncated {
+      label {
+        font-size: 12px;
+        color: $black-38;
+        text-decoration: underline;
+        padding: 0 4px;
+      }
+    }
+    &--full {
+      word-wrap: break-word;
+      word-break: break-all;
+      display: none;
+    }
+  }
+
+  .task__label-truncated-toggle {
+    display: none;
+    &:checked {
+      & ~ .task__label-container {
+        width: auto;
+        .task__label--full {
+          display: inline;
+        }
+        .task__label--truncated {
+          display: none;
+        }
+      }
+    }
   }
 
   .task__response {
     font-size: 16px;
   }
 
+  .task__response-inputs {
+    display: none;
+  }
+
+  .task__response-toggle {
+    display: none;
+    &:checked {
+      & ~ .task__response-inputs {
+        display: block;
+      }
+    }
+  }
+
   .task__resolver {
     color: $black-38;
-    text-align: right;
+    text-align: $to-direction;
   }
 
   .task__resolved {
     p {
       margin: 8px 0;
       word-wrap: break-word;
+
       &:last-child {
         margin-bottom: 0;
       }
     }
   }
 
+  .task__radio-group {
+    margin-top: 13px;
+  }
+
+  .task__options-answered {
+    margin-top: 13px;
+    color: rgba(0, 0, 0, 0.38);
+  }
+
+  .task__options-answered-item {
+    padding: 5px;
+    svg {
+      width: 24px;
+      height: 24px;
+      margin-right: 12px;
+    }
+  }
+
   #task__remove-button,
   #task__edit-button {
-    float: right;
+    float: $to-direction;
     color: #ccc;
-    margin: 5px 5px 0 0;
+    margin: 0;
+    margin-top: 5px;
+    margin-#{$to-direction}: 5px;
     cursor: pointer;
   }
 
   #task__remove-button {
-    margin-right: 8px;
+    margin-#{$to-direction}: 8px;
   }
 
   #task__cancel-button,
   #task__edit-response-button {
     color: #ccc;
-    margin-left: 5px;
+    margin-#{$from-direction}: 5px;
     cursor: pointer;
   }
 
   .media-actions__icon {
-    margin: 0 4px 0 0;
+    margin: 0;
+    margin-#{$to-direction}: 4px;
     width: 24px;
     height: 24px;
     padding: 0;
@@ -68,11 +135,15 @@
   }
 
   .task__description-icon {
-    float: right;
-    margin: 0 4px 8px 16px;
+    float: $to-direction;
+    margin-top: 0;
+    margin-#{$to-direction}: 4px;
+    margin-#{$from-direction}: 16px;
+    margin-bottom: 8px;
     width: 24px;
-    height: 24px;
-    padding: 2px;
+    height: 22px;
+    padding: 0 2px 2px 2px;
+	padding-top: 0;
     color: $black-38;
   }
 }
@@ -82,6 +153,7 @@
   @media (max-width: $layout-mobile-breakpoint) {
     max-width: 80vw;
   }
+
   span {
     word-wrap: break-word;
   }
