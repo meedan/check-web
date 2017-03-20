@@ -34,7 +34,7 @@
   justify-content: center;
   width: 0;
   opacity: 0;
-  margin-right: 0;
+  margin-#{$to-direction}: 0;
   transition: opacity 200ms ease, width 200ms ease, margin 200ms ease;
 
   & > svg {
@@ -54,7 +54,7 @@
   &--displayed {
     width: $_size;
     opacity: 1;
-    margin-right: 8px;
+    margin-#{$to-direction}: 8px;
   }
 }
 

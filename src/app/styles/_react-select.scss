@@ -47,8 +47,8 @@
 }
 
 .is-open > .Select-control {
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
+  border-bottom-#{$from-direction}-radius: 0;
+  border-bottom-#{$$to-direction}-radius: 0;
   background: #fff;
   border-color: #b3b3b3 #ccc #d9d9d9;
 }
@@ -70,12 +70,12 @@
 :not(.Select--multi) > .Select-control .Select-value {
   bottom: 0;
   color: #aaa;
-  left: 0;
+  #{$from-direction}: 0;
   line-height: 34px;
-  padding-left: 10px;
-  padding-right: 10px;
+  padding-#{$from-direction}: 10px;
+  padding-#{$to-direction}: 10px;
   position: absolute;
-  right: 0;
+  #{$to-direction}: 0;
   top: 0;
   max-width: 100%;
   overflow: hidden;
@@ -105,8 +105,8 @@
 
 .Select-input {
   height: 34px;
-  padding-left: 10px;
-  padding-right: 10px;
+  padding-#{$from-direction}: 10px;
+  padding-#{$to-direction}: 10px;
   vertical-align: middle;
 }
 
@@ -191,7 +191,7 @@
   text-align: center;
   vertical-align: middle;
   width: 25px;
-  padding-right: 5px;
+  padding-#{$to-direction}: 5px;
 }
 
 .Select-arrow {
@@ -272,12 +272,12 @@
 
 .Select--multi .Select-input {
   vertical-align: middle;
-  margin-left: 10px;
+  margin-#{$from-direction}: 10px;
   padding: 0;
 }
 
 .Select--multi.has-value .Select-input {
-  margin-left: 5px;
+  margin-#{$from-direction}: 5px;
 }
 
 .Select--multi .Select-value {
@@ -288,7 +288,7 @@
   display: inline-block;
   font-size: .9em;
   line-height: 1.4;
-  margin-left: 5px;
+  margin-#{$from-direction}: 5px;
   margin-top: 5px;
   vertical-align: top;
 }

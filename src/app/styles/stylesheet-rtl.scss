@@ -1,0 +1,13 @@
+[lang="ar"] {
+  direction: rtl;
+
+  // Rotate icons
+  .project-header__back-button svg {
+    transform: rotate(180deg);
+  }
+}
+
+$from-direction: right;
+$to-direction: left;
+
+@import "stylesheet";

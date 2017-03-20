@@ -9,19 +9,23 @@
     .media__expanded-header { // TODO: possibly DRY with ContentColumn#wide
       max-width: 1216px;
     }
+
     .media__expanded-column-wrapper {
       flex-direction: row;
+
       .media__media-column {
         $_width: 674px;
         width: $_width;
         flex-basis: $_width;
       }
+
       .media__tasks-column {
         $_width: 542px;
         width: $_width;
         flex-basis: $_width;
       }
     }
+
     .media__tasks-header {
       display: flex;
     }
@@ -65,7 +69,7 @@
   }
 
   .media-status__menu {
-    left: 0;
+    #{$from-direction}: 0;
     top: 35;
   }
 }
@@ -74,6 +78,7 @@
   display: none;
   align-items: baseline;
   margin-bottom: 16px;
+
   h2 {
     font-size: 20px;
     font-weight: 500;
@@ -81,15 +86,18 @@
     margin: 0;
     flex: 1;
   }
+
   & > span {
     font-size: 16px;
     color: $black-54;
-    margin-right: 12px;
+    margin-#{$to-direction}: 12px;
   }
+
   .create-task {
     cursor: pointer;
     color: $black-16;
     align-self: center;
+
     svg {
       height: 24px;
       width: 24px;
@@ -110,11 +118,14 @@
   align-items: center;
 
   & > svg {
-    opacity: 0.6;
-    margin-left: 12px;
+    opacity: .6;
+    margin-#{$from-direction}: 12px;
     width: 24px;
     height: 24px;
-    padding: 1px 1px 2px 0;
+    padding-top: 1px;
+    padding-#{$to-direction}: 1px;
+    padding-bottom: 2px;
+    padding-#{$from-direction}: 0;
     color: $black-38;
   }
 }
@@ -123,7 +134,7 @@
 //
 .media__expanded {
   .media-detail {
-    border-left: 0;
+    border-#{$from-direction}: 0;
   }
 
   .media-detail__header,

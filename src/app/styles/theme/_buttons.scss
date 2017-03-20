@@ -31,13 +31,13 @@
 @mixin button-xsmall {
   @include button-standard;
   height: 30px;
-  padding-left: 14px;
-  padding-right: 14px;
+  padding-#{$from-direction}: 14px;
+  padding-#{$to-direction}: 14px;
 
   @media screen and (max-width: 500px) {
     height: 30px;
-    padding-left: 8px;
-    padding-right: 8px;
+    padding-#{$from-direction}: 8px;
+    padding-#{$to-direction}: 8px;
   }
 }
 
@@ -46,8 +46,8 @@
   height: 36px;
   font-size: 16px;
   margin-bottom: 8px;
-  padding-left: 15px;
-  padding-right: 15px;
+  padding-#{$from-direction}: 15px;
+  padding-#{$to-direction}: 15px;
 }
 
 @mixin button-medium {
@@ -55,16 +55,16 @@
   height: 43px;
   font-size: 17px;
   margin-bottom: 8px;
-  padding-left: 18px;
-  padding-right: 18px;
+  padding-#{$from-direction}: 18px;
+  padding-#{$to-direction}: 18px;
 }
 
 @mixin button-large {
   @include button-standard;
   height: 50px;
   font-size: 20px;
-  padding-left: 44px;
-  padding-right: 44px;
+  padding-#{$from-direction}: 44px;
+  padding-#{$to-direction}: 44px;
   margin-bottom: 8px;
 }
 
