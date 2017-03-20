@@ -119,6 +119,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 			sleep 10
 			expect(get_element('h2.source-name').text.nil?).to be(false)
     end
+
     #Create two new teams. 
     it "should create 2 teams" do
 			p "should create 2 teams"
@@ -129,6 +130,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
           .create_team(name: @t2, slug:@t2)
 			expect(get_element('h1.team__name').text.nil?).to be(false)
     end
+
 		#As a different user, request to join one team.
     it "should join team" do
 			p "should join team"

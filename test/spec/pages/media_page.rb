@@ -65,6 +65,12 @@ class MediaPage < Page
     press(:enter)
   end
 
+  def delete_annotation
+    # TODO: specify particular annotation
+    element('.annotation .menu-button').click
+    element('.annotation__delete').click
+  end
+
   def primary_heading
     element('.media__primary-heading')
   end
