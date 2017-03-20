@@ -20,7 +20,7 @@ class CreateTeamPage < Page
     element('.create-team__team-slug-input').clear
     sleep 1 # TODO: better soft keyboard strategies
     fill_input('.create-team__team-slug-input', slug)
-		sleep 1
+    sleep 1
     click_button('.create-team__submit-button')
     wait_for_element('.team')
     TeamPage.new(config: @config, driver: @driver)

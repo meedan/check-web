@@ -51,8 +51,8 @@ class MediaPage < Page
   end
 
   def delete_tag(string)
-		element = @driver.find_element(:class,"ReactTags__remove")
-		element.click
+    element = @driver.find_element(:class,"ReactTags__remove")
+    element.click
   end
 
   def has_tag?(tag)

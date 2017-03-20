@@ -27,10 +27,10 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     @config = YAML.load_file('config.yml')
     $source_id = nil
     $media_id = nil
-		@e1 = 'sysops+' + Time.now.to_i.to_s + '@meedan.com'
-		@t1 = 'team1' + Time.now.to_i.to_s
-		@t2 = 'team2' + Time.now.to_i.to_s
-		@new_tag = nil
+    @e1 = 'sysops+' + Time.now.to_i.to_s + '@meedan.com'
+    @t1 = 'team1' + Time.now.to_i.to_s
+    @t2 = 'team2' + Time.now.to_i.to_s
+    @new_tag = nil
 
     FileUtils.cp(@config['config_file_path'], '../build/web/js/config.js') unless @config['config_file_path'].nil?
 
@@ -68,9 +68,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
   # The tests themselves start here
   context "web" do
-		## Prioritized Script for Automation ##
+    ## Prioritized Script for Automation ##
     it "should register and login using e-mail" do
-			p "should register and login using e-mail"
+      p "should register and login using e-mail"
       login_pg = LoginPage.new(config: @config, driver: @driver).load
       email, password = ['sysops+' + Time.now.to_i.to_s + '@meedan.com', '22345678']
       login_pg.register_and_login_with_email(email: email, password: password)
@@ -80,7 +80,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should login using Facebook" do
-			p "should login using Facebook"
+      p "should login using Facebook"
       login_pg = LoginPage.new(config: @config, driver: @driver).load
       login_pg.login_with_facebook
       me_pg = MePage.new(config: @config, driver: login_pg.driver).load
@@ -90,7 +90,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should login using Twitter" do
-			p "should login using Twitter"
+      p "should login using Twitter"
       login_with_twitter
       @driver.navigate.to @config['self_url'] + '/check/me'
       displayed_name = get_element('h2.source-name').text.upcase
@@ -99,137 +99,137 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should login using Slack" do
-			p "should login using Slack"
-		  @driver.navigate.to "https://#{@config['slack_domain']}.slack.com"
-		  fill_field('#email', @config['slack_user'])
-		  fill_field('#password', @config['slack_password'])
-		  press_button('#signin_btn')
+      p "should login using Slack"
+      @driver.navigate.to "https://#{@config['slack_domain']}.slack.com"
+      fill_field('#email', @config['slack_user'])
+      fill_field('#password', @config['slack_password'])
+      press_button('#signin_btn')
       page = LoginPage.new(config: @config, driver: @driver).load
-			sleep 10
-			element = page.driver.find_element(:id, "slack-login")
-		  element.click
-		  sleep 2
-		  window = @driver.window_handles.last
-		  @driver.switch_to.window(window)
-		  press_button('#oauth_authorizify')
-		  sleep 5
-		  window = @driver.window_handles.first
-		  @driver.switch_to.window(window)
+      sleep 10
+      element = page.driver.find_element(:id, "slack-login")
+      element.click
+      sleep 2
+      window = @driver.window_handles.last
+      @driver.switch_to.window(window)
+      press_button('#oauth_authorizify')
+      sleep 5
+      window = @driver.window_handles.first
+      @driver.switch_to.window(window)
       @driver.navigate.to @config['self_url'] + '/check/me'
-			sleep 10
-			expect(get_element('h2.source-name').text.nil?).to be(false)
+      sleep 10
+      expect(get_element('h2.source-name').text.nil?).to be(false)
     end
 
     #Create two new teams.
     it "should create 2 teams" do
-			p "should create 2 teams"
+      p "should create 2 teams"
       page = LoginPage.new(config: @config, driver: @driver).load
           .register_and_login_with_email(email: @e1, password: @password)
           .create_team(name: @t1, slug:@t1)
       page = CreateTeamPage.new(config: @config, driver: page.driver).load
           .create_team(name: @t2, slug:@t2)
-			expect(get_element('h1.team__name').text.nil?).to be(false)
+      expect(get_element('h1.team__name').text.nil?).to be(false)
     end
 
-		#As a different user, request to join one team.
+    #As a different user, request to join one team.
     it "should join team" do
-			p "should join team"
+      p "should join team"
       page = LoginPage.new(config: @config, driver: @driver).load
           .register_and_login_with_email(email: 'newsysops+' + Time.now.to_i.to_s + '@meedan.com', password: '22345678')
       page = TeamsPage.new(config: @config, driver: @driver).load
           .ask_join_team(subdomain: @t1)
-			sleep 3
-			expect(@driver.find_element(:class, "message").nil?).to be(false)
-		end
+      sleep 3
+      expect(@driver.find_element(:class, "message").nil?).to be(false)
+    end
 
-		#As the group creator, go to the members page and approve the joining request.
+    #As the group creator, go to the members page and approve the joining request.
     it "should as the group creator, go to the members page and approve the joining request" do
-			p ".approve_join_team"
+      p ".approve_join_team"
       page = LoginPage.new(config: @config, driver: @driver).load.login_with_email(email: @e1, password: @password)
-			page = TeamsPage.new(config: @config, driver: @driver).load
+      page = TeamsPage.new(config: @config, driver: @driver).load
           .approve_join_team(subdomain: @t1)
-			elems = @driver.find_elements(:css => ".team-members__list > li")
-			expect(elems.size).to be > 1
-		end
+      elems = @driver.find_elements(:css => ".team-members__list > li")
+      expect(elems.size).to be > 1
+    end
 
-		#Switch teams
+    #Switch teams
     it "should switch teams" do
-			p "should switch teams"
+      p "should switch teams"
       page = LoginPage.new(config: @config, driver: @driver).load.login_with_email(email: @e1, password: @password)
       page = TeamsPage.new(config: @config, driver: @driver).load
           .select_team(name: @t1)
       page = TeamsPage.new(config: @config, driver: @driver).load
           .select_team(name: @t2)
-			sleep 3
+      sleep 3
       expect(page.team_name).to eq(@t2)
-		end
+    end
 
-		#Add slack notificatios to a team
+    #Add slack notificatios to a team
     it "should add slack notifications to a team " do
-			p "should add slack notifications to a team "
+      p "should add slack notifications to a team "
       page = LoginPage.new(config: @config, driver: @driver).load
           .login_with_email(email: @e1, password: @password)
       @driver.navigate.to @config['self_url'] + '/' + @t2
-			sleep 2
-			element = @driver.find_element(:class, "team__edit-button")
-		  element.click
-		  sleep 2
-			element = @driver.find_element(:id, "team__settings-slack-notifications-enabled")
-		  sleep 2
-		  element.click
-			element = @driver.find_element(:id, "team__settings-slack-webhook")
-		  sleep 2
-		  element.click
-		  element.send_keys "https://hooks.slack.com/services/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"
-		  sleep 2
-			element = @driver.find_element(:class, "team__save-button")
-		  element.click
-		  sleep 2
-			expect(@driver.find_element(:class, "message").nil?).to be(false)
+      sleep 2
+      element = @driver.find_element(:class, "team__edit-button")
+      element.click
+      sleep 2
+      element = @driver.find_element(:id, "team__settings-slack-notifications-enabled")
+      sleep 2
+      element.click
+      element = @driver.find_element(:id, "team__settings-slack-webhook")
+      sleep 2
+      element.click
+      element.send_keys "https://hooks.slack.com/services/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"
+      sleep 2
+      element = @driver.find_element(:class, "team__save-button")
+      element.click
+      sleep 2
+      expect(@driver.find_element(:class, "message").nil?).to be(false)
     end
 
-		#Create a new project.
+    #Create a new project.
     it "should create a project for a team " do
-			p "should create a project for a team"
+      p "should create a project for a team"
       page = LoginPage.new(config: @config, driver: @driver).load
           .login_with_email(email: @e1, password: @password, project: true)
-		  name = "Project #{Time.now}"
-			element = @driver.find_element(:id, "create-project-title")
-		  sleep 2
-		  element.click
-		  element.send_keys name
-			@driver.action.send_keys("\n").perform
-			sleep 2
-			expect(get_element('h2.project-header__title').text.nil?).to be(false)
-		end
+      name = "Project #{Time.now}"
+      element = @driver.find_element(:id, "create-project-title")
+      sleep 2
+      element.click
+      element.send_keys name
+      @driver.action.send_keys("\n").perform
+      sleep 2
+      expect(get_element('h2.project-header__title').text.nil?).to be(false)
+    end
 
 
-		#Create a new media using a link from: 		#Facebook  		#YouTube 		#Twitter 		#	Instagram
+    #Create a new media using a link from:     #Facebook      #YouTube     #Twitter     #  Instagram
     it "should create project media" do
-			p "should create project media"
+      p "should create project media"
       media_pg = LoginPage.new(config: @config, driver: @driver).load
           .login_with_email(email: @e1, password: @password, project: true)
           .create_media(input: 'https://twitter.com/marcouza/status/771009514732650497?t=' + Time.now.to_i.to_s)
       expect(media_pg.contains_string?('Added')).to be(true)
       project_pg = media_pg.go_to_project
-			sleep 2
+      sleep 2
       media_pg = project_pg.create_media(input: 'https://www.facebook.com/FirstDraftNews/posts/1808121032783161?t=' + Time.now.to_i.to_s)
       expect(media_pg.contains_string?('Added')).to be(true)
       project_pg = media_pg.go_to_project
-			sleep 2
+      sleep 2
       media_pg = project_pg.create_media(input: 'https://www.youtube.com/watch?v=ykLgjhBnik0?t=' + Time.now.to_i.to_s)
       expect(media_pg.contains_string?('Added')).to be(true)
       project_pg = media_pg.go_to_project
-			sleep 2
+      sleep 2
       media_pg = project_pg.create_media(input: 'https://www.instagram.com/p/BIHh6b0Ausk?t=' + Time.now.to_i.to_s)
       expect(media_pg.contains_string?('Added')).to be(true)
       $media_id = media_pg.driver.current_url.to_s.match(/\/media\/([0-9]+)$/)[1]
       expect($media_id.nil?).to be(false)
     end
 
-		#Add comment to your media.
+    #Add comment to your media.
     it "should add comment to your media" do
-			p "add comment to your media"
+      p "add comment to your media"
       media_pg = LoginPage.new(config: @config, driver: @driver).load
           .login_with_email(email: @e1, password: @password, project: true)
       @driver.navigate.to team_url('project/' + get_project + '/media/' + $media_id)
@@ -247,47 +247,47 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 3
       expect(@driver.page_source.include?('This is my comment')).to be(true)
 
-			#delete your comment.
-			p "delete your comment"
-			element = @driver.find_element(:css, "svg.menu-button__icon")
-		  element.click
+      #delete your comment.
+      p "delete your comment"
+      element = @driver.find_element(:css, "svg.menu-button__icon")
+      element.click
       sleep 3
-			element = @driver.find_element(:class, "annotation__delete")
-		  element.click
+      element = @driver.find_element(:class, "annotation__delete")
+      element.click
       sleep 3
       expect(@driver.page_source.include?('This is my comment')).to be(false)
     end
 
-		#Set a verification status to this media.
+    #Set a verification status to this media.
     it "should change a media status via the dropdown menu" do
-			p "should change a media status via the dropdown menu"
+      p "should change a media status via the dropdown menu"
       media_pg = LoginPage.new(config: @config, driver: @driver).load
           .login_with_email(email: @e1, password: @password, project: true)
       @driver.navigate.to team_url('project/' + get_project + '/media/' + $media_id)
       sleep 3
-			element = @driver.find_element(:css, ".media-status__label")
-		  element.click
-			element = @driver.find_element(:css, ".media-status__menu-item--verified")
-		  element.click
-			sleep 3
-			element = @driver.find_element(:css, '.annotation__status--verified')
+      element = @driver.find_element(:css, ".media-status__label")
+      element.click
+      element = @driver.find_element(:css, ".media-status__menu-item--verified")
+      element.click
+      sleep 3
+      element = @driver.find_element(:css, '.annotation__status--verified')
       expect(element.nil?).to be(false)
     end
 
-		#Add a tag to your media.
+    #Add a tag to your media.
     it "should Add a tag to your media and delete it" do
-			p "Add a tag to your media."
+      p "Add a tag to your media."
       page = LoginPage.new(config: @config, driver: @driver).load
           .login_with_email(email: @e1, password: @password)
           .click_media
       @new_tag = Time.now.to_i.to_s
       page.add_tag(@new_tag)
-			sleep 2
+      sleep 2
       expect(page.has_tag?(@new_tag)).to be(true)
-			#Delete this tag.
-			p "delete this tag"
+      #Delete this tag.
+      p "delete this tag"
       page.delete_tag(@new_tag)
-			sleep 2
+      sleep 2
       expect(page.has_tag?(@new_tag)).to be(false)
     end
   end
