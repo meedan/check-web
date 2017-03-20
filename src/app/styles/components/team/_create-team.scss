@@ -63,7 +63,7 @@
   opacity: .2;
   font-size: 24px;
   padding-bottom: 27px;
-  margin-left: 2px;
+  margin-#{$from-direction}: 2px;
   flex: 0 0;
 }
 

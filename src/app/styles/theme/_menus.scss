@@ -10,7 +10,7 @@
   min-width: 250px;
   padding: 8px 0;
   position: absolute;
-  text-align: left;
+  text-align: #{$from-direction};
   z-index: 3;
 
   &--active {

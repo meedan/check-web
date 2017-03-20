@@ -5,18 +5,40 @@ import { syncHistoryWithStore } from 'react-router-redux';
 import ReactGA from 'react-ga';
 import { IntlProvider, addLocaleData } from 'react-intl';
 import App from './App';
-import { IndexComponent, TermsOfService, NotFound, CreateAccount, AccessDenied, PrivacyPolicy, UserConfirmed, UserUnconfirmed } from '../components';
-import { Sources, Source, User, Me } from '../components/source';
-import Team from '../components/team/Team';
-import { CreateProjectMedia, ProjectMedia } from '../components/media';
-import TeamMembers from '../components/team/TeamMembers';
-import CreateTeam from '../components/team/CreateTeam';
-import JoinTeam from '../components/team/JoinTeam.js';
-import Project from '../components/project/Project.js';
-import ProjectHeader from '../components/project/ProjectHeader';
-import ProjectEdit from '../components/project/ProjectEdit';
-import Teams from '../components/team/Teams.js';
-import Search from '../components/Search.js';
+import {
+  RootLocale,
+  IndexComponent,
+  TermsOfService,
+  NotFound,
+  CreateAccount,
+  AccessDenied,
+  PrivacyPolicy,
+  UserConfirmed,
+  UserUnconfirmed
+} from '../components';
+import {
+  Sources,
+  Source,
+  User,
+  Me
+} from '../components/source';
+import {
+  Team,
+  TeamMembers,
+  CreateTeam,
+  JoinTeam,
+  Teams
+} from '../components/team';
+import {
+  CreateProjectMedia,
+  ProjectMedia
+} from '../components/media';
+import {
+  Project,
+  ProjectHeader,
+  ProjectEdit
+} from '../components/project';
+import Search from '../components/Search';
 import CheckContext from '../CheckContext';
 import translations from '../../../localization/translations/translations';
 import config from 'config';
@@ -96,40 +118,43 @@ export default class Root extends Component {
     window.Check = { store };
 
     return (
-      <IntlProvider locale={locale} messages={translations[locale]}>
-        <Provider store={store}>
-          <Router history={this.state.history} onUpdate={this.logPageView.bind(this)}>
-            <Route path="/" component={App}>
-              <IndexRoute component={Team} />
-              <Route path="check/tos" component={TermsOfService} public />
-              <Route path="check/privacy" component={PrivacyPolicy} public />
-              <Route path="check/user/confirmed" component={UserConfirmed} public />
-              <Route path="check/user/unconfirmed" component={UserUnconfirmed} public />
-              <Route path="check/forbidden" component={AccessDenied} public />
-              <Route path="check/404" component={NotFound} public />
+      <div>
+        <RootLocale locale={locale} />
+        <IntlProvider locale={locale} messages={translations[locale]}>
+          <Provider store={store}>
+            <Router history={this.state.history} onUpdate={this.logPageView.bind(this)}>
+              <Route path="/" component={App}>
+                <IndexRoute component={Team} />
+                <Route path="check/tos" component={TermsOfService} public />
+                <Route path="check/privacy" component={PrivacyPolicy} public />
+                <Route path="check/user/confirmed" component={UserConfirmed} public />
+                <Route path="check/user/unconfirmed" component={UserUnconfirmed} public />
+                <Route path="check/forbidden" component={AccessDenied} public />
+                <Route path="check/404" component={NotFound} public />
 
-              <Route path="check/sources" component={Sources} />
-              <Route path="check/sources/new" component={CreateAccount} />
-              <Route path="check/source/:sourceId" component={Source} />
-              <Route path="check/user/:userId" component={User} />
-              <Route path="check/me" component={Me} />
-              <Route path="check/teams/new" component={CreateTeam} />
-              <Route path="check/teams" component={Teams} />
+                <Route path="check/sources" component={Sources} />
+                <Route path="check/sources/new" component={CreateAccount} />
+                <Route path="check/source/:sourceId" component={Source} />
+                <Route path="check/user/:userId" component={User} />
+                <Route path="check/me" component={Me} />
+                <Route path="check/teams/new" component={CreateTeam} />
+                <Route path="check/teams" component={Teams} />
 
-              <Route path=":team/medias/new" component={CreateProjectMedia} />
-              <Route path=":team/project/:projectId/media/:mediaId" component={ProjectMedia} />
-              <Route path=":team/join" component={JoinTeam} />
-              <Route path=":team/members" component={TeamMembers} />
-              <Route path=":team/project/:projectId" component={Project} />
-              <Route path=":team/project/:projectId/edit" component={ProjectEdit} />
-              <Route path=":team/search(/:query)" component={Search} />
-              <Route path=":team" component={Team} />
+                <Route path=":team/medias/new" component={CreateProjectMedia} />
+                <Route path=":team/project/:projectId/media/:mediaId" component={ProjectMedia} />
+                <Route path=":team/join" component={JoinTeam} />
+                <Route path=":team/members" component={TeamMembers} />
+                <Route path=":team/project/:projectId" component={Project} />
+                <Route path=":team/project/:projectId/edit" component={ProjectEdit} />
+                <Route path=":team/search(/:query)" component={Search} />
+                <Route path=":team" component={Team} />
 
-              <Route path="*" component={NotFound} public />
-            </Route>
-          </Router>
-        </Provider>
-      </IntlProvider>
+                <Route path="*" component={NotFound} public />
+              </Route>
+            </Router>
+          </Provider>
+        </IntlProvider>
+      </div>
     );
   }
 }

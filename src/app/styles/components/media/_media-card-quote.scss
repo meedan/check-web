@@ -2,7 +2,7 @@
   border-radius: 4px;
   min-height: none;
   overflow-x: hidden;
-  margin-right: 24px;
+  margin-#{$to-direction}: 24px;
 }
 
 .quote-media-card__body-text {
@@ -15,7 +15,7 @@
 }
 
 .quote-media-card__attribution {
-  padding-left: 55%;
+  padding-#{$from-direction}: 55%;
 }
 
 .quote-media-card__attribution-name,

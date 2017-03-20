@@ -1,6 +1,6 @@
 # meedan/check-web
 
-FROM meedan/nodejs
+FROM meedan/ruby
 MAINTAINER sysops@meedan.com
 
 #
@@ -14,6 +14,7 @@ ENV DEPLOYUSER=checkdeploy \
     PRODUCT=check \
     APP=check-web \
     NODE_ENV=production
+
 
 # user config
 RUN useradd ${DEPLOYUSER} -s /bin/bash -m \
@@ -43,11 +44,8 @@ RUN rm -rf ${DEPLOYDIR}/new/node_modules \
     && rsync -avp ${DEPLOYDIR}/new/* ${DEPLOYDIR}/latest/
 COPY ./.babelrc ${DEPLOYDIR}/latest/.babelrc
 
-# style
-RUN ./node_modules/.bin/node-sass src/app/styles/stylesheet.scss --output-style=compressed | ./node_modules/.bin/postcss --use autoprefixer -o build/web/css/stylesheet.css \
-    && cp -r src/app/styles/images build/web/
-
-RUN ./node_modules/.bin/gulp build:${PLATFORM}
+# build all assets, js, css, transifex
+RUN npm run build
 
 # config
 # RUN /opt/bin/find_and_link_config_files.sh ${DEPLOYDIR}/latest
@@ -57,11 +55,14 @@ RUN rm -f ${DEPLOYDIR}/latest/build/web/js/config.js \
 WORKDIR ${DEPLOYDIR}
 RUN mv ./latest ./${APP}-$(date -I) && ln -s ./${APP}-$(date -I) ./current
 
+USER root
+RUN rm /etc/nginx/passenger.conf /etc/nginx/conf.d/passenger.conf /etc/nginx/sites-enabled/default
+COPY docker/production/config/nginx.conf /etc/nginx/sites-enabled/${APP}
+
 #
 # RUNTIME ELEMENTS
 # expose, cmd
 #
-USER root
-EXPOSE 8000
+EXPOSE 80
 WORKDIR ${DEPLOYDIR}/current/build/web
 CMD ["/opt/bin/start.sh"]

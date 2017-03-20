@@ -12,3 +12,4 @@ export AccessDenied from './AccessDenied';
 export PrivacyPolicy from './PrivacyPolicy';
 export UserConfirmed from './UserConfirmed';
 export UserUnconfirmed from './UserUnconfirmed';
+export RootLocale from './RootLocale';
