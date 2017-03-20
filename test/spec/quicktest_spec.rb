@@ -68,7 +68,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
   # The tests themselves start here
   context "web" do
-		## Prioritized Script for Automation ##	
+		## Prioritized Script for Automation ##
     it "should register and login using e-mail" do
 			p "should register and login using e-mail"
       login_pg = LoginPage.new(config: @config, driver: @driver).load
@@ -120,7 +120,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 			expect(get_element('h2.source-name').text.nil?).to be(false)
     end
 
-    #Create two new teams. 
+    #Create two new teams.
     it "should create 2 teams" do
 			p "should create 2 teams"
       page = LoginPage.new(config: @config, driver: @driver).load
@@ -144,7 +144,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
 		#As the group creator, go to the members page and approve the joining request.
     it "should as the group creator, go to the members page and approve the joining request" do
-			p ".approve_join_team"      
+			p ".approve_join_team"
       page = LoginPage.new(config: @config, driver: @driver).load.login_with_email(email: @e1, password: @password)
 			page = TeamsPage.new(config: @config, driver: @driver).load
           .approve_join_team(subdomain: @t1)
@@ -164,7 +164,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(page.team_name).to eq(@t2)
 		end
 
-		#Add slack notificatios to a team 
+		#Add slack notificatios to a team
     it "should add slack notifications to a team " do
 			p "should add slack notifications to a team "
       page = LoginPage.new(config: @config, driver: @driver).load
@@ -280,7 +280,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       page = LoginPage.new(config: @config, driver: @driver).load
           .login_with_email(email: @e1, password: @password)
           .click_media
-      @new_tag = Time.now.to_i.to_s			
+      @new_tag = Time.now.to_i.to_s
       page.add_tag(@new_tag)
 			sleep 2
       expect(page.has_tag?(@new_tag)).to be(true)
