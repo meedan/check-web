@@ -2,8 +2,8 @@
   "browser.support.message": "أفضل تصفح على <a href=\"https://www.google.com/chrome/browser/desktop/\">  كروم نسخة سطح المكتب </a>.",
   "login.title": "تسجيل الدخول",
   "login.with": "تسجيل الدخول باستخدام {provider}",
-  "forgot.password": "Forgot your password? Can’t find your team? If you’re having any trouble, contact a human at <a href=\"mailto:check@meedan.com\">check@meedan.com</a>.",
-  "agree.terms": "By signing in, you agree to the Check {tosLink} and {ppLink}.",
+  "forgot.password": "نسيت كلمة مرورك؟ لا تستطع إيجاد فريق؟ إذا كنت تواجه أي صعوبات، تواصل معنا على <a href=\"mailto:check@meedan.com\">check@meedan.com</a>.",
+  "agree.terms": "بتسجيل الدخول أنت توافق على {tosLink}  و {ppLink}.",
   "tos.title": "شروط الاستخدام",
   "privacy.policy.title": "سياسة الخصوصية"
 }
