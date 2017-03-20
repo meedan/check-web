@@ -25,7 +25,7 @@ class TeamsPage < Page
   end
 
   def approve_join_team(options = {})
-    subdomain = options[:subdomain] 
+    subdomain = options[:subdomain]
     @driver.navigate.to @config['self_url'] + '/'+subdomain+'/members'
     sleep 2 # TODO: better soft keyboard strategies
 		click_button('.team-member-requests__user-button--approve')

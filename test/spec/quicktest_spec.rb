@@ -284,7 +284,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       page.add_tag(@new_tag)
 			sleep 2
       expect(page.has_tag?(@new_tag)).to be(true)
-
 			#Delete this tag.
 			p "delete this tag"
       page.delete_tag(@new_tag)

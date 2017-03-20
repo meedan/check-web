@@ -47,7 +47,6 @@ class MediaPage < Page
     edit unless editing_mode?
     fill_input('.ReactTags__tagInput input', string)
     press(:enter)
-
     @wait.until { has_tag?(string)}
   end
 
@@ -86,4 +85,3 @@ class MediaPage < Page
     return ProjectPage.new(config: @config, driver: @driver)
   end
 end
-
