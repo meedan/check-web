@@ -241,7 +241,7 @@ class Task extends Component {
   }
 
   handleEditOther(e) {
-    const value = e.target.value.trim();
+    const value = e.target.value;
     this.setState({ focus: true, response: value, responseOther: value, taskAnswerDisabled: !this.canSubmit(value) });
   }
 
@@ -250,12 +250,11 @@ class Task extends Component {
       return !!value.trim();
     } else {
       const task = this.props.task;
-      const { response } = this.getResponseData();
       const form_id = this.state.editingResponse ? `edit-response-${task.first_response.id}` : `task-response-${task.id}`;
       const form = document.forms[form_id];
       const form_value = this.state.editingResponse ? form.editedresponse.value : form.response.value;
 
-      return (!!this.state.response || !!form_value.trim());
+      return (!!this.state.response.trim() || !!form_value.trim());
     }
   }
 
@@ -263,7 +262,7 @@ class Task extends Component {
     const { task } = this.props;
     let options = null;
 
-    const editable =  (response === null) || this.state.editingResponse;
+    const editable =  (response == null) || this.state.editingResponse;
     const submitCallback = this.state.editingResponse ? this.handleSubmitUpdate.bind(this) : this.handleSubmit.bind(this);
     const cancelCallback = this.state.editingResponse ? this.handleCancelEditResponse.bind(this) : this.handleCancelFocus.bind(this);
     const keyPressCallback = this.state.editingResponse ? this.handleKeyPressUpdate.bind(this) : this.handleKeyPress.bind(this);
@@ -410,7 +409,7 @@ class Task extends Component {
           <CardText className="task__card-text">
             <Message message={this.state.message} />
             {taskActions}
-            {response === null ?
+            {response == null ?
               <form onSubmit={this.handleSubmit.bind(this)} name={`task-response-${task.id}`}>
                 <input type='checkbox' className='task__response-toggle' id={`task-${task.id}-response-toggle`} />
                 <label htmlFor={`task-${task.id}-response-toggle`}>
