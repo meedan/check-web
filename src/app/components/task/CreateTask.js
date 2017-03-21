@@ -12,7 +12,7 @@ import TextField from 'material-ui/TextField';
 import Can from '../Can';
 import CreateTaskMutation from '../../relay/CreateTaskMutation';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
-import { MdShortText, MdRadioButtonChecked, MdRadioButtonUnchecked } from 'react-icons/lib/md';
+import { MdCancel, MdShortText, MdRadioButtonChecked, MdRadioButtonUnchecked } from 'react-icons/lib/md';
 import MdAddCircle from 'react-icons/lib/md/add-circle';
 
 const messages = defineMessages({
@@ -23,6 +23,14 @@ const messages = defineMessages({
   value: {
     id: 'createTask.value',
     defaultMessage: 'Value'
+  },
+  addOther: {
+    id: 'createTask.addOther',
+    defaultMessage: 'Add "Other"'
+  },
+  other: {
+    id: 'createTask.other',
+    defaultMessage: 'Other'
   }
 });
 
@@ -56,7 +64,7 @@ class CreateTask extends Component {
   }
 
   handleOpenDialog(type) {
-    let options = [{label: this.props.intl.formatMessage(messages.value)}, {label: this.props.intl.formatMessage(messages.value) + ' 2'}];
+    let options = [{label: ''}, {label: ''}];
     this.setState({ dialogOpen: true, menuOpen: false, type, options, hasOther: false });
   }
 
@@ -109,17 +117,17 @@ class CreateTask extends Component {
 
   handleAddValue(){
     let options = Array.isArray(this.state.options) ? this.state.options.slice(0) : [];
-    let label = this.props.intl.formatMessage(messages.value) + ' ';
-    this.state.hasOther ? label += (options.length) : label += (options.length + 1);
-    this.state.hasOther ? options.splice(-1, 0, { label }) : options.push({ label });
+    this.state.hasOther ? options.splice(-1, 0, { label: '' }) : options.push({ label: '' });
     this.setState({ options });
   }
 
   handleAddOther(){
     let options = Array.isArray(this.state.options) ? this.state.options.slice(0) : [];
-    let label = 'Other';
+    let other = true;
+    let label = '';
+
     if (!this.state.hasOther) {
-      options.push({ label });
+      options.push({ label, other });
       this.setState({ options, hasOther: true });
     }
   }
@@ -130,15 +138,41 @@ class CreateTask extends Component {
     this.setState({ options });
   }
 
+  handleRemoveOption(index){
+    let options = this.state.options.slice(0);
+    let hasOther = null;
+
+    if (this.state.hasOther) {
+      hasOther = (index === options.length - 1) ? false : true;
+    } else {
+      hasOther = false;
+    }
+
+    options.splice(index, 1);
+    this.setState({ options, hasOther });
+  }
+
   renderChooseOneDialog(){
+    const canRemove = (this.state.options.length > 2);
+    const { formatMessage } = this.props.intl;
+
     return (
       <div>
         <TextField id="task-label-input" className="tasks__task-label-input" floatingLabelText={<FormattedMessage id="tasks.taskPrompt" defaultMessage="Prompt" />} onChange={this.handleLabelChange.bind(this)} multiLine />
-          { this.state.options.map((item, index) => <div><MdRadioButtonUnchecked /> <TextField style={{ padding: '5px' }} id={index.toString()} onChange={this.handleEditOption.bind(this)} placeholder={item.label} /></div>) }
+          { this.state.options.map((item, index) => <div>
+              <MdRadioButtonUnchecked />
+              <TextField
+                style={{ padding: '5px' }}
+                id={index.toString()}
+                onChange={this.handleEditOption.bind(this)}
+                placeholder={ item.other ? formatMessage(messages.other) : formatMessage(messages.value) + ' ' + (index + 1) }
+                value={item.label} />
+              { canRemove ? <MdCancel onClick={this.handleRemoveOption.bind(this, index)}/> : null }
+            </div>)
+          }
         <div>
           <FlatButton label={this.props.intl.formatMessage(messages.addValue)} primary onClick={this.handleAddValue.bind(this)} />
-          {/* Hiding AddOther for the moment*/}
-          {/* <FlatButton label={`Add "Other"`} primary onClick={this.handleAddOther.bind(this)} /> */}
+          <FlatButton label={this.props.intl.formatMessage(messages.addOther)} primary onClick={this.handleAddOther.bind(this)} disabled={this.state.hasOther} />
         </div>
       </div>
     );
