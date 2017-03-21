@@ -253,8 +253,9 @@ class Task extends Component {
       const form_id = this.state.editingResponse ? `edit-response-${task.first_response.id}` : `task-response-${task.id}`;
       const form = document.forms[form_id];
       const form_value = this.state.editingResponse ? form.editedresponse.value : form.response.value;
+      const state_response = this.state.response ? this.state.response.trim() : null;
 
-      return (!!this.state.response.trim() || !!form_value.trim());
+      return (!!state_response || !!form_value.trim());
     }
   }
 
