@@ -205,6 +205,13 @@ class Annotation extends Component {
           <span className="annotation__reverse-image-search" title={this.props.intl.formatMessage(messages.reverseImageTooltip)} onClick={this.handleReverseImageSearch.bind(this, object.value)}><FormattedMessage id="annotation.reverseImageSearch" defaultMessage="Search" /></span>
         </span>);
       }
+      if (object.field_name === 'translation_text') {
+        contentTemplate = (<span className="annotation__translation-text">
+          <FormattedMessage id="annotation.translation" defaultMessage={'Translated by {author}: "{translation}"'}
+            values={{ author: authorName, translation: <ParsedText text={object.value} /> }}
+          />
+        </span>);
+      }
       break;
     case 'create_flag':
       contentTemplate = (<span>

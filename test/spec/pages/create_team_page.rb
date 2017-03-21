@@ -12,17 +12,16 @@ class CreateTeamPage < Page
   def create_team(options = {})
     name = options[:name] || "Team #{Time.now}"
     slug = options[:slug] || "team#{Time.now.to_i}#{Process.pid}"
-
     element('.create-team__team-display-name-input').click
-    sleep 1 # TODO: better soft keyboard strategies
     fill_input('.create-team__team-display-name-input', name)
-
+    sleep 1 # TODO: better soft keyboard strategies
     element('.create-team__team-slug-input').click
     sleep 1 # TODO: better soft keyboard strategies
+    element('.create-team__team-slug-input').clear
+    sleep 1 # TODO: better soft keyboard strategies
     fill_input('.create-team__team-slug-input', slug)
-
+    sleep 1
     click_button('.create-team__submit-button')
-
     wait_for_element('.team')
     TeamPage.new(config: @config, driver: @driver)
   end

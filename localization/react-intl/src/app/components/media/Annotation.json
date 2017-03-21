@@ -36,6 +36,10 @@
     "defaultMessage": "Search"
   },
   {
+    "id": "annotation.translation",
+    "defaultMessage": "Translated by {author}: \"{translation}\""
+  },
+  {
     "id": "annotation.flaggedHeader",
     "defaultMessage": "Flagged as {flag} by {author}"
   },

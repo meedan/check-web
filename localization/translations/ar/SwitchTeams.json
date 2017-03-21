@@ -1,9 +1,9 @@
 {
-  "switchTeams.error": "Sorry, could not switch teams",
-  "switchTeams.member": "member",
-  "switchTeams.members": "members",
-  "switchTeams.joinRequestMessage": "You requested to join",
-  "switchTeams.cancelJoinRequest": "Cancel",
-  "switchTeams.bannedJoinRequest": "Cancelled",
-  "switchTeams.newTeamLink": "+ New team"
+  "switchTeams.error": "عذراً، لم نستطع تغيير الفريق",
+  "switchTeams.member": "عضو",
+  "switchTeams.members": "أعضاء",
+  "switchTeams.joinRequestMessage": "لقد ارسلت طلب إنضمام للفريق",
+  "switchTeams.cancelJoinRequest": "إلغاء",
+  "switchTeams.bannedJoinRequest": "تم الإلغاء",
+  "switchTeams.newTeamLink": "+ فريق جديد"
 }

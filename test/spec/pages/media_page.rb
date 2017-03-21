@@ -47,8 +47,12 @@ class MediaPage < Page
     edit unless editing_mode?
     fill_input('.ReactTags__tagInput input', string)
     press(:enter)
-
     @wait.until { has_tag?(string)}
+  end
+
+  def delete_tag(string)
+    element = @driver.find_element(:class,"ReactTags__remove")
+    element.click
   end
 
   def has_tag?(tag)
@@ -81,4 +85,3 @@ class MediaPage < Page
     return ProjectPage.new(config: @config, driver: @driver)
   end
 end
-

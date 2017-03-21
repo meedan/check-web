@@ -26,6 +26,7 @@
     "test:integration": "cd test && rspec spec/integration_spec.rb && cd ..",
     "test:rebuild": "npm run build && npm run test",
     "test:browsers": "cd test && rspec spec/browser_spec.rb && cd ..",
+    "test:quick": "cd test && rspec spec/quick_spec.rb && cd ..",
     "test:browsers:parallel": "cd test && PARALLEL_SPLIT_TEST_PROCESSES=2 parallel_split_test spec/browser_spec.rb && cd ..",
     "test:ff": "cd test && rspec --fail-fast && cd ..",
     "lint:styles": "sass-lint --config .sass-lint.yml './**/*.scss' --verbose --ignore './test/**/*.scss, ./node_modules/**/*.scss'",
