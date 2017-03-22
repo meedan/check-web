@@ -31,6 +31,7 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
         pusher_channel,
         verification_statuses,
         overridden,
+        language,
         media {
           url,
           quote,
