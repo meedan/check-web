@@ -11,7 +11,7 @@
   "loginEmail.signIn": "سجل الدخول",
   "loginEmail.signUp": "انشيء حساب جديد",
   "loginEmail.alreadyHasAccount": "لدي حساب بالفعل",
-  "loginEmail.newAccount": "\nانشيء حساب جدي",
+  "loginEmail.newAccount": "انشيء حساب جديد",
   "login.email.cancel": "سجل دخول باستخدام Twitter ،Slack أو Facebook",
   "login.trouble": "لم تتمكن من تسجيل الدخول؟ من فضلك تواصل معنا على {email} للمساعدة"
 }

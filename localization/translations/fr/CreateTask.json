@@ -1,6 +1,8 @@
 {
   "createTask.addValue": "Saisir une valeur",
   "createTask.value": "Valeur",
+  "createTask.addOther": "Ajouter \"Autre\"",
+  "createTask.other": "Autre",
   "tasks.taskPrompt": "Étiquette",
   "tasks.cancelAdd": "Annuler",
   "tasks.add": "Ajouter",
