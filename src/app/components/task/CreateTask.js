@@ -45,6 +45,7 @@ class CreateTask extends Component {
       label: null,
       description: null,
       message: null,
+      submitDisabled: true
     };
   }
 
@@ -65,7 +66,7 @@ class CreateTask extends Component {
 
   handleOpenDialog(type) {
     let options = [{label: ''}, {label: ''}];
-    this.setState({ dialogOpen: true, menuOpen: false, type, options, hasOther: false });
+    this.setState({ dialogOpen: true, menuOpen: false, type, options, hasOther: false, submitDisabled: true });
   }
 
   handleCloseDialog() {
@@ -91,12 +92,12 @@ class CreateTask extends Component {
       that.setState({ dialogOpen: false, label: '', description: '', type: null, message: null });
     };
 
-    if (!!that.state.label && !!that.state.type) {
+    if (!that.state.submitDisabled) {
       Relay.Store.commitUpdate(
         new CreateTaskMutation({
           label: that.state.label,
           type: that.state.type,
-          jsonoptions: JSON.stringify(that.state.options),
+          jsonoptions: JSON.stringify(that.state.options.filter(item => item.label != '')),
           description: that.state.description,
           annotated_type: 'ProjectMedia',
           annotated_id: that.props.media.id,
@@ -109,6 +110,12 @@ class CreateTask extends Component {
 
   handleLabelChange(e) {
     this.setState({ label: e.target.value });
+
+    if (this.state.type === 'free_text') {
+      this.validateShortText(e.target.value);
+    } else if (this.state.type === 'single_choice') {
+      this.validateSingleChoice(e.target.value, this.state.options);
+    }
   }
 
   handleDescriptionChange(e) {
@@ -119,6 +126,8 @@ class CreateTask extends Component {
     let options = Array.isArray(this.state.options) ? this.state.options.slice(0) : [];
     this.state.hasOther ? options.splice(-1, 0, { label: '' }) : options.push({ label: '' });
     this.setState({ options });
+
+    this.validateSingleChoice(this.state.label, options);
   }
 
   handleAddOther(){
@@ -130,12 +139,16 @@ class CreateTask extends Component {
       options.push({ label, other });
       this.setState({ options, hasOther: true });
     }
+
+    this.validateSingleChoice(this.state.label, options);
   }
 
   handleEditOption(e){
     let options = this.state.options.slice(0);
     options[parseInt(e.target.id)].label = e.target.value;
     this.setState({ options });
+
+    this.validateSingleChoice(this.state.label, options);
   }
 
   handleRemoveOption(index){
@@ -150,6 +163,20 @@ class CreateTask extends Component {
 
     options.splice(index, 1);
     this.setState({ options, hasOther });
+
+    this.validateSingleChoice(this.state.label, options);
+  }
+
+  validateShortText(label) {
+    const valid =  !!(label && label.trim());
+    this.setState({ submitDisabled: !valid });
+    return valid;
+  }
+
+  validateSingleChoice(label, options) {
+    const valid = !!(label && label.trim()) && (options.filter(item => item.label != '').length > 1);
+    this.setState({ submitDisabled: !valid });
+    return valid;
   }
 
   renderChooseOneDialog(){
@@ -183,7 +210,7 @@ class CreateTask extends Component {
 
     const actions = [
       <FlatButton label={<FormattedMessage id="tasks.cancelAdd" defaultMessage="Cancel" />} primary onClick={this.handleCloseDialog.bind(this)} />,
-      <FlatButton className="create-task__dialog-submit-button" label={<FormattedMessage id="tasks.add" defaultMessage="Add" />} primary keyboardFocused onClick={this.handleSubmitTask.bind(this)} />,
+      <FlatButton className="create-task__dialog-submit-button" label={<FormattedMessage id="tasks.add" defaultMessage="Add" />} primary keyboardFocused onClick={this.handleSubmitTask.bind(this)} disabled={this.state.submitDisabled}/>,
     ];
 
     return (
