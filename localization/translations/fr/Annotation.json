@@ -8,6 +8,7 @@
   "annotation.taskResolve": "Tâche \"{task}\" résolue par {author} : {response}",
   "annotation.reverseImage": "Ce média contient une ou plusieurs images. Cliquez sur \"Recherche\" pour chercher des copies sur Google.",
   "annotation.reverseImageSearch": "Recherche",
+  "annotation.translation": "Traduit par {author} : {translation}",
   "annotation.flaggedHeader": "Marqué {flag} par {author}",
   "annotation.newClaim": "Nouveau témoignage ajouté par {author}",
   "annotation.titleChanged": "Titre modifié par {author} : {title}",
