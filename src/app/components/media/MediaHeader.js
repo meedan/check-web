@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 import MediaRoute from '../../relay/MediaRoute';
-import MediaMetadataSummary from './MediaMetadataSummary';
 import MediaUtil from './MediaUtil';
 import CheckContext from '../../CheckContext';
 

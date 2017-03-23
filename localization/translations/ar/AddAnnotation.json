@@ -6,7 +6,7 @@
   "addAnnotation.submitButton": "أرسل",
   "addAnnotation.typeComment": "تعليق",
   "addAnnotation.typeTag": "وسم",
-  "addAnnotation.typeStatus": "حالة",
-  "addAnnotation.typeFlag": "flag",
+  "addAnnotation.typeStatus": "حالة التقرير",
+  "addAnnotation.typeFlag": "إشارة ",
   "addAnnotation.addImage": "أضف صورة"
 }

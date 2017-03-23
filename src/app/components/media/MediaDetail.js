@@ -206,7 +206,7 @@ class MediaDetail extends Component {
     const { media, annotated, annotatedType, condensed } = this.props;
     const data = JSON.parse(media.embed);
     const createdAt = MediaUtil.createdAt(media);
-    const annotationsCount = MediaUtil.notesCount(media, data);
+    const annotationsCount = MediaUtil.notesCount(media, data, this.props.intl);
     const userOverrides = safelyParseJSON(media.overridden);
 
     const context = this.getContext();

@@ -1,11 +1,11 @@
 {
-  "createTeam.slugChecking": "Checking availability...",
+  "createTeam.slugChecking": "التحقق من توافر المسار...",
   "createTeam.slugAvailable": "متاح!",
   "createTeam.slugUnavailable": "الرابط غير متاح.",
   "createTeam.createTeamError": "عذراً، لم نستطع إضافة الفريق.",
   "createTeam.title": "أضف فريق",
   "createTeam.teamNameHint": "إسم الفريق",
-  "createTeam.teamSlugHint": "team-slug",
+  "createTeam.teamSlugHint": "مسار الفريق",
   "createTeam.mainHeading": "أضف فريق",
   "createTeam.blurb": "أضف فريق لمؤسستك أو لك:",
   "createTeam.displayName": "إسم الفريق",
