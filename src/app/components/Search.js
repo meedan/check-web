@@ -371,6 +371,7 @@ const SearchResultsContainer = Relay.createContainer(injectIntl(SearchResultsCom
               }
               permissions,
               verification_statuses,
+              overridden,
               project_id,
               team {
                 slug
