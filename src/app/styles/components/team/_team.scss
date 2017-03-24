@@ -12,14 +12,14 @@
 .team__edit-profile {
   position: absolute;
   top: 0;
-  right: 0;
+  #{$to-direction}: 0;
 }
 
 .team__edit-button,
 .team__cancel-button,
 .team__save-button {
   @include button-medium;
-  margin-left: 10px;
+  margin-#{$from-direction}: 10px;
 
   @media screen and (max-width: 680px) {
     display: none;
@@ -29,7 +29,7 @@
 .team__edit-icon {
   font-size: 20px;
   opacity: .8;
-  margin-right: 8px;
+  margin-#{$to-direction}: 8px;
   display: inline-block;
   position: relative;
   vertical-align: top;
@@ -43,8 +43,8 @@
 
 .team__avatar {
   @include avatar(100px);
-  float: left;
-  margin-right: 15px;
+  float: #{$from-direction};
+  margin-#{$to-direction}: 15px;
 }
 
 .team__avatar + div { // TODO: add .team__copy class to markup
@@ -98,14 +98,14 @@
 .team__link,
 .team__add-link,
 .team__phone {
-  margin-right: 15px;
+  margin-#{$to-direction}: 15px;
 }
 
 .team__location-icon,
 .team__link-icon,
 .team__add-link-icon,
 .team__phone-icon {
-  margin-right: 4px;
+  margin-#{$to-direction}: 4px;
 }
 
 .team__add-link {
@@ -117,7 +117,7 @@
 
 // content
 .team__content {
-  clear: left;
+  clear: #{$from-direction};
   padding-top: 30px;
 }
 
@@ -178,7 +178,7 @@
   margin-top: 20px;
 
   label {
-    margin-right: 14px;
+    margin-#{$to-direction}: 14px;
   }
 
   input[type='text'] {

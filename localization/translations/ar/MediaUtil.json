@@ -1,0 +1,3 @@
+{
+  "media.notesCount": "{notesCount, plural, =0 {لا تعليق} one {تعليق واحد} other {{notesCount} تعليقات}}"
+}

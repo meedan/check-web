@@ -2,13 +2,13 @@
   width: 100%;
 
   h2 {
-    text-align: left;
+    text-align: #{$from-direction};
   }
 
   .create-account-col {
     width: 46%;
     overflow: hidden;
-    float: left;
+    float: #{$from-direction};
     padding: 20px;
     min-height: 1200px;
   }

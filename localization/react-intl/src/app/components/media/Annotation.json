@@ -25,7 +25,7 @@
   },
   {
     "id": "annotation.taskResolve",
-    "defaultMessage": "Task \"{task}\" answered by {author}: {response}"
+    "defaultMessage": "Task \"{task}\" answered by {author}: \"{response}\""
   },
   {
     "id": "annotation.reverseImage",
@@ -34,6 +34,10 @@
   {
     "id": "annotation.reverseImageSearch",
     "defaultMessage": "Search"
+  },
+  {
+    "id": "annotation.translation",
+    "defaultMessage": "Translated by {author}: \"{translation}\""
   },
   {
     "id": "annotation.flaggedHeader",

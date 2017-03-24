@@ -4,14 +4,14 @@
 }
 
 .project-edit__editing-buttons {
-  text-align: right;
+  text-align: $to-direction;
 }
 
 .project-edit__editing-button {
   @include button-medium;
 
   &:not(:last-child) {
-    margin-right: 5px;
+    margin-#{$to-direction}: 5px;
  	}
 
   &--save {

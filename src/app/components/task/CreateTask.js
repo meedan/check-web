@@ -12,7 +12,7 @@ import TextField from 'material-ui/TextField';
 import Can from '../Can';
 import CreateTaskMutation from '../../relay/CreateTaskMutation';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
-import { MdShortText, MdRadioButtonChecked, MdRadioButtonUnchecked } from 'react-icons/lib/md';
+import { MdCancel, MdShortText, MdRadioButtonChecked, MdRadioButtonUnchecked } from 'react-icons/lib/md';
 import MdAddCircle from 'react-icons/lib/md/add-circle';
 
 const messages = defineMessages({
@@ -23,6 +23,14 @@ const messages = defineMessages({
   value: {
     id: 'createTask.value',
     defaultMessage: 'Value'
+  },
+  addOther: {
+    id: 'createTask.addOther',
+    defaultMessage: 'Add "Other"'
+  },
+  other: {
+    id: 'createTask.other',
+    defaultMessage: 'Other'
   }
 });
 
@@ -37,6 +45,7 @@ class CreateTask extends Component {
       label: null,
       description: null,
       message: null,
+      submitDisabled: true
     };
   }
 
@@ -56,8 +65,8 @@ class CreateTask extends Component {
   }
 
   handleOpenDialog(type) {
-    let options = [{label: this.props.intl.formatMessage(messages.value)}, {label: this.props.intl.formatMessage(messages.value) + ' 2'}];
-    this.setState({ dialogOpen: true, menuOpen: false, type, options, hasOther: false });
+    let options = [{label: ''}, {label: ''}];
+    this.setState({ dialogOpen: true, menuOpen: false, type, options, hasOther: false, submitDisabled: true });
   }
 
   handleCloseDialog() {
@@ -83,12 +92,12 @@ class CreateTask extends Component {
       that.setState({ dialogOpen: false, label: '', description: '', type: null, message: null });
     };
 
-    if (!!that.state.label && !!that.state.type) {
+    if (!that.state.submitDisabled) {
       Relay.Store.commitUpdate(
         new CreateTaskMutation({
           label: that.state.label,
           type: that.state.type,
-          jsonoptions: JSON.stringify(that.state.options),
+          jsonoptions: JSON.stringify(that.state.options.filter(item => item.label != '')),
           description: that.state.description,
           annotated_type: 'ProjectMedia',
           annotated_id: that.props.media.id,
@@ -101,6 +110,12 @@ class CreateTask extends Component {
 
   handleLabelChange(e) {
     this.setState({ label: e.target.value });
+
+    if (this.state.type === 'free_text') {
+      this.validateShortText(e.target.value);
+    } else if (this.state.type === 'single_choice') {
+      this.validateSingleChoice(e.target.value, this.state.options);
+    }
   }
 
   handleDescriptionChange(e) {
@@ -109,36 +124,82 @@ class CreateTask extends Component {
 
   handleAddValue(){
     let options = Array.isArray(this.state.options) ? this.state.options.slice(0) : [];
-    let label = this.props.intl.formatMessage(messages.value) + ' ';
-    this.state.hasOther ? label += (options.length) : label += (options.length + 1);
-    this.state.hasOther ? options.splice(-1, 0, { label }) : options.push({ label });
+    this.state.hasOther ? options.splice(-1, 0, { label: '' }) : options.push({ label: '' });
     this.setState({ options });
+
+    this.validateSingleChoice(this.state.label, options);
   }
 
   handleAddOther(){
     let options = Array.isArray(this.state.options) ? this.state.options.slice(0) : [];
-    let label = 'Other';
+    let other = true;
+    let label = '';
+
     if (!this.state.hasOther) {
-      options.push({ label });
+      options.push({ label, other });
       this.setState({ options, hasOther: true });
     }
+
+    this.validateSingleChoice(this.state.label, options);
   }
 
   handleEditOption(e){
     let options = this.state.options.slice(0);
     options[parseInt(e.target.id)].label = e.target.value;
     this.setState({ options });
+
+    this.validateSingleChoice(this.state.label, options);
+  }
+
+  handleRemoveOption(index){
+    let options = this.state.options.slice(0);
+    let hasOther = null;
+
+    if (this.state.hasOther) {
+      hasOther = (index === options.length - 1) ? false : true;
+    } else {
+      hasOther = false;
+    }
+
+    options.splice(index, 1);
+    this.setState({ options, hasOther });
+
+    this.validateSingleChoice(this.state.label, options);
+  }
+
+  validateShortText(label) {
+    const valid =  !!(label && label.trim());
+    this.setState({ submitDisabled: !valid });
+    return valid;
+  }
+
+  validateSingleChoice(label, options) {
+    const valid = !!(label && label.trim()) && (options.filter(item => item.label != '').length > 1);
+    this.setState({ submitDisabled: !valid });
+    return valid;
   }
 
   renderChooseOneDialog(){
+    const canRemove = (this.state.options.length > 2);
+    const { formatMessage } = this.props.intl;
+
     return (
       <div>
         <TextField id="task-label-input" className="tasks__task-label-input" floatingLabelText={<FormattedMessage id="tasks.taskPrompt" defaultMessage="Prompt" />} onChange={this.handleLabelChange.bind(this)} multiLine />
-          { this.state.options.map((item, index) => <div><MdRadioButtonUnchecked /> <TextField style={{ padding: '5px' }} id={index.toString()} onChange={this.handleEditOption.bind(this)} placeholder={item.label} /></div>) }
+          { this.state.options.map((item, index) => <div>
+              <MdRadioButtonUnchecked />
+              <TextField
+                style={{ padding: '5px' }}
+                id={index.toString()}
+                onChange={this.handleEditOption.bind(this)}
+                placeholder={ item.other ? formatMessage(messages.other) : formatMessage(messages.value) + ' ' + (index + 1) }
+                value={item.label} />
+              { canRemove ? <MdCancel onClick={this.handleRemoveOption.bind(this, index)}/> : null }
+            </div>)
+          }
         <div>
           <FlatButton label={this.props.intl.formatMessage(messages.addValue)} primary onClick={this.handleAddValue.bind(this)} />
-          {/* Hiding AddOther for the moment*/}
-          {/* <FlatButton label={`Add "Other"`} primary onClick={this.handleAddOther.bind(this)} /> */}
+          {/*<FlatButton label={this.props.intl.formatMessage(messages.addOther)} primary onClick={this.handleAddOther.bind(this)} disabled={this.state.hasOther} />*/}
         </div>
       </div>
     );
@@ -149,7 +210,7 @@ class CreateTask extends Component {
 
     const actions = [
       <FlatButton label={<FormattedMessage id="tasks.cancelAdd" defaultMessage="Cancel" />} primary onClick={this.handleCloseDialog.bind(this)} />,
-      <FlatButton className="create-task__dialog-submit-button" label={<FormattedMessage id="tasks.add" defaultMessage="Add" />} primary keyboardFocused onClick={this.handleSubmitTask.bind(this)} />,
+      <FlatButton className="create-task__dialog-submit-button" label={<FormattedMessage id="tasks.add" defaultMessage="Add" />} primary keyboardFocused onClick={this.handleSubmitTask.bind(this)} disabled={this.state.submitDisabled}/>,
     ];
 
     return (

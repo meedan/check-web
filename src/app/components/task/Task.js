@@ -18,6 +18,7 @@ import { MdRadioButtonChecked, MdRadioButtonUnchecked } from 'react-icons/lib/md
 import Tooltip from 'rc-tooltip';
 import 'rc-tooltip/assets/bootstrap.css';
 import Truncate from 'react-truncate';
+import ParsedText from '../ParsedText';
 
 const messages = defineMessages({
   confirmDelete: {
@@ -36,7 +37,7 @@ class Task extends Component {
       message: null,
       editingResponse: false,
       isMenuOpen: false,
-      taskAnswerDisabled: false,
+      taskAnswerDisabled: true,
     };
   }
 
@@ -45,7 +46,7 @@ class Task extends Component {
   }
 
   handleCancelFocus(){
-    this.setState({ focus: false, response: null });
+    this.setState({ focus: false, response: null, responseOther: null  });
   }
 
   handleClick(e) {
@@ -74,7 +75,7 @@ class Task extends Component {
 
     const form = document.forms[`task-response-${task.id}`];
     const fields = {};
-    fields[`response_${task.type}`] = form.response.value;
+    fields[`response_${task.type}`] = this.state.response || form.response.value;
     fields[`note_${task.type}`] = form.note ? form.note.value : '';
     fields[`task_${task.type}`] = task.dbid;
 
@@ -95,7 +96,7 @@ class Task extends Component {
 
   handleKeyPress(e) {
     if (e.key === 'Enter' && !e.shiftKey) {
-      if (!this.state.taskAnswerDisabled) {
+      if (this.canSubmit()) {
         this.setState({ taskAnswerDisabled: true });
         this.handleSubmit(e);
       }
@@ -104,9 +105,7 @@ class Task extends Component {
   }
 
   handleChange(e) {
-    if (this.state.taskAnswerDisabled) {
-      this.setState({ taskAnswerDisabled: false });
-    }
+    this.setState({ taskAnswerDisabled: !this.canSubmit() });
   }
 
   handleEdit() {
@@ -168,7 +167,7 @@ class Task extends Component {
   }
 
   handleCancelEditResponse() {
-    this.setState({ editingResponse: false, response: null });
+    this.setState({ editingResponse: false, response: null, responseOther: null });
   }
 
   handleEditResponse() {
@@ -177,7 +176,7 @@ class Task extends Component {
 
   handleKeyPressUpdate(e) {
     if (e.key === 'Enter' && !e.shiftKey) {
-      if (!this.state.taskAnswerDisabled) {
+      if (this.canSubmit()) {
         this.setState({ taskAnswerDisabled: true });
         this.handleSubmitUpdate(e);
       }
@@ -207,7 +206,7 @@ class Task extends Component {
 
     const form = document.forms[`edit-response-${task.first_response.id}`];
     const fields = {};
-    fields[`response_${task.type}`] = form.editedresponse.value;
+    fields[`response_${task.type}`] = this.state.response || form.editedresponse.value;
     fields[`note_${task.type}`] = form.editednote ? form.editednote.value : '';
 
     Relay.Store.commitUpdate(
@@ -238,19 +237,42 @@ class Task extends Component {
   }
 
   handleSelectRadio(e) {
-    this.setState({ focus: true, response: e.target.value });
+    this.setState({ focus: true, response: e.target.value, responseOther: '', taskAnswerDisabled: false });
   }
 
-  renderOptions(response) {
+  handleEditOther(e) {
+    const value = e.target.value;
+    this.setState({ focus: true, response: value, responseOther: value, taskAnswerDisabled: !this.canSubmit(value) });
+  }
+
+  canSubmit(value){
+    if (typeof value !== 'undefined' && value !== null){
+      return !!value.trim();
+    } else {
+      const task = this.props.task;
+      const form_id = this.state.editingResponse ? `edit-response-${task.first_response.id}` : `task-response-${task.id}`;
+      const form = document.forms[form_id];
+      const form_value = this.state.editingResponse ? form.editedresponse.value : form.response.value;
+      const state_response = this.state.response ? this.state.response.trim() : null;
+
+      return (!!state_response || !!form_value.trim());
+    }
+  }
+
+  renderOptions(response, note) {
     const { task } = this.props;
     let options = null;
-    const editable =  !response || this.state.editingResponse;
+
+    const editable =  (response == null) || this.state.editingResponse;
     const submitCallback = this.state.editingResponse ? this.handleSubmitUpdate.bind(this) : this.handleSubmit.bind(this);
     const cancelCallback = this.state.editingResponse ? this.handleCancelEditResponse.bind(this) : this.handleCancelFocus.bind(this);
+    const keyPressCallback = this.state.editingResponse ? this.handleKeyPressUpdate.bind(this) : this.handleKeyPress.bind(this);
     const formName = this.state.editingResponse ? 'editedresponse' : 'response';
+    const noteFormName = this.state.editingResponse ? 'editednote' : 'note';
+
     const actionBtns = (<div>
         <FlatButton label={<FormattedMessage id="tasks.cancelEdit" defaultMessage="Cancel" />} primary onClick={cancelCallback} />
-        <FlatButton className="task__submit" label={<FormattedMessage id="tasks.submit" defaultMessage="Submit" />} primary onClick={submitCallback} />
+        <FlatButton className="task__submit" label={<FormattedMessage id="tasks.submit" defaultMessage="Submit" />} primary onClick={submitCallback} disabled={this.state.taskAnswerDisabled}/>
       </div>);
 
     if (task.jsonoptions) {
@@ -258,11 +280,37 @@ class Task extends Component {
     }
 
     if (Array.isArray(options) && options.length > 0) {
+      const otherIndex = options.findIndex( item => item.other );
+      const other = (otherIndex >= 0) ? options.splice(otherIndex, 1).pop() : null;
+
+      const responseIndex = options.findIndex(item => (item.label === response || item.label === this.state.response));
+      const responseOther = ((typeof this.state.responseOther === 'undefined' || this.state.responseOther === null) && (responseIndex < 0)) ? response : this.state.responseOther;
+
       if (task.type === 'single_choice') {
         return (<div>
           <RadioButtonGroup name={formName} className="task__radio-group" onChange={this.handleSelectRadio.bind(this)} valueSelected={this.state.response || response}>
-            { options.map( (item, index) => <RadioButton label={item.label} value={item.label} style={{ padding: '5px' }} disabled={!editable}/>) }
+            { options.map( (item, index) => <RadioButton label={item.label} id={index.toString()} value={item.label} style={{ padding: '5px' }} disabled={!editable}/>) }
           </RadioButtonGroup>
+          { other ? <TextField
+            placeholder={other.label}
+            value={responseOther}
+            name={formName}
+            onKeyPress={keyPressCallback}
+            onChange={this.handleEditOther.bind(this)}
+            disabled={!editable}
+          /> : null }
+          { editable ?
+            <TextField
+                className="task__response-note-input"
+                hintText={<FormattedMessage id="task.noteLabel" defaultMessage="Note any additional details here." />}
+                name={noteFormName}
+                defaultValue={note}
+                onKeyPress={keyPressCallback}
+                onChange={this.handleChange.bind(this)}
+                fullWidth
+                multiLine
+              /> : null
+          }
           { (this.state.focus && editable) || this.state.editingResponse ? actionBtns : null }
         </div>);
       } else if (task.type === 'multiple_choice') {
@@ -271,24 +319,33 @@ class Task extends Component {
     }
   }
 
-  render() {
+  getResponseData() {
+    let data = {};
+
     const { task } = this.props;
 
-    let response = null;
-    let note = null;
-    let by = null;
     if (task.first_response) {
-      by = task.first_response.annotator.name;
+      data.by = task.first_response.annotator.name;
       const fields = JSON.parse(task.first_response.content);
       fields.forEach((field) => {
         if (/^response_/.test(field.field_name)) {
-          response = field.value;
+          data.response = field.value;
         }
         if (/^note_/.test(field.field_name)) {
-          note = field.value;
+          data.note = field.value;
         }
       });
     }
+
+    return data;
+  }
+
+  render() {
+    const { task } = this.props;
+    const data = this.getResponseData();
+    const { response } = data;
+    const { note } = data;
+    const { by } = data;
 
     const dialogActions = [
       <FlatButton label={<FormattedMessage id="tasks.cancelEdit" defaultMessage="Cancel" />} primary onClick={this.handleCancelEdit.bind(this)} />,
@@ -353,17 +410,17 @@ class Task extends Component {
           <CardText className="task__card-text">
             <Message message={this.state.message} />
             {taskActions}
-            {response === null ?
+            {response == null ?
               <form onSubmit={this.handleSubmit.bind(this)} name={`task-response-${task.id}`}>
                 <input type='checkbox' className='task__response-toggle' id={`task-${task.id}-response-toggle`} />
                 <label htmlFor={`task-${task.id}-response-toggle`}>
                   {taskQuestion}
                 </label>
-                {/*  TODO: Render appropriate response form based on task.type */}
-                { task.type === 'single_choice' ?
-                  <div className='task__response-inputs'>{this.renderOptions()}</div> :
-                  <div className='task__response-inputs'>
-                    <TextField
+
+                <div className='task__response-inputs'>
+                  {/*  TODO: Render appropriate response form based on task.type */}
+                  { task.type === 'single_choice' ? this.renderOptions() :
+                    [<TextField
                         className="task__response-input"
                         onFocus={this.handleFocus.bind(this)}
                         name="response"
@@ -372,51 +429,52 @@ class Task extends Component {
                         fullWidth
                         multiLine
                         style={{display: ''}}
-                      />
-                    <TextField
-                        className="task__response-note-input"
-                        hintText={<FormattedMessage id="task.noteLabel" defaultMessage="Note any additional details here." />}
-                        name="note"
-                        onKeyPress={this.handleKeyPress.bind(this)}
-                        onChange={this.handleChange.bind(this)}
-                        fullWidth
-                        multiLine
-                      />
-                    <p className="task__resolver"><small><FormattedMessage id="task.pressReturnToSave" defaultMessage="Press return to save your response" /></small></p>
-                  </div>
-                }
+                      />,
+                      <TextField
+                          className="task__response-note-input"
+                          hintText={<FormattedMessage id="task.noteLabel" defaultMessage="Note any additional details here." />}
+                          name="note"
+                          onKeyPress={this.handleKeyPress.bind(this)}
+                          onChange={this.handleChange.bind(this)}
+                          fullWidth
+                          multiLine
+                        />]
+                  }
+                  { task.type === 'free_text' ? <p className="task__resolver"><small><FormattedMessage id="task.pressReturnToSave" defaultMessage="Press return to save your response" /></small></p> : null }
+                </div>
               </form>
             : (this.state.editingResponse ?
               <div className="task__editing">
                 <form onSubmit={this.handleSubmitUpdate.bind(this)} name={`edit-response-${task.first_response.id}`}>
                   {taskQuestion}
-                  {/* "response" */}
-                  { task.type === 'single_choice' ? this.renderOptions(response) : [<TextField
-                    className="task__response-input"
-                    defaultValue={response}
-                    name="editedresponse"
-                    onKeyPress={this.handleKeyPressUpdate.bind(this)}
-                    onChange={this.handleChange.bind(this)}
-                    fullWidth
-                    multiLine
-                  />,
-                  <TextField
-                    hintText={<FormattedMessage id="task.noteLabel" defaultMessage="Note any additional details here." />}
-                    defaultValue={note}
-                    name="editednote"
-                    onKeyPress={this.handleKeyPressUpdate.bind(this)}
-                    onChange={this.handleChange.bind(this)}
-                    fullWidth
-                    multiLine
-                  />,
-                  <p className="task__resolver"><small><FormattedMessage id="task.pressReturnToSave" defaultMessage="Press return to save your response" /></small> <span id="task__cancel-button" onClick={this.handleCancelEditResponse.bind(this)}>✖</span></p>]
-                }
+
+                  { task.type === 'single_choice' ? this.renderOptions(response, note) :
+                    [<TextField
+                        className="task__response-input"
+                        defaultValue={response}
+                        name="editedresponse"
+                        onKeyPress={this.handleKeyPressUpdate.bind(this)}
+                        onChange={this.handleChange.bind(this)}
+                        fullWidth
+                        multiLine
+                      />,
+                      <TextField
+                        hintText={<FormattedMessage id="task.noteLabel" defaultMessage="Note any additional details here." />}
+                        defaultValue={note}
+                        name="editednote"
+                        onKeyPress={this.handleKeyPressUpdate.bind(this)}
+                        onChange={this.handleChange.bind(this)}
+                        fullWidth
+                        multiLine
+                      />]
+                  }
+                  { task.type === 'free_text' ? <p className="task__resolver"><small><FormattedMessage id="task.pressReturnToSave" defaultMessage="Press return to save your response" /></small> <span id="task__cancel-button" onClick={this.handleCancelEditResponse.bind(this)}>✖</span></p> : null }
                 </form>
               </div>
             :
               <div className="task__resolved">
                 {taskQuestion}
-                { task.type === 'single_choice' ? this.renderOptions(response) : <p className="task__response">{response}</p> }
+                { task.type === 'single_choice' ? this.renderOptions(response) : <p className="task__response"><ParsedText text={response} /></p> }
                 <p style={{ display: note ? 'block' : 'none' }} className="task__note">{note}</p>
                 <p className="task__resolver">
                   <small><FormattedMessage id="task.resolvedBy" defaultMessage={'Resolved by {by}'} values={{ by }} /></small>
