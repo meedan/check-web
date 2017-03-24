@@ -31,6 +31,7 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
         pusher_channel,
         verification_statuses,
         overridden,
+        language,
         media {
           url,
           quote,
@@ -150,6 +151,9 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
                       permissions,
                       verification_statuses,
                       domain,
+                      team {
+                        slug
+                      }
                       media {
                         embed_path,
                         thumbnail_path,
@@ -195,12 +199,14 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
 
 class ProjectMedia extends Component {
   render() {
-    let projectId = 0;
-    const context = new CheckContext(this);
-    context.setContext();
-    const store = context.getContextStore();
-    if (store.project) {
-      projectId = store.project.dbid;
+    let projectId = this.props.params.projectId || 0;
+    if (projectId === 0) {
+      const context = new CheckContext(this);
+      context.setContext();
+      const store = context.getContextStore();
+      if (store.project) {
+        projectId = store.project.dbid;
+      }
     }
     const ids = `${this.props.params.mediaId},${projectId}`;
     const route = new MediaRoute({ ids });

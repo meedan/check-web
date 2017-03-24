@@ -1,12 +1,12 @@
 {
-  "addAnnotation.invalidCommand": "أمر غير صحيح",
+  "addAnnotation.invalidCommand": " أمر غير ممكن",
   "addAnnotation.annotationAdded": "تم إضافة {type}",
   "addAnnotation.createTagFailed": "عذراً، لم نستطع إضافة الوسم",
   "addAnnotation.inputHint": "أضف تعليقاً على هذا التقرير",
-  "addAnnotation.submitButton": "أضف",
+  "addAnnotation.submitButton": "أرسل",
   "addAnnotation.typeComment": "تعليق",
   "addAnnotation.typeTag": "وسم",
-  "addAnnotation.typeStatus": "حالة",
-  "addAnnotation.typeFlag": "flag",
+  "addAnnotation.typeStatus": "حالة التقرير",
+  "addAnnotation.typeFlag": "إشارة ",
   "addAnnotation.addImage": "أضف صورة"
 }

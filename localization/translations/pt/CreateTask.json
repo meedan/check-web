@@ -1,6 +1,8 @@
 {
   "createTask.addValue": "Add Value",
   "createTask.value": "Value",
+  "createTask.addOther": "Add \"Other\"",
+  "createTask.other": "Other",
   "tasks.taskPrompt": "Prompt",
   "tasks.cancelAdd": "Cancel",
   "tasks.add": "Add",

@@ -1,5 +1,12 @@
 import lodashTruncate from 'lodash.truncate';
-import numerous from 'numerous';
+import { defineMessages } from 'react-intl';
+
+const messages = defineMessages({
+  notesCount: {
+    id: 'media.notesCount',
+    defaultMessage: '{notesCount, plural, =0 {No notes} one {1 note} other {{notesCount} notes}}'
+  },
+});
 
 const MediaUtil = {
   url(media, data) {
@@ -119,12 +126,8 @@ const MediaUtil = {
   },
 
   // Return a text fragment "X notes" with proper pluralization.
-  notesCount(media, data) {
-    const word = numerous.pluralize('en', media.annotations_count, {
-      one: 'note',
-      other: 'notes',
-    });
-    return `${media.annotations_count} ${word}`;
+  notesCount(media, data, intl) {
+    return intl.formatMessage(messages.notesCount, {notesCount: media.annotations_count})
   },
 
   createdAt(media) { // check media

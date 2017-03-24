@@ -106,9 +106,10 @@ class MediaTags extends Component {
               {activeSuggestedTags.map(tag => <li className={this.bemClass('media-tags__suggestion', true, '--selected')}>{tag.node.tag}</li>)}
             </ul>
           ) : null}
-          {remainingTags.length ? <ul className="media-tags__list">
+          <ul className="media-tags__list">
+            {media.language ? <li className="media-tags__tag">{`source:${media.language}`}</li> : null}
             {remainingTags.map(tag => (<li className="media-tags__tag">{tag.node.tag.replace(/^#/, '')}</li>))}
-          </ul> : null}
+          </ul>
         </div>
       );
     }

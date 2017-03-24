@@ -1,0 +1,3 @@
+{
+  "media.notesCount": "{notesCount, plural, =0 {No notes} one {1 note} other {{notesCount} notes}}"
+}

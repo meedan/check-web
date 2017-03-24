@@ -8,6 +8,14 @@
     "defaultMessage": "Value"
   },
   {
+    "id": "createTask.addOther",
+    "defaultMessage": "Add \"Other\""
+  },
+  {
+    "id": "createTask.other",
+    "defaultMessage": "Other"
+  },
+  {
     "id": "tasks.taskPrompt",
     "defaultMessage": "Prompt"
   },
