@@ -806,7 +806,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(notes_count.text == '1 note').to be(true)
       media_pg.delete_annotation
       sleep 1
-      expect(notes_count.text == '0 notes').to be(true)
+      expect(notes_count.text == 'No notes').to be(true)
     end
 
     it "should auto refresh project when media is created" do
