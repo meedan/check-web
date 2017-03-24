@@ -1,10 +1,38 @@
-import lodashTruncate from 'lodash.truncate';
 import { defineMessages } from 'react-intl';
+import { truncate } from '../../helpers';
 
 const messages = defineMessages({
   notesCount: {
     id: 'media.notesCount',
     defaultMessage: '{notesCount, plural, =0 {No notes} one {1 note} other {{notesCount} notes}}'
+  },
+  typeTwitter: {
+    id: 'media.typeTwitter',
+    defaultMessage: 'Tweet'
+  },
+  typeFacebook: {
+    id: 'media.typeFacebook',
+    defaultMessage: 'Facebook post'
+  },
+  typeInstagram: {
+    id: 'media.typeInstagram',
+    defaultMessage: 'Instagram'
+  },
+  typeVideo: {
+    id: 'media.typeVideo',
+    defaultMessage: 'Video'
+  },
+  typeClaim: {
+    id: 'media.typeClaim',
+    defaultMessage: 'Claim'
+  },
+  typeImage: {
+    id: 'media.typeImage',
+    defaultMessage: 'Image'
+  },
+  typePage: {
+    id: 'media.typePage',
+    defaultMessage: 'Page'
   },
 });
 
@@ -52,40 +80,49 @@ const MediaUtil = {
     return data.author_url;
   },
 
-  typeLabel(media, data) {
+  mediaType(media, data) {
+    let type = null;
     try {
       const socialMedia = ({
-        'twitter.com': 'Tweet',
-        'facebook.com': 'Facebook post',
-        'instagram.com': 'Instagram',
-        'youtube.com': 'Video',
+        'twitter.com': messages.typeTwitter,
+        'facebook.com': messages.typeFacebook,
+        'instagram.com': messages.typeInstagram,
+        'youtube.com': messages.typeVideo,
       }[media.domain]);
 
       if (socialMedia) {
-        return socialMedia;
+        type = socialMedia;
       }
-      if (media && media.quote) {
-        return 'Claim';
+      else if (media.quote) {
+        type = messages.typeClaim;
       }
-      if (media && media.embed_path) {
-        return 'Image';
+      else if (media.embed_path) {
+        type = messages.typeImage;
       }
-      if (media && media.domain) {
-        return 'Page';
+      else if (media.domain) {
+        type = messages.typePage;
       }
-    } catch (e) {}
-    return '';
+    } catch (e) {
+      // ignore errors
+    }
+    return type;
   },
 
-  attributedType(media, data) {
-    let typeLabel;
+  typeLabel(media, data, intl) {
+    let type = this.mediaType(media, data);
+    return type ? intl.formatMessage(type) : '';
+  }
+
+  attributedType(media, data, intl) {
+    let typeLabel = null;
     try {
-      typeLabel = this.typeLabel(media, data);
-      if (typeLabel === 'Page') {
+      const type = this.mediaType(media, data);
+      typeLabel = intl.formatMessage(type);
+      if (type === messages.typePage) {
         return `${typeLabel} on ${media.domain}`;
-      } else if (typeLabel === 'Image') {
+      } else if (type === messages.typeImage) {
         return data.title || typeLabel;
-      } else if (typeLabel === 'Claim') {
+      } else if (type === messages.typeClaim) {
         return (data.title && data.title != media.quote) ? data.title : typeLabel;
       }
       const attribution = this.authorName(media, data);
@@ -95,17 +132,18 @@ const MediaUtil = {
     }
   },
 
-  title(media, data) {
+  title(media, data, intl) {
     if (data && data.title && data.title.trim().length) {
       return this.truncate(data.title);
     }
 
-    let typeLabel;
+    let typeLabel = null;
     try {
-      typeLabel = this.typeLabel(media, data);
-      if (typeLabel === 'Page') {
+      const type = this.mediaType(media, data);
+      typeLabel = intl.formatMessage(type);
+      if (type === messages.typePage) {
         return `${typeLabel} on ${media.domain}`;
-      } else if (typeLabel === 'Claim') {
+      } else if (type === messages.typeClaim) {
         const text = data.quote;
         return `${typeLabel}${text ? `: ${text}` : ''}`;
       }
@@ -117,12 +155,8 @@ const MediaUtil = {
     }
   },
 
-  truncatedTitle(media, data) {
-    return this.truncate(this.title(media, data));
-  },
-
-  truncate(text, length = 100) {
-    return lodashTruncate(text, { length, separator: /,? +/, ellipsis: '…' });
+  truncatedTitle(media, data, intl) {
+    return truncate(this.title(media, data, intl));
   },
 
   // Return a text fragment "X notes" with proper pluralization.
@@ -131,7 +165,7 @@ const MediaUtil = {
   },
 
   createdAt(media) { // check media
-    let date = '';
+    let date = null;
     try {
       date = new Date(parseInt(media.published) * 1000);
       if (isNaN(date)) date = null;
@@ -142,7 +176,7 @@ const MediaUtil = {
   },
 
   embedPublishedAt(media, data) { // embedded media
-    let date = '';
+    let date = null;
     try {
       date = new Date(data.published_at);
       if (isNaN(date)) date = null;
