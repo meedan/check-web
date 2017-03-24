@@ -1,8 +1,8 @@
 {
-  "createMedia.submitting": "يتم النشر...",
-  "createMedia.error": "لقد حدث خطأ ما! حاول لصق نص الرابط كبديل، أو أضف رابط آخر.",
-  "createMedia.mediaInput": "إلصق أو اكتب",
+  "createMedia.submitting": "جاري الإرسال ...",
+  "createMedia.error": "حدث خطأ ما! حاول لصق نص التقرير كحل بديل، أو أضف رابط آخر.",
+  "createMedia.mediaInput": "الصق أو اكتب",
   "createMedia.uploadImage": "ارفع صورة",
-  "createMedia.submitButton": "انشر",
+  "createMedia.submitButton": "نشر",
   "createMedia.helper": "أضف رابط، اقتباس أو صورة للتحقق من صحة معلوماتهم"
 }

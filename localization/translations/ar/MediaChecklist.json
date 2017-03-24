@@ -1,16 +1,16 @@
 {
   "mediaChecklist.heading": "قائمة التحقق من المعلومات",
-  "mediaChecklist.instructions": "بعض الخطوات التي قد تساعدك في التحقق التعاوني للميديا. حاول إتباع أكثر خطوات مناسبة للتقرير حتى نصل إلى وثيقة بحث كاملة وصريحة. ",
+  "mediaChecklist.instructions": "إليك بعض الخطوات الشائعة التي قد تساعدك في التحقق التشاركي للتقارير. حاول إتباع أنسب الخطوات حتى نصل إلى وثيقة بحث كاملة وأكثر شفافية. ",
   "mediaChecklist.headingWho": "من",
-  "mediaChecklist.messageWho": "من صاحب التقرير؟ إمنح معلومات مثل <em>@إسم المستخدم</em> و<em>البريد الإلكتروني</em> أو <em>رقم التليفون</em>",
+  "mediaChecklist.messageWho": "من هو صاحب التقرير؟ أضف معلومات مثل <em>@اسم المستخدم</em> و<em>البريد الإلكتروني</em> أو <em>رقم الهاتف</em>",
   "mediaChecklist.headingWhat": "ماذا",
-  "mediaChecklist.messageWhat": "ما هو الموضوع؟ حدد بوضوح المطلوب التحقق منه.",
+  "mediaChecklist.messageWhat": "ماذا حدث؟ حدد بوضوح الأمر المطلوب التحقق منه.",
   "mediaChecklist.headingWhere": "أين",
-  "mediaChecklist.messageWhere": "أين مكان التقرير؟ حدد أسامي المدن والمناطق.",
+  "mediaChecklist.messageWhere": "أين حدث؟ حدد أسامي المدن والمناطق.",
   "mediaChecklist.headingWhen": "متى",
   "mediaChecklist.messageWhen": "متى حدث؟ أضف التوقيت الزمني مع المنطقة الزمنية، مثل <em>9/11/2016 HH:MM PM EST</em>.",
   "mediaChecklist.headingOriginal": "أصلي",
   "mediaChecklist.messageOriginal": "هل هذه مجرد إعادة تغريدة؟ حدد إن كان هذا التقرير<em> أصلي</em> أو<em>غير أصلي</em> أو <em>غيرمعروف</em>.",
   "mediaChecklist.headingDetails": "التفاصيل",
-  "mediaChecklist.messageDetails": "أي معلومات أخرى؟ أضف معلومات مثل المراسلات أو محادثات على مواقع التواصل الإجتماعي."
+  "mediaChecklist.messageDetails": "أي معلومات أخرى؟ أضف معلومات مثل المراسلات أو المحادثات على مواقع التواصل الاجتماعي."
 }
