@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 import { Card, CardText } from 'material-ui/Card';
+import Checkbox from 'material-ui/Checkbox';
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 import TextField from 'material-ui/TextField';
 import { blue500 } from 'material-ui/styles/colors';
@@ -314,7 +315,33 @@ class Task extends Component {
           { (this.state.focus && editable) || this.state.editingResponse ? actionBtns : null }
         </div>);
       } else if (task.type === 'multiple_choice') {
-        /* render checkboxes */
+        return (<div>
+          {/*<Checkbox label="Simple" checked={false} onCheck={this.handleSelectRadio.bind(this)} />*/}
+          {/*<RadioButtonGroup name={formName} className="task__radio-group" onChange={this.handleSelectRadio.bind(this)} valueSelected={this.state.response || response}>*/}
+            { options.map( (item, index) => <Checkbox label={item.label} id={index.toString()} style={{ padding: '5px' }} disabled={!editable} />) }
+          {/*</RadioButtonGroup>*/}
+          { other ? <TextField
+            placeholder={other.label}
+            value={responseOther}
+            name={formName}
+            onKeyPress={keyPressCallback}
+            onChange={this.handleEditOther.bind(this)}
+            disabled={!editable}
+          /> : null }
+          { editable ?
+            <TextField
+                className="task__response-note-input"
+                hintText={<FormattedMessage id="task.noteLabel" defaultMessage="Note any additional details here." />}
+                name={noteFormName}
+                defaultValue={note}
+                onKeyPress={keyPressCallback}
+                onChange={this.handleChange.bind(this)}
+                fullWidth
+                multiLine
+              /> : null
+          }
+          { (this.state.focus && editable) || this.state.editingResponse ? actionBtns : null }
+        </div>);
       }
     }
   }
@@ -346,6 +373,9 @@ class Task extends Component {
     const { response } = data;
     const { note } = data;
     const { by } = data;
+
+    console.log('task.type');
+    console.log(task.type);
 
     const dialogActions = [
       <FlatButton label={<FormattedMessage id="tasks.cancelEdit" defaultMessage="Cancel" />} primary onClick={this.handleCancelEdit.bind(this)} />,
@@ -419,7 +449,7 @@ class Task extends Component {
 
                 <div className='task__response-inputs'>
                   {/*  TODO: Render appropriate response form based on task.type */}
-                  { task.type === 'single_choice' ? this.renderOptions() :
+                  { task.type === 'single_choice' || task.type === 'multiple_choice' ? this.renderOptions() :
                     [<TextField
                         className="task__response-input"
                         onFocus={this.handleFocus.bind(this)}
@@ -448,7 +478,7 @@ class Task extends Component {
                 <form onSubmit={this.handleSubmitUpdate.bind(this)} name={`edit-response-${task.first_response.id}`}>
                   {taskQuestion}
 
-                  { task.type === 'single_choice' ? this.renderOptions(response, note) :
+                  { task.type === 'single_choice' || task.type === 'multiple_choice' ? this.renderOptions(response, note) :
                     [<TextField
                         className="task__response-input"
                         defaultValue={response}
@@ -474,7 +504,7 @@ class Task extends Component {
             :
               <div className="task__resolved">
                 {taskQuestion}
-                { task.type === 'single_choice' ? this.renderOptions(response) : <p className="task__response"><ParsedText text={response} /></p> }
+                { task.type === 'single_choice' || task.type === 'multiple_choice' ? this.renderOptions(response) : <p className="task__response"><ParsedText text={response} /></p> }
                 <p style={{ display: note ? 'block' : 'none' }} className="task__note">{note}</p>
                 <p className="task__resolver">
                   <small><FormattedMessage id="task.resolvedBy" defaultMessage={'Resolved by {by}'} values={{ by }} /></small>
