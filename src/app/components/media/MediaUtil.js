@@ -34,6 +34,26 @@ const messages = defineMessages({
     id: 'media.typePage',
     defaultMessage: 'Page'
   },
+  onDomain: {
+    id: 'media.onDomain',
+    defaultMessage: '{typeLabel} on {domain}'
+  },
+  byAttribution: {
+    id: 'media.byAttribution',
+    defaultMessage: '{typeLabel} by {attribution}'
+  },
+  withText: {
+    id: 'media.withText',
+    defaultMessage: '{typeLabel}: {text}'
+  },
+  favoritesCount: {
+    id: 'media.favoritesCount',
+    defaultMessage: '{favoritesCount, plural, =0 {} one {1 favorite} other {{favoritesCount} favorites}}'
+  },
+  retweetsCount: {
+    id: 'media.retweetsCount',
+    defaultMessage: '{retweetsCount, plural, =0 {} one {1 retweet} other {{retweetsCount} retweets}}'
+  }
 });
 
 const MediaUtil = {
@@ -103,15 +123,21 @@ const MediaUtil = {
         type = messages.typePage;
       }
     } catch (e) {
-      // ignore errors
+      type = messages.typePage;
     }
     return type;
   },
 
+  // Return a CSS-friendly media type.
+  mediaTypeCss(media, data) {
+    const type = this.mediaType(media, data);
+    return type ? type.id.replace('media.type', '').toLowerCase() : '';
+  },
+
   typeLabel(media, data, intl) {
-    let type = this.mediaType(media, data);
+    const type = this.mediaType(media, data);
     return type ? intl.formatMessage(type) : '';
-  }
+  },
 
   attributedType(media, data, intl) {
     let typeLabel = null;
@@ -119,14 +145,14 @@ const MediaUtil = {
       const type = this.mediaType(media, data);
       typeLabel = intl.formatMessage(type);
       if (type === messages.typePage) {
-        return `${typeLabel} on ${media.domain}`;
+        return intl.formatMessage(messages.onDomain, {typeLabel, domain: media.domain});
       } else if (type === messages.typeImage) {
         return data.title || typeLabel;
       } else if (type === messages.typeClaim) {
         return (data.title && data.title != media.quote) ? data.title : typeLabel;
       }
       const attribution = this.authorName(media, data);
-      return `${typeLabel}${attribution ? ` by ${attribution}` : ''}`;
+      return attribution ? intl.formatMessage(messages.byAttribution, {typeLabel, attribution}) : typeLabel;
     } catch (e) {
       return typeLabel || '';
     }
@@ -134,7 +160,7 @@ const MediaUtil = {
 
   title(media, data, intl) {
     if (data && data.title && data.title.trim().length) {
-      return this.truncate(data.title);
+      return truncate(data.title);
     }
 
     let typeLabel = null;
@@ -142,14 +168,15 @@ const MediaUtil = {
       const type = this.mediaType(media, data);
       typeLabel = intl.formatMessage(type);
       if (type === messages.typePage) {
-        return `${typeLabel} on ${media.domain}`;
+        return intl.formatMessage(messages.onDomain, {typeLabel, domain: media.domain});
       } else if (type === messages.typeClaim) {
         const text = data.quote;
-        return `${typeLabel}${text ? `: ${text}` : ''}`;
+        return text ? intl.formatMessage(messages.withText, {typeLabel, text}) : typeLabel;
       }
       const attribution = this.authorName(media, data);
       const text = this.bodyText(media, data);
-      return `${typeLabel}${attribution ? ` by ${attribution}` : ''}${text && text.length ? `: ${text}` : ''}`;
+      const byAttribution = attribution ? intl.formatMessage(messages.byAttribution, {typeLabel, attribution}) : typeLabel;
+      return text ? intl.formatMessage(messages.withText, {typeLabel: byAttribution, text}) : byAttribution;
     } catch (e) {
       return typeLabel || '';
     }
@@ -211,8 +238,8 @@ const MediaUtil = {
     try {
       return ({
         'twitter.com': [
-          `${data.favorite_count || 0} favorite${data.favorite_count !== 1 ? 's' : ''}`,
-          `${data.retweet_count || 0} retweet${data.retweet_count !== 1 ? 's' : ''}`,
+          intl.formatMessage(messages.favoritesCount, {favoritesCount: data.favorite_count}),
+          intl.formatMessage(messages.retweetsCount, {retweetsCount: data.retweet_count}),
         ],
       }[media.domain] || []);
     } catch (e) {
