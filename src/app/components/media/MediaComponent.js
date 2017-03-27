@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import Pusher from 'pusher-js';
 import DocumentTitle from 'react-document-title';
 import MediaDetail from './MediaDetail';
@@ -134,8 +134,12 @@ class MediaComponent extends Component {
   }
 }
 
+MediaComponent.propTypes = {
+  intl: intlShape.isRequired,
+};
+
 MediaComponent.contextTypes = {
   store: React.PropTypes.object,
 };
 
-export default MediaComponent;
+export default injectIntl(MediaComponent);
