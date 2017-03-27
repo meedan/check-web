@@ -2,7 +2,7 @@
   "switchTeams.error": "عذراً، لم نستطع تغيير الفريق",
   "switchTeams.member": "عضو",
   "switchTeams.members": "أعضاء",
-  "switchTeams.joinRequestMessage": "لقد ارسلت طلب إنضمام للفريق",
+  "switchTeams.joinRequestMessage": "لقد أرسلت طلب انضمام للفريق",
   "switchTeams.cancelJoinRequest": "إلغاء",
   "switchTeams.bannedJoinRequest": "تم الإلغاء",
   "switchTeams.newTeamLink": "+ فريق جديد"

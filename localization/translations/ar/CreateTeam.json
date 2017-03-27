@@ -4,11 +4,11 @@
   "createTeam.slugUnavailable": "الرابط غير متاح.",
   "createTeam.createTeamError": "عذراً، لم نستطع إضافة الفريق.",
   "createTeam.title": "أضف فريق",
-  "createTeam.teamNameHint": "إسم الفريق",
+  "createTeam.teamNameHint": "اسم الفريق",
   "createTeam.teamSlugHint": "مسار الفريق",
   "createTeam.mainHeading": "أضف فريق",
   "createTeam.blurb": "أضف فريق لمؤسستك أو لك:",
-  "createTeam.displayName": "إسم الفريق",
+  "createTeam.displayName": "اسم الفريق",
   "createTeam.url": "رابط الفريق",
   "createTeam.submitButton": "أضف"
 }
