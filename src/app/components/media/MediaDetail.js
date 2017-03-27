@@ -228,7 +228,7 @@ class MediaDetail extends Component {
     media.quote = media.media.quote;
     media.embed_path = media.media.embed_path;
 
-    const heading = (userOverrides && userOverrides.title) ? MediaUtil.title(media, data) : MediaUtil.attributedType(media, data);
+    const heading = (userOverrides && userOverrides.title) ? MediaUtil.title(media, data, this.props.intl) : MediaUtil.attributedType(media, data, this.props.intl);
 
     if (media.media.embed_path) {
       const path = condensed ? media.media.thumbnail_path : media.media.embed_path;
@@ -248,13 +248,13 @@ class MediaDetail extends Component {
     const status = getStatus(this.props.media.verification_statuses, media.last_status);
 
     return (
-      <div className={`${this.statusToClass('media-detail', media.last_status)} ` + `media-detail--${MediaUtil.typeLabel(media, data).toLowerCase()}`} style={{ borderColor: getStatusStyle(status, 'borderColor') }}>
+      <div className={`${this.statusToClass('media-detail', media.last_status)} ` + `media-detail--${MediaUtil.mediaTypeCss(media, data)}`} style={{ borderColor: getStatusStyle(status, 'borderColor') }}>
         <div className="media-detail__header">
           <div className="media-detail__status"><MediaStatus media={media} readonly={this.props.readonly} /></div>
         </div>
 
         {this.state.isEditing ?
-          <form onSubmit={this.handleSave.bind(this, media)}><input type="text" id={`media-detail-title-input-${media.dbid}`} className="media-detail__title-input" placeholder={this.props.intl.formatMessage(messages.mediaTitle)} defaultValue={MediaUtil.truncatedTitle(media, data)} /></form> :
+          <form onSubmit={this.handleSave.bind(this, media)}><input type="text" id={`media-detail-title-input-${media.dbid}`} className="media-detail__title-input" placeholder={this.props.intl.formatMessage(messages.mediaTitle)} defaultValue={MediaUtil.truncatedTitle(media, data, this.props.intl)} /></form> :
           <h2 className="media-detail__heading"><Link to={mediaUrl}>{heading}</Link></h2>
         }
 
@@ -286,7 +286,7 @@ class MediaDetail extends Component {
 
           <Dialog actions={actions} modal open={this.state.openMoveDialog} onRequestClose={this.handleCloseDialog.bind(this)} autoScrollBodyContent>
             <h4 className="media-detail__dialog-header">
-              <FormattedMessage id="mediaDetail.dialogHeader" defaultMessage={'Move this {mediaType} to a different project'} values={{ mediaType: MediaUtil.typeLabel(media, data) }} />
+              <FormattedMessage id="mediaDetail.dialogHeader" defaultMessage={'Move this {mediaType} to a different project'} values={{ mediaType: MediaUtil.typeLabel(media, data, this.props.intl) }} />
             </h4>
             <small className="media-detail__dialog-media-path">
               <FormattedMessage id="mediaDetail.dialogMediaPath" defaultMessage={'Currently filed under {teamName} > {projectTitle}'} values={{ teamName: context.team.name, projectTitle: currentProject.node.title }} />
