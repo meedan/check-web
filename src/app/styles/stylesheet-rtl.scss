@@ -1,6 +1,27 @@
 [lang="ar"] {
   direction: rtl;
 
+  // Refine typography
+  // TODO — more typography refinements 2017-3-27 CGB 
+  // - larger text
+  // - avoid partially opaque text
+
+  * {
+    letter-spacing: 0 !important;
+  }
+
+  body {
+    font-size: 16px;
+  }
+
+  .home__disclaimer > span {
+    font-size: 11px;
+  }
+
+  .footer {
+    font-size: 14px;
+  }
+
   // Rotate some directional icons
   .project-header__back-button svg,
   svg[class$="__team-caret"] {
