@@ -5,6 +5,11 @@
   .project-header__back-button svg {
     transform: rotate(180deg);
   }
+
+  // Unset a style in the rc-tooltip component
+  .rc-tooltip-inner {
+    text-align: unset !important;
+  }
 }
 
 $from-direction: right;
