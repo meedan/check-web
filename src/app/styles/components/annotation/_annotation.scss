@@ -50,7 +50,8 @@
 
   .annotation__card-text {
     display: flex;
-    padding: 24px 0 0 24px !important;
+    padding: 24px 0 0 0 !important;
+    padding-#{$from-direction}: 24px !important;
   }
 
   .annotation__card-avatar-col {
