@@ -1,8 +1,9 @@
 [lang="ar"] {
   direction: rtl;
 
-  // Rotate icons
-  .project-header__back-button svg {
+  // Rotate some directional icons
+  .project-header__back-button svg,
+  svg[class$="__team-caret"] {
     transform: rotate(180deg);
   }
 
