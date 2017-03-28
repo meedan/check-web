@@ -27,7 +27,7 @@ class MediaComponent extends Component {
   setCurrentContext() {
     const context = new CheckContext(this);
     if (!context.getContextStore().project) {
-      let contextStore = {
+      const contextStore = {
         project: this.props.media.project,
       }
       context.setContextStore(contextStore);
