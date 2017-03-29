@@ -25,7 +25,10 @@ class MediaComponent extends Component {
   }
 
   setCurrentContext() {
-    this.props.relay.setVariables({ contextId: this.getContext().project.dbid });
+    const project = this.getContext().project;
+    if (project && project.dbid) {
+      this.props.relay.setVariables({ contextId: project.dbid });
+    }
   }
 
   componentDidMount() {
