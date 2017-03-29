@@ -28,6 +28,10 @@ const messages = defineMessages({
     id: 'annotation.reverseImageTooltip',
     defaultMessage: 'Search Google for potential duplicates on the web.',
   },
+  and: {
+    id: 'annotation.and',
+    defaultMessage: 'and'
+  }
 });
 
 class Annotation extends Component {
@@ -196,7 +200,8 @@ class Annotation extends Component {
             const response_obj = JSON.parse(object.value);
             let selected_array = response_obj.selected || [];
             if (response_obj.other) { selected_array.push(response_obj.other) }
-            return (selected_array.join(', '));
+            const last_item = selected_array.length > 1 ? ' ' + this.props.intl.formatMessage(messages.and) + ' ' + selected_array.splice(-1, 1) : '';
+            return (selected_array.join(', ') + last_item);
           } else {
             return (<ParsedText text={object.value} />);
           }
