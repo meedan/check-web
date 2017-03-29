@@ -13,6 +13,7 @@ import { pageTitle, getStatusStyle } from '../helpers';
 import CheckContext from '../CheckContext';
 import ContentColumn from './layout/ContentColumn';
 import MediasLoading from './media/MediasLoading';
+import mediaFragment from '../relay/mediaFragment';
 
 const pageSize = 20;
 
@@ -355,67 +356,7 @@ const SearchResultsContainer = Relay.createContainer(injectIntl(SearchResultsCom
         medias(first: $pageSize) {
           edges {
             node {
-              id,
-              dbid,
-              url,
-              quote,
-              published,
-              embed,
-              annotations_count,
-              domain,
-              last_status,
-              last_status_obj {
-                id,
-                dbid
-              }
-              permissions,
-              verification_statuses,
-              overridden,
-              project_id,
-              team {
-                slug
-              }
-              media {
-                url
-                quote
-                embed_path
-                thumbnail_path
-              }
-              user {
-                name,
-                source {
-                  dbid
-                }
-              }
-              tags(first: 10000) {
-                edges {
-                  node {
-                    tag,
-                    id
-                  }
-                }
-              }
-              tasks(first: 10000) {
-                edges {
-                  node {
-                    id,
-                    dbid,
-                    label,
-                    type,
-                    description,
-                    permissions,
-                    first_response {
-                      id,
-                      dbid,
-                      permissions,
-                      content,
-                      annotator {
-                        name
-                      }
-                    }
-                  }
-                }
-              }
+              ${mediaFragment}
             }
           }
         },
@@ -426,9 +367,34 @@ const SearchResultsContainer = Relay.createContainer(injectIntl(SearchResultsCom
 });
 
 class Search extends Component {
-  render() {
-    const query = queryFromUrlQuery(this.props.params.query);
+  noFilters(query) {
+    delete query.timestamp;
+    delete query.parent;
+    if (query.projects && query.projects.length === 0) {
+      delete query.projects;
+    }
+    if (query.status && query.status.length === 0) {
+      delete query.status;
+    }
+    if (query.sort && query.sort === 'recent_added') {
+      delete query.sort;
+    }
+    if (query.sort_type && query.sort_type === 'DESC') {
+      delete query.sort_type;
+    }
+    if (Object.keys(query).length === 0 && query.constructor === Object) {
+      return true;
+    }
+    return false;
+  }
 
+  render() {
+    let query = queryFromUrlQuery(this.props.params.query);
+    if (!this.noFilters(query)) {
+      query.timestamp = new Date().getTime();
+    }
+    query.parent = { type: 'team', slug: this.props.params.team };
+    
     const queryRoute = new TeamRoute({ teamSlug: this.props.params.team });
     const resultsRoute = new SearchRoute({ query: JSON.stringify(query) });
     const { formatMessage } = this.props.intl;
@@ -453,7 +419,6 @@ class Search extends Component {
         <Relay.RootContainer
           Component={SearchResultsContainer}
           route={resultsRoute}
-          forceFetch
           renderLoading={function () {
             return (
               <div>

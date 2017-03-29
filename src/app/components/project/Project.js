@@ -145,7 +145,8 @@ const ProjectContainer = Relay.createContainer(ProjectComponent, {
         team {
           id,
           dbid,
-          slug
+          slug,
+          search_id
         },
         project_medias(first: $pageSize) {
           edges {
