@@ -2,6 +2,7 @@
   "annotation.error": "Ce n'était pas possible d'effacer le commentaire",
   "annotation.deleteButton": "Effacer",
   "annotation.reverseImageTooltip": "Cherchez des copies sur Google.",
+  "annotation.and": "et",
   "annotation.statusSetHeader": "Statut fixé à {status} par {author}",
   "annotation.taggedHeader": "Classé #{tag} par {author}",
   "annotation.taskCreated": "Tâche \"{task}\" ajoutée par {author}",

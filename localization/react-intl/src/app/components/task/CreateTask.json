@@ -1,25 +1,5 @@
 [
   {
-    "id": "createTask.addValue",
-    "defaultMessage": "Add Value"
-  },
-  {
-    "id": "createTask.value",
-    "defaultMessage": "Value"
-  },
-  {
-    "id": "createTask.addOther",
-    "defaultMessage": "Add \"Other\""
-  },
-  {
-    "id": "createTask.other",
-    "defaultMessage": "Other"
-  },
-  {
-    "id": "tasks.taskPrompt",
-    "defaultMessage": "Prompt"
-  },
-  {
     "id": "tasks.cancelAdd",
     "defaultMessage": "Cancel"
   },
@@ -38,6 +18,10 @@
   {
     "id": "tasks.chooseOne",
     "defaultMessage": "Choose one"
+  },
+  {
+    "id": "tasks.chooseMultiple",
+    "defaultMessage": "Choose multiple"
   },
   {
     "id": "tasks.taskLabel",

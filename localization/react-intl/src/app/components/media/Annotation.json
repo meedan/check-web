@@ -12,6 +12,10 @@
     "defaultMessage": "Search Google for potential duplicates on the web."
   },
   {
+    "id": "annotation.and",
+    "defaultMessage": "and"
+  },
+  {
     "id": "annotation.statusSetHeader",
     "defaultMessage": "Status set to {status} by {author}"
   },
