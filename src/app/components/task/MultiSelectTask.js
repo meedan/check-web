@@ -174,7 +174,7 @@ class MultiSelectTask extends Component {
     if (e.key === 'Enter' && !e.shiftKey) {
       if (this.canSubmit()) {
         this.setState({ taskAnswerDisabled: true });
-        this.handleSubmit(e);
+        this.handleSubmitResponse();
       }
       e.preventDefault();
     }
