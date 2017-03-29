@@ -139,6 +139,11 @@ class MultiSelectTask extends Component {
     return valid;
   }
 
+  handleCancelResponse() {
+    this.setState({ response: null, responseOther: null, note: '', focus: false }, this.canSubmit);
+    if (this.props.onDismiss) { this.props.onDismiss(); }
+  }
+
   handleSelectCheckbox(e, inputChecked) {
     inputChecked ? this.addToResponse(e.target.id) : this.removeFromResponse(e.target.id);
     this.setState({ focus: true });
@@ -236,7 +241,7 @@ class MultiSelectTask extends Component {
 
     const editable =  (jsonresponse == null) || (this.props.mode === 'edit_response');
     const submitCallback = this.handleSubmitResponse.bind(this);
-    const cancelCallback = this.props.onDismiss;
+    const cancelCallback = this.handleCancelResponse.bind(this);
     const keyPressCallback = this.handleKeyPress.bind(this);
 
     const actionBtns = (<div>
@@ -254,6 +259,7 @@ class MultiSelectTask extends Component {
 
       const response = jsonresponse ? JSON.parse(jsonresponse) : {};
       let responseOther = (typeof this.state.responseOther !== 'undefined' && this.state.responseOther !== null) ? this.state.responseOther : (response.other || '');
+      let responseNote = (typeof this.state.note !== 'undefined' && this.state.note !== null) ? this.state.note : (note || '');
 
       return (<div className="task__options">
         { options.map( (item, index) => <Checkbox label={item.label} checked={this.isChecked(item.label, index)} onCheck={this.handleSelectCheckbox.bind(this)} id={item.label} style={{ padding: '5px' }} disabled={!editable} />) }
@@ -270,7 +276,7 @@ class MultiSelectTask extends Component {
               className="task__response-note-input"
               hintText={<FormattedMessage id="task.noteLabel" defaultMessage="Note any additional details here." />}
               name={'note'}
-              defaultValue={note}
+              value={responseNote}
               onKeyPress={keyPressCallback}
               onChange={this.handleChange.bind(this)}
               fullWidth
