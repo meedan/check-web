@@ -1,14 +1,14 @@
 {
-  "multiSelectTask.addValue": "Add Value",
-  "multiSelectTask.value": "Value",
-  "multiSelectTask.addOther": "Add \"Other\"",
-  "multiSelectTask.other": "Other",
-  "tasks.cancelAdd": "Cancel",
-  "tasks.add": "Add",
-  "tasks.taskPrompt": "Prompt",
-  "tasks.description": "Description",
-  "tasks.addDescription": "Add a description",
-  "tasks.cancelEdit": "Cancel",
-  "tasks.submit": "Submit",
-  "task.noteLabel": "Note any additional details here."
+  "multiSelectTask.addValue": "أضف قيمة",
+  "multiSelectTask.value": "القيمة",
+  "multiSelectTask.addOther": "أضف \"آخر\"",
+  "multiSelectTask.other": "آخر",
+  "tasks.cancelAdd": "إلغاء",
+  "tasks.add": "أضف",
+  "tasks.taskPrompt": "السؤال",
+  "tasks.description": "وصف",
+  "tasks.addDescription": "أضف وصفاً",
+  "tasks.cancelEdit": "إلغاء",
+  "tasks.submit": "إرسال",
+  "task.noteLabel": "اكتب هنا التعليقات الإضافية."
 }

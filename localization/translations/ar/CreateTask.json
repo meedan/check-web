@@ -4,7 +4,7 @@
   "tasks.addTask": "أضف مهمة",
   "tasks.shortAnswer": "إجابة قصيرة",
   "tasks.chooseOne": "سؤال أحادي الاختيارات",
-  "tasks.chooseMultiple": "Choose multiple",
+  "tasks.chooseMultiple": "سؤال متعدد الاختيارات",
   "tasks.taskLabel": "عنوان المهمة",
   "tasks.description": "وصف",
   "tasks.addDescription": "أضف وصفاً"
