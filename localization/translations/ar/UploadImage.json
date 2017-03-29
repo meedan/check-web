@@ -1,5 +1,5 @@
 {
-  "uploadImage.changeFile": "\n{filename} (انقر أو أسقط لتغييرالصورة)",
-  "uploadImage.invalidExtension": "Validation failed: File cannot have type \"{extension}\", allowed types: {allowed_types}",
-  "uploadImage.message": "أسكت صورة هنا، أو انقر لتحميل ملف (الحجم الأقصى:  {upload_max_size}، الأنواع المسموحة: {upload_extensions}، الأبعاد المسموحة بين {upload_min_dimensions} و {upload_max_dimensions} pixels)"
+  "uploadImage.changeFile": "{filename} (لتغير الصورة انقر هنا أو اسقط صورة جديدة)",
+  "uploadImage.invalidExtension": "خطأ في صحة الإدخال: لا يمكن استخدام امتداد الملف \"{extension}\" ، الامتدادات المسموحة هي: {allowed_types}",
+  "uploadImage.message": "اسقط صورة هنا، أو انقر لتحميل ملف (الحجم الأقصى:  {upload_max_size}، الأنواع المسموحة: {upload_extensions}، الأبعاد المسموحة بين {upload_min_dimensions} و {upload_max_dimensions} بكسل)"
 }

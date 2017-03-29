@@ -177,7 +177,7 @@ class CreateTask extends Component {
           </Menu>
         </Popover>
 
-        <Dialog actions={actions} modal={false} open={this.state.dialogOpen && (this.state.type === 'free_text')} onRequestClose={this.handleCloseDialog.bind(this)}>
+        <Dialog actionsContainerClassName="create-task__action-container" actions={actions} modal={false} open={this.state.dialogOpen && (this.state.type === 'free_text')} onRequestClose={this.handleCloseDialog.bind(this)}>
           <Message message={this.state.message} />
 
           {this.state.type === 'free_text' ? <TextField id="task-label-input" className="create-task__task-label-input" floatingLabelText={<FormattedMessage id="tasks.taskLabel" defaultMessage="Task label" />} onChange={this.handleLabelChange.bind(this)} multiLine /> : null}

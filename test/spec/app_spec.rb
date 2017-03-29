@@ -74,11 +74,15 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
   after :each do |example|
     if example.exception
-      require 'rest-client'
+      require 'imgur'
       path = '/tmp/' + (0...8).map{ (65 + rand(26)).chr }.join + '.png'
       @driver.save_screenshot(path) # TODO: fix for page model tests
-      response = RestClient.post('https://file.io?expires=2', file: File.new(path))
-      link = JSON.parse(response.body)['link']
+
+      client = Imgur.new(@config['imgur_client_id'])
+      image = Imgur::LocalImage.new(path, title: "Test failed: #{example.to_s}")
+      uploaded = client.upload(image)
+      link = uploaded.link
+
       puts "Test \"#{example.to_s}\" failed! Check screenshot at #{link} and following browser output: #{console_logs}"
     end
     @driver.quit
@@ -806,7 +810,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(notes_count.text == '1 note').to be(true)
       media_pg.delete_annotation
       sleep 1
-      expect(notes_count.text == '0 notes').to be(true)
+      expect(notes_count.text == 'No notes').to be(true)
     end
 
     it "should auto refresh project when media is created" do

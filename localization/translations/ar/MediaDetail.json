@@ -4,8 +4,8 @@
   "mediaDetail.byUser": "بواسطة {username}",
   "mediaDetail.cancelButton": "إلغاء",
   "mediaDetail.move": "نقل",
-  "mediaDetail.added": "أضيف بواسطة {byUser}",
+  "mediaDetail.added": "أضيف {byUser}",
   "mediaDetail.doneButton": "تم",
-  "mediaDetail.dialogHeader": "إنقل {mediaType} إلى مشروع آخر",
-  "mediaDetail.dialogMediaPath": "مضاف حالياً تحت {teamName} > {projectTitle}"
+  "mediaDetail.dialogHeader": "انقل {mediaType} إلى مشروع آخر",
+  "mediaDetail.dialogMediaPath": "مضاف حالياً إلى {teamName} > {projectTitle}"
 }

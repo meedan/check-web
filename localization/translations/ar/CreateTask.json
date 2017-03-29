@@ -1,15 +1,15 @@
 {
-  "createTask.addValue": "Add Value",
-  "createTask.value": "Value",
-  "createTask.addOther": "Add \"Other\"",
-  "createTask.other": "Other",
-  "tasks.taskPrompt": "Prompt",
-  "tasks.cancelAdd": "الغ",
+  "createTask.addValue": "أضف قيمة",
+  "createTask.value": "القيمة",
+  "createTask.addOther": "أضف \"آخر\"",
+  "createTask.other": "آخر",
+  "tasks.taskPrompt": "السؤال",
+  "tasks.cancelAdd": "الْغ",
   "tasks.add": "أضف",
   "tasks.addTask": "أضف مهمة",
   "tasks.shortAnswer": "إجابة قصيرة",
-  "tasks.chooseOne": "Choose one",
+  "tasks.chooseOne": "سؤال أحادي الاختيارات",
   "tasks.taskLabel": "عنوان المهمة",
   "tasks.description": "وصف",
-  "tasks.addDescription": "أضف وصف"
+  "tasks.addDescription": "أضف وصفاً"
 }
