@@ -1,14 +1,10 @@
 {
-  "createTask.addValue": "أضف قيمة",
-  "createTask.value": "القيمة",
-  "createTask.addOther": "أضف \"آخر\"",
-  "createTask.other": "آخر",
-  "tasks.taskPrompt": "السؤال",
   "tasks.cancelAdd": "الْغ",
   "tasks.add": "أضف",
   "tasks.addTask": "أضف مهمة",
   "tasks.shortAnswer": "إجابة قصيرة",
   "tasks.chooseOne": "سؤال أحادي الاختيارات",
+  "tasks.chooseMultiple": "Choose multiple",
   "tasks.taskLabel": "عنوان المهمة",
   "tasks.description": "وصف",
   "tasks.addDescription": "أضف وصفاً"

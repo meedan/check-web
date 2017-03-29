@@ -1,0 +1,11 @@
+{
+  "singleChoiceTask.addValue": "Add Value",
+  "singleChoiceTask.value": "Value",
+  "singleChoiceTask.addOther": "Add \"Other\"",
+  "singleChoiceTask.other": "Other",
+  "tasks.cancelAdd": "Cancel",
+  "tasks.add": "Add",
+  "tasks.taskPrompt": "Prompt",
+  "tasks.description": "Description",
+  "tasks.addDescription": "Add a description"
+}
