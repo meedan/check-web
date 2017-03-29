@@ -1,3 +1,15 @@
 {
-  "media.notesCount": "{notesCount, plural, =0 {Aucune note} one {1 note} other {{notesCount} notes}}"
+  "media.notesCount": "{notesCount, plural, =0 {Aucune note} one {1 note} other {{notesCount} notes}}",
+  "media.typeTwitter": "Tweet",
+  "media.typeFacebook": "Post Facebook",
+  "media.typeInstagram": "Instagram",
+  "media.typeVideo": "Vidéo",
+  "media.typeClaim": "Témoignage",
+  "media.typeImage": "Image",
+  "media.typePage": "Page",
+  "media.onDomain": "{typeLabel} sur {domain}",
+  "media.byAttribution": "{typeLabel} par {attribution}",
+  "media.withText": "{typeLabel} : {text}",
+  "media.favoritesCount": "{favoritesCount, plural, =0 {} one {1 favori} other {{favoritesCount} favoris}}",
+  "media.retweetsCount": "{retweetsCount, plural, =0 {} one {1 retweet} other {{retweetsCount} retweets}}"
 }

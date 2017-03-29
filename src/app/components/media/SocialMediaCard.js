@@ -45,7 +45,7 @@ class SocialMediaCard extends Component {
     const authorUrl = MediaUtil.authorUrl(media, data);
     const bodyText = MediaUtil.bodyText(media, data);
     const bodyImageUrl = MediaUtil.bodyImageUrl(media, data);
-    const stats = MediaUtil.stats(media, data);
+    const stats = MediaUtil.stats(media, data, this.props.intl);
 
     return (
       <article className="social-media-card">

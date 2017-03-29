@@ -48,7 +48,7 @@ before_install:
 - export CHROME_BIN=/usr/bin/chromium-browser
 - chromium-browser --no-sandbox &
 # chromedriver
-- wget http://chromedriver.storage.googleapis.com/2.25/chromedriver_linux64.zip
+- wget http://chromedriver.storage.googleapis.com/2.28/chromedriver_linux64.zip
 - unzip chromedriver_linux64.zip
 - sudo mv chromedriver /usr/local/bin
 - sudo chmod a+x /usr/local/bin/chromedriver

@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import Pusher from 'pusher-js';
 import DocumentTitle from 'react-document-title';
 import MediaDetail from './MediaDetail';
@@ -85,11 +85,11 @@ class MediaComponent extends Component {
     media.embed_path = media.media.embed_path;
     const userOverrides = safelyParseJSON(media.overridden);
     const primaryHeading = (userOverrides && userOverrides.title) ?
-        MediaUtil.title(media, data) : MediaUtil.attributedType(media, data);
+        MediaUtil.title(media, data, this.props.intl) : MediaUtil.attributedType(media, data, this.props.intl);
     const status = getStatus(this.props.media.verification_statuses, media.last_status);
 
     return (
-      <DocumentTitle title={pageTitle(MediaUtil.title(media, data), false, this.getContext().team)}>
+      <DocumentTitle title={pageTitle(MediaUtil.title(media, data, this.props.intl), false, this.getContext().team)}>
         <div className={bemClass("media", media.tasks.edges.length, '--has-tasks')} data-id={media.dbid}>
           <div
             className={bemClassFromMediaStatus('media__expanded', media.last_status)}
@@ -134,8 +134,12 @@ class MediaComponent extends Component {
   }
 }
 
+MediaComponent.propTypes = {
+  intl: intlShape.isRequired,
+};
+
 MediaComponent.contextTypes = {
   store: React.PropTypes.object,
 };
 
-export default MediaComponent;
+export default injectIntl(MediaComponent);
