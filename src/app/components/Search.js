@@ -14,6 +14,7 @@ import CheckContext from '../CheckContext';
 import ContentColumn from './layout/ContentColumn';
 import MediasLoading from './media/MediasLoading';
 import mediaFragment from '../relay/mediaFragment';
+import Pusher from 'pusher-js';
 
 const pageSize = 20;
 
@@ -100,7 +101,7 @@ class SearchQueryComponent extends Component {
   componentDidUpdate(prevProps, prevState) {
     const urlQuery = this.urlQueryFromQuery(prevState.query);
     const teamSlug = this.props.team.slug;
-    const url = this.props.project ? `/${teamSlug}/project/${this.props.project}/${urlQuery}` : `/${teamSlug}/search/${urlQuery}`;
+    const url = this.props.project ? `/${teamSlug}/project/${this.props.project.dbid}/${urlQuery}` : `/${teamSlug}/search/${urlQuery}`;
     if (url != window.location.pathname) {
       this.getContext().getContextStore().history.push(url);
     }
@@ -336,6 +337,40 @@ class SearchResultsComponent extends Component {
     this.props.relay.setVariables({ pageSize: this.props.search.medias.edges.length + pageSize });
   }
 
+  getContext() {
+    const context = new CheckContext(this);
+    return context;
+  }
+
+  currentContext() {
+    return this.getContext().getContextStore();
+  }
+
+  subscribe() {
+    const pusher = this.currentContext().pusher;
+    if (pusher && this.props.search.pusher_channel) {
+      const that = this;
+      pusher.subscribe(this.props.search.pusher_channel).bind('media_updated', (data) => {
+        that.props.relay.forceFetch();
+      });
+    }
+  }
+
+  unsubscribe() {
+    const pusher = this.getContext().pusher;
+    if (pusher && this.props.search.pusher_channel) {
+      pusher.unsubscribe(this.props.search.pusher_channel);
+    }
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
+
+  componentDidMount() {
+    this.subscribe();
+  }
+
   render() {
     const medias = this.props.search ? this.props.search.medias.edges : [];
     const count = this.props.search ? this.props.search.number_of_results : 0;
@@ -370,6 +405,10 @@ class SearchResultsComponent extends Component {
   }
 }
 
+SearchResultsComponent.contextTypes = {
+  store: React.PropTypes.object,
+};
+
 SearchResultsComponent.propTypes = {
   intl: intlShape.isRequired,
 };
@@ -382,6 +421,7 @@ const SearchResultsContainer = Relay.createContainer(injectIntl(SearchResultsCom
     search: () => Relay.QL`
       fragment on CheckSearch {
         id,
+        pusher_channel,
         medias(first: $pageSize) {
           edges {
             node {
@@ -399,7 +439,7 @@ class Search extends Component {
   noFilters(query) {
     delete query.timestamp;
     delete query.parent;
-    if (query.projects && (query.projects.length === 0 || (query.projects.length === 1 && query.projects[0] === this.props.project))) {
+    if (query.projects && (query.projects.length === 0 || (query.projects.length === 1 && query.projects[0] === this.props.project.dbid))) {
       delete query.projects;
     }
     if (query.status && query.status.length === 0) {
@@ -426,8 +466,8 @@ class Search extends Component {
       query.timestamp = new Date().getTime();
     }
     if (this.props.project) {
-      query.parent = { type: 'project', id: this.props.project };
-      query.projects = [this.props.project];
+      query.parent = { type: 'project', id: this.props.project.dbid };
+      query.projects = [this.props.project.dbid];
     }
     else {
       query.parent = { type: 'team', slug: teamSlug };

@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay';
-import Pusher from 'pusher-js';
 import { Link } from 'react-router';
 import DocumentTitle from 'react-document-title';
 import ProjectRoute from '../../relay/ProjectRoute';
@@ -48,29 +47,7 @@ class ProjectComponent extends Component {
     }
   }
 
-  subscribe() {
-    const pusher = this.currentContext().pusher;
-    if (pusher) {
-      const that = this;
-      pusher.subscribe(this.props.project.pusher_channel).bind('media_updated', (data) => {
-        that.props.relay.forceFetch();
-      });
-    }
-  }
-
-  unsubscribe() {
-    const pusher = this.getContext().pusher;
-    if (pusher) {
-      pusher.unsubscribe(this.props.project.pusher_channel);
-    }
-  }
-
-  componentWillUnmount() {
-    this.unsubscribe();
-  }
-
   componentDidMount() {
-    this.subscribe();
     this.setContextProject();
   }
 
@@ -96,7 +73,7 @@ class ProjectComponent extends Component {
           </Can>
 
           <ContentColumn>
-            <Search team={project.team.slug} project={project.dbid} query={this.props.params.query || '{}'} fields={['status', 'sort', 'tags']} title={title} />
+            <Search team={project.team.slug} project={project} query={this.props.params.query || '{}'} fields={['status', 'sort', 'tags']} title={title} />
           </ContentColumn>
 
         </div>
@@ -120,7 +97,6 @@ const ProjectContainer = Relay.createContainer(ProjectComponent, {
         dbid,
         title,
         description,
-        pusher_channel,
         permissions,
         search_id,
         team {
