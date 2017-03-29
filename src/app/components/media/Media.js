@@ -126,7 +126,8 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
               task {
                 id,
                 dbid,
-                label
+                label,
+                type
               }
               annotation {
                 id,

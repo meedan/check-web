@@ -191,11 +191,21 @@ class Annotation extends Component {
       break;
     case 'create_dynamicannotationfield': case 'update_dynamicannotationfield':
       if (/^response_/.test(object.field_name) && activity.task) {
+        const format_response = (type) => {
+          if (type === 'multiple_choice') {
+            const response_obj = JSON.parse(object.value);
+            let selected_array = response_obj.selected || [];
+            if (response_obj.other) { selected_array.push(response_obj.other) }
+            return (selected_array.join(', '));
+          } else {
+            return (<ParsedText text={object.value} />);
+          }
+        };
         contentTemplate = (<span className="// annotation__task-resolved">
           <FormattedMessage
             id="annotation.taskResolve"
             defaultMessage={'Task "{task}" answered by {author}: "{response}"'}
-            values={{ task: activity.task.label, author: authorName, response: <ParsedText text={object.value} /> }}
+            values={{ task: activity.task.label, author: authorName, response: format_response(activity.task.type) }}
           />
         </span>);
       }
