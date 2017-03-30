@@ -22,6 +22,7 @@ class CreateProject extends Component {
 
     this.state = {
       message: null,
+      submitDisabled: false
     };
   }
 
@@ -41,7 +42,7 @@ class CreateProject extends Component {
           message = json.error;
         }
       } catch (e) { }
-      that.setState({ message });
+      that.setState({ message, submitDisabled: false });
     };
 
     const onSuccess = (response) => {
@@ -50,13 +51,16 @@ class CreateProject extends Component {
       history.push(path);
     };
 
-    Relay.Store.commitUpdate(
-      new CreateProjectMutation({
-        title,
-        team,
-      }),
-      { onSuccess, onFailure },
-    );
+    if (!that.state.submitDisabled) {
+      Relay.Store.commitUpdate(
+        new CreateProjectMutation({
+          title,
+          team,
+        }),
+        { onSuccess, onFailure },
+      );
+      that.setState({ submitDisabled: true });
+    }
 
     e.preventDefault();
   }
