@@ -13,7 +13,9 @@ class CreateProjectMediaMutation extends Relay.Mutation {
       fragment on CreateProjectMediaPayload {
         project_mediaEdge,
         project_media,
-        project { project_medias }
+        project { project_medias },
+        check_search_team { id, number_of_results },
+        check_search_project { id, number_of_results }
       }
     `;
   }
@@ -30,12 +32,29 @@ class CreateProjectMediaMutation extends Relay.Mutation {
     return [
       {
         type: 'RANGE_ADD',
-        parentName: 'project',
-        parentID: this.props.project.id,
-        connectionName: 'project_medias',
+        parentName: 'check_search_team',
+        parentID: this.props.project.team.search_id,
+        connectionName: 'medias',
         edgeName: 'project_mediaEdge',
         rangeBehaviors: {
           '': 'prepend',
+        },
+      },
+      {
+        type: 'RANGE_ADD',
+        parentName: 'check_search_project',
+        parentID: this.props.project.search_id,
+        connectionName: 'medias',
+        edgeName: 'project_mediaEdge',
+        rangeBehaviors: {
+          '': 'prepend',
+        },
+      },
+      {
+        type: 'FIELDS_CHANGE',
+        fieldIDs: {
+          'check_search_team' : this.props.project.team.search_id,
+          'check_search_project' : this.props.project.search_id
         },
       },
       {
@@ -44,6 +63,12 @@ class CreateProjectMediaMutation extends Relay.Mutation {
           fragment on CreateProjectMediaPayload {
             project_media {
               dbid
+            },
+            check_search_team {
+              id
+            },
+            check_search_project {
+              id
             }
           }`,
         ],

@@ -162,21 +162,17 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should create project media" do
-      page = LoginPage.new(config: @config, driver: @driver).load
-          .login_with_email(email: @email, password: @password)
-          .create_media(input: 'https://twitter.com/marcouza/status/771009514732650497?t=' + Time.now.to_i.to_s)
-
-      expect(page.contains_string?('Added')).to be(true)
-      expect(page.contains_string?('User With Email')).to be(true)
-      expect(page.status_label == 'UNSTARTED').to be(true)
+      page = LoginPage.new(config: @config, driver: @driver).load.login_with_email(email: @email, password: @password)
 
       page.driver.navigate.to @config['self_url']
-      page.wait_for_element('.project .medias-and-annotations')
+      expect(page.contains_string?('Tweet by Marcelo Souza')).to be(false)
+          
+      page.create_media(input: 'https://twitter.com/marcouza/status/771009514732650497?t=' + Time.now.to_i.to_s)
 
-      expect(page.contains_string?('Added')).to be(true)
-      expect(page.contains_string?('User With Email')).to be(true)
-      expect(page.status_label == 'UNSTARTED').to be(true)
-
+      page.driver.navigate.to @config['self_url']
+      page.wait_for_element('.project .media-detail')
+      
+      expect(page.contains_string?('Tweet by Marcelo Souza')).to be(true)
     end
 
     it "should register and redirect to newly created media" do

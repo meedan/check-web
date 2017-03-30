@@ -144,8 +144,8 @@ export default class Root extends Component {
                 <Route path=":team/project/:projectId/media/:mediaId" component={ProjectMedia} />
                 <Route path=":team/join" component={JoinTeam} />
                 <Route path=":team/members" component={TeamMembers} />
-                <Route path=":team/project/:projectId" component={Project} />
                 <Route path=":team/project/:projectId/edit" component={ProjectEdit} />
+                <Route path=":team/project/:projectId(/:query)" component={Project} />
                 <Route path=":team/search(/:query)" component={Search} />
                 <Route path=":team" component={Team} />
 
