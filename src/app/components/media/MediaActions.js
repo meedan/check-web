@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import { FormattedMessage } from 'react-intl';
-import mui from 'material-ui';
 import MdMoreHoriz from 'react-icons/lib/md/more-horiz';
 import { can } from '../Can';
 
