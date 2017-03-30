@@ -201,9 +201,9 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
 class ProjectMedia extends Component {
   render() {
     let projectId = this.props.params.projectId || 0;
+    const context = new CheckContext(this);
+    context.setContext();
     if (projectId === 0) {
-      const context = new CheckContext(this);
-      context.setContext();
       const store = context.getContextStore();
       if (store.project) {
         projectId = store.project.dbid;
