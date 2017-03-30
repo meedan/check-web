@@ -1,6 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import { defineMessages, injectIntl, intlShape } from 'react-intl';
-import { FaFacebookSquare, FaInstagram, FaTwitter, FaYoutubePlay } from 'react-icons/lib/fa';
+import FaFacebookSquare from 'react-icons/lib/fa/facebook-square';
+import FaInstagram from 'react-icons/lib/fa/instagram';
+import FaTwitter from 'react-icons/lib/fa/twitter';
+import FaYoutubePlay from 'react-icons/lib/fa/youtube-play';
 import MdLink from 'react-icons/lib/md/link';
 import { Link } from 'react-router';
 import MediaUtil from './MediaUtil';

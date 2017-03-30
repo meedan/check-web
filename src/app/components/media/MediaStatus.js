@@ -6,7 +6,8 @@ import UpdateStatusMutation from '../../relay/UpdateStatusMutation';
 import Can, { can } from '../Can';
 import CheckContext from '../../CheckContext';
 import MdArrowDropDown from 'react-icons/lib/md/arrow-drop-down';
-import { FaCircle, FaCircleO } from 'react-icons/lib/fa';
+import FaCircle from 'react-icons/lib/fa/circle';
+import FaCircleO from 'react-icons/lib/fa/circle-o';
 import { getStatus, getStatusStyle } from '../../helpers';
 
 const messages = defineMessages({

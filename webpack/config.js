@@ -1,5 +1,6 @@
 import path from 'path';
 import webpack from 'webpack';
+var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 export default {
   bail: true, // exit 1 on build failure
@@ -20,6 +21,9 @@ export default {
       __DEVELOPMENT__: false
     }),
     new webpack.optimize.DedupePlugin(),
+    new webpack.optimize.AggressiveMergingPlugin(),
+    // Uncomment to see at localhost:8888 a treemap of modules included in the bundle
+    // new BundleAnalyzerPlugin(),
     new webpack.optimize.UglifyJsPlugin({
       comments: false,
       compressor: {

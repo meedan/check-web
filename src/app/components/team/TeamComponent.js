@@ -4,7 +4,12 @@ import DocumentTitle from 'react-document-title';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import Tags from './Tags';
 import { Link } from 'react-router';
-import { MdLink, MdCreate, MdLocationOn, MdLocalPhone } from 'react-icons/lib/md';
+
+import MdLink from 'react-icons/lib/md/link';
+import MdCreate from 'react-icons/lib/md/create';
+import MdLocationOn from 'react-icons/lib/md/location-on';
+import MdLocalPhone from 'react-icons/lib/md/local-phone';
+
 import UpdateTeamMutation from '../../relay/UpdateTeamMutation';
 import Message from '../Message';
 import CreateContactMutation from '../../relay/CreateContactMutation';

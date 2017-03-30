@@ -12,7 +12,7 @@ import { getStatus, getStatusStyle } from '../../helpers';
 import Lightbox from 'react-image-lightbox';
 import { Card, CardText } from 'material-ui/Card';
 import MenuButton from '../MenuButton';
-import { MdImage } from 'react-icons/lib/md';
+import MdImage from 'react-icons/lib/md/image';
 import ParsedText from '../ParsedText';
 
 const messages = defineMessages({

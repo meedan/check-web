@@ -4,7 +4,8 @@ import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
-import { MdCancel, MdRadioButtonUnchecked } from 'react-icons/lib/md';
+import MdCancel from 'react-icons/lib/md/cancel';
+import MdRadioButtonUnchecked from 'react-icons/lib/md/radio-button-unchecked';
 
 const messages = defineMessages({
   addValue: {
