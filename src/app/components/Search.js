@@ -13,7 +13,6 @@ import { pageTitle, getStatusStyle } from '../helpers';
 import CheckContext from '../CheckContext';
 import ContentColumn from './layout/ContentColumn';
 import MediasLoading from './media/MediasLoading';
-import mediaFragment from '../relay/mediaFragment';
 import Pusher from 'pusher-js';
 
 const pageSize = 20;
@@ -425,7 +424,53 @@ const SearchResultsContainer = Relay.createContainer(injectIntl(SearchResultsCom
         medias(first: $pageSize) {
           edges {
             node {
-              ${mediaFragment}
+              id,
+              dbid,
+              url,
+              quote,
+              published,
+              embed,
+              annotations_count,
+              verification_statuses,
+              overridden,
+              project_id,
+              pusher_channel,
+              language,
+              domain,
+              permissions,
+              last_status,
+              last_status_obj {
+                id,
+                dbid
+              }
+              project {
+                id,
+                dbid,
+                title
+              },
+              media {
+                url,
+                quote,
+                embed_path,
+                thumbnail_path
+              }
+              user {
+                name,
+                source {
+                  dbid
+                }
+              }
+              team {
+                slug
+              }
+              tags(first: 10000) {
+                edges {
+                  node {
+                    tag,
+                    id
+                  }
+                }
+              }
             }
           }
         },
