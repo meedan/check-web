@@ -86,6 +86,7 @@ class CreateTask extends Component {
         }),
         { onSuccess, onFailure },
       );
+      that.setState({ submitDisabled: true });
     }
   }
 

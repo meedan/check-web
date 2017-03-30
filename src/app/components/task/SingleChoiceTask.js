@@ -43,6 +43,7 @@ class SingleChoiceTask extends Component {
 
     if (!this.state.submitDisabled){
       this.props.onSubmit(this.state.label, this.state.description, jsonoptions);
+      this.setState({ submitDisabled: true });
     }
   }
 
