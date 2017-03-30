@@ -2,6 +2,7 @@
   "annotation.error": "لم نتمكن من حذف التعليق",
   "annotation.deleteButton": "حذف",
   "annotation.reverseImageTooltip": "ابحث عن مكررات محتملة للصورة بواسطة جوجل.",
+  "annotation.and": "و",
   "annotation.statusSetHeader": "تم تغيير الحالة إلى {status} بواسطة {author}",
   "annotation.taggedHeader": "تم وسمه #{tag} بواسطة {author}",
   "annotation.taskCreated": "أُضيفت المهمة \"{task}\"  بواسطة {author}",

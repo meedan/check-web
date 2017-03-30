@@ -1,14 +1,10 @@
 {
-  "createTask.addValue": "Add Value",
-  "createTask.value": "Value",
-  "createTask.addOther": "Add \"Other\"",
-  "createTask.other": "Other",
-  "tasks.taskPrompt": "Prompt",
   "tasks.cancelAdd": "Cancel",
   "tasks.add": "Add",
   "tasks.addTask": "Add task",
   "tasks.shortAnswer": "Short answer",
   "tasks.chooseOne": "Choose one",
+  "tasks.chooseMultiple": "Choose multiple",
   "tasks.taskLabel": "Task label",
   "tasks.description": "Description",
   "tasks.addDescription": "Add a description"

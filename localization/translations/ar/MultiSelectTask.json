@@ -1,0 +1,14 @@
+{
+  "multiSelectTask.addValue": "أضف قيمة",
+  "multiSelectTask.value": "القيمة",
+  "multiSelectTask.addOther": "أضف \"آخر\"",
+  "multiSelectTask.other": "آخر",
+  "tasks.cancelAdd": "إلغاء",
+  "tasks.add": "أضف",
+  "tasks.taskPrompt": "السؤال",
+  "tasks.description": "وصف",
+  "tasks.addDescription": "أضف وصفاً",
+  "tasks.cancelEdit": "إلغاء",
+  "tasks.submit": "إرسال",
+  "task.noteLabel": "اكتب هنا التعليقات الإضافية."
+}

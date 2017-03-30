@@ -1,8 +1,8 @@
 {
-  "headerActions.userTeams": "فرقك",
+  "headerActions.userTeams": "الفرق المُنضم إليها",
   "headerActions.signOut": "خروج",
   "headerActions.contactHuman": "اﻹتصال بنا",
-  "headerActions.tos": "شروط الإستخدام",
+  "headerActions.tos": "شروط الاستخدام",
   "headerActions.privacyPolicy": "سياسة الخصوصية",
   "headerActions.aboutCheck": "عن Check"
 }

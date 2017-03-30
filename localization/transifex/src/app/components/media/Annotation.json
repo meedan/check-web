@@ -2,6 +2,7 @@
   "annotation.error": "Could not delete annotation",
   "annotation.deleteButton": "Delete",
   "annotation.reverseImageTooltip": "Search Google for potential duplicates on the web.",
+  "annotation.and": "and",
   "annotation.statusSetHeader": "Status set to {status} by {author}",
   "annotation.taggedHeader": "Tagged #{tag} by {author}",
   "annotation.taskCreated": "Task \"{task}\" created by {author}",
