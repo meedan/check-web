@@ -1,7 +1,7 @@
 [
   {
     "id": "media.notesCount",
-    "defaultMessage": "{notesCount, plural, =0 {No notes} one {1 note} other {{notesCount} notes}}"
+    "defaultMessage": "{notesCount, plural, =0 {No notes} one {1 note} other {# notes}}"
   },
   {
     "id": "media.typeTwitter",
@@ -45,10 +45,10 @@
   },
   {
     "id": "media.favoritesCount",
-    "defaultMessage": "{favoritesCount, plural, =0 {} one {1 favorite} other {{favoritesCount} favorites}}"
+    "defaultMessage": "{favoritesCount, plural, =0 {} one {1 favorite} other {# favorites}}"
   },
   {
     "id": "media.retweetsCount",
-    "defaultMessage": "{retweetsCount, plural, =0 {} one {1 retweet} other {{retweetsCount} retweets}}"
+    "defaultMessage": "{retweetsCount, plural, =0 {} one {1 retweet} other {# retweets}}"
   }
 ]

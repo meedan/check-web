@@ -4,7 +4,7 @@ import { truncate } from '../../helpers';
 const messages = defineMessages({
   notesCount: {
     id: 'media.notesCount',
-    defaultMessage: '{notesCount, plural, =0 {No notes} one {1 note} other {{notesCount} notes}}'
+    defaultMessage: '{notesCount, plural, =0 {No notes} one {1 note} other {# notes}}'
   },
   typeTwitter: {
     id: 'media.typeTwitter',
@@ -48,11 +48,11 @@ const messages = defineMessages({
   },
   favoritesCount: {
     id: 'media.favoritesCount',
-    defaultMessage: '{favoritesCount, plural, =0 {} one {1 favorite} other {{favoritesCount} favorites}}'
+    defaultMessage: '{favoritesCount, plural, =0 {} one {1 favorite} other {# favorites}}'
   },
   retweetsCount: {
     id: 'media.retweetsCount',
-    defaultMessage: '{retweetsCount, plural, =0 {} one {1 retweet} other {{retweetsCount} retweets}}'
+    defaultMessage: '{retweetsCount, plural, =0 {} one {1 retweet} other {# retweets}}'
   }
 });
 
@@ -188,7 +188,7 @@ const MediaUtil = {
 
   // Return a text fragment "X notes" with proper pluralization.
   notesCount(media, data, intl) {
-    return intl.formatMessage(messages.notesCount, {notesCount: media.annotations_count})
+    return intl.formatMessage(messages.notesCount, {notesCount: media.annotations_count});
   },
 
   createdAt(media) { // check media

@@ -61,7 +61,6 @@ class Annotation extends Component {
           message = json.error;
         }
       } catch (e) { }
-      window.alert(message);
     };
 
     const onSuccess = (response) => {
