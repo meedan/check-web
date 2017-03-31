@@ -33,7 +33,7 @@ COPY package.json ${DEPLOYDIR}/latest/package.json
 USER root
 RUN chown -R ${DEPLOYUSER}:www-data ${DEPLOYDIR}
 USER ${DEPLOYUSER}
-RUN npm cache clean && npm install --production
+RUN npm cache clean && npm install
 
 # copy in the code and move it into the same directory as the built node_modules
 COPY . ${DEPLOYDIR}/new
