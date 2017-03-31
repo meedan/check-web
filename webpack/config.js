@@ -22,6 +22,7 @@ export default {
     }),
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.AggressiveMergingPlugin(),
+    new webpack.optimize.OccurrenceOrderPlugin(),
     // Uncomment to see at localhost:8888 a treemap of modules included in the bundle
     // new BundleAnalyzerPlugin(),
     new webpack.optimize.UglifyJsPlugin({
