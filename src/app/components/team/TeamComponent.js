@@ -75,6 +75,7 @@ class TeamComponent extends Component {
     this.state = {
       message: null,
       isEditing: false,
+      submitDisabled: false,
       values: {
         name: team.name,
         description: team.description,
@@ -125,26 +126,30 @@ class TeamComponent extends Component {
           message = json.error;
         }
       } catch (e) { }
-      that.setState({ message });
+      that.setState({ message, submitDisabled: false });
     };
 
     const onSuccess = (response) => {
-      this.setState({ message: that.props.intl.formatMessage(messages.editSuccess), isEditing: false });
+      this.setState({ message: that.props.intl.formatMessage(messages.editSuccess), isEditing: false, submitDisabled: false });
     };
 
     const values = that.state.values;
-    Relay.Store.commitUpdate(
-      new UpdateTeamMutation({
-        name: values.name,
-        description: values.description,
-        set_slack_notifications_enabled: values.slackNotificationsEnabled,
-        set_slack_webhook: values.slackWebhook,
-        set_slack_channel: values.slackChannel,
-        contact: JSON.stringify({ location: values.contact_location, phone: values.contact_phone, web: values.contact_web }),
-        id: that.props.team.id,
-      }),
-      { onSuccess, onFailure },
-    );
+
+    if (!that.state.submitDisabled){
+      Relay.Store.commitUpdate(
+        new UpdateTeamMutation({
+          name: values.name,
+          description: values.description,
+          set_slack_notifications_enabled: values.slackNotificationsEnabled,
+          set_slack_webhook: values.slackWebhook,
+          set_slack_channel: values.slackChannel,
+          contact: JSON.stringify({ location: values.contact_location, phone: values.contact_phone, web: values.contact_web }),
+          id: that.props.team.id,
+        }),
+        { onSuccess, onFailure },
+      );
+      that.setState({ submitDisabled: true });
+    }
   }
 
   handleEditTeam() {
@@ -185,7 +190,7 @@ class TeamComponent extends Component {
                       <button onClick={this.cancelEditTeam.bind(this)} className="team__cancel-button">
                         <FormattedMessage id="teamComponent.cancelButton" defaultMessage="Cancel" />
                       </button>
-                      <button onClick={this.handleEditTeam.bind(this)} className="team__save-button">
+                      <button onClick={this.handleEditTeam.bind(this)} className="team__save-button" disabled={this.state.submitDisabled}>
                         <FormattedMessage id="teamComponent.saveButton" defaultMessage="Save" />
                       </button>
                     </div>
