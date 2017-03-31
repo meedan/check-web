@@ -48,6 +48,7 @@ export default {
     }]
   },
   externals: {
-    'config': 'config'
+    'config': 'config',
+    'pusher-js': 'Pusher'
   }
 };
