@@ -47,6 +47,7 @@ class MultiSelectTask extends Component {
 
     if (!this.state.submitDisabled){
       this.props.onSubmit(this.state.label, this.state.description, jsonoptions);
+      this.setState({ submitDisabled: true });
     }
   }
 
@@ -59,6 +60,7 @@ class MultiSelectTask extends Component {
       response_obj.other = (typeof this.state.responseOther !== 'undefined' && this.state.responseOther !== null) ? this.state.responseOther : (props_response.other || null);
 
       this.props.onSubmit(JSON.stringify(response_obj), this.state.note);
+      this.setState({ taskAnswerDisabled: true });
     }
   }
 
