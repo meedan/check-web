@@ -16,7 +16,8 @@ import FlatButton from 'material-ui/FlatButton';
 import Can from '../Can';
 import MdMoreHoriz from 'react-icons/lib/md/more-horiz';
 import MdInfoOutline from 'react-icons/lib/md/info-outline';
-import { MdRadioButtonChecked, MdRadioButtonUnchecked } from 'react-icons/lib/md';
+import MdRadioButtonChecked from 'react-icons/lib/md/radio-button-checked';
+import MdRadioButtonUnchecked from 'react-icons/lib/md/radio-button-unchecked';
 import Tooltip from 'rc-tooltip';
 import 'rc-tooltip/assets/bootstrap.css';
 import Truncate from 'react-truncate';
@@ -81,17 +82,20 @@ class Task extends Component {
     fields[`note_${task.type}`] = form.note ? form.note.value : '';
     fields[`task_${task.type}`] = task.dbid;
 
-    Relay.Store.commitUpdate(
-      new UpdateTaskMutation({
-        annotated: that.props.media,
-        task: {
-          id: task.id,
-          fields,
-          annotation_type: `task_response_${task.type}`,
-        },
-      }),
-      { onSuccess, onFailure },
-    );
+    if (!that.state.taskAnswerDisabled){
+      Relay.Store.commitUpdate(
+        new UpdateTaskMutation({
+          annotated: that.props.media,
+          task: {
+            id: task.id,
+            fields,
+            annotation_type: `task_response_${task.type}`,
+          },
+        }),
+        { onSuccess, onFailure },
+      );
+      that.setState({ taskAnswerDisabled: true });
+    }
 
     e.preventDefault();
   }
@@ -249,16 +253,19 @@ class Task extends Component {
     fields[`response_${task.type}`] = this.state.response || form.editedresponse.value;
     fields[`note_${task.type}`] = form.editednote ? form.editednote.value : '';
 
-    Relay.Store.commitUpdate(
-      new UpdateDynamicMutation({
-        annotated: that.props.media,
-        dynamic: {
-          id: task.first_response.id,
-          fields,
-        },
-      }),
-      { onSuccess, onFailure },
-    );
+    if (!that.state.taskAnswerDisabled){
+      Relay.Store.commitUpdate(
+        new UpdateDynamicMutation({
+          annotated: that.props.media,
+          dynamic: {
+            id: task.first_response.id,
+            fields,
+          },
+        }),
+        { onSuccess, onFailure },
+      );
+      that.setState({ taskAnswerDisabled: true });
+    }
 
     e.preventDefault();
   }

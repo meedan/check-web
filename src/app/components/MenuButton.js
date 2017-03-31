@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import mui from 'material-ui';
 import MdMoreHoriz from 'react-icons/lib/md/more-horiz';
 import { bemClass } from '../helpers';
 

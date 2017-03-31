@@ -6,10 +6,12 @@ html
     meta(name="viewport" content="width=device-width, initial-scale=1")
     title Check
     link(href='/images/logo/favicon.ico', rel='icon')
-    script(src='/js/config.js')
-    script(src='/js/newrelic.js')
+    script(src='/js/config.js' defer='defer')
+    script(src='/js/newrelic.js' defer='defer')
+    script(src='/js/vendor.bundle.js' defer='defer')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/pusher/4.0.0/pusher.min.js')
     link(href='https://fonts.googleapis.com/css?family=Roboto+Condensed:700,400|Merriweather:400|Roboto:400,700,500,300|' rel='stylesheet' type='text/css')
 
   body
     #root
-  script(src='/js/index.bundle.js')
+  script(src='/js/index.bundle.js' defer='defer')
