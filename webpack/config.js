@@ -39,6 +39,10 @@ export default {
         screw_ie8: true,
         warnings: false
       }
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      minChunks: module => /node_modules/.test(module.resource)
     })
   ],
   resolve: {

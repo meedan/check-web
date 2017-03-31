@@ -32,7 +32,7 @@ app.use(function(req, res, next) {
    next();
 });
 
-app.get('/js/index.bundle.js', function(req, res, next) {
+app.get('/js/*.bundle.js', function(req, res, next) {
   req.url = req.url + '.gz';
   res.set('Content-Encoding', 'gzip');
   next();
