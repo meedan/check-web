@@ -1,6 +1,7 @@
 import path from 'path';
 import webpack from 'webpack';
 var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+var CompressionPlugin = require('compression-webpack-plugin');
 
 export default {
   bail: true, // exit 1 on build failure
@@ -23,6 +24,13 @@ export default {
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.AggressiveMergingPlugin(),
     new webpack.optimize.OccurrenceOrderPlugin(),
+    new CompressionPlugin({
+      asset: '[path].gz[query]',
+      algorithm: 'gzip',
+      test: /\.js$|\.css$|\.html$/,
+      threshold: 10240,
+      minRatio: 0.8
+    }),
     // Uncomment to see at localhost:8888 a treemap of modules included in the bundle
     // new BundleAnalyzerPlugin(),
     new webpack.optimize.UglifyJsPlugin({

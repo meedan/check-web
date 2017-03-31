@@ -53,6 +53,7 @@
     "chai": "^3.5.0",
     "chrome-storage-local": "^0.1.1",
     "chromedriver": "2.25.3",
+    "compression-webpack-plugin": "^0.3.2",
     "enzyme": "^2.7.1",
     "eslint": "^3.12.2",
     "eslint-config-airbnb": "^13.0.0",
