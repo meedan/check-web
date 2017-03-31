@@ -7,6 +7,7 @@ import { IntlProvider, addLocaleData } from 'react-intl';
 import ar from 'react-intl/locale-data/ar';
 import en from 'react-intl/locale-data/en';
 import fr from 'react-intl/locale-data/fr';
+import pt from 'react-intl/locale-data/pt';
 import App from './App';
 import {
   RootLocale,
@@ -65,7 +66,8 @@ try {
   const localeData = {
     'en': en,
     'fr': fr,
-    'ar': ar
+    'ar': ar,
+    'pt': pt
   };
   addLocaleData([...localeData[locale]]);
 } catch (e) {
