@@ -76,6 +76,7 @@ body {
   overflow-x: hidden;
   cursor: default;
   background: $opaque-black-02;
+  word-break: break-all;
 }
 
 .hidden {
