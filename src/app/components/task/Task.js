@@ -140,7 +140,7 @@ class Task extends Component {
 
   handleKeyPress(e) {
     if (e.key === 'Enter' && !e.shiftKey) {
-      if (this.canSubmit()) {
+      if (this.canSubmit(e.target.value)) {
         this.setState({ taskAnswerDisabled: true });
         this.handleSubmit(e);
       }
@@ -149,7 +149,7 @@ class Task extends Component {
   }
 
   handleChange(e) {
-    this.setState({ taskAnswerDisabled: !this.canSubmit() });
+    this.setState({ taskAnswerDisabled: !this.canSubmit(e.target.value) });
   }
 
   handleEdit() {
@@ -220,7 +220,7 @@ class Task extends Component {
 
   handleKeyPressUpdate(e) {
     if (e.key === 'Enter' && !e.shiftKey) {
-      if (this.canSubmit()) {
+      if (this.canSubmit(e.target.value)) {
         this.setState({ taskAnswerDisabled: true });
         this.handleSubmitUpdate(e);
       }
