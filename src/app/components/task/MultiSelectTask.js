@@ -215,7 +215,7 @@ class MultiSelectTask extends Component {
               }
             <div>
               <FlatButton label={this.props.intl.formatMessage(messages.addValue)} primary onClick={this.handleAddValue.bind(this)} />
-              {<FlatButton label={this.props.intl.formatMessage(messages.addOther)} primary onClick={this.handleAddOther.bind(this)} disabled={this.state.hasOther} />}
+              {/*<FlatButton label={this.props.intl.formatMessage(messages.addOther)} primary onClick={this.handleAddOther.bind(this)} disabled={this.state.hasOther} />*/}
             </div>
           </div>
           <input className="create-task__add-task-description" id="create-task__add-task-description" type="checkbox" />
