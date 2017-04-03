@@ -14,6 +14,7 @@ import CheckContext from '../CheckContext';
 import ContentColumn from './layout/ContentColumn';
 import MediasLoading from './media/MediasLoading';
 import Pusher from 'pusher-js';
+import isEqual from 'lodash.isequal';
 
 const pageSize = 20;
 
@@ -68,6 +69,10 @@ class SearchQueryComponent extends Component {
     }
 
     console.log('SearchQueryComponent rendered');
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return !isEqual(this.state.query, nextState.query);
   }
 
   componentWillMount() {
