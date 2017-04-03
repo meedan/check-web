@@ -110,6 +110,7 @@
     "crossmessaging": "0.2.2",
     "express": "^4.14.0",
     "intl": "^1.2.5",
+    "lodash.isequal": "^4.5.0",
     "lodash.truncate": "^4.4.2",
     "marked": "^0.3.5",
     "material-ui": "^0.16.5",
