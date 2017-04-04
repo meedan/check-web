@@ -67,8 +67,6 @@ class SearchQueryComponent extends Component {
     if (JSON.stringify(this.state.query) === '{}' && !isEqual(this.state.query, query)) {
       this.setState({ query });
     }
-
-    console.log('SearchQueryComponent rendered');
   }
 
   componentWillMount() {
@@ -374,7 +372,6 @@ class SearchResultsComponent extends Component {
   }
 
   render() {
-    console.log('SearchResultsComponent rendered');
     const medias = this.props.search ? this.props.search.medias.edges : [];
     const count = this.props.search ? this.props.search.number_of_results : 0;
     const mediasCount = `${count} ${count === 1 ? this.props.intl.formatMessage(messages.searchResult) : this.props.intl.formatMessage(messages.searchResults)}`;
@@ -507,7 +504,6 @@ class Search extends Component {
   }
 
   render() {
-    console.log('SearchComponent rendered');
     const searchQuery = this.props.query || this.props.params.query;
     const teamSlug = this.props.team || this.props.params.team;
 
