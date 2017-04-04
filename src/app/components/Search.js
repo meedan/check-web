@@ -64,15 +64,11 @@ class SearchQueryComponent extends Component {
     const queryString = window.location.pathname.match(/.*\/(search|project\/[0-9]+)\/(.*)/);
     const query = queryString === null ? {} : queryFromUrlQuery(queryString[2]);
 
-    if (JSON.stringify(this.state.query) === '{}') {
+    if (JSON.stringify(this.state.query) === '{}' && !isEqual(this.state.query, query)) {
       this.setState({ query });
     }
 
     console.log('SearchQueryComponent rendered');
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    return !isEqual(this.state.query, nextState.query);
   }
 
   componentWillMount() {
