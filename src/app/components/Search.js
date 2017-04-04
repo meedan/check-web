@@ -61,10 +61,8 @@ class SearchQueryComponent extends Component {
       context.setContextStore({ project: null });
     }
 
-    const queryString = window.location.pathname.match(/.*\/(search|project\/[0-9]+)\/(.*)/);
-    const query = queryString === null ? {} : queryFromUrlQuery(queryString[2]);
-
-    if (JSON.stringify(this.state.query) === '{}' && !isEqual(this.state.query, query)) {
+    const query = searchQueryFromUrl();
+    if (isEqual(this.state.query, {}) && !isEqual(this.state.query, query)) {
       this.setState({ query });
     }
   }
@@ -102,7 +100,7 @@ class SearchQueryComponent extends Component {
     const urlQuery = this.urlQueryFromQuery(prevState.query);
     const teamSlug = this.props.team.slug;
     const url = this.props.project ? `/${teamSlug}/project/${this.props.project.dbid}/${urlQuery}` : `/${teamSlug}/search/${urlQuery}`;
-    if (url != window.location.pathname) {
+    if (url !== window.location.pathname) {
       this.getContext().getContextStore().history.push(url);
     }
   }
@@ -507,7 +505,7 @@ class Search extends Component {
     const searchQuery = this.props.query || this.props.params.query;
     const teamSlug = this.props.team || this.props.params.team;
 
-    let query = queryFromUrlQuery(searchQuery);
+    let query = searchQueryFromUrlQuery(searchQuery);
     if (!this.noFilters(query)) {
       query.timestamp = new Date().getTime();
     }
@@ -518,7 +516,7 @@ class Search extends Component {
     else {
       query.parent = { type: 'team', slug: teamSlug };
     }
-    
+
     const queryRoute = new TeamRoute({ teamSlug });
     const resultsRoute = new SearchRoute({ query: JSON.stringify(query) });
     const { formatMessage } = this.props.intl;
@@ -558,16 +556,21 @@ class Search extends Component {
   }
 }
 
-function queryFromUrlQuery(urlQuery) {
+Search.propTypes = {
+  intl: intlShape.isRequired,
+};
+
+export function searchQueryFromUrl() {
+  const queryString = window.location.pathname.match(/.*\/(search|project\/[0-9]+)\/(.*)/);
+  return queryString ? searchQueryFromUrlQuery(queryString[2]) : {};
+}
+
+export function searchQueryFromUrlQuery(urlQuery) {
   try {
     return JSON.parse(decodeURIComponent(urlQuery));
   } catch (e) {
     return {};
   }
 }
-
-Search.propTypes = {
-  intl: intlShape.isRequired,
-};
 
 export default injectIntl(Search);

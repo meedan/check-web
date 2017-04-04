@@ -5,6 +5,8 @@ import CreateTagMutation from '../../relay/CreateTagMutation';
 import DeleteTagMutation from '../../relay/DeleteTagMutation';
 import Tags from '../source/Tags';
 import CheckContext from '../../CheckContext';
+import { Link } from 'react-router';
+import { searchQueryFromUrl } from '../Search';
 
 const messages = defineMessages({
   loading: {
@@ -92,6 +94,16 @@ class MediaTags extends Component {
     );
   }
 
+  searchTagUrl(tagString) {
+    const { media } = this.props;
+    const tagQuery = {
+      tags: [ tagString ]
+    };
+    const searchQuery = searchQueryFromUrl();
+    const query = encodeURIComponent(JSON.stringify(Object.assign({}, searchQuery, tagQuery)));
+    return `/${media.team.slug}/search/${query}`;
+  }
+
   render() {
     const { media, tags } = this.props;
     const suggestedTags = (media.team && media.team.get_suggested_tags) ? media.team.get_suggested_tags.split(',') : [];
@@ -108,7 +120,7 @@ class MediaTags extends Component {
           ) : null}
           <ul className="media-tags__list">
             {media.language ? <li className="media-tags__tag">{`source:${media.language}`}</li> : null}
-            {remainingTags.map(tag => (<li className="media-tags__tag">{tag.node.tag.replace(/^#/, '')}</li>))}
+            {remainingTags.map(tag => (<li className="media-tags__tag"><Link to={this.searchTagUrl.bind(this, tag.node.tag)}>{tag.node.tag.replace(/^#/, '')}</Link></li>))}
           </ul>
         </div>
       );
