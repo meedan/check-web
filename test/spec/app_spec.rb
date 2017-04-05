@@ -1073,7 +1073,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       create_claim_and_go_to_search_page
       expect((@driver.current_url.to_s.match(/project/)).nil?).to be(true)
       @driver.find_element(:xpath, "//li[contains(text(), 'Project')]").click
-      sleep 3
+      sleep 5
       expect((@driver.current_url.to_s.match(/project/)).nil?).to be(false)
       expect((@driver.title =~ /Project/).nil?).to be(false)
       expect(@driver.page_source.include?('My search result')).to be(true)
