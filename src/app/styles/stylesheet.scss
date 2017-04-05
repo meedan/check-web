@@ -75,8 +75,12 @@ body {
   width: 100%;
   overflow-x: hidden;
   cursor: default;
-  background: $opaque-black-02;
   word-break: break-all;
+}
+
+#root,
+#root > div {
+  background: $opaque-black-02;
 }
 
 .hidden {

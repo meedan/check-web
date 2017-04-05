@@ -1054,5 +1054,102 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect((title2 =~ /Random/).nil?).to be(false)
       expect(title1 != title2).to be(true)
     end
+
+    it "should search by status" do
+      create_claim_and_go_to_search_page
+      @driver.find_element(:xpath, "//*[contains(text(), 'Inconclusive')]").click
+      sleep 3
+      expect((@driver.title =~ /Inconclusive/).nil?).to be(false)
+      expect((@driver.current_url.to_s.match(/not_applicable/)).nil?).to be(false)
+      expect(@driver.page_source.include?('My search result')).to be(false)
+      @driver.find_element(:xpath, "//*[contains(text(), 'Unstarted')]").click
+      sleep 3
+      expect((@driver.title =~ /Unstarted/).nil?).to be(false)
+      expect((@driver.current_url.to_s.match(/undetermined/)).nil?).to be(false)
+      expect(@driver.page_source.include?('My search result')).to be(true)
+    end
+
+    it "should search by project" do
+      create_claim_and_go_to_search_page
+      expect((@driver.current_url.to_s.match(/project/)).nil?).to be(true)
+      @driver.find_element(:xpath, "//li[contains(text(), 'Project')]").click
+      sleep 5
+      expect((@driver.current_url.to_s.match(/project/)).nil?).to be(false)
+      expect((@driver.title =~ /Project/).nil?).to be(false)
+      @driver.find_element(:xpath, "//li[contains(text(), 'Project')]").click
+      sleep 3
+      expect((@driver.title =~ /Project/).nil?).to be(true)
+    end
+
+    it "should search and change sort criteria" do
+      create_claim_and_go_to_search_page
+      expect((@driver.current_url.to_s.match(/recent_activity/)).nil?).to be(true)
+
+      @driver.find_element(:xpath, "//span[contains(text(), 'Recent activity')]").click
+      sleep 3
+      expect((@driver.current_url.to_s.match(/recent_activity/)).nil?).to be(false)
+      expect((@driver.current_url.to_s.match(/recent_added/)).nil?).to be(true)
+      expect(@driver.page_source.include?('My search result')).to be(true)
+      
+      @driver.find_element(:xpath, "//span[contains(text(), 'Created')]").click
+      sleep 3
+      expect((@driver.current_url.to_s.match(/recent_activity/)).nil?).to be(true)
+      expect((@driver.current_url.to_s.match(/recent_added/)).nil?).to be(false)
+      expect(@driver.page_source.include?('My search result')).to be(true)
+    end
+
+    it "should search and change sort order" do
+      create_claim_and_go_to_search_page
+      expect((@driver.current_url.to_s.match(/ASC|DESC/)).nil?).to be(true)
+
+      @driver.find_element(:xpath, "//span[contains(text(), 'Newest')]").click
+      sleep 3
+      expect((@driver.current_url.to_s.match(/DESC/)).nil?).to be(false)
+      expect((@driver.current_url.to_s.match(/ASC/)).nil?).to be(true)
+      expect(@driver.page_source.include?('My search result')).to be(true)
+      
+      @driver.find_element(:xpath, "//span[contains(text(), 'Oldest')]").click
+      sleep 3
+      expect((@driver.current_url.to_s.match(/DESC/)).nil?).to be(true)
+      expect((@driver.current_url.to_s.match(/ASC/)).nil?).to be(false)
+      expect(@driver.page_source.include?('My search result')).to be(true)
+    end
+
+    it "should search by status through URL" do
+      create_claim_and_go_to_search_page
+      @driver.navigate.to @config['self_url'] + '/' + get_team + '/search/%7B"status"%3A%5B"false"%5D%7D'
+      sleep 3
+      expect((@driver.title =~ /False/).nil?).to be(false)
+      expect(@driver.page_source.include?('My search result')).to be(false)
+      selected = @driver.find_elements(:css, '.media-tags__suggestion--selected').map(&:text).sort
+      expect(selected == ['False', 'Created', 'Newest first'].sort).to be(true)
+    end
+
+    it "should search by project through URL" do
+      create_claim_and_go_to_search_page
+      @driver.navigate.to @config['self_url'] + '/' + get_team + '/search/%7B"projects"%3A%5B0%5D%7D'
+      sleep 3
+      expect(@driver.page_source.include?('My search result')).to be(false)
+      selected = @driver.find_elements(:css, '.media-tags__suggestion--selected')
+      expect(selected.size == 2).to be(true)
+    end
+
+    it "should change search sort criteria through URL" do
+      create_claim_and_go_to_search_page
+      @driver.navigate.to @config['self_url'] + '/' + get_team + '/search/%7B"sort"%3A"recent_activity"%7D'
+      sleep 3
+      expect(@driver.page_source.include?('My search result')).to be(true)
+      selected = @driver.find_elements(:css, '.media-tags__suggestion--selected').map(&:text).sort
+      expect(selected == ['Recent activity', 'Newest first'].sort).to be(true)
+    end
+
+    it "should change search sort order through URL" do
+      create_claim_and_go_to_search_page
+      @driver.navigate.to @config['self_url'] + '/' + get_team + '/search/%7B"sort_type"%3A"ASC"%7D'
+      sleep 3
+      expect(@driver.page_source.include?('My search result')).to be(true)
+      selected = @driver.find_elements(:css, '.media-tags__suggestion--selected').map(&:text).sort
+      expect(selected == ['Created', 'Oldest first'].sort).to be(true)
+    end
   end
 end

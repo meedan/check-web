@@ -483,7 +483,7 @@ class Search extends Component {
   noFilters(query) {
     delete query.timestamp;
     delete query.parent;
-    if (query.projects && (query.projects.length === 0 || (query.projects.length === 1 && query.projects[0] === this.props.project.dbid))) {
+    if (query.projects && (query.projects.length === 0 || (this.props.project && query.projects.length === 1 && query.projects[0] === this.props.project.dbid))) {
       delete query.projects;
     }
     if (query.status && query.status.length === 0) {
