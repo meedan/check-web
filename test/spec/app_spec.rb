@@ -1076,11 +1076,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 5
       expect((@driver.current_url.to_s.match(/project/)).nil?).to be(false)
       expect((@driver.title =~ /Project/).nil?).to be(false)
-      expect(@driver.page_source.include?('My search result')).to be(true)
       @driver.find_element(:xpath, "//li[contains(text(), 'Project')]").click
       sleep 3
       expect((@driver.title =~ /Project/).nil?).to be(true)
-      expect(@driver.page_source.include?('My search result')).to be(true)
     end
 
     it "should search and change sort criteria" do
