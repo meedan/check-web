@@ -8,6 +8,7 @@ import CheckContext from '../../CheckContext';
 import { Link } from 'react-router';
 import { searchQueryFromUrl, urlQueryFromSearchQuery } from '../Search';
 import mergeWith from 'lodash.mergewith';
+import xor from 'lodash.xor';
 
 const messages = defineMessages({
   loading: {
@@ -105,8 +106,8 @@ class MediaTags extends Component {
     // Make a new query combining the current tag with whatever query is already in the URL.
     // This allows to support clicking tags on the search and project pages.
     const query = urlQueryFromSearchQuery(mergeWith({}, searchQuery, tagQuery, function (objValue, srcValue) {
-      if (Array.isArray(objValue) && objValue.indexOf(srcValue) < 0) {
-        return objValue.concat(srcValue);
+      if (Array.isArray(objValue)) {
+        return xor(objValue, srcValue);
       }
     }));
 

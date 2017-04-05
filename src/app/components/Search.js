@@ -13,7 +13,6 @@ import { pageTitle, getStatusStyle } from '../helpers';
 import CheckContext from '../CheckContext';
 import ContentColumn from './layout/ContentColumn';
 import MediasLoading from './media/MediasLoading';
-import Pusher from 'pusher-js';
 import isEqual from 'lodash.isequal';
 
 const pageSize = 20;
@@ -51,26 +50,14 @@ class SearchQueryComponent extends Component {
     return context;
   }
 
-  setQueryFromUrl() {
+  componentWillMount() {
     const context = this.getContext();
     if (context.getContextStore().project && /\/search/.test(window.location.pathname)) {
       context.setContextStore({ project: null });
     }
 
     const query = searchQueryFromUrl();
-    if (isEqual(this.state.query, {}) && !isEqual(this.state.query, query)) {
-      this.setState({ query });
-    }
-  }
-
-  componentWillMount() {
-    this.setQueryFromUrl();
-  }
-
-  componentWillUpdate(nextProps, nextState) {
-    if (!isEqual(this.state.query, nextState.query)) {
-      this.setQueryFromUrl();
-    }
+    this.setState({ query });
   }
 
   componentDidMount() {
@@ -79,16 +66,26 @@ class SearchQueryComponent extends Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    const query = searchQueryFromUrl();
+    if (!isEqual(this.state.query, query)) {
+      this.setState({ query });
+    }
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    const query = searchQueryFromUrl();
+    return !isEqual(this.state.query, nextState.query) || !isEqual(this.state.query, query);
+  }
+
   componentDidUpdate(prevProps, prevState) {
-    if (!isEqual(this.state.query, prevState.query)) return;
+    const query = searchQueryFromUrl();
+    if (isEqual(this.state.query, query)) return;
 
     const urlQuery = urlQueryFromSearchQuery(prevState.query);
     const queryPath = urlQuery ? `/${urlQuery}` : '';
-    const teamSlug = this.props.team.slug;
-    const url = this.props.project ? `/${teamSlug}/project/${this.props.project.dbid}${queryPath}` : `/${teamSlug}/search${queryPath}`;
-    if (url !== window.location.pathname) {
-      this.getContext().getContextStore().history.push(url);
-    }
+    const url = this.props.project ? `/${this.props.team.slug}/project/${this.props.project.dbid}${queryPath}` : `/${this.props.team.slug}/search${queryPath}`;
+    this.getContext().getContextStore().history.push(url);
   }
 
   handleSubmit(e) {
