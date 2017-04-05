@@ -31,13 +31,9 @@ const messages = defineMessages({
     id: 'search.inputHint',
     defaultMessage: 'Search',
   },
-  searchResult: {
-    id: 'search.result',
-    defaultMessage: 'Result',
-  },
   searchResults: {
     id: 'search.results',
-    defaultMessage: 'Results',
+    defaultMessage: '{resultsCount, plural, =0 {No results} one {1 result} other {# results}}'
   },
 });
 
@@ -72,12 +68,26 @@ class SearchQueryComponent extends Component {
   }
 
   componentWillUpdate(nextProps, nextState) {
-    this.setQueryFromUrl();
+    if (!isEqual(this.state.query, nextState.query)) {
+      this.setQueryFromUrl();
+    }
   }
 
   componentDidMount() {
     if (this.searchQueryInput) {
       this.searchQueryInput.focus();
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (!isEqual(this.state.query, prevState.query)) return;
+
+    const urlQuery = urlQueryFromSearchQuery(prevState.query);
+    const queryPath = urlQuery ? `/${urlQuery}` : '';
+    const teamSlug = this.props.team.slug;
+    const url = this.props.project ? `/${teamSlug}/project/${this.props.project.dbid}${queryPath}` : `/${teamSlug}/search${queryPath}`;
+    if (url !== window.location.pathname) {
+      this.getContext().getContextStore().history.push(url);
     }
   }
 
@@ -90,19 +100,6 @@ class SearchQueryComponent extends Component {
       state.query.keyword = keywordInput;
       return { query: state.query };
     });
-  }
-
-  urlQueryFromQuery(query) {
-    return encodeURIComponent(JSON.stringify(query));
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    const urlQuery = this.urlQueryFromQuery(prevState.query);
-    const teamSlug = this.props.team.slug;
-    const url = this.props.project ? `/${teamSlug}/project/${this.props.project.dbid}/${urlQuery}` : `/${teamSlug}/search/${urlQuery}`;
-    if (url !== window.location.pathname) {
-      this.getContext().getContextStore().history.push(url);
-    }
   }
 
   statusIsSelected(statusCode, state = this.state) {
@@ -136,6 +133,7 @@ class SearchQueryComponent extends Component {
 
       if (statusIsSelected) {
         selectedStatuses.splice(selectedStatuses.indexOf(statusCode), 1); // remove from array
+        if (!selectedStatuses.length) delete state.query.status;
       } else {
         state.query.status = selectedStatuses.concat(statusCode);
       }
@@ -152,6 +150,7 @@ class SearchQueryComponent extends Component {
 
       if (projectIsSelected) {
         selectedProjects.splice(selectedProjects.indexOf(projectId), 1);
+        if (!selectedProjects.length) delete state.query.projects;
       } else {
         state.query.projects = selectedProjects.concat(projectId);
       }
@@ -168,6 +167,7 @@ class SearchQueryComponent extends Component {
 
       if (tagIsSelected) {
         selectedTags.splice(selectedTags.indexOf(tag), 1); // remove from array
+        if (!selectedTags.legnth) delete state.query.tags;
       } else {
         state.query.tags = selectedTags.concat(tag);
       }
@@ -372,7 +372,7 @@ class SearchResultsComponent extends Component {
   render() {
     const medias = this.props.search ? this.props.search.medias.edges : [];
     const count = this.props.search ? this.props.search.number_of_results : 0;
-    const mediasCount = `${count} ${count === 1 ? this.props.intl.formatMessage(messages.searchResult) : this.props.intl.formatMessage(messages.searchResults)}`;
+    const mediasCount = this.props.intl.formatMessage(messages.searchResults, { resultsCount: count });
     const title = /\/project\//.test(window.location.pathname) ? '' : mediasCount;
     const that = this;
 
@@ -571,6 +571,10 @@ export function searchQueryFromUrlQuery(urlQuery) {
   } catch (e) {
     return {};
   }
+}
+
+export function urlQueryFromSearchQuery(query) {
+  return isEqual(query, {}) ? '' : encodeURIComponent(JSON.stringify(query));
 }
 
 export default injectIntl(Search);

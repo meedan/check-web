@@ -12,12 +12,8 @@
     "defaultMessage": "Search"
   },
   {
-    "id": "search.result",
-    "defaultMessage": "Result"
-  },
-  {
     "id": "search.results",
-    "defaultMessage": "Results"
+    "defaultMessage": "{resultsCount, plural, =0 {No results} one {1 result} other {# results}}"
   },
   {
     "id": "search.filtersHeading",
