@@ -13,7 +13,6 @@ import { pageTitle, getStatusStyle } from '../helpers';
 import CheckContext from '../CheckContext';
 import ContentColumn from './layout/ContentColumn';
 import MediasLoading from './media/MediasLoading';
-import Pusher from 'pusher-js';
 import isEqual from 'lodash.isequal';
 
 const pageSize = 20;
@@ -31,13 +30,9 @@ const messages = defineMessages({
     id: 'search.inputHint',
     defaultMessage: 'Search',
   },
-  searchResult: {
-    id: 'search.result',
-    defaultMessage: 'Result',
-  },
   searchResults: {
     id: 'search.results',
-    defaultMessage: 'Results',
+    defaultMessage: '{resultsCount, plural, =0 {No results} one {1 result} other {# results}}'
   },
 });
 
@@ -55,32 +50,42 @@ class SearchQueryComponent extends Component {
     return context;
   }
 
-  setQueryFromUrl() {
+  componentWillMount() {
     const context = this.getContext();
     if (context.getContextStore().project && /\/search/.test(window.location.pathname)) {
       context.setContextStore({ project: null });
     }
 
-    const queryString = window.location.pathname.match(/.*\/(search|project\/[0-9]+)\/(.*)/);
-    const query = queryString === null ? {} : queryFromUrlQuery(queryString[2]);
-
-    if (JSON.stringify(this.state.query) === '{}' && !isEqual(this.state.query, query)) {
-      this.setState({ query });
-    }
-  }
-
-  componentWillMount() {
-    this.setQueryFromUrl();
-  }
-
-  componentWillUpdate(nextProps, nextState) {
-    this.setQueryFromUrl();
+    const query = searchQueryFromUrl();
+    this.setState({ query });
   }
 
   componentDidMount() {
     if (this.searchQueryInput) {
       this.searchQueryInput.focus();
     }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const query = searchQueryFromUrl();
+    if (!isEqual(this.state.query, query)) {
+      this.setState({ query });
+    }
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    const query = searchQueryFromUrl();
+    return !isEqual(this.state.query, nextState.query) || !isEqual(this.state.query, query);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const query = searchQueryFromUrl();
+    if (isEqual(this.state.query, query)) return;
+
+    const urlQuery = urlQueryFromSearchQuery(prevState.query);
+    const queryPath = urlQuery ? `/${urlQuery}` : '';
+    const url = this.props.project ? `/${this.props.team.slug}/project/${this.props.project.dbid}${queryPath}` : `/${this.props.team.slug}/search${queryPath}`;
+    this.getContext().getContextStore().history.push(url);
   }
 
   handleSubmit(e) {
@@ -92,19 +97,6 @@ class SearchQueryComponent extends Component {
       state.query.keyword = keywordInput;
       return { query: state.query };
     });
-  }
-
-  urlQueryFromQuery(query) {
-    return encodeURIComponent(JSON.stringify(query));
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    const urlQuery = this.urlQueryFromQuery(prevState.query);
-    const teamSlug = this.props.team.slug;
-    const url = this.props.project ? `/${teamSlug}/project/${this.props.project.dbid}/${urlQuery}` : `/${teamSlug}/search/${urlQuery}`;
-    if (url != window.location.pathname) {
-      this.getContext().getContextStore().history.push(url);
-    }
   }
 
   statusIsSelected(statusCode, state = this.state) {
@@ -138,6 +130,7 @@ class SearchQueryComponent extends Component {
 
       if (statusIsSelected) {
         selectedStatuses.splice(selectedStatuses.indexOf(statusCode), 1); // remove from array
+        if (!selectedStatuses.length) delete state.query.status;
       } else {
         state.query.status = selectedStatuses.concat(statusCode);
       }
@@ -154,6 +147,7 @@ class SearchQueryComponent extends Component {
 
       if (projectIsSelected) {
         selectedProjects.splice(selectedProjects.indexOf(projectId), 1);
+        if (!selectedProjects.length) delete state.query.projects;
       } else {
         state.query.projects = selectedProjects.concat(projectId);
       }
@@ -170,6 +164,7 @@ class SearchQueryComponent extends Component {
 
       if (tagIsSelected) {
         selectedTags.splice(selectedTags.indexOf(tag), 1); // remove from array
+        if (!selectedTags.legnth) delete state.query.tags;
       } else {
         state.query.tags = selectedTags.concat(tag);
       }
@@ -374,7 +369,7 @@ class SearchResultsComponent extends Component {
   render() {
     const medias = this.props.search ? this.props.search.medias.edges : [];
     const count = this.props.search ? this.props.search.number_of_results : 0;
-    const mediasCount = `${count} ${count === 1 ? this.props.intl.formatMessage(messages.searchResult) : this.props.intl.formatMessage(messages.searchResults)}`;
+    const mediasCount = this.props.intl.formatMessage(messages.searchResults, { resultsCount: count });
     const title = /\/project\//.test(window.location.pathname) ? '' : mediasCount;
     const that = this;
 
@@ -485,7 +480,7 @@ class Search extends Component {
   noFilters(query) {
     delete query.timestamp;
     delete query.parent;
-    if (query.projects && (query.projects.length === 0 || (query.projects.length === 1 && query.projects[0] === this.props.project.dbid))) {
+    if (query.projects && (query.projects.length === 0 || (this.props.project && query.projects.length === 1 && query.projects[0] === this.props.project.dbid))) {
       delete query.projects;
     }
     if (query.status && query.status.length === 0) {
@@ -507,7 +502,7 @@ class Search extends Component {
     const searchQuery = this.props.query || this.props.params.query;
     const teamSlug = this.props.team || this.props.params.team;
 
-    let query = queryFromUrlQuery(searchQuery);
+    let query = searchQueryFromUrlQuery(searchQuery);
     if (!this.noFilters(query)) {
       query.timestamp = new Date().getTime();
     }
@@ -518,7 +513,7 @@ class Search extends Component {
     else {
       query.parent = { type: 'team', slug: teamSlug };
     }
-    
+
     const queryRoute = new TeamRoute({ teamSlug });
     const resultsRoute = new SearchRoute({ query: JSON.stringify(query) });
     const { formatMessage } = this.props.intl;
@@ -558,7 +553,16 @@ class Search extends Component {
   }
 }
 
-function queryFromUrlQuery(urlQuery) {
+Search.propTypes = {
+  intl: intlShape.isRequired,
+};
+
+export function searchQueryFromUrl() {
+  const queryString = window.location.pathname.match(/.*\/(search|project\/[0-9]+)\/(.*)/);
+  return queryString ? searchQueryFromUrlQuery(queryString[2]) : {};
+}
+
+export function searchQueryFromUrlQuery(urlQuery) {
   try {
     return JSON.parse(decodeURIComponent(urlQuery));
   } catch (e) {
@@ -566,8 +570,8 @@ function queryFromUrlQuery(urlQuery) {
   }
 }
 
-Search.propTypes = {
-  intl: intlShape.isRequired,
-};
+export function urlQueryFromSearchQuery(query) {
+  return isEqual(query, {}) ? '' : encodeURIComponent(JSON.stringify(query));
+}
 
 export default injectIntl(Search);

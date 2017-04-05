@@ -204,4 +204,16 @@ module AppSpecHelpers
     uri.query = URI.encode_www_form(params)
     Net::HTTP.get_response(uri)
   end
+
+  def create_claim_and_go_to_search_page
+    page = LoginPage.new(config: @config, driver: @driver).load
+        .login_with_email(email: @email, password: @password)
+        .create_media(input: 'My search result')
+
+    sleep 8 # wait for Sidekiq
+
+    @driver.navigate.to @config['self_url'] + '/' + get_team + '/search'
+    sleep 3
+    expect(@driver.page_source.include?('My search result')).to be(true)
+  end
 end

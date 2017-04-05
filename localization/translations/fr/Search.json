@@ -2,15 +2,14 @@
   "search.title": "Recherche",
   "search.loading": "En chargement...",
   "search.inputHint": "Recherche",
-  "search.result": "résultat",
-  "search.results": "résultats",
+  "search.results": "{resultsCount, plural, =0 {Aucun résultat} one {1 résultat} other {# résultats}}",
   "search.filtersHeading": "Filtres",
   "search.statusHeading": "Statut",
   "search.projectHeading": "Projet",
   "status.categoriesHeading": "Catégories",
   "search.sort": "Trier",
-  "search.sortByCreated": "Créé",
-  "search.sortByRecentActivity": "Activité récente",
+  "search.sortByCreated": "Création",
+  "search.sortByRecentActivity": "Activité",
   "search.sortByNewest": "Les plus récents d'abord",
   "search.sortByOldest": "Les plus anciens d'abord"
 }

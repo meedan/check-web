@@ -1,5 +1,5 @@
 import { defineMessages } from 'react-intl';
-import { truncate } from '../../helpers';
+import { truncateLength } from '../../helpers';
 
 const messages = defineMessages({
   notesCount: {
@@ -160,7 +160,7 @@ const MediaUtil = {
 
   title(media, data, intl) {
     if (data && data.title && data.title.trim().length) {
-      return truncate(data.title);
+      return truncateLength(data.title);
     }
 
     let typeLabel = null;
@@ -183,7 +183,7 @@ const MediaUtil = {
   },
 
   truncatedTitle(media, data, intl) {
-    return truncate(this.title(media, data, intl));
+    return truncateLength(this.title(media, data, intl));
   },
 
   // Return a text fragment "X notes" with proper pluralization.
