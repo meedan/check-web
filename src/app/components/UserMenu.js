@@ -9,7 +9,7 @@ class UserMenu extends Component {
     const me = this.props.me;
     if (me) {
       return (<span className="current-user provider-{{me.provider}}">
-        <Avatar src={me.profile_image} size="32" className="avatar" />
+        <Avatar src={me.profile_image} size={32} className="avatar" />
         <FlatButton id="user-name" label={me.name} disabled style={{ color: 'rgba(0, 0, 0, 0.870588)' }} />
       </span>);
     }

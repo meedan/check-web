@@ -4,6 +4,10 @@ import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import ReactGA from 'react-ga';
 import { IntlProvider, addLocaleData } from 'react-intl';
+import ar from 'react-intl/locale-data/ar';
+import en from 'react-intl/locale-data/en';
+import fr from 'react-intl/locale-data/fr';
+import pt from 'react-intl/locale-data/pt';
 import App from './App';
 import {
   RootLocale,
@@ -59,8 +63,13 @@ if (!global.Intl) {
 }
 
 try {
-  const localeData = require(`react-intl/locale-data/${locale}`);
-  addLocaleData([...localeData]);
+  const localeData = {
+    'en': en,
+    'fr': fr,
+    'ar': ar,
+    'pt': pt
+  };
+  addLocaleData([...localeData[locale]]);
 } catch (e) {
   locale = 'en';
 }
@@ -144,8 +153,8 @@ export default class Root extends Component {
                 <Route path=":team/project/:projectId/media/:mediaId" component={ProjectMedia} />
                 <Route path=":team/join" component={JoinTeam} />
                 <Route path=":team/members" component={TeamMembers} />
-                <Route path=":team/project/:projectId" component={Project} />
                 <Route path=":team/project/:projectId/edit" component={ProjectEdit} />
+                <Route path=":team/project/:projectId(/:query)" component={Project} />
                 <Route path=":team/search(/:query)" component={Search} />
                 <Route path=":team" component={Team} />
 

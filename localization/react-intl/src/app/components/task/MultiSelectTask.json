@@ -1,0 +1,50 @@
+[
+  {
+    "id": "multiSelectTask.addValue",
+    "defaultMessage": "Add Value"
+  },
+  {
+    "id": "multiSelectTask.value",
+    "defaultMessage": "Value"
+  },
+  {
+    "id": "multiSelectTask.addOther",
+    "defaultMessage": "Add \"Other\""
+  },
+  {
+    "id": "multiSelectTask.other",
+    "defaultMessage": "Other"
+  },
+  {
+    "id": "tasks.cancelAdd",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "tasks.add",
+    "defaultMessage": "Add"
+  },
+  {
+    "id": "tasks.taskPrompt",
+    "defaultMessage": "Prompt"
+  },
+  {
+    "id": "tasks.description",
+    "defaultMessage": "Description"
+  },
+  {
+    "id": "tasks.addDescription",
+    "defaultMessage": "Add a description"
+  },
+  {
+    "id": "tasks.cancelEdit",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "tasks.submit",
+    "defaultMessage": "Submit"
+  },
+  {
+    "id": "task.noteLabel",
+    "defaultMessage": "Note any additional details here."
+  }
+]

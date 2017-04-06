@@ -12,7 +12,7 @@ import { getStatus, getStatusStyle } from '../../helpers';
 import Lightbox from 'react-image-lightbox';
 import { Card, CardText } from 'material-ui/Card';
 import MenuButton from '../MenuButton';
-import { MdImage } from 'react-icons/lib/md';
+import MdImage from 'react-icons/lib/md/image';
 import ParsedText from '../ParsedText';
 
 const messages = defineMessages({
@@ -28,6 +28,10 @@ const messages = defineMessages({
     id: 'annotation.reverseImageTooltip',
     defaultMessage: 'Search Google for potential duplicates on the web.',
   },
+  and: {
+    id: 'annotation.and',
+    defaultMessage: 'and'
+  }
 });
 
 class Annotation extends Component {
@@ -57,7 +61,6 @@ class Annotation extends Component {
           message = json.error;
         }
       } catch (e) { }
-      window.alert(message);
     };
 
     const onSuccess = (response) => {
@@ -191,11 +194,22 @@ class Annotation extends Component {
       break;
     case 'create_dynamicannotationfield': case 'update_dynamicannotationfield':
       if (/^response_/.test(object.field_name) && activity.task) {
+        const format_response = (type) => {
+          if (type === 'multiple_choice') {
+            const response_obj = JSON.parse(object.value);
+            let selected_array = response_obj.selected || [];
+            if (response_obj.other) { selected_array.push(response_obj.other) }
+            const last_item = selected_array.length > 1 ? ' ' + this.props.intl.formatMessage(messages.and) + ' ' + selected_array.splice(-1, 1) : '';
+            return (selected_array.join(', ') + last_item);
+          } else {
+            return (<ParsedText text={object.value} />);
+          }
+        };
         contentTemplate = (<span className="// annotation__task-resolved">
           <FormattedMessage
             id="annotation.taskResolve"
             defaultMessage={'Task "{task}" answered by {author}: "{response}"'}
-            values={{ task: activity.task.label, author: authorName, response: <ParsedText text={object.value} /> }}
+            values={{ task: activity.task.label, author: authorName, response: format_response(activity.task.type) }}
           />
         </span>);
       }

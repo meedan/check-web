@@ -50,7 +50,7 @@
   &--current {
     color: $black-87;
     font-weight: 500;
-    border-right: 0;
+    border-#{$to-direction}: 0;
     border-top-#{$from-direction}-radius: 3px;
     border-bottom-#{$from-direction}-radius: 3px;
   }

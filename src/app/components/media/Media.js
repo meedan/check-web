@@ -126,7 +126,8 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
               task {
                 id,
                 dbid,
-                label
+                label,
+                type
               }
               annotation {
                 id,
@@ -193,16 +194,16 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
           slug
         }
       }
-    `,
+`,
   },
 });
 
 class ProjectMedia extends Component {
   render() {
     let projectId = this.props.params.projectId || 0;
+    const context = new CheckContext(this);
+    context.setContext();
     if (projectId === 0) {
-      const context = new CheckContext(this);
-      context.setContext();
       const store = context.getContextStore();
       if (store.project) {
         projectId = store.project.dbid;

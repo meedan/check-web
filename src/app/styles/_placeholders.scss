@@ -13,6 +13,11 @@
   color: $black-54;
 }
 
+%ellipsis {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
 
 %icon {
   cursor: pointer;

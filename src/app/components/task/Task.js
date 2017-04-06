@@ -1,9 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 import { Card, CardText } from 'material-ui/Card';
+import Checkbox from 'material-ui/Checkbox';
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 import TextField from 'material-ui/TextField';
 import { blue500 } from 'material-ui/styles/colors';
+import MultiSelectTask from './MultiSelectTask';
 import Message from '../Message';
 import UpdateTaskMutation from '../../relay/UpdateTaskMutation';
 import UpdateDynamicMutation from '../../relay/UpdateDynamicMutation';
@@ -14,7 +16,8 @@ import FlatButton from 'material-ui/FlatButton';
 import Can from '../Can';
 import MdMoreHoriz from 'react-icons/lib/md/more-horiz';
 import MdInfoOutline from 'react-icons/lib/md/info-outline';
-import { MdRadioButtonChecked, MdRadioButtonUnchecked } from 'react-icons/lib/md';
+import MdRadioButtonChecked from 'react-icons/lib/md/radio-button-checked';
+import MdRadioButtonUnchecked from 'react-icons/lib/md/radio-button-unchecked';
 import Tooltip from 'rc-tooltip';
 import 'rc-tooltip/assets/bootstrap.css';
 import Truncate from 'react-truncate';
@@ -79,6 +82,49 @@ class Task extends Component {
     fields[`note_${task.type}`] = form.note ? form.note.value : '';
     fields[`task_${task.type}`] = task.dbid;
 
+    if (!that.state.taskAnswerDisabled){
+      Relay.Store.commitUpdate(
+        new UpdateTaskMutation({
+          annotated: that.props.media,
+          task: {
+            id: task.id,
+            fields,
+            annotation_type: `task_response_${task.type}`,
+          },
+        }),
+        { onSuccess, onFailure },
+      );
+      that.setState({ taskAnswerDisabled: true });
+    }
+
+    e.preventDefault();
+  }
+
+  handleSubmitWithArgs(response, note) {
+    const that = this;
+    const task = this.props.task;
+
+    const onFailure = (transaction) => {
+      const error = transaction.getError();
+      let message = error.source;
+      try {
+        const json = JSON.parse(error.source);
+        if (json.error) {
+          message = json.error;
+        }
+      } catch (e) { }
+      that.setState({ message });
+    };
+
+    const onSuccess = (response) => {
+      that.setState({ message: null });
+    };
+
+    const fields = {};
+    fields[`response_${task.type}`] = response;
+    fields[`note_${task.type}`] = note;
+    fields[`task_${task.type}`] = task.dbid;
+
     Relay.Store.commitUpdate(
       new UpdateTaskMutation({
         annotated: that.props.media,
@@ -90,13 +136,11 @@ class Task extends Component {
       }),
       { onSuccess, onFailure },
     );
-
-    e.preventDefault();
   }
 
   handleKeyPress(e) {
     if (e.key === 'Enter' && !e.shiftKey) {
-      if (this.canSubmit()) {
+      if (this.canSubmit(e.target.value)) {
         this.setState({ taskAnswerDisabled: true });
         this.handleSubmit(e);
       }
@@ -105,7 +149,7 @@ class Task extends Component {
   }
 
   handleChange(e) {
-    this.setState({ taskAnswerDisabled: !this.canSubmit() });
+    this.setState({ taskAnswerDisabled: !this.canSubmit(e.target.value) });
   }
 
   handleEdit() {
@@ -176,7 +220,7 @@ class Task extends Component {
 
   handleKeyPressUpdate(e) {
     if (e.key === 'Enter' && !e.shiftKey) {
-      if (this.canSubmit()) {
+      if (this.canSubmit(e.target.value)) {
         this.setState({ taskAnswerDisabled: true });
         this.handleSubmitUpdate(e);
       }
@@ -209,6 +253,47 @@ class Task extends Component {
     fields[`response_${task.type}`] = this.state.response || form.editedresponse.value;
     fields[`note_${task.type}`] = form.editednote ? form.editednote.value : '';
 
+    if (!that.state.taskAnswerDisabled){
+      Relay.Store.commitUpdate(
+        new UpdateDynamicMutation({
+          annotated: that.props.media,
+          dynamic: {
+            id: task.first_response.id,
+            fields,
+          },
+        }),
+        { onSuccess, onFailure },
+      );
+      that.setState({ taskAnswerDisabled: true });
+    }
+
+    e.preventDefault();
+  }
+
+  handleSubmitUpdateWithArgs(edited_response, edited_note) {
+    const that = this;
+    const task = this.props.task;
+
+    const onFailure = (transaction) => {
+      const error = transaction.getError();
+      let message = error.source;
+      try {
+        const json = JSON.parse(error.source);
+        if (json.error) {
+          message = json.error;
+        }
+      } catch (e) { }
+      that.setState({ message });
+    };
+
+    const onSuccess = (response) => {
+      that.setState({ message: null, editingResponse: false });
+    };
+
+    const fields = {};
+    fields[`response_${task.type}`] = edited_response;
+    fields[`note_${task.type}`] = edited_note;
+
     Relay.Store.commitUpdate(
       new UpdateDynamicMutation({
         annotated: that.props.media,
@@ -219,8 +304,6 @@ class Task extends Component {
       }),
       { onSuccess, onFailure },
     );
-
-    e.preventDefault();
   }
 
   toggleMenu() {
@@ -287,8 +370,8 @@ class Task extends Component {
       const responseOther = ((typeof this.state.responseOther === 'undefined' || this.state.responseOther === null) && (responseIndex < 0)) ? response : this.state.responseOther;
 
       if (task.type === 'single_choice') {
-        return (<div>
-          <RadioButtonGroup name={formName} className="task__radio-group" onChange={this.handleSelectRadio.bind(this)} valueSelected={this.state.response || response}>
+        return (<div className="task__options">
+          <RadioButtonGroup name={formName} onChange={this.handleSelectRadio.bind(this)} valueSelected={this.state.response || response}>
             { options.map( (item, index) => <RadioButton label={item.label} id={index.toString()} value={item.label} style={{ padding: '5px' }} disabled={!editable}/>) }
           </RadioButtonGroup>
           { other ? <TextField
@@ -313,8 +396,6 @@ class Task extends Component {
           }
           { (this.state.focus && editable) || this.state.editingResponse ? actionBtns : null }
         </div>);
-      } else if (task.type === 'multiple_choice') {
-        /* render checkboxes */
       }
     }
   }
@@ -418,29 +499,30 @@ class Task extends Component {
                 </label>
 
                 <div className='task__response-inputs'>
-                  {/*  TODO: Render appropriate response form based on task.type */}
-                  { task.type === 'single_choice' ? this.renderOptions() :
-                    [<TextField
-                        className="task__response-input"
-                        onFocus={this.handleFocus.bind(this)}
-                        name="response"
+                  { task.type === 'single_choice' ? this.renderOptions() : null }
+                  { task.type === 'multiple_choice' ? <MultiSelectTask mode="respond" jsonresponse={response} note={note} jsonoptions={task.jsonoptions} onSubmit={this.handleSubmitWithArgs.bind(this)}/> : null }
+                  { task.type === 'free_text' ? [<TextField
+                      className="task__response-input"
+                      onFocus={this.handleFocus.bind(this)}
+                      name="response"
+                      onKeyPress={this.handleKeyPress.bind(this)}
+                      onChange={this.handleChange.bind(this)}
+                      fullWidth
+                      multiLine
+                      style={{display: ''}}
+                    />,
+                    <TextField
+                        className="task__response-note-input"
+                        hintText={<FormattedMessage id="task.noteLabel" defaultMessage="Note any additional details here." />}
+                        name="note"
                         onKeyPress={this.handleKeyPress.bind(this)}
                         onChange={this.handleChange.bind(this)}
                         fullWidth
                         multiLine
-                        style={{display: ''}}
                       />,
-                      <TextField
-                          className="task__response-note-input"
-                          hintText={<FormattedMessage id="task.noteLabel" defaultMessage="Note any additional details here." />}
-                          name="note"
-                          onKeyPress={this.handleKeyPress.bind(this)}
-                          onChange={this.handleChange.bind(this)}
-                          fullWidth
-                          multiLine
-                        />]
-                  }
-                  { task.type === 'free_text' ? <p className="task__resolver"><small><FormattedMessage id="task.pressReturnToSave" defaultMessage="Press return to save your response" /></small></p> : null }
+                      <p className="task__resolver"><small><FormattedMessage id="task.pressReturnToSave" defaultMessage="Press return to save your response" /></small></p>
+                    ] : null
+                   }
                 </div>
               </form>
             : (this.state.editingResponse ?
@@ -448,34 +530,37 @@ class Task extends Component {
                 <form onSubmit={this.handleSubmitUpdate.bind(this)} name={`edit-response-${task.first_response.id}`}>
                   {taskQuestion}
 
-                  { task.type === 'single_choice' ? this.renderOptions(response, note) :
-                    [<TextField
-                        className="task__response-input"
-                        defaultValue={response}
-                        name="editedresponse"
-                        onKeyPress={this.handleKeyPressUpdate.bind(this)}
-                        onChange={this.handleChange.bind(this)}
-                        fullWidth
-                        multiLine
-                      />,
-                      <TextField
-                        hintText={<FormattedMessage id="task.noteLabel" defaultMessage="Note any additional details here." />}
-                        defaultValue={note}
-                        name="editednote"
-                        onKeyPress={this.handleKeyPressUpdate.bind(this)}
-                        onChange={this.handleChange.bind(this)}
-                        fullWidth
-                        multiLine
-                      />]
+                  { task.type === 'single_choice' ? this.renderOptions(response, note) : null }
+                  { task.type === 'multiple_choice' ? <MultiSelectTask mode="edit_response" jsonresponse={response} note={note} jsonoptions={task.jsonoptions} onDismiss={this.handleCancelEditResponse.bind(this)} onSubmit={this.handleSubmitUpdateWithArgs.bind(this)} /> : null }
+                  { task.type === 'free_text' ? [<TextField
+                      className="task__response-input"
+                      defaultValue={response}
+                      name="editedresponse"
+                      onKeyPress={this.handleKeyPressUpdate.bind(this)}
+                      onChange={this.handleChange.bind(this)}
+                      fullWidth
+                      multiLine
+                    />,
+                    <TextField
+                      hintText={<FormattedMessage id="task.noteLabel" defaultMessage="Note any additional details here." />}
+                      defaultValue={note}
+                      name="editednote"
+                      onKeyPress={this.handleKeyPressUpdate.bind(this)}
+                      onChange={this.handleChange.bind(this)}
+                      fullWidth
+                      multiLine
+                    />,
+                    <p className="task__resolver"><small><FormattedMessage id="task.pressReturnToSave" defaultMessage="Press return to save your response" /></small> <span id="task__cancel-button" onClick={this.handleCancelEditResponse.bind(this)}>✖</span></p>] : null
                   }
-                  { task.type === 'free_text' ? <p className="task__resolver"><small><FormattedMessage id="task.pressReturnToSave" defaultMessage="Press return to save your response" /></small> <span id="task__cancel-button" onClick={this.handleCancelEditResponse.bind(this)}>✖</span></p> : null }
                 </form>
               </div>
             :
               <div className="task__resolved">
                 {taskQuestion}
-                { task.type === 'single_choice' ? this.renderOptions(response) : <p className="task__response"><ParsedText text={response} /></p> }
-                <p style={{ display: note ? 'block' : 'none' }} className="task__note">{note}</p>
+                { task.type === 'free_text' ? <p className="task__response"><ParsedText text={response} /></p> : null }
+                { task.type === 'single_choice' ? this.renderOptions(response) : null }
+                { task.type === 'multiple_choice' ? <MultiSelectTask mode="show_response" jsonresponse={response} note={note} jsonoptions={task.jsonoptions} /> : null }
+                <p style={{ display: note ? 'block' : 'none' }} className="task__note"><ParsedText text={note} /></p>
                 <p className="task__resolver">
                   <small><FormattedMessage id="task.resolvedBy" defaultMessage={'Resolved by {by}'} values={{ by }} /></small>
                   <Can permissions={task.first_response.permissions} permission="update Dynamic">

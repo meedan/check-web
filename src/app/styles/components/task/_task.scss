@@ -9,7 +9,7 @@
   .task__actions {
     position: absolute;
     #{$to-direction}: 16px;
-	top: 14px;
+    top: 14px;
   }
 
   .task__question {
@@ -23,6 +23,7 @@
   .task__label {
     font-size: 12px;
     color: $black-38;
+
     &--truncated {
       label {
         font-size: 12px;
@@ -31,6 +32,7 @@
         padding: 0 4px;
       }
     }
+
     &--full {
       word-wrap: break-word;
       word-break: break-all;
@@ -40,12 +42,15 @@
 
   .task__label-truncated-toggle {
     display: none;
+
     &:checked {
       & ~ .task__label-container {
         width: auto;
+
         .task__label--full {
           display: inline;
         }
+
         .task__label--truncated {
           display: none;
         }
@@ -63,6 +68,7 @@
 
   .task__response-toggle {
     display: none;
+
     &:checked {
       & ~ .task__response-inputs {
         display: block;
@@ -86,21 +92,22 @@
     }
   }
 
-  .task__radio-group {
+  .task__options {
     margin-top: 13px;
   }
 
   .task__options-answered {
     margin-top: 13px;
-    color: rgba(0, 0, 0, 0.38);
+    color: rgba(0, 0, 0, .38);
   }
 
   .task__options-answered-item {
     padding: 5px;
+
     svg {
       width: 24px;
       height: 24px;
-      margin-right: 12px;
+      margin-#{$to-direction}: 12px;
     }
   }
 
@@ -142,14 +149,14 @@
     margin-bottom: 8px;
     width: 24px;
     height: 22px;
-    padding: 0 2px 2px 2px;
-	padding-top: 0;
+    padding: 0 2px 2px;
     color: $black-38;
   }
 }
 
 .task__description-tooltip { // via rc-tooltip, outside Task.js markup tree
   max-width: 600px;
+
   @media (max-width: $layout-mobile-breakpoint) {
     max-width: 80vw;
   }

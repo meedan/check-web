@@ -74,11 +74,15 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
   after :each do |example|
     if example.exception
-      require 'rest-client'
+      require 'imgur'
       path = '/tmp/' + (0...8).map{ (65 + rand(26)).chr }.join + '.png'
       @driver.save_screenshot(path) # TODO: fix for page model tests
-      response = RestClient.post('https://file.io?expires=2', file: File.new(path))
-      link = JSON.parse(response.body)['link']
+
+      client = Imgur.new(@config['imgur_client_id'])
+      image = Imgur::LocalImage.new(path, title: "Test failed: #{example.to_s}")
+      uploaded = client.upload(image)
+      link = uploaded.link
+
       puts "Test \"#{example.to_s}\" failed! Check screenshot at #{link} and following browser output: #{console_logs}"
     end
     @driver.quit
@@ -158,21 +162,17 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should create project media" do
-      page = LoginPage.new(config: @config, driver: @driver).load
-          .login_with_email(email: @email, password: @password)
-          .create_media(input: 'https://twitter.com/marcouza/status/771009514732650497?t=' + Time.now.to_i.to_s)
-
-      expect(page.contains_string?('Added')).to be(true)
-      expect(page.contains_string?('User With Email')).to be(true)
-      expect(page.status_label == 'UNSTARTED').to be(true)
+      page = LoginPage.new(config: @config, driver: @driver).load.login_with_email(email: @email, password: @password)
 
       page.driver.navigate.to @config['self_url']
-      page.wait_for_element('.project .medias-and-annotations')
+      expect(page.contains_string?('Tweet by Marcelo Souza')).to be(false)
+          
+      page.create_media(input: 'https://twitter.com/marcouza/status/771009514732650497?t=' + Time.now.to_i.to_s)
 
-      expect(page.contains_string?('Added')).to be(true)
-      expect(page.contains_string?('User With Email')).to be(true)
-      expect(page.status_label == 'UNSTARTED').to be(true)
-
+      page.driver.navigate.to @config['self_url']
+      page.wait_for_element('.project .media-detail')
+      
+      expect(page.contains_string?('Tweet by Marcelo Souza')).to be(true)
     end
 
     it "should register and redirect to newly created media" do
@@ -1021,6 +1021,10 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     #   skip("Needs to be implemented")
     # end
 
+    # it "should add, edit, answer, update answer and delete multiple_choice task" do
+    #   skip("Needs to be implemented")
+    # end
+
     it "should search for reverse images" do
       page = LoginPage.new(config: @config, driver: @driver).load
           .login_with_email(email: @email, password: @password)
@@ -1049,6 +1053,103 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       title2 = @driver.title
       expect((title2 =~ /Random/).nil?).to be(false)
       expect(title1 != title2).to be(true)
+    end
+
+    it "should search by status" do
+      create_claim_and_go_to_search_page
+      @driver.find_element(:xpath, "//*[contains(text(), 'Inconclusive')]").click
+      sleep 3
+      expect((@driver.title =~ /Inconclusive/).nil?).to be(false)
+      expect((@driver.current_url.to_s.match(/not_applicable/)).nil?).to be(false)
+      expect(@driver.page_source.include?('My search result')).to be(false)
+      @driver.find_element(:xpath, "//*[contains(text(), 'Unstarted')]").click
+      sleep 3
+      expect((@driver.title =~ /Unstarted/).nil?).to be(false)
+      expect((@driver.current_url.to_s.match(/undetermined/)).nil?).to be(false)
+      expect(@driver.page_source.include?('My search result')).to be(true)
+    end
+
+    it "should search by project" do
+      create_claim_and_go_to_search_page
+      expect((@driver.current_url.to_s.match(/project/)).nil?).to be(true)
+      @driver.find_element(:xpath, "//li[contains(text(), 'Project')]").click
+      sleep 5
+      expect((@driver.current_url.to_s.match(/project/)).nil?).to be(false)
+      expect((@driver.title =~ /Project/).nil?).to be(false)
+      @driver.find_element(:xpath, "//li[contains(text(), 'Project')]").click
+      sleep 3
+      expect((@driver.title =~ /Project/).nil?).to be(true)
+    end
+
+    it "should search and change sort criteria" do
+      create_claim_and_go_to_search_page
+      expect((@driver.current_url.to_s.match(/recent_activity/)).nil?).to be(true)
+
+      @driver.find_element(:xpath, "//span[contains(text(), 'Recent activity')]").click
+      sleep 3
+      expect((@driver.current_url.to_s.match(/recent_activity/)).nil?).to be(false)
+      expect((@driver.current_url.to_s.match(/recent_added/)).nil?).to be(true)
+      expect(@driver.page_source.include?('My search result')).to be(true)
+      
+      @driver.find_element(:xpath, "//span[contains(text(), 'Created')]").click
+      sleep 3
+      expect((@driver.current_url.to_s.match(/recent_activity/)).nil?).to be(true)
+      expect((@driver.current_url.to_s.match(/recent_added/)).nil?).to be(false)
+      expect(@driver.page_source.include?('My search result')).to be(true)
+    end
+
+    it "should search and change sort order" do
+      create_claim_and_go_to_search_page
+      expect((@driver.current_url.to_s.match(/ASC|DESC/)).nil?).to be(true)
+
+      @driver.find_element(:xpath, "//span[contains(text(), 'Newest')]").click
+      sleep 3
+      expect((@driver.current_url.to_s.match(/DESC/)).nil?).to be(false)
+      expect((@driver.current_url.to_s.match(/ASC/)).nil?).to be(true)
+      expect(@driver.page_source.include?('My search result')).to be(true)
+      
+      @driver.find_element(:xpath, "//span[contains(text(), 'Oldest')]").click
+      sleep 3
+      expect((@driver.current_url.to_s.match(/DESC/)).nil?).to be(true)
+      expect((@driver.current_url.to_s.match(/ASC/)).nil?).to be(false)
+      expect(@driver.page_source.include?('My search result')).to be(true)
+    end
+
+    it "should search by status through URL" do
+      create_claim_and_go_to_search_page
+      @driver.navigate.to @config['self_url'] + '/' + get_team + '/search/%7B"status"%3A%5B"false"%5D%7D'
+      sleep 3
+      expect((@driver.title =~ /False/).nil?).to be(false)
+      expect(@driver.page_source.include?('My search result')).to be(false)
+      selected = @driver.find_elements(:css, '.media-tags__suggestion--selected').map(&:text).sort
+      expect(selected == ['False', 'Created', 'Newest first'].sort).to be(true)
+    end
+
+    it "should search by project through URL" do
+      create_claim_and_go_to_search_page
+      @driver.navigate.to @config['self_url'] + '/' + get_team + '/search/%7B"projects"%3A%5B0%5D%7D'
+      sleep 3
+      expect(@driver.page_source.include?('My search result')).to be(false)
+      selected = @driver.find_elements(:css, '.media-tags__suggestion--selected')
+      expect(selected.size == 2).to be(true)
+    end
+
+    it "should change search sort criteria through URL" do
+      create_claim_and_go_to_search_page
+      @driver.navigate.to @config['self_url'] + '/' + get_team + '/search/%7B"sort"%3A"recent_activity"%7D'
+      sleep 3
+      expect(@driver.page_source.include?('My search result')).to be(true)
+      selected = @driver.find_elements(:css, '.media-tags__suggestion--selected').map(&:text).sort
+      expect(selected == ['Recent activity', 'Newest first'].sort).to be(true)
+    end
+
+    it "should change search sort order through URL" do
+      create_claim_and_go_to_search_page
+      @driver.navigate.to @config['self_url'] + '/' + get_team + '/search/%7B"sort_type"%3A"ASC"%7D'
+      sleep 3
+      expect(@driver.page_source.include?('My search result')).to be(true)
+      selected = @driver.find_elements(:css, '.media-tags__suggestion--selected').map(&:text).sort
+      expect(selected == ['Created', 'Oldest first'].sort).to be(true)
     end
   end
 end

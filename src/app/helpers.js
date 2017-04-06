@@ -1,4 +1,5 @@
 import config from 'config';
+import truncate from 'lodash.truncate';
 
 // Functionally-pure sort: keeps the given array unchanged and returns sorted one.
 Array.prototype.sortp = function (fn) {
@@ -58,6 +59,10 @@ function safelyParseJSON(jsonString) {
   } catch (e) {}
 }
 
+function truncateLength(text, length = 100) {
+  return truncate(text, { length, separator: /,? +/, ellipsis: '…' });
+}
+
 export {
   bemClass,
   bemClassFromMediaStatus,
@@ -65,4 +70,5 @@ export {
   safelyParseJSON,
   getStatus,
   getStatusStyle,
+  truncateLength
 };

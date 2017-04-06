@@ -48,7 +48,7 @@ before_install:
 - export CHROME_BIN=/usr/bin/chromium-browser
 - chromium-browser --no-sandbox &
 # chromedriver
-- wget http://chromedriver.storage.googleapis.com/2.25/chromedriver_linux64.zip
+- wget http://chromedriver.storage.googleapis.com/2.28/chromedriver_linux64.zip
 - unzip chromedriver_linux64.zip
 - sudo mv chromedriver /usr/local/bin
 - sudo chmod a+x /usr/local/bin/chromedriver
@@ -67,6 +67,8 @@ before_script:
 - export SERVER_PORT=3333
 - npm run publish &
 - sleep 5
+after_script:
+- size=$(du -k build/web/js/index.bundle.js | cut -f1) && size2=$(du -k build/web/js/vendor.bundle.js | cut -f1) && totalsize=$((size+size2)) && echo "Your bundle size is $totalsize kb"
 script: npm run test
 notifications:
   slack:

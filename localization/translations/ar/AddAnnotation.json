@@ -1,5 +1,5 @@
 {
-  "addAnnotation.invalidCommand": " أمر غير ممكن",
+  "addAnnotation.invalidCommand": " أمر غير صحيح",
   "addAnnotation.annotationAdded": "تم إضافة {type}",
   "addAnnotation.createTagFailed": "عذراً، لم نستطع إضافة الوسم",
   "addAnnotation.inputHint": "أضف تعليقاً على هذا التقرير",
@@ -7,6 +7,6 @@
   "addAnnotation.typeComment": "تعليق",
   "addAnnotation.typeTag": "وسم",
   "addAnnotation.typeStatus": "حالة التقرير",
-  "addAnnotation.typeFlag": "إشارة ",
+  "addAnnotation.typeFlag": "إبلاغ",
   "addAnnotation.addImage": "أضف صورة"
 }

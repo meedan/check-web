@@ -17,6 +17,7 @@
   width: $size;
   height: $size;
   border-radius: 2px;
+  flex: 0 0 auto;
 }
 
 @mixin user-avatar($size) {

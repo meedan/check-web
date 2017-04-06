@@ -68,13 +68,21 @@
 @import 'tags';
 @import 'create-account';
 @import 'tabs';
-@import "spinner";
+@import 'spinner';
 
 body {
   margin: auto;
   width: 100%;
   overflow-x: hidden;
   cursor: default;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
+}
+
+#root,
+#root > div {
+  background: $opaque-black-02;
 }
 
 .hidden {

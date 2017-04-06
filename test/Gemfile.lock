@@ -19,6 +19,8 @@ GEM
     httparty (0.13.5)
       json (~> 1.8)
       multi_xml (>= 0.5.2)
+    imgur-api (0.0.4)
+      httparty
     json (1.8.3)
     mime-types (3.1)
       mime-types-data (~> 3.2015)
@@ -28,6 +30,10 @@ GEM
     netrc (0.11.0)
     nokogiri (1.7.0)
       mini_portile2 (~> 2.1.0)
+    parallel (1.11.1)
+    parallel_split_test (0.6.0)
+      parallel (>= 0.5.13)
+      rspec (>= 3.1.0)
     rack (1.6.4)
     rack-protection (1.5.3)
       rack
@@ -74,7 +80,9 @@ PLATFORMS
 DEPENDENCIES
   appium_lib
   httparty
+  imgur-api
   json
+  parallel_split_test
   rest-client
   rspec
   rspec-retry
