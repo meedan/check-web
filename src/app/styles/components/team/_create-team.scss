@@ -32,6 +32,7 @@
   margin-bottom: 30px;
   display: flex;
   align-items: flex-end;
+
 }
 
 .create-team__team-slug {
@@ -64,7 +65,7 @@
   font-size: 24px;
   padding-bottom: 27px;
   margin-#{$from-direction}: 2px;
-  flex: 1 0;
+  flex: 1 0 190px;
 }
 
 .create-team__team-slug-message {

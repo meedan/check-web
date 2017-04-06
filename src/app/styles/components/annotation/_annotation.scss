@@ -5,22 +5,14 @@
 
   .annotation__default {
     padding-#{$from-direction}: 80px;
-    flex: 1;
     font-size: 12px;
     color: $black-87;
     display: flex;
     max-width: 704px;
 
-    &,
-    * {
-      overflow-wrap: break-word;
-      word-wrap: break-word;
-      hyphens: auto;
-      // TODO: consider `word-break: break-all` for long URLs etc.
-    }
-
     &-content {
-      margin-#{$to-direction}: 12px;
+      margin-#{$to-direction}: 16px;
+      display: block;
     }
 
     a,
@@ -51,8 +43,6 @@
   .annotation__card-text {
     display: flex;
     padding: 24px 24px 0 !important;
-    word-break: break-all;
-    hyphens: auto;
   }
 
   .annotation__card-avatar-col {
