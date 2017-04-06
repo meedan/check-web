@@ -33,6 +33,9 @@ $font-stack-serif: "Merriweather", Georgia, serif;
   font-weight: 400;
   font-size: $size;
   margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
   &,
   & > a,

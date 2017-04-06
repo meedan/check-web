@@ -1,20 +1,16 @@
 
 .project-header {
   z-index: 1;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
   display: flex;
   align-items: center;
+  overflow: hidden;
 
   label {
     overflow: hidden;
   }
 
   &__title {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    @extend %ellipsis;
     border-radius: 2px;
     display: inline;
     vertical-align: middle;
@@ -67,9 +63,6 @@
 
 .project-header__title {
   @include header-title;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .project-header__caret {
