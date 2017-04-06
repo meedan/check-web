@@ -32,12 +32,19 @@ app.use(function(req, res, next) {
    next();
 });
 
+app.get('/js/*.bundle.js', function(req, res, next) {
+  req.url = req.url + '.gz';
+  res.set('Content-Encoding', 'gzip');
+  next();
+});
+
 // static assets first
-app.use(serveStatic('build/web', { 'index': ['index.html'] }))
+app.use(serveStatic('build/web', { 'index': ['index.html'] }));
 
 // all other routes
 app.use(function(req, res, next) {
    res.sendFile(process.cwd() + '/build/web/index.html');
 });
-console.log("starting server on :" + port);
+
+console.log('Starting server on port ' + port);
 app.listen(port);

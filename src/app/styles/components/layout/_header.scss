@@ -23,6 +23,8 @@
 
 .header__team {
   display: flex;
+  overflow: hidden;
+  min-width: 48px;
 }
 
 .header__breadcrumb {

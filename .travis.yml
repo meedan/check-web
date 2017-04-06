@@ -67,6 +67,8 @@ before_script:
 - export SERVER_PORT=3333
 - npm run publish &
 - sleep 5
+after_script:
+- size=$(du -k build/web/js/index.bundle.js | cut -f1) && size2=$(du -k build/web/js/vendor.bundle.js | cut -f1) && totalsize=$((size+size2)) && echo "Your bundle size is $totalsize kb"
 script: npm run test
 notifications:
   slack:

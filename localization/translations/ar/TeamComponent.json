@@ -8,7 +8,7 @@
   "teamComponent.phone": "رقم الهاتف",
   "teamComponent.website": "الموقع الإلكتروني",
   "teamComponent.slackWebhook": "Slack webhook",
-  "teamComponent.slackChannel": "Slack #channel",
+  "teamComponent.slackChannel": "#قناة Slack الافتراضية",
   "teamComponent.verificationTeam": "فريق التحقق",
   "teamComponent.cancelButton": "إلغاء",
   "teamComponent.saveButton": "حفظ",

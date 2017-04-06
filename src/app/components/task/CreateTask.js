@@ -14,8 +14,11 @@ import TextField from 'material-ui/TextField';
 import Can from '../Can';
 import CreateTaskMutation from '../../relay/CreateTaskMutation';
 import { FormattedMessage } from 'react-intl';
-import { MdCancel, MdShortText, MdRadioButtonChecked, MdCheckBox } from 'react-icons/lib/md';
 import MdAddCircle from 'react-icons/lib/md/add-circle';
+import MdCancel from 'react-icons/lib/md/cancel';
+import MdShortText from 'react-icons/lib/md/short-text';
+import MdRadioButtonChecked from 'react-icons/lib/md/radio-button-checked';
+import MdCheckBox from 'react-icons/lib/md/check-box';
 
 class CreateTask extends Component {
   constructor(props) {
@@ -86,6 +89,7 @@ class CreateTask extends Component {
         }),
         { onSuccess, onFailure },
       );
+      that.setState({ submitDisabled: true });
     }
   }
 

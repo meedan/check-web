@@ -194,7 +194,7 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
           slug
         }
       }
-    `,
+`,
   },
 });
 

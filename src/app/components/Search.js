@@ -13,6 +13,7 @@ import { pageTitle, getStatusStyle } from '../helpers';
 import CheckContext from '../CheckContext';
 import ContentColumn from './layout/ContentColumn';
 import MediasLoading from './media/MediasLoading';
+import isEqual from 'lodash.isequal';
 
 const pageSize = 20;
 
@@ -29,13 +30,9 @@ const messages = defineMessages({
     id: 'search.inputHint',
     defaultMessage: 'Search',
   },
-  searchResult: {
-    id: 'search.result',
-    defaultMessage: 'Result',
-  },
   searchResults: {
     id: 'search.results',
-    defaultMessage: 'Results',
+    defaultMessage: '{resultsCount, plural, =0 {No results} one {1 result} other {# results}}'
   },
 });
 
@@ -53,30 +50,42 @@ class SearchQueryComponent extends Component {
     return context;
   }
 
-  setQueryFromUrl() {
+  componentWillMount() {
     const context = this.getContext();
-    if (context.getContextStore().project) {
+    if (context.getContextStore().project && /\/search/.test(window.location.pathname)) {
       context.setContextStore({ project: null });
     }
 
-    const queryString = window.location.pathname.match(/.*\/search\/(.*)/);
-    const query = queryString === null ? {} : queryFromUrlQuery(queryString[1]);
+    const query = searchQueryFromUrl();
+    this.setState({ query });
+  }
 
-    if (JSON.stringify(this.state.query) === '{}') {
+  componentDidMount() {
+    if (this.searchQueryInput) {
+      this.searchQueryInput.focus();
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const query = searchQueryFromUrl();
+    if (!isEqual(this.state.query, query)) {
       this.setState({ query });
     }
   }
 
-  componentWillMount() {
-    this.setQueryFromUrl();
+  shouldComponentUpdate(nextProps, nextState) {
+    const query = searchQueryFromUrl();
+    return !isEqual(this.state.query, nextState.query) || !isEqual(this.state.query, query);
   }
 
-  componentWillUpdate(nextProps, nextState) {
-    this.setQueryFromUrl();
-  }
+  componentDidUpdate(prevProps, prevState) {
+    const query = searchQueryFromUrl();
+    if (isEqual(this.state.query, query)) return;
 
-  componentDidMount() {
-    this.searchQueryInput.focus();
+    const urlQuery = urlQueryFromSearchQuery(prevState.query);
+    const queryPath = urlQuery ? `/${urlQuery}` : '';
+    const url = this.props.project ? `/${this.props.team.slug}/project/${this.props.project.dbid}${queryPath}` : `/${this.props.team.slug}/search${queryPath}`;
+    this.getContext().getContextStore().history.push(url);
   }
 
   handleSubmit(e) {
@@ -88,17 +97,6 @@ class SearchQueryComponent extends Component {
       state.query.keyword = keywordInput;
       return { query: state.query };
     });
-  }
-
-  urlQueryFromQuery(query) {
-    return encodeURIComponent(JSON.stringify(query));
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    const url = `/${this.props.team.slug}/search/${this.urlQueryFromQuery(prevState.query)}`;
-    if (url != window.location.pathname) {
-      this.getContext().getContextStore().history.push(url);
-    }
   }
 
   statusIsSelected(statusCode, state = this.state) {
@@ -132,6 +130,7 @@ class SearchQueryComponent extends Component {
 
       if (statusIsSelected) {
         selectedStatuses.splice(selectedStatuses.indexOf(statusCode), 1); // remove from array
+        if (!selectedStatuses.length) delete state.query.status;
       } else {
         state.query.status = selectedStatuses.concat(statusCode);
       }
@@ -148,6 +147,7 @@ class SearchQueryComponent extends Component {
 
       if (projectIsSelected) {
         selectedProjects.splice(selectedProjects.indexOf(projectId), 1);
+        if (!selectedProjects.length) delete state.query.projects;
       } else {
         state.query.projects = selectedProjects.concat(projectId);
       }
@@ -164,6 +164,7 @@ class SearchQueryComponent extends Component {
 
       if (tagIsSelected) {
         selectedTags.splice(selectedTags.indexOf(tag), 1); // remove from array
+        if (!selectedTags.legnth) delete state.query.tags;
       } else {
         state.query.tags = selectedTags.concat(tag);
       }
@@ -204,6 +205,15 @@ class SearchQueryComponent extends Component {
     ].filter(Boolean)).join(' ').trim() || this.props.intl.formatMessage(messages.title);
   }
 
+  showField(field) {
+    if (!this.props.fields) {
+      return true;
+    }
+    else {
+      return this.props.fields.indexOf(field) > -1;
+    }
+  }
+
   render() {
     const statuses = JSON.parse(this.props.team.media_verification_statuses).statuses;
     const projects = this.props.team.projects.edges.sortp((a, b) => a.node.title.localeCompare(b.node.title));
@@ -211,15 +221,21 @@ class SearchQueryComponent extends Component {
     const title = this.title(statuses, projects);
 
     return (
-      <DocumentTitle title={pageTitle(title, false, this.props.team)}>
+      <DocumentTitle title={this.props.title || pageTitle(title, false, this.props.team)}>
         <ContentColumn>
           <div className="search__query">
+
+            {/* Keyword */}
+            { this.showField('keyword') ?
             <form id="search-form" className="search__form" onSubmit={this.handleSubmit.bind(this)}>
               <input placeholder={this.props.intl.formatMessage(messages.searchInputHint)} name="search-input" id="search-input" className="search__input" defaultValue={this.state.query.keyword || ''} ref={input => this.searchQueryInput = input} />
-            </form>
+            </form> : null }
 
             <section className="search__filters / filters">
-              <h3 className="search__filters-heading"><FormattedMessage id="search.filtersHeading" defaultMessage="Filters" /></h3>
+              <h3 className="search__filters-heading">{ this.props.project ? null : <FormattedMessage id="search.filtersHeading" defaultMessage="Filters" /> }</h3>
+
+              {/* Status */}
+              { this.showField('status') ?
               <div>
                 <h4><FormattedMessage id="search.statusHeading" defaultMessage="Status" /></h4>
                 {/* chicklet markup/logic from MediaTags. TODO: fix classnames */}
@@ -227,15 +243,20 @@ class SearchQueryComponent extends Component {
                   {statuses.map(status =>
                     <li title={status.description} onClick={this.handleStatusClick.bind(this, status.id)} className={bemClass('media-tags__suggestion', this.statusIsSelected(status.id), '--selected')} style={{ backgroundColor: getStatusStyle(status, 'backgroundColor') }} >{status.label}</li>)}
                 </ul>
-              </div>
+              </div> : null }
+
+              {/* Project */}
+              { this.showField('project') ?
               <div>
                 <h4><FormattedMessage id="search.projectHeading" defaultMessage="Project" /></h4>
                 {/* chicklet markup/logic from MediaTags. TODO: fix classnames */}
                 <ul className="/ media-tags__suggestions-list // electionland_categories">
                   {projects.map(project => <li title={project.node.description} onClick={this.handleProjectClick.bind(this, project.node.dbid)} className={bemClass('media-tags__suggestion', this.projectIsSelected(project.node.dbid), '--selected')}>{project.node.title}</li>)}
                 </ul>
-              </div>
-              {suggestedTags.length ? (
+              </div> : null }
+
+              {/* Tags */}
+              { this.showField('tags') && suggestedTags.length ? (
                 <div>
                   <h4><FormattedMessage id="status.categoriesHeading" defaultMessage="Categories" /></h4>
                   <ul className="/ media-tags__suggestions-list // electionland_categories">
@@ -243,6 +264,9 @@ class SearchQueryComponent extends Component {
                   </ul>
                 </div>
               ) : null }
+
+              {/* Sort */}
+              { this.showField('sort') ?
               <div>
                 <h4><FormattedMessage id="search.sort" defaultMessage="Sort" /></h4>
                 {/* chicklet markup/logic from MediaTags. TODO: fix classnames */}
@@ -260,7 +284,8 @@ class SearchQueryComponent extends Component {
                     <FormattedMessage id="search.sortByOldest" defaultMessage="Oldest first" />
                   </li>
                 </ul>
-              </div>
+              </div> : null }
+
             </section>
           </div>
         </ContentColumn>
@@ -307,15 +332,50 @@ class SearchResultsComponent extends Component {
     this.props.relay.setVariables({ pageSize: this.props.search.medias.edges.length + pageSize });
   }
 
+  getContext() {
+    const context = new CheckContext(this);
+    return context;
+  }
+
+  currentContext() {
+    return this.getContext().getContextStore();
+  }
+
+  subscribe() {
+    const pusher = this.currentContext().pusher;
+    if (pusher && this.props.search.pusher_channel) {
+      const that = this;
+      pusher.subscribe(this.props.search.pusher_channel).bind('media_updated', (data) => {
+        that.props.relay.forceFetch();
+      });
+    }
+  }
+
+  unsubscribe() {
+    const pusher = this.getContext().pusher;
+    if (pusher && this.props.search.pusher_channel) {
+      pusher.unsubscribe(this.props.search.pusher_channel);
+    }
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
+
+  componentDidMount() {
+    this.subscribe();
+  }
+
   render() {
     const medias = this.props.search ? this.props.search.medias.edges : [];
     const count = this.props.search ? this.props.search.number_of_results : 0;
-    const mediasCount = `${count} ${count === 1 ? this.props.intl.formatMessage(messages.searchResult) : this.props.intl.formatMessage(messages.searchResults)}`;
+    const mediasCount = this.props.intl.formatMessage(messages.searchResults, { resultsCount: count });
+    const title = /\/project\//.test(window.location.pathname) ? '' : mediasCount;
     const that = this;
 
     return (
       <div className="search__results / results">
-        <h3 className="search__results-heading">{mediasCount}</h3>
+        <h3 className="search__results-heading">{title}</h3>
         {/* <h4>Most recent activity first</h4> */}
 
         <InfiniteScroll hasMore loadMore={this.loadMore.bind(this)} threshold={500}>
@@ -340,6 +400,10 @@ class SearchResultsComponent extends Component {
   }
 }
 
+SearchResultsComponent.contextTypes = {
+  store: React.PropTypes.object,
+};
+
 SearchResultsComponent.propTypes = {
   intl: intlShape.isRequired,
 };
@@ -352,6 +416,7 @@ const SearchResultsContainer = Relay.createContainer(injectIntl(SearchResultsCom
     search: () => Relay.QL`
       fragment on CheckSearch {
         id,
+        pusher_channel,
         medias(first: $pageSize) {
           edges {
             node {
@@ -362,23 +427,27 @@ const SearchResultsContainer = Relay.createContainer(injectIntl(SearchResultsCom
               published,
               embed,
               annotations_count,
+              verification_statuses,
+              overridden,
+              project_id,
+              pusher_channel,
+              language,
               domain,
+              permissions,
               last_status,
               last_status_obj {
                 id,
                 dbid
               }
-              permissions,
-              verification_statuses,
-              overridden,
-              project_id,
-              team {
-                slug
-              }
+              project {
+                id,
+                dbid,
+                title
+              },
               media {
-                url
-                quote
-                embed_path
+                url,
+                quote,
+                embed_path,
                 thumbnail_path
               }
               user {
@@ -387,32 +456,14 @@ const SearchResultsContainer = Relay.createContainer(injectIntl(SearchResultsCom
                   dbid
                 }
               }
+              team {
+                slug
+              }
               tags(first: 10000) {
                 edges {
                   node {
                     tag,
                     id
-                  }
-                }
-              }
-              tasks(first: 10000) {
-                edges {
-                  node {
-                    id,
-                    dbid,
-                    label,
-                    type,
-                    description,
-                    permissions,
-                    first_response {
-                      id,
-                      dbid,
-                      permissions,
-                      content,
-                      annotator {
-                        name
-                      }
-                    }
                   }
                 }
               }
@@ -426,10 +477,44 @@ const SearchResultsContainer = Relay.createContainer(injectIntl(SearchResultsCom
 });
 
 class Search extends Component {
-  render() {
-    const query = queryFromUrlQuery(this.props.params.query);
+  noFilters(query) {
+    delete query.timestamp;
+    delete query.parent;
+    if (query.projects && (query.projects.length === 0 || (this.props.project && query.projects.length === 1 && query.projects[0] === this.props.project.dbid))) {
+      delete query.projects;
+    }
+    if (query.status && query.status.length === 0) {
+      delete query.status;
+    }
+    if (query.sort && query.sort === 'recent_added') {
+      delete query.sort;
+    }
+    if (query.sort_type && query.sort_type === 'DESC') {
+      delete query.sort_type;
+    }
+    if (Object.keys(query).length === 0 && query.constructor === Object) {
+      return true;
+    }
+    return false;
+  }
 
-    const queryRoute = new TeamRoute({ teamSlug: this.props.params.team });
+  render() {
+    const searchQuery = this.props.query || this.props.params.query;
+    const teamSlug = this.props.team || this.props.params.team;
+
+    let query = searchQueryFromUrlQuery(searchQuery);
+    if (!this.noFilters(query)) {
+      query.timestamp = new Date().getTime();
+    }
+    if (this.props.project) {
+      query.parent = { type: 'project', id: this.props.project.dbid };
+      query.projects = [this.props.project.dbid];
+    }
+    else {
+      query.parent = { type: 'team', slug: teamSlug };
+    }
+
+    const queryRoute = new TeamRoute({ teamSlug });
     const resultsRoute = new SearchRoute({ query: JSON.stringify(query) });
     const { formatMessage } = this.props.intl;
 
@@ -438,6 +523,7 @@ class Search extends Component {
         <Relay.RootContainer
           Component={SearchQueryContainer}
           route={queryRoute}
+          renderFetched={data => <SearchQueryContainer {...this.props} {...data} />}
           renderLoading={function () {
             return (
               <ContentColumn>
@@ -453,7 +539,6 @@ class Search extends Component {
         <Relay.RootContainer
           Component={SearchResultsContainer}
           route={resultsRoute}
-          forceFetch
           renderLoading={function () {
             return (
               <div>
@@ -468,7 +553,16 @@ class Search extends Component {
   }
 }
 
-function queryFromUrlQuery(urlQuery) {
+Search.propTypes = {
+  intl: intlShape.isRequired,
+};
+
+export function searchQueryFromUrl() {
+  const queryString = window.location.pathname.match(/.*\/(search|project\/[0-9]+)\/(.*)/);
+  return queryString ? searchQueryFromUrlQuery(queryString[2]) : {};
+}
+
+export function searchQueryFromUrlQuery(urlQuery) {
   try {
     return JSON.parse(decodeURIComponent(urlQuery));
   } catch (e) {
@@ -476,8 +570,8 @@ function queryFromUrlQuery(urlQuery) {
   }
 }
 
-Search.propTypes = {
-  intl: intlShape.isRequired,
-};
+export function urlQueryFromSearchQuery(query) {
+  return isEqual(query, {}) ? '' : encodeURIComponent(JSON.stringify(query));
+}
 
 export default injectIntl(Search);

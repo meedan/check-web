@@ -11,6 +11,7 @@ import { pageTitle } from '../../helpers';
 import ContentColumn from '../layout/ContentColumn';
 import CheckContext from '../../CheckContext';
 import Heading from '../layout/Heading';
+import XRegExp from 'xregexp';
 
 const messages = defineMessages({
   slugChecking: {
@@ -91,7 +92,8 @@ class CreateTeam extends Component {
     }
 
     function slugify(text) {
-      return text.toString().toLowerCase().trim().replace(/&/g, '-and-').replace(/[\s\W-]+/g, '-');
+      const regex = XRegExp('[\\P{L}]+', 'g');
+      return XRegExp.replace(text.toString().toLowerCase().trim(), regex, '-');
     }
   }
 
