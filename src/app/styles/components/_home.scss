@@ -36,5 +36,9 @@ $home-content-padding: 23px;
     letter-spacing: .02em;
     position: absolute;
     #{$to-direction}: 109px;
+
+    @media all and (max-width: $layout-mobile-breakpoint) {
+      #{$to-direction}: 10%;
+    }
   }
 }

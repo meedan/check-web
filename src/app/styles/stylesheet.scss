@@ -69,14 +69,16 @@
 @import 'tags';
 @import 'create-account';
 @import 'tabs';
-@import "spinner";
+@import 'spinner';
 
 body {
   margin: auto;
   width: 100%;
   overflow-x: hidden;
   cursor: default;
-  word-break: break-all;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
 }
 
 #root,
