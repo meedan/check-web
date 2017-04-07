@@ -342,7 +342,6 @@ class Annotation extends Component {
                 <span className='annotation__default-content'>{contentTemplate}</span>
                 {timestamp}
               </span>
-              {annotationActions}
             </div>
           )
         }

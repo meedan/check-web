@@ -49,6 +49,15 @@
       ul {
         flex: 10;
       }
+
+      @media all and (max-width: $layout-mobile-breakpoint) {
+        padding: 0;
+        flex-flow: nowrap column;
+
+        h4 {
+          text-align: $from-direction;
+        }
+      }
     }
   }
 
