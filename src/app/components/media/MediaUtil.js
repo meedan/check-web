@@ -182,10 +182,6 @@ const MediaUtil = {
     }
   },
 
-  truncatedTitle(media, data, intl) {
-    return truncateLength(this.title(media, data, intl));
-  },
-
   // Return a text fragment "X notes" with proper pluralization.
   notesCount(media, data, intl) {
     return intl.formatMessage(messages.notesCount, {notesCount: media.annotations_count});
