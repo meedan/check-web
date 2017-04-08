@@ -254,7 +254,7 @@ class MediaDetail extends Component {
         </div>
 
         {this.state.isEditing ?
-          <form onSubmit={this.handleSave.bind(this, media)}><input type="text" id={`media-detail-title-input-${media.dbid}`} className="media-detail__title-input" placeholder={this.props.intl.formatMessage(messages.mediaTitle)} defaultValue={MediaUtil.truncatedTitle(media, data, this.props.intl)} /></form> :
+          <form onSubmit={this.handleSave.bind(this, media)}><input type="text" id={`media-detail-title-input-${media.dbid}`} className="media-detail__title-input" placeholder={this.props.intl.formatMessage(messages.mediaTitle)} defaultValue={heading} /></form> :
           <h2 className="media-detail__heading"><Link to={mediaUrl}>{heading}</Link></h2>
         }
 

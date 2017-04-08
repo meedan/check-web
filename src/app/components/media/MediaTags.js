@@ -6,9 +6,10 @@ import DeleteTagMutation from '../../relay/DeleteTagMutation';
 import Tags from '../source/Tags';
 import CheckContext from '../../CheckContext';
 import { Link } from 'react-router';
-import { searchQueryFromUrl, urlQueryFromSearchQuery } from '../Search';
+import { searchQueryFromUrl, urlFromSearchQuery } from '../Search';
 import mergeWith from 'lodash.mergewith';
 import xor from 'lodash.xor';
+import isEqual from 'lodash.isequal';
 
 const messages = defineMessages({
   loading: {
@@ -105,13 +106,13 @@ class MediaTags extends Component {
 
     // Make a new query combining the current tag with whatever query is already in the URL.
     // This allows to support clicking tags on the search and project pages.
-    const query = urlQueryFromSearchQuery(mergeWith({}, searchQuery, tagQuery, function (objValue, srcValue) {
+    const query = mergeWith({}, searchQuery, tagQuery, function (objValue, srcValue) {
       if (Array.isArray(objValue)) {
         return xor(objValue, srcValue);
       }
-    }));
-
-    return `/${media.team.slug}/search/${query}`;
+    });
+    if (!query.tags.length) delete query.tags;
+    return urlFromSearchQuery(query, `/${media.team.slug}/search`);
   }
 
   render() {

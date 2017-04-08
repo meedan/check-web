@@ -8,8 +8,12 @@
     "defaultMessage": "Delete"
   },
   {
-    "id": "annotation.reverseImageTooltip",
-    "defaultMessage": "Search Google for potential duplicates on the web."
+    "id": "annotation.reverseImage",
+    "defaultMessage": "This item contains at least one image. Click Search to look for potential duplicates on Google."
+  },
+  {
+    "id": "annotation.reverseImageFacebook",
+    "defaultMessage": "This item contains at least one image. Consider a reverse image search."
   },
   {
     "id": "annotation.and",
@@ -30,10 +34,6 @@
   {
     "id": "annotation.taskResolve",
     "defaultMessage": "Task \"{task}\" answered by {author}: \"{response}\""
-  },
-  {
-    "id": "annotation.reverseImage",
-    "defaultMessage": "This item contains at least one image. Click Search to look for potential duplicates on Google."
   },
   {
     "id": "annotation.reverseImageSearch",
