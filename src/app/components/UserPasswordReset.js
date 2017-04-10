@@ -6,11 +6,16 @@ import { Card, CardText, CardActions } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import ResetPasswordMutation from '../relay/ResetPasswordMutation';
+import CheckContext from '../CheckContext';
 
 const messages = defineMessages({
   emailNotFound: {
     id: 'passwordReset.emailNotFound',
     defaultMessage: 'Email not found. Please contact check@meedan.com for support.',
+  },
+  emailNotValid: {
+    id: 'passwordReset.emailNotValid',
+    defaultMessage: 'Please enter a valid email address.',
   }
 });
 
@@ -19,19 +24,38 @@ class UserPasswordReset extends Component {
     super(props);
     this.state = {
       showConfirmDialog: false,
-      submitDisabled: false
+      submitDisabled: true
     }
   }
 
+  getHistory() {
+    const history = new CheckContext(this).getContextStore().history;
+    return history;
+  }
+
+  handleGoBack() {
+    const history = this.getHistory();
+    history.goBack();
+  }
+
+  handleSignIn() {
+    const history = this.getHistory();
+    history.push('/', { signInWithEmail: true });
+  }
+
   handleChange(e) {
-    this.setState({ email: e.target.value.trim() });
+    const value = e.target.value.trim();
+    const canSubmit = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(value);
+    const errorMsg = canSubmit ? '' : this.props.intl.formatMessage(messages.emailNotValid);
+
+    this.setState({ errorMsg, email: value, submitDisabled: !canSubmit });
   }
 
   handleSubmit(e) {
     const that = this;
 
     const onFailure = (transaction) => {
-      that.setState({ errorMsg: that.props.intl.formatMessage(messages.emailNotFound) });
+      that.setState({ errorMsg: that.props.intl.formatMessage(messages.emailNotFound), submitDisabled: true });
     };
 
     const onSuccess = (response) => {
@@ -59,8 +83,8 @@ class UserPasswordReset extends Component {
               <FormattedMessage id="passwordReset.confirmedText" defaultMessage="We've sent you an email from admin@checkmedia.org with instructions to reset your password. Make sure it didn't wind up in your spam mailbox. If you aren't receiving our password reset emails, contact check@meedan.com." />
             </CardText>,
             <CardActions className="user-password-reset__actions">
-              <FlatButton label={<FormattedMessage id="passwordReset.goBack" defaultMessage="Go Back" />} />
-              <FlatButton label={<FormattedMessage id="passwordReset.signIn" defaultMessage="Sign In"/>} primary disabled={this.state.submitDisabled} onClick={this.handleSubmit.bind(this)} />
+              <FlatButton label={<FormattedMessage id="passwordReset.goBack" defaultMessage="Go Back" />} onClick={this.handleGoBack.bind(this)} />
+              <FlatButton label={<FormattedMessage id="passwordReset.signIn" defaultMessage="Sign In"/>} primary disabled={this.state.submitDisabled} onClick={this.handleSignIn.bind(this)} />
             </CardActions>
           ] : [
             <CardText>
@@ -68,6 +92,7 @@ class UserPasswordReset extends Component {
               <FormattedMessage id="passwordReset.text" defaultMessage="Happens to everybody! Add your address and an email will be sent with further instructions." />
               <div className="user-password-reset__email-input">
                 <TextField id="password-reset-email-input"
+                    type="email"
                     floatingLabelText={<FormattedMessage id="passwordReset.email" defaultMessage="Email" />}
                     onChange={this.handleChange.bind(this)}
                     errorText={this.state.errorMsg}
@@ -75,7 +100,7 @@ class UserPasswordReset extends Component {
               </div>
             </CardText>,
             <CardActions className="user-password-reset__actions">
-              <FlatButton label={<FormattedMessage id="passwordReset.cancel" defaultMessage="Nevermind" />} />
+              <FlatButton label={<FormattedMessage id="passwordReset.cancel" defaultMessage="Cancel" />} onClick={this.handleGoBack.bind(this)} />
               <FlatButton label={<FormattedMessage id="passwordReset.submit" defaultMessage="Reset Password"/>} primary disabled={this.state.submitDisabled} onClick={this.handleSubmit.bind(this)} />
             </CardActions>
           ]}
@@ -85,4 +110,8 @@ class UserPasswordReset extends Component {
   }
 }
 
-export default UserPasswordReset;
+UserPasswordReset.contextTypes = {
+  store: React.PropTypes.object,
+};
+
+export default injectIntl(UserPasswordReset);

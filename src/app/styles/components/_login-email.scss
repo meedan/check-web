@@ -73,13 +73,18 @@
   @include button-large;
   @include button-primary;
   display: block;
+  margin: 0 auto 10px;
+}
+
+.login-email__forgot-password {
+  text-align: center;
+  display: block;
   margin: 0 auto 75px;
 }
 
 .login-email__register-or-login,
 .login-email__cancel,
-.login-email__help-text,
-.login-email__forgot-password {
+.login-email__help-text {
   text-align: center;
   margin: 0 0 17px;
   width: 100%;
