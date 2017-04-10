@@ -83,7 +83,6 @@ class UserPasswordReset extends Component {
               <FormattedMessage id="passwordReset.confirmedText" defaultMessage="We've sent you an email from admin@checkmedia.org with instructions to reset your password. Make sure it didn't wind up in your spam mailbox. If you aren't receiving our password reset emails, contact check@meedan.com." />
             </CardText>,
             <CardActions className="user-password-reset__actions">
-              <FlatButton label={<FormattedMessage id="passwordReset.goBack" defaultMessage="Go Back" />} onClick={this.handleGoBack.bind(this)} />
               <FlatButton label={<FormattedMessage id="passwordReset.signIn" defaultMessage="Sign In"/>} primary disabled={this.state.submitDisabled} onClick={this.handleSignIn.bind(this)} />
             </CardActions>
           ] : [
