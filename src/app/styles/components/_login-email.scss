@@ -73,6 +73,12 @@
   @include button-large;
   @include button-primary;
   display: block;
+  margin: 0 auto 10px;
+}
+
+.login-email__forgot-password {
+  text-align: center;
+  display: block;
   margin: 0 auto 75px;
 }
 
