@@ -2,7 +2,6 @@
   "annotation.error": "لم نتمكن من حذف التعليق",
   "annotation.deleteButton": "حذف",
   "annotation.reverseImage": "يحتوي هذا التقرير على صورة واحدة على الأقل. اضغط بحث لإيجاد مكررات على جوجل.",
-  "annotation.reverseImageTooltip": "ابحث عن مكررات محتملة للصورة بواسطة جوجل.",
   "annotation.reverseImageFacebook": "يحتوي هذا التقرير على صورة واحدة على الأقل. نحن نقترح البحث لإيجاد مكررات.",
   "annotation.and": "و",
   "annotation.statusSetHeader": "تم تغيير الحالة إلى {status} بواسطة {author}",
