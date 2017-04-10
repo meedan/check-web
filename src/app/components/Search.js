@@ -82,9 +82,7 @@ class SearchQueryComponent extends Component {
     const query = searchQueryFromUrl();
     if (isEqual(this.state.query, query)) return;
 
-    const urlQuery = urlQueryFromSearchQuery(prevState.query);
-    const queryPath = urlQuery ? `/${urlQuery}` : '';
-    const url = this.props.project ? `/${this.props.team.slug}/project/${this.props.project.dbid}${queryPath}` : `/${this.props.team.slug}/search${queryPath}`;
+    const url = urlFromSearchQuery(prevState.query, this.props.project ? `/${this.props.team.slug}/project/${this.props.project.dbid}` : `/${this.props.team.slug}/search`);
     this.getContext().getContextStore().history.push(url);
   }
 
@@ -570,8 +568,8 @@ export function searchQueryFromUrlQuery(urlQuery) {
   }
 }
 
-export function urlQueryFromSearchQuery(query) {
-  return isEqual(query, {}) ? '' : encodeURIComponent(JSON.stringify(query));
+export function urlFromSearchQuery(query, prefix) {
+  return isEqual(query, {}) ? prefix : prefix + '/' + encodeURIComponent(JSON.stringify(query));
 }
 
 export default injectIntl(Search);

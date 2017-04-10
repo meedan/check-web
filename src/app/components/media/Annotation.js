@@ -18,15 +18,19 @@ import ParsedText from '../ParsedText';
 const messages = defineMessages({
   error: {
     id: 'annotation.error',
-    defaultMessage: 'Could not delete annotation',
+    defaultMessage: 'Could not delete annotation'
   },
   deleteButton: {
     id: 'annotation.deleteButton',
-    defaultMessage: 'Delete',
+    defaultMessage: 'Delete'
   },
-  reverseImageTooltip: {
-    id: 'annotation.reverseImageTooltip',
-    defaultMessage: 'Search Google for potential duplicates on the web.',
+  reverseImage: {
+    id: 'annotation.reverseImage',
+    defaultMessage: 'This item contains at least one image. Click Search to look for potential duplicates on Google.'
+  },
+  reverseImageFacebook: {
+    id: 'annotation.reverseImageFacebook',
+    defaultMessage: 'This item contains at least one image. Consider a reverse image search.'
   },
   and: {
     id: 'annotation.and',
@@ -104,8 +108,9 @@ class Annotation extends Component {
         <span className="annotation__author-name">{user.name}</span>;
   }
 
-  handleReverseImageSearch(imagePath) {
-    window.open('https://www.google.com/searchbyimage?&image_url=' + imagePath);
+  handleReverseImageSearch(path) {
+    const imagePath = path ? `?&image_url=${path}` : '';
+    window.open(`https://www.google.com/searchbyimage${imagePath}`);
   }
 
   render() {
@@ -214,9 +219,10 @@ class Annotation extends Component {
         </span>);
       }
       if (object.field_name === 'reverse_image_path') {
+        const [reverseImage, value] = (annotated.domain === 'facebook.com') ? [messages.reverseImageFacebook, null] : [messages.reverseImage, object.value];
         contentTemplate = (<span className="annotation__reverse-image">
-          <MdImage /> <FormattedMessage id="annotation.reverseImage" defaultMessage={'This item contains at least one image. Click Search to look for potential duplicates on Google.'} />
-          <span className="annotation__reverse-image-search" title={this.props.intl.formatMessage(messages.reverseImageTooltip)} onClick={this.handleReverseImageSearch.bind(this, object.value)}><FormattedMessage id="annotation.reverseImageSearch" defaultMessage="Search" /></span>
+          <MdImage /> <span>{this.props.intl.formatMessage(reverseImage)}</span>
+          <span className="annotation__reverse-image-search" title="Google Images" onClick={this.handleReverseImageSearch.bind(this, value)}><FormattedMessage id="annotation.reverseImageSearch" defaultMessage="Search" /></span>
         </span>);
       }
       if (object.field_name === 'translation_text') {
@@ -342,7 +348,6 @@ class Annotation extends Component {
                 <span className='annotation__default-content'>{contentTemplate}</span>
                 {timestamp}
               </span>
-              {annotationActions}
             </div>
           )
         }
