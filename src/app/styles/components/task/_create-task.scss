@@ -54,6 +54,10 @@
   }
 }
 
+.create-task__remove-option-button {
+  margin-#{$from-direction}: 13px;
+}
+
 .create-task__dialog-submit-button {
   background: $check-blue;
   color: $white;

@@ -249,7 +249,7 @@ class MultiSelectTask extends Component {
 
     const actionBtns = (<div>
         <FlatButton label={<FormattedMessage id="tasks.cancelEdit" defaultMessage="Cancel" />} primary onClick={cancelCallback} />
-        <FlatButton className="task__submit" label={<FormattedMessage id="tasks.submit" defaultMessage="Submit" />} primary onClick={submitCallback} disabled={this.state.taskAnswerDisabled}/>
+        <FlatButton className="task__submit" label={<FormattedMessage id="tasks.submit" defaultMessage="Resolve" />} primary onClick={submitCallback} disabled={this.state.taskAnswerDisabled}/>
       </div>);
 
     if (jsonoptions) {
