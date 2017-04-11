@@ -81,6 +81,11 @@ class Home extends Component {
     }
   }
 
+  getHistory() {
+    const history = new CheckContext(this).getContextStore().history;
+    return history;
+  }
+
   render() {
     const { state, children } = this.props;
     const routeSlug = this.routeSlug(children);
@@ -106,7 +111,7 @@ class Home extends Component {
       return null;
     }
 
-    if (children && children.props.route.path === 'check/login/email') {
+    if (children && children.props.route.path === 'check/login/email' && !this.state.token) {
       return (<LoginEmailPage loginCallback={this.loginCallback.bind(this)} message={message} />);
     }
 

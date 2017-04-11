@@ -108,8 +108,13 @@ class LoginEmail extends Component {
   }
 
   handleClose() {
-    this.setState({ open: false });
-    return true;
+    if (this.props.standalone) {
+      this.getHistory().push('/');
+    }
+    else {
+      this.setState({ open: false });
+      return true;
+    }
   }
 
   handleSwitchType() {
@@ -185,10 +190,9 @@ class LoginEmail extends Component {
               <button type="button" id="register-or-login" onClick={this.handleSwitchType.bind(this)} className="login-email__register-or-login">
                 {this.state.type === 'register' ? <FormattedMessage id="loginEmail.alreadyHasAccount" defaultMessage="I already have an account" /> : <FormattedMessage id="loginEmail.newAccount" defaultMessage="Create a new account" />}
               </button>
-              {this.props.standalone ? null :
               <button type="button" id="cancel-register-or-login" onClick={this.handleClose.bind(this)} className="login-email__cancel">
                 <FormattedMessage id="login.email.cancel" defaultMessage="Sign in with Twitter, Facebook, or Slack" />
-              </button>}
+              </button>
             </div>
           </form>
           {this.state.type === 'login' ? (<p className="login-email__help-text"><FormattedMessage id="login.trouble" defaultMessage={'Having trouble logging in? Please email {email} for assistance.'} values={{ email: <Link to="mailto:check@meedan.com">check@meedan.com</Link> }} /></p>) : null}
