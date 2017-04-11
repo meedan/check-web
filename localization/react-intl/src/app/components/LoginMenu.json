@@ -12,8 +12,8 @@
     "defaultMessage": "Sign in with {provider}"
   },
   {
-    "id": "forgot.password",
-    "defaultMessage": "Forgot your password? Can’t find your team? If you’re having any trouble, contact a human at <a href=\"mailto:check@meedan.com\">check@meedan.com</a>."
+    "id": "login.support",
+    "defaultMessage": "Can’t find your team? If you’re having any trouble, contact a human at <a href=\"mailto:check@meedan.com\">check@meedan.com</a>."
   },
   {
     "id": "agree.terms",
