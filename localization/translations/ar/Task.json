@@ -1,14 +1,14 @@
 {
   "task.confirmDelete": "هل أنت متأكد أنك تود حذف هذه المهمة؟",
   "tasks.cancelEdit": "إلغاء",
-  "tasks.submit": "إرسال",
+  "tasks.submit": "إنجاز المهمة",
   "task.noteLabel": "اكتب هنا التعليقات الإضافية.",
   "tasks.save": "حفظ",
   "task.edit": "تحرير المهمة",
   "task.delete": "حذف المهمة",
   "task.more": "المزيد",
   "task.pressReturnToSave": "إضغط \"إدخال\" لحفظ إجابتك",
-  "task.resolvedBy": "تم حلها بواسطة  {by}",
+  "task.resolvedBy": "تم إنجازها بواسطة  {by}",
   "tasks.taskLabel": "عنوان المهمة",
   "tasks.description": "وصف"
 }

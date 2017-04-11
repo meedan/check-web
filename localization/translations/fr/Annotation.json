@@ -1,7 +1,7 @@
 {
   "annotation.error": "Ce n'était pas possible d'effacer le commentaire",
   "annotation.deleteButton": "Effacer",
-  "annotation.reverseImage": "Ce média contient une ou plusieurs images. Cliquez sur \"Recherche\" pour chercher des copies sur Google.",
+  "annotation.reverseImage": "Ce média contient une ou plusieurs images. Cliquez Recherche pour chercher des copies sur Google.",
   "annotation.reverseImageFacebook": "Ce média contient une ou plusieurs images. Nous vous suggérons d'effectuer une recherche d'image inversée.",
   "annotation.and": "et",
   "annotation.statusSetHeader": "Statut fixé à {status} par {author}",

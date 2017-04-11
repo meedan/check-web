@@ -5,7 +5,7 @@
   "tasks.shortAnswer": "Short answer",
   "tasks.chooseOne": "Choose one",
   "tasks.chooseMultiple": "Choose multiple",
-  "tasks.taskLabel": "Task label",
+  "tasks.taskLabel": "Prompt",
   "tasks.description": "Description",
   "tasks.addDescription": "Add a description"
 }
