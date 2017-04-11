@@ -23,6 +23,10 @@ const messages = defineMessages({
   other: {
     id: 'singleChoiceTask.other',
     defaultMessage: 'Other'
+  },
+  otherLabel: {
+    id: 'singleChoiceTask.otherLabel',
+    defaultMessage: 'Other (Specify)'
   }
 });
 
@@ -71,6 +75,7 @@ class SingleChoiceTask extends Component {
     let label = '';
 
     if (!this.state.hasOther) {
+      label = this.props.intl.formatMessage(messages.otherLabel);
       options.push({ label, other });
       this.setState({ options, hasOther: true });
     }
@@ -121,7 +126,7 @@ class SingleChoiceTask extends Component {
         <Dialog actions={actions} modal={false} open={this.props.mode === 'create'} onRequestClose={this.props.onDismiss}>
           <Message message={this.state.message} />
           <div>
-            <TextField id="task-label-input" className="tasks__task-label-input" floatingLabelText={<FormattedMessage id="tasks.taskPrompt" defaultMessage="Prompt" />} onChange={this.handleLabelChange.bind(this)} multiLine />
+            <TextField id="task-label-input" className="tasks__task-label-input" floatingLabelText={<FormattedMessage id="tasks.taskPrompt" defaultMessage="Prompt" />} onChange={this.handleLabelChange.bind(this)} multiLine fullWidth />
               { this.state.options.map((item, index) => <div>
                   <MdRadioButtonUnchecked />
                   <TextField
@@ -129,13 +134,15 @@ class SingleChoiceTask extends Component {
                     id={index.toString()}
                     onChange={this.handleEditOption.bind(this)}
                     placeholder={ item.other ? formatMessage(messages.other) : formatMessage(messages.value) + ' ' + (index + 1) }
-                    value={item.label} />
-                  { canRemove ? <MdCancel onClick={this.handleRemoveOption.bind(this, index)}/> : null }
+                    value={item.label}
+                    disabled={item.other}
+                  />
+                { canRemove ? <MdCancel className="create-task__remove-option-button" onClick={this.handleRemoveOption.bind(this, index)}/> : null }
                 </div>)
               }
             <div>
               <FlatButton label={this.props.intl.formatMessage(messages.addValue)} primary onClick={this.handleAddValue.bind(this)} />
-              {/*<FlatButton label={this.props.intl.formatMessage(messages.addOther)} primary onClick={this.handleAddOther.bind(this)} disabled={this.state.hasOther} />*/}
+              <FlatButton label={this.props.intl.formatMessage(messages.addOther)} primary onClick={this.handleAddOther.bind(this)} disabled={this.state.hasOther} />
             </div>
           </div>
           <input className="create-task__add-task-description" id="create-task__add-task-description" type="checkbox" />

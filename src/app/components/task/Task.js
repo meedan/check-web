@@ -49,7 +49,7 @@ class Task extends Component {
   }
 
   handleCancelFocus(){
-    this.setState({ focus: false, response: null, responseOther: null  });
+    this.setState({ focus: false, response: null, responseOther: ''  });
   }
 
   handleClick(e) {
@@ -211,7 +211,7 @@ class Task extends Component {
   }
 
   handleCancelEditResponse() {
-    this.setState({ editingResponse: false, response: null, responseOther: null });
+    this.setState({ editingResponse: false, response: null, responseOther: '' });
   }
 
   handleEditResponse() {
@@ -323,6 +323,10 @@ class Task extends Component {
     this.setState({ focus: true, response: e.target.value, responseOther: '', taskAnswerDisabled: false });
   }
 
+  handleSelectRadioOther(e) {
+    this.setState({ focus: true, response: null, responseOther: '', taskAnswerDisabled: true });
+  }
+
   handleEditOther(e) {
     const value = e.target.value;
     this.setState({ focus: true, response: value, responseOther: value, taskAnswerDisabled: !this.canSubmit(value) });
@@ -354,8 +358,8 @@ class Task extends Component {
     const noteFormName = this.state.editingResponse ? 'editednote' : 'note';
 
     const actionBtns = (<div>
-        <FlatButton label={<FormattedMessage id="tasks.cancelEdit" defaultMessage="Cancel" />} primary onClick={cancelCallback} />
-        <FlatButton className="task__submit" label={<FormattedMessage id="tasks.submit" defaultMessage="Submit" />} primary onClick={submitCallback} disabled={this.state.taskAnswerDisabled}/>
+        <FlatButton label={<FormattedMessage id="tasks.cancelEdit" defaultMessage="Cancel" />} onClick={cancelCallback} />
+        <FlatButton className="task__submit" label={<FormattedMessage id="tasks.submit" defaultMessage="Resolve Task" />} primary onClick={submitCallback} disabled={this.state.taskAnswerDisabled}/>
       </div>);
 
     if (task.jsonoptions) {
@@ -368,20 +372,29 @@ class Task extends Component {
 
       const responseIndex = options.findIndex(item => (item.label === response || item.label === this.state.response));
       const responseOther = ((typeof this.state.responseOther === 'undefined' || this.state.responseOther === null) && (responseIndex < 0)) ? response : this.state.responseOther;
+      const responseOtherSelected = responseOther ? responseOther : 'none';
 
       if (task.type === 'single_choice') {
         return (<div className="task__options">
           <RadioButtonGroup name={formName} onChange={this.handleSelectRadio.bind(this)} valueSelected={this.state.response || response}>
             { options.map( (item, index) => <RadioButton label={item.label} id={index.toString()} value={item.label} style={{ padding: '5px' }} disabled={!editable}/>) }
           </RadioButtonGroup>
-          { other ? <TextField
-            placeholder={other.label}
-            value={responseOther}
-            name={formName}
-            onKeyPress={keyPressCallback}
-            onChange={this.handleEditOther.bind(this)}
-            disabled={!editable}
-          /> : null }
+          <div className="task__options_other">
+          { other ?
+            [ <RadioButtonGroup className="task__option_other_radio" valueSelected={responseOtherSelected} onChange={this.handleSelectRadioOther.bind(this)} >
+                <RadioButton value={responseOther} disabled={!editable} />
+              </RadioButtonGroup>,
+              <TextField className="task__option_other_text_input"
+                placeholder={other.label}
+                value={responseOther}
+                name={formName}
+                onKeyPress={keyPressCallback}
+                onChange={this.handleEditOther.bind(this)}
+                disabled={!editable}
+              />
+            ] : null
+          }
+          </div>
           { editable ?
             <TextField
                 className="task__response-note-input"

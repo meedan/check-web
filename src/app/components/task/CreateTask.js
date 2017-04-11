@@ -184,7 +184,7 @@ class CreateTask extends Component {
         <Dialog actionsContainerClassName="create-task__action-container" actions={actions} modal={false} open={this.state.dialogOpen && (this.state.type === 'free_text')} onRequestClose={this.handleCloseDialog.bind(this)}>
           <Message message={this.state.message} />
 
-          {this.state.type === 'free_text' ? <TextField id="task-label-input" className="create-task__task-label-input" floatingLabelText={<FormattedMessage id="tasks.taskLabel" defaultMessage="Task label" />} onChange={this.handleLabelChange.bind(this)} multiLine /> : null}
+          {this.state.type === 'free_text' ? <TextField id="task-label-input" className="create-task__task-label-input" floatingLabelText={<FormattedMessage id="tasks.taskLabel" defaultMessage="Prompt" />} onChange={this.handleLabelChange.bind(this)} multiLine /> : null}
 
           <input className="create-task__add-task-description" id="create-task__add-task-description" type="checkbox" />
           <TextField id="task-description-input" className="create-task__task-description-input" floatingLabelText={<FormattedMessage id="tasks.description" defaultMessage="Description" />} onChange={this.handleDescriptionChange.bind(this)} multiLine />
