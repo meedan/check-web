@@ -6,6 +6,7 @@ require File.join(File.expand_path(File.dirname(__FILE__)), 'app_spec_helpers')
 require_relative './pages/login_page.rb'
 require_relative './pages/me_page.rb'
 require_relative './pages/teams_page.rb'
+require_relative './pages/page.rb'
 
 shared_examples 'app' do |webdriver_url, browser_capabilities|
 
@@ -1150,6 +1151,33 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('My search result')).to be(true)
       selected = @driver.find_elements(:css, '.media-tags__suggestion--selected').map(&:text).sort
       expect(selected == ['Created', 'Oldest first'].sort).to be(true)
+    end
+
+    it "should login from e-mail login page" do
+      page = Page.new(config: @config, driver: @driver)
+      @driver.navigate.to @config['self_url'] + '/check/login/email'
+      page.fill_input('.login-email__email input', @email)
+      page.fill_input('.login-email__password input', @password)
+      expect(@driver.page_source.include?('Project')).to be(false)
+      (@wait.until { @driver.find_element(:xpath, "//button[@id='submit-register-or-login']") }).click
+      sleep 5
+      expect(@driver.page_source.include?('Project')).to be(true)
+    end
+
+    it "should not reset password" do
+      page = LoginPage.new(config: @config, driver: @driver)
+      page.reset_password('test@meedan.com')
+      sleep 2
+      expect(@driver.page_source.include?('Email not found')).to be(true)
+      expect(@driver.page_source.include?('Password reset sent')).to be(false)
+    end
+
+    it "should reset password" do
+      page = LoginPage.new(config: @config, driver: @driver)
+      page.reset_password(@email)
+      sleep 2
+      expect(@driver.page_source.include?('Email not found')).to be(false)
+      expect(@driver.page_source.include?('Password reset sent')).to be(true)
     end
   end
 end

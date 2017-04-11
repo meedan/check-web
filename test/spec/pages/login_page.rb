@@ -29,6 +29,15 @@ class LoginPage < Page
     confirm_email(options[:email])
   end
 
+  def reset_password(email)
+    load
+    email_button.click
+    (@wait.until { @driver.find_element(:css, '.login-email__forgot-password a') }).click
+    fill_input('#password-reset-email-input', email)
+    click_button('.user-password-reset__actions button + button')
+    sleep 3
+  end
+
   def login_with_email(options)
     load
     email_button.click

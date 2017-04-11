@@ -2,6 +2,7 @@ export Footer from './Footer';
 export Header from './Header';
 export Home from './Home';
 export LoginEmail from './LoginEmail';
+export LoginEmailPage from './LoginEmailPage';
 export LoginMenu from './LoginMenu';
 export Message from './Message';
 export NotFound from './NotFound';
