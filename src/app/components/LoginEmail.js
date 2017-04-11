@@ -149,7 +149,7 @@ class LoginEmail extends Component {
 
     return (
       <span className="login-email">
-        <a id="login-email" onClick={this.handleOpen.bind(this)} className="login-email__link"><FormattedMessage id="login.with" defaultMessage={'Sign in with {provider}'} values={{ provider: 'e-mail' }} /></a>
+        <a id="login-email" onClick={this.handleOpen.bind(this)} className="login-email__link"><FormattedMessage id="login.with" defaultMessage={'Sign in with {provider}'} values={{ provider: this.props.intl.formatMessage(messages.emailInputHint).toLowerCase() }} /></a>
 
         <section className={this.bemClass('login-email__modal', this.state.open, '--open')}>
           <Message message={this.state.message} />
