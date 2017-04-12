@@ -3,6 +3,7 @@
   "singleChoiceTask.value": "القيمة",
   "singleChoiceTask.addOther": "أضف \"آخر\"",
   "singleChoiceTask.other": "آخر",
+  "singleChoiceTask.otherLabel": "آخر (تحديد)",
   "tasks.cancelAdd": "إلغاء",
   "tasks.add": "أضف",
   "tasks.taskPrompt": "السؤال",

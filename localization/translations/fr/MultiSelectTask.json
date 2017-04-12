@@ -9,6 +9,6 @@
   "tasks.description": "Description",
   "tasks.addDescription": "Ajouter une description",
   "tasks.cancelEdit": "Annuler",
-  "tasks.submit": "Envoyer",
+  "tasks.submit": "Résoudre",
   "task.noteLabel": "Ajouter ici des détails supplémentaires."
 }

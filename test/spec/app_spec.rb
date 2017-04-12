@@ -6,6 +6,7 @@ require File.join(File.expand_path(File.dirname(__FILE__)), 'app_spec_helpers')
 require_relative './pages/login_page.rb'
 require_relative './pages/me_page.rb'
 require_relative './pages/teams_page.rb'
+require_relative './pages/page.rb'
 
 shared_examples 'app' do |webdriver_url, browser_capabilities|
 
@@ -105,7 +106,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
         driver = Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: caps)
         driver.navigate.to @config['self_url']
         sleep 1
-        expect(driver.find_element(:css, '.login-menu__heading span').text == 'SE CONNECTER').to be(true)
+        expect(driver.find_element(:css, '.login-menu__heading span').text == 'CONNEXION').to be(true)
         driver.quit
 
         caps = Selenium::WebDriver::Remote::Capabilities.chrome(chromeOptions: { prefs: { 'intl.accept_languages' => 'pt' } })
@@ -166,12 +167,12 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       page.driver.navigate.to @config['self_url']
       expect(page.contains_string?('Tweet by Marcelo Souza')).to be(false)
-          
+
       page.create_media(input: 'https://twitter.com/marcouza/status/771009514732650497?t=' + Time.now.to_i.to_s)
 
       page.driver.navigate.to @config['self_url']
       page.wait_for_element('.project .media-detail')
-      
+
       expect(page.contains_string?('Tweet by Marcelo Souza')).to be(true)
     end
 
@@ -1090,7 +1091,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect((@driver.current_url.to_s.match(/recent_activity/)).nil?).to be(false)
       expect((@driver.current_url.to_s.match(/recent_added/)).nil?).to be(true)
       expect(@driver.page_source.include?('My search result')).to be(true)
-      
+
       @driver.find_element(:xpath, "//span[contains(text(), 'Created')]").click
       sleep 3
       expect((@driver.current_url.to_s.match(/recent_activity/)).nil?).to be(true)
@@ -1107,7 +1108,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect((@driver.current_url.to_s.match(/DESC/)).nil?).to be(false)
       expect((@driver.current_url.to_s.match(/ASC/)).nil?).to be(true)
       expect(@driver.page_source.include?('My search result')).to be(true)
-      
+
       @driver.find_element(:xpath, "//span[contains(text(), 'Oldest')]").click
       sleep 3
       expect((@driver.current_url.to_s.match(/DESC/)).nil?).to be(true)
@@ -1150,6 +1151,33 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('My search result')).to be(true)
       selected = @driver.find_elements(:css, '.media-tags__suggestion--selected').map(&:text).sort
       expect(selected == ['Created', 'Oldest first'].sort).to be(true)
+    end
+
+    it "should login from e-mail login page" do
+      page = Page.new(config: @config, driver: @driver)
+      @driver.navigate.to @config['self_url'] + '/check/login/email'
+      page.fill_input('.login-email__email input', @email)
+      page.fill_input('.login-email__password input', @password)
+      expect(@driver.page_source.include?('Project')).to be(false)
+      (@wait.until { @driver.find_element(:xpath, "//button[@id='submit-register-or-login']") }).click
+      sleep 5
+      expect(@driver.page_source.include?('Project')).to be(true)
+    end
+
+    it "should not reset password" do
+      page = LoginPage.new(config: @config, driver: @driver)
+      page.reset_password('test@meedan.com')
+      sleep 2
+      expect(@driver.page_source.include?('Email not found')).to be(true)
+      expect(@driver.page_source.include?('Password reset sent')).to be(false)
+    end
+
+    it "should reset password" do
+      page = LoginPage.new(config: @config, driver: @driver)
+      page.reset_password(@email)
+      sleep 2
+      expect(@driver.page_source.include?('Email not found')).to be(false)
+      expect(@driver.page_source.include?('Password reset sent')).to be(true)
     end
   end
 end

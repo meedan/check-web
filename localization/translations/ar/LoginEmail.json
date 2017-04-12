@@ -10,6 +10,7 @@
   "loginEmail.passwordConfirmLabel": "تأكيد كلمة المرور",
   "loginEmail.signIn": "سجل الدخول",
   "loginEmail.signUp": "انشيء حساب جديد",
+  "loginEmail.lostPassword": "هل نسيت كلمة المرور؟",
   "loginEmail.alreadyHasAccount": "لدي حساب بالفعل",
   "loginEmail.newAccount": "انشيء حساب جديد",
   "login.email.cancel": "سجل دخول باستخدام Twitter أو Slack أو Facebook",

@@ -5,7 +5,7 @@ import LoginEmail from './LoginEmail';
 import Message from './Message';
 import { login } from '../actions/actions';
 
-class LoginMenu extends Component {
+class LoginEmailPage extends Component {
   login(provider) {
     login(provider, this.props.loginCallback);
   }
@@ -29,22 +29,7 @@ class LoginMenu extends Component {
 
           <ul className="login-menu__options">
             <li>
-              <button onClick={this.login.bind(this, 'slack')} id="slack-login" className="login-menu__button login-menu__button--slack">
-                <FormattedMessage id="login.with" defaultMessage={'Sign in with {provider}'} values={{ provider: 'Slack' }} />
-              </button>
-            </li>
-            <li className="item">
-              <button onClick={this.login.bind(this, 'twitter')} id="twitter-login" className="login-menu__button login-menu__button--twitter">
-                <FormattedMessage id="login.with" defaultMessage={'Sign in with {provider}'} values={{ provider: 'Twitter' }} />
-              </button>
-            </li>
-            <li>
-              <button onClick={this.login.bind(this, 'facebook')} id="facebook-login" className="login-menu__button login-menu__button--facebook">
-                <FormattedMessage id="login.with" defaultMessage={'Sign in with {provider}'} values={{ provider: 'Facebook' }} />
-              </button>
-            </li>
-            <li>
-              <LoginEmail loginCallback={this.props.loginCallback} />
+              <LoginEmail loginCallback={this.props.loginCallback} standalone />
             </li>
           </ul>
 
@@ -64,4 +49,4 @@ class LoginMenu extends Component {
   }
 }
 
-export default LoginMenu;
+export default LoginEmailPage;

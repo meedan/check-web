@@ -108,8 +108,13 @@ class LoginEmail extends Component {
   }
 
   handleClose() {
-    this.setState({ open: false });
-    return true;
+    if (this.props.standalone) {
+      this.getHistory().push('/');
+    }
+    else {
+      this.setState({ open: false });
+      return true;
+    }
   }
 
   handleSwitchType() {
@@ -133,12 +138,18 @@ class LoginEmail extends Component {
     return modifierBoolean ? [baseClass, baseClass + modifierSuffix].join(' ') : baseClass;
   }
 
+  componentDidMount() {
+    if (this.props.standalone) {
+      this.handleOpen();
+    }
+  }
+
   render() {
     const { state } = this.props;
 
     return (
       <span className="login-email">
-        <a id="login-email" onClick={this.handleOpen.bind(this)} className="login-email__link"><FormattedMessage id="login.with" defaultMessage={'Sign in with {provider}'} values={{ provider: 'e-mail' }} /></a>
+        <a id="login-email" onClick={this.handleOpen.bind(this)} className="login-email__link"><FormattedMessage id="login.with" defaultMessage={'Sign in with {provider}'} values={{ provider: this.props.intl.formatMessage(messages.emailInputHint).toLowerCase() }} /></a>
 
         <section className={this.bemClass('login-email__modal', this.state.open, '--open')}>
           <Message message={this.state.message} />
@@ -175,6 +186,7 @@ class LoginEmail extends Component {
               <button type="submit" id="submit-register-or-login" className={`login-email__submit login-email__submit--${this.state.type}`}>
                 {this.state.type === 'login' ? <FormattedMessage id="loginEmail.signIn" defaultMessage="Sign in »" /> : <FormattedMessage id="loginEmail.signUp" defaultMessage="Sign up »" />}
               </button>
+              {this.state.type === 'login' ? <span className="login-email__forgot-password"><Link to="/check/user/password-reset"><FormattedMessage id="loginEmail.lostPassword" defaultMessage="Forgot password?"></FormattedMessage></Link></span> : null }
               <button type="button" id="register-or-login" onClick={this.handleSwitchType.bind(this)} className="login-email__register-or-login">
                 {this.state.type === 'register' ? <FormattedMessage id="loginEmail.alreadyHasAccount" defaultMessage="I already have an account" /> : <FormattedMessage id="loginEmail.newAccount" defaultMessage="Create a new account" />}
               </button>

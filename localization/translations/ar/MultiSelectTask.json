@@ -9,6 +9,6 @@
   "tasks.description": "وصف",
   "tasks.addDescription": "أضف وصفاً",
   "tasks.cancelEdit": "إلغاء",
-  "tasks.submit": "إرسال",
+  "tasks.submit": "حل",
   "task.noteLabel": "اكتب هنا التعليقات الإضافية."
 }

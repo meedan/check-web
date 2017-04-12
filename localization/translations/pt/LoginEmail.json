@@ -10,6 +10,7 @@
   "loginEmail.passwordConfirmLabel": "Password confirmation",
   "loginEmail.signIn": "Sign in »",
   "loginEmail.signUp": "Sign up »",
+  "loginEmail.lostPassword": "Forgot password?",
   "loginEmail.alreadyHasAccount": "I already have an account",
   "loginEmail.newAccount": "Create a new account",
   "login.email.cancel": "Entrar com Twitter, Facebook ou Slack",

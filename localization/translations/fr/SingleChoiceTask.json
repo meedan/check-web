@@ -3,6 +3,7 @@
   "singleChoiceTask.value": "Valeur",
   "singleChoiceTask.addOther": "Ajouter \"Autre\"",
   "singleChoiceTask.other": "Autre",
+  "singleChoiceTask.otherLabel": "Autre (à spécifier)",
   "tasks.cancelAdd": "Annuler",
   "tasks.add": "Ajouter",
   "tasks.taskPrompt": "Étiquette",

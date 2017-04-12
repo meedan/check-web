@@ -1,7 +1,7 @@
 {
   "task.confirmDelete": "Voulez-vous vraiment effacer cette tâche ?",
   "tasks.cancelEdit": "Annuler",
-  "tasks.submit": "Envoyer",
+  "tasks.submit": "Résoudre la tâche",
   "task.noteLabel": "Ajouter ici des détails supplémentaires.",
   "tasks.save": "Sauvegarder",
   "task.edit": "Modifier la tâche",

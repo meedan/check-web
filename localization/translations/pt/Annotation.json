@@ -2,7 +2,6 @@
   "annotation.error": "Could not delete annotation",
   "annotation.deleteButton": "Delete",
   "annotation.reverseImage": "This item contains at least one image. Click Search to look for potential duplicates on Google.",
-  "annotation.reverseImageTooltip": "Search Google for potential duplicates on the web.",
   "annotation.reverseImageFacebook": "This item contains at least one image. Consider a reverse image search.",
   "annotation.and": "and",
   "annotation.statusSetHeader": "Status set to {status} by {author}",
