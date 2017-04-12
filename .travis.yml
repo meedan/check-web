@@ -9,7 +9,7 @@ addons:
   postgresql: "9.4"
 before_install:
 # decrypt configs
-- openssl aes-256-cbc -K $encrypted_5ab85c42c496_key -iv $encrypted_5ab85c42c496_iv -in travis.enc -out travis.zip -d
+- openssl aes-256-cbc -K $encrypted_5ab85c42c496_key -iv $encrypted_5ab85c42c496_iv -in travis.zip.enc -out travis.zip -d
 - unzip travis.zip
 # apt dependencies
 - sudo apt-get -qq update
@@ -72,5 +72,4 @@ after_script:
 script: npm run test
 notifications:
   slack:
-    rooms:
-      secure: "f/6GBO4+yZgpHnTOsCUpfhQs4z64tgmvyXDhLisSa032a+Bh1xvYNQpx0GUREdkoWv+R3YDIRmdCEd+FXPDNfjBzBwnF8NieLQX7RHUztharbZIhxZhLwBHPr3xlJildJzOairN190t8WM+fLQRSw2vybE+UwQmy8Bj+263azSutDYAyEyYUQ6r/43b6ov49j3zQW2S3kL/OM8s/sYYwGn46PJe9tndWseokW3jV0UNHWmi70zcDN11rnCYTXwmAlqKQrPJ0M37aVLFIVYw4ZQFVVnzfUIeqjsDL0x1NpQOqk7QTvhmH50QP5DZ+JpKqXV1TB4/9tThmDUKeiGAiXdfn1FiLeNd7K8UyczhEOHbGa8A1H7W7LHNqPp/CuPbdDf08KLfRIioFKLW4N9qMARcZHJ5FymRbL+RW+37+bcAEAK/uojEp+sH9CNbm93zg85vvVc20CsqUy2ud50RUkKHqNbQWKihN/1wPIBgapjY/LJ8LuHppACocUHjgm0hKedaC20uVcdEG65nttwxq4Sp5H/BrBPUZxBZ8I54Xxv/BM4b0wRyPFb38jeGXM63OL2w88/c6+FQFkjSGZYOgf3M7UySydpDdvJRr67EADW8QE6Hv90xviEn98MAHZ0hQarzfl1bFfX1OF2D6TqXPvtwtB0NNJ1WlayD1BTNb0pw="
+    secure: IxSCQrwGXTuEnPEHOX5paakeT/wo/NoyXmGZyD2ZGX1M+wImTPJ6PTh5I8ccB/P8Zfgdvi7GInH0B5mtJ2pHV+h9c5NnoiHCZXWEIjJFS/im/HHLzQ6CdexWqm4ee/NnTmwGJC65XCiPg4aE4N30+tHfQ7n8oOUUftBgGVMxb3YQLu3J1KYq6c5SKDtsJfYr4Et0Sxt/Ttg1jCtLLimLUZGbMOMKNTrpn+ldKieYT+QLwUSfmlvG7HYwZDbwMbnZ8dG5N0Oo6+8Y1n8PpPPrxuRHG1ujCIImmjAxbQMnjlLxFjxpqgub6MCAoNsH862Ss90nrltgXR+ZquvsPXNCtLYsrL2ZTur+yf1fJfSADOkxbrDf1LxsbKbVOyMUXGymUpqD5fsLCJ+W20wmYSycNPACmr0Qtb8pM48UI6Fjz8h1wPnY4LIAy+br0GgZzoGI+ZmgdA0lWRxNsjmcHlGZUsPqoGH/9z+xokgXRrRuRNas3FMKVbqRDCB+7zTj0uTq4peoqJBkIo9D5gshfWSo11C6h5yPBNauhJsIZL7dqProyX/mKQ8kSigD01ghgeHU0hkEavmD98pPZc1+I8ebB4HzHbOnzade212Jsao8vqaF4JzbJFQcA50fIRi3vidANOQqiHXK7thr//GcU2dP/6Pr2NBmqjnAmhqN0Z4q1mA=
