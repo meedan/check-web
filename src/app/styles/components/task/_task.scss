@@ -120,6 +120,7 @@
 
   .task__option_other_text_input {
     float: $from-direction;
+    width: 75% !important;
   }
 
   .task__options_other:after {

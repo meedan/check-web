@@ -1,6 +1,7 @@
 {
+  "createTask.newTask": "New task",
   "tasks.cancelAdd": "Cancel",
-  "tasks.add": "Add",
+  "tasks.add": "Create Task",
   "tasks.addTask": "Add task",
   "tasks.shortAnswer": "Short answer",
   "tasks.chooseOne": "Choose one",
