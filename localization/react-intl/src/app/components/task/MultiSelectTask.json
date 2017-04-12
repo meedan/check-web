@@ -16,6 +16,10 @@
     "defaultMessage": "Other"
   },
   {
+    "id": "multiSelectTask.otherLabel",
+    "defaultMessage": "Other (Specify)"
+  },
+  {
     "id": "tasks.cancelAdd",
     "defaultMessage": "Cancel"
   },

@@ -49,7 +49,7 @@ class Task extends Component {
   }
 
   handleCancelFocus(){
-    this.setState({ focus: false, response: null, responseOther: ''  });
+    this.setState({ focus: false, response: null, responseOther: null, otherSelected: false });
   }
 
   handleClick(e) {
@@ -211,7 +211,7 @@ class Task extends Component {
   }
 
   handleCancelEditResponse() {
-    this.setState({ editingResponse: false, response: null, responseOther: '' });
+    this.setState({ editingResponse: false, response: null, responseOther: null, otherSelected: false });
   }
 
   handleEditResponse() {
@@ -320,16 +320,21 @@ class Task extends Component {
   }
 
   handleSelectRadio(e) {
-    this.setState({ focus: true, response: e.target.value, responseOther: '', taskAnswerDisabled: false });
+    this.setState({ focus: true, response: e.target.value, responseOther: '', otherSelected: false, taskAnswerDisabled: false });
   }
 
   handleSelectRadioOther(e) {
-    this.setState({ focus: true, response: null, responseOther: '', taskAnswerDisabled: true });
+    const input = document.querySelector('.task__option_other_text_input input');
+    if (input) {
+      input.focus();
+    }
+
+    this.setState({ focus: true, response: '', responseOther: '', otherSelected: true, taskAnswerDisabled: true });
   }
 
   handleEditOther(e) {
     const value = e.target.value;
-    this.setState({ focus: true, response: value, responseOther: value, taskAnswerDisabled: !this.canSubmit(value) });
+    this.setState({ focus: true, response: value, responseOther: value, otherSelected: true, taskAnswerDisabled: !this.canSubmit(value) });
   }
 
   canSubmit(value){
@@ -372,11 +377,12 @@ class Task extends Component {
 
       const responseIndex = options.findIndex(item => (item.label === response || item.label === this.state.response));
       const responseOther = ((typeof this.state.responseOther === 'undefined' || this.state.responseOther === null) && (responseIndex < 0)) ? response : this.state.responseOther;
-      const responseOtherSelected = responseOther ? responseOther : 'none';
+      const responseOtherSelected = this.state.otherSelected || responseOther ? responseOther : 'none';
+      const responseSelected = this.state.response == null ? response : this.state.response;
 
       if (task.type === 'single_choice') {
         return (<div className="task__options">
-          <RadioButtonGroup name={formName} onChange={this.handleSelectRadio.bind(this)} valueSelected={this.state.response || response}>
+          <RadioButtonGroup name={formName} onChange={this.handleSelectRadio.bind(this)} valueSelected={responseSelected}>
             { options.map( (item, index) => <RadioButton label={item.label} id={index.toString()} value={item.label} style={{ padding: '5px' }} disabled={!editable}/>) }
           </RadioButtonGroup>
           <div className="task__options_other">

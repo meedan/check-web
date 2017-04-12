@@ -110,6 +110,14 @@
     margin-#{$to-direction}: 12px;
   }
 
+  .task__option_other_checkbox {
+    float: $from-direction;
+    max-width: 24px;
+    max-height: 24px;
+    margin-#{$from-direction}:: 5px;
+    margin-top: 10px;
+  }
+
   .task__option_other_text_input {
     float: $from-direction;
   }
