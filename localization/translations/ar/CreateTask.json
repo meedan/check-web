@@ -5,7 +5,7 @@
   "tasks.shortAnswer": "إجابة قصيرة",
   "tasks.chooseOne": "سؤال أحادي الاختيارات",
   "tasks.chooseMultiple": "سؤال متعدد الاختيارات",
-  "tasks.taskLabel": "عنوان المهمة",
+  "tasks.taskLabel": "السؤال",
   "tasks.description": "وصف",
   "tasks.addDescription": "أضف وصفاً"
 }
