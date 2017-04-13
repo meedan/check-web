@@ -68,7 +68,6 @@ before_script:
 - npm run publish &
 - sleep 5
 after_script:
-- cd check-api && RAILS_ENV=test rails runner 'puts "Last user: #{User.last.inspect}"' && cd -
 - size=$(du -k build/web/js/index.bundle.js | cut -f1) && size2=$(du -k build/web/js/vendor.bundle.js | cut -f1) && totalsize=$((size+size2)) && echo "Your bundle size is $totalsize kb"
 script: cd test && rspec --example Facebook spec/integration_spec.rb
 notifications:
