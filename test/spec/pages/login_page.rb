@@ -54,31 +54,16 @@ class LoginPage < Page
     return ProjectPage.new(config: @config, driver: @driver) if options[:project]
   end
 
-  def screenshot(step)
-    require 'imgur'
-    path = '/tmp/' + (0...8).map{ (65 + rand(26)).chr }.join + '.png'
-    @driver.save_screenshot(path) # TODO: fix for page model tests
-
-    client = Imgur.new(@config['imgur_client_id'])
-    image = Imgur::LocalImage.new(path, title: "Facebook login: Step #{step}")
-    uploaded = client.upload(image)
-    link = uploaded.link
-
-    puts "Facebook login: Check screenshot at #{link}"
-  end
-
   def login_with_facebook
     @driver.navigate.to 'https://www.facebook.com'
     fill_input('#email', @config['facebook_user'])
     fill_input('#pass', @config['facebook_password'])
     click_button('#loginbutton input')
     sleep 2
-    screenshot(1)
 
     @driver.navigate.to url
     click_button('#facebook-login')
     sleep 3
-    screenshot(2)
 
     window = @driver.window_handles.first
     @driver.switch_to.window(window)
