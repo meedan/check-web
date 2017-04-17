@@ -267,7 +267,7 @@ class MultiSelectTask extends Component {
     const keyPressCallback = this.handleKeyPress.bind(this);
 
     const actionBtns = (<div>
-        <FlatButton label={<FormattedMessage id="tasks.cancelEdit" defaultMessage="Cancel" />} primary onClick={cancelCallback} />
+        <FlatButton label={<FormattedMessage id="tasks.cancelEdit" defaultMessage="Cancel" />} onClick={cancelCallback} />
         <FlatButton className="task__submit" label={<FormattedMessage id="tasks.submit" defaultMessage="Resolve Task" />} primary onClick={submitCallback} disabled={this.state.taskAnswerDisabled}/>
       </div>);
 
