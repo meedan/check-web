@@ -22,8 +22,9 @@ class LoginMenu extends Component {
 
         <Message message={this.props.message} />
 
-        <img alt="Check" width="36" className="login-menu__icon" src="/images/logo/check.svg" />
         <div className="login-menu__content">
+
+        <img alt="Check" width="120" className="login-menu__icon" src="/images/logo/check.svg" />
 
           <h2 className="login-menu__heading"><FormattedMessage id="login.title" defaultMessage="Sign in" /></h2>
 

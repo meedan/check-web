@@ -5,18 +5,27 @@
 }
 
 .login-menu__icon {
-  margin-top: 50px;
-  height: 36px;
+  margin-top: 56px;
+  height: 54px;
+  width: 120px;
 }
 
 .login-menu__heading {
-  @include onboarding-heading;
+  font: $font-subheading-1;
 }
 
 .login-menu__content {
+  @include box-shadow(1);
   position: relative;
   max-width: 500px;
   margin: 4em auto;
+  background-color: $white;
+  padding: 2em;
+
+  & > p {
+    width: 80%;
+    margin: 0 auto;
+  }
 }
 
 .login-menu__blurb {
@@ -41,40 +50,21 @@
   }
 }
 
-.login-menu__button--twitter {
-  background-color: $twitter-blue;
+$providers: (
+  twitter: $twitter-blue,
+  facebook: $facebook-blue,
+  google: $google-orange,
+  slack: $slack-green
+);
 
-  &:hover {
-    background-color: darken(saturate($twitter-blue, 10%), 10%);
+@each $provider-name, $provider-color in $providers {
+  .login-menu__button--#{$provider-name} {
+    background-color: $provider-color;
+
+    &:hover {
+      background-color: darken(saturate($provider-color, 10%), 10%);
+    }
   }
-}
-
-.login-menu__button--facebook {
-  background-color: $facebook-blue;
-
-  &:hover {
-    background-color: darken(saturate($facebook-blue, 10%), 10%);
-  }
-}
-
-.login-menu__button--google {
-  background-color: $google-orange;
-
-  &:hover {
-    background-color: darken(saturate($google-orange, 10%), 10%);
-  }
-}
-
-.login-menu__button--slack {
-  background-color: $slack-green;
-
-  &:hover {
-    background-color: darken(saturate($slack-green, 10%), 10%);
-  }
-}
-
-.login-menu__footer-link {
-  color: $check-blue;
 }
 
 .login-email__link {
