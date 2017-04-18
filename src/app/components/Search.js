@@ -162,7 +162,7 @@ class SearchQueryComponent extends Component {
 
       if (tagIsSelected) {
         selectedTags.splice(selectedTags.indexOf(tag), 1); // remove from array
-        if (!selectedTags.legnth) delete state.query.tags;
+        if (!selectedTags.length) delete state.query.tags;
       } else {
         state.query.tags = selectedTags.concat(tag);
       }
