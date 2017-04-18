@@ -263,8 +263,8 @@ class Annotation extends Component {
               <li className='mt__list-item'>
                 <FormattedMessage
                   id="annotation.machineTranslation"
-                  defaultMessage={'Machine translation for "{lang}" is "{text}"'}
-                  values={{ lang: mt.lang, text: mt.text }}
+                  defaultMessage={'Machine translation for "{lang}" is: {text}'}
+                  values={{ lang: mt.lang_name, text: mt.text }}
                 />
               </li>
             ))}

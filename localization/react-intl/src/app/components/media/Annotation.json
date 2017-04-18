@@ -49,7 +49,7 @@
   },
   {
     "id": "annotation.machineTranslation",
-    "defaultMessage": "Machine translation for \"{lang}\" is \"{text}\""
+    "defaultMessage": "Machine translation for \"{lang}\" is: {text}"
   },
   {
     "id": "annotation.flaggedHeader",
