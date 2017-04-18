@@ -115,7 +115,7 @@ class MediaTags extends Component {
     return urlFromSearchQuery(query, `/${media.team.slug}/search`);
   }
 
-  handleRegularTagViewClick(tagString) {
+  handleTagViewClick(tagString) {
     const url = this.searchTagUrl(tagString);
     const history = new CheckContext(this).getContextStore().history;
     history.push(url);
@@ -134,14 +134,22 @@ class MediaTags extends Component {
         <div className="media-tags">
           {activeSuggestedTags.length ? (
             <ul className="media-tags__suggestions / electionland_categories">
-              {activeSuggestedTags.map(tag => <li className={this.bemClass('media-tags__suggestion', true, '--selected')}>{tag.node.tag}</li>)}
+              {activeSuggestedTags.map(tag =>
+                <li key={tag.node.id}
+                    onClick={this.handleTagViewClick.bind(this, tag.node.tag)}
+                    className={this.bemClass('media-tags__suggestion', activeRegularTags.indexOf(tag.node.tag) > -1, '--selected')}>
+                    {tag.node.tag}
+                </li>
+              )}
             </ul>
           ) : null}
           <ul className="media-tags__list">
             {media.language ? <li className="media-tags__tag">{`source:${media.language}`}</li> : null}
             {remainingTags.map(tag =>
-              <li onClick={this.handleRegularTagViewClick.bind(this, tag.node.tag)}
-                  className={this.bemClass('media-tags__tag', activeRegularTags.indexOf(tag.node.tag) > -1, '--selected')}>{tag.node.tag.replace(/^#/, '')}
+              <li key={tag.node.id}
+                  onClick={this.handleTagViewClick.bind(this, tag.node.tag)}
+                  className={this.bemClass('media-tags__tag', activeRegularTags.indexOf(tag.node.tag) > -1, '--selected')}>
+                  {tag.node.tag.replace(/^#/, '')}
               </li>
             )}
           </ul>
@@ -160,8 +168,10 @@ class MediaTags extends Component {
           <div className="media-tags__suggestions">
             <ul className="media-tags__suggestions-list / electionland_categories">
               {suggestedTags.map(suggestedTag =>
-                <li onClick={this.handleSuggestedTagEditClick.bind(this, suggestedTag)}
-                    className={this.bemClass('media-tags__suggestion', this.findTag(suggestedTag), '--selected')}>{suggestedTag}
+                <li key={suggestedTag}
+                    onClick={this.handleSuggestedTagEditClick.bind(this, suggestedTag)}
+                    className={this.bemClass('media-tags__suggestion', this.findTag(suggestedTag), '--selected')}>
+                    {suggestedTag}
                 </li>
               )}
             </ul>
