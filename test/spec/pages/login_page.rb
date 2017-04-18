@@ -64,6 +64,7 @@ class LoginPage < Page
     @driver.navigate.to url
     click_button('#facebook-login')
     sleep 3
+
     window = @driver.window_handles.first
     @driver.switch_to.window(window)
     wait_for_element('.home')

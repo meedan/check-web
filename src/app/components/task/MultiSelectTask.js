@@ -24,6 +24,10 @@ const messages = defineMessages({
   other: {
     id: 'multiSelectTask.other',
     defaultMessage: 'Other'
+  },
+  otherLabel: {
+    id: 'multiSelectTask.otherLabel',
+    defaultMessage: 'Other (Specify)'
   }
 });
 
@@ -105,6 +109,7 @@ class MultiSelectTask extends Component {
     let label = '';
 
     if (!this.state.hasOther) {
+      label = this.props.intl.formatMessage(messages.otherLabel);
       options.push({ label, other });
       this.setState({ options, hasOther: true });
     }
@@ -150,6 +155,19 @@ class MultiSelectTask extends Component {
   handleSelectCheckbox(e, inputChecked) {
     inputChecked ? this.addToResponse(e.target.id) : this.removeFromResponse(e.target.id);
     this.setState({ focus: true });
+  }
+
+  handleSelectCheckboxOther(e, inputChecked) {
+    const input = document.querySelector('.task__option_other_text_input input');
+
+    if (inputChecked) {
+      if (input) {
+        input.focus();
+      }
+      this.setState({ focus: true, otherSelected: true });
+    } else {
+      this.setState({ focus: true, responseOther: '', otherSelected: false }, this.canSubmit);
+    }
   }
 
   addToResponse(value) {
@@ -201,7 +219,7 @@ class MultiSelectTask extends Component {
         <Dialog actions={actions} modal={false} open={this.props.mode === 'create'} onRequestClose={this.props.onDismiss}>
           <Message message={this.state.message} />
           <div>
-            <TextField id="task-label-input" className="tasks__task-label-input" floatingLabelText={<FormattedMessage id="tasks.taskPrompt" defaultMessage="Prompt" />} onChange={this.handleLabelChange.bind(this)} multiLine />
+            <TextField id="task-label-input" className="tasks__task-label-input" floatingLabelText={<FormattedMessage id="tasks.taskPrompt" defaultMessage="Prompt" />} onChange={this.handleLabelChange.bind(this)} multiLine fullWidth />
               { this.state.options.map((item, index) => <div>
                   <MdCheckBoxOutlineBlank />
                   <TextField
@@ -209,13 +227,15 @@ class MultiSelectTask extends Component {
                     id={index.toString()}
                     onChange={this.handleEditOption.bind(this)}
                     placeholder={ item.other ? formatMessage(messages.other) : formatMessage(messages.value) + ' ' + (index + 1) }
-                    value={item.label} />
-                  { canRemove ? <MdCancel onClick={this.handleRemoveOption.bind(this, index)}/> : null }
+                    value={item.label}
+                    disabled={item.other}
+                  />
+                  { canRemove ? <MdCancel className="create-task__remove-option-button" onClick={this.handleRemoveOption.bind(this, index)}/> : null }
                 </div>)
               }
             <div>
               <FlatButton label={this.props.intl.formatMessage(messages.addValue)} primary onClick={this.handleAddValue.bind(this)} />
-              {/*<FlatButton label={this.props.intl.formatMessage(messages.addOther)} primary onClick={this.handleAddOther.bind(this)} disabled={this.state.hasOther} />*/}
+              <FlatButton label={this.props.intl.formatMessage(messages.addOther)} primary onClick={this.handleAddOther.bind(this)} disabled={this.state.hasOther} />
             </div>
           </div>
           <input className="create-task__add-task-description" id="create-task__add-task-description" type="checkbox" />
@@ -266,14 +286,21 @@ class MultiSelectTask extends Component {
 
       return (<div className="task__options">
         { options.map( (item, index) => <Checkbox label={item.label} checked={this.isChecked(item.label, index)} onCheck={this.handleSelectCheckbox.bind(this)} id={item.label} style={{ padding: '5px' }} disabled={!editable} />) }
-        { other ? <TextField
-          placeholder={other.label}
-          value={responseOther}
-          name={'response'}
-          onKeyPress={keyPressCallback}
-          onChange={this.handleEditOther.bind(this)}
-          disabled={!editable}
-        /> : null }
+
+        <div className="task__options_other">
+        { other ?
+          [ <Checkbox className="task__option_other_checkbox" checked={this.state.otherSelected || !!responseOther} onCheck={this.handleSelectCheckboxOther.bind(this)} disabled={!editable} />,
+            <TextField className="task__option_other_text_input"
+              placeholder={other.label}
+              value={responseOther}
+              name={'response'}
+              onKeyPress={keyPressCallback}
+              onChange={this.handleEditOther.bind(this)}
+              disabled={!editable}
+            />
+          ] : null }
+        </div>
+
         { editable ?
           <TextField
               className="task__response-note-input"
