@@ -3,8 +3,9 @@
 }
 
 .login-email__modal {
+
+  // TODO: This uses magic numbers and generally is unstable. Refine the behavior of the modal so it's not absolutely positioned.
   position: absolute;
-  top: -10px;
   #{$from-direction}: 0;
   #{$to-direction}: 0;
   max-width: 500px;
@@ -13,7 +14,7 @@
   pointer-events: none;
   opacity: 0;
   background: $white;
-  padding-bottom: 190px;
+  padding-top: 46px;
 
   &--open {
     pointer-events: auto;

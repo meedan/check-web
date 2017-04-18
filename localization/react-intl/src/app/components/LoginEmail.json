@@ -16,10 +16,6 @@
     "defaultMessage": "Password confirmation"
   },
   {
-    "id": "login.with",
-    "defaultMessage": "Sign in with {provider}"
-  },
-  {
     "id": "loginEmail.nameLabel",
     "defaultMessage": "Your name"
   },
@@ -54,13 +50,5 @@
   {
     "id": "loginEmail.newAccount",
     "defaultMessage": "Create a new account"
-  },
-  {
-    "id": "login.email.cancel",
-    "defaultMessage": "Sign in with Twitter, Facebook, or Slack"
-  },
-  {
-    "id": "login.trouble",
-    "defaultMessage": "Having trouble logging in? Please email {email} for assistance."
   }
 ]

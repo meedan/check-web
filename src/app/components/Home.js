@@ -5,7 +5,6 @@ import util from 'util';
 import Header from './Header';
 import FooterRelay from '../relay/FooterRelay';
 import LoginMenu from './LoginMenu';
-import LoginEmailPage from './LoginEmailPage';
 import { blue500, blue600, blue700, blue800 } from 'material-ui/styles/colors';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -104,10 +103,6 @@ class Home extends Component {
         return (<LoginMenu loginCallback={this.loginCallback.bind(this)} message={message} />);
       }
       return null;
-    }
-
-    if (children && children.props.route.path === 'check/login/email' && !this.state.token) {
-      return (<LoginEmailPage loginCallback={this.loginCallback.bind(this)} message={message} />);
     }
 
     return (

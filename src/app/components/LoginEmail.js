@@ -29,11 +29,10 @@ class LoginEmail extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      open: false,
       type: 'login', // or 'register'
       message: null,
       name: '',
-      email: '',
+      email: '', 
       password: '',
       password_confirmation: '',
     };
@@ -84,36 +83,20 @@ class LoginEmail extends Component {
       'api_user[image]': form.image,
     };
     let failureCallback = function (message) {
-        that.setState({ open: true, message });
+        that.setState({ message });
       },
       successCallback = function (data) {
-        that.setState({ open: false, message: null });
+        that.setState({ message: null });
         that.props.loginCallback();
         history.push(window.location.pathname);
       };
     request('post', 'users', failureCallback, successCallback, params);
   }
 
-  handleOpen() {
-    this.setState({ open: true }, function () {
-      this.focusFirstInput();
-    });
-  }
-
   focusFirstInput() {
     const input = document.querySelector('.login-email input');
     if (input) {
       input.focus();
-    }
-  }
-
-  handleClose() {
-    if (this.props.standalone) {
-      this.getHistory().push('/');
-    }
-    else {
-      this.setState({ open: false });
-      return true;
     }
   }
 
@@ -138,21 +121,15 @@ class LoginEmail extends Component {
     return modifierBoolean ? [baseClass, baseClass + modifierSuffix].join(' ') : baseClass;
   }
 
-  componentDidMount() {
-    if (this.props.standalone) {
-      this.handleOpen();
-    }
-  }
-
   render() {
     const { state } = this.props;
 
     return (
       <span className="login-email">
-        <a id="login-email" onClick={this.handleOpen.bind(this)} className="login-email__link"><FormattedMessage id="login.with" defaultMessage={'Sign in with {provider}'} values={{ provider: this.props.intl.formatMessage(messages.emailInputHint).toLowerCase() }} /></a>
+        <section>
 
-        <section className={this.bemClass('login-email__modal', this.state.open, '--open')}>
           <Message message={this.state.message} />
+
           <form name={this.state.type} onSubmit={this.onFormSubmit.bind(this)} className="login-email__form">
             {this.state.type === 'login' ? null : (
               <div className="login-email__name">
@@ -171,6 +148,7 @@ class LoginEmail extends Component {
               <label className={this.bemClass('login-email__password-label', !!this.state.password, '--text-entered')}><FormattedMessage id="loginEmail.passwordLabel" defaultMessage="Password (minimum 8 characters)" /></label>
             </div>
 
+            {/* Registration form only */}
             {this.state.type === 'login' ? null : (
               <div className="login-email__password-confirmation">
                 <input type="password" name="password_confirmation" value={this.state.password_confirmation} className="login-email__password-confirmation-input" onChange={this.handleFieldChange.bind(this)} placeholder={this.props.intl.formatMessage(messages.passwordConfirmInputHint)} />
@@ -178,6 +156,7 @@ class LoginEmail extends Component {
               </div>
             )}
 
+            {/* Registration form only */}
             {this.state.type === 'login' ? null : (
               <UploadImage onImage={this.onImage.bind(this)} />
             )}
@@ -190,12 +169,8 @@ class LoginEmail extends Component {
               <button type="button" id="register-or-login" onClick={this.handleSwitchType.bind(this)} className="login-email__register-or-login">
                 {this.state.type === 'register' ? <FormattedMessage id="loginEmail.alreadyHasAccount" defaultMessage="I already have an account" /> : <FormattedMessage id="loginEmail.newAccount" defaultMessage="Create a new account" />}
               </button>
-              <button type="button" id="cancel-register-or-login" onClick={this.handleClose.bind(this)} className="login-email__cancel">
-                <FormattedMessage id="login.email.cancel" defaultMessage="Sign in with Twitter, Facebook, or Slack" />
-              </button>
             </div>
           </form>
-          {this.state.type === 'login' ? (<p className="login-email__help-text"><FormattedMessage id="login.trouble" defaultMessage={'Having trouble logging in? Please email {email} for assistance.'} values={{ email: <Link to="mailto:check@meedan.com">check@meedan.com</Link> }} /></p>) : null}
         </section>
       </span>
     );

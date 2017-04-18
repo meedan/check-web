@@ -19,8 +19,7 @@ import {
   PrivacyPolicy,
   UserConfirmed,
   UserUnconfirmed,
-  UserPasswordReset,
-  LoginEmailPage
+  UserPasswordReset
 } from '../components';
 import {
   Sources,
@@ -143,7 +142,6 @@ export default class Root extends Component {
                 <Route path="check/user/password-reset" component={UserPasswordReset} public />
                 <Route path="check/forbidden" component={AccessDenied} public />
                 <Route path="check/404" component={NotFound} public />
-                <Route path="check/login/email" component={LoginEmailPage} public />
 
                 <Route path="check/sources" component={Sources} />
                 <Route path="check/sources/new" component={CreateAccount} />
