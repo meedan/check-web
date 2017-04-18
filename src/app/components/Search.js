@@ -230,8 +230,6 @@ class SearchQueryComponent extends Component {
             </form> : null }
 
             <section className="search__filters / filters">
-              <h3 className="search__filters-heading">{ this.props.project ? null : <FormattedMessage id="search.filtersHeading" defaultMessage="Filters" /> }</h3>
-
               {/* Status */}
               { this.showField('status') ?
               <div>
