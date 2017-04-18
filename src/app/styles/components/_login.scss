@@ -1,59 +1,28 @@
-.login-email {
+.login {
   text-align: #{$from-direction};
 }
 
-.login-email__modal {
-
-  // TODO: This uses magic numbers and generally is unstable. Refine the behavior of the modal so it's not absolutely positioned.
-  position: absolute;
-  #{$from-direction}: 0;
-  #{$to-direction}: 0;
-  max-width: 500px;
-  margin: 0 auto;
-  transition: top 300ms ease, opacity 400ms ease;
-  pointer-events: none;
-  opacity: 0;
-  background: $white;
-  padding-top: 46px;
-
-  &--open {
-    pointer-events: auto;
-    opacity: 1;
-    top: 0;
-  }
-}
-
-.login-email__link {
-  display: inline-block;
-  padding: 9px;
-}
-
-// modal
-.login-email__form {
-  padding: 0 50px;
-}
-
-.login-email__name,
-.login-email__email,
-.login-email__password,
-.login-email__password-confirmation {
+.login__name,
+.login__email,
+.login__password,
+.login__password-confirmation {
   margin-bottom: 30px;
   display: flex;
   flex-direction: column;
 }
 
-.login-email__name-input,
-.login-email__email-input,
-.login-email__password-input,
-.login-email__password-confirmation-input {
+.login__name-input,
+.login__email-input,
+.login__password-input,
+.login__password-confirmation-input {
   @include text-input;
   width: 100%;
 }
 
-.login-email__name-label,
-.login-email__email-label,
-.login-email__password-label,
-.login-email__password-confirmation-label {
+.login__name-label,
+.login__email-label,
+.login__password-label,
+.login__password-confirmation-label {
   order: 1;
   display: block;
   opacity: 0;
@@ -66,37 +35,37 @@
 }
 
 // modal actions
-.login-email__actions {
+.login__actions {
   padding-top: 10px;
 }
 
-.login-email__submit {
+.login__submit {
   @include button-large;
   @include button-primary;
   display: block;
   margin: 0 auto 10px;
 }
 
-.login-email__forgot-password {
+.login__forgot-password {
   text-align: center;
   display: block;
   margin: 0 auto 75px;
 }
 
-.login-email__register-or-login,
-.login-email__cancel,
-.login-email__help-text {
+.login__register-or-login,
+.login__cancel,
+.login__help-text {
   text-align: center;
   margin: 0 0 17px;
   width: 100%;
 }
 
-.login-email__register-or-login,
-.login-email__cancel {
+.login__register-or-login,
+.login__cancel {
   @include unbutton;
 }
 
-.login-email__register-or-login {
+.login__register-or-login {
   font-weight: 600;
 }
 

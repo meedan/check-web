@@ -1,0 +1,66 @@
+[
+  {
+    "id": "login.nameInputHint",
+    "defaultMessage": "Your name"
+  },
+  {
+    "id": "login.emailInputHint",
+    "defaultMessage": "Email address"
+  },
+  {
+    "id": "login.passwordInputHint",
+    "defaultMessage": "Password"
+  },
+  {
+    "id": "login.passwordConfirmInputHint",
+    "defaultMessage": "Password confirmation"
+  },
+  {
+    "id": "login.title",
+    "defaultMessage": "Sign in"
+  },
+  {
+    "id": "login.nameLabel",
+    "defaultMessage": "Your name"
+  },
+  {
+    "id": "login.emailLabel",
+    "defaultMessage": "Email address"
+  },
+  {
+    "id": "login.passwordLabel",
+    "defaultMessage": "Password (minimum 8 characters)"
+  },
+  {
+    "id": "login.passwordConfirmLabel",
+    "defaultMessage": "Password confirmation"
+  },
+  {
+    "id": "login.signIn",
+    "defaultMessage": "SIGN IN"
+  },
+  {
+    "id": "login.signUp",
+    "defaultMessage": "REGISTER"
+  },
+  {
+    "id": "login.lostPassword",
+    "defaultMessage": "Forgot password?"
+  },
+  {
+    "id": "login.with",
+    "defaultMessage": "Continue with {provider}"
+  },
+  {
+    "id": "login.disclaimer",
+    "defaultMessage": "We won’t publish without your permission"
+  },
+  {
+    "id": "login.newAccount",
+    "defaultMessage": "Create a new account with email"
+  },
+  {
+    "id": "login.alreadyHasAccount",
+    "defaultMessage": "I already have an account"
+  }
+]

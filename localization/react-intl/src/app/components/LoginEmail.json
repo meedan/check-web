@@ -33,22 +33,22 @@
   },
   {
     "id": "loginEmail.signIn",
-    "defaultMessage": "Sign in »"
+    "defaultMessage": "SIGN IN"
   },
   {
     "id": "loginEmail.signUp",
-    "defaultMessage": "Sign up »"
+    "defaultMessage": "REGISTER"
   },
   {
     "id": "loginEmail.lostPassword",
     "defaultMessage": "Forgot password?"
   },
   {
-    "id": "loginEmail.alreadyHasAccount",
-    "defaultMessage": "I already have an account"
+    "id": "loginEmail.newAccount",
+    "defaultMessage": "Create a new account with email"
   },
   {
-    "id": "loginEmail.newAccount",
-    "defaultMessage": "Create a new account"
+    "id": "loginEmail.alreadyHasAccount",
+    "defaultMessage": "I already have an account"
   }
 ]

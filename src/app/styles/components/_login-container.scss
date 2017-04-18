@@ -1,23 +1,23 @@
-.login-menu {
+.login-container {
   text-align: center;
   position: relative;
   padding: 45px 0 0;
 }
 
-.login-menu__icon {
+.login-container__icon {
   height: 54px;
   width: 120px;
 }
 
-.login-menu__heading {
+.login-container__heading {
   font: $font-subheading-1;
 }
 
-.login-menu__content {
+.login-container__content {
   @include box-shadow(1);
   position: relative;
   max-width: 500px;
-  margin: 4em auto;
+  margin: 16px auto;
   background-color: $white;
   padding: 2em;
 
@@ -27,19 +27,19 @@
   }
 }
 
-.login-menu__blurb {
+.login-container__blurb {
   @include onboarding-blurb;
   margin-bottom: 15px;
 }
 
-.login-menu__options {
+.login-container__options {
   list-style-type: none;
   padding: 0;
   max-width: 285px;
   margin: 0 auto 60px;
 }
 
-.login-menu__button {
+.login-container__button {
   @include button-medium;
   width: 100%;
   transition: background-color 400ms ease;
@@ -57,7 +57,7 @@ $providers: (
 );
 
 @each $provider-name, $provider-color in $providers {
-  .login-menu__button--#{$provider-name} {
+  .login-container__button--#{$provider-name} {
     background-color: $provider-color;
 
     &:hover {
@@ -67,7 +67,7 @@ $providers: (
 }
 
 .login-email__link {
-  @extend .login-menu__button;
+  @extend .login-container__button;
   @include button-medium;
   color: $white !important;
   background-color: $black-54;
