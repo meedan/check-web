@@ -22,7 +22,7 @@ class LoginMenu extends Component {
 
         <Message message={this.props.message} />
 
-        <img width="36" className="login-menu__icon" src="/images/logo/logo-1.svg" />
+        <img alt="Check" width="36" className="login-menu__icon" src="/images/logo/check.svg" />
         <div className="login-menu__content">
 
           <h2 className="login-menu__heading"><FormattedMessage id="login.title" defaultMessage="Sign in" /></h2>
@@ -63,5 +63,10 @@ class LoginMenu extends Component {
     );
   }
 }
+
+LoginMenu.propTypes = {
+  loginCallback: PropTypes.func.isRequired,
+  message: PropTypes.string.isRequired,
+};
 
 export default LoginMenu;
