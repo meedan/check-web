@@ -65,8 +65,8 @@ class LoginMenu extends Component {
 }
 
 LoginMenu.propTypes = {
-  loginCallback: PropTypes.func.isRequired,
-  message: PropTypes.string.isRequired,
+  loginCallback: PropTypes.func,
+  message: PropTypes.string,
 };
 
 export default LoginMenu;
