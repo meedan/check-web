@@ -57,34 +57,24 @@ class SingleChoiceTask extends Component {
 
   handleSubmitResponse() {
     if (!this.state.taskAnswerDisabled){
-      // const props_response = this.props.response ? this.props.jsonresponse : {};
-      // let response_obj = 'placeholder';
 
-      // response_obj.selected = Array.isArray(this.state.response) ? this.state.response.slice(0) : props_response.selected;
-      // response_obj.other = (typeof this.state.responseOther !== 'undefined' && this.state.responseOther !== null) ? this.state.responseOther : (props_response.other || null);
+      const response = this.state.response ? this.state.response.trim() : this.props.response;
 
-      this.props.onSubmit(this.state.response.trim(), this.state.note);
+      this.props.onSubmit(response, this.state.note);
       this.setState({ taskAnswerDisabled: true });
     }
   }
 
-  canSubmit(value){
-    if (typeof value !== 'undefined' && value !== null){
-      return !!value.trim();
-    } else {
-      // const task = this.props.task;
-      // const form_id = this.state.editingResponse ? `edit-response-${task.first_response.id}` : `task-response-${task.id}`;
-      // const form = document.forms[form_id];
-      // const form_value = this.state.editingResponse ? form.editedresponse.value : form.response.value;
+  canSubmit(){
+    const response = this.state.response ? this.state.response.trim() : this.props.response;
+    const can_submit = (!!response);
 
-      const state_response = this.state.response ? this.state.response.trim() : null;
-
-      return (!!state_response || !!form_value.trim());
-    }
+    this.setState({ taskAnswerDisabled: !can_submit });
+    return can_submit;
   }
 
   handleChange(e) {
-    this.setState({ taskAnswerDisabled: !this.canSubmit(e.target.value) });
+    this.setState({ note: e.target.value }, this.canSubmit);
   }
 
   handleLabelChange(e) {
@@ -168,7 +158,7 @@ class SingleChoiceTask extends Component {
 
   handleEditOther(e) {
     const value = e.target.value;
-    this.setState({ focus: true, response: value, responseOther: value, otherSelected: true, taskAnswerDisabled: !this.canSubmit(value) });
+    this.setState({ focus: true, response: value, responseOther: value, otherSelected: true }, this.canSubmit);
   }
 
   handleKeyPress(e) {
@@ -244,7 +234,7 @@ class SingleChoiceTask extends Component {
       const other = (otherIndex >= 0) ? options.splice(otherIndex, 1).pop() : null;
 
       const responseIndex = options.findIndex(item => (item.label === response || item.label === this.state.response));
-      const responseOther = ((typeof this.state.responseOther === 'undefined' || this.state.responseOther === null) && (responseIndex < 0)) ? response : this.state.responseOther;
+      const responseOther = (typeof this.state.responseOther !== 'undefined' && this.state.responseOther !== null) ? this.state.responseOther : ((responseIndex < 0) ? response : '');
       const responseOtherSelected = this.state.otherSelected || responseOther ? responseOther : 'none';
       const responseSelected = this.state.response == null ? response : this.state.response;
 
@@ -285,7 +275,7 @@ class SingleChoiceTask extends Component {
               multiLine
             /> : null
         }
-        { (this.state.focus && editable) || this.state.editingResponse ? actionBtns : null }
+        { (this.state.focus && editable) || (this.props.mode === 'edit_response') ? actionBtns : null }
       </div>);
     }
   }

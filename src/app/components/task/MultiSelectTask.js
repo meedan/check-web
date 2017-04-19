@@ -78,7 +78,6 @@ class MultiSelectTask extends Component {
     const can_submit = (response_obj.selected.length + !!response_obj.other) > 0;
 
     this.setState({ taskAnswerDisabled: !can_submit });
-
     return can_submit;
   }
 
