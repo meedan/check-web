@@ -9,8 +9,9 @@ $font-display-1: 500 34px unquote('/') 40px $font-stack-sans;
 $font-headline: 500 24px unquote('/') 32px $font-stack-sans;
 $font-subheading-2: 400 20px unquote('/') 32px $font-stack-sans;
 $font-subheading-1: 400 20px unquote('/') 28px $font-stack-sans;
-$font-body-2: 200 16px unquote('/') 24px $font-stack-sans;
-$font-body-1: 200 16px unquote('/') 20px $font-stack-sans;
+$font-body-2: 400 14px unquote('/') 24px $font-stack-sans;
+$font-body-1: 400 14px unquote('/') 20px $font-stack-sans;
+$font-caption: 400 12px unquote('/') 16px $font-stack-sans;
 
 @mixin onboarding-heading {
   margin: 25px 0 20px;

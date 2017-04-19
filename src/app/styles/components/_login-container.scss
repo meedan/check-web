@@ -1,85 +1,8 @@
 .login-container {
-  text-align: center;
-  position: relative;
-  padding: 45px 0 0;
+	max-width: 624px;
+	margin: 0 auto;
 }
 
-.login-container__icon {
-  height: 54px;
-  width: 120px;
-}
-
-.login-container__heading {
-  font: $font-subheading-1;
-}
-
-.login-container__content {
-  @include box-shadow(1);
-  position: relative;
-  max-width: 500px;
-  margin: 16px auto;
-  background-color: $white;
-  padding: 2em;
-
-  & > p {
-    width: 80%;
-    margin: 0 auto;
-  }
-}
-
-.login-container__blurb {
-  @include onboarding-blurb;
-  margin-bottom: 15px;
-}
-
-.login-container__options {
-  list-style-type: none;
-  padding: 0;
-  max-width: 285px;
-  margin: 0 auto 60px;
-}
-
-.login-container__button {
-  @include button-medium;
-  width: 100%;
-  transition: background-color 400ms ease;
-
-  &:hover {
-    transition: background-color 80ms ease;
-  }
-}
-
-$providers: (
-  twitter: $twitter-blue,
-  facebook: $facebook-blue,
-  google: $google-orange,
-  slack: $slack-green
-);
-
-@each $provider-name, $provider-color in $providers {
-  .login-container__button--#{$provider-name} {
-    background-color: $provider-color;
-
-    &:hover {
-      background-color: darken(saturate($provider-color, 10%), 10%);
-    }
-  }
-}
-
-.login-email__link {
-  @extend .login-container__button;
-  @include button-medium;
-  color: $white !important;
-  background-color: $black-54;
-  text-align: center;
-  text-decoration: none;
-
-  &:hover {
-    background-color: $black-87;
-  }
-}
-
-p.other-method {
-  border-top: 1px solid $black-16;
-  padding: 32px 16px 16px;
+p {
+	text-align: center;
 }

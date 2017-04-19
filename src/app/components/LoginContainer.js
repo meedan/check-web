@@ -11,7 +11,7 @@ class LoginContainer extends Component {
 
       <div id="login-container" className="login-container">
         <div className="browser-support">
-          <p className="browser-support__message">
+          <p>
             <FormattedHTMLMessage id="browser.support.message" defaultMessage='Best viewed with <a href="https://www.google.com/chrome/browser/desktop/">Chrome for Desktop</a>.' />
           </p>
         </div>
@@ -20,14 +20,14 @@ class LoginContainer extends Component {
 
         <Login loginCallback={this.props.loginCallback} />
 
-        <p className="login__footer">
+        <p>
           <FormattedMessage
             id="agree.terms" defaultMessage={'By signing in, you agree to the Check {tosLink} and {ppLink}.'}
             values={{ tosLink: <Link to=" /check/tos" className="login-menu__footer-link"><FormattedMessage id="tos.title" defaultMessage="Terms of Service" /></Link>, ppLink: <Link to="/check/privacy" className="login-menu__footer-link"><FormattedMessage id="privacy.policy.title" defaultMessage="Privacy&nbsp;Policy" /></Link> }}
           />
         </p>
 
-        <p className="nudge-support">
+        <p>
           <FormattedHTMLMessage id="login.support" defaultMessage='For support contact <a href="mailto:check@meedan.com">check@meedan.com</a>.' />
         </p>
       </div>

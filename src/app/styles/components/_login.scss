@@ -1,5 +1,19 @@
 .login {
-  text-align: #{$from-direction};
+  text-align: center;
+
+  & > p {
+    width: 80%;
+    margin: 0 auto;
+  }
+}
+
+.login__form {
+  @include box-shadow(1);
+  background-color: $white;
+  padding: 62px 144px;
+  @media all and (max-width: $layout-mobile-breakpoint) {
+    padding: 16px;
+  }
 }
 
 .login__name,
@@ -34,11 +48,6 @@
   }
 }
 
-// modal actions
-.login__actions {
-  padding-top: 10px;
-}
-
 .login__submit {
   @include button-large;
   @include button-primary;
@@ -49,7 +58,7 @@
 .login__forgot-password {
   text-align: center;
   display: block;
-  margin: 0 auto 75px;
+  margin: 0 auto;
 }
 
 .login__register-or-login,
@@ -69,6 +78,8 @@
   font-weight: 600;
 }
 
+// Upload an image
+//
 .upload-file > div {
   width: 100% !important;
   height: auto !important;
@@ -113,5 +124,85 @@
     z-index: 1;
     color: $black-38;
     cursor: pointer;
+  }
+}
+
+// The list of oAuth login cards
+//
+.login__oauth-list {
+  padding: 16px 0;
+  @media all and (min-width: $layout-mobile-breakpoint) {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+  }
+}
+
+.login__button {
+  @include box-shadow(1);
+  width: 100%;
+  transition: background-color 400ms ease;
+  padding: 16px 24px;
+  padding-#{$to-direction}: 16px;
+  background-color: $white;
+  display: flex;
+  flex-flow: column nowrap;
+  margin: 8px 0;
+
+  span {
+    display: flex;
+  }
+
+  // The disclaimer
+  & > span:last-of-type {
+    margin-#{$from-direction}: 40px;
+    font: $font-caption;
+    color: $black-38;
+  }
+
+  svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  &:hover {
+    transition: background-color 80ms ease;
+  }
+}
+
+$providers: (
+  twitter: $twitter-blue,
+  facebook: $facebook-blue,
+  google: $google-orange,
+  slack: $slack-green,
+  email: $black-54
+);
+
+@each $provider-name, $provider-color in $providers {
+  .login__button--#{$provider-name} {
+
+    .login__link {
+      color: $check-blue;
+      font: $font-body-2;
+      font-weight: 500;
+
+      &:hover {
+        color: darken($check-blue, 10%);
+      }
+    }
+
+    svg {
+      margin-#{$to-direction}: 16px;
+
+      path {
+        fill: $provider-color;
+      }
+
+      &:hover {
+        path {
+          fill: darken(saturate($provider-color, 10%), 10%);
+        }
+      }
+    }
   }
 }

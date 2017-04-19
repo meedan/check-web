@@ -1,31 +1,11 @@
-$browser-support-height: 46px;
-$browser-support-height-mobile: 65px;
-
 .browser-support {
-  position: fixed;
-  top: 0;
-  height: $browser-support-height;
   width: 100%;
   z-index: 6;
   padding: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
-
-  @media screen and (max-width: 500px) {
-    height: $browser-support-height-mobile;
-  }
-}
-
-.browser-support ~ .home {
-  &,
-  & > .header {
-    top: $browser-support-height;
-
-    @media screen and (max-width: 500px) {
-      top: $browser-support-height-mobile;
-    }
-  }
+  margin-bottom: 16px;
 }
 
 .browser-support__message {
@@ -33,16 +13,6 @@ $browser-support-height-mobile: 65px;
   margin-bottom: 0;
   text-align: center;
   line-height: 1.4;
-}
-
-.browser-support__close {
-  position: absolute;
-  #{$to-direction}: 17px;
-  top: 5px;
-  font-weight: 200;
-  font-size: 28px;
-  opacity: .2;
-  cursor: pointer;
 }
 
 .browser-support a {

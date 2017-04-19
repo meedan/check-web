@@ -62,5 +62,9 @@
   {
     "id": "login.alreadyHasAccount",
     "defaultMessage": "I already have an account"
+  },
+  {
+    "id": "login.return",
+    "defaultMessage": "Return to sign in by email"
   }
 ]
