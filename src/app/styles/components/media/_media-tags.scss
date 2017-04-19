@@ -5,7 +5,7 @@
 }
 
 .media-tags__header {
-  // TODO remove in markup 
+  // TODO remove in markup
   display: none;
 }
 
@@ -30,11 +30,11 @@
   margin-#{$from-direction}: 0;
 }
 
+.media-tags__tag,
 .media-tags__suggestion {
   @include chicklet;
 }
 
-.media-tags__tag,
 .media-tags .tags-list .ReactTags__tag {
   @extend %chip;
   margin-#{$to-direction}: 15px;

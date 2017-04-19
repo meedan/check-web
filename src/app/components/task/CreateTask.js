@@ -13,12 +13,19 @@ import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
 import Can from '../Can';
 import CreateTaskMutation from '../../relay/CreateTaskMutation';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, formatMessage, defineMessages, injectIntl } from 'react-intl';
 import MdAddCircle from 'react-icons/lib/md/add-circle';
 import MdCancel from 'react-icons/lib/md/cancel';
 import MdShortText from 'react-icons/lib/md/short-text';
 import MdRadioButtonChecked from 'react-icons/lib/md/radio-button-checked';
 import MdCheckBox from 'react-icons/lib/md/check-box';
+
+const messages = defineMessages({
+  newTask: {
+    id: 'createTask.newTask',
+    defaultMessage: 'New task'
+  }
+});
 
 class CreateTask extends Component {
   constructor(props) {
@@ -160,11 +167,11 @@ class CreateTask extends Component {
 
     const actions = [
       <FlatButton label={<FormattedMessage id="tasks.cancelAdd" defaultMessage="Cancel" />} primary onClick={this.handleCloseDialog.bind(this)} />,
-      <FlatButton className="create-task__dialog-submit-button" label={<FormattedMessage id="tasks.add" defaultMessage="Add" />} primary keyboardFocused onClick={this.handleSubmitTask.bind(this)} disabled={this.state.submitDisabled}/>,
+      <FlatButton className="create-task__dialog-submit-button" label={<FormattedMessage id="tasks.add" defaultMessage="Create Task" />} primary keyboardFocused onClick={this.handleSubmitTask.bind(this)} disabled={this.state.submitDisabled}/>,
     ];
 
     return (
-      <div className="create-task">
+      <div>
 
         <Can permissions={media.permissions} permission="create Task">
           { this.props.plusIcon ?
@@ -181,7 +188,7 @@ class CreateTask extends Component {
           </Menu>
         </Popover>
 
-        <Dialog actionsContainerClassName="create-task__action-container" actions={actions} modal={false} open={this.state.dialogOpen && (this.state.type === 'free_text')} onRequestClose={this.handleCloseDialog.bind(this)}>
+        <Dialog title={this.props.intl.formatMessage(messages.newTask)} className="create-task__dialog" actionsContainerClassName="create-task__action-container" actions={actions} modal={false} open={this.state.dialogOpen && (this.state.type === 'free_text')} onRequestClose={this.handleCloseDialog.bind(this)} contentStyle={{width: '608px'}}>
           <Message message={this.state.message} />
 
           {this.state.type === 'free_text' ? <TextField id="task-label-input" className="create-task__task-label-input" floatingLabelText={<FormattedMessage id="tasks.taskLabel" defaultMessage="Prompt" />} onChange={this.handleLabelChange.bind(this)} multiLine /> : null}
@@ -199,4 +206,4 @@ class CreateTask extends Component {
   }
 }
 
-export default CreateTask;
+export default injectIntl(CreateTask);

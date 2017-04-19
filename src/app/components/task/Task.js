@@ -397,6 +397,7 @@ class Task extends Component {
                 onKeyPress={keyPressCallback}
                 onChange={this.handleEditOther.bind(this)}
                 disabled={!editable}
+                multiLine
               />
             ] : null
           }

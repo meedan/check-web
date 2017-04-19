@@ -1,6 +1,7 @@
 {
+  "createTask.newTask": "مهمة جديدة",
   "tasks.cancelAdd": "إلغاء",
-  "tasks.add": "أضف",
+  "tasks.add": "أضف مهمة",
   "tasks.addTask": "أضف مهمة",
   "tasks.shortAnswer": "إجابة قصيرة",
   "tasks.chooseOne": "سؤال أحادي الاختيارات",
