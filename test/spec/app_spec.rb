@@ -1164,20 +1164,20 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Project')).to be(true)
     end
 
-    it "should not reset password" do
-      page = LoginPage.new(config: @config, driver: @driver)
-      page.reset_password('test@meedan.com')
-      sleep 2
-      expect(@driver.page_source.include?('Email not found')).to be(true)
-      expect(@driver.page_source.include?('Password reset sent')).to be(false)
-    end
+#    it "should not reset password" do
+#      page = LoginPage.new(config: @config, driver: @driver)
+#      page.reset_password('test@meedan.com')
+#      sleep 2
+#      expect(@driver.page_source.include?('Email not found')).to be(true)
+#      expect(@driver.page_source.include?('Password reset sent')).to be(false)
+#    end
 
-    it "should reset password" do
-      page = LoginPage.new(config: @config, driver: @driver)
-      page.reset_password(@email)
-      sleep 2
-      expect(@driver.page_source.include?('Email not found')).to be(false)
-      expect(@driver.page_source.include?('Password reset sent')).to be(true)
-    end
+#    it "should reset password" do
+#      page = LoginPage.new(config: @config, driver: @driver)
+#      page.reset_password(@email)
+#      sleep 2
+#      expect(@driver.page_source.include?('Email not found')).to be(false)
+#      expect(@driver.page_source.include?('Password reset sent')).to be(true)
+#    end
   end
 end
