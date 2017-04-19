@@ -121,7 +121,7 @@ class Task extends Component {
 
     const fields = {};
     fields[`response_${task.type}`] = response;
-    fields[`note_${task.type}`] = note;
+    fields[`note_${task.type}`] = note || '';
     fields[`task_${task.type}`] = task.dbid;
 
     Relay.Store.commitUpdate(
