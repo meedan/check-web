@@ -38,7 +38,7 @@ class MediaTags extends Component {
     return modifierBoolean ? [baseClass, baseClass + modifierSuffix].join(' ') : baseClass;
   }
 
-  handleSuggestedTagEditClick(tagString) {
+  handleClick(tagString) {
     this.setState({ message: this.props.intl.formatMessage(messages.loading) });
     const tag = this.findTag(tagString);
 
@@ -115,19 +115,11 @@ class MediaTags extends Component {
     return urlFromSearchQuery(query, `/${media.team.slug}/search`);
   }
 
-  handleRegularTagViewClick(tagString) {
-    const url = this.searchTagUrl(tagString);
-    const history = new CheckContext(this).getContextStore().history;
-    history.push(url);
-  }
-
   render() {
     const { media, tags } = this.props;
     const suggestedTags = (media.team && media.team.get_suggested_tags) ? media.team.get_suggested_tags.split(',') : [];
     const activeSuggestedTags = tags.filter(tag => suggestedTags.includes(tag.node.tag));
     const remainingTags = tags.filter(tag => !suggestedTags.includes(tag.node.tag));
-    const searchQuery = searchQueryFromUrl();
-    const activeRegularTags = searchQuery.tags || [];
 
     if (!this.props.isEditing) {
       return (
@@ -139,11 +131,7 @@ class MediaTags extends Component {
           ) : null}
           <ul className="media-tags__list">
             {media.language ? <li className="media-tags__tag">{`source:${media.language}`}</li> : null}
-            {remainingTags.map(tag =>
-              <li onClick={this.handleRegularTagViewClick.bind(this, tag.node.tag)}
-                  className={this.bemClass('media-tags__tag', activeRegularTags.indexOf(tag.node.tag) > -1, '--selected')}>{tag.node.tag.replace(/^#/, '')}
-              </li>
-            )}
+            {remainingTags.map(tag => (<li className="media-tags__tag"><Link to={this.searchTagUrl.bind(this, tag.node.tag)}>{tag.node.tag.replace(/^#/, '')}</Link></li>))}
           </ul>
         </div>
       );
@@ -159,11 +147,7 @@ class MediaTags extends Component {
         {suggestedTags.length ? (
           <div className="media-tags__suggestions">
             <ul className="media-tags__suggestions-list / electionland_categories">
-              {suggestedTags.map(suggestedTag =>
-                <li onClick={this.handleSuggestedTagEditClick.bind(this, suggestedTag)}
-                    className={this.bemClass('media-tags__suggestion', this.findTag(suggestedTag), '--selected')}>{suggestedTag}
-                </li>
-              )}
+              {suggestedTags.map(suggestedTag => <li onClick={this.handleClick.bind(this, suggestedTag)} className={this.bemClass('media-tags__suggestion', this.findTag(suggestedTag), '--selected')}>{suggestedTag}</li>)}
             </ul>
           </div>
         ) : null}
