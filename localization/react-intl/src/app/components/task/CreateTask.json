@@ -1,11 +1,15 @@
 [
   {
+    "id": "createTask.newTask",
+    "defaultMessage": "New task"
+  },
+  {
     "id": "tasks.cancelAdd",
     "defaultMessage": "Cancel"
   },
   {
     "id": "tasks.add",
-    "defaultMessage": "Add"
+    "defaultMessage": "Create Task"
   },
   {
     "id": "tasks.addTask",
@@ -25,7 +29,7 @@
   },
   {
     "id": "tasks.taskLabel",
-    "defaultMessage": "Task label"
+    "defaultMessage": "Prompt"
   },
   {
     "id": "tasks.description",

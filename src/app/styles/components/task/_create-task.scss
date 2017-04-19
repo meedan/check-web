@@ -54,6 +54,32 @@
   }
 }
 
+.create-task__dialog {
+
+}
+
+svg.create-task__md-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.create-task__remove-option-button {
+  margin-#{$from-direction}: 13px;
+}
+
+ .create-task__add-options {
+   margin-top: 17px;
+ }
+
+ .create-task__add-option-input {
+   padding: 5px;
+   width: 75% !important;
+ }
+
+ .create-task__add-options-buttons {
+   margin-top: 7px;
+ }
+
 .create-task__dialog-submit-button {
   background: $check-blue;
   color: $white;

@@ -101,14 +101,32 @@
     color: rgba(0, 0, 0, .38);
   }
 
-  .task__options-answered-item {
-    padding: 5px;
+  .task__option_other_radio {
+    float: $from-direction;
+    max-width: 24px;
+    max-height: 24px;
+    margin-#{$from-direction}:: 5px;
+    margin-top: 10px;
+    margin-#{$to-direction}: 12px;
+  }
 
-    svg {
-      width: 24px;
-      height: 24px;
-      margin-#{$to-direction}: 12px;
-    }
+  .task__option_other_checkbox {
+    float: $from-direction;
+    max-width: 24px;
+    max-height: 24px;
+    margin-#{$from-direction}:: 5px;
+    margin-top: 10px;
+  }
+
+  .task__option_other_text_input {
+    float: $from-direction;
+    width: 75% !important;
+  }
+
+  .task__options_other:after {
+    content: "";
+    display: table;
+    clear: both;
   }
 
   #task__remove-button,

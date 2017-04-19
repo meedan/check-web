@@ -1,10 +1,11 @@
 {
-  "singleChoiceTask.addValue": "Ajouter une valeur",
+  "singleChoiceTask.addValue": "Ajouter une option",
   "singleChoiceTask.value": "Valeur",
   "singleChoiceTask.addOther": "Ajouter \"Autre\"",
   "singleChoiceTask.other": "Autre",
+  "singleChoiceTask.newTask": "Nouvelle tâche",
   "tasks.cancelAdd": "Annuler",
-  "tasks.add": "Ajouter",
+  "tasks.add": "Créer une tâche",
   "tasks.taskPrompt": "Étiquette",
   "tasks.description": "Description",
   "tasks.addDescription": "Ajouter une description"

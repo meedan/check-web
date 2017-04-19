@@ -49,7 +49,7 @@ class LoginMenu extends Component {
           </ul>
 
           <p className="nudge-support">
-            <FormattedHTMLMessage id="forgot.password" defaultMessage='Forgot your password? Can’t find your team? If you’re having any trouble, contact a human at <a href="mailto:check@meedan.com">check@meedan.com</a>.' />
+            <FormattedHTMLMessage id="login.support" defaultMessage='Can’t find your team? If you’re having any trouble, contact a human at <a href="mailto:check@meedan.com">check@meedan.com</a>.' />
           </p>
 
           <p className="login-menu__footer">

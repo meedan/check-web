@@ -1,10 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 import { Card, CardText } from 'material-ui/Card';
-import Checkbox from 'material-ui/Checkbox';
-import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 import TextField from 'material-ui/TextField';
 import { blue500 } from 'material-ui/styles/colors';
+import SingleChoiceTask from './SingleChoiceTask';
 import MultiSelectTask from './MultiSelectTask';
 import Message from '../Message';
 import UpdateTaskMutation from '../../relay/UpdateTaskMutation';
@@ -49,7 +48,7 @@ class Task extends Component {
   }
 
   handleCancelFocus(){
-    this.setState({ focus: false, response: null, responseOther: null  });
+    this.setState({ focus: false, response: null, responseOther: null, otherSelected: false });
   }
 
   handleClick(e) {
@@ -122,7 +121,7 @@ class Task extends Component {
 
     const fields = {};
     fields[`response_${task.type}`] = response;
-    fields[`note_${task.type}`] = note;
+    fields[`note_${task.type}`] = note || '';
     fields[`task_${task.type}`] = task.dbid;
 
     Relay.Store.commitUpdate(
@@ -211,7 +210,7 @@ class Task extends Component {
   }
 
   handleCancelEditResponse() {
-    this.setState({ editingResponse: false, response: null, responseOther: null });
+    this.setState({ editingResponse: false, response: null, responseOther: null, otherSelected: false });
   }
 
   handleEditResponse() {
@@ -319,15 +318,6 @@ class Task extends Component {
     window.addEventListener('click', () => { that.setState({ focus: false }); });
   }
 
-  handleSelectRadio(e) {
-    this.setState({ focus: true, response: e.target.value, responseOther: '', taskAnswerDisabled: false });
-  }
-
-  handleEditOther(e) {
-    const value = e.target.value;
-    this.setState({ focus: true, response: value, responseOther: value, taskAnswerDisabled: !this.canSubmit(value) });
-  }
-
   canSubmit(value){
     if (typeof value !== 'undefined' && value !== null){
       return !!value.trim();
@@ -339,64 +329,6 @@ class Task extends Component {
       const state_response = this.state.response ? this.state.response.trim() : null;
 
       return (!!state_response || !!form_value.trim());
-    }
-  }
-
-  renderOptions(response, note) {
-    const { task } = this.props;
-    let options = null;
-
-    const editable =  (response == null) || this.state.editingResponse;
-    const submitCallback = this.state.editingResponse ? this.handleSubmitUpdate.bind(this) : this.handleSubmit.bind(this);
-    const cancelCallback = this.state.editingResponse ? this.handleCancelEditResponse.bind(this) : this.handleCancelFocus.bind(this);
-    const keyPressCallback = this.state.editingResponse ? this.handleKeyPressUpdate.bind(this) : this.handleKeyPress.bind(this);
-    const formName = this.state.editingResponse ? 'editedresponse' : 'response';
-    const noteFormName = this.state.editingResponse ? 'editednote' : 'note';
-
-    const actionBtns = (<div>
-        <FlatButton label={<FormattedMessage id="tasks.cancelEdit" defaultMessage="Cancel" />} primary onClick={cancelCallback} />
-        <FlatButton className="task__submit" label={<FormattedMessage id="tasks.submit" defaultMessage="Submit" />} primary onClick={submitCallback} disabled={this.state.taskAnswerDisabled}/>
-      </div>);
-
-    if (task.jsonoptions) {
-      options = JSON.parse(task.jsonoptions);
-    }
-
-    if (Array.isArray(options) && options.length > 0) {
-      const otherIndex = options.findIndex( item => item.other );
-      const other = (otherIndex >= 0) ? options.splice(otherIndex, 1).pop() : null;
-
-      const responseIndex = options.findIndex(item => (item.label === response || item.label === this.state.response));
-      const responseOther = ((typeof this.state.responseOther === 'undefined' || this.state.responseOther === null) && (responseIndex < 0)) ? response : this.state.responseOther;
-
-      if (task.type === 'single_choice') {
-        return (<div className="task__options">
-          <RadioButtonGroup name={formName} onChange={this.handleSelectRadio.bind(this)} valueSelected={this.state.response || response}>
-            { options.map( (item, index) => <RadioButton label={item.label} id={index.toString()} value={item.label} style={{ padding: '5px' }} disabled={!editable}/>) }
-          </RadioButtonGroup>
-          { other ? <TextField
-            placeholder={other.label}
-            value={responseOther}
-            name={formName}
-            onKeyPress={keyPressCallback}
-            onChange={this.handleEditOther.bind(this)}
-            disabled={!editable}
-          /> : null }
-          { editable ?
-            <TextField
-                className="task__response-note-input"
-                hintText={<FormattedMessage id="task.noteLabel" defaultMessage="Note any additional details here." />}
-                name={noteFormName}
-                defaultValue={note}
-                onKeyPress={keyPressCallback}
-                onChange={this.handleChange.bind(this)}
-                fullWidth
-                multiLine
-              /> : null
-          }
-          { (this.state.focus && editable) || this.state.editingResponse ? actionBtns : null }
-        </div>);
-      }
     }
   }
 
@@ -499,7 +431,7 @@ class Task extends Component {
                 </label>
 
                 <div className='task__response-inputs'>
-                  { task.type === 'single_choice' ? this.renderOptions() : null }
+                  { task.type === 'single_choice' ? <SingleChoiceTask mode="respond" response={response} note={note} jsonoptions={task.jsonoptions} onSubmit={this.handleSubmitWithArgs.bind(this)}/> : null }
                   { task.type === 'multiple_choice' ? <MultiSelectTask mode="respond" jsonresponse={response} note={note} jsonoptions={task.jsonoptions} onSubmit={this.handleSubmitWithArgs.bind(this)}/> : null }
                   { task.type === 'free_text' ? [<TextField
                       className="task__response-input"
@@ -530,7 +462,7 @@ class Task extends Component {
                 <form onSubmit={this.handleSubmitUpdate.bind(this)} name={`edit-response-${task.first_response.id}`}>
                   {taskQuestion}
 
-                  { task.type === 'single_choice' ? this.renderOptions(response, note) : null }
+                  { task.type === 'single_choice' ? <SingleChoiceTask mode="edit_response" response={response} note={note} jsonoptions={task.jsonoptions} onDismiss={this.handleCancelEditResponse.bind(this)} onSubmit={this.handleSubmitUpdateWithArgs.bind(this)} /> : null }
                   { task.type === 'multiple_choice' ? <MultiSelectTask mode="edit_response" jsonresponse={response} note={note} jsonoptions={task.jsonoptions} onDismiss={this.handleCancelEditResponse.bind(this)} onSubmit={this.handleSubmitUpdateWithArgs.bind(this)} /> : null }
                   { task.type === 'free_text' ? [<TextField
                       className="task__response-input"
@@ -558,7 +490,7 @@ class Task extends Component {
               <div className="task__resolved">
                 {taskQuestion}
                 { task.type === 'free_text' ? <p className="task__response"><ParsedText text={response} /></p> : null }
-                { task.type === 'single_choice' ? this.renderOptions(response) : null }
+                { task.type === 'single_choice' ? <SingleChoiceTask mode="show_response" response={response} note={note} jsonoptions={task.jsonoptions} /> : null }
                 { task.type === 'multiple_choice' ? <MultiSelectTask mode="show_response" jsonresponse={response} note={note} jsonoptions={task.jsonoptions} /> : null }
                 <p style={{ display: note ? 'block' : 'none' }} className="task__note"><ParsedText text={note} /></p>
                 <p className="task__resolver">

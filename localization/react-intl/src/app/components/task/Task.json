@@ -8,14 +8,6 @@
     "defaultMessage": "Cancel"
   },
   {
-    "id": "tasks.submit",
-    "defaultMessage": "Submit"
-  },
-  {
-    "id": "task.noteLabel",
-    "defaultMessage": "Note any additional details here."
-  },
-  {
     "id": "tasks.save",
     "defaultMessage": "Save"
   },
@@ -30,6 +22,10 @@
   {
     "id": "task.more",
     "defaultMessage": "More"
+  },
+  {
+    "id": "task.noteLabel",
+    "defaultMessage": "Note any additional details here."
   },
   {
     "id": "task.pressReturnToSave",

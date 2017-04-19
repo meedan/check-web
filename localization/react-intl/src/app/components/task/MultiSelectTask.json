@@ -1,7 +1,7 @@
 [
   {
     "id": "multiSelectTask.addValue",
-    "defaultMessage": "Add Value"
+    "defaultMessage": "Add Option"
   },
   {
     "id": "multiSelectTask.value",
@@ -16,12 +16,16 @@
     "defaultMessage": "Other"
   },
   {
+    "id": "multiSelectTask.newTask",
+    "defaultMessage": "New task"
+  },
+  {
     "id": "tasks.cancelAdd",
     "defaultMessage": "Cancel"
   },
   {
     "id": "tasks.add",
-    "defaultMessage": "Add"
+    "defaultMessage": "Create Task"
   },
   {
     "id": "tasks.taskPrompt",
@@ -41,7 +45,7 @@
   },
   {
     "id": "tasks.submit",
-    "defaultMessage": "Submit"
+    "defaultMessage": "Resolve Task"
   },
   {
     "id": "task.noteLabel",

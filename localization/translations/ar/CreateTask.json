@@ -1,11 +1,12 @@
 {
-  "tasks.cancelAdd": "الْغ",
-  "tasks.add": "أضف",
+  "createTask.newTask": "مهمة جديدة",
+  "tasks.cancelAdd": "إلغاء",
+  "tasks.add": "أضف مهمة",
   "tasks.addTask": "أضف مهمة",
   "tasks.shortAnswer": "إجابة قصيرة",
   "tasks.chooseOne": "سؤال أحادي الاختيارات",
   "tasks.chooseMultiple": "سؤال متعدد الاختيارات",
-  "tasks.taskLabel": "عنوان المهمة",
+  "tasks.taskLabel": "السؤال",
   "tasks.description": "وصف",
   "tasks.addDescription": "أضف وصفاً"
 }

@@ -1,5 +1,5 @@
 {
-  "joinTeamComponent.error": "عذراً، لم نستطيع إرسال طلبك.",
+  "joinTeamComponent.error": "عذراً، لم نستطع إرسال طلبك.",
   "joinTeamComponent.success": "شكراً على رغبتك في الانضمام لفريق {team} على Check!سوف يراجع مدير الفريق طلبك بأسرع وقت.",
   "joinTeamComponent.autoApprove": "شكراً على انضمامك لفريق {team} على Check! يمكنك بدء المشاركة على الفور.",
   "joinTeamComponent.title": "انضم لفريق",
