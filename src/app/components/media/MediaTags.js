@@ -126,6 +126,8 @@ class MediaTags extends Component {
     const suggestedTags = (media.team && media.team.get_suggested_tags) ? media.team.get_suggested_tags.split(',') : [];
     const activeSuggestedTags = tags.filter(tag => suggestedTags.includes(tag.node.tag));
     const remainingTags = tags.filter(tag => !suggestedTags.includes(tag.node.tag));
+    const searchQuery = searchQueryFromUrl();
+    const activeRegularTags = searchQuery.tags || [];
 
     if (!this.props.isEditing) {
       return (
