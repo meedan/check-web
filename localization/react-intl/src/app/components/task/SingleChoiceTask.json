@@ -38,5 +38,17 @@
   {
     "id": "tasks.addDescription",
     "defaultMessage": "Add a description"
+  },
+  {
+    "id": "tasks.cancelEdit",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "tasks.submit",
+    "defaultMessage": "Resolve Task"
+  },
+  {
+    "id": "task.noteLabel",
+    "defaultMessage": "Note any additional details here."
   }
 ]
