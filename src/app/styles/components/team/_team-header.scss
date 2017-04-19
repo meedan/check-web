@@ -25,7 +25,6 @@
 
 .team-header__avatar {
   @include team-avatar(32px);
-  @include fade-in(.5s);
   margin-#{$to-direction}: 16px;
   background-color: $white;
 }

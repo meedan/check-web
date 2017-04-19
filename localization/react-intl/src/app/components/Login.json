@@ -20,6 +20,10 @@
     "defaultMessage": "Sign in"
   },
   {
+    "id": "login.registerTitle",
+    "defaultMessage": "Register"
+  },
+  {
     "id": "login.nameLabel",
     "defaultMessage": "Your name"
   },
@@ -45,7 +49,7 @@
   },
   {
     "id": "login.lostPassword",
-    "defaultMessage": "Forgot password?"
+    "defaultMessage": "Forgot password"
   },
   {
     "id": "login.with",

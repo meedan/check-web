@@ -137,6 +137,10 @@ class Login extends Component {
       : baseClass;
   }
 
+  componentDidMount() {
+    this.focusFirstInput();
+  }
+
   render() {
     const { state } = this.props;
 
@@ -154,7 +158,12 @@ class Login extends Component {
             src="/images/logo/check.svg"
           />
           <h2 className="login__heading">
-            <FormattedMessage id="login.title" defaultMessage="Sign in" />
+            {this.state.type === "login"
+              ? <FormattedMessage id="login.title" defaultMessage="Sign in" />
+              : <FormattedMessage
+                  id="login.registerTitle"
+                  defaultMessage="Register"
+                />}
           </h2>
           <Message message={this.state.message} />
           {this.state.type === "login"
@@ -287,7 +296,7 @@ class Login extends Component {
                   <Link to="/check/user/password-reset">
                     <FormattedMessage
                       id="login.lostPassword"
-                      defaultMessage="Forgot password?"
+                      defaultMessage="Forgot password"
                     />
                   </Link>
                 </span>
@@ -380,12 +389,13 @@ class Login extends Component {
                   id="register-or-login"
                   onClick={this.handleSwitchType.bind(this)}
                   className="login__button login__button--email"
-                > <span className="login__link">
-                  <MDEmail />
-                  <FormattedMessage
-                    id="login.alreadyHasAccount"
-                    defaultMessage="I already have an account"
-                  />
+                >
+                  {" "}<span className="login__link">
+                    <MDEmail />
+                    <FormattedMessage
+                      id="login.alreadyHasAccount"
+                      defaultMessage="I already have an account"
+                    />
                   </span>
                   <FormattedMessage
                     id="login.return"

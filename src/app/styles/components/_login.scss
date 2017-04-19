@@ -1,4 +1,5 @@
 .login {
+  @include fade-in;
   text-align: center;
 
   & > p {
@@ -10,9 +11,9 @@
 .login__form {
   @include box-shadow(1);
   background-color: $white;
-  padding: 62px 144px;
+  padding: 80px 120px 52px;
   @media all and (max-width: $layout-mobile-breakpoint) {
-    padding: 16px;
+    padding: 32px 16px;
   }
 }
 
@@ -41,7 +42,8 @@
   display: block;
   opacity: 0;
   transition: color 200ms ease, opacity 50ms ease;
-  font-weight: 500;
+  text-align: left;
+  font: $font-caption;
 
   &--text-entered {
     opacity: 1;
@@ -49,16 +51,20 @@
 }
 
 .login__submit {
-  @include button-large;
+  @include button-medium;
   @include button-primary;
   display: block;
-  margin: 0 auto 10px;
+  margin: 60px auto 10px;
+  width: 120px;
 }
 
-.login__forgot-password {
+.login__forgot-password a {
   text-align: center;
   display: block;
   margin: 0 auto;
+  padding: 8px;
+  font: $font-body-2;
+  color: $black-54;
 }
 
 .login__register-or-login,
@@ -83,7 +89,7 @@
 .upload-file > div {
   width: 100% !important;
   height: auto !important;
-  padding: 25px 2px !important;
+  padding: 25px 8px !important;
   border: 1px dashed $black-38 !important;
   color: $black-38 !important;
   text-align: center;
@@ -140,9 +146,12 @@
 
 .login__button {
   @include box-shadow(1);
-  width: 100%;
+  width: 320px;
+  @media all and (max-width: $layout-mobile-breakpoint) {
+    width: 100%;
+  }
   transition: background-color 400ms ease;
-  padding: 16px 24px;
+  padding: 12px 24px;
   padding-#{$to-direction}: 16px;
   background-color: $white;
   display: flex;
@@ -164,10 +173,6 @@
     width: 24px;
     height: 24px;
   }
-
-  &:hover {
-    transition: background-color 80ms ease;
-  }
 }
 
 $providers: (
@@ -180,15 +185,26 @@ $providers: (
 
 @each $provider-name, $provider-color in $providers {
   .login__button--#{$provider-name} {
+    &:hover {
+
+      @include box-shadow(2);
+      transition: box-shadow $transition-speed-default ease-in-out;
+
+      .login__link {
+        color: darken($check-blue, 10%);
+        transition: color $transition-speed-default ease-in-out;
+      }
+
+      svg path {
+        fill: darken(saturate($provider-color, 10%), 10%);
+        transition: fill $transition-speed-default ease-in-out;
+      }
+    }
 
     .login__link {
       color: $check-blue;
       font: $font-body-2;
       font-weight: 500;
-
-      &:hover {
-        color: darken($check-blue, 10%);
-      }
     }
 
     svg {
@@ -196,12 +212,6 @@ $providers: (
 
       path {
         fill: $provider-color;
-      }
-
-      &:hover {
-        path {
-          fill: darken(saturate($provider-color, 10%), 10%);
-        }
       }
     }
   }
