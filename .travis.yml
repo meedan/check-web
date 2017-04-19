@@ -9,7 +9,7 @@ addons:
   postgresql: "9.4"
 before_install:
 # decrypt configs
-- openssl aes-256-cbc -K $encrypted_6fe224c112de_key -iv $encrypted_6fe224c112de_iv -in travis.enc -out travis.zip -d
+- openssl aes-256-cbc -K $encrypted_bd376a7c921e_key -iv $encrypted_bd376a7c921e_iv -in travis.zip.enc -out travis.zip -d
 - unzip travis.zip
 # apt dependencies
 - sudo apt-get -qq update
