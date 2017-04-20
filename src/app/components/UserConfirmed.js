@@ -7,7 +7,7 @@ class UserConfirmed extends Component {
     return (
       <div>
         <h2 className="main-title"><FormattedMessage id="userConfirmed.heading" defaultMessage="Account Confirmed" /></h2>
-        <p>
+        <p style="text-align: center;">
           <FormattedMessage
             id="userConfirmed.message"
             defaultMessage={'Thanks for confirming your e-mail address! Now you can {login}.'}
