@@ -10,7 +10,7 @@ class Tasks extends Component {
       <div className="tasks">
         <ul className="tasks__list / tasks-list">
           {tasks.map(task => (
-            <li><Task task={task.node} media={media} /></li>
+            <li key={task.node.dbid}><Task task={task.node} media={media} /></li>
           ))}
         </ul>
       </div>

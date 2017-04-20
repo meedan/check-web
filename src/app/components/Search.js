@@ -162,7 +162,7 @@ class SearchQueryComponent extends Component {
 
       if (tagIsSelected) {
         selectedTags.splice(selectedTags.indexOf(tag), 1); // remove from array
-        if (!selectedTags.legnth) delete state.query.tags;
+        if (!selectedTags.length) delete state.query.tags;
       } else {
         state.query.tags = selectedTags.concat(tag);
       }
@@ -230,8 +230,6 @@ class SearchQueryComponent extends Component {
             </form> : null }
 
             <section className="search__filters / filters">
-              <h3 className="search__filters-heading">{ this.props.project ? null : <FormattedMessage id="search.filtersHeading" defaultMessage="Filters" /> }</h3>
-
               {/* Status */}
               { this.showField('status') ?
               <div>
