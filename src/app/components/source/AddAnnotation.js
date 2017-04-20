@@ -245,6 +245,8 @@ class AddAnnotation extends Component {
   }
 
   addDynamic(that, annotated, annotated_id, annotated_type, params, annotation_type) {
+    const { formatMessage } = that.props.intl;
+    
     const onFailure = (transaction) => { that.fail(transaction); };
 
     const onSuccess = (response) => { that.success(formatMessage(messages.annotationAdded, { type: annotation_type })); };
