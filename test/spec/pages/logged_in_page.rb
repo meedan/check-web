@@ -8,7 +8,7 @@ module LoggedInPage
     logout = element('.header-actions__menu-item--logout')
     logout.click
 
-    wait_for_element('#login-menu')
+    wait_for_element('#login-container')
     LoginPage.new(config: @config, driver: @driver)
   end
 

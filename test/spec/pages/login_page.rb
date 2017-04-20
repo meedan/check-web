@@ -38,8 +38,6 @@ class LoginPage < Page
 
   def login_with_email(options)
     load
-    toggle_email_mode unless email_mode == 'login'
-
     fill_input('.login__email input', options[:email])
     fill_input('.login__password input', options[:password])
     # TODO: fix or remove click_button() for mobile browsers

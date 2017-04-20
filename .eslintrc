@@ -7,6 +7,7 @@
     "extends": "airbnb",
     "rules": {
         "indent": [2, 2],
-        "react/jsx-filename-extension": "off"
+        "react/jsx-filename-extension": "off",
+        "react/jsx-no-bind": "off"
     }
 }
