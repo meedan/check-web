@@ -186,7 +186,6 @@ class LoginEmail extends Component {
               <button type="submit" id="submit-register-or-login" className={`login-email__submit login-email__submit--${this.state.type}`}>
                 {this.state.type === 'login' ? <FormattedMessage id="loginEmail.signIn" defaultMessage="Sign in »" /> : <FormattedMessage id="loginEmail.signUp" defaultMessage="Sign up »" />}
               </button>
-              {this.state.type === 'login' ? <span className="login-email__forgot-password"><Link to="/check/user/password-reset"><FormattedMessage id="loginEmail.lostPassword" defaultMessage="Forgot password?"></FormattedMessage></Link></span> : null }
               <button type="button" id="register-or-login" onClick={this.handleSwitchType.bind(this)} className="login-email__register-or-login">
                 {this.state.type === 'register' ? <FormattedMessage id="loginEmail.alreadyHasAccount" defaultMessage="I already have an account" /> : <FormattedMessage id="loginEmail.newAccount" defaultMessage="Create a new account" />}
               </button>

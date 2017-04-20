@@ -44,10 +44,6 @@
     "defaultMessage": "Sign up »"
   },
   {
-    "id": "loginEmail.lostPassword",
-    "defaultMessage": "Forgot password?"
-  },
-  {
     "id": "loginEmail.alreadyHasAccount",
     "defaultMessage": "I already have an account"
   },
