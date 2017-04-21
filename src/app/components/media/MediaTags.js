@@ -133,7 +133,7 @@ class MediaTags extends Component {
       return (
         <div className="media-tags">
           {activeSuggestedTags.length ? (
-            <ul className="media-tags__suggestions / electionland_categories">
+            <ul className="media-tags__suggestions">
               {activeSuggestedTags.map(tag =>
                 <li key={tag.node.id}
                     onClick={this.handleTagViewClick.bind(this, tag.node.tag)}
@@ -166,7 +166,7 @@ class MediaTags extends Component {
 
         {suggestedTags.length ? (
           <div className="media-tags__suggestions">
-            <ul className="media-tags__suggestions-list / electionland_categories">
+            <ul className="media-tags__suggestions-list">
               {suggestedTags.map(suggestedTag =>
                 <li key={suggestedTag}
                     onClick={this.handleSuggestedTagEditClick.bind(this, suggestedTag)}
