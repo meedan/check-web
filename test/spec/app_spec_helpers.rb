@@ -213,7 +213,9 @@ module AppSpecHelpers
     sleep 8 # wait for Sidekiq
 
     @driver.navigate.to @config['self_url'] + '/' + get_team + '/search'
-    sleep 3
+
+    sleep 8 # wait for Godot
+
     expect(@driver.page_source.include?('My search result')).to be(true)
   end
 end
