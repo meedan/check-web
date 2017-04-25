@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { defineMessages, injectIntl, intlShape } from 'react-intl';
+import { defineMessages, FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import Relay from 'react-relay';
 import { Card, CardText, CardTitle } from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
@@ -11,9 +11,13 @@ const messages = defineMessages({
     id: 'translation.inputHint',
     defaultMessage: 'Please add a translation',
   },
-  annotationAdded: {
-    id: 'translation.annotationAdded',
-    defaultMessage: 'Annotation added',
+  translationFailed: {
+    id: 'translation.translationFailed',
+    defaultMessage: 'Sorry, could not create the translation',
+  },
+  submitBlank: {
+    id: 'translation.submitBlank',
+    defaultMessage: "Can't submit a blank translation",
   },
 });
 
@@ -31,14 +35,26 @@ class Translation extends Component {
     return context;
   }
 
-  addDynamic(that, annotated, annotated_id, annotated_type, params, annotation_type) {
+  fail(transaction) {
+    const that = this;
+    const error = transaction.getError();
+    let message = this.props.intl.formatMessage(messages.createTagFailed);
+    try {
+      const json = JSON.parse(error.source);
+      if (json.error) {
+        message = json.error;
+      }
+    } catch (e) { }
+    that.setState({ message, isSubmitting: false });
+  }
+
+  addTranslation(that, annotated, annotated_id, annotated_type, params) {
     const onFailure = (transaction) => { that.fail(transaction); };
 
-    const onSuccess = (response) => { that.success(formatMessage(messages.annotationAdded, { type: annotation_type })); };
+    const onSuccess = (response) => { that.setState({ message: '' }); };
 
     const annotator = that.getContext().currentUser;
 
-    // /location location_name=Salvador&location_position=-12.9016241,-38.4198075
     const fields = {};
     if (params) params.split('&').forEach((part) => {
       const pair = part.split('=');
@@ -53,7 +69,7 @@ class Translation extends Component {
         context: that.getContext(),
         annotation: {
           fields,
-          annotation_type,
+          annotation_type: 'translation',
           annotated_type,
           annotated_id,
         },
@@ -81,16 +97,18 @@ class Translation extends Component {
       const annotated = this.props.annotated;
       const annotated_id = annotated.dbid;
       const annotated_type = this.props.annotatedType;
-      const args = "translation_text=lararara&translation_language=pt";
-      this.addDynamic(this, annotated, annotated_id, annotated_type, args, 'translation');
+      const args = `translation_text=${this.state.translation}&translation_language=`;
+      this.addTranslation(this, annotated, annotated_id, annotated_type, args);
+    } else {
+      this.setState({message: this.props.intl.formatMessage(messages.submitBlank)});
     }
   }
 
   render() {
     return (
-      <div>
-        <Card>
-          <CardTitle>Translation</CardTitle>
+      <div className="translation__component">
+        <Card className="translation__card">
+          <CardTitle><FormattedMessage id="translation.title" defaultMessage="Translation" /></CardTitle>
           <CardText>
             <TextField
               hintText={this.props.intl.formatMessage(messages.inputHint)}
