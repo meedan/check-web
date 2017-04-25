@@ -234,8 +234,7 @@ class SearchQueryComponent extends Component {
               { this.showField('status') ?
               <div>
                 <h4><FormattedMessage id="search.statusHeading" defaultMessage="Status" /></h4>
-                {/* chicklet markup/logic from MediaTags. TODO: fix classnames */}
-                <ul className="/ media-tags__suggestions-list // electionland_categories">
+                <ul className="/ media-tags__suggestions-list">
                   {statuses.map(status =>
                     <li title={status.description} onClick={this.handleStatusClick.bind(this, status.id)} className={bemClass('media-tags__suggestion', this.statusIsSelected(status.id), '--selected')} style={{ backgroundColor: getStatusStyle(status, 'backgroundColor') }} >{status.label}</li>)}
                 </ul>
@@ -245,8 +244,7 @@ class SearchQueryComponent extends Component {
               { this.showField('project') ?
               <div>
                 <h4><FormattedMessage id="search.projectHeading" defaultMessage="Project" /></h4>
-                {/* chicklet markup/logic from MediaTags. TODO: fix classnames */}
-                <ul className="/ media-tags__suggestions-list // electionland_categories">
+                <ul className="/ media-tags__suggestions-list">
                   {projects.map(project => <li title={project.node.description} onClick={this.handleProjectClick.bind(this, project.node.dbid)} className={bemClass('media-tags__suggestion', this.projectIsSelected(project.node.dbid), '--selected')}>{project.node.title}</li>)}
                 </ul>
               </div> : null }
@@ -255,7 +253,7 @@ class SearchQueryComponent extends Component {
               { this.showField('tags') && suggestedTags.length ? (
                 <div>
                   <h4><FormattedMessage id="status.categoriesHeading" defaultMessage="Categories" /></h4>
-                  <ul className="/ media-tags__suggestions-list // electionland_categories">
+                  <ul className="/ media-tags__suggestions-list">
                     {suggestedTags.map(tag => <li title={null} onClick={this.handleTagClick.bind(this, tag)} className={bemClass('media-tags__suggestion', this.tagIsSelected(tag), '--selected')}>{tag}</li>)}
                   </ul>
                 </div>
@@ -265,8 +263,7 @@ class SearchQueryComponent extends Component {
               { this.showField('sort') ?
               <div>
                 <h4><FormattedMessage id="search.sort" defaultMessage="Sort" /></h4>
-                {/* chicklet markup/logic from MediaTags. TODO: fix classnames */}
-                <ul className="search-query__sort-actions / media-tags__suggestions-list">
+                <ul className="search-query__sort-actions media-tags__suggestions-list">
                   <li onClick={this.handleSortClick.bind(this, 'recent_added')} className={bemClass('media-tags__suggestion', this.sortIsSelected('recent_added'), '--selected')}>
                     <FormattedMessage id="search.sortByCreated" defaultMessage="Created" />
                   </li>
