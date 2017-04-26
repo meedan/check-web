@@ -1,8 +1,8 @@
 require 'selenium-webdriver'
 require 'appium_lib'
 require 'yaml'
-require File.join(File.expand_path(File.dirname(__FILE__)), 'spec_helper')
-require File.join(File.expand_path(File.dirname(__FILE__)), 'app_spec_helpers')
+require_relative './spec_helper.rb'
+require_relative './app_spec_helpers.rb'
 require_relative './pages/login_page.rb'
 require_relative './pages/me_page.rb'
 require_relative './pages/teams_page.rb'
