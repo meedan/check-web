@@ -1,0 +1,8 @@
+{
+  "translation.inputHint": "Please add a translation",
+  "translation.translationAdded": "A translation has been added!",
+  "translation.translationFailed": "Sorry, could not create the translation",
+  "translation.submitBlank": "Can't submit a blank translation",
+  "translation.title": "Add a translation",
+  "translation.pressReturnToSave": "Press return to save your response"
+}
