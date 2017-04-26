@@ -11,6 +11,10 @@ const messages = defineMessages({
     id: 'translation.inputHint',
     defaultMessage: 'Please add a translation',
   },
+  translationAdded: {
+    id: 'translation.translationAdded',
+    defaultMessage: "A translation has been added!",
+  },
   translationFailed: {
     id: 'translation.translationFailed',
     defaultMessage: 'Sorry, could not create the translation',
@@ -21,12 +25,19 @@ const messages = defineMessages({
   },
 });
 
+const styles = {
+  errorStyle: {
+    color: '#757575',
+  },
+};
+
 class Translation extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       message: null,
+      isSubmitting: false
     };
   }
 
@@ -48,10 +59,17 @@ class Translation extends Component {
     that.setState({ message, isSubmitting: false });
   }
 
+  success() {
+    this.setState({ message: this.props.intl.formatMessage(messages.translationAdded), isSubmitting: false });
+    const input = document.getElementById('translation-input');
+    input.value = '';
+    input.blur();
+  }
+
   addTranslation(that, annotated, annotated_id, annotated_type, params) {
     const onFailure = (transaction) => { that.fail(transaction); };
 
-    const onSuccess = (response) => { that.setState({ message: '' }); };
+    const onSuccess = (response) => { that.success(); };
 
     const annotator = that.getContext().currentUser;
 
@@ -78,47 +96,56 @@ class Translation extends Component {
     );
   }
 
-  handleChange(e){
-    const value = e.target.value.trim();
-
-    if (value) {
-      this.setState({ translation: value });
-    }
-  }
-
   handleKeyPress(e) {
     if (e.key === 'Enter' && !e.shiftKey) {
       this.handleSubmit(e);
     }
   }
 
-  handleSubmit(){
-    if (this.state.translation){
+  handleFocus() {
+    this.setState({ message: null });
+  }
+
+  handleSubmit(e) {
+    if (this.state.isSubmitting) { return e.preventDefault(); }
+
+    const translation = document.forms.addtranslation.translation.value.trim();
+
+    if (translation){
+      this.setState({ isSubmitting: true });
+
       const annotated = this.props.annotated;
       const annotated_id = annotated.dbid;
       const annotated_type = this.props.annotatedType;
-      const args = `translation_text=${this.state.translation}&translation_language=`;
+      const args = `translation_text=${translation}&translation_language=`;
+
       this.addTranslation(this, annotated, annotated_id, annotated_type, args);
     } else {
       this.setState({message: this.props.intl.formatMessage(messages.submitBlank)});
     }
+
+    e.preventDefault();
   }
 
   render() {
     return (
       <div className="translation__component">
         <Card className="translation__card">
-          <CardTitle><FormattedMessage id="translation.title" defaultMessage="Translation" /></CardTitle>
+          <CardTitle><FormattedMessage id="translation.title" defaultMessage="Add a translation" /></CardTitle>
           <CardText>
-            <TextField
-              hintText={this.props.intl.formatMessage(messages.inputHint)}
-              errorText={this.state.message}
-              name="translation" id="translation-input"
-              multiLine
-              fullWidth
-              onKeyPress={this.handleKeyPress.bind(this)}
-              onChange={this.handleChange.bind(this)}
-            />
+            <form className="add-translation" name="addtranslation" onSubmit={this.handleSubmit.bind(this)}>
+              <TextField
+                hintText={this.props.intl.formatMessage(messages.inputHint)}
+                errorText={this.state.message}
+                errorStyle={styles.errorStyle}
+                name="translation" id="translation-input"
+                multiLine
+                fullWidth
+                onFocus={this.handleFocus.bind(this)}
+                onKeyPress={this.handleKeyPress.bind(this)}
+              />
+            </form>
+            <p className="translation__resolver"><small><FormattedMessage id="translation.pressReturnToSave" defaultMessage="Press return to save your response" /></small></p>
           </CardText>
         </Card>
       </div>
