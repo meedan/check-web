@@ -57,6 +57,7 @@ before_install:
 - gem install bundler
 - cd test && bundle install && cd -
 # config files
+- cp check-api/public/relay.json relay.json
 - cp travis/config.js config.js
 - cp travis/config.js test/config.js
 - cp travis/config.yml test/config.yml
