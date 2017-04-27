@@ -18,5 +18,5 @@ travis.zip
 linters
 test/spec/sauce
 config-build.js
-config-build.js.disabled
+relay.json
 .tmp
