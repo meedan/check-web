@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { defineMessages, FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import Relay from 'react-relay';
-import { Card, CardText, CardTitle } from 'material-ui/Card';
+import { Card, CardText, CardActions } from 'material-ui/Card';
+import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import CheckContext from '../../CheckContext';
 import CreateDynamicMutation from '../../relay/CreateDynamicMutation';
@@ -37,7 +38,7 @@ class Translation extends Component {
 
     this.state = {
       message: null,
-      isSubmitting: false
+      submitDisabled: true,
     };
   }
 
@@ -56,14 +57,15 @@ class Translation extends Component {
         message = json.error;
       }
     } catch (e) { }
-    that.setState({ message, isSubmitting: false });
+    that.setState({ message, submitDisabled: false });
   }
 
   success() {
-    this.setState({ message: this.props.intl.formatMessage(messages.translationAdded), isSubmitting: false });
     const input = document.getElementById('translation-input');
     input.value = '';
     input.blur();
+
+    this.setState({ message: this.props.intl.formatMessage(messages.translationAdded), submitDisabled: true });
   }
 
   addTranslation(that, annotated, annotated_id, annotated_type, params) {
@@ -94,6 +96,8 @@ class Translation extends Component {
       }),
       { onSuccess, onFailure },
     );
+
+    this.setState({ submitDisabled: true });
   }
 
   handleKeyPress(e) {
@@ -106,22 +110,20 @@ class Translation extends Component {
     this.setState({ message: null });
   }
 
-  handleSubmit(e) {
-    if (this.state.isSubmitting) { return e.preventDefault(); }
-
+  handleChange() {
     const translation = document.forms.addtranslation.translation.value.trim();
+    this.setState({ submitDisabled: (!!translation ? false : true) });
+  }
 
-    if (translation){
-      this.setState({ isSubmitting: true });
-
+  handleSubmit(e) {
+    if (!this.state.submitDisabled) {
+      const translation = document.forms.addtranslation.translation.value.trim();
       const annotated = this.props.annotated;
       const annotated_id = annotated.dbid;
       const annotated_type = this.props.annotatedType;
       const args = `translation_text=${translation}&translation_language=`;
 
       this.addTranslation(this, annotated, annotated_id, annotated_type, args);
-    } else {
-      this.setState({message: this.props.intl.formatMessage(messages.submitBlank)});
     }
 
     e.preventDefault();
@@ -131,8 +133,8 @@ class Translation extends Component {
     return (
       <div className="translation__component">
         <Card className="translation__card">
-          <CardTitle><FormattedMessage id="translation.title" defaultMessage="Add a translation" /></CardTitle>
-          <CardText>
+          <CardText className="translation__card-text">
+            <div><FormattedMessage id="translation.title" defaultMessage="Add a translation" /></div>
             <form className="add-translation" name="addtranslation" onSubmit={this.handleSubmit.bind(this)}>
               <TextField
                 hintText={this.props.intl.formatMessage(messages.inputHint)}
@@ -141,12 +143,15 @@ class Translation extends Component {
                 name="translation" id="translation-input"
                 multiLine
                 fullWidth
+                onChange={this.handleChange.bind(this)}
                 onFocus={this.handleFocus.bind(this)}
                 onKeyPress={this.handleKeyPress.bind(this)}
               />
             </form>
-            <p className="translation__resolver"><small><FormattedMessage id="translation.pressReturnToSave" defaultMessage="Press return to save your response" /></small></p>
           </CardText>
+          <CardActions className="translation__card-actions">
+            <FlatButton label={<FormattedMessage id="translation.submit" defaultMessage="Submit" />} primary onClick={this.handleSubmit.bind(this)} disabled={this.state.submitDisabled} />
+          </CardActions>
         </Card>
       </div>
     );

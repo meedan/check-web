@@ -2,7 +2,10 @@
   margin-bottom: 15px;
 }
 
-.translation__resolver {
-  color: $black-38;
+.translation__card-text {
+  padding-bottom: 0 !important;
+}
+
+.translation__card-actions {
   text-align: $to-direction;
 }

@@ -1179,5 +1179,20 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Email not found')).to be(false)
       expect(@driver.page_source.include?('Password reset sent')).to be(true)
     end
+
+    it "should add a translation" do
+      media_pg = LoginPage.new(config: @config, driver: @driver).load
+                 .login_with_email(email: @email, password: @password)
+                 .create_media(input: 'This is a text in english')
+      sleep 3
+
+      # Add translation
+      expect(@driver.page_source.include?('Add a translation')).to be(true)
+      fill_field('textarea[name="translation"]', 'This is a translation')
+      @driver.action.send_keys(:enter).perform
+      sleep 2
+      expect(@driver.page_source.include?('Translated by')).to be(true)
+      expect(@driver.page_source.include?('"This is a translation"')).to be(true)
+    end
   end
 end
