@@ -19,6 +19,7 @@ import {
   PrivacyPolicy,
   UserConfirmed,
   UserUnconfirmed,
+  UserPasswordChange,
   UserPasswordReset,
   LoginEmailPage
 } from '../components';
@@ -141,6 +142,7 @@ export default class Root extends Component {
                 <Route path="check/user/confirmed" component={UserConfirmed} public />
                 <Route path="check/user/unconfirmed" component={UserUnconfirmed} public />
                 <Route path="check/user/password-reset" component={UserPasswordReset} public />
+                <Route path="check/user/password-change" component={UserPasswordChange} public />
                 <Route path="check/forbidden" component={AccessDenied} public />
                 <Route path="check/404" component={NotFound} public />
                 <Route path="check/login/email" component={LoginEmailPage} public />

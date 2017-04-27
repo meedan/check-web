@@ -4,7 +4,7 @@
   "createTeam.slugUnavailable": "That URL is unavailable.",
   "createTeam.createTeamError": "Sorry, could not create the team",
   "createTeam.title": "Create a Team",
-  "createTeam.teamNameHint": "Team Name",
+  "createTeam.teamNameHint": "Nome da Equipe",
   "createTeam.teamSlugHint": "team-slug",
   "createTeam.mainHeading": "Create a Team",
   "createTeam.blurb": "Create a team for your organization, or just for yourself:",

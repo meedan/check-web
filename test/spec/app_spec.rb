@@ -1,8 +1,8 @@
 require 'selenium-webdriver'
 require 'appium_lib'
 require 'yaml'
-require File.join(File.expand_path(File.dirname(__FILE__)), 'spec_helper')
-require File.join(File.expand_path(File.dirname(__FILE__)), 'app_spec_helpers')
+require_relative './spec_helper.rb'
+require_relative './app_spec_helpers.rb'
 require_relative './pages/login_page.rb'
 require_relative './pages/me_page.rb'
 require_relative './pages/teams_page.rb'
@@ -92,6 +92,53 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
   # The tests themselves start here
 
   context "web" do
+    it "should not add a duplicated tag from tags list" do
+      page = LoginPage.new(config: @config, driver: @driver).load
+          .login_with_email(email: @email, password: @password)
+          .click_media
+      new_tag = Time.now.to_i.to_s
+
+      # Validate assumption that tag does not exist
+      expect(page.has_tag?(new_tag)).to be(false)
+
+      # Add tag from tags list
+      page.add_tag(new_tag)
+      expect(page.has_tag?(new_tag)).to be(true)
+
+      # Try to add duplicate
+      page.add_tag(new_tag)
+      sleep 5
+
+      # Verify that tag is not added and that error message is displayed
+      expect(page.tags.count(new_tag)).to be(1)
+      expect(page.contains_string?('Tag already exists')).to be(true)
+    end
+
+    it "should display a default title for new media" do
+      # Tweets
+      media_pg = LoginPage.new(config: @config, driver: @driver).load.login_with_email(email: @email, password: @password)
+      @wait.until { @driver.page_source.include?('Claim') }
+      media_pg = media_pg.create_media(input: 'https://twitter.com/firstdraftnews/status/835587295394869249?t=' + Time.now.to_i.to_s)
+      expect(media_pg.primary_heading.text).to eq('Tweet by First Draft')
+      project_pg = media_pg.go_to_project
+      sleep 1
+      expect(project_pg.element('.media-detail__heading').text).to eq('Tweet by First Draft')
+
+      # YouTube
+      media_pg = project_pg.create_media(input: 'https://www.youtube.com/watch?v=ykLgjhBnik0?t=' + Time.now.to_i.to_s)
+      expect(media_pg.primary_heading.text).to eq('Video by First Draft')
+      project_pg = media_pg.go_to_project
+      sleep 1
+      expect(project_pg.element('.media-detail__heading').text).to eq('Video by First Draft')
+
+      # Facebook
+      media_pg = project_pg.create_media(input: 'https://www.facebook.com/FirstDraftNews/posts/1808121032783161?t=' + Time.now.to_i.to_s)
+      expect(media_pg.primary_heading.text).to eq('Facebook post by First Draft')
+      project_pg = media_pg.go_to_project
+      sleep 1
+      expect(project_pg.element('.media-detail__heading').text).to eq('Facebook post by First Draft')
+    end
+
     it "should login using Slack" do
       login_with_slack
       @driver.navigate.to @config['self_url'] + '/check/me'
@@ -476,28 +523,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       tag = @driver.find_elements(:css, '.ReactTags__tag').select{ |s| s.text.gsub(/<[^>]+>|×/, '') == 'bli' }
       expect(tag.empty?).to be(false)
       expect(@driver.page_source.include?('Tagged #bli')).to be(true)
-    end
-
-    it "should not add a duplicated tag from tags list" do
-      page = LoginPage.new(config: @config, driver: @driver).load
-          .login_with_email(email: @email, password: @password)
-          .click_media
-      new_tag = Time.now.to_i.to_s
-
-      # Validate assumption that tag does not exist
-      expect(page.has_tag?(new_tag)).to be(false)
-
-      # Add tag from tags list
-      page.add_tag(new_tag)
-      expect(page.has_tag?(new_tag)).to be(true)
-
-      # Try to add duplicate
-      page.add_tag(new_tag)
-      sleep 2
-
-      # Verify that tag is not added and that error message is displayed
-      expect(page.tags.count(new_tag)).to be(1)
-      expect(page.contains_string?('Tag already exists')).to be(true)
     end
 
     it "should not add a duplicated tag from command line" do
@@ -887,28 +912,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     # it "should find medias when searching by tag" do
     #   skip("Needs to be implemented")
     # end
-
-    it "should display a default title for new media" do
-      # Tweets
-      media_pg = LoginPage.new(config: @config, driver: @driver).load
-          .login_with_email(email: @email, password: @password)
-          .create_media(input: 'https://twitter.com/firstdraftnews/status/835587295394869249?t=' + Time.now.to_i.to_s)
-      expect(media_pg.primary_heading.text).to eq('Tweet by First Draft')
-      project_pg = media_pg.go_to_project
-      expect(project_pg.element('.media-detail__heading').text).to eq('Tweet by First Draft')
-
-      # YouTube
-      media_pg = project_pg.create_media(input: 'https://www.youtube.com/watch?v=ykLgjhBnik0?t=' + Time.now.to_i.to_s)
-      expect(media_pg.primary_heading.text).to eq('Video by FirstDraftNews')
-      project_pg = media_pg.go_to_project
-      expect(project_pg.element('.media-detail__heading').text).to eq('Video by FirstDraftNews')
-
-      # Facebook
-      media_pg = project_pg.create_media(input: 'https://www.facebook.com/FirstDraftNews/posts/1808121032783161?t=' + Time.now.to_i.to_s)
-      expect(media_pg.primary_heading.text).to eq('Facebook post by First Draft News')
-      project_pg = media_pg.go_to_project
-      expect(project_pg.element('.media-detail__heading').text).to eq('Facebook post by First Draft News')
-    end
 
     it "should edit the title of a media" do
       media_pg = LoginPage.new(config: @config, driver: @driver).load

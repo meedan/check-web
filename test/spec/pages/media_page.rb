@@ -45,9 +45,9 @@ class MediaPage < Page
 
   def add_tag(string)
     edit unless editing_mode?
-    fill_input('.ReactTags__tagInput input', string)
+    fill_input('.ReactTags__tagInput input', string, { clear: true })
     press(:enter)
-    @wait.until { has_tag?(string)}
+    @wait.until { has_tag?(string) }
   end
 
   def delete_tag(string)

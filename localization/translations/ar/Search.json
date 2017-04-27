@@ -3,7 +3,6 @@
   "search.loading": "تحميل...",
   "search.inputHint": "بحث",
   "search.results": "{resultsCount, plural, =0 {لا نتيجة} one {نتيجة واحدة} other {# نتائج}}",
-  "search.filtersHeading": "فلاتر",
   "search.statusHeading": "حالة",
   "search.projectHeading": "مشروع",
   "status.categoriesHeading": "الأقسام",

@@ -11,7 +11,7 @@ import MdCheckBoxOutlineBlank from 'react-icons/lib/md/check-box-outline-blank';
 const messages = defineMessages({
   addValue: {
     id: 'multiSelectTask.addValue',
-    defaultMessage: 'Add Value'
+    defaultMessage: 'Add Option'
   },
   value: {
     id: 'multiSelectTask.value',
@@ -25,9 +25,9 @@ const messages = defineMessages({
     id: 'multiSelectTask.other',
     defaultMessage: 'Other'
   },
-  otherLabel: {
-    id: 'multiSelectTask.otherLabel',
-    defaultMessage: 'Other (Specify)'
+  newTask: {
+    id: 'multiSelectTask.newTask',
+    defaultMessage: 'New task'
   }
 });
 
@@ -78,7 +78,6 @@ class MultiSelectTask extends Component {
     const can_submit = (response_obj.selected.length + !!response_obj.other) > 0;
 
     this.setState({ taskAnswerDisabled: !can_submit });
-
     return can_submit;
   }
 
@@ -109,7 +108,7 @@ class MultiSelectTask extends Component {
     let label = '';
 
     if (!this.state.hasOther) {
-      label = this.props.intl.formatMessage(messages.otherLabel);
+      label = this.props.intl.formatMessage(messages.other);
       options.push({ label, other });
       this.setState({ options, hasOther: true });
     }
@@ -148,7 +147,7 @@ class MultiSelectTask extends Component {
   }
 
   handleCancelResponse() {
-    this.setState({ response: null, responseOther: null, note: '', focus: false }, this.canSubmit);
+    this.setState({ response: null, responseOther: null, otherSelected: false, note: '', focus: false }, this.canSubmit);
     if (this.props.onDismiss) { this.props.onDismiss(); }
   }
 
@@ -211,31 +210,30 @@ class MultiSelectTask extends Component {
     const { formatMessage } = this.props.intl;
     const actions = [
       <FlatButton label={<FormattedMessage id="tasks.cancelAdd" defaultMessage="Cancel" />} primary onClick={this.props.onDismiss.bind(this)} />,
-      <FlatButton className="create-task__dialog-submit-button" label={<FormattedMessage id="tasks.add" defaultMessage="Add" />} primary keyboardFocused onClick={this.handleSubmitTask.bind(this)} disabled={this.state.submitDisabled}/>,
+      <FlatButton className="create-task__dialog-submit-button" label={<FormattedMessage id="tasks.add" defaultMessage="Create Task" />} primary keyboardFocused onClick={this.handleSubmitTask.bind(this)} disabled={this.state.submitDisabled}/>,
     ];
 
     return (
-      <div className="create-task">
-        <Dialog actions={actions} modal={false} open={this.props.mode === 'create'} onRequestClose={this.props.onDismiss}>
+      <div>
+        <Dialog title={this.props.intl.formatMessage(messages.newTask)} className="create-task__dialog" actions={actions} modal={false} open={this.props.mode === 'create'} onRequestClose={this.props.onDismiss} autoScrollBodyContent={true} contentStyle={{width: '608px'}}>
           <Message message={this.state.message} />
-          <div>
-            <TextField id="task-label-input" className="tasks__task-label-input" floatingLabelText={<FormattedMessage id="tasks.taskPrompt" defaultMessage="Prompt" />} onChange={this.handleLabelChange.bind(this)} multiLine fullWidth />
-              { this.state.options.map((item, index) => <div>
-                  <MdCheckBoxOutlineBlank />
-                  <TextField
-                    style={{ padding: '5px' }}
-                    id={index.toString()}
-                    onChange={this.handleEditOption.bind(this)}
-                    placeholder={ item.other ? formatMessage(messages.other) : formatMessage(messages.value) + ' ' + (index + 1) }
-                    value={item.label}
-                    disabled={item.other}
-                  />
-                  { canRemove ? <MdCancel className="create-task__remove-option-button" onClick={this.handleRemoveOption.bind(this, index)}/> : null }
-                </div>)
-              }
-            <div>
-              <FlatButton label={this.props.intl.formatMessage(messages.addValue)} primary onClick={this.handleAddValue.bind(this)} />
-              <FlatButton label={this.props.intl.formatMessage(messages.addOther)} primary onClick={this.handleAddOther.bind(this)} disabled={this.state.hasOther} />
+          <TextField id="task-label-input" className="tasks__task-label-input" floatingLabelText={<FormattedMessage id="tasks.taskPrompt" defaultMessage="Prompt" />} onChange={this.handleLabelChange.bind(this)} multiLine fullWidth />
+          <div className="create-task__add-options">
+            { this.state.options.map((item, index) => <div>
+                <MdCheckBoxOutlineBlank className="create-task__md-icon" />
+                <TextField className="create-task__add-option-input"
+                  id={index.toString()}
+                  onChange={this.handleEditOption.bind(this)}
+                  placeholder={ formatMessage(messages.value) + ' ' + (index + 1) }
+                  value={item.label}
+                  disabled={item.other}
+                />
+                { canRemove ? <MdCancel className="create-task__remove-option-button create-task__md-icon" onClick={this.handleRemoveOption.bind(this, index)}/> : null }
+              </div>)
+            }
+            <div className="create-task__add-options-buttons">
+              <FlatButton label={this.props.intl.formatMessage(messages.addValue)} onClick={this.handleAddValue.bind(this)} />
+              <FlatButton label={this.props.intl.formatMessage(messages.addOther)} onClick={this.handleAddOther.bind(this)} disabled={this.state.hasOther} />
             </div>
           </div>
           <input className="create-task__add-task-description" id="create-task__add-task-description" type="checkbox" />
@@ -268,8 +266,8 @@ class MultiSelectTask extends Component {
     const keyPressCallback = this.handleKeyPress.bind(this);
 
     const actionBtns = (<div>
-        <FlatButton label={<FormattedMessage id="tasks.cancelEdit" defaultMessage="Cancel" />} primary onClick={cancelCallback} />
-        <FlatButton className="task__submit" label={<FormattedMessage id="tasks.submit" defaultMessage="Resolve" />} primary onClick={submitCallback} disabled={this.state.taskAnswerDisabled}/>
+        <FlatButton label={<FormattedMessage id="tasks.cancelEdit" defaultMessage="Cancel" />} onClick={cancelCallback} />
+        <FlatButton className="task__submit" label={<FormattedMessage id="tasks.submit" defaultMessage="Resolve Task" />} primary onClick={submitCallback} disabled={this.state.taskAnswerDisabled}/>
       </div>);
 
     if (jsonoptions) {
@@ -297,6 +295,7 @@ class MultiSelectTask extends Component {
               onKeyPress={keyPressCallback}
               onChange={this.handleEditOther.bind(this)}
               disabled={!editable}
+              multiLine
             />
           ] : null }
         </div>

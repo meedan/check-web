@@ -1,14 +1,15 @@
 {
-  "multiSelectTask.addValue": "Add Value",
+  "multiSelectTask.addValue": "Add Option",
   "multiSelectTask.value": "Value",
   "multiSelectTask.addOther": "Add \"Other\"",
   "multiSelectTask.other": "Other",
-  "tasks.cancelAdd": "Cancel",
-  "tasks.add": "Add",
+  "multiSelectTask.newTask": "Nova tarefa",
+  "tasks.cancelAdd": "Cancelar",
+  "tasks.add": "Create Task",
   "tasks.taskPrompt": "Prompt",
   "tasks.description": "Description",
   "tasks.addDescription": "Add a description",
   "tasks.cancelEdit": "Cancel",
-  "tasks.submit": "Resolve",
+  "tasks.submit": "Resolve Task",
   "task.noteLabel": "Note any additional details here."
 }

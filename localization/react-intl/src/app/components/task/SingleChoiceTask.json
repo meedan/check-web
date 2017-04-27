@@ -1,7 +1,7 @@
 [
   {
     "id": "singleChoiceTask.addValue",
-    "defaultMessage": "Add Value"
+    "defaultMessage": "Add Option"
   },
   {
     "id": "singleChoiceTask.value",
@@ -16,8 +16,8 @@
     "defaultMessage": "Other"
   },
   {
-    "id": "singleChoiceTask.otherLabel",
-    "defaultMessage": "Other (Specify)"
+    "id": "singleChoiceTask.newTask",
+    "defaultMessage": "New task"
   },
   {
     "id": "tasks.cancelAdd",
@@ -25,7 +25,7 @@
   },
   {
     "id": "tasks.add",
-    "defaultMessage": "Add"
+    "defaultMessage": "Create Task"
   },
   {
     "id": "tasks.taskPrompt",
@@ -38,5 +38,17 @@
   {
     "id": "tasks.addDescription",
     "defaultMessage": "Add a description"
+  },
+  {
+    "id": "tasks.cancelEdit",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "tasks.submit",
+    "defaultMessage": "Resolve Task"
+  },
+  {
+    "id": "task.noteLabel",
+    "defaultMessage": "Note any additional details here."
   }
 ]

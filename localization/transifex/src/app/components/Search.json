@@ -3,7 +3,6 @@
   "search.loading": "Loading...",
   "search.inputHint": "Search",
   "search.results": "{resultsCount, plural, =0 {No results} one {1 result} other {# results}}",
-  "search.filtersHeading": "Filters",
   "search.statusHeading": "Status",
   "search.projectHeading": "Project",
   "status.categoriesHeading": "Categories",

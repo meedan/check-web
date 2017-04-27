@@ -4,7 +4,7 @@
   "joinTeamComponent.autoApprove": "Thanks for joining {team} Check! You can start contributing right away.",
   "joinTeamComponent.title": "Join Team",
   "joinTeamComponent.alreadyRequested": "You already requested to join {team} Check.",
-  "joinTeamComponent.mainHeading": "Request to Join",
+  "joinTeamComponent.mainHeading": "Pedir para Participar",
   "joinTeamComponent.blurbGraf": "To request access to the {link} Check, click below:",
   "joinTeamComponent.buttonSubmitted": "Request Sent",
   "joinTeamComponent.buttonApproved": "Request Approved",
