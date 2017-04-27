@@ -4,7 +4,7 @@
   "teamComponent.changeAvatar": "You can't change this right now, but we're hard at work to enable it soon!",
   "teamComponent.teamName": "Nome da Equipe",
   "teamComponent.teamDescription": "Descrição da Equipe",
-  "teamComponent.location": "Location",
+  "teamComponent.location": "Local",
   "teamComponent.phone": "Telefone",
   "teamComponent.website": "Website",
   "teamComponent.slackWebhook": "Slack webhook",

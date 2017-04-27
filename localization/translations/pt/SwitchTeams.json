@@ -4,6 +4,6 @@
   "switchTeams.members": "members",
   "switchTeams.joinRequestMessage": "You requested to join",
   "switchTeams.cancelJoinRequest": "Cancel",
-  "switchTeams.bannedJoinRequest": "Cancelled",
+  "switchTeams.bannedJoinRequest": "Cancelado",
   "switchTeams.newTeamLink": "+ New team"
 }

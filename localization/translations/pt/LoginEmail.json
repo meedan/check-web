@@ -4,7 +4,7 @@
   "loginEmail.passwordInputHint": "Password",
   "loginEmail.passwordConfirmInputHint": "Password confirmation",
   "login.with": "Entrar com {provider}",
-  "loginEmail.nameLabel": "Your name",
+  "loginEmail.nameLabel": "Seu nome",
   "loginEmail.emailLabel": "Email address",
   "loginEmail.passwordLabel": "Password (minimum 8 characters)",
   "loginEmail.passwordConfirmLabel": "Password confirmation",
