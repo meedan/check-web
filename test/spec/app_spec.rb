@@ -116,23 +116,26 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should display a default title for new media" do
       # Tweets
-      media_pg = LoginPage.new(config: @config, driver: @driver).load
-          .login_with_email(email: @email, password: @password)
-          .create_media(input: 'https://twitter.com/firstdraftnews/status/835587295394869249?t=' + Time.now.to_i.to_s)
+      media_pg = LoginPage.new(config: @config, driver: @driver).load.login_with_email(email: @email, password: @password)
+      @wait.until { @driver.page_source.include?('Claim') }
+      media_pg = media_pg.create_media(input: 'https://twitter.com/firstdraftnews/status/835587295394869249?t=' + Time.now.to_i.to_s)
       expect(media_pg.primary_heading.text).to eq('Tweet by First Draft')
       project_pg = media_pg.go_to_project
+      sleep 1
       expect(project_pg.element('.media-detail__heading').text).to eq('Tweet by First Draft')
 
       # YouTube
       media_pg = project_pg.create_media(input: 'https://www.youtube.com/watch?v=ykLgjhBnik0?t=' + Time.now.to_i.to_s)
-      expect(media_pg.primary_heading.text).to eq('Video by FirstDraftNews')
+      expect(media_pg.primary_heading.text).to eq('Video by First Draft')
       project_pg = media_pg.go_to_project
-      expect(project_pg.element('.media-detail__heading').text).to eq('Video by FirstDraftNews')
+      sleep 1
+      expect(project_pg.element('.media-detail__heading').text).to eq('Video by First Draft')
 
       # Facebook
       media_pg = project_pg.create_media(input: 'https://www.facebook.com/FirstDraftNews/posts/1808121032783161?t=' + Time.now.to_i.to_s)
       expect(media_pg.primary_heading.text).to eq('Facebook post by First Draft')
       project_pg = media_pg.go_to_project
+      sleep 1
       expect(project_pg.element('.media-detail__heading').text).to eq('Facebook post by First Draft')
     end
 
