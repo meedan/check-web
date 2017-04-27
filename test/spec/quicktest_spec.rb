@@ -1,8 +1,8 @@
 require 'selenium-webdriver'
 require 'appium_lib'
 require 'yaml'
-require File.join(File.expand_path(File.dirname(__FILE__)), 'spec_helper')
-require File.join(File.expand_path(File.dirname(__FILE__)), 'app_spec_helpers')
+require_relative './spec_helper.rb'
+require_relative './app_spec_helpers.rb'
 require_relative './pages/login_page.rb'
 require_relative './pages/me_page.rb'
 require_relative './pages/teams_page.rb'
@@ -56,11 +56,15 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
   after :each do |example|
     if example.exception
-      require 'rest-client'
+      require 'imgur'
       path = '/tmp/' + (0...8).map{ (65 + rand(26)).chr }.join + '.png'
       @driver.save_screenshot(path) # TODO: fix for page model tests
-      response = RestClient.post('https://file.io?expires=2', file: File.new(path))
-      link = JSON.parse(response.body)['link']
+
+      client = Imgur.new(@config['imgur_client_id'])
+      image = Imgur::LocalImage.new(path, title: "Test failed: #{example.to_s}")
+      uploaded = client.upload(image)
+      link = uploaded.link
+
       puts "Test \"#{example.to_s}\" failed! Check screenshot at #{link} and following browser output: #{console_logs}"
     end
     @driver.quit
@@ -70,7 +74,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
   context "web" do
     ## Prioritized Script for Automation ##
     it "should register and login using e-mail" do
-      p "should register and login using e-mail"
       login_pg = LoginPage.new(config: @config, driver: @driver).load
       email, password = ['sysops+' + Time.now.to_i.to_s + '@meedan.com', '22345678']
       login_pg.register_and_login_with_email(email: email, password: password)
@@ -80,7 +83,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should login using Facebook" do
-      p "should login using Facebook"
       login_pg = LoginPage.new(config: @config, driver: @driver).load
       login_pg.login_with_facebook
       me_pg = MePage.new(config: @config, driver: login_pg.driver).load
@@ -90,7 +92,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should login using Twitter" do
-      p "should login using Twitter"
       login_with_twitter
       @driver.navigate.to @config['self_url'] + '/check/me'
       displayed_name = get_element('h2.source-name').text.upcase
@@ -99,7 +100,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should login using Slack" do
-      p "should login using Slack"
       @driver.navigate.to "https://#{@config['slack_domain']}.slack.com"
       fill_field('#email', @config['slack_user'])
       fill_field('#password', @config['slack_password'])
@@ -122,7 +122,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     #Create two new teams.
     it "should create 2 teams" do
-      p "should create 2 teams"
       page = LoginPage.new(config: @config, driver: @driver).load
           .register_and_login_with_email(email: @e1, password: @password)
           .create_team(name: @t1, slug:@t1)
@@ -133,7 +132,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     #As a different user, request to join one team.
     it "should join team" do
-      p "should join team"
       page = LoginPage.new(config: @config, driver: @driver).load
           .register_and_login_with_email(email: 'newsysops+' + Time.now.to_i.to_s + '@meedan.com', password: '22345678')
       page = TeamsPage.new(config: @config, driver: @driver).load
@@ -144,7 +142,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     #As the group creator, go to the members page and approve the joining request.
     it "should as the group creator, go to the members page and approve the joining request" do
-      p ".approve_join_team"
       page = LoginPage.new(config: @config, driver: @driver).load.login_with_email(email: @e1, password: @password)
       page = TeamsPage.new(config: @config, driver: @driver).load
           .approve_join_team(subdomain: @t1)
@@ -154,7 +151,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     #Switch teams
     it "should switch teams" do
-      p "should switch teams"
       page = LoginPage.new(config: @config, driver: @driver).load.login_with_email(email: @e1, password: @password)
       page = TeamsPage.new(config: @config, driver: @driver).load
           .select_team(name: @t1)
@@ -166,7 +162,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     #Add slack notificatios to a team
     it "should add slack notifications to a team " do
-      p "should add slack notifications to a team "
       page = LoginPage.new(config: @config, driver: @driver).load
           .login_with_email(email: @e1, password: @password)
       @driver.navigate.to @config['self_url'] + '/' + @t2
@@ -190,7 +185,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     #Create a new project.
     it "should create a project for a team " do
-      p "should create a project for a team"
       page = LoginPage.new(config: @config, driver: @driver).load
           .login_with_email(email: @e1, password: @password, project: true)
       name = "Project #{Time.now}"
@@ -206,7 +200,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     #Create a new media using a link from:     #Facebook      #YouTube     #Twitter     #  Instagram
     it "should create project media" do
-      p "should create project media"
       media_pg = LoginPage.new(config: @config, driver: @driver).load
           .login_with_email(email: @e1, password: @password, project: true)
           .create_media(input: 'https://twitter.com/marcouza/status/771009514732650497?t=' + Time.now.to_i.to_s)
@@ -229,7 +222,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     #Add comment to your media.
     it "should add comment to your media" do
-      p "add comment to your media"
       media_pg = LoginPage.new(config: @config, driver: @driver).load
           .login_with_email(email: @e1, password: @password, project: true)
       @driver.navigate.to team_url('project/' + get_project + '/media/' + $media_id)
@@ -248,7 +240,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('This is my comment')).to be(true)
 
       #delete your comment.
-      p "delete your comment"
       element = @driver.find_element(:css, "svg.menu-button__icon")
       element.click
       sleep 3
@@ -260,7 +251,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     #Set a verification status to this media.
     it "should change a media status via the dropdown menu" do
-      p "should change a media status via the dropdown menu"
       media_pg = LoginPage.new(config: @config, driver: @driver).load
           .login_with_email(email: @e1, password: @password, project: true)
       @driver.navigate.to team_url('project/' + get_project + '/media/' + $media_id)
@@ -276,7 +266,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     #Add a tag to your media.
     it "should Add a tag to your media and delete it" do
-      p "Add a tag to your media."
       page = LoginPage.new(config: @config, driver: @driver).load
           .login_with_email(email: @e1, password: @password)
           .click_media
@@ -285,7 +274,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 2
       expect(page.has_tag?(@new_tag)).to be(true)
       #Delete this tag.
-      p "delete this tag"
       page.delete_tag(@new_tag)
       sleep 2
       expect(page.has_tag?(@new_tag)).to be(false)
