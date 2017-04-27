@@ -1,8 +1,7 @@
 $browser-support-height: 46px;
-$browser-support-height-mobile: 65px;
 
 .browser-support {
-  position: fixed;
+  position: absolute;
   top: 0;
   height: $browser-support-height;
   width: 100%;
@@ -12,21 +11,13 @@ $browser-support-height-mobile: 65px;
   display: flex;
   align-items: center;
   justify-content: center;
-
-  @media screen and (max-width: 500px) {
-    height: $browser-support-height-mobile;
+  @media all and (max-width: $layout-mobile-breakpoint) {
+    font-size: 12px;
   }
 }
 
 .browser-support ~ .home {
-  &,
-  & > .header {
-    top: $browser-support-height;
-
-    @media screen and (max-width: 500px) {
-      top: $browser-support-height-mobile;
-    }
-  }
+  top: $browser-support-height;
 }
 
 .browser-support__message {
