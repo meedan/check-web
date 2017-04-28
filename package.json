@@ -143,6 +143,7 @@
     "redux": "^3.0.0",
     "redux-thunk": "^2.1.0",
     "rtl-detect": "^1.0.0",
+    "sass-graph": "2.1.2",
     "sass-lint": "^1.10.0",
     "serve-static": "^1.10.2",
     "sinon": "^1.17.7",
