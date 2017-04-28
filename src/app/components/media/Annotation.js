@@ -251,15 +251,15 @@ class Annotation extends Component {
         </span>);
       }
       if (object.field_name === 'mt_translations') {
-        const machine_translation = JSON.parse(object.value);
-        if (machine_translation.length == 0) {
+        const formatted_value = JSON.parse(annotation.content)[0].formatted_value;
+        if (formatted_value.length == 0) {
           contentTemplate = (<span className="annotation__mt-translations">
           <span className="annotation__mt-translations" onClick={this.handleUpdateMachineTranslation.bind(this)}><FormattedMessage id="annotation.emptyMachineTranslation" defaultMessage="Add machine translation" /></span>
           </span>);
         } else {
           contentTemplate = (<span className="annotation__mt-translations">
           <ul className="mt-list">
-            {machine_translation.map(mt => (
+            {formatted_value.map(mt => (
               <li className='mt__list-item'>
                 <FormattedMessage
                   id="annotation.machineTranslation"
@@ -271,7 +271,6 @@ class Annotation extends Component {
           </ul>
           </span>);
         }
-
       }
       break;
     case 'create_flag':
