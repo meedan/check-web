@@ -14,6 +14,7 @@ import CheckContext from '../CheckContext';
 import ContentColumn from './layout/ContentColumn';
 import MediasLoading from './media/MediasLoading';
 import isEqual from 'lodash.isequal';
+import { teamStatuses } from '../customHelpers';
 
 const pageSize = 20;
 
@@ -213,7 +214,7 @@ class SearchQueryComponent extends Component {
   }
 
   render() {
-    const statuses = JSON.parse(this.props.team.media_verification_statuses).statuses;
+    const statuses = JSON.parse(teamStatuses(team)).statuses;
     const projects = this.props.team.projects.edges.sortp((a, b) => a.node.title.localeCompare(b.node.title));
     const suggestedTags = this.props.team.get_suggested_tags ? this.props.team.get_suggested_tags.split(',') : [];
     const title = this.title(statuses, projects);
@@ -302,6 +303,7 @@ const SearchQueryContainer = Relay.createContainer(injectIntl(SearchQueryCompone
         id,
         dbid,
         media_verification_statuses,
+        translation_statuses,
         get_suggested_tags,
         name,
         slug,
@@ -421,6 +423,7 @@ const SearchResultsContainer = Relay.createContainer(injectIntl(SearchResultsCom
               embed,
               annotations_count,
               verification_statuses,
+              translation_statuses,
               overridden,
               project_id,
               pusher_channel,
@@ -428,6 +431,11 @@ const SearchResultsContainer = Relay.createContainer(injectIntl(SearchResultsCom
               domain,
               permissions,
               last_status,
+              field_value(annotation_type_field_name: "translation_status:translation_status_status"),
+              dynamic_annotation(annotation_type: "translation_status") {
+                id
+                dbid
+              }
               last_status_obj {
                 id,
                 dbid

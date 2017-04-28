@@ -1,3 +1,5 @@
 .travis.yml merge=ours
 travis.zip.enc merge=ours
 README.md merge=ours
+src/app/customHelpers.js merge=ours
+src/app/components/media/MediaStatus.js merge=ours
