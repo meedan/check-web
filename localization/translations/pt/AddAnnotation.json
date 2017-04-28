@@ -1,6 +1,6 @@
 {
-  "addAnnotation.invalidCommand": "Invalid command",
-  "addAnnotation.annotationAdded": "Your {type} was added!",
+  "addAnnotation.invalidCommand": "Comando inválido",
+  "addAnnotation.annotationAdded": "{type} foi adicionado(a)!",
   "addAnnotation.createTagFailed": "Sorry, could not create the tag",
   "addAnnotation.inputHint": "Add a note about this report",
   "addAnnotation.submitButton": "Submit",
@@ -8,5 +8,5 @@
   "addAnnotation.typeTag": "tag",
   "addAnnotation.typeStatus": "status",
   "addAnnotation.typeFlag": "flag",
-  "addAnnotation.addImage": "Add an image"
+  "addAnnotation.addImage": "Insira uma imagem"
 }

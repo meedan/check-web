@@ -1,15 +1,15 @@
 {
-  "singleChoiceTask.addValue": "Add Option",
-  "singleChoiceTask.value": "Value",
+  "singleChoiceTask.addValue": "Adicionar Opção",
+  "singleChoiceTask.value": "Valor",
   "singleChoiceTask.addOther": "Add \"Other\"",
   "singleChoiceTask.other": "Other",
   "singleChoiceTask.newTask": "Nova tarefa",
   "tasks.cancelAdd": "Cancelar",
-  "tasks.add": "Create Task",
-  "tasks.taskPrompt": "Prompt",
-  "tasks.description": "Description",
-  "tasks.addDescription": "Add a description",
-  "tasks.cancelEdit": "Cancel",
-  "tasks.submit": "Resolve Task",
+  "tasks.add": "Criar Tarefa",
+  "tasks.taskPrompt": "Questão",
+  "tasks.description": "Descrição",
+  "tasks.addDescription": "Insira uma descrição",
+  "tasks.cancelEdit": "Cancelar",
+  "tasks.submit": "Resolver Tarefa",
   "task.noteLabel": "Note any additional details here."
 }

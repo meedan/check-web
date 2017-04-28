@@ -1,7 +1,7 @@
 {
-  "teamMembersComponent.title": "Team Members",
-  "teamMembersComponent.editDoneButton": "Done",
-  "teamMembersComponent.editButton": "Edit",
+  "teamMembersComponent.title": "Membros da Equipe",
+  "teamMembersComponent.editDoneButton": "Feito",
+  "teamMembersComponent.editButton": "Editar",
   "teamMembersComponent.mainHeading": "Members",
   "teamMembersComponent.inviteLink": "To invite colleagues to join {link}, send them this link:"
 }
