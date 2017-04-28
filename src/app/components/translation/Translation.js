@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { defineMessages, FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import Relay from 'react-relay';
+import SelectRelay from './LangSelect';
 import { Card, CardText, CardActions } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
@@ -111,8 +112,17 @@ class Translation extends Component {
   }
 
   handleChange() {
+    this.canSubmit();
+  }
+
+  handleChangeTargetLanguage(lang) {
+    const code = lang ? lang.value : '';
+    this.setState({ code }, this.canSubmit);
+  }
+
+  canSubmit() {
     const translation = document.forms.addtranslation.translation.value.trim();
-    this.setState({ submitDisabled: (!!translation ? false : true) });
+    this.setState({ submitDisabled: (translation && this.state.code ? false : true) });
   }
 
   handleSubmit(e) {
@@ -121,7 +131,8 @@ class Translation extends Component {
       const annotated = this.props.annotated;
       const annotated_id = annotated.dbid;
       const annotated_type = this.props.annotatedType;
-      const args = `translation_text=${translation}&translation_language=`;
+
+      const args = `translation_text=${translation}&translation_language=${this.state.code}`;
 
       this.addTranslation(this, annotated, annotated_id, annotated_type, args);
     }
@@ -134,7 +145,8 @@ class Translation extends Component {
       <div className="translation__component">
         <Card className="translation__card">
           <CardText className="translation__card-text">
-            <div><FormattedMessage id="translation.title" defaultMessage="Add a translation" /></div>
+            <div className="translation__card-title"><FormattedMessage id="translation.title" defaultMessage="Add a translation" /></div>
+            <SelectRelay onChange={this.handleChangeTargetLanguage.bind(this)} />
             <form className="add-translation" name="addtranslation" onSubmit={this.handleSubmit.bind(this)}>
               <TextField
                 hintText={this.props.intl.formatMessage(messages.inputHint)}

@@ -20,7 +20,7 @@
     "defaultMessage": "Add a translation"
   },
   {
-    "id": "translation.pressReturnToSave",
-    "defaultMessage": "Press return to save your response"
+    "id": "translation.submit",
+    "defaultMessage": "Submit"
   }
 ]
