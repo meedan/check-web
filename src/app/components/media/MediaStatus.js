@@ -1,17 +1,13 @@
 import React, { Component, PropTypes } from 'react';
-import { defineMessages, injectIntl, intlShape } from 'react-intl';
 import Relay from 'react-relay';
 import CreateStatusMutation from '../../relay/CreateStatusMutation';
 import UpdateStatusMutation from '../../relay/UpdateStatusMutation';
-import CheckContext from '../../CheckContext';
 import MediaStatusCommon from './MediaStatusCommon';
 
-class MediaStatus extends MediaStatusCommon {
-  setStatus(context, media, status) {
+class MediaStatus extends Component {
+  setStatus(context, store, media, status) {
     const onFailure = (transaction) => { context.fail(transaction); };
     const onSuccess = (response) => { context.success('status'); };
-
-    const store = new CheckContext(this).getContextStore();
 
     let status_id = '';
     if (media.last_status_obj !== null) {
@@ -44,30 +40,9 @@ class MediaStatus extends MediaStatusCommon {
     }
   }
 
-  fail(transaction) {
-    const that = this;
-    const error = transaction.getError();
-    let message = this.props.intl.formatMessage(messages.error);
-    try {
-      const json = JSON.parse(error.source);
-      if (json.error) {
-        message = json.error;
-      }
-    } catch (e) { }
-    that.setState({ message });
-  }
-
-  success(response) {
-    // this.setState({ message: 'Status updated.' });
+  render() {
+    return (<MediaStatusCommon {...this.props} setStatus={this.setStatus} />);
   }
 }
 
-MediaStatus.propTypes = {
-  intl: intlShape.isRequired,
-};
-
-MediaStatus.contextTypes = {
-  store: React.PropTypes.object,
-};
-
-export default injectIntl(MediaStatus);
+export default MediaStatus;

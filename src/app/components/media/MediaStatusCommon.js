@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { defineMessages, injectIntl, intlShape } from 'react-intl';
 import Relay from 'react-relay';
 import Can, { can } from '../Can';
+import CheckContext from '../../CheckContext';
 import MdArrowDropDown from 'react-icons/lib/md/arrow-drop-down';
 import FaCircle from 'react-icons/lib/fa/circle';
 import FaCircleO from 'react-icons/lib/fa/circle-o';
@@ -47,9 +48,10 @@ class MediaStatusCommon extends Component {
 
   handleStatusClick(clickedStatus, r) {
     const { media } = this.props;
+    const store = new CheckContext(this).getContextStore();
 
     if (clickedStatus !== mediaLastStatus(media)) {
-      this.setStatus(this, media, clickedStatus);
+      this.props.setStatus(this, store, media, clickedStatus);
     }
   }
 

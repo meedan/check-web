@@ -18,8 +18,8 @@ function bemClassFromMediaStatus(baseClass, mediaStatus) {
   );
 }
 
-function getStatus(statuses, id) {
-  const statuses = safelyParseJSON(statuses).statuses;
+function getStatus(statusesJson, id) {
+  const statuses = safelyParseJSON(statusesJson).statuses;
   let status = '';
   statuses.forEach((st) => {
     if (st.id === id) {
