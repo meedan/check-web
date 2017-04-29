@@ -1,14 +1,14 @@
 {
-  "search.title": "Search",
-  "search.loading": "Loading...",
+  "search.title": "Busca",
+  "search.loading": "Carregando...",
   "search.inputHint": "Search",
   "search.results": "{resultsCount, plural, =0 {No results} one {1 result} other {# results}}",
   "search.statusHeading": "Status",
   "search.projectHeading": "Projeto",
-  "status.categoriesHeading": "Categories",
-  "search.sort": "Sort",
-  "search.sortByCreated": "Created",
-  "search.sortByRecentActivity": "Recent activity",
-  "search.sortByNewest": "Newest first",
-  "search.sortByOldest": "Oldest first"
+  "status.categoriesHeading": "Categorias",
+  "search.sort": "Ordenar",
+  "search.sortByCreated": "Criado",
+  "search.sortByRecentActivity": "Atividade recente",
+  "search.sortByNewest": "Mais recentes primeiro",
+  "search.sortByOldest": "Mais antigos primeiro"
 }

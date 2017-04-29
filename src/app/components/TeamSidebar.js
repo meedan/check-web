@@ -106,6 +106,7 @@ const TeamSidebarContainer = Relay.createContainer(TeamSidebarComponent, {
         get_slack_webhook,
         get_slack_channel,
         pusher_channel,
+        translation_statuses,
         media_verification_statuses,
         source_verification_statuses,
         contacts(first: 1) {

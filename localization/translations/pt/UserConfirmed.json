@@ -1,5 +1,5 @@
 {
-  "userConfirmed.heading": "Account Confirmed",
-  "userConfirmed.message": "Thanks for confirming your e-mail address! Now you can {login}.",
-  "userConfirmed.login": "login"
+  "userConfirmed.heading": "Conta Confirmada",
+  "userConfirmed.message": "Obrigado por confirmar seu endereço de e-mail! Agora você pode {login}.",
+  "userConfirmed.login": "entrar"
 }

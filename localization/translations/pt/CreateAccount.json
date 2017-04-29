@@ -1,5 +1,5 @@
 {
-  "createAccount.createSourceError": "Sorry, could not create the source",
+  "createAccount.createSourceError": "Desculpe, não foi possível criar a fonte",
   "createAccount.sourceUrlHint": "Twitter, Facebook, YouTube...",
   "createAccount.createButton": "Create",
   "createAccount.createSource": "Create a source",

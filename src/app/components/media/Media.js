@@ -19,6 +19,7 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
         url,
         embed,
         last_status,
+        field_value(annotation_type_field_name: "translation_status:translation_status_status"),
         annotations_count,
         domain,
         permissions,
@@ -30,6 +31,7 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
         project_id,
         pusher_channel,
         verification_statuses,
+        translation_statuses,
         overridden,
         language,
         media {
@@ -53,6 +55,10 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
           }
         }
         last_status_obj {
+          id
+          dbid
+        }
+        dynamic_annotation(annotation_type: "translation_status") {
           id
           dbid
         }
@@ -148,9 +154,11 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
                       embed,
                       project_id,
                       last_status,
+                      field_value(annotation_type_field_name: "translation_status:translation_status_status"),
                       annotations_count,
                       permissions,
                       verification_statuses,
+                      translation_statuses,
                       domain,
                       team {
                         slug
