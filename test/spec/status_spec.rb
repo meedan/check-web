@@ -2,19 +2,6 @@ require_relative './spec_helper.rb'
 
 shared_examples 'status' do
 
-  it "should register and redirect to newly created media" do
-    page = LoginPage.new(config: @config, driver: @driver).load
-        .login_with_email(email: @email, password: @password)
-        .create_media(input: @media_url)
-
-    expect(page.contains_string?('Added')).to be(true)
-    expect(page.contains_string?('User With Email')).to be(true)
-    expect(page.status_label == 'PENDING').to be(true)
-
-    $media_id = page.driver.current_url.to_s.match(/\/media\/([0-9]+)$/)[1]
-    expect($media_id.nil?).to be(false)
-  end
-
   it "should register and redirect to newly created image media" do
     page = LoginPage.new(config: @config, driver: @driver).load
         .login_with_email(email: @email, password: @password)
@@ -36,9 +23,9 @@ shared_examples 'status' do
         .create_media(input: "This is true")
     expect(media_pg.status_label).to eq('PENDING')
 
-    media_pg.change_status(:translated)
-    expect(media_pg.status_label).to eq('TRANSLATED')
-    expect(media_pg.contains_element?('.annotation__status--translated')).to be(true)
+    media_pg.change_status('in-progress')
+    expect(media_pg.status_label).to eq('IN PROGRESS')
+    expect(media_pg.contains_element?('.annotation__status--in-progress')).to be(true)
   end
 
   # it "should search by status" do
