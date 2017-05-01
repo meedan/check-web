@@ -23,9 +23,9 @@ shared_examples 'status' do
         .create_media(input: "This is true")
     expect(media_pg.status_label).to eq('PENDING')
 
-    media_pg.change_status('in-progress')
-    expect(media_pg.status_label).to eq('IN PROGRESS')
-    expect(media_pg.contains_element?('.annotation__status--in-progress')).to be(true)
+    media_pg.change_status('translated')
+    expect(media_pg.status_label).to eq('TRANSLATED')
+    # expect(media_pg.contains_element?('.annotation__status--in-progress')).to be(true)
   end
 
   # it "should search by status" do
