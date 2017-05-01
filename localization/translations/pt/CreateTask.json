@@ -1,12 +1,12 @@
 {
-  "createTask.newTask": "New task",
-  "tasks.cancelAdd": "Cancel",
-  "tasks.add": "Create Task",
-  "tasks.addTask": "Add task",
-  "tasks.shortAnswer": "Short answer",
-  "tasks.chooseOne": "Choose one",
-  "tasks.chooseMultiple": "Choose multiple",
-  "tasks.taskLabel": "Prompt",
-  "tasks.description": "Description",
-  "tasks.addDescription": "Add a description"
+  "createTask.newTask": "Nova tarefa",
+  "tasks.cancelAdd": "Cancelar",
+  "tasks.add": "Criar Tarefa",
+  "tasks.addTask": "Adicionar tarefa",
+  "tasks.shortAnswer": "Resposta curta",
+  "tasks.chooseOne": "Escolha única",
+  "tasks.chooseMultiple": "Escolha múltipla",
+  "tasks.taskLabel": "Questão",
+  "tasks.description": "Descrição",
+  "tasks.addDescription": "Insira uma descrição"
 }

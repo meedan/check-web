@@ -12,5 +12,6 @@ export AccessDenied from './AccessDenied';
 export PrivacyPolicy from './PrivacyPolicy';
 export UserConfirmed from './UserConfirmed';
 export UserUnconfirmed from './UserUnconfirmed';
+export UserPasswordChange from './UserPasswordChange';
 export UserPasswordReset from './UserPasswordReset';
 export RootLocale from './RootLocale';

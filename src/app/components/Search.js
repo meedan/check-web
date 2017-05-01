@@ -14,6 +14,7 @@ import CheckContext from '../CheckContext';
 import ContentColumn from './layout/ContentColumn';
 import MediasLoading from './media/MediasLoading';
 import isEqual from 'lodash.isequal';
+import { teamStatuses } from '../customHelpers';
 
 const pageSize = 20;
 
@@ -213,7 +214,7 @@ class SearchQueryComponent extends Component {
   }
 
   render() {
-    const statuses = JSON.parse(this.props.team.media_verification_statuses).statuses;
+    const statuses = JSON.parse(teamStatuses(this.props.team)).statuses;
     const projects = this.props.team.projects.edges.sortp((a, b) => a.node.title.localeCompare(b.node.title));
     const suggestedTags = this.props.team.get_suggested_tags ? this.props.team.get_suggested_tags.split(',') : [];
     const title = this.title(statuses, projects);
@@ -234,8 +235,7 @@ class SearchQueryComponent extends Component {
               { this.showField('status') ?
               <div>
                 <h4><FormattedMessage id="search.statusHeading" defaultMessage="Status" /></h4>
-                {/* chicklet markup/logic from MediaTags. TODO: fix classnames */}
-                <ul className="/ media-tags__suggestions-list // electionland_categories">
+                <ul className="/ media-tags__suggestions-list">
                   {statuses.map(status =>
                     <li title={status.description} onClick={this.handleStatusClick.bind(this, status.id)} className={bemClass('media-tags__suggestion', this.statusIsSelected(status.id), '--selected')} style={{ backgroundColor: getStatusStyle(status, 'backgroundColor') }} >{status.label}</li>)}
                 </ul>
@@ -245,8 +245,7 @@ class SearchQueryComponent extends Component {
               { this.showField('project') ?
               <div>
                 <h4><FormattedMessage id="search.projectHeading" defaultMessage="Project" /></h4>
-                {/* chicklet markup/logic from MediaTags. TODO: fix classnames */}
-                <ul className="/ media-tags__suggestions-list // electionland_categories">
+                <ul className="/ media-tags__suggestions-list">
                   {projects.map(project => <li title={project.node.description} onClick={this.handleProjectClick.bind(this, project.node.dbid)} className={bemClass('media-tags__suggestion', this.projectIsSelected(project.node.dbid), '--selected')}>{project.node.title}</li>)}
                 </ul>
               </div> : null }
@@ -255,7 +254,7 @@ class SearchQueryComponent extends Component {
               { this.showField('tags') && suggestedTags.length ? (
                 <div>
                   <h4><FormattedMessage id="status.categoriesHeading" defaultMessage="Categories" /></h4>
-                  <ul className="/ media-tags__suggestions-list // electionland_categories">
+                  <ul className="/ media-tags__suggestions-list">
                     {suggestedTags.map(tag => <li title={null} onClick={this.handleTagClick.bind(this, tag)} className={bemClass('media-tags__suggestion', this.tagIsSelected(tag), '--selected')}>{tag}</li>)}
                   </ul>
                 </div>
@@ -265,8 +264,7 @@ class SearchQueryComponent extends Component {
               { this.showField('sort') ?
               <div>
                 <h4><FormattedMessage id="search.sort" defaultMessage="Sort" /></h4>
-                {/* chicklet markup/logic from MediaTags. TODO: fix classnames */}
-                <ul className="search-query__sort-actions / media-tags__suggestions-list">
+                <ul className="search-query__sort-actions media-tags__suggestions-list">
                   <li onClick={this.handleSortClick.bind(this, 'recent_added')} className={bemClass('media-tags__suggestion', this.sortIsSelected('recent_added'), '--selected')}>
                     <FormattedMessage id="search.sortByCreated" defaultMessage="Created" />
                   </li>
@@ -305,6 +303,7 @@ const SearchQueryContainer = Relay.createContainer(injectIntl(SearchQueryCompone
         id,
         dbid,
         media_verification_statuses,
+        translation_statuses,
         get_suggested_tags,
         name,
         slug,
@@ -424,6 +423,7 @@ const SearchResultsContainer = Relay.createContainer(injectIntl(SearchResultsCom
               embed,
               annotations_count,
               verification_statuses,
+              translation_statuses,
               overridden,
               project_id,
               pusher_channel,
@@ -431,6 +431,11 @@ const SearchResultsContainer = Relay.createContainer(injectIntl(SearchResultsCom
               domain,
               permissions,
               last_status,
+              field_value(annotation_type_field_name: "translation_status:translation_status_status"),
+              dynamic_annotation(annotation_type: "translation_status") {
+                id
+                dbid
+              }
               last_status_obj {
                 id,
                 dbid

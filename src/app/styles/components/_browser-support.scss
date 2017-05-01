@@ -17,6 +17,16 @@
   line-height: 1.4;
 }
 
+.browser-support__close {
+  position: absolute;
+  #{$to-direction}: 17px;
+  top: 5px;
+  font-weight: 200;
+  font-size: 28px;
+  opacity: .2;
+  cursor: pointer;
+}
+
 .browser-support a {
   color: $black-87;
 }

@@ -16,6 +16,10 @@ const messages = defineMessages({
     id: 'mediaTags.loading',
     defaultMessage: 'Loading...',
   },
+  language: {
+    id: 'mediaTags.language',
+    defaultMessage: 'language: {language}',
+  },
   error: {
     id: 'mediaTags.error',
     defaultMessage: 'Sorry – we had trouble adding that tag.',
@@ -133,7 +137,7 @@ class MediaTags extends Component {
       return (
         <div className="media-tags">
           {activeSuggestedTags.length ? (
-            <ul className="media-tags__suggestions / electionland_categories">
+            <ul className="media-tags__suggestions">
               {activeSuggestedTags.map(tag =>
                 <li key={tag.node.id}
                     onClick={this.handleTagViewClick.bind(this, tag.node.tag)}
@@ -144,7 +148,7 @@ class MediaTags extends Component {
             </ul>
           ) : null}
           <ul className="media-tags__list">
-            {media.language ? <li className="media-tags__tag">{`source:${media.language}`}</li> : null}
+            {media.language ? <li className="media-tags__tag media-tags__language">{this.props.intl.formatMessage(messages.language, { language: media.language })}</li> : null}
             {remainingTags.map(tag =>
               <li key={tag.node.id}
                   onClick={this.handleTagViewClick.bind(this, tag.node.tag)}
@@ -166,7 +170,7 @@ class MediaTags extends Component {
 
         {suggestedTags.length ? (
           <div className="media-tags__suggestions">
-            <ul className="media-tags__suggestions-list / electionland_categories">
+            <ul className="media-tags__suggestions-list">
               {suggestedTags.map(suggestedTag =>
                 <li key={suggestedTag}
                     onClick={this.handleSuggestedTagEditClick.bind(this, suggestedTag)}

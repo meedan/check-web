@@ -1,15 +1,15 @@
 {
-  "joinTeamComponent.error": "Sorry, could not send your request",
-  "joinTeamComponent.success": "Thanks for your interest in joining {team} Check! A team leader will review your application soon.",
-  "joinTeamComponent.autoApprove": "Thanks for joining {team} Check! You can start contributing right away.",
-  "joinTeamComponent.title": "Join Team",
-  "joinTeamComponent.alreadyRequested": "You already requested to join {team} Check.",
-  "joinTeamComponent.mainHeading": "Request to Join",
-  "joinTeamComponent.blurbGraf": "To request access to the {link} Check, click below:",
-  "joinTeamComponent.buttonSubmitted": "Request Sent",
-  "joinTeamComponent.buttonApproved": "Request Approved",
-  "joinTeamComponent.buttonSubmit": "Request to Join",
-  "joinTeamComponent.requestHasBeenSent": "Your request has been sent to the project admins for approval.",
-  "joinTeamComponent.requestHasBeenApproved": "Your request has been approved.",
-  "joinTeamComponent.requestWillBeSent": "Your request will be sent to the project admins for approval."
+  "joinTeamComponent.error": "Desculpe, não foi possível enviar a sua requisição",
+  "joinTeamComponent.success": "Obrigado pelo seu interesse em participar do Check da equipe {team}! Um líder da equipe irá revisar sua solicitação em breve.",
+  "joinTeamComponent.autoApprove": "Obrigado por participar da equipe {team} do Check! Você pode começar a contribuir imediatamente.",
+  "joinTeamComponent.title": "Participar da Equipe",
+  "joinTeamComponent.alreadyRequested": "Você já pediu para participar do time {team} no Check",
+  "joinTeamComponent.mainHeading": "Pedir para Participar",
+  "joinTeamComponent.blurbGraf": "Para solicitar acesso ao {link} no Check, clique abaixo:",
+  "joinTeamComponent.buttonSubmitted": "Solicitação Enviada",
+  "joinTeamComponent.buttonApproved": "Solicitação Aprovada",
+  "joinTeamComponent.buttonSubmit": "Pedir para Participar",
+  "joinTeamComponent.requestHasBeenSent": "Seu pedido foi enviado aos administradores do projeto para aprovação.",
+  "joinTeamComponent.requestHasBeenApproved": "Seu pedido foi aprovado.",
+  "joinTeamComponent.requestWillBeSent": "Seu pedido será enviado aos administradores do projeto para aprovação."
 }
