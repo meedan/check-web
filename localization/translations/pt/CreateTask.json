@@ -1,8 +1,8 @@
 {
   "createTask.newTask": "Nova tarefa",
   "tasks.cancelAdd": "Cancelar",
-  "tasks.add": "Create Task",
-  "tasks.addTask": "Add task",
+  "tasks.add": "Criar Tarefa",
+  "tasks.addTask": "Adicionar tarefa",
   "tasks.shortAnswer": "Resposta curta",
   "tasks.chooseOne": "Escolha única",
   "tasks.chooseMultiple": "Escolha múltipla",

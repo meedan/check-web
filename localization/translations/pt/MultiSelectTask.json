@@ -1,8 +1,8 @@
 {
   "multiSelectTask.addValue": "Adicionar Opção",
   "multiSelectTask.value": "Valor",
-  "multiSelectTask.addOther": "Add \"Other\"",
-  "multiSelectTask.other": "Other",
+  "multiSelectTask.addOther": "Adicionar \"Outro\"",
+  "multiSelectTask.other": "Outro",
   "multiSelectTask.newTask": "Nova tarefa",
   "tasks.cancelAdd": "Cancelar",
   "tasks.add": "Criar Tarefa",
@@ -11,5 +11,5 @@
   "tasks.addDescription": "Insira uma descrição",
   "tasks.cancelEdit": "Cancelar",
   "tasks.submit": "Resolver Tarefa",
-  "task.noteLabel": "Note any additional details here."
+  "task.noteLabel": "Insira quaisquer detalhes adicionais aqui."
 }
