@@ -1,5 +1,5 @@
 {
   "uploadImage.changeFile": "{filename} (clique ou solte para alterar)",
-  "uploadImage.invalidExtension": "Validation failed: File cannot have type \"{extension}\", allowed types: {allowed_types}",
-  "uploadImage.message": "Drop an image file here, or click to upload a file (max size: {upload_max_size}, allowed extensions: {upload_extensions}, allowed dimensions between {upload_min_dimensions} and {upload_max_dimensions} pixels)"
+  "uploadImage.invalidExtension": "Validação falhou: o arquivo não pode ser do tipo \"{extension}\", os tipos permitidos são: {allowed_types}.",
+  "uploadImage.message": "Solte um arquivo de imagem aqui, ou clique para enviar um arquivo (tamanho máximo: {upload_max_size}, extensões permitidas: {upload_extensions}, dimensões permitidas entre {upload_min_dimensions} e {upload_max_dimensions} pixels)"
 }

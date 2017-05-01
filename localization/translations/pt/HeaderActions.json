@@ -1,8 +1,8 @@
 {
-  "headerActions.userTeams": "Your Teams",
-  "headerActions.signOut": "Sign Out",
-  "headerActions.contactHuman": "Contact a Human",
-  "headerActions.tos": "Terms of Service",
-  "headerActions.privacyPolicy": "Privacy Policy",
+  "headerActions.userTeams": "Suas Equipes",
+  "headerActions.signOut": "Sair",
+  "headerActions.contactHuman": "Entre em contato com um humano",
+  "headerActions.tos": "Termos de Serviço",
+  "headerActions.privacyPolicy": "Política de Privacidade",
   "headerActions.aboutCheck": "Sobre Check"
 }

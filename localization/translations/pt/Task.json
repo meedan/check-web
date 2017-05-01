@@ -1,13 +1,13 @@
 {
-  "task.confirmDelete": "Are you sure you want to delete this task?",
-  "tasks.cancelEdit": "Cancel",
-  "tasks.save": "Save",
-  "task.edit": "Edit task",
-  "task.delete": "Delete task",
+  "task.confirmDelete": "Tem certeza que deseja apagar esta tarefa?",
+  "tasks.cancelEdit": "Cancelar",
+  "tasks.save": "Salvar",
+  "task.edit": "Editar tarefa",
+  "task.delete": "Remover tarefa",
   "task.more": "Mais",
-  "task.noteLabel": "Note any additional details here.",
-  "task.pressReturnToSave": "Press return to save your response",
-  "task.resolvedBy": "Resolved by {by}",
-  "tasks.taskLabel": "Task label",
-  "tasks.description": "Description"
+  "task.noteLabel": "Anote quaisquer detalhes adicionais aqui.",
+  "task.pressReturnToSave": "Pressione enter para salvar sua resposta",
+  "task.resolvedBy": "Resolvido por {by}",
+  "tasks.taskLabel": "Título da tarefa",
+  "tasks.description": "Descrição"
 }

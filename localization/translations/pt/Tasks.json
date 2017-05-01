@@ -1,9 +1,9 @@
 {
-  "tasks.cancelAdd": "Cancel",
-  "tasks.add": "Add",
-  "tasks.addTask": "Add task",
-  "tasks.shortAnswer": "Short answer",
-  "tasks.taskLabel": "Task label",
+  "tasks.cancelAdd": "Cancelar",
+  "tasks.add": "Adicionar",
+  "tasks.addTask": "Adicionar tarefa",
+  "tasks.shortAnswer": "Resposta curta",
+  "tasks.taskLabel": "Título da tarefa",
   "tasks.description": "Descrição",
-  "tasks.addDescription": "Add a description"
+  "tasks.addDescription": "Adicione uma descrição"
 }
