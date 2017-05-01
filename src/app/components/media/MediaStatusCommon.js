@@ -51,7 +51,7 @@ class MediaStatusCommon extends Component {
     const store = new CheckContext(this).getContextStore();
 
     if (clickedStatus !== mediaLastStatus(media)) {
-      this.props.setStatus(this, store, media, clickedStatus);
+      this.props.setStatus(this, store, media, clickedStatus, this.props.parentComponent, null);
     }
   }
 

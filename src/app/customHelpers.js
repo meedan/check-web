@@ -1,15 +1,15 @@
 import config from 'config';
 
 function teamStatuses(team) {
-  return team.media_verification_statuses;
+  return team.translation_statuses;
 }
 
 function mediaStatuses(media) {
-  return media.verification_statuses;
+  return media.translation_statuses;
 }
 
 function mediaLastStatus(media) {
-  return media.last_status;
+  return media.field_value || 'pending';
 }
 
 export {
