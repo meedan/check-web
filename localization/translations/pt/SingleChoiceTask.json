@@ -1,7 +1,7 @@
 {
   "singleChoiceTask.addValue": "Adicionar Opção",
   "singleChoiceTask.value": "Valor",
-  "singleChoiceTask.addOther": "Adicionar \\\"Outro\\\"",
+  "singleChoiceTask.addOther": "Adicionar \"Outro\"",
   "singleChoiceTask.other": "Outro",
   "singleChoiceTask.newTask": "Nova tarefa",
   "tasks.cancelAdd": "Cancelar",
