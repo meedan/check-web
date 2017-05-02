@@ -20,6 +20,7 @@ import ImageMediaCard from './ImageMediaCard';
 import UpdateProjectMediaMutation from '../../relay/UpdateProjectMediaMutation';
 import CheckContext from '../../CheckContext';
 import { bemClass, safelyParseJSON, getStatus, getStatusStyle } from '../../helpers';
+import { mediaStatuses, mediaLastStatus } from '../../customHelpers';
 // Needed for onTouchTap
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
@@ -245,10 +246,10 @@ class MediaDetail extends Component {
       <FlatButton label={<FormattedMessage id="mediaDetail.cancelButton" defaultMessage="Cancel" />} primary onClick={this.handleCloseDialog.bind(this)} />,
       <FlatButton label={<FormattedMessage id="mediaDetail.move" defaultMessage="Move" />} primary keyboardFocused onClick={this.submitMoveProjectMedia.bind(this)} disabled={!this.state.dstProj} />,
     ];
-    const status = getStatus(this.props.media.verification_statuses, media.last_status);
+    const status = getStatus(mediaStatuses(media), mediaLastStatus(media));
 
     return (
-      <div className={`${this.statusToClass('media-detail', media.last_status)} ` + `media-detail--${MediaUtil.mediaTypeCss(media, data)}`} style={{ borderColor: getStatusStyle(status, 'borderColor') }}>
+      <div className={`${this.statusToClass('media-detail', mediaLastStatus(media))} ` + `media-detail--${MediaUtil.mediaTypeCss(media, data)}`} style={{ borderColor: getStatusStyle(status, 'borderColor') }}>
         <div className="media-detail__header">
           <div className="media-detail__status"><MediaStatus media={media} readonly={this.props.readonly} /></div>
         </div>
@@ -258,7 +259,7 @@ class MediaDetail extends Component {
           <h2 className="media-detail__heading"><Link to={mediaUrl}>{heading}</Link></h2>
         }
 
-        <div className={this.statusToClass('media-detail__media', media.last_status)}>
+        <div className={this.statusToClass('media-detail__media', mediaLastStatus(media))}>
           {embedCard}
         </div>
 

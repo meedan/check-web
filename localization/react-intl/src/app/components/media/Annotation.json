@@ -44,6 +44,14 @@
     "defaultMessage": "Translated by {author}: \"{translation}\""
   },
   {
+    "id": "annotation.emptyMachineTranslation",
+    "defaultMessage": "Add machine translation"
+  },
+  {
+    "id": "annotation.machineTranslation",
+    "defaultMessage": "Machine translation for \"{lang}\" is: {text}"
+  },
+  {
     "id": "annotation.flaggedHeader",
     "defaultMessage": "Flagged as {flag} by {author}"
   },

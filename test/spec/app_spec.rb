@@ -1,12 +1,13 @@
 require 'selenium-webdriver'
 require 'appium_lib'
 require 'yaml'
-require File.join(File.expand_path(File.dirname(__FILE__)), 'spec_helper')
-require File.join(File.expand_path(File.dirname(__FILE__)), 'app_spec_helpers')
+require_relative './spec_helper.rb'
+require_relative './app_spec_helpers.rb'
 require_relative './pages/login_page.rb'
 require_relative './pages/me_page.rb'
 require_relative './pages/teams_page.rb'
 require_relative './pages/page.rb'
+require_relative './status_spec.rb'
 
 shared_examples 'app' do |webdriver_url, browser_capabilities|
 
@@ -92,6 +93,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
   # The tests themselves start here
 
   context "web" do
+
+    include_examples "status"
+
     it "should not add a duplicated tag from tags list" do
       page = LoginPage.new(config: @config, driver: @driver).load
           .login_with_email(email: @email, password: @password)
@@ -116,23 +120,26 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should display a default title for new media" do
       # Tweets
-      media_pg = LoginPage.new(config: @config, driver: @driver).load
-          .login_with_email(email: @email, password: @password)
-          .create_media(input: 'https://twitter.com/firstdraftnews/status/835587295394869249?t=' + Time.now.to_i.to_s)
+      media_pg = LoginPage.new(config: @config, driver: @driver).load.login_with_email(email: @email, password: @password)
+      @wait.until { @driver.page_source.include?('Claim') }
+      media_pg = media_pg.create_media(input: 'https://twitter.com/firstdraftnews/status/835587295394869249?t=' + Time.now.to_i.to_s)
       expect(media_pg.primary_heading.text).to eq('Tweet by First Draft')
       project_pg = media_pg.go_to_project
+      sleep 1
       expect(project_pg.element('.media-detail__heading').text).to eq('Tweet by First Draft')
 
       # YouTube
       media_pg = project_pg.create_media(input: 'https://www.youtube.com/watch?v=ykLgjhBnik0?t=' + Time.now.to_i.to_s)
-      expect(media_pg.primary_heading.text).to eq('Video by FirstDraftNews')
+      expect(media_pg.primary_heading.text).to eq('Video by First Draft')
       project_pg = media_pg.go_to_project
-      expect(project_pg.element('.media-detail__heading').text).to eq('Video by FirstDraftNews')
+      sleep 1
+      expect(project_pg.element('.media-detail__heading').text).to eq('Video by First Draft')
 
       # Facebook
       media_pg = project_pg.create_media(input: 'https://www.facebook.com/FirstDraftNews/posts/1808121032783161?t=' + Time.now.to_i.to_s)
       expect(media_pg.primary_heading.text).to eq('Facebook post by First Draft')
       project_pg = media_pg.go_to_project
+      sleep 1
       expect(project_pg.element('.media-detail__heading').text).to eq('Facebook post by First Draft')
     end
 
@@ -218,32 +225,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       page.wait_for_element('.project .media-detail')
 
       expect(page.contains_string?('Tweet by Marcelo Souza')).to be(true)
-    end
-
-    it "should register and redirect to newly created media" do
-      page = LoginPage.new(config: @config, driver: @driver).load
-          .login_with_email(email: @email, password: @password)
-          .create_media(input: @media_url)
-
-      expect(page.contains_string?('Added')).to be(true)
-      expect(page.contains_string?('User With Email')).to be(true)
-      expect(page.status_label == 'UNSTARTED').to be(true)
-
-      $media_id = page.driver.current_url.to_s.match(/\/media\/([0-9]+)$/)[1]
-      expect($media_id.nil?).to be(false)
-    end
-
-    it "should register and redirect to newly created image media" do
-      page = LoginPage.new(config: @config, driver: @driver).load
-          .login_with_email(email: @email, password: @password)
-          .create_image_media(File.join(File.dirname(__FILE__), 'test.png'))
-
-      expect(page.contains_string?('Added')).to be(true)
-      expect(page.contains_string?('User With Email')).to be(true)
-      expect(page.status_label == 'UNSTARTED').to be(true)
-
-      $media_id = page.driver.current_url.to_s.match(/\/media\/([0-9]+)$/)[1]
-      expect($media_id.nil?).to be(false)
     end
 
     it "should search for image" do
@@ -630,25 +611,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('This is my comment')).to be(true)
     end
 
-    it "should set status to media as a command" do
-      login_with_email
-      @driver.navigate.to team_url('project/' + get_project + '/media/' + $media_id)
-      sleep 1
-
-      # Add a status as a command
-      fill_field('#cmd-input', '/status In Progress')
-      @driver.action.send_keys(:enter).perform
-      sleep 5
-
-      # Verify that status was added to annotations list
-      expect(@driver.page_source.include?('Status')).to be(true)
-
-      # Reload the page and verify that status is still there
-      @driver.navigate.refresh
-      sleep 3
-      expect(@driver.page_source.include?('Status')).to be(true)
-    end
-
     it "should flag media as a command" do
       media_pg = LoginPage.new(config: @config, driver: @driver).load
           .login_with_email(email: @email, password: @password)
@@ -720,19 +682,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       title = get_element('.main-title')
       expect(title.text == 'Not Found').to be(true)
       expect((@driver.current_url.to_s =~ /\/404$/).nil?).to be(false)
-    end
-
-    it "should change a media status via the dropdown menu" do
-      media_pg = LoginPage.new(config: @config, driver: @driver).load
-          .register_and_login_with_email(email: 'sysops+' + Time.now.to_i.to_s + '@meedan.com', password: @password)
-          .create_team
-          .create_project
-          .create_media(input: "This is true")
-      expect(media_pg.status_label).to eq('UNSTARTED')
-
-      media_pg.change_status(:verified)
-      expect(media_pg.status_label).to eq('VERIFIED')
-      expect(media_pg.contains_element?('.annotation__status--verified')).to be(true)
     end
 
     it "should logout" do
@@ -1056,20 +1005,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(title1 != title2).to be(true)
     end
 
-    it "should search by status" do
-      create_claim_and_go_to_search_page
-      @driver.find_element(:xpath, "//*[contains(text(), 'Inconclusive')]").click
-      sleep 3
-      expect((@driver.title =~ /Inconclusive/).nil?).to be(false)
-      expect((@driver.current_url.to_s.match(/not_applicable/)).nil?).to be(false)
-      expect(@driver.page_source.include?('My search result')).to be(false)
-      @driver.find_element(:xpath, "//*[contains(text(), 'Unstarted')]").click
-      sleep 3
-      expect((@driver.title =~ /Unstarted/).nil?).to be(false)
-      expect((@driver.current_url.to_s.match(/undetermined/)).nil?).to be(false)
-      expect(@driver.page_source.include?('My search result')).to be(true)
-    end
-
     it "should search by project" do
       create_claim_and_go_to_search_page
       expect((@driver.current_url.to_s.match(/project/)).nil?).to be(true)
@@ -1114,16 +1049,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect((@driver.current_url.to_s.match(/DESC/)).nil?).to be(true)
       expect((@driver.current_url.to_s.match(/ASC/)).nil?).to be(false)
       expect(@driver.page_source.include?('My search result')).to be(true)
-    end
-
-    it "should search by status through URL" do
-      create_claim_and_go_to_search_page
-      @driver.navigate.to @config['self_url'] + '/' + get_team + '/search/%7B"status"%3A%5B"false"%5D%7D'
-      sleep 3
-      expect((@driver.title =~ /False/).nil?).to be(false)
-      expect(@driver.page_source.include?('My search result')).to be(false)
-      selected = @driver.find_elements(:css, '.media-tags__suggestion--selected').map(&:text).sort
-      expect(selected == ['False', 'Created', 'Newest first'].sort).to be(true)
     end
 
     it "should search by project through URL" do

@@ -1,14 +1,14 @@
 {
-  "createTeam.slugChecking": "Checking availability...",
-  "createTeam.slugAvailable": "Available!",
+  "createTeam.slugChecking": "Verificando disponibilidade...",
+  "createTeam.slugAvailable": "Disponível!",
   "createTeam.slugUnavailable": "That URL is unavailable.",
   "createTeam.createTeamError": "Sorry, could not create the team",
   "createTeam.title": "Create a Team",
-  "createTeam.teamNameHint": "Team Name",
+  "createTeam.teamNameHint": "Nome da Equipe",
   "createTeam.teamSlugHint": "team-slug",
-  "createTeam.mainHeading": "Create a Team",
-  "createTeam.blurb": "Create a team for your organization, or just for yourself:",
-  "createTeam.displayName": "Team Name",
-  "createTeam.url": "Team URL",
-  "createTeam.submitButton": "Create"
+  "createTeam.mainHeading": "Criar uma Equipe",
+  "createTeam.blurb": "Crie uma equipe para sua organização, ou para si:",
+  "createTeam.displayName": "Nome da Equipe",
+  "createTeam.url": "URL da equipe",
+  "createTeam.submitButton": "Criar"
 }

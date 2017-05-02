@@ -1,9 +1,9 @@
 {
-  "switchTeams.error": "Sorry, could not switch teams",
-  "switchTeams.member": "member",
+  "switchTeams.error": "Desculpe, não foi possível mudar a equipe",
+  "switchTeams.member": "membro",
   "switchTeams.members": "members",
   "switchTeams.joinRequestMessage": "You requested to join",
   "switchTeams.cancelJoinRequest": "Cancel",
-  "switchTeams.bannedJoinRequest": "Cancelled",
-  "switchTeams.newTeamLink": "+ New team"
+  "switchTeams.bannedJoinRequest": "Cancelado",
+  "switchTeams.newTeamLink": "+ Nova equipe"
 }

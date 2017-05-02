@@ -18,6 +18,7 @@ import ContentColumn from '../layout/ContentColumn';
 import MediaStatus from './MediaStatus';
 import MdInfoOutline from 'react-icons/lib/md/info-outline';
 import Tooltip from 'rc-tooltip';
+import { mediaStatuses, mediaLastStatus } from '../../customHelpers';
 
 class MediaComponent extends Component {
   getContext() {
@@ -90,13 +91,13 @@ class MediaComponent extends Component {
     const userOverrides = safelyParseJSON(media.overridden);
     const primaryHeading = (userOverrides && userOverrides.title) ?
         MediaUtil.title(media, data, this.props.intl) : MediaUtil.attributedType(media, data, this.props.intl);
-    const status = getStatus(this.props.media.verification_statuses, media.last_status);
+    const status = getStatus(mediaStatuses(media), mediaLastStatus(media));
 
     return (
       <DocumentTitle title={pageTitle(MediaUtil.title(media, data, this.props.intl), false, this.getContext().team)}>
         <div className={bemClass("media", media.tasks.edges.length, '--has-tasks')} data-id={media.dbid}>
           <div
-            className={bemClassFromMediaStatus('media__expanded', media.last_status)}
+            className={bemClassFromMediaStatus('media__expanded', mediaLastStatus(media))}
             style={{ backgroundColor: getStatusStyle(status, 'backgroundColor') }}
           >
 

@@ -1,6 +1,6 @@
 {
-  "teamMembersCell.contributor": "Contributor",
-  "teamMembersCell.journalist": "Journalist",
+  "teamMembersCell.contributor": "Colaborador",
+  "teamMembersCell.journalist": "Jornalista",
   "teamMembersCell.editor": "Editor",
   "teamMembersCell.owner": "Owner"
 }

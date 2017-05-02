@@ -5,6 +5,7 @@ import MediaDetail from './MediaDetail';
 import DynamicAnnotation from '../annotations/DynamicAnnotation';
 import DeleteAnnotationMutation from '../../relay/DeleteAnnotationMutation';
 import DeleteVersionMutation from '../../relay/DeleteVersionMutation';
+import UpdateProjectMediaMutation from '../../relay/UpdateProjectMediaMutation';
 import Can, { can } from '../Can';
 import TimeBefore from '../TimeBefore';
 import { Link } from 'react-router';
@@ -88,6 +89,23 @@ class Annotation extends Component {
         { onSuccess, onFailure },
       );
     }
+  }
+
+  handleUpdateMachineTranslation() {
+    const onFailure = (transaction) => {
+      const transactionError = transaction.getError();
+      transactionError.json ? transactionError.json().then(handleError) : handleError(JSON.stringify(transactionError));
+    };
+
+    const onSuccess = (response) => {
+    };
+    Relay.Store.commitUpdate(
+      new UpdateProjectMediaMutation({
+        update_mt: 1,
+        id: this.props.annotated.id,
+      }),
+      { onSuccess, onFailure },
+    );
   }
 
   updatedAt(activity) {
@@ -231,6 +249,28 @@ class Annotation extends Component {
             values={{ author: authorName, translation: <ParsedText text={object.value} /> }}
           />
         </span>);
+      }
+      if (object.field_name === 'mt_translations') {
+        const formatted_value = JSON.parse(annotation.content)[0].formatted_value;
+        if (formatted_value.length == 0) {
+          contentTemplate = (<span className="annotation__mt-translations">
+          <span className="annotation__mt-translations" onClick={this.handleUpdateMachineTranslation.bind(this)}><FormattedMessage id="annotation.emptyMachineTranslation" defaultMessage="Add machine translation" /></span>
+          </span>);
+        } else {
+          contentTemplate = (<span className="annotation__mt-translations">
+          <ul className="mt-list">
+            {formatted_value.map(mt => (
+              <li className='mt__list-item'>
+                <FormattedMessage
+                  id="annotation.machineTranslation"
+                  defaultMessage={'Machine translation for "{lang}" is: {text}'}
+                  values={{ lang: mt.lang_name, text: mt.text }}
+                />
+              </li>
+            ))}
+          </ul>
+          </span>);
+        }
       }
       break;
     case 'create_flag':
