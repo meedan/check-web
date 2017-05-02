@@ -83,8 +83,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       displayed_name = me_pg.title
       expect(displayed_name == 'User With Email').to be(true)
     end
-    
-    include_examples "quicktest_status"
 
     it "should login using Facebook" do
       login_pg = LoginPage.new(config: @config, driver: @driver).load
@@ -252,6 +250,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 3
       expect(@driver.page_source.include?('This is my comment')).to be(false)
     end
+    
+    include_examples "quicktest_status"
 
     #Add a tag to your media.
     it "should Add a tag to your media and delete it" do
