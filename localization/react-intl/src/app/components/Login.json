@@ -48,7 +48,7 @@
     "defaultMessage": "REGISTER"
   },
   {
-    "id": "login.lostPassword",
+    "id": "loginEmail.lostPassword",
     "defaultMessage": "Forgot password"
   },
   {
