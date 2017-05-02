@@ -44,9 +44,11 @@ RUN rm -rf ${DEPLOYDIR}/new/node_modules \
     && rsync -avp ${DEPLOYDIR}/new/* ${DEPLOYDIR}/latest/
 COPY ./.babelrc ${DEPLOYDIR}/latest/.babelrc
 
-# prepare build configuration
-RUN curl https://raw.githubusercontent.com/meedan/check-api/$(git rev-parse --abbrev-ref HEAD)/public/relay.json -o ${DEPLOYDIR}/latest/relay.json &&
-    sed "s|https://raw.githubusercontent.com/meedan/check-api/develop/public/relay.json|${DEPLOYDIR}/latest/relay.json|" < config-build.js.example > ${DEPLOYDIR}/latest/config-build.js
+# get the relay.json file from github.com/meedan/check-api that corresponds to the current local git branch (defaults to 'develop')
+RUN cd ${DEPLOYDIR}/new \
+    && BRANCH=$(git rev-parse --abbrev-ref HEAD) \
+    && curl https://raw.githubusercontent.com/meedan/check-api/${BRANCH:-develop}/public/relay.json -o ${DEPLOYDIR}/latest/relay.json \
+    && sed "s|https://raw.githubusercontent.com/meedan/check-api/develop/public/relay.json|${DEPLOYDIR}/latest/relay.json|" < config-build.js.example > ${DEPLOYDIR}/latest/config-build.js
 
 # build all assets, js, css, transifex
 RUN npm run build
