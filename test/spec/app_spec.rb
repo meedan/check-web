@@ -1188,11 +1188,12 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Add translation
       expect(@driver.page_source.include?('Add a translation')).to be(true)
+      @driver.find_element(:css, '.Select.dropdown').click
+      @driver.action.send_keys(:enter).perform
       fill_field('textarea[name="translation"]', 'This is a translation')
       @driver.action.send_keys(:enter).perform
-      sleep 2
-      expect(@driver.page_source.include?('Translated by')).to be(true)
-      expect(@driver.page_source.include?('"This is a translation"')).to be(true)
+      sleep 3
+      expect(@driver.page_source.include?('A translation has been added!')).to be(true)
     end
   end
 end
