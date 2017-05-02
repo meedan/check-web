@@ -74,8 +74,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
   # The tests themselves start here
   context "web" do
     
-    include_examples "quicktest_status"
-    
     ## Prioritized Script for Automation ##
     it "should register and login using e-mail" do
       login_pg = LoginPage.new(config: @config, driver: @driver).load
@@ -85,6 +83,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       displayed_name = me_pg.title
       expect(displayed_name == 'User With Email').to be(true)
     end
+    
+    include_examples "quicktest_status"
 
     it "should login using Facebook" do
       login_pg = LoginPage.new(config: @config, driver: @driver).load
