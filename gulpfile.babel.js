@@ -52,7 +52,7 @@ gulp.task('webpack:build:web', (callback) => {
     if (err) {
       throw new gutil.PluginError('webpack:build', err);
     }
-    gutil.log('[webpack:build]', stats.toString({ colors: true }));
+    gutil.log('[webpack:build]', stats.toString({ colors: true, chunks: false }));
     callback();
   });
 });
