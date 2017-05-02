@@ -187,9 +187,6 @@ $providers: (
   .login__button--#{$provider-name} {
     &:hover {
 
-      @include box-shadow(2);
-      transition: box-shadow $transition-speed-default ease-in-out;
-
       .login__link {
         color: darken($check-blue, 10%);
         transition: color $transition-speed-default ease-in-out;
