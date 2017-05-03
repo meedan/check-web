@@ -37,7 +37,7 @@ class MediaStatus extends Component {
       note = '';
     }
 
-    if (status === 'error' && parentComponent && !parentComponent.state.open) {
+    if (status == 'error' && parentComponent && !parentComponent.state.open) {
       parentComponent.setState({ setStatus: { context, store, media, status } });
       parentComponent.handleOpen();
       return;
