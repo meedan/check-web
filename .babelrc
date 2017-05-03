@@ -5,7 +5,7 @@
       "plugins": [["react-intl", { "messagesDir": "./localization/react-intl/" }]]
     },
     "development": {
-      "plugins": [["./src/plugins/babelRelayPlugin.js", {}], ["react-intl", { "messagesDir": "./localization/react-intl/" }], [
+      "plugins": [["./webpack/babelRelayPlugin.js", {}], ["react-intl", { "messagesDir": "./localization/react-intl/" }], [
         "react-transform", {
           "transforms": [{
             "transform": "react-transform-hmr",
