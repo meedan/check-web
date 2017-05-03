@@ -127,12 +127,14 @@ class Translation extends Component {
 
   handleSubmit(e) {
     if (!this.state.submitDisabled) {
-      const translation = document.forms.addtranslation.translation.value.trim();
       const annotated = this.props.annotated;
       const annotated_id = annotated.dbid;
       const annotated_type = this.props.annotatedType;
 
-      const args = `translation_text=${translation}&translation_language=${this.state.code}`;
+      const translation = document.forms.addtranslation.translation.value.trim();
+      const note = document.forms.addtranslation.note.value.trim();
+
+      const args = `translation_text=${translation}&translation_language=${this.state.code}&translation_note=${note}`;
 
       this.addTranslation(this, annotated, annotated_id, annotated_type, args);
     }
@@ -158,6 +160,14 @@ class Translation extends Component {
                 onChange={this.handleChange.bind(this)}
                 onFocus={this.handleFocus.bind(this)}
                 onKeyPress={this.handleKeyPress.bind(this)}
+              />
+              <TextField
+                hintText={<FormattedMessage id="translation.noteLabel" defaultMessage="Note any additional details here." />}
+                name="note" id="note-input"
+                onKeyPress={this.handleKeyPress.bind(this)}
+                onChange={this.handleChange.bind(this)}
+                fullWidth
+                multiLine
               />
             </form>
           </CardText>
