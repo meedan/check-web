@@ -46,8 +46,8 @@ class MediaStatus extends Component {
     const onSuccess = (response) => { context.success('status'); };
 
     let status_id = null;
-    if (media.dynamic_annotation !== null) {
-      status_id = media.dynamic_annotation.id;
+    if (media.translation_status !== null) {
+      status_id = media.translation_status.id;
     }
 
     // Update existing status

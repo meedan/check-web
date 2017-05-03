@@ -15,7 +15,15 @@ class CreateDynamicMutation extends Relay.Mutation {
       query = Relay.QL`fragment on CreateDynamicPayload { dynamicEdge, source { annotations } }`;
       break;
     case 'project_media':
-      query = Relay.QL`fragment on CreateDynamicPayload { dynamicEdge, project_media { log, annotations_count, field_value(annotation_type_field_name: "translation_status:translation_status_status"), dynamic_annotation(annotation_type: "translation_status") } }`;
+      query = Relay.QL`fragment on CreateDynamicPayload {
+        dynamicEdge,
+        project_media {
+          log,
+          annotations_count,
+          field_value(annotation_type_field_name: "translation_status:translation_status_status"),
+          translation_status: annotation(annotation_type: "translation_status")
+        }
+      }`;
       break;
     }
     return query;

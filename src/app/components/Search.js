@@ -432,7 +432,7 @@ const SearchResultsContainer = Relay.createContainer(injectIntl(SearchResultsCom
               permissions,
               last_status,
               field_value(annotation_type_field_name: "translation_status:translation_status_status"),
-              dynamic_annotation(annotation_type: "translation_status") {
+              translation_status: annotation(annotation_type: "translation_status") {
                 id
                 dbid
               }
