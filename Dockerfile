@@ -2,15 +2,12 @@ FROM meedan/ruby
 MAINTAINER Meedan <sysops@meedan.com>
 
 # install dependencies
-# TODO are these really dependecies for meedan/check-web?  these seem like vestiges of meedan/check-api
 RUN apt-get update -qq && apt-get install -y imagemagick && rm -rf /var/lib/apt/lists/*
 
 # node modules
-COPY package.json /app/package.json
-RUN cd /app && npm install
-
-# TODO tempting to have a separate Dockerfile for testing
-# this Dockerfile becomes FROM meedan/nodejs and leave the tests in a FROM meedan/ruby based image
+ADD package.json /tmp/package.json
+RUN cd /tmp && npm install
+RUN mkdir -p /app && cp -a /tmp/node_modules /app/
 
 # ruby gems
 COPY test/Gemfile test/Gemfile.lock /app/test/

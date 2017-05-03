@@ -9,8 +9,8 @@
   },
   "scripts": {
     "logo": "cd src/assets/images/logo && ./generate.sh && cd ..",
-    "style:rtl": "mkdir -p .tmp && node-sass src/app/styles/stylesheet-rtl.scss --output-style=compressed > .tmp/stylesheet-rtl.css.tmp && postcss --use autoprefixer -o build/web/css/stylesheet-rtl.css .tmp/stylesheet-rtl.css.tmp && rm .tmp/stylesheet-rtl.css.tmp",
-    "style:ltr": "mkdir -p .tmp && node-sass src/app/styles/stylesheet.scss --output-style=compressed > .tmp/stylesheet.css.tmp && postcss --use autoprefixer -o build/web/css/stylesheet.css .tmp/stylesheet.css.tmp && rm .tmp/stylesheet.css.tmp",
+    "style:rtl": "node-sass src/app/styles/stylesheet-rtl.scss --output-style=compressed > /tmp/stylesheet-rtl.css.tmp && postcss --use autoprefixer -o build/web/css/stylesheet-rtl.css /tmp/stylesheet-rtl.css.tmp",
+    "style:ltr": "node-sass src/app/styles/stylesheet.scss --output-style=compressed > /tmp/stylesheet.css.tmp && postcss --use autoprefixer -o build/web/css/stylesheet.css /tmp/stylesheet.css.tmp",
     "style:all": "npm run style:ltr && npm run style:rtl",
     "style:rebuild": "npm rebuild node-sass && mkdir -p build/web/css 2>/dev/null && npm run style:all",
     "style:watch:all": "watch 'npm run style:all' ./src/app/styles",
