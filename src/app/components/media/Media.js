@@ -58,7 +58,7 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
           id
           dbid
         }
-        dynamic_annotation(annotation_type: "translation_status") {
+        translation_status: annotation(annotation_type: "translation_status") {
           id
           dbid
         }
