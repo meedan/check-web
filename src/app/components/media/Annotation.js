@@ -43,7 +43,7 @@ class Annotation extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { zoomedCommentImage: false };
+    this.state = { zoomedCommentImage: false, disableMachineTranslation: false };
   }
 
   handleCloseCommentImage() {
@@ -98,14 +98,18 @@ class Annotation extends Component {
     };
 
     const onSuccess = (response) => {
+      this.setState({ disableMachineTranslation: true });
     };
-    Relay.Store.commitUpdate(
-      new UpdateProjectMediaMutation({
-        update_mt: 1,
-        id: this.props.annotated.id,
-      }),
-      { onSuccess, onFailure },
-    );
+    if (!this.state.disableMachineTranslation){
+      Relay.Store.commitUpdate(
+        new UpdateProjectMediaMutation({
+          update_mt: 1,
+          id: this.props.annotated.id,
+        }),
+        { onSuccess, onFailure },
+      );
+      this.setState({ disableMachineTranslation: true });
+    }
   }
 
   updatedAt(activity) {
@@ -254,7 +258,9 @@ class Annotation extends Component {
         const formatted_value = JSON.parse(annotation.content)[0].formatted_value;
         if (formatted_value.length == 0) {
           contentTemplate = (<span className="annotation__mt-translations">
-          <span className="annotation__mt-translations" onClick={this.handleUpdateMachineTranslation.bind(this)}><FormattedMessage id="annotation.emptyMachineTranslation" defaultMessage="Add machine translation" /></span>
+          <button className="annotation__mt-translations" onClick={this.handleUpdateMachineTranslation.bind(this)} disabled={this.state.disableMachineTranslation}>
+            <FormattedMessage id="annotation.emptyMachineTranslation" defaultMessage="Add machine translation" />
+          </button>
           </span>);
         } else {
           contentTemplate = (<span className="annotation__mt-translations">
