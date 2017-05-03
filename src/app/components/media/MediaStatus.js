@@ -37,7 +37,7 @@ class MediaStatus extends Component {
       note = '';
     }
 
-    if (status === 'error' && parentComponent && !parentComponent.state.open) {
+    if (status == 'error' && parentComponent && !parentComponent.state.open) {
       parentComponent.setState({ setStatus: { context, store, media, status } });
       parentComponent.handleOpen();
       return;
@@ -46,8 +46,8 @@ class MediaStatus extends Component {
     const onSuccess = (response) => { context.success('status'); };
 
     let status_id = null;
-    if (media.dynamic_annotation !== null) {
-      status_id = media.dynamic_annotation.id;
+    if (media.translation_status !== null) {
+      status_id = media.translation_status.id;
     }
 
     // Update existing status
