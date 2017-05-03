@@ -1,7 +1,7 @@
 {
   "search.title": "Busca",
   "search.loading": "Carregando...",
-  "search.inputHint": "Search",
+  "search.inputHint": "Busca",
   "search.results": "{resultsCount, plural, =0 {No results} one {1 result} other {# results}}",
   "search.statusHeading": "Status",
   "search.projectHeading": "Projeto",

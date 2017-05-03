@@ -1,8 +1,8 @@
 {
   "singleChoiceTask.addValue": "Adicionar Opção",
   "singleChoiceTask.value": "Valor",
-  "singleChoiceTask.addOther": "Add \"Other\"",
-  "singleChoiceTask.other": "Other",
+  "singleChoiceTask.addOther": "Adicionar \"Outro\"",
+  "singleChoiceTask.other": "Outro",
   "singleChoiceTask.newTask": "Nova tarefa",
   "tasks.cancelAdd": "Cancelar",
   "tasks.add": "Criar Tarefa",
@@ -11,5 +11,5 @@
   "tasks.addDescription": "Insira uma descrição",
   "tasks.cancelEdit": "Cancelar",
   "tasks.submit": "Resolver Tarefa",
-  "task.noteLabel": "Note any additional details here."
+  "task.noteLabel": "Insira quaisquer detalhes adicionais aqui."
 }
