@@ -1,3 +1,5 @@
 #!/bin/bash
-
-npm run build && npm run publish
+if [ ! -d /app/build/web/js ]; then
+  npm run build;
+fi
+npm run publish
