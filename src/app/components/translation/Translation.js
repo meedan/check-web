@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { defineMessages, FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import Relay from 'react-relay';
 import SelectRelay from './LangSelect';
+import TranslationItem from './TranslationItem';
 import { Card, CardText, CardActions } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
@@ -142,13 +143,22 @@ class Translation extends Component {
     e.preventDefault();
   }
 
+  getLanguageCodesUsed(translations) {
+    const languages = translations.edges.map(tr => JSON.parse(tr.node.content).find(it => it.field_name === 'translation_language'));
+    return languages.map(it => it.value);
+  }
+
   render() {
+    const {translations} = this.props.annotated;
+    const codesUsed = this.getLanguageCodesUsed(translations);
+
     return (
       <div className="translation__component">
+        {translations.edges.map(tr => <TranslationItem translation={tr.node} />)}
         <Card className="translation__card">
           <CardText className="translation__card-text">
             <div className="translation__card-title"><FormattedMessage id="translation.title" defaultMessage="Add a translation" /></div>
-            <SelectRelay onChange={this.handleChangeTargetLanguage.bind(this)} />
+            <SelectRelay onChange={this.handleChangeTargetLanguage.bind(this)} codesUsed={codesUsed} />
             <form className="add-translation" name="addtranslation" onSubmit={this.handleSubmit.bind(this)}>
               <TextField
                 hintText={this.props.intl.formatMessage(messages.inputHint)}
