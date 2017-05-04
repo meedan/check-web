@@ -2,7 +2,7 @@
   "projectEdit.error": "Desculpe, não foi possível atualizar o projeto",
   "projectEdit.titleField": "Nome do Projeto",
   "projectEdit.descriptionField": "Descrição do Projeto",
-  "projectEdit.slackChannelField": "Slack #channel",
-  "projectEdit.slackChannelPlaceholder": "Add a Slack #channel to be notified about activity in this project",
+  "projectEdit.slackChannelField": "#canal no Slack",
+  "projectEdit.slackChannelPlaceholder": "Adicione um #canal do Slack para ser notificado sobre atividades nesse projeto",
   "projectEdit.saveButton": "Salvar"
 }
