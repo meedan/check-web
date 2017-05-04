@@ -154,7 +154,7 @@ class Translation extends Component {
 
     return (
       <div className="translation__component">
-        {translations.edges.map(tr => <TranslationItem translation={tr.node} />)}
+        {translations.edges.map(tr => <TranslationItem translation={tr.node} media={this.props.annotated} />)}
         <Card className="translation__card">
           <CardText className="translation__card-text">
             <div className="translation__card-title"><FormattedMessage id="translation.title" defaultMessage="Add a translation" /></div>
