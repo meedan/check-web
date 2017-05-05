@@ -1,0 +1,30 @@
+[
+  {
+    "id": "translation.inputHint",
+    "defaultMessage": "Please add a translation"
+  },
+  {
+    "id": "translation.translationAdded",
+    "defaultMessage": "A translation has been added!"
+  },
+  {
+    "id": "translation.translationFailed",
+    "defaultMessage": "Sorry, could not create the translation"
+  },
+  {
+    "id": "translation.submitBlank",
+    "defaultMessage": "Can't submit a blank translation"
+  },
+  {
+    "id": "translation.title",
+    "defaultMessage": "Add a translation"
+  },
+  {
+    "id": "translation.noteLabel",
+    "defaultMessage": "Note any additional details here."
+  },
+  {
+    "id": "translation.submit",
+    "defaultMessage": "Submit"
+  }
+]

@@ -21,7 +21,8 @@ class CreateDynamicMutation extends Relay.Mutation {
           log,
           annotations_count,
           field_value(annotation_type_field_name: "translation_status:translation_status_status"),
-          translation_status: annotation(annotation_type: "translation_status")
+          translation_status: annotation(annotation_type: "translation_status"),
+          translations: annotations(annotation_type: "translation", first: 10000)
         }
       }`;
       break;

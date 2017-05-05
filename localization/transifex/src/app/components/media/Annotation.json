@@ -10,6 +10,8 @@
   "annotation.taskResolve": "Task \"{task}\" answered by {author}: \"{response}\"",
   "annotation.reverseImageSearch": "Search",
   "annotation.translation": "Translated by {author}: \"{translation}\"",
+  "annotation.emptyMachineTranslation": "Add machine translation",
+  "annotation.machineTranslation": "Machine translation for \"{lang}\" is: {text}",
   "annotation.flaggedHeader": "Flagged as {flag} by {author}",
   "annotation.newClaim": "New claim added by {author}",
   "annotation.titleChanged": "Title changed to {title} by {author}",

@@ -62,6 +62,21 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
           id
           dbid
         }
+        translations: annotations(annotation_type: "translation", first: 10000) {
+          edges {
+            node {
+              id,
+              dbid,
+              annotation_type,
+              annotated_type,
+              annotated_id,
+              annotator,
+              content,
+              created_at,
+              updated_at
+            }
+          }
+        }
         tags(first: 10000) {
           edges {
             node {
