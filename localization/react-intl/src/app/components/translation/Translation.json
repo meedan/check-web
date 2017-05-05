@@ -20,6 +20,10 @@
     "defaultMessage": "Add a translation"
   },
   {
+    "id": "translation.noteLabel",
+    "defaultMessage": "Note any additional details here."
+  },
+  {
     "id": "translation.submit",
     "defaultMessage": "Submit"
   }
