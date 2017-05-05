@@ -1105,7 +1105,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Password reset sent')).to be(true)
     end
 
-    it "should add a translation" do
+    it "should add and edit a translation" do
       media_pg = LoginPage.new(config: @config, driver: @driver).load
                  .login_with_email(email: @email, password: @password)
                  .create_media(input: 'This is a text in english')
@@ -1119,6 +1119,15 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       @driver.action.send_keys(:enter).perform
       sleep 3
       expect(@driver.page_source.include?('A translation has been added!')).to be(true)
+      expect(@driver.page_source.include?('This is a translation')).to be(true)
+
+      # Edit translation
+      @driver.find_element(:css, '.task__actions svg').click
+      @driver.find_elements(:css, '.media-actions__menu--active span').first.click
+      fill_field('textarea[name="translation_text"]', 'This is a different translation')
+      @driver.find_element(:css, '.task__submit').click
+      sleep 3
+      expect(@driver.page_source.include?('This is a different translation')).to be(true)
     end
   end
 end
