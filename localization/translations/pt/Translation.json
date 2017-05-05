@@ -1,0 +1,8 @@
+{
+  "translation.inputHint": "Por favor adicione uma tradução",
+  "translation.translationAdded": "Uma tradução foi inserida!",
+  "translation.translationFailed": "Desculpe, não foi possível criar a tradução",
+  "translation.submitBlank": "Não é possível enviar uma tradução em branco",
+  "translation.title": "Adicionar uma tradução",
+  "translation.submit": "Enviar"
+}
