@@ -31,11 +31,11 @@
 //
 // Currently includes custom Electionland selectors — CGB 2016-11-5
 $orange-selectors: "&--in-progress, &--important-in-progress, &--important-in_progress";
-$blue-selectors: "&--undetermined";
-$green-selectors: "&--verified, &--important-authenticated";
-$red-selectors: "&--false, &--important-false";
+$blue-selectors: "&--undetermined, &--pending";
+$green-selectors: "&--verified, &--important-authenticated, &--translated";
+$red-selectors: "&--false, &--important-false, &--error";
 $gray-selectors: "&--not-applicable_2, &--not-applicable-2, &--marked-for-deletion, &--marked-for_deletion";
-$black-selectors: "&--not-applicable, &--important-inconclusive, &--inconclusive";
+$black-selectors: "&--not-applicable, &--important-inconclusive, &--inconclusive, &--ready";
 
 
 // Font colors of media status labels

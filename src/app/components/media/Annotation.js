@@ -278,6 +278,18 @@ class Annotation extends Component {
           </span>);
         }
       }
+      if (object.field_name === 'translation_status_status') {
+        const statusCode = object.value.toLowerCase().replace(/[ _]/g, '-');
+        const status = getStatus(this.props.annotated.translation_statuses, object.value);
+        contentTemplate = (<span>
+          <FormattedMessage
+            id="annotation.translationStatus"
+            defaultMessage={'Translation status set to {status} by {author}'}
+            values={{ status: <span className={`annotation__status annotation__status--${statusCode}`}>{status.label}</span>,
+                      author: authorName }}
+          />
+        </span>);
+      }
       break;
     case 'create_flag':
       contentTemplate = (<span>
