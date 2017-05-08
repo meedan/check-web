@@ -248,9 +248,12 @@ class Annotation extends Component {
         </span>);
       }
       if (object.field_name === 'translation_text') {
+        const translationContent = JSON.parse(annotation.content);
+        let language = translationContent.find(it => it.field_name === 'translation_language');
+        language = (language && language.formatted_value) || '?' ;
         contentTemplate = (<span className="annotation__translation-text">
-          <FormattedMessage id="annotation.translation" defaultMessage={'Translated by {author}: "{translation}"'}
-            values={{ author: authorName, translation: <ParsedText text={object.value} /> }}
+          <FormattedMessage id="annotation.translation" defaultMessage={'Translated to {language} by {author}: "{translation}"'}
+            values={{ language, author: authorName, translation: <ParsedText text={object.value} /> }}
           />
         </span>);
       }
