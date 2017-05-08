@@ -63,7 +63,11 @@ class Translation extends Component {
   }
 
   success() {
-    const input = document.getElementById('translation-input');
+    let input = document.getElementById('translation-input');
+    input.value = '';
+    input.blur();
+
+    input = document.getElementById('note-input');
     input.value = '';
     input.blur();
 
