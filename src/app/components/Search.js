@@ -15,6 +15,8 @@ import ContentColumn from './layout/ContentColumn';
 import MediasLoading from './media/MediasLoading';
 import isEqual from 'lodash.isequal';
 import { teamStatuses } from '../customHelpers';
+import Notifier from 'react-desktop-notification';
+import config from 'config';
 
 const pageSize = 20;
 
@@ -34,6 +36,18 @@ const messages = defineMessages({
   searchResults: {
     id: 'search.results',
     defaultMessage: '{resultsCount, plural, =0 {No results} one {1 result} other {# results}}'
+  },
+  newReportNotification: {
+    id: 'search.newReportNotification',
+    defaultMessage: 'New report'
+  },
+  newTranslationNotification: {
+    id: 'search.newTranslationNotification',
+    defaultMessage: 'New translation'
+  },
+  newTranslationNotificationBody: {
+    id: 'search.newTranslationNotificationBody',
+    defaultMessage: 'A report was just marked as "translated"'
   },
 });
 
@@ -323,6 +337,14 @@ const SearchQueryContainer = Relay.createContainer(injectIntl(SearchQueryCompone
 });
 
 class SearchResultsComponent extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      pusherSubscribed: false
+    };
+  }
+
   loadMore() {
     this.props.relay.setVariables({ pageSize: this.props.search.medias.edges.length + pageSize });
   }
@@ -338,11 +360,49 @@ class SearchResultsComponent extends Component {
 
   subscribe() {
     const pusher = this.currentContext().pusher;
-    if (pusher && this.props.search.pusher_channel) {
+    if (pusher && this.props.search.pusher_channel && !this.state.pusherSubscribed) {
       const that = this;
       pusher.subscribe(this.props.search.pusher_channel).bind('media_updated', (data) => {
+        let content = null;
+        let message = {};
+        const currentUserId = that.currentContext().currentUser.dbid;
+        const avatar = config.restBaseUrl.replace(/\/api.*/, '/images/bridge.png');
+        
+        try {
+          message = JSON.parse(data.message) || {};
+        } catch (e) {
+          message = {};
+        }
+
+        try {
+          content = message.quote || message.url || message.file.url;
+        } catch (e) {
+          content = null;
+        }
+          
+        // Notify other users that there is a new report
+        if (content && currentUserId != message.user_id) {
+          let url = window.location.pathname.replace(/(^\/[^\/]+\/project\/[0-9]+).*/, '$1/media/' + message.id);
+          Notifier.start(that.props.intl.formatMessage(messages.newReportNotification), content, url, avatar);
+        }
+
+        // Notify other users that there is a new translation
+        else if (message.annotation_type == 'translation_status' && currentUserId != message.annotator_id) {
+          let translated = false;
+          message.data.fields.forEach((field) => {
+            if (field.field_name == 'translation_status_status' && field.value == 'translated') {
+              translated = true;
+            }
+          });
+          if (translated) {
+            let url = window.location.pathname.replace(/(^\/[^\/]+\/project\/[0-9]+).*/, '$1/media/' + message.annotated_id);
+            Notifier.start(that.props.intl.formatMessage(messages.newTranslationNotification), that.props.intl.formatMessage(messages.newTranslationNotificationBody), url, avatar);
+          }
+        }
+
         that.props.relay.forceFetch();
       });
+      this.setState({ pusherSubscribed: true });
     }
   }
 
