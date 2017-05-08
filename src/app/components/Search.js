@@ -362,7 +362,11 @@ class SearchResultsComponent extends Component {
     const pusher = this.currentContext().pusher;
     if (pusher && this.props.search.pusher_channel && !this.state.pusherSubscribed) {
       const that = this;
-      pusher.subscribe(this.props.search.pusher_channel).bind('media_updated', (data) => {
+      const channel = this.props.search.pusher_channel;
+
+      pusher.unsubscribe(channel);
+
+      pusher.subscribe(channel).bind('media_updated', (data) => {
         let content = null;
         let message = {};
         const currentUserId = that.currentContext().currentUser.dbid;
