@@ -1,3 +1,3 @@
 const getbabelRelayPlugin = require('babel-relay-plugin');
-const schema = require('./../../data/relay.json');
+const schema = require('../relay.json');
 module.exports = getbabelRelayPlugin(schema.data);
