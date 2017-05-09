@@ -147,14 +147,14 @@ class Translation extends Component {
     e.preventDefault();
   }
 
-  getLanguageCodesUsed(translations) {
+  getUsedLanguages(translations) {
     const languages = translations.edges.map(tr => JSON.parse(tr.node.content).find(it => it.field_name === 'translation_language'));
-    return languages.map(it => it.value);
+    return languages.map(it => it.value).concat(this.props.annotated.language_code);
   }
 
   render() {
     const {translations} = this.props.annotated;
-    const codesUsed = this.getLanguageCodesUsed(translations);
+    const usedLanguages = this.getUsedLanguages(translations);
     const {get_languages} = this.props.annotated.project;
 
     return (
@@ -163,7 +163,7 @@ class Translation extends Component {
         <Card className="translation__card">
           <CardText className="translation__card-text">
             <div className="translation__card-title"><FormattedMessage id="translation.title" defaultMessage="Add a translation" /></div>
-            <SelectRelay onChange={this.handleChangeTargetLanguage.bind(this)} showLanguages={get_languages} codesUsed={codesUsed} />
+            <SelectRelay onChange={this.handleChangeTargetLanguage.bind(this)} showLanguages={get_languages} usedLanguages={usedLanguages} />
             <form className="add-translation" name="addtranslation" onSubmit={this.handleSubmit.bind(this)}>
               <TextField
                 hintText={this.props.intl.formatMessage(messages.inputHint)}

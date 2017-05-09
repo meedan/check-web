@@ -19,7 +19,7 @@ class LangSelect extends Component {
   }
 
   isDisabled(code) {
-    return (this.props.codesUsed.findIndex(value => code === value) > -1);
+    return (this.props.usedLanguages.findIndex(value => code === value) > -1);
   }
 
   render() {
@@ -35,7 +35,7 @@ class LangSelect extends Component {
       }
     });
 
-    return (<div>
+    return (
       <Select
         name="translation_language"
         value={this.state.selected}
@@ -46,7 +46,7 @@ class LangSelect extends Component {
         placeholder={<FormattedMessage id="langSelect.selectLanguage" defaultMessage="Select language" />}
         onChange={this.handleChange.bind(this)}
       />
-    </div>);
+    );
   }
 }
 

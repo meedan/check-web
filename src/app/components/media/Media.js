@@ -35,6 +35,7 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
         translation_statuses,
         overridden,
         language,
+        language_code,
         media {
           url,
           quote,
