@@ -155,6 +155,7 @@ class Translation extends Component {
   render() {
     const {translations} = this.props.annotated;
     const codesUsed = this.getLanguageCodesUsed(translations);
+    const {get_languages} = this.props.annotated.project;
 
     return (
       <div className="translation__component">
@@ -162,7 +163,7 @@ class Translation extends Component {
         <Card className="translation__card">
           <CardText className="translation__card-text">
             <div className="translation__card-title"><FormattedMessage id="translation.title" defaultMessage="Add a translation" /></div>
-            <SelectRelay onChange={this.handleChangeTargetLanguage.bind(this)} codesUsed={codesUsed} />
+            <SelectRelay onChange={this.handleChangeTargetLanguage.bind(this)} showLanguages={get_languages} codesUsed={codesUsed} />
             <form className="add-translation" name="addtranslation" onSubmit={this.handleSubmit.bind(this)}>
               <TextField
                 hintText={this.props.intl.formatMessage(messages.inputHint)}

@@ -25,11 +25,14 @@ class LangSelect extends Component {
   render() {
     const about = this.props.about;
     const languages = JSON.parse(about.languages_supported);
+    const show_languages = this.props.showLanguages ? JSON.parse(this.props.showLanguages) : null;
 
     let options = [];
 
     Object.keys(languages).map((key, index) => {
-      options.push({ value: key, label: languages[key], disabled:this.isDisabled(key) });
+      if (!show_languages || (show_languages.findIndex(value => key === value) > -1)) {
+        options.push({ value: key, label: languages[key], disabled:this.isDisabled(key) });
+      }
     });
 
     return (<div>

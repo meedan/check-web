@@ -26,7 +26,8 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
         project {
           id,
           dbid,
-          title
+          title,
+          get_languages
         },
         project_id,
         pusher_channel,
