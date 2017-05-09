@@ -28,19 +28,15 @@ class LangSelect extends Component {
     const show_languages = this.props.showLanguages ? JSON.parse(this.props.showLanguages) : null;
 
     let options = [];
-
-    Object.keys(languages).map((key, index) => {
+    Object.keys(languages).forEach((key, index) => {
       if (!show_languages || (show_languages.findIndex(value => key === value) > -1)) {
-        options.push({ value: key, label: languages[key], disabled:this.isDisabled(key) });
+        options.push({ value: key, label: languages[key], disabled: this.isDisabled(key) });
       }
     });
 
     return (
       <Select
-        name="translation_language"
         value={this.state.selected}
-        className="dropdown"
-        id="select"
         options={options}
         multi={false}
         placeholder={<FormattedMessage id="langSelect.selectLanguage" defaultMessage="Select language" />}
