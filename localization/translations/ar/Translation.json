@@ -4,5 +4,6 @@
   "translation.translationFailed": "عذراً، لم نستطع إضافة الترجمة",
   "translation.submitBlank": "ليس مسموح إضافة ترجمة خالية",
   "translation.title": "أضف ترجمة ",
+  "translation.noteLabel": "اكتب هنا التعليقات الإضافية.",
   "translation.submit": "إرسال"
 }
