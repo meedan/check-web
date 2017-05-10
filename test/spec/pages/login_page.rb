@@ -16,10 +16,10 @@ class LoginPage < Page
     load
     toggle_form_mode unless form_mode == 'register'
 
-    fill_input('.login-email__name input', 'User With Email')
-    fill_input('.login-email__email input', options[:email])
-    fill_input('.login-email__password input', options[:password])
-    fill_input('.login-email__password-confirmation input', options[:password])
+    fill_input('.login__name input', 'User With Email')
+    fill_input('.login__email input', options[:email])
+    fill_input('.login__password input', options[:password])
+    fill_input('.login__password-confirmation input', options[:password])
     fill_input('input[type=file]', options[:file], { hidden: true }) if options[:file]
     # TODO: fix or remove click_button() for mobile browsers
     (@wait.until { @driver.find_element(:xpath, "//button[@id='submit-register-or-login']") }).click
@@ -30,7 +30,7 @@ class LoginPage < Page
 
   def reset_password(email)
     load
-    (@wait.until { @driver.find_element(:css, '.login-email__forgot-password a') }).click
+    (@wait.until { @driver.find_element(:css, '.login__forgot-password a') }).click
     fill_input('#password-reset-email-input', email)
     click_button('.user-password-reset__actions button + button')
     sleep 3
@@ -40,8 +40,8 @@ class LoginPage < Page
     load
     toggle_form_mode unless form_mode == 'login'
 
-    fill_input('.login-email__email input', options[:email])
-    fill_input('.login-email__password input', options[:password])
+    fill_input('.login__email input', options[:email])
+    fill_input('.login__password input', options[:password])
     # TODO: fix or remove click_button() for mobile browsers
     (@wait.until { @driver.find_element(:xpath, "//button[@id='submit-register-or-login']") }).click
 
@@ -70,7 +70,7 @@ class LoginPage < Page
   private
 
   def form_mode
-    (@wait.until { @driver.find_element(:css, '.login-email__form') }).attribute('name')
+    (@wait.until { @driver.find_element(:css, '.login__form') }).attribute('name')
   end
 
   def toggle_form_mode
