@@ -3,7 +3,8 @@
   position: relative;
 
   .task__card-text {
-    padding-bottom: 8px !important; // material-ui/Card>div override
+    padding-bottom: 0 !important; // material-ui/Card>div override
+    padding-top: 0 !important;
   }
 
   .task__actions {
@@ -18,6 +19,8 @@
 
   .task__label-container {
     width: 416px;
+    padding-top: 16px;
+    padding-bottom: 8px;
   }
 
   .task__label {

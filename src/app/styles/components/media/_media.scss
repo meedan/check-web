@@ -29,6 +29,13 @@
 
     .media__tasks-header {
       display: flex;
+      color: $black-54;
+
+      svg {
+        &:hover {
+          fill: $black-16;
+        }
+      }
     }
   }
 }
