@@ -2,6 +2,13 @@
   height: 100%;
 }
 
+body {
+  margin: auto;
+  width: 100%;
+  overflow-x: hidden;
+  cursor: default;
+}
+
 // Hide scrollbars
 //
 // `scrollbar` is not a standard property, so it's not handled by Autoprefixer. Not supported in FF.

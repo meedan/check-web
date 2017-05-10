@@ -1,17 +1,17 @@
 @charset "utf-8";
 
-@import 'theme/colors';
-@import "variables";
-@import "mixins";
-@import "placeholders";
-@import 'theme/typography';
-@import 'theme/buttons';
-@import 'theme/defaults';
-@import 'theme/layout';
-@import 'theme/forms';
-@import 'theme/images';
-@import 'theme/menus';
-@import 'theme/animation';
+@import 'colors';
+@import 'variables';
+@import 'mixins';
+@import 'placeholders';
+@import 'typography';
+@import 'buttons';
+@import 'defaults';
+@import 'layout';
+@import 'forms';
+@import 'images';
+@import 'menus';
+@import 'animation';
 @import 'components/browser-support';
 @import 'components/caret';
 @import 'components/close-button';
@@ -66,59 +66,9 @@
 @import 'components/task/tasks';
 @import 'components/user-password-change';
 @import 'components/user-password-reset';
+@import 'components/user-menu';
 @import 'source';
 @import 'tags';
 @import 'create-account';
 @import 'tabs';
 @import 'spinner';
-
-body {
-  margin: auto;
-  width: 100%;
-  overflow-x: hidden;
-  cursor: default;
-  // TODO: Refine this so it only applies to elements with user-generated content 2017-4-18 CGB
-  overflow-wrap: break-word;
-  word-break: break-word;
-  hyphens: auto;
-}
-
-#root,
-#root > div {
-  background: $opaque-black-02;
-}
-
-.hidden {
-  display: none;
-}
-
-.top-bar {
-  background: $white !important;
-  box-shadow: none !important;
-}
-
-.current-user {
-  .avatar {
-    padding: 2px;
-    vertical-align: bottom;
-  }
-}
-
-#tos,
-#privacy-policy {
-  margin: 10px;
-
-  p {
-    line-height: 1.5em;
-    text-align: justify;
-  }
-
-  h2 {
-    font-size: 22px;
-    margin: 10px 0;
-  }
-}
-
-.main-title {
-  text-align: center;
-}

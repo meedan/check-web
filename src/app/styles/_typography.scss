@@ -77,6 +77,12 @@ body {
   font: $font-stack-sans;
   font-size: 14px;
 
+  // Wrapping
+  // TODO: Refine this so it only applies to elements with user-generated content 2017-4-18 CGB
+  overflow-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
+
   a,
   a:visited {
     color: $opaque-black-54;
@@ -86,4 +92,24 @@ body {
     color: $opaque-black-87;
     transition: color .4s;
   }
+}
+
+// TOS and Privay Policy pages
+#tos,
+#privacy-policy {
+  margin: 10px;
+
+  p {
+    line-height: 1.5em;
+    text-align: justify;
+  }
+
+  h2 {
+    font-size: 22px;
+    margin: 10px 0;
+  }
+}
+
+.main-title {
+  text-align: center;
 }

@@ -5,6 +5,11 @@ html {
   box-sizing: border-box;
 }
 
+#root,
+#root > div {
+  background: $opaque-black-02;
+}
+
 *,
 *::before,
 *::after {
