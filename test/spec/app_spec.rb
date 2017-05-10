@@ -1113,7 +1113,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Add translation
       expect(@driver.page_source.include?('Add a translation')).to be(true)
-      @driver.find_element(:css, '.Select.dropdown').click
+      @driver.find_element(:css, '.Select').click
       @driver.action.send_keys(:enter).perform
       fill_field('textarea[name="translation"]', 'This is a translation')
       @driver.action.send_keys(:enter).perform
