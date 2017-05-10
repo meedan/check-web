@@ -4,6 +4,7 @@
   "translation.translationFailed": "Désolé, ce n'était pas possible de créer la traduction",
   "translation.submitBlank": "Interdit de rajouter une traduction vide",
   "translation.title": "Rajouter une traduction",
+  "translation.selectLanguage": "Sélectionnez la langue",
   "translation.noteLabel": "Ajouter ici des détails supplémentaires.",
   "translation.submit": "Envoyer"
 }

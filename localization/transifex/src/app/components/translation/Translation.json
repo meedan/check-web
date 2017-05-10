@@ -4,6 +4,7 @@
   "translation.translationFailed": "Sorry, could not create the translation",
   "translation.submitBlank": "Can't submit a blank translation",
   "translation.title": "Add a translation",
+  "translation.selectLanguage": "Select language",
   "translation.noteLabel": "Note any additional details here.",
   "translation.submit": "Submit"
 }
