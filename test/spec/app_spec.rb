@@ -157,14 +157,14 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
         driver = Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: caps)
         driver.navigate.to @config['self_url']
         sleep 1
-        expect(driver.find_element(:css, '.login__heading span').text == 'CONNEXION').to be(true)
+        expect(driver.find_element(:css, '.login__heading span').text == 'Connexion').to be(true)
         driver.quit
 
         caps = Selenium::WebDriver::Remote::Capabilities.chrome(chromeOptions: { prefs: { 'intl.accept_languages' => 'pt' } })
         driver = Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: caps)
         driver.navigate.to @config['self_url']
         sleep 1
-        expect(driver.find_element(:css, '.login__heading span').text == 'ENTRAR').to be(true)
+        expect(driver.find_element(:css, '.login__heading span').text == 'Entrar').to be(true)
         driver.quit
       end
     end
