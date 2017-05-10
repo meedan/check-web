@@ -41,6 +41,7 @@ class LangSelect extends Component {
         multi={false}
         placeholder={<FormattedMessage id="langSelect.selectLanguage" defaultMessage="Select language" />}
         onChange={this.handleChange.bind(this)}
+        clearable={true}
       />
     );
   }
