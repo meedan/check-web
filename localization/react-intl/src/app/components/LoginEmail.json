@@ -16,10 +16,6 @@
     "defaultMessage": "Password confirmation"
   },
   {
-    "id": "login.with",
-    "defaultMessage": "Sign in with {provider}"
-  },
-  {
     "id": "loginEmail.nameLabel",
     "defaultMessage": "Your name"
   },
@@ -37,11 +33,11 @@
   },
   {
     "id": "loginEmail.signIn",
-    "defaultMessage": "Sign in »"
+    "defaultMessage": "SIGN IN"
   },
   {
     "id": "loginEmail.signUp",
-    "defaultMessage": "Sign up »"
+    "defaultMessage": "REGISTER"
   },
   {
     "id": "loginEmail.lostPassword",
@@ -53,14 +49,6 @@
   },
   {
     "id": "loginEmail.newAccount",
-    "defaultMessage": "Create a new account"
-  },
-  {
-    "id": "login.email.cancel",
-    "defaultMessage": "Sign in with Twitter, Facebook, or Slack"
-  },
-  {
-    "id": "login.trouble",
-    "defaultMessage": "Having trouble logging in? Please email {email} for assistance."
+    "defaultMessage": "Create a new account with email"
   }
 ]

@@ -1,27 +1,17 @@
-$browser-support-height: 46px;
-
 .browser-support {
-  position: absolute;
-  top: 0;
-  height: $browser-support-height;
   width: 100%;
   z-index: 6;
-  background-color: $white;
-  padding: 15px 45px;
+  padding: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
-  @media all and (max-width: $layout-mobile-breakpoint) {
-    font-size: 12px;
+
+  p {
+    margin: 0;
   }
 }
 
-.browser-support ~ .home {
-  top: $browser-support-height;
-}
-
 .browser-support__message {
-  flex: 1;
   margin-bottom: 0;
   text-align: center;
   line-height: 1.4;

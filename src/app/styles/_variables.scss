@@ -20,3 +20,5 @@ $layout-widescreen-breakpoint: $layout-column-width-wide;
 // Direction — overridden in the RTL stylesheet
 $from-direction: left !default;
 $to-direction: right !default;
+
+$transition-speed-default: 250ms;

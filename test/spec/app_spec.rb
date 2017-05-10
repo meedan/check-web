@@ -157,14 +157,14 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
         driver = Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: caps)
         driver.navigate.to @config['self_url']
         sleep 1
-        expect(driver.find_element(:css, '.login-menu__heading span').text == 'CONNEXION').to be(true)
+        expect(driver.find_element(:css, '.login__heading span').text == 'Connexion').to be(true)
         driver.quit
 
         caps = Selenium::WebDriver::Remote::Capabilities.chrome(chromeOptions: { prefs: { 'intl.accept_languages' => 'pt' } })
         driver = Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: caps)
         driver.navigate.to @config['self_url']
         sleep 1
-        expect(driver.find_element(:css, '.login-menu__heading span').text == 'ENTRAR').to be(true)
+        expect(driver.find_element(:css, '.login__heading span').text == 'Entrar').to be(true)
         driver.quit
       end
     end
@@ -264,8 +264,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should redirect to login screen if not logged in" do
       @driver.navigate.to @config['self_url'] + '/check/teams'
-      title = get_element('.login-menu__heading')
-      expect(title.text == 'SIGN IN').to be(true)
+      title = get_element('.login__heading')
+      expect(title.text == 'Sign in').to be(true)
     end
 
     it "should login using Twitter" do
@@ -1080,9 +1080,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should login from e-mail login page" do
       page = Page.new(config: @config, driver: @driver)
-      @driver.navigate.to @config['self_url'] + '/check/login/email'
-      page.fill_input('.login-email__email input', @email)
-      page.fill_input('.login-email__password input', @password)
+      @driver.navigate.to @config['self_url']
+      page.fill_input('.login__email input', @email)
+      page.fill_input('.login__password input', @password)
       expect(@driver.page_source.include?('Project')).to be(false)
       (@wait.until { @driver.find_element(:xpath, "//button[@id='submit-register-or-login']") }).click
       sleep 5

@@ -40,7 +40,7 @@ class UserPasswordReset extends Component {
 
   handleSignIn() {
     const history = this.getHistory();
-    history.push('/check/login/email');
+    history.push('/');
   }
 
   handleChange(e) {

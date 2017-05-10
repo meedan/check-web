@@ -1,4 +1,5 @@
 .message {
+  @include fade-in(1s);
   background: $black-54;
   color: $white;
   padding: 10px;

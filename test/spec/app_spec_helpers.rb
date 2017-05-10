@@ -44,7 +44,7 @@ module AppSpecHelpers
       @driver.page_source.include?("#{@config['twitter_name']}")
     }
   end
-	#<button id="twitter-login" class="login-menu__button login-menu__button--twitter"><span>Sign in with Twitter</span></button>
+
   def twitter_auth
 		sleep 5
     @driver.find_element(:xpath, "//button[@id='twitter-login']").click
@@ -105,9 +105,8 @@ module AppSpecHelpers
   def login_with_email(should_create_team = true, email = @email)
     @driver.navigate.to @config['self_url']
     sleep 2
-    @driver.find_element(:xpath, "//a[@id='login-email']").click
-    fill_field('.login-email__email input', email)
-    fill_field('.login-email__password input', '12345678')
+    fill_field('.login__email input', email)
+    fill_field('.login__password input', '12345678')
     press_button('#submit-register-or-login')
     sleep 3
     create_team if should_create_team
@@ -157,14 +156,12 @@ module AppSpecHelpers
   def register_with_email(should_create_team = true, email = @email)
     @driver.navigate.to @config['self_url']
     sleep 1
-    @driver.find_element(:xpath, "//a[@id='login-email']").click
-    sleep 1
     @driver.find_element(:xpath, "//button[@id='register-or-login']").click
     sleep 1
-    fill_field('.login-email__name input', 'User With Email')
-    fill_field('.login-email__email input', email)
-    fill_field('.login-email__password input', '12345678')
-    fill_field('.login-email__password-confirmation input', '12345678')
+    fill_field('.login__name input', 'User With Email')
+    fill_field('.login__email input', email)
+    fill_field('.login__password input', '12345678')
+    fill_field('.login__password-confirmation input', '12345678')
     press_button('#submit-register-or-login')
     sleep 3
     confirm_email(email)
