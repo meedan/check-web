@@ -1,0 +1,14 @@
+%chip {
+  padding: 3px 16px;
+  border: 0;
+  margin-top: 4px;
+  margin-#{$to-direction}: 10px;
+  margin-bottom: 4px;
+  margin-#{$from-direction}: 0;
+  font-size: 12px;
+  font-weight: 400;
+  background-color: $black-05;
+  border-radius: 24px;
+  display: inline-block;
+  color: $black-54;
+}

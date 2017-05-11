@@ -2,8 +2,6 @@
 
 @import 'colors';
 @import 'variables';
-@import 'mixins';
-@import 'placeholders';
 @import 'typography';
 @import 'buttons';
 @import 'defaults';
@@ -12,6 +10,10 @@
 @import 'images';
 @import 'menus';
 @import 'animation';
+@import 'icon';
+@import 'chip';
+@import 'ellipsis';
+@import 'box-shadow';
 @import 'components/browser-support';
 @import 'components/caret';
 @import 'components/close-button';
@@ -38,6 +40,7 @@
 @import 'components/media/media-tags';
 @import 'components/media/medias-loading';
 @import 'components/media/pender-card';
+@import 'components/media/pender-card-spinner';
 @import 'components/media/media-card-quote';
 @import 'components/media/media-card-social';
 @import 'components/media/media-card-image-uploaded';
@@ -47,7 +50,7 @@
 @import 'components/menu-button';
 @import 'components/message';
 @import 'components/search/search';
-@import 'components/sources';
+@import 'components/source/sources';
 @import 'components/team/team-mixins';
 @import 'components/team/team';
 @import 'components/team/create-team';
@@ -67,8 +70,7 @@
 @import 'components/user-password-change';
 @import 'components/user-password-reset';
 @import 'components/user-menu';
-@import 'source';
-@import 'tags';
-@import 'create-account';
-@import 'tabs';
-@import 'spinner';
+@import 'components/source/source';
+@import 'components/source/source-tabs';
+@import 'components/source/source-tags';
+@import 'components/create-account';
