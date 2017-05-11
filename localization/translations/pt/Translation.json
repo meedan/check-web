@@ -4,6 +4,7 @@
   "translation.translationFailed": "Desculpe, não foi possível criar a tradução",
   "translation.submitBlank": "Não é possível enviar uma tradução em branco",
   "translation.title": "Adicionar uma tradução",
+  "translation.selectLanguage": "Selecione idioma",
   "translation.noteLabel": "Insira quaisquer detalhes adicionais aqui.",
   "translation.submit": "Enviar"
 }
