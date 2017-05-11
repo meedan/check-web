@@ -3,16 +3,13 @@
   "loginEmail.emailInputHint": "Courriel",
   "loginEmail.passwordInputHint": "Mot de passe",
   "loginEmail.passwordConfirmInputHint": "Confirmation du mot de passe",
-  "login.with": "Connexion par {provider}",
   "loginEmail.nameLabel": "Votre nom",
   "loginEmail.emailLabel": "Adresse e-mail",
   "loginEmail.passwordLabel": "Mot de passe (au moins 8 caractères)",
   "loginEmail.passwordConfirmLabel": "Confirmation du mot de passe",
-  "loginEmail.signIn": "Connexion »",
-  "loginEmail.signUp": "S'inscrire",
+  "loginEmail.signIn": "CONNEXION",
+  "loginEmail.signUp": "ENREGISTREMENT",
   "loginEmail.lostPassword": "Avez-vous oublié votre mot de passe ?",
   "loginEmail.alreadyHasAccount": "J'ai déjà un compte",
-  "loginEmail.newAccount": "Créer un nouveau compte",
-  "login.email.cancel": "Connexion par Twitter, Facebook ou Slack",
-  "login.trouble": "Vous avez des difficultés à vous connecter? Veuillez envoyer un email à {email} pour obtenir de l'aide."
+  "loginEmail.newAccount": "Créer un nouveau compte par courriel"
 }
