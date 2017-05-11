@@ -3,7 +3,7 @@ $font-stack-sans: "Roboto", -apple-system, BlinkMacSystemFont, "Corbel", "Lucida
 // Material design font size and line height
 //
 // • unquote() is used because: https://github.com/sass/sass/issues/667
-// • The font name must be repeated to use the font shorthand
+// • The font name must be repeated to use the "font" shorthand
 $font-display-2: 500 45px unquote('/') 48px $font-stack-sans;
 $font-display-1: 500 34px unquote('/') 40px $font-stack-sans;
 $font-headline: 500 24px unquote('/') 32px $font-stack-sans;
@@ -76,25 +76,54 @@ body {
   color: $opaque-black-54;
   font: $font-stack-sans;
   font-size: 14px;
+  line-height: 1.42;
 
   // Wrapping
   // TODO: Refine this so it only applies to elements with user-generated content 2017-4-18 CGB
   overflow-wrap: break-word;
   word-break: break-word;
   hyphens: auto;
+}
 
-  a,
-  a:visited {
-    color: $opaque-black-54;
-  }
+a {
+  color: $opaque-black-54;
+  text-decoration: none;
 
-  a:hover {
+  &:hover {
+    text-decoration: underline;
     color: $opaque-black-87;
     transition: color .4s;
   }
+
+  &:visited {
+    color: $opaque-black-54;
+  }
+
+  &:not([href]) {
+    &,
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+
+input {
+  font-size: inherit;
+}
+
+p {
+  margin-top: 0;
+  color: $black-87;
+}
+
+ul {
+  list-style-type: none;
+  padding-#{$from-direction}: 0;
+  margin: 0;
 }
 
 // TOS and Privay Policy pages
+// TODO refactor this to use a shared class like .page CGB 2017-3-10 
 #tos,
 #privacy-policy {
   margin: 10px;
@@ -110,6 +139,7 @@ body {
   }
 }
 
+// Main titles
 .main-title {
   text-align: center;
 }

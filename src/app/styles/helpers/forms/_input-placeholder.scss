@@ -5,18 +5,3 @@
   &::-moz-placeholder          {@content}
   &:-ms-input-placeholder      {@content}
 }
-
-@mixin text-input {
-  order: 2;
-  background: transparent;
-  border: 0;
-  border-bottom: 2px solid $black-32;
-  transition: border-color 200ms ease;
-  padding: 3px 0 6px;
-  font: $font-subheading-2;
-
-  &:focus {
-    outline: none;
-    border-color: $check-blue;
-  }
-}

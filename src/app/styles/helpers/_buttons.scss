@@ -1,15 +1,10 @@
-@mixin button-defaults {
-  cursor: pointer;
-  border: 0;
-  font-family: $font-stack-sans;
-  background-color: $black-38;
-  font-size: inherit;
-}
-
 // elements that should semantically be <button> but not look like buttons
 //
 @mixin unbutton {
-  @include button-defaults;
+  cursor: pointer;
+  border: 0;
+  font-family: $font-stack-sans;
+  font-size: inherit;
   background-color: transparent;
   padding: 0;
 
@@ -19,7 +14,11 @@
 }
 
 @mixin button-standard {
-  @include button-defaults;
+  cursor: pointer;
+  border: 0;
+  font-family: $font-stack-sans;
+  background-color: $black-38;
+  font-size: inherit;
   border-radius: 3px;
   color: $white;
 
@@ -81,19 +80,5 @@
   &,
   &:hover {
     text-decoration: none;
-  }
-}
-
-@mixin chicklet {
-  @extend %chip;
-  cursor: pointer;
-
-  &--selected {
-    background-color: $black-54;
-    color: $white;
-  }
-
-  &:hover {
-    background-color: $black-16;
   }
 }

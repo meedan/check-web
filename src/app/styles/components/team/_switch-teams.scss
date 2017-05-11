@@ -94,7 +94,7 @@
 
 .switch-teams__cancel-join-request {
   @include unbutton;
-  color: $monza-red;
+  color: $alert-red;
   margin-#{$from-direction}: 20px;
 }
 
