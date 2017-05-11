@@ -13,7 +13,7 @@ Verify breaking news online.
 ## Structure
 
 * `src/app`: Application code
-* `src/app/styles`: Theme (SASS) files
+* `src/app/styles`: Theme (Sass) files
 
 ## How to use it
 

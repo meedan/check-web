@@ -134,7 +134,7 @@ class CheckContext {
   // - if team but no current project, go to team root
   // - if team and current project, go to project page
   maybeRedirect(location, userData) {
-    if ((location !== '/' && location !== '/check/login/email') || this.getTeamSlug() || !userData) return;
+    if (location !== '/' || this.getTeamSlug() || !userData) return;
 
     const userCurrentTeam = userData.current_team;
     if (!userCurrentTeam) {

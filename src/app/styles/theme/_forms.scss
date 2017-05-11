@@ -10,10 +10,10 @@
   order: 2;
   background: transparent;
   border: 0;
-  border-bottom: 2px solid $black-05;
-  transition: border-color 100ms ease;
-  font-size: 24px;
+  border-bottom: 2px solid $black-32;
+  transition: border-color 200ms ease;
   padding: 3px 0 6px;
+  font: $font-subheading-2;
 
   &:focus {
     outline: none;

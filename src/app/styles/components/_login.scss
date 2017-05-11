@@ -1,0 +1,215 @@
+.login {
+  @include fade-in;
+  text-align: center;
+
+  & > p {
+    width: 80%;
+    margin: 0 auto;
+  }
+}
+
+.login__form {
+  @include box-shadow(1);
+  background-color: $white;
+  padding: 80px 120px 52px;
+  @media all and (max-width: $layout-mobile-breakpoint) {
+    padding: 32px 16px;
+  }
+}
+
+.login__name,
+.login__email,
+.login__password,
+.login__password-confirmation {
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+.login__name-input,
+.login__email-input,
+.login__password-input,
+.login__password-confirmation-input {
+  @include text-input;
+  width: 100%;
+}
+
+.login__name-label,
+.login__email-label,
+.login__password-label,
+.login__password-confirmation-label {
+  order: 1;
+  display: block;
+  opacity: 0;
+  transition: color 200ms ease, opacity 50ms ease;
+  text-align: left;
+  font: $font-caption;
+
+  &--text-entered {
+    opacity: 1;
+  }
+}
+
+.login__submit {
+  @include button-medium;
+  @include button-primary;
+  display: block;
+  margin: 60px auto 10px;
+  width: 120px;
+}
+
+.login__forgot-password a {
+  text-align: center;
+  display: block;
+  margin: 0 auto;
+  padding: 8px;
+  font: $font-body-2;
+  color: $black-54;
+}
+
+.login__register-or-login,
+.login__cancel,
+.login__help-text {
+  text-align: center;
+  margin: 0 0 17px;
+  width: 100%;
+}
+
+.login__register-or-login,
+.login__cancel {
+  @include unbutton;
+}
+
+.login__register-or-login {
+  font-weight: 600;
+}
+
+// Upload an image
+//
+.upload-file > div {
+  width: 100% !important;
+  height: auto !important;
+  padding: 25px 8px !important;
+  border: 1px dashed $black-38 !important;
+  color: $black-38 !important;
+  text-align: center;
+  float: $to-direction;
+
+  &.with-file {
+    width: 80% !important;
+  }
+}
+
+.upload-file {
+  width: 100%;
+  margin: 10px 0;
+
+  br {
+    clear: both;
+  }
+}
+
+.preview {
+  position: relative;
+  display: inline-block;
+  float: #{$from-direction};
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 71px;
+  padding: 0;
+  margin: 0;
+  border: 1px solid $black-38;
+  width: 19%;
+  margin-#{$to-direction}: 1%;
+
+  .remove-image {
+    position: absolute;
+    top: -2px;
+    #{$to-direction}: 1px;
+    z-index: 1;
+    color: $black-38;
+    cursor: pointer;
+  }
+}
+
+// The list of oAuth login cards
+//
+.login__oauth-list {
+  padding: 16px 0;
+  @media all and (min-width: $layout-mobile-breakpoint) {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+  }
+}
+
+.login__button {
+  @include box-shadow(1);
+  width: 320px;
+  @media all and (max-width: $layout-mobile-breakpoint) {
+    width: 100%;
+  }
+  transition: background-color 400ms ease;
+  padding: 12px 24px;
+  padding-#{$to-direction}: 16px;
+  background-color: $white;
+  display: flex;
+  flex-flow: column nowrap;
+  margin: 8px 0;
+
+  span {
+    display: flex;
+  }
+
+  // The disclaimer
+  & > span:last-of-type {
+    margin-#{$from-direction}: 40px;
+    font: $font-caption;
+    color: $black-38;
+  }
+
+  svg {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+$providers: (
+  twitter: $twitter-blue,
+  facebook: $facebook-blue,
+  google: $google-orange,
+  slack: $slack-green,
+  email: $black-54
+);
+
+@each $provider-name, $provider-color in $providers {
+  .login__button--#{$provider-name} {
+    &:hover {
+
+      .login__link {
+        color: darken($check-blue, 10%);
+        transition: color $transition-speed-default ease-in-out;
+      }
+
+      svg path {
+        fill: darken(saturate($provider-color, 10%), 10%);
+        transition: fill $transition-speed-default ease-in-out;
+      }
+    }
+
+    .login__link {
+      color: $check-blue;
+      font: $font-body-2;
+      font-weight: 500;
+    }
+
+    svg {
+      margin-#{$to-direction}: 16px;
+
+      path {
+        fill: $provider-color;
+      }
+    }
+  }
+}

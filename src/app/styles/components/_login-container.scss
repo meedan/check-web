@@ -1,0 +1,13 @@
+.login-container {
+	max-width: 660px;
+	margin: 0 auto;
+	padding-bottom: 100px;
+}
+
+p {
+	text-align: center;
+
+	@media all and (max-width: $layout-mobile-breakpoint) {
+		padding: 0 16px;
+	}
+}

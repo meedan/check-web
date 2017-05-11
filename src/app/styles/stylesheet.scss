@@ -23,8 +23,8 @@
 @import 'components/layout/heading';
 @import 'components/layout/header-actions';
 @import 'components/layout/footer';
-@import 'components/login-menu';
-@import 'components/login-email';
+@import 'components/login-container';
+@import 'components/login';
 @import 'components/media/media-colors';
 @import 'components/media/media-mixins';
 @import 'components/media/create-media';
@@ -77,6 +77,7 @@ body {
   width: 100%;
   overflow-x: hidden;
   cursor: default;
+  // TODO: Refine this so it only applies to elements with user-generated content 2017-4-18 CGB
   overflow-wrap: break-word;
   word-break: break-word;
   hyphens: auto;

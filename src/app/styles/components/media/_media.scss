@@ -23,11 +23,19 @@
         $_width: 542px;
         width: $_width;
         flex-basis: $_width;
+        margin-top: -44px;
       }
     }
 
     .media__tasks-header {
       display: flex;
+      color: $black-54;
+
+      svg {
+        &:hover {
+          fill: $black-16;
+        }
+      }
     }
   }
 }
