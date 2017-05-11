@@ -41,7 +41,7 @@
   },
   {
     "id": "annotation.translation",
-    "defaultMessage": "Translated by {author}: \"{translation}\""
+    "defaultMessage": "Translated to {language} by {author}: \"{translation}\""
   },
   {
     "id": "annotation.emptyMachineTranslation",
@@ -50,6 +50,10 @@
   {
     "id": "annotation.machineTranslation",
     "defaultMessage": "Machine translation for \"{lang}\" is: {text}"
+  },
+  {
+    "id": "annotation.translationStatus",
+    "defaultMessage": "Translation status set to {status} by {author}"
   },
   {
     "id": "annotation.flaggedHeader",

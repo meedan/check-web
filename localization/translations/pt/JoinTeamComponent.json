@@ -1,9 +1,9 @@
 {
   "joinTeamComponent.error": "Desculpe, não foi possível enviar a sua requisição",
   "joinTeamComponent.success": "Obrigado pelo seu interesse em participar do Check da equipe {team}! Um líder da equipe irá revisar sua solicitação em breve.",
-  "joinTeamComponent.autoApprove": "Thanks for joining {team} Check! You can start contributing right away.",
-  "joinTeamComponent.title": "Join Team",
-  "joinTeamComponent.alreadyRequested": "You already requested to join {team} Check.",
+  "joinTeamComponent.autoApprove": "Obrigado por participar da equipe {team} do Check! Você pode começar a contribuir imediatamente.",
+  "joinTeamComponent.title": "Participar da Equipe",
+  "joinTeamComponent.alreadyRequested": "Você já pediu para participar do time {team} no Check",
   "joinTeamComponent.mainHeading": "Pedir para Participar",
   "joinTeamComponent.blurbGraf": "Para solicitar acesso ao {link} no Check, clique abaixo:",
   "joinTeamComponent.buttonSubmitted": "Solicitação Enviada",

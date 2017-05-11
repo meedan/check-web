@@ -10,6 +10,7 @@ import Annotations from './Annotations';
 import config from 'config';
 import { pageTitle } from '../../helpers';
 import CheckContext from '../../CheckContext';
+import Translation from '../translation/Translation';
 import Tasks from '../task/Tasks';
 import CreateTask from '../task/CreateTask';
 import { bemClass, bemClassFromMediaStatus, safelyParseJSON, getStatus, getStatusStyle } from '../../helpers';
@@ -111,6 +112,7 @@ class MediaComponent extends Component {
               <ContentColumn className='media__media-column'>
                 <MediaDetail media={media} />
                 <CreateTask media={media} />
+                <Translation annotated={media} annotatedType="ProjectMedia" />
               </ContentColumn>
               <ContentColumn className='media__tasks-column'>
                 <div className='media__tasks-header'>
