@@ -1,0 +1,20 @@
+{
+  "login.nameInputHint": "اسمك",
+  "login.emailInputHint": "بريدك الإلكتروني",
+  "login.passwordInputHint": "كلمة المرور",
+  "login.passwordConfirmInputHint": "تأكيد كلمة المرور",
+  "login.title": "تسجيل الدخول",
+  "login.registerTitle": "تسجيل حساب جديد",
+  "login.nameLabel": "اسمك",
+  "login.emailLabel": "بريدك الإلكتروني",
+  "login.passwordLabel": "كلمة المرور (الحد الأدنى ٨ حروف)",
+  "login.passwordConfirmLabel": "تأكيد كلمة المرور",
+  "login.signIn": "تسجيل الدخول",
+  "login.signUp": "تسجيل حساب جديد",
+  "loginEmail.lostPassword": "نسيت كلمة المرور",
+  "login.with": "سجل دخول باستخدام {provider}",
+  "login.disclaimer": "لن يتم أي نشر بدون موافقتك",
+  "login.newAccount": "تسجيل حساب جديد بالبريد الإلكتروني",
+  "login.alreadyHasAccount": "لدي حساب بالفعل",
+  "login.return": "العودة لتسجيل الدخول بالبريد الإلكتروني"
+}
