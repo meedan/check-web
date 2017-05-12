@@ -74,9 +74,7 @@ $font-caption: 400 12px unquote('/') 16px $font-stack-sans;
 //
 body {
   color: $opaque-black-54;
-  font: $font-stack-sans;
-  font-size: 14px;
-  line-height: 1.42;
+  font: $font-body-2;
 
   // Wrapping
   // TODO: Refine this so it only applies to elements with user-generated content 2017-4-18 CGB
