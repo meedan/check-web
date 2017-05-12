@@ -155,8 +155,11 @@
   color: $black-87;
   font-weight: 500;
 
-  &:focus { outline: none; }
-  @include input-placeholder {
+  &:focus {
+    outline: none;
+  }
+
+  &::placeholder {
     color: $black-38;
     font-weight: 400;
   }

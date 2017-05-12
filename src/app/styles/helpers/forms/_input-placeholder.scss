@@ -1,7 +1,0 @@
-// TODO I think this is handled by Autoprefixer, can we remove it? CGB 2017-2-12
-@mixin input-placeholder {
-  &::-webkit-input-placeholder {@content}
-  &:-moz-placeholder           {@content}
-  &::-moz-placeholder          {@content}
-  &:-ms-input-placeholder      {@content}
-}
