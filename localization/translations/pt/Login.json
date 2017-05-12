@@ -1,0 +1,20 @@
+{
+  "login.nameInputHint": "Seu nome",
+  "login.emailInputHint": "Endereço de e-mail",
+  "login.passwordInputHint": "Senha",
+  "login.passwordConfirmInputHint": "Confirmar senha",
+  "login.title": "Entrar",
+  "login.registerTitle": "Registo",
+  "login.nameLabel": "Seu nome",
+  "login.emailLabel": "Endereço de e-mail",
+  "login.passwordLabel": "Senha (mínimo de 8 caracteres)",
+  "login.passwordConfirmLabel": "Confirmar senha",
+  "login.signIn": "ENTRAR",
+  "login.signUp": "REGISTRAR",
+  "loginEmail.lostPassword": "Esqueci a senha",
+  "login.with": "Entrar com {provider}",
+  "login.disclaimer": "Nós não vamos publicar sem a sua permissão",
+  "login.newAccount": "Criar uma nova conta com e-mail",
+  "login.alreadyHasAccount": "Já tenho uma conta",
+  "login.return": "Voltar para login com e-mail"
+}
