@@ -16,7 +16,7 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
           overridden,
           embed,
           log,
-          annotations_count
+          log_count
         }
         project {
           project_medias

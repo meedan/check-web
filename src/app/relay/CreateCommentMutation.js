@@ -15,7 +15,7 @@ class CreateCommentMutation extends Relay.Mutation {
       query = Relay.QL`fragment on CreateCommentPayload { commentEdge, source { annotations } }`;
       break;
     case 'project_media':
-      query = Relay.QL`fragment on CreateCommentPayload { commentEdge, project_media { log, annotations_count } }`;
+      query = Relay.QL`fragment on CreateCommentPayload { commentEdge, project_media { log, log_count } }`;
       break;
     }
     return query;
@@ -43,7 +43,7 @@ class CreateCommentMutation extends Relay.Mutation {
 
   getVariables() {
     const comment = this.props.annotation;
-    return { text: comment.text, annotated_id: `${comment.annotated_id}`, annotated_type: comment.annotated_type };
+    return { text: comment.text, annotated_id: `${comment.annotated_id}`, annotated_type: comment.log_count };
   }
 
   getFiles() {
