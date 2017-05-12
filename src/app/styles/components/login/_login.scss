@@ -1,0 +1,56 @@
+.login {
+  @include fade-in;
+  text-align: center;
+}
+
+.login__form {
+  @include box-shadow(1);
+  background-color: $white;
+  padding: units(10) units(15) units(7);
+
+  @media all and (max-width: $layout-mobile-breakpoint) {
+    padding: units(4) units(2);
+  }
+}
+
+.login__name,
+.login__email,
+.login__password,
+.login__password-confirmation {
+  margin-bottom: units(4);
+  display: flex;
+  flex-direction: column;
+
+  &-label {
+    order: 1;
+    display: block;
+    opacity: 0;
+    transition: color 200ms ease, opacity 50ms ease;
+    text-align: $from-direction;
+    font: $font-body-1;
+
+    &--text-entered {
+      opacity: 1;
+    }
+  }
+
+  &-input {
+    @include text-input;
+  }
+}
+
+.login__submit {
+  @include button-medium;
+  @include button-primary;
+  display: block;
+  margin: units(8) auto units(1);
+}
+
+.login__forgot-password a {
+  text-align: center;
+  display: block;
+  margin: 0 auto;
+  padding: units(1);
+  font: $font-body-2;
+  color: $black-54;
+}

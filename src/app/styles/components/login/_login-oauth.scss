@@ -1,0 +1,82 @@
+$facebook-blue: #3b5999;
+$twitter-blue: #0095ff;
+$google-orange: #db4437;
+$slack-green: #2ab27b;
+
+$providers: (twitter: $twitter-blue, facebook: $facebook-blue, google: $google-orange, slack: $slack-green, email: $black-54);
+
+// The list of oAuth login cards
+//
+.login__oauth-list {
+  padding: units(2) 0;
+
+  @media all and (min-width: $layout-mobile-breakpoint) {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+  }
+}
+
+// oAuth login buttons
+.login__button {
+  @include box-shadow(1);
+  width: units(40);
+  transition: background-color 400ms ease;
+  padding: units(1) units(3);
+  padding-#{$to-direction}: units(2);
+  background-color: $white;
+  display: flex;
+  flex-flow: column nowrap;
+  margin: units(1) 0;
+
+  @media all and (max-width: $layout-mobile-breakpoint) {
+    width: 100%;
+  }
+
+  span {
+    display: flex;
+  }
+
+  // The disclaimer
+  & > span:last-of-type {
+    margin-#{$from-direction}: units(5);
+    font: $font-caption;
+    color: $black-38;
+  }
+
+  svg {
+    width: units(3);
+    height: units(3);
+  }
+}
+
+@each $provider-name, $provider-color in $providers {
+  .login__button--#{$provider-name} {
+
+    &:hover {
+      .login__link {
+        color: darken($check-blue, 10%);
+        transition: color $transition-speed-default ease-in-out;
+      }
+
+      svg path {
+        fill: darken(saturate($provider-color, 10%), 10%);
+        transition: fill $transition-speed-default ease-in-out;
+      }
+    }
+
+    .login__link {
+      color: $check-blue;
+      font: $font-body-2;
+      font-weight: 500;
+    }
+
+    svg {
+      margin-#{$to-direction}: units(2);
+
+      path {
+        fill: $provider-color;
+      }
+    }
+  }
+}

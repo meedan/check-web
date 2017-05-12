@@ -1,109 +1,14 @@
-// Colors
-//
-// This file contains colors which are used in more than one place. If colors are specific to a component, they live in that component's stylesheet. 
-
-// Basic colors
-$white: #fff;
-$black: #000;
-$alert-red: #d0021b;
-$check-blue: #2e77fc;
-
-// Modals
-$midnight-blue-90: rgba(0, 15, 41, .9);
-
-// Material blacks
-//
-$black-87: rgba(0, 0, 0, .87);
-$black-54: rgba(0, 0, 0, .54);
-$black-38: rgba(0, 0, 0, .38);
-$black-32: rgba(0, 0, 0, .32);
-$black-16: rgba(0, 0, 0, .16);
-$black-05: rgba(0, 0, 0, .05);
-$black-02: rgba(0, 0, 0, .02);
-
-// Material blacks, translated to opaque versions
-//
-$opaque-black-87: #212121;
-$opaque-black-54: #757575;
-$opaque-black-38: #9e9e9e;
-$opaque-black-16: #d6d6d6;
-$opaque-black-05: #f2f2f2;
-$opaque-black-02: #fafafa;
-
-// Layout 
+// Layout misc
+// DEPRECATED
 //
 $layout-border-color: $black-16;
 $layout-border: 1px solid $layout-border-color;
-$layout-border-light: 1px solid $black-05;
 $layout-header-height: 48px;
 $layout-padding: 16px;
 $layout-sidebar-width: 245px;
-
-
-// TODO replace variables below with Breakpoints as a map like this
-// $breakpoints: (
-// layout-column-width-narrow: 784px,
-// layout-column-width-wide: 1200px + (2 * 8px),
-// layout-mobile-breakpoint-smallest: 320px,
-// layout-mobile-breakpoint-small: 450px,
-// layout-mobile-breakpoint: 680px,
-// layout-tablet-breakpoint: layout-column-width-narrow,
-// layout-widescreen-breakpoint: layout-column-width-wide,
-// );
-
-// Columns and breakpoint variables
-//
-$layout-column-width-narrow: 784px;
-$layout-column-width-wide: 1200px + (2 * 8px);
-$layout-mobile-breakpoint-smallest: 320px;
-$layout-mobile-breakpoint-small: 450px;
-$layout-mobile-breakpoint: 680px;
-$layout-tablet-breakpoint: $layout-column-width-narrow;
-$layout-widescreen-breakpoint: $layout-column-width-wide;
 
 // Direction — overridden in the RTL stylesheet
 $from-direction: left !default;
 $to-direction: right !default;
 
 $transition-speed-default: 250ms;
-
-// Basic grid unit
-//
-$unit-size: 8px; // .5em
-
-// Map of units based on base grid unit size
-//
-$grid-unit-size-map: (
-  half: $unit-size * .5,  // 4px or .25em
-  1:    $unit-size,       // 8px or .5em
-  2:    $unit-size * 2,   // 16px or 1em
-  3:    $unit-size * 3,   // 24px or 1.5em
-  4:    $unit-size * 4,   // 32px or 2em
-  5:    $unit-size * 5,   // 40px or 2.5em
-  6:    $unit-size * 6,   // 48px or 3em
-  7:    $unit-size * 7,   // 56px or 3.5em
-  8:    $unit-size * 8,   // 64px or 4em
-  9:    $unit-size * 9,   // 72px or 4.5em
-  10:   $unit-size * 10,  // 80px or 5em
-  12:   $unit-size * 12,  // 96px or 6em
-  15:   $unit-size * 15,  // 120px or 7.5em
-  18:   $unit-size * 18,  // 144px or 9em
-  24:   $unit-size * 24,  // 192px or 12em
-  30:   $unit-size * 30,  // 240px or 15em
-  35:   $unit-size * 35,  // 280px or 17.5em
-  40:   $unit-size * 40,  // 320px or 20em
-  50:   $unit-size * 50,  // 400px or 25em
-  70:   $unit-size * 70,  // 560px or 35em
-  80:   $unit-size * 80,  // 640px or 40em
-  90:   $unit-size * 90,  // 720px or 45em
-  100:  $unit-size * 100, // 800px or 50em
-  112:  $unit-size * 112, // 896px or 56em
-);
-
-// Helper for accessing the grid unit map
-//
-@function units($unit-size) {
-  @if map-has-key($grid-unit-size-map, $unit-size) {
-    @return map-get($grid-unit-size-map, $unit-size);
-  }
-}
