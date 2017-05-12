@@ -35,6 +35,7 @@ $home-content-padding: 23px;
     text-transform: uppercase;
     letter-spacing: .02em;
     position: absolute;
+    line-height: 12px;
     #{$to-direction}: 109px;
 
     @media all and (max-width: $layout-mobile-breakpoint) {

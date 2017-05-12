@@ -1,5 +1,6 @@
 .login {
   @include fade-in;
+
   text-align: center;
 
   & > p {
@@ -10,10 +11,12 @@
 
 .login__form {
   @include box-shadow(1);
+
   background-color: $white;
-  padding: 80px 120px 52px;
+  padding: units(10) units(15) units(7);
+
   @media all and (max-width: $layout-mobile-breakpoint) {
-    padding: 32px 16px;
+    padding: units(4) units(2);
   }
 }
 
@@ -21,7 +24,7 @@
 .login__email,
 .login__password,
 .login__password-confirmation {
-  margin-bottom: 30px;
+  margin-bottom: units(4);
   display: flex;
   flex-direction: column;
 }
@@ -31,6 +34,7 @@
 .login__password-input,
 .login__password-confirmation-input {
   @include text-input;
+
   width: 100%;
 }
 
@@ -42,7 +46,7 @@
   display: block;
   opacity: 0;
   transition: color 200ms ease, opacity 50ms ease;
-  text-align: left;
+  text-align: $from-direction;
   font: $font-caption;
 
   &--text-entered {
@@ -53,16 +57,17 @@
 .login__submit {
   @include button-medium;
   @include button-primary;
+
   display: block;
-  margin: 60px auto 10px;
-  width: 120px;
+  margin: units(8) auto units(1);
+  width: units(15);
 }
 
 .login__forgot-password a {
   text-align: center;
   display: block;
   margin: 0 auto;
-  padding: 8px;
+  padding: units(1);
   font: $font-body-2;
   color: $black-54;
 }
@@ -71,7 +76,7 @@
 .login__cancel,
 .login__help-text {
   text-align: center;
-  margin: 0 0 17px;
+  margin: 0 0 units(2);
   width: 100%;
 }
 
@@ -89,7 +94,7 @@
 .upload-file > div {
   width: 100% !important;
   height: auto !important;
-  padding: 25px 8px !important;
+  padding: units(3) units(1) !important;
   border: 1px dashed $black-38 !important;
   color: $black-38 !important;
   text-align: center;
@@ -102,7 +107,7 @@
 
 .upload-file {
   width: 100%;
-  margin: 10px 0;
+  margin: units(1) 0;
 
   br {
     clear: both;
@@ -116,7 +121,7 @@
   background-position: center center;
   background-repeat: no-repeat;
   background-size: contain;
-  height: 71px;
+  height: units(9);
   padding: 0;
   margin: 0;
   border: 1px solid $black-38;
@@ -136,7 +141,8 @@
 // The list of oAuth login cards
 //
 .login__oauth-list {
-  padding: 16px 0;
+  padding: units(2) 0;
+
   @media all and (min-width: $layout-mobile-breakpoint) {
     display: flex;
     flex-flow: row wrap;
@@ -146,17 +152,19 @@
 
 .login__button {
   @include box-shadow(1);
-  width: 320px;
-  @media all and (max-width: $layout-mobile-breakpoint) {
-    width: 100%;
-  }
+
+  width: units(40);
   transition: background-color 400ms ease;
-  padding: 12px 24px;
+  padding: units(1) units(3);
   padding-#{$to-direction}: 16px;
   background-color: $white;
   display: flex;
   flex-flow: column nowrap;
-  margin: 8px 0;
+  margin: units(1) 0;
+
+  @media all and (max-width: $layout-mobile-breakpoint) {
+    width: 100%;
+  }
 
   span {
     display: flex;
@@ -170,8 +178,8 @@
   }
 
   svg {
-    width: 24px;
-    height: 24px;
+    width: units(3);
+    height: units(3);
   }
 }
 
@@ -180,18 +188,12 @@ $twitter-blue: #0095ff;
 $google-orange: #db4437;
 $slack-green: #2ab27b;
 
-$providers: (
-  twitter: $twitter-blue,
-  facebook: $facebook-blue,
-  google: $google-orange,
-  slack: $slack-green,
-  email: $black-54
-);
+$providers: (twitter: $twitter-blue, facebook: $facebook-blue, google: $google-orange, slack: $slack-green, email: $black-54);
 
 @each $provider-name, $provider-color in $providers {
   .login__button--#{$provider-name} {
-    &:hover {
 
+    &:hover {
       .login__link {
         color: darken($check-blue, 10%);
         transition: color $transition-speed-default ease-in-out;
@@ -210,7 +212,7 @@ $providers: (
     }
 
     svg {
-      margin-#{$to-direction}: 16px;
+      margin-#{$to-direction}: units(2);
 
       path {
         fill: $provider-color;
