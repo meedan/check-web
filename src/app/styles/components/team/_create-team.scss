@@ -8,8 +8,8 @@
 }
 
 .create-team__blurb {
-  @include onboarding-blurb;
   text-align: center;
+  margin-bottom: units(4);
 }
 
 .create-team__form {
@@ -18,7 +18,7 @@
 }
 
 .create-team__team-display-name {
-  margin-bottom: 30px;
+  margin-bottom: units(4);
   display: flex;
   flex-direction: column;
 }
@@ -29,10 +29,9 @@
 }
 
 .create-team__team-url {
-  margin-bottom: 30px;
+  margin-bottom: units(4);
   display: flex;
   align-items: flex-end;
-
 }
 
 .create-team__team-slug {
@@ -70,8 +69,8 @@
 
 .create-team__team-slug-message {
   order: 3;
-  margin: 7px 0 0;
-  height: 16px;
+  margin: units(1) 0 0;
+  height: units(2);
   font-weight: 500;
   text-align: center;
   width: 100%;
@@ -80,6 +79,7 @@
 
 .create-team__submit-button {
   @include button-large;
+  @include button-primary;
   display: block;
   margin: 0 auto;
   transition: background-color 150ms ease, opacity 150ms ease;
@@ -87,6 +87,5 @@
 
   &:not(:disabled) {
     opacity: 1;
-    background-color: rgb(71, 207, 152);
   }
 }

@@ -5,10 +5,6 @@
   width: 100%;
 }
 
-.team-members__main-heading {
-  @include app-heading;
-}
-
 // edit buttons
 .team-members__edit-button {
   @include button-small;
@@ -35,7 +31,7 @@
 
 // blurb
 .team-members__blurb {
-  @include app-blurb;
+  margin-bottom: units(4);
   text-align: center;
 }
 
@@ -53,9 +49,7 @@
 }
 
 .team-membership-requests__heading {
-  @include app-kicker;
   text-align: center;
-  color: $check-blue;
 }
 
 .team-membership-requests__heading-parens {

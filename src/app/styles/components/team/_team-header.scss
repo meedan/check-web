@@ -30,6 +30,5 @@
 }
 
 .team-header__name {
-  @include header-title;
   @extend %ellipsis;
 }

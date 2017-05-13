@@ -13,61 +13,19 @@ $font-body-2: 400 14px unquote('/') 24px $font-stack-sans;
 $font-body-1: 400 14px unquote('/') 20px $font-stack-sans;
 $font-caption: 400 12px unquote('/') 16px $font-stack-sans;
 
-@mixin onboarding-heading {
-  margin: 25px 0 20px;
-  font-size: 34px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: .035em;
-  color: $check-blue;
+h1 {
+  font: $font-display-1;
 }
 
-@mixin onboarding-blurb {
-  font-size: 17px;
-  color: $black-87;
-  margin-bottom: 30px;
-  line-height: 1.45;
-}
-
-@mixin app-heading {
-  @include onboarding-heading;
+h1.heading {
   text-align: center;
-}
-
-@mixin app-blurb {
-  @include onboarding-blurb;
-}
-
-@mixin header-title($size: 16px) {
-  font-weight: 400;
-  font-size: $size;
-  margin: 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-
-  &,
-  & > a,
-  & > a:visited {
-    color: $black-87;
-  }
-}
-
-@mixin app-kicker($size: 14px) {
-  font-size: $size;
-  text-transform: uppercase;
-  font-weight: 500;
-}
-
-@mixin team-name($size: 17px) {
-  font-size: $size;
 }
 
 // Default typography
 //
 body {
   color: $opaque-black-54;
-  font: $font-body-2;
+  font: $font-body-1;
 
   // Wrapping
   // TODO: Refine this so it only applies to elements with user-generated content 2017-4-18 CGB

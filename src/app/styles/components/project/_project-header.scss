@@ -13,6 +13,7 @@
     border-radius: 2px;
     display: inline;
     vertical-align: middle;
+    color: $black-54;
 
     &:hover {
       background-color: $black-05;
@@ -22,7 +23,7 @@
 }
 
 .project-header__back-button {
-  $_size: 23px;
+  $back-button-size: units(3);
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -33,8 +34,8 @@
   transition: opacity 200ms ease, width 200ms ease, margin 200ms ease;
 
   & > svg {
-    height: $_size;
-    width: $_size;
+    height: $back-button-size;
+    width: $back-button-size;
   }
 
   &,
@@ -47,9 +48,9 @@
   }
 
   &--displayed {
-    width: $_size;
+    width: $back-button-size;
     opacity: 1;
-    margin-#{$to-direction}: 8px;
+    margin-#{$to-direction}: units(1);
   }
 }
 
@@ -60,18 +61,12 @@
   cursor: pointer;
 }
 
-.project-header__title {
-  @include header-title;
-}
-
 .project-header__caret {
-  @include header-title;
-  font-size: 16px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   height: 100%;
-  padding: 4px;
+  padding: units(half);
   opacity: .4;
   transition: opacity 100ms ease;
 }

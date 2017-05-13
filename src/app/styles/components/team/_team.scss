@@ -51,12 +51,6 @@
   padding-top: 9px;
 }
 
-.team__name,
-.team__name-input,
-.team__name-link {
-  @include team-name(21px);
-}
-
 .team__name {
   margin: 1px 0;
 }
@@ -80,13 +74,14 @@
 }
 
 .team__description {
-  margin: 0 0 5px;
+  margin: 0 0 units(1);
 }
 
 .team__description-text {
   margin: 0;
   padding: 5px 0;
   color: inherit;
+  text-align: $from-direction;
 }
 
 .team__description-input {
@@ -123,7 +118,7 @@
 
 // projects
 .team__projects-heading {
-  @include app-kicker;
+  text-transform: uppercase;
   margin: 0;
 }
 

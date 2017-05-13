@@ -21,7 +21,7 @@ $providers: (twitter: $twitter-blue, facebook: $facebook-blue, google: $google-o
 .login__button {
   @include box-shadow(1);
   width: units(40);
-  transition: background-color 400ms ease;
+  transition: background-color $transition-speed-default ease;
   padding: units(1) units(3);
   padding-#{$to-direction}: units(2);
   background-color: $white;

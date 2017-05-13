@@ -137,7 +137,9 @@
 
   // non-comments
   .annotation__status {
-    @include app-kicker(12px);
+    font: $font-caption;
+    text-transform: uppercase;
+    font-weight: 500;
     @include media-status-font-colors;
     margin-#{$from-direction}: 3px;
     margin-#{$to-direction}: 2px;

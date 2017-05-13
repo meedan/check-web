@@ -16,15 +16,14 @@
   align-items: center;
 
   img {
-    width: 64px;
-    height: 28px;
+    width: units(8);
   }
 }
 
 .header__team {
   display: flex;
   overflow: hidden;
-  min-width: 48px;
+  min-width: units(6);
 }
 
 .header__breadcrumb {

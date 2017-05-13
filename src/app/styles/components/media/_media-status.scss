@@ -31,7 +31,8 @@ $menu-status-offset: 5px;
 }
 
 .media-status__label {
-  @include app-kicker(14px);
+  text-transform: uppercase;
+  font-weight: 500;
 
   &--current {
     height: 24px;
