@@ -7,7 +7,6 @@
 
 .header-actions__search-icon {
   @extend %icon;
-  color: $black-54;
 }
 
 .header-actions__menu-toggle {
@@ -16,7 +15,6 @@
   position: relative;
   z-index: 1;
   cursor: pointer;
-  color: $black-54;
 }
 
 .header-actions__menu-overlay {
@@ -25,7 +23,7 @@
 
 .header-actions__menu {
   @include app-menu;
-  #{$to-direction}: 16px;
+  #{$to-direction}: units(2);
   top: 44px;
 }
 

@@ -2,11 +2,10 @@
   text-align: center;
   color: $opaque-black-38;
   margin: 32px 0;
-  font-style: normal;
-  font-size: 12px;
+  font: $font-caption;
 
   span {
-    margin: 10px 0;
+    margin: units(1) 0;
     display: inline-block;
 
     i {

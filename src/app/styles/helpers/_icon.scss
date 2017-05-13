@@ -1,18 +1,18 @@
 %icon {
   cursor: pointer;
-  width: 32px;
-  height: 32px;
+  width: units(4);
+  height: units(4);
   padding: 6px;
-  margin-#{$to-direction}: 16px;
-  border-radius: 24px;
+  margin-#{$to-direction}: units(2);
+  border-radius: units(3);
   background-color: transparent;
+  color: $black-54;
 
   path {
     transition: color .2s;
   }
 
   &:hover {
-
     path {
       color: $black-87;
       transition: color .4s;

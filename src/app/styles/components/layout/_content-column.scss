@@ -2,7 +2,7 @@
   width: 100%;
   max-width: $layout-column-width-narrow;
   margin: 0 auto;
-  padding: 0 8px;
+  padding: 0 units(1);
 
   &--flex {
     display: flex;
