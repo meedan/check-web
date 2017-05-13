@@ -15,7 +15,7 @@ class UpdateDynamicMutation extends Relay.Mutation {
         tasks,
         log,
         id,
-        annotations_count,
+        log_count,
         field_value(annotation_type_field_name: "translation_status:translation_status_status"),
         translation_status: annotation(annotation_type: "translation_status")
       }

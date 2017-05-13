@@ -485,7 +485,7 @@ const SearchResultsContainer = Relay.createContainer(injectIntl(SearchResultsCom
               quote,
               published,
               embed,
-              annotations_count,
+              log_count,
               verification_statuses,
               translation_statuses,
               overridden,
