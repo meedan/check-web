@@ -2,10 +2,11 @@
   border-radius: 4px;
   min-height: none;
   overflow-x: hidden;
-  margin-#{$to-direction}: 24px;
+  margin-#{$to-direction}: units(3);
 }
 
 .quote-media-card__body-text {
+  padding-top: units(2);
   font-size: 24px;
   font-weight: 100;
   margin-bottom: 15px;
@@ -30,6 +31,6 @@
 }
 
 .quote-media-card__attribution-name {
-  font-size: 16px;
+  font-size: units(2);
   max-width: 300px;
 }

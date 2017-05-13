@@ -1,5 +1,10 @@
+// Buttons 
+// TODO review and sync with material design style 
+// Should we just use the Button component? 
+// — CGB 2017-3-12
+
 // elements that should semantically be <button> but not look like buttons
-//
+// 
 @mixin unbutton {
   cursor: pointer;
   border: 0;
@@ -19,24 +24,11 @@
   font-family: $font-stack-sans;
   background-color: $black-38;
   font-size: inherit;
-  border-radius: 3px;
+  border-radius: $border-radius-default;
   color: $white;
 
   &:disabled {
     cursor: not-allowed;
-  }
-}
-
-@mixin button-xsmall {
-  @include button-standard;
-  height: 30px;
-  padding-#{$from-direction}: 14px;
-  padding-#{$to-direction}: 14px;
-
-  @media screen and (max-width: 500px) {
-    height: 30px;
-    padding-#{$from-direction}: 8px;
-    padding-#{$to-direction}: 8px;
   }
 }
 
@@ -45,8 +37,8 @@
   height: 36px;
   font-size: 16px;
   margin-bottom: 8px;
-  padding-#{$from-direction}: 15px;
-  padding-#{$to-direction}: 15px;
+  padding-#{$from-direction}: units(2);
+  padding-#{$to-direction}: units(2);
 }
 
 @mixin button-medium {

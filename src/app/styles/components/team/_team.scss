@@ -1,5 +1,5 @@
 .team {
-  padding: 15px 0;
+  padding: units(2) 0;
   width: 100%;
   margin: 0 auto;
 }
@@ -10,6 +10,10 @@
 
 // edit profile
 .team__edit-profile {
+  @include when-smaller-than(mobile-breakpoint) {
+    position: static;
+  }
+
   position: absolute;
   top: 0;
   #{$to-direction}: 0;
@@ -19,19 +23,13 @@
 .team__cancel-button,
 .team__save-button {
   @include button-medium;
-  margin-#{$from-direction}: 10px;
-
-  @media screen and (max-width: 680px) {
-    display: none;
-  }
+  margin-#{$to-direction}: units(1);
 }
 
 .team__edit-icon {
-  font-size: 20px;
-  opacity: .8;
-  margin-#{$to-direction}: 8px;
+  width: units(2);
+  margin-#{$to-direction}: units(1);
   display: inline-block;
-  position: relative;
   vertical-align: top;
 }
 
@@ -40,19 +38,15 @@
 }
 
 // profile
-
 .team__avatar {
-  @include avatar(100px);
+  @include avatar(units(12));
   float: #{$from-direction};
-  margin-#{$to-direction}: 15px;
-}
-
-.team__avatar + div { // TODO: add .team__copy class to markup
-  padding-top: 9px;
+  margin-#{$to-direction}: units(2);
 }
 
 .team__name {
   margin: 1px 0;
+  text-align: $from-direction;
 }
 
 .team__name-link {
@@ -62,15 +56,9 @@
 
 .team__name-input,
 .team__description-input {
-  border: 1px solid $black-05;
-  border-radius: 2px;
-  padding: 4px;
-  box-shadow: inset 0 0 2px 0 $black-02;
-}
-
-.team__description,
-.team__description-input {
-  font-size: 16px;
+  @include text-input;
+  margin-bottom: units(2);
+  width: units(45);
 }
 
 .team__description {
@@ -79,28 +67,42 @@
 
 .team__description-text {
   margin: 0;
-  padding: 5px 0;
+  padding: units(half) 0;
   color: inherit;
   text-align: $from-direction;
-}
-
-.team__description-input {
-  font-family: $font-stack-sans;
-  width: 50%;
 }
 
 .team__location,
 .team__link,
 .team__add-link,
-.team__phone {
-  margin-#{$to-direction}: 15px;
+.team__phone,
+.team__web {
+
+  @include when-smaller-than(mobile-breakpoint) {
+    width: 100%;
+  }
+
+  > span {
+    display: flex;
+  }
+
+  input {
+    @include text-input;
+    @include when-smaller-than(mobile-breakpoint) {
+      width: 100%;
+    }
+    margin: units(2);
+    margin-#{$from-direction}: 0;
+    font: $font-caption;
+  }
 }
 
 .team__location-icon,
 .team__link-icon,
 .team__add-link-icon,
 .team__phone-icon {
-  margin-#{$to-direction}: 4px;
+  margin-#{$to-direction}: units(1);
+  align-self: center;
 }
 
 .team__add-link {
@@ -110,10 +112,55 @@
   padding: 0;
 }
 
+.team__settings {
+  margin-top: units(3);
+
+  label {
+    margin-#{$to-direction}: units(2);
+  }
+
+  input[type='text'] {
+    @include text-input;
+    @include when-smaller-than(mobile-breakpoint) {
+      display: block;
+      width: units(24);
+      margin: units(2);
+    }
+
+    font: $font-caption;
+    margin-#{$from-direction}: units(2);
+    margin-#{$to-direction}: units(2);
+  }
+}
+
+#team__settings-slack-notifications-enabled {
+  & ~ label {
+    font: $font-caption;
+    margin-#{$from-direction}: units(1);
+  }
+}
+
+.team__contact-info {
+  display: flex;
+  flex-flow: wrap row;
+
+  .team__link {
+    order: 1;
+  }
+
+  .team__location {
+    order: 2;
+  }
+
+  .team__phone {
+    order: 3;
+  }
+}
+
 // content
 .team__content {
   clear: #{$from-direction};
-  padding-top: 30px;
+  padding-top: units(8);
 }
 
 // projects
@@ -123,12 +170,11 @@
 }
 
 .team__projects-list {
-  margin: 15px auto;
+  margin: units(2) auto;
   color: $black-38;
-  line-height: 1.45;
 
   & > :last-child {
-    padding-bottom: 45px;
+    padding-bottom: units(6);
   }
 
   & > :only-child {
@@ -139,8 +185,7 @@
 
 .team__project,
 .team__new-project {
-  font-size: 18px;
-  padding: .4em 0;
+  font: $font-subheading-2;
 }
 
 .team__new-project-input {
@@ -168,44 +213,5 @@
 
   &:hover {
     color: $black-87;
-  }
-}
-
-.team__settings {
-  text-align: center;
-  margin-top: 20px;
-
-  label {
-    margin-#{$to-direction}: 14px;
-  }
-
-  input[type='text'] {
-    margin: 0 16px;
-  }
-}
-
-// hack
-.team__contact-info {
-  display: flex;
-
-  .team__link {
-    order: 1;
-  }
-
-  .team__location {
-    order: 2;
-  }
-
-  .team__phone {
-    order: 3;
-  }
-
-  @media screen and (max-width: 680px) {
-    .team__location-icon,
-    .team__link-icon,
-    .team__add-link-icon,
-    .team__phone-icon {
-      display: none;
-    }
   }
 }

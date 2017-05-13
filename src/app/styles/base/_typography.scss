@@ -12,12 +12,10 @@ $font-subheading-1: 400 20px unquote('/') 28px $font-stack-sans;
 $font-body-2: 400 14px unquote('/') 24px $font-stack-sans;
 $font-body-1: 400 14px unquote('/') 20px $font-stack-sans;
 $font-caption: 400 12px unquote('/') 16px $font-stack-sans;
+$font-tiny: 400 8px unquote('/') 12px $font-stack-sans;
 
 h1 {
   font: $font-display-1;
-}
-
-h1.heading {
   text-align: center;
 }
 

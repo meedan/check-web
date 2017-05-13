@@ -10,14 +10,14 @@
 
   &__title {
     @extend %ellipsis;
-    border-radius: 2px;
+    border-radius: $border-radius-default;
     display: inline;
     vertical-align: middle;
     color: $black-54;
 
     &:hover {
       background-color: $black-05;
-      transition: background-color 250ms;
+      transition: background-color $transition-speed-default;
     }
   }
 }
@@ -31,7 +31,7 @@
   width: 0;
   opacity: 0;
   margin-#{$to-direction}: 0;
-  transition: opacity 200ms ease, width 200ms ease, margin 200ms ease;
+  transition: opacity $transition-speed-default ease, width $transition-speed-default ease, margin $transition-speed-default ease;
 
   & > svg {
     height: $back-button-size;
@@ -68,7 +68,7 @@
   height: 100%;
   padding: units(half);
   opacity: .4;
-  transition: opacity 100ms ease;
+  transition: opacity $transition-speed-fast ease;
 }
 
 .project-header__menu-toggle-label:hover .project-header__caret {

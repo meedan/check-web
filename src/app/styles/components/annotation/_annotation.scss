@@ -1,17 +1,17 @@
 .annotation {
-  padding: 12px 0;
+  padding: units(1) 0;
   display: flex;
   position: relative;
 
   .annotation__default {
-    padding-#{$from-direction}: 80px;
-    font-size: 12px;
+    padding-#{$from-direction}: units(10);
+    font: $font-caption;
     color: $black-87;
     display: flex;
-    max-width: 704px;
+    max-width: units(90);
 
     &-content {
-      margin-#{$to-direction}: 16px;
+      margin-#{$to-direction}: units(2);
       display: block;
     }
 
@@ -22,13 +22,13 @@
 
     .menu-button {
       color: $black-38;
-      margin-#{$to-direction}: 12px;
+      margin-#{$to-direction}: units(1);
     }
   }
 
   .annotation__card {
     width: 100%;
-    max-width: 704px;
+    max-width: units(90);
     z-index: initial !important;
 
     & > div {
@@ -42,15 +42,15 @@
 
   .annotation__card-text {
     display: flex;
-    padding: 24px 24px 0 !important;
+    padding: units(3) units(3) 0 !important;
   }
 
   .annotation__card-avatar-col {
-    margin-#{$to-direction}: 24px;
+    margin-#{$to-direction}: units(3);
   }
 
   .annotation__card-avatar {
-    $width: 32px;
+    $width: units(4);
     @include user-avatar($width);
   }
 
@@ -59,7 +59,6 @@
   }
 
   .annotation__card-content {
-    font-size: 14px;
     width: 100%;
     display: flex;
 
@@ -70,33 +69,32 @@
 
   .annotation__card-thumbnail {
     float: $to-direction;
-    padding: 8px;
+    padding: units(1);
   }
 
   .annotation__card-footer {
     flex: 1;
-    padding-#{$to-direction}: 12px;
+    padding-#{$to-direction}: units(1);
     // see also .media-detail__check-metadata
     align-items: center;
     border-top: 1px solid $black-05;
     display: flex;
     flex-flow: wrap row;
-    margin-top: 24px;
+    margin-top: units(3);
     height: 44px;
-    font-size: 12px;
+    font: $font-caption;
     color: $black-54;
   }
 
   .annotation__card-footer-text {
-    margin-#{$to-direction}: 12px;
+    margin-#{$to-direction}: units(1);
     flex: 1;
   }
 
   .annotation__card-author {
-    font-size: 14px;
     font-weight: 500;
     color: $black-87;
-    margin-#{$to-direction}: 12px;
+    margin-#{$to-direction}: units(1);
   }
 
   .annotation__content {
@@ -115,7 +113,7 @@
     white-space: pre;
     color: $black-38;
     display: inline;
-    margin-#{$to-direction}: 12px;
+    margin-#{$to-direction}: units(1);
     flex: 1;
   }
 
@@ -137,10 +135,10 @@
 
   // non-comments
   .annotation__status {
+    @include media-status-font-colors;
     font: $font-caption;
     text-transform: uppercase;
     font-weight: 500;
-    @include media-status-font-colors;
     margin-#{$from-direction}: 3px;
     margin-#{$to-direction}: 2px;
   }
@@ -157,7 +155,7 @@
 }
 
 .annotation__comment {
-  margin-top: 5px;
+  margin-top: units(half);
 
   .annotation__comment-text {
     float: #{$from-direction};
@@ -166,7 +164,7 @@
 
   img {
     max-width: 20%;
-    min-width: 50px;
+    min-width: units(6);
     float: $to-direction;
     cursor: zoom-in;
   }
@@ -198,11 +196,12 @@
     }
   }
 
+  // TODO consider consolidating this with the login image upload styles. CGB 2017-3-12
   .preview {
     background-position: center center;
     background-repeat: no-repeat;
     background-size: contain;
-    height: 300px;
+    height: units(38);
     padding: 0;
     margin: 0;
     border: 1px solid $black-38;
@@ -221,7 +220,7 @@
 
   .upload-file {
     cursor: pointer;
-    margin: 0 0 7px;
+    margin: 0 0 units(1);
   }
 
   .upload-file > div.with-file {
@@ -232,12 +231,12 @@
 
   .upload-file > div {
     padding: 0 !important;
-    height: 148px !important;
+    height: units(18) !important;
     display: flex;
     justify-content: center;
     align-items: center;
     border-width: 3px;
-    border-radius: 8px;
+    border-radius: $border-radius-large;
 
     &:hover {
       border-color: $check-blue !important;
@@ -250,10 +249,10 @@
   font-weight: bold;
   cursor: pointer;
   display: inline-block;
-  margin: 0 10px;
+  margin: 0 units(1);
 }
 
 .annotation__card-embedded-medias {
   clear: both;
-  margin-top: 5px;
+  margin-top: units(half);
 }

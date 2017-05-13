@@ -63,16 +63,16 @@
 }
 
 .media__primary-heading {
-  margin: 0 0 10px;
-  font-size: 24px;
+  margin: 0 0 units(1);
+  font: $font-headline;
   color: $white;
-  font-weight: 500;
+  text-align: $from-direction;
 }
 
 .media__status {
   &,
   .media-status__label--current {
-    margin-bottom: 18px;
+    margin-bottom: units(2);
     color: $black-54;
   }
 
@@ -85,11 +85,10 @@
 .media__tasks-header {
   display: none;
   align-items: baseline;
-  margin-bottom: 16px;
+  margin-bottom: units(1);
 
   h2 {
-    font-size: 20px;
-    font-weight: 500;
+    font: $font-subheading-2;
     color: $black-87;
     margin: 0;
     flex: 1;

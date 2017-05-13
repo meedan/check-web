@@ -2,6 +2,10 @@
   padding: units(2);
 }
 
+.join-team__main-heading {
+	text-align: center;
+}
+
 .join-team__blurb {
   margin-bottom: units(4);
   text-align: center;
@@ -13,6 +17,6 @@
   transition: background-color 600ms ease;
 
   &:not(.join-team__button--submitted) {
-    background-color: red;
+    background-color: $check-blue;
   }
 }

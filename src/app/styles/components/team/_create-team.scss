@@ -43,6 +43,7 @@
 
 .create-team__team-slug-input {
   @include text-input;
+  order: 3;
 }
 
 .create-team__team-display-name-label,

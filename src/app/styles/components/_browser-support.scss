@@ -1,7 +1,7 @@
 .browser-support {
   width: 100%;
   z-index: 6;
-  padding: 16px;
+  padding: units(2);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -19,7 +19,7 @@
 
 .browser-support__close {
   position: absolute;
-  #{$to-direction}: 17px;
+  #{$to-direction}: units(2);
   top: 5px;
   font-weight: 200;
   font-size: 28px;

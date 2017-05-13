@@ -1,4 +1,4 @@
-$home-content-padding: 23px;
+$home-content-padding: units(3);
 
 .home {
   min-height: 100%;
@@ -24,19 +24,18 @@ $home-content-padding: 23px;
   #{$to-direction}: 0;
 
   & > span { // badge
-    font-size: 8px;
     border-radius: 0;
     border-bottom-#{$to-direction}-radius: 3px;
     border-bottom-#{$from-direction}-radius: 3px;
     background-color: $black-38;
     color: $white;
-    padding: 2px 5px 1px;
+    padding: 2px units(half) 1px;
     z-index: 1;
     text-transform: uppercase;
     letter-spacing: .02em;
     position: absolute;
-    line-height: 12px;
-    #{$to-direction}: 109px;
+    font: $font-tiny;
+    #{$to-direction}: units(13);
 
     @media all and (max-width: $layout-mobile-breakpoint) {
       #{$to-direction}: 10%;
