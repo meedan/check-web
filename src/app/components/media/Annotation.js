@@ -293,6 +293,25 @@ class Annotation extends Component {
           />
         </span>);
       }
+      if (object.field_name === 'translation_published') {
+        const published = JSON.parse(object.value);
+        const colors = {
+          twitter: '#4099FF',
+          facebook: '#3b5998'
+        }
+        contentTemplate = [];
+        for (var provider in published) {
+          let name = provider.charAt(0).toUpperCase() + provider.slice(1);
+          let color = colors[provider] || '#333';
+          contentTemplate.push(
+            <span>
+              <FormattedMessage id="annotation.translationPublished" defaultMessage={'Translation published to {link}'}
+                values={{ link: <a style={{ color, fontWeight: 'bold' }} href={published[provider]} target="_blank">{name}</a> }}
+              />
+            </span>
+          );
+        }
+      }
       break;
     case 'create_flag':
       contentTemplate = (<span>
