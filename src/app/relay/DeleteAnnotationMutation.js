@@ -19,7 +19,7 @@ class DeleteAnnotationMutation extends Relay.Mutation {
       query = Relay.QL`fragment on DestroyAnnotationPayload { deletedId, source { annotations, tags } }`;
       break;
     case 'project_media':
-      query = Relay.QL`fragment on DestroyAnnotationPayload { deletedId, project_media { log, tags, tasks, embed, annotations_count, last_status, last_status_obj { id } } }`;
+      query = Relay.QL`fragment on DestroyAnnotationPayload { deletedId, project_media { log, tags, tasks, embed, log_count, last_status, last_status_obj { id } } }`;
       break;
     }
     return query;

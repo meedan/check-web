@@ -15,7 +15,7 @@ describe('<MediaDetail />', () => {
     last_status: 'verified',
     verification_statuses: JSON.stringify({statuses: [{label: 'verified'}]}),
     translation_statuses: JSON.stringify({statuses: [{label: 'translated'}]}),
-    annotations_count: 0,
+    log_count: 0,
     permissions: JSON.stringify({}),
     project_id: 1,
     media: { url: 'http://meedan.com', quote: '' }

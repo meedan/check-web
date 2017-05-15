@@ -385,7 +385,7 @@ class SearchResultsComponent extends Component {
         }
           
         // Notify other users that there is a new report
-        if (content && currentUserId != message.user_id) {
+        if (content && message.class_name === 'media' && currentUserId != message.user_id) {
           let url = window.location.pathname.replace(/(^\/[^\/]+\/project\/[0-9]+).*/, '$1/media/' + message.id);
           Notifier.start(that.props.intl.formatMessage(messages.newReportNotification), content, url, avatar);
         }
@@ -485,7 +485,7 @@ const SearchResultsContainer = Relay.createContainer(injectIntl(SearchResultsCom
               quote,
               published,
               embed,
-              annotations_count,
+              log_count,
               verification_statuses,
               translation_statuses,
               overridden,
