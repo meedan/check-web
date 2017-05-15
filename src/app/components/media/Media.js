@@ -20,7 +20,7 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
         embed,
         last_status,
         field_value(annotation_type_field_name: "translation_status:translation_status_status"),
-        annotations_count,
+        log_count,
         domain,
         permissions,
         project {
@@ -155,7 +155,7 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
                       project_id,
                       last_status,
                       field_value(annotation_type_field_name: "translation_status:translation_status_status"),
-                      annotations_count,
+                      log_count,
                       permissions,
                       verification_statuses,
                       translation_statuses,

@@ -1,0 +1,20 @@
+{
+  "login.nameInputHint": "Votre nom",
+  "login.emailInputHint": "Courriel",
+  "login.passwordInputHint": "Mot de passe",
+  "login.passwordConfirmInputHint": "Confirmation du mot de passe",
+  "login.title": "Connexion",
+  "login.registerTitle": "Enregistrement",
+  "login.nameLabel": "Votre nom",
+  "login.emailLabel": "Courriel",
+  "login.passwordLabel": "Mot de passe (au moins 8 caractères)",
+  "login.passwordConfirmLabel": "Confirmation du mot de passe",
+  "login.signIn": "CONNEXION",
+  "login.signUp": "ENREGISTREMENT",
+  "loginEmail.lostPassword": "Mot de passe oublié",
+  "login.with": "Connexion par {provider}",
+  "login.disclaimer": "Nous ne publierons rien sans votre permission",
+  "login.newAccount": "Créer un nouveau compte par courriel",
+  "login.alreadyHasAccount": "J'ai déjà un compte",
+  "login.return": "Retour à connexion par courriel"
+}

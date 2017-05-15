@@ -3,16 +3,13 @@
   "loginEmail.emailInputHint": "بريدك الإلكتروني",
   "loginEmail.passwordInputHint": "كلمة المرور",
   "loginEmail.passwordConfirmInputHint": "تأكيد كلمة المرور",
-  "login.with": "سجل دخول باستخدام {provider}",
   "loginEmail.nameLabel": "اسمك",
   "loginEmail.emailLabel": "بريدك الإلكتروني",
   "loginEmail.passwordLabel": "كلمة المرور (الحد الأدنى 8 حروف)",
   "loginEmail.passwordConfirmLabel": "تأكيد كلمة المرور",
-  "loginEmail.signIn": "سجل الدخول",
-  "loginEmail.signUp": "انشيء حساب جديد",
+  "loginEmail.signIn": "تسجيل الدخول",
+  "loginEmail.signUp": "تسجيل حساب جديد",
   "loginEmail.lostPassword": "هل نسيت كلمة المرور؟",
   "loginEmail.alreadyHasAccount": "لدي حساب بالفعل",
-  "loginEmail.newAccount": "انشيء حساب جديد",
-  "login.email.cancel": "سجل دخول باستخدام Twitter أو Slack أو Facebook",
-  "login.trouble": "لم تتمكن من تسجيل الدخول؟ من فضلك أرسل لنا على {email} للمساعدة"
+  "loginEmail.newAccount": "تسجيل حساب جديد بالبريد الإلكتروني"
 }

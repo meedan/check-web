@@ -184,7 +184,7 @@ const MediaUtil = {
 
   // Return a text fragment "X notes" with proper pluralization.
   notesCount(media, data, intl) {
-    return intl.formatMessage(messages.notesCount, {notesCount: media.annotations_count});
+    return intl.formatMessage(messages.notesCount, {notesCount: media.log_count});
   },
 
   createdAt(media) { // check media

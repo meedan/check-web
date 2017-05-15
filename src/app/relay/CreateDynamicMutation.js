@@ -15,7 +15,7 @@ class CreateDynamicMutation extends Relay.Mutation {
       query = Relay.QL`fragment on CreateDynamicPayload { dynamicEdge, source { annotations } }`;
       break;
     case 'project_media':
-      query = Relay.QL`fragment on CreateDynamicPayload { dynamicEdge, project_media { log, annotations_count } }`;
+      query = Relay.QL`fragment on CreateDynamicPayload { dynamicEdge, project_media { log, log_count } }`;
       break;
     }
     return query;
