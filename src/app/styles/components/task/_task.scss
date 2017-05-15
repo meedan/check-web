@@ -163,7 +163,7 @@
 
   .task__description-icon {
     float: $to-direction;
-    margin-top: 0;
+    margin-top: 16px;
     margin-#{$to-direction}: 4px;
     margin-#{$from-direction}: 16px;
     margin-bottom: 8px;
