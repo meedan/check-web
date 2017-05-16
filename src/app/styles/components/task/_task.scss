@@ -15,6 +15,7 @@
 
   .task__question {
     margin-#{$to-direction}: 32px;
+    color: $black-54;
   }
 
   .task__label-container {
@@ -31,6 +32,7 @@
 
   .task__response {
     font-size: 16px;
+    text-align: $from-direction;
   }
 
   .task__response-inputs {
