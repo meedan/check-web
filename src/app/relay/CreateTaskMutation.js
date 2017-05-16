@@ -9,7 +9,7 @@ class CreateTaskMutation extends Relay.Mutation {
   }
 
   getFatQuery() {
-    return Relay.QL`fragment on CreateTaskPayload { taskEdge, project_media { annotations_count, log } }`;
+    return Relay.QL`fragment on CreateTaskPayload { taskEdge, project_media { log, log_count } }`;
   }
 
   getVariables() {

@@ -1,7 +1,5 @@
 {
   "browser.support.message": "أفضل تصفح على <a href=\"https://www.google.com/chrome/browser/desktop/\">  كروم نسخة سطح المكتب </a>.",
-  "login.title": "تسجيل الدخول",
-  "login.with": "سجل دخول باستخدام {provider}",
   "agree.terms": "بتسجيل الدخول أنت توافق على {tosLink}  و {ppLink}.",
   "tos.title": "شروط الاستخدام",
   "privacy.policy.title": "سياسة الخصوصية",
