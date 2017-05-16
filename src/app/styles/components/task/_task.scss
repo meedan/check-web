@@ -18,7 +18,6 @@
   }
 
   .task__label-container {
-    width: 300px;
     padding-top: 16px;
     padding-bottom: 8px;
   }
@@ -26,37 +25,8 @@
   .task__label {
     font-size: 14px;
     color: $black-54;
-
-    &--truncated {
-      label {
-        text-decoration: underline;
-        padding: 0 4px;
-      }
-    }
-
-    &--full {
-      word-wrap: break-word;
-      word-break: break-all;
-      display: none;
-    }
-  }
-
-  .task__label-truncated-toggle {
-    display: none;
-
-    &:checked {
-      & ~ .task__label-container {
-        width: auto;
-
-        .task__label--full {
-          display: inline;
-        }
-
-        .task__label--truncated {
-          display: none;
-        }
-      }
-    }
+    padding-top: 16px;
+    padding-bottom: 8px;
   }
 
   .task__response {
@@ -67,10 +37,26 @@
     display: none;
   }
 
+  // Toggle response area (and toggle description, if longer than one line)
+  //
+  // TODO: move dynamic display logic into the component. CGB 2017-5-15
   .task__response-toggle {
     display: none;
 
+    &:not(:checked) {
+      & ~ label .task__label-container {
+        @extend %ellipsis;
+        cursor: pointer;
+      }
+    }
+
     &:checked {
+      & ~ label .task__label-container {
+        width: 100%;
+        white-space: normal;
+        overflow: visible;
+      }
+
       & ~ .task__response-inputs {
         display: block;
       }
