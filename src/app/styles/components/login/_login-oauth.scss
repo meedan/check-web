@@ -40,7 +40,7 @@ $providers: (twitter: $twitter-blue, facebook: $facebook-blue, google: $google-o
   // The disclaimer
   & > span:last-of-type {
     margin-#{$from-direction}: units(5);
-    font: $font-caption;
+    font: font(caption);
     color: $black-38;
   }
 
@@ -52,7 +52,6 @@ $providers: (twitter: $twitter-blue, facebook: $facebook-blue, google: $google-o
 
 @each $provider-name, $provider-color in $providers {
   .login__button--#{$provider-name} {
-
     &:hover {
       .login__link {
         color: darken($check-blue, 10%);
@@ -67,7 +66,7 @@ $providers: (twitter: $twitter-blue, facebook: $facebook-blue, google: $google-o
 
     .login__link {
       color: $check-blue;
-      font: $font-body-2;
+      font: font(body2);
       font-weight: 500;
     }
 

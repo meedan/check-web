@@ -13,7 +13,6 @@
   @include when-smaller-than(mobile-breakpoint) {
     position: static;
   }
-
   position: absolute;
   top: 0;
   #{$to-direction}: 0;
@@ -77,7 +76,6 @@
 .team__add-link,
 .team__phone,
 .team__web {
-
   @include when-smaller-than(mobile-breakpoint) {
     width: 100%;
   }
@@ -93,7 +91,7 @@
     }
     margin: units(2);
     margin-#{$from-direction}: 0;
-    font: $font-caption;
+    font: font(caption);
   }
 }
 
@@ -126,8 +124,7 @@
       width: units(24);
       margin: units(2);
     }
-
-    font: $font-caption;
+    font: font(caption);
     margin-#{$from-direction}: units(2);
     margin-#{$to-direction}: units(2);
   }
@@ -135,7 +132,7 @@
 
 #team__settings-slack-notifications-enabled {
   & ~ label {
-    font: $font-caption;
+    font: font(caption);
     margin-#{$from-direction}: units(1);
   }
 }
@@ -178,14 +175,14 @@
   }
 
   & > :only-child {
-    font-size: 64px;
+    font: font(display3);
     padding-top: 0;
   }
 }
 
 .team__project,
 .team__new-project {
-  font: $font-subheading-2;
+  font: font(subheading2);
 }
 
 .team__new-project-input {

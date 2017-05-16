@@ -1,6 +1,6 @@
 .header { // see also .project__description
   width: 100%;
-  height: $layout-header-height;
+  height: $layout__header-height;
   background: $black-05;
   position: absolute;
 }
@@ -24,6 +24,8 @@
   display: flex;
   overflow: hidden;
   min-width: units(6);
+  align-items: center;
+  justify-content: center;
 }
 
 .header__breadcrumb {

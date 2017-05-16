@@ -8,8 +8,8 @@ $home-content-padding: units(3);
 }
 
 .home__content {
-  margin-top: $layout-header-height;
-  padding-top: $layout-padding;
+  margin-top: $layout__header-height;
+  padding-top: units(2);
   flex: 1;
   width: 100%;
   display: flex;
@@ -34,7 +34,7 @@ $home-content-padding: units(3);
     text-transform: uppercase;
     letter-spacing: .02em;
     position: absolute;
-    font: $font-tiny;
+    font: font(tiny);
     #{$to-direction}: units(13);
 
     @media all and (max-width: $layout-mobile-breakpoint) {

@@ -1,19 +1,15 @@
 // Layout misc
-// DEPRECATED
 //
-$layout-border-color: $black-16;
-$layout-border: 1px solid $layout-border-color;
-$layout-header-height: 48px;
-$layout-padding: 16px;
+$layout-padding: units(2);
 $layout-sidebar-width: 245px;
+$layout__header-height: units(7);
+$layout__media-expanded-top-offset: $layout__header-height + units(2);
 
 // Direction — overridden in the RTL stylesheet
 $from-direction: left !default;
 $to-direction: right !default;
-
 $transition-speed-default: 300ms;
 $transition-speed-fast: 200ms;
 $transition-speed-slow: 500ms;
-
 $border-radius-default: 2px;
 $border-radius-large: 8px;

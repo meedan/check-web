@@ -4,18 +4,33 @@ $font-stack-sans: "Roboto", -apple-system, BlinkMacSystemFont, "Corbel", "Lucida
 //
 // • unquote() is used because: https://github.com/sass/sass/issues/667
 // • The font name must be repeated to use the "font" shorthand
-$font-display-2: 500 45px unquote('/') 48px $font-stack-sans;
-$font-display-1: 500 34px unquote('/') 40px $font-stack-sans;
-$font-headline: 500 24px unquote('/') 32px $font-stack-sans;
-$font-subheading-2: 400 20px unquote('/') 32px $font-stack-sans;
-$font-subheading-1: 400 20px unquote('/') 28px $font-stack-sans;
-$font-body-2: 400 14px unquote('/') 24px $font-stack-sans;
-$font-body-1: 400 14px unquote('/') 20px $font-stack-sans;
-$font-caption: 400 12px unquote('/') 16px $font-stack-sans;
-$font-tiny: 400 8px unquote('/') 12px $font-stack-sans;
+
+$typography-style-map: (
+  display3:    400 56px unquote('/') 56px $font-stack-sans,
+  display2:    500 45px unquote('/') 48px $font-stack-sans,
+  display1:    500 34px unquote('/') 40px $font-stack-sans,
+  headline:    500 24px unquote('/') 32px $font-stack-sans,
+  title:       400 20px unquote('/') 32px $font-stack-sans,
+  subheading2: 400 16px unquote('/') 28px $font-stack-sans,
+  subheading1: 400 15px unquote('/') 24px $font-stack-sans,
+  body3:       400 16px unquote('/') 32px $font-stack-sans,
+  body2:       400 14px unquote('/') 24px $font-stack-sans,
+  body1:       400 14px unquote('/') 20px $font-stack-sans,
+  caption:     400 12px unquote('/') 20px $font-stack-sans,
+  tiny:        400 8px  unquote('/') 12px $font-stack-sans
+);
+
+// Helper for accessing the grid unit map
+//
+
+@function font($style) {
+  @if map-has-key($typography-style-map, $style) {
+    @return map-get($typography-style-map, $style);
+  }
+}
 
 h1 {
-  font: $font-display-1;
+  font: font(display1);
   text-align: center;
 }
 
@@ -23,7 +38,7 @@ h1 {
 //
 body {
   color: $opaque-black-54;
-  font: $font-body-1;
+  font: font(body1);
 
   // Wrapping
   // TODO: Refine this so it only applies to elements with user-generated content 2017-4-18 CGB

@@ -27,7 +27,6 @@
     opacity: 0;
     transition: color 200ms ease, opacity 50ms ease;
     text-align: $from-direction;
-    font: $font-body-1;
 
     &--text-entered {
       opacity: 1;
@@ -51,6 +50,6 @@
   display: block;
   margin: 0 auto;
   padding: units(1);
-  font: $font-body-2;
+  font: font(body2);
   color: $black-54;
 }

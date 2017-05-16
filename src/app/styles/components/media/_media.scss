@@ -43,8 +43,8 @@
 .media__expanded {
   // slide under header
   @include media-status-background-colors;
-  margin-top: -($layout-header-height + $layout-padding);
-  padding-top: ($layout-header-height + $layout-padding);
+  margin-top: -($layout__media-expanded-top-offset);
+  padding-top: ($layout__media-expanded-top-offset);
   transition: background-color 500ms ease;
   padding-bottom: 48px;
 }
@@ -64,7 +64,7 @@
 
 .media__primary-heading {
   margin: 0 0 units(1);
-  font: $font-headline;
+  font: font(headline);
   color: $white;
   text-align: $from-direction;
 }
@@ -88,7 +88,7 @@
   margin-bottom: units(1);
 
   h2 {
-    font: $font-subheading-2;
+    font: font(subheading2);
     color: $black-87;
     margin: 0;
     flex: 1;

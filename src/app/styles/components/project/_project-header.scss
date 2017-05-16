@@ -1,4 +1,3 @@
-
 .project-header {
   display: flex;
   align-items: center;
@@ -14,6 +13,8 @@
     display: inline;
     vertical-align: middle;
     color: $black-54;
+    font: font(subheading2);
+    margin-#{$from-direction}: units(1);
 
     &:hover {
       background-color: $black-05;
@@ -66,8 +67,8 @@
   flex-direction: column;
   justify-content: center;
   height: 100%;
-  padding: units(half);
-  opacity: .4;
+  padding: units(1);
+  opacity: .6;
   transition: opacity $transition-speed-fast ease;
 }
 

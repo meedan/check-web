@@ -1,7 +1,7 @@
 .team-header {
   border-radius: 2px;
   display: flex;
-  height: 48px;
+  height: units(6);
   overflow: hidden;
 }
 
@@ -24,11 +24,12 @@
 }
 
 .team-header__avatar {
-  @include team-avatar(32px);
-  margin-#{$to-direction}: 16px;
+  @include team-avatar(units(4));
+  margin: 0 units(2);
   background-color: $white;
 }
 
 .team-header__name {
   @extend %ellipsis;
+  font: font(subheading2);
 }

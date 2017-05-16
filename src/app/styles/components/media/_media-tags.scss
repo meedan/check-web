@@ -19,7 +19,7 @@
 }
 
 .media-tags__message {
-  font: $font-caption;
+  font: font(caption);
   margin: 0;
 }
 
@@ -55,5 +55,5 @@
   border: 1px solid $black-16;
   border-radius: 4px;
   margin: 4px 10px 5px;
-  font: $font-caption;
+  font: font(caption);
 }

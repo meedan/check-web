@@ -5,7 +5,7 @@
 
   .annotation__default {
     padding-#{$from-direction}: units(10);
-    font: $font-caption;
+    font: font(caption);
     color: $black-87;
     display: flex;
     max-width: units(90);
@@ -82,7 +82,7 @@
     flex-flow: wrap row;
     margin-top: units(3);
     height: 44px;
-    font: $font-caption;
+    font: font(caption);
     color: $black-54;
   }
 
@@ -136,7 +136,7 @@
   // non-comments
   .annotation__status {
     @include media-status-font-colors;
-    font: $font-caption;
+    font: font(caption);
     text-transform: uppercase;
     font-weight: 500;
     margin-#{$from-direction}: 3px;
@@ -173,7 +173,6 @@
     clear: both;
   }
 }
-
 
 .add-annotation {
   .add-annotation__buttons {
@@ -246,7 +245,7 @@
 
 .annotation__reverse-image-search {
   text-transform: uppercase;
-  font-weight: bold;
+  font-weight: 700;
   cursor: pointer;
   display: inline-block;
   margin: 0 units(1);
