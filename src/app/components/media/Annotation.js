@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { FormattedMessage, FormattedHTMLMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
+import MappedMessage from '../MappedMessage';
 import Relay from 'react-relay';
 import MediaDetail from './MediaDetail';
 import DynamicAnnotation from '../annotations/DynamicAnnotation';
@@ -36,7 +37,15 @@ const messages = defineMessages({
   and: {
     id: 'annotation.and',
     defaultMessage: 'and'
-  }
+  },
+  newClaim: {
+    id: 'annotation.newClaim',
+    defaultMessage: 'New claim added by {author}',
+  },
+  bridge_newClaim: {
+    id: 'bridge.annotation.newClaim',
+    defaultMessage: 'New quote added by {author}',
+  },
 });
 
 class Annotation extends Component {
@@ -326,9 +335,9 @@ class Annotation extends Component {
       if (content.title) {
         if (annotated.quote && annotated.quote === content.title) {
           contentTemplate = (<span>
-            <FormattedMessage
-              id="annotation.newClaim"
-              defaultMessage={'New claim added by {author}'}
+            <MappedMessage
+              msgObj={messages}
+              msgKey="newClaim"
               values={{ author: authorName }}
             />
           </span>);

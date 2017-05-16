@@ -26,6 +26,10 @@ const messages = defineMessages({
     id: 'media.typeClaim',
     defaultMessage: 'Claim'
   },
+  bridge_typeClaim: {
+    id: 'bridge.media.typeClaim',
+    defaultMessage: 'Quote'
+  },
   typeImage: {
     id: 'media.typeImage',
     defaultMessage: 'Image'
@@ -114,7 +118,7 @@ const MediaUtil = {
         type = socialMedia;
       }
       else if (media.quote) {
-        type = messages.typeClaim;
+        type = (appName === 'check') ? messages.typeClaim : messages.bridge_typeClaim;
       }
       else if (media.embed_path) {
         type = messages.typeImage;
@@ -131,7 +135,7 @@ const MediaUtil = {
   // Return a CSS-friendly media type.
   mediaTypeCss(media, data) {
     const type = this.mediaType(media, data);
-    return type ? type.id.replace('media.type', '').toLowerCase() : '';
+    return type ? type.id.replace(/^.*media\.type/, '').toLowerCase() : '';
   },
 
   typeLabel(media, data, intl) {

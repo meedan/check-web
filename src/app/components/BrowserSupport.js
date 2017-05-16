@@ -1,5 +1,17 @@
 import React, { Component, PropTypes } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, defineMessages } from 'react-intl';
+import MappedMessage from './MappedMessage';
+
+const messages = defineMessages({
+  disclaimer: {
+    id: "browserSupport.message",
+    defaultMessage: "While in beta, Check is optimized for Google Chrome on desktop.",
+  },
+  bridge_disclaimer: {
+    id: "bridge.browserSupport.message",
+    defaultMessage: "While in beta, Bridge is optimized for Google Chrome on desktop.",
+  },
+});
 
 class BrowserSupport extends Component {
   constructor(props) {
@@ -39,7 +51,7 @@ class BrowserSupport extends Component {
         <div className="browser-support">
           <span className="browser-support__close" onClick={this.close.bind(this)}>×</span>
           <p className="browser-support__message">
-            <FormattedMessage id="browserSupport.message" defaultMessage="While in beta, Check is optimized for Google Chrome on desktop." />
+            <MappedMessage msgObj={messages} msgKey="disclaimer" />
           </p>
         </div>);
     }

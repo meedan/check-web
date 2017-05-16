@@ -20,6 +20,14 @@
     "defaultMessage": "and"
   },
   {
+    "id": "annotation.newClaim",
+    "defaultMessage": "New claim added by {author}"
+  },
+  {
+    "id": "bridge.annotation.newClaim",
+    "defaultMessage": "New quote added by {author}"
+  },
+  {
     "id": "annotation.statusSetHeader",
     "defaultMessage": "Status set to {status} by {author}"
   },
@@ -56,12 +64,12 @@
     "defaultMessage": "Translation status set to {status} by {author}"
   },
   {
-    "id": "annotation.flaggedHeader",
-    "defaultMessage": "Flagged as {flag} by {author}"
+    "id": "annotation.translationPublished",
+    "defaultMessage": "Translation published to {link}"
   },
   {
-    "id": "annotation.newClaim",
-    "defaultMessage": "New claim added by {author}"
+    "id": "annotation.flaggedHeader",
+    "defaultMessage": "Flagged as {flag} by {author}"
   },
   {
     "id": "annotation.titleChanged",

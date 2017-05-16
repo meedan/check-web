@@ -7,6 +7,7 @@ import HeaderActions from './HeaderActions';
 import Can from './Can';
 import { Link } from 'react-router';
 import ContentColumn from './layout/ContentColumn';
+import { stringHelper } from '../customHelpers';
 
 class Header extends Component {
   render() {
@@ -19,7 +20,7 @@ class Header extends Component {
       <header className="header header--default">
         <ContentColumn wide className="header__container">
           { showCheckLogo ?
-            (<Link to="/check/teams" className="header__app-link"><img src="/images/logo/check.svg" /></Link>) :
+            (<Link to="/check/teams" className="header__app-link"><img src={stringHelper('LOGO_URL')} /></Link>) :
             (joinPage ? (<div className="header__team"><TeamPublicHeader {...this.props} /></div>) : (<div className="header__team"><TeamHeader {...this.props} /></div>))
           }
           <ProjectHeader {...this.props} />
