@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FormattedMessage, formatHTMLMessage, injectIntl } from 'react-intl';
+import { formatHTMLMessage, injectIntl } from 'react-intl';
 import config from 'config';
 
 class MappedMessage extends Component {

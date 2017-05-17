@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import { defineMessages } from 'react-intl';
 import MappedMessage from '../MappedMessage';
 import MdInfoOutline from 'react-icons/lib/md/info-outline';
 import Tooltip from 'rc-tooltip';
