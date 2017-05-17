@@ -3,6 +3,6 @@ travis.zip.enc merge=ours
 README.md merge=ours
 src/app/customHelpers.js merge=ours
 src/app/components/media/MediaStatus.js merge=ours
-src/assets/images/logo/favicon.ico merge=ours
+src/web/views/index.jade merge=ours
 test/spec/status_spec.rb merge=ours
 test/spec/quicktest_status_spec.rb merge=ours
