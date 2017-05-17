@@ -26,6 +26,11 @@
   font-size: inherit;
   border-radius: $border-radius-default;
   color: $white;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 units(2);
 
   &:disabled {
     cursor: not-allowed;
@@ -34,29 +39,24 @@
 
 @mixin button-small {
   @include button-standard;
-  height: 36px;
-  font-size: 16px;
-  margin-bottom: 8px;
-  padding-#{$from-direction}: units(2);
-  padding-#{$to-direction}: units(2);
+  height: units(4);
+  font: font(body2);
+  margin-bottom: units(1);
 }
 
 @mixin button-medium {
   @include button-standard;
-  height: 43px;
-  font-size: 17px;
-  margin-bottom: 8px;
-  padding-#{$from-direction}: 18px;
-  padding-#{$to-direction}: 18px;
+  height: units(5);
+  font: font(subheading1);
+  margin-bottom: units(1);
 }
 
 @mixin button-large {
   @include button-standard;
-  height: 50px;
   font-size: 20px;
   padding-#{$from-direction}: 44px;
   padding-#{$to-direction}: 44px;
-  margin-bottom: 8px;
+  margin-bottom: units(1);
 }
 
 @mixin button-primary {

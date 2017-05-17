@@ -11,8 +11,8 @@
   @include button-medium;
 
   &:not(:last-child) {
-    margin-#{$to-direction}: 5px;
- 	}
+    margin-#{$to-direction}: units(half);
+  }
 
   &--save {
     @include button-primary;

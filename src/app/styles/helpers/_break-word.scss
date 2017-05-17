@@ -1,0 +1,7 @@
+// Break word
+// Some user generated content needs to break inside (very long) words instead of between words.
+%break-word {
+  overflow-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
+}
