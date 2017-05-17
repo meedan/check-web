@@ -24,10 +24,6 @@
     "defaultMessage": "New claim added by {author}"
   },
   {
-    "id": "bridge.annotation.newClaim",
-    "defaultMessage": "New quote added by {author}"
-  },
-  {
     "id": "annotation.statusSetHeader",
     "defaultMessage": "Status set to {status} by {author}"
   },

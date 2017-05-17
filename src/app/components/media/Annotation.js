@@ -43,10 +43,6 @@ const messages = defineMessages({
     id: 'annotation.newClaim',
     defaultMessage: 'New claim added by {author}',
   },
-  bridge_newClaim: {
-    id: 'bridge.annotation.newClaim',
-    defaultMessage: 'New quote added by {author}',
-  },
 });
 
 class Annotation extends Component {

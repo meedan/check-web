@@ -17,8 +17,7 @@ import CreateTask from '../task/CreateTask';
 import { bemClass, bemClassFromMediaStatus, safelyParseJSON, getStatus, getStatusStyle } from '../../helpers';
 import ContentColumn from '../layout/ContentColumn';
 import MediaStatus from './MediaStatus';
-import MdInfoOutline from 'react-icons/lib/md/info-outline';
-import Tooltip from 'rc-tooltip';
+import TimelineHeader from './TimelineHeader';
 import { mediaStatuses, mediaLastStatus } from '../../customHelpers';
 
 const messages = defineMessages({
@@ -138,12 +137,7 @@ class MediaComponent extends Component {
           </div>
 
           <ContentColumn>
-            <Tooltip placement="bottom" trigger={['click']} overlay={<MediaChecklist/>} overlayClassName="">
-              <h3 className="media__notes-heading">
-                <MappedMessage msgObj={messages} msgKey="timelineTitle" />
-                <MdInfoOutline/>
-              </h3>
-            </Tooltip>
+            <TimelineHeader msgObj={messages} msgKey="timelineTitle" />
           </ContentColumn>
           <Annotations annotations={media.log.edges} annotated={media} annotatedType="ProjectMedia" />
         </div>
