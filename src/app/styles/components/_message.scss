@@ -2,12 +2,11 @@
   @include fade-in(1s);
   background: $black-54;
   color: $white;
-  padding: 10px;
-  font-size: 14px;
+  padding: units(1);
   text-align: center;
   position: relative;
-  margin-bottom: 16px;
-  border-radius: 2px;
+  margin-bottom: units(2);
+  border-radius: $border-radius-default;
 
   a {
     color: $white !important;
@@ -16,7 +15,7 @@
 
   #close-message {
     position: absolute;
-    #{$to-direction}: 10px;
+    #{$to-direction}: units(1);
     cursor: pointer;
   }
 }

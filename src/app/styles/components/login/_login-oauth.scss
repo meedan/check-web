@@ -8,18 +8,20 @@ $providers: (twitter: $twitter-blue, facebook: $facebook-blue, google: $google-o
 // The list of oAuth login cards
 //
 .login__oauth-list {
-  padding: units(2) 0;
-
-  @media all and (min-width: $layout-mobile-breakpoint) {
+  @include when-larger-than(mobile-breakpoint) {
     display: flex;
     flex-flow: row wrap;
     justify-content: space-between;
   }
+  padding: units(2) 0;
 }
 
 // oAuth login buttons
 .login__button {
   @include box-shadow(1);
+  @include when-smaller-than(mobile-breakpoint) {
+    width: 100%;
+  }
   width: units(39);
   transition: background-color $transition-speed-default ease;
   padding: units(1) units(3);
@@ -28,10 +30,6 @@ $providers: (twitter: $twitter-blue, facebook: $facebook-blue, google: $google-o
   display: flex;
   flex-flow: column nowrap;
   margin: units(1) 0;
-
-  @media all and (max-width: $layout-mobile-breakpoint) {
-    width: 100%;
-  }
 
   span {
     display: flex;

@@ -1,3 +1,41 @@
+
+// Layout variables
+//
+$layout-sizes: (
+  header-height: units(7), media-expanded-top-offset: layout(header-height) + units(2), card-width: units(40), column-width-narrow: units(100), column-width-wide: units(152), );
+
+// Helper for accessing the layout sizes
+//
+@function layout($size) {
+  @if map-has-key($layout-sizes, $size) {
+    @return map-get($layout-sizes, $size);
+  }
+}
+
+// Breakpoint map
+//
+$breakpoints: (
+  mobile-breakpoint-smallest: units(40), mobile-breakpoint-small: 450px, mobile-breakpoint: 680px, widescreen-breakpoint: $layout__column-width-wide
+);
+
+// Helpers for accessing breakpoints
+//
+@mixin when-smaller-than($breakpoint) {
+  $value: map-get($breakpoints, $breakpoint);
+
+  @media (max-width: $value) {
+    @content;
+  }
+}
+
+@mixin when-larger-than($breakpoint) {
+  $value: map-get($breakpoints, $breakpoint);
+
+  @media (min-width: $value) {
+    @content;
+  }
+}
+
 // Layout default settings
 //
 *,
@@ -21,37 +59,6 @@ body {
   width: 100%;
 }
 
-// Breakpoint map
-//
-$breakpoints: (
-  column-width-narrow: 784px,
-  column-width-wide: 1200px + (2 * 8px),
-  mobile-breakpoint-smallest: 320px,
-  mobile-breakpoint-small: 450px,
-  mobile-breakpoint: 680px,
-);
-
-// Columns and breakpoint variables
-// DEPRECATED — use the map instead
-//
-$layout-column-width-narrow: 784px;
-$layout-column-width-wide: 1200px + (2 * 8px);
-$layout-mobile-breakpoint-smallest: 320px;
-$layout-mobile-breakpoint-small: 450px;
-$layout-mobile-breakpoint: 680px;
-
-// Helpers for accessing breakpoints
-//
-@mixin when-smaller-than($breakpoint) {
-  $value: map-get($breakpoints, $breakpoint);
-  @media (max-width: $value) {
-    @content;
-  }
-}
-
-@mixin when-larger-than($breakpoint) {
-  $value: map-get($breakpoints, $breakpoint);
-  @media (min-width: $value) {
-    @content;
-  }
+button {
+  border: 0;
 }

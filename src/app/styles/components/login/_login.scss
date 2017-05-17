@@ -5,12 +5,11 @@
 
 .login__form {
   @include box-shadow(1);
-  background-color: $white;
-  padding: units(10) units(15) units(7);
-
-  @media all and (max-width: $layout-mobile-breakpoint) {
+  @include when-smaller-than(mobile-breakpoint) {
     padding: units(4) units(2);
   }
+  background-color: $white;
+  padding: units(10) units(15) units(7);
 }
 
 .login__name,

@@ -1,6 +1,6 @@
 .team-members {
   position: relative;
-  max-width: 750px;
+  max-width: $layout__column-width-narrow;
   margin: 0 auto;
   width: 100%;
   padding: 0 units(1);
@@ -15,7 +15,6 @@
 
   @include when-smaller-than(mobile-breakpoint) {
     position: static;
-    display: block;
     margin: units(1) auto 0;
   }
 }

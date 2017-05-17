@@ -95,7 +95,7 @@
     float: $from-direction;
     max-width: 24px;
     max-height: 24px;
-    margin-#{$from-direction}:: 5px;
+    margin-#{$from-direction}: 5px;
     margin-top: 10px;
     margin-#{$to-direction}: 12px;
   }
@@ -104,7 +104,7 @@
     float: $from-direction;
     max-width: 24px;
     max-height: 24px;
-    margin-#{$from-direction}:: 5px;
+    margin-#{$from-direction}: 5px;
     margin-top: 10px;
   }
 
@@ -165,7 +165,7 @@
 .task__description-tooltip { // via rc-tooltip, outside Task.js markup tree
   max-width: 600px;
 
-  @media (max-width: $layout-mobile-breakpoint) {
+  @include when-smaller-than(mobile-breakpoint) {
     max-width: 80vw;
   }
 

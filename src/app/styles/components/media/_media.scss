@@ -4,7 +4,7 @@
 }
 
 // Use 2-column view on desktop if tasks
-@media screen and (min-width: $layout-column-width-wide) {
+@include when-larger-than(widescreen-breakpoint) {
   .media--has-tasks {
     .media__expanded-header { // TODO: possibly DRY with ContentColumn#wide
       max-width: 1216px;
@@ -53,7 +53,7 @@
   margin: 0 auto;
   padding: 0 8px;
   padding-top: 54px;
-  max-width: $layout-column-width-narrow;
+  max-width: $layout__column-width-narrow;
 }
 
 .media__expanded-column-wrapper {

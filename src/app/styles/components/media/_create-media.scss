@@ -4,7 +4,7 @@
   padding: 16px 16px 8px;
   background-color: $white;
   border-radius: 4px;
-  max-width: $layout-column-width-narrow;
+  max-width: $layout__column-width-narrow;
   width: 100%;
 
   footer {
@@ -14,7 +14,8 @@
     .create-media__helper {
       font-size: 11px;
       color: $black-38;
-      @media all and (max-width: 500px) {
+
+      @include when-smaller-than(mobile-breakpoint-small) {
         display: none;
       }
     }
@@ -94,7 +95,8 @@
   // The placeholder
   & > :first-child {
     padding: 0;
-    @media all and (max-width: 400px) {
+
+    @include when-smaller-than(mobile-breakpoint-small) {
       font-size: 12px;
     }
   }

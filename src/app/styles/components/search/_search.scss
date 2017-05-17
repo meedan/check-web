@@ -19,7 +19,7 @@
       transition: box-shadow .4s;
     }
 
-    @media all and (max-width: $layout-mobile-breakpoint) {
+    @include when-smaller-than(mobile-breakpoint) {
       min-width: 300px;
     }
   }
@@ -50,7 +50,7 @@
         flex: 10;
       }
 
-      @media all and (max-width: $layout-mobile-breakpoint) {
+      @include when-smaller-than(mobile-breakpoint) {
         padding: 0;
         flex-flow: nowrap column;
 
@@ -76,7 +76,7 @@
     }
 
     ul.results {
-      max-width: $layout-column-width-narrow;
+      max-width: $layout__column-width-narrow;
       margin: 0 auto;
 
       & > li {

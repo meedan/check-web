@@ -5,9 +5,8 @@
 }
 
 p {
-  text-align: center;
-
-  @media all and (max-width: $layout-mobile-breakpoint) {
+  @include when-smaller-than(mobile-breakpoint) {
     padding: 0 units(2);
   }
+  text-align: center;
 }

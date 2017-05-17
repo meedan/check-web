@@ -1,10 +1,3 @@
-// Layout misc
-//
-$layout-padding: units(2);
-$layout-sidebar-width: 245px;
-$layout__header-height: units(7);
-$layout__media-expanded-top-offset: $layout__header-height + units(2);
-
 // Direction — overridden in the RTL stylesheet
 $from-direction: left !default;
 $to-direction: right !default;

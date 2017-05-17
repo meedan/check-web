@@ -28,15 +28,18 @@ $grid-unit-size-map: (
   40:   $unit-size * 40,  // 320px or 20em
   45:   $unit-size * 45,  // 360 or 22.5em
   50:   $unit-size * 50,  // 400px or 25em
+  60:   $unit-size * 60,  // 480px or 30em
   70:   $unit-size * 70,  // 560px or 35em
   80:   $unit-size * 80,  // 640px or 40em
   90:   $unit-size * 90,  // 720px or 45em
   100:  $unit-size * 100, // 800px or 50em
   112:  $unit-size * 112, // 896px or 56em
+  152:  $unit-size * 152, // 1216px or 76em
 );
 
 // Helper for accessing the grid unit map
 //
+
 @function units($unit-size) {
   @if map-has-key($grid-unit-size-map, $unit-size) {
     @return map-get($grid-unit-size-map, $unit-size);

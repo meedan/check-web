@@ -24,6 +24,9 @@ $home-content-padding: units(3);
   #{$to-direction}: 0;
 
   & > span { // badge
+    @include when-smaller-than(mobile-breakpoint) {
+      #{$to-direction}: 10%;
+    }
     border-radius: 0;
     border-bottom-#{$to-direction}-radius: 3px;
     border-bottom-#{$from-direction}-radius: 3px;
@@ -36,9 +39,5 @@ $home-content-padding: units(3);
     position: absolute;
     font: font(tiny);
     #{$to-direction}: units(13);
-
-    @media all and (max-width: $layout-mobile-breakpoint) {
-      #{$to-direction}: 10%;
-    }
   }
 }
