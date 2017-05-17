@@ -1,5 +1,6 @@
 import { defineMessages } from 'react-intl';
 import { truncateLength } from '../../helpers';
+import config from 'config';
 
 const messages = defineMessages({
   notesCount: {
@@ -118,7 +119,7 @@ const MediaUtil = {
         type = socialMedia;
       }
       else if (media.quote) {
-        type = (appName === 'check') ? messages.typeClaim : messages.bridge_typeClaim;
+        type = (config.appName === 'check') ? messages.typeClaim : messages.bridge_typeClaim;
       }
       else if (media.embed_path) {
         type = messages.typeImage;

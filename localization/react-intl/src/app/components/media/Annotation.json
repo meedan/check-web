@@ -72,6 +72,10 @@
     "defaultMessage": "Flagged as {flag} by {author}"
   },
   {
+    "id": "annotation.newReport",
+    "defaultMessage": "New {reportType} added by {author}"
+  },
+  {
     "id": "annotation.titleChanged",
     "defaultMessage": "Title changed to {title} by {author}"
   },

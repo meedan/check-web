@@ -3,6 +3,7 @@ import { FormattedMessage, FormattedHTMLMessage, defineMessages, injectIntl, int
 import MappedMessage from '../MappedMessage';
 import Relay from 'react-relay';
 import MediaDetail from './MediaDetail';
+import MediaUtil from './MediaUtil';
 import DynamicAnnotation from '../annotations/DynamicAnnotation';
 import DeleteAnnotationMutation from '../../relay/DeleteAnnotationMutation';
 import DeleteVersionMutation from '../../relay/DeleteVersionMutation';
@@ -334,11 +335,12 @@ class Annotation extends Component {
     case 'update_embed': case 'create_embed':
       if (content.title) {
         if (annotated.quote && annotated.quote === content.title) {
+          const reportType = MediaUtil.typeLabel(annotated, content, this.props.intl).toLowerCase();
           contentTemplate = (<span>
-            <MappedMessage
-              msgObj={messages}
-              msgKey="newClaim"
-              values={{ author: authorName }}
+            <FormattedMessage
+              id="annotation.newReport"
+              defaultMessage={'New {reportType} added by {author}'}
+              values={{ reportType , author: authorName }}
             />
           </span>);
         } else {
