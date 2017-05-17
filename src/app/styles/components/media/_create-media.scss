@@ -4,7 +4,7 @@
   padding: 16px 16px 8px;
   background-color: $white;
   border-radius: 4px;
-  max-width: $layout__column-width-narrow;
+  max-width: layout(column-width-narrow);
   width: 100%;
 
   footer {

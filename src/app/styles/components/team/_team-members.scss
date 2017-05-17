@@ -1,6 +1,6 @@
 .team-members {
   position: relative;
-  max-width: $layout__column-width-narrow;
+  max-width: layout(column-width-narrow);
   margin: 0 auto;
   width: 100%;
   padding: 0 units(1);
@@ -143,6 +143,7 @@
 
 .team-members__delete-member {
   @include unbutton;
+
   @include close-button;
   margin-#{$from-direction}: 15px;
 

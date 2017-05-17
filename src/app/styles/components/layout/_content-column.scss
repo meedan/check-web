@@ -1,6 +1,6 @@
 .content-column {
   width: 100%;
-  max-width: $layout__column-width-narrow;
+  max-width: layout(column-width-narrow);
   margin: 0 auto;
   padding: 0 units(1);
 
@@ -10,6 +10,6 @@
   }
 
   &--wide {
-    max-width: $layout__column-width-wide;
+    max-width: layout(column-width-wide);
   }
 }

@@ -1,6 +1,6 @@
 .header { // see also .project__description
   width: 100%;
-  height: $layout__header-height;
+  height: layout(header-height);
   background: $black-05;
   position: absolute;
 }

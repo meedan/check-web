@@ -43,8 +43,8 @@
 .media__expanded {
   // slide under header
   @include media-status-background-colors;
-  margin-top: -($layout__media-expanded-top-offset);
-  padding-top: ($layout__media-expanded-top-offset);
+  margin-top: layout(media-expanded-top-offset);
+  padding-top: layout(media-expanded-top-offset);
   transition: background-color 500ms ease;
   padding-bottom: 48px;
 }
@@ -53,7 +53,7 @@
   margin: 0 auto;
   padding: 0 8px;
   padding-top: 54px;
-  max-width: $layout__column-width-narrow;
+  max-width: layout(column-width-narrow);
 }
 
 .media__expanded-column-wrapper {
