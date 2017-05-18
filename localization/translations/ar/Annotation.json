@@ -13,6 +13,7 @@
   "annotation.emptyMachineTranslation": "أضف ترجمة مميكنة",
   "annotation.machineTranslation": "الترجمة المميكنة لل{lang}: {text}",
   "annotation.translationStatus": "تم تغيير حالة الترجمة إلى {status} بواسطة {author}",
+  "annotation.translationPublished": "تم نشر الترجمة على {link}",
   "annotation.flaggedHeader": "تم وسمه #{tag} بواسطة {author}",
   "annotation.newClaim": "تمت إضافة إدعاء جديد بواسطة {author}",
   "annotation.titleChanged": "تم تغيير العنوان إلى {title} بواسطة {author}",
