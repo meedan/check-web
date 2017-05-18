@@ -4,5 +4,6 @@
   "createMedia.mediaInput": "Cole ou digite",
   "createMedia.uploadImage": "Enviar uma imagem",
   "createMedia.submitButton": "Enviar",
-  "createMedia.helper": "Insira um link, citação ou imagem para verificação"
+  "createMedia.helper": "Insira um link, citação ou imagem para verificação",
+  "bridge.createMedia.helper": "Add a link, quote or image for translation"
 }
