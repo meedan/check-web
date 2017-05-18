@@ -200,7 +200,7 @@ class CreateTeam extends Component {
                 <label className={this.state.displayNameLabelClass}><FormattedMessage id="createTeam.displayName" defaultMessage="Team Name" /></label>
               </div>
               <div className="create-team__team-url">
-                  <span className="create-team__root-domain">{config.selfHost}</span>
+                  <span className="create-team__root-domain">{config.selfHost}/</span>
                 <div className={this.state.slugClass}>
                   <input
                     type="text"
