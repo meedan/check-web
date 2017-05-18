@@ -56,6 +56,10 @@
     "defaultMessage": "Translation status set to {status} by {author}"
   },
   {
+    "id": "annotation.translationPublished",
+    "defaultMessage": "Translation published to {link}"
+  },
+  {
     "id": "annotation.flaggedHeader",
     "defaultMessage": "Flagged as {flag} by {author}"
   },

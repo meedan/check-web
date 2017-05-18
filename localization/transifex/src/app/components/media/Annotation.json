@@ -13,6 +13,7 @@
   "annotation.emptyMachineTranslation": "Add machine translation",
   "annotation.machineTranslation": "Machine translation for \"{lang}\" is: {text}",
   "annotation.translationStatus": "Translation status set to {status} by {author}",
+  "annotation.translationPublished": "Translation published to {link}",
   "annotation.flaggedHeader": "Flagged as {flag} by {author}",
   "annotation.newClaim": "New claim added by {author}",
   "annotation.titleChanged": "Title changed to {title} by {author}",

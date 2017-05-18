@@ -13,6 +13,7 @@
   "annotation.emptyMachineTranslation": "Adicionar tradução automática",
   "annotation.machineTranslation": "Tradução automática para \"{lang}\" é: {text}",
   "annotation.translationStatus": "Status da tradução definido como {status} por {author}",
+  "annotation.translationPublished": "Tradução publicada em {link}",
   "annotation.flaggedHeader": "Marcado como {flag} por {author}",
   "annotation.newClaim": "Nova alegação inserida por {author}",
   "annotation.titleChanged": "Título alterado para {title} por {author}",
