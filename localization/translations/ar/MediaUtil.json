@@ -5,6 +5,7 @@
   "media.typeInstagram": "انستقرام",
   "media.typeVideo": "فيديو",
   "media.typeClaim": "إدعاء",
+  "bridge.media.typeClaim": "نص",
   "media.typeImage": "صورة",
   "media.typePage": "صفحة",
   "media.onDomain": "{typeLabel} على {domain}",

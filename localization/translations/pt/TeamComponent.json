@@ -10,9 +10,11 @@
   "teamComponent.slackWebhook": "Webhook do Slack",
   "teamComponent.slackChannel": "#canal padrão no Slack",
   "teamComponent.verificationTeam": "Equipe de Verificação",
+  "bridge.teamComponent.verificationTeam": "Translation Team",
+  "teamComponent.title": "Projetos de Verificação",
+  "bridge.teamComponent.title": "Translation Projects",
   "teamComponent.cancelButton": "Cancelar",
   "teamComponent.saveButton": "Salvar",
   "teamComponent.editButton": "Editar perfil",
-  "teamComponent.slackNotificationsEnabled": "Ativar notificações via Slack",
-  "teamComponent.title": "Projetos de Verificação"
+  "teamComponent.slackNotificationsEnabled": "Ativar notificações via Slack"
 }

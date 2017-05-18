@@ -1,8 +1,9 @@
 {
+  "headerActions.aboutCheck": "Sobre Check",
+  "bridge.headerActions.aboutCheck": "About Bridge",
   "headerActions.userTeams": "Suas Equipes",
   "headerActions.signOut": "Sair",
   "headerActions.contactHuman": "Entre em contato com um humano",
   "headerActions.tos": "Termos de Serviço",
-  "headerActions.privacyPolicy": "Política de Privacidade",
-  "headerActions.aboutCheck": "Sobre Check"
+  "headerActions.privacyPolicy": "Política de Privacidade"
 }
