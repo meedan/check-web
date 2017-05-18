@@ -1,10 +1,10 @@
-// Buttons 
-// TODO review and sync with material design style 
-// Should we just use the Button component? 
+// Buttons
+// TODO review and sync with material design style
+// Should we just use the Button component?
 // — CGB 2017-3-12
 
 // elements that should semantically be <button> but not look like buttons
-// 
+//
 @mixin unbutton {
   cursor: pointer;
   border: 0;
@@ -31,6 +31,8 @@
   align-items: center;
   justify-content: center;
   padding: 0 units(2);
+  vertical-align: middle;
+  margin-bottom: units(1);
 
   &:disabled {
     cursor: not-allowed;
@@ -41,22 +43,22 @@
   @include button-standard;
   height: units(4);
   font: font(body2);
-  margin-bottom: units(1);
+  line-height: units(4);
 }
 
 @mixin button-medium {
   @include button-standard;
-  height: units(5);
+  height: units(4) + units(half);
   font: font(subheading1);
-  margin-bottom: units(1);
+  line-height: units(4) + units(half);
 }
 
 @mixin button-large {
   @include button-standard;
-  font-size: 20px;
+  font: font(title);
+  height: units(5);
   padding-#{$from-direction}: 44px;
   padding-#{$to-direction}: 44px;
-  margin-bottom: units(1);
 }
 
 @mixin button-primary {

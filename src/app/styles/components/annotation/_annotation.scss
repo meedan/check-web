@@ -8,7 +8,7 @@
     font: font(caption);
     color: $black-87;
     display: flex;
-    max-width: units(90);
+    max-width: layout(card-width-large);
 
     &-content {
       margin-#{$to-direction}: units(2);
@@ -50,8 +50,7 @@
   }
 
   .annotation__card-avatar {
-    $width: units(4);
-    @include user-avatar($width);
+    @include user-avatar(units(4));
   }
 
   .annotation__card-main-col {
@@ -77,7 +76,7 @@
     padding-#{$to-direction}: units(1);
     // see also .media-detail__check-metadata
     align-items: center;
-    border-top: 1px solid $black-05;
+    border-top: $border-width-small solid $black-05;
     display: flex;
     flex-flow: wrap row;
     margin-top: units(3);
@@ -129,8 +128,8 @@
   }
 
   .annotation__embedded-media {
-    padding-top: 8px;
-    padding-bottom: 8px;
+    padding-top: units(1);
+    padding-bottom: units(1);
   }
 
   // non-comments
@@ -203,14 +202,14 @@
     height: units(38);
     padding: 0;
     margin: 0;
-    border: 1px solid $black-38;
+    border: $border-width-small solid $black-38;
     border-bottom: 0;
     width: 100%;
 
     .remove-image {
       position: absolute;
-      top: 2px;
-      #{$to-direction}: 2px;
+      top: units(1);
+      #{$to-direction}: units(1);
       z-index: 1;
       color: $black-38;
       cursor: pointer;
@@ -234,7 +233,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border-width: 3px;
+    border-width: $border-width-large;
     border-radius: $border-radius-large;
 
     &:hover {

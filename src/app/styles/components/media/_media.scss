@@ -1,6 +1,8 @@
 .media {
-  flex: 1;
-  background-color: $black-02;
+  height: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+  display: flex;
 }
 
 // Use 2-column view on desktop if tasks
@@ -43,15 +45,19 @@
 .media__expanded {
   // slide under header
   @include media-status-background-colors;
-  margin-top: layout(media-expanded-top-offset);
+  margin-top: layout(media-expanded-top-offset) * -1;
   padding-top: layout(media-expanded-top-offset);
   transition: background-color 500ms ease;
   padding-bottom: 48px;
+
+  @media all and (min-height: 1000px) {
+    min-height: 50vh;
+  }
 }
 
 .media__expanded-header { // TODO: possibly DRY with ContentColumn#wide
   margin: 0 auto;
-  padding: 0 8px;
+  padding: 0 units(1);
   padding-top: 54px;
   max-width: layout(column-width-narrow);
 }
@@ -60,6 +66,11 @@
   display: flex;
   flex-direction: column;
   padding: 0;
+
+  @include when-taller-than(tallscreen-breakpoint) {
+    min-height: 45vh;
+    justify-content: space-around;
+  }
 }
 
 .media__primary-heading {

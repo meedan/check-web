@@ -2,6 +2,7 @@ node_modules
 *.sw*
 *~
 **/*.log
+npm-debug.log.*
 build
 test/config.yml
 .project
@@ -19,4 +20,4 @@ linters
 test/spec/sauce
 config-build.js
 relay.json
-.tmp
+.tmp=

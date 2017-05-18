@@ -34,7 +34,7 @@
     &::after {
       content: '–';
       padding-top: 0;
-      padding-#{$to-direction}: 8px;
+      padding-#{$to-direction}: units(1);
       padding-bottom: 0;
       padding-#{$from-direction}: 5px;
       font-weight: 400;

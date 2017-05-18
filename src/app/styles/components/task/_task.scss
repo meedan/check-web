@@ -1,5 +1,5 @@
 .task {
-  margin-bottom: 15px;
+  margin-bottom: units(2);
   position: relative;
 
   .task__card-text {
@@ -9,34 +9,36 @@
 
   .task__actions {
     position: absolute;
-    #{$to-direction}: 14px;
-    top: 14px;
+    #{$to-direction}: units(2);
+    top: units(2);
   }
 
   .task__question {
-    margin-#{$to-direction}: 32px;
+    margin-#{$to-direction}: units(4);
     color: $black-54;
   }
 
   .task__label-container {
-    padding-top: 16px;
-    padding-bottom: 8px;
+    padding-top: units(2);
+    padding-bottom: units(1);
   }
 
   .task__label {
-    font-size: 14px;
+    font-size: units(2);
     color: $black-54;
-    padding-top: 16px;
-    padding-bottom: 8px;
+    padding-top: units(2);
+    padding-bottom: units(1);
   }
 
   .task__response {
-    font-size: 16px;
+    font-size: units(2);
     text-align: $from-direction;
   }
 
   .task__response-inputs {
-    display: none;
+    transition: max-height $transition-speed-fast ease;
+    max-height: 0;
+    overflow: hidden;
   }
 
   // Toggle response area (and toggle description, if longer than one line)
@@ -60,7 +62,8 @@
       }
 
       & ~ .task__response-inputs {
-        display: block;
+        transition: max-height $transition-speed-fast ease;
+        max-height: 5000px;
       }
     }
   }
@@ -72,7 +75,7 @@
 
   .task__resolved {
     p {
-      margin: 8px 0;
+      margin: units(1) 0;
       word-wrap: break-word;
 
       &:last-child {
@@ -83,7 +86,7 @@
 
   .task__options {
     margin-top: 13px;
-    font-size: 16px;
+    font-size: units(2);
   }
 
   .task__options-answered {
@@ -93,19 +96,19 @@
 
   .task__option_other_radio {
     float: $from-direction;
-    max-width: 24px;
-    max-height: 24px;
-    margin-#{$from-direction}: 5px;
-    margin-top: 10px;
-    margin-#{$to-direction}: 12px;
+    max-width: units(3);
+    max-height: units(3);
+    margin-#{$from-direction}: unit(1);
+    margin-top: units(1);
+    margin-#{$to-direction}: units(2);
   }
 
   .task__option_other_checkbox {
     float: $from-direction;
-    max-width: 24px;
-    max-height: 24px;
-    margin-#{$from-direction}: 5px;
-    margin-top: 10px;
+    max-width: units(3);
+    max-height: units(3);
+    margin-#{$from-direction}: unit(1);
+    margin-top: units(1);
   }
 
   .task__option_other_text_input {
@@ -113,7 +116,7 @@
     width: 75% !important;
   }
 
-  .task__options_other:after {
+  .task__options_other::after {
     content: "";
     display: table;
     clear: both;
@@ -124,40 +127,39 @@
     float: $to-direction;
     color: #ccc;
     margin: 0;
-    margin-top: 5px;
-    margin-#{$to-direction}: 5px;
+    margin-top: unit(1);
+    margin-#{$to-direction}: unit(1);
     cursor: pointer;
   }
 
   #task__remove-button {
-    margin-#{$to-direction}: 8px;
+    margin-#{$to-direction}: units(1);
   }
 
   #task__cancel-button,
   #task__edit-response-button {
     color: #ccc;
-    margin-#{$from-direction}: 5px;
+    margin-#{$from-direction}: unit(1);
     cursor: pointer;
   }
 
   .media-actions__icon {
     margin: 0;
-    margin-#{$to-direction}: 4px;
-    width: 24px;
-    height: 24px;
+    margin-#{$to-direction}: units(1);
+    width: units(3);
+    height: units(3);
     padding: 0;
     color: $black-38;
   }
 
   .task__description-icon {
     float: $to-direction;
-    margin-top: 16px;
-    margin-#{$to-direction}: 4px;
-    margin-#{$from-direction}: 16px;
-    margin-bottom: 8px;
-    width: 24px;
-    height: 22px;
-    padding: 0 2px 2px;
+    margin-top: units(2);
+    margin-#{$to-direction}: units(1);
+    margin-#{$from-direction}: units(2);
+    margin-bottom: units(1);
+    width: units(3);
+    height: units(3);
     color: $black-38;
   }
 }

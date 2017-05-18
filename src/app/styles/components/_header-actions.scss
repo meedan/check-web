@@ -22,13 +22,13 @@
 }
 
 .header-actions__menu {
-  @include app-menu;
+  @include menu;
   #{$to-direction}: units(2);
-  top: 44px;
+  top: units(5) + units(half);
 }
 
-.header-actions__link {
-  &:nth-last-child(-n + 2) {
-    color: $black-38;
+.header-actions__menu-item {
+  &:nth-of-type(5) {
+    border-top: $border-width-small solid $black-10;
   }
 }

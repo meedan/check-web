@@ -1,4 +1,5 @@
 @charset "utf-8";
+
 @import 'vendor/normalize';
 @import 'base/colors';
 @import 'base/units';
@@ -11,7 +12,6 @@
 @import 'helpers/menus';
 @import 'helpers/icon';
 @import 'helpers/chip';
-@import 'helpers/chicklet';
 @import 'helpers/ellipsis';
 @import 'helpers/box-shadow';
 @import 'helpers/modal-overlay';
@@ -24,9 +24,9 @@
 @import 'components/close-button';
 @import 'components/home';
 @import 'components/layout/content-column';
-@import 'components/layout/header';
-@import 'components/layout/header-actions';
-@import 'components/layout/footer';
+@import 'components/header';
+@import 'components/header-actions';
+@import 'components/footer';
 @import 'components/login/login-container';
 @import 'components/login/login-oauth';
 @import 'components/login/login-upload';

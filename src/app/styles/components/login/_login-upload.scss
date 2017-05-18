@@ -5,7 +5,7 @@
   width: 100%;
   height: auto;
   padding: units(3) units(1);
-  border: 1px dashed $black-38;
+  border: $border-width-small dashed $black-38;
   color: $black-38;
   text-align: center;
   float: $to-direction;
@@ -33,7 +33,7 @@
     height: units(9);
     padding: 0;
     margin: 0;
-    border: 1px solid $black-38;
+    border: $border-width-small solid $black-38;
     width: 19%;
     margin-#{$to-direction}: 1%;
 

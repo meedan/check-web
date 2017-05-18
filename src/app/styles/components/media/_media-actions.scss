@@ -13,7 +13,7 @@
 }
 
 .media-actions__menu {
-  @include app-menu;
+  @include menu;
   position: absolute;
   #{$to-direction}: 0;
   top: 27px;
@@ -24,9 +24,9 @@
   }
 }
 
-.media-actions__menu-item { // TODO: merge with header-actions and app-menu-item
+.media-actions__menu-item { // TODO: merge with header-actions and menu-item
   font-size: 15px;
-  padding: 0 16px;
+  padding: 0 units(2);
   cursor: pointer;
 
   &:hover {

@@ -69,7 +69,7 @@ $gutter-small: 16px;
     }
 
     time {
-      margin-#{$from-direction}: 8px;
+      margin-#{$from-direction}: units(1);
     }
 
     svg {
@@ -105,7 +105,7 @@ $gutter-small: 16px;
   &__body-image {
     @include image(200px, 100px);
     flex-shrink: 0;
-    margin-top: 8px;
+    margin-top: units(1);
 
     @include when-smaller-than(mobile-breakpoint-small) {
       margin-#{$from-direction}: 0;

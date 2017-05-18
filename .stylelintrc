@@ -1,18 +1,12 @@
 {
+	"ignoreFiles": ["**/*/_layout.scss"],
 	"formatOnSave": true,
 	"syntaxes": ["SCSS"],
 	"extensions": [".scss"],
 	"extends": ["stylelint-config-standard"],
 	"rules": {
+		"declaration-empty-line-before": "never",
 	  "number-leading-zero": null,
-	  "property-no-vendor-prefix": true,
-	  "at-rule-empty-line-before": [ "always", {
-	  	"ignore": [
-	  		"after-comment"
-	  	],
-	  	"except": [
-	  		"first-nested"
-	  	]
-	  }],
+	  "property-no-vendor-prefix": true
 	}
 }

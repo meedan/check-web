@@ -9,7 +9,7 @@
 .sources__source {
   padding: 5px;
   margin-bottom: 10px;
-  border-radius: 2px;
+  border-radius: $border-radius-default;
 
   &:hover {
     background-color: $black-05;
@@ -31,7 +31,7 @@
 .sources__source-avatar {
   height: 30px;
   width: 30px;
-  border-radius: 2px;
+  border-radius: $border-radius-default;
 }
 
 .sources__source-name {

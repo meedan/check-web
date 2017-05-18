@@ -1,14 +1,24 @@
-%chip {
-  padding: 3px 16px;
+@mixin chip {
+  padding: units(half) units(2);
   border: 0;
-  margin-top: 4px;
-  margin-#{$to-direction}: 10px;
-  margin-bottom: 4px;
+  margin-top: units(half);
+  margin-#{$to-direction}: units(1);
+  margin-bottom: units(half);
   margin-#{$from-direction}: 0;
-  font-size: 12px;
-  font-weight: 400;
+  font: font(caption);
   background-color: $black-05;
-  border-radius: 24px;
+  border-radius: $border-radius-largest;
   display: inline-block;
   color: $black-54;
+  cursor: pointer;
+
+  &--selected {
+    background-color: $black-10;
+    color: $black-87;
+    font-weight: 700;
+  }
+
+  &:hover {
+    background-color: $black-16;
+  }
 }

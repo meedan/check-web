@@ -8,7 +8,7 @@
 }
 
 .switch-teams__team {
-  border-radius: 2px;
+  border-radius: $border-radius-default;
   margin-bottom: units(1);
   transition: background-color 70ms ease;
 
@@ -41,7 +41,6 @@
   display: flex;
   align-items: center;
   padding: 12px;
-  border: 1px soild red;
 }
 
 .switch-teams__team-link {

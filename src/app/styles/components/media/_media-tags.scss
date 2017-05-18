@@ -33,11 +33,11 @@
 
 .media-tags__tag,
 .media-tags__suggestion {
-  @include chicklet;
+  @include chip;
 }
 
 .media-tags .tags-list .ReactTags__tag {
-  @extend %chip;
+  @include chip;
   margin-#{$to-direction}: units(2);
   min-width: units(7);
 }
@@ -52,7 +52,7 @@
 .media-tags .tags-list input {
   color: $black-38;
   padding: 3px 5px;
-  border: 1px solid $black-16;
+  border: $border-width-small solid $black-16;
   border-radius: 4px;
   margin: 4px 10px 5px;
   font: font(caption);

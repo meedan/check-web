@@ -3,7 +3,7 @@
   flex: 1;
 
   .message {
-    margin: 0 (-1 * units(2));
+    margin: 0 units(2) * -1;
   }
 }
 

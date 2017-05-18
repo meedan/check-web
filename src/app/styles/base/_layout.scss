@@ -2,7 +2,15 @@
 // Layout variables
 //
 $layout-sizes: (
-  header-height: units(7), media-expanded-top-offset: (layout(header-height) + units(2)), card-width: units(40), column-width-narrow: units(100), column-width-wide: units(152), );
+  header-height: units(7),
+  media-expanded-top-offset: units(9),
+  card-width-small: units(40),
+  card-width: units(56),
+  card-width-large: units(85),
+  column-width-narrow: units(100),
+  column-width-wide: units(152),
+  column-tall: units(152)
+  );
 
 // Helper for accessing the layout sizes
 //
@@ -15,7 +23,10 @@ $layout-sizes: (
 // Breakpoint map
 //
 $breakpoints: (
-  mobile-breakpoint-smallest: units(40), mobile-breakpoint-small: 450px, mobile-breakpoint: 680px, widescreen-breakpoint: layout(column-width-wide)
+  mobile-breakpoint-smallest: layout(card-width-small),
+  mobile-breakpoint-small: layout(card-width),
+  mobile-breakpoint: layout(card-width-large),
+  widescreen-breakpoint: layout(column-width-wide)
 );
 
 // Helpers for accessing breakpoints
@@ -32,6 +43,14 @@ $breakpoints: (
   $value: map-get($breakpoints, $breakpoint);
 
   @media (min-width: $value) {
+    @content;
+  }
+}
+
+@mixin when-taller-than($breakpoint) {
+  $value: map-get($breakpoints, $breakpoint);
+
+  @media (min-height: $value) {
     @content;
   }
 }

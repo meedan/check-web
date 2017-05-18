@@ -1,13 +1,13 @@
-@mixin app-menu {
+@mixin menu {
   @include box-shadow(2);
   background: $white;
-  border-radius: 2px;
-  border: 1px solid $black-16;
+  border-radius: $border-radius-default;
+  border: $border-width-small solid $black-16;
   color: $black-87;
   display: none;
   margin: 0;
-  min-width: 250px;
-  padding: 8px 0;
+  min-width: units(30);
+  padding: units(1) 0;
   position: absolute;
   text-align: #{$from-direction};
   z-index: 3;
@@ -18,15 +18,15 @@
   }
 
   & > li {
-    @include app-menu-item;
+    @include menu-item;
   }
 }
 
-@mixin app-menu-item {
+@mixin menu-item {
   cursor: pointer;
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 48px;
+  font: font(body2);
+  padding-top: units(1) + units(half);
+  padding-bottom: units(1) + units(half);
 
   img {
     vertical-align: middle !important;
@@ -34,7 +34,7 @@
 
   &:hover {
     background: $opaque-black-05;
-    transition: background .2s;
+    transition: background $transition-speed-fast;
   }
 
   & > a,
@@ -42,7 +42,7 @@
     height: 100%;
     width: 100%;
     display: block;
-    padding: 0 16px;
+    padding: 0 units(2);
     color: inherit;
 
     &,
@@ -51,7 +51,7 @@
     }
 
     &[class$="--active"] {
-      font-weight: bold;
+      font-weight: 700;
     }
   }
 }

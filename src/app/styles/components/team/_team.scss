@@ -16,6 +16,7 @@
   position: absolute;
   top: 0;
   #{$to-direction}: 0;
+  display: flex;
 }
 
 .team__edit-button,
@@ -86,6 +87,7 @@
 
   input {
     @include text-input;
+
     @include when-smaller-than(mobile-breakpoint) {
       width: 100%;
     }
@@ -119,6 +121,7 @@
 
   input[type='text'] {
     @include text-input;
+
     @include when-smaller-than(mobile-breakpoint) {
       display: block;
       width: units(24);
@@ -140,6 +143,11 @@
 .team__contact-info {
   display: flex;
   flex-flow: wrap row;
+
+  & > * {
+    padding: 0 units(1);
+    padding-#{$to-direction}: units(2);
+  }
 
   .team__link {
     order: 1;

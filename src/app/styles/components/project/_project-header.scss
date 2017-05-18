@@ -14,7 +14,8 @@
     vertical-align: middle;
     color: $black-54;
     font: font(subheading2);
-    margin-#{$from-direction}: units(1);
+    margin-#{$from-direction}: units(2);
+    padding: 0 units(1);
 
     &:hover {
       background-color: $black-05;
@@ -51,7 +52,7 @@
   &--displayed {
     width: $back-button-size;
     opacity: 1;
-    margin-#{$to-direction}: units(1);
+    margin-#{$from-direction}: units(2);
   }
 }
 

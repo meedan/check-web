@@ -5,18 +5,18 @@
 
 @mixin image($width, $height: $width) {
   @include background-cover;
-  border: 1px solid $black-05;
+  border: $border-width-small solid $black-05;
   width: $width;
   height: $height;
-  border-radius: 2px;
+  border-radius: $border-radius-default;
 }
 
 @mixin avatar($size) {
   @include background-cover;
-  border: 1px solid $black-05;
+  border: $border-width-small solid $black-05;
   width: $size;
   height: $size;
-  border-radius: 2px;
+  border-radius: $border-radius-default;
   flex: 0 0 auto;
 }
 

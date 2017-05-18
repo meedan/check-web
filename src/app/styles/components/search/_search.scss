@@ -1,53 +1,54 @@
 .search {
   .search__input {
-    // TODO: RTL this background image — 2017-3-14 CGB
-    background: 15px 13px url('/images/search.svg') $white no-repeat;
-    background-size: 18px;
-    border: 1px solid $black-16;
-    border-radius: 4px;
-    flex: 20;
-    height: 44px;
+    background: units(2) 50% url('/images/search.svg') $white no-repeat;
+    background-size: units(2);
+    border: $border-width-small solid $black-16;
+    border-radius: units(half);
+    height: units(6);
     width: 100%;
-    min-width: 500px;
-    padding-#{$from-direction}: 45px;
-    margin-top: 4px;
+    padding-#{$from-direction}: units(6);
+    margin-top: units(1);
     outline: none;
-    transition: box-shadow .2s;
+    transition: box-shadow $transition-speed-fast;
 
     &:focus {
       @include box-shadow(2);
-      transition: box-shadow .4s;
-    }
-
-    @include when-smaller-than(mobile-breakpoint) {
-      min-width: 300px;
+      transition: box-shadow $transition-speed-slow;
     }
   }
 
   .search__filters {
-    padding: 16px;
+    @include when-larger-than(mobile-breakpoint) {
+      padding: units(1);
+    }
+    padding: units(2) 0;
     max-width: 1200px;
     margin: 0 auto;
 
     div {
       display: flex;
-      margin-top: 1em;
-      max-height: 160px;
+      margin-top: units(1);
+      max-height: units(20);
       overflow-y: auto;
 
       h4 {
         flex: 1;
         color: $black-87;
         margin: 0;
-        vertical-align: top;
-        display: inline-block;
-        margin-#{$to-direction}: 16px;
-        min-width: 80px;
-        text-align: $to-direction;
+        display: flex;
+        align-items: center;
+        margin-#{$to-direction}: units(2);
+        min-width: units(6);
       }
 
       ul {
         flex: 10;
+
+        li {
+          @extend %ellipsis;
+          max-width: units(25);
+          margin-bottom: 0;
+        }
       }
 
       @include when-smaller-than(mobile-breakpoint) {
@@ -56,6 +57,8 @@
 
         h4 {
           text-align: $from-direction;
+          padding-#{$from-direction}: units(1);
+          padding-top: units(2);
         }
       }
     }
@@ -67,7 +70,7 @@
   }
 
   .search__results {
-    padding: 0 16px 16px;
+    padding: 0 units(2) units(2);
 
     & > h4 {
       text-align: center;
@@ -80,7 +83,7 @@
       margin: 0 auto;
 
       & > li {
-        margin-top: 8px;
+        margin-top: units(1);
       }
     }
   }

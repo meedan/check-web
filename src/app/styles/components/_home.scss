@@ -5,6 +5,7 @@ $home-content-padding: units(3);
   display: flex;
   flex-direction: column;
   position: relative;
+  height: 100vh;
 }
 
 .home__content {
@@ -14,7 +15,6 @@ $home-content-padding: units(3);
   width: 100%;
   display: flex;
   flex-direction: column;
-  background-color: $opaque-black-02;
 }
 
 .home__disclaimer { // container
@@ -35,7 +35,7 @@ $home-content-padding: units(3);
     padding: 2px units(half) 1px;
     z-index: 1;
     text-transform: uppercase;
-    letter-spacing: .02em;
+    letter-spacing: .08em;
     position: absolute;
     font: font(tiny);
     #{$to-direction}: units(13);

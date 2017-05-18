@@ -1,5 +1,4 @@
 // Global styles which are not part of a component, layout or typography.
-#root,
-#root > div {
+html {
   background: $opaque-black-02;
 }

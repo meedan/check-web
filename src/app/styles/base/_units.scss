@@ -17,10 +17,12 @@ $grid-unit-size-map: (
   9:    $unit-size * 9,   // 72px or 4.5em
   10:   $unit-size * 10,  // 80px or 5em
   12:   $unit-size * 12,  // 96px or 6em
-  13:   $unit-size * 13, // 104 or 6.5em
+  13:   $unit-size * 13,  // 104 or 6.5em
   15:   $unit-size * 15,  // 120px or 7.5em
   18:   $unit-size * 18,  // 144px or 9em
+  20:   $unit-size * 20,  // 160px or 10em
   24:   $unit-size * 24,  // 192px or 12em
+  25:   $unit-size * 25,  // 200px or 13em
   30:   $unit-size * 30,  // 240px or 15em
   35:   $unit-size * 35,  // 280px or 17.5em
   38:   $unit-size * 38,  // 304px or 19em
@@ -28,9 +30,11 @@ $grid-unit-size-map: (
   40:   $unit-size * 40,  // 320px or 20em
   45:   $unit-size * 45,  // 360 or 22.5em
   50:   $unit-size * 50,  // 400px or 25em
+  56:   $unit-size * 56,  // 456px or 28.5em
   60:   $unit-size * 60,  // 480px or 30em
   70:   $unit-size * 70,  // 560px or 35em
   80:   $unit-size * 80,  // 640px or 40em
+  85:   $unit-size * 85,  // 680px or 42.5em
   90:   $unit-size * 90,  // 720px or 45em
   100:  $unit-size * 100, // 800px or 50em
   112:  $unit-size * 112, // 896px or 56em
@@ -39,7 +43,9 @@ $grid-unit-size-map: (
 
 // Helper for accessing the grid unit map
 //
-
+// Usage:
+//     units(1); // returns 8px
+//
 @function units($unit-size) {
   @if map-has-key($grid-unit-size-map, $unit-size) {
     @return map-get($grid-unit-size-map, $unit-size);

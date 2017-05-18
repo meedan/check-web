@@ -13,7 +13,7 @@
 .medias-loading__media {
   $loader-grid-unit: 16px;
   background: $white;
-  border: 1px solid $black-05;
+  border: $border-width-small solid $black-05;
   border-radius: 3px;
   margin: $loader-grid-unit 0;
   min-height: 200px;
@@ -26,7 +26,6 @@
 
   div {
     @extend %shimmer;
-
     height: $loader-grid-unit;
     border-radius: 50px;
 

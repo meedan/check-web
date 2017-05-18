@@ -22,7 +22,6 @@
 .team-members__edit-icon {
   vertical-align: text-bottom;
   margin-#{$to-direction}: units(1);
-  margin-top: -2px;
   width: units(2);
   height: units(2);
   color: $white;
@@ -64,17 +63,17 @@
 
 .team-members__member-avatar,
 .team-membership-requests__user-avatar {
-  $size: 50px;
+  $size: units(6);
   height: $size;
   width: $size;
   border-radius: $size;
-  margin-#{$to-direction}: 10px;
+  margin-#{$to-direction}: units(1);
 }
 
 .team-members__member-details,
 .team-membership-requests__user-details {
-  flex: 1 0 180px;
-  margin-#{$to-direction}: 10px;
+  flex: 1 0 units(24);
+  margin-#{$to-direction}: units(1);
   display: flex;
   align-items: baseline;
   flex-wrap: wrap;
@@ -83,7 +82,7 @@
 .team-members__member-name,
 .team-membership-requests__user-name {
   margin: 0;
-  margin-#{$to-direction}: 6px;
+  margin-#{$to-direction}: units(1);
 }
 
 .team-members__member-username,
@@ -94,7 +93,7 @@
 // user controls
 .team-member-requests__user-button {
   @include button-small;
-  margin-#{$from-direction}: 10px;
+  margin-#{$from-direction}: units(1);
   margin-bottom: 0;
 
   &--approve {
@@ -103,22 +102,22 @@
 }
 
 .team-members__member-role {
-  min-width: 120px;
-  margin-top: 8px;
+  min-width: units(15);
+  margin-top: units(1);
   margin-#{$to-direction}: 0;
-  margin-bottom: 8px;
+  margin-bottom: units(1);
   margin-#{$from-direction}: auto;
 
   .Select-control {
-    transition: border-color 450ms ease;
+    transition: border-color $transition-speed-slow ease;
   }
 
   .Select-arrow-zone {
-    transition: opacity 300ms ease;
+    transition: opacity $transition-speed-default ease;
   }
 
   .Select-placeholder {
-    transition: color 150ms ease;
+    transition: color $transition-speed-fast ease;
   }
 
   &.is-disabled {
@@ -143,16 +142,15 @@
 
 .team-members__delete-member {
   @include unbutton;
-
   @include close-button;
-  margin-#{$from-direction}: 15px;
+  margin-#{$from-direction}: units(2);
 
   &-icon {
     position: relative;
     top: -.1em;
   }
 
-  @media screen and (max-width: 680px) {
+  @include when-smaller-than(mobile-breakpoint) {
     display: none;
   }
 }

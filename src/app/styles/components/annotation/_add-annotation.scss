@@ -4,11 +4,15 @@
   min-height: units(15);
   position: relative;
   z-index: 0;
+  height: 20vh;
 
   .content-column {
-    align-items: flex-end;
     height: 100%;
-    padding-top: units(3);
+    padding-top: units(5);
+
+    @include when-taller-than(tallscreen-breakpoint) {
+      padding-top: 5vh;
+    }
   }
 
   .add-annotation__buttons {
