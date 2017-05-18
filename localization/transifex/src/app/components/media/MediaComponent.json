@@ -1,5 +1,6 @@
 {
+  "mediaComponent.verificationTimeline": "Verification Timeline",
+  "bridge.mediaComponent.verificationTimeline": "Translation Timeline",
   "mediaComponent.verificationTasks": "Verification tasks",
-  "mediaComponent.resolved": "resolved",
-  "mediaComponent.verificationTimeline": "Verification Timeline"
+  "mediaComponent.resolved": "resolved"
 }
