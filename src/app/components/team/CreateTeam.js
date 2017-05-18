@@ -7,7 +7,6 @@ import base64 from 'base-64';
 import Message from '../Message';
 import { Link } from 'react-router';
 import config from 'config';
-import { stringHelper } from '../../customHelpers';
 import { pageTitle } from '../../helpers';
 import ContentColumn from '../layout/ContentColumn';
 import CheckContext from '../../CheckContext';
@@ -201,7 +200,7 @@ class CreateTeam extends Component {
                 <label className={this.state.displayNameLabelClass}><FormattedMessage id="createTeam.displayName" defaultMessage="Team Name" /></label>
               </div>
               <div className="create-team__team-url">
-                  <span className="create-team__root-domain">{stringHelper('ROOT_DOMAIN')}</span>
+                  <span className="create-team__root-domain">{config.selfHost}</span>
                 <div className={this.state.slugClass}>
                   <input
                     type="text"

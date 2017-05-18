@@ -19,7 +19,6 @@ function stringHelper(key) {
     PP_URL: 'https://meedan.com/en/bridge/bridge_privacy.html',
     TOS_URL: 'https://meedan.com/en/bridge/bridge_tos.html',
     LOGO_URL: '/images/logo/bridge.svg',
-    ROOT_DOMAIN: 'translate.speakbridge.io/',
   }[key];
 }
 
