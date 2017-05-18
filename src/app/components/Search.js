@@ -37,9 +37,9 @@ const messages = defineMessages({
     id: 'search.results',
     defaultMessage: '{resultsCount, plural, =0 {No results} one {1 result} other {# results}}'
   },
-  newReportNotification: {
-    id: 'search.newReportNotification',
-    defaultMessage: 'New report'
+  newTranslationRequestNotification: {
+    id: 'search.newTranslationRequestNotification',
+    defaultMessage: 'New translation request'
   },
   newTranslationNotification: {
     id: 'search.newTranslationNotification',
@@ -384,10 +384,10 @@ class SearchResultsComponent extends Component {
           content = null;
         }
           
-        // Notify other users that there is a new report
-        if (content && message.class_name === 'media' && currentUserId != message.user_id) {
+        // Notify other users that there is a new translation request
+        if (content && message.class_name === 'translation_request' && currentUserId != message.user_id) {
           let url = window.location.pathname.replace(/(^\/[^\/]+\/project\/[0-9]+).*/, '$1/media/' + message.id);
-          Notifier.start(that.props.intl.formatMessage(messages.newReportNotification), content, url, avatar);
+          Notifier.start(that.props.intl.formatMessage(messages.newTranslationRequestNotification), content, url, avatar);
         }
 
         // Notify other users that there is a new translation
