@@ -70,6 +70,7 @@ function capitalize(text) {
 export {
   bemClass,
   bemClassFromMediaStatus,
+  capitalize,
   pageTitle,
   safelyParseJSON,
   getStatus,
