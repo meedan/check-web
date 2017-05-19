@@ -235,7 +235,7 @@ class MediaDetail extends Component {
       const path = condensed ? media.media.thumbnail_path : media.media.embed_path;
       embedCard = <ImageMediaCard imagePath={path} />;
     } else if (media.quote && media.quote.length) {
-      embedCard = <QuoteMediaCard quoteText={media.quote} attributionName={null} attributionUrl={null} />;
+      embedCard = <QuoteMediaCard quoteText={media.quote} languageCode={media.language_code} attributionName={null} attributionUrl={null} />;
     } else if (media.url) {
       embedCard = condensed ?
         <SocialMediaCard media={media} data={data} condensed={condensed} /> :

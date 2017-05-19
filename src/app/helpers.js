@@ -67,10 +67,20 @@ function capitalize(text) {
   return text.charAt(0).toUpperCase()+text.substring(1);
 }
 
+function rtlClass(language_code) {
+  const rtl_locales = [
+    'ar',
+    'ar-001',
+    'he',
+  ];
+  return (rtl_locales.indexOf(language_code) > -1) ? 'translation__rtl' : null;
+}
+
 export {
   bemClass,
   bemClassFromMediaStatus,
   capitalize,
+  rtlClass,
   pageTitle,
   safelyParseJSON,
   getStatus,
