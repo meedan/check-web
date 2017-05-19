@@ -3,7 +3,7 @@
   "search.loading": "Carregando...",
   "search.inputHint": "Busca",
   "search.results": "{resultsCount, plural, =0 {No results} one {1 result} other {# results}}",
-  "search.newReportNotification": "Novo relato",
+  "search.newTranslationRequestNotification": "Nova solicitação de tradução",
   "search.newTranslationNotification": "Nova tradução",
   "search.newTranslationNotificationBody": "Um relato foi marcado como \"traduzido\"",
   "search.statusHeading": "Status",

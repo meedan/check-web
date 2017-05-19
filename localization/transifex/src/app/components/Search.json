@@ -3,7 +3,7 @@
   "search.loading": "Loading...",
   "search.inputHint": "Search",
   "search.results": "{resultsCount, plural, =0 {No results} one {1 result} other {# results}}",
-  "search.newReportNotification": "New report",
+  "search.newTranslationRequestNotification": "New translation request",
   "search.newTranslationNotification": "New translation",
   "search.newTranslationNotificationBody": "A report was just marked as \"translated\"",
   "search.statusHeading": "Status",
