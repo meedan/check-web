@@ -16,8 +16,8 @@
     "defaultMessage": "{resultsCount, plural, =0 {No results} one {1 result} other {# results}}"
   },
   {
-    "id": "search.newReportNotification",
-    "defaultMessage": "New report"
+    "id": "search.newTranslationRequestNotification",
+    "defaultMessage": "New translation request"
   },
   {
     "id": "search.newTranslationNotification",
