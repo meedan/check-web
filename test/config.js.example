@@ -1,4 +1,6 @@
 window.config = {
+  appName: '', // 'bridge' or 'check'
+  supportEmail: '', // 'hello@speakbridge.io' or 'check@meedan.com'
   selfHost: 'test.localdev.checkmedia.org:13333',
   restBaseUrl: 'http://api.test:13000/api/',
   relayPath: 'http://api.test:13000/api/graphql',
