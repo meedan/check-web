@@ -73,7 +73,7 @@ function rtlClass(language_code) {
     'ar-001',
     'he',
   ];
-  return (rtl_locales.indexOf(language_code) > -1) ? 'translation__rtl' : null;
+  return (rtl_locales.indexOf(language_code) > -1) ? 'translation__rtl' : '';
 }
 
 export {
