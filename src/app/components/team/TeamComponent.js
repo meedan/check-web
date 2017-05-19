@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 import DocumentTitle from 'react-document-title';
+import MappedMessage from '../MappedMessage';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import Tags from './Tags';
 import { Link } from 'react-router';
@@ -64,6 +65,18 @@ const messages = defineMessages({
   verificationTeam: {
     id: 'teamComponent.verificationTeam',
     defaultMessage: 'Verification Team',
+  },
+  bridge_verificationTeam: {
+    id: 'bridge.teamComponent.verificationTeam',
+    defaultMessage: 'Translation Team',
+  },
+  verificationProjects: {
+    id: 'teamComponent.title',
+    defaultMessage: 'Verification Projects',
+  },
+  bridge_verificationProjects: {
+    id: 'bridge.teamComponent.title',
+    defaultMessage: 'Translation Projects',
   },
 });
 
@@ -229,7 +242,7 @@ class TeamComponent extends Component {
                       <Link to="#" className="team__name-link">{team.name}</Link>
                     </h1>
                     <div className="team__description">
-                      <p className="team__description-text">{team.description || this.props.intl.formatMessage(messages.verificationTeam)}</p>
+                      <p className="team__description-text">{team.description || <MappedMessage msgObj={messages} msgKey="verificationTeam" />}</p>
                     </div>
                   </div>
                 );
@@ -304,7 +317,7 @@ class TeamComponent extends Component {
 
             <section className="team__content">
               <div className="team__content-body">
-                <h3 className="team__projects-heading"><FormattedMessage id="teamComponent.title" defaultMessage="Verification Projects" /></h3>
+                <h3 className="team__projects-heading"><MappedMessage msgObj={messages} msgKey="verificationProjects" /></h3>
                 <ul className="team__projects-list">
                   {team.projects.edges.sortp((a, b) => a.node.title.localeCompare(b.node.title)).map(p => (
                     <li className="team__project">

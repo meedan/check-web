@@ -22,5 +22,9 @@
   {
     "id": "createMedia.helper",
     "defaultMessage": "Add a link, quote or image for verification"
+  },
+  {
+    "id": "bridge.createMedia.helper",
+    "defaultMessage": "Add a link, quote or image for translation"
   }
 ]

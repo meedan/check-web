@@ -42,10 +42,10 @@ function getStatusStyle(status, property) {
 // Skip team name if `skipTeam` is true.
 // Skip `prefix |` if `prefix` empty.
 function pageTitle(prefix, skipTeam, team) {
-  let suffix = 'Check';
+  let suffix = capitalize(config.appName);
   if (!skipTeam) {
     try {
-      suffix = `${team.name} Check`;
+      suffix = `${team.name} ${capitalize(config.appName)}`;
     } catch (e) {
       if (!(e instanceof TypeError)) throw e;
     }
@@ -63,9 +63,14 @@ function truncateLength(text, length = 100) {
   return truncate(text, { length, separator: /,? +/, ellipsis: '…' });
 }
 
+function capitalize(text) {
+  return text.charAt(0).toUpperCase()+text.substring(1);
+}
+
 export {
   bemClass,
   bemClassFromMediaStatus,
+  capitalize,
   pageTitle,
   safelyParseJSON,
   getStatus,

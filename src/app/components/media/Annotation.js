@@ -1,7 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import { FormattedMessage, FormattedHTMLMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
+import MappedMessage from '../MappedMessage';
 import Relay from 'react-relay';
 import MediaDetail from './MediaDetail';
+import MediaUtil from './MediaUtil';
 import DynamicAnnotation from '../annotations/DynamicAnnotation';
 import DeleteAnnotationMutation from '../../relay/DeleteAnnotationMutation';
 import DeleteVersionMutation from '../../relay/DeleteVersionMutation';
@@ -36,7 +38,11 @@ const messages = defineMessages({
   and: {
     id: 'annotation.and',
     defaultMessage: 'and'
-  }
+  },
+  newClaim: {
+    id: 'annotation.newClaim',
+    defaultMessage: 'New claim added by {author}',
+  },
 });
 
 class Annotation extends Component {
@@ -325,11 +331,12 @@ class Annotation extends Component {
     case 'update_embed': case 'create_embed':
       if (content.title) {
         if (annotated.quote && annotated.quote === content.title) {
+          const reportType = MediaUtil.typeLabel(annotated, content, this.props.intl).toLowerCase();
           contentTemplate = (<span>
             <FormattedMessage
-              id="annotation.newClaim"
-              defaultMessage={'New claim added by {author}'}
-              values={{ author: authorName }}
+              id="annotation.newReport"
+              defaultMessage={'New {reportType} added by {author}'}
+              values={{ reportType , author: authorName }}
             />
           </span>);
         } else {

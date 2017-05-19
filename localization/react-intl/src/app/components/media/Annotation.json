@@ -20,6 +20,10 @@
     "defaultMessage": "and"
   },
   {
+    "id": "annotation.newClaim",
+    "defaultMessage": "New claim added by {author}"
+  },
+  {
     "id": "annotation.statusSetHeader",
     "defaultMessage": "Status set to {status} by {author}"
   },
@@ -64,8 +68,8 @@
     "defaultMessage": "Flagged as {flag} by {author}"
   },
   {
-    "id": "annotation.newClaim",
-    "defaultMessage": "New claim added by {author}"
+    "id": "annotation.newReport",
+    "defaultMessage": "New {reportType} added by {author}"
   },
   {
     "id": "annotation.titleChanged",
