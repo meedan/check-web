@@ -2,14 +2,16 @@
 // Layout variables
 //
 $layout-sizes: (
+  gutter-small: units(2),
+  gutter-medium: units(3),
+  gutter-large: units(7),
   header-height: units(7),
-  media-expanded-top-offset: units(9),
+  viewport-height-min: units(84),
   card-width-small: units(40),
   card-width: units(56),
   card-width-large: units(85),
   column-width-narrow: units(100),
-  column-width-wide: units(152),
-  column-tall: units(152)
+  column-width-wide: units(152)
   );
 
 // Helper for accessing the layout sizes
@@ -26,7 +28,8 @@ $breakpoints: (
   mobile-breakpoint-smallest: layout(card-width-small),
   mobile-breakpoint-small: layout(card-width),
   mobile-breakpoint: layout(card-width-large),
-  widescreen-breakpoint: layout(column-width-wide)
+  widescreen-breakpoint: layout(column-width-wide),
+  tallscreen-breakpoint: layout(column-width-wide),
 );
 
 // Helpers for accessing breakpoints
@@ -53,31 +56,4 @@ $breakpoints: (
   @media (min-height: $value) {
     @content;
   }
-}
-
-// Layout default settings
-//
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-html {
-  height: 100%;
-}
-
-#root {
-  height: 100%;
-}
-
-body {
-  height: 100%;
-  margin: auto;
-  overflow-x: hidden;
-  width: 100%;
-}
-
-button {
-  border: 0;
 }

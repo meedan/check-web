@@ -1,16 +1,16 @@
 .media-inspector {
-  position: fixed;
-  top: 0;
-  bottom: 0;
   #{$from-direction}: 0;
   #{$to-direction}: 0;
-  pointer-events: none;
-  z-index: 1;
-  opacity: 0;
-  transition: opacity 100ms ease;
+  align-items: center;
+  bottom: 0;
   display: flex;
   justify-content: center;
-  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  transition: opacity 100ms ease;
+  z-index: 1;
 
   &--active {
     opacity: 1;
@@ -24,8 +24,8 @@
 
 .media-inspector__media {
   position: relative;
-  z-index: 2;
   width: 100%;
+  z-index: 2;
 
   .close-button {
     align-self: flex-end;

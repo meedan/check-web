@@ -1,5 +1,5 @@
 .sources {
-  padding: 14px;
+  padding: units(2);
 }
 
 .sources__list {
@@ -7,9 +7,9 @@
 }
 
 .sources__source {
-  padding: 5px;
-  margin-bottom: 10px;
   border-radius: $border-radius-default;
+  margin-bottom: units(1);
+  padding: units(1);
 
   &:hover {
     background-color: $black-05;
@@ -17,8 +17,8 @@
 }
 
 .sources__source-link {
-  display: flex;
   align-items: center;
+  display: flex;
 
   &,
   &:hover,
@@ -29,13 +29,13 @@
 }
 
 .sources__source-avatar {
-  height: 30px;
-  width: 30px;
   border-radius: $border-radius-default;
+  height: units(4);
+  width: units(4);
 }
 
 .sources__source-name {
-  margin: 0 9px;
+  margin: 0 units(1);
 }
 
 .sources__source-description {

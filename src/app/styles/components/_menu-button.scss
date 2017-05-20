@@ -1,21 +1,20 @@
+// The menu on the annotations
+// TODO: Consider standardizing all menu buttons to use the same component.
+//
 .menu-button {
-  height: 100%;
-  display: flex;
   align-items: center;
+  display: flex;
   font-size: units(3);
+  height: 100%;
   position: relative;
 
-  .menu-button__search-icon {
+  .menu-button__icon {
     @extend %icon;
     color: $black-54;
-  }
-
-  .menu-button__menu-toggle {
-    @extend %icon;
+    cursor: pointer;
+    margin: 0;
     position: relative;
     z-index: 1;
-    cursor: pointer;
-    color: $black-54;
   }
 
   .menu-button__overlay {
@@ -24,14 +23,8 @@
 
   .menu-button__menu {
     @include menu;
-    #{$to-direction}: -13px;
+    #{$to-direction}: -1 * units(1);
     top: 100%;
     z-index: 6; // TODO: better z-index strategy
-  }
-
-  .menu-button__link {
-    &:nth-last-child(-n + 2) {
-      color: $black-38;
-    }
   }
 }

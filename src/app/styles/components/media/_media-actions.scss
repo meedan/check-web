@@ -1,6 +1,5 @@
 .media-actions {
   position: relative;
-  text-align: $to-direction;
   margin-#{$from-direction}: auto;
 }
 
@@ -14,35 +13,5 @@
 
 .media-actions__menu {
   @include menu;
-  position: absolute;
   #{$to-direction}: 0;
-  top: 27px;
-  display: none;
-
-  &--active {
-    display: block;
-  }
-}
-
-.media-actions__menu-item { // TODO: merge with header-actions and menu-item
-  font-size: 15px;
-  padding: 0 units(2);
-  cursor: pointer;
-
-  &:hover {
-    background: $opaque-black-05;
-  }
-}
-
-.media-actions__link {
-  color: inherit;
-
-  &,
-  &:hover {
-    text-decoration: none;
-  }
-
-  &:nth-last-child(-n + 2) {
-    color: $black-38;
-  }
 }

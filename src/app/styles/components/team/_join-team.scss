@@ -3,7 +3,7 @@
 }
 
 .join-team__main-heading {
-	text-align: center;
+  text-align: center;
 }
 
 .join-team__blurb {
@@ -13,8 +13,7 @@
 
 .join-team__button {
   @include button-large;
-  min-width: units(30);
-  transition: background-color 600ms ease;
+  margin: 0 auto units(1);
 
   &:not(.join-team__button--submitted) {
     background-color: $check-blue;

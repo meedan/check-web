@@ -1,19 +1,19 @@
 .create-media {
   @include box-shadow(1);
-  margin: 16px auto;
-  padding: 16px 16px units(1);
   background-color: $white;
-  border-radius: 4px;
+  border-radius: $border-radius-default;
+  margin: 0 auto units(2);
   max-width: layout(column-width-narrow);
+  padding: units(2) units(1);
   width: 100%;
 
   footer {
-    display: flex;
     align-items: top;
+    display: flex;
 
     .create-media__helper {
-      font-size: 11px;
       color: $black-38;
+      font: font(caption);
 
       @include when-smaller-than(mobile-breakpoint-small) {
         display: none;
@@ -21,10 +21,10 @@
     }
 
     .create-media__buttons {
-      margin-#{$from-direction}: auto;
+      align-items: center;
       display: flex;
       justify-content: center;
-      align-items: center;
+      margin-#{$from-direction}: auto;
 
       // The button to show the dropzone
       //
@@ -42,52 +42,6 @@
       }
     }
   }
-
-  .preview {
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: contain;
-    height: 300px;
-    padding: 0;
-    margin: 0;
-    border: $border-width-small solid $black-38;
-    border-bottom: 0;
-    width: 100%;
-
-    .remove-image {
-      position: absolute;
-      top: 2px;
-      #{$to-direction}: 2px;
-      z-index: 1;
-      color: $black-38;
-      cursor: pointer;
-    }
-  }
-
-  .upload-file {
-    cursor: pointer;
-    margin: 0 0 7px;
-  }
-
-  .upload-file > div.with-file {
-    width: 100% !important;
-    border-top: 0 !important;
-    border-style: solid !important;
-  }
-
-  .upload-file > div {
-    padding: 0 !important;
-    height: 148px !important;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-width: 3px;
-    border-radius: units(1);
-
-    &:hover {
-      border-color: $check-blue !important;
-    }
-  }
 }
 
 .create-media__input {
@@ -96,7 +50,7 @@
     padding: 0;
 
     @include when-smaller-than(mobile-breakpoint-small) {
-      font-size: 12px;
+      font: font(caption);
     }
   }
 }

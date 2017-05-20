@@ -1,4 +1,8 @@
 .teams {
   flex: 1;
-  display: flex;
+
+  & > .content-column {
+    @extend %card;
+    align-self: center;
+  }
 }

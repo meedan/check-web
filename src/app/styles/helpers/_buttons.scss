@@ -6,11 +6,11 @@
 // elements that should semantically be <button> but not look like buttons
 //
 @mixin unbutton {
-  cursor: pointer;
+  background-color: transparent;
   border: 0;
+  cursor: pointer;
   font-family: $font-stack-sans;
   font-size: inherit;
-  background-color: transparent;
   padding: 0;
 
   &:focus {
@@ -19,20 +19,27 @@
 }
 
 @mixin button-standard {
-  cursor: pointer;
-  border: 0;
-  font-family: $font-stack-sans;
+  align-items: center;
   background-color: $black-38;
-  font-size: inherit;
+  border: 0;
   border-radius: $border-radius-default;
   color: $white;
-  text-transform: uppercase;
-  display: flex;
-  align-items: center;
+  cursor: pointer;
+  display: inline-flex;
+  font: font(subheading1);
   justify-content: center;
-  padding: 0 units(2);
-  vertical-align: middle;
+  letter-spacing: 1px;
   margin-bottom: units(1);
+  min-width: units(8);
+  opacity: .5;
+  padding: 0 units(2);
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: background-color $transition-speed-default ease, color $transition-speed-fast ease;
+
+  &:not(:disabled) {
+    opacity: 1;
+  }
 
   &:disabled {
     cursor: not-allowed;
@@ -41,15 +48,24 @@
 
 @mixin button-small {
   @include button-standard;
+  font: font(caption);
   height: units(4);
-  font: font(body2);
-  line-height: units(4);
+}
+
+@mixin button-flat {
+  @include button-medium;
+  background-color: transparent;
+  color: $black-54;
+
+  &:hover {
+    background-color: $black-05;
+  }
 }
 
 @mixin button-medium {
   @include button-standard;
+  font: font(body2);
   height: units(4) + units(half);
-  font: font(subheading1);
   line-height: units(4) + units(half);
 }
 
@@ -57,8 +73,8 @@
   @include button-standard;
   font: font(title);
   height: units(5);
-  padding-#{$from-direction}: 44px;
-  padding-#{$to-direction}: 44px;
+  padding-#{$from-direction}: units(2);
+  padding-#{$to-direction}: units(2);
 }
 
 @mixin button-primary {
@@ -68,8 +84,8 @@
 @mixin close-button($size: 30px) {
   @include unbutton;
   color: $black-16;
-  font-weight: 200;
   font-size: $size;
+  font-weight: 200;
 
   &,
   &:hover {

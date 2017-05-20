@@ -25,8 +25,8 @@
 @mixin menu-item {
   cursor: pointer;
   font: font(body2);
-  padding-top: units(1) + units(half);
   padding-bottom: units(1) + units(half);
+  padding-top: units(1) + units(half);
 
   img {
     vertical-align: middle !important;
@@ -39,11 +39,11 @@
 
   & > a,
   & > span:first-child {
-    height: 100%;
-    width: 100%;
-    display: block;
-    padding: 0 units(2);
     color: inherit;
+    display: block;
+    height: 100%;
+    padding: 0 units(2);
+    width: 100%;
 
     &,
     &:hover {

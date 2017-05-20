@@ -4,7 +4,7 @@ $font-stack-sans: "Roboto", -apple-system, BlinkMacSystemFont, "Corbel", "Lucida
 //
 // • unquote() is used because: https://github.com/sass/sass/issues/667
 // • The font name must be repeated to use the "font" shorthand
-
+//
 $typography-style-map: (
   display3:    400 56px unquote('/') 56px $font-stack-sans,
   display2:    500 45px unquote('/') 48px $font-stack-sans,
@@ -13,7 +13,6 @@ $typography-style-map: (
   title:       400 20px unquote('/') 32px $font-stack-sans,
   subheading2: 400 16px unquote('/') 28px $font-stack-sans,
   subheading1: 400 15px unquote('/') 24px $font-stack-sans,
-  body3:       400 16px unquote('/') 32px $font-stack-sans,
   body2:       400 14px unquote('/') 24px $font-stack-sans,
   body1:       400 14px unquote('/') 20px $font-stack-sans,
   caption:     400 12px unquote('/') 20px $font-stack-sans,
@@ -29,11 +28,6 @@ $typography-style-map: (
   }
 }
 
-h1 {
-  font: font(display1);
-  text-align: center;
-}
-
 // Default typography
 //
 body {
@@ -41,13 +35,23 @@ body {
   font: font(body1);
 }
 
+// Headers
+//
+h1,
+.main-title {
+  color: $black-87;
+  font: font(title);
+}
+
+// Links
+//
 a {
   color: $opaque-black-54;
   text-decoration: none;
 
   &:hover {
-    text-decoration: underline;
     color: $opaque-black-87;
+    text-decoration: underline;
     transition: color .4s;
   }
 
@@ -63,11 +67,15 @@ a {
   }
 }
 
+// Paragraphs
+//
 p {
-  margin-top: 0;
   color: $black-87;
+  margin-top: 0;
 }
 
+// Lists
+//
 ul {
   list-style-type: none;
   padding-#{$from-direction}: 0;
@@ -75,7 +83,7 @@ ul {
 }
 
 // TOS and Privay Policy pages
-// TODO refactor this to use a shared class like .page CGB 2017-3-10
+// TODO refactor this to use a shared class like .documentation CGB 2017-3-10
 #tos,
 #privacy-policy {
   margin: 10px;
@@ -89,9 +97,4 @@ ul {
     font-size: 22px;
     margin: 10px 0;
   }
-}
-
-// Main titles
-.main-title {
-  text-align: center;
 }

@@ -1,9 +1,8 @@
 .media-checklist {
-  font-size: 13px;
   margin: 0 auto;
+  max-width: layout(card-width-large);
+  padding: units(2);
   width: 100%;
-  padding: 16px;
-  max-width: 700px;
 
   &,
   p {
@@ -19,25 +18,25 @@
   }
 
   li {
-    margin: 0;
     list-style-position: outside;
+    margin: 0;
   }
 
   h4 {
     background-color: transparent;
+    display: inline-block;
+    font: font(caption);
     font-weight: 700;
     margin: 0;
-    display: inline-block;
     text-transform: uppercase;
-    font-size: 12px;
 
     &::after {
       content: '–';
-      padding-top: 0;
+      font-weight: 400;
+      padding-#{$from-direction}: units(1);
       padding-#{$to-direction}: units(1);
       padding-bottom: 0;
-      padding-#{$from-direction}: 5px;
-      font-weight: 400;
+      padding-top: 0;
     }
   }
 

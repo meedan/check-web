@@ -1,37 +1,45 @@
+// Media page wrapper
+// Ensure report input sticks to the bottom on tall screens.
+//
+
+// Calculate top offset to achieve full height layout
+$media-expanded-top-offset: layout(header-height) + layout(gutter-medium);
+
 .media {
-  height: 100%;
+  display: flex;
   flex-direction: column;
   justify-content: space-between;
-  display: flex;
+  min-height: calc(100vh - #{$media-expanded-top-offset});
 }
 
-// Use 2-column view on desktop if tasks
+// 2-column view on desktop, if there are tasks
+//
 @include when-larger-than(widescreen-breakpoint) {
   .media--has-tasks {
-    .media__expanded-header { // TODO: possibly DRY with ContentColumn#wide
-      max-width: 1216px;
+    .media__expanded-header {
+      max-width: layout(column-width-wide);
     }
 
     .media__expanded-column-wrapper {
       flex-direction: row;
 
       .media__media-column {
-        $_width: 674px;
-        width: $_width;
+        $_width: units(84);
         flex-basis: $_width;
+        width: $_width;
       }
 
       .media__tasks-column {
-        $_width: 542px;
-        width: $_width;
+        $_width: units(68);
         flex-basis: $_width;
-        margin-top: -44px;
+        margin-top: -1 * (units(4) + units(half));
+        width: $_width;
       }
     }
 
     .media__tasks-header {
-      display: flex;
       color: $black-54;
+      display: flex;
 
       svg {
         &:hover {
@@ -45,21 +53,17 @@
 .media__expanded {
   // slide under header
   @include media-status-background-colors;
-  margin-top: layout(media-expanded-top-offset) * -1;
-  padding-top: layout(media-expanded-top-offset);
-  transition: background-color 500ms ease;
-  padding-bottom: 48px;
-
-  @media all and (min-height: 1000px) {
-    min-height: 50vh;
-  }
+  margin-top: $media-expanded-top-offset * -1;
+  padding-bottom: units(6);
+  padding-top: $media-expanded-top-offset;
+  transition: background-color $transition-speed-slow ease;
 }
 
-.media__expanded-header { // TODO: possibly DRY with ContentColumn#wide
+.media__expanded-header {
   margin: 0 auto;
-  padding: 0 units(1);
-  padding-top: 54px;
   max-width: layout(column-width-narrow);
+  padding: 0 units(1);
+  padding-top: units(7);
 }
 
 .media__expanded-column-wrapper {
@@ -68,57 +72,56 @@
   padding: 0;
 
   @include when-taller-than(tallscreen-breakpoint) {
-    min-height: 45vh;
     justify-content: space-around;
   }
 }
 
 .media__primary-heading {
-  margin: 0 0 units(1);
-  font: font(headline);
   color: $white;
+  font: font(headline);
+  margin: 0 0 units(1);
   text-align: $from-direction;
 }
 
 .media__status {
   &,
   .media-status__label--current {
-    margin-bottom: units(2);
     color: $black-54;
+    margin-bottom: units(2);
   }
 
   .media-status__menu {
     #{$from-direction}: 0;
-    top: 35;
+    top: units(4);
   }
 }
 
 .media__tasks-header {
-  display: none;
   align-items: baseline;
+  display: none;
   margin-bottom: units(1);
 
   h2 {
-    font: font(subheading2);
     color: $black-87;
-    margin: 0;
     flex: 1;
+    font: font(subheading2);
+    margin: 0;
   }
 
   & > span {
-    font-size: 16px;
     color: $black-54;
-    margin-#{$to-direction}: 12px;
+    font: font(subheading2);
+    margin-#{$to-direction}: units(2);
   }
 
   .create-task {
-    cursor: pointer;
-    color: $black-16;
     align-self: center;
+    color: $black-16;
+    cursor: pointer;
 
     svg {
-      height: 24px;
-      width: 24px;
+      height: units(3);
+      width: units(3);
     }
   }
 }
@@ -126,25 +129,20 @@
 // The headline that says "Verification log"
 //
 .media__notes-heading {
-  text-align: center;
-  font-size: 16px;
-  margin: 64px 0;
-  font-weight: 400;
-  text-transform: uppercase;
-  display: flex;
-  justify-content: center;
   align-items: center;
+  display: flex;
+  font: font(subheading2);
+  justify-content: center;
+  letter-spacing: 1px;
+  margin: units(8) 0;
+  text-align: center;
+  text-transform: uppercase;
 
   & > svg {
-    opacity: .6;
-    margin-#{$from-direction}: 12px;
-    width: 24px;
-    height: 24px;
-    padding-top: 1px;
-    padding-#{$to-direction}: 1px;
-    padding-bottom: 2px;
-    padding-#{$from-direction}: 0;
-    color: $black-38;
+    color: $black-16;
+    height: units(3);
+    margin-#{$from-direction}: units(1);
+    width: units(3);
   }
 }
 
@@ -165,4 +163,10 @@
   .footer {
     display: none;
   }
+}
+
+// TODO Create media button
+//
+.create-media__button {
+  display: none;
 }

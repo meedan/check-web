@@ -1,7 +1,7 @@
 .team {
+  margin: 0 auto;
   padding: units(2) 0;
   width: 100%;
-  margin: 0 auto;
 }
 
 .team__profile {
@@ -11,12 +11,13 @@
 // edit profile
 .team__edit-profile {
   @include when-smaller-than(mobile-breakpoint) {
+    margin-bottom: units(2);
     position: static;
   }
+  display: flex;
   position: absolute;
   top: 0;
   #{$to-direction}: 0;
-  display: flex;
 }
 
 .team__edit-button,
@@ -27,10 +28,10 @@
 }
 
 .team__edit-icon {
-  width: units(2);
-  margin-#{$to-direction}: units(1);
   display: inline-block;
+  margin-#{$to-direction}: units(1);
   vertical-align: top;
+  width: units(2);
 }
 
 .team__save-button {
@@ -66,9 +67,9 @@
 }
 
 .team__description-text {
+  color: inherit;
   margin: 0;
   padding: units(half) 0;
-  color: inherit;
   text-align: $from-direction;
 }
 
@@ -87,13 +88,12 @@
 
   input {
     @include text-input;
-
     @include when-smaller-than(mobile-breakpoint) {
       width: 100%;
     }
+    font: font(caption);
     margin: units(2);
     margin-#{$from-direction}: 0;
-    font: font(caption);
   }
 }
 
@@ -121,11 +121,10 @@
 
   input[type='text'] {
     @include text-input;
-
     @include when-smaller-than(mobile-breakpoint) {
       display: block;
-      width: units(24);
       margin: units(2);
+      width: units(24);
     }
     font: font(caption);
     margin-#{$from-direction}: units(2);
@@ -170,13 +169,13 @@
 
 // projects
 .team__projects-heading {
-  text-transform: uppercase;
   margin: 0;
+  text-transform: uppercase;
 }
 
 .team__projects-list {
-  margin: units(2) auto;
   color: $black-38;
+  margin: units(2) auto;
 
   & > :last-child {
     padding-bottom: units(6);
@@ -194,11 +193,11 @@
 }
 
 .team__new-project-input {
-  border: 0;
-  padding: 0;
   background: transparent;
+  border: 0;
   color: $black-87;
   font-weight: 500;
+  padding: 0;
 
   &:focus {
     outline: none;

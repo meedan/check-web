@@ -1,16 +1,11 @@
-.switch-teams {
-  margin-bottom: 11px;
-}
-
 .switch-teams__teams {
-  margin-bottom: 10px;
-  min-width: 300px;
+  margin-bottom: units(3);
 }
 
 .switch-teams__team {
   border-radius: $border-radius-default;
   margin-bottom: units(1);
-  transition: background-color 70ms ease;
+  transition: background-color $transition-speed-fast ease;
 
   &:hover {
     background-color: $black-05;
@@ -25,6 +20,8 @@
   }
 }
 
+// Pending teams
+//
 .switch-teams__team--pending {
   &:hover {
     background-color: transparent;
@@ -38,16 +35,16 @@
 
 .switch-teams__team-link,
 .switch-teams__team--pending {
-  display: flex;
   align-items: center;
-  padding: 12px;
+  display: flex;
+  padding: units(2);
 }
 
 .switch-teams__team-link {
-  height: 100%;
-  width: 100%;
-  text-decoration: none;
   cursor: pointer;
+  height: 100%;
+  text-decoration: none;
+  width: 100%;
 
   &,
   &:hover {
@@ -56,8 +53,8 @@
 }
 
 .switch-teams__team-avatar {
-  @include avatar(60px);
-  margin-#{$to-direction}: 15px;
+  @include avatar(units(7));
+  margin-#{$to-direction}: units(2);
 }
 
 .switch-teams__team-copy {
@@ -66,7 +63,7 @@
 
 .switch-teams__team-name {
   color: $black-87;
-  margin: 3px 0;
+  margin: units(half) 0;
 
   & > a {
     color: inherit;
@@ -82,26 +79,27 @@
   color: $black-87;
 }
 
-.switch-teams__team-join-request-message {
-  text-transform: uppercase;
-}
-
-.switch-teams__team-caret {
-  // TODO: use Caret.js once stable
-  font-size: 24px;
-}
-
 .switch-teams__cancel-join-request {
-  @include unbutton;
-  color: $alert-red;
-  margin-#{$from-direction}: 20px;
+  @include button-small;
+  @include button-flat;
+
+  &:hover {
+    background-color: $alert-red;
+  }
 }
 
+// TODO: make this a proper button
 .switch-teams__new-team-link {
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: .03em;
-  margin: 15px 12px;
+  @include button-small;
+  display: inline-flex;
+
+  &:hover {
+    text-decoration: none;
+  }
+
+  span {
+    color: $white;
+  }
 }
 
 .switch-teams__team-actions {

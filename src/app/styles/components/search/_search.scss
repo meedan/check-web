@@ -5,11 +5,11 @@
     border: $border-width-small solid $black-16;
     border-radius: units(half);
     height: units(6);
-    width: 100%;
-    padding-#{$from-direction}: units(6);
     margin-top: units(1);
     outline: none;
+    padding-#{$from-direction}: units(6);
     transition: box-shadow $transition-speed-fast;
+    width: 100%;
 
     &:focus {
       @include box-shadow(2);
@@ -21,9 +21,9 @@
     @include when-larger-than(mobile-breakpoint) {
       padding: units(1);
     }
-    padding: units(2) 0;
-    max-width: 1200px;
     margin: 0 auto;
+    max-width: 1200px;
+    padding: units(2) 0;
 
     div {
       display: flex;
@@ -32,12 +32,12 @@
       overflow-y: auto;
 
       h4 {
-        flex: 1;
-        color: $black-87;
-        margin: 0;
-        display: flex;
         align-items: center;
+        color: $black-87;
+        display: flex;
+        flex: 1;
         margin-#{$to-direction}: units(2);
+        margin: 0;
         min-width: units(6);
       }
 
@@ -46,41 +46,41 @@
 
         li {
           @extend %ellipsis;
-          max-width: units(25);
           margin-bottom: 0;
+          max-width: units(25);
         }
       }
 
       @include when-smaller-than(mobile-breakpoint) {
-        padding: 0;
         flex-flow: nowrap column;
+        padding: 0;
 
         h4 {
-          text-align: $from-direction;
           padding-#{$from-direction}: units(1);
           padding-top: units(2);
+          text-align: $from-direction;
         }
       }
     }
   }
 
   .search__filters-loader {
+    margin: units(4) 0;
     text-align: center;
-    margin: 2em 0;
   }
 
   .search__results {
     padding: 0 units(2) units(2);
 
     & > h4 {
-      text-align: center;
       color: $black-38;
       font-weight: 200;
+      text-align: center;
     }
 
     ul.results {
-      max-width: layout(column-width-narrow);
       margin: 0 auto;
+      max-width: layout(column-width-narrow);
 
       & > li {
         margin-top: units(1);
@@ -90,7 +90,7 @@
 
   .search__results-heading {
     color: $black-87;
-    margin-top: 20px;
+    margin-top: units(3);
     text-align: center;
   }
 

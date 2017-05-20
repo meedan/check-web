@@ -1,14 +1,14 @@
 .annotation {
-  padding: units(1) 0;
   display: flex;
+  padding: units(1) 0;
   position: relative;
 
   .annotation__default {
-    padding-#{$from-direction}: units(10);
-    font: font(caption);
     color: $black-87;
     display: flex;
+    font: font(caption);
     max-width: layout(card-width-large);
+    padding-#{$from-direction}: units(10);
 
     &-content {
       margin-#{$to-direction}: units(2);
@@ -27,8 +27,8 @@
   }
 
   .annotation__card {
-    width: 100%;
     max-width: units(90);
+    width: 100%;
     z-index: initial !important;
 
     & > div {
@@ -42,7 +42,7 @@
 
   .annotation__card-text {
     display: flex;
-    padding: units(3) units(3) 0 !important;
+    padding: units(3) units(2) 0 !important;
   }
 
   .annotation__card-avatar-col {
@@ -58,8 +58,8 @@
   }
 
   .annotation__card-content {
-    width: 100%;
     display: flex;
+    width: 100%;
 
     & > span:first-child {
       flex: 1; // TODO: proper text/thumbnail templates
@@ -72,17 +72,17 @@
   }
 
   .annotation__card-footer {
-    flex: 1;
-    padding-#{$to-direction}: units(1);
     // see also .media-detail__check-metadata
     align-items: center;
     border-top: $border-width-small solid $black-05;
-    display: flex;
-    flex-flow: wrap row;
-    margin-top: units(3);
-    height: 44px;
-    font: font(caption);
     color: $black-54;
+    display: flex;
+    flex: 1;
+    flex-flow: wrap row;
+    font: font(caption);
+    height: 44px;
+    margin-top: units(3);
+    padding-#{$to-direction}: units(1);
   }
 
   .annotation__card-footer-text {
@@ -91,8 +91,8 @@
   }
 
   .annotation__card-author {
-    font-weight: 500;
     color: $black-87;
+    font-weight: 500;
     margin-#{$to-direction}: units(1);
   }
 
@@ -102,24 +102,24 @@
   }
 
   .annotation__header {
-    display: flex;
     align-items: baseline;
-    white-space: pre;
+    display: flex;
     margin-bottom: 1.5px;
+    white-space: pre;
   }
 
   .annotation__timestamp {
-    white-space: pre;
     color: $black-38;
     display: inline;
-    margin-#{$to-direction}: units(1);
     flex: 1;
+    margin-#{$to-direction}: units(1);
+    white-space: pre;
   }
 
   .annotation__actions {
+    align-self: flex-start;
     display: none;
     flex: 1;
-    align-self: flex-start;
     text-align: #{$to-direction};
   }
 
@@ -128,18 +128,18 @@
   }
 
   .annotation__embedded-media {
-    padding-top: units(1);
     padding-bottom: units(1);
+    padding-top: units(1);
   }
 
   // non-comments
   .annotation__status {
     @include media-status-font-colors;
     font: font(caption);
-    text-transform: uppercase;
     font-weight: 500;
     margin-#{$from-direction}: 3px;
     margin-#{$to-direction}: 2px;
+    text-transform: uppercase;
   }
 
   .annotation__tag {
@@ -162,10 +162,10 @@
   }
 
   img {
+    cursor: zoom-in;
+    float: $to-direction;
     max-width: 20%;
     min-width: units(6);
-    float: $to-direction;
-    cursor: zoom-in;
   }
 
   br {
@@ -175,10 +175,10 @@
 
 .add-annotation {
   .add-annotation__buttons {
-    margin-#{$from-direction}: auto;
+    align-items: center;
     display: flex;
     justify-content: flex-end;
-    align-items: center;
+    margin-#{$from-direction}: auto;
 
     .add-annotation__insert-photo {
       display: inline-block;
@@ -193,61 +193,14 @@
       }
     }
   }
-
-  // TODO consider consolidating this with the login image upload styles. CGB 2017-3-12
-  .preview {
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: contain;
-    height: units(38);
-    padding: 0;
-    margin: 0;
-    border: $border-width-small solid $black-38;
-    border-bottom: 0;
-    width: 100%;
-
-    .remove-image {
-      position: absolute;
-      top: units(1);
-      #{$to-direction}: units(1);
-      z-index: 1;
-      color: $black-38;
-      cursor: pointer;
-    }
-  }
-
-  .upload-file {
-    cursor: pointer;
-    margin: 0 0 units(1);
-  }
-
-  .upload-file > div.with-file {
-    width: 100% !important;
-    border-top: 0 !important;
-    border-style: solid !important;
-  }
-
-  .upload-file > div {
-    padding: 0 !important;
-    height: units(18) !important;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-width: $border-width-large;
-    border-radius: $border-radius-large;
-
-    &:hover {
-      border-color: $check-blue !important;
-    }
-  }
 }
 
 .annotation__reverse-image-search {
-  text-transform: uppercase;
-  font-weight: 700;
   cursor: pointer;
   display: inline-block;
+  font-weight: 700;
   margin: 0 units(1);
+  text-transform: uppercase;
 }
 
 .annotation__card-embedded-medias {

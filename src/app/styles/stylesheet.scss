@@ -1,5 +1,4 @@
 @charset "utf-8";
-
 @import 'vendor/normalize';
 @import 'base/colors';
 @import 'base/units';
@@ -7,6 +6,8 @@
 @import 'base/global';
 @import 'base/typography';
 @import 'base/layout';
+@import 'helpers/animations/shimmer';
+@import 'helpers/animations/fade-in';
 @import 'helpers/buttons';
 @import 'helpers/images';
 @import 'helpers/menus';
@@ -14,11 +15,10 @@
 @import 'helpers/chip';
 @import 'helpers/ellipsis';
 @import 'helpers/box-shadow';
+@import 'helpers/card';
 @import 'helpers/modal-overlay';
 @import 'helpers/hide-scrollbars';
 @import 'helpers/forms/text-input';
-@import 'helpers/animations/shimmer';
-@import 'helpers/animations/fade-in';
 @import 'components/browser-support';
 @import 'components/caret';
 @import 'components/close-button';
@@ -29,7 +29,6 @@
 @import 'components/footer';
 @import 'components/login/login-container';
 @import 'components/login/login-oauth';
-@import 'components/login/login-upload';
 @import 'components/login/login';
 @import 'components/media/media-colors';
 @import 'components/media/media-mixins';
@@ -48,6 +47,7 @@
 @import 'components/media/media-card-quote';
 @import 'components/media/media-card-social';
 @import 'components/media/media-card-image-uploaded';
+@import 'components/upload-image';
 @import 'components/annotation/add-annotation';
 @import 'components/annotation/annotation';
 @import 'components/annotation/annotations';
@@ -55,7 +55,6 @@
 @import 'components/message';
 @import 'components/search/search';
 @import 'components/source/sources';
-@import 'components/team/team-mixins';
 @import 'components/team/team';
 @import 'components/team/create-team';
 @import 'components/team/join-team';
@@ -69,7 +68,6 @@
 @import 'components/project/project-list';
 @import 'components/task/create-task';
 @import 'components/task/task';
-@import 'components/task/tasks';
 @import 'components/user-password-change';
 @import 'components/user-password-reset';
 @import 'components/user-menu';

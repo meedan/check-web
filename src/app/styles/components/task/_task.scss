@@ -2,8 +2,9 @@
   margin-bottom: units(2);
   position: relative;
 
+  // material-ui/Card>div overrides
   .task__card-text {
-    padding-bottom: 0 !important; // material-ui/Card>div override
+    padding-bottom: 0 !important;
     padding-top: 0 !important;
   }
 
@@ -19,15 +20,15 @@
   }
 
   .task__label-container {
-    padding-top: units(2);
     padding-bottom: units(1);
+    padding-top: units(2);
   }
 
   .task__label {
-    font-size: units(2);
     color: $black-54;
-    padding-top: units(2);
+    font-size: units(2);
     padding-bottom: units(1);
+    padding-top: units(2);
   }
 
   .task__response {
@@ -36,9 +37,9 @@
   }
 
   .task__response-inputs {
-    transition: max-height $transition-speed-fast ease;
     max-height: 0;
     overflow: hidden;
+    transition: max-height $transition-speed-fast ease;
   }
 
   // Toggle response area (and toggle description, if longer than one line)
@@ -56,14 +57,15 @@
 
     &:checked {
       & ~ label .task__label-container {
-        width: 100%;
-        white-space: normal;
         overflow: visible;
+        white-space: normal;
+        width: 100%;
       }
 
       & ~ .task__response-inputs {
+        // Tall enough to always be visible
+        max-height: units(625);
         transition: max-height $transition-speed-fast ease;
-        max-height: 5000px;
       }
     }
   }
@@ -85,30 +87,29 @@
   }
 
   .task__options {
-    margin-top: 13px;
-    font-size: units(2);
+    margin-top: units(2);
   }
 
   .task__options-answered {
-    margin-top: 13px;
-    color: rgba(0, 0, 0, .38);
+    color: $black-38;
+    margin-top: units(2);
   }
 
   .task__option_other_radio {
     float: $from-direction;
-    max-width: units(3);
-    max-height: units(3);
     margin-#{$from-direction}: unit(1);
-    margin-top: units(1);
     margin-#{$to-direction}: units(2);
+    margin-top: units(1);
+    max-height: units(3);
+    max-width: units(3);
   }
 
   .task__option_other_checkbox {
     float: $from-direction;
-    max-width: units(3);
-    max-height: units(3);
     margin-#{$from-direction}: unit(1);
     margin-top: units(1);
+    max-height: units(3);
+    max-width: units(3);
   }
 
   .task__option_other_text_input {
@@ -117,19 +118,19 @@
   }
 
   .task__options_other::after {
+    clear: both;
     content: "";
     display: table;
-    clear: both;
   }
 
   #task__remove-button,
   #task__edit-button {
-    float: $to-direction;
     color: #ccc;
-    margin: 0;
-    margin-top: unit(1);
-    margin-#{$to-direction}: unit(1);
     cursor: pointer;
+    float: $to-direction;
+    margin: 0;
+    margin-#{$to-direction}: unit(1);
+    margin-top: unit(1);
   }
 
   #task__remove-button {
@@ -144,31 +145,34 @@
   }
 
   .media-actions__icon {
-    margin: 0;
-    margin-#{$to-direction}: units(1);
-    width: units(3);
-    height: units(3);
-    padding: 0;
     color: $black-38;
+    height: units(3);
+    margin-#{$to-direction}: units(1);
+    margin: 0;
+    padding: 0;
+    width: units(3);
   }
 
   .task__description-icon {
-    float: $to-direction;
-    margin-top: units(2);
-    margin-#{$to-direction}: units(1);
-    margin-#{$from-direction}: units(2);
-    margin-bottom: units(1);
-    width: units(3);
-    height: units(3);
     color: $black-38;
+    float: $to-direction;
+    height: units(3);
+    margin-#{$from-direction}: units(2);
+    margin-#{$to-direction}: units(1);
+    margin-bottom: units(1);
+    margin-top: units(2);
+    width: units(3);
   }
 }
 
-.task__description-tooltip { // via rc-tooltip, outside Task.js markup tree
-  max-width: 600px;
+// Task description tooltip
+// via rc-tooltip, outside Task.js markup tree
+//
+.task__description-tooltip {
+  max-width: card-width-large;
 
   @include when-smaller-than(mobile-breakpoint) {
-    max-width: 80vw;
+    max-width: 40vw;
   }
 
   span {

@@ -10,13 +10,13 @@
 }
 
 @mixin fade-in($speed: $transition-speed-default) {
-  opacity: 0;
   animation: fade-in ease-in 1;
-  animation-fill-mode: forwards;
   animation-duration: $speed;
+  animation-fill-mode: forwards;
+  opacity: 0;
 
   &--active {
-    opacity: 1;
     display: block;
+    opacity: 1;
   }
 }

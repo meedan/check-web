@@ -1,8 +1,14 @@
-// Basic grid unit
+// Basic grid unit (Material Design 8px grid)
 //
 $unit-size: 8px; // .5em
 
 // Map of units based on base grid unit size
+//
+// • The idea here is that we want to only access multiples of 8px.
+// • The map is accessed using the helper below.
+// • Horizontal sizes should always be in 8px multiples.
+// • Vertical offsets can sometimes use a half unit, like this:
+//    `margin-top: units(1) + units(half);`
 //
 $grid-unit-size-map: (
   half: $unit-size * .5,  // 4px or .25em
@@ -32,13 +38,17 @@ $grid-unit-size-map: (
   50:   $unit-size * 50,  // 400px or 25em
   56:   $unit-size * 56,  // 456px or 28.5em
   60:   $unit-size * 60,  // 480px or 30em
+  68:   $unit-size * 68,  // 544px or 34em
   70:   $unit-size * 70,  // 560px or 35em
   80:   $unit-size * 80,  // 640px or 40em
+  84:   $unit-size * 84,  // 672px or 42em
   85:   $unit-size * 85,  // 680px or 42.5em
   90:   $unit-size * 90,  // 720px or 45em
   100:  $unit-size * 100, // 800px or 50em
   112:  $unit-size * 112, // 896px or 56em
   152:  $unit-size * 152, // 1216px or 76em
+  250:  $unit-size * 250, // 2000px or 125em
+  625:  $unit-size * 625, // 5000px or 312.5em
 );
 
 // Helper for accessing the grid unit map
@@ -46,6 +56,7 @@ $grid-unit-size-map: (
 // Usage:
 //     units(1); // returns 8px
 //
+
 @function units($unit-size) {
   @if map-has-key($grid-unit-size-map, $unit-size) {
     @return map-get($grid-unit-size-map, $unit-size);

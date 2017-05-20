@@ -1,12 +1,25 @@
 // Direction — overridden in the RTL stylesheet
+//
 $from-direction: left !default;
 $to-direction: right !default;
+
+// Transition
+//
 $transition-speed-default: 300ms;
 $transition-speed-fast: 200ms;
 $transition-speed-slow: 500ms;
+
+// Border Radius
+//
 $border-radius-default: 2px;
 $border-radius-large: 8px;
 $border-radius-largest: 24px;
+
+// Border width
+//
 $border-width-small: 1px;
 $border-width-medium: 2px;
 $border-width-large: 3px;
+
+// Letter spacing
+$letter-spacing-medium: 1px;

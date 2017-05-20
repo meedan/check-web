@@ -8,6 +8,7 @@ $providers: (twitter: $twitter-blue, facebook: $facebook-blue, google: $google-o
 // The list of oAuth login cards
 //
 .login__oauth-list {
+
   @include when-larger-than(mobile-breakpoint) {
     display: flex;
     flex-flow: row wrap;
@@ -18,18 +19,20 @@ $providers: (twitter: $twitter-blue, facebook: $facebook-blue, google: $google-o
 
 // oAuth login buttons
 .login__button {
+
   @include box-shadow(1);
+
   @include when-smaller-than(mobile-breakpoint) {
     width: 100%;
   }
-  width: units(39);
-  transition: background-color $transition-speed-default ease;
-  padding: units(1) units(3);
-  padding-#{$to-direction}: units(2);
   background-color: $white;
   display: flex;
   flex-flow: column nowrap;
   margin: units(1) 0;
+  padding-#{$to-direction}: units(2);
+  padding: units(1) units(3);
+  transition: background-color $transition-speed-default ease;
+  width: units(39);
 
   span {
     display: flex;
@@ -37,14 +40,14 @@ $providers: (twitter: $twitter-blue, facebook: $facebook-blue, google: $google-o
 
   // The disclaimer
   & > span:last-of-type {
-    margin-#{$from-direction}: units(5);
-    font: font(caption);
     color: $black-38;
+    font: font(caption);
+    margin-#{$from-direction}: units(5);
   }
 
   svg {
-    width: units(3);
     height: units(3);
+    width: units(3);
   }
 }
 

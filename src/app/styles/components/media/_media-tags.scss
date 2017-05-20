@@ -10,12 +10,12 @@
 }
 
 .media-tags__heading {
-  text-transform: uppercase;
   font-weight: 500;
-  margin-top: 4px;
+  margin-#{$from-direction}: 0;
   margin-#{$to-direction}: 16px;
   margin-bottom: 1px;
-  margin-#{$from-direction}: 0;
+  margin-top: 4px;
+  text-transform: uppercase;
 }
 
 .media-tags__message {
@@ -25,10 +25,10 @@
 
 .media-tags__suggestions {
   display: inline-block;
-  margin-top: units(1);
+  margin-#{$from-direction}: 0;
   margin-#{$to-direction}: units(1);
   margin-bottom: 0;
-  margin-#{$from-direction}: 0;
+  margin-top: units(1);
 }
 
 .media-tags__tag,
@@ -50,10 +50,10 @@
 
 // TODO standardize with other form inputs — CGB 2017-3-12
 .media-tags .tags-list input {
-  color: $black-38;
-  padding: 3px 5px;
-  border: $border-width-small solid $black-16;
   border-radius: 4px;
-  margin: 4px 10px 5px;
+  border: $border-width-small solid $black-16;
+  color: $black-38;
   font: font(caption);
+  margin: 4px 10px 5px;
+  padding: 3px 5px;
 }

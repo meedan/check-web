@@ -1,0 +1,16 @@
+// Card style
+// This card is used on the team list, project edit, create team — but not all the cards use this; some use MDC components, and there may be some that are random. TODO: Review and standardize. CGB 2017-3-19
+//
+%card {
+  @include fade-in(1);
+  @include box-shadow(1);
+  background-color: white;
+  margin: layout(gutter-small) auto;
+  max-width: layout(card-width-large);
+  padding: layout(gutter-small) layout(gutter-large);
+
+  @include when-smaller-than(mobile-breakpoint) {
+    margin: layout(gutter-small);
+    padding: layout(gutter-small);
+  }
+}

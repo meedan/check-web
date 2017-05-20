@@ -4,19 +4,19 @@
   }
 
   li > div {
-    margin-bottom: 10px;
+    margin-bottom: units(1);
   }
 
   .tabs-menu-item > a,
   .tabs-menu-item a:visited {
-    display: inline-block;
-    width: 50%;
-    text-align: center;
-    cursor: pointer;
-    padding: 10px 0;
-    text-transform: uppercase;
     background: $black-05;
+    cursor: pointer;
+    display: inline-block;
+    padding: units(1) 0;
+    text-align: center;
     text-decoration: none;
+    text-transform: uppercase;
+    width: 50%;
 
     &:hover {
       text-decoration: none;

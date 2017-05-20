@@ -6,11 +6,11 @@
 }
 
 .team-header__clickable {
-  height: 100%;
-  width: 100%;
-  display: flex;
   align-items: center;
+  display: flex;
+  height: 100%;
   overflow: hidden;
+  width: 100%;
 
   &,
   &:hover {
@@ -24,10 +24,10 @@
 }
 
 .team-header__avatar {
-  @include team-avatar(units(4));
-  margin: 0;
-  margin-#{$from-direction}: units(2);
+  @include avatar(units(4));
   background-color: $white;
+  margin-#{$from-direction}: units(2);
+  margin: 0;
 }
 
 .team-header__name {

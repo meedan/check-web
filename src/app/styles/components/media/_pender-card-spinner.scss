@@ -3,8 +3,8 @@ $spin-duration: 1.3s;
 
 .spinner {
   animation: rotator $spin-duration linear infinite;
-  width: 40px;
-  height: 40px;
+  height: units(5);
+  width: units(5);
 }
 
 @keyframes rotator {
@@ -18,10 +18,10 @@ $spin-duration: 1.3s;
 }
 
 .spinner-path {
+  animation: dash $spin-duration ease-in-out infinite, colors ($spin-duration * 2) ease-in-out infinite;
   stroke-dasharray: $spinner-offset;
   stroke-dashoffset: 0;
   transform-origin: center;
-  animation: dash $spin-duration ease-in-out infinite, colors ($spin-duration * 2) ease-in-out infinite;
 }
 
 @keyframes colors {

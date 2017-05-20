@@ -3,10 +3,10 @@
 .create-task__add-button {
   &--default {
     display: inline-block !important;
-    margin-top: 0 !important;
-    margin-#{$to-direction}: auto !important;
     margin-#{$from-direction}: 0 !important;
-    margin-bottom: 18px !important;
+    margin-#{$to-direction}: auto !important;
+    margin-bottom: units(2) !important;
+    margin-top: 0 !important;
 
     &:hover {
       background-color: $black-05 !important;
@@ -21,21 +21,21 @@
 }
 
 .create-task__task-description-input {
-  width: 100% !important;
   display: none !important;
+  width: 100% !important;
 }
 
 .create-task__add-task-description-label {
+  bottom: units(2);
+  font: font(caption);
   padding-#{$from-direction}: units(1);
   position: absolute;
-  bottom: 16px;
-  #{$from-direction}: 16px;
-  font-size: 12px;
+  #{$from-direction}: units(2);
 }
 
 .create-task__add-task-description-icon {
   font-size: 24px;
-  margin-#{$to-direction}: 16px;
+  margin-#{$to-direction}: units(2);
   position: relative;
   top: 4px;
 }
@@ -54,29 +54,25 @@
   }
 }
 
-.create-task__dialog {
-}
-
 svg.create-task__md-icon {
-  width: 20px;
-  height: 20px;
+  @extend %icon;
 }
 
 .create-task__remove-option-button {
-  margin-#{$from-direction}: 13px;
+  margin-#{$from-direction}: units(2);
 }
 
 .create-task__add-options {
-  margin-top: 17px;
+  margin-top: units(2);
 }
 
 .create-task__add-option-input {
-  padding: 5px;
+  padding: units(half) units(1);
   width: 75% !important;
 }
 
 .create-task__add-options-buttons {
-  margin-top: 7px;
+  margin-top: units(1);
 }
 
 .create-task__dialog-submit-button {

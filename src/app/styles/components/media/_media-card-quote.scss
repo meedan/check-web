@@ -1,18 +1,18 @@
 .quote-media-card {
-  border-radius: 4px;
+  border-radius: $border-radius-default;
   min-height: none;
   overflow-x: hidden;
   margin-#{$to-direction}: units(3);
 }
 
 .quote-media-card__body-text {
+  font: font(headline);
+  font-weight: 200;
+  margin-bottom: units(2);
   padding-top: units(2);
-  font-size: 24px;
-  font-weight: 100;
-  margin-bottom: 15px;
 
-  @media all and (max-width: 600px) {
-    font-size: 16px;
+  @include when-smaller-than(mobile-breakpoint) {
+    font: font(subheading2);
   }
 }
 
@@ -22,15 +22,15 @@
 
 .quote-media-card__attribution-name,
 .quote-media-card__attribution-link {
-  margin: 3px 7px;
   font-weight: 200;
-  max-width: 200px;
-  white-space: nowrap;
+  margin: units(half) units(1);
+  max-width: units(25);
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .quote-media-card__attribution-name {
   font-size: units(2);
-  max-width: 300px;
+  max-width: units(38);
 }

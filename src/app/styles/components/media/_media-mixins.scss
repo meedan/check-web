@@ -2,29 +2,29 @@
 //
 // Handy Cheatsheet (because the text labels don't always match the classes)
 //
-// BLUE 
+// BLUE
 // • "New" = --undetermined
 //
 // ORANGE
 // • "In progress" = --in-progress
-// • "Important/In Progress" = --important-in_progress, 
+// • "Important/In Progress" = --important-in_progress,
 // --important-in-progress (EL ONLY)
 //
 // GREEN
-// • "Authenticated" = --verified 
+// • "Authenticated" = --verified
 // • "Important/authenticated" = --important-authenticated (EL ONLY)
 //
 // RED
-// • "False" = --false 
+// • "False" = --false
 // • "Important/false" = --important-false (EL ONLY)
-// 
+//
 // GREY
 // • "Not applicable" = --not-applicable_2, --not-applicable-2 (EL ONLY)
 // • "Marked for deletion" = --marked-for_deletion, --marked-for-deletion (EL ONLY)
 //
 // BLACK
 // • "Important/Inconclusive" = --important-inconclusive (EL ONLY)
-// • "Inconclusive" = --inconclusive 
+// • "Inconclusive" = --inconclusive
 //
 
 // Status selectors
@@ -37,11 +37,9 @@ $red-selectors: "&--false, &--important-false";
 $gray-selectors: "&--not-applicable_2, &--not-applicable-2, &--marked-for-deletion, &--marked-for_deletion";
 $black-selectors: "&--not-applicable, &--important-inconclusive, &--inconclusive";
 
-
 // Font colors of media status labels
-// 
+//
 @mixin media-status-font-colors {
-
   #{$blue-selectors} {
     color: $media-status-blue;
   }
@@ -67,7 +65,7 @@ $black-selectors: "&--not-applicable, &--important-inconclusive, &--inconclusive
   }
 }
 
-// Background of media detail page 
+// Background of media detail page
 //
 @mixin media-status-background-colors {
   #{$blue-selectors} {

@@ -1,19 +1,19 @@
 .header { // see also .project__description
-  width: 100%;
-  height: layout(header-height);
   background: $black-05;
+  height: layout(header-height);
   position: absolute;
+  width: 100%;
 }
 
 .header__container {
-  position: relative;
   display: flex;
   height: 100%;
+  position: relative;
 }
 
 .header__app-link {
-  display: flex;
   align-items: center;
+  display: flex;
 
   img {
     width: units(8);
@@ -21,11 +21,11 @@
 }
 
 .header__team {
-  display: flex;
-  overflow: hidden;
-  min-width: units(6);
   align-items: center;
+  display: flex;
   justify-content: center;
+  min-width: units(6);
+  overflow: hidden;
 }
 
 .header__breadcrumb {

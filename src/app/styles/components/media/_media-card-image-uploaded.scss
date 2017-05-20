@@ -1,5 +1,5 @@
-// Uploaded images
-//  
+// Uploaded image reports
+//
 
 // On the project page
 //
@@ -17,12 +17,12 @@
   width: 100%;
 }
 
-// TODO fix this selector. 
+// TODO fix this selector.
 // It should be something like ".media-detail--uploaded-image" — CGB 2017-2-16
 .media__expanded .media-detail-- {
   padding: 0;
 
   .media-detail__check-metadata {
-    margin-#{$from-direction}: 16px;
-	}
+    margin-#{$from-direction}: units(2);
+  }
 }

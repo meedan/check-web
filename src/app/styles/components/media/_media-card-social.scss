@@ -1,35 +1,31 @@
-$gutter-large: 56px;
-$gutter-medium: 24px;
-$gutter-small: 16px;
-
 .social-media-card {
   @include when-smaller-than(mobile-breakpoint) {
     flex-direction: column;
     width: 100%;
 
     &__body-image {
-      margin-#{$from-direction}: $gutter-large;
+      margin-#{$from-direction}: layout(gutter-large);
     }
   }
   color: $black-87;
   display: flex;
-  margin-#{$to-direction}: $gutter-medium;
+  margin-#{$to-direction}: layout(gutter-medium);
   justify-content: space-between;
 
   &__header {
-    display: flex;
     align-items: flex-start;
+    display: flex;
   }
 
   &__author-avatar {
-    @include avatar(40px);
+    @include avatar(units(5));
   }
 
   &__header-text-primary {
     display: flex;
-    overflow: hidden;
     flex-direction: column;
-    margin-#{$from-direction}: $gutter-small;
+    margin-#{$from-direction}: layout(gutter-small);
+    overflow: hidden;
 
     a {
       color: $black-87;
@@ -52,7 +48,7 @@ $gutter-small: 16px;
   &__name,
   &__username {
     @include when-smaller-than(mobile-breakpoint-smallest) {
-      width: 100px;
+      width: units(12);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -60,9 +56,9 @@ $gutter-small: 16px;
   }
 
   &__header-text-secondary {
-    margin-#{$to-direction}: 20px;
+    margin-#{$to-direction}: units(3);
     text-align: $to-direction;
-    margin-#{$from-direction}: $gutter-large;
+    margin-#{$from-direction}: layout(gutter-large);
 
     @include when-smaller-than(mobile-breakpoint-small) {
       margin-#{$from-direction}: 0;
@@ -80,13 +76,13 @@ $gutter-small: 16px;
   }
 
   &__body {
-    margin: $gutter-small $gutter-medium $gutter-small $gutter-large;
-    display: flex;
-    justify-content: space-between;
     align-items: flex-start;
     cursor: pointer;
-    word-break: break-word;
+    display: flex;
     hyphens: auto;
+    justify-content: space-between;
+    margin: layout(gutter-small) layout(gutter-medium) layout(gutter-small) layout(gutter-large);
+    word-break: break-word;
 
     @include when-smaller-than(mobile-breakpoint-small) {
       flex-wrap: wrap;
@@ -99,11 +95,11 @@ $gutter-small: 16px;
   }
 
   &__body-text {
-    padding-#{$to-direction}: 10px;
+    padding-#{$to-direction}: units(1);
   }
 
   &__body-image {
-    @include image(200px, 100px);
+    @include image(units(25), units(13));
     flex-shrink: 0;
     margin-top: units(1);
 
@@ -114,9 +110,9 @@ $gutter-small: 16px;
 
   &__footer {
     padding-#{$from-direction}: 0;
-    padding-#{$to-direction}: 20px;
-    margin-top: 12px;
-    margin-#{$from-direction}: $gutter-large;
+    padding-#{$to-direction}: units(2);
+    margin-top: units(1) + units(half);
+    margin-#{$from-direction}: layout(gutter-large);
 
     @include when-smaller-than(mobile-breakpoint-small) {
       margin-#{$from-direction}: 0;
@@ -124,7 +120,7 @@ $gutter-small: 16px;
   }
 
   &__footer-stat {
-    margin-#{$to-direction}: $gutter-small;
+    margin-#{$to-direction}: layout(gutter-small);
     color: $black-54;
   }
 }

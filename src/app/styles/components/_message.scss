@@ -1,12 +1,18 @@
 .message {
   @include fade-in(1s);
   background: $black-54;
-  color: $white;
-  padding: units(1);
-  text-align: center;
-  position: relative;
-  margin-bottom: units(2);
   border-radius: $border-radius-default;
+  color: $white;
+  margin: layout(gutter-small) auto;
+  max-width: layout(card-width-large);
+  padding: layout(gutter-medium) layout(gutter-large);
+  position: relative;
+  text-align: center;
+
+  @include when-smaller-than(mobile-breakpoint) {
+    margin: layout(gutter-small);
+    padding: layout(gutter-small);
+  }
 
   a {
     color: $white !important;
@@ -14,8 +20,8 @@
   }
 
   #close-message {
-    position: absolute;
     #{$to-direction}: units(1);
     cursor: pointer;
+    position: absolute;
   }
 }

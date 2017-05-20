@@ -1,6 +1,6 @@
 .project-header {
-  display: flex;
   align-items: center;
+  display: flex;
   overflow: hidden;
 
   label {
@@ -10,12 +10,12 @@
   &__title {
     @extend %ellipsis;
     border-radius: $border-radius-default;
-    display: inline;
-    vertical-align: middle;
     color: $black-54;
+    display: inline;
     font: font(subheading2);
     margin-#{$from-direction}: units(2);
     padding: 0 units(1);
+    vertical-align: middle;
 
     &:hover {
       background-color: $black-05;
@@ -26,14 +26,14 @@
 
 .project-header__back-button {
   $back-button-size: units(3);
-  height: 100%;
   display: flex;
   flex-direction: column;
+  height: 100%;
   justify-content: center;
-  width: 0;
-  opacity: 0;
   margin-#{$to-direction}: 0;
+  opacity: 0;
   transition: opacity $transition-speed-default ease, width $transition-speed-default ease, margin $transition-speed-default ease;
+  width: 0;
 
   & > svg {
     height: $back-button-size;
@@ -50,27 +50,17 @@
   }
 
   &--displayed {
-    width: $back-button-size;
-    opacity: 1;
     margin-#{$from-direction}: units(2);
+    opacity: 1;
+    width: $back-button-size;
   }
 }
 
 .project-header__menu-toggle-label {
-  display: flex;
   align-items: center;
-  height: 100%;
   cursor: pointer;
-}
-
-.project-header__caret {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
   height: 100%;
-  padding: units(1);
-  opacity: .6;
-  transition: opacity $transition-speed-fast ease;
 }
 
 .project-header__menu-toggle-label:hover .project-header__caret {

@@ -1,8 +1,8 @@
 .header-actions {
-  display: flex;
   align-items: center;
-  text-align: $to-direction;
+  display: flex;
   margin-#{$from-direction}: auto;
+  text-align: $to-direction;
 }
 
 .header-actions__search-icon {
@@ -11,10 +11,10 @@
 
 .header-actions__menu-toggle {
   @extend %icon;
+  cursor: pointer;
   margin-#{$to-direction}: 0;
   position: relative;
   z-index: 1;
-  cursor: pointer;
 }
 
 .header-actions__menu-overlay {
