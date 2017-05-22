@@ -8,6 +8,7 @@ import CheckContext from '../../CheckContext';
 import MdMoreHoriz from 'react-icons/lib/md/more-horiz';
 import ParsedText from '../ParsedText';
 import UpdateDynamicMutation from '../../relay/UpdateDynamicMutation';
+import { rtlClass } from '../../helpers';
 
 const messages = defineMessages({
   language: {
@@ -85,6 +86,11 @@ class TranslationItem extends Component {
     return object ? object.formatted_value : '' ;
   }
 
+  getTranslationLanguageCode(content) {
+    const object = content.find(it => it.field_name === 'translation_language');
+    return object ? object.value : '' ;
+  }
+
   bemClass(baseClass, modifierBoolean, modifierSuffix) {
     return modifierBoolean ? [baseClass, baseClass + modifierSuffix].join(' ') : baseClass;
   }
@@ -103,6 +109,8 @@ class TranslationItem extends Component {
     const text = this.getTranslationText(content);
     const note = this.getTranslationNote(content);
     const language = this.getTranslationLanguage(content);
+    const language_code = this.getTranslationLanguageCode(content);
+
 
     const cardMenu = (
       <div className={`task__actions ${this.bemClass('media-actions', this.state.isMenuOpen, '--active')}`}>
@@ -148,7 +156,7 @@ class TranslationItem extends Component {
                 {actionBtns}
               </div>
             : [
-              <div className="translation__card-title">{text}</div>,
+              <div className={`translation__card-title ${rtlClass(language_code)}`}>{text}</div>,
               <p style={{ display: note ? 'block' : 'none' }} className="task__note"><ParsedText text={note} /></p>
             ]}
             <br />

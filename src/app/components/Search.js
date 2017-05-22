@@ -371,7 +371,7 @@ class SearchResultsComponent extends Component {
         let message = {};
         const currentUserId = that.currentContext().currentUser.dbid;
         const avatar = config.restBaseUrl.replace(/\/api.*/, '/images/bridge.png');
-        
+
         try {
           message = JSON.parse(data.message) || {};
         } catch (e) {
@@ -383,7 +383,7 @@ class SearchResultsComponent extends Component {
         } catch (e) {
           content = null;
         }
-          
+
         // Notify other users that there is a new translation request
         if (content && message.class_name === 'translation_request' && currentUserId != message.user_id) {
           let url = window.location.pathname.replace(/(^\/[^\/]+\/project\/[0-9]+).*/, '$1/media/' + message.id);
@@ -492,6 +492,7 @@ const SearchResultsContainer = Relay.createContainer(injectIntl(SearchResultsCom
               project_id,
               pusher_channel,
               language,
+              language_code,
               domain,
               permissions,
               last_status,
