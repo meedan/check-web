@@ -10,9 +10,9 @@
 }
 
 .media-tags__heading {
-  font-weight: 500;
+  font-weight: $font-weight-medium;
   margin-#{$from-direction}: 0;
-  margin-#{$to-direction}: 16px;
+  margin-#{$to-direction}: units(2);
   margin-bottom: 1px;
   margin-top: 4px;
   text-transform: uppercase;
@@ -50,8 +50,8 @@
 
 // TODO standardize with other form inputs — CGB 2017-3-12
 .media-tags .tags-list input {
-  border-radius: 4px;
   border: $border-width-small solid $black-16;
+  border-radius: units(half);
   color: $black-38;
   font: font(caption);
   margin: 4px 10px 5px;

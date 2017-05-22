@@ -9,10 +9,6 @@
     color: $white;
   }
 
-  @media all and (max-width: 400px) {
-    display: none;
-  }
-
   ul {
     padding: 0;
   }
@@ -26,13 +22,13 @@
     background-color: transparent;
     display: inline-block;
     font: font(caption);
-    font-weight: 700;
+    font-weight: font-weight-bold;
     margin: 0;
     text-transform: uppercase;
 
     &::after {
       content: '–';
-      font-weight: 400;
+      font-weight: $font-weight-normal;
       padding-#{$from-direction}: units(1);
       padding-#{$to-direction}: units(1);
       padding-bottom: 0;
@@ -47,6 +43,6 @@
 
   em {
     font-style: normal;
-    font-weight: 600;
+    font-weight: $font-weight-bold;
   }
 }

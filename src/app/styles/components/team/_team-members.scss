@@ -1,9 +1,9 @@
 .team-members {
-  position: relative;
-  max-width: layout(column-width-narrow);
   margin: 0 auto;
-  width: 100%;
+  max-width: layout(column-width-narrow);
   padding: 0 units(1);
+  position: relative;
+  width: 100%;
 }
 
 // edit buttons
@@ -14,18 +14,18 @@
   #{$to-direction}: units(3);
 
   @include when-smaller-than(mobile-breakpoint) {
-    position: static;
     margin: units(1) auto 0;
+    position: static;
   }
 }
 
 .team-members__edit-icon {
-  vertical-align: text-bottom;
-  margin-#{$to-direction}: units(1);
-  width: units(2);
-  height: units(2);
   color: $white;
   display: inline-block;
+  height: units(2);
+  margin-#{$to-direction}: units(1);
+  vertical-align: text-bottom;
+  width: units(2);
 }
 
 // blurb
@@ -49,34 +49,34 @@
 }
 
 .team-membership-requests__heading-parens {
-  font-weight: 300;
+  font-weight: $font-weight-light;
   opacity: .8;
 }
 
 .team-members__member,
 .team-membership-requests__user {
-  display: flex;
   align-items: center;
-  margin-bottom: units(4);
+  display: flex;
   flex-wrap: nowrap;
+  margin-bottom: units(4);
 }
 
 .team-members__member-avatar,
 .team-membership-requests__user-avatar {
   $size: units(6);
-  height: $size;
-  width: $size;
   border-radius: $size;
+  height: $size;
   margin-#{$to-direction}: units(1);
+  width: $size;
 }
 
 .team-members__member-details,
 .team-membership-requests__user-details {
-  flex: 1 0 units(24);
-  margin-#{$to-direction}: units(1);
-  display: flex;
   align-items: baseline;
+  display: flex;
+  flex: 1 0 units(24);
   flex-wrap: wrap;
+  margin-#{$to-direction}: units(1);
 }
 
 .team-members__member-name,
@@ -102,11 +102,11 @@
 }
 
 .team-members__member-role {
-  min-width: units(15);
-  margin-top: units(1);
+  margin-#{$from-direction}: auto;
   margin-#{$to-direction}: 0;
   margin-bottom: units(1);
-  margin-#{$from-direction}: auto;
+  margin-top: units(1);
+  min-width: units(15);
 
   .Select-control {
     transition: border-color $transition-speed-slow ease;

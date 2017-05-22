@@ -7,7 +7,7 @@
 
 .quote-media-card__body-text {
   font: font(headline);
-  font-weight: 200;
+  font-weight: $font-weight-light;
   margin-bottom: units(2);
   padding-top: units(2);
 
@@ -22,7 +22,7 @@
 
 .quote-media-card__attribution-name,
 .quote-media-card__attribution-link {
-  font-weight: 200;
+  font-weight: $font-weight-light;
   margin: units(half) units(1);
   max-width: units(25);
   overflow: hidden;

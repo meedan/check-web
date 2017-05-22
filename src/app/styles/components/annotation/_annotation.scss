@@ -80,7 +80,7 @@
     flex: 1;
     flex-flow: wrap row;
     font: font(caption);
-    height: 44px;
+    height: units(5) + units(half);
     margin-top: units(3);
     padding-#{$to-direction}: units(1);
   }
@@ -92,7 +92,7 @@
 
   .annotation__card-author {
     color: $black-87;
-    font-weight: 500;
+    font-weight: $font-weight-medium;
     margin-#{$to-direction}: units(1);
   }
 
@@ -136,7 +136,7 @@
   .annotation__status {
     @include media-status-font-colors;
     font: font(caption);
-    font-weight: 500;
+    font-weight: $font-weight-medium;
     margin-#{$from-direction}: 3px;
     margin-#{$to-direction}: 2px;
     text-transform: uppercase;
@@ -198,7 +198,7 @@
 .annotation__reverse-image-search {
   cursor: pointer;
   display: inline-block;
-  font-weight: 700;
+  font-weight: $font-weight-bold;
   margin: 0 units(1);
   text-transform: uppercase;
 }

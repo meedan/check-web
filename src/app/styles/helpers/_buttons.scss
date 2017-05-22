@@ -44,6 +44,11 @@
   &:disabled {
     cursor: not-allowed;
   }
+
+  &:hover {
+    @include box-shadow(1);
+    transition: box-shadow $transition-speed-default ease;
+  }
 }
 
 @mixin button-small {
@@ -85,7 +90,7 @@
   @include unbutton;
   color: $black-16;
   font-size: $size;
-  font-weight: 200;
+  font-weight: $font-weight-light;
 
   &,
   &:hover {

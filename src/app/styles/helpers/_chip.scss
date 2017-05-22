@@ -1,21 +1,21 @@
 @mixin chip {
-  padding: units(half) units(2);
-  border: 0;
-  margin-top: units(half);
-  margin-#{$to-direction}: units(1);
-  margin-bottom: units(half);
-  margin-#{$from-direction}: 0;
-  font: font(caption);
   background-color: $black-05;
+  border: 0;
   border-radius: $border-radius-largest;
-  display: inline-block;
   color: $black-54;
   cursor: pointer;
+  display: inline-block;
+  font: font(caption);
+  margin-#{$from-direction}: 0;
+  margin-#{$to-direction}: units(1);
+  margin-bottom: units(half);
+  margin-top: units(half);
+  padding: units(half) units(2);
 
   &--selected {
     background-color: $black-10;
     color: $black-87;
-    font-weight: 700;
+    font-weight: $font-weight-bold;
   }
 
   &:hover {

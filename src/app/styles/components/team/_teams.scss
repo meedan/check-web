@@ -1,8 +1,7 @@
 .teams {
-  flex: 1;
-
-  & > .content-column {
-    @extend %card;
-    align-self: center;
-  }
+  // TODO: this should be inside a card element 2017-3-22 CGB
+  //
+  // & > .content-column {
+  //   @extend %card;
+  // }
 }

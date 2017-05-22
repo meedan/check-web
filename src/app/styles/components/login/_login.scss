@@ -33,7 +33,7 @@
     opacity: 0;
     order: 1;
     text-align: $from-direction;
-    transition: color 200ms ease, opacity 50ms ease;
+    transition: color $transition-speed-fast ease, opacity $transition-speed-fastest ease;
 
     &--text-entered {
       opacity: 1;
@@ -50,13 +50,14 @@
   @include button-primary;
   display: block;
   margin: units(8) auto units(1);
+  min-width: units(20) !important;
 }
 
 .login__forgot-password a {
-  color: $black-54;
-  display: block;
-  font: font(body2);
-  margin: 0 auto;
-  padding: units(1);
+  @include button-flat;
   text-align: center;
+
+  &:hover {
+    box-shadow: none !important;
+  }
 }

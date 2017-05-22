@@ -1,14 +1,14 @@
-.team {
-  margin: 0 auto;
-  padding: units(2) 0;
-  width: 100%;
-}
+// TODO: this should be inside a card layout 2017-3-22 CGB
+//
+// .team > .content-column {
+//   @extend %card;
+// }
 
 .team__profile {
   position: relative;
 }
 
-// edit profile
+// edit profile button group
 .team__edit-profile {
   @include when-smaller-than(mobile-breakpoint) {
     margin-bottom: units(2);
@@ -167,7 +167,8 @@
   padding-top: units(8);
 }
 
-// projects
+// projects list
+// TODO bring this up to spec 2017-3-22 CGB
 .team__projects-heading {
   margin: 0;
   text-transform: uppercase;
@@ -192,30 +193,25 @@
   font: font(subheading2);
 }
 
+.team__new-project {
+  margin-top: units(2);
+}
+
 .team__new-project-input {
   background: transparent;
   border: 0;
+  border-bottom: 1px solid $black-16 !important;
   color: $black-87;
-  font-weight: 500;
+  font-weight: $font-weight-medium;
   padding: 0;
 
   &:focus {
+    border-bottom-color: $check-blue !important;
     outline: none;
+    transition: border-bottom-color $transition-speed-default ease;
   }
 
   &::placeholder {
     color: $black-38;
-    font-weight: 400;
-  }
-}
-
-.team__project-link {
-  &,
-  &:visited {
-    color: inherit;
-  }
-
-  &:hover {
-    color: $black-87;
   }
 }
