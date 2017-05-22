@@ -1,5 +1,6 @@
 import config from 'config';
 import truncate from 'lodash.truncate';
+import rtlDetect from 'rtl-detect';
 
 // Functionally-pure sort: keeps the given array unchanged and returns sorted one.
 Array.prototype.sortp = function (fn) {
@@ -68,12 +69,7 @@ function capitalize(text) {
 }
 
 function rtlClass(language_code) {
-  const rtl_locales = [
-    'ar',
-    'ar-001',
-    'he',
-  ];
-  return (rtl_locales.indexOf(language_code) > -1) ? 'translation__rtl' : '';
+  return (rtlDetect.isRtlLang(language_code)) ? 'translation__rtl' : '';
 }
 
 export {
