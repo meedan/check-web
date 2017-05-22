@@ -1,8 +1,4 @@
 module AppSpecHelpers
-  def port_open?(port)
-    !system("lsof -i:#{port}", out: '/dev/null')
-  end
-
   def get_element(selector, type = :css)
     sleep 3
     wait = Selenium::WebDriver::Wait.new(timeout: 5)
@@ -39,7 +35,7 @@ module AppSpecHelpers
     @driver.navigate.to 'https://twitter.com/login'
     fill_field('.js-username-field', @config['twitter_user'])
     fill_field('.js-password-field', @config['twitter_password'])
-    press_button
+    press_button('button.submit')
     @wait.until {
       @driver.page_source.include?("#{@config['twitter_name']}")
     }
