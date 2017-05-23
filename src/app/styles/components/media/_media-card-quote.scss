@@ -22,12 +22,10 @@
 
 .quote-media-card__attribution-name,
 .quote-media-card__attribution-link {
+  @extend %ellipsis;
   font-weight: $font-weight-light;
   margin: units(half) units(1);
   max-width: units(25);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 .quote-media-card__attribution-name {

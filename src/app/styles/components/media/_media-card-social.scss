@@ -40,19 +40,10 @@
     }
   }
 
-  &__username {
-    overflow-x: hidden;
-  }
-
   // Truncate when smaller
   &__name,
   &__username {
-    @include when-smaller-than(mobile-breakpoint-smallest) {
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      width: units(12);
-    }
+    @extend %ellipsis;
   }
 
   &__header-text-secondary {
@@ -69,6 +60,8 @@
     }
 
     svg {
+      margin-#{$to-direction}: units(1);
+
       path {
         color: $black-54;
       }

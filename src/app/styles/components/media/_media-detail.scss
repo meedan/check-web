@@ -1,4 +1,4 @@
-// Wrapper around all reports (globally)
+// Wrapper around reports (globally)
 // TODO: This should be renamed to avoid misleading use of "detail"
 // Since it does not only apply to the detail view. — CGB
 //
@@ -9,7 +9,7 @@
   border-#{$from-direction}: units(1) solid;
   border-radius: $border-radius-default;
   margin-bottom: units(2);
-  padding: (units(1) + units(half)) units(2) 0;
+  padding: (units(1) + units(half)) layout(gutter-small) 0;
 }
 
 // Row with the status and actions menu button
@@ -24,18 +24,16 @@
   display: inline-block;
 }
 
-// Optional title
+// Optional title (on project page)
 //
 .media-detail__heading {
+  @extend %ellipsis;
   font: font(title);
   font-weight: $font-weight-bold;
   margin-#{$from-direction}: 0;
   margin-#{$to-direction}: units(3);
   margin-bottom: 0;
   margin-top: units(half);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 
   &,
   & > a,

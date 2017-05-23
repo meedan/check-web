@@ -27,10 +27,10 @@
   background: $black-05;
   display: flex;
   flex-direction: column;
+  font: font(caption);
   justify-content: center;
   margin: (-1 * units(3)) (-1 * units(2)) units(2);
   min-height: units(4);
-  font: font(caption);
 
   &-container {
     @include when-smaller-than(mobile-breakpoint) {
