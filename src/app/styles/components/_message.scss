@@ -1,17 +1,12 @@
 .message {
-  @include fade-in(1s);
+  @include fade-in($transition-speed-slow);
   background: $black-54;
   border-radius: $border-radius-default;
   color: $white;
-  margin: layout(gutter-small) auto layout(gutter-medium);
-  padding: layout(gutter-medium) layout(gutter-large);
+  margin: 0 auto layout(gutter-medium);
+  padding: layout(gutter-small) layout(gutter-large);
   position: relative;
   text-align: center;
-
-  @include when-smaller-than(mobile-breakpoint) {
-    margin: layout(gutter-small);
-    padding: layout(gutter-small);
-  }
 
   a {
     color: $white !important;

@@ -2,21 +2,10 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-
-  // TODO: this should be inside a card layout 2017-3-22 CGB
-  //
-  // & > .content-column {
-  //   @extend %card;
-  // }
 }
 
 .create-team__blurb {
   margin-bottom: units(4);
-}
-
-.create-team__form {
-  margin: 0 auto;
-  max-width: layout(card-width-large);
 }
 
 .create-team__team-display-name {

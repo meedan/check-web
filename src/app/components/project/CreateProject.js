@@ -74,7 +74,7 @@ class CreateProject extends Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit.bind(this)} className="create-project">
-        <input className={this.props.className} placeholder={this.props.intl.formatMessage(messages.addProject)} id="create-project-title" ref={input => this.projectInput = input} />
+        <input type="text" className={this.props.className} placeholder={this.props.intl.formatMessage(messages.addProject)} id="create-project-title" ref={input => this.projectInput = input} />
         <Message message={this.state.message} />
       </form>
     );

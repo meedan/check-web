@@ -181,7 +181,7 @@ class CreateTeam extends Component {
       <DocumentTitle title={pageTitle(this.props.intl.formatMessage(messages.title), true)}>
         <main className="create-team">
           <Message message={this.state.message} />
-          <ContentColumn>
+          <ContentColumn className="card">
             <Heading><FormattedMessage id="createTeam.mainHeading" defaultMessage="Create a Team" /></Heading>
             <p className="create-team__blurb"><FormattedMessage id="createTeam.blurb" defaultMessage="Create a team for your organization, or just for yourself:" /></p>
             <form className="create-team__form">

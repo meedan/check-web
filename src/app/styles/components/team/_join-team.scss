@@ -12,8 +12,8 @@
 }
 
 .join-team__button {
-  @include button-large;
-  margin: 0 auto units(1);
+  @include button-medium;
+  margin: units(3) auto;
 
   &:not(.join-team__button--submitted) {
     background-color: $check-blue;

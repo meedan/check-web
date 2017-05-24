@@ -1,10 +1,3 @@
-// TODO: this should be inside a card layout 2017-3-22 CGB
-// .project-edit {
-//   & > .content-column {
-//     @extend %card;
-//   }
-// }
-
 .project-edit__form {
   margin: 0 auto;
   max-width: layout(card-width-large);

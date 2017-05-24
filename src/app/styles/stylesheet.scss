@@ -19,6 +19,7 @@
 @import 'helpers/modal-overlay';
 @import 'helpers/hide-scrollbars';
 @import 'helpers/forms/text-input';
+@import 'helpers/break-word';
 @import 'components/browser-support';
 @import 'components/caret';
 @import 'components/close-button';
@@ -61,7 +62,6 @@
 @import 'components/team/switch-teams';
 @import 'components/team/team-header';
 @import 'components/team/team-members';
-@import 'components/team/teams';
 @import 'components/project/project';
 @import 'components/project/project-edit';
 @import 'components/project/project-header';

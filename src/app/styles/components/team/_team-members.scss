@@ -1,22 +1,27 @@
 .team-members {
+  display: flex;
+  flex-direction: column;
   margin: 0 auto;
-  max-width: layout(column-width-narrow);
   padding: 0 units(1);
-  position: relative;
   width: 100%;
+
+  > .card {
+    position: relative;
+    // TODO revisit this layout CGB 2017-3-23
+    @include card(card-width-large);
+  }
+
+  h1 {
+    margin-bottom: units(4);
+    margin-top: 0;
+  }
 }
 
 // edit buttons
 .team-members__edit-button {
   @include button-medium;
   position: absolute;
-  top: units(4);
-  #{$to-direction}: units(3);
-
-  @include when-smaller-than(mobile-breakpoint) {
-    margin: units(1) auto 0;
-    position: static;
-  }
+  right: units(2);
 }
 
 .team-members__edit-icon {
@@ -31,7 +36,6 @@
 // blurb
 .team-members__blurb {
   margin-bottom: units(4);
-  text-align: center;
 }
 
 .team-members__blurb-graf--url {
@@ -42,10 +46,6 @@
 
 .team-membership-requests {
   margin-bottom: units(2);
-}
-
-.team-membership-requests__heading {
-  text-align: center;
 }
 
 .team-membership-requests__heading-parens {
@@ -77,6 +77,10 @@
   flex: 1 0 units(24);
   flex-wrap: wrap;
   margin-#{$to-direction}: units(1);
+  @include when-smaller-than(mobile-breakpoint) {
+    flex-basis: units(10);
+    flex-direction: column;
+  }
 }
 
 .team-members__member-name,
@@ -95,6 +99,7 @@
   @include button-small;
   margin-#{$from-direction}: units(1);
   margin-bottom: 0;
+  flex-shrink: 0;
 
   &--approve {
     @include button-primary;

@@ -147,7 +147,7 @@ class ProjectEditComponent extends Component {
       <DocumentTitle title={pageTitle(project.title, false, this.currentContext().team)}>
         <section className="project-edit">
           <Message message={this.state.message} />
-          <ContentColumn>
+          <ContentColumn className="card">
 
             <form className="project-edit__form" onSubmit={this.updateProject.bind(this)}>
 
