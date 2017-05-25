@@ -157,9 +157,8 @@ class TranslationItem extends Component {
               </div>
             : [
               <div className={`translation__card-title ${rtlClass(language_code)}`}>{text}</div>,
-              <p style={{ display: note ? 'block' : 'none' }} className="task__note"><ParsedText text={note} /></p>
+              <p style={{ display: note ? 'block' : 'none' }} className="translation__note"><ParsedText text={note} /></p>
             ]}
-            <br />
             <span className="media-tags__tag">{this.props.intl.formatMessage(messages.language, { language })}</span>
           </CardText>
         </Card>

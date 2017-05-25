@@ -1,5 +1,5 @@
 .translation__component {
-  margin-bottom: 15px;
+  margin-bottom: 16px;
 }
 
 .translation__rtl {
@@ -7,8 +7,15 @@
   text-align: right;
 }
 
+.translation__ltr {
+  direction: ltr;
+  text-align: left;
+}
+
 .translation__card-title {
-  margin-bottom: 15px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  margin-#{$to-direction}: 24px;
 }
 
 .translation__card-text {
@@ -17,4 +24,8 @@
 
 .translation__card-actions {
   text-align: $to-direction;
+}
+
+.translation__note {
+  text-align: $from-direction;
 }
