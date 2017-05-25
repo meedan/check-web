@@ -7,6 +7,7 @@ import MediaDetail from './MediaDetail';
 import MediaUtil from './MediaUtil';
 import MediaChecklist from './MediaChecklist';
 import { Tags } from '../source';
+import Can from '../Can';
 import Annotations from './Annotations';
 import config from 'config';
 import { pageTitle } from '../../helpers';
@@ -123,7 +124,9 @@ class MediaComponent extends Component {
               <ContentColumn className='media__media-column'>
                 <MediaDetail media={media} />
                 <CreateTask media={media} />
-                <Translation annotated={media} annotatedType="ProjectMedia" />
+                <Can permissions={media.permissions} permission="create Dynamic">
+                  <Translation annotated={media} annotatedType="ProjectMedia" />
+                </Can>
               </ContentColumn>
               <ContentColumn className='media__tasks-column'>
                 <div className='media__tasks-header'>
