@@ -69,7 +69,7 @@ function capitalize(text) {
 }
 
 function rtlClass(language_code) {
-  return (rtlDetect.isRtlLang(language_code)) ? 'translation__rtl' : '';
+  return (rtlDetect.isRtlLang(language_code)) ? 'translation__rtl' : 'translation__ltr';
 }
 
 export {
