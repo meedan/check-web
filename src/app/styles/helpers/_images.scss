@@ -1,23 +1,23 @@
 @mixin background-cover {
-  background-size: cover;
   background-position: center;
+  background-size: cover;
 }
 
 @mixin image($width, $height: $width) {
   @include background-cover;
   border: $border-width-small solid $black-05;
-  width: $width;
-  height: $height;
   border-radius: $border-radius-default;
+  height: $height;
+  width: $width;
 }
 
 @mixin avatar($size) {
   @include background-cover;
   border: $border-width-small solid $black-05;
-  width: $size;
-  height: $size;
   border-radius: $border-radius-default;
   flex: 0 0 auto;
+  height: $size;
+  width: $size;
 }
 
 @mixin user-avatar($size) {

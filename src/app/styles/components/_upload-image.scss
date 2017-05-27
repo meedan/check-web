@@ -25,7 +25,8 @@
     background-size: contain;
     display: block;
     height: $_preview_size / 2;
-    margin: units(2) units(6) 0 0;
+    margin: units(2) 0 0;
+    margin-#{$to-direction}: units(6);
     position: relative;
     width: $_preview_size;
 

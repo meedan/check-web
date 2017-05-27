@@ -77,6 +77,7 @@ $media-expanded-top-offset: layout(header-height) + layout(gutter-medium);
 }
 
 .media__primary-heading {
+  @extend %break-word;
   color: $white;
   font: font(headline);
   margin: 0 0 units(1);

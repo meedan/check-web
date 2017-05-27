@@ -8,6 +8,8 @@
 	"extensions": [".scss"],
 	"extends": ["stylelint-config-standard"],
 	"rules": {
+		"selector-max-specificity": "0,3,0",
+		"color-no-hex": true,
 		"declaration-empty-line-before": "never",
 		"at-rule-empty-line-before": null,
 		"block-closing-brace-newline-after": ["always", {

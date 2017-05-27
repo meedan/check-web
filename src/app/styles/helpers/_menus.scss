@@ -1,8 +1,8 @@
 @mixin menu {
   @include box-shadow(2);
   background: $white;
-  border-radius: $border-radius-default;
   border: $border-width-small solid $black-16;
+  border-radius: $border-radius-default;
   color: $black-87;
   display: none;
   margin: 0;
@@ -13,8 +13,8 @@
   z-index: 3;
 
   &--active {
-    opacity: 1;
     display: block;
+    opacity: 1;
   }
 
   & > li {
@@ -37,6 +37,7 @@
     transition: background $transition-speed-fast;
   }
 
+  // TODO enable profile so we can remove the span:first-child hack below — CGB 2017-3-26
   & > a,
   & > span:first-child {
     color: inherit;
