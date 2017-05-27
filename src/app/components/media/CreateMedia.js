@@ -163,8 +163,6 @@ class CreateProjectMedia extends Component {
           </div>
 
           <form name="media" id="media-url-container" className="create-media__form" onSubmit={this.handleSubmit.bind(this)}>
-            <button className="create-media__button create-media__button--new">+</button>
-
             <div id="create-media__field">
               {(() => {
                 if (this.state.fileMode) {
