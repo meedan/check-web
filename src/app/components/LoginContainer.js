@@ -23,7 +23,10 @@ class LoginContainer extends Component {
         <p>
           <FormattedMessage
             id="agree.terms" defaultMessage={'By signing in, you agree to the Check {tosLink} and {ppLink}.'}
-            values={{ tosLink: <Link to=" /check/tos" className="login-container__footer-link"><FormattedMessage id="tos.title" defaultMessage="Terms of Service" /></Link>, ppLink: <Link to="/check/privacy" className="login-container__footer-link"><FormattedMessage id="privacy.policy.title" defaultMessage="Privacy&nbsp;Policy" /></Link> }}
+            values={{
+              tosLink: <a className="login-container__footer-link" target="_blank" rel="noopener noreferrer" href="https://meedan.com/en/check/check_tos.html"><FormattedMessage id="tos.title" defaultMessage="Terms of Service" /></a>,
+              ppLink: <a className="login-container__footer-link" target="_blank" rel="noopener noreferrer" href="https://meedan.com/en/check/check_privacy.html"><FormattedMessage id="privacy.policy.title" defaultMessage="Privacy&nbsp;Policy" /></a>
+            }}
           />
         </p>
 
