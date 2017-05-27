@@ -280,28 +280,13 @@ class TeamComponent extends Component {
                       <div className="team__description">
                         <p className="team__description-text">
                           {team.description ||
-                            this.props.intl.formatMessage(messages.verificationTeam)}
+                            <MappedMessage msgObj={messages} msgKey="verificationTeam" />}
                         </p>
                       </div>
                     </div>
                   );
-<<<<<<< HEAD
-                }
-                return (
-                  <div>
-                    <h1 className="team__name">
-                      <Link to="#" className="team__name-link">{team.name}</Link>
-                    </h1>
-                    <div className="team__description">
-                      <p className="team__description-text">{team.description || <MappedMessage msgObj={messages} msgKey="verificationTeam" />}</p>
-                    </div>
-                  </div>
-                );
-              })()}
-=======
                 })()}
               </div>
->>>>>>> check/develop
 
               <div className="team__contact-info">
                 <span className="team__location">
@@ -431,29 +416,12 @@ class TeamComponent extends Component {
                 }
               })()}
 
-<<<<<<< HEAD
-            <section className="team__content">
-              <div className="team__content-body">
-                <h3 className="team__projects-heading"><MappedMessage msgObj={messages} msgKey="verificationProjects" /></h3>
-                <ul className="team__projects-list">
-                  {team.projects.edges.sortp((a, b) => a.node.title.localeCompare(b.node.title)).map(p => (
-                    <li className="team__project">
-                      <Link to={`/${team.slug}/project/${p.node.dbid}`} className="team__project-link">{p.node.title}</Link>
-                    </li>
-                  ))}
-                  <Can permissions={team.permissions} permission="create Project">
-                    <li className="team__new-project">
-                      <CreateProject className="team__new-project-input" team={team} />
-                    </li>
-                  </Can>
-                </ul>
-=======
               <div className="team__content">
                 <div className="team__content-body">
                   <h3 className="team__projects-heading">
-                    <FormattedMessage
-                      id="teamComponent.title"
-                      defaultMessage="Verification Projects"
+                    <MappedMessage
+                      msgObj={messages}
+                      msgKey="verificationProjects"
                     />
                   </h3>
                   <ul className="team__projects-list">
@@ -475,7 +443,6 @@ class TeamComponent extends Component {
                     </Can>
                   </ul>
                 </div>
->>>>>>> check/develop
               </div>
             </section>
           </ContentColumn>
