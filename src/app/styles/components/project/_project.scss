@@ -1,14 +1,14 @@
 // Project page
 //
 .project {
+  display: flex;
   flex: 1;
-  width: 100%;
+  flex-direction: column;
   height: 100%;
   overflow-y: visible;
+  padding: 0 units(2);
   position: relative;
-  display: flex;
-  flex-direction: column;
-  padding: 0 16px;
+  width: 100%;
 
   // Add annotations
   // TODO This element should not be present on the project page. 2017-2-13 CGB
@@ -23,26 +23,28 @@
 }
 
 .project__description {
-  // TODO remove magic numbers
   // see also .header__container
-  margin: -16px -16px 0;
+  background: $black-05;
   display: flex;
   flex-direction: column;
+  font: font(caption);
   justify-content: center;
-  background: $black-05;
-  min-height: 48px;
+  margin: (-1 * units(3)) (-1 * units(2)) units(2);
+  min-height: units(4);
 
   &-container {
-    width: 100%;
-    max-width: $layout-column-width-wide + (16px * 2);
-    padding-top: 16px;
-    padding-#{$to-direction}: 16px;
-    padding-bottom: 16px;
-    padding-#{$from-direction}: 27px;
-    margin: 0 auto;
-    display: flex;
+    @include when-smaller-than(mobile-breakpoint) {
+      padding-#{$from-direction}: units(3);
+    }
     color: $black-54;
-    font-size: 14px;
+    display: flex;
+    margin: 0 auto;
+    max-width: layout(column-width-wide) + units(2);
+    padding-#{$from-direction}: units(10);
+    padding-#{$to-direction}: units(2);
+    padding-bottom: units(1);
+    text-align: $from-direction;
+    width: 100%;
   }
 }
 

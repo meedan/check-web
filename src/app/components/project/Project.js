@@ -5,7 +5,6 @@ import { Link } from 'react-router';
 import DocumentTitle from 'react-document-title';
 import ProjectRoute from '../../relay/ProjectRoute';
 import ProjectHeader from './ProjectHeader';
-import TeamSidebar from '../TeamSidebar';
 import { CreateProjectMedia } from '../media';
 import Can from '../Can';
 import config from 'config';

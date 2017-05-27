@@ -18,7 +18,7 @@ class Teams extends Component {
     return (
       <DocumentTitle title={pageTitle(this.props.intl.formatMessage(messages.title), true)}>
         <section className="teams">
-          <ContentColumn>
+          <ContentColumn className="card">
             <Heading><FormattedMessage id="teams.yourTeams" defaultMessage="Your Teams" /></Heading>
             <SwitchTeams />
           </ContentColumn>

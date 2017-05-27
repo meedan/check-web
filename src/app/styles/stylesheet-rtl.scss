@@ -2,7 +2,7 @@
   direction: rtl;
 
   // Refine typography
-  // TODO — more typography refinements 2017-3-27 CGB 
+  // TODO — more typography refinements 2017-3-27 CGB
   // - larger text
   // - avoid partially opaque text
 
@@ -34,10 +34,9 @@
   }
 
   .create-task__action-container {
-    text-align: left! important;
+    text-align: left !important;
   }
 }
-
 $from-direction: right;
 $to-direction: left;
 

@@ -20,10 +20,6 @@
     "defaultMessage": "Delete task"
   },
   {
-    "id": "task.more",
-    "defaultMessage": "More"
-  },
-  {
     "id": "task.noteLabel",
     "defaultMessage": "Note any additional details here."
   },

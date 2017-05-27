@@ -1,0 +1,16 @@
+// TODO: review this, I think it's a currently hidden sources-related page 2017-3-19 CGB
+.create-account {
+  width: 100%;
+
+  h2 {
+    text-align: #{$from-direction};
+  }
+
+  .create-account-col {
+    float: #{$from-direction};
+    min-height: units(152);
+    overflow: hidden;
+    padding: units(3);
+    width: 46%;
+  }
+}

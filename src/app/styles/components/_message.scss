@@ -1,22 +1,15 @@
 .message {
-  @include fade-in(1s);
+  @include fade-in($transition-speed-slow);
   background: $black-54;
+  border-radius: $border-radius-default;
   color: $white;
-  padding: 10px;
-  font-size: 14px;
-  text-align: center;
+  margin: 0 auto layout(gutter-medium);
+  padding: layout(gutter-small) layout(gutter-large);
   position: relative;
-  margin-bottom: 16px;
-  border-radius: 2px;
+  text-align: center;
 
   a {
     color: $white !important;
     text-decoration: underline;
-  }
-
-  #close-message {
-    position: absolute;
-    #{$to-direction}: 10px;
-    cursor: pointer;
   }
 }

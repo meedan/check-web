@@ -1,4 +1,9 @@
-.caret {
-  font-size: 22px;
-  padding: 0 15px;
+[class$="__caret"] {
+  align-items: center;
+  color: $black-38;
+  display: inline-flex;
+  font-size: units(3);
+  height: units(3);
+  justify-content: center;
+  width: units(3);
 }

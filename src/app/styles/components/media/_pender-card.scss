@@ -1,34 +1,37 @@
+// Pender cards
+// These are the default rendering of some links that don't have Check-level renderings.
+// We add a max-height to ensure that they don't get extremely large (some webpages seem to render in entirety.)
 .pender-card {
-  min-height: 200px;
-  position: relative;
-  max-height: 2000px;
-  overflow-y: hidden;
+  max-height: units(250);
+  min-height: units(25);
   overflow-x: hidden;
+  overflow-y: hidden;
+  position: relative;
 
   iframe {
-    position: relative;
     #{$from-direction}: 0;
-    top: 0;
-    bottom: 0;
     #{$to-direction}: 0;
+    bottom: 0;
+    position: relative;
+    top: 0;
     z-index: 1;
   }
 }
 
 .pender-card__loader {
+  #{$from-direction}: 50%;
   $size: 100%;
-  width: $size;
+  align-items: center;
+  display: flex;
   height: $size;
+  justify-content: center;
   position: absolute;
   top: 50%;
-  #{$from-direction}: 50%;
   transform: translate(-50%, 50%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: $size;
 
   .social-media-card {
     border: 0;
-    padding-top: 40px;
+    padding-top: units(5);
   }
 }

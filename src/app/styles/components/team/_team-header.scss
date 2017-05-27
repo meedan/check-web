@@ -1,16 +1,16 @@
 .team-header {
-  border-radius: 2px;
+  border-radius: $border-radius-default;
   display: flex;
-  height: 48px;
+  height: units(6);
   overflow: hidden;
 }
 
 .team-header__clickable {
-  height: 100%;
-  width: 100%;
-  display: flex;
   align-items: center;
+  display: flex;
+  height: 100%;
   overflow: hidden;
+  width: 100%;
 
   &,
   &:hover {
@@ -24,12 +24,14 @@
 }
 
 .team-header__avatar {
-  @include team-avatar(32px);
-  margin-#{$to-direction}: 16px;
+  @include avatar(units(4));
   background-color: $white;
+  margin-#{$from-direction}: units(2);
+  margin: 0;
 }
 
 .team-header__name {
-  @include header-title;
   @extend %ellipsis;
+  font: font(subheading2);
+  margin-#{$from-direction}: units(2);
 }

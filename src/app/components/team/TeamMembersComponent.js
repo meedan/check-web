@@ -9,6 +9,7 @@ import TeamMembershipRequests from './TeamMembershipRequests';
 import TeamMembersCell from './TeamMembersCell';
 import config from 'config';
 import { pageTitle } from '../../helpers';
+import ContentColumn from '../layout/ContentColumn';
 
 const messages = defineMessages({
   title: {
@@ -54,31 +55,33 @@ class TeamMembersComponent extends Component {
     return (
       <DocumentTitle title={pageTitle(this.props.intl.formatMessage(messages.title), false, team)}>
         <div className="team-members">
-          <button onClick={this.handleEditMembers.bind(this)} className="team-members__edit-button">
-            <MdCreate className="team-members__edit-icon" />
-            {isEditing ? <FormattedMessage id="teamMembersComponent.editDoneButton" defaultMessage="Done" /> : <FormattedMessage id="teamMembersComponent.editButton" defaultMessage="Edit" />}
-          </button>
+          <ContentColumn className="card">
+            <button onClick={this.handleEditMembers.bind(this)} className="team-members__edit-button">
+              <MdCreate className="team-members__edit-icon" />
+              {isEditing ? <FormattedMessage id="teamMembersComponent.editDoneButton" defaultMessage="Done" /> : <FormattedMessage id="teamMembersComponent.editButton" defaultMessage="Edit" />}
+            </button>
 
-          <h1 className="team-members__main-heading"><FormattedMessage id="teamMembersComponent.mainHeading" defaultMessage="Members" /></h1>
+            <h1 className="team-members__main-heading"><FormattedMessage id="teamMembersComponent.mainHeading" defaultMessage="Members" /></h1>
 
-          <div className="team-members__blurb">
-            <p className="team-members__blurb-graf">
-              <FormattedMessage
-                id="teamMembersComponent.inviteLink"
-                defaultMessage={'To invite colleagues to join {link}, send them this link:'}
-                values={{ link: <Link to={teamUrl}>{team.name}</Link> }}
-              />
-            </p>
-            <p className="team-members__blurb-graf--url"><a href={joinUrl}>{joinUrl}</a></p>
-          </div>
+            <div className="team-members__blurb">
+              <p className="team-members__blurb-graf">
+                <FormattedMessage
+                  id="teamMembersComponent.inviteLink"
+                  defaultMessage={'To invite colleagues to join {link}, send them this link:'}
+                  values={{ link: <Link to={teamUrl}>{team.name}</Link> }}
+                />
+              </p>
+              <p className="team-members__blurb-graf--url"><a href={joinUrl}>{joinUrl}</a></p>
+            </div>
 
-          <TeamMembershipRequests team_users={team_users_requestingMembership} />
+            <TeamMembershipRequests team_users={team_users_requestingMembership} />
 
-          <ul className="team-members__list">
-            {(() => team_users_members.map(team_user => (
-              <TeamMembersCell team_user={team_user} team_id={team.id} isEditing={isEditing} />
-              )))()}
-          </ul>
+            <ul className="team-members__list">
+              {(() => team_users_members.map(team_user => (
+                <TeamMembersCell team_user={team_user} team_id={team.id} isEditing={isEditing} />
+                )))()}
+            </ul>
+          </ContentColumn>
         </div>
       </DocumentTitle>
     );

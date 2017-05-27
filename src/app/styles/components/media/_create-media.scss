@@ -1,91 +1,45 @@
 .create-media {
   @include box-shadow(1);
-  margin: 16px auto;
-  padding: 16px 16px 8px;
   background-color: $white;
-  border-radius: 4px;
-  max-width: $layout-column-width-narrow;
+  border-radius: $border-radius-default;
+  margin: 0 auto units(2);
+  max-width: layout(column-width-narrow);
+  padding: units(2) units(1);
   width: 100%;
 
   footer {
-    display: flex;
     align-items: top;
+    display: flex;
 
     .create-media__helper {
-      font-size: 11px;
       color: $black-38;
-      @media all and (max-width: 500px) {
+      font: font(caption);
+
+      @include when-smaller-than(mobile-breakpoint-small) {
         display: none;
       }
     }
-
-    .create-media__buttons {
-      margin-#{$from-direction}: auto;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-
-      // The button to show the dropzone
-      //
-      .create-media__insert-photo {
-        display: flex;
-
-        svg {
-          @extend %icon;
-          margin-#{$to-direction}: 0;
-
-          path {
-            color: $black-16;
-          }
-        }
-      }
-    }
   }
+}
 
-  .preview {
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: contain;
-    height: 300px;
-    padding: 0;
-    margin: 0;
-    border: 1px solid $black-38;
-    border-bottom: 0;
-    width: 100%;
+.create-media__buttons {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin-#{$from-direction}: auto;
+}
 
-    .remove-image {
-      position: absolute;
-      top: 2px;
-      #{$to-direction}: 2px;
-      z-index: 1;
-      color: $black-38;
-      cursor: pointer;
-    }
-  }
+// The button to show the dropzone
+//
+.create-media__insert-photo {
+  display: flex;
 
-  .upload-file {
-    cursor: pointer;
-    margin: 0 0 7px;
-  }
+  svg {
+    @extend %icon;
+    margin-#{$to-direction}: 0;
 
-  .upload-file > div.with-file {
-    width: 100% !important;
-    border-top: 0 !important;
-    border-style: solid !important;
-  }
-
-  .upload-file > div {
-    padding: 0 !important;
-    height: 148px !important;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-width: 3px;
-    border-radius: 8px;
-
-    &:hover {
-      border-color: $check-blue !important;
+    path {
+      color: $black-16;
     }
   }
 }
@@ -94,12 +48,9 @@
   // The placeholder
   & > :first-child {
     padding: 0;
-    @media all and (max-width: 400px) {
-      font-size: 12px;
+
+    @include when-smaller-than(mobile-breakpoint-small) {
+      font: font(caption);
     }
   }
-}
-
-#create-media__field {
-  position: relative;
 }

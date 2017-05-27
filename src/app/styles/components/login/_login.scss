@@ -1,0 +1,63 @@
+.login {
+  @include fade-in;
+  text-align: center;
+
+  button {
+    border: 0;
+
+    span {
+      text-align: $from-direction;
+    }
+  }
+}
+
+.login__form {
+  @include box-shadow(1);
+  @include when-smaller-than(mobile-breakpoint) {
+    padding: units(4) units(2);
+  }
+  background-color: $white;
+  padding: units(10) units(15) units(7);
+}
+
+.login__name,
+.login__email,
+.login__password,
+.login__password-confirmation {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: units(4);
+
+  &-label {
+    display: block;
+    opacity: 0;
+    order: 1;
+    text-align: $from-direction;
+    transition: color $transition-speed-fast ease, opacity $transition-speed-fastest ease;
+
+    &--text-entered {
+      opacity: 1;
+    }
+  }
+
+  &-input {
+    @include text-input;
+  }
+}
+
+.login__submit {
+  @include button-medium;
+  @include button-primary;
+  display: block;
+  margin: units(8) auto units(1);
+  min-width: units(20) !important;
+}
+
+.login__forgot-password a {
+  @include button-flat;
+  text-align: center;
+
+  &:hover {
+    box-shadow: none !important;
+  }
+}
