@@ -125,6 +125,7 @@
 
   #task__remove-button,
   #task__edit-button {
+    border: 1px solid red;
     color: #ccc;
     cursor: pointer;
     float: $to-direction;
