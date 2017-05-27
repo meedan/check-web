@@ -123,28 +123,6 @@
     display: table;
   }
 
-  #task__remove-button,
-  #task__edit-button {
-    border: 1px solid red;
-    color: #ccc;
-    cursor: pointer;
-    float: $to-direction;
-    margin: 0;
-    margin-#{$to-direction}: unit(1);
-    margin-top: unit(1);
-  }
-
-  #task__remove-button {
-    margin-#{$to-direction}: units(1);
-  }
-
-  #task__cancel-button,
-  #task__edit-response-button {
-    color: #ccc;
-    margin-#{$from-direction}: unit(1);
-    cursor: pointer;
-  }
-
   .media-actions__icon {
     color: $black-38;
     height: units(3);

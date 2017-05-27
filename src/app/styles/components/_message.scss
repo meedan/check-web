@@ -12,10 +12,4 @@
     color: $white !important;
     text-decoration: underline;
   }
-
-  #close-message {
-    #{$to-direction}: units(1);
-    cursor: pointer;
-    position: absolute;
-  }
 }

@@ -8,7 +8,7 @@
 	"extensions": [".scss"],
 	"extends": ["stylelint-config-standard"],
 	"rules": {
-		"selector-max-specificity": "2,0,0",
+		"selector-max-specificity": "1,0,0",
 		"color-no-hex": true,
 		"declaration-empty-line-before": "never",
 		"at-rule-empty-line-before": null,
