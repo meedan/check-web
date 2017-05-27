@@ -69,13 +69,13 @@
   }
 
   &__body {
+    @extend %break-word;
     align-items: flex-start;
     cursor: pointer;
     display: flex;
     hyphens: auto;
     justify-content: space-between;
     margin: layout(gutter-small) layout(gutter-medium) layout(gutter-small) layout(gutter-large);
-    word-break: break-word;
 
     @include when-smaller-than(mobile-breakpoint-small) {
       flex-wrap: wrap;

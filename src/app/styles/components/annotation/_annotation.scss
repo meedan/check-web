@@ -126,7 +126,7 @@
 }
 
 .annotation__body {
-  word-break: break-word;
+  @extend %break-word;
 }
 
 .annotation__embedded-media {
