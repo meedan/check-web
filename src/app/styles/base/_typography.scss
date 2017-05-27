@@ -83,7 +83,8 @@ ul {
 }
 
 // TOS and Privay Policy pages
-// TODO refactor this to use a shared class like .documentation CGB 2017-3-10
+// TODO remove these once the TOS and Privacy links point to meedan.com 2017-3-26 CGB
+/* stylelint-disable */
 #tos,
 #privacy-policy {
   margin: 10px;
@@ -98,3 +99,5 @@ ul {
     margin: 10px 0;
   }
 }
+
+/* stylelint-enable */

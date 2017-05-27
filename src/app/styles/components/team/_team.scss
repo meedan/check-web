@@ -1,54 +1,56 @@
-// Outer team card
-//
-// TODO — Instad of overriding %card, consider a `--large` class in the markup. CGB 2017-3-23
-.team > .card {
-  max-width: layout(card-width-large) !important;
-}
-
-// Default team text inputs
-//
-.team input[type='text'] {
-  @include text-input;
-  @include when-smaller-than(mobile-breakpoint) {
-    width: 100%;
+.team {
+  // Outer team card
+  //
+  // TODO — Instad of overriding %card, consider a `--large` class in the markup. CGB 2017-3-23
+  & > .card {
+    max-width: layout(card-width-large) !important;
   }
-  font: font(body1);
-  margin-#{$from-direction}: 0;
-}
 
-// Team profile container
-//
-.team__profile {
-  display: flex;
-  flex-direction: column;
+  // Default team text inputs
+  //
+  & input[type='text'] {
+    @include text-input;
+    @include when-smaller-than(mobile-breakpoint) {
+      width: 100%;
+    }
+    font: font(body1);
+    margin-#{$from-direction}: 0;
+  }
 
-  & > div {
+  // Team profile container
+  //
+  &__profile {
     display: flex;
-    justify-content: flex-start;
-  }
+    flex-direction: column;
 
-  // Change justification when editing
-  &--editing {
     & > div {
-      justify-content: space-between;
+      display: flex;
+      justify-content: flex-start;
     }
 
-    // Fade in the form elements
-    .team__avatar-and-primary-info,
-    .team__contact-info,
-    .team__settings {
-      @include fade-in($transition-speed-slow);
+    // Change justification when editing
+    &--editing {
+      & > div {
+        justify-content: space-between;
+      }
+
+      // Fade in the form elements
+      .team__avatar-and-primary-info,
+      .team__contact-info,
+      .team__settings {
+        @include fade-in($transition-speed-slow);
+      }
     }
   }
-}
 
-// First row
-//
-.team__avatar-and-primary-info {
-  display: flex;
+  // First row
+  //
+  &__avatar-and-primary-info {
+    display: flex;
+  }
 
   // The edit buttons
-  .team__edit-profile {
+  &__edit-profile {
     @include when-smaller-than(mobile-breakpoint) {
       flex-direction: column;
       margin-#{$from-direction}: units(2);
@@ -90,12 +92,12 @@
     }
   }
 
-  .team__avatar {
+  &__avatar {
     @include avatar(units(12));
     margin-#{$to-direction}: units(2);
   }
 
-  .team__primary-info {
+  &__primary-info {
     display: flex;
     flex-direction: column;
     margin-#{$to-direction}: units(1);
@@ -104,127 +106,127 @@
     input[type='text'] {
       width: 100%;
     }
-
-    .team__name {
-      margin: 0 0 units(2);
-
-      .team__name-link {
-        display: inline-block;
-        margin: 1px 0;
-      }
-    }
-
-    .team__description {
-      margin: 0 0 units(1);
-
-      .team__description-text {
-        color: inherit;
-        margin: 0;
-        padding: units(half) 0;
-        text-align: $from-direction;
-      }
-    }
   }
-}
 
-// Second and third row
-//
-.team__contact-info,
-.team__settings {
-  display: flex;
-  margin-top: units(3);
+  &__name {
+    margin: 0 0 units(2);
 
-  @include when-smaller-than(mobile-breakpoint) {
-    flex-direction: column;
-
-    > span {
-      align-items: center;
-      margin-top: units(2);
+    .team__name-link {
+      display: inline-block;
+      margin: 1px 0;
     }
   }
 
-  > span {
-    @extend %ellipsis;
-    @include when-smaller-than(mobile-breakpoint) {
-      width: 100%;
+  &__description {
+    margin: 0 0 units(1);
+
+    .team__description-text {
+      color: inherit;
+      margin: 0;
+      padding: units(half) 0;
+      text-align: $from-direction;
     }
+  }
+
+  // Second and third row
+  //
+  &__contact-info,
+  &__settings {
     display: flex;
-    font: font(body2);
-    overflow: hidden;
-    padding: 0;
-    margin-#{$to-direction}: units(2);
+    margin-top: units(3);
 
-    > span {
-      display: flex;
-      width: 100%;
+    @include when-smaller-than(mobile-breakpoint) {
+      flex-direction: column;
 
       > span {
-        @extend %break-word;
-        @extend %ellipsis;
+        align-items: center;
+        margin-top: units(2);
       }
     }
 
-    svg {
-      align-self: flex-start;
-      height: units(3);
-      margin-#{$to-direction}: units(1);
-      min-width: units(3);
-      width: units(3);
+    > span {
+      @extend %ellipsis;
+      @include when-smaller-than(mobile-breakpoint) {
+        width: 100%;
+      }
+      display: flex;
+      font: font(body2);
+      overflow: hidden;
+      padding: 0;
+      margin-#{$to-direction}: units(2);
+
+      > span {
+        display: flex;
+        width: 100%;
+
+        > span {
+          @extend %break-word;
+          @extend %ellipsis;
+        }
+      }
+
+      svg {
+        align-self: flex-start;
+        height: units(3);
+        margin-#{$to-direction}: units(1);
+        min-width: units(3);
+        width: units(3);
+      }
     }
-  }
 
-  .team__web {
-    order: 1;
-  }
+    .team__web {
+      order: 1;
+    }
 
-  .team__location {
-    order: 2;
-  }
+    .team__location {
+      order: 2;
+    }
 
-  .team__phone {
-    order: 3;
-  }
+    .team__phone {
+      order: 3;
+    }
 
-  input[type='checkbox'] {
-    align-self: center;
-    height: units(2);
-    margin: 0 units(1);
-    width: units(2);
-
-    & ~ label {
+    input[type='checkbox'] {
       align-self: center;
-    }
-  }
-}
+      height: units(2);
+      margin: 0 units(1);
+      width: units(2);
 
-// 4th row
-//
-.team__content {
-  border-top: 1px solid $black-10;
-  margin: units(8) (-1 * layout(gutter-medium)) 0;
-  padding: layout(gutter-medium);
-
-  .team__projects-heading {
-    font: font(title);
-  }
-
-  .team__projects-list {
-    margin: units(2) 0;
-
-    li {
-      font: font(subheading2);
-      margin-bottom: units(2);
-    }
-
-    // The first project is larger
-    // TODO — improve first-time experience with fancier CTA — CGB 2017-3-23
-    & > :only-child {
-      font: font(display1);
-      padding-top: 0;
+      & ~ label {
+        align-self: center;
+      }
     }
   }
 
-  .team__new-project {
-    margin-top: units(2);
+  // 4th row
+  //
+  &__content {
+    border-top: 1px solid $black-10;
+    margin: units(8) (-1 * layout(gutter-medium)) 0;
+    padding: layout(gutter-medium);
+
+    .team__projects-heading {
+      font: font(title);
+    }
+
+    .team__projects-list {
+      margin: units(2) 0;
+
+      li {
+        font: font(subheading2);
+        margin-bottom: units(2);
+      }
+
+      // The first project is larger
+      // TODO — improve first-time experience with fancier CTA — CGB 2017-3-23
+      & > :only-child {
+        font: font(display1);
+        padding-top: 0;
+      }
+    }
+
+    .team__new-project {
+      margin-top: units(2);
+    }
   }
 }

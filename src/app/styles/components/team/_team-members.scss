@@ -97,9 +97,9 @@
 // user controls
 .team-member-requests__user-button {
   @include button-small;
+  flex-shrink: 0;
   margin-#{$from-direction}: units(1);
   margin-bottom: 0;
-  flex-shrink: 0;
 
   &--approve {
     @include button-primary;
@@ -126,13 +126,13 @@
   }
 
   &.is-disabled {
+    *:hover {
+      box-shadow: none;
+    }
+
     .Select-control {
       background-color: transparent !important;
       border-color: transparent;
-
-      &:hover {
-        box-shadow: none;
-      }
     }
 
     .Select-arrow-zone {

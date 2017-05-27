@@ -19,27 +19,27 @@
         display: none;
       }
     }
+  }
+}
 
-    .create-media__buttons {
-      align-items: center;
-      display: flex;
-      justify-content: center;
-      margin-#{$from-direction}: auto;
+.create-media__buttons {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin-#{$from-direction}: auto;
+}
 
-      // The button to show the dropzone
-      //
-      .create-media__insert-photo {
-        display: flex;
+// The button to show the dropzone
+//
+.create-media__insert-photo {
+  display: flex;
 
-        svg {
-          @extend %icon;
-          margin-#{$to-direction}: 0;
+  svg {
+    @extend %icon;
+    margin-#{$to-direction}: 0;
 
-          path {
-            color: $black-16;
-          }
-        }
-      }
+    path {
+      color: $black-16;
     }
   }
 }
@@ -53,8 +53,4 @@
       font: font(caption);
     }
   }
-}
-
-#create-media__field {
-  position: relative;
 }

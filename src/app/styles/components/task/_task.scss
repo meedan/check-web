@@ -3,40 +3,40 @@
   position: relative;
 
   // material-ui/Card>div overrides
-  .task__card-text {
+  &__card-text {
     padding-bottom: 0 !important;
     padding-top: 0 !important;
   }
 
-  .task__actions {
+  &__actions {
     position: absolute;
     #{$to-direction}: units(2);
     top: units(2);
   }
 
-  .task__question {
+  &__question {
     margin-#{$to-direction}: units(4);
     color: $black-54;
   }
 
-  .task__label-container {
+  &__label-container {
     padding-bottom: units(1);
     padding-top: units(2);
   }
 
-  .task__label {
+  &__label {
     color: $black-54;
     font-size: units(2);
     padding-bottom: units(1);
     padding-top: units(2);
   }
 
-  .task__response {
+  &__response {
     font-size: units(2);
     text-align: $from-direction;
   }
 
-  .task__response-inputs {
+  &__response-inputs {
     max-height: 0;
     overflow: hidden;
     transition: max-height $transition-speed-fast ease;
@@ -45,7 +45,8 @@
   // Toggle response area (and toggle description, if longer than one line)
   //
   // TODO: move dynamic display logic into the component. CGB 2017-5-15
-  .task__response-toggle {
+  /* stylelint-disable */
+  &__response-toggle {
     display: none;
 
     &:not(:checked) {
@@ -69,13 +70,14 @@
       }
     }
   }
+  /* stylelint-enable */
 
-  .task__resolver {
+  &__resolver {
     color: $black-38;
     text-align: $to-direction;
   }
 
-  .task__resolved {
+  &__resolved {
     p {
       margin: units(1) 0;
       word-wrap: break-word;
@@ -86,16 +88,16 @@
     }
   }
 
-  .task__options {
+  &__options {
     margin-top: units(2);
   }
 
-  .task__options-answered {
+  &__options-answered {
     color: $black-38;
     margin-top: units(2);
   }
 
-  .task__option_other_radio {
+  &__option_other_radio {
     float: $from-direction;
     margin-#{$from-direction}: unit(1);
     margin-#{$to-direction}: units(2);
@@ -104,7 +106,7 @@
     max-width: units(3);
   }
 
-  .task__option_other_checkbox {
+  &__option_other_checkbox {
     float: $from-direction;
     margin-#{$from-direction}: unit(1);
     margin-top: units(1);
@@ -112,36 +114,15 @@
     max-width: units(3);
   }
 
-  .task__option_other_text_input {
+  &__option_other_text_input {
     float: $from-direction;
     width: 75% !important;
   }
 
-  .task__options_other::after {
+  &__options_other::after {
     clear: both;
     content: "";
     display: table;
-  }
-
-  #task__remove-button,
-  #task__edit-button {
-    color: #ccc;
-    cursor: pointer;
-    float: $to-direction;
-    margin: 0;
-    margin-#{$to-direction}: unit(1);
-    margin-top: unit(1);
-  }
-
-  #task__remove-button {
-    margin-#{$to-direction}: units(1);
-  }
-
-  #task__cancel-button,
-  #task__edit-response-button {
-    color: #ccc;
-    margin-#{$from-direction}: unit(1);
-    cursor: pointer;
   }
 
   .media-actions__icon {
@@ -153,7 +134,7 @@
     width: units(3);
   }
 
-  .task__description-icon {
+  &__description-icon {
     color: $black-38;
     float: $to-direction;
     height: units(3);
@@ -163,19 +144,19 @@
     margin-top: units(2);
     width: units(3);
   }
-}
 
-// Task description tooltip
-// via rc-tooltip, outside Task.js markup tree
-//
-.task__description-tooltip {
-  max-width: card-width-large;
+  // Task description tooltip
+  // via rc-tooltip, outside Task.js markup tree
+  //
+  &__description-tooltip {
+    max-width: card-width-large;
 
-  @include when-smaller-than(mobile-breakpoint) {
-    max-width: 40vw;
-  }
+    @include when-smaller-than(mobile-breakpoint) {
+      max-width: 40vw;
+    }
 
-  span {
-    word-wrap: break-word;
+    span {
+      word-wrap: break-word;
+    }
   }
 }

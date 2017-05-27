@@ -10,36 +10,36 @@ $media-expanded-top-offset: layout(header-height) + layout(gutter-medium);
   flex-direction: column;
   justify-content: space-between;
   min-height: calc(100vh - #{$media-expanded-top-offset});
-}
 
-// 2-column view on desktop, if there are tasks
-//
-@include when-larger-than(widescreen-breakpoint) {
-  .media--has-tasks {
-    .media__expanded-header {
-      max-width: layout(column-width-wide);
-    }
-
-    .media__expanded-column-wrapper {
-      flex-direction: row;
-
-      .media__media-column {
-        $_width: units(84);
-        flex-basis: $_width;
-        width: $_width;
+  // 2-column view on desktop, if there are tasks
+  //
+  @include when-larger-than(widescreen-breakpoint) {
+    &--has-tasks {
+      .media__expanded-header {
+        max-width: layout(column-width-wide);
       }
 
-      .media__tasks-column {
-        $_width: units(68);
-        flex-basis: $_width;
-        margin-top: -1 * (units(4) + units(half));
-        width: $_width;
-      }
-    }
+      .media__expanded-column-wrapper {
+        flex-direction: row;
 
-    .media__tasks-header {
-      color: $black-54;
-      display: flex;
+        .media__media-column {
+          $_width: units(84);
+          flex-basis: $_width;
+          width: $_width;
+        }
+
+        .media__tasks-column {
+          $_width: units(68);
+          flex-basis: $_width;
+          margin-top: -1 * (units(4) + units(half));
+          width: $_width;
+        }
+      }
+
+      .media__tasks-header {
+        color: $black-54;
+        display: flex;
+      }
 
       svg {
         &:hover {
@@ -48,126 +48,126 @@ $media-expanded-top-offset: layout(header-height) + layout(gutter-medium);
       }
     }
   }
-}
 
-.media__expanded {
-  // slide under header
-  @include media-status-background-colors;
-  margin-top: $media-expanded-top-offset * -1;
-  padding-bottom: units(6);
-  padding-top: $media-expanded-top-offset;
-  transition: background-color $transition-speed-slow ease;
-}
-
-.media__expanded-header {
-  margin: 0 auto;
-  max-width: layout(column-width-narrow);
-  padding: 0 units(1);
-  padding-top: units(7);
-}
-
-.media__expanded-column-wrapper {
-  display: flex;
-  flex-direction: column;
-  padding: 0;
-
-  @include when-taller-than(tallscreen-breakpoint) {
-    justify-content: space-around;
-  }
-}
-
-.media__primary-heading {
-  @extend %break-word;
-  color: $white;
-  font: font(headline);
-  margin: 0 0 units(1);
-  text-align: $from-direction;
-}
-
-.media__status {
-  &,
-  .media-status__label--current {
-    color: $black-54;
-    margin-bottom: units(2);
+  &__expanded {
+    // slide under header
+    @include media-status-background-colors;
+    margin-top: $media-expanded-top-offset * -1;
+    padding-bottom: units(6);
+    padding-top: $media-expanded-top-offset;
+    transition: background-color $transition-speed-slow ease;
   }
 
-  .media-status__menu {
-    #{$from-direction}: 0;
-    top: units(4);
+  &__expanded-header {
+    margin: 0 auto;
+    max-width: layout(column-width-narrow);
+    padding: 0 units(1);
+    padding-top: units(7);
   }
-}
 
-.media__tasks-header {
-  align-items: baseline;
-  display: none;
-  margin-bottom: units(1);
+  &__expanded-column-wrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
 
-  h2 {
-    color: $black-87;
-    flex: 1;
+    @include when-taller-than(tallscreen-breakpoint) {
+      justify-content: space-around;
+    }
+  }
+
+  &__primary-heading {
+    @extend %break-word;
+    color: $white;
+    font: font(headline);
+    margin: 0 0 units(1);
+    text-align: $from-direction;
+  }
+
+  &__status {
+    &,
+    .media-status__label--current {
+      color: $black-54;
+      margin-bottom: units(2);
+    }
+
+    .media-status__menu {
+      #{$from-direction}: 0;
+      top: units(4);
+    }
+  }
+
+  &__tasks-header {
+    align-items: baseline;
+    display: none;
+    margin-bottom: units(1);
+
+    h2 {
+      color: $black-87;
+      flex: 1;
+      font: font(subheading2);
+      margin: 0;
+    }
+
+    & > span {
+      color: $black-54;
+      font: font(subheading2);
+      margin-#{$to-direction}: units(2);
+    }
+
+    .create-task {
+      align-self: center;
+      color: $black-16;
+      cursor: pointer;
+
+      svg {
+        height: units(3);
+        width: units(3);
+      }
+    }
+  }
+
+  // The headline that says "Verification log"
+  //
+  &__notes-heading {
+    align-items: center;
+    display: flex;
     font: font(subheading2);
-    margin: 0;
-  }
+    justify-content: center;
+    letter-spacing: 1px;
+    margin: units(8) 0;
+    text-align: center;
+    text-transform: uppercase;
 
-  & > span {
-    color: $black-54;
-    font: font(subheading2);
-    margin-#{$to-direction}: units(2);
-  }
-
-  .create-task {
-    align-self: center;
-    color: $black-16;
-    cursor: pointer;
-
-    svg {
+    & > svg {
+      color: $black-16;
       height: units(3);
+      margin-#{$from-direction}: units(1);
       width: units(3);
     }
   }
-}
 
-// The headline that says "Verification log"
-//
-.media__notes-heading {
-  align-items: center;
-  display: flex;
-  font: font(subheading2);
-  justify-content: center;
-  letter-spacing: 1px;
-  margin: units(8) 0;
-  text-align: center;
-  text-transform: uppercase;
+  // overrides – use sparingly
+  //
+  &__expanded {
+    .media-detail {
+      border-#{$from-direction}: 0;
+    }
 
-  & > svg {
-    color: $black-16;
-    height: units(3);
-    margin-#{$from-direction}: units(1);
-    width: units(3);
-  }
-}
-
-// overrides – use sparingly
-//
-.media__expanded {
-  .media-detail {
-    border-#{$from-direction}: 0;
+    .media-detail__header,
+    .media-detail__heading {
+      display: none;
+    }
   }
 
-  .media-detail__header,
-  .media-detail__heading {
+  .home--media {
+    .footer {
+      display: none;
+    }
+  }
+
+  // TODO Create media button
+  //
+  .create-media__button {
     display: none;
   }
-}
-
-.home--media {
-  .footer {
-    display: none;
-  }
-}
-
-// TODO Create media button
-//
-.create-media__button {
-  display: none;
 }

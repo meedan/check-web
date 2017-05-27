@@ -1,5 +1,5 @@
 .search {
-  .search__input {
+  &__input {
     background: units(2) 50% url('/images/search.svg') $white no-repeat;
     background-size: units(2);
     border: $border-width-small solid $black-16;
@@ -17,7 +17,7 @@
     }
   }
 
-  .search__filters {
+  &__filters {
     @include when-larger-than(mobile-breakpoint) {
       padding: units(1);
     }
@@ -64,12 +64,12 @@
     }
   }
 
-  .search__filters-loader {
+  &__filters-loader {
     margin: units(4) 0;
     text-align: center;
   }
 
-  .search__results {
+  &__results {
     padding: 0 units(2) units(2);
 
     & > h4 {
@@ -78,7 +78,7 @@
       text-align: center;
     }
 
-    ul.results {
+    .results {
       margin: 0 auto;
       max-width: layout(column-width-narrow);
 
@@ -88,7 +88,7 @@
     }
   }
 
-  .search__results-heading {
+  &__results-heading {
     color: $black-87;
     margin-top: units(3);
     text-align: center;

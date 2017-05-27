@@ -1,3 +1,5 @@
+/* stylelint-disable */
+
 // Media status font color
 //
 $media-status-blue: $check-blue;
@@ -25,3 +27,5 @@ $media-status-green-menu-hover-bg: rgba($media-status-green, $menu-hover-bg-opac
 $media-status-red-menu-hover-bg: rgba($media-status-red, $menu-hover-bg-opacity);
 $media-status-grey-menu-hover-bg: rgba($media-status-gray, $menu-hover-bg-opacity);
 $media-status-black-menu-hover-bg: rgba($media-status-black, $menu-hover-bg-opacity);
+
+/* stylelint-enable */

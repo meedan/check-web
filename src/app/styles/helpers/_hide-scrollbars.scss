@@ -1,15 +1,15 @@
 // Hide scrollbars
 //
-// `scrollbar` is not a standard property, so it's not handled by Autoprefixer. Therefore we must prefix it. 
+// `scrollbar` is not a standard property, so it's not handled by Autoprefixer. Therefore we must prefix it.
 //
 // Not supported in FF. See: http://caniuse.com/#search=scrollbar
-// 
-// CGB 2017-2-12 
+//
+// CGB 2017-2-12
 //
 // sass-lint:disable no-vendor-prefixes
 @mixin hide-scrollbars {
   &::-webkit-scrollbar {
-    width: 0;
     background: transparent;
+    width: 0;
   }
 }

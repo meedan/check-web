@@ -79,6 +79,9 @@
   @include modal-overlay(transparent);
 }
 
+// TODO move this display logic into the js component — 2017-3-26 CGB
+//
+/* stylelint-disable */
 .project-header__menu-toggle:checked + .project-header__menu-toggle-label {
   .project-header__menu-overlay {
     display: block;
@@ -93,3 +96,4 @@
     display: block;
   }
 }
+/* stylelint-enable*/
