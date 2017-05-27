@@ -126,13 +126,13 @@
   }
 
   &.is-disabled {
+    *:hover {
+      box-shadow: none;
+    }
+
     .Select-control {
       background-color: transparent !important;
       border-color: transparent;
-
-      &:hover {
-        box-shadow: none;
-      }
     }
 
     .Select-arrow-zone {

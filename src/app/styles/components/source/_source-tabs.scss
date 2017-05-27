@@ -1,3 +1,7 @@
+
+// TODO review source styles for linter compliance — 2017-3-26 CGB
+//
+/* stylelint-disable */
 .tabs {
   li {
     display: inline;
@@ -7,24 +11,25 @@
     margin-bottom: units(1);
   }
 
-  .tabs-menu-item > a,
-  .tabs-menu-item a:visited {
-    background: $black-05;
-    cursor: pointer;
-    display: inline-block;
-    padding: units(1) 0;
-    text-align: center;
-    text-decoration: none;
-    text-transform: uppercase;
-    width: 50%;
-
-    &:hover {
-      text-decoration: none;
-    }
-  }
-
   li.is-active a {
     background: $white;
     color: $black-87;
   }
 }
+
+.tabs-menu-item > a,
+.tabs-menu-item a:visited {
+  background: $black-05;
+  cursor: pointer;
+  display: inline-block;
+  padding: units(1) 0;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  width: 50%;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+/* stylelint-enable */

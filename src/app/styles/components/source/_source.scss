@@ -1,16 +1,16 @@
 .source {
   padding: units(2);
 
-  .source-header {
+  &-header {
     text-align: center;
 
-    .source-avatar {
+    &-avatar {
       border: $border-width-small solid $black-87;
       margin-top: units(1);
       padding: units(1);
     }
 
-    .source-accounts {
+    &-accounts {
       margin: 0;
       padding: 0;
 
