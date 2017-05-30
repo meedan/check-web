@@ -15,6 +15,7 @@ import {
   NotFound,
   CreateAccount,
   AccessDenied,
+  UserAlreadyConfirmed,
   UserConfirmed,
   UserUnconfirmed,
   UserPasswordChange,
@@ -135,6 +136,7 @@ export default class Root extends Component {
             <Router history={this.state.history} onUpdate={this.logPageView.bind(this)}>
               <Route path="/" component={App}>
                 <IndexRoute component={Team} />
+                <Route path="check/user/already-confirmed" component={UserAlreadyConfirmed} public />
                 <Route path="check/user/confirmed" component={UserConfirmed} public />
                 <Route path="check/user/unconfirmed" component={UserUnconfirmed} public />
                 <Route path="check/user/password-reset" component={UserPasswordReset} public />
