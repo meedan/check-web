@@ -53,10 +53,10 @@ class HeaderActions extends Component {
             <a className="header-actions__link" target="_blank" rel="noopener noreferrer" href="https://docs.google.com/forms/d/e/1FAIpQLSdctP7RhxeHjTnevnvRi6AKs4fX3wNnxecVdBFwKe7GRVcchg/viewform"><FormattedMessage id="headerActions.contactHuman" defaultMessage="Contact a Human" /></a>
           </li>
           <li className="header-actions__menu-item">
-            <Link className="header-actions__link" to="/check/tos"><FormattedMessage id="headerActions.tos" defaultMessage="Terms of Service" /></Link>
+            <a className="header-actions__link" target="_blank" rel="noopener noreferrer" href="https://meedan.com/en/check/check_tos.html"><FormattedMessage id="headerActions.tos" defaultMessage="Terms of Service" /></a>
           </li>
           <li className="header-actions__menu-item">
-            <Link className="header-actions__link" to="/check/privacy"><FormattedMessage id="headerActions.privacyPolicy" defaultMessage="Privacy Policy" /></Link>
+            <a className="header-actions__link" target="_blank" rel="noopener noreferrer" href="https://meedan.com/en/check/check_privacy.html"><FormattedMessage id="headerActions.privacyPolicy" defaultMessage="Privacy Policy" /></a>
           </li>
           <li className="header-actions__menu-item">
             <a className="header-actions__link" target="_blank" rel="noopener noreferrer" href="https://meedan.com/check"><FormattedMessage id="headerActions.aboutCheck" defaultMessage="About Check" /></a>

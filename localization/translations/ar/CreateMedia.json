@@ -4,5 +4,6 @@
   "createMedia.mediaInput": "الصق أو اكتب",
   "createMedia.uploadImage": "ارفع صورة",
   "createMedia.submitButton": "نشر",
-  "createMedia.helper": "أضف رابط، اقتباس أو صورة للتحقق من صحة معلوماتهم"
+  "createMedia.helper": "أضف رابط، اقتباس أو صورة للتحقق من صحة معلوماتهم",
+  "bridge.createMedia.helper": "أضف رابط، اقتباس أو صورة للترجمة"
 }

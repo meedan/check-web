@@ -4,7 +4,6 @@
   "tasks.save": "حفظ",
   "task.edit": "تحرير المهمة",
   "task.delete": "حذف المهمة",
-  "task.more": "المزيد",
   "task.noteLabel": "اكتب هنا التعليقات الإضافية.",
   "task.pressReturnToSave": "إضغط \"إدخال\" لحفظ إجابتك",
   "task.resolvedBy": "تم إنجازها بواسطة  {by}",

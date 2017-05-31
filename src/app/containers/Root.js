@@ -12,11 +12,9 @@ import App from './App';
 import {
   RootLocale,
   IndexComponent,
-  TermsOfService,
   NotFound,
   CreateAccount,
   AccessDenied,
-  PrivacyPolicy,
   UserConfirmed,
   UserUnconfirmed,
   UserPasswordChange,
@@ -137,8 +135,6 @@ export default class Root extends Component {
             <Router history={this.state.history} onUpdate={this.logPageView.bind(this)}>
               <Route path="/" component={App}>
                 <IndexRoute component={Team} />
-                <Route path="check/tos" component={TermsOfService} public />
-                <Route path="check/privacy" component={PrivacyPolicy} public />
                 <Route path="check/user/confirmed" component={UserConfirmed} public />
                 <Route path="check/user/unconfirmed" component={UserUnconfirmed} public />
                 <Route path="check/user/password-reset" component={UserPasswordReset} public />
