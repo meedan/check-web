@@ -123,9 +123,7 @@ class MediaComponent extends Component {
               <ContentColumn className='media__media-column'>
                 <MediaDetail media={media} />
                 <CreateTask media={media} />
-                <Can permissions={media.permissions} permission="create Dynamic">
-                  <Translation annotated={media} annotatedType="ProjectMedia" />
-                </Can>
+                { this.props.extras }
               </ContentColumn>
               <ContentColumn className='media__tasks-column'>
                 <div className='media__tasks-header'>

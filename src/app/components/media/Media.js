@@ -2,10 +2,10 @@ import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 import CheckContext from '../../CheckContext';
 import MediaRoute from '../../relay/MediaRoute';
-import MediaComponent from './MediaComponent';
+import MediaParentComponent from './MediaParentComponent';
 import MediasLoading from './MediasLoading';
 
-const MediaContainer = Relay.createContainer(MediaComponent, {
+const MediaContainer = Relay.createContainer(MediaParentComponent, {
   initialVariables: {
     contextId: null,
   },
