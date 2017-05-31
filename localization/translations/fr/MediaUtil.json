@@ -5,6 +5,7 @@
   "media.typeInstagram": "Instagram",
   "media.typeVideo": "Vidéo",
   "media.typeClaim": "Témoignage",
+  "bridge.media.typeClaim": "Citation",
   "media.typeImage": "Image",
   "media.typePage": "Page",
   "media.onDomain": "{typeLabel} sur {domain}",

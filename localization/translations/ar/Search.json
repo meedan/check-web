@@ -3,7 +3,7 @@
   "search.loading": "تحميل...",
   "search.inputHint": "بحث",
   "search.results": "{resultsCount, plural, =0 {لا نتيجة} one {نتيجة واحدة} other {# نتائج}}",
-  "search.newReportNotification": "تقرير جديد",
+  "search.newTranslationRequestNotification": "طلب جديد للترجمة",
   "search.newTranslationNotification": "ترجمة جديدة",
   "search.newTranslationNotificationBody": "تمت ترجمة تقرير",
   "search.statusHeading": "حالة",
