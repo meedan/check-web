@@ -256,12 +256,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(title.text == 'Not Found').to be(true)
     end
 
-    it "should click to go to Terms of Service" do
-      @driver.navigate.to @config['self_url'] + '/check/tos'
-      title = get_element('.main-title')
-      expect(title.text == 'Terms of Service').to be(true)
-    end
-
     it "should redirect to login screen if not logged in" do
       @driver.navigate.to @config['self_url'] + '/check/teams'
       title = get_element('.login__heading')
