@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import MediaChecklist from './MediaChecklist';
 import MappedMessage from '../MappedMessage';
 import MdInfoOutline from 'react-icons/lib/md/info-outline';
 import Tooltip from 'rc-tooltip';

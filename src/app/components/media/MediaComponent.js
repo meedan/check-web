@@ -5,7 +5,6 @@ import Pusher from 'pusher-js';
 import DocumentTitle from 'react-document-title';
 import MediaDetail from './MediaDetail';
 import MediaUtil from './MediaUtil';
-import MediaChecklist from './MediaChecklist';
 import { Tags } from '../source';
 import Can from '../Can';
 import Annotations from './Annotations';
