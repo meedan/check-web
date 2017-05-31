@@ -25,9 +25,9 @@
   &__edit-profile {
     @include button-group;
     justify-content: flex-end;
+    margin-top: units(2);
     order: 2;
     width: $team-edit-gutter-width - units(1);
-    margin-top: units(2);
 
     @include when-smaller-than(mobile-breakpoint) {
       flex-direction: column;
