@@ -8,6 +8,12 @@
   margin-bottom: units(4);
 }
 
+.create-team__form {
+  width: 520px;
+  word-break: keep-all;
+  margin: 0 auto;
+}
+
 .create-team__team-display-name {
   display: flex;
   flex-direction: column;

@@ -8,6 +8,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import ChangePasswordMutation from '../relay/ChangePasswordMutation';
 import CheckContext from '../CheckContext';
+import { stringHelper } from '../customHelpers';
 
 const messages = defineMessages({
   newPassword: {
@@ -127,7 +128,7 @@ class UserPasswordChange extends Component {
           </Card> :
           <Card className="user-password-change__card">
             <CardText>
-              <img src="/images/logo/check.svg" className="user-password-change__logo" />
+              <img src={stringHelper('LOGO_URL')} className="user-password-change__logo" />
 
               <span className="user-password-change__title"><FormattedMessage id="passwordChange.title" defaultMessage="Change password" /></span>
               <span className="user-password-change__error">{this.state.errorMsg}</span>

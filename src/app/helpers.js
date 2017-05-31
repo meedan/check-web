@@ -1,5 +1,6 @@
 import config from 'config';
 import truncate from 'lodash.truncate';
+import rtlDetect from 'rtl-detect';
 
 // Functionally-pure sort: keeps the given array unchanged and returns sorted one.
 Array.prototype.sortp = function (fn) {
@@ -42,10 +43,10 @@ function getStatusStyle(status, property) {
 // Skip team name if `skipTeam` is true.
 // Skip `prefix |` if `prefix` empty.
 function pageTitle(prefix, skipTeam, team) {
-  let suffix = 'Check';
+  let suffix = capitalize(config.appName);
   if (!skipTeam) {
     try {
-      suffix = `${team.name} Check`;
+      suffix = `${team.name} ${capitalize(config.appName)}`;
     } catch (e) {
       if (!(e instanceof TypeError)) throw e;
     }
@@ -63,9 +64,19 @@ function truncateLength(text, length = 100) {
   return truncate(text, { length, separator: /,? +/, ellipsis: '…' });
 }
 
+function capitalize(text) {
+  return text.charAt(0).toUpperCase()+text.substring(1);
+}
+
+function rtlClass(language_code) {
+  return (rtlDetect.isRtlLang(language_code)) ? 'translation__rtl' : 'translation__ltr';
+}
+
 export {
   bemClass,
   bemClassFromMediaStatus,
+  capitalize,
+  rtlClass,
   pageTitle,
   safelyParseJSON,
   getStatus,

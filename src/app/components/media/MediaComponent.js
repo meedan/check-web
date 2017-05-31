@@ -1,23 +1,35 @@
 import React, { Component, PropTypes } from 'react';
-import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
+import { FormattedMessage, injectIntl, intlShape, defineMessages } from 'react-intl';
+import MappedMessage from '../MappedMessage';
 import Pusher from 'pusher-js';
 import DocumentTitle from 'react-document-title';
 import MediaDetail from './MediaDetail';
 import MediaUtil from './MediaUtil';
-import MediaChecklist from './MediaChecklist';
 import { Tags } from '../source';
+import Can from '../Can';
 import Annotations from './Annotations';
 import config from 'config';
 import { pageTitle } from '../../helpers';
 import CheckContext from '../../CheckContext';
+import Translation from '../translation/Translation';
 import Tasks from '../task/Tasks';
 import CreateTask from '../task/CreateTask';
 import { bemClass, bemClassFromMediaStatus, safelyParseJSON, getStatus, getStatusStyle } from '../../helpers';
 import ContentColumn from '../layout/ContentColumn';
 import MediaStatus from './MediaStatus';
-import MdInfoOutline from 'react-icons/lib/md/info-outline';
-import Tooltip from 'rc-tooltip';
+import TimelineHeader from './TimelineHeader';
 import { mediaStatuses, mediaLastStatus } from '../../customHelpers';
+
+const messages = defineMessages({
+  timelineTitle: {
+    id: "mediaComponent.verificationTimeline",
+    defaultMessage: 'Verification Timeline',
+  },
+  bridge_timelineTitle: {
+    id: "bridge.mediaComponent.verificationTimeline",
+    defaultMessage: 'Translation Timeline',
+  },
+});
 
 class MediaComponent extends Component {
   getContext() {
@@ -111,6 +123,9 @@ class MediaComponent extends Component {
               <ContentColumn className='media__media-column'>
                 <MediaDetail media={media} />
                 <CreateTask media={media} />
+                <Can permissions={media.permissions} permission="create Dynamic">
+                  <Translation annotated={media} annotatedType="ProjectMedia" />
+                </Can>
               </ContentColumn>
               <ContentColumn className='media__tasks-column'>
                 <div className='media__tasks-header'>
@@ -124,12 +139,7 @@ class MediaComponent extends Component {
           </div>
 
           <ContentColumn>
-            <Tooltip placement="bottom" trigger={['click']} overlay={<MediaChecklist/>} overlayClassName="">
-              <h3 className="media__notes-heading">
-                <FormattedMessage id="mediaComponent.verificationTimeline" defaultMessage="Verification Timeline" />
-                <MdInfoOutline/>
-              </h3>
-            </Tooltip>
+            <TimelineHeader msgObj={messages} msgKey="timelineTitle" />
           </ContentColumn>
           <Annotations annotations={media.log.edges} annotated={media} annotatedType="ProjectMedia" />
         </div>

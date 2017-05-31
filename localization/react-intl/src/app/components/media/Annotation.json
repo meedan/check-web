@@ -20,6 +20,10 @@
     "defaultMessage": "and"
   },
   {
+    "id": "annotation.newClaim",
+    "defaultMessage": "New claim added by {author}"
+  },
+  {
     "id": "annotation.statusSetHeader",
     "defaultMessage": "Status set to {status} by {author}"
   },
@@ -41,15 +45,31 @@
   },
   {
     "id": "annotation.translation",
-    "defaultMessage": "Translated by {author}: \"{translation}\""
+    "defaultMessage": "Translated to {language} by {author}: \"{translation}\""
+  },
+  {
+    "id": "annotation.emptyMachineTranslation",
+    "defaultMessage": "Add machine translation"
+  },
+  {
+    "id": "annotation.machineTranslation",
+    "defaultMessage": "Machine translation for \"{lang}\" is: {text}"
+  },
+  {
+    "id": "annotation.translationStatus",
+    "defaultMessage": "Translation status set to {status} by {author}"
+  },
+  {
+    "id": "annotation.translationPublished",
+    "defaultMessage": "Translation published to {link}"
   },
   {
     "id": "annotation.flaggedHeader",
     "defaultMessage": "Flagged as {flag} by {author}"
   },
   {
-    "id": "annotation.newClaim",
-    "defaultMessage": "New claim added by {author}"
+    "id": "annotation.newReport",
+    "defaultMessage": "New {reportType} added by {author}"
   },
   {
     "id": "annotation.titleChanged",

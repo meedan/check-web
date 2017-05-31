@@ -1,7 +1,8 @@
 import React, {Component, PropTypes} from 'react';
 import Relay from 'react-relay';
 import DocumentTitle from 'react-document-title';
-import {FormattedMessage, defineMessages, injectIntl, intlShape} from 'react-intl';
+import MappedMessage from '../MappedMessage';
+import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import Tags from './Tags';
 import {Link} from 'react-router';
 
@@ -66,6 +67,18 @@ const messages = defineMessages({
   verificationTeam: {
     id: 'teamComponent.verificationTeam',
     defaultMessage: 'Verification Team',
+  },
+  bridge_verificationTeam: {
+    id: 'bridge.teamComponent.verificationTeam',
+    defaultMessage: 'Translation Team',
+  },
+  verificationProjects: {
+    id: 'teamComponent.title',
+    defaultMessage: 'Verification Projects',
+  },
+  bridge_verificationProjects: {
+    id: 'bridge.teamComponent.title',
+    defaultMessage: 'Translation Projects',
   },
 });
 
@@ -267,7 +280,7 @@ class TeamComponent extends Component {
                       <div className="team__description">
                         <p className="team__description-text">
                           {team.description ||
-                            this.props.intl.formatMessage(messages.verificationTeam)}
+                            <MappedMessage msgObj={messages} msgKey="verificationTeam" />}
                         </p>
                       </div>
                     </div>
@@ -406,9 +419,9 @@ class TeamComponent extends Component {
               <div className="team__content">
                 <div className="team__content-body">
                   <h3 className="team__projects-heading">
-                    <FormattedMessage
-                      id="teamComponent.title"
-                      defaultMessage="Verification Projects"
+                    <MappedMessage
+                      msgObj={messages}
+                      msgKey="verificationProjects"
                     />
                   </h3>
                   <ul className="team__projects-list">

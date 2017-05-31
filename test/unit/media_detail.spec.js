@@ -14,6 +14,7 @@ describe('<MediaDetail />', () => {
     embed: JSON.stringify({}),
     last_status: 'verified',
     verification_statuses: JSON.stringify({statuses: [{label: 'verified'}]}),
+    translation_statuses: JSON.stringify({statuses: [{label: 'translated'}]}),
     log_count: 0,
     permissions: JSON.stringify({}),
     project_id: 1,
