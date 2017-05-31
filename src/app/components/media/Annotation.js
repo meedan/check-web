@@ -5,6 +5,7 @@ import MediaDetail from './MediaDetail';
 import DynamicAnnotation from '../annotations/DynamicAnnotation';
 import DeleteAnnotationMutation from '../../relay/DeleteAnnotationMutation';
 import DeleteVersionMutation from '../../relay/DeleteVersionMutation';
+import UpdateProjectMediaMutation from '../../relay/UpdateProjectMediaMutation';
 import Can, { can } from '../Can';
 import TimeBefore from '../TimeBefore';
 import { Link } from 'react-router';
@@ -42,7 +43,7 @@ class Annotation extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { zoomedCommentImage: false };
+    this.state = { zoomedCommentImage: false, retriedKeep: false };
   }
 
   handleCloseCommentImage() {
@@ -87,6 +88,25 @@ class Annotation extends Component {
         new DeleteVersionMutation(destroy_attr),
         { onSuccess, onFailure },
       );
+    }
+  }
+
+  handleRetryKeep() {
+    const onFailure = (transaction) => {
+      this.setState({ retriedKeep: false });
+    };
+
+    const onSuccess = (response) => {};
+
+    if (!this.state.retriedKeep) {
+      Relay.Store.commitUpdate(
+        new UpdateProjectMediaMutation({
+          update_keep: 1,
+          id: this.props.annotated.id,
+        }),
+        { onSuccess, onFailure },
+      );
+      this.setState({ retriedKeep: true });
     }
   }
 
@@ -231,6 +251,30 @@ class Annotation extends Component {
             values={{ author: authorName, translation: <ParsedText text={object.value} /> }}
           />
         </span>);
+      }
+      if (object.field_name === 'keep_backup_response') {
+        const keep = JSON.parse(JSON.parse(annotation.content)[0].value);
+        const keepLink = keep.location;
+        const keepStatus = parseInt(keep.status);
+        contentTemplate = null;
+        if (this.state.retriedKeep) {
+          contentTemplate = (<span className="annotation__keep">
+            <FormattedHTMLMessage id="annotation.keepRetried" defaultMessage={'Scheduled a new request to Keep. Please check back soon.'} />
+          </span>);
+        }
+        else if (keepLink) {
+          contentTemplate = (<span className="annotation__keep">
+            <FormattedHTMLMessage id="annotation.keepSuccess" defaultMessage={'In case this link goes offline, you can <a href="{keepLink}" target="_blank">access a backup via Keep</a>'} values={{ keepLink }} />
+          </span>);
+        }
+        else if (keepStatus === 418) {
+          contentTemplate = (<span className="annotation__keep">
+            <FormattedHTMLMessage id="annotation.keepError" defaultMessage={'Tried to archive this link using Keep, but it failed'} /> 
+            <span className="annotation__keep-retry" onClick={this.handleRetryKeep.bind(this)}>
+              <FormattedMessage id="annotation.keepRetry" defaultMessage="Retry" />
+            </span>
+          </span>);
+        }
       }
       break;
     case 'create_flag':
