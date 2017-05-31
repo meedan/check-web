@@ -42,7 +42,7 @@ module AppSpecHelpers
   end
 
   def twitter_auth
-		sleep 5
+    sleep 5
     @driver.find_element(:xpath, "//button[@id='twitter-login']").click
     sleep 5
     window = @driver.window_handles.first
