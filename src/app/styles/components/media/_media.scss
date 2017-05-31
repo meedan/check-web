@@ -158,16 +158,10 @@ $media-expanded-top-offset: layout(header-height) + layout(gutter-medium);
       display: none;
     }
   }
+}
 
-  .home--media {
-    .footer {
-      display: none;
-    }
-  }
-
-  // TODO Create media button
-  //
-  .create-media__button {
+.home--media {
+  .footer {
     display: none;
   }
 }

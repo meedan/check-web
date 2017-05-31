@@ -1,73 +1,43 @@
 .team {
-  // Outer team card
-  //
-  // TODO — Instad of overriding %card, consider a `--large` class in the markup. CGB 2017-3-23
-  & > .card {
-    max-width: layout(card-width-large) !important;
-  }
+  $team-edit-gutter-width: units(20);
+  $team-avatar-width: units(12);
+  font: font(subheading2);
 
   // Default team text inputs
   //
-  & input[type='text'] {
+  input[type='text'] {
     @include text-input;
-    @include when-smaller-than(mobile-breakpoint) {
-      width: 100%;
-    }
-    font: font(body1);
-    margin-#{$from-direction}: 0;
+    width: 100%;
   }
 
-  // Team profile container
-  //
-  &__profile {
-    display: flex;
-    flex-direction: column;
-
-    & > div {
-      display: flex;
-      justify-content: flex-start;
-    }
-
-    // Change justification when editing
-    &--editing {
-      & > div {
-        justify-content: space-between;
-      }
-
-      // Fade in the form elements
-      .team__avatar-and-primary-info,
-      .team__contact-info,
-      .team__settings {
-        @include fade-in($transition-speed-slow);
-      }
-    }
-  }
-
-  // First row
+  // First section
   //
   &__avatar-and-primary-info {
     display: flex;
+
+    .team__name,
+    .team__description {
+      margin-top: units(1);
+    }
   }
 
-  // The edit buttons
+  // The edit button group
   &__edit-profile {
+    @include button-group;
+    justify-content: flex-end;
+    order: 2;
+    width: $team-edit-gutter-width - units(1);
+    margin-top: units(2);
+
     @include when-smaller-than(mobile-breakpoint) {
       flex-direction: column;
       margin-#{$from-direction}: units(2);
+      width: auto;
     }
-    display: flex;
-    margin-bottom: units(2);
-    order: 2;
 
     button {
       @include button-medium;
-      align-items: center;
-      margin-#{$to-direction}: units(1);
-
-      svg {
-        margin-#{$to-direction}: units(1);
-        width: units(2);
-      }
+      @include icon-button;
 
       &.team__save-button {
         @include button-primary;
@@ -76,6 +46,7 @@
       // Hide the text on mobile
       &.team__edit-button {
         min-width: units(20);
+
         @include when-smaller-than(mobile-breakpoint) {
           min-width: units(5);
           padding: 0;
@@ -93,71 +64,37 @@
   }
 
   &__avatar {
-    @include avatar(units(12));
-    margin-#{$to-direction}: units(2);
+    @include avatar($team-avatar-width);
+    margin: units(2) 0 0;
   }
 
   &__primary-info {
     display: flex;
+    flex: 1;
     flex-direction: column;
-    margin-#{$to-direction}: units(1);
-    width: 100%;
-
-    input[type='text'] {
-      width: 100%;
-    }
+    margin: 0 units(2);
   }
 
-  &__name {
-    margin: 0 0 units(2);
-
-    .team__name-link {
-      display: inline-block;
-      margin: 1px 0;
-    }
-  }
-
-  &__description {
-    margin: 0 0 units(1);
-
-    .team__description-text {
-      color: inherit;
-      margin: 0;
-      padding: units(half) 0;
-      text-align: $from-direction;
-    }
-  }
-
-  // Second and third row
+  // Second and third section
   //
   &__contact-info,
   &__settings {
-    display: flex;
-    margin-top: units(3);
+    margin-#{$to-direction}: $team-edit-gutter-width + units(1);
+    margin-#{$from-direction}: $team-avatar-width - units(3);
 
     @include when-smaller-than(mobile-breakpoint) {
-      flex-direction: column;
-
-      > span {
-        align-items: center;
-        margin-top: units(2);
-      }
+      margin-#{$to-direction}: 0;
     }
 
     > span {
       @extend %ellipsis;
-      @include when-smaller-than(mobile-breakpoint) {
-        width: 100%;
-      }
       display: flex;
-      font: font(body2);
-      overflow: hidden;
-      padding: 0;
-      margin-#{$to-direction}: units(2);
+      flex: 1;
+      padding-top: units(4);
 
       > span {
         display: flex;
-        width: 100%;
+        flex: 1;
 
         > span {
           @extend %break-word;
@@ -166,43 +103,38 @@
       }
 
       svg {
-        align-self: flex-start;
+        align-self: flex-end;
         height: units(3);
-        margin-#{$to-direction}: units(1);
+        margin-#{$to-direction}: units(2);
+        margin-bottom: units(1);
         min-width: units(3);
         width: units(3);
       }
     }
 
-    .team__web {
-      order: 1;
-    }
-
-    .team__location {
-      order: 2;
-    }
-
-    .team__phone {
-      order: 3;
-    }
-
     input[type='checkbox'] {
-      align-self: center;
       height: units(2);
-      margin: 0 units(1);
+      margin: units(4) 0 units(1) units(2);
       width: units(2);
 
       & ~ label {
-        align-self: center;
+        align-self: flex-end;
       }
     }
   }
 
-  // 4th row
+  // 4th section
   //
+  // Hidden while editing
+  &__profile--editing {
+    padding-bottom: units(4);
+
+    .team__content {
+      display: none;
+    }
+  }
+
   &__content {
-    border-top: 1px solid $black-10;
-    margin: units(8) (-1 * layout(gutter-medium)) 0;
     padding: layout(gutter-medium);
 
     .team__projects-heading {
@@ -214,6 +146,7 @@
 
       li {
         font: font(subheading2);
+        font-weight: 700;
         margin-bottom: units(2);
       }
 
@@ -227,6 +160,7 @@
 
     .team__new-project {
       margin-top: units(2);
+      width: units(24);
     }
   }
 }
