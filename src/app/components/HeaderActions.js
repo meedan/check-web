@@ -67,22 +67,12 @@ class HeaderActions extends Component {
           <li className="header-actions__menu-item">
             <a className="header-actions__link" target="_blank" rel="noopener noreferrer" href={stringHelper('CONTACT_HUMAN_URL')}><FormattedMessage id="headerActions.contactHuman" defaultMessage="Contact a Human" /></a>
           </li>
-          { appName === 'check' ? [
-              <li className="header-actions__menu-item">
-                <Link className="header-actions__link" to="/check/tos"><FormattedMessage id="headerActions.tos" defaultMessage="Terms of Service" /></Link>
-              </li>,
-              <li className="header-actions__menu-item">
-                <Link className="header-actions__link" to="/check/privacy"><FormattedMessage id="headerActions.privacyPolicy" defaultMessage="Privacy Policy" /></Link>
-              </li>
-            ] : [
-              <li className="header-actions__menu-item">
-                <a className="header-actions__link" href={stringHelper('TOS_URL')}><FormattedMessage id="headerActions.tos" defaultMessage="Terms of Service" /></a>
-              </li>,
-              <li className="header-actions__menu-item">
-                <a className="header-actions__link" href={stringHelper('PP_URL')}><FormattedMessage id="headerActions.privacyPolicy" defaultMessage="Privacy Policy" /></a>
-              </li>
-            ]
-          }
+          <li className="header-actions__menu-item">
+            <a className="header-actions__link" target="_blank" rel="noopener noreferrer" href={stringHelper('TOS_URL')}><FormattedMessage id="headerActions.tos" defaultMessage="Terms of Service" /></a>
+          </li>
+          <li className="header-actions__menu-item">
+            <a className="header-actions__link" target="_blank" rel="noopener noreferrer" href={stringHelper('PP_URL')}><FormattedMessage id="headerActions.privacyPolicy" defaultMessage="Privacy Policy" /></a>
+          </li>
           <li className="header-actions__menu-item">
             <a className="header-actions__link" target="_blank" rel="noopener noreferrer" href={stringHelper('ABOUT_URL')}><MappedMessage msgObj={messages} msgKey="about" /></a>
           </li>
