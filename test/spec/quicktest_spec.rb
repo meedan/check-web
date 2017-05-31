@@ -12,7 +12,7 @@ require_relative './quicktest_status_spec.rb'
 
 shared_examples 'app' do |webdriver_url, browser_capabilities|
 
-  # Helpers
+  # Helpers INJECT INFO IN RELAY HEADER - CONFIG.JS
 
   include AppSpecHelpers
 
@@ -35,7 +35,32 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     FileUtils.cp(@config['config_file_path'], '../build/web/js/config.js') unless @config['config_file_path'].nil?
 
-    @driver =  Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: browser_capabilities)
+   # =>  HERE IS WHERE I START
+    if true #@config.key?('proxy') and !webdriver_url.include? "browserstack"
+      proxy = Selenium::WebDriver::Proxy.new(
+        :http     => @config['proxy'],
+        :ftp      => @config['proxy'],
+        :ssl      => @config['proxy']
+      )
+      caps = Selenium::WebDriver::Remote::Capabilities.chrome(:proxy => proxy)
+      #caps = Selenium::WebDriver::Remote::Capabilities.chrome(chromeOptions: { args: ["--user-agent=TESTXXXXXX"] })
+
+      caps = Selenium::WebDriver::Remote::Capabilities.chrome(
+        'chromeOptions' => {'args' => ["--user-agent=TESTXXXXXX"]}
+      )
+      caps['proxy'] =  proxy
+
+      # =>  HERE I CHECK IF CAPS IS CORRECT
+      p "$$$$$$$$$$"
+      p caps
+
+      @driver = Selenium::WebDriver.for(:chrome, :desired_capabilities => caps , :url => @config['chromedriver_url'])
+      # =>  HERE I CHECK IF THE DRIVER CAPABILITIES = CAPS
+      p @driver.capabilities
+   # =>  FINISH
+    else
+	    @driver =  Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: browser_capabilities)
+    end
 
     # TODO: better initialization w/ parallelization
     page = LoginPage.new(config: @config, driver: @driver).load
@@ -49,8 +74,35 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
   # Start Google Chrome before each test
 
-  before :each do
-    @driver = Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: browser_capabilities)
+  before :each do |example|
+    p example.metadata[:description_args]
+
+   # =>  SAME CODE FROM BEFORE ALL
+   # this line must be inserted in the end of config.yml:
+   # proxy: http://localhost:8080
+   # only works when jmeter is running and recording in chromedrive container acting as proxy in port 8080
+    if true #@config.key?('proxy') and !webdriver_url.include? "browserstack"
+      proxy = Selenium::WebDriver::Proxy.new(
+        :http     => @config['proxy'],
+        :ftp      => @config['proxy'],
+        :ssl      => @config['proxy']
+      )
+      caps = Selenium::WebDriver::Remote::Capabilities.chrome(:proxy => proxy)
+      #caps = Selenium::WebDriver::Remote::Capabilities.chrome(chromeOptions: { args: ["--user-agent=TESTXXXXXX"] })
+
+      caps = Selenium::WebDriver::Remote::Capabilities.chrome(
+        'chromeOptions' => {'args' => ["--user-agent=TESTXXXXXX"]}
+      )
+      caps['proxy'] =  proxy
+
+      # =>  HERE I CHECK IF CAPS IS CORRECT
+      p "$$$$$$$$$$"
+      p caps
+
+      @driver = Selenium::WebDriver.for(:chrome, :desired_capabilities => caps , :url => @config['chromedriver_url'])
+      # =>  HERE I CHECK IF THE DRIVER CAPABILITIES = CAPS
+      p @driver.capabilities
+   # =>  FINISH
   end
 
   # Close Google Chrome after each test
@@ -77,11 +129,24 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     ## Prioritized Script for Automation ##
     it "should register and login using e-mail" do
       login_pg = LoginPage.new(config: @config, driver: @driver).load
+      #puts @driver
+      # ?q=selenium+create+new+parameter&
+    end
+=begin
+    ## Prioritized Script for Automation ##
+    it "should register and login using e-mail" do
+
+      login_pg = LoginPage.new(config: @config, driver: @driver).load
+      puts @driver
+      puts @driver.inspect
+      puts @driver.attributes_name
+      puts @driver.methods
       email, password = ['sysops+' + Time.now.to_i.to_s + '@meedan.com', '22345678']
       login_pg.register_and_login_with_email(email: email, password: password)
       me_pg = MePage.new(config: @config, driver: login_pg.driver).load # reuse tab
       displayed_name = me_pg.title
       expect(displayed_name == 'User With Email').to be(true)
+      #      element.send_keys "https://hooks.slack.com/services/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"
     end
 
     it "should login using Facebook" do
@@ -267,5 +332,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 2
       expect(page.has_tag?(@new_tag)).to be(false)
     end
+=end
   end
 end
