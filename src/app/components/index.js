@@ -8,6 +8,7 @@ export NotFound from './NotFound';
 export UserMenu from './UserMenu';
 export CreateAccount from './CreateAccount';
 export AccessDenied from './AccessDenied';
+export UserAlreadyConfirmed from './UserAlreadyConfirmed';
 export UserConfirmed from './UserConfirmed';
 export UserUnconfirmed from './UserUnconfirmed';
 export UserPasswordChange from './UserPasswordChange';
