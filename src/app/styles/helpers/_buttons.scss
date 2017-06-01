@@ -97,3 +97,27 @@
     text-decoration: none;
   }
 }
+
+// Two buttons side by side
+@mixin button-group {
+  display: flex;
+
+  button:first-of-type {
+    margin-#{$to-direction}: units(1);
+  }
+}
+
+// A button with an icon in it
+@mixin icon-button {
+  display: flex;
+
+  span {
+    flex: none;
+  }
+
+  svg {
+    flex: none;
+    margin-#{$to-direction}: 0 units(1) units(1);
+    width: units(2);
+  }
+}

@@ -21,7 +21,7 @@
 .team-members__edit-button {
   @include button-medium;
   position: absolute;
-  right: units(2);
+  #{$to-direction}: units(2);
 }
 
 .team-members__edit-icon {
