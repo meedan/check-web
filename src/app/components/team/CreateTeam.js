@@ -53,6 +53,8 @@ class CreateTeam extends Component {
       slugLabelClass: this.slugLabelClass(),
       slugMessage: '',
       buttonIsDisabled: true,
+      displayName: '',
+      slugName: ''
     };
   }
 
@@ -79,20 +81,17 @@ class CreateTeam extends Component {
   handleDisplayNameChange(e) {
     const isTextEntered = e.target.value && e.target.value.length > 0;
     const newClass = isTextEntered ? this.displayNameLabelClass('--text-entered') : this.displayNameLabelClass();
-    this.setState({ displayNameLabelClass: newClass });
+    this.setState({ displayNameLabelClass: newClass, displayName: e.target.value });
   }
 
   handleDisplayNameBlur(e) {
-    const displayName = e.target.value;
-    const slugInput = document.getElementsByClassName('create-team__team-slug-input')[0];
-
-    const slugSuggestion = slugify(displayName);
-    if (!slugInput.value && slugSuggestion.length) {
-      slugInput.value = slugSuggestion;
+    const slugSuggestion = slugify(e.target.value);
+    if (!this.state.slugName && slugSuggestion.length) {
+      this.setState({ slugName: slugSuggestion });
     }
 
     function slugify(text) {
-      const regex = XRegExp('[\\P{L}]+', 'g');
+      const regex = XRegExp('[^\\p{L}\\p{N}]+', 'g');
       return XRegExp.replace(text.toString().toLowerCase().trim(), regex, '-');
     }
   }
@@ -103,6 +102,7 @@ class CreateTeam extends Component {
 
     this.setState({
       slugLabelClass: (isTextEntered ? this.slugLabelClass('--text-entered') : this.slugLabelClass()),
+      slugName: slug
     });
 
     // stubs pending real/API implementation; may need debouncing?
@@ -139,34 +139,31 @@ class CreateTeam extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    let that = this,
-      name = document.getElementById('team-name-container').value,
-      slug = document.getElementById('team-slug-container').value;
 
     const onFailure = (transaction) => {
       const error = transaction.getError();
-      let message = that.props.intl.formatMessage(messages.createTeamError);
+      let message = this.props.intl.formatMessage(messages.createTeamError);
       try {
         const json = JSON.parse(error.source);
         if (json.error) {
           message = json.error;
         }
       } catch (e) { }
-      that.setState({ message });
+      this.setState({ message });
     };
 
     const onSuccess = (response) => {
       this.setState({ message: null });
       const team = response.createTeam.team;
       const path = `/${team.slug}`;
-      that.getContext().history.push(path);
+      this.getContext().history.push(path);
     };
 
     Relay.Store.commitUpdate(
        new CreateTeamMutation({
-         name,
+         name: this.state.displayName,
+         slug: this.state.slugName,
          description: '',
-         slug,
        }),
       { onSuccess, onFailure },
     );
@@ -187,6 +184,7 @@ class CreateTeam extends Component {
             <form className="create-team__form">
               <div className="create-team__team-display-name">
                 <input
+                  value={this.state.displayName}
                   type="text"
                   name="teamDisplayName"
                   id="team-name-container"
@@ -203,6 +201,7 @@ class CreateTeam extends Component {
                 <span className="create-team__root-domain">checkmedia.org/</span>
                 <div className={this.state.slugClass}>
                   <input
+                    value={this.state.slugName}
                     type="text"
                     name="teamSlug"
                     id="team-slug-container"
