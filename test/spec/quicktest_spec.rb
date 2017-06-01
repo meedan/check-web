@@ -10,6 +10,40 @@ require_relative './pages/page.rb'
 require_relative './pages/project_page.rb'
 require_relative './quicktest_status_spec.rb'
 
+def new_driver(webdriver_url)
+  if @config.key?('proxy') and !webdriver_url.include? "browserstack"
+    proxy = Selenium::WebDriver::Proxy.new(
+      :http     => @config['proxy'],
+      :ftp      => @config['proxy'],
+      :ssl      => @config['proxy']
+    )
+    caps = Selenium::WebDriver::Remote::Capabilities.chrome(:proxy => proxy)
+    dr = Selenium::WebDriver.for(:chrome, :desired_capabilities => caps , :url => @config['chromedriver_url'])
+  else
+    dr =  Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: browser_capabilities)
+  end
+  return dr
+end
+
+def navigate(url)
+    new_url = url
+    if defined? $caller_name and $caller_name.length > 0
+      method_id = $caller_name[0]
+      method_id.gsub!(' ','_')
+      method_id.gsub!('"','')
+      method_id.gsub!('[','')
+      method_id.gsub!(']','')
+      if new_url.include? '?'
+        new_url = new_url + '&test_id='+method_id
+      else
+        new_url = new_url + '?test_id='+method_id
+      end
+    end
+    @driver.navigate.to new_url # assumes subclass pages implement `url` method
+    self
+end
+
+$caller_name = ""
 shared_examples 'app' do |webdriver_url, browser_capabilities|
 
   # Helpers INJECT INFO IN RELAY HEADER - CONFIG.JS
@@ -36,32 +70,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     FileUtils.cp(@config['config_file_path'], '../build/web/js/config.js') unless @config['config_file_path'].nil?
 
    # =>  HERE IS WHERE I START
-    if true #@config.key?('proxy') and !webdriver_url.include? "browserstack"
-      proxy = Selenium::WebDriver::Proxy.new(
-        :http     => @config['proxy'],
-        :ftp      => @config['proxy'],
-        :ssl      => @config['proxy']
-      )
-      caps = Selenium::WebDriver::Remote::Capabilities.chrome(:proxy => proxy)
-      #caps = Selenium::WebDriver::Remote::Capabilities.chrome(chromeOptions: { args: ["--user-agent=TESTXXXXXX"] })
-
-      caps = Selenium::WebDriver::Remote::Capabilities.chrome(
-        'chromeOptions' => {'args' => ["--user-agent=TESTXXXXXX"]}
-      )
-      caps['proxy'] =  proxy
-
-      # =>  HERE I CHECK IF CAPS IS CORRECT
-      p "$$$$$$$$$$"
-      p caps
-
-      @driver = Selenium::WebDriver.for(:chrome, :desired_capabilities => caps , :url => @config['chromedriver_url'])
-      # =>  HERE I CHECK IF THE DRIVER CAPABILITIES = CAPS
-      p @driver.capabilities
-   # =>  FINISH
-    else
-	    @driver =  Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: browser_capabilities)
-    end
-
+    @driver = new_driver(webdriver_url)
     # TODO: better initialization w/ parallelization
     page = LoginPage.new(config: @config, driver: @driver).load
   end
@@ -75,34 +84,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
   # Start Google Chrome before each test
 
   before :each do |example|
-    p example.metadata[:description_args]
-
-   # =>  SAME CODE FROM BEFORE ALL
-   # this line must be inserted in the end of config.yml:
-   # proxy: http://localhost:8080
-   # only works when jmeter is running and recording in chromedrive container acting as proxy in port 8080
-    if true #@config.key?('proxy') and !webdriver_url.include? "browserstack"
-      proxy = Selenium::WebDriver::Proxy.new(
-        :http     => @config['proxy'],
-        :ftp      => @config['proxy'],
-        :ssl      => @config['proxy']
-      )
-      caps = Selenium::WebDriver::Remote::Capabilities.chrome(:proxy => proxy)
-      #caps = Selenium::WebDriver::Remote::Capabilities.chrome(chromeOptions: { args: ["--user-agent=TESTXXXXXX"] })
-
-      caps = Selenium::WebDriver::Remote::Capabilities.chrome(
-        'chromeOptions' => {'args' => ["--user-agent=TESTXXXXXX"]}
-      )
-      caps['proxy'] =  proxy
-
-      # =>  HERE I CHECK IF CAPS IS CORRECT
-      p "$$$$$$$$$$"
-      p caps
-
-      @driver = Selenium::WebDriver.for(:chrome, :desired_capabilities => caps , :url => @config['chromedriver_url'])
-      # =>  HERE I CHECK IF THE DRIVER CAPABILITIES = CAPS
-      p @driver.capabilities
-   # =>  FINISH
+    $caller_name = example.metadata[:description_args]
+    @driver = new_driver(webdriver_url)
   end
 
   # Close Google Chrome after each test
@@ -125,22 +108,10 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
   # The tests themselves start here
   context "web" do
-    
-    ## Prioritized Script for Automation ##
-    it "should register and login using e-mail" do
-      login_pg = LoginPage.new(config: @config, driver: @driver).load
-      #puts @driver
-      # ?q=selenium+create+new+parameter&
-    end
-=begin
     ## Prioritized Script for Automation ##
     it "should register and login using e-mail" do
 
       login_pg = LoginPage.new(config: @config, driver: @driver).load
-      puts @driver
-      puts @driver.inspect
-      puts @driver.attributes_name
-      puts @driver.methods
       email, password = ['sysops+' + Time.now.to_i.to_s + '@meedan.com', '22345678']
       login_pg.register_and_login_with_email(email: email, password: password)
       me_pg = MePage.new(config: @config, driver: login_pg.driver).load # reuse tab
@@ -160,14 +131,14 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should login using Twitter" do
       login_with_twitter
-      @driver.navigate.to @config['self_url'] + '/check/me'
+      navigate(@config['self_url'] + '/check/me')
       displayed_name = get_element('h2.source-name').text.upcase
       expected_name = @config['twitter_name'].upcase
       expect(displayed_name == expected_name).to be(true)
     end
 
     it "should login using Slack" do
-      @driver.navigate.to "https://#{@config['slack_domain']}.slack.com"
+      navigate ("https://#{@config['slack_domain']}.slack.com")
       fill_field('#email', @config['slack_user'])
       fill_field('#password', @config['slack_password'])
       press_button('#signin_btn')
@@ -182,7 +153,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 5
       window = @driver.window_handles.first
       @driver.switch_to.window(window)
-      @driver.navigate.to @config['self_url'] + '/check/me'
+      navigate (@config['self_url'] + '/check/me')
       sleep 10
       expect(get_element('h2.source-name').text.nil?).to be(false)
     end
@@ -231,7 +202,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should add slack notifications to a team " do
       page = LoginPage.new(config: @config, driver: @driver).load
           .login_with_email(email: @e1, password: @password)
-      @driver.navigate.to @config['self_url'] + '/' + @t2
+      navigate (@config['self_url'] + '/' + @t2)
       sleep 2
       element = @driver.find_element(:class, "team__edit-button")
       element.click
@@ -291,7 +262,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should add comment to your media" do
       media_pg = LoginPage.new(config: @config, driver: @driver).load
           .login_with_email(email: @e1, password: @password, project: true)
-      @driver.navigate.to team_url('project/' + get_project + '/media/' + $media_id)
+      navigate (team_url('project/' + get_project + '/media/' + $media_id))
       sleep 1
       # First, verify that there isn't any comment
       expect(@driver.page_source.include?('This is my comment')).to be(false)
@@ -332,6 +303,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 2
       expect(page.has_tag?(@new_tag)).to be(false)
     end
-=end
+
   end
 end
