@@ -275,6 +275,11 @@ class Annotation extends Component {
             </span>
           </span>);
         }
+        else {
+          contentTemplate = (<span className="annotation__keep">
+            <FormattedHTMLMessage id="annotation.keepWait" defaultMessage={'This item is being archived in Keep. Come back in an hour to receive a confirmation link.'} /> 
+          </span>);
+        }
       }
       break;
     case 'create_flag':
