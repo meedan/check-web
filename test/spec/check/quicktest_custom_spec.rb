@@ -1,6 +1,6 @@
 require_relative './spec_helper.rb'
 
-shared_examples 'quicktest_status' do
+shared_examples 'quicktest_custom' do
   #Set a verification status to this media.
   it "should change a media status via the dropdown menu" do
     media_pg = LoginPage.new(config: @config, driver: @driver).load

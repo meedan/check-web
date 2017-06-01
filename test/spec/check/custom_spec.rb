@@ -1,6 +1,6 @@
-require_relative './spec_helper.rb'
+require_relative '../spec_helper.rb'
 
-shared_examples 'status' do
+shared_examples 'custom' do
 
   it "should register and redirect to newly created media" do
     page = LoginPage.new(config: @config, driver: @driver).load
