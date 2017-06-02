@@ -51,4 +51,29 @@ shared_examples 'custom' do
   #   selected = @driver.find_elements(:css, '.media-tags__suggestion--selected').map(&:text).sort
   #   expect(selected == ['False', 'Created', 'Newest first'].sort).to be(true)
   # end
+
+  it "should add and edit a translation" do
+    media_pg = LoginPage.new(config: @config, driver: @driver).load
+               .login_with_email(email: @email, password: @password)
+               .create_media(input: 'This is a text in english')
+    sleep 3
+
+    # Add translation
+    expect(@driver.page_source.include?('Add a translation')).to be(true)
+    @driver.find_element(:css, '.Select').click
+    @driver.action.send_keys(:enter).perform
+    fill_field('textarea[name="translation"]', 'This is a translation')
+    @driver.action.send_keys(:enter).perform
+    sleep 3
+    expect(@driver.page_source.include?('A translation has been added!')).to be(true)
+    expect(@driver.page_source.include?('This is a translation')).to be(true)
+
+    # Edit translation
+    @driver.find_element(:css, '.task__actions svg').click
+    @driver.find_elements(:css, '.media-actions__menu--active span').first.click
+    fill_field('textarea[name="translation_text"]', 'This is a different translation')
+    @driver.find_element(:css, '.task__submit').click
+    sleep 3
+    expect(@driver.page_source.include?('This is a different translation')).to be(true)
+  end
 end
