@@ -38,6 +38,9 @@ class ProjectComponent extends Component {
       newContext.team = this.props.project.team;
       notFound = true;
     }
+    if (currentContext.team && !currentContext.team.projects) {
+      newContext.team = this.props.project.team;
+    }
 
     context.setContextStore(newContext);
 
@@ -102,8 +105,17 @@ const ProjectContainer = Relay.createContainer(ProjectComponent, {
           id,
           dbid,
           slug,
-          search_id
-        },
+          search_id,
+          projects(first: 10000) {
+            edges {
+              node {
+                id,
+                dbid,
+                title
+              }
+            }
+          }
+        }
       }
     `,
   },
