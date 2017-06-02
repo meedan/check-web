@@ -184,6 +184,12 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(title.text == 'Error').to be(true)
     end
 
+    it "should access user already confirmed page" do
+      @driver.navigate.to @config['self_url'] + '/check/user/already-confirmed'
+      title = get_element('.main-title')
+      expect(title.text == 'Account Already Confirmed').to be(true)
+    end
+
     it "should login using Facebook" do
       login_pg = LoginPage.new(config: @config, driver: @driver).load
       login_pg.login_with_facebook

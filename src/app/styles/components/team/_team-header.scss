@@ -3,35 +3,35 @@
   display: flex;
   height: units(6);
   overflow: hidden;
-}
 
-.team-header__clickable {
-  align-items: center;
-  display: flex;
-  height: 100%;
-  overflow: hidden;
-  width: 100%;
+  &__clickable {
+    align-items: center;
+    display: flex;
+    height: 100%;
+    overflow: hidden;
+    width: 100%;
 
-  &,
-  &:hover {
-    text-decoration: none;
+    &,
+    &:hover {
+      text-decoration: none;
+    }
+
+    &,
+    &:visited {
+      color: inherit;
+    }
   }
 
-  &,
-  &:visited {
-    color: inherit;
+  &__avatar {
+    @include avatar(units(4));
+    background-color: $white;
+    margin: 0;
+    margin-#{$from-direction}: units(2);
   }
-}
 
-.team-header__avatar {
-  @include avatar(units(4));
-  background-color: $white;
-  margin-#{$from-direction}: units(2);
-  margin: 0;
-}
-
-.team-header__name {
-  @extend %ellipsis;
-  font: font(subheading2);
-  margin-#{$from-direction}: units(2);
+  &__name {
+    @extend %ellipsis;
+    font: font(subheading2);
+    margin-#{$from-direction}: units(2);
+  }
 }

@@ -64,6 +64,26 @@
     "defaultMessage": "Translation published to {link}"
   },
   {
+    "id": "annotation.keepRetried",
+    "defaultMessage": "Scheduled a new request to Keep. Please check back soon."
+  },
+  {
+    "id": "annotation.keepSuccess",
+    "defaultMessage": "In case this link goes offline, you can <a href=\"{keepLink}\" target=\"_blank\">access a backup via Keep</a>"
+  },
+  {
+    "id": "annotation.keepError",
+    "defaultMessage": "Tried to archive this link using Keep, but it failed"
+  },
+  {
+    "id": "annotation.keepRetry",
+    "defaultMessage": "Retry"
+  },
+  {
+    "id": "annotation.keepWait",
+    "defaultMessage": "This item is being archived in Keep. Come back in an hour to receive a confirmation link."
+  },
+  {
     "id": "annotation.flaggedHeader",
     "defaultMessage": "Flagged as {flag} by {author}"
   },

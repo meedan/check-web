@@ -49,7 +49,7 @@ class Annotation extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { zoomedCommentImage: false, disableMachineTranslation: false };
+    this.state = { zoomedCommentImage: false, retriedKeep: false, disableMachineTranslation: false };
   }
 
   handleCloseCommentImage() {
@@ -115,6 +115,25 @@ class Annotation extends Component {
         { onSuccess, onFailure },
       );
       this.setState({ disableMachineTranslation: true });
+    }
+  }
+
+  handleRetryKeep() {
+    const onFailure = (transaction) => {
+      this.setState({ retriedKeep: false });
+    };
+
+    const onSuccess = (response) => {};
+
+    if (!this.state.retriedKeep) {
+      Relay.Store.commitUpdate(
+        new UpdateProjectMediaMutation({
+          update_keep: 1,
+          id: this.props.annotated.id,
+        }),
+        { onSuccess, onFailure },
+      );
+      this.setState({ retriedKeep: true });
     }
   }
 
@@ -246,6 +265,7 @@ class Annotation extends Component {
           />
         </span>);
       }
+
       if (object.field_name === 'reverse_image_path') {
         const [reverseImage, value] = (annotated.domain === 'facebook.com') ? [messages.reverseImageFacebook, null] : [messages.reverseImage, object.value];
         contentTemplate = (<span className="annotation__reverse-image">
@@ -253,6 +273,7 @@ class Annotation extends Component {
           <span className="annotation__reverse-image-search" title="Google Images" onClick={this.handleReverseImageSearch.bind(this, value)}><FormattedMessage id="annotation.reverseImageSearch" defaultMessage="Search" /></span>
         </span>);
       }
+
       if (object.field_name === 'translation_text') {
         const translationContent = JSON.parse(annotation.content);
         let language = translationContent.find(it => it.field_name === 'translation_language');
@@ -263,6 +284,7 @@ class Annotation extends Component {
           />
         </span>);
       }
+
       if (object.field_name === 'mt_translations') {
         const formatted_value = JSON.parse(annotation.content)[0].formatted_value;
         if (formatted_value.length == 0) {
@@ -287,6 +309,7 @@ class Annotation extends Component {
           </span>);
         }
       }
+
       if (object.field_name === 'translation_status_status') {
         const statusCode = object.value.toLowerCase().replace(/[ _]/g, '-');
         const status = getStatus(this.props.annotated.translation_statuses, object.value);
@@ -299,6 +322,7 @@ class Annotation extends Component {
           />
         </span>);
       }
+
       if (object.field_name === 'translation_published') {
         const published = JSON.parse(object.value);
         const colors = {
@@ -316,6 +340,36 @@ class Annotation extends Component {
               />
             </span>
           );
+        }
+      }
+
+      if (object.field_name === 'keep_backup_response') {
+        const keep = JSON.parse(JSON.parse(annotation.content)[0].value);
+        const keepLink = keep.location;
+        const keepStatus = parseInt(keep.status);
+        contentTemplate = null;
+        if (this.state.retriedKeep) {
+          contentTemplate = (<span className="annotation__keep">
+            <FormattedHTMLMessage id="annotation.keepRetried" defaultMessage={'Scheduled a new request to Keep. Please check back soon.'} />
+          </span>);
+        }
+        else if (keepLink) {
+          contentTemplate = (<span className="annotation__keep">
+            <FormattedHTMLMessage id="annotation.keepSuccess" defaultMessage={'In case this link goes offline, you can <a href="{keepLink}" target="_blank">access a backup via Keep</a>'} values={{ keepLink }} />
+          </span>);
+        }
+        else if (keepStatus === 418) {
+          contentTemplate = (<span className="annotation__keep">
+            <FormattedHTMLMessage id="annotation.keepError" defaultMessage={'Tried to archive this link using Keep, but it failed'} />
+            <span className="annotation__keep-retry" onClick={this.handleRetryKeep.bind(this)}>
+              <FormattedMessage id="annotation.keepRetry" defaultMessage="Retry" />
+            </span>
+          </span>);
+        }
+        else {
+          contentTemplate = (<span className="annotation__keep">
+            <FormattedHTMLMessage id="annotation.keepWait" defaultMessage={'This item is being archived in Keep. Come back in an hour to receive a confirmation link.'} />
+          </span>);
         }
       }
       break;
