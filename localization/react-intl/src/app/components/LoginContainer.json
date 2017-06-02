@@ -1,5 +1,13 @@
 [
   {
+    "id": "loginContainer.appNameHuman",
+    "defaultMessage": "Check"
+  },
+  {
+    "id": "bridge.loginContainer.appNameHuman",
+    "defaultMessage": "Bridge"
+  },
+  {
     "id": "agree.terms",
     "defaultMessage": "By signing in, you agree to the Check {tosLink} and {ppLink}."
   },
