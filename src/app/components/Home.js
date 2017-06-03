@@ -111,7 +111,7 @@ class Home extends Component {
           <BrowserSupport />
           <div className={bemClass("home", routeSlug, `--${routeSlug}`)}>
             <ContentColumn wide className="home__disclaimer"><span><FormattedMessage id="home.beta" defaultMessage="Beta" /></span></ContentColumn>
-            { this.state.token ? <Header {...this.props} /> : null }
+            <Header {...this.props} loggedIn={this.state.token} />
             <div className="home__content">{children}</div>
             <FooterRelay {...this.props} />
           </div>

@@ -10,7 +10,7 @@ import ContentColumn from './layout/ContentColumn';
 
 class Header extends Component {
   render() {
-    const { state } = this.props;
+    const { state, loggedIn } = this.props;
     const path = this.props.location ? this.props.location.pathname : window.location.pathname;
     const showCheckLogo = /^\/(check(\/.*)?)?$/.test(path);
     const joinPage = /^\/([^\/]+)\/join$/.test(path);
@@ -23,7 +23,7 @@ class Header extends Component {
             (joinPage ? (<div className="header__team"><TeamPublicHeader {...this.props} /></div>) : (<div className="header__team"><TeamHeader {...this.props} /></div>))
           }
           <ProjectHeader {...this.props} />
-          <HeaderActions {...this.props} />
+          { loggedIn ? <HeaderActions {...this.props} /> : null }
         </ContentColumn>
       </header>
     );
