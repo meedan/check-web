@@ -45,6 +45,7 @@ class Home extends Component {
       message: null,
       token: null,
       error: false,
+      sessionStarted: false,
     };
   }
 
@@ -83,6 +84,10 @@ class Home extends Component {
   render() {
     const { state, children } = this.props;
     const routeSlug = this.routeSlug(children);
+
+    if (!this.state.sessionStarted) {
+      return null;
+    }
 
     let message = null;
     if (this.state.error) {
