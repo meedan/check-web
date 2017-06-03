@@ -23,7 +23,7 @@ class Header extends Component {
             (joinPage ? (<div className="header__team"><TeamPublicHeader {...this.props} /></div>) : (<div className="header__team"><TeamHeader {...this.props} /></div>))
           }
           <ProjectHeader {...this.props} />
-          { loggedIn ? <HeaderActions {...this.props} /> : null }
+          <HeaderActions {...this.props} loggedIn={loggedIn} />
         </ContentColumn>
       </header>
     );
