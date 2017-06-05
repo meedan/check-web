@@ -1,4 +1,4 @@
-require_relative './spec_helper.rb'
+require_relative '../spec_helper.rb'
 
 shared_examples 'quicktest_custom' do
   #Set a verification status to this media.
