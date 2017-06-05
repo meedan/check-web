@@ -1,15 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 import { FormattedMessage, injectIntl, intlShape, defineMessages } from 'react-intl';
-import MappedMessage from '../MappedMessage';
 import Pusher from 'pusher-js';
-import DocumentTitle from 'react-document-title';
+import PageTitle from '../PageTitle';
 import MediaDetail from './MediaDetail';
 import MediaUtil from './MediaUtil';
 import { Tags } from '../source';
 import Can from '../Can';
 import Annotations from './Annotations';
 import config from 'config';
-import { pageTitle } from '../../helpers';
 import CheckContext from '../../CheckContext';
 import Translation from '../translation/Translation';
 import Tasks from '../task/Tasks';
@@ -105,7 +103,7 @@ class MediaComponent extends Component {
     const status = getStatus(mediaStatuses(media), mediaLastStatus(media));
 
     return (
-      <DocumentTitle title={pageTitle(MediaUtil.title(media, data, this.props.intl), false, this.getContext().team)}>
+      <PageTitle prefix={MediaUtil.title(media, data, this.props.intl)} skipTeam={false} team={this.getContext().team}>
         <div className={bemClass("media", media.tasks.edges.length, '--has-tasks')} data-id={media.dbid}>
           <div
             className={bemClassFromMediaStatus('media__expanded', mediaLastStatus(media))}
@@ -141,7 +139,7 @@ class MediaComponent extends Component {
           </ContentColumn>
           <Annotations annotations={media.log.edges} annotated={media} annotatedType="ProjectMedia" />
         </div>
-      </DocumentTitle>
+      </PageTitle>
     );
   }
 }

@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import Relay from 'react-relay';
-import DocumentTitle from 'react-document-title';
+import PageTitle from '../PageTitle';
 import MappedMessage from '../MappedMessage';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import Tags from './Tags';
@@ -18,7 +18,6 @@ import CreateContactMutation from '../../relay/CreateContactMutation';
 import UpdateContactMutation from '../../relay/UpdateContactMutation';
 import CreateProject from '../project/CreateProject';
 import Can from '../Can';
-import {pageTitle} from '../../helpers';
 import CheckContext from '../../CheckContext';
 import ContentColumn from '../layout/ContentColumn';
 import {bemClass} from '../../helpers';
@@ -199,7 +198,7 @@ class TeamComponent extends Component {
     const contact = team.contacts.edges[0];
 
     return (
-      <DocumentTitle title={pageTitle(false, false, team)}>
+      <PageTitle prefix={false} skipTeam={false} team={team}>
         <div className="team">
           <ContentColumn className="card">
             <Message message={this.state.message} />
@@ -447,7 +446,7 @@ class TeamComponent extends Component {
             </section>
           </ContentColumn>
         </div>
-      </DocumentTitle>
+      </PageTitle>
     );
   }
 }

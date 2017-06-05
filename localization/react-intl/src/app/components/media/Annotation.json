@@ -65,7 +65,7 @@
   },
   {
     "id": "annotation.keepRetried",
-    "defaultMessage": "Scheduled a new request to Keep. Please check back soon."
+    "defaultMessage": "There is a new attempt to archive this item in Keep. Please check back in an hour."
   },
   {
     "id": "annotation.keepSuccess",
@@ -73,7 +73,7 @@
   },
   {
     "id": "annotation.keepError",
-    "defaultMessage": "Tried to archive this link using Keep, but it failed"
+    "defaultMessage": "There was an error when Keep tried to archive this item"
   },
   {
     "id": "annotation.keepRetry",

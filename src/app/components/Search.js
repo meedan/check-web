@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
-import DocumentTitle from 'react-document-title';
+import PageTitle from './PageTitle';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
@@ -9,7 +9,7 @@ import SearchRoute from '../relay/SearchRoute';
 import TeamRoute from '../relay/TeamRoute';
 import MediaDetail from './media/MediaDetail';
 import { bemClass } from '../helpers';
-import { pageTitle, getStatusStyle } from '../helpers';
+import { getStatusStyle } from '../helpers';
 import CheckContext from '../CheckContext';
 import ContentColumn from './layout/ContentColumn';
 import MediasLoading from './media/MediasLoading';
@@ -234,7 +234,7 @@ class SearchQueryComponent extends Component {
     const title = this.title(statuses, projects);
 
     return (
-      <DocumentTitle title={this.props.title || pageTitle(title, false, this.props.team)}>
+      <PageTitle title={this.props.title} prefix={title} skipTeam={false} team={this.props.team}>
         <ContentColumn>
           <div className="search__query">
 
@@ -297,7 +297,7 @@ class SearchQueryComponent extends Component {
             </section>
           </div>
         </ContentColumn>
-      </DocumentTitle>
+      </PageTitle>
     );
   }
 }
