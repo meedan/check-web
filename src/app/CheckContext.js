@@ -64,12 +64,12 @@ class CheckContext {
 
     // Failed login
     const failureCallback = function (errorMessage) {
-      caller.setState({ message: errorMessage, error: true });
+      caller.setState({ message: errorMessage, error: true, sessionStarted: true });
     };
 
     // Successful login
     const successCallback = function (userData) {
-      const newState = {};
+      const newState = { sessionStarted: true };
 
       if (userData) {
         newState.token = userData.token;

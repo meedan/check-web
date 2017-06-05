@@ -153,13 +153,13 @@ export default class Root extends Component {
                 <Route path="check/teams" component={Teams} />
 
                 <Route path=":team/medias/new" component={CreateProjectMedia} />
-                <Route path=":team/project/:projectId/media/:mediaId" component={ProjectMedia} />
+                <Route path=":team/project/:projectId/media/:mediaId" component={ProjectMedia} public />
                 <Route path=":team/join" component={JoinTeam} />
                 <Route path=":team/members" component={TeamMembers} />
                 <Route path=":team/project/:projectId/edit" component={ProjectEdit} />
-                <Route path=":team/project/:projectId(/:query)" component={Project} />
-                <Route path=":team/search(/:query)" component={Search} />
-                <Route path=":team" component={Team} />
+                <Route path=":team/project/:projectId(/:query)" component={Project} public />
+                <Route path=":team/search(/:query)" component={Search} public />
+                <Route path=":team" component={Team} public />
 
                 <Route path="*" component={NotFound} public />
               </Route>

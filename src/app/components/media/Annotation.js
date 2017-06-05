@@ -350,7 +350,7 @@ class Annotation extends Component {
         contentTemplate = null;
         if (this.state.retriedKeep) {
           contentTemplate = (<span className="annotation__keep">
-            <FormattedHTMLMessage id="annotation.keepRetried" defaultMessage={'Scheduled a new request to Keep. Please check back soon.'} />
+            <FormattedHTMLMessage id="annotation.keepRetried" defaultMessage={'There is a new attempt to archive this item in Keep. Please check back in an hour.'} />
           </span>);
         }
         else if (keepLink) {
@@ -360,7 +360,7 @@ class Annotation extends Component {
         }
         else if (keepStatus === 418) {
           contentTemplate = (<span className="annotation__keep">
-            <FormattedHTMLMessage id="annotation.keepError" defaultMessage={'Tried to archive this link using Keep, but it failed'} />
+            <FormattedHTMLMessage id="annotation.keepError" defaultMessage={'There was an error when Keep tried to archive this item'} />
             <span className="annotation__keep-retry" onClick={this.handleRetryKeep.bind(this)}>
               <FormattedMessage id="annotation.keepRetry" defaultMessage="Retry" />
             </span>

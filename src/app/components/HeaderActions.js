@@ -40,6 +40,7 @@ class HeaderActions extends Component {
     const appName = config.appName;
     const path = window.location.pathname;
     const joinPage = /^\/([^\/]+)\/join$/.test(path);
+    const loggedIn = this.props.loggedIn;
 
     return (
       <div className={bemClass('header-actions', this.state.isMenuOpen, '--active')}>
@@ -51,8 +52,8 @@ class HeaderActions extends Component {
         <MdMoreVert className="header-actions__menu-toggle" onClick={this.toggleSettingsMenu.bind(this)} />
         <div className={bemClass('header-actions__menu-overlay', this.state.isMenuOpen, '--active')} onClick={this.toggleSettingsMenu.bind(this)} />
         <ul className={bemClass('header-actions__menu', this.state.isMenuOpen, '--active')}>
-          <li className="header-actions__menu-item" style={{ cursor: 'default' }}><UserMenuRelay {...this.props} /></li>
-          <li className="header-actions__menu-item"><Link to="/check/teams"><FormattedMessage id="headerActions.userTeams" defaultMessage="Your Teams" /></Link></li>
+          { loggedIn ? <li className="header-actions__menu-item" style={{ cursor: 'default' }}><UserMenuRelay {...this.props} /></li> : null }
+          { loggedIn ? <li className="header-actions__menu-item"><Link to="/check/teams"><FormattedMessage id="headerActions.userTeams" defaultMessage="Your Teams" /></Link></li> : null }
           {(() => {
             if (!joinPage) {
               return ([
@@ -61,9 +62,7 @@ class HeaderActions extends Component {
               ]);
             }
           })()}
-          <li className="header-actions__menu-item header-actions__menu-item--logout" onClick={logout}>
-            <FormattedMessage id="headerActions.signOut" defaultMessage="Sign Out" />
-          </li>
+          { loggedIn ? <li className="header-actions__menu-item header-actions__menu-item--logout" onClick={logout}><FormattedMessage id="headerActions.signOut" defaultMessage="Sign Out" /></li> : <li className="header-actions__menu-item header-actions__menu-item--login"><Link to="/"><FormattedMessage id="headerActions.signIn" defaultMessage="Sign In" /></Link></li> }
           <li className="header-actions__menu-item">
             <a className="header-actions__link" target="_blank" rel="noopener noreferrer" href={stringHelper('CONTACT_HUMAN_URL')}><FormattedMessage id="headerActions.contactHuman" defaultMessage="Contact a Human" /></a>
           </li>
