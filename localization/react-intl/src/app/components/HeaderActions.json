@@ -8,6 +8,10 @@
     "defaultMessage": "Sign Out"
   },
   {
+    "id": "headerActions.signIn",
+    "defaultMessage": "Sign In"
+  },
+  {
     "id": "headerActions.contactHuman",
     "defaultMessage": "Contact a Human"
   },

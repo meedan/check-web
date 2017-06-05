@@ -1,5 +1,3 @@
 {
-  "mediaStatus.cancelMessage": "Annuler",
-  "mediaStatus.messageDescription": "Prière de rajouter un commentaire. Celui-ci sera transmis à l'usager pour l'informer que leur requête sera annulée.",
-  "mediaStatus.noteHint": "Cliquez Entrée pour envoyer"
+  "mediaStatus.error": "Désolé, ce n'était pas possible de mettre à jour le statut."
 }
