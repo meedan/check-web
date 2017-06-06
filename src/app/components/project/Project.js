@@ -73,7 +73,7 @@ class ProjectComponent extends Component {
           </Can>
 
           <ContentColumn>
-            <Search team={project.team.slug} project={project} query={this.props.params.query || '{}'} fields={['status', 'sort', 'tags']} title={title} />
+            <Search team={project.team.slug} project={project} query={this.props.params.query || '{}'} fields={['status', 'sort', 'tags']} title={false} />
           </ContentColumn>
 
         </div>

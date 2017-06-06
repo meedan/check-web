@@ -20,6 +20,10 @@ class PageTitle extends Component {
 
     let title = this.props.title;
 
+    if (title === false) {
+      return(<span>{this.props.children}</span>)
+    }
+
     if (!title) {
       const appName = mapMessage(this.props.intl, messages, 'appNameHuman');
       let suffix = appName;
