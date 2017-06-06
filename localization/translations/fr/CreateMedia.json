@@ -4,5 +4,6 @@
   "createMedia.mediaInput": "Copiez-collez ou tapez",
   "createMedia.uploadImage": "Charger une image",
   "createMedia.submitButton": "Envoyer",
-  "createMedia.helper": "Ajoutez un lien, une citation, ou une image à vérifier"
+  "createMedia.helper": "Ajoutez un lien, une citation, ou une image à vérifier",
+  "bridge.createMedia.helper": "Ajoutez un lien, une citation, ou une image à traduire"
 }

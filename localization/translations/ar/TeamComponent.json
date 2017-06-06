@@ -10,9 +10,11 @@
   "teamComponent.slackWebhook": "Slack webhook",
   "teamComponent.slackChannel": "#قناة Slack الافتراضية",
   "teamComponent.verificationTeam": "فريق التحقق",
+  "bridge.teamComponent.verificationTeam": "فريق الترجمة",
+  "teamComponent.title": "مشاريع التحقق",
+  "bridge.teamComponent.title": "مشاريع الترجمة",
   "teamComponent.cancelButton": "إلغاء",
   "teamComponent.saveButton": "حفظ",
   "teamComponent.editButton": "تحرير معلومات الفريق",
-  "teamComponent.slackNotificationsEnabled": "تفعيل تنبيهات Slack",
-  "teamComponent.title": "مشاريع التحقق"
+  "teamComponent.slackNotificationsEnabled": "تفعيل تنبيهات Slack"
 }
