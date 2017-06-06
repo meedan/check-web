@@ -87,8 +87,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(displayed_name == 'User With Email').to be(true)
     end
 
-    include_examples "quicktest_custom"
-
     it "should login using Facebook" do
       login_pg = LoginPage.new(config: @config, driver: @driver).load
       login_pg.login_with_facebook
@@ -257,7 +255,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     #Add a tag to your media.
-    it "should Add a tag to your media and delete it" do
+    it "should add a tag to your media and delete it" do
       page = LoginPage.new(config: @config, driver: @driver).load
           .login_with_email(email: @e1, password: @password)
           .click_media
@@ -270,5 +268,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 2
       expect(page.has_tag?(@new_tag)).to be(false)
     end
+    
+    include_examples "quicktest_custom"
   end
 end
