@@ -231,10 +231,10 @@ class SearchQueryComponent extends Component {
     const statuses = JSON.parse(teamStatuses(this.props.team)).statuses;
     const projects = this.props.team.projects.edges.sortp((a, b) => a.node.title.localeCompare(b.node.title));
     const suggestedTags = this.props.team.get_suggested_tags ? this.props.team.get_suggested_tags.split(',') : [];
-    const title = this.title(statuses, projects);
+    const title = this.props.project ? this.props.project.title : this.title(statuses, projects);
 
     return (
-      <PageTitle title={this.props.title} prefix={title} skipTeam={false} team={this.props.team}>
+      <PageTitle prefix={title} skipTeam={false} team={this.props.team}>
         <ContentColumn>
           <div className="search__query">
 
