@@ -1,5 +1,3 @@
 {
-  "mediaStatus.cancelMessage": "إلغاء",
-  "mediaStatus.messageDescription": "من فضلك أضف تعليقاً لكي نُعلم طالب الترجمة أن طلبه لن ينفذ.",
-  "mediaStatus.noteHint": "إضغط \"إدخال\" للإرسال"
+  "mediaStatus.error": "عذراً، لقد واجهنا خطأ ما أثناء محاولة تغيير حالة التقرير."
 }
