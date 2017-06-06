@@ -10,10 +10,6 @@ import CheckContext from '../CheckContext';
 import config from 'config';
 
 const messages = defineMessages({
-  emailNotFound: {
-    id: 'passwordReset.emailNotFound',
-    defaultMessage: 'Email not found. Please contact check@meedan.com for support.',
-  },
   emailNotFoundContactSupport: {
     id: 'passwordReset.emailNotFoundContactSupport',
     defaultMessage: 'Email not found. Please contact {supportEmail} for support.',

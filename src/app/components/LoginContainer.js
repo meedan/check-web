@@ -16,15 +16,7 @@ const messages = defineMessages({
   bridge_appNameHuman: {
     id: 'bridge.loginContainer.appNameHuman',
     defaultMessage: 'Bridge',
-  },
-  agreeTerms: {
-    id: 'agree.terms',
-    defaultMessage: 'By signing in, you agree to the Check {tosLink} and {ppLink}.',
-  },
-  loginSupport: {
-    id: 'login.support',
-    defaultMessage: 'For support contact <a href="mailto:check@meedan.com">check@meedan.com</a>.',
-  },
+  }
 });
 
 class LoginContainer extends Component {
