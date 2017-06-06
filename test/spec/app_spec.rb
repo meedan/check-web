@@ -866,8 +866,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       media_pg = LoginPage.new(config: @config, driver: @driver).load
           .login_with_email(email: @email, password: @password)
           .create_media(input: 'https://twitter.com/softlandscapes/status/834385935240462338?t=' + Time.now.to_i.to_s)
+      sleep 3
       expect(media_pg.primary_heading.text).to eq('Tweet by soft landscapes')
-      sleep 2 # :/ clicks can misfire if pender iframe moves the button position at the wrong moment
+      sleep 5 # :/ clicks can misfire if pender iframe moves the button position at the wrong moment
       media_pg.set_title('Edited media title')
 
       expect(media_pg.primary_heading.text).to eq('Edited media title')
