@@ -2,10 +2,10 @@ import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 import CheckContext from '../../CheckContext';
 import MediaRoute from '../../relay/MediaRoute';
-import MediaComponent from './MediaComponent';
+import MediaParentComponent from './MediaParentComponent';
 import MediasLoading from './MediasLoading';
 
-const MediaContainer = Relay.createContainer(MediaComponent, {
+const MediaContainer = Relay.createContainer(MediaParentComponent, {
   initialVariables: {
     contextId: null,
   },
@@ -26,7 +26,8 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
         project {
           id,
           dbid,
-          title
+          title,
+          get_languages
         },
         project_id,
         pusher_channel,
@@ -34,6 +35,7 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
         translation_statuses,
         overridden,
         language,
+        language_code,
         media {
           url,
           quote,
@@ -61,6 +63,21 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
         translation_status: annotation(annotation_type: "translation_status") {
           id
           dbid
+        }
+        translations: annotations(annotation_type: "translation", first: 10000) {
+          edges {
+            node {
+              id,
+              dbid,
+              annotation_type,
+              annotated_type,
+              annotated_id,
+              annotator,
+              content,
+              created_at,
+              updated_at
+            }
+          }
         }
         tags(first: 10000) {
           edges {

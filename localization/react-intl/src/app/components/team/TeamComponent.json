@@ -44,6 +44,18 @@
     "defaultMessage": "Verification Team"
   },
   {
+    "id": "bridge.teamComponent.verificationTeam",
+    "defaultMessage": "Translation Team"
+  },
+  {
+    "id": "teamComponent.title",
+    "defaultMessage": "Verification Projects"
+  },
+  {
+    "id": "bridge.teamComponent.title",
+    "defaultMessage": "Translation Projects"
+  },
+  {
     "id": "teamComponent.cancelButton",
     "defaultMessage": "Cancel"
   },
@@ -58,9 +70,5 @@
   {
     "id": "teamComponent.slackNotificationsEnabled",
     "defaultMessage": "Enable Slack notifications"
-  },
-  {
-    "id": "teamComponent.title",
-    "defaultMessage": "Verification Projects"
   }
 ]

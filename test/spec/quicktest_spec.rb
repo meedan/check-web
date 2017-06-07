@@ -8,7 +8,10 @@ require_relative './pages/me_page.rb'
 require_relative './pages/teams_page.rb'
 require_relative './pages/page.rb'
 require_relative './pages/project_page.rb'
-require_relative './quicktest_status_spec.rb'
+
+CONFIG = YAML.load_file('config.yml')
+
+require_relative "#{CONFIG['app_name']}/quicktest_custom_spec.rb"
 
 shared_examples 'app' do |webdriver_url, browser_capabilities|
 
@@ -25,7 +28,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     @password = '12345678'
     @source_url = 'https://twitter.com/ironmaiden?timestamp=' + Time.now.to_i.to_s
     @media_url = 'https://twitter.com/meedan/status/773947372527288320/?t=' + Time.now.to_i.to_s
-    @config = YAML.load_file('config.yml')
+    @config = CONFIG
     $source_id = nil
     $media_id = nil
     @e1 = 'sysops+' + Time.now.to_i.to_s + '@meedan.com'
@@ -73,7 +76,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
   # The tests themselves start here
   context "web" do
-    
+
     ## Prioritized Script for Automation ##
     it "should register and login using e-mail" do
       login_pg = LoginPage.new(config: @config, driver: @driver).load
@@ -250,11 +253,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 3
       expect(@driver.page_source.include?('This is my comment')).to be(false)
     end
-    
-    include_examples "quicktest_status"
 
     #Add a tag to your media.
-    it "should Add a tag to your media and delete it" do
+    it "should add a tag to your media and delete it" do
       page = LoginPage.new(config: @config, driver: @driver).load
           .login_with_email(email: @e1, password: @password)
           .click_media
@@ -267,5 +268,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 2
       expect(page.has_tag?(@new_tag)).to be(false)
     end
+    
+    include_examples "quicktest_custom"
   end
 end

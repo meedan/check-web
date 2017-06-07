@@ -2,13 +2,12 @@ import React, { Component, PropTypes } from 'react';
 import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay';
 import { Link } from 'react-router';
-import DocumentTitle from 'react-document-title';
 import ProjectRoute from '../../relay/ProjectRoute';
 import ProjectHeader from './ProjectHeader';
 import { CreateProjectMedia } from '../media';
 import Can from '../Can';
 import config from 'config';
-import { pageTitle } from '../../helpers';
+import PageTitle from '../PageTitle';
 import CheckContext from '../../CheckContext';
 import ContentColumn from '../layout/ContentColumn';
 import MediasLoading from '../media/MediasLoading';
@@ -60,10 +59,9 @@ class ProjectComponent extends Component {
   render() {
     const that = this;
     const project = this.props.project;
-    const title = pageTitle(project.title, false, this.currentContext().team);
 
     return (
-      <DocumentTitle title={title}>
+      <PageTitle prefix={project.title} skipTeam={false} team={this.currentContext().team}>
         <div className="project">
           { project.description && project.description.trim().length ? (
             <div className="project__description">
@@ -75,11 +73,11 @@ class ProjectComponent extends Component {
           </Can>
 
           <ContentColumn>
-            <Search team={project.team.slug} project={project} query={this.props.params.query || '{}'} fields={['status', 'sort', 'tags']} title={title} />
+            <Search team={project.team.slug} project={project} query={this.props.params.query || '{}'} fields={['status', 'sort', 'tags']}  />
           </ContentColumn>
 
         </div>
-      </DocumentTitle>
+      </PageTitle>
     );
   }
 }

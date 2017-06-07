@@ -1,5 +1,6 @@
 import { defineMessages } from 'react-intl';
 import { truncateLength } from '../../helpers';
+import config from 'config';
 
 const messages = defineMessages({
   notesCount: {
@@ -25,6 +26,10 @@ const messages = defineMessages({
   typeClaim: {
     id: 'media.typeClaim',
     defaultMessage: 'Claim'
+  },
+  bridge_typeClaim: {
+    id: 'bridge.media.typeClaim',
+    defaultMessage: 'Quote'
   },
   typeImage: {
     id: 'media.typeImage',
@@ -114,7 +119,7 @@ const MediaUtil = {
         type = socialMedia;
       }
       else if (media.quote) {
-        type = messages.typeClaim;
+        type = (config.appName === 'check') ? messages.typeClaim : messages.bridge_typeClaim;
       }
       else if (media.embed_path) {
         type = messages.typeImage;
@@ -131,7 +136,7 @@ const MediaUtil = {
   // Return a CSS-friendly media type.
   mediaTypeCss(media, data) {
     const type = this.mediaType(media, data);
-    return type ? type.id.replace('media.type', '').toLowerCase() : '';
+    return type ? type.id.replace(/^.*media\.type/, '').toLowerCase() : '';
   },
 
   typeLabel(media, data, intl) {

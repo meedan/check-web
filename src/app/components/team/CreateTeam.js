@@ -1,13 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
-import DocumentTitle from 'react-document-title';
+import PageTitle from '../PageTitle';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import CreateTeamMutation from '../../relay/CreateTeamMutation';
 import base64 from 'base-64';
 import Message from '../Message';
 import { Link } from 'react-router';
 import config from 'config';
-import { pageTitle } from '../../helpers';
 import ContentColumn from '../layout/ContentColumn';
 import CheckContext from '../../CheckContext';
 import Heading from '../layout/Heading';
@@ -175,7 +174,7 @@ class CreateTeam extends Component {
 
   render() {
     return (
-      <DocumentTitle title={pageTitle(this.props.intl.formatMessage(messages.title), true)}>
+      <PageTitle prefix={this.props.intl.formatMessage(messages.title)} skipTeam={true}>
         <main className="create-team">
           <Message message={this.state.message} />
           <ContentColumn className="card">
@@ -198,7 +197,7 @@ class CreateTeam extends Component {
                 <label className={this.state.displayNameLabelClass}><FormattedMessage id="createTeam.displayName" defaultMessage="Team Name" /></label>
               </div>
               <div className="create-team__team-url">
-                <span className="create-team__root-domain">checkmedia.org/</span>
+                  <span className="create-team__root-domain">{config.selfHost}/</span>
                 <div className={this.state.slugClass}>
                   <input
                     value={this.state.slugName}
@@ -220,7 +219,7 @@ class CreateTeam extends Component {
             </form>
           </ContentColumn>
         </main>
-      </DocumentTitle>
+      </PageTitle>
     );
   }
 }

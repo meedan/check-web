@@ -12,19 +12,11 @@
     "defaultMessage": "Continue with {provider}"
   },
   {
-    "id": "agree.terms",
-    "defaultMessage": "By signing in, you agree to the Check {tosLink} and {ppLink}."
-  },
-  {
     "id": "tos.title",
     "defaultMessage": "Terms of Service"
   },
   {
     "id": "privacy.policy.title",
     "defaultMessage": "Privacy Policy"
-  },
-  {
-    "id": "login.support",
-    "defaultMessage": "For support contact <a href=\"mailto:check@meedan.com\">check@meedan.com</a>."
   }
 ]

@@ -7,7 +7,10 @@ require_relative './pages/login_page.rb'
 require_relative './pages/me_page.rb'
 require_relative './pages/teams_page.rb'
 require_relative './pages/page.rb'
-require_relative './status_spec.rb'
+
+CONFIG = YAML.load_file('config.yml')
+
+require_relative "#{CONFIG['app_name']}/custom_spec.rb"
 
 shared_examples 'app' do |webdriver_url, browser_capabilities|
 
@@ -24,7 +27,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     @password = '12345678'
     @source_url = 'https://twitter.com/ironmaiden?timestamp=' + Time.now.to_i.to_s
     @media_url = 'https://twitter.com/meedan/status/773947372527288320/?t=' + Time.now.to_i.to_s
-    @config = YAML.load_file('config.yml')
+    @config = CONFIG
     $source_id = nil
     $media_id = nil
 
@@ -94,7 +97,21 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
   context "web" do
 
-    include_examples "status"
+    include_examples "custom"
+
+    it "should edit the title of a media" do
+      media_pg = LoginPage.new(config: @config, driver: @driver).load
+          .login_with_email(email: @email, password: @password)
+          .create_media(input: 'https://twitter.com/softlandscapes/status/834385935240462338?t=' + Time.now.to_i.to_s)
+      expect(media_pg.primary_heading.text).to eq('Tweet by soft landscapes')
+      sleep 3 # :/ clicks can misfire if pender iframe moves the button position at the wrong moment
+      media_pg.set_title('Edited media title')
+
+      expect(media_pg.primary_heading.text).to eq('Edited media title')
+      project_pg = media_pg.go_to_project
+      sleep 3
+      expect(project_pg.element('.media-detail__heading').text).to eq('Edited media title')
+    end
 
     it "should not add a duplicated tag from tags list" do
       page = LoginPage.new(config: @config, driver: @driver).load
@@ -858,19 +875,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     # it "should find medias when searching by tag" do
     #   skip("Needs to be implemented")
     # end
-
-    it "should edit the title of a media" do
-      media_pg = LoginPage.new(config: @config, driver: @driver).load
-          .login_with_email(email: @email, password: @password)
-          .create_media(input: 'https://twitter.com/softlandscapes/status/834385935240462338?t=' + Time.now.to_i.to_s)
-      expect(media_pg.primary_heading.text).to eq('Tweet by soft landscapes')
-      sleep 2 # :/ clicks can misfire if pender iframe moves the button position at the wrong moment
-      media_pg.set_title('Edited media title')
-
-      expect(media_pg.primary_heading.text).to eq('Edited media title')
-      project_pg = media_pg.go_to_project
-      expect(project_pg.element('.media-detail__heading').text).to eq('Edited media title')
-    end
 
     it "should add image to media comment" do
       media_pg = LoginPage.new(config: @config, driver: @driver).load

@@ -1,7 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import { FormattedMessage, FormattedHTMLMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
+import MappedMessage from '../MappedMessage';
 import Relay from 'react-relay';
 import MediaDetail from './MediaDetail';
+import MediaUtil from './MediaUtil';
 import DynamicAnnotation from '../annotations/DynamicAnnotation';
 import DeleteAnnotationMutation from '../../relay/DeleteAnnotationMutation';
 import DeleteVersionMutation from '../../relay/DeleteVersionMutation';
@@ -36,14 +38,18 @@ const messages = defineMessages({
   and: {
     id: 'annotation.and',
     defaultMessage: 'and'
-  }
+  },
+  newClaim: {
+    id: 'annotation.newClaim',
+    defaultMessage: 'New claim added by {author}',
+  },
 });
 
 class Annotation extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { zoomedCommentImage: false, retriedKeep: false };
+    this.state = { zoomedCommentImage: false, retriedKeep: false, disableMachineTranslation: false };
   }
 
   handleCloseCommentImage() {
@@ -88,6 +94,27 @@ class Annotation extends Component {
         new DeleteVersionMutation(destroy_attr),
         { onSuccess, onFailure },
       );
+    }
+  }
+
+  handleUpdateMachineTranslation() {
+    const onFailure = (transaction) => {
+      const transactionError = transaction.getError();
+      transactionError.json ? transactionError.json().then(handleError) : handleError(JSON.stringify(transactionError));
+    };
+
+    const onSuccess = (response) => {
+      this.setState({ disableMachineTranslation: true });
+    };
+    if (!this.state.disableMachineTranslation){
+      Relay.Store.commitUpdate(
+        new UpdateProjectMediaMutation({
+          update_mt: 1,
+          id: this.props.annotated.id,
+        }),
+        { onSuccess, onFailure },
+      );
+      this.setState({ disableMachineTranslation: true });
     }
   }
 
@@ -238,6 +265,7 @@ class Annotation extends Component {
           />
         </span>);
       }
+
       if (object.field_name === 'reverse_image_path') {
         const [reverseImage, value] = (annotated.domain === 'facebook.com') ? [messages.reverseImageFacebook, null] : [messages.reverseImage, object.value];
         contentTemplate = (<span className="annotation__reverse-image">
@@ -245,13 +273,76 @@ class Annotation extends Component {
           <span className="annotation__reverse-image-search" title="Google Images" onClick={this.handleReverseImageSearch.bind(this, value)}><FormattedMessage id="annotation.reverseImageSearch" defaultMessage="Search" /></span>
         </span>);
       }
+
       if (object.field_name === 'translation_text') {
+        const translationContent = JSON.parse(annotation.content);
+        let language = translationContent.find(it => it.field_name === 'translation_language');
+        language = (language && language.formatted_value) || '?' ;
         contentTemplate = (<span className="annotation__translation-text">
-          <FormattedMessage id="annotation.translation" defaultMessage={'Translated by {author}: "{translation}"'}
-            values={{ author: authorName, translation: <ParsedText text={object.value} /> }}
+          <FormattedMessage id="annotation.translation" defaultMessage={'Translated to {language} by {author}: "{translation}"'}
+            values={{ language, author: authorName, translation: <ParsedText text={object.value} /> }}
           />
         </span>);
       }
+
+      if (object.field_name === 'mt_translations') {
+        const formatted_value = JSON.parse(annotation.content)[0].formatted_value;
+        if (formatted_value.length == 0) {
+          contentTemplate = (<span className="annotation__mt-translations">
+          <button className="annotation__mt-translations" onClick={this.handleUpdateMachineTranslation.bind(this)} disabled={this.state.disableMachineTranslation}>
+            <FormattedMessage id="annotation.emptyMachineTranslation" defaultMessage="Add machine translation" />
+          </button>
+          </span>);
+        } else {
+          contentTemplate = (<span className="annotation__mt-translations">
+          <ul className="mt-list">
+            {formatted_value.map(mt => (
+              <li className='mt__list-item'>
+                <FormattedMessage
+                  id="annotation.machineTranslation"
+                  defaultMessage={'Machine translation for "{lang}" is: {text}'}
+                  values={{ lang: mt.lang_name, text: mt.text }}
+                />
+              </li>
+            ))}
+          </ul>
+          </span>);
+        }
+      }
+
+      if (object.field_name === 'translation_status_status') {
+        const statusCode = object.value.toLowerCase().replace(/[ _]/g, '-');
+        const status = getStatus(this.props.annotated.translation_statuses, object.value);
+        contentTemplate = (<span>
+          <FormattedMessage
+            id="annotation.translationStatus"
+            defaultMessage={'Translation status set to {status} by {author}'}
+            values={{ status: <span className={`annotation__status annotation__status--${statusCode}`}>{status.label}</span>,
+                      author: authorName }}
+          />
+        </span>);
+      }
+
+      if (object.field_name === 'translation_published') {
+        const published = JSON.parse(object.value);
+        const colors = {
+          twitter: '#4099FF',
+          facebook: '#3b5998'
+        }
+        contentTemplate = [];
+        for (var provider in published) {
+          let name = provider.charAt(0).toUpperCase() + provider.slice(1);
+          let color = colors[provider] || '#333';
+          contentTemplate.push(
+            <span>
+              <FormattedMessage id="annotation.translationPublished" defaultMessage={'Translation published to {link}'}
+                values={{ link: <a style={{ color, fontWeight: 'bold' }} href={published[provider]} target="_blank">{name}</a> }}
+              />
+            </span>
+          );
+        }
+      }
+
       if (object.field_name === 'keep_backup_response') {
         const keep = JSON.parse(JSON.parse(annotation.content)[0].value);
         const keepLink = keep.location;
@@ -269,7 +360,7 @@ class Annotation extends Component {
         }
         else if (keepStatus === 418) {
           contentTemplate = (<span className="annotation__keep">
-            <FormattedHTMLMessage id="annotation.keepError" defaultMessage={'There was an error when Keep tried to archive this item'} /> 
+            <FormattedHTMLMessage id="annotation.keepError" defaultMessage={'There was an error when Keep tried to archive this item'} />
             <span className="annotation__keep-retry" onClick={this.handleRetryKeep.bind(this)}>
               <FormattedMessage id="annotation.keepRetry" defaultMessage="Retry" />
             </span>
@@ -277,7 +368,7 @@ class Annotation extends Component {
         }
         else {
           contentTemplate = (<span className="annotation__keep">
-            <FormattedHTMLMessage id="annotation.keepWait" defaultMessage={'This item is being archived in Keep. Come back in an hour to receive a confirmation link.'} /> 
+            <FormattedHTMLMessage id="annotation.keepWait" defaultMessage={'This item is being archived in Keep. Come back in an hour to receive a confirmation link.'} />
           </span>);
         }
       }
@@ -294,11 +385,12 @@ class Annotation extends Component {
     case 'update_embed': case 'create_embed':
       if (content.title) {
         if (annotated.quote && annotated.quote === content.title) {
+          const reportType = MediaUtil.typeLabel(annotated, content, this.props.intl).toLowerCase();
           contentTemplate = (<span>
             <FormattedMessage
-              id="annotation.newClaim"
-              defaultMessage={'New claim added by {author}'}
-              values={{ author: authorName }}
+              id="annotation.newReport"
+              defaultMessage={'New {reportType} added by {author}'}
+              values={{ reportType , author: authorName }}
             />
           </span>);
         } else {

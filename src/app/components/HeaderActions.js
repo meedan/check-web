@@ -1,13 +1,27 @@
 import React, { Component, PropTypes } from 'react';
 import UserMenuRelay from '../relay/UserMenuRelay';
 import { logout } from '../actions/actions';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, defineMessages } from 'react-intl';
+import MappedMessage from './MappedMessage';
 import MdSearch from 'react-icons/lib/md/search';
 import MdMoreVert from 'react-icons/lib/md/more-vert';
 import TeamMenuRelay from '../relay/TeamMenuRelay';
 import ProjectMenuRelay from '../relay/ProjectMenuRelay';
 import { bemClass } from '../helpers';
+import { stringHelper } from '../customHelpers';
 import { Link } from 'react-router';
+import config from 'config';
+
+const messages = defineMessages({
+  about: {
+    id: 'headerActions.aboutCheck',
+    defaultMessage: 'About Check',
+  },
+  bridge_about: {
+    id: 'bridge.headerActions.aboutCheck',
+    defaultMessage: 'About Bridge',
+  },
+});
 
 class HeaderActions extends Component {
   constructor(props) {
@@ -23,6 +37,7 @@ class HeaderActions extends Component {
   }
 
   render() {
+    const appName = config.appName;
     const path = window.location.pathname;
     const joinPage = /^\/([^\/]+)\/join$/.test(path);
     const loggedIn = this.props.loggedIn;
@@ -49,16 +64,16 @@ class HeaderActions extends Component {
           })()}
           { loggedIn ? <li className="header-actions__menu-item header-actions__menu-item--logout" onClick={logout}><FormattedMessage id="headerActions.signOut" defaultMessage="Sign Out" /></li> : <li className="header-actions__menu-item header-actions__menu-item--login"><Link to="/"><FormattedMessage id="headerActions.signIn" defaultMessage="Sign In" /></Link></li> }
           <li className="header-actions__menu-item">
-            <a className="header-actions__link" target="_blank" rel="noopener noreferrer" href="https://docs.google.com/forms/d/e/1FAIpQLSdctP7RhxeHjTnevnvRi6AKs4fX3wNnxecVdBFwKe7GRVcchg/viewform"><FormattedMessage id="headerActions.contactHuman" defaultMessage="Contact a Human" /></a>
+            <a className="header-actions__link" target="_blank" rel="noopener noreferrer" href={stringHelper('CONTACT_HUMAN_URL')}><FormattedMessage id="headerActions.contactHuman" defaultMessage="Contact a Human" /></a>
           </li>
           <li className="header-actions__menu-item">
-            <a className="header-actions__link" target="_blank" rel="noopener noreferrer" href="https://meedan.com/en/check/check_tos.html"><FormattedMessage id="headerActions.tos" defaultMessage="Terms of Service" /></a>
+            <a className="header-actions__link" target="_blank" rel="noopener noreferrer" href={stringHelper('TOS_URL')}><FormattedMessage id="headerActions.tos" defaultMessage="Terms of Service" /></a>
           </li>
           <li className="header-actions__menu-item">
-            <a className="header-actions__link" target="_blank" rel="noopener noreferrer" href="https://meedan.com/en/check/check_privacy.html"><FormattedMessage id="headerActions.privacyPolicy" defaultMessage="Privacy Policy" /></a>
+            <a className="header-actions__link" target="_blank" rel="noopener noreferrer" href={stringHelper('PP_URL')}><FormattedMessage id="headerActions.privacyPolicy" defaultMessage="Privacy Policy" /></a>
           </li>
           <li className="header-actions__menu-item">
-            <a className="header-actions__link" target="_blank" rel="noopener noreferrer" href="https://meedan.com/check"><FormattedMessage id="headerActions.aboutCheck" defaultMessage="About Check" /></a>
+            <a className="header-actions__link" target="_blank" rel="noopener noreferrer" href={stringHelper('ABOUT_URL')}><MappedMessage msgObj={messages} msgKey="about" /></a>
           </li>
         </ul>
       </div>

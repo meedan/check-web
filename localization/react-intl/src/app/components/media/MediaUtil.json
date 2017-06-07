@@ -24,6 +24,10 @@
     "defaultMessage": "Claim"
   },
   {
+    "id": "bridge.media.typeClaim",
+    "defaultMessage": "Quote"
+  },
+  {
     "id": "media.typeImage",
     "defaultMessage": "Image"
   },

@@ -1,6 +1,6 @@
-require_relative './spec_helper.rb'
+require_relative '../spec_helper.rb'
 
-shared_examples 'status' do
+shared_examples 'custom' do
 
   it "should register and redirect to newly created media" do
     page = LoginPage.new(config: @config, driver: @driver).load
@@ -18,7 +18,7 @@ shared_examples 'status' do
   it "should register and redirect to newly created image media" do
     page = LoginPage.new(config: @config, driver: @driver).load
         .login_with_email(email: @email, password: @password)
-        .create_image_media(File.join(File.dirname(__FILE__), 'test.png'))
+        .create_image_media(File.expand_path('../test.png', File.dirname(__FILE__)))
 
     expect(page.contains_string?('Added')).to be(true)
     expect(page.contains_string?('User With Email')).to be(true)
