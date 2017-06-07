@@ -1,0 +1,18 @@
+@mixin modal-overlay($color: $midnight-blue-90) {
+  #{$from-direction}: 0;
+  background-color: $color;
+  height: 100%;
+  opacity: 0;
+  overflow: auto;
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  transition: opacity 100ms ease;
+  width: 100%;
+  z-index: 1;
+
+  &--active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}

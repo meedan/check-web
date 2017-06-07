@@ -1,36 +1,37 @@
 .team-header {
-  border-radius: 2px;
+  border-radius: $border-radius-default;
   display: flex;
-  height: 48px;
-  overflow: hidden;
-}
-
-.team-header__clickable {
-  height: 100%;
-  width: 100%;
-  display: flex;
-  align-items: center;
+  height: units(6);
   overflow: hidden;
 
-  &,
-  &:hover {
-    text-decoration: none;
+  &__clickable {
+    align-items: center;
+    display: flex;
+    height: 100%;
+    overflow: hidden;
+    width: 100%;
+
+    &,
+    &:hover {
+      text-decoration: none;
+    }
+
+    &,
+    &:visited {
+      color: inherit;
+    }
   }
 
-  &,
-  &:visited {
-    color: inherit;
+  &__avatar {
+    @include avatar(units(4));
+    background-color: $white;
+    margin: 0;
+    margin-#{$from-direction}: units(2);
   }
-}
 
-.team-header__avatar {
-  @include team-avatar(32px);
-  @include fade-in(.5s);
-  margin-#{$to-direction}: 16px;
-  background-color: $white;
-}
-
-.team-header__name {
-  @include header-title;
-  @extend %ellipsis;
+  &__name {
+    @extend %ellipsis;
+    font: font(subheading2);
+    margin-#{$from-direction}: units(2);
+  }
 }

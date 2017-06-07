@@ -1,0 +1,34 @@
+.header-actions {
+  align-items: center;
+  display: flex;
+  margin-#{$from-direction}: auto;
+  text-align: $to-direction;
+}
+
+.header-actions__search-icon {
+  @extend %icon;
+}
+
+.header-actions__menu-toggle {
+  @extend %icon;
+  cursor: pointer;
+  margin-#{$to-direction}: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.header-actions__menu-overlay {
+  @include modal-overlay(transparent);
+}
+
+.header-actions__menu {
+  @include menu;
+  #{$to-direction}: units(2);
+  top: units(5) + units(half);
+}
+
+.header-actions__menu-item {
+  &:nth-of-type(5) {
+    border-top: $border-width-small solid $black-10;
+  }
+}

@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
-import DocumentTitle from 'react-document-title';
+import PageTitle from './PageTitle';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
@@ -9,11 +9,14 @@ import SearchRoute from '../relay/SearchRoute';
 import TeamRoute from '../relay/TeamRoute';
 import MediaDetail from './media/MediaDetail';
 import { bemClass } from '../helpers';
-import { pageTitle, getStatusStyle } from '../helpers';
+import { getStatusStyle } from '../helpers';
 import CheckContext from '../CheckContext';
 import ContentColumn from './layout/ContentColumn';
 import MediasLoading from './media/MediasLoading';
 import isEqual from 'lodash.isequal';
+import { teamStatuses } from '../customHelpers';
+import Notifier from 'react-desktop-notification';
+import config from 'config';
 
 const pageSize = 20;
 
@@ -33,6 +36,18 @@ const messages = defineMessages({
   searchResults: {
     id: 'search.results',
     defaultMessage: '{resultsCount, plural, =0 {No results} one {1 result} other {# results}}'
+  },
+  newTranslationRequestNotification: {
+    id: 'search.newTranslationRequestNotification',
+    defaultMessage: 'New translation request'
+  },
+  newTranslationNotification: {
+    id: 'search.newTranslationNotification',
+    defaultMessage: 'New translation'
+  },
+  newTranslationNotificationBody: {
+    id: 'search.newTranslationNotificationBody',
+    defaultMessage: 'A report was just marked as "translated"'
   },
 });
 
@@ -213,13 +228,13 @@ class SearchQueryComponent extends Component {
   }
 
   render() {
-    const statuses = JSON.parse(this.props.team.media_verification_statuses).statuses;
+    const statuses = JSON.parse(teamStatuses(this.props.team)).statuses;
     const projects = this.props.team.projects.edges.sortp((a, b) => a.node.title.localeCompare(b.node.title));
     const suggestedTags = this.props.team.get_suggested_tags ? this.props.team.get_suggested_tags.split(',') : [];
-    const title = this.title(statuses, projects);
+    const title = this.props.project ? this.props.project.title : this.title(statuses, projects);
 
     return (
-      <DocumentTitle title={this.props.title || pageTitle(title, false, this.props.team)}>
+      <PageTitle prefix={title} skipTeam={false} team={this.props.team}>
         <ContentColumn>
           <div className="search__query">
 
@@ -282,7 +297,7 @@ class SearchQueryComponent extends Component {
             </section>
           </div>
         </ContentColumn>
-      </DocumentTitle>
+      </PageTitle>
     );
   }
 }
@@ -302,6 +317,7 @@ const SearchQueryContainer = Relay.createContainer(injectIntl(SearchQueryCompone
         id,
         dbid,
         media_verification_statuses,
+        translation_statuses,
         get_suggested_tags,
         name,
         slug,
@@ -321,6 +337,14 @@ const SearchQueryContainer = Relay.createContainer(injectIntl(SearchQueryCompone
 });
 
 class SearchResultsComponent extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      pusherSubscribed: false
+    };
+  }
+
   loadMore() {
     this.props.relay.setVariables({ pageSize: this.props.search.medias.edges.length + pageSize });
   }
@@ -336,11 +360,53 @@ class SearchResultsComponent extends Component {
 
   subscribe() {
     const pusher = this.currentContext().pusher;
-    if (pusher && this.props.search.pusher_channel) {
+    if (pusher && this.props.search.pusher_channel && !this.state.pusherSubscribed) {
       const that = this;
-      pusher.subscribe(this.props.search.pusher_channel).bind('media_updated', (data) => {
+      const channel = this.props.search.pusher_channel;
+
+      pusher.unsubscribe(channel);
+
+      pusher.subscribe(channel).bind('media_updated', (data) => {
+        let content = null;
+        let message = {};
+        const currentUserId = that.currentContext().currentUser.dbid;
+        const avatar = config.restBaseUrl.replace(/\/api.*/, '/images/bridge.png');
+
+        try {
+          message = JSON.parse(data.message) || {};
+        } catch (e) {
+          message = {};
+        }
+
+        try {
+          content = message.quote || message.url || message.file.url;
+        } catch (e) {
+          content = null;
+        }
+
+        // Notify other users that there is a new translation request
+        if (content && message.class_name === 'translation_request' && currentUserId != message.user_id) {
+          let url = window.location.pathname.replace(/(^\/[^\/]+\/project\/[0-9]+).*/, '$1/media/' + message.id);
+          Notifier.start(that.props.intl.formatMessage(messages.newTranslationRequestNotification), content, url, avatar);
+        }
+
+        // Notify other users that there is a new translation
+        else if (message.annotation_type == 'translation_status' && currentUserId != message.annotator_id) {
+          let translated = false;
+          message.data.fields.forEach((field) => {
+            if (field.field_name == 'translation_status_status' && field.value == 'translated') {
+              translated = true;
+            }
+          });
+          if (translated) {
+            let url = window.location.pathname.replace(/(^\/[^\/]+\/project\/[0-9]+).*/, '$1/media/' + message.annotated_id);
+            Notifier.start(that.props.intl.formatMessage(messages.newTranslationNotification), that.props.intl.formatMessage(messages.newTranslationNotificationBody), url, avatar);
+          }
+        }
+
         that.props.relay.forceFetch();
       });
+      this.setState({ pusherSubscribed: true });
     }
   }
 
@@ -419,15 +485,22 @@ const SearchResultsContainer = Relay.createContainer(injectIntl(SearchResultsCom
               quote,
               published,
               embed,
-              annotations_count,
+              log_count,
               verification_statuses,
+              translation_statuses,
               overridden,
               project_id,
               pusher_channel,
               language,
+              language_code,
               domain,
               permissions,
               last_status,
+              field_value(annotation_type_field_name: "translation_status:translation_status_status"),
+              translation_status: annotation(annotation_type: "translation_status") {
+                id
+                dbid
+              }
               last_status_obj {
                 id,
                 dbid

@@ -1,22 +1,33 @@
 import React, { Component, PropTypes } from 'react';
-import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
+import { FormattedMessage, injectIntl, intlShape, defineMessages } from 'react-intl';
 import Pusher from 'pusher-js';
-import DocumentTitle from 'react-document-title';
+import PageTitle from '../PageTitle';
 import MediaDetail from './MediaDetail';
 import MediaUtil from './MediaUtil';
-import MediaChecklist from './MediaChecklist';
 import { Tags } from '../source';
+import Can from '../Can';
 import Annotations from './Annotations';
 import config from 'config';
-import { pageTitle } from '../../helpers';
 import CheckContext from '../../CheckContext';
+import Translation from '../translation/Translation';
 import Tasks from '../task/Tasks';
 import CreateTask from '../task/CreateTask';
 import { bemClass, bemClassFromMediaStatus, safelyParseJSON, getStatus, getStatusStyle } from '../../helpers';
 import ContentColumn from '../layout/ContentColumn';
 import MediaStatus from './MediaStatus';
-import MdInfoOutline from 'react-icons/lib/md/info-outline';
-import Tooltip from 'rc-tooltip';
+import TimelineHeader from './TimelineHeader';
+import { mediaStatuses, mediaLastStatus } from '../../customHelpers';
+
+const messages = defineMessages({
+  timelineTitle: {
+    id: "mediaComponent.verificationTimeline",
+    defaultMessage: 'Verification Timeline',
+  },
+  bridge_timelineTitle: {
+    id: "bridge.mediaComponent.verificationTimeline",
+    defaultMessage: 'Translation Timeline',
+  },
+});
 
 class MediaComponent extends Component {
   getContext() {
@@ -89,13 +100,13 @@ class MediaComponent extends Component {
     const userOverrides = safelyParseJSON(media.overridden);
     const primaryHeading = (userOverrides && userOverrides.title) ?
         MediaUtil.title(media, data, this.props.intl) : MediaUtil.attributedType(media, data, this.props.intl);
-    const status = getStatus(this.props.media.verification_statuses, media.last_status);
+    const status = getStatus(mediaStatuses(media), mediaLastStatus(media));
 
     return (
-      <DocumentTitle title={pageTitle(MediaUtil.title(media, data, this.props.intl), false, this.getContext().team)}>
+      <PageTitle prefix={MediaUtil.title(media, data, this.props.intl)} skipTeam={false} team={this.getContext().team}>
         <div className={bemClass("media", media.tasks.edges.length, '--has-tasks')} data-id={media.dbid}>
           <div
-            className={bemClassFromMediaStatus('media__expanded', media.last_status)}
+            className={bemClassFromMediaStatus('media__expanded', mediaLastStatus(media))}
             style={{ backgroundColor: getStatusStyle(status, 'backgroundColor') }}
           >
 
@@ -110,6 +121,7 @@ class MediaComponent extends Component {
               <ContentColumn className='media__media-column'>
                 <MediaDetail media={media} />
                 <CreateTask media={media} />
+                { this.props.extras }
               </ContentColumn>
               <ContentColumn className='media__tasks-column'>
                 <div className='media__tasks-header'>
@@ -123,16 +135,11 @@ class MediaComponent extends Component {
           </div>
 
           <ContentColumn>
-            <Tooltip placement="bottom" trigger={['click']} overlay={<MediaChecklist/>} overlayClassName="">
-              <h3 className="media__notes-heading">
-                <FormattedMessage id="mediaComponent.verificationTimeline" defaultMessage="Verification Timeline" />
-                <MdInfoOutline/>
-              </h3>
-            </Tooltip>
+            <TimelineHeader msgObj={messages} msgKey="timelineTitle" />
           </ContentColumn>
           <Annotations annotations={media.log.edges} annotated={media} annotatedType="ProjectMedia" />
         </div>
-      </DocumentTitle>
+      </PageTitle>
     );
   }
 }

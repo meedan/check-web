@@ -4,12 +4,11 @@ import Relay from 'react-relay';
 import { Link } from 'react-router';
 import Message from '../Message';
 import UpdateProjectMutation from '../../relay/UpdateProjectMutation';
-import DocumentTitle from 'react-document-title';
+import PageTitle from '../PageTitle';
 import ProjectRoute from '../../relay/ProjectRoute';
 import ProjectHeader from './ProjectHeader';
 import Can from '../Can';
 import config from 'config';
-import { pageTitle } from '../../helpers';
 import CheckContext from '../../CheckContext';
 import ContentColumn from '../layout/ContentColumn';
 import { bemClass } from '../../helpers';
@@ -144,10 +143,10 @@ class ProjectEditComponent extends Component {
     const isSlackEnabled = project.team && project.team.get_slack_notifications_enabled === '1';
 
     return (
-      <DocumentTitle title={pageTitle(project.title, false, this.currentContext().team)}>
+      <PageTitle prefix={project.title} skipTeam={false} team={this.currentContext().team}>
         <section className="project-edit">
           <Message message={this.state.message} />
-          <ContentColumn>
+          <ContentColumn className="card">
 
             <form className="project-edit__form" onSubmit={this.updateProject.bind(this)}>
 
@@ -199,7 +198,7 @@ class ProjectEditComponent extends Component {
 
           </ContentColumn>
         </section>
-      </DocumentTitle>
+      </PageTitle>
     );
   }
 }

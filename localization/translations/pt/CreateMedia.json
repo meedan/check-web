@@ -1,8 +1,9 @@
 {
-  "createMedia.submitting": "Submitting...",
-  "createMedia.error": "Something went wrong! Try pasting the text of this post instead, or adding a different link.",
-  "createMedia.mediaInput": "Paste or type",
-  "createMedia.uploadImage": "Upload an image",
-  "createMedia.submitButton": "Post",
-  "createMedia.helper": "Add a link, quote or image for verification"
+  "createMedia.submitting": "Enviando...",
+  "createMedia.error": "Algo deu errado! Tente colar o texto desta postagem, ou adicionar um link diferente.",
+  "createMedia.mediaInput": "Cole ou digite",
+  "createMedia.uploadImage": "Enviar uma imagem",
+  "createMedia.submitButton": "Enviar",
+  "createMedia.helper": "Insira um link, citação ou imagem para verificação",
+  "bridge.createMedia.helper": "Insira um link, citação ou imagem para tradução"
 }

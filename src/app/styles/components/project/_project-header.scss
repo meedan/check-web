@@ -1,8 +1,6 @@
-
 .project-header {
-  z-index: 1;
-  display: flex;
   align-items: center;
+  display: flex;
   overflow: hidden;
 
   label {
@@ -11,31 +9,35 @@
 
   &__title {
     @extend %ellipsis;
-    border-radius: 2px;
+    border-radius: $border-radius-default;
+    color: $black-54;
     display: inline;
+    font: font(subheading2);
+    margin-#{$from-direction}: units(2);
+    padding: 0 units(1);
     vertical-align: middle;
 
     &:hover {
       background-color: $black-05;
-      transition: background-color 250ms;
+      transition: background-color $transition-speed-default;
     }
   }
 }
 
 .project-header__back-button {
-  $_size: 23px;
-  height: 100%;
+  $back-button-size: units(3);
   display: flex;
   flex-direction: column;
+  height: 100%;
   justify-content: center;
-  width: 0;
-  opacity: 0;
   margin-#{$to-direction}: 0;
-  transition: opacity 200ms ease, width 200ms ease, margin 200ms ease;
+  opacity: 0;
+  transition: opacity $transition-speed-default ease, width $transition-speed-default ease, margin $transition-speed-default ease;
+  width: 0;
 
   & > svg {
-    height: $_size;
-    width: $_size;
+    height: $back-button-size;
+    width: $back-button-size;
   }
 
   &,
@@ -48,33 +50,17 @@
   }
 
   &--displayed {
-    width: $_size;
+    margin-#{$from-direction}: units(2);
     opacity: 1;
-    margin-#{$to-direction}: 8px;
+    width: $back-button-size;
   }
 }
 
 .project-header__menu-toggle-label {
-  display: flex;
   align-items: center;
-  height: 100%;
   cursor: pointer;
-}
-
-.project-header__title {
-  @include header-title;
-}
-
-.project-header__caret {
-  @include header-title;
-  font-size: 16px;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
   height: 100%;
-  padding: 4px;
-  opacity: .4;
-  transition: opacity 100ms ease;
 }
 
 .project-header__menu-toggle-label:hover .project-header__caret {
@@ -93,6 +79,9 @@
   @include modal-overlay(transparent);
 }
 
+// TODO move this display logic into the js component — 2017-3-26 CGB
+//
+/* stylelint-disable */
 .project-header__menu-toggle:checked + .project-header__menu-toggle-label {
   .project-header__menu-overlay {
     display: block;
@@ -107,3 +96,4 @@
     display: block;
   }
 }
+/* stylelint-enable*/

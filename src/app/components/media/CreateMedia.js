@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { defineMessages, injectIntl, intlShape, FormattedMessage } from 'react-intl';
+import MappedMessage from '../MappedMessage';
 import Relay from 'react-relay';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
@@ -33,6 +34,14 @@ const messages = defineMessages({
   submitButton: {
     id: 'createMedia.submitButton',
     defaultMessage: 'Post',
+  },
+  helper: {
+    id: 'createMedia.helper',
+    defaultMessage: 'Add a link, quote or image for verification',
+  },
+  bridge_helper: {
+    id: 'bridge.createMedia.helper',
+    defaultMessage: 'Add a link, quote or image for translation',
   },
 });
 
@@ -163,8 +172,6 @@ class CreateProjectMedia extends Component {
           </div>
 
           <form name="media" id="media-url-container" className="create-media__form" onSubmit={this.handleSubmit.bind(this)}>
-            <button className="create-media__button create-media__button--new">+</button>
-
             <div id="create-media__field">
               {(() => {
                 if (this.state.fileMode) {
@@ -187,7 +194,7 @@ class CreateProjectMedia extends Component {
             </div>
 
             <footer>
-              <div className="create-media__helper"><FormattedMessage id="createMedia.helper" defaultMessage="Add a link, quote or image for verification" /></div>
+              <div className="create-media__helper"><MappedMessage msgObj={messages} msgKey="helper" /></div>
               <div className="create-media__buttons">
                 <div className="create-media__insert-photo">
                   <MdInsertPhoto id="create-media__switcher" title={this.props.intl.formatMessage(messages.uploadImage)} className={this.state.fileMode ? 'create-media__file' : ''} onClick={this.switchMode.bind(this)} />

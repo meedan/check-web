@@ -1,22 +1,21 @@
 .join-team {
-  padding: 15px;
+  padding: units(2);
 }
 
 .join-team__main-heading {
-  @include app-heading;
+  text-align: center;
 }
 
 .join-team__blurb {
-  @include app-blurb;
+  margin-bottom: units(4);
   text-align: center;
 }
 
 .join-team__button {
-  @include button-large;
-  min-width: 230px;
-  transition: background-color 600ms ease;
+  @include button-medium;
+  margin: units(3) auto;
 
   &:not(.join-team__button--submitted) {
-    background-color: rgb(71, 207, 152);
+    background-color: $check-blue;
   }
 }

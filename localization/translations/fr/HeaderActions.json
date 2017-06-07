@@ -1,8 +1,10 @@
 {
+  "headerActions.aboutCheck": "À propos de Check",
+  "bridge.headerActions.aboutCheck": "À propos de Bridge",
   "headerActions.userTeams": "Vos équipes",
   "headerActions.signOut": "Déconnexion",
+  "headerActions.signIn": "Connexion",
   "headerActions.contactHuman": "Contactez un humain",
   "headerActions.tos": "Conditions d'utilisation",
-  "headerActions.privacyPolicy": "Politique de confidentialité",
-  "headerActions.aboutCheck": "À propos de Check"
+  "headerActions.privacyPolicy": "Politique de confidentialité"
 }

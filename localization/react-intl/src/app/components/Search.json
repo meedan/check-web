@@ -16,6 +16,18 @@
     "defaultMessage": "{resultsCount, plural, =0 {No results} one {1 result} other {# results}}"
   },
   {
+    "id": "search.newTranslationRequestNotification",
+    "defaultMessage": "New translation request"
+  },
+  {
+    "id": "search.newTranslationNotification",
+    "defaultMessage": "New translation"
+  },
+  {
+    "id": "search.newTranslationNotificationBody",
+    "defaultMessage": "A report was just marked as \"translated\""
+  },
+  {
     "id": "search.statusHeading",
     "defaultMessage": "Status"
   },

@@ -1,145 +1,162 @@
+// Media page wrapper
+// Ensure report input sticks to the bottom on tall screens.
+//
+
+// Calculate top offset to achieve full height layout
+$media-expanded-top-offset: layout(header-height) + layout(gutter-medium);
+
 .media {
-  flex: 1;
-  background-color: $black-02;
-}
-
-// Use 2-column view on desktop if tasks
-@media screen and (min-width: $layout-column-width-wide) {
-  .media--has-tasks {
-    .media__expanded-header { // TODO: possibly DRY with ContentColumn#wide
-      max-width: 1216px;
-    }
-
-    .media__expanded-column-wrapper {
-      flex-direction: row;
-
-      .media__media-column {
-        $_width: 674px;
-        width: $_width;
-        flex-basis: $_width;
-      }
-
-      .media__tasks-column {
-        $_width: 542px;
-        width: $_width;
-        flex-basis: $_width;
-      }
-    }
-
-    .media__tasks-header {
-      display: flex;
-    }
-  }
-}
-
-.media__expanded {
-  // slide under header
-  @include media-status-background-colors;
-  margin-top: -($layout-header-height + $layout-padding);
-  padding-top: ($layout-header-height + $layout-padding);
-  transition: background-color 500ms ease;
-  padding-bottom: 48px;
-}
-
-.media__expanded-header { // TODO: possibly DRY with ContentColumn#wide
-  margin: 0 auto;
-  padding: 0 8px;
-  padding-top: 54px;
-  max-width: $layout-column-width-narrow;
-}
-
-.media__expanded-column-wrapper {
   display: flex;
   flex-direction: column;
-  padding: 0;
-}
+  justify-content: space-between;
+  min-height: calc(100vh - #{$media-expanded-top-offset});
 
-.media__primary-heading {
-  margin: 0 0 10px;
-  font-size: 24px;
-  color: $white;
-  font-weight: 500;
-}
+  // 2-column view on desktop, if there are tasks
+  //
+  @include when-larger-than(widescreen-breakpoint) {
+    &--has-tasks {
+      .media__expanded-header {
+        max-width: layout(column-width-wide);
+      }
 
-.media__status {
-  &,
-  .media-status__label--current {
-    margin-bottom: 18px;
-    color: $black-54;
-  }
+      .media__expanded-column-wrapper {
+        flex-direction: row;
 
-  .media-status__menu {
-    #{$from-direction}: 0;
-    top: 35;
-  }
-}
+        .media__media-column {
+          $_width: units(84);
+          flex-basis: $_width;
+          width: $_width;
+        }
 
-.media__tasks-header {
-  display: none;
-  align-items: baseline;
-  margin-bottom: 16px;
+        .media__tasks-column {
+          $_width: units(68);
+          flex-basis: $_width;
+          margin-top: -1 * (units(4) + units(half));
+          width: $_width;
+        }
+      }
 
-  h2 {
-    font-size: 20px;
-    font-weight: 500;
-    color: $black-87;
-    margin: 0;
-    flex: 1;
-  }
+      .media__tasks-header {
+        color: $black-54;
+        display: flex;
+      }
 
-  & > span {
-    font-size: 16px;
-    color: $black-54;
-    margin-#{$to-direction}: 12px;
-  }
-
-  .create-task {
-    cursor: pointer;
-    color: $black-16;
-    align-self: center;
-
-    svg {
-      height: 24px;
-      width: 24px;
+      svg {
+        &:hover {
+          fill: $black-16;
+        }
+      }
     }
   }
-}
 
-// The headline that says "Verification log"
-//
-.media__notes-heading {
-  text-align: center;
-  font-size: 16px;
-  margin: 64px 0;
-  font-weight: 400;
-  text-transform: uppercase;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  & > svg {
-    opacity: .6;
-    margin-#{$from-direction}: 12px;
-    width: 24px;
-    height: 24px;
-    padding-top: 1px;
-    padding-#{$to-direction}: 1px;
-    padding-bottom: 2px;
-    padding-#{$from-direction}: 0;
-    color: $black-38;
-  }
-}
-
-// overrides – use sparingly
-//
-.media__expanded {
-  .media-detail {
-    border-#{$from-direction}: 0;
+  &__expanded {
+    // slide under header
+    @include media-status-background-colors;
+    margin-top: $media-expanded-top-offset * -1;
+    padding-bottom: units(6);
+    padding-top: $media-expanded-top-offset;
+    transition: background-color $transition-speed-slow ease;
   }
 
-  .media-detail__header,
-  .media-detail__heading {
+  &__expanded-header {
+    margin: 0 auto;
+    max-width: layout(column-width-narrow);
+    padding: 0 units(1);
+    padding-top: units(7);
+  }
+
+  &__expanded-column-wrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+
+    @include when-taller-than(tallscreen-breakpoint) {
+      justify-content: space-around;
+    }
+  }
+
+  &__primary-heading {
+    @extend %break-word;
+    color: $white;
+    font: font(headline);
+    margin: 0 0 units(1);
+    text-align: $from-direction;
+  }
+
+  &__status {
+    &,
+    .media-status__label--current {
+      color: $black-54;
+      margin-bottom: units(2);
+    }
+
+    .media-status__menu {
+      #{$from-direction}: 0;
+      top: units(4);
+    }
+  }
+
+  &__tasks-header {
+    align-items: baseline;
     display: none;
+    margin-bottom: units(1);
+
+    h2 {
+      color: $black-87;
+      flex: 1;
+      font: font(subheading2);
+      margin: 0;
+    }
+
+    & > span {
+      color: $black-54;
+      font: font(subheading2);
+      margin-#{$to-direction}: units(2);
+    }
+
+    .create-task {
+      align-self: center;
+      color: $black-16;
+      cursor: pointer;
+
+      svg {
+        height: units(3);
+        width: units(3);
+      }
+    }
+  }
+
+  // The headline that says "Verification log"
+  //
+  &__notes-heading {
+    align-items: center;
+    display: flex;
+    font: font(subheading2);
+    justify-content: center;
+    letter-spacing: 1px;
+    margin: units(8) 0;
+    text-align: center;
+    text-transform: uppercase;
+
+    & > svg {
+      color: $black-16;
+      height: units(3);
+      margin-#{$from-direction}: units(1);
+      width: units(3);
+    }
+  }
+
+  // overrides – use sparingly
+  //
+  &__expanded {
+    .media-detail {
+      border-#{$from-direction}: 0;
+    }
+
+    .media-detail__header,
+    .media-detail__heading {
+      display: none;
+    }
   }
 }
 

@@ -2,10 +2,10 @@ import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 import CheckContext from '../../CheckContext';
 import MediaRoute from '../../relay/MediaRoute';
-import MediaComponent from './MediaComponent';
+import MediaParentComponent from './MediaParentComponent';
 import MediasLoading from './MediasLoading';
 
-const MediaContainer = Relay.createContainer(MediaComponent, {
+const MediaContainer = Relay.createContainer(MediaParentComponent, {
   initialVariables: {
     contextId: null,
   },
@@ -19,19 +19,23 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
         url,
         embed,
         last_status,
-        annotations_count,
+        field_value(annotation_type_field_name: "translation_status:translation_status_status"),
+        log_count,
         domain,
         permissions,
         project {
           id,
           dbid,
-          title
+          title,
+          get_languages
         },
         project_id,
         pusher_channel,
         verification_statuses,
+        translation_statuses,
         overridden,
         language,
+        language_code,
         media {
           url,
           quote,
@@ -55,6 +59,25 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
         last_status_obj {
           id
           dbid
+        }
+        translation_status: annotation(annotation_type: "translation_status") {
+          id
+          dbid
+        }
+        translations: annotations(annotation_type: "translation", first: 10000) {
+          edges {
+            node {
+              id,
+              dbid,
+              annotation_type,
+              annotated_type,
+              annotated_id,
+              annotator,
+              content,
+              created_at,
+              updated_at
+            }
+          }
         }
         tags(first: 10000) {
           edges {
@@ -148,9 +171,11 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
                       embed,
                       project_id,
                       last_status,
-                      annotations_count,
+                      field_value(annotation_type_field_name: "translation_status:translation_status_status"),
+                      log_count,
                       permissions,
                       verification_statuses,
+                      translation_statuses,
                       domain,
                       team {
                         slug

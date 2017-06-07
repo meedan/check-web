@@ -1,161 +1,161 @@
 .annotation {
-  padding: 12px 0;
   display: flex;
+  padding: units(1) 0;
   position: relative;
+}
 
-  .annotation__default {
-    padding-#{$from-direction}: 80px;
-    font-size: 12px;
-    color: $black-87;
-    display: flex;
-    max-width: 704px;
+.annotation__default {
+  color: $black-87;
+  display: flex;
+  font: font(caption);
+  max-width: layout(card-width-large);
+  padding-#{$from-direction}: units(10);
 
-    &-content {
-      margin-#{$to-direction}: 16px;
-      display: block;
-    }
-
-    a,
-    a:visited {
-      color: inherit;
-    }
-
-    .menu-button {
-      color: $black-38;
-      margin-#{$to-direction}: 12px;
-    }
-  }
-
-  .annotation__card {
-    width: 100%;
-    max-width: 704px;
-    z-index: initial !important;
-
-    & > div {
-      padding-bottom: 0 !important;
-    }
-
-    img {
-      cursor: pointer;
-    }
-  }
-
-  .annotation__card-text {
-    display: flex;
-    padding: 24px 24px 0 !important;
-  }
-
-  .annotation__card-avatar-col {
-    margin-#{$to-direction}: 24px;
-  }
-
-  .annotation__card-avatar {
-    $width: 32px;
-    @include user-avatar($width);
-  }
-
-  .annotation__card-main-col {
-    flex: 1;
-  }
-
-  .annotation__card-content {
-    font-size: 14px;
-    width: 100%;
-    display: flex;
-
-    & > span:first-child {
-      flex: 1; // TODO: proper text/thumbnail templates
-    }
-  }
-
-  .annotation__card-thumbnail {
-    float: $to-direction;
-    padding: 8px;
-  }
-
-  .annotation__card-footer {
-    flex: 1;
-    padding-#{$to-direction}: 12px;
-    // see also .media-detail__check-metadata
-    align-items: center;
-    border-top: 1px solid $black-05;
-    display: flex;
-    flex-flow: wrap row;
-    margin-top: 24px;
-    height: 44px;
-    font-size: 12px;
-    color: $black-54;
-  }
-
-  .annotation__card-footer-text {
-    margin-#{$to-direction}: 12px;
-    flex: 1;
-  }
-
-  .annotation__card-author {
-    font-size: 14px;
-    font-weight: 500;
-    color: $black-87;
-    margin-#{$to-direction}: 12px;
-  }
-
-  .annotation__content {
-    flex: 1;
-    width: 100%;
-  }
-
-  .annotation__header {
-    display: flex;
-    align-items: baseline;
-    white-space: pre;
-    margin-bottom: 1.5px;
-  }
-
-  .annotation__timestamp {
-    white-space: pre;
-    color: $black-38;
-    display: inline;
-    margin-#{$to-direction}: 12px;
-    flex: 1;
-  }
-
-  .annotation__actions {
-    display: none;
-    flex: 1;
-    align-self: flex-start;
-    text-align: #{$to-direction};
-  }
-
-  .annotation__body {
-    word-break: break-word;
-  }
-
-  .annotation__embedded-media {
-    padding-top: 8px;
-    padding-bottom: 8px;
-  }
-
-  // non-comments
-  .annotation__status {
-    @include app-kicker(12px);
-    @include media-status-font-colors;
-    margin-#{$from-direction}: 3px;
-    margin-#{$to-direction}: 2px;
-  }
-
-  .annotation__tag {
-    &::before {
-      content: '#';
-    }
-  }
-
-  .annotation__update-task > span {
+  &-content {
+    margin-#{$to-direction}: units(2);
     display: block;
+  }
+
+  a,
+  a:visited {
+    color: inherit;
+  }
+
+  .menu-button {
+    color: $black-38;
+    margin-#{$to-direction}: units(1);
   }
 }
 
+.annotation__card {
+  max-width: units(90);
+  width: 100%;
+  z-index: initial !important;
+
+  & > div {
+    padding-bottom: 0 !important;
+  }
+
+  img {
+    cursor: pointer;
+  }
+}
+
+.annotation__card-text {
+  display: flex;
+  padding: units(3) units(2) 0 !important;
+}
+
+.annotation__card-avatar-col {
+  margin-#{$to-direction}: units(3);
+}
+
+.annotation__card-avatar {
+  @include user-avatar(units(4));
+}
+
+.annotation__card-main-col {
+  flex: 1;
+}
+
+.annotation__card-content {
+  display: flex;
+  width: 100%;
+  @extend %break-word;
+
+  & > span:first-child {
+    flex: 1; // TODO: proper text/thumbnail templates
+  }
+}
+
+.annotation__card-thumbnail {
+  float: $to-direction;
+  padding: units(1);
+}
+
+.annotation__card-footer {
+  // see also .media-detail__check-metadata
+  align-items: center;
+  border-top: $border-width-small solid $black-05;
+  color: $black-54;
+  display: flex;
+  flex: 1;
+  flex-flow: wrap row;
+  font: font(caption);
+  height: units(5) + units(half);
+  margin-top: units(3);
+  padding-#{$to-direction}: units(1);
+}
+
+.annotation__card-footer-text {
+  margin-#{$to-direction}: units(1);
+  flex: 1;
+}
+
+.annotation__card-author {
+  color: $black-87;
+  font-weight: $font-weight-medium;
+  margin-#{$to-direction}: units(1);
+}
+
+.annotation__content {
+  flex: 1;
+  width: 100%;
+}
+
+.annotation__header {
+  align-items: baseline;
+  display: flex;
+  margin-bottom: 1.5px;
+  white-space: pre;
+}
+
+.annotation__timestamp {
+  color: $black-38;
+  display: inline;
+  flex: 1;
+  margin-#{$to-direction}: units(1);
+  white-space: pre;
+}
+
+.annotation__actions {
+  align-self: flex-start;
+  display: none;
+  flex: 1;
+  text-align: #{$to-direction};
+}
+
+.annotation__body {
+  @extend %break-word;
+}
+
+.annotation__embedded-media {
+  padding-bottom: units(1);
+  padding-top: units(1);
+}
+
+// non-comments
+.annotation__status {
+  @include media-status-font-colors;
+  font: font(caption);
+  font-weight: $font-weight-medium;
+  margin-#{$from-direction}: 3px;
+  margin-#{$to-direction}: 2px;
+  text-transform: uppercase;
+}
+
+.annotation__tag {
+  &::before {
+    content: '#';
+  }
+}
+
+.annotation__update-task > span {
+  display: block;
+}
+
 .annotation__comment {
-  margin-top: 5px;
+  margin-top: units(half);
 
   .annotation__comment-text {
     float: #{$from-direction};
@@ -163,10 +163,10 @@
   }
 
   img {
-    max-width: 20%;
-    min-width: 50px;
-    float: $to-direction;
     cursor: zoom-in;
+    float: $to-direction;
+    max-width: 20%;
+    min-width: units(6);
   }
 
   br {
@@ -174,84 +174,40 @@
   }
 }
 
+.add-annotation__buttons {
+  align-items: center;
+  display: flex;
+  justify-content: flex-end;
+  margin-#{$from-direction}: auto;
+}
 
-.add-annotation {
-  .add-annotation__buttons {
-    margin-#{$from-direction}: auto;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
+.add-annotation__insert-photo {
+  display: inline-block;
 
-    .add-annotation__insert-photo {
-      display: inline-block;
+  svg {
+    @extend %icon;
+    margin-#{$to-direction}: 0;
 
-      svg {
-        @extend %icon;
-        margin-#{$to-direction}: 0;
-
-        path {
-          color: $black-16;
-        }
-      }
-    }
-  }
-
-  .preview {
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: contain;
-    height: 300px;
-    padding: 0;
-    margin: 0;
-    border: 1px solid $black-38;
-    border-bottom: 0;
-    width: 100%;
-
-    .remove-image {
-      position: absolute;
-      top: 2px;
-      #{$to-direction}: 2px;
-      z-index: 1;
-      color: $black-38;
-      cursor: pointer;
-    }
-  }
-
-  .upload-file {
-    cursor: pointer;
-    margin: 0 0 7px;
-  }
-
-  .upload-file > div.with-file {
-    width: 100% !important;
-    border-top: 0 !important;
-    border-style: solid !important;
-  }
-
-  .upload-file > div {
-    padding: 0 !important;
-    height: 148px !important;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-width: 3px;
-    border-radius: 8px;
-
-    &:hover {
-      border-color: $check-blue !important;
+    path {
+      color: $black-16;
     }
   }
 }
 
-.annotation__reverse-image-search {
-  text-transform: uppercase;
-  font-weight: bold;
+.annotation__reverse-image-search,
+.annotation__keep-retry {
   cursor: pointer;
   display: inline-block;
-  margin: 0 10px;
+  font-weight: $font-weight-bold;
+  margin: 0 units(1);
+  text-transform: uppercase;
 }
 
 .annotation__card-embedded-medias {
   clear: both;
-  margin-top: 5px;
+  margin-top: units(half);
+}
+
+.annotation__keep a {
+  text-decoration: underline;
 }

@@ -12,11 +12,10 @@ import App from './App';
 import {
   RootLocale,
   IndexComponent,
-  TermsOfService,
   NotFound,
   CreateAccount,
   AccessDenied,
-  PrivacyPolicy,
+  UserAlreadyConfirmed,
   UserConfirmed,
   UserUnconfirmed,
   UserPasswordChange,
@@ -137,15 +136,13 @@ export default class Root extends Component {
             <Router history={this.state.history} onUpdate={this.logPageView.bind(this)}>
               <Route path="/" component={App}>
                 <IndexRoute component={Team} />
-                <Route path="check/tos" component={TermsOfService} public />
-                <Route path="check/privacy" component={PrivacyPolicy} public />
+                <Route path="check/user/already-confirmed" component={UserAlreadyConfirmed} public />
                 <Route path="check/user/confirmed" component={UserConfirmed} public />
                 <Route path="check/user/unconfirmed" component={UserUnconfirmed} public />
                 <Route path="check/user/password-reset" component={UserPasswordReset} public />
                 <Route path="check/user/password-change" component={UserPasswordChange} public />
                 <Route path="check/forbidden" component={AccessDenied} public />
                 <Route path="check/404" component={NotFound} public />
-                <Route path="check/login/email" component={LoginEmailPage} public />
 
                 <Route path="check/sources" component={Sources} />
                 <Route path="check/sources/new" component={CreateAccount} />
@@ -156,13 +153,13 @@ export default class Root extends Component {
                 <Route path="check/teams" component={Teams} />
 
                 <Route path=":team/medias/new" component={CreateProjectMedia} />
-                <Route path=":team/project/:projectId/media/:mediaId" component={ProjectMedia} />
+                <Route path=":team/project/:projectId/media/:mediaId" component={ProjectMedia} public />
                 <Route path=":team/join" component={JoinTeam} />
                 <Route path=":team/members" component={TeamMembers} />
                 <Route path=":team/project/:projectId/edit" component={ProjectEdit} />
-                <Route path=":team/project/:projectId(/:query)" component={Project} />
-                <Route path=":team/search(/:query)" component={Search} />
-                <Route path=":team" component={Team} />
+                <Route path=":team/project/:projectId(/:query)" component={Project} public />
+                <Route path=":team/search(/:query)" component={Search} public />
+                <Route path=":team" component={Team} public />
 
                 <Route path="*" component={NotFound} public />
               </Route>

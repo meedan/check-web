@@ -1,98 +1,92 @@
 .team-members {
-  position: relative;
-  max-width: 750px;
+  display: flex;
+  flex-direction: column;
   margin: 0 auto;
+  padding: 0 units(1);
   width: 100%;
-}
 
-.team-members__main-heading {
-  @include app-heading;
+  > .card {
+    position: relative;
+    // TODO revisit this layout CGB 2017-3-23
+    @include card(card-width-large);
+  }
+
+  h1 {
+    margin-bottom: units(4);
+    margin-top: 0;
+  }
 }
 
 // edit buttons
 .team-members__edit-button {
-  @include button-small;
+  @include button-medium;
   position: absolute;
-  top: 30px;
-  #{$to-direction}: 25px;
-
-  @media screen and (max-width: 680px) {
-    position: static;
-    display: block;
-    margin: 8px auto 0;
-  }
+  #{$to-direction}: units(2);
 }
 
 .team-members__edit-icon {
-  // TODO: DRY
-  font-size: .9em;
-  opacity: .8;
-  margin-#{$to-direction}: .1em;
+  color: $white;
   display: inline-block;
-  position: relative;
-  #{$from-direction}: -3px;
+  height: units(2);
+  margin-#{$to-direction}: units(1);
+  vertical-align: text-bottom;
+  width: units(2);
 }
 
 // blurb
 .team-members__blurb {
-  @include app-blurb;
-  text-align: center;
+  margin-bottom: units(4);
 }
 
 .team-members__blurb-graf--url {
-  font-family: $font-stack-sans;
-  font-size: 18px;
+  font: font(subheading2);
   overflow-wrap: break-word;
   word-wrap: break-word;
 }
 
 .team-membership-requests {
-  border-radius: 2px;
-  padding: 8px;
-  margin-bottom: 16px;
-}
-
-.team-membership-requests__heading {
-  @include app-kicker;
-  text-align: center;
-  color: $check-blue;
+  margin-bottom: units(2);
 }
 
 .team-membership-requests__heading-parens {
-  font-weight: 300;
+  font-weight: $font-weight-light;
   opacity: .8;
 }
 
 .team-members__member,
 .team-membership-requests__user {
-  display: flex;
   align-items: center;
-  margin-bottom: 32px;
-  flex-wrap: wrap;
+  display: flex;
+  flex-wrap: nowrap;
+  margin-bottom: units(4);
 }
 
 .team-members__member-avatar,
 .team-membership-requests__user-avatar {
-  $size: 50px;
-  height: $size;
-  width: $size;
+  $size: units(6);
   border-radius: $size;
-  margin-#{$to-direction}: 10px;
+  height: $size;
+  margin-#{$to-direction}: units(1);
+  width: $size;
 }
 
 .team-members__member-details,
 .team-membership-requests__user-details {
-  flex: 1 0 180px;
-  margin-#{$to-direction}: 10px;
-  display: flex;
   align-items: baseline;
+  display: flex;
+  flex: 1 0 units(24);
   flex-wrap: wrap;
+  margin-#{$to-direction}: units(1);
+  @include when-smaller-than(mobile-breakpoint) {
+    flex-basis: units(10);
+    flex-direction: column;
+  }
 }
 
 .team-members__member-name,
 .team-membership-requests__user-name {
   margin: 0;
-  margin-#{$to-direction}: 6px;
+  margin-#{$to-direction}: units(1);
 }
 
 .team-members__member-username,
@@ -103,7 +97,8 @@
 // user controls
 .team-member-requests__user-button {
   @include button-small;
-  margin-#{$from-direction}: 10px;
+  flex-shrink: 0;
+  margin-#{$from-direction}: units(1);
   margin-bottom: 0;
 
   &--approve {
@@ -112,32 +107,32 @@
 }
 
 .team-members__member-role {
-  min-width: 120px;
-  margin-top: 8px;
-  margin-#{$to-direction}: 0;
-  margin-bottom: 8px;
   margin-#{$from-direction}: auto;
+  margin-#{$to-direction}: 0;
+  margin-bottom: units(1);
+  margin-top: units(1);
+  min-width: units(15);
 
   .Select-control {
-    transition: border-color 450ms ease;
+    transition: border-color $transition-speed-slow ease;
   }
 
   .Select-arrow-zone {
-    transition: opacity 300ms ease;
+    transition: opacity $transition-speed-default ease;
   }
 
   .Select-placeholder {
-    transition: color 150ms ease;
+    transition: color $transition-speed-fast ease;
   }
 
   &.is-disabled {
+    *:hover {
+      box-shadow: none;
+    }
+
     .Select-control {
       background-color: transparent !important;
       border-color: transparent;
-
-      &:hover {
-        box-shadow: none;
-      }
     }
 
     .Select-arrow-zone {
@@ -153,14 +148,14 @@
 .team-members__delete-member {
   @include unbutton;
   @include close-button;
-  margin-#{$from-direction}: 15px;
+  margin-#{$from-direction}: units(2);
 
   &-icon {
     position: relative;
     top: -.1em;
   }
 
-  @media screen and (max-width: 680px) {
+  @include when-smaller-than(mobile-breakpoint) {
     display: none;
   }
 }

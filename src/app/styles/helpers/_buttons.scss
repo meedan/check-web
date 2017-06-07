@@ -1,0 +1,123 @@
+// Buttons
+// TODO review and sync with material design style
+// Should we just use the Button component?
+// — CGB 2017-3-12
+
+// elements that should semantically be <button> but not look like buttons
+//
+@mixin unbutton {
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+  font-family: $font-stack-sans;
+  font-size: inherit;
+  padding: 0;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+@mixin button-standard {
+  align-items: center;
+  background-color: $black-38;
+  border: 0;
+  border-radius: $border-radius-default;
+  color: $white;
+  cursor: pointer;
+  display: inline-flex;
+  font: font(subheading1);
+  justify-content: center;
+  letter-spacing: 1px;
+  margin-bottom: units(1);
+  min-width: units(8);
+  opacity: .5;
+  padding: 0 units(2);
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: background-color $transition-speed-default ease, color $transition-speed-fast ease;
+
+  &:not(:disabled) {
+    opacity: 1;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+
+  &:hover {
+    @include box-shadow(1);
+    transition: box-shadow $transition-speed-default ease;
+  }
+}
+
+@mixin button-small {
+  @include button-standard;
+  font: font(caption);
+  height: units(4);
+}
+
+@mixin button-flat {
+  @include button-medium;
+  background-color: transparent;
+  color: $black-54;
+
+  &:hover {
+    background-color: $black-05;
+  }
+}
+
+@mixin button-medium {
+  @include button-standard;
+  font: font(body2);
+  height: units(4) + units(half);
+  line-height: units(4) + units(half);
+}
+
+@mixin button-large {
+  @include button-standard;
+  font: font(title);
+  height: units(5);
+  padding-#{$from-direction}: units(2);
+  padding-#{$to-direction}: units(2);
+}
+
+@mixin button-primary {
+  background-color: $check-blue;
+}
+
+@mixin close-button($size: 30px) {
+  @include unbutton;
+  color: $black-16;
+  font-size: $size;
+  font-weight: $font-weight-light;
+
+  &,
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+// Two buttons side by side
+@mixin button-group {
+  display: flex;
+
+  button:first-of-type {
+    margin-#{$to-direction}: units(1);
+  }
+}
+
+// A button with an icon in it
+@mixin icon-button {
+  display: flex;
+
+  span {
+    flex: none;
+  }
+
+  svg {
+    flex: none;
+    margin-#{$to-direction}: 0 units(1) units(1);
+    width: units(2);
+  }
+}

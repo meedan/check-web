@@ -1,30 +1,35 @@
 @charset "utf-8";
-
-@import 'theme/colors';
-@import "variables";
-@import "mixins";
-@import "placeholders";
-@import 'theme/typography';
-@import 'theme/buttons';
-@import 'theme/defaults';
-@import 'theme/layout';
-@import 'theme/forms';
-@import 'theme/images';
-@import 'theme/menus';
-@import 'theme/animation';
+@import 'base/colors';
+@import 'base/units';
+@import 'base/variables';
+@import 'base/global';
+@import 'base/typography';
+@import 'base/layout';
+@import 'helpers/animations/shimmer';
+@import 'helpers/animations/fade-in';
+@import 'helpers/buttons';
+@import 'helpers/images';
+@import 'helpers/menus';
+@import 'helpers/icon';
+@import 'helpers/chip';
+@import 'helpers/ellipsis';
+@import 'helpers/box-shadow';
+@import 'helpers/card';
+@import 'helpers/modal-overlay';
+@import 'helpers/hide-scrollbars';
+@import 'helpers/forms/text-input';
+@import 'helpers/break-word';
 @import 'components/browser-support';
 @import 'components/caret';
 @import 'components/close-button';
 @import 'components/home';
-@import 'components/inputs/default-button';
-@import 'components/layout/breadcrumb';
 @import 'components/layout/content-column';
-@import 'components/layout/header';
-@import 'components/layout/heading';
-@import 'components/layout/header-actions';
-@import 'components/layout/footer';
-@import 'components/login-menu';
-@import 'components/login-email';
+@import 'components/header';
+@import 'components/header-actions';
+@import 'components/footer';
+@import 'components/login/login-container';
+@import 'components/login/login-oauth';
+@import 'components/login/login';
 @import 'components/media/media-colors';
 @import 'components/media/media-mixins';
 @import 'components/media/create-media';
@@ -38,86 +43,35 @@
 @import 'components/media/media-tags';
 @import 'components/media/medias-loading';
 @import 'components/media/pender-card';
+@import 'components/media/pender-card-spinner';
 @import 'components/media/media-card-quote';
 @import 'components/media/media-card-social';
 @import 'components/media/media-card-image-uploaded';
+@import 'components/upload-image';
 @import 'components/annotation/add-annotation';
 @import 'components/annotation/annotation';
 @import 'components/annotation/annotations';
 @import 'components/menu-button';
 @import 'components/message';
 @import 'components/search/search';
-@import 'components/sources';
-@import 'components/team/team-mixins';
+@import 'components/source/sources';
 @import 'components/team/team';
 @import 'components/team/create-team';
 @import 'components/team/join-team';
 @import 'components/team/switch-teams';
 @import 'components/team/team-header';
 @import 'components/team/team-members';
-@import 'components/team/team-sidebar';
-@import 'components/team/teams';
 @import 'components/project/project';
 @import 'components/project/project-edit';
 @import 'components/project/project-header';
 @import 'components/project/project-list';
 @import 'components/task/create-task';
 @import 'components/task/task';
-@import 'components/task/tasks';
+@import 'components/translation/translation';
 @import 'components/user-password-change';
 @import 'components/user-password-reset';
-@import 'source';
-@import 'tags';
-@import 'create-account';
-@import 'tabs';
-@import 'spinner';
-
-body {
-  margin: auto;
-  width: 100%;
-  overflow-x: hidden;
-  cursor: default;
-  overflow-wrap: break-word;
-  word-break: break-word;
-  hyphens: auto;
-}
-
-#root,
-#root > div {
-  background: $opaque-black-02;
-}
-
-.hidden {
-  display: none;
-}
-
-.top-bar {
-  background: $white !important;
-  box-shadow: none !important;
-}
-
-.current-user {
-  .avatar {
-    padding: 2px;
-    vertical-align: bottom;
-  }
-}
-
-#tos,
-#privacy-policy {
-  margin: 10px;
-
-  p {
-    line-height: 1.5em;
-    text-align: justify;
-  }
-
-  h2 {
-    font-size: 22px;
-    margin: 10px 0;
-  }
-}
-
-.main-title {
-  text-align: center;
-}
+@import 'components/user-menu';
+@import 'components/source/source';
+@import 'components/source/source-tabs';
+@import 'components/source/source-tags';
+@import 'components/create-account';

@@ -1,22 +1,23 @@
-$home-content-padding: 23px;
+$home-content-padding: units(3);
 
 .home {
-  min-height: 100%;
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
   position: relative;
 }
 
 .home__content {
-  margin-top: $layout-header-height;
-  padding-top: $layout-padding;
-  flex: 1;
-  width: 100%;
   display: flex;
+  flex: 1;
   flex-direction: column;
-  background-color: $opaque-black-02;
+  margin-top: layout(header-height);
+  padding-top: layout(gutter-medium);
+  width: 100%;
 }
 
+// The "beta" label
+//
 .home__disclaimer { // container
   position: absolute;
   top: 0;
@@ -24,21 +25,20 @@ $home-content-padding: 23px;
   #{$to-direction}: 0;
 
   & > span { // badge
-    font-size: 8px;
-    border-radius: 0;
-    border-bottom-#{$to-direction}-radius: 3px;
-    border-bottom-#{$from-direction}-radius: 3px;
-    background-color: $black-38;
-    color: $white;
-    padding: 2px 5px 1px;
-    z-index: 1;
-    text-transform: uppercase;
-    letter-spacing: .02em;
-    position: absolute;
-    #{$to-direction}: 109px;
-
-    @media all and (max-width: $layout-mobile-breakpoint) {
+    @include when-smaller-than(mobile-breakpoint) {
       #{$to-direction}: 10%;
     }
+    #{$to-direction}: units(13);
+    background-color: $black-38;
+    border-bottom-#{$from-direction}-radius: $border-radius-default;
+    border-bottom-#{$to-direction}-radius: $border-radius-default;
+    border-radius: 0;
+    color: $white;
+    font: font(tiny);
+    letter-spacing: $letter-spacing-medium;
+    padding: 2px units(half) 1px;
+    position: absolute;
+    text-transform: uppercase;
+    z-index: 1;
   }
 }

@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay';
-import DocumentTitle from 'react-document-title';
+import PageTitle from '../PageTitle';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import { Link } from 'react-router';
 import CreateTeamUserMutation from '../../relay/CreateTeamUserMutation';
 import Message from '../Message';
-import { pageTitle } from '../../helpers';
 import CheckContext from '../../CheckContext';
+import ContentColumn from '../layout/ContentColumn';
 
 const messages = defineMessages({
   error: {
@@ -116,7 +116,7 @@ class JoinTeamComponent extends Component {
 
     if (this.alreadyMember()) {
       return (
-        <DocumentTitle title={pageTitle(this.props.intl.formatMessage(messages.title), false, team)}>
+        <PageTitle prefix={this.props.intl.formatMessage(messages.title)} skipTeam={false} team={team}>
           <div className="join-team">
             <p className="join-team__blurb-graf">
               <FormattedMessage
@@ -126,53 +126,55 @@ class JoinTeamComponent extends Component {
               />
             </p>
           </div>
-        </DocumentTitle>
+        </PageTitle>
       );
     }
 
     return (
-      <DocumentTitle title={pageTitle(this.props.intl.formatMessage(messages.title), false, team)}>
+      <PageTitle prefix={this.props.intl.formatMessage(messages.title)} skipTeam={false} team={team}>
         <div className="join-team">
-          <Message message={this.state.message} />
-          <h2 className="join-team__main-heading"><FormattedMessage id="joinTeamComponent.mainHeading" defaultMessage="Request to Join" /></h2>
-          <div className="join-team__blurb">
-            <p className="join-team__blurb-graf">
-              <FormattedMessage
-                id="joinTeamComponent.blurbGraf"
-                defaultMessage={'To request access to the {link} Check, click below:'}
-                values={{ link: <Link to={`/${team.slug}`}>{team.name}</Link> }}
-              />
-            </p>
-            <div>
-              <button
-                className={`join-team__button${isRequestSent === '' ? '' : ' join-team__button--submitted'}`}
-                onClick={this.handleRequestAccess.bind(this)}
-                disabled={disableRequest}>
+          <ContentColumn className="card">
+            <Message message={this.state.message} />
+            <h2 className="join-team__main-heading"><FormattedMessage id="joinTeamComponent.mainHeading" defaultMessage="Request to Join" /></h2>
+            <div className="join-team__blurb">
+              <p className="join-team__blurb-graf">
+                <FormattedMessage
+                  id="joinTeamComponent.blurbGraf"
+                  defaultMessage={'To request access to the {link} Check, click below:'}
+                  values={{ link: <Link to={`/${team.slug}`}>{team.name}</Link> }}
+                />
+              </p>
+              <div>
+                <button
+                  className={`join-team__button${isRequestSent === '' ? '' : ' join-team__button--submitted'}`}
+                  onClick={this.handleRequestAccess.bind(this)}
+                  disabled={disableRequest}>
+                  {(() => {
+                    if (isRequestSent === 'requested') {
+                      return (<FormattedMessage id="joinTeamComponent.buttonSubmitted" defaultMessage="Request Sent" />);
+                    } else if (isRequestSent === 'member') {
+                      return (<FormattedMessage id="joinTeamComponent.buttonApproved" defaultMessage="Request Approved" />);
+                    } else {
+                      return (<FormattedMessage id="joinTeamComponent.buttonSubmit" defaultMessage="Request to Join" />);
+                    }
+                  })()}
+                </button>
+                <p className="join-team__blurb-graf">
                 {(() => {
                   if (isRequestSent === 'requested') {
-                    return (<FormattedMessage id="joinTeamComponent.buttonSubmitted" defaultMessage="Request Sent" />);
+                    return (<FormattedMessage id="joinTeamComponent.requestHasBeenSent" defaultMessage="Your request has been sent to the project admins for approval." />);
                   } else if (isRequestSent === 'member') {
-                    return (<FormattedMessage id="joinTeamComponent.buttonApproved" defaultMessage="Request Approved" />);
+                    return (<FormattedMessage id="joinTeamComponent.requestHasBeenApproved" defaultMessage="Your request has been approved." />);
                   } else {
-                    return (<FormattedMessage id="joinTeamComponent.buttonSubmit" defaultMessage="Request to Join" />);
+                    return (<FormattedMessage id="joinTeamComponent.requestWillBeSent" defaultMessage="Your request will be sent to the project admins for approval." />);
                   }
                 })()}
-              </button>
-              <p className="join-team__blurb-graf">
-              {(() => {
-                if (isRequestSent === 'requested') {
-                  return (<FormattedMessage id="joinTeamComponent.requestHasBeenSent" defaultMessage="Your request has been sent to the project admins for approval." />);
-                } else if (isRequestSent === 'member') {
-                  return (<FormattedMessage id="joinTeamComponent.requestHasBeenApproved" defaultMessage="Your request has been approved." />);
-                } else {
-                  return (<FormattedMessage id="joinTeamComponent.requestWillBeSent" defaultMessage="Your request will be sent to the project admins for approval." />);
-                }
-              })()}
-              </p>
+                </p>
+              </div>
             </div>
-          </div>
+          </ContentColumn>
         </div>
-      </DocumentTitle>
+      </PageTitle>
     );
   }
 }

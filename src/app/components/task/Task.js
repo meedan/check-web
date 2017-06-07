@@ -19,7 +19,6 @@ import MdRadioButtonChecked from 'react-icons/lib/md/radio-button-checked';
 import MdRadioButtonUnchecked from 'react-icons/lib/md/radio-button-unchecked';
 import Tooltip from 'rc-tooltip';
 import 'rc-tooltip/assets/bootstrap.css';
-import Truncate from 'react-truncate';
 import ParsedText from '../ParsedText';
 
 const messages = defineMessages({
@@ -394,21 +393,8 @@ class Task extends Component {
           </Tooltip>
         ) : null }
 
-        {/* TODO: abstract pattern into ExpandableText component */}
-        <input
-            type='checkbox'
-            className='task__label-truncated-toggle'
-            id={`task-${task.id}-label-truncated-toggle`}
-          />
         <div className='task__label-container'>
-          <Truncate
-              className='task__label task__label--truncated'
-              lines={1}
-              ellipsis={<span>... <label htmlFor={`task-${task.id}-label-truncated-toggle`} title={task.label}><FormattedMessage id="task.more" defaultMessage="More" /></label></span>}
-            >
-            {task.label}
-          </Truncate>
-          <span className='task__label task__label--full'>{task.label}</span>
+          <span className='task__label'>{task.label}</span>
         </div>
       </div>
     );

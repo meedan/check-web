@@ -1,5 +1,6 @@
 import config from 'config';
 import truncate from 'lodash.truncate';
+import rtlDetect from 'rtl-detect';
 
 // Functionally-pure sort: keeps the given array unchanged and returns sorted one.
 Array.prototype.sortp = function (fn) {
@@ -18,8 +19,8 @@ function bemClassFromMediaStatus(baseClass, mediaStatus) {
   );
 }
 
-function getStatus(verification_statuses, id) {
-  const statuses = safelyParseJSON(verification_statuses).statuses;
+function getStatus(statusesJson, id) {
+  const statuses = safelyParseJSON(statusesJson).statuses;
   let status = '';
   statuses.forEach((st) => {
     if (st.id === id) {
@@ -37,22 +38,6 @@ function getStatusStyle(status, property) {
   return style;
 }
 
-// Make a Check page title as `prefix | team Check`.
-// Try to get the current team's name and fallback to just `Check`.
-// Skip team name if `skipTeam` is true.
-// Skip `prefix |` if `prefix` empty.
-function pageTitle(prefix, skipTeam, team) {
-  let suffix = 'Check';
-  if (!skipTeam) {
-    try {
-      suffix = `${team.name} Check`;
-    } catch (e) {
-      if (!(e instanceof TypeError)) throw e;
-    }
-  }
-  return (prefix ? (`${prefix} | `) : '') + suffix;
-}
-
 function safelyParseJSON(jsonString) {
   try {
     return JSON.parse(jsonString);
@@ -63,10 +48,14 @@ function truncateLength(text, length = 100) {
   return truncate(text, { length, separator: /,? +/, ellipsis: '…' });
 }
 
+function rtlClass(language_code) {
+  return (rtlDetect.isRtlLang(language_code)) ? 'translation__rtl' : 'translation__ltr';
+}
+
 export {
   bemClass,
   bemClassFromMediaStatus,
-  pageTitle,
+  rtlClass,
   safelyParseJSON,
   getStatus,
   getStatusStyle,

@@ -3,14 +3,14 @@ import { expect } from 'chai';
 import { render } from 'enzyme';
 import { IntlProvider } from 'react-intl';
 
-import LoginEmail from '../../src/app/components/LoginEmail';
+import Login from '../../src/app/components/Login';
 
 const intlProvider = new IntlProvider({ locale: 'en', messages: {} }, {});
 const { intl } = intlProvider.getChildContext();
 
-describe('<LoginEmail />', () => {
-  it('should have collapsed form by default', function() {
-    const wrapper = render(<IntlProvider locale="en"><LoginEmail intl={intl} /></IntlProvider>);
-    expect(wrapper.find('.login-email__modal--open')).to.have.length(0);
+describe('<Login />', () => {
+  it('should not have password confirmation in default login mode', function() {
+    const wrapper = render(<IntlProvider locale="en"><Login intl={intl} /></IntlProvider>);
+    expect(wrapper.find('.login__password-confirmation-input')).to.have.length(0);
   });
 });

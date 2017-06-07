@@ -1,8 +1,6 @@
 {
   "browser.support.message": "Best viewed with <a href=\"https://www.google.com/chrome/browser/desktop/\">Chrome for Desktop</a>.",
   "login.title": "Sign in",
-  "login.support": "Can’t find your team? If you’re having any trouble, contact a human at <a href=\"mailto:check@meedan.com\">check@meedan.com</a>.",
-  "agree.terms": "By signing in, you agree to the Check {tosLink} and {ppLink}.",
   "tos.title": "Terms of Service",
   "privacy.policy.title": "Privacy Policy"
 }

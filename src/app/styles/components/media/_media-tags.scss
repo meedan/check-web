@@ -10,35 +10,36 @@
 }
 
 .media-tags__heading {
-  @include app-kicker;
-  margin-top: 4px;
-  margin-#{$to-direction}: 16px;
-  margin-bottom: 1px;
+  font-weight: $font-weight-medium;
   margin-#{$from-direction}: 0;
+  margin-#{$to-direction}: units(2);
+  margin-bottom: 1px;
+  margin-top: 4px;
+  text-transform: uppercase;
 }
 
 .media-tags__message {
-  font-size: 13px;
+  font: font(caption);
   margin: 0;
 }
 
 .media-tags__suggestions {
   display: inline-block;
-  margin-top: 5px;
-  margin-#{$to-direction}: 10px;
-  margin-bottom: 0;
   margin-#{$from-direction}: 0;
+  margin-#{$to-direction}: units(1);
+  margin-bottom: 0;
+  margin-top: units(1);
 }
 
 .media-tags__tag,
 .media-tags__suggestion {
-  @include chicklet;
+  @include chip;
 }
 
 .media-tags .tags-list .ReactTags__tag {
-  @extend %chip;
-  margin-#{$to-direction}: 15px;
-  min-width: 52px;
+  @include chip;
+  margin-#{$to-direction}: units(2);
+  min-width: units(7);
 }
 
 // Tags list in both modes
@@ -47,12 +48,12 @@
   // TBD
 }
 
+// TODO standardize with other form inputs — CGB 2017-3-12
 .media-tags .tags-list input {
+  border: $border-width-small solid $black-16;
+  border-radius: units(half);
   color: $black-38;
-  padding: 3px 5px;
-  border: 1px solid $black-16;
-  border-radius: 4px;
+  font: font(caption);
   margin: 4px 10px 5px;
-  font-size: 12px;
-  font-weight: 400;
+  padding: 3px 5px;
 }

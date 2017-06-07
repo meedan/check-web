@@ -2,6 +2,7 @@ node_modules
 *.sw*
 *~
 **/*.log
+npm-debug.log.*
 build
 test/config.yml
 .project
@@ -18,5 +19,5 @@ travis.zip
 linters
 test/spec/sauce
 config-build.js
-config-build.js.disabled
+relay.json
 .tmp
