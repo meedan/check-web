@@ -70,6 +70,7 @@ module AppSpecHelpers
     sleep 5
     window = @driver.window_handles.last
     @driver.switch_to.window(window)
+    sleep 10
     press_button('#oauth_authorizify')
     sleep 5
     window = @driver.window_handles.first
