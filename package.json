@@ -8,7 +8,6 @@
     "url": "git://github.com/meedan/check-web.git"
   },
   "scripts": {
-    "logo": "cd src/assets/images/logo && ./generate.sh && cd ..",
     "style:rtl": "node-sass src/app/styles/stylesheet-rtl.scss --output-style=compressed > /tmp/stylesheet-rtl.css.tmp && postcss --use autoprefixer -o build/web/css/stylesheet-rtl.css /tmp/stylesheet-rtl.css.tmp",
     "style:ltr": "node-sass src/app/styles/stylesheet.scss --output-style=compressed > /tmp/stylesheet.css.tmp && postcss --use autoprefixer -o build/web/css/stylesheet.css /tmp/stylesheet.css.tmp",
     "style:all": "npm run style:ltr && npm run style:rtl",
