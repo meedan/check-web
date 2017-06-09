@@ -7,11 +7,12 @@ import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import ResetPasswordMutation from '../relay/ResetPasswordMutation';
 import CheckContext from '../CheckContext';
+import config from 'config';
 
 const messages = defineMessages({
-  emailNotFound: {
-    id: 'passwordReset.emailNotFound',
-    defaultMessage: 'Email not found. Please contact check@meedan.com for support.',
+  emailNotFoundContactSupport: {
+    id: 'passwordReset.emailNotFoundContactSupport',
+    defaultMessage: 'Email not found. Please contact {supportEmail} for support.',
   },
   emailNotValid: {
     id: 'passwordReset.emailNotValid',
@@ -55,7 +56,7 @@ class UserPasswordReset extends Component {
     const that = this;
 
     const onFailure = (transaction) => {
-      that.setState({ errorMsg: that.props.intl.formatMessage(messages.emailNotFound), submitDisabled: true });
+      that.setState({ errorMsg: that.props.intl.formatMessage(messages.emailNotFoundContactSupport, {supportEmail: config.supportEmail}), submitDisabled: true });
     };
 
     const onSuccess = (response) => {

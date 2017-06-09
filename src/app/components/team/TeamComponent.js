@@ -1,7 +1,8 @@
 import React, {Component, PropTypes} from 'react';
 import Relay from 'react-relay';
-import DocumentTitle from 'react-document-title';
-import {FormattedMessage, defineMessages, injectIntl, intlShape} from 'react-intl';
+import PageTitle from '../PageTitle';
+import MappedMessage from '../MappedMessage';
+import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import Tags from './Tags';
 import {Link} from 'react-router';
 
@@ -17,7 +18,6 @@ import CreateContactMutation from '../../relay/CreateContactMutation';
 import UpdateContactMutation from '../../relay/UpdateContactMutation';
 import CreateProject from '../project/CreateProject';
 import Can from '../Can';
-import {pageTitle} from '../../helpers';
 import CheckContext from '../../CheckContext';
 import ContentColumn from '../layout/ContentColumn';
 import {bemClass} from '../../helpers';
@@ -66,6 +66,18 @@ const messages = defineMessages({
   verificationTeam: {
     id: 'teamComponent.verificationTeam',
     defaultMessage: 'Verification Team',
+  },
+  bridge_verificationTeam: {
+    id: 'bridge.teamComponent.verificationTeam',
+    defaultMessage: 'Translation Team',
+  },
+  verificationProjects: {
+    id: 'teamComponent.title',
+    defaultMessage: 'Verification Projects',
+  },
+  bridge_verificationProjects: {
+    id: 'bridge.teamComponent.title',
+    defaultMessage: 'Translation Projects',
   },
 });
 
@@ -186,7 +198,7 @@ class TeamComponent extends Component {
     const contact = team.contacts.edges[0];
 
     return (
-      <DocumentTitle title={pageTitle(false, false, team)}>
+      <PageTitle prefix={false} skipTeam={false} team={team}>
         <div className="team">
           <ContentColumn className="card">
             <Message message={this.state.message} />
@@ -267,7 +279,7 @@ class TeamComponent extends Component {
                       <div className="team__description">
                         <p className="team__description-text">
                           {team.description ||
-                            this.props.intl.formatMessage(messages.verificationTeam)}
+                            <MappedMessage msgObj={messages} msgKey="verificationTeam" />}
                         </p>
                       </div>
                     </div>
@@ -406,9 +418,9 @@ class TeamComponent extends Component {
               <div className="team__content">
                 <div className="team__content-body">
                   <h3 className="team__projects-heading">
-                    <FormattedMessage
-                      id="teamComponent.title"
-                      defaultMessage="Verification Projects"
+                    <MappedMessage
+                      msgObj={messages}
+                      msgKey="verificationProjects"
                     />
                   </h3>
                   <ul className="team__projects-list">
@@ -434,7 +446,7 @@ class TeamComponent extends Component {
             </section>
           </ContentColumn>
         </div>
-      </DocumentTitle>
+      </PageTitle>
     );
   }
 }

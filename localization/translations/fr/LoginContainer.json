@@ -1,7 +1,9 @@
 {
+  "loginContainer.appNameHuman": "Check",
+  "bridge.loginContainer.appNameHuman": "Bridge",
   "browser.support.message": "Optimisé pour <a href=\"https://www.google.com/chrome/browser/desktop/\">Chrome pour ordinateur</a>.",
-  "agree.terms": "En vous connectant, vous acceptez les {tosLink} et {ppLink} de Check.",
+  "loginContainer.agreeTerms": "En vous connectant, vous acceptez les {tosLink} et {ppLink} de {appName}.",
   "tos.title": "Conditions d'utilisation",
   "privacy.policy.title": "Politique de confidentialité",
-  "login.support": "Pour le support contactez <a href=\"mailto:check@meedan.com\">check@meedan.com</a>."
+  "login.contactSupport": "Pour le support contactez <a href=\"mailto:{supportEmail}\">{supportEmail}</a>."
 }

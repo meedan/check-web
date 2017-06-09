@@ -4,7 +4,6 @@
   "tasks.save": "Salvar",
   "task.edit": "Editar tarefa",
   "task.delete": "Remover tarefa",
-  "task.more": "Mais",
   "task.noteLabel": "Anote quaisquer detalhes adicionais aqui.",
   "task.pressReturnToSave": "Pressione enter para salvar sua resposta",
   "task.resolvedBy": "Resolvido por {by}",

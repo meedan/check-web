@@ -9,7 +9,17 @@ class UpdateDynamicMutation extends Relay.Mutation {
   }
 
   getFatQuery() {
-    return Relay.QL`fragment on UpdateDynamicPayload { dynamicEdge, project_media { tasks, log, id, log_count } }`;
+    return Relay.QL`fragment on UpdateDynamicPayload {
+      dynamicEdge,
+      project_media {
+        tasks,
+        log,
+        id,
+        log_count,
+        field_value(annotation_type_field_name: "translation_status:translation_status_status"),
+        translation_status: annotation(annotation_type: "translation_status")
+      }
+    }`;
   }
 
   getVariables() {

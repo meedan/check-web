@@ -3,12 +3,11 @@ import { Link } from 'react-router';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import MdCreate from 'react-icons/lib/md/create';
 import Select from 'react-select';
-import DocumentTitle from 'react-document-title';
+import PageTitle from '../PageTitle';
 import 'react-select/dist/react-select.css';
 import TeamMembershipRequests from './TeamMembershipRequests';
 import TeamMembersCell from './TeamMembersCell';
 import config from 'config';
-import { pageTitle } from '../../helpers';
 import ContentColumn from '../layout/ContentColumn';
 
 const messages = defineMessages({
@@ -53,7 +52,7 @@ class TeamMembersComponent extends Component {
     const joinUrl = `${teamUrl}/join`;
 
     return (
-      <DocumentTitle title={pageTitle(this.props.intl.formatMessage(messages.title), false, team)}>
+      <PageTitle prefix={this.props.intl.formatMessage(messages.title)} skipTeam={false} team={team}>
         <div className="team-members">
           <ContentColumn className="card">
             <button onClick={this.handleEditMembers.bind(this)} className="team-members__edit-button">
@@ -83,7 +82,7 @@ class TeamMembersComponent extends Component {
             </ul>
           </ContentColumn>
         </div>
-      </DocumentTitle>
+      </PageTitle>
     );
   }
 }

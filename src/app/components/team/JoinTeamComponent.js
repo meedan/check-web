@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay';
-import DocumentTitle from 'react-document-title';
+import PageTitle from '../PageTitle';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import { Link } from 'react-router';
 import CreateTeamUserMutation from '../../relay/CreateTeamUserMutation';
 import Message from '../Message';
-import { pageTitle } from '../../helpers';
 import CheckContext from '../../CheckContext';
 import ContentColumn from '../layout/ContentColumn';
 
@@ -117,7 +116,7 @@ class JoinTeamComponent extends Component {
 
     if (this.alreadyMember()) {
       return (
-        <DocumentTitle title={pageTitle(this.props.intl.formatMessage(messages.title), false, team)}>
+        <PageTitle prefix={this.props.intl.formatMessage(messages.title)} skipTeam={false} team={team}>
           <div className="join-team">
             <p className="join-team__blurb-graf">
               <FormattedMessage
@@ -127,12 +126,12 @@ class JoinTeamComponent extends Component {
               />
             </p>
           </div>
-        </DocumentTitle>
+        </PageTitle>
       );
     }
 
     return (
-      <DocumentTitle title={pageTitle(this.props.intl.formatMessage(messages.title), false, team)}>
+      <PageTitle prefix={this.props.intl.formatMessage(messages.title)} skipTeam={false} team={team}>
         <div className="join-team">
           <ContentColumn className="card">
             <Message message={this.state.message} />
@@ -175,7 +174,7 @@ class JoinTeamComponent extends Component {
             </div>
           </ContentColumn>
         </div>
-      </DocumentTitle>
+      </PageTitle>
     );
   }
 }

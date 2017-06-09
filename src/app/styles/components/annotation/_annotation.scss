@@ -194,7 +194,8 @@
   }
 }
 
-.annotation__reverse-image-search {
+.annotation__reverse-image-search,
+.annotation__keep-retry {
   cursor: pointer;
   display: inline-block;
   font-weight: $font-weight-bold;
@@ -205,4 +206,8 @@
 .annotation__card-embedded-medias {
   clear: both;
   margin-top: units(half);
+}
+
+.annotation__keep a {
+  text-decoration: underline;
 }

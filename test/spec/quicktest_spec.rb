@@ -8,7 +8,10 @@ require_relative './pages/me_page.rb'
 require_relative './pages/teams_page.rb'
 require_relative './pages/page.rb'
 require_relative './pages/project_page.rb'
-require_relative './quicktest_status_spec.rb'
+
+CONFIG = YAML.load_file('config.yml')
+
+require_relative "#{CONFIG['app_name']}/quicktest_custom_spec.rb"
 
 def new_driver(webdriver_url)
   if @config.key?('proxy') and !webdriver_url.include? "browserstack"
@@ -55,14 +58,14 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
   before :all do
     @wait = Selenium::WebDriver::Wait.new(timeout: 10)
 
-    @email = "sysops+#{Time.now.to_i}#{Process.pid}@meedan.com"
+    @email = "sysops#{Time.now.to_i}#{Process.pid}@meedan.com"
     @password = '12345678'
     @source_url = 'https://twitter.com/ironmaiden?timestamp=' + Time.now.to_i.to_s
     @media_url = 'https://twitter.com/meedan/status/773947372527288320/?t=' + Time.now.to_i.to_s
-    @config = YAML.load_file('config.yml')
+    @config = CONFIG
     $source_id = nil
     $media_id = nil
-    @e1 = 'sysops+' + Time.now.to_i.to_s + '@meedan.com'
+    @e1 = 'sysops' + Time.now.to_i.to_s + '@meedan.com'
     @t1 = 'team1' + Time.now.to_i.to_s
     @t2 = 'team2' + Time.now.to_i.to_s
     @new_tag = nil
@@ -72,7 +75,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
    # =>  HERE IS WHERE I START
     @driver = new_driver(webdriver_url)
     # TODO: better initialization w/ parallelization
-    page = LoginPage.new(config: @config, driver: @driver).load
+    #page = LoginPage.new(config: @config, driver: @driver).load
   end
 
   # Close the testing webserver after all tests run
@@ -112,14 +115,14 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should register and login using e-mail" do
 
       login_pg = LoginPage.new(config: @config, driver: @driver).load
-      email, password = ['sysops+' + Time.now.to_i.to_s + '@meedan.com', '22345678']
+      email, password = ['sysops' + Time.now.to_i.to_s + '@meedan.com', '22345678']
       login_pg.register_and_login_with_email(email: email, password: password)
       me_pg = MePage.new(config: @config, driver: login_pg.driver).load # reuse tab
       displayed_name = me_pg.title
       expect(displayed_name == 'User With Email').to be(true)
       #      element.send_keys "https://hooks.slack.com/services/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"
     end
-
+=begin
     it "should login using Facebook" do
       login_pg = LoginPage.new(config: @config, driver: @driver).load
       login_pg.login_with_facebook
@@ -149,6 +152,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 2
       window = @driver.window_handles.last
       @driver.switch_to.window(window)
+      sleep 10
       press_button('#oauth_authorizify')
       sleep 5
       window = @driver.window_handles.first
@@ -157,7 +161,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 10
       expect(get_element('h2.source-name').text.nil?).to be(false)
     end
-
+=end
     #Create two new teams.
     it "should create 2 teams" do
       page = LoginPage.new(config: @config, driver: @driver).load
@@ -171,7 +175,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     #As a different user, request to join one team.
     it "should join team" do
       page = LoginPage.new(config: @config, driver: @driver).load
-          .register_and_login_with_email(email: 'newsysops+' + Time.now.to_i.to_s + '@meedan.com', password: '22345678')
+          .register_and_login_with_email(email: 'newsysops' + Time.now.to_i.to_s + '@meedan.com', password: '22345678')
       page = TeamsPage.new(config: @config, driver: @driver).load
           .ask_join_team(subdomain: @t1)
       sleep 3
@@ -194,7 +198,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
           .select_team(name: @t1)
       page = TeamsPage.new(config: @config, driver: @driver).load
           .select_team(name: @t2)
-      sleep 3
+      sleep 13
       expect(page.team_name).to eq(@t2)
     end
 
@@ -203,7 +207,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       page = LoginPage.new(config: @config, driver: @driver).load
           .login_with_email(email: @e1, password: @password)
       navigate (@config['self_url'] + '/' + @t2)
-      sleep 2
+      sleep 12
       element = @driver.find_element(:class, "team__edit-button")
       element.click
       sleep 2
@@ -227,11 +231,11 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
           .login_with_email(email: @e1, password: @password, project: true)
       name = "Project #{Time.now}"
       element = @driver.find_element(:id, "create-project-title")
-      sleep 2
+      sleep 12
       element.click
       element.send_keys name
       @driver.action.send_keys("\n").perform
-      sleep 2
+      sleep 12
       expect(get_element('h2.project-header__title').text.nil?).to be(false)
     end
 
@@ -243,15 +247,15 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
           .create_media(input: 'https://twitter.com/marcouza/status/771009514732650497?t=' + Time.now.to_i.to_s)
       expect(media_pg.contains_string?('Added')).to be(true)
       project_pg = media_pg.go_to_project
-      sleep 2
+      sleep 12
       media_pg = project_pg.create_media(input: 'https://www.facebook.com/FirstDraftNews/posts/1808121032783161?t=' + Time.now.to_i.to_s)
       expect(media_pg.contains_string?('Added')).to be(true)
       project_pg = media_pg.go_to_project
-      sleep 2
+      sleep 12
       media_pg = project_pg.create_media(input: 'https://www.youtube.com/watch?v=ykLgjhBnik0?t=' + Time.now.to_i.to_s)
       expect(media_pg.contains_string?('Added')).to be(true)
       project_pg = media_pg.go_to_project
-      sleep 2
+      sleep 12
       media_pg = project_pg.create_media(input: 'https://www.instagram.com/p/BIHh6b0Ausk?t=' + Time.now.to_i.to_s)
       expect(media_pg.contains_string?('Added')).to be(true)
       $media_id = media_pg.driver.current_url.to_s.match(/\/media\/([0-9]+)$/)[1]
@@ -263,46 +267,45 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       media_pg = LoginPage.new(config: @config, driver: @driver).load
           .login_with_email(email: @e1, password: @password, project: true)
       navigate (team_url('project/' + get_project + '/media/' + $media_id))
-      sleep 1
+      sleep 11
       # First, verify that there isn't any comment
       expect(@driver.page_source.include?('This is my comment')).to be(false)
       # Add a comment as a command
       fill_field('#cmd-input', '/comment This is my comment')
       @driver.action.send_keys(:enter).perform
-      sleep 2
+      sleep 12
       # Verify that comment was added to annotations list
       expect(@driver.page_source.include?('This is my comment')).to be(true)
       # Reload the page and verify that comment is still there
       @driver.navigate.refresh
-      sleep 3
+      sleep 13
       expect(@driver.page_source.include?('This is my comment')).to be(true)
 
       #delete your comment.
       element = @driver.find_element(:css, "svg.menu-button__icon")
       element.click
-      sleep 3
+      sleep 13
       element = @driver.find_element(:class, "annotation__delete")
       element.click
-      sleep 3
+      sleep 13
       expect(@driver.page_source.include?('This is my comment')).to be(false)
     end
-    
-    include_examples "quicktest_status"
 
     #Add a tag to your media.
-    it "should Add a tag to your media and delete it" do
+    it "should add a tag to your media and delete it" do
       page = LoginPage.new(config: @config, driver: @driver).load
           .login_with_email(email: @e1, password: @password)
           .click_media
       @new_tag = Time.now.to_i.to_s
       page.add_tag(@new_tag)
-      sleep 2
+      sleep 12
       expect(page.has_tag?(@new_tag)).to be(true)
       #Delete this tag.
       page.delete_tag(@new_tag)
-      sleep 2
+      sleep 12
       expect(page.has_tag?(@new_tag)).to be(false)
     end
 
+    include_examples "quicktest_custom"
   end
 end

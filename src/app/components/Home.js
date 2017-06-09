@@ -45,6 +45,7 @@ class Home extends Component {
       message: null,
       token: null,
       error: false,
+      sessionStarted: false,
     };
   }
 
@@ -84,6 +85,10 @@ class Home extends Component {
     const { state, children } = this.props;
     const routeSlug = this.routeSlug(children);
 
+    if (!this.state.sessionStarted) {
+      return null;
+    }
+
     let message = null;
     if (this.state.error) {
       message = this.state.message;
@@ -111,7 +116,7 @@ class Home extends Component {
           <BrowserSupport />
           <div className={bemClass("home", routeSlug, `--${routeSlug}`)}>
             <ContentColumn wide className="home__disclaimer"><span><FormattedMessage id="home.beta" defaultMessage="Beta" /></span></ContentColumn>
-            { this.state.token ? <Header {...this.props} /> : null }
+            <Header {...this.props} loggedIn={this.state.token} />
             <div className="home__content">{children}</div>
             <FooterRelay {...this.props} />
           </div>

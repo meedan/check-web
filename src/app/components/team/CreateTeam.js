@@ -1,13 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
-import DocumentTitle from 'react-document-title';
+import PageTitle from '../PageTitle';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import CreateTeamMutation from '../../relay/CreateTeamMutation';
 import base64 from 'base-64';
 import Message from '../Message';
 import { Link } from 'react-router';
 import config from 'config';
-import { pageTitle } from '../../helpers';
 import ContentColumn from '../layout/ContentColumn';
 import CheckContext from '../../CheckContext';
 import Heading from '../layout/Heading';
@@ -53,6 +52,8 @@ class CreateTeam extends Component {
       slugLabelClass: this.slugLabelClass(),
       slugMessage: '',
       buttonIsDisabled: true,
+      displayName: '',
+      slugName: ''
     };
   }
 
@@ -79,20 +80,17 @@ class CreateTeam extends Component {
   handleDisplayNameChange(e) {
     const isTextEntered = e.target.value && e.target.value.length > 0;
     const newClass = isTextEntered ? this.displayNameLabelClass('--text-entered') : this.displayNameLabelClass();
-    this.setState({ displayNameLabelClass: newClass });
+    this.setState({ displayNameLabelClass: newClass, displayName: e.target.value });
   }
 
   handleDisplayNameBlur(e) {
-    const displayName = e.target.value;
-    const slugInput = document.getElementsByClassName('create-team__team-slug-input')[0];
-
-    const slugSuggestion = slugify(displayName);
-    if (!slugInput.value && slugSuggestion.length) {
-      slugInput.value = slugSuggestion;
+    const slugSuggestion = slugify(e.target.value);
+    if (!this.state.slugName && slugSuggestion.length) {
+      this.setState({ slugName: slugSuggestion });
     }
 
     function slugify(text) {
-      const regex = XRegExp('[\\P{L}]+', 'g');
+      const regex = XRegExp('[^\\p{L}\\p{N}]+', 'g');
       return XRegExp.replace(text.toString().toLowerCase().trim(), regex, '-');
     }
   }
@@ -103,6 +101,7 @@ class CreateTeam extends Component {
 
     this.setState({
       slugLabelClass: (isTextEntered ? this.slugLabelClass('--text-entered') : this.slugLabelClass()),
+      slugName: slug
     });
 
     // stubs pending real/API implementation; may need debouncing?
@@ -139,34 +138,31 @@ class CreateTeam extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    let that = this,
-      name = document.getElementById('team-name-container').value,
-      slug = document.getElementById('team-slug-container').value;
 
     const onFailure = (transaction) => {
       const error = transaction.getError();
-      let message = that.props.intl.formatMessage(messages.createTeamError);
+      let message = this.props.intl.formatMessage(messages.createTeamError);
       try {
         const json = JSON.parse(error.source);
         if (json.error) {
           message = json.error;
         }
       } catch (e) { }
-      that.setState({ message });
+      this.setState({ message });
     };
 
     const onSuccess = (response) => {
       this.setState({ message: null });
       const team = response.createTeam.team;
       const path = `/${team.slug}`;
-      that.getContext().history.push(path);
+      this.getContext().history.push(path);
     };
 
     Relay.Store.commitUpdate(
        new CreateTeamMutation({
-         name,
+         name: this.state.displayName,
+         slug: this.state.slugName,
          description: '',
-         slug,
        }),
       { onSuccess, onFailure },
     );
@@ -178,7 +174,7 @@ class CreateTeam extends Component {
 
   render() {
     return (
-      <DocumentTitle title={pageTitle(this.props.intl.formatMessage(messages.title), true)}>
+      <PageTitle prefix={this.props.intl.formatMessage(messages.title)} skipTeam={true}>
         <main className="create-team">
           <Message message={this.state.message} />
           <ContentColumn className="card">
@@ -187,6 +183,7 @@ class CreateTeam extends Component {
             <form className="create-team__form">
               <div className="create-team__team-display-name">
                 <input
+                  value={this.state.displayName}
                   type="text"
                   name="teamDisplayName"
                   id="team-name-container"
@@ -200,9 +197,10 @@ class CreateTeam extends Component {
                 <label className={this.state.displayNameLabelClass}><FormattedMessage id="createTeam.displayName" defaultMessage="Team Name" /></label>
               </div>
               <div className="create-team__team-url">
-                <span className="create-team__root-domain">checkmedia.org/</span>
+                  <span className="create-team__root-domain">{config.selfHost}/</span>
                 <div className={this.state.slugClass}>
                   <input
+                    value={this.state.slugName}
                     type="text"
                     name="teamSlug"
                     id="team-slug-container"
@@ -221,7 +219,7 @@ class CreateTeam extends Component {
             </form>
           </ContentColumn>
         </main>
-      </DocumentTitle>
+      </PageTitle>
     );
   }
 }
