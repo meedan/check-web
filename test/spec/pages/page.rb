@@ -9,14 +9,12 @@ class Page
     @wait = Selenium::WebDriver::Wait.new(timeout: 10)
   end
 
-  def load
-    new_url = url
+  def go(new_url)
     if defined? $caller_name and $caller_name.length > 0
       method_id = $caller_name[0]
-      method_id.gsub!(' ','_')
-      method_id.gsub!('"','')
-      method_id.gsub!('[','')
-      method_id.gsub!(']','')
+      method_id = $caller_name[0]
+      method_id.gsub! /(\s)/, '_'  
+      method_id.gsub! /("|\[|\])/, ''  
       if new_url.include? '?'
         new_url = new_url + '&test_id='+method_id
       else
@@ -24,6 +22,11 @@ class Page
       end
     end
     @driver.navigate.to new_url # assumes subclass pages implement `url` method
+  end
+
+
+  def load
+    go(url)
     self
   end
 
