@@ -10,6 +10,7 @@ import MediaUtil from './MediaUtil';
 import MediaInspector from './MediaInspector';
 import TimeBefore from '../TimeBefore';
 import { bemClass } from '../../helpers';
+import config from 'config';
 
 const messages = defineMessages({
   link: {
@@ -37,12 +38,16 @@ class SocialMediaCard extends Component {
     this.setState({ isInspectorActive: false });
   }
 
+  handleAvatarError() {
+    this.props.data.author_picture = config.restBaseUrl.replace(/\/api.*/, '/images/user.png');
+    this.forceUpdate();
+  }
+
   render() {
     const { media, data, condensed } = this.props;
-    // TODO: make less verbose
     const url = MediaUtil.url(media, data);
     const embedPublishedAt = MediaUtil.embedPublishedAt(media, data);
-    const authorAvatarUrl = MediaUtil.authorAvatarUrl(media, data);
+    const authorAvatarUrl = MediaUtil.authorAvatarUrl(media, data) || config.restBaseUrl.replace(/\/api.*/, '/images/user.png');
     const authorName = MediaUtil.authorName(media, data);
     const authorUsername = MediaUtil.authorUsername(media, data);
     const authorUrl = MediaUtil.authorUrl(media, data);
@@ -55,7 +60,7 @@ class SocialMediaCard extends Component {
         <MediaInspector media={media} isActive={this.state.isInspectorActive} dismiss={this.handleInspectorDismiss.bind(this)} />
         <div className="social-media-column-alpha">
           <div className="social-media-card__header / card-header">
-            {authorAvatarUrl ? <img src={authorAvatarUrl} className="social-media-card__author-avatar" /> : null}
+            <img src={authorAvatarUrl} className="social-media-card__author-avatar" onError={this.handleAvatarError.bind(this)} />
             <div className="social-media-card__header-text-primary / header-text-primary">
               <a href={authorUrl} target="_blank" rel="noopener noreferrer" className="social-media-card__name">{authorName || authorUsername}</a>
               { ((authorName && authorUsername) && (authorName !== authorUsername)) ?
