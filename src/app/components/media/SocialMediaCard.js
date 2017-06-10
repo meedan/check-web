@@ -13,6 +13,7 @@ import { bemClass } from '../../helpers';
 import config from 'config';
 import Relay from 'react-relay';
 import UpdateProjectMediaMutation from '../../relay/UpdateProjectMediaMutation';
+import deepEqual from 'deep-equal';
 
 const messages = defineMessages({
   link: {
@@ -42,17 +43,14 @@ class SocialMediaCard extends Component {
   }
 
   handleAvatarError() {
-    console.log('handleAvatarError', this.state);
     this.setState({ authorPicture: this.refreshMedia() });
   }
 
   refreshMedia() {
-    console.log('refreshMedia', this.state);
     const onFailure = (transaction) => {
     };
 
     const onSuccess = (response) => {
-      console.log('onSuccess', response);
       this.setState({ authorPicture: JSON.parse(response.updateProjectMedia.project_media.embed).author_picture });
     };
 
@@ -67,8 +65,11 @@ class SocialMediaCard extends Component {
     return config.restBaseUrl.replace(/\/api.*/, '/images/user.png');
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    return !deepEqual(nextProps, this.props) || !deepEqual(nextState, this.state);
+  }
+
   render() {
-    console.log('render', this.state);
     const { media, data, condensed } = this.props;
     const url = MediaUtil.url(media, data);
     const embedPublishedAt = MediaUtil.embedPublishedAt(media, data);

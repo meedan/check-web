@@ -104,6 +104,7 @@
     "babel-relay-plugin": "^0.10.0",
     "base-64": "^0.1.0",
     "crossmessaging": "0.2.2",
+    "deep-equal": "^1.0.1",
     "express": "^4.14.0",
     "intl": "^1.2.5",
     "lodash.difference": "^4.5.0",
