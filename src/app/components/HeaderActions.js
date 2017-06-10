@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import UserMenuRelay from '../relay/UserMenuRelay';
-import { logout } from '../actions/actions';
+import { logout } from '../redux/actions';
 import { FormattedMessage, defineMessages } from 'react-intl';
 import MappedMessage from './MappedMessage';
 import MdSearch from 'react-icons/lib/md/search';
