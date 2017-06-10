@@ -116,6 +116,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 2
       window = @driver.window_handles.last
       @driver.switch_to.window(window)
+      sleep 10
       press_button('#oauth_authorizify')
       sleep 5
       window = @driver.window_handles.first
@@ -268,7 +269,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 2
       expect(page.has_tag?(@new_tag)).to be(false)
     end
-    
+
     include_examples "quicktest_custom"
   end
 end

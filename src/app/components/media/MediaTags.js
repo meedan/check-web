@@ -42,7 +42,7 @@ class MediaTags extends Component {
     return modifierBoolean ? [baseClass, baseClass + modifierSuffix].join(' ') : baseClass;
   }
 
-  handleClick(tagString) {
+  handleSuggestedTagEditClick(tagString) {
     this.setState({ message: this.props.intl.formatMessage(messages.loading) });
     const tag = this.findTag(tagString);
 
