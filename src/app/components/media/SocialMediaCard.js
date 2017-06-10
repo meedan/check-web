@@ -11,6 +11,8 @@ import MediaInspector from './MediaInspector';
 import TimeBefore from '../TimeBefore';
 import { bemClass } from '../../helpers';
 import config from 'config';
+import Relay from 'react-relay';
+import UpdateProjectMediaMutation from '../../relay/UpdateProjectMediaMutation';
 
 const messages = defineMessages({
   link: {
@@ -25,6 +27,7 @@ class SocialMediaCard extends Component {
 
     this.state = {
       isInspectorActive: false,
+      authorPicture: null,
     };
   }
 
@@ -39,15 +42,37 @@ class SocialMediaCard extends Component {
   }
 
   handleAvatarError() {
-    this.props.data.author_picture = config.restBaseUrl.replace(/\/api.*/, '/images/user.png');
-    this.forceUpdate();
+    console.log('handleAvatarError', this.state);
+    this.setState({ authorPicture: this.refreshMedia() });
+  }
+
+  refreshMedia() {
+    console.log('refreshMedia', this.state);
+    const onFailure = (transaction) => {
+    };
+
+    const onSuccess = (response) => {
+      console.log('onSuccess', response);
+      this.setState({ authorPicture: JSON.parse(response.updateProjectMedia.project_media.embed).author_picture });
+    };
+
+    Relay.Store.commitUpdate(
+      new UpdateProjectMediaMutation({
+        refresh_media: 1,
+        id: this.props.media.id,
+      }),
+      { onSuccess, onFailure },
+    );
+
+    return config.restBaseUrl.replace(/\/api.*/, '/images/user.png');
   }
 
   render() {
+    console.log('render', this.state);
     const { media, data, condensed } = this.props;
     const url = MediaUtil.url(media, data);
     const embedPublishedAt = MediaUtil.embedPublishedAt(media, data);
-    const authorAvatarUrl = MediaUtil.authorAvatarUrl(media, data) || config.restBaseUrl.replace(/\/api.*/, '/images/user.png');
+    const authorAvatarUrl = this.state.authorPicture || MediaUtil.authorAvatarUrl(media, data) || this.refreshMedia();
     const authorName = MediaUtil.authorName(media, data);
     const authorUsername = MediaUtil.authorUsername(media, data);
     const authorUrl = MediaUtil.authorUrl(media, data);
