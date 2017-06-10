@@ -8,11 +8,9 @@ import MdLink from 'react-icons/lib/md/link';
 import { Link } from 'react-router';
 import MediaUtil from './MediaUtil';
 import MediaInspector from './MediaInspector';
+import AuthorPicture from '../AuthorPicture';
 import TimeBefore from '../TimeBefore';
 import { bemClass } from '../../helpers';
-import config from 'config';
-import Relay from 'react-relay';
-import UpdateProjectMediaMutation from '../../relay/UpdateProjectMediaMutation';
 import deepEqual from 'deep-equal';
 
 const messages = defineMessages({
@@ -28,7 +26,6 @@ class SocialMediaCard extends Component {
 
     this.state = {
       isInspectorActive: false,
-      authorPicture: null,
     };
   }
 
@@ -42,29 +39,6 @@ class SocialMediaCard extends Component {
     this.setState({ isInspectorActive: false });
   }
 
-  handleAvatarError() {
-    this.setState({ authorPicture: this.refreshMedia() });
-  }
-
-  refreshMedia() {
-    const onFailure = (transaction) => {
-    };
-
-    const onSuccess = (response) => {
-      this.setState({ authorPicture: JSON.parse(response.updateProjectMedia.project_media.embed).author_picture });
-    };
-
-    Relay.Store.commitUpdate(
-      new UpdateProjectMediaMutation({
-        refresh_media: 1,
-        id: this.props.media.id,
-      }),
-      { onSuccess, onFailure },
-    );
-
-    return config.restBaseUrl.replace(/\/api.*/, '/images/user.png');
-  }
-
   shouldComponentUpdate(nextProps, nextState) {
     return !deepEqual(nextProps, this.props) || !deepEqual(nextState, this.state);
   }
@@ -73,7 +47,6 @@ class SocialMediaCard extends Component {
     const { media, data, condensed } = this.props;
     const url = MediaUtil.url(media, data);
     const embedPublishedAt = MediaUtil.embedPublishedAt(media, data);
-    const authorAvatarUrl = this.state.authorPicture || MediaUtil.authorAvatarUrl(media, data) || this.refreshMedia();
     const authorName = MediaUtil.authorName(media, data);
     const authorUsername = MediaUtil.authorUsername(media, data);
     const authorUrl = MediaUtil.authorUrl(media, data);
@@ -86,7 +59,7 @@ class SocialMediaCard extends Component {
         <MediaInspector media={media} isActive={this.state.isInspectorActive} dismiss={this.handleInspectorDismiss.bind(this)} />
         <div className="social-media-column-alpha">
           <div className="social-media-card__header / card-header">
-            <img src={authorAvatarUrl} className="social-media-card__author-avatar" onError={this.handleAvatarError.bind(this)} />
+            <AuthorPicture media={media} data={data} />
             <div className="social-media-card__header-text-primary / header-text-primary">
               <a href={authorUrl} target="_blank" rel="noopener noreferrer" className="social-media-card__name">{authorName || authorUsername}</a>
               { ((authorName && authorUsername) && (authorName !== authorUsername)) ?
