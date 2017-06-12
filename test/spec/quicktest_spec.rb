@@ -135,7 +135,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 5
       window = @driver.window_handles.first
       @driver.switch_to.window(window)
-      go (@config['self_url'] + '/check/me')
+      p.go(@config['self_url'] + '/check/me')
       sleep 10
       expect(get_element('h2.source-name').text.nil?).to be(false)
     end
@@ -184,7 +184,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should add slack notifications to a team " do
       page = LoginPage.new(config: @config, driver: @driver).load
           .login_with_email(email: @e1, password: @password)
-      page.go (@config['self_url'] + '/' + @t2)
+      p = Page.new(config: @config, driver: @driver)
+      p.go(@config['self_url'] + '/' + @t2)
       sleep 2
       element = @driver.find_element(:class, "team__edit-button")
       element.click
@@ -245,7 +246,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       media_pg = LoginPage.new(config: @config, driver: @driver).load
           .login_with_email(email: @e1, password: @password, project: true)
       media_pg.go (team_url('project/' + get_project + '/media/' + $media_id))
-      sleep 1
+      sleep 3
       # First, verify that there isn't any comment
       expect(@driver.page_source.include?('This is my comment')).to be(false)
       # Add a comment as a command
@@ -283,7 +284,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 5
       expect(page.has_tag?(@new_tag)).to be(false)
     end
-
     include_examples "quicktest_custom"
   end
 end

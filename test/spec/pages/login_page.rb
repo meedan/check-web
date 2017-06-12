@@ -79,7 +79,6 @@ class LoginPage < Page
 
   def confirm_email(email) # TODO: test real email confirmation flow
     if (@config.key?('proxy'))
-      addr = @config['self_url'] 
       addr = @config['self_url'].sub 'test.', 'check-api.test.'
       addr = addr + "/test/confirm_user?email="+email
       @driver.navigate.to addr
