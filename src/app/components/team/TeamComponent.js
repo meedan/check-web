@@ -288,87 +288,80 @@ class TeamComponent extends Component {
               </div>
 
               <div className="team__contact-info">
-                <span className="team__location">
-                  {(() => {
-                    if (isEditing) {
-                      return (
-                        <span>
-                          <MdLocationOn className="team__location-icon" />
-                          <input
-                            type="text"
-                            id="team__location-container"
-                            defaultValue={contact ? contact.node.location : ''}
-                            className="team__location-name-input"
-                            placeholder={this.props.intl.formatMessage(messages.location)}
-                            onChange={this.handleChange.bind(this, 'contact_location')}
-                          />
-                        </span>
-                      );
-                    } else if (contact && !!contact.node.location) {
-                      return (
-                        <span>
-                          <MdLocationOn className="team__location-icon" />
-                          <span className="team__location-name">{contact.node.location}</span>
-                        </span>
-                      );
-                    }
-                    return <span className="team__location-name" />;
-                  })()}
-                </span>
-                <span className="team__phone">
-                  {(() => {
-                    if (isEditing) {
-                      return (
-                        <span>
-                          <MdLocalPhone />
-                          <input
-                            type="text"
-                            id="team__phone-container"
-                            defaultValue={contact ? contact.node.phone : ''}
-                            className="team__location-name-input"
-                            placeholder={this.props.intl.formatMessage(messages.phone)}
-                            onChange={this.handleChange.bind(this, 'contact_phone')}
-                          />
-                        </span>
-                      );
-                    } else if (contact && !!contact.node.phone) {
-                      return (
-                        <span>
-                          <MdLocalPhone />
-                          <span className="team__phone-name">{contact.node.phone}</span>
-                        </span>
-                      );
-                    }
-                    return <span className="team__phone-name" />;
-                  })()}
-                </span>
-                <span className="team__web">
-                  {(() => {
-                    if (isEditing) {
-                      return (
-                        <span>
-                          <MdLink />
-                          <input
-                            type="text"
-                            id="team__link-container"
-                            defaultValue={contact ? contact.node.web : ''}
-                            className="team__location-name-input"
-                            placeholder={this.props.intl.formatMessage(messages.website)}
-                            onChange={this.handleChange.bind(this, 'contact_web')}
-                          />
-                        </span>
-                      );
-                    } else if (contact && !!contact.node.web) {
-                      return (
-                        <span>
-                          <MdLink />
-                          <span className="team__link-name">{contact.node.web}</span>
-                        </span>
-                      );
-                    }
-                    return <span className="team__link-name" />;
-                  })()}
-                </span>
+                {(() => {
+                  if (isEditing) {
+                    return (
+                      <span className="team__location">
+                        <MdLocationOn className="team__location-icon" />
+                        <input
+                          type="text"
+                          id="team__location-container"
+                          defaultValue={contact ? contact.node.location : ''}
+                          className="team__location-name-input"
+                          placeholder={this.props.intl.formatMessage(messages.location)}
+                          onChange={this.handleChange.bind(this, 'contact_location')}
+                        />
+                      </span>
+                    );
+                  } else if (contact && !!contact.node.location) {
+                    return (
+                      <span className="team__location">
+                        <MdLocationOn className="team__location-icon" />
+                        <span className="team__location-name">{contact.node.location}</span>
+                      </span>
+                    );
+                  }
+                })()}
+
+                {(() => {
+                  if (isEditing) {
+                    return (
+                      <span className="team__phone">
+                        <MdLocalPhone />
+                        <input
+                          type="text"
+                          id="team__phone-container"
+                          defaultValue={contact ? contact.node.phone : ''}
+                          className="team__location-name-input"
+                          placeholder={this.props.intl.formatMessage(messages.phone)}
+                          onChange={this.handleChange.bind(this, 'contact_phone')}
+                        />
+                      </span>
+                    );
+                  } else if (contact && !!contact.node.phone) {
+                    return (
+                      <span className="team__phone">
+                        <MdLocalPhone />
+                        <span className="team__phone-name">{contact.node.phone}</span>
+                      </span>
+                    );
+                  }
+                })()}
+
+                {(() => {
+                  if (isEditing) {
+                    return (
+                      <span className="team__web">
+                        <MdLink />
+                        <input
+                          type="text"
+                          id="team__link-container"
+                          defaultValue={contact ? contact.node.web : ''}
+                          className="team__location-name-input"
+                          placeholder={this.props.intl.formatMessage(messages.website)}
+                          onChange={this.handleChange.bind(this, 'contact_web')}
+                        />
+                      </span>
+                    );
+                  } else if (contact && !!contact.node.web) {
+                    return (
+                      <span className="team__web">
+                        <MdLink />
+                        <span className="team__link-name">{contact.node.web}</span>
+                      </span>
+                    );
+                  }
+                })()}
               </div>
 
               {(() => {

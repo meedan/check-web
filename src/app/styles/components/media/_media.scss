@@ -31,7 +31,7 @@ $media-expanded-top-offset: layout(header-height) + layout(gutter-medium);
         .media__tasks-column {
           $_width: units(68);
           flex-basis: $_width;
-          margin-top: -1 * (units(4) + units(half));
+          margin-top: -1 * units(4.5);
           width: $_width;
         }
       }
