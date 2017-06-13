@@ -143,21 +143,21 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(media_pg.primary_heading.text).to eq('Tweet by First Draft')
       project_pg = media_pg.go_to_project
       sleep 1
-      expect(project_pg.element('.media-detail__heading').text).to eq('Tweet by First Draft')
+      expect(project_pg.elements('.media-detail__heading').map(&:text).include?('Tweet by First Draft')).to be(true)
 
       # YouTube
       media_pg = project_pg.create_media(input: 'https://www.youtube.com/watch?v=ykLgjhBnik0?t=' + Time.now.to_i.to_s)
       expect(media_pg.primary_heading.text).to eq('Video by First Draft')
       project_pg = media_pg.go_to_project
       sleep 1
-      expect(project_pg.element('.media-detail__heading').text).to eq('Video by First Draft')
+      expect(project_pg.elements('.media-detail__heading').map(&:text).include?('Video by First Draft')).to be(true)
 
       # Facebook
       media_pg = project_pg.create_media(input: 'https://www.facebook.com/FirstDraftNews/posts/1808121032783161?t=' + Time.now.to_i.to_s)
       expect(media_pg.primary_heading.text).to eq('Facebook post by First Draft')
       project_pg = media_pg.go_to_project
       sleep 1
-      expect(project_pg.element('.media-detail__heading').text).to eq('Facebook post by First Draft')
+      expect(project_pg.elements('.media-detail__heading').map(&:text).include?('Facebook post by First Draft')).to be(true)
     end
 
     it "should login using Slack" do
@@ -1013,11 +1013,11 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       create_claim_and_go_to_search_page
       expect((@driver.current_url.to_s.match(/project/)).nil?).to be(true)
       @driver.find_element(:xpath, "//li[contains(text(), 'Project')]").click
-      sleep 5
+      sleep 10
       expect((@driver.current_url.to_s.match(/project/)).nil?).to be(false)
       expect((@driver.title =~ /Project/).nil?).to be(false)
       @driver.find_element(:xpath, "//li[contains(text(), 'Project')]").click
-      sleep 3
+      sleep 10
       expect((@driver.title =~ /Project/).nil?).to be(true)
     end
 
@@ -1026,13 +1026,13 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect((@driver.current_url.to_s.match(/recent_activity/)).nil?).to be(true)
 
       @driver.find_element(:xpath, "//span[contains(text(), 'Recent activity')]").click
-      sleep 3
+      sleep 10
       expect((@driver.current_url.to_s.match(/recent_activity/)).nil?).to be(false)
       expect((@driver.current_url.to_s.match(/recent_added/)).nil?).to be(true)
       expect(@driver.page_source.include?('My search result')).to be(true)
 
       @driver.find_element(:xpath, "//span[contains(text(), 'Created')]").click
-      sleep 3
+      sleep 10
       expect((@driver.current_url.to_s.match(/recent_activity/)).nil?).to be(true)
       expect((@driver.current_url.to_s.match(/recent_added/)).nil?).to be(false)
       expect(@driver.page_source.include?('My search result')).to be(true)
@@ -1043,13 +1043,13 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect((@driver.current_url.to_s.match(/ASC|DESC/)).nil?).to be(true)
 
       @driver.find_element(:xpath, "//span[contains(text(), 'Newest')]").click
-      sleep 3
+      sleep 10
       expect((@driver.current_url.to_s.match(/DESC/)).nil?).to be(false)
       expect((@driver.current_url.to_s.match(/ASC/)).nil?).to be(true)
       expect(@driver.page_source.include?('My search result')).to be(true)
 
       @driver.find_element(:xpath, "//span[contains(text(), 'Oldest')]").click
-      sleep 3
+      sleep 10
       expect((@driver.current_url.to_s.match(/DESC/)).nil?).to be(true)
       expect((@driver.current_url.to_s.match(/ASC/)).nil?).to be(false)
       expect(@driver.page_source.include?('My search result')).to be(true)
@@ -1058,7 +1058,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should search by project through URL" do
       create_claim_and_go_to_search_page
       @driver.navigate.to @config['self_url'] + '/' + get_team + '/search/%7B"projects"%3A%5B0%5D%7D'
-      sleep 3
+      sleep 10
       expect(@driver.page_source.include?('My search result')).to be(false)
       selected = @driver.find_elements(:css, '.media-tags__suggestion--selected')
       expect(selected.size == 2).to be(true)
@@ -1067,7 +1067,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should change search sort criteria through URL" do
       create_claim_and_go_to_search_page
       @driver.navigate.to @config['self_url'] + '/' + get_team + '/search/%7B"sort"%3A"recent_activity"%7D'
-      sleep 3
+      sleep 10
       expect(@driver.page_source.include?('My search result')).to be(true)
       selected = @driver.find_elements(:css, '.media-tags__suggestion--selected').map(&:text).sort
       expect(selected == ['Recent activity', 'Newest first'].sort).to be(true)
@@ -1076,7 +1076,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should change search sort order through URL" do
       create_claim_and_go_to_search_page
       @driver.navigate.to @config['self_url'] + '/' + get_team + '/search/%7B"sort_type"%3A"ASC"%7D'
-      sleep 3
+      sleep 10
       expect(@driver.page_source.include?('My search result')).to be(true)
       selected = @driver.find_elements(:css, '.media-tags__suggestion--selected').map(&:text).sort
       expect(selected == ['Created', 'Oldest first'].sort).to be(true)
