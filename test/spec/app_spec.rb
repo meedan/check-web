@@ -109,7 +109,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       expect(media_pg.primary_heading.text).to eq('Edited media title')
       project_pg = media_pg.go_to_project
-      sleep 3
+      sleep 10
       expect(project_pg.elements('.media-detail__heading').map(&:text).include?('Edited media title')).to be(true)
     end
 
