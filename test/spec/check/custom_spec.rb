@@ -63,12 +63,12 @@ shared_examples 'custom' do
   it "should search by status" do
     create_claim_and_go_to_search_page
     @driver.find_element(:xpath, "//*[contains(text(), 'Inconclusive')]").click
-    sleep 3
+    sleep 10
     expect((@driver.title =~ /Inconclusive/).nil?).to be(false)
     expect((@driver.current_url.to_s.match(/not_applicable/)).nil?).to be(false)
     expect(@driver.page_source.include?('My search result')).to be(false)
     @driver.find_element(:xpath, "//*[contains(text(), 'Unstarted')]").click
-    sleep 3
+    sleep 10
     expect((@driver.title =~ /Unstarted/).nil?).to be(false)
     expect((@driver.current_url.to_s.match(/undetermined/)).nil?).to be(false)
     expect(@driver.page_source.include?('My search result')).to be(true)
@@ -77,7 +77,7 @@ shared_examples 'custom' do
   it "should search by status through URL" do
     create_claim_and_go_to_search_page
     @driver.navigate.to @config['self_url'] + '/' + get_team + '/search/%7B"status"%3A%5B"false"%5D%7D'
-    sleep 3
+    sleep 10
     expect((@driver.title =~ /False/).nil?).to be(false)
     expect(@driver.page_source.include?('My search result')).to be(false)
     selected = @driver.find_elements(:css, '.media-tags__suggestion--selected').map(&:text).sort
