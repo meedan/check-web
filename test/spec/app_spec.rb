@@ -84,11 +84,11 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       @driver.save_screenshot(path) # TODO: fix for page model tests
 
       client = Imgur.new(@config['imgur_client_id'])
-      image = Imgur::LocalImage.new(path, title: "Test failed: #{example.to_s}")
+      image = Imgur::LocalImage.new(path, title: "Test failed: #{example.description}")
       uploaded = client.upload(image)
       link = uploaded.link
 
-      puts "Test \"#{example.to_s}\" failed! Check screenshot at #{link} and following browser output: #{console_logs}"
+      puts "Test \"#{example.description}\" failed! Check screenshot at #{link} and following browser output: #{console_logs}"
     end
     @driver.quit
   end
@@ -109,7 +109,11 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       expect(media_pg.primary_heading.text).to eq('Edited media title')
       project_pg = media_pg.go_to_project
-      sleep 10
+
+      link = save_screenshot('Debugging media title editing')
+      puts "Test \"should edit the title of a media\": Check project screenshot at #{link}"
+
+      sleep 3
       expect(project_pg.elements('.media-detail__heading').map(&:text).include?('Edited media title')).to be(true)
     end
 
