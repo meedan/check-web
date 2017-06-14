@@ -93,6 +93,7 @@ class MediaDetail extends Component {
     };
 
     const onSuccess = (response) => {
+      console.log('MediaDetail.handleSave', response);
       this.setState({ isEditing: false });
     };
 
