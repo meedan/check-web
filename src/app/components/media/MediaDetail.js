@@ -21,6 +21,7 @@ import UpdateProjectMediaMutation from '../../relay/UpdateProjectMediaMutation';
 import CheckContext from '../../CheckContext';
 import { bemClass, safelyParseJSON, getStatus, getStatusStyle } from '../../helpers';
 import { mediaStatuses, mediaLastStatus } from '../../customHelpers';
+import util from 'util';
 // Needed for onTouchTap
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
@@ -93,7 +94,8 @@ class MediaDetail extends Component {
     };
 
     const onSuccess = (response) => {
-      console.log('MediaDetail.handleSave', response);
+      console.error('MediaDetail.handleSave:');
+      console.error(util.inspect(response));
       this.setState({ isEditing: false });
     };
 

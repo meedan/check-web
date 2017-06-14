@@ -175,7 +175,8 @@ module AppSpecHelpers
   end
 
   def console_logs
-    @driver.manage.logs.get("browser")
+    require 'pp'
+    @driver.manage.logs.get("browser").pretty_inspect
   end
 
   def create_media(url)
