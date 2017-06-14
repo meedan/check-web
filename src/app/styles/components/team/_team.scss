@@ -1,79 +1,26 @@
 .team {
-  $team-edit-gutter-width: units(20);
   $team-avatar-width: units(12);
-  font: font(subheading2);
+  $team-profile-offset: units(18);
 
-  // Default team text inputs
-  //
-  input[type='text'] {
-    @include text-input;
-    width: 100%;
-  }
+  &__profile {
+    margin-bottom: units(4);
+    margin-top: $team-profile-offset * -1;
+    padding-top: $team-profile-offset;
 
-  // First section
-  //
-  &__avatar-and-primary-info {
-    .team__name,
-    .team__description {
+    &--editing {
+      .team__settings {
+        margin-top: units(4);
+      }
     }
   }
 
-  // The edit button group
-  &__edit-profile {
+  &__contact-info {
+    & > span {
+      margin-#{$to-direction}: units(2);
+    }
   }
 
   &__avatar {
     @include avatar($team-avatar-width);
-  }
-
-  &__primary-info {
-    display: flex;
-    flex-direction: column;
-  }
-
-  // Second and third section
-  //
-  &__contact-info,
-  &__settings {
-    @include when-smaller-than(mobile-breakpoint) {
-      margin-#{$to-direction}: 0;
-    }
-  }
-
-  // 4th section
-  //
-  // Hidden while editing
-  &__profile--editing {
-    .team__content {
-      display: none;
-    }
-  }
-
-  &__content {
-    .team__projects-heading {
-      font: font(title);
-    }
-
-    .team__projects-list {
-      margin: units(2) 0;
-
-      li {
-        font: font(subheading2);
-        font-weight: 700;
-        margin-bottom: units(2);
-      }
-
-      // The first project is larger
-      // TODO — improve first-time experience with fancier CTA — CGB 2017-3-23
-      & > :only-child {
-        font: font(display1);
-        padding-top: 0;
-      }
-    }
-
-    .team__new-project {
-      margin-top: units(2);
-      width: units(24);
-    }
   }
 }

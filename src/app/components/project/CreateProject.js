@@ -81,7 +81,6 @@ class CreateProject extends Component {
           className={this.props.className}
           floatingLabelText={this.props.intl.formatMessage(messages.addProject)}
           ref={input => this.projectInput = input}
-          fullWidth
         />
 
         <Message message={this.state.message} />
