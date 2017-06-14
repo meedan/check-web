@@ -79,16 +79,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
   after :each do |example|
     if example.exception
-      require 'imgur'
-      path = '/tmp/' + (0...8).map{ (65 + rand(26)).chr }.join + '.png'
-      @driver.save_screenshot(path) # TODO: fix for page model tests
-
-      client = Imgur.new(@config['imgur_client_id'])
-      image = Imgur::LocalImage.new(path, title: "Test failed: #{example.to_s}")
-      uploaded = client.upload(image)
-      link = uploaded.link
-
-      puts "Test \"#{example.to_s}\" failed! Check screenshot at #{link} and following browser output: #{console_logs}"
+      link = save_screenshot("Test failed: #{example.description}")
+      puts "Test \"#{example.description}\" failed! Check screenshot at #{link} and following browser output: #{console_logs}"
     end
     @driver.quit
   end
@@ -100,17 +92,16 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     include_examples "custom"
 
     it "should edit the title of a media" do
-      media_pg = LoginPage.new(config: @config, driver: @driver).load
-          .login_with_email(email: @email, password: @password)
-          .create_media(input: 'https://twitter.com/softlandscapes/status/834385935240462338?t=' + Time.now.to_i.to_s)
+      media_pg = LoginPage.new(config: @config, driver: @driver).load.login_with_email(email: @email, password: @password)
+      @wait.until { @driver.page_source.include?('Claim') }
+      media_pg = media_pg.create_media(input: 'https://twitter.com/softlandscapes/status/834385935240462338?t=' + Time.now.to_i.to_s)
       expect(media_pg.primary_heading.text).to eq('Tweet by soft landscapes')
       sleep 3 # :/ clicks can misfire if pender iframe moves the button position at the wrong moment
       media_pg.set_title('Edited media title')
-
       expect(media_pg.primary_heading.text).to eq('Edited media title')
       project_pg = media_pg.go_to_project
       sleep 3
-      expect(project_pg.element('.media-detail__heading').text).to eq('Edited media title')
+      expect(project_pg.elements('.media-detail__heading').map(&:text).include?('Edited media title')).to be(true)
     end
 
     it "should not add a duplicated tag from tags list" do
