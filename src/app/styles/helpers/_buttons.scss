@@ -121,3 +121,13 @@
     width: units(2);
   }
 }
+
+// Default button
+button {
+  @include button-medium;
+}
+
+// Button group
+button + button {
+  margin-#{$from-direction}: units(1);
+}

@@ -64,11 +64,11 @@
     "defaultMessage": "Save"
   },
   {
-    "id": "teamComponent.editButton",
-    "defaultMessage": "Edit profile"
-  },
-  {
     "id": "teamComponent.slackNotificationsEnabled",
     "defaultMessage": "Enable Slack notifications"
+  },
+  {
+    "id": "teamComponent.editButton",
+    "defaultMessage": "Edit profile"
   }
 ]
