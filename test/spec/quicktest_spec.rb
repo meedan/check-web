@@ -10,7 +10,6 @@ require_relative './pages/page.rb'
 require_relative './pages/project_page.rb'
 
 CONFIG = YAML.load_file('config.yml')
-
 require_relative "#{CONFIG['app_name']}/quicktest_custom_spec.rb"
 
 def new_driver(webdriver_url,browser_capabilities)
@@ -32,11 +31,9 @@ $caller_name = ""
 shared_examples 'app' do |webdriver_url, browser_capabilities|
 
   # Helpers
-
   include AppSpecHelpers
 
   # Start a webserver for the web app before the tests
-
   before :all do
     @wait = Selenium::WebDriver::Wait.new(timeout: 10)
 
