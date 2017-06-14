@@ -5,6 +5,8 @@ import MappedMessage from '../MappedMessage';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import Tags from './Tags';
 import {Link} from 'react-router';
+import TextField from 'material-ui/TextField';
+import Checkbox from 'material-ui/Checkbox';
 
 import MdCreate from 'react-icons/lib/md/create';
 
@@ -223,95 +225,77 @@ class TeamComponent extends Component {
                     </button>
 
                     <div className="team__primary-info">
-                      <h1 className="team__name">
-                        <input
-                          type="text"
-                          id="team__name-container"
-                          className="team__name-input"
-                          defaultValue={team.name}
-                          onChange={this.handleChange.bind(this, 'name')}
-                          placeholder={this.props.intl.formatMessage(messages.teamName)}
-                        />
-                      </h1>
-                      <div className="team__description">
-                        <input
-                          type="text"
-                          id="team__description-container"
-                          className="team__description-input"
-                          defaultValue={team.description}
-                          placeholder={this.props.intl.formatMessage(messages.teamDescription)}
-                          onChange={this.handleChange.bind(this, 'description')}
-                        />
-                      </div>
-                    </div>
 
-                    <div className="team__location">
-                      <input
-                        type="text"
+                      <TextField
+                        className="team__name-input"
+                        id="team__name-container"
+                        defaultValue={team.name}
+                        floatingLabelText={this.props.intl.formatMessage(messages.teamName)}
+                        onChange={this.handleChange.bind(this, 'name')}
+                        fullWidth
+                      />
+
+                      <TextField
+                        className="team__description"
+                        id="team__description-container"
+                        defaultValue={team.description}
+                        floatingLabelText={this.props.intl.formatMessage(messages.teamDescription)}
+                        onChange={this.handleChange.bind(this, 'description')}
+                        fullWidth
+                      />
+
+                      <TextField
+                        className="team__location"
                         id="team__location-container"
                         defaultValue={contact ? contact.node.location : ''}
-                        className="team__location-name-input"
-                        placeholder={this.props.intl.formatMessage(messages.location)}
+                        floatingLabelText={this.props.intl.formatMessage(messages.location)}
                         onChange={this.handleChange.bind(this, 'contact_location')}
+                        fullWidth
                       />
-                    </div>
 
-                    <div className="team__phone">
-                      <input
-                        type="text"
+                      <TextField
+                        className="team__phone"
                         id="team__phone-container"
                         defaultValue={contact ? contact.node.phone : ''}
-                        className="team__location-name-input"
-                        placeholder={this.props.intl.formatMessage(messages.phone)}
+                        floatingLabelText={this.props.intl.formatMessage(messages.phone)}
                         onChange={this.handleChange.bind(this, 'contact_phone')}
+                        fullWidth
                       />
-                    </div>
 
-                    <div className="team__web">
-                      <input
-                        type="text"
+                      <TextField
+                        className="team__location-name-input"
                         id="team__link-container"
                         defaultValue={contact ? contact.node.web : ''}
-                        className="team__location-name-input"
-                        placeholder={this.props.intl.formatMessage(messages.website)}
+                        floatingLabelText={this.props.intl.formatMessage(messages.website)}
                         onChange={this.handleChange.bind(this, 'contact_web')}
+                        fullWidth
                       />
                     </div>
 
                     <div className="team__settings">
-                      <span>
-                        <input
-                          type="checkbox"
-                          id="team__settings-slack-notifications-enabled"
-                          value="1"
-                          defaultChecked={team.get_slack_notifications_enabled === '1'}
-                          onChange={this.handleChange.bind(this, 'slackNotificationsEnabled')}
-                        />
-                        <label htmlFor="team__settings-slack-notifications-enabled">
-                          <FormattedMessage
-                            id="teamComponent.slackNotificationsEnabled"
-                            defaultMessage="Enable Slack notifications"
-                          />
-                        </label>
-                      </span>
-                      <span>
-                        <input
-                          type="text"
-                          id="team__settings-slack-webhook"
-                          defaultValue={team.get_slack_webhook}
-                          placeholder={this.props.intl.formatMessage(messages.slackWebhook)}
-                          onChange={this.handleChange.bind(this, 'slackWebhook')}
-                        />
-                      </span>
-                      <span>
-                        <input
-                          type="text"
-                          id="team__settings-slack-channel"
-                          defaultValue={team.get_slack_channel}
-                          placeholder={this.props.intl.formatMessage(messages.slackChannel)}
-                          onChange={this.handleChange.bind(this, 'slackChannel')}
-                        />
-                      </span>
+                      <Checkbox
+                        label={<FormattedMessage id="teamComponent.slackNotificationsEnabled"defaultMessage="Enable Slack notifications" />}
+                        defaultChecked={team.get_slack_notifications_enabled === '1'}
+                        onCheck={this.handleChange.bind(this, 'slackNotificationsEnabled')}
+                        id="team__settings-slack-notifications-enabled"
+                        value="1"
+                      />
+
+                      <TextField
+                        id="team__settings-slack-webhook"
+                        defaultValue={team.get_slack_webhook}
+                        floatingLabelText={this.props.intl.formatMessage(messages.slackWebhook)}
+                        onChange={this.handleChange.bind(this, 'slackWebhook')}
+                        fullWidth
+                      />
+
+                      <TextField
+                        id="team__settings-slack-channel"
+                        defaultValue={team.get_slack_channel}
+                        floatingLabelText={this.props.intl.formatMessage(messages.slackChannel)}
+                        onChange={this.handleChange.bind(this, 'slackChannel')}
+                        fullWidth
+                      />
                     </div>
                   </section>
                 );
