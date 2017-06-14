@@ -7,7 +7,7 @@ import Tags from './Tags';
 import {Link} from 'react-router';
 import TextField from 'material-ui/TextField';
 import Checkbox from 'material-ui/Checkbox';
-
+import FlatButton from 'material-ui/FlatButton';
 import MdCreate from 'react-icons/lib/md/create';
 
 import UpdateTeamMutation from '../../relay/UpdateTeamMutation';
@@ -217,15 +217,7 @@ class TeamComponent extends Component {
               if (isEditing) {
                 return (
                   <section className="team__profile team__profile--editing">
-                    <button onClick={this.cancelEditTeam.bind(this)} className="team__cancel-button">
-                      <FormattedMessage id="teamComponent.cancelButton" defaultMessage="Cancel" />
-                    </button>
-                    <button onClick={this.handleEditTeam.bind(this)} className="team__save-button" disabled={this.state.submitDisabled}>
-                      <FormattedMessage id="teamComponent.saveButton" defaultMessage="Save" />
-                    </button>
-
                     <div className="team__primary-info">
-
                       <TextField
                         className="team__name-input"
                         id="team__name-container"
@@ -297,6 +289,30 @@ class TeamComponent extends Component {
                         fullWidth
                       />
                     </div>
+
+                    <div className="button-group">
+                      <FlatButton
+                        label={
+                          <FormattedMessage
+                            id="teamComponent.cancelButton"
+                            defaultMessage="Cancel"
+                          />
+                        }
+                        onClick={this.cancelEditTeam.bind(this)}
+                      />
+
+                      <FlatButton
+                        label={
+                          <FormattedMessage
+                            id="teamComponent.saveButton"
+                            defaultMessage="Save"
+                            disabled={this.state.submitDisabled}
+                          />
+                        }
+                        primary
+                        onClick={this.handleEditTeam.bind(this)}
+                      />
+                    </div>
                   </section>
                 );
               }
@@ -304,14 +320,13 @@ class TeamComponent extends Component {
               return (
                 <section className="team__profile">
                   <Can permissions={team.permissions} permission="update Team">
-                    <div className="team__edit-profile">
-                      <button onClick={this.handleEntreEditTeamNameAndDescription.bind(this)} className="team__edit-button">
-                        <FormattedMessage
-                          id="teamComponent.editButton"
-                          defaultMessage="Edit profile"
-                        />
-                      </button>
-                    </div>
+                    <FlatButton label={<FormattedMessage
+                        id="teamComponent.editButton"
+                        defaultMessage="Edit profile"
+                      />}
+                      primary
+                      onClick={this.handleEntreEditTeamNameAndDescription.bind(this)}
+                    />
                   </Can>
 
                   <div
@@ -361,12 +376,11 @@ class TeamComponent extends Component {
                         </Link>
                       </li>
                     ))}
-                  <Can permissions={team.permissions} permission="create Project">
-                    <li className="team__new-project">
-                      <CreateProject className="team__new-project-input" team={team} />
-                    </li>
-                  </Can>
                 </ul>
+
+                <Can permissions={team.permissions} permission="create Project">
+                  <CreateProject className="team__new-project-input" team={team} />
+                </Can>
               </div>
             </div>
           </ContentColumn>
