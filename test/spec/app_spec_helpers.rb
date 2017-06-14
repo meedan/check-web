@@ -175,7 +175,8 @@ module AppSpecHelpers
   end
 
   def console_logs
-    @driver.manage.logs.get("browser")
+    require 'pp'
+    @driver.manage.logs.get("browser").pretty_inspect
   end
 
   def create_media(url)
@@ -211,5 +212,16 @@ module AppSpecHelpers
     sleep 8 # wait for Godot
 
     expect(@driver.page_source.include?('My search result')).to be(true)
+  end
+
+  def save_screenshot(title)
+    require 'imgur'
+    path = '/tmp/' + (0...8).map{ (65 + rand(26)).chr }.join + '.png'
+    @driver.save_screenshot(path)
+
+    client = Imgur.new(@config['imgur_client_id'])
+    image = Imgur::LocalImage.new(path, title: title)
+    uploaded = client.upload(image)
+    uploaded.link
   end
 end
