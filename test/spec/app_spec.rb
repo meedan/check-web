@@ -90,7 +90,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
   context "web" do
 
     #include_examples "custom"
-=begin
+
     it "should edit the title of a media" do
       media_pg = LoginPage.new(config: @config, driver: @driver).load.login_with_email(email: @email, password: @password)
       @wait.until { @driver.page_source.include?('Claim') }
@@ -1099,6 +1099,5 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Email not found')).to be(false)
       expect(@driver.page_source.include?('Password reset sent')).to be(true)
     end
-=end
   end
 end
