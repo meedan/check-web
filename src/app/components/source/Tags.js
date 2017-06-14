@@ -106,7 +106,9 @@ Tags.contextTypes = {
 
 class TagsRemove extends React.Component {
   render() {
-    return (<button {...this.props}>×</button>);
+    const buttonProps = Object.assign({}, this.props);
+    delete buttonProps.removeComponent;
+    return (<button {...buttonProps}>×</button>);
   }
 }
 
