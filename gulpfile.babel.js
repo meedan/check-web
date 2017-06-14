@@ -10,6 +10,7 @@ import webpack from 'webpack';
 import mergeTransifex from './webpack/gulp-merge-transifex-translations';
 import webpackConfig from './webpack/config';
 import buildConfig from './config-build';
+import webpackDevServer from 'webpack-dev-server';
 
 let transifexClient = null;
 if (buildConfig.transifex) {
@@ -118,3 +119,24 @@ gulp.task('transifex:languages', () => {
 });
 
 gulp.task('build:web', ['replace-webpack-code', 'relay:copy', 'webpack:build:web', 'views:build:web', 'copy:build:web']);
+
+// Dev mode — with "watch" enabled for faster builds
+// modify the default config
+var devConfig = Object.create(webpackConfig);
+
+gulp.task('webpack:build:web:dev', () => {
+  devConfig.entry = devConfig.entryWeb;
+  devConfig.output.path = devConfig.output.pathWeb;
+  devConfig.watch = true;
+
+  webpack(Object.create(devConfig), (err, stats) => {
+    if (err) {
+      throw new gutil.PluginError('webpack:build', err);
+    }
+    gutil.log('[webpack:build:web:dev]', stats.toString({ colors: true, chunks: false }));
+  });
+});
+
+// Run the full compiler steps except with the main build
+gulp.task('build:web:dev', ['replace-webpack-code', 'relay:copy', 'webpack:build:web:dev', 'views:build:web', 'copy:build:web']);
+
