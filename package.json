@@ -21,6 +21,7 @@
     "transifex:download": "gulp transifex:download && gulp transifex:translations",
     "transifex:upload": "gulp transifex:prepare && gulp transifex:upload",
     "publish": "node scripts/server.js",
+    "publish2": "babel-node -- scripts/server2.js",
     "test": "npm run test:unit && npm run test:integration && npm run test:quick",
     "test:unit": "cp test/unit/config.js node_modules/config.webpack-node.js && NODE_PATH=$NODE_PATH:. BABEL_ENV=production mocha-webpack --webpack-config webpack/test.babel.js --require test/unit/setup.js \"test/unit/*.spec.js\"",
     "test:integration": "cd test && rspec spec/integration_spec.rb && cd ..",
@@ -96,6 +97,7 @@
     "webpack-node-externals": "^1.5.4"
   },
   "dependencies": {
+    "babel-cli": "^6.24.1",
     "babel-eslint": "^7.1.1",
     "babel-plugin-react-intl": "^2.3.0",
     "babel-plugin-react-transform": "^2.0.2",
@@ -115,7 +117,9 @@
     "lodash.xor": "^4.5.0",
     "marked": "^0.3.5",
     "material-ui": "^0.16.5",
+    "node-fetch": "^1.7.1",
     "node-sass": "^4.0.0",
+    "node-window": "^1.0.1",
     "postcss-cli": "^2.3.2",
     "rc-tooltip": "^3.4.2",
     "react": "^15.5.4",
