@@ -96,13 +96,12 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       @wait.until { @driver.page_source.include?('Claim') }
       media_pg = media_pg.create_media(input: 'https://twitter.com/softlandscapes/status/834385935240462338?t=' + Time.now.to_i.to_s)
       expect(media_pg.primary_heading.text).to eq('Tweet by soft landscapes')
-#      sleep 3 # :/ clicks can misfire if pender iframe moves the button position at the wrong moment
-#      media_pg.set_title('Edited media title')
-
-#      expect(media_pg.primary_heading.text).to eq('Edited media title')
+      sleep 3 # :/ clicks can misfire if pender iframe moves the button position at the wrong moment
+      media_pg.set_title('Edited media title')
+      expect(media_pg.primary_heading.text).to eq('Edited media title')
       project_pg = media_pg.go_to_project
       sleep 3
-      expect(project_pg.elements('.media-detail__heading').map(&:text).include?('Tweet by soft landscapes')).to be(true)
+      expect(project_pg.elements('.media-detail__heading').map(&:text).include?('Edited media title')).to be(true)
     end
 
     it "should not add a duplicated tag from tags list" do
