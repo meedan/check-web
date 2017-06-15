@@ -1,5 +1,9 @@
 .translation__component {
-  margin-bottom: 16px;
+  margin-bottom: units(2);
+}
+
+.translation__card {
+  position: relative;
 }
 
 .translation__rtl {
@@ -13,9 +17,9 @@
 }
 
 .translation__card-title {
-  margin-top: 8px;
-  margin-bottom: 8px;
-  margin-#{$to-direction}: 24px;
+  margin-top: units(1);
+  margin-bottom: units(1);
+  margin-#{$to-direction}: units(3);
 }
 
 .translation__card-text {

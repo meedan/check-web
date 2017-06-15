@@ -8,14 +8,12 @@ import InfiniteScroll from 'react-infinite-scroller';
 import SearchRoute from '../relay/SearchRoute';
 import TeamRoute from '../relay/TeamRoute';
 import MediaDetail from './media/MediaDetail';
-import { bemClass } from '../helpers';
-import { getStatusStyle } from '../helpers';
+import { bemClass, getStatusStyle, notify } from '../helpers';
 import CheckContext from '../CheckContext';
 import ContentColumn from './layout/ContentColumn';
 import MediasLoading from './media/MediasLoading';
 import isEqual from 'lodash.isequal';
 import { teamStatuses } from '../customHelpers';
-import Notifier from 'react-desktop-notification';
 import config from 'config';
 
 const pageSize = 20;
@@ -387,7 +385,7 @@ class SearchResultsComponent extends Component {
         // Notify other users that there is a new translation request
         if (content && message.class_name === 'translation_request' && currentUserId != message.user_id) {
           let url = window.location.pathname.replace(/(^\/[^\/]+\/project\/[0-9]+).*/, '$1/media/' + message.id);
-          Notifier.start(that.props.intl.formatMessage(messages.newTranslationRequestNotification), content, url, avatar);
+          notify(that.props.intl.formatMessage(messages.newTranslationRequestNotification), content, url, avatar, "_self");
         }
 
         // Notify other users that there is a new translation
@@ -400,7 +398,7 @@ class SearchResultsComponent extends Component {
           });
           if (translated) {
             let url = window.location.pathname.replace(/(^\/[^\/]+\/project\/[0-9]+).*/, '$1/media/' + message.annotated_id);
-            Notifier.start(that.props.intl.formatMessage(messages.newTranslationNotification), that.props.intl.formatMessage(messages.newTranslationNotificationBody), url, avatar);
+            notify(that.props.intl.formatMessage(messages.newTranslationNotification), that.props.intl.formatMessage(messages.newTranslationNotificationBody), url, avatar, "_self");
           }
         }
 
