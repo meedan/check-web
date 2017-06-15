@@ -129,6 +129,7 @@ gulp.task('webpack:build:web:dev', () => {
   devConfig.entry = devConfig.entryWeb;
   devConfig.output.path = devConfig.output.pathWeb;
   devConfig.watch = true;
+  devConfig.bail = false;
 
   webpack(Object.create(devConfig), (err, stats) => {
     if (err) {
