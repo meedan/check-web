@@ -136,7 +136,3 @@ gulp.task('webpack:build:web:dev', () => {
     gutil.log('[webpack:build:web:dev]', stats.toString({ colors: true, chunks: false }));
   });
 });
-
-// Run the full compiler steps except with the main build
-gulp.task('build:web:dev', ['replace-webpack-code', 'relay:copy', 'webpack:build:web:dev', 'views:build:web', 'copy:build:web']);
-
