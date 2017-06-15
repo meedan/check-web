@@ -50,8 +50,6 @@ app.get('/js/*.bundle.js', function(req, res, next) {
 // static assets first
 app.use(serveStatic('build/web', { 'index': ['index.html'] }));
 
-const index = process.cwd() + '/build/web/index.html';
-
 // all other routes
 app.use(function(req, res, next) {
  
@@ -63,10 +61,12 @@ app.use(function(req, res, next) {
       fetch(config.relayPath, { method: 'post', body: `team=${mediaDetailUrl[1]}&query=${query}` }).then(function(response) {
         return response.json();
       }).catch(function(e) {
-        throw(e);
+        res.send(template({ config, metadata: null }));
       }).then(function(json) {
         const metadata = JSON.parse(json.data.project_media.metadata);
         res.send(template({ config, metadata }));
+      }).catch(function(e) {
+        res.send(template({ config, metadata: null }));
       });
     }
     catch (e) {
