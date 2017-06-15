@@ -10,7 +10,6 @@ import webpack from 'webpack';
 import mergeTransifex from './webpack/gulp-merge-transifex-translations';
 import webpackConfig from './webpack/config';
 import buildConfig from './config-build';
-import webpackDevServer from 'webpack-dev-server';
 
 let transifexClient = null;
 if (buildConfig.transifex) {
@@ -128,7 +127,6 @@ var devConfig = Object.create(webpackConfig);
 gulp.task('webpack:build:web:dev', () => {
 
   // Duplicated from the regular build
-  // TODO — can we DRY this? CGB 2017-6-15
   devConfig.entry = devConfig.entryWeb;
   devConfig.output.path = devConfig.output.pathWeb;
 
@@ -150,7 +148,7 @@ gulp.task('webpack:build:web:dev', () => {
       colors: true,
       hash: false,
       version: false,
-      timings: false,
+      timings: true,
       assets: false,
       chunks: false,
       modules: false,
