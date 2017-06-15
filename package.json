@@ -17,7 +17,6 @@
     "style:watch:rtl": "watch 'npm run style:rtl' ./src/app/styles",
     "style:watch:ltr": "watch 'npm run style:ltr' ./src/app/styles",
     "build": "rm -rf build/web && npm run style:all && npm run build:gulp",
-    "build:dev": "npm run build:gulp:dev",
     "build:gulp": "BABEL_ENV=production gulp build:web",
     "webpack:build:web:dev": "BABEL_ENV=production gulp webpack:build:web:dev",
     "transifex:download": "gulp transifex:download && gulp transifex:translations",

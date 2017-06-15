@@ -121,7 +121,8 @@ gulp.task('transifex:languages', () => {
 gulp.task('build:web', ['replace-webpack-code', 'relay:copy', 'webpack:build:web', 'views:build:web', 'copy:build:web']);
 
 // Dev mode — with "watch" enabled for faster builds
-// modify the default config
+// Webpack only — without the rest of the web build steps.
+//
 var devConfig = Object.create(webpackConfig);
 
 gulp.task('webpack:build:web:dev', () => {
