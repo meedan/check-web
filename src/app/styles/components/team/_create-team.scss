@@ -9,9 +9,9 @@
 }
 
 .create-team__form {
-  margin: 0 auto;
   width: 520px;
   word-break: keep-all;
+  margin: 0 auto;
 }
 
 .create-team__team-display-name {
@@ -62,7 +62,7 @@
   color: $black-32;
   font: font(headline);
   margin-#{$from-direction}: units(1);
-  padding-bottom: units(3) + units(.5);
+  padding-bottom: units(3) + units(half);
   @include when-smaller-than(mobile-breakpoint) {
     font: font(body2);
   }

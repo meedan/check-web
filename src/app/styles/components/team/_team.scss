@@ -1,26 +1,166 @@
 .team {
+  $team-edit-gutter-width: units(20);
   $team-avatar-width: units(12);
-  $team-profile-offset: units(18);
+  font: font(subheading2);
 
-  &__profile {
-    margin-bottom: units(4);
-    margin-top: $team-profile-offset * -1;
-    padding-top: $team-profile-offset;
+  // Default team text inputs
+  //
+  input[type='text'] {
+    @include text-input;
+    width: 100%;
+  }
 
-    &--editing {
-      .team__settings {
-        margin-top: units(4);
-      }
+  // First section
+  //
+  &__avatar-and-primary-info {
+    display: flex;
+
+    .team__name,
+    .team__description {
+      margin-top: units(1);
     }
   }
 
-  &__contact-info {
-    & > span {
-      margin-#{$to-direction}: units(2);
+  // The edit button group
+  &__edit-profile {
+    @include button-group;
+    justify-content: flex-end;
+    margin-top: units(2);
+    order: 2;
+    width: $team-edit-gutter-width - units(1);
+
+    @include when-smaller-than(mobile-breakpoint) {
+      flex-direction: column;
+      margin-#{$from-direction}: units(2);
+      width: auto;
+    }
+
+    button {
+      @include button-medium;
+      @include icon-button;
+
+      &.team__save-button {
+        @include button-primary;
+      }
+
+      // Hide the text on mobile
+      &.team__edit-button {
+        min-width: units(20);
+
+        @include when-smaller-than(mobile-breakpoint) {
+          min-width: units(5);
+          padding: 0;
+
+          span {
+            display: none;
+          }
+
+          svg {
+            margin: 0;
+          }
+        }
+      }
     }
   }
 
   &__avatar {
     @include avatar($team-avatar-width);
+    margin: units(2) 0 0;
+  }
+
+  &__primary-info {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    margin: 0 units(2);
+  }
+
+  // Second and third section
+  //
+  &__contact-info,
+  &__settings {
+    margin-#{$to-direction}: $team-edit-gutter-width + units(1);
+    margin-#{$from-direction}: $team-avatar-width - units(3);
+
+    @include when-smaller-than(mobile-breakpoint) {
+      margin-#{$to-direction}: 0;
+    }
+
+    > span {
+      @extend %ellipsis;
+      display: flex;
+      flex: 1;
+      padding-top: units(4);
+
+      > span {
+        display: flex;
+        flex: 1;
+
+        > span {
+          @extend %break-word;
+          @extend %ellipsis;
+        }
+      }
+
+      svg {
+        align-self: flex-end;
+        height: units(3);
+        margin-#{$to-direction}: units(2);
+        margin-bottom: units(1);
+        min-width: units(3);
+        width: units(3);
+      }
+    }
+
+    input[type='checkbox'] {
+      height: units(2);
+      margin: units(4) 0 units(1) units(2);
+      width: units(2);
+
+      & ~ label {
+        align-self: flex-end;
+      }
+    }
+  }
+
+  // 4th section
+  //
+  // Hidden while editing
+  &__profile--editing {
+    padding-bottom: units(4);
+
+    .team__content {
+      display: none;
+    }
+  }
+
+  &__content {
+    padding: layout(gutter-medium);
+
+    .team__projects-heading {
+      font: font(title);
+    }
+
+    .team__projects-list {
+      margin: units(2) 0;
+
+      li {
+        font: font(subheading2);
+        font-weight: 700;
+        margin-bottom: units(2);
+      }
+
+      // The first project is larger
+      // TODO — improve first-time experience with fancier CTA — CGB 2017-3-23
+      & > :only-child {
+        font: font(display1);
+        padding-top: 0;
+      }
+    }
+
+    .team__new-project {
+      margin-top: units(2);
+      width: units(24);
+    }
   }
 }

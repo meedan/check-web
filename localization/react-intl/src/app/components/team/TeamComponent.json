@@ -56,10 +56,6 @@
     "defaultMessage": "Translation Projects"
   },
   {
-    "id": "teamComponent.slackNotificationsEnabled",
-    "defaultMessage": "Enable Slack notifications"
-  },
-  {
     "id": "teamComponent.cancelButton",
     "defaultMessage": "Cancel"
   },
@@ -70,5 +66,9 @@
   {
     "id": "teamComponent.editButton",
     "defaultMessage": "Edit profile"
+  },
+  {
+    "id": "teamComponent.slackNotificationsEnabled",
+    "defaultMessage": "Enable Slack notifications"
   }
 ]

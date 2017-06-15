@@ -24,7 +24,7 @@
 .header-actions__menu {
   @include menu;
   #{$to-direction}: units(2);
-  top: units(5.5);
+  top: units(5) + units(half);
 }
 
 .header-actions__menu-item {

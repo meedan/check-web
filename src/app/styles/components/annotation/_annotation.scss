@@ -82,7 +82,7 @@
   flex: 1;
   flex-flow: wrap row;
   font: font(caption);
-  height: units(5.5);
+  height: units(5) + units(half);
   margin-top: units(3);
   padding-#{$to-direction}: units(1);
 }
@@ -155,7 +155,7 @@
 }
 
 .annotation__comment {
-  margin-top: units(.5);
+  margin-top: units(half);
 
   .annotation__comment-text {
     float: #{$from-direction};
@@ -205,7 +205,7 @@
 
 .annotation__card-embedded-medias {
   clear: both;
-  margin-top: units(.5);
+  margin-top: units(half);
 }
 
 .annotation__keep a {

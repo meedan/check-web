@@ -7,7 +7,7 @@ $menu-status-offset: units(1);
   padding-#{$from-direction}: $menu-status-offset;
   padding-#{$to-direction}: units(1);
   padding-bottom: 0;
-  padding-top: units(.5);
+  padding-top: units(half);
   position: relative;
 
   &--editable {
