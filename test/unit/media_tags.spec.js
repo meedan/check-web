@@ -11,7 +11,7 @@ describe('<MediaTags />', () => {
     }
   };
 
-  const tags = [{node: {tag: 'tag1'}}, {node: {tag: 'suggestedTag3'}}];
+  const tags = [{node: {tag: 'tag1', id: '123'}}, {node: {tag: 'suggestedTag3', id: '234'}}];
 
   it('renders correctly when editing', function() {
     const mediaTags = mountWithIntl(<MediaTags media={media} tags={tags} isEditing={true} />);
