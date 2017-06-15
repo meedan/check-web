@@ -1099,5 +1099,19 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Email not found')).to be(false)
       expect(@driver.page_source.include?('Password reset sent')).to be(true)
     end
+
+    it "should set metatags" do
+      media_pg = LoginPage.new(config: @config, driver: @driver).load.login_with_email(email: @email, password: @password)
+      media_pg = media_pg.create_media(input: 'https://twitter.com/marcouza/status/875424957613920256')
+      sleep 3
+      request_api('/test/make_team_public', { slug: get_team })
+      sleep 3
+      url = @driver.current_url.to_s
+      @driver.navigate.to url
+      site = @driver.find_element(:css, 'meta[name="twitter\\:site"]').attribute('content')
+      expect(site == @config['app_name']).to be(true)
+      twitter_title = @driver.find_element(:css, 'meta[name="twitter\\:title"]').attribute('content')
+      expect(twitter_title == 'This is a test').to be(true)
+    end
   end
 end
