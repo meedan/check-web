@@ -132,7 +132,7 @@ class TranslationItem extends Component {
 
     return (
       <div className="translation__component">
-        <Card className="translation__card">
+        <Card className="translation__card" style={{'zIndex': 'auto'}}>
           <CardText className="translation__card-text">
             {cardMenu}
             {this.state.editing ?
