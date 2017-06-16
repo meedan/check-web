@@ -7,6 +7,7 @@ import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import ResetPasswordMutation from '../relay/ResetPasswordMutation';
 import CheckContext from '../CheckContext';
+import { stringHelper } from '../customHelpers';
 import config from 'config';
 
 const messages = defineMessages({
@@ -56,7 +57,7 @@ class UserPasswordReset extends Component {
     const that = this;
 
     const onFailure = (transaction) => {
-      that.setState({ errorMsg: that.props.intl.formatMessage(messages.emailNotFoundContactSupport, {supportEmail: config.supportEmail}), submitDisabled: true });
+      that.setState({ errorMsg: that.props.intl.formatMessage(messages.emailNotFoundContactSupport, {supportEmail: stringHelper('SUPPORT_EMAIL')}), submitDisabled: true });
     };
 
     const onSuccess = (response) => {
@@ -81,7 +82,10 @@ class UserPasswordReset extends Component {
           { this.state.showConfirmDialog ? [
             <CardTitle title={<FormattedMessage id="passwordReset.confirmedTitle" defaultMessage="Password reset sent" />} />,
             <CardText>
-              <FormattedMessage id="passwordReset.confirmedText" defaultMessage="We've sent you an email from admin@checkmedia.org with instructions to reset your password. Make sure it didn't wind up in your spam mailbox. If you aren't receiving our password reset emails, contact check@meedan.com." />
+              <FormattedMessage id="passwordReset.confirmedText"
+                defaultMessage="We've sent you an email from {adminEmail} with instructions to reset your password. Make sure it didn't wind up in your spam mailbox. If you aren't receiving our password reset emails, contact {supportEmail}."
+                values={{ adminEmail: stringHelper('ADMIN_EMAIL') , supportEmail: stringHelper('SUPPORT_EMAIL') }}
+              />
             </CardText>,
             <CardActions className="user-password-reset__actions">
               <FlatButton label={<FormattedMessage id="passwordReset.signIn" defaultMessage="Sign In"/>} primary disabled={this.state.submitDisabled} onClick={this.handleSignIn.bind(this)} />
