@@ -1043,7 +1043,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 10
       expect((@driver.current_url.to_s.match(/DESC/)).nil?).to be(true)
       expect((@driver.current_url.to_s.match(/ASC/)).nil?).to be(false)
-      expect(@driver.find_elements(:css, '.medias__item').size > 0).to be(true)
+      expect(@driver.page_source.include?('My search result')).to be(true)
     end
 
     it "should search by project through URL" do
