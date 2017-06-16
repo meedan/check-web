@@ -118,3 +118,47 @@ gulp.task('transifex:languages', () => {
 });
 
 gulp.task('build:web', ['replace-webpack-code', 'relay:copy', 'webpack:build:web', 'views:build:web', 'copy:build:web']);
+
+// Dev mode — with "watch" enabled for faster builds
+// Webpack only — without the rest of the web build steps.
+//
+var devConfig = Object.create(webpackConfig);
+
+gulp.task('webpack:build:web:dev', () => {
+
+  // Duplicated from the regular build
+  devConfig.entry = devConfig.entryWeb;
+  devConfig.output.path = devConfig.output.pathWeb;
+
+  // Enable watcher to monitor for changes
+  devConfig.watch = true;
+
+  // Don't stop on error
+  devConfig.bail = false;
+
+  // Disable sourcemaps, for faster compile
+  // (Enable if needed, by commenting this out)
+  devConfig.devtool = 'eval';
+
+  webpack(Object.create(devConfig), (err, stats) => {
+    if (err) {
+      throw new gutil.PluginError('webpack:build', err);
+    }
+    gutil.log('[webpack:build:web:dev]', stats.toString({
+      colors: true,
+      hash: false,
+      version: false,
+      timings: true,
+      assets: false,
+      chunks: false,
+      modules: false,
+      reasons: false,
+      children: false,
+      source: false,
+      errors: true,
+      errorDetails: false,
+      warnings: false,
+      publicPath: false
+    }));
+  });
+});
