@@ -1,10 +1,6 @@
 [
   {
     "id": "browserSupport.message",
-    "defaultMessage": "While in beta, Check is optimized for Google Chrome on desktop."
-  },
-  {
-    "id": "bridge.browserSupport.message",
-    "defaultMessage": "While in beta, Bridge is optimized for Google Chrome on desktop."
+    "defaultMessage": "While in beta, {appName} is optimized for Google Chrome on desktop."
   }
 ]
