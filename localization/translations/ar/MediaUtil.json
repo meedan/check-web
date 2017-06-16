@@ -1,0 +1,16 @@
+{
+  "media.notesCount": "{notesCount, plural, =0 {لا تعليق} one {تعليق واحد} other {# تعليقات}}",
+  "media.typeTwitter": "تويت",
+  "media.typeFacebook": "نشرة فيسبوك",
+  "media.typeInstagram": "انستقرام",
+  "media.typeVideo": "فيديو",
+  "media.typeClaim": "إدعاء",
+  "bridge.media.typeClaim": "نص",
+  "media.typeImage": "صورة",
+  "media.typePage": "صفحة",
+  "media.onDomain": "{typeLabel} على {domain}",
+  "media.byAttribution": "{typeLabel} من {attribution}",
+  "media.withText": "{typeLabel}: {text}",
+  "media.favoritesCount": "{favoritesCount, plural, =0 {} one {مُفَضَّل واحد} other {# مُفَضَّلات}}",
+  "media.retweetsCount": "{retweetsCount, plural, =0 {} one {ريتويت واحد} other {# ريتويتات}}"
+}

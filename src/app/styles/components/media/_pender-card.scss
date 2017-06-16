@@ -1,52 +1,37 @@
+// Pender cards
+// These are the default rendering of some links that don't have Check-level renderings.
+// We add a max-height to ensure that they don't get extremely large (some webpages seem to render in entirety.)
 .pender-card {
-  min-height: 200px;
+  max-height: units(250);
+  min-height: units(25);
+  overflow-x: hidden;
+  overflow-y: hidden;
   position: relative;
 
   iframe {
-    position: relative;
-    left: 0;
-    top: 0;
+    #{$from-direction}: 0;
+    #{$to-direction}: 0;
     bottom: 0;
-    right: 0;
+    position: relative;
+    top: 0;
     z-index: 1;
   }
 }
 
 .pender-card__loader {
-  display: inline-block;
-  $size: 100%; width: $size; height: $size;
+  #{$from-direction}: 50%;
+  $size: 100%;
+  align-items: center;
+  display: flex;
+  height: $size;
+  justify-content: center;
   position: absolute;
   top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, 50%);
+  width: $size;
 
   .social-media-card {
     border: 0;
-    padding-top: 40px;
-  }
-
-  .react-spinner {
-    position: relative;
-    top: 50%;
-    left: 50%;
-    width: 100%;
-    height: 100%;
-  }
-
-  .react-spinner_bar {
-    animation: spinner 1.2s linear infinite;
-    border-radius: 5px;
-    background-color: theme-gray(50%);
-    position: absolute;
-    width: 20%;
-    height: 8%;
-    top: -4%;
-    left: -10%;
-  }
-
-  @keyframes spinner {
-    0% { opacity: 0; }
-    20% { opacity: 0.25; }
-    100% { opacity: 0; }
+    padding-top: units(5);
   }
 }

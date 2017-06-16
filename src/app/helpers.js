@@ -1,4 +1,6 @@
 import config from 'config';
+import truncate from 'lodash.truncate';
+import rtlDetect from 'rtl-detect';
 
 // Functionally-pure sort: keeps the given array unchanged and returns sorted one.
 Array.prototype.sortp = function (fn) {
@@ -9,29 +11,71 @@ function bemClass(baseClass, modifierBoolean, modifierSuffix) {
   return modifierBoolean ? [baseClass, baseClass + modifierSuffix].join(' ') : baseClass;
 }
 
-function teamSubdomain() {
-  const baseDomain = config.selfHost;
-  const currentDomain = window.location.host;
-
-  if (currentDomain.indexOf(baseDomain) > 1) {
-    return currentDomain.slice(0, currentDomain.indexOf(baseDomain) - 1);
-  }
+function bemClassFromMediaStatus(baseClass, mediaStatus) {
+  return bemClass(
+    baseClass,
+    (mediaStatus && mediaStatus.length),
+    `--${mediaStatus.toLowerCase().replace(/[ _]/g, '-')}`,
+  );
 }
 
-// Make a Check page title as `prefix | team Check`.
-// Try to get the current team's name and fallback to just `Check`.
-// Skip team name if `skipTeam` is true.
-// Skip `prefix |` if `prefix` empty.
-function pageTitle(prefix, skipTeam, team) {
-  let suffix = 'Check';
-  if (!skipTeam) {
-    try {
-      suffix = `${team.name} Check`;
-    } catch (e) {
-      if (!(e instanceof TypeError)) throw e;
+function getStatus(statusesJson, id) {
+  const statuses = safelyParseJSON(statusesJson).statuses;
+  let status = '';
+  statuses.forEach((st) => {
+    if (st.id === id) {
+      status = st;
     }
-  }
-  return (prefix ? (`${prefix} | `) : '') + suffix;
+  });
+  return status;
 }
 
-export { bemClass, pageTitle, teamSubdomain };
+function getStatusStyle(status, property) {
+  let style = '';
+  if (status && status.style) {
+    style = status.style[property];
+  }
+  return style;
+}
+
+function safelyParseJSON(jsonString) {
+  try {
+    return JSON.parse(jsonString);
+  } catch (e) {}
+}
+
+function truncateLength(text, length = 100) {
+  return truncate(text, { length, separator: /,? +/, ellipsis: '…' });
+}
+
+function rtlClass(language_code) {
+  return (rtlDetect.isRtlLang(language_code)) ? 'translation__rtl' : 'translation__ltr';
+}
+
+function notify(title, body, url, icon, name){
+  if (!Notification) {
+    return false;
+  }
+
+  if (Notification.permission !== "granted") {
+    Notification.requestPermission();
+  } else {
+    var notification = new Notification(title, { icon, body });
+    notification.onclick = function() {
+      window.open(url, name);
+      window.focus();
+      notification.close();
+    };
+  }
+}
+
+export {
+  bemClass,
+  bemClassFromMediaStatus,
+  rtlClass,
+  safelyParseJSON,
+  getStatus,
+  getStatusStyle,
+  notify,
+  truncateLength
+};

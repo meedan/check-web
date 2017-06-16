@@ -10,7 +10,7 @@ const TeamContainer = Relay.createContainer(TeamMembersComponent, {
         id,
         dbid,
         name,
-        subdomain,
+        slug,
         team_users(first: 10000) {
           edges {
             node {
@@ -30,7 +30,7 @@ const TeamContainer = Relay.createContainer(TeamMembersComponent, {
 
 class TeamMembers extends Component {
   render() {
-    const route = new TeamRoute({ teamId: '' });
+    const route = new TeamRoute({ teamSlug: this.props.params.team });
     return (<Relay.RootContainer Component={TeamContainer} route={route} />);
   }
 }

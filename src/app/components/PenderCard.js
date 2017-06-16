@@ -1,19 +1,24 @@
 import React, { Component, PropTypes } from 'react';
-import Spinner from 'react-spinner';
 
 class PenderCard extends Component {
   addTag() {
     const script = document.createElement('script');
-    script.src = `${this.props.penderUrl}/api/medias.js?url=${encodeURIComponent(this.props.url)}`;
+    const version = this.props.mediaVersion || 0;
+    script.src = `${this.props.penderUrl}/api/medias.js?version=${version}&url=${encodeURIComponent(this.props.url)}`;
     script.async = true;
     script.type = 'text/javascript';
-    document.getElementById('pender-card').appendChild(script);
+    const card = document.getElementById('pender-card');
+    if (card) {
+      card.appendChild(script);
+    }
   }
 
   removeTag() {
     const container = document.getElementById('pender-card');
     const loader = document.getElementById('pender-card-loader');
-    container.innerHTML = loader.outerHTML;
+    if (loader) {
+      container.innerHTML = loader.outerHTML;
+    }
   }
 
   componentDidMount() {
@@ -29,6 +34,10 @@ class PenderCard extends Component {
     this.removeTag();
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    return ((nextProps.url != this.props.url) || (nextProps.mediaVersion != this.props.mediaVersion));
+  }
+
   render() {
     return (
       <div id="pender-card" className="pender-card">
@@ -36,9 +45,9 @@ class PenderCard extends Component {
           {(() => {
             if (this.props.fallback) {
               return (this.props.fallback);
-            } else {
-              return (<Spinner />);
             }
+            return (<svg className="spinner" width="40px" height="40px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg"><circle className="spinner-path" fill="none" strokeWidth="2" strokeLinecap="round" cx="33" cy="33" r="30" />
+            </svg>);
           })()}
         </div>
       </div>

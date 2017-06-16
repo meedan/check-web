@@ -1,0 +1,35 @@
+.annotations {
+  .annotations__list {
+    padding-bottom: 2vh;
+    position: relative;
+
+    // The timeline line
+    &::before {
+      #{$from-direction}: units(4);
+      background-color: $opaque-black-16;
+      bottom: 0;
+      content: '';
+      display: block;
+      position: absolute;
+      top: units(2);
+      width: $border-width-medium;
+    }
+  }
+
+  .annotations__list-item {
+    position: relative;
+
+    // The timeline dot
+    &::before {
+      #{$from-direction}: units(4) - ($border-width-medium + ($border-width-medium / 2));
+      background-color: $opaque-black-16;
+      border-radius: 100%;
+      content: '';
+      height: units(1);
+      outline: $border-width-large solid $opaque-black-02;
+      position: absolute;
+      top: units(2);
+      width: units(1);
+    }
+  }
+}

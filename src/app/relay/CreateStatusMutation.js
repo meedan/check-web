@@ -15,7 +15,7 @@ class CreateStatusMutation extends Relay.Mutation {
       query = Relay.QL`fragment on CreateStatusPayload { statusEdge, source { annotations, id } }`;
       break;
     case 'project_media':
-      query = Relay.QL`fragment on CreateStatusPayload { statusEdge, project_media { annotations, id, last_status, annotations_count } }`;
+      query = Relay.QL`fragment on CreateStatusPayload { statusEdge, project_media { log, id, last_status, log_count, last_status_obj { id } } }`;
       break;
     }
     return query;
@@ -24,7 +24,7 @@ class CreateStatusMutation extends Relay.Mutation {
   getOptimisticResponse() {
     const status = {
       id: this.props.id,
-      created_at: new Date().toString(),
+      updated_at: new Date().toString(),
       annotation_type: 'status',
       permissions: '{"destroy Annotation":true,"destroy Status":true}',
       content: JSON.stringify({ status: this.props.annotation.status }),
@@ -55,14 +55,6 @@ class CreateStatusMutation extends Relay.Mutation {
     fieldIds[this.props.parent_type] = this.props.annotated.id;
 
     return [
-      {
-        type: 'RANGE_ADD',
-        parentName: this.props.parent_type,
-        parentID: this.props.annotated.id,
-        connectionName: 'annotations',
-        edgeName: 'statusEdge',
-        rangeBehaviors: calls => 'prepend',
-      },
       {
         type: 'FIELDS_CHANGE',
         fieldIDs: fieldIds,

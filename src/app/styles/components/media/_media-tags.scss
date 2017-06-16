@@ -1,68 +1,59 @@
 .media-tags {
-  @include media-metadata;
-  margin: 5px 0 0 0;
-
-  &:empty { display: none; }
+  &:empty {
+    display: none;
+  }
 }
 
 .media-tags__header {
-  display: flex;
-  align-items: baseline;
-  margin: 21px 0 7px 0;
+  // TODO remove in markup
+  display: none;
 }
 
 .media-tags__heading {
-  margin: 4px 15px 1px 0;
-  color: theme-gray(27%);
-  @include app-kicker;
+  font-weight: $font-weight-medium;
+  margin-#{$from-direction}: 0;
+  margin-#{$to-direction}: units(2);
+  margin-bottom: 1px;
+  margin-top: 4px;
+  text-transform: uppercase;
 }
 
 .media-tags__message {
-  color: theme-gray(67%);
-  font-size: 13px;
+  font: font(caption);
   margin: 0;
 }
 
 .media-tags__suggestions {
   display: inline-block;
-  margin: 5px 10px 0 0;
-}
-
-.media-tags__suggestion {
-  @include chicklet;
-}
-
-.media-tags__list {
-  margin: 5px 0 0 0;
-  display: inline-block;
+  margin-#{$from-direction}: 0;
+  margin-#{$to-direction}: units(1);
+  margin-bottom: 0;
+  margin-top: units(1);
 }
 
 .media-tags__tag,
-.media-tags .tags-list .ReactTags__tag { // TODO: refactor, hacky
-  &:before {
-    content: '#';
-    opacity: 0.6;
-  }
-  display: inline-block;
-  margin-right: 15px;
-  padding: 3px 0;
-  border: none;
-  margin: 0 10px 0 0;
-  font-size: 14px;
-  font-weight: 400;
+.media-tags__suggestion {
+  @include chip;
 }
 
-.media-tags .tags-list { // TODO: refactor, hacky
-  margin: 5px 0 0 0;
-  display: inline-block;
+.media-tags .tags-list .ReactTags__tag {
+  @include chip;
+  margin-#{$to-direction}: units(2);
+  min-width: units(7);
 }
 
+// Tags list in both modes
+.media-tags__list,
+.media-tags .tags-list {
+  // TBD
+}
+
+// TODO standardize with other form inputs — CGB 2017-3-12
 .media-tags .tags-list input {
-  color: #879cab;
-  padding: 3px 5px 3px 5px;
-  border: 1px solid #e1e6ea;
-  border-radius: 4px;
-  margin: 0 0 5px 0;
-  font-size: 13px;
-  font-weight: 400;
+  border: $border-width-small solid $black-16;
+  border-radius: units(half);
+  color: $black-38;
+  font: font(caption);
+  margin: 4px 10px 5px;
+  padding: 3px 5px;
 }

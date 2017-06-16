@@ -1,0 +1,20 @@
+{
+  "teamComponent.editError": "Desculpe, não foi possível alterar a equipe",
+  "teamComponent.editSuccess": "Informações da equipe atualizadas com sucesso!",
+  "teamComponent.changeAvatar": "Você não pode alterar isso agora, mas estamos trabalhando para ativá-lo em breve!",
+  "teamComponent.teamName": "Nome da Equipe",
+  "teamComponent.teamDescription": "Descrição da Equipe",
+  "teamComponent.location": "Local",
+  "teamComponent.phone": "Telefone",
+  "teamComponent.website": "Website",
+  "teamComponent.slackWebhook": "Webhook do Slack",
+  "teamComponent.slackChannel": "#canal padrão no Slack",
+  "teamComponent.verificationTeam": "Equipe de Verificação",
+  "bridge.teamComponent.verificationTeam": "Equipe de Tradução",
+  "teamComponent.title": "Projetos de Verificação",
+  "bridge.teamComponent.title": "Projetos de Tradução",
+  "teamComponent.cancelButton": "Cancelar",
+  "teamComponent.saveButton": "Salvar",
+  "teamComponent.editButton": "Editar perfil",
+  "teamComponent.slackNotificationsEnabled": "Ativar notificações via Slack"
+}

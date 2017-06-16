@@ -1,0 +1,14 @@
+[
+  {
+    "id": "uploadImage.changeFile",
+    "defaultMessage": "{filename} (click or drop to change)"
+  },
+  {
+    "id": "uploadImage.invalidExtension",
+    "defaultMessage": "Validation failed: File cannot have type \"{extension}\", allowed types: {allowed_types}"
+  },
+  {
+    "id": "uploadImage.message",
+    "defaultMessage": "Drop an image file here, or click to upload a file (max size: {upload_max_size}, allowed extensions: {upload_extensions}, allowed dimensions between {upload_min_dimensions} and {upload_max_dimensions} pixels)"
+  }
+]

@@ -1,0 +1,5 @@
+{
+  "uploadImage.changeFile": "{filename} (cliquer ou déposer pour changer)",
+  "uploadImage.invalidExtension": "Échec de la validation : le type de fichier \"{extension}\" est interdit, seuls sont acceptés {allowed_types}.",
+  "uploadImage.message": "Déposez une image ici, ou cliquez pour charger un fichier (taille max: {upload_max_size}, extensions acceptées: {upload_extensions}, dimensions acceptées: entre {upload_min_dimensions} et {upload_max_dimensions} pixels)"
+}

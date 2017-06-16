@@ -1,0 +1,162 @@
+.task {
+  margin-bottom: units(2);
+  position: relative;
+
+  // material-ui/Card>div overrides
+  &__card-text {
+    padding-bottom: 0 !important;
+    padding-top: 0 !important;
+  }
+
+  &__actions {
+    position: absolute;
+    #{$to-direction}: units(2);
+    top: units(2);
+  }
+
+  &__question {
+    margin-#{$to-direction}: units(4);
+    color: $black-54;
+  }
+
+  &__label-container {
+    padding-bottom: units(1);
+    padding-top: units(2);
+  }
+
+  &__label {
+    color: $black-54;
+    font-size: units(2);
+    padding-bottom: units(1);
+    padding-top: units(2);
+  }
+
+  &__response {
+    font-size: units(2);
+    text-align: $from-direction;
+  }
+
+  &__response-inputs {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height $transition-speed-fast ease;
+  }
+
+  // Toggle response area (and toggle description, if longer than one line)
+  //
+  // TODO: move dynamic display logic into the component. CGB 2017-5-15
+  /* stylelint-disable */
+  &__response-toggle {
+    display: none;
+
+    &:not(:checked) {
+      & ~ label .task__label-container {
+        @extend %ellipsis;
+        cursor: pointer;
+      }
+    }
+
+    &:checked {
+      & ~ label .task__label-container {
+        overflow: visible;
+        white-space: normal;
+        width: 100%;
+      }
+
+      & ~ .task__response-inputs {
+        // Tall enough to always be visible
+        max-height: units(625);
+        transition: max-height $transition-speed-fast ease;
+      }
+    }
+  }
+  /* stylelint-enable */
+
+  &__resolver {
+    color: $black-38;
+    text-align: $to-direction;
+  }
+
+  &__resolved {
+    p {
+      margin: units(1) 0;
+      word-wrap: break-word;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  &__options {
+    margin-top: units(2);
+  }
+
+  &__options-answered {
+    color: $black-38;
+    margin-top: units(2);
+  }
+
+  &__option_other_radio {
+    float: $from-direction;
+    margin-#{$from-direction}: unit(1);
+    margin-#{$to-direction}: units(2);
+    margin-top: units(1);
+    max-height: units(3);
+    max-width: units(3);
+  }
+
+  &__option_other_checkbox {
+    float: $from-direction;
+    margin-#{$from-direction}: unit(1);
+    margin-top: units(1);
+    max-height: units(3);
+    max-width: units(3);
+  }
+
+  &__option_other_text_input {
+    float: $from-direction;
+    width: 75% !important;
+  }
+
+  &__options_other::after {
+    clear: both;
+    content: "";
+    display: table;
+  }
+
+  .media-actions__icon {
+    color: $black-38;
+    height: units(3);
+    margin-#{$to-direction}: units(1);
+    margin: 0;
+    padding: 0;
+    width: units(3);
+  }
+
+  &__description-icon {
+    color: $black-38;
+    float: $to-direction;
+    height: units(3);
+    margin-#{$from-direction}: units(2);
+    margin-#{$to-direction}: units(1);
+    margin-bottom: units(1);
+    margin-top: units(2);
+    width: units(3);
+  }
+
+  // Task description tooltip
+  // via rc-tooltip, outside Task.js markup tree
+  //
+  &__description-tooltip {
+    max-width: card-width-large;
+
+    @include when-smaller-than(mobile-breakpoint) {
+      max-width: 40vw;
+    }
+
+    span {
+      word-wrap: break-word;
+    }
+  }
+}

@@ -1,6 +1,6 @@
 # meedan/check-web
 
-FROM meedan/nodejs
+FROM meedan/ruby
 MAINTAINER sysops@meedan.com
 
 #
@@ -15,6 +15,7 @@ ENV DEPLOYUSER=checkdeploy \
     APP=check-web \
     NODE_ENV=production
 
+
 # user config
 RUN useradd ${DEPLOYUSER} -s /bin/bash -m \
     && chown -R ${DEPLOYUSER}:${DEPLOYUSER} /home/${DEPLOYUSER}
@@ -23,22 +24,16 @@ RUN useradd ${DEPLOYUSER} -s /bin/bash -m \
 COPY docker/production/bin /opt/bin
 RUN chmod 755 /opt/bin/*
 
-# copy in the code
+# deployment directory
 RUN mkdir -p ${DEPLOYDIR}
-
 WORKDIR ${DEPLOYDIR}/latest
-
-# node 6
-RUN apt-get purge -y nodejs npm
-RUN curl -sL https://deb.nodesource.com/setup_6.x | bash 
-RUN apt-get install -y nodejs
 
 # copy in package.json and run npm install to populate node_modules
 COPY package.json ${DEPLOYDIR}/latest/package.json
 USER root
 RUN chown -R ${DEPLOYUSER}:www-data ${DEPLOYDIR}
 USER ${DEPLOYUSER}
-RUN npm cache clean && npm install --production
+RUN npm cache clean && npm install && npm install --only=dev
 
 # copy in the code and move it into the same directory as the built node_modules
 COPY . ${DEPLOYDIR}/new
@@ -46,14 +41,17 @@ USER root
 RUN chown -R ${DEPLOYUSER}:www-data ${DEPLOYDIR}/new
 USER ${DEPLOYUSER}
 RUN rm -rf ${DEPLOYDIR}/new/node_modules \
-    && rsync -avp ${DEPLOYDIR}/new/* ${DEPLOYDIR}/latest/ 
+    && rsync -avp ${DEPLOYDIR}/new/* ${DEPLOYDIR}/latest/
 COPY ./.babelrc ${DEPLOYDIR}/latest/.babelrc
 
-# style
-RUN ./node_modules/.bin/node-sass src/app/styles/stylesheet.scss --output-style=compressed | ./node_modules/.bin/postcss --use autoprefixer -o build/web/css/stylesheet.css \
-    && cp -r src/app/styles/images build/web/
+# get the relay.json file from github.com/meedan/check-api that corresponds to the current local git branch (defaults to 'develop')
+RUN cd ${DEPLOYDIR}/new \
+    && BRANCH=$(git rev-parse --abbrev-ref HEAD) \
+    && curl https://raw.githubusercontent.com/meedan/check-api/${BRANCH:-develop}/public/relay.json -o ${DEPLOYDIR}/latest/relay.json \
+    && sed "s|https://raw.githubusercontent.com/meedan/check-api/develop/public/relay.json|${DEPLOYDIR}/latest/relay.json|" < config-build.js.example > ${DEPLOYDIR}/latest/config-build.js
 
-RUN ./node_modules/.bin/gulp build:${PLATFORM}    
+# build all assets, js, css, transifex
+RUN npm run build
 
 # config
 # RUN /opt/bin/find_and_link_config_files.sh ${DEPLOYDIR}/latest
@@ -63,11 +61,14 @@ RUN rm -f ${DEPLOYDIR}/latest/build/web/js/config.js \
 WORKDIR ${DEPLOYDIR}
 RUN mv ./latest ./${APP}-$(date -I) && ln -s ./${APP}-$(date -I) ./current
 
+USER root
+RUN rm /etc/nginx/passenger.conf /etc/nginx/conf.d/passenger.conf /etc/nginx/sites-enabled/default
+COPY docker/production/config/nginx.conf /etc/nginx/sites-enabled/${APP}
+
 #
 # RUNTIME ELEMENTS
 # expose, cmd
 #
-USER root
-EXPOSE 8000
+EXPOSE 80
 WORKDIR ${DEPLOYDIR}/current/build/web
 CMD ["/opt/bin/start.sh"]

@@ -1,58 +1,37 @@
 .team-header {
-  border-radius: 2px;
-  padding-left: 14px; // TODO: rationalize layout padding
+  border-radius: $border-radius-default;
   display: flex;
-  height: 100%;
-}
-
-.team-header__clickable {
-  height: 100%;
-  width: 100%;
-
-  display: flex;
-  align-items: center;
-  &, &:hover { text-decoration: none; }
-  &, &:visited { color: inherit; }
-}
-
-.team-header__avatar {
-  @include team-avatar(40px);
-  margin-right: 9px;
-}
-
-.team-header__copy {
-  flex: 1;
-  height: 100%;
-
-  display: none;
-  @media screen and (min-width: $layout-mobile-breakpoint) {
-    display: flex;
-    align-items: center;
-  }
-}
-
-.team-header__name {
-  @include team-name(14px);
-  margin: 3px 0 2px 0;
-
-  white-space: nowrap;
+  height: units(6);
   overflow: hidden;
-  text-overflow: ellipsis;
-  width: 180px;
-}
 
-.team-header__project-list {
-  display: none;
-  position: absolute;
-  top: 100%;
-  z-index: 2;
-}
+  &__clickable {
+    align-items: center;
+    display: flex;
+    height: 100%;
+    overflow: hidden;
+    width: 100%;
 
-.team-header__copy {
-  position: relative;
-}
+    &,
+    &:hover {
+      text-decoration: none;
+    }
 
-.team-header__copy:hover .team-header__project-list,
-.team-header__project-list:hover {
-  display: block;
+    &,
+    &:visited {
+      color: inherit;
+    }
+  }
+
+  &__avatar {
+    @include avatar(units(4));
+    background-color: $white;
+    margin: 0;
+    margin-#{$from-direction}: units(2);
+  }
+
+  &__name {
+    @extend %ellipsis;
+    font: font(subheading2);
+    margin-#{$from-direction}: units(2);
+  }
 }

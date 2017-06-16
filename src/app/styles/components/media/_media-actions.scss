@@ -1,71 +1,17 @@
 .media-actions {
   position: relative;
-  align-self: center;
-
-  text-align: right;
+  margin-#{$from-direction}: auto;
 }
 
 .media-actions__icon {
-  color: $light-gray-text;
-  font-size: 20px;
-  padding-left: 15px;
-  position: relative;
-  // z-index: 3;
-  cursor: pointer;
+  @extend %icon;
 }
 
 .media-actions__overlay {
-  position: fixed;
-  z-index: 2;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: theme-gray(20%);
-
-  opacity: 0;
-  transition: opacity 100ms ease;
-  pointer-events: none;
-  &--active {
-    pointer-events: auto;
-    opacity: 0.5;
-  }
+  @include modal-overlay(tranparent);
 }
 
 .media-actions__menu {
-  z-index: 2;
-  margin: 0;
-  border: $layout-border;
-  border-top: none;
-  border-radius: 2px;
-  position: absolute; right: 0;
-  min-width: 150px;
-  top: 27px;
-  display: none;
-  &--active {
-    display: block;
-  }
-
-  background: $home-bg;
-  padding: 2px;
-
-  text-align: left;
-}
-
-.media-actions__menu-item {
-  // border-bottom: 1px solid darken($home-bg, 10%);
-  &:hover { background: darken($home-bg, 5%); }
-  font-size: 15px;
-  padding: 11px 15px;
-  cursor: pointer;
-}
-
-.media-actions__link {
-  color: inherit;
-  &, &:hover { text-decoration: none; }
-
-  &:nth-last-child(-n + 2) {
-    color: $light-gray-text;
-  }
+  @include menu;
+  #{$to-direction}: 0;
 }

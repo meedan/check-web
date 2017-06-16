@@ -1,104 +1,84 @@
-$menu-status-item-padding: 11px 15px 11px 13px;
+$menu-status-item-padding: units(2);
+$menu-status-offset: units(1);
 
 .media-status {
+  border-radius: $border-radius-default;
+  display: inline-block;
+  padding-#{$from-direction}: $menu-status-offset;
+  padding-#{$to-direction}: units(1);
+  padding-bottom: 0;
+  padding-top: units(half);
   position: relative;
 
-  margin-bottom: 5px;
-  &--editable { cursor: pointer; }
-}
+  &--editable {
+    cursor: pointer;
+    margin-#{$from-direction}: -$menu-status-offset;
 
-.media-status__icon {
-  margin-right: 10px;
-  font-size: 12px;
-
-  &--caret {
-    margin-left: 5px;
-    opacity: 0.85;
-    font-size: 11px;
+    &:hover {
+      background-color: $black-05;
+      transition: $transition-speed-fast;
+    }
   }
 }
 
 .media-status__label {
-  @include app-kicker;
+  font-weight: $font-weight-medium;
+  text-transform: uppercase;
+
+  &--current {
+    height: units(3);
+  }
 }
 
-// current
-
+// The text of the currently applied status
 .media-status__current {
-  position: relative;
-  border-left: 1px solid transparent;
-
   @include media-status-font-colors;
-
-  white-space: nowrap;
+  position: relative;
 }
 
 .media-status__message {
-  font-size: 14px;
-  color: theme-gray(75%);
-  font-size: 14px;
+  color: $black-87;
 }
 
-// menu
-
+// The status menu
 .media-status__overlay {
-  // TODO: mixinify?
-  position: fixed;
-  z-index: 2;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: theme-gray(20%);
-
-  opacity: 0;
-  pointer-events: none;
-  &--active {
-    pointer-events: auto;
-    opacity: 0.15;
-  }
-  transition: opacity 100ms ease;
+  @include modal-overlay(transparent);
 }
 
 .media-status__menu {
-  z-index: 3;
-  position: absolute;
-  top: 31px;
-  left: -15px;
-  min-width: 250px;
-
-  opacity: 0;
-  pointer-events: none;
-  &--active {
-    pointer-events: auto;
-    opacity: 1;
-  }
-  transition: opacity 200ms ease;
-
-  // style
-  background: #fff;
-  border-radius: 3px;
-  border: $layout-border;
-  box-shadow: 3px 3px 0 transparentize(theme-gray(20%), 0.99);
+  @include menu;
 }
 
 .media-status__menu-item {
-  @include media-status-font-colors;
   @include media-status-menu-hover-colors;
+  @include media-status-font-colors;
+  align-items: center;
+  display: flex;
+  padding-#{$from-direction}: units(2);
 
-  border-bottom: $layout-border; // TODO: consistent opacity
-  padding: $menu-status-item-padding;
+  .media-status__icon--radio-button-selected {
+    display: none;
+  }
 
-  font-size: 15px;
-  cursor: pointer;
+  svg {
+    margin-#{$to-direction}: units(1);
+    height: units(2);
+    width: units(2);
+  }
 
-  opacity: 0.7; &:hover { opacity: 1; }
-  transition: opacity 200ms ease;
-  .media-status__icon--radio-button-selected { display: none; }
+  &:hover {
+    opacity: 1;
+  }
+
   &--current {
-    opacity: 0.9;
-    .media-status__icon--radio-button-selected { display: inline-block; }
-    .media-status__icon--radio-button { display: none; }
+    opacity: .9;
+
+    .media-status__icon--radio-button-selected {
+      display: inline-block;
+    }
+
+    .media-status__icon--radio-button {
+      display: none;
+    }
   }
 }

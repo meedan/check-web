@@ -1,0 +1,43 @@
+[lang="ar"] {
+  direction: rtl;
+
+  // Refine typography
+  // TODO — more typography refinements 2017-3-27 CGB
+  // - larger text
+  // - avoid partially opaque text
+
+  * {
+    letter-spacing: 0 !important;
+  }
+
+  body {
+    font-size: 16px;
+  }
+
+  .home__disclaimer > span {
+    font-size: 11px;
+  }
+
+  .footer {
+    font-size: 14px;
+  }
+
+  // Rotate some directional icons
+  .project-header__back-button svg,
+  svg[class$="__team-caret"] {
+    transform: rotate(180deg);
+  }
+
+  // Unset a style in the rc-tooltip component
+  .rc-tooltip-inner {
+    text-align: unset !important;
+  }
+
+  .create-task__action-container {
+    text-align: left !important;
+  }
+}
+$from-direction: right;
+$to-direction: left;
+
+@import "stylesheet";

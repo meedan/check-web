@@ -1,0 +1,33 @@
+.tags-list {
+  margin: units(4) 0;
+
+  .ReactTags__selected {
+    align-items: flex-start;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .ReactTags__tag,
+  input {
+    border: $border-width-small solid $black-54;
+    border-radius: $border-radius-large;
+    font: font(caption);
+    font-weight: $font-weight-medium;
+    margin-#{$from-direction}: 0;
+    margin-#{$to-direction}: units(1);
+    margin-bottom: units(1);
+    margin-top: 0;
+    padding: units(1) units(3);
+  }
+
+  input {
+    &:focus {
+      outline: initial;
+    }
+  }
+
+  .ReactTags__remove {
+    @include close-button(14px);
+    margin: 0 units(1);
+  }
+}

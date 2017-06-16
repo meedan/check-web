@@ -1,0 +1,15 @@
+{
+  "loginEmail.nameInputHint": "Your name",
+  "loginEmail.emailInputHint": "Email address",
+  "loginEmail.passwordInputHint": "Password",
+  "loginEmail.passwordConfirmInputHint": "Password confirmation",
+  "loginEmail.nameLabel": "Your name",
+  "loginEmail.emailLabel": "Email address",
+  "loginEmail.passwordLabel": "Password (minimum 8 characters)",
+  "loginEmail.passwordConfirmLabel": "Password confirmation",
+  "loginEmail.signIn": "SIGN IN",
+  "loginEmail.signUp": "REGISTER",
+  "loginEmail.lostPassword": "Forgot password?",
+  "loginEmail.alreadyHasAccount": "I already have an account",
+  "loginEmail.newAccount": "Create a new account with email"
+}

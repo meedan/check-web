@@ -2,10 +2,11 @@
 # start.sh
 # the Dockerfile CMD
 
-cd ${DEPLOYDIR}/current/
+if [ "${NODE_ENV}" != "production" ]; then 
+    echo "NODE_ENV is ${NODE_ENV}, copying ${DEPLOYDIR}/current/docker/production/config/nginx_dev.conf /etc/nginx/sites-available/${APP} "
+    cp ${DEPLOYDIR}/current/docker/production/config/nginx_dev.conf /etc/nginx/sites-enabled/${APP}
+fi
 
-pm2 start scripts/server.js
-
-pm2 logs --timestamp --lines 0
-
-# static -p 8000 -a 0.0.0.0
+echo "starting nginx"
+echo "--STARTUP FINISHED--"
+nginx

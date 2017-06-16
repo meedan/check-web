@@ -1,0 +1,74 @@
+[
+  {
+    "id": "teamComponent.editError",
+    "defaultMessage": "Sorry, could not edit the team"
+  },
+  {
+    "id": "teamComponent.editSuccess",
+    "defaultMessage": "Team information updated successfully!"
+  },
+  {
+    "id": "teamComponent.changeAvatar",
+    "defaultMessage": "You can't change this right now, but we're hard at work to enable it soon!"
+  },
+  {
+    "id": "teamComponent.teamName",
+    "defaultMessage": "Team name"
+  },
+  {
+    "id": "teamComponent.teamDescription",
+    "defaultMessage": "Team description"
+  },
+  {
+    "id": "teamComponent.location",
+    "defaultMessage": "Location"
+  },
+  {
+    "id": "teamComponent.phone",
+    "defaultMessage": "Phone number"
+  },
+  {
+    "id": "teamComponent.website",
+    "defaultMessage": "Website"
+  },
+  {
+    "id": "teamComponent.slackWebhook",
+    "defaultMessage": "Slack webhook"
+  },
+  {
+    "id": "teamComponent.slackChannel",
+    "defaultMessage": "Slack default #channel"
+  },
+  {
+    "id": "teamComponent.verificationTeam",
+    "defaultMessage": "Verification Team"
+  },
+  {
+    "id": "bridge.teamComponent.verificationTeam",
+    "defaultMessage": "Translation Team"
+  },
+  {
+    "id": "teamComponent.title",
+    "defaultMessage": "Verification Projects"
+  },
+  {
+    "id": "bridge.teamComponent.title",
+    "defaultMessage": "Translation Projects"
+  },
+  {
+    "id": "teamComponent.cancelButton",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "teamComponent.saveButton",
+    "defaultMessage": "Save"
+  },
+  {
+    "id": "teamComponent.editButton",
+    "defaultMessage": "Edit profile"
+  },
+  {
+    "id": "teamComponent.slackNotificationsEnabled",
+    "defaultMessage": "Enable Slack notifications"
+  }
+]

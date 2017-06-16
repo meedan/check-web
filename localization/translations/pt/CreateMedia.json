@@ -1,0 +1,9 @@
+{
+  "createMedia.submitting": "Enviando...",
+  "createMedia.error": "Algo deu errado! Tente colar o texto desta postagem, ou adicionar um link diferente.",
+  "createMedia.mediaInput": "Cole ou digite",
+  "createMedia.uploadImage": "Enviar uma imagem",
+  "createMedia.submitButton": "Enviar",
+  "createMedia.helper": "Insira um link, citação ou imagem para verificação",
+  "bridge.createMedia.helper": "Insira um link, citação ou imagem para tradução"
+}

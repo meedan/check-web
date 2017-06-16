@@ -32,7 +32,7 @@ const sourceFragment = Relay.QL`
           id,
           content,
           annotation_type,
-          created_at,
+          updated_at,
           permissions,
           medias(first: 10000) {
             edges {
@@ -44,7 +44,7 @@ const sourceFragment = Relay.QL`
                 embed,
                 project_id,
                 last_status,
-                annotations_count,
+                log_count,
                 permissions,
                 verification_statuses,
                 domain,
@@ -72,7 +72,7 @@ const sourceFragment = Relay.QL`
           url,
           published,
           embed,
-          annotations_count,
+          log_count,
           domain,
           last_status,
           permissions,

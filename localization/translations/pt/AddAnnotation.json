@@ -1,0 +1,12 @@
+{
+  "addAnnotation.invalidCommand": "Comando inválido",
+  "addAnnotation.annotationAdded": "{type} foi adicionado(a)!",
+  "addAnnotation.createTagFailed": "Desculpe, não foi possível criar a tag",
+  "addAnnotation.inputHint": "Insira uma nota sobre esta informação",
+  "addAnnotation.submitButton": "Enviar",
+  "addAnnotation.typeComment": "comentário",
+  "addAnnotation.typeTag": "tag",
+  "addAnnotation.typeStatus": "status",
+  "addAnnotation.typeFlag": "Indicador",
+  "addAnnotation.addImage": "Insira uma imagem"
+}

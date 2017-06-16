@@ -1,0 +1,16 @@
+{
+  "mediaChecklist.heading": "Lista de verificação",
+  "mediaChecklist.instructions": "Aqui estão alguns passos comuns em verificação colaborativa de mídia. Complete quantas tarefas conseguir para que tenhamos um registro completo e transparente da nossa investigação.",
+  "mediaChecklist.headingWho": "Quem",
+  "mediaChecklist.messageWho": "Quem é o contato? Indique a informação como <em>@username</em> e <em>E-mail</em> ou <em>Telefone</em>",
+  "mediaChecklist.headingWhat": "O que",
+  "mediaChecklist.messageWhat": "Qual o problema? Explique claramente quais os fatos em questão.",
+  "mediaChecklist.headingWhere": "Onde",
+  "mediaChecklist.messageWhere": "Qual a localização? Indique nomes específicos de cidades e regiões.",
+  "mediaChecklist.headingWhen": "Quando",
+  "mediaChecklist.messageWhen": "Quando foi o ocorrido? Inclua uma marcação de tempo com zona, como <em>9/11/2016 HH:MM PM EST</em>.",
+  "mediaChecklist.headingOriginal": "Original",
+  "mediaChecklist.messageOriginal": "Isto é apenas um retweet? Indique se <em>É original</em> ou <em>Não é original</em> ou <em>Não sei</em>.",
+  "mediaChecklist.headingDetails": "Detalhes",
+  "mediaChecklist.messageDetails": "Algo mais? Indique informações adicionais, incluindo os intercâmbios nas mídias sociais ou entrevistas."
+}

@@ -12,9 +12,18 @@ class ProjectPage < Page
 
   def create_media(options = {})
     fill_input('#create-media-input', options[:input])
-    element('#create-media-input').submit
+    press(:enter)
+#   wait_for_element('.medias-loading', { timeout: 30 })
+    wait_for_element('.media', { timeout: 45 })
+    MediaPage.new(config: @config, driver: @driver)
+  end
 
-    wait_for_element('.media', { timeout: 15 })
+  def create_image_media(file)
+    @driver.find_element(:css, '#create-media__switcher').click
+    fill_input('input[type=file]', file, { hidden: true })
+    sleep 3
+    @driver.find_element(:css, '#create-media-submit').click
+    wait_for_element('.image-media-card')
     MediaPage.new(config: @config, driver: @driver)
   end
 
@@ -45,5 +54,13 @@ class ProjectPage < Page
 
     wait_for_element('.team')
     TeamPage.new(config: @config, driver: @driver)
+  end
+
+  def new_project(options = {})
+    name = options[:name] || "Project #{Time.now.to_i}"
+    element('.team__new-project-input').click
+    element('.team__new-project-input').clear
+    fill_input('.team__new-project-input', name)
+    press(:enter)
   end
 end

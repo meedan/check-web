@@ -1,0 +1,25 @@
+%icon {
+  background-color: transparent;
+  border-radius: units(3);
+  color: $black-54;
+  cursor: pointer;
+  height: units(5);
+  margin-#{$to-direction}: units(2);
+  padding: units(1);
+  width: units(5);
+
+  path {
+    transition: color .2s;
+  }
+
+  &:hover {
+    path {
+      color: $black-87;
+      transition: color $transition-speed-default;
+    }
+  }
+
+  &:active {
+    background-color: $black-05;
+  }
+}

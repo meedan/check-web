@@ -1,27 +1,56 @@
 .create-media {
-  margin-bottom: 15px;
-}
+  @include box-shadow(1);
+  background-color: $white;
+  border-radius: $border-radius-default;
+  margin: 0 auto units(2);
+  max-width: layout(column-width-narrow);
+  padding: units(2) units(1);
+  width: 100%;
 
-.create-media__input {
-  // max-width: 85%; max-width: calc(99% - 70px); // TODO: restyle
+  footer {
+    align-items: top;
+    display: flex;
 
-  & > :first-child { padding: 0 5px; }
-}
+    .create-media__helper {
+      color: $black-38;
+      font: font(caption);
 
-.create-media__button--new {
-  display: none; // TODO: restyle
-  float: left;
-
-  @include button-defaults;
-  background: #2962FF; //A700
-  color: #fff;
-  $size: 60px; height: $size; width: $size;
-  font-size: $size * 0.8;
-  font-weight: 200;
-  border-radius: $size;
-  margin-right: 10px;
+      @include when-smaller-than(mobile-breakpoint-small) {
+        display: none;
+      }
+    }
+  }
 }
 
 .create-media__buttons {
-  text-align: right;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin-#{$from-direction}: auto;
+}
+
+// The button to show the dropzone
+//
+.create-media__insert-photo {
+  display: flex;
+
+  svg {
+    @extend %icon;
+    margin-#{$to-direction}: 0;
+
+    path {
+      color: $black-16;
+    }
+  }
+}
+
+.create-media__input {
+  // The placeholder
+  & > :first-child {
+    padding: 0;
+
+    @include when-smaller-than(mobile-breakpoint-small) {
+      font: font(caption);
+    }
+  }
 }

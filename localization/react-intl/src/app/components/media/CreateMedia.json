@@ -1,0 +1,30 @@
+[
+  {
+    "id": "createMedia.submitting",
+    "defaultMessage": "Submitting..."
+  },
+  {
+    "id": "createMedia.error",
+    "defaultMessage": "Something went wrong! Try pasting the text of this post instead, or adding a different link."
+  },
+  {
+    "id": "createMedia.mediaInput",
+    "defaultMessage": "Paste or type"
+  },
+  {
+    "id": "createMedia.uploadImage",
+    "defaultMessage": "Upload an image"
+  },
+  {
+    "id": "createMedia.submitButton",
+    "defaultMessage": "Post"
+  },
+  {
+    "id": "createMedia.helper",
+    "defaultMessage": "Add a link, quote or image for verification"
+  },
+  {
+    "id": "bridge.createMedia.helper",
+    "defaultMessage": "Add a link, quote or image for translation"
+  }
+]

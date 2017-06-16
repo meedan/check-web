@@ -1,5 +1,7 @@
 import path from 'path';
 import webpack from 'webpack';
+var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+var CompressionPlugin = require('compression-webpack-plugin');
 
 export default {
   bail: true, // exit 1 on build failure
@@ -20,12 +22,27 @@ export default {
       __DEVELOPMENT__: false
     }),
     new webpack.optimize.DedupePlugin(),
+    new webpack.optimize.AggressiveMergingPlugin(),
+    new webpack.optimize.OccurrenceOrderPlugin(),
+    new CompressionPlugin({
+      asset: '[path].gz[query]',
+      algorithm: 'gzip',
+      test: /\.js$|\.css$|\.html$/,
+      threshold: 10240,
+      minRatio: 0.8
+    }),
+    // Uncomment to see at localhost:8888 a treemap of modules included in the bundle
+    // new BundleAnalyzerPlugin(),
     new webpack.optimize.UglifyJsPlugin({
       comments: false,
       compressor: {
         screw_ie8: true,
         warnings: false
       }
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      minChunks: module => /node_modules/.test(module.resource)
     })
   ],
   resolve: {
@@ -37,13 +54,14 @@ export default {
       test: /\.js$/,
       loader: ['babel'],
       exclude: /node_modules/,
-      query: { presets: ['es2015', 'stage-0', 'react'], plugins: [path.join(__dirname, '../src/plugins/babelRelayPlugin.js')]}
+      query: { presets: ['es2015', 'stage-0', 'react'], plugins: [path.join(__dirname, './babelRelayPlugin.js')]}
     }, {
       test: /\.css?$/,
       loaders: ['style', 'raw']
     }]
   },
   externals: {
-    'config': 'config'
+    'config': 'config',
+    'pusher-js': 'Pusher'
   }
 };

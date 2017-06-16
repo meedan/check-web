@@ -3,21 +3,78 @@ import { Provider } from 'react-redux';
 import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import ReactGA from 'react-ga';
+import { IntlProvider, addLocaleData } from 'react-intl';
+import ar from 'react-intl/locale-data/ar';
+import en from 'react-intl/locale-data/en';
+import fr from 'react-intl/locale-data/fr';
+import pt from 'react-intl/locale-data/pt';
 import App from './App';
-import { IndexComponent, TermsOfService, NotFound, CreateAccount, AccessDenied, PrivacyPolicy, UserConfirmed, UserUnconfirmed } from '../components';
-import { Sources, Source, User, Me } from '../components/source';
-import Team from '../components/team/Team';
-import { CreateProjectMedia, ProjectMedia } from '../components/media';
-import TeamMembers from '../components/team/TeamMembers';
-import CreateTeam from '../components/team/CreateTeam';
-import JoinTeam from '../components/team/JoinTeam.js';
-import Project from '../components/project/Project.js';
-import ProjectHeader from '../components/project/ProjectHeader';
-import ProjectEdit from '../components/project/ProjectEdit';
-import Teams from '../components/team/Teams.js';
-import Search from '../components/Search.js';
+import {
+  RootLocale,
+  IndexComponent,
+  NotFound,
+  CreateAccount,
+  AccessDenied,
+  UserAlreadyConfirmed,
+  UserConfirmed,
+  UserUnconfirmed,
+  UserPasswordChange,
+  UserPasswordReset,
+  LoginEmailPage
+} from '../components';
+import {
+  Sources,
+  Source,
+  User,
+  Me
+} from '../components/source';
+import {
+  Team,
+  TeamMembers,
+  CreateTeam,
+  JoinTeam,
+  Teams
+} from '../components/team';
+import {
+  CreateProjectMedia,
+  ProjectMedia
+} from '../components/media';
+import {
+  Project,
+  ProjectHeader,
+  ProjectEdit
+} from '../components/project';
+import Search from '../components/Search';
 import CheckContext from '../CheckContext';
+import translations from '../../../localization/translations/translations';
 import config from 'config';
+
+// Localization
+let locale = config.locale || navigator.languages || navigator.language || navigator.userLanguage || 'en';
+if (locale.constructor === Array) {
+  locale = locale[0];
+}
+locale = locale.replace(/[-_].*$/, '');
+
+if (!global.Intl) {
+  require(['intl'], (intl) => {
+    global.Intl = intl;
+//    Commented out while build is not optimized for this!
+//    require('intl/locale-data/jsonp/' + locale + '.js');
+  });
+}
+
+try {
+  const localeData = {
+    'en': en,
+    'fr': fr,
+    'ar': ar,
+    'pt': pt
+  };
+  addLocaleData([...localeData[locale]]);
+} catch (e) {
+  locale = 'en';
+}
 
 export default class Root extends Component {
   static propTypes = {
@@ -69,36 +126,47 @@ export default class Root extends Component {
 
   render() {
     const { store } = this.props;
-    window.Checkdesk = { store };
+    window.Check = { store };
 
     return (
-      <Provider store={store}>
-        <Router history={this.state.history} onUpdate={this.logPageView.bind(this)}>
-          <Route path="/" component={App}>
-            <IndexRoute component={Team} />
-            <Route path="tos" component={TermsOfService} public />
-            <Route path="privacy" component={PrivacyPolicy} public />
-            <Route path="sources" component={Sources} />
-            <Route path="sources/new" component={CreateAccount} />
-            <Route path="source/:sourceId" component={Source} />
-            <Route path="medias/new" component={CreateProjectMedia} />
-            <Route path="project/:projectId/media/:mediaId" component={ProjectMedia} />
-            <Route path="user/confirmed" component={UserConfirmed} public />
-            <Route path="user/unconfirmed" component={UserUnconfirmed} public />
-            <Route path="user/:userId" component={User} />
-            <Route path="me" component={Me} />
-            <Route path="join" component={JoinTeam} />
-            <Route path="members" component={TeamMembers} />
-            <Route path="teams/new" component={CreateTeam} />
-            <Route path="teams" component={Teams} />
-            <Route path="project/:projectId" component={Project} />
-            <Route path="project/:projectId/edit" component={ProjectEdit} />
-            <Route path="search(/:query)" component={Search} />
-            <Route path="forbidden" component={AccessDenied} public />
-            <Route path="*" component={NotFound} public />
-          </Route>
-        </Router>
-      </Provider>
+      <div>
+        <RootLocale locale={locale} />
+        <IntlProvider locale={locale} messages={translations[locale]}>
+          <Provider store={store}>
+            <Router history={this.state.history} onUpdate={this.logPageView.bind(this)}>
+              <Route path="/" component={App}>
+                <IndexRoute component={Team} />
+                <Route path="check/user/already-confirmed" component={UserAlreadyConfirmed} public />
+                <Route path="check/user/confirmed" component={UserConfirmed} public />
+                <Route path="check/user/unconfirmed" component={UserUnconfirmed} public />
+                <Route path="check/user/password-reset" component={UserPasswordReset} public />
+                <Route path="check/user/password-change" component={UserPasswordChange} public />
+                <Route path="check/forbidden" component={AccessDenied} public />
+                <Route path="check/404" component={NotFound} public />
+
+                <Route path="check/sources" component={Sources} />
+                <Route path="check/sources/new" component={CreateAccount} />
+                <Route path="check/source/:sourceId" component={Source} />
+                <Route path="check/user/:userId" component={User} />
+                <Route path="check/me" component={Me} />
+                <Route path="check/teams/new" component={CreateTeam} />
+                <Route path="check/teams" component={Teams} />
+
+                <Route path=":team/medias/new" component={CreateProjectMedia} />
+                <Route path=":team/project/:projectId/media/:mediaId" component={ProjectMedia} public />
+                <Route path=":team/join" component={JoinTeam} />
+                <Route path=":team/members" component={TeamMembers} />
+                <Route path=":team/project/:projectId/edit" component={ProjectEdit} />
+                <Route path=":team/project/:projectId(/:query)" component={Project} public />
+                <Route path=":team/search(/:query)" component={Search} public />
+                <Route path=":team" component={Team} public />
+
+                <Route path="*" component={NotFound} public />
+              </Route>
+            </Router>
+          </Provider>
+        </IntlProvider>
+      </div>
     );
   }
 }

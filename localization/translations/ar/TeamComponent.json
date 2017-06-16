@@ -1,0 +1,20 @@
+{
+  "teamComponent.editError": "عذراً، لم نستطع تحرير معلومات الفريق",
+  "teamComponent.editSuccess": "تم تحديث معلومات الفريق بنجاح!",
+  "teamComponent.changeAvatar": "لا يمكنك تعديل هذا الآن، لكننا نعمل جاهدين لإتاحته بأسرع وقت!",
+  "teamComponent.teamName": "اسم الفريق",
+  "teamComponent.teamDescription": "وصف الفريق",
+  "teamComponent.location": "الموقع",
+  "teamComponent.phone": "رقم الهاتف",
+  "teamComponent.website": "الموقع الإلكتروني",
+  "teamComponent.slackWebhook": "Slack webhook",
+  "teamComponent.slackChannel": "#قناة Slack الافتراضية",
+  "teamComponent.verificationTeam": "فريق التحقق",
+  "bridge.teamComponent.verificationTeam": "فريق الترجمة",
+  "teamComponent.title": "مشاريع التحقق",
+  "bridge.teamComponent.title": "مشاريع الترجمة",
+  "teamComponent.cancelButton": "إلغاء",
+  "teamComponent.saveButton": "حفظ",
+  "teamComponent.editButton": "تحرير معلومات الفريق",
+  "teamComponent.slackNotificationsEnabled": "تفعيل تنبيهات Slack"
+}

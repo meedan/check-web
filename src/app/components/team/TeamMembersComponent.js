@@ -1,13 +1,21 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
-import FontAwesome from 'react-fontawesome';
+import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
+import MdCreate from 'react-icons/lib/md/create';
 import Select from 'react-select';
-import DocumentTitle from 'react-document-title';
+import PageTitle from '../PageTitle';
 import 'react-select/dist/react-select.css';
 import TeamMembershipRequests from './TeamMembershipRequests';
 import TeamMembersCell from './TeamMembersCell';
 import config from 'config';
-import { pageTitle } from '../../helpers';
+import ContentColumn from '../layout/ContentColumn';
+
+const messages = defineMessages({
+  title: {
+    id: 'teamMembersComponent.title',
+    defaultMessage: 'Team Members',
+  },
+});
 
 class TeamMembersComponent extends Component {
   constructor(props) {
@@ -40,35 +48,47 @@ class TeamMembersComponent extends Component {
       }
     });
 
-    const teamUrl = `${window.location.protocol}//${team.subdomain}.${config.selfHost}`;
+    const teamUrl = `${window.location.protocol}//${config.selfHost}/${team.slug}`;
     const joinUrl = `${teamUrl}/join`;
 
     return (
-      <DocumentTitle title={pageTitle('Team Members', false, team)}>
+      <PageTitle prefix={this.props.intl.formatMessage(messages.title)} skipTeam={false} team={team}>
         <div className="team-members">
-          <button onClick={this.handleEditMembers.bind(this)} className="team-members__edit-button">
-            <FontAwesome className="team-members__edit-icon" name="pencil" />
-            {isEditing ? 'Done' : 'Edit'}
-          </button>
+          <ContentColumn className="card">
+            <button onClick={this.handleEditMembers.bind(this)} className="team-members__edit-button">
+              <MdCreate className="team-members__edit-icon" />
+              {isEditing ? <FormattedMessage id="teamMembersComponent.editDoneButton" defaultMessage="Done" /> : <FormattedMessage id="teamMembersComponent.editButton" defaultMessage="Edit" />}
+            </button>
 
-          <h1 className="team-members__main-heading">Members</h1>
+            <h1 className="team-members__main-heading"><FormattedMessage id="teamMembersComponent.mainHeading" defaultMessage="Members" /></h1>
 
-          <div className="team-members__blurb">
-            <p className="team-members__blurb-graf">To invite colleagues to join <Link to={teamUrl}>{team.name}</Link>, send them this link:</p>
-            <p className="team-members__blurb-graf--url"><a href={joinUrl}>{joinUrl}</a></p>
-          </div>
+            <div className="team-members__blurb">
+              <p className="team-members__blurb-graf">
+                <FormattedMessage
+                  id="teamMembersComponent.inviteLink"
+                  defaultMessage={'To invite colleagues to join {link}, send them this link:'}
+                  values={{ link: <Link to={teamUrl}>{team.name}</Link> }}
+                />
+              </p>
+              <p className="team-members__blurb-graf--url"><a href={joinUrl}>{joinUrl}</a></p>
+            </div>
 
-          <TeamMembershipRequests team_users={team_users_requestingMembership} />
+            <TeamMembershipRequests team_users={team_users_requestingMembership} />
 
-          <ul className="team-members__list">
-            {(() => team_users_members.map(team_user => (
-              <TeamMembersCell team_user={team_user} team_id={team.id} isEditing={isEditing} />
-              )))()}
-          </ul>
+            <ul className="team-members__list">
+              {(() => team_users_members.map(team_user => (
+                <TeamMembersCell team_user={team_user} team_id={team.id} isEditing={isEditing} />
+                )))()}
+            </ul>
+          </ContentColumn>
         </div>
-      </DocumentTitle>
+      </PageTitle>
     );
   }
 }
 
-export default TeamMembersComponent;
+TeamMembersComponent.propTypes = {
+  intl: intlShape.isRequired,
+};
+
+export default injectIntl(TeamMembersComponent);

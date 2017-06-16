@@ -1,54 +1,60 @@
-.switch-teams {
-  background-color: #fff;
-  margin-bottom: 11px;
-}
-
 .switch-teams__teams {
-  margin-bottom: 10px;
-  min-width: 300px;
+  margin-bottom: units(3);
 }
 
 .switch-teams__team {
-  border-radius: 2px;
-  margin-bottom: 8px;
-  transition: background-color 70ms ease;
+  border-radius: $border-radius-default;
+  margin-bottom: units(1);
+  transition: background-color $transition-speed-fast ease;
+
   &:hover {
-    background-color: $light-gray-bg;
+    background-color: $black-05;
   }
 }
 
 .switch-teams__team--current {
-  background-color: $light-gray-bg;
+  background-color: $black-02;
+
   &:hover {
-    background-color: $medium-gray-bg;
+    background-color: $black-05;
   }
 }
 
+// Pending teams
+//
 .switch-teams__team--pending {
   &:hover {
     background-color: transparent;
   }
+
   .switch-teams__team-avatar,
-  .switch-teams__team-name { opacity: 0.4; }
+  .switch-teams__team-name {
+    opacity: .4;
+  }
 }
 
 .switch-teams__team-link,
 .switch-teams__team--pending {
-  display: flex;
   align-items: center;
-  padding: 12px;
+  display: flex;
+  padding: units(2);
 }
 
 .switch-teams__team-link {
-  &, &:hover { text-decoration: none; }
-  height: 100%; width: 100%;
-  text-decoration: none;
   cursor: pointer;
+  height: 100%;
+  text-decoration: none;
+  width: 100%;
+
+  &,
+  &:hover {
+    text-decoration: none;
+  }
 }
 
 .switch-teams__team-avatar {
-  @include team-avatar;
-  margin-right: 15px;
+  @include avatar(units(7));
+  margin-#{$to-direction}: units(2);
 }
 
 .switch-teams__team-copy {
@@ -56,38 +62,48 @@
 }
 
 .switch-teams__team-name {
-  @include team-name;
-  color: $dark-gray-text;
-  margin: 3px 0;
+  color: $black-87;
+  margin: units(half) 0;
 
-  & > a { color: inherit; &:hover { text-decoration: none; }}
+  & > a {
+    color: inherit;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
 }
 
 .switch-teams__team-members-count,
 .switch-teams__team-join-request-message {
-  color: $light-gray-text;
-  font-size: 14px;
-}
-
-.switch-teams__team-join-request-message {
-  text-transform: uppercase;
-}
-
-.switch-teams__team-caret { // TODO: use Caret.js once stable
-  font-size: 24px;
-  color: theme-gray(80%);
+  color: $black-87;
 }
 
 .switch-teams__cancel-join-request {
-  @include unbutton;
-  color: $red-500;
-  margin-left: 20px;
+  @include button-small;
+  @include button-flat;
+
+  &:hover {
+    background-color: $alert-red;
+  }
 }
 
+// TODO: make this a proper button
 .switch-teams__new-team-link {
-  font-size: 14px;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
-  margin: 15px 12px;
+  @include button-small;
+  display: inline-flex;
+
+  &:hover {
+    text-decoration: none;
+  }
+
+  span {
+    color: $white;
+  }
+}
+
+.switch-teams__team-actions {
+  svg {
+    @extend %icon;
+  }
 }

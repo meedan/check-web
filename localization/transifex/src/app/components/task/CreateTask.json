@@ -1,0 +1,12 @@
+{
+  "createTask.newTask": "New task",
+  "tasks.cancelAdd": "Cancel",
+  "tasks.add": "Create Task",
+  "tasks.addTask": "Add task",
+  "tasks.shortAnswer": "Short answer",
+  "tasks.chooseOne": "Choose one",
+  "tasks.chooseMultiple": "Choose multiple",
+  "tasks.taskLabel": "Prompt",
+  "tasks.description": "Description",
+  "tasks.addDescription": "Add a description"
+}

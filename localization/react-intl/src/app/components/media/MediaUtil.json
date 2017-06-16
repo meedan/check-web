@@ -1,0 +1,58 @@
+[
+  {
+    "id": "media.notesCount",
+    "defaultMessage": "{notesCount, plural, =0 {No notes} one {1 note} other {# notes}}"
+  },
+  {
+    "id": "media.typeTwitter",
+    "defaultMessage": "Tweet"
+  },
+  {
+    "id": "media.typeFacebook",
+    "defaultMessage": "Facebook post"
+  },
+  {
+    "id": "media.typeInstagram",
+    "defaultMessage": "Instagram"
+  },
+  {
+    "id": "media.typeVideo",
+    "defaultMessage": "Video"
+  },
+  {
+    "id": "media.typeClaim",
+    "defaultMessage": "Claim"
+  },
+  {
+    "id": "bridge.media.typeClaim",
+    "defaultMessage": "Quote"
+  },
+  {
+    "id": "media.typeImage",
+    "defaultMessage": "Image"
+  },
+  {
+    "id": "media.typePage",
+    "defaultMessage": "Page"
+  },
+  {
+    "id": "media.onDomain",
+    "defaultMessage": "{typeLabel} on {domain}"
+  },
+  {
+    "id": "media.byAttribution",
+    "defaultMessage": "{typeLabel} by {attribution}"
+  },
+  {
+    "id": "media.withText",
+    "defaultMessage": "{typeLabel}: {text}"
+  },
+  {
+    "id": "media.favoritesCount",
+    "defaultMessage": "{favoritesCount, plural, =0 {} one {1 favorite} other {# favorites}}"
+  },
+  {
+    "id": "media.retweetsCount",
+    "defaultMessage": "{retweetsCount, plural, =0 {} one {1 retweet} other {# retweets}}"
+  }
+]

@@ -3,19 +3,22 @@ import ContentColumn from '../layout/ContentColumn';
 
 class MediasLoading extends Component {
   render() {
+    const count = this.props.count || 3;
+    const medias = [];
+
+    for (let i = 0; i < count; i++) {
+      medias.push(
+        <div className="medias-loading__media">
+          <div /><div /><div /><div />
+        </div>,
+      );
+    }
+
     return (
       <div className="medias-loading">
         <ContentColumn>
           <div className="medias-loading__medias">
-            <div className="medias-loading__media">
-              <div></div><div></div><div></div><div></div>
-            </div>
-            <div className="medias-loading__media">
-              <div></div><div></div><div></div><div></div>
-            </div>
-            <div className="medias-loading__media">
-              <div></div><div></div><div></div><div></div>
-            </div>
+            {medias}
           </div>
         </ContentColumn>
       </div>

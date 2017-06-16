@@ -2,9 +2,10 @@ import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 import CheckContext from '../../CheckContext';
 import MediaRoute from '../../relay/MediaRoute';
-import MediaComponent from './MediaComponent';
+import MediaParentComponent from './MediaParentComponent';
+import MediasLoading from './MediasLoading';
 
-const MediaContainer = Relay.createContainer(MediaComponent, {
+const MediaContainer = Relay.createContainer(MediaParentComponent, {
   initialVariables: {
     contextId: null,
   },
@@ -18,19 +19,64 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
         url,
         embed,
         last_status,
-        annotations_count,
+        field_value(annotation_type_field_name: "translation_status:translation_status_status"),
+        log_count,
         domain,
         permissions,
+        project {
+          id,
+          dbid,
+          title,
+          get_languages
+        },
+        project_id,
         pusher_channel,
         verification_statuses,
+        translation_statuses,
+        overridden,
+        language,
+        language_code,
         media {
           url,
-          quote
+          quote,
+          embed_path,
+          thumbnail_path
         }
         user {
           name,
+          email,
           source {
-            dbid
+            dbid,
+            accounts(first: 10000) {
+              edges {
+                node {
+                  url
+                }
+              }
+            }
+          }
+        }
+        last_status_obj {
+          id
+          dbid
+        }
+        translation_status: annotation(annotation_type: "translation_status") {
+          id
+          dbid
+        }
+        translations: annotations(annotation_type: "translation", first: 10000) {
+          edges {
+            node {
+              id,
+              dbid,
+              annotation_type,
+              annotated_type,
+              annotated_id,
+              annotator,
+              content,
+              created_at,
+              updated_at
+            }
           }
         }
         tags(first: 10000) {
@@ -41,42 +87,123 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
             }
           }
         }
-        annotations(first: 10000) {
+        tasks(first: 10000) {
           edges {
             node {
               id,
               dbid,
-              content,
-              annotation_type,
-              created_at,
+              label,
+              type,
+              description,
               permissions,
-              medias(first: 10000) {
+              jsonoptions,
+              first_response {
+                id,
+                dbid,
+                permissions,
+                content,
+                annotator {
+                  name
+                }
+              }
+            }
+          }
+        }
+        log(first: 10000) {
+          edges {
+            node {
+              id,
+              dbid,
+              item_type,
+              item_id,
+              event,
+              event_type,
+              created_at,
+              object_after,
+              object_changes_json,
+              meta,
+              projects(first: 2) {
                 edges {
                   node {
                     id,
                     dbid,
-                    quote,
-                    published,
-                    url,
-                    embed,
-                    project_id,
-                    last_status,
-                    annotations_count,
-                    permissions,
-                    verification_statuses,
-                    domain,
-                    user {
-                      name,
-                      source {
-                        dbid
+                    title
+                  }
+                }
+              }
+              user {
+                name,
+                profile_image,
+                email,
+                source {
+                  dbid,
+                  accounts(first: 10000) {
+                    edges {
+                      node {
+                        url
                       }
                     }
                   }
                 }
               }
-              annotator {
-                name,
-                profile_image
+              task {
+                id,
+                dbid,
+                label,
+                type
+              }
+              annotation {
+                id,
+                dbid,
+                content,
+                annotation_type,
+                updated_at,
+                created_at,
+                permissions,
+                medias(first: 10000) {
+                  edges {
+                    node {
+                      id,
+                      dbid,
+                      quote,
+                      published,
+                      url,
+                      embed,
+                      project_id,
+                      last_status,
+                      field_value(annotation_type_field_name: "translation_status:translation_status_status"),
+                      log_count,
+                      permissions,
+                      verification_statuses,
+                      translation_statuses,
+                      domain,
+                      team {
+                        slug
+                      }
+                      media {
+                        embed_path,
+                        thumbnail_path,
+                        url,
+                        quote
+                      }
+                      user {
+                        name,
+                        source {
+                          dbid
+                        }
+                      }
+                    }
+                  }
+                }
+                annotator {
+                  name,
+                  profile_image
+                }
+                version {
+                  id
+                  item_id
+                  item_type
+                }
               }
             }
           }
@@ -88,25 +215,37 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
           }
         }
         team {
-          get_suggested_tags
+          get_suggested_tags,
+          slug
         }
       }
-    `,
+`,
   },
 });
 
 class ProjectMedia extends Component {
   render() {
-    let projectId = 0;
+    let projectId = this.props.params.projectId || 0;
     const context = new CheckContext(this);
     context.setContext();
-    const store = context.getContextStore();
-    if (store.project) {
-      projectId = store.project.dbid;
+    if (projectId === 0) {
+      const store = context.getContextStore();
+      if (store.project) {
+        projectId = store.project.dbid;
+      }
     }
-    const ids = this.props.params.mediaId;
+    const ids = `${this.props.params.mediaId},${projectId}`;
     const route = new MediaRoute({ ids });
-    return (<Relay.RootContainer Component={MediaContainer} route={route} />);
+
+    return (
+      <Relay.RootContainer
+        Component={MediaContainer}
+        route={route}
+        renderLoading={function () {
+          return <MediasLoading count={1} />;
+        }}
+      />
+    );
   }
 }
 

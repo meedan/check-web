@@ -11,11 +11,11 @@ class ProjectList extends Component {
 
     return (
       <ul className="project-list">
-        {team.projects.edges.sortp((a, b) => a.node.title.localeCompare(b.node.title)).map(p => {
-          const projectPath = `/project/${p.node.dbid}`;
+        {team.projects.edges.sortp((a, b) => a.node.title.localeCompare(b.node.title)).map((p) => {
+          const projectPath = `/${team.slug}/project/${p.node.dbid}`;
           return (
             <li className="project-list__project">
-              <Link to={projectPath} className={bemClass("project-list__link", projectPath === window.location.pathname, '--active')}>{p.node.title}</Link>
+              <Link to={projectPath} className={bemClass('project-list__link', window.location.pathname.includes(projectPath), '--active')}>{p.node.title}</Link>
             </li>
           );
         })}

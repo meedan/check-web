@@ -1,0 +1,44 @@
+.upload-file {
+  display: flex;
+  margin: units(1) 0 units(2);
+
+  .with-file,
+  .without-file {
+    align-items: center;
+    border: $border-width-medium dashed $black-38;
+    border-radius: $border-radius-large;
+    color: $black-38;
+    cursor: pointer;
+    display: flex;
+    height: auto;
+    justify-content: center;
+    margin-top: units(2);
+    padding: units(3);
+    text-align: center;
+    width: 100%;
+  }
+
+  .preview {
+    $_preview_size: units(20);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    display: block;
+    height: $_preview_size / 2;
+    margin: units(2) 0 0;
+    margin-#{$to-direction}: units(6);
+    position: relative;
+    width: $_preview_size;
+
+    .remove-image {
+      @extend %icon;
+      #{$to-direction}: -1 * units(4);
+      color: $black-38;
+      cursor: pointer;
+      margin: 0;
+      position: absolute;
+      top: 0;
+      z-index: 1;
+    }
+  }
+}

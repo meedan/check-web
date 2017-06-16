@@ -15,7 +15,7 @@ class CreateFlagMutation extends Relay.Mutation {
       query = Relay.QL`fragment on CreateFlagPayload { flagEdge, source { annotations } }`;
       break;
     case 'project_media':
-      query = Relay.QL`fragment on CreateFlagPayload { flagEdge, project_media { annotations, annotations_count } }`;
+      query = Relay.QL`fragment on CreateFlagPayload { flagEdge, project_media { log, log_count } }`;
       break;
     }
     return query;
@@ -24,7 +24,7 @@ class CreateFlagMutation extends Relay.Mutation {
   getOptimisticResponse() {
     const flag = {
       id: this.props.id,
-      created_at: new Date().toString(),
+      updated_at: new Date().toString(),
       annotation_type: 'flag',
       permissions: '{"destroy Annotation":true,"destroy Flag":true}',
       content: JSON.stringify({ flag: this.props.annotation.flag }),
@@ -51,14 +51,6 @@ class CreateFlagMutation extends Relay.Mutation {
     fieldIds[this.props.parent_type] = this.props.annotated.id;
 
     return [
-      {
-        type: 'RANGE_ADD',
-        parentName: this.props.parent_type,
-        parentID: this.props.annotated.id,
-        connectionName: 'annotations',
-        edgeName: 'flagEdge',
-        rangeBehaviors: calls => 'prepend',
-      },
       {
         type: 'FIELDS_CHANGE',
         fieldIDs: fieldIds,

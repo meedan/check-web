@@ -1,0 +1,54 @@
+[
+  {
+    "id": "joinTeamComponent.error",
+    "defaultMessage": "Sorry, could not send your request"
+  },
+  {
+    "id": "joinTeamComponent.success",
+    "defaultMessage": "Thanks for your interest in joining {team} {appName}! A team leader will review your application soon."
+  },
+  {
+    "id": "joinTeamComponent.autoApprove",
+    "defaultMessage": "Thanks for joining {team} {appName}! You can start contributing right away."
+  },
+  {
+    "id": "joinTeamComponent.title",
+    "defaultMessage": "Join Team"
+  },
+  {
+    "id": "joinTeamComponent.alreadyRequested",
+    "defaultMessage": "You already requested to join {team} {appName}."
+  },
+  {
+    "id": "joinTeamComponent.mainHeading",
+    "defaultMessage": "Request to Join"
+  },
+  {
+    "id": "joinTeamComponent.blurbGraf",
+    "defaultMessage": "To request access to the {link} {appName}, click below:"
+  },
+  {
+    "id": "joinTeamComponent.buttonSubmitted",
+    "defaultMessage": "Request Sent"
+  },
+  {
+    "id": "joinTeamComponent.buttonApproved",
+    "defaultMessage": "Request Approved"
+  },
+  {
+    "id": "joinTeamComponent.buttonSubmit",
+    "defaultMessage": "Request to Join"
+  },
+  {
+    "id": "joinTeamComponent.requestHasBeenSent",
+    "defaultMessage": "Your request has been sent to the project admins for approval."
+  },
+  {
+    "id": "joinTeamComponent.requestHasBeenApproved",
+    "defaultMessage": "Your request has been approved."
+  },
+  {
+    "id": "joinTeamComponent.requestWillBeSent",
+    "defaultMessage": "Your request will be sent to the project admins for approval."
+  }
+]

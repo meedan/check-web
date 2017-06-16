@@ -6,7 +6,7 @@ class TeamsPage < Page
   include LoggedInPage
 
   def url
-    @config['self_url'] + "/teams"
+    @config['self_url'] + "/check/teams"
   end
 
   def select_team(options)
@@ -15,4 +15,21 @@ class TeamsPage < Page
     wait_for_element('.team')
     TeamPage.new(config: @config, driver: @driver)
   end
+
+  def ask_join_team(options = {})
+    subdomain = options[:subdomain]
+    @driver.navigate.to @config['self_url'] + "/"+subdomain+"/join"
+    sleep 2 # TODO: better soft keyboard strategies
+    click_button('.join-team__button')
+    sleep 2 # TODO: better soft keyboard strategies
+  end
+
+  def approve_join_team(options = {})
+    subdomain = options[:subdomain]
+    @driver.navigate.to @config['self_url'] + '/'+subdomain+'/members'
+    sleep 2 # TODO: better soft keyboard strategies
+    click_button('.team-member-requests__user-button--approve')
+    sleep 2 # TODO: better soft keyboard strategies
+  end
+
 end

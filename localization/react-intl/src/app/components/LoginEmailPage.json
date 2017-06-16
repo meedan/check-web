@@ -1,0 +1,18 @@
+[
+  {
+    "id": "browser.support.message",
+    "defaultMessage": "Best viewed with <a href=\"https://www.google.com/chrome/browser/desktop/\">Chrome for Desktop</a>."
+  },
+  {
+    "id": "login.title",
+    "defaultMessage": "Sign in"
+  },
+  {
+    "id": "tos.title",
+    "defaultMessage": "Terms of Service"
+  },
+  {
+    "id": "privacy.policy.title",
+    "defaultMessage": "Privacy Policy"
+  }
+]

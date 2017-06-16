@@ -14,38 +14,41 @@ class LoginPage < Page
 
   def register_with_email(options)
     load
-		wait = new WebDriverWait(@driver, 10)      
-		alert = wait.until(ExpectedConditions.alertIsPresent())
-		alert.authenticateUsing(new UserAndPassword('meedan', 'm33d4n.12'))
+    toggle_form_mode unless form_mode == 'register'
 
-    email_button.click
-    toggle_email_mode unless email_mode == 'register'
-
-    fill_input('.login-email__name input', 'User With Email')
-    fill_input('.login-email__email input', options[:email])
-    fill_input('.login-email__password input', options[:password])
-    fill_input('.login-email__password-confirmation input', options[:password])
+    fill_input('.login__name input', 'User With Email')
+    fill_input('.login__email input', options[:email])
+    fill_input('.login__password input', options[:password])
+    fill_input('.login__password-confirmation input', options[:password])
     fill_input('input[type=file]', options[:file], { hidden: true }) if options[:file]
     # TODO: fix or remove click_button() for mobile browsers
-    (wait_for { @driver.find_element(:css, '#submit-register-or-login') }).click
+    (@wait.until { @driver.find_element(:xpath, "//button[@id='submit-register-or-login']") }).click
 
-    wait_for { @driver.page_source.include?("You have to confirm your email address before continuing.") }
+    @wait.until { @driver.page_source.include?("You have to confirm your email address before continuing.") }
     confirm_email(options[:email])
+  end
+
+  def reset_password(email)
+    load
+    (@wait.until { @driver.find_element(:css, '.login__forgot-password a') }).click
+    fill_input('#password-reset-email-input', email)
+    click_button('.user-password-reset__actions button + button')
+    sleep 3
   end
 
   def login_with_email(options)
     load
-    email_button.click
-    toggle_email_mode unless email_mode == 'login'
+    toggle_form_mode unless form_mode == 'login'
 
-    fill_input('.login-email__email input', options[:email])
-    fill_input('.login-email__password input', options[:password])
+    fill_input('.login__email input', options[:email])
+    fill_input('.login__password input', options[:password])
     # TODO: fix or remove click_button() for mobile browsers
-    (wait_for { @driver.find_element(:xpath, "//button[@id='submit-register-or-login']") }).click
+    (@wait.until { @driver.find_element(:xpath, "//button[@id='submit-register-or-login']") }).click
 
     wait_for_element('.home')
     return CreateTeamPage.new(config: @config, driver: @driver) if contains_element?('.create-team', {timeout: 1})
     return ProjectPage.new(config: @config, driver: @driver) if contains_element?('.project')
+    return ProjectPage.new(config: @config, driver: @driver) if options[:project]
   end
 
   def login_with_facebook
@@ -58,6 +61,7 @@ class LoginPage < Page
     @driver.navigate.to url
     click_button('#facebook-login')
     sleep 3
+
     window = @driver.window_handles.first
     @driver.switch_to.window(window)
     wait_for_element('.home')
@@ -65,16 +69,12 @@ class LoginPage < Page
 
   private
 
-  def email_button
-    wait_for { @driver.find_element(:xpath, "//a[@id='login-email']") }
+  def form_mode
+    (@wait.until { @driver.find_element(:css, '.login__form') }).attribute('name')
   end
 
-  def email_mode
-    (wait_for { @driver.find_element(:css, '.login-email__form') }).attribute('name')
-  end
-
-  def toggle_email_mode
-    (wait_for { @driver.find_element(:xpath, "//button[@id='register-or-login']") }).click
+  def toggle_form_mode
+    (@wait.until { @driver.find_element(:xpath, "//button[@id='register-or-login']") }).click
   end
 
   def confirm_email(email) # TODO: test real email confirmation flow

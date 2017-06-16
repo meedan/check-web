@@ -1,8 +1,28 @@
 import React, { Component } from 'react';
+import { defineMessages, injectIntl, intlShape } from 'react-intl';
 import Relay from 'react-relay';
 import UpdateTeamUserMutation from '../../relay/UpdateTeamUserMutation';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
+
+const messages = defineMessages({
+  contributor: {
+    id: 'teamMembersCell.contributor',
+    defaultMessage: 'Contributor',
+  },
+  journalist: {
+    id: 'teamMembersCell.journalist',
+    defaultMessage: 'Journalist',
+  },
+  editor: {
+    id: 'teamMembersCell.editor',
+    defaultMessage: 'Editor',
+  },
+  owner: {
+    id: 'teamMembersCell.owner',
+    defaultMessage: 'Owner',
+  },
+});
 
 class TeamMembersCell extends Component {
   handleDeleteTeamUser(e) {
@@ -30,10 +50,10 @@ class TeamMembersCell extends Component {
     const isEditing = this.props.isEditing;
 
     const roles = [
-      { value: 'contributor', label: 'Contributor' },
-      { value: 'journalist', label: 'Journalist' },
-      { value: 'editor', label: 'Editor' },
-      { value: 'owner', label: 'Owner' },
+      { value: 'contributor', label: this.props.intl.formatMessage(messages.contributor) },
+      { value: 'journalist', label: this.props.intl.formatMessage(messages.journalist) },
+      { value: 'editor', label: this.props.intl.formatMessage(messages.editor) },
+      { value: 'owner', label: this.props.intl.formatMessage(messages.owner) },
     ];
 
     return (
@@ -51,4 +71,8 @@ class TeamMembersCell extends Component {
   }
 }
 
-export default TeamMembersCell;
+TeamMembersCell.propTypes = {
+  intl: intlShape.isRequired,
+};
+
+export default injectIntl(TeamMembersCell);

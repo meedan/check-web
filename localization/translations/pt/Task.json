@@ -1,0 +1,12 @@
+{
+  "task.confirmDelete": "Tem certeza que deseja apagar esta tarefa?",
+  "tasks.cancelEdit": "Cancelar",
+  "tasks.save": "Salvar",
+  "task.edit": "Editar tarefa",
+  "task.delete": "Remover tarefa",
+  "task.noteLabel": "Anote quaisquer detalhes adicionais aqui.",
+  "task.pressReturnToSave": "Pressione enter para salvar sua resposta",
+  "task.resolvedBy": "Resolvido por {by}",
+  "tasks.taskLabel": "Título da tarefa",
+  "tasks.description": "Descrição"
+}

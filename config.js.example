@@ -1,4 +1,5 @@
 window.config = {
+  appName: '', // 'bridge' or 'check'
   selfHost: 'localhost:3333',
   restBaseUrl: 'http://localhost:3000/api/',
   relayPath: 'http://localhost:3000/api/graphql',
@@ -8,5 +9,12 @@ window.config = {
   penderUrl: 'http://localhost:3200',
   pusherKey: '',
   pusherDebug: true,
-  googleAnalyticsCode: 'UA-00000000-1' // Optional
+  locale: 'en',
+  googleAnalyticsCode: 'UA-00000000-1', // Optional
+  googleStaticMapsKey: '' // Optional
 }
+// Optional newrelic config
+// NREUM = {
+//     info: {beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",licenseKey:"",applicationID:"",sa:1}
+// }
+// window.NREUM = NREUM;

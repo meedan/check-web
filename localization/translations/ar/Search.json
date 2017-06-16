@@ -1,0 +1,17 @@
+{
+  "search.title": "بحث",
+  "search.loading": "تحميل...",
+  "search.inputHint": "بحث",
+  "search.results": "{resultsCount, plural, =0 {لا نتيجة} one {نتيجة واحدة} other {# نتائج}}",
+  "search.newTranslationRequestNotification": "طلب جديد للترجمة",
+  "search.newTranslationNotification": "ترجمة جديدة",
+  "search.newTranslationNotificationBody": "تمت ترجمة تقرير",
+  "search.statusHeading": "حالة",
+  "search.projectHeading": "مشروع",
+  "status.categoriesHeading": "الأقسام",
+  "search.sort": "ترتيب",
+  "search.sortByCreated": "حسب تاريخ الإضافة",
+  "search.sortByRecentActivity": "حسب تاريخ التحديث",
+  "search.sortByNewest": "الأحدث أولاً",
+  "search.sortByOldest": "الأقدم أولاً"
+}

@@ -1,76 +1,139 @@
+// Wrapper around reports (globally)
+// TODO: This should be renamed to avoid misleading use of "detail"
+// Since it does not only apply to the detail view. — CGB
+//
 .media-detail {
-  padding: 8px 14px 24px 14px;
-  border: $layout-border;
-  border-radius: 2px;
-  @include media-status-background-and-border-colors;
-  box-shadow: $layout-box-shadow;
-  margin-bottom: 14px;
+  @include box-shadow(1);
+  @include media-status-border-colors;
+  background-color: $white;
+  border-#{$from-direction}: units(1) solid;
+  border-radius: $border-radius-default;
+  margin-bottom: units(2);
+  padding: (units(1) + units(half)) layout(gutter-small) 0;
 }
 
+// Row with the status and actions menu button
+//
 .media-detail__header {
   display: flex;
-  justify-content: space-between;
   flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 .media-detail__status {
   display: inline-block;
-  margin-bottom: 4px;
 }
 
-// op
+// Optional title (on project page)
+//
+.media-detail__heading {
+  @extend %ellipsis;
+  font: font(title);
+  font-weight: $font-weight-bold;
+  margin-#{$from-direction}: 0;
+  margin-#{$to-direction}: units(3);
+  margin-bottom: 0;
+  margin-top: units(half);
 
-.media-detail__media {
-  border-radius: 2px;
-  position: relative;
-  // background: #fff;
+  &,
+  & > a,
+  & > a:visited {
+    color: $black-87;
+  }
 }
 
-// check
-
-.media-detail__check-metadata {
-  margin-top: 11px;
-  @include media-metadata;
-}
-
-.media-detail__check-added-at {
-  margin-right: 15px;
-}
-
-.media-detail__check-notes-count {
-  margin-right: 15px;
-}
-
-.media-detail__title {
-  @include media-title(20px);
-  margin: 0 0 17px 1px;
-}
-
-.media-detail__title-input {
-  // color: #879cab;
-  padding: 3px 5px 3px 5px;
-  border: 1px solid #e1e6ea;
-  border-radius: 4px;
-  margin: -1px 0 15px 0;
-  font-size: 19px;
-  font-family: $font-stack-sans-condensed;
-  font-weight: 600;
-  width: 100%;
-  max-width: 500px;
-}
-
+// Optional description
+//
 .media-detail__description {
-  margin-top: 9px;
-  max-width: 42em;
-  line-height: 1.35;
+  margin-top: units(1);
+  max-width: units(80);
+}
 
-  color: theme-gray(45%);
+// The "inner card"
+// This contains the "original upstream" media
+//
+.media-detail__media {
+  border-radius: $border-radius-default;
+  position: relative;
+}
+
+// Check metadata
+//
+.media-detail__check-metadata {
+  // see also .annotation__card-footer
+  align-items: center;
+  border-top: $border-width-small solid $black-05;
+  display: flex;
+  flex-flow: wrap row;
+  font: font(caption);
+  margin-top: units(3);
+}
+
+.media-detail__check-added-at,
+.media-detail__check-added-by,
+.media-detail__check-notes-count {
+  align-items: center;
+  display: flex;
+  flex-shrink: 0;
+  margin-#{$to-direction}: units(2);
+  min-height: units(6);
+  min-width: units(6);
+
+  & > span {
+    padding-#{$from-direction}: units(1);
+  }
+}
+
+// Media edit mode
+//
+.media-detail__title-input {
+  border: $border-width-medium solid $black-05;
+  border-radius: $border-radius-default;
+  font: font(title);
+  margin: units(1) 0 units(2);
+  max-width: layout(card-width-large);
+  padding: units(half) units(1);
+  width: 100%;
 }
 
 .media-detail__editing-buttons {
-  margin-bottom: 8px;
+  display: flex;
+  flex-flow: wrap row;
+  margin-#{$from-direction}: auto;
+  margin-#{$to-direction}: units(1);
+  margin-bottom: units(half);
+  margin-top: units(half);
+
+  span {
+    display: block;
+    margin: units(half) units(1);
+  }
+
+  button {
+    @include button-small;
+  }
 }
 
-.media-detail__cancel-edits {
-  margin-right: 8px;
+// Move dialog
+//
+.media-detail__dialog-header {
+  color: $black-87;
+  font: font(title);
+  height: units(4);
+  margin-#{$from-direction}: auto;
+  margin-#{$to-direction}: units(1);
+  margin-bottom: units(half);
+  margin-top: units(half);
+}
+
+.media-detail__dialog-media-path {
+  font: font(caption);
+  height: units(2);
+  margin-bottom: units(4);
+  text-align: #{$from-direction};
+}
+
+.media-detail__dialog-radio-group {
+  margin-#{$from-direction}: units(4);
+  margin-top: units(4);
 }

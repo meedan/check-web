@@ -1,20 +1,53 @@
 import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
-import DocumentTitle from 'react-document-title';
+import PageTitle from './PageTitle';
+import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
-import numerous from 'numerous';
 import InfiniteScroll from 'react-infinite-scroller';
 import SearchRoute from '../relay/SearchRoute';
 import TeamRoute from '../relay/TeamRoute';
 import MediaDetail from './media/MediaDetail';
-import { bemClass } from '../helpers';
-import { pageTitle } from '../helpers';
+import { bemClass, getStatusStyle, notify } from '../helpers';
 import CheckContext from '../CheckContext';
 import ContentColumn from './layout/ContentColumn';
 import MediasLoading from './media/MediasLoading';
+import isEqual from 'lodash.isequal';
+import { teamStatuses } from '../customHelpers';
+import config from 'config';
 
 const pageSize = 20;
+
+const messages = defineMessages({
+  title: {
+    id: 'search.title',
+    defaultMessage: 'Search',
+  },
+  loading: {
+    id: 'search.loading',
+    defaultMessage: 'Loading...',
+  },
+  searchInputHint: {
+    id: 'search.inputHint',
+    defaultMessage: 'Search',
+  },
+  searchResults: {
+    id: 'search.results',
+    defaultMessage: '{resultsCount, plural, =0 {No results} one {1 result} other {# results}}'
+  },
+  newTranslationRequestNotification: {
+    id: 'search.newTranslationRequestNotification',
+    defaultMessage: 'New translation request'
+  },
+  newTranslationNotification: {
+    id: 'search.newTranslationNotification',
+    defaultMessage: 'New translation'
+  },
+  newTranslationNotificationBody: {
+    id: 'search.newTranslationNotificationBody',
+    defaultMessage: 'A report was just marked as "translated"'
+  },
+});
 
 class SearchQueryComponent extends Component {
   constructor(props) {
@@ -30,30 +63,40 @@ class SearchQueryComponent extends Component {
     return context;
   }
 
-  setQueryFromUrl() {
+  componentWillMount() {
     const context = this.getContext();
-    if (context.getContextStore().project) {
+    if (context.getContextStore().project && /\/search/.test(window.location.pathname)) {
       context.setContextStore({ project: null });
     }
 
-    const queryString = window.location.pathname.match(/^\/search\/(.*)/);
-    const query = queryString === null ? {} : queryFromUrlQuery(queryString[1]);
+    const query = searchQueryFromUrl();
+    this.setState({ query });
+  }
 
-    if (JSON.stringify(this.state.query) === '{}') {
+  componentDidMount() {
+    if (this.searchQueryInput) {
+      this.searchQueryInput.focus();
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const query = searchQueryFromUrl();
+    if (!isEqual(this.state.query, query)) {
       this.setState({ query });
     }
   }
 
-  componentWillMount() {
-    this.setQueryFromUrl();
+  shouldComponentUpdate(nextProps, nextState) {
+    const query = searchQueryFromUrl();
+    return !isEqual(this.state.query, nextState.query) || !isEqual(this.state.query, query);
   }
 
-  componentWillUpdate(nextProps, nextState) {
-    this.setQueryFromUrl();
-  }
+  componentDidUpdate(prevProps, prevState) {
+    const query = searchQueryFromUrl();
+    if (isEqual(this.state.query, query)) return;
 
-  componentDidMount() {
-    this.searchQueryInput.focus();
+    const url = urlFromSearchQuery(prevState.query, this.props.project ? `/${this.props.team.slug}/project/${this.props.project.dbid}` : `/${this.props.team.slug}/search`);
+    this.getContext().getContextStore().history.push(url);
   }
 
   handleSubmit(e) {
@@ -65,17 +108,6 @@ class SearchQueryComponent extends Component {
       state.query.keyword = keywordInput;
       return { query: state.query };
     });
-  }
-
-  urlQueryFromQuery(query) {
-    return encodeURIComponent(JSON.stringify(query));
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    const url = `/search/${this.urlQueryFromQuery(prevState.query)}`;
-    if (url != window.location.pathname) {
-      this.getContext().getContextStore().history.push(url);
-    }
   }
 
   statusIsSelected(statusCode, state = this.state) {
@@ -109,6 +141,7 @@ class SearchQueryComponent extends Component {
 
       if (statusIsSelected) {
         selectedStatuses.splice(selectedStatuses.indexOf(statusCode), 1); // remove from array
+        if (!selectedStatuses.length) delete state.query.status;
       } else {
         state.query.status = selectedStatuses.concat(statusCode);
       }
@@ -125,6 +158,7 @@ class SearchQueryComponent extends Component {
 
       if (projectIsSelected) {
         selectedProjects.splice(selectedProjects.indexOf(projectId), 1);
+        if (!selectedProjects.length) delete state.query.projects;
       } else {
         state.query.projects = selectedProjects.concat(projectId);
       }
@@ -141,6 +175,7 @@ class SearchQueryComponent extends Component {
 
       if (tagIsSelected) {
         selectedTags.splice(selectedTags.indexOf(tag), 1); // remove from array
+        if (!selectedTags.length) delete state.query.tags;
       } else {
         state.query.tags = selectedTags.concat(tag);
       }
@@ -178,79 +213,112 @@ class SearchQueryComponent extends Component {
       }) : [],
       query.keyword,
       query.tags,
-    ].filter(Boolean)).join(' ').trim() || 'Search';
+    ].filter(Boolean)).join(' ').trim() || this.props.intl.formatMessage(messages.title);
+  }
+
+  showField(field) {
+    if (!this.props.fields) {
+      return true;
+    }
+    else {
+      return this.props.fields.indexOf(field) > -1;
+    }
   }
 
   render() {
-    const statuses = JSON.parse(this.props.team.media_verification_statuses).statuses;
+    const statuses = JSON.parse(teamStatuses(this.props.team)).statuses;
     const projects = this.props.team.projects.edges.sortp((a, b) => a.node.title.localeCompare(b.node.title));
     const suggestedTags = this.props.team.get_suggested_tags ? this.props.team.get_suggested_tags.split(',') : [];
-    const title = this.title(statuses, projects);
+    const title = this.props.project ? this.props.project.title : this.title(statuses, projects);
 
     return (
-      <DocumentTitle title={pageTitle(title, false, this.props.team)}>
+      <PageTitle prefix={title} skipTeam={false} team={this.props.team}>
         <ContentColumn>
           <div className="search__query">
+
+            {/* Keyword */}
+            { this.showField('keyword') ?
             <form id="search-form" className="search__form" onSubmit={this.handleSubmit.bind(this)}>
-              <input placeholder="Search" name="search-input" id="search-input" className="search__input" defaultValue={this.state.query.keyword || ''} ref={input => this.searchQueryInput = input} />
-            </form>
+              <input placeholder={this.props.intl.formatMessage(messages.searchInputHint)} name="search-input" id="search-input" className="search__input" defaultValue={this.state.query.keyword || ''} ref={input => this.searchQueryInput = input} />
+            </form> : null }
 
             <section className="search__filters / filters">
-              <h3 className="search__filters-heading">Filters</h3>
+              {/* Status */}
+              { this.showField('status') ?
               <div>
-                <h4>Status</h4>
-                {/* chicklet markup/logic from MediaTags. TODO: fix classnames */}
-                <ul className="/ media-tags__suggestions-list // electionland_categories">
-                  {statuses.map(status =>  // TODO: set and use styles in `status.style`
-                    <li title={status.description} onClick={this.handleStatusClick.bind(this, status.id)} className={bemClass('media-tags__suggestion', this.statusIsSelected(status.id), '--selected')}>{status.label}</li>)}
+                <h4><FormattedMessage id="search.statusHeading" defaultMessage="Status" /></h4>
+                <ul className="/ media-tags__suggestions-list">
+                  {statuses.map(status =>
+                    <li title={status.description} onClick={this.handleStatusClick.bind(this, status.id)} className={bemClass('media-tags__suggestion', this.statusIsSelected(status.id), '--selected')} style={{ backgroundColor: getStatusStyle(status, 'backgroundColor') }} >{status.label}</li>)}
                 </ul>
-              </div>
+              </div> : null }
+
+              {/* Project */}
+              { this.showField('project') ?
               <div>
-                <h4>Project</h4>
-                {/* chicklet markup/logic from MediaTags. TODO: fix classnames */}
-                <ul className="/ media-tags__suggestions-list // electionland_categories">
+                <h4><FormattedMessage id="search.projectHeading" defaultMessage="Project" /></h4>
+                <ul className="/ media-tags__suggestions-list">
                   {projects.map(project => <li title={project.node.description} onClick={this.handleProjectClick.bind(this, project.node.dbid)} className={bemClass('media-tags__suggestion', this.projectIsSelected(project.node.dbid), '--selected')}>{project.node.title}</li>)}
                 </ul>
-              </div>
-              {suggestedTags.length ? (
+              </div> : null }
+
+              {/* Tags */}
+              { this.showField('tags') && suggestedTags.length ? (
                 <div>
-                  <h4>Categories</h4>
-                  <ul className="/ media-tags__suggestions-list // electionland_categories">
+                  <h4><FormattedMessage id="status.categoriesHeading" defaultMessage="Categories" /></h4>
+                  <ul className="/ media-tags__suggestions-list">
                     {suggestedTags.map(tag => <li title={null} onClick={this.handleTagClick.bind(this, tag)} className={bemClass('media-tags__suggestion', this.tagIsSelected(tag), '--selected')}>{tag}</li>)}
                   </ul>
                 </div>
               ) : null }
+
+              {/* Sort */}
+              { this.showField('sort') ?
               <div>
-                <h4>Sort</h4>
-                {/* chicklet markup/logic from MediaTags. TODO: fix classnames */}
-                <ul className="search-query__sort-actions / media-tags__suggestions-list">
-                  <li onClick={this.handleSortClick.bind(this, 'recent_added')} className={bemClass('media-tags__suggestion', this.sortIsSelected('recent_added'), '--selected')}>Created</li>
-                  <li onClick={this.handleSortClick.bind(this, 'recent_activity')} className={bemClass('media-tags__suggestion', this.sortIsSelected('recent_activity'), '--selected')}>Recent activity</li>
-                  <li onClick={this.handleSortClick.bind(this, 'DESC')} className={bemClass('media-tags__suggestion', this.sortIsSelected('DESC'), '--selected')}>Newest first</li>
-                  <li onClick={this.handleSortClick.bind(this, 'ASC')} className={bemClass('media-tags__suggestion', this.sortIsSelected('ASC'), '--selected')}>Oldest first</li>
+                <h4><FormattedMessage id="search.sort" defaultMessage="Sort" /></h4>
+                <ul className="search-query__sort-actions media-tags__suggestions-list">
+                  <li onClick={this.handleSortClick.bind(this, 'recent_added')} className={bemClass('media-tags__suggestion', this.sortIsSelected('recent_added'), '--selected')}>
+                    <FormattedMessage id="search.sortByCreated" defaultMessage="Created" />
+                  </li>
+                  <li onClick={this.handleSortClick.bind(this, 'recent_activity')} className={bemClass('media-tags__suggestion', this.sortIsSelected('recent_activity'), '--selected')}>
+                    <FormattedMessage id="search.sortByRecentActivity" defaultMessage="Recent activity" />
+                  </li>
+                  <li onClick={this.handleSortClick.bind(this, 'DESC')} className={bemClass('media-tags__suggestion', this.sortIsSelected('DESC'), '--selected')}>
+                    <FormattedMessage id="search.sortByNewest" defaultMessage="Newest first" />
+                  </li>
+                  <li onClick={this.handleSortClick.bind(this, 'ASC')} className={bemClass('media-tags__suggestion', this.sortIsSelected('ASC'), '--selected')}>
+                    <FormattedMessage id="search.sortByOldest" defaultMessage="Oldest first" />
+                  </li>
                 </ul>
-              </div>
+              </div> : null }
+
             </section>
           </div>
         </ContentColumn>
-      </DocumentTitle>
+      </PageTitle>
     );
   }
 }
+
+SearchQueryComponent.propTypes = {
+  intl: intlShape.isRequired,
+};
 
 SearchQueryComponent.contextTypes = {
   store: React.PropTypes.object,
 };
 
-const SearchQueryContainer = Relay.createContainer(SearchQueryComponent, {
+const SearchQueryContainer = Relay.createContainer(injectIntl(SearchQueryComponent), {
   fragments: {
     team: () => Relay.QL`
       fragment on Team {
         id,
         dbid,
         media_verification_statuses,
+        translation_statuses,
         get_suggested_tags,
         name,
+        slug,
         projects(first: 10000) {
           edges {
             node {
@@ -267,29 +335,112 @@ const SearchQueryContainer = Relay.createContainer(SearchQueryComponent, {
 });
 
 class SearchResultsComponent extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      pusherSubscribed: false
+    };
+  }
+
   loadMore() {
     this.props.relay.setVariables({ pageSize: this.props.search.medias.edges.length + pageSize });
+  }
+
+  getContext() {
+    const context = new CheckContext(this);
+    return context;
+  }
+
+  currentContext() {
+    return this.getContext().getContextStore();
+  }
+
+  subscribe() {
+    const pusher = this.currentContext().pusher;
+    if (pusher && this.props.search.pusher_channel && !this.state.pusherSubscribed) {
+      const that = this;
+      const channel = this.props.search.pusher_channel;
+
+      pusher.unsubscribe(channel);
+
+      pusher.subscribe(channel).bind('media_updated', (data) => {
+        let content = null;
+        let message = {};
+        const currentUserId = that.currentContext().currentUser.dbid;
+        const avatar = config.restBaseUrl.replace(/\/api.*/, '/images/bridge.png');
+
+        try {
+          message = JSON.parse(data.message) || {};
+        } catch (e) {
+          message = {};
+        }
+
+        try {
+          content = message.quote || message.url || message.file.url;
+        } catch (e) {
+          content = null;
+        }
+
+        // Notify other users that there is a new translation request
+        if (content && message.class_name === 'translation_request' && currentUserId != message.user_id) {
+          let url = window.location.pathname.replace(/(^\/[^\/]+\/project\/[0-9]+).*/, '$1/media/' + message.id);
+          notify(that.props.intl.formatMessage(messages.newTranslationRequestNotification), content, url, avatar, "_self");
+        }
+
+        // Notify other users that there is a new translation
+        else if (message.annotation_type == 'translation_status' && currentUserId != message.annotator_id) {
+          let translated = false;
+          message.data.fields.forEach((field) => {
+            if (field.field_name == 'translation_status_status' && field.value == 'translated') {
+              translated = true;
+            }
+          });
+          if (translated) {
+            let url = window.location.pathname.replace(/(^\/[^\/]+\/project\/[0-9]+).*/, '$1/media/' + message.annotated_id);
+            notify(that.props.intl.formatMessage(messages.newTranslationNotification), that.props.intl.formatMessage(messages.newTranslationNotificationBody), url, avatar, "_self");
+          }
+        }
+
+        that.props.relay.forceFetch();
+      });
+      this.setState({ pusherSubscribed: true });
+    }
+  }
+
+  unsubscribe() {
+    const pusher = this.getContext().pusher;
+    if (pusher && this.props.search.pusher_channel) {
+      pusher.unsubscribe(this.props.search.pusher_channel);
+    }
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
+
+  componentDidMount() {
+    this.subscribe();
   }
 
   render() {
     const medias = this.props.search ? this.props.search.medias.edges : [];
     const count = this.props.search ? this.props.search.number_of_results : 0;
-    const mediasCount = `${count} ${numerous.pluralize('en', count, {
-      one: 'Result',
-      other: 'Results',
-    })}`;
+    const mediasCount = this.props.intl.formatMessage(messages.searchResults, { resultsCount: count });
+    const title = /\/project\//.test(window.location.pathname) ? '' : mediasCount;
+    const that = this;
 
     return (
       <div className="search__results / results">
-        <h3 className="search__results-heading">{mediasCount}</h3>
-        {/* <h4>Most recent activity first <i className="media-status__icon media-status__icon--caret fa fa-caret-down"></i></h4> */}
+        <h3 className="search__results-heading">{title}</h3>
+        {/* <h4>Most recent activity first</h4> */}
 
         <InfiniteScroll hasMore loadMore={this.loadMore.bind(this)} threshold={500}>
 
           <ul className="search__results-list / results medias-list">
             {medias.map(media => (
               <li className="/ medias__item">
-                <MediaDetail media={media.node} condensed />
+                <MediaDetail media={media.node} condensed parentComponent={that} />
               </li>
             ))}
           </ul>
@@ -298,7 +449,7 @@ class SearchResultsComponent extends Component {
 
         {(() => {
           if (medias.length < count) {
-            return (<p className="search__results-loader">Loading...</p>);
+            return (<p className="search__results-loader"><FormattedMessage id="search.loading" defaultMessage="Loading..." /></p>);
           }
         })()}
       </div>
@@ -306,7 +457,15 @@ class SearchResultsComponent extends Component {
   }
 }
 
-const SearchResultsContainer = Relay.createContainer(SearchResultsComponent, {
+SearchResultsComponent.contextTypes = {
+  store: React.PropTypes.object,
+};
+
+SearchResultsComponent.propTypes = {
+  intl: intlShape.isRequired,
+};
+
+const SearchResultsContainer = Relay.createContainer(injectIntl(SearchResultsComponent), {
   initialVariables: {
     pageSize,
   },
@@ -314,6 +473,7 @@ const SearchResultsContainer = Relay.createContainer(SearchResultsComponent, {
     search: () => Relay.QL`
       fragment on CheckSearch {
         id,
+        pusher_channel,
         medias(first: $pageSize) {
           edges {
             node {
@@ -323,21 +483,45 @@ const SearchResultsContainer = Relay.createContainer(SearchResultsComponent, {
               quote,
               published,
               embed,
-              annotations_count,
-              domain,
-              last_status,
-              permissions,
+              log_count,
               verification_statuses,
+              translation_statuses,
+              overridden,
               project_id,
+              pusher_channel,
+              language,
+              language_code,
+              domain,
+              permissions,
+              last_status,
+              field_value(annotation_type_field_name: "translation_status:translation_status_status"),
+              translation_status: annotation(annotation_type: "translation_status") {
+                id
+                dbid
+              }
+              last_status_obj {
+                id,
+                dbid
+              }
+              project {
+                id,
+                dbid,
+                title
+              },
               media {
-                url
-                quote
+                url,
+                quote,
+                embed_path,
+                thumbnail_path
               }
               user {
                 name,
                 source {
                   dbid
                 }
+              }
+              team {
+                slug
               }
               tags(first: 10000) {
                 edges {
@@ -357,23 +541,59 @@ const SearchResultsContainer = Relay.createContainer(SearchResultsComponent, {
 });
 
 class Search extends Component {
-  render() {
-    const query = queryFromUrlQuery(this.props.params.query);
+  noFilters(query) {
+    delete query.timestamp;
+    delete query.parent;
+    if (query.projects && (query.projects.length === 0 || (this.props.project && query.projects.length === 1 && query.projects[0] === this.props.project.dbid))) {
+      delete query.projects;
+    }
+    if (query.status && query.status.length === 0) {
+      delete query.status;
+    }
+    if (query.sort && query.sort === 'recent_added') {
+      delete query.sort;
+    }
+    if (query.sort_type && query.sort_type === 'DESC') {
+      delete query.sort_type;
+    }
+    if (Object.keys(query).length === 0 && query.constructor === Object) {
+      return true;
+    }
+    return false;
+  }
 
-    const queryRoute = new TeamRoute({ teamId: '' });
+  render() {
+    const searchQuery = this.props.query || this.props.params.query;
+    const teamSlug = this.props.team || this.props.params.team;
+
+    let query = searchQueryFromUrlQuery(searchQuery);
+    if (!this.noFilters(query)) {
+      query.timestamp = new Date().getTime();
+    }
+    if (this.props.project) {
+      query.parent = { type: 'project', id: this.props.project.dbid };
+      query.projects = [this.props.project.dbid];
+    }
+    else {
+      query.parent = { type: 'team', slug: teamSlug };
+    }
+
+    const queryRoute = new TeamRoute({ teamSlug });
     const resultsRoute = new SearchRoute({ query: JSON.stringify(query) });
+    const { formatMessage } = this.props.intl;
 
     return (
       <div className="search">
         <Relay.RootContainer
           Component={SearchQueryContainer}
           route={queryRoute}
-          renderLoading={function() {
+          renderFetched={data => <SearchQueryContainer {...this.props} {...data} />}
+          renderLoading={function () {
             return (
               <ContentColumn>
                 <div className="search__query">
                   <div className="search__form search__form--loading">
-                    <input disabled placeholder="Loading..." name="search-input" id="search-input" className="search__input"/>
+                    <input disabled placeholder={formatMessage(messages.loading)} name="search-input" id="search-input" className="search__input" />
                   </div>
                 </div>
               </ContentColumn>
@@ -383,10 +603,10 @@ class Search extends Component {
         <Relay.RootContainer
           Component={SearchResultsContainer}
           route={resultsRoute}
-          renderLoading={function() {
+          renderLoading={function () {
             return (
               <div>
-                <h3 className="search__results-heading search__results-heading--loading">Loading...</h3>
+                <h3 className="search__results-heading search__results-heading--loading"><FormattedMessage id="search.loading" defaultMessage="Loading..." /></h3>
                 <MediasLoading />
               </div>
             );
@@ -397,7 +617,16 @@ class Search extends Component {
   }
 }
 
-function queryFromUrlQuery(urlQuery) {
+Search.propTypes = {
+  intl: intlShape.isRequired,
+};
+
+export function searchQueryFromUrl() {
+  const queryString = window.location.pathname.match(/.*\/(search|project\/[0-9]+)\/(.*)/);
+  return queryString ? searchQueryFromUrlQuery(queryString[2]) : {};
+}
+
+export function searchQueryFromUrlQuery(urlQuery) {
   try {
     return JSON.parse(decodeURIComponent(urlQuery));
   } catch (e) {
@@ -405,4 +634,8 @@ function queryFromUrlQuery(urlQuery) {
   }
 }
 
-export default Search;
+export function urlFromSearchQuery(query, prefix) {
+  return isEqual(query, {}) ? prefix : prefix + '/' + encodeURIComponent(JSON.stringify(query));
+}
+
+export default injectIntl(Search);

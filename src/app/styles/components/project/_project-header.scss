@@ -1,60 +1,99 @@
 .project-header {
-  height: 100%;
+  align-items: center;
+  display: flex;
+  overflow: hidden;
+
+  label {
+    overflow: hidden;
+  }
+
+  &__title {
+    @extend %ellipsis;
+    border-radius: $border-radius-default;
+    color: $black-54;
+    display: inline;
+    font: font(subheading2);
+    margin-#{$from-direction}: units(2);
+    padding: 0 units(1);
+    vertical-align: middle;
+
+    &:hover {
+      background-color: $black-05;
+      transition: background-color $transition-speed-default;
+    }
+  }
 }
 
-.project-header__copy {
+.project-header__back-button {
+  $back-button-size: units(3);
   display: flex;
   flex-direction: column;
-  justify-content: center;
   height: 100%;
-  margin: 0 auto;
-  width: 195px; // ellipsis truncation requires explicit width
-  @media screen and (min-width: 400px) { width: 200px };
-  @media screen and (min-width: 500px) { width: 300px };
-  @media screen and (min-width: 600px) { width: 400px };
-  @media screen and (min-width: 700px) { width: 500px };
-  @media screen and (min-width: 800px) { width: 600px };
-  @media screen and (min-width: 900px) { width: 700px };
+  justify-content: center;
+  margin-#{$to-direction}: 0;
+  opacity: 0;
+  transition: opacity $transition-speed-default ease, width $transition-speed-default ease, margin $transition-speed-default ease;
+  width: 0;
 
-  text-align: center;
-}
-
-.project-header__title {
-  @include header-title;
-
-  margin: 0 0 6px 0;
-
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.project-header__description {
-  width: 100%;
-  @include gray-text;
-  position: relative;
-  z-index: 1;
-
-  .project-header__description-summary {
-    display: inline-block;
-    width: 100%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  & > svg {
+    height: $back-button-size;
+    width: $back-button-size;
   }
 
-  .project-header__description-fulltext {
-    display: none;
-    width: 100%;
-    position: absolute;
-    top: 0;
-    background: white;
-    border: $layout-border;
-    border-radius: 2px;
-    padding: 8px;
+  &,
+  &:visited {
+    color: $black-54 !important;
   }
 
-  &:hover .project-header__description-fulltext {
+  a:hover {
+    text-decoration: none;
+  }
+
+  &--displayed {
+    margin-#{$from-direction}: units(2);
+    opacity: 1;
+    width: $back-button-size;
+  }
+}
+
+.project-header__menu-toggle-label {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  height: 100%;
+}
+
+.project-header__menu-toggle-label:hover .project-header__caret {
+  opacity: 1;
+}
+
+// toggle menu
+.project-header__project-list {
+  display: none;
+  position: absolute;
+  top: 100%;
+  z-index: 2;
+}
+
+.project-header__menu-overlay {
+  @include modal-overlay(transparent);
+}
+
+// TODO move this display logic into the js component — 2017-3-26 CGB
+//
+/* stylelint-disable */
+.project-header__menu-toggle:checked + .project-header__menu-toggle-label {
+  .project-header__menu-overlay {
+    display: block;
+    pointer-events: auto;
+  }
+}
+
+.project-header__menu-toggle:checked ~ .project-header__project-list {
+  display: block;
+
+  .project-list {
     display: block;
   }
 }
+/* stylelint-enable*/

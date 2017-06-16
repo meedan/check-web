@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay';
 import ProjectRoute from './ProjectRoute';
 import Can from '../components/Can';
@@ -7,13 +8,13 @@ import { bemClass } from '../helpers';
 
 class ProjectMenu extends Component {
   handleEditClick() {
-    const overlay = document.querySelector('.header-actions__menu-overlay--active')
+    const overlay = document.querySelector('.header-actions__menu-overlay--active');
     if (overlay) {
       overlay.click(); // TODO: better way to clear overlay e.g. passing fn from HeaderActions
     }
 
     const history = new CheckContext(this).getContextStore().history;
-    const editPath = `${window.location.pathname.match(/^\/project\/\d+/)[0]}/edit`;
+    const editPath = `${window.location.pathname.match(/.*\/project\/\d+/)[0]}/edit`;
     history.push(editPath);
   }
 
@@ -23,7 +24,7 @@ class ProjectMenu extends Component {
     return (
       <Can permissions={project.permissions} permission="update Project">
         <li className="project-menu / header-actions__menu-item" onClick={this.handleEditClick.bind(this)}>
-          <span>Edit project</span>
+          <FormattedMessage id="projectMenuRelay.editProject" defaultMessage="Edit project" />
         </li>
       </Can>
     );
@@ -47,13 +48,13 @@ const ProjectMenuContainer = Relay.createContainer(ProjectMenu, {
         team {
           id,
           dbid,
-          subdomain,
+          slug,
           permissions,
           get_slack_notifications_enabled
         }
       }
     `,
-  }
+  },
 });
 
 class ProjectMenuRelay extends Component {
@@ -62,9 +63,7 @@ class ProjectMenuRelay extends Component {
       const route = new ProjectRoute({ contextId: this.props.params.projectId });
       return (<Relay.RootContainer Component={ProjectMenuContainer} route={route} />);
     }
-    else {
-      return null;
-    }
+    return null;
   }
 }
 

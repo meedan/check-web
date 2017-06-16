@@ -1,0 +1,62 @@
+[
+  {
+    "id": "search.title",
+    "defaultMessage": "Search"
+  },
+  {
+    "id": "search.loading",
+    "defaultMessage": "Loading..."
+  },
+  {
+    "id": "search.inputHint",
+    "defaultMessage": "Search"
+  },
+  {
+    "id": "search.results",
+    "defaultMessage": "{resultsCount, plural, =0 {No results} one {1 result} other {# results}}"
+  },
+  {
+    "id": "search.newTranslationRequestNotification",
+    "defaultMessage": "New translation request"
+  },
+  {
+    "id": "search.newTranslationNotification",
+    "defaultMessage": "New translation"
+  },
+  {
+    "id": "search.newTranslationNotificationBody",
+    "defaultMessage": "A report was just marked as \"translated\""
+  },
+  {
+    "id": "search.statusHeading",
+    "defaultMessage": "Status"
+  },
+  {
+    "id": "search.projectHeading",
+    "defaultMessage": "Project"
+  },
+  {
+    "id": "status.categoriesHeading",
+    "defaultMessage": "Categories"
+  },
+  {
+    "id": "search.sort",
+    "defaultMessage": "Sort"
+  },
+  {
+    "id": "search.sortByCreated",
+    "defaultMessage": "Created"
+  },
+  {
+    "id": "search.sortByRecentActivity",
+    "defaultMessage": "Recent activity"
+  },
+  {
+    "id": "search.sortByNewest",
+    "defaultMessage": "Newest first"
+  },
+  {
+    "id": "search.sortByOldest",
+    "defaultMessage": "Oldest first"
+  }
+]

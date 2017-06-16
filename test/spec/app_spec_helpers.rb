@@ -1,8 +1,4 @@
 module AppSpecHelpers
-  def port_open?(port)
-    !system("lsof -i:#{port}", out: '/dev/null')
-  end
-
   def get_element(selector, type = :css)
     sleep 3
     wait = Selenium::WebDriver::Wait.new(timeout: 5)
@@ -39,15 +35,16 @@ module AppSpecHelpers
     @driver.navigate.to 'https://twitter.com/login'
     fill_field('.js-username-field', @config['twitter_user'])
     fill_field('.js-password-field', @config['twitter_password'])
-    press_button
+    press_button('button.submit')
     @wait.until {
       @driver.page_source.include?("#{@config['twitter_name']}")
     }
   end
 
   def twitter_auth
+		sleep 5
     @driver.find_element(:xpath, "//button[@id='twitter-login']").click
-    sleep 10
+    sleep 5
     window = @driver.window_handles.first
     @driver.switch_to.window(window)
   end
@@ -73,6 +70,7 @@ module AppSpecHelpers
     sleep 5
     window = @driver.window_handles.last
     @driver.switch_to.window(window)
+    sleep 10
     press_button('#oauth_authorizify')
     sleep 5
     window = @driver.window_handles.first
@@ -104,9 +102,8 @@ module AppSpecHelpers
   def login_with_email(should_create_team = true, email = @email)
     @driver.navigate.to @config['self_url']
     sleep 2
-    @driver.find_element(:xpath, "//a[@id='login-email']").click
-    fill_field('.login-email__email input', email)
-    fill_field('.login-email__password input', '12345678')
+    fill_field('.login__email input', email)
+    fill_field('.login__password input', '12345678')
     press_button('#submit-register-or-login')
     sleep 3
     create_team if should_create_team
@@ -140,7 +137,7 @@ module AppSpecHelpers
   def create_team
     if @driver.find_elements(:css, '.create-team').size > 0
       fill_field('#team-name-container', "Team #{Time.now}")
-      fill_field('#team-subdomain-container', "team#{Time.now.to_i}#{Process.pid}")
+      fill_field('#team-slug-container', "team#{Time.now.to_i}#{Process.pid}")
       press_button('.create-team__submit-button')
       sleep 0.5
     end
@@ -156,14 +153,12 @@ module AppSpecHelpers
   def register_with_email(should_create_team = true, email = @email)
     @driver.navigate.to @config['self_url']
     sleep 1
-    @driver.find_element(:xpath, "//a[@id='login-email']").click
-    sleep 1
     @driver.find_element(:xpath, "//button[@id='register-or-login']").click
     sleep 1
-    fill_field('.login-email__name input', 'User With Email')
-    fill_field('.login-email__email input', email)
-    fill_field('.login-email__password input', '12345678')
-    fill_field('.login-email__password-confirmation input', '12345678')
+    fill_field('.login__name input', 'User With Email')
+    fill_field('.login__email input', email)
+    fill_field('.login__password input', '12345678')
+    fill_field('.login__password-confirmation input', '12345678')
     press_button('#submit-register-or-login')
     sleep 3
     confirm_email(email)
@@ -172,15 +167,16 @@ module AppSpecHelpers
   end
 
   def get_team
-    @driver.execute_script('var context = Checkdesk.store.getState().app.context; return context.team ? context.team.subdomain : context.currentUser.current_team.subdomain').to_s
+    @driver.execute_script('var context = Check.store.getState().app.context; return context.team ? context.team.slug : context.currentUser.current_team.slug').to_s
   end
 
   def get_project
-    @driver.execute_script('return Checkdesk.store.getState().app.context.project.dbid').to_s
+    @driver.execute_script('return Check.store.getState().app.context.project.dbid').to_s
   end
 
   def console_logs
-    @driver.manage.logs.get("browser")
+    require 'pp'
+    @driver.manage.logs.get("browser").pretty_inspect
   end
 
   def create_media(url)
@@ -189,7 +185,7 @@ module AppSpecHelpers
   end
 
   def team_url(path)
-    @config['self_url'].gsub('//', '//' + get_team + '.') + '/' + path
+    @config['self_url'] + '/' + get_team + '/' + path
   end
 
   def confirm_email(email)
@@ -202,5 +198,30 @@ module AppSpecHelpers
     uri = URI(api_path)
     uri.query = URI.encode_www_form(params)
     Net::HTTP.get_response(uri)
+  end
+
+  def create_claim_and_go_to_search_page
+    page = LoginPage.new(config: @config, driver: @driver).load
+        .login_with_email(email: @email, password: @password)
+        .create_media(input: 'My search result')
+
+    sleep 8 # wait for Sidekiq
+
+    @driver.navigate.to @config['self_url'] + '/' + get_team + '/search'
+
+    sleep 8 # wait for Godot
+
+    expect(@driver.page_source.include?('My search result')).to be(true)
+  end
+
+  def save_screenshot(title)
+    require 'imgur'
+    path = '/tmp/' + (0...8).map{ (65 + rand(26)).chr }.join + '.png'
+    @driver.save_screenshot(path)
+
+    client = Imgur.new(@config['imgur_client_id'])
+    image = Imgur::LocalImage.new(path, title: title)
+    uploaded = client.upload(image)
+    uploaded.link
   end
 end

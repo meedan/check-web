@@ -1,0 +1,14 @@
+[
+  {
+    "id": "header.projectLabel",
+    "defaultMessage": "Project"
+  },
+  {
+    "id": "header.teamLabel",
+    "defaultMessage": "Team"
+  },
+  {
+    "id": "header.teamsLabel",
+    "defaultMessage": "Teams"
+  }
+]

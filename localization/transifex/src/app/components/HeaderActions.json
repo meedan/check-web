@@ -1,0 +1,10 @@
+{
+  "headerActions.aboutCheck": "About Check",
+  "bridge.headerActions.aboutCheck": "About Bridge",
+  "headerActions.userTeams": "Your Teams",
+  "headerActions.signOut": "Sign Out",
+  "headerActions.signIn": "Sign In",
+  "headerActions.contactHuman": "Contact a Human",
+  "headerActions.tos": "Terms of Service",
+  "headerActions.privacyPolicy": "Privacy Policy"
+}

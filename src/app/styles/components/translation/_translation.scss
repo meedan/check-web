@@ -1,0 +1,35 @@
+.translation__component {
+  margin-bottom: units(2);
+}
+
+.translation__card {
+  position: relative;
+}
+
+.translation__rtl {
+  direction: rtl;
+  text-align: right;
+}
+
+.translation__ltr {
+  direction: ltr;
+  text-align: left;
+}
+
+.translation__card-title {
+  margin-top: units(1);
+  margin-bottom: units(1);
+  margin-#{$to-direction}: units(3);
+}
+
+.translation__card-text {
+  padding-bottom: 0 !important;
+}
+
+.translation__card-actions {
+  text-align: $to-direction;
+}
+
+.translation__note {
+  text-align: $from-direction;
+}

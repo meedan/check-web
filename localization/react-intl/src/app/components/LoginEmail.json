@@ -1,0 +1,54 @@
+[
+  {
+    "id": "loginEmail.nameInputHint",
+    "defaultMessage": "Your name"
+  },
+  {
+    "id": "loginEmail.emailInputHint",
+    "defaultMessage": "Email address"
+  },
+  {
+    "id": "loginEmail.passwordInputHint",
+    "defaultMessage": "Password"
+  },
+  {
+    "id": "loginEmail.passwordConfirmInputHint",
+    "defaultMessage": "Password confirmation"
+  },
+  {
+    "id": "loginEmail.nameLabel",
+    "defaultMessage": "Your name"
+  },
+  {
+    "id": "loginEmail.emailLabel",
+    "defaultMessage": "Email address"
+  },
+  {
+    "id": "loginEmail.passwordLabel",
+    "defaultMessage": "Password (minimum 8 characters)"
+  },
+  {
+    "id": "loginEmail.passwordConfirmLabel",
+    "defaultMessage": "Password confirmation"
+  },
+  {
+    "id": "loginEmail.signIn",
+    "defaultMessage": "SIGN IN"
+  },
+  {
+    "id": "loginEmail.signUp",
+    "defaultMessage": "REGISTER"
+  },
+  {
+    "id": "loginEmail.lostPassword",
+    "defaultMessage": "Forgot password?"
+  },
+  {
+    "id": "loginEmail.alreadyHasAccount",
+    "defaultMessage": "I already have an account"
+  },
+  {
+    "id": "loginEmail.newAccount",
+    "defaultMessage": "Create a new account with email"
+  }
+]

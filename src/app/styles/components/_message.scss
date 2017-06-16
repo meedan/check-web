@@ -1,8 +1,15 @@
 .message {
-  background: $cream;
-  color: $light-gray-text;
-  padding: 10px;
-  font-size: 14px;
+  @include fade-in($transition-speed-slow);
+  background: $black-54;
+  border-radius: $border-radius-default;
+  color: $white;
+  margin: 0 auto layout(gutter-medium);
+  padding: layout(gutter-small) layout(gutter-large);
+  position: relative;
   text-align: center;
-  box-shadow: $layout-box-shadow;
+
+  a {
+    color: $white !important;
+    text-decoration: underline;
+  }
 }

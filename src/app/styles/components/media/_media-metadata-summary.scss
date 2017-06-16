@@ -1,7 +1,3 @@
-.media-metadata-summary {
-  @include media-metadata;
-}
-
 .media-metadata-summary__datum:not(:last-child) {
-  margin-right: 15px;
+  margin-#{$to-direction}: units(2);
 }

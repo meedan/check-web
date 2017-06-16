@@ -1,7 +1,11 @@
 import React, { Component, PropTypes } from 'react';
+import { defineMessages, injectIntl, intlShape, FormattedMessage } from 'react-intl';
+import MappedMessage from '../MappedMessage';
 import Relay from 'react-relay';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
+import MdInsertPhoto from 'react-icons/lib/md/insert-photo';
+import UploadImage from '../UploadImage';
 import PenderCard from '../PenderCard';
 import CreateProjectMediaMutation from '../../relay/CreateProjectMediaMutation';
 import Message from '../Message';
@@ -9,6 +13,37 @@ import CheckContext from '../../CheckContext';
 import config from 'config';
 import urlRegex from 'url-regex';
 import ContentColumn from '../layout/ContentColumn';
+
+const messages = defineMessages({
+  submitting: {
+    id: 'createMedia.submitting',
+    defaultMessage: 'Submitting...',
+  },
+  error: {
+    id: 'createMedia.error',
+    defaultMessage: 'Something went wrong! Try pasting the text of this post instead, or adding a different link.',
+  },
+  mediaInput: {
+    id: 'createMedia.mediaInput',
+    defaultMessage: 'Paste or type',
+  },
+  uploadImage: {
+    id: 'createMedia.uploadImage',
+    defaultMessage: 'Upload an image',
+  },
+  submitButton: {
+    id: 'createMedia.submitButton',
+    defaultMessage: 'Post',
+  },
+  helper: {
+    id: 'createMedia.helper',
+    defaultMessage: 'Add a link, quote or image for verification',
+  },
+  bridge_helper: {
+    id: 'bridge.createMedia.helper',
+    defaultMessage: 'Add a link, quote or image for translation',
+  },
+});
 
 class CreateProjectMedia extends Component {
   constructor(props) {
@@ -18,6 +53,7 @@ class CreateProjectMedia extends Component {
       url: '',
       message: null,
       isSubmitting: false,
+      fileMode: false,
     };
   }
 
@@ -26,29 +62,41 @@ class CreateProjectMedia extends Component {
 
     const that = this,
       context = new CheckContext(this).getContextStore(),
+      prefix = `/${context.team.slug}/project/${context.project.dbid}/media/`;
+
+    let image = '',
+      inputValue = '',
+      urls = '',
+      url = '',
+      quote = '';
+
+    if (this.state.fileMode) {
+      image = document.forms.media.image;
+      if (!image || this.state.isSubmitting) { return; }
+    } else {
       inputValue = document.getElementById('create-media-input').value.trim(),
-      prefix = `/project/${context.project.dbid}/media/`,
       urls = inputValue.match(urlRegex()),
       url = (urls && urls[0]) ? urls[0] : '';
-
-    let quote = '';
-
-    if (!inputValue || !inputValue.length || this.state.isSubmitting) { return; }
-    this.setState({ isSubmitting: true, message: 'Submitting...' });
-
-    if (!url.length || inputValue !== url) { // if anything other than a single url
-      quote = inputValue;
+      if (!inputValue || !inputValue.length || this.state.isSubmitting) { return; }
+      if (!url.length || inputValue !== url) { // if anything other than a single url
+        quote = inputValue;
+      }
     }
 
+    this.setState({ isSubmitting: true, message: this.props.intl.formatMessage(messages.submitting) });
+
     const handleError = (json) => {
-      let message = 'Something went wrong! Try pasting the text of this post instead, or adding a different link.';
+      let message = this.props.intl.formatMessage(messages.error);
       if (json && json.error) {
-        const matches = json.error.match(/^Validation failed: This media already exists in this project and has id ([0-9]+)$/);
+        const matches = json.error.match(/This media already exists in this project and has id ([0-9]+)$/);
         if (matches) {
           that.props.projectComponent.props.relay.forceFetch();
           const pmid = matches[1];
           message = null;
           context.history.push(prefix + pmid);
+        }
+        else {
+          message = json.error;
         }
       }
       that.setState({ message, isSubmitting: false });
@@ -57,8 +105,7 @@ class CreateProjectMedia extends Component {
     const onFailure = (transaction) => {
       const transactionError = transaction.getError();
       try {
-        const json = JSON.parse(transactionError.source);
-        handleError(json);
+        handleError(JSON.parse(transactionError.source));
       } catch (e) {
         handleError(JSON.stringify(transactionError));
       }
@@ -74,6 +121,7 @@ class CreateProjectMedia extends Component {
       new CreateProjectMediaMutation({
         url,
         quote,
+        image,
         project: context.project,
       }),
       { onSuccess, onFailure },
@@ -87,12 +135,29 @@ class CreateProjectMedia extends Component {
 
   componentDidMount() {
     this.mediaInput.focus();
+    window.addEventListener('mousedown', this.handleClickOutside.bind(this), false);
+  }
+
+  handleClickOutside(e) {
+    this.setState({ message: null });
   }
 
   handleKeyPress(e) {
     if (e.key === 'Enter' && !e.shiftKey) {
       this.handleSubmit(e);
     }
+  }
+
+  onImage(file) {
+    document.forms.media.image = file;
+  }
+
+  onImageError(file, message) {
+    this.setState({ message });
+  }
+
+  switchMode() {
+    this.setState({ fileMode: !this.state.fileMode });
   }
 
   render() {
@@ -106,20 +171,37 @@ class CreateProjectMedia extends Component {
             {isPreviewingUrl ? <PenderCard url={this.state.url} penderUrl={config.penderUrl} /> : null}
           </div>
 
-          <form id="media-url-container" className="create-media__form" onSubmit={this.handleSubmit.bind(this)}>
-            <button className="create-media__button create-media__button--new">+</button>
-            <TextField
-              hintText="Paste a link or start typing to add a quote."
-              fullWidth
-              name="url" id="create-media-input"
-              className="create-media__input"
-              multiLine
-              onKeyPress={this.handleKeyPress.bind(this)}
-              ref={input => this.mediaInput = input}
-            />
-            <div className="create-media__buttons">
-              <FlatButton id="create-media-submit" primary onClick={this.handleSubmit.bind(this)} label="Post" className="create-media__button create-media__button--submit" />
+          <form name="media" id="media-url-container" className="create-media__form" onSubmit={this.handleSubmit.bind(this)}>
+            <div id="create-media__field">
+              {(() => {
+                if (this.state.fileMode) {
+                  return (
+                    <UploadImage onImage={this.onImage.bind(this)} onError={this.onImageError.bind(this)} />
+                  );
+                }
+                return (
+                  <TextField
+                    hintText={this.props.intl.formatMessage(messages.mediaInput)}
+                    fullWidth
+                    name="url" id="create-media-input"
+                    className="create-media__input"
+                    multiLine
+                    onKeyPress={this.handleKeyPress.bind(this)}
+                    ref={input => this.mediaInput = input}
+                  />
+                );
+              })()}
             </div>
+
+            <footer>
+              <div className="create-media__helper"><MappedMessage msgObj={messages} msgKey="helper" /></div>
+              <div className="create-media__buttons">
+                <div className="create-media__insert-photo">
+                  <MdInsertPhoto id="create-media__switcher" title={this.props.intl.formatMessage(messages.uploadImage)} className={this.state.fileMode ? 'create-media__file' : ''} onClick={this.switchMode.bind(this)} />
+                </div>
+                <FlatButton id="create-media-submit" primary onClick={this.handleSubmit.bind(this)} label={this.props.intl.formatMessage(messages.submitButton)} className="create-media__button create-media__button--submit" />
+              </div>
+            </footer>
           </form>
         </ContentColumn>
       </div>
@@ -127,8 +209,12 @@ class CreateProjectMedia extends Component {
   }
 }
 
+CreateProjectMedia.propTypes = {
+  intl: intlShape.isRequired,
+};
+
 CreateProjectMedia.contextTypes = {
   store: React.PropTypes.object,
 };
 
-export default CreateProjectMedia;
+export default injectIntl(CreateProjectMedia);

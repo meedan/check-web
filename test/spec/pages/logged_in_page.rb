@@ -2,13 +2,13 @@ require_relative './login_page.rb'
 
 module LoggedInPage
   def logout
-    menu = element('.fa-ellipsis-h')
+    menu = element('.header-actions__menu-toggle')
     menu.click
 
     logout = element('.header-actions__menu-item--logout')
     logout.click
 
-    wait_for_element('#login-menu')
+    wait_for_element('#login-container')
     LoginPage.new(config: @config, driver: @driver)
   end
 

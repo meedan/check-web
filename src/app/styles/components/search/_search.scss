@@ -1,108 +1,100 @@
 .search {
-  // TODO: conform prototype styles to app conventions
-
-  .search__input {
-    background: 15px 13px url(/images/search.png) #fff no-repeat;
-    background-size: 18px;
-    border: $layout-border;
-    border-radius: 4px;
-    flex: 20;
-    height: 44px;
+  &__input {
+    background: units(2) 50% url('/images/search.svg') $white no-repeat;
+    background-size: units(2);
+    border: $border-width-small solid $black-16;
+    border-radius: units(half);
+    height: units(6);
+    margin-top: units(1);
+    outline: none;
+    padding-#{$from-direction}: units(6);
+    transition: box-shadow $transition-speed-fast;
     width: 100%;
-    min-width: 500px;
-    padding-left: 45px;
-    margin-top: 4px;
-    @media all and (max-width: $layout-mobile-breakpoint) {
-      min-width: 300px;
+
+    &:focus {
+      @include box-shadow(2);
+      transition: box-shadow $transition-speed-slow;
     }
   }
 
-  .search__filters {
-    padding: 16px;
-    max-width: 1200px;
+  &__filters {
+    @include when-larger-than(mobile-breakpoint) {
+      padding: units(1);
+    }
     margin: 0 auto;
+    max-width: 1200px;
+    padding: units(2) 0;
+
     div {
       display: flex;
-      margin-top: 1em;
-      max-height: 160px;
+      margin-top: units(1);
+      max-height: units(20);
       overflow-y: auto;
+
       h4 {
+        align-items: center;
+        color: $black-87;
+        display: flex;
         flex: 1;
-        color: $firefly-80;
+        margin-#{$to-direction}: units(2);
         margin: 0;
-        vertical-align: top;
-        display: inline-block;
-        margin-right: 16px;
-        min-width: 80px;
-        text-align: right;
+        min-width: units(6);
       }
+
       ul {
         flex: 10;
+
+        li {
+          @extend %ellipsis;
+          margin-bottom: 0;
+          max-width: units(25);
+        }
+      }
+
+      @include when-smaller-than(mobile-breakpoint) {
+        flex-flow: nowrap column;
+        padding: 0;
+
+        h4 {
+          padding-#{$from-direction}: units(1);
+          padding-top: units(2);
+          text-align: $from-direction;
+        }
       }
     }
   }
 
-  .search__filters-heading {
-    color: $firefly-80;
-    margin-top: 20px;
+  &__filters-loader {
+    margin: units(4) 0;
     text-align: center;
   }
 
-  .search__filters-loader {
-    text-align: center;
-    @include gray-text;
-    margin: 2em 0;
-  }
-
-  .search__results {
-    padding: 0 16px 16px;
+  &__results {
+    padding: 0 units(2) units(2);
 
     & > h4 {
+      color: $black-38;
+      font-weight: $font-weight-light;
       text-align: center;
-      color: $firefly-30;
-      font-weight: 200;
     }
-    ul.results {
-      max-width: $layout-column-width-narrow;
+
+    .results {
       margin: 0 auto;
+      max-width: layout(column-width-narrow);
+
       & > li {
-        margin-top: 8px;
+        margin-top: units(1);
       }
     }
   }
 
-  .search__results-heading {
-    color: $firefly-80;
-    margin-top: 20px;
+  &__results-heading {
+    color: $black-87;
+    margin-top: units(3);
     text-align: center;
   }
-}
 
-// Report tagging in search results
-// Embargoed 2016-11-6 — CB 
-//
-.search__results .media-actions__icon {
-  display: none;
-}
-
-// hack
-
-// Reports appearing in search page
-//
-// TODO: revist — 
-// Why not apply these at report component? — CGB 2016-11-2
-//
-.search {
-  .media-status {
-    &, &--editable {
-      cursor: auto;
-      pointer-events: none;
-    }
-  }
-  .media-status__menu {
-    display: none;
-  }
-  .media-status__icon--caret {
-    display: none;
+  .image-media-card img {
+    width: auto;
   }
 }

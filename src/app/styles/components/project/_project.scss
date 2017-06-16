@@ -1,46 +1,56 @@
 // Project page
-// Larger than mobile breakpoint
 //
-// @media all and (min-width: $layout-mobile-breakpoint + 1) {
-  .project {
-    flex: 1;
+.project {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  height: 100%;
+  overflow-y: visible;
+  padding: 0 units(2);
+  position: relative;
+  width: 100%;
+
+  // Add annotations
+  // TODO This element should not be present on the project page. 2017-2-13 CGB
+  //
+  .add-annotation {
+    display: none;
+  }
+
+  & > .content-column {
+    padding: 0;
+  }
+}
+
+.project__description {
+  // see also .header__container
+  background: $black-05;
+  display: flex;
+  flex-direction: column;
+  font: font(caption);
+  justify-content: center;
+  margin: (-1 * units(3)) (-1 * units(2)) units(2);
+  min-height: units(4);
+
+  &-container {
+    @include when-smaller-than(mobile-breakpoint) {
+      padding-#{$from-direction}: units(3);
+    }
+    color: $black-54;
+    display: flex;
+    margin: 0 auto;
+    max-width: layout(column-width-wide) + units(2);
+    padding-#{$from-direction}: units(10);
+    padding-#{$to-direction}: units(2);
+    padding-bottom: units(1);
+    text-align: $from-direction;
     width: 100%;
-    height: 100%;
-    overflow-y: visible;
-    position: relative;
-
-    display: flex;
-    flex-direction: column;
   }
+}
 
-  .project__team-sidebar {
-    flex: 0 0 $layout-sidebar-width;
-    width: $layout-sidebar-width;
-  }
-
-  .project__content {
-    flex: 1;
-
-    padding: 15px 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-  }
-
-  .team-sidebar { // move later
-    padding-bottom: 32px;
-    position: fixed;
-    width: $layout-sidebar-width;
-  }
-
-  .create-project {
-    display: inline;
-  }
-// }
-
-// // Project page
-// // Mobile and smaller
-// //
-// @media all and (max-width: $layout-mobile-breakpoint) {
-
-// }
+//  Create project button on the team page
+//
+// TODO move this to team page stylesheet
+.create-project {
+  display: inline;
+}

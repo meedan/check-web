@@ -1,112 +1,87 @@
 .create-team {
+  display: flex;
+  flex-direction: column;
   height: 100%;
-  flex: 1;
-
-  .message {
-    margin: 0 (-1 * $layout-padding);
-  }
 }
 
 .create-team__blurb {
-  @include onboarding-blurb;
-  text-align: center;
+  margin-bottom: units(4);
 }
 
 .create-team__form {
-  max-width: 380px;
+  width: 520px;
+  word-break: keep-all;
   margin: 0 auto;
 }
 
 .create-team__team-display-name {
-  margin-bottom: 30px;
   display: flex;
   flex-direction: column;
+  margin-bottom: units(4);
 }
 
 .create-team__team-display-name-input {
   @include text-input;
+  width: 100%;
 }
 
 .create-team__team-url {
-  margin-bottom: 30px;
-}
-
-.create-team__team-subdomain {
+  align-items: flex-end;
   display: flex;
-  flex-direction: column;
+  margin-bottom: units(4);
 }
 
-.create-team__team-subdomain-input {
+.create-team__team-slug {
+  display: flex;
+  flex: 1 1;
+  flex-direction: column;
+  margin-#{$from-direction}: units(1);
+  width: 50%;
+}
+
+.create-team__team-slug-input {
   @include text-input;
-  text-align: right;
+  order: 3;
 }
 
 .create-team__team-display-name-label,
-.create-team__team-subdomain-label {
-  order: 1;
+.create-team__team-slug-label {
   display: block;
+  font-weight: $font-weight-medium;
   opacity: 0;
-  color: theme-gray(50%);
-  transition:
-    color 200ms ease,
-    opacity 50ms ease;
-  font-size: 14px;
-  font-weight: 500;
+  order: 1;
+  transition: color $transition-speed-fast ease, opacity $transition-speed-fast ease;
 }
 
 .create-team__team-display-name-label--text-entered,
-.create-team__team-subdomain-label--text-entered {
+.create-team__team-slug-label--text-entered {
   opacity: 1;
 }
 
 .create-team__root-domain {
-  opacity: 0.2;
+  color: $black-32;
+  font: font(headline);
+  margin-#{$from-direction}: units(1);
+  padding-bottom: units(3) + units(half);
+  @include when-smaller-than(mobile-breakpoint) {
+    font: font(body2);
+  }
 }
 
-.create-team__team-display-name-input {
-  width: 100%;
-}
-
-.create-team__team-url {
-  display: flex;
-  align-items: flex-end;
-}
-
-.create-team__team-subdomain {
-  width: 50%;
-  flex: 1 1;
-}
-
-.create-team__root-domain {
-  font-size: 24px;
-  padding-bottom: 27px;
-  margin-left: 2px;
-  flex: 0 0;
-}
-
-.create-team__team-subdomain-message {
+.create-team__team-slug-message {
+  font-weight: $font-weight-medium;
+  height: units(2);
+  margin: units(1) 0 0;
   order: 3;
-  margin: 7px 0 0 0;
-  height: 16px;
-  font-size: 14px;
-  font-weight: 500;
   text-align: center;
+  transition: color $transition-speed-fast ease;
   width: 100%;
-  color: theme-gray(50%);
-  transition: color 100ms ease;
 }
 
 .create-team__submit-button {
-  @include button-large;
+  @include button-medium;
+  @include button-primary;
   display: block;
-  margin: 0 auto;
-  transition:
-    background-color 150ms ease,
-    opacity 150ms ease;
-  opacity: 0.5;
-
-  &:not(:disabled) {
-    opacity: 1;
-    background-color: rgb(71, 207, 152);
-  }
+  margin-left: auto;
+  transition: background-color $transition-speed-fast ease, opacity $transition-speed-fast ease;
 }

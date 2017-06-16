@@ -1,0 +1,42 @@
+[
+  {
+    "id": "task.confirmDelete",
+    "defaultMessage": "Are you sure you want to delete this task?"
+  },
+  {
+    "id": "tasks.cancelEdit",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "tasks.save",
+    "defaultMessage": "Save"
+  },
+  {
+    "id": "task.edit",
+    "defaultMessage": "Edit task"
+  },
+  {
+    "id": "task.delete",
+    "defaultMessage": "Delete task"
+  },
+  {
+    "id": "task.noteLabel",
+    "defaultMessage": "Note any additional details here."
+  },
+  {
+    "id": "task.pressReturnToSave",
+    "defaultMessage": "Press return to save your response"
+  },
+  {
+    "id": "task.resolvedBy",
+    "defaultMessage": "Resolved by {by}"
+  },
+  {
+    "id": "tasks.taskLabel",
+    "defaultMessage": "Task label"
+  },
+  {
+    "id": "tasks.description",
+    "defaultMessage": "Description"
+  }
+]

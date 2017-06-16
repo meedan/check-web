@@ -1,0 +1,11 @@
+{
+  "mediaDetail.moveFailed": "عذراً، لم نستطع نقل هذا التقرير",
+  "mediaDetail.mediaTitle": "العنوان",
+  "mediaDetail.byUser": "بواسطة {username}",
+  "mediaDetail.cancelButton": "إلغاء",
+  "mediaDetail.move": "نقل",
+  "mediaDetail.added": "أضيف {byUser}",
+  "mediaDetail.doneButton": "تم",
+  "mediaDetail.dialogHeader": "انقل {mediaType} إلى مشروع آخر",
+  "mediaDetail.dialogMediaPath": "مضاف حالياً إلى {teamName} > {projectTitle}"
+}

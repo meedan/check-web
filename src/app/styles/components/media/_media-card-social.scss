@@ -1,0 +1,130 @@
+.social-media-card {
+  @include when-smaller-than(mobile-breakpoint) {
+    flex-direction: column;
+    width: 100%;
+
+    &__body-image {
+      margin-#{$from-direction}: layout(gutter-large);
+    }
+  }
+  color: $black-87;
+  display: flex;
+  margin-#{$to-direction}: layout(gutter-medium);
+  justify-content: space-between;
+
+  &__header {
+    align-items: flex-start;
+    display: flex;
+  }
+
+  &__author-avatar {
+    @include avatar(units(5));
+  }
+
+  &__header-text-primary {
+    display: flex;
+    flex-direction: column;
+    margin-#{$from-direction}: layout(gutter-small);
+    overflow: hidden;
+
+    a {
+      color: $black-87;
+
+      &:hover {
+        color: $check-blue;
+      }
+
+      &:active {
+        color: $black-87;
+      }
+    }
+  }
+
+  // Truncate when smaller
+  &__name,
+  &__username {
+    @extend %ellipsis;
+  }
+
+  &__header-text-secondary {
+    margin-#{$to-direction}: units(3);
+    text-align: $to-direction;
+    margin-#{$from-direction}: layout(gutter-large);
+
+    @include when-smaller-than(mobile-breakpoint-small) {
+      margin-#{$from-direction}: 0;
+    }
+
+    time {
+      margin-#{$from-direction}: units(1);
+    }
+
+    svg {
+      margin-#{$to-direction}: units(1);
+
+      path {
+        color: $black-54;
+      }
+    }
+  }
+
+  &__body {
+    @extend %break-word;
+    align-items: flex-start;
+    cursor: pointer;
+    display: flex;
+    hyphens: auto;
+    justify-content: space-between;
+    margin: layout(gutter-small) layout(gutter-medium) layout(gutter-small) layout(gutter-large);
+
+    @include when-smaller-than(mobile-breakpoint-small) {
+      flex-wrap: wrap;
+      margin-#{$from-direction}: 0;
+    }
+
+    &--condensed {
+      cursor: auto;
+    }
+  }
+
+  &__body-text {
+    padding-#{$to-direction}: units(1);
+  }
+
+  &__body-image {
+    @include image(units(25), units(13));
+    @include when-smaller-than(mobile-breakpoint-small) {
+      margin-#{$from-direction}: 0;
+    }
+    flex-shrink: 0;
+    margin-top: units(1);
+  }
+
+  &__footer {
+    @include when-smaller-than(mobile-breakpoint-small) {
+      margin-#{$from-direction}: 0;
+    }
+    padding-#{$from-direction}: 0;
+    padding-#{$to-direction}: units(2);
+    margin-top: units(1) + units(half);
+    margin-#{$from-direction}: layout(gutter-large);
+  }
+
+  &__footer-stat {
+    margin-#{$to-direction}: layout(gutter-small);
+    color: $black-54;
+  }
+}
+
+// Page-type reports don't have avatar
+// Override to flush left.
+.media-detail--page {
+  .social-media-card {
+    &__body,
+    &__header-text-primary,
+    &__header-text-secondary,
+    &__footer {
+      margin-#{$from-direction}: 0;
+    }
+  }
+}

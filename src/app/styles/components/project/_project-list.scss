@@ -1,18 +1,3 @@
 .project-list {
-  @include app-menu;
+  @include menu;
 }
-
-.project-list__project {
-}
-
-.project-list__link {
-  &--active {
-    font-weight: bold;
-  }
-}
-
-// .project-list__new {
-// }
-
-// .project-list__input {
-// }

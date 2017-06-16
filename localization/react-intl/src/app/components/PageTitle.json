@@ -1,0 +1,10 @@
+[
+  {
+    "id": "pageTitle.appNameHuman",
+    "defaultMessage": "Check"
+  },
+  {
+    "id": "bridge.pageTitle.appNameHuman",
+    "defaultMessage": "Bridge"
+  }
+]

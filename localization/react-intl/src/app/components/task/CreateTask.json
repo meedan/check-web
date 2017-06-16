@@ -1,0 +1,42 @@
+[
+  {
+    "id": "createTask.newTask",
+    "defaultMessage": "New task"
+  },
+  {
+    "id": "tasks.cancelAdd",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "tasks.add",
+    "defaultMessage": "Create Task"
+  },
+  {
+    "id": "tasks.addTask",
+    "defaultMessage": "Add task"
+  },
+  {
+    "id": "tasks.shortAnswer",
+    "defaultMessage": "Short answer"
+  },
+  {
+    "id": "tasks.chooseOne",
+    "defaultMessage": "Choose one"
+  },
+  {
+    "id": "tasks.chooseMultiple",
+    "defaultMessage": "Choose multiple"
+  },
+  {
+    "id": "tasks.taskLabel",
+    "defaultMessage": "Prompt"
+  },
+  {
+    "id": "tasks.description",
+    "defaultMessage": "Description"
+  },
+  {
+    "id": "tasks.addDescription",
+    "defaultMessage": "Add a description"
+  }
+]

@@ -1,4 +1,13 @@
 import React, { Component, PropTypes } from 'react';
+import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
+import { mapGlobalMessage } from './MappedMessage';
+
+const messages = defineMessages({
+  disclaimer: {
+    id: "browserSupport.message",
+    defaultMessage: "While in beta, {appName} is optimized for Google Chrome on desktop.",
+  },
+});
 
 class BrowserSupport extends Component {
   constructor(props) {
@@ -14,9 +23,8 @@ class BrowserSupport extends Component {
 
     if (/Chrome/i.test(ua) && !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|mobile|CriOS/i.test(ua)) {
       return true;
-    } else {
-      return false;
     }
+    return false;
   }
 
   closed() {
@@ -38,12 +46,13 @@ class BrowserSupport extends Component {
       return (
         <div className="browser-support">
           <span className="browser-support__close" onClick={this.close.bind(this)}>×</span>
-          <p className="browser-support__message">While in beta, Check is optimized for Google Chrome on desktop.</p>
+          <p className="browser-support__message">
+            <FormattedMessage id="browserSupport.message" values={{ appName: mapGlobalMessage(this.props.intl, 'appNameHuman') }}/>
+          </p>
         </div>);
-    } else {
-      return null;
     }
+    return null;
   }
 }
 
-export default BrowserSupport;
+export default injectIntl(BrowserSupport);

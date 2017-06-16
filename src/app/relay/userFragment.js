@@ -11,7 +11,7 @@ const userFragment = Relay.QL`
       dbid,
       name,
       avatar,
-      subdomain,
+      slug,
       members_count
     },
     team_users(first: 10000) {
@@ -22,7 +22,7 @@ const userFragment = Relay.QL`
             dbid,
             name,
             avatar,
-            subdomain,
+            slug,
             members_count
           }
           id,

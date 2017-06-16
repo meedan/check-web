@@ -1,9 +1,30 @@
 import React, { Component, PropTypes } from 'react';
+import { FormattedMessage, defineMessages, intlShape, injectIntl } from 'react-intl';
 import Relay from 'react-relay';
 import CreateTagMutation from '../../relay/CreateTagMutation';
 import DeleteTagMutation from '../../relay/DeleteTagMutation';
 import Tags from '../source/Tags';
 import CheckContext from '../../CheckContext';
+import { Link } from 'react-router';
+import { searchQueryFromUrl, urlFromSearchQuery } from '../Search';
+import mergeWith from 'lodash.mergewith';
+import xor from 'lodash.xor';
+import isEqual from 'lodash.isequal';
+
+const messages = defineMessages({
+  loading: {
+    id: 'mediaTags.loading',
+    defaultMessage: 'Loading...',
+  },
+  language: {
+    id: 'mediaTags.language',
+    defaultMessage: 'language: {language}',
+  },
+  error: {
+    id: 'mediaTags.error',
+    defaultMessage: 'Sorry – we had trouble adding that tag.',
+  },
+});
 
 class MediaTags extends Component {
   constructor(props) {
@@ -21,8 +42,8 @@ class MediaTags extends Component {
     return modifierBoolean ? [baseClass, baseClass + modifierSuffix].join(' ') : baseClass;
   }
 
-  handleClick(tagString) {
-    this.setState({ message: 'Loading...' });
+  handleSuggestedTagEditClick(tagString) {
+    this.setState({ message: this.props.intl.formatMessage(messages.loading) });
     const tag = this.findTag(tagString);
 
     if (tag) {
@@ -39,7 +60,7 @@ class MediaTags extends Component {
 
     const onFailure = (transaction) => {
       const error = transaction.getError();
-      let message = 'Sorry – we had trouble adding that tag.';
+      let message = that.props.intl.formatMessage(messages.error);
       try {
         const json = JSON.parse(error.source);
         if (json.error) {
@@ -80,23 +101,62 @@ class MediaTags extends Component {
     );
   }
 
+  searchTagUrl(tagString) {
+    const { media } = this.props;
+    const tagQuery = {
+      tags: [ tagString ]
+    };
+    const searchQuery = searchQueryFromUrl();
+
+    // Make a new query combining the current tag with whatever query is already in the URL.
+    // This allows to support clicking tags on the search and project pages.
+    const query = mergeWith({}, searchQuery, tagQuery, function (objValue, srcValue) {
+      if (Array.isArray(objValue)) {
+        return xor(objValue, srcValue);
+      }
+    });
+    if (!query.tags.length) delete query.tags;
+    return urlFromSearchQuery(query, `/${media.team.slug}/search`);
+  }
+
+  handleTagViewClick(tagString) {
+    const url = this.searchTagUrl(tagString);
+    const history = new CheckContext(this).getContextStore().history;
+    history.push(url);
+  }
+
   render() {
     const { media, tags } = this.props;
     const suggestedTags = (media.team && media.team.get_suggested_tags) ? media.team.get_suggested_tags.split(',') : [];
     const activeSuggestedTags = tags.filter(tag => suggestedTags.includes(tag.node.tag));
     const remainingTags = tags.filter(tag => !suggestedTags.includes(tag.node.tag));
+    const searchQuery = searchQueryFromUrl();
+    const activeRegularTags = searchQuery.tags || [];
 
     if (!this.props.isEditing) {
       return (
         <div className="media-tags">
           {activeSuggestedTags.length ? (
-            <ul className="media-tags__suggestions / electionland_categories">
-              {activeSuggestedTags.map(tag => <li className={this.bemClass('media-tags__suggestion', true, '--selected')}>{tag.node.tag}</li>)}
+            <ul className="media-tags__suggestions">
+              {activeSuggestedTags.map(tag =>
+                <li key={tag.node.id}
+                    onClick={this.handleTagViewClick.bind(this, tag.node.tag)}
+                    className={this.bemClass('media-tags__suggestion', activeRegularTags.indexOf(tag.node.tag) > -1, '--selected')}>
+                    {tag.node.tag}
+                </li>
+              )}
             </ul>
           ) : null}
-          {remainingTags.length ? <ul className="media-tags__list">
-            {remainingTags.map(tag => (<li className="media-tags__tag">{tag.node.tag.replace(/^#/, '')}</li>))}
-          </ul> : null}
+          <ul className="media-tags__list">
+            {media.language ? <li className="media-tags__tag media-tags__language">{this.props.intl.formatMessage(messages.language, { language: media.language })}</li> : null}
+            {remainingTags.map(tag =>
+              <li key={tag.node.id}
+                  onClick={this.handleTagViewClick.bind(this, tag.node.tag)}
+                  className={this.bemClass('media-tags__tag', activeRegularTags.indexOf(tag.node.tag) > -1, '--selected')}>
+                  {tag.node.tag.replace(/^#/, '')}
+              </li>
+            )}
+          </ul>
         </div>
       );
     }
@@ -104,14 +164,20 @@ class MediaTags extends Component {
     return (
       <div className="media-tags media-tags--editing">
         <div className="media-tags__header">
-          <h4 className="media-tags__heading">Tags</h4>
+          <h4 className="media-tags__heading"><FormattedMessage id="mediaTags.heading" defaultMessage="Tags" /></h4>
           <span className="media-tags__message">{this.state.message}</span>
         </div>
 
         {suggestedTags.length ? (
           <div className="media-tags__suggestions">
-            <ul className="media-tags__suggestions-list / electionland_categories">
-              {suggestedTags.map(suggestedTag => <li onClick={this.handleClick.bind(this, suggestedTag)} className={this.bemClass('media-tags__suggestion', this.findTag(suggestedTag), '--selected')}>{suggestedTag}</li>)}
+            <ul className="media-tags__suggestions-list">
+              {suggestedTags.map(suggestedTag =>
+                <li key={suggestedTag}
+                    onClick={this.handleSuggestedTagEditClick.bind(this, suggestedTag)}
+                    className={this.bemClass('media-tags__suggestion', this.findTag(suggestedTag), '--selected')}>
+                    {suggestedTag}
+                </li>
+              )}
             </ul>
           </div>
         ) : null}
@@ -122,8 +188,12 @@ class MediaTags extends Component {
   }
 }
 
+MediaTags.propTypes = {
+  intl: intlShape.isRequired,
+};
+
 MediaTags.contextTypes = {
   store: React.PropTypes.object,
 };
 
-export default MediaTags;
+export default injectIntl(MediaTags);
