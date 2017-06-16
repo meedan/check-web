@@ -201,9 +201,9 @@ module AppSpecHelpers
   end
 
   def create_claim_and_go_to_search_page
-    page = LoginPage.new(config: @config, driver: @driver).load
-        .login_with_email(email: @email, password: @password)
-        .create_media(input: 'My search result')
+    page = LoginPage.new(config: @config, driver: @driver).load.login_with_email(email: @email, password: @password)
+    @wait.until { @driver.page_source.include?('Claim') }
+    page.create_media(input: 'My search result')
 
     sleep 8 # wait for Sidekiq
 
@@ -217,7 +217,7 @@ module AppSpecHelpers
   def save_screenshot(title)
     require 'imgur'
     path = '/tmp/' + (0...8).map{ (65 + rand(26)).chr }.join + '.png'
-    @driver.save_screenshot(path)
+    @driver.save_screenshot(path, full: true)
 
     client = Imgur.new(@config['imgur_client_id'])
     image = Imgur::LocalImage.new(path, title: title)
