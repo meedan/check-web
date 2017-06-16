@@ -217,7 +217,7 @@ module AppSpecHelpers
   def save_screenshot(title)
     require 'imgur'
     path = '/tmp/' + (0...8).map{ (65 + rand(26)).chr }.join + '.png'
-    @driver.save_screenshot(path, full: true)
+    @driver.save_screenshot(path)
 
     client = Imgur.new(@config['imgur_client_id'])
     image = Imgur::LocalImage.new(path, title: title)
