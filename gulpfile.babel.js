@@ -162,3 +162,5 @@ gulp.task('webpack:build:web:dev', () => {
     }));
   });
 });
+
+gulp.task('build:web:dev', ['replace-webpack-code', 'relay:copy', 'webpack:build:web:dev', 'views:build:web', 'copy:build:web']);
