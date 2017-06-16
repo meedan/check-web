@@ -1,4 +1,4 @@
-import { SUCCESS, ERROR } from '../constants/ActionTypes';
+import { SUCCESS, ERROR } from './ActionTypes';
 import superagent from 'superagent';
 import util from 'util';
 import config from 'config';

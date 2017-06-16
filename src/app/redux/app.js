@@ -1,4 +1,4 @@
-import { NOTIFY_SEND, NOTIFY_RECEIVE, SET_CONTEXT } from '../constants/ActionTypes';
+import { NOTIFY_SEND, NOTIFY_RECEIVE, SET_CONTEXT } from './ActionTypes';
 import { LOCATION_CHANGE } from 'react-router-redux';
 
 export default function app(state = { session: null }, action) {

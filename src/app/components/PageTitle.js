@@ -1,19 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import DocumentTitle from 'react-document-title';
 import { defineMessages, injectIntl } from 'react-intl';
-import { mapMessage } from './MappedMessage';
+import { mapGlobalMessage } from './MappedMessage';
 import config from 'config';
-
-const messages = defineMessages({
-  appNameHuman: {
-    id: 'pageTitle.appNameHuman',
-    defaultMessage: 'Check',
-  },
-  bridge_appNameHuman: {
-    id: 'bridge.pageTitle.appNameHuman',
-    defaultMessage: 'Bridge',
-  },
-});
 
 class PageTitle extends Component {
   render() {
@@ -21,7 +10,7 @@ class PageTitle extends Component {
     let title = this.props.title;
 
     if (!title) {
-      const appName = mapMessage(this.props.intl, messages, 'appNameHuman');
+      const appName = mapGlobalMessage(this.props.intl, 'appNameHuman');
       let suffix = appName;
 
       if (!this.props.skipTeam) {

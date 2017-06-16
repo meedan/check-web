@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import UserMenuRelay from '../relay/UserMenuRelay';
-import { logout } from '../actions/actions';
-import { FormattedMessage, defineMessages } from 'react-intl';
-import MappedMessage from './MappedMessage';
+import { logout } from '../redux/actions';
+import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
+import MappedMessage, { mapGlobalMessage } from './MappedMessage';
 import MdSearch from 'react-icons/lib/md/search';
 import MdMoreVert from 'react-icons/lib/md/more-vert';
 import TeamMenuRelay from '../relay/TeamMenuRelay';
@@ -11,17 +11,6 @@ import { bemClass } from '../helpers';
 import { stringHelper } from '../customHelpers';
 import { Link } from 'react-router';
 import config from 'config';
-
-const messages = defineMessages({
-  about: {
-    id: 'headerActions.aboutCheck',
-    defaultMessage: 'About Check',
-  },
-  bridge_about: {
-    id: 'bridge.headerActions.aboutCheck',
-    defaultMessage: 'About Bridge',
-  },
-});
 
 class HeaderActions extends Component {
   constructor(props) {
@@ -73,7 +62,7 @@ class HeaderActions extends Component {
             <a className="header-actions__link" target="_blank" rel="noopener noreferrer" href={stringHelper('PP_URL')}><FormattedMessage id="headerActions.privacyPolicy" defaultMessage="Privacy Policy" /></a>
           </li>
           <li className="header-actions__menu-item">
-            <a className="header-actions__link" target="_blank" rel="noopener noreferrer" href={stringHelper('ABOUT_URL')}><MappedMessage msgObj={messages} msgKey="about" /></a>
+            <a className="header-actions__link" target="_blank" rel="noopener noreferrer" href={stringHelper('ABOUT_URL')}><FormattedMessage id="headerActions.about" defaultMessage="About {appName}" values={{ appName: mapGlobalMessage(this.props.intl, 'appNameHuman') }} /></a>
           </li>
         </ul>
       </div>
@@ -81,4 +70,4 @@ class HeaderActions extends Component {
   }
 }
 
-export default HeaderActions;
+export default injectIntl(HeaderActions);

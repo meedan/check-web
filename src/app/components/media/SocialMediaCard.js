@@ -8,8 +8,10 @@ import MdLink from 'react-icons/lib/md/link';
 import { Link } from 'react-router';
 import MediaUtil from './MediaUtil';
 import MediaInspector from './MediaInspector';
+import AuthorPicture from '../AuthorPicture';
 import TimeBefore from '../TimeBefore';
 import { bemClass } from '../../helpers';
+import deepEqual from 'deep-equal';
 
 const messages = defineMessages({
   link: {
@@ -37,12 +39,14 @@ class SocialMediaCard extends Component {
     this.setState({ isInspectorActive: false });
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    return !deepEqual(nextProps, this.props) || !deepEqual(nextState, this.state);
+  }
+
   render() {
     const { media, data, condensed } = this.props;
-    // TODO: make less verbose
     const url = MediaUtil.url(media, data);
     const embedPublishedAt = MediaUtil.embedPublishedAt(media, data);
-    const authorAvatarUrl = MediaUtil.authorAvatarUrl(media, data);
     const authorName = MediaUtil.authorName(media, data);
     const authorUsername = MediaUtil.authorUsername(media, data);
     const authorUrl = MediaUtil.authorUrl(media, data);
@@ -55,7 +59,7 @@ class SocialMediaCard extends Component {
         <MediaInspector media={media} isActive={this.state.isInspectorActive} dismiss={this.handleInspectorDismiss.bind(this)} />
         <div className="social-media-column-alpha">
           <div className="social-media-card__header / card-header">
-            {authorAvatarUrl ? <img src={authorAvatarUrl} className="social-media-card__author-avatar" /> : null}
+            <AuthorPicture media={media} data={data} />
             <div className="social-media-card__header-text-primary / header-text-primary">
               <a href={authorUrl} target="_blank" rel="noopener noreferrer" className="social-media-card__name">{authorName || authorUsername}</a>
               { ((authorName && authorUsername) && (authorName !== authorUsername)) ?
