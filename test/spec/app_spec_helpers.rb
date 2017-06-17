@@ -201,9 +201,9 @@ module AppSpecHelpers
   end
 
   def create_claim_and_go_to_search_page
-    page = LoginPage.new(config: @config, driver: @driver).load
-        .login_with_email(email: @email, password: @password)
-        .create_media(input: 'My search result')
+    page = LoginPage.new(config: @config, driver: @driver).load.login_with_email(email: @email, password: @password)
+    @wait.until { @driver.page_source.include?('Claim') }
+    page.create_media(input: 'My search result')
 
     sleep 8 # wait for Sidekiq
 

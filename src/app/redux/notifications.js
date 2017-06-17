@@ -1,5 +1,5 @@
 import { sendMessage } from 'crossmessaging';
-import { NOTIFY_SEND, NOTIFY_RECEIVE } from '../constants/ActionTypes';
+import { NOTIFY_SEND, NOTIFY_RECEIVE } from './ActionTypes';
 
 export function sendNotification(action) {
   sendMessage({ name: 'redux-notify', action });
