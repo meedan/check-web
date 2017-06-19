@@ -3,7 +3,6 @@ import config from 'config';
 import Relay from 'react-relay';
 import UpdateProjectMediaMutation from '../relay/UpdateProjectMediaMutation';
 import MediaUtil from './media/MediaUtil';
-import deepEqual from 'deep-equal';
 
 class AuthorPicture extends Component {
   constructor(props) {
@@ -23,9 +22,10 @@ class AuthorPicture extends Component {
     };
 
     const onSuccess = (response) => {
-      this.setState({ avatarUrl: JSON.parse(response.updateProjectMedia.project_media.embed).author_picture });
+      const avatarUrl = JSON.parse(response.updateProjectMedia.project_media.embed).author_picture || this.defaultAvatar();
+      this.setState({ avatarUrl });
     };
-/*
+
     Relay.Store.commitUpdate(
       new UpdateProjectMediaMutation({
         refresh_media: 1,
@@ -33,14 +33,8 @@ class AuthorPicture extends Component {
       }),
       { onSuccess, onFailure },
     );
-*/
-    return this.defaultAvatar();
-  }
 
-  componentWillReceiveProps(nextProps) {
-    if (!deepEqual(nextProps, this.props)) {
-      this.setState({ avatarUrl: MediaUtil.authorAvatarUrl(nextProps.media, nextProps.data) || this.refreshAvatar() });
-    }
+    return this.defaultAvatar();
   }
 
   defaultAvatar() {

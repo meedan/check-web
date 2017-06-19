@@ -23,7 +23,7 @@ class ProjectMenu extends Component {
 
     return (
       <Can permissions={project.permissions} permission="update Project">
-        <li className="project-menu / header-actions__menu-item" onClick={this.handleEditClick.bind(this)}>
+        <li key="projectMenuRelay.editProject" className="project-menu header-actions__menu-item" onClick={this.handleEditClick.bind(this)}>
           <FormattedMessage id="projectMenuRelay.editProject" defaultMessage="Edit project" />
         </li>
       </Can>

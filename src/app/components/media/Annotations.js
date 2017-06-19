@@ -12,9 +12,9 @@ class Annotations extends Component {
     return (
       <div className='annotations'>
         <ContentColumn>
-          <ul className="annotations__list / annotations-list">
+          <ul className="annotations__list annotations-list">
             {annotations.map(annotation => (
-              <li className='annotations__list-item'><Annotation annotation={annotation.node} annotated={props.annotated} annotatedType={props.annotatedType} /></li>
+              <li key={annotation.node.dbid} className='annotations__list-item'><Annotation annotation={annotation.node} annotated={props.annotated} annotatedType={props.annotatedType} /></li>
             ))}
           </ul>
         </ContentColumn>
