@@ -10,13 +10,13 @@
 
   &__actions {
     position: absolute;
-    #{$to-direction}: units(2);
     top: units(2);
+    #{$to-direction}: units(2);
   }
 
   &__question {
-    margin-#{$to-direction}: units(4);
     color: $black-54;
+    margin-#{$to-direction}: units(4);
   }
 
   &__label-container {
@@ -25,6 +25,7 @@
   }
 
   &__label {
+    @extend %break-word;
     color: $black-54;
     font-size: units(2);
     padding-bottom: units(1);
@@ -99,19 +100,19 @@
 
   &__option_other_radio {
     float: $from-direction;
-    margin-#{$from-direction}: unit(1);
-    margin-#{$to-direction}: units(2);
     margin-top: units(1);
     max-height: units(3);
     max-width: units(3);
+    margin-#{$from-direction}: unit(1);
+    margin-#{$to-direction}: units(2);
   }
 
   &__option_other_checkbox {
     float: $from-direction;
-    margin-#{$from-direction}: unit(1);
     margin-top: units(1);
     max-height: units(3);
     max-width: units(3);
+    margin-#{$from-direction}: unit(1);
   }
 
   &__option_other_text_input {
@@ -128,32 +129,31 @@
   .media-actions__icon {
     color: $black-38;
     height: units(3);
-    margin-#{$to-direction}: units(1);
     margin: 0;
     padding: 0;
     width: units(3);
+    margin-#{$to-direction}: units(1);
   }
 
   &__description-icon {
     color: $black-38;
     float: $to-direction;
     height: units(3);
-    margin-#{$from-direction}: units(2);
-    margin-#{$to-direction}: units(1);
     margin-bottom: units(1);
     margin-top: units(2);
     width: units(3);
+    margin-#{$from-direction}: units(2);
+    margin-#{$to-direction}: units(1);
   }
 
   // Task description tooltip
   // via rc-tooltip, outside Task.js markup tree
   //
   &__description-tooltip {
-    max-width: card-width-large;
-
     @include when-smaller-than(mobile-breakpoint) {
       max-width: 40vw;
     }
+    max-width: card-width-large;
 
     span {
       word-wrap: break-word;
