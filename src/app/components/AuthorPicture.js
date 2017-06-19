@@ -3,18 +3,19 @@ import config from 'config';
 import Relay from 'react-relay';
 import UpdateProjectMediaMutation from '../relay/UpdateProjectMediaMutation';
 import MediaUtil from './media/MediaUtil';
+import deepEqual from 'deep-equal';
 
 class AuthorPicture extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      avatarUrl: null,
+      avatarUrl: MediaUtil.authorAvatarUrl(props.media, props.data) || this.refreshAvatar(),
     };
   }
 
   handleAvatarError() {
-    this.setState({ avatarUrl: this.state.avatarUrl ? this.defaultAvatar() : this.refreshAvatar() });
+    this.setState({ avatarUrl: this.refreshAvatar() });
   }
 
   refreshAvatar() {
@@ -24,7 +25,7 @@ class AuthorPicture extends Component {
     const onSuccess = (response) => {
       this.setState({ avatarUrl: JSON.parse(response.updateProjectMedia.project_media.embed).author_picture });
     };
-/*
+
     Relay.Store.commitUpdate(
       new UpdateProjectMediaMutation({
         refresh_media: 1,
@@ -32,8 +33,14 @@ class AuthorPicture extends Component {
       }),
       { onSuccess, onFailure },
     );
-*/
+
     return this.defaultAvatar();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (!deepEqual(nextProps, this.props)) {
+      this.setState({ avatarUrl: MediaUtil.authorAvatarUrl(nextProps.media, nextProps.data) || this.refreshAvatar() });
+    }
   }
 
   defaultAvatar() {
@@ -41,10 +48,8 @@ class AuthorPicture extends Component {
   }
 
   render() {
-    const { media, data } = this.props;
-    const authorAvatarUrl = this.state.avatarUrl || MediaUtil.authorAvatarUrl(media, data) || this.refreshAvatar();
     return(
-      <img src={authorAvatarUrl} className="social-media-card__author-avatar" onError={this.handleAvatarError.bind(this)} />
+      <img src={this.state.avatarUrl} className="social-media-card__author-avatar" onError={this.handleAvatarError.bind(this)} />
     );
   }
 }
