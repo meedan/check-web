@@ -21,7 +21,7 @@ class TeamMenu extends Component {
 
     return (
       <Can permissions={team.permissions} permission="update Team">
-        <li className="header-actions__menu-item" onClick={this.handleClick.bind(this)}>
+        <li key="teamMenuRelay.manageTeam" className="header-actions__menu-item" onClick={this.handleClick.bind(this)}>
           <FormattedMessage id="teamMenuRelay.manageTeam" defaultMessage="Manage team" />
         </li>
       </Can>
