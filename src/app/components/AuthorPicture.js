@@ -25,7 +25,7 @@ class AuthorPicture extends Component {
     const onSuccess = (response) => {
       this.setState({ avatarUrl: JSON.parse(response.updateProjectMedia.project_media.embed).author_picture });
     };
-/*
+
     Relay.Store.commitUpdate(
       new UpdateProjectMediaMutation({
         refresh_media: 1,
@@ -33,7 +33,7 @@ class AuthorPicture extends Component {
       }),
       { onSuccess, onFailure },
     );
-*/
+
     return this.defaultAvatar();
   }
 
