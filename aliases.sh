@@ -1,0 +1,12 @@
+# Docker aliases for development
+CHECKAPP="~/git/check-app"
+alias dockerrr="cd $CHECKAPP && docker-compose run web npm run"
+alias dcguard="cd $CHECKAPP && cd check-web && bundle exec guard"
+alias dcgit="cd $CHECKAPP && ./bin/git-update.sh"
+alias dcpull="cd $CHECKAPP && docker-compose pull && docker-compose build --pull"
+alias dcup="cd $CHECKAPP && docker-compose up"
+alias dcbuild="dockerrr build"
+alias dcbuilddev="dockerrr build:dev"
+alias dcwatchstyles="dockerrr style:watch:ltr"
+alias dcwatchstylesrtl="dockerrr style:watch:rtl"
+alias dcnpm="cd $CHECKAPP && rm -r check-web/node_modules && docker-compose exec web npm i"
