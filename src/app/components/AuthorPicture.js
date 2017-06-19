@@ -23,7 +23,8 @@ class AuthorPicture extends Component {
     };
 
     const onSuccess = (response) => {
-      this.setState({ avatarUrl: JSON.parse(response.updateProjectMedia.project_media.embed).author_picture });
+      const avatarUrl = JSON.parse(response.updateProjectMedia.project_media.embed).author_picture || this.defaultAvatar();
+      this.setState({ avatarUrl });
     };
 
     Relay.Store.commitUpdate(
@@ -35,12 +36,6 @@ class AuthorPicture extends Component {
     );
 
     return this.defaultAvatar();
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (!deepEqual(nextProps, this.props)) {
-      this.setState({ avatarUrl: MediaUtil.authorAvatarUrl(nextProps.media, nextProps.data) || this.refreshAvatar() });
-    }
   }
 
   defaultAvatar() {
