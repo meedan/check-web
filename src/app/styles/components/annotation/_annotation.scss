@@ -9,11 +9,11 @@
   display: flex;
   font: font(caption);
   max-width: layout(card-width-large);
-  padding-#{$from-direction}: units(10);
 
   &-content {
-    margin-#{$to-direction}: units(2);
+    @extend %break-word;
     display: block;
+    margin-#{$to-direction}: units(2);
   }
 
   a,
@@ -25,6 +25,7 @@
     color: $black-38;
     margin-#{$to-direction}: units(1);
   }
+  padding-#{$from-direction}: units(10);
 }
 
 .annotation__card {
@@ -59,9 +60,9 @@
 }
 
 .annotation__card-content {
+  @extend %break-word;
   display: flex;
   width: 100%;
-  @extend %break-word;
 
   & > span:first-child {
     flex: 1; // TODO: proper text/thumbnail templates
@@ -88,8 +89,8 @@
 }
 
 .annotation__card-footer-text {
-  margin-#{$to-direction}: units(1);
   flex: 1;
+  margin-#{$to-direction}: units(1);
 }
 
 .annotation__card-author {
@@ -114,8 +115,8 @@
   color: $black-38;
   display: inline;
   flex: 1;
-  margin-#{$to-direction}: units(1);
   white-space: pre;
+  margin-#{$to-direction}: units(1);
 }
 
 .annotation__actions {
@@ -139,9 +140,9 @@
   @include media-status-font-colors;
   font: font(caption);
   font-weight: $font-weight-medium;
+  text-transform: uppercase;
   margin-#{$from-direction}: 3px;
   margin-#{$to-direction}: 2px;
-  text-transform: uppercase;
 }
 
 .annotation__tag {
@@ -186,11 +187,11 @@
 
   svg {
     @extend %icon;
-    margin-#{$to-direction}: 0;
 
     path {
       color: $black-16;
     }
+    margin-#{$to-direction}: 0;
   }
 }
 
