@@ -3,7 +3,6 @@ import config from 'config';
 import Relay from 'react-relay';
 import UpdateProjectMediaMutation from '../relay/UpdateProjectMediaMutation';
 import MediaUtil from './media/MediaUtil';
-import deepEqual from 'deep-equal';
 
 class AuthorPicture extends Component {
   constructor(props) {
