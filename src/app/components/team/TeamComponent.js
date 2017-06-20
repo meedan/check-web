@@ -10,7 +10,7 @@ import Checkbox from 'material-ui/Checkbox';
 import FlatButton from 'material-ui/FlatButton';
 import MdCreate from 'react-icons/lib/md/create';
 import {Card, CardActions, CardHeader, CardTitle, CardText} from 'material-ui/Card';
-import FloatingActionButton from 'material-ui/FloatingActionButton';
+import IconButton from 'material-ui/IconButton';
 import MDEdit from 'react-icons/lib/md/edit';
 import MDChevronRight from 'react-icons/lib/md/chevron-right';
 import UpdateTeamMutation from '../../relay/UpdateTeamMutation';
@@ -303,11 +303,13 @@ class TeamComponent extends Component {
 
                       <CardActions className="team__profile-card-actions">
                         <FlatButton
+                          className="team__cancel-button"
                           label={<FormattedMessage id="teamComponent.cancelButton"defaultMessage="Cancel" />}
                           onClick={this.cancelEditTeam.bind(this)}
                         />
 
                         <FlatButton
+                          className="team__save-button"
                           label={<FormattedMessage id="teamComponent.saveButton"defaultMessage="Save"disabled={this.state.submitDisabled} />}
                           primary
                           onClick={this.handleEditTeam.bind(this)}
@@ -347,12 +349,14 @@ class TeamComponent extends Component {
                     </section>
                     <section className="layout-fab-container">
                       <Can permissions={team.permissions} permission="update Team">
-                        <FloatingActionButton
-                          backgroundColor="#ffffff"
-                          className="team__edit-button" mini={true}
-                          onTouchTap={this.handleEntreEditTeamNameAndDescription.bind(this)}>
-                          <MDEdit className="icon" />
-                        </FloatingActionButton>
+                        <IconButton
+                          className="team__edit-button"
+                          tooltip={<FormattedMessage id="teamComponent.editButton" defaultMessage="Edit profile" />}
+                          tooltipPosition="top-center"
+                          onTouchTap={this.handleEntreEditTeamNameAndDescription.bind(this)}
+                        >
+                          <MDEdit />
+                        </IconButton>
                       </Can>
                     </section>
                   </div>

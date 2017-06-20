@@ -37,20 +37,30 @@
     margin-#{$to-direction}: units(2);
   }
 
+  // Ideally this would be a FAB component, but MUI FAB doesn't have a tooltip so we're doing our own using iconButton
   &__edit-button {
-    bottom: -1 * ($team-profile-fab-width / 2 + $team-profile-bottom-pad);
-    position: absolute;
-    right: 16%;
+    @include box-shadow(2);
+    background-color: white !important;
+    border-radius: 50% !important;
+    bottom: -1 * ($team-profile-fab-width / 2 + $team-profile-bottom-pad) !important;
+    position: absolute !important;
+    right: 16% !important;
 
-    svg {
-      fill: $black-54 !important;
+    &:hover {
+      @include box-shadow(4);
 
-      &:hover {
+      svg {
         fill: $black-87 !important;
       }
     }
+
+    svg {
+      fill: $black-54 !important;
+      font-size: 20px;
+    }
   }
 
+  // TODO abstract this into a list-card that is also used on member pages
   &__projects-list {
     border-bottom: 1px solid $black-05;
 
