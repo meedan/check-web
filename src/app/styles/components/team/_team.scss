@@ -37,7 +37,7 @@
     margin-#{$to-direction}: units(2);
   }
 
-  &__fab {
+  &__edit-button {
     bottom: -1 * ($team-profile-fab-width / 2 + $team-profile-bottom-pad);
     position: absolute;
     right: 16%;

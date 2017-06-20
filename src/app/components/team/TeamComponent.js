@@ -349,8 +349,7 @@ class TeamComponent extends Component {
                       <Can permissions={team.permissions} permission="update Team">
                         <FloatingActionButton
                           backgroundColor="#ffffff"
-                          className="team__fab" mini={true}
-                          alt={<FormattedMessage id="teamComponent.editButton" defaultMessage="Edit profile" />}
+                          className="team__edit-button" mini={true}
                           onTouchTap={this.handleEntreEditTeamNameAndDescription.bind(this)}>
                           <MDEdit className="icon" />
                         </FloatingActionButton>
