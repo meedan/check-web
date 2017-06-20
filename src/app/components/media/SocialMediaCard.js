@@ -12,6 +12,7 @@ import AuthorPicture from '../AuthorPicture';
 import TimeBefore from '../TimeBefore';
 import { bemClass } from '../../helpers';
 import deepEqual from 'deep-equal';
+import ParsedText from '../ParsedText';
 
 const messages = defineMessages({
   link: {
@@ -69,7 +70,7 @@ class SocialMediaCard extends Component {
           </div>
 
           <div className={bemClass('social-media-card__body', condensed, '--condensed')} onClick={this.handleBodyClick.bind(this)}>
-            <div className="social-media-card__body-text">{bodyText}</div>
+            <div className="social-media-card__body-text"><ParsedText text={bodyText} /></div>
           </div>
 
           <span className="social-media-card__header-text-secondary">
