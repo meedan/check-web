@@ -117,6 +117,7 @@ class TeamComponent extends Component {
 
   componentDidMount() {
     this.setContextTeam();
+    this.firstTimeFocusProjectInput();
   }
 
   componentDidUpdate() {
@@ -126,6 +127,15 @@ class TeamComponent extends Component {
   cancelEditTeam(e) {
     e.preventDefault();
     this.setState({isEditing: false});
+  }
+
+  firstTimeFocusProjectInput() {
+    const projectList = document.querySelector('.team__projects-list');
+    const projectInput = document.querySelector('#create-project-title');
+
+    if (projectInput && projectList.innerHTML === '') {
+      projectInput.focus();
+    }
   }
 
   editTeamInfo() {
