@@ -25,13 +25,13 @@ class MediaActions extends Component {
     const menuItems = [];
 
     if (can(media.permissions, 'create Tag')) {
-      menuItems.push(<li className="media-actions__menu-item" onClick={handleEdit}><FormattedMessage id="mediaActions.edit" defaultMessage="Edit..." /></li>);
+      menuItems.push(<li key="mediaActions.edit" className="media-actions__menu-item" onClick={handleEdit}><FormattedMessage id="mediaActions.edit" defaultMessage="Edit..." /></li>);
     }
 
     if (can(media.permissions, 'update ProjectMedia')) {
-      menuItems.push(<li className="media-actions__menu-item" onClick={handleMove}><FormattedMessage id="mediaActions.move" defaultMessage="Move..." /></li>);
+      menuItems.push(<li key="mediaActions.move" className="media-actions__menu-item" onClick={handleMove}><FormattedMessage id="mediaActions.move" defaultMessage="Move..." /></li>);
       if (media.url) {
-        menuItems.push(<li className="media-actions__menu-item" id="media-actions__refresh" onClick={handleRefresh}><FormattedMessage id="mediaActions.refresh" defaultMessage="Refresh" /></li>);
+        menuItems.push(<li key="mediaActions.refresh" className="media-actions__menu-item" id="media-actions__refresh" onClick={handleRefresh}><FormattedMessage id="mediaActions.refresh" defaultMessage="Refresh" /></li>);
       }
     }
 

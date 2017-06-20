@@ -1,13 +1,5 @@
 [
   {
-    "id": "headerActions.aboutCheck",
-    "defaultMessage": "About Check"
-  },
-  {
-    "id": "bridge.headerActions.aboutCheck",
-    "defaultMessage": "About Bridge"
-  },
-  {
     "id": "headerActions.userTeams",
     "defaultMessage": "Your Teams"
   },
@@ -30,5 +22,9 @@
   {
     "id": "headerActions.privacyPolicy",
     "defaultMessage": "Privacy Policy"
+  },
+  {
+    "id": "headerActions.about",
+    "defaultMessage": "About {appName}"
   }
 ]

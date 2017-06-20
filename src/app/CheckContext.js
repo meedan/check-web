@@ -1,6 +1,6 @@
 import Relay from 'react-relay';
-import { SET_CONTEXT } from './constants/ActionTypes';
-import { request } from './actions/actions';
+import { SET_CONTEXT } from './redux/ActionTypes';
+import { request } from './redux/actions';
 import CheckNetworkLayer from './CheckNetworkLayer';
 import config from 'config';
 

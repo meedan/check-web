@@ -1,15 +1,11 @@
 import React, { Component, PropTypes } from 'react';
-import { FormattedMessage, defineMessages } from 'react-intl';
-import MappedMessage from './MappedMessage';
+import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
+import { mapGlobalMessage } from './MappedMessage';
 
 const messages = defineMessages({
   disclaimer: {
     id: "browserSupport.message",
-    defaultMessage: "While in beta, Check is optimized for Google Chrome on desktop.",
-  },
-  bridge_disclaimer: {
-    id: "bridge.browserSupport.message",
-    defaultMessage: "While in beta, Bridge is optimized for Google Chrome on desktop.",
+    defaultMessage: "While in beta, {appName} is optimized for Google Chrome on desktop.",
   },
 });
 
@@ -51,7 +47,7 @@ class BrowserSupport extends Component {
         <div className="browser-support">
           <span className="browser-support__close" onClick={this.close.bind(this)}>×</span>
           <p className="browser-support__message">
-            <MappedMessage msgObj={messages} msgKey="disclaimer" />
+            <FormattedMessage id="browserSupport.message" values={{ appName: mapGlobalMessage(this.props.intl, 'appNameHuman') }}/>
           </p>
         </div>);
     }
@@ -59,4 +55,4 @@ class BrowserSupport extends Component {
   }
 }
 
-export default BrowserSupport;
+export default injectIntl(BrowserSupport);

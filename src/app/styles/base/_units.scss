@@ -1,0 +1,64 @@
+// Basic grid unit (Material Design 8px grid)
+//
+$unit-size: 8px; // .5em
+
+// Map of units based on base grid unit size
+//
+// • The idea here is that we want to only access multiples of 8px.
+// • The map is accessed using the helper below.
+// • Horizontal sizes should always be in 8px multiples.
+// • Vertical offsets can sometimes use a half unit, like this:
+//    `margin-top: units(1) + units(half);`
+//
+$grid-unit-size-map: (
+  half: $unit-size * .5,  // 4px or .25em
+  1:    $unit-size,       // 8px or .5em
+  2:    $unit-size * 2,   // 16px or 1em
+  3:    $unit-size * 3,   // 24px or 1.5em
+  4:    $unit-size * 4,   // 32px or 2em
+  5:    $unit-size * 5,   // 40px or 2.5em
+  6:    $unit-size * 6,   // 48px or 3em
+  7:    $unit-size * 7,   // 56px or 3.5em
+  8:    $unit-size * 8,   // 64px or 4em
+  9:    $unit-size * 9,   // 72px or 4.5em
+  10:   $unit-size * 10,  // 80px or 5em
+  12:   $unit-size * 12,  // 96px or 6em
+  13:   $unit-size * 13,  // 104 or 6.5em
+  15:   $unit-size * 15,  // 120px or 7.5em
+  18:   $unit-size * 18,  // 144px or 9em
+  20:   $unit-size * 20,  // 160px or 10em
+  24:   $unit-size * 24,  // 192px or 12em
+  25:   $unit-size * 25,  // 200px or 13em
+  30:   $unit-size * 30,  // 240px or 15em
+  35:   $unit-size * 35,  // 280px or 17.5em
+  38:   $unit-size * 38,  // 304px or 19em
+  39:   $unit-size * 39,  // 312px or 19.5em
+  40:   $unit-size * 40,  // 320px or 20em
+  45:   $unit-size * 45,  // 360 or 22.5em
+  50:   $unit-size * 50,  // 400px or 25em
+  56:   $unit-size * 56,  // 456px or 28.5em
+  60:   $unit-size * 60,  // 480px or 30em
+  68:   $unit-size * 68,  // 544px or 34em
+  70:   $unit-size * 70,  // 560px or 35em
+  80:   $unit-size * 80,  // 640px or 40em
+  84:   $unit-size * 84,  // 672px or 42em
+  85:   $unit-size * 85,  // 680px or 42.5em
+  90:   $unit-size * 90,  // 720px or 45em
+  100:  $unit-size * 100, // 800px or 50em
+  112:  $unit-size * 112, // 896px or 56em
+  152:  $unit-size * 152, // 1216px or 76em
+  250:  $unit-size * 250, // 2000px or 125em
+  625:  $unit-size * 625, // 5000px or 312.5em
+);
+
+// Helper for accessing the grid unit map
+//
+// Usage:
+//     units(1); // returns 8px
+//
+
+@function units($unit-size) {
+  @if map-has-key($grid-unit-size-map, $unit-size) {
+    @return map-get($grid-unit-size-map, $unit-size);
+  }
+}

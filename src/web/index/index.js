@@ -1,8 +1,8 @@
 import React from 'react';
 import { render } from 'react-dom';
-import Root from 'app/containers/Root';
+import Root from 'app/components/Root';
 import { createStore, applyMiddleware, compose } from 'redux';
-import rootReducer from 'app/reducers';
+import rootReducer from 'app/redux';
 import thunk from 'redux-thunk';
 
 window.storage = {

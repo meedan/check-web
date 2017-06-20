@@ -1,0 +1,10 @@
+[
+  {
+    "id": "global.appNameHuman",
+    "defaultMessage": "Check"
+  },
+  {
+    "id": "bridge.global.appNameHuman",
+    "defaultMessage": "Bridge"
+  }
+]

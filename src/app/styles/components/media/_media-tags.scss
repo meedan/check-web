@@ -51,9 +51,9 @@
 // TODO standardize with other form inputs — CGB 2017-3-12
 .media-tags .tags-list input {
   border: $border-width-small solid $black-16;
-  border-radius: units(.5);
+  border-radius: units(half);
   color: $black-38;
   font: font(caption);
-  margin: units(.5) units(1);
-  padding: units(.5) units(1);
+  margin: 4px 10px 5px;
+  padding: 3px 5px;
 }

@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import Relay from 'react-relay';
+import Favicon from 'react-favicon';
 import util from 'util';
 import Header from './Header';
 import FooterRelay from '../relay/FooterRelay';
@@ -113,6 +114,7 @@ class Home extends Component {
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
         <span>
+          <Favicon url={`/images/logo/${config.appName}.ico`} animated={false} />
           <BrowserSupport />
           <div className={bemClass("home", routeSlug, `--${routeSlug}`)}>
             <ContentColumn wide className="home__disclaimer"><span><FormattedMessage id="home.beta" defaultMessage="Beta" /></span></ContentColumn>

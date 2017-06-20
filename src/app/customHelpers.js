@@ -28,15 +28,19 @@ const customHelpers = {
 const customStrings = {
   bridge: {
     ABOUT_URL: 'https://meedan.com/bridge',
-    CONTACT_HUMAN_URL: `mailto:${config.supportEmail}`,
+    ADMIN_EMAIL: 'admin@speakbridge.io',
+    CONTACT_HUMAN_URL: 'mailto:hello@speakbridge.io',
     PP_URL: 'https://meedan.com/en/bridge/bridge_privacy.html',
+    SUPPORT_EMAIL: 'hello@speakbridge.io',
     TOS_URL: 'https://meedan.com/en/bridge/bridge_tos.html',
     LOGO_URL: '/images/logo/bridge.svg',
   },
   check: {
     ABOUT_URL: 'https://meedan.com/check',
+    ADMIN_EMAIL: 'admin@checkmedia.org',
     CONTACT_HUMAN_URL: 'https://docs.google.com/forms/d/e/1FAIpQLSdctP7RhxeHjTnevnvRi6AKs4fX3wNnxecVdBFwKe7GRVcchg/viewform',
     PP_URL: 'https://meedan.com/en/check/check_privacy.html',
+    SUPPORT_EMAIL: 'check@meedan.com',
     TOS_URL: 'https://meedan.com/en/check/check_tos.html',
     LOGO_URL: '/images/logo/check.svg',
   },
