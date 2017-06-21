@@ -6,7 +6,7 @@ class ParsedText extends Component {
   render() {
     const { text } = this.props;
 
-    return (<Linkify properties={{ target: '_blank', rel: 'noopener noreferrer'}}>{nl2br(text)}</Linkify>);
+    return (<Linkify properties={{ target: '_blank', rel: 'noopener noreferrer' }}>{nl2br(text)}</Linkify>);
   }
 }
 
