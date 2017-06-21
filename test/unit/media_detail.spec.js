@@ -18,7 +18,8 @@ describe('<MediaDetail />', () => {
     log_count: 0,
     permissions: JSON.stringify({}),
     project_id: 1,
-    media: { url: 'http://meedan.com', quote: '' }
+    media: { url: 'http://meedan.com', quote: '' },
+    team: { private: false }
   };
 
   it('renders', function() {
