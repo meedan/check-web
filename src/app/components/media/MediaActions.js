@@ -43,7 +43,7 @@ class MediaActions extends Component {
       }
     }
 
-    if (!media.team.private && config.appName === 'check') {
+    if (config.appName === 'check') {
       menuItems.push(<li className="media-actions__menu-item" id="media-actions__embed" onClick={this.handleEmbed.bind(this)}><FormattedMessage id="mediaActions.embed" defaultMessage="Embed..." /></li>);
     }
 

@@ -9,6 +9,7 @@ import express from 'express'
 import serveStatic from 'serve-static'
 
 import configFile from '../config';
+import configBuild from '../config-build';
 import template from '../src/web/views/index';
 
 const app = express();
@@ -49,6 +50,10 @@ app.get('/js/*.bundle.js', function(req, res, next) {
 
 // static assets first
 app.use(serveStatic('build/web', { 'index': ['index.html'] }));
+      
+const headers = {
+  'X-Check-Token': configBuild.checkApiToken
+};
 
 // all other routes
 app.use(function(req, res, next) {
@@ -58,7 +63,7 @@ app.use(function(req, res, next) {
   if (mediaDetailUrl != null) {
     try {
       const query = `query { project_media(ids: "${mediaDetailUrl[3]},${mediaDetailUrl[2]}") { metadata } }`;
-      fetch(config.relayPath, { method: 'post', body: `team=${mediaDetailUrl[1]}&query=${query}` }).then(function(response) {
+      fetch(config.relayPath, { headers, method: 'post', body: `team=${mediaDetailUrl[1]}&query=${query}` }).then(function(response) {
         return response.json();
       }).catch(function(e) {
         console.log(util.inspect(e));
