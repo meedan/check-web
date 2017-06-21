@@ -77,7 +77,7 @@ class TeamMembersComponent extends Component {
 
             <ul className="team-members__list">
               {(() => team_users_members.map(team_user => (
-                <TeamMembersCell team_user={team_user} team_id={team.id} isEditing={isEditing} />
+                <TeamMembersCell key={team_user.node.id} team_user={team_user} team_id={team.id} isEditing={isEditing} />
                 )))()}
             </ul>
           </ContentColumn>
