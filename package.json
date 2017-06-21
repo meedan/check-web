@@ -111,6 +111,7 @@
     "intl": "^1.2.5",
     "lodash.difference": "^4.5.0",
     "lodash.intersection": "^4.4.0",
+    "lodash.isempty": "^4.4.0",
     "lodash.isequal": "^4.5.0",
     "lodash.mergewith": "^4.6.0",
     "lodash.truncate": "^4.4.2",
