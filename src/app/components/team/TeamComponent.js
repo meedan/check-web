@@ -219,7 +219,7 @@ class TeamComponent extends Component {
       }
 
       if (!!contact.node.web) {
-        contactInfo.push(<span className="team__web"><span className="team__link-name">{contact.node.web}</span></span>);
+        contactInfo.push(<span className="team__web"><a href={contact.node.web} className="team__link-name" target="_blank" rel="noopener noreferrer">{contact.node.web}</a></span>);
       }
     }
 
