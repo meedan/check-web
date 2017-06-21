@@ -5,6 +5,8 @@ services:
 - postgresql
 node_js:
 - "6.9.2"
+rvm:
+- 2.3.1
 addons:
   postgresql: "9.4"
 before_install:
