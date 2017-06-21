@@ -9,12 +9,12 @@ class AuthorPicture extends Component {
     super(props);
 
     this.state = {
-      avatarUrl: null,
+      avatarUrl: MediaUtil.authorAvatarUrl(props.media, props.data) || this.refreshAvatar(),
     };
   }
 
   handleAvatarError() {
-    this.setState({ avatarUrl: this.state.avatarUrl ? this.defaultAvatar() : this.refreshAvatar() });
+    this.setState({ avatarUrl: this.refreshAvatar() });
   }
 
   refreshAvatar() {
@@ -22,7 +22,8 @@ class AuthorPicture extends Component {
     };
 
     const onSuccess = (response) => {
-      this.setState({ avatarUrl: JSON.parse(response.updateProjectMedia.project_media.embed).author_picture });
+      const avatarUrl = JSON.parse(response.updateProjectMedia.project_media.embed).author_picture || this.defaultAvatar();
+      this.setState({ avatarUrl });
     };
 
     Relay.Store.commitUpdate(
@@ -41,10 +42,8 @@ class AuthorPicture extends Component {
   }
 
   render() {
-    const { media, data } = this.props;
-    const authorAvatarUrl = this.state.avatarUrl || MediaUtil.authorAvatarUrl(media, data) || this.refreshAvatar();
     return(
-      <img src={authorAvatarUrl} className="social-media-card__author-avatar" onError={this.handleAvatarError.bind(this)} />
+      <img src={this.state.avatarUrl} className="social-media-card__author-avatar" onError={this.handleAvatarError.bind(this)} />
     );
   }
 }

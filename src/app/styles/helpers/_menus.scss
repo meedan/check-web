@@ -25,8 +25,8 @@
 @mixin menu-item {
   cursor: pointer;
   font: font(body2);
-  padding-bottom: units(1) + units(half);
-  padding-top: units(1) + units(half);
+  padding-bottom: units(1.5);
+  padding-top: units(1.5);
 
   img {
     vertical-align: middle !important;
