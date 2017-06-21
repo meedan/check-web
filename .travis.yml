@@ -5,6 +5,8 @@ services:
 - postgresql
 node_js:
 - "6.9.2"
+rvm:
+- 2.3.1
 addons:
   postgresql: "9.4"
 before_install:
@@ -14,6 +16,8 @@ before_install:
 # apt dependencies
 - sudo apt-get -qq update
 - sudo apt-get install wget python-setuptools lsof unzip inkscape imagemagick ruby ruby-dev libnss3 libnss3-dev xvfb libnss3-1d libexif-dev curl build-essential libssl-dev libappindicator1 fonts-liberation redis-server -y
+- rvm install 2.3.1
+- rvm --default use 2.3.1
 # check api
 - psql -c 'create database checkapi;' -U postgres
 - redis-server &

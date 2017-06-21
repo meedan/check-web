@@ -2,14 +2,13 @@ import React, { Component } from 'react';
 import config from 'config';
 import Relay from 'react-relay';
 import UpdateProjectMediaMutation from '../relay/UpdateProjectMediaMutation';
-import MediaUtil from './media/MediaUtil';
 
 class AuthorPicture extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      avatarUrl: MediaUtil.authorAvatarUrl(props.media, props.data) || this.refreshAvatar(),
+      avatarUrl: props.data.author_picture === '' ? this.defaultAvatar() : (props.data.author_picture || this.refreshAvatar()),
     };
   }
 
