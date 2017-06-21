@@ -1113,5 +1113,46 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       twitter_title = @driver.find_element(:css, 'meta[name="twitter\\:title"]').attribute('content')
       expect(twitter_title == 'This is a test').to be(true)
     end
+
+    it "should embed" do
+      page = LoginPage.new(config: @config, driver: @driver).load.login_with_email(email: @email, password: @password)
+      @wait.until { @driver.page_source.include?('Claim') }
+      page.create_media(input: 'Testing embeds')
+      sleep 2
+      request_api('/test/make_team_public', { slug: get_team })
+      @driver.navigate.refresh
+      sleep 2
+      @driver.find_element(:css, '.media-actions__icon').click
+      sleep 1
+      if @config['app_name'] == 'bridge'
+        expect(@driver.page_source.include?('Embed...')).to be(false)
+        @driver.navigate.to "#{@driver.current_url}/embed"
+        sleep 2
+        expect(@driver.page_source.include?('Not available')).to be(true)
+      elsif @config['app_name'] == 'check'
+        expect(@driver.page_source.include?('Embed...')).to be(true)
+        url = @driver.current_url.to_s 
+        @driver.find_element(:css, '#media-actions__embed').click
+        sleep 2
+        expect(@driver.current_url.to_s == "#{url}/embed").to be(true)
+        expect(@driver.page_source.include?('Not available')).to be(false)
+        @driver.find_element(:css, '#media-embed__actions-customize').click
+        sleep 1
+        @driver.find_elements(:css, '#media-embed__customization-menu input[type=checkbox]').map(&:click)
+        sleep 1
+        @driver.find_elements(:css, 'body').map(&:click)
+        sleep 1
+        @driver.find_element(:css, '#media-embed__actions-copy').click
+        sleep 1
+        @driver.find_element(:css, '.media-embed__copy-button').click
+        sleep 1
+        @driver.navigate.to 'https://pastebin.mozilla.org/'
+        @driver.find_element(:css, '#code').send_keys(' ')
+        @driver.action.send_keys(:control, 'v').perform
+        sleep 1
+        expect((@driver.find_element(:css, '#code').attribute('value') =~ /hide_tasks%3D1%26hide_notes%3D1/).nil?).to be(false)
+        sleep 5
+      end
+    end
   end
 end

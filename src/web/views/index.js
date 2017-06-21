@@ -5,7 +5,7 @@ const capitalize = (str) => {
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
 
-const twitterTags = (metadata, config) => {
+const twitterTags = (metadata, config, url) => {
   return [
     '<meta content="summary" name="twitter:card" />',
     `<meta content="${metadata.title}" name="twitter:title" />`,
@@ -16,36 +16,37 @@ const twitterTags = (metadata, config) => {
   ].join("\n");
 };
 
-const facebookTags = (metadata, config) => {
+const facebookTags = (metadata, config, url) => {
   return [
     `<meta content="article" property="og:type" />`,
     `<meta content="${metadata.title}" property="og:title" />`,
     `<meta content="${metadata.picture}" property="og:image" />`,
-    `<meta content="${metadata.permalink}" property="og:url" />`,
+    `<meta content="${url}" property="og:url" />`,
     `<meta content="${metadata.description}" property="og:description" />`
   ].join("\n");
 };
 
-const metaTags = (metadata, config) => {
+const metaTags = (metadata, config, url) => {
+  const params = url.replace(/^[^?]*/, '');
   return [
     `<meta name="description" content="${metadata.description}" />`,
-    `<link rel="alternate" type="application/json+oembed" href="${metadata.oembed_url}" title="${metadata.title}" />`
+    `<link rel="alternate" type="application/json+oembed" href="${metadata.oembed_url}${params}" title="${metadata.title}" />`
   ].join("\n");
 };
 
-const socialTags = (metadata, config) => {
+const socialTags = (metadata, config, url) => {
   if (!metadata) {
     return '';
   }
 
   return [
-    metaTags(metadata, config),
-    twitterTags(metadata, config),
-    facebookTags(metadata, config)
+    metaTags(metadata, config, url),
+    twitterTags(metadata, config, url),
+    facebookTags(metadata, config, url)
   ].join("\n");
 };
 
-export default ({ config, metadata }) => {
+export default ({ config, metadata, url }) => {
   return `
     <!DOCTYPE html>
     <html>
@@ -53,13 +54,13 @@ export default ({ config, metadata }) => {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>${ metadata ? metadata.title : capitalize(config.appName) }</title>
-        ${socialTags(metadata, config)}
+        ${socialTags(metadata, config, url)}
         <link href="/images/logo/${config.appName || 'favicon'}.ico" rel="icon">
         <script src="/js/config.js" defer="defer"></script>
         <script src="/js/newrelic.js" defer="defer"></script>
         <script src="/js/vendor.bundle.js" defer="defer"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pusher/4.0.0/pusher.min.js"></script>
-        <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Mono" rel="stylesheet" type="text/css">
       </head>
       <body>
         <div id="root"></div>

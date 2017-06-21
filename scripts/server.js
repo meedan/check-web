@@ -52,8 +52,9 @@ app.use(serveStatic('build/web', { 'index': ['index.html'] }));
 
 // all other routes
 app.use(function(req, res, next) {
+  const url = req.url;
   // media detail page
-  const mediaDetailUrl = req.url.match(/\/([^\/]+)\/project\/([0-9]+)\/media\/([0-9]+)/);
+  const mediaDetailUrl = url.match(/\/([^\/]+)\/project\/([0-9]+)\/media\/([0-9]+)/);
   if (mediaDetailUrl != null) {
     try {
       const query = `query { project_media(ids: "${mediaDetailUrl[3]},${mediaDetailUrl[2]}") { metadata } }`;
@@ -61,23 +62,23 @@ app.use(function(req, res, next) {
         return response.json();
       }).catch(function(e) {
         console.log(util.inspect(e));
-        res.send(template({ config, metadata: null }));
+        res.send(template({ config, metadata: null, url }));
       }).then(function(json) {
         const metadata = JSON.parse(json.data.project_media.metadata);
-        res.send(template({ config, metadata }));
+        res.send(template({ config, metadata, url }));
       }).catch(function(e) {
         console.log(util.inspect(e));
-        res.send(template({ config, metadata: null }));
+        res.send(template({ config, metadata: null, url }));
       });
     }
     catch (e) {
-      res.send(template({ config, metadata: null }));
+      res.send(template({ config, metadata: null, url }));
     }
   }
 
   // other pages
   else {
-    res.send(template({ config, metadata: null }));
+    res.send(template({ config, metadata: null, url }));
   }
 });
 
