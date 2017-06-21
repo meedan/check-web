@@ -335,7 +335,7 @@ class TeamComponent extends Component {
                       <div className="column-secondary">
                         <div
                           className="team__avatar"
-                          style={{ 'background-image': `url(${team.avatar})` }}
+                          style={{ 'backgroundImage': `url(${team.avatar})` }}
                           title={this.props.intl.formatMessage(messages.changeAvatar)}
                         />
                       </div>
@@ -382,7 +382,7 @@ class TeamComponent extends Component {
                 {team.projects.edges
                   .sortp((a, b) => a.node.title.localeCompare(b.node.title))
                   .map(p => (
-                    <li className="team__project">
+                    <li key={p.node.dbid} className="team__project">
                       <Link to={`/${team.slug}/project/${p.node.dbid}`} className="team__project-link">
                         {p.node.title} <MDChevronRight className="arrow" />
                       </Link>
