@@ -7,21 +7,26 @@ const capitalize = (str) => {
 
 const twitterTags = (metadata, config, url) => {
   return [
-    '<meta content="summary" name="twitter:card" />',
+    '<meta content="player" name="twitter:card" />',
     `<meta content="${metadata.title}" name="twitter:title" />`,
     `<meta content="${metadata.description}" name="twitter:text:description" />`,
     `<meta content="${metadata.description}" name="twitter:description" />`,
     `<meta content="${metadata.picture}" name="twitter:image" />`,
-    `<meta content="${config.appName}" name="twitter:site" />`
+    `<meta content="${config.appName}" name="twitter:site" />`,
+    `<meta content="${metadata.embed_url}" name="twitter:player" />`,
+    `<meta content="${metadata.embed_url}" name="twitter:player:stream" />`,
+    `<meta content="800" name="twitter:player:width" />`,
+    `<meta content="800" name="twitter:player:height" />`
   ].join("\n");
 };
 
 const facebookTags = (metadata, config, url) => {
+  const host = metadata.permalink.replace(/(^https?:\/\/[^\/]+).*/, '$1');
   return [
     `<meta content="article" property="og:type" />`,
     `<meta content="${metadata.title}" property="og:title" />`,
     `<meta content="${metadata.picture}" property="og:image" />`,
-    `<meta content="${url}" property="og:url" />`,
+    `<meta content="${host}${url}" property="og:url" />`,
     `<meta content="${metadata.description}" property="og:description" />`
   ].join("\n");
 };
