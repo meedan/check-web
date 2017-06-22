@@ -10,6 +10,18 @@
     padding-bottom: $team-profile-bottom-pad;
     padding-top: $team-profile-offset;
 
+    .team__name {
+      margin-bottom: units(1);
+      font: font(headline);
+      font-weight: 400;
+    }
+
+    .team__description-text {
+      font: font(subheading1);
+      margin-bottom: units(1);
+      color: $black-54;
+    }
+
     &--editing {
       .team__settings {
         margin-top: units(6);
@@ -24,6 +36,8 @@
   &__contact-info {
     display: flex;
     flex-flow: wrap row;
+    font: font(caption);
+    color: $black-54;
 
     & > span {
       margin-#{$to-direction}: units(2);
@@ -58,6 +72,10 @@
       fill: $black-54 !important;
       font-size: 20px;
     }
+  }
+
+  .team__projects-header {
+    font: font(headline) !important;
   }
 
   // TODO abstract this into a list-card that is also used on member pages
