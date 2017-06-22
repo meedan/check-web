@@ -336,7 +336,7 @@ class Annotation extends Component {
           contentTemplate.push(
             <span>
               <FormattedMessage id="annotation.translationPublished" defaultMessage={'Translation published to {link}'}
-                values={{ link: <a style={{ color, fontWeight: 'bold' }} href={published[provider]} target="_blank">{name}</a> }}
+                values={{ link: <a style={{ color, fontWeight: 'bold' }} href={published[provider]} target="_blank" rel="noreferrer noopener">{name}</a> }}
               />
             </span>
           );
@@ -355,7 +355,7 @@ class Annotation extends Component {
         }
         else if (keepLink) {
           contentTemplate = (<span className="annotation__keep">
-            <FormattedHTMLMessage id="annotation.keepSuccess" defaultMessage={'In case this link goes offline, you can <a href="{keepLink}" target="_blank">access a backup via Keep</a>'} values={{ keepLink }} />
+            <FormattedHTMLMessage id="annotation.keepSuccess" defaultMessage={'In case this link goes offline, you can <a {anchor}>access a backup via Keep</a>'} values={{ anchor: `href="${keepLink}" target="_blank" rel="noopener noreferrer"` }} />
           </span>);
         }
         else if (keepStatus === 418) {

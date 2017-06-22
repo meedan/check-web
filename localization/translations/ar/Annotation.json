@@ -16,7 +16,7 @@
   "annotation.translationStatus": "تم تغيير حالة الترجمة إلى {status} بواسطة {author}",
   "annotation.translationPublished": "تم نشر الترجمة على {link}",
   "annotation.keepRetried": "لقد تم إرسال هذا الرابط للحفاظ في Keep مرة أخرى. من فضلك تابع هنا بعد ساعة للحصول على رابط النسخة اﻹحتياطية.",
-  "annotation.keepSuccess": "في حالة إختفاء هذا الرابط يمكنك <a href=\"{keepLink}\" target=\"_blank\">الحصول على النسخة اﻹحتياطية على Keep</a>.",
+  "annotation.keepSuccess": "في حالة إختفاء هذا الرابط يمكنك <a {anchor}>الحصول على النسخة اﻹحتياطية على Keep</a>.",
   "annotation.keepError": "عذراً، لقد واجهنا خطأ ما أثناء محاولة حفاظ الرابط في Keep.",
   "annotation.keepRetry": "أعد المحاولة",
   "annotation.keepWait": "لقد تم إرسال هذا الرابط للحفاظ في Keep. من فضلك تابع هنا بعد ساعة للحصول على رابط النسخة اﻹحتياطية.",
