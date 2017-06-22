@@ -62,7 +62,6 @@
 //
 .media-detail__check-metadata {
   // see also .annotation__card-footer
-  @include fade-in;
   align-items: center;
   border-top: $border-width-small solid $black-05;
   display: flex;
