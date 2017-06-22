@@ -103,40 +103,8 @@ class CreateTeam extends Component {
     const isTextEntered = slug && slug.length > 0;
 
     this.setState({
-      slugLabelClass: (isTextEntered ? this.slugLabelClass('--text-entered') : this.slugLabelClass()),
       slugName: slug
     });
-
-    // stubs pending real/API implementation; may need debouncing?
-    const slugIsPending = false;
-    const slugIsAvailable = false;
-    const slugIsUnavailable = false;
-
-    if (slugIsPending) {
-      this.setState({
-        slugClass: this.slugClass(),
-        slugMessage: this.props.intl.formatMessage(messages.slugChecking),
-        buttonIsDisabled: true,
-      });
-    } else if (slugIsAvailable) {
-      this.setState({
-        slugClass: this.slugClass('--success'),
-        slugMessage: this.props.intl.formatMessage(messages.slugAvailable),
-        buttonIsDisabled: false,
-      });
-    } else if (slugIsUnavailable) {
-      this.setState({
-        slugClass: this.slugClass('--error'),
-        slugMessage: this.props.intl.formatMessage(messages.slugUnavailable),
-        buttonIsDisabled: true,
-      });
-    } else {
-      this.setState({
-        slugClass: this.slugClass(),
-        slugMessage: '',
-        buttonIsDisabled: true,
-      });
-    }
   }
 
   handleSubmit(e) {
@@ -179,8 +147,8 @@ class CreateTeam extends Component {
     return (
       <PageTitle prefix={this.props.intl.formatMessage(messages.title)} skipTeam={true}>
         <main className="create-team">
-          <Message message={this.state.message} />
           <ContentColumn narrow>
+          <Message message={this.state.message} />
             <Card>
               <CardHeader
                 titleStyle={{fontSize: "20px", lineHeight: "32px"}}
@@ -207,23 +175,17 @@ class CreateTeam extends Component {
 
                   <div className="create-team__team-url">
                     <span className="create-team__root-domain">{config.selfHost}/</span>
-                    <div className={this.state.slugClass}>
-                      <TextField
-                        value={this.state.slugName}
-                        type="text"
-                        name="teamSlug"
-                        id="team-slug-container"
-                        className="create-team__team-slug-input"
-                        onChange={this.handleSlugChange.bind(this)}
-                        defaultValue={this.props.intl.formatMessage(messages.teamSlugHint)}
-                        autoComplete="off"
-                        fullWidth
-                      />
-
-                      <p className="create-team__team-slug-message">
-                        {this.state.slugMessage}
-                      </p>
-                    </div>
+                    <TextField
+                      value={this.state.slugName}
+                      type="text"
+                      name="teamSlug"
+                      id="team-slug-container"
+                      className="create-team__team-slug-input"
+                      onChange={this.handleSlugChange.bind(this)}
+                      defaultValue={this.props.intl.formatMessage(messages.teamSlugHint)}
+                      autoComplete="off"
+                      fullWidth
+                    />
                   </div>
                 </CardText>
                 <CardActions>

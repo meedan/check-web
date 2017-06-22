@@ -1,31 +1,14 @@
 .create-team__team-url {
   align-items: flex-end;
   display: flex;
-  margin-bottom: units(4);
 }
 
 .create-team__root-domain {
   color: $black-32;
-  font: font(body1);
-  padding-bottom: units(4.5);
-}
-
-.create-team__team-slug {
-  display: flex;
-  flex-direction: column;
-  margin-#{$from-direction}: units(1);
-  flex: 1;
+  font: font(subheading1);
+  padding-bottom: units(1.5);
 }
 
 .create-team__team-slug-input {
-  order: 3;
-}
-
-.create-team__team-slug-message {
-  font-weight: $font-weight-medium;
-  height: units(2);
-  margin: units(1) 0 0;
-  order: 3;
-  text-align: center;
-  transition: color $transition-speed-fast ease;
+  margin-#{$from-direction}: 1px;
 }
