@@ -210,16 +210,16 @@ class TeamComponent extends Component {
     const contactInfo = [];
 
     if (contact) {
-      if (!!contact.node.location) {
-        contactInfo.push(<span className="team__location"><span className="team__location-name">{contact.node.location}</span></span>);
+      if (contact.node.location) {
+        contactInfo.push(<span key="contactInfo.location" className="team__location"><span className="team__location-name">{contact.node.location}</span></span>);
       }
 
-      if (!!contact.node.phone) {
-        contactInfo.push(<span className="team__phone"><span className="team__phone-name">{contact.node.phone}</span></span>);
+      if (contact.node.phone) {
+        contactInfo.push(<span key="contactInfo.phone" className="team__phone"><span className="team__phone-name">{contact.node.phone}</span></span>);
       }
 
-      if (!!contact.node.web) {
-        contactInfo.push(<span className="team__web"><a href={contact.node.web} className="team__link-name" target="_blank" rel="noopener noreferrer">{contact.node.web}</a></span>);
+      if (contact.node.web) {
+        contactInfo.push(<span key="contactInfo.web" className="team__web"><a href={contact.node.web} className="team__link-name" target="_blank" rel="noopener noreferrer">{contact.node.web}</a></span>);
       }
     }
 
