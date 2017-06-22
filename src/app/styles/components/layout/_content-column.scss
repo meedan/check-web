@@ -12,4 +12,8 @@
   &--wide {
     max-width: layout(column-width-wide);
   }
+
+  &--narrow {
+    max-width: layout(column-width-narrow);
+  }
 }
