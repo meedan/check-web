@@ -143,7 +143,7 @@ class Annotation extends Component {
     return date;
   }
 
-  profileLink(user){
+  profileLink(user, className) {
     let url = user.email ? 'mailto:' + user.email : '';
 
     if (user && user.source && user.source.accounts && user.source.accounts.edges && user.source.accounts.edges.length > 0){
@@ -151,8 +151,8 @@ class Annotation extends Component {
     }
 
     return url ?
-        <a target="_blank" rel="noopener noreferrer" className="annotation__author-name" href={url}>{user.name}</a> :
-        <span className="annotation__author-name">{user.name}</span>;
+        <a target="_blank" rel="noopener noreferrer" className={className} href={url}>{user.name}</a> :
+        <span className={className}>{user.name}</span>;
   }
 
   handleReverseImageSearch(path) {
@@ -181,7 +181,7 @@ class Annotation extends Component {
 
     const updatedAt = this.updatedAt(activity);
     const timestamp = updatedAt ? <span className="annotation__timestamp"><TimeBefore date={updatedAt}/></span> : null;
-    const authorName = this.profileLink(activity.user);
+    const authorName = this.profileLink(activity.user, 'annotation__author-name');
     const object = JSON.parse(activity.object_after);
     const content = object.data;
     const activityType = activity.event_type;
@@ -475,7 +475,7 @@ class Annotation extends Component {
                   {contentTemplate}
                   <footer className='annotation__card-footer'>
                     <span className='annotation__card-footer-text'>
-                      <span className='annotation__card-author'>{activity.user.name}</span> <span>{timestamp}</span>
+                      {this.profileLink(activity.user, 'annotation__card-author')} <span>{timestamp}</span>
                     </span>
                     {annotationActions}
                   </footer>
