@@ -376,25 +376,31 @@ class TeamComponent extends Component {
             </ContentColumn>
           </Card>
 
-          <ContentColumn>
-            <Card>
-              <CardHeader titleStyle={{fontSize: "20px", lineHeight: "32px"}} title={<MappedMessage msgObj={messages} msgKey="verificationProjects" />} />
-              <ul className="team__projects-list">
-                {team.projects.edges
-                  .sortp((a, b) => a.node.title.localeCompare(b.node.title))
-                  .map(p => (
-                    <li className="team__project">
-                      <Link to={`/${team.slug}/project/${p.node.dbid}`} className="team__project-link">
-                        {p.node.title} <MDChevronRight className="arrow" />
-                      </Link>
-                    </li>
-                  ))}
-              </ul>
-              <Can permissions={team.permissions} permission="create Project">
-                <CreateProject className="team__new-project-input" team={team} />
-              </Can>
-            </Card>
-          </ContentColumn>
+          {(() => {
+            if (!isEditing) {
+              return(
+                <ContentColumn>
+                  <Card>
+                    <CardHeader titleStyle={{fontSize: "20px", lineHeight: "32px"}} title={<MappedMessage msgObj={messages} msgKey="verificationProjects" />} />
+                    <ul className="team__projects-list">
+                      {team.projects.edges
+                        .sortp((a, b) => a.node.title.localeCompare(b.node.title))
+                        .map(p => (
+                          <li className="team__project">
+                            <Link to={`/${team.slug}/project/${p.node.dbid}`} className="team__project-link">
+                              {p.node.title} <MDChevronRight className="arrow" />
+                            </Link>
+                          </li>
+                        ))}
+                    </ul>
+                    <Can permissions={team.permissions} permission="create Project">
+                      <CreateProject className="team__new-project-input" team={team} />
+                    </Can>
+                  </Card>
+                </ContentColumn>
+              );
+            }
+          })()}
         </div>
       </PageTitle>
     );
