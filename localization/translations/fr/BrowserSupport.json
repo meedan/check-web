@@ -1,4 +1,3 @@
 {
-  "browserSupport.message": "Check est optimisé pour Chrome pour ordinateur pendant la periode Beta.",
-  "bridge.browserSupport.message": "Bridge est optimisé pour Chrome pour ordinateur pendant la periode Beta."
+  "browserSupport.message": "{appName} est optimisé pour Chrome pour ordinateur pendant la periode Beta."
 }
