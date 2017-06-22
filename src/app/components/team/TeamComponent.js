@@ -22,6 +22,7 @@ import Can from '../Can';
 import CheckContext from '../../CheckContext';
 import ContentColumn from '../layout/ContentColumn';
 import {bemClass} from '../../helpers';
+import ParsedText from '../ParsedText';
 
 const messages = defineMessages({
   editError: {
@@ -211,15 +212,15 @@ class TeamComponent extends Component {
 
     if (contact) {
       if (!!contact.node.location) {
-        contactInfo.push(<span className="team__location"><span className="team__location-name">{contact.node.location}</span></span>);
+        contactInfo.push(<span className="team__location"><span className="team__location-name"><ParsedText text={contact.node.location} /></span></span>);
       }
 
       if (!!contact.node.phone) {
-        contactInfo.push(<span className="team__phone"><span className="team__phone-name">{contact.node.phone}</span></span>);
+        contactInfo.push(<span className="team__phone"><span className="team__phone-name"><ParsedText text={contact.node.phone} /></span></span>);
       }
 
       if (!!contact.node.web) {
-        contactInfo.push(<span className="team__web"><span className="team__link-name">{contact.node.web}</span></span>);
+        contactInfo.push(<span className="team__web"><span className="team__link-name"><ParsedText text={contact.node.web} /></span></span>);
       }
     }
 
@@ -346,7 +347,7 @@ class TeamComponent extends Component {
                           </h1>
                           <div className="team__description">
                             <p className="team__description-text">
-                              {team.description ||
+                              {<ParsedText text={team.description} /> ||
                                 <MappedMessage msgObj={messages} msgKey="verificationTeam" />}
                             </p>
                           </div>
@@ -377,7 +378,7 @@ class TeamComponent extends Component {
 
           <ContentColumn>
             <Card>
-              <CardHeader title={<MappedMessage msgObj={messages} msgKey="verificationProjects" />} />
+              <CardHeader titleStyle={{fontSize: "20px", lineHeight: "32px"}} title={<MappedMessage msgObj={messages} msgKey="verificationProjects" />} />
               <ul className="team__projects-list">
                 {team.projects.edges
                   .sortp((a, b) => a.node.title.localeCompare(b.node.title))
