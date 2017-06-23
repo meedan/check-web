@@ -60,7 +60,7 @@ $media-expanded-top-offset: layout(header-height) + layout(gutter-medium);
 
   &__expanded-header {
     margin: 0 auto;
-    max-width: layout(column-width-narrow);
+    max-width: layout(column-width-medium);
     padding: 0 units(1);
     padding-top: units(7);
   }
