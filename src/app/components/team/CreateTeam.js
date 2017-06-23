@@ -7,28 +7,37 @@ import base64 from 'base-64';
 import Message from '../Message';
 import { Link } from 'react-router';
 import config from 'config';
-import {checkBlue, black87} from '../../../../config-colors';
 import ContentColumn from '../layout/ContentColumn';
 import CheckContext from '../../CheckContext';
 import Heading from '../layout/Heading';
+import {checkBlue, black38, black87} from '../../../../config-colors';
+import {caption, subheading2} from '../../../../config-typography';
 import XRegExp from 'xregexp';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import styled from 'styled-components';
 
-const Row = styled.div`
+const TeamUrlRow = styled.div`
+  align-items: flex-end;
   display: flex;
-  alignItems: flex-start;
-  margin-top: 24px;
   font-size: 12px;
-  label { color: ${checkBlue}; }
+  margin-top: 24px;
+  label { 
+    font: ${caption}; 
+    color: ${checkBlue}; 
+  }
 `;
 
-const Column = styled.div`
+const TeamUrlColumn = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 0 2px;
+  padding-bottom: 9px;
+`;
+
+const TeamUrlDomain = styled.span`
+  font: ${subheading2};
+  color: ${black38};
 `;
 
 const messages = defineMessages({
@@ -190,13 +199,15 @@ class CreateTeam extends Component {
                     />
                   </div>
 
-                  <Row>
-                    <Column>
+                  <TeamUrlRow>
+                    <TeamUrlColumn>
                       <label>
                         <FormattedMessage id="createTeam.url" defaultMessage="Team URL" />
                       </label>
-                      <span>{config.selfHost}/</span>
-                    </Column>
+                      <TeamUrlDomain>
+                        {config.selfHost}/
+                      </TeamUrlDomain>
+                    </TeamUrlColumn>
                     <TextField
                       value={this.state.slugName}
                       type="text"
@@ -208,7 +219,7 @@ class CreateTeam extends Component {
                       autoComplete="off"
                       fullWidth
                     />
-                  </Row>
+                  </TeamUrlRow>
                 </CardText>
                 <CardActions>
                   <RaisedButton
