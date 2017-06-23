@@ -7,13 +7,29 @@ import base64 from 'base-64';
 import Message from '../Message';
 import { Link } from 'react-router';
 import config from 'config';
+import {checkBlue, black87} from '../../../../config-colors';
 import ContentColumn from '../layout/ContentColumn';
 import CheckContext from '../../CheckContext';
 import Heading from '../layout/Heading';
 import XRegExp from 'xregexp';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
-import {Card, CardActions, CardHeader, CardTitle, CardText} from 'material-ui/Card';
+import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
+import styled from 'styled-components';
+
+const Row = styled.div`
+  display: flex;
+  alignItems: flex-start;
+  margin-top: 24px;
+  font-size: 12px;
+  label { color: ${checkBlue}; }
+`;
+
+const Column = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 0 2px;
+`;
 
 const messages = defineMessages({
   slugChecking: {
@@ -146,6 +162,7 @@ class CreateTeam extends Component {
   render() {
     return (
       <PageTitle prefix={this.props.intl.formatMessage(messages.title)} skipTeam={true}>
+
         <main className="create-team">
           <ContentColumn narrow>
           <Message message={this.state.message} />
@@ -173,8 +190,13 @@ class CreateTeam extends Component {
                     />
                   </div>
 
-                  <div className="create-team__team-url">
-                    <span className="create-team__root-domain">{config.selfHost}/</span>
+                  <Row>
+                    <Column>
+                      <label>
+                        <FormattedMessage id="createTeam.url" defaultMessage="Team URL" />
+                      </label>
+                      <span>{config.selfHost}/</span>
+                    </Column>
                     <TextField
                       value={this.state.slugName}
                       type="text"
@@ -186,7 +208,7 @@ class CreateTeam extends Component {
                       autoComplete="off"
                       fullWidth
                     />
-                  </div>
+                  </Row>
                 </CardText>
                 <CardActions>
                   <RaisedButton
