@@ -10,60 +10,60 @@ require_relative './pages/page.rb'
 require_relative './pages/project_page.rb'
 
 CONFIG = YAML.load_file('config.yml')
-
 require_relative "#{CONFIG['app_name']}/quicktest_custom_spec.rb"
 
+def new_driver(webdriver_url,browser_capabilities)
+  if @config.key?('proxy') and !webdriver_url.include? "browserstack"
+    proxy = Selenium::WebDriver::Proxy.new(
+      :http     => @config['proxy'],
+      :ftp      => @config['proxy'],
+      :ssl      => @config['proxy']
+    )
+    caps = Selenium::WebDriver::Remote::Capabilities.chrome(:proxy => proxy)
+    dr = Selenium::WebDriver.for(:chrome, :desired_capabilities => caps , :url => @config['chromedriver_url'])
+  else
+    dr =  Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: browser_capabilities)
+  end
+  return dr
+end
+
+$caller_name = ""
 shared_examples 'app' do |webdriver_url, browser_capabilities|
-
   # Helpers
-
   include AppSpecHelpers
-
-  # Start a webserver for the web app before the tests
 
   before :all do
     @wait = Selenium::WebDriver::Wait.new(timeout: 10)
-
-    @email = "sysops+#{Time.now.to_i}#{Process.pid}@meedan.com"
+    @email = "sysops#{Time.now.to_i}#{Process.pid}@meedan.com"
     @password = '12345678'
     @source_url = 'https://twitter.com/ironmaiden?timestamp=' + Time.now.to_i.to_s
     @media_url = 'https://twitter.com/meedan/status/773947372527288320/?t=' + Time.now.to_i.to_s
     @config = CONFIG
     $source_id = nil
     $media_id = nil
-    @e1 = 'sysops+' + Time.now.to_i.to_s + '@meedan.com'
+    @e1 = 'sysops' + Time.now.to_i.to_s + '@meedan.com'
     @t1 = 'team1' + Time.now.to_i.to_s
     @t2 = 'team2' + Time.now.to_i.to_s
     @new_tag = nil
 
     FileUtils.cp(@config['config_file_path'], '../build/web/js/config.js') unless @config['config_file_path'].nil?
-
-    @driver =  Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: browser_capabilities)
-
-    # TODO: better initialization w/ parallelization
-    page = LoginPage.new(config: @config, driver: @driver).load
+    
   end
-
-  # Close the testing webserver after all tests run
 
   after :all do
     FileUtils.cp('../config.js', '../build/web/js/config.js')
   end
 
-  # Start Google Chrome before each test
-
-  before :each do
-    @driver = Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: browser_capabilities)
+  before :each do |example|
+    $caller_name = example.metadata[:description_args]
+    @driver = new_driver(webdriver_url,browser_capabilities)
   end
-
-  # Close Google Chrome after each test
 
   after :each do |example|
     if example.exception
       require 'imgur'
       path = '/tmp/' + (0...8).map{ (65 + rand(26)).chr }.join + '.png'
-      @driver.save_screenshot(path) # TODO: fix for page model tests
-
+      @driver.save_screenshot(path)
       client = Imgur.new(@config['imgur_client_id'])
       image = Imgur::LocalImage.new(path, title: "Test failed: #{example.to_s}")
       uploaded = client.upload(image)
@@ -74,38 +74,10 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     @driver.quit
   end
 
-  # The tests themselves start here
   context "web" do
-
-    ## Prioritized Script for Automation ##
-    it "should register and login using e-mail" do
-      login_pg = LoginPage.new(config: @config, driver: @driver).load
-      email, password = ['sysops+' + Time.now.to_i.to_s + '@meedan.com', '22345678']
-      login_pg.register_and_login_with_email(email: email, password: password)
-      me_pg = MePage.new(config: @config, driver: login_pg.driver).load # reuse tab
-      displayed_name = me_pg.title
-      expect(displayed_name == 'User With Email').to be(true)
-    end
-
-    it "should login using Facebook" do
-      login_pg = LoginPage.new(config: @config, driver: @driver).load
-      login_pg.login_with_facebook
-      me_pg = MePage.new(config: @config, driver: login_pg.driver).load
-      displayed_name = me_pg.title
-      expected_name = @config['facebook_name']
-      expect(displayed_name).to eq(expected_name)
-    end
-
-    it "should login using Twitter" do
-      login_with_twitter
-      @driver.navigate.to @config['self_url'] + '/check/me'
-      displayed_name = get_element('h2.source-name').text.upcase
-      expected_name = @config['twitter_name'].upcase
-      expect(displayed_name == expected_name).to be(true)
-    end
-
     it "should login using Slack" do
-      @driver.navigate.to "https://#{@config['slack_domain']}.slack.com"
+      p = Page.new(config: @config, driver: @driver)
+      p.go ("https://#{@config['slack_domain']}.slack.com")
       fill_field('#email', @config['slack_user'])
       fill_field('#password', @config['slack_password'])
       press_button('#signin_btn')
@@ -120,10 +92,39 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       press_button('#oauth_authorizify')
       sleep 5
       window = @driver.window_handles.first
+      sleep 5
       @driver.switch_to.window(window)
-      @driver.navigate.to @config['self_url'] + '/check/me'
+      p.go(@config['self_url'] + '/check/me')
       sleep 10
       expect(get_element('h2.source-name').text.nil?).to be(false)
+    end
+
+    it "should login using Facebook" do
+      login_pg = LoginPage.new(config: @config, driver: @driver).load
+      login_pg.login_with_facebook
+      me_pg = MePage.new(config: @config, driver: login_pg.driver).load
+      displayed_name = me_pg.title
+      expected_name = @config['facebook_name']
+      expect(displayed_name).to eq(expected_name)
+    end
+
+    ## Prioritized Script for Automation ##
+    it "should register and login using e-mail" do
+      login_pg = LoginPage.new(config: @config, driver: @driver).load
+      email, password = ['sysops' + Time.now.to_i.to_s + '@meedan.com', '22345678']
+      login_pg.register_and_login_with_email(email: email, password: password)
+      me_pg = MePage.new(config: @config, driver: login_pg.driver).load # reuse tab
+      displayed_name = me_pg.title
+      expect(displayed_name == 'User With Email').to be(true)
+    end
+
+    it "should login using Twitter" do
+      login_with_twitter
+      p = Page.new(config: @config, driver: @driver)
+      p.go(@config['self_url'] + '/check/me')     
+      displayed_name = get_element('h2.source-name').text.upcase
+      expected_name = @config['twitter_name'].upcase
+      expect(displayed_name == expected_name).to be(true)
     end
 
     #Create two new teams.
@@ -139,7 +140,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     #As a different user, request to join one team.
     it "should join team" do
       page = LoginPage.new(config: @config, driver: @driver).load
-          .register_and_login_with_email(email: 'newsysops+' + Time.now.to_i.to_s + '@meedan.com', password: '22345678')
+          .register_and_login_with_email(email: 'newsysops' + Time.now.to_i.to_s + '@meedan.com', password: '22345678')
       page = TeamsPage.new(config: @config, driver: @driver).load
           .ask_join_team(subdomain: @t1)
       sleep 3
@@ -170,7 +171,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should add slack notifications to a team " do
       page = LoginPage.new(config: @config, driver: @driver).load
           .login_with_email(email: @e1, password: @password)
-      @driver.navigate.to @config['self_url'] + '/' + @t2
+      p = Page.new(config: @config, driver: @driver)
+      p.go(@config['self_url'] + '/' + @t2)
       sleep 2
       element = @driver.find_element(:class, "team__edit-button")
       element.click
@@ -203,7 +205,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(get_element('h2.project-header__title').text.nil?).to be(false)
     end
 
-
     #Create a new media using a link from:     #Facebook      #YouTube     #Twitter     #  Instagram
     it "should create project media" do
       media_pg = LoginPage.new(config: @config, driver: @driver).load
@@ -230,8 +231,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should add comment to your media" do
       media_pg = LoginPage.new(config: @config, driver: @driver).load
           .login_with_email(email: @e1, password: @password, project: true)
-      @driver.navigate.to team_url('project/' + get_project + '/media/' + $media_id)
-      sleep 1
+      media_pg.go (team_url('project/' + get_project + '/media/' + $media_id))
+      sleep 3
       # First, verify that there isn't any comment
       expect(@driver.page_source.include?('This is my comment')).to be(false)
       # Add a comment as a command
@@ -262,14 +263,13 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
           .click_media
       @new_tag = Time.now.to_i.to_s
       page.add_tag(@new_tag)
-      sleep 2
+      sleep 5
       expect(page.has_tag?(@new_tag)).to be(true)
       #Delete this tag.
       page.delete_tag(@new_tag)
-      sleep 2
+      sleep 5
       expect(page.has_tag?(@new_tag)).to be(false)
     end
-
     include_examples "quicktest_custom"
   end
 end

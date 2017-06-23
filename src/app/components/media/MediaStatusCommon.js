@@ -94,7 +94,7 @@ class MediaStatusCommon extends Component {
         {this.canUpdate() ?
           <ul className={this.bemClass('media-status__menu', this.state.isMediaStatusMenuOpen, '--active')}>
             {statuses.map(status => (
-              <li className={`${that.bemClass('media-status__menu-item', (mediaLastStatus(media) === status.id), '--current')} media-status__menu-item--${status.id.replace('_', '-')}`} onClick={that.handleStatusClick.bind(that, status.id)} style={{ color: getStatusStyle(status, 'color') }}>
+              <li key={status.id} className={`${that.bemClass('media-status__menu-item', (mediaLastStatus(media) === status.id), '--current')} media-status__menu-item--${status.id.replace('_', '-')}`} onClick={that.handleStatusClick.bind(that, status.id)} style={{ color: getStatusStyle(status, 'color') }}>
 
                 <FaCircle className="media-status__icon media-status__icon--radio-button-selected" />
 

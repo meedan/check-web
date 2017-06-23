@@ -10,6 +10,8 @@ Verify breaking news online.
 * Node.js (tested with version 6.9.2)
 * Inkscape and ImageMagick (to generate the favicon)
 * Ruby and RubyGems (to run the tests)
+* Guard Guard-Livereload and LiveReload (for an autorefreshing browser in dev mode)
+* NPM modules as defined in package.json
 
 ## Structure
 
@@ -26,6 +28,28 @@ Verify breaking news online.
 * Open your browser and go to http://localhost:3333
 
 For better debugging, set your `NODE_ENV` environment variable to `development` instead of `production`.
+
+## Building in dev mode
+
+The dev mode build (`npm run build:dev`.) is intended to be used instead of the existing "full build" (`npm run build`) during local development. The dev mode reduces build time primarily by enabling webpack's `watch` feature, which uses caching and auto-rebuilding. It also disables sourcemaps by default.
+
+* Run `npm run build:dev`.
+* This process runs continuously and monitors for changes, automatically triggering a rebuild. Press Ctrl+C to stop. 
+* The initial build should be about 30 seconds. 
+* Subsequent builds should be about 5 seconds.
+
+## Live reloading with Guard
+
+You can optionally use [guard-livereload](https://github.com/guard/guard-livereload) for cross-browser live-reloading, as configured in `check-web/Guardfile`.
+
+* Run `npm run build:dev` per above.
+* Install the [LiveReload browser extension](http://livereload.com/extensions/)
+* Install Guard and Guard-Livereload gems with bundler: `bundle install`
+* Execute guard: `cd check-app/check-web && bundle exec guard`
+* Open localhost:3333 and turn on the browser extension (click it). 
+* You should see "Browser connected" in the Guard window.
+* When you save a .js file, build:dev rebuilds, then Guard notices the new bundle and triggers LiveReload. The page automatically refreshes and reflects your js changes. 
+* It works with CSS too (if you run the Sass compiler separately, eg `npm run style:watch:ltr`).
 
 ### Running on Docker
 

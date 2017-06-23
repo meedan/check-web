@@ -1,10 +1,9 @@
 {
-  "headerActions.aboutCheck": "Sobre Check",
-  "bridge.headerActions.aboutCheck": "Sobre Bridge",
   "headerActions.userTeams": "Suas Equipes",
   "headerActions.signOut": "Sair",
   "headerActions.signIn": "Entrar",
   "headerActions.contactHuman": "Entre em contato com um humano",
   "headerActions.tos": "Termos de Serviço",
-  "headerActions.privacyPolicy": "Política de Privacidade"
+  "headerActions.privacyPolicy": "Política de Privacidade",
+  "headerActions.about": "Sobre {appName}"
 }

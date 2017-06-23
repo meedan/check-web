@@ -13,6 +13,6 @@
   @include button-primary;
 
   &:not(:last-child) {
-    margin-#{$to-direction}: units(half);
+    margin-#{$to-direction}: units(1);
   }
 }
