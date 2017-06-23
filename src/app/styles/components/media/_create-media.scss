@@ -10,15 +10,21 @@
   footer {
     align-items: top;
     display: flex;
+  }
 
-    .create-media__helper {
-      color: $black-38;
-      font: font(caption);
+  &__helper {
+    color: $black-38;
+    font: font(caption);
 
-      @include when-smaller-than(mobile-breakpoint-small) {
-        display: none;
-      }
+    @include when-smaller-than(mobile-breakpoint-small) {
+      display: none;
     }
+  }
+
+  &__title {
+    color: $black-87;
+    font: font(title);
+    padding-#{$from-direction}: units(1);
   }
 }
 
