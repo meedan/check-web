@@ -15,6 +15,7 @@ import BrowserSupport from './BrowserSupport';
 import CheckContext from '../CheckContext';
 import { bemClass } from '../helpers';
 import ContentColumn from './layout/ContentColumn';
+import rtlDetect from 'rtl-detect';
 
 const messages = defineMessages({
   needRegister: {
@@ -24,17 +25,6 @@ const messages = defineMessages({
   somethingWrong: {
     id: 'home.somethingWrong',
     defaultMessage: 'Something went wrong – please refresh your browser or try again later.',
-  },
-});
-
-const muiTheme = getMuiTheme({
-  palette: {
-    primary1Color: '#2e77fc',
-    primary2Color: '#2e77fc',
-    primary3Color: '#2e77fc',
-    accent1Color: blue600,
-    accent2Color: blue700,
-    accent3Color: blue800,
   },
 });
 
@@ -85,6 +75,17 @@ class Home extends Component {
   render() {
     const { state, children } = this.props;
     const routeSlug = this.routeSlug(children);
+    const muiTheme = getMuiTheme({
+      palette: {
+        primary1Color: '#2e77fc',
+        primary2Color: '#2e77fc',
+        primary3Color: '#2e77fc',
+        accent1Color: blue600,
+        accent2Color: blue700,
+        accent3Color: blue800,
+      },
+      isRtl: rtlDetect.isRtlLang(this.props.intl.locale),
+    });
 
     if (!this.state.sessionStarted) {
       return null;
