@@ -70,10 +70,6 @@ const MediaUtil = {
     }
   },
 
-  authorAvatarUrl(media, data) {
-    return data.author_picture;
-  },
-
   authorName(media, data) {
     switch (media.domain) {
     case 'twitter.com':

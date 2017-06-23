@@ -107,7 +107,7 @@ class SwitchTeamsComponent extends Component {
               return (
                 <li className="switch-teams__team switch-teams__team--current">
                   <a href={buildUrl(currentTeam)} className="switch-teams__team-link">
-                    <div className="switch-teams__team-avatar" style={{ 'background-image': `url(${currentTeam.avatar})` }} />
+                    <div className="switch-teams__team-avatar" style={{ 'backgroundImage': `url(${currentTeam.avatar})` }} />
                     <div className="switch-teams__team-copy">
                       <h3 className="switch-teams__team-name">{currentTeam.name}</h3>
                       <span className="switch-teams__team-members-count">{that.membersCountString(currentTeam.members_count)}</span>
@@ -124,7 +124,7 @@ class SwitchTeamsComponent extends Component {
           {otherTeams.map(team => (
             <li className="switch-teams__team">
               <div onClick={that.setCurrentTeam.bind(that, team, currentUser)} className="switch-teams__team-link">
-                <div className="switch-teams__team-avatar" style={{ 'background-image': `url(${team.avatar})` }} />
+                <div className="switch-teams__team-avatar" style={{ 'backgroundImage': `url(${team.avatar})` }} />
                 <div className="switch-teams__team-copy">
                   <h3 className="switch-teams__team-name">{team.name}</h3>
                   <span className="switch-teams__team-members-count">{that.membersCountString(team.members_count)}</span>
@@ -139,7 +139,7 @@ class SwitchTeamsComponent extends Component {
           {pendingTeams.map(function (team) {
             return (
               <li className="switch-teams__team switch-teams__team--pending">
-                <div className="switch-teams__team-avatar" style={{ 'background-image': `url(${team.avatar})` }} />
+                <div className="switch-teams__team-avatar" style={{ 'backgroundImage': `url(${team.avatar})` }} />
                 <div className="switch-teams__team-copy">
                   <h3 className="switch-teams__team-name"><a href={buildUrl(team)}>{team.name}</a></h3>
                   <span className="switch-teams__team-join-request-message">

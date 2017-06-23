@@ -1,8 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import Relay from 'react-relay';
-import Linkify from 'react-linkify';
-import nl2br from 'react-nl2br';
 import MediaDetail from '../media/MediaDetail';
 import DynamicAnnotation from '../annotations/DynamicAnnotation';
 import DeleteAnnotationMutation from '../../relay/DeleteAnnotationMutation';
@@ -10,6 +8,7 @@ import DeleteVersionMutation from '../../relay/DeleteVersionMutation';
 import Can from '../Can';
 import TimeBefore from '../TimeBefore';
 import { getStatus } from '../../helpers';
+import ParsedText from '../ParsedText';
 
 const messages = defineMessages({
   error: {
@@ -91,7 +90,7 @@ class Annotation extends Component {
             {updatedAt ? <span className="annotation__timestamp"><TimeBefore date={updatedAt} /></span> : null}
             {annotationActions}
           </div>
-          <div className="annotation__body"><Linkify properties={{ target: '_blank' }}>{nl2br(commentText)}</Linkify></div>
+          <div className="annotation__body"><ParsedText text={commentText} /></div>
           {annotation.medias.edges.map(media => (
             <div className="annotation__embedded-media">
               <MediaDetail media={media.node} condensed readonly />

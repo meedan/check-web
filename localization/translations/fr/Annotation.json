@@ -16,7 +16,7 @@
   "annotation.translationStatus": "Statut de traduction fixé à {status} par {author}",
   "annotation.translationPublished": "Traduction publiée sur {link}",
   "annotation.keepRetried": "Un nouvel essai d'archivage sur Keep a été lancé. Veuillez revérifier dans une heure.",
-  "annotation.keepSuccess": "Au cas où ce lien serait mis hors ligne, nous en avons <a href=\"{keepLink}\" target=\"_blank\">préservé une copie sur Keep</a>",
+  "annotation.keepSuccess": "Au cas où ce lien serait mis hors ligne, nous en avons <a {anchor}>préservé une copie sur Keep</a>",
   "annotation.keepError": "Il s'est produit une erreur durant l'archivage de ce lien sur Keep",
   "annotation.keepRetry": "Réessayer",
   "annotation.keepWait": "Ce lien est en cours d'archivage sur Keep. Veuillez vérifier dans une heure pour obtenir le lien d'archive.",

@@ -3,11 +3,10 @@
     background: units(2) 50% url('/images/search.svg') $white no-repeat;
     background-size: units(2);
     border: $border-width-small solid $black-16;
-    border-radius: units(half);
+    border-radius: units(.5);
     height: units(6);
     margin-top: units(1);
     outline: none;
-    padding-#{$from-direction}: units(6);
     transition: box-shadow $transition-speed-fast;
     width: 100%;
 
@@ -15,17 +14,29 @@
       @include box-shadow(2);
       transition: box-shadow $transition-speed-slow;
     }
+    padding-#{$from-direction}: units(6);
   }
 
   &__filters {
     @include when-larger-than(mobile-breakpoint) {
       padding: units(1);
     }
+    @include fade-in(1.5s);
     margin: 0 auto;
     max-width: 1200px;
     padding: units(2) 0;
 
     div {
+      @include when-smaller-than(mobile-breakpoint) {
+        flex-flow: nowrap column;
+        padding: 0;
+
+        h4 {
+          padding-top: units(2);
+          text-align: $from-direction;
+          padding-#{$from-direction}: units(1);
+        }
+      }
       display: flex;
       margin-top: units(1);
       max-height: units(20);
@@ -36,9 +47,9 @@
         color: $black-87;
         display: flex;
         flex: 1;
-        margin-#{$to-direction}: units(2);
         margin: 0;
         min-width: units(6);
+        margin-#{$to-direction}: units(2);
       }
 
       ul {
@@ -48,17 +59,6 @@
           @extend %ellipsis;
           margin-bottom: 0;
           max-width: units(25);
-        }
-      }
-
-      @include when-smaller-than(mobile-breakpoint) {
-        flex-flow: nowrap column;
-        padding: 0;
-
-        h4 {
-          padding-#{$from-direction}: units(1);
-          padding-top: units(2);
-          text-align: $from-direction;
         }
       }
     }

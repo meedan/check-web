@@ -14,7 +14,7 @@ class ProjectList extends Component {
         {team.projects.edges.sortp((a, b) => a.node.title.localeCompare(b.node.title)).map((p) => {
           const projectPath = `/${team.slug}/project/${p.node.dbid}`;
           return (
-            <li className="project-list__project">
+            <li key={p.node.dbid} className="project-list__project">
               <Link to={projectPath} className={bemClass('project-list__link', window.location.pathname.includes(projectPath), '--active')}>{p.node.title}</Link>
             </li>
           );

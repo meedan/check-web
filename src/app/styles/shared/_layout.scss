@@ -10,7 +10,7 @@ $layout-sizes: (
   card-width-small: units(40),
   card-width: units(56),
   card-width-large: units(85),
-  column-width-narrow: units(100),
+  column-width-narrow: units(56),
   column-width-wide: units(152)
   );
 
@@ -68,4 +68,24 @@ $breakpoints: (
 
 body {
   margin: 0;
+}
+
+// Layout utility
+//
+// Two columns with flex.
+// Override column width as needed.
+.layout-two-column {
+  display: flex;
+  .column-secondary {
+    flex: 0;
+  }
+  .column-primary {
+    flex: 3;
+  }
+}
+
+// Contains a fab,
+// so it can be positioned absolutely without affecting positioning context of parents
+.layout-fab-container {
+  position: relative;
 }

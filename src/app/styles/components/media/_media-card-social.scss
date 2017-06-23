@@ -106,7 +106,7 @@
     }
     padding-#{$from-direction}: 0;
     padding-#{$to-direction}: units(2);
-    margin-top: units(1) + units(half);
+    margin-top: units(1.5);
     margin-#{$from-direction}: layout(gutter-large);
   }
 
