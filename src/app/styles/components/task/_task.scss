@@ -153,7 +153,7 @@
     @include when-smaller-than(mobile-breakpoint) {
       max-width: 40vw;
     }
-    max-width: card-width-large;
+    max-width: layout(column-width-medium);
 
     span {
       word-wrap: break-word;

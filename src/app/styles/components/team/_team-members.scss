@@ -8,7 +8,7 @@
   > .card {
     position: relative;
     // TODO revisit this layout CGB 2017-3-23
-    @include card(card-width-large);
+    @include card(column-width-large);
   }
 
   h1 {

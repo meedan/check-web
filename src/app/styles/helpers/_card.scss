@@ -1,7 +1,7 @@
 // Card style
 // This card is used on the team list, project edit, create team — but not all the cards use this; some use MDC components
 //
-@mixin card($width: layout(card-width-large)) {
+@mixin card($width: layout(column-width-large)) {
   @include fade-in(1);
   @include box-shadow(1);
   background-color: white;

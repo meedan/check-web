@@ -93,7 +93,7 @@
   border-radius: $border-radius-default;
   font: font(title);
   margin: units(1) 0 units(2);
-  max-width: layout(card-width-large);
+  max-width: layout(column-width-medium);
   padding: units(.5) units(1);
   width: 100%;
 }
