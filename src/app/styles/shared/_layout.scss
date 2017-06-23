@@ -7,10 +7,9 @@ $layout-sizes: (
   gutter-large: units(7),
   header-height: units(7),
   viewport-height-min: units(84),
-  card-width-small: units(40),
-  card-width: units(56),
-  card-width-large: units(85),
-  column-width-narrow: units(100),
+  column-width-small: units(56),
+  column-width-medium: units(85),
+  column-width-large: units(100),
   column-width-wide: units(152)
   );
 
@@ -25,9 +24,8 @@ $layout-sizes: (
 // Breakpoint map
 //
 $breakpoints: (
-  mobile-breakpoint-smallest: layout(card-width-small),
-  mobile-breakpoint-small: layout(card-width),
-  mobile-breakpoint: layout(card-width-large),
+  mobile-breakpoint-small: layout(column-width-small),
+  mobile-breakpoint: layout(column-width-medium),
   widescreen-breakpoint: layout(column-width-wide),
   tallscreen-breakpoint: layout(column-width-wide),
 );

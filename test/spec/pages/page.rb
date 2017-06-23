@@ -6,29 +6,44 @@ class Page
   def initialize(options)
     @config = options[:config]
     @driver = options[:driver]
-    @is_appium = $driver && $driver.is_a?(Appium::Driver)
+    @wait = Selenium::WebDriver::Wait.new(timeout: 10)
   end
 
-  def wait_for(seconds = 10, &block)
-    return @is_appium ?
-      $driver.wait({timeout: seconds}, &block) :
-      Selenium::WebDriver::Wait.new(timeout: seconds).until(&block)
+
+  def go(new_url)
+    if defined? $caller_name and $caller_name.length > 0
+      method_id = $caller_name[0]
+      method_id.gsub! (/(\s)/), '_'
+      method_id.gsub! (/("|\[|\])/), ''
+      if new_url.include? '?'
+        new_url = new_url + '&test_id='+method_id
+      else
+        new_url = new_url + '?test_id='+method_id
+      end
+    end
+    @driver.navigate.to new_url
   end
+
 
   def load
-    @driver.navigate.to url # assumes subclass pages implement `url` method
+    go(url)
     self
   end
 
+
   def element(selector, options = {})
-    wait_for {
+    wait = options[:timeout] ? Selenium::WebDriver::Wait.new(timeout: options[:timeout]) : @wait
+
+    wait.until {
       element = @driver.find_element(:css, selector)
       element if element.displayed? || options[:hidden]
     }
   end
 
   def elements(selector, options = {})
-    wait_for {
+    wait = options[:timeout] ? Selenium::WebDriver::Wait.new(timeout: options[:timeout]) : @wait
+
+    wait.until {
       @driver.find_elements(:css, selector)
     }
   end
