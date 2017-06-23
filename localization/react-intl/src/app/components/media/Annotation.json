@@ -69,7 +69,7 @@
   },
   {
     "id": "annotation.keepSuccess",
-    "defaultMessage": "In case this link goes offline, you can <a href=\"{keepLink}\" target=\"_blank\">access a backup via Keep</a>"
+    "defaultMessage": "In case this link goes offline, you can <a {anchor}>access a backup via Keep</a>"
   },
   {
     "id": "annotation.keepError",

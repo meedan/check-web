@@ -143,7 +143,7 @@ class Annotation extends Component {
     return date;
   }
 
-  profileLink(user){
+  profileLink(user, className) {
     let url = user.email ? 'mailto:' + user.email : '';
 
     if (user && user.source && user.source.accounts && user.source.accounts.edges && user.source.accounts.edges.length > 0){
@@ -151,8 +151,8 @@ class Annotation extends Component {
     }
 
     return url ?
-        <a target="_blank" rel="noopener noreferrer" className="annotation__author-name" href={url}>{user.name}</a> :
-        <span className="annotation__author-name">{user.name}</span>;
+        <a target="_blank" rel="noopener noreferrer" className={className} href={url}>{user.name}</a> :
+        <span className={className}>{user.name}</span>;
   }
 
   handleReverseImageSearch(path) {
@@ -181,7 +181,7 @@ class Annotation extends Component {
 
     const updatedAt = this.updatedAt(activity);
     const timestamp = updatedAt ? <span className="annotation__timestamp"><TimeBefore date={updatedAt}/></span> : null;
-    const authorName = this.profileLink(activity.user);
+    const authorName = this.profileLink(activity.user, 'annotation__author-name');
     const object = JSON.parse(activity.object_after);
     const content = object.data;
     const activityType = activity.event_type;
@@ -336,7 +336,7 @@ class Annotation extends Component {
           contentTemplate.push(
             <span>
               <FormattedMessage id="annotation.translationPublished" defaultMessage={'Translation published to {link}'}
-                values={{ link: <a style={{ color, fontWeight: 'bold' }} href={published[provider]} target="_blank">{name}</a> }}
+                values={{ link: <a style={{ color, fontWeight: 'bold' }} href={published[provider]} target="_blank" rel="noreferrer noopener">{name}</a> }}
               />
             </span>
           );
@@ -355,7 +355,7 @@ class Annotation extends Component {
         }
         else if (keepLink) {
           contentTemplate = (<span className="annotation__keep">
-            <FormattedHTMLMessage id="annotation.keepSuccess" defaultMessage={'In case this link goes offline, you can <a href="{keepLink}" target="_blank">access a backup via Keep</a>'} values={{ keepLink }} />
+            <FormattedHTMLMessage id="annotation.keepSuccess" defaultMessage={'In case this link goes offline, you can <a {anchor}>access a backup via Keep</a>'} values={{ anchor: `href="${keepLink}" target="_blank" rel="noopener noreferrer"` }} />
           </span>);
         }
         else if (keepStatus === 418) {
@@ -475,7 +475,7 @@ class Annotation extends Component {
                   {contentTemplate}
                   <footer className='annotation__card-footer'>
                     <span className='annotation__card-footer-text'>
-                      <span className='annotation__card-author'>{activity.user.name}</span> <span>{timestamp}</span>
+                      {this.profileLink(activity.user, 'annotation__card-author')} <span>{timestamp}</span>
                     </span>
                     {annotationActions}
                   </footer>

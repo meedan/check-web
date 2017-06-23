@@ -211,16 +211,16 @@ class TeamComponent extends Component {
     const contactInfo = [];
 
     if (contact) {
-      if (!!contact.node.location) {
-        contactInfo.push(<span className="team__location"><span className="team__location-name"><ParsedText text={contact.node.location} /></span></span>);
+      if (contact.node.location) {
+        contactInfo.push(<span key="contactInfo.location" className="team__location"><span className="team__location-name"><ParsedText text={contact.node.location} /></span></span>);
       }
 
-      if (!!contact.node.phone) {
-        contactInfo.push(<span className="team__phone"><span className="team__phone-name"><ParsedText text={contact.node.phone} /></span></span>);
+      if (contact.node.phone) {
+        contactInfo.push(<span key="contactInfo.phone"className="team__phone"><span className="team__phone-name"><ParsedText text={contact.node.phone} /></span></span>);
       }
 
-      if (!!contact.node.web) {
-        contactInfo.push(<span className="team__web"><span className="team__link-name"><ParsedText text={contact.node.web} /></span></span>);
+      if (contact.node.web) {
+        contactInfo.push(<span key="contactInfo.web" className="team__web"><span className="team__link-name"><ParsedText text={contact.node.web} /></span></span>);
       }
     }
 
@@ -336,7 +336,7 @@ class TeamComponent extends Component {
                       <div className="column-secondary">
                         <div
                           className="team__avatar"
-                          style={{ 'background-image': `url(${team.avatar})` }}
+                          style={{ 'backgroundImage': `url(${team.avatar})` }}
                           title={this.props.intl.formatMessage(messages.changeAvatar)}
                         />
                       </div>
@@ -386,7 +386,7 @@ class TeamComponent extends Component {
                       {team.projects.edges
                         .sortp((a, b) => a.node.title.localeCompare(b.node.title))
                         .map(p => (
-                          <li className="team__project">
+                          <li key={p.node.dbid} className="team__project">
                             <Link to={`/${team.slug}/project/${p.node.dbid}`} className="team__project-link">
                               {p.node.title} <MDChevronRight className="arrow" />
                             </Link>
@@ -401,6 +401,7 @@ class TeamComponent extends Component {
               );
             }
           })()}
+
         </div>
       </PageTitle>
     );
