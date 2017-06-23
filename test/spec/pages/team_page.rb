@@ -23,3 +23,4 @@ class TeamPage < Page
     wait_for_element('.project')
     ProjectPage.new(config: @config, driver: @driver)
   end
+end
