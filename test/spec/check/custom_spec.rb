@@ -31,19 +31,19 @@ shared_examples 'custom' do
   it "should set status to media as a command" do
     login_with_email
     @driver.navigate.to team_url('project/' + get_project + '/media/' + $media_id)
-    sleep 1
+    sleep 10
 
     # Add a status as a command
     fill_field('#cmd-input', '/status In Progress')
     @driver.action.send_keys(:enter).perform
-    sleep 5
+    sleep 10
 
     # Verify that status was added to annotations list
     expect(@driver.page_source.include?('Status')).to be(true)
 
     # Reload the page and verify that status is still there
     @driver.navigate.refresh
-    sleep 3
+    sleep 10
     expect(@driver.page_source.include?('Status')).to be(true)
   end
 
