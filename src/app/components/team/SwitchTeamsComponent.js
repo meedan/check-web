@@ -189,8 +189,9 @@ class SwitchTeamsComponent extends Component {
             }
           })()}
 
-          {otherTeams.map(team =>
+          {otherTeams.map((team, index) =>
             <ListItem
+              key={index}
               style={listItemStyle}
               hoverColor={highlightBlue}
               href={buildUrl(team)}
@@ -202,8 +203,9 @@ class SwitchTeamsComponent extends Component {
             />,
           )}
 
-          {pendingTeams.map(team =>
+          {pendingTeams.map((team, index) =>
             <ListItem
+              key={index}
               style={listItemStyle}
               hoverColor={highlightBlue}
               href={buildUrl(team)}
