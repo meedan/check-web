@@ -1,0 +1,34 @@
+[
+  {
+    "id": "switchTeams.error",
+    "defaultMessage": "Sorry, could not switch teams"
+  },
+  {
+    "id": "switchTeams.member",
+    "defaultMessage": "member"
+  },
+  {
+    "id": "switchTeams.members",
+    "defaultMessage": "members"
+  },
+  {
+    "id": "switchTeams.joinRequestMessage",
+    "defaultMessage": "You requested to join"
+  },
+  {
+    "id": "switchTeams.cancelJoinRequest",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "switchTeams.bannedJoinRequest",
+    "defaultMessage": "Cancelled"
+  },
+  {
+    "id": "teams.yourTeams",
+    "defaultMessage": "Your Teams"
+  },
+  {
+    "id": "switchTeams.newTeamLink",
+    "defaultMessage": "+ New team"
+  }
+]
