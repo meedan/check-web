@@ -109,12 +109,12 @@ class SwitchTeamsComponent extends Component {
   render() {
     const currentUser = this.props.me;
     const currentTeam = this.props.me.current_team;
-    const team_users = this.props.me.team_users.edges;
+    const teamUsers = this.props.me.team_users.edges;
     const that = this;
     const otherTeams = [];
     const pendingTeams = [];
 
-    const teamButton = function (team) {
+    const teamButton = function teamButton(team) {
       if (team.status === 'requested') {
         return (
           <FlatButton
@@ -140,13 +140,13 @@ class SwitchTeamsComponent extends Component {
       }
     };
 
-    team_users.map((team_user) => {
-      const team = team_user.node.team;
+    teamUsers.map((teamUser) => {
+      const team = teamUser.node.team;
       if (team.dbid !== currentTeam.dbid) {
-        const status = team_user.node.status;
+        const status = teamUser.node.status;
         if (status === 'requested' || status === 'banned') {
           team.status = status;
-          team.team_user_id = team_user.node.id;
+          team.teamUser_id = teamUser.node.id;
           pendingTeams.push(team);
         } else {
           otherTeams.push(team);
@@ -154,7 +154,7 @@ class SwitchTeamsComponent extends Component {
       }
     });
 
-    const buildUrl = function (team) {
+    const buildUrl = function buildUrl(team) {
       return `${window.location.protocol}//${config.selfHost}/${team.slug}`;
     };
 
@@ -232,7 +232,7 @@ class SwitchTeamsComponent extends Component {
 
 SwitchTeamsComponent.propTypes = {
   intl: intlShape.isRequired,
-  me: PropTypes.obj.isRequired,
+  me: PropTypes.object.isRequired,
 };
 
 SwitchTeamsComponent.contextTypes = {

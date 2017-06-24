@@ -16,7 +16,7 @@ import CheckContext from '../CheckContext';
 import { bemClass } from '../helpers';
 import ContentColumn from './layout/ContentColumn';
 import rtlDetect from 'rtl-detect';
-import {checkBlue} from '../../../config-styles';
+import { checkBlue, highlightBlue } from '../../../config-styles';
 
 const messages = defineMessages({
   needRegister: {
@@ -84,6 +84,9 @@ class Home extends Component {
         accent1Color: blue600,
         accent2Color: blue700,
         accent3Color: blue800,
+        ripple: {
+          color: highlightBlue,
+        },
       },
       isRtl: rtlDetect.isRtlLang(this.props.intl.locale),
     });
@@ -118,7 +121,7 @@ class Home extends Component {
         <span>
           <Favicon url={`/images/logo/${config.appName}.ico`} animated={false} />
           <BrowserSupport />
-          <div className={bemClass("home", routeSlug, `--${routeSlug}`)}>
+          <div className={bemClass('home', routeSlug, `--${routeSlug}`)}>
             <ContentColumn wide className="home__disclaimer"><span><FormattedMessage id="home.beta" defaultMessage="Beta" /></span></ContentColumn>
             <Header {...this.props} loggedIn={this.state.token} />
             <div className="home__content">{children}</div>

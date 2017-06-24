@@ -1,15 +1,15 @@
-import React, {Component, PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 import PageTitle from '../PageTitle';
 import MappedMessage from '../MappedMessage';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import Tags from './Tags';
-import {Link} from 'react-router';
+import { Link } from 'react-router';
 import TextField from 'material-ui/TextField';
 import Checkbox from 'material-ui/Checkbox';
 import FlatButton from 'material-ui/FlatButton';
 import MdCreate from 'react-icons/lib/md/create';
-import {Card, CardActions, CardHeader, CardTitle, CardText} from 'material-ui/Card';
+import { Card, CardActions, CardHeader, CardTitle, CardText } from 'material-ui/Card';
 import IconButton from 'material-ui/IconButton';
 import MDEdit from 'react-icons/lib/md/edit';
 import MDChevronRight from 'react-icons/lib/md/chevron-right';
@@ -21,7 +21,7 @@ import CreateProject from '../project/CreateProject';
 import Can from '../Can';
 import CheckContext from '../../CheckContext';
 import ContentColumn from '../layout/ContentColumn';
-import {bemClass} from '../../helpers';
+import { bemClass } from '../../helpers';
 import ParsedText from '../ParsedText';
 
 const messages = defineMessages({
@@ -86,7 +86,8 @@ const messages = defineMessages({
 class TeamComponent extends Component {
   constructor(props) {
     super(props);
-    const team = this.props.team, contact = team.contacts.edges[0] || {node: {}};
+    const team = this.props.team,
+      contact = team.contacts.edges[0] || { node: {} };
     this.state = {
       message: null,
       isEditing: false,
@@ -110,7 +111,7 @@ class TeamComponent extends Component {
     const team = this.props.team;
 
     if (!store.team || store.team.slug != team.slug) {
-      context.setContextStore({team});
+      context.setContextStore({ team });
       const path = `/${team.slug}`;
       store.history.push(path);
     }
@@ -127,7 +128,7 @@ class TeamComponent extends Component {
 
   cancelEditTeam(e) {
     e.preventDefault();
-    this.setState({isEditing: false});
+    this.setState({ isEditing: false });
   }
 
   firstTimeFocusProjectInput() {
@@ -142,7 +143,7 @@ class TeamComponent extends Component {
   editTeamInfo() {
     const that = this;
 
-    const onFailure = transaction => {
+    const onFailure = (transaction) => {
       const error = transaction.getError();
       let message = that.props.intl.formatMessage(messages.editError);
       try {
@@ -151,10 +152,10 @@ class TeamComponent extends Component {
           message = json.error;
         }
       } catch (e) {}
-      that.setState({message, submitDisabled: false});
+      that.setState({ message, submitDisabled: false });
     };
 
-    const onSuccess = response => {
+    const onSuccess = (response) => {
       this.setState({
         message: that.props.intl.formatMessage(messages.editSuccess),
         isEditing: false,
@@ -179,9 +180,9 @@ class TeamComponent extends Component {
           }),
           id: that.props.team.id,
         }),
-        {onSuccess, onFailure}
+        { onSuccess, onFailure },
       );
-      that.setState({submitDisabled: true});
+      that.setState({ submitDisabled: true });
     }
   }
 
@@ -190,7 +191,7 @@ class TeamComponent extends Component {
   }
 
   handleEntreEditTeamNameAndDescription(e) {
-    this.setState({isEditing: true});
+    this.setState({ isEditing: true });
     e.preventDefault();
   }
 
@@ -201,7 +202,7 @@ class TeamComponent extends Component {
     }
     const values = Object.assign({}, this.state.values);
     values[key] = value;
-    this.setState({values});
+    this.setState({ values });
   }
 
   render() {
@@ -252,7 +253,7 @@ class TeamComponent extends Component {
                             floatingLabelText={this.props.intl.formatMessage(messages.teamDescription)}
                             onChange={this.handleChange.bind(this, 'description')}
                             fullWidth
-                            multiLine={true}
+                            multiLine
                             rows={1}
                             rowsMax={4}
                           />
@@ -336,7 +337,7 @@ class TeamComponent extends Component {
                       <div className="column-secondary">
                         <div
                           className="team__avatar"
-                          style={{ 'backgroundImage': `url(${team.avatar})` }}
+                          style={{ backgroundImage: `url(${team.avatar})` }}
                           title={this.props.intl.formatMessage(messages.changeAvatar)}
                         />
                       </div>
@@ -378,10 +379,10 @@ class TeamComponent extends Component {
 
           {(() => {
             if (!isEditing) {
-              return(
+              return (
                 <ContentColumn>
                   <Card>
-                    <CardHeader titleStyle={{fontSize: "20px", lineHeight: "32px"}} title={<MappedMessage msgObj={messages} msgKey="verificationProjects" />} />
+                    <CardHeader titleStyle={{ fontSize: '20px', lineHeight: '32px' }} title={<MappedMessage msgObj={messages} msgKey="verificationProjects" />} />
                     <ul className="team__projects-list">
                       {team.projects.edges
                         .sortp((a, b) => a.node.title.localeCompare(b.node.title))

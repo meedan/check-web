@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Relay from 'react-relay';
 import {
   injectIntl,
@@ -16,17 +16,15 @@ const SwitchTeamsContainer = Relay.createContainer(
   },
 );
 
-class SwitchTeams extends Component {
-  render() {
-    const route = new MeRoute();
-    return (
-      <Relay.RootContainer
-        Component={SwitchTeamsContainer}
-        route={route}
-        forceFetch
-      />
-    );
-  }
+function SwitchTeams() {
+  const route = new MeRoute();
+  return (
+    <Relay.RootContainer
+      Component={SwitchTeamsContainer}
+      route={route}
+      forceFetch
+    />
+  );
 }
 
 export default SwitchTeams;
