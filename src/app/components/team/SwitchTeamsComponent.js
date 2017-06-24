@@ -1,5 +1,6 @@
 import Relay from 'react-relay';
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import {
   FormattedMessage,
   defineMessages,
@@ -141,7 +142,7 @@ class SwitchTeamsComponent extends Component {
 
     team_users.map((team_user) => {
       const team = team_user.node.team;
-      if (team.dbid != currentTeam.dbid) {
+      if (team.dbid !== currentTeam.dbid) {
         const status = team_user.node.status;
         if (status === 'requested' || status === 'banned') {
           team.status = status;
@@ -231,6 +232,7 @@ class SwitchTeamsComponent extends Component {
 
 SwitchTeamsComponent.propTypes = {
   intl: intlShape.isRequired,
+  me: PropTypes.obj.isRequired,
 };
 
 SwitchTeamsComponent.contextTypes = {
