@@ -1,14 +1,30 @@
-import React, { Component, PropTypes } from 'react';
+import React, {Component, PropTypes} from 'react';
 import Relay from 'react-relay';
 import MeRoute from '../../relay/MeRoute';
 import userFragment from '../../relay/userFragment';
 import UpdateUserMutation from '../../relay/UpdateUserMutation';
 import DeleteTeamUserMutation from '../../relay/DeleteTeamUserMutation';
 import CheckContext from '../../CheckContext';
-import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
+import {FormattedMessage, defineMessages, injectIntl, intlShape} from 'react-intl';
 import MdChevronRight from 'react-icons/lib/md/chevron-right';
-import { Link } from 'react-router';
+import {Link} from 'react-router';
 import config from 'config';
+import {Card, CardActions, CardHeader, CardTitle, CardText} from 'material-ui/Card';
+import FlatButton from 'material-ui/FlatButton';
+import {List, ListItem} from 'material-ui/List';
+import Avatar from 'material-ui/Avatar';
+import styled from 'styled-components';
+import {
+  alertRed,
+  checkBlue,
+  black05,
+  highlightBlue,
+  avatarStyle,
+  titleStyle,
+  listItemStyle,
+  listStyle,
+  listItemButtonStyle
+} from '../../../../config-styles';
 
 const messages = defineMessages({
   switchTeamsError: {
@@ -23,20 +39,30 @@ const messages = defineMessages({
     id: 'switchTeams.members',
     defaultMessage: 'members',
   },
+  joinTeam: {
+    id: 'switchTeams.joinRequestMessage',
+    defaultMessage: 'You requested to join',
+  },
 });
 
 class SwitchTeamsComponent extends Component {
   membersCountString(count) {
     if (typeof count === 'number') {
-      return `${count.toString()} ${count === 1 ? this.props.intl.formatMessage(messages.switchTeamsMember) : this.props.intl.formatMessage(messages.switchTeamsMembers)}`;
+      return `${count.toString()} ${count === 1
+        ? this.props.intl.formatMessage(messages.switchTeamsMember)
+        : this.props.intl.formatMessage(messages.switchTeamsMembers)}`;
     }
+  }
+
+  requestedToJoinString() {
+    return `${this.props.intl.formatMessage(messages.joinTeam)}`;
   }
 
   cancelRequest(team) {
     Relay.Store.commitUpdate(
       new DeleteTeamUserMutation({
         id: team.team_user_id,
-      }),
+      })
     );
   }
 
@@ -47,9 +73,9 @@ class SwitchTeamsComponent extends Component {
 
     const currentUser = context.getContextStore().currentUser;
     currentUser.current_team = team;
-    context.setContextStore({ team, currentUser });
+    context.setContextStore({team, currentUser});
 
-    const onFailure = (transaction) => {
+    const onFailure = transaction => {
       const error = transaction.getError();
       let message = that.props.intl.formatMessage(messages.switchTeamsError);
       try {
@@ -57,10 +83,10 @@ class SwitchTeamsComponent extends Component {
         if (json.error) {
           message = json.error;
         }
-      } catch (e) { }
+      } catch (e) {}
     };
 
-    const onSuccess = (response) => {
+    const onSuccess = response => {
       const path = `/${team.slug}`;
       history.push(path);
     };
@@ -70,7 +96,7 @@ class SwitchTeamsComponent extends Component {
         current_team_id: team.dbid,
         current_user_id: user.id,
       }),
-      { onSuccess, onFailure },
+      {onSuccess, onFailure}
     );
   }
 
@@ -82,7 +108,23 @@ class SwitchTeamsComponent extends Component {
     const otherTeams = [];
     const pendingTeams = [];
 
-    team_users.map((team_user) => {
+    const teamButton = function(team) {
+      if (team.status === 'requested') {
+        return (
+          <FlatButton style={listItemButtonStyle} hoverColor={alertRed} onClick={that.cancelRequest.bind(this, team)}>
+            <FormattedMessage id="switchTeams.cancelJoinRequest" defaultMessage="Cancel" />
+          </FlatButton>
+        );
+      } else if (team.status === 'banned') {
+        return (
+          <FlatButton style={listItemButtonStyle} disabled>
+            <FormattedMessage id="switchTeams.bannedJoinRequest" defaultMessage="Cancelled" />
+          </FlatButton>
+        );
+      }
+    };
+
+    team_users.map(team_user => {
       const team = team_user.node.team;
       if (team.dbid != currentTeam.dbid) {
         const status = team_user.node.status;
@@ -96,74 +138,66 @@ class SwitchTeamsComponent extends Component {
       }
     });
 
-    const buildUrl = function (team) { return `${window.location.protocol}//${config.selfHost}/${team.slug}`; };
+    const buildUrl = function(team) {
+      return `${window.location.protocol}//${config.selfHost}/${team.slug}`;
+    };
 
     return (
-      <div className="switch-teams">
-        <ul className="switch-teams__teams">
-
+      <Card>
+        <CardHeader
+          titleStyle={titleStyle}
+          title={<FormattedMessage id="teams.yourTeams" defaultMessage="Your Teams" />}
+        />
+        <List style={listStyle}>
           {(() => {
             if (currentTeam) {
               return (
-                <li className="switch-teams__team switch-teams__team--current">
-                  <a href={buildUrl(currentTeam)} className="switch-teams__team-link">
-                    <div className="switch-teams__team-avatar" style={{ 'backgroundImage': `url(${currentTeam.avatar})` }} />
-                    <div className="switch-teams__team-copy">
-                      <h3 className="switch-teams__team-name">{currentTeam.name}</h3>
-                      <span className="switch-teams__team-members-count">{that.membersCountString(currentTeam.members_count)}</span>
-                    </div>
-                    <div className="switch-teams__team-actions">
-                      <MdChevronRight className="switch-teams__team-caret" />
-                    </div>
-                  </a>
-                </li>
+                <ListItem
+                  style={listItemStyle}
+                  hoverColor={highlightBlue}
+                  href={buildUrl(currentTeam)}
+                  leftAvatar={<Avatar style={avatarStyle} src={currentTeam.avatar} />}
+                  primaryText={currentTeam.name}
+                  rightIcon={<MdChevronRight />}
+                  secondaryText={that.membersCountString(currentTeam.members_count)}
+                />
               );
             }
           })()}
 
-          {otherTeams.map(team => (
-            <li className="switch-teams__team">
-              <div onClick={that.setCurrentTeam.bind(that, team, currentUser)} className="switch-teams__team-link">
-                <div className="switch-teams__team-avatar" style={{ 'backgroundImage': `url(${team.avatar})` }} />
-                <div className="switch-teams__team-copy">
-                  <h3 className="switch-teams__team-name">{team.name}</h3>
-                  <span className="switch-teams__team-members-count">{that.membersCountString(team.members_count)}</span>
-                </div>
-                <div className="switch-teams__team-actions">
-                  <MdChevronRight className="switch-teams__team-caret" />
-                </div>
-              </div>
-            </li>
-            ))}
+          {otherTeams.map(team =>
+            <ListItem
+              style={listItemStyle}
+              hoverColor={highlightBlue}
+              href={buildUrl(team)}
+              leftAvatar={<Avatar style={avatarStyle} src={team.avatar} />}
+              onClick={that.setCurrentTeam.bind(that, team, currentUser)}
+              primaryText={team.name}
+              rightIcon={<MdChevronRight />}
+              secondaryText={that.membersCountString(team.members_count)}
+            />
+          )}
 
-          {pendingTeams.map(function (team) {
+          {pendingTeams.map(function(team) {
             return (
-              <li className="switch-teams__team switch-teams__team--pending">
-                <div className="switch-teams__team-avatar" style={{ 'backgroundImage': `url(${team.avatar})` }} />
-                <div className="switch-teams__team-copy">
-                  <h3 className="switch-teams__team-name"><a href={buildUrl(team)}>{team.name}</a></h3>
-                  <span className="switch-teams__team-join-request-message">
-                    <FormattedMessage id="switchTeams.joinRequestMessage" defaultMessage="You requested to join" />
-                  </span>
-                </div>
-                <div className="switch-teams__team-actions">
-                  {(() => {
-                    if (team.status === 'requested') {
-                      return (<button className="switch-teams__cancel-join-request" onClick={that.cancelRequest.bind(this, team)}>
-                        <FormattedMessage id="switchTeams.cancelJoinRequest" defaultMessage="Cancel" />
-                      </button>);
-                    } else if (team.status === 'banned') {
-                      return (<FormattedMessage id="switchTeams.bannedJoinRequest" defaultMessage="Cancelled" />);
-                    }
-                  })()}
-                </div>
-              </li>
+              <ListItem
+                style={listItemStyle}
+                hoverColor={highlightBlue}
+                href={buildUrl(team)}
+                leftAvatar={<Avatar style={avatarStyle} src={team.avatar} />}
+                primaryText={team.name}
+                rightIconButton={teamButton(team)}
+                secondaryText={that.requestedToJoinString()}
+              />
             );
           })}
-        </ul>
-
-        <Link to="/check/teams/new" className="switch-teams__new-team-link"><FormattedMessage id="switchTeams.newTeamLink" defaultMessage="+ New team" /></Link>
-      </div>
+        </List>
+        <CardActions>
+          <FlatButton href="/check/teams/new">
+            <FormattedMessage id="switchTeams.newTeamLink" defaultMessage="+ New team" />
+          </FlatButton>
+        </CardActions>
+      </Card>
     );
   }
 }
@@ -185,7 +219,7 @@ const SwitchTeamsContainer = Relay.createContainer(injectIntl(SwitchTeamsCompone
 class SwitchTeams extends Component {
   render() {
     const route = new MeRoute();
-    return (<Relay.RootContainer Component={SwitchTeamsContainer} route={route} forceFetch />);
+    return <Relay.RootContainer Component={SwitchTeamsContainer} route={route} forceFetch />;
   }
 }
 

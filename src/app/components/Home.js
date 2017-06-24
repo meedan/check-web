@@ -16,6 +16,7 @@ import CheckContext from '../CheckContext';
 import { bemClass } from '../helpers';
 import ContentColumn from './layout/ContentColumn';
 import rtlDetect from 'rtl-detect';
+import {checkBlue} from '../../../config-styles';
 
 const messages = defineMessages({
   needRegister: {
@@ -77,9 +78,9 @@ class Home extends Component {
     const routeSlug = this.routeSlug(children);
     const muiTheme = getMuiTheme({
       palette: {
-        primary1Color: '#2e77fc',
-        primary2Color: '#2e77fc',
-        primary3Color: '#2e77fc',
+        primary1Color: checkBlue,
+        primary2Color: checkBlue,
+        primary3Color: checkBlue,
         accent1Color: blue600,
         accent2Color: blue700,
         accent3Color: blue800,

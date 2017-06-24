@@ -78,7 +78,7 @@
     font: font(headline) !important;
   }
 
-  // TODO abstract this into a list-card that is also used on member pages
+  // TODO This should be a Material-UI List
   &__projects-list {
     border-bottom: 1px solid $black-05;
 

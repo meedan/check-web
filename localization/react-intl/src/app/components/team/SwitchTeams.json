@@ -24,6 +24,10 @@
     "defaultMessage": "Cancelled"
   },
   {
+    "id": "teams.yourTeams",
+    "defaultMessage": "Your Teams"
+  },
+  {
     "id": "switchTeams.newTeamLink",
     "defaultMessage": "+ New team"
   }
