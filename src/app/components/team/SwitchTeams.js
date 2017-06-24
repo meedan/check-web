@@ -1,30 +1,35 @@
-import React, {Component, PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
-import MeRoute from '../../relay/MeRoute';
-import userFragment from '../../relay/userFragment';
-import UpdateUserMutation from '../../relay/UpdateUserMutation';
-import DeleteTeamUserMutation from '../../relay/DeleteTeamUserMutation';
-import CheckContext from '../../CheckContext';
-import {FormattedMessage, defineMessages, injectIntl, intlShape} from 'react-intl';
+import {
+  FormattedMessage,
+  defineMessages,
+  injectIntl,
+  intlShape,
+} from 'react-intl';
 import MdChevronRight from 'react-icons/lib/md/chevron-right';
-import {Link} from 'react-router';
 import config from 'config';
-import {Card, CardActions, CardHeader, CardTitle, CardText} from 'material-ui/Card';
+import {
+  Card,
+  CardActions,
+  CardHeader,
+} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
-import {List, ListItem} from 'material-ui/List';
+import { List, ListItem } from 'material-ui/List';
 import Avatar from 'material-ui/Avatar';
-import styled from 'styled-components';
 import {
   alertRed,
-  checkBlue,
-  black05,
   highlightBlue,
   avatarStyle,
   titleStyle,
   listItemStyle,
   listStyle,
-  listItemButtonStyle
+  listItemButtonStyle,
 } from '../../../../config-styles';
+import MeRoute from '../../relay/MeRoute';
+import userFragment from '../../relay/userFragment';
+import UpdateUserMutation from '../../relay/UpdateUserMutation';
+import DeleteTeamUserMutation from '../../relay/DeleteTeamUserMutation';
+import CheckContext from '../../CheckContext';
 
 const messages = defineMessages({
   switchTeamsError: {
@@ -62,7 +67,7 @@ class SwitchTeamsComponent extends Component {
     Relay.Store.commitUpdate(
       new DeleteTeamUserMutation({
         id: team.team_user_id,
-      })
+      }),
     );
   }
 
@@ -73,9 +78,9 @@ class SwitchTeamsComponent extends Component {
 
     const currentUser = context.getContextStore().currentUser;
     currentUser.current_team = team;
-    context.setContextStore({team, currentUser});
+    context.setContextStore({ team, currentUser });
 
-    const onFailure = transaction => {
+    const onFailure = (transaction) => {
       const error = transaction.getError();
       let message = that.props.intl.formatMessage(messages.switchTeamsError);
       try {
@@ -86,7 +91,7 @@ class SwitchTeamsComponent extends Component {
       } catch (e) {}
     };
 
-    const onSuccess = response => {
+    const onSuccess = (response) => {
       const path = `/${team.slug}`;
       history.push(path);
     };
@@ -96,7 +101,7 @@ class SwitchTeamsComponent extends Component {
         current_team_id: team.dbid,
         current_user_id: user.id,
       }),
-      {onSuccess, onFailure}
+      { onSuccess, onFailure },
     );
   }
 
@@ -108,23 +113,33 @@ class SwitchTeamsComponent extends Component {
     const otherTeams = [];
     const pendingTeams = [];
 
-    const teamButton = function(team) {
+    const teamButton = function (team) {
       if (team.status === 'requested') {
         return (
-          <FlatButton style={listItemButtonStyle} hoverColor={alertRed} onClick={that.cancelRequest.bind(this, team)}>
-            <FormattedMessage id="switchTeams.cancelJoinRequest" defaultMessage="Cancel" />
+          <FlatButton
+            style={listItemButtonStyle}
+            hoverColor={alertRed}
+            onClick={that.cancelRequest.bind(this, team)}
+          >
+            <FormattedMessage
+              id="switchTeams.cancelJoinRequest"
+              defaultMessage="Cancel"
+            />
           </FlatButton>
         );
       } else if (team.status === 'banned') {
         return (
           <FlatButton style={listItemButtonStyle} disabled>
-            <FormattedMessage id="switchTeams.bannedJoinRequest" defaultMessage="Cancelled" />
+            <FormattedMessage
+              id="switchTeams.bannedJoinRequest"
+              defaultMessage="Cancelled"
+            />
           </FlatButton>
         );
       }
     };
 
-    team_users.map(team_user => {
+    team_users.map((team_user) => {
       const team = team_user.node.team;
       if (team.dbid != currentTeam.dbid) {
         const status = team_user.node.status;
@@ -138,7 +153,7 @@ class SwitchTeamsComponent extends Component {
       }
     });
 
-    const buildUrl = function(team) {
+    const buildUrl = function (team) {
       return `${window.location.protocol}//${config.selfHost}/${team.slug}`;
     };
 
@@ -146,9 +161,14 @@ class SwitchTeamsComponent extends Component {
       <Card>
         <CardHeader
           titleStyle={titleStyle}
-          title={<FormattedMessage id="teams.yourTeams" defaultMessage="Your Teams" />}
+          title={
+            <FormattedMessage
+              id="teams.yourTeams"
+              defaultMessage="Your Teams"
+            />
+          }
         />
-        <List style={listStyle}>
+        <List className="teams" style={listStyle}>
           {(() => {
             if (currentTeam) {
               return (
@@ -156,10 +176,14 @@ class SwitchTeamsComponent extends Component {
                   style={listItemStyle}
                   hoverColor={highlightBlue}
                   href={buildUrl(currentTeam)}
-                  leftAvatar={<Avatar style={avatarStyle} src={currentTeam.avatar} />}
+                  leftAvatar={
+                    <Avatar style={avatarStyle} src={currentTeam.avatar} />
+                  }
                   primaryText={currentTeam.name}
                   rightIcon={<MdChevronRight />}
-                  secondaryText={that.membersCountString(currentTeam.members_count)}
+                  secondaryText={that.membersCountString(
+                    currentTeam.members_count,
+                  )}
                 />
               );
             }
@@ -175,26 +199,27 @@ class SwitchTeamsComponent extends Component {
               primaryText={team.name}
               rightIcon={<MdChevronRight />}
               secondaryText={that.membersCountString(team.members_count)}
-            />
+            />,
           )}
 
-          {pendingTeams.map(function(team) {
-            return (
-              <ListItem
-                style={listItemStyle}
-                hoverColor={highlightBlue}
-                href={buildUrl(team)}
-                leftAvatar={<Avatar style={avatarStyle} src={team.avatar} />}
-                primaryText={team.name}
-                rightIconButton={teamButton(team)}
-                secondaryText={that.requestedToJoinString()}
-              />
-            );
-          })}
+          {pendingTeams.map(team =>
+            <ListItem
+              style={listItemStyle}
+              hoverColor={highlightBlue}
+              href={buildUrl(team)}
+              leftAvatar={<Avatar style={avatarStyle} src={team.avatar} />}
+              primaryText={team.name}
+              rightIconButton={teamButton(team)}
+              secondaryText={that.requestedToJoinString()}
+            />,
+          )}
         </List>
         <CardActions>
           <FlatButton href="/check/teams/new">
-            <FormattedMessage id="switchTeams.newTeamLink" defaultMessage="+ New team" />
+            <FormattedMessage
+              id="switchTeams.newTeamLink"
+              defaultMessage="+ New team"
+            />
           </FlatButton>
         </CardActions>
       </Card>
@@ -210,16 +235,25 @@ SwitchTeamsComponent.contextTypes = {
   store: React.PropTypes.object,
 };
 
-const SwitchTeamsContainer = Relay.createContainer(injectIntl(SwitchTeamsComponent), {
-  fragments: {
-    me: () => userFragment,
+const SwitchTeamsContainer = Relay.createContainer(
+  injectIntl(SwitchTeamsComponent),
+  {
+    fragments: {
+      me: () => userFragment,
+    },
   },
-});
+);
 
 class SwitchTeams extends Component {
   render() {
     const route = new MeRoute();
-    return <Relay.RootContainer Component={SwitchTeamsContainer} route={route} forceFetch />;
+    return (
+      <Relay.RootContainer
+        Component={SwitchTeamsContainer}
+        route={route}
+        forceFetch
+      />
+    );
   }
 }
 
