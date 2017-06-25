@@ -13,8 +13,10 @@ import Checkbox from 'material-ui/Checkbox';
 import FlatButton from 'material-ui/FlatButton';
 import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
 import IconButton from 'material-ui/IconButton';
+import MdChevronRight from 'react-icons/lib/md/chevron-right';
 import MDEdit from 'react-icons/lib/md/edit';
 import MDChevronRight from 'react-icons/lib/md/chevron-right';
+import { List, ListItem } from 'material-ui/List';
 import PageTitle from '../PageTitle';
 import MappedMessage from '../MappedMessage';
 import UpdateTeamMutation from '../../relay/UpdateTeamMutation';
@@ -24,6 +26,14 @@ import Can from '../Can';
 import CheckContext from '../../CheckContext';
 import ContentColumn from '../layout/ContentColumn';
 import ParsedText from '../ParsedText';
+import {
+  highlightBlue,
+  avatarStyle,
+  titleStyle,
+  listItemStyle,
+  listStyle,
+  listItemButtonStyle,
+} from '../../../../config-styles';
 
 const messages = defineMessages({
   editError: {
@@ -86,14 +96,6 @@ const messages = defineMessages({
 });
 
 class TeamComponent extends Component {
-  static firstTimeFocusProjectInput() {
-    const projectList = document.querySelector('.team__projects-list');
-    const projectInput = document.querySelector('#create-project-title');
-
-    if (projectInput && projectList.innerHTML === '') {
-      projectInput.focus();
-    }
-  }
 
   constructor(props) {
     super(props);
@@ -118,7 +120,6 @@ class TeamComponent extends Component {
 
   componentDidMount() {
     this.setContextTeam();
-    this.firstTimeFocusProjectInput();
   }
 
   componentDidUpdate() {
@@ -159,7 +160,7 @@ class TeamComponent extends Component {
       return that.setState({ message, submitDisabled: false });
     };
 
-    const onSuccess = (response) => {
+    const onSuccess = () => {
       this.setState({
         message: that.props.intl.formatMessage(messages.editSuccess),
         isEditing: false,
@@ -466,14 +467,13 @@ class TeamComponent extends Component {
               })()}
             </ContentColumn>
           </Card>
-
           {(() => {
             if (!isEditing) {
               return (
                 <ContentColumn>
                   <Card>
                     <CardHeader
-                      titleStyle={{ fontSize: '20px', lineHeight: '32px' }}
+                      titleStyle={titleStyle}
                       title={
                         <MappedMessage
                           msgObj={messages}
@@ -481,36 +481,38 @@ class TeamComponent extends Component {
                         />
                       }
                     />
-                    <ul className="team__projects-list">
+                    <List style={listStyle} className>
                       {team.projects.edges
                         .sortp((a, b) =>
                           a.node.title.localeCompare(b.node.title),
                         )
                         .map(p =>
-                          <li key={p.node.dbid} className="team__project">
-                            <Link
-                              to={`/${team.slug}/project/${p.node.dbid}`}
-                              className="team__project-link"
-                            >
-                              {p.node.title}{' '}
-                              <MDChevronRight className="arrow" />
-                            </Link>
-                          </li>,
+                          <ListItem
+                            key={p.node.dbid} className="team__project"
+                            style={listItemStyle}
+                            hoverColor={highlightBlue}
+                            href={`/${team.slug}/project/${p.node.dbid}`}
+                            primaryText={p.node.title}
+                            rightIcon={<MdChevronRight />}
+                          />,
                         )}
-                    </ul>
+                    </List>
                     <Can
                       permissions={team.permissions}
                       permission="create Project"
                     >
-                      <CreateProject
-                        className="team__new-project-input"
-                        team={team}
-                      />
+                      <CardActions>
+                        <CreateProject
+                          team={team}
+                          autoFocus={team.projects.edges.length === 0}
+                        />
+                      </CardActions>
                     </Can>
                   </Card>
                 </ContentColumn>
               );
             }
+            return '';
           })()}
 
         </div>
@@ -521,7 +523,7 @@ class TeamComponent extends Component {
 
 TeamComponent.propTypes = {
   intl: intlShape.isRequired,
-  team: PropTypes.object.isRequired,
+  team: PropTypes.object,
 };
 
 TeamComponent.contextTypes = {
