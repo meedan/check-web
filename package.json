@@ -123,6 +123,7 @@
     "node-sass": "^4.0.0",
     "node-window": "^1.0.1",
     "postcss-cli": "^2.3.2",
+    "prop-types": "^15.5.10",
     "rc-tooltip": "^3.4.2",
     "react": "^15.6.1",
     "react-copy-to-clipboard": "^5.0.0",
