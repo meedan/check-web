@@ -7,16 +7,14 @@ import config from 'config';
 class MediaParentComponent extends Component {
   render() {
 
-    const extraComponents = [
-      <Can permissions={this.props.media.permissions} permission="create Dynamic">
+    const extraComponents = config.appName === 'bridge' ? [
+      <Can key={this.props.media.id} permissions={this.props.media.permissions} permission="create Dynamic">
         <Translation annotated={this.props.media} annotatedType="ProjectMedia" />
       </Can>
-    ];
+    ] : [];
 
-    return config.appName === 'bridge' ? (
+    return  (
       <MediaComponent {...this.props} extras={extraComponents} />
-    ) : (
-      <MediaComponent {...this.props} />
     );
   }
 }
