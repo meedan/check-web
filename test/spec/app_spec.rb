@@ -89,6 +89,25 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
   context "web" do
 
+    it "should redirect to access denied page" do
+      user_1 = {email: 'sysops+' + Time.now.to_i.to_s + '@meedan.com', password: '12345678'}
+      login_pg = LoginPage.new(config: @config, driver: @driver).load
+      login_pg.register_and_login_with_email(email: user_1[:email], password: user_1[:password])
+
+      me_pg = MePage.new(config: @config, driver: login_pg.driver).load
+      user_1_source_id = me_pg.source_id
+      me_pg.logout
+
+      user_2 = {email: 'sysops+' + Time.now.to_i.to_s + '@meedan.com', password: '22345678'}
+      login_pg = LoginPage.new(config: @config, driver: @driver).load
+      login_pg.register_and_login_with_email(email: user_2[:email], password: user_2[:password])
+      unauthorized_pg = SourcePage.new(id: user_1_source_id, config: @config, driver: login_pg.driver).load
+      @wait.until { unauthorized_pg.contains_string?('Access Denied') }
+
+      expect(unauthorized_pg.contains_string?('Access Denied')).to be(true)
+      expect((unauthorized_pg.driver.current_url.to_s =~ /\/forbidden$/).nil?).to be(false)
+    end
+
     include_examples "custom"
 
     it "should edit the title of a media" do
@@ -389,25 +408,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       tag = get_element('.ReactTags__tag')
       expect(tag.text.gsub(/<[^>]+>|×/, '') == 'command').to be(true)
       expect(@driver.page_source.include?('Tagged #command')).to be(true)
-    end
-
-    it "should redirect to access denied page" do
-      user_1 = {email: 'sysops+' + Time.now.to_i.to_s + '@meedan.com', password: '12345678'}
-      login_pg = LoginPage.new(config: @config, driver: @driver).load
-      login_pg.register_and_login_with_email(email: user_1[:email], password: user_1[:password])
-
-      me_pg = MePage.new(config: @config, driver: login_pg.driver).load
-      user_1_source_id = me_pg.source_id
-      me_pg.logout
-
-      user_2 = {email: 'sysops+' + Time.now.to_i.to_s + '@meedan.com', password: '22345678'}
-      login_pg = LoginPage.new(config: @config, driver: @driver).load
-      login_pg.register_and_login_with_email(email: user_2[:email], password: user_2[:password])
-      unauthorized_pg = SourcePage.new(id: user_1_source_id, config: @config, driver: login_pg.driver).load
-      @wait.until { unauthorized_pg.contains_string?('Access Denied') }
-
-      expect(unauthorized_pg.contains_string?('Access Denied')).to be(true)
-      expect((unauthorized_pg.driver.current_url.to_s =~ /\/forbidden$/).nil?).to be(false)
     end
 
     it "should comment source as a command" do
