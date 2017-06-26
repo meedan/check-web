@@ -1,21 +1,17 @@
 import React, { Component, PropTypes } from 'react';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
-import Relay from 'react-relay';
 import Favicon from 'react-favicon';
-import util from 'util';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import rtlDetect from 'rtl-detect';
 import Header from './Header';
 import FooterRelay from '../relay/FooterRelay';
 import LoginContainer from './LoginContainer';
-import { blue500, blue600, blue700, blue800 } from 'material-ui/styles/colors';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import { Link } from 'react-router';
 import config from 'config';
 import BrowserSupport from './BrowserSupport';
 import CheckContext from '../CheckContext';
 import { bemClass } from '../helpers';
 import ContentColumn from './layout/ContentColumn';
-import rtlDetect from 'rtl-detect';
 import { checkBlue, highlightBlue } from '../../../config-styles';
 
 const messages = defineMessages({
@@ -41,11 +37,6 @@ class Home extends Component {
     };
   }
 
-  loginCallback() {
-    this.setState({ error: false });
-    this.forceUpdate();
-  }
-
   componentWillMount() {
     this.setContext();
   }
@@ -62,6 +53,11 @@ class Home extends Component {
     context.maybeRedirect(this.props.location.pathname, context.getContextStore().userData);
     context.setContext();
     context.startNetwork(this.state.token);
+  }
+
+  loginCallback() {
+    this.setState({ error: false });
+    this.forceUpdate();
   }
 
   routeSlug(children) {
@@ -81,11 +77,11 @@ class Home extends Component {
         primary1Color: checkBlue,
         primary2Color: checkBlue,
         primary3Color: checkBlue,
-        accent1Color: blue600,
-        accent2Color: blue700,
-        accent3Color: blue800,
+        accent1Color: checkBlue,
+        accent2Color: checkBlue,
+        accent3Color: checkBlue,
         ripple: {
-          color: highlightBlue,
+          color: checkBlue,
         },
       },
       isRtl: rtlDetect.isRtlLang(this.props.intl.locale),
