@@ -1,18 +1,18 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import Favicon from 'react-favicon';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import rtlDetect from 'rtl-detect';
+import config from 'config';
 import Header from './Header';
 import FooterRelay from '../relay/FooterRelay';
 import LoginContainer from './LoginContainer';
-import config from 'config';
 import BrowserSupport from './BrowserSupport';
 import CheckContext from '../CheckContext';
 import { bemClass } from '../helpers';
 import ContentColumn from './layout/ContentColumn';
-import { checkBlue, highlightBlue } from '../../../config-styles';
+import { checkBlue } from '../../../config-styles';
 
 const messages = defineMessages({
   needRegister: {
@@ -64,13 +64,14 @@ class Home extends Component {
     if (!(children && children.props.route)) {
       return null;
     }
-    if (/\/media\/\:mediaId/.test(children.props.route.path)) {
+    if (/\/media\/:mediaId/.test(children.props.route.path)) {
       return 'media'; // TODO: other pages as needed
     }
+    return null;
   }
 
   render() {
-    const { state, children } = this.props;
+    const { children } = this.props;
     const routeSlug = this.routeSlug(children);
     const muiTheme = getMuiTheme({
       palette: {
@@ -95,11 +96,11 @@ class Home extends Component {
     if (this.state.error) {
       message = this.state.message;
 
-      if (!message && /^[^\/]+\/join$/.test(children.props.route.path)) {
+      if (!message && /^[^/]+\/join$/.test(children.props.route.path)) {
         message = this.props.intl.formatMessage(messages.needRegister);
       }
 
-      if (this.state.error && message && message.match(/\{ \[Error\: Request has been terminated/)) {
+      if (this.state.error && message && message.match(/\{ \[Error: Request has been terminated/)) {
         message = this.props.intl.formatMessage(messages.somethingWrong);
       }
     }
