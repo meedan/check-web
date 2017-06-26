@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router';
 import {
   FormattedMessage,
   defineMessages,
