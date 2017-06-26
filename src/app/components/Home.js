@@ -16,6 +16,7 @@ import CheckContext from '../CheckContext';
 import { bemClass } from '../helpers';
 import ContentColumn from './layout/ContentColumn';
 import rtlDetect from 'rtl-detect';
+import { checkBlue, highlightBlue } from '../../../config-styles';
 
 const messages = defineMessages({
   needRegister: {
@@ -77,12 +78,15 @@ class Home extends Component {
     const routeSlug = this.routeSlug(children);
     const muiTheme = getMuiTheme({
       palette: {
-        primary1Color: '#2e77fc',
-        primary2Color: '#2e77fc',
-        primary3Color: '#2e77fc',
+        primary1Color: checkBlue,
+        primary2Color: checkBlue,
+        primary3Color: checkBlue,
         accent1Color: blue600,
         accent2Color: blue700,
         accent3Color: blue800,
+        ripple: {
+          color: highlightBlue,
+        },
       },
       isRtl: rtlDetect.isRtlLang(this.props.intl.locale),
     });
@@ -117,7 +121,7 @@ class Home extends Component {
         <span>
           <Favicon url={`/images/logo/${config.appName}.ico`} animated={false} />
           <BrowserSupport />
-          <div className={bemClass("home", routeSlug, `--${routeSlug}`)}>
+          <div className={bemClass('home', routeSlug, `--${routeSlug}`)}>
             <ContentColumn wide className="home__disclaimer"><span><FormattedMessage id="home.beta" defaultMessage="Beta" /></span></ContentColumn>
             <Header {...this.props} loggedIn={this.state.token} />
             <div className="home__content">{children}</div>

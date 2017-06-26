@@ -120,6 +120,7 @@
     "material-ui": "^0.16.5",
     "node-sass": "^4.0.0",
     "postcss-cli": "^2.3.2",
+    "prop-types": "^15.5.10",
     "rc-tooltip": "^3.4.2",
     "react": "^15.5.4",
     "react-document-title": "^2.0.2",
