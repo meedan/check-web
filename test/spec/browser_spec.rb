@@ -13,7 +13,7 @@ describe "browser" do
   browser_definitions.each do |browser_id|
     describe "#{browser_id}" do
       browser_id[1]["browserstack.debug"] = true
-      include_examples "app", config['webdriver_url'], browser_id[1]
+      include_examples "app", config['chromedriver_url'], browser_id[1]
     end
   end
 end

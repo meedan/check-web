@@ -12,7 +12,7 @@ require_relative './pages/project_page.rb'
 CONFIG = YAML.load_file('config.yml')
 require_relative "#{CONFIG['app_name']}/quicktest_custom_spec.rb"
 
-def new_driver(webdriver_url,browser_capabilities)
+def new_driver(webdriver_url, browser_capabilities)
   if @config.key?('proxy') and !webdriver_url.include? "browserstack"
     proxy = Selenium::WebDriver::Proxy.new(
       :http     => @config['proxy'],
@@ -24,7 +24,7 @@ def new_driver(webdriver_url,browser_capabilities)
   else
     dr =  Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: browser_capabilities)
   end
-  return dr
+  dr
 end
 
 $caller_name = ""
@@ -46,8 +46,12 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     @t2 = 'team2' + Time.now.to_i.to_s
     @new_tag = nil
 
-    FileUtils.cp(@config['config_file_path'], '../build/web/js/config.js') unless @config['config_file_path'].nil?
-    
+    begin
+      FileUtils.cp('./config.js', '../build/web/js/config.js')
+    rescue
+      puts "Could not copy local ./config.js to ../build/web/js/"
+    end
+
   end
 
   after :all do
@@ -121,7 +125,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should login using Twitter" do
       login_with_twitter
       p = Page.new(config: @config, driver: @driver)
-      p.go(@config['self_url'] + '/check/me')     
+      p.go(@config['self_url'] + '/check/me')
       displayed_name = get_element('h2.source-name').text.upcase
       expected_name = @config['twitter_name'].upcase
       expect(displayed_name == expected_name).to be(true)
