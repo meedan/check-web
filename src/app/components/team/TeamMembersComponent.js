@@ -9,13 +9,9 @@ import TeamMembersCell from './TeamMembersCell';
 import ContentColumn from '../layout/ContentColumn';
 import RaisedButton from 'material-ui/RaisedButton';
 import { Card, CardTitle, CardActions, CardHeader, CardText } from 'material-ui/Card';
-import { List, ListItem } from 'material-ui/List';
+import { List } from 'material-ui/List';
 import {
-  highlightBlue,
-  checkBlue,
-  titleStyle,
   listItemStyle,
-  listStyle,
 } from '../../../../config-styles';
 
 const messages = defineMessages({
@@ -85,7 +81,7 @@ class TeamMembersComponent extends Component {
 
             <TeamMembershipRequests teamUsers={teamUsersRequestingMembership} />
 
-            <List className="team-members__list">
+            <List style={listItemStyle} className="team-members__list">
               {(() =>
                 teamUsersMembers.map(teamUser =>
                   <TeamMembersCell
