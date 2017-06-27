@@ -19,6 +19,7 @@ import Avatar from 'material-ui/Avatar';
 import {
   alertRed,
   highlightBlue,
+  checkBlue,
   avatarStyle,
   titleStyle,
   listItemStyle,
@@ -179,7 +180,8 @@ class SwitchTeamsComponent extends Component {
                 <ListItem
                   style={listItemStyle}
                   hoverColor={highlightBlue}
-                  rippleColor={highlightBlue}
+                  focusRippleColor={checkBlue}
+                  touchRippleColor={checkBlue}
                   href={buildUrl(currentTeam)}
                   leftAvatar={
                     <Avatar style={avatarStyle} src={currentTeam.avatar} />
@@ -200,7 +202,8 @@ class SwitchTeamsComponent extends Component {
               key={index}
               style={listItemStyle}
               hoverColor={highlightBlue}
-              rippleColor={highlightBlue}
+              focusRippleColor={checkBlue}
+              touchRippleColor={checkBlue}
               href={buildUrl(team)}
               leftAvatar={<Avatar style={avatarStyle} src={team.avatar} />}
               onClick={that.setCurrentTeam.bind(that, team, currentUser)}
@@ -215,7 +218,8 @@ class SwitchTeamsComponent extends Component {
               key={index}
               style={listItemStyle}
               hoverColor={highlightBlue}
-              rippleColor={highlightBlue}
+              focusRippleColor={checkBlue}
+              touchRippleColor={checkBlue}
               href={buildUrl(team)}
               leftAvatar={<Avatar style={avatarStyle} src={team.avatar} />}
               primaryText={team.name}

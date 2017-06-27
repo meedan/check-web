@@ -4,8 +4,8 @@ import TeamMembershipRequestsCell from './TeamMembershipRequestsCell';
 
 class TeamMembershipRequests extends Component {
   render() {
-    const usersRequestingMembership = this.props.team_users;
-    const usersCount = this.props.team_users.length;
+    const usersRequestingMembership = this.props.teamUsers;
+    const usersCount = this.props.teamUsers.length;
 
     if (!usersCount) {
       return (<div />);
@@ -22,8 +22,8 @@ class TeamMembershipRequests extends Component {
         </h2>
 
         <ul className="team-membership-requests__requests">
-          {(() => usersRequestingMembership.map(team_user => (
-            <TeamMembershipRequestsCell team_user={team_user} />
+          {(() => usersRequestingMembership.map(teamUser => (
+            <TeamMembershipRequestsCell teamUser={teamUser} />
               )))()}
         </ul>
       </section>

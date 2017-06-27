@@ -7,21 +7,21 @@ class TeamMembershipRequestsCell extends Component {
   handleRequest(status) {
     Relay.Store.commitUpdate(
       new UpdateTeamUserMutation({
-        id: this.props.team_user.node.id,
+        id: this.props.teamUser.node.id,
         status,
       }),
     );
   }
 
   render() {
-    const team_user = this.props.team_user;
+    const teamUser = this.props.teamUser;
 
     return (
       <li className="team-membership-requests__user">
-        <img src={team_user.node.user.profile_image} className="team-membership-requests__user-avatar" />
+        <img alt={teamUser.node.user.name} src={teamUser.node.user.profile_image} className="team-membership-requests__user-avatar" />
         <div className="team-membership-requests__user-details">
-          <h3 className="team-membership-requests__user-name">{team_user.node.user.name}</h3>
-          <span className="team-membership-requests__user-username">({team_user.node.user.name})</span>
+          <h3 className="team-membership-requests__user-name">{teamUser.node.user.name}</h3>
+          <span className="team-membership-requests__user-username">({teamUser.node.user.name})</span>
         </div>
         <button onClick={this.handleRequest.bind(this, 'member')} className="team-member-requests__user-button team-member-requests__user-button--approve">
           <FormattedMessage id="teamMembershipRequestsCell.approve" defaultMessage="Approve" />

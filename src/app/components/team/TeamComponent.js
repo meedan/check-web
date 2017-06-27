@@ -26,6 +26,7 @@ import ContentColumn from '../layout/ContentColumn';
 import ParsedText from '../ParsedText';
 import {
   highlightBlue,
+  checkBlue,
   titleStyle,
   listItemStyle,
   listStyle,
@@ -487,7 +488,8 @@ class TeamComponent extends Component {
                             key={p.node.dbid} className="team__project"
                             style={listItemStyle}
                             hoverColor={highlightBlue}
-                            rippleColor={highlightBlue}
+                            focusRippleColor={checkBlue}
+                            touchRippleColor={checkBlue}
                             href={`/${team.slug}/project/${p.node.dbid}`}
                             primaryText={p.node.title}
                             rightIcon={<MdChevronRight />}

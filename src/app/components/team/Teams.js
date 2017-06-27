@@ -15,7 +15,7 @@ const messages = defineMessages({
 class Teams extends Component {
   render() {
     return (
-      <PageTitle prefix={this.props.intl.formatMessage(messages.title)} skipTeam={true}>
+      <PageTitle prefix={this.props.intl.formatMessage(messages.title)} skipTeam>
         <ContentColumn>
           <SwitchTeams />
         </ContentColumn>

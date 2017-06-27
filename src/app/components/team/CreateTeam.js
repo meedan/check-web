@@ -10,11 +10,11 @@ import config from 'config';
 import ContentColumn from '../layout/ContentColumn';
 import CheckContext from '../../CheckContext';
 import Heading from '../layout/Heading';
-import {caption, subheading2, checkBlue, black38, black87} from '../../../../config-styles';
+import { caption, subheading2, checkBlue, black38, black87 } from '../../../../config-styles';
 import XRegExp from 'xregexp';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
-import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
+import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
 import styled from 'styled-components';
 
 const TeamUrlRow = styled.div`
@@ -80,7 +80,7 @@ class CreateTeam extends Component {
       slugMessage: '',
       buttonIsDisabled: true,
       displayName: '',
-      slugName: ''
+      slugName: '',
     };
   }
 
@@ -127,7 +127,7 @@ class CreateTeam extends Component {
     const isTextEntered = slug && slug.length > 0;
 
     this.setState({
-      slugName: slug
+      slugName: slug,
     });
   }
 
@@ -169,14 +169,14 @@ class CreateTeam extends Component {
 
   render() {
     return (
-      <PageTitle prefix={this.props.intl.formatMessage(messages.title)} skipTeam={true}>
+      <PageTitle prefix={this.props.intl.formatMessage(messages.title)} skipTeam>
 
         <main className="create-team">
           <ContentColumn narrow>
-          <Message message={this.state.message} />
+            <Message message={this.state.message} />
             <Card>
               <CardHeader
-                titleStyle={{fontSize: "20px", lineHeight: "32px"}}
+                titleStyle={{ fontSize: '20px', lineHeight: '32px' }}
                 title={<FormattedMessage id="createTeam.mainHeading" defaultMessage="Create a Team" />}
                 subtitle={<FormattedMessage id="createTeam.blurb" defaultMessage="Create a team for your organization, or just for yourself:" />}
               />

@@ -20,7 +20,7 @@ const messages = defineMessages({
   },
   autoApprove: {
     id: 'joinTeamComponent.autoApprove',
-    defaultMessage: 'Thanks for joining {team} {appName}! You can start contributing right away.'
+    defaultMessage: 'Thanks for joining {team} {appName}! You can start contributing right away.',
   },
   title: {
     id: 'joinTeamComponent.title',
@@ -62,7 +62,7 @@ class JoinTeamComponent extends Component {
     const onSuccess = (response) => {
       const appName = mapGlobalMessage(that.props.intl, 'appNameHuman');
       const status = response.createTeamUser.team_user.status;
-      let message = messages.success
+      let message = messages.success;
       if (status === 'member') {
         message = messages.autoApprove;
       }
@@ -116,7 +116,7 @@ class JoinTeamComponent extends Component {
 
     const isRequestSent = this.state.requestStatus;
 
-    const disableRequest = (isRequestSent === '') ? false : true;
+    const disableRequest = isRequestSent !== '';
 
     if (this.alreadyMember()) {
       return (
@@ -152,27 +152,26 @@ class JoinTeamComponent extends Component {
                 <button
                   className={`join-team__button${isRequestSent === '' ? '' : ' join-team__button--submitted'}`}
                   onClick={this.handleRequestAccess.bind(this)}
-                  disabled={disableRequest}>
+                  disabled={disableRequest}
+                >
                   {(() => {
                     if (isRequestSent === 'requested') {
                       return (<FormattedMessage id="joinTeamComponent.buttonSubmitted" defaultMessage="Request Sent" />);
                     } else if (isRequestSent === 'member') {
                       return (<FormattedMessage id="joinTeamComponent.buttonApproved" defaultMessage="Request Approved" />);
-                    } else {
-                      return (<FormattedMessage id="joinTeamComponent.buttonSubmit" defaultMessage="Request to Join" />);
                     }
+                    return (<FormattedMessage id="joinTeamComponent.buttonSubmit" defaultMessage="Request to Join" />);
                   })()}
                 </button>
                 <p className="join-team__blurb-graf">
-                {(() => {
-                  if (isRequestSent === 'requested') {
-                    return (<FormattedMessage id="joinTeamComponent.requestHasBeenSent" defaultMessage="Your request has been sent to the project admins for approval." />);
-                  } else if (isRequestSent === 'member') {
-                    return (<FormattedMessage id="joinTeamComponent.requestHasBeenApproved" defaultMessage="Your request has been approved." />);
-                  } else {
+                  {(() => {
+                    if (isRequestSent === 'requested') {
+                      return (<FormattedMessage id="joinTeamComponent.requestHasBeenSent" defaultMessage="Your request has been sent to the project admins for approval." />);
+                    } else if (isRequestSent === 'member') {
+                      return (<FormattedMessage id="joinTeamComponent.requestHasBeenApproved" defaultMessage="Your request has been approved." />);
+                    }
                     return (<FormattedMessage id="joinTeamComponent.requestWillBeSent" defaultMessage="Your request will be sent to the project admins for approval." />);
-                  }
-                })()}
+                  })()}
                 </p>
               </div>
             </div>
