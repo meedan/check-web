@@ -14,5 +14,9 @@
   {
     "id": "teamMembersCell.owner",
     "defaultMessage": "Owner"
+  },
+  {
+    "id": "teamMembersCell.deleteMember",
+    "defaultMessage": "Delete Member"
   }
 ]

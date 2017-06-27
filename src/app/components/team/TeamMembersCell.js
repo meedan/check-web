@@ -1,9 +1,23 @@
 import React, { Component } from 'react';
-import { defineMessages, injectIntl, intlShape } from 'react-intl';
+import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import Relay from 'react-relay';
-import UpdateTeamUserMutation from '../../relay/UpdateTeamUserMutation';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
+import { ListItem } from 'material-ui/List';
+import FlatButton from 'material-ui/FlatButton';
+import Avatar from 'material-ui/Avatar';
+import MdClear from 'react-icons/lib/md/clear';
+import IconButton from 'material-ui/IconButton';
+import UpdateTeamUserMutation from '../../relay/UpdateTeamUserMutation';
+import {
+  highlightBlue,
+  checkBlue,
+  avatarStyle,
+  titleStyle,
+  listItemStyle,
+  listStyle,
+  listItemButtonStyle,
+} from '../../../../config-styles';
 
 const messages = defineMessages({
   contributor: {
@@ -57,16 +71,42 @@ class TeamMembersCell extends Component {
     ];
 
     return (
-      <li className="team-members__member">
-        <img src={teamUser.node.user.profile_image} className="team-members__member-avatar" />
-        <div className="team-members__member-details">
-          <h3 className="team-members__member-name">{teamUser.node.user.name}</h3>
-          <span className="team-members__member-username">({teamUser.node.user.name})</span>
-        </div>
-
-        <Select className="team-members__member-role" onChange={this.handleRoleChange.bind(this)} autosize searchable={false} backspaceRemoves={false} clearable={false} disabled={!isEditing || teamUser.node.status === 'banned'} options={roles} value={teamUser.node.role} />
-        { (isEditing && teamUser.node.status != 'banned') ? (<button onClick={this.handleDeleteTeamUser.bind(this)} className="team-members__delete-member"><span className="team-members__delete-member-icon">×</span></button>) : null }
-      </li>
+      <ListItem
+        className="team-members__member"
+        key={teamUser.node.id}
+        primaryText={teamUser.node.user.name}
+        leftAvatar={
+          <Avatar
+            style={avatarStyle}
+            src={teamUser.node.user.profile_image}
+            alt={teamUser.node.user.name}
+          />
+        }
+        rightIconButton={
+          <div style={Object.assign({ width: '20%', minWidth: '150' }, listItemButtonStyle)}>
+            <Select
+              className="team-members__member-role"
+              onChange={this.handleRoleChange.bind(this)}
+              autosize
+              searchable={false}
+              backspaceRemoves={false}
+              clearable={false}
+              disabled={!isEditing || teamUser.node.status === 'banned'}
+              options={roles}
+              value={teamUser.node.role}
+            />
+            {isEditing && teamUser.node.status !== 'banned'
+              ?
+                <IconButton
+                  onClick={this.handleDeleteTeamUser.bind(this)}
+                  tooltip={<FormattedMessage id="teamMembersCell.deleteMember" defaultMessage="Delete Member" />}
+                >
+                  <MdClear />
+                </IconButton>
+              : null}
+          </div>
+        }
+      />
     );
   }
 }

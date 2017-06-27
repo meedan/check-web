@@ -5,25 +5,26 @@ import TeamMembershipRequestsCell from './TeamMembershipRequestsCell';
 class TeamMembershipRequests extends Component {
   render() {
     const usersRequestingMembership = this.props.teamUsers;
-    const usersCount = this.props.teamUsers.length;
 
-    if (!usersCount) {
+    if (!usersRequestingMembership) {
       return (<div />);
     }
 
     return (
-      <section className="team-membership-requests">
-        <h2 className="team-membership-requests__heading">
+      <section>
+        <h2>
           <FormattedMessage
             id="teamMembershipRequests.requestsToJoin"
-            defaultMessage={'Requests to join {count}'}
-            values={{ count: <span className="team-membership-requests__heading-parens">({usersCount})</span> }}
+            defaultMessage={'Requests to join'}
           />
         </h2>
 
-        <ul className="team-membership-requests__requests">
+        <ul>
           {(() => usersRequestingMembership.map(teamUser => (
-            <TeamMembershipRequestsCell teamUser={teamUser} />
+            <TeamMembershipRequestsCell
+              teamUser={teamUser}
+              key={teamUser.node.id}
+            />
               )))()}
         </ul>
       </section>

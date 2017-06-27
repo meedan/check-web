@@ -7,6 +7,16 @@ import PageTitle from '../PageTitle';
 import TeamMembershipRequests from './TeamMembershipRequests';
 import TeamMembersCell from './TeamMembersCell';
 import ContentColumn from '../layout/ContentColumn';
+import RaisedButton from 'material-ui/RaisedButton';
+import { Card, CardTitle, CardActions, CardHeader, CardText } from 'material-ui/Card';
+import { List, ListItem } from 'material-ui/List';
+import {
+  highlightBlue,
+  checkBlue,
+  titleStyle,
+  listItemStyle,
+  listStyle,
+} from '../../../../config-styles';
 
 const messages = defineMessages({
   title: {
@@ -54,39 +64,28 @@ class TeamMembersComponent extends Component {
         skipTeam={false}
         team={team}
       >
-        <div className="team-members">
-          <ContentColumn className="card">
-            <button
-              onClick={this.handleEditMembers.bind(this)}
-              className="team-members__edit-button"
-            >
-              <MdCreate className="team-members__edit-icon" />
-              {isEditing
-                ? <FormattedMessage
-                  id="teamMembersComponent.editDoneButton"
-                  defaultMessage="Done"
-                />
-                : <FormattedMessage id="teamMembersComponent.editButton" defaultMessage="Edit" />}
-            </button>
+        <ContentColumn>
+          <Card style={{ marginBottom: 16 }}>
+            <CardText>
+              <div className="team-members__blurb">
+                <p className="team-members__blurb-graf">
+                  <FormattedMessage
+                    id="teamMembersComponent.inviteLink"
+                    defaultMessage={'To invite colleagues to join {link}, send them this link:'}
+                    values={{ link: <Link to={teamUrl}>{team.name}</Link> }}
+                  />
+                </p>
+                <p className="team-members__blurb-graf--url"><a href={joinUrl}>{joinUrl}</a></p>
+              </div>
+            </CardText>
+          </Card>
 
-            <h1 className="team-members__main-heading">
-              <FormattedMessage id="teamMembersComponent.mainHeading" defaultMessage="Members" />
-            </h1>
-
-            <div className="team-members__blurb">
-              <p className="team-members__blurb-graf">
-                <FormattedMessage
-                  id="teamMembersComponent.inviteLink"
-                  defaultMessage={'To invite colleagues to join {link}, send them this link:'}
-                  values={{ link: <Link to={teamUrl}>{team.name}</Link> }}
-                />
-              </p>
-              <p className="team-members__blurb-graf--url"><a href={joinUrl}>{joinUrl}</a></p>
-            </div>
+          <Card>
+            <CardTitle title={<FormattedMessage id="teamMembersComponent.mainHeading" defaultMessage="Members" />} />
 
             <TeamMembershipRequests teamUsers={teamUsersRequestingMembership} />
 
-            <ul className="team-members__list">
+            <List className="team-members__list">
               {(() =>
                 teamUsersMembers.map(teamUser =>
                   <TeamMembersCell
@@ -96,9 +95,22 @@ class TeamMembersComponent extends Component {
                     isEditing={isEditing}
                   />,
                 ))()}
-            </ul>
-          </ContentColumn>
-        </div>
+            </List>
+            <CardActions>
+              <RaisedButton
+                onClick={this.handleEditMembers.bind(this)}
+                className="team-members__edit-button"
+                icon={<MdCreate className="team-members__edit-icon" />}
+                label={isEditing
+                  ? <FormattedMessage
+                    id="teamMembersComponent.editDoneButton"
+                    defaultMessage="Done"
+                  />
+                  : <FormattedMessage id="teamMembersComponent.editButton" defaultMessage="Edit" />}
+              />
+            </CardActions>
+          </Card>
+        </ContentColumn>
       </PageTitle>
     );
   }
