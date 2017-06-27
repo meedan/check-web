@@ -73,36 +73,4 @@
       font-size: 20px;
     }
   }
-
-  .team__projects-header {
-    font: font(headline) !important;
-  }
-
-  // TODO abstract this into a list-card that is also used on member pages
-  &__projects-list {
-    border-bottom: 1px solid $black-05;
-
-    li a {
-      border-top: 1px solid $black-05;
-      display: flex;
-      font: font(body2);
-      padding: units(1.5) units(2);
-
-      &:hover {
-        background-color: $highlight-blue;
-        color: $black-87;
-        text-decoration: none;
-      }
-
-      .arrow {
-        font-size: units(3);
-        margin-#{$from-direction}: auto;
-      }
-    }
-  }
-
-  .team__new-project-input {
-    margin-bottom: units(2) !important;
-    margin-#{$from-direction}: units(2) !important;
-  }
 }

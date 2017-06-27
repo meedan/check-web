@@ -10,8 +10,7 @@ import config from 'config';
 import ContentColumn from '../layout/ContentColumn';
 import CheckContext from '../../CheckContext';
 import Heading from '../layout/Heading';
-import {checkBlue, black38, black87} from '../../../../config-colors';
-import {caption, subheading2} from '../../../../config-typography';
+import {caption, subheading2, checkBlue, black38, black87} from '../../../../config-styles';
 import XRegExp from 'xregexp';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
@@ -23,9 +22,9 @@ const TeamUrlRow = styled.div`
   display: flex;
   font-size: 12px;
   margin-top: 24px;
-  label { 
-    font: ${caption}; 
-    color: ${checkBlue}; 
+  label {
+    font: ${caption};
+    color: ${checkBlue};
   }
 `;
 

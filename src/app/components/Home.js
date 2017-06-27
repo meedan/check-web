@@ -1,21 +1,18 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
-import Relay from 'react-relay';
 import Favicon from 'react-favicon';
-import util from 'util';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import rtlDetect from 'rtl-detect';
+import config from 'config';
 import Header from './Header';
 import FooterRelay from '../relay/FooterRelay';
 import LoginContainer from './LoginContainer';
-import { blue500, blue600, blue700, blue800 } from 'material-ui/styles/colors';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import { Link } from 'react-router';
-import config from 'config';
 import BrowserSupport from './BrowserSupport';
 import CheckContext from '../CheckContext';
 import { bemClass } from '../helpers';
 import ContentColumn from './layout/ContentColumn';
-import rtlDetect from 'rtl-detect';
+import { checkBlue } from '../../../config-styles';
 
 const messages = defineMessages({
   needRegister: {
@@ -40,11 +37,6 @@ class Home extends Component {
     };
   }
 
-  loginCallback() {
-    this.setState({ error: false });
-    this.forceUpdate();
-  }
-
   componentWillMount() {
     this.setContext();
   }
@@ -63,26 +55,35 @@ class Home extends Component {
     context.startNetwork(this.state.token);
   }
 
+  loginCallback() {
+    this.setState({ error: false });
+    this.forceUpdate();
+  }
+
   routeSlug(children) {
     if (!(children && children.props.route)) {
       return null;
     }
-    if (/\/media\/\:mediaId/.test(children.props.route.path)) {
+    if (/\/media\/:mediaId/.test(children.props.route.path)) {
       return 'media'; // TODO: other pages as needed
     }
+    return null;
   }
 
   render() {
-    const { state, children } = this.props;
+    const { children } = this.props;
     const routeSlug = this.routeSlug(children);
     const muiTheme = getMuiTheme({
       palette: {
-        primary1Color: '#2e77fc',
-        primary2Color: '#2e77fc',
-        primary3Color: '#2e77fc',
-        accent1Color: blue600,
-        accent2Color: blue700,
-        accent3Color: blue800,
+        primary1Color: checkBlue,
+        primary2Color: checkBlue,
+        primary3Color: checkBlue,
+        accent1Color: checkBlue,
+        accent2Color: checkBlue,
+        accent3Color: checkBlue,
+        ripple: {
+          color: checkBlue,
+        },
       },
       isRtl: rtlDetect.isRtlLang(this.props.intl.locale),
     });
@@ -95,11 +96,11 @@ class Home extends Component {
     if (this.state.error) {
       message = this.state.message;
 
-      if (!message && /^[^\/]+\/join$/.test(children.props.route.path)) {
+      if (!message && /^[^/]+\/join$/.test(children.props.route.path)) {
         message = this.props.intl.formatMessage(messages.needRegister);
       }
 
-      if (this.state.error && message && message.match(/\{ \[Error\: Request has been terminated/)) {
+      if (this.state.error && message && message.match(/\{ \[Error: Request has been terminated/)) {
         message = this.props.intl.formatMessage(messages.somethingWrong);
       }
     }
@@ -117,7 +118,7 @@ class Home extends Component {
         <span>
           <Favicon url={`/images/logo/${config.appName}.ico`} animated={false} />
           <BrowserSupport />
-          <div className={bemClass("home", routeSlug, `--${routeSlug}`)}>
+          <div className={bemClass('home', routeSlug, `--${routeSlug}`)}>
             <ContentColumn wide className="home__disclaimer"><span><FormattedMessage id="home.beta" defaultMessage="Beta" /></span></ContentColumn>
             <Header {...this.props} loggedIn={this.state.token} />
             <div className="home__content">{children}</div>

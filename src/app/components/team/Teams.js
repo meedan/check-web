@@ -16,12 +16,9 @@ class Teams extends Component {
   render() {
     return (
       <PageTitle prefix={this.props.intl.formatMessage(messages.title)} skipTeam={true}>
-        <section className="teams">
-          <ContentColumn className="card">
-            <Heading><FormattedMessage id="teams.yourTeams" defaultMessage="Your Teams" /></Heading>
-            <SwitchTeams />
-          </ContentColumn>
-        </section>
+        <ContentColumn>
+          <SwitchTeams />
+        </ContentColumn>
       </PageTitle>
     );
   }
