@@ -22,14 +22,14 @@ def new_driver(webdriver_url, browser_capabilities)
     caps = Selenium::WebDriver::Remote::Capabilities.chrome(:proxy => proxy)
     dr = Selenium::WebDriver.for(:chrome, :desired_capabilities => caps , :url => @config['chromedriver_url'])
   else
-    dr =  Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: browser_capabilities)
+    dr = Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: browser_capabilities)
   end
   dr
 end
 
 $caller_name = ""
 shared_examples 'app' do |webdriver_url, browser_capabilities|
-  # Helpers
+
   include AppSpecHelpers
 
   before :all do
@@ -65,15 +65,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
   after :each do |example|
     if example.exception
-      require 'imgur'
-      path = '/tmp/' + (0...8).map{ (65 + rand(26)).chr }.join + '.png'
-      @driver.save_screenshot(path)
-      client = Imgur.new(@config['imgur_client_id'])
-      image = Imgur::LocalImage.new(path, title: "Test failed: #{example.to_s}")
-      uploaded = client.upload(image)
-      link = uploaded.link
-
-      puts "Test \"#{example.to_s}\" failed! Check screenshot at #{link} and following browser output: #{console_logs}"
+      link = save_screenshot("Test failed: #{example.description}")
+      puts "Test \"#{example.description}\" failed! Check screenshot at #{link} and following browser output: #{console_logs}"
     end
     @driver.quit
   end

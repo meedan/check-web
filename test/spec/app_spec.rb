@@ -18,8 +18,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
   include AppSpecHelpers
 
-  # Start a webserver for the web app before the tests
-
   before :all do
     @wait = Selenium::WebDriver::Wait.new(timeout: 10)
 
@@ -55,7 +53,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       .logout_and_close
   end
 
-  # Close the testing webserver after all tests run
   after :all do
     FileUtils.cp('../config.js', '../build/web/js/config.js')
   end
