@@ -1,22 +1,22 @@
 [
   {
-    "id": "teamMembersCell.contributor",
+    "id": "TeamMembersListItem.contributor",
     "defaultMessage": "Contributor"
   },
   {
-    "id": "teamMembersCell.journalist",
+    "id": "TeamMembersListItem.journalist",
     "defaultMessage": "Journalist"
   },
   {
-    "id": "teamMembersCell.editor",
+    "id": "TeamMembersListItem.editor",
     "defaultMessage": "Editor"
   },
   {
-    "id": "teamMembersCell.owner",
+    "id": "TeamMembersListItem.owner",
     "defaultMessage": "Owner"
   },
   {
-    "id": "teamMembersCell.deleteMember",
+    "id": "TeamMembersListItem.deleteMember",
     "defaultMessage": "Delete Member"
   }
 ]

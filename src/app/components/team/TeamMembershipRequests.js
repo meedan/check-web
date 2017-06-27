@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
-import TeamMembershipRequestsCell from './TeamMembershipRequestsCell';
+import { Card, CardTitle } from 'material-ui/Card';
+import { List } from 'material-ui/List';
+import TeamMembershipRequestsListItem from './TeamMembershipRequestsListItem';
 
 class TeamMembershipRequests extends Component {
   render() {
@@ -11,23 +13,25 @@ class TeamMembershipRequests extends Component {
     }
 
     return (
-      <section>
-        <h2>
-          <FormattedMessage
+      <Card style={{ marginBottom: 16 }}>
+
+        <CardTitle
+          title={<FormattedMessage
             id="teamMembershipRequests.requestsToJoin"
             defaultMessage={'Requests to join'}
-          />
-        </h2>
+          />}
+        />
 
-        <ul>
+
+        <List>
           {(() => usersRequestingMembership.map(teamUser => (
-            <TeamMembershipRequestsCell
+            <TeamMembershipRequestsListItem
               teamUser={teamUser}
               key={teamUser.node.id}
             />
               )))()}
-        </ul>
-      </section>
+        </List>
+      </Card>
     );
   }
 }

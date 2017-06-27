@@ -10,12 +10,18 @@
         "react/jsx-filename-extension": "off",
         "react/jsx-no-bind": "off",
 
-        // Todo: improve proptypes coverage (or disable this rule.)
+        // Todo: improve proptypes coverage (or set this rule to "off".)
         "react/forbid-prop-types": "warn",
         "react/prop-types": "warn",
 
+        // Todo: use pure functions where possible (or set this rule to "off")
+        "react/prefer-stateless-function": "warn",
+
+        // Todo: don't assign to function parameters
+        "no-param-reassign": "warn",
+
         // Todo: reconfigure eslint to be aware of our configuration
-        // files we import without extensions (or disable this rule.)
+        // files we import without extensions (or set this rule to "off".)
         "import/no-extraneous-dependencies": "warn",
         "import/no-unresolved": "warn",
         "import/extensions": "warn",

@@ -21,24 +21,24 @@ import {
 
 const messages = defineMessages({
   contributor: {
-    id: 'teamMembersCell.contributor',
+    id: 'TeamMembersListItem.contributor',
     defaultMessage: 'Contributor',
   },
   journalist: {
-    id: 'teamMembersCell.journalist',
+    id: 'TeamMembersListItem.journalist',
     defaultMessage: 'Journalist',
   },
   editor: {
-    id: 'teamMembersCell.editor',
+    id: 'TeamMembersListItem.editor',
     defaultMessage: 'Editor',
   },
   owner: {
-    id: 'teamMembersCell.owner',
+    id: 'TeamMembersListItem.owner',
     defaultMessage: 'Owner',
   },
 });
 
-class TeamMembersCell extends Component {
+class TeamMembersListItem extends Component {
   handleDeleteTeamUser(e) {
     e.preventDefault();
 
@@ -72,6 +72,7 @@ class TeamMembersCell extends Component {
 
     return (
       <ListItem
+        disableTouchRipple
         className="team-members__member"
         key={teamUser.node.id}
         primaryText={teamUser.node.user.name}
@@ -99,7 +100,7 @@ class TeamMembersCell extends Component {
               ?
                 <IconButton
                   onClick={this.handleDeleteTeamUser.bind(this)}
-                  tooltip={<FormattedMessage id="teamMembersCell.deleteMember" defaultMessage="Delete Member" />}
+                  tooltip={<FormattedMessage id="TeamMembersListItem.deleteMember" defaultMessage="Delete Member" />}
                 >
                   <MdClear />
                 </IconButton>
@@ -111,8 +112,8 @@ class TeamMembersCell extends Component {
   }
 }
 
-TeamMembersCell.propTypes = {
+TeamMembersListItem.propTypes = {
   intl: intlShape.isRequired,
 };
 
-export default injectIntl(TeamMembersCell);
+export default injectIntl(TeamMembersListItem);

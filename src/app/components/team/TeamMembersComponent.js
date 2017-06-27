@@ -3,13 +3,13 @@ import { Link } from 'react-router';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import MdCreate from 'react-icons/lib/md/create';
 import config from 'config';
+import RaisedButton from 'material-ui/RaisedButton';
+import { Card, CardTitle, CardActions, CardText } from 'material-ui/Card';
+import { List } from 'material-ui/List';
 import PageTitle from '../PageTitle';
 import TeamMembershipRequests from './TeamMembershipRequests';
-import TeamMembersCell from './TeamMembersCell';
+import TeamMembersListItem from './TeamMembersListItem';
 import ContentColumn from '../layout/ContentColumn';
-import RaisedButton from 'material-ui/RaisedButton';
-import { Card, CardTitle, CardActions, CardHeader, CardText } from 'material-ui/Card';
-import { List } from 'material-ui/List';
 import {
   listItemStyle,
 } from '../../../../config-styles';
@@ -76,15 +76,15 @@ class TeamMembersComponent extends Component {
             </CardText>
           </Card>
 
+          <TeamMembershipRequests teamUsers={teamUsersRequestingMembership} />
+
           <Card>
             <CardTitle title={<FormattedMessage id="teamMembersComponent.mainHeading" defaultMessage="Members" />} />
-
-            <TeamMembershipRequests teamUsers={teamUsersRequestingMembership} />
 
             <List style={listItemStyle} className="team-members__list">
               {(() =>
                 teamUsersMembers.map(teamUser =>
-                  <TeamMembersCell
+                  <TeamMembersListItem
                     key={teamUser.node.id}
                     teamUser={teamUser}
                     team_id={team.id}
