@@ -18,8 +18,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
   include AppSpecHelpers
 
-  # Start a webserver for the web app before the tests
-
   before :all do
     @wait = Selenium::WebDriver::Wait.new(timeout: 10)
 
@@ -31,7 +29,11 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     $source_id = nil
     $media_id = nil
 
-    FileUtils.cp(@config['config_file_path'], '../build/web/js/config.js') unless @config['config_file_path'].nil?
+    begin
+      FileUtils.cp('./config.js', '../build/web/js/config.js')
+    rescue
+      puts "Could not copy local ./config.js to ../build/web/js/"
+    end
 
     @driver = browser_capabilities['appiumVersion'] ?
       Appium::Driver.new({ appium_lib: { server_url: webdriver_url}, caps: browser_capabilities }).start_driver :
@@ -51,14 +53,11 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       .logout_and_close
   end
 
-  # Close the testing webserver after all tests run
-
   after :all do
     FileUtils.cp('../config.js', '../build/web/js/config.js')
   end
 
   # Start Google Chrome before each test
-
   before :each do
     if @config.key?('proxy')
       proxy = Selenium::WebDriver::Proxy.new(
@@ -76,7 +75,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
   end
 
   # Close Google Chrome after each test
-
   after :each do |example|
     if example.exception
       link = save_screenshot("Test failed: #{example.description}")
