@@ -54,6 +54,9 @@ export const tiny = `400 8px /12px${fontStackSans}`;
 // Material UI styles
 export const avatarStyle = { borderRadius: '2px', backgroundColor: 'transparent', border: `1px solid ${black05}` };
 export const titleStyle = { fontSize: '20px', lineHeight: '32px' };
-export const listStyle = { padding: 0, borderBottom: `1px solid ${black05}` };
+export const listStyle = { padding: '0', borderBottom: `1px solid ${black05}` };
 export const listItemStyle = { borderTop: `1px solid ${black05}` };
-export const listItemButtonStyle = { marginTop: 8 };
+export const listItemButtonStyle = { marginTop: '8px' };
+export const buttonInButtonGroupStyle = { marginRight: '8px' };
+export const cardInCardGroupStyle = { marginBottom: '16px' };
+export const selectStyle = { minWidth: '150px' };

@@ -8,6 +8,10 @@
     "defaultMessage": "To invite colleagues to join {link}, send them this link:"
   },
   {
+    "id": "teamMembershipRequests.requestsToJoin",
+    "defaultMessage": "Requests to join"
+  },
+  {
     "id": "teamMembersComponent.mainHeading",
     "defaultMessage": "Members"
   },

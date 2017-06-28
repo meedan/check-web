@@ -7,11 +7,12 @@ import RaisedButton from 'material-ui/RaisedButton';
 import { Card, CardTitle, CardActions, CardText } from 'material-ui/Card';
 import { List } from 'material-ui/List';
 import PageTitle from '../PageTitle';
-import TeamMembershipRequests from './TeamMembershipRequests';
+import TeamMembershipRequestsListItem from './TeamMembershipRequestsListItem';
 import TeamMembersListItem from './TeamMembersListItem';
 import ContentColumn from '../layout/ContentColumn';
+import Can from '../Can';
 import {
-  listItemStyle,
+  cardInCardGroupStyle,
 } from '../../../../config-styles';
 
 const messages = defineMessages({
@@ -61,7 +62,7 @@ class TeamMembersComponent extends Component {
         team={team}
       >
         <ContentColumn>
-          <Card style={{ marginBottom: 16 }}>
+          <Card style={cardInCardGroupStyle}>
             <CardText>
               <div className="team-members__blurb">
                 <p className="team-members__blurb-graf">
@@ -76,12 +77,37 @@ class TeamMembersComponent extends Component {
             </CardText>
           </Card>
 
-          <TeamMembershipRequests teamUsers={teamUsersRequestingMembership} />
+          {(() => {
+            if (teamUsersRequestingMembership.length) {
+              return (
+                <Card style={cardInCardGroupStyle}>
+
+                  <CardTitle
+                    title={<FormattedMessage
+                      id="teamMembershipRequests.requestsToJoin"
+                      defaultMessage={'Requests to join'}
+                    />}
+                  />
+
+                  <List>
+                    {(() => teamUsersRequestingMembership.map(teamUser => (
+                      <TeamMembershipRequestsListItem
+                        teamUser={teamUser}
+                        key={teamUser.node.id}
+                      />
+                      )))()}
+                  </List>
+                </Card>
+              );
+            }
+
+            return (null);
+          })()}
 
           <Card>
             <CardTitle title={<FormattedMessage id="teamMembersComponent.mainHeading" defaultMessage="Members" />} />
 
-            <List style={listItemStyle} className="team-members__list">
+            <List>
               {(() =>
                 teamUsersMembers.map(teamUser =>
                   <TeamMembersListItem

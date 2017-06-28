@@ -4,9 +4,10 @@ import Relay from 'react-relay';
 import { ListItem } from 'material-ui/List';
 import RaisedButton from 'material-ui/RaisedButton';
 import Avatar from 'material-ui/Avatar';
-import FloatedDiv from '../layout/floatedDiv';
+import FloatedDiv from '../layout/FloatedDiv';
 import UpdateTeamUserMutation from '../../relay/UpdateTeamUserMutation';
 import {
+  buttonInButtonGroupStyle,
   avatarStyle,
   listItemStyle,
   toDirection,
@@ -43,7 +44,7 @@ class TeamMembershipRequestsListItem extends Component {
       >
         <FloatedDiv direction="to">
           <RaisedButton
-            style={{ marginRight: '8px' }}
+            style={buttonInButtonGroupStyle}
             onClick={this.handleRequest.bind(this, 'member')}
             className="team-member-requests__user-button team-member-requests__user-button--approve"
           >

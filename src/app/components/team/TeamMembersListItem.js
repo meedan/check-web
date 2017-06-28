@@ -10,13 +10,10 @@ import MdClear from 'react-icons/lib/md/clear';
 import IconButton from 'material-ui/IconButton';
 import UpdateTeamUserMutation from '../../relay/UpdateTeamUserMutation';
 import {
-  highlightBlue,
-  checkBlue,
   avatarStyle,
-  titleStyle,
+  selectStyle,
+  checkBlue,
   listItemStyle,
-  listStyle,
-  listItemButtonStyle,
 } from '../../../../config-styles';
 
 const messages = defineMessages({
@@ -72,20 +69,22 @@ class TeamMembersListItem extends Component {
 
     return (
       <ListItem
-        disableTouchRipple
+        disabled
         className="team-members__member"
         key={teamUser.node.id}
         primaryText={teamUser.node.user.name}
+        style={Object.assign(listItemStyle, { display: 'flex', alignItems: 'center', justifyContent: 'space-between' })}
         leftAvatar={
           <Avatar
-            style={avatarStyle}
+            style={Object.assign(avatarStyle, { top: 'initial', order: 1 })}
             src={teamUser.node.user.profile_image}
             alt={teamUser.node.user.name}
           />
         }
       >
-        <div style={Object.assign({ width: '20%', minWidth: '150' }, listItemButtonStyle)}>
+        <div style={{ order: '3', display: 'flex', alignItems: 'center' }}>
           <Select
+            style={selectStyle}
             className="team-members__member-role"
             onChange={this.handleRoleChange.bind(this)}
             autosize
@@ -99,6 +98,9 @@ class TeamMembersListItem extends Component {
           {isEditing && teamUser.node.status !== 'banned'
             ?
               <IconButton
+                focusRippleColor={checkBlue}
+                touchRippleColor={checkBlue}
+                style={{ fontSize: '20px' }}
                 onClick={this.handleDeleteTeamUser.bind(this)}
                 tooltip={<FormattedMessage id="TeamMembersListItem.deleteMember" defaultMessage="Delete Member" />}
               >
