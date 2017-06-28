@@ -83,31 +83,31 @@ class TeamMembersListItem extends Component {
             alt={teamUser.node.user.name}
           />
         }
-        rightIconButton={
-          <div style={Object.assign({ width: '20%', minWidth: '150' }, listItemButtonStyle)}>
-            <Select
-              className="team-members__member-role"
-              onChange={this.handleRoleChange.bind(this)}
-              autosize
-              searchable={false}
-              backspaceRemoves={false}
-              clearable={false}
-              disabled={!isEditing || teamUser.node.status === 'banned'}
-              options={roles}
-              value={teamUser.node.role}
-            />
-            {isEditing && teamUser.node.status !== 'banned'
-              ?
-                <IconButton
-                  onClick={this.handleDeleteTeamUser.bind(this)}
-                  tooltip={<FormattedMessage id="TeamMembersListItem.deleteMember" defaultMessage="Delete Member" />}
-                >
-                  <MdClear />
-                </IconButton>
-              : null}
-          </div>
-        }
-      />
+      >
+        <div style={Object.assign({ width: '20%', minWidth: '150' }, listItemButtonStyle)}>
+          <Select
+            className="team-members__member-role"
+            onChange={this.handleRoleChange.bind(this)}
+            autosize
+            searchable={false}
+            backspaceRemoves={false}
+            clearable={false}
+            disabled={!isEditing || teamUser.node.status === 'banned'}
+            options={roles}
+            value={teamUser.node.role}
+          />
+          {isEditing && teamUser.node.status !== 'banned'
+            ?
+              <IconButton
+                onClick={this.handleDeleteTeamUser.bind(this)}
+                tooltip={<FormattedMessage id="TeamMembersListItem.deleteMember" defaultMessage="Delete Member" />}
+              >
+                <MdClear />
+              </IconButton>
+            : null}
+        </div>
+      </ListItem>
+
     );
   }
 }

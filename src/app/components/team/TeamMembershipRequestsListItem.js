@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay';
 import { ListItem } from 'material-ui/List';
-import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
 import Avatar from 'material-ui/Avatar';
-import IconButton from 'material-ui/IconButton';
+import FloatedDiv from '../layout/floatedDiv';
 import UpdateTeamUserMutation from '../../relay/UpdateTeamUserMutation';
 import {
   avatarStyle,
   listItemStyle,
+  toDirection,
 } from '../../../../config-styles';
 
 class TeamMembershipRequestsListItem extends Component {
@@ -24,9 +25,14 @@ class TeamMembershipRequestsListItem extends Component {
     const teamUser = this.props.teamUser;
     return (
       <ListItem
+        disabled
         style={listItemStyle}
         className="team-membership-requests__user"
         primaryText={teamUser.node.user.name}
+        secondaryText={<FormattedMessage
+          id="teamMembershipRequests.requestsToJoin"
+          defaultMessage={'Requests to join'}
+        />}
         leftAvatar={
           <Avatar
             style={avatarStyle}
@@ -35,18 +41,21 @@ class TeamMembershipRequestsListItem extends Component {
           />
         }
       >
-        <FlatButton
-          onClick={this.handleRequest.bind(this, 'member')}
-          className="team-member-requests__user-button team-member-requests__user-button--approve"
-        >
-          <FormattedMessage id="TeamMembershipRequestsListItem.approve" defaultMessage="Approve" />
-        </FlatButton>
-        <FlatButton
-          onClick={this.handleRequest.bind(this, 'banned')}
-          className="team-member-requests__user-button team-member-requests__user-button--deny"
-        >
-          <FormattedMessage id="TeamMembershipRequestsListItem.deny" defaultMessage="Ignore" />
-        </FlatButton>
+        <FloatedDiv direction="to">
+          <RaisedButton
+            style={{ marginRight: '8px' }}
+            onClick={this.handleRequest.bind(this, 'member')}
+            className="team-member-requests__user-button team-member-requests__user-button--approve"
+          >
+            <FormattedMessage id="TeamMembershipRequestsListItem.approve" defaultMessage="Approve" />
+          </RaisedButton>
+          <RaisedButton
+            onClick={this.handleRequest.bind(this, 'banned')}
+            className="team-member-requests__user-button team-member-requests__user-button--deny"
+          >
+            <FormattedMessage id="TeamMembershipRequestsListItem.deny" defaultMessage="Ignore" />
+          </RaisedButton>
+        </FloatedDiv>
       </ListItem>
     );
   }
