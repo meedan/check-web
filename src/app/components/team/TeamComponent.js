@@ -487,7 +487,6 @@ class TeamComponent extends Component {
                             key={p.node.dbid} className="team__project"
                             style={listItemStyle}
                             hoverColor={highlightBlue}
-                            rippleColor={highlightBlue}
                             href={`/${team.slug}/project/${p.node.dbid}`}
                             primaryText={p.node.title}
                             rightIcon={<MdChevronRight />}

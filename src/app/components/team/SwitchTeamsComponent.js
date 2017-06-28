@@ -179,7 +179,6 @@ class SwitchTeamsComponent extends Component {
                 <ListItem
                   style={listItemStyle}
                   hoverColor={highlightBlue}
-                  rippleColor={highlightBlue}
                   href={buildUrl(currentTeam)}
                   leftAvatar={
                     <Avatar style={avatarStyle} src={currentTeam.avatar} />
@@ -200,7 +199,6 @@ class SwitchTeamsComponent extends Component {
               key={index}
               style={listItemStyle}
               hoverColor={highlightBlue}
-              rippleColor={highlightBlue}
               href={buildUrl(team)}
               leftAvatar={<Avatar style={avatarStyle} src={team.avatar} />}
               onClick={that.setCurrentTeam.bind(that, team, currentUser)}
