@@ -47,7 +47,7 @@ class BrowserSupport extends Component {
         <div className="browser-support">
           <span className="browser-support__close" onClick={this.close.bind(this)}>×</span>
           <p className="browser-support__message">
-            <FormattedMessage id="browserSupport.message" values={{ appName: mapGlobalMessage(this.props.intl, 'appNameHuman') }}/>
+            <FormattedMessage id="browserSupport.message" defaultMessage="While in beta, {appName} is optimized for Google Chrome on desktop." values={{ appName: mapGlobalMessage(this.props.intl, 'appNameHuman') }}/>
           </p>
         </div>);
     }
