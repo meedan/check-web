@@ -70,6 +70,7 @@ module AppSpecHelpers
     sleep 5
     window = @driver.window_handles.last
     @driver.switch_to.window(window)
+    sleep 10
     press_button('#oauth_authorizify')
     sleep 5
     window = @driver.window_handles.first
@@ -174,7 +175,8 @@ module AppSpecHelpers
   end
 
   def console_logs
-    @driver.manage.logs.get("browser")
+    require 'pp'
+    @driver.manage.logs.get("browser").pretty_inspect
   end
 
   def create_media(url)
@@ -199,9 +201,9 @@ module AppSpecHelpers
   end
 
   def create_claim_and_go_to_search_page
-    page = LoginPage.new(config: @config, driver: @driver).load
-        .login_with_email(email: @email, password: @password)
-        .create_media(input: 'My search result')
+    page = LoginPage.new(config: @config, driver: @driver).load.login_with_email(email: @email, password: @password)
+    @wait.until { @driver.page_source.include?('Claim') }
+    page.create_media(input: 'My search result')
 
     sleep 8 # wait for Sidekiq
 
@@ -210,5 +212,16 @@ module AppSpecHelpers
     sleep 8 # wait for Godot
 
     expect(@driver.page_source.include?('My search result')).to be(true)
+  end
+
+  def save_screenshot(title)
+    require 'imgur'
+    path = '/tmp/' + (0...8).map{ (65 + rand(26)).chr }.join + '.png'
+    @driver.save_screenshot(path)
+
+    client = Imgur.new(@config['imgur_client_id'])
+    image = Imgur::LocalImage.new(path, title: title)
+    uploaded = client.upload(image)
+    uploaded.link
   end
 end

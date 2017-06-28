@@ -31,19 +31,19 @@ shared_examples 'custom' do
   it "should set status to media as a command" do
     login_with_email
     @driver.navigate.to team_url('project/' + get_project + '/media/' + $media_id)
-    sleep 1
+    sleep 10
 
     # Add a status as a command
     fill_field('#cmd-input', '/status In Progress')
     @driver.action.send_keys(:enter).perform
-    sleep 5
+    sleep 10
 
     # Verify that status was added to annotations list
     expect(@driver.page_source.include?('Status')).to be(true)
 
     # Reload the page and verify that status is still there
     @driver.navigate.refresh
-    sleep 3
+    sleep 10
     expect(@driver.page_source.include?('Status')).to be(true)
   end
 
@@ -63,12 +63,12 @@ shared_examples 'custom' do
   it "should search by status" do
     create_claim_and_go_to_search_page
     @driver.find_element(:xpath, "//*[contains(text(), 'Inconclusive')]").click
-    sleep 3
+    sleep 10
     expect((@driver.title =~ /Inconclusive/).nil?).to be(false)
     expect((@driver.current_url.to_s.match(/not_applicable/)).nil?).to be(false)
     expect(@driver.page_source.include?('My search result')).to be(false)
     @driver.find_element(:xpath, "//*[contains(text(), 'Unstarted')]").click
-    sleep 3
+    sleep 10
     expect((@driver.title =~ /Unstarted/).nil?).to be(false)
     expect((@driver.current_url.to_s.match(/undetermined/)).nil?).to be(false)
     expect(@driver.page_source.include?('My search result')).to be(true)
@@ -77,7 +77,7 @@ shared_examples 'custom' do
   it "should search by status through URL" do
     create_claim_and_go_to_search_page
     @driver.navigate.to @config['self_url'] + '/' + get_team + '/search/%7B"status"%3A%5B"false"%5D%7D'
-    sleep 3
+    sleep 10
     expect((@driver.title =~ /False/).nil?).to be(false)
     expect(@driver.page_source.include?('My search result')).to be(false)
     selected = @driver.find_elements(:css, '.media-tags__suggestion--selected').map(&:text).sort

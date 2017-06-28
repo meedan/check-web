@@ -1,9 +1,10 @@
 .create-media {
   @include box-shadow(1);
+  @include fade-in;
   background-color: $white;
   border-radius: $border-radius-default;
   margin: 0 auto units(2);
-  max-width: layout(column-width-narrow);
+  max-width: layout(column-width-medium);
   padding: units(2) units(1);
   width: 100%;
 
@@ -12,12 +13,12 @@
     display: flex;
 
     .create-media__helper {
-      color: $black-38;
-      font: font(caption);
 
       @include when-smaller-than(mobile-breakpoint-small) {
         display: none;
       }
+      color: $black-38;
+      font: font(caption);
     }
   }
 }
@@ -36,21 +37,21 @@
 
   svg {
     @extend %icon;
-    margin-#{$to-direction}: 0;
 
     path {
       color: $black-16;
     }
+    margin-#{$to-direction}: 0;
   }
 }
 
 .create-media__input {
   // The placeholder
   & > :first-child {
-    padding: 0;
 
     @include when-smaller-than(mobile-breakpoint-small) {
       font: font(caption);
     }
+    padding: 0;
   }
 }

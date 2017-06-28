@@ -8,6 +8,21 @@
     "rules": {
         "indent": [2, 2],
         "react/jsx-filename-extension": "off",
-        "react/jsx-no-bind": "off"
+        "react/jsx-no-bind": "off",
+
+        // Todo: improve proptypes coverage (or disable this rule.)
+        "react/forbid-prop-types": "warn",
+        "react/prop-types": "warn",
+
+        // Todo: reconfigure eslint to be aware of our configuration 
+        // files we import without extensions (or disable this rule.)
+        "import/no-extraneous-dependencies": "warn",
+        "import/no-unresolved": "warn",
+        "import/extensions": "warn",
+
+        //Todo: ensure class methods use `this`
+        "class-methods-use-this": "warn",
+
+        
     }
 }

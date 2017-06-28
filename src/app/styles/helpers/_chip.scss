@@ -8,9 +8,9 @@
   font: font(caption);
   margin-#{$from-direction}: 0;
   margin-#{$to-direction}: units(1);
-  margin-bottom: units(half);
-  margin-top: units(half);
-  padding: units(half) units(2);
+  margin-bottom: units(.5);
+  margin-top: units(.5);
+  padding: units(.5) units(2);
 
   &--selected {
     background-color: $black-10;

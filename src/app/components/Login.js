@@ -9,13 +9,13 @@ import {
 import Message from './Message';
 import UploadImage from './UploadImage';
 import CheckContext from '../CheckContext';
-import {request} from '../actions/actions';
+import {login, request} from '../redux/actions';
 import {Link} from 'react-router';
-import {login} from '../actions/actions';
 import FASlack from 'react-icons/lib/fa/slack';
 import FAFacebook from 'react-icons/lib/fa/facebook-official';
 import FATwitter from 'react-icons/lib/fa/twitter';
 import MDEmail from 'react-icons/lib/md/email';
+import { mapGlobalMessage } from './MappedMessage';
 import { stringHelper } from '../customHelpers';
 
 const messages = defineMessages({
@@ -149,7 +149,7 @@ class Login extends Component {
           name={this.state.type}
           onSubmit={this.onFormSubmit.bind(this)}
           className="login__form">
-          <img alt="Check" width="120" className="login__icon" src={stringHelper('LOGO_URL')} />
+          <img alt={mapGlobalMessage(this.props.intl, 'appNameHuman')} width="120" className="login__icon" src={stringHelper('LOGO_URL')} />
           <h2 className="login__heading">
             {this.state.type === 'login'
               ? <FormattedMessage id="login.title" defaultMessage="Sign in" />

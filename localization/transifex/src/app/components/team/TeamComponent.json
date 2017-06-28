@@ -13,8 +13,8 @@
   "bridge.teamComponent.verificationTeam": "Translation Team",
   "teamComponent.title": "Verification Projects",
   "bridge.teamComponent.title": "Translation Projects",
+  "teamComponent.slackNotificationsEnabled": "Enable Slack notifications",
   "teamComponent.cancelButton": "Cancel",
   "teamComponent.saveButton": "Save",
-  "teamComponent.editButton": "Edit profile",
-  "teamComponent.slackNotificationsEnabled": "Enable Slack notifications"
+  "teamComponent.editButton": "Edit profile"
 }

@@ -16,9 +16,9 @@ class TeamPage < Page
   def create_project(options = {})
     name = options[:name] || "Project #{Time.now.to_i}"
 
-    element('.create-project > input').click
-    fill_input('.create-project > input', name)
-    element('.create-project > input').submit
+    element('#create-project-title').click
+    fill_input('#create-project-title', name)
+    element('#create-project-title').submit
 
     wait_for_element('.project')
     ProjectPage.new(config: @config, driver: @driver)

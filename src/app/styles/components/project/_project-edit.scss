@@ -1,6 +1,6 @@
 .project-edit__form {
   margin: 0 auto;
-  max-width: layout(card-width-large);
+  max-width: layout(column-width-medium);
 }
 
 .project-edit__editing-buttons {
@@ -13,6 +13,6 @@
   @include button-primary;
 
   &:not(:last-child) {
-    margin-#{$to-direction}: units(half);
+    margin-#{$to-direction}: units(1);
   }
 }
