@@ -12,7 +12,7 @@ class FloatedDiv extends Component {
     const style = Object.assign({ float: direction === 'from' ? fromDirection : toDirection }, { display: 'flex' }, this.props.style ? this.props.style : {});
 
     return (
-      <div style={this.props.style}>
+      <div style={style}>
         {this.props.children}
       </div>
     );

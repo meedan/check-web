@@ -10,9 +10,9 @@ import PageTitle from '../PageTitle';
 import TeamMembershipRequestsListItem from './TeamMembershipRequestsListItem';
 import TeamMembersListItem from './TeamMembersListItem';
 import ContentColumn from '../layout/ContentColumn';
-import Can from '../Can';
 import {
   cardInCardGroupStyle,
+  listItemStyle,
 } from '../../../../config-styles';
 
 const messages = defineMessages({
@@ -118,7 +118,7 @@ class TeamMembersComponent extends Component {
                   />,
                 ))()}
             </List>
-            <CardActions>
+            <CardActions style={listItemStyle} >
               <RaisedButton
                 onClick={this.handleEditMembers.bind(this)}
                 className="team-members__edit-button"

@@ -1,9 +1,5 @@
 [
   {
-    "id": "teamMembershipRequests.requestsToJoin",
-    "defaultMessage": "Requests to join"
-  },
-  {
     "id": "TeamMembershipRequestsListItem.approve",
     "defaultMessage": "Approve"
   },

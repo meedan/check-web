@@ -4,13 +4,11 @@ import Relay from 'react-relay';
 import { ListItem } from 'material-ui/List';
 import RaisedButton from 'material-ui/RaisedButton';
 import Avatar from 'material-ui/Avatar';
-import FloatedDiv from '../layout/FloatedDiv';
 import UpdateTeamUserMutation from '../../relay/UpdateTeamUserMutation';
 import {
   buttonInButtonGroupStyle,
   avatarStyle,
-  listItemStyle,
-  toDirection,
+  listItemWithButtonsStyle,
 } from '../../../../config-styles';
 
 class TeamMembershipRequestsListItem extends Component {
@@ -27,22 +25,18 @@ class TeamMembershipRequestsListItem extends Component {
     return (
       <ListItem
         disabled
-        style={listItemStyle}
         className="team-membership-requests__user"
         primaryText={teamUser.node.user.name}
-        secondaryText={<FormattedMessage
-          id="teamMembershipRequests.requestsToJoin"
-          defaultMessage={'Requests to join'}
-        />}
+        style={listItemWithButtonsStyle}
         leftAvatar={
           <Avatar
-            style={avatarStyle}
+            style={Object.assign(avatarStyle, { top: 'initial', order: 1 })}
             src={teamUser.node.user.profile_image}
             alt={teamUser.node.user.name}
           />
         }
       >
-        <FloatedDiv direction="to">
+        <div style={{ display: 'flex', order: '3' }}>
           <RaisedButton
             style={buttonInButtonGroupStyle}
             onClick={this.handleRequest.bind(this, 'member')}
@@ -56,7 +50,7 @@ class TeamMembershipRequestsListItem extends Component {
           >
             <FormattedMessage id="TeamMembershipRequestsListItem.deny" defaultMessage="Ignore" />
           </RaisedButton>
-        </FloatedDiv>
+        </div>
       </ListItem>
     );
   }

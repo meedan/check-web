@@ -4,7 +4,7 @@ import Relay from 'react-relay';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import { ListItem } from 'material-ui/List';
-import FlatButton from 'material-ui/FlatButton';
+import styled from 'styled-components';
 import Avatar from 'material-ui/Avatar';
 import MdClear from 'react-icons/lib/md/clear';
 import IconButton from 'material-ui/IconButton';
@@ -13,9 +13,17 @@ import {
   avatarStyle,
   selectStyle,
   checkBlue,
-  listItemStyle,
+  listItemWithButtonsStyle,
+  ellipsisStyle,
+  black05,
 } from '../../../../config-styles';
 
+const StyledListItem = styled(ListItem)`
+  border-top: 1px solid ${black05};
+  & > div {
+    ${ellipsisStyle};
+  }
+`;
 const messages = defineMessages({
   contributor: {
     id: 'TeamMembersListItem.contributor',
@@ -68,12 +76,12 @@ class TeamMembersListItem extends Component {
     ];
 
     return (
-      <ListItem
+      <StyledListItem
         disabled
         className="team-members__member"
         key={teamUser.node.id}
         primaryText={teamUser.node.user.name}
-        style={Object.assign(listItemStyle, { display: 'flex', alignItems: 'center', justifyContent: 'space-between' })}
+        style={listItemWithButtonsStyle}
         leftAvatar={
           <Avatar
             style={Object.assign(avatarStyle, { top: 'initial', order: 1 })}
@@ -108,7 +116,7 @@ class TeamMembersListItem extends Component {
               </IconButton>
             : null}
         </div>
-      </ListItem>
+      </StyledListItem>
 
     );
   }
