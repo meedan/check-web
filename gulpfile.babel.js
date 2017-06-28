@@ -2,7 +2,6 @@ import fs from 'fs';
 import request from 'sync-request';
 import gulp from 'gulp';
 import gutil from 'gulp-util';
-import jade from 'gulp-jade';
 import rename from 'gulp-rename';
 import transifex from 'gulp-transifex';
 import jsonEditor from 'gulp-json-editor';
@@ -57,17 +56,6 @@ gulp.task('webpack:build:web', (callback) => {
   });
 });
 
-gulp.task('views:build:web', () => {
-  gulp.src([
-    './src/web/views/*.jade',
-    '!./src/web/views/devtools.jade'
-  ])
-  .pipe(jade({
-    locals: { env: 'prod' }
-  }))
-  .pipe(gulp.dest('./build/web'));
-});
-
 gulp.task('copy:build:web', () => {
   gulp.src('./src/assets/**/*').pipe(gulp.dest('./build/web'));
   gulp.src('./config.js').pipe(gulp.dest('./build/web/js'));
@@ -117,7 +105,7 @@ gulp.task('transifex:languages', () => {
   }
 });
 
-gulp.task('build:web', ['replace-webpack-code', 'relay:copy', 'webpack:build:web', 'views:build:web', 'copy:build:web']);
+gulp.task('build:web', ['replace-webpack-code', 'relay:copy', 'webpack:build:web', 'copy:build:web']);
 
 // Dev mode — with "watch" enabled for faster builds
 // Webpack only — without the rest of the web build steps.
@@ -163,4 +151,4 @@ gulp.task('webpack:build:web:dev', () => {
   });
 });
 
-gulp.task('build:web:dev', ['replace-webpack-code', 'relay:copy', 'webpack:build:web:dev', 'views:build:web', 'copy:build:web']);
+gulp.task('build:web:dev', ['replace-webpack-code', 'relay:copy', 'webpack:build:web:dev', 'copy:build:web']);
