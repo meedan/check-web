@@ -30,7 +30,11 @@
     "test:browsers:parallel": "cd test && PARALLEL_SPLIT_TEST_PROCESSES=2 parallel_split_test spec/browser_spec.rb && cd ..",
     "test:ff": "cd test && rspec --fail-fast && cd ..",
     "lint:styles": "sass-lint --config .sass-lint.yml './**/*.scss' --verbose --ignore './test/**/*.scss, ./node_modules/**/*.scss'",
-    "lint:src": "eslint src --fix"
+    "lint:src": "eslint src --fix",
+    "precommit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.js": ["eslint --fix", "git add"]
   },
   "authors": [
     "Meedan"
@@ -68,7 +72,9 @@
     "gulp-zip": "^3.0.2",
     "html-webpack-plugin": "^2.24.1",
     "http": "0.0.0",
+    "husky": "^0.14.1",
     "legit-tests": "^1.1.2",
+    "lint-staged": "^4.0.0",
     "mocha": "^3.2.0",
     "mocha-webpack": "^0.7.0",
     "raw-loader": "^0.5.1",
