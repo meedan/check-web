@@ -1,21 +1,19 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import MdCreate from 'react-icons/lib/md/create';
 import config from 'config';
 import RaisedButton from 'material-ui/RaisedButton';
-import { Card, CardTitle, CardActions, CardText } from 'material-ui/Card';
+import { Card, CardTitle, CardActions } from 'material-ui/Card';
 import { List } from 'material-ui/List';
-import styled from 'styled-components';
+import TeamInviteCard from './TeamInviteCard';
 import PageTitle from '../PageTitle';
 import TeamMembershipRequestsListItem from './TeamMembershipRequestsListItem';
 import TeamMembersListItem from './TeamMembersListItem';
 import ContentColumn from '../layout/ContentColumn';
+
 import {
   cardInCardGroupStyle,
   listItemStyle,
-  checkBlue,
-  white,
 } from '../../../../config-styles';
 
 const messages = defineMessages({
@@ -24,18 +22,6 @@ const messages = defineMessages({
     defaultMessage: 'Team Members',
   },
 });
-
-const InviteCard = styled(Card)`
-  margin-bottom: 16px;
-  padding-top: 16px;
-  background-color: ${checkBlue} !important;
-  p,a {
-    color: ${white} !important;
-  }
-  a {
-    font-weight: 500;
-  }
-`;
 
 class TeamMembersComponent extends Component {
   constructor(props) {
@@ -67,9 +53,6 @@ class TeamMembersComponent extends Component {
       return teamUsersMembers.push(teamUser);
     });
 
-    const teamUrl = `${window.location.protocol}//${config.selfHost}/${team.slug}`;
-    const joinUrl = `${teamUrl}/join`;
-
     return (
       <PageTitle
         prefix={this.props.intl.formatMessage(messages.title)}
@@ -77,20 +60,8 @@ class TeamMembersComponent extends Component {
         team={team}
       >
         <ContentColumn>
-          <InviteCard>
-            <CardText>
-              <div className="team-members__blurb">
-                <p className="team-members__blurb-graf">
-                  <FormattedMessage
-                    id="teamMembersComponent.inviteLink"
-                    defaultMessage={'To invite colleagues to join {link}, send them this link:'}
-                    values={{ link: <Link to={teamUrl}>{team.name}</Link> }}
-                  />
-                </p>
-                <p className="team-members__blurb-graf--url"><a href={joinUrl}>{joinUrl}</a></p>
-              </div>
-            </CardText>
-          </InviteCard>
+
+          <TeamInviteCard team={team} />
 
           {(() => {
             if (teamUsersRequestingMembership.length) {

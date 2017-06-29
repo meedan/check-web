@@ -1,0 +1,14 @@
+[
+  {
+    "id": "teamMembersComponent.inviteLink",
+    "defaultMessage": "To invite colleagues to join {teamName}, send them this link:"
+  },
+  {
+    "id": "teamInviteCard.copy",
+    "defaultMessage": "COPIED"
+  },
+  {
+    "id": "teamInviteCard.copied",
+    "defaultMessage": "COPY"
+  }
+]
