@@ -111,12 +111,9 @@ class JoinTeamComponent extends Component {
 
   render() {
     const team = this.props.team;
-
     const appName = mapGlobalMessage(this.props.intl, 'appNameHuman');
-
     const isRequestSent = this.state.requestStatus;
-
-    const disableRequest = isRequestSent !== '';
+    const disableRequest = (isRequestSent === '') ? false : true;
 
     if (this.alreadyMember()) {
       return (
@@ -126,7 +123,7 @@ class JoinTeamComponent extends Component {
               <FormattedMessage
                 id="joinTeamComponent.alreadyRequested"
                 defaultMessage={'You already requested to join {team} {appName}.'}
-                values={{ team: <Link to={`/${team.slug}`}>{team.name}</Link> }}
+                values={{ team: <Link to={`/${team.slug}`}>{team.name}</Link>, appName }}
               />
             </p>
           </div>
@@ -139,13 +136,15 @@ class JoinTeamComponent extends Component {
         <div className="join-team">
           <ContentColumn className="card">
             <Message message={this.state.message} />
-            <h2 className="join-team__main-heading"><FormattedMessage id="joinTeamComponent.mainHeading" defaultMessage="Request to Join" /></h2>
+            <h2 className="join-team__main-heading">
+              <FormattedMessage id="joinTeamComponent.mainHeading" defaultMessage="Request to Join" />
+            </h2>
             <div className="join-team__blurb">
               <p className="join-team__blurb-graf">
                 <FormattedMessage
                   id="joinTeamComponent.blurbGraf"
                   defaultMessage={'To request access to the {link} {appName}, click below:'}
-                  values={{ link: <Link to={`/${team.slug}`}>{team.name}</Link> }}
+                  values={{ link: <Link to={`/${team.slug}`}>{team.name}</Link>, appName }}
                 />
               </p>
               <div>

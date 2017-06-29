@@ -9,6 +9,7 @@ class AuthorPicture extends Component {
 
     this.state = {
       avatarUrl: props.data.author_picture === '' ? this.defaultAvatar() : (props.data.author_picture || this.refreshAvatar()),
+      queriedBackend: false
     };
   }
 
@@ -18,20 +19,23 @@ class AuthorPicture extends Component {
 
   refreshAvatar() {
     const onFailure = (transaction) => {
+      this.setState({ avatarUrl: this.defaultAvatar(), queriedBackend: true });
     };
 
     const onSuccess = (response) => {
       const avatarUrl = JSON.parse(response.updateProjectMedia.project_media.embed).author_picture || this.defaultAvatar();
-      this.setState({ avatarUrl });
+      this.setState({ avatarUrl, queriedBackend: true });
     };
 
-    Relay.Store.commitUpdate(
-      new UpdateProjectMediaMutation({
-        refresh_media: 1,
-        id: this.props.media.id,
-      }),
-      { onSuccess, onFailure },
-    );
+    if (!this.state || !this.state.queriedBackend) {
+      Relay.Store.commitUpdate(
+        new UpdateProjectMediaMutation({
+          refresh_media: 1,
+          id: this.props.media.id,
+        }),
+        { onSuccess, onFailure },
+      );
+    }
 
     return this.defaultAvatar();
   }
