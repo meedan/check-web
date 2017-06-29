@@ -556,11 +556,13 @@ const SearchResultsContainer = Relay.createContainer(injectIntl(SearchResultsCom
                 id,
                 dbid,
                 name,
+                description,
                 image,
                 accounts(first: 10000) {
                   edges {
                     node {
                       data,
+                      embed,
                       provider,
                       url
                     }

@@ -20,6 +20,14 @@
 
 .source-card__accounts {
   padding-top: units(3);
+
+  svg {
+    margin-#{$to-direction}: units(1);
+
+    path {
+      color: $black-54;
+    }
+  }
 }
 
  .source-card__account-link {
