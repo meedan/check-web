@@ -1,10 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import { defineMessages, injectIntl, intlShape } from 'react-intl';
-import FaFacebookSquare from 'react-icons/lib/fa/facebook-square';
-import FaInstagram from 'react-icons/lib/fa/instagram';
-import FaTwitter from 'react-icons/lib/fa/twitter';
-import FaYoutubePlay from 'react-icons/lib/fa/youtube-play';
-import MdLink from 'react-icons/lib/md/link';
 import { Link } from 'react-router';
 import MediaUtil from './MediaUtil';
 import MediaInspector from './MediaInspector';
@@ -74,20 +69,7 @@ class SocialMediaCard extends Component {
           </div>
 
           <span className="social-media-card__header-text-secondary">
-            {(() => {
-              switch (media.domain) {
-              case 'twitter.com':
-                return <FaTwitter />;
-              case 'youtube.com':
-                return <FaYoutubePlay />;
-              case 'instagram.com':
-                return <FaInstagram />;
-              case 'facebook.com':
-                return <FaFacebookSquare />;
-              default :
-                return <MdLink />;
-              }
-            })()}
+            { MediaUtil.socialIcon(media.domain) }
             <a href={url} target="_blank" rel="noopener noreferrer">
               {embedPublishedAt ? <TimeBefore date={embedPublishedAt} /> : this.props.intl.formatMessage(messages.link)}
             </a>

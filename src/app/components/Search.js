@@ -12,6 +12,7 @@ import { bemClass, getStatusStyle, notify } from '../helpers';
 import CheckContext from '../CheckContext';
 import ContentColumn from './layout/ContentColumn';
 import MediasLoading from './media/MediasLoading';
+import SourceCard from './source/SourceCard';
 import isEqual from 'lodash.isequal';
 import { teamStatuses } from '../customHelpers';
 import config from 'config';
@@ -430,6 +431,7 @@ class SearchResultsComponent extends Component {
 
   render() {
     const medias = this.props.search ? this.props.search.medias.edges : [];
+    const sources = this.props.search ? this.props.search.sources.edges : [];
     const count = this.props.search ? this.props.search.number_of_results : 0;
     const mediasCount = this.props.intl.formatMessage(messages.searchResults, { resultsCount: count });
     const title = /\/project\//.test(window.location.pathname) ? '' : mediasCount;
@@ -439,6 +441,14 @@ class SearchResultsComponent extends Component {
         <h3 className="search__results-heading">{title}</h3>
 
         <InfiniteScroll hasMore loadMore={this.loadMore.bind(this)} threshold={500}>
+
+          <ul className="search__results-list results medias-list">
+            { sources.map(source => (
+              <li key={source.node.dbid} className="medias__item">
+                <SourceCard source={source.node} />
+              </li>
+            ))}
+          </ul>
 
           <ul className="search__results-list results medias-list">
             {medias.map(media => (
@@ -531,6 +541,29 @@ const SearchResultsContainer = Relay.createContainer(injectIntl(SearchResultsCom
                   node {
                     tag,
                     id
+                  }
+                }
+              }
+            }
+          }
+        },
+        sources(first: $pageSize) {
+          edges {
+            node {
+              id,
+              dbid,
+              source {
+                id,
+                dbid,
+                name,
+                image,
+                accounts(first: 10000) {
+                  edges {
+                    node {
+                      data,
+                      provider,
+                      url
+                    }
                   }
                 }
               }
