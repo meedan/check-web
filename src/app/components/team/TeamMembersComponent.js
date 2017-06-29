@@ -16,6 +16,7 @@ import {
   listItemStyle,
   checkBlue,
   white,
+  title,
 } from '../../../../config-styles';
 
 const messages = defineMessages({
@@ -35,6 +36,13 @@ const InviteCard = styled(Card)`
   a {
     font-weight: 500;
   }
+`;
+
+const StyledCardTitle = styled(CardTitle)`
+  > span {
+    font: ${title} !important;
+  }
+  padding-bottom: 8px !important;
 `;
 
 class TeamMembersComponent extends Component {
@@ -97,7 +105,7 @@ class TeamMembersComponent extends Component {
               return (
                 <Card style={cardInCardGroupStyle}>
 
-                  <CardTitle
+                  <StyledCardTitle
                     title={<FormattedMessage
                       id="teamMembershipRequests.requestsToJoin"
                       defaultMessage={'Requests to join'}
@@ -120,7 +128,7 @@ class TeamMembersComponent extends Component {
           })()}
 
           <Card>
-            <CardTitle title={<FormattedMessage id="teamMembersComponent.mainHeading" defaultMessage="Members" />} />
+            <StyledCardTitle title={<FormattedMessage id="teamMembersComponent.mainHeading" defaultMessage="Members" />} />
 
             <List>
               {(() =>
