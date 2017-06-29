@@ -51,14 +51,6 @@ const messages = defineMessages({
 
 class SwitchTeamsComponent extends Component {
 
-  cancelRequest(team) {
-    Relay.Store.commitUpdate(
-      new DeleteTeamUserMutation({
-        id: team.team_user_id,
-      }),
-    );
-  }
-
   setCurrentTeam(team, user) {
     const that = this;
     const context = new CheckContext(this);
@@ -93,12 +85,21 @@ class SwitchTeamsComponent extends Component {
     );
   }
 
+  cancelRequest(team) {
+    Relay.Store.commitUpdate(
+      new DeleteTeamUserMutation({
+        id: team.team_user_id,
+      }),
+    );
+  }
+
   membersCountString(count) {
     if (typeof count === 'number') {
       return `${count.toString()} ${count === 1
         ? this.props.intl.formatMessage(messages.switchTeamsMember)
         : this.props.intl.formatMessage(messages.switchTeamsMembers)}`;
     }
+    return '';
   }
 
   requestedToJoinString() {
@@ -138,6 +139,7 @@ class SwitchTeamsComponent extends Component {
           </FlatButton>
         );
       }
+      return '';
     };
 
     teamUsers.map((teamUser) => {
@@ -152,6 +154,7 @@ class SwitchTeamsComponent extends Component {
           otherTeams.push(team);
         }
       }
+      return null;
     });
 
     const buildUrl = function buildUrl(team) {
@@ -188,6 +191,7 @@ class SwitchTeamsComponent extends Component {
                 />
               );
             }
+            return '';
           })()}
 
           {otherTeams.map((team, index) =>
@@ -209,6 +213,7 @@ class SwitchTeamsComponent extends Component {
               key={index}
               style={listItemStyle}
               hoverColor={highlightBlue}
+              rippleColor={highlightBlue}
               href={buildUrl(team)}
               leftAvatar={<Avatar style={avatarStyle} src={team.avatar} />}
               primaryText={team.name}

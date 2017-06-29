@@ -67,41 +67,32 @@ In dev mode can optionally use [guard-livereload](https://github.com/guard/guard
 
 ## Localization
 
-Translations are managed in [Transifex](https://www.transifex.com/meedan/check-2/). All the contents are stored in the `localization` directory. The `localization` directory contains the following sub-folders:
+Translations are managed in [Transifex](https://www.transifex.com/meedan/check-2/). All the contents are stored in the `localization` directory which contains the following subfolders:
 
-* `react-intl`: Contains the files extracted by `babel-plugin-react-intl` (localizable strings)
-* `transifex`: Contains the files above, but converted to Transifex JSON format
-* `translations`: Contains the translations files downloaded from Transifex plus a `translations.js` file which concatenates all of them in a single JSON file used by `react-intl`
+* `localization/react-intl`: Contains the files extracted by `babel-plugin-react-intl` (localizable strings)
+* `localization/transifex`: Contains the files above, but converted to Transifex JSON format
+* `localization/translations`: Contains the translations files downloaded from Transifex plus a `translations.js` file which concatenates all of them in a single JSON file used by `react-intl`
 
 By default, the application is displayed in the browser's language using the files from `localization` directory. If you want to work with other language or you want to exchange files with Transifex, you need to:
 
 * Add a `locale` entry to your `config.js`. This is the locale for Check. If not present, falls back to browser locale.
 * Copy `config-build.js.example` to `config-build.js` (if you don't have it yet) and add your Transifex user and password. If not present, instead of getting translations from Transifex and sending strings to it, it will use the static files at `localization`.
 
-This way, everytime you run `npm run build`, the following flow will happen:
-
-* New translations will be downloaded from Transifex, concatenated into a single JSON and used by the app
-* New localizable strings will be extracted from the components (e.g., `<FormattedMessage />` components), converted to Transifex format and uploaded to Transifex
+Then you can use `npm run transifex:upload` and `npm run transifex:download` to upload and download translations, respectively.
 
 ## Testing
 
-#### Running integration tests
+#### Integration tests
 
 * Compile the code with `npm run build`
 * Copy `test/config.yml.example` to `test/config.yml` and set the configurations
+* Copy `test/config.js.example` to `test/config.js` and set the configurations
 * Start `chromedriver` and the application (`SERVER_PORT=3333 npm run publish`)
 * Run `npm run test:integration`
 
 #### Unit tests
 
 * Run `npm run test:unit`
-
-#### All tests
-
-* Compile the code with `npm run build`
-* Copy `test/config.yml.example` to `test/config.yml` and set the configurations
-* Start `chromedriver` and the application (`SERVER_PORT=3333 npm run publish`)
-* Run `npm run test`
 
 #### Missing tests
 
