@@ -371,7 +371,8 @@ class SearchResultsComponent extends Component {
       pusher.subscribe(channel).bind('media_updated', (data) => {
         let content = null;
         let message = {};
-        const currentUserId = that.currentContext().currentUser.dbid;
+        const currentUser = that.currentContext().currentUser;
+        const currentUserId =  currentUser ? currentUser.dbid : 0;
         const avatar = config.restBaseUrl.replace(/\/api.*/, '/images/bridge.png');
 
         try {

@@ -40,16 +40,14 @@ class TeamMembershipRequestsListItem extends Component {
           <RaisedButton
             style={buttonInButtonGroupStyle}
             onClick={this.handleRequest.bind(this, 'member')}
-            className="team-member-requests__user-button team-member-requests__user-button--approve"
-          >
-            <FormattedMessage id="TeamMembershipRequestsListItem.approve" defaultMessage="Approve" />
-          </RaisedButton>
+            className="team-member-requests__user-button--approve"
+            label={<FormattedMessage id="TeamMembershipRequestsListItem.approve" defaultMessage="Approve" />}
+          />
           <RaisedButton
             onClick={this.handleRequest.bind(this, 'banned')}
-            className="team-member-requests__user-button team-member-requests__user-button--deny"
-          >
-            <FormattedMessage id="TeamMembershipRequestsListItem.deny" defaultMessage="Ignore" />
-          </RaisedButton>
+            className="team-member-requests__user-button--deny"
+            label={<FormattedMessage id="TeamMembershipRequestsListItem.deny" defaultMessage="Ignore" />}
+          />
         </div>
       </ListItem>
     );

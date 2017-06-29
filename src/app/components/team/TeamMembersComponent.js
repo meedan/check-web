@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import MdCreate from 'react-icons/lib/md/create';
-import config from 'config';
 import RaisedButton from 'material-ui/RaisedButton';
 import { Card, CardTitle, CardActions } from 'material-ui/Card';
 import { List } from 'material-ui/List';
+import styled from 'styled-components';
 import TeamInviteCard from './TeamInviteCard';
 import PageTitle from '../PageTitle';
 import TeamMembershipRequestsListItem from './TeamMembershipRequestsListItem';
 import TeamMembersListItem from './TeamMembersListItem';
 import ContentColumn from '../layout/ContentColumn';
-
 import {
   cardInCardGroupStyle,
   listItemStyle,
+  title,
 } from '../../../../config-styles';
 
 const messages = defineMessages({
@@ -22,6 +22,14 @@ const messages = defineMessages({
     defaultMessage: 'Team Members',
   },
 });
+
+const StyledCardTitle = styled(CardTitle)`
+  > span {
+    font: ${title} !important;
+  }
+  padding-bottom: 8px !important;
+`;
+
 
 class TeamMembersComponent extends Component {
   constructor(props) {
@@ -68,7 +76,7 @@ class TeamMembersComponent extends Component {
               return (
                 <Card style={cardInCardGroupStyle}>
 
-                  <CardTitle
+                  <StyledCardTitle
                     title={<FormattedMessage
                       id="teamMembershipRequests.requestsToJoin"
                       defaultMessage={'Requests to join'}
@@ -91,7 +99,7 @@ class TeamMembersComponent extends Component {
           })()}
 
           <Card>
-            <CardTitle title={<FormattedMessage id="teamMembersComponent.mainHeading" defaultMessage="Members" />} />
+            <StyledCardTitle title={<FormattedMessage id="teamMembersComponent.mainHeading" defaultMessage="Members" />} />
 
             <List>
               {(() =>
