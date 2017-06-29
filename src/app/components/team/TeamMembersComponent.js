@@ -6,6 +6,7 @@ import config from 'config';
 import RaisedButton from 'material-ui/RaisedButton';
 import { Card, CardTitle, CardActions, CardText } from 'material-ui/Card';
 import { List } from 'material-ui/List';
+import styled from 'styled-components';
 import PageTitle from '../PageTitle';
 import TeamMembershipRequestsListItem from './TeamMembershipRequestsListItem';
 import TeamMembersListItem from './TeamMembersListItem';
@@ -13,6 +14,8 @@ import ContentColumn from '../layout/ContentColumn';
 import {
   cardInCardGroupStyle,
   listItemStyle,
+  checkBlue,
+  white,
 } from '../../../../config-styles';
 
 const messages = defineMessages({
@@ -21,6 +24,18 @@ const messages = defineMessages({
     defaultMessage: 'Team Members',
   },
 });
+
+const InviteCard = styled(Card)`
+  margin-bottom: 16px;
+  padding-top: 16px;
+  background-color: ${checkBlue} !important;
+  p,a {
+    color: ${white} !important;
+  }
+  a {
+    font-weight: 500;
+  }
+`;
 
 class TeamMembersComponent extends Component {
   constructor(props) {
@@ -62,7 +77,7 @@ class TeamMembersComponent extends Component {
         team={team}
       >
         <ContentColumn>
-          <Card style={cardInCardGroupStyle}>
+          <InviteCard>
             <CardText>
               <div className="team-members__blurb">
                 <p className="team-members__blurb-graf">
@@ -75,7 +90,7 @@ class TeamMembersComponent extends Component {
                 <p className="team-members__blurb-graf--url"><a href={joinUrl}>{joinUrl}</a></p>
               </div>
             </CardText>
-          </Card>
+          </InviteCard>
 
           {(() => {
             if (teamUsersRequestingMembership.length) {

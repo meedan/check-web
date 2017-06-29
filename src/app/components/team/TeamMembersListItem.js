@@ -20,7 +20,7 @@ import {
 
 const StyledListItem = styled(ListItem)`
   border-top: 1px solid ${black05};
-  & > div {
+  & > div:last-of-type {
     ${ellipsisStyle};
   }
 `;

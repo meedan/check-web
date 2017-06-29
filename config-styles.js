@@ -49,7 +49,7 @@ export const subheading1 = `400 15px/24px ${fontStackSans}`;
 export const body2 = `400 14px/24px ${fontStackSans}`;
 export const body1 = `400 14px/20px ${fontStackSans}`;
 export const caption = `400 12px/20px ${fontStackSans}`;
-export const tiny = `400 8px /12px ${fontStackSans}`;
+export const tiny = `400 8px/12px ${fontStackSans}`;
 
 // Material UI styles
 export const avatarStyle = { borderRadius: '2px', backgroundColor: 'transparent', border: `1px solid ${black05}` };
