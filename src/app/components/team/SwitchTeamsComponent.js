@@ -1,6 +1,5 @@
 import Relay from 'react-relay';
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import {
   FormattedMessage,
   defineMessages,
@@ -25,8 +24,7 @@ import {
   listItemStyle,
   listStyle,
   listItemButtonStyle,
-} from '../../../../config-styles';
-
+} from '../../styles/js/variables';
 import UpdateUserMutation from '../../relay/UpdateUserMutation';
 import DeleteTeamUserMutation from '../../relay/DeleteTeamUserMutation';
 import CheckContext from '../../CheckContext';

@@ -30,7 +30,7 @@ import {
   titleStyle,
   listItemStyle,
   listStyle,
-} from '../../../../config-styles';
+} from '../../styles/js/variables';
 
 const messages = defineMessages({
   editError: {

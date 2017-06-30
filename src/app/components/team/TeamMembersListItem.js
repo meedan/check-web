@@ -16,7 +16,7 @@ import {
   listItemWithButtonsStyle,
   ellipsisStyle,
   black05,
-} from '../../../../config-styles';
+} from '../../styles/js/variables';
 
 const StyledListItem = styled(ListItem)`
   border-top: 1px solid ${black05};

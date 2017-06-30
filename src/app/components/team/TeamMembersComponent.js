@@ -12,8 +12,8 @@ import ContentColumn from '../layout/ContentColumn';
 import {
   cardInCardGroupStyle,
   listItemStyle,
-  StyledCardTitle,
-} from '../../../../config-styles';
+  StyledMdCardTitle,
+} from '../../styles/js/variables';
 
 const messages = defineMessages({
   title: {
@@ -67,7 +67,7 @@ class TeamMembersComponent extends Component {
               return (
                 <Card style={cardInCardGroupStyle}>
 
-                  <StyledCardTitle
+                  <StyledMdCardTitle
                     title={<FormattedMessage
                       id="teamMembershipRequests.requestsToJoin"
                       defaultMessage={'Requests to join'}
@@ -90,7 +90,7 @@ class TeamMembersComponent extends Component {
           })()}
 
           <Card>
-            <StyledCardTitle title={<FormattedMessage id="teamMembersComponent.mainHeading" defaultMessage="Members" />} />
+            <StyledMdCardTitle title={<FormattedMessage id="teamMembersComponent.mainHeading" defaultMessage="Members" />} />
 
             <List>
               {(() =>

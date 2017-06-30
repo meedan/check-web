@@ -9,7 +9,7 @@ import {
   buttonInButtonGroupStyle,
   avatarStyle,
   listItemWithButtonsStyle,
-} from '../../../../config-styles';
+} from '../../styles/js/variables';
 
 class TeamMembershipRequestsListItem extends Component {
   handleRequest(status) {
