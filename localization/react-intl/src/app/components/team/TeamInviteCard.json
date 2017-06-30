@@ -1,5 +1,9 @@
 [
   {
+    "id": "teamInviteCard.title",
+    "defaultMessage": "Build Your Team"
+  },
+  {
     "id": "teamMembersComponent.inviteLink",
     "defaultMessage": "To invite colleagues to join {teamName}, send them this link:"
   },

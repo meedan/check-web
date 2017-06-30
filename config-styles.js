@@ -1,3 +1,6 @@
+import styled from 'styled-components';
+import { CardTitle } from 'material-ui/Card';
+
 // Styles for overriding material UI
 // General colors
 //
@@ -62,3 +65,10 @@ export const cardInCardGroupStyle = { marginBottom: '16px' };
 export const selectStyle = { minWidth: '150px' };
 export const listItemWithButtonsStyle = Object.assign(listItemStyle, { display: 'flex', alignItems: 'center', justifyContent: 'space-between' });
 export const ellipsisStyle = { overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' };
+
+export const StyledCardTitle = styled(CardTitle)`
+  > span {
+    font: ${title} !important;
+  }
+  padding-bottom: 8px !important;
+`;

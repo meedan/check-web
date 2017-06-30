@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import MdCreate from 'react-icons/lib/md/create';
 import RaisedButton from 'material-ui/RaisedButton';
-import { Card, CardTitle, CardActions } from 'material-ui/Card';
+import { Card, CardActions } from 'material-ui/Card';
 import { List } from 'material-ui/List';
-import styled from 'styled-components';
 import TeamInviteCard from './TeamInviteCard';
 import PageTitle from '../PageTitle';
 import TeamMembershipRequestsListItem from './TeamMembershipRequestsListItem';
@@ -13,7 +12,7 @@ import ContentColumn from '../layout/ContentColumn';
 import {
   cardInCardGroupStyle,
   listItemStyle,
-  title,
+  StyledCardTitle,
 } from '../../../../config-styles';
 
 const messages = defineMessages({
@@ -22,14 +21,6 @@ const messages = defineMessages({
     defaultMessage: 'Team Members',
   },
 });
-
-const StyledCardTitle = styled(CardTitle)`
-  > span {
-    font: ${title} !important;
-  }
-  padding-bottom: 8px !important;
-`;
-
 
 class TeamMembersComponent extends Component {
   constructor(props) {
