@@ -349,27 +349,48 @@ class Annotation extends Component {
         const keepStatus = parseInt(keep.status);
         contentTemplate = null;
         if (this.state.retriedKeep) {
-          contentTemplate = (<span className="annotation__keep">
-            <FormattedHTMLMessage id="annotation.keepRetried" defaultMessage={'There is a new attempt to archive this item in Keep. Please check back in an hour.'} />
-          </span>);
+          contentTemplate = (
+            <span className="annotation__keep">
+              <FormattedHTMLMessage
+                id="annotation.keepRetried"
+                defaultMessage={'There is a new attempt to archive this item in Keep. Please check back in an hour.'}
+              />
+            </span>
+          );
         }
         else if (keepLink) {
-          contentTemplate = (<span className="annotation__keep">
-            <FormattedHTMLMessage id="annotation.keepSuccess" defaultMessage={'In case this link goes offline, you can <a {anchor}>access a backup via Keep</a>'} values={{ anchor: `href="${keepLink}" target="_blank" rel="noopener noreferrer"` }} />
-          </span>);
+          contentTemplate = (
+            <span className="annotation__keep">
+              <FormattedHTMLMessage
+                id="annotation.keepSuccess"
+                defaultMessage={'In case this link goes offline, you can <a href="{keepLink}" target="_blank" rel="noopener noreferrer">access a backup via Keep</a>'}
+                values={{ keepLink }}
+              />
+            </span>
+          );
         }
         else if (keepStatus === 418) {
-          contentTemplate = (<span className="annotation__keep">
-            <FormattedHTMLMessage id="annotation.keepError" defaultMessage={'There was an error when Keep tried to archive this item'} />
-            <span className="annotation__keep-retry" onClick={this.handleRetryKeep.bind(this)}>
-              <FormattedMessage id="annotation.keepRetry" defaultMessage="Retry" />
+          contentTemplate = (
+            <span className="annotation__keep">
+              <FormattedHTMLMessage
+                id="annotation.keepError"
+                defaultMessage={'There was an error when Keep tried to archive this item'}
+              />
+              <span className="annotation__keep-retry" onClick={this.handleRetryKeep.bind(this)}>
+                <FormattedMessage id="annotation.keepRetry" defaultMessage="Retry" />
+              </span>
             </span>
-          </span>);
+          );
         }
         else {
-          contentTemplate = (<span className="annotation__keep">
-            <FormattedHTMLMessage id="annotation.keepWait" defaultMessage={'This item is being archived in Keep. Come back in an hour to receive a confirmation link.'} />
-          </span>);
+          contentTemplate = (
+            <span className="annotation__keep">
+              <FormattedHTMLMessage
+                id="annotation.keepWait"
+                defaultMessage={'This item is being archived in Keep. Come back in an hour to receive a confirmation link.'}
+              />
+            </span>
+          );
         }
       }
       break;
