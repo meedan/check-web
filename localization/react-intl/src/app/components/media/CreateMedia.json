@@ -12,6 +12,14 @@
     "defaultMessage": "Paste or type"
   },
   {
+    "id": "createMedia.sourceInput",
+    "defaultMessage": "Source name"
+  },
+  {
+    "id": "createMedia.sourceUrlInput",
+    "defaultMessage": "Link to source"
+  },
+  {
     "id": "createMedia.uploadImage",
     "defaultMessage": "Upload an image"
   },
@@ -26,5 +34,21 @@
   {
     "id": "bridge.createMedia.helper",
     "defaultMessage": "Add a link, quote or image for translation"
+  },
+  {
+    "id": "createMedia.imageTitle",
+    "defaultMessage": "Upload a photo"
+  },
+  {
+    "id": "createMedia.sourceTitle",
+    "defaultMessage": "Add a source"
+  },
+  {
+    "id": "createMedia.linkTitle",
+    "defaultMessage": "Add a link"
+  },
+  {
+    "id": "createMedia.quoteTitle",
+    "defaultMessage": "Add a quote"
   }
 ]
