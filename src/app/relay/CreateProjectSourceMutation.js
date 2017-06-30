@@ -11,6 +11,10 @@ class CreateProjectSourceMutation extends Relay.Mutation {
       project_source {
          id,
          dbid,
+         team {
+            dbid,
+            name
+          },
          source {
            id,
            dbid
@@ -27,6 +31,10 @@ class CreateProjectSourceMutation extends Relay.Mutation {
           fragment on CreateProjectSourcePayload {
             project_source {
               dbid,
+              team {
+                dbid,
+                name
+              },
               source {
                 id,
                 dbid

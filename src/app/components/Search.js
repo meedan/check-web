@@ -552,6 +552,12 @@ const SearchResultsContainer = Relay.createContainer(injectIntl(SearchResultsCom
             node {
               id,
               dbid,
+              team {
+                dbid,
+                slug
+              },
+              project_id,
+              source_id,
               source {
                 id,
                 dbid,

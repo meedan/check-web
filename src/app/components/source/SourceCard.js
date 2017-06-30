@@ -2,10 +2,14 @@ import React from 'react';
 import { Card, CardHeader, CardText } from 'material-ui/Card';
 import MediaUtil from '../media/MediaUtil';
 import ParsedText from '../ParsedText';
+import { Link } from 'react-router';
 
 class SourceCard extends React.Component {
   render() {
-    const { source } = this.props.source;
+    console.log('this.props.source');
+    console.log(this.props.source);
+    const { source, team, project_id, source_id } = this.props.source;
+    const url = `/${team.slug}/project/${project_id}/source/${source_id}`;
 
     return (
       <Card className="source-card">
@@ -15,7 +19,7 @@ class SourceCard extends React.Component {
             <div className="source-card__heading">Check Source</div>
 
             <div className="source-card__name">
-              <a href={'#'} target="_ blank" rel="noopener noreferrer" className="social-media-card__name">{ source.name }</a>
+              <Link to={url} className="header__app-link">{ source.name }</Link>
             </div>
 
             <div className="source-card__description"><ParsedText text={source.description} /></div>
