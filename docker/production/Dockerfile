@@ -13,8 +13,10 @@ ENV DEPLOYUSER=checkdeploy \
     PLATFORM=web \
     PRODUCT=check \
     APP=check-web \
-    NODE_ENV=production
-
+    NODE_ENV=production \
+    TERM=xterm \
+    MIN_INSTANCES=4 \
+    MAX_POOL_SIZE=12
 
 # user config
 RUN useradd ${DEPLOYUSER} -s /bin/bash -m \
@@ -45,13 +47,10 @@ RUN rm -rf ${DEPLOYDIR}/new/node_modules \
 COPY ./.babelrc ${DEPLOYDIR}/latest/.babelrc
 
 # get the relay.json file from github.com/meedan/check-api that corresponds to the current local git branch (defaults to 'develop')
-RUN cd ${DEPLOYDIR}/new \
-    && BRANCH=$(git rev-parse --abbrev-ref HEAD) \
-    && curl https://raw.githubusercontent.com/meedan/check-api/${BRANCH:-develop}/public/relay.json -o ${DEPLOYDIR}/latest/relay.json \
-    && sed "s|https://raw.githubusercontent.com/meedan/check-api/develop/public/relay.json|${DEPLOYDIR}/latest/relay.json|" < config-build.js.example > ${DEPLOYDIR}/latest/config-build.js
+RUN /opt/bin/get_relay_json.sh
 
 # build all assets, js, css, transifex
-RUN npm run build
+RUN npm run build && npm run build:server
 
 # config
 # RUN /opt/bin/find_and_link_config_files.sh ${DEPLOYDIR}/latest
