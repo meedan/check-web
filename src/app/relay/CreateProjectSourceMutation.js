@@ -10,7 +10,11 @@ class CreateProjectSourceMutation extends Relay.Mutation {
     return Relay.QL`fragment on CreateProjectSourcePayload {
       project_source {
          id,
-         dbid
+         dbid,
+         source {
+           id,
+           dbid
+         }
       }
     }`;
   }
@@ -22,7 +26,11 @@ class CreateProjectSourceMutation extends Relay.Mutation {
         children: [Relay.QL`
           fragment on CreateProjectSourcePayload {
             project_source {
-              dbid
+              dbid,
+              source {
+                id,
+                dbid
+              }
             },
           }`,
         ],

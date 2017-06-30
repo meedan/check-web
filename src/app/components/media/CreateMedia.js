@@ -161,14 +161,14 @@ class CreateProjectMedia extends Component {
     this.setState({ isSubmitting: true, message: this.props.intl.formatMessage(messages.submitting) });
 
     const handleError = (json) => {
-      let message = this.props.intl.formatMessage(messages.error);
+      let message = this.props.intl.formatMessage(messages.error); //TODO: review error message
       if (json && json.error) {
-        const matches = json.error.match(/This media already exists in this project and has id ([0-9]+)$/);
+        const matches = json.error.match(/Account with this URL exists and has source id ([0-9]+)$/);
         if (matches) {
           that.props.projectComponent.props.relay.forceFetch();
-          const pmid = matches[1];
+          const psid = matches[1];
           message = null;
-          context.history.push(prefix + pmid);
+          context.history.push(prefix + psid);
         }
         else {
           message = json.error;
@@ -187,7 +187,7 @@ class CreateProjectMedia extends Component {
     };
 
     const onSuccess = (response) => {
-      const rid = response.createProjectSource.project_source.dbid;
+      const rid = response.createProjectSource.project_source.source.dbid;
       context.history.push(prefix + rid);
       this.setState({ message: null, isSubmitting: false });
     };
