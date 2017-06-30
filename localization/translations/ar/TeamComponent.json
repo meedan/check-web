@@ -13,8 +13,8 @@
   "bridge.teamComponent.verificationTeam": "فريق الترجمة",
   "teamComponent.title": "مشاريع التحقق",
   "bridge.teamComponent.title": "مشاريع الترجمة",
+  "teamComponent.slackNotificationsEnabled": "تفعيل تنبيهات Slack",
   "teamComponent.cancelButton": "إلغاء",
   "teamComponent.saveButton": "حفظ",
-  "teamComponent.editButton": "تحرير معلومات الفريق",
-  "teamComponent.slackNotificationsEnabled": "تفعيل تنبيهات Slack"
+  "teamComponent.editButton": "تحرير معلومات الفريق"
 }

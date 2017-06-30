@@ -8,19 +8,19 @@
     "defaultMessage": "Edit translation"
   },
   {
-    "id": "translation.cancelEdit",
-    "defaultMessage": "Cancel"
-  },
-  {
-    "id": "translation.submit",
-    "defaultMessage": "Submit"
-  },
-  {
     "id": "translation.translationText",
     "defaultMessage": "Translation text"
   },
   {
     "id": "translation.translationNote",
     "defaultMessage": "Note"
+  },
+  {
+    "id": "translation.cancelEdit",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "translation.submit",
+    "defaultMessage": "Submit"
   }
 ]

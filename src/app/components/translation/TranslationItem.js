@@ -27,8 +27,7 @@ class TranslationItem extends Component {
     };
   }
 
-  handleSubmitUpdate(e) {
-    const that = this;
+  handleSubmitUpdate() {
     const translation = this.props.translation;
 
     const onFailure = (transaction) => {
@@ -39,12 +38,14 @@ class TranslationItem extends Component {
         if (json.error) {
           message = json.error;
         }
-      } catch (e) { }
-      that.setState({ message });
+      }
+      catch (e) {
+      }
+      this.setState({ message });
     };
 
     const onSuccess = (response) => {
-      that.setState({ message: null, editing: false });
+      this.setState({ message: null, editing: false });
     };
 
     const form = document.forms['translation_edit'];
@@ -52,13 +53,10 @@ class TranslationItem extends Component {
     fields[`translation_text`] = form.translation_text ? form.translation_text.value : '';
     fields[`translation_note`] = form.translation_note ? form.translation_note.value : '';
 
-    console.log('fields');
-    console.log(fields);
-
-    if (!that.state.submitDisabled){
+    if (!this.state.submitDisabled) {
       Relay.Store.commitUpdate(
         new UpdateDynamicMutation({
-          annotated: that.props.media,
+          annotated: this.props.media,
           dynamic: {
             id: translation.id,
             fields,
@@ -104,37 +102,23 @@ class TranslationItem extends Component {
   }
 
   render() {
-    const translation = this.props.translation;
-    const content = JSON.parse(translation.content);
+    const content = JSON.parse(this.props.translation.content);
     const text = this.getTranslationText(content);
     const note = this.getTranslationNote(content);
     const language = this.getTranslationLanguage(content);
     const language_code = this.getTranslationLanguageCode(content);
 
-
-    const cardMenu = (
-      <div className={`task__actions ${this.bemClass('media-actions', this.state.isMenuOpen, '--active')}`}>
-        <MdMoreHoriz className="task__actions-icon / media-actions__icon" onClick={this.toggleMenu.bind(this)} />
-        <div className={this.bemClass('media-actions__overlay', this.state.isMenuOpen, '--active')} onClick={this.toggleMenu.bind(this)} />
-        <ul className={this.bemClass('media-actions__menu', this.state.isMenuOpen, '--active')}>
-          <li className="media-actions__menu-item" onClick={this.handleEdit.bind(this)}><FormattedMessage id="translation.edit" defaultMessage="Edit translation" /></li>
-        </ul>
-      </div>
-    );
-
-    const cancelCallback = () => { this.setState({ editing: false }) };
-    const submitCallback = this.handleSubmitUpdate.bind(this);
-
-    const actionBtns = (<div className="translation__card-actions">
-        <FlatButton label={<FormattedMessage id="translation.cancelEdit" defaultMessage="Cancel" />} onClick={cancelCallback} />
-        <FlatButton className="task__submit" label={<FormattedMessage id="translation.submit" defaultMessage="Submit" />} primary onClick={submitCallback} disabled={this.state.submitDisabled}/>
-      </div>);
-
     return (
       <div className="translation__component">
-        <Card className="translation__card">
+        <Card className="translation__card" style={{'zIndex': 'auto'}}>
           <CardText className="translation__card-text">
-            {cardMenu}
+            <div className={`task__actions ${this.bemClass('media-actions', this.state.isMenuOpen, '--active')}`}>
+              <MdMoreHoriz className="task__actions-icon media-actions__icon" onClick={this.toggleMenu.bind(this)} />
+              <div className={this.bemClass('media-actions__overlay', this.state.isMenuOpen, '--active')} onClick={this.toggleMenu.bind(this)} />
+              <ul className={this.bemClass('media-actions__menu', this.state.isMenuOpen, '--active')}>
+                <li className="media-actions__menu-item" onClick={this.handleEdit.bind(this)}><FormattedMessage id="translation.edit" defaultMessage="Edit translation" /></li>
+              </ul>
+            </div>
             {this.state.editing ?
               <div>
                 <form name="translation_edit">
@@ -153,12 +137,17 @@ class TranslationItem extends Component {
                     multiLine
                   />
                 </form>
-                {actionBtns}
+                <div className="translation__card-actions">
+                  <FlatButton label={<FormattedMessage id="translation.cancelEdit" defaultMessage="Cancel" />} onClick={() => this.setState({ editing: false })} />
+                  <FlatButton className="task__submit" label={<FormattedMessage id="translation.submit" defaultMessage="Submit" />} primary onClick={this.handleSubmitUpdate.bind(this)} disabled={this.state.submitDisabled}/>
+                </div>
               </div>
-            : [
-              <div className={`translation__card-title ${rtlClass(language_code)}`}>{text}</div>,
-              <p style={{ display: note ? 'block' : 'none' }} className="translation__note"><ParsedText text={note} /></p>
-            ]}
+              :
+              <div>
+                <div className={`translation__card-title ${rtlClass(language_code)}`}><ParsedText text={text} /></div>
+                <p style={{ display: note ? 'block' : 'none' }} className="translation__note"><ParsedText text={note} /></p>
+              </div>
+            }
             <span className="media-tags__tag">{this.props.intl.formatMessage(messages.language, { language })}</span>
           </CardText>
         </Card>

@@ -70,8 +70,8 @@
 @mixin button-medium {
   @include button-standard;
   font: font(body2);
-  height: units(4) + units(half);
-  line-height: units(4) + units(half);
+  height: units(4) + units(.5);
+  line-height: units(4) + units(.5);
 }
 
 @mixin button-large {
@@ -117,7 +117,17 @@
 
   svg {
     flex: none;
-    margin-#{$to-direction}: 0 units(1) units(1);
     width: units(2);
+    margin-#{$to-direction}: 0 units(1) units(1);
   }
+}
+
+// Default button
+.button {
+  @include button-medium;
+}
+
+// Button group
+.button + .button {
+  margin-#{$from-direction}: units(1);
 }

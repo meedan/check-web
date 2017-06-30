@@ -8,14 +8,12 @@ import InfiniteScroll from 'react-infinite-scroller';
 import SearchRoute from '../relay/SearchRoute';
 import TeamRoute from '../relay/TeamRoute';
 import MediaDetail from './media/MediaDetail';
-import { bemClass } from '../helpers';
-import { getStatusStyle } from '../helpers';
+import { bemClass, getStatusStyle, notify } from '../helpers';
 import CheckContext from '../CheckContext';
 import ContentColumn from './layout/ContentColumn';
 import MediasLoading from './media/MediasLoading';
 import isEqual from 'lodash.isequal';
 import { teamStatuses } from '../customHelpers';
-import Notifier from 'react-desktop-notification';
 import config from 'config';
 
 const pageSize = 20;
@@ -244,14 +242,14 @@ class SearchQueryComponent extends Component {
               <input placeholder={this.props.intl.formatMessage(messages.searchInputHint)} name="search-input" id="search-input" className="search__input" defaultValue={this.state.query.keyword || ''} ref={input => this.searchQueryInput = input} />
             </form> : null }
 
-            <section className="search__filters / filters">
+            <section className="search__filters filters">
               {/* Status */}
               { this.showField('status') ?
               <div>
                 <h4><FormattedMessage id="search.statusHeading" defaultMessage="Status" /></h4>
-                <ul className="/ media-tags__suggestions-list">
+                <ul className="media-tags__suggestions-list">
                   {statuses.map(status =>
-                    <li title={status.description} onClick={this.handleStatusClick.bind(this, status.id)} className={bemClass('media-tags__suggestion', this.statusIsSelected(status.id), '--selected')} style={{ backgroundColor: getStatusStyle(status, 'backgroundColor') }} >{status.label}</li>)}
+                    <li key={status.id} title={status.description} onClick={this.handleStatusClick.bind(this, status.id)} className={bemClass('media-tags__suggestion', this.statusIsSelected(status.id), '--selected')} style={{ backgroundColor: getStatusStyle(status, 'backgroundColor') }} >{status.label}</li>)}
                 </ul>
               </div> : null }
 
@@ -259,8 +257,10 @@ class SearchQueryComponent extends Component {
               { this.showField('project') ?
               <div>
                 <h4><FormattedMessage id="search.projectHeading" defaultMessage="Project" /></h4>
-                <ul className="/ media-tags__suggestions-list">
-                  {projects.map(project => <li title={project.node.description} onClick={this.handleProjectClick.bind(this, project.node.dbid)} className={bemClass('media-tags__suggestion', this.projectIsSelected(project.node.dbid), '--selected')}>{project.node.title}</li>)}
+                <ul className="media-tags__suggestions-list">
+                  {projects.map(project =>
+                    <li key={project.node.dbid} title={project.node.description} onClick={this.handleProjectClick.bind(this, project.node.dbid)} className={bemClass('media-tags__suggestion', this.projectIsSelected(project.node.dbid), '--selected')}>{project.node.title}</li>
+                  )}
                 </ul>
               </div> : null }
 
@@ -268,8 +268,10 @@ class SearchQueryComponent extends Component {
               { this.showField('tags') && suggestedTags.length ? (
                 <div>
                   <h4><FormattedMessage id="status.categoriesHeading" defaultMessage="Categories" /></h4>
-                  <ul className="/ media-tags__suggestions-list">
-                    {suggestedTags.map(tag => <li title={null} onClick={this.handleTagClick.bind(this, tag)} className={bemClass('media-tags__suggestion', this.tagIsSelected(tag), '--selected')}>{tag}</li>)}
+                  <ul className="media-tags__suggestions-list">
+                    {suggestedTags.map(tag =>
+                      <li key={tag.id} title={null} onClick={this.handleTagClick.bind(this, tag)} className={bemClass('media-tags__suggestion', this.tagIsSelected(tag), '--selected')}>{tag}</li>
+                    )}
                   </ul>
                 </div>
               ) : null }
@@ -369,7 +371,8 @@ class SearchResultsComponent extends Component {
       pusher.subscribe(channel).bind('media_updated', (data) => {
         let content = null;
         let message = {};
-        const currentUserId = that.currentContext().currentUser.dbid;
+        const currentUser = that.currentContext().currentUser;
+        const currentUserId =  currentUser ? currentUser.dbid : 0;
         const avatar = config.restBaseUrl.replace(/\/api.*/, '/images/bridge.png');
 
         try {
@@ -387,7 +390,7 @@ class SearchResultsComponent extends Component {
         // Notify other users that there is a new translation request
         if (content && message.class_name === 'translation_request' && currentUserId != message.user_id) {
           let url = window.location.pathname.replace(/(^\/[^\/]+\/project\/[0-9]+).*/, '$1/media/' + message.id);
-          Notifier.start(that.props.intl.formatMessage(messages.newTranslationRequestNotification), content, url, avatar);
+          notify(that.props.intl.formatMessage(messages.newTranslationRequestNotification), content, url, avatar, "_self");
         }
 
         // Notify other users that there is a new translation
@@ -400,7 +403,7 @@ class SearchResultsComponent extends Component {
           });
           if (translated) {
             let url = window.location.pathname.replace(/(^\/[^\/]+\/project\/[0-9]+).*/, '$1/media/' + message.annotated_id);
-            Notifier.start(that.props.intl.formatMessage(messages.newTranslationNotification), that.props.intl.formatMessage(messages.newTranslationNotificationBody), url, avatar);
+            notify(that.props.intl.formatMessage(messages.newTranslationNotification), that.props.intl.formatMessage(messages.newTranslationNotificationBody), url, avatar, "_self");
           }
         }
 
@@ -430,19 +433,17 @@ class SearchResultsComponent extends Component {
     const count = this.props.search ? this.props.search.number_of_results : 0;
     const mediasCount = this.props.intl.formatMessage(messages.searchResults, { resultsCount: count });
     const title = /\/project\//.test(window.location.pathname) ? '' : mediasCount;
-    const that = this;
 
     return (
-      <div className="search__results / results">
+      <div className="search__results results">
         <h3 className="search__results-heading">{title}</h3>
-        {/* <h4>Most recent activity first</h4> */}
 
         <InfiniteScroll hasMore loadMore={this.loadMore.bind(this)} threshold={500}>
 
-          <ul className="search__results-list / results medias-list">
+          <ul className="search__results-list results medias-list">
             {medias.map(media => (
-              <li className="/ medias__item">
-                <MediaDetail media={media.node} condensed parentComponent={that} />
+              <li key={media.node.dbid} className="medias__item">
+                <MediaDetail media={media.node} condensed parentComponent={this} />
               </li>
             ))}
           </ul>

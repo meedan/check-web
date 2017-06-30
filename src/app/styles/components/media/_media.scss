@@ -6,10 +6,6 @@
 $media-expanded-top-offset: layout(header-height) + layout(gutter-medium);
 
 .media {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  min-height: calc(100vh - #{$media-expanded-top-offset});
 
   // 2-column view on desktop, if there are tasks
   //
@@ -31,7 +27,7 @@ $media-expanded-top-offset: layout(header-height) + layout(gutter-medium);
         .media__tasks-column {
           $_width: units(68);
           flex-basis: $_width;
-          margin-top: -1 * (units(4) + units(half));
+          margin-top: -1 * units(4.5);
           width: $_width;
         }
       }
@@ -48,6 +44,10 @@ $media-expanded-top-offset: layout(header-height) + layout(gutter-medium);
       }
     }
   }
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: calc(100vh - #{$media-expanded-top-offset});
 
   &__expanded {
     // slide under header
@@ -60,19 +60,19 @@ $media-expanded-top-offset: layout(header-height) + layout(gutter-medium);
 
   &__expanded-header {
     margin: 0 auto;
-    max-width: layout(column-width-narrow);
+    max-width: layout(column-width-medium);
     padding: 0 units(1);
     padding-top: units(7);
   }
 
   &__expanded-column-wrapper {
-    display: flex;
-    flex-direction: column;
-    padding: 0;
 
     @include when-taller-than(tallscreen-breakpoint) {
       justify-content: space-around;
     }
+    display: flex;
+    flex-direction: column;
+    padding: 0;
   }
 
   &__primary-heading {
@@ -91,8 +91,8 @@ $media-expanded-top-offset: layout(header-height) + layout(gutter-medium);
     }
 
     .media-status__menu {
-      #{$from-direction}: 0;
       top: units(4);
+      #{$from-direction}: 0;
     }
   }
 
@@ -141,8 +141,8 @@ $media-expanded-top-offset: layout(header-height) + layout(gutter-medium);
     & > svg {
       color: $black-16;
       height: units(3);
-      margin-#{$from-direction}: units(1);
       width: units(3);
+      margin-#{$from-direction}: units(1);
     }
   }
 

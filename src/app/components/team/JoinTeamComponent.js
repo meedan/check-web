@@ -4,6 +4,7 @@ import PageTitle from '../PageTitle';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import { Link } from 'react-router';
 import CreateTeamUserMutation from '../../relay/CreateTeamUserMutation';
+import { mapGlobalMessage } from '../MappedMessage';
 import Message from '../Message';
 import CheckContext from '../../CheckContext';
 import ContentColumn from '../layout/ContentColumn';
@@ -15,11 +16,11 @@ const messages = defineMessages({
   },
   success: {
     id: 'joinTeamComponent.success',
-    defaultMessage: 'Thanks for your interest in joining {team} Check! A team leader will review your application soon.',
+    defaultMessage: 'Thanks for your interest in joining {team} {appName}! A team leader will review your application soon.',
   },
   autoApprove: {
     id: 'joinTeamComponent.autoApprove',
-    defaultMessage: 'Thanks for joining {team} Check! You can start contributing right away.'
+    defaultMessage: 'Thanks for joining {team} {appName}! You can start contributing right away.'
   },
   title: {
     id: 'joinTeamComponent.title',
@@ -59,12 +60,13 @@ class JoinTeamComponent extends Component {
     };
 
     const onSuccess = (response) => {
+      const appName = mapGlobalMessage(that.props.intl, 'appNameHuman');
       const status = response.createTeamUser.team_user.status;
       let message = messages.success
       if (status === 'member') {
         message = messages.autoApprove;
       }
-      that.setState({ message: that.props.intl.formatMessage(message, { team: that.props.team.name }), requestStatus: status });
+      that.setState({ message: that.props.intl.formatMessage(message, { team: that.props.team.name, appName }), requestStatus: status });
     };
 
     Relay.Store.commitUpdate(
@@ -109,9 +111,8 @@ class JoinTeamComponent extends Component {
 
   render() {
     const team = this.props.team;
-
+    const appName = mapGlobalMessage(this.props.intl, 'appNameHuman');
     const isRequestSent = this.state.requestStatus;
-
     const disableRequest = (isRequestSent === '') ? false : true;
 
     if (this.alreadyMember()) {
@@ -121,8 +122,8 @@ class JoinTeamComponent extends Component {
             <p className="join-team__blurb-graf">
               <FormattedMessage
                 id="joinTeamComponent.alreadyRequested"
-                defaultMessage={'You already requested to join {team} Check.'}
-                values={{ team: <Link to={`/${team.slug}`}>{team.name}</Link> }}
+                defaultMessage={'You already requested to join {team} {appName}.'}
+                values={{ team: <Link to={`/${team.slug}`}>{team.name}</Link>, appName }}
               />
             </p>
           </div>
@@ -135,13 +136,15 @@ class JoinTeamComponent extends Component {
         <div className="join-team">
           <ContentColumn className="card">
             <Message message={this.state.message} />
-            <h2 className="join-team__main-heading"><FormattedMessage id="joinTeamComponent.mainHeading" defaultMessage="Request to Join" /></h2>
+            <h2 className="join-team__main-heading">
+              <FormattedMessage id="joinTeamComponent.mainHeading" defaultMessage="Request to Join" />
+            </h2>
             <div className="join-team__blurb">
               <p className="join-team__blurb-graf">
                 <FormattedMessage
                   id="joinTeamComponent.blurbGraf"
-                  defaultMessage={'To request access to the {link} Check, click below:'}
-                  values={{ link: <Link to={`/${team.slug}`}>{team.name}</Link> }}
+                  defaultMessage={'To request access to the {link} {appName}, click below:'}
+                  values={{ link: <Link to={`/${team.slug}`}>{team.name}</Link>, appName }}
                 />
               </p>
               <div>

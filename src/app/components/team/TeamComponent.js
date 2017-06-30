@@ -1,26 +1,35 @@
-import React, {Component, PropTypes} from 'react';
+import React, { Component } from 'react';
 import Relay from 'react-relay';
+import PropTypes from 'prop-types';
+import {
+  FormattedMessage,
+  defineMessages,
+  injectIntl,
+  intlShape,
+} from 'react-intl';
+import TextField from 'material-ui/TextField';
+import Checkbox from 'material-ui/Checkbox';
+import FlatButton from 'material-ui/FlatButton';
+import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
+import IconButton from 'material-ui/IconButton';
+import MdChevronRight from 'react-icons/lib/md/chevron-right';
+import MDEdit from 'react-icons/lib/md/edit';
+import { List, ListItem } from 'material-ui/List';
 import PageTitle from '../PageTitle';
 import MappedMessage from '../MappedMessage';
-import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
-import Tags from './Tags';
-import {Link} from 'react-router';
-
-import MdLink from 'react-icons/lib/md/link';
-import MdCreate from 'react-icons/lib/md/create';
-import MdLocationOn from 'react-icons/lib/md/location-on';
-import MdLocalPhone from 'react-icons/lib/md/local-phone';
-import FASlack from 'react-icons/lib/fa/slack';
-
 import UpdateTeamMutation from '../../relay/UpdateTeamMutation';
 import Message from '../Message';
-import CreateContactMutation from '../../relay/CreateContactMutation';
-import UpdateContactMutation from '../../relay/UpdateContactMutation';
 import CreateProject from '../project/CreateProject';
 import Can from '../Can';
 import CheckContext from '../../CheckContext';
 import ContentColumn from '../layout/ContentColumn';
-import {bemClass} from '../../helpers';
+import ParsedText from '../ParsedText';
+import {
+  highlightBlue,
+  titleStyle,
+  listItemStyle,
+  listStyle,
+} from '../../../../config-styles';
 
 const messages = defineMessages({
   editError: {
@@ -33,7 +42,8 @@ const messages = defineMessages({
   },
   changeAvatar: {
     id: 'teamComponent.changeAvatar',
-    defaultMessage: "You can't change this right now, but we're hard at work to enable it soon!",
+    defaultMessage:
+      "You can't change this right now, but we're hard at work to enable it soon!",
   },
   teamName: {
     id: 'teamComponent.teamName',
@@ -82,9 +92,11 @@ const messages = defineMessages({
 });
 
 class TeamComponent extends Component {
+
   constructor(props) {
     super(props);
-    const team = this.props.team, contact = team.contacts.edges[0] || {node: {}};
+    const team = this.props.team;
+    const contact = team.contacts.edges[0] || { node: {} };
     this.state = {
       message: null,
       isEditing: false,
@@ -102,18 +114,6 @@ class TeamComponent extends Component {
     };
   }
 
-  setContextTeam() {
-    const context = new CheckContext(this);
-    const store = context.getContextStore();
-    const team = this.props.team;
-
-    if (!store.team || store.team.slug != team.slug) {
-      context.setContextStore({team});
-      const path = `/${team.slug}`;
-      store.history.push(path);
-    }
-  }
-
   componentDidMount() {
     this.setContextTeam();
   }
@@ -122,15 +122,27 @@ class TeamComponent extends Component {
     this.setContextTeam();
   }
 
+  setContextTeam() {
+    const context = new CheckContext(this);
+    const store = context.getContextStore();
+    const team = this.props.team;
+
+    if (!store.team || store.team.slug !== team.slug) {
+      context.setContextStore({ team });
+      const path = `/${team.slug}`;
+      store.history.push(path);
+    }
+  }
+
   cancelEditTeam(e) {
     e.preventDefault();
-    this.setState({isEditing: false});
+    this.setState({ isEditing: false });
   }
 
   editTeamInfo() {
     const that = this;
 
-    const onFailure = transaction => {
+    const onFailure = (transaction) => {
       const error = transaction.getError();
       let message = that.props.intl.formatMessage(messages.editError);
       try {
@@ -138,11 +150,13 @@ class TeamComponent extends Component {
         if (json.error) {
           message = json.error;
         }
-      } catch (e) {}
-      that.setState({message, submitDisabled: false});
+      } catch (e) {
+        return '';
+      }
+      return that.setState({ message, submitDisabled: false });
     };
 
-    const onSuccess = response => {
+    const onSuccess = () => {
       this.setState({
         message: that.props.intl.formatMessage(messages.editSuccess),
         isEditing: false,
@@ -167,9 +181,9 @@ class TeamComponent extends Component {
           }),
           id: that.props.team.id,
         }),
-        {onSuccess, onFailure}
+        { onSuccess, onFailure },
       );
-      that.setState({submitDisabled: true});
+      that.setState({ submitDisabled: true });
     }
   }
 
@@ -178,7 +192,7 @@ class TeamComponent extends Component {
   }
 
   handleEntreEditTeamNameAndDescription(e) {
-    this.setState({isEditing: true});
+    this.setState({ isEditing: true });
     e.preventDefault();
   }
 
@@ -189,262 +203,314 @@ class TeamComponent extends Component {
     }
     const values = Object.assign({}, this.state.values);
     values[key] = value;
-    this.setState({values});
+    this.setState({ values });
   }
 
   render() {
     const team = this.props.team;
     const isEditing = this.state.isEditing;
     const contact = team.contacts.edges[0];
+    const contactInfo = [];
+
+    if (contact) {
+      if (contact.node.location) {
+        contactInfo.push(
+          <span key="contactInfo.location" className="team__location">
+            <span className="team__location-name">
+              <ParsedText text={contact.node.location} />
+            </span>
+          </span>,
+        );
+      }
+
+      if (contact.node.phone) {
+        contactInfo.push(
+          <span key="contactInfo.phone" className="team__phone">
+            <span className="team__phone-name">
+              <ParsedText text={contact.node.phone} />
+            </span>
+          </span>,
+        );
+      }
+
+      if (contact.node.web) {
+        contactInfo.push(
+          <span key="contactInfo.web" className="team__web">
+            <span className="team__link-name">
+              <ParsedText text={contact.node.web} />
+            </span>
+          </span>,
+        );
+      }
+    }
 
     return (
       <PageTitle prefix={false} skipTeam={false} team={team}>
         <div className="team">
-          <ContentColumn className="card">
-            <Message message={this.state.message} />
-            <section className={bemClass('team__profile', isEditing, '--editing')}>
-              <div className="team__avatar-and-primary-info">
-                {(() => {
-                  if (isEditing) {
-                    return (
-                      <div className="team__edit-profile team__edit-profile--editing">
-                        <button
-                          onClick={this.cancelEditTeam.bind(this)}
-                          className="team__cancel-button">
-                          <FormattedMessage id="teamComponent.cancelButton" defaultMessage="Cancel" />
-                        </button>
-                        <button
-                          onClick={this.handleEditTeam.bind(this)}
-                          className="team__save-button"
-                          disabled={this.state.submitDisabled}>
-                          <FormattedMessage id="teamComponent.saveButton" defaultMessage="Save" />
-                        </button>
-                      </div>
-                    );
-                  }
-                  return (
-                    <Can permissions={team.permissions} permission="update Team">
-                      <div className="team__edit-profile">
-                        <button
-                          onClick={this.handleEntreEditTeamNameAndDescription.bind(this)}
-                          className="team__edit-button">
-                          <MdCreate />&nbsp;
-                          <FormattedMessage
-                            id="teamComponent.editButton"
-                            defaultMessage="Edit profile"
-                          />
-                        </button>
-                      </div>
-                    </Can>
-                  );
-                })()}
-                <div
-                  className="team__avatar"
-                  style={{'background-image': `url(${team.avatar})`}}
-                  title={this.props.intl.formatMessage(messages.changeAvatar)}
-                />
-
-                {(() => {
-                  if (this.state.isEditing) {
-                    return (
-                      <div className="team__primary-info">
-                        <h1 className="team__name team__name--editing">
-                          <input
-                            type="text"
-                            id="team__name-container"
-                            className="team__name-input"
-                            defaultValue={team.name}
-                            onChange={this.handleChange.bind(this, 'name')}
-                            placeholder={this.props.intl.formatMessage(messages.teamName)}
-                          />
-                        </h1>
-                        <div className="team__description">
-                          <input
-                            type="text"
-                            id="team__description-container"
-                            className="team__description-input"
-                            defaultValue={team.description}
-                            placeholder={this.props.intl.formatMessage(messages.teamDescription)}
-                            onChange={this.handleChange.bind(this, 'description')}
-                          />
-                        </div>
-                      </div>
-                    );
-                  }
-                  return (
-                    <div className="team__primary-info">
-                      <h1 className="team__name">
-                        <Link to="#" className="team__name-link">{team.name}</Link>
-                      </h1>
-                      <div className="team__description">
-                        <p className="team__description-text">
-                          {team.description ||
-                            <MappedMessage msgObj={messages} msgKey="verificationTeam" />}
-                        </p>
-                      </div>
-                    </div>
-                  );
-                })()}
-              </div>
-
-              <div className="team__contact-info">
-                <span className="team__location">
-                  {(() => {
-                    if (isEditing) {
-                      return (
-                        <span>
-                          <MdLocationOn className="team__location-icon" />
-                          <input
-                            type="text"
-                            id="team__location-container"
-                            defaultValue={contact ? contact.node.location : ''}
-                            className="team__location-name-input"
-                            placeholder={this.props.intl.formatMessage(messages.location)}
-                            onChange={this.handleChange.bind(this, 'contact_location')}
-                          />
-                        </span>
-                      );
-                    } else if (contact && !!contact.node.location) {
-                      return (
-                        <span>
-                          <MdLocationOn className="team__location-icon" />
-                          <span className="team__location-name">{contact.node.location}</span>
-                        </span>
-                      );
-                    }
-                    return <span className="team__location-name" />;
-                  })()}
-                </span>
-                <span className="team__phone">
-                  {(() => {
-                    if (isEditing) {
-                      return (
-                        <span>
-                          <MdLocalPhone />
-                          <input
-                            type="text"
-                            id="team__phone-container"
-                            defaultValue={contact ? contact.node.phone : ''}
-                            className="team__location-name-input"
-                            placeholder={this.props.intl.formatMessage(messages.phone)}
-                            onChange={this.handleChange.bind(this, 'contact_phone')}
-                          />
-                        </span>
-                      );
-                    } else if (contact && !!contact.node.phone) {
-                      return (
-                        <span>
-                          <MdLocalPhone />
-                          <span className="team__phone-name">{contact.node.phone}</span>
-                        </span>
-                      );
-                    }
-                    return <span className="team__phone-name" />;
-                  })()}
-                </span>
-                <span className="team__web">
-                  {(() => {
-                    if (isEditing) {
-                      return (
-                        <span>
-                          <MdLink />
-                          <input
-                            type="text"
-                            id="team__link-container"
-                            defaultValue={contact ? contact.node.web : ''}
-                            className="team__location-name-input"
-                            placeholder={this.props.intl.formatMessage(messages.website)}
-                            onChange={this.handleChange.bind(this, 'contact_web')}
-                          />
-                        </span>
-                      );
-                    } else if (contact && !!contact.node.web) {
-                      return (
-                        <span>
-                          <MdLink />
-                          <span className="team__link-name">{contact.node.web}</span>
-                        </span>
-                      );
-                    }
-                    return <span className="team__link-name" />;
-                  })()}
-                </span>
-              </div>
-
+          <Card className="team__profile team__profile--editing">
+            <ContentColumn>
+              <Message message={this.state.message} />
               {(() => {
                 if (isEditing) {
                   return (
-                    <div className="team__settings">
-                      <span>
-                        <input
-                          type="checkbox"
-                          id="team__settings-slack-notifications-enabled"
-                          value="1"
-                          defaultChecked={team.get_slack_notifications_enabled === '1'}
-                          onChange={this.handleChange.bind(this, 'slackNotificationsEnabled')}
-                        />
-                        <label htmlFor="team__settings-slack-notifications-enabled">
-                          <FormattedMessage
-                            id="teamComponent.slackNotificationsEnabled"
-                            defaultMessage="Enable Slack notifications"
+                    <div>
+                      <CardText>
+                        <div className="team__primary-info">
+                          <TextField
+                            className="team__name-input"
+                            id="team__name-container"
+                            defaultValue={team.name}
+                            floatingLabelText={this.props.intl.formatMessage(
+                              messages.teamName,
+                            )}
+                            onChange={this.handleChange.bind(this, 'name')}
+                            fullWidth
                           />
-                        </label>
-                      </span>
-                      <span>
-                        <MdLink />
-                        <input
-                          type="text"
-                          id="team__settings-slack-webhook"
-                          defaultValue={team.get_slack_webhook}
-                          placeholder={this.props.intl.formatMessage(messages.slackWebhook)}
-                          onChange={this.handleChange.bind(this, 'slackWebhook')}
+
+                          <TextField
+                            className="team__description"
+                            id="team__description-container"
+                            defaultValue={team.description}
+                            floatingLabelText={this.props.intl.formatMessage(
+                              messages.teamDescription,
+                            )}
+                            onChange={this.handleChange.bind(
+                              this,
+                              'description',
+                            )}
+                            fullWidth
+                            multiLine
+                            rows={1}
+                            rowsMax={4}
+                          />
+
+                          <TextField
+                            className="team__location"
+                            id="team__location-container"
+                            defaultValue={contact ? contact.node.location : ''}
+                            floatingLabelText={this.props.intl.formatMessage(
+                              messages.location,
+                            )}
+                            onChange={this.handleChange.bind(
+                              this,
+                              'contact_location',
+                            )}
+                            fullWidth
+                          />
+
+                          <TextField
+                            className="team__phone"
+                            id="team__phone-container"
+                            defaultValue={contact ? contact.node.phone : ''}
+                            floatingLabelText={this.props.intl.formatMessage(
+                              messages.phone,
+                            )}
+                            onChange={this.handleChange.bind(
+                              this,
+                              'contact_phone',
+                            )}
+                            fullWidth
+                          />
+
+                          <TextField
+                            className="team__location-name-input"
+                            id="team__link-container"
+                            defaultValue={contact ? contact.node.web : ''}
+                            floatingLabelText={this.props.intl.formatMessage(
+                              messages.website,
+                            )}
+                            onChange={this.handleChange.bind(
+                              this,
+                              'contact_web',
+                            )}
+                            fullWidth
+                          />
+                        </div>
+
+                        <div className="team__settings">
+                          <Checkbox
+                            label={
+                              <FormattedMessage
+                                id="teamComponent.slackNotificationsEnabled"
+                                defaultMessage="Enable Slack notifications"
+                              />
+                            }
+                            defaultChecked={
+                              team.get_slack_notifications_enabled === '1'
+                            }
+                            onCheck={this.handleChange.bind(
+                              this,
+                              'slackNotificationsEnabled',
+                            )}
+                            id="team__settings-slack-notifications-enabled"
+                            value="1"
+                          />
+
+                          <TextField
+                            id="team__settings-slack-webhook"
+                            defaultValue={team.get_slack_webhook}
+                            floatingLabelText={this.props.intl.formatMessage(
+                              messages.slackWebhook,
+                            )}
+                            onChange={this.handleChange.bind(
+                              this,
+                              'slackWebhook',
+                            )}
+                            fullWidth
+                          />
+
+                          <TextField
+                            id="team__settings-slack-channel"
+                            defaultValue={team.get_slack_channel}
+                            floatingLabelText={this.props.intl.formatMessage(
+                              messages.slackChannel,
+                            )}
+                            onChange={this.handleChange.bind(
+                              this,
+                              'slackChannel',
+                            )}
+                            fullWidth
+                          />
+                        </div>
+                      </CardText>
+
+                      <CardActions className="team__profile-card-actions">
+                        <FlatButton
+                          className="team__cancel-button"
+                          label={
+                            <FormattedMessage
+                              id="teamComponent.cancelButton"
+                              defaultMessage="Cancel"
+                            />
+                          }
+                          onClick={this.cancelEditTeam.bind(this)}
                         />
-                      </span>
-                      <span>
-                        <FASlack />
-                        <input
-                          type="text"
-                          id="team__settings-slack-channel"
-                          defaultValue={team.get_slack_channel}
-                          placeholder={this.props.intl.formatMessage(messages.slackChannel)}
-                          onChange={this.handleChange.bind(this, 'slackChannel')}
+
+                        <FlatButton
+                          className="team__save-button"
+                          label={
+                            <FormattedMessage
+                              id="teamComponent.saveButton"
+                              defaultMessage="Save"
+                              disabled={this.state.submitDisabled}
+                            />
+                          }
+                          primary
+                          onClick={this.handleEditTeam.bind(this)}
                         />
-                      </span>
+                      </CardActions>
                     </div>
                   );
                 }
-              })()}
 
-              <div className="team__content">
-                <div className="team__content-body">
-                  <h3 className="team__projects-heading">
-                    <MappedMessage
-                      msgObj={messages}
-                      msgKey="verificationProjects"
+                return (
+                  <div>
+                    <section className="layout-two-column">
+                      <div className="column-secondary">
+                        <div
+                          className="team__avatar"
+                          style={{ backgroundImage: `url(${team.avatar})` }}
+                          title={this.props.intl.formatMessage(
+                            messages.changeAvatar,
+                          )}
+                        />
+                      </div>
+                      <div className="column-primary">
+                        <div className="team__primary-info">
+                          <h1 className="team__name">
+                            {team.name}
+                          </h1>
+                          <div className="team__description">
+                            <p className="team__description-text">
+                              {<ParsedText text={team.description} /> ||
+                                <MappedMessage
+                                  msgObj={messages}
+                                  msgKey="verificationTeam"
+                                />}
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="team__contact-info">
+                          {contactInfo}
+                        </div>
+                      </div>
+                    </section>
+                    <section className="layout-fab-container">
+                      <Can
+                        permissions={team.permissions}
+                        permission="update Team"
+                      >
+                        <IconButton
+                          className="team__edit-button"
+                          tooltip={
+                            <FormattedMessage
+                              id="teamComponent.editButton"
+                              defaultMessage="Edit profile"
+                            />
+                          }
+                          tooltipPosition="top-center"
+                          onTouchTap={this.handleEntreEditTeamNameAndDescription.bind(
+                            this,
+                          )}
+                        >
+                          <MDEdit />
+                        </IconButton>
+                      </Can>
+                    </section>
+                  </div>
+                );
+              })()}
+            </ContentColumn>
+          </Card>
+          {(() => {
+            if (!isEditing) {
+              return (
+                <ContentColumn>
+                  <Card>
+                    <CardHeader
+                      titleStyle={titleStyle}
+                      title={
+                        <MappedMessage
+                          msgObj={messages}
+                          msgKey="verificationProjects"
+                        />
+                      }
                     />
-                  </h3>
-                  <ul className="team__projects-list">
-                    {team.projects.edges
-                      .sortp((a, b) => a.node.title.localeCompare(b.node.title))
-                      .map(p => (
-                        <li className="team__project">
-                          <Link
-                            to={`/${team.slug}/project/${p.node.dbid}`}
-                            className="team__project-link">
-                            {p.node.title}
-                          </Link>
-                        </li>
-                      ))}
-                    <Can permissions={team.permissions} permission="create Project">
-                      <li className="team__new-project">
-                        <CreateProject className="team__new-project-input" team={team} />
-                      </li>
+                    <List style={listStyle} className>
+                      {team.projects.edges
+                        .sortp((a, b) =>
+                          a.node.title.localeCompare(b.node.title),
+                        )
+                        .map(p =>
+                          <ListItem
+                            key={p.node.dbid} className="team__project"
+                            style={listItemStyle}
+                            hoverColor={highlightBlue}
+                            href={`/${team.slug}/project/${p.node.dbid}`}
+                            primaryText={p.node.title}
+                            rightIcon={<MdChevronRight />}
+                          />,
+                        )}
+                    </List>
+                    <Can
+                      permissions={team.permissions}
+                      permission="create Project"
+                    >
+                      <CardActions>
+                        <CreateProject
+                          team={team}
+                          autoFocus={team.projects.edges.length === 0}
+                        />
+                      </CardActions>
                     </Can>
-                  </ul>
-                </div>
-              </div>
-            </section>
-          </ContentColumn>
+                  </Card>
+                </ContentColumn>
+              );
+            }
+            return '';
+          })()}
+
         </div>
       </PageTitle>
     );
@@ -453,6 +519,7 @@ class TeamComponent extends Component {
 
 TeamComponent.propTypes = {
   intl: intlShape.isRequired,
+  team: PropTypes.object,
 };
 
 TeamComponent.contextTypes = {

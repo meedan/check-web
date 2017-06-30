@@ -4,6 +4,7 @@ import Relay from 'react-relay';
 import CreateProjectMutation from '../../relay/CreateProjectMutation';
 import Message from '../Message';
 import CheckContext from '../../CheckContext';
+import TextField from 'material-ui/TextField';
 
 const messages = defineMessages({
   addProject: {
@@ -22,7 +23,7 @@ class CreateProject extends Component {
 
     this.state = {
       message: null,
-      submitDisabled: false
+      submitDisabled: false,
     };
   }
 
@@ -74,7 +75,16 @@ class CreateProject extends Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit.bind(this)} className="create-project">
-        <input type="text" className={this.props.className} placeholder={this.props.intl.formatMessage(messages.addProject)} id="create-project-title" ref={input => this.projectInput = input} />
+
+        <TextField
+          id="create-project-title"
+          className={this.props.className || 'team__new-project-input'}
+          floatingLabelText={this.props.intl.formatMessage(messages.addProject)}
+          ref={input => this.projectInput = input}
+          style={this.props.style || { marginLeft: '8px' }}
+          autoFocus={this.props.autoFocus}
+        />
+
         <Message message={this.state.message} />
       </form>
     );
@@ -83,6 +93,8 @@ class CreateProject extends Component {
 
 CreateProject.propTypes = {
   intl: intlShape.isRequired,
+  style: PropTypes.object,
+  className: PropTypes.string,
 };
 
 CreateProject.contextTypes = {

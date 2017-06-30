@@ -10,7 +10,34 @@ import config from 'config';
 import ContentColumn from '../layout/ContentColumn';
 import CheckContext from '../../CheckContext';
 import Heading from '../layout/Heading';
+import {caption, subheading2, checkBlue, black38, black87} from '../../../../config-styles';
 import XRegExp from 'xregexp';
+import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
+import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
+import styled from 'styled-components';
+
+const TeamUrlRow = styled.div`
+  align-items: flex-end;
+  display: flex;
+  font-size: 12px;
+  margin-top: 24px;
+  label {
+    font: ${caption};
+    color: ${checkBlue};
+  }
+`;
+
+const TeamUrlColumn = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 9px;
+`;
+
+const TeamUrlDomain = styled.span`
+  font: ${subheading2};
+  color: ${black38};
+`;
 
 const messages = defineMessages({
   slugChecking: {
@@ -100,40 +127,8 @@ class CreateTeam extends Component {
     const isTextEntered = slug && slug.length > 0;
 
     this.setState({
-      slugLabelClass: (isTextEntered ? this.slugLabelClass('--text-entered') : this.slugLabelClass()),
       slugName: slug
     });
-
-    // stubs pending real/API implementation; may need debouncing?
-    const slugIsPending = false;
-    const slugIsAvailable = false;
-    const slugIsUnavailable = false;
-
-    if (slugIsPending) {
-      this.setState({
-        slugClass: this.slugClass(),
-        slugMessage: this.props.intl.formatMessage(messages.slugChecking),
-        buttonIsDisabled: true,
-      });
-    } else if (slugIsAvailable) {
-      this.setState({
-        slugClass: this.slugClass('--success'),
-        slugMessage: this.props.intl.formatMessage(messages.slugAvailable),
-        buttonIsDisabled: false,
-      });
-    } else if (slugIsUnavailable) {
-      this.setState({
-        slugClass: this.slugClass('--error'),
-        slugMessage: this.props.intl.formatMessage(messages.slugUnavailable),
-        buttonIsDisabled: true,
-      });
-    } else {
-      this.setState({
-        slugClass: this.slugClass(),
-        slugMessage: '',
-        buttonIsDisabled: true,
-      });
-    }
   }
 
   handleSubmit(e) {
@@ -175,48 +170,67 @@ class CreateTeam extends Component {
   render() {
     return (
       <PageTitle prefix={this.props.intl.formatMessage(messages.title)} skipTeam={true}>
+
         <main className="create-team">
+          <ContentColumn narrow>
           <Message message={this.state.message} />
-          <ContentColumn className="card">
-            <Heading><FormattedMessage id="createTeam.mainHeading" defaultMessage="Create a Team" /></Heading>
-            <p className="create-team__blurb"><FormattedMessage id="createTeam.blurb" defaultMessage="Create a team for your organization, or just for yourself:" /></p>
-            <form className="create-team__form">
-              <div className="create-team__team-display-name">
-                <input
-                  value={this.state.displayName}
-                  type="text"
-                  name="teamDisplayName"
-                  id="team-name-container"
-                  className="create-team__team-display-name-input"
-                  onChange={this.handleDisplayNameChange.bind(this)}
-                  onBlur={this.handleDisplayNameBlur.bind(this)}
-                  placeholder={this.props.intl.formatMessage(messages.teamNameHint)}
-                  autoComplete="off"
-                  ref={input => this.teamNameInput = input}
-                />
-                <label className={this.state.displayNameLabelClass}><FormattedMessage id="createTeam.displayName" defaultMessage="Team Name" /></label>
-              </div>
-              <div className="create-team__team-url">
-                  <span className="create-team__root-domain">{config.selfHost}/</span>
-                <div className={this.state.slugClass}>
-                  <input
-                    value={this.state.slugName}
-                    type="text"
-                    name="teamSlug"
-                    id="team-slug-container"
-                    className="create-team__team-slug-input"
-                    onChange={this.handleSlugChange.bind(this)}
-                    placeholder={this.props.intl.formatMessage(messages.teamSlugHint)}
-                    autoComplete="off"
+            <Card>
+              <CardHeader
+                titleStyle={{fontSize: "20px", lineHeight: "32px"}}
+                title={<FormattedMessage id="createTeam.mainHeading" defaultMessage="Create a Team" />}
+                subtitle={<FormattedMessage id="createTeam.blurb" defaultMessage="Create a team for your organization, or just for yourself:" />}
+              />
+              <form className="create-team__form">
+                <CardText>
+                  <div className="create-team__team-display-name">
+                    <TextField
+                      value={this.state.displayName}
+                      type="text"
+                      name="teamDisplayName"
+                      id="team-name-container"
+                      className="create-team__team-display-name-input"
+                      onChange={this.handleDisplayNameChange.bind(this)}
+                      onBlur={this.handleDisplayNameBlur.bind(this)}
+                      autoComplete="off"
+                      ref={input => this.teamNameInput = input}
+                      floatingLabelText={<FormattedMessage id="createTeam.displayName" defaultMessage="Team Name" />}
+                      fullWidth
+                    />
+                  </div>
+
+                  <TeamUrlRow>
+                    <TeamUrlColumn>
+                      <label>
+                        <FormattedMessage id="createTeam.url" defaultMessage="Team URL" />
+                      </label>
+                      <TeamUrlDomain>
+                        {config.selfHost}/
+                      </TeamUrlDomain>
+                    </TeamUrlColumn>
+                    <TextField
+                      value={this.state.slugName}
+                      type="text"
+                      name="teamSlug"
+                      id="team-slug-container"
+                      className="create-team__team-slug-input"
+                      onChange={this.handleSlugChange.bind(this)}
+                      defaultValue={this.props.intl.formatMessage(messages.teamSlugHint)}
+                      autoComplete="off"
+                      fullWidth
+                    />
+                  </TeamUrlRow>
+                </CardText>
+                <CardActions>
+                  <RaisedButton
+                    type="submit"
+                    className="create-team__submit-button"
+                    label={<FormattedMessage id="createTeam.submitButton" defaultMessage="Create" />}
+                    primary
+                    onClick={this.handleSubmit.bind(this)}
                   />
-                  <label className={this.state.slugLabelClass}><FormattedMessage id="createTeam.url" defaultMessage="Team URL" /></label>
-                  <p className="create-team__team-slug-message">{this.state.slugMessage}</p>
-                </div>
-              </div>
-              <button type="submit" onClick={this.handleSubmit.bind(this)} className="create-team__submit-button">
-                <FormattedMessage id="createTeam.submitButton" defaultMessage="Create" />
-              </button>
-            </form>
+                </CardActions>
+              </form>
+            </Card>
           </ContentColumn>
         </main>
       </PageTitle>
