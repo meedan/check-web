@@ -1,5 +1,6 @@
 import Relay from 'react-relay';
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import {
   FormattedMessage,
   defineMessages,
