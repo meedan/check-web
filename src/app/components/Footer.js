@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import { defineMessages } from 'react-intl';
-import { Link } from 'react-router';
 import MappedMessage from './MappedMessage';
 
 const messages = defineMessages({

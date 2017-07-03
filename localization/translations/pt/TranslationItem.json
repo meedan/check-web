@@ -1,8 +1,8 @@
 {
   "mediaTags.language": "Idioma: {language}",
   "translation.edit": "Edite a tradução",
-  "translation.cancelEdit": "Cancelar",
-  "translation.submit": "Enviar",
   "translation.translationText": "Tradução",
-  "translation.translationNote": "Nota"
+  "translation.translationNote": "Nota",
+  "translation.cancelEdit": "Cancelar",
+  "translation.submit": "Enviar"
 }
