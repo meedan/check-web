@@ -16,7 +16,7 @@
   "annotation.translationStatus": "Translation status set to {status} by {author}",
   "annotation.translationPublished": "Translation published to {link}",
   "annotation.keepRetried": "There is a new attempt to archive this item in Keep. Please check back in an hour.",
-  "annotation.keepSuccess": "In case this link goes offline, you can <a {anchor}>access a backup via Keep</a>",
+  "annotation.keepSuccess": "In case this link goes offline, you can <a href=\"{keepLink}\" target=\"_blank\" rel=\"noopener noreferrer\">access a backup via Keep</a>",
   "annotation.keepError": "There was an error when Keep tried to archive this item",
   "annotation.keepRetry": "Retry",
   "annotation.keepWait": "This item is being archived in Keep. Come back in an hour to receive a confirmation link.",
