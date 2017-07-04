@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { CardTitle } from 'material-ui/Card';
+import { ListItem } from 'material-ui/List';
 
 // Styles for overriding material UI
 // General colors
@@ -87,12 +88,6 @@ export const FlexRow = styled.div`
 //
 // <Something style={somethingStyle} />
 //
-export const avatarStyle = {
-  borderRadius: `${defaultBorderRadius}`,
-  backgroundColor: 'transparent',
-  border: `${defaultBorderWidth} solid ${black05}`,
-};
-
 export const titleStyle = {
   fontSize: `${units(2.5)}`,
   lineHeight: `${units(4)}`,
@@ -135,3 +130,21 @@ export const ellipsisStyle = {
   textOverflow: 'ellipsis',
   whiteSpace: 'nowrap',
 };
+
+// Team member and requested-to-join member
+export const MemberRow = styled.div`
+  &, > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    img {
+      margin-right: 16px;
+    }
+  }
+`;
+
+export const ellipsisStyles = 'overflow: hidden; text-overflow: ellipsis; white-space: nowrap;';
+
+export const Text = styled.span`
+  ${props => props.ellipsis ? ellipsisStyles : ''}
+`;
