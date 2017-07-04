@@ -75,7 +75,7 @@ export const StyledMdCardTitle =
     padding-bottom: 8px !important;
   `;
 
-export const FlexRow = styled.div` 
+export const FlexRow = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
