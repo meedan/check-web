@@ -28,5 +28,8 @@
 
         //Todo: ensure class methods use `this`
         "class-methods-use-this": "warn",
+
+        //Todo: Refine use of props eg. in styled-components (or set this rule to off)
+        "no-confusing-arrow": "warn"
     }
 }
