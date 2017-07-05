@@ -1,10 +1,10 @@
 {
-  "switchTeams.error": "Sorry, could not switch teams",
-  "switchTeams.member": "member",
-  "switchTeams.members": "members",
-  "switchTeams.joinRequestMessage": "You requested to join",
-  "switchTeams.cancelJoinRequest": "Cancel",
-  "switchTeams.bannedJoinRequest": "Cancelled",
-  "teams.yourTeams": "Your Teams",
-  "switchTeams.newTeamLink": "+ New team"
+  "switchTeams.error": "Désolé, ce n'était pas possible de changer d'équipe",
+  "switchTeams.member": "membre",
+  "switchTeams.members": "membres",
+  "switchTeams.joinRequestMessage": "Vous avez demandé à rejoindre",
+  "switchTeams.cancelJoinRequest": "Annuler",
+  "switchTeams.bannedJoinRequest": "Annulé",
+  "teams.yourTeams": "Vos équipes",
+  "switchTeams.newTeamLink": "+ Nouvelle équipe"
 }

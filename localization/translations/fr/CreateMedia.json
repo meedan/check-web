@@ -2,8 +2,14 @@
   "createMedia.submitting": "En chargement...",
   "createMedia.error": "Quelque chose s'est mal passé! Essayez plutôt de coller le texte de ce message ou d'ajouter un lien différent.",
   "createMedia.mediaInput": "Copiez-collez ou tapez",
+  "createMedia.sourceInput": "Nom de la source",
+  "createMedia.sourceUrlInput": "URL de la source",
   "createMedia.uploadImage": "Charger une image",
   "createMedia.submitButton": "Envoyer",
   "createMedia.helper": "Ajoutez un lien, une citation, ou une image à vérifier",
-  "bridge.createMedia.helper": "Ajoutez un lien, une citation, ou une image à traduire"
+  "bridge.createMedia.helper": "Ajoutez un lien, une citation, ou une image à traduire",
+  "createMedia.imageTitle": "Charger une image",
+  "createMedia.sourceTitle": "Ajouter une source",
+  "createMedia.linkTitle": "Ajouter un lien",
+  "createMedia.quoteTitle": "Ajouter une citation"
 }
