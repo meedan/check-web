@@ -19,7 +19,7 @@ class ProjectPage < Page
   end
 
   def create_image_media(file)
-    @driver.find_element(:css, '#create-media__switcher').click
+    @driver.find_element(:css, '#create-media__image').click
     fill_input('input[type=file]', file, { hidden: true })
     sleep 3
     @driver.find_element(:css, '#create-media-submit').click
