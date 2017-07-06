@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { CardTitle } from 'material-ui/Card';
+import { rgba } from 'polished/color';
 
 // Styles for overriding material UI
 // General colors
@@ -65,6 +66,25 @@ export const breakpointMobile = `${units(85)}`;
 // Borders
 export const defaultBorderRadius = '2px';
 export const defaultBorderWidth = '1px';
+
+// Material design box shadows
+//
+export function boxShadow(level) {
+  if (level === 1) {
+    return `0 1px 3px ${rgba(black, 0.12)}, 0 1px 2px ${rgba(black, 0.24)}`;
+  } else if (level === 2) {
+    return `0 3px 6px ${rgba(black, 0.16)}, 0 3px 6px ${rgba(black, 0.23)}`;
+  } else if (level === 3) {
+    return `0 10px 20px ${rgba(black, 0.19)}, 0 6px 6px ${rgba(black, 0.23)}`;
+  } else if (level === 4) {
+    return `0 14px 28px ${rgba(black, 0.25)}, 0 10px 10px ${rgba(black, 0.22)}`;
+  } else if (level === 5) {
+    return `0 19px 38px ${rgba(black, 0.3)}, 0 15px 12px ${rgba(black, 0.22)}`;
+  }
+
+  return null;
+}
+
 
 // ===================================================================
 // Inline CSS

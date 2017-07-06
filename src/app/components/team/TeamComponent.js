@@ -15,6 +15,7 @@ import IconButton from 'material-ui/IconButton';
 import MdChevronRight from 'react-icons/lib/md/chevron-right';
 import MDEdit from 'react-icons/lib/md/edit';
 import { List, ListItem } from 'material-ui/List';
+import styled from 'styled-components';
 import PageTitle from '../PageTitle';
 import MappedMessage from '../MappedMessage';
 import UpdateTeamMutation from '../../relay/UpdateTeamMutation';
@@ -24,13 +25,100 @@ import Can from '../Can';
 import CheckContext from '../../CheckContext';
 import ContentColumn from '../layout/ContentColumn';
 import ParsedText from '../ParsedText';
+
 import {
   highlightBlue,
   checkBlue,
   titleStyle,
   listItemStyle,
   listStyle,
+  units,
+  black54,
+  black87,
+  caption,
+  headline,
+  subheading1,
+  borderRadiusDefault,
+  boxShadow,
 } from '../../styles/js/variables';
+
+const teamAvatarWidth = `${units(10)}px`;
+const teamProfileOffset = `${units(18)}px`;
+const teamProfileBottomPad = `${units(8)}px`;
+const teamProfileFabWidth = `${units(5)}px`;
+
+const TeamProfile = styled.div`
+  .team__profile {
+    margin-bottom: ${units(6)}px;
+    margin-top: ${teamProfileOffset * -1};
+    padding-bottom: ${teamProfileBottomPad};
+    padding-top: ${teamProfileOffset};
+
+    .team__name {
+      font: ${headline};
+      font-weight: 400;
+      margin-bottom: ${units(1)}px;
+    }
+
+    .team__description-text {
+      color: ${black54};
+      font: ${subheading1};
+      margin-bottom: ${units(1)}px;
+    }
+
+    .team--editing {
+      .team__settings {
+        margin-top: ${units(6)}px;
+      }
+
+      .team__profile-card-actions {
+        margin-top: ${units(4)}px;
+      }
+    }
+  }
+
+  .team__contact-info {
+    color: ${black54};
+    display: flex;
+    flex-flow: wrap row;
+    font: ${caption};
+
+    & > span {
+      margin-right: ${units(2)}px;
+    }
+  }
+
+  .team__avatar {
+    width: ${teamAvatarWidth}
+    border-radius: ${borderRadiusDefault};
+    margin-top: ${units(2.5)}px;
+    margin-right: ${units(2)}px;
+  }
+
+  // Ideally this would be a FAB component, 
+  // but MUI FAB doesn't have a tooltip so we're customizing iconButton
+  .team__edit-button {
+    box-shadow: ${boxShadow(2)};
+    background-color: white !important;
+    border-radius: 50% !important;
+    bottom: ${-1 * ((teamProfileFabWidth / 2) + teamProfileBottomPad)}px !important;
+    position: absolute !important;
+    right: 16% !important;
+
+    &:hover {
+      box-shadow: ${boxShadow(4)};
+
+      svg {
+        fill: ${black87} !important;
+      }
+    }
+
+    svg {
+      fill: $black-54 !important;
+      font-size: 20px;
+    }
+  }
+`;
 
 const messages = defineMessages({
   editError: {
@@ -247,7 +335,7 @@ class TeamComponent extends Component {
 
     return (
       <PageTitle prefix={false} skipTeam={false} team={team}>
-        <div className="team">
+        <TeamProfile>
           <Card className="team__profile team__profile--editing">
             <ContentColumn>
               <Message message={this.state.message} />
@@ -514,7 +602,7 @@ class TeamComponent extends Component {
             return '';
           })()}
 
-        </div>
+        </TeamProfile>
       </PageTitle>
     );
   }
