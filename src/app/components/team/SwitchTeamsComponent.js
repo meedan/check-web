@@ -22,7 +22,6 @@ import {
   checkBlue,
   avatarStyle,
   titleStyle,
-  listItemStyle,
   listStyle,
   listItemButtonStyle,
 } from '../../styles/js/variables';
@@ -109,7 +108,6 @@ class SwitchTeamsComponent extends Component {
 
   render() {
     const currentUser = this.props.me;
-    const currentTeam = this.props.me.current_team;
     const teamUsers = this.props.me.team_users.edges;
     const that = this;
     const otherTeams = [];
@@ -144,17 +142,13 @@ class SwitchTeamsComponent extends Component {
 
     teamUsers.map((teamUser) => {
       const team = teamUser.node.team;
-      if (team.dbid !== currentTeam.dbid) {
-        const status = teamUser.node.status;
-        if (status === 'requested' || status === 'banned') {
-          team.status = status;
-          team.teamUser_id = teamUser.node.id;
-          pendingTeams.push(team);
-        } else {
-          otherTeams.push(team);
-        }
+      const status = teamUser.node.status;
+      if (status === 'requested' || status === 'banned') {
+        team.status = status;
+        team.teamUser_id = teamUser.node.id;
+        return pendingTeams.push(team);
       }
-      return null;
+      return otherTeams.push(team);
     });
 
     const buildUrl = function buildUrl(team) {
@@ -173,33 +167,10 @@ class SwitchTeamsComponent extends Component {
           }
         />
         <List className="teams" style={listStyle}>
-          {(() => {
-            if (currentTeam) {
-              return (
-                <ListItem
-                  style={listItemStyle}
-                  hoverColor={highlightBlue}
-                  focusRippleColor={checkBlue}
-                  touchRippleColor={checkBlue}
-                  href={buildUrl(currentTeam)}
-                  leftAvatar={
-                    <Avatar style={avatarStyle} src={currentTeam.avatar} />
-                  }
-                  primaryText={currentTeam.name}
-                  rightIcon={<MdChevronRight />}
-                  secondaryText={that.membersCountString(
-                    currentTeam.members_count,
-                  )}
-                />
-              );
-            }
-            return '';
-          })()}
 
           {otherTeams.map((team, index) =>
             <ListItem
               key={index}
-              style={listItemStyle}
               hoverColor={highlightBlue}
               focusRippleColor={checkBlue}
               touchRippleColor={checkBlue}
@@ -215,7 +186,6 @@ class SwitchTeamsComponent extends Component {
           {pendingTeams.map((team, index) =>
             <ListItem
               key={index}
-              style={listItemStyle}
               hoverColor={highlightBlue}
               focusRippleColor={checkBlue}
               touchRippleColor={checkBlue}
