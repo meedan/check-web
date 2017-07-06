@@ -8,7 +8,6 @@ import { Card, CardTitle, CardActions, CardText } from 'material-ui/Card';
 import { List } from 'material-ui/List';
 import styled from 'styled-components';
 import PageTitle from '../PageTitle';
-import TeamMembershipRequestsListItem from './TeamMembershipRequestsListItem';
 import TeamMembersListItem from './TeamMembersListItem';
 import ContentColumn from '../layout/ContentColumn';
 import {
@@ -17,7 +16,7 @@ import {
   checkBlue,
   white,
   title,
-} from '../../../../config-styles';
+} from '../../styles/js/variables';
 
 const messages = defineMessages({
   title: {
@@ -77,6 +76,7 @@ class TeamMembersComponent extends Component {
 
     const teamUrl = `${window.location.protocol}//${config.selfHost}/${team.slug}`;
     const joinUrl = `${teamUrl}/join`;
+    const requestingMembership = !!teamUsersRequestingMembership.length;
 
     return (
       <PageTitle
@@ -101,7 +101,7 @@ class TeamMembersComponent extends Component {
           </InviteCard>
 
           {(() => {
-            if (teamUsersRequestingMembership.length) {
+            if (requestingMembership) {
               return (
                 <Card style={cardInCardGroupStyle}>
 
@@ -114,9 +114,11 @@ class TeamMembersComponent extends Component {
 
                   <List>
                     {(() => teamUsersRequestingMembership.map(teamUser => (
-                      <TeamMembershipRequestsListItem
+                      <TeamMembersListItem
                         teamUser={teamUser}
                         key={teamUser.node.id}
+                        className=""
+                        requestingMembership
                       />
                       )))()}
                   </List>
