@@ -41,6 +41,7 @@ before_install:
 - cp travis/pender.yml pender/config/config.yml
 - cp pender/config/initializers/secret_token.rb.example pender/config/initializers/secret_token.rb
 - cp pender/config/database.yml.travis pender/config/database.yml
+- cp pender/config/sidekiq.yml.example pender/config/sidekiq.yml
 - cd pender
 - bundle install
 - bundle exec rake db:migrate
