@@ -82,6 +82,7 @@ export const titleStyle = {
 export const avatarStyle = {
   borderRadius: `${defaultBorderRadius}`,
 };
+
 export const listStyle = {
   padding: '0',
   borderBottom: `${defaultBorderWidth} solid ${black05}`,

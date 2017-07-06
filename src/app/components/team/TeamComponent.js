@@ -486,7 +486,7 @@ class TeamComponent extends Component {
                         .map(p =>
                           <ListItem
                             key={p.node.dbid} className="team__project"
-                            style={listItemStyle}
+                            innerDivStyle={listItemStyle}
                             hoverColor={highlightBlue}
                             focusRippleColor={checkBlue}
                             touchRippleColor={checkBlue}
