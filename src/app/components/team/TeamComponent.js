@@ -1,12 +1,7 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay';
 import PropTypes from 'prop-types';
-import {
-  FormattedMessage,
-  defineMessages,
-  injectIntl,
-  intlShape,
-} from 'react-intl';
+import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import TextField from 'material-ui/TextField';
 import Checkbox from 'material-ui/Checkbox';
 import FlatButton from 'material-ui/FlatButton';
@@ -33,90 +28,79 @@ import {
   listItemStyle,
   listStyle,
   units,
+  unitless,
   black54,
   black87,
   caption,
-  headline,
+  title,
   subheading1,
-  borderRadiusDefault,
   boxShadow,
+  avatarStyle,
 } from '../../styles/js/variables';
 
-const teamAvatarWidth = `${units(10)}px`;
-const teamProfileOffset = `${units(18)}px`;
-const teamProfileBottomPad = `${units(8)}px`;
-const teamProfileFabWidth = `${units(5)}px`;
+const teamAvatarWidth = unitless(10);
+const teamProfileOffset = unitless(18);
+const teamProfileBottomPad = unitless(8);
+const teamProfileFabHeight = unitless(5);
+const editButtonOffset = teamProfileFabHeight / 2 + teamProfileBottomPad;
 
-const TeamProfile = styled.div`
-  .team__profile {
-    margin-bottom: ${units(6)}px;
-    margin-top: ${teamProfileOffset * -1};
-    padding-bottom: ${teamProfileBottomPad};
-    padding-top: ${teamProfileOffset};
+const ProfileContainer = styled(Card)`
+  margin-bottom: ${units(6)};
+  margin-top: -${teamProfileOffset}px;
+  padding-bottom: ${teamProfileBottomPad}px;
+  padding-top: ${teamProfileOffset}px;
+`;
 
-    .team__name {
-      font: ${headline};
-      font-weight: 400;
-      margin-bottom: ${units(1)}px;
-    }
+const TeamName = styled.h1`
+  font: ${title};
+  margin-bottom: ${units(0.5)};
+`;
 
-    .team__description-text {
-      color: ${black54};
-      font: ${subheading1};
-      margin-bottom: ${units(1)}px;
-    }
+const TeamDescription = styled.div`
+  color: ${black54};
+  font: ${subheading1};
+  margin-bottom: ${units(1)};
+`;
 
-    .team--editing {
-      .team__settings {
-        margin-top: ${units(6)}px;
-      }
+const TeamContactInfo = styled.div`
+  color: ${black54};
+  display: flex;
+  flex-flow: wrap row;
+  font: ${caption};
 
-      .team__profile-card-actions {
-        margin-top: ${units(4)}px;
-      }
-    }
+  & > span {
+    margin-right: ${units(2)};
   }
+`;
 
-  .team__contact-info {
-    color: ${black54};
-    display: flex;
-    flex-flow: wrap row;
-    font: ${caption};
+const TeamAvatar = styled.div`
+  ${avatarStyle};
+  margin-top: ${units(2.5)};
+  margin-right: ${units(2)};
+`;
 
-    & > span {
-      margin-right: ${units(2)}px;
-    }
-  }
+// Customized Material UI IconButton
+// (We would use a FAB component, but we want a tooltip)
+//
+const EditButton = styled(IconButton)`
+  box-shadow: ${boxShadow(2)};
+  background-color: white !important;
+  border-radius: 50% !important;
+  bottom: -${editButtonOffset}px !important;
+  position: absolute !important;
+  right: 16% !important;
 
-  .team__avatar {
-    width: ${teamAvatarWidth}
-    border-radius: ${borderRadiusDefault};
-    margin-top: ${units(2.5)}px;
-    margin-right: ${units(2)}px;
-  }
-
-  // Ideally this would be a FAB component, 
-  // but MUI FAB doesn't have a tooltip so we're customizing iconButton
-  .team__edit-button {
-    box-shadow: ${boxShadow(2)};
-    background-color: white !important;
-    border-radius: 50% !important;
-    bottom: ${-1 * ((teamProfileFabWidth / 2) + teamProfileBottomPad)}px !important;
-    position: absolute !important;
-    right: 16% !important;
-
-    &:hover {
-      box-shadow: ${boxShadow(4)};
-
-      svg {
-        fill: ${black87} !important;
-      }
-    }
+  &:hover {
+    box-shadow: ${boxShadow(4)};
 
     svg {
-      fill: $black-54 !important;
-      font-size: 20px;
+      fill: ${black87} !important;
     }
+  }
+
+  svg {
+    fill: $black-54 !important;
+    font-size: 20px;
   }
 `;
 
@@ -131,8 +115,7 @@ const messages = defineMessages({
   },
   changeAvatar: {
     id: 'teamComponent.changeAvatar',
-    defaultMessage:
-      "You can't change this right now, but we're hard at work to enable it soon!",
+    defaultMessage: "You can't change this right now, but we're hard at work to enable it soon!",
   },
   teamName: {
     id: 'teamComponent.teamName',
@@ -181,7 +164,6 @@ const messages = defineMessages({
 });
 
 class TeamComponent extends Component {
-
   constructor(props) {
     super(props);
     const team = this.props.team;
@@ -335,8 +317,8 @@ class TeamComponent extends Component {
 
     return (
       <PageTitle prefix={false} skipTeam={false} team={team}>
-        <TeamProfile>
-          <Card className="team__profile team__profile--editing">
+        <div>
+          <ProfileContainer>
             <ContentColumn>
               <Message message={this.state.message} />
               {(() => {
@@ -344,128 +326,91 @@ class TeamComponent extends Component {
                   return (
                     <div>
                       <CardText>
-                        <div className="team__primary-info">
-                          <TextField
-                            className="team__name-input"
-                            id="team__name-container"
-                            defaultValue={team.name}
-                            floatingLabelText={this.props.intl.formatMessage(
-                              messages.teamName,
-                            )}
-                            onChange={this.handleChange.bind(this, 'name')}
-                            fullWidth
-                          />
+                        <TextField
+                          className="team__name-input"
+                          id="team__name-container"
+                          defaultValue={team.name}
+                          floatingLabelText={this.props.intl.formatMessage(messages.teamName)}
+                          onChange={this.handleChange.bind(this, 'name')}
+                          fullWidth
+                        />
 
-                          <TextField
-                            className="team__description"
-                            id="team__description-container"
-                            defaultValue={team.description}
-                            floatingLabelText={this.props.intl.formatMessage(
-                              messages.teamDescription,
-                            )}
-                            onChange={this.handleChange.bind(
-                              this,
-                              'description',
-                            )}
-                            fullWidth
-                            multiLine
-                            rows={1}
-                            rowsMax={4}
-                          />
+                        <TextField
+                          className="team__description"
+                          id="team__description-container"
+                          defaultValue={team.description}
+                          floatingLabelText={this.props.intl.formatMessage(
+                            messages.teamDescription,
+                          )}
+                          onChange={this.handleChange.bind(this, 'description')}
+                          fullWidth
+                          multiLine
+                          rows={1}
+                          rowsMax={4}
+                        />
 
-                          <TextField
-                            className="team__location"
-                            id="team__location-container"
-                            defaultValue={contact ? contact.node.location : ''}
-                            floatingLabelText={this.props.intl.formatMessage(
-                              messages.location,
-                            )}
-                            onChange={this.handleChange.bind(
-                              this,
-                              'contact_location',
-                            )}
-                            fullWidth
-                          />
+                        <TextField
+                          className="team__location"
+                          id="team__location-container"
+                          defaultValue={contact ? contact.node.location : ''}
+                          floatingLabelText={this.props.intl.formatMessage(messages.location)}
+                          onChange={this.handleChange.bind(this, 'contact_location')}
+                          fullWidth
+                        />
 
-                          <TextField
-                            className="team__phone"
-                            id="team__phone-container"
-                            defaultValue={contact ? contact.node.phone : ''}
-                            floatingLabelText={this.props.intl.formatMessage(
-                              messages.phone,
-                            )}
-                            onChange={this.handleChange.bind(
-                              this,
-                              'contact_phone',
-                            )}
-                            fullWidth
-                          />
+                        <TextField
+                          className="team__phone"
+                          id="team__phone-container"
+                          defaultValue={contact ? contact.node.phone : ''}
+                          floatingLabelText={this.props.intl.formatMessage(messages.phone)}
+                          onChange={this.handleChange.bind(this, 'contact_phone')}
+                          fullWidth
+                        />
 
-                          <TextField
-                            className="team__location-name-input"
-                            id="team__link-container"
-                            defaultValue={contact ? contact.node.web : ''}
-                            floatingLabelText={this.props.intl.formatMessage(
-                              messages.website,
-                            )}
-                            onChange={this.handleChange.bind(
-                              this,
-                              'contact_web',
-                            )}
-                            fullWidth
-                          />
-                        </div>
+                        <TextField
+                          className="team__location-name-input"
+                          id="team__link-container"
+                          defaultValue={contact ? contact.node.web : ''}
+                          floatingLabelText={this.props.intl.formatMessage(messages.website)}
+                          onChange={this.handleChange.bind(this, 'contact_web')}
+                          fullWidth
+                        />
 
-                        <div className="team__settings">
-                          <Checkbox
-                            label={
-                              <FormattedMessage
-                                id="teamComponent.slackNotificationsEnabled"
-                                defaultMessage="Enable Slack notifications"
-                              />
-                            }
-                            defaultChecked={
-                              team.get_slack_notifications_enabled === '1'
-                            }
-                            onCheck={this.handleChange.bind(
-                              this,
-                              'slackNotificationsEnabled',
-                            )}
-                            id="team__settings-slack-notifications-enabled"
-                            value="1"
-                          />
+                        <Checkbox
+                          style={{ marginTop: units(6) }}
+                          label={
+                            <FormattedMessage
+                              id="teamComponent.slackNotificationsEnabled"
+                              defaultMessage="Enable Slack notifications"
+                            />
+                          }
+                          defaultChecked={team.get_slack_notifications_enabled === '1'}
+                          onCheck={this.handleChange.bind(this, 'slackNotificationsEnabled')}
+                          id="team__settings-slack-notifications-enabled"
+                          value="1"
+                        />
 
-                          <TextField
-                            id="team__settings-slack-webhook"
-                            defaultValue={team.get_slack_webhook}
-                            floatingLabelText={this.props.intl.formatMessage(
-                              messages.slackWebhook,
-                            )}
-                            onChange={this.handleChange.bind(
-                              this,
-                              'slackWebhook',
-                            )}
-                            fullWidth
-                          />
+                        <TextField
+                          id="team__settings-slack-webhook"
+                          defaultValue={team.get_slack_webhook}
+                          floatingLabelText={this.props.intl.formatMessage(messages.slackWebhook)}
+                          onChange={this.handleChange.bind(this, 'slackWebhook')}
+                          fullWidth
+                        />
 
-                          <TextField
-                            id="team__settings-slack-channel"
-                            defaultValue={team.get_slack_channel}
-                            floatingLabelText={this.props.intl.formatMessage(
-                              messages.slackChannel,
-                            )}
-                            onChange={this.handleChange.bind(
-                              this,
-                              'slackChannel',
-                            )}
-                            fullWidth
-                          />
-                        </div>
+                        <TextField
+                          id="team__settings-slack-channel"
+                          defaultValue={team.get_slack_channel}
+                          floatingLabelText={this.props.intl.formatMessage(messages.slackChannel)}
+                          onChange={this.handleChange.bind(this, 'slackChannel')}
+                          fullWidth
+                        />
                       </CardText>
 
-                      <CardActions className="team__profile-card-actions">
+                      <CardActions
+                        style={{ marginTop: units(4) }}
+                      >
                         <FlatButton
-                          className="team__cancel-button"
                           label={
                             <FormattedMessage
                               id="teamComponent.cancelButton"
@@ -494,43 +439,30 @@ class TeamComponent extends Component {
 
                 return (
                   <div>
-                    <section className="layout-two-column">
-                      <div className="column-secondary">
-                        <div
-                          className="team__avatar"
-                          style={{ backgroundImage: `url(${team.avatar})` }}
-                          title={this.props.intl.formatMessage(
-                            messages.changeAvatar,
-                          )}
-                        />
-                      </div>
-                      <div className="column-primary">
+                    <section style={{ display: 'flex' }}>
+                      <TeamAvatar
+                        style={{ backgroundImage: `url(${team.avatar})` }}
+                        title={this.props.intl.formatMessage(messages.changeAvatar)}
+                      />
+                      <div style={{ flex: 3 }}>
                         <div className="team__primary-info">
-                          <h1 className="team__name">
+                          <TeamName>
                             {team.name}
-                          </h1>
-                          <div className="team__description">
-                            <p className="team__description-text">
-                              {<ParsedText text={team.description} /> ||
-                                <MappedMessage
-                                  msgObj={messages}
-                                  msgKey="verificationTeam"
-                                />}
-                            </p>
-                          </div>
+                          </TeamName>
+                          <TeamDescription>
+                            {<ParsedText text={team.description} /> ||
+                              <MappedMessage msgObj={messages} msgKey="verificationTeam" />}
+                          </TeamDescription>
                         </div>
 
-                        <div className="team__contact-info">
+                        <TeamContactInfo>
                           {contactInfo}
-                        </div>
+                        </TeamContactInfo>
                       </div>
                     </section>
-                    <section className="layout-fab-container">
-                      <Can
-                        permissions={team.permissions}
-                        permission="update Team"
-                      >
-                        <IconButton
+                    <section style={{ position: 'relative' }}>
+                      <Can permissions={team.permissions} permission="update Team">
+                        <EditButton
                           className="team__edit-button"
                           tooltip={
                             <FormattedMessage
@@ -539,19 +471,17 @@ class TeamComponent extends Component {
                             />
                           }
                           tooltipPosition="top-center"
-                          onTouchTap={this.handleEntreEditTeamNameAndDescription.bind(
-                            this,
-                          )}
+                          onTouchTap={this.handleEntreEditTeamNameAndDescription.bind(this)}
                         >
                           <MDEdit />
-                        </IconButton>
+                        </EditButton>
                       </Can>
                     </section>
                   </div>
                 );
               })()}
             </ContentColumn>
-          </Card>
+          </ProfileContainer>
           {(() => {
             if (!isEditing) {
               return (
@@ -559,21 +489,15 @@ class TeamComponent extends Component {
                   <Card>
                     <CardHeader
                       titleStyle={titleStyle}
-                      title={
-                        <MappedMessage
-                          msgObj={messages}
-                          msgKey="verificationProjects"
-                        />
-                      }
+                      title={<MappedMessage msgObj={messages} msgKey="verificationProjects" />}
                     />
                     <List style={listStyle} className>
                       {team.projects.edges
-                        .sortp((a, b) =>
-                          a.node.title.localeCompare(b.node.title),
-                        )
+                        .sortp((a, b) => a.node.title.localeCompare(b.node.title))
                         .map(p =>
                           <ListItem
-                            key={p.node.dbid} className="team__project"
+                            key={p.node.dbid}
+                            className="team__project"
                             innerDivStyle={listItemStyle}
                             hoverColor={highlightBlue}
                             focusRippleColor={checkBlue}
@@ -584,15 +508,9 @@ class TeamComponent extends Component {
                           />,
                         )}
                     </List>
-                    <Can
-                      permissions={team.permissions}
-                      permission="create Project"
-                    >
+                    <Can permissions={team.permissions} permission="create Project">
                       <CardActions>
-                        <CreateProject
-                          team={team}
-                          autoFocus={team.projects.edges.length === 0}
-                        />
+                        <CreateProject team={team} autoFocus={team.projects.edges.length === 0} />
                       </CardActions>
                     </Can>
                   </Card>
@@ -602,7 +520,7 @@ class TeamComponent extends Component {
             return '';
           })()}
 
-        </TeamProfile>
+        </div>
       </PageTitle>
     );
   }

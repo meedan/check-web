@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { CardTitle } from 'material-ui/Card';
-import { rgba } from 'polished/color';
+import { stripUnit, rgba } from 'polished';
 
 // Styles for overriding material UI
 // General colors
@@ -45,6 +45,11 @@ export function units(unit) {
   return `${unit * 8}px`;
 }
 
+// Unitless
+export function unitless(unit) {
+  return stripUnit(units(unit));
+}
+
 // Typography
 export const fontStackSans = '"Roboto", -apple-system, BlinkMacSystemFont, "Corbel", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Verdana, "Verdana Ref", sans-serif';
 
@@ -85,22 +90,17 @@ export function boxShadow(level) {
   return null;
 }
 
-
 // ===================================================================
 // Inline CSS
 //
-// The following styles are applied using the style prop:
+// The following styles are applied to a component using the style prop:
 //
-// <Something style={somethingStyle} />
+// <Foo style={somethingStyle} />
 // ===================================================================
 
 export const titleStyle = {
   fontSize: `${units(2.5)}`,
   lineHeight: `${units(4)}`,
-};
-
-export const avatarStyle = {
-  borderRadius: `${defaultBorderRadius}`,
 };
 
 export const listStyle = {
@@ -141,6 +141,25 @@ export const ellipsisStyle = {
   whiteSpace: 'nowrap',
 };
 
+// CSS Helpers
+//
+// Can be applied in a stylesheet or added to a styled component.
+//
+export const ellipsisStyles = 'overflow: hidden; text-overflow: ellipsis; white-space: nowrap;';
+
+export const backgroundCover = 'background-position: center; background-size: cover;';
+
+export const defaultAvatarSize = units(9);
+
+export const avatarStyle = `
+  border: ${defaultBorderWidth} solid ${black05};
+  border-radius: ${defaultBorderRadius};
+  flex: 0 0 auto;
+  height: ${defaultAvatarSize};
+  width: ${defaultAvatarSize};
+  ${backgroundCover}
+  `;
+
 // ===================================================================
 // Styled Components
 //
@@ -151,7 +170,6 @@ export const ellipsisStyle = {
 // Text with optional ellipsis prop
 //
 // <Text ellipsis>
-export const ellipsisStyles = 'overflow: hidden; text-overflow: ellipsis; white-space: nowrap;';
 export const Text = styled.span`
   ${props => props.ellipsis ? ellipsisStyles : ''}
 `;
