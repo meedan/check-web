@@ -8,23 +8,18 @@ import { profileLink } from './TeamUtil';
 import UpdateTeamUserMutation from '../../relay/UpdateTeamUserMutation';
 import {
   buttonInButtonGroupStyle,
-  highlightBlue,
-  MemberRow,
   Text,
-  checkBlue,
+  FlexRow,
 } from '../../styles/js/variables';
 
 class TeamMembershipRequestsListItem extends Component {
-  handleRequest(status) {
-    // Todo: stop propagation here; prevent going to the href of the parent element — CGB 2017-7-3
-    event.stopPropagation();
-    alert("Approval is temporarily disabled while I'm trying to prevent going to the profile page (href on the parent element) ...");
-    // Relay.Store.commitUpdate(
-    //   new UpdateTeamUserMutation({
-    //     id: this.props.teamUser.node.id,
-    //     status,
-    //   }),
-    // );
+  handleRequest(event, status) {
+    Relay.Store.commitUpdate(
+      new UpdateTeamUserMutation({
+        id: this.props.teamUser.node.id,
+        status,
+      }),
+    );
   }
 
   render() {
@@ -34,20 +29,23 @@ class TeamMembershipRequestsListItem extends Component {
       <ListItem
         className="team-membership-requests__user"
         key={teamUser.node.id}
-        // Disabled while debugging stop propagation
-        // href={profileLink(teamUser.node.user)}
+        disabled
       >
-        <MemberRow>
-          <div>
-            <Avatar
-              className="avatar"
-              src={teamUser.node.user.profile_image}
-              alt={teamUser.node.user.name}
-              style={{ position: 'static' }}
-            />
-            <Text ellipsis>{teamUser.node.user.name}</Text>
-          </div>
-          <div>
+        <FlexRow>
+          <FlexRow>
+            <a href={profileLink(teamUser.node.user)}>
+              <FlexRow>
+                <Avatar
+                  className="avatar"
+                  src={teamUser.node.user.profile_image}
+                  alt={teamUser.node.user.name}
+                  style={{ position: 'static', marginRight: '16px' }}
+                />
+                <Text ellipsis>{teamUser.node.user.name}</Text>
+              </FlexRow>
+            </a>
+          </FlexRow>
+          <FlexRow>
             <RaisedButton
               style={buttonInButtonGroupStyle}
               onClick={this.handleRequest.bind(this, 'member')}
@@ -66,8 +64,8 @@ class TeamMembershipRequestsListItem extends Component {
                 <FormattedMessage id="TeamMembershipRequestsListItem.deny" defaultMessage="Ignore" />
               }
             />
-          </div>
-        </MemberRow>
+          </FlexRow>
+        </FlexRow>
       </ListItem>
     );
   }

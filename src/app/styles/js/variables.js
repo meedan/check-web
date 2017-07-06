@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { CardTitle } from 'material-ui/Card';
-import { ListItem } from 'material-ui/List';
 
 // Styles for overriding material UI
 // General colors
@@ -67,27 +66,14 @@ export const breakpointMobile = `${units(85)}`;
 export const defaultBorderRadius = '2px';
 export const defaultBorderWidth = '1px';
 
-// Shared Material UI style overrides using styled-components
-//
-export const StyledMdCardTitle =
-  styled(CardTitle)` > span {
-      font: ${title} !important;
-    }
-    padding-bottom: 8px !important;
-  `;
-
-export const FlexRow = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
+// ===================================================================
 // Inline CSS
 //
 // The following styles are applied using the style prop:
 //
 // <Something style={somethingStyle} />
-//
+// ===================================================================
+
 export const titleStyle = {
   fontSize: `${units(2.5)}`,
   lineHeight: `${units(4)}`,
@@ -131,20 +117,33 @@ export const ellipsisStyle = {
   whiteSpace: 'nowrap',
 };
 
-// Team member and requested-to-join member
-export const MemberRow = styled.div`
-  &, > div {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    img {
-      margin-right: 16px;
-    }
-  }
-`;
+// ===================================================================
+// Styled Components
+//
+// Used as components, like: <Text />
+//
+// ===================================================================
 
+// Text with optional ellipsis prop
+//
+// <Text ellipsis>
 export const ellipsisStyles = 'overflow: hidden; text-overflow: ellipsis; white-space: nowrap;';
-
 export const Text = styled.span`
   ${props => props.ellipsis ? ellipsisStyles : ''}
+`;
+
+// Shared Material UI style overrides using styled-components
+//
+export const StyledMdCardTitle =
+  styled(CardTitle)` > span {
+      font: ${title} !important;
+    }
+    padding-bottom: 8px !important;
+  `;
+
+// A Flexbox row, center aligned
+export const FlexRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;

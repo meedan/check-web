@@ -13,7 +13,7 @@ import {
   selectStyle,
   checkBlue,
   highlightBlue,
-  MemberRow,
+  FlexRow,
   Text,
 } from '../../styles/js/variables';
 
@@ -78,8 +78,8 @@ class TeamMembersListItem extends Component {
         focusRippleColor={checkBlue}
         touchRippleColor={checkBlue}
       >
-        <MemberRow>
-          <div>
+        <FlexRow>
+          <FlexRow>
             <Avatar
               className="avatar"
               src={teamUser.node.user.profile_image}
@@ -88,7 +88,7 @@ class TeamMembersListItem extends Component {
             <Text ellipsis>
               {teamUser.node.user.name}
             </Text>
-          </div>
+          </FlexRow>
           <div>
             <Select
               style={selectStyle}
@@ -115,7 +115,7 @@ class TeamMembersListItem extends Component {
                 </IconButton>
               : null}
           </div>
-        </MemberRow>
+        </FlexRow>
       </ListItem>
 
     );
