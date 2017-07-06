@@ -14,6 +14,7 @@ import ContentColumn from './layout/ContentColumn';
 import MediasLoading from './media/MediasLoading';
 import SourceCard from './source/SourceCard';
 import isEqual from 'lodash.isequal';
+import sortby from 'lodash.sortby';
 import { teamStatuses } from '../customHelpers';
 import config from 'config';
 
@@ -429,12 +430,23 @@ class SearchResultsComponent extends Component {
     this.subscribe();
   }
 
+  mergeResults(medias, sources){
+    const query = searchQueryFromUrl();
+    const comparisonField = (query.sort !== 'recent_added') ?
+      function(o) { return o.node.updated_at; } :
+      function(o) { return o.node.published; };
+
+    const results = sortby(Array.concat(medias, sources), comparisonField);
+    return (query.sort_type !== 'ASC') ? results.reverse() : results;
+  }
+
   render() {
     const medias = this.props.search ? this.props.search.medias.edges : [];
     const sources = this.props.search ? this.props.search.sources.edges : [];
     const count = this.props.search ? this.props.search.number_of_results : 0;
     const mediasCount = this.props.intl.formatMessage(messages.searchResults, { resultsCount: count });
     const title = /\/project\//.test(window.location.pathname) ? '' : mediasCount;
+    const searchResults = this.mergeResults(medias, sources);
 
     return (
       <div className="search__results results">
@@ -443,17 +455,9 @@ class SearchResultsComponent extends Component {
         <InfiniteScroll hasMore loadMore={this.loadMore.bind(this)} threshold={500}>
 
           <ul className="search__results-list results medias-list">
-            { sources.map(source => (
-              <li key={source.node.dbid} className="medias__item">
-                <SourceCard source={source.node} />
-              </li>
-            ))}
-          </ul>
-
-          <ul className="search__results-list results medias-list">
-            {medias.map(media => (
-              <li key={media.node.dbid} className="medias__item">
-                <MediaDetail media={media.node} condensed parentComponent={this} />
+            { searchResults.map(item => (
+              <li key={item.node.id} className="medias__item">
+                { item.node.media ? <MediaDetail media={item.node} condensed parentComponent={this} /> : <SourceCard source={item.node} /> }
               </li>
             ))}
           </ul>
@@ -461,7 +465,7 @@ class SearchResultsComponent extends Component {
         </InfiniteScroll>
 
         {(() => {
-          if (medias.length < count) {
+          if (medias.length + sources.length < count) {
             return (<p className="search__results-loader"><FormattedMessage id="search.loading" defaultMessage="Loading..." /></p>);
           }
         })()}
@@ -495,6 +499,7 @@ const SearchResultsContainer = Relay.createContainer(injectIntl(SearchResultsCom
               url,
               quote,
               published,
+              updated_at,
               embed,
               log_count,
               verification_statuses,
@@ -530,7 +535,14 @@ const SearchResultsContainer = Relay.createContainer(injectIntl(SearchResultsCom
               user {
                 name,
                 source {
-                  dbid
+                  dbid,
+                  accounts(first: 10000) {
+                    edges {
+                      node {
+                        url
+                      }
+                    }
+                  }
                 }
               }
               team {
@@ -557,6 +569,8 @@ const SearchResultsContainer = Relay.createContainer(injectIntl(SearchResultsCom
                 slug
               },
               project_id,
+              published,
+              updated_at,
               source_id,
               source {
                 id,
@@ -567,10 +581,24 @@ const SearchResultsContainer = Relay.createContainer(injectIntl(SearchResultsCom
                 accounts(first: 10000) {
                   edges {
                     node {
+                      id,
                       data,
                       embed,
                       provider,
                       url
+                    }
+                  }
+                }
+              },
+              user {
+                name,
+                source {
+                  dbid,
+                  accounts(first: 10000) {
+                    edges {
+                      node {
+                        url
+                      }
                     }
                   }
                 }
