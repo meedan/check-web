@@ -14,7 +14,7 @@ const messages = defineMessages({
   },
   bridge_disclaimer: {
     id: "bridge.sourceCard.header",
-    defaultMessage: "Check Source",
+    defaultMessage: "Bridge Source",
   },
 });
 
