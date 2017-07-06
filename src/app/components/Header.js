@@ -1,32 +1,65 @@
-import React, { Component, PropTypes } from 'react';
-import FlatButton from 'material-ui/FlatButton';
+import React, { Component } from 'react';
+import styled from 'styled-components';
+import { Link } from 'react-router';
 import TeamHeader from './team/TeamHeader';
 import TeamPublicHeader from './team/TeamPublicHeader';
 import ProjectHeader from './project/ProjectHeader';
 import HeaderActions from './HeaderActions';
-import Can from './Can';
-import { Link } from 'react-router';
 import ContentColumn from './layout/ContentColumn';
 import { stringHelper } from '../customHelpers';
+import { black02, units, headerHeight } from '../styles/js/variables';
+
+const TeamHeaderContainer = styled.div `
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  min-width: ${units(6)};
+  overflow: hidden;
+`;
+
+const TeamContentColumn = styled(ContentColumn)`
+  display: flex;
+  height: 100%;
+  position: relative;
+`;
+
+const HeaderAppLink = styled(Link)`
+  align-items: center;
+  display: flex;
+
+  img {
+    width: ${units(8)};
+  }
+`;
+
+const HeaderContainer = styled.div`
+  background: ${black02};
+  height: ${headerHeight};
+  position: absolute;
+  width: 100%;
+`;
 
 class Header extends Component {
   render() {
-    const { state, loggedIn } = this.props;
+    const { loggedIn } = this.props;
     const path = this.props.location ? this.props.location.pathname : window.location.pathname;
     const showCheckLogo = /^\/(check(\/.*)?)?$/.test(path);
-    const joinPage = /^\/([^\/]+)\/join$/.test(path);
+    const joinPage = /^\/([^/]+)\/join$/.test(path);
 
     const defaultHeader = (
-      <header className="header header--default">
-        <ContentColumn wide className="header__container">
-          { showCheckLogo ?
-            (<Link to="/check/teams" className="header__app-link"><img src={stringHelper('LOGO_URL')} /></Link>) :
-            (joinPage ? (<div className="header__team"><TeamPublicHeader {...this.props} /></div>) : (<div className="header__team"><TeamHeader {...this.props} /></div>))
-          }
+      <HeaderContainer>
+        <TeamContentColumn wide>
+          {showCheckLogo
+            ? <HeaderAppLink to="/check/teams">
+              <img alt="Team Logo" src={stringHelper('LOGO_URL')} />
+            </HeaderAppLink>
+            : joinPage
+              ? <TeamHeaderContainer><TeamPublicHeader {...this.props} /></TeamHeaderContainer>
+              : <TeamHeaderContainer><TeamHeader {...this.props} /></TeamHeaderContainer>}
           <ProjectHeader {...this.props} />
           <HeaderActions {...this.props} loggedIn={loggedIn} />
-        </ContentColumn>
-      </header>
+        </TeamContentColumn>
+      </HeaderContainer>
     );
 
     return defaultHeader;

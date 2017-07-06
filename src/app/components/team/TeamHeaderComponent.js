@@ -1,12 +1,17 @@
-import React, { Component, PropTypes } from 'react';
-import Relay from 'react-relay';
+import React, { Component } from 'react';
+import styled from 'styled-components';
 import { Link } from 'react-router';
 import CheckContext from '../../CheckContext';
+import {
+  defaultBorderRadius,
+  subheading2,
+  ellipsisStyles,
+  avatarStyle,
+  units,
+  white,
+} from '../../styles/js/variables.js';
 
 class TeamHeaderComponent extends Component {
-  updateContext() {
-    new CheckContext(this).setContextStore({ team: this.props.team });
-  }
 
   componentWillMount() {
     this.updateContext();
@@ -16,17 +21,62 @@ class TeamHeaderComponent extends Component {
     this.updateContext();
   }
 
+  updateContext() {
+    new CheckContext(this).setContextStore({ team: this.props.team });
+  }
+
   render() {
     const team = this.props.team;
     const isProjectUrl = /(.*\/project\/[0-9]+)/.test(window.location.pathname);
 
+    const TeamLink = styled(Link)`
+      align-items: center;
+      display: flex;
+      height: 100%;
+      overflow: hidden;
+      width: 100%;
+
+      &,
+      &:hover {
+        text-decoration: none;
+      }
+
+      &,
+      &:visited {
+        color: inherit;
+      }
+    `;
+
+    const TeamNav = styled.nav`
+      border-radius: ${defaultBorderRadius};
+      display: flex;
+      height: ${units(6)};
+      overflow: hidden;
+    `;
+
+    const TeamName = styled.h3`
+      ${ellipsisStyles}
+      font: ${subheading2};
+      margin-left: ${units(2)};
+    `;
+
+    const TeamAvatar = styled.div`
+      ${avatarStyle}
+      background-image: url(${team.avatar});
+      background-color: ${white};
+      margin: 0;
+      width: ${units(5)};
+      height: ${units(5)};
+      margin-left: ${units(2)};
+    `;
+
     return (
-      <nav className="team-header">
-        <Link to={`/${team.slug}`} className="team-header__clickable" title={team.name}>
-          <div className="team-header__avatar" style={{ backgroundImage: `url(${team.avatar})` }} />
-          { isProjectUrl ? null : <h3 className="team-header__name">{team.name}</h3> }
-        </Link>
-      </nav>
+      <TeamNav>
+        <TeamLink to={`/${team.slug}`} title={team.name}>
+          <TeamAvatar />
+          {isProjectUrl ? null : <TeamName>{team.name}</TeamName>}
+        </TeamLink>
+      </TeamNav>
     );
   }
 }

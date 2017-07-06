@@ -1,4 +1,4 @@
-\@charset "utf-8";
+@charset "utf-8";
 @import 'shared/colors';
 @import 'shared/units';
 @import 'shared/variables';
@@ -24,7 +24,6 @@
 @import 'components/close-button';
 @import 'components/home';
 @import 'components/layout/content-column';
-@import 'components/header';
 @import 'components/header-actions';
 @import 'components/footer';
 @import 'components/login/login-container';
@@ -57,7 +56,6 @@
 @import 'components/source/sources';
 @import 'components/source/source-card';
 @import 'components/team/join-team';
-@import 'components/team/team-header';
 @import 'components/project/project';
 @import 'components/project/project-edit';
 @import 'components/project/project-header';

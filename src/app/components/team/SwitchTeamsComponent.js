@@ -175,7 +175,7 @@ class SwitchTeamsComponent extends Component {
               focusRippleColor={checkBlue}
               touchRippleColor={checkBlue}
               href={buildUrl(team)}
-              leftAvatar={<Avatar style={{ border: `1px solid ${defaultborderRadius}` }} src={team.avatar} />}
+              leftAvatar={<Avatar style={{ borderRadius: defaultborderRadius }} src={team.avatar} />}
               onClick={that.setCurrentTeam.bind(that, team, currentUser)}
               primaryText={team.name}
               rightIcon={<MdChevronRight />}
@@ -190,7 +190,7 @@ class SwitchTeamsComponent extends Component {
               focusRippleColor={checkBlue}
               touchRippleColor={checkBlue}
               href={buildUrl(team)}
-              leftAvatar={<Avatar style={{ border: `1px solid ${defaultborderRadius}` }} src={team.avatar} />}
+              leftAvatar={<Avatar style={{ borderRadius: defaultborderRadius }} src={team.avatar} />}
               primaryText={team.name}
               rightIconButton={teamButton(team)}
               secondaryText={that.requestedToJoinString()}

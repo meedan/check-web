@@ -65,6 +65,9 @@ export const body1 = `400 14px/${units(2.5)} ${fontStackSans}`;
 export const caption = `400 ${units(1.5)}/${units(2.5)} ${fontStackSans}`;
 export const tiny = `400 ${units(1)}/${units(1.5)} ${fontStackSans}`;
 
+// Layout
+export const headerHeight = units(7);
+
 // Breakpoints
 export const breakpointMobile = `${units(85)}`;
 
@@ -134,12 +137,6 @@ export const listItemWithButtonsStyle =
     alignItems: 'center',
     justifyContent: 'space-between',
   });
-
-export const ellipsisStyle = {
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
-  whiteSpace: 'nowrap',
-};
 
 // CSS Helpers
 //
