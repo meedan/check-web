@@ -16,6 +16,14 @@
     "defaultMessage": "Owner"
   },
   {
+    "id": "TeamMembershipRequestsListItem.approve",
+    "defaultMessage": "Approve"
+  },
+  {
+    "id": "TeamMembershipRequestsListItem.deny",
+    "defaultMessage": "Ignore"
+  },
+  {
     "id": "TeamMembersListItem.deleteMember",
     "defaultMessage": "Delete Member"
   }

@@ -13,10 +13,16 @@ import { profileLink } from './TeamUtil';
 import {
   selectStyle,
   checkBlue,
+<<<<<<< HEAD
+  highlightBlue,
+  MemberRow,
+  Text,
+=======
   FlexRow,
   Text,
   buttonInButtonGroupStyle,
   units,
+>>>>>>> fix/6135-team-members-components
 } from '../../styles/js/variables';
 
 const messages = defineMessages({
@@ -83,6 +89,52 @@ class TeamMembersListItem extends Component {
       <ListItem
         className="team-members__member"
         key={teamUser.node.id}
+<<<<<<< HEAD
+        href={profileLink(teamUser.node.user)}
+        hoverColor={highlightBlue}
+        disabled={isEditing}
+        focusRippleColor={checkBlue}
+        touchRippleColor={checkBlue}
+      >
+        <MemberRow>
+          <div>
+            <Avatar
+              className="avatar"
+              src={teamUser.node.user.profile_image}
+              alt={teamUser.node.user.name}
+            />
+            <Text ellipsis>
+              {teamUser.node.user.name}
+            </Text>
+          </div>
+          <div>
+            <Select
+              style={selectStyle}
+              className="team-members__member-role"
+              onChange={this.handleRoleChange.bind(this)}
+              autosize
+              searchable={false}
+              backspaceRemoves={false}
+              clearable={false}
+              disabled={!isEditing || teamUser.node.status === 'banned'}
+              options={roles}
+              value={teamUser.node.role}
+            />
+            {isEditing && teamUser.node.status !== 'banned'
+              ?
+                <IconButton
+                  focusRippleColor={checkBlue}
+                  touchRippleColor={checkBlue}
+                  style={{ fontSize: '20px' }}
+                  onClick={this.handleDeleteTeamUser.bind(this)}
+                  tooltip={<FormattedMessage id="TeamMembersListItem.deleteMember" defaultMessage="Delete Member" />}
+                >
+                  <MdClear />
+                </IconButton>
+              : null}
+          </div>
+        </MemberRow>
+=======
         disabled
       >
         <FlexRow>
@@ -158,6 +210,7 @@ class TeamMembersListItem extends Component {
           })()}
 
         </FlexRow>
+>>>>>>> fix/6135-team-members-components
       </ListItem>
 
     );

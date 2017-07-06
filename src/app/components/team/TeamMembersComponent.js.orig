@@ -11,7 +11,13 @@ import ContentColumn from '../layout/ContentColumn';
 import {
   cardInCardGroupStyle,
   listItemStyle,
+<<<<<<< HEAD
   StyledMdCardTitle,
+=======
+  checkBlue,
+  white,
+  title,
+>>>>>>> fix/6135-team-members-components
 } from '../../styles/js/variables';
 
 const messages = defineMessages({
@@ -51,8 +57,13 @@ class TeamMembersComponent extends Component {
       return teamUsersMembers.push(teamUser);
     });
 
+<<<<<<< HEAD
+=======
+    const teamUrl = `${window.location.protocol}//${config.selfHost}/${team.slug}`;
+    const joinUrl = `${teamUrl}/join`;
     const requestingMembership = !!teamUsersRequestingMembership.length;
 
+>>>>>>> fix/6135-team-members-components
     return (
       <PageTitle
         prefix={this.props.intl.formatMessage(messages.title)}
@@ -60,6 +71,7 @@ class TeamMembersComponent extends Component {
         team={team}
       >
         <ContentColumn>
+
           <TeamInviteCard team={team} />
 
           {(() => {

@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 import { CardTitle } from 'material-ui/Card';
+<<<<<<< HEAD
+import { ListItem } from 'material-ui/List';
+=======
+>>>>>>> fix/6135-team-members-components
 
 // Styles for overriding material UI
 // General colors
@@ -66,14 +70,36 @@ export const breakpointMobile = `${units(85)}`;
 export const defaultBorderRadius = '2px';
 export const defaultBorderWidth = '1px';
 
+<<<<<<< HEAD
+// Shared Material UI style overrides using styled-components
+//
+export const StyledMdCardTitle =
+  styled(CardTitle)` > span {
+      font: ${title} !important;
+    }
+    padding-bottom: 8px !important;
+  `;
+
+export const FlexRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+=======
 // ===================================================================
+>>>>>>> fix/6135-team-members-components
 // Inline CSS
 //
 // The following styles are applied using the style prop:
 //
 // <Something style={somethingStyle} />
+<<<<<<< HEAD
+//
+=======
 // ===================================================================
 
+>>>>>>> fix/6135-team-members-components
 export const titleStyle = {
   fontSize: `${units(2.5)}`,
   lineHeight: `${units(4)}`,
@@ -117,6 +143,25 @@ export const ellipsisStyle = {
   whiteSpace: 'nowrap',
 };
 
+<<<<<<< HEAD
+// Team member and requested-to-join member
+export const MemberRow = styled.div`
+  &, > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    img {
+      margin-right: 16px;
+    }
+  }
+`;
+
+export const ellipsisStyles = 'overflow: hidden; text-overflow: ellipsis; white-space: nowrap;';
+
+export const Text = styled.span`
+  ${props => props.ellipsis ? ellipsisStyles : ''}
+`;
+=======
 // ===================================================================
 // Styled Components
 //
@@ -147,3 +192,4 @@ export const FlexRow = styled.div`
   justify-content: space-between;
   align-items: center;
 `;
+>>>>>>> fix/6135-team-members-components
