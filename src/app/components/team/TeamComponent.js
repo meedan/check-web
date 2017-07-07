@@ -29,11 +29,9 @@ import {
   units,
   unitless,
   black54,
-  black87,
   caption,
   title,
   subheading1,
-  boxShadow,
   avatarStyle,
   TooltipButton,
 } from '../../styles/js/variables';
@@ -219,7 +217,6 @@ class TeamComponent extends Component {
 
     // Set up RTL for stylesheets
     const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
-    const fromDirection = isRtl ? 'right' : 'left';
     const toDirection = isRtl ? 'left' : 'right';
 
     // Define variables for styles
