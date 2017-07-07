@@ -4,7 +4,7 @@
 
 if [ "${NODE_ENV}" != "production" ]; then 
     echo "NODE_ENV is ${NODE_ENV}, turning off cache headers in nginx conf"
-    sed -i 's/add_header/# add_header/' /etc/nginx/sites-enabled/${APP}
+    sed -i 's/add_header Cache-control /# add_header Cache-control/' /etc/nginx/sites-enabled/${APP}
 fi
 
 function config_replace() {
