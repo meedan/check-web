@@ -61,7 +61,7 @@ WORKDIR ${DEPLOYDIR}
 RUN mv ./latest ./${APP}-$(date -I) && ln -s ./${APP}-$(date -I) ./current
 
 USER root
-RUN rm /etc/nginx/passenger.conf /etc/nginx/conf.d/passenger.conf /etc/nginx/sites-enabled/default
+RUN rm /etc/nginx/sites-enabled/default
 COPY docker/production/config/nginx.conf /etc/nginx/sites-enabled/${APP}
 
 #
