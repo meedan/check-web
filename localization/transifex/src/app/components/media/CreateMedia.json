@@ -2,8 +2,14 @@
   "createMedia.submitting": "Submitting...",
   "createMedia.error": "Something went wrong! Try pasting the text of this post instead, or adding a different link.",
   "createMedia.mediaInput": "Paste or type",
+  "createMedia.sourceInput": "Source name",
+  "createMedia.sourceUrlInput": "Link to source",
   "createMedia.uploadImage": "Upload an image",
   "createMedia.submitButton": "Post",
   "createMedia.helper": "Add a link, quote or image for verification",
-  "bridge.createMedia.helper": "Add a link, quote or image for translation"
+  "bridge.createMedia.helper": "Add a link, quote or image for translation",
+  "createMedia.imageTitle": "Upload a photo",
+  "createMedia.sourceTitle": "Add a source",
+  "createMedia.linkTitle": "Add a link",
+  "createMedia.quoteTitle": "Add a quote"
 }

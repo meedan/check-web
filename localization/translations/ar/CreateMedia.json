@@ -2,8 +2,14 @@
   "createMedia.submitting": "جاري الإرسال ...",
   "createMedia.error": "حدث خطأ ما! حاول لصق نص التقرير كحل بديل، أو أضف رابط آخر.",
   "createMedia.mediaInput": "الصق أو اكتب",
+  "createMedia.sourceInput": "اسم المصدر",
+  "createMedia.sourceUrlInput": "رابط المصدر",
   "createMedia.uploadImage": "ارفع صورة",
   "createMedia.submitButton": "نشر",
-  "createMedia.helper": "أضف رابط، اقتباس أو صورة للتحقق من صحة معلوماتهم",
-  "bridge.createMedia.helper": "أضف رابطاً، اقتباساً أو صورة للترجمة"
+  "createMedia.helper": "أضف رابطاً، اقتباساً أو صورة للتحقق من صحة معلوماتهم",
+  "bridge.createMedia.helper": "أضف رابطاً، اقتباساً أو صورة للترجمة",
+  "createMedia.imageTitle": "ارفع صورة",
+  "createMedia.sourceTitle": "أضف مصدراً",
+  "createMedia.linkTitle": "أضف رابطاً",
+  "createMedia.quoteTitle": "أضف اقتباساً"
 }
