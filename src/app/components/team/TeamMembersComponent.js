@@ -107,6 +107,7 @@ class TeamMembersComponent extends Component {
             </List>
             <CardActions style={listItemStyle} >
               <RaisedButton
+                style={{ marginLeft: 'auto' }}
                 onClick={this.handleEditMembers.bind(this)}
                 className="team-members__edit-button"
                 icon={<MdCreate className="team-members__edit-icon" />}

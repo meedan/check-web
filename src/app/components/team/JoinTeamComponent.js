@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Relay from 'react-relay';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import { Link } from 'react-router';
-import styled from 'styled-components';
 import RaisedButton from 'material-ui/RaisedButton';
 import Card, { CardTitle, CardActions, CardText } from 'material-ui/Card';
 import PageTitle from '../PageTitle';
@@ -11,7 +10,6 @@ import { mapGlobalMessage } from '../MappedMessage';
 import Message from '../Message';
 import CheckContext from '../../CheckContext';
 import ContentColumn from '../layout/ContentColumn';
-import { units } from '../../styles/js/variables';
 
 const messages = defineMessages({
   error: {
@@ -39,6 +37,14 @@ class JoinTeamComponent extends Component {
     this.state = {
       requestStatus: '',
     };
+  }
+
+  componentWillMount() {
+    this.redirectIfMember();
+  }
+
+  componentWillUpdate() {
+    this.redirectIfMember();
   }
 
   getContext() {
@@ -95,7 +101,7 @@ class JoinTeamComponent extends Component {
       let redirect = true;
       for (const teamName in userTeams) {
         const t = userTeams[teamName];
-        if (t.id == team.dbid && team.private && t.status != 'member') {
+        if (t.id === team.dbid && team.private && t.status !== 'member') {
           redirect = false;
         }
       }
@@ -107,14 +113,6 @@ class JoinTeamComponent extends Component {
 
   alreadyMember() {
     return this.getContext().currentUser.team_ids.indexOf(this.props.team.dbid) > -1;
-  }
-
-  componentWillMount() {
-    this.redirectIfMember();
-  }
-
-  componentWillUpdate() {
-    this.redirectIfMember();
   }
 
   render() {
@@ -172,33 +170,36 @@ class JoinTeamComponent extends Component {
 
               {(() => {
                 if (!this.alreadyMember()) {
-                  <CardActions>
-                    <RaisedButton
-                      primary
-                      className={`join-team__button${isRequestSent === ''
-                        ? ''
-                        : ' join-team__button--submitted'}`}
-                      onClick={this.handleRequestAccess.bind(this)}
-                      disabled={disableRequest}
-                      label={(() => {
-                        if (isRequestSent === 'requested') {
+                  return (
+                    <CardActions>
+                      <RaisedButton
+                        primary
+                        className={`join-team__button${isRequestSent === ''
+                          ? ''
+                          : ' join-team__button--submitted'}`}
+                        onClick={this.handleRequestAccess.bind(this)}
+                        disabled={disableRequest}
+                        label={(() => {
+                          if (isRequestSent === 'requested') {
+                            return (
+                              <FormattedMessage
+                                id="joinTeamComponent.buttonSubmitted"
+                                defaultMessage="Request Sent"
+                              />
+                            );
+                          }
                           return (
                             <FormattedMessage
-                              id="joinTeamComponent.buttonSubmitted"
-                              defaultMessage="Request Sent"
+                              id="joinTeamComponent.buttonSubmit"
+                              defaultMessage="Request to Join"
                             />
                           );
-                        }
-                        return (
-                          <FormattedMessage
-                            id="joinTeamComponent.buttonSubmit"
-                            defaultMessage="Request to Join"
-                          />
-                        );
-                      })()}
-                    />
-                  </CardActions>;
+                        })()}
+                      />
+                    </CardActions>
+                  );
                 }
+                return null;
               })()}
             </Card>
           </ContentColumn>

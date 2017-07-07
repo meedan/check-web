@@ -18,6 +18,7 @@ import {
   title,
   units,
   breakpointMobile,
+  FlexRow,
 } from '../../styles/js/variables';
 
 class TeamInviteCard extends Component {
@@ -93,17 +94,23 @@ class TeamInviteCard extends Component {
               text={joinUrl}
               onCopy={() => this.setState({ copied: true })}
             >
-              {this.state.copied ? <StyledMdRaisedButton
-                icon={<MdDone />} label={<FormattedMessage
-                  id="teamInviteCard.copy"
-                  defaultMessage={'COPIED!'}
+              <FlexRow>
+                {this.state.copied ? <StyledMdRaisedButton
+                  style={{ marginLeft: 'auto' }}
+                  icon={<MdDone />}
+                  label={<FormattedMessage
+                    id="teamInviteCard.copy"
+                    defaultMessage={'COPIED!'}
+                  />}
+                /> : <StyledMdRaisedButton
+                  icon={<MdPaste />}
+                  style={{ marginLeft: 'auto' }}
+                  label={<FormattedMessage
+                    id="teamInviteCard.copied"
+                    defaultMessage={'COPY'}
+                  />}
                 />}
-              /> : <StyledMdRaisedButton
-                icon={<MdPaste />} label={<FormattedMessage
-                  id="teamInviteCard.copied"
-                  defaultMessage={'COPY'}
-                />}
-              />}
+              </FlexRow>
             </CopyToClipboard>
           </BackgroundImageRow>
         </CardText>
