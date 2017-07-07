@@ -6,7 +6,7 @@ import {
   defineMessages,
   intlShape,
 } from 'react-intl';
-import MdChevronRight from 'react-icons/lib/md/chevron-right';
+import KeyboardArrowRight from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 import config from 'config';
 import {
   Card,
@@ -179,7 +179,7 @@ class SwitchTeamsComponent extends Component {
               leftAvatar={<Avatar style={{ borderRadius: defaultborderRadius }} src={team.avatar} />}
               onClick={that.setCurrentTeam.bind(that, team, currentUser)}
               primaryText={team.name}
-              rightIcon={<MdChevronRight />}
+              rightIcon={<KeyboardArrowRight />}
               secondaryText={that.membersCountString(team.members_count)}
             />,
           )}

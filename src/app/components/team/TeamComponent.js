@@ -6,8 +6,7 @@ import TextField from 'material-ui/TextField';
 import Checkbox from 'material-ui/Checkbox';
 import FlatButton from 'material-ui/FlatButton';
 import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
-import MdChevronRight from 'react-icons/lib/md/chevron-right';
-import MdChevronLeft from 'react-icons/lib/md/chevron-left';
+import KeyboardArrowRight from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 import MDEdit from 'react-icons/lib/md/edit';
 import { List, ListItem } from 'material-ui/List';
 import styled from 'styled-components';
@@ -487,7 +486,7 @@ class TeamComponent extends Component {
                             touchRippleColor={checkBlue}
                             href={`/${team.slug}/project/${p.node.dbid}`}
                             primaryText={p.node.title}
-                            rightIcon={<MdChevronRight />}
+                            rightIcon={<KeyboardArrowRight />}
                           />,
                         )}
                     </List>
