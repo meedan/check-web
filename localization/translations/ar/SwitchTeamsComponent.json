@@ -5,5 +5,6 @@
   "switchTeams.joinRequestMessage": "لقد أرسلت طلب انضمام للفريق",
   "switchTeams.cancelJoinRequest": "إلغاء",
   "switchTeams.bannedJoinRequest": "تم الإلغاء",
+  "teams.yourTeams": "الفرق المُنضم إليها",
   "switchTeams.newTeamLink": "+ فريق جديد"
 }

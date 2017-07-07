@@ -1,0 +1,56 @@
+.source-card {
+  margin-bottom: units(2);
+  padding-#{$from-direction}: units(1);
+
+  div {
+    padding-bottom: 0 !important;
+  }
+}
+
+div.source-card__content {
+  padding-bottom: 0 !important;
+}
+
+.source-card__avatar {
+  padding-top: units(1);
+  float:left;
+}
+
+.source-card__body {
+  margin-left: units(7);
+}
+
+.source-card__heading {
+
+}
+
+.source-card__name {
+  padding-top: units(1);
+  font: font(headline);
+}
+
+.source-card__description {
+  padding-top: units(1.5);
+  font: font(body1);
+  color: $opaque-black-54;
+}
+
+.source-card__accounts {
+  padding-top: units(3);
+
+  svg {
+    margin-#{$to-direction}: units(1);
+
+    path {
+      color: $black-54;
+    }
+  }
+}
+
+.source-card__account-link {
+ padding-bottom: units(1.5);
+}
+
+.source-card__footer {
+  color: $black-54 !important;
+}
