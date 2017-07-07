@@ -3,6 +3,8 @@ import request from 'sync-request';
 import gulp from 'gulp';
 import gutil from 'gulp-util';
 import rename from 'gulp-rename';
+import babel from 'gulp-babel'
+import concat from 'gulp-concat'
 import transifex from 'gulp-transifex';
 import jsonEditor from 'gulp-json-editor';
 import webpack from 'webpack';
@@ -44,9 +46,22 @@ gulp.task('relay:copy', () => {
   }
 });
 
+gulp.task('webpack:build:server', (callback) => {
+  webpackConfig.entry = webpackConfig.entryServer;
+  webpackConfig.output.path = webpackConfig.output.pathServer;
+  webpackConfig.target = 'node';
+  webpack(Object.create(webpackConfig), (err, stats) => {
+    if (err) {
+      throw new gutil.PluginError('webpack:build', err);
+    }
+    gutil.log('[webpack:build]', stats.toString({ colors: true, chunks: false }));
+    callback();
+  });
+});
+
 gulp.task('webpack:build:web', (callback) => {
   webpackConfig.entry = webpackConfig.entryWeb;
-  webpackConfig.output.path = webpackConfig.output.pathWeb;
+  webpackConfig.output.path = webpackConfig.output.pathWeb;  
   webpack(Object.create(webpackConfig), (err, stats) => {
     if (err) {
       throw new gutil.PluginError('webpack:build', err);
@@ -106,8 +121,9 @@ gulp.task('transifex:languages', () => {
 });
 
 gulp.task('build:web', ['replace-webpack-code', 'relay:copy', 'webpack:build:web', 'copy:build:web']);
+gulp.task('build:server', ['webpack:build:server']);
 
-// Dev mode — with "watch" enabled for faster builds
+// Dev mode — with 'watch' enabled for faster builds
 // Webpack only — without the rest of the web build steps.
 //
 var devConfig = Object.create(webpackConfig);
