@@ -15,7 +15,7 @@ fs.readdirSync('node_modules')
 externals['config'] = 'config';
 
 module.exports = {
-  entry: path.join(__dirname, '../server/server.js'),
+  entry: path.join(__dirname, '../scripts/server.js'),
   target: 'node',
   output: {
     path: path.join(__dirname, '../dist'),
