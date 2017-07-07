@@ -170,6 +170,7 @@ class SwitchTeamsComponent extends Component {
 
           {otherTeams.map((team, index) =>
             <ListItem
+              className="team"
               key={index}
               hoverColor={highlightBlue}
               focusRippleColor={checkBlue}

@@ -37,7 +37,25 @@
     text-align: left !important;
   }
 }
+
+// MD ListItem needs RTL support
+// TODO integrate this into the component
+.team,
+.team__project {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+
+  > div {
+    width: 100% !important;
+  }
+
+  svg {
+    left: 4px !important;
+    right: auto !important;
+    transform: rotate(180deg);
+  }
+}
 $from-direction: right;
 $to-direction: left;
-
 @import "stylesheet";

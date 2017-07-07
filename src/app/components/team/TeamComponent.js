@@ -6,11 +6,12 @@ import TextField from 'material-ui/TextField';
 import Checkbox from 'material-ui/Checkbox';
 import FlatButton from 'material-ui/FlatButton';
 import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
-import IconButton from 'material-ui/IconButton';
 import MdChevronRight from 'react-icons/lib/md/chevron-right';
+import MdChevronLeft from 'react-icons/lib/md/chevron-left';
 import MDEdit from 'react-icons/lib/md/edit';
 import { List, ListItem } from 'material-ui/List';
 import styled from 'styled-components';
+import rtlDetect from 'rtl-detect';
 import PageTitle from '../PageTitle';
 import MappedMessage from '../MappedMessage';
 import UpdateTeamMutation from '../../relay/UpdateTeamMutation';
@@ -20,7 +21,6 @@ import Can from '../Can';
 import CheckContext from '../../CheckContext';
 import ContentColumn from '../layout/ContentColumn';
 import ParsedText from '../ParsedText';
-
 import {
   highlightBlue,
   checkBlue,
@@ -36,73 +36,8 @@ import {
   subheading1,
   boxShadow,
   avatarStyle,
+  TooltipButton,
 } from '../../styles/js/variables';
-
-const teamAvatarWidth = unitless(10);
-const teamProfileOffset = unitless(18);
-const teamProfileBottomPad = unitless(8);
-const teamProfileFabHeight = unitless(5);
-const editButtonOffset = teamProfileFabHeight / 2 + teamProfileBottomPad;
-
-const ProfileContainer = styled(Card)`
-  margin-bottom: ${units(6)};
-  margin-top: -${teamProfileOffset}px;
-  padding-bottom: ${teamProfileBottomPad}px;
-  padding-top: ${teamProfileOffset}px;
-`;
-
-const TeamName = styled.h1`
-  font: ${title};
-  margin-bottom: ${units(0.5)};
-`;
-
-const TeamDescription = styled.div`
-  color: ${black54};
-  font: ${subheading1};
-  margin-bottom: ${units(1)};
-`;
-
-const TeamContactInfo = styled.div`
-  color: ${black54};
-  display: flex;
-  flex-flow: wrap row;
-  font: ${caption};
-
-  & > span {
-    margin-right: ${units(2)};
-  }
-`;
-
-const TeamAvatar = styled.div`
-  ${avatarStyle};
-  margin-top: ${units(2.5)};
-  margin-right: ${units(2)};
-`;
-
-// Customized Material UI IconButton
-// (We would use a FAB component, but we want a tooltip)
-//
-const EditButton = styled(IconButton)`
-  box-shadow: ${boxShadow(2)};
-  background-color: white !important;
-  border-radius: 50% !important;
-  bottom: -${editButtonOffset}px !important;
-  position: absolute !important;
-  right: 16% !important;
-
-  &:hover {
-    box-shadow: ${boxShadow(4)};
-
-    svg {
-      fill: ${black87} !important;
-    }
-  }
-
-  svg {
-    fill: $black-54 !important;
-    font-size: 20px;
-  }
-`;
 
 const messages = defineMessages({
   editError: {
@@ -283,6 +218,52 @@ class TeamComponent extends Component {
     const contact = team.contacts.edges[0];
     const contactInfo = [];
 
+    // Set up RTL for stylesheets
+    const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
+    const fromDirection = isRtl ? 'right' : 'left';
+    const toDirection = isRtl ? 'left' : 'right';
+
+    // Define variables for styles
+    const teamProfileOffset = unitless(18);
+    const teamProfileBottomPad = unitless(8);
+    const teamProfileFabHeight = unitless(5);
+    const tooltipButtonOffset = teamProfileFabHeight / 2 + teamProfileBottomPad;
+
+    const ProfileContainer = styled(Card)`
+      margin-bottom: ${units(6)};
+      margin-top: -${teamProfileOffset}px;
+      padding-bottom: ${teamProfileBottomPad}px;
+      padding-top: ${teamProfileOffset}px;
+    `;
+
+    const TeamName = styled.h1`
+      font: ${title};
+      margin-bottom: ${units(0.5)};
+    `;
+
+    const TeamDescription = styled.div`
+      color: ${black54};
+      font: ${subheading1};
+      margin-bottom: ${units(1)};
+    `;
+
+    const TeamContactInfo = styled.div`
+      color: ${black54};
+      display: flex;
+      flex-flow: wrap row;
+      font: ${caption};
+
+      & > span {
+        margin-right: ${units(2)};
+      }
+    `;
+
+    const TeamAvatar = styled.div`
+      ${avatarStyle};
+      margin-top: ${units(2.5)};
+      margin-${toDirection}: ${units(2)};
+    `;
+
     if (contact) {
       if (contact.node.location) {
         contactInfo.push(
@@ -462,8 +443,9 @@ class TeamComponent extends Component {
                     </section>
                     <section style={{ position: 'relative' }}>
                       <Can permissions={team.permissions} permission="update Team">
-                        <EditButton
+                        <TooltipButton
                           className="team__edit-button"
+                          style={{ bottom: `-${tooltipButtonOffset}px` }}
                           tooltip={
                             <FormattedMessage
                               id="teamComponent.editButton"
@@ -474,7 +456,7 @@ class TeamComponent extends Component {
                           onTouchTap={this.handleEntreEditTeamNameAndDescription.bind(this)}
                         >
                           <MDEdit />
-                        </EditButton>
+                        </TooltipButton>
                       </Can>
                     </section>
                   </div>
@@ -491,14 +473,15 @@ class TeamComponent extends Component {
                       titleStyle={titleStyle}
                       title={<MappedMessage msgObj={messages} msgKey="verificationProjects" />}
                     />
-                    <List style={listStyle} className>
+
+                    <List className="projects" style={listStyle}>
                       {team.projects.edges
                         .sortp((a, b) => a.node.title.localeCompare(b.node.title))
                         .map(p =>
                           <ListItem
+                            innerDivStyle={listItemStyle}
                             key={p.node.dbid}
                             className="team__project"
-                            innerDivStyle={listItemStyle}
                             hoverColor={highlightBlue}
                             focusRippleColor={checkBlue}
                             touchRippleColor={checkBlue}
