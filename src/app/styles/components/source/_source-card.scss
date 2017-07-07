@@ -1,6 +1,23 @@
 .source-card {
   margin-bottom: units(2);
   padding-#{$from-direction}: units(1);
+
+  div {
+    padding-bottom: 0 !important;
+  }
+}
+
+div.source-card__content {
+  padding-bottom: 0 !important;
+}
+
+.source-card__avatar {
+  padding-top: units(1);
+  float:left;
+}
+
+.source-card__body {
+  margin-left: units(7);
 }
 
 .source-card__heading {
@@ -30,6 +47,10 @@
   }
 }
 
- .source-card__account-link {
-   padding-bottom: units(1.5);
- }
+.source-card__account-link {
+ padding-bottom: units(1.5);
+}
+
+.source-card__footer {
+  color: $black-54 !important;
+}
