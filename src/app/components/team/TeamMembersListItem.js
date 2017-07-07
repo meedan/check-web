@@ -59,7 +59,7 @@ class TeamMembersListItem extends Component {
     );
   }
 
-  handleTeamMembershipRequest(event, status) {
+  handleTeamMembershipRequest(status) {
     Relay.Store.commitUpdate(
       new UpdateTeamUserMutation({
         id: this.props.teamUser.node.id,
