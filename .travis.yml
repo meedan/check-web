@@ -11,7 +11,7 @@ addons:
   postgresql: "9.4"
 before_install:
 # decrypt configs
-- openssl aes-256-cbc -K $encrypted_6fe2dd6b9fe7_key -iv $encrypted_6fe2dd6b9fe7_iv -in travis.zip.enc -out travis.zip -d
+- openssl aes-256-cbc -K $encrypted_6fe224c112de_key -iv $encrypted_6fe224c112de_iv -in travis.zip.enc -out travis.zip -d
 - unzip travis.zip
 # apt dependencies
 - sudo apt-get -qq update
@@ -41,6 +41,7 @@ before_install:
 - cp travis/pender.yml pender/config/config.yml
 - cp pender/config/initializers/secret_token.rb.example pender/config/initializers/secret_token.rb
 - cp pender/config/database.yml.travis pender/config/database.yml
+- cp pender/config/sidekiq.yml.example pender/config/sidekiq.yml
 - cd pender
 - bundle install
 - bundle exec rake db:migrate
