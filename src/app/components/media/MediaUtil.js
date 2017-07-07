@@ -1,3 +1,9 @@
+import React from 'react';
+import FaFacebookSquare from 'react-icons/lib/fa/facebook-square';
+import FaInstagram from 'react-icons/lib/fa/instagram';
+import FaTwitter from 'react-icons/lib/fa/twitter';
+import FaYoutubePlay from 'react-icons/lib/fa/youtube-play';
+import MdLink from 'react-icons/lib/md/link';
 import { defineMessages } from 'react-intl';
 import { truncateLength } from '../../helpers';
 import config from 'config';
@@ -228,6 +234,21 @@ const MediaUtil = {
       }
     } catch (e) {
       return null;
+    }
+  },
+
+  socialIcon(domain) {
+    switch (domain) {
+    case 'twitter.com':
+      return <FaTwitter />;
+    case 'youtube.com':
+      return <FaYoutubePlay />;
+    case 'instagram.com':
+      return <FaInstagram />;
+    case 'facebook.com':
+      return <FaFacebookSquare />;
+    default :
+      return <MdLink />;
     }
   },
 

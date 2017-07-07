@@ -5,5 +5,6 @@
   "switchTeams.joinRequestMessage": "Vous avez demandé à rejoindre",
   "switchTeams.cancelJoinRequest": "Annuler",
   "switchTeams.bannedJoinRequest": "Annulé",
+  "teams.yourTeams": "Vos équipes",
   "switchTeams.newTeamLink": "+ Nouvelle équipe"
 }
