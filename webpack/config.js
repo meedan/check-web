@@ -3,18 +3,13 @@ import webpack from 'webpack';
 var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 var CompressionPlugin = require('compression-webpack-plugin');
 
-
 export default {
   bail: true, // exit 1 on build failure
   entryWeb: {
-    index: ['babel-polyfill', 'whatwg-fetch', path.join(__dirname, '../src/web/index/index')]
-  },
-  entryServer: {
-    index: ['babel-polyfill', 'whatwg-fetch', path.join(__dirname, '../server/server.js')]
+    index: [ 'babel-polyfill', 'whatwg-fetch', path.join(__dirname, '../src/web/index/index') ]
   },
   output: {
     pathWeb: path.join(__dirname, '../build/web/js'),
-    pathServer: path.join(__dirname, '../dist'),
     filename: '[name].bundle.js',
     chunkFilename: '[id].chunk.js'
   },
@@ -48,31 +43,22 @@ export default {
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
       minChunks: module => /node_modules/.test(module.resource)
-    }),
-    new webpack.IgnorePlugin(/jsdom$/)
+    })
   ],
   resolve: {
-    alias: { app: path.join(__dirname, '../src/app') },
+    alias: {app: path.join(__dirname, '../src/app')},
     extensions: ['', '.js']
   },
   module: {
-    loaders: [
-      {
-        test: /\.json$/,
-        loader: 'json-loader'
-      },
-      {
-        test: /\.js$/,
-        loader: 'babel-loader',
-        exclude: /node_modules/,
-        query: {
-          presets: ['es2015', 'stage-0', 'react'],
-          plugins: [path.join(__dirname, './babelRelayPlugin.js')]
-        }
-      }, {
-        test: /\.css?$/,
-        loaders: ['style', 'raw']
-      }]
+    loaders: [{
+      test: /\.js$/,
+      loader: ['babel'],
+      exclude: /node_modules/,
+      query: { presets: ['es2015', 'stage-0', 'react'], plugins: [path.join(__dirname, './babelRelayPlugin.js')]}
+    }, {
+      test: /\.css?$/,
+      loaders: ['style', 'raw']
+    }]
   },
   externals: {
     'config': 'config',

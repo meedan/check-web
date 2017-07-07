@@ -10,6 +10,7 @@ import jsonEditor from 'gulp-json-editor';
 import webpack from 'webpack';
 import mergeTransifex from './webpack/gulp-merge-transifex-translations';
 import webpackConfig from './webpack/config';
+import webpackServerConfig from './webpack/config_server';
 import buildConfig from './config-build';
 
 let transifexClient = null;
@@ -47,10 +48,7 @@ gulp.task('relay:copy', () => {
 });
 
 gulp.task('webpack:build:server', (callback) => {
-  webpackConfig.entry = webpackConfig.entryServer;
-  webpackConfig.output.path = webpackConfig.output.pathServer;
-  webpackConfig.target = 'node';
-  webpack(Object.create(webpackConfig), (err, stats) => {
+  webpack(Object.create(webpackServerConfig), (err, stats) => {
     if (err) {
       throw new gutil.PluginError('webpack:build', err);
     }
