@@ -1,18 +1,10 @@
 import Relay from 'react-relay';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {
-  FormattedMessage,
-  defineMessages,
-  intlShape,
-} from 'react-intl';
+import { FormattedMessage, defineMessages, intlShape } from 'react-intl';
 import KeyboardArrowRight from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 import config from 'config';
-import {
-  Card,
-  CardActions,
-  CardHeader,
-} from 'material-ui/Card';
+import { Card, CardActions, CardHeader } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import { List, ListItem } from 'material-ui/List';
 import Avatar from 'material-ui/Avatar';
@@ -49,7 +41,6 @@ const messages = defineMessages({
 });
 
 class SwitchTeamsComponent extends Component {
-
   setCurrentTeam(team, user) {
     const that = this;
     const context = new CheckContext(this);
@@ -104,7 +95,6 @@ class SwitchTeamsComponent extends Component {
   requestedToJoinString() {
     return `${this.props.intl.formatMessage(messages.joinTeam)}`;
   }
-
 
   render() {
     const currentUser = this.props.me;
@@ -167,7 +157,6 @@ class SwitchTeamsComponent extends Component {
           }
         />
         <List className="teams" style={listStyle}>
-
           {otherTeams.map((team, index) =>
             <ListItem
               className="team"
@@ -176,7 +165,12 @@ class SwitchTeamsComponent extends Component {
               focusRippleColor={checkBlue}
               touchRippleColor={checkBlue}
               href={buildUrl(team)}
-              leftAvatar={<Avatar style={{ borderRadius: defaultborderRadius }} src={team.avatar} />}
+              leftAvatar={
+                <Avatar
+                  style={{ borderRadius: defaultborderRadius }}
+                  src={team.avatar}
+                />
+              }
               onClick={that.setCurrentTeam.bind(that, team, currentUser)}
               primaryText={team.name}
               rightIcon={<KeyboardArrowRight />}
@@ -191,7 +185,12 @@ class SwitchTeamsComponent extends Component {
               focusRippleColor={checkBlue}
               touchRippleColor={checkBlue}
               href={buildUrl(team)}
-              leftAvatar={<Avatar style={{ borderRadius: defaultborderRadius }} src={team.avatar} />}
+              leftAvatar={
+                <Avatar
+                  style={{ borderRadius: defaultborderRadius }}
+                  src={team.avatar}
+                />
+              }
               primaryText={team.name}
               rightIconButton={teamButton(team)}
               secondaryText={that.requestedToJoinString()}
