@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { CardTitle } from 'material-ui/Card';
-import IconButton from 'material-ui/IconButton';
 import { stripUnit, rgba } from 'polished';
 
 // Styles for overriding material UI
@@ -186,26 +185,4 @@ export const FlexRow = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-`;
-
-// Like a MUI FAB, but can accept a tooltip prop
-export const TooltipButton = styled(IconButton)`
-  box-shadow: ${boxShadow(2)};
-  background-color: white !important;
-  border-radius: 50% !important;
-  position: absolute !important;
-  right: 16% !important;
-
-  &:hover {
-    box-shadow: ${boxShadow(4)};
-
-    svg {
-      fill: ${black87} !important;
-    }
-  }
-
-  svg {
-    fill: $black-54 !important;
-    font-size: 20px;
-  }
 `;

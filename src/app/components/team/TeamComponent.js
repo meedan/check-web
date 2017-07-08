@@ -8,6 +8,7 @@ import FlatButton from 'material-ui/FlatButton';
 import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
 import KeyboardArrowRight from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 import MDEdit from 'react-icons/lib/md/edit';
+import IconButton from 'material-ui/IconButton';
 import { List, ListItem } from 'material-ui/List';
 import styled from 'styled-components';
 import rtlDetect from 'rtl-detect';
@@ -33,7 +34,8 @@ import {
   title,
   subheading1,
   avatarStyle,
-  TooltipButton,
+  boxShadow,
+  black87,
 } from '../../styles/js/variables';
 
 const messages = defineMessages({
@@ -217,13 +219,38 @@ class TeamComponent extends Component {
 
     // Set up RTL for stylesheets
     const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
-    const toDirection = isRtl ? 'left' : 'right';
+    const direction = {
+      from: isRtl ? 'right' : 'left',
+      to: isRtl ? 'left' : 'right',
+    };
 
     // Define variables for styles
     const teamProfileOffset = unitless(18);
     const teamProfileBottomPad = unitless(8);
     const teamProfileFabHeight = unitless(5);
-    const tooltipButtonOffset = teamProfileFabHeight / 2 + teamProfileBottomPad;
+
+    //  IconButton with tooltip
+    const TooltipButton = styled(IconButton)`
+      box-shadow: ${boxShadow(2)};
+      background-color: white !important;
+      border-radius: 50% !important;
+      position: absolute !important;
+      ${direction.to}: 16% !important;
+      bottom: -${(teamProfileFabHeight * 0.5) + teamProfileBottomPad}px;
+
+      &:hover {
+        box-shadow: ${boxShadow(4)};
+
+        svg {
+          fill: ${black87} !important;
+        }
+      }
+
+      svg {
+        fill: $black-54 !important;
+        font-size: 20px;
+      }
+    `;
 
     const ProfileContainer = styled(Card)`
       margin-bottom: ${units(6)};
@@ -250,14 +277,14 @@ class TeamComponent extends Component {
       font: ${caption};
 
       & > span {
-        margin-right: ${units(2)};
+        margin-${direction.to}: ${units(2)};
       }
     `;
 
     const TeamAvatar = styled.div`
       ${avatarStyle};
       margin-top: ${units(2.5)};
-      margin-${toDirection}: ${units(2)};
+      margin-${direction.to}: ${units(2)};
     `;
 
     if (contact) {
@@ -441,7 +468,6 @@ class TeamComponent extends Component {
                       <Can permissions={team.permissions} permission="update Team">
                         <TooltipButton
                           className="team__edit-button"
-                          style={{ bottom: `-${tooltipButtonOffset}px` }}
                           tooltip={
                             <FormattedMessage
                               id="teamComponent.editButton"
