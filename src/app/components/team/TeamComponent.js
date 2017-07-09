@@ -321,7 +321,7 @@ class TeamComponent extends Component {
 
     return (
       <PageTitle prefix={false} skipTeam={false} team={team}>
-        <div>
+        <div className="team">
           <ProfileContainer>
             <ContentColumn>
               <Message message={this.state.message} />
