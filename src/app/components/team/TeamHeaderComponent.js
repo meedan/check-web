@@ -73,7 +73,7 @@ class TeamHeaderComponent extends Component {
     return (
       <TeamNav>
         <TeamLink to={`/${team.slug}`} title={team.name}>
-          <TeamAvatar />
+          <TeamAvatar classname="team-header__avatar" />
           {isProjectUrl ? null : <TeamName>{team.name}</TeamName>}
         </TeamLink>
       </TeamNav>
