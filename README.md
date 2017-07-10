@@ -1,4 +1,4 @@
-# Check-web
+# Check Web
 
 [![Travis](https://travis-ci.org/meedan/check-web.svg?branch=develop)](https://travis-ci.org/meedan/check-web/)
 
