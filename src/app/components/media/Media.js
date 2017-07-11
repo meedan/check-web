@@ -216,6 +216,7 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
         }
         team {
           get_suggested_tags,
+          private,
           slug
         }
       }
