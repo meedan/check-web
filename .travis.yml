@@ -11,7 +11,7 @@ addons:
   postgresql: "9.4"
 before_install:
 # decrypt configs
-- openssl aes-256-cbc -K $encrypted_bae357cf8888_key -iv $encrypted_bae357cf8888_iv -in travis.zip.enc -out travis.zip -d
+- openssl aes-256-cbc -K $encrypted_6fe224c112de_key -iv $encrypted_6fe224c112de_iv -in travis.zip.enc -out travis.zip -d
 - unzip travis.zip
 # apt dependencies
 - sudo apt-get -qq update
@@ -33,7 +33,6 @@ before_install:
 - cd check-api
 - bundle install
 - bundle exec rake db:migrate RAILS_ENV=test
-- bundle exec rake lapis:api_keys:create_default RAILS_ENV=test
 - rails s -e test -p 3000 >/dev/null &
 - cd -
 - export RAILS_ENV=development
@@ -68,7 +67,6 @@ before_install:
 - cd test && bundle install && cd -
 # config files
 - cp travis/config-build.js config-build.js
-- cp travis/config-server.js config-server.js
 - cp travis/config.js config.js
 - cp travis/config.js test/config.js
 - cp travis/config.yml test/config.yml

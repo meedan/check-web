@@ -2,7 +2,7 @@ node_modules
 *.sw*
 *~
 **/*.log
-npm-debug.log*
+npm-debug.log.*
 build
 test/config.yml
 .project
@@ -21,4 +21,3 @@ test/spec/sauce
 config-build.js
 relay.json
 .tmp
-config-server.js

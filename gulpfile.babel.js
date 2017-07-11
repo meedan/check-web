@@ -2,15 +2,13 @@ import fs from 'fs';
 import request from 'sync-request';
 import gulp from 'gulp';
 import gutil from 'gulp-util';
+import jade from 'gulp-jade';
 import rename from 'gulp-rename';
-import babel from 'gulp-babel';
-import concat from 'gulp-concat';
 import transifex from 'gulp-transifex';
 import jsonEditor from 'gulp-json-editor';
 import webpack from 'webpack';
 import mergeTransifex from './webpack/gulp-merge-transifex-translations';
 import webpackConfig from './webpack/config';
-import webpackServerConfig from './webpack/config_server';
 import buildConfig from './config-build';
 
 let transifexClient = null;
@@ -19,19 +17,19 @@ if (buildConfig.transifex) {
     host: 'www.transifex.com',
     user: buildConfig.transifex.user,
     password: buildConfig.transifex.password,
-    project: 'check-2',
-    i18n_type: 'KEYVALUEJSON',
-    local_path: './localization/translations/*/',
+    project: "check-2",
+    i18n_type: "KEYVALUEJSON",
+    local_path: "./localization/translations/*/"
   });
 }
 
 gulp.task('replace-webpack-code', () => {
   [{
     from: './webpack/replace/JsonpMainTemplate.runtime.js',
-    to: './node_modules/webpack/lib/JsonpMainTemplate.runtime.js',
+    to: './node_modules/webpack/lib/JsonpMainTemplate.runtime.js'
   }, {
     from: './webpack/replace/log-apply-result.js',
-    to: './node_modules/webpack/hot/log-apply-result.js',
+    to: './node_modules/webpack/hot/log-apply-result.js'
   }].forEach(task => fs.writeFileSync(task.to, fs.readFileSync(task.from)));
 });
 
@@ -41,19 +39,10 @@ gulp.task('relay:copy', () => {
     if (res.statusCode < 300) {
       fs.writeFileSync('./relay.json', res.getBody());
     }
-  } else {
+  }
+  else {
     fs.writeFileSync('./relay.json', fs.readFileSync(buildConfig.relay));
   }
-});
-
-gulp.task('webpack:build:server', (callback) => {
-  webpack(Object.create(webpackServerConfig), (err, stats) => {
-    if (err) {
-      throw new gutil.PluginError('webpack:build', err);
-    }
-    gutil.log('[webpack:build]', stats.toString({ colors: true, chunks: false }));
-    callback();
-  });
 });
 
 gulp.task('webpack:build:web', (callback) => {
@@ -66,6 +55,17 @@ gulp.task('webpack:build:web', (callback) => {
     gutil.log('[webpack:build]', stats.toString({ colors: true, chunks: false }));
     callback();
   });
+});
+
+gulp.task('views:build:web', () => {
+  gulp.src([
+    './src/web/views/*.jade',
+    '!./src/web/views/devtools.jade'
+  ])
+  .pipe(jade({
+    locals: { env: 'prod' }
+  }))
+  .pipe(gulp.dest('./build/web'));
 });
 
 gulp.task('copy:build:web', () => {
@@ -94,7 +94,7 @@ gulp.task('transifex:translations', () => {
 gulp.task('transifex:prepare', () => {
   if (transifexClient) {
     gulp.src('./localization/react-intl/**/*').pipe(jsonEditor((inputJson) => {
-      const outputJson = {};
+      let outputJson = {};
       inputJson.forEach((entry) => {
         outputJson[entry.id] = entry.defaultMessage;
       });
@@ -117,15 +117,15 @@ gulp.task('transifex:languages', () => {
   }
 });
 
-gulp.task('build:web', ['replace-webpack-code', 'relay:copy', 'webpack:build:web', 'copy:build:web']);
-gulp.task('build:server', ['webpack:build:server']);
+gulp.task('build:web', ['replace-webpack-code', 'relay:copy', 'webpack:build:web', 'views:build:web', 'copy:build:web']);
 
-// Dev mode — with 'watch' enabled for faster builds
+// Dev mode — with "watch" enabled for faster builds
 // Webpack only — without the rest of the web build steps.
 //
-const devConfig = Object.create(webpackConfig);
+var devConfig = Object.create(webpackConfig);
 
 gulp.task('webpack:build:web:dev', () => {
+
   // Duplicated from the regular build
   devConfig.entry = devConfig.entryWeb;
   devConfig.output.path = devConfig.output.pathWeb;
@@ -158,9 +158,9 @@ gulp.task('webpack:build:web:dev', () => {
       errors: true,
       errorDetails: false,
       warnings: false,
-      publicPath: false,
+      publicPath: false
     }));
   });
 });
 
-gulp.task('build:web:dev', ['replace-webpack-code', 'relay:copy', 'webpack:build:web:dev', 'copy:build:web']);
+gulp.task('build:web:dev', ['replace-webpack-code', 'relay:copy', 'webpack:build:web:dev', 'views:build:web', 'copy:build:web']);

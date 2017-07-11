@@ -20,30 +20,29 @@ import {
   UserUnconfirmed,
   UserPasswordChange,
   UserPasswordReset,
-  LoginEmailPage,
+  LoginEmailPage
 } from '../components';
 import {
   Sources,
   Source,
   User,
-  Me,
+  Me
 } from '../components/source';
 import {
   Team,
   TeamMembers,
   CreateTeam,
   JoinTeam,
-  Teams,
+  Teams
 } from '../components/team';
 import {
   CreateProjectMedia,
-  ProjectMedia,
-  MediaEmbed,
+  ProjectMedia
 } from '../components/media';
 import {
   Project,
   ProjectHeader,
-  ProjectEdit,
+  ProjectEdit
 } from '../components/project';
 import Search from '../components/Search';
 import CheckContext from '../CheckContext';
@@ -67,10 +66,10 @@ if (!global.Intl) {
 
 try {
   const localeData = {
-    en,
-    fr,
-    ar,
-    pt,
+    'en': en,
+    'fr': fr,
+    'ar': ar,
+    'pt': pt
   };
   addLocaleData([...localeData[locale]]);
 } catch (e) {
@@ -155,7 +154,6 @@ export default class Root extends Component {
 
                 <Route path=":team/medias/new" component={CreateProjectMedia} />
                 <Route path=":team/project/:projectId/media/:mediaId" component={ProjectMedia} public />
-                <Route path=":team/project/:projectId/media/:mediaId/embed" component={MediaEmbed} public />
                 <Route path=":team/project/:projectId/source/:sourceId" component={Source} public />
                 <Route path=":team/join" component={JoinTeam} />
                 <Route path=":team/members" component={TeamMembers} />
