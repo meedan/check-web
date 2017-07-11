@@ -8,13 +8,13 @@ import window from 'node-window';
 import express from 'express'
 import serveStatic from 'serve-static'
 
-import configFile from '../config';
-import configBuild from '../config-build';
+import configs from '../config-server';
 import template from '../src/web/views/index';
 
 const app = express();
-const config = window.config;
 const port = process.env.SERVER_PORT || 8000;
+const mode = process.env.MODE || 'default';
+const config = configs[mode] || configs.default;
 
 // standard headers
 app.use(function(req, res, next) {
@@ -52,10 +52,10 @@ app.get('/js/*.bundle.js', function(req, res, next) {
 app.use(serveStatic('build/web', { 'index': ['index.html'] }));
       
 const headers = {
-  'X-Check-Token': configBuild.checkApiToken
+  'X-Check-Token': config.checkApiToken
 };
 
-const relayPath = config.privateRelayPath || config.relayPath;
+const relayPath = config.relayPath;
 
 // all other routes
 app.use(function(req, res, next) {

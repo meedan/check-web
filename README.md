@@ -21,20 +21,6 @@ This is the web client of [Check](https://github.com/meedan/check).
 
 If you are just getting started, you probably want to install the full [Check](https://github.com/meedan/check) stack with [Docker](https://www.docker.com/ "Docker - Build, Ship, and Run Any App, Anywhere").
 
-*Building and running*
-
-* Copy `config.js.example` to `config.js` and define your configurations
-* Execute `./docker/run.sh`
-* Enter the container with `./docker/shell.sh` and compile the code (`npm run build`)
-* Still inside the container, run the test with `npm run test` (see at the bottom more information on running tests)
-
-*Interacting*
-
-* The directories `build` and `releases` are shared between the host and the container - that's where your compiled code will be located
-* The web application will be available locally in port 3333 of the host
-* The web application will be available for the world through Ngrok (check `releases/web.log` for the generated URL)
-* While you run the tests from inside the container using `npm run test`, you can see what's going on by connecting to VNC, on port 5999 and password "keefer"
-
 #### Using Dev mode
 
 The dev mode build (`npm run build:dev`.) is intended to be used instead of the existing "full build" (`npm run build`) during local development. The dev mode reduces build time primarily by enabling webpack's `watch` feature, which uses caching and auto-rebuilding. It also disables sourcemaps by default.
@@ -59,6 +45,7 @@ In dev mode can optionally use [guard-livereload](https://github.com/guard/guard
 
 * Copy `config.js.example` to `config.js` and define your runtime configurations
 * Copy `config-build.js.example` to `config-build.js` and define your build-time configurations (optional)
+* Copy `config-server.js.example` to `config-server.js` and define your server configurations
 * `npm install`
 * `npm run build`
 * `SERVER_PORT=3333 npm run publish` (which basically serves the contents from `build/web`)
