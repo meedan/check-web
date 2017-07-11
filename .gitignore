@@ -21,3 +21,4 @@ test/spec/sauce
 config-build.js
 relay.json
 .tmp
+config-server.js
