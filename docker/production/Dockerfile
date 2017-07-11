@@ -55,7 +55,9 @@ RUN npm run build && npm run build:server
 # config
 # RUN /opt/bin/find_and_link_config_files.sh ${DEPLOYDIR}/latest
 RUN rm -f ${DEPLOYDIR}/latest/build/web/js/config.js \
-    && ln -s ${DEPLOYDIR}/shared/config/src/app/config/config.js ${DEPLOYDIR}/latest/build/web/js/config.js
+    && ln -s ${DEPLOYDIR}/shared/config/config.js ${DEPLOYDIR}/latest/build/web/js/config.js \
+    && rm -f ${DEPLOYDIR}/latest/build/web/js/config-server.js \
+    && ln -s ${DEPLOYDIR}/shared/config/config-server.js ${DEPLOYDIR}/latest/config-server.js
 
 WORKDIR ${DEPLOYDIR}
 RUN mv ./latest ./${APP}-$(date -I) && ln -s ./${APP}-$(date -I) ./current

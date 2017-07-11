@@ -13,6 +13,8 @@ fs.readdirSync('node_modules')
   });
 // and config too
 externals['config'] = 'config';
+externals['config-server'] = 'config-server';
+externals['../config-server'] = '../config-server';
 
 module.exports = {
   entry: path.join(__dirname, '../scripts/server.js'),
