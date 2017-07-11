@@ -34,7 +34,7 @@ before_install:
 - bundle install
 - bundle exec rake db:migrate RAILS_ENV=test
 - bundle exec rake lapis:api_keys:create_default RAILS_ENV=test
-- rails s -e test -p 3000 &
+- rails s -e test -p 3000 >/dev/null &
 - cd -
 - export RAILS_ENV=development
 # pender
