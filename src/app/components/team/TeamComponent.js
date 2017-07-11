@@ -450,7 +450,7 @@ class TeamComponent extends Component {
                       />
                       <div style={{ flex: 3 }}>
                         <div className="team__primary-info">
-                          <TeamName>
+                          <TeamName className="team__name">
                             {team.name}
                           </TeamName>
                           <TeamDescription>
