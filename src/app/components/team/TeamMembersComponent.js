@@ -94,7 +94,7 @@ class TeamMembersComponent extends Component {
           <Card>
             <StyledMdCardTitle title={<FormattedMessage id="teamMembersComponent.mainHeading" defaultMessage="Members" />} />
 
-            <List>
+            <List className="team-members__list">
               {(() =>
                 teamUsersMembers.map(teamUser =>
                   <TeamMembersListItem

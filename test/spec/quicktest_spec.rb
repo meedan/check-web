@@ -141,7 +141,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       page = TeamsPage.new(config: @config, driver: @driver).load
           .ask_join_team(subdomain: @t1)
       sleep 3
-      expect(@driver.find_element(:class, "message").nil?).to be(false)
+
+      # DEBUGGING — Temporarily setting this to be true — it should be false, but I am trying to trigger a screenshot of this step. 2017-7-12 CGB 
+      expect(@driver.find_element(:class, "message").nil?).to be(true)
     end
 
     #As the group creator, go to the members page and approve the joining request.
