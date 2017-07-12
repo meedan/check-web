@@ -1,10 +1,30 @@
 [
   {
-    "id": "sourceComponent.annotationsTab",
-    "defaultMessage": "Annotations"
+    "id": "sourceComponent.editError",
+    "defaultMessage": "Sorry, could not edit the source"
   },
   {
-    "id": "sourceComponent.mediasTab",
-    "defaultMessage": "Medias"
+    "id": "sourceComponent.editSuccess",
+    "defaultMessage": "Source information updated successfully!"
+  },
+  {
+    "id": "sourceComponent.dateAdded",
+    "defaultMessage": "Added {date} • Source of {number} links"
+  },
+  {
+    "id": "teamComponent.editButton",
+    "defaultMessage": "Edit profile"
+  },
+  {
+    "id": "sourceComponent.notes",
+    "defaultMessage": "Notes"
+  },
+  {
+    "id": "sourceComponent.medias",
+    "defaultMessage": "Media"
+  },
+  {
+    "id": "sourceComponent.network",
+    "defaultMessage": "Network"
   }
 ]
