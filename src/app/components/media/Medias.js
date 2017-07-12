@@ -12,7 +12,7 @@ class Medias extends Component {
             const media = node.node;
 
             return (
-              <li className="medias__item">
+              <li key={media.dbid} className="medias__item">
                 <MediaDetail media={media} condensed />
               </li>
             );
