@@ -2,7 +2,6 @@ export Annotations from './Annotations';
 export Annotation from './Annotation';
 export Sources from './Sources';
 export Source from './Source';
-export SourceHeader from './SourceHeader';
 export Tags from './Tags';
 export AddAnnotation from './AddAnnotation';
 export User from './User';
