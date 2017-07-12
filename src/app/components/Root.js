@@ -37,7 +37,8 @@ import {
 } from '../components/team';
 import {
   CreateProjectMedia,
-  ProjectMedia
+  ProjectMedia,
+  MediaEmbed
 } from '../components/media';
 import {
   Project,
@@ -154,6 +155,7 @@ export default class Root extends Component {
 
                 <Route path=":team/medias/new" component={CreateProjectMedia} />
                 <Route path=":team/project/:projectId/media/:mediaId" component={ProjectMedia} public />
+                <Route path=":team/project/:projectId/media/:mediaId/embed" component={MediaEmbed} public />
                 <Route path=":team/project/:projectId/source/:sourceId" component={Source} public />
                 <Route path=":team/join" component={JoinTeam} />
                 <Route path=":team/members" component={TeamMembers} />

@@ -87,6 +87,25 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
   context "web" do
 
+    it "should redirect to access denied page" do
+      user_1 = {email: 'sysops+' + Time.now.to_i.to_s + '@meedan.com', password: '12345678'}
+      login_pg = LoginPage.new(config: @config, driver: @driver).load
+      login_pg.register_and_login_with_email(email: user_1[:email], password: user_1[:password])
+
+      me_pg = MePage.new(config: @config, driver: login_pg.driver).load
+      user_1_source_id = me_pg.source_id
+      me_pg.logout
+
+      user_2 = {email: 'sysops+' + Time.now.to_i.to_s + '@meedan.com', password: '22345678'}
+      login_pg = LoginPage.new(config: @config, driver: @driver).load
+      login_pg.register_and_login_with_email(email: user_2[:email], password: user_2[:password])
+      unauthorized_pg = SourcePage.new(id: user_1_source_id, config: @config, driver: login_pg.driver).load
+      @wait.until { unauthorized_pg.contains_string?('Access Denied') }
+
+      expect(unauthorized_pg.contains_string?('Access Denied')).to be(true)
+      expect((unauthorized_pg.driver.current_url.to_s =~ /\/forbidden$/).nil?).to be(false)
+    end
+
     include_examples "custom"
 
     it "should edit the title of a media" do
@@ -387,25 +406,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       tag = get_element('.ReactTags__tag')
       expect(tag.text.gsub(/<[^>]+>|×/, '') == 'command').to be(true)
       expect(@driver.page_source.include?('Tagged #command')).to be(true)
-    end
-
-    it "should redirect to access denied page" do
-      user_1 = {email: 'sysops+' + Time.now.to_i.to_s + '@meedan.com', password: '12345678'}
-      login_pg = LoginPage.new(config: @config, driver: @driver).load
-      login_pg.register_and_login_with_email(email: user_1[:email], password: user_1[:password])
-
-      me_pg = MePage.new(config: @config, driver: login_pg.driver).load
-      user_1_source_id = me_pg.source_id
-      me_pg.logout
-
-      user_2 = {email: 'sysops+' + Time.now.to_i.to_s + '@meedan.com', password: '22345678'}
-      login_pg = LoginPage.new(config: @config, driver: @driver).load
-      login_pg.register_and_login_with_email(email: user_2[:email], password: user_2[:password])
-      unauthorized_pg = SourcePage.new(id: user_1_source_id, config: @config, driver: login_pg.driver).load
-      @wait.until { unauthorized_pg.contains_string?('Access Denied') }
-
-      expect(unauthorized_pg.contains_string?('Access Denied')).to be(true)
-      expect((unauthorized_pg.driver.current_url.to_s =~ /\/forbidden$/).nil?).to be(false)
     end
 
     it "should comment source as a command" do
@@ -1096,6 +1096,61 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 2
       expect(@driver.page_source.include?('Email not found')).to be(false)
       expect(@driver.page_source.include?('Password reset sent')).to be(true)
+    end
+
+    it "should set metatags" do
+      media_pg = LoginPage.new(config: @config, driver: @driver).load.login_with_email(email: @email, password: @password)
+      media_pg = media_pg.create_media(input: 'https://twitter.com/marcouza/status/875424957613920256')
+      sleep 3
+      request_api('/test/make_team_public', { slug: get_team })
+      sleep 3
+      url = @driver.current_url.to_s
+      @driver.navigate.to url
+      site = @driver.find_element(:css, 'meta[name="twitter\\:site"]').attribute('content')
+      expect(site == @config['app_name']).to be(true)
+      twitter_title = @driver.find_element(:css, 'meta[name="twitter\\:title"]').attribute('content')
+      expect(twitter_title == 'This is a test').to be(true)
+    end
+
+    it "should embed" do
+      page = LoginPage.new(config: @config, driver: @driver).load.login_with_email(email: @email, password: @password)
+      @wait.until { @driver.page_source.include?('Claim') }
+      page.create_media(input: 'Testing embeds')
+      sleep 2
+      request_api('/test/make_team_public', { slug: get_team })
+      @driver.navigate.refresh
+      sleep 2
+      @driver.find_element(:css, '.media-actions__icon').click
+      sleep 1
+      if @config['app_name'] == 'bridge'
+        expect(@driver.page_source.include?('Embed...')).to be(false)
+        @driver.navigate.to "#{@driver.current_url}/embed"
+        sleep 2
+        expect(@driver.page_source.include?('Not available')).to be(true)
+      elsif @config['app_name'] == 'check'
+        expect(@driver.page_source.include?('Embed...')).to be(true)
+        url = @driver.current_url.to_s 
+        @driver.find_element(:css, '#media-actions__embed').click
+        sleep 2
+        expect(@driver.current_url.to_s == "#{url}/embed").to be(true)
+        expect(@driver.page_source.include?('Not available')).to be(false)
+        @driver.find_element(:css, '#media-embed__actions-customize').click
+        sleep 1
+        @driver.find_elements(:css, '#media-embed__customization-menu input[type=checkbox]').map(&:click)
+        sleep 1
+        @driver.find_elements(:css, 'body').map(&:click)
+        sleep 1
+        @driver.find_element(:css, '#media-embed__actions-copy').click
+        sleep 1
+        @driver.find_element(:css, '.media-embed__copy-button').click
+        sleep 1
+        @driver.navigate.to 'https://pastebin.mozilla.org/'
+        @driver.find_element(:css, '#code').send_keys(' ')
+        @driver.action.send_keys(:control, 'v').perform
+        sleep 1
+        expect((@driver.find_element(:css, '#code').attribute('value') =~ /hide_tasks%3D1%26hide_notes%3D1/).nil?).to be(false)
+        sleep 5
+      end
     end
   end
 end
