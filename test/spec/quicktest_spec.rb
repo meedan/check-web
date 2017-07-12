@@ -142,8 +142,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
           .ask_join_team(subdomain: @t1)
       sleep 3
 
-      # DEBUGGING — Temporarily setting this to be true — it should be false, but I am trying to trigger a screenshot of this step. 2017-7-12 CGB 
-      expect(@driver.find_element(:class, "message").nil?).to be(true)
+      expect(@driver.find_element(:class, "message").nil?).to be(false)
     end
 
     #As the group creator, go to the members page and approve the joining request.
@@ -151,7 +150,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       page = LoginPage.new(config: @config, driver: @driver).load.login_with_email(email: @e1, password: @password)
       page = TeamsPage.new(config: @config, driver: @driver).load
           .approve_join_team(subdomain: @t1)
-      elems = @driver.find_elements(:css => ".team-members__list > li")
+      elems = @driver.find_elements(:css => ".team-members__list > div")
       expect(elems.size).to be > 1
     end
 
