@@ -3,8 +3,8 @@ import request from 'sync-request';
 import gulp from 'gulp';
 import gutil from 'gulp-util';
 import rename from 'gulp-rename';
-import babel from 'gulp-babel'
-import concat from 'gulp-concat'
+import babel from 'gulp-babel';
+import concat from 'gulp-concat';
 import transifex from 'gulp-transifex';
 import jsonEditor from 'gulp-json-editor';
 import webpack from 'webpack';
@@ -19,19 +19,19 @@ if (buildConfig.transifex) {
     host: 'www.transifex.com',
     user: buildConfig.transifex.user,
     password: buildConfig.transifex.password,
-    project: "check-2",
-    i18n_type: "KEYVALUEJSON",
-    local_path: "./localization/translations/*/"
+    project: 'check-2',
+    i18n_type: 'KEYVALUEJSON',
+    local_path: './localization/translations/*/',
   });
 }
 
 gulp.task('replace-webpack-code', () => {
   [{
     from: './webpack/replace/JsonpMainTemplate.runtime.js',
-    to: './node_modules/webpack/lib/JsonpMainTemplate.runtime.js'
+    to: './node_modules/webpack/lib/JsonpMainTemplate.runtime.js',
   }, {
     from: './webpack/replace/log-apply-result.js',
-    to: './node_modules/webpack/hot/log-apply-result.js'
+    to: './node_modules/webpack/hot/log-apply-result.js',
   }].forEach(task => fs.writeFileSync(task.to, fs.readFileSync(task.from)));
 });
 
@@ -41,8 +41,7 @@ gulp.task('relay:copy', () => {
     if (res.statusCode < 300) {
       fs.writeFileSync('./relay.json', res.getBody());
     }
-  }
-  else {
+  } else {
     fs.writeFileSync('./relay.json', fs.readFileSync(buildConfig.relay));
   }
 });
@@ -59,7 +58,7 @@ gulp.task('webpack:build:server', (callback) => {
 
 gulp.task('webpack:build:web', (callback) => {
   webpackConfig.entry = webpackConfig.entryWeb;
-  webpackConfig.output.path = webpackConfig.output.pathWeb;  
+  webpackConfig.output.path = webpackConfig.output.pathWeb;
   webpack(Object.create(webpackConfig), (err, stats) => {
     if (err) {
       throw new gutil.PluginError('webpack:build', err);
@@ -95,7 +94,7 @@ gulp.task('transifex:translations', () => {
 gulp.task('transifex:prepare', () => {
   if (transifexClient) {
     gulp.src('./localization/react-intl/**/*').pipe(jsonEditor((inputJson) => {
-      let outputJson = {};
+      const outputJson = {};
       inputJson.forEach((entry) => {
         outputJson[entry.id] = entry.defaultMessage;
       });
@@ -124,10 +123,9 @@ gulp.task('build:server', ['webpack:build:server']);
 // Dev mode — with 'watch' enabled for faster builds
 // Webpack only — without the rest of the web build steps.
 //
-var devConfig = Object.create(webpackConfig);
+const devConfig = Object.create(webpackConfig);
 
 gulp.task('webpack:build:web:dev', () => {
-
   // Duplicated from the regular build
   devConfig.entry = devConfig.entryWeb;
   devConfig.output.path = devConfig.output.pathWeb;
@@ -160,7 +158,7 @@ gulp.task('webpack:build:web:dev', () => {
       errors: true,
       errorDetails: false,
       warnings: false,
-      publicPath: false
+      publicPath: false,
     }));
   });
 });

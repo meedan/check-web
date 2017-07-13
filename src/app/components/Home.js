@@ -12,7 +12,7 @@ import BrowserSupport from './BrowserSupport';
 import CheckContext from '../CheckContext';
 import { bemClass } from '../helpers';
 import ContentColumn from './layout/ContentColumn';
-import { checkBlue } from '../../../config-styles';
+import { checkBlue } from '../styles/js/variables';
 
 const messages = defineMessages({
   needRegister: {

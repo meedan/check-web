@@ -141,6 +141,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       page = TeamsPage.new(config: @config, driver: @driver).load
           .ask_join_team(subdomain: @t1)
       sleep 3
+
       expect(@driver.find_element(:class, "message").nil?).to be(false)
     end
 
@@ -149,7 +150,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       page = LoginPage.new(config: @config, driver: @driver).load.login_with_email(email: @e1, password: @password)
       page = TeamsPage.new(config: @config, driver: @driver).load
           .approve_join_team(subdomain: @t1)
-      elems = @driver.find_elements(:css => ".team-members__list > li")
+      elems = @driver.find_elements(:css => ".team-members__list > div")
       expect(elems.size).to be > 1
     end
 

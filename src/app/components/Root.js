@@ -20,30 +20,30 @@ import {
   UserUnconfirmed,
   UserPasswordChange,
   UserPasswordReset,
-  LoginEmailPage
+  LoginEmailPage,
 } from '../components';
 import {
   Sources,
   Source,
   User,
-  Me
+  Me,
 } from '../components/source';
 import {
   Team,
   TeamMembers,
   CreateTeam,
   JoinTeam,
-  Teams
+  Teams,
 } from '../components/team';
 import {
   CreateProjectMedia,
   ProjectMedia,
-  MediaEmbed
+  MediaEmbed,
 } from '../components/media';
 import {
   Project,
   ProjectHeader,
-  ProjectEdit
+  ProjectEdit,
 } from '../components/project';
 import Search from '../components/Search';
 import CheckContext from '../CheckContext';
@@ -67,10 +67,10 @@ if (!global.Intl) {
 
 try {
   const localeData = {
-    'en': en,
-    'fr': fr,
-    'ar': ar,
-    'pt': pt
+    en,
+    fr,
+    ar,
+    pt,
   };
   addLocaleData([...localeData[locale]]);
 } catch (e) {

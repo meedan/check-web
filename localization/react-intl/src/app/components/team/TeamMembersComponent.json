@@ -4,19 +4,19 @@
     "defaultMessage": "Team Members"
   },
   {
-    "id": "teamMembersComponent.editDoneButton",
-    "defaultMessage": "Done"
-  },
-  {
-    "id": "teamMembersComponent.editButton",
-    "defaultMessage": "Edit"
+    "id": "teamMembershipRequests.requestsToJoin",
+    "defaultMessage": "Requests to join"
   },
   {
     "id": "teamMembersComponent.mainHeading",
     "defaultMessage": "Members"
   },
   {
-    "id": "teamMembersComponent.inviteLink",
-    "defaultMessage": "To invite colleagues to join {link}, send them this link:"
+    "id": "teamMembersComponent.editDoneButton",
+    "defaultMessage": "Done"
+  },
+  {
+    "id": "teamMembersComponent.editButton",
+    "defaultMessage": "Edit"
   }
 ]

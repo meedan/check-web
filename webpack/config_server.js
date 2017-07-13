@@ -1,18 +1,16 @@
-var webpack = require('webpack');
-var path = require('path');
-var fs = require('fs');
+const webpack = require('webpack');
+const path = require('path');
+const fs = require('fs');
 
 // set all node_modules as externals
-var externals = {};
+const externals = {};
 fs.readdirSync('node_modules')
-  .filter(function(x) {
-    return ['.bin'].indexOf(x) === -1;
-  })
-  .forEach(function(mod) {
-    externals[mod] = 'commonjs ' + mod;
+  .filter(x => ['.bin'].indexOf(x) === -1)
+  .forEach((mod) => {
+    externals[mod] = `commonjs ${mod}`;
   });
 // and config too
-externals['config'] = 'config';
+externals.config = 'config';
 externals['config-server'] = 'config-server';
 externals['../config-server'] = '../config-server';
 
@@ -22,19 +20,19 @@ module.exports = {
   output: {
     path: path.join(__dirname, '../dist'),
     filename: 'server.js',
-    libraryTarget: 'commonjs2'
+    libraryTarget: 'commonjs2',
   },
   module: {
     loaders: [{
       test: /\.js$/,
       loader: ['babel'],
       exclude: /node_modules/,
-      query: { presets: ['es2015', 'stage-0', 'react'], plugins: [path.join(__dirname, './babelRelayPlugin.js')]}
+      query: { presets: ['es2015', 'stage-0', 'react'], plugins: [path.join(__dirname, './babelRelayPlugin.js')] },
     }, {
       test: /\.css?$/,
-      loaders: ['style', 'raw']
-    }]
+      loaders: ['style', 'raw'],
+    }],
   },
 
-  externals: externals
-}
+  externals,
+};

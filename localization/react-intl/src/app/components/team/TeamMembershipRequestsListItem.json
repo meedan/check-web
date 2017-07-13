@@ -1,0 +1,10 @@
+[
+  {
+    "id": "TeamMembershipRequestsListItem.approve",
+    "defaultMessage": "Approve"
+  },
+  {
+    "id": "TeamMembershipRequestsListItem.deny",
+    "defaultMessage": "Ignore"
+  }
+]

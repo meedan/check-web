@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import MdCreate from 'react-icons/lib/md/create';
-import Select from 'react-select';
+import RaisedButton from 'material-ui/RaisedButton';
+import { Card, CardActions } from 'material-ui/Card';
+import { List } from 'material-ui/List';
+import TeamInviteCard from './TeamInviteCard';
 import PageTitle from '../PageTitle';
-import 'react-select/dist/react-select.css';
-import TeamMembershipRequests from './TeamMembershipRequests';
-import TeamMembersCell from './TeamMembersCell';
-import config from 'config';
+import TeamMembersListItem from './TeamMembersListItem';
 import ContentColumn from '../layout/ContentColumn';
+import {
+  cardInCardGroupStyle,
+  listItemStyle,
+  StyledMdCardTitle,
+} from '../../styles/js/variables';
 
 const messages = defineMessages({
   title: {
@@ -33,55 +37,90 @@ class TeamMembersComponent extends Component {
   render() {
     const isEditing = this.state.isEditing;
     const team = this.props.team;
-    const team_users = team.team_users;
-    const team_users_requestingMembership = [];
-    const team_users_members = [];
+    const teamUsers = team.team_users;
+    const teamUsersRequestingMembership = [];
+    const teamUsersMembers = [];
 
-    team_users.edges.map((team_user) => {
-      if (team_user.node.status === 'requested') {
-        team_users_requestingMembership.push(team_user);
-      } else {
-        if (team_user.node.status === 'banned') {
-          team_user.node.role = 'Rejected';
-        }
-        team_users_members.push(team_user);
+    teamUsers.edges.map((teamUser) => {
+      if (teamUser.node.status === 'requested') {
+        return teamUsersRequestingMembership.push(teamUser);
       }
+      if (teamUser.node.status === 'banned') {
+        teamUser.node.role = 'Rejected';
+      }
+      return teamUsersMembers.push(teamUser);
     });
 
-    const teamUrl = `${window.location.protocol}//${config.selfHost}/${team.slug}`;
-    const joinUrl = `${teamUrl}/join`;
+    const requestingMembership = !!teamUsersRequestingMembership.length;
 
     return (
-      <PageTitle prefix={this.props.intl.formatMessage(messages.title)} skipTeam={false} team={team}>
-        <div className="team-members">
-          <ContentColumn className="card">
-            <button onClick={this.handleEditMembers.bind(this)} className="team-members__edit-button">
-              <MdCreate className="team-members__edit-icon" />
-              {isEditing ? <FormattedMessage id="teamMembersComponent.editDoneButton" defaultMessage="Done" /> : <FormattedMessage id="teamMembersComponent.editButton" defaultMessage="Edit" />}
-            </button>
+      <PageTitle
+        prefix={this.props.intl.formatMessage(messages.title)}
+        skipTeam={false}
+        team={team}
+      >
+        <ContentColumn>
+          <TeamInviteCard team={team} />
 
-            <h1 className="team-members__main-heading"><FormattedMessage id="teamMembersComponent.mainHeading" defaultMessage="Members" /></h1>
+          {(() => {
+            if (requestingMembership) {
+              return (
+                <Card style={cardInCardGroupStyle}>
 
-            <div className="team-members__blurb">
-              <p className="team-members__blurb-graf">
-                <FormattedMessage
-                  id="teamMembersComponent.inviteLink"
-                  defaultMessage={'To invite colleagues to join {link}, send them this link:'}
-                  values={{ link: <Link to={teamUrl}>{team.name}</Link> }}
-                />
-              </p>
-              <p className="team-members__blurb-graf--url"><a href={joinUrl}>{joinUrl}</a></p>
-            </div>
+                  <StyledMdCardTitle
+                    title={<FormattedMessage
+                      id="teamMembershipRequests.requestsToJoin"
+                      defaultMessage={'Requests to join'}
+                    />}
+                  />
 
-            <TeamMembershipRequests team_users={team_users_requestingMembership} />
+                  <List>
+                    {(() => teamUsersRequestingMembership.map(teamUser => (
+                      <TeamMembersListItem
+                        teamUser={teamUser}
+                        key={teamUser.node.id}
+                        className=""
+                        requestingMembership
+                      />
+                      )))()}
+                  </List>
+                </Card>
+              );
+            }
 
-            <ul className="team-members__list">
-              {(() => team_users_members.map(team_user => (
-                <TeamMembersCell key={team_user.node.id} team_user={team_user} team_id={team.id} isEditing={isEditing} />
-                )))()}
-            </ul>
-          </ContentColumn>
-        </div>
+            return (null);
+          })()}
+
+          <Card>
+            <StyledMdCardTitle title={<FormattedMessage id="teamMembersComponent.mainHeading" defaultMessage="Members" />} />
+
+            <List className="team-members__list">
+              {(() =>
+                teamUsersMembers.map(teamUser =>
+                  <TeamMembersListItem
+                    key={teamUser.node.id}
+                    teamUser={teamUser}
+                    team_id={team.id}
+                    isEditing={isEditing}
+                  />,
+                ))()}
+            </List>
+            <CardActions style={listItemStyle} >
+              <RaisedButton
+                style={{ marginLeft: 'auto' }}
+                onClick={this.handleEditMembers.bind(this)}
+                className="team-members__edit-button"
+                icon={<MdCreate className="team-members__edit-icon" />}
+                label={isEditing
+                  ? <FormattedMessage
+                    id="teamMembersComponent.editDoneButton"
+                    defaultMessage="Done"
+                  />
+                  : <FormattedMessage id="teamMembersComponent.editButton" defaultMessage="Edit" />}
+              />
+            </CardActions>
+          </Card>
+        </ContentColumn>
       </PageTitle>
     );
   }
