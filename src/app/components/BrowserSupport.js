@@ -64,8 +64,7 @@ class BrowserSupport extends Component {
   }
 
   render() {
-    // if (this.shouldShowMessage()) {
-    if (true) {
+    if (this.shouldShowMessage()) {
       return (
         <Message>
           <ContentColumn>
