@@ -1,39 +1,90 @@
 .source {
-  padding: units(2);
+  $source-avatar-width: units(10);
+  $source-profile-offset: units(18);
+  $source-profile-bottom-pad: units(8);
+  $source-profile-fab-width: 40px;
 
-  &-header {
-    text-align: center;
+  &__profile {
+    margin-bottom: units(6);
+    margin-top: $source-profile-offset * -1;
+    padding-bottom: $source-profile-bottom-pad;
+    padding-top: $source-profile-offset;
 
-    &-avatar {
-      border: $border-width-small solid $black-87;
-      margin-top: units(1);
-      padding: units(1);
+    .source__name {
+      font: font(headline);
+      font-weight: 400;
+      margin-bottom: units(1);
     }
 
-    &-accounts {
-      margin: 0;
-      padding: 0;
+    .source__description-text {
+      color: $black-54;
+      font: font(subheading1);
+      margin-bottom: units(1);
+    }
 
-      li {
-        display: inline-block;
-        list-style: none;
-        margin: units(1);
+    &--editing {
+      .source__settings {
+        margin-top: units(6);
+      }
 
-        a {
-          background: $black-87;
-          border-radius: units(1);
-          color: $white;
-          display: inline-block;
-          font-size: units(3);
-          height: units(6);
-          width: units(6);
-
-          span {
-            margin-top: units(2);
-            vertical-align: middle;
-          }
-        }
+      .source__profile-card-actions {
+        margin-top: units(4);
       }
     }
   }
+
+  &__contact-info {
+    color: $black-54;
+    display: flex;
+    flex-flow: wrap row;
+    font: font(caption);
+
+    & > span {
+      margin-#{$to-direction}: units(2);
+    }
+  }
+
+  &__avatar {
+    @include avatar($source-avatar-width);
+    border-radius: $border-radius-default;
+    margin-top: units(2.5);
+    margin-#{$to-direction}: units(2);
+  }
+
+  // Ideally this would be a FAB component, but MUI FAB doesn't have a tooltip so we're doing our own using iconButton
+  &__edit-button {
+    @include box-shadow(2);
+    background-color: white !important;
+    border-radius: 50% !important;
+    bottom: -1 * ($source-profile-fab-width / 2 + $source-profile-bottom-pad) !important;
+    position: absolute !important;
+    right: 16% !important;
+
+    &:hover {
+      @include box-shadow(4);
+
+      svg {
+        fill: $black-87 !important;
+      }
+    }
+
+    svg {
+      fill: $black-54 !important;
+      font-size: 20px;
+    }
+  }
+}
+
+.layout-two-column {
+  display: flex;
+  .column-secondary {
+    flex: 0;
+  }
+  .column-primary {
+    flex: 3;
+  }
+}
+
+.layout-fab-container {
+  position: relative;
 }

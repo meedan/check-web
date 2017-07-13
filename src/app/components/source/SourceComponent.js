@@ -10,29 +10,18 @@ import {
   intlShape,
 } from 'react-intl';
 import TextField from 'material-ui/TextField';
-import Checkbox from 'material-ui/Checkbox';
 import FlatButton from 'material-ui/FlatButton';
 import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
 import IconButton from 'material-ui/IconButton';
-import MdChevronRight from 'react-icons/lib/md/chevron-right';
 import MDEdit from 'react-icons/lib/md/edit';
-import { List, ListItem } from 'material-ui/List';
 import PageTitle from '../PageTitle';
 import Medias from '../media/Medias';
 import MappedMessage from '../MappedMessage';
-// import UpdateSourceMutation from '../../relay/UpdateSourceMutation';
 import Message from '../Message';
-import CreateProject from '../project/CreateProject';
 import Can from '../Can';
 import CheckContext from '../../CheckContext';
 import ContentColumn from '../layout/ContentColumn';
 import ParsedText from '../ParsedText';
-import {
-  highlightBlue,
-  titleStyle,
-  listItemStyle,
-  listStyle,
-} from '../../../../config-styles';
 
 const messages = defineMessages({
   editError: {
@@ -96,25 +85,25 @@ class SourceComponent extends Component {
 
     return (
       <PageTitle prefix={source.name} skipTeam={false} team={source.team}>
-        <div className="team">
-          <Card className="team__profile team__profile--editing">
+        <div className="source">
+          <Card className="source__profile source__profile--editing">
             <ContentColumn>
               <Message message={this.state.message} />
                 <div>
                   <section className="layout-two-column">
                     <div className="column-secondary">
                       <div
-                        className="team__avatar"
+                        className="source__avatar"
                         style={{ backgroundImage: `url(${source.image})` }}
                       />
                     </div>
                     <div className="column-primary">
-                      <div className="team__primary-info">
-                        <h1 className="team__name">
+                      <div className="source__primary-info">
+                        <h1 className="source__name">
                           {source.name}
                         </h1>
-                        <div className="team__description">
-                          <p className="team__description-text">
+                        <div className="source__description">
+                          <p className="source__description-text">
                             {<ParsedText text={source.description} /> ||
                               <MappedMessage
                                 msgObj={messages}
@@ -124,7 +113,7 @@ class SourceComponent extends Component {
                         </div>
                       </div>
 
-                      <div className="team__contact-info">
+                      <div className="source__contact-info">
                         <FormattedHTMLMessage id="sourceComponent.dateAdded" defaultMessage="Added {date} &bull; Source of {number} links"
                           values={{
                             date: this.props.intl.formatDate(source.created_at, { year: 'numeric', month: 'short', day: '2-digit'}),
@@ -140,10 +129,10 @@ class SourceComponent extends Component {
                       permission="update Source"
                     >
                       <IconButton
-                        className="team__edit-button"
+                        className="source__edit-button"
                         tooltip={
                           <FormattedMessage
-                            id="teamComponent.editButton"
+                            id="sourceComponent.editButton"
                             defaultMessage="Edit profile"
                           />
                         }
@@ -154,12 +143,14 @@ class SourceComponent extends Component {
                     </Can>
                   </section>
                 </div>
-                <CardActions className="source-component__tabs">
             </ContentColumn>
+            {/*
+              <CardActions>
               <FlatButton label={<FormattedMessage id="sourceComponent.notes" defaultMessage="Notes" />} />
               <FlatButton label={<FormattedMessage id="sourceComponent.medias" defaultMessage="Media" />} />
               <FlatButton label={<FormattedMessage id="sourceComponent.network" defaultMessage="Network" />} />
             </CardActions>
+              */}
           </Card>
           <ContentColumn>
             <Medias medias={source.medias.edges} />
