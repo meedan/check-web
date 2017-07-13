@@ -1,6 +1,5 @@
 export Annotations from './Annotations';
 export Annotation from './Annotation';
-export Sources from './Sources';
 export Source from './Source';
 export Tags from './Tags';
 export AddAnnotation from './AddAnnotation';
