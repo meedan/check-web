@@ -10,5 +10,9 @@
   {
     "id": "mediaActions.refresh",
     "defaultMessage": "Refresh"
+  },
+  {
+    "id": "mediaActions.embed",
+    "defaultMessage": "Embed..."
   }
 ]

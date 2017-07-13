@@ -1,0 +1,46 @@
+[
+  {
+    "id": "mediaEmbed.embedPreview",
+    "defaultMessage": "Embed preview"
+  },
+  {
+    "id": "mediaEmbed.notAvailable",
+    "defaultMessage": "Not available"
+  },
+  {
+    "id": "mediaEmbed.customizationOptionShowTasks",
+    "defaultMessage": "Show tasks"
+  },
+  {
+    "id": "mediaEmbed.customizationOptionShowTasksSlogan",
+    "defaultMessage": "Add completed tasks to the embed"
+  },
+  {
+    "id": "mediaEmbed.customizationOptionShowNotes",
+    "defaultMessage": "Show notes"
+  },
+  {
+    "id": "mediaEmbed.customizationOptionShowNotesSlogan",
+    "defaultMessage": "Add notes to the embed"
+  },
+  {
+    "id": "mediaEmbed.warning",
+    "defaultMessage": "Warning — sharing this will expose information to people outside your private team. Proceed with caution."
+  },
+  {
+    "id": "mediaEmbed.copyButton",
+    "defaultMessage": "Copy"
+  },
+  {
+    "id": "mediaEmbed.copyButtonInactive",
+    "defaultMessage": "Copied"
+  },
+  {
+    "id": "mediaEmbed.customize",
+    "defaultMessage": "Customize"
+  },
+  {
+    "id": "mediaEmbed.copyEmbedCode",
+    "defaultMessage": "Copy embed code"
+  }
+]

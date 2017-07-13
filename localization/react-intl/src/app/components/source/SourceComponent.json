@@ -10,21 +10,5 @@
   {
     "id": "sourceComponent.dateAdded",
     "defaultMessage": "Added {date} • Source of {number} links"
-  },
-  {
-    "id": "teamComponent.editButton",
-    "defaultMessage": "Edit profile"
-  },
-  {
-    "id": "sourceComponent.notes",
-    "defaultMessage": "Notes"
-  },
-  {
-    "id": "sourceComponent.medias",
-    "defaultMessage": "Media"
-  },
-  {
-    "id": "sourceComponent.network",
-    "defaultMessage": "Network"
   }
 ]
