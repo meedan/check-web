@@ -5,13 +5,12 @@ import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-i
 import TextField from 'material-ui/TextField';
 import Checkbox from 'material-ui/Checkbox';
 import FlatButton from 'material-ui/FlatButton';
+import rtlDetect from 'rtl-detect';
 import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
 import KeyboardArrowRight from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
-import MDEdit from 'react-icons/lib/md/edit';
-import IconButton from 'material-ui/IconButton';
 import { List, ListItem } from 'material-ui/List';
 import styled from 'styled-components';
-import rtlDetect from 'rtl-detect';
+import HeaderCard from '../HeaderCard';
 import PageTitle from '../PageTitle';
 import MappedMessage from '../MappedMessage';
 import UpdateTeamMutation from '../../relay/UpdateTeamMutation';
@@ -28,14 +27,11 @@ import {
   listItemStyle,
   listStyle,
   units,
-  unitless,
   black54,
   caption,
   title,
   subheading1,
   avatarStyle,
-  boxShadow,
-  black87,
 } from '../../styles/js/variables';
 
 const messages = defineMessages({
@@ -196,17 +192,19 @@ class TeamComponent extends Component {
     this.editTeamInfo();
   }
 
-  handleEntreEditTeamNameAndDescription(e) {
+  handleEnterEditMode(e) {
     this.setState({ isEditing: true });
     e.preventDefault();
   }
 
   handleChange(key, e) {
     let value = e.target.value;
+
     if (e.target.type === 'checkbox' && !e.target.checked) {
       value = '0';
     }
     const values = Object.assign({}, this.state.values);
+
     values[key] = value;
     this.setState({ values });
   }
@@ -217,47 +215,12 @@ class TeamComponent extends Component {
     const contact = team.contacts.edges[0];
     const contactInfo = [];
 
-    // Set up RTL for stylesheets
     const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
+
     const direction = {
       from: isRtl ? 'right' : 'left',
       to: isRtl ? 'left' : 'right',
     };
-
-    // Define variables for styles
-    const teamProfileOffset = unitless(18);
-    const teamProfileBottomPad = unitless(8);
-    const teamProfileFabHeight = unitless(5);
-
-    //  IconButton with tooltip
-    const TooltipButton = styled(IconButton)`
-      box-shadow: ${boxShadow(2)};
-      background-color: white !important;
-      border-radius: 50% !important;
-      position: absolute !important;
-      ${direction.to}: 16% !important;
-      bottom: -${(teamProfileFabHeight * 0.5) + teamProfileBottomPad}px;
-
-      &:hover {
-        box-shadow: ${boxShadow(4)};
-
-        svg {
-          fill: ${black87} !important;
-        }
-      }
-
-      svg {
-        fill: $black-54 !important;
-        font-size: 20px;
-      }
-    `;
-
-    const ProfileContainer = styled(Card)`
-      margin-bottom: ${units(6)};
-      margin-top: -${teamProfileOffset}px;
-      padding-bottom: ${teamProfileBottomPad}px;
-      padding-top: ${teamProfileOffset}px;
-    `;
 
     const TeamName = styled.h1`
       font: ${title};
@@ -322,7 +285,12 @@ class TeamComponent extends Component {
     return (
       <PageTitle prefix={false} skipTeam={false} team={team}>
         <div className="team">
-          <ProfileContainer>
+          <HeaderCard
+            teamPermissions={team.permissions}
+            direction={direction}
+            handleEnterEditMode={this.handleEnterEditMode.bind(this)}
+            isEditing={isEditing}
+          >
             <ContentColumn>
               <Message message={this.state.message} />
               {(() => {
@@ -411,9 +379,7 @@ class TeamComponent extends Component {
                         />
                       </CardText>
 
-                      <CardActions
-                        style={{ marginTop: units(4) }}
-                      >
+                      <CardActions style={{ marginTop: units(4) }}>
                         <FlatButton
                           label={
                             <FormattedMessage
@@ -442,50 +408,31 @@ class TeamComponent extends Component {
                 }
 
                 return (
-                  <div>
-                    <section style={{ display: 'flex' }}>
-                      <TeamAvatar
-                        style={{ backgroundImage: `url(${team.avatar})` }}
-                        title={this.props.intl.formatMessage(messages.changeAvatar)}
-                      />
-                      <div style={{ flex: 3 }}>
-                        <div className="team__primary-info">
-                          <TeamName className="team__name">
-                            {team.name}
-                          </TeamName>
-                          <TeamDescription>
-                            {<ParsedText text={team.description} /> ||
-                              <MappedMessage msgObj={messages} msgKey="verificationTeam" />}
-                          </TeamDescription>
-                        </div>
-
-                        <TeamContactInfo>
-                          {contactInfo}
-                        </TeamContactInfo>
+                  <section style={{ display: 'flex' }}>
+                    <TeamAvatar
+                      style={{ backgroundImage: `url(${team.avatar})` }}
+                      title={this.props.intl.formatMessage(messages.changeAvatar)}
+                    />
+                    <div style={{ flex: 3 }}>
+                      <div className="team__primary-info">
+                        <TeamName className="team__name">
+                          {team.name}
+                        </TeamName>
+                        <TeamDescription>
+                          {<ParsedText text={team.description} /> ||
+                            <MappedMessage msgObj={messages} msgKey="verificationTeam" />}
+                        </TeamDescription>
                       </div>
-                    </section>
-                    <section style={{ position: 'relative' }}>
-                      <Can permissions={team.permissions} permission="update Team">
-                        <TooltipButton
-                          className="team__edit-button"
-                          tooltip={
-                            <FormattedMessage
-                              id="teamComponent.editButton"
-                              defaultMessage="Edit profile"
-                            />
-                          }
-                          tooltipPosition="top-center"
-                          onTouchTap={this.handleEntreEditTeamNameAndDescription.bind(this)}
-                        >
-                          <MDEdit />
-                        </TooltipButton>
-                      </Can>
-                    </section>
-                  </div>
+
+                      <TeamContactInfo>
+                        {contactInfo}
+                      </TeamContactInfo>
+                    </div>
+                  </section>
                 );
               })()}
             </ContentColumn>
-          </ProfileContainer>
+          </HeaderCard>
           {(() => {
             if (!isEditing) {
               return (
