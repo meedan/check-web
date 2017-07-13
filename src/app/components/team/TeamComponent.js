@@ -199,10 +199,12 @@ class TeamComponent extends Component {
 
   handleChange(key, e) {
     let value = e.target.value;
+
     if (e.target.type === 'checkbox' && !e.target.checked) {
       value = '0';
     }
     const values = Object.assign({}, this.state.values);
+
     values[key] = value;
     this.setState({ values });
   }
@@ -284,8 +286,7 @@ class TeamComponent extends Component {
       <PageTitle prefix={false} skipTeam={false} team={team}>
         <div className="team">
           <HeaderCard
-            button
-            permissions={team.permissions}
+            teamPermissions={team.permissions}
             direction={direction}
             handleEnterEditMode={this.handleEnterEditMode.bind(this)}
             isEditing={isEditing}
