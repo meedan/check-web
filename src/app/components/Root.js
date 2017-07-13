@@ -13,7 +13,6 @@ import {
   RootLocale,
   IndexComponent,
   NotFound,
-  CreateAccount,
   AccessDenied,
   UserAlreadyConfirmed,
   UserConfirmed,
@@ -145,7 +144,6 @@ export default class Root extends Component {
                 <Route path="check/forbidden" component={AccessDenied} public />
                 <Route path="check/404" component={NotFound} public />
 
-                <Route path="check/sources/new" component={CreateAccount} />
                 <Route path="check/source/:sourceId" component={Source} />
                 <Route path="check/user/:userId" component={User} />
                 <Route path="check/me" component={Me} />
