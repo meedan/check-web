@@ -80,7 +80,7 @@ class SourceComponent extends Component {
   }
 
   render() {
-    const source = this.props.source;
+    const { source } = this.props.source;
     const isEditing = this.state.isEditing;
 
     return (
@@ -124,6 +124,7 @@ class SourceComponent extends Component {
                     </div>
                   </section>
                   <section className="layout-fab-container">
+                    {/* Source editing not implemented yet
                     <Can
                       permissions={source.permissions}
                       permission="update Source"
@@ -141,6 +142,7 @@ class SourceComponent extends Component {
                         <MDEdit />
                       </IconButton>
                     </Can>
+                    */}
                   </section>
                 </div>
             </ContentColumn>

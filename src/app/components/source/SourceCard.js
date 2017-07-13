@@ -35,7 +35,7 @@ class SourceCard extends React.Component {
     const createdAt = MediaUtil.createdAt(source);
 
     const { team, project_id, source_id } = this.props.source;
-    const sourceUrl = `/${team.slug}/project/${project_id}/source/${source_id}`;
+    const sourceUrl = `/${team.slug}/project/${project_id}/source/${source.dbid}`;
 
     const byUser = (source.user && source.user.source && source.user.source.dbid && source.user.name !== 'Pender') ?
       (<FormattedMessage id="mediaDetail.byUser" defaultMessage={'by {username}'} values={{ username: this.profileLink(source.user) }} />) : '';
