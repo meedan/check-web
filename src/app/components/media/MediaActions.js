@@ -44,7 +44,7 @@ class MediaActions extends Component {
     }
 
     if (config.appName === 'check') {
-      menuItems.push(<li className="media-actions__menu-item" id="media-actions__embed" onClick={this.handleEmbed.bind(this)}><FormattedMessage id="mediaActions.embed" defaultMessage="Embed..." /></li>);
+      menuItems.push(<li key="mediaActions.embed" className="media-actions__menu-item" id="media-actions__embed" onClick={this.handleEmbed.bind(this)}><FormattedMessage id="mediaActions.embed" defaultMessage="Embed..." /></li>);
     }
 
     return menuItems.length ? (

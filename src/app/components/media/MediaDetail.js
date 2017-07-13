@@ -293,7 +293,7 @@ class MediaDetail extends Component {
               <FormattedMessage id="mediaDetail.dialogMediaPath" defaultMessage={'Currently filed under {teamName} > {projectTitle}'} values={{ teamName: context.team.name, projectTitle: currentProject.node.title }} />
             </small>
             <RadioButtonGroup name="moveMedia" className="media-detail__dialog-radio-group" onChange={this.handleSelectDestProject.bind(this)}>
-              {destinationProjects.map(proj => (<RadioButton label={proj.node.title} value={proj.node} style={{ padding: '5px' }} />))}
+              {destinationProjects.map(proj => (<RadioButton key={proj.node.dbid} label={proj.node.title} value={proj.node} style={{ padding: '5px' }} />))}
             </RadioButtonGroup>
           </Dialog>
         </div>
