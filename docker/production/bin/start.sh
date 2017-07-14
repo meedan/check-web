@@ -2,11 +2,6 @@
 # start.sh
 # the Dockerfile CMD
 
-if [ "${NODE_ENV}" != "production" ]; then 
-    echo "NODE_ENV is ${NODE_ENV}, turning off cache headers in nginx conf"
-    sed -i 's/add_header Cache-control /# add_header Cache-control/' /etc/nginx/sites-enabled/${APP}
-fi
-
 function config_replace() {
     # sed -i "s/ddRAILS_ENVdd/${RAILS_ENV}/g" /etc/nginx/sites-available/${APP}
     VAR=$1
