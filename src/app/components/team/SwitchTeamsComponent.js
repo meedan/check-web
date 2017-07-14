@@ -12,10 +12,13 @@ import {
   alertRed,
   highlightBlue,
   checkBlue,
-  defaultborderRadius,
+  defaultBorderRadius,
+  defaultBorderWidth,
   titleStyle,
   listStyle,
   listItemButtonStyle,
+  white,
+  black05,
 } from '../../styles/js/variables';
 import UpdateUserMutation from '../../relay/UpdateUserMutation';
 import DeleteTeamUserMutation from '../../relay/DeleteTeamUserMutation';
@@ -41,7 +44,6 @@ const messages = defineMessages({
 });
 
 class SwitchTeamsComponent extends Component {
-
   setCurrentTeam(team, user) {
     const that = this;
     const context = new CheckContext(this);
@@ -103,6 +105,11 @@ class SwitchTeamsComponent extends Component {
     const that = this;
     const otherTeams = [];
     const pendingTeams = [];
+    const teamAvatarStyle = {
+      border: `${defaultBorderWidth} solid ${black05}`,
+      borderRadius: `${defaultBorderRadius}`,
+      backgroundColor: white,
+    };
 
     const teamButton = function teamButton(team) {
       if (team.status === 'requested') {
@@ -112,19 +119,13 @@ class SwitchTeamsComponent extends Component {
             hoverColor={alertRed}
             onClick={that.cancelRequest.bind(this, team)}
           >
-            <FormattedMessage
-              id="switchTeams.cancelJoinRequest"
-              defaultMessage="Cancel"
-            />
+            <FormattedMessage id="switchTeams.cancelJoinRequest" defaultMessage="Cancel" />
           </FlatButton>
         );
       } else if (team.status === 'banned') {
         return (
           <FlatButton style={listItemButtonStyle} disabled>
-            <FormattedMessage
-              id="switchTeams.bannedJoinRequest"
-              defaultMessage="Cancelled"
-            />
+            <FormattedMessage id="switchTeams.bannedJoinRequest" defaultMessage="Cancelled" />
           </FlatButton>
         );
       }
@@ -147,16 +148,10 @@ class SwitchTeamsComponent extends Component {
     };
 
     return (
-
       <Card>
         <CardHeader
           titleStyle={titleStyle}
-          title={
-            <FormattedMessage
-              id="teams.yourTeams"
-              defaultMessage="Your Teams"
-            />
-          }
+          title={<FormattedMessage id="teams.yourTeams" defaultMessage="Your Teams" />}
         />
         <List className="teams" style={listStyle}>
           {otherTeams.map((team, index) =>
@@ -166,12 +161,7 @@ class SwitchTeamsComponent extends Component {
               focusRippleColor={checkBlue}
               touchRippleColor={checkBlue}
               href={buildUrl(team)}
-              leftAvatar={
-                <Avatar
-                  style={{ borderRadius: defaultborderRadius }}
-                  src={team.avatar}
-                />
-              }
+              leftAvatar={<Avatar style={teamAvatarStyle} src={team.avatar} />}
               onClick={that.setCurrentTeam.bind(that, team, currentUser)}
               primaryText={team.name}
               rightIcon={<KeyboardArrowRight />}
@@ -186,12 +176,7 @@ class SwitchTeamsComponent extends Component {
               focusRippleColor={checkBlue}
               touchRippleColor={checkBlue}
               href={buildUrl(team)}
-              leftAvatar={
-                <Avatar
-                  style={{ borderRadius: defaultborderRadius }}
-                  src={team.avatar}
-                />
-              }
+              leftAvatar={<Avatar style={teamAvatarStyle} src={team.avatar} />}
               primaryText={team.name}
               rightIconButton={teamButton(team)}
               secondaryText={that.requestedToJoinString()}
@@ -200,10 +185,7 @@ class SwitchTeamsComponent extends Component {
         </List>
         <CardActions>
           <FlatButton href="/check/teams/new">
-            <FormattedMessage
-              id="switchTeams.newTeamLink"
-              defaultMessage="+ New team"
-            />
+            <FormattedMessage id="switchTeams.newTeamLink" defaultMessage="+ New team" />
           </FlatButton>
         </CardActions>
       </Card>
