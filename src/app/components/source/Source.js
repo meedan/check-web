@@ -30,8 +30,25 @@ const SourceContainer = Relay.createContainer(SourceComponent, {
           accounts(first: 10000) {
             edges {
               node {
+                id,
+                created_at,
+                updated_at,
+                embed,
                 url,
-                provider
+                provider,
+                user {
+                  name,
+                  email,
+                  source {
+                    accounts(first: 10000) {
+                      edges {
+                        node {
+                          url
+                        }
+                      }
+                    }
+                  }
+                }
               }
             }
           },

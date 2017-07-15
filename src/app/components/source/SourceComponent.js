@@ -14,6 +14,7 @@ import FlatButton from 'material-ui/FlatButton';
 import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
 import IconButton from 'material-ui/IconButton';
 import MDEdit from 'react-icons/lib/md/edit';
+import AccountCard from './AccountCard';
 import PageTitle from '../PageTitle';
 import Medias from '../media/Medias';
 import MappedMessage from '../MappedMessage';
@@ -77,6 +78,18 @@ class SourceComponent extends Component {
     //   // const path = `/${team.slug}`;
     //   store.history.push(sourceUrl);
     // }
+  }
+
+  showAnnotations(){
+    this.setState({ showTab: 'annotation' });
+  }
+
+  showAccounts(){
+    this.setState({ showTab: 'account' });
+  }
+
+  showMedias(){
+    this.setState({ showTab: 'media' });
   }
 
   render() {
@@ -146,17 +159,29 @@ class SourceComponent extends Component {
                   </section>
                 </div>
             </ContentColumn>
-            {/*
-              <CardActions>
-              <FlatButton label={<FormattedMessage id="sourceComponent.notes" defaultMessage="Notes" />} />
-              <FlatButton label={<FormattedMessage id="sourceComponent.medias" defaultMessage="Media" />} />
-              <FlatButton label={<FormattedMessage id="sourceComponent.network" defaultMessage="Network" />} />
+            <CardActions className="source__tab-buttons">
+              <FlatButton
+                label={<FormattedMessage id="sourceComponent.notes" defaultMessage="Notes" />}
+                onClick={this.showAnnotations.bind(this)}
+              />
+              <FlatButton
+                label={<FormattedMessage id="sourceComponent.medias" defaultMessage="Media" />}
+                onClick={this.showMedias.bind(this)}
+              />
+              <FlatButton
+                onClick={this.showAccounts.bind(this)}
+                label={<FormattedMessage id="sourceComponent.network" defaultMessage="Network" />}
+              />
             </CardActions>
-              */}
           </Card>
+
           <ContentColumn>
-            <Medias medias={source.medias.edges} />
+            { this.state.showTab === 'media' ? <Medias medias={source.medias.edges} /> : null }
+            { this.state.showTab === 'account' ? source.accounts.edges.map((account) => {
+              return <AccountCard key={account.node.id} account={account.node} />;
+            }) : null }
           </ContentColumn>
+
         </div>
       </PageTitle>
     );

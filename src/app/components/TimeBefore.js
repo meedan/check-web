@@ -3,6 +3,7 @@ import { injectIntl, intlShape } from 'react-intl';
 
 class TimeBefore extends Component {
   timeElementWrapper(date) {
+    date = new Date(date);
     const datetimeLabel = new Date(+date - date.getTimezoneOffset() * 60 * 1000).toISOString().split('.')[0].replace('T', ' ').slice(0, -3);
 
     return (

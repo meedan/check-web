@@ -1,7 +1,7 @@
 .source {
   $source-avatar-width: units(10);
   $source-profile-offset: units(18);
-  $source-profile-bottom-pad: units(8);
+  $source-profile-bottom-pad: 0;
   $source-profile-fab-width: 40px;
 
   &__profile {
@@ -72,6 +72,11 @@
       fill: $black-54 !important;
       font-size: 20px;
     }
+  }
+
+  &__tab-buttons {
+    text-align: center;
+    margin: auto;
   }
 }
 

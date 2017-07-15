@@ -21,7 +21,10 @@ div.source-card__content {
 }
 
 .source-card__heading {
-
+   svg {
+     color: $opaque-black-54;
+     margin-right: 8px;
+   }
 }
 
 .source-card__name {
@@ -45,6 +48,15 @@ div.source-card__content {
       color: $black-54;
     }
   }
+}
+
+.source-card__url {
+  padding: units(1.5) 0;
+}
+
+.source-card__account-stats {
+  color: $opaque-black-54;
+  padding: units(1.5) 0;
 }
 
 .source-card__account-link {
