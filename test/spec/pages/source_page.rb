@@ -14,7 +14,7 @@ class SourcePage < Page
   end
 
   def title
-    element('h2.source-name').text
+    element('.source__name').text
   end
 
   def avatar
