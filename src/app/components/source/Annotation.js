@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import Relay from 'react-relay';
+import { Card, CardText } from 'material-ui/Card';
 import MediaDetail from '../media/MediaDetail';
 import DynamicAnnotation from '../annotations/DynamicAnnotation';
 import DeleteAnnotationMutation from '../../relay/DeleteAnnotationMutation';
@@ -77,6 +78,7 @@ class Annotation extends Component {
       </div>
     );
     const updatedAt = this.updatedAt(annotation);
+    const timestamp = updatedAt ? <span className="annotation__timestamp"><TimeBefore date={updatedAt}/></span> : null;
     const content = JSON.parse(annotation.content);
     let contentTemplate;
 
@@ -84,39 +86,19 @@ class Annotation extends Component {
     case 'comment':
       const commentText = content.text;
       contentTemplate = (
-        <section className="annotation__content">
-          <div className="annotation__header">
-            <h4 className="annotation__author-name">{annotation.annotator.name}</h4>
-            {updatedAt ? <span className="annotation__timestamp"><TimeBefore date={updatedAt} /></span> : null}
-            {annotationActions}
+        <div>
+          <div className='annotation__card-content'>
+            <ParsedText text={commentText} />
           </div>
-          <div className="annotation__body"><ParsedText text={commentText} /></div>
-          {annotation.medias.edges.map(media => (
-            <div className="annotation__embedded-media">
-              <MediaDetail media={media.node} condensed readonly />
-            </div>
-              ))}
-        </section>
-        );
-      break;
-    case 'status':
-      const statusCode = content.status.toLowerCase().replace(/[ _]/g, '-');
-      const status = getStatus(this.props.annotated.verification_statuses, content.status);
 
-      contentTemplate = (
-        <section className="annotation__content">
-          <div className="annotation__header">
-            <FormattedMessage
-              id="annotation.statusSetHeader"
-              defaultMessage={'Status set to {status} by {author}'}
-              values={{ status: <span className={`annotation__status annotation__status--${statusCode}`}>{status.label}</span>,
-                author: <span className="annotation__author-name">{annotation.annotator.name}</span> }}
-            />
-            {updatedAt ? <span className="annotation__timestamp"><TimeBefore date={updatedAt} /></span> : null}
-            {annotationActions}
+          {/* embedded medias */ }
+          <div className="annotation__card-embedded-medias">
+          {annotation.medias.edges.map(media => (
+            <div><MediaDetail media={media.node} condensed readonly /></div>
+          ))}
           </div>
-        </section>
-        );
+        </div>
+      );
       break;
     case 'tag':
       contentTemplate = (
@@ -133,42 +115,6 @@ class Annotation extends Component {
         </section>
         );
       break;
-    case 'task':
-      const desc = `Task "${content.label}" created by `;
-      const createdAt = new Date(annotation.created_at);
-      contentTemplate = (
-        <section className="annotation__content">
-          <div className="annotation__header">
-            <span>{desc}</span>
-            <span className="annotation__author-name">{annotation.annotator.name}</span>
-            {createdAt ? <span className="annotation__timestamp"><TimeBefore date={createdAt} live={false} /></span> : null}
-          </div>
-        </section>
-        );
-      break;
-    case 'task_response_free_text': case 'task_response_yes_no': case 'task_response_single_choice': case 'task_response_multiple_choice':
-      const data = JSON.parse(annotation.content);
-      let title = '';
-      data.forEach((field) => {
-        if (field.field_type === 'task_reference') {
-          annotated.tasks.edges.forEach((task) => {
-            if (task.node.dbid == parseInt(field.value)) {
-              title = task.node.label;
-            }
-          });
-        }
-      });
-      const resolved = `Task "${title}" resolved by `;
-      contentTemplate = (
-        <section className="annotation__content">
-          <div className="annotation__header">
-            <span>{resolved}</span>
-            <span className="annotation__author-name">{annotation.annotator.name} </span>
-            {updatedAt ? <span className="annotation__timestamp"><TimeBefore date={updatedAt} live={false} /></span> : null}
-          </div>
-        </section>
-        );
-      break;
     case 'flag':
       contentTemplate = (
         <section className="annotation__content">
@@ -178,18 +124,6 @@ class Annotation extends Component {
               defaultMessage={'Flagged as {flag} by {author}'}
               values={{ flag: content.flag, author: <span className="annotation__author-name">{annotation.annotator.name}</span> }}
             />
-            {updatedAt ? <span className="annotation__timestamp"><TimeBefore date={updatedAt} /></span> : null}
-            {annotationActions}
-          </div>
-        </section>
-        );
-      break;
-    case 'embed':
-      contentTemplate = (
-        <section className="annotation__content">
-          <div className="annotation__header">
-            <span>Title changed to <b>{content.title}</b> by </span>
-            <span className="annotation__author-name">{annotation.annotator.name}</span>
             {updatedAt ? <span className="annotation__timestamp"><TimeBefore date={updatedAt} /></span> : null}
             {annotationActions}
           </div>
@@ -225,13 +159,40 @@ class Annotation extends Component {
       break;
     }
 
+    const useCardTemplate = (annotation.annotation_type === 'comment');
+    const templateClass = `annotation--${useCardTemplate ? 'card' : 'default'}`;
+    const typeClass = annotation ? `annotation--${annotation.annotation_type}` : '';
+
     return (
-      <div className={`annotation annotation--${annotation.annotation_type}`} id={`annotation-${annotation.dbid}`}>
-        {annotation.annotation_type === 'comment' ? (
-          <div className="annotation__avatar" style={{ backgroundImage: `url(${annotation.annotator.profile_image})` }} />
-        ) : null}
-        {contentTemplate}
-      </div>
+      <section className={`annotation ${templateClass} ${typeClass}`} id={`annotation-${annotation.dbid}`}>
+        {useCardTemplate ? (
+            <Card className='annotation__card'>
+              <CardText className='annotation__card-text'>
+                <div className='annotation__card-avatar-col'>
+                  <div className='annotation__card-avatar' style={{ backgroundImage: `url(${annotation.annotator.profile_image})` }} />
+                </div>
+                <div className='annotation__card-main-col'>
+                  {contentTemplate}
+                  <footer className='annotation__card-footer'>
+                    <span className='annotation__card-footer-text'>
+                      {annotation.annotator.name} <span>{timestamp}</span>
+                    </span>
+                    {annotationActions}
+                  </footer>
+                </div>
+
+              </CardText>
+            </Card>
+          ) : (
+            <div className='annotation__default'>
+              <span className='annotation__default-text'>
+                <span className='annotation__default-content'>{contentTemplate}</span>
+                {timestamp}
+              </span>
+            </div>
+          )
+        }
+      </section>
     );
   }
 }

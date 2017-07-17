@@ -8,10 +8,6 @@
     "defaultMessage": "Delete"
   },
   {
-    "id": "annotation.statusSetHeader",
-    "defaultMessage": "Status set to {status} by {author}"
-  },
-  {
     "id": "annotation.taggedHeader",
     "defaultMessage": "Tagged #{tag} by {author}"
   },
