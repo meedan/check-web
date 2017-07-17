@@ -1,0 +1,18 @@
+[
+  {
+    "id": "accountCard.twitterStats",
+    "defaultMessage": "{tweets} Tweets • {followers} Followers • {following} Following"
+  },
+  {
+    "id": "mediaDetail.byUser",
+    "defaultMessage": "by {username}"
+  },
+  {
+    "id": "accountCard.providerAccount",
+    "defaultMessage": "{provider} account"
+  },
+  {
+    "id": "mediaDetail.added",
+    "defaultMessage": "Added {byUser}"
+  }
+]
