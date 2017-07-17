@@ -15,6 +15,7 @@ import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
 import IconButton from 'material-ui/IconButton';
 import MDEdit from 'react-icons/lib/md/edit';
 import AccountCard from './AccountCard';
+import Annotations from './Annotations';
 import PageTitle from '../PageTitle';
 import Medias from '../media/Medias';
 import MappedMessage from '../MappedMessage';
@@ -44,6 +45,7 @@ class SourceComponent extends Component {
       message: null,
       isEditing: false,
       submitDisabled: false,
+      showTab: 'media',
     };
   }
 
@@ -162,13 +164,16 @@ class SourceComponent extends Component {
               <CardActions className="source__tab-buttons">
                 <FlatButton
                   label={<FormattedMessage id="sourceComponent.notes" defaultMessage="Notes" />}
+                  primary={this.state.showTab === 'annotation'}
                   onClick={this.showAnnotations.bind(this)}
                 />
                 <FlatButton
+                  primary={this.state.showTab === 'media'}
                   label={<FormattedMessage id="sourceComponent.medias" defaultMessage="Media" />}
                   onClick={this.showMedias.bind(this)}
                 />
                 <FlatButton
+                  primary={this.state.showTab === 'account'}
                   onClick={this.showAccounts.bind(this)}
                   label={<FormattedMessage id="sourceComponent.network" defaultMessage="Network" />}
                 />
@@ -177,6 +182,7 @@ class SourceComponent extends Component {
           </Card>
 
           <ContentColumn>
+            { this.state.showTab === 'annotation' ? <Annotations annotations={source.annotations.edges} annotated={source} annotatedType="Source" /> : null }
             { this.state.showTab === 'media' ? <Medias medias={source.medias.edges} /> : null }
             { this.state.showTab === 'account' ? source.accounts.edges.map((account) => {
               return <AccountCard key={account.node.id} account={account.node} />;
