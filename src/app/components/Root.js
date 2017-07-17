@@ -144,7 +144,6 @@ export default class Root extends Component {
                 <Route path="check/forbidden" component={AccessDenied} public />
                 <Route path="check/404" component={NotFound} public />
 
-                <Route path="check/source/:sourceId" component={Source} />
                 <Route path="check/user/:userId" component={User} />
                 <Route path="check/me" component={Me} />
                 <Route path="check/teams/new" component={CreateTeam} />
