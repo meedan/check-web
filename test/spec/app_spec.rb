@@ -171,7 +171,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should login using Slack" do
       login_with_slack
       @driver.navigate.to @config['self_url'] + '/check/me'
-      displayed_name = get_element('h2.source-name').text.upcase
+      displayed_name = get_element('h1.source__name').text.upcase
       expected_name = @config['slack_name'].upcase
       expect(displayed_name == expected_name).to be(true)
     end
@@ -296,7 +296,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should login using Twitter" do
       login_with_twitter
       @driver.navigate.to @config['self_url'] + '/check/me'
-      displayed_name = get_element('h2.source-name').text.upcase
+      displayed_name = get_element('h1.source__name').text.upcase
       expected_name = @config['twitter_name'].upcase
       expect(displayed_name == expected_name).to be(true)
     end
@@ -308,31 +308,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(page.driver.find_elements(:css, '.teams').empty?).to be(false)
     end
 
-    # it "should go to user page" do
-    #   page = LoginPage.new(config: @config, driver: @driver).load
-    #       .login_with_email(email: @email, password: @password)
-    #
-    #   page.element('.fa-ellipsis-h').click
-    #   page.element('#link-me').click
-    #   page.wait_for_element('.source')
-    #   me_page = MePage.new(config: @config, driver: page.driver)
-    #
-    #   expect((me_page.driver.current_url.to_s =~ /\/me$/).nil?).to be(false)
-    #   title = me_page.title
-    #   expect(title).to eq('User With Email')
-    # end
-
-    it "should go to source page through source/:id" do
-      login_with_email
-      @driver.navigate.to @config['self_url'] + '/check/me'
-      sleep 5
-      source_id = $source_id = @driver.find_element(:css, '.source').attribute('data-id')
-      @driver.navigate.to @config['self_url'] + '/check/source/' + source_id.to_s
-      sleep 1
-      title = get_element('.source-name')
-      expect(title.text == 'User With Email').to be(true)
-    end
-
     it "should go to source page through user/:id" do
       login_with_email
       @driver.navigate.to @config['self_url'] + '/check/me'
@@ -340,7 +315,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       user_id = @driver.find_element(:css, '.source').attribute('data-user-id')
       @driver.navigate.to @config['self_url'] + '/check/user/' + user_id.to_s
       sleep 1
-      title = get_element('.source-name')
+      title = get_element('.source__name')
       expect(title.text == 'User With Email').to be(true)
     end
 
@@ -355,58 +330,59 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect((@driver.current_url.to_s =~ /\/tos$/).nil?).to be(false)
     end
 
-    it "should tag source from tags list" do
-      login_with_email
-      @driver.navigate.to @config['self_url'] + '/check/me'
-      sleep 1
+    # Uncomment when edit source is available
+    # it "should tag source from tags list" do
+    #   login_with_email
+    #   @driver.navigate.to @config['self_url'] + '/check/me'
+    #   sleep 1
 
-      # First, verify that there isn't any tag
-      expect(@driver.find_elements(:css, '.ReactTags__tag').empty?).to be(true)
-      expect(@driver.page_source.include?('Tagged #selenium')).to be(false)
+    #   # First, verify that there isn't any tag
+    #   expect(@driver.find_elements(:css, '.ReactTags__tag').empty?).to be(true)
+    #   expect(@driver.page_source.include?('Tagged #selenium')).to be(false)
 
-      # Add a tag from tags list
-      fill_field('.ReactTags__tagInput input', 'selenium')
-      @driver.action.send_keys(:enter).perform
-      sleep 5
+    #   # Add a tag from tags list
+    #   fill_field('.ReactTags__tagInput input', 'selenium')
+    #   @driver.action.send_keys(:enter).perform
+    #   sleep 5
 
-      # Verify that tag was added to tags list and annotations list
-      tag = get_element('.ReactTags__tag')
-      expect(tag.text.gsub(/<[^>]+>|×/, '') == 'selenium').to be(true)
-      expect(@driver.page_source.include?('Tagged #selenium')).to be(true)
+    #   # Verify that tag was added to tags list and annotations list
+    #   tag = get_element('.ReactTags__tag')
+    #   expect(tag.text.gsub(/<[^>]+>|×/, '') == 'selenium').to be(true)
+    #   expect(@driver.page_source.include?('Tagged #selenium')).to be(true)
 
-      # Reload the page and verify that tags are still there
-      @driver.navigate.refresh
-      sleep 1
-      tag = get_element('.ReactTags__tag')
-      expect(tag.text.gsub(/<[^>]+>|×/, '') == 'selenium').to be(true)
-      expect(@driver.page_source.include?('Tagged #selenium')).to be(true)
-    end
+    #   # Reload the page and verify that tags are still there
+    #   @driver.navigate.refresh
+    #   sleep 1
+    #   tag = get_element('.ReactTags__tag')
+    #   expect(tag.text.gsub(/<[^>]+>|×/, '') == 'selenium').to be(true)
+    #   expect(@driver.page_source.include?('Tagged #selenium')).to be(true)
+    # end
 
-    it "should tag source as a command" do
-      login_with_email
-      @driver.navigate.to @config['self_url'] + '/check/me'
-      sleep 1
+    # it "should tag source as a command" do
+    #   login_with_email
+    #   @driver.navigate.to @config['self_url'] + '/check/me'
+    #   sleep 1
 
-      # First, verify that there isn't any tag
-      expect(@driver.page_source.include?('Tagged #command')).to be(false)
+    #   # First, verify that there isn't any tag
+    #   expect(@driver.page_source.include?('Tagged #command')).to be(false)
 
-      # Add a tag as a command
-      fill_field('#cmd-input', '/tag command')
-      @driver.action.send_keys(:enter).perform
-      sleep 5
+    #   # Add a tag as a command
+    #   fill_field('#cmd-input', '/tag command')
+    #   @driver.action.send_keys(:enter).perform
+    #   sleep 5
 
-      # Verify that tag was added to tags list and annotations list
-      tag = get_element('.ReactTags__tag')
-      expect(tag.text.gsub(/<[^>]+>|×/, '') == 'command').to be(true)
-      expect(@driver.page_source.include?('Tagged #command')).to be(true)
+    #   # Verify that tag was added to tags list and annotations list
+    #   tag = get_element('.ReactTags__tag')
+    #   expect(tag.text.gsub(/<[^>]+>|×/, '') == 'command').to be(true)
+    #   expect(@driver.page_source.include?('Tagged #command')).to be(true)
 
-      # Reload the page and verify that tags are still there
-      @driver.navigate.refresh
-      sleep 1
-      tag = get_element('.ReactTags__tag')
-      expect(tag.text.gsub(/<[^>]+>|×/, '') == 'command').to be(true)
-      expect(@driver.page_source.include?('Tagged #command')).to be(true)
-    end
+    #   # Reload the page and verify that tags are still there
+    #   @driver.navigate.refresh
+    #   sleep 1
+    #   tag = get_element('.ReactTags__tag')
+    #   expect(tag.text.gsub(/<[^>]+>|×/, '') == 'command').to be(true)
+    #   expect(@driver.page_source.include?('Tagged #command')).to be(true)
+    # end
 
     it "should comment source as a command" do
       login_with_email
@@ -439,7 +415,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       press_button('#create-account-submit')
       sleep 15
       expect(@driver.current_url.to_s.match(/\/source\/[0-9]+$/).nil?).to be(false)
-      title = get_element('.source-name').text
+      title = get_element('.source__name').text
       expect(title == 'Iron Maiden').to be(true)
     end
 
@@ -452,7 +428,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       press_button('#create-account-submit')
       sleep 10
       expect(@driver.current_url.to_s.match(/\/source\/[0-9]+$/).nil?).to be(false)
-      title = get_element('.source-name').text
+      title = get_element('.source__name').text
       expect(title == 'Iron Maiden').to be(true)
     end
 
