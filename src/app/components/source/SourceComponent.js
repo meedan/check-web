@@ -44,10 +44,6 @@ class SourceComponent extends Component {
       message: null,
       isEditing: false,
       submitDisabled: false,
-      values: {
-        name: source.name,
-        description: source.description,
-      },
     };
   }
 
@@ -93,12 +89,13 @@ class SourceComponent extends Component {
   }
 
   render() {
-    const { source } = this.props.source;
+    const isProjectSource = !!this.props.source.source;
+    const { source } = isProjectSource ? this.props.source : this.props;
     const isEditing = this.state.isEditing;
 
     return (
       <PageTitle prefix={source.name} skipTeam={false} team={source.team}>
-        <div className="source">
+        <div className="source" data-id={source.dbid} data-user-id={source.user_id}>
           <Card className="source__profile source__profile--editing">
             <ContentColumn>
               <Message message={this.state.message} />
@@ -126,14 +123,16 @@ class SourceComponent extends Component {
                         </div>
                       </div>
 
-                      <div className="source__contact-info">
-                        <FormattedHTMLMessage id="sourceComponent.dateAdded" defaultMessage="Added {date} &bull; Source of {number} links"
-                          values={{
-                            date: this.props.intl.formatDate(source.created_at, { year: 'numeric', month: 'short', day: '2-digit'}),
-                            number: source.medias.edges.length,
-                          }}
-                        />
-                      </div>
+                      { isProjectSource ?
+                        <div className="source__contact-info">
+                          <FormattedHTMLMessage id="sourceComponent.dateAdded" defaultMessage="Added {date} &bull; Source of {number} links"
+                            values={{
+                              date: this.props.intl.formatDate(source.created_at, { year: 'numeric', month: 'short', day: '2-digit'}),
+                              number: source.medias.edges.length,
+                            }}
+                          />
+                        </div> : null
+                      }
                     </div>
                   </section>
                   <section className="layout-fab-container">
@@ -159,20 +158,22 @@ class SourceComponent extends Component {
                   </section>
                 </div>
             </ContentColumn>
-            <CardActions className="source__tab-buttons">
-              <FlatButton
-                label={<FormattedMessage id="sourceComponent.notes" defaultMessage="Notes" />}
-                onClick={this.showAnnotations.bind(this)}
-              />
-              <FlatButton
-                label={<FormattedMessage id="sourceComponent.medias" defaultMessage="Media" />}
-                onClick={this.showMedias.bind(this)}
-              />
-              <FlatButton
-                onClick={this.showAccounts.bind(this)}
-                label={<FormattedMessage id="sourceComponent.network" defaultMessage="Network" />}
-              />
-            </CardActions>
+            { isProjectSource ?
+              <CardActions className="source__tab-buttons">
+                <FlatButton
+                  label={<FormattedMessage id="sourceComponent.notes" defaultMessage="Notes" />}
+                  onClick={this.showAnnotations.bind(this)}
+                />
+                <FlatButton
+                  label={<FormattedMessage id="sourceComponent.medias" defaultMessage="Media" />}
+                  onClick={this.showMedias.bind(this)}
+                />
+                <FlatButton
+                  onClick={this.showAccounts.bind(this)}
+                  label={<FormattedMessage id="sourceComponent.network" defaultMessage="Network" />}
+                />
+            </CardActions> : <CardActions></CardActions>
+            }
           </Card>
 
           <ContentColumn>
