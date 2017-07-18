@@ -58,24 +58,17 @@ class SourceComponent extends Component {
   }
 
   setContextSource() {
-    // const context = new CheckContext(this);
-    // const store = context.getContextStore();
-    // const { team, project_id, source_id } = this.props.source;
-    //
-    // console.log('team');
-    // console.log(team);
-    // console.log('project_id');
-    // console.log(project_id);
-    // console.log('source_id');
-    // console.log(source_id);
-    //
-    // const sourceUrl = `/${team.slug}/project/${project_id}/source/${source_id}`;
-    //
-    // if (!store.team || store.team.slug !== team.slug) {
-    //   context.setContextStore({ team });
-    //   // const path = `/${team.slug}`;
-    //   store.history.push(sourceUrl);
-    // }
+    const context = new CheckContext(this);
+    const store = context.getContextStore();
+    const { team, project_id } = this.props.source;
+
+    if (!store.team || store.team.slug !== team.slug) {
+      context.setContextStore({ team });
+    }
+
+    if (!store.project || store.project.dbid !== project_id) {
+      context.setContextStore({ project: { dbid: project_id } });
+    }
   }
 
   showAnnotations() {
