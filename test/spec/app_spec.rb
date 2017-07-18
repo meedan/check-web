@@ -377,55 +377,30 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should not create report as source" do
       login_with_email
-      @driver.navigate.to @config['self_url'] + '/check/sources/new'
+      @driver.navigate.to @config['self_url']
+      sleep 15
+      @driver.find_element(:css, '#create-media__source').click
       sleep 1
-      fill_field('#create-account-url', 'https://twitter.com/IronMaiden/status/832726327459446784')
+      fill_field('#create-media-source-name-input', 'Iron Maiden')
+      fill_field('#create-media-source-url-input', 'https://twitter.com/IronMaiden/status/832726327459446784')
       sleep 1
-      press_button('#create-account-submit')
-      sleep 10
+      press_button('#create-media-submit')
+      sleep 15
       expect(@driver.current_url.to_s.match(/\/source\/[0-9]+$/).nil?).to be(true)
       message = get_element('.create-account .message').text
       expect(message.match(/Sorry, this is not a profile/).nil?).to be(false)
     end
 
     it "should tag source multiple times with commas with command" do
-      login_with_email
-      @driver.navigate.to @config['self_url'] + '/check/me'
-      sleep 1
+      create_source(@source_name, @source_url)
+      @driver.find_element(:css, '.source__tab-button-notes').click
 
-      # Add tags as a command
       fill_field('#cmd-input', '/tag foo, bar')
       @driver.action.send_keys(:enter).perform
       sleep 5
 
-      # Verify that tags were added to tags list and annotations list
-      tag = @driver.find_elements(:css, '.ReactTags__tag').select{ |s| s.text.gsub(/<[^>]+>|×/, '') == 'foo' }
-      expect(tag.empty?).to be(false)
       expect(@driver.page_source.include?('Tagged #foo')).to be(true)
-
-      tag = @driver.find_elements(:css, '.ReactTags__tag').select{ |s| s.text.gsub(/<[^>]+>|×/, '') == 'bar' }
-      expect(tag.empty?).to be(false)
       expect(@driver.page_source.include?('Tagged #bar')).to be(true)
-    end
-
-    it "should tag source multiple times with commas from tags list" do
-      login_with_email
-      @driver.navigate.to @config['self_url'] + '/check/me'
-      sleep 1
-
-      # Add tags from tags list
-      fill_field('.ReactTags__tagInput input', 'bla,bli')
-      @driver.action.send_keys(:enter).perform
-      sleep 5
-
-      # Verify that tags were added to tags list and annotations list
-      tag = @driver.find_elements(:css, '.ReactTags__tag').select{ |s| s.text.gsub(/<[^>]+>|×/, '') == 'bla' }
-      expect(tag.empty?).to be(false)
-      expect(@driver.page_source.include?('Tagged #bla')).to be(true)
-
-      tag = @driver.find_elements(:css, '.ReactTags__tag').select{ |s| s.text.gsub(/<[^>]+>|×/, '') == 'bli' }
-      expect(tag.empty?).to be(false)
-      expect(@driver.page_source.include?('Tagged #bli')).to be(true)
     end
 
     it "should not add a duplicated tag from command line" do
@@ -572,33 +547,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       project_pg.wait_for_element('.project__description')
       expect(project_pg.contains_string?(new_description)).to be(true)
     end
-
-    # it "should comment project as a command" do
-    #   login_with_email
-
-    #   @driver.navigate.to @config['self_url']
-    #   sleep 1
-    #   title = "Project #{Time.now}"
-    #   fill_field('#create-project-title', title)
-    #   @driver.action.send_keys(:enter).perform
-    #   sleep 5
-
-    #   # First, verify that there isn't any comment
-    #   expect(@driver.page_source.include?('This is my comment')).to be(false)
-
-    #   # Add a comment as a command
-    #   fill_field('#cmd-input', '/comment This is my comment')
-    #   @driver.action.send_keys(:enter).perform
-    #   sleep 5
-
-    #   # Verify that comment was added to annotations list
-    #   expect(@driver.page_source.include?('This is my comment')).to be(true)
-
-    #   # Reload the page and verify that comment is still there
-    #   @driver.navigate.refresh
-    #   sleep 3
-    #   expect(@driver.page_source.include?('This is my comment')).to be(true)
-    # end
 
     it "should redirect to 404 page if id does not exist" do
       login_with_email
