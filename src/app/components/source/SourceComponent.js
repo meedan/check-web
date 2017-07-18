@@ -131,7 +131,7 @@ class SourceComponent extends Component {
                           id="sourceComponent.dateAdded" defaultMessage="Added {date} &bull; Source of {number} links"
                           values={{
                             date: this.props.intl.formatDate(source.created_at, { year: 'numeric', month: 'short', day: '2-digit' }),
-                            number: source.medias.edges.length,
+                            number: source.medias.edges.length || '0',
                           }}
                         />
                       </div> : null
