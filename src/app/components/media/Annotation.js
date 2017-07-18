@@ -10,6 +10,7 @@ import DeleteVersionMutation from '../../relay/DeleteVersionMutation';
 import UpdateProjectMediaMutation from '../../relay/UpdateProjectMediaMutation';
 import Can, { can } from '../Can';
 import TimeBefore from '../TimeBefore';
+import ProfileLink from '../layout/ProfileLink';
 import { Link } from 'react-router';
 import { getStatus, getStatusStyle } from '../../helpers';
 import Lightbox from 'react-image-lightbox';
@@ -143,18 +144,6 @@ class Annotation extends Component {
     return date;
   }
 
-  profileLink(user, className) {
-    let url = user.email ? 'mailto:' + user.email : '';
-
-    if (user && user.source && user.source.accounts && user.source.accounts.edges && user.source.accounts.edges.length > 0){
-      url = user.source.accounts.edges[0].node.url;
-    }
-
-    return url ?
-        <a target="_blank" rel="noopener noreferrer" className={className} href={url}>{user.name}</a> :
-        <span className={className}>{user.name}</span>;
-  }
-
   handleReverseImageSearch(path) {
     const imagePath = path ? `?&image_url=${path}` : '';
     window.open(`https://www.google.com/searchbyimage${imagePath}`);
@@ -181,7 +170,7 @@ class Annotation extends Component {
 
     const updatedAt = this.updatedAt(activity);
     const timestamp = updatedAt ? <span className="annotation__timestamp"><TimeBefore date={updatedAt}/></span> : null;
-    const authorName = this.profileLink(activity.user, 'annotation__author-name');
+    const authorName = <ProfileLink user={activity.user} className={'annotation__author-name'} />;
     const object = JSON.parse(activity.object_after);
     const content = object.data;
     const activityType = activity.event_type;
@@ -496,7 +485,7 @@ class Annotation extends Component {
                   {contentTemplate}
                   <footer className='annotation__card-footer'>
                     <span className='annotation__card-footer-text'>
-                      {this.profileLink(activity.user, 'annotation__card-author')} <span>{timestamp}</span>
+                      <ProfileLink user={activity.user} className={'annotation__card-author'} /><span>{timestamp}</span>
                     </span>
                     {annotationActions}
                   </footer>

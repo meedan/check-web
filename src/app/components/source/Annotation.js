@@ -176,7 +176,7 @@ class Annotation extends Component {
                   {contentTemplate}
                   <footer className='annotation__card-footer'>
                     <span className='annotation__card-footer-text'>
-                      <ProfileLink user={annotation.annotator.user} /> <span>{timestamp}</span>
+                      <ProfileLink user={annotation.annotator.user} className={'annotation__card-author'} /> <span>{timestamp}</span>
                     </span>
                     {annotationActions}
                   </footer>

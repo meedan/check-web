@@ -2,7 +2,8 @@ import React from 'react';
 
 class ProfileLink extends React.Component {
   render() {
-    const user = this.props.user;
+    const { user, className } = this.props;
+
     if (!user) { return null };
 
     let url = user.email ? 'mailto:' + user.email : '';
@@ -11,7 +12,9 @@ class ProfileLink extends React.Component {
       url = user.source.accounts.edges[0].node.url;
     }
 
-    return url ? <a target="_blank" rel="noopener noreferrer" href={url}>{user.name}</a> : user.name;
+    return url ?
+        <a target="_blank" rel="noopener noreferrer" className={className} href={url}>{user.name}</a> :
+        <span className={className}>{user.name}</span>;
   }
 }
 

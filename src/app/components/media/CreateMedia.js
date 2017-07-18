@@ -156,7 +156,7 @@ class CreateProjectMedia extends Component {
       inputValue = document.getElementById('create-media-source-name-input').value.trim(),
       url = document.getElementById('create-media-source-url-input').value.trim();
 
-    if (!inputValue || !inputValue.length || this.state.isSubmitting) { return; }
+    if ((!inputValue && !url) || (!inputValue.length && !url) || this.state.isSubmitting) { return; }
 
     this.setState({ isSubmitting: true, message: this.props.intl.formatMessage(messages.submitting) });
 

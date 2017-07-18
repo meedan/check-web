@@ -2,6 +2,7 @@ import React from 'react';
 import { FormattedMessage, defineMessages } from 'react-intl';
 import { Card, CardHeader, CardText } from 'material-ui/Card';
 import MediaUtil from '../media/MediaUtil';
+import ProfileLink from '../layout/ProfileLink';
 import MappedMessage from '../MappedMessage';
 import ParsedText from '../ParsedText';
 import TimeBefore from '../TimeBefore';
@@ -19,17 +20,6 @@ const messages = defineMessages({
 });
 
 class SourceCard extends React.Component {
-
-  profileLink(user){
-    let url = user.email ? 'mailto:' + user.email : '';
-
-    if (user && user.source && user.source.accounts && user.source.accounts.edges && user.source.accounts.edges.length > 0){
-      url = user.source.accounts.edges[0].node.url;
-    }
-
-    return url ? <a target="_blank" rel="noopener noreferrer" href={url}>{user.name}</a> : user.name;
-  }
-
   render() {
     const { source } = this.props;
     const createdAt = MediaUtil.createdAt(source);
@@ -38,7 +28,7 @@ class SourceCard extends React.Component {
     const sourceUrl = `/${team.slug}/project/${project_id}/source/${source.dbid}`;
 
     const byUser = (source.user && source.user.source && source.user.source.dbid && source.user.name !== 'Pender') ?
-      (<FormattedMessage id="mediaDetail.byUser" defaultMessage={'by {username}'} values={{ username: this.profileLink(source.user) }} />) : '';
+      (<FormattedMessage id="mediaDetail.byUser" defaultMessage={'by {username}'} values={{ username: <ProfileLink user={source.user} /> }} />) : '';
 
     source.image = source.source.image;
     source.name = source.source.name;
