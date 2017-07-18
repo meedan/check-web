@@ -177,7 +177,7 @@ class SourceComponent extends Component {
                 <FlatButton
                   primary={this.state.showTab === 'account'}
                   onClick={this.showAccounts.bind(this)}
-                  label={<FormattedMessage id="sourceComponent.network" defaultMessage="Network" />}
+                  label={<FormattedMessage id="sourceComponent.network" defaultMessage="Networks" />}
                 />
               </CardActions> : <CardActions />
             }
