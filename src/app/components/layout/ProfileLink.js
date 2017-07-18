@@ -3,6 +3,7 @@ import React from 'react';
 class ProfileLink extends React.Component {
   render() {
     const user = this.props.user;
+    if (!user) { return null };
 
     let url = user.email ? 'mailto:' + user.email : '';
 

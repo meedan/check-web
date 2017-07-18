@@ -254,7 +254,7 @@ class CreateTeam extends Component {
                       id="team-slug-container"
                       className="create-team__team-slug-input"
                       onChange={this.handleSlugChange.bind(this)}
-                      defaultValue={this.props.intl.formatMessage(
+                      hintText={this.props.intl.formatMessage(
                         messages.teamSlugHint,
                       )}
                       autoComplete="off"
