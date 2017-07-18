@@ -28,7 +28,7 @@ class ProjectPage < Page
   end
 
   def click_media
-    click('.media-detail__check-timestamp')
+    click('.media-detail .media-detail__check-timestamp')
 
     wait_for_element('.media')
     MediaPage.new(config: @config, driver: @driver)

@@ -279,7 +279,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       me_page = MePage.new(config: @config, driver: page.driver).load
       avatar = me_page.avatar
-      expect(avatar.attribute('src').match(/test\.png$/).nil?).to be(false)
+      expect(avatar.attribute('style').match(/test\.png/).nil?).to be(false)
     end
 
     it "should redirect to 404 page" do
@@ -387,7 +387,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       press_button('#create-media-submit')
       sleep 15
       expect(@driver.current_url.to_s.match(/\/source\/[0-9]+$/).nil?).to be(true)
-      message = get_element('.create-account .message').text
+      message = get_element('.message').text
       expect(message.match(/Sorry, this is not a profile/).nil?).to be(false)
     end
 
