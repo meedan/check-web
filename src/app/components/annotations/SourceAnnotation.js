@@ -110,7 +110,6 @@ class Annotation extends Component {
               defaultMessage={'Tagged #{tag} by {author}'}
               values={{ tag: content.tag.replace(/^#/, ''), author: <span className="annotation__author-name">{annotation.annotator.name}</span> }}
             />
-            {updatedAt ? <span className="annotation__timestamp"><TimeBefore date={updatedAt} /></span> : null}
             {annotationActions}
           </div>
         </section>
