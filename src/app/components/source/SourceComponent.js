@@ -15,7 +15,7 @@ import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
 import IconButton from 'material-ui/IconButton';
 import MDEdit from 'react-icons/lib/md/edit';
 import AccountCard from './AccountCard';
-import Annotations from './Annotations';
+import Annotations from '../annotations/Annotations';
 import PageTitle from '../PageTitle';
 import Medias from '../media/Medias';
 import MappedMessage from '../MappedMessage';

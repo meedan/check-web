@@ -6,7 +6,7 @@ import MediaDetail from './MediaDetail';
 import MediaUtil from './MediaUtil';
 import { Tags } from '../source';
 import Can from '../Can';
-import Annotations from './Annotations';
+import Annotations from '../annotations/Annotations';
 import config from 'config';
 import CheckContext from '../../CheckContext';
 import Translation from '../translation/Translation';

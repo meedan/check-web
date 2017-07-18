@@ -1,10 +1,17 @@
 import React, { Component, PropTypes } from 'react';
-import Annotation from './Annotation';
-import AddAnnotation from '../source/AddAnnotation';
+import AddAnnotation from './AddAnnotation';
+import MediaAnnotation from './MediaAnnotation';
+import SourceAnnotation from './SourceAnnotation';
 import Can, { can } from '../Can';
 import ContentColumn from '../layout/ContentColumn';
 
 class Annotations extends Component {
+  annotationComponent(node, annotated, annotatedType) {
+    return annotatedType === 'ProjectMedia' ?
+      <MediaAnnotation annotation={node} annotated={annotated} annotatedType={annotatedType} /> :
+      <SourceAnnotation annotation={node} annotated={annotated} annotatedType={annotatedType} />;
+  }
+
   render() {
     const props = this.props;
     const annotations = props.annotations;
@@ -14,7 +21,7 @@ class Annotations extends Component {
         <ContentColumn>
           <ul className="annotations__list annotations-list">
             {annotations.map(annotation => (
-              <li key={annotation.node.dbid} className='annotations__list-item'><Annotation annotation={annotation.node} annotated={props.annotated} annotatedType={props.annotatedType} /></li>
+              <li key={annotation.node.dbid} className='annotations__list-item'>{this.annotationComponent(annotation.node, props.annotated, props.annotatedType)}</li>
             ))}
           </ul>
         </ContentColumn>
