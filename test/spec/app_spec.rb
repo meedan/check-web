@@ -23,6 +23,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     @email = "sysops+#{Time.now.to_i}#{Process.pid}@meedan.com"
     @password = '12345678'
+    @source_name = 'Iron Maiden'
     @source_url = 'https://twitter.com/ironmaiden?timestamp=' + Time.now.to_i.to_s
     @media_url = 'https://twitter.com/meedan/status/773947372527288320/?t=' + Time.now.to_i.to_s
     @config = CONFIG
@@ -330,106 +331,48 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect((@driver.current_url.to_s =~ /\/tos$/).nil?).to be(false)
     end
 
-    # Uncomment when edit source is available
-    # it "should tag source from tags list" do
-    #   login_with_email
-    #   @driver.navigate.to @config['self_url'] + '/check/me'
-    #   sleep 1
+    it "should create source and redirect to newly created source" do
+      create_source(@source_name, @source_url)
+    end
 
-    #   # First, verify that there isn't any tag
-    #   expect(@driver.find_elements(:css, '.ReactTags__tag').empty?).to be(true)
-    #   expect(@driver.page_source.include?('Tagged #selenium')).to be(false)
+    it "should not create duplicated source" do
+      create_source(@source_name, @source_url)
+    end
 
-    #   # Add a tag from tags list
-    #   fill_field('.ReactTags__tagInput input', 'selenium')
-    #   @driver.action.send_keys(:enter).perform
-    #   sleep 5
+    it "should tag source as a command" do
+      create_source(@source_name, @source_url)
+      @driver.find_element(:css, '.source__tab-button-notes').click
+      
+      expect(@driver.page_source.include?('Tagged #command')).to be(false)
 
-    #   # Verify that tag was added to tags list and annotations list
-    #   tag = get_element('.ReactTags__tag')
-    #   expect(tag.text.gsub(/<[^>]+>|×/, '') == 'selenium').to be(true)
-    #   expect(@driver.page_source.include?('Tagged #selenium')).to be(true)
+      fill_field('#cmd-input', '/tag command')
+      @driver.action.send_keys(:enter).perform
+      sleep 5
 
-    #   # Reload the page and verify that tags are still there
-    #   @driver.navigate.refresh
-    #   sleep 1
-    #   tag = get_element('.ReactTags__tag')
-    #   expect(tag.text.gsub(/<[^>]+>|×/, '') == 'selenium').to be(true)
-    #   expect(@driver.page_source.include?('Tagged #selenium')).to be(true)
-    # end
+      expect(@driver.page_source.include?('Tagged #command')).to be(true)
 
-    # it "should tag source as a command" do
-    #   login_with_email
-    #   @driver.navigate.to @config['self_url'] + '/check/me'
-    #   sleep 1
-
-    #   # First, verify that there isn't any tag
-    #   expect(@driver.page_source.include?('Tagged #command')).to be(false)
-
-    #   # Add a tag as a command
-    #   fill_field('#cmd-input', '/tag command')
-    #   @driver.action.send_keys(:enter).perform
-    #   sleep 5
-
-    #   # Verify that tag was added to tags list and annotations list
-    #   tag = get_element('.ReactTags__tag')
-    #   expect(tag.text.gsub(/<[^>]+>|×/, '') == 'command').to be(true)
-    #   expect(@driver.page_source.include?('Tagged #command')).to be(true)
-
-    #   # Reload the page and verify that tags are still there
-    #   @driver.navigate.refresh
-    #   sleep 1
-    #   tag = get_element('.ReactTags__tag')
-    #   expect(tag.text.gsub(/<[^>]+>|×/, '') == 'command').to be(true)
-    #   expect(@driver.page_source.include?('Tagged #command')).to be(true)
-    # end
+      @driver.navigate.refresh
+      sleep 5
+      @driver.find_element(:css, '.source__tab-button-notes').click
+      expect(@driver.page_source.include?('Tagged #command')).to be(true)
+    end
 
     it "should comment source as a command" do
-      login_with_email
-      @driver.navigate.to @config['self_url'] + '/check/me'
-      sleep 1
+      create_source(@source_name, @source_url)
+      @driver.find_element(:css, '.source__tab-button-notes').click
 
-      # First, verify that there isn't any comment
       expect(@driver.page_source.include?('This is my comment')).to be(false)
 
-      # Add a comment as a command
       fill_field('#cmd-input', '/comment This is my comment')
       @driver.action.send_keys(:enter).perform
       sleep 5
 
-      # Verify that comment was added to annotations list
       expect(@driver.page_source.include?('This is my comment')).to be(true)
 
-      # Reload the page and verify that comment is still there
       @driver.navigate.refresh
-      sleep 1
+      sleep 5
+      @driver.find_element(:css, '.source__tab-button-notes').click
       expect(@driver.page_source.include?('This is my comment')).to be(true)
-    end
-
-    it "should create source and redirect to newly created source" do
-      login_with_email
-      @driver.navigate.to @config['self_url'] + '/check/sources/new'
-      sleep 1
-      fill_field('#create-account-url', @source_url)
-      sleep 1
-      press_button('#create-account-submit')
-      sleep 15
-      expect(@driver.current_url.to_s.match(/\/source\/[0-9]+$/).nil?).to be(false)
-      title = get_element('.source__name').text
-      expect(title == 'Iron Maiden').to be(true)
-    end
-
-    it "should not create duplicated source" do
-      login_with_email
-      @driver.navigate.to @config['self_url'] + '/check/sources/new'
-      sleep 1
-      fill_field('#create-account-url', @source_url)
-      sleep 1
-      press_button('#create-account-submit')
-      sleep 10
-      expect(@driver.current_url.to_s.match(/\/source\/[0-9]+$/).nil?).to be(false)
-      title = get_element('.source__name').text
-      expect(title == 'Iron Maiden').to be(true)
     end
 
     it "should not create report as source" do

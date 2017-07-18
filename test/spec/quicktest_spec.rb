@@ -93,7 +93,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       @driver.switch_to.window(window)
       p.go(@config['self_url'] + '/check/me')
       sleep 10
-      expect(get_element('h2.source-name').text.nil?).to be(false)
+      expect(get_element('.source__name').text.nil?).to be(false)
     end
 
     it "should login using Facebook" do
@@ -119,7 +119,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       login_with_twitter
       p = Page.new(config: @config, driver: @driver)
       p.go(@config['self_url'] + '/check/me')
-      displayed_name = get_element('h2.source-name').text.upcase
+      displayed_name = get_element('.source__name').text.upcase
       expected_name = @config['twitter_name'].upcase
       expect(displayed_name == expected_name).to be(true)
     end

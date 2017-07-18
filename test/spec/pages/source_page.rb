@@ -18,6 +18,6 @@ class SourcePage < Page
   end
 
   def avatar
-    element('.source-avatar')
+    element('.source__avatar')
   end
 end

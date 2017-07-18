@@ -78,15 +78,15 @@ class SourceComponent extends Component {
     // }
   }
 
-  showAnnotations(){
+  showAnnotations() {
     this.setState({ showTab: 'annotation' });
   }
 
-  showAccounts(){
+  showAccounts() {
     this.setState({ showTab: 'account' });
   }
 
-  showMedias(){
+  showMedias() {
     this.setState({ showTab: 'media' });
   }
 
@@ -101,44 +101,45 @@ class SourceComponent extends Component {
           <Card className="source__profile source__profile--editing">
             <ContentColumn>
               <Message message={this.state.message} />
-                <div>
-                  <section className="layout-two-column">
-                    <div className="column-secondary">
-                      <div
-                        className="source__avatar"
-                        style={{ backgroundImage: `url(${source.image})` }}
-                      />
-                    </div>
-                    <div className="column-primary">
-                      <div className="source__primary-info">
-                        <h1 className="source__name">
-                          {source.name}
-                        </h1>
-                        <div className="source__description">
-                          <p className="source__description-text">
-                            {<ParsedText text={source.description} /> ||
-                              <MappedMessage
-                                msgObj={messages}
-                                msgKey="verificationTeam"
-                              />}
-                          </p>
-                        </div>
+              <div>
+                <section className="layout-two-column">
+                  <div className="column-secondary">
+                    <div
+                      className="source__avatar"
+                      style={{ backgroundImage: `url(${source.image})` }}
+                    />
+                  </div>
+                  <div className="column-primary">
+                    <div className="source__primary-info">
+                      <h1 className="source__name">
+                        {source.name}
+                      </h1>
+                      <div className="source__description">
+                        <p className="source__description-text">
+                          {<ParsedText text={source.description} /> ||
+                          <MappedMessage
+                            msgObj={messages}
+                            msgKey="verificationTeam"
+                          />}
+                        </p>
                       </div>
-
-                      { isProjectSource ?
-                        <div className="source__contact-info">
-                          <FormattedHTMLMessage id="sourceComponent.dateAdded" defaultMessage="Added {date} &bull; Source of {number} links"
-                            values={{
-                              date: this.props.intl.formatDate(source.created_at, { year: 'numeric', month: 'short', day: '2-digit'}),
-                              number: source.medias.edges.length,
-                            }}
-                          />
-                        </div> : null
-                      }
                     </div>
-                  </section>
-                  <section className="layout-fab-container">
-                    {/* Source editing not implemented yet
+
+                    { isProjectSource ?
+                      <div className="source__contact-info">
+                        <FormattedHTMLMessage
+                          id="sourceComponent.dateAdded" defaultMessage="Added {date} &bull; Source of {number} links"
+                          values={{
+                            date: this.props.intl.formatDate(source.created_at, { year: 'numeric', month: 'short', day: '2-digit' }),
+                            number: source.medias.edges.length,
+                          }}
+                        />
+                      </div> : null
+                      }
+                  </div>
+                </section>
+                <section className="layout-fab-container">
+                  {/* Source editing not implemented yet
                     <Can
                       permissions={source.permissions}
                       permission="update Source"
@@ -157,13 +158,14 @@ class SourceComponent extends Component {
                       </IconButton>
                     </Can>
                     */}
-                  </section>
-                </div>
+                </section>
+              </div>
             </ContentColumn>
             { isProjectSource ?
               <CardActions className="source__tab-buttons">
                 <FlatButton
                   label={<FormattedMessage id="sourceComponent.notes" defaultMessage="Notes" />}
+                  className="source__tab-button-notes"
                   primary={this.state.showTab === 'annotation'}
                   onClick={this.showAnnotations.bind(this)}
                 />
@@ -177,16 +179,14 @@ class SourceComponent extends Component {
                   onClick={this.showAccounts.bind(this)}
                   label={<FormattedMessage id="sourceComponent.network" defaultMessage="Network" />}
                 />
-            </CardActions> : <CardActions></CardActions>
+              </CardActions> : <CardActions />
             }
           </Card>
 
           <ContentColumn>
             { this.state.showTab === 'annotation' ? <Annotations annotations={source.annotations.edges} annotated={source} annotatedType="Source" /> : null }
             { this.state.showTab === 'media' ? <Medias medias={source.medias.edges} /> : null }
-            { this.state.showTab === 'account' ? source.accounts.edges.map((account) => {
-              return <AccountCard key={account.node.id} account={account.node} />;
-            }) : null }
+            { this.state.showTab === 'account' ? source.accounts.edges.map(account => <AccountCard key={account.node.id} account={account.node} />) : null }
           </ContentColumn>
 
         </div>
