@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import Relay from 'react-relay';
 import { Card, CardText } from 'material-ui/Card';
+import ProfileLink from '../layout/ProfileLink';
 import MediaDetail from '../media/MediaDetail';
 import DynamicAnnotation from '../annotations/DynamicAnnotation';
 import DeleteAnnotationMutation from '../../relay/DeleteAnnotationMutation';
@@ -175,7 +176,7 @@ class Annotation extends Component {
                   {contentTemplate}
                   <footer className='annotation__card-footer'>
                     <span className='annotation__card-footer-text'>
-                      {annotation.annotator.name} <span>{timestamp}</span>
+                      <ProfileLink user={annotation.annotator.user} /> <span>{timestamp}</span>
                     </span>
                     {annotationActions}
                   </footer>

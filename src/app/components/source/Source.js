@@ -16,7 +16,6 @@ const SourceContainer = Relay.createContainer(SourceComponent, {
         source_id,
         project_id,
         permissions,
-        annotations_count (annotation_type: "comment"),
         source {
           id,
           dbid,
@@ -95,7 +94,21 @@ const SourceContainer = Relay.createContainer(SourceComponent, {
                 },
                 annotator {
                   name,
-                  profile_image
+                  profile_image,
+                  user {
+                    name,
+                    email,
+                    source {
+                      dbid,
+                      accounts(first: 10000) {
+                        edges {
+                          node {
+                            url
+                          }
+                        }
+                      }
+                    }
+                  }
                 }
               }
             }
