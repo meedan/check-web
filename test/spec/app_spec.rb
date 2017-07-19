@@ -381,7 +381,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 15
       @driver.find_element(:css, '#create-media__source').click
       sleep 1
-      fill_field('#create-media-source-name-input', 'Iron Maiden')
       fill_field('#create-media-source-url-input', 'https://twitter.com/IronMaiden/status/832726327459446784')
       sleep 1
       press_button('#create-media-submit')
