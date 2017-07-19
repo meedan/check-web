@@ -25,7 +25,6 @@ import Can from '../Can';
 import CheckContext from '../../CheckContext';
 import ContentColumn from '../layout/ContentColumn';
 import ParsedText from '../ParsedText';
-import { white, checkBlue } from '../../styles/js/variables';
 
 const messages = defineMessages({
   editError: {
@@ -95,7 +94,7 @@ class SourceComponent extends Component {
                   <div className="column-secondary">
                     <div
                       className="source__avatar"
-                      style={{ backgroundImage: `url(${source.image})` }}
+                      style={{ backgroundImage: `url(${source.image})`, backgroundRepeat: 'no-repeat' }}
                     />
                   </div>
                   <div className="column-primary">
