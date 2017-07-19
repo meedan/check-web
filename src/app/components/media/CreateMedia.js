@@ -196,7 +196,7 @@ class CreateProjectMedia extends Component {
       new CreateProjectSourceMutation({
         source_name: inputValue,
         source_url: url,
-        project_id: context.project.dbid,
+        project: context.project,
       }),
       { onSuccess, onFailure },
     );
