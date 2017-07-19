@@ -176,7 +176,7 @@ class SourceComponent extends Component {
             }
           </Card>
 
-          { this.state.showTab === 'annotation' ? <Annotations annotations={source.annotations.edges.reverse()} annotated={source} annotatedType="Source" /> : null }
+          { this.state.showTab === 'annotation' ? <Annotations annotations={source.annotations.edges.slice().reverse()} annotated={source} annotatedType="Source" /> : null }
           <ContentColumn>
             { this.state.showTab === 'media' ? <Medias medias={source.medias.edges} /> : null }
             { this.state.showTab === 'account' ? source.accounts.edges.map(account => <AccountCard key={account.node.id} account={account.node} />) : null }

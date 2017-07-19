@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import Relay from 'react-relay';
+import Lightbox from 'react-image-lightbox';
 import { Card, CardText } from 'material-ui/Card';
 import ProfileLink from '../layout/ProfileLink';
 import MediaDetail from '../media/MediaDetail';
@@ -24,6 +25,12 @@ const messages = defineMessages({
 });
 
 class Annotation extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = { zoomedCommentImage: false };
+  }
+
   handleDelete(id) {
     const that = this;
 
@@ -61,6 +68,14 @@ class Annotation extends Component {
     }
   }
 
+  handleCloseCommentImage() {
+    this.setState({ zoomedCommentImage: false });
+  }
+
+  handleOpenCommentImage(image) {
+    this.setState({ zoomedCommentImage: image });
+  }
+
   updatedAt(annotation) {
     let date = new Date(annotation.updated_at);
     if (isNaN(date)) date = null;
@@ -71,6 +86,7 @@ class Annotation extends Component {
     const annotation = this.props.annotation;
     const annotated = this.props.annotated;
     const permissionType = `${annotation.annotation_type.charAt(0).toUpperCase()}${annotation.annotation_type.slice(1)}`;
+
     let annotationActions = (
       <div className="annotation__actions">
         <Can permissions={annotation.permissions} permission={`destroy ${permissionType}`}>
@@ -86,10 +102,15 @@ class Annotation extends Component {
     switch (annotation.annotation_type) {
     case 'comment':
       const commentText = content.text;
+      const commentContent = JSON.parse(annotation.content);
       contentTemplate = (
         <div>
           <div className='annotation__card-content'>
             <ParsedText text={commentText} />
+              {/* thumbnail */ }
+              { commentContent.original ?
+                <img src={commentContent.thumbnail} className='annotation__card-thumbnail' alt="" onClick={this.handleOpenCommentImage.bind(this, commentContent.original)} />
+              : null }
           </div>
 
           {/* embedded medias */ }
@@ -98,6 +119,11 @@ class Annotation extends Component {
             <div><MediaDetail media={media.node} condensed readonly /></div>
           ))}
           </div>
+
+          {/* lightbox */ }
+          { (commentContent.original && !!this.state.zoomedCommentImage) ?
+            <Lightbox onCloseRequest={this.handleCloseCommentImage.bind(this)} mainSrc={this.state.zoomedCommentImage} />
+          : null }
         </div>
       );
       break;
