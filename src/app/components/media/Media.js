@@ -208,12 +208,6 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
             }
           }
         }
-        account {
-          source {
-            dbid,
-            name
-          }
-        }
         team {
           get_suggested_tags,
           private,

@@ -278,12 +278,6 @@ const sourceFragment = Relay.QL`
               }
             }
           }
-          account {
-            source {
-              dbid,
-              name
-            }
-          }
           team {
             get_suggested_tags,
             slug
