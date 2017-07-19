@@ -24,8 +24,8 @@ class MediaEmbed extends Component {
       codeMenuOpened: false,
       customizationMenuAnchor: null,
       codeMenuAnchor: null,
-      version: 0,
-      codeCopied: '',
+      version: new Date().getTime(),
+      codeCopied: false,
       customizationOptions: {
         showTasks: true,
         showNotes: true,
@@ -66,7 +66,7 @@ class MediaEmbed extends Component {
   handleCopyEmbedCode() {
     const field = document.getElementById('media-embed__code-field');
     this.setState({
-      codeCopied: field.value,
+      codeCopied: true,
     });
   }
 
@@ -131,20 +131,22 @@ class MediaEmbed extends Component {
                 <p className="media-embed__warning"><FormattedMessage id="mediaEmbed.warning" defaultMessage="Warning — sharing this will expose information to people outside your private team. Proceed with caution." /></p>
                 <p className="media-embed__copy-footer">
                   <input disabled readOnly value={embedTag} id="media-embed__code-field" />
-                  <CopyToClipboard text={embedTag} onCopy={this.handleCopyEmbedCode.bind(this)}>
-                    { this.state.codeCopied != embedTag ?
-                      <span className="media-embed__copy-button"><FormattedMessage id="mediaEmbed.copyButton" defaultMessage="Copy" /></span> :
-                      <span className="media-embed__copy-button-inactive">
+                  { this.state.codeCopied ?
+                    <span className="media-embed__copy-button-inactive">
                       <FormattedMessage id="mediaEmbed.copyButtonInactive" defaultMessage="Copied" />
-                    </span> }
-                  </CopyToClipboard>
+                    </span> 
+                  :
+                    <span className="media-embed__copy-button"><FormattedMessage id="mediaEmbed.copyButton" defaultMessage="Copy" /></span>
+                  }
                 </p>
               </div>
             </Popover>
 
             <p id="media-embed__actions">
               <span id="media-embed__actions-customize" onClick={this.handleCustomizationMenuOpen.bind(this)}><FormattedMessage id="mediaEmbed.customize" defaultMessage="Customize" /></span>
-              <span id="media-embed__actions-copy" onClick={this.handleCodeMenuOpen.bind(this)}><FormattedMessage id="mediaEmbed.copyEmbedCode" defaultMessage="Copy embed code" /></span>
+              <CopyToClipboard text={embedTag} onCopy={this.handleCopyEmbedCode.bind(this)}>
+                <span id="media-embed__actions-copy" onClick={this.handleCodeMenuOpen.bind(this)}><FormattedMessage id="mediaEmbed.copyEmbedCode" defaultMessage="Copy embed code" /></span>
+              </CopyToClipboard>
             </p>
 
             <PenderCard url={url} penderUrl={config.penderUrl} fallback={null} mediaVersion={this.state.version} />

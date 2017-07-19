@@ -84,6 +84,10 @@
     "defaultMessage": "This item is being archived in Keep. Come back in an hour to receive a confirmation link."
   },
   {
+    "id": "annotation.embedCodeCopied",
+    "defaultMessage": "An embed code of the item has been generated and copied, so the item may now be publicly viewable."
+  },
+  {
     "id": "annotation.flaggedHeader",
     "defaultMessage": "Flagged as {flag} by {author}"
   },

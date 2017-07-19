@@ -382,6 +382,16 @@ class Annotation extends Component {
           );
         }
       }
+
+      if (object.field_name === 'embed_code_copied') {
+        contentTemplate = (<span className="annotation__embed-code-copied"><strong>
+          <FormattedMessage
+            id="annotation.embedCodeCopied"
+            defaultMessage={'An embed code of the item has been generated and copied, so the item may now be publicly viewable.'}
+          />
+        </strong></span>);
+      }
+
       break;
     case 'create_flag':
       contentTemplate = (<span>

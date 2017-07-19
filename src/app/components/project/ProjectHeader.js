@@ -45,13 +45,17 @@ class ProjectHeaderComponent extends Component {
   }
 
   render() {
+    const path = window.location.pathname;
     const project = this.props.project;
-    const projectUrl = window.location.pathname.match(/(.*\/project\/[0-9]+)/)[1];
-    const isProjectSubpage = window.location.pathname.length > projectUrl.length;
+    let backUrl = path.match(/(.*\/project\/[0-9]+)/)[1];
+    if (path.match(/\/media\/[0-9]+\/.+/)) {
+      backUrl = path.match(/(.*\/media\/[0-9]+)/)[1];
+    }
+    const isProjectSubpage = path.length > backUrl.length;
 
     return (
       <div className="project-header">
-        <Link to={projectUrl} className={bemClass('project-header__back-button', isProjectSubpage, '--displayed')}><MdArrowBack /></Link>
+        <Link to={backUrl} className={bemClass('project-header__back-button', isProjectSubpage, '--displayed')}><MdArrowBack /></Link>
         <input type="checkbox" className="project-header__menu-toggle" id="project-header-menu-toggle" style={{ display: 'none' }} />
         <label className="project-header__menu-toggle-label" htmlFor="project-header-menu-toggle">
           <h2 className="project-header__title">{project.title}</h2>

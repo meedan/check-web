@@ -28,12 +28,12 @@
     "defaultMessage": "Warning — sharing this will expose information to people outside your private team. Proceed with caution."
   },
   {
-    "id": "mediaEmbed.copyButton",
-    "defaultMessage": "Copy"
-  },
-  {
     "id": "mediaEmbed.copyButtonInactive",
     "defaultMessage": "Copied"
+  },
+  {
+    "id": "mediaEmbed.copyButton",
+    "defaultMessage": "Copy"
   },
   {
     "id": "mediaEmbed.customize",
