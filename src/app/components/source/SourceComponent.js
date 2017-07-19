@@ -15,6 +15,7 @@ import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
 import IconButton from 'material-ui/IconButton';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import MDEdit from 'react-icons/lib/md/edit';
+import styled from 'styled-components';
 import AccountCard from './AccountCard';
 import Annotations from '../annotations/Annotations';
 import PageTitle from '../PageTitle';
@@ -25,6 +26,7 @@ import Can from '../Can';
 import CheckContext from '../../CheckContext';
 import ContentColumn from '../layout/ContentColumn';
 import ParsedText from '../ParsedText';
+import { checkBlue } from '../../styles/js/variables';
 
 const messages = defineMessages({
   editError: {
@@ -36,6 +38,11 @@ const messages = defineMessages({
     defaultMessage: 'Source information updated successfully!',
   },
 });
+
+const StyledTab = styled(Tab)`
+  background-color: white!important;
+  color: ${checkBlue}!important;
+`;
 
 class SourceComponent extends Component {
 
@@ -148,27 +155,31 @@ class SourceComponent extends Component {
                     */}
                 </section>
               </div>
-            </ContentColumn>
-            { isProjectSource ?
-              <Tabs value={this.state.showTab} onChange={this.handleTabChange}>
-                <Tab
-                  label={<FormattedMessage id="sourceComponent.notes" defaultMessage="Notes" />}
-                  className="source__tab-button-notes"
-                  value="annotation"
-                />
-                <Tab
-                  label={<FormattedMessage id="sourceComponent.medias" defaultMessage="Media" />}
-                  value="media"
-                  className="source__tab-button-media"
-                />
-                <Tab
-                  label={<FormattedMessage id="sourceComponent.network" defaultMessage="Networks" />}
-                  value="account"
-                  className="source__tab-button-account"
-                />
-              </Tabs>
+
+              { isProjectSource ?
+                <Tabs value={this.state.showTab} onChange={this.handleTabChange}>
+                  <StyledTab
+                    label={<FormattedMessage id="sourceComponent.notes" defaultMessage="Notes" />}
+                    className="source__tab-button-notes"
+                    value="annotation"
+                    active={this.state.showTab == 'annotation'}
+                  />
+                  <StyledTab
+                    label={<FormattedMessage id="sourceComponent.medias" defaultMessage="Media" />}
+                    value="media"
+                    className="source__tab-button-media"
+                    active={this.state.showTab == 'media'}
+                  />
+                  <StyledTab
+                    label={<FormattedMessage id="sourceComponent.network" defaultMessage="Networks" />}
+                    value="account"
+                    className="source__tab-button-account"
+                    active={this.state.showTab == 'account'}
+                  />
+                </Tabs>
               : <CardActions />
             }
+            </ContentColumn>
           </Card>
 
           { this.state.showTab === 'annotation' ? <Annotations annotations={source.annotations.edges.slice().reverse()} annotated={source} annotatedType="Source" /> : null }
