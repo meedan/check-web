@@ -12,7 +12,7 @@ import BrowserSupport from './BrowserSupport';
 import CheckContext from '../CheckContext';
 import { bemClass } from '../helpers';
 import ContentColumn from './layout/ContentColumn';
-import { checkBlue } from '../styles/js/variables';
+import { white, checkBlue } from '../styles/js/variables';
 
 const messages = defineMessages({
   needRegister: {
@@ -84,9 +84,17 @@ class Home extends Component {
         accent1Color: checkBlue,
         accent2Color: checkBlue,
         accent3Color: checkBlue,
-        ripple: {
-          color: checkBlue,
-        },
+      },
+      ripple: {
+        color: checkBlue,
+      },
+      tabs: {
+        backgroundColor: white,
+        textColor: checkBlue,
+        selectedTextColor: checkBlue,
+      },
+      inkBar: {
+        backgroundColor: checkBlue,
       },
       isRtl: rtlDetect.isRtlLang(this.props.intl.locale),
     });
