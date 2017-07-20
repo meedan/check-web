@@ -12,12 +12,12 @@
     "defaultMessage": "Added {date} • Source of {number} links"
   },
   {
-    "id": "sourceComponent.notes",
-    "defaultMessage": "Notes"
-  },
-  {
     "id": "sourceComponent.medias",
     "defaultMessage": "Media"
+  },
+  {
+    "id": "sourceComponent.notes",
+    "defaultMessage": "Notes"
   },
   {
     "id": "sourceComponent.network",

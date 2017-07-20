@@ -23,7 +23,7 @@ div.source-card__content {
 .source-card__heading {
   svg {
     color: $opaque-black-54;
-    margin-#{to-direction}: units(1);
+    margin-#{$to-direction}: units(1);
   }
 }
 

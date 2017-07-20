@@ -17,11 +17,11 @@ class Annotations extends Component {
     const annotations = props.annotations;
 
     return (
-      <div className='annotations'>
+      <div className="annotations">
         <ContentColumn>
           <ul className="annotations__list annotations-list">
             {annotations.map(annotation => (
-              <li key={annotation.node.dbid} className='annotations__list-item'>{this.annotationComponent(annotation.node, props.annotated, props.annotatedType)}</li>
+              <li key={annotation.node.dbid} className="annotations__list-item">{this.annotationComponent(annotation.node, props.annotated, props.annotatedType)}</li>
             ))}
           </ul>
         </ContentColumn>
