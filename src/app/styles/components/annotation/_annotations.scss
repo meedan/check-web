@@ -5,7 +5,6 @@
 
     // The timeline line
     &::before {
-      #{$from-direction}: units(4);
       background-color: $opaque-black-16;
       bottom: 0;
       content: '';
@@ -13,6 +12,7 @@
       position: absolute;
       top: units(2);
       width: $border-width-medium;
+      #{$from-direction}: units(4);
     }
   }
 
@@ -21,7 +21,6 @@
 
     // The timeline dot
     &::before {
-      #{$from-direction}: units(4) - ($border-width-medium + ($border-width-medium / 2));
       background-color: $opaque-black-16;
       border-radius: 100%;
       content: '';
@@ -30,6 +29,7 @@
       position: absolute;
       top: units(2);
       width: units(1);
+      #{$from-direction}: units(4) - ($border-width-medium + ($border-width-medium / 2));
     }
   }
 }

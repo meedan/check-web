@@ -94,7 +94,7 @@ class SourceComponent extends Component {
                   <div className="column-secondary">
                     <div
                       className="source__avatar"
-                      style={{ backgroundImage: `url(${source.image})`, backgroundRepeat: 'no-repeat' }}
+                      style={{ backgroundImage: `url(${source.image})` }}
                     />
                   </div>
                   <div className="column-primary">
@@ -152,14 +152,14 @@ class SourceComponent extends Component {
               { isProjectSource ?
                 <Tabs value={this.state.showTab} onChange={this.handleTabChange}>
                   <Tab
-                    label={<FormattedMessage id="sourceComponent.notes" defaultMessage="Notes" />}
-                    className="source__tab-button-notes"
-                    value="annotation"
-                  />
-                  <Tab
                     label={<FormattedMessage id="sourceComponent.medias" defaultMessage="Media" />}
                     value="media"
                     className="source__tab-button-media"
+                  />
+                  <Tab
+                    label={<FormattedMessage id="sourceComponent.notes" defaultMessage="Notes" />}
+                    className="source__tab-button-notes"
+                    value="annotation"
                   />
                   <Tab
                     label={<FormattedMessage id="sourceComponent.network" defaultMessage="Networks" />}

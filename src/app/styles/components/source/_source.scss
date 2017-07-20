@@ -1,4 +1,5 @@
 .source {
+  @include layout-full-height-with-sticky-footer;
   $source-avatar-width: units(10);
   $source-profile-offset: units(18);
   $source-profile-bottom-pad: 0;
@@ -75,16 +76,18 @@
   }
 
   &__tab-buttons {
-    text-align: center;
     margin: auto;
+    text-align: center;
   }
 }
 
 .layout-two-column {
   display: flex;
+
   .column-secondary {
     flex: 0;
   }
+
   .column-primary {
     flex: 3;
   }
