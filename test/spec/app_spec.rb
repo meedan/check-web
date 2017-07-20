@@ -1008,8 +1008,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
         sleep 1
         @driver.find_element(:css, '#media-embed__actions-copy').click
         sleep 1
-        @driver.find_element(:css, '.media-embed__copy-button').click
-        sleep 1
         @driver.navigate.to 'https://pastebin.mozilla.org/'
         @driver.find_element(:css, '#code').send_keys(' ')
         @driver.action.send_keys(:control, 'v').perform
