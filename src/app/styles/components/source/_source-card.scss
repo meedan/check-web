@@ -12,18 +12,18 @@ div.source-card__content {
 }
 
 .source-card__avatar {
-  float: left;
+  float: $from-direction;
   padding-top: units(.5);
 }
 
 .source-card__body {
-  margin-left: units(7);
+  margin-#{$from-direction}: units(7);
 }
 
 .source-card__heading {
   svg {
     color: $opaque-black-54;
-    margin-right: 8px;
+    margin-#{to-direction}: units(1);
   }
 }
 
@@ -42,7 +42,6 @@ div.source-card__content {
   padding-top: units(3);
 
   svg {
-
     path {
       color: $black-54;
     }
