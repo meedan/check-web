@@ -25,6 +25,7 @@ import Can from '../Can';
 import CheckContext from '../../CheckContext';
 import ContentColumn from '../layout/ContentColumn';
 import ParsedText from '../ParsedText';
+import { truncateLength } from '../../helpers';
 
 const messages = defineMessages({
   editError: {
@@ -104,7 +105,7 @@ class SourceComponent extends Component {
                       </h1>
                       <div className="source__description">
                         <p className="source__description-text">
-                          {<ParsedText text={source.description} /> ||
+                          {<ParsedText text={truncateLength(source.description, 600)} /> ||
                           <MappedMessage
                             msgObj={messages}
                             msgKey="verificationTeam"
