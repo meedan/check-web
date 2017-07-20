@@ -1,12 +1,13 @@
 import React from 'react';
 import { FormattedMessage, FormattedHTMLMessage, defineMessages } from 'react-intl';
 import { Card, CardHeader, CardText } from 'material-ui/Card';
+import { Link } from 'react-router';
 import ProfileLink from '../layout/ProfileLink';
 import MediaUtil from '../media/MediaUtil';
 import MappedMessage from '../MappedMessage';
 import ParsedText from '../ParsedText';
 import TimeBefore from '../TimeBefore';
-import { Link } from 'react-router';
+import { truncateLength } from '../../helpers'
 
 class AccountCard extends React.Component {
   accountStats(account) {
@@ -41,7 +42,7 @@ class AccountCard extends React.Component {
               <Link to={account.embed.url}>{ account.embed.name }</Link>
             </div>
 
-            <div className="source-card__description"><ParsedText text={account.embed.description} /></div>
+            <div className="source-card__description"><ParsedText text={truncateLength(account.embed.description, 300)} /></div>
 
             <div className="source-card__url">
               <a href={ account.embed.url } target="_blank" rel="noopener noreferrer">{ account.embed.url }</a>
