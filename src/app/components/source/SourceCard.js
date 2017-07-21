@@ -1,21 +1,22 @@
 import React from 'react';
 import { FormattedMessage, defineMessages } from 'react-intl';
+import { Link } from 'react-router';
 import { Card, CardHeader, CardText } from 'material-ui/Card';
 import MediaUtil from '../media/MediaUtil';
 import ProfileLink from '../layout/ProfileLink';
 import MappedMessage from '../MappedMessage';
 import ParsedText from '../ParsedText';
 import TimeBefore from '../TimeBefore';
-import { Link } from 'react-router';
+import { truncateLength } from '../../helpers'
 
 const messages = defineMessages({
   disclaimer: {
-    id: "sourceCard.header",
-    defaultMessage: "Check Source",
+    id: 'sourceCard.header',
+    defaultMessage: 'Check Source',
   },
   bridge_disclaimer: {
-    id: "bridge.sourceCard.header",
-    defaultMessage: "Bridge Source",
+    id: 'bridge.sourceCard.header',
+    defaultMessage: 'Bridge Source',
   },
 });
 
@@ -48,7 +49,7 @@ class SourceCard extends React.Component {
               <Link to={sourceUrl} className="header__app-link">{ source.name }</Link>
             </div>
 
-            <div className="source-card__description"><ParsedText text={source.description} /></div>
+            <div className="source-card__description"><ParsedText text={truncateLength(source.description, 600)} /></div>
 
             <div className="source-card__accounts">
               <ul>
@@ -60,6 +61,7 @@ class SourceCard extends React.Component {
                     </a>
                   </li>
                 }) }
+
               </ul>
             </div>
           </article>

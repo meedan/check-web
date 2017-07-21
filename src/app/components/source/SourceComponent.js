@@ -13,6 +13,7 @@ import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
 import IconButton from 'material-ui/IconButton';
+import { Tabs, Tab } from 'material-ui/Tabs';
 import MDEdit from 'react-icons/lib/md/edit';
 import AccountCard from './AccountCard';
 import Annotations from '../annotations/Annotations';
@@ -24,6 +25,7 @@ import Can from '../Can';
 import CheckContext from '../../CheckContext';
 import ContentColumn from '../layout/ContentColumn';
 import ParsedText from '../ParsedText';
+import { truncateLength } from '../../helpers';
 
 const messages = defineMessages({
   editError: {
@@ -71,17 +73,11 @@ class SourceComponent extends Component {
     }
   }
 
-  showAnnotations() {
-    this.setState({ showTab: 'annotation' });
-  }
-
-  showAccounts() {
-    this.setState({ showTab: 'account' });
-  }
-
-  showMedias() {
-    this.setState({ showTab: 'media' });
-  }
+  handleTabChange = (value) => {
+    this.setState({
+      showTab: value,
+    });
+  };
 
   render() {
     const isProjectSource = !!this.props.source.source;
@@ -109,7 +105,7 @@ class SourceComponent extends Component {
                       </h1>
                       <div className="source__description">
                         <p className="source__description-text">
-                          {<ParsedText text={source.description} /> ||
+                          {<ParsedText text={truncateLength(source.description, 600)} /> ||
                           <MappedMessage
                             msgObj={messages}
                             msgKey="verificationTeam"
@@ -153,27 +149,28 @@ class SourceComponent extends Component {
                     */}
                 </section>
               </div>
-            </ContentColumn>
-            { isProjectSource ?
-              <CardActions className="source__tab-buttons">
-                <FlatButton
-                  label={<FormattedMessage id="sourceComponent.notes" defaultMessage="Notes" />}
-                  className="source__tab-button-notes"
-                  primary={this.state.showTab === 'annotation'}
-                  onClick={this.showAnnotations.bind(this)}
-                />
-                <FlatButton
-                  primary={this.state.showTab === 'media'}
-                  label={<FormattedMessage id="sourceComponent.medias" defaultMessage="Media" />}
-                  onClick={this.showMedias.bind(this)}
-                />
-                <FlatButton
-                  primary={this.state.showTab === 'account'}
-                  onClick={this.showAccounts.bind(this)}
-                  label={<FormattedMessage id="sourceComponent.network" defaultMessage="Networks" />}
-                />
-              </CardActions> : <CardActions />
+
+              { isProjectSource ?
+                <Tabs value={this.state.showTab} onChange={this.handleTabChange}>
+                  <Tab
+                    label={<FormattedMessage id="sourceComponent.medias" defaultMessage="Media" />}
+                    value="media"
+                    className="source__tab-button-media"
+                  />
+                  <Tab
+                    label={<FormattedMessage id="sourceComponent.notes" defaultMessage="Notes" />}
+                    className="source__tab-button-notes"
+                    value="annotation"
+                  />
+                  <Tab
+                    label={<FormattedMessage id="sourceComponent.network" defaultMessage="Networks" />}
+                    value="account"
+                    className="source__tab-button-account"
+                  />
+                </Tabs>
+              : <CardActions />
             }
+            </ContentColumn>
           </Card>
 
           { this.state.showTab === 'annotation' ? <Annotations annotations={source.annotations.edges.slice().reverse()} annotated={source} annotatedType="Source" /> : null }

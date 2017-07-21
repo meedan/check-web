@@ -1,10 +1,10 @@
 .source-card {
   margin-bottom: units(2);
-  padding-#{$from-direction}: units(1);
 
   div {
     padding-bottom: 0 !important;
   }
+  padding-#{$from-direction}: units(1);
 }
 
 div.source-card__content {
@@ -12,41 +12,40 @@ div.source-card__content {
 }
 
 .source-card__avatar {
-  padding-top: units(1);
-  float:left;
+  float: $from-direction;
+  padding-top: units(.5);
 }
 
 .source-card__body {
-  margin-left: units(7);
+  margin-#{$from-direction}: units(7);
 }
 
 .source-card__heading {
-   svg {
-     color: $opaque-black-54;
-     margin-right: 8px;
-   }
+  svg {
+    color: $opaque-black-54;
+    margin-#{$to-direction}: units(1);
+  }
 }
 
 .source-card__name {
-  padding-top: units(1);
   font: font(headline);
+  padding-top: units(1);
 }
 
 .source-card__description {
-  padding-top: units(1.5);
-  font: font(body1);
   color: $opaque-black-54;
+  font: font(body1);
+  padding-top: units(1.5);
 }
 
 .source-card__accounts {
   padding-top: units(3);
 
   svg {
-    margin-#{$to-direction}: units(1);
-
     path {
       color: $black-54;
     }
+    margin-#{$to-direction}: units(1);
   }
 }
 
@@ -60,7 +59,7 @@ div.source-card__content {
 }
 
 .source-card__account-link {
- padding-bottom: units(1.5);
+  padding-bottom: units(1.5);
 }
 
 .source-card__footer {

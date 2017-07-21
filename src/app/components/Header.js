@@ -37,6 +37,7 @@ const HeaderContainer = styled.div`
   height: ${headerHeight};
   position: absolute;
   width: 100%;
+  z-index: 1;
 `;
 
 class Header extends Component {
