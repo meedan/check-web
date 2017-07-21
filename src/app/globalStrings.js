@@ -9,6 +9,22 @@ const globalStrings = defineMessages({
     id: 'bridge.global.appNameHuman',
     defaultMessage: 'Bridge',
   },
+  edit: {
+    id: 'global.edit',
+    defaultMessage: 'Edit',
+  },
+  cancel: {
+    id: 'global.cancel',
+    defaultMessage: 'Cancel',
+  },
+  save: {
+    id: 'global.save',
+    defaultMessage: 'Save',
+  },
+  submit: {
+    id: 'global.submit',
+    defaultMessage: 'Submit',
+  },
 });
 
 export default globalStrings;

@@ -52,6 +52,10 @@
     margin-#{$to-direction}: units(2);
   }
 
+  &__edit-avatar-button {
+    max-width: units(10);
+  }
+
   // Ideally this would be a FAB component, but MUI FAB doesn't have a tooltip so we're doing our own using iconButton
   &__edit-button {
     @include box-shadow(2);
@@ -78,6 +82,14 @@
   &__tab-buttons {
     margin: auto;
     text-align: center;
+  }
+
+  &__edit-buttons {
+    margin: units(6) auto;
+  }
+
+  &__edit-hspacer {
+    padding: 0 units(4);
   }
 }
 

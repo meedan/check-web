@@ -1,11 +1,27 @@
 [
   {
+    "id": "sourceComponent.addInfo",
+    "defaultMessage": "Add Info"
+  },
+  {
     "id": "sourceComponent.editError",
     "defaultMessage": "Sorry, could not edit the source"
   },
   {
     "id": "sourceComponent.editSuccess",
     "defaultMessage": "Source information updated successfully!"
+  },
+  {
+    "id": "sourceComponent.mergeSource",
+    "defaultMessage": "Merge Source"
+  },
+  {
+    "id": "sourceComponent.sourceName",
+    "defaultMessage": "Source name"
+  },
+  {
+    "id": "sourceComponent.sourceBio",
+    "defaultMessage": "Source bio"
   },
   {
     "id": "sourceComponent.dateAdded",
@@ -22,5 +38,9 @@
   {
     "id": "sourceComponent.network",
     "defaultMessage": "Networks"
+  },
+  {
+    "id": "sourceComponent.editButton",
+    "defaultMessage": "Edit profile"
   }
 ]
