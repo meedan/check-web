@@ -72,8 +72,8 @@ class ProjectComponent extends Component {
             <CreateProjectMedia projectComponent={that} />
           </Can>
 
-          <ContentColumn>
-            <Search team={project.team.slug} project={project} query={this.props.params.query || '{}'} fields={['status', 'sort', 'tags']}  />
+          <ContentColumn noPadding>
+            <Search team={project.team.slug} project={project} query={this.props.params.query || '{}'} fields={['status', 'sort', 'tags']} />
           </ContentColumn>
 
         </div>

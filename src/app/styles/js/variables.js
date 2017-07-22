@@ -45,6 +45,11 @@ export function units(unit) {
   return `${unit * 8}px`;
 }
 
+export const columnWidthSmall = units(56);
+export const columnWidthMedium = units(85);
+export const columnWidthLarge = units(100);
+export const columnWidthWide = units(152);
+
 // Unitless
 export function unitless(unit) {
   return stripUnit(units(unit));
@@ -228,5 +233,5 @@ export const palette = {
 
 
 export const media = {
-  handheld: (...args) => css`@media (max-width: ${units(85)}) { ${css(...args)} }`,
+  handheld: (...args) => css`@media (max-width: ${breakpointMobile}) { ${css(...args)} }`,
 };

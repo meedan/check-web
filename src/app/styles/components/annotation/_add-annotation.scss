@@ -1,17 +1,13 @@
 .add-annotation {
   @include box-shadow(1);
+  @include when-taller-than(tallscreen-breakpoint) {
+    padding-top: 5vh;
+  }
   background-color: $white;
+  height: 100%;
+  padding: units(5);
   position: relative;
   z-index: 0;
-
-  .content-column {
-
-    @include when-taller-than(tallscreen-breakpoint) {
-      padding-top: 5vh;
-    }
-    height: 100%;
-    padding: units(5);
-  }
 
   .add-annotation__buttons {
     margin-bottom: units(3);
