@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import { CardTitle } from 'material-ui/Card';
 import { stripUnit, rgba } from 'polished';
 
@@ -172,6 +172,9 @@ export const Text = styled.span`
 `;
 
 // Shared Material UI style overrides using styled-components
+// This is not ideal because of the !important declarations ...
+// Still figuring out how best to customize our Material components,
+// feedback welcome! WIP CGB 2017-7-12
 //
 export const StyledMdCardTitle =
   styled(CardTitle)` > span {
@@ -181,8 +184,49 @@ export const StyledMdCardTitle =
   `;
 
 // A Flexbox row, center aligned
+// This one is nice because it's only using styled components.
+//
 export const FlexRow = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
 `;
+
+// FadeIn
+//
+// 1. This is a styled component that uses their keyframes function
+const fadeInKeyframes = keyframes`
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+`;
+
+// 2. Now we can wrap elements in <FadeIn>
+export const FadeIn = styled.div`
+  animation: ${fadeInKeyframes} ease-in .3s;
+  animation-duration: $speed;
+  animation-fill-mode: forwards;4
+  opacity: 0;
+`;
+
+// Material UI theme configuration
+//
+// This is passed as a prop to <MuiThemeProvider>
+//
+export const palette = {
+  primary1Color: checkBlue,
+  primary2Color: checkBlue,
+  primary3Color: checkBlue,
+  accent1Color: checkBlue,
+  accent2Color: checkBlue,
+  accent3Color: checkBlue,
+};
+
+
+export const media = {
+  handheld: (...args) => css`@media (max-width: ${units(85)}) { ${css(...args)} }`,
+};

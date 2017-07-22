@@ -5,34 +5,57 @@ import {
   injectIntl,
   intlShape,
 } from 'react-intl';
-import { Link } from 'react-router';
 import FASlack from 'react-icons/lib/fa/slack';
 import FAFacebook from 'react-icons/lib/fa/facebook-official';
 import FATwitter from 'react-icons/lib/fa/twitter';
 import MDEmail from 'react-icons/lib/md/email';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import rtlDetect from 'rtl-detect';
+import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
+import { Card } from 'material-ui/Card';
+import styled from 'styled-components';
 import Message from './Message';
 import UploadImage from './UploadImage';
 import CheckContext from '../CheckContext';
 import { login, request } from '../redux/actions';
 import { mapGlobalMessage } from './MappedMessage';
 import { stringHelper } from '../customHelpers';
+import { palette, units, media, black54 } from '../styles/js/variables';
 
+const StyledCard = styled(Card)`
+  padding: ${units(11)} ${units(15)} ${units(3)} !important;
+  ${media.handheld`
+    padding: ${units(8)} ${units(4)} ${units(3)} !important;
+  `}
+`;
+
+const styles = {
+  logo: {
+    margin: '0 auto',
+    display: 'block',
+  },
+  buttonGroup: {
+    marginTop: units(8),
+  },
+  primaryButton: {
+    display: 'block',
+    margin: `${units(2)} auto`,
+    maxWidth: units(21),
+  },
+  secondaryButton: {
+    display: 'block',
+    color: black54,
+    maxWidth: units(26),
+    margin: `${units(2)} auto`,
+  },
+};
 const messages = defineMessages({
-  nameInputHint: {
-    id: 'login.nameInputHint',
-    defaultMessage: 'Your name',
-  },
-  emailInputHint: {
-    id: 'login.emailInputHint',
-    defaultMessage: 'Email address',
-  },
   passwordInputHint: {
     id: 'login.passwordInputHint',
     defaultMessage: 'Password',
-  },
-  passwordConfirmInputHint: {
-    id: 'login.passwordConfirmInputHint',
-    defaultMessage: 'Password confirmation',
   },
 });
 
@@ -141,214 +164,137 @@ class Login extends Component {
   }
 
   render() {
+    const muiTheme = getMuiTheme({
+      palette,
+      isRtl: rtlDetect.isRtlLang(this.props.intl.locale),
+    });
+
     return (
-      <div className="login" id="login">
-        <form
-          name={this.state.type}
-          onSubmit={this.onFormSubmit.bind(this)}
-          className="login__form"
-        >
-          <img alt={mapGlobalMessage(this.props.intl, 'appNameHuman')} width="120" className="login__icon" src={stringHelper('LOGO_URL')} />
-          <h2 className="login__heading">
-            {this.state.type === 'login'
-              ? <FormattedMessage id="login.title" defaultMessage="Sign in" />
-              : <FormattedMessage id="login.registerTitle" defaultMessage="Register" />}
-          </h2>
-          <Message message={this.state.message} />
-          {this.state.type === 'login'
-            ? null
-            : <div className="login__name">
-              <input
-                type="text"
-                name="name"
-                value={this.state.name}
-                className="login__name-input"
-                id="login__name-input"
-                onChange={this.handleFieldChange.bind(this)}
-                placeholder={this.props.intl.formatMessage(messages.nameInputHint)}
-              />
-              <label
-                htmlFor="login__name-input"
-                className={this.bemClass(
-                    'login__name-label',
-                    !!this.state.name,
-                    '--text-entered',
-                  )}
-              >
-                <FormattedMessage id="login.nameLabel" defaultMessage="Your name" />
-              </label>
-            </div>}
-
-          <div className="login__email">
-            <input
-              type="email"
-              name="email"
-              value={this.state.email}
-              className="login__email-input"
-              id="login__email-input"
-              onChange={this.handleFieldChange.bind(this)}
-              placeholder={this.props.intl.formatMessage(messages.emailInputHint)}
-            />
-            <label
-              htmlFor="login__email-input"
-              className={this.bemClass('login__email-label', !!this.state.email, '--text-entered')}
+      <MuiThemeProvider muiTheme={muiTheme}>
+        <div className="login" id="login">
+          <StyledCard>
+            <form
+              name={this.state.type}
+              onSubmit={this.onFormSubmit.bind(this)}
+              className="login__form"
             >
-              <FormattedMessage id="login.emailLabel" defaultMessage="Email address" />
-            </label>
-          </div>
-
-          <div className="login__password">
-            <input
-              type="password"
-              name="password"
-              value={this.state.password}
-              className="login__password-input"
-              id="login__password-input"
-              onChange={this.handleFieldChange.bind(this)}
-              placeholder={this.props.intl.formatMessage(messages.passwordInputHint)}
-            />
-            <label
-              htmlFor="login__password-input"
-              className={this.bemClass(
-                'login__password-label',
-                !!this.state.password,
-                '--text-entered',
-              )}
-            >
-              <FormattedMessage
-                id="login.passwordLabel"
-                defaultMessage="Password (minimum 8 characters)"
-              />
-            </label>
-          </div>
-
-          {this.state.type === 'login'
-            ? null
-            : <div className="login__password-confirmation">
-              <input
-                type="password"
-                name="password_confirmation"
-                value={this.state.password_confirmation}
-                className="login__password-confirmation-input"
-                id="login__password-confirmation-input"
-                onChange={this.handleFieldChange.bind(this)}
-                placeholder={this.props.intl.formatMessage(messages.passwordConfirmInputHint)}
-              />
-              <label
-                htmlFor="login__password-confirmation-input"
-                className={this.bemClass(
-                    'login__password-confirmation-label',
-                    !!this.state.password_confirmation,
-                    '--text-entered',
-                  )}
-              >
-                <FormattedMessage
-                  id="login.passwordConfirmLabel"
-                  defaultMessage="Password confirmation"
-                />
-              </label>
-            </div>}
-
-          {this.state.type === 'login' ? null : <UploadImage onImage={this.onImage.bind(this)} />}
-
-          <div className="login__actions">
-            <button
-              type="submit"
-              id="submit-register-or-login"
-              className={`login__submit login__submit--${this.state.type}`}
-            >
+              <img style={styles.logo} alt={mapGlobalMessage(this.props.intl, 'appNameHuman')} width="120" className="login__icon" src={stringHelper('LOGO_URL')} />
+              <h2 style={{ textAlign: 'center' }} className="login__heading">
+                {this.state.type === 'login'
+                  ? <FormattedMessage id="login.title" defaultMessage="Sign in" />
+                  : <FormattedMessage id="login.registerTitle" defaultMessage="Register" />}
+              </h2>
+              <Message message={this.state.message} />
               {this.state.type === 'login'
-                ? <FormattedMessage id="login.signIn" defaultMessage="SIGN IN" />
-                : <FormattedMessage id="login.signUp" defaultMessage="REGISTER" />}
-            </button>
-
-            {this.state.type === 'login'
-              ? <span className="login__forgot-password">
-                <Link to="/check/user/password-reset">
-                  <FormattedMessage
-                    id="loginEmail.lostPassword"
-                    defaultMessage="Forgot password"
+                ? null
+                : <div className="login__name">
+                  <TextField
+                    fullWidth
+                    name="name"
+                    value={this.state.name}
+                    className="login__name-input"
+                    onChange={this.handleFieldChange.bind(this)}
+                    floatingLabelText={<FormattedMessage id="login.nameLabel" defaultMessage="Your name" />}
                   />
-                </Link>
-              </span>
-              : null}
+                </div>}
 
-          </div>
-        </form>
-        <ul className="login__oauth-list">
-          <li>
-            <button
-              onClick={this.oAuthLogin.bind(this, 'slack')}
-              id="slack-login"
-              className="login__button login__button--slack"
-            >
-              <span className="login__link">
-                <FASlack />
-                <FormattedMessage
-                  id="login.with"
-                  defaultMessage={'Continue with {provider}'}
-                  values={{ provider: 'Slack' }}
+              <div className="login__email">
+                <TextField
+                  fullWidth
+                  type="email"
+                  name="email"
+                  value={this.state.email}
+                  className="login__email-input"
+                  id="login__email-input"
+                  onChange={this.handleFieldChange.bind(this)}
+                  floatingLabelText={<FormattedMessage id="login.emailLabel" defaultMessage="Email address" />}
                 />
-              </span>
-              <FormattedMessage
-                id="login.disclaimer"
-                defaultMessage={'We won’t publish without your permission'}
-              />
-            </button>
-          </li>
-          <li className="item">
-            <button
-              onClick={this.oAuthLogin.bind(this, 'twitter')}
-              id="twitter-login"
-              className="login__button login__button--twitter"
-            >
-              <span className="login__link">
-                <FATwitter />
-                <FormattedMessage
-                  id="login.with"
-                  defaultMessage={'Continue with {provider}'}
-                  values={{ provider: 'Twitter' }}
+              </div>
+
+              <div className="login__password">
+                <TextField
+                  fullWidth
+                  type="password"
+                  name="password"
+                  value={this.state.password}
+                  className="login__password-input"
+                  id="login__password-input"
+                  onChange={this.handleFieldChange.bind(this)}
+                  floatingLabelText={this.state.type === 'login'
+                  ? this.props.intl.formatMessage(messages.passwordInputHint)
+                  : <FormattedMessage
+                    id="login.passwordLabel"
+                    defaultMessage="Password (minimum 8 characters)"
+                  />
+                  }
                 />
-              </span>
-              <FormattedMessage
-                id="login.disclaimer"
-                defaultMessage={'We won’t publish without your permission'}
-              />
-            </button>
-          </li>
-          <li>
-            <button
-              onClick={this.oAuthLogin.bind(this, 'facebook')}
-              id="facebook-login"
-              className="login__button login__button--facebook"
-            >
-              <span className="login__link">
-                <FAFacebook />
-                <FormattedMessage
-                  id="login.with"
-                  defaultMessage={'Continue with {provider}'}
-                  values={{ provider: 'Facebook' }}
+              </div>
+
+              {this.state.type === 'login'
+                ? null
+                : <div className="login__password-confirmation">
+                  <TextField
+                    fullWidth
+                    type="password"
+                    name="password_confirmation"
+                    value={this.state.password_confirmation}
+                    className="login__password-confirmation-input"
+                    id="login__password-confirmation-input"
+                    onChange={this.handleFieldChange.bind(this)}
+                    floatingLabelText={
+                      <FormattedMessage
+                        id="login.passwordConfirmLabel"
+                        defaultMessage="Password confirmation"
+                      />
+                    }
+                  />
+                </div>}
+
+              {this.state.type === 'login' ? null : <UploadImage onImage={this.onImage.bind(this)} />}
+
+              <div className="login__actions" style={styles.buttonGroup}>
+                <RaisedButton
+                  primary
+                  style={styles.primaryButton}
+                  type="submit"
+                  id="submit-register-or-login"
+                  className={`login__submit login__submit--${this.state.type}`}
+                  label={this.state.type === 'login'
+                    ? <FormattedMessage id="login.signIn" defaultMessage="SIGN IN" />
+                    : <FormattedMessage id="login.signUp" defaultMessage="REGISTER" />}
                 />
-              </span>
-              <FormattedMessage
-                id="login.disclaimer"
-                defaultMessage={'We won’t publish without your permission'}
-              />
-            </button>
-          </li>
-          <li>
-            {this.state.type === 'login'
-              ? <button
-                type="button"
-                id="register-or-login"
-                onClick={this.handleSwitchType.bind(this)}
-                className="login__button login__button--email"
+
+                {this.state.type === 'login'
+                  ? <span className="login__forgot-password">
+                    <FlatButton
+                      href="/check/user/password-reset"
+                      style={styles.secondaryButton}
+                      label={
+                        <FormattedMessage
+                          id="loginEmail.lostPassword"
+                          defaultMessage="Forgot password"
+                        />
+                      }
+                    />
+                  </span>
+                  : null}
+
+              </div>
+            </form>
+          </StyledCard>
+          <ul className="login__oauth-list">
+            <li>
+              <button
+                onClick={this.oAuthLogin.bind(this, 'slack')}
+                id="slack-login"
+                className="login__button login__button--slack"
               >
                 <span className="login__link">
-                  <MDEmail />
+                  <FASlack />
                   <FormattedMessage
-                    id="login.newAccount"
-                    defaultMessage="Create a new account with email"
+                    id="login.with"
+                    defaultMessage={'Continue with {provider}'}
+                    values={{ provider: 'Slack' }}
                   />
                 </span>
                 <FormattedMessage
@@ -356,27 +302,89 @@ class Login extends Component {
                   defaultMessage={'We won’t publish without your permission'}
                 />
               </button>
-              : <button
-                type="button"
-                id="register-or-login"
-                onClick={this.handleSwitchType.bind(this)}
-                className="login__button login__button--email"
+            </li>
+            <li className="item">
+              <button
+                onClick={this.oAuthLogin.bind(this, 'twitter')}
+                id="twitter-login"
+                className="login__button login__button--twitter"
               >
                 <span className="login__link">
-                  <MDEmail />
+                  <FATwitter />
                   <FormattedMessage
-                    id="login.alreadyHasAccount"
-                    defaultMessage="I already have an account"
+                    id="login.with"
+                    defaultMessage={'Continue with {provider}'}
+                    values={{ provider: 'Twitter' }}
                   />
                 </span>
                 <FormattedMessage
-                  id="login.return"
-                  defaultMessage={'Return to sign in by email'}
+                  id="login.disclaimer"
+                  defaultMessage={'We won’t publish without your permission'}
                 />
-              </button>}
-          </li>
-        </ul>
-      </div>
+              </button>
+            </li>
+            <li>
+              <button
+                onClick={this.oAuthLogin.bind(this, 'facebook')}
+                id="facebook-login"
+                className="login__button login__button--facebook"
+              >
+                <span className="login__link">
+                  <FAFacebook />
+                  <FormattedMessage
+                    id="login.with"
+                    defaultMessage={'Continue with {provider}'}
+                    values={{ provider: 'Facebook' }}
+                  />
+                </span>
+                <FormattedMessage
+                  id="login.disclaimer"
+                  defaultMessage={'We won’t publish without your permission'}
+                />
+              </button>
+            </li>
+            <li>
+              {this.state.type === 'login'
+                ? <button
+                  type="button"
+                  id="register-or-login"
+                  onClick={this.handleSwitchType.bind(this)}
+                  className="login__button login__button--email"
+                >
+                  <span className="login__link">
+                    <MDEmail />
+                    <FormattedMessage
+                      id="login.newAccount"
+                      defaultMessage="Create a new account with email"
+                    />
+                  </span>
+                  <FormattedMessage
+                    id="login.disclaimer"
+                    defaultMessage={'We won’t publish without your permission'}
+                  />
+                </button>
+                : <button
+                  type="button"
+                  id="register-or-login"
+                  onClick={this.handleSwitchType.bind(this)}
+                  className="login__button login__button--email"
+                >
+                  <span className="login__link">
+                    <MDEmail />
+                    <FormattedMessage
+                      id="login.alreadyHasAccount"
+                      defaultMessage="I already have an account"
+                    />
+                  </span>
+                  <FormattedMessage
+                    id="login.return"
+                    defaultMessage={'Return to sign in by email'}
+                  />
+                </button>}
+            </li>
+          </ul>
+        </div>
+      </MuiThemeProvider>
     );
   }
 }

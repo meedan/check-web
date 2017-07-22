@@ -43,6 +43,10 @@ h1,
   font: font(title);
 }
 
+h2 {
+  color: $black-54;
+}
+
 // Links
 //
 a {
@@ -77,6 +81,6 @@ p {
 //
 ul {
   list-style-type: none;
-  padding-#{$from-direction}: 0;
   margin: 0;
+  padding-#{$from-direction}: 0;
 }

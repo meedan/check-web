@@ -7,23 +7,27 @@ import Message from './Message';
 import Login from './Login';
 import { stringHelper } from '../customHelpers';
 import PageTitle from './PageTitle';
+import ContentColumn from './layout/ContentColumn';
+import { FadeIn, units } from '../styles/js/variables';
 
 class LoginContainer extends Component {
 
   render() {
     return (
       <PageTitle skipTeam>
-        <div id="login-container" className="login-container">
+        <ContentColumn style={{ maxWidth: units(82) }} id="login-container" className="login-container">
           <Favicon url={`/images/logo/${config.appName}.ico`} animated={false} />
-          <p style={{ marginTop: 16 }}>
+          <p style={{ marginTop: 16, textAlign: 'center' }}>
             <FormattedHTMLMessage id="browser.support.message" defaultMessage='Best viewed with <a href="https://www.google.com/chrome/browser/desktop/">Chrome for Desktop</a>.' />
           </p>
 
           <Message message={this.props.message} />
 
-          <Login loginCallback={this.props.loginCallback} />
+          <FadeIn>
+            <Login loginCallback={this.props.loginCallback} />
+          </FadeIn>
 
-          <p>
+          <p style={{ textAlign: 'center' }}>
             <FormattedMessage
               id="loginContainer.agreeTerms" defaultMessage={'By signing in, you agree to the {appName} {tosLink} and {ppLink}.'}
               values={{
@@ -34,10 +38,10 @@ class LoginContainer extends Component {
             />
           </p>
 
-          <p>
+          <p style={{ textAlign: 'center' }}>
             <FormattedHTMLMessage id="login.contactSupport" defaultMessage='For support contact <a href="mailto:{supportEmail}">{supportEmail}</a>.' values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }} />
           </p>
-        </div>
+        </ContentColumn>
       </PageTitle>
     );
   }
