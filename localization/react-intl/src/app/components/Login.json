@@ -1,19 +1,7 @@
 [
   {
-    "id": "login.nameInputHint",
-    "defaultMessage": "Your name"
-  },
-  {
-    "id": "login.emailInputHint",
-    "defaultMessage": "Email address"
-  },
-  {
     "id": "login.passwordInputHint",
     "defaultMessage": "Password"
-  },
-  {
-    "id": "login.passwordConfirmInputHint",
-    "defaultMessage": "Password confirmation"
   },
   {
     "id": "login.title",

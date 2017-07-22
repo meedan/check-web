@@ -12,7 +12,7 @@ import BrowserSupport from './BrowserSupport';
 import CheckContext from '../CheckContext';
 import { bemClass } from '../helpers';
 import ContentColumn from './layout/ContentColumn';
-import { white, checkBlue } from '../styles/js/variables';
+import { palette, white } from '../styles/js/variables';
 
 const messages = defineMessages({
   needRegister: {
@@ -77,24 +77,17 @@ class Home extends Component {
     const { children } = this.props;
     const routeSlug = this.routeSlug(children);
     const muiTheme = getMuiTheme({
-      palette: {
-        primary1Color: checkBlue,
-        primary2Color: checkBlue,
-        primary3Color: checkBlue,
-        accent1Color: checkBlue,
-        accent2Color: checkBlue,
-        accent3Color: checkBlue,
-      },
+      palette,
       ripple: {
-        color: checkBlue,
+        color: palette.primary1Color,
       },
       tabs: {
         backgroundColor: white,
-        textColor: checkBlue,
-        selectedTextColor: checkBlue,
+        textColor: palette.primary1Color,
+        selectedTextColor: palette.primary1Color,
       },
       inkBar: {
-        backgroundColor: checkBlue,
+        backgroundColor: palette.primary1Color,
       },
       isRtl: rtlDetect.isRtlLang(this.props.intl.locale),
     });
