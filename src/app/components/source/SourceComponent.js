@@ -19,6 +19,7 @@ import AccountCard from './AccountCard';
 import Annotations from '../annotations/Annotations';
 import PageTitle from '../PageTitle';
 import Medias from '../media/Medias';
+import MediaUtil from '../media/MediaUtil';
 import MappedMessage from '../MappedMessage';
 import Message from '../Message';
 import Can from '../Can';
@@ -119,7 +120,7 @@ class SourceComponent extends Component {
                         <FormattedHTMLMessage
                           id="sourceComponent.dateAdded" defaultMessage="Added {date} &bull; Source of {number} links"
                           values={{
-                            date: this.props.intl.formatDate(source.created_at, { year: 'numeric', month: 'short', day: '2-digit' }),
+                            date: this.props.intl.formatDate(MediaUtil.createdAt({ published: source.created_at }), { year: 'numeric', month: 'short', day: '2-digit' }),
                             number: source.medias.edges.length || '0',
                           }}
                         />

@@ -5,6 +5,7 @@ import Lightbox from 'react-image-lightbox';
 import { Card, CardText } from 'material-ui/Card';
 import ProfileLink from '../layout/ProfileLink';
 import MediaDetail from '../media/MediaDetail';
+import MediaUtil from '../media/MediaUtil';
 import DynamicAnnotation from '../annotations/DynamicAnnotation';
 import DeleteAnnotationMutation from '../../relay/DeleteAnnotationMutation';
 import DeleteVersionMutation from '../../relay/DeleteVersionMutation';
@@ -76,12 +77,6 @@ class Annotation extends Component {
     this.setState({ zoomedCommentImage: image });
   }
 
-  updatedAt(annotation) {
-    let date = new Date(annotation.updated_at);
-    if (isNaN(date)) date = null;
-    return date;
-  }
-
   render() {
     const annotation = this.props.annotation;
     const annotated = this.props.annotated;
@@ -94,7 +89,8 @@ class Annotation extends Component {
         </Can>
       </div>
     );
-    const updatedAt = this.updatedAt(annotation);
+
+    const updatedAt = MediaUtil.createdAt({ published: annotation.created_at });
     const timestamp = updatedAt ? <span className="annotation__timestamp"><TimeBefore date={updatedAt}/></span> : null;
     const content = JSON.parse(annotation.content);
     let contentTemplate;
