@@ -71,9 +71,7 @@ class Header extends Component {
             ? <MenuItem
               href="/check/teams"
               key="headerActions.userTeams"
-              primaryText={
-                <FormattedMessage id="headerActions.userTeams" defaultMessage="Your Teams" />
-              }
+              primaryText={<FormattedMessage id="headerActions.userTeams" defaultMessage="Your Teams" />}
             />
             : null}
 
@@ -90,16 +88,12 @@ class Header extends Component {
               key="headerActions.signIn"
               className="header-actions__menu-item--logout"
               onClick={logout}
-              primaryText={
-                <FormattedMessage id="headerActions.signOut" defaultMessage="Sign Out" />
-              }
+              primaryText={<FormattedMessage id="headerActions.signOut" defaultMessage="Sign Out" />}
             />
             : <MenuItem
               className="header-actions__menu-item--login"
               href="/"
-              primaryText={
-                <FormattedMessage id="headerActions.signIn" defaultMessage="Sign In" />
-              }
+              primaryText={<FormattedMessage id="headerActions.signIn" defaultMessage="Sign In" />}
             />}
 
           <Divider />
@@ -109,9 +103,7 @@ class Header extends Component {
             target="_blank"
             rel="noopener noreferrer"
             href={stringHelper('CONTACT_HUMAN_URL')}
-            primaryText={
-              <FormattedMessage id="headerActions.contactHuman" defaultMessage="Contact a Human" />
-            }
+            primaryText={<FormattedMessage id="headerActions.contactHuman" defaultMessage="Contact a Human" />}
           />
 
           <MenuItem
@@ -119,9 +111,7 @@ class Header extends Component {
             href={stringHelper('TOS_URL')}
             target="_blank"
             rel="noopener noreferrer"
-            primaryText={
-              <FormattedMessage id="headerActions.tos" defaultMessage="Terms of Service" />
-            }
+            primaryText={<FormattedMessage id="headerActions.tos" defaultMessage="Terms of Service" />}
           />
 
           <MenuItem
