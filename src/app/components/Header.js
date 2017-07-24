@@ -2,14 +2,13 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router';
 import TeamHeader from './team/TeamHeader';
-import TeamPublicHeader from './team/TeamPublicHeader';
 import ProjectHeader from './project/ProjectHeader';
 import HeaderActions from './HeaderActions';
 import ContentColumn from './layout/ContentColumn';
 import { stringHelper } from '../customHelpers';
 import { black02, units, headerHeight } from '../styles/js/variables';
 
-const TeamHeaderContainer = styled.div `
+const TeamHeaderContainer = styled.div`
   align-items: center;
   display: flex;
   justify-content: center;
@@ -43,9 +42,10 @@ const HeaderContainer = styled.div`
 class Header extends Component {
   render() {
     const { loggedIn } = this.props;
-    const path = this.props.location ? this.props.location.pathname : window.location.pathname;
+    const path = this.props.location
+      ? this.props.location.pathname
+      : window.location.pathname;
     const showCheckLogo = /^\/(check(\/.*)?)?$/.test(path);
-    const joinPage = /^\/([^/]+)\/join$/.test(path);
 
     const defaultHeader = (
       <HeaderContainer>
@@ -54,9 +54,9 @@ class Header extends Component {
             ? <HeaderAppLink to="/check/teams">
               <img alt="Team Logo" src={stringHelper('LOGO_URL')} />
             </HeaderAppLink>
-            : joinPage
-              ? <TeamHeaderContainer><TeamPublicHeader {...this.props} /></TeamHeaderContainer>
-              : <TeamHeaderContainer><TeamHeader {...this.props} /></TeamHeaderContainer>}
+            : <TeamHeaderContainer>
+              <TeamHeader {...this.props} />
+            </TeamHeaderContainer>}
           <ProjectHeader {...this.props} />
           <HeaderActions {...this.props} loggedIn={loggedIn} />
         </TeamContentColumn>

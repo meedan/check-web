@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay';
-import { Link } from 'react-router';
 import TeamRoute from '../../relay/TeamRoute';
 import teamFragment from '../../relay/teamFragment';
 import TeamHeaderComponent from './TeamHeaderComponent';
+import { units, black05, defaultBorderRadius } from '../../styles/js/variables';
 
 const TeamHeaderContainer = Relay.createContainer(TeamHeaderComponent, {
   fragments: {
@@ -11,9 +11,27 @@ const TeamHeaderContainer = Relay.createContainer(TeamHeaderComponent, {
   },
 });
 
+const styles = {
+  headerOuterStyle: {
+    padding: units(2),
+    display: 'flex',
+    alignItems: 'center',
+    height: units(8),
+  },
+  headerInnerStyle: {
+    borderRadius: defaultBorderRadius,
+    height: units(5),
+    width: units(5),
+    backgroundColor: 'white',
+    border: `1px solid ${black05}`,
+  },
+};
+
 class TeamHeader extends Component {
   render() {
-    const teamSlug = (this.props.params && this.props.params.team) ? this.props.params.team : '';
+    const teamSlug = this.props.params && this.props.params.team
+      ? this.props.params.team
+      : '';
     const route = new TeamRoute({ teamSlug });
     return (
       <Relay.RootContainer
@@ -21,10 +39,8 @@ class TeamHeader extends Component {
         route={route}
         renderLoading={function () {
           return (
-            <nav className="team-header team-header--loading">
-              <Link to={`/${teamSlug}`} className="team-header__clickable">
-                <div className="team-header__avatar" />
-              </Link>
+            <nav style={styles.headerOuterStyle} >
+              <div style={styles.headerInnerStyle} />
             </nav>
           );
         }}
