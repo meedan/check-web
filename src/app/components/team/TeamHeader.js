@@ -3,7 +3,7 @@ import Relay from 'react-relay';
 import TeamRoute from '../../relay/TeamRoute';
 import teamFragment from '../../relay/teamFragment';
 import TeamHeaderComponent from './TeamHeaderComponent';
-import { units, black05, defaultBorderRadius } from '../../styles/js/variables';
+import { units, black02, defaultBorderRadius, Shimmer } from '../../styles/js/variables';
 
 const TeamHeaderContainer = Relay.createContainer(TeamHeaderComponent, {
   fragments: {
@@ -23,7 +23,7 @@ const styles = {
     height: units(5),
     width: units(5),
     backgroundColor: 'white',
-    border: `1px solid ${black05}`,
+    border: `1px solid ${black02}`,
   },
 };
 
@@ -40,7 +40,7 @@ class TeamHeader extends Component {
         renderLoading={function () {
           return (
             <nav style={styles.headerOuterStyle} >
-              <div style={styles.headerInnerStyle} />
+              <Shimmer style={styles.headerInnerStyle} />
             </nav>
           );
         }}

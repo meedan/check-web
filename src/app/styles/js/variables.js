@@ -213,8 +213,8 @@ const fadeInKeyframes = keyframes`
 // 2. Now we can wrap elements in <FadeIn>
 export const FadeIn = styled.div`
   animation: ${fadeInKeyframes} ease-in .3s;
-  animation-duration: $speed;
-  animation-fill-mode: forwards;4
+  animation-duration: .3s;
+  animation-fill-mode: forwards;
   opacity: 0;
 `;
 
@@ -235,3 +235,21 @@ export const palette = {
 export const media = {
   handheld: (...args) => css`@media (max-width: ${breakpointMobile}) { ${css(...args)} }`,
 };
+
+
+const shimmerKeyframes = keyframes`
+  0% {
+    background-position: 0% 50%;
+  }
+
+  100% {
+    background-position: 100% 50%;
+  }
+`;
+
+export const Shimmer = styled.div`
+  animation: ${shimmerKeyframes} 1s ease-out infinite;
+  animation-fill-mode: forwards;
+  background: linear-gradient(90deg, ${opaqueBlack05}, ${opaqueBlack05}, ${opaqueBlack02}, ${opaqueBlack02}, ${white}, ${opaqueBlack02}, ${opaqueBlack05}, ${opaqueBlack05});
+  background-size: 400%;
+`;
