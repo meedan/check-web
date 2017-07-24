@@ -1,20 +1,16 @@
 .header-actions {
   align-items: center;
   display: flex;
-  margin-#{$from-direction}: auto;
   text-align: $to-direction;
-}
-
-.header-actions__search-icon {
-  @extend %icon;
+  margin-#{$from-direction}: auto;
 }
 
 .header-actions__menu-toggle {
   @extend %icon;
   cursor: pointer;
-  margin-#{$to-direction}: 0;
   position: relative;
   z-index: 1;
+  margin-#{$to-direction}: 0;
 }
 
 .header-actions__menu-overlay {
@@ -23,8 +19,8 @@
 
 .header-actions__menu {
   @include menu;
-  #{$to-direction}: units(2);
   top: units(5.5);
+  #{$to-direction}: units(2);
 }
 
 .header-actions__menu-item {
@@ -32,3 +28,4 @@
     border-top: $border-width-small solid $black-10;
   }
 }
+
