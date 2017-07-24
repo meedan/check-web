@@ -12,10 +12,11 @@ import { bemClass } from '../helpers';
 import { stringHelper } from '../customHelpers';
 import { Link } from 'react-router';
 import config from 'config';
-import { units } from '../styles/js/variables';
+import { black54, units } from '../styles/js/variables';
+import SvgIcon from 'material-ui/SvgIcon';
 
 const styles = {
-  icon: {
+  iconButton: {
     fontSize: '24px',
   },
 };
@@ -51,21 +52,29 @@ class HeaderActions extends Component {
           if (this.props.params && this.props.params.team) {
             return (
               <IconButton
-                style={styles.icon}
                 href={`/${this.props.params.team}/search`}
+                name="search"
+                className="header-actions__search-icon"
+                style={styles.iconButton}
               >
-                <MdSearch
-                  name="search"
-                  className="header-actions__search-icon"
-                />
+                <SvgIcon>
+                  <MdSearch color={black54} />
+                </SvgIcon>
               </IconButton>
             );
           }
         })()}
-        <MdMoreVert
-          className="header-actions__menu-toggle"
+
+        <IconButton
           onClick={this.toggleSettingsMenu.bind(this)}
-        />
+          className="header-actions__menu-toggle"
+          style={styles.iconButton}
+        >
+          <SvgIcon style={styles.svgIcon}>
+            <MdMoreVert color={black54} />
+          </SvgIcon>
+        </IconButton>
+
         <div
           className={bemClass(
             'header-actions__menu-overlay',
