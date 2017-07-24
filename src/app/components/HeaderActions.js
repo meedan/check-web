@@ -1,25 +1,45 @@
-import React, { Component, PropTypes } from 'react';
-import UserMenuRelay from '../relay/UserMenuRelay';
-import { logout } from '../redux/actions';
-import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
-import MappedMessage, { mapGlobalMessage } from './MappedMessage';
+import React, { Component } from 'react';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import MdSearch from 'react-icons/lib/md/search';
 import MdMoreVert from 'react-icons/lib/md/more-vert';
 import IconButton from 'material-ui/IconButton';
+import SvgIcon from 'material-ui/SvgIcon';
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
+import Divider from 'material-ui/Divider';
+import { mapGlobalMessage } from './MappedMessage';
+import UserMenuRelay from '../relay/UserMenuRelay';
+import { logout } from '../redux/actions';
 import TeamMenuRelay from '../relay/TeamMenuRelay';
 import ProjectMenuRelay from '../relay/ProjectMenuRelay';
-import { bemClass } from '../helpers';
 import { stringHelper } from '../customHelpers';
-import { Link } from 'react-router';
-import config from 'config';
-import { black54, units } from '../styles/js/variables';
-import SvgIcon from 'material-ui/SvgIcon';
+import { black54 } from '../styles/js/variables';
 
 const styles = {
   iconButton: {
     fontSize: '24px',
   },
 };
+
+const menuButton = (
+  <IconButton className="header-actions__menu-toggle" style={styles.iconButton}>
+    <SvgIcon style={styles.svgIcon}>
+      <MdMoreVert color={black54} />
+    </SvgIcon>
+  </IconButton>
+);
+
+const searchButton = team =>
+  <IconButton
+    href={`/${team}/search`}
+    name="search"
+    className="header-actions__search-icon"
+    style={styles.iconButton}
+  >
+    <SvgIcon>
+      <MdSearch color={black54} />
+    </SvgIcon>
+  </IconButton>;
 
 class HeaderActions extends Component {
   constructor(props) {
@@ -30,170 +50,103 @@ class HeaderActions extends Component {
     };
   }
 
-  toggleSettingsMenu() {
-    this.setState({ isMenuOpen: !this.state.isMenuOpen });
-  }
-
   render() {
-    const appName = config.appName;
     const path = window.location.pathname;
-    const joinPage = /^\/([^\/]+)\/join$/.test(path);
+    const joinPage = /^\/([^/]+)\/join$/.test(path);
     const loggedIn = this.props.loggedIn;
 
     return (
-      <div
-        className={bemClass(
-          'header-actions',
-          this.state.isMenuOpen,
-          '--active',
-        )}
-      >
+      <div>
         {(() => {
           if (this.props.params && this.props.params.team) {
-            return (
-              <IconButton
-                href={`/${this.props.params.team}/search`}
-                name="search"
-                className="header-actions__search-icon"
-                style={styles.iconButton}
-              >
-                <SvgIcon>
-                  <MdSearch color={black54} />
-                </SvgIcon>
-              </IconButton>
-            );
+            return searchButton(this.props.params.team);
           }
         })()}
 
-        <IconButton
-          onClick={this.toggleSettingsMenu.bind(this)}
-          className="header-actions__menu-toggle"
-          style={styles.iconButton}
+        <IconMenu
+          iconButtonElement={menuButton}
+          anchorOrigin={{ horizontal: 'left', vertical: 'top' }}
+          targetOrigin={{ horizontal: 'left', vertical: 'top' }}
         >
-          <SvgIcon style={styles.svgIcon}>
-            <MdMoreVert color={black54} />
-          </SvgIcon>
-        </IconButton>
 
-        <div
-          className={bemClass(
-            'header-actions__menu-overlay',
-            this.state.isMenuOpen,
-            '--active',
-          )}
-          onClick={this.toggleSettingsMenu.bind(this)}
-        />
-        <ul
-          className={bemClass(
-            'header-actions__menu',
-            this.state.isMenuOpen,
-            '--active',
-          )}
-        >
           {loggedIn
-            ? <li
-              key="headerActions.userMenu"
-              className="header-actions__menu-item"
-              style={{ cursor: 'default' }}
-            >
+            ? <MenuItem key="headerActions.userMenu">
               <UserMenuRelay {...this.props} />
-            </li>
+            </MenuItem>
             : null}
+
           {loggedIn
-            ? <li
+            ? <MenuItem
+              href="/check/teams"
               key="headerActions.userTeams"
-              className="header-actions__menu-item"
-            >
-              <Link to="/check/teams">
-                <FormattedMessage
-                  id="headerActions.userTeams"
-                  defaultMessage="Your Teams"
-                />
-              </Link>
-            </li>
+              primaryText={
+                <FormattedMessage id="headerActions.userTeams" defaultMessage="Your Teams" />
+              }
+            />
             : null}
+
           {(() => {
             if (!joinPage) {
               return [
-                <ProjectMenuRelay
-                  key="headerActions.projectMenu"
-                  {...this.props}
-                />,
+                <ProjectMenuRelay key="headerActions.projectMenu" {...this.props} />,
                 <TeamMenuRelay key="headerActions.teamMenu" {...this.props} />,
               ];
             }
           })()}
+
           {loggedIn
-            ? <li
+            ? <MenuItem
               key="headerActions.signIn"
-              className="header-actions__menu-item header-actions__menu-item--logout"
+              className="header-actions__menu-item--logout"
               onClick={logout}
-            >
-              <FormattedMessage
-                id="headerActions.signOut"
-                defaultMessage="Sign Out"
-              />
-            </li>
-            : <li className="header-actions__menu-item header-actions__menu-item--login">
-              <Link to="/">
-                <FormattedMessage
-                  id="headerActions.signIn"
-                  defaultMessage="Sign In"
-                />
-              </Link>
-            </li>}
-          <li
+              primaryText={
+                <FormattedMessage id="headerActions.signOut" defaultMessage="Sign Out" />
+              }
+            />
+            : <MenuItem
+              className="header-actions__menu-item--login"
+              href="/"
+              primaryText={
+                <FormattedMessage id="headerActions.signIn" defaultMessage="Sign In" />
+              }
+            />}
+
+          <Divider />
+
+          <MenuItem
             key="headerActions.contactHuman"
-            className="header-actions__menu-item"
-          >
-            <a
-              className="header-actions__link"
-              target="_blank"
-              rel="noopener noreferrer"
-              href={stringHelper('CONTACT_HUMAN_URL')}
-            >
-              <FormattedMessage
-                id="headerActions.contactHuman"
-                defaultMessage="Contact a Human"
-              />
-            </a>
-          </li>
-          <li key="headerActions.tos" className="header-actions__menu-item">
-            <a
-              className="header-actions__link"
-              target="_blank"
-              rel="noopener noreferrer"
-              href={stringHelper('TOS_URL')}
-            >
-              <FormattedMessage
-                id="headerActions.tos"
-                defaultMessage="Terms of Service"
-              />
-            </a>
-          </li>
-          <li
+            target="_blank"
+            rel="noopener noreferrer"
+            href={stringHelper('CONTACT_HUMAN_URL')}
+            primaryText={
+              <FormattedMessage id="headerActions.contactHuman" defaultMessage="Contact a Human" />
+            }
+          />
+
+          <MenuItem
+            key="headerActions.tos"
+            href={stringHelper('TOS_URL')}
+            target="_blank"
+            rel="noopener noreferrer"
+            primaryText={
+              <FormattedMessage id="headerActions.tos" defaultMessage="Terms of Service" />
+            }
+          />
+
+          <MenuItem
             key="headerActions.privacyPolicy"
-            className="header-actions__menu-item"
-          >
-            <a
-              className="header-actions__link"
-              target="_blank"
-              rel="noopener noreferrer"
-              href={stringHelper('PP_URL')}
-            >
-              <FormattedMessage
-                id="headerActions.privacyPolicy"
-                defaultMessage="Privacy Policy"
-              />
-            </a>
-          </li>
-          <li key="headerActions.about" className="header-actions__menu-item">
-            <a
-              className="header-actions__link"
-              target="_blank"
-              rel="noopener noreferrer"
-              href={stringHelper('ABOUT_URL')}
-            >
+            target="_blank"
+            rel="noopener noreferrer"
+            href={stringHelper('PP_URL')}
+            primaryText={<FormattedMessage id="headerActions.privacyPolicy" defaultMessage="Privacy Policy" />}
+          />
+
+          <MenuItem
+            key="headerActions.about"
+            target="_blank"
+            rel="noopener noreferrer"
+            href={stringHelper('ABOUT_URL')}
+            primaryText={
               <FormattedMessage
                 id="headerActions.about"
                 defaultMessage="About {appName}"
@@ -201,9 +154,9 @@ class HeaderActions extends Component {
                   appName: mapGlobalMessage(this.props.intl, 'appNameHuman'),
                 }}
               />
-            </a>
-          </li>
-        </ul>
+            }
+          />
+        </IconMenu>
       </div>
     );
   }
