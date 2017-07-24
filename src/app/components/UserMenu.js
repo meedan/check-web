@@ -8,17 +8,11 @@ class UserMenu extends Component {
     const me = this.props.me;
     if (me) {
       return (
-        <MenuItem
+        <span
           className="current-user provider-{{me.provider}}"
-          leftIcon={<Avatar src={me.profile_image} size={32} className="avatar" />}
         >
-          <FlatButton
-            id="user-name"
-            label={me.name}
-            disabled
-            style={{ color: 'rgba(0, 0, 0, 0.870588)' }}
-          />
-        </MenuItem>
+          <Avatar src={me.profile_image} size={32} className="avatar" />
+        </span>
       );
     }
     return null;
