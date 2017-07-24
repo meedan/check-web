@@ -253,3 +253,20 @@ export const Shimmer = styled.div`
   background: linear-gradient(90deg, ${opaqueBlack05}, ${opaqueBlack05}, ${opaqueBlack02}, ${opaqueBlack02}, ${white}, ${opaqueBlack02}, ${opaqueBlack05}, ${opaqueBlack05});
   background-size: 400%;
 `;
+
+
+export const pulseKeyframes = keyframes`
+  0% {
+    background-color: ${white};
+  }
+  50% {
+    background-color: ${opaqueBlack02};
+  }
+  100% {
+    background-color: ${white};
+  }
+`;
+
+export const Pulse = styled.div`
+  animation: ${pulseKeyframes} 1s infinite;
+`;
