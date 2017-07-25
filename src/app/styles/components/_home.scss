@@ -21,17 +21,12 @@ $home-content-padding: units(3);
 .home__disclaimer { // container
   position: absolute;
   top: 0;
-  #{$from-direction}: 0;
-  #{$to-direction}: 0;
 
   & > span { // badge
     @include when-smaller-than(mobile-breakpoint) {
-      #{$to-direction}: 10%;
+      #{$to-direction}: 2%;
     }
-    #{$to-direction}: units(13);
     background-color: $black-38;
-    border-bottom-#{$from-direction}-radius: $border-radius-default;
-    border-bottom-#{$to-direction}-radius: $border-radius-default;
     border-radius: 0;
     color: $white;
     font: font(tiny);
@@ -40,5 +35,10 @@ $home-content-padding: units(3);
     position: absolute;
     text-transform: uppercase;
     z-index: 1;
+    #{$to-direction}: units(23);
+    border-bottom-#{$from-direction}-radius: $border-radius-default;
+    border-bottom-#{$to-direction}-radius: $border-radius-default;
   }
+  #{$from-direction}: 0;
+  #{$to-direction}: 0;
 }

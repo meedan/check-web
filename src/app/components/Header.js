@@ -7,6 +7,7 @@ import IconMoreVert from 'material-ui/svg-icons/navigation/more-vert';
 import IconSearch from 'material-ui/svg-icons/action/search';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
+import RaisedButton from 'material-ui/RaisedButton';
 import Divider from 'material-ui/Divider';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { mapGlobalMessage } from './MappedMessage';
@@ -150,7 +151,7 @@ class Header extends Component {
       if (loggedIn) {
         return (<UserMenuRelay {...this.props} />);
       }
-      return 'Sign In';
+      return <RaisedButton primary label={<FormattedMessage id="headerActions.signIn" defaultMessage="Sign In" />} href="/" />;
     })();
 
     const rightActions = (() => {

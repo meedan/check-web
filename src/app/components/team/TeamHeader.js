@@ -12,14 +12,17 @@ const TeamHeaderContainer = Relay.createContainer(TeamHeaderComponent, {
   },
 });
 
+// Hmm... This padding has to be manually balanced to match the
+// loaded state of the team icon in the AppBar.
+// 2017-7-24 CGB
+//
 const styles = {
-  headerOuterStyle: {
-    padding: units(2),
+  loadingHeaderOuterStyle: {
+    padding: `${units(0.5)} ${units(2)}`,
     display: 'flex',
     alignItems: 'center',
-    height: units(8),
   },
-  headerInnerStyle: {
+  loadingHeaderInnerStyle: {
     borderRadius: defaultBorderRadius,
     height: units(5),
     width: units(5),
@@ -27,23 +30,28 @@ const styles = {
   },
 };
 
+
 class TeamHeader extends Component {
   render() {
     const teamSlug = this.props.params && this.props.params.team
       ? this.props.params.team
       : '';
+
     const route = new TeamRoute({ teamSlug });
+
+    const loadingPlaceholder = (<nav style={styles.loadingHeaderOuterStyle} >
+      <Link to={`/${teamSlug}`}>
+        <Pulse style={styles.loadingHeaderInnerStyle} />
+      </Link>
+    </nav>);
+
     return (
       <Relay.RootContainer
         Component={TeamHeaderContainer}
         route={route}
         renderLoading={function () {
           return (
-            <nav style={styles.headerOuterStyle} >
-              <Link to={`/${teamSlug}`}>
-                <Pulse style={styles.headerInnerStyle} />
-              </Link>
-            </nav>
+            loadingPlaceholder
           );
         }}
       />
