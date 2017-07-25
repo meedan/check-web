@@ -63,9 +63,11 @@ class Header extends Component {
     // The menu that contains the documentation etc.
     const secondaryMenu =
         (<IconMenu
+          anchorOrigin={{
+            horizontal: 'left',
+            vertical: 'bottom',
+          }}
           iconButtonElement={menuButton}
-          anchorOrigin={{ horizontal: 'left', vertical: 'top' }}
-          targetOrigin={{ horizontal: 'left', vertical: 'top' }}
         >
 
           {loggedIn

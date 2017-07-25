@@ -64,8 +64,10 @@ class ProjectHeaderComponent extends Component {
           : null}
 
         <DropDownMenu
-          anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-          targetOrigin={{ horizontal: 'right', vertical: 'top' }}
+          anchorOrigin={{
+            horizontal: 'left',
+            vertical: 'bottom',
+          }}
           underlineStyle={{ borderWidth: 0 }}
           selectedMenuItemStyle={{ color: black87 }}
           iconButton={<IconArrowDropDown />}

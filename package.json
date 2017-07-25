@@ -132,7 +132,7 @@
     "lodash.truncate": "^4.4.2",
     "lodash.xor": "^4.5.0",
     "marked": "^0.3.5",
-    "material-ui": "^0.16.5",
+    "material-ui": "^0.18.7",
     "node-fetch": "^1.7.1",
     "node-sass": "^4.0.0",
     "node-window": "^1.0.1",
