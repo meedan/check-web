@@ -85,6 +85,7 @@
   }
 
   &__edit-buttons {
+    text-align: #{$to-direction};
     margin: units(6) auto;
   }
 

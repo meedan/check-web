@@ -37,22 +37,33 @@ class UploadImageComponent extends Component {
   }
 
   onDelete() {
+    if (this.props.onClear) { this.props.onClear(); }
     this.setState({ file: null });
   }
 
-  render() {
+  preview() {
     let style = {};
     if (this.state.file) {
       style = { backgroundImage: `url(${this.state.file.preview})` };
     }
+
+    if (this.state.file && this.props.noPreview) {
+      return (
+        <span className="no-preview"><MdHighlightRemove className="remove-image" onClick={this.onDelete.bind(this)} /></span>
+      );
+    } else if (this.state.file) {
+      return (
+        <span className="preview" style={style}><MdHighlightRemove className="remove-image" onClick={this.onDelete.bind(this)} /></span>
+      );
+    }
+  }
+
+  render() {
     const about = this.props.about;
 
     return (
       <div className="upload-file">
-        { this.state.file ?
-            <span className="preview" style={style}><MdHighlightRemove className="remove-image" onClick={this.onDelete.bind(this)} /></span> :
-            null
-        }
+        { this.preview() }
         <Dropzone onDrop={this.onDrop.bind(this)} multiple={false} className={this.state.file ? 'with-file' : 'without-file'}>
           <div>
             { this.state.file ?

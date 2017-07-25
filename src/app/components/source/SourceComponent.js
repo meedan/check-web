@@ -27,6 +27,7 @@ import Can from '../Can';
 import CheckContext from '../../CheckContext';
 import ContentColumn from '../layout/ContentColumn';
 import ParsedText from '../ParsedText';
+import UploadImage from '../UploadImage';
 import { truncateLength } from '../../helpers';
 import globalStrings from '../../globalStrings';
 import UpdateSourceMutation from '../../relay/UpdateSourceMutation';
@@ -102,6 +103,10 @@ class SourceComponent extends Component {
     return source;
   }
 
+  handleEditProfileImg = () => {
+    this.setState({ editProfileImg: true });
+  };
+
   handleTabChange = (value) => {
     this.setState({
       showTab: value,
@@ -114,7 +119,8 @@ class SourceComponent extends Component {
   }
 
   handleLeaveEditMode() {
-    this.setState({ isEditing: false });
+    this.setState({ isEditing: false, editProfileImg: false });
+    this.onClear();
   }
 
   handleChange() {
@@ -148,6 +154,7 @@ class SourceComponent extends Component {
         source: {
           id: source.id,
           name: form.name.value,
+          image: form.image,
           description: form.description.value,
         },
       }),
@@ -155,6 +162,20 @@ class SourceComponent extends Component {
     );
 
     e.preventDefault();
+  }
+
+  onImage(file) {
+    document.forms['edit-source-form'].image = file;
+    this.setState({ image: file });
+  }
+
+  onClear = () => {
+    document.forms['edit-source-form'].image = null;
+    this.setState({ image: null });
+  };
+
+  onImageError(file, message) {
+    this.setState({ message, image: null });
   }
 
   renderSourceView(source, isProjectSource) {
@@ -217,24 +238,32 @@ class SourceComponent extends Component {
   }
 
   renderSourceEdit(source) {
+    const avatarPreview = this.state.image && this.state.image.preview;
+
     return (
       <div className="source__profile-content">
         <section className="layout-two-column">
           <div className="column-secondary">
             <div
               className="source__avatar"
-              style={{ backgroundImage: `url(${source.image})` }}
+              style={{ backgroundImage: `url(${ avatarPreview || source.image})` }}
               />
-            <div className="source__edit-avatar-button">
-              <FlatButton
-                label={this.props.intl.formatMessage(globalStrings.edit)}
-                primary
-                />
-            </div>
+            { !this.state.editProfileImg ?
+              <div className="source__edit-avatar-button">
+                <FlatButton
+                  label={this.props.intl.formatMessage(globalStrings.edit)}
+                  onClick={this.handleEditProfileImg.bind(this)}
+                  primary
+                  />
+              </div> : null
+            }
           </div>
 
           <div className="column-primary">
             <form onSubmit={this.handleUpdateSource.bind(this)} name="edit-source-form">
+              { this.state.editProfileImg ?
+                <UploadImage onImage={this.onImage.bind(this)} onClear={this.onClear} onError={this.onImageError.bind(this)} noPreview /> : null
+              }
               <TextField
                 className="source__name-input"
                 name="name"
@@ -260,11 +289,6 @@ class SourceComponent extends Component {
             </form>
 
             <div className="source__edit-buttons">
-              <FlatButton className="source__edit-addinfo-button"
-                label={this.props.intl.formatMessage(messages.addInfo)} primary />
-              <FlatButton className="source__edit-merge-button"
-                label={this.props.intl.formatMessage(messages.mergeSource)} primary />
-              <span className="source__edit-hspacer" />
               <FlatButton className="source__edit-cancel-button"
                 onClick={this.handleLeaveEditMode.bind(this)}
                 label={this.props.intl.formatMessage(globalStrings.cancel)} />

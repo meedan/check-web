@@ -25,6 +25,12 @@ class UpdateSourceMutation extends Relay.Mutation {
     };
   }
 
+  getFiles() {
+    return {
+      file: this.props.source.image,
+    };
+  }
+
   getConfigs() {
     return [
       {
