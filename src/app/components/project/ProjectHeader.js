@@ -40,10 +40,6 @@ class ProjectHeaderComponent extends Component {
     }
   }
 
-  dismiss() {
-    document.getElementById('project-header-menu-toggle').checked = false;
-  }
-
   render() {
     const path = window.location.pathname;
 
@@ -73,6 +69,7 @@ class ProjectHeaderComponent extends Component {
           iconButton={<IconArrowDropDown />}
           value={currentProject.title}
           style={{ marginTop: units(0.5) }}
+          className="project-header__title"
         >
           {currentProject.team.projects.edges
             .sortp((a, b) => a.node.title.localeCompare(b.node.title))
