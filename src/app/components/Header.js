@@ -3,9 +3,8 @@ import styled from 'styled-components';
 import { Link } from 'react-router';
 import AppBar from 'material-ui/AppBar';
 import IconButton from 'material-ui/IconButton';
-import SvgIcon from 'material-ui/SvgIcon';
-import MdMoreVert from 'react-icons/lib/md/more-vert';
-import MdSearch from 'react-icons/lib/md/search';
+import IconMoreVert from 'material-ui/svg-icons/navigation/more-vert';
+import IconSearch from 'material-ui/svg-icons/action/search';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import Divider from 'material-ui/Divider';
@@ -18,11 +17,12 @@ import ProjectMenuRelay from '../relay/ProjectMenuRelay';
 import TeamHeader from './team/TeamHeader';
 import ProjectHeader from './project/ProjectHeader';
 import { stringHelper } from '../customHelpers';
-import { black54, black02, units, headerHeight } from '../styles/js/variables';
+import { black54, black02, units } from '../styles/js/variables';
 
 const styles = {
-  iconButton: {
-    fontSize: '24px',
+  header: {
+    backgroundColor: black02,
+    boxShadow: 'none',
   },
   rightActions: {
     display: 'flex',
@@ -54,10 +54,8 @@ class Header extends Component {
     const { loggedIn } = this.props;
 
     const menuButton = (
-      <IconButton className="header-actions__menu-toggle" style={styles.iconButton}>
-        <SvgIcon style={styles.svgIcon}>
-          <MdMoreVert color={black54} />
-        </SvgIcon>
+      <IconButton className="header-actions__menu-toggle">
+        <IconMoreVert color={black54} />
       </IconButton>
     );
 
@@ -144,25 +142,23 @@ class Header extends Component {
         href={`/${team}/search`}
         name="search"
         className="header-actions__search-icon"
-        style={styles.iconButton}
       >
-        <SvgIcon>
-          <MdSearch color={black54} />
-        </SvgIcon>
+        <IconSearch color={black54} />
       </IconButton>;
 
     const userMenu = (() => {
       if (loggedIn) {
-        return (<MenuItem key="headerActions.userMenu">
-          <UserMenuRelay {...this.props} />
-        </MenuItem>);
+        return (<UserMenuRelay {...this.props} />);
       }
       return 'Sign In';
     })();
 
     const rightActions = (() => {
       if (this.props.params && this.props.params.team) {
-        return <div style={styles.rightActions}>{[searchButton(this.props.params.team), userMenu, secondaryMenu]}</div>;
+        return (
+          <div style={styles.rightActions}>
+            {[searchButton(this.props.params.team), userMenu, secondaryMenu]}
+          </div>);
       }
       return secondaryMenu;
     })();
@@ -184,6 +180,7 @@ class Header extends Component {
 
     return (
       <AppBar
+        style={styles.header}
         iconElementLeft={leftActions}
         title={<ProjectHeader {...this.props} />}
         iconElementRight={rightActions}
