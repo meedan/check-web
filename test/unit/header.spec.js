@@ -1,11 +1,9 @@
 import React from 'react';
 import { expect } from 'chai';
 import Relay from 'react-relay';
-
 import Header from '../../src/app/components/Header';
 import TeamHeader from '../../src/app/components/team/TeamHeader';
 import { mountWithIntl } from './helpers/intl-test';
-import TeamPublicHeader from '../../src/app/components/team/TeamPublicHeader';
 
 describe('<Header />', () => {
   it('renders team header on members page', () => {
