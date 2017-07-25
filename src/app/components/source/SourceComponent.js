@@ -20,6 +20,7 @@ import AccountCard from './AccountCard';
 import Annotations from '../annotations/Annotations';
 import PageTitle from '../PageTitle';
 import Medias from '../media/Medias';
+import MediaUtil from '../media/MediaUtil';
 import MappedMessage from '../MappedMessage';
 import Message from '../Message';
 import Can from '../Can';
@@ -28,6 +29,7 @@ import ContentColumn from '../layout/ContentColumn';
 import ParsedText from '../ParsedText';
 import { truncateLength } from '../../helpers';
 import globalStrings from '../../globalStrings';
+import UpdateSourceMutation from '../../relay/UpdateSourceMutation';
 
 const messages = defineMessages({
   addInfo: {
@@ -91,6 +93,15 @@ class SourceComponent extends Component {
     }
   }
 
+  isProjectSource() {
+    return !!this.props.source.source;
+  }
+
+  getSource() {
+    const { source } = this.isProjectSource() ? this.props.source : this.props;
+    return source;
+  }
+
   handleTabChange = (value) => {
     this.setState({
       showTab: value,
@@ -102,12 +113,48 @@ class SourceComponent extends Component {
     e.preventDefault();
   }
 
-  handleLeaveEditMode(){
+  handleLeaveEditMode() {
     this.setState({ isEditing: false });
   }
 
   handleChange() {
-    console.log(arguments);
+
+  }
+
+  handleUpdateSource(e) {
+    const that = this;
+    const source = this.getSource();
+
+    const onFailure = (transaction) => {
+      const error = transaction.getError();
+      let message = error.source;
+      try {
+        const json = JSON.parse(error.source);
+        if (json.error) {
+          message = json.error;
+        }
+      } catch (e) { }
+      that.setState({ message });
+    };
+
+    const onSuccess = (response) => {
+      that.setState({ message: null, isEditing: false });
+    };
+
+    const form = document.forms['edit-source-form'];
+
+    Relay.Store.commitUpdate(
+      new UpdateSourceMutation({
+        source: {
+          id: source.id,
+          name: form.name.value,
+          description: form.description.value,
+        },
+      }),
+      { onSuccess, onFailure },
+    );
+
+    e.preventDefault();
   }
 
   renderSourceView(source, isProjectSource) {
@@ -135,12 +182,10 @@ class SourceComponent extends Component {
 
               { isProjectSource ?
                 <div className="source__contact-info">
-                  {console.log('source.created_at')}
-                  {console.log(source.created_at)}
                   <FormattedHTMLMessage
                     id="sourceComponent.dateAdded" defaultMessage="Added {date} &bull; Source of {number} links"
                     values={{
-                      date: this.props.intl.formatDate(source.created_at, { year: 'numeric', month: 'short', day: '2-digit' }),
+                      date: this.props.intl.formatDate(MediaUtil.createdAt({ published: source.created_at }), { year: 'numeric', month: 'short', day: '2-digit' }),
                       number: source.medias.edges.length || '0',
                     }}
                     />
@@ -189,26 +234,30 @@ class SourceComponent extends Component {
           </div>
 
           <div className="column-primary">
-            <TextField
-              className="source__name-input"
-              id="source__name-container"
-              defaultValue={source.name}
-              floatingLabelText={this.props.intl.formatMessage(messages.sourceName)}
-              onChange={this.handleChange.bind(this, 'name')}
-              fullWidth
-            />
+            <form onSubmit={this.handleUpdateSource.bind(this)} name="edit-source-form">
+              <TextField
+                className="source__name-input"
+                name="name"
+                id="source__name-container"
+                defaultValue={source.name}
+                floatingLabelText={this.props.intl.formatMessage(messages.sourceName)}
+                onChange={this.handleChange.bind(this, 'name')}
+                fullWidth
+              />
 
-            <TextField
-              className="source__bio-input"
-              id="source__bio-container"
-              defaultValue={source.description}
-              floatingLabelText={this.props.intl.formatMessage(messages.sourceBio)}
-              onChange={this.handleChange.bind(this, 'bio')}
-              multiLine={true}
-              rows={2}
-              rowsMax={4}
-              fullWidth
-            />
+              <TextField
+                className="source__bio-input"
+                name="description"
+                id="source__bio-container"
+                defaultValue={source.description}
+                floatingLabelText={this.props.intl.formatMessage(messages.sourceBio)}
+                onChange={this.handleChange.bind(this, 'bio')}
+                multiLine={true}
+                rows={2}
+                rowsMax={4}
+                fullWidth
+              />
+            </form>
 
             <div className="source__edit-buttons">
               <FlatButton className="source__edit-addinfo-button"
@@ -220,6 +269,7 @@ class SourceComponent extends Component {
                 onClick={this.handleLeaveEditMode.bind(this)}
                 label={this.props.intl.formatMessage(globalStrings.cancel)} />
               <RaisedButton className="source__edit-save-button"
+                onClick={this.handleUpdateSource.bind(this)}
                 label={this.props.intl.formatMessage(globalStrings.save)} primary />
             </div>
           </div>
@@ -229,8 +279,8 @@ class SourceComponent extends Component {
   }
 
   render() {
-    const isProjectSource = !!this.props.source.source;
-    const { source } = isProjectSource ? this.props.source : this.props;
+    const isProjectSource = this.isProjectSource();
+    const source = this.getSource();
     const isEditing = this.state.isEditing;
 
     return (
@@ -256,7 +306,7 @@ class SourceComponent extends Component {
                       <FormattedMessage
                         id="sourceComponent.editButton"
                         defaultMessage="Edit profile"
-                        />
+                      />
                     }
                     tooltipPosition="top-center"
                     onTouchTap={this.handleEnterEditMode.bind(this)}

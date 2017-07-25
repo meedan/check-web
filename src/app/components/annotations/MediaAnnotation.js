@@ -138,12 +138,6 @@ class Annotation extends Component {
     }
   }
 
-  updatedAt(activity) {
-    let date = new Date(activity.created_at);
-    if (isNaN(date)) date = null;
-    return date;
-  }
-
   handleReverseImageSearch(path) {
     const imagePath = path ? `?&image_url=${path}` : '';
     window.open(`https://www.google.com/searchbyimage${imagePath}`);
@@ -168,7 +162,7 @@ class Annotation extends Component {
       ) : null;
     }
 
-    const updatedAt = this.updatedAt(activity);
+    const updatedAt = MediaUtil.createdAt({ published: activity.created_at });
     const timestamp = updatedAt ? <span className="annotation__timestamp"><TimeBefore date={updatedAt}/></span> : null;
     const authorName = <ProfileLink user={activity.user} className={'annotation__author-name'} />;
     const object = JSON.parse(activity.object_after);
