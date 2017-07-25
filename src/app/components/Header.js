@@ -60,13 +60,16 @@ class Header extends Component {
       </IconButton>
     );
 
+    // The menu that contains the documentation etc.
     const secondaryMenu =
         (<IconMenu
           iconButtonElement={menuButton}
           anchorOrigin={{ horizontal: 'left', vertical: 'top' }}
           targetOrigin={{ horizontal: 'left', vertical: 'top' }}
         >
+
           {loggedIn
+            // If logged in show the "Your Teams" item
             ? <MenuItem
               href="/check/teams"
               key="headerActions.userTeams"
@@ -75,6 +78,7 @@ class Header extends Component {
             : null}
 
           {!joinPage
+            // if it's not the join page, show "Edit Project" and "Manage Teams"
             ?
           [
             <ProjectMenuRelay key="headerActions.projectMenu" {...this.props} />,
@@ -83,12 +87,14 @@ class Header extends Component {
             : null }
 
           {loggedIn
+            // If you are logged in show "Log out" menu item
             ? <MenuItem
               key="headerActions.signIn"
               className="header-actions__menu-item--logout"
               onClick={logout}
               primaryText={<FormattedMessage id="headerActions.signOut" defaultMessage="Sign Out" />}
             />
+            // If you are not logged in show "Log In" item
             : <MenuItem
               className="header-actions__menu-item--login"
               href="/"

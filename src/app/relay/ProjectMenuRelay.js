@@ -8,11 +8,6 @@ import CheckContext from '../CheckContext';
 
 class ProjectMenu extends Component {
   handleEditClick() {
-    const overlay = document.querySelector('.header-actions__menu-overlay--active');
-    if (overlay) {
-      overlay.click(); // TODO: better way to clear overlay e.g. passing fn from HeaderActions
-    }
-
     const history = new CheckContext(this).getContextStore().history;
     const editPath = `${window.location.pathname.match(/.*\/project\/\d+/)[0]}/edit`;
     history.push(editPath);
