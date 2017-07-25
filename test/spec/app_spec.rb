@@ -342,7 +342,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should tag source as a command" do
       create_source(@source_name, @source_url)
       @driver.find_element(:css, '.source__tab-button-notes').click
-      
+
       expect(@driver.page_source.include?('Tagged #command')).to be(false)
 
       fill_field('#cmd-input', '/tag command')
@@ -942,10 +942,10 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       @driver.navigate.to @config['self_url']
       page.fill_input('.login__email input', @email)
       page.fill_input('.login__password input', @password)
-      expect(@driver.page_source.include?('Project')).to be(false)
+      expect(@driver.page_source.include?('Add a link')).to be(false)
       (@wait.until { @driver.find_element(:xpath, "//button[@id='submit-register-or-login']") }).click
       sleep 5
-      expect(@driver.page_source.include?('Project')).to be(true)
+      expect(@driver.page_source.include?('Add a link')).to be(true)
     end
 
     it "should not reset password" do
@@ -995,7 +995,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
         expect(@driver.page_source.include?('Not available')).to be(true)
       elsif @config['app_name'] == 'check'
         expect(@driver.page_source.include?('Embed...')).to be(true)
-        url = @driver.current_url.to_s 
+        url = @driver.current_url.to_s
         @driver.find_element(:css, '#media-actions__embed').click
         sleep 2
         expect(@driver.current_url.to_s == "#{url}/embed").to be(true)
