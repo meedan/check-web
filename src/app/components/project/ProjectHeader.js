@@ -7,7 +7,7 @@ import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import ProjectRoute from '../../relay/ProjectRoute';
 import CheckContext from '../../CheckContext';
-import { units, black87 } from '../../styles/js/variables';
+import { units } from '../../styles/js/variables';
 
 class ProjectHeaderComponent extends Component {
   componentDidMount() {
@@ -62,10 +62,9 @@ class ProjectHeaderComponent extends Component {
         <DropDownMenu
           anchorOrigin={{
             horizontal: 'left',
-            vertical: 'bottom',
+            vertical: 'top',
           }}
           underlineStyle={{ borderWidth: 0 }}
-          selectedMenuItemStyle={{ color: black87 }}
           iconButton={<IconArrowDropDown />}
           value={currentProject.title}
           style={{ marginTop: units(0.5) }}

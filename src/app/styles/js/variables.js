@@ -270,3 +270,9 @@ export const pulseKeyframes = keyframes`
 export const Pulse = styled.div`
   animation: ${pulseKeyframes} 1s infinite;
 `;
+
+// For positioning Material-UI menus
+export const anchorOrigin = {
+  horizontal: 'left',
+  vertical: 'bottom',
+};

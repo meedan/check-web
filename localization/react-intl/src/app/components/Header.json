@@ -4,12 +4,12 @@
     "defaultMessage": "Your Teams"
   },
   {
-    "id": "headerActions.signOut",
-    "defaultMessage": "Sign Out"
-  },
-  {
     "id": "headerActions.signIn",
     "defaultMessage": "Sign In"
+  },
+  {
+    "id": "headerActions.signOut",
+    "defaultMessage": "Sign Out"
   },
   {
     "id": "headerActions.contactHuman",

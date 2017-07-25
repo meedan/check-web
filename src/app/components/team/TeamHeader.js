@@ -39,11 +39,13 @@ class TeamHeader extends Component {
 
     const route = new TeamRoute({ teamSlug });
 
-    const loadingPlaceholder = (<nav style={styles.loadingHeaderOuterStyle} >
-      <Link to={`/${teamSlug}`}>
-        <Pulse style={styles.loadingHeaderInnerStyle} />
-      </Link>
-    </nav>);
+    const loadingPlaceholder = (
+      <nav style={styles.loadingHeaderOuterStyle} >
+        <Link to={`/${teamSlug}`}>
+          <Pulse style={styles.loadingHeaderInnerStyle} />
+        </Link>
+      </nav>
+    );
 
     return (
       <Relay.RootContainer
