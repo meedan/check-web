@@ -1,10 +1,8 @@
 import React from 'react';
-import { FormattedMessage, FormattedHTMLMessage, defineMessages } from 'react-intl';
-import { Card, CardHeader, CardText } from 'material-ui/Card';
-import { Link } from 'react-router';
+import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
+import { Card, CardText } from 'material-ui/Card';
 import ProfileLink from '../layout/ProfileLink';
 import MediaUtil from '../media/MediaUtil';
-import MappedMessage from '../MappedMessage';
 import ParsedText from '../ParsedText';
 import TimeBefore from '../TimeBefore';
 import { truncateLength } from '../../helpers'
