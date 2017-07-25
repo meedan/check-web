@@ -1,14 +1,20 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay';
 import { Link } from 'react-router';
-import TeamRoute from '../../relay/TeamRoute';
-import teamFragment from '../../relay/teamFragment';
+import PublicTeamRoute from '../../relay/PublicTeamRoute';
 import TeamHeaderComponent from './TeamHeaderComponent';
 import { units, defaultBorderRadius, Pulse } from '../../styles/js/variables';
 
 const TeamHeaderContainer = Relay.createContainer(TeamHeaderComponent, {
   fragments: {
-    team: () => teamFragment,
+    team: () => Relay.QL`
+      fragment on PublicTeam {
+        name,
+        avatar,
+        dbid,
+        slug
+      }
+    `,
   },
 });
 
@@ -37,7 +43,7 @@ class TeamHeader extends Component {
       ? this.props.params.team
       : '';
 
-    const route = new TeamRoute({ teamSlug });
+    const route = new PublicTeamRoute({ teamSlug });
 
     const loadingPlaceholder = (
       <nav style={styles.loadingHeaderOuterStyle} >
