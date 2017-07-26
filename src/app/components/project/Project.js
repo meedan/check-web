@@ -65,8 +65,8 @@ class ProjectComponent extends Component {
       <PageTitle prefix={project.title} skipTeam={false} team={this.currentContext().team}>
         <div className="project">
           { project.description && project.description.trim().length ? (
-            <div className="project__description">
-              <p className="project__description-container">{project.description}</p>
+            <div style={{ margin: `0 ${units(1)}` }}className="project__description">
+              <p>{project.description}</p>
             </div>
           ) : null }
           <Can permissions={project.permissions} permission="create Media">

@@ -21,16 +21,14 @@ import ProjectHeader from './project/ProjectHeader';
 import { stringHelper } from '../customHelpers';
 import { anchorOrigin, black54, black02, units } from '../styles/js/variables';
 
-const styles = {
-  header: {
-    backgroundColor: black02,
-    boxShadow: 'none',
-  },
-  rightActions: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-};
+const MenuActionsSecondary = styled.div`
+  display: flex;
+  align-items: center;
+  & > * {
+    margin-left: ${units(2)} !important;
+    display: flex-item !important;
+  }
+`;
 
 const TeamHeaderContainer = styled.div`
   align-items: center;
@@ -177,12 +175,12 @@ class Header extends Component {
       );
     })();
 
-    const rightActions = (() => {
+    const elementsRight = (() => {
       if (this.props.params && this.props.params.team) {
         return (
-          <div style={styles.rightActions}>
+          <MenuActionsSecondary>
             {[searchButton, userMenu, secondaryMenu]}
-          </div>
+          </MenuActionsSecondary>
         );
       }
       return secondaryMenu;
@@ -210,9 +208,9 @@ class Header extends Component {
 
     return (
       <AppBar
-        style={styles.header}
+        style={{ backgroundColor: black02, boxShadow: 'none' }}
         iconElementLeft={leftActions}
-        iconElementRight={rightActions}
+        iconElementRight={elementsRight}
       />
     );
   }
