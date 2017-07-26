@@ -1,10 +1,8 @@
 import React from 'react';
-import { FormattedMessage, FormattedHTMLMessage, defineMessages } from 'react-intl';
-import { Card, CardHeader, CardText } from 'material-ui/Card';
-import { Link } from 'react-router';
+import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
+import { Card, CardText } from 'material-ui/Card';
 import ProfileLink from '../layout/ProfileLink';
 import MediaUtil from '../media/MediaUtil';
-import MappedMessage from '../MappedMessage';
 import ParsedText from '../ParsedText';
 import TimeBefore from '../TimeBefore';
 import { truncateLength } from '../../helpers'
@@ -13,9 +11,11 @@ class AccountCard extends React.Component {
   accountStats(account) {
     switch (account.provider) {
       case 'facebook':
-        return `${account.embed.likes} likes`;
+        return account.embed.likes ? <FormattedMessage id="accountCard.fbStats" defaultMessage="{likes} likes" values={{ likes: account.embed.likes }} /> : null;
       case 'twitter':
         return <FormattedHTMLMessage id="accountCard.twitterStats" defaultMessage="{tweets} Tweets &bull; {followers} Followers &bull; {following} Following" values={{ tweets: account.embed.statuses_count, followers: account.embed.followers_count, following: account.embed.friends_count }} />;
+      case 'youtube':
+        return <FormattedHTMLMessage id="accountCard.youtubeStats" defaultMessage="{videos} Videos &bull; {subscribers} Subscribers" values={{ videos: account.embed.video_count, subscribers: account.embed.subscriber_count}} />;
     }
   }
 
@@ -39,7 +39,7 @@ class AccountCard extends React.Component {
             </div>
 
             <div className="source-card__name">
-              <Link to={account.embed.url}>{ account.embed.name }</Link>
+              <a href={ account.embed.url } target="_blank" rel="noopener noreferrer">{ account.embed.name }</a>
             </div>
 
             <div className="source-card__description"><ParsedText text={truncateLength(account.embed.description, 300)} /></div>
