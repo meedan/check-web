@@ -336,11 +336,22 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should not create duplicated source" do
-      create_source(@source_name, @source_url)
+      create_source('Megadeth', 'https://twitter.com/megadeth')
+      @driver.navigate.to @config['self_url']
+      sleep 15
+      @driver.find_element(:css, '#create-media__source').click
+      sleep 1
+      fill_field('#create-media-source-name-input', 'Megadeth')
+      fill_field('#create-media-source-url-input', 'https://twitter.com/megadeth')
+      sleep 1
+      expect(@driver.page_source.include?('Source exists')).to be(false)
+      press_button('#create-media-submit')
+      sleep 15
+      expect(@driver.page_source.include?('Source exists')).to be(true)
     end
 
     it "should tag source as a command" do
-      create_source(@source_name, @source_url)
+      create_source('ACDC', 'https://twitter.com/acdc')
       @driver.find_element(:css, '.source__tab-button-notes').click
 
       expect(@driver.page_source.include?('Tagged #command')).to be(false)
@@ -358,7 +369,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should comment source as a command" do
-      create_source(@source_name, @source_url)
+      create_source('The Beatles', 'https://twitter.com/thebeatles')
       @driver.find_element(:css, '.source__tab-button-notes').click
 
       expect(@driver.page_source.include?('This is my comment')).to be(false)
@@ -391,7 +402,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should tag source multiple times with commas with command" do
-      create_source(@source_name, @source_url)
+      create_source('Motorhead', 'https://twitter.com/mymotorhead')
       @driver.find_element(:css, '.source__tab-button-notes').click
 
       fill_field('#cmd-input', '/tag foo, bar')
