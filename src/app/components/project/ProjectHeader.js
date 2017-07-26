@@ -65,6 +65,7 @@ class ProjectHeaderComponent extends Component {
             vertical: 'top',
           }}
           underlineStyle={{ borderWidth: 0 }}
+          iconStyle={{ fill: black54 }}
           iconButton={<IconArrowDropDown />}
           value={currentProject.title}
           className="project-header__title"

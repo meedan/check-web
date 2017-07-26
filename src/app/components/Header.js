@@ -197,12 +197,14 @@ class Header extends Component {
         );
       }
       return (
-        <div style={{ display: 'flex', alignItems: 'center' }}><TeamHeaderContainer>
-          {joinPage
-                    ? <TeamPublicHeader {...this.props} />
-                    : <TeamHeader {...this.props} />}
-        </TeamHeaderContainer>
-          <ProjectHeader {...this.props} /></div>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <TeamHeaderContainer>
+            {joinPage
+              ? <TeamPublicHeader {...this.props} />
+              : <TeamHeader {...this.props} />}
+          </TeamHeaderContainer>
+          <ProjectHeader {...this.props} />
+        </div>
       );
     })();
 

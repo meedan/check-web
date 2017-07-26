@@ -11,8 +11,6 @@ $home-content-padding: units(3);
   display: flex;
   flex: 1;
   flex-direction: column;
-  margin-top: layout(header-height);
-  padding-top: layout(gutter-medium);
   width: 100%;
 }
 
