@@ -12,6 +12,7 @@ import CheckContext from '../../CheckContext';
 import ContentColumn from '../layout/ContentColumn';
 import MediasLoading from '../media/MediasLoading';
 import Search from '../Search';
+import { units } from '../../styles/js/variables';
 
 const pageSize = 20;
 
@@ -64,7 +65,7 @@ class ProjectComponent extends Component {
       <PageTitle prefix={project.title} skipTeam={false} team={this.currentContext().team}>
         <div className="project">
           { project.description && project.description.trim().length ? (
-            <div className="project__description">
+            <div className="project__description" style={{ paddingTop: units(1) }}>
               <p className="project__description-container">{project.description}</p>
             </div>
           ) : null }
