@@ -49,6 +49,7 @@ class ProjectHeaderComponent extends Component {
     if (path.match(/\/media\/[0-9]+\/.+/)) {
       backUrl = path.match(/(.*\/media\/[0-9]+)/)[1];
     }
+
     const isProjectSubpage = path.length > backUrl.length;
     return (
       <div style={{ display: 'flex', alignItems: 'center' }}>

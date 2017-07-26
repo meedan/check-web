@@ -65,7 +65,7 @@ class ProjectComponent extends Component {
       <PageTitle prefix={project.title} skipTeam={false} team={this.currentContext().team}>
         <div className="project">
           { project.description && project.description.trim().length ? (
-            <div className="project__description" style={{ paddingTop: units(1) }}>
+            <div className="project__description">
               <p className="project__description-container">{project.description}</p>
             </div>
           ) : null }

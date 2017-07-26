@@ -57,7 +57,7 @@ class TeamHeaderComponent extends Component {
     const TeamName = styled.h3`
       ${ellipsisStyles}
       font: ${subheading2};
-      margin-left: ${units(2)};
+      margin-left: ${units(3)};
     `;
 
     const TeamAvatar = styled.div`
