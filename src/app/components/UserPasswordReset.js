@@ -5,10 +5,11 @@ import { Link } from 'react-router';
 import { Card, CardText, CardActions, CardTitle } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
+import config from 'config';
 import ResetPasswordMutation from '../relay/ResetPasswordMutation';
 import CheckContext from '../CheckContext';
 import { stringHelper } from '../customHelpers';
-import config from 'config';
+import ContentColumn from './layout/ContentColumn';
 
 const messages = defineMessages({
   emailNotFoundContactSupport: {
@@ -18,7 +19,7 @@ const messages = defineMessages({
   emailNotValid: {
     id: 'passwordReset.emailNotValid',
     defaultMessage: 'Please enter a valid email address.',
-  }
+  },
 });
 
 class UserPasswordReset extends Component {
@@ -26,8 +27,8 @@ class UserPasswordReset extends Component {
     super(props);
     this.state = {
       showConfirmDialog: false,
-      submitDisabled: true
-    }
+      submitDisabled: true,
+    };
   }
 
   getHistory() {
@@ -57,17 +58,17 @@ class UserPasswordReset extends Component {
     const that = this;
 
     const onFailure = (transaction) => {
-      that.setState({ errorMsg: that.props.intl.formatMessage(messages.emailNotFoundContactSupport, {supportEmail: stringHelper('SUPPORT_EMAIL')}), submitDisabled: true });
+      that.setState({ errorMsg: that.props.intl.formatMessage(messages.emailNotFoundContactSupport, { supportEmail: stringHelper('SUPPORT_EMAIL') }), submitDisabled: true });
     };
 
     const onSuccess = (response) => {
       that.setState({ showConfirmDialog: true });
     };
 
-    if (!that.state.submitDisabled){
+    if (!that.state.submitDisabled) {
       Relay.Store.commitUpdate(
         new ResetPasswordMutation({
-          email: this.state.email
+          email: this.state.email,
         }),
         { onSuccess, onFailure },
       );
@@ -77,39 +78,42 @@ class UserPasswordReset extends Component {
 
   render() {
     return (
-      <div className="user-password-reset__component">
+      <ContentColumn className="user-password-reset__component">
         <Card className="user-password-reset__card">
           { this.state.showConfirmDialog ? [
             <CardTitle title={<FormattedMessage id="passwordReset.confirmedTitle" defaultMessage="Password reset sent" />} />,
             <CardText>
-              <FormattedMessage id="passwordReset.confirmedText"
+              <FormattedMessage
+                id="passwordReset.confirmedText"
                 defaultMessage="We've sent you an email from {adminEmail} with instructions to reset your password. Make sure it didn't wind up in your spam mailbox. If you aren't receiving our password reset emails, contact {supportEmail}."
-                values={{ adminEmail: stringHelper('ADMIN_EMAIL') , supportEmail: stringHelper('SUPPORT_EMAIL') }}
+                values={{ adminEmail: stringHelper('ADMIN_EMAIL'), supportEmail: stringHelper('SUPPORT_EMAIL') }}
               />
             </CardText>,
             <CardActions className="user-password-reset__actions">
-              <FlatButton label={<FormattedMessage id="passwordReset.signIn" defaultMessage="Sign In"/>} primary disabled={this.state.submitDisabled} onClick={this.handleSignIn.bind(this)} />
-            </CardActions>
+              <FlatButton label={<FormattedMessage id="passwordReset.signIn" defaultMessage="Sign In" />} primary disabled={this.state.submitDisabled} onClick={this.handleSignIn.bind(this)} />
+            </CardActions>,
           ] : [
             <CardTitle title={<FormattedMessage id="passwordReset.title" defaultMessage="Forgot password" />} />,
             <CardText>
               <FormattedMessage id="passwordReset.text" defaultMessage="Happens to everybody! Add your address and an email will be sent with further instructions." />
               <div className="user-password-reset__email-input">
-                <TextField id="password-reset-email-input"
-                    type="email"
-                    floatingLabelText={<FormattedMessage id="passwordReset.email" defaultMessage="Email" />}
-                    onChange={this.handleChange.bind(this)}
-                    errorText={this.state.errorMsg}
-                    fullWidth />
+                <TextField
+                  id="password-reset-email-input"
+                  type="email"
+                  floatingLabelText={<FormattedMessage id="passwordReset.email" defaultMessage="Email" />}
+                  onChange={this.handleChange.bind(this)}
+                  errorText={this.state.errorMsg}
+                  fullWidth
+                />
               </div>
             </CardText>,
             <CardActions className="user-password-reset__actions">
               <FlatButton label={<FormattedMessage id="passwordReset.cancel" defaultMessage="Cancel" />} onClick={this.handleGoBack.bind(this)} />
-              <FlatButton label={<FormattedMessage id="passwordReset.submit" defaultMessage="Reset Password"/>} primary disabled={this.state.submitDisabled} onClick={this.handleSubmit.bind(this)} />
-            </CardActions>
+              <FlatButton label={<FormattedMessage id="passwordReset.submit" defaultMessage="Reset Password" />} primary disabled={this.state.submitDisabled} onClick={this.handleSubmit.bind(this)} />
+            </CardActions>,
           ]}
         </Card>
-      </div>
+      </ContentColumn>
     );
   }
 }
