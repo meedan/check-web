@@ -16,6 +16,7 @@ import { logout } from '../redux/actions';
 import TeamMenuRelay from '../relay/TeamMenuRelay';
 import ProjectMenuRelay from '../relay/ProjectMenuRelay';
 import TeamHeader from './team/TeamHeader';
+import TeamPublicHeader from './team/TeamPublicHeader';
 import ProjectHeader from './project/ProjectHeader';
 import { stringHelper } from '../customHelpers';
 import { anchorOrigin, black54, black02, units } from '../styles/js/variables';
@@ -50,9 +51,10 @@ const HeaderAppLink = styled(Link)`
 
 class Header extends Component {
   render() {
-    const joinPage = /^\/([^/]+)\/join$/.test(window.location.pathname);
-
     const { loggedIn } = this.props;
+    const path = this.props.location ? this.props.location.pathname : window.location.pathname;
+    const showCheckLogo = /^\/(check(\/.*)?)?$/.test(path);
+    const joinPage = /^\/([^/]+)\/join$/.test(path);
 
     const menuButton = (
       <IconButton className="header-actions__menu-toggle">
@@ -68,9 +70,7 @@ class Header extends Component {
       />
     );
 
-    const editProjectMenuItem = (
-      <ProjectMenuRelay key="headerActions.projectMenu" {...this.props} />
-    );
+    const editProjectMenuItem = <ProjectMenuRelay key="headerActions.projectMenu" {...this.props} />;
 
     const manageTeamMenuItem = <TeamMenuRelay key="headerActions.teamMenu" {...this.props} />;
 
@@ -143,9 +143,8 @@ class Header extends Component {
       />
     );
 
-    // The menu that contains the documentation etc.
     const secondaryMenu = (
-      <IconMenu anchorOrigin={anchorOrigin} iconButtonElement={menuButton}>
+      <IconMenu key="header.secondaryMenu" anchorOrigin={anchorOrigin} iconButtonElement={menuButton}>
         {loggedIn && yourTeamsMenuItem}
         {!joinPage && editProjectMenuItem}
         {!joinPage && manageTeamMenuItem}
@@ -158,17 +157,19 @@ class Header extends Component {
       </IconMenu>
     );
 
-    const searchButton = team =>
-      <IconButton href={`/${team}/search`} name="search" className="header-actions__search-icon">
+    const searchButton = (
+      <IconButton href={`/${this.props.params.team}/search`} name="search" key="header.searchButton" className="header-actions__search-icon">
         <IconSearch color={black54} />
-      </IconButton>;
+      </IconButton>
+    );
 
     const userMenu = (() => {
       if (loggedIn) {
-        return <UserMenuRelay {...this.props} />;
+        return <UserMenuRelay key="header.userMenu" {...this.props} />;
       }
       return (
         <RaisedButton
+          key="header.userMenu.signIn"
           primary
           label={<FormattedMessage id="headerActions.signIn" defaultMessage="Sign In" />}
           href="/"
@@ -180,16 +181,12 @@ class Header extends Component {
       if (this.props.params && this.props.params.team) {
         return (
           <div style={styles.rightActions}>
-            {[searchButton(this.props.params.team), userMenu, secondaryMenu]}
+            {[searchButton, userMenu, secondaryMenu]}
           </div>
         );
       }
       return secondaryMenu;
     })();
-
-    const path = this.props.location ? this.props.location.pathname : window.location.pathname;
-
-    const showCheckLogo = /^\/(check(\/.*)?)?$/.test(path);
 
     const leftActions = (() => {
       if (showCheckLogo) {
@@ -201,7 +198,9 @@ class Header extends Component {
       }
       return (
         <TeamHeaderContainer>
-          <TeamHeader {...this.props} />
+          {joinPage
+            ? <TeamPublicHeader {...this.props} />
+            : <TeamHeader {...this.props} />}
         </TeamHeaderContainer>
       );
     })();
