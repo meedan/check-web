@@ -953,10 +953,10 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       @driver.navigate.to @config['self_url']
       page.fill_input('.login__email input', @email)
       page.fill_input('.login__password input', @password)
-      expect(@driver.page_source.include?('Project')).to be(false)
+      expect(@driver.page_source.include?('Add a link')).to be(false)
       (@wait.until { @driver.find_element(:xpath, "//button[@id='submit-register-or-login']") }).click
       sleep 5
-      expect(@driver.page_source.include?('Project')).to be(true)
+      expect(@driver.page_source.include?('Add a link')).to be(true)
     end
 
     it "should not reset password" do
