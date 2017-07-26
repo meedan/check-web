@@ -197,11 +197,12 @@ class Header extends Component {
         );
       }
       return (
-        <TeamHeaderContainer>
+        <div style={{ display: 'flex', alignItems: 'center' }}><TeamHeaderContainer>
           {joinPage
-            ? <TeamPublicHeader {...this.props} />
-            : <TeamHeader {...this.props} />}
+                    ? <TeamPublicHeader {...this.props} />
+                    : <TeamHeader {...this.props} />}
         </TeamHeaderContainer>
+          <ProjectHeader {...this.props} /></div>
       );
     })();
 
@@ -209,7 +210,6 @@ class Header extends Component {
       <AppBar
         style={styles.header}
         iconElementLeft={leftActions}
-        title={<ProjectHeader {...this.props} />}
         iconElementRight={rightActions}
       />
     );

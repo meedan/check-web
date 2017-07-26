@@ -7,7 +7,7 @@ import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import ProjectRoute from '../../relay/ProjectRoute';
 import CheckContext from '../../CheckContext';
-import { units } from '../../styles/js/variables';
+import { units, black54 } from '../../styles/js/variables';
 
 class ProjectHeaderComponent extends Component {
   componentDidMount() {
@@ -51,11 +51,11 @@ class ProjectHeaderComponent extends Component {
     }
     const isProjectSubpage = path.length > backUrl.length;
     return (
-      <div>
+      <div style={{ display: 'flex', alignItems: 'center' }}>
 
         {isProjectSubpage
-          ? <IconButton href={backUrl} className="project-header__back-button">
-            <IconArrowBack />
+          ? <IconButton href={backUrl} style={{ marginLeft: units(3) }} className="project-header__back-button">
+            <IconArrowBack color={black54} />
           </IconButton>
           : null}
 
@@ -67,8 +67,8 @@ class ProjectHeaderComponent extends Component {
           underlineStyle={{ borderWidth: 0 }}
           iconButton={<IconArrowDropDown />}
           value={currentProject.title}
-          style={{ marginTop: units(0.5) }}
           className="project-header__title"
+          style={{ marginTop: `-${units(1)}` }}
         >
           {currentProject.team.projects.edges
             .sortp((a, b) => a.node.title.localeCompare(b.node.title))
