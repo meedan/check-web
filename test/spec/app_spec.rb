@@ -927,7 +927,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 10
       expect(@driver.page_source.include?('My search result')).to be(false)
       selected = @driver.find_elements(:css, '.media-tags__suggestion--selected')
-      expect(selected.size == 2).to be(true)
+      expect(selected.size == 3).to be(true)
     end
 
     it "should change search sort criteria through URL" do
@@ -936,7 +936,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 10
       expect(@driver.page_source.include?('My search result')).to be(true)
       selected = @driver.find_elements(:css, '.media-tags__suggestion--selected').map(&:text).sort
-      expect(selected == ['Recent activity', 'Newest first'].sort).to be(true)
+      expect(selected == ['Recent activity', 'Newest first', 'Media'].sort).to be(true)
     end
 
     it "should change search sort order through URL" do
@@ -945,7 +945,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 10
       expect(@driver.page_source.include?('My search result')).to be(true)
       selected = @driver.find_elements(:css, '.media-tags__suggestion--selected').map(&:text).sort
-      expect(selected == ['Created', 'Oldest first'].sort).to be(true)
+      expect(selected == ['Created', 'Oldest first', 'Media'].sort).to be(true)
     end
 
     it "should login from e-mail login page" do

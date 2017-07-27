@@ -81,7 +81,7 @@ shared_examples 'custom' do
     expect((@driver.title =~ /False/).nil?).to be(false)
     expect(@driver.page_source.include?('My search result')).to be(false)
     selected = @driver.find_elements(:css, '.media-tags__suggestion--selected').map(&:text).sort
-    expect(selected == ['False', 'Created', 'Newest first'].sort).to be(true)
+    expect(selected == ['False', 'Created', 'Newest first', 'Media'].sort).to be(true)
   end
 
 end
