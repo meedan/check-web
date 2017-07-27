@@ -17,6 +17,7 @@ const SourceContainer = Relay.createContainer(SourceComponent, {
         project_id,
         permissions,
         team {
+          name,
           slug
         },
         source {

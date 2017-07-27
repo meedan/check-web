@@ -24,6 +24,22 @@
     "defaultMessage": "Source bio"
   },
   {
+    "id": "sourceComponent.contactNote",
+    "defaultMessage": "Contact note"
+  },
+  {
+    "id": "sourceComponent.phone",
+    "defaultMessage": "Phone"
+  },
+  {
+    "id": "sourceComponent.organization",
+    "defaultMessage": "Organization"
+  },
+  {
+    "id": "sourceComponent.location",
+    "defaultMessage": "Location"
+  },
+  {
     "id": "sourceComponent.dateAdded",
     "defaultMessage": "Added {date} • Source of {number} links"
   },

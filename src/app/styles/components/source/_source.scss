@@ -85,12 +85,21 @@
   }
 
   &__edit-buttons {
-    text-align: #{$to-direction};
     margin: units(6) auto;
   }
 
-  &__edit-hspacer {
-    padding: 0 units(4);
+  &__edit-buttons-add-merge {
+    float: #{$from-direction};
+    text-align: #{$from-direction};
+  }
+
+  &__edit-buttons-cancel-save {
+    float: #{$to-direction};
+    text-align: #{$to-direction};
+  }
+
+  &__edit-buttons-clear {
+    clear: both;
   }
 }
 
