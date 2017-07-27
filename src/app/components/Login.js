@@ -17,13 +17,14 @@ import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import { Card } from 'material-ui/Card';
 import styled from 'styled-components';
+import merge from 'lodash.merge';
 import Message from './Message';
 import UploadImage from './UploadImage';
 import CheckContext from '../CheckContext';
 import { login, request } from '../redux/actions';
 import { mapGlobalMessage } from './MappedMessage';
 import { stringHelper } from '../customHelpers';
-import { palette, units, media, black54 } from '../styles/js/variables';
+import { muiThemeWithoutRtl, units, media, black54 } from '../styles/js/variables';
 
 const StyledCard = styled(Card)`
   padding: ${units(11)} ${units(15)} ${units(3)} !important;
@@ -164,13 +165,12 @@ class Login extends Component {
   }
 
   render() {
-    const muiTheme = getMuiTheme({
-      palette,
-      isRtl: rtlDetect.isRtlLang(this.props.intl.locale),
-    });
+    const muiThemeWithRtl = getMuiTheme(
+      merge(muiThemeWithoutRtl, { isRtl: rtlDetect.isRtlLang(this.props.intl.locale) }),
+    );
 
     return (
-      <MuiThemeProvider muiTheme={muiTheme}>
+      <MuiThemeProvider muiTheme={muiThemeWithRtl}>
         <div className="login" id="login">
           <StyledCard>
             <form

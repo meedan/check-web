@@ -222,13 +222,29 @@ export const FadeIn = styled.div`
 //
 // This is passed as a prop to <MuiThemeProvider>
 //
-export const palette = {
-  primary1Color: checkBlue,
-  primary2Color: checkBlue,
-  primary3Color: checkBlue,
-  accent1Color: checkBlue,
-  accent2Color: checkBlue,
-  accent3Color: checkBlue,
+export const muiThemeWithoutRtl = {
+  palette: {
+    primary1Color: checkBlue,
+    primary2Color: checkBlue,
+    primary3Color: checkBlue,
+    accent1Color: checkBlue,
+    accent2Color: checkBlue,
+    accent3Color: checkBlue,
+  },
+  ripple: {
+    color: checkBlue,
+  },
+  tabs: {
+    backgroundColor: white,
+    textColor: checkBlue,
+    selectedTextColor: checkBlue,
+  },
+  inkBar: {
+    backgroundColor: checkBlue,
+  },
+  menuItem: {
+    hoverColor: highlightBlue,
+  },
 };
 
 

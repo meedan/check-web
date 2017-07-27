@@ -4,6 +4,7 @@ import Favicon from 'react-favicon';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import rtlDetect from 'rtl-detect';
+import merge from 'lodash.merge';
 import config from 'config';
 import Header from './Header';
 import FooterRelay from '../relay/FooterRelay';
@@ -12,7 +13,7 @@ import BrowserSupport from './BrowserSupport';
 import CheckContext from '../CheckContext';
 import { bemClass } from '../helpers';
 import ContentColumn from './layout/ContentColumn';
-import { palette, white } from '../styles/js/variables';
+import { muiThemeWithoutRtl } from '../styles/js/variables';
 
 const messages = defineMessages({
   needRegister: {
@@ -76,21 +77,7 @@ class Home extends Component {
   render() {
     const { children } = this.props;
     const routeSlug = this.routeSlug(children);
-    const muiTheme = getMuiTheme({
-      palette,
-      ripple: {
-        color: palette.primary1Color,
-      },
-      tabs: {
-        backgroundColor: white,
-        textColor: palette.primary1Color,
-        selectedTextColor: palette.primary1Color,
-      },
-      inkBar: {
-        backgroundColor: palette.primary1Color,
-      },
-      isRtl: rtlDetect.isRtlLang(this.props.intl.locale),
-    });
+    const muiThemeWithRtl = getMuiTheme(merge(muiThemeWithoutRtl, { isRtl: rtlDetect.isRtlLang(this.props.intl.locale) }));
 
     if (!this.state.sessionStarted) {
       return null;
@@ -118,7 +105,7 @@ class Home extends Component {
     }
 
     return (
-      <MuiThemeProvider muiTheme={muiTheme}>
+      <MuiThemeProvider muiTheme={muiThemeWithRtl}>
         <span>
           <Favicon url={`/images/logo/${config.appName}.ico`} animated={false} />
           <BrowserSupport />

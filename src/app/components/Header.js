@@ -74,6 +74,7 @@ class Header extends Component {
 
     const logInMenuItem = (
       <MenuItem
+        key="headerActions.logIn"
         className="header-actions__menu-item--login"
         href="/"
         primaryText={<FormattedMessage id="headerActions.signIn" defaultMessage="Sign In" />}
@@ -82,7 +83,7 @@ class Header extends Component {
 
     const logOutMenuItem = (
       <MenuItem
-        key="headerActions.signIn"
+        key="headerActions.logOut"
         className="header-actions__menu-item--logout"
         onClick={logout}
         primaryText={<FormattedMessage id="headerActions.signOut" defaultMessage="Sign Out" />}

@@ -127,6 +127,7 @@
     "lodash.intersection": "^4.4.0",
     "lodash.isempty": "^4.4.0",
     "lodash.isequal": "^4.5.0",
+    "lodash.merge": "^4.6.0",
     "lodash.mergewith": "^4.6.0",
     "lodash.sortby": "^4.7.0",
     "lodash.truncate": "^4.4.2",
