@@ -25,7 +25,6 @@ import Annotations from '../annotations/Annotations';
 import PageTitle from '../PageTitle';
 import Medias from '../media/Medias';
 import MediaUtil from '../media/MediaUtil';
-import MappedMessage from '../MappedMessage';
 import Message from '../Message';
 import Can from '../Can';
 import CheckContext from '../../CheckContext';
@@ -353,6 +352,7 @@ class SourceComponent extends Component {
         <TextField
           defaultValue={metadata[type]}
           floatingLabelText={this.labelForType(type)}
+          style={{ width: '85%' }}
           onChange={this.handleChangeField.bind(this, type)}
         />
         <MdCancel className="create-task__remove-option-button create-task__md-icon" onClick={this.handleRemoveField.bind(this, type)}/>
