@@ -58,5 +58,17 @@
   {
     "id": "search.sortByOldest",
     "defaultMessage": "Oldest first"
+  },
+  {
+    "id": "search.show",
+    "defaultMessage": "Show"
+  },
+  {
+    "id": "search.showMedia",
+    "defaultMessage": "Media"
+  },
+  {
+    "id": "search.showSources",
+    "defaultMessage": "Sources"
   }
 ]

@@ -1027,5 +1027,27 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
         sleep 5
       end
     end
+
+    it "should filter by medias or sources" do
+      page = LoginPage.new(config: @config, driver: @driver).load.login_with_email(email: @email, password: @password)
+      page.driver.navigate.to @config['self_url']
+      expect(page.contains_string?("The Who's official Twitter page")).to be(false)
+      expect(page.contains_string?('Tweet by The Who')).to be(false)
+      page.create_media(input: 'https://twitter.com/TheWho/status/890135323216367616')
+      page.driver.navigate.to @config['self_url']
+      page.wait_for_element('.project .media-detail')
+      expect(page.contains_string?("The Who's official Twitter page")).to be(false)
+      expect(page.contains_string?('Tweet by The Who')).to be(true)
+
+      @driver.find_element(:xpath, "//span[contains(text(), 'Sources')]").click
+      sleep 5
+      expect(page.contains_string?("The Who's official Twitter page")).to be(true)
+      expect(page.contains_string?('Tweet by The Who')).to be(true)
+
+      @driver.find_element(:xpath, "//span[contains(text(), 'Media')]").click
+      sleep 5
+      expect(page.contains_string?("The Who's official Twitter page")).to be(true)
+      expect(page.contains_string?('Tweet by The Who')).to be(false)
+    end
   end
 end

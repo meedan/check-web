@@ -135,6 +135,11 @@ class SearchQueryComponent extends Component {
     }
   }
 
+  showIsSelected(show, state = this.state) {
+    const selected = state.query.show || ['medias'];
+    return selected.includes(show);
+  }
+
   handleStatusClick(statusCode) {
     this.setState((prevState, props) => {
       const state = Object.assign({}, prevState);
@@ -195,6 +200,23 @@ class SearchQueryComponent extends Component {
         state.query.sort_type = sortParam;
         return { query: state.query };
       }
+    });
+  }
+
+  handleShowClick(show) {
+    this.setState((prevState, props) => {
+      const state = Object.assign({}, prevState);
+      if (!state.query.show) {
+        state.query.show = ['medias'];
+      }
+      const i = state.query.show.indexOf(show);
+      if (i == -1) {
+        state.query.show.push(show);
+      }
+      else {
+        state.query.show.splice(i, 1);
+      }
+      return { query: state.query };
     });
   }
 
@@ -294,6 +316,20 @@ class SearchQueryComponent extends Component {
                   </li>
                   <li onClick={this.handleSortClick.bind(this, 'ASC')} className={bemClass('media-tags__suggestion', this.sortIsSelected('ASC'), '--selected')}>
                     <FormattedMessage id="search.sortByOldest" defaultMessage="Oldest first" />
+                  </li>
+                </ul>
+              </div> : null }
+
+              {/* Show */}
+              { this.showField('show') ?
+              <div>
+                <h4><FormattedMessage id="search.show" defaultMessage="Show" /></h4>
+                <ul className="search-query__sort-actions media-tags__suggestions-list">
+                  <li onClick={this.handleShowClick.bind(this, 'medias')} className={bemClass('media-tags__suggestion', this.showIsSelected('medias'), '--selected')}>
+                    <FormattedMessage id="search.showMedia" defaultMessage="Media" />
+                  </li>
+                  <li onClick={this.handleShowClick.bind(this, 'sources')} className={bemClass('media-tags__suggestion', this.showIsSelected('sources'), '--selected')}>
+                    <FormattedMessage id="search.showSources" defaultMessage="Sources" />
                   </li>
                 </ul>
               </div> : null }
