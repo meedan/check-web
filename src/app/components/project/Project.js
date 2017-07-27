@@ -1,12 +1,9 @@
-import React, { Component, PropTypes } from 'react';
-import { FormattedMessage } from 'react-intl';
+import React, { Component } from 'react';
 import Relay from 'react-relay';
-import { Link } from 'react-router';
+import styled from 'styled-components';
 import ProjectRoute from '../../relay/ProjectRoute';
-import ProjectHeader from './ProjectHeader';
 import { CreateProjectMedia } from '../media';
 import Can from '../Can';
-import config from 'config';
 import PageTitle from '../PageTitle';
 import CheckContext from '../../CheckContext';
 import ContentColumn from '../layout/ContentColumn';
@@ -14,27 +11,41 @@ import MediasLoading from '../media/MediasLoading';
 import Search from '../Search';
 import { units } from '../../styles/js/variables';
 
-const pageSize = 20;
+const ProjectWrapper = styled.div`
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  height: 100%;
+  overflow-y: visible;
+  padding: 0 ${units(2)};
+  position: relative;
+  width: 100%;
+`;
 
 class ProjectComponent extends Component {
+
+  componentDidMount() {
+    this.setContextProject();
+  }
+
+  componentDidUpdate() {
+    this.setContextProject();
+  }
+
   getContext() {
     const context = new CheckContext(this);
     return context;
   }
 
-  currentContext() {
-    return this.getContext().getContextStore();
-  }
-
   setContextProject() {
-    const context = this.getContext(),
-      currentContext = this.currentContext(),
-      newContext = {};
+    const context = this.getContext();
+    const currentContext = this.currentContext();
+    const newContext = {};
 
     newContext.project = this.props.project;
 
     let notFound = false;
-    if (!currentContext.team || currentContext.team.slug != this.props.project.team.slug) {
+    if (!currentContext.team || currentContext.team.slug !== this.props.project.team.slug) {
       newContext.team = this.props.project.team;
       notFound = true;
     }
@@ -49,12 +60,8 @@ class ProjectComponent extends Component {
     }
   }
 
-  componentDidMount() {
-    this.setContextProject();
-  }
-
-  componentDidUpdate() {
-    this.setContextProject();
+  currentContext() {
+    return this.getContext().getContextStore();
   }
 
   render() {
@@ -63,21 +70,26 @@ class ProjectComponent extends Component {
 
     return (
       <PageTitle prefix={project.title} skipTeam={false} team={this.currentContext().team}>
-        <div className="project">
-          { project.description && project.description.trim().length ? (
-            <div style={{ margin: `0 ${units(1)}` }}className="project__description">
+        <ProjectWrapper className="project">
+          {project.description && project.description.trim().length
+            ? <div style={{ margin: `0 ${units(1)}` }} className="project__description">
               <p>{project.description}</p>
             </div>
-          ) : null }
+            : null}
           <Can permissions={project.permissions} permission="create Media">
             <CreateProjectMedia projectComponent={that} />
           </Can>
 
           <ContentColumn noPadding>
-            <Search team={project.team.slug} project={project} query={this.props.params.query || '{}'} fields={['status', 'sort', 'tags']} />
+            <Search
+              team={project.team.slug}
+              project={project}
+              query={this.props.params.query || '{}'}
+              fields={['status', 'sort', 'tags']}
+            />
           </ContentColumn>
 
-        </div>
+        </ProjectWrapper>
       </PageTitle>
     );
   }
@@ -92,7 +104,7 @@ const ProjectContainer = Relay.createContainer(ProjectComponent, {
     contextId: null,
   },
   fragments: {
-    project: ({ Component, contextId }) => Relay.QL`
+    project: () => Relay.QL`
       fragment on Project {
         id,
         dbid,
@@ -123,14 +135,14 @@ const ProjectContainer = Relay.createContainer(ProjectComponent, {
 class Project extends Component {
   render() {
     const projectId = this.props.params.projectId;
-    const route = new ProjectRoute({ contextId: parseInt(projectId) });
+    const route = new ProjectRoute({ contextId: parseInt(projectId, 10) });
     return (
       <Relay.RootContainer
         Component={ProjectContainer}
         route={route}
         renderFetched={data => <ProjectContainer {...this.props} {...data} />}
         renderLoading={function () {
-          return (<MediasLoading />);
+          return <MediasLoading />;
         }}
       />
     );

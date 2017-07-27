@@ -30,6 +30,9 @@
         "class-methods-use-this": "warn",
 
         //Todo: Refine use of props eg. in styled-components (or set this rule to off)
-        "no-confusing-arrow": "warn"
+        "no-confusing-arrow": "warn",
+
+        //Todo: Refactor to only have one component per file (or set this rule to off)
+        "react/no-multi-comp": "warn",
     }
 }
