@@ -12,6 +12,8 @@ import {
   avatarStyle,
   units,
   white,
+  appBarInnerHeight,
+  avatarSize,
 } from '../../styles/js/variables.js';
 
 class TeamHeaderComponent extends Component {
@@ -56,14 +58,14 @@ class TeamHeaderComponent extends Component {
     const TeamNav = styled.nav`
       border-radius: ${defaultBorderRadius};
       display: flex;
-      height: ${units(6)};
+      height: ${appBarInnerHeight};
       overflow: hidden;
     `;
 
     const TeamName = styled.h3`
       ${ellipsisStyles}
       font: ${subheading2};
-      margin-${fromDirection}: ${units(3)};
+      margin-${fromDirection}: ${units(2)};
     `;
 
     const TeamAvatar = styled.div`
@@ -71,9 +73,8 @@ class TeamHeaderComponent extends Component {
       background-image: url(${team.avatar});
       background-color: ${white};
       margin: 0;
-      width: ${units(5)};
-      height: ${units(5)};
-      margin-${fromDirection}: ${units(2)};
+      width: ${avatarSize};
+      height: ${avatarSize};
     `;
 
     return (

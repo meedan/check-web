@@ -49,6 +49,8 @@ export const columnWidthSmall = units(56);
 export const columnWidthMedium = units(85);
 export const columnWidthLarge = units(100);
 export const columnWidthWide = units(152);
+export const appBarInnerHeight = units(6);
+export const avatarSize = units(5);
 
 // Unitless
 export function unitless(unit) {

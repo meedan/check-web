@@ -19,7 +19,7 @@ import TeamHeader from './team/TeamHeader';
 import TeamPublicHeader from './team/TeamPublicHeader';
 import ProjectHeader from './project/ProjectHeader';
 import { stringHelper } from '../customHelpers';
-import { anchorOrigin, black54, black02, units } from '../styles/js/variables';
+import { appBarInnerHeight, anchorOrigin, black54, black02, units } from '../styles/js/variables';
 
 const MenuActionsSecondary = styled.div`
   display: flex;
@@ -31,29 +31,34 @@ const MenuActionsSecondary = styled.div`
   }
 `;
 
-const TeamHeaderContainer = styled.div`
-  align-items: center;
-  display: flex;
-  justify-content: center;
-  min-width: ${units(6)};
-  overflow: hidden;
-`;
-
-const HeaderAppLink = styled(Link)`
-  align-items: center;
-  display: flex;
-
-  img {
-    width: ${units(8)};
-  }
-`;
+const styles = {
+  appBar: {
+    backgroundColor: black02,
+    boxShadow: 'none',
+  },
+  elementsPrimary: {
+    display: 'flex',
+    alignItems: 'center',
+    height: appBarInnerHeight,
+    margin: `0 ${units(2)}`,
+  },
+  teamHeader: {
+    alignItems: 'center',
+    display: 'flex',
+    justifyContent: 'center',
+    minWidth: units(6),
+    overflow: 'hidden',
+  },
+};
 
 class Header extends Component {
+
   render() {
     const { loggedIn } = this.props;
     const path = this.props.location ? this.props.location.pathname : window.location.pathname;
     const showCheckLogo = /^\/(check(\/.*)?)?$/.test(path);
     const joinPage = /^\/([^/]+)\/join$/.test(path);
+
 
     const menuButton = (
       <IconButton className="header-actions__menu-toggle">
@@ -69,7 +74,9 @@ class Header extends Component {
       />
     );
 
-    const editProjectMenuItem = <ProjectMenuRelay key="headerActions.projectMenu" {...this.props} />;
+    const editProjectMenuItem = (
+      <ProjectMenuRelay key="headerActions.projectMenu" {...this.props} />
+    );
 
     const manageTeamMenuItem = <TeamMenuRelay key="headerActions.teamMenu" {...this.props} />;
 
@@ -144,7 +151,11 @@ class Header extends Component {
     );
 
     const secondaryMenu = (
-      <IconMenu key="header.secondaryMenu" anchorOrigin={anchorOrigin} iconButtonElement={menuButton}>
+      <IconMenu
+        key="header.secondaryMenu"
+        anchorOrigin={anchorOrigin}
+        iconButtonElement={menuButton}
+      >
         {loggedIn && yourTeamsMenuItem}
         {!joinPage && editProjectMenuItem}
         {!joinPage && manageTeamMenuItem}
@@ -158,7 +169,12 @@ class Header extends Component {
     );
 
     const searchButton = (
-      <IconButton href={`/${this.props.params.team}/search`} name="search" key="header.searchButton" className="header-actions__search-icon">
+      <IconButton
+        href={`/${this.props.params.team}/search`}
+        name="search"
+        key="header.searchButton"
+        className="header-actions__search-icon"
+      >
         <IconSearch color={black54} />
       </IconButton>
     );
@@ -177,7 +193,7 @@ class Header extends Component {
       );
     })();
 
-    const elementsRight = (() => {
+    const elementsSecondary = (() => {
       if (this.props.params && this.props.params.team) {
         return (
           <MenuActionsSecondary>
@@ -188,21 +204,21 @@ class Header extends Component {
       return secondaryMenu;
     })();
 
-    const leftActions = (() => {
+    const elementsPrimary = (() => {
       if (showCheckLogo) {
         return (
-          <HeaderAppLink to="/check/teams">
-            <img alt="Team Logo" src={stringHelper('LOGO_URL')} />
-          </HeaderAppLink>
+          <Link style={styles.elementsPrimary} to="/check/teams">
+            <img width={units(8)} alt="Team Logo" src={stringHelper('LOGO_URL')} />
+          </Link>
         );
       }
       return (
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          <TeamHeaderContainer>
+        <div style={styles.elementsPrimary}>
+          <div style={styles.teamHeader}>
             {joinPage
               ? <TeamPublicHeader {...this.props} />
               : <TeamHeader {...this.props} />}
-          </TeamHeaderContainer>
+          </div>
           <ProjectHeader {...this.props} />
         </div>
       );
@@ -210,9 +226,9 @@ class Header extends Component {
 
     return (
       <AppBar
-        style={{ backgroundColor: black02, boxShadow: 'none' }}
-        iconElementLeft={leftActions}
-        iconElementRight={elementsRight}
+        style={styles.appBar}
+        iconElementLeft={elementsPrimary}
+        iconElementRight={elementsSecondary}
       />
     );
   }

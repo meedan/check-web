@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 import TeamRoute from '../../relay/TeamRoute';
 import teamFragment from '../../relay/teamFragment';
 import TeamHeaderComponent from './TeamHeaderComponent';
-import { units, defaultBorderRadius, Pulse } from '../../styles/js/variables';
+import { avatarSize, appBarInnerHeight, defaultBorderRadius, Pulse } from '../../styles/js/variables';
 
 const TeamHeaderContainer = Relay.createContainer(TeamHeaderComponent, {
   fragments: {
@@ -18,14 +18,14 @@ const TeamHeaderContainer = Relay.createContainer(TeamHeaderComponent, {
 //
 const styles = {
   loadingHeaderOuterStyle: {
-    padding: `${units(0.5)} ${units(2)}`,
+    height: appBarInnerHeight,
     display: 'flex',
     alignItems: 'center',
   },
   loadingHeaderInnerStyle: {
     borderRadius: defaultBorderRadius,
-    height: units(5),
-    width: units(5),
+    height: avatarSize,
+    width: avatarSize,
     backgroundColor: 'white',
   },
 };
