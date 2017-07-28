@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay';
-import IconArrowDropDown from 'material-ui/svg-icons/navigation/arrow-drop-down';
 import IconArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
 import IconButton from 'material-ui/IconButton';
 import DropDownMenu from 'material-ui/DropDownMenu';
@@ -55,22 +54,18 @@ class ProjectHeaderComponent extends Component {
       <div style={{ display: 'flex', alignItems: 'center' }}>
 
         {isProjectSubpage
-          ? <IconButton href={backUrl} style={{ marginLeft: units(3) }} className="project-header__back-button">
+          ? <IconButton href={backUrl} className="project-header__back-button">
             <IconArrowBack color={black54} />
           </IconButton>
           : null}
 
         <DropDownMenu
-          anchorOrigin={{
-            horizontal: 'left',
-            vertical: 'top',
-          }}
           underlineStyle={{ borderWidth: 0 }}
           iconStyle={{ fill: black54 }}
-          iconButton={<IconArrowDropDown />}
           value={currentProject.title}
           className="project-header__title"
-          style={{ marginTop: `-${units(1)}` }}
+          style={{ marginTop: `${units(1)}`, maxWidth: '50%', overflow: 'hidden' }}
+          labelStyle={{ paddingLeft: '0' }}
         >
           {currentProject.team.projects.edges
             .sortp((a, b) => a.node.title.localeCompare(b.node.title))
@@ -83,6 +78,7 @@ class ProjectHeaderComponent extends Component {
                   value={p.node.title}
                   primaryText={p.node.title}
                   className="project-list__project"
+                  style={{ maxWidth: '300px', overflow: 'hidden', textOverflow: 'ellipsis' }}
                 />
               );
             })}

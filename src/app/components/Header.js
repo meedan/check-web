@@ -39,7 +39,6 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     height: appBarInnerHeight,
-    margin: `0 ${units(2)}`,
   },
   teamHeader: {
     alignItems: 'center',
@@ -47,6 +46,7 @@ const styles = {
     justifyContent: 'center',
     minWidth: units(6),
     overflow: 'hidden',
+    margin: `0 ${units(1)}`,
   },
 };
 
@@ -207,7 +207,7 @@ class Header extends Component {
       );
     })();
 
-    const elementsPrimary = (() => {
+    const elementsTitle = (() => {
       if (showCheckLogo) {
         return (
           <Link style={styles.elementsPrimary} to="/check/teams">
@@ -217,19 +217,23 @@ class Header extends Component {
       }
       return (
         <div style={styles.elementsPrimary}>
-          <div style={styles.teamHeader}>
-            {joinPage
-              ? <TeamPublicHeader {...this.props} />
-              : <TeamHeader {...this.props} />}
-          </div>
           <ProjectHeader {...this.props} />
         </div>
       );
     })();
 
+    const elementsPrimary = (
+      <div style={styles.teamHeader}>
+        {joinPage
+          ? <TeamPublicHeader {...this.props} />
+          : <TeamHeader {...this.props} />}
+      </div>
+    );
+
     return (
       <AppBar
         style={styles.appBar}
+        title={elementsTitle}
         iconElementLeft={elementsPrimary}
         iconElementRight={elementsSecondary}
       />
