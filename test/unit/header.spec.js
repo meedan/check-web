@@ -27,7 +27,6 @@ describe('<Header />', () => {
   it('renders the logo, avatar and menu on the teams page', () => {
     const location = { pathname: '/check/teams' };
     const header = mountWithIntl(<Header location={location} loggedIn params={{}} />);
-    console.log(header.debug());
     expect(header.find(TeamHeader)).to.have.length(0);
     expect(header.find(IconMenu)).to.have.length(1);
     expect(header.find(UserMenuRelay)).to.have.length(1);

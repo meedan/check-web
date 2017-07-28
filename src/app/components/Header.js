@@ -200,7 +200,11 @@ class Header extends Component {
           </MenuActionsSecondary>
         );
       }
-      return secondaryMenu;
+      return (
+        <MenuActionsSecondary>
+          {[userMenu, secondaryMenu]}
+        </MenuActionsSecondary>
+      );
     })();
 
     const elementsPrimary = (() => {

@@ -115,8 +115,7 @@ class CreateProjectMedia extends Component {
           const pmid = matches[1];
           message = null;
           context.history.push(prefix + pmid);
-        }
-        else {
+        } else {
           message = json.error;
         }
       }
@@ -161,7 +160,7 @@ class CreateProjectMedia extends Component {
     this.setState({ isSubmitting: true, message: this.props.intl.formatMessage(messages.submitting) });
 
     const handleError = (json) => {
-      let message = this.props.intl.formatMessage(messages.error); //TODO: review error message
+      let message = this.props.intl.formatMessage(messages.error); // TODO: review error message
       if (json && json.error) {
         const matches = json.error.match(/Account with this URL exists and has source id ([0-9]+)$/);
         if (matches) {
@@ -169,8 +168,7 @@ class CreateProjectMedia extends Component {
           const psid = matches[1];
           message = null;
           context.history.push(prefix + psid);
-        }
-        else {
+        } else {
           message = json.error;
         }
       }
@@ -240,66 +238,69 @@ class CreateProjectMedia extends Component {
 
   renderTitle() {
     switch (this.state.mode) {
-      case 'image':
-        return <FormattedMessage id="createMedia.imageTitle" defaultMessage="Upload a photo" />;
-        break;
-      case 'source':
-        return <FormattedMessage id="createMedia.sourceTitle" defaultMessage="Add a source" />;
-        break;
-      case 'link':
-        return <FormattedMessage id="createMedia.linkTitle" defaultMessage="Add a link" />;
-        break;
-      case 'quote':
-        return <FormattedMessage id="createMedia.quoteTitle" defaultMessage="Add a quote" />;
-        break;
+    case 'image':
+      return <FormattedMessage id="createMedia.imageTitle" defaultMessage="Upload a photo" />;
+      break;
+    case 'source':
+      return <FormattedMessage id="createMedia.sourceTitle" defaultMessage="Add a source" />;
+      break;
+    case 'link':
+      return <FormattedMessage id="createMedia.linkTitle" defaultMessage="Add a link" />;
+      break;
+    case 'quote':
+      return <FormattedMessage id="createMedia.quoteTitle" defaultMessage="Add a quote" />;
+      break;
     }
   }
 
   renderFormInputs() {
     switch (this.state.mode) {
-      case 'image':
-        return ([
-          <UploadImage onImage={this.onImage.bind(this)} onError={this.onImageError.bind(this)} />,
-          <div className="create-media__helper"><MappedMessage msgObj={messages} msgKey="helper" /></div>
-        ]);
-        break;
-      case 'source':
-        return ([
-          <TextField
-            hintText={this.props.intl.formatMessage(messages.sourceInput)}
-            fullWidth
-            id="create-media-source-name-input"
-            className="create-media__input"
-            multiLine
-            onKeyPress={this.handleKeyPress.bind(this)}
-            ref={input => this.mediaInput = input}
-          />,
-          <TextField
-            hintText={this.props.intl.formatMessage(messages.sourceUrlInput)}
-            fullWidth
-            id="create-media-source-url-input"
-            className="create-media__input"
-            multiLine
-            onKeyPress={this.handleKeyPress.bind(this)}
-            ref={input => this.mediaInput = input}
-          />
-        ]);
-        break;
-      case 'link':
-      case 'quote':
-      default:
-        return ([
-          <TextField
-            hintText={this.props.intl.formatMessage(messages.mediaInput)}
-            fullWidth
-            name="url" id="create-media-input"
-            className="create-media__input"
-            multiLine
-            onKeyPress={this.handleKeyPress.bind(this)}
-            ref={input => this.mediaInput = input}
-          />,
-          <div className="create-media__helper"><MappedMessage msgObj={messages} msgKey="helper" /></div>
-        ]);
+    case 'image':
+      return ([
+        <UploadImage key="createMedia.image.upload" onImage={this.onImage.bind(this)} onError={this.onImageError.bind(this)} />,
+        <div className="create-media__helper" key="createMedia.media.helper"><MappedMessage msgObj={messages} msgKey="helper" /></div>,
+      ]);
+      break;
+    case 'source':
+      return ([
+        <TextField
+          key="createMedia.source.name"
+          hintText={this.props.intl.formatMessage(messages.sourceInput)}
+          fullWidth
+          id="create-media-source-name-input"
+          className="create-media__input"
+          multiLine
+          onKeyPress={this.handleKeyPress.bind(this)}
+          ref={input => this.mediaInput = input}
+        />,
+        <TextField
+          key="createMedia.source.url"
+          hintText={this.props.intl.formatMessage(messages.sourceUrlInput)}
+          fullWidth
+          id="create-media-source-url-input"
+          className="create-media__input"
+          multiLine
+          onKeyPress={this.handleKeyPress.bind(this)}
+          ref={input => this.mediaInput = input}
+        />,
+      ]);
+      break;
+    case 'link':
+    case 'quote':
+    default:
+      return ([
+        <TextField
+          key="createMedia.quote.input"
+          hintText={this.props.intl.formatMessage(messages.mediaInput)}
+          fullWidth
+          name="url" id="create-media-input"
+          className="create-media__input"
+          multiLine
+          onKeyPress={this.handleKeyPress.bind(this)}
+          ref={input => this.mediaInput = input}
+        />,
+        <div key="createMedia.source.helper" className="create-media__helper"><MappedMessage msgObj={messages} msgKey="helper" /></div>,
+      ]);
     }
   }
 
