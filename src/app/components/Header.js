@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router';
-import AppBar from 'material-ui/AppBar';
 import IconButton from 'material-ui/IconButton';
 import IconMoreVert from 'material-ui/svg-icons/navigation/more-vert';
 import IconSearch from 'material-ui/svg-icons/action/search';
@@ -10,6 +9,7 @@ import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
 import Divider from 'material-ui/Divider';
 import { FormattedMessage, injectIntl } from 'react-intl';
+import rtlDetect from 'rtl-detect';
 import { mapGlobalMessage } from './MappedMessage';
 import UserMenuRelay from '../relay/UserMenuRelay';
 import { logout } from '../redux/actions';
@@ -19,36 +19,8 @@ import TeamHeader from './team/TeamHeader';
 import TeamPublicHeader from './team/TeamPublicHeader';
 import ProjectHeader from './project/ProjectHeader';
 import { stringHelper } from '../customHelpers';
-import { appBarInnerHeight, anchorOrigin, units } from '../styles/js/variables';
+import { appBarInnerHeight, black02, anchorOrigin, units } from '../styles/js/variables';
 
-const MenuActionsSecondary = styled.div`
-  display: flex;
-  align-items: center;
-  & > * {
-    margin-left: ${units(1)} !important;
-    margin-right: ${units(1)} !important;
-    display: flex-item !important;
-  }
-`;
-
-const styles = {
-  appBar: {
-    boxShadow: 'none',
-  },
-  elementsPrimary: {
-    display: 'flex',
-    alignItems: 'center',
-    height: appBarInnerHeight,
-  },
-  teamHeader: {
-    alignItems: 'center',
-    display: 'flex',
-    justifyContent: 'center',
-    minWidth: units(6),
-    overflow: 'hidden',
-    margin: `0 ${units(1)}`,
-  },
-};
 
 class Header extends Component {
 
@@ -57,7 +29,29 @@ class Header extends Component {
     const path = this.props.location ? this.props.location.pathname : window.location.pathname;
     const showCheckLogo = /^\/(check(\/.*)?)?$/.test(path);
     const joinPage = /^\/([^/]+)\/join$/.test(path);
+    const locale = this.props.intl.locale;
+    const isRtl = rtlDetect.isRtlLang(locale);
+    const fromDirection = isRtl ? 'right' : 'left';
+    const toDirection = isRtl ? 'left' : 'right';
 
+    const HeaderBar = styled.div`
+      background-color: ${black02};
+      display: flex;
+      align-items: center;
+    `;
+
+    const elementsPrimary = styled.div`
+      border: 1px solid pink;
+      display: flex;
+      align-items: center;
+    `;
+
+    const elementsSecondary = styled.div`
+      border: 1px solid green;
+      display: flex;
+      align-items: center;
+      margin-${fromDirection}: auto;
+    `;
 
     const menuButton = (
       <IconButton className="header-actions__menu-toggle">
@@ -192,51 +186,40 @@ class Header extends Component {
       );
     })();
 
-    const elementsSecondary = (() => {
+    const Secondary = (() => {
       if (this.props.params && this.props.params.team) {
         return (
-          <MenuActionsSecondary>
+          <elementsSecondary>
             {[searchButton, userMenu, secondaryMenu]}
-          </MenuActionsSecondary>
+          </elementsSecondary>
         );
       }
       return (
-        <MenuActionsSecondary>
+        <elementsSecondary>
           {[userMenu, secondaryMenu]}
-        </MenuActionsSecondary>
+        </elementsSecondary>
       );
     })();
 
-    const elementsTitle = (() => {
-      if (showCheckLogo) {
-        return (
-          <Link style={styles.elementsPrimary} to="/check/teams">
-            <img width={units(8)} alt="Team Logo" src={stringHelper('LOGO_URL')} />
-          </Link>
-        );
-      }
-      return (
-        <div style={styles.elementsPrimary}>
-          <ProjectHeader {...this.props} />
-        </div>
-      );
-    })();
-
-    const elementsPrimary = (
-      <div style={styles.teamHeader}>
-        {joinPage
+    const Primary = (
+      <elementsPrimary>
+        { joinPage
           ? <TeamPublicHeader {...this.props} />
           : <TeamHeader {...this.props} />}
-      </div>
+        { showCheckLogo
+          ? <Link to="/check/teams">
+            <img width={units(8)} alt="Team Logo" src={stringHelper('LOGO_URL')} />
+          </Link>
+          : <div> <ProjectHeader {...this.props} /> </div>
+        }
+      </elementsPrimary>
     );
 
     return (
-      <AppBar
-        style={styles.appBar}
-        title={elementsTitle}
-        iconElementLeft={elementsPrimary}
-        iconElementRight={elementsSecondary}
-      />
+      <HeaderBar>
+        {Primary}
+        {Secondary}
+      </HeaderBar>
     );
   }
 }
