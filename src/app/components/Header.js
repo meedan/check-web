@@ -39,7 +39,6 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     height: appBarInnerHeight,
-    margin: `0 ${units(2)}`,
   },
   teamHeader: {
     alignItems: 'center',
@@ -47,6 +46,7 @@ const styles = {
     justifyContent: 'center',
     minWidth: units(6),
     overflow: 'hidden',
+    margin: `0 ${units(1)}`,
   },
 };
 
@@ -207,22 +207,31 @@ class Header extends Component {
       );
     })();
 
-    const elementsPrimary = (() => {
+    const elementsTitle = (() => {
       if (showCheckLogo) {
-        return (
-          <Link style={styles.elementsPrimary} to="/check/teams">
-            <img width={units(8)} alt="Team Logo" src={stringHelper('LOGO_URL')} />
-          </Link>
-        );
+        return null;
       }
       return (
         <div style={styles.elementsPrimary}>
+          <ProjectHeader {...this.props} />
+        </div>
+      );
+    })();
+
+    const elementsPrimary = (() => {
+      if (!showCheckLogo) {
+        return (
           <div style={styles.teamHeader}>
             {joinPage
               ? <TeamPublicHeader {...this.props} />
               : <TeamHeader {...this.props} />}
           </div>
-          <ProjectHeader {...this.props} />
+        );
+      } return (
+        <div style={styles.elementsPrimary}>
+          <Link style={styles.elementsPrimary} to="/check/teams">
+            <img width={units(8)} alt="Team Logo" src={stringHelper('LOGO_URL')} />
+          </Link>
         </div>
       );
     })();
@@ -230,6 +239,7 @@ class Header extends Component {
     return (
       <AppBar
         style={styles.appBar}
+        title={elementsTitle}
         iconElementLeft={elementsPrimary}
         iconElementRight={elementsSecondary}
       />
