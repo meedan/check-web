@@ -40,13 +40,13 @@ class Header extends Component {
       align-items: center;
     `;
 
-    const elementsPrimary = styled.div`
+    const ElementsPrimary = styled.div`
       border: 1px solid pink;
       display: flex;
       align-items: center;
     `;
 
-    const elementsSecondary = styled.div`
+    const ElementsSecondary = styled.div`
       border: 1px solid green;
       display: flex;
       align-items: center;
@@ -189,31 +189,36 @@ class Header extends Component {
     const Secondary = (() => {
       if (this.props.params && this.props.params.team) {
         return (
-          <elementsSecondary>
+          <ElementsSecondary>
             {[searchButton, userMenu, secondaryMenu]}
-          </elementsSecondary>
+          </ElementsSecondary>
         );
       }
       return (
-        <elementsSecondary>
+        <ElementsSecondary>
           {[userMenu, secondaryMenu]}
-        </elementsSecondary>
+        </ElementsSecondary>
       );
     })();
 
-    const Primary = (
-      <elementsPrimary>
-        { joinPage
-          ? <TeamPublicHeader {...this.props} />
-          : <TeamHeader {...this.props} />}
-        { showCheckLogo
-          ? <Link to="/check/teams">
+    const Primary = (() => {
+      if (!showCheckLogo) {
+        return (
+          <ElementsPrimary>
+            {joinPage
+              ? <TeamPublicHeader {...this.props} />
+              : <TeamHeader {...this.props} />}
+            <ProjectHeader {...this.props} />
+          </ElementsPrimary>
+        );
+      } return (
+        <ElementsPrimary>
+          <Link to="/check/teams">
             <img width={units(8)} alt="Team Logo" src={stringHelper('LOGO_URL')} />
           </Link>
-          : <div> <ProjectHeader {...this.props} /> </div>
-        }
-      </elementsPrimary>
-    );
+        </ElementsPrimary>
+      );
+    })();
 
     return (
       <HeaderBar>

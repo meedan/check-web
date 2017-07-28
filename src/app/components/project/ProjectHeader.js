@@ -4,9 +4,27 @@ import IconArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
 import IconButton from 'material-ui/IconButton';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
+import styled from 'styled-components';
 import ProjectRoute from '../../relay/ProjectRoute';
 import CheckContext from '../../CheckContext';
-import { units, black54 } from '../../styles/js/variables';
+import { units, ellipsisStyles, black54 } from '../../styles/js/variables';
+
+const ProjectDropdownWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  .project-header__title {
+    border: 1px solid green;
+    overflow: hidden!important;
+    display: flex!important;
+    & > div {
+      & > div {
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        white-space: nowrap !important;
+      }
+    }
+  }
+`;
 
 class ProjectHeaderComponent extends Component {
   componentDidMount() {
@@ -51,11 +69,11 @@ class ProjectHeaderComponent extends Component {
 
     const isProjectSubpage = path.length > backUrl.length;
     return (
-      <div style={{ display: 'flex', alignItems: 'center' }}>
+      <ProjectDropdownWrapper>
 
         {isProjectSubpage
           ? <IconButton href={backUrl} className="project-header__back-button">
-            <IconArrowBack color={black54} />
+            <IconArrowBack />
           </IconButton>
           : null}
 
@@ -64,8 +82,7 @@ class ProjectHeaderComponent extends Component {
           iconStyle={{ fill: black54 }}
           value={currentProject.title}
           className="project-header__title"
-          style={{ marginTop: `${units(1)}`, maxWidth: '50%', overflow: 'hidden' }}
-          labelStyle={{ paddingLeft: '0' }}
+          style={{ marginTop: `-${units(1)}` }}
         >
           {currentProject.team.projects.edges
             .sortp((a, b) => a.node.title.localeCompare(b.node.title))
@@ -83,7 +100,7 @@ class ProjectHeaderComponent extends Component {
               );
             })}
         </DropDownMenu>
-      </div>
+      </ProjectDropdownWrapper>
     );
   }
 }
