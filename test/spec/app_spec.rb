@@ -927,7 +927,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 10
       expect(@driver.page_source.include?('My search result')).to be(false)
       selected = @driver.find_elements(:css, '.media-tags__suggestion--selected')
-      expect(selected.size == 2).to be(true)
+      expect(selected.size == 3).to be(true)
     end
 
     it "should change search sort criteria through URL" do
@@ -936,7 +936,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 10
       expect(@driver.page_source.include?('My search result')).to be(true)
       selected = @driver.find_elements(:css, '.media-tags__suggestion--selected').map(&:text).sort
-      expect(selected == ['Recent activity', 'Newest first'].sort).to be(true)
+      expect(selected == ['Recent activity', 'Newest first', 'Media'].sort).to be(true)
     end
 
     it "should change search sort order through URL" do
@@ -945,7 +945,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 10
       expect(@driver.page_source.include?('My search result')).to be(true)
       selected = @driver.find_elements(:css, '.media-tags__suggestion--selected').map(&:text).sort
-      expect(selected == ['Created', 'Oldest first'].sort).to be(true)
+      expect(selected == ['Created', 'Oldest first', 'Media'].sort).to be(true)
     end
 
     it "should login from e-mail login page" do
@@ -1026,6 +1026,28 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
         expect((@driver.find_element(:css, '#code').attribute('value') =~ /hide_tasks%3D1%26hide_notes%3D1/).nil?).to be(false)
         sleep 5
       end
+    end
+
+    it "should filter by medias or sources" do
+      page = LoginPage.new(config: @config, driver: @driver).load.login_with_email(email: @email, password: @password)
+      page.driver.navigate.to @config['self_url']
+      expect(page.contains_string?("The Who's official Twitter page")).to be(false)
+      expect(page.contains_string?('Tweet by The Who')).to be(false)
+      page.create_media(input: 'https://twitter.com/TheWho/status/890135323216367616')
+      page.driver.navigate.to @config['self_url']
+      page.wait_for_element('.project .media-detail')
+      expect(page.contains_string?("The Who's official Twitter page")).to be(false)
+      expect(page.contains_string?('Tweet by The Who')).to be(true)
+
+      @driver.find_element(:xpath, "//span[contains(text(), 'Sources')]").click
+      sleep 5
+      expect(page.contains_string?("The Who's official Twitter page")).to be(true)
+      expect(page.contains_string?('Tweet by The Who')).to be(true)
+
+      @driver.find_element(:xpath, "//span[contains(text(), 'Media')]").click
+      sleep 5
+      expect(page.contains_string?("The Who's official Twitter page")).to be(true)
+      expect(page.contains_string?('Tweet by The Who')).to be(false)
     end
   end
 end

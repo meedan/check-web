@@ -35,19 +35,19 @@ const messages = defineMessages({
   },
   searchResults: {
     id: 'search.results',
-    defaultMessage: '{resultsCount, plural, =0 {No results} one {1 result} other {# results}}'
+    defaultMessage: '{resultsCount, plural, =0 {No results} one {1 result} other {# results}}',
   },
   newTranslationRequestNotification: {
     id: 'search.newTranslationRequestNotification',
-    defaultMessage: 'New translation request'
+    defaultMessage: 'New translation request',
   },
   newTranslationNotification: {
     id: 'search.newTranslationNotification',
-    defaultMessage: 'New translation'
+    defaultMessage: 'New translation',
   },
   newTranslationNotificationBody: {
     id: 'search.newTranslationNotificationBody',
-    defaultMessage: 'A report was just marked as "translated"'
+    defaultMessage: 'A report was just marked as "translated"',
   },
 });
 
@@ -135,6 +135,11 @@ class SearchQueryComponent extends Component {
     }
   }
 
+  showIsSelected(show, state = this.state) {
+    const selected = state.query.show || ['medias'];
+    return selected.includes(show);
+  }
+
   handleStatusClick(statusCode) {
     this.setState((prevState, props) => {
       const state = Object.assign({}, prevState);
@@ -198,6 +203,22 @@ class SearchQueryComponent extends Component {
     });
   }
 
+  handleShowClick(show) {
+    this.setState((prevState, props) => {
+      const state = Object.assign({}, prevState);
+      if (!state.query.show) {
+        state.query.show = ['medias'];
+      }
+      const i = state.query.show.indexOf(show);
+      if (i == -1) {
+        state.query.show.push(show);
+      } else {
+        state.query.show.splice(i, 1);
+      }
+      return { query: state.query };
+    });
+  }
+
   // Create title out of query parameters
   // To understand this code:
   // - http://stackoverflow.com/a/10865042/209184 for `[].concat.apply`
@@ -222,9 +243,8 @@ class SearchQueryComponent extends Component {
     if (!this.props.fields) {
       return true;
     }
-    else {
-      return this.props.fields.indexOf(field) > -1;
-    }
+
+    return this.props.fields.indexOf(field) > -1;
   }
 
   render() {
@@ -240,31 +260,31 @@ class SearchQueryComponent extends Component {
 
             {/* Keyword */}
             { this.showField('keyword') ?
-            <form id="search-form" className="search__form" onSubmit={this.handleSubmit.bind(this)}>
-              <input placeholder={this.props.intl.formatMessage(messages.searchInputHint)} name="search-input" id="search-input" className="search__input" defaultValue={this.state.query.keyword || ''} ref={input => this.searchQueryInput = input} />
-            </form> : null }
+              <form id="search-form" className="search__form" onSubmit={this.handleSubmit.bind(this)}>
+                <input placeholder={this.props.intl.formatMessage(messages.searchInputHint)} name="search-input" id="search-input" className="search__input" defaultValue={this.state.query.keyword || ''} ref={input => this.searchQueryInput = input} />
+              </form> : null }
 
             <section className="search__filters filters">
               {/* Status */}
               { this.showField('status') ?
-              <div>
-                <h4><FormattedMessage id="search.statusHeading" defaultMessage="Status" /></h4>
-                <ul className="media-tags__suggestions-list">
-                  {statuses.map(status =>
-                    <li key={status.id} title={status.description} onClick={this.handleStatusClick.bind(this, status.id)} className={bemClass('media-tags__suggestion', this.statusIsSelected(status.id), '--selected')} style={{ backgroundColor: getStatusStyle(status, 'backgroundColor') }} >{status.label}</li>)}
-                </ul>
-              </div> : null }
+                <div>
+                  <h4><FormattedMessage id="search.statusHeading" defaultMessage="Status" /></h4>
+                  <ul className="media-tags__suggestions-list">
+                    {statuses.map(status =>
+                      <li key={status.id} title={status.description} onClick={this.handleStatusClick.bind(this, status.id)} className={bemClass('media-tags__suggestion', this.statusIsSelected(status.id), '--selected')} style={{ backgroundColor: getStatusStyle(status, 'backgroundColor') }} >{status.label}</li>)}
+                  </ul>
+                </div> : null }
 
               {/* Project */}
               { this.showField('project') ?
-              <div>
-                <h4><FormattedMessage id="search.projectHeading" defaultMessage="Project" /></h4>
-                <ul className="media-tags__suggestions-list">
-                  {projects.map(project =>
-                    <li key={project.node.dbid} title={project.node.description} onClick={this.handleProjectClick.bind(this, project.node.dbid)} className={bemClass('media-tags__suggestion', this.projectIsSelected(project.node.dbid), '--selected')}>{project.node.title}</li>
+                <div>
+                  <h4><FormattedMessage id="search.projectHeading" defaultMessage="Project" /></h4>
+                  <ul className="media-tags__suggestions-list">
+                    {projects.map(project =>
+                      <li key={project.node.dbid} title={project.node.description} onClick={this.handleProjectClick.bind(this, project.node.dbid)} className={bemClass('media-tags__suggestion', this.projectIsSelected(project.node.dbid), '--selected')}>{project.node.title}</li>,
                   )}
-                </ul>
-              </div> : null }
+                  </ul>
+                </div> : null }
 
               {/* Tags */}
               { this.showField('tags') && suggestedTags.length ? (
@@ -272,7 +292,7 @@ class SearchQueryComponent extends Component {
                   <h4><FormattedMessage id="status.categoriesHeading" defaultMessage="Categories" /></h4>
                   <ul className="media-tags__suggestions-list">
                     {suggestedTags.map(tag =>
-                      <li key={tag.id} title={null} onClick={this.handleTagClick.bind(this, tag)} className={bemClass('media-tags__suggestion', this.tagIsSelected(tag), '--selected')}>{tag}</li>
+                      <li key={tag.id} title={null} onClick={this.handleTagClick.bind(this, tag)} className={bemClass('media-tags__suggestion', this.tagIsSelected(tag), '--selected')}>{tag}</li>,
                     )}
                   </ul>
                 </div>
@@ -280,23 +300,37 @@ class SearchQueryComponent extends Component {
 
               {/* Sort */}
               { this.showField('sort') ?
-              <div>
-                <h4><FormattedMessage id="search.sort" defaultMessage="Sort" /></h4>
-                <ul className="search-query__sort-actions media-tags__suggestions-list">
-                  <li onClick={this.handleSortClick.bind(this, 'recent_added')} className={bemClass('media-tags__suggestion', this.sortIsSelected('recent_added'), '--selected')}>
-                    <FormattedMessage id="search.sortByCreated" defaultMessage="Created" />
-                  </li>
-                  <li onClick={this.handleSortClick.bind(this, 'recent_activity')} className={bemClass('media-tags__suggestion', this.sortIsSelected('recent_activity'), '--selected')}>
-                    <FormattedMessage id="search.sortByRecentActivity" defaultMessage="Recent activity" />
-                  </li>
-                  <li onClick={this.handleSortClick.bind(this, 'DESC')} className={bemClass('media-tags__suggestion', this.sortIsSelected('DESC'), '--selected')}>
-                    <FormattedMessage id="search.sortByNewest" defaultMessage="Newest first" />
-                  </li>
-                  <li onClick={this.handleSortClick.bind(this, 'ASC')} className={bemClass('media-tags__suggestion', this.sortIsSelected('ASC'), '--selected')}>
-                    <FormattedMessage id="search.sortByOldest" defaultMessage="Oldest first" />
-                  </li>
-                </ul>
-              </div> : null }
+                <div>
+                  <h4><FormattedMessage id="search.sort" defaultMessage="Sort" /></h4>
+                  <ul className="search-query__sort-actions media-tags__suggestions-list">
+                    <li onClick={this.handleSortClick.bind(this, 'recent_added')} className={bemClass('media-tags__suggestion', this.sortIsSelected('recent_added'), '--selected')}>
+                      <FormattedMessage id="search.sortByCreated" defaultMessage="Created" />
+                    </li>
+                    <li onClick={this.handleSortClick.bind(this, 'recent_activity')} className={bemClass('media-tags__suggestion', this.sortIsSelected('recent_activity'), '--selected')}>
+                      <FormattedMessage id="search.sortByRecentActivity" defaultMessage="Recent activity" />
+                    </li>
+                    <li onClick={this.handleSortClick.bind(this, 'DESC')} className={bemClass('media-tags__suggestion', this.sortIsSelected('DESC'), '--selected')}>
+                      <FormattedMessage id="search.sortByNewest" defaultMessage="Newest first" />
+                    </li>
+                    <li onClick={this.handleSortClick.bind(this, 'ASC')} className={bemClass('media-tags__suggestion', this.sortIsSelected('ASC'), '--selected')}>
+                      <FormattedMessage id="search.sortByOldest" defaultMessage="Oldest first" />
+                    </li>
+                  </ul>
+                </div> : null }
+
+              {/* Show */}
+              { this.showField('show') ?
+                <div>
+                  <h4><FormattedMessage id="search.show" defaultMessage="Show" /></h4>
+                  <ul className="search-query__sort-actions media-tags__suggestions-list">
+                    <li onClick={this.handleShowClick.bind(this, 'medias')} className={bemClass('media-tags__suggestion', this.showIsSelected('medias'), '--selected')}>
+                      <FormattedMessage id="search.showMedia" defaultMessage="Media" />
+                    </li>
+                    <li onClick={this.handleShowClick.bind(this, 'sources')} className={bemClass('media-tags__suggestion', this.showIsSelected('sources'), '--selected')}>
+                      <FormattedMessage id="search.showSources" defaultMessage="Sources" />
+                    </li>
+                  </ul>
+                </div> : null }
 
             </section>
           </div>
@@ -345,7 +379,7 @@ class SearchResultsComponent extends Component {
     super(props);
 
     this.state = {
-      pusherSubscribed: false
+      pusherSubscribed: false,
     };
   }
 
@@ -374,7 +408,7 @@ class SearchResultsComponent extends Component {
         let content = null;
         let message = {};
         const currentUser = that.currentContext().currentUser;
-        const currentUserId =  currentUser ? currentUser.dbid : 0;
+        const currentUserId = currentUser ? currentUser.dbid : 0;
         const avatar = config.restBaseUrl.replace(/\/api.*/, '/images/bridge.png');
 
         try {
@@ -391,8 +425,8 @@ class SearchResultsComponent extends Component {
 
         // Notify other users that there is a new translation request
         if (content && message.class_name === 'translation_request' && currentUserId != message.user_id) {
-          let url = window.location.pathname.replace(/(^\/[^\/]+\/project\/[0-9]+).*/, '$1/media/' + message.id);
-          notify(that.props.intl.formatMessage(messages.newTranslationRequestNotification), content, url, avatar, "_self");
+          const url = window.location.pathname.replace(/(^\/[^\/]+\/project\/[0-9]+).*/, `$1/media/${message.id}`);
+          notify(that.props.intl.formatMessage(messages.newTranslationRequestNotification), content, url, avatar, '_self');
         }
 
         // Notify other users that there is a new translation
@@ -404,8 +438,8 @@ class SearchResultsComponent extends Component {
             }
           });
           if (translated) {
-            let url = window.location.pathname.replace(/(^\/[^\/]+\/project\/[0-9]+).*/, '$1/media/' + message.annotated_id);
-            notify(that.props.intl.formatMessage(messages.newTranslationNotification), that.props.intl.formatMessage(messages.newTranslationNotificationBody), url, avatar, "_self");
+            const url = window.location.pathname.replace(/(^\/[^\/]+\/project\/[0-9]+).*/, `$1/media/${message.annotated_id}`);
+            notify(that.props.intl.formatMessage(messages.newTranslationNotification), that.props.intl.formatMessage(messages.newTranslationNotificationBody), url, avatar, '_self');
           }
         }
 
@@ -430,11 +464,11 @@ class SearchResultsComponent extends Component {
     this.subscribe();
   }
 
-  mergeResults(medias, sources){
+  mergeResults(medias, sources) {
     const query = searchQueryFromUrl();
     const comparisonField = (query.sort !== 'recent_added') ?
-      function(o) { return o.node.updated_at; } :
-      function(o) { return o.node.published; };
+      function (o) { return o.node.updated_at; } :
+      function (o) { return o.node.published; };
 
     const results = sortby(Array.concat(medias, sources), comparisonField);
     return (query.sort_type !== 'ASC') ? results.reverse() : results;
@@ -638,15 +672,14 @@ class Search extends Component {
     const searchQuery = this.props.query || this.props.params.query;
     const teamSlug = this.props.team || this.props.params.team;
 
-    let query = searchQueryFromUrlQuery(searchQuery);
+    const query = searchQueryFromUrlQuery(searchQuery);
     if (!this.noFilters(query)) {
       query.timestamp = new Date().getTime();
     }
     if (this.props.project) {
       query.parent = { type: 'project', id: this.props.project.dbid };
       query.projects = [this.props.project.dbid];
-    }
-    else {
+    } else {
       query.parent = { type: 'team', slug: teamSlug };
     }
 
@@ -707,7 +740,7 @@ export function searchQueryFromUrlQuery(urlQuery) {
 }
 
 export function urlFromSearchQuery(query, prefix) {
-  return isEqual(query, {}) ? prefix : prefix + '/' + encodeURIComponent(JSON.stringify(query));
+  return isEqual(query, {}) ? prefix : `${prefix}/${encodeURIComponent(JSON.stringify(query))}`;
 }
 
 export default injectIntl(Search);
