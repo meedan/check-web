@@ -209,11 +209,7 @@ class Header extends Component {
 
     const elementsTitle = (() => {
       if (showCheckLogo) {
-        return (
-          <Link style={styles.elementsPrimary} to="/check/teams">
-            <img width={units(8)} alt="Team Logo" src={stringHelper('LOGO_URL')} />
-          </Link>
-        );
+        return null;
       }
       return (
         <div style={styles.elementsPrimary}>
@@ -222,13 +218,23 @@ class Header extends Component {
       );
     })();
 
-    const elementsPrimary = (
-      <div style={styles.teamHeader}>
-        {joinPage
-          ? <TeamPublicHeader {...this.props} />
-          : <TeamHeader {...this.props} />}
-      </div>
-    );
+    const elementsPrimary = (() => {
+      if (!showCheckLogo) {
+        return (
+          <div style={styles.teamHeader}>
+            {joinPage
+              ? <TeamPublicHeader {...this.props} />
+              : <TeamHeader {...this.props} />}
+          </div>
+        );
+      } return (
+        <div style={styles.elementsPrimary}>
+          <Link style={styles.elementsPrimary} to="/check/teams">
+            <img width={units(8)} alt="Team Logo" src={stringHelper('LOGO_URL')} />
+          </Link>
+        </div>
+      );
+    })();
 
     return (
       <AppBar
