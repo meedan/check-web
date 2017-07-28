@@ -93,7 +93,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       @driver.switch_to.window(window)
       p.go(@config['self_url'] + '/check/me')
       sleep 10
-      expect(get_element('h2.source-name').text.nil?).to be(false)
+      expect(get_element('.source__name').text.nil?).to be(false)
     end
 
     it "should login using Facebook" do
@@ -119,7 +119,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       login_with_twitter
       p = Page.new(config: @config, driver: @driver)
       p.go(@config['self_url'] + '/check/me')
-      displayed_name = get_element('h2.source-name').text.upcase
+      displayed_name = get_element('.source__name').text.upcase
       expected_name = @config['twitter_name'].upcase
       expect(displayed_name == expected_name).to be(true)
     end
@@ -141,6 +141,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       page = TeamsPage.new(config: @config, driver: @driver).load
           .ask_join_team(subdomain: @t1)
       sleep 3
+
       expect(@driver.find_element(:class, "message").nil?).to be(false)
     end
 
@@ -149,7 +150,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       page = LoginPage.new(config: @config, driver: @driver).load.login_with_email(email: @e1, password: @password)
       page = TeamsPage.new(config: @config, driver: @driver).load
           .approve_join_team(subdomain: @t1)
-      elems = @driver.find_elements(:css => ".team-members__list > li")
+      elems = @driver.find_elements(:css => ".team-members__list > div")
       expect(elems.size).to be > 1
     end
 
@@ -192,6 +193,10 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should create a project for a team " do
       page = LoginPage.new(config: @config, driver: @driver).load
           .login_with_email(email: @e1, password: @password, project: true)
+      page = TeamsPage.new(config: @config, driver: @driver).load
+          .select_team(name: @t2)
+      sleep 3
+      expect(page.team_name).to eq(@t2)
       name = "Project #{Time.now}"
       element = @driver.find_element(:id, "create-project-title")
       sleep 2
@@ -199,7 +204,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       element.send_keys name
       @driver.action.send_keys("\n").perform
       sleep 2
-      expect(get_element('h2.project-header__title').text.nil?).to be(false)
+      expect(get_element('.project-header__title').text.nil?).to be(false)
     end
 
     #Create a new media using a link from:     #Facebook      #YouTube     #Twitter     #  Instagram

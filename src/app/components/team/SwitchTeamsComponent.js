@@ -1,31 +1,25 @@
 import Relay from 'react-relay';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {
-  FormattedMessage,
-  defineMessages,
-  intlShape,
-} from 'react-intl';
-import MdChevronRight from 'react-icons/lib/md/chevron-right';
+import { FormattedMessage, defineMessages, intlShape, injectIntl } from 'react-intl';
+import KeyboardArrowRight from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 import config from 'config';
-import {
-  Card,
-  CardActions,
-  CardHeader,
-} from 'material-ui/Card';
+import { Card, CardActions, CardHeader } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import { List, ListItem } from 'material-ui/List';
 import Avatar from 'material-ui/Avatar';
 import {
   alertRed,
   highlightBlue,
-  avatarStyle,
+  checkBlue,
+  defaultBorderRadius,
+  defaultBorderWidth,
   titleStyle,
-  listItemStyle,
   listStyle,
   listItemButtonStyle,
-} from '../../../../config-styles';
-
+  white,
+  black05,
+} from '../../styles/js/variables';
 import UpdateUserMutation from '../../relay/UpdateUserMutation';
 import DeleteTeamUserMutation from '../../relay/DeleteTeamUserMutation';
 import CheckContext from '../../CheckContext';
@@ -50,7 +44,6 @@ const messages = defineMessages({
 });
 
 class SwitchTeamsComponent extends Component {
-
   setCurrentTeam(team, user) {
     const that = this;
     const context = new CheckContext(this);
@@ -106,14 +99,17 @@ class SwitchTeamsComponent extends Component {
     return `${this.props.intl.formatMessage(messages.joinTeam)}`;
   }
 
-
   render() {
     const currentUser = this.props.me;
-    const currentTeam = this.props.me.current_team;
     const teamUsers = this.props.me.team_users.edges;
     const that = this;
     const otherTeams = [];
     const pendingTeams = [];
+    const teamAvatarStyle = {
+      border: `${defaultBorderWidth} solid ${black05}`,
+      borderRadius: `${defaultBorderRadius}`,
+      backgroundColor: white,
+    };
 
     const teamButton = function teamButton(team) {
       if (team.status === 'requested') {
@@ -123,19 +119,13 @@ class SwitchTeamsComponent extends Component {
             hoverColor={alertRed}
             onClick={that.cancelRequest.bind(this, team)}
           >
-            <FormattedMessage
-              id="switchTeams.cancelJoinRequest"
-              defaultMessage="Cancel"
-            />
+            <FormattedMessage id="switchTeams.cancelJoinRequest" defaultMessage="Cancel" />
           </FlatButton>
         );
       } else if (team.status === 'banned') {
         return (
           <FlatButton style={listItemButtonStyle} disabled>
-            <FormattedMessage
-              id="switchTeams.bannedJoinRequest"
-              defaultMessage="Cancelled"
-            />
+            <FormattedMessage id="switchTeams.bannedJoinRequest" defaultMessage="Cancelled" />
           </FlatButton>
         );
       }
@@ -144,17 +134,13 @@ class SwitchTeamsComponent extends Component {
 
     teamUsers.map((teamUser) => {
       const team = teamUser.node.team;
-      if (team.dbid !== currentTeam.dbid) {
-        const status = teamUser.node.status;
-        if (status === 'requested' || status === 'banned') {
-          team.status = status;
-          team.teamUser_id = teamUser.node.id;
-          pendingTeams.push(team);
-        } else {
-          otherTeams.push(team);
-        }
+      const status = teamUser.node.status;
+      if (status === 'requested' || status === 'banned') {
+        team.status = status;
+        team.teamUser_id = teamUser.node.id;
+        return pendingTeams.push(team);
       }
-      return null;
+      return otherTeams.push(team);
     });
 
     const buildUrl = function buildUrl(team) {
@@ -165,45 +151,20 @@ class SwitchTeamsComponent extends Component {
       <Card>
         <CardHeader
           titleStyle={titleStyle}
-          title={
-            <FormattedMessage
-              id="teams.yourTeams"
-              defaultMessage="Your Teams"
-            />
-          }
+          title={<FormattedMessage id="teams.yourTeams" defaultMessage="Your Teams" />}
         />
         <List className="teams" style={listStyle}>
-          {(() => {
-            if (currentTeam) {
-              return (
-                <ListItem
-                  style={listItemStyle}
-                  hoverColor={highlightBlue}
-                  href={buildUrl(currentTeam)}
-                  leftAvatar={
-                    <Avatar style={avatarStyle} src={currentTeam.avatar} />
-                  }
-                  primaryText={currentTeam.name}
-                  rightIcon={<MdChevronRight />}
-                  secondaryText={that.membersCountString(
-                    currentTeam.members_count,
-                  )}
-                />
-              );
-            }
-            return '';
-          })()}
-
           {otherTeams.map((team, index) =>
             <ListItem
               key={index}
-              style={listItemStyle}
               hoverColor={highlightBlue}
+              focusRippleColor={checkBlue}
+              touchRippleColor={checkBlue}
               href={buildUrl(team)}
-              leftAvatar={<Avatar style={avatarStyle} src={team.avatar} />}
+              leftAvatar={<Avatar style={teamAvatarStyle} src={team.avatar} />}
               onClick={that.setCurrentTeam.bind(that, team, currentUser)}
               primaryText={team.name}
-              rightIcon={<MdChevronRight />}
+              rightIcon={<KeyboardArrowRight />}
               secondaryText={that.membersCountString(team.members_count)}
             />,
           )}
@@ -211,11 +172,11 @@ class SwitchTeamsComponent extends Component {
           {pendingTeams.map((team, index) =>
             <ListItem
               key={index}
-              style={listItemStyle}
               hoverColor={highlightBlue}
-              rippleColor={highlightBlue}
+              focusRippleColor={checkBlue}
+              touchRippleColor={checkBlue}
               href={buildUrl(team)}
-              leftAvatar={<Avatar style={avatarStyle} src={team.avatar} />}
+              leftAvatar={<Avatar style={teamAvatarStyle} src={team.avatar} />}
               primaryText={team.name}
               rightIconButton={teamButton(team)}
               secondaryText={that.requestedToJoinString()}
@@ -224,10 +185,7 @@ class SwitchTeamsComponent extends Component {
         </List>
         <CardActions>
           <FlatButton href="/check/teams/new">
-            <FormattedMessage
-              id="switchTeams.newTeamLink"
-              defaultMessage="+ New team"
-            />
+            <FormattedMessage id="switchTeams.newTeamLink" defaultMessage="+ New team" />
           </FlatButton>
         </CardActions>
       </Card>
@@ -244,4 +202,4 @@ SwitchTeamsComponent.contextTypes = {
   store: React.PropTypes.object,
 };
 
-export default SwitchTeamsComponent;
+export default injectIntl(SwitchTeamsComponent);

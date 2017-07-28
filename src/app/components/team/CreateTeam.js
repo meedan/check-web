@@ -1,21 +1,28 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import Relay from 'react-relay';
-import PageTitle from '../PageTitle';
-import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
-import CreateTeamMutation from '../../relay/CreateTeamMutation';
-import base64 from 'base-64';
-import Message from '../Message';
-import { Link } from 'react-router';
-import config from 'config';
-import ContentColumn from '../layout/ContentColumn';
-import CheckContext from '../../CheckContext';
-import Heading from '../layout/Heading';
-import {caption, subheading2, checkBlue, black38, black87} from '../../../../config-styles';
 import XRegExp from 'xregexp';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
-import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
+import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
 import styled from 'styled-components';
+import {
+  FormattedMessage,
+  defineMessages,
+  injectIntl,
+  intlShape,
+} from 'react-intl';
+import config from 'config';
+import PageTitle from '../PageTitle';
+import CreateTeamMutation from '../../relay/CreateTeamMutation';
+import Message from '../Message';
+import ContentColumn from '../layout/ContentColumn';
+import CheckContext from '../../CheckContext';
+import {
+  caption,
+  subheading2,
+  checkBlue,
+  black38,
+} from '../../styles/js/variables';
 
 const TeamUrlRow = styled.div`
   align-items: flex-end;
@@ -80,8 +87,12 @@ class CreateTeam extends Component {
       slugMessage: '',
       buttonIsDisabled: true,
       displayName: '',
-      slugName: ''
+      slugName: '',
     };
+  }
+
+  componentDidMount() {
+    this.teamNameInput.focus();
   }
 
   getContext() {
@@ -91,43 +102,54 @@ class CreateTeam extends Component {
 
   displayNameLabelClass(suffix) {
     const defaultClass = 'create-team__team-display-name-label';
-    return suffix ? [defaultClass, defaultClass + suffix].join(' ') : defaultClass;
+    return suffix
+      ? [defaultClass, defaultClass + suffix].join(' ')
+      : defaultClass;
   }
 
   slugClass(suffix) {
     const defaultClass = 'create-team__team-slug';
-    return suffix ? [defaultClass, defaultClass + suffix].join(' ') : defaultClass;
+    return suffix
+      ? [defaultClass, defaultClass + suffix].join(' ')
+      : defaultClass;
   }
 
   slugLabelClass(suffix) {
     const defaultClass = 'create-team__team-slug-label';
-    return suffix ? [defaultClass, defaultClass + suffix].join(' ') : defaultClass;
+    return suffix
+      ? [defaultClass, defaultClass + suffix].join(' ')
+      : defaultClass;
   }
 
   handleDisplayNameChange(e) {
     const isTextEntered = e.target.value && e.target.value.length > 0;
-    const newClass = isTextEntered ? this.displayNameLabelClass('--text-entered') : this.displayNameLabelClass();
-    this.setState({ displayNameLabelClass: newClass, displayName: e.target.value });
+    const newClass = isTextEntered
+      ? this.displayNameLabelClass('--text-entered')
+      : this.displayNameLabelClass();
+    this.setState({
+      displayNameLabelClass: newClass,
+      displayName: e.target.value,
+    });
   }
 
   handleDisplayNameBlur(e) {
-    const slugSuggestion = slugify(e.target.value);
-    if (!this.state.slugName && slugSuggestion.length) {
-      this.setState({ slugName: slugSuggestion });
-    }
-
     function slugify(text) {
       const regex = XRegExp('[^\\p{L}\\p{N}]+', 'g');
       return XRegExp.replace(text.toString().toLowerCase().trim(), regex, '-');
+    }
+
+    const slugSuggestion = slugify(e.target.value);
+
+    if (!this.state.slugName && slugSuggestion.length) {
+      this.setState({ slugName: slugSuggestion });
     }
   }
 
   handleSlugChange(e) {
     const slug = e.target.value;
-    const isTextEntered = slug && slug.length > 0;
 
     this.setState({
-      slugName: slug
+      slugName: slug,
     });
   }
 
@@ -142,7 +164,7 @@ class CreateTeam extends Component {
         if (json.error) {
           message = json.error;
         }
-      } catch (e) { }
+      } catch (e) {}
       this.setState({ message });
     };
 
@@ -154,31 +176,41 @@ class CreateTeam extends Component {
     };
 
     Relay.Store.commitUpdate(
-       new CreateTeamMutation({
-         name: this.state.displayName,
-         slug: this.state.slugName,
-         description: '',
-       }),
+      new CreateTeamMutation({
+        name: this.state.displayName,
+        slug: this.state.slugName,
+        description: '',
+      }),
       { onSuccess, onFailure },
     );
   }
 
-  componentDidMount() {
-    this.teamNameInput.focus();
-  }
 
   render() {
     return (
-      <PageTitle prefix={this.props.intl.formatMessage(messages.title)} skipTeam={true}>
+      <PageTitle
+        prefix={this.props.intl.formatMessage(messages.title)}
+        skipTeam
+      >
 
         <main className="create-team">
           <ContentColumn narrow>
-          <Message message={this.state.message} />
+            <Message message={this.state.message} />
             <Card>
               <CardHeader
-                titleStyle={{fontSize: "20px", lineHeight: "32px"}}
-                title={<FormattedMessage id="createTeam.mainHeading" defaultMessage="Create a Team" />}
-                subtitle={<FormattedMessage id="createTeam.blurb" defaultMessage="Create a team for your organization, or just for yourself:" />}
+                titleStyle={{ fontSize: '20px', lineHeight: '32px' }}
+                title={
+                  <FormattedMessage
+                    id="createTeam.mainHeading"
+                    defaultMessage="Create a Team"
+                  />
+                }
+                subtitle={
+                  <FormattedMessage
+                    id="createTeam.blurb"
+                    defaultMessage="Create a team for your organization, or just for yourself:"
+                  />
+                }
               />
               <form className="create-team__form">
                 <CardText>
@@ -192,16 +224,24 @@ class CreateTeam extends Component {
                       onChange={this.handleDisplayNameChange.bind(this)}
                       onBlur={this.handleDisplayNameBlur.bind(this)}
                       autoComplete="off"
-                      ref={input => this.teamNameInput = input}
-                      floatingLabelText={<FormattedMessage id="createTeam.displayName" defaultMessage="Team Name" />}
+                      ref={input => (this.teamNameInput = input)}
+                      floatingLabelText={
+                        <FormattedMessage
+                          id="createTeam.displayName"
+                          defaultMessage="Team Name"
+                        />
+                      }
                       fullWidth
                     />
                   </div>
 
                   <TeamUrlRow>
                     <TeamUrlColumn>
-                      <label>
-                        <FormattedMessage id="createTeam.url" defaultMessage="Team URL" />
+                      <label htmlFor="team-slug-container">
+                        <FormattedMessage
+                          id="createTeam.url"
+                          defaultMessage="Team URL"
+                        />
                       </label>
                       <TeamUrlDomain>
                         {config.selfHost}/
@@ -214,7 +254,9 @@ class CreateTeam extends Component {
                       id="team-slug-container"
                       className="create-team__team-slug-input"
                       onChange={this.handleSlugChange.bind(this)}
-                      defaultValue={this.props.intl.formatMessage(messages.teamSlugHint)}
+                      hintText={this.props.intl.formatMessage(
+                        messages.teamSlugHint,
+                      )}
                       autoComplete="off"
                       fullWidth
                     />
@@ -224,7 +266,12 @@ class CreateTeam extends Component {
                   <RaisedButton
                     type="submit"
                     className="create-team__submit-button"
-                    label={<FormattedMessage id="createTeam.submitButton" defaultMessage="Create" />}
+                    label={
+                      <FormattedMessage
+                        id="createTeam.submitButton"
+                        defaultMessage="Create"
+                      />
+                    }
                     primary
                     onClick={this.handleSubmit.bind(this)}
                   />

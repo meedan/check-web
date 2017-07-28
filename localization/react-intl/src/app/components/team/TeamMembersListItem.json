@@ -1,0 +1,30 @@
+[
+  {
+    "id": "TeamMembersListItem.contributor",
+    "defaultMessage": "Contributor"
+  },
+  {
+    "id": "TeamMembersListItem.journalist",
+    "defaultMessage": "Journalist"
+  },
+  {
+    "id": "TeamMembersListItem.editor",
+    "defaultMessage": "Editor"
+  },
+  {
+    "id": "TeamMembersListItem.owner",
+    "defaultMessage": "Owner"
+  },
+  {
+    "id": "TeamMembershipRequestsListItem.approve",
+    "defaultMessage": "Approve"
+  },
+  {
+    "id": "TeamMembershipRequestsListItem.deny",
+    "defaultMessage": "Ignore"
+  },
+  {
+    "id": "TeamMembersListItem.deleteMember",
+    "defaultMessage": "Delete Member"
+  }
+]

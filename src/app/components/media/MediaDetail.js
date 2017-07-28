@@ -16,6 +16,7 @@ import Tags from '../source/Tags';
 import DefaultButton from '../inputs/DefaultButton';
 import PenderCard from '../PenderCard';
 import TimeBefore from '../TimeBefore';
+import ProfileLink from '../layout/ProfileLink';
 import ImageMediaCard from './ImageMediaCard';
 import UpdateProjectMediaMutation from '../../relay/UpdateProjectMediaMutation';
 import CheckContext from '../../CheckContext';
@@ -193,16 +194,6 @@ class MediaDetail extends Component {
     return projects.filter(p => (p.node.dbid !== projectId));
   }
 
-  profileLink(user){
-    let url = user.email ? 'mailto:' + user.email : '';
-
-    if (user && user.source && user.source.accounts && user.source.accounts.edges && user.source.accounts.edges.length > 0){
-      url = user.source.accounts.edges[0].node.url;
-    }
-
-    return url ? <a target="_blank" rel="noopener noreferrer" href={url}>{user.name}</a> : user.name;
-  }
-
   render() {
     const { media, annotated, annotatedType, condensed } = this.props;
     const data = JSON.parse(media.embed);
@@ -222,7 +213,7 @@ class MediaDetail extends Component {
     const destinationProjects = this.destinationProjects();
 
     const byUser = (media.user && media.user.source && media.user.source.dbid && media.user.name !== 'Pender') ?
-      (<FormattedMessage id="mediaDetail.byUser" defaultMessage={'by {username}'} values={{ username: this.profileLink(media.user) }} />) : '';
+      (<FormattedMessage id="mediaDetail.byUser" defaultMessage={'by {username}'} values={{ username: <ProfileLink user={media.user} /> }} />) : '';
 
     let embedCard = null;
     media.url = media.media.url;
@@ -293,7 +284,7 @@ class MediaDetail extends Component {
               <FormattedMessage id="mediaDetail.dialogMediaPath" defaultMessage={'Currently filed under {teamName} > {projectTitle}'} values={{ teamName: context.team.name, projectTitle: currentProject.node.title }} />
             </small>
             <RadioButtonGroup name="moveMedia" className="media-detail__dialog-radio-group" onChange={this.handleSelectDestProject.bind(this)}>
-              {destinationProjects.map(proj => (<RadioButton label={proj.node.title} value={proj.node} style={{ padding: '5px' }} />))}
+              {destinationProjects.map(proj => (<RadioButton key={proj.node.dbid} label={proj.node.title} value={proj.node} style={{ padding: '5px' }} />))}
             </RadioButtonGroup>
           </Dialog>
         </div>

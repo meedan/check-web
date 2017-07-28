@@ -5,7 +5,7 @@ $layout-sizes: (
   gutter-small: units(2),
   gutter-medium: units(3),
   gutter-large: units(7),
-  header-height: units(7),
+  header-height: units(8),
   viewport-height-min: units(84),
   column-width-small: units(56),
   column-width-medium: units(85),
@@ -56,6 +56,25 @@ $breakpoints: (
   }
 }
 
+@mixin layout-full-height-with-sticky-footer($sticky-selector: ".annotations") {
+  // Full height layout with optional sticky footers
+  //
+  // Goal: The annotation input to should stick to the bottom on the media page and the annotations tab of source pages.
+  // Dependency: `layout(header-height)` and `layout(gutter-medium)` must define the height of the header in home.scss
+  //
+  // 1. Set up the flex container
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  min-height: calc(100vh - #{layout(header-height) + layout(gutter-medium)});
+  z-index: 0;
+
+  // 2. Now an immediate child can now be positioned to the bottom of this flex container
+  & > #{$sticky-selector} {
+    margin-top: auto;
+  }
+}
+
 // Layout default settings
 //
 *,
@@ -68,22 +87,3 @@ body {
   margin: 0;
 }
 
-// Layout utility
-//
-// Two columns with flex.
-// Override column width as needed.
-.layout-two-column {
-  display: flex;
-  .column-secondary {
-    flex: 0;
-  }
-  .column-primary {
-    flex: 3;
-  }
-}
-
-// Contains a fab,
-// so it can be positioned absolutely without affecting positioning context of parents
-.layout-fab-container {
-  position: relative;
-}

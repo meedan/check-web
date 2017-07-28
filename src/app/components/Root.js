@@ -13,36 +13,36 @@ import {
   RootLocale,
   IndexComponent,
   NotFound,
-  CreateAccount,
   AccessDenied,
   UserAlreadyConfirmed,
   UserConfirmed,
   UserUnconfirmed,
   UserPasswordChange,
   UserPasswordReset,
-  LoginEmailPage
+  LoginEmailPage,
 } from '../components';
 import {
   Sources,
   Source,
   User,
-  Me
+  Me,
 } from '../components/source';
 import {
   Team,
   TeamMembers,
   CreateTeam,
   JoinTeam,
-  Teams
+  Teams,
 } from '../components/team';
 import {
   CreateProjectMedia,
-  ProjectMedia
+  ProjectMedia,
+  MediaEmbed,
 } from '../components/media';
 import {
   Project,
   ProjectHeader,
-  ProjectEdit
+  ProjectEdit,
 } from '../components/project';
 import Search from '../components/Search';
 import CheckContext from '../CheckContext';
@@ -66,10 +66,10 @@ if (!global.Intl) {
 
 try {
   const localeData = {
-    'en': en,
-    'fr': fr,
-    'ar': ar,
-    'pt': pt
+    en,
+    fr,
+    ar,
+    pt,
   };
   addLocaleData([...localeData[locale]]);
 } catch (e) {
@@ -144,9 +144,6 @@ export default class Root extends Component {
                 <Route path="check/forbidden" component={AccessDenied} public />
                 <Route path="check/404" component={NotFound} public />
 
-                <Route path="check/sources" component={Sources} />
-                <Route path="check/sources/new" component={CreateAccount} />
-                <Route path="check/source/:sourceId" component={Source} />
                 <Route path="check/user/:userId" component={User} />
                 <Route path="check/me" component={Me} />
                 <Route path="check/teams/new" component={CreateTeam} />
@@ -154,6 +151,8 @@ export default class Root extends Component {
 
                 <Route path=":team/medias/new" component={CreateProjectMedia} />
                 <Route path=":team/project/:projectId/media/:mediaId" component={ProjectMedia} public />
+                <Route path=":team/project/:projectId/media/:mediaId/embed" component={MediaEmbed} public />
+                <Route path=":team/project/:projectId/source/:sourceId" component={Source} public />
                 <Route path=":team/join" component={JoinTeam} />
                 <Route path=":team/members" component={TeamMembers} />
                 <Route path=":team/project/:projectId/edit" component={ProjectEdit} />

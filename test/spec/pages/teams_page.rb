@@ -20,7 +20,7 @@ class TeamsPage < Page
     subdomain = options[:subdomain]
     @driver.navigate.to @config['self_url'] + "/"+subdomain+"/join"
     sleep 2 # TODO: better soft keyboard strategies
-    click_button('.join-team__button')
+    click_button('.join-team__button button')
     sleep 2 # TODO: better soft keyboard strategies
   end
 
@@ -28,7 +28,7 @@ class TeamsPage < Page
     subdomain = options[:subdomain]
     @driver.navigate.to @config['self_url'] + '/'+subdomain+'/members'
     sleep 2 # TODO: better soft keyboard strategies
-    click_button('.team-member-requests__user-button--approve')
+    click_button('.team-member-requests__user-button--approve button')
     sleep 2 # TODO: better soft keyboard strategies
   end
 

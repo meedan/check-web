@@ -16,12 +16,16 @@
     "defaultMessage": "Join Team"
   },
   {
+    "id": "joinTeamComponent.mainHeading",
+    "defaultMessage": "Request to Join"
+  },
+  {
     "id": "joinTeamComponent.alreadyRequested",
     "defaultMessage": "You already requested to join {team} {appName}."
   },
   {
-    "id": "joinTeamComponent.mainHeading",
-    "defaultMessage": "Request to Join"
+    "id": "joinTeamComponent.requestHasBeenSent",
+    "defaultMessage": "Your request has been sent to the project admins for approval."
   },
   {
     "id": "joinTeamComponent.blurbGraf",
@@ -32,23 +36,7 @@
     "defaultMessage": "Request Sent"
   },
   {
-    "id": "joinTeamComponent.buttonApproved",
-    "defaultMessage": "Request Approved"
-  },
-  {
     "id": "joinTeamComponent.buttonSubmit",
     "defaultMessage": "Request to Join"
-  },
-  {
-    "id": "joinTeamComponent.requestHasBeenSent",
-    "defaultMessage": "Your request has been sent to the project admins for approval."
-  },
-  {
-    "id": "joinTeamComponent.requestHasBeenApproved",
-    "defaultMessage": "Your request has been approved."
-  },
-  {
-    "id": "joinTeamComponent.requestWillBeSent",
-    "defaultMessage": "Your request will be sent to the project admins for approval."
   }
 ]

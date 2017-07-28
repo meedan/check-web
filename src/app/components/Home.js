@@ -4,6 +4,7 @@ import Favicon from 'react-favicon';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import rtlDetect from 'rtl-detect';
+import merge from 'lodash.merge';
 import config from 'config';
 import Header from './Header';
 import FooterRelay from '../relay/FooterRelay';
@@ -12,7 +13,7 @@ import BrowserSupport from './BrowserSupport';
 import CheckContext from '../CheckContext';
 import { bemClass } from '../helpers';
 import ContentColumn from './layout/ContentColumn';
-import { checkBlue } from '../../../config-styles';
+import { muiThemeWithoutRtl } from '../styles/js/variables';
 
 const messages = defineMessages({
   needRegister: {
@@ -67,26 +68,16 @@ class Home extends Component {
     if (/\/media\/:mediaId/.test(children.props.route.path)) {
       return 'media'; // TODO: other pages as needed
     }
+    if (/\/source\/:sourceId/.test(children.props.route.path)) {
+      return 'source'; // TODO: other pages as needed
+    }
     return null;
   }
 
   render() {
     const { children } = this.props;
     const routeSlug = this.routeSlug(children);
-    const muiTheme = getMuiTheme({
-      palette: {
-        primary1Color: checkBlue,
-        primary2Color: checkBlue,
-        primary3Color: checkBlue,
-        accent1Color: checkBlue,
-        accent2Color: checkBlue,
-        accent3Color: checkBlue,
-        ripple: {
-          color: checkBlue,
-        },
-      },
-      isRtl: rtlDetect.isRtlLang(this.props.intl.locale),
-    });
+    const muiThemeWithRtl = getMuiTheme(merge(muiThemeWithoutRtl, { isRtl: rtlDetect.isRtlLang(this.props.intl.locale) }));
 
     if (!this.state.sessionStarted) {
       return null;
@@ -114,7 +105,7 @@ class Home extends Component {
     }
 
     return (
-      <MuiThemeProvider muiTheme={muiTheme}>
+      <MuiThemeProvider muiTheme={muiThemeWithRtl}>
         <span>
           <Favicon url={`/images/logo/${config.appName}.ico`} animated={false} />
           <BrowserSupport />

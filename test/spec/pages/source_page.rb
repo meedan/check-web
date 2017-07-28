@@ -10,14 +10,14 @@ class SourcePage < Page
   end
 
   def url
-    @config['self_url'] + "/check/source/#{@id}"
+    @config['self_url'] + "/check/user/#{@id}"
   end
 
   def title
-    element('h2.source-name').text
+    element('.source__name').text
   end
 
   def avatar
-    element('.source-avatar')
+    element('.source__avatar')
   end
 end

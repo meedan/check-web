@@ -1,0 +1,42 @@
+[
+  {
+    "id": "addAnnotation.invalidCommand",
+    "defaultMessage": "Invalid command"
+  },
+  {
+    "id": "addAnnotation.annotationAdded",
+    "defaultMessage": "Your {type} was added!"
+  },
+  {
+    "id": "addAnnotation.createTagFailed",
+    "defaultMessage": "Sorry, could not create the tag"
+  },
+  {
+    "id": "addAnnotation.inputHint",
+    "defaultMessage": "Add a note about this"
+  },
+  {
+    "id": "addAnnotation.submitButton",
+    "defaultMessage": "Submit"
+  },
+  {
+    "id": "addAnnotation.typeComment",
+    "defaultMessage": "comment"
+  },
+  {
+    "id": "addAnnotation.typeTag",
+    "defaultMessage": "tag"
+  },
+  {
+    "id": "addAnnotation.typeStatus",
+    "defaultMessage": "status"
+  },
+  {
+    "id": "addAnnotation.typeFlag",
+    "defaultMessage": "flag"
+  },
+  {
+    "id": "addAnnotation.addImage",
+    "defaultMessage": "Add an image"
+  }
+]

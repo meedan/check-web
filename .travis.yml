@@ -11,7 +11,7 @@ addons:
   postgresql: "9.4"
 before_install:
 # decrypt configs
-- openssl aes-256-cbc -K $encrypted_6fe2dd6b9fe7_key -iv $encrypted_6fe2dd6b9fe7_iv -in travis.zip.enc -out travis.zip -d
+- openssl aes-256-cbc -K $encrypted_bae357cf8888_key -iv $encrypted_bae357cf8888_iv -in travis.zip.enc -out travis.zip -d
 - unzip travis.zip
 # apt dependencies
 - sudo apt-get -qq update
@@ -20,7 +20,7 @@ before_install:
 - rvm --default use 2.3.1
 # check api
 - psql -c 'create database checkapi;' -U postgres
-- redis-server &
+- redis-server 2>&1 >/dev/null &
 - wget https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-2.4.1.deb && sudo dpkg -i --force-confnew elasticsearch-2.4.1.deb && sudo service elasticsearch restart
 - sleep 15
 - 'echo "script.engine.groovy.inline.update: on" | sudo tee -a /etc/elasticsearch/elasticsearch.yml'
@@ -33,6 +33,7 @@ before_install:
 - cd check-api
 - bundle install
 - bundle exec rake db:migrate RAILS_ENV=test
+- bundle exec rake lapis:api_keys:create_default RAILS_ENV=test
 - rails s -e test -p 3000 >/dev/null &
 - cd -
 - export RAILS_ENV=development
@@ -41,6 +42,7 @@ before_install:
 - cp travis/pender.yml pender/config/config.yml
 - cp pender/config/initializers/secret_token.rb.example pender/config/initializers/secret_token.rb
 - cp pender/config/database.yml.travis pender/config/database.yml
+- cp pender/config/sidekiq.yml.example pender/config/sidekiq.yml
 - cd pender
 - bundle install
 - bundle exec rake db:migrate
@@ -66,6 +68,7 @@ before_install:
 - cd test && bundle install && cd -
 # config files
 - cp travis/config-build.js config-build.js
+- cp travis/config-server.js config-server.js
 - cp travis/config.js config.js
 - cp travis/config.js test/config.js
 - cp travis/config.yml test/config.yml

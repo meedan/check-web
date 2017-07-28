@@ -1,0 +1,18 @@
+[
+  {
+    "id": "sourceCard.header",
+    "defaultMessage": "Check Source"
+  },
+  {
+    "id": "bridge.sourceCard.header",
+    "defaultMessage": "Bridge Source"
+  },
+  {
+    "id": "mediaDetail.byUser",
+    "defaultMessage": "by {username}"
+  },
+  {
+    "id": "mediaDetail.added",
+    "defaultMessage": "Added {byUser}"
+  }
+]

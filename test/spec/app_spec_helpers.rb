@@ -224,4 +224,20 @@ module AppSpecHelpers
     uploaded = client.upload(image)
     uploaded.link
   end
+
+  def create_source(name, url)
+    login_with_email
+    @driver.navigate.to @config['self_url']
+    sleep 15
+    @driver.find_element(:css, '#create-media__source').click
+    sleep 1
+    fill_field('#create-media-source-name-input', name)
+    fill_field('#create-media-source-url-input', url)
+    sleep 1
+    press_button('#create-media-submit')
+    sleep 15
+    expect(@driver.current_url.to_s.match(/\/source\/[0-9]+$/).nil?).to be(false)
+    title = get_element('.source__name').text
+    expect(title == name).to be(true)
+  end
 end

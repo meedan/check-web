@@ -2,11 +2,8 @@
 // Ensure report input sticks to the bottom on tall screens.
 //
 
-// Calculate top offset to achieve full height layout
-$media-expanded-top-offset: layout(header-height) + layout(gutter-medium);
-
 .media {
-
+  @include layout-full-height-with-sticky-footer;
   // 2-column view on desktop, if there are tasks
   //
   @include when-larger-than(widescreen-breakpoint) {
@@ -44,17 +41,13 @@ $media-expanded-top-offset: layout(header-height) + layout(gutter-medium);
       }
     }
   }
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  min-height: calc(100vh - #{$media-expanded-top-offset});
 
   &__expanded {
     // slide under header
     @include media-status-background-colors;
-    margin-top: $media-expanded-top-offset * -1;
+    margin-top: -#{layout(header-height) + layout(gutter-medium)};
     padding-bottom: units(6);
-    padding-top: $media-expanded-top-offset;
+    padding-top: layout(header-height) + layout(gutter-medium);
     transition: background-color $transition-speed-slow ease;
   }
 
@@ -66,7 +59,6 @@ $media-expanded-top-offset: layout(header-height) + layout(gutter-medium);
   }
 
   &__expanded-column-wrapper {
-
     @include when-taller-than(tallscreen-breakpoint) {
       justify-content: space-around;
     }

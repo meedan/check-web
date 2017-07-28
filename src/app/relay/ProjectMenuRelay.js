@@ -1,18 +1,13 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay';
+import MenuItem from 'material-ui/MenuItem';
 import ProjectRoute from './ProjectRoute';
 import Can from '../components/Can';
 import CheckContext from '../CheckContext';
-import { bemClass } from '../helpers';
 
 class ProjectMenu extends Component {
   handleEditClick() {
-    const overlay = document.querySelector('.header-actions__menu-overlay--active');
-    if (overlay) {
-      overlay.click(); // TODO: better way to clear overlay e.g. passing fn from HeaderActions
-    }
-
     const history = new CheckContext(this).getContextStore().history;
     const editPath = `${window.location.pathname.match(/.*\/project\/\d+/)[0]}/edit`;
     history.push(editPath);
@@ -23,9 +18,14 @@ class ProjectMenu extends Component {
 
     return (
       <Can permissions={project.permissions} permission="update Project">
-        <li key="projectMenuRelay.editProject" className="project-menu header-actions__menu-item" onClick={this.handleEditClick.bind(this)}>
-          <FormattedMessage id="projectMenuRelay.editProject" defaultMessage="Edit project" />
-        </li>
+        <MenuItem
+          key="projectMenuRelay.editProject"
+          className="project-menu"
+          onClick={this.handleEditClick.bind(this)}
+          primaryText={
+            <FormattedMessage id="projectMenuRelay.editProject" defaultMessage="Edit project" />
+          }
+        />
       </Can>
     );
   }
@@ -61,7 +61,7 @@ class ProjectMenuRelay extends Component {
   render() {
     if (this.props.params && this.props.params.projectId) {
       const route = new ProjectRoute({ contextId: this.props.params.projectId });
-      return (<Relay.RootContainer Component={ProjectMenuContainer} route={route} />);
+      return <Relay.RootContainer Component={ProjectMenuContainer} route={route} />;
     }
     return null;
   }

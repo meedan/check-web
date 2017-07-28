@@ -1,21 +1,14 @@
-import React, { Component, PropTypes } from 'react';
-import { bemClass } from '../../helpers';
+import styled from 'styled-components';
+import { columnWidthSmall, columnWidthMedium, columnWidthWide, units } from '../../styles/js/variables';
 
-class ContentColumn extends Component {
-  render() {
-    const { flex, wide, narrow } = this.props;
-    const classNames =
-        bemClass('content-column', narrow, '--narrow',) + ' ' +
-        bemClass('content-column', flex, '--flex',) + ' ' +
-        bemClass('content-column', wide, '--wide',) + ' ' +
-        (this.props.className || '');
-
-    return (
-      <div className={classNames}>
-        {this.props.children}
-      </div>
-    );
-  }
-}
+const ContentColumn = styled.div`
+  margin: 0 auto;
+  padding: 0 ${props => props.noPadding ? '0' : units(1)};
+  width: 100%;
+  max-width: ${columnWidthMedium};
+  ${props => props.narrow ? `max-width: ${columnWidthSmall}` : ''}
+  ${props => props.wide ? `max-width: ${columnWidthWide}` : ''}
+  ${props => props.flex ? 'display: flex; flex-direction: column;' : ''}
+`;
 
 export default ContentColumn;

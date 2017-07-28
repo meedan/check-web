@@ -1,0 +1,114 @@
+[
+  {
+    "id": "annotation.error",
+    "defaultMessage": "Could not delete annotation"
+  },
+  {
+    "id": "annotation.deleteButton",
+    "defaultMessage": "Delete"
+  },
+  {
+    "id": "annotation.reverseImage",
+    "defaultMessage": "This item contains at least one image. Click Search to look for potential duplicates on Google."
+  },
+  {
+    "id": "annotation.reverseImageFacebook",
+    "defaultMessage": "This item contains at least one image. Consider a reverse image search."
+  },
+  {
+    "id": "annotation.and",
+    "defaultMessage": "and"
+  },
+  {
+    "id": "annotation.newClaim",
+    "defaultMessage": "New claim added by {author}"
+  },
+  {
+    "id": "annotation.statusSetHeader",
+    "defaultMessage": "Status set to {status} by {author}"
+  },
+  {
+    "id": "annotation.taggedHeader",
+    "defaultMessage": "Tagged #{tag} by {author}"
+  },
+  {
+    "id": "annotation.taskCreated",
+    "defaultMessage": "Task \"{task}\" created by {author}"
+  },
+  {
+    "id": "annotation.taskResolve",
+    "defaultMessage": "Task \"{task}\" answered by {author}: \"{response}\""
+  },
+  {
+    "id": "annotation.reverseImageSearch",
+    "defaultMessage": "Search"
+  },
+  {
+    "id": "annotation.translation",
+    "defaultMessage": "Translated to {language} by {author}: \"{translation}\""
+  },
+  {
+    "id": "annotation.emptyMachineTranslation",
+    "defaultMessage": "Add machine translation"
+  },
+  {
+    "id": "annotation.machineTranslation",
+    "defaultMessage": "Machine translation for \"{lang}\" is: {text}"
+  },
+  {
+    "id": "annotation.translationStatus",
+    "defaultMessage": "Translation status set to {status} by {author}"
+  },
+  {
+    "id": "annotation.translationPublished",
+    "defaultMessage": "Translation published to {link}"
+  },
+  {
+    "id": "annotation.keepRetried",
+    "defaultMessage": "There is a new attempt to archive this item in Keep. Please check back in an hour."
+  },
+  {
+    "id": "annotation.keepSuccess",
+    "defaultMessage": "In case this link goes offline, you can <a href=\"{keepLink}\" target=\"_blank\" rel=\"noopener noreferrer\">access a backup via Keep</a>"
+  },
+  {
+    "id": "annotation.keepError",
+    "defaultMessage": "There was an error when Keep tried to archive this item"
+  },
+  {
+    "id": "annotation.keepRetry",
+    "defaultMessage": "Retry"
+  },
+  {
+    "id": "annotation.keepWait",
+    "defaultMessage": "This item is being archived in Keep. Come back in an hour to receive a confirmation link."
+  },
+  {
+    "id": "annotation.flaggedHeader",
+    "defaultMessage": "Flagged as {flag} by {author}"
+  },
+  {
+    "id": "annotation.newReport",
+    "defaultMessage": "New {reportType} added by {author}"
+  },
+  {
+    "id": "annotation.titleChanged",
+    "defaultMessage": "Title changed to {title} by {author}"
+  },
+  {
+    "id": "annotation.projectMoved",
+    "defaultMessage": "Moved from project {previousProject} to {currentProject} by {author}"
+  },
+  {
+    "id": "annotation.taskLabelUpdated",
+    "defaultMessage": "Task \"{from}\" edited to \"{to}\" by {author}"
+  },
+  {
+    "id": "annotation.taskNoteUpdated",
+    "defaultMessage": "Task \"{title}\" has note edited from \"{from}\" to \"{to}\" by {author}"
+  },
+  {
+    "id": "annotation.taskNoteCreated",
+    "defaultMessage": "Task \"{title}\" has new note \"{note}\" by {author}"
+  }
+]

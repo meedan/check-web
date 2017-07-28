@@ -23,6 +23,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     @email = "sysops+#{Time.now.to_i}#{Process.pid}@meedan.com"
     @password = '12345678'
+    @source_name = 'Iron Maiden'
     @source_url = 'https://twitter.com/ironmaiden?timestamp=' + Time.now.to_i.to_s
     @media_url = 'https://twitter.com/meedan/status/773947372527288320/?t=' + Time.now.to_i.to_s
     @config = CONFIG
@@ -78,7 +79,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
   after :each do |example|
     if example.exception
       link = save_screenshot("Test failed: #{example.description}")
-      puts "Test \"#{example.description}\" failed! Check screenshot at #{link} and following browser output: #{console_logs}"
+      puts "Test \"#{example.description}\" failed! Check screenshot at #{link}" # and following browser output: #{console_logs}"
     end
     @driver.quit
   end
@@ -86,6 +87,25 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
   # The tests themselves start here
 
   context "web" do
+
+    it "should redirect to access denied page" do
+      user_1 = {email: 'sysops+' + Time.now.to_i.to_s + '@meedan.com', password: '12345678'}
+      login_pg = LoginPage.new(config: @config, driver: @driver).load
+      login_pg.register_and_login_with_email(email: user_1[:email], password: user_1[:password])
+
+      me_pg = MePage.new(config: @config, driver: login_pg.driver).load
+      user_1_source_id = me_pg.source_id
+      me_pg.logout
+
+      user_2 = {email: 'sysops+' + Time.now.to_i.to_s + '@meedan.com', password: '22345678'}
+      login_pg = LoginPage.new(config: @config, driver: @driver).load
+      login_pg.register_and_login_with_email(email: user_2[:email], password: user_2[:password])
+      unauthorized_pg = SourcePage.new(id: user_1_source_id, config: @config, driver: login_pg.driver).load
+      @wait.until { unauthorized_pg.contains_string?('Access Denied') }
+
+      expect(unauthorized_pg.contains_string?('Access Denied')).to be(true)
+      expect((unauthorized_pg.driver.current_url.to_s =~ /\/forbidden$/).nil?).to be(false)
+    end
 
     include_examples "custom"
 
@@ -152,7 +172,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should login using Slack" do
       login_with_slack
       @driver.navigate.to @config['self_url'] + '/check/me'
-      displayed_name = get_element('h2.source-name').text.upcase
+      displayed_name = get_element('h1.source__name').text.upcase
       expected_name = @config['slack_name'].upcase
       expect(displayed_name == expected_name).to be(true)
     end
@@ -259,7 +279,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       me_page = MePage.new(config: @config, driver: page.driver).load
       avatar = me_page.avatar
-      expect(avatar.attribute('src').match(/test\.png$/).nil?).to be(false)
+      expect(avatar.attribute('style').match(/test\.png/).nil?).to be(false)
     end
 
     it "should redirect to 404 page" do
@@ -277,7 +297,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should login using Twitter" do
       login_with_twitter
       @driver.navigate.to @config['self_url'] + '/check/me'
-      displayed_name = get_element('h2.source-name').text.upcase
+      displayed_name = get_element('h1.source__name').text.upcase
       expected_name = @config['twitter_name'].upcase
       expect(displayed_name == expected_name).to be(true)
     end
@@ -289,31 +309,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(page.driver.find_elements(:css, '.teams').empty?).to be(false)
     end
 
-    # it "should go to user page" do
-    #   page = LoginPage.new(config: @config, driver: @driver).load
-    #       .login_with_email(email: @email, password: @password)
-    #
-    #   page.element('.fa-ellipsis-h').click
-    #   page.element('#link-me').click
-    #   page.wait_for_element('.source')
-    #   me_page = MePage.new(config: @config, driver: page.driver)
-    #
-    #   expect((me_page.driver.current_url.to_s =~ /\/me$/).nil?).to be(false)
-    #   title = me_page.title
-    #   expect(title).to eq('User With Email')
-    # end
-
-    it "should go to source page through source/:id" do
-      login_with_email
-      @driver.navigate.to @config['self_url'] + '/check/me'
-      sleep 5
-      source_id = $source_id = @driver.find_element(:css, '.source').attribute('data-id')
-      @driver.navigate.to @config['self_url'] + '/check/source/' + source_id.to_s
-      sleep 1
-      title = get_element('.source-name')
-      expect(title.text == 'User With Email').to be(true)
-    end
-
     it "should go to source page through user/:id" do
       login_with_email
       @driver.navigate.to @config['self_url'] + '/check/me'
@@ -321,7 +316,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       user_id = @driver.find_element(:css, '.source').attribute('data-user-id')
       @driver.navigate.to @config['self_url'] + '/check/user/' + user_id.to_s
       sleep 1
-      title = get_element('.source-name')
+      title = get_element('.source__name')
       expect(title.text == 'User With Email').to be(true)
     end
 
@@ -336,177 +331,86 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect((@driver.current_url.to_s =~ /\/tos$/).nil?).to be(false)
     end
 
-    it "should tag source from tags list" do
-      login_with_email
-      @driver.navigate.to @config['self_url'] + '/check/me'
+    it "should create source and redirect to newly created source" do
+      create_source(@source_name, @source_url)
+    end
+
+    it "should not create duplicated source" do
+      create_source('Megadeth', 'https://twitter.com/megadeth')
+      @driver.navigate.to @config['self_url']
+      sleep 15
+      @driver.find_element(:css, '#create-media__source').click
       sleep 1
-
-      # First, verify that there isn't any tag
-      expect(@driver.find_elements(:css, '.ReactTags__tag').empty?).to be(true)
-      expect(@driver.page_source.include?('Tagged #selenium')).to be(false)
-
-      # Add a tag from tags list
-      fill_field('.ReactTags__tagInput input', 'selenium')
-      @driver.action.send_keys(:enter).perform
-      sleep 5
-
-      # Verify that tag was added to tags list and annotations list
-      tag = get_element('.ReactTags__tag')
-      expect(tag.text.gsub(/<[^>]+>|×/, '') == 'selenium').to be(true)
-      expect(@driver.page_source.include?('Tagged #selenium')).to be(true)
-
-      # Reload the page and verify that tags are still there
-      @driver.navigate.refresh
+      fill_field('#create-media-source-name-input', 'Megadeth')
+      fill_field('#create-media-source-url-input', 'https://twitter.com/megadeth')
       sleep 1
-      tag = get_element('.ReactTags__tag')
-      expect(tag.text.gsub(/<[^>]+>|×/, '') == 'selenium').to be(true)
-      expect(@driver.page_source.include?('Tagged #selenium')).to be(true)
+      expect(@driver.page_source.include?('Source exists')).to be(false)
+      press_button('#create-media-submit')
+      sleep 15
+      expect(@driver.page_source.include?('Source exists')).to be(true)
     end
 
     it "should tag source as a command" do
-      login_with_email
-      @driver.navigate.to @config['self_url'] + '/check/me'
-      sleep 1
+      create_source('ACDC', 'https://twitter.com/acdc')
+      @driver.find_element(:css, '.source__tab-button-notes').click
 
-      # First, verify that there isn't any tag
       expect(@driver.page_source.include?('Tagged #command')).to be(false)
 
-      # Add a tag as a command
       fill_field('#cmd-input', '/tag command')
       @driver.action.send_keys(:enter).perform
       sleep 5
 
-      # Verify that tag was added to tags list and annotations list
-      tag = get_element('.ReactTags__tag')
-      expect(tag.text.gsub(/<[^>]+>|×/, '') == 'command').to be(true)
       expect(@driver.page_source.include?('Tagged #command')).to be(true)
 
-      # Reload the page and verify that tags are still there
       @driver.navigate.refresh
-      sleep 1
-      tag = get_element('.ReactTags__tag')
-      expect(tag.text.gsub(/<[^>]+>|×/, '') == 'command').to be(true)
+      sleep 5
+      @driver.find_element(:css, '.source__tab-button-notes').click
       expect(@driver.page_source.include?('Tagged #command')).to be(true)
-    end
-
-    it "should redirect to access denied page" do
-      user_1 = {email: 'sysops+' + Time.now.to_i.to_s + '@meedan.com', password: '12345678'}
-      login_pg = LoginPage.new(config: @config, driver: @driver).load
-      login_pg.register_and_login_with_email(email: user_1[:email], password: user_1[:password])
-
-      me_pg = MePage.new(config: @config, driver: login_pg.driver).load
-      user_1_source_id = me_pg.source_id
-      me_pg.logout
-
-      user_2 = {email: 'sysops+' + Time.now.to_i.to_s + '@meedan.com', password: '22345678'}
-      login_pg = LoginPage.new(config: @config, driver: @driver).load
-      login_pg.register_and_login_with_email(email: user_2[:email], password: user_2[:password])
-      unauthorized_pg = SourcePage.new(id: user_1_source_id, config: @config, driver: login_pg.driver).load
-      @wait.until { unauthorized_pg.contains_string?('Access Denied') }
-
-      expect(unauthorized_pg.contains_string?('Access Denied')).to be(true)
-      expect((unauthorized_pg.driver.current_url.to_s =~ /\/forbidden$/).nil?).to be(false)
     end
 
     it "should comment source as a command" do
-      login_with_email
-      @driver.navigate.to @config['self_url'] + '/check/me'
-      sleep 1
+      create_source('The Beatles', 'https://twitter.com/thebeatles')
+      @driver.find_element(:css, '.source__tab-button-notes').click
 
-      # First, verify that there isn't any comment
       expect(@driver.page_source.include?('This is my comment')).to be(false)
 
-      # Add a comment as a command
       fill_field('#cmd-input', '/comment This is my comment')
       @driver.action.send_keys(:enter).perform
       sleep 5
 
-      # Verify that comment was added to annotations list
       expect(@driver.page_source.include?('This is my comment')).to be(true)
 
-      # Reload the page and verify that comment is still there
       @driver.navigate.refresh
-      sleep 1
+      sleep 5
+      @driver.find_element(:css, '.source__tab-button-notes').click
       expect(@driver.page_source.include?('This is my comment')).to be(true)
-    end
-
-    it "should create source and redirect to newly created source" do
-      login_with_email
-      @driver.navigate.to @config['self_url'] + '/check/sources/new'
-      sleep 1
-      fill_field('#create-account-url', @source_url)
-      sleep 1
-      press_button('#create-account-submit')
-      sleep 15
-      expect(@driver.current_url.to_s.match(/\/source\/[0-9]+$/).nil?).to be(false)
-      title = get_element('.source-name').text
-      expect(title == 'Iron Maiden').to be(true)
-    end
-
-    it "should not create duplicated source" do
-      login_with_email
-      @driver.navigate.to @config['self_url'] + '/check/sources/new'
-      sleep 1
-      fill_field('#create-account-url', @source_url)
-      sleep 1
-      press_button('#create-account-submit')
-      sleep 10
-      expect(@driver.current_url.to_s.match(/\/source\/[0-9]+$/).nil?).to be(false)
-      title = get_element('.source-name').text
-      expect(title == 'Iron Maiden').to be(true)
     end
 
     it "should not create report as source" do
       login_with_email
-      @driver.navigate.to @config['self_url'] + '/check/sources/new'
+      @driver.navigate.to @config['self_url']
+      sleep 15
+      @driver.find_element(:css, '#create-media__source').click
       sleep 1
-      fill_field('#create-account-url', 'https://twitter.com/IronMaiden/status/832726327459446784')
+      fill_field('#create-media-source-url-input', 'https://twitter.com/IronMaiden/status/832726327459446784')
       sleep 1
-      press_button('#create-account-submit')
-      sleep 10
+      press_button('#create-media-submit')
+      sleep 15
       expect(@driver.current_url.to_s.match(/\/source\/[0-9]+$/).nil?).to be(true)
-      message = get_element('.create-account .message').text
+      message = get_element('.message').text
       expect(message.match(/Sorry, this is not a profile/).nil?).to be(false)
     end
 
     it "should tag source multiple times with commas with command" do
-      login_with_email
-      @driver.navigate.to @config['self_url'] + '/check/me'
-      sleep 1
+      create_source('Motorhead', 'https://twitter.com/mymotorhead')
+      @driver.find_element(:css, '.source__tab-button-notes').click
 
-      # Add tags as a command
       fill_field('#cmd-input', '/tag foo, bar')
       @driver.action.send_keys(:enter).perform
       sleep 5
 
-      # Verify that tags were added to tags list and annotations list
-      tag = @driver.find_elements(:css, '.ReactTags__tag').select{ |s| s.text.gsub(/<[^>]+>|×/, '') == 'foo' }
-      expect(tag.empty?).to be(false)
       expect(@driver.page_source.include?('Tagged #foo')).to be(true)
-
-      tag = @driver.find_elements(:css, '.ReactTags__tag').select{ |s| s.text.gsub(/<[^>]+>|×/, '') == 'bar' }
-      expect(tag.empty?).to be(false)
       expect(@driver.page_source.include?('Tagged #bar')).to be(true)
-    end
-
-    it "should tag source multiple times with commas from tags list" do
-      login_with_email
-      @driver.navigate.to @config['self_url'] + '/check/me'
-      sleep 1
-
-      # Add tags from tags list
-      fill_field('.ReactTags__tagInput input', 'bla,bli')
-      @driver.action.send_keys(:enter).perform
-      sleep 5
-
-      # Verify that tags were added to tags list and annotations list
-      tag = @driver.find_elements(:css, '.ReactTags__tag').select{ |s| s.text.gsub(/<[^>]+>|×/, '') == 'bla' }
-      expect(tag.empty?).to be(false)
-      expect(@driver.page_source.include?('Tagged #bla')).to be(true)
-
-      tag = @driver.find_elements(:css, '.ReactTags__tag').select{ |s| s.text.gsub(/<[^>]+>|×/, '') == 'bli' }
-      expect(tag.empty?).to be(false)
-      expect(@driver.page_source.include?('Tagged #bli')).to be(true)
     end
 
     it "should not add a duplicated tag from command line" do
@@ -653,33 +557,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       project_pg.wait_for_element('.project__description')
       expect(project_pg.contains_string?(new_description)).to be(true)
     end
-
-    # it "should comment project as a command" do
-    #   login_with_email
-
-    #   @driver.navigate.to @config['self_url']
-    #   sleep 1
-    #   title = "Project #{Time.now}"
-    #   fill_field('#create-project-title', title)
-    #   @driver.action.send_keys(:enter).perform
-    #   sleep 5
-
-    #   # First, verify that there isn't any comment
-    #   expect(@driver.page_source.include?('This is my comment')).to be(false)
-
-    #   # Add a comment as a command
-    #   fill_field('#cmd-input', '/comment This is my comment')
-    #   @driver.action.send_keys(:enter).perform
-    #   sleep 5
-
-    #   # Verify that comment was added to annotations list
-    #   expect(@driver.page_source.include?('This is my comment')).to be(true)
-
-    #   # Reload the page and verify that comment is still there
-    #   @driver.navigate.refresh
-    #   sleep 3
-    #   expect(@driver.page_source.include?('This is my comment')).to be(true)
-    # end
 
     it "should redirect to 404 page if id does not exist" do
       login_with_email
@@ -1050,7 +927,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 10
       expect(@driver.page_source.include?('My search result')).to be(false)
       selected = @driver.find_elements(:css, '.media-tags__suggestion--selected')
-      expect(selected.size == 2).to be(true)
+      expect(selected.size == 3).to be(true)
     end
 
     it "should change search sort criteria through URL" do
@@ -1059,7 +936,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 10
       expect(@driver.page_source.include?('My search result')).to be(true)
       selected = @driver.find_elements(:css, '.media-tags__suggestion--selected').map(&:text).sort
-      expect(selected == ['Recent activity', 'Newest first'].sort).to be(true)
+      expect(selected == ['Recent activity', 'Newest first', 'Media'].sort).to be(true)
     end
 
     it "should change search sort order through URL" do
@@ -1068,7 +945,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 10
       expect(@driver.page_source.include?('My search result')).to be(true)
       selected = @driver.find_elements(:css, '.media-tags__suggestion--selected').map(&:text).sort
-      expect(selected == ['Created', 'Oldest first'].sort).to be(true)
+      expect(selected == ['Created', 'Oldest first', 'Media'].sort).to be(true)
     end
 
     it "should login from e-mail login page" do
@@ -1076,10 +953,10 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       @driver.navigate.to @config['self_url']
       page.fill_input('.login__email input', @email)
       page.fill_input('.login__password input', @password)
-      expect(@driver.page_source.include?('Project')).to be(false)
+      expect(@driver.page_source.include?('Add a link')).to be(false)
       (@wait.until { @driver.find_element(:xpath, "//button[@id='submit-register-or-login']") }).click
       sleep 5
-      expect(@driver.page_source.include?('Project')).to be(true)
+      expect(@driver.page_source.include?('Add a link')).to be(true)
     end
 
     it "should not reset password" do
@@ -1096,6 +973,81 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 2
       expect(@driver.page_source.include?('Email not found')).to be(false)
       expect(@driver.page_source.include?('Password reset sent')).to be(true)
+    end
+
+    it "should set metatags" do
+      media_pg = LoginPage.new(config: @config, driver: @driver).load.login_with_email(email: @email, password: @password)
+      media_pg = media_pg.create_media(input: 'https://twitter.com/marcouza/status/875424957613920256')
+      sleep 3
+      request_api('/test/make_team_public', { slug: get_team })
+      sleep 3
+      url = @driver.current_url.to_s
+      @driver.navigate.to url
+      site = @driver.find_element(:css, 'meta[name="twitter\\:site"]').attribute('content')
+      expect(site == @config['app_name']).to be(true)
+      twitter_title = @driver.find_element(:css, 'meta[name="twitter\\:title"]').attribute('content')
+      expect(twitter_title == 'This is a test').to be(true)
+    end
+
+    it "should embed" do
+      page = LoginPage.new(config: @config, driver: @driver).load.login_with_email(email: @email, password: @password)
+      @wait.until { @driver.page_source.include?('Claim') }
+      page.create_media(input: 'Testing embeds')
+      sleep 2
+      request_api('/test/make_team_public', { slug: get_team })
+      @driver.navigate.refresh
+      sleep 2
+      @driver.find_element(:css, '.media-actions__icon').click
+      sleep 1
+      if @config['app_name'] == 'bridge'
+        expect(@driver.page_source.include?('Embed...')).to be(false)
+        @driver.navigate.to "#{@driver.current_url}/embed"
+        sleep 2
+        expect(@driver.page_source.include?('Not available')).to be(true)
+      elsif @config['app_name'] == 'check'
+        expect(@driver.page_source.include?('Embed...')).to be(true)
+        url = @driver.current_url.to_s
+        @driver.find_element(:css, '#media-actions__embed').click
+        sleep 2
+        expect(@driver.current_url.to_s == "#{url}/embed").to be(true)
+        expect(@driver.page_source.include?('Not available')).to be(false)
+        @driver.find_element(:css, '#media-embed__actions-customize').click
+        sleep 1
+        @driver.find_elements(:css, '#media-embed__customization-menu input[type=checkbox]').map(&:click)
+        sleep 1
+        @driver.find_elements(:css, 'body').map(&:click)
+        sleep 1
+        @driver.find_element(:css, '#media-embed__actions-copy').click
+        sleep 1
+        @driver.navigate.to 'https://pastebin.mozilla.org/'
+        @driver.find_element(:css, '#code').send_keys(' ')
+        @driver.action.send_keys(:control, 'v').perform
+        sleep 1
+        expect((@driver.find_element(:css, '#code').attribute('value') =~ /hide_tasks%3D1%26hide_notes%3D1/).nil?).to be(false)
+        sleep 5
+      end
+    end
+
+    it "should filter by medias or sources" do
+      page = LoginPage.new(config: @config, driver: @driver).load.login_with_email(email: @email, password: @password)
+      page.driver.navigate.to @config['self_url']
+      expect(page.contains_string?("The Who's official Twitter page")).to be(false)
+      expect(page.contains_string?('Tweet by The Who')).to be(false)
+      page.create_media(input: 'https://twitter.com/TheWho/status/890135323216367616')
+      page.driver.navigate.to @config['self_url']
+      page.wait_for_element('.project .media-detail')
+      expect(page.contains_string?("The Who's official Twitter page")).to be(false)
+      expect(page.contains_string?('Tweet by The Who')).to be(true)
+
+      @driver.find_element(:xpath, "//span[contains(text(), 'Sources')]").click
+      sleep 5
+      expect(page.contains_string?("The Who's official Twitter page")).to be(true)
+      expect(page.contains_string?('Tweet by The Who')).to be(true)
+
+      @driver.find_element(:xpath, "//span[contains(text(), 'Media')]").click
+      sleep 5
+      expect(page.contains_string?("The Who's official Twitter page")).to be(true)
+      expect(page.contains_string?('Tweet by The Who')).to be(false)
     end
   end
 end

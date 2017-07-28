@@ -66,9 +66,5 @@
   {
     "id": "teamComponent.saveButton",
     "defaultMessage": "Save"
-  },
-  {
-    "id": "teamComponent.editButton",
-    "defaultMessage": "Edit profile"
   }
 ]

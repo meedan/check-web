@@ -1,13 +1,35 @@
-import React, { Component, PropTypes } from 'react';
-import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
+import React, { Component } from 'react';
+import { FormattedMessage, injectIntl } from 'react-intl';
+import styled from 'styled-components';
+import IconButton from 'material-ui/IconButton';
+import MdClear from 'react-icons/lib/md/clear';
 import { mapGlobalMessage } from './MappedMessage';
+import ContentColumn from './layout/ContentColumn';
 
-const messages = defineMessages({
-  disclaimer: {
-    id: "browserSupport.message",
-    defaultMessage: "While in beta, {appName} is optimized for Google Chrome on desktop.",
-  },
-});
+import {
+  units,
+  black54,
+  white,
+} from '../styles/js/variables';
+
+const Message = styled.div`
+  padding: ${units(1)};
+  color: ${black54};
+  background-color: ${white};
+  > div {
+    display: flex;
+    align-items: center;
+  }
+
+  // Not sure why this is necessary for vertical alignment. 
+  // Is there a bug in IconButton? I think we are using it correctly.
+  // - CGB 2017-7-12
+  //
+  button > div {
+    display: flex; 
+    align-items: center;
+  }
+`;
 
 class BrowserSupport extends Component {
   constructor(props) {
@@ -44,12 +66,17 @@ class BrowserSupport extends Component {
   render() {
     if (this.shouldShowMessage()) {
       return (
-        <div className="browser-support">
-          <span className="browser-support__close" onClick={this.close.bind(this)}>×</span>
-          <p className="browser-support__message">
-            <FormattedMessage id="browserSupport.message" defaultMessage="While in beta, {appName} is optimized for Google Chrome on desktop." values={{ appName: mapGlobalMessage(this.props.intl, 'appNameHuman') }}/>
-          </p>
-        </div>);
+        <Message>
+          <ContentColumn>
+            <IconButton style={{ fontSize: 20, color: black54 }} onClick={this.close.bind(this)}>
+              <MdClear />
+            </IconButton>
+            <div>
+              <FormattedMessage id="browserSupport.message" defaultMessage="While in beta, {appName} is optimized for Google Chrome on desktop." values={{ appName: mapGlobalMessage(this.props.intl, 'appNameHuman') }} />
+            </div>
+          </ContentColumn>
+        </Message>
+      );
     }
     return null;
   }
