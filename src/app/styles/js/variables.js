@@ -233,6 +233,12 @@ export const muiThemeWithoutRtl = {
     accent2Color: checkBlue,
     accent3Color: checkBlue,
   },
+  appBar: {
+    color: black02,
+  },
+  svgIcon: {
+    color: black54,
+  },
   ripple: {
     color: checkBlue,
   },

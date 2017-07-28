@@ -5,6 +5,10 @@
         "node": true
     },
     "extends": "airbnb",
+    globals: {
+        "describe": true,
+        "it", true
+    },
     "rules": {
         "indent": [2, 2],
         "react/jsx-filename-extension": "off",

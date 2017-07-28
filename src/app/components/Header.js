@@ -19,7 +19,7 @@ import TeamHeader from './team/TeamHeader';
 import TeamPublicHeader from './team/TeamPublicHeader';
 import ProjectHeader from './project/ProjectHeader';
 import { stringHelper } from '../customHelpers';
-import { appBarInnerHeight, anchorOrigin, black54, black02, units } from '../styles/js/variables';
+import { appBarInnerHeight, anchorOrigin, units } from '../styles/js/variables';
 
 const MenuActionsSecondary = styled.div`
   display: flex;
@@ -33,7 +33,6 @@ const MenuActionsSecondary = styled.div`
 
 const styles = {
   appBar: {
-    backgroundColor: black02,
     boxShadow: 'none',
   },
   elementsPrimary: {
@@ -62,7 +61,7 @@ class Header extends Component {
 
     const menuButton = (
       <IconButton className="header-actions__menu-toggle">
-        <IconMoreVert color={black54} />
+        <IconMoreVert />
       </IconButton>
     );
 
@@ -175,7 +174,7 @@ class Header extends Component {
         key="header.searchButton"
         className="header-actions__search-icon"
       >
-        <IconSearch color={black54} />
+        <IconSearch />
       </IconButton>
     );
 
