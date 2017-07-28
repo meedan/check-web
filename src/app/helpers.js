@@ -52,16 +52,16 @@ function rtlClass(language_code) {
   return (rtlDetect.isRtlLang(language_code)) ? 'translation__rtl' : 'translation__ltr';
 }
 
-function notify(title, body, url, icon, name){
+function notify(title, body, url, icon, name) {
   if (!Notification) {
     return false;
   }
 
-  if (Notification.permission !== "granted") {
+  if (Notification.permission !== 'granted') {
     Notification.requestPermission();
   } else {
-    var notification = new Notification(title, { icon, body });
-    notification.onclick = function() {
+    const notification = new Notification(title, { icon, body });
+    notification.onclick = function () {
       window.open(url, name);
       window.focus();
       notification.close();
@@ -77,5 +77,5 @@ export {
   getStatus,
   getStatusStyle,
   notify,
-  truncateLength
+  truncateLength,
 };

@@ -25,7 +25,8 @@ const MenuActionsSecondary = styled.div`
   display: flex;
   align-items: center;
   & > * {
-    margin-left: ${units(2)} !important;
+    margin-left: ${units(1)} !important;
+    margin-right: ${units(1)} !important;
     display: flex-item !important;
   }
 `;

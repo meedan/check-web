@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router';
+import rtlDetect from 'rtl-detect';
+import { injectIntl } from 'react-intl';
+
 import CheckContext from '../../CheckContext';
 import {
   defaultBorderRadius,
@@ -28,6 +31,9 @@ class TeamHeaderComponent extends Component {
   render() {
     const team = this.props.team;
     const isProjectUrl = /(.*\/project\/[0-9]+)/.test(window.location.pathname);
+    const locale = this.props.intl.locale;
+    const isRtl = rtlDetect.isRtlLang(locale);
+    const fromDirection = isRtl ? 'right' : 'left';
 
     const TeamLink = styled(Link)`
       align-items: center;
@@ -57,7 +63,7 @@ class TeamHeaderComponent extends Component {
     const TeamName = styled.h3`
       ${ellipsisStyles}
       font: ${subheading2};
-      margin-left: ${units(3)};
+      margin-${fromDirection}: ${units(3)};
     `;
 
     const TeamAvatar = styled.div`
@@ -67,7 +73,7 @@ class TeamHeaderComponent extends Component {
       margin: 0;
       width: ${units(5)};
       height: ${units(5)};
-      margin-left: ${units(2)};
+      margin-${fromDirection}: ${units(2)};
     `;
 
     return (
@@ -85,4 +91,4 @@ TeamHeaderComponent.contextTypes = {
   store: React.PropTypes.object,
 };
 
-export default TeamHeaderComponent;
+export default injectIntl(TeamHeaderComponent);
