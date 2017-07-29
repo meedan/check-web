@@ -50,7 +50,6 @@ export const columnWidthMedium = units(85);
 export const columnWidthLarge = units(100);
 export const columnWidthWide = units(152);
 export const appBarInnerHeight = units(6);
-export const avatarSize = units(5);
 
 // Unitless
 export function unitless(unit) {
@@ -151,17 +150,19 @@ export const listItemWithButtonsStyle =
 //
 export const ellipsisStyles = 'overflow: hidden; text-overflow: ellipsis; white-space: nowrap;';
 
-export const backgroundCover = 'background-position: center; background-size: cover;';
+export const backgroundCover = 'background-repeat: no-repeat; background-position: center; background-size: cover;';
 
-export const defaultAvatarSize = units(9);
+export const largeAvatarSize = units(9);
+export const avatarSize = units(5);
 
 export const avatarStyle = `
   border: ${defaultBorderWidth} solid ${black05};
   border-radius: ${defaultBorderRadius};
   flex: 0 0 auto;
-  height: ${defaultAvatarSize};
-  width: ${defaultAvatarSize};
+  height: ${largeAvatarSize};
+  width: ${largeAvatarSize};
   ${backgroundCover}
+  background-color: ${white};
   `;
 
 // ===================================================================

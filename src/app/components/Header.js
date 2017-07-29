@@ -38,16 +38,16 @@ class Header extends Component {
       background-color: ${black02};
       display: flex;
       align-items: center;
+      padding: 0 ${units(2)};
+      z-index: 2;
     `;
 
     const ElementsPrimary = styled.div`
-      border: 1px solid pink;
       display: flex;
       align-items: center;
     `;
 
     const ElementsSecondary = styled.div`
-      border: 1px solid green;
       display: flex;
       align-items: center;
       margin-${fromDirection}: auto;

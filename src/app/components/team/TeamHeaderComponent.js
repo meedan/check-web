@@ -11,7 +11,7 @@ import {
   ellipsisStyles,
   avatarStyle,
   units,
-  white,
+  black54,
   appBarInnerHeight,
   avatarSize,
 } from '../../styles/js/variables.js';
@@ -36,6 +36,7 @@ class TeamHeaderComponent extends Component {
     const locale = this.props.intl.locale;
     const isRtl = rtlDetect.isRtlLang(locale);
     const fromDirection = isRtl ? 'right' : 'left';
+    const toDirection = isRtl ? 'left' : 'right';
 
     const TeamLink = styled(Link)`
       align-items: center;
@@ -65,14 +66,12 @@ class TeamHeaderComponent extends Component {
     const TeamName = styled.h3`
       ${ellipsisStyles}
       font: ${subheading2};
-      margin-${fromDirection}: ${units(2)};
+      color: ${black54};
     `;
 
     const TeamAvatar = styled.div`
       ${avatarStyle}
       background-image: url(${team.avatar});
-      background-color: ${white};
-      margin: 0;
       width: ${avatarSize};
       height: ${avatarSize};
     `;
@@ -80,7 +79,7 @@ class TeamHeaderComponent extends Component {
     return (
       <TeamNav>
         <TeamLink to={`/${team.slug}`} title={team.name} className="team-header__avatar">
-          <TeamAvatar />
+          <TeamAvatar style={{ marginRight: units(2) }} />
           {isProjectUrl ? null : <TeamName>{team.name}</TeamName>}
         </TeamLink>
       </TeamNav>
