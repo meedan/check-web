@@ -19,11 +19,9 @@ import TeamHeader from './team/TeamHeader';
 import TeamPublicHeader from './team/TeamPublicHeader';
 import ProjectHeader from './project/ProjectHeader';
 import { stringHelper } from '../customHelpers';
-import { appBarInnerHeight, black02, anchorOrigin, units } from '../styles/js/variables';
-
+import { black02, defaultAnchorOrigin, units } from '../styles/js/variables';
 
 class Header extends Component {
-
   render() {
     const { loggedIn } = this.props;
     const path = this.props.location ? this.props.location.pathname : window.location.pathname;
@@ -32,7 +30,6 @@ class Header extends Component {
     const locale = this.props.intl.locale;
     const isRtl = rtlDetect.isRtlLang(locale);
     const fromDirection = isRtl ? 'right' : 'left';
-    const toDirection = isRtl ? 'left' : 'right';
 
     const HeaderBar = styled.div`
       background-color: ${black02};
@@ -143,10 +140,10 @@ class Header extends Component {
       />
     );
 
-    const secondaryMenu = (
+    const dotMenu = (
       <IconMenu
-        key="header.secondaryMenu"
-        anchorOrigin={anchorOrigin}
+        key="header.dotMenu"
+        anchorOrigin={defaultAnchorOrigin}
         iconButtonElement={menuButton}
       >
         {loggedIn && yourTeamsMenuItem}
@@ -190,13 +187,13 @@ class Header extends Component {
       if (this.props.params && this.props.params.team) {
         return (
           <ElementsSecondary>
-            {[searchButton, userMenu, secondaryMenu]}
+            {[searchButton, userMenu, dotMenu]}
           </ElementsSecondary>
         );
       }
       return (
         <ElementsSecondary>
-          {[userMenu, secondaryMenu]}
+          {[userMenu, dotMenu]}
         </ElementsSecondary>
       );
     })();

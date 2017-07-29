@@ -35,7 +35,6 @@ class TeamHeaderComponent extends Component {
     const isProjectUrl = /(.*\/project\/[0-9]+)/.test(window.location.pathname);
     const locale = this.props.intl.locale;
     const isRtl = rtlDetect.isRtlLang(locale);
-    const fromDirection = isRtl ? 'right' : 'left';
     const toDirection = isRtl ? 'left' : 'right';
 
     const TeamLink = styled(Link)`
@@ -74,12 +73,13 @@ class TeamHeaderComponent extends Component {
       background-image: url(${team.avatar});
       width: ${avatarSize};
       height: ${avatarSize};
+      margin-${toDirection}: ${units(2)};
     `;
 
     return (
       <TeamNav>
         <TeamLink to={`/${team.slug}`} title={team.name} className="team-header__avatar">
-          <TeamAvatar style={{ marginRight: units(2) }} />
+          <TeamAvatar />
           {isProjectUrl ? null : <TeamName>{team.name}</TeamName>}
         </TeamLink>
       </TeamNav>

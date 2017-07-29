@@ -49,7 +49,7 @@ export const columnWidthSmall = units(56);
 export const columnWidthMedium = units(85);
 export const columnWidthLarge = units(100);
 export const columnWidthWide = units(152);
-export const appBarInnerHeight = units(6);
+export const appBarInnerHeight = units(7);
 
 // Unitless
 export function unitless(unit) {
@@ -147,6 +147,9 @@ export const listItemWithButtonsStyle =
 // CSS Helpers
 //
 // Can be applied in a stylesheet or added to a styled component.
+// For an ellipsis without fixed width, a parent should have overflow: hidden
+// And that parent (or any descendants) should not be display: flex
+// See: https://codepen.io/unthinkingly/pen/XMwJLG
 //
 export const ellipsisStyles = 'overflow: hidden; text-overflow: ellipsis; white-space: nowrap;';
 
@@ -297,7 +300,7 @@ export const Pulse = styled.div`
 `;
 
 // For positioning Material-UI menus
-export const anchorOrigin = {
+export const defaultAnchorOrigin = {
   horizontal: 'left',
   vertical: 'bottom',
 };
