@@ -67,7 +67,8 @@ class ProjectHeaderComponent extends Component {
           style={{ marginTop: `-${units(1)}`, maxWidth: '50vw' }}
           labelStyle={{ paddingLeft: 0, color: black54 }}
           autoWidth={false}
-          menuItemStyle={{ padding: `${units(2)} 0`, lineHeight: units(2), whiteSpace: 'wrap' }}
+          menuStyle={{ minWidth: 200 }}
+          menuItemStyle={{ minWidth: 200, padding: `${units(2)} 0`, lineHeight: units(2), whiteSpace: 'wrap' }}
         >
           {currentProject.team.projects.edges
             .sortp((a, b) => a.node.title.localeCompare(b.node.title))
@@ -132,9 +133,6 @@ class ProjectHeader extends Component {
       return (<Relay.RootContainer
         Component={ProjectHeaderContainer}
         route={route}
-        renderLoading={function () {
-          return <div style={{ paddingLeft: units(2) }}>...</div>;
-        }}
       />);
     }
     return null;
