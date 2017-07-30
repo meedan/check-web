@@ -4,6 +4,7 @@ import IconArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
 import IconButton from 'material-ui/IconButton';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
+import styled from 'styled-components';
 import ProjectRoute from '../../relay/ProjectRoute';
 import CheckContext from '../../CheckContext';
 import { units, black54, black32 } from '../../styles/js/variables';
@@ -49,26 +50,49 @@ class ProjectHeaderComponent extends Component {
       backUrl = path.match(/(.*\/media\/[0-9]+)/)[1];
     }
 
+    const Wrapper = styled.div`
+      display: 'flex',
+      alignItems: 'center',
+    `;
+
+    const styles = {
+      menuItemStyle: {
+        minWidth: 200,
+        padding: `${units(2)} 0`,
+        lineHeight: units(2),
+        whiteSpace: 'wrap',
+      },
+      menuStyle: { minWidth: 200 },
+      labelStyle: { color: black54 },
+      dropDownMenuStyle: { maxWidth: '50vw' },
+      iconStyle: { fill: black32 },
+      underlineStyle: { borderWidth: 0 },
+      iconButton: { marginRight: units(2) },
+    };
+
     const isProjectSubpage = path.length > backUrl.length;
     return (
-      <div style={{ display: 'flex', alignItems: 'center' }}>
-
+      <Wrapper>
         {isProjectSubpage
-          ? <IconButton href={backUrl} style={{ marginRight: units(2) }} className="project-header__back-button">
+          ? <IconButton
+            className="project-header__back-button"
+            href={backUrl}
+            style={styles.IconButton}
+          >
             <IconArrowBack />
           </IconButton>
           : null}
 
         <DropDownMenu
-          underlineStyle={{ borderWidth: 0 }}
-          iconStyle={{ fill: black32 }}
-          value={currentProject.title}
-          className="project-header__title"
-          style={{ marginTop: `-${units(1)}`, maxWidth: '50vw' }}
-          labelStyle={{ paddingLeft: 0, color: black54 }}
           autoWidth={false}
-          menuStyle={{ minWidth: 200 }}
-          menuItemStyle={{ minWidth: 200, padding: `${units(2)} 0`, lineHeight: units(2), whiteSpace: 'wrap' }}
+          className="project-header__title"
+          iconStyle={styles.iconStyle}
+          labelStyle={styles.labelStyle}
+          menuItemStyle={styles.menuItemStyle}
+          menuStyle={styles.menuStyle}
+          style={styles.dropDownMenuStyle}
+          underlineStyle={styles.underlineStyle}
+          value={currentProject.title}
         >
           {currentProject.team.projects.edges
             .sortp((a, b) => a.node.title.localeCompare(b.node.title))
@@ -76,16 +100,16 @@ class ProjectHeaderComponent extends Component {
               const projectPath = `/${currentProject.team.slug}/project/${p.node.dbid}`;
               return (
                 <MenuItem
+                  className="project-list__project"
                   href={projectPath}
                   key={p.node.dbid}
-                  value={p.node.title}
                   primaryText={p.node.title}
-                  className="project-list__project"
+                  value={p.node.title}
                 />
               );
             })}
         </DropDownMenu>
-      </div>
+      </Wrapper>
     );
   }
 }
