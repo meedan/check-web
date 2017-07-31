@@ -66,6 +66,9 @@ class Header extends Component {
 
     const Offset = styled.div`
       padding: 0 ${headerOffset} !important;
+      ${mediaQuery.handheld`
+         padding: 0 !important;
+      `}
     `;
 
     const yourTeamsMenuItem = (

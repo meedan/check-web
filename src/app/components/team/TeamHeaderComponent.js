@@ -12,6 +12,8 @@ import {
   headerHeight,
   avatarSize,
   Row,
+  headerOffset,
+  mediaQuery,
 } from '../../styles/js/variables';
 
 class TeamHeaderComponent extends Component {
@@ -61,6 +63,10 @@ class TeamHeaderComponent extends Component {
       ${ellipsisStyles}
       font: ${subheading2};
       color: ${black54};
+      padding: 0 ${headerOffset};
+      ${mediaQuery.handheld`
+         max-width: 35vw;
+      `}
     `;
 
     const TeamAvatar = styled.div`
