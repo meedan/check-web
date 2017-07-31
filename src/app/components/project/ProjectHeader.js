@@ -44,7 +44,7 @@ class ProjectHeaderComponent extends Component {
     const StyledDropDownMenu = styled(DropDownMenu)`
       max-width: 60vw;
       height: ${headerHeight} !important;
-      ${mediaQuery.handheld` max-width: 40vw; `}
+      ${mediaQuery.handheld` display: none !important;`}
       &:hover {
         background-color: ${black02};
       }
