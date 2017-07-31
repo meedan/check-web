@@ -22,5 +22,9 @@
   {
     "id": "global.submit",
     "defaultMessage": "Submit"
+  },
+  {
+    "id": "global.tags",
+    "defaultMessage": "Tags"
   }
 ]

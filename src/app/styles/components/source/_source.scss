@@ -23,8 +23,18 @@
       margin-bottom: units(1);
     }
 
+    .source__profile-content {
+      .media-tags {
+        margin-top: units(1);
+      }
+
+      .source-tags__tags {
+        margin-top: units(1);
+      }
+    }
+
     .source__metadata {
-      margin-top: units(1.5);
+      margin: units(1) 0;
       color: $black-38;
       font: font(caption);
     }

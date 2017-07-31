@@ -2,10 +2,10 @@ import React, { Component, PropTypes } from 'react';
 import { defineMessages, injectIntl, intlShape } from 'react-intl';
 import Relay from 'react-relay';
 import { WithContext as ReactTags } from 'react-tag-input';
-import Message from '../Message';
-import CreateTagMutation from '../../relay/CreateTagMutation';
-import DeleteTagMutation from '../../relay/DeleteTagMutation';
-import CheckContext from '../../CheckContext';
+import Message from './Message';
+import CreateTagMutation from '../relay/CreateTagMutation';
+import DeleteTagMutation from '../relay/DeleteTagMutation';
+import CheckContext from '../CheckContext';
 
 const messages = defineMessages({
   error: {

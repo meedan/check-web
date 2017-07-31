@@ -9,6 +9,7 @@ import {
   injectIntl,
   intlShape,
 } from 'react-intl';
+import AutoComplete from 'material-ui/AutoComplete';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -21,6 +22,7 @@ import MenuItem from 'material-ui/MenuItem';
 import MdCancel from 'react-icons/lib/md/cancel';
 import MDEdit from 'react-icons/lib/md/edit';
 import AccountCard from './AccountCard';
+import SourceTags from './SourceTags';
 import Annotations from '../annotations/Annotations';
 import PageTitle from '../PageTitle';
 import Medias from '../media/Medias';
@@ -35,6 +37,8 @@ import { truncateLength } from '../../helpers';
 import globalStrings from '../../globalStrings';
 import CreateDynamicMutation from '../../relay/CreateDynamicMutation';
 import UpdateDynamicMutation from '../../relay/UpdateDynamicMutation';
+import CreateTagMutation from '../../relay/CreateTagMutation';
+import DeleteTagMutation from '../../relay/DeleteTagMutation';
 import UpdateSourceMutation from '../../relay/UpdateSourceMutation';
 
 const messages = defineMessages({
@@ -156,6 +160,10 @@ class SourceComponent extends Component {
     this.setState({ metadata, menuOpen: false });
   };
 
+  handleAddTags = () => {
+    this.setState({ addingTags: true });
+  };
+
   handleRequestClose() {
     this.setState({
       menuOpen: false,
@@ -201,6 +209,10 @@ class SourceComponent extends Component {
     }
     e.preventDefault();
   }
+
+  handleSelectTag = (chosenRequest, index) => {
+    this.createTag(chosenRequest);
+  };
 
   fail = (transaction) => {
     const error = transaction.getError();
@@ -262,6 +274,51 @@ class SourceComponent extends Component {
     );
 
     this.setState({ submitDisabled: true });
+  }
+
+  createTag(tagString) {
+    const that = this;
+    const { source } = this.props;
+    const context = new CheckContext(this).getContextStore();
+
+    const onFailure = (transaction) => { that.fail(transaction); };
+    const onSuccess = (response) => {
+      const field = document.forms['edit-source-form'].addTag;
+      field.blur();
+      field.value = '';
+      that.setState({ message: null });
+    };
+
+    Relay.Store.commitUpdate(
+      new CreateTagMutation({
+        annotated: source,
+        annotator: context.currentUser,
+        parent_type: 'project_source',
+        context,
+        annotation: {
+          tag: tagString.trim(),
+          annotated_type: 'ProjectSource',
+          annotated_id: source.dbid,
+        },
+      }),
+      { onSuccess, onFailure },
+    );
+  }
+
+  deleteTag(tagId) {
+    const that = this;
+    const { source } = that.props;
+    const onFailure = (transaction) => { that.fail(transaction); };
+    const onSuccess = (response) => {};
+
+    Relay.Store.commitUpdate(
+      new DeleteTagMutation({
+        annotated: source,
+        parent_type: 'project_source',
+        id: tagId,
+      }),
+      { onSuccess, onFailure },
+    );
   }
 
   updateMetadata() {
@@ -370,6 +427,31 @@ class SourceComponent extends Component {
     }
   }
 
+  renderTagsView() {
+    const tags = this.props.source.tags.edges;
+    return <SourceTags tags={tags} />;
+  }
+
+  renderTagsEdit() {
+    const tags = this.props.source.tags.edges;
+    const tagLabels = tags.map(tag => tag.node.tag);
+    const suggestedTags = (this.props.source.team && this.props.source.team.get_suggested_tags) ? this.props.source.team.get_suggested_tags.split(',') : [];
+    const availableTags = suggestedTags.filter(suggested => !tagLabels.includes(suggested));
+
+    return <div>
+      { this.state.addingTags || tags ?
+        <AutoComplete
+          name="addTag" id="addTag"
+          floatingLabelText={this.props.intl.formatMessage(globalStrings.tags)}
+          dataSource={availableTags}
+          onNewRequest={this.handleSelectTag}
+          fullWidth
+        /> : null
+      }
+      <SourceTags tags={tags} onDelete={this.deleteTag.bind(this)} />
+    </div>;
+  }
+
   renderSourceView(source, isProjectSource) {
     return (
         <div className="source__profile-content">
@@ -405,7 +487,9 @@ class SourceComponent extends Component {
                 </div> : null
               }
 
+              { this.renderTagsView() }
               { this.renderMetadataView() }
+
             </div>
           </section>
           { isProjectSource ?
@@ -466,7 +550,6 @@ class SourceComponent extends Component {
                 floatingLabelText={this.props.intl.formatMessage(messages.sourceName)}
                 fullWidth
               />
-
               <TextField
                 className="source__bio-input"
                 name="description"
@@ -477,9 +560,10 @@ class SourceComponent extends Component {
                 rowsMax={4}
                 fullWidth
               />
-            </form>
 
-            { this.renderMetadataEdit() }
+              { this.renderTagsEdit() }
+              { this.renderMetadataEdit() }
+            </form>
 
             <div className="source__edit-buttons">
               <div className="source__edit-buttons-add-merge">
@@ -493,14 +577,9 @@ class SourceComponent extends Component {
                     <MenuItem className="source__add-phone" onClick={this.handleAddMetadataField.bind(this, 'phone')} primaryText={this.props.intl.formatMessage(messages.phone)} />
                     <MenuItem className="source__add-organization" onClick={this.handleAddMetadataField.bind(this, 'organization')} primaryText={this.props.intl.formatMessage(messages.organization)} />
                     <MenuItem className="source__add-location" onClick={this.handleAddMetadataField.bind(this, 'location')} primaryText={this.props.intl.formatMessage(messages.location)} />
+                    <MenuItem className="source__add-tags" onClick={this.handleAddTags.bind(this)} primaryText={this.props.intl.formatMessage(globalStrings.tags)} />
                   </Menu>
                 </Popover>
-                {/*
-                  <FlatButton className="source__edit-mergesource-button"
-                  primary
-                  onClick={this.handleLeaveEditMode.bind(this)}
-                  label={this.props.intl.formatMessage(messages.mergeSource)} />
-                  */}
               </div>
 
               <div className="source__edit-buttons-cancel-save">
