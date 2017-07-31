@@ -42,11 +42,11 @@ class Header extends Component {
     const isRtl = rtlDetect.isRtlLang(locale);
     const fromDirection = isRtl ? 'right' : 'left';
     const hasTeam = this.props.params && this.props.params.team;
-    let backUrl = path.match(/(.*\/project\/[0-9]+)/) ? path.match(/(.*\/project\/[0-9]+)/)[1] : '';
-    if (path.match(/\/media\/[0-9]+\/.+/)) {
-      backUrl = path.match(/(.*\/media\/[0-9]+)/)[1];
-    }
-    const isProjectSubpage = path.length > backUrl.length;
+    const regexProject = /(.*\/project\/[0-9]+)/;
+    const regexMedia = /\/media\/[0-9]+\/.+/;
+    let backUrl = (regexProject.test(path)) ? path.match(regexProject)[1] : '';
+    backUrl = (regexMedia.test(path)) ? path.match(regexMedia)[1] : '';
+    const isProjectSubpage = regexMedia.test(path);
 
     const HeaderBar = styled.div`
       background-color: ${black02};
@@ -240,7 +240,6 @@ class Header extends Component {
         </Offset>
       );
     })();
-
 
     const Primary = (() => {
       if (showCheckLogo) {
