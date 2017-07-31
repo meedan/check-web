@@ -13,10 +13,8 @@
         "indent": [2, 2],
         "react/jsx-filename-extension": "off",
         "react/jsx-no-bind": "off",
-
-        // Todo: improve proptypes coverage (or set this rule to "off".)
-        "react/forbid-prop-types": "warn",
-        "react/prop-types": "warn",
+        "react/prop-types": "off",
+        "react/forbid-prop-types": "off",
 
         // Todo: use pure functions where possible (or set this rule to "off")
         "react/prefer-stateless-function": "warn",

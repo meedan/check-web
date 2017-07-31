@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router';
-import IconButton from 'material-ui/IconButton';
 import IconMoreVert from 'material-ui/svg-icons/navigation/more-vert';
 import IconSearch from 'material-ui/svg-icons/action/search';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
 import Divider from 'material-ui/Divider';
+import IconArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
+import IconButton from 'material-ui/IconButton';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import rtlDetect from 'rtl-detect';
 import { mapGlobalMessage } from './MappedMessage';
@@ -19,17 +20,34 @@ import TeamHeader from './team/TeamHeader';
 import TeamPublicHeader from './team/TeamPublicHeader';
 import ProjectHeader from './project/ProjectHeader';
 import { stringHelper } from '../customHelpers';
-import { black02, defaultAnchorOrigin, units } from '../styles/js/variables';
+import {
+  black02,
+  defaultAnchorOrigin,
+  units,
+  headerOffset,
+  headerHeight,
+  Row,
+  mediaQuery,
+} from '../styles/js/variables';
 
 class Header extends Component {
   render() {
     const { loggedIn } = this.props;
-    const path = this.props.location ? this.props.location.pathname : window.location.pathname;
+    const path = this.props.location
+      ? this.props.location.pathname
+      : window.location.pathname;
     const showCheckLogo = /^\/(check(\/.*)?)?$/.test(path);
     const joinPage = /^\/([^/]+)\/join$/.test(path);
     const locale = this.props.intl.locale;
     const isRtl = rtlDetect.isRtlLang(locale);
     const fromDirection = isRtl ? 'right' : 'left';
+    const toDirection = isRtl ? 'left' : 'right';
+    const hasTeam = this.props.params && this.props.params.team;
+    let backUrl = path.match(/(.*\/project\/[0-9]+)/) ? path.match(/(.*\/project\/[0-9]+)/)[1] : '';
+    if (path.match(/\/media\/[0-9]+\/.+/)) {
+      backUrl = path.match(/(.*\/media\/[0-9]+)/)[1];
+    }
+    const isProjectSubpage = path.length > backUrl.length;
 
     const HeaderBar = styled.div`
       background-color: ${black02};
@@ -37,30 +55,31 @@ class Header extends Component {
       align-items: center;
       padding: 0 ${units(2)};
       z-index: 2;
+      overflow: hidden;
+      height: ${headerHeight};
+      ${mediaQuery.handheld`
+        padding: 0 ${units(1)};
+      `}
     `;
 
-    const ElementsPrimary = styled.div`
-      display: flex;
-      align-items: center;
-    `;
-
-    const ElementsSecondary = styled.div`
-      display: flex;
-      align-items: center;
+    const AlignOpposite = styled.div`
       margin-${fromDirection}: auto;
     `;
 
-    const menuButton = (
-      <IconButton className="header-actions__menu-toggle">
-        <IconMoreVert />
-      </IconButton>
-    );
+    const Offset = styled.div`
+      margin-${toDirection}: ${headerOffset} !important;
+    `;
 
     const yourTeamsMenuItem = (
       <MenuItem
         href="/check/teams"
         key="headerActions.userTeams"
-        primaryText={<FormattedMessage id="headerActions.userTeams" defaultMessage="Your Teams" />}
+        primaryText={
+          <FormattedMessage
+            id="headerActions.userTeams"
+            defaultMessage="Your Teams"
+          />
+        }
       />
     );
 
@@ -68,14 +87,21 @@ class Header extends Component {
       <ProjectMenuRelay key="headerActions.projectMenu" {...this.props} />
     );
 
-    const manageTeamMenuItem = <TeamMenuRelay key="headerActions.teamMenu" {...this.props} />;
+    const manageTeamMenuItem = (
+      <TeamMenuRelay key="headerActions.teamMenu" {...this.props} />
+    );
 
     const logInMenuItem = (
       <MenuItem
         key="headerActions.logIn"
         className="header-actions__menu-item--login"
         href="/"
-        primaryText={<FormattedMessage id="headerActions.signIn" defaultMessage="Sign In" />}
+        primaryText={
+          <FormattedMessage
+            id="headerActions.signIn"
+            defaultMessage="Sign In"
+          />
+        }
       />
     );
 
@@ -84,7 +110,12 @@ class Header extends Component {
         key="headerActions.logOut"
         className="header-actions__menu-item--logout"
         onClick={logout}
-        primaryText={<FormattedMessage id="headerActions.signOut" defaultMessage="Sign Out" />}
+        primaryText={
+          <FormattedMessage
+            id="headerActions.signOut"
+            defaultMessage="Sign Out"
+          />
+        }
       />
     );
 
@@ -95,7 +126,10 @@ class Header extends Component {
         rel="noopener noreferrer"
         href={stringHelper('CONTACT_HUMAN_URL')}
         primaryText={
-          <FormattedMessage id="headerActions.contactHuman" defaultMessage="Contact a Human" />
+          <FormattedMessage
+            id="headerActions.contactHuman"
+            defaultMessage="Contact a Human"
+          />
         }
       />
     );
@@ -106,7 +140,12 @@ class Header extends Component {
         href={stringHelper('TOS_URL')}
         target="_blank"
         rel="noopener noreferrer"
-        primaryText={<FormattedMessage id="headerActions.tos" defaultMessage="Terms of Service" />}
+        primaryText={
+          <FormattedMessage
+            id="headerActions.tos"
+            defaultMessage="Terms of Service"
+          />
+        }
       />
     );
 
@@ -117,7 +156,10 @@ class Header extends Component {
         rel="noopener noreferrer"
         href={stringHelper('PP_URL')}
         primaryText={
-          <FormattedMessage id="headerActions.privacyPolicy" defaultMessage="Privacy Policy" />
+          <FormattedMessage
+            id="headerActions.privacyPolicy"
+            defaultMessage="Privacy Policy"
+          />
         }
       />
     );
@@ -140,11 +182,17 @@ class Header extends Component {
       />
     );
 
+    const dotMenuButton = (
+      <IconButton className="header-actions__menu-toggle">
+        <IconMoreVert />
+      </IconButton>
+    );
+
     const dotMenu = (
       <IconMenu
         key="header.dotMenu"
         anchorOrigin={defaultAnchorOrigin}
-        iconButtonElement={menuButton}
+        iconButtonElement={dotMenuButton}
       >
         {loggedIn && yourTeamsMenuItem}
         {!joinPage && editProjectMenuItem}
@@ -159,61 +207,88 @@ class Header extends Component {
     );
 
     const searchButton = (
-      <IconButton
-        href={`/${this.props.params.team}/search`}
-        name="search"
-        key="header.searchButton"
-        className="header-actions__search-icon"
-      >
-        <IconSearch />
-      </IconButton>
+      <Offset key="header.searchButton">
+        <IconButton
+          className="header-actions__search-icon"
+          href={`/${this.props.params.team}/search`}
+          name="search"
+        >
+          <IconSearch />
+        </IconButton>
+      </Offset>
     );
 
     const userMenu = (() => {
       if (loggedIn) {
-        return <UserMenuRelay key="header.userMenu" {...this.props} />;
+        return (
+          <Offset key="header.userMenu">
+            <UserMenuRelay {...this.props} />
+          </Offset>
+        );
       }
       return (
-        <RaisedButton
-          key="header.userMenu.signIn"
-          primary
-          label={<FormattedMessage id="headerActions.signIn" defaultMessage="Sign In" />}
-          href="/"
-        />
+        <Offset key="header.userMenu.signIn">
+          <RaisedButton
+            primary
+            href="/"
+            label={
+              <FormattedMessage
+                defaultMessage="Sign In"
+                id="headerActions.signIn"
+              />
+            }
+          />
+        </Offset>
+      );
+    })();
+
+
+    const Primary = (() => {
+      if (showCheckLogo) {
+        return (<Link to="/check/teams">
+          <img
+            width={units(8)}
+            alt="Team Logo"
+            src={stringHelper('LOGO_URL')}
+          />
+        </Link>);
+      }
+      return (
+        <Row>
+          {joinPage
+            ? <TeamPublicHeader {...this.props} />
+            : <TeamHeader {...this.props} />}
+          {isProjectSubpage
+            ? <IconButton className="project-header__back-button" href={backUrl}><IconArrowBack /></IconButton>
+            : <Offset />}
+          <ProjectHeader {...this.props} />
+        </Row>
       );
     })();
 
     const Secondary = (() => {
-      if (this.props.params && this.props.params.team) {
+      if (hasTeam) {
         return (
-          <ElementsSecondary>
-            {[searchButton, userMenu, dotMenu]}
-          </ElementsSecondary>
+          <AlignOpposite>
+            <Row>
+              {[
+                searchButton,
+                userMenu,
+                dotMenu,
+              ]}
+            </Row>
+          </AlignOpposite>
         );
       }
       return (
-        <ElementsSecondary>
-          {[userMenu, dotMenu]}
-        </ElementsSecondary>
-      );
-    })();
-
-    const Primary = (() => {
-      if (!showCheckLogo) {
-        return (
-          <ElementsPrimary>
-            {joinPage
-              ? <TeamPublicHeader {...this.props} />
-              : <TeamHeader {...this.props} />}
-            <ProjectHeader {...this.props} />
-          </ElementsPrimary>
-        );
-      } return (
-        <ElementsPrimary>
-          <Link to="/check/teams">
-            <img width={units(8)} alt="Team Logo" src={stringHelper('LOGO_URL')} />
-          </Link>
-        </ElementsPrimary>
+        <AlignOpposite>
+          <Row>
+            {[
+              userMenu,
+              dotMenu,
+            ]}
+          </Row>
+        </AlignOpposite>
       );
     })();
 

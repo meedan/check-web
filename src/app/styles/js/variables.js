@@ -73,6 +73,7 @@ export const tiny = `400 ${units(1)}/${units(1.5)} ${fontStackSans}`;
 
 // Layout
 export const headerHeight = units(7);
+export const headerOffset = units(2);
 
 // Breakpoints
 export const breakpointMobile = `${units(85)}`;
@@ -259,11 +260,9 @@ export const muiThemeWithoutRtl = {
   },
 };
 
-
-export const media = {
+export const mediaQuery = {
   handheld: (...args) => css`@media (max-width: ${breakpointMobile}) { ${css(...args)} }`,
 };
-
 
 const shimmerKeyframes = keyframes`
   0% {
@@ -304,3 +303,8 @@ export const defaultAnchorOrigin = {
   horizontal: 'left',
   vertical: 'bottom',
 };
+
+export const Row = styled.div`
+  display: flex;
+  align-items: center;
+`;

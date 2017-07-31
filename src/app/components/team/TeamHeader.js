@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 import TeamRoute from '../../relay/TeamRoute';
 import teamFragment from '../../relay/teamFragment';
 import TeamHeaderComponent from './TeamHeaderComponent';
-import { avatarSize, appBarInnerHeight, defaultBorderRadius, Pulse } from '../../styles/js/variables';
+import { avatarSize, headerHeight, defaultBorderRadius, Pulse } from '../../styles/js/variables';
 
 const TeamHeaderContainer = Relay.createContainer(TeamHeaderComponent, {
   fragments: {
@@ -18,7 +18,7 @@ const TeamHeaderContainer = Relay.createContainer(TeamHeaderComponent, {
 //
 const styles = {
   loadingHeaderOuterStyle: {
-    height: appBarInnerHeight,
+    height: headerHeight,
     display: 'flex',
     alignItems: 'center',
   },
@@ -29,7 +29,6 @@ const styles = {
     backgroundColor: 'white',
   },
 };
-
 
 class TeamHeader extends Component {
   render() {
@@ -51,11 +50,7 @@ class TeamHeader extends Component {
       <Relay.RootContainer
         Component={TeamHeaderContainer}
         route={route}
-        renderLoading={function () {
-          return (
-            loadingPlaceholder
-          );
-        }}
+        renderLoading={function () { return loadingPlaceholder; }}
       />
     );
   }

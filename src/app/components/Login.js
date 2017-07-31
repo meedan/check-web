@@ -24,11 +24,11 @@ import CheckContext from '../CheckContext';
 import { login, request } from '../redux/actions';
 import { mapGlobalMessage } from './MappedMessage';
 import { stringHelper } from '../customHelpers';
-import { muiThemeWithoutRtl, units, media, black54 } from '../styles/js/variables';
+import { muiThemeWithoutRtl, units, mediaQuery, black54 } from '../styles/js/variables';
 
 const StyledCard = styled(Card)`
   padding: ${units(11)} ${units(15)} ${units(3)} !important;
-  ${media.handheld`
+  ${mediaQuery.handheld`
     padding: ${units(8)} ${units(4)} ${units(3)} !important;
   `}
 `;

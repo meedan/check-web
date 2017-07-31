@@ -10,10 +10,11 @@ import {
   subheading2,
   ellipsisStyles,
   avatarStyle,
-  units,
   black54,
-  appBarInnerHeight,
+  headerHeight,
+  headerOffset,
   avatarSize,
+  Row,
 } from '../../styles/js/variables.js';
 
 class TeamHeaderComponent extends Component {
@@ -58,7 +59,7 @@ class TeamHeaderComponent extends Component {
     const TeamNav = styled.nav`
       border-radius: ${defaultBorderRadius};
       display: flex;
-      height: ${appBarInnerHeight};
+      height: ${headerHeight};
       overflow: hidden;
     `;
 
@@ -73,14 +74,26 @@ class TeamHeaderComponent extends Component {
       background-image: url(${team.avatar});
       width: ${avatarSize};
       height: ${avatarSize};
-      margin-${toDirection}: ${units(2)};
+    `;
+
+    const Offset = styled.div`
+      margin-${toDirection}: ${headerOffset};
     `;
 
     return (
       <TeamNav>
         <TeamLink to={`/${team.slug}`} title={team.name} className="team-header__avatar">
-          <TeamAvatar />
-          {isProjectUrl ? null : <TeamName>{team.name}</TeamName>}
+          {isProjectUrl
+            ? <TeamAvatar />
+            : <Row>
+              <Offset>
+                <TeamAvatar />
+              </Offset>
+              <TeamName>
+                {team.name}
+              </TeamName>
+            </Row>
+            }
         </TeamLink>
       </TeamNav>
     );
