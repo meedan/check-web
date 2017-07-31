@@ -499,7 +499,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(page.contains_string?('Tagged #command')).to be(true)
     end
 
-    it "should comment media as a command bli" do
+    it "should comment media as a command" do
       page = LoginPage.new(config: @config, driver: @driver).load
           .login_with_email(email: @email, password: @password)
           .click_media
