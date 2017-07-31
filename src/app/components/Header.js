@@ -43,9 +43,8 @@ class Header extends Component {
     const fromDirection = isRtl ? 'right' : 'left';
     const hasTeam = this.props.params && this.props.params.team;
     const regexProject = /(.*\/project\/[0-9]+)/;
-    const regexMedia = /\/media\/[0-9]+\/.+/;
-    let backUrl = (regexProject.test(path)) ? path.match(regexProject)[1] : '';
-    backUrl = (regexMedia.test(path)) ? path.match(regexMedia)[1] : '';
+    const regexMedia = /\/media\/[0-9]/;
+    const backUrl = (regexMedia.test(path)) ? path.match(regexProject)[1] : null;
     const isProjectSubpage = regexMedia.test(path);
 
     const HeaderBar = styled.div`
@@ -258,7 +257,7 @@ class Header extends Component {
             : <Offset><TeamHeader {...this.props} /></Offset>}
           {isProjectSubpage
             ? <IconButton className="project-header__back-button" href={backUrl}><IconArrowBack /></IconButton>
-            : <div style={{ width: units(1) }} />}
+            : null}
           <ProjectHeader {...this.props} />
         </Row>
       );
