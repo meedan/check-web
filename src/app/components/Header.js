@@ -41,7 +41,6 @@ class Header extends Component {
     const locale = this.props.intl.locale;
     const isRtl = rtlDetect.isRtlLang(locale);
     const fromDirection = isRtl ? 'right' : 'left';
-    const toDirection = isRtl ? 'left' : 'right';
     const hasTeam = this.props.params && this.props.params.team;
     let backUrl = path.match(/(.*\/project\/[0-9]+)/) ? path.match(/(.*\/project\/[0-9]+)/)[1] : '';
     if (path.match(/\/media\/[0-9]+\/.+/)) {
@@ -67,7 +66,7 @@ class Header extends Component {
     `;
 
     const Offset = styled.div`
-      margin-${toDirection}: ${headerOffset} !important;
+      padding: 0 ${headerOffset} !important;
     `;
 
     const yourTeamsMenuItem = (
@@ -256,11 +255,11 @@ class Header extends Component {
       return (
         <Row>
           {joinPage
-            ? <TeamPublicHeader {...this.props} />
-            : <TeamHeader {...this.props} />}
+            ? <Offset><TeamPublicHeader {...this.props} /></Offset>
+            : <Offset><TeamHeader {...this.props} /></Offset>}
           {isProjectSubpage
             ? <IconButton className="project-header__back-button" href={backUrl}><IconArrowBack /></IconButton>
-            : <Offset />}
+            : <div style={{ width: units(1) }} />}
           <ProjectHeader {...this.props} />
         </Row>
       );

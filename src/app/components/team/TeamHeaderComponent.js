@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router';
-import rtlDetect from 'rtl-detect';
-import { injectIntl } from 'react-intl';
 
 import CheckContext from '../../CheckContext';
 import {
@@ -12,10 +10,9 @@ import {
   avatarStyle,
   black54,
   headerHeight,
-  headerOffset,
   avatarSize,
   Row,
-} from '../../styles/js/variables.js';
+} from '../../styles/js/variables';
 
 class TeamHeaderComponent extends Component {
 
@@ -34,9 +31,6 @@ class TeamHeaderComponent extends Component {
   render() {
     const team = this.props.team;
     const isProjectUrl = /(.*\/project\/[0-9]+)/.test(window.location.pathname);
-    const locale = this.props.intl.locale;
-    const isRtl = rtlDetect.isRtlLang(locale);
-    const toDirection = isRtl ? 'left' : 'right';
 
     const TeamLink = styled(Link)`
       align-items: center;
@@ -76,19 +70,13 @@ class TeamHeaderComponent extends Component {
       height: ${avatarSize};
     `;
 
-    const Offset = styled.div`
-      margin-${toDirection}: ${headerOffset};
-    `;
-
     return (
       <TeamNav>
         <TeamLink to={`/${team.slug}`} title={team.name} className="team-header__avatar">
           {isProjectUrl
             ? <TeamAvatar />
             : <Row>
-              <Offset>
-                <TeamAvatar />
-              </Offset>
+              <TeamAvatar />
               <TeamName>
                 {team.name}
               </TeamName>
@@ -104,4 +92,4 @@ TeamHeaderComponent.contextTypes = {
   store: React.PropTypes.object,
 };
 
-export default injectIntl(TeamHeaderComponent);
+export default TeamHeaderComponent;

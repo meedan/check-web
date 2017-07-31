@@ -73,7 +73,7 @@ export const tiny = `400 ${units(1)}/${units(1.5)} ${fontStackSans}`;
 
 // Layout
 export const headerHeight = units(7);
-export const headerOffset = units(2);
+export const headerOffset = units(1);
 
 // Breakpoints
 export const breakpointMobile = `${units(85)}`;

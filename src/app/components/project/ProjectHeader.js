@@ -5,7 +5,7 @@ import MenuItem from 'material-ui/MenuItem';
 import styled from 'styled-components';
 import ProjectRoute from '../../relay/ProjectRoute';
 import CheckContext from '../../CheckContext';
-import { mediaQuery, units, black54, headerHeight, headerOffset, black32 } from '../../styles/js/variables';
+import { mediaQuery, units, black02, black54, black87, headerHeight, black32 } from '../../styles/js/variables';
 
 class ProjectHeaderComponent extends Component {
   componentDidMount() {
@@ -45,13 +45,16 @@ class ProjectHeaderComponent extends Component {
       max-width: 60vw;
       height: ${headerHeight} !important;
       ${mediaQuery.handheld` max-width: 40vw; `}
+      &:hover {
+        background-color: ${black02};
+      }
     `;
 
     const styles = {
       menuItemStyle: {
         minWidth: 200,
-        padding: `${units(2)} 0`,
-        lineHeight: units(2),
+        padding: `${units(1.5)} 0`,
+        lineHeight: units(2.5),
         whiteSpace: 'wrap',
       },
       menuStyle: {
@@ -59,7 +62,7 @@ class ProjectHeaderComponent extends Component {
       },
       labelStyle: {
         color: black54,
-        paddingLeft: 0,
+        paddingLeft: units(1),
       },
       iconStyle: {
         fill: black32,
@@ -67,13 +70,14 @@ class ProjectHeaderComponent extends Component {
       underlineStyle: {
         borderWidth: 0,
       },
-      iconButton: {
-        marginRight: headerOffset,
+      selectedMenuItemStyle: {
+        color: black87,
       },
     };
 
     return (
       <StyledDropDownMenu
+        anchorOrigin={{ vertical: 'center', horizontal: 'left' }}
         autoWidth={false}
         className="project-header__title"
         iconStyle={styles.iconStyle}
@@ -82,6 +86,7 @@ class ProjectHeaderComponent extends Component {
         menuStyle={styles.menuStyle}
         underlineStyle={styles.underlineStyle}
         value={currentProject.title}
+        selectedMenuItemStyle={styles.selectedMenuItemStyle}
       >
         {currentProject.team.projects.edges
             .sortp((a, b) => a.node.title.localeCompare(b.node.title))
@@ -94,6 +99,7 @@ class ProjectHeaderComponent extends Component {
                   key={p.node.dbid}
                   primaryText={p.node.title}
                   value={p.node.title}
+                  style={{ color: black54 }}
                 />
               );
             })}
