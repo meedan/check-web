@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router';
+import rtlDetect from 'rtl-detect';
+import { injectIntl } from 'react-intl';
+
 import CheckContext from '../../CheckContext';
 import {
   defaultBorderRadius,
@@ -9,6 +12,8 @@ import {
   avatarStyle,
   units,
   white,
+  appBarInnerHeight,
+  avatarSize,
 } from '../../styles/js/variables.js';
 
 class TeamHeaderComponent extends Component {
@@ -28,6 +33,9 @@ class TeamHeaderComponent extends Component {
   render() {
     const team = this.props.team;
     const isProjectUrl = /(.*\/project\/[0-9]+)/.test(window.location.pathname);
+    const locale = this.props.intl.locale;
+    const isRtl = rtlDetect.isRtlLang(locale);
+    const fromDirection = isRtl ? 'right' : 'left';
 
     const TeamLink = styled(Link)`
       align-items: center;
@@ -50,14 +58,14 @@ class TeamHeaderComponent extends Component {
     const TeamNav = styled.nav`
       border-radius: ${defaultBorderRadius};
       display: flex;
-      height: ${units(6)};
+      height: ${appBarInnerHeight};
       overflow: hidden;
     `;
 
     const TeamName = styled.h3`
       ${ellipsisStyles}
       font: ${subheading2};
-      margin-left: ${units(2)};
+      margin-${fromDirection}: ${units(2)};
     `;
 
     const TeamAvatar = styled.div`
@@ -65,9 +73,8 @@ class TeamHeaderComponent extends Component {
       background-image: url(${team.avatar});
       background-color: ${white};
       margin: 0;
-      width: ${units(5)};
-      height: ${units(5)};
-      margin-left: ${units(2)};
+      width: ${avatarSize};
+      height: ${avatarSize};
     `;
 
     return (
@@ -85,4 +92,4 @@ TeamHeaderComponent.contextTypes = {
   store: React.PropTypes.object,
 };
 
-export default TeamHeaderComponent;
+export default injectIntl(TeamHeaderComponent);

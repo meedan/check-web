@@ -193,6 +193,10 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should create a project for a team " do
       page = LoginPage.new(config: @config, driver: @driver).load
           .login_with_email(email: @e1, password: @password, project: true)
+      page = TeamsPage.new(config: @config, driver: @driver).load
+          .select_team(name: @t2)
+      sleep 3
+      expect(page.team_name).to eq(@t2)
       name = "Project #{Time.now}"
       element = @driver.find_element(:id, "create-project-title")
       sleep 2
@@ -200,7 +204,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       element.send_keys name
       @driver.action.send_keys("\n").perform
       sleep 2
-      expect(get_element('h2.project-header__title').text.nil?).to be(false)
+      expect(get_element('.project-header__title').text.nil?).to be(false)
     end
 
     #Create a new media using a link from:     #Facebook      #YouTube     #Twitter     #  Instagram

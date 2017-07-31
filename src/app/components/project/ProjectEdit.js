@@ -1,18 +1,15 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import Relay from 'react-relay';
-import { Link } from 'react-router';
+import TextField from 'material-ui/TextField';
+import { Card, CardText, CardActions } from 'material-ui/Card';
+import RaisedButton from 'material-ui/RaisedButton';
 import Message from '../Message';
 import UpdateProjectMutation from '../../relay/UpdateProjectMutation';
 import PageTitle from '../PageTitle';
 import ProjectRoute from '../../relay/ProjectRoute';
-import ProjectHeader from './ProjectHeader';
-import Can from '../Can';
-import config from 'config';
 import CheckContext from '../../CheckContext';
 import ContentColumn from '../layout/ContentColumn';
-import { bemClass } from '../../helpers';
-import TextField from 'material-ui/TextField';
 
 const messages = defineMessages({
   error: {
@@ -50,24 +47,28 @@ class ProjectEditComponent extends Component {
     };
   }
 
+  componentDidMount() {
+    this.setContextProject();
+  }
+
+  componentDidUpdate() {
+    this.setContextProject();
+  }
+
   getContext() {
     const context = new CheckContext(this);
     return context;
   }
 
-  currentContext() {
-    return this.getContext().getContextStore();
-  }
-
   setContextProject() {
-    const context = this.getContext(),
-      currentContext = this.currentContext(),
-      newContext = {};
+    const context = this.getContext();
+    const currentContext = this.currentContext();
+    const newContext = {};
 
     newContext.project = this.props.project;
 
     let notFound = false;
-    if (!currentContext.team || currentContext.team.slug != this.props.project.team.slug) {
+    if (!currentContext.team || currentContext.team.slug !== this.props.project.team.slug) {
       newContext.team = this.props.project.team;
       notFound = true;
     }
@@ -79,12 +80,8 @@ class ProjectEditComponent extends Component {
     }
   }
 
-  componentDidMount() {
-    this.setContextProject();
-  }
-
-  componentDidUpdate() {
-    this.setContextProject();
+  currentContext() {
+    return this.getContext().getContextStore();
   }
 
   handleTitleChange(e) {
@@ -100,11 +97,11 @@ class ProjectEditComponent extends Component {
   }
 
   updateProject(e) {
-    let that = this,
-      id = this.props.project.id,
-      title = this.state.title,
-      description = this.state.description,
-      slackChannel = this.state.slackChannel;
+    const that = this;
+    const id = this.props.project.id;
+    const title = this.state.title;
+    const description = this.state.description;
+    const slackChannel = this.state.slackChannel;
 
     this.setState({ title, description, slackChannel });
 
@@ -146,56 +143,57 @@ class ProjectEditComponent extends Component {
       <PageTitle prefix={project.title} skipTeam={false} team={this.currentContext().team}>
         <section className="project-edit">
           <Message message={this.state.message} />
-          <ContentColumn className="card">
+          <ContentColumn>
+            <Card>
+              <form className="project-edit__form" onSubmit={this.updateProject.bind(this)}>
+                <CardText>
+                  <TextField
+                    name="name"
+                    id="project-title-field"
+                    className="project-edit__title-field"
+                    type="text"
+                    fullWidth
+                    value={this.state.title}
+                    floatingLabelText={this.props.intl.formatMessage(messages.titleField)}
+                    autoComplete="off"
+                    onChange={this.handleTitleChange.bind(this)}
+                  />
 
-            <form className="project-edit__form" onSubmit={this.updateProject.bind(this)}>
-
-              <TextField
-                name="name"
-                id="project-title-field"
-                className="project-edit__title-field"
-                type="text"
-                fullWidth
-                value={this.state.title}
-                floatingLabelText={this.props.intl.formatMessage(messages.titleField)}
-                autoComplete="off"
-                onChange={this.handleTitleChange.bind(this)}
-              />
-
-              <TextField
-                name="description"
-                id="project-description-field"
-                className="project-edit__description-field"
-                type="text"
-                fullWidth
-                multiLine
-                value={this.state.description}
-                floatingLabelText={this.props.intl.formatMessage(messages.descriptionField)}
-                autoComplete="off"
-                onChange={this.handleDescriptionChange.bind(this)}
-              />
-              {isSlackEnabled ?
-                <TextField
-                  name="slack-channel"
-                  className="project-edit__slack-channel-input"
-                  id="project-slack-channel-field"
-                  type="text"
-                  fullWidth
-                  value={this.state.slackChannel}
-                  placeholder={this.props.intl.formatMessage(messages.slackChannelPlaceholder)}
-                  floatingLabelText={this.props.intl.formatMessage(messages.slackChannelField)}
-                  floatingLabelFixed
-                  autoComplete="off"
-                  onChange={this.handleSlackChannelChange.bind(this)}
-                />
-              : null }
-              <div className="project-edit__editing-buttons">
-                <button type="submit" className="project-edit__editing-button project-edit__editing-button--save">
-                  <FormattedMessage id="projectEdit.saveButton" defaultMessage="Save" />
-                </button>
-              </div>
-            </form>
-
+                  <TextField
+                    name="description"
+                    id="project-description-field"
+                    className="project-edit__description-field"
+                    type="text"
+                    fullWidth
+                    multiLine
+                    value={this.state.description}
+                    floatingLabelText={this.props.intl.formatMessage(messages.descriptionField)}
+                    autoComplete="off"
+                    onChange={this.handleDescriptionChange.bind(this)}
+                  />
+                  {isSlackEnabled ?
+                    <TextField
+                      name="slack-channel"
+                      className="project-edit__slack-channel-input"
+                      id="project-slack-channel-field"
+                      type="text"
+                      fullWidth
+                      value={this.state.slackChannel}
+                      placeholder={this.props.intl.formatMessage(messages.slackChannelPlaceholder)}
+                      floatingLabelText={this.props.intl.formatMessage(messages.slackChannelField)}
+                      floatingLabelFixed
+                      autoComplete="off"
+                      onChange={this.handleSlackChannelChange.bind(this)}
+                    />
+                : null }
+                </CardText>
+                <CardActions>
+                  <div className="project-edit__editing-buttons">
+                    <RaisedButton primary label={<FormattedMessage id="projectEdit.saveButton" defaultMessage="Save" />} type="submit" className="project-edit__editing-button project-edit__editing-button--save" />
+                  </div>
+                </CardActions>
+              </form>
+            </Card>
           </ContentColumn>
         </section>
       </PageTitle>
@@ -216,7 +214,7 @@ const ProjectEditContainer = Relay.createContainer(injectIntl(ProjectEditCompone
     contextId: null,
   },
   fragments: {
-    project: ({ Component, contextId }) => Relay.QL`
+    project: () => Relay.QL`
       fragment on Project {
         id,
         dbid,
@@ -236,7 +234,7 @@ const ProjectEditContainer = Relay.createContainer(injectIntl(ProjectEditCompone
 class ProjectEdit extends Component {
   render() {
     const projectId = this.props.params.projectId;
-    const route = new ProjectRoute({ contextId: parseInt(projectId) });
+    const route = new ProjectRoute({ contextId: parseInt(projectId, 10) });
     return (
       <Relay.RootContainer
         Component={ProjectEditContainer}

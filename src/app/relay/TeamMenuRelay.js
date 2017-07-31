@@ -1,17 +1,13 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay';
+import MenuItem from 'material-ui/MenuItem';
 import TeamRoute from './TeamRoute';
 import Can from '../components/Can';
 import CheckContext from '../CheckContext';
 
 class TeamMenu extends Component {
   handleClick() {
-    const overlay = document.querySelector('.header-actions__menu-overlay--active');
-    if (overlay) {
-      overlay.click(); // TODO: better way to clear overlay e.g. passing fn from HeaderActions
-    }
-
     const history = new CheckContext(this).getContextStore().history;
     history.push(`/${this.props.team.slug}/members`);
   }
@@ -21,9 +17,13 @@ class TeamMenu extends Component {
 
     return (
       <Can permissions={team.permissions} permission="update Team">
-        <li key="teamMenuRelay.manageTeam" className="header-actions__menu-item" onClick={this.handleClick.bind(this)}>
-          <FormattedMessage id="teamMenuRelay.manageTeam" defaultMessage="Manage team" />
-        </li>
+        <MenuItem
+          key="teamMenuRelay.manageTeam"
+          onClick={this.handleClick.bind(this)}
+          primaryText={
+            <FormattedMessage id="teamMenuRelay.manageTeam" defaultMessage="Manage team" />
+          }
+        />
       </Can>
     );
   }
@@ -51,7 +51,7 @@ class TeamMenuRelay extends Component {
   render() {
     if (this.props.params.team) {
       const route = new TeamRoute({ teamSlug: this.props.params.team });
-      return (<Relay.RootContainer Component={TeamMenuContainer} route={route} />);
+      return <Relay.RootContainer Component={TeamMenuContainer} route={route} />;
     }
     return null;
   }

@@ -49,6 +49,8 @@ export const columnWidthSmall = units(56);
 export const columnWidthMedium = units(85);
 export const columnWidthLarge = units(100);
 export const columnWidthWide = units(152);
+export const appBarInnerHeight = units(6);
+export const avatarSize = units(5);
 
 // Unitless
 export function unitless(unit) {
@@ -213,8 +215,8 @@ const fadeInKeyframes = keyframes`
 // 2. Now we can wrap elements in <FadeIn>
 export const FadeIn = styled.div`
   animation: ${fadeInKeyframes} ease-in .3s;
-  animation-duration: $speed;
-  animation-fill-mode: forwards;4
+  animation-duration: .3s;
+  animation-fill-mode: forwards;
   opacity: 0;
 `;
 
@@ -222,16 +224,79 @@ export const FadeIn = styled.div`
 //
 // This is passed as a prop to <MuiThemeProvider>
 //
-export const palette = {
-  primary1Color: checkBlue,
-  primary2Color: checkBlue,
-  primary3Color: checkBlue,
-  accent1Color: checkBlue,
-  accent2Color: checkBlue,
-  accent3Color: checkBlue,
+export const muiThemeWithoutRtl = {
+  palette: {
+    primary1Color: checkBlue,
+    primary2Color: checkBlue,
+    primary3Color: checkBlue,
+    accent1Color: checkBlue,
+    accent2Color: checkBlue,
+    accent3Color: checkBlue,
+  },
+  appBar: {
+    color: black02,
+  },
+  svgIcon: {
+    color: black54,
+  },
+  ripple: {
+    color: checkBlue,
+  },
+  tabs: {
+    backgroundColor: white,
+    textColor: checkBlue,
+    selectedTextColor: checkBlue,
+  },
+  inkBar: {
+    backgroundColor: checkBlue,
+  },
+  menuItem: {
+    hoverColor: highlightBlue,
+  },
 };
 
 
 export const media = {
   handheld: (...args) => css`@media (max-width: ${breakpointMobile}) { ${css(...args)} }`,
+};
+
+
+const shimmerKeyframes = keyframes`
+  0% {
+    background-position: 0% 50%;
+  }
+
+  100% {
+    background-position: 100% 50%;
+  }
+`;
+
+export const Shimmer = styled.div`
+  animation: ${shimmerKeyframes} 1s ease-out infinite;
+  animation-fill-mode: forwards;
+  background: linear-gradient(90deg, ${opaqueBlack05}, ${opaqueBlack05}, ${opaqueBlack02}, ${opaqueBlack02}, ${white}, ${opaqueBlack02}, ${opaqueBlack05}, ${opaqueBlack05});
+  background-size: 400%;
+`;
+
+
+export const pulseKeyframes = keyframes`
+  0% {
+    background-color: ${white};
+  }
+  50% {
+    background-color: ${opaqueBlack02};
+  }
+  100% {
+    background-color: ${white};
+  }
+`;
+
+export const Pulse = styled.div`
+  animation: ${pulseKeyframes} 1s infinite;
+`;
+
+// For positioning Material-UI menus
+export const anchorOrigin = {
+  horizontal: 'left',
+  vertical: 'bottom',
 };

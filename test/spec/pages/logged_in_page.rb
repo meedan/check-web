@@ -5,6 +5,8 @@ module LoggedInPage
     menu = element('.header-actions__menu-toggle')
     menu.click
 
+    # Wait for menu transition to complete
+    sleep 2
     logout = element('.header-actions__menu-item--logout')
     logout.click
 

@@ -17,6 +17,7 @@ class CreateProjectSourceMutation extends Relay.Mutation {
 
   getConfigs() {
     return [
+      /*
       {
         type: 'RANGE_ADD',
         parentName: 'check_search_team',
@@ -44,6 +45,7 @@ class CreateProjectSourceMutation extends Relay.Mutation {
           'check_search_project' : this.props.project.search_id
         },
       },
+      */
       {
         type: 'REQUIRED_CHILDREN',
         children: [Relay.QL`
