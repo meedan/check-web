@@ -500,9 +500,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should comment media as a command" do
-      login_with_email
-      @driver.navigate.to team_url('project/' + get_project + '/media/' + $media_id)
-      sleep 1
+      page = LoginPage.new(config: @config, driver: @driver).load
+          .login_with_email(email: @email, password: @password)
+          .click_media
 
       # First, verify that there isn't any comment
       expect(@driver.page_source.include?('This is my comment')).to be(false)
