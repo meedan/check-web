@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay';
 import Select from 'react-select';
-import MenuItem from 'material-ui/MenuItem';
 import styled from 'styled-components';
 import ProjectRoute from '../../relay/ProjectRoute';
 import CheckContext from '../../CheckContext';
@@ -42,26 +41,29 @@ class ProjectHeaderComponent extends Component {
     const currentProject = this.props.project;
 
     const StyledSelect = styled(Select)`
-      max-width: 60vw;
-      height: ${headerHeight} !important;
-      ${mediaQuery.handheld` display: none !important;`}
+      min-width: 200px;
+      background-color: transparent!important;
       &:hover {
         background-color: ${black02};
       }
     `;
 
-    const DropDownMenuOptions = { currentProject.team.projects.edges
+    const DropDownMenuOptions = (currentProject.team.projects.edges
     .sortp((a, b) => a.node.title.localeCompare(b.node.title))
     .map((p) => {
       const projectPath = `/${currentProject.team.slug}/project/${p.node.dbid}`;
       return ({ label: p.node.title, value: projectPath });
-    })};
+    }));
 
     return (
       <StyledSelect
+        autosize
+        autoBlur
+        clearable={false}
         className="project-header__title"
         value={currentProject.title}
         options={DropDownMenuOptions}
+        onChange={(object) => { window.location = object.value; }}
       />
     );
   }

@@ -53,7 +53,6 @@ class Header extends Component {
       align-items: center;
       padding: 0 ${units(2)};
       z-index: 2;
-      overflow: hidden;
       height: ${headerHeight};
       ${mediaQuery.handheld`
         padding: 0 ${units(1)};
