@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay';
-import DropDownMenu from 'material-ui/DropDownMenu';
+import Select from 'react-select';
 import MenuItem from 'material-ui/MenuItem';
 import styled from 'styled-components';
 import ProjectRoute from '../../relay/ProjectRoute';
@@ -41,7 +41,7 @@ class ProjectHeaderComponent extends Component {
   render() {
     const currentProject = this.props.project;
 
-    const StyledDropDownMenu = styled(DropDownMenu)`
+    const StyledSelect = styled(Select)`
       max-width: 60vw;
       height: ${headerHeight} !important;
       ${mediaQuery.handheld` display: none !important;`}
@@ -50,60 +50,19 @@ class ProjectHeaderComponent extends Component {
       }
     `;
 
-    const styles = {
-      menuItemStyle: {
-        minWidth: 200,
-        padding: `${units(1.5)} 0`,
-        lineHeight: units(2.5),
-        whiteSpace: 'wrap',
-      },
-      menuStyle: {
-        minWidth: 200,
-      },
-      labelStyle: {
-        color: black54,
-        paddingLeft: units(1),
-      },
-      iconStyle: {
-        fill: black32,
-      },
-      underlineStyle: {
-        borderWidth: 0,
-      },
-      selectedMenuItemStyle: {
-        color: black87,
-      },
-    };
+    const DropDownMenuOptions = { currentProject.team.projects.edges
+    .sortp((a, b) => a.node.title.localeCompare(b.node.title))
+    .map((p) => {
+      const projectPath = `/${currentProject.team.slug}/project/${p.node.dbid}`;
+      return ({ label: p.node.title, value: projectPath });
+    })};
 
     return (
-      <StyledDropDownMenu
-        anchorOrigin={{ vertical: 'center', horizontal: 'left' }}
-        autoWidth={false}
+      <StyledSelect
         className="project-header__title"
-        iconStyle={styles.iconStyle}
-        labelStyle={styles.labelStyle}
-        menuItemStyle={styles.menuItemStyle}
-        menuStyle={styles.menuStyle}
-        underlineStyle={styles.underlineStyle}
         value={currentProject.title}
-        selectedMenuItemStyle={styles.selectedMenuItemStyle}
-      >
-        {currentProject.team.projects.edges
-            .sortp((a, b) => a.node.title.localeCompare(b.node.title))
-            .map((p) => {
-              const projectPath = `/${currentProject.team.slug}/project/${p.node.dbid}`;
-              return (
-                <MenuItem
-                  className="project-list__project"
-                  href={projectPath}
-                  key={p.node.dbid}
-                  primaryText={p.node.title}
-                  value={p.node.title}
-                  style={{ color: black54 }}
-                />
-              );
-            })}
-      </StyledDropDownMenu>
+        options={DropDownMenuOptions}
+      />
     );
   }
 }

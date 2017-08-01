@@ -12,7 +12,6 @@ describe('<Header />', () => {
   it('renders team header on members page', () => {
     const location = { pathname: '/team/members' };
     const header = mountWithIntl(<Header location={location} params={{}} />);
-    console.log(header.debug());
     expect(header.find(TeamHeader)).to.have.length(1);
     expect(header.find(TeamPublicHeader)).to.have.length(0);
     expect(header.find(IconArrowBack)).to.have.length(0);
@@ -23,6 +22,7 @@ describe('<Header />', () => {
     const header = mountWithIntl(<Header location={location} params={{}} />);
     expect(header.find(TeamHeader)).to.have.length(0);
     expect(header.find(TeamPublicHeader)).to.have.length(1);
+    expect(header.find(IconArrowBack)).to.have.length(0);
   });
 
   it('renders the logo, avatar and menu on the teams page', () => {
