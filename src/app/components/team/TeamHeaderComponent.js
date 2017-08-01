@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router';
-
+import Drawer from 'material-ui/Drawer';
+import MenuItem from 'material-ui/MenuItem';
 import CheckContext from '../../CheckContext';
+
 import {
   defaultBorderRadius,
   subheading2,
@@ -14,9 +16,16 @@ import {
   Row,
   headerOffset,
   mediaQuery,
+  headline,
+  black87,
+  units,
 } from '../../styles/js/variables';
 
 class TeamHeaderComponent extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { open: false };
+  }
 
   componentWillMount() {
     this.updateContext();
@@ -30,6 +39,8 @@ class TeamHeaderComponent extends Component {
     new CheckContext(this).setContextStore({ team: this.props.team });
   }
 
+  handleToggle = () => this.setState({ open: !this.state.open });
+
   render() {
     const team = this.props.team;
     const isProjectUrl = /(.*\/project\/[0-9]+)/.test(window.location.pathname);
@@ -40,6 +51,7 @@ class TeamHeaderComponent extends Component {
       height: 100%;
       overflow: hidden;
       width: 100%;
+      cursor: pointer;
 
       &,
       &:hover {
@@ -69,6 +81,12 @@ class TeamHeaderComponent extends Component {
       `}
     `;
 
+    const Headline = styled.h2`
+      font: ${headline};
+      line-height: ${units(6.5)};
+      color: ${black87};
+    `;
+
     const TeamAvatar = styled.div`
       ${avatarStyle}
       background-image: url(${team.avatar});
@@ -76,20 +94,39 @@ class TeamHeaderComponent extends Component {
       height: ${avatarSize};
     `;
 
+    const projectList = this.props.team.projects.edges
+      .sortp((a, b) => a.node.title.localeCompare(b.node.title))
+      .map((p) => {
+        const projectPath = `/${this.props.team.slug}/project/${p.node.dbid}`;
+        return <MenuItem key={p.node.dbid} href={projectPath}>{p.node.title}</MenuItem>;
+      });
+
     return (
-      <TeamNav>
-        <TeamLink to={`/${team.slug}`} title={team.name} className="team-header__avatar">
-          {isProjectUrl
-            ? <TeamAvatar />
+      <div>
+        <TeamNav>
+          <TeamLink onClick={this.handleToggle} title={team.name} className="team-header__avatar">
+            {isProjectUrl
+            ?
+              <TeamAvatar />
             : <Row>
               <TeamAvatar />
               <TeamName>
                 {team.name}
               </TeamName>
-            </Row>
-            }
-        </TeamLink>
-      </TeamNav>
+            </Row>}
+          </TeamLink>
+        </TeamNav>
+        <Drawer
+          docked={false}
+          open={this.state.open}
+          onRequestChange={open => this.setState({ open })}
+        >
+          <MenuItem href={`/${this.props.team.slug}/`}>
+            <Headline>{team.name}</Headline>
+          </MenuItem>
+          {projectList}
+        </Drawer>
+      </div>
     );
   }
 }

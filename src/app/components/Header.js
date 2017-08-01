@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router';
-import IconMoreVert from 'material-ui/svg-icons/navigation/more-vert';
 import IconSearch from 'material-ui/svg-icons/action/search';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
@@ -182,17 +181,35 @@ class Header extends Component {
       />
     );
 
-    const dotMenuButton = (
-      <IconButton className="header-actions__menu-toggle">
-        <IconMoreVert />
-      </IconButton>
-    );
+    const userMenuButton = (() => {
+      if (loggedIn) {
+        return (
+          <IconButton key="header.userMenu" style={{ width: 56, height: 56 }}>
+            <UserMenuRelay {...this.props} />
+          </IconButton>
+        );
+      }
+      return (
+        <Offset key="header.userMenu.signIn">
+          <RaisedButton
+            primary
+            href="/"
+            label={
+              <FormattedMessage
+                defaultMessage="Sign In"
+                id="headerActions.signIn"
+              />
+            }
+          />
+        </Offset>
+      );
+    })();
 
-    const dotMenu = (
+    const userMenu = (
       <IconMenu
-        key="header.dotMenu"
+        key="header.userMenu"
         anchorOrigin={defaultAnchorOrigin}
-        iconButtonElement={dotMenuButton}
+        iconButtonElement={userMenuButton}
       >
         {loggedIn && yourTeamsMenuItem}
         {!joinPage && editProjectMenuItem}
@@ -218,30 +235,6 @@ class Header extends Component {
       </Offset>
     );
 
-    const userMenu = (() => {
-      if (loggedIn) {
-        return (
-          <Offset key="header.userMenu">
-            <UserMenuRelay {...this.props} />
-          </Offset>
-        );
-      }
-      return (
-        <Offset key="header.userMenu.signIn">
-          <RaisedButton
-            primary
-            href="/"
-            label={
-              <FormattedMessage
-                defaultMessage="Sign In"
-                id="headerActions.signIn"
-              />
-            }
-          />
-        </Offset>
-      );
-    })();
-
     const Primary = (() => {
       if (showCheckLogo) {
         return (<Link to="/check/teams">
@@ -256,11 +249,13 @@ class Header extends Component {
         <Row>
           {joinPage
             ? <Offset><TeamPublicHeader {...this.props} /></Offset>
-            : <Offset><TeamHeader {...this.props} /></Offset>}
-          {isProjectSubpage
-            ? <IconButton className="project-header__back-button" href={backUrl}><IconArrowBack /></IconButton>
-            : null}
-          <ProjectHeader {...this.props} />
+            : <Row>
+              <Offset><TeamHeader {...this.props} /></Offset>
+              {isProjectSubpage
+                ? <IconButton className="project-header__back-button" href={backUrl}><IconArrowBack /></IconButton>
+                : null}
+              <Offset><ProjectHeader {...this.props} /></Offset>
+            </Row>}
         </Row>
       );
     })();
@@ -273,7 +268,6 @@ class Header extends Component {
               {[
                 searchButton,
                 userMenu,
-                dotMenu,
               ]}
             </Row>
           </AlignOpposite>
@@ -281,12 +275,7 @@ class Header extends Component {
       }
       return (
         <AlignOpposite>
-          <Row>
-            {[
-              userMenu,
-              dotMenu,
-            ]}
-          </Row>
+          {userMenu}
         </AlignOpposite>
       );
     })();
