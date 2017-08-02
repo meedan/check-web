@@ -6,5 +6,25 @@
   {
     "id": "bridge.global.appNameHuman",
     "defaultMessage": "Bridge"
+  },
+  {
+    "id": "global.edit",
+    "defaultMessage": "Edit"
+  },
+  {
+    "id": "global.cancel",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "global.save",
+    "defaultMessage": "Save"
+  },
+  {
+    "id": "global.submit",
+    "defaultMessage": "Submit"
+  },
+  {
+    "id": "global.tags",
+    "defaultMessage": "Tags"
   }
 ]

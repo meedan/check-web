@@ -1,11 +1,43 @@
 [
   {
+    "id": "sourceComponent.addInfo",
+    "defaultMessage": "Add Info"
+  },
+  {
     "id": "sourceComponent.editError",
     "defaultMessage": "Sorry, could not edit the source"
   },
   {
     "id": "sourceComponent.editSuccess",
     "defaultMessage": "Source information updated successfully!"
+  },
+  {
+    "id": "sourceComponent.mergeSource",
+    "defaultMessage": "Merge Source"
+  },
+  {
+    "id": "sourceComponent.sourceName",
+    "defaultMessage": "Source name"
+  },
+  {
+    "id": "sourceComponent.sourceBio",
+    "defaultMessage": "Source bio"
+  },
+  {
+    "id": "sourceComponent.contactNote",
+    "defaultMessage": "Contact note"
+  },
+  {
+    "id": "sourceComponent.phone",
+    "defaultMessage": "Phone"
+  },
+  {
+    "id": "sourceComponent.organization",
+    "defaultMessage": "Organization"
+  },
+  {
+    "id": "sourceComponent.location",
+    "defaultMessage": "Location"
   },
   {
     "id": "sourceComponent.dateAdded",
@@ -22,5 +54,9 @@
   {
     "id": "sourceComponent.network",
     "defaultMessage": "Networks"
+  },
+  {
+    "id": "sourceComponent.editButton",
+    "defaultMessage": "Edit profile"
   }
 ]

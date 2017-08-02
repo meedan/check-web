@@ -17,7 +17,17 @@ const SourceContainer = Relay.createContainer(SourceComponent, {
         project_id,
         permissions,
         team {
-          slug
+          name,
+          slug,
+          get_suggested_tags,
+        },
+        tags(first: 10000) {
+          edges {
+            node {
+              tag,
+              id
+            }
+          }
         },
         source {
           id,

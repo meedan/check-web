@@ -1,0 +1,11 @@
+.source-tags__tags {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.source-tags__tag {
+  margin: units(0.5) !important;
+  span {
+    color: $black-54 !important;
+  }
+}
