@@ -2,40 +2,9 @@ import React, { Component } from 'react';
 import Relay from 'react-relay';
 import styled from 'styled-components';
 import ProjectRoute from '../../relay/ProjectRoute';
-import CheckContext from '../../CheckContext';
-import { black54, subheading2 } from '../../styles/js/variables';
+import { black54, subheading2, ellipsisStyles } from '../../styles/js/variables';
 
 class ProjectHeaderComponent extends Component {
-  componentDidMount() {
-    this.subscribe();
-  }
-
-  componentWillUnmount() {
-    this.unsubscribe();
-  }
-
-  getPusher() {
-    const context = new CheckContext(this);
-    return context.getContextStore().pusher;
-  }
-
-  unsubscribe() {
-    const pusher = this.getPusher();
-    if (pusher) {
-      pusher.unsubscribe(this.props.project.team.pusher_channel);
-    }
-  }
-
-  subscribe() {
-    const pusher = this.getPusher();
-    if (pusher) {
-      const that = this;
-      pusher.subscribe(this.props.project.team.pusher_channel).bind('project_created', () => {
-        that.props.relay.forceFetch();
-      });
-    }
-  }
-
 
   render() {
     const currentProject = this.props.project;
@@ -43,6 +12,7 @@ class ProjectHeaderComponent extends Component {
     const Title = styled.h3`
       font: ${subheading2};
       color: ${black54};
+      ${ellipsisStyles}
     `;
 
     return (<Title>{currentProject.title}</Title>);

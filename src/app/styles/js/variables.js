@@ -195,15 +195,6 @@ export const StyledMdCardTitle =
     padding-bottom: 8px !important;
   `;
 
-// A Flexbox row, center aligned
-// This one is nice because it's only using styled components.
-//
-export const FlexRow = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
 // FadeIn
 //
 // 1. This is a styled component that uses their keyframes function
@@ -304,7 +295,15 @@ export const defaultAnchorOrigin = {
   vertical: 'bottom',
 };
 
-export const Row = styled.div`
+// A Flexbox row, center aligned
+//
+export const FlexRow = styled.div`
   display: flex;
   align-items: center;
+`;
+
+export const EllipsisRow = styled.div`
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;

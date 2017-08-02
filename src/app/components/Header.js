@@ -25,7 +25,8 @@ import {
   units,
   headerOffset,
   headerHeight,
-  Row,
+  FlexRow,
+  EllipsisRow,
   mediaQuery,
 } from '../styles/js/variables';
 
@@ -53,6 +54,7 @@ class Header extends Component {
       padding: 0 ${units(2)};
       z-index: 2;
       height: ${headerHeight};
+      overflow: hidden;
       ${mediaQuery.handheld`
         padding: 0 ${units(1)};
       `}
@@ -64,9 +66,6 @@ class Header extends Component {
 
     const Offset = styled.div`
       padding: 0 ${headerOffset} !important;
-      ${mediaQuery.handheld`
-         padding: 0 !important;
-      `}
     `;
 
     const yourTeamsMenuItem = (
@@ -246,17 +245,17 @@ class Header extends Component {
         </Link>);
       }
       return (
-        <Row>
+        <FlexRow style={{ overflow: 'hidden' }}>
           {joinPage
-            ? <Offset><TeamPublicHeader {...this.props} /></Offset>
-            : <Row>
+            ? <TeamPublicHeader {...this.props} />
+            : <FlexRow style={{ overflow: 'hidden' }}>
               <Offset><TeamHeader {...this.props} /></Offset>
               {isProjectSubpage
                 ? <IconButton className="project-header__back-button" href={backUrl}><IconArrowBack /></IconButton>
                 : null}
-              <Offset><ProjectHeader {...this.props} /></Offset>
-            </Row>}
-        </Row>
+              <Offset style={{ overflow: 'hidden' }}><ProjectHeader {...this.props} /></Offset>
+            </FlexRow>}
+        </FlexRow>
       );
     })();
 
@@ -264,12 +263,12 @@ class Header extends Component {
       if (hasTeam) {
         return (
           <AlignOpposite>
-            <Row>
+            <FlexRow>
               {[
                 searchButton,
                 userMenu,
               ]}
-            </Row>
+            </FlexRow>
           </AlignOpposite>
         );
       }
