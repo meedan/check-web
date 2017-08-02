@@ -3,7 +3,7 @@ import { FormattedMessage, defineMessages, intlShape, injectIntl } from 'react-i
 import Relay from 'react-relay';
 import CreateTagMutation from '../../relay/CreateTagMutation';
 import DeleteTagMutation from '../../relay/DeleteTagMutation';
-import Tags from '../source/Tags';
+import Tags from '../Tags';
 import CheckContext from '../../CheckContext';
 import { Link } from 'react-router';
 import { searchQueryFromUrl, urlFromSearchQuery } from '../Search';

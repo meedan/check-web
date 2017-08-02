@@ -1,0 +1,10 @@
+[
+  {
+    "id": "tags.error",
+    "defaultMessage": "Sorry, could not create the tag"
+  },
+  {
+    "id": "tags.addNewTag",
+    "defaultMessage": "Add new tag"
+  }
+]

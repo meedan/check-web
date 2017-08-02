@@ -23,6 +23,22 @@
       margin-bottom: units(1);
     }
 
+    .source__profile-content {
+      .media-tags {
+        margin-top: units(1);
+      }
+
+      .source-tags__tags {
+        margin-top: units(1);
+      }
+    }
+
+    .source__metadata {
+      margin: units(1) 0;
+      color: $black-38;
+      font: font(caption);
+    }
+
     &--editing {
       .source__settings {
         margin-top: units(6);
@@ -52,6 +68,10 @@
     margin-#{$to-direction}: units(2);
   }
 
+  &__edit-avatar-button {
+    max-width: units(10);
+  }
+
   // Ideally this would be a FAB component, but MUI FAB doesn't have a tooltip so we're doing our own using iconButton
   &__edit-button {
     @include box-shadow(2);
@@ -78,6 +98,24 @@
   &__tab-buttons {
     margin: auto;
     text-align: center;
+  }
+
+  &__edit-buttons {
+    margin: units(6) auto;
+  }
+
+  &__edit-buttons-add-merge {
+    float: #{$from-direction};
+    text-align: #{$from-direction};
+  }
+
+  &__edit-buttons-cancel-save {
+    float: #{$to-direction};
+    text-align: #{$to-direction};
+  }
+
+  &__edit-buttons-clear {
+    clear: both;
   }
 }
 
