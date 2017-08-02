@@ -6,6 +6,8 @@ import MenuItem from 'material-ui/MenuItem';
 import CheckContext from '../../CheckContext';
 
 import {
+  Text,
+  Row,
   defaultBorderRadius,
   subheading2,
   ellipsisStyles,
@@ -13,7 +15,6 @@ import {
   black54,
   headerHeight,
   avatarSize,
-  Row,
   headerOffset,
   mediaQuery,
   headline,
@@ -98,22 +99,30 @@ class TeamHeaderComponent extends Component {
       .sortp((a, b) => a.node.title.localeCompare(b.node.title))
       .map((p) => {
         const projectPath = `/${this.props.team.slug}/project/${p.node.dbid}`;
-        return <MenuItem key={p.node.dbid} href={projectPath}>{p.node.title}</MenuItem>;
+
+        return (
+          <MenuItem key={p.node.dbid} href={projectPath}>
+            <Text ellipsis>{p.node.title}</Text>
+          </MenuItem>
+        );
       });
 
     return (
       <div>
         <TeamNav>
-          <TeamLink onClick={this.handleToggle} title={team.name} className="team-header__avatar">
+          <TeamLink
+            onClick={this.handleToggle}
+            title={team.name}
+            className="team-header__avatar"
+          >
             {isProjectUrl
-            ?
-              <TeamAvatar />
-            : <Row>
-              <TeamAvatar />
-              <TeamName>
-                {team.name}
-              </TeamName>
-            </Row>}
+              ? <TeamAvatar />
+              : <Row>
+                <TeamAvatar />
+                <TeamName>
+                  {team.name}
+                </TeamName>
+              </Row>}
           </TeamLink>
         </TeamNav>
         <Drawer

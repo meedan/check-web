@@ -178,9 +178,17 @@ export const avatarStyle = `
 
 // Text with optional ellipsis prop
 //
-// <Text ellipsis>
-export const Text = styled.span`
+// <Text ellipsis />
+export const Text = styled.div`
   ${props => props.ellipsis ? ellipsisStyles : ''}
+  ${props => props.font ? `font: ${props.font}` : ''}
+`;
+
+// <Row />
+//
+export const Row = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
 // Shared Material UI style overrides using styled-components
@@ -294,16 +302,3 @@ export const defaultAnchorOrigin = {
   horizontal: 'left',
   vertical: 'bottom',
 };
-
-// A Flexbox row, center aligned
-//
-export const FlexRow = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-export const EllipsisRow = styled.div`
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-`;

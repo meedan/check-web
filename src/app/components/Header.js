@@ -25,8 +25,7 @@ import {
   units,
   headerOffset,
   headerHeight,
-  FlexRow,
-  EllipsisRow,
+  Row,
   mediaQuery,
 } from '../styles/js/variables';
 
@@ -245,17 +244,17 @@ class Header extends Component {
         </Link>);
       }
       return (
-        <FlexRow style={{ overflow: 'hidden' }}>
+        <Row style={{ overflow: 'hidden' }}>
           {joinPage
             ? <TeamPublicHeader {...this.props} />
-            : <FlexRow style={{ overflow: 'hidden' }}>
+            : <Row style={{ overflow: 'hidden' }}>
               <Offset><TeamHeader {...this.props} /></Offset>
               {isProjectSubpage
                 ? <IconButton className="project-header__back-button" href={backUrl}><IconArrowBack /></IconButton>
                 : null}
               <Offset style={{ overflow: 'hidden' }}><ProjectHeader {...this.props} /></Offset>
-            </FlexRow>}
-        </FlexRow>
+            </Row>}
+        </Row>
       );
     })();
 
@@ -263,12 +262,12 @@ class Header extends Component {
       if (hasTeam) {
         return (
           <AlignOpposite>
-            <FlexRow>
+            <Row>
               {[
                 searchButton,
                 userMenu,
               ]}
-            </FlexRow>
+            </Row>
           </AlignOpposite>
         );
       }
