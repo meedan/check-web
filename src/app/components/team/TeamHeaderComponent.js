@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
+import Divider from 'material-ui/Divider';
 import CheckContext from '../../CheckContext';
 
 import {
@@ -17,7 +18,6 @@ import {
   avatarSize,
   headerOffset,
   mediaQuery,
-  headline,
   black87,
   units,
 } from '../../styles/js/variables';
@@ -83,7 +83,8 @@ class TeamHeaderComponent extends Component {
     `;
 
     const Headline = styled.h2`
-      font: ${headline};
+      font: ${subheading2};
+      font-weight: 600;
       line-height: ${units(6.5)};
       color: ${black87};
     `;
@@ -130,9 +131,10 @@ class TeamHeaderComponent extends Component {
           open={this.state.open}
           onRequestChange={open => this.setState({ open })}
         >
-          <MenuItem href={`/${this.props.team.slug}/`}>
+          <MenuItem leftIcon={<TeamAvatar />} href={`/${this.props.team.slug}/`}>
             <Headline>{team.name}</Headline>
           </MenuItem>
+          <Divider />
           {projectList}
         </Drawer>
       </div>

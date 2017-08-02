@@ -179,6 +179,7 @@ export const avatarStyle = `
 // Text with optional ellipsis prop
 //
 // <Text ellipsis />
+//
 export const Text = styled.div`
   ${props => props.ellipsis ? ellipsisStyles : ''}
   ${props => props.font ? `font: ${props.font}` : ''}
@@ -186,9 +187,13 @@ export const Text = styled.div`
 
 // <Row />
 //
+// The prop `containsEllipsis` adds overflow to flex-items
+// See: https://codepen.io/unthinkingly/pen/XMwJLG for why
+//
 export const Row = styled.div`
   display: flex;
   align-items: center;
+  ${props => props.containsEllipsis ? '& > * {overflow: hidden; }' : ''}
 `;
 
 // Shared Material UI style overrides using styled-components

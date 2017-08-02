@@ -208,6 +208,7 @@ class Header extends Component {
         key="header.userMenu"
         anchorOrigin={defaultAnchorOrigin}
         iconButtonElement={userMenuButton}
+        className="header-actions__menu-toggle"
       >
         {loggedIn && yourTeamsMenuItem}
         {!joinPage && editProjectMenuItem}
@@ -233,6 +234,10 @@ class Header extends Component {
       </Offset>
     );
 
+    const BackButton = (
+      <IconButton className="project-header__back-button" href={backUrl}><IconArrowBack /></IconButton>
+    );
+
     const Primary = (() => {
       if (showCheckLogo) {
         return (<Link to="/check/teams">
@@ -244,15 +249,15 @@ class Header extends Component {
         </Link>);
       }
       return (
-        <Row style={{ overflow: 'hidden' }}>
+        <Row containsEllipsis>
           {joinPage
             ? <TeamPublicHeader {...this.props} />
-            : <Row style={{ overflow: 'hidden' }}>
+            : <Row containsEllipsis>
               <Offset><TeamHeader {...this.props} /></Offset>
               {isProjectSubpage
-                ? <IconButton className="project-header__back-button" href={backUrl}><IconArrowBack /></IconButton>
+                ? <BackButton />
                 : null}
-              <Offset style={{ overflow: 'hidden' }}><ProjectHeader {...this.props} /></Offset>
+              <Offset><ProjectHeader {...this.props} /></Offset>
             </Row>}
         </Row>
       );

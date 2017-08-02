@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay';
-import { Link } from 'react-router';
 import TeamRoute from '../../relay/TeamRoute';
 import teamFragment from '../../relay/teamFragment';
 import TeamHeaderComponent from './TeamHeaderComponent';
@@ -40,9 +39,7 @@ class TeamHeader extends Component {
 
     const loadingPlaceholder = (
       <nav style={styles.loadingHeaderOuterStyle} >
-        <Link to={`/${teamSlug}`}>
-          <Pulse style={styles.loadingHeaderInnerStyle} />
-        </Link>
+        <Pulse style={styles.loadingHeaderInnerStyle} />
       </nav>
     );
 
