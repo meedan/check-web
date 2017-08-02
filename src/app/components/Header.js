@@ -234,36 +234,58 @@ class Header extends Component {
       </Offset>
     );
 
-    const BackButton = (
-      <IconButton className="project-header__back-button" href={backUrl}><IconArrowBack /></IconButton>
+    const backButton = (
+      <IconButton
+        className="project-header__back-button"
+        href={backUrl}
+      >
+        <IconArrowBack />
+      </IconButton>
     );
 
-    const Primary = (() => {
+    const teamAndProjectHeader = (
+      <Row containsEllipsis>
+        <Offset>
+          <TeamHeader {...this.props} />
+        </Offset>
+        {isProjectSubpage
+          ? backButton
+          : null}
+        <Offset>
+          <ProjectHeader {...this.props} />
+        </Offset>
+      </Row>
+    );
+
+    const checkLogo = (
+      <Link to="/check/teams">
+        <img
+          width={units(8)}
+          alt="Team Logo"
+          src={stringHelper('LOGO_URL')}
+        />
+      </Link>
+    );
+
+    const primary = (() => {
       if (showCheckLogo) {
-        return (<Link to="/check/teams">
-          <img
-            width={units(8)}
-            alt="Team Logo"
-            src={stringHelper('LOGO_URL')}
-          />
-        </Link>);
+        return checkLogo;
+      }
+      if (joinPage) {
+        return (
+          <Row containsEllipsis>
+            <TeamPublicHeader {...this.props} />
+          </Row>
+        );
       }
       return (
         <Row containsEllipsis>
-          {joinPage
-            ? <TeamPublicHeader {...this.props} />
-            : <Row containsEllipsis>
-              <Offset><TeamHeader {...this.props} /></Offset>
-              {isProjectSubpage
-                ? <BackButton />
-                : null}
-              <Offset><ProjectHeader {...this.props} /></Offset>
-            </Row>}
+          {teamAndProjectHeader}
         </Row>
       );
     })();
 
-    const Secondary = (() => {
+    const secondary = (() => {
       if (hasTeam) {
         return (
           <AlignOpposite>
@@ -285,8 +307,8 @@ class Header extends Component {
 
     return (
       <HeaderBar>
-        {Primary}
-        {Secondary}
+        {primary}
+        {secondary}
       </HeaderBar>
     );
   }
