@@ -13,5 +13,8 @@
   "search.sortByCreated": "Criado",
   "search.sortByRecentActivity": "Atividade recente",
   "search.sortByNewest": "Mais recentes primeiro",
-  "search.sortByOldest": "Mais antigos primeiro"
+  "search.sortByOldest": "Mais antigos primeiro",
+  "search.show": "Show",
+  "search.showMedia": "Media",
+  "search.showSources": "Sources"
 }

@@ -1,8 +1,5 @@
 {
-  "login.nameInputHint": "اسمك",
-  "login.emailInputHint": "بريدك الإلكتروني",
   "login.passwordInputHint": "كلمة المرور",
-  "login.passwordConfirmInputHint": "تأكيد كلمة المرور",
   "login.title": "تسجيل الدخول",
   "login.registerTitle": "تسجيل حساب جديد",
   "login.nameLabel": "اسمك",

@@ -15,6 +15,5 @@
   "bridge.teamComponent.title": "Projetos de Tradução",
   "teamComponent.slackNotificationsEnabled": "Ativar notificações via Slack",
   "teamComponent.cancelButton": "Cancelar",
-  "teamComponent.saveButton": "Salvar",
-  "teamComponent.editButton": "Editar perfil"
+  "teamComponent.saveButton": "Salvar"
 }

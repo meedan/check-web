@@ -13,5 +13,8 @@
   "search.sortByCreated": "حسب تاريخ الإضافة",
   "search.sortByRecentActivity": "حسب تاريخ التحديث",
   "search.sortByNewest": "الأحدث أولاً",
-  "search.sortByOldest": "الأقدم أولاً"
+  "search.sortByOldest": "الأقدم أولاً",
+  "search.show": "Show",
+  "search.showMedia": "Media",
+  "search.showSources": "Sources"
 }
