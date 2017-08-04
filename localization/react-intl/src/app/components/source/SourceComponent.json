@@ -40,6 +40,10 @@
     "defaultMessage": "Location"
   },
   {
+    "id": "sourceComponent.link",
+    "defaultMessage": "Link"
+  },
+  {
     "id": "sourceComponent.dateAdded",
     "defaultMessage": "Added {date} • Source of {number} links"
   },

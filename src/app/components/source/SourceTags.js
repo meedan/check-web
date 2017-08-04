@@ -8,7 +8,7 @@ class SourceTags extends React.Component {
     return (
       <div className="source-tags__tags">
         {tags.map(tag =>
-          <Chip
+          <Chip key={tag.node.id}
             className="source-tags__tag"
             onRequestDelete={this.props.onDelete ? () => {
               this.props.onDelete(tag.node.id);

@@ -40,6 +40,34 @@ const SourceContainer = Relay.createContainer(SourceComponent, {
           description,
           permissions,
           verification_statuses,
+          account_sources(first: 10000) {
+            edges {
+              node {
+                id,
+                account {
+                  id,
+                  created_at,
+                  updated_at,
+                  embed,
+                  url,
+                  provider,
+                  user {
+                    name,
+                    email,
+                    source {
+                      accounts(first: 10000) {
+                        edges {
+                          node {
+                            url
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
           accounts(first: 10000) {
             edges {
               node {

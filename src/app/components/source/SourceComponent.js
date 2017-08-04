@@ -22,6 +22,7 @@ import MenuItem from 'material-ui/MenuItem';
 import MdCancel from 'react-icons/lib/md/cancel';
 import MDEdit from 'react-icons/lib/md/edit';
 import AccountCard from './AccountCard';
+import AccountChips from './AccountChips';
 import SourceTags from './SourceTags';
 import Annotations from '../annotations/Annotations';
 import PageTitle from '../PageTitle';
@@ -39,6 +40,8 @@ import CreateDynamicMutation from '../../relay/CreateDynamicMutation';
 import UpdateDynamicMutation from '../../relay/UpdateDynamicMutation';
 import CreateTagMutation from '../../relay/CreateTagMutation';
 import DeleteTagMutation from '../../relay/DeleteTagMutation';
+import CreateAccountSourceMutation from '../../relay/mutation/CreateAccountSourceMutation';
+import DeleteAccountSourceMutation from '../../relay/mutation/DeleteAccountSourceMutation';
 import UpdateSourceMutation from '../../relay/UpdateSourceMutation';
 
 const messages = defineMessages({
@@ -81,6 +84,10 @@ const messages = defineMessages({
   location: {
     id: 'sourceComponent.location',
     defaultMessage: 'Location',
+  },
+  link: {
+    id: 'sourceComponent.link',
+    defaultMessage: 'Link',
   },
 });
 
@@ -164,6 +171,24 @@ class SourceComponent extends Component {
     this.setState({ addingTags: true });
   };
 
+  handleAddLink = () => {
+    const links = this.state.links ? this.state.links.slice(0) : [];
+    links.push('');
+    this.setState({ links });
+  };
+
+  handleRemoveLink = (id) => {
+    const deleteLinks = this.state.deleteLinks ? this.state.deleteLinks.slice(0) : [];
+    deleteLinks.push(id);
+    this.setState({ deleteLinks });
+  };
+
+  handleRemoveNewLink = (index) => {
+    const links = this.state.links ? this.state.links.slice(0) : [];
+    links.splice(index, 1);
+    this.setState({ links });
+  };
+
   handleRequestClose() {
     this.setState({
       menuOpen: false,
@@ -186,8 +211,14 @@ class SourceComponent extends Component {
   }
 
   handleLeaveEditMode() {
-    this.setState({ isEditing: false, editProfileImg: false, metadata: this.getMetadataFields() });
+    this.setState({ isEditing: false, editProfileImg: false, metadata: this.getMetadataFields(), links: [], deleteLinks: [] });
     this.onClear();
+  }
+
+  handleChangeLink(e, index) {
+    const links = this.state.links ? this.state.links.slice(0) : [];
+    links[index] = e.target.value;
+    this.setState({ links });
   }
 
   handleChangeField(type, e) {
@@ -205,6 +236,7 @@ class SourceComponent extends Component {
   handleSubmit(e) {
     if (!this.state.submitDisabled) {
       this.updateSource();
+      this.updateLinks();
       this.updateMetadata();
     }
     e.preventDefault();
@@ -227,7 +259,7 @@ class SourceComponent extends Component {
   };
 
   success = (response) => {
-    this.setState({ message: null, isEditing: false, submitDisabled: false });
+    this.setState({ message: null, isEditing: false, submitDisabled: false, links: [] });
   };
 
   createDynamicAnnotation(that, annotated, annotated_id, annotated_type, value) {
@@ -321,6 +353,46 @@ class SourceComponent extends Component {
     );
   }
 
+  createAccountSource(url) {
+    const source = this.getSource();
+    const that = this;
+    const onFailure = (transaction) => { that.fail(transaction); };
+    const onSuccess = (response) => { that.success(); };
+
+    if (!url) { return; }
+
+    Relay.Store.commitUpdate(
+      new CreateAccountSourceMutation({
+        id: source.dbid,
+        url,
+        source
+      }),
+      { onSuccess, onFailure },
+    );
+  }
+
+  deleteAccountSource(asId) {
+    const that = this;
+    const source = this.getSource();
+    const onFailure = (transaction) => { that.fail(transaction); };
+    const onSuccess = (response) => {};
+
+    Relay.Store.commitUpdate(
+      new DeleteAccountSourceMutation({
+        id: asId,
+        source
+      }),
+      { onSuccess, onFailure },
+    );
+  }
+
+  updateLinks() {
+    const links = this.state.links ? this.state.links.slice(0) : [];
+    const deleteLinks = this.state.deleteLinks ? this.state.deleteLinks.slice(0) : [];
+    links.forEach((url) => { this.createAccountSource(url) });
+    deleteLinks.forEach((id) => { this.deleteAccountSource(id) });
+  }
+
   updateMetadata() {
     const source = this.getSource();
     const metadata = this.state.metadata ? Object.assign({}, this.state.metadata) : {};
@@ -378,6 +450,38 @@ class SourceComponent extends Component {
 
   onImageError(file, message) {
     this.setState({ message, image: null });
+  }
+
+  renderAccountsEdit() {
+    const source = this.getSource();
+    const links = this.state.links ? this.state.links.slice(0) : [];
+    const deleteLinks = this.state.deleteLinks ? this.state.deleteLinks.slice(0) : [];
+    const showAccounts = source.account_sources.edges.filter((as) => (deleteLinks.indexOf(as.node.id) < 0));
+
+    return <div>
+      { showAccounts.map((as) =>
+        <div className="source__url">
+          <TextField
+            defaultValue={as.node.account.url}
+            floatingLabelText={this.props.intl.formatMessage(messages.link)}
+            style={{ width: '85%' }}
+            disabled
+          />
+          <MdCancel className="create-task__remove-option-button create-task__md-icon" onClick={() => this.handleRemoveLink(as.node.id)} />
+        </div>)
+      }
+      { links.map((link, index) =>
+        <div className="source__url-input">
+          <TextField
+            defaultValue={link}
+            floatingLabelText={this.props.intl.formatMessage(messages.link)}
+            onChange={(e) => this.handleChangeLink(e, index)}
+            style={{ width: '85%' }}
+          />
+          <MdCancel className="create-task__remove-option-button create-task__md-icon" onClick={() => this.handleRemoveNewLink(index)} />
+        </div>)
+      }
+    </div>
   }
 
   renderMetadataView() {
@@ -439,7 +543,7 @@ class SourceComponent extends Component {
     const availableTags = suggestedTags.filter(suggested => !tagLabels.includes(suggested));
 
     return <div>
-      { this.state.addingTags || tags ?
+      { this.state.addingTags || tags.length ?
         <AutoComplete
           name="addTag" id="addTag"
           floatingLabelText={this.props.intl.formatMessage(globalStrings.tags)}
@@ -474,6 +578,8 @@ class SourceComponent extends Component {
                   </p>
                 </div>
               </div>
+
+              <AccountChips accounts={source.account_sources.edges.map((as) => as.node.account)} />
 
               { isProjectSource ?
                 <div className="source__contact-info">
@@ -561,6 +667,7 @@ class SourceComponent extends Component {
                 fullWidth
               />
 
+              { this.renderAccountsEdit() }
               { this.renderTagsEdit() }
               { this.renderMetadataEdit() }
             </form>
@@ -578,6 +685,7 @@ class SourceComponent extends Component {
                     <MenuItem className="source__add-organization" onClick={this.handleAddMetadataField.bind(this, 'organization')} primaryText={this.props.intl.formatMessage(messages.organization)} />
                     <MenuItem className="source__add-location" onClick={this.handleAddMetadataField.bind(this, 'location')} primaryText={this.props.intl.formatMessage(messages.location)} />
                     <MenuItem className="source__add-tags" onClick={this.handleAddTags.bind(this)} primaryText={this.props.intl.formatMessage(globalStrings.tags)} />
+                    <MenuItem className="source__add-link" onClick={this.handleAddLink.bind(this)} primaryText={this.props.intl.formatMessage(messages.link)} />
                   </Menu>
                 </Popover>
               </div>
