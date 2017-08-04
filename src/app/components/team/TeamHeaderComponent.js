@@ -131,7 +131,7 @@ class TeamHeaderComponent extends Component {
           open={this.state.open}
           onRequestChange={open => this.setState({ open })}
         >
-          <MenuItem leftIcon={<TeamAvatar />} href={`/${this.props.team.slug}/`}>
+          <MenuItem className="team-header__drawer-team-link" leftIcon={<TeamAvatar />} href={`/${this.props.team.slug}/`}>
             <Headline>{team.name}</Headline>
           </MenuItem>
           <Divider />
