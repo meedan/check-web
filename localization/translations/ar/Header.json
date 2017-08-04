@@ -1,5 +1,9 @@
 {
-  "header.projectLabel": "مشروع",
-  "header.teamLabel": "فريق",
-  "header.teamsLabel": "فرق"
+  "headerActions.userTeams": "Your Teams",
+  "headerActions.signIn": "Sign In",
+  "headerActions.signOut": "Sign Out",
+  "headerActions.contactHuman": "Contact a Human",
+  "headerActions.tos": "Terms of Service",
+  "headerActions.privacyPolicy": "Privacy Policy",
+  "headerActions.about": "About {appName}"
 }

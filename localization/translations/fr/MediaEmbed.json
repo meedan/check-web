@@ -1,0 +1,13 @@
+{
+  "mediaEmbed.embedPreview": "Aperçu de l'insertion",
+  "mediaEmbed.notAvailable": "Pas disponible",
+  "mediaEmbed.customizationOptionShowTasks": "Montrer les tâches",
+  "mediaEmbed.customizationOptionShowTasksSlogan": "Ajouter les tâches complétées à l'insertion",
+  "mediaEmbed.customizationOptionShowNotes": "Montrer les commentaires",
+  "mediaEmbed.customizationOptionShowNotesSlogan": "Commenter l'insertion",
+  "mediaEmbed.warning": "Avertissement : le partage de cette intégration exposera des renseignements à l'extérieur de votre équipe privée. Procédez avec précaution.",
+  "mediaEmbed.copyButtonInactive": "Copié",
+  "mediaEmbed.copyButton": "Copier",
+  "mediaEmbed.customize": "Personnaliser",
+  "mediaEmbed.copyEmbedCode": "Copier le code d'insertion"
+}

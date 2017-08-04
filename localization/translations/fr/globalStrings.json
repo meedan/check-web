@@ -1,4 +1,9 @@
 {
   "global.appNameHuman": "Check",
-  "bridge.global.appNameHuman": "Bridge"
+  "bridge.global.appNameHuman": "Bridge",
+  "global.edit": "Modifier",
+  "global.cancel": "Annuler",
+  "global.save": "Sauvegarder",
+  "global.submit": "Envoyer",
+  "global.tags": "Tags"
 }

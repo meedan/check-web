@@ -1,8 +1,5 @@
 {
-  "login.nameInputHint": "Your name",
-  "login.emailInputHint": "Email address",
   "login.passwordInputHint": "Password",
-  "login.passwordConfirmInputHint": "Password confirmation",
   "login.title": "Sign in",
   "login.registerTitle": "Register",
   "login.nameLabel": "Your name",

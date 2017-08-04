@@ -12,7 +12,6 @@ import QuoteMediaCard from './QuoteMediaCard';
 import SocialMediaCard from './SocialMediaCard';
 import MediaActions from './MediaActions';
 import MediaUtil from './MediaUtil';
-import Tags from '../source/Tags';
 import DefaultButton from '../inputs/DefaultButton';
 import PenderCard from '../PenderCard';
 import TimeBefore from '../TimeBefore';
