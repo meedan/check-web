@@ -241,7 +241,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
           .create_project(name: project_name)
 
       expect(project_pg.driver.current_url.to_s.match(/\/project\/[0-9]+$/).nil?).to be(false)
-      team_pg = project_pg.click_team_avatar
+      team_pg = project_pg.click_team_link
       expect(team_pg.project_titles.include?(project_name)).to be(true)
     end
 

@@ -49,7 +49,7 @@ class ProjectPage < Page
     self
   end
 
-  def click_team_avatar
+  def click_team_link
     element('.team-header__avatar').click
     wait_for_element('.team-header__drawer-team-link')
     ('.team-header__drawer-team-link').click
