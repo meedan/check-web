@@ -1,5 +1,9 @@
 {
-  "header.projectLabel": "Project",
-  "header.teamLabel": "Team",
-  "header.teamsLabel": "Teams"
+  "headerActions.userTeams": "Your Teams",
+  "headerActions.signIn": "Sign In",
+  "headerActions.signOut": "Sign Out",
+  "headerActions.contactHuman": "Contact a Human",
+  "headerActions.tos": "Terms of Service",
+  "headerActions.privacyPolicy": "Privacy Policy",
+  "headerActions.about": "About {appName}"
 }

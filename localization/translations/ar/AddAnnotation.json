@@ -2,7 +2,7 @@
   "addAnnotation.invalidCommand": " أمر غير صحيح",
   "addAnnotation.annotationAdded": "تم إضافة {type}",
   "addAnnotation.createTagFailed": "عذراً، لم نستطع إضافة الوسم",
-  "addAnnotation.inputHint": "أضف تعليقاً على هذا التقرير",
+  "addAnnotation.inputHint": "Add a note about this",
   "addAnnotation.submitButton": "إرسال",
   "addAnnotation.typeComment": "تعليق",
   "addAnnotation.typeTag": "وسم",

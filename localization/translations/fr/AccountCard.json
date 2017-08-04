@@ -1,0 +1,8 @@
+{
+  "accountCard.fbStats": "{likes} likes",
+  "accountCard.twitterStats": "{tweets} tweets • {followers} abonnés • {following} abonnements",
+  "accountCard.youtubeStats": "{videos} vidéos • {subscribers} abonnés",
+  "mediaDetail.byUser": "par {username}",
+  "accountCard.providerAccount": "compte {provider}",
+  "mediaDetail.added": "Rajouté {byUser}"
+}
