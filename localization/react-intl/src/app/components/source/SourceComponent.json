@@ -36,12 +36,28 @@
     "defaultMessage": "Organization"
   },
   {
+    "id": "sourceComponent.otherDialogTitle",
+    "defaultMessage": "Custom Metadata Field"
+  },
+  {
+    "id": "sourceComponent.label",
+    "defaultMessage": "Label"
+  },
+  {
+    "id": "sourceComponent.value",
+    "defaultMessage": "Value"
+  },
+  {
     "id": "sourceComponent.location",
     "defaultMessage": "Location"
   },
   {
     "id": "sourceComponent.link",
     "defaultMessage": "Link"
+  },
+  {
+    "id": "sourceComponent.other",
+    "defaultMessage": "Other (Specify)"
   },
   {
     "id": "sourceComponent.dateAdded",
@@ -58,6 +74,10 @@
   {
     "id": "sourceComponent.network",
     "defaultMessage": "Networks"
+  },
+  {
+    "id": "sourceComponent.add",
+    "defaultMessage": "Add Field"
   },
   {
     "id": "sourceComponent.editButton",

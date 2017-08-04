@@ -10,6 +10,7 @@ import {
   intlShape,
 } from 'react-intl';
 import AutoComplete from 'material-ui/AutoComplete';
+import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -81,6 +82,18 @@ const messages = defineMessages({
     id: 'sourceComponent.organization',
     defaultMessage: 'Organization',
   },
+  otherDialogTitle: {
+    id: 'sourceComponent.otherDialogTitle',
+    defaultMessage: 'Custom Metadata Field',
+  },
+  label: {
+    id: 'sourceComponent.label',
+    defaultMessage: 'Label',
+  },
+  value: {
+    id: 'sourceComponent.value',
+    defaultMessage: 'Value',
+  },
   location: {
     id: 'sourceComponent.location',
     defaultMessage: 'Location',
@@ -88,6 +101,10 @@ const messages = defineMessages({
   link: {
     id: 'sourceComponent.link',
     defaultMessage: 'Link',
+  },
+  other: {
+    id: 'sourceComponent.other',
+    defaultMessage: 'Other (Specify)',
   },
 });
 
@@ -97,6 +114,7 @@ class SourceComponent extends Component {
     super(props);
 
     this.state = {
+      dialogOpen: false,
       message: null,
       isEditing: false,
       metadata: this.getMetadataFields(),
@@ -167,15 +185,30 @@ class SourceComponent extends Component {
     this.setState({ metadata, menuOpen: false });
   };
 
+  handleAddCustomField() {
+    const metadata = this.state.metadata ? Object.assign({}, this.state.metadata) : {};
+    if (!metadata.other) { metadata.other = []; }
+    metadata.other.push({ label: this.state.customFieldLabel , value: this.state.customFieldValue });
+    this.setState({ metadata, dialogOpen: false });
+  }
+
   handleAddTags = () => {
-    this.setState({ addingTags: true });
+    this.setState({ addingTags: true, menuOpen: false });
   };
 
   handleAddLink = () => {
     const links = this.state.links ? this.state.links.slice(0) : [];
     links.push('');
-    this.setState({ links });
+    this.setState({ links, menuOpen: false });
   };
+
+  handleOpenDialog() {
+    this.setState({ dialogOpen: true, menuOpen: false, customFieldLabel: '', customFieldValue: '' });
+  }
+
+  handleCloseDialog() {
+    this.setState({ dialogOpen: false, customFieldLabel: '', customFieldValue: '' });
+  }
 
   handleRemoveLink = (id) => {
     const deleteLinks = this.state.deleteLinks ? this.state.deleteLinks.slice(0) : [];
@@ -219,18 +252,6 @@ class SourceComponent extends Component {
     const links = this.state.links ? this.state.links.slice(0) : [];
     links[index] = e.target.value;
     this.setState({ links });
-  }
-
-  handleChangeField(type, e) {
-    const metadata = this.state.metadata ? Object.assign({}, this.state.metadata) : {};
-    metadata[type] = e.target.value;
-    this.setState({ metadata });
-  }
-
-  handleRemoveField(type) {
-    const metadata = this.state.metadata ? Object.assign({}, this.state.metadata) : {};
-    delete metadata[type];
-    this.setState({ metadata });
   }
 
   handleSubmit(e) {
@@ -460,7 +481,7 @@ class SourceComponent extends Component {
 
     return <div>
       { showAccounts.map((as) =>
-        <div className="source__url">
+        <div key={as.id} className="source__url">
           <TextField
             defaultValue={as.node.account.url}
             floatingLabelText={this.props.intl.formatMessage(messages.link)}
@@ -471,7 +492,7 @@ class SourceComponent extends Component {
         </div>)
       }
       { links.map((link, index) =>
-        <div className="source__url-input">
+        <div key={index.toString()} className="source__url-input">
           <TextField
             defaultValue={link}
             floatingLabelText={this.props.intl.formatMessage(messages.link)}
@@ -494,12 +515,19 @@ class SourceComponent extends Component {
         </span> : null;
     };
 
+    const renderMetadaCustomFields = () =>
+      metadata.other.map((cf) =>
+        <span className={`source__metadata-other`}>
+          {cf.label + ': ' + cf.value} <br />
+        </span>);
+
     if (metadata) {
       return (<div className="source__metadata">
           { renderMetadataFieldView('contact_note') }
           { renderMetadataFieldView('phone') }
           { renderMetadataFieldView('organization') }
           { renderMetadataFieldView('location') }
+          { renderMetadaCustomFields() }
         </div>
       );
     }
@@ -508,17 +536,53 @@ class SourceComponent extends Component {
   renderMetadataEdit() {
     const metadata = this.state.metadata;
 
+    const handleChangeField = (type, e) => {
+      const metadata = this.state.metadata ? Object.assign({}, this.state.metadata) : {};
+      metadata[type] = e.target.value;
+      this.setState({ metadata });
+    };
+
+    const handleRemoveField = (type) => {
+      const metadata = this.state.metadata ? Object.assign({}, this.state.metadata) : {};
+      delete metadata[type];
+      this.setState({ metadata });
+    };
+
+    const handleChangeCustomField = (index, e) => {
+      const metadata = this.state.metadata ? Object.assign({}, this.state.metadata) : {};
+      metadata.other[index].value = e.target.value;
+      this.setState({ metadata });
+    };
+
+    const handleRemoveCustomField = (index) => {
+      const metadata = this.state.metadata ? Object.assign({}, this.state.metadata) : {};
+      metadata.other.splice(index, 1);
+      this.setState({ metadata });
+    };
+
     const renderMetadataFieldEdit = (type) => {
       return metadata.hasOwnProperty(type) ? <div className={`source__metadata-${type}-input`}>
         <TextField
           defaultValue={metadata[type]}
           floatingLabelText={this.labelForType(type)}
           style={{ width: '85%' }}
-          onChange={this.handleChangeField.bind(this, type)}
+          onChange={(e) => { handleChangeField(type, e) }}
         />
-        <MdCancel className="create-task__remove-option-button create-task__md-icon" onClick={this.handleRemoveField.bind(this, type)}/>
+        <MdCancel className="create-task__remove-option-button create-task__md-icon" onClick={handleRemoveField.bind(this, type)}/>
       </div> : null;
     };
+
+    const renderMetadaCustomFieldsEdit = () =>
+      metadata.other.map((cf, index) =>
+        <div className={`source__metadata-other-input`}>
+          <TextField
+            defaultValue={cf.value}
+            floatingLabelText={cf.label}
+            style={{ width: '85%' }}
+            onChange={(e) => { handleChangeCustomField(index, e) }}
+          />
+        <MdCancel className="create-task__remove-option-button create-task__md-icon" onClick={handleRemoveCustomField.bind(this, index)}/>
+        </div>);
 
     if (metadata) {
       return (<div className="source__metadata">
@@ -526,6 +590,7 @@ class SourceComponent extends Component {
           { renderMetadataFieldEdit('phone') }
           { renderMetadataFieldEdit('organization') }
           { renderMetadataFieldEdit('location') }
+          { renderMetadaCustomFieldsEdit() }
         </div>
       );
     }
@@ -624,6 +689,11 @@ class SourceComponent extends Component {
   renderSourceEdit(source) {
     const avatarPreview = this.state.image && this.state.image.preview;
 
+    const actions = [
+      <FlatButton label={this.props.intl.formatMessage(globalStrings.cancel)} onClick={this.handleCloseDialog.bind(this)} />,
+      <FlatButton label={<FormattedMessage id="sourceComponent.add" defaultMessage="Add Field" />} onClick={this.handleAddCustomField.bind(this)} primary disabled={!this.state.customFieldLabel} />,
+    ];
+
     return (
       <div className="source__profile-content">
         <section className="layout-two-column">
@@ -686,9 +756,23 @@ class SourceComponent extends Component {
                     <MenuItem className="source__add-location" onClick={this.handleAddMetadataField.bind(this, 'location')} primaryText={this.props.intl.formatMessage(messages.location)} />
                     <MenuItem className="source__add-tags" onClick={this.handleAddTags.bind(this)} primaryText={this.props.intl.formatMessage(globalStrings.tags)} />
                     <MenuItem className="source__add-link" onClick={this.handleAddLink.bind(this)} primaryText={this.props.intl.formatMessage(messages.link)} />
+                    <MenuItem className="source__add-other" onClick={this.handleOpenDialog.bind(this)} primaryText={this.props.intl.formatMessage(messages.other)} />
                   </Menu>
                 </Popover>
               </div>
+
+              <Dialog title={this.props.intl.formatMessage(messages.otherDialogTitle)} actions={actions} actionsContainerClassName="sourceComponent__action-container" open={this.state.dialogOpen} onRequestClose={this.handleCloseDialog.bind(this)} contentStyle={{width: '608px'}}>
+                <TextField
+                  id="source__other-label-input"
+                  floatingLabelText={this.props.intl.formatMessage(messages.label)}
+                  fullWidth
+                  onChange={(e) => { this.setState({ customFieldLabel: e.target.value }) }} />
+                <TextField
+                  id="source__other-value-input"
+                  floatingLabelText={this.props.intl.formatMessage(messages.value)}
+                  onChange={(e) => { this.setState({ customFieldValue: e.target.value }) }}
+                  fullWidth />
+              </Dialog>
 
               <div className="source__edit-buttons-cancel-save">
                 <FlatButton className="source__edit-cancel-button"
