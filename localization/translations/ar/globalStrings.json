@@ -1,9 +1,9 @@
 {
   "global.appNameHuman": "Check",
   "bridge.global.appNameHuman": "Bridge",
-  "global.edit": "Edit",
-  "global.cancel": "Cancel",
-  "global.save": "Save",
-  "global.submit": "Submit",
-  "global.tags": "Tags"
+  "global.edit": "تحرير",
+  "global.cancel": "إلغاء",
+  "global.save": "حفظ",
+  "global.submit": "إرسال",
+  "global.tags": "وسوم"
 }

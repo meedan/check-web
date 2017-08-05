@@ -1,9 +1,9 @@
 {
-  "TeamMembersListItem.contributor": "Contributor",
-  "TeamMembersListItem.journalist": "Journalist",
+  "TeamMembersListItem.contributor": "Colaborador",
+  "TeamMembersListItem.journalist": "Jornalista",
   "TeamMembersListItem.editor": "Editor",
-  "TeamMembersListItem.owner": "Owner",
-  "TeamMembershipRequestsListItem.approve": "Approve",
-  "TeamMembershipRequestsListItem.deny": "Ignore",
-  "TeamMembersListItem.deleteMember": "Delete Member"
+  "TeamMembersListItem.owner": "Proprietário",
+  "TeamMembershipRequestsListItem.approve": "Aprovar",
+  "TeamMembershipRequestsListItem.deny": "Ignorar",
+  "TeamMembersListItem.deleteMember": "Excluir Membro"
 }
