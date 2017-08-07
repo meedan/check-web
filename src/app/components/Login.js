@@ -15,6 +15,7 @@ import rtlDetect from 'rtl-detect';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
+import EnhancedButton from 'material-ui/internal/EnhancedButton';
 import { Card } from 'material-ui/Card';
 import styled from 'styled-components';
 import merge from 'lodash.merge';
@@ -24,41 +25,23 @@ import CheckContext from '../CheckContext';
 import { login, request } from '../redux/actions';
 import { mapGlobalMessage } from './MappedMessage';
 import { stringHelper } from '../customHelpers';
-import { muiThemeWithoutRtl, units, media, black54 } from '../styles/js/variables';
-
-const StyledCard = styled(Card)`
-  padding: ${units(11)} ${units(15)} ${units(3)} !important;
-  ${media.handheld`
-    padding: ${units(8)} ${units(4)} ${units(3)} !important;
-  `}
-`;
-
-const styles = {
-  logo: {
-    margin: '0 auto',
-    display: 'block',
-  },
-  buttonGroup: {
-    marginTop: units(8),
-  },
-  primaryButton: {
-    display: 'block',
-    margin: `${units(2)} auto`,
-    maxWidth: units(21),
-  },
-  secondaryButton: {
-    display: 'block',
-    color: black54,
-    maxWidth: units(26),
-    margin: `${units(2)} auto`,
-  },
-};
-const messages = defineMessages({
-  passwordInputHint: {
-    id: 'login.passwordInputHint',
-    defaultMessage: 'Password',
-  },
-});
+import {
+  muiThemeWithoutRtl,
+  units,
+  media,
+  caption,
+  body2,
+  black54,
+  black38,
+  checkBlue,
+  twitterBlue,
+  facebookBlue,
+  slackGreen,
+  white,
+  boxShadow,
+  transitionSpeedFast,
+  defaultBorderRadius,
+} from '../styles/js/variables';
 
 class Login extends Component {
   constructor(props) {
@@ -155,7 +138,9 @@ class Login extends Component {
   }
 
   bemClass(baseClass, modifierBoolean, modifierSuffix) {
-    return modifierBoolean ? [baseClass, baseClass + modifierSuffix].join(' ') : baseClass;
+    return modifierBoolean
+      ? [baseClass, baseClass + modifierSuffix].join(' ')
+      : baseClass;
   }
 
   handleFieldChange(e) {
@@ -166,7 +151,132 @@ class Login extends Component {
 
   render() {
     const muiThemeWithRtl = getMuiTheme(
-      merge(muiThemeWithoutRtl, { isRtl: rtlDetect.isRtlLang(this.props.intl.locale) }),
+      merge(muiThemeWithoutRtl, {
+        isRtl: rtlDetect.isRtlLang(this.props.intl.locale),
+      }),
+    );
+
+    const locale = this.props.intl.locale;
+    const isRtl = rtlDetect.isRtlLang(locale);
+    const fromDirection = isRtl ? 'right' : 'left';
+
+    const StyledEnhancedButton = styled(EnhancedButton)`
+      border: 0;
+      width: ${units(39)};
+      text-align: ${fromDirection};
+      margin: ${units(2)} 0 0 !important;
+      background-color: ${white} !important;
+      height: 100%!important;
+      padding: ${units(1)}!important;
+      box-shadow: ${boxShadow(1)};
+      transition: box-shadow ${transitionSpeedFast} ease-in-out;
+      border-radius: ${defaultBorderRadius};
+
+      &:hover {
+        box-shadow: ${boxShadow(2)};
+      }
+
+      > div {
+        height: ${units(6)};
+      }
+
+      ${media.handheld`
+        width: 100% !important;
+      `}
+
+      svg {
+        width: ${units(3)};
+        height: ${units(3)};
+      }
+
+      h4 {
+        color: ${black38};
+        font: ${caption};
+        margin: 0;
+      }
+
+      h3 {
+        color: ${checkBlue};
+        font: ${body2};
+        font-weight: 500;
+        margin: 0;
+      }
+    `;
+
+    const StyledCard = styled(Card)`
+      padding: ${units(11)} ${units(15)} ${units(3)} !important;
+      ${media.handheld`
+        padding: ${units(8)} ${units(4)} ${units(3)} !important;
+      `}
+    `;
+
+    const BigButtons = styled.div`
+      display: flex;
+      flex-flow: row wrap;
+      justify-content: space-between;
+      align-items: center;
+      margin: 0 0 ${units(3)};
+    `;
+
+    const styles = {
+      logo: {
+        margin: '0 auto',
+        display: 'block',
+      },
+      buttonGroup: {
+        marginTop: units(8),
+      },
+      primaryButton: {
+        display: 'block',
+        margin: `${units(2)} auto`,
+        maxWidth: units(21),
+      },
+      secondaryButton: {
+        display: 'block',
+        color: black54,
+        maxWidth: units(26),
+        margin: `${units(2)} auto`,
+      },
+    };
+
+    const messages = defineMessages({
+      passwordInputHint: {
+        id: 'login.passwordInputHint',
+        defaultMessage: 'Password',
+      },
+    });
+
+    const Row = styled.div`
+      display: flex;
+      flex-flow: row nowrap;
+    `;
+
+    const Column = styled.div`
+      display: flex;
+      flex-flow: column nowrap;
+      margin-${fromDirection}: ${units(1)};
+    `;
+
+    const BigButton = ({ className, icon, id, onClick, headerText, subheaderText }) => (
+      <StyledEnhancedButton
+        id={id}
+        className={className}
+        onClick={onClick}
+      >
+        <Row>
+          {icon}
+          <Column>
+            <h3>{headerText}</h3>
+            <h4>
+              {subheaderText || <FormattedMessage
+                id="login.disclaimer"
+                defaultMessage={'We won’t publish without Your permission'}
+              />
+                  }
+            </h4>
+          </Column>
+        </Row>
+      </StyledEnhancedButton>
     );
 
     return (
@@ -178,11 +288,23 @@ class Login extends Component {
               onSubmit={this.onFormSubmit.bind(this)}
               className="login__form"
             >
-              <img style={styles.logo} alt={mapGlobalMessage(this.props.intl, 'appNameHuman')} width="120" className="login__icon" src={stringHelper('LOGO_URL')} />
+              <img
+                style={styles.logo}
+                alt={mapGlobalMessage(this.props.intl, 'appNameHuman')}
+                width="120"
+                className="login__icon"
+                src={stringHelper('LOGO_URL')}
+              />
               <h2 style={{ textAlign: 'center' }} className="login__heading">
                 {this.state.type === 'login'
-                  ? <FormattedMessage id="login.title" defaultMessage="Sign in" />
-                  : <FormattedMessage id="login.registerTitle" defaultMessage="Register" />}
+                  ? <FormattedMessage
+                    id="login.title"
+                    defaultMessage="Sign in"
+                  />
+                  : <FormattedMessage
+                    id="login.registerTitle"
+                    defaultMessage="Register"
+                  />}
               </h2>
               <Message message={this.state.message} />
               {this.state.type === 'login'
@@ -194,7 +316,12 @@ class Login extends Component {
                     value={this.state.name}
                     className="login__name-input"
                     onChange={this.handleFieldChange.bind(this)}
-                    floatingLabelText={<FormattedMessage id="login.nameLabel" defaultMessage="Your name" />}
+                    floatingLabelText={
+                      <FormattedMessage
+                        id="login.nameLabel"
+                        defaultMessage="Your name"
+                      />
+                      }
                   />
                 </div>}
 
@@ -207,7 +334,12 @@ class Login extends Component {
                   className="login__email-input"
                   id="login__email-input"
                   onChange={this.handleFieldChange.bind(this)}
-                  floatingLabelText={<FormattedMessage id="login.emailLabel" defaultMessage="Email address" />}
+                  floatingLabelText={
+                    <FormattedMessage
+                      id="login.emailLabel"
+                      defaultMessage="Email address"
+                    />
+                  }
                 />
               </div>
 
@@ -220,12 +352,15 @@ class Login extends Component {
                   className="login__password-input"
                   id="login__password-input"
                   onChange={this.handleFieldChange.bind(this)}
-                  floatingLabelText={this.state.type === 'login'
-                  ? this.props.intl.formatMessage(messages.passwordInputHint)
-                  : <FormattedMessage
-                    id="login.passwordLabel"
-                    defaultMessage="Password (minimum 8 characters)"
-                  />
+                  floatingLabelText={
+                    this.state.type === 'login'
+                      ? this.props.intl.formatMessage(
+                          messages.passwordInputHint,
+                        )
+                      : <FormattedMessage
+                        id="login.passwordLabel"
+                        defaultMessage="Password (minimum 8 characters)"
+                      />
                   }
                 />
               </div>
@@ -246,11 +381,13 @@ class Login extends Component {
                         id="login.passwordConfirmLabel"
                         defaultMessage="Password confirmation"
                       />
-                    }
+                      }
                   />
                 </div>}
 
-              {this.state.type === 'login' ? null : <UploadImage onImage={this.onImage.bind(this)} />}
+              {this.state.type === 'login'
+                ? null
+                : <UploadImage onImage={this.onImage.bind(this)} />}
 
               <div className="login__actions" style={styles.buttonGroup}>
                 <RaisedButton
@@ -259,9 +396,17 @@ class Login extends Component {
                   type="submit"
                   id="submit-register-or-login"
                   className={`login__submit login__submit--${this.state.type}`}
-                  label={this.state.type === 'login'
-                    ? <FormattedMessage id="login.signIn" defaultMessage="SIGN IN" />
-                    : <FormattedMessage id="login.signUp" defaultMessage="REGISTER" />}
+                  label={
+                    this.state.type === 'login'
+                      ? <FormattedMessage
+                        id="login.signIn"
+                        defaultMessage="SIGN IN"
+                      />
+                      : <FormattedMessage
+                        id="login.signUp"
+                        defaultMessage="REGISTER"
+                      />
+                  }
                 />
 
                 {this.state.type === 'login'
@@ -274,115 +419,75 @@ class Login extends Component {
                           id="loginEmail.lostPassword"
                           defaultMessage="Forgot password"
                         />
-                      }
+                        }
                     />
                   </span>
                   : null}
-
               </div>
             </form>
           </StyledCard>
-          <ul className="login__oauth-list">
-            <li>
-              <button
-                onClick={this.oAuthLogin.bind(this, 'slack')}
-                id="slack-login"
-                className="login__button login__button--slack"
-              >
-                <span className="login__link">
-                  <FASlack className="logo" />
-                  <FormattedMessage
-                    id="login.with"
-                    defaultMessage={'Continue with {provider}'}
-                    values={{ provider: 'Slack' }}
-                  />
-                </span>
+
+          <BigButtons>
+            <BigButton
+              onClick={this.oAuthLogin.bind(this, 'slack')}
+              id="slack-login"
+              icon={<FASlack style={{ color: slackGreen }} className="logo" />}
+              headerText={<FormattedMessage
+                id="login.with"
+                defaultMessage={'Continue with {provider}'}
+                values={{ provider: 'Slack' }}
+              />}
+            />
+
+            <BigButton
+              onClick={this.oAuthLogin.bind(this, 'twitter')}
+              id="twitter-login"
+              icon={<FATwitter style={{ color: twitterBlue }} className="logo" />}
+              headerText={<FormattedMessage
+                id="login.with"
+                defaultMessage={'Continue with {provider}'}
+                values={{ provider: 'Twitter' }}
+              />}
+            />
+
+            <BigButton
+              onClick={this.oAuthLogin.bind(this, 'facebook')}
+              id="facebook-login"
+              icon={<FAFacebook style={{ color: facebookBlue }} className="logo" />}
+              headerText={
                 <FormattedMessage
-                  id="login.disclaimer"
-                  defaultMessage={'We won’t publish without your permission'}
+                  id="login.with"
+                  defaultMessage={'Continue with {provider}'}
+                  values={{ provider: 'Facebook' }}
                 />
-              </button>
-            </li>
-            <li className="item">
-              <button
-                onClick={this.oAuthLogin.bind(this, 'twitter')}
-                id="twitter-login"
-                className="login__button login__button--twitter"
-              >
-                <span className="login__link">
-                  <FATwitter className="logo" />
+              }
+            />
+
+            {this.state.type === 'login'
+              ? <BigButton
+                id="register-or-login"
+                onClick={this.handleSwitchType.bind(this)}
+                icon={<MDEmail style={{ color: black54 }} />}
+                headerText={
                   <FormattedMessage
-                    id="login.with"
-                    defaultMessage={'Continue with {provider}'}
-                    values={{ provider: 'Twitter' }}
+                    id="login.newAccount"
+                    defaultMessage="Create a new account with email"
                   />
-                </span>
-                <FormattedMessage
-                  id="login.disclaimer"
-                  defaultMessage={'We won’t publish without your permission'}
-                />
-              </button>
-            </li>
-            <li>
-              <button
-                onClick={this.oAuthLogin.bind(this, 'facebook')}
-                id="facebook-login"
-                className="login__button login__button--facebook"
-              >
-                <span className="login__link">
-                  <FAFacebook className="logo" />
+                }
+              />
+
+              : <BigButton
+                id="register-or-login"
+                onClick={this.handleSwitchType.bind(this)}
+                icon={<MDEmail style={{ color: black54 }} />}
+                headerText={
                   <FormattedMessage
-                    id="login.with"
-                    defaultMessage={'Continue with {provider}'}
-                    values={{ provider: 'Facebook' }}
+                    id="login.alreadyHasAccount"
+                    defaultMessage="I already have an account"
                   />
-                </span>
-                <FormattedMessage
-                  id="login.disclaimer"
-                  defaultMessage={'We won’t publish without your permission'}
-                />
-              </button>
-            </li>
-            <li>
-              {this.state.type === 'login'
-                ? <button
-                  type="button"
-                  id="register-or-login"
-                  onClick={this.handleSwitchType.bind(this)}
-                  className="login__button login__button--email"
-                >
-                  <span className="login__link">
-                    <MDEmail />
-                    <FormattedMessage
-                      id="login.newAccount"
-                      defaultMessage="Create a new account with email"
-                    />
-                  </span>
-                  <FormattedMessage
-                    id="login.disclaimer"
-                    defaultMessage={'We won’t publish without your permission'}
-                  />
-                </button>
-                : <button
-                  type="button"
-                  id="register-or-login"
-                  onClick={this.handleSwitchType.bind(this)}
-                  className="login__button login__button--email"
-                >
-                  <span className="login__link">
-                    <MDEmail />
-                    <FormattedMessage
-                      id="login.alreadyHasAccount"
-                      defaultMessage="I already have an account"
-                    />
-                  </span>
-                  <FormattedMessage
-                    id="login.return"
-                    defaultMessage={'Return to sign in by email'}
-                  />
-                </button>}
-            </li>
-          </ul>
+                }
+              />}
+          </BigButtons>
         </div>
       </MuiThemeProvider>
     );
