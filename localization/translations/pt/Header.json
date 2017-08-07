@@ -1,5 +1,9 @@
 {
-  "header.projectLabel": "Projeto",
-  "header.teamLabel": "Equipe",
-  "header.teamsLabel": "Equipes"
+  "headerActions.userTeams": "Suas Equipes",
+  "headerActions.signIn": "Entrar",
+  "headerActions.signOut": "Sair",
+  "headerActions.contactHuman": "Entre em contato com um humano",
+  "headerActions.tos": "Termos de Serviço",
+  "headerActions.privacyPolicy": "Política de Privacidade",
+  "headerActions.about": "Sobre {appName}"
 }

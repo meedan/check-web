@@ -1,4 +1,17 @@
 {
-  "sourceComponent.annotationsTab": "Anotações",
-  "sourceComponent.mediasTab": "Mídias"
+  "sourceComponent.addInfo": "Adicionar informação",
+  "sourceComponent.editError": "Desculpe, não foi possível alterar a fonte",
+  "sourceComponent.editSuccess": "Informações da fonte atualizadas com sucesso!",
+  "sourceComponent.mergeSource": "Mesclar Fonte",
+  "sourceComponent.sourceName": "Nome da fonte",
+  "sourceComponent.sourceBio": "Biografia da fonte",
+  "sourceComponent.contactNote": "Nota de contato",
+  "sourceComponent.phone": "Telefone",
+  "sourceComponent.organization": "Organização",
+  "sourceComponent.location": "Localização",
+  "sourceComponent.dateAdded": "Adicionado {date} • Fonte de {number} links",
+  "sourceComponent.medias": "Mídia",
+  "sourceComponent.notes": "Notas",
+  "sourceComponent.network": "Redes",
+  "sourceComponent.editButton": "Editar perfil"
 }

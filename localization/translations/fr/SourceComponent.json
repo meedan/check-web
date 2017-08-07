@@ -1,4 +1,17 @@
 {
-  "sourceComponent.annotationsTab": "Annotations",
-  "sourceComponent.mediasTab": "Médias"
+  "sourceComponent.addInfo": "Ajouter des renseignements",
+  "sourceComponent.editError": "Désolé, ce n'était pas possible d'éditer la source",
+  "sourceComponent.editSuccess": "L'information de la source a été mise à jour avec succès!",
+  "sourceComponent.mergeSource": "Fusionner la source",
+  "sourceComponent.sourceName": "Nom de la source",
+  "sourceComponent.sourceBio": "Biographie",
+  "sourceComponent.contactNote": "Notes de contact",
+  "sourceComponent.phone": "Le téléphone",
+  "sourceComponent.organization": "Organisation",
+  "sourceComponent.location": "Endroit",
+  "sourceComponent.dateAdded": "Ajouté {date} • Source de {number} liens",
+  "sourceComponent.medias": "Média",
+  "sourceComponent.notes": "Notes",
+  "sourceComponent.network": "Réseaux",
+  "sourceComponent.editButton": "Éditer le profil"
 }

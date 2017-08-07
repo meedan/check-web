@@ -292,7 +292,7 @@ class SearchQueryComponent extends Component {
                   <h4><FormattedMessage id="status.categoriesHeading" defaultMessage="Categories" /></h4>
                   <ul className="media-tags__suggestions-list">
                     {suggestedTags.map(tag =>
-                      <li key={tag.id} title={null} onClick={this.handleTagClick.bind(this, tag)} className={bemClass('media-tags__suggestion', this.tagIsSelected(tag), '--selected')}>{tag}</li>,
+                      <li key={tag} title={null} onClick={this.handleTagClick.bind(this, tag)} className={bemClass('media-tags__suggestion', this.tagIsSelected(tag), '--selected')}>{tag}</li>,
                     )}
                   </ul>
                 </div>

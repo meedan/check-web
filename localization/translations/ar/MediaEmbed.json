@@ -1,0 +1,13 @@
+{
+  "mediaEmbed.embedPreview": "معاينة التضمين",
+  "mediaEmbed.notAvailable": "غير متاح",
+  "mediaEmbed.customizationOptionShowTasks": "إظهار المهام",
+  "mediaEmbed.customizationOptionShowTasksSlogan": "أضف المهام المكتملة للتضمين",
+  "mediaEmbed.customizationOptionShowNotes": "إظهار التعليقات",
+  "mediaEmbed.customizationOptionShowNotesSlogan": "أضف التعليقات للتضمين",
+  "mediaEmbed.warning": "تحذير — مشاركة هذا العنصر سوف يكشف معلومات عن فريقك الخاص. الرجاء توخ الحذر.",
+  "mediaEmbed.copyButtonInactive": "‏‏تم النسخ",
+  "mediaEmbed.copyButton": "نسخ",
+  "mediaEmbed.customize": "تخصيص",
+  "mediaEmbed.copyEmbedCode": "نسخ تعليمات التضمين"
+}

@@ -1,0 +1,6 @@
+{
+  "annotation.error": "Não foi possível apagar a anotação",
+  "annotation.deleteButton": "Excluir",
+  "annotation.taggedHeader": "Marcado #{tag} por {author}",
+  "annotation.flaggedHeader": "Marcado como {flag} por {author}"
+}

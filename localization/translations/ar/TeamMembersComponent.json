@@ -1,7 +1,7 @@
 {
   "teamMembersComponent.title": "أعضاء الفريق",
-  "teamMembersComponent.editDoneButton": "تم",
-  "teamMembersComponent.editButton": "تحرير",
+  "teamMembershipRequests.requestsToJoin": "طلبات انضمام",
   "teamMembersComponent.mainHeading": "أعضاء",
-  "teamMembersComponent.inviteLink": "لدعوة زملائك للانضمام لفريق {link} أرسل لهم هذا الرابط:"
+  "teamMembersComponent.editDoneButton": "تم",
+  "teamMembersComponent.editButton": "تحرير"
 }
