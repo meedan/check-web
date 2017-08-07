@@ -337,7 +337,6 @@ class SourceComponent extends Component {
     const onFailure = (transaction) => { that.fail(transaction); };
     const onSuccess = (response) => {
       const field = document.forms['edit-source-form'].addTag;
-      field.blur();
       field.value = '';
       that.setState({ message: null });
     };
@@ -611,6 +610,7 @@ class SourceComponent extends Component {
       { this.state.addingTags || tags.length ?
         <AutoComplete
           name="addTag" id="addTag"
+          filter={AutoComplete.caseInsensitiveFilter}
           floatingLabelText={this.props.intl.formatMessage(globalStrings.tags)}
           dataSource={availableTags}
           onNewRequest={this.handleSelectTag}
