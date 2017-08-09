@@ -1,8 +1,8 @@
 {
-  "accountCard.fbStats": "{likes} likes",
-  "accountCard.twitterStats": "{tweets} Tweets • {followers} Followers • {following} Following",
-  "accountCard.youtubeStats": "{videos} Videos • {subscribers} Subscribers",
-  "mediaDetail.byUser": "by {username}",
-  "accountCard.providerAccount": "{provider} account",
-  "mediaDetail.added": "Added {byUser}"
+  "accountCard.fbStats": "{likes} إعجابات",
+  "accountCard.twitterStats": "{tweets} تغريدات • {followers} مُتابِعون • {following} مُتابَعون",
+  "accountCard.youtubeStats": "{videos} مقاطع الفيديو • {subscribers} مشتركًا",
+  "mediaDetail.byUser": "بواسطة {username}",
+  "accountCard.providerAccount": "حساب {provider}",
+  "mediaDetail.added": "أضيف {byUser}"
 }

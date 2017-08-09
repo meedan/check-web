@@ -77,30 +77,11 @@ const MediaUtil = {
   },
 
   authorName(media, data) {
-    switch (media.domain) {
-    case 'twitter.com':
-      return data.user ? data.user.name : '';
-    case 'instagram.com':
-      return data.author_name;
-    case 'facebook.com':
-      return data.user_name;
-    default:
-      return data.username || media.domain;
-    }
+    return data.author_name || media.domain;
   },
 
   authorUsername(media, data) {
-    switch (media.domain) {
-    case 'twitter.com':
-    case 'instagram.com':
-      return `@${data.username}`;
-    case 'facebook.com':
-      return data.username;
-    case 'youtube.com':
-      return '';
-    default:
-      return data.username;
-    }
+    return data.username;
   },
 
   authorUrl(media, data) {
@@ -221,20 +202,7 @@ const MediaUtil = {
   },
 
   bodyImageUrl(media, data) {
-    try {
-      switch (media.domain) {
-      case 'twitter.com':
-        return data.entities.media[0].media_url_https || data.entities.media[0].media_url;
-      case 'facebook.com':
-        return data.photos[0];
-      case 'instagram.com':
-        return data.picture;
-      case 'youtube.com':
-        return data.picture;
-      }
-    } catch (e) {
-      return null;
-    }
+    return data.picture;
   },
 
   socialIcon(domain) {

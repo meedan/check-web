@@ -1,6 +1,6 @@
 {
-  "sourceCard.header": "Check Source",
-  "bridge.sourceCard.header": "Bridge Source",
-  "mediaDetail.byUser": "by {username}",
-  "mediaDetail.added": "Added {byUser}"
+  "sourceCard.header": "Fonte do Check",
+  "bridge.sourceCard.header": "Fonte do Bridge",
+  "mediaDetail.byUser": "por {username}",
+  "mediaDetail.added": "Adicionado {byUser}"
 }
