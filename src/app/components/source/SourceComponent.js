@@ -287,7 +287,7 @@ class SourceComponent extends Component {
 
   fail = (transaction) => {
     const error = transaction.getError();
-    let message = error.source;
+    let message = this.props.intl.formatMessage(messages.editError);
     try {
       const json = JSON.parse(error.source);
       if (json.error) {
