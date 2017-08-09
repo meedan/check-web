@@ -2,5 +2,6 @@
   "teamMembersCell.contributor": "مشارك",
   "teamMembersCell.journalist": "صحفي",
   "teamMembersCell.editor": "محرر",
-  "teamMembersCell.owner": "مدير"
+  "teamMembersCell.owner": "مدير",
+  "teamMembersCell.deleteMember": "حذف العضو"
 }

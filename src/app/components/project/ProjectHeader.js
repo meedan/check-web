@@ -51,7 +51,7 @@ class ProjectHeaderComponent extends Component {
 
     const isProjectSubpage = path.length > backUrl.length;
     return (
-      <div style={{ display: 'flex', alignItems: 'center' }}>
+      <div style={{ display: 'flex', alignItems: 'center', overflow: 'hidden' }}>
 
         {isProjectSubpage
           ? <IconButton href={backUrl} className="project-header__back-button">
@@ -64,7 +64,7 @@ class ProjectHeaderComponent extends Component {
           iconStyle={{ fill: black54 }}
           value={currentProject.title}
           className="project-header__title"
-          style={{ marginTop: `${units(1)}`, maxWidth: '50%', overflow: 'hidden' }}
+          style={{ marginTop: `${units(1)}`, minWidth: 130, maxWidth: '50%', overflow: 'hidden' }}
           labelStyle={{ paddingLeft: '0' }}
         >
           {currentProject.team.projects.edges

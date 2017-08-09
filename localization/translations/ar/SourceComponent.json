@@ -1,4 +1,17 @@
 {
-  "sourceComponent.annotationsTab": "التعليقات",
-  "sourceComponent.mediasTab": "التقارير"
+  "sourceComponent.addInfo": "أضف معلومات",
+  "sourceComponent.editError": "عذراً، لم نستطع تحرير هذا المصدر",
+  "sourceComponent.editSuccess": "تم تحديث معلومات المصدر بنجاح!",
+  "sourceComponent.mergeSource": "دمج المصدر",
+  "sourceComponent.sourceName": "اسم المصدر",
+  "sourceComponent.sourceBio": "السيرة الذاتية للمصدر",
+  "sourceComponent.contactNote": "ملحوظات اﻹتصال",
+  "sourceComponent.phone": "رقم الهاتف",
+  "sourceComponent.organization": "المؤسسة",
+  "sourceComponent.location": "الموقع",
+  "sourceComponent.dateAdded": "تمت اﻹضافة {date} • {number} روابط",
+  "sourceComponent.medias": "التقارير",
+  "sourceComponent.notes": "ملحوظات",
+  "sourceComponent.network": "الشبكات",
+  "sourceComponent.editButton": "تحرير المعلومات"
 }

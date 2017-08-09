@@ -290,7 +290,7 @@ class Login extends Component {
                 className="login__button login__button--slack"
               >
                 <span className="login__link">
-                  <FASlack />
+                  <FASlack className="logo" />
                   <FormattedMessage
                     id="login.with"
                     defaultMessage={'Continue with {provider}'}
@@ -310,7 +310,7 @@ class Login extends Component {
                 className="login__button login__button--twitter"
               >
                 <span className="login__link">
-                  <FATwitter />
+                  <FATwitter className="logo" />
                   <FormattedMessage
                     id="login.with"
                     defaultMessage={'Continue with {provider}'}
@@ -330,7 +330,7 @@ class Login extends Component {
                 className="login__button login__button--facebook"
               >
                 <span className="login__link">
-                  <FAFacebook />
+                  <FAFacebook className="logo" />
                   <FormattedMessage
                     id="login.with"
                     defaultMessage={'Continue with {provider}'}

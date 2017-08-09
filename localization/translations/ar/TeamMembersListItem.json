@@ -1,0 +1,9 @@
+{
+  "TeamMembersListItem.contributor": "مشارك",
+  "TeamMembersListItem.journalist": "صحفي",
+  "TeamMembersListItem.editor": "محرر",
+  "TeamMembersListItem.owner": "مدير",
+  "TeamMembershipRequestsListItem.approve": "موافقة",
+  "TeamMembershipRequestsListItem.deny": "رفض",
+  "TeamMembersListItem.deleteMember": "حذف العضو"
+}
