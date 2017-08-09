@@ -48,6 +48,10 @@
     "defaultMessage": "Value"
   },
   {
+    "id": "sourceComponent.languages",
+    "defaultMessage": "Languages"
+  },
+  {
     "id": "sourceComponent.location",
     "defaultMessage": "Location"
   },
