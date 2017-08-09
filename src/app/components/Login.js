@@ -43,6 +43,104 @@ import {
   defaultBorderRadius,
 } from '../styles/js/variables';
 
+
+const StyledEnhancedButton = styled(EnhancedButton)`
+  border: 0;
+  width: ${units(39)};
+  margin: ${units(2)} 0 0 !important;
+  background-color: ${white} !important;
+  height: 100%!important;
+  padding: ${units(1)}!important;
+  box-shadow: ${boxShadow(1)};
+  transition: box-shadow ${transitionSpeedFast} ease-in-out;
+  border-radius: ${defaultBorderRadius};
+
+  &:hover {
+    box-shadow: ${boxShadow(2)};
+  }
+
+  > div {
+    height: ${units(6)};
+  }
+
+  ${media.handheld`
+    width: 100% !important;
+  `}
+
+  svg {
+    width: ${units(3)};
+    height: ${units(3)};
+  }
+
+  h4 {
+    color: ${black38};
+    font: ${caption};
+    margin: 0;
+  }
+
+  h3 {
+    color: ${checkBlue};
+    font: ${body2};
+    font-weight: 500;
+    margin: 0;
+  }
+`;
+
+const StyledCard = styled(Card)`
+  padding: ${units(11)} ${units(15)} ${units(3)} !important;
+  ${media.handheld`
+    padding: ${units(8)} ${units(4)} ${units(3)} !important;
+  `}
+`;
+
+const BigButtons = styled.div`
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 0 ${units(3)};
+`;
+
+const styles = {
+  logo: {
+    margin: '0 auto',
+    display: 'block',
+  },
+  buttonGroup: {
+    marginTop: units(8),
+  },
+  primaryButton: {
+    display: 'block',
+    margin: `${units(2)} auto`,
+    maxWidth: units(21),
+  },
+  secondaryButton: {
+    display: 'block',
+    color: black54,
+    maxWidth: units(26),
+    margin: `${units(2)} auto`,
+  },
+};
+
+const messages = defineMessages({
+  passwordInputHint: {
+    id: 'login.passwordInputHint',
+    defaultMessage: 'Password',
+  },
+});
+
+const Row = styled.div`
+  display: flex;
+  flex-flow: row nowrap;
+`;
+
+const Column = styled.div`
+  display: flex;
+  flex-flow: column nowrap;
+  margin: ${units(0.5)} ${units(1)};
+`;
+
+
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -160,117 +258,23 @@ class Login extends Component {
     const isRtl = rtlDetect.isRtlLang(locale);
     const fromDirection = isRtl ? 'right' : 'left';
 
-    const StyledEnhancedButton = styled(EnhancedButton)`
-      border: 0;
-      width: ${units(39)};
-      text-align: ${fromDirection};
-      margin: ${units(2)} 0 0 !important;
-      background-color: ${white} !important;
-      height: 100%!important;
-      padding: ${units(1)}!important;
-      box-shadow: ${boxShadow(1)};
-      transition: box-shadow ${transitionSpeedFast} ease-in-out;
-      border-radius: ${defaultBorderRadius};
-
-      &:hover {
-        box-shadow: ${boxShadow(2)};
-      }
-
-      > div {
-        height: ${units(6)};
-      }
-
-      ${media.handheld`
-        width: 100% !important;
-      `}
-
-      svg {
-        width: ${units(3)};
-        height: ${units(3)};
-      }
-
-      h4 {
-        color: ${black38};
-        font: ${caption};
-        margin: 0;
-      }
-
-      h3 {
-        color: ${checkBlue};
-        font: ${body2};
-        font-weight: 500;
-        margin: 0;
-      }
-    `;
-
-    const StyledCard = styled(Card)`
-      padding: ${units(11)} ${units(15)} ${units(3)} !important;
-      ${media.handheld`
-        padding: ${units(8)} ${units(4)} ${units(3)} !important;
-      `}
-    `;
-
-    const BigButtons = styled.div`
-      display: flex;
-      flex-flow: row wrap;
-      justify-content: space-between;
-      align-items: center;
-      margin: 0 0 ${units(3)};
-    `;
-
-    const styles = {
-      logo: {
-        margin: '0 auto',
-        display: 'block',
-      },
-      buttonGroup: {
-        marginTop: units(8),
-      },
-      primaryButton: {
-        display: 'block',
-        margin: `${units(2)} auto`,
-        maxWidth: units(21),
-      },
-      secondaryButton: {
-        display: 'block',
-        color: black54,
-        maxWidth: units(26),
-        margin: `${units(2)} auto`,
-      },
-    };
-
-    const messages = defineMessages({
-      passwordInputHint: {
-        id: 'login.passwordInputHint',
-        defaultMessage: 'Password',
-      },
-    });
-
-    const Row = styled.div`
-      display: flex;
-      flex-flow: row nowrap;
-    `;
-
-    const Column = styled.div`
-      display: flex;
-      flex-flow: column nowrap;
-      margin-${fromDirection}: ${units(1)};
-    `;
-
     const BigButton = ({ className, icon, id, onClick, headerText, subheaderText }) => (
       <StyledEnhancedButton
         id={id}
         className={className}
         onClick={onClick}
+        style={{ textAlign: fromDirection }}
       >
         <Row>
-          {icon}
+          <Column>
+            {icon}
+          </Column>
           <Column>
             <h3>{headerText}</h3>
             <h4>
               {subheaderText || <FormattedMessage
                 id="login.disclaimer"
-                defaultMessage={'We won’t publish without Your permission'}
+                defaultMessage={'We won’t publish without your permission'}
               />
                   }
             </h4>
