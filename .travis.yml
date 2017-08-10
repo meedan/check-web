@@ -31,9 +31,6 @@ before_install:
 
 # pender
 - cp travis/pender.yml ./.travis/pender/config.yml
-- cp travis/pender/config/database.yml.travis ./.travis/pender/database.yml
-- cp travis/pender/config/sidekiq.yml.example ./.travis/pender/sidekiq.yml
-- cp travis/pender/config/initializers/secret_token.rb.example pender/config/initializers/secret_token.rb
 
 # xvfb
 - export DISPLAY=:99.0
@@ -68,6 +65,10 @@ before_install:
 # additional docker container config
 - cd .travis
 - docker-compose exec check-api cp /app/current/config/initializers/secret_token.rb.example /app/current/config/initializers/secret_token.rb
+- docker-compose exec pender cp /app/pender/current/config/database.yml.travis /app/pender/current/config/database.yml
+- docker-compose exec pender cp /app/pender/current/config/sidekiq.yml.travis /app/pender/current/config/sidekiq.yml
+- docker-compose exec pender cp /app/pender/current/config/initializers/secret_token.rb.example /app/pender/current/config/initializers/secret_token.rb
+
 # I think these both do the same thing
 - docker-compose exec check-api bundle exec rake lapis:api_keys:create_default RAILS_ENV=test
 - docker-compose exec pender rails runner 'a = ApiKey.create!; a.access_token = "test"; a.save!'
