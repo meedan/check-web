@@ -19,11 +19,7 @@ before_install:
 # create database
 - psql -c 'create database checkapi;' -U postgres
 
-# apt dependencies
-- sudo apt-get -qq update
-- sudo apt-get install wget python-setuptools lsof unzip inkscape imagemagick ruby ruby-dev libnss3 libnss3-dev xvfb libnss3-1d libexif-dev curl build-essential libssl-dev libappindicator1 fonts-liberation -y
-- rvm install 2.3.1
-- rvm --default use 2.3.1
+
 
 # check api
 - cp travis/check-api.yml ./.travis/check-api/config.yml
@@ -32,12 +28,33 @@ before_install:
 # pender
 - cp travis/pender.yml ./.travis/pender/config.yml
 
+# bring up docker containers so they have time to come up
+- cd .travis && docker-compose up -d && cd -
+
+# additional docker container config
+- cd .travis
+- docker-compose exec check-api mkdir -p /app/shared/config/initializers
+- docker-compose exec check-api cp /app/current/config/initializers/secret_token.rb.example /app/shared/config/initializers/secret_token.rb
+- docker-compose exec pender cp /app/pender/current/config/database.yml.travis /app/pender/shared/config/database.yml
+- docker-compose exec pender cp /app/pender/current/config/sidekiq.yml.travis /app/pender/shared/config/sidekiq.yml
+- docker-compose exec check-api mkdir -p /app/pender/shared/config/initializers
+- docker-compose exec pender cp /app/pender/current/config/initializers/secret_token.rb.example /app/pender/shared/config/initializers/secret_token.rb
+# I think these both do the same thing
+- docker-compose exec check-api bundle exec rake lapis:api_keys:create_default RAILS_ENV=test
+- docker-compose exec pender rails runner 'a = ApiKey.create!; a.access_token = "test"; a.save!'
+- cd -
+
+# apt dependencies
+- sudo apt-get -qq update
+- sudo apt-get install wget python-setuptools lsof unzip inkscape imagemagick ruby ruby-dev libnss3 libnss3-dev xvfb libnss3-1d libexif-dev curl build-essential libssl-dev libappindicator1 fonts-liberation chromium-browser -y
+- rvm install 2.3.1
+- rvm --default use 2.3.1
+
 # xvfb
 - export DISPLAY=:99.0
 - sh -e /etc/init.d/xvfb start
+
 # google chrome
-- sudo apt-get -qq update
-- sudo apt-get install chromium-browser -y
 - export CHROME_BIN=/usr/bin/chromium-browser
 - chromium-browser --no-sandbox &
 
@@ -55,24 +72,11 @@ before_install:
 - cp travis/config.js test/config.js
 - cp travis/config.yml test/config.yml
 
-# bring up docker containers so they have time to come up
-- cd .travis && docker-compose up -d && cd -
 
 # ruby / bundler / rspec
 - gem install bundler
 - cd test && bundle install && cd -
 
-# additional docker container config
-- cd .travis
-- docker-compose exec check-api cp /app/current/config/initializers/secret_token.rb.example /app/shared/config/initializers/secret_token.rb
-- docker-compose exec pender cp /app/pender/current/config/database.yml.travis /app/pender/shared/config/database.yml
-- docker-compose exec pender cp /app/pender/current/config/sidekiq.yml.travis /app/pender/shared/config/sidekiq.yml
-- docker-compose exec pender cp /app/pender/current/config/initializers/secret_token.rb.example /app/pender/shared/config/initializers/secret_token.rb
-
-# I think these both do the same thing
-- docker-compose exec check-api bundle exec rake lapis:api_keys:create_default RAILS_ENV=test
-- docker-compose exec pender rails runner 'a = ApiKey.create!; a.access_token = "test"; a.save!'
-- cd -
 
 before_script:
 - sleep 5
