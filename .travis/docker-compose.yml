@@ -14,22 +14,22 @@ services:
       - ./elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
 
   check-api:
-    image: meedan/check-api
+    image: meedan/check-api:develop
     ports:
-      - 127.0.0.1:80:3000
+      - 127.0.0.1:3000:80
     environment:
-      PRIMARY: true # kicks off the db migration
+      PRIMARY: "true" # kicks off the db migration
       RAILS_ENV: development
       SERVER_PORT: 3000
     volumes:
       - ./check-api:/app/shared/config
 
   pender:
-    image: meedan/pender
+    image: meedan/pender:develop
     ports:
-      - 127.0.0.1:80:3200
+      - 127.0.0.1:3200:80
     environment:
-      PRIMARY: true # kicks off the db migration
+      PRIMARY: "true" # kicks off the db migration
       RAILS_ENV: development
       SERVER_PORT: 3200
     volumes:
