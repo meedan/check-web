@@ -26,7 +26,8 @@ class SocialMediaCard extends Component {
   }
 
   handleBodyClick(e) {
-    if (!this.props.condensed) { // only open inspector on media page
+    if (!this.props.condensed) {
+      // only open inspector on media page
       this.setState({ isInspectorActive: true });
     }
   }
@@ -52,26 +53,49 @@ class SocialMediaCard extends Component {
 
     return (
       <article className="social-media-card">
-        <MediaInspector media={media} isActive={this.state.isInspectorActive} dismiss={this.handleInspectorDismiss.bind(this)} />
+        <MediaInspector
+          media={media}
+          isActive={this.state.isInspectorActive}
+          dismiss={this.handleInspectorDismiss.bind(this)}
+        />
         <div className="social-media-column-alpha">
           <div className="social-media-card__header / card-header">
             <AuthorPicture media={media} data={data} />
             <div className="social-media-card__header-text-primary / header-text-primary">
-              <a href={authorUrl} target="_blank" rel="noopener noreferrer" className="social-media-card__name">{authorName || authorUsername}</a>
-              { ((authorName && authorUsername) && (authorName !== authorUsername)) ?
-                <a href={authorUrl} target="_blank" rel="noopener noreferrer" className="social-media-card__username">{authorUsername}</a> : null
-              }
+              <a
+                href={authorUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="social-media-card__name"
+              >
+                {authorName || authorUsername}
+              </a>
+              {authorName && authorUsername && authorName !== authorUsername
+                ? <a
+                  href={authorUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="social-media-card__username"
+                >
+                  {authorUsername}
+                </a>
+                : null}
             </div>
           </div>
 
-          <div className={bemClass('social-media-card__body', condensed, '--condensed')} onClick={this.handleBodyClick.bind(this)}>
+          <div
+            className={bemClass('social-media-card__body', condensed, '--condensed')}
+            onClick={this.handleBodyClick.bind(this)}
+          >
             <div className="social-media-card__body-text"><ParsedText text={bodyText} /></div>
           </div>
 
           <span className="social-media-card__header-text-secondary">
-            { MediaUtil.socialIcon(media.domain) }
+            {MediaUtil.socialIcon(media.domain)}
             <a href={url} target="_blank" rel="noopener noreferrer">
-              {embedPublishedAt ? <TimeBefore date={embedPublishedAt} /> : this.props.intl.formatMessage(messages.link)}
+              {embedPublishedAt
+                ? <TimeBefore date={embedPublishedAt} />
+                : this.props.intl.formatMessage(messages.link)}
             </a>
           </span>
           <div className="social-media-card__footer">
@@ -80,9 +104,12 @@ class SocialMediaCard extends Component {
         </div>
 
         <div className="social-media-column-omega">
-          {bodyImageUrl ?
-            <div className="social-media-card__body-image" style={{ backgroundImage: `url(${bodyImageUrl})` }} />
-          : null }
+          {bodyImageUrl
+            ? <div
+              className="social-media-card__body-image"
+              style={{ backgroundImage: `url(${bodyImageUrl})` }}
+            />
+            : null}
         </div>
       </article>
     );
