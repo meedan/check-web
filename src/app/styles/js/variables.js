@@ -37,8 +37,8 @@ export const opaqueBlack02 = '#fafafa';
 //
 export const facebookBlue = '#3b5999';
 export const twitterBlue = '#0095ff';
-export const googleorange = '#db4437';
-export const slackgreen = '#2ab27b';
+export const googleOrange = '#db4437';
+export const slackGreen = '#2ab27b';
 
 // Units
 export function units(unit) {
@@ -78,6 +78,10 @@ export const headerOffset = units(1);
 // Breakpoints
 export const breakpointMobile = `${units(85)}`;
 
+// Transitions
+export const transitionSpeedFast = '150ms';
+export const transitionSpeedDefault = '300ms';
+
 // Borders
 export const defaultBorderRadius = '2px';
 export const defaultBorderWidth = '1px';
@@ -86,15 +90,15 @@ export const defaultBorderWidth = '1px';
 //
 export function boxShadow(level) {
   if (level === 1) {
-    return `0 1px 3px ${rgba(black, 0.12)}, 0 1px 2px ${rgba(black, 0.24)}`;
+    return `0 1px 6px ${rgba(black, 0.12)}, 0 1px 4px ${rgba(black, 0.12)}`;
   } else if (level === 2) {
-    return `0 3px 6px ${rgba(black, 0.16)}, 0 3px 6px ${rgba(black, 0.23)}`;
+    return `0 3px 10px ${rgba(black, 0.16)}, 0 3px 10px ${rgba(black, 0.23)}`;
   } else if (level === 3) {
-    return `0 10px 20px ${rgba(black, 0.19)}, 0 6px 6px ${rgba(black, 0.23)}`;
+    return `0 10px 30px ${rgba(black, 0.19)}, 0 6px 10px ${rgba(black, 0.23)}`;
   } else if (level === 4) {
-    return `0 14px 28px ${rgba(black, 0.25)}, 0 10px 10px ${rgba(black, 0.22)}`;
+    return `0 14px 45px ${rgba(black, 0.25)}, 0 10px 18px ${rgba(black, 0.22)}`;
   } else if (level === 5) {
-    return `0 19px 38px ${rgba(black, 0.3)}, 0 15px 12px ${rgba(black, 0.22)}`;
+    return `0 19px 60px ${rgba(black, 0.3)}, 0 15px 20px ${rgba(black, 0.22)}`;
   }
 
   return null;

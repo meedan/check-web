@@ -1,9 +1,9 @@
 {
-  "headerActions.userTeams": "Your Teams",
-  "headerActions.signIn": "Sign In",
-  "headerActions.signOut": "Sign Out",
-  "headerActions.contactHuman": "Contact a Human",
-  "headerActions.tos": "Terms of Service",
-  "headerActions.privacyPolicy": "Privacy Policy",
-  "headerActions.about": "About {appName}"
+  "headerActions.userTeams": "Suas Equipes",
+  "headerActions.signIn": "Entrar",
+  "headerActions.signOut": "Sair",
+  "headerActions.contactHuman": "Entre em contato com um humano",
+  "headerActions.tos": "Termos de Serviço",
+  "headerActions.privacyPolicy": "Política de Privacidade",
+  "headerActions.about": "Sobre {appName}"
 }

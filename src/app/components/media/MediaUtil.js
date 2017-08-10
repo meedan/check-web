@@ -11,60 +11,60 @@ import config from 'config';
 const messages = defineMessages({
   notesCount: {
     id: 'media.notesCount',
-    defaultMessage: '{notesCount, plural, =0 {No notes} one {1 note} other {# notes}}'
+    defaultMessage: '{notesCount, plural, =0 {No notes} one {1 note} other {# notes}}',
   },
   typeTwitter: {
     id: 'media.typeTwitter',
-    defaultMessage: 'Tweet'
+    defaultMessage: 'Tweet',
   },
   typeFacebook: {
     id: 'media.typeFacebook',
-    defaultMessage: 'Facebook post'
+    defaultMessage: 'Facebook post',
   },
   typeInstagram: {
     id: 'media.typeInstagram',
-    defaultMessage: 'Instagram'
+    defaultMessage: 'Instagram',
   },
   typeVideo: {
     id: 'media.typeVideo',
-    defaultMessage: 'Video'
+    defaultMessage: 'Video',
   },
   typeClaim: {
     id: 'media.typeClaim',
-    defaultMessage: 'Claim'
+    defaultMessage: 'Claim',
   },
   bridge_typeClaim: {
     id: 'bridge.media.typeClaim',
-    defaultMessage: 'Quote'
+    defaultMessage: 'Quote',
   },
   typeImage: {
     id: 'media.typeImage',
-    defaultMessage: 'Image'
+    defaultMessage: 'Image',
   },
   typePage: {
     id: 'media.typePage',
-    defaultMessage: 'Page'
+    defaultMessage: 'Page',
   },
   onDomain: {
     id: 'media.onDomain',
-    defaultMessage: '{typeLabel} on {domain}'
+    defaultMessage: '{typeLabel} on {domain}',
   },
   byAttribution: {
     id: 'media.byAttribution',
-    defaultMessage: '{typeLabel} by {attribution}'
+    defaultMessage: '{typeLabel} by {attribution}',
   },
   withText: {
     id: 'media.withText',
-    defaultMessage: '{typeLabel}: {text}'
+    defaultMessage: '{typeLabel}: {text}',
   },
   favoritesCount: {
     id: 'media.favoritesCount',
-    defaultMessage: '{favoritesCount, plural, =0 {} one {1 favorite} other {# favorites}}'
+    defaultMessage: '{favoritesCount, plural, =0 {} one {1 favorite} other {# favorites}}',
   },
   retweetsCount: {
     id: 'media.retweetsCount',
-    defaultMessage: '{retweetsCount, plural, =0 {} one {1 retweet} other {# retweets}}'
-  }
+    defaultMessage: '{retweetsCount, plural, =0 {} one {1 retweet} other {# retweets}}',
+  },
 });
 
 const MediaUtil = {
@@ -77,30 +77,11 @@ const MediaUtil = {
   },
 
   authorName(media, data) {
-    switch (media.domain) {
-    case 'twitter.com':
-      return data.user ? data.user.name : '';
-    case 'instagram.com':
-      return data.author_name;
-    case 'facebook.com':
-      return data.user_name;
-    default:
-      return data.username || media.domain;
-    }
+    return data.author_name || media.domain;
   },
 
   authorUsername(media, data) {
-    switch (media.domain) {
-    case 'twitter.com':
-    case 'instagram.com':
-      return `@${data.username}`;
-    case 'facebook.com':
-      return data.username;
-    case 'youtube.com':
-      return '';
-    default:
-      return data.username;
-    }
+    return data.username;
   },
 
   authorUrl(media, data) {
@@ -119,14 +100,11 @@ const MediaUtil = {
 
       if (socialMedia) {
         type = socialMedia;
-      }
-      else if (media.quote) {
+      } else if (media.quote) {
         type = (config.appName === 'check') ? messages.typeClaim : messages.bridge_typeClaim;
-      }
-      else if (media.embed_path) {
+      } else if (media.embed_path) {
         type = messages.typeImage;
-      }
-      else if (media.domain) {
+      } else if (media.domain) {
         type = messages.typePage;
       }
     } catch (e) {
@@ -152,14 +130,14 @@ const MediaUtil = {
       const type = this.mediaType(media, data);
       typeLabel = intl.formatMessage(type);
       if (type === messages.typePage) {
-        return intl.formatMessage(messages.onDomain, {typeLabel, domain: media.domain});
+        return intl.formatMessage(messages.onDomain, { typeLabel, domain: media.domain });
       } else if (type === messages.typeImage) {
         return data.title || typeLabel;
       } else if (type === messages.typeClaim) {
         return (data.title && data.title != media.quote) ? data.title : typeLabel;
       }
       const attribution = this.authorName(media, data);
-      return attribution ? intl.formatMessage(messages.byAttribution, {typeLabel, attribution}) : typeLabel;
+      return attribution ? intl.formatMessage(messages.byAttribution, { typeLabel, attribution }) : typeLabel;
     } catch (e) {
       return typeLabel || '';
     }
@@ -175,15 +153,15 @@ const MediaUtil = {
       const type = this.mediaType(media, data);
       typeLabel = intl.formatMessage(type);
       if (type === messages.typePage) {
-        return intl.formatMessage(messages.onDomain, {typeLabel, domain: media.domain});
+        return intl.formatMessage(messages.onDomain, { typeLabel, domain: media.domain });
       } else if (type === messages.typeClaim) {
         const text = data.quote;
-        return text ? intl.formatMessage(messages.withText, {typeLabel, text}) : typeLabel;
+        return text ? intl.formatMessage(messages.withText, { typeLabel, text }) : typeLabel;
       }
       const attribution = this.authorName(media, data);
       const text = this.bodyText(media, data);
-      const byAttribution = attribution ? intl.formatMessage(messages.byAttribution, {typeLabel, attribution}) : typeLabel;
-      return text ? intl.formatMessage(messages.withText, {typeLabel: byAttribution, text}) : byAttribution;
+      const byAttribution = attribution ? intl.formatMessage(messages.byAttribution, { typeLabel, attribution }) : typeLabel;
+      return text ? intl.formatMessage(messages.withText, { typeLabel: byAttribution, text }) : byAttribution;
     } catch (e) {
       return typeLabel || '';
     }
@@ -191,7 +169,7 @@ const MediaUtil = {
 
   // Return a text fragment "X notes" with proper pluralization.
   notesCount(media, data, intl) {
-    return intl.formatMessage(messages.notesCount, {notesCount: media.log_count});
+    return intl.formatMessage(messages.notesCount, { notesCount: media.log_count });
   },
 
   createdAt(media) { // check media
@@ -221,20 +199,7 @@ const MediaUtil = {
   },
 
   bodyImageUrl(media, data) {
-    try {
-      switch (media.domain) {
-      case 'twitter.com':
-        return data.entities.media[0].media_url_https || data.entities.media[0].media_url;
-      case 'facebook.com':
-        return data.photos[0];
-      case 'instagram.com':
-        return data.picture;
-      case 'youtube.com':
-        return data.picture;
-      }
-    } catch (e) {
-      return null;
-    }
+    return data.picture;
   },
 
   socialIcon(domain) {
@@ -256,8 +221,8 @@ const MediaUtil = {
     try {
       return ({
         'twitter.com': [
-          intl.formatMessage(messages.favoritesCount, {favoritesCount: data.favorite_count}),
-          intl.formatMessage(messages.retweetsCount, {retweetsCount: data.retweet_count}),
+          intl.formatMessage(messages.favoritesCount, { favoritesCount: data.favorite_count }),
+          intl.formatMessage(messages.retweetsCount, { retweetsCount: data.retweet_count }),
         ],
       }[media.domain] || []);
     } catch (e) {
