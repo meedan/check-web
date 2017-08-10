@@ -40,6 +40,7 @@ import UpdateDynamicMutation from '../../relay/UpdateDynamicMutation';
 import CreateTagMutation from '../../relay/CreateTagMutation';
 import DeleteTagMutation from '../../relay/DeleteTagMutation';
 import UpdateSourceMutation from '../../relay/UpdateSourceMutation';
+import UpdateProjectSourceMutation from '../../relay/UpdateProjectSourceMutation';
 
 const messages = defineMessages({
   addInfo: {
