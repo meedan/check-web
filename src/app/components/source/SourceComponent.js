@@ -143,6 +143,7 @@ class SourceComponent extends Component {
   }
 
   setContextSource() {
+    const context = new CheckContext(this);
     const store = this.getContext();
     const { team, project_id } = this.props.source;
 
@@ -488,6 +489,8 @@ class SourceComponent extends Component {
   }
 
   renderAccountsEdit() {
+    if (!this.isProjectSource()) { return; }
+
     const source = this.getSource();
     const links = this.state.links ? this.state.links.slice(0) : [];
     const deleteLinks = this.state.deleteLinks ? this.state.deleteLinks.slice(0) : [];
@@ -520,6 +523,8 @@ class SourceComponent extends Component {
   }
 
   renderMetadataView() {
+    if (!this.isProjectSource()) { return; }
+
     const metadata = this.state.metadata;
 
     const renderMetadataFieldView = (type) => {
@@ -552,6 +557,8 @@ class SourceComponent extends Component {
   }
 
   renderMetadataEdit() {
+    if (!this.isProjectSource()) { return; }
+
     const metadata = this.state.metadata;
 
     const handleChangeField = (type, e) => {
@@ -618,10 +625,14 @@ class SourceComponent extends Component {
   }
 
   renderLanguagesView() {
+    if (!this.isProjectSource()) { return; }
+
     return <SourceLanguages usedLanguages={this.props.source.languages.edges} />;
   }
 
   renderLanguagesEdit() {
+    if (!this.isProjectSource()) { return; }
+
     const createLanguageAnnotation = (value) => {
       const that = this;
       const onFailure = (transaction) => { that.fail(transaction); };
@@ -681,11 +692,15 @@ class SourceComponent extends Component {
   }
 
   renderTagsView() {
+    if (!this.isProjectSource()) { return; }
+
     const tags = this.props.source.tags.edges;
     return <SourceTags tags={tags} />;
   }
 
   renderTagsEdit() {
+    if (!this.isProjectSource()) { return; }
+
     const tags = this.props.source.tags.edges;
     const tagLabels = tags.map(tag => tag.node.tag);
     const suggestedTags = (this.props.source.team && this.props.source.team.get_suggested_tags) ? this.props.source.team.get_suggested_tags.split(',') : [];
@@ -725,7 +740,7 @@ class SourceComponent extends Component {
                 </div>
               </div>
 
-              <AccountChips accounts={source.account_sources.edges.map((as) => as.node.account)} />
+              { isProjectSource ? <AccountChips accounts={source.account_sources.edges.map((as) => as.node.account)} /> : null }
 
               { isProjectSource ?
                 <div className="source__contact-info">
