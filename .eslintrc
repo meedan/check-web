@@ -41,5 +41,7 @@
 
         //Todo: improve a11y compliance
         "jsx-a11y/no-static-element-interactions": "warn",
+
+        no-irregular-whitespace: ["error", { "skipComments": true }],
     }
 }
