@@ -38,5 +38,8 @@
 
         //Todo: Refactor to only have one component per file (or set this rule to off)
         "react/no-multi-comp": "warn",
+
+        //Todo: improve a11y compliance
+        "jsx-a11y/no-static-element-interactions": "warn",
     }
 }

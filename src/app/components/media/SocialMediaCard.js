@@ -1,12 +1,11 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { defineMessages, injectIntl, intlShape } from 'react-intl';
-import { Link } from 'react-router';
+import deepEqual from 'deep-equal';
 import MediaUtil from './MediaUtil';
 import MediaInspector from './MediaInspector';
 import AuthorPicture from '../AuthorPicture';
 import TimeBefore from '../TimeBefore';
 import { bemClass } from '../../helpers';
-import deepEqual from 'deep-equal';
 import ParsedText from '../ParsedText';
 
 const messages = defineMessages({
@@ -25,19 +24,19 @@ class SocialMediaCard extends Component {
     };
   }
 
-  handleBodyClick(e) {
+  shouldComponentUpdate(nextProps, nextState) {
+    return !deepEqual(nextProps, this.props) || !deepEqual(nextState, this.state);
+  }
+
+  handleBodyClick() {
     if (!this.props.condensed) {
       // only open inspector on media page
       this.setState({ isInspectorActive: true });
     }
   }
 
-  handleInspectorDismiss(e) {
+  handleInspectorDismiss() {
     this.setState({ isInspectorActive: false });
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    return !deepEqual(nextProps, this.props) || !deepEqual(nextState, this.state);
   }
 
   render() {
