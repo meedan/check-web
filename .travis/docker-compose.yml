@@ -1,0 +1,36 @@
+version: '2'
+services:
+
+  redis:
+    image: redis
+    ports:
+      - 127.0.0.1:6379:6379
+
+  elasticsearch:
+    image: meedan/elasticsearch
+    ports:
+      - 127.0.0.1:9200:9200
+    volumes:
+      - ./elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+
+  check-api:
+    image: meedan/check-api
+    ports:
+      - 127.0.0.1:80:3000
+    environment:
+      PRIMARY: true # kicks off the db migration
+      RAILS_ENV: development
+      SERVER_PORT: 3000
+    volumes:
+      - ./check-api:/app/shared/config
+
+  pender:
+    image: meedan/pender
+    ports:
+      - 127.0.0.1:80:3200
+    environment:
+      PRIMARY: true # kicks off the db migration
+      RAILS_ENV: development
+      SERVER_PORT: 3200
+    volumes:
+      - ./pender:/app/pender/shared/config
