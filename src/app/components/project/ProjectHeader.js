@@ -15,7 +15,7 @@ class ProjectHeaderComponent extends Component {
       ${ellipsisStyles}
     `;
 
-    return (<Title>{currentProject.title}</Title>);
+    return (<Title className="project-header__title">{currentProject.title}</Title>);
   }
 }
 
