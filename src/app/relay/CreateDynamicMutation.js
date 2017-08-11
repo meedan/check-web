@@ -26,6 +26,14 @@ class CreateDynamicMutation extends Relay.Mutation {
         }
       }`;
       break;
+    case 'project_source':
+      query = Relay.QL`fragment on CreateDynamicPayload {
+        dynamicEdge,
+        project_source {
+          languages: annotations(annotation_type: "language", first: 10000)
+        }
+      }`;
+      break;
     }
     return query;
   }
