@@ -977,6 +977,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should filter by medias or sources" do
+      api_logout
       api_create_team_project_and_link 'https://twitter.com/TheWho/status/890135323216367616'
       @driver.navigate.to @config['self_url']
       sleep 3
