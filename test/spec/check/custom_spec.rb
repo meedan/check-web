@@ -3,9 +3,9 @@ require_relative '../spec_helper.rb'
 shared_examples 'custom' do
 
   it "should register and redirect to newly created media" do
-    page = LoginPage.new(config: @config, driver: @driver).load
-        .login_with_email(email: @email, password: @password)
-        .create_media(input: @media_url)
+    api_create_team_and_project
+    page = ProjectPage.new(config: @config, driver: @driver).load
+           .create_media(input: @media_url)
 
     expect(page.contains_string?('Added')).to be(true)
     expect(page.contains_string?('User With Email')).to be(true)
@@ -16,9 +16,9 @@ shared_examples 'custom' do
   end
 
   it "should register and redirect to newly created image media" do
-    page = LoginPage.new(config: @config, driver: @driver).load
-        .login_with_email(email: @email, password: @password)
-        .create_image_media(File.expand_path('../test.png', File.dirname(__FILE__)))
+    api_create_team_and_project
+    page = ProjectPage.new(config: @config, driver: @driver).load
+           .create_image_media(File.expand_path('../test.png', File.dirname(__FILE__)))
 
     expect(page.contains_string?('Added')).to be(true)
     expect(page.contains_string?('User With Email')).to be(true)
@@ -29,30 +29,29 @@ shared_examples 'custom' do
   end
 
   it "should set status to media as a command" do
-    login_with_email
-    @driver.navigate.to team_url('project/' + get_project + '/media/' + $media_id)
-    sleep 10
+    media = api_create_team_project_and_claim
+    @driver.navigate.to media.full_url
+    sleep 2
 
     # Add a status as a command
     fill_field('#cmd-input', '/status In Progress')
     @driver.action.send_keys(:enter).perform
-    sleep 10
+    sleep 5
 
     # Verify that status was added to annotations list
     expect(@driver.page_source.include?('Status')).to be(true)
 
     # Reload the page and verify that status is still there
     @driver.navigate.refresh
-    sleep 10
+    sleep 5
     expect(@driver.page_source.include?('Status')).to be(true)
   end
 
   it "should change a media status via the dropdown menu" do
-    media_pg = LoginPage.new(config: @config, driver: @driver).load
-        .register_and_login_with_email(email: 'sysops+' + Time.now.to_i.to_s + '@meedan.com', password: @password)
-        .create_team
-        .create_project
-        .create_media(input: "This is true")
+    media = api_create_team_project_and_claim
+    @driver.navigate.to media.full_url
+    sleep 2
+    media_pg = MediaPage.new(config: @config, driver: @driver)
     expect(media_pg.status_label).to eq('UNSTARTED')
 
     media_pg.change_status(:verified)
@@ -61,7 +60,7 @@ shared_examples 'custom' do
   end
 
   it "should search by status" do
-    create_claim_and_go_to_search_page
+    api_create_claim_and_go_to_search_page
     @driver.find_element(:xpath, "//*[contains(text(), 'Inconclusive')]").click
     sleep 10
     expect((@driver.title =~ /Inconclusive/).nil?).to be(false)
@@ -75,7 +74,7 @@ shared_examples 'custom' do
   end
 
   it "should search by status through URL" do
-    create_claim_and_go_to_search_page
+    api_create_claim_and_go_to_search_page
     @driver.navigate.to @config['self_url'] + '/' + get_team + '/search/%7B"status"%3A%5B"false"%5D%7D'
     sleep 10
     expect((@driver.title =~ /False/).nil?).to be(false)

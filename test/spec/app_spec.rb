@@ -7,6 +7,7 @@ require_relative './pages/login_page.rb'
 require_relative './pages/me_page.rb'
 require_relative './pages/teams_page.rb'
 require_relative './pages/page.rb'
+require_relative './api_helpers.rb'
 
 CONFIG = YAML.load_file('config.yml')
 
@@ -17,6 +18,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
   # Helpers
 
   include AppSpecHelpers
+  include ApiHelpers
 
   before :all do
     @wait = Selenium::WebDriver::Wait.new(timeout: 10)
@@ -40,18 +42,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       Appium::Driver.new({ appium_lib: { server_url: webdriver_url}, caps: browser_capabilities }).start_driver :
       Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: browser_capabilities)
 
-    # TODO: better initialization w/ parallelization
-    page = LoginPage.new(config: @config, driver: @driver).load
-    begin
-      page = page.register_and_login_with_email(email: @email, password: @password)
-    rescue
-      page = page.login_with_email(email: @email, password: @password)
-    end
-    page
-      .create_team
-      .create_project
-      .create_media(input: 'Claim')
-      .logout_and_close
+    api_create_team_project_and_claim(true)
   end
 
   after :all do
@@ -79,7 +70,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
   after :each do |example|
     if example.exception
       link = save_screenshot("Test failed: #{example.description}")
-      puts "Test \"#{example.description}\" failed! Check screenshot at #{link}" # and following browser output: #{console_logs}"
+      puts "Test \"#{example.description}\" failed! Check screenshot at #{link} and following browser output: #{console_logs}"
     end
     @driver.quit
   end
@@ -88,19 +79,28 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
   context "web" do
 
-    it "should redirect to access denied page" do
-      user_1 = {email: 'sysops+' + Time.now.to_i.to_s + '@meedan.com', password: '12345678'}
-      login_pg = LoginPage.new(config: @config, driver: @driver).load
-      login_pg.register_and_login_with_email(email: user_1[:email], password: user_1[:password])
+    it "should register and create a claim" do
+      page = LoginPage.new(config: @config, driver: @driver).load
+      begin
+        page = page.register_and_login_with_email(email: @email, password: @password)
+      rescue
+        page = page.login_with_email(email: @email, password: @password)
+      end
+      page
+        .create_team
+        .create_project
+        .create_media(input: 'Claim')
+        .logout_and_close
+    end
 
-      me_pg = MePage.new(config: @config, driver: login_pg.driver).load
+    it "should redirect to access denied page" do
+      api_register_and_login_with_email
+      me_pg = MePage.new(config: @config, driver: @driver).load
       user_1_source_id = me_pg.source_id
       me_pg.logout
 
-      user_2 = {email: 'sysops+' + Time.now.to_i.to_s + '@meedan.com', password: '22345678'}
-      login_pg = LoginPage.new(config: @config, driver: @driver).load
-      login_pg.register_and_login_with_email(email: user_2[:email], password: user_2[:password])
-      unauthorized_pg = SourcePage.new(id: user_1_source_id, config: @config, driver: login_pg.driver).load
+      api_register_and_login_with_email
+      unauthorized_pg = SourcePage.new(id: user_1_source_id, config: @config, driver: @driver).load
       @wait.until { unauthorized_pg.contains_string?('Access Denied') }
 
       expect(unauthorized_pg.contains_string?('Access Denied')).to be(true)
@@ -110,9 +110,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     include_examples "custom"
 
     it "should edit the title of a media" do
-      media_pg = LoginPage.new(config: @config, driver: @driver).load.login_with_email(email: @email, password: @password)
-      @wait.until { @driver.page_source.include?('Claim') }
-      media_pg = media_pg.create_media(input: 'https://twitter.com/softlandscapes/status/834385935240462338?t=' + Time.now.to_i.to_s)
+      url = 'https://twitter.com/softlandscapes/status/834385935240462338'
+      media_pg = api_create_team_project_and_link_and_redirect_to_media_page url
       expect(media_pg.primary_heading.text).to eq('Tweet by soft landscapes')
       sleep 3 # :/ clicks can misfire if pender iframe moves the button position at the wrong moment
       media_pg.set_title('Edited media title')
@@ -123,9 +122,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should not add a duplicated tag from tags list" do
-      page = LoginPage.new(config: @config, driver: @driver).load
-          .login_with_email(email: @email, password: @password)
-          .click_media
+      page = api_create_team_project_and_claim_and_redirect_to_media_page
       new_tag = Time.now.to_i.to_s
 
       # Validate assumption that tag does not exist
@@ -146,23 +143,21 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should display a default title for new media" do
       # Tweets
-      media_pg = LoginPage.new(config: @config, driver: @driver).load.login_with_email(email: @email, password: @password)
-      @wait.until { @driver.page_source.include?('Claim') }
-      media_pg = media_pg.create_media(input: 'https://twitter.com/firstdraftnews/status/835587295394869249?t=' + Time.now.to_i.to_s)
+      media_pg = api_create_team_project_and_link_and_redirect_to_media_page('https://twitter.com/firstdraftnews/status/835587295394869249')
       expect(media_pg.primary_heading.text).to eq('Tweet by First Draft')
       project_pg = media_pg.go_to_project
       sleep 1
       expect(project_pg.elements('.media-detail__heading').map(&:text).include?('Tweet by First Draft')).to be(true)
 
       # YouTube
-      media_pg = project_pg.create_media(input: 'https://www.youtube.com/watch?v=ykLgjhBnik0?t=' + Time.now.to_i.to_s)
+      media_pg = api_create_team_project_and_link_and_redirect_to_media_page('https://www.youtube.com/watch?v=ykLgjhBnik0')
       expect(media_pg.primary_heading.text).to eq('Video by First Draft')
       project_pg = media_pg.go_to_project
       sleep 1
       expect(project_pg.elements('.media-detail__heading').map(&:text).include?('Video by First Draft')).to be(true)
 
       # Facebook
-      media_pg = project_pg.create_media(input: 'https://www.facebook.com/FirstDraftNews/posts/1808121032783161?t=' + Time.now.to_i.to_s)
+      media_pg = api_create_team_project_and_link_and_redirect_to_media_page('https://www.facebook.com/FirstDraftNews/posts/1808121032783161')
       expect(media_pg.primary_heading.text).to eq('Facebook post by First Draft')
       project_pg = media_pg.go_to_project
       sleep 1
@@ -234,11 +229,10 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should create a project for a team" do
+      team = api_create_team
+      @driver.navigate.to @config['self_url']
       project_name = "Project #{Time.now}"
-      project_pg = LoginPage.new(config: @config, driver: @driver).load
-          .register_and_login_with_email(email: 'sysops+' + Time.now.to_i.to_s + '@meedan.com', password: Time.now.to_i.to_s)
-          .create_team
-          .create_project(name: project_name)
+      project_pg = TeamPage.new(config: @config, driver: @driver).create_project(name: project_name)
 
       expect(project_pg.driver.current_url.to_s.match(/\/project\/[0-9]+$/).nil?).to be(false)
       team_pg = project_pg.click_team_avatar
@@ -246,9 +240,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should create project media" do
-      page = LoginPage.new(config: @config, driver: @driver).load.login_with_email(email: @email, password: @password)
+      api_create_team_and_project
+      page = ProjectPage.new(config: @config, driver: @driver).load
 
-      page.driver.navigate.to @config['self_url']
       expect(page.contains_string?('Tweet by Marcelo Souza')).to be(false)
 
       page.create_media(input: 'https://twitter.com/marcouza/status/771009514732650497?t=' + Time.now.to_i.to_s)
@@ -260,9 +254,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should search for image" do
-      page = LoginPage.new(config: @config, driver: @driver).load
-          .login_with_email(email: @email, password: @password)
-          .create_image_media(File.join(File.dirname(__FILE__), 'test.png'))
+      api_create_team_and_project
+      page = ProjectPage.new(config: @config, driver: @driver).load
+             .create_image_media(File.join(File.dirname(__FILE__), 'test.png'))
 
       sleep 8 # wait for Sidekiq
 
@@ -303,18 +297,15 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should show teams at /check/teams" do
-      page = LoginPage.new(config: @config, driver: @driver).load.login_with_email(email: @email, password: @password)
-      page.driver.navigate.to @config['self_url'] + '/check/teams'
-      page.wait_for_element('.teams')
-      expect(page.driver.find_elements(:css, '.teams').empty?).to be(false)
+      api_create_team
+      @driver.navigate.to @config['self_url'] + '/check/teams'
+      sleep 2
+      expect(@driver.find_elements(:css, '.teams').empty?).to be(false)
     end
 
     it "should go to source page through user/:id" do
-      login_with_email
-      @driver.navigate.to @config['self_url'] + '/check/me'
-      sleep 5
-      user_id = @driver.find_element(:css, '.source').attribute('data-user-id')
-      @driver.navigate.to @config['self_url'] + '/check/user/' + user_id.to_s
+      user = api_register_and_login_with_email
+      @driver.navigate.to @config['self_url'] + '/check/user/' + user.dbid.to_s
       sleep 1
       title = get_element('.source__name')
       expect(title.text == 'User With Email').to be(true)
@@ -332,13 +323,25 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should create source and redirect to newly created source" do
-      create_source(@source_name, @source_url)
+      api_create_team_and_project
+      @driver.navigate.to @config['self_url']
+      sleep 15
+      @driver.find_element(:css, '#create-media__source').click
+      sleep 1
+      fill_field('#create-media-source-name-input', @source_name)
+      fill_field('#create-media-source-url-input', @source_url)
+      sleep 1
+      press_button('#create-media-submit')
+      sleep 15
+      expect(@driver.current_url.to_s.match(/\/source\/[0-9]+$/).nil?).to be(false)
+      title = get_element('.source__name').text
+      expect(title == @source_name).to be(true)
     end
 
     it "should not create duplicated source" do
-      create_source('Megadeth', 'https://twitter.com/megadeth')
+      api_create_team_project_and_source('Megadeth', 'https://twitter.com/megadeth')
       @driver.navigate.to @config['self_url']
-      sleep 15
+      sleep 5
       @driver.find_element(:css, '#create-media__source').click
       sleep 1
       fill_field('#create-media-source-name-input', 'Megadeth')
@@ -351,7 +354,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should tag source as a command" do
-      create_source('ACDC', 'https://twitter.com/acdc')
+      api_create_team_project_and_source_and_redirect_to_source('ACDC', 'https://twitter.com/acdc')
       @driver.find_element(:css, '.source__tab-button-notes').click
 
       expect(@driver.page_source.include?('Tagged #command')).to be(false)
@@ -369,7 +372,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should comment source as a command" do
-      create_source('The Beatles', 'https://twitter.com/thebeatles')
+      api_create_team_project_and_source_and_redirect_to_source('The Beatles', 'https://twitter.com/thebeatles')
       @driver.find_element(:css, '.source__tab-button-notes').click
 
       expect(@driver.page_source.include?('This is my comment')).to be(false)
@@ -387,9 +390,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should not create report as source" do
-      login_with_email
+      api_create_team_and_project
       @driver.navigate.to @config['self_url']
-      sleep 15
+      sleep 5
       @driver.find_element(:css, '#create-media__source').click
       sleep 1
       fill_field('#create-media-source-url-input', 'https://twitter.com/IronMaiden/status/832726327459446784')
@@ -402,7 +405,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should tag source multiple times with commas with command" do
-      create_source('Motorhead', 'https://twitter.com/mymotorhead')
+      api_create_team_project_and_source_and_redirect_to_source('Motorhead', 'https://twitter.com/mymotorhead')
       @driver.find_element(:css, '.source__tab-button-notes').click
 
       fill_field('#cmd-input', '/tag foo, bar')
@@ -414,9 +417,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should not add a duplicated tag from command line" do
-      media_pg = LoginPage.new(config: @config, driver: @driver).load
-          .login_with_email(email: @email, password: @password)
-          .click_media
+      media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
+      
       new_tag = Time.now.to_i.to_s
 
       # Validate assumption that tag does not exist
@@ -432,20 +434,13 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Verify that tag is not added and that error message is displayed
       expect(media_pg.tags.count(new_tag)).to be(1)
-      expect(media_pg.contains_string?('Tag already exists')).to be(true)
+      expect(@driver.page_source.include?('Tag already exists')).to be(true)
     end
 
-    it "should not create duplicated media if registered" do
-      login_with_email
-
-      sleep 3
-      fill_field('#create-media-input', @media_url)
-      sleep 2
-      press_button('#create-media-submit')
-      sleep 10
+    it "should not create duplicated media" do
+      api_create_team_project_and_link_and_redirect_to_media_page @media_url
       id1 = @driver.current_url.to_s.gsub(/^.*\/media\//, '').to_i
       expect(id1 > 0).to be(true)
-
       @driver.navigate.to @driver.current_url.to_s.gsub(/\/media\/[0-9]+$/, '')
 
       sleep 3
@@ -461,9 +456,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should tag media from tags list" do
-      page = LoginPage.new(config: @config, driver: @driver).load
-          .login_with_email(email: @email, password: @password)
-          .click_media
+      page = api_create_team_project_and_claim_and_redirect_to_media_page
 
       new_tag = Time.now.to_i.to_s
       expect(page.contains_string?("Tagged \##{new_tag}")).to be(false)
@@ -479,9 +472,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should tag media as a command" do
-      page = LoginPage.new(config: @config, driver: @driver).load
-          .login_with_email(email: @email, password: @password)
-          .click_media
+      page = api_create_team_project_and_claim_and_redirect_to_media_page
+      
       expect(page.has_tag?('command')).to be(false)
       expect(page.contains_string?('Tagged #command')).to be(false)
 
@@ -500,9 +492,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should comment media as a command" do
-      page = LoginPage.new(config: @config, driver: @driver).load
-          .login_with_email(email: @email, password: @password)
-          .click_media
+      api_create_team_project_and_claim_and_redirect_to_media_page
 
       # First, verify that there isn't any comment
       expect(@driver.page_source.include?('This is my comment')).to be(false)
@@ -522,9 +512,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should flag media as a command" do
-      media_pg = LoginPage.new(config: @config, driver: @driver).load
-          .login_with_email(email: @email, password: @password)
-          .create_media(input: "Media #{Time.now.to_i}")
+      media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
 
       expect(media_pg.contains_string?('Flag')).to be(false)
 
@@ -539,10 +527,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should edit project" do
-      project_pg = LoginPage.new(config: @config, driver: @driver).load
-          .login_with_email(email: @email, password: @password)
-          .click_team_avatar
-          .create_project
+      api_create_team_and_project
+      project_pg = ProjectPage.new(config: @config, driver: @driver).load
 
       new_title = "Changed title #{Time.now.to_i}"
       new_description = "Set description #{Time.now.to_i}"
@@ -551,15 +537,14 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       project_pg.edit(title: new_title, description: new_description)
 
-      project_pg.wait_for_element('.project-header__title')
-      sleep 3
-      expect(project_pg.contains_string?(new_title)).to be(true)
-      project_pg.wait_for_element('.project__description')
-      expect(project_pg.contains_string?(new_description)).to be(true)
+      expect(@driver.page_source.include?(new_title)).to be(true)
+      expect(@driver.page_source.include?(new_description)).to be(true)
     end
 
     it "should redirect to 404 page if id does not exist" do
-      login_with_email
+      api_create_team_and_project
+      @driver.navigate.to @config['self_url']
+      sleep 3
       url = @driver.current_url.to_s
       @driver.navigate.to url.gsub(/project\/([0-9]+).*/, 'project/999')
       title = get_element('.main-title')
@@ -568,9 +553,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should logout" do
-      page = LoginPage.new(config: @config, driver: @driver).load
-          .login_with_email(email: @email, password: @password)
-          .logout
+      api_create_team_and_project
+      @driver.navigate.to @config['self_url']
+      page = ProjectPage.new(config: @config, driver: @driver).logout
 
       expect(page.contains_string?('Sign in')).to be(true)
     end
@@ -621,29 +606,20 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should navigate between teams" do
       # setup
-      page = LoginPage.new(config: @config, driver: @driver).load
-          .register_and_login_with_email(email: 'sysops+' + Time.now.to_i.to_s + '@meedan.com', password: @password)
-          .create_team(name: 'Team 1')
-      expect(page.team_name).to eq('Team 1')
-      page = page.create_project(name: 'Team 1 Project')
-      expect(page.project_title).to eq('Team 1 Project')
-
-      page = CreateTeamPage.new(config: @config, driver: page.driver).load
-          .create_team(name: 'Team 2')
-      expect(page.team_name).to eq('Team 2')
-      page = page.create_project(name: 'Team 2 Project')
-      expect(page.project_title).to eq('Team 2 Project')
+      user = api_register_and_login_with_email
+      team = request_api 'team', { name: 'Team 1', email: user.email, slug: "team-1-#{Time.now.to_i}" }
+      request_api 'project', { title: 'Team 1 Project', team_id: team.dbid }
+      team = request_api 'team', { name: 'Team 2', email: user.email, slug: "team-2-#{Time.now.to_i}" }
+      request_api 'project', { title: 'Team 2 Project', team_id: team.dbid }
 
       # test
-      page = TeamsPage.new(config: @config, driver: page.driver).load
-          .select_team(name: 'Team 1')
+      page = TeamsPage.new(config: @config, driver: @driver).load.select_team(name: 'Team 1')
 
       expect(page.team_name).to eq('Team 1')
       expect(page.project_titles.include?('Team 1 Project')).to be(true)
       expect(page.project_titles.include?('Team 2 Project')).to be(false)
 
-      page = TeamsPage.new(config: @config, driver: page.driver).load
-          .select_team(name: 'Team 2')
+      page = TeamsPage.new(config: @config, driver: page.driver).load.select_team(name: 'Team 2')
 
       expect(page.team_name).to eq('Team 2')
       expect(page.project_titles.include?('Team 2 Project')).to be(true)
@@ -651,27 +627,22 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should update notes count after delete annotation" do
-      media_pg = LoginPage.new(config: @config, driver: @driver).load
-        .login_with_email(email: @email, password: @password)
-        .create_media(input: 'https://twitter.com/joeyayoub/status/829060304642383873?t=' + Time.now.to_i.to_s)
+      media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
       media_pg.fill_input('#cmd-input', 'Test')
       media_pg.element('#cmd-input').submit
       sleep 1
       notes_count = get_element('.media-detail__check-notes-count')
-      expect(notes_count.text == '1 note').to be(true)
+      expect(notes_count.text == '2 notes').to be(true)
       media_pg.delete_annotation
       sleep 1
-      expect(notes_count.text == 'No notes').to be(true)
+      expect(notes_count.text == '1 note').to be(true)
     end
 
     it "should auto refresh project when media is created" do
-      project_name = "Project #{Time.now}"
-      project_pg = LoginPage.new(config: @config, driver: @driver).load
-          .register_and_login_with_email(email: 'sysops+' + Time.now.to_i.to_s + '@meedan.com', password: Time.now.to_i.to_s)
-          .create_team
-          .create_project(name: project_name)
-
-      url = project_pg.driver.current_url
+      api_create_team_and_project
+      @driver.navigate.to @config['self_url']
+      
+      url = @driver.current_url
       sleep 3
       expect(@driver.page_source.include?('Auto-Refresh')).to be(false)
 
@@ -689,10 +660,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should auto refresh media when annotation is created" do
-      media_pg = LoginPage.new(config: @config, driver: @driver).load
-        .login_with_email(email: @email, password: @password)
-        .create_media(input: "Media #{Time.now.to_i}")
-
+      media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
       url = media_pg.driver.current_url
       sleep 3
       expect(@driver.page_source.include?('Auto-Refresh')).to be(false)
@@ -743,10 +711,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     # end
 
     it "should add image to media comment" do
-      media_pg = LoginPage.new(config: @config, driver: @driver).load
-                 .login_with_email(email: @email, password: @password)
-                 .create_media(input: 'Images in comments')
-      sleep 3
+      api_create_team_project_and_claim_and_redirect_to_media_page
 
       # First, verify that there isn't any comment with image
       expect(@driver.page_source.include?('This is my comment with image')).to be(false)
@@ -786,9 +751,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     # end
 
     it "should add, edit, answer, update answer and delete task" do
-      media_pg = LoginPage.new(config: @config, driver: @driver).load
-                 .login_with_email(email: @email, password: @password)
-                 .create_media(input: 'Tasks')
+      media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
       sleep 3
 
       # Create a task
@@ -846,10 +809,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     # end
 
     it "should search for reverse images" do
-      page = LoginPage.new(config: @config, driver: @driver).load.login_with_email(email: @email, password: @password)
-      @wait.until { @driver.page_source.include?('Claim') }
-      page.create_media(input: 'https://www.instagram.com/p/BRYob0dA1SC/')
-      sleep 2
+      page = api_create_team_project_and_link_and_redirect_to_media_page 'https://www.instagram.com/p/BRYob0dA1SC/'
+      sleep 1
       expect(@driver.page_source.include?('This item contains at least one image. Click Search to look for potential duplicates on Google.')).to be(true)
       expect((@driver.current_url.to_s =~ /google/).nil?).to be(true)
       current_window = @driver.window_handles.last
@@ -861,9 +822,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should refresh media" do
-      page = LoginPage.new(config: @config, driver: @driver).load.login_with_email(email: @email, password: @password)
-      @wait.until { @driver.page_source.include?('Claim') }
-      page.create_media(input: 'http://ca.ios.ba/files/meedan/random.php')
+      page = api_create_team_project_and_link_and_redirect_to_media_page 'http://ca.ios.ba/files/meedan/random.php'
       sleep 2
       title1 = @driver.title
       expect((title1 =~ /Random/).nil?).to be(false)
@@ -876,7 +835,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should search by project" do
-      create_claim_and_go_to_search_page
+      api_create_claim_and_go_to_search_page
       expect((@driver.current_url.to_s.match(/project/)).nil?).to be(true)
       @driver.find_element(:xpath, "//li[contains(text(), 'Project')]").click
       sleep 10
@@ -888,7 +847,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should search and change sort criteria" do
-      create_claim_and_go_to_search_page
+      api_create_claim_and_go_to_search_page
       expect((@driver.current_url.to_s.match(/recent_activity/)).nil?).to be(true)
 
       @driver.find_element(:xpath, "//span[contains(text(), 'Recent activity')]").click
@@ -905,7 +864,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should search and change sort order" do
-      create_claim_and_go_to_search_page
+      api_create_claim_and_go_to_search_page
       expect((@driver.current_url.to_s.match(/ASC|DESC/)).nil?).to be(true)
 
       @driver.find_element(:xpath, "//span[contains(text(), 'Newest')]").click
@@ -922,7 +881,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should search by project through URL" do
-      create_claim_and_go_to_search_page
+      api_create_claim_and_go_to_search_page
       @driver.navigate.to @config['self_url'] + '/' + get_team + '/search/%7B"projects"%3A%5B0%5D%7D'
       sleep 10
       expect(@driver.page_source.include?('My search result')).to be(false)
@@ -931,7 +890,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should change search sort criteria through URL" do
-      create_claim_and_go_to_search_page
+      api_create_claim_and_go_to_search_page
       @driver.navigate.to @config['self_url'] + '/' + get_team + '/search/%7B"sort"%3A"recent_activity"%7D'
       sleep 10
       expect(@driver.page_source.include?('My search result')).to be(true)
@@ -940,23 +899,12 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should change search sort order through URL" do
-      create_claim_and_go_to_search_page
+      api_create_claim_and_go_to_search_page
       @driver.navigate.to @config['self_url'] + '/' + get_team + '/search/%7B"sort_type"%3A"ASC"%7D'
       sleep 10
       expect(@driver.page_source.include?('My search result')).to be(true)
       selected = @driver.find_elements(:css, '.media-tags__suggestion--selected').map(&:text).sort
       expect(selected == ['Created', 'Oldest first', 'Media'].sort).to be(true)
-    end
-
-    it "should login from e-mail login page" do
-      page = Page.new(config: @config, driver: @driver)
-      @driver.navigate.to @config['self_url']
-      page.fill_input('.login__email input', @email)
-      page.fill_input('.login__password input', @password)
-      expect(@driver.page_source.include?('Add a link')).to be(false)
-      (@wait.until { @driver.find_element(:xpath, "//button[@id='submit-register-or-login']") }).click
-      sleep 5
-      expect(@driver.page_source.include?('Add a link')).to be(true)
     end
 
     it "should not reset password" do
@@ -968,19 +916,19 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should reset password" do
+      user = api_create_and_confirm_user
       page = LoginPage.new(config: @config, driver: @driver)
-      page.reset_password(@email)
+      page.reset_password(user.email)
       sleep 2
       expect(@driver.page_source.include?('Email not found')).to be(false)
       expect(@driver.page_source.include?('Password reset sent')).to be(true)
     end
 
     it "should set metatags" do
-      media_pg = LoginPage.new(config: @config, driver: @driver).load.login_with_email(email: @email, password: @password)
-      media_pg = media_pg.create_media(input: 'https://twitter.com/marcouza/status/875424957613920256')
-      sleep 3
-      request_api('/test/make_team_public', { slug: get_team })
-      sleep 3
+      api_create_team_project_and_link_and_redirect_to_media_page 'https://twitter.com/marcouza/status/875424957613920256'
+      sleep 2
+      request_api('make_team_public', { slug: get_team })
+      sleep 1
       url = @driver.current_url.to_s
       @driver.navigate.to url
       site = @driver.find_element(:css, 'meta[name="twitter\\:site"]').attribute('content')
@@ -990,11 +938,10 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should embed" do
-      page = LoginPage.new(config: @config, driver: @driver).load.login_with_email(email: @email, password: @password)
-      @wait.until { @driver.page_source.include?('Claim') }
-      page.create_media(input: 'Testing embeds')
+      api_create_team_project_and_claim_and_redirect_to_media_page
       sleep 2
-      request_api('/test/make_team_public', { slug: get_team })
+      request_api('make_team_public', { slug: get_team })
+
       @driver.navigate.refresh
       sleep 2
       @driver.find_element(:css, '.media-actions__icon').click
@@ -1025,29 +972,27 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
         sleep 1
         expect((@driver.find_element(:css, '#code').attribute('value') =~ /hide_tasks%3D1%26hide_notes%3D1/).nil?).to be(false)
         sleep 5
+        api_logout
       end
     end
 
     it "should filter by medias or sources" do
-      page = LoginPage.new(config: @config, driver: @driver).load.login_with_email(email: @email, password: @password)
-      page.driver.navigate.to @config['self_url']
-      expect(page.contains_string?("The Who's official Twitter page")).to be(false)
-      expect(page.contains_string?('Tweet by The Who')).to be(false)
-      page.create_media(input: 'https://twitter.com/TheWho/status/890135323216367616')
-      page.driver.navigate.to @config['self_url']
-      page.wait_for_element('.project .media-detail')
-      expect(page.contains_string?("The Who's official Twitter page")).to be(false)
-      expect(page.contains_string?('Tweet by The Who')).to be(true)
+      api_create_team_project_and_link 'https://twitter.com/TheWho/status/890135323216367616'
+      @driver.navigate.to @config['self_url']
+      sleep 3
+      
+      expect(@driver.page_source.include?("The Who's official Twitter page")).to be(false)
+      expect(@driver.page_source.include?('Tweet by')).to be(true)
 
       @driver.find_element(:xpath, "//span[contains(text(), 'Sources')]").click
       sleep 5
-      expect(page.contains_string?("The Who's official Twitter page")).to be(true)
-      expect(page.contains_string?('Tweet by The Who')).to be(true)
+      expect(@driver.page_source.include?("The Who's official Twitter page")).to be(true)
+      expect(@driver.page_source.include?('Tweet by')).to be(true)
 
       @driver.find_element(:xpath, "//span[contains(text(), 'Media')]").click
       sleep 5
-      expect(page.contains_string?("The Who's official Twitter page")).to be(true)
-      expect(page.contains_string?('Tweet by The Who')).to be(false)
+      expect(@driver.page_source.include?("The Who's official Twitter page")).to be(true)
+      expect(@driver.page_source.include?('Tweet by')).to be(false)
     end
   end
 end
