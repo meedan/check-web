@@ -41,7 +41,7 @@ before_install:
 - bundle install --path=/tmp/bundler
 - bundle exec rake db:migrate RAILS_ENV=test
 - bundle exec rake lapis:api_keys:create_default RAILS_ENV=test
-- rails s -e test -p 3000 >/dev/null &
+- bundle exec rails s -e test -p 3000 >/dev/null &
 - cd -
 - export RAILS_ENV=development
 # pender
@@ -53,8 +53,8 @@ before_install:
 - cd pender
 - bundle install --path=/tmp/bundler
 - bundle exec rake db:migrate
-- rails runner 'a = ApiKey.create!; a.access_token = "test"; a.save!'
-- rails s -p 3005 >/dev/null &
+- bundle exec rails runner 'a = ApiKey.create!; a.access_token = "test"; a.save!'
+- bundle exec rails s -p 3005 >/dev/null &
 - cd -
 # xvfb
 - export DISPLAY=:99.0
