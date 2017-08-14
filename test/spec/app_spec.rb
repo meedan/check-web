@@ -110,18 +110,19 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
         .logout_and_close
     end
 
-    it "should redirect to access denied page" do
+    it "should redirect to access denied page bli" do
+      user = api_register_and_login_with_email
+      api_logout
       api_register_and_login_with_email
       me_pg = MePage.new(config: @config, driver: @driver).load
-      user_1_source_id = me_pg.source_id
-      me_pg.logout
+      sleep 1
+      expect(@driver.page_source.include?('Access Denied')).to be(false)
+      expect((@driver.current_url.to_s =~ /\/forbidden$/).nil?).to be(true)
 
-      api_register_and_login_with_email
-      unauthorized_pg = SourcePage.new(id: user_1_source_id, config: @config, driver: @driver).load
-      @wait.until { unauthorized_pg.contains_string?('Access Denied') }
-
-      expect(unauthorized_pg.contains_string?('Access Denied')).to be(true)
-      expect((unauthorized_pg.driver.current_url.to_s =~ /\/forbidden$/).nil?).to be(false)
+      unauthorized_pg = SourcePage.new(id: user.dbid, config: @config, driver: @driver).load
+      sleep 1
+      expect(@driver.page_source.include?('Access Denied')).to be(true)
+      expect((@driver.current_url.to_s =~ /\/forbidden$/).nil?).to be(false)
     end
 
     include_examples "custom"
