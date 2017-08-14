@@ -15,6 +15,9 @@ const SourceContainer = Relay.createContainer(SourceComponent, {
         updated_at,
         source_id,
         project_id,
+        project {
+          get_languages
+        },
         permissions,
         team {
           name,
@@ -29,6 +32,21 @@ const SourceContainer = Relay.createContainer(SourceComponent, {
             }
           }
         },
+        languages: annotations(annotation_type: "language", first: 10000) {
+          edges {
+            node {
+              id,
+              dbid,
+              annotation_type,
+              annotated_type,
+              annotated_id,
+              annotator,
+              content,
+              created_at,
+              updated_at
+            }
+          }
+        },
         source {
           id,
           dbid,
@@ -40,6 +58,34 @@ const SourceContainer = Relay.createContainer(SourceComponent, {
           description,
           permissions,
           verification_statuses,
+          account_sources(first: 10000) {
+            edges {
+              node {
+                id,
+                account {
+                  id,
+                  created_at,
+                  updated_at,
+                  embed,
+                  url,
+                  provider,
+                  user {
+                    name,
+                    email,
+                    source {
+                      accounts(first: 10000) {
+                        edges {
+                          node {
+                            url
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
           accounts(first: 10000) {
             edges {
               node {
