@@ -40,7 +40,10 @@ before_install:
 - bundle install --path=/tmp/bundler
 - bundle exec rake db:migrate RAILS_ENV=test
 - bundle exec rake lapis:api_keys:create_default RAILS_ENV=test
-- bundle exec rails s -e test -p 3000 >/dev/null &
+- puma="/tmp/puma.rb"
+- echo "pidfile '/tmp/check-api.pid'" >> $puma
+- echo "port 3000" >> $puma
+- bundle exec puma -C $puma -e test >/dev/null &
 - cd -
 - export RAILS_ENV=development
 # pender
@@ -53,7 +56,10 @@ before_install:
 - bundle install --path=/tmp/bundler
 - bundle exec rake db:migrate
 - bundle exec rails runner 'a = ApiKey.create!; a.access_token = "test"; a.save!'
-- bundle exec rails s -p 3005 >/dev/null &
+- puma="/tmp/puma.rb"
+- echo "pidfile '/tmp/pender.pid'" >> $puma
+- echo "port 3005" >> $puma
+- bundle exec puma -C $puma -e test >/dev/null &
 - cd -
 # xvfb
 - export DISPLAY=:99.0
