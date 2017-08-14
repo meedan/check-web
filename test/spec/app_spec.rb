@@ -20,22 +20,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
   include AppSpecHelpers
   include ApiHelpers
 
-  def open_browser(browser_capabilities, webdriver_url)
-    if @config.key?('proxy')
-      proxy = Selenium::WebDriver::Proxy.new(
-        :http     => @config['proxy'],
-        :ftp      => @config['proxy'],
-        :ssl      => @config['proxy']
-      )
-      caps = Selenium::WebDriver::Remote::Capabilities.chrome(:proxy => proxy)
-      @driver = Selenium::WebDriver.for(:chrome, :desired_capabilities => caps , :url => @config['chromedriver_url'])
-    else
-      @driver = browser_capabilities['appiumVersion'] ?
-        Appium::Driver.new({ appium_lib: { server_url: webdriver_url}, caps: browser_capabilities }).start_driver :
-        Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: browser_capabilities)
-    end
-  end
-
   before :all do
     @wait = Selenium::WebDriver::Wait.new(timeout: 10)
 
@@ -59,22 +43,34 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: browser_capabilities)
 
     api_create_team_project_and_claim(true)
-
-    open_browser(browser_capabilities, webdriver_url)
   end
 
   after :all do
     FileUtils.cp('../config.js', '../build/web/js/config.js')
-    @driver.quit
+  end
+
+  before :each do
+    if @config.key?('proxy')
+      proxy = Selenium::WebDriver::Proxy.new(
+        :http     => @config['proxy'],
+        :ftp      => @config['proxy'],
+        :ssl      => @config['proxy']
+      )
+      caps = Selenium::WebDriver::Remote::Capabilities.chrome(:proxy => proxy)
+      @driver = Selenium::WebDriver.for(:chrome, :desired_capabilities => caps , :url => @config['chromedriver_url'])
+    else
+      @driver = browser_capabilities['appiumVersion'] ?
+        Appium::Driver.new({ appium_lib: { server_url: webdriver_url}, caps: browser_capabilities }).start_driver :
+        Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: browser_capabilities)
+    end
   end
 
   after :each do |example|
     if example.exception
       link = save_screenshot("Test failed: #{example.description}")
       puts "Test \"#{example.description}\" failed! Check screenshot at #{link} and following browser output: #{console_logs}"
-      @driver.quit
-      open_browser(browser_capabilities, webdriver_url)
     end
+    @driver.quit
   end
 
   # The tests themselves start here
