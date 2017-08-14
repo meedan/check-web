@@ -42,7 +42,7 @@ before_install:
 - bundle exec rake lapis:api_keys:create_default RAILS_ENV=test
 - echo "pidfile '/tmp/check-api.pid'" >> /tmp/puma-check-api.rb
 - echo "port 3000" >> /tmp/puma-check-api.rb
-- bundle exec puma -C /tmp/puma-check-api.rb -e test >/dev/null &
+- bundle exec puma -C /tmp/puma-check-api.rb -t 2:16 -w 2 -e test >/dev/null &
 - cd -
 - export RAILS_ENV=development
 # pender
@@ -57,7 +57,7 @@ before_install:
 - bundle exec rails runner 'a = ApiKey.create!; a.access_token = "test"; a.save!'
 - echo "pidfile '/tmp/pender.pid'" >> /tmp/puma-pender.rb
 - echo "port 3005" >> /tmp/puma-pender.rb
-- bundle exec puma -C /tmp/puma-pender.rb -e test >/dev/null &
+- bundle exec puma -C /tmp/puma-pender.rb -t 2:16 -w 2 -e test >/dev/null &
 - cd -
 # xvfb
 - export DISPLAY=:99.0
