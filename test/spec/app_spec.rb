@@ -110,7 +110,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
         .logout_and_close
     end
 
-    it "should redirect to access denied page bli" do
+    it "should redirect to access denied page" do
       user = api_register_and_login_with_email
       api_logout
       api_register_and_login_with_email
