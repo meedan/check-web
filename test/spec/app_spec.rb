@@ -413,6 +413,26 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Tagged #bar')).to be(true)
     end
 
+    # it "should edit basic source data (name, description/bio, avatar)" do
+    #   skip("Needs to be implemented")
+    # end
+
+    # it "should add and remove accounts to sources" do
+    #   skip("Needs to be implemented")
+    # end
+
+    # it "should edit source metadata (contact, phone, location, organization, other)" do
+    #   skip("Needs to be implemented")
+    # end
+
+    # it "should add and remove tags" do
+    #   skip("Needs to be implemented")
+    # end
+
+    # it "should add and remove languages" do
+    #   skip("Needs to be implemented")
+    # end
+
     it "should not add a duplicated tag from command line" do
       media_pg = LoginPage.new(config: @config, driver: @driver).load
           .login_with_email(email: @email, password: @password)
