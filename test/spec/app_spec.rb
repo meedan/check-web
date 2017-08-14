@@ -20,6 +20,22 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
   include AppSpecHelpers
   include ApiHelpers
 
+  def open_browser(browser_capabilities, webdriver_url)
+    if @config.key?('proxy')
+      proxy = Selenium::WebDriver::Proxy.new(
+        :http     => @config['proxy'],
+        :ftp      => @config['proxy'],
+        :ssl      => @config['proxy']
+      )
+      caps = Selenium::WebDriver::Remote::Capabilities.chrome(:proxy => proxy)
+      @driver = Selenium::WebDriver.for(:chrome, :desired_capabilities => caps , :url => @config['chromedriver_url'])
+    else
+      @driver = browser_capabilities['appiumVersion'] ?
+        Appium::Driver.new({ appium_lib: { server_url: webdriver_url}, caps: browser_capabilities }).start_driver :
+        Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: browser_capabilities)
+    end
+  end
+
   before :all do
     @wait = Selenium::WebDriver::Wait.new(timeout: 10)
 
@@ -43,41 +59,46 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: browser_capabilities)
 
     api_create_team_project_and_claim(true)
+
+    open_browser(browser_capabilities, webdriver_url)
   end
 
   after :all do
     FileUtils.cp('../config.js', '../build/web/js/config.js')
+    @driver.quit
   end
 
-  # Start Google Chrome before each test
-  before :each do
-    if @config.key?('proxy')
-      proxy = Selenium::WebDriver::Proxy.new(
-        :http     => @config['proxy'],
-        :ftp      => @config['proxy'],
-        :ssl      => @config['proxy']
-      )
-      caps = Selenium::WebDriver::Remote::Capabilities.chrome(:proxy => proxy)
-      @driver = Selenium::WebDriver.for(:chrome, :desired_capabilities => caps , :url => @config['chromedriver_url'])
-    else
-      @driver = browser_capabilities['appiumVersion'] ?
-        Appium::Driver.new({ appium_lib: { server_url: webdriver_url}, caps: browser_capabilities }).start_driver :
-        Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: browser_capabilities)
-    end
-  end
-
-  # Close Google Chrome after each test
   after :each do |example|
     if example.exception
       link = save_screenshot("Test failed: #{example.description}")
       puts "Test \"#{example.description}\" failed! Check screenshot at #{link} and following browser output: #{console_logs}"
+      @driver.quit
+      open_browser(browser_capabilities, webdriver_url)
     end
-    @driver.quit
   end
 
   # The tests themselves start here
 
   context "web" do
+    it "should filter by medias or sources" do
+      api_logout
+      api_create_team_project_and_link 'https://twitter.com/TheWho/status/890135323216367616'
+      @driver.navigate.to @config['self_url']
+      sleep 3
+      
+      expect(@driver.page_source.include?("The Who's official Twitter page")).to be(false)
+      expect(@driver.page_source.include?('Tweet by')).to be(true)
+
+      @driver.find_element(:xpath, "//span[contains(text(), 'Sources')]").click
+      sleep 5
+      expect(@driver.page_source.include?("The Who's official Twitter page")).to be(true)
+      expect(@driver.page_source.include?('Tweet by')).to be(true)
+
+      @driver.find_element(:xpath, "//span[contains(text(), 'Media')]").click
+      sleep 5
+      expect(@driver.page_source.include?("The Who's official Twitter page")).to be(true)
+      expect(@driver.page_source.include?('Tweet by')).to be(false)
+    end
 
     it "should register and create a claim" do
       page = LoginPage.new(config: @config, driver: @driver).load
@@ -972,28 +993,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
         sleep 1
         expect((@driver.find_element(:css, '#code').attribute('value') =~ /hide_tasks%3D1%26hide_notes%3D1/).nil?).to be(false)
         sleep 5
-        api_logout
       end
-    end
-
-    it "should filter by medias or sources" do
-      api_logout
-      api_create_team_project_and_link 'https://twitter.com/TheWho/status/890135323216367616'
-      @driver.navigate.to @config['self_url']
-      sleep 3
-      
-      expect(@driver.page_source.include?("The Who's official Twitter page")).to be(false)
-      expect(@driver.page_source.include?('Tweet by')).to be(true)
-
-      @driver.find_element(:xpath, "//span[contains(text(), 'Sources')]").click
-      sleep 5
-      expect(@driver.page_source.include?("The Who's official Twitter page")).to be(true)
-      expect(@driver.page_source.include?('Tweet by')).to be(true)
-
-      @driver.find_element(:xpath, "//span[contains(text(), 'Media')]").click
-      sleep 5
-      expect(@driver.page_source.include?("The Who's official Twitter page")).to be(true)
-      expect(@driver.page_source.include?('Tweet by')).to be(false)
     end
   end
 end
