@@ -7,6 +7,9 @@ node_js:
 - "6.9.2"
 rvm:
 - 2.3.1
+cache:
+  directories:
+    - "node_modules"
 addons:
   postgresql: "9.4"
 before_install:
@@ -74,7 +77,6 @@ before_install:
 - cp travis/config.yml test/config.yml
 before_script:
 - sleep 5
-- npm install
 - npm run build
 - export SERVER_PORT=3333
 - npm run publish &
