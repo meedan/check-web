@@ -6,7 +6,7 @@ services:
 node_js:
 - "6.9.2"
 rvm:
-- 2.3.1
+- 2.3.4
 cache:
   directories:
     - "node_modules"
@@ -20,8 +20,7 @@ before_install:
 # apt dependencies
 - sudo apt-get -qq update
 - sudo apt-get install wget python-setuptools lsof unzip imagemagick ruby ruby-dev libnss3 libnss3-dev xvfb libnss3-1d libexif-dev curl build-essential libssl-dev libappindicator1 fonts-liberation redis-server -y
-- rvm install 2.3.1
-- rvm --default use 2.3.1
+- rvm --default use 2.3.4
 # environment
 - export PATH=/tmp/bundler/ruby/2.3.0/bin:$PATH
 - export GEM_PATH=/tmp/bundler/ruby/2.3.0/gems:$GEM_PATH
