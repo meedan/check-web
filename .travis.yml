@@ -10,12 +10,9 @@ rvm:
 cache:
   directories:
     - "node_modules"
-    - "/tmp/bundler"
+    - ".rvm"
 addons:
   postgresql: "9.4"
-before_install:
-- export PATH=/tmp/bundler/ruby/2.3.0/bin:$PATH
-- export GEM_PATH=/tmp/bundler:$GEM_PATH
 # decrypt configs
 - openssl aes-256-cbc -K $encrypted_6fe224c112de_key -iv $encrypted_6fe224c112de_iv -in travis.zip.enc -out travis.zip -d
 - unzip travis.zip
@@ -37,7 +34,7 @@ before_install:
 - cp check-api/config/initializers/secret_token.rb.example check-api/config/initializers/secret_token.rb
 - cp travis/check-api-database.yml check-api/config/database.yml
 - cd check-api
-- bundle install --path=/tmp/bundler
+- bundle install
 - bundle exec rake db:migrate RAILS_ENV=test
 - bundle exec rake lapis:api_keys:create_default RAILS_ENV=test
 - rails s -e test -p 3000 >/dev/null &
@@ -50,7 +47,7 @@ before_install:
 - cp pender/config/database.yml.travis pender/config/database.yml
 - cp pender/config/sidekiq.yml.example pender/config/sidekiq.yml
 - cd pender
-- bundle install --path=/tmp/bundler
+- bundle install
 - bundle exec rake db:migrate
 - rails runner 'a = ApiKey.create!; a.access_token = "test"; a.save!'
 - rails s -p 3005 >/dev/null &
@@ -70,7 +67,7 @@ before_install:
 - sudo chmod a+x /usr/local/bin/chromedriver
 - chromedriver >/dev/null 2>/dev/null &
 # ruby / bundler / rspec
-- cd test && bundle install --path=/tmp/bundler && cd -
+- cd test && bundle install && cd -
 # config files
 - cp travis/config-build.js config-build.js
 - cp travis/config-server.js config-server.js
