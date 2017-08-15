@@ -1,3 +1,3 @@
 RSpec::Parallel.configure do |config|
-  config.concurrency = 2
+  config.concurrency = 4
 end

@@ -53,6 +53,8 @@ GEM
     nokogiri (1.7.0)
       mini_portile2 (~> 2.1.0)
     parallel (1.11.1)
+    parallel-rspec (0.1.0)
+      rspec-core (~> 3.0)
     parallel_split_test (0.6.0)
       parallel (>= 0.5.13)
       rspec (>= 3.1.0)
@@ -118,6 +120,7 @@ DEPENDENCIES
   httparty
   imgur-api
   json
+  parallel-rspec
   parallel_split_test
   rest-client
   rspec
