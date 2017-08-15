@@ -24,7 +24,7 @@ class ProjectPage < Page
   end
 
   def create_image_media(file)
-    sleep 2
+    sleep 5
     @driver.find_element(:css, '#create-media__image').click
     fill_input('input[type=file]', file, { hidden: true })
     sleep 3

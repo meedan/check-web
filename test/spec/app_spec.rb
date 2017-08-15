@@ -68,7 +68,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
   after :each do |example|
     if example.exception
       link = save_screenshot("Test failed: #{example.description}")
-      puts "Test \"#{example.description}\" failed! Check screenshot at #{link} and following browser output: #{console_logs}"
+      print " [Test \"#{example.description}\" failed! Check screenshot at #{link}] "
     end
     @driver.quit
   end
@@ -80,7 +80,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       api_logout
       api_create_team_project_and_link 'https://twitter.com/TheWho/status/890135323216367616'
       @driver.navigate.to @config['self_url']
-      sleep 3
+      sleep 5
       
       expect(@driver.page_source.include?("The Who's official Twitter page")).to be(false)
       expect(@driver.page_source.include?('Tweet by')).to be(true)
@@ -115,12 +115,12 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       api_logout
       api_register_and_login_with_email
       me_pg = MePage.new(config: @config, driver: @driver).load
-      sleep 1
+      sleep 3
       expect(@driver.page_source.include?('Access Denied')).to be(false)
       expect((@driver.current_url.to_s =~ /\/forbidden$/).nil?).to be(true)
 
       unauthorized_pg = SourcePage.new(id: user.dbid, config: @config, driver: @driver).load
-      sleep 1
+      sleep 3
       expect(@driver.page_source.include?('Access Denied')).to be(true)
       expect((@driver.current_url.to_s =~ /\/forbidden$/).nil?).to be(false)
     end
@@ -373,6 +373,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should tag source as a command", sources: true do
       api_create_team_project_and_source_and_redirect_to_source('ACDC', 'https://twitter.com/acdc')
+      sleep 3
       @driver.find_element(:css, '.source__tab-button-notes').click
 
       expect(@driver.page_source.include?('Tagged #command')).to be(false)
