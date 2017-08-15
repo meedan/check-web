@@ -38,25 +38,14 @@ before_install:
 - cp travis/check-api-database.yml check-api/config/database.yml
 - cd check-api
 - bundle install --path=/tmp/bundler
-- bundle exec rake db:migrate RAILS_ENV=test
-- bundle exec rake lapis:api_keys:create_default RAILS_ENV=test
+- bundle exec rake db:migrate
+- bundle exec rake lapis:api_keys:create_default
 - echo "pidfile '/tmp/check-api.pid'" > /tmp/puma-check-api.rb
 - echo "port 3000" >> /tmp/puma-check-api.rb
-- echo "quiet" >> /tmp/puma-check-api.rb
-- bundle exec puma -C /tmp/puma-check-api.rb -e test 2>/dev/null >/dev/null &
-# start check-api with passenger
-- sudo apt-get install -y dirmngr gnupg apache2.2-common apache2
-- sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 561F9B9CAC40B2F7
-- sudo apt-get install -y apt-transport-https ca-certificates
-- 'echo "deb https://oss-binaries.phusionpassenger.com/apt/passenger trusty main" | sudo tee -a /etc/apt/sources.list.d/passenger.list'
-- sudo apt-get update
-- sudo apt-get install -y libapache2-mod-passenger
-- sudo a2enmod passenger
-- sudo apache2ctl restart
-- 'echo "127.0.0.1 check-api" | sudo tee -a /etc/hosts'
-- sudo cp travis-site /etc/apache2/sites-available/check-api
-- sudo a2ensite check-api
-- sudo apache2ctl restart
+- echo "threads 2,16" >> /tmp/puma-check-api.rb
+- echo "workers 6" >> /tmp/puma-check-api.rb
+- echo "preload_app!" >> /tmp/puma-check-api.rb
+- bundle exec puma -C /tmp/puma-check-api.rb 2>/dev/null >/dev/null &
 # pender
 - cd -
 - export RAILS_ENV=development
@@ -69,10 +58,6 @@ before_install:
 - bundle install --path=/tmp/bundler
 - bundle exec rake db:migrate
 - bundle exec rails runner 'a = ApiKey.create!; a.access_token = "test"; a.save!'
-- echo "pidfile '/tmp/pender.pid'" > /tmp/puma-pender.rb
-- echo "port 3005" >> /tmp/puma-pender.rb
-- echo "quiet" >> /tmp/puma-pender.rb
-# - bundle exec puma -C /tmp/puma-pender.rb -t 2:8 -w 3 2>/dev/null >/dev/null &
 - bundle exec rails s -p 3005 2>/dev/null >/dev/null &
 - cd -
 # xvfb
