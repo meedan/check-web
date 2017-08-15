@@ -1,4 +1,9 @@
 #!/bin/bash
+
+echo 'Starting tests in 15 seconds...'
+
+sleep 15
+
 FAIL=0
 
 bundle exec rspec --tag sources spec/integration_spec.rb &

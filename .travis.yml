@@ -43,7 +43,7 @@ before_install:
 - echo "pidfile '/tmp/check-api.pid'" >> /tmp/puma-check-api.rb
 - echo "port 3000" >> /tmp/puma-check-api.rb
 - echo "quiet" >> /tmp/puma-check-api.rb
-- bundle exec puma -C /tmp/puma-check-api.rb -t 2:8 -w 6 -e test 2>/dev/null >/dev/null &
+- bundle exec puma -C /tmp/puma-check-api.rb -t 2:8 -w 3 -e test 2>/dev/null >/dev/null &
 - cd -
 - export RAILS_ENV=development
 # pender
@@ -59,7 +59,7 @@ before_install:
 - echo "pidfile '/tmp/pender.pid'" >> /tmp/puma-pender.rb
 - echo "port 3005" >> /tmp/puma-pender.rb
 - echo "quiet" >> /tmp/puma-pender.rb
-- bundle exec puma -C /tmp/puma-pender.rb -t 2:8 -w 6 2>/dev/null >/dev/null &
+- bundle exec puma -C /tmp/puma-pender.rb -t 2:8 -w 3 2>/dev/null >/dev/null &
 - cd -
 # xvfb
 - export DISPLAY=:99.0
