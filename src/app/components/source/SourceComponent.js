@@ -250,19 +250,24 @@ class SourceComponent extends Component {
   };
 
   handleEnterEditMode(e) {
-    this.setState({ isEditing: true });
+    this.setState({
+      isEditing: true,
+      addingTags: false,
+      addingLanguages: false,
+      editProfileImg: false,
+      message: null,
+      submitDisabled: false,
+      links: [],
+      deleteLinks: [],
+    });
     e.preventDefault();
   }
 
   handleLeaveEditMode() {
     this.setState({
-      addingTags: false,
-      addingLanguages: false,
       isEditing: false,
-      editProfileImg: false,
+      message: null,
       metadata: this.getMetadataFields(),
-      links: [],
-      deleteLinks: []
     });
     this.onClear();
   }
@@ -275,6 +280,7 @@ class SourceComponent extends Component {
 
   handleSubmit(e) {
     if (!this.state.submitDisabled) {
+      this.setState({ submitDisabled: true, hasFailure: false, message: null });
       this.updateSource();
       this.updateLinks();
       this.updateMetadata();
@@ -295,16 +301,26 @@ class SourceComponent extends Component {
         message = json.error;
       }
     } catch (e) { }
-    this.setState({ message, submitDisabled: false });
+    this.setState({ message, hasFailure: true, submitDisabled: false });
   };
 
-  success = (response) => {
-    this.setState({ message: null, isEditing: false, submitDisabled: false, links: [] });
+  success = (response, mutation) => {
+
+    const manageEditingState = () => {
+      const submitDisabled = this.state.pendingMutations.length > 0;
+      const isEditing = ( submitDisabled || this.state.hasFailure);
+      const message = isEditing  ? this.state.message : null;
+
+      this.setState({ isEditing, submitDisabled, message });
+    };
+
+    const pendingMutations = this.state.pendingMutations ? this.state.pendingMutations.slice(0) : [];
+    this.setState({ pendingMutations: pendingMutations.filter((m) => m !== mutation) }, manageEditingState);
   };
 
   createDynamicAnnotation(that, annotated, annotated_id, annotated_type, value) {
     const onFailure = (transaction) => { that.fail(transaction); };
-    const onSuccess = (response) => { that.success(); };
+    const onSuccess = (response) => { that.success(response, 'metadata'); };
     const annotator = that.getContext().currentUser;
     const fields = {};
     fields.metadata_value = JSON.stringify(value);
@@ -324,13 +340,11 @@ class SourceComponent extends Component {
       }),
       { onSuccess, onFailure },
     );
-
-    this.setState({ submitDisabled: true });
   }
 
   updateDynamicAnnotation(that, annotated, annotation_id, value) {
     const onFailure = (transaction) => { that.fail(transaction); };
-    const onSuccess = (response) => { that.success(); };
+    const onSuccess = (response) => { that.success(response, 'metadata'); };
     const fields = {};
     fields.metadata_value = JSON.stringify(value);
 
@@ -344,8 +358,6 @@ class SourceComponent extends Component {
       }),
       { onSuccess, onFailure },
     );
-
-    this.setState({ submitDisabled: true });
   }
 
   createTag(tagString) {
@@ -393,7 +405,7 @@ class SourceComponent extends Component {
     const source = this.getSource();
     const that = this;
     const onFailure = (transaction) => { that.fail(transaction); };
-    const onSuccess = (response) => { that.success(); };
+    const onSuccess = (response) => { that.success(response, 'create-account'); };
 
     if (!url) { return; }
 
@@ -411,7 +423,7 @@ class SourceComponent extends Component {
     const that = this;
     const source = this.getSource();
     const onFailure = (transaction) => { that.fail(transaction); };
-    const onSuccess = (response) => {};
+    const onSuccess = (response) => { that.success(response, 'delete-account'); };
 
     Relay.Store.commitUpdate(
       new DeleteAccountSourceMutation({
@@ -445,7 +457,7 @@ class SourceComponent extends Component {
     const that = this;
     const source = this.getSource();
     const onFailure = (transaction) => { that.fail(transaction); };
-    const onSuccess = (response) => { that.success(); };
+    const onSuccess = (response) => { that.success(response, 'source'); };
     const form = document.forms['edit-source-form'];
 
     Relay.Store.commitUpdate(
@@ -480,7 +492,10 @@ class SourceComponent extends Component {
   }
 
   onClear = () => {
-    document.forms['edit-source-form'].image = null;
+    if (document.forms['edit-source-form']) {
+      document.forms['edit-source-form'].image = null;
+    }
+
     this.setState({ image: null });
   };
 
@@ -498,7 +513,7 @@ class SourceComponent extends Component {
 
     return <div>
       { showAccounts.map((as) =>
-        <div key={as.id} className="source__url">
+        <div key={as.node.id} className="source__url">
           <TextField
             defaultValue={as.node.account.url}
             floatingLabelText={this.props.intl.formatMessage(messages.link)}
