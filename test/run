@@ -4,8 +4,8 @@ echo 'Starting tests...'
 
 FAIL=0
 
-CHROMEDRIVER_URL=http://localhost:9516 bundle exec rspec --tag media spec/integration_spec.rb &
 CHROMEDRIVER_URL=http://localhost:9517 bundle exec rspec --tag sources spec/integration_spec.rb &
+CHROMEDRIVER_URL=http://localhost:9516 bundle exec rspec --tag media spec/integration_spec.rb &
 CHROMEDRIVER_URL=http://localhost:9518 bundle exec rspec --tag search spec/integration_spec.rb &
 CHROMEDRIVER_URL=http://localhost:9519 bundle exec rspec --tag users spec/integration_spec.rb &
 CHROMEDRIVER_URL=http://localhost:9520 bundle exec rspec --tag annotation spec/integration_spec.rb &

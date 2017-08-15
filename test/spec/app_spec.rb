@@ -77,21 +77,20 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
   context "web" do
     it "should filter by medias or sources", sources: true do
-      api_logout
       api_create_team_project_and_link 'https://twitter.com/TheWho/status/890135323216367616'
       @driver.navigate.to @config['self_url']
-      sleep 5
+      sleep 10
       
       expect(@driver.page_source.include?("The Who's official Twitter page")).to be(false)
       expect(@driver.page_source.include?('Tweet by')).to be(true)
 
       @driver.find_element(:xpath, "//span[contains(text(), 'Sources')]").click
-      sleep 5
+      sleep 10
       expect(@driver.page_source.include?("The Who's official Twitter page")).to be(true)
       expect(@driver.page_source.include?('Tweet by')).to be(true)
 
       @driver.find_element(:xpath, "//span[contains(text(), 'Media')]").click
-      sleep 5
+      sleep 10
       expect(@driver.page_source.include?("The Who's official Twitter page")).to be(true)
       expect(@driver.page_source.include?('Tweet by')).to be(false)
     end
