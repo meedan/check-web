@@ -1,0 +1,24 @@
+#!/bin/bash
+FAIL=0
+
+bundle exec rspec --tag sources spec/integration_spec.rb &
+bundle exec rspec --tag annotations spec/integration_spec.rb &
+bundle exec rspec --tag search spec/integration_spec.rb &
+bundle exec rspec --tag medias spec/integration_spec.rb &
+bundle exec rspec --tag users spec/integration_spec.rb &
+bundle exec rspec --tag other spec/integration_spec.rb &
+
+for job in `jobs -p`
+do
+  echo $job
+  wait $job || let "FAIL+=1"
+done
+
+echo $FAIL
+
+if [ "$FAIL" == "0" ];
+then
+  exit 0
+else
+  exit 1
+fi
