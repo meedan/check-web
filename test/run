@@ -6,9 +6,12 @@ sleep 15
 
 FAIL=0
 
-bundle exec rspec --tag sources --tag annotation spec/integration_spec.rb &
-bundle exec rspec --tag search --tag media spec/integration_spec.rb &
-bundle exec rspec --tag users --tag other spec/integration_spec.rb &
+bundle exec rspec --tag media spec/integration_spec.rb &
+bundle exec rspec --tag sources spec/integration_spec.rb &
+bundle exec rspec --tag search spec/integration_spec.rb &
+bundle exec rspec --tag users spec/integration_spec.rb &
+bundle exec rspec --tag annotation spec/integration_spec.rb &
+bundle exec rspec --tag other spec/integration_spec.rb &
 
 for job in `jobs -p`
 do

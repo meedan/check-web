@@ -63,6 +63,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
         Appium::Driver.new({ appium_lib: { server_url: webdriver_url}, caps: browser_capabilities }).start_driver :
         Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: browser_capabilities)
     end
+    sleep 1
   end
 
   after :each do |example|
