@@ -1,0 +1,20 @@
+#!/usr/bin/ruby
+require 'pty'
+threads = []
+['sources', 'search', 'users', 'annotation', 'media', 'other'].each do |tag|
+  threads << Thread.new do
+    cmd = "bundle exec rspec --tag #{tag} spec/integration_spec.rb"
+    begin
+      PTY.spawn(cmd) do |stdout, stdin, pid|
+        begin
+          stdout.each { |line| print line }
+        rescue Errno::EIO
+        end
+      end
+    rescue PTY::ChildExited
+    end
+  end
+end
+threads.each do |thread|
+  thread.join
+end
