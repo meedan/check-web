@@ -68,7 +68,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
   after :each do |example|
     if example.exception
       link = save_screenshot("Test failed: #{example.description}")
-      puts "Test \"#{example.description}\" failed! Check screenshot at #{link} and following browser output: #{console_logs}"
+      puts "Test \"#{example.description}\" failed! Check screenshot at #{link}"
     end
     @driver.quit
   end
