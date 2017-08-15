@@ -2,8 +2,9 @@
 require 'pty'
 threads = []
 exitcode = 0
-['--tag sources --tag search --tag users', '--tag annotation --tag media --tag other'].each do |tags|
-  threads << Thread.new do
+tags = ''
+#['--tag sources --tag search --tag users', '--tag annotation --tag media --tag other'].each do |tags|
+#  threads << Thread.new do
     cmd = "bundle exec rspec #{tags} spec/integration_spec.rb"
     begin
       PTY.spawn(cmd) do |stdout, stdin, pid|
@@ -16,9 +17,9 @@ exitcode = 0
       exitcode = 1 if $?.exitstatus > 0
     rescue PTY::ChildExited
     end
-  end
-end
-threads.each do |thread|
-  thread.join
-end
+#  end
+#end
+#threads.each do |thread|
+#  thread.join
+#end
 exit exitcode
