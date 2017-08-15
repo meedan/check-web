@@ -1,0 +1,9 @@
+<VirtualHost *:80>
+ServerName check-api
+DocumentRoot /home/travis/build/meedan/check-web/check-api/public
+RailsEnv test
+<Directory "/home/travis/build/meedan/check-web/check-api/public">
+  Options FollowSymLinks
+  Require all granted
+</Directory>
+</VirtualHost>

@@ -44,10 +44,22 @@ before_install:
 - echo "port 3000" >> /tmp/puma-check-api.rb
 - echo "quiet" >> /tmp/puma-check-api.rb
 - bundle exec puma -C /tmp/puma-check-api.rb -e test 2>/dev/null >/dev/null &
-# - bundle exec rails s -p 3000 -e test 2>/dev/null >/dev/null &
+# start check-api with passenger
+- sudo apt-get install -y dirmngr gnupg
+- sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 561F9B9CAC40B2F7
+- sudo apt-get install -y apt-transport-https ca-certificates
+- 'echo "deb https://oss-binaries.phusionpassenger.com/apt/passenger trusty main" | sudo tee -a /etc/apt/sources.list.d/passenger.list'
+- sudo apt-get update
+- sudo apt-get install -y libapache2-mod-passenger
+- sudo a2enmod passenger
+- sudo apache2ctl restart
+- 'echo "127.0.0.1 check-api" | sudo tee -a /etc/hosts'
+- sudo cp travis-site /etc/apache2/sites-available/check-api
+- sudo a2ensite check-api
+- sudo apache2ctl restart
+# pender
 - cd -
 - export RAILS_ENV=development
-# pender
 - git clone https://github.com/meedan/pender.git
 - cp travis/pender.yml pender/config/config.yml
 - cp pender/config/initializers/secret_token.rb.example pender/config/initializers/secret_token.rb
