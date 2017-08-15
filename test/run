@@ -2,7 +2,7 @@
 require 'pty'
 threads = []
 exitcode = 0
-['--tag sources --tag search --tag users', '--tag annotation --tag media --tag other'].each do |tag|
+['--tag sources --tag search --tag users', '--tag annotation --tag media --tag other'].each do |tags|
   threads << Thread.new do
     cmd = "bundle exec rspec #{tags} spec/integration_spec.rb"
     begin
