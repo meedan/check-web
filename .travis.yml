@@ -60,8 +60,8 @@ before_install:
 - echo "pidfile '/tmp/pender.pid'" >> /tmp/puma-pender.rb
 - echo "port 3005" >> /tmp/puma-pender.rb
 - echo "quiet" >> /tmp/puma-pender.rb
-# - bundle exec puma -C /tmp/puma-pender.rb -t 2:8 -w 6 -e test >/dev/null &
-- bundle exec rails s -p 3005 -e test 2>/dev/null >/dev/null &
+# - bundle exec puma -C /tmp/puma-pender.rb -t 2:8 -w 6 >/dev/null &
+- bundle exec rails s -p 3005 2>/dev/null >/dev/null &
 - cd -
 # xvfb
 - export DISPLAY=:99.0
