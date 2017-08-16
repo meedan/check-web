@@ -1,17 +1,17 @@
-import React, { Component, PropTypes } from 'react';
-import MediaChecklist from './MediaChecklist';
-import MappedMessage from '../MappedMessage';
+import React, { Component } from 'react';
 import MdInfoOutline from 'react-icons/lib/md/info-outline';
 import Tooltip from 'rc-tooltip';
 import config from 'config';
+import MediaChecklist from './MediaChecklist';
+import MappedMessage from '../MappedMessage';
 
 class TimelineHeader extends Component {
   render() {
     return config.appName === 'check' ? (
-      <Tooltip placement="bottom" trigger={['click']} overlay={<MediaChecklist/>} overlayClassName="">
+      <Tooltip placement="bottom" trigger={['click']} overlay={<MediaChecklist />} overlayClassName="">
         <h3 className="media__notes-heading">
           <MappedMessage msgObj={this.props.msgObj} msgKey={this.props.msgKey} />
-          <MdInfoOutline/>
+          <MdInfoOutline />
         </h3>
       </Tooltip>
     ) : (

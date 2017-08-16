@@ -38,5 +38,11 @@
 
         //Todo: Refactor to only have one component per file (or set this rule to off)
         "react/no-multi-comp": "warn",
+
+        // Todo: Review static element interactions
+        "jsx-a11y/no-static-element-interactions": "warn",
+
+        // Todo: consider standardizing on camelcase
+        "camelcase": "warn",
     }
 }

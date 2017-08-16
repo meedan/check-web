@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import ContentColumn from '../layout/ContentColumn';
 
 class MediasLoading extends Component {
@@ -6,7 +6,7 @@ class MediasLoading extends Component {
     const count = this.props.count || 3;
     const medias = [];
 
-    for (let i = 0; i < count; i++) {
+    for (let i = 0; i < count; i += 1) {
       medias.push(
         <div key={i} className="medias-loading__media">
           <div /><div /><div /><div />

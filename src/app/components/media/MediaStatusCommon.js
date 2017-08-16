@@ -1,11 +1,10 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { defineMessages, injectIntl, intlShape } from 'react-intl';
-import Relay from 'react-relay';
-import Can, { can } from '../Can';
-import CheckContext from '../../CheckContext';
 import MdArrowDropDown from 'react-icons/lib/md/arrow-drop-down';
 import FaCircle from 'react-icons/lib/fa/circle';
 import FaCircleO from 'react-icons/lib/fa/circle-o';
+import { can } from '../Can';
+import CheckContext from '../../CheckContext';
 import { getStatus, getStatusStyle } from '../../helpers';
 import { mediaStatuses, mediaLastStatus } from '../../customHelpers';
 
@@ -46,7 +45,7 @@ class MediaStatusCommon extends Component {
     return ` media-status__current--${status.toLowerCase().replace(/[ _]/g, '-')}`;
   }
 
-  handleStatusClick(clickedStatus, r) {
+  handleStatusClick(clickedStatus) {
     const { media } = this.props;
     const store = new CheckContext(this).getContextStore();
 
@@ -64,11 +63,11 @@ class MediaStatusCommon extends Component {
       if (json.error) {
         message = json.error;
       }
-    } catch (e) { }
+    } catch (e) {}
     that.setState({ message });
   }
 
-  success(response) {
+  success() {
     // this.setState({ message: 'Status updated.' });
   }
 
@@ -79,33 +78,57 @@ class MediaStatusCommon extends Component {
     const status = getStatus(mediaStatuses(media), mediaLastStatus(media));
 
     return (
-      <div className={this.bemClass('media-status', this.canUpdate(), '--editable')} onClick={this.toggleMediaStatusMenu.bind(this)}>
-        <div className={this.bemClass('media-status__overlay', this.state.isMediaStatusMenuOpen, '--active')} onClick={this.toggleMediaStatusMenu.bind(this)} />
+      <div
+        className={this.bemClass('media-status', this.canUpdate(), '--editable')}
+        onClick={this.toggleMediaStatusMenu.bind(this)}
+      >
+        <div
+          className={this.bemClass(
+            'media-status__overlay',
+            this.state.isMediaStatusMenuOpen,
+            '--active',
+          )}
+          onClick={this.toggleMediaStatusMenu.bind(this)}
+        />
 
-        <div className={`media-status__current${this.currentStatusToClass(mediaLastStatus(media))}`} style={{ color: getStatusStyle(status, 'color') }}>
+        <div
+          className={`media-status__current${this.currentStatusToClass(mediaLastStatus(media))}`}
+          style={{ color: getStatusStyle(status, 'color') }}
+        >
           <span className="media-status__label media-status__label--current">{status.label}</span>
-          {this.canUpdate() ?
-            <MdArrowDropDown className="media-status__caret" />
-            : null
-          }
+          {this.canUpdate() ? <MdArrowDropDown className="media-status__caret" /> : null}
           <span className="media-status__message">{this.state.message}</span>
         </div>
 
-        {this.canUpdate() ?
-          <ul className={this.bemClass('media-status__menu', this.state.isMediaStatusMenuOpen, '--active')}>
-            {statuses.map(status => (
-              <li key={status.id} className={`${that.bemClass('media-status__menu-item', (mediaLastStatus(media) === status.id), '--current')} media-status__menu-item--${status.id.replace('_', '-')}`} onClick={that.handleStatusClick.bind(that, status.id)} style={{ color: getStatusStyle(status, 'color') }}>
+        {this.canUpdate()
+          ? <ul
+            className={this.bemClass(
+                'media-status__menu',
+                this.state.isMediaStatusMenuOpen,
+                '--active',
+              )}
+          >
+            {statuses.map(status =>
+              <li
+                key={status.id}
+                className={`${that.bemClass(
+                    'media-status__menu-item',
+                    mediaLastStatus(media) === status.id,
+                    '--current',
+                  )} media-status__menu-item--${status.id.replace('_', '-')}`}
+                onClick={that.handleStatusClick.bind(that, status.id)}
+                style={{ color: getStatusStyle(status, 'color') }}
+              >
 
                 <FaCircle className="media-status__icon media-status__icon--radio-button-selected" />
 
                 <FaCircleO className="media-status__icon media-status__icon--radio-button" />
 
                 <span className="media-status__label">{status.label}</span>
-              </li>
-              ))}
+              </li>,
+              )}
           </ul>
-          : null
-        }
+          : null}
       </div>
     );
   }

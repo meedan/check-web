@@ -1,8 +1,8 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import MdMoreHoriz from 'react-icons/lib/md/more-horiz';
-import { can } from '../Can';
 import config from 'config';
+import { can } from '../Can';
 import CheckContext from '../../CheckContext';
 
 class MediaActions extends Component {
@@ -33,29 +33,58 @@ class MediaActions extends Component {
     const menuItems = [];
 
     if (can(media.permissions, 'create Tag')) {
-      menuItems.push(<li key="mediaActions.edit" className="media-actions__menu-item" onClick={handleEdit}><FormattedMessage id="mediaActions.edit" defaultMessage="Edit..." /></li>);
+      menuItems.push(
+        <li key="mediaActions.edit" className="media-actions__menu-item" onClick={handleEdit}>
+          <FormattedMessage id="mediaActions.edit" defaultMessage="Edit..." />
+        </li>,
+      );
     }
 
     if (can(media.permissions, 'update ProjectMedia')) {
-      menuItems.push(<li key="mediaActions.move" className="media-actions__menu-item" onClick={handleMove}><FormattedMessage id="mediaActions.move" defaultMessage="Move..." /></li>);
+      menuItems.push(
+        <li key="mediaActions.move" className="media-actions__menu-item" onClick={handleMove}>
+          <FormattedMessage id="mediaActions.move" defaultMessage="Move..." />
+        </li>,
+      );
       if (media.url) {
-        menuItems.push(<li key="mediaActions.refresh" className="media-actions__menu-item" id="media-actions__refresh" onClick={handleRefresh}><FormattedMessage id="mediaActions.refresh" defaultMessage="Refresh" /></li>);
+        menuItems.push(
+          <li
+            key="mediaActions.refresh"
+            className="media-actions__menu-item"
+            id="media-actions__refresh"
+            onClick={handleRefresh}
+          >
+            <FormattedMessage id="mediaActions.refresh" defaultMessage="Refresh" />
+          </li>,
+        );
       }
     }
 
     if (config.appName === 'check') {
-      menuItems.push(<li key="mediaActions.embed" className="media-actions__menu-item" id="media-actions__embed" onClick={this.handleEmbed.bind(this)}><FormattedMessage id="mediaActions.embed" defaultMessage="Embed..." /></li>);
+      menuItems.push(
+        <li
+          key="mediaActions.embed"
+          className="media-actions__menu-item"
+          id="media-actions__embed"
+          onClick={this.handleEmbed.bind(this)}
+        >
+          <FormattedMessage id="mediaActions.embed" defaultMessage="Embed..." />
+        </li>,
+      );
     }
 
-    return menuItems.length ? (
-      <div className={this.bemClass('media-actions', this.state.isMenuOpen, '--active')}>
+    return menuItems.length
+      ? <div className={this.bemClass('media-actions', this.state.isMenuOpen, '--active')}>
         <MdMoreHoriz className="media-actions__icon" onClick={this.toggleMenu.bind(this)} />
-        <div className={this.bemClass('media-actions__overlay', this.state.isMenuOpen, '--active')} onClick={this.toggleMenu.bind(this)} />
+        <div
+          className={this.bemClass('media-actions__overlay', this.state.isMenuOpen, '--active')}
+          onClick={this.toggleMenu.bind(this)}
+        />
         <ul className={this.bemClass('media-actions__menu', this.state.isMenuOpen, '--active')}>
           {menuItems}
         </ul>
       </div>
-    ) : null;
+      : null;
   }
 }
 
