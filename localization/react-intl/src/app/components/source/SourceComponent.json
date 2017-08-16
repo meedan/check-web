@@ -64,6 +64,10 @@
     "defaultMessage": "Add a link"
   },
   {
+    "id": "sourceComponent.addLinkHelper",
+    "defaultMessage": "Add a link to a web page or social media profile"
+  },
+  {
     "id": "sourceComponent.other",
     "defaultMessage": "Other (Specify)"
   },

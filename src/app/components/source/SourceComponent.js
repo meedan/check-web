@@ -114,6 +114,10 @@ const messages = defineMessages({
     id: 'sourceComponent.addLink',
     defaultMessage: 'Add a link',
   },
+  addLinkHelper: {
+    id: 'sourceComponent.addLinkHelper',
+    defaultMessage: 'Add a link to a web page or social media profile',
+  },
   other: {
     id: 'sourceComponent.other',
     defaultMessage: 'Other (Specify)',
@@ -582,6 +586,9 @@ class SourceComponent extends Component {
             style={{ width: '85%' }}
           />
           <MdCancel className="create-task__remove-option-button create-task__md-icon" onClick={() => this.handleRemoveNewLink(index)} />
+          <div className="source__helper">
+            {this.props.intl.formatMessage(messages.addLinkHelper)}
+          </div>
         </div>)
       }
     </div>
@@ -886,7 +893,7 @@ class SourceComponent extends Component {
                 id="source__name-container"
                 defaultValue={source.name}
                 floatingLabelText={this.props.intl.formatMessage(messages.sourceName)}
-                fullWidth
+                style={{ width: '85%' }}
               />
               <TextField
                 className="source__bio-input"
@@ -896,7 +903,7 @@ class SourceComponent extends Component {
                 floatingLabelText={this.props.intl.formatMessage(messages.sourceBio)}
                 multiLine={true}
                 rowsMax={4}
-                fullWidth
+                style={{ width: '85%' }}
               />
 
               { this.renderAccountsEdit() }

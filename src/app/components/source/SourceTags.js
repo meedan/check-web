@@ -1,8 +1,15 @@
 import React from 'react';
-import { injectIntl } from 'react-intl';
+import { injectIntl, defineMessages } from 'react-intl';
 import AutoComplete from 'material-ui/AutoComplete';
 import Chip from 'material-ui/Chip';
 import globalStrings from '../../globalStrings';
+
+const messages = defineMessages({
+  addTagHelper: {
+    id: 'sourceTags.addTagHelper',
+    defaultMessage: 'Create a tag or choose from existing',
+  },
+});
 
 class SourceTags extends React.Component {
   constructor(props) {
@@ -55,11 +62,16 @@ class SourceTags extends React.Component {
           filter={AutoComplete.caseInsensitiveFilter}
           floatingLabelText={this.props.intl.formatMessage(globalStrings.tags)}
           dataSource={this.props.options}
+          openOnFocus={true}
           onFocus={clearInput}
           onNewRequest={selectCallback}
           ref={(input) => { this.textInput = input; }}
           fullWidth
+          textFieldStyle={{ width: '85%' }}
         />
+        <div className="source__helper">
+          {this.props.intl.formatMessage(messages.addTagHelper)}
+        </div>
       {this.renderTags()}
     </div>;
   }
