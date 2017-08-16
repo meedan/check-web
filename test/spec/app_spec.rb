@@ -391,6 +391,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should comment source as a command", sources: true do
       api_create_team_project_and_source_and_redirect_to_source('The Beatles', 'https://twitter.com/thebeatles')
+      sleep 3
       @driver.find_element(:css, '.source__tab-button-notes').click
 
       expect(@driver.page_source.include?('This is my comment')).to be(false)
