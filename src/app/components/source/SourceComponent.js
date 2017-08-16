@@ -46,6 +46,7 @@ import DeleteTagMutation from '../../relay/DeleteTagMutation';
 import CreateAccountSourceMutation from '../../relay/mutation/CreateAccountSourceMutation';
 import DeleteAccountSourceMutation from '../../relay/mutation/DeleteAccountSourceMutation';
 import UpdateSourceMutation from '../../relay/UpdateSourceMutation';
+import deepEqual from 'deep-equal';
 
 const messages = defineMessages({
   addInfo: {
@@ -279,13 +280,16 @@ class SourceComponent extends Component {
   }
 
   handleSubmit(e) {
-    if (!this.state.submitDisabled) {
-      this.setState({ submitDisabled: true, hasFailure: false, message: null });
-      this.updateSource();
-      this.updateLinks();
-      this.updateMetadata();
-    }
     e.preventDefault();
+
+    if (!this.state.submitDisabled) {
+      const updateSourceSent = this.updateSource();
+      const updateLinksSent = this.updateLinks();
+      const updateMetadataSent = this.updateMetadata();
+      const isEditing = updateSourceSent || updateLinksSent || updateMetadataSent;
+
+      this.setState({ isEditing, submitDisabled: true, hasFailure: false, message: null });
+    }
   }
 
   handleSelectTag = (chosenRequest, index) => {
@@ -318,12 +322,20 @@ class SourceComponent extends Component {
     this.setState({ pendingMutations: pendingMutations.filter((m) => m !== mutation) }, manageEditingState);
   };
 
+  registerPendingMutation = (mutation) => {
+    const pendingMutations = this.state.pendingMutations ? this.state.pendingMutations.slice(0) : [];
+    pendingMutations.push(mutation);
+    this.setState({ pendingMutations });
+  };
+
   createDynamicAnnotation(that, annotated, annotated_id, annotated_type, value) {
     const onFailure = (transaction) => { that.fail(transaction); };
-    const onSuccess = (response) => { that.success(response, 'metadata'); };
+    const onSuccess = (response) => { that.success(response, 'createMetadata'); };
     const annotator = that.getContext().currentUser;
     const fields = {};
     fields.metadata_value = JSON.stringify(value);
+
+    this.registerPendingMutation('createMetadata');
 
     Relay.Store.commitUpdate(
       new CreateDynamicMutation({
@@ -344,9 +356,11 @@ class SourceComponent extends Component {
 
   updateDynamicAnnotation(that, annotated, annotation_id, value) {
     const onFailure = (transaction) => { that.fail(transaction); };
-    const onSuccess = (response) => { that.success(response, 'metadata'); };
+    const onSuccess = (response) => { that.success(response, 'updateMetadata'); };
     const fields = {};
     fields.metadata_value = JSON.stringify(value);
+
+    this.registerPendingMutation('updateMetadata');
 
     Relay.Store.commitUpdate(
       new UpdateDynamicMutation({
@@ -405,9 +419,11 @@ class SourceComponent extends Component {
     const source = this.getSource();
     const that = this;
     const onFailure = (transaction) => { that.fail(transaction); };
-    const onSuccess = (response) => { that.success(response, 'create-account'); };
+    const onSuccess = (response) => { that.success(response, 'createAccount'); };
 
     if (!url) { return; }
+
+    this.registerPendingMutation('createAccount');
 
     Relay.Store.commitUpdate(
       new CreateAccountSourceMutation({
@@ -423,7 +439,9 @@ class SourceComponent extends Component {
     const that = this;
     const source = this.getSource();
     const onFailure = (transaction) => { that.fail(transaction); };
-    const onSuccess = (response) => { that.success(response, 'delete-account'); };
+    const onSuccess = (response) => { that.success(response, 'deleteAccount'); };
+
+    this.registerPendingMutation('deleteAccount');
 
     Relay.Store.commitUpdate(
       new DeleteAccountSourceMutation({
@@ -435,10 +453,19 @@ class SourceComponent extends Component {
   }
 
   updateLinks() {
-    const links = this.state.links ? this.state.links.slice(0) : [];
+    let links = this.state.links ? this.state.links.slice(0) : [];
+    links = links.filter((link) => !!link);
+
     const deleteLinks = this.state.deleteLinks ? this.state.deleteLinks.slice(0) : [];
+
+    if (!links.length && !deleteLinks.length){
+      return false;
+    }
+
     links.forEach((url) => { this.createAccountSource(url) });
     deleteLinks.forEach((id) => { this.deleteAccountSource(id) });
+
+    return true;
   }
 
   updateMetadata() {
@@ -446,19 +473,31 @@ class SourceComponent extends Component {
     const metadata = this.state.metadata ? Object.assign({}, this.state.metadata) : {};
     const metadataAnnotation = this.getMetadataAnnotation();
 
+    if (deepEqual(metadata, this.getMetadataFields())) {
+      return false;
+    }
+
     if (metadataAnnotation) {
       this.updateDynamicAnnotation(this, source, metadataAnnotation.id, metadata);
     } else {
       this.createDynamicAnnotation(this, source, source.dbid, 'Source', metadata);
     }
+
+    return true;
   }
 
   updateSource() {
     const that = this;
     const source = this.getSource();
     const onFailure = (transaction) => { that.fail(transaction); };
-    const onSuccess = (response) => { that.success(response, 'source'); };
+    const onSuccess = (response) => { that.success(response, 'updateSource'); };
     const form = document.forms['edit-source-form'];
+
+    if (source.name === form.name.value && source.description === form.description.value && !form.image ) {
+      return false;
+    }
+
+    this.registerPendingMutation('updateSource');
 
     Relay.Store.commitUpdate(
       new UpdateSourceMutation({
@@ -471,6 +510,8 @@ class SourceComponent extends Component {
       }),
       { onSuccess, onFailure },
     );
+
+    return true;
   }
 
   labelForType(type) {
