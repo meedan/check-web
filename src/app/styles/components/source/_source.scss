@@ -55,6 +55,7 @@
     display: flex;
     flex-flow: wrap row;
     font: font(caption);
+    margin: units(2) 0;
 
     & > span {
       margin-#{$to-direction}: units(2);
