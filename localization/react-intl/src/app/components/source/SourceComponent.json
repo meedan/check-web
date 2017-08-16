@@ -60,6 +60,10 @@
     "defaultMessage": "Link"
   },
   {
+    "id": "sourceComponent.addLink",
+    "defaultMessage": "Add a link"
+  },
+  {
     "id": "sourceComponent.other",
     "defaultMessage": "Other (Specify)"
   },

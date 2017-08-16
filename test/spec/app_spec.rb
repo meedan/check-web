@@ -80,7 +80,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       api_create_team_project_and_link 'https://twitter.com/TheWho/status/890135323216367616'
       @driver.navigate.to @config['self_url']
       sleep 10
-      
+
       expect(@driver.page_source.include?("The Who's official Twitter page")).to be(false)
       expect(@driver.page_source.include?('Tweet by')).to be(true)
 
@@ -436,9 +436,29 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Tagged #bar')).to be(true)
     end
 
+    # it "should edit basic source data (name, description/bio, avatar)" do
+    #   skip("Needs to be implemented")
+    # end
+
+    # it "should add and remove accounts to sources" do
+    #   skip("Needs to be implemented")
+    # end
+
+    # it "should edit source metadata (contact, phone, location, organization, other)" do
+    #   skip("Needs to be implemented")
+    # end
+
+    # it "should add and remove tags" do
+    #   skip("Needs to be implemented")
+    # end
+
+    # it "should add and remove languages" do
+    #   skip("Needs to be implemented")
+    # end
+
     it "should not add a duplicated tag from command line", annotation: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
-      
+
       new_tag = Time.now.to_i.to_s
 
       # Validate assumption that tag does not exist
@@ -493,7 +513,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should tag media as a command", annotation: true do
       page = api_create_team_project_and_claim_and_redirect_to_media_page
-      
+
       expect(page.has_tag?('command')).to be(false)
       expect(page.contains_string?('Tagged #command')).to be(false)
 
@@ -661,7 +681,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should auto refresh project when media is created", media: true do
       api_create_team_and_project
       @driver.navigate.to @config['self_url']
-      
+
       url = @driver.current_url
       sleep 3
       expect(@driver.page_source.include?('Auto-Refresh')).to be(false)
