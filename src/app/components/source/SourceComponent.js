@@ -47,6 +47,7 @@ import CreateAccountSourceMutation from '../../relay/mutation/CreateAccountSourc
 import DeleteAccountSourceMutation from '../../relay/mutation/DeleteAccountSourceMutation';
 import UpdateSourceMutation from '../../relay/UpdateSourceMutation';
 import deepEqual from 'deep-equal';
+import capitalize from 'lodash.capitalize';
 
 const messages = defineMessages({
   addInfo: {
@@ -108,6 +109,10 @@ const messages = defineMessages({
   link: {
     id: 'sourceComponent.link',
     defaultMessage: 'Link',
+  },
+  addLink: {
+    id: 'sourceComponent.addLink',
+    defaultMessage: 'Add a link',
   },
   other: {
     id: 'sourceComponent.other',
@@ -383,20 +388,24 @@ class SourceComponent extends Component {
     const onSuccess = (response) => { that.setState({ message: null } );
     };
 
-    Relay.Store.commitUpdate(
-      new CreateTagMutation({
-        annotated: source,
-        annotator: context.currentUser,
-        parent_type: 'project_source',
-        context,
-        annotation: {
-          tag: tagString.trim(),
-          annotated_type: 'ProjectSource',
-          annotated_id: source.dbid,
-        },
-      }),
-      { onSuccess, onFailure },
-    );
+    let tagsList = [...new Set(tagString.split(','))];
+
+    tagsList.forEach((tag) => {
+      Relay.Store.commitUpdate(
+        new CreateTagMutation({
+          annotated: source,
+          annotator: context.currentUser,
+          parent_type: 'project_source',
+          context,
+          annotation: {
+            tag: tag.trim(),
+            annotated_type: 'ProjectSource',
+            annotated_id: source.dbid,
+          },
+        }),
+        { onSuccess, onFailure },
+      );
+    });
   }
 
   deleteTag(tagId) {
@@ -557,7 +566,7 @@ class SourceComponent extends Component {
         <div key={as.node.id} className="source__url">
           <TextField
             defaultValue={as.node.account.url}
-            floatingLabelText={this.props.intl.formatMessage(messages.link)}
+            floatingLabelText={capitalize(as.node.account.provider)}
             style={{ width: '85%' }}
             disabled
           />
@@ -568,7 +577,7 @@ class SourceComponent extends Component {
         <div key={index.toString()} className="source__url-input">
           <TextField
             defaultValue={link}
-            floatingLabelText={this.props.intl.formatMessage(messages.link)}
+            floatingLabelText={this.props.intl.formatMessage(messages.addLink)}
             onChange={(e) => this.handleChangeLink(e, index)}
             style={{ width: '85%' }}
           />
