@@ -188,18 +188,6 @@ module AppSpecHelpers
     @config['self_url'] + '/' + get_team + '/' + path
   end
 
-  def confirm_email(email)
-    request_api('/test/confirm_user', { email: email })
-  end
-
-  def request_api(path, params)
-    require 'net/http'
-    api_path = @driver.execute_script("return config.restBaseUrl.replace(/\\/api\\/.*/, '#{path}')").to_s
-    uri = URI(api_path)
-    uri.query = URI.encode_www_form(params)
-    Net::HTTP.get_response(uri)
-  end
-
   def create_claim_and_go_to_search_page
     page = LoginPage.new(config: @config, driver: @driver).load.login_with_email(email: @email, password: @password)
     @wait.until { @driver.page_source.include?('Claim') }
@@ -223,21 +211,5 @@ module AppSpecHelpers
     image = Imgur::LocalImage.new(path, title: title)
     uploaded = client.upload(image)
     uploaded.link
-  end
-
-  def create_source(name, url)
-    login_with_email
-    @driver.navigate.to @config['self_url']
-    sleep 15
-    @driver.find_element(:css, '#create-media__source').click
-    sleep 1
-    fill_field('#create-media-source-name-input', name)
-    fill_field('#create-media-source-url-input', url)
-    sleep 1
-    press_button('#create-media-submit')
-    sleep 15
-    expect(@driver.current_url.to_s.match(/\/source\/[0-9]+$/).nil?).to be(false)
-    title = get_element('.source__name').text
-    expect(title == name).to be(true)
   end
 end
