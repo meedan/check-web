@@ -6,6 +6,7 @@ import config from 'config';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
+import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
 // TODO move injectTapEventPlugin to the top of the component tree, eg home.js CGB
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import MediaStatus from './MediaStatus';
@@ -284,122 +285,125 @@ class MediaDetail extends Component {
     const status = getStatus(mediaStatuses(media), mediaLastStatus(media));
 
     return (
-      <div
+      <Card
         className={
           `${this.statusToClass('media-detail', mediaLastStatus(media))} ` +
           `media-detail--${MediaUtil.mediaTypeCss(media, data)}`
         }
         style={{ borderColor: getStatusStyle(status, 'borderColor') }}
       >
-        <div className="media-detail__header">
-          <div className="media-detail__status">
-            <MediaStatus media={media} readonly={this.props.readonly} />
-          </div>
-        </div>
+        <CardHeader
+          title={heading}
+          subtitle={<MediaStatus media={media} readonly={this.props.readonly} />}
+          actAsExpander
+          showExpandableButton
+        />
 
-        {this.state.isEditing
-          ? <form onSubmit={this.handleSave.bind(this, media)}>
-            <input
-              type="text"
-              id={`media-detail-title-input-${media.dbid}`}
-              className="media-detail__title-input"
-              placeholder={this.props.intl.formatMessage(messages.mediaTitle)}
-              defaultValue={heading}
-            />
-          </form>
-          : <h2 className="media-detail__heading"><Link to={mediaUrl}>{heading}</Link></h2>}
-
-        <div className={this.statusToClass('media-detail__media', mediaLastStatus(media))}>
-          {embedCard}
-        </div>
-
-        <div className="media-detail__check-metadata">
-          {media.tags
-            ? <MediaTags media={media} tags={media.tags.edges} isEditing={this.state.isEditing} />
-            : null}
-          {byUser
-            ? <span className="media-detail__check-added-by">
-              <FormattedMessage
-                id="mediaDetail.added"
-                defaultMessage={'Added {byUser}'}
-                values={{ byUser }}
-              />{' '}
-            </span>
-            : null}
-          {createdAt
-            ? <span className="media-detail__check-added-at">
-              <Link className="media-detail__check-timestamp" to={mediaUrl}>
-                <TimeBefore date={createdAt} />
-              </Link>
-            </span>
-            : null}
-          <Link to={mediaUrl} className="media-detail__check-notes-count">{annotationsCount}</Link>
+        <CardText expandable>
           {this.state.isEditing
-            ? <span className="media-detail__editing-buttons">
-              <DefaultButton
-                onClick={this.handleCancel.bind(this)}
-                className="media-detail__cancel-edits"
-                size="xsmall"
-              >
-                <FormattedMessage id="mediaDetail.cancelButton" defaultMessage="Cancel" />
-              </DefaultButton>
-              <DefaultButton
-                onClick={this.handleSave.bind(this, media)}
-                className="media-detail__save-edits"
-                size="xsmall"
-                style="primary"
-              >
-                <FormattedMessage id="mediaDetail.doneButton" defaultMessage="Done" />
-              </DefaultButton>
-            </span>
-            : null}
-          {this.props.readonly || this.state.isEditing
-            ? null
-            : <MediaActions
-              media={media}
-              handleEdit={this.handleEdit.bind(this)}
-              handleMove={this.handleMove.bind(this)}
-              handleRefresh={this.handleRefresh.bind(this)}
-            />}
+              ? <form onSubmit={this.handleSave.bind(this, media)}>
+                <input
+                  type="text"
+                  id={`media-detail-title-input-${media.dbid}`}
+                  className="media-detail__title-input"
+                  placeholder={this.props.intl.formatMessage(messages.mediaTitle)}
+                  defaultValue={heading}
+                />
+              </form>
+              : <h2 className="media-detail__heading"><Link to={mediaUrl}>{heading}</Link></h2>}
 
-          <Dialog
-            actions={actions}
-            modal
-            open={this.state.openMoveDialog}
-            onRequestClose={this.handleCloseDialog.bind(this)}
-            autoScrollBodyContent
-          >
-            <h4 className="media-detail__dialog-header">
-              <FormattedMessage
-                id="mediaDetail.dialogHeader"
-                defaultMessage={'Move this {mediaType} to a different project'}
-                values={{ mediaType: MediaUtil.typeLabel(media, data, this.props.intl) }}
-              />
-            </h4>
-            <small className="media-detail__dialog-media-path">
-              <FormattedMessage
-                id="mediaDetail.dialogMediaPath"
-                defaultMessage={'Currently filed under {teamName} > {projectTitle}'}
-                values={{ teamName: context.team.name, projectTitle: currentProject.node.title }}
-              />
-            </small>
-            <RadioButtonGroup
-              name="moveMedia"
-              className="media-detail__dialog-radio-group"
-              onChange={this.handleSelectDestProject.bind(this)}
+          <div className={this.statusToClass('media-detail__media', mediaLastStatus(media))}>
+            {embedCard}
+          </div>
+
+          <div className="media-detail__check-metadata">
+            {media.tags
+                ? <MediaTags media={media} tags={media.tags.edges} isEditing={this.state.isEditing} />
+                : null}
+            {byUser
+                ? <span className="media-detail__check-added-by">
+                  <FormattedMessage
+                    id="mediaDetail.added"
+                    defaultMessage={'Added {byUser}'}
+                    values={{ byUser }}
+                  />{' '}
+                </span>
+                : null}
+            {createdAt
+                ? <span className="media-detail__check-added-at">
+                  <Link className="media-detail__check-timestamp" to={mediaUrl}>
+                    <TimeBefore date={createdAt} />
+                  </Link>
+                </span>
+                : null}
+            <Link to={mediaUrl} className="media-detail__check-notes-count">{annotationsCount}</Link>
+            {this.state.isEditing
+                ? <span className="media-detail__editing-buttons">
+                  <DefaultButton
+                    onClick={this.handleCancel.bind(this)}
+                    className="media-detail__cancel-edits"
+                    size="xsmall"
+                  >
+                    <FormattedMessage id="mediaDetail.cancelButton" defaultMessage="Cancel" />
+                  </DefaultButton>
+                  <DefaultButton
+                    onClick={this.handleSave.bind(this, media)}
+                    className="media-detail__save-edits"
+                    size="xsmall"
+                    style="primary"
+                  >
+                    <FormattedMessage id="mediaDetail.doneButton" defaultMessage="Done" />
+                  </DefaultButton>
+                </span>
+                : null}
+            {this.props.readonly || this.state.isEditing
+                ? null
+                : <MediaActions
+                  media={media}
+                  handleEdit={this.handleEdit.bind(this)}
+                  handleMove={this.handleMove.bind(this)}
+                  handleRefresh={this.handleRefresh.bind(this)}
+                />}
+
+            <Dialog
+              actions={actions}
+              modal
+              open={this.state.openMoveDialog}
+              onRequestClose={this.handleCloseDialog.bind(this)}
+              autoScrollBodyContent
             >
-              {destinationProjects.map(proj =>
-                <RadioButton
-                  key={proj.node.dbid}
-                  label={proj.node.title}
-                  value={proj.node}
-                  style={{ padding: '5px' }}
-                />,
-              )}
-            </RadioButtonGroup>
-          </Dialog>
-        </div>
-      </div>
+              <h4 className="media-detail__dialog-header">
+                <FormattedMessage
+                  id="mediaDetail.dialogHeader"
+                  defaultMessage={'Move this {mediaType} to a different project'}
+                  values={{ mediaType: MediaUtil.typeLabel(media, data, this.props.intl) }}
+                />
+              </h4>
+              <small className="media-detail__dialog-media-path">
+                <FormattedMessage
+                  id="mediaDetail.dialogMediaPath"
+                  defaultMessage={'Currently filed under {teamName} > {projectTitle}'}
+                  values={{ teamName: context.team.name, projectTitle: currentProject.node.title }}
+                />
+              </small>
+              <RadioButtonGroup
+                name="moveMedia"
+                className="media-detail__dialog-radio-group"
+                onChange={this.handleSelectDestProject.bind(this)}
+              >
+                {destinationProjects.map(proj =>
+                  <RadioButton
+                    key={proj.node.dbid}
+                    label={proj.node.title}
+                    value={proj.node}
+                    style={{ padding: '5px' }}
+                  />,
+                  )}
+              </RadioButtonGroup>
+            </Dialog>
+          </div>
+        </CardText>
+      </Card>
     );
   }
 }
