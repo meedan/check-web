@@ -12,6 +12,10 @@ const messages = defineMessages({
     id: "sourceLanguages.label",
     defaultMessage: "Languages",
   },
+  addLanguageHelper: {
+    id: 'sourceLanguages.addLanguageHelper',
+    defaultMessage: 'Select a language',
+  },
 });
 
 class LanguageComponent extends React.Component {
@@ -74,10 +78,15 @@ class LanguageComponent extends React.Component {
         floatingLabelText={this.props.intl.formatMessage(messages.languages)}
         dataSource={this.getAvailableLanguages()}
         dataSourceConfig={{ text: 'label' , value: 'value'}}
+        openOnFocus={true}
         onFocus={clearInput}
         onNewRequest={selectCallback}
         fullWidth
+        textFieldStyle={{ width: '85%' }}
       />
+      <div className="source__helper">
+        {this.props.intl.formatMessage(messages.addLanguageHelper)}
+      </div>
       {this.renderLanguages()}
     </div>;
   }
