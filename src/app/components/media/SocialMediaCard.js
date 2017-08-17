@@ -98,7 +98,7 @@ class SocialMediaCard extends Component {
             </a>
           </span>
           <div className="social-media-card__footer">
-            {stats.map(stat => <span className="social-media-card__footer-stat">{stat}</span>)}
+            {stats.map(stat => <span key={stat} className="social-media-card__footer-stat">{stat}</span>)}
           </div>
         </div>
 

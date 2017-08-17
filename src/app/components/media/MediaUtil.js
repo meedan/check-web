@@ -230,8 +230,12 @@ const MediaUtil = {
       return (
         {
           'twitter.com': [
-            intl.formatMessage(messages.favoritesCount, { favoritesCount: data.favorite_count }),
-            intl.formatMessage(messages.retweetsCount, { retweetsCount: data.retweet_count }),
+            intl.formatMessage(messages.favoritesCount, {
+              favoritesCount: data.raw.api.favorite_count,
+            }),
+            intl.formatMessage(messages.retweetsCount, {
+              retweetsCount: data.raw.api.retweet_count,
+            }),
           ],
         }[media.domain] || []
       );
