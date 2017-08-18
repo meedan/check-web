@@ -6,13 +6,12 @@ import config from 'config';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
-import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
+import { Card, CardHeader, CardText } from 'material-ui/Card';
 // TODO move injectTapEventPlugin to the top of the component tree, eg home.js CGB
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import MediaStatus from './MediaStatus';
 import MediaTags from './MediaTags';
 import QuoteMediaCard from './QuoteMediaCard';
-import SocialMediaCard from './SocialMediaCard';
 import MediaActions from './MediaActions';
 import MediaUtil from './MediaUtil';
 import DefaultButton from '../inputs/DefaultButton';
@@ -206,7 +205,7 @@ class MediaDetail extends Component {
   }
 
   render() {
-    const { media, annotated, annotatedType, condensed } = this.props;
+    const { media, annotated, annotatedType } = this.props;
     const data = JSON.parse(media.embed);
     const createdAt = MediaUtil.createdAt(media);
     const annotationsCount = MediaUtil.notesCount(media, data, this.props.intl);
@@ -246,7 +245,7 @@ class MediaDetail extends Component {
       : MediaUtil.attributedType(media, data, this.props.intl);
 
     if (media.media.embed_path) {
-      const path = condensed ? media.media.thumbnail_path : media.media.embed_path;
+      const path = media.media.embed_path;
       embedCard = <ImageMediaCard imagePath={path} />;
     } else if (media.quote && media.quote.length) {
       embedCard = (
@@ -258,14 +257,12 @@ class MediaDetail extends Component {
         />
       );
     } else if (media.url) {
-      embedCard = condensed
-        ? <SocialMediaCard media={media} data={data} condensed={condensed} />
-        : (<PenderCard
-          url={media.url}
-          penderUrl={config.penderUrl}
-          fallback={null}
-          mediaVersion={this.state.mediaVersion || data.refreshes_count}
-        />);
+      embedCard = (<PenderCard
+        url={media.url}
+        penderUrl={config.penderUrl}
+        fallback={null}
+        mediaVersion={this.state.mediaVersion || data.refreshes_count}
+      />);
     }
 
     const actions = [
@@ -294,12 +291,18 @@ class MediaDetail extends Component {
       >
         <CardHeader
           title={heading}
-          subtitle={<MediaStatus media={media} readonly={this.props.readonly} />}
+          subtitle={annotationsCount}
           actAsExpander
           showExpandableButton
         />
 
         <CardText expandable>
+
+          <div className="media-detail__header">
+            <div className="media-detail__status">
+              <MediaStatus media={media} readonly={this.props.readonly} />
+            </div>
+          </div>
           {this.state.isEditing
               ? <form onSubmit={this.handleSave.bind(this, media)}>
                 <input

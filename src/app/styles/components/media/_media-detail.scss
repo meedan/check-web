@@ -3,12 +3,8 @@
 // Since it does not only apply to the detail view. — CGB
 //
 .media-detail {
-  @include box-shadow(1);
   @include media-status-border-colors;
-  background-color: $white;
   border-radius: $border-radius-default;
-  margin-bottom: units(2);
-  padding: units(1.5) layout(gutter-small) 0;
   border-#{$from-direction}: units(1) solid;
 }
 
