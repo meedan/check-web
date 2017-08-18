@@ -7,7 +7,8 @@ import ProfileLink from '../layout/ProfileLink';
 import MappedMessage from '../MappedMessage';
 import ParsedText from '../ParsedText';
 import TimeBefore from '../TimeBefore';
-import { truncateLength } from '../../helpers'
+import SourcePicture from './SourcePicture';
+import { truncateLength } from '../../helpers';
 
 const messages = defineMessages({
   disclaimer: {
@@ -22,7 +23,7 @@ const messages = defineMessages({
 
 class SourceCard extends React.Component {
   render() {
-    const { source } = this.props;
+    const { source } = this.props.source;
     const createdAt = MediaUtil.createdAt(source);
 
     const { team, project_id, source_id } = this.props.source;
@@ -31,22 +32,17 @@ class SourceCard extends React.Component {
     const byUser = (source.user && source.user.source && source.user.source.dbid && source.user.name !== 'Pender') ?
       (<FormattedMessage id="mediaDetail.byUser" defaultMessage={'by {username}'} values={{ username: <ProfileLink user={source.user} /> }} />) : '';
 
-    source.image = source.source.image;
-    source.name = source.source.name;
-    source.description = source.source.description;
-    source.accounts = source.source.accounts;
-
     return (
       <Card className="source-card">
         <CardText className="source-card__content">
           <div className="source-card__avatar">
-            <img src={source.image} className="social-media-card__author-avatar" />
+            <SourcePicture source={source} />
           </div>
           <article className="source-card__body">
             <div className="source-card__heading"><MappedMessage msgObj={messages} msgKey="disclaimer" /></div>
 
             <div className="source-card__name">
-              <Link to={sourceUrl} className="header__app-link">{ source.name }</Link>
+              <Link to={sourceUrl} className="header__app-link">{source.name}</Link>
             </div>
 
             <div className="source-card__description"><ParsedText text={truncateLength(source.description, 600)} /></div>
@@ -56,7 +52,7 @@ class SourceCard extends React.Component {
                 { source.accounts.edges.map(account => {
                   return <li key={account.node.id} className="source-card__account-link">
                     { MediaUtil.socialIcon(account.node.provider + '.com') /*TODO: refactor */ }
-                    <a href={ account.node.url } target="_blank" rel="noopener noreferrer">
+                    <a href={account.node.url} target="_blank" rel="noopener noreferrer">
                       { account.node.embed.username || account.node.embed.url }
                     </a>
                   </li>

@@ -3,9 +3,7 @@ import Relay from 'react-relay';
 
 class UpdateProjectSourceMutation extends Relay.Mutation {
   getMutation() {
-    return Relay.QL`mutation updateProjectSource {
-      updateProjectSource
-    }`;
+    return Relay.QL`mutation { updateProjectSource }`;
   }
 
   getFatQuery() {
@@ -24,12 +22,9 @@ class UpdateProjectSourceMutation extends Relay.Mutation {
   getVariables() {
     const vars = {
       id: this.props.id,
-      project_id: this.props.project_id,
+      project_id: this.props.project.dbid,
       refresh_accounts: this.props.refresh_accounts,
     };
-    if (this.props.srcProj) {
-      vars.previous_project_id = this.props.srcProj.dbid;
-    }
     return vars;
   }
 

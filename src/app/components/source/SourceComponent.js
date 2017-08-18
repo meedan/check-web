@@ -47,6 +47,7 @@ import CreateAccountSourceMutation from '../../relay/mutation/CreateAccountSourc
 import DeleteAccountSourceMutation from '../../relay/mutation/DeleteAccountSourceMutation';
 import UpdateSourceMutation from '../../relay/UpdateSourceMutation';
 import UpdateProjectSourceMutation from '../../relay/UpdateProjectSourceMutation';
+import Pusher from 'pusher-js';
 
 const messages = defineMessages({
   addInfo: {
@@ -132,10 +133,32 @@ class SourceComponent extends Component {
 
   componentDidMount() {
     this.setContextSource();
+    this.subscribe();
   }
 
   componentDidUpdate() {
     this.setContextSource();
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
+
+  subscribe() {
+    const pusher = this.getContext().pusher;
+    if (pusher) {
+      pusher.subscribe(this.props.source.pusher_channel).bind('source_updated', (data) => {
+        const source = JSON.parse(data.message);
+
+      });
+    }
+  }
+
+  unsubscribe() {
+    const pusher = this.getContext().pusher;
+    if (pusher) {
+      pusher.unsubscribe(this.props.source.pusher_channel);
+    }
   }
 
   getContext() {
@@ -497,7 +520,7 @@ class SourceComponent extends Component {
     const deleteLinks = this.state.deleteLinks ? this.state.deleteLinks.slice(0) : [];
     const showAccounts = source.account_sources.edges.filter((as) => (deleteLinks.indexOf(as.node.id) < 0));
 
-    return <div>
+    return <div key="renderAccountsEdit">
       { showAccounts.map((as) =>
         <div key={as.id} className="source__url">
           <TextField
