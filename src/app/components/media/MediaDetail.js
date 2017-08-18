@@ -210,8 +210,8 @@ class MediaDetail extends Component {
     const createdAt = MediaUtil.createdAt(media);
     const annotationsCount = MediaUtil.notesCount(media, data, this.props.intl);
     const userOverrides = safelyParseJSON(media.overridden);
-
     const context = this.getContext();
+    const randomNumber = Math.floor((Math.random() * 1000000) + 1);
 
     let projectId = media.project_id;
     if (!projectId && annotated && annotatedType === 'Project') {
@@ -261,6 +261,7 @@ class MediaDetail extends Component {
         url={media.url}
         penderUrl={config.penderUrl}
         fallback={null}
+        domId={`pender-card-${randomNumber}`}
         mediaVersion={this.state.mediaVersion || data.refreshes_count}
       />);
     }
