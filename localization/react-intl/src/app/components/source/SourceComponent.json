@@ -8,6 +8,14 @@
     "defaultMessage": "Sorry, could not edit the source"
   },
   {
+    "id": "sourceComponent.createTagError",
+    "defaultMessage": "Failed to create tag"
+  },
+  {
+    "id": "sourceComponent.selectLanguageError",
+    "defaultMessage": "Please select a language from the list"
+  },
+  {
     "id": "sourceComponent.editSuccess",
     "defaultMessage": "Source information updated successfully!"
   },

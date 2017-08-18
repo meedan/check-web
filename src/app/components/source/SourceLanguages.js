@@ -61,26 +61,25 @@ class LanguageComponent extends React.Component {
   }
 
   renderLanguagesEdit(){
-    const clearInput = () => {
-      document.getElementById('sourceLanguageInput').value = "";
-      this.setState({ searchText: '' });
-    };
-
     const selectCallback = (value) => {
-      clearInput();
       this.props.onSelect(value);
+
+      setTimeout(() => {
+        this.refs['autocomplete'].setState({ searchText: '' });
+      }, 500);
     };
 
     return <div>
       <AutoComplete
         id="sourceLanguageInput"
+        errorText={this.props.errorText}
         filter={AutoComplete.caseInsensitiveFilter}
         floatingLabelText={this.props.intl.formatMessage(messages.languages)}
         dataSource={this.getAvailableLanguages()}
         dataSourceConfig={{ text: 'label' , value: 'value'}}
         openOnFocus={true}
-        onFocus={clearInput}
         onNewRequest={selectCallback}
+        ref={'autocomplete'}
         fullWidth
         textFieldStyle={{ width: '85%' }}
       />
