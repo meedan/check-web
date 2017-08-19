@@ -1014,5 +1014,58 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
         sleep 5
       end
     end
+
+    it "should add, edit, answer, update answer and delete geolocation task", annotation: true do
+      media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
+      sleep 3
+
+      # Create a task
+      expect(@driver.page_source.include?('Where?')).to be(false)
+      expect(@driver.page_source.include?('Task "Where?" created by')).to be(false)
+      @driver.find_element(:css, '.create-task__add-button').click
+      sleep 1
+      @driver.find_element(:css, '.create-task__add-geolocation').click
+      sleep 1
+      fill_field('#task-label-input', 'Where?')
+      @driver.find_element(:css, '.create-task__dialog-submit-button').click
+      sleep 2
+      expect(@driver.page_source.include?('Where?')).to be(true)
+      expect(@driver.page_source.include?('Task "Where?" created by')).to be(true)
+
+      # Answer task
+      expect(@driver.page_source.include?('Task "Where?" answered by')).to be(false)
+      @driver.find_element(:css, '.task__label').click
+      fill_field('textarea[name="response"]', 'Salvador')
+      fill_field('textarea[name="coordinates"]', '-12.9015866, -38.560239')
+      @driver.action.send_keys(:enter).perform
+      sleep 2
+      expect(@driver.page_source.include?('Task "Where?" answered by')).to be(true)
+
+      # Edit task
+      expect(@driver.page_source.include?('Task "Where?" edited to "Where was it?" by')).to be(false)
+      @driver.find_element(:css, '.task__actions svg').click
+      @driver.find_elements(:css, '.media-actions__menu--active span').first.click
+      update_field('textarea[name="label"]', 'Where was it?')
+      @driver.find_element(:css, '.task__save').click
+      sleep 2
+      expect(@driver.page_source.include?('Task "Where?" edited to "Where was it?" by')).to be(true)
+
+      # Edit task answer
+      expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Task "Where was it?" answered by User With Email: "Vancouver"')).to be(false)
+      @driver.find_element(:css, '#task__edit-response-button').click
+      update_field('textarea[name="response"]', 'Vancouver')
+      update_field('textarea[name="coordinates"]', '49.2577142, -123.1941156')
+      @driver.action.send_keys(:enter).perform
+      sleep 2
+      expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Task "Where was it?" answered by User With Email: "Vancouver"')).to be(true)
+
+      # Delete task
+      expect(@driver.page_source.include?('Where was it')).to be(true)
+      @driver.find_element(:css, '.task__actions svg').click
+      @driver.find_elements(:css, '.media-actions__menu--active span').last.click
+      @driver.switch_to.alert.accept
+      sleep 3
+      expect(@driver.page_source.include?('Where was it')).to be(false)
+    end
   end
 end

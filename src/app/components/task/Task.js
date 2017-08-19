@@ -20,6 +20,8 @@ import MdRadioButtonUnchecked from 'react-icons/lib/md/radio-button-unchecked';
 import Tooltip from 'rc-tooltip';
 import 'rc-tooltip/assets/bootstrap.css';
 import ParsedText from '../ParsedText';
+import GeolocationRespondTask from './GeolocationRespondTask';
+import GeolocationTaskResponse from './GeolocationTaskResponse';
 
 const messages = defineMessages({
   confirmDelete: {
@@ -120,7 +122,9 @@ class Task extends Component {
 
     const fields = {};
     fields[`response_${task.type}`] = response;
-    fields[`note_${task.type}`] = note || '';
+    if (note != false) {
+      fields[`note_${task.type}`] = note || '';
+    }
     fields[`task_${task.type}`] = task.dbid;
 
     Relay.Store.commitUpdate(
@@ -179,14 +183,18 @@ class Task extends Component {
       that.setState({ message: null, editing: false });
     };
 
+    let taskObj = {
+      id: task.id,
+      label: form.label.value
+    };
+    if (form.description) {
+      taskObj.description = form.description.value;
+    }
+
     Relay.Store.commitUpdate(
       new UpdateTaskMutation({
         annotated: that.props.media,
-        task: {
-          id: task.id,
-          label: form.label.value,
-          description: form.description.value,
-        },
+        task: taskObj
       }),
       { onSuccess, onFailure },
     );
@@ -290,7 +298,9 @@ class Task extends Component {
 
     const fields = {};
     fields[`response_${task.type}`] = edited_response;
-    fields[`note_${task.type}`] = edited_note;
+    if (edited_note != false) {
+      fields[`note_${task.type}`] = edited_note;
+    }
 
     Relay.Store.commitUpdate(
       new UpdateDynamicMutation({
@@ -417,6 +427,7 @@ class Task extends Component {
                 </label>
 
                 <div className='task__response-inputs'>
+                  { task.type === 'geolocation' ? <GeolocationRespondTask onSubmit={this.handleSubmitWithArgs.bind(this)} /> : null }
                   { task.type === 'single_choice' ? <SingleChoiceTask mode="respond" response={response} note={note} jsonoptions={task.jsonoptions} onSubmit={this.handleSubmitWithArgs.bind(this)}/> : null }
                   { task.type === 'multiple_choice' ? <MultiSelectTask mode="respond" jsonresponse={response} note={note} jsonoptions={task.jsonoptions} onSubmit={this.handleSubmitWithArgs.bind(this)}/> : null }
                   { task.type === 'free_text' ? [<TextField
@@ -447,7 +458,7 @@ class Task extends Component {
               <div className="task__editing">
                 <form onSubmit={this.handleSubmitUpdate.bind(this)} name={`edit-response-${task.first_response.id}`}>
                   {taskQuestion}
-
+                  { task.type === 'geolocation' ? <GeolocationRespondTask response={response} onSubmit={this.handleSubmitUpdateWithArgs.bind(this)} onDismiss={this.handleCancelEditResponse.bind(this)} /> : null }
                   { task.type === 'single_choice' ? <SingleChoiceTask mode="edit_response" response={response} note={note} jsonoptions={task.jsonoptions} onDismiss={this.handleCancelEditResponse.bind(this)} onSubmit={this.handleSubmitUpdateWithArgs.bind(this)} /> : null }
                   { task.type === 'multiple_choice' ? <MultiSelectTask mode="edit_response" jsonresponse={response} note={note} jsonoptions={task.jsonoptions} onDismiss={this.handleCancelEditResponse.bind(this)} onSubmit={this.handleSubmitUpdateWithArgs.bind(this)} /> : null }
                   { task.type === 'free_text' ? [<TextField
@@ -476,6 +487,7 @@ class Task extends Component {
               <div className="task__resolved">
                 {taskQuestion}
                 { task.type === 'free_text' ? <p className="task__response"><ParsedText text={response} /></p> : null }
+                { task.type === 'geolocation' ? <p className="task__response"><GeolocationTaskResponse response={response} /></p> : null }
                 { task.type === 'single_choice' ? <SingleChoiceTask mode="show_response" response={response} note={note} jsonoptions={task.jsonoptions} /> : null }
                 { task.type === 'multiple_choice' ? <MultiSelectTask mode="show_response" jsonresponse={response} note={note} jsonoptions={task.jsonoptions} /> : null }
                 <p style={{ display: note ? 'block' : 'none' }} className="task__note"><ParsedText text={note} /></p>
@@ -500,13 +512,14 @@ class Task extends Component {
               fullWidth
               multiLine
             />
+            { task.type === 'geolocation' ? null : 
             <TextField
               name="description"
               floatingLabelText={<FormattedMessage id="tasks.description" defaultMessage="Description" />}
               defaultValue={task.description}
               fullWidth
               multiLine
-            />
+            /> }
           </form>
         </Dialog>
       </div>
