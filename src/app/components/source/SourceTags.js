@@ -44,28 +44,24 @@ class SourceTags extends React.Component {
   }
 
   renderTagsEdit(){
-    const clearInput = () => {
-      document.getElementById('sourceTagInput').value = "";
-      this.setState({ searchText: '' });
-    };
-
     const selectCallback = (tag) => {
-      this.setState({ searchText: '' });
-      clearInput();
       this.props.onSelect(tag);
+
+      setTimeout(() => {
+        this.refs['autocomplete'].setState({ searchText: '' });
+      }, 500);
     };
 
     return <div>
         <AutoComplete
           id="sourceTagInput"
-          searchText={this.state.searchText}
+          errorText={this.props.errorText}
           filter={AutoComplete.caseInsensitiveFilter}
           floatingLabelText={this.props.intl.formatMessage(globalStrings.tags)}
           dataSource={this.props.options}
           openOnFocus={true}
-          onFocus={clearInput}
           onNewRequest={selectCallback}
-          ref={(input) => { this.textInput = input; }}
+          ref={'autocomplete'}
           fullWidth
           textFieldStyle={{ width: '85%' }}
         />
