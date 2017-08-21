@@ -1,8 +1,15 @@
 import React from 'react';
-import { injectIntl } from 'react-intl';
+import { injectIntl, defineMessages } from 'react-intl';
 import AutoComplete from 'material-ui/AutoComplete';
 import Chip from 'material-ui/Chip';
 import globalStrings from '../../globalStrings';
+
+const messages = defineMessages({
+  addTagHelper: {
+    id: 'sourceTags.addTagHelper',
+    defaultMessage: 'Create a tag or choose from existing',
+  },
+});
 
 class SourceTags extends React.Component {
   constructor(props) {
@@ -37,29 +44,30 @@ class SourceTags extends React.Component {
   }
 
   renderTagsEdit(){
-    const clearInput = () => {
-      document.getElementById('sourceTagInput').value = "";
-      this.setState({ searchText: '' });
-    };
-
     const selectCallback = (tag) => {
-      this.setState({ searchText: '' });
-      clearInput();
       this.props.onSelect(tag);
+
+      setTimeout(() => {
+        this.refs['autocomplete'].setState({ searchText: '' });
+      }, 500);
     };
 
     return <div>
         <AutoComplete
           id="sourceTagInput"
-          searchText={this.state.searchText}
+          errorText={this.props.errorText}
           filter={AutoComplete.caseInsensitiveFilter}
           floatingLabelText={this.props.intl.formatMessage(globalStrings.tags)}
           dataSource={this.props.options}
-          onFocus={clearInput}
+          openOnFocus={true}
           onNewRequest={selectCallback}
-          ref={(input) => { this.textInput = input; }}
+          ref={'autocomplete'}
           fullWidth
+          textFieldStyle={{ width: '85%' }}
         />
+        <div className="source__helper">
+          {this.props.intl.formatMessage(messages.addTagHelper)}
+        </div>
       {this.renderTags()}
     </div>;
   }

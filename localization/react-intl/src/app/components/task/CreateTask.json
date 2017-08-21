@@ -28,6 +28,10 @@
     "defaultMessage": "Choose multiple"
   },
   {
+    "id": "tasks.geolocation",
+    "defaultMessage": "Location"
+  },
+  {
     "id": "tasks.taskLabel",
     "defaultMessage": "Prompt"
   },

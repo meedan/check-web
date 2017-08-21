@@ -466,7 +466,7 @@ class SearchResultsComponent extends Component {
 
   mergeResults(medias, sources) {
     const query = searchQueryFromUrl();
-    const comparisonField = (query.sort !== 'recent_added') ?
+    const comparisonField = (query.sort === 'recent_activity') ?
       function (o) { return o.node.updated_at; } :
       function (o) { return o.node.published; };
 

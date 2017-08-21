@@ -19,6 +19,7 @@ import MdCancel from 'react-icons/lib/md/cancel';
 import MdShortText from 'react-icons/lib/md/short-text';
 import MdRadioButtonChecked from 'react-icons/lib/md/radio-button-checked';
 import MdCheckBox from 'react-icons/lib/md/check-box';
+import MdLocationOn from 'react-icons/lib/md/location-on';
 
 const messages = defineMessages({
   newTask: {
@@ -136,7 +137,7 @@ class CreateTask extends Component {
   handleLabelChange(e) {
     this.setState({ label: e.target.value });
 
-    if (this.state.type === 'free_text') {
+    if (this.state.type === 'free_text' || this.state.type === 'geolocation') {
       this.validateShortText(e.target.value);
     }
   }
@@ -185,19 +186,22 @@ class CreateTask extends Component {
             <MenuItem className="create-task__add-short-answer" onClick={this.handleOpenDialog.bind(this, 'free_text')} leftIcon={<MdShortText />} primaryText={<FormattedMessage id="tasks.shortAnswer" defaultMessage="Short answer" />} />
             <MenuItem className="create-task__add-choose-one" onClick={this.handleOpenDialog.bind(this, 'single_choice')} leftIcon={<MdRadioButtonChecked />} primaryText={<FormattedMessage id="tasks.chooseOne" defaultMessage="Choose one" />} />
             <MenuItem className="create-task__add-choose-multiple" onClick={this.handleOpenDialog.bind(this, 'multiple_choice')} leftIcon={<MdCheckBox/>} primaryText={<FormattedMessage id="tasks.chooseMultiple" defaultMessage="Choose multiple" />} />
+            <MenuItem className="create-task__add-geolocation" onClick={this.handleOpenDialog.bind(this, 'geolocation')} leftIcon={<MdLocationOn />} primaryText={<FormattedMessage id="tasks.geolocation" defaultMessage="Location" />} />
           </Menu>
         </Popover>
 
-        <Dialog title={this.props.intl.formatMessage(messages.newTask)} className="create-task__dialog" actionsContainerClassName="create-task__action-container" actions={actions} modal={false} open={this.state.dialogOpen && (this.state.type === 'free_text')} onRequestClose={this.handleCloseDialog.bind(this)} contentStyle={{width: '608px'}}>
+        <Dialog title={this.props.intl.formatMessage(messages.newTask)} className="create-task__dialog" actionsContainerClassName="create-task__action-container" actions={actions} modal={false} open={this.state.dialogOpen && (this.state.type === 'free_text' || this.state.type === 'geolocation')} onRequestClose={this.handleCloseDialog.bind(this)} contentStyle={{width: '608px'}}>
           <Message message={this.state.message} />
 
-          {this.state.type === 'free_text' ? <TextField id="task-label-input" className="create-task__task-label-input" floatingLabelText={<FormattedMessage id="tasks.taskLabel" defaultMessage="Prompt" />} onChange={this.handleLabelChange.bind(this)} multiLine /> : null}
+          {(this.state.type === 'free_text' || this.state.type === 'geolocation') ? <TextField id="task-label-input" className="create-task__task-label-input" floatingLabelText={<FormattedMessage id="tasks.taskLabel" defaultMessage="Prompt" />} onChange={this.handleLabelChange.bind(this)} multiLine /> : null}
 
-          <input className="create-task__add-task-description" id="create-task__add-task-description" type="checkbox" />
-          <TextField id="task-description-input" className="create-task__task-description-input" floatingLabelText={<FormattedMessage id="tasks.description" defaultMessage="Description" />} onChange={this.handleDescriptionChange.bind(this)} multiLine />
-          <label className="create-task__add-task-description-label" htmlFor="create-task__add-task-description">
-            <span className="create-task__add-task-description-icon">+</span> <FormattedMessage id="tasks.addDescription" defaultMessage="Add a description" />
-          </label>
+          {this.state.type === 'free_text' ? <span>
+            <input className="create-task__add-task-description" id="create-task__add-task-description" type="checkbox" />
+            <TextField id="task-description-input" className="create-task__task-description-input" floatingLabelText={<FormattedMessage id="tasks.description" defaultMessage="Description" />} onChange={this.handleDescriptionChange.bind(this)} multiLine />
+            <label className="create-task__add-task-description-label" htmlFor="create-task__add-task-description">
+              <span className="create-task__add-task-description-icon">+</span> <FormattedMessage id="tasks.addDescription" defaultMessage="Add a description" />
+            </label>
+          </span> : null }
         </Dialog>
 
         { this.renderDialog() }

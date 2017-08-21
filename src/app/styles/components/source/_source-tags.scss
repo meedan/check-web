@@ -1,10 +1,11 @@
 .source-tags__tags {
-  display: flex;
+  display: inline;
   flex-wrap: wrap;
 }
 
 .source-tags__tag {
-  margin: units(0.5) !important;
+  display: inline-flex !important;
+  margin: units(0.5) units(1) units(0.5) 0 !important;
   span {
     color: $black-54 !important;
   }

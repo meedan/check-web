@@ -58,6 +58,14 @@ const messages = defineMessages({
     id: 'sourceComponent.editError',
     defaultMessage: 'Sorry, could not edit the source',
   },
+  createTagError: {
+    id: 'sourceComponent.createTagError',
+    defaultMessage: 'Failed to create tag',
+  },
+  selectLanguageError: {
+    id: 'sourceComponent.selectLanguageError',
+    defaultMessage: 'Please select a language from the list',
+  },
   editSuccess: {
     id: 'sourceComponent.editSuccess',
     defaultMessage: 'Source information updated successfully!',
@@ -113,6 +121,10 @@ const messages = defineMessages({
   addLink: {
     id: 'sourceComponent.addLink',
     defaultMessage: 'Add a link',
+  },
+  addLinkHelper: {
+    id: 'sourceComponent.addLinkHelper',
+    defaultMessage: 'Add a link to a web page or social media profile',
   },
   other: {
     id: 'sourceComponent.other',
@@ -262,6 +274,8 @@ class SourceComponent extends Component {
       addingLanguages: false,
       editProfileImg: false,
       message: null,
+      tagErrorMessage: null,
+      languageErrorMessage: null,
       submitDisabled: false,
       links: [],
       deleteLinks: [],
@@ -333,10 +347,11 @@ class SourceComponent extends Component {
     this.setState({ pendingMutations });
   };
 
-  createDynamicAnnotation(that, annotated, annotated_id, annotated_type, value) {
-    const onFailure = (transaction) => { that.fail(transaction); };
-    const onSuccess = (response) => { that.success(response, 'createMetadata'); };
-    const annotator = that.getContext().currentUser;
+  createDynamicAnnotation(annotated, annotated_id, annotated_type, value) {
+    const onFailure = (transaction) => { this.fail(transaction); };
+    const onSuccess = (response) => { this.success(response, 'createMetadata'); };
+    const context = this.getContext();
+    const annotator = context.currentUser;
     const fields = {};
     fields.metadata_value = JSON.stringify(value);
 
@@ -347,7 +362,7 @@ class SourceComponent extends Component {
         parent_type: annotated_type.replace(/([a-z])([A-Z])/, '$1_$2').toLowerCase(),
         annotator,
         annotated,
-        context: that.getContext(),
+        context,
         annotation: {
           fields,
           annotation_type: 'metadata',
@@ -359,9 +374,9 @@ class SourceComponent extends Component {
     );
   }
 
-  updateDynamicAnnotation(that, annotated, annotation_id, value) {
-    const onFailure = (transaction) => { that.fail(transaction); };
-    const onSuccess = (response) => { that.success(response, 'updateMetadata'); };
+  updateDynamicAnnotation(annotated, annotation_id, value) {
+    const onFailure = (transaction) => { this.fail(transaction); };
+    const onSuccess = (response) => { this.success(response, 'updateMetadata'); };
     const fields = {};
     fields.metadata_value = JSON.stringify(value);
 
@@ -380,13 +395,24 @@ class SourceComponent extends Component {
   }
 
   createTag(tagString) {
-    const that = this;
     const { source } = this.props;
     const context = new CheckContext(this).getContextStore();
 
-    const onFailure = (transaction) => { that.fail(transaction); };
-    const onSuccess = (response) => { that.setState({ message: null } );
+    const onFailure = (transaction) => {
+      const error = transaction.getError();
+      let tagErrorMessage = this.props.intl.formatMessage(messages.createTagError);
+
+      try {
+        const json = JSON.parse(error.source);
+        if (json.error) {
+          tagErrorMessage = json.error;
+        }
+      } catch (e) { }
+
+      this.setState({ tagErrorMessage, hasFailure: true, submitDisabled: false });
     };
+
+    const onSuccess = (response) => { this.setState({ tagErrorMessage: null }); };
 
     let tagsList = [...new Set(tagString.split(','))];
 
@@ -409,9 +435,8 @@ class SourceComponent extends Component {
   }
 
   deleteTag(tagId) {
-    const that = this;
-    const { source } = that.props;
-    const onFailure = (transaction) => { that.fail(transaction); };
+    const { source } = this.props;
+    const onFailure = (transaction) => { this.fail(transaction); };
     const onSuccess = (response) => {};
 
     Relay.Store.commitUpdate(
@@ -426,9 +451,8 @@ class SourceComponent extends Component {
 
   createAccountSource(url) {
     const source = this.getSource();
-    const that = this;
-    const onFailure = (transaction) => { that.fail(transaction); };
-    const onSuccess = (response) => { that.success(response, 'createAccount'); };
+    const onFailure = (transaction) => { this.fail(transaction); };
+    const onSuccess = (response) => { this.success(response, 'createAccount'); };
 
     if (!url) { return; }
 
@@ -445,10 +469,9 @@ class SourceComponent extends Component {
   }
 
   deleteAccountSource(asId) {
-    const that = this;
     const source = this.getSource();
-    const onFailure = (transaction) => { that.fail(transaction); };
-    const onSuccess = (response) => { that.success(response, 'deleteAccount'); };
+    const onFailure = (transaction) => { this.fail(transaction); };
+    const onSuccess = (response) => { this.success(response, 'deleteAccount'); };
 
     this.registerPendingMutation('deleteAccount');
 
@@ -487,19 +510,30 @@ class SourceComponent extends Component {
     }
 
     if (metadataAnnotation) {
-      this.updateDynamicAnnotation(this, source, metadataAnnotation.id, metadata);
+      this.updateDynamicAnnotation(source, metadataAnnotation.id, metadata);
     } else {
-      this.createDynamicAnnotation(this, source, source.dbid, 'Source', metadata);
+      this.createDynamicAnnotation(source, source.dbid, 'Source', metadata);
     }
 
     return true;
   }
 
   updateSource() {
-    const that = this;
     const source = this.getSource();
-    const onFailure = (transaction) => { that.fail(transaction); };
-    const onSuccess = (response) => { that.success(response, 'updateSource'); };
+    const onFailure = (transaction) => {
+      const error = transaction.getError();
+      let message = this.props.intl.formatMessage(messages.editError);
+
+      try {
+        const json = JSON.parse(error.source);
+        if (json.error) {
+          message = json.error;
+        }
+      } catch (e) { }
+
+      this.setState({ message, hasFailure: true, submitDisabled: false });
+    };
+    const onSuccess = (response) => { this.success(response, 'updateSource'); };
     const form = document.forms['edit-source-form'];
 
     if (source.name === form.name.value && source.description === form.description.value && !form.image ) {
@@ -582,6 +616,9 @@ class SourceComponent extends Component {
             style={{ width: '85%' }}
           />
           <MdCancel className="create-task__remove-option-button create-task__md-icon" onClick={() => this.handleRemoveNewLink(index)} />
+          <div className="source__helper">
+            {this.props.intl.formatMessage(messages.addLinkHelper)}
+          </div>
         </div>)
       }
     </div>
@@ -699,10 +736,29 @@ class SourceComponent extends Component {
     if (!this.isProjectSource()) { return; }
 
     const createLanguageAnnotation = (value) => {
-      const that = this;
-      const onFailure = (transaction) => { that.fail(transaction); };
-      const onSuccess = (response) => { that.setState({ message: null }) };
-      const annotator = that.getContext().currentUser;
+      if (!value) {
+        this.setState({ languageErrorMessage: this.props.intl.formatMessage(messages.selectLanguageError) });
+        return;
+      }
+
+      const onFailure = (transaction) => {
+        const error = transaction.getError();
+        let languageErrorMessage = this.props.intl.formatMessage(messages.createTagError);
+
+        try {
+          const json = JSON.parse(error.source);
+          if (json.error) {
+            languageErrorMessage = json.error;
+          }
+        } catch (e) { }
+
+        this.setState({ languageErrorMessage, hasFailure: true, submitDisabled: false });
+      };
+
+      const onSuccess = (response) => { this.setState({ languageErrorMessage: null }) };
+      const context = this.getContext();
+      const annotator = context.currentUser;
+      const project_source = this.props.source;
       const fields = {};
       fields.language = value;
 
@@ -710,13 +766,13 @@ class SourceComponent extends Component {
         new CreateDynamicMutation({
           parent_type: 'project_source',
           annotator,
-          annotated: that.props.source,
-          context: that.getContext(),
+          annotated: project_source,
+          context,
           annotation: {
             fields,
             annotation_type: 'language',
             annotated_type: 'ProjectSource',
-            annotated_id: that.props.source.dbid,
+            annotated_id: project_source.dbid,
           },
         }),
         { onSuccess, onFailure },
@@ -724,9 +780,8 @@ class SourceComponent extends Component {
     };
 
     const deleteLanguageAnnotation = (id) => {
-      const that = this;
-      const { source } = that.props;
-      const onFailure = (transaction) => { that.fail(transaction); };
+      const { source } = this.props;
+      const onFailure = (transaction) => { this.fail(transaction); };
       const onSuccess = (response) => {};
 
       Relay.Store.commitUpdate(
@@ -748,6 +803,7 @@ class SourceComponent extends Component {
 
     return (
       <SourceLanguages
+        errorText={this.state.languageErrorMessage}
         usedLanguages={languages}
         projectLanguages={this.props.source.project.get_languages}
         onDelete={deleteLanguageAnnotation}
@@ -774,6 +830,7 @@ class SourceComponent extends Component {
 
     return (
       <SourceTags
+          errorText={this.state.tagErrorMessage}
           tags={tags}
           options={availableTags}
           onDelete={this.deleteTag.bind(this)}
@@ -886,7 +943,7 @@ class SourceComponent extends Component {
                 id="source__name-container"
                 defaultValue={source.name}
                 floatingLabelText={this.props.intl.formatMessage(messages.sourceName)}
-                fullWidth
+                style={{ width: '85%' }}
               />
               <TextField
                 className="source__bio-input"
@@ -896,7 +953,7 @@ class SourceComponent extends Component {
                 floatingLabelText={this.props.intl.formatMessage(messages.sourceBio)}
                 multiLine={true}
                 rowsMax={4}
-                fullWidth
+                style={{ width: '85%' }}
               />
 
               { this.renderAccountsEdit() }
