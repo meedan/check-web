@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import MdCreate from 'react-icons/lib/md/create';
 import RaisedButton from 'material-ui/RaisedButton';
-import { Card, CardActions } from 'material-ui/Card';
+import { Card } from 'material-ui/Card';
 import { List } from 'material-ui/List';
 import TeamInviteCard from './TeamInviteCard';
 import PageTitle from '../PageTitle';
@@ -10,8 +10,9 @@ import TeamMembersListItem from './TeamMembersListItem';
 import ContentColumn from '../layout/ContentColumn';
 import {
   cardInCardGroupStyle,
-  listItemStyle,
   StyledMdCardTitle,
+  FlexRow,
+  units,
 } from '../../styles/js/variables';
 
 const messages = defineMessages({
@@ -92,8 +93,21 @@ class TeamMembersComponent extends Component {
           })()}
 
           <Card>
-            <StyledMdCardTitle title={<FormattedMessage id="teamMembersComponent.mainHeading" defaultMessage="Members" />} />
-
+            <FlexRow>
+              <StyledMdCardTitle title={<FormattedMessage id="teamMembersComponent.mainHeading" defaultMessage="Members" />} />
+              <RaisedButton
+                style={{ marginLeft: 'auto', marginRight: units(2) }}
+                onClick={this.handleEditMembers.bind(this)}
+                className="team-members__edit-button"
+                icon={<MdCreate className="team-members__edit-icon" />}
+                label={isEditing
+                    ? <FormattedMessage
+                      id="teamMembersComponent.editDoneButton"
+                      defaultMessage="Done"
+                    />
+                    : <FormattedMessage id="teamMembersComponent.editButton" defaultMessage="Edit" />}
+              />
+            </FlexRow>
             <List className="team-members__list">
               {(() =>
                 teamUsersMembers.map(teamUser =>
@@ -105,20 +119,6 @@ class TeamMembersComponent extends Component {
                   />,
                 ))()}
             </List>
-            <CardActions style={listItemStyle} >
-              <RaisedButton
-                style={{ marginLeft: 'auto' }}
-                onClick={this.handleEditMembers.bind(this)}
-                className="team-members__edit-button"
-                icon={<MdCreate className="team-members__edit-icon" />}
-                label={isEditing
-                  ? <FormattedMessage
-                    id="teamMembersComponent.editDoneButton"
-                    defaultMessage="Done"
-                  />
-                  : <FormattedMessage id="teamMembersComponent.editButton" defaultMessage="Edit" />}
-              />
-            </CardActions>
           </Card>
         </ContentColumn>
       </PageTitle>
