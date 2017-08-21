@@ -46,7 +46,7 @@ import DeleteTagMutation from '../../relay/DeleteTagMutation';
 import CreateAccountSourceMutation from '../../relay/mutation/CreateAccountSourceMutation';
 import DeleteAccountSourceMutation from '../../relay/mutation/DeleteAccountSourceMutation';
 import UpdateSourceMutation from '../../relay/UpdateSourceMutation';
-import UpdateProjectSourceMutation from '../../relay/UpdateProjectSourceMutation';
+import UpdateProjectSourceMutation from '../../relay/mutation/UpdateProjectSourceMutation';
 import Pusher from 'pusher-js';
 import deepEqual from 'deep-equal';
 import capitalize from 'lodash.capitalize';
