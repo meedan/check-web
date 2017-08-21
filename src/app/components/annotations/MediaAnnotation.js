@@ -236,6 +236,16 @@ class Annotation extends Component {
             if (response_obj.other) { selected_array.push(response_obj.other) }
             const last_item = selected_array.length > 1 ? ' ' + this.props.intl.formatMessage(messages.and) + ' ' + selected_array.splice(-1, 1) : '';
             return (selected_array.join(', ') + last_item);
+          } else if (type === 'geolocation') {
+            const geojson = JSON.parse(object.value);
+            const coordinates = geojson.geometry.coordinates;
+            const name = geojson.properties.name;
+            if (coordinates[0] != 0 || coordinates[1] != 0) {
+              return (<a style={{ textDecoration: 'underline' }} href={`https://www.openstreetmap.org/#map=9/${coordinates[0]}/${coordinates[1]}`} target="_blank" rel="noreferrer noopener">{name}</a>);
+            }
+            else {
+              return name;
+            }
           } else {
             return (<ParsedText text={object.value} />);
           }

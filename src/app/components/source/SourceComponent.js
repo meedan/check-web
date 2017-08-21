@@ -48,6 +48,8 @@ import DeleteAccountSourceMutation from '../../relay/mutation/DeleteAccountSourc
 import UpdateSourceMutation from '../../relay/UpdateSourceMutation';
 import UpdateProjectSourceMutation from '../../relay/UpdateProjectSourceMutation';
 import Pusher from 'pusher-js';
+import deepEqual from 'deep-equal';
+import capitalize from 'lodash.capitalize';
 
 const messages = defineMessages({
   addInfo: {
@@ -57,6 +59,14 @@ const messages = defineMessages({
   editError: {
     id: 'sourceComponent.editError',
     defaultMessage: 'Sorry, could not edit the source',
+  },
+  createTagError: {
+    id: 'sourceComponent.createTagError',
+    defaultMessage: 'Failed to create tag',
+  },
+  selectLanguageError: {
+    id: 'sourceComponent.selectLanguageError',
+    defaultMessage: 'Please select a language from the list',
   },
   editSuccess: {
     id: 'sourceComponent.editSuccess',
@@ -109,6 +119,14 @@ const messages = defineMessages({
   link: {
     id: 'sourceComponent.link',
     defaultMessage: 'Link',
+  },
+  addLink: {
+    id: 'sourceComponent.addLink',
+    defaultMessage: 'Add a link',
+  },
+  addLinkHelper: {
+    id: 'sourceComponent.addLinkHelper',
+    defaultMessage: 'Add a link to a web page or social media profile',
   },
   other: {
     id: 'sourceComponent.other',
@@ -274,19 +292,26 @@ class SourceComponent extends Component {
   };
 
   handleEnterEditMode(e) {
-    this.setState({ isEditing: true });
+    this.setState({
+      isEditing: true,
+      addingTags: false,
+      addingLanguages: false,
+      editProfileImg: false,
+      message: null,
+      tagErrorMessage: null,
+      languageErrorMessage: null,
+      submitDisabled: false,
+      links: [],
+      deleteLinks: [],
+    });
     e.preventDefault();
   }
 
   handleLeaveEditMode() {
     this.setState({
-      addingTags: false,
-      addingLanguages: false,
       isEditing: false,
-      editProfileImg: false,
+      message: null,
       metadata: this.getMetadataFields(),
-      links: [],
-      deleteLinks: []
     });
     this.onClear();
   }
@@ -298,12 +323,16 @@ class SourceComponent extends Component {
   }
 
   handleSubmit(e) {
-    if (!this.state.submitDisabled) {
-      this.updateSource();
-      this.updateLinks();
-      this.updateMetadata();
-    }
     e.preventDefault();
+
+    if (!this.state.submitDisabled) {
+      const updateSourceSent = this.updateSource();
+      const updateLinksSent = this.updateLinks();
+      const updateMetadataSent = this.updateMetadata();
+      const isEditing = updateSourceSent || updateLinksSent || updateMetadataSent;
+
+      this.setState({ isEditing, submitDisabled: true, hasFailure: false, message: null });
+    }
   }
 
   handleSelectTag = (chosenRequest, index) => {
@@ -319,26 +348,45 @@ class SourceComponent extends Component {
         message = json.error;
       }
     } catch (e) { }
-    this.setState({ message, submitDisabled: false });
+    this.setState({ message, hasFailure: true, submitDisabled: false });
   };
 
-  success = (response) => {
-    this.setState({ message: null, isEditing: false, submitDisabled: false, links: [] });
+  success = (response, mutation) => {
+
+    const manageEditingState = () => {
+      const submitDisabled = this.state.pendingMutations.length > 0;
+      const isEditing = ( submitDisabled || this.state.hasFailure);
+      const message = isEditing  ? this.state.message : null;
+
+      this.setState({ isEditing, submitDisabled, message });
+    };
+
+    const pendingMutations = this.state.pendingMutations ? this.state.pendingMutations.slice(0) : [];
+    this.setState({ pendingMutations: pendingMutations.filter((m) => m !== mutation) }, manageEditingState);
   };
 
-  createDynamicAnnotation(that, annotated, annotated_id, annotated_type, value) {
-    const onFailure = (transaction) => { that.fail(transaction); };
-    const onSuccess = (response) => { that.success(); };
-    const annotator = that.getContext().currentUser;
+  registerPendingMutation = (mutation) => {
+    const pendingMutations = this.state.pendingMutations ? this.state.pendingMutations.slice(0) : [];
+    pendingMutations.push(mutation);
+    this.setState({ pendingMutations });
+  };
+
+  createDynamicAnnotation(annotated, annotated_id, annotated_type, value) {
+    const onFailure = (transaction) => { this.fail(transaction); };
+    const onSuccess = (response) => { this.success(response, 'createMetadata'); };
+    const context = this.getContext();
+    const annotator = context.currentUser;
     const fields = {};
     fields.metadata_value = JSON.stringify(value);
+
+    this.registerPendingMutation('createMetadata');
 
     Relay.Store.commitUpdate(
       new CreateDynamicMutation({
         parent_type: annotated_type.replace(/([a-z])([A-Z])/, '$1_$2').toLowerCase(),
         annotator,
         annotated,
-        context: that.getContext(),
+        context,
         annotation: {
           fields,
           annotation_type: 'metadata',
@@ -348,15 +396,15 @@ class SourceComponent extends Component {
       }),
       { onSuccess, onFailure },
     );
-
-    this.setState({ submitDisabled: true });
   }
 
-  updateDynamicAnnotation(that, annotated, annotation_id, value) {
-    const onFailure = (transaction) => { that.fail(transaction); };
-    const onSuccess = (response) => { that.success(); };
+  updateDynamicAnnotation(annotated, annotation_id, value) {
+    const onFailure = (transaction) => { this.fail(transaction); };
+    const onSuccess = (response) => { this.success(response, 'updateMetadata'); };
     const fields = {};
     fields.metadata_value = JSON.stringify(value);
+
+    this.registerPendingMutation('updateMetadata');
 
     Relay.Store.commitUpdate(
       new UpdateDynamicMutation({
@@ -368,39 +416,51 @@ class SourceComponent extends Component {
       }),
       { onSuccess, onFailure },
     );
-
-    this.setState({ submitDisabled: true });
   }
 
   createTag(tagString) {
-    const that = this;
     const { source } = this.props;
     const context = new CheckContext(this).getContextStore();
 
-    const onFailure = (transaction) => { that.fail(transaction); };
-    const onSuccess = (response) => { that.setState({ message: null } );
+    const onFailure = (transaction) => {
+      const error = transaction.getError();
+      let tagErrorMessage = this.props.intl.formatMessage(messages.createTagError);
+
+      try {
+        const json = JSON.parse(error.source);
+        if (json.error) {
+          tagErrorMessage = json.error;
+        }
+      } catch (e) { }
+
+      this.setState({ tagErrorMessage, hasFailure: true, submitDisabled: false });
     };
 
-    Relay.Store.commitUpdate(
-      new CreateTagMutation({
-        annotated: source,
-        annotator: context.currentUser,
-        parent_type: 'project_source',
-        context,
-        annotation: {
-          tag: tagString.trim(),
-          annotated_type: 'ProjectSource',
-          annotated_id: source.dbid,
-        },
-      }),
-      { onSuccess, onFailure },
-    );
+    const onSuccess = (response) => { this.setState({ tagErrorMessage: null }); };
+
+    let tagsList = [...new Set(tagString.split(','))];
+
+    tagsList.forEach((tag) => {
+      Relay.Store.commitUpdate(
+        new CreateTagMutation({
+          annotated: source,
+          annotator: context.currentUser,
+          parent_type: 'project_source',
+          context,
+          annotation: {
+            tag: tag.trim(),
+            annotated_type: 'ProjectSource',
+            annotated_id: source.dbid,
+          },
+        }),
+        { onSuccess, onFailure },
+      );
+    });
   }
 
   deleteTag(tagId) {
-    const that = this;
-    const { source } = that.props;
-    const onFailure = (transaction) => { that.fail(transaction); };
+    const { source } = this.props;
+    const onFailure = (transaction) => { this.fail(transaction); };
     const onSuccess = (response) => {};
 
     Relay.Store.commitUpdate(
@@ -415,11 +475,12 @@ class SourceComponent extends Component {
 
   createAccountSource(url) {
     const source = this.getSource();
-    const that = this;
-    const onFailure = (transaction) => { that.fail(transaction); };
-    const onSuccess = (response) => { that.success(); };
+    const onFailure = (transaction) => { this.fail(transaction); };
+    const onSuccess = (response) => { this.success(response, 'createAccount'); };
 
     if (!url) { return; }
+
+    this.registerPendingMutation('createAccount');
 
     Relay.Store.commitUpdate(
       new CreateAccountSourceMutation({
@@ -432,10 +493,11 @@ class SourceComponent extends Component {
   }
 
   deleteAccountSource(asId) {
-    const that = this;
     const source = this.getSource();
-    const onFailure = (transaction) => { that.fail(transaction); };
-    const onSuccess = (response) => {};
+    const onFailure = (transaction) => { this.fail(transaction); };
+    const onSuccess = (response) => { this.success(response, 'deleteAccount'); };
+
+    this.registerPendingMutation('deleteAccount');
 
     Relay.Store.commitUpdate(
       new DeleteAccountSourceMutation({
@@ -447,10 +509,19 @@ class SourceComponent extends Component {
   }
 
   updateLinks() {
-    const links = this.state.links ? this.state.links.slice(0) : [];
+    let links = this.state.links ? this.state.links.slice(0) : [];
+    links = links.filter((link) => !!link);
+
     const deleteLinks = this.state.deleteLinks ? this.state.deleteLinks.slice(0) : [];
+
+    if (!links.length && !deleteLinks.length){
+      return false;
+    }
+
     links.forEach((url) => { this.createAccountSource(url) });
     deleteLinks.forEach((id) => { this.deleteAccountSource(id) });
+
+    return true;
   }
 
   updateMetadata() {
@@ -458,19 +529,42 @@ class SourceComponent extends Component {
     const metadata = this.state.metadata ? Object.assign({}, this.state.metadata) : {};
     const metadataAnnotation = this.getMetadataAnnotation();
 
-    if (metadataAnnotation) {
-      this.updateDynamicAnnotation(this, source, metadataAnnotation.id, metadata);
-    } else {
-      this.createDynamicAnnotation(this, source, source.dbid, 'Source', metadata);
+    if (deepEqual(metadata, this.getMetadataFields())) {
+      return false;
     }
+
+    if (metadataAnnotation) {
+      this.updateDynamicAnnotation(source, metadataAnnotation.id, metadata);
+    } else {
+      this.createDynamicAnnotation(source, source.dbid, 'Source', metadata);
+    }
+
+    return true;
   }
 
   updateSource() {
-    const that = this;
     const source = this.getSource();
-    const onFailure = (transaction) => { that.fail(transaction); };
-    const onSuccess = (response) => { that.success(); };
+    const onFailure = (transaction) => {
+      const error = transaction.getError();
+      let message = this.props.intl.formatMessage(messages.editError);
+
+      try {
+        const json = JSON.parse(error.source);
+        if (json.error) {
+          message = json.error;
+        }
+      } catch (e) { }
+
+      this.setState({ message, hasFailure: true, submitDisabled: false });
+    };
+    const onSuccess = (response) => { this.success(response, 'updateSource'); };
     const form = document.forms['edit-source-form'];
+
+    if (source.name === form.name.value && source.description === form.description.value && !form.image ) {
+      return false;
+    }
+
+    this.registerPendingMutation('updateSource');
 
     Relay.Store.commitUpdate(
       new UpdateSourceMutation({
@@ -483,6 +577,8 @@ class SourceComponent extends Component {
       }),
       { onSuccess, onFailure },
     );
+
+    return true;
   }
 
   labelForType(type) {
@@ -504,7 +600,10 @@ class SourceComponent extends Component {
   }
 
   onClear = () => {
-    document.forms['edit-source-form'].image = null;
+    if (document.forms['edit-source-form']) {
+      document.forms['edit-source-form'].image = null;
+    }
+
     this.setState({ image: null });
   };
 
@@ -522,10 +621,10 @@ class SourceComponent extends Component {
 
     return <div key="renderAccountsEdit">
       { showAccounts.map((as) =>
-        <div key={as.id} className="source__url">
+        <div key={as.node.id} className="source__url">
           <TextField
             defaultValue={as.node.account.url}
-            floatingLabelText={this.props.intl.formatMessage(messages.link)}
+            floatingLabelText={capitalize(as.node.account.provider)}
             style={{ width: '85%' }}
             disabled
           />
@@ -536,11 +635,14 @@ class SourceComponent extends Component {
         <div key={index.toString()} className="source__url-input">
           <TextField
             defaultValue={link}
-            floatingLabelText={this.props.intl.formatMessage(messages.link)}
+            floatingLabelText={this.props.intl.formatMessage(messages.addLink)}
             onChange={(e) => this.handleChangeLink(e, index)}
             style={{ width: '85%' }}
           />
           <MdCancel className="create-task__remove-option-button create-task__md-icon" onClick={() => this.handleRemoveNewLink(index)} />
+          <div className="source__helper">
+            {this.props.intl.formatMessage(messages.addLinkHelper)}
+          </div>
         </div>)
       }
     </div>
@@ -658,10 +760,29 @@ class SourceComponent extends Component {
     if (!this.isProjectSource()) { return; }
 
     const createLanguageAnnotation = (value) => {
-      const that = this;
-      const onFailure = (transaction) => { that.fail(transaction); };
-      const onSuccess = (response) => { that.setState({ message: null }) };
-      const annotator = that.getContext().currentUser;
+      if (!value) {
+        this.setState({ languageErrorMessage: this.props.intl.formatMessage(messages.selectLanguageError) });
+        return;
+      }
+
+      const onFailure = (transaction) => {
+        const error = transaction.getError();
+        let languageErrorMessage = this.props.intl.formatMessage(messages.createTagError);
+
+        try {
+          const json = JSON.parse(error.source);
+          if (json.error) {
+            languageErrorMessage = json.error;
+          }
+        } catch (e) { }
+
+        this.setState({ languageErrorMessage, hasFailure: true, submitDisabled: false });
+      };
+
+      const onSuccess = (response) => { this.setState({ languageErrorMessage: null }) };
+      const context = this.getContext();
+      const annotator = context.currentUser;
+      const project_source = this.props.source;
       const fields = {};
       fields.language = value;
 
@@ -669,13 +790,13 @@ class SourceComponent extends Component {
         new CreateDynamicMutation({
           parent_type: 'project_source',
           annotator,
-          annotated: that.props.source,
-          context: that.getContext(),
+          annotated: project_source,
+          context,
           annotation: {
             fields,
             annotation_type: 'language',
             annotated_type: 'ProjectSource',
-            annotated_id: that.props.source.dbid,
+            annotated_id: project_source.dbid,
           },
         }),
         { onSuccess, onFailure },
@@ -683,9 +804,8 @@ class SourceComponent extends Component {
     };
 
     const deleteLanguageAnnotation = (id) => {
-      const that = this;
-      const { source } = that.props;
-      const onFailure = (transaction) => { that.fail(transaction); };
+      const { source } = this.props;
+      const onFailure = (transaction) => { this.fail(transaction); };
       const onSuccess = (response) => {};
 
       Relay.Store.commitUpdate(
@@ -707,6 +827,7 @@ class SourceComponent extends Component {
 
     return (
       <SourceLanguages
+        errorText={this.state.languageErrorMessage}
         usedLanguages={languages}
         projectLanguages={this.props.source.project.get_languages}
         onDelete={deleteLanguageAnnotation}
@@ -733,6 +854,7 @@ class SourceComponent extends Component {
 
     return (
       <SourceTags
+          errorText={this.state.tagErrorMessage}
           tags={tags}
           options={availableTags}
           onDelete={this.deleteTag.bind(this)}
@@ -845,7 +967,7 @@ class SourceComponent extends Component {
                 id="source__name-container"
                 defaultValue={source.name}
                 floatingLabelText={this.props.intl.formatMessage(messages.sourceName)}
-                fullWidth
+                style={{ width: '85%' }}
               />
               <TextField
                 className="source__bio-input"
@@ -855,7 +977,7 @@ class SourceComponent extends Component {
                 floatingLabelText={this.props.intl.formatMessage(messages.sourceBio)}
                 multiLine={true}
                 rowsMax={4}
-                fullWidth
+                style={{ width: '85%' }}
               />
 
               { this.renderAccountsEdit() }

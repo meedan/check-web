@@ -11,7 +11,7 @@ window.config = {
   pusherDebug: true,
   locale: 'en',
   googleAnalyticsCode: 'UA-00000000-1', // Optional
-  googleStaticMapsKey: '' // Optional
+  mapboxApiKey: '' // Get one at mapbox.com
 }
 // Optional newrelic config
 // NREUM = {
