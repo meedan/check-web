@@ -7,45 +7,46 @@
   // 2-column view on desktop, if there are tasks
   //
   @include when-larger-than(widescreen-breakpoint) {
-    &--has-tasks {
-      .media__expanded-header {
-        max-width: layout(column-width-wide);
-      }
+    // &--has-tasks {
+    //   .media__expanded-header {
+    //     max-width: layout(column-width-wide);
+    //   }
 
-      .media__expanded-column-wrapper {
-        flex-direction: row;
+    //   .media__expanded-column-wrapper {
+    //     flex-direction: row;
 
-        .media__media-column {
-          $_width: units(84);
-          flex-basis: $_width;
-          width: $_width;
-        }
+    //     .media__media-column {
+    //       $_width: units(84);
+    //       flex-basis: $_width;
+    //       width: $_width;
+    //     }
 
-        .media__tasks-column {
-          $_width: units(68);
-          flex-basis: $_width;
-          margin-top: -1 * units(4.5);
-          width: $_width;
-        }
-      }
+    //     .media__tasks-column {
+    //       $_width: units(68);
+    //       flex-basis: $_width;
+    //       margin-top: -1 * units(4.5);
+    //       width: $_width;
+    //     }
+    //   }
 
-      .media__tasks-header {
-        color: $black-54;
-        display: flex;
-      }
+    //   .media__tasks-header {
+    //     color: $black-54;
+    //     display: flex;
+    //   }
 
-      svg {
-        &:hover {
-          fill: $black-16;
-        }
-      }
-    }
+    //   svg {
+    //     &:hover {
+    //       fill: $black-16;
+    //     }
+    //   }
+    // }
   }
 
   &__expanded {
     // slide under header
     @include media-status-background-colors;
     margin-top: -#{layout(header-height) + layout(gutter-medium)};
+    min-height: 100vh;
     padding-bottom: units(6);
     padding-top: layout(header-height) + layout(gutter-medium);
     transition: background-color $transition-speed-slow ease;
@@ -115,26 +116,6 @@
         height: units(3);
         width: units(3);
       }
-    }
-  }
-
-  // The headline that says "Verification log"
-  //
-  &__notes-heading {
-    align-items: center;
-    display: flex;
-    font: font(subheading2);
-    justify-content: center;
-    letter-spacing: 1px;
-    margin: units(8) 0;
-    text-align: center;
-    text-transform: uppercase;
-
-    & > svg {
-      color: $black-16;
-      height: units(3);
-      width: units(3);
-      margin-#{$from-direction}: units(1);
     }
   }
 

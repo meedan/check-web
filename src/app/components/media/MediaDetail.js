@@ -284,6 +284,7 @@ class MediaDetail extends Component {
 
     return (
       <Card
+        initiallyExpanded={this.props.initiallyExpanded}
         className={
           `${this.statusToClass('media-detail', mediaLastStatus(media))} ` +
           `media-detail--${MediaUtil.mediaTypeCss(media, data)}`
@@ -418,6 +419,10 @@ MediaDetail.propTypes = {
 
 MediaDetail.contextTypes = {
   store: React.PropTypes.object,
+};
+
+MediaDetail.defaultProps = {
+  initiallyExpanded: false,
 };
 
 export default injectIntl(MediaDetail);

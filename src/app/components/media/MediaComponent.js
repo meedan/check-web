@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FormattedMessage, injectIntl, intlShape, defineMessages } from 'react-intl';
+import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import PageTitle from '../PageTitle';
 import MediaDetail from './MediaDetail';
 import MediaUtil from './MediaUtil';
@@ -16,19 +16,7 @@ import {
 } from '../../helpers';
 import ContentColumn from '../layout/ContentColumn';
 import MediaStatus from './MediaStatus';
-import TimelineHeader from './TimelineHeader';
 import { mediaStatuses, mediaLastStatus } from '../../customHelpers';
-
-const messages = defineMessages({
-  timelineTitle: {
-    id: 'mediaComponent.verificationTimeline',
-    defaultMessage: 'Verification Timeline',
-  },
-  bridge_timelineTitle: {
-    id: 'bridge.mediaComponent.verificationTimeline',
-    defaultMessage: 'Translation Timeline',
-  },
-});
 
 class MediaComponent extends Component {
   componentDidMount() {
@@ -128,7 +116,7 @@ class MediaComponent extends Component {
 
             <ContentColumn wide className="media__expanded-column-wrapper">
               <ContentColumn className="media__media-column">
-                <MediaDetail media={media} />
+                <MediaDetail initiallyExpanded media={media} />
                 <CreateTask media={media} />
                 {this.props.extras}
               </ContentColumn>
@@ -147,18 +135,14 @@ class MediaComponent extends Component {
                   <CreateTask media={media} plusIcon />
                 </div>
                 <Tasks tasks={media.tasks.edges} media={media} />
+                <Annotations
+                  annotations={media.log.edges}
+                  annotated={media}
+                  annotatedType="ProjectMedia"
+                />
               </ContentColumn>
             </ContentColumn>
           </div>
-
-          <ContentColumn>
-            <TimelineHeader msgObj={messages} msgKey="timelineTitle" />
-          </ContentColumn>
-          <Annotations
-            annotations={media.log.edges}
-            annotated={media}
-            annotatedType="ProjectMedia"
-          />
         </div>
       </PageTitle>
     );
