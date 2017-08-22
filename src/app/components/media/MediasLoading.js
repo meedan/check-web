@@ -9,7 +9,7 @@ class MediasLoading extends Component {
     for (let i = 0; i < count; i += 1) {
       medias.push(
         <div key={i} className="medias-loading__media">
-          <div /><div /><div /><div />
+          <div /><div />
         </div>,
       );
     }

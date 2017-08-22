@@ -303,14 +303,13 @@ class MediaDetail extends Component {
                   defaultValue={heading}
                 />
               </form>
-              : <span className="media__heading">{heading}</span>
+              : <Link to={mediaUrl} className="media__heading">{heading}</Link>
           }
           subtitle={[
             MediaUtil.socialIcon(media.domain),
             <span style={{ paddingLeft: units(1), paddingRight: units(1) }}>
               {annotationsCount}
             </span>,
-            <MediaStatus media={media} readonly={this.props.readonly} />,
           ]}
           showExpandableButton
         />
@@ -322,6 +321,7 @@ class MediaDetail extends Component {
           </div>
 
           <div className="media-detail__check-metadata">
+            <MediaStatus media={media} readonly={this.props.readonly} />
             {media.tags
               ? <MediaTags media={media} tags={media.tags.edges} isEditing={this.state.isEditing} />
               : null}
@@ -341,9 +341,6 @@ class MediaDetail extends Component {
                 </Link>
               </span>
               : null}
-            <Link to={mediaUrl} className="media-detail__check-notes-count">
-              {annotationsCount}
-            </Link>
             {this.state.isEditing
               ? <span className="media-detail__editing-buttons">
                 <DefaultButton
