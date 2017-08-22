@@ -21,7 +21,7 @@ import ProfileLink from '../layout/ProfileLink';
 import ImageMediaCard from './ImageMediaCard';
 import UpdateProjectMediaMutation from '../../relay/UpdateProjectMediaMutation';
 import CheckContext from '../../CheckContext';
-import { safelyParseJSON, getStatus, getStatusStyle } from '../../helpers';
+import { getStatus, getStatusStyle } from '../../helpers';
 import { mediaStatuses, mediaLastStatus } from '../../customHelpers';
 
 injectTapEventPlugin();
@@ -209,7 +209,6 @@ class MediaDetail extends Component {
     const data = JSON.parse(media.embed);
     const createdAt = MediaUtil.createdAt(media);
     const annotationsCount = MediaUtil.notesCount(media, data, this.props.intl);
-    const userOverrides = safelyParseJSON(media.overridden);
     const context = this.getContext();
     const randomNumber = Math.floor((Math.random() * 1000000) + 1);
 
@@ -240,9 +239,7 @@ class MediaDetail extends Component {
     media.quote = media.media.quote;
     media.embed_path = media.media.embed_path;
 
-    const heading = userOverrides && userOverrides.title
-      ? MediaUtil.title(media, data, this.props.intl)
-      : MediaUtil.attributedType(media, data, this.props.intl);
+    const heading = MediaUtil.title(media, data, this.props.intl);
 
     if (media.media.embed_path) {
       const path = media.media.embed_path;
