@@ -7,37 +7,31 @@
   // 2-column view on desktop, if there are tasks
   //
   @include when-larger-than(mobile-breakpoint) {
-    &--has-tasks {
-      .media__expanded-header {
-        max-width: layout(column-width-wide);
+    .media__expanded-column-wrapper {
+      flex-direction: row;
+
+      .media__media-column {
+        max-width: units(150) !important;
       }
 
-      .media__expanded-column-wrapper {
-        flex-direction: row;
+      .media__annotations-column {
+        max-width: units(50);
 
-        .media__media-column {
-          max-width: units(150) !important;
-        }
-
-        .media__annotations-column {
-          max-width: units(50);
-
-          .annotations__list {
-            max-height: 52vh;
-            overflow-y: scroll;
-          }
+        .annotations__list {
+          max-height: 52vh;
+          overflow-y: scroll;
         }
       }
+    }
 
-      .media__tasks-header {
-        color: $black-54;
-        display: flex;
-      }
+    .media__tasks-header {
+      color: $black-54;
+      display: flex;
+    }
 
-      svg {
-        &:hover {
-          fill: $black-16;
-        }
+    svg {
+      &:hover {
+        fill: $black-16;
       }
     }
   }
@@ -52,13 +46,6 @@
     transition: background-color $transition-speed-slow ease;
   }
 
-  &__expanded-header {
-    margin: 0 auto;
-    max-width: layout(column-width-medium);
-    padding: 0 units(1);
-    padding-top: units(7);
-  }
-
   &__expanded-column-wrapper {
     @include when-taller-than(tallscreen-breakpoint) {
       justify-content: space-around;
@@ -66,27 +53,6 @@
     display: flex;
     flex-direction: column;
     padding: 0;
-  }
-
-  &__primary-heading {
-    @extend %break-word;
-    color: $white;
-    font: font(headline);
-    margin: 0 0 units(1);
-    text-align: $from-direction;
-  }
-
-  &__status {
-    &,
-    .media-status__label--current {
-      color: $black-54;
-      margin-bottom: units(2);
-    }
-
-    .media-status__menu {
-      top: units(4);
-      #{$from-direction}: 0;
-    }
   }
 
   &__tasks-header {

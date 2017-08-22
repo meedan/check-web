@@ -23,6 +23,7 @@ import UpdateProjectMediaMutation from '../../relay/UpdateProjectMediaMutation';
 import CheckContext from '../../CheckContext';
 import { getStatus, getStatusStyle } from '../../helpers';
 import { mediaStatuses, mediaLastStatus } from '../../customHelpers';
+import { units } from '../../styles/js/variables';
 
 injectTapEventPlugin();
 
@@ -289,20 +290,7 @@ class MediaDetail extends Component {
         style={{ borderColor: getStatusStyle(status, 'borderColor') }}
       >
         <CardHeader
-          title={<div className="primary_heading">{heading}</div>}
-          subtitle={annotationsCount}
-          actAsExpander
-          showExpandableButton
-        />
-
-        <CardText expandable>
-
-          <div className="media-detail__header">
-            <div className="media-detail__status">
-              <MediaStatus media={media} readonly={this.props.readonly} />
-            </div>
-          </div>
-          {this.state.isEditing
+          title={this.state.isEditing
               ? <form onSubmit={this.handleSave.bind(this, media)}>
                 <input
                   type="text"
@@ -312,7 +300,18 @@ class MediaDetail extends Component {
                   defaultValue={heading}
                 />
               </form>
-              : <h2 className="media-detail__heading"><Link to={mediaUrl}>{heading}</Link></h2>}
+              : <span className="media__heading">{heading}</span>}
+          subtitle={[
+            MediaUtil.socialIcon(media.domain),
+            <span style={{ paddingLeft: units(1), paddingRight: units(1) }}>
+              {annotationsCount}
+            </span>,
+            <MediaStatus media={media} readonly={this.props.readonly} />,
+          ]}
+          showExpandableButton
+        />
+
+        <CardText expandable>
 
           <div className={this.statusToClass('media-detail__media', mediaLastStatus(media))}>
             {embedCard}

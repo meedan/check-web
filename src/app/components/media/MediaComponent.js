@@ -15,7 +15,6 @@ import {
   getStatusStyle,
 } from '../../helpers';
 import ContentColumn from '../layout/ContentColumn';
-import MediaStatus from './MediaStatus';
 import { mediaStatuses, mediaLastStatus } from '../../customHelpers';
 import { units } from '../../styles/js/variables';
 
@@ -88,9 +87,6 @@ class MediaComponent extends Component {
     media.quote = media.media.quote;
     media.embed_path = media.media.embed_path;
     const userOverrides = safelyParseJSON(media.overridden);
-    const primaryHeading = userOverrides && userOverrides.title
-      ? MediaUtil.title(media, data, this.props.intl)
-      : MediaUtil.attributedType(media, data, this.props.intl);
     const status = getStatus(mediaStatuses(media), mediaLastStatus(media));
 
     return (
@@ -107,15 +103,6 @@ class MediaComponent extends Component {
             className={bemClassFromMediaStatus('media__expanded', mediaLastStatus(media))}
             style={{ backgroundColor: getStatusStyle(status, 'backgroundColor') }}
           >
-
-            <ContentColumn style={{ maxWidth: units(120) }}>
-              <div className="media__expanded-header">
-                <h1 className="media__primary-heading">{primaryHeading}</h1>
-                <div className="media__status">
-                  <MediaStatus media={media} readonly={this.props.readonly} />
-                </div>
-              </div>
-            </ContentColumn>
 
             <ContentColumn style={{ maxWidth: units(120) }} className="media__expanded-column-wrapper">
               <ContentColumn className="media__media-column">

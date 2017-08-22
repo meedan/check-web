@@ -76,7 +76,7 @@ class MediaPage < Page
   end
 
   def primary_heading
-    element('.media__primary-heading')
+    element('.media__heading')
   end
 
   def go_to_project

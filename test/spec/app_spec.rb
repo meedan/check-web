@@ -135,7 +135,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(media_pg.primary_heading.text).to eq('Edited media title')
       project_pg = media_pg.go_to_project
       sleep 3
-      expect(project_pg.elements('.media-detail__heading').map(&:text).include?('Edited media title')).to be(true)
+      expect(project_pg.elements('.media__heading').map(&:text).include?('Edited media title')).to be(true)
     end
 
     it "should not add a duplicated tag from tags list", annotation: true do
@@ -164,21 +164,21 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(media_pg.primary_heading.text).to eq('Tweet by First Draft')
       project_pg = media_pg.go_to_project
       sleep 1
-      expect(project_pg.elements('.media-detail__heading').map(&:text).include?('Tweet by First Draft')).to be(true)
+      expect(project_pg.elements('.media__heading').map(&:text).include?('Tweet by First Draft')).to be(true)
 
       # YouTube
       media_pg = api_create_team_project_and_link_and_redirect_to_media_page('https://www.youtube.com/watch?v=ykLgjhBnik0')
       expect(media_pg.primary_heading.text).to eq('Video by First Draft')
       project_pg = media_pg.go_to_project
       sleep 1
-      expect(project_pg.elements('.media-detail__heading').map(&:text).include?('Video by First Draft')).to be(true)
+      expect(project_pg.elements('.media__heading').map(&:text).include?('Video by First Draft')).to be(true)
 
       # Facebook
       media_pg = api_create_team_project_and_link_and_redirect_to_media_page('https://www.facebook.com/FirstDraftNews/posts/1808121032783161')
       expect(media_pg.primary_heading.text).to eq('Facebook post by First Draft')
       project_pg = media_pg.go_to_project
       sleep 1
-      expect(project_pg.elements('.media-detail__heading').map(&:text).include?('Facebook post by First Draft')).to be(true)
+      expect(project_pg.elements('.media__heading').map(&:text).include?('Facebook post by First Draft')).to be(true)
     end
 
     it "should login using Slack", users: true do
