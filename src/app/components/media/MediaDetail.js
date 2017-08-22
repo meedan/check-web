@@ -307,7 +307,10 @@ class MediaDetail extends Component {
           }
           subtitle={[
             MediaUtil.socialIcon(media.domain),
-            <span style={{ paddingLeft: units(1), paddingRight: units(1) }}>
+            <span
+              className="media-detail__check-notes-count"
+              style={{ paddingLeft: units(1), paddingRight: units(1) }}
+            >
               {annotationsCount}
             </span>,
           ]}

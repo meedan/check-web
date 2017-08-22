@@ -63,9 +63,8 @@
 }
 
 .media-detail__check-added-at,
-.media-detail__check-added-by,
-.media-detail__check-notes-count {
-  @include fade-in(1.5s);
+.media-detail__check-added-by {
+  @include fade-in(0.8s);
   align-items: center;
   display: flex;
   flex-shrink: 0;
