@@ -44,7 +44,7 @@ function safelyParseJSON(jsonString) {
   } catch (e) {}
 }
 
-function truncateLength(text, length = 100) {
+function truncateLength(text, length = 70) {
   return truncate(text, { length, separator: /,? +/, ellipsis: '…' });
 }
 

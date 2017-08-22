@@ -124,27 +124,6 @@ const MediaUtil = {
     return type ? intl.formatMessage(type) : '';
   },
 
-  attributedType(media, data, intl) {
-    let typeLabel = null;
-    try {
-      const type = this.mediaType(media, data);
-      typeLabel = intl.formatMessage(type);
-      if (type === messages.typePage) {
-        return intl.formatMessage(messages.onDomain, { typeLabel, domain: media.domain });
-      } else if (type === messages.typeImage) {
-        return data.title || typeLabel;
-      } else if (type === messages.typeClaim) {
-        return data.title && data.title !== media.quote ? data.title : typeLabel;
-      }
-      const attribution = this.authorName(media, data);
-      return attribution
-        ? intl.formatMessage(messages.byAttribution, { typeLabel, attribution })
-        : typeLabel;
-    } catch (e) {
-      return typeLabel || '';
-    }
-  },
-
   title(media, data, intl) {
     if (data && data.title && data.title.trim().length) {
       return truncateLength(data.title);

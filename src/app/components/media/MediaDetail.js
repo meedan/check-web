@@ -211,7 +211,7 @@ class MediaDetail extends Component {
     const createdAt = MediaUtil.createdAt(media);
     const annotationsCount = MediaUtil.notesCount(media, data, this.props.intl);
     const context = this.getContext();
-    const randomNumber = Math.floor((Math.random() * 1000000) + 1);
+    const randomNumber = Math.floor(Math.random() * 1000000 + 1);
 
     let projectId = media.project_id;
     if (!projectId && annotated && annotatedType === 'Project') {
@@ -255,13 +255,15 @@ class MediaDetail extends Component {
         />
       );
     } else if (media.url) {
-      embedCard = (<PenderCard
-        url={media.url}
-        penderUrl={config.penderUrl}
-        fallback={null}
-        domId={`pender-card-${randomNumber}`}
-        mediaVersion={this.state.mediaVersion || data.refreshes_count}
-      />);
+      embedCard = (
+        <PenderCard
+          url={media.url}
+          penderUrl={config.penderUrl}
+          fallback={null}
+          domId={`pender-card-${randomNumber}`}
+          mediaVersion={this.state.mediaVersion || data.refreshes_count}
+        />
+      );
     }
 
     const actions = [
@@ -290,7 +292,8 @@ class MediaDetail extends Component {
         style={{ borderColor: getStatusStyle(status, 'borderColor') }}
       >
         <CardHeader
-          title={this.state.isEditing
+          title={
+            this.state.isEditing
               ? <form onSubmit={this.handleSave.bind(this, media)}>
                 <input
                   type="text"
@@ -300,7 +303,8 @@ class MediaDetail extends Component {
                   defaultValue={heading}
                 />
               </form>
-              : <span className="media__heading">{heading}</span>}
+              : <span className="media__heading">{heading}</span>
+          }
           subtitle={[
             MediaUtil.socialIcon(media.domain),
             <span style={{ paddingLeft: units(1), paddingRight: units(1) }}>
@@ -319,52 +323,54 @@ class MediaDetail extends Component {
 
           <div className="media-detail__check-metadata">
             {media.tags
-                ? <MediaTags media={media} tags={media.tags.edges} isEditing={this.state.isEditing} />
-                : null}
+              ? <MediaTags media={media} tags={media.tags.edges} isEditing={this.state.isEditing} />
+              : null}
             {byUser
-                ? <span className="media-detail__check-added-by">
-                  <FormattedMessage
-                    id="mediaDetail.added"
-                    defaultMessage={'Added {byUser}'}
-                    values={{ byUser }}
-                  />{' '}
-                </span>
-                : null}
+              ? <span className="media-detail__check-added-by">
+                <FormattedMessage
+                  id="mediaDetail.added"
+                  defaultMessage={'Added {byUser}'}
+                  values={{ byUser }}
+                />{' '}
+              </span>
+              : null}
             {createdAt
-                ? <span className="media-detail__check-added-at">
-                  <Link className="media-detail__check-timestamp" to={mediaUrl}>
-                    <TimeBefore date={createdAt} />
-                  </Link>
-                </span>
-                : null}
-            <Link to={mediaUrl} className="media-detail__check-notes-count">{annotationsCount}</Link>
+              ? <span className="media-detail__check-added-at">
+                <Link className="media-detail__check-timestamp" to={mediaUrl}>
+                  <TimeBefore date={createdAt} />
+                </Link>
+              </span>
+              : null}
+            <Link to={mediaUrl} className="media-detail__check-notes-count">
+              {annotationsCount}
+            </Link>
             {this.state.isEditing
-                ? <span className="media-detail__editing-buttons">
-                  <DefaultButton
-                    onClick={this.handleCancel.bind(this)}
-                    className="media-detail__cancel-edits"
-                    size="xsmall"
-                  >
-                    <FormattedMessage id="mediaDetail.cancelButton" defaultMessage="Cancel" />
-                  </DefaultButton>
-                  <DefaultButton
-                    onClick={this.handleSave.bind(this, media)}
-                    className="media-detail__save-edits"
-                    size="xsmall"
-                    style="primary"
-                  >
-                    <FormattedMessage id="mediaDetail.doneButton" defaultMessage="Done" />
-                  </DefaultButton>
-                </span>
-                : null}
+              ? <span className="media-detail__editing-buttons">
+                <DefaultButton
+                  onClick={this.handleCancel.bind(this)}
+                  className="media-detail__cancel-edits"
+                  size="xsmall"
+                >
+                  <FormattedMessage id="mediaDetail.cancelButton" defaultMessage="Cancel" />
+                </DefaultButton>
+                <DefaultButton
+                  onClick={this.handleSave.bind(this, media)}
+                  className="media-detail__save-edits"
+                  size="xsmall"
+                  style="primary"
+                >
+                  <FormattedMessage id="mediaDetail.doneButton" defaultMessage="Done" />
+                </DefaultButton>
+              </span>
+              : null}
             {this.props.readonly || this.state.isEditing
-                ? null
-                : <MediaActions
-                  media={media}
-                  handleEdit={this.handleEdit.bind(this)}
-                  handleMove={this.handleMove.bind(this)}
-                  handleRefresh={this.handleRefresh.bind(this)}
-                />}
+              ? null
+              : <MediaActions
+                media={media}
+                handleEdit={this.handleEdit.bind(this)}
+                handleMove={this.handleMove.bind(this)}
+                handleRefresh={this.handleRefresh.bind(this)}
+              />}
 
             <Dialog
               actions={actions}
@@ -399,7 +405,7 @@ class MediaDetail extends Component {
                     value={proj.node}
                     style={{ padding: '5px' }}
                   />,
-                  )}
+                )}
               </RadioButtonGroup>
             </Dialog>
           </div>

@@ -82,17 +82,17 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 10
 
       expect(@driver.page_source.include?("The Who's official Twitter page")).to be(false)
-      expect(@driver.page_source.include?('Tweet by')).to be(true)
+      expect(@driver.page_source.include?('Happy birthday Mick')).to be(true)
 
       @driver.find_element(:xpath, "//span[contains(text(), 'Sources')]").click
       sleep 10
       expect(@driver.page_source.include?("The Who's official Twitter page")).to be(true)
-      expect(@driver.page_source.include?('Tweet by')).to be(true)
+      expect(@driver.page_source.include?('Happy birthday Mick')).to be(true)
 
       @driver.find_element(:xpath, "//span[contains(text(), 'Media')]").click
       sleep 10
       expect(@driver.page_source.include?("The Who's official Twitter page")).to be(true)
-      expect(@driver.page_source.include?('Tweet by')).to be(false)
+      expect(@driver.page_source.include?('Happy birthday Mick')).to be(false)
     end
 
     it "should register and create a claim", users: true do
@@ -129,7 +129,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should edit the title of a media", media: true do
       url = 'https://twitter.com/softlandscapes/status/834385935240462338'
       media_pg = api_create_team_project_and_link_and_redirect_to_media_page url
-      expect(media_pg.primary_heading.text).to eq('Tweet by soft landscapes')
+      expect(media_pg.primary_heading.text).to eq('https://t.co/i17DJNqiWX')
       sleep 3 # :/ clicks can misfire if pender iframe moves the button position at the wrong moment
       media_pg.set_title('Edited media title')
       expect(media_pg.primary_heading.text).to eq('Edited media title')
@@ -161,24 +161,24 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should display a default title for new media", media: true do
       # Tweets
       media_pg = api_create_team_project_and_link_and_redirect_to_media_page('https://twitter.com/firstdraftnews/status/835587295394869249')
-      expect(media_pg.primary_heading.text).to eq('Tweet by First Draft')
+      expect(media_pg.primary_heading.text).include?('In a chat about getting').to be(true)
       project_pg = media_pg.go_to_project
       sleep 1
-      expect(project_pg.elements('.media__heading').map(&:text).include?('Tweet by First Draft')).to be(true)
+      expect(project_pg.elements('.media__heading').map(&:text).include?('In a chat about getting')).to be(true)
 
       # YouTube
       media_pg = api_create_team_project_and_link_and_redirect_to_media_page('https://www.youtube.com/watch?v=ykLgjhBnik0')
-      expect(media_pg.primary_heading.text).to eq('Video by First Draft')
+      expect(media_pg.primary_heading.text).to eq("How To Check An Account's Authenticity")
       project_pg = media_pg.go_to_project
       sleep 1
-      expect(project_pg.elements('.media__heading').map(&:text).include?('Video by First Draft')).to be(true)
+      expect(project_pg.elements('.media__heading').map(&:text).include?("How To Check An Account's Authenticity")).to be(true)
 
       # Facebook
       media_pg = api_create_team_project_and_link_and_redirect_to_media_page('https://www.facebook.com/FirstDraftNews/posts/1808121032783161')
-      expect(media_pg.primary_heading.text).to eq('Facebook post by First Draft')
+      expect(media_pg.primary_heading.text).to eq('First Draft on Facebook')
       project_pg = media_pg.go_to_project
       sleep 1
-      expect(project_pg.elements('.media__heading').map(&:text).include?('Facebook post by First Draft')).to be(true)
+      expect(project_pg.elements('.media__heading').map(&:text).include?('First Draft on Facebook')).to be(true)
     end
 
     it "should login using Slack", users: true do
@@ -260,14 +260,14 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       api_create_team_and_project
       page = ProjectPage.new(config: @config, driver: @driver).load
 
-      expect(page.contains_string?('Tweet by Marcelo Souza')).to be(false)
+      expect(page.contains_string?('This is a test')).to be(false)
 
       page.create_media(input: 'https://twitter.com/marcouza/status/771009514732650497?t=' + Time.now.to_i.to_s)
 
       page.driver.navigate.to @config['self_url']
       page.wait_for_element('.project .media-detail')
 
-      expect(page.contains_string?('Tweet by Marcelo Souza')).to be(true)
+      expect(page.contains_string?('This is a test')).to be(true)
     end
 
     it "should search for image", search: true do
