@@ -1,5 +1,5 @@
 .annotations {
-  .annotations__list {
+  .annotations__list-item {
     position: relative;
 
     // The timeline line
@@ -9,13 +9,13 @@
       content: '';
       display: block;
       position: absolute;
-      top: units(2);
+      top: 0;
       width: $border-width-medium;
       #{$from-direction}: units(4);
     }
   }
 
-  .annotations__list-item {
+  .annotation {
     position: relative;
 
     // The timeline dot
@@ -24,7 +24,7 @@
       border-radius: 100%;
       content: '';
       height: units(1);
-      outline: $border-width-large solid $opaque-black-02;
+      outline: $border-width-large solid $white;
       position: absolute;
       top: units(2);
       width: units(1);

@@ -17,6 +17,7 @@ import {
 import ContentColumn from '../layout/ContentColumn';
 import MediaStatus from './MediaStatus';
 import { mediaStatuses, mediaLastStatus } from '../../customHelpers';
+import { units } from '../../styles/js/variables';
 
 class MediaComponent extends Component {
   componentDidMount() {
@@ -107,21 +108,20 @@ class MediaComponent extends Component {
             style={{ backgroundColor: getStatusStyle(status, 'backgroundColor') }}
           >
 
-            <div className="media__expanded-header">
-              <h1 className="media__primary-heading">{primaryHeading}</h1>
-              <div className="media__status">
-                <MediaStatus media={media} readonly={this.props.readonly} />
+            <ContentColumn style={{ maxWidth: units(120) }}>
+              <div className="media__expanded-header">
+                <h1 className="media__primary-heading">{primaryHeading}</h1>
+                <div className="media__status">
+                  <MediaStatus media={media} readonly={this.props.readonly} />
+                </div>
               </div>
-            </div>
+            </ContentColumn>
 
-            <ContentColumn wide className="media__expanded-column-wrapper">
+            <ContentColumn style={{ maxWidth: units(120) }} className="media__expanded-column-wrapper">
               <ContentColumn className="media__media-column">
                 <MediaDetail initiallyExpanded media={media} />
-                <CreateTask media={media} />
                 {this.props.extras}
-              </ContentColumn>
-              <ContentColumn className="media__tasks-column">
-                <div className="media__tasks-header">
+                <div className="media__tasks-header" style={{ paddingTop: units(5) }}>
                   <h2>
                     <FormattedMessage
                       id="mediaComponent.verificationTasks"
@@ -133,8 +133,11 @@ class MediaComponent extends Component {
                     <FormattedMessage id="mediaComponent.resolved" defaultMessage="resolved" />
                   </span>
                   <CreateTask media={media} plusIcon />
+                  <CreateTask media={media} />
                 </div>
                 <Tasks tasks={media.tasks.edges} media={media} />
+              </ContentColumn>
+              <ContentColumn className="media__annotations-column">
                 <Annotations
                   annotations={media.log.edges}
                   annotated={media}

@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { defineMessages } from 'react-intl';
-import { Card, CardText, CardActions } from 'material-ui/Card';
+import { Card, CardActions } from 'material-ui/Card';
 import TimelineHeader from './TimelineHeader';
 import AddAnnotation from './AddAnnotation';
 import MediaAnnotation from './MediaAnnotation';
 import SourceAnnotation from './SourceAnnotation';
 import Can from '../Can';
+import { black16, white } from '../../styles/js/variables.js';
 
 const messages = defineMessages({
   timelineTitle: {
@@ -30,18 +31,17 @@ class Annotations extends Component {
     const annotations = props.annotations;
 
     return (
-      <Card className="annotations">
+      <Card className="annotations" style="display: 'flex', flexDirection: 'column'">
         <TimelineHeader msgObj={messages} msgKey="timelineTitle" />
-        <CardText>
-          <ul className="annotations__list annotations-list">
-            {annotations.map(annotation =>
-              <li key={annotation.node.dbid} className="annotations__list-item">
-                {this.annotationComponent(annotation.node, props.annotated, props.annotatedType)}
-              </li>,
-            )}
-          </ul>
-          <CardActions>
-            {props.annotatedType === 'ProjectMedia'
+        <ul className="annotations__list annotations-list">
+          {annotations.map(annotation =>
+            <li key={annotation.node.dbid} className="annotations__list-item">
+              {this.annotationComponent(annotation.node, props.annotated, props.annotatedType)}
+            </li>,
+          )}
+        </ul>
+        <CardActions style={{ marginTop: 'auto', backgroundColor: white, borderTop: `1px solid ${black16}` }}>
+          {props.annotatedType === 'ProjectMedia'
               ? <Can permissions={props.annotated.permissions} permission="create Comment">
                 <AddAnnotation
                   annotated={props.annotated}
@@ -54,8 +54,7 @@ class Annotations extends Component {
                 annotatedType={props.annotatedType}
                 types={props.types}
               />}
-          </CardActions>
-        </CardText>
+        </CardActions>
       </Card>
     );
   }

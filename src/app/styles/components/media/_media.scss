@@ -6,40 +6,40 @@
   @include layout-full-height-with-sticky-footer;
   // 2-column view on desktop, if there are tasks
   //
-  @include when-larger-than(widescreen-breakpoint) {
-    // &--has-tasks {
-    //   .media__expanded-header {
-    //     max-width: layout(column-width-wide);
-    //   }
+  @include when-larger-than(mobile-breakpoint) {
+    &--has-tasks {
+      .media__expanded-header {
+        max-width: layout(column-width-wide);
+      }
 
-    //   .media__expanded-column-wrapper {
-    //     flex-direction: row;
+      .media__expanded-column-wrapper {
+        flex-direction: row;
 
-    //     .media__media-column {
-    //       $_width: units(84);
-    //       flex-basis: $_width;
-    //       width: $_width;
-    //     }
+        .media__media-column {
+          max-width: units(150) !important;
+        }
 
-    //     .media__tasks-column {
-    //       $_width: units(68);
-    //       flex-basis: $_width;
-    //       margin-top: -1 * units(4.5);
-    //       width: $_width;
-    //     }
-    //   }
+        .media__annotations-column {
+          max-width: units(50);
 
-    //   .media__tasks-header {
-    //     color: $black-54;
-    //     display: flex;
-    //   }
+          .annotations__list {
+            max-height: 52vh;
+            overflow-y: scroll;
+          }
+        }
+      }
 
-    //   svg {
-    //     &:hover {
-    //       fill: $black-16;
-    //     }
-    //   }
-    // }
+      .media__tasks-header {
+        color: $black-54;
+        display: flex;
+      }
+
+      svg {
+        &:hover {
+          fill: $black-16;
+        }
+      }
+    }
   }
 
   &__expanded {
@@ -91,8 +91,6 @@
 
   &__tasks-header {
     align-items: baseline;
-    display: none;
-    margin-bottom: units(1);
 
     h2 {
       color: $black-87;
