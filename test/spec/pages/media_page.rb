@@ -27,7 +27,12 @@ class MediaPage < Page
     contains_element?('.media-detail__title-input')
   end
 
+  def pender_visible?
+    contains_element?('.pender-container')
+  end
+
   def edit
+    element('.media-detail').click unless pender_visible?
     element('.media-actions').click
     element('.media-actions__menu-item').click
     @wait.until { editing_mode? }

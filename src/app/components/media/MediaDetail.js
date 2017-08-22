@@ -292,7 +292,7 @@ class MediaDetail extends Component {
         style={{ borderColor: getStatusStyle(status, 'borderColor') }}
       >
         <CardHeader
-          title={heading}
+          title={<div className="primary_heading">{heading}</div>}
           subtitle={annotationsCount}
           actAsExpander
           showExpandableButton
