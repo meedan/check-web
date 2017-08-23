@@ -1053,7 +1053,7 @@ class SourceComponent extends Component {
 
           { !isEditing ?
             <div>
-              { this.state.showTab === 'annotation' ? <Annotations annotations={source.log.edges} annotated={source} annotatedType="Source" /> : null }
+              { this.state.showTab === 'annotation' ? <Annotations annotations={source.log.edges} annotated={this.props.source} annotatedType="ProjectSource" /> : null }
               <ContentColumn>
                 { this.state.showTab === 'media' ? <Medias medias={source.medias.edges} /> : null }
                 { this.state.showTab === 'account' ? source.accounts.edges.map(account => <AccountCard key={account.node.id} account={account.node} />) : null }
