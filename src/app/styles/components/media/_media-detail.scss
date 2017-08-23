@@ -4,7 +4,6 @@
 //
 .media-detail {
   @include media-status-border-colors;
-  border-radius: $border-radius-default;
   border-#{$from-direction}: units(1) solid;
 }
 
@@ -18,20 +17,12 @@
 
 // Optional title (on project page)
 //
-.media-detail__heading {
-  @extend %ellipsis;
-  font: font(title);
-  font-weight: $font-weight-bold;
-  margin-bottom: 0;
-  margin-top: units(.5);
-
+.media__heading {
   &,
   & > a,
   & > a:visited {
-    color: $black-87;
+    color: $black-87 !important;
   }
-  margin-#{$from-direction}: 0;
-  margin-#{$to-direction}: units(3);
 }
 
 // Optional description

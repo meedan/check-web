@@ -1,7 +1,34 @@
 import React, { Component } from 'react';
+import styled from 'styled-components';
+import CircularProgress from 'material-ui/CircularProgress';
+import { units } from '../styles/js/variables';
+
+const PenderCardContainer = styled.div`
+  max-height: ${units(250)};
+  min-height: ${units(25)};
+  overflow-x: hidden;
+  overflow-y: hidden;
+  position: relative;
+
+  iframe {
+    bottom: 0;
+    position: relative;
+    top: 0;
+    z-index: 1;
+    left: 0;
+    right: 0;
+  }
+`;
+
+const PenderCardLoader = styled.div`
+  align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  width: 100%;
+`;
 
 class PenderCard extends Component {
-
   componentDidMount() {
     this.addTag(this.props.domId);
   }
@@ -32,7 +59,8 @@ class PenderCard extends Component {
     if (card) {
       card.appendChild(script);
     }
-    // TODO: Refine loader. It never shows, it's removed too early — 2017-8-23 CGB
+    // TODO: Refine loader. It never shows, I think it's removed too early.
+    // Here I've attempted to remove it .onload but it's still never showing. — 2017-8-23 CGB
     script.onload = card.removeChild(loader);
   }
 
@@ -46,34 +74,24 @@ class PenderCard extends Component {
 
   render() {
     return (
-      <div id={this.props.domId} className="pender-card">
-        <div id={`pender-card-loader-${this.props.domId}`} className="pender-card__loader">
+      <PenderCardContainer
+        id={this.props.domId}
+        className="pender-card"
+      >
+        <PenderCardLoader
+          id={`pender-card-loader-${this.props.domId}`}
+          className="pender-card__loader"
+        >
           {(() => {
             if (this.props.fallback) {
               return this.props.fallback;
             }
             return (
-              <svg
-                className="spinner"
-                width="40px"
-                height="40px"
-                viewBox="0 0 66 66"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <circle
-                  className="spinner-path"
-                  fill="none"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  cx="33"
-                  cy="33"
-                  r="30"
-                />
-              </svg>
+              <CircularProgress thickness={1} />
             );
           })()}
-        </div>
-      </div>
+        </PenderCardLoader>
+      </PenderCardContainer>
     );
   }
 }
