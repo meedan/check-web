@@ -1016,7 +1016,6 @@ class SourceComponent extends Component {
     const isProjectSource = this.isProjectSource();
     const source = this.getSource();
     const isEditing = this.state.isEditing;
-
     return (
       <PageTitle prefix={source.name} skipTeam={false} team={this.props.source.team}>
         <div className="source" data-id={source.dbid} data-user-id={source.user_id}>
@@ -1054,7 +1053,7 @@ class SourceComponent extends Component {
 
           { !isEditing ?
             <div>
-              { this.state.showTab === 'annotation' ? <Annotations annotations={source.annotations.edges.slice().reverse()} annotated={source} annotatedType="Source" /> : null }
+              { this.state.showTab === 'annotation' ? <Annotations annotations={source.log.edges} annotated={source} annotatedType="Source" /> : null }
               <ContentColumn>
                 { this.state.showTab === 'media' ? <Medias medias={source.medias.edges} /> : null }
                 { this.state.showTab === 'account' ? source.accounts.edges.map(account => <AccountCard key={account.node.id} account={account.node} />) : null }
