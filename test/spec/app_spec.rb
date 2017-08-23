@@ -164,7 +164,10 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(media_pg.primary_heading.text.include?('In a chat about getting')).to be(true)
       project_pg = media_pg.go_to_project
       sleep 1
-      expect(project_pg.elements('.media__heading').map(&:text).include?('In a chat about getting')).to be(true)
+      @wait.until {
+        element = @driver.find_element(:partial_link_text, 'In a chat about getting')
+        expect(element.displayed?).to be(true)
+      }
 
       # YouTube
       media_pg = api_create_team_project_and_link_and_redirect_to_media_page('https://www.youtube.com/watch?v=ykLgjhBnik0')
@@ -279,10 +282,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       @driver.navigate.to @config['self_url'] + '/' + get_team + '/search'
       sleep 3
-      # Expand the card first
-      @driver.find_element(:link_text, 'test.png').click
-      imgsrc = @driver.find_element(:css, '.image-media-card img').attribute('src')
-      expect(imgsrc.match(/test\.png$/).nil?).to be(false)
+      expect(@driver.find_element(:link_text, 'test.png').nil?).to be(false)
     end
 
     it "should upload image when registering", users: true do
