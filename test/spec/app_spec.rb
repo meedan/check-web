@@ -161,7 +161,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should display a default title for new media", media: true do
       # Tweets
       media_pg = api_create_team_project_and_link_and_redirect_to_media_page('https://twitter.com/firstdraftnews/status/835587295394869249')
-      expect(media_pg.primary_heading.text).include?('In a chat about getting').to be(true)
+      expect(media_pg.primary_heading.text.include?('In a chat about getting')).to be(true)
       project_pg = media_pg.go_to_project
       sleep 1
       expect(project_pg.elements('.media__heading').map(&:text).include?('In a chat about getting')).to be(true)
