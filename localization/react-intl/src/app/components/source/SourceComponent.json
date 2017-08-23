@@ -76,6 +76,10 @@
     "defaultMessage": "Add a link to a web page or social media profile"
   },
   {
+    "id": "sourceComponent.invalidLink",
+    "defaultMessage": "Please enter a valid URL"
+  },
+  {
     "id": "sourceComponent.other",
     "defaultMessage": "Other (Specify)"
   },

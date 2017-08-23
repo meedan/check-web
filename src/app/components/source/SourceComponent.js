@@ -48,6 +48,7 @@ import DeleteAccountSourceMutation from '../../relay/mutation/DeleteAccountSourc
 import UpdateSourceMutation from '../../relay/UpdateSourceMutation';
 import deepEqual from 'deep-equal';
 import capitalize from 'lodash.capitalize';
+import LinkifyIt from 'linkify-it';
 
 const messages = defineMessages({
   addInfo: {
@@ -125,6 +126,10 @@ const messages = defineMessages({
   addLinkHelper: {
     id: 'sourceComponent.addLinkHelper',
     defaultMessage: 'Add a link to a web page or social media profile',
+  },
+  invalidLink: {
+    id: 'sourceComponent.invalidLink',
+    defaultMessage: 'Please enter a valid URL',
   },
   other: {
     id: 'sourceComponent.other',
@@ -227,7 +232,10 @@ class SourceComponent extends Component {
 
   handleAddLink = () => {
     const links = this.state.links ? this.state.links.slice(0) : [];
-    links.push('');
+    const newEntry = {};
+    newEntry.url = '';
+    newEntry.error = '';
+    links.push(newEntry);
     this.setState({ links, menuOpen: false });
   };
 
@@ -294,14 +302,15 @@ class SourceComponent extends Component {
 
   handleChangeLink(e, index) {
     const links = this.state.links ? this.state.links.slice(0) : [];
-    links[index] = e.target.value;
+    links[index].url = e.target.value;
+    links[index].error = '';
     this.setState({ links });
   }
 
   handleSubmit(e) {
     e.preventDefault();
 
-    if (!this.state.submitDisabled) {
+    if (this.validateLinks() && !this.state.submitDisabled) {
       const updateSourceSent = this.updateSource();
       const updateLinksSent = this.updateLinks();
       const updateMetadataSent = this.updateMetadata();
@@ -451,7 +460,27 @@ class SourceComponent extends Component {
 
   createAccountSource(url) {
     const source = this.getSource();
-    const onFailure = (transaction) => { this.fail(transaction); };
+
+    const onFailure = (transaction) => {
+      const links = this.state.links ? this.state.links.slice(0) : [];
+      const index = links.findIndex((link) => link.url === url);
+
+      if (index > -1) {
+        const error = transaction.getError();
+        let message = this.props.intl.formatMessage(messages.invalidLink);
+        try {
+          const json = JSON.parse(error.source);
+          if (json.error) {
+            message = json.error;
+          }
+        } catch (e) { }
+
+        links[index].error = message;
+      }
+
+      this.setState({ hasFailure: true, submitDisabled: false });
+    };
+
     const onSuccess = (response) => { this.success(response, 'createAccount'); };
 
     if (!url) { return; }
@@ -484,9 +513,31 @@ class SourceComponent extends Component {
     );
   }
 
+  validateLinks() {
+    const linkify = new LinkifyIt();
+
+    let success = true;
+
+    let links = this.state.links ? this.state.links.slice(0) : [];
+    links = links.filter((link) => !!link.url.trim());
+
+    links.forEach(item => {
+      const url = linkify.match(item.url);
+      if (Array.isArray(url) && url[0] && url[0].url) {
+        item.url = url[0].url;
+      } else {
+        item.error = this.props.intl.formatMessage(messages.invalidLink);
+        success = false;
+      }
+    });
+
+    this.setState({ links, submitDisabled: false });
+    return success;
+  }
+
   updateLinks() {
     let links = this.state.links ? this.state.links.slice(0) : [];
-    links = links.filter((link) => !!link);
+    links = links.filter((link) => !!link.url.trim());
 
     const deleteLinks = this.state.deleteLinks ? this.state.deleteLinks.slice(0) : [];
 
@@ -494,7 +545,7 @@ class SourceComponent extends Component {
       return false;
     }
 
-    links.forEach((url) => { this.createAccountSource(url) });
+    links.forEach((link) => { this.createAccountSource(link.url) });
     deleteLinks.forEach((id) => { this.deleteAccountSource(id) });
 
     return true;
@@ -596,9 +647,10 @@ class SourceComponent extends Component {
     const showAccounts = source.account_sources.edges.filter((as) => (deleteLinks.indexOf(as.node.id) < 0));
 
     return <div>
-      { showAccounts.map((as) =>
+      { showAccounts.map((as, index) =>
         <div key={as.node.id} className="source__url">
           <TextField
+            id={'source__link-item' + index.toString()}
             defaultValue={as.node.account.url}
             floatingLabelText={capitalize(as.node.account.provider)}
             style={{ width: '85%' }}
@@ -610,15 +662,19 @@ class SourceComponent extends Component {
       { links.map((link, index) =>
         <div key={index.toString()} className="source__url-input">
           <TextField
-            defaultValue={link}
+            id={'source__link-input' + index.toString()}
+            name={'source__link-input' + index.toString()}
+            value={link.url}
+            errorText={link.error}
             floatingLabelText={this.props.intl.formatMessage(messages.addLink)}
             onChange={(e) => this.handleChangeLink(e, index)}
             style={{ width: '85%' }}
           />
           <MdCancel className="create-task__remove-option-button create-task__md-icon" onClick={() => this.handleRemoveNewLink(index)} />
-          <div className="source__helper">
-            {this.props.intl.formatMessage(messages.addLinkHelper)}
-          </div>
+          { link.error
+            ? null
+            : <div className="source__helper">{this.props.intl.formatMessage(messages.addLinkHelper)}</div>
+          }
         </div>)
       }
     </div>
