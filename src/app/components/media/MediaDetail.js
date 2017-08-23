@@ -326,9 +326,6 @@ class MediaDetail extends Component {
 
           <div className="media-detail__check-metadata">
             <MediaStatus media={media} readonly={this.props.readonly} />
-            {media.tags
-              ? <MediaTags media={media} tags={media.tags.edges} isEditing={this.state.isEditing} />
-              : null}
             {byUser
               ? <span className="media-detail__check-added-by">
                 <FormattedMessage
@@ -345,23 +342,21 @@ class MediaDetail extends Component {
                 </Link>
               </span>
               : null}
+            {media.tags
+              ? <MediaTags media={media} tags={media.tags.edges} isEditing={this.state.isEditing} />
+              : null}
             {this.state.isEditing
-              ? <span className="media-detail__editing-buttons">
-                <DefaultButton
+              ? <span style={{ display: 'flex' }}>
+                <FlatButton
                   onClick={this.handleCancel.bind(this)}
                   className="media-detail__cancel-edits"
-                  size="xsmall"
-                >
-                  <FormattedMessage id="mediaDetail.cancelButton" defaultMessage="Cancel" />
-                </DefaultButton>
-                <DefaultButton
+                  label={<FormattedMessage id="mediaDetail.cancelButton" defaultMessage="Cancel" />}
+                />
+                <FlatButton
                   onClick={this.handleSave.bind(this, media)}
                   className="media-detail__save-edits"
-                  size="xsmall"
-                  style="primary"
-                >
-                  <FormattedMessage id="mediaDetail.doneButton" defaultMessage="Done" />
-                </DefaultButton>
+                  label={<FormattedMessage id="mediaDetail.doneButton" defaultMessage="Done" />}
+                />
               </span>
               : null}
             {this.props.readonly || this.state.isEditing

@@ -46,26 +46,20 @@
 .media-detail__check-metadata {
   // see also .annotation__card-footer
   align-items: center;
-  border-top: $border-width-small solid $black-05;
   display: flex;
   flex-flow: wrap row;
-  font: font(caption);
   margin-top: units(3);
+
+  > * {
+    padding: 0 units(1);
+  }
 }
 
 .media-detail__check-added-at,
 .media-detail__check-added-by {
-  @include fade-in(0.8s);
   align-items: center;
   display: flex;
   flex-shrink: 0;
-  min-height: units(6);
-  min-width: units(6);
-
-  & > span {
-    padding-#{$from-direction}: units(1);
-  }
-  margin-#{$to-direction}: units(2);
 }
 
 // Media edit mode
@@ -78,24 +72,6 @@
   max-width: layout(column-width-medium);
   padding: units(.5) units(1);
   width: 100%;
-}
-
-.media-detail__editing-buttons {
-  display: flex;
-  flex-flow: wrap row;
-  margin-bottom: units(.5);
-  margin-top: units(.5);
-
-  span {
-    display: block;
-    margin: units(.5) units(1);
-  }
-
-  button {
-    @include button-small;
-  }
-  margin-#{$from-direction}: auto;
-  margin-#{$to-direction}: units(1);
 }
 
 // Move dialog
