@@ -9,25 +9,21 @@
   position: relative;
 
   iframe {
-    #{$from-direction}: 0;
-    #{$to-direction}: 0;
     bottom: 0;
     position: relative;
     top: 0;
     z-index: 1;
+    #{$from-direction}: 0;
+    #{$to-direction}: 0;
   }
 }
 
 .pender-card__loader {
-  #{$from-direction}: 50%;
   $size: 100%;
   align-items: center;
   display: flex;
   height: $size;
   justify-content: center;
-  position: absolute;
-  top: 50%;
-  transform: translate(-50%, 50%);
   width: $size;
 
   .social-media-card {

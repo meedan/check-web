@@ -28,14 +28,17 @@ class PenderCard extends Component {
     script.async = true;
     script.type = 'text/javascript';
     const card = document.getElementById(domId);
+    const loader = document.getElementById(`pender-card-loader-${domId}`);
     if (card) {
       card.appendChild(script);
     }
+    // TODO: Refine loader. It never shows, it's removed too early — 2017-8-23 CGB
+    script.onload = card.removeChild(loader);
   }
 
   removeTag(domId) {
     const container = document.getElementById(domId);
-    const loader = document.getElementById('pender-card-loader');
+    const loader = document.getElementById(`pender-card-loader-${domId}`);
     if (loader) {
       container.innerHTML = loader.outerHTML;
     }
@@ -44,7 +47,7 @@ class PenderCard extends Component {
   render() {
     return (
       <div id={this.props.domId} className="pender-card">
-        <div id="pender-card-loader" className="pender-card__loader">
+        <div id={`pender-card-loader-${this.props.domId}`} className="pender-card__loader">
           {(() => {
             if (this.props.fallback) {
               return this.props.fallback;
