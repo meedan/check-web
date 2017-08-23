@@ -310,7 +310,7 @@ class MediaDetail extends Component {
             <span
               className="media-detail__check-notes-count"
               style={{ paddingLeft: units(1), paddingRight: units(1) }}
-              key={`annotationsCount-${randomNumber}`}
+              key="media-detail__annotations-count"
             >
               {annotationsCount}
             </span>,
