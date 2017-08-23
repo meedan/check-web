@@ -32,10 +32,6 @@
     "defaultMessage": "Source bio"
   },
   {
-    "id": "sourceComponent.contactNote",
-    "defaultMessage": "Contact note"
-  },
-  {
     "id": "sourceComponent.phone",
     "defaultMessage": "Phone"
   },

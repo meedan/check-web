@@ -83,10 +83,6 @@ const messages = defineMessages({
     id: 'sourceComponent.sourceBio',
     defaultMessage: 'Source bio',
   },
-  contactNote: {
-    id: 'sourceComponent.contactNote',
-    defaultMessage: 'Contact note',
-  },
   phone: {
     id: 'sourceComponent.phone',
     defaultMessage: 'Phone',
@@ -610,8 +606,6 @@ class SourceComponent extends Component {
 
   labelForType(type) {
     switch (type) {
-      case 'contact_note':
-        return this.props.intl.formatMessage(messages.contactNote);
       case 'phone':
         return this.props.intl.formatMessage(messages.phone);
       case 'organization':
@@ -704,7 +698,6 @@ class SourceComponent extends Component {
 
     if (metadata) {
       return (<div className="source__metadata">
-          { renderMetadataFieldView('contact_note') }
           { renderMetadataFieldView('phone') }
           { renderMetadataFieldView('organization') }
           { renderMetadataFieldView('location') }
@@ -772,7 +765,6 @@ class SourceComponent extends Component {
 
     if (metadata) {
       return (<div className="source__metadata">
-          { renderMetadataFieldEdit('contact_note') }
           { renderMetadataFieldEdit('phone') }
           { renderMetadataFieldEdit('organization') }
           { renderMetadataFieldEdit('location') }
@@ -1026,7 +1018,6 @@ class SourceComponent extends Component {
                   label={this.props.intl.formatMessage(messages.addInfo)} />
                 <Popover open={this.state.menuOpen} anchorEl={this.state.anchorEl} anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }} targetOrigin={{ horizontal: 'left', vertical: 'top' }} onRequestClose={this.handleRequestClose.bind(this)}>
                   <Menu>
-                    <MenuItem className="source__add-contact-note" onClick={this.handleAddMetadataField.bind(this, 'contact_note')} primaryText={this.props.intl.formatMessage(messages.contactNote)} />
                     <MenuItem className="source__add-phone" onClick={this.handleAddMetadataField.bind(this, 'phone')} primaryText={this.props.intl.formatMessage(messages.phone)} />
                     <MenuItem className="source__add-organization" onClick={this.handleAddMetadataField.bind(this, 'organization')} primaryText={this.props.intl.formatMessage(messages.organization)} />
                     <MenuItem className="source__add-location" onClick={this.handleAddMetadataField.bind(this, 'location')} primaryText={this.props.intl.formatMessage(messages.location)} />
