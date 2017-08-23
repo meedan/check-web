@@ -61,7 +61,9 @@ class PenderCard extends Component {
     }
     // TODO: Refine loader. It never shows, I think it's removed too early.
     // Here I've attempted to remove it .onload but it's still never showing. — 2017-8-23 CGB
-    script.onload = card.removeChild(loader);
+    if (loader) {
+      script.onload = card.removeChild(loader);
+    }
   }
 
   removeTag(domId) {
@@ -95,5 +97,10 @@ class PenderCard extends Component {
     );
   }
 }
+
+PenderCard.defaultProps = {
+  domId: 0,
+};
+
 
 export default PenderCard;
