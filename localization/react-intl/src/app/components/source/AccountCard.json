@@ -1,15 +1,15 @@
 [
   {
     "id": "accountCard.fbStats",
-    "defaultMessage": "{likes} likes"
+    "defaultMessage": "{likes, number} likes"
   },
   {
     "id": "accountCard.twitterStats",
-    "defaultMessage": "{tweets} Tweets • {followers} Followers • {following} Following"
+    "defaultMessage": "{tweets, number} Tweets • {followers, number} Followers • {following, number} Following"
   },
   {
     "id": "accountCard.youtubeStats",
-    "defaultMessage": "{videos} Videos • {subscribers} Subscribers"
+    "defaultMessage": "{videos, number} Videos • {subscribers, number} Subscribers"
   },
   {
     "id": "mediaDetail.byUser",

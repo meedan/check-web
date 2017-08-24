@@ -7,9 +7,7 @@ import ContentColumn from '../layout/ContentColumn';
 
 class Annotations extends Component {
   annotationComponent(node, annotated, annotatedType) {
-    return annotatedType === 'ProjectMedia' ?
-      <MediaAnnotation annotation={node} annotated={annotated} annotatedType={annotatedType} /> :
-      <SourceAnnotation annotation={node} annotated={annotated} annotatedType={annotatedType} />;
+    return <MediaAnnotation annotation={node} annotated={annotated} annotatedType={annotatedType} /> ;
   }
 
   render() {

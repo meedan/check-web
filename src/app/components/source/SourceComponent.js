@@ -48,6 +48,14 @@ import DeleteAccountSourceMutation from '../../relay/mutation/DeleteAccountSourc
 import UpdateSourceMutation from '../../relay/UpdateSourceMutation';
 import deepEqual from 'deep-equal';
 import capitalize from 'lodash.capitalize';
+import LinkifyIt from 'linkify-it';
+import styled from 'styled-components';
+
+const FlexRow = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+`;
 
 const messages = defineMessages({
   addInfo: {
@@ -81,10 +89,6 @@ const messages = defineMessages({
   sourceBio: {
     id: 'sourceComponent.sourceBio',
     defaultMessage: 'Source bio',
-  },
-  contactNote: {
-    id: 'sourceComponent.contactNote',
-    defaultMessage: 'Contact note',
   },
   phone: {
     id: 'sourceComponent.phone',
@@ -125,6 +129,10 @@ const messages = defineMessages({
   addLinkHelper: {
     id: 'sourceComponent.addLinkHelper',
     defaultMessage: 'Add a link to a web page or social media profile',
+  },
+  invalidLink: {
+    id: 'sourceComponent.invalidLink',
+    defaultMessage: 'Please enter a valid URL',
   },
   other: {
     id: 'sourceComponent.other',
@@ -213,7 +221,7 @@ class SourceComponent extends Component {
   handleAddCustomField() {
     const metadata = this.state.metadata ? Object.assign({}, this.state.metadata) : {};
     if (!metadata.other) { metadata.other = []; }
-    metadata.other.push({ label: this.state.customFieldLabel , value: this.state.customFieldValue });
+    metadata.other.push({ label: this.state.customFieldLabel, value: this.state.customFieldValue });
     this.setState({ metadata, dialogOpen: false });
   }
 
@@ -227,7 +235,10 @@ class SourceComponent extends Component {
 
   handleAddLink = () => {
     const links = this.state.links ? this.state.links.slice(0) : [];
-    links.push('');
+    const newEntry = {};
+    newEntry.url = '';
+    newEntry.error = '';
+    links.push(newEntry);
     this.setState({ links, menuOpen: false });
   };
 
@@ -294,14 +305,15 @@ class SourceComponent extends Component {
 
   handleChangeLink(e, index) {
     const links = this.state.links ? this.state.links.slice(0) : [];
-    links[index] = e.target.value;
+    links[index].url = e.target.value;
+    links[index].error = '';
     this.setState({ links });
   }
 
   handleSubmit(e) {
     e.preventDefault();
 
-    if (!this.state.submitDisabled) {
+    if (this.validateLinks() && !this.state.submitDisabled) {
       const updateSourceSent = this.updateSource();
       const updateLinksSent = this.updateLinks();
       const updateMetadataSent = this.updateMetadata();
@@ -328,17 +340,16 @@ class SourceComponent extends Component {
   };
 
   success = (response, mutation) => {
-
     const manageEditingState = () => {
       const submitDisabled = this.state.pendingMutations.length > 0;
-      const isEditing = ( submitDisabled || this.state.hasFailure);
-      const message = isEditing  ? this.state.message : null;
+      const isEditing = (submitDisabled || this.state.hasFailure);
+      const message = isEditing ? this.state.message : null;
 
       this.setState({ isEditing, submitDisabled, message });
     };
 
     const pendingMutations = this.state.pendingMutations ? this.state.pendingMutations.slice(0) : [];
-    this.setState({ pendingMutations: pendingMutations.filter((m) => m !== mutation) }, manageEditingState);
+    this.setState({ pendingMutations: pendingMutations.filter(m => m !== mutation) }, manageEditingState);
   };
 
   registerPendingMutation = (mutation) => {
@@ -414,7 +425,7 @@ class SourceComponent extends Component {
 
     const onSuccess = (response) => { this.setState({ tagErrorMessage: null }); };
 
-    let tagsList = [...new Set(tagString.split(','))];
+    const tagsList = [...new Set(tagString.split(','))];
 
     tagsList.forEach((tag) => {
       Relay.Store.commitUpdate(
@@ -451,7 +462,27 @@ class SourceComponent extends Component {
 
   createAccountSource(url) {
     const source = this.getSource();
-    const onFailure = (transaction) => { this.fail(transaction); };
+
+    const onFailure = (transaction) => {
+      const links = this.state.links ? this.state.links.slice(0) : [];
+      const index = links.findIndex(link => link.url === url);
+
+      if (index > -1) {
+        const error = transaction.getError();
+        let message = this.props.intl.formatMessage(messages.invalidLink);
+        try {
+          const json = JSON.parse(error.source);
+          if (json.error) {
+            message = json.error;
+          }
+        } catch (e) { }
+
+        links[index].error = message;
+      }
+
+      this.setState({ hasFailure: true, submitDisabled: false });
+    };
+
     const onSuccess = (response) => { this.success(response, 'createAccount'); };
 
     if (!url) { return; }
@@ -462,7 +493,7 @@ class SourceComponent extends Component {
       new CreateAccountSourceMutation({
         id: source.dbid,
         url,
-        source
+        source,
       }),
       { onSuccess, onFailure },
     );
@@ -478,24 +509,46 @@ class SourceComponent extends Component {
     Relay.Store.commitUpdate(
       new DeleteAccountSourceMutation({
         id: asId,
-        source
+        source,
       }),
       { onSuccess, onFailure },
     );
   }
 
+  validateLinks() {
+    const linkify = new LinkifyIt();
+
+    let success = true;
+
+    let links = this.state.links ? this.state.links.slice(0) : [];
+    links = links.filter(link => !!link.url.trim());
+
+    links.forEach((item) => {
+      const url = linkify.match(item.url);
+      if (Array.isArray(url) && url[0] && url[0].url) {
+        item.url = url[0].url;
+      } else {
+        item.error = this.props.intl.formatMessage(messages.invalidLink);
+        success = false;
+      }
+    });
+
+    this.setState({ links, submitDisabled: false });
+    return success;
+  }
+
   updateLinks() {
     let links = this.state.links ? this.state.links.slice(0) : [];
-    links = links.filter((link) => !!link);
+    links = links.filter(link => !!link.url.trim());
 
     const deleteLinks = this.state.deleteLinks ? this.state.deleteLinks.slice(0) : [];
 
-    if (!links.length && !deleteLinks.length){
+    if (!links.length && !deleteLinks.length) {
       return false;
     }
 
-    links.forEach((url) => { this.createAccountSource(url) });
-    deleteLinks.forEach((id) => { this.deleteAccountSource(id) });
+    links.forEach((link) => { this.createAccountSource(link.url); });
+    deleteLinks.forEach((id) => { this.deleteAccountSource(id); });
 
     return true;
   }
@@ -536,7 +589,7 @@ class SourceComponent extends Component {
     const onSuccess = (response) => { this.success(response, 'updateSource'); };
     const form = document.forms['edit-source-form'];
 
-    if (source.name === form.name.value && source.description === form.description.value && !form.image ) {
+    if (source.name === form.name.value && source.description === form.description.value && !form.image) {
       return false;
     }
 
@@ -559,14 +612,12 @@ class SourceComponent extends Component {
 
   labelForType(type) {
     switch (type) {
-      case 'contact_note':
-        return this.props.intl.formatMessage(messages.contactNote);
-      case 'phone':
-        return this.props.intl.formatMessage(messages.phone);
-      case 'organization':
-        return this.props.intl.formatMessage(messages.organization);
-      case 'location':
-        return this.props.intl.formatMessage(messages.location);
+    case 'phone':
+      return this.props.intl.formatMessage(messages.phone);
+    case 'organization':
+      return this.props.intl.formatMessage(messages.organization);
+    case 'location':
+      return this.props.intl.formatMessage(messages.location);
     }
   }
 
@@ -593,35 +644,44 @@ class SourceComponent extends Component {
     const source = this.getSource();
     const links = this.state.links ? this.state.links.slice(0) : [];
     const deleteLinks = this.state.deleteLinks ? this.state.deleteLinks.slice(0) : [];
-    const showAccounts = source.account_sources.edges.filter((as) => (deleteLinks.indexOf(as.node.id) < 0));
+    const showAccounts = source.account_sources.edges.filter(as => (deleteLinks.indexOf(as.node.id) < 0));
 
-    return <div>
-      { showAccounts.map((as) =>
+    return (<div>
+      { showAccounts.map((as, index) =>
         <div key={as.node.id} className="source__url">
-          <TextField
-            defaultValue={as.node.account.url}
-            floatingLabelText={capitalize(as.node.account.provider)}
-            style={{ width: '85%' }}
-            disabled
-          />
-          <MdCancel className="create-task__remove-option-button create-task__md-icon" onClick={() => this.handleRemoveLink(as.node.id)} />
+          <FlexRow>
+            <TextField
+              id={`source__link-item${index.toString()}`}
+              defaultValue={as.node.account.url}
+              floatingLabelText={capitalize(as.node.account.provider)}
+              style={{ width: '85%' }}
+              disabled
+            />
+            <MdCancel className="create-task__remove-option-button create-task__md-icon" onClick={() => this.handleRemoveLink(as.node.id)} />
+          </FlexRow>
         </div>)
       }
       { links.map((link, index) =>
         <div key={index.toString()} className="source__url-input">
-          <TextField
-            defaultValue={link}
-            floatingLabelText={this.props.intl.formatMessage(messages.addLink)}
-            onChange={(e) => this.handleChangeLink(e, index)}
-            style={{ width: '85%' }}
-          />
-          <MdCancel className="create-task__remove-option-button create-task__md-icon" onClick={() => this.handleRemoveNewLink(index)} />
-          <div className="source__helper">
-            {this.props.intl.formatMessage(messages.addLinkHelper)}
-          </div>
+          <FlexRow>
+            <TextField
+              id={`source__link-input${index.toString()}`}
+              name={`source__link-input${index.toString()}`}
+              value={link.url}
+              errorText={link.error}
+              floatingLabelText={this.props.intl.formatMessage(messages.addLink)}
+              onChange={e => this.handleChangeLink(e, index)}
+              style={{ width: '85%' }}
+            />
+            <MdCancel className="create-task__remove-option-button create-task__md-icon" onClick={() => this.handleRemoveNewLink(index)} />
+          </FlexRow>
+          { link.error
+            ? null
+            : <div className="source__helper">{this.props.intl.formatMessage(messages.addLinkHelper)}</div>
+          }
         </div>)
       }
-    </div>
+    </div>);
   }
 
   renderMetadataView() {
@@ -629,31 +689,28 @@ class SourceComponent extends Component {
 
     const metadata = this.state.metadata;
 
-    const renderMetadataFieldView = (type) => {
-      return metadata[type] ?
-        <span className={`source__metadata-${type}`}>
-          {this.labelForType(type) + ': ' + metadata[type]} <br />
-        </span> : null;
-    };
+    const renderMetadataFieldView = type => metadata[type] ?
+      <span className={`source__metadata-${type}`}>
+        {`${this.labelForType(type)}: ${metadata[type]}`} <br />
+      </span> : null;
 
     const renderMetadaCustomFields = () => {
       if (Array.isArray(metadata.other)) {
         return metadata.other.map((cf, index) =>
-          (cf.value ? <span key={index} className={`source__metadata-other`}>
-            {cf.label + ': ' + cf.value} <br />
-          </span> : null)
+          (cf.value ? <span key={index} className={'source__metadata-other'}>
+            {`${cf.label}: ${cf.value}`} <br />
+          </span> : null),
         );
       }
     };
 
     if (metadata) {
       return (<div className="source__metadata">
-          { renderMetadataFieldView('contact_note') }
-          { renderMetadataFieldView('phone') }
-          { renderMetadataFieldView('organization') }
-          { renderMetadataFieldView('location') }
-          { renderMetadaCustomFields() }
-        </div>
+        { renderMetadataFieldView('phone') }
+        { renderMetadataFieldView('organization') }
+        { renderMetadataFieldView('location') }
+        { renderMetadaCustomFields() }
+      </div>
       );
     }
   }
@@ -687,41 +744,42 @@ class SourceComponent extends Component {
       this.setState({ metadata });
     };
 
-    const renderMetadataFieldEdit = (type) => {
-      return metadata.hasOwnProperty(type) ? <div className={`source__metadata-${type}-input`}>
+    const renderMetadataFieldEdit = type => metadata.hasOwnProperty(type) ? <div className={`source__metadata-${type}-input`}>
+      <FlexRow>
         <TextField
           defaultValue={metadata[type]}
           floatingLabelText={this.labelForType(type)}
           style={{ width: '85%' }}
-          onChange={(e) => { handleChangeField(type, e) }}
+          onChange={(e) => { handleChangeField(type, e); }}
         />
-        <MdCancel className="create-task__remove-option-button create-task__md-icon" onClick={handleRemoveField.bind(this, type)}/>
-      </div> : null;
-    };
+        <MdCancel className="create-task__remove-option-button create-task__md-icon" onClick={handleRemoveField.bind(this, type)} />
+      </FlexRow>
+    </div> : null;
 
     const renderMetadaCustomFieldsEdit = () => {
       if (Array.isArray(metadata.other)) {
         return metadata.other.map((cf, index) =>
-          <div key={index} className={`source__metadata-other-input`}>
-            <TextField
-              defaultValue={cf.value}
-              floatingLabelText={cf.label}
-              style={{ width: '85%' }}
-              onChange={(e) => { handleChangeCustomField(index, e) }}
-            />
-          <MdCancel className="create-task__remove-option-button create-task__md-icon" onClick={handleRemoveCustomField.bind(this, index)}/>
+          <div key={index} className={'source__metadata-other-input'}>
+            <FlexRow>
+              <TextField
+                defaultValue={cf.value}
+                floatingLabelText={cf.label}
+                style={{ width: '85%' }}
+                onChange={(e) => { handleChangeCustomField(index, e); }}
+              />
+              <MdCancel className="create-task__remove-option-button create-task__md-icon" onClick={handleRemoveCustomField.bind(this, index)} />
+            </FlexRow>
           </div>);
       }
     };
 
     if (metadata) {
       return (<div className="source__metadata">
-          { renderMetadataFieldEdit('contact_note') }
-          { renderMetadataFieldEdit('phone') }
-          { renderMetadataFieldEdit('organization') }
-          { renderMetadataFieldEdit('location') }
-          { renderMetadaCustomFieldsEdit() }
-        </div>
+        { renderMetadataFieldEdit('phone') }
+        { renderMetadataFieldEdit('organization') }
+        { renderMetadataFieldEdit('location') }
+        { renderMetadaCustomFieldsEdit() }
+      </div>
       );
     }
   }
@@ -755,7 +813,7 @@ class SourceComponent extends Component {
         this.setState({ languageErrorMessage, hasFailure: true, submitDisabled: false });
       };
 
-      const onSuccess = (response) => { this.setState({ languageErrorMessage: null }) };
+      const onSuccess = (response) => { this.setState({ languageErrorMessage: null }); };
       const context = this.getContext();
       const annotator = context.currentUser;
       const project_source = this.props.source;
@@ -808,7 +866,8 @@ class SourceComponent extends Component {
         projectLanguages={this.props.source.project.get_languages}
         onDelete={deleteLanguageAnnotation}
         onSelect={languageSelect}
-        isEditing={isEditing} />
+        isEditing={isEditing}
+      />
     );
   }
 
@@ -830,78 +889,79 @@ class SourceComponent extends Component {
 
     return (
       <SourceTags
-          errorText={this.state.tagErrorMessage}
-          tags={tags}
-          options={availableTags}
-          onDelete={this.deleteTag.bind(this)}
-          onSelect={this.handleSelectTag}
-          isEditing={isEditing} />
+        errorText={this.state.tagErrorMessage}
+        tags={tags}
+        options={availableTags}
+        onDelete={this.deleteTag.bind(this)}
+        onSelect={this.handleSelectTag}
+        isEditing={isEditing}
+      />
     );
   }
 
   renderSourceView(source, isProjectSource) {
     return (
-        <div className="source__profile-content">
-          <section className="layout-two-column">
-            <div className="column-secondary">
-              <div
-                className="source__avatar"
-                style={{ backgroundImage: `url(${source.image})` }}
-                />
+      <div className="source__profile-content">
+        <section className="layout-two-column">
+          <div className="column-secondary">
+            <div
+              className="source__avatar"
+              style={{ backgroundImage: `url(${source.image})` }}
+            />
+          </div>
+
+          <div className="column-primary">
+            <div className="source__primary-info">
+              <h1 className="source__name">
+                {source.name}
+              </h1>
+              <div className="source__description">
+                <p className="source__description-text">
+                  <ParsedText text={truncateLength(source.description, 600)} />
+                </p>
+              </div>
             </div>
 
-            <div className="column-primary">
-              <div className="source__primary-info">
-                <h1 className="source__name">
-                  {source.name}
-                </h1>
-                <div className="source__description">
-                  <p className="source__description-text">
-                    <ParsedText text={truncateLength(source.description, 600)} />
-                  </p>
-                </div>
-              </div>
+            { isProjectSource ? <AccountChips accounts={source.account_sources.edges.map(as => as.node.account)} /> : null }
 
-              { isProjectSource ? <AccountChips accounts={source.account_sources.edges.map((as) => as.node.account)} /> : null }
-
-              { isProjectSource ?
-                <div className="source__contact-info">
-                  <FormattedHTMLMessage
-                    id="sourceComponent.dateAdded" defaultMessage="Added {date} &bull; Source of {number} links"
-                    values={{
-                      date: this.props.intl.formatDate(MediaUtil.createdAt({ published: source.created_at }), { year: 'numeric', month: 'short', day: '2-digit' }),
-                      number: source.medias.edges.length || '0',
-                    }}
-                    />
-                </div> : null
+            { isProjectSource ?
+              <div className="source__contact-info">
+                <FormattedHTMLMessage
+                  id="sourceComponent.dateAdded" defaultMessage="Added {date} &bull; Source of {number} links"
+                  values={{
+                    date: this.props.intl.formatDate(MediaUtil.createdAt({ published: source.created_at }), { year: 'numeric', month: 'short', day: '2-digit' }),
+                    number: source.medias.edges.length || '0',
+                  }}
+                />
+              </div> : null
               }
 
-              { this.renderTagsView() }
-              { this.renderLanguagesView() }
-              { this.renderMetadataView() }
+            { this.renderTagsView() }
+            { this.renderLanguagesView() }
+            { this.renderMetadataView() }
 
-            </div>
-          </section>
-          { isProjectSource ?
-            <Tabs value={this.state.showTab} onChange={this.handleTabChange}>
-              <Tab
-                label={<FormattedMessage id="sourceComponent.medias" defaultMessage="Media" />}
-                value="media"
-                className="source__tab-button-media"
-              />
-              <Tab
-                label={<FormattedMessage id="sourceComponent.notes" defaultMessage="Notes" />}
-                className="source__tab-button-notes"
-                value="annotation"
-              />
-              <Tab
-                label={<FormattedMessage id="sourceComponent.network" defaultMessage="Networks" />}
-                value="account"
-                className="source__tab-button-account"
-              />
-            </Tabs> : <CardActions />
+          </div>
+        </section>
+        { isProjectSource ?
+          <Tabs value={this.state.showTab} onChange={this.handleTabChange}>
+            <Tab
+              label={<FormattedMessage id="sourceComponent.medias" defaultMessage="Media" />}
+              value="media"
+              className="source__tab-button-media"
+            />
+            <Tab
+              label={<FormattedMessage id="sourceComponent.notes" defaultMessage="Notes" />}
+              className="source__tab-button-notes"
+              value="annotation"
+            />
+            <Tab
+              label={<FormattedMessage id="sourceComponent.network" defaultMessage="Networks" />}
+              value="account"
+              className="source__tab-button-account"
+            />
+          </Tabs> : <CardActions />
           }
-        </div>
+      </div>
     );
   }
 
@@ -919,15 +979,15 @@ class SourceComponent extends Component {
           <div className="column-secondary">
             <div
               className="source__avatar"
-              style={{ backgroundImage: `url(${ avatarPreview || source.image})` }}
-              />
+              style={{ backgroundImage: `url(${avatarPreview || source.image})` }}
+            />
             { !this.state.editProfileImg ?
               <div className="source__edit-avatar-button">
                 <FlatButton
                   label={this.props.intl.formatMessage(globalStrings.edit)}
                   onClick={this.handleEditProfileImg.bind(this)}
                   primary
-                  />
+                />
               </div> : null
             }
           </div>
@@ -951,7 +1011,7 @@ class SourceComponent extends Component {
                 id="source__bio-container"
                 defaultValue={source.description}
                 floatingLabelText={this.props.intl.formatMessage(messages.sourceBio)}
-                multiLine={true}
+                multiLine
                 rowsMax={4}
                 style={{ width: '85%' }}
               />
@@ -964,13 +1024,14 @@ class SourceComponent extends Component {
 
             <div className="source__edit-buttons">
               <div className="source__edit-buttons-add-merge">
-                <FlatButton className="source__edit-addinfo-button"
+                <FlatButton
+                  className="source__edit-addinfo-button"
                   primary
                   onClick={this.handleAddInfoMenu}
-                  label={this.props.intl.formatMessage(messages.addInfo)} />
+                  label={this.props.intl.formatMessage(messages.addInfo)}
+                />
                 <Popover open={this.state.menuOpen} anchorEl={this.state.anchorEl} anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }} targetOrigin={{ horizontal: 'left', vertical: 'top' }} onRequestClose={this.handleRequestClose.bind(this)}>
                   <Menu>
-                    <MenuItem className="source__add-contact-note" onClick={this.handleAddMetadataField.bind(this, 'contact_note')} primaryText={this.props.intl.formatMessage(messages.contactNote)} />
                     <MenuItem className="source__add-phone" onClick={this.handleAddMetadataField.bind(this, 'phone')} primaryText={this.props.intl.formatMessage(messages.phone)} />
                     <MenuItem className="source__add-organization" onClick={this.handleAddMetadataField.bind(this, 'organization')} primaryText={this.props.intl.formatMessage(messages.organization)} />
                     <MenuItem className="source__add-location" onClick={this.handleAddMetadataField.bind(this, 'location')} primaryText={this.props.intl.formatMessage(messages.location)} />
@@ -982,27 +1043,33 @@ class SourceComponent extends Component {
                 </Popover>
               </div>
 
-              <Dialog title={this.props.intl.formatMessage(messages.otherDialogTitle)} actions={actions} actionsContainerClassName="sourceComponent__action-container" open={this.state.dialogOpen} onRequestClose={this.handleCloseDialog.bind(this)} contentStyle={{width: '608px'}}>
+              <Dialog title={this.props.intl.formatMessage(messages.otherDialogTitle)} actions={actions} actionsContainerClassName="sourceComponent__action-container" open={this.state.dialogOpen} onRequestClose={this.handleCloseDialog.bind(this)} contentStyle={{ width: '608px' }}>
                 <TextField
                   id="source__other-label-input"
                   floatingLabelText={this.props.intl.formatMessage(messages.label)}
                   fullWidth
-                  onChange={(e) => { this.setState({ customFieldLabel: e.target.value }) }} />
+                  onChange={(e) => { this.setState({ customFieldLabel: e.target.value }); }}
+                />
                 <TextField
                   id="source__other-value-input"
                   floatingLabelText={this.props.intl.formatMessage(messages.value)}
-                  onChange={(e) => { this.setState({ customFieldValue: e.target.value }) }}
-                  fullWidth />
+                  onChange={(e) => { this.setState({ customFieldValue: e.target.value }); }}
+                  fullWidth
+                />
               </Dialog>
 
               <div className="source__edit-buttons-cancel-save">
-                <FlatButton className="source__edit-cancel-button"
+                <FlatButton
+                  className="source__edit-cancel-button"
                   onClick={this.handleLeaveEditMode.bind(this)}
-                  label={this.props.intl.formatMessage(globalStrings.cancel)} />
-                <RaisedButton className="source__edit-save-button"
+                  label={this.props.intl.formatMessage(globalStrings.cancel)}
+                />
+                <RaisedButton
+                  className="source__edit-save-button"
                   primary
                   onClick={this.handleSubmit.bind(this)}
-                  label={this.props.intl.formatMessage(globalStrings.save)} />
+                  label={this.props.intl.formatMessage(globalStrings.save)}
+                />
               </div>
               <div className="source__edit-buttons-clear" />
             </div>
@@ -1016,7 +1083,6 @@ class SourceComponent extends Component {
     const isProjectSource = this.isProjectSource();
     const source = this.getSource();
     const isEditing = this.state.isEditing;
-
     return (
       <PageTitle prefix={source.name} skipTeam={false} team={this.props.source.team}>
         <div className="source" data-id={source.dbid} data-user-id={source.user_id}>
@@ -1033,7 +1099,7 @@ class SourceComponent extends Component {
                 <Can
                   permissions={source.permissions}
                   permission="update Source"
-                  >
+                >
                   <IconButton
                     className="source__edit-button"
                     tooltip={
@@ -1044,7 +1110,7 @@ class SourceComponent extends Component {
                     }
                     tooltipPosition="top-center"
                     onTouchTap={this.handleEnterEditMode.bind(this)}
-                    >
+                  >
                     <MDEdit />
                   </IconButton>
                 </Can>
@@ -1054,7 +1120,7 @@ class SourceComponent extends Component {
 
           { !isEditing ?
             <div>
-              { this.state.showTab === 'annotation' ? <Annotations annotations={source.annotations.edges.slice().reverse()} annotated={source} annotatedType="Source" /> : null }
+              { this.state.showTab === 'annotation' ? <Annotations annotations={source.log.edges} annotated={this.props.source} annotatedType="ProjectSource" /> : null }
               <ContentColumn>
                 { this.state.showTab === 'media' ? <Medias medias={source.medias.edges} /> : null }
                 { this.state.showTab === 'account' ? source.accounts.edges.map(account => <AccountCard key={account.node.id} account={account.node} />) : null }
