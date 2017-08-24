@@ -34,6 +34,7 @@ class MediaMetadata extends Component {
       isEditing: false,
       openMoveDialog: false,
       mediaVersion: false,
+      openEditDialog: false,
     };
   }
 
@@ -143,20 +144,13 @@ class MediaMetadata extends Component {
     return projects.filter(p => p.node.dbid !== projectId);
   }
 
-
-  // Todo move editing to a separate modal
-  // The handleSave function is duplicated in MediaDetail
-  // 2017-8-24 CGB
-  //
   handleSave(media, event) {
     if (event) {
       event.preventDefault();
     }
 
-
     const titleInput = document.querySelector(`#media-detail-title-input-${media.dbid}`);
     const newTitle = (titleInput.value || '').trim();
-
 
     const onFailure = (transaction) => {
       const transactionError = transaction.getError();
@@ -184,8 +178,8 @@ class MediaMetadata extends Component {
     this.setState({ isEditing: false });
   }
 
-  handleCloseDialog() {
-    this.setState({ openMoveDialog: false, dstProj: null });
+  handleCloseDialogs() {
+    this.setState({ isEditing: false, openMoveDialog: false, dstProj: null });
   }
 
   handleSelectDestProject(event, dstProj) {
@@ -209,11 +203,11 @@ class MediaMetadata extends Component {
         values={{ username: <ProfileLink user={media.user} /> }}
       />)
       : '';
-    const actions = [
+    const moveDialogActions = [
       <FlatButton
         label={<FormattedMessage id="mediaDetail.cancelButton" defaultMessage="Cancel" />}
         primary
-        onClick={this.handleCloseDialog.bind(this)}
+        onClick={this.handleCloseDialogs.bind(this)}
       />,
       <FlatButton
         label={<FormattedMessage id="mediaDetail.move" defaultMessage="Move" />}
@@ -226,23 +220,46 @@ class MediaMetadata extends Component {
 
     return (
       <div className="media-detail__check-metadata">
-
         {
-          // TODO move to modal
           this.state.isEditing
-            ? (<form onSubmit={this.handleSave.bind(this, media)}>
-              <input
-                type="text"
-                id={`media-detail-title-input-${media.dbid}`}
-                className="media-detail__title-input"
-                placeholder={this.props.intl.formatMessage(messages.mediaTitle)}
-                defaultValue={this.props.heading}
-                style={{ width: '100%' }}
-              />
-            </form>)
+            ? (
+              <Dialog
+                modal
+                open={this.state.isEditing}
+                onRequestClose={this.handleCloseDialogs.bind(this)}
+                autoScrollBodyContent
+              >
+                <form onSubmit={this.handleSave.bind(this, media)}>
+                  <Message message={this.state.message} />
+                  <input
+                    type="text"
+                    id={`media-detail-title-input-${media.dbid}`}
+                    className="media-detail__title-input"
+                    placeholder={this.props.intl.formatMessage(messages.mediaTitle)}
+                    defaultValue={this.props.heading}
+                    style={{ width: '100%' }}
+                  />
+                </form>
+
+                {media.tags
+                  ? <MediaTags media={media} tags={media.tags.edges} isEditing />
+                  : null}
+
+                <span style={{ display: 'flex' }}>
+                  <FlatButton
+                    onClick={this.handleCancel.bind(this)}
+                    className="media-detail__cancel-edits"
+                    label={<FormattedMessage id="mediaDetail.cancelButton" defaultMessage="Cancel" />}
+                  />
+                  <FlatButton
+                    onClick={this.handleSave.bind(this, media)}
+                    className="media-detail__save-edits"
+                    label={<FormattedMessage id="mediaDetail.doneButton" defaultMessage="Done" />}
+                  />
+                </span>
+              </Dialog>)
             : null
         }
-        <Message message={this.state.message} />
         <MediaStatus media={media} readonly={readonly} />
         {byUser
           ? <span className="media-detail__check-added-by">
@@ -261,21 +278,7 @@ class MediaMetadata extends Component {
           </span>
           : null}
         {media.tags
-          ? <MediaTags media={media} tags={media.tags.edges} isEditing={this.state.isEditing} />
-          : null}
-        {this.state.isEditing
-          ? <span style={{ display: 'flex' }}>
-            <FlatButton
-              onClick={this.handleCancel.bind(this)}
-              className="media-detail__cancel-edits"
-              label={<FormattedMessage id="mediaDetail.cancelButton" defaultMessage="Cancel" />}
-            />
-            <FlatButton
-              onClick={this.handleSave.bind(this, media)}
-              className="media-detail__save-edits"
-              label={<FormattedMessage id="mediaDetail.doneButton" defaultMessage="Done" />}
-            />
-          </span>
+          ? <MediaTags media={media} tags={media.tags.edges} isEditing={false} />
           : null}
         {this.props.readonly || this.state.isEditing
           ? null
@@ -287,10 +290,10 @@ class MediaMetadata extends Component {
           />}
 
         <Dialog
-          actions={actions}
+          actions={moveDialogActions}
           modal
           open={this.state.openMoveDialog}
-          onRequestClose={this.handleCloseDialog.bind(this)}
+          onRequestClose={this.handleCloseDialogs.bind(this)}
           autoScrollBodyContent
         >
           <h4 className="media-detail__dialog-header">

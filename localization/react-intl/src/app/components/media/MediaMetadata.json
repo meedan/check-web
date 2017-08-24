@@ -20,12 +20,12 @@
     "defaultMessage": "Move"
   },
   {
-    "id": "mediaDetail.added",
-    "defaultMessage": "Added {byUser}"
-  },
-  {
     "id": "mediaDetail.doneButton",
     "defaultMessage": "Done"
+  },
+  {
+    "id": "mediaDetail.added",
+    "defaultMessage": "Added {byUser}"
   },
   {
     "id": "mediaDetail.dialogHeader",
