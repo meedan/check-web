@@ -89,7 +89,7 @@ class PenderCard extends Component {
               return this.props.fallback;
             }
             return (
-              <CircularProgress thickness={1} />
+              <div><CircularProgress thickness={1} /></div>
             );
           })()}
         </PenderCardLoader>
@@ -99,7 +99,7 @@ class PenderCard extends Component {
 }
 
 PenderCard.defaultProps = {
-  domId: 0,
+  domId: '0',
 };
 
 
