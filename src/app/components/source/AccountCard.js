@@ -11,7 +11,7 @@ class AccountCard extends React.Component {
   accountStats(account) {
     switch (account.provider) {
       case 'facebook':
-        return account.embed.raw.api.likes ? <FormattedMessage id="accountCard.fbStats" defaultMessage="{likes, number} likes" values={{ likes: account.embed.raw.api.likes }} /> : null;
+        return account.embed.likes ? <FormattedMessage id="accountCard.fbStats" defaultMessage="{likes, number} likes" values={{ likes: account.embed.likes }} /> : null;
       case 'twitter':
         return <FormattedHTMLMessage id="accountCard.twitterStats" defaultMessage="{tweets, number} Tweets &bull; {followers, number} Followers &bull; {following, number} Following" values={{ tweets: account.embed.raw.api.statuses_count, followers: account.embed.raw.api.followers_count, following: account.embed.raw.api.friends_count }} />;
       case 'youtube':
