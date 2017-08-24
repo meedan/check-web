@@ -203,25 +203,6 @@ const MediaUtil = {
       return <MdLink key="socialIcon__Link" />;
     }
   },
-
-  stats(media, data, intl) {
-    try {
-      return (
-        {
-          'twitter.com': [
-            intl.formatMessage(messages.favoritesCount, {
-              favoritesCount: data.raw.api.favorite_count,
-            }),
-            intl.formatMessage(messages.retweetsCount, {
-              retweetsCount: data.raw.api.retweet_count,
-            }),
-          ],
-        }[media.domain] || []
-      );
-    } catch (e) {
-      return [];
-    }
-  },
 };
 
 export default MediaUtil;
