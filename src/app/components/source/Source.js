@@ -173,6 +173,105 @@ const SourceContainer = Relay.createContainer(SourceComponent, {
               }
             }
           },
+          log(first: 10000) {
+            edges {
+              node {
+                id,
+                dbid,
+                item_type,
+                item_id,
+                event,
+                event_type,
+                created_at,
+                object_after,
+                object_changes_json,
+                meta,
+                projects(first: 2) {
+                  edges {
+                    node {
+                      id,
+                      dbid,
+                      title
+                    }
+                  }
+                }
+                user {
+                  name,
+                  profile_image,
+                  email,
+                  source {
+                    dbid,
+                    accounts(first: 10000) {
+                      edges {
+                        node {
+                          url
+                        }
+                      }
+                    }
+                  }
+                }
+                task {
+                  id,
+                  dbid,
+                  label,
+                  type
+                }
+                annotation {
+                  id,
+                  dbid,
+                  content,
+                  annotation_type,
+                  updated_at,
+                  created_at,
+                  permissions,
+                  medias(first: 10000) {
+                    edges {
+                      node {
+                        id,
+                        dbid,
+                        quote,
+                        published,
+                        url,
+                        embed,
+                        project_id,
+                        last_status,
+                        field_value(annotation_type_field_name: "translation_status:translation_status_status"),
+                        log_count,
+                        permissions,
+                        verification_statuses,
+                        translation_statuses,
+                        domain,
+                        team {
+                          slug
+                        }
+                        media {
+                          embed_path,
+                          thumbnail_path,
+                          url,
+                          quote
+                        }
+                        user {
+                          name,
+                          source {
+                            dbid
+                          }
+                        }
+                      }
+                    }
+                  }
+                  annotator {
+                    name,
+                    profile_image
+                  }
+                  version {
+                    id
+                    item_id
+                    item_type
+                  }
+                }
+              }
+            }
+          },
           medias(first: 10000) {
             edges {
               node {
