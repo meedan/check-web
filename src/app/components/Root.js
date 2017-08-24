@@ -91,7 +91,7 @@ export default class Root extends Component {
     const context = this.getContext();
     const store = context.store || this.props.store;
 
-    const data = { history };
+    const data = { history, locale };
 
     if (config.pusherKey) {
       Pusher.logToConsole = !!config.pusherDebug;

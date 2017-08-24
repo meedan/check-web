@@ -22,6 +22,8 @@ import 'rc-tooltip/assets/bootstrap.css';
 import ParsedText from '../ParsedText';
 import GeolocationRespondTask from './GeolocationRespondTask';
 import GeolocationTaskResponse from './GeolocationTaskResponse';
+import DatetimeRespondTask from './DatetimeRespondTask';
+import DatetimeTaskResponse from './DatetimeTaskResponse';
 
 const messages = defineMessages({
   confirmDelete: {
@@ -122,7 +124,7 @@ class Task extends Component {
 
     const fields = {};
     fields[`response_${task.type}`] = response;
-    if (note != false) {
+    if (note !== false) {
       fields[`note_${task.type}`] = note || '';
     }
     fields[`task_${task.type}`] = task.dbid;
@@ -298,7 +300,7 @@ class Task extends Component {
 
     const fields = {};
     fields[`response_${task.type}`] = edited_response;
-    if (edited_note != false) {
+    if (edited_note !== false) {
       fields[`note_${task.type}`] = edited_note;
     }
 
@@ -428,6 +430,7 @@ class Task extends Component {
 
                 <div className='task__response-inputs'>
                   { task.type === 'geolocation' ? <GeolocationRespondTask onSubmit={this.handleSubmitWithArgs.bind(this)} /> : null }
+                  { task.type === 'datetime' ? <DatetimeRespondTask onSubmit={this.handleSubmitWithArgs.bind(this)} note={''} /> : null }
                   { task.type === 'single_choice' ? <SingleChoiceTask mode="respond" response={response} note={note} jsonoptions={task.jsonoptions} onSubmit={this.handleSubmitWithArgs.bind(this)}/> : null }
                   { task.type === 'multiple_choice' ? <MultiSelectTask mode="respond" jsonresponse={response} note={note} jsonoptions={task.jsonoptions} onSubmit={this.handleSubmitWithArgs.bind(this)}/> : null }
                   { task.type === 'free_text' ? [<TextField
@@ -459,6 +462,7 @@ class Task extends Component {
                 <form onSubmit={this.handleSubmitUpdate.bind(this)} name={`edit-response-${task.first_response.id}`}>
                   {taskQuestion}
                   { task.type === 'geolocation' ? <GeolocationRespondTask response={response} onSubmit={this.handleSubmitUpdateWithArgs.bind(this)} onDismiss={this.handleCancelEditResponse.bind(this)} /> : null }
+                  { task.type === 'datetime' ? <DatetimeRespondTask response={response} note={note} onSubmit={this.handleSubmitUpdateWithArgs.bind(this)} onDismiss={this.handleCancelEditResponse.bind(this)} /> : null }
                   { task.type === 'single_choice' ? <SingleChoiceTask mode="edit_response" response={response} note={note} jsonoptions={task.jsonoptions} onDismiss={this.handleCancelEditResponse.bind(this)} onSubmit={this.handleSubmitUpdateWithArgs.bind(this)} /> : null }
                   { task.type === 'multiple_choice' ? <MultiSelectTask mode="edit_response" jsonresponse={response} note={note} jsonoptions={task.jsonoptions} onDismiss={this.handleCancelEditResponse.bind(this)} onSubmit={this.handleSubmitUpdateWithArgs.bind(this)} /> : null }
                   { task.type === 'free_text' ? [<TextField
@@ -488,6 +492,7 @@ class Task extends Component {
                 {taskQuestion}
                 { task.type === 'free_text' ? <p className="task__response"><ParsedText text={response} /></p> : null }
                 { task.type === 'geolocation' ? <p className="task__response"><GeolocationTaskResponse response={response} /></p> : null }
+                { task.type === 'datetime' ? <p className="task__response"><DatetimeTaskResponse response={response} /></p> : null }
                 { task.type === 'single_choice' ? <SingleChoiceTask mode="show_response" response={response} note={note} jsonoptions={task.jsonoptions} /> : null }
                 { task.type === 'multiple_choice' ? <MultiSelectTask mode="show_response" jsonresponse={response} note={note} jsonoptions={task.jsonoptions} /> : null }
                 <p style={{ display: note ? 'block' : 'none' }} className="task__note"><ParsedText text={note} /></p>
