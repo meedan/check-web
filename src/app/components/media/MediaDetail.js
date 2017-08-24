@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { injectIntl, intlShape } from 'react-intl';
 import { Link } from 'react-router';
 import config from 'config';
-import { Card, CardHeader, CardText } from 'material-ui/Card';
+import { Card, CardHeader, CardText, CardActions } from 'material-ui/Card';
 import QuoteMediaCard from './QuoteMediaCard';
 import MediaMetadata from './MediaMetadata';
 import MediaUtil from './MediaUtil';
@@ -110,13 +110,13 @@ class MediaDetail extends Component {
         />
 
         <CardText expandable>
-
           <div className={this.statusToClass('media-detail__media', mediaLastStatus(media))}>
             {embedCard}
           </div>
-
-          <MediaMetadata data={data} heading={heading} {...this.props} />
         </CardText>
+        <CardActions>
+          <MediaMetadata data={data} heading={heading} {...this.props} />
+        </CardActions>
       </Card>
     );
   }
