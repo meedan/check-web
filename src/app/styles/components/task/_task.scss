@@ -159,4 +159,43 @@
       word-wrap: break-word;
     }
   }
+
+  .leaflet-container {
+    height: 400px;
+  }
+
+  .task__geolocation-response {
+    display: flex;
+    text-align: $from-direction;
+
+    .task__response, .task__note {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .task__note {
+      color: $black-54;
+      padding-#{$from-direction}: units(1);
+    }
+
+    .task__geolocation-image {
+      flex-grow: 1;
+      text-align: $to-direction;
+    }
+
+    img {
+      width: 56px;
+      height: 56px;
+      cursor: pointer;
+    }
+  }
+}
+
+#task__edit-response-button {
+  cursor: pointer;
+}
+
+.ReactModal__Overlay {
+  z-index: 1200;
 }

@@ -8,6 +8,14 @@
     "defaultMessage": "Sorry, could not edit the source"
   },
   {
+    "id": "sourceComponent.createTagError",
+    "defaultMessage": "Failed to create tag"
+  },
+  {
+    "id": "sourceComponent.selectLanguageError",
+    "defaultMessage": "Please select a language from the list"
+  },
+  {
     "id": "sourceComponent.editSuccess",
     "defaultMessage": "Source information updated successfully!"
   },
@@ -22,10 +30,6 @@
   {
     "id": "sourceComponent.sourceBio",
     "defaultMessage": "Source bio"
-  },
-  {
-    "id": "sourceComponent.contactNote",
-    "defaultMessage": "Contact note"
   },
   {
     "id": "sourceComponent.phone",
@@ -62,6 +66,14 @@
   {
     "id": "sourceComponent.addLink",
     "defaultMessage": "Add a link"
+  },
+  {
+    "id": "sourceComponent.addLinkHelper",
+    "defaultMessage": "Add a link to a web page or social media profile"
+  },
+  {
+    "id": "sourceComponent.invalidLink",
+    "defaultMessage": "Please enter a valid URL"
   },
   {
     "id": "sourceComponent.other",

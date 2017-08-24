@@ -31,6 +31,16 @@
       .source-tags__tags {
         margin-top: units(1);
       }
+
+      .source__helper {
+        @include when-smaller-than(mobile-breakpoint-small) {
+          display: none;
+        }
+
+        color: $black-38;
+        font: font(caption);
+        margin-bottom: units(2);
+      }
     }
 
     .source__metadata {
@@ -55,6 +65,7 @@
     display: flex;
     flex-flow: wrap row;
     font: font(caption);
+    margin: units(2) 0;
 
     & > span {
       margin-#{$to-direction}: units(2);
