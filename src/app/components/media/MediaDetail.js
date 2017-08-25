@@ -101,7 +101,7 @@ class MediaDetail extends Component {
       <Card
         initiallyExpanded={this.props.initiallyExpanded}
         className={cardClassName}
-        style={{ borderColor: getStatusStyle(status, 'borderColor') }}
+        style={{ borderColor: getStatusStyle(status, 'backgroundColor') }}
       >
         <CardHeader
           title={cardHeaderTitle}

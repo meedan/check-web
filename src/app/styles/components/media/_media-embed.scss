@@ -2,12 +2,12 @@
   text-align: $to-direction;
 
   span {
-    cursor: pointer;
-    padding: units(1) units(2);
-    text-transform: uppercase;
     color: $check-blue;
+    cursor: pointer;
     font-size: 14px;
     font-weight: bold;
+    padding: units(1) units(2);
+    text-transform: uppercase;
   }
 }
 
@@ -21,14 +21,14 @@
   }
 
   .media-embed__customization-label {
-    font-size: 16px;
     flex-grow: 1;
-    padding-#{$to-direction}: 16px;
+    font-size: 16px;
 
     .media-embed__customization-slogan {
-      font-size: 14px;
       color: $opaque-black-54;
+      font-size: 14px;
     }
+    padding-#{$to-direction}: 16px;
   }
 }
 
@@ -37,9 +37,9 @@
   width: 560px;
 
   .media-embed__warning {
-    color: $media-status-red;
-    font-weight: bold;
+    color: $alert-red;
     font-size: 14px;
+    font-weight: bold;
   }
 
   .media-embed__copy-footer {
@@ -47,32 +47,32 @@
   }
 
   #media-embed__code-field {
+    background: transparent;
+    border: 1px solid #eee;
+    flex-grow: 1;
     font-family: 'Roboto Mono';
     font-size: 12px;
-    flex-grow: 1;
     padding: 1px;
-    border: 1px solid #eee;
-    background: transparent;
-    margin-#{$to-direction}: 16px;
 
     &:focus {
       outline: none;
     }
+    margin-#{$to-direction}: 16px;
   }
 
   .media-embed__copy-button,
   .media-embed__copy-button-inactive {
-    text-transform: uppercase;
     font-size: 14px;
+    text-transform: uppercase;
     padding-#{$from-direction}: 16px;
     border-#{$from-direction}: 1px solid $black-16;
   }
-  
+
   .media-embed__copy-button {
-    cursor: pointer;
     color: $check-blue;
+    cursor: pointer;
   }
-  
+
   .media-embed__copy-button-inactive {
     color: $opaque-black-54;
   }

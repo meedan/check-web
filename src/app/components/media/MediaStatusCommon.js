@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { defineMessages, injectIntl, intlShape } from 'react-intl';
-import styled from 'styled-components';
 import FaCircle from 'react-icons/lib/fa/circle';
 import FaCircleO from 'react-icons/lib/fa/circle-o';
 import DropDownMenu from 'material-ui/DropDownMenu';
@@ -13,21 +12,6 @@ import {
   units,
   black54,
 } from '../../styles/js/variables';
-
-
-const StyledMenuItem = styled(MenuItem)`
-  @include media-status-menu-hover-colors;
-  @include media-status-font-colors;
-  align-items: center;
-  display: flex;
-  padding: 0 ${units(1)};
-
-  svg {
-    height: ${units(2)};
-    margin: 0 ${units(1)};
-    width: ${units(2)};
-  }
-`;
 
 const messages = defineMessages({
   error: {
@@ -102,6 +86,8 @@ class MediaStatusCommon extends Component {
               value={currentStatus.label}
               underlineStyle={{ borderWidth: 0 }}
               iconStyle={{ fill: black54 }}
+              labelStyle={{ color: getStatusStyle(currentStatus, 'color') }}
+              selectedMenuItemStyle={{ color: getStatusStyle(currentStatus, 'color') }}
             >
               {statuses.map(status =>
                 <MenuItem
@@ -119,7 +105,7 @@ class MediaStatusCommon extends Component {
                       <FaCircle />
                       : <FaCircleO />
                     }
-                    <span className="media-status__label">{status.label}</span>
+                    <span style={{ margin: `0 ${units(1)}` }}>{status.label}</span>
                   </div>
                   }
                 />,

@@ -3,7 +3,6 @@
 // Since it does not only apply to the detail view. — CGB
 //
 .media-detail {
-  @include media-status-border-colors;
   border-#{$from-direction}: units(1) solid;
 }
 

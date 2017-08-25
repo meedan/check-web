@@ -37,8 +37,6 @@
   }
 
   &__expanded {
-    // slide under header
-    @include media-status-background-colors;
     margin-top: -#{layout(header-height) + layout(gutter-medium)};
     min-height: 100vh;
     padding-bottom: units(6);
