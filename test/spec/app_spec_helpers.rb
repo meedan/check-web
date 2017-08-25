@@ -58,7 +58,7 @@ module AppSpecHelpers
   end
 
   def twitter_auth
-		sleep 5
+    sleep 5
     @driver.find_element(:xpath, "//button[@id='twitter-login']").click
     sleep 5
     window = @driver.window_handles.first
@@ -101,7 +101,7 @@ module AppSpecHelpers
     slack_auth
     create_team
   end
-
+  
   def login_or_register_with_email
     login_with_email(false)
     result = Selenium::WebDriver::Wait.new(timeout: 5).until {
@@ -227,5 +227,62 @@ module AppSpecHelpers
     image = Imgur::LocalImage.new(path, title: title)
     uploaded = client.upload(image)
     uploaded.link
+  end
+
+  def wait_page_load(options = {})
+    driver = options[:driver] || @driver
+    item = options[:item] || "root"
+    @wait.until {driver.page_source.include?(item) }
+  end
+
+  def go(new_url)
+    if defined? $caller_name and $caller_name.length > 0
+      method_id = $caller_name[0]
+      method_id.gsub! (/(\s)/), '_'
+      method_id.gsub! (/("|\[|\])/), ''
+      if new_url.include? '?'
+        new_url = new_url + '&test_id='+method_id
+      else
+        new_url = new_url + '?test_id='+method_id
+      end
+    end
+    @driver.navigate.to new_url
+  end
+
+
+  def new_driver(webdriver_url, browser_capabilities)
+    if @config.key?('proxy') and !webdriver_url.include? "browserstack"
+      proxy = Selenium::WebDriver::Proxy.new(
+        :http     => @config['proxy'],
+        :ftp      => @config['proxy'],
+        :ssl      => @config['proxy']
+      )
+      if (Dir.entries(".").include? "extension.crx")
+        caps = Selenium::WebDriver::Remote::Capabilities.chrome ({
+            'chromeOptions' => {
+              'extensions' => [
+                Base64.strict_encode64(File.open('./extension.crx', 'rb').read)
+              ]
+            }, :proxy => proxy
+          })
+      else
+        caps = Selenium::WebDriver::Remote::Capabilities.chrome(:proxy => proxy)
+      end
+      dr = Selenium::WebDriver.for(:chrome, :desired_capabilities => caps , :url => @config['chromedriver_url'])
+    else
+      if ((Dir.entries(".").include? "extension.crx") and (browser_capabilities == :chrome))
+        caps = Selenium::WebDriver::Remote::Capabilities.chrome ({
+            'chromeOptions' => {
+              'extensions' => [
+                Base64.strict_encode64(File.open('./extension.crx', 'rb').read)
+              ]
+            }
+          })
+        dr = Selenium::WebDriver.for(:chrome, :desired_capabilities => caps , :url => webdriver_url)
+      else
+        dr = Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: browser_capabilities)  
+      end
+    end  
+    dr
   end
 end

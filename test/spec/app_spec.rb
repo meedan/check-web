@@ -9,6 +9,8 @@ require_relative './pages/teams_page.rb'
 require_relative './pages/page.rb'
 require_relative './api_helpers.rb'
 
+
+
 CONFIG = YAML.load_file('config.yml')
 
 require_relative "#{CONFIG['app_name']}/custom_spec.rb"
@@ -16,7 +18,6 @@ require_relative "#{CONFIG['app_name']}/custom_spec.rb"
 shared_examples 'app' do |webdriver_url, browser_capabilities|
 
   # Helpers
-
   include AppSpecHelpers
   include ApiHelpers
 
@@ -31,6 +32,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     @config = CONFIG
     $source_id = nil
     $media_id = nil
+    @team1_slug = 'team1'+Time.now.to_i.to_s
+    @user_mail = 'sysops_' + Time.now.to_i.to_s + '@meedan.com'
 
     begin
       FileUtils.cp('./config.js', '../build/web/js/config.js')
@@ -38,9 +41,12 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       puts "Could not copy local ./config.js to ../build/web/js/"
     end
 
-    @driver = browser_capabilities['appiumVersion'] ?
-      Appium::Driver.new({ appium_lib: { server_url: webdriver_url}, caps: browser_capabilities }).start_driver :
-      Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: browser_capabilities)
+    #EXTRACT USER:PWD FROM URL FOR CHROME    
+    if ((browser_capabilities == :chrome) and (@config['self_url'].include? "@" and @config['self_url'].include? ":"))
+      @config['self_url'] = @config['self_url'][0..(@config['self_url'].index('//')+1)] + @config['self_url'][(@config['self_url'].index('@')+1)..-1]
+    end
+
+    @driver = new_driver(webdriver_url,browser_capabilities)
 
     api_create_team_project_and_claim(true)
   end
@@ -49,20 +55,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     FileUtils.cp('../config.js', '../build/web/js/config.js')
   end
 
-  before :each do
-    if @config.key?('proxy')
-      proxy = Selenium::WebDriver::Proxy.new(
-        :http     => @config['proxy'],
-        :ftp      => @config['proxy'],
-        :ssl      => @config['proxy']
-      )
-      caps = Selenium::WebDriver::Remote::Capabilities.chrome(:proxy => proxy)
-      @driver = Selenium::WebDriver.for(:chrome, :desired_capabilities => caps , :url => @config['chromedriver_url'])
-    else
-      @driver = browser_capabilities['appiumVersion'] ?
-        Appium::Driver.new({ appium_lib: { server_url: webdriver_url}, caps: browser_capabilities }).start_driver :
-        Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: browser_capabilities)
-    end
+  before :each do |example|
+    $caller_name = example.metadata[:description_args]
+    @driver = new_driver(webdriver_url,browser_capabilities)
   end
 
   after :each do |example|
