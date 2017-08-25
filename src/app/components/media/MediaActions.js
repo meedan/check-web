@@ -80,7 +80,7 @@ class MediaActions extends Component {
       ? <div style={{ marginLeft: 'auto' }}>
         <IconMenu
           className="media-actions"
-          iconButtonElement={<IconButton><IconMoreHoriz classname="media-actions__icon" /></IconButton>}
+          iconButtonElement={<IconButton><IconMoreHoriz className="media-actions__icon" /></IconButton>}
         >
           {menuItems}
         </IconMenu>

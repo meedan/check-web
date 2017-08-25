@@ -122,7 +122,7 @@ class Task extends Component {
 
     const fields = {};
     fields[`response_${task.type}`] = response;
-    if (note != false) {
+    if (note !== false) {
       fields[`note_${task.type}`] = note || '';
     }
     fields[`task_${task.type}`] = task.dbid;
@@ -255,7 +255,7 @@ class Task extends Component {
       that.setState({ message });
     };
 
-    const onSuccess = (response) => {
+    const onSuccess = () => {
       that.setState({ message: null, editingResponse: false });
     };
 
@@ -297,13 +297,13 @@ class Task extends Component {
       that.setState({ message });
     };
 
-    const onSuccess = (response) => {
+    const onSuccess = () => {
       that.setState({ message: null, editingResponse: false });
     };
 
     const fields = {};
     fields[`response_${task.type}`] = edited_response;
-    if (edited_note != false) {
+    if (edited_note !== false) {
       fields[`note_${task.type}`] = edited_note;
     }
 
@@ -379,11 +379,13 @@ class Task extends Component {
 
     const dialogActions = [
       <FlatButton
+        key="tasks__cancel"
         label={<FormattedMessage id="tasks.cancelEdit" defaultMessage="Cancel" />}
         primary
         onClick={this.handleCancelEdit.bind(this)}
       />,
       <FlatButton
+        key="task__save"
         className="task__save"
         label={<FormattedMessage id="tasks.save" defaultMessage="Save" />}
         primary
@@ -476,6 +478,7 @@ class Task extends Component {
                   {task.type === 'free_text'
                       ? [
                         <TextField
+                          key="task__response-input"
                           className="task__response-input"
                           onFocus={this.handleFocus.bind(this)}
                           name="response"
@@ -486,6 +489,7 @@ class Task extends Component {
                           style={{ display: '' }}
                         />,
                         <TextField
+                          key="task__response-note-input"
                           className="task__response-note-input"
                           hintText={
                             <FormattedMessage
@@ -499,7 +503,7 @@ class Task extends Component {
                           fullWidth
                           multiLine
                         />,
-                        <p className="task__resolver">
+                        <p key="task__resolver" className="task__resolver">
                           <small>
                             <FormattedMessage
                               id="task.pressReturnToSave"
@@ -548,6 +552,7 @@ class Task extends Component {
                     {task.type === 'free_text'
                         ? [
                           <TextField
+                            key="task__response-input"
                             className="task__response-input"
                             defaultValue={response}
                             name="editedresponse"
@@ -557,6 +562,7 @@ class Task extends Component {
                             multiLine
                           />,
                           <TextField
+                            key="task__note-label"
                             hintText={
                               <FormattedMessage
                                 id="task.noteLabel"
@@ -570,7 +576,7 @@ class Task extends Component {
                             fullWidth
                             multiLine
                           />,
-                          <p className="task__resolver">
+                          <p key="task__resolver" className="task__resolver">
                             <small>
                               <FormattedMessage
                                 id="task.pressReturnToSave"
