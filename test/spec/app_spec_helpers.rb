@@ -268,7 +268,7 @@ module AppSpecHelpers
       else
         caps = Selenium::WebDriver::Remote::Capabilities.chrome(:proxy => proxy)
       end
-      dr = Selenium::WebDriver.for(:chrome, :desired_capabilities => caps , :url => @config['chromedriver_url'])
+      dr = Selenium::WebDriver.for(:chrome, :desired_capabilities => caps , :url => webdriver_url)
     else
       if ((Dir.entries(".").include? "extension.crx") and (browser_capabilities == :chrome))
         caps = Selenium::WebDriver::Remote::Capabilities.chrome ({
