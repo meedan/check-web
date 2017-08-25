@@ -133,7 +133,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(project_pg.elements('.media-detail__heading').map(&:text).include?('Edited media title')).to be(true)
     end
 
-    it "should not add a duplicated tag from tags list", bin3: true do
+    it "should not add a duplicated tag from tags list", bin3: true, quick: true  do
       page = api_create_team_project_and_claim_and_redirect_to_media_page
       new_tag = Time.now.to_i.to_s
 
@@ -153,7 +153,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(page.contains_string?('Tag already exists')).to be(true)
     end
 
-    it "should display a default title for new media", bin1: true do
+    it "should display a default title for new media", bin1: true, quick:true do
       # Tweets
       media_pg = api_create_team_project_and_link_and_redirect_to_media_page('https://twitter.com/firstdraftnews/status/835587295394869249')
       expect(media_pg.primary_heading.text).to eq('Tweet by First Draft')
@@ -176,7 +176,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(project_pg.elements('.media-detail__heading').map(&:text).include?('Facebook post by First Draft')).to be(true)
     end
 
-    it "should login using Slack", bin5: true do
+    it "should login using Slack", bin5: true, quick:true do
       login_with_slack
       @driver.navigate.to @config['self_url'] + '/check/me'
       displayed_name = get_element('h1.source__name').text.upcase
@@ -220,7 +220,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(title.text == 'Account Already Confirmed').to be(true)
     end
 
-    it "should login using Facebook", bin5: true do
+    it "should login using Facebook", bin5: true, quick:true do
       login_pg = LoginPage.new(config: @config, driver: @driver).load
       login_pg.login_with_facebook
 
@@ -230,7 +230,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(displayed_name).to eq(expected_name)
     end
 
-    it "should register and login using e-mail", bin5: true do
+    it "should register and login using e-mail", bin5: true, quick:true do
       login_pg = LoginPage.new(config: @config, driver: @driver).load
       email, password = ['sysops+' + Time.now.to_i.to_s + '@meedan.com', '22345678']
       login_pg.register_and_login_with_email(email: email, password: password)
@@ -300,7 +300,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(title.text == 'Sign in').to be(true)
     end
 
-    it "should login using Twitter", bin5: true do
+    it "should login using Twitter", bin5: true, quick:true do
       login_with_twitter
       @driver.navigate.to @config['self_url'] + '/check/me'
       displayed_name = get_element('h1.source__name').text.upcase
@@ -526,7 +526,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(page.contains_string?('Tagged #command')).to be(true)
     end
 
-    it "should comment media as a command", bin3: true do
+    it "should comment media as a command", bin3: true, quick:true do
       api_create_team_project_and_claim_and_redirect_to_media_page
 
       # First, verify that there isn't any comment
@@ -639,7 +639,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     #   skip("Needs to be implemented")
     # end
 
-    it "should navigate between teams", bin4: true do
+    it "should navigate between teams", bin4: true, quick: true do
       # setup
       user = api_register_and_login_with_email
       team = request_api 'team', { name: 'Team 1', email: user.email, slug: "team-1-#{Time.now.to_i}" }
@@ -659,6 +659,29 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(page.team_name).to eq('Team 2')
       expect(page.project_titles.include?('Team 2 Project')).to be(true)
       expect(page.project_titles.include?('Team 1 Project')).to be(false)
+    end
+
+    #As a different user, request to join one team.
+    it "should join team", bin4:true, quick: true do
+      user = api_register_and_login_with_email
+
+      page = TeamsPage.new(config: @config, driver: @driver).load
+          .ask_join_team(subdomain: @team1_slug)
+      @wait.until {
+        expect(@driver.find_element(:class, "message").nil?).to be(false)
+      }
+      api_logout
+
+      @driver = new_driver(webdriver_url,browser_capabilities)
+      page = Page.new(config: @config, driver: @driver)
+      page.go(@config['api_path'] + '/test/session?email='+@user_mail)
+      #As the group creator, go to the members page and approve the joining request.
+      page = TeamsPage.new(config: @config, driver: @driver).load
+          .approve_join_team(subdomain: @team1_slug)
+      @wait.until {
+        elems = @driver.find_elements(:css => ".team-members__list > div")
+        expect(elems.size).to be > 1
+      }
     end
 
     it "should update notes count after delete annotation", bin3: true do
@@ -1120,6 +1143,22 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       @driver.switch_to.alert.accept
       sleep 3
       expect(@driver.page_source.include?('When was it')).to be(false)
+    end
+
+    #Add slack notificatios to a team
+    it "should add slack notifications to a team", bin2:true, quick: true do
+      team = "TestTeam #{Time.now.to_i}"
+      api_create_team(team:team)
+      p = Page.new(config: @config, driver: @driver)
+      p.go(@config['self_url'] + '/' + team)
+      wait_page_load(item: "footer")
+      @driver.find_element(:class, "team__edit-button").click
+      @driver.find_element(:id, "team__settings-slack-notifications-enabled").click
+      @driver.find_element(:id, "team__settings-slack-webhook").click
+      @driver.find_element(:id, "team__settings-slack-webhook").send_keys "https://hooks.slack.com/services/T02528QUL/BBBBBBBBB/AAAAAAAAAAAAAAAAAAAAAAAA"
+      @driver.find_element(:class, "team__save-button").click
+      sleep 2
+      expect(@driver.find_element(:class, "message").nil?).to be(false)
     end
   end
 end
