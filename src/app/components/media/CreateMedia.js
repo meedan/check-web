@@ -108,8 +108,33 @@ class CreateProjectMedia extends Component {
     this.setState({ url, message: null });
   }
 
+  handleSubmitError(context, prefix, transactionError) {
+    let json = null;
+    try {
+      json = JSON.parse(transactionError.source);
+    } catch (e) {
+      json = JSON.stringify(transactionError);
+    }
+    let message = this.props.intl.formatMessage(messages.error); // TODO: review error message
+    if (json && json.error) {
+      const matches = json.error.match(
+        this.state.mode === 'source' ?
+          /Account with this URL exists and has source id ([0-9]+)$/ :
+          /This media already exists in this project and has id ([0-9]+)/
+      );
+      if (matches) {
+        this.props.projectComponent.props.relay.forceFetch();
+        const pxid = matches[1];
+        message = null;
+        context.history.push(prefix + pxid);
+      } else {
+        message = json.error;
+      }
+    }
+    this.setState({ message, isSubmitting: false });
+  }
+
   submitSource() {
-    const that = this;
     const context = new CheckContext(this).getContextStore();
     const prefix = `/${context.team.slug}/project/${context.project.dbid}/source/`;
     const inputValue = document.getElementById('create-media-source-name-input').value.trim();
@@ -124,31 +149,8 @@ class CreateProjectMedia extends Component {
       message: this.props.intl.formatMessage(messages.submitting),
     });
 
-    const handleError = (json) => {
-      let message = this.props.intl.formatMessage(messages.error); // TODO: review error message
-      if (json && json.error) {
-        const matches = json.error.match(
-          /Account with this URL exists and has source id ([0-9]+)$/,
-        );
-        if (matches) {
-          that.props.projectComponent.props.relay.forceFetch();
-          const psid = matches[1];
-          message = null;
-          context.history.push(prefix + psid);
-        } else {
-          message = json.error;
-        }
-      }
-      that.setState({ message, isSubmitting: false });
-    };
-
     const onFailure = (transaction) => {
-      const transactionError = transaction.getError();
-      try {
-        handleError(JSON.parse(transactionError.source));
-      } catch (e) {
-        handleError(JSON.stringify(transactionError));
-      }
+      this.handleSubmitError(context, prefix, transaction.getError());
     };
 
     const onSuccess = (response) => {
@@ -168,7 +170,6 @@ class CreateProjectMedia extends Component {
   }
 
   submitMedia() {
-    const that = this;
     const context = new CheckContext(this).getContextStore();
     const prefix = `/${context.team.slug}/project/${context.project.dbid}/media/`;
 
@@ -201,31 +202,8 @@ class CreateProjectMedia extends Component {
       message: this.props.intl.formatMessage(messages.submitting),
     });
 
-    const handleError = (json) => {
-      let message = this.props.intl.formatMessage(messages.error);
-      if (json && json.error) {
-        const matches = json.error.match(
-          /This media already exists in this project and has id ([0-9]+)/,
-        );
-        if (matches) {
-          that.props.projectComponent.props.relay.forceFetch();
-          const pmid = matches[1];
-          message = null;
-          context.history.push(prefix + pmid);
-        } else {
-          message = json.error;
-        }
-      }
-      that.setState({ message, isSubmitting: false });
-    };
-
     const onFailure = (transaction) => {
-      const transactionError = transaction.getError();
-      try {
-        handleError(JSON.parse(transactionError.source));
-      } catch (e) {
-        handleError(JSON.stringify(transactionError));
-      }
+      this.handleSubmitError(context, prefix, transaction.getError());
     };
 
     const onSuccess = (response) => {
