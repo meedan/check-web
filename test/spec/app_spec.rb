@@ -664,15 +664,13 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     #As a different user, request to join one team.
     it "should join team", bin4:true, quick: true do
-      user = api_register_and_login_with_email
-
+      api_register_and_login_with_email
       page = TeamsPage.new(config: @config, driver: @driver).load
-          .ask_join_team(subdomain: @team1_slug)
+      page.ask_join_team(subdomain: @team1_slug)
       @wait.until {
         expect(@driver.find_element(:class, "message").nil?).to be(false)
       }
       api_logout
-
       @driver = new_driver(webdriver_url,browser_capabilities)
       page = Page.new(config: @config, driver: @driver)
       page.go(@config['api_path'] + '/test/session?email='+@user_mail)
