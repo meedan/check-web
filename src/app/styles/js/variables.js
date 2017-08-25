@@ -260,7 +260,7 @@ export const muiThemeWithoutRtl = {
 };
 
 
-export const media = {
+export const mediaQuery = {
   handheld: (...args) => css`@media (max-width: ${breakpointMobile}) { ${css(...args)} }`,
 };
 
@@ -304,3 +304,9 @@ export const anchorOrigin = {
   horizontal: 'left',
   vertical: 'bottom',
 };
+
+export const breakWordStyles = `
+  hyphens: auto;
+  overflow-wrap: break-word;
+  word-break: break-word;
+`;

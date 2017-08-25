@@ -34,7 +34,7 @@ class MediaPage < Page
   def edit
     element('.media-detail').click unless pender_visible?
     element('.media-actions').click
-    element('.media-actions__menu-item').click
+    element('.media-actions__edit').click
     @wait.until { editing_mode? }
   end
 
