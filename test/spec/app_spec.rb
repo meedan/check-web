@@ -638,11 +638,12 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     # it "should show 'edit project' link only to users with 'update project' permission" do
     #   skip("Needs to be implemented")
     # end
-
+@team1_slug = 'team1'+Time.now.to_i.to_s
+    
     it "should navigate between teams", bin4: true, quick: true do
       # setup
-      user = api_register_and_login_with_email
-      team = request_api 'team', { name: 'Team 1', email: user.email, slug: "team-1-#{Time.now.to_i}" }
+      user = api_register_and_login_with_email(email: @user_mail, password: @password)
+      team = request_api 'team', { name: 'Team 1', email: user.email, slug: @team1_slug }
       request_api 'project', { title: 'Team 1 Project', team_id: team.dbid }
       team = request_api 'team', { name: 'Team 2', email: user.email, slug: "team-2-#{Time.now.to_i}" }
       request_api 'project', { title: 'Team 2 Project', team_id: team.dbid }
