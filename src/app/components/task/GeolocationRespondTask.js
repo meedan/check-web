@@ -146,6 +146,9 @@ class GeolocationRespondTask extends Component {
     if (this.props.onCancel) {
       this.props.onCancel();
     }
+    if (this.props.onDismiss) {
+      this.props.onDismiss();
+    }
   }
 
   render() {
