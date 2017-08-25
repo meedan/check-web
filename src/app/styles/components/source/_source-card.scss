@@ -14,6 +14,10 @@ div.source-card__content {
 .source-card__avatar {
   float: $from-direction;
   padding-top: units(.5);
+
+  img {
+    @include avatar(units(5));
+  }
 }
 
 .source-card__body {
