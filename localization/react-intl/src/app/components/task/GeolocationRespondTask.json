@@ -12,6 +12,10 @@
     "defaultMessage": "Press return to save your response"
   },
   {
+    "id": "geolocationRespondTask.cancelTask",
+    "defaultMessage": "Cancel"
+  },
+  {
     "id": "geolocationRespondTask.resolveTask",
     "defaultMessage": "Resolve task"
   }

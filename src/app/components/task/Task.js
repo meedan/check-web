@@ -364,6 +364,10 @@ class Task extends Component {
     return data;
   }
 
+  handleCancel(task) {
+    document.getElementById(`task__label-${task.id}`).click();
+  }
+
   render() {
     const { task } = this.props;
     const data = this.getResponseData();
@@ -406,7 +410,7 @@ class Task extends Component {
         ) : null }
 
         <div className='task__label-container'>
-          <span className='task__label'>{task.label}</span>
+          <span className='task__label' id={`task__label-${task.id}`}>{task.label}</span>
         </div>
       </div>
     );
@@ -429,7 +433,7 @@ class Task extends Component {
                 </label>
 
                 <div className='task__response-inputs'>
-                  { task.type === 'geolocation' ? <GeolocationRespondTask onSubmit={this.handleSubmitWithArgs.bind(this)} /> : null }
+                  { task.type === 'geolocation' ? <GeolocationRespondTask onCancel={this.handleCancel.bind(this, task)} onSubmit={this.handleSubmitWithArgs.bind(this)} /> : null }
                   { task.type === 'datetime' ? <DatetimeRespondTask onSubmit={this.handleSubmitWithArgs.bind(this)} note={''} /> : null }
                   { task.type === 'single_choice' ? <SingleChoiceTask mode="respond" response={response} note={note} jsonoptions={task.jsonoptions} onSubmit={this.handleSubmitWithArgs.bind(this)}/> : null }
                   { task.type === 'multiple_choice' ? <MultiSelectTask mode="respond" jsonresponse={response} note={note} jsonoptions={task.jsonoptions} onSubmit={this.handleSubmitWithArgs.bind(this)}/> : null }
@@ -461,7 +465,7 @@ class Task extends Component {
               <div className="task__editing">
                 <form onSubmit={this.handleSubmitUpdate.bind(this)} name={`edit-response-${task.first_response.id}`}>
                   {taskQuestion}
-                  { task.type === 'geolocation' ? <GeolocationRespondTask response={response} onSubmit={this.handleSubmitUpdateWithArgs.bind(this)} onDismiss={this.handleCancelEditResponse.bind(this)} /> : null }
+                  { task.type === 'geolocation' ? <GeolocationRespondTask onCancel={this.handleCancel.bind(this, task)} response={response} onSubmit={this.handleSubmitUpdateWithArgs.bind(this)} onDismiss={this.handleCancelEditResponse.bind(this)} /> : null }
                   { task.type === 'datetime' ? <DatetimeRespondTask response={response} note={note} onSubmit={this.handleSubmitUpdateWithArgs.bind(this)} onDismiss={this.handleCancelEditResponse.bind(this)} /> : null }
                   { task.type === 'single_choice' ? <SingleChoiceTask mode="edit_response" response={response} note={note} jsonoptions={task.jsonoptions} onDismiss={this.handleCancelEditResponse.bind(this)} onSubmit={this.handleSubmitUpdateWithArgs.bind(this)} /> : null }
                   { task.type === 'multiple_choice' ? <MultiSelectTask mode="edit_response" jsonresponse={response} note={note} jsonoptions={task.jsonoptions} onDismiss={this.handleCancelEditResponse.bind(this)} onSubmit={this.handleSubmitUpdateWithArgs.bind(this)} /> : null }

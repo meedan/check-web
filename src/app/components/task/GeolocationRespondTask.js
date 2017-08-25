@@ -20,15 +20,15 @@ class GeolocationRespondTask extends Component {
       name = geoJSON.properties.name;
       const coordinates = geoJSON.geometry.coordinates;
       if (coordinates[0] != 0 || coordinates[1] != 0) {
-        lat = coordinates[0];
-        lng = coordinates[1];
+        lat = parseFloat(coordinates[0]).toFixed(7);
+        lng = parseFloat(coordinates[1]).toFixed(7);
         coordinatesString = `${lat}, ${lng}`;
       }
     }
 
     this.state = {
-      taskAnswerDisabled: true,
-      zoom: 1,
+      taskAnswerDisabled: false,
+      zoom: 5,
       draggable: true,
       lat,
       lng,
@@ -44,7 +44,14 @@ class GeolocationRespondTask extends Component {
   updatePosition() {
     const { lat, lng } = this.refs.marker.leafletElement.getLatLng();
     const zoom = this.refs.marker.leafletElement._map.getZoom();
-    const coordinatesString = `${lat},${lng}`;
+    const coordinatesString = `${parseFloat(lat).toFixed(7)}, ${parseFloat(lng).toFixed(7)}`;
+    this.setState({ lat, lng, zoom, coordinatesString });
+  }
+
+  updatePositionOnClick(e) {
+    const { lat, lng } = e.latlng;
+    const zoom = this.refs.marker.leafletElement._map.getZoom();
+    const coordinatesString = `${parseFloat(lat).toFixed(7)}, ${parseFloat(lng).toFixed(7)}`;
     this.setState({ lat, lng, zoom, coordinatesString });
   }
 
@@ -135,6 +142,12 @@ class GeolocationRespondTask extends Component {
     }
   }
 
+  handleCancel() {
+    if (this.props.onCancel) {
+      this.props.onCancel();
+    }
+  }
+
   render() {
     const position = [this.state.lat, this.state.lng];
 
@@ -143,7 +156,7 @@ class GeolocationRespondTask extends Component {
         <TextField
           id="task__response-geolocation-name"
           className="task__response-input"
-          hintText={<FormattedMessage id="geolocationRespondTask.placeName" defaultMessage="Type the name of the location" />}
+          floatingLabelText={<FormattedMessage id="geolocationRespondTask.placeName" defaultMessage="Type the name of the location" />}
           name="response"
           value={this.state.name}
           onKeyPress={this.handleKeyPress.bind(this)}
@@ -155,7 +168,7 @@ class GeolocationRespondTask extends Component {
         <TextField
           id="task__response-geolocation-coordinates"
           className="task__response-note-input"
-          hintText={<FormattedMessage id="geolocationRespondTask.coordinates" defaultMessage="Latitude, Longitude" />}
+          floatingLabelText={<FormattedMessage id="geolocationRespondTask.coordinates" defaultMessage="Latitude, Longitude" />}
           name="coordinates"
           onKeyPress={this.handleKeyPress.bind(this)}
           onChange={this.handleChangeCoordinates.bind(this)}
@@ -168,10 +181,10 @@ class GeolocationRespondTask extends Component {
           <small><FormattedMessage id="geolocationRespondTask.pressReturnToSave" defaultMessage="Press return to save your response" /></small>
         </p>
         <div style={{ height: '400px', width: '100%' }}>
-          <Map center={position} zoom={this.state.zoom}>
+          <Map center={position} zoom={this.state.zoom} onClick={this.updatePositionOnClick.bind(this)}>
             <TileLayer
               attribution="2017 <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a>"
-              url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
+              url="http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png"
             />
             <Marker
               draggable={this.state.draggable}
@@ -183,6 +196,7 @@ class GeolocationRespondTask extends Component {
           </Map>
         </div>
         <p className="task__resolver">
+          <FlatButton className="task__cancel" label={<FormattedMessage id="geolocationRespondTask.cancelTask" defaultMessage="Cancel" />} onClick={this.handleCancel.bind(this)} />
           <FlatButton className="task__save" label={<FormattedMessage id="geolocationRespondTask.resolveTask" defaultMessage="Resolve task" />} primary onClick={this.handlePressButton.bind(this)} />
         </p>
       </div>
