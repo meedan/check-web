@@ -114,7 +114,7 @@ class MediaDetail extends Component {
             {embedCard}
           </div>
         </CardText>
-        <CardActions>
+        <CardActions expandable>
           <MediaMetadata data={data} heading={heading} {...this.props} />
         </CardActions>
       </Card>
