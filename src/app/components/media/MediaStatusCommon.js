@@ -88,7 +88,7 @@ class MediaStatusCommon extends Component {
               iconStyle={{ fill: black54 }}
               labelStyle={{ textTransform: 'uppercase', color: getStatusStyle(currentStatus, 'color') }}
               selectedMenuItemStyle={{ color: getStatusStyle(currentStatus, 'color') }}
-              className="media-status__label"
+              className={`media-status__label media-status__current${this.currentStatusToClass(mediaLastStatus(media))}`}
             >
               {statuses.map(status =>
                 <MenuItem
