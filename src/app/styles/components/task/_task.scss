@@ -8,12 +8,6 @@
     padding-top: 0 !important;
   }
 
-  &__actions {
-    position: absolute;
-    top: units(2);
-    #{$to-direction}: units(2);
-  }
-
   &__question {
     color: $black-54;
     margin-#{$to-direction}: units(4);
@@ -168,9 +162,10 @@
     display: flex;
     text-align: $from-direction;
 
-    .task__response, .task__note {
-      display: flex;
+    .task__response,
+    .task__note {
       align-items: center;
+      display: flex;
       justify-content: center;
     }
 
@@ -185,9 +180,9 @@
     }
 
     img {
-      width: 56px;
-      height: 56px;
       cursor: pointer;
+      height: 56px;
+      width: 56px;
     }
   }
 }

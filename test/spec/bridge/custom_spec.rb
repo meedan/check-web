@@ -69,8 +69,8 @@ shared_examples 'custom' do
     expect(@driver.page_source.include?('This is a translation')).to be(true)
 
     # Edit translation
-    @driver.find_element(:css, '.task__actions svg').click
-    @driver.find_elements(:css, '.media-actions__menu--active span').first.click
+    @driver.find_element(:css, '.task-actions__icon').click
+    @driver.find_elements(:css, '.task-actions__edit').first.click
     fill_field('textarea[name="translation_text"]', 'This is a different translation')
     @driver.find_element(:css, '.task__submit').click
     sleep 3

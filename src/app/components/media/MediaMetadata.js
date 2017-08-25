@@ -274,6 +274,7 @@ class MediaMetadata extends Component {
           ? <span className="media-detail__check-added-at">
             <Link className="media-detail__check-timestamp" to={mediaUrl}>
               <TimeBefore date={createdAt} />
+              test
             </Link>
           </span>
           : null}
@@ -287,6 +288,7 @@ class MediaMetadata extends Component {
             handleEdit={this.handleEdit.bind(this)}
             handleMove={this.handleMove.bind(this)}
             handleRefresh={this.handleRefresh.bind(this)}
+            style={{ display: 'flex' }}
           />}
 
         <Dialog
