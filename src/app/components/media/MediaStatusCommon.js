@@ -86,7 +86,7 @@ class MediaStatusCommon extends Component {
               value={currentStatus.label}
               underlineStyle={{ borderWidth: 0 }}
               iconStyle={{ fill: black54 }}
-              labelStyle={{ color: getStatusStyle(currentStatus, 'color') }}
+              labelStyle={{ textTransform: 'uppercase', color: getStatusStyle(currentStatus, 'color') }}
               selectedMenuItemStyle={{ color: getStatusStyle(currentStatus, 'color') }}
             >
               {statuses.map(status =>
@@ -98,7 +98,7 @@ class MediaStatusCommon extends Component {
                   '--current',
                 )} media-status__menu-item--${status.id.replace('_', '-')}`}
                   onClick={that.handleStatusClick.bind(that, status.id)}
-                  style={{ color: getStatusStyle(status, 'color') }}
+                  style={{ textTransform: 'uppercase', color: getStatusStyle(status, 'color') }}
                   value={status.label}
                   primaryText={<div>
                     {mediaLastStatus(media) === status.id ?
