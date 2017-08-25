@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
-import { defineMessages, FormattedMessage } from 'react-intl';
+import { injectIntl, defineMessages, FormattedMessage } from 'react-intl';
 import { Link } from 'react-router';
 import Relay from 'react-relay';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
+import TextField from 'material-ui/TextField';
+import styled from 'styled-components';
+import rtlDetect from 'rtl-detect';
 import MediaStatus from './MediaStatus';
 import MediaTags from './MediaTags';
 import MediaActions from './MediaActions';
@@ -14,6 +17,49 @@ import UpdateProjectMediaMutation from '../../relay/UpdateProjectMediaMutation';
 import CheckContext from '../../CheckContext';
 import ProfileLink from '../layout/ProfileLink';
 import Message from '../Message';
+import {
+  FlexRow,
+  black87,
+  title,
+  units,
+} from '../../styles/js/variables';
+
+const StyledMetadata = styled(FlexRow)`
+  margin-top: ${units(3)};
+
+  > * {
+    padding: 0 ${units(1)};
+  }
+
+  .media-detail__check-added-at,
+  .media-detail__check-added-by {
+    align-items: center;
+    display: flex;
+    flex-shrink: 0;
+  }
+
+  // Move dialog
+  //
+  .media-detail__dialog-header {
+    color: ${black87};
+    font: ${title};
+    height: ${units(4)};
+    margin-bottom: ${units(0.5)};
+    margin-top: ${units(0.5)};
+    margin-${props => props.fromDirection}: auto;
+  }
+
+  .media-detail__dialog-media-path {
+    height: ${units(2)};
+    margin-bottom: ${units(4)};
+    text-align: ${props => props.fromDirection};
+  }
+
+  .media-detail__dialog-radio-group {
+    margin-top: ${units(4)};
+    margin-${props => props.fromDirection}: ${units(4)};
+  }
+`;
 
 const messages = defineMessages({
   mediaTitle: {
@@ -192,6 +238,9 @@ class MediaMetadata extends Component {
     const context = this.getContext();
     const currentProject = this.currentProject();
     const destinationProjects = this.destinationProjects();
+    const locale = this.props.intl.locale;
+    const isRtl = rtlDetect.isRtlLang(locale);
+    const fromDirection = isRtl ? 'right' : 'left';
 
     const byUser = media.user &&
       media.user.source &&
@@ -218,48 +267,48 @@ class MediaMetadata extends Component {
       />,
     ];
 
+    const editDialog = (<Dialog
+      modal
+      open={this.state.isEditing}
+      onRequestClose={this.handleCloseDialogs.bind(this)}
+      autoScrollBodyContent
+    >
+      <form onSubmit={this.handleSave.bind(this, media)}>
+        <Message message={this.state.message} />
+        <TextField
+          type="text"
+          id={`media-detail-title-input-${media.dbid}`}
+          className="media-detail__title-input"
+          placeholder={this.props.intl.formatMessage(messages.mediaTitle)}
+          defaultValue={this.props.heading}
+          style={{ width: '100%' }}
+        />
+      </form>
+
+      {media.tags ? <MediaTags media={media} tags={media.tags.edges} isEditing /> : null}
+
+      <span style={{ display: 'flex' }}>
+        <FlatButton
+          onClick={this.handleCancel.bind(this)}
+          className="media-detail__cancel-edits"
+          label={<FormattedMessage id="mediaDetail.cancelButton" defaultMessage="Cancel" />}
+        />
+        <FlatButton
+          onClick={this.handleSave.bind(this, media)}
+          className="media-detail__save-edits"
+          label={<FormattedMessage id="mediaDetail.doneButton" defaultMessage="Done" />}
+        />
+      </span>
+    </Dialog>);
+
     return (
-      <div className="media-detail__check-metadata">
-        {
-          this.state.isEditing
-            ? (
-              <Dialog
-                modal
-                open={this.state.isEditing}
-                onRequestClose={this.handleCloseDialogs.bind(this)}
-                autoScrollBodyContent
-              >
-                <form onSubmit={this.handleSave.bind(this, media)}>
-                  <Message message={this.state.message} />
-                  <input
-                    type="text"
-                    id={`media-detail-title-input-${media.dbid}`}
-                    className="media-detail__title-input"
-                    placeholder={this.props.intl.formatMessage(messages.mediaTitle)}
-                    defaultValue={this.props.heading}
-                    style={{ width: '100%' }}
-                  />
-                </form>
-
-                {media.tags
-                  ? <MediaTags media={media} tags={media.tags.edges} isEditing />
-                  : null}
-
-                <span style={{ display: 'flex' }}>
-                  <FlatButton
-                    onClick={this.handleCancel.bind(this)}
-                    className="media-detail__cancel-edits"
-                    label={<FormattedMessage id="mediaDetail.cancelButton" defaultMessage="Cancel" />}
-                  />
-                  <FlatButton
-                    onClick={this.handleSave.bind(this, media)}
-                    className="media-detail__save-edits"
-                    label={<FormattedMessage id="mediaDetail.doneButton" defaultMessage="Done" />}
-                  />
-                </span>
-              </Dialog>)
-            : null
-        }
+      <StyledMetadata
+        fromDirection={fromDirection}
+        className="media-detail__check-metadata"
+      >
+        {this.state.isEditing
+          ? editDialog
+          : null}
         <MediaStatus media={media} readonly={readonly} />
         {byUser
           ? <span className="media-detail__check-added-by">
@@ -274,13 +323,10 @@ class MediaMetadata extends Component {
           ? <span className="media-detail__check-added-at">
             <Link className="media-detail__check-timestamp" to={mediaUrl}>
               <TimeBefore date={createdAt} />
-              test
             </Link>
           </span>
           : null}
-        {media.tags
-          ? <MediaTags media={media} tags={media.tags.edges} isEditing={false} />
-          : null}
+        {media.tags ? <MediaTags media={media} tags={media.tags.edges} isEditing={false} /> : null}
         {this.props.readonly || this.state.isEditing
           ? null
           : <MediaActions
@@ -322,20 +368,18 @@ class MediaMetadata extends Component {
                 key={proj.node.dbid}
                 label={proj.node.title}
                 value={proj.node}
-                style={{ padding: '5px' }}
+                style={{ padding: units(1) }}
               />,
             )}
           </RadioButtonGroup>
         </Dialog>
-      </div>
+      </StyledMetadata>
     );
   }
 }
-
 
 MediaMetadata.contextTypes = {
   store: React.PropTypes.object,
 };
 
-
-export default MediaMetadata;
+export default injectIntl(MediaMetadata);

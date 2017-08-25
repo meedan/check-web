@@ -3,6 +3,8 @@ import { injectIntl, intlShape } from 'react-intl';
 import { Link } from 'react-router';
 import config from 'config';
 import { Card, CardHeader, CardText, CardActions } from 'material-ui/Card';
+import styled from 'styled-components';
+import rtlDetect from 'rtl-detect';
 import QuoteMediaCard from './QuoteMediaCard';
 import MediaMetadata from './MediaMetadata';
 import MediaUtil from './MediaUtil';
@@ -11,7 +13,33 @@ import ImageMediaCard from './ImageMediaCard';
 import CheckContext from '../../CheckContext';
 import { getStatus, getStatusStyle } from '../../helpers';
 import { mediaStatuses, mediaLastStatus } from '../../customHelpers';
-import { units } from '../../styles/js/variables';
+import { units, black87, FadeIn } from '../../styles/js/variables';
+
+const StyledMediaDetail = styled.div`
+  border-${props => props.fromDirection}: ${units(1)} solid;
+  border-color: ${props => props.borderColor};
+
+  .media-detail__header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  // Optional title (on project page)
+  //
+  .media__heading {
+    &,
+    & > a,
+    & > a:visited {
+      color: ${black87} !important;
+    }
+  }
+
+  .media-detail__description {
+    margin-top: ${units(1)};
+    max-width: ${units(80)};
+  }
+`;
 
 class MediaDetail extends Component {
   constructor(props) {
@@ -97,27 +125,35 @@ class MediaDetail extends Component {
     const cardClassName = `${this.statusToClass('media-detail', mediaLastStatus(media))} ` +
           `media-detail--${MediaUtil.mediaTypeCss(media, data)}`;
 
-    return (
-      <Card
-        initiallyExpanded={this.props.initiallyExpanded}
-        className={cardClassName}
-        style={{ borderColor: getStatusStyle(status, 'backgroundColor') }}
-      >
-        <CardHeader
-          title={cardHeaderTitle}
-          subtitle={cardHeaderSubtitle}
-          showExpandableButton
-        />
+    const locale = this.props.intl.locale;
+    const isRtl = rtlDetect.isRtlLang(locale);
+    const fromDirection = isRtl ? 'right' : 'left';
 
-        <CardText expandable>
-          <div className={this.statusToClass('media-detail__media', mediaLastStatus(media))}>
-            {embedCard}
-          </div>
-        </CardText>
-        <CardActions expandable>
-          <MediaMetadata data={data} heading={heading} {...this.props} />
-        </CardActions>
-      </Card>
+    return (
+      <StyledMediaDetail
+        className={cardClassName}
+        borderColor={getStatusStyle(status, 'backgroundColor')}
+        fromDirection={fromDirection}
+      >
+        <Card
+          initiallyExpanded={this.props.initiallyExpanded}
+        >
+          <CardHeader
+            title={cardHeaderTitle}
+            subtitle={cardHeaderSubtitle}
+            showExpandableButton
+          />
+
+          <CardText expandable>
+            <FadeIn className={this.statusToClass('media-detail__media', mediaLastStatus(media))}>
+              {embedCard}
+            </FadeIn>
+          </CardText>
+          <CardActions expandable>
+            <MediaMetadata data={data} heading={heading} {...this.props} />
+          </CardActions>
+        </Card>
+      </StyledMediaDetail>
     );
   }
 }

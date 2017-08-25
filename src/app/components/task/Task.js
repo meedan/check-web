@@ -405,11 +405,11 @@ class Task extends Component {
               </IconButton>
             }
           >
-            <MenuItem className="media-actions__edit" onClick={this.handleEdit.bind(this)}>
+            <MenuItem className="task-actions__edit" onClick={this.handleEdit.bind(this)}>
               <FormattedMessage id="task.edit" defaultMessage="Edit task" />
             </MenuItem>
             <Can permissions={task.permissions} permission="destroy Task">
-              <MenuItem className="media-actions__delete" onClick={this.handleDelete.bind(this)}>
+              <MenuItem className="task-actions__delete" onClick={this.handleDelete.bind(this)}>
                 <FormattedMessage id="task.delete" defaultMessage="Delete task" />
               </MenuItem>
             </Can>
