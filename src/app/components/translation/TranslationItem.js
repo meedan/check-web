@@ -8,7 +8,6 @@ import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
-import MdMoreHoriz from 'react-icons/lib/md/more-horiz';
 import ParsedText from '../ParsedText';
 import UpdateDynamicMutation from '../../relay/UpdateDynamicMutation';
 import { rtlClass } from '../../helpers';
@@ -113,23 +112,17 @@ class TranslationItem extends Component {
       <div className="translation__component">
         <Card className="translation__card" style={{ zIndex: 'auto' }}>
           <CardText className="translation__card-text">
-            <div className="task__actions">
-              <MdMoreHoriz
-                className="task__actions-icon media-actions__icon"
-                onClick={this.toggleMenu.bind(this)}
-              />
-              <IconMenu
-                className="media-actions"
-                iconButtonElement={<IconButton><IconMoreHoriz /></IconButton>}
+            <IconMenu
+              className="task-actions"
+              iconButtonElement={<IconButton className="task-actions__icon"><IconMoreHoriz /></IconButton>}
+            >
+              <MenuItem
+                className="task-actions__edit-translation"
+                onClick={this.handleEdit.bind(this)}
               >
-                <MenuItem
-                  className="media-actions__edit-translation"
-                  onClick={this.handleEdit.bind(this)}
-                >
-                  <FormattedMessage id="translation.edit" defaultMessage="Edit translation" />
-                </MenuItem>
-              </IconMenu>
-            </div>
+                <FormattedMessage id="translation.edit" defaultMessage="Edit translation" />
+              </MenuItem>
+            </IconMenu>
             {this.state.editing
               ? <div>
                 <form name="translation_edit">

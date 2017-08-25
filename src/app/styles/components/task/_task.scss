@@ -120,15 +120,6 @@
     display: table;
   }
 
-  .media-actions__icon {
-    color: $black-38;
-    height: units(3);
-    margin: 0;
-    padding: 0;
-    width: units(3);
-    margin-#{$to-direction}: units(1);
-  }
-
   &__description-icon {
     color: $black-38;
     float: $to-direction;

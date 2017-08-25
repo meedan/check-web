@@ -522,12 +522,12 @@ class SearchResultsComponent extends Component {
     };
   }
 
-  componentWillUnmount() {
-    this.unsubscribe();
-  }
-
   componentDidMount() {
     this.subscribe();
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
   }
 
   getContext() {

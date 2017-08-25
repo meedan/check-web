@@ -398,10 +398,10 @@ class Task extends Component {
       <div style={{ marginLeft: 'auto' }}>
         <Can permissions={task.permissions} permission="update Task">
           <IconMenu
-            className="task__actions"
+            className="task-actions"
             iconButtonElement={
               <IconButton>
-                <IconMoreHoriz className="task__actions-icon" />
+                <IconMoreHoriz className="task-actions__icon" />
               </IconButton>
             }
           >
