@@ -32,10 +32,6 @@
     "defaultMessage": "Source bio"
   },
   {
-    "id": "sourceComponent.contactNote",
-    "defaultMessage": "Contact note"
-  },
-  {
     "id": "sourceComponent.phone",
     "defaultMessage": "Phone"
   },
@@ -74,6 +70,10 @@
   {
     "id": "sourceComponent.addLinkHelper",
     "defaultMessage": "Add a link to a web page or social media profile"
+  },
+  {
+    "id": "sourceComponent.invalidLink",
+    "defaultMessage": "Please enter a valid URL"
   },
   {
     "id": "sourceComponent.other",

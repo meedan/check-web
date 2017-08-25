@@ -236,6 +236,7 @@ export const muiThemeWithoutRtl = {
     accent1Color: checkBlue,
     accent2Color: checkBlue,
     accent3Color: checkBlue,
+    pickerHeaderColor: checkBlue,
   },
   appBar: {
     color: black02,

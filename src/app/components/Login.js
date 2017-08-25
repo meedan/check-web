@@ -91,6 +91,11 @@ const StyledCard = styled(Card)`
   ${media.handheld`
     padding: ${units(8)} ${units(4)} ${units(3)} !important;
   `}
+
+  // hide the yellow autocomplete in Chrome
+  input:-webkit-autofill {
+      -webkit-box-shadow: 0 0 0px 1000px white inset;
+  }
 `;
 
 const BigButtons = styled.div`
