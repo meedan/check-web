@@ -705,7 +705,7 @@ class SourceComponent extends Component {
           }
         </div>)
       }
-    </div>);
+    </div>;
   }
 
   renderMetadataView() {
