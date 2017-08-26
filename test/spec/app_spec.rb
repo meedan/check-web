@@ -819,7 +819,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       # Edit task
       expect(@driver.page_source.include?('Task "Foo or bar?" edited to "This or that?" by')).to be(false)
       @driver.find_element(:css, '.task-actions__icon').click
-      @driver.find_elements(:css, '.task-actions__edit').click
+      @driver.find_element(:css, '.task-actions__edit').click
       fill_field('textarea[name="label"]', '??')
       @driver.find_element(:css, '.task__save').click
       sleep 2
@@ -1046,7 +1046,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       # Edit task
       expect(@driver.page_source.include?('Task "Where?" edited to "Where was it?" by')).to be(false)
       @driver.find_element(:css, '.task-actions__icon').click
-      @driver.find_elements(:css, '.task-actions__edit').click
+      @driver.find_element(:css, '.task-actions__edit').click
       update_field('textarea[name="label"]', 'Where was it?')
       @driver.find_element(:css, '.task__save').click
       sleep 2

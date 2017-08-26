@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import Popover from 'material-ui/Popover';
 import Checkbox from 'material-ui/Checkbox';
+import FlatButton from 'material-ui/FlatButton';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import config from 'config';
 import ContentColumn from '../layout/ContentColumn';
 import PageTitle from '../PageTitle';
 import PenderCard from '../PenderCard';
+import { FlexRow, units } from '../../styles/js/variables';
 
 const messages = defineMessages({
   preview: {
@@ -112,8 +114,8 @@ class MediaEmbed extends Component {
               targetOrigin={{ horizontal: 'left', vertical: 'top' }}
               onRequestClose={this.handleCustomizationMenuClose.bind(this)}
             >
-              <ul id="media-embed__customization-menu">
-                <li>
+              <div id="media-embed__customization-menu">
+                <FlexRow style={{ padding: units(1) }}>
                   <span className="media-embed__customization-label">
                     <FormattedMessage
                       id="mediaEmbed.customizationOptionShowTasks"
@@ -134,9 +136,9 @@ class MediaEmbed extends Component {
                       onCheck={this.handleSelectCheckbox.bind(this, 'showTasks')}
                     />
                   </span>
-                </li>
+                </FlexRow>
 
-                <li>
+                <FlexRow>
                   <span className="media-embed__customization-label">
                     <FormattedMessage
                       id="mediaEmbed.customizationOptionShowNotes"
@@ -157,8 +159,8 @@ class MediaEmbed extends Component {
                       onCheck={this.handleSelectCheckbox.bind(this, 'showNotes')}
                     />
                   </span>
-                </li>
-              </ul>
+                </FlexRow>
+              </div>
             </Popover>
 
             <Popover
@@ -192,24 +194,26 @@ class MediaEmbed extends Component {
             </Popover>
 
             <p id="media-embed__actions">
-              <span
+              <FlatButton
                 id="media-embed__actions-customize"
                 onClick={this.handleCustomizationMenuOpen.bind(this)}
-              >
-                <FormattedMessage id="mediaEmbed.customize" defaultMessage="Customize" />
-              </span>
+                label={<FormattedMessage id="mediaEmbed.customize" defaultMessage="Customize" />}
+              />
               <CopyToClipboard text={embedTag} onCopy={this.handleCopyEmbedCode.bind(this)}>
-                <span id="media-embed__actions-copy" onClick={this.handleCodeMenuOpen.bind(this)}>
-                  <FormattedMessage
+                <FlatButton
+                  id="media-embed__actions-copy"
+                  onClick={this.handleCodeMenuOpen.bind(this)}
+                  label={<FormattedMessage
                     id="mediaEmbed.copyEmbedCode"
                     defaultMessage="Copy embed code"
-                  />
-                </span>
+                  />}
+                />
               </CopyToClipboard>
             </p>
 
             <PenderCard
               url={url}
+              domId={'embed-id'}
               penderUrl={config.penderUrl}
               fallback={null}
               mediaVersion={this.state.version}

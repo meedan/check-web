@@ -46,7 +46,7 @@ class PenderCard extends Component {
     this.removeTag(this.props.domId);
   }
 
-  addTag(domId) {
+  addTag() {
     const script = document.createElement('script');
     const version = this.props.mediaVersion || 0;
     script.src = `${this.props.penderUrl}/api/medias.js?version=${version}&url=${encodeURIComponent(
@@ -54,21 +54,21 @@ class PenderCard extends Component {
     )}`;
     script.async = true;
     script.type = 'text/javascript';
-    const card = document.getElementById(domId);
-    const loader = document.getElementById(`pender-card-loader-${domId}`);
+    const card = document.getElementById(this.props.domId);
+    const loader = document.getElementById(`pender-card-loader-${this.props.domId}`);
     if (card) {
       card.appendChild(script);
     }
-    // TODO: Refine loader. It never shows, I think it's removed too early.
-    // Here I've attempted to remove it .onload but it's still never showing. — 2017-8-23 CGB
+
     if (loader) {
-      script.onload = card.removeChild(loader);
+      script.onload = function () { loader.style.display = 'none'; };
     }
   }
 
-  removeTag(domId) {
-    const container = document.getElementById(domId);
-    const loader = document.getElementById(`pender-card-loader-${domId}`);
+  removeTag() {
+    const container = document.getElementById(this.props.domId);
+    const loader = document.getElementById(`pender-card-loader-${this.props.domId}`);
+
     if (loader) {
       container.innerHTML = loader.outerHTML;
     }
@@ -76,10 +76,12 @@ class PenderCard extends Component {
 
   render() {
     return (
-      <PenderCardContainer
-        id={this.props.domId}
-        className="pender-card"
-      >
+      <div>
+        <PenderCardContainer
+          id={this.props.domId}
+          className="pender-card"
+        />
+
         <PenderCardLoader
           id={`pender-card-loader-${this.props.domId}`}
           className="pender-card__loader"
@@ -93,7 +95,7 @@ class PenderCard extends Component {
             );
           })()}
         </PenderCardLoader>
-      </PenderCardContainer>
+      </div>
     );
   }
 }

@@ -70,7 +70,7 @@ shared_examples 'custom' do
 
     # Edit translation
     @driver.find_element(:css, '.task-actions__icon').click
-    @driver.find_elements(:css, '.task-actions__edit').first.click
+    @driver.find_elements(:css, '.task-actions__edit').click
     fill_field('textarea[name="translation_text"]', 'This is a different translation')
     @driver.find_element(:css, '.task__submit').click
     sleep 3

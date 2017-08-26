@@ -1,79 +1,79 @@
-#media-embed__actions {
-  text-align: $to-direction;
+// #media-embed__actions {
+//   text-align: $to-direction;
 
-  span {
-    color: $check-blue;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: bold;
-    padding: units(1) units(2);
-    text-transform: uppercase;
-  }
-}
+//   span {
+//     color: $check-blue;
+//     cursor: pointer;
+//     font-size: 14px;
+//     font-weight: bold;
+//     padding: units(1) units(2);
+//     text-transform: uppercase;
+//   }
+// }
 
-#media-embed__customization-menu {
-  padding: 0;
+// #media-embed__customization-menu {
+//   padding: 0;
 
-  li {
-    display: flex;
-    list-style: none;
-    padding: 16px;
-  }
+//   li {
+//     display: flex;
+//     list-style: none;
+//     padding: 16px;
+//   }
 
-  .media-embed__customization-label {
-    flex-grow: 1;
-    font-size: 16px;
+//   .media-embed__customization-label {
+//     flex-grow: 1;
+//     font-size: 16px;
 
-    .media-embed__customization-slogan {
-      color: $opaque-black-54;
-      font-size: 14px;
-    }
-    padding-#{$to-direction}: 16px;
-  }
-}
+//     .media-embed__customization-slogan {
+//       color: $opaque-black-54;
+//       font-size: 14px;
+//     }
+//     padding-#{$to-direction}: 16px;
+//   }
+// }
 
-#media-embed__copy-code {
-  padding: 16px;
-  width: 560px;
+// #media-embed__copy-code {
+//   padding: 16px;
+//   width: 560px;
 
-  .media-embed__warning {
-    color: $alert-red;
-    font-size: 14px;
-    font-weight: bold;
-  }
+//   .media-embed__warning {
+//     color: $alert-red;
+//     font-size: 14px;
+//     font-weight: bold;
+//   }
 
-  .media-embed__copy-footer {
-    display: flex;
-  }
+//   .media-embed__copy-footer {
+//     display: flex;
+//   }
 
-  #media-embed__code-field {
-    background: transparent;
-    border: 1px solid #eee;
-    flex-grow: 1;
-    font-family: 'Roboto Mono';
-    font-size: 12px;
-    padding: 1px;
+//   #media-embed__code-field {
+//     background: transparent;
+//     border: 1px solid #eee;
+//     flex-grow: 1;
+//     font-family: 'Roboto Mono';
+//     font-size: 12px;
+//     padding: 1px;
 
-    &:focus {
-      outline: none;
-    }
-    margin-#{$to-direction}: 16px;
-  }
+//     &:focus {
+//       outline: none;
+//     }
+//     margin-#{$to-direction}: 16px;
+//   }
 
-  .media-embed__copy-button,
-  .media-embed__copy-button-inactive {
-    font-size: 14px;
-    text-transform: uppercase;
-    padding-#{$from-direction}: 16px;
-    border-#{$from-direction}: 1px solid $black-16;
-  }
+//   .media-embed__copy-button,
+//   .media-embed__copy-button-inactive {
+//     font-size: 14px;
+//     text-transform: uppercase;
+//     padding-#{$from-direction}: 16px;
+//     border-#{$from-direction}: 1px solid $black-16;
+//   }
 
-  .media-embed__copy-button {
-    color: $check-blue;
-    cursor: pointer;
-  }
+//   .media-embed__copy-button {
+//     color: $check-blue;
+//     cursor: pointer;
+//   }
 
-  .media-embed__copy-button-inactive {
-    color: $opaque-black-54;
-  }
-}
+//   .media-embed__copy-button-inactive {
+//     color: $opaque-black-54;
+//   }
+// }
