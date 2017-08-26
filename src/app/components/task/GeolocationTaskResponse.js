@@ -31,7 +31,7 @@ class GeolocationTaskResponse extends Component {
     if (coordinates[0] != 0 || coordinates[1] != 0) {
       position = [coordinates[0], coordinates[1]];
       coordinatesString = `${coordinates[0]}, ${coordinates[1]}`;
-      imgPath = `https://api.mapbox.com/v4/mapbox.emerald/${coordinates[1]},${coordinates[0]},6/300x300@2x.png?access_token=${config.mapboxApiKey}`;
+      imgPath = `https://api.mapbox.com/v4/mapbox.light/${coordinates[1]},${coordinates[0]},6/300x300@2x.png?access_token=${config.mapboxApiKey}`;
     }
 
     return (
