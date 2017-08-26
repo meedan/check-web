@@ -12,7 +12,7 @@ class MediaPage < Page
 
   def set_title(string)
     edit
-    fill_input('.media-detail__title-input', string, {clear: true})
+    fill_input('.media-detail__title-input > input', string, {clear: true})
     click('.media-detail__save-edits') # Done
     @wait.until {
       string == primary_heading.text

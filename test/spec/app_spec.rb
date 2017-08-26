@@ -836,7 +836,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       # Delete task
       expect(@driver.page_source.include?('Foo')).to be(true)
       @driver.find_element(:css, '.task-actions__icon').click
-      @driver.find_elements(:css, '.media-actions__delete').last.click
+      @driver.find_element(:css, '.media-actions__delete').click
       @driver.switch_to.alert.accept
       sleep 3
       expect(@driver.page_source.include?('Foo')).to be(false)

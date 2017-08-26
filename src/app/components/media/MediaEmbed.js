@@ -5,10 +5,54 @@ import Checkbox from 'material-ui/Checkbox';
 import FlatButton from 'material-ui/FlatButton';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import config from 'config';
+import styled from 'styled-components';
 import ContentColumn from '../layout/ContentColumn';
 import PageTitle from '../PageTitle';
 import PenderCard from '../PenderCard';
-import { FlexRow, units } from '../../styles/js/variables';
+import { FlexRow, units, black87, black54, alertRed } from '../../styles/js/variables';
+
+const StyledPopover = styled(Popover)`
+  .media-embed__customization-label {
+    flex-grow: 1;
+    font-size: ${units(2)};
+    margin: ${units(2)}
+    color: ${black54};
+
+    .media-embed__customization-slogan {
+      color: ${black87};
+      font-size: 14px;
+    }
+    padding-#{$to-direction}: 16px;
+  }
+
+  #media-embed__copy-code {
+    padding: 16px;
+    width: 560px;
+
+    .media-embed__warning {
+      color: ${alertRed};
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .media-embed__copy-footer {
+      display: flex;
+    }
+
+    #media-embed__code-field {
+      background: transparent;
+      border: 1px solid #eee;
+      flex-grow: 1;
+      font-family: 'Roboto Mono';
+      font-size: 12px;
+      padding: 1px;
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+`;
 
 const messages = defineMessages({
   preview: {
@@ -107,15 +151,16 @@ class MediaEmbed extends Component {
             </h2>
           </ContentColumn>
           : <div id="media-embed">
-            <Popover
+            <StyledPopover
               open={this.state.customizationMenuOpened}
               anchorEl={this.state.customizationMenuAnchor}
               anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
               targetOrigin={{ horizontal: 'left', vertical: 'top' }}
               onRequestClose={this.handleCustomizationMenuClose.bind(this)}
+              style={{ padding: units(2) }}
             >
               <div id="media-embed__customization-menu">
-                <FlexRow style={{ padding: units(1) }}>
+                <FlexRow>
                   <span className="media-embed__customization-label">
                     <FormattedMessage
                       id="mediaEmbed.customizationOptionShowTasks"
@@ -161,9 +206,9 @@ class MediaEmbed extends Component {
                   </span>
                 </FlexRow>
               </div>
-            </Popover>
+            </StyledPopover>
 
-            <Popover
+            <StyledPopover
               open={this.state.codeMenuOpened}
               anchorEl={this.state.codeMenuAnchor}
               anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
@@ -191,7 +236,7 @@ class MediaEmbed extends Component {
                       </span>}
                 </p>
               </div>
-            </Popover>
+            </StyledPopover>
 
             <p id="media-embed__actions">
               <FlatButton

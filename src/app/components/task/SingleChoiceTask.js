@@ -346,7 +346,7 @@ class SingleChoiceTask extends Component {
       return (
         <div className="task__options">
           <RadioButtonGroup
-            name={'response'}
+            name="response"
             onChange={this.handleSelectRadio.bind(this)}
             valueSelected={responseSelected}
           >
@@ -366,6 +366,7 @@ class SingleChoiceTask extends Component {
             {other
               ? [
                 <RadioButtonGroup
+                  name="task__option_other_radio"
                   key="task__option_other_radio"
                   className="task__option_other_radio"
                   valueSelected={responseOtherSelected}
