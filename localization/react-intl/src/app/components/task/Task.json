@@ -12,6 +12,10 @@
     "defaultMessage": "Save"
   },
   {
+    "id": "task.resolvedBy",
+    "defaultMessage": "Resolved by {byName}"
+  },
+  {
     "id": "task.editResponse",
     "defaultMessage": "Edit response"
   },
@@ -34,10 +38,6 @@
   {
     "id": "task.pressReturnToSave",
     "defaultMessage": "Press return to save your response"
-  },
-  {
-    "id": "task.resolvedBy",
-    "defaultMessage": "Resolved by {byName}"
   },
   {
     "id": "tasks.taskLabel",

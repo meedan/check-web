@@ -417,57 +417,77 @@ class Task extends Component {
     ];
 
     const taskActions = (
-      <div
-        style={{
-          marginLeft: 'auto',
-          position: 'absolute',
-          bottom: '0',
-          right: '0',
-        }}
-      >
-        <Can permissions={task.permissions} permission="update Task">
-          <IconMenu
-            className="task-actions"
-            iconButtonElement={
-              <IconButton>
-                <IconMoreHoriz className="task-actions__icon" />
-              </IconButton>
-            }
+      <div>
+        { data.by ?
+          <div
+            className="task__resolver"
+            style={{ display: 'flex', alignItems: 'center' }}
           >
-            {response ?
-              <Can
-                permissions={task.first_response.permissions}
-                permission="update Dynamic"
-              >
-                <MenuItem
-                  className="task-actions__edit-response"
-                  onClick={this.handleEditResponse.bind(this)}
+            <Avatar
+              style={{ margin: `0 ${units(1)}` }}
+              size={parseInt(units(3), 10)}
+              src={by.profile_image}
+            />
+            <small>
+              <FormattedMessage
+                id="task.resolvedBy"
+                defaultMessage={'Resolved by {byName}'}
+                values={{ byName: by.name }}
+              />
+            </small>
+          </div> : null }
+        <div
+          style={{
+            marginLeft: 'auto',
+            position: 'absolute',
+            bottom: '0',
+            right: '0',
+          }}
+        >
+          <Can permissions={task.permissions} permission="update Task">
+            <IconMenu
+              className="task-actions"
+              iconButtonElement={
+                <IconButton>
+                  <IconMoreHoriz className="task-actions__icon" />
+                </IconButton>
+              }
+            >
+              {response ?
+                <Can
+                  permissions={task.first_response.permissions}
+                  permission="update Dynamic"
                 >
-                  <FormattedMessage id="task.editResponse" defaultMessage="Edit response" />
+                  <MenuItem
+                    className="task-actions__edit-response"
+                    onClick={this.handleEditResponse.bind(this)}
+                  >
+                    <FormattedMessage id="task.editResponse" defaultMessage="Edit response" />
+                  </MenuItem>
+                </Can>
+                : null
+             }
+
+              <MenuItem
+                className="task-actions__edit"
+                onClick={this.handleEdit.bind(this)}
+              >
+                <FormattedMessage id="task.edit" defaultMessage="Edit question" />
+              </MenuItem>
+              <Can permissions={task.permissions} permission="destroy Task">
+                <MenuItem
+                  className="task-actions__delete"
+                  onClick={this.handleDelete.bind(this)}
+                >
+                  <FormattedMessage
+                    id="task.delete"
+                    defaultMessage="Delete task"
+                  />
                 </MenuItem>
               </Can>
-              : null
-           }
-
-            <MenuItem
-              className="task-actions__edit"
-              onClick={this.handleEdit.bind(this)}
-            >
-              <FormattedMessage id="task.edit" defaultMessage="Edit question" />
-            </MenuItem>
-            <Can permissions={task.permissions} permission="destroy Task">
-              <MenuItem
-                className="task-actions__delete"
-                onClick={this.handleDelete.bind(this)}
-              >
-                <FormattedMessage
-                  id="task.delete"
-                  defaultMessage="Delete task"
-                />
-              </MenuItem>
-            </Can>
-          </IconMenu>
-        </Can>
+            </IconMenu>
+          </Can>
+        </div>
       </div>
     );
 
@@ -713,25 +733,6 @@ class Task extends Component {
             expandable={!data.by}
             style={{ display: 'flex', alignItems: 'center' }}
           >
-
-            { data.by ?
-              <div
-                className="task__resolver"
-                style={{ display: 'flex', alignItems: 'center' }}
-              >
-                <Avatar
-                  style={{ margin: `0 ${units(1)}` }}
-                  size={parseInt(units(3), 10)}
-                  src={by.profile_image}
-                />
-                <small>
-                  <FormattedMessage
-                    id="task.resolvedBy"
-                    defaultMessage={'Resolved by {byName}'}
-                    values={{ byName: by.name }}
-                  />
-                </small>
-              </div> : null }
             {taskActions}
           </CardActions>
         </Card>
