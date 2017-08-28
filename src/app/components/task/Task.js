@@ -687,7 +687,11 @@ class Task extends Component {
 
     return (
       <div>
-        <Card className="task" style={{ marginBottom: units(1) }}>
+        <Card
+          className="task"
+          style={{ marginBottom: units(1) }}
+          initiallyExpanded={!!response}
+        >
           <CardHeader
             actAsExpander
             showExpandableButton
