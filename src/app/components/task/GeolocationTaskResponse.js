@@ -43,7 +43,8 @@ class GeolocationTaskResponse extends Component {
           <Dialog
             modal={false}
             open={this.state.zoomedMap}
-            onRequestClose={this.handleCloseMap.bind(this)}>
+            onRequestClose={this.handleCloseMap.bind(this)}
+          >
             <div style={{ height: '500px', width: '100%' }}>
               <Map center={position} zoom="7">
                 <TileLayer
@@ -53,8 +54,7 @@ class GeolocationTaskResponse extends Component {
                 <Marker
                   draggable={false}
                   position={position}
-                >
-                </Marker>
+                />
               </Map>
             </div>
           </Dialog>

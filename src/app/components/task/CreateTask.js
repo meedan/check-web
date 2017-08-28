@@ -25,8 +25,8 @@ import MdDateRange from 'react-icons/lib/md/date-range';
 const messages = defineMessages({
   newTask: {
     id: 'createTask.newTask',
-    defaultMessage: 'New task'
-  }
+    defaultMessage: 'New task',
+  },
 });
 
 class CreateTask extends Component {
@@ -40,7 +40,7 @@ class CreateTask extends Component {
       label: null,
       description: null,
       message: null,
-      submitDisabled: true
+      submitDisabled: true,
     };
   }
 
@@ -148,7 +148,7 @@ class CreateTask extends Component {
   }
 
   validateShortText(label) {
-    const valid =  !!(label && label.trim());
+    const valid = !!(label && label.trim());
     this.setState({ submitDisabled: !valid });
     return valid;
   }
@@ -169,7 +169,7 @@ class CreateTask extends Component {
 
     const actions = [
       <FlatButton label={<FormattedMessage id="tasks.cancelAdd" defaultMessage="Cancel" />} primary onClick={this.handleCloseDialog.bind(this)} />,
-      <FlatButton className="create-task__dialog-submit-button" label={<FormattedMessage id="tasks.add" defaultMessage="Create Task" />} primary keyboardFocused onClick={this.handleSubmitTask.bind(this)} disabled={this.state.submitDisabled}/>,
+      <FlatButton className="create-task__dialog-submit-button" label={<FormattedMessage id="tasks.add" defaultMessage="Create Task" />} primary keyboardFocused onClick={this.handleSubmitTask.bind(this)} disabled={this.state.submitDisabled} />,
     ];
 
     return (
@@ -177,7 +177,7 @@ class CreateTask extends Component {
 
         <Can permissions={media.permissions} permission="create Task">
           { this.props.plusIcon ?
-            <MdAddCircle className="create-task__add-button create-task__add-button--plus" onClick={this.handleClick.bind(this)} label={<FormattedMessage id="tasks.addTask" defaultMessage="Add task" />}/> :
+            <MdAddCircle className="create-task__add-button create-task__add-button--plus" onClick={this.handleClick.bind(this)} label={<FormattedMessage id="tasks.addTask" defaultMessage="Add task" />} /> :
             <FlatButton className="create-task__add-button create-task__add-button--default" onClick={this.handleClick.bind(this)} label={<FormattedMessage id="tasks.addTask" defaultMessage="Add task" />} />
           }
         </Can>
@@ -186,13 +186,13 @@ class CreateTask extends Component {
           <Menu>
             <MenuItem className="create-task__add-short-answer" onClick={this.handleOpenDialog.bind(this, 'free_text')} leftIcon={<MdShortText />} primaryText={<FormattedMessage id="tasks.shortAnswer" defaultMessage="Short answer" />} />
             <MenuItem className="create-task__add-choose-one" onClick={this.handleOpenDialog.bind(this, 'single_choice')} leftIcon={<MdRadioButtonChecked />} primaryText={<FormattedMessage id="tasks.chooseOne" defaultMessage="Choose one" />} />
-            <MenuItem className="create-task__add-choose-multiple" onClick={this.handleOpenDialog.bind(this, 'multiple_choice')} leftIcon={<MdCheckBox/>} primaryText={<FormattedMessage id="tasks.chooseMultiple" defaultMessage="Choose multiple" />} />
+            <MenuItem className="create-task__add-choose-multiple" onClick={this.handleOpenDialog.bind(this, 'multiple_choice')} leftIcon={<MdCheckBox />} primaryText={<FormattedMessage id="tasks.chooseMultiple" defaultMessage="Choose multiple" />} />
             <MenuItem className="create-task__add-geolocation" onClick={this.handleOpenDialog.bind(this, 'geolocation')} leftIcon={<MdLocationOn />} primaryText={<FormattedMessage id="tasks.geolocation" defaultMessage="Location" />} />
             <MenuItem className="create-task__add-datetime" onClick={this.handleOpenDialog.bind(this, 'datetime')} leftIcon={<MdDateRange />} primaryText={<FormattedMessage id="tasks.datetime" defaultMessage="Date and time" />} />
           </Menu>
         </Popover>
 
-        <Dialog title={this.props.intl.formatMessage(messages.newTask)} className="create-task__dialog" actionsContainerClassName="create-task__action-container" actions={actions} modal={false} open={this.state.dialogOpen && (this.state.type === 'free_text' || this.state.type === 'geolocation' || this.state.type === 'datetime')} onRequestClose={this.handleCloseDialog.bind(this)} contentStyle={{width: '608px'}}>
+        <Dialog title={this.props.intl.formatMessage(messages.newTask)} className="create-task__dialog" actionsContainerClassName="create-task__action-container" actions={actions} modal={false} open={this.state.dialogOpen && (this.state.type === 'free_text' || this.state.type === 'geolocation' || this.state.type === 'datetime')} onRequestClose={this.handleCloseDialog.bind(this)} contentStyle={{ width: '608px' }}>
           <Message message={this.state.message} />
 
           {(this.state.type === 'free_text' || this.state.type === 'geolocation' || this.state.type === 'datetime') ? <TextField id="task-label-input" className="create-task__task-label-input" floatingLabelText={<FormattedMessage id="tasks.taskLabel" defaultMessage="Prompt" />} onChange={this.handleLabelChange.bind(this)} multiLine /> : null}

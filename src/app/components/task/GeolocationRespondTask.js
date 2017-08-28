@@ -33,7 +33,7 @@ class GeolocationRespondTask extends Component {
       lat,
       lng,
       name,
-      coordinatesString
+      coordinatesString,
     };
   }
 
@@ -59,9 +59,8 @@ class GeolocationRespondTask extends Component {
     const value = document.getElementById('task__response-geolocation-name').value;
     if (typeof value !== 'undefined' && value !== null) {
       return !!value.trim();
-    } else {
-      return false;
     }
+    return false;
   }
 
   handleKeyPress(e) {
@@ -108,19 +107,18 @@ class GeolocationRespondTask extends Component {
 
   handleSubmit() {
     if (!this.state.taskAnswerDisabled) {
-
       const name = document.getElementById('task__response-geolocation-name').value;
       const coordinates = this.getCoordinates();
- 
+
       const response = JSON.stringify({
         type: 'Feature',
         geometry: {
           type: 'Point',
-          coordinates
+          coordinates,
         },
         properties: {
-          name
-        }
+          name,
+        },
       });
 
       this.setState({ taskAnswerDisabled: true });
@@ -194,8 +192,7 @@ class GeolocationRespondTask extends Component {
               onDragend={this.updatePosition.bind(this)}
               position={position}
               ref="marker"
-            >
-            </Marker>
+            />
           </Map>
         </div>
         <p className="task__resolver">

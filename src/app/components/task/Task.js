@@ -440,32 +440,32 @@ class Task extends Component {
             {response == null
               ? <form onSubmit={this.handleSubmit.bind(this)} name={`task-response-${task.id}`}>
 
-                <div className='task__response-inputs'>
+                <div className="task__response-inputs">
                   { task.type === 'geolocation' ? <GeolocationRespondTask onCancel={this.handleCancel.bind(this, task)} onSubmit={this.handleSubmitWithArgs.bind(this)} /> : null }
                   { task.type === 'datetime' ? <DatetimeRespondTask onSubmit={this.handleSubmitWithArgs.bind(this)} note={''} /> : null }
-                  { task.type === 'single_choice' ? <SingleChoiceTask mode="respond" response={response} note={note} jsonoptions={task.jsonoptions} onSubmit={this.handleSubmitWithArgs.bind(this)}/> : null }
-                  { task.type === 'multiple_choice' ? <MultiSelectTask mode="respond" jsonresponse={response} note={note} jsonoptions={task.jsonoptions} onSubmit={this.handleSubmitWithArgs.bind(this)}/> : null }
+                  { task.type === 'single_choice' ? <SingleChoiceTask mode="respond" response={response} note={note} jsonoptions={task.jsonoptions} onSubmit={this.handleSubmitWithArgs.bind(this)} /> : null }
+                  { task.type === 'multiple_choice' ? <MultiSelectTask mode="respond" jsonresponse={response} note={note} jsonoptions={task.jsonoptions} onSubmit={this.handleSubmitWithArgs.bind(this)} /> : null }
                   { task.type === 'free_text' ? [<TextField
-                      className="task__response-input"
-                      onFocus={this.handleFocus.bind(this)}
-                      name="response"
+                    className="task__response-input"
+                    onFocus={this.handleFocus.bind(this)}
+                    name="response"
+                    onKeyPress={this.handleKeyPress.bind(this)}
+                    onChange={this.handleChange.bind(this)}
+                    fullWidth
+                    multiLine
+                    style={{ display: '' }}
+                  />,
+                    <TextField
+                      className="task__response-note-input"
+                      hintText={<FormattedMessage id="task.noteLabel" defaultMessage="Note any additional details here." />}
+                      name="note"
                       onKeyPress={this.handleKeyPress.bind(this)}
                       onChange={this.handleChange.bind(this)}
                       fullWidth
                       multiLine
-                      style={{display: ''}}
                     />,
-                    <TextField
-                        className="task__response-note-input"
-                        hintText={<FormattedMessage id="task.noteLabel" defaultMessage="Note any additional details here." />}
-                        name="note"
-                        onKeyPress={this.handleKeyPress.bind(this)}
-                        onChange={this.handleChange.bind(this)}
-                        fullWidth
-                        multiLine
-                      />,
-                      <p className="task__resolver"><small><FormattedMessage id="task.pressReturnToSave" defaultMessage="Press return to save your response" /></small></p>
-                    ] : null
+                    <p className="task__resolver"><small><FormattedMessage id="task.pressReturnToSave" defaultMessage="Press return to save your response" /></small></p>,
+                  ] : null
                    }
                 </div>
               </form>
@@ -478,14 +478,14 @@ class Task extends Component {
                   { task.type === 'single_choice' ? <SingleChoiceTask mode="edit_response" response={response} note={note} jsonoptions={task.jsonoptions} onDismiss={this.handleCancelEditResponse.bind(this)} onSubmit={this.handleSubmitUpdateWithArgs.bind(this)} /> : null }
                   { task.type === 'multiple_choice' ? <MultiSelectTask mode="edit_response" jsonresponse={response} note={note} jsonoptions={task.jsonoptions} onDismiss={this.handleCancelEditResponse.bind(this)} onSubmit={this.handleSubmitUpdateWithArgs.bind(this)} /> : null }
                   { task.type === 'free_text' ? [<TextField
-                      className="task__response-input"
-                      defaultValue={response}
-                      name="editedresponse"
-                      onKeyPress={this.handleKeyPressUpdate.bind(this)}
-                      onChange={this.handleChange.bind(this)}
-                      fullWidth
-                      multiLine
-                    />,
+                    className="task__response-input"
+                    defaultValue={response}
+                    name="editedresponse"
+                    onKeyPress={this.handleKeyPressUpdate.bind(this)}
+                    onChange={this.handleChange.bind(this)}
+                    fullWidth
+                    multiLine
+                  />,
                     <TextField
                       hintText={<FormattedMessage id="task.noteLabel" defaultMessage="Note any additional details here." />}
                       defaultValue={note}
