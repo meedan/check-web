@@ -10,13 +10,12 @@ import CreateTask from '../task/CreateTask';
 import {
   bemClass,
   bemClassFromMediaStatus,
-  safelyParseJSON,
   getStatus,
   getStatusStyle,
 } from '../../helpers';
 import ContentColumn from '../layout/ContentColumn';
 import { mediaStatuses, mediaLastStatus } from '../../customHelpers';
-import { units } from '../../styles/js/variables';
+import { units, FlexRow } from '../../styles/js/variables';
 
 class MediaComponent extends Component {
   componentDidMount() {
@@ -60,12 +59,14 @@ class MediaComponent extends Component {
     const pusher = this.getContext().pusher;
     if (pusher) {
       const that = this;
-      pusher.subscribe(this.props.media.pusher_channel).bind('media_updated', (data) => {
-        const annotation = JSON.parse(data.message);
-        if (annotation.annotated_id === that.props.media.dbid) {
-          that.props.relay.forceFetch();
-        }
-      });
+      pusher
+        .subscribe(this.props.media.pusher_channel)
+        .bind('media_updated', (data) => {
+          const annotation = JSON.parse(data.message);
+          if (annotation.annotated_id === that.props.media.dbid) {
+            that.props.relay.forceFetch();
+          }
+        });
     }
   }
 
@@ -86,7 +87,6 @@ class MediaComponent extends Component {
     media.url = media.media.url;
     media.quote = media.media.quote;
     media.embed_path = media.media.embed_path;
-    const userOverrides = safelyParseJSON(media.overridden);
     const status = getStatus(mediaStatuses(media), mediaLastStatus(media));
 
     return (
@@ -100,28 +100,54 @@ class MediaComponent extends Component {
           data-id={media.dbid}
         >
           <div
-            className={bemClassFromMediaStatus('media__expanded', mediaLastStatus(media))}
-            style={{ backgroundColor: getStatusStyle(status, 'backgroundColor') }}
+            className={bemClassFromMediaStatus(
+              'media__expanded',
+              mediaLastStatus(media),
+            )}
+            style={{
+              backgroundColor: getStatusStyle(status, 'backgroundColor'),
+            }}
           >
 
-            <ContentColumn style={{ maxWidth: units(120) }} className="media__expanded-column-wrapper">
+            <ContentColumn
+              style={{ maxWidth: units(120) }}
+              className="media__expanded-column-wrapper"
+            >
               <ContentColumn className="media__media-column">
                 <MediaDetail initiallyExpanded media={media} />
                 {this.props.extras}
-                <div className="media__tasks-header" style={{ paddingTop: units(5) }}>
-                  <h2>
-                    <FormattedMessage
-                      id="mediaComponent.verificationTasks"
-                      defaultMessage="Verification tasks"
-                    />
-                  </h2>
-                  <span>
-                    {media.tasks.edges.filter(t => !!t.node.first_response).length}/{media.tasks.edges.length}{' '}
-                    <FormattedMessage id="mediaComponent.resolved" defaultMessage="resolved" />
-                  </span>
-                  <CreateTask media={media} plusIcon />
-                  <CreateTask media={media} />
-                </div>
+                <FlexRow
+                  className="media__tasks-header"
+                  style={{
+                    justifyContent: 'space-between',
+                    paddingTop: units(5),
+                  }}
+                >
+
+                  {media.tasks.edges.length
+                    ? <FlexRow>
+                      <h2>
+                        <FormattedMessage
+                          id="mediaComponent.verificationTasks"
+                          defaultMessage="Verification tasks"
+                        />
+                      </h2>
+                        &nbsp;
+                      <FlexRow>
+                        {
+                            media.tasks.edges.filter(
+                              t => !!t.node.first_response,
+                            ).length
+                          }/{media.tasks.edges.length}&nbsp;
+                        <FormattedMessage
+                          id="mediaComponent.resolved"
+                          defaultMessage="resolved"
+                        />
+                      </FlexRow>
+                    </FlexRow>
+                    : null}
+                  <CreateTask style={{ marginLeft: 'auto' }} media={media} />
+                </FlexRow>
                 <Tasks tasks={media.tasks.edges} media={media} />
               </ContentColumn>
               <ContentColumn className="media__annotations-column">
