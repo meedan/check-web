@@ -204,7 +204,7 @@ class DatetimeRespondTask extends Component {
         <div id="task__response-time">
           <TextField hintText="00" name="hour" style={timeStyles} inputStyle={timeStyles} hintStyle={timeStyles} value={this.state.hour} onChange={this.handleChangeTime.bind(this, 'hour')} /> : <TextField name="minute" hintText="00" style={timeStyles} inputStyle={timeStyles} hintStyle={timeStyles} value={this.state.minute} onChange={this.handleChangeTime.bind(this, 'minute')} />
           <SelectField value={this.state.timezone} onChange={this.handleChangeTimezone.bind(this)} autoWidth={true} className="task__datetime-timezone">
-            {Object.values(timezones).map(tz => <MenuItem key={tz.code} value={tz.code} primaryText={tz.label} />)}
+            {Object.values(timezones).map(tz => <MenuItem key={tz.code} value={tz.code} primaryText={<span dir="ltr">{tz.label}</span>} />)}
           </SelectField>
         </div>
         <small className="task__error">{this.state.timeError ? this.state.timeError : ''}</small>
