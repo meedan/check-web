@@ -2,7 +2,12 @@ import React, { Component } from 'react';
 import Relay from 'react-relay';
 import { Card, CardHeader, CardActions, CardText } from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
-import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
+import {
+  FormattedMessage,
+  defineMessages,
+  injectIntl,
+  intlShape,
+} from 'react-intl';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import IconMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
@@ -50,7 +55,12 @@ class Task extends Component {
   }
 
   handleCancelFocus() {
-    this.setState({ focus: false, response: null, responseOther: null, otherSelected: false });
+    this.setState({
+      focus: false,
+      response: null,
+      responseOther: null,
+      otherSelected: false,
+    });
   }
 
   handleSubmit(e) {
@@ -75,7 +85,8 @@ class Task extends Component {
 
     const form = document.forms[`task-response-${task.id}`];
     const fields = {};
-    fields[`response_${task.type}`] = this.state.response || form.response.value;
+    fields[`response_${task.type}`] =
+      this.state.response || form.response.value;
     fields[`note_${task.type}`] = form.note ? form.note.value : '';
     fields[`task_${task.type}`] = task.dbid;
 
@@ -258,7 +269,8 @@ class Task extends Component {
 
     const form = document.forms[`edit-response-${task.first_response.id}`];
     const fields = {};
-    fields[`response_${task.type}`] = this.state.response || form.editedresponse.value;
+    fields[`response_${task.type}`] =
+      this.state.response || form.editedresponse.value;
     fields[`note_${task.type}`] = form.editednote ? form.editednote.value : '';
 
     if (!that.state.taskAnswerDisabled) {
@@ -321,7 +333,9 @@ class Task extends Component {
   }
 
   bemClass(baseClass, modifierBoolean, modifierSuffix) {
-    return modifierBoolean ? [baseClass, baseClass + modifierSuffix].join(' ') : baseClass;
+    return modifierBoolean
+      ? [baseClass, baseClass + modifierSuffix].join(' ')
+      : baseClass;
   }
 
   componentDidMount() {
@@ -340,8 +354,12 @@ class Task extends Component {
       ? `edit-response-${task.first_response.id}`
       : `task-response-${task.id}`;
     const form = document.forms[form_id];
-    const form_value = this.state.editingResponse ? form.editedresponse.value : form.response.value;
-    const state_response = this.state.response ? this.state.response.trim() : null;
+    const form_value = this.state.editingResponse
+      ? form.editedresponse.value
+      : form.response.value;
+    const state_response = this.state.response
+      ? this.state.response.trim()
+      : null;
 
     return !!state_response || !!form_value.trim();
   }
@@ -381,7 +399,9 @@ class Task extends Component {
     const createTaskActions = [
       <FlatButton
         key="tasks__cancel"
-        label={<FormattedMessage id="tasks.cancelEdit" defaultMessage="Cancel" />}
+        label={
+          <FormattedMessage id="tasks.cancelEdit" defaultMessage="Cancel" />
+        }
         primary
         onClick={this.handleCancelEdit.bind(this)}
       />,
@@ -406,12 +426,21 @@ class Task extends Component {
               </IconButton>
             }
           >
-            <MenuItem className="task-actions__edit" onClick={this.handleEdit.bind(this)}>
+            <MenuItem
+              className="task-actions__edit"
+              onClick={this.handleEdit.bind(this)}
+            >
               <FormattedMessage id="task.edit" defaultMessage="Edit task" />
             </MenuItem>
             <Can permissions={task.permissions} permission="destroy Task">
-              <MenuItem className="task-actions__delete" onClick={this.handleDelete.bind(this)}>
-                <FormattedMessage id="task.delete" defaultMessage="Delete task" />
+              <MenuItem
+                className="task-actions__delete"
+                onClick={this.handleDelete.bind(this)}
+              >
+                <FormattedMessage
+                  id="task.delete"
+                  defaultMessage="Delete task"
+                />
               </MenuItem>
             </Can>
           </IconMenu>
@@ -438,92 +467,244 @@ class Task extends Component {
             id={`task__label-${task.id}`}
           />
 
-          <CardText
-            expandable
-            className="task__card-text"
-          >
+          <CardText expandable className="task__card-text">
             <Message message={this.state.message} />
             {response == null
-              ? <form onSubmit={this.handleSubmit.bind(this)} name={`task-response-${task.id}`}>
+              ? <form
+                onSubmit={this.handleSubmit.bind(this)}
+                name={`task-response-${task.id}`}
+              >
 
                 <div className="task__response-inputs">
-                  { task.type === 'geolocation' ? <GeolocationRespondTask onCancel={this.handleCancel.bind(this, task)} onSubmit={this.handleSubmitWithArgs.bind(this)} /> : null }
-                  { task.type === 'datetime' ? <DatetimeRespondTask onSubmit={this.handleSubmitWithArgs.bind(this)} note={''} /> : null }
-                  { task.type === 'single_choice' ? <SingleChoiceTask mode="respond" response={response} note={note} jsonoptions={task.jsonoptions} onSubmit={this.handleSubmitWithArgs.bind(this)} /> : null }
-                  { task.type === 'multiple_choice' ? <MultiSelectTask mode="respond" jsonresponse={response} note={note} jsonoptions={task.jsonoptions} onSubmit={this.handleSubmitWithArgs.bind(this)} /> : null }
-                  { task.type === 'free_text' ? [<TextField
-                    key="task__response-input"
-                    className="task__response-input"
-                    onFocus={this.handleFocus.bind(this)}
-                    name="response"
-                    onKeyPress={this.handleKeyPress.bind(this)}
-                    onChange={this.handleChange.bind(this)}
-                    fullWidth
-                    multiLine
-                    style={{ display: '' }}
-                  />,
-                    <TextField
-                      key="task__response-note-input"
-                      className="task__response-note-input"
-                      hintText={<FormattedMessage id="task.noteLabel" defaultMessage="Note any additional details here." />}
-                      name="note"
-                      onKeyPress={this.handleKeyPress.bind(this)}
-                      onChange={this.handleChange.bind(this)}
-                      fullWidth
-                      multiLine
-                    />,
-                    <p key="task__resolver" className="task__resolver"><small><FormattedMessage id="task.pressReturnToSave" defaultMessage="Press return to save your response" /></small></p>,
-                  ] : null
-                   }
+                  {task.type === 'geolocation'
+                      ? <GeolocationRespondTask
+                        onCancel={this.handleCancel.bind(this, task)}
+                        onSubmit={this.handleSubmitWithArgs.bind(this)}
+                      />
+                      : null}
+                  {task.type === 'datetime'
+                      ? <DatetimeRespondTask
+                        onSubmit={this.handleSubmitWithArgs.bind(this)}
+                        note={''}
+                      />
+                      : null}
+                  {task.type === 'single_choice'
+                      ? <SingleChoiceTask
+                        mode="respond"
+                        response={response}
+                        note={note}
+                        jsonoptions={task.jsonoptions}
+                        onSubmit={this.handleSubmitWithArgs.bind(this)}
+                      />
+                      : null}
+                  {task.type === 'multiple_choice'
+                      ? <MultiSelectTask
+                        mode="respond"
+                        jsonresponse={response}
+                        note={note}
+                        jsonoptions={task.jsonoptions}
+                        onSubmit={this.handleSubmitWithArgs.bind(this)}
+                      />
+                      : null}
+                  {task.type === 'free_text'
+                      ? [
+                        <TextField
+                          key="task__response-input"
+                          className="task__response-input"
+                          onFocus={this.handleFocus.bind(this)}
+                          name="response"
+                          onKeyPress={this.handleKeyPress.bind(this)}
+                          onChange={this.handleChange.bind(this)}
+                          fullWidth
+                          multiLine
+                          style={{ display: '' }}
+                        />,
+                        <TextField
+                          key="task__response-note-input"
+                          className="task__response-note-input"
+                          hintText={
+                            <FormattedMessage
+                              id="task.noteLabel"
+                              defaultMessage="Note any additional details here."
+                            />
+                            }
+                          name="note"
+                          onKeyPress={this.handleKeyPress.bind(this)}
+                          onChange={this.handleChange.bind(this)}
+                          fullWidth
+                          multiLine
+                        />,
+                        <p key="task__resolver" className="task__resolver">
+                          <small>
+                            <FormattedMessage
+                              id="task.pressReturnToSave"
+                              defaultMessage="Press return to save your response"
+                            />
+                          </small>
+                        </p>,
+                      ]
+                      : null}
                 </div>
               </form>
-            : (this.state.editingResponse ?
-              <div className="task__editing">
-                <form onSubmit={this.handleSubmitUpdate.bind(this)} name={`edit-response-${task.first_response.id}`}>
-                  { task.type === 'geolocation' ? <GeolocationRespondTask onCancel={this.handleCancel.bind(this, task)} response={response} onSubmit={this.handleSubmitUpdateWithArgs.bind(this)} onDismiss={this.handleCancelEditResponse.bind(this)} /> : null }
-                  { task.type === 'datetime' ? <DatetimeRespondTask response={response} note={note} onSubmit={this.handleSubmitUpdateWithArgs.bind(this)} onDismiss={this.handleCancelEditResponse.bind(this)} /> : null }
-                  { task.type === 'single_choice' ? <SingleChoiceTask mode="edit_response" response={response} note={note} jsonoptions={task.jsonoptions} onDismiss={this.handleCancelEditResponse.bind(this)} onSubmit={this.handleSubmitUpdateWithArgs.bind(this)} /> : null }
-                  { task.type === 'multiple_choice' ? <MultiSelectTask mode="edit_response" jsonresponse={response} note={note} jsonoptions={task.jsonoptions} onDismiss={this.handleCancelEditResponse.bind(this)} onSubmit={this.handleSubmitUpdateWithArgs.bind(this)} /> : null }
-                  { task.type === 'free_text' ? [<TextField
-                    key="task__response-input"
-                    className="task__response-input"
-                    defaultValue={response}
-                    name="editedresponse"
-                    onKeyPress={this.handleKeyPressUpdate.bind(this)}
-                    onChange={this.handleChange.bind(this)}
-                    fullWidth
-                    multiLine
-                  />,
-                    <TextField
-                      key="task__response-note-label"
-                      hintText={<FormattedMessage id="task.noteLabel" defaultMessage="Note any additional details here." />}
-                      defaultValue={note}
-                      name="editednote"
-                      onKeyPress={this.handleKeyPressUpdate.bind(this)}
-                      onChange={this.handleChange.bind(this)}
-                      fullWidth
-                      multiLine
-                    />,
-                    <p key="task__resolver" className="task__resolver"><small><FormattedMessage id="task.pressReturnToSave" defaultMessage="Press return to save your response" /></small> <span id="task__cancel-button" onClick={this.handleCancelEditResponse.bind(this)}>✖</span></p>] : null
-                  }
-                </form>
-              </div>
-            :
-              <div className="task__resolved">
-                { task.type === 'free_text' ? <p className="task__response"><ParsedText text={response} /></p> : null }
-                { task.type === 'geolocation' ? <p className="task__response"><GeolocationTaskResponse response={response} /></p> : null }
-                { task.type === 'datetime' ? <p className="task__response"><DatetimeTaskResponse response={response} /></p> : null }
-                { task.type === 'single_choice' ? <SingleChoiceTask mode="show_response" response={response} note={note} jsonoptions={task.jsonoptions} /> : null }
-                { task.type === 'multiple_choice' ? <MultiSelectTask mode="show_response" jsonresponse={response} note={note} jsonoptions={task.jsonoptions} /> : null }
-                <p style={{ display: note ? 'block' : 'none', marginTop: units(1) }} className="task__note"><ParsedText text={note} /></p>
-                <p className="task__resolver">
-                  <small><FormattedMessage id="task.resolvedBy" defaultMessage={'Resolved by {by}'} values={{ by }} /></small>
-                  <Can permissions={task.first_response.permissions} permission="update Dynamic">
-                    <span id="task__edit-response-button" onClick={this.handleEditResponse.bind(this)}>✐</span>
-                  </Can>
-                </p>
-              </div>
-            )}
+              : this.state.editingResponse
+                ? <div className="task__editing">
+                  <form
+                    onSubmit={this.handleSubmitUpdate.bind(this)}
+                    name={`edit-response-${task.first_response.id}`}
+                  >
+                    {task.type === 'geolocation'
+                        ? <GeolocationRespondTask
+                          onCancel={this.handleCancel.bind(this, task)}
+                          response={response}
+                          onSubmit={this.handleSubmitUpdateWithArgs.bind(
+                              this,
+                            )}
+                          onDismiss={this.handleCancelEditResponse.bind(this)}
+                        />
+                        : null}
+                    {task.type === 'datetime'
+                        ? <DatetimeRespondTask
+                          response={response}
+                          note={note}
+                          onSubmit={this.handleSubmitUpdateWithArgs.bind(
+                              this,
+                            )}
+                          onDismiss={this.handleCancelEditResponse.bind(this)}
+                        />
+                        : null}
+                    {task.type === 'single_choice'
+                        ? <SingleChoiceTask
+                          mode="edit_response"
+                          response={response}
+                          note={note}
+                          jsonoptions={task.jsonoptions}
+                          onDismiss={this.handleCancelEditResponse.bind(this)}
+                          onSubmit={this.handleSubmitUpdateWithArgs.bind(
+                              this,
+                            )}
+                        />
+                        : null}
+                    {task.type === 'multiple_choice'
+                        ? <MultiSelectTask
+                          mode="edit_response"
+                          jsonresponse={response}
+                          note={note}
+                          jsonoptions={task.jsonoptions}
+                          onDismiss={this.handleCancelEditResponse.bind(this)}
+                          onSubmit={this.handleSubmitUpdateWithArgs.bind(
+                              this,
+                            )}
+                        />
+                        : null}
+                    {task.type === 'free_text'
+                        ? [
+                          <TextField
+                            key="task__response-input"
+                            className="task__response-input"
+                            defaultValue={response}
+                            name="editedresponse"
+                            onKeyPress={this.handleKeyPressUpdate.bind(this)}
+                            onChange={this.handleChange.bind(this)}
+                            fullWidth
+                            multiLine
+                          />,
+                          <TextField
+                            key="task__response-note-label"
+                            hintText={
+                              <FormattedMessage
+                                id="task.noteLabel"
+                                defaultMessage="Note any additional details here."
+                              />
+                              }
+                            defaultValue={note}
+                            name="editednote"
+                            onKeyPress={this.handleKeyPressUpdate.bind(this)}
+                            onChange={this.handleChange.bind(this)}
+                            fullWidth
+                            multiLine
+                          />,
+                          <p key="task__resolver" className="task__resolver">
+                            <small>
+                              <FormattedMessage
+                                id="task.pressReturnToSave"
+                                defaultMessage="Press return to save your response"
+                              />
+                            </small>{' '}
+                            <span
+                              id="task__cancel-button"
+                              onClick={this.handleCancelEditResponse.bind(
+                                  this,
+                                )}
+                            >
+                                ✖
+                              </span>
+                          </p>,
+                        ]
+                        : null}
+                  </form>
+                </div>
+                : <div className="task__resolved">
+                  {task.type === 'free_text'
+                      ? <p className="task__response">
+                        <ParsedText text={response} />
+                      </p>
+                      : null}
+                  {task.type === 'geolocation'
+                      ? <p className="task__response">
+                        <GeolocationTaskResponse response={response} />
+                      </p>
+                      : null}
+                  {task.type === 'datetime'
+                      ? <p className="task__response">
+                        <DatetimeTaskResponse response={response} />
+                      </p>
+                      : null}
+                  {task.type === 'single_choice'
+                      ? <SingleChoiceTask
+                        mode="show_response"
+                        response={response}
+                        note={note}
+                        jsonoptions={task.jsonoptions}
+                      />
+                      : null}
+                  {task.type === 'multiple_choice'
+                      ? <MultiSelectTask
+                        mode="show_response"
+                        jsonresponse={response}
+                        note={note}
+                        jsonoptions={task.jsonoptions}
+                      />
+                      : null}
+                  <p
+                    style={{
+                      display: note ? 'block' : 'none',
+                      marginTop: units(2),
+                    }}
+                    className="task__note"
+                  >
+                    <ParsedText text={note} />
+                  </p>
+                  <p className="task__resolver">
+                    <small>
+                      <FormattedMessage
+                        id="task.resolvedBy"
+                        defaultMessage={'Resolved by {by}'}
+                        values={{ by }}
+                      />
+                    </small>
+                    <Can
+                      permissions={task.first_response.permissions}
+                      permission="update Dynamic"
+                    >
+                      <span
+                        id="task__edit-response-button"
+                        onClick={this.handleEditResponse.bind(this)}
+                      >
+                          &nbsp; ✐
+                        </span>
+                    </Can>
+                  </p>
+                </div>}
           </CardText>
           <CardActions expandable>{taskActions}</CardActions>
         </Card>
@@ -539,7 +720,10 @@ class Task extends Component {
             <TextField
               name="label"
               floatingLabelText={
-                <FormattedMessage id="tasks.taskLabel" defaultMessage="Task label" />
+                <FormattedMessage
+                  id="tasks.taskLabel"
+                  defaultMessage="Task label"
+                />
               }
               defaultValue={task.label}
               fullWidth
@@ -550,7 +734,10 @@ class Task extends Component {
               : <TextField
                 name="description"
                 floatingLabelText={
-                  <FormattedMessage id="tasks.description" defaultMessage="Description" />
+                  <FormattedMessage
+                    id="tasks.description"
+                    defaultMessage="Description"
+                  />
                   }
                 defaultValue={task.description}
                 fullWidth

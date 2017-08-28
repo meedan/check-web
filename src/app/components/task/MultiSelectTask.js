@@ -10,9 +10,14 @@ import MdCheckBoxOutlineBlank from 'react-icons/lib/md/check-box-outline-blank';
 import Message from '../Message';
 import { units, body2 } from '../../styles/js/variables';
 
+// A smaller TextField
+// that better aligns with multiple choice options
 const StyledSmallTextField = styled(TextField)`
-  height: auto!important;
+  height: ${units(3)}!important;
   font: ${body2} !important;
+  * {
+    bottom: 0!important;
+  }
   div {
     font-size: inherit!important;
   }
@@ -242,6 +247,7 @@ class MultiSelectTask extends Component {
     const { formatMessage } = this.props.intl;
     const actions = [
       <FlatButton
+        className="create-task__dialog-cancel-button"
         label={<FormattedMessage id="tasks.cancelAdd" defaultMessage="Cancel" />}
         primary
         onClick={this.props.onDismiss.bind(this)}
@@ -404,9 +410,8 @@ class MultiSelectTask extends Component {
           <div style={{ display: 'flex', justifyContent: 'flex-start' }} className="task__options_other">
             {other
               ? [
-                <div>
+                <div key="task__option_other_checkbox">
                   <Checkbox
-                    key="task__option_other_checkbox"
                     className="task__option_other_checkbox"
                     checked={this.state.otherSelected || !!responseOther}
                     onCheck={this.handleSelectCheckboxOther.bind(this)}
@@ -415,7 +420,7 @@ class MultiSelectTask extends Component {
                 <StyledSmallTextField
                   key="task__option_other_text_input"
                   className="task__option_other_text_input"
-                  placeholder={other.label}
+                  hintText={other.label}
                   value={responseOther}
                   name={'response'}
                   onKeyPress={keyPressCallback}
