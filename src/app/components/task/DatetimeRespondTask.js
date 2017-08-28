@@ -1,7 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
-import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
+import {
+  FormattedMessage,
+  defineMessages,
+  injectIntl,
+  intlShape,
+} from 'react-intl';
 import DatePicker from 'material-ui/DatePicker';
 import CheckContext from '../../CheckContext';
 import areIntlLocalesSupported from 'intl-locales-supported';
@@ -40,7 +45,9 @@ class DatetimeRespondTask extends Component {
     const response = this.props.response;
 
     if (response) {
-      const values = response.match(/^(\d+-\d+-\d+) (\d+):(\d+) ([+-]?\d+) (.*)$/);
+      const values = response.match(
+        /^(\d+-\d+-\d+) (\d+):(\d+) ([+-]?\d+) (.*)$/,
+      );
       date = new Date(`${values[1]} 00:00`);
       if (parseInt(values[2]) > 0) {
         hour = values[2];
@@ -107,7 +114,12 @@ class DatetimeRespondTask extends Component {
     };
     state[part] = e.target.value;
 
-    if (e.target.value != '' && (isNaN(value) || value < validators[part][0] || value > validators[part][1])) {
+    if (
+      e.target.value != '' &&
+      (isNaN(value) ||
+        value < validators[part][0] ||
+        value > validators[part][1])
+    ) {
       state.timeError = this.props.intl.formatMessage(messages.timeError);
     } else {
       state.timeError = null;
@@ -178,10 +190,22 @@ class DatetimeRespondTask extends Component {
 
     return (
       <div>
-        <div style={{ position: 'relative', display: 'inline-block', width: '100%', marginBottom: '16px' }}>
+        <div
+          style={{
+            position: 'relative',
+            display: 'inline-block',
+            width: '100%',
+            marginBottom: '16px',
+          }}
+        >
           <span className="task__icon"><MdDateRange /></span>
           <DatePicker
-            floatingLabelText={<FormattedMessage id="datetimeRespondTask.pickDate" defaultMessage="Pick a date from the calendar" />}
+            floatingLabelText={
+              <FormattedMessage
+                id="datetimeRespondTask.pickDate"
+                defaultMessage="Pick a date from the calendar"
+              />
+            }
             id="task__response-date"
             className="task__response-input"
             name="response"
@@ -197,17 +221,52 @@ class DatetimeRespondTask extends Component {
           />
         </div>
         <label className="task__label">
-          <FormattedMessage id="datetimeRespondTask.timeOptional" defaultMessage="Time (optional)" />
+          <FormattedMessage
+            id="datetimeRespondTask.timeOptional"
+            defaultMessage="Time (optional)"
+          />
         </label>
         <div id="task__response-time">
-          <TextField hintText="00" name="hour" style={timeStyles} inputStyle={timeStyles} hintStyle={timeStyles} value={this.state.hour} onChange={this.handleChangeTime.bind(this, 'hour')} /> : <TextField name="minute" hintText="00" style={timeStyles} inputStyle={timeStyles} hintStyle={timeStyles} value={this.state.minute} onChange={this.handleChangeTime.bind(this, 'minute')} />
-          <SelectField value={this.state.timezone} onChange={this.handleChangeTimezone.bind(this)} autoWidth className="task__datetime-timezone">
-            {Object.values(timezones).map(tz => <MenuItem key={tz.code} value={tz.code} primaryText={tz.label} />)}
+          <TextField
+            hintText="00"
+            name="hour"
+            style={timeStyles}
+            inputStyle={timeStyles}
+            hintStyle={timeStyles}
+            value={this.state.hour}
+            onChange={this.handleChangeTime.bind(this, 'hour')}
+          />{' '}
+          :{' '}
+          <TextField
+            name="minute"
+            hintText="00"
+            style={timeStyles}
+            inputStyle={timeStyles}
+            hintStyle={timeStyles}
+            value={this.state.minute}
+            onChange={this.handleChangeTime.bind(this, 'minute')}
+          />
+          <SelectField
+            value={this.state.timezone}
+            onChange={this.handleChangeTimezone.bind(this)}
+            autoWidth
+            className="task__datetime-timezone"
+          >
+            {Object.values(timezones).map(tz =>
+              <MenuItem key={tz.code} value={tz.code} primaryText={tz.label} />,
+            )}
           </SelectField>
         </div>
-        <small className="task__error">{this.state.timeError ? this.state.timeError : ''}</small>
+        <small className="task__error">
+          {this.state.timeError ? this.state.timeError : ''}
+        </small>
         <TextField
-          floatingLabelText={<FormattedMessage id="datetimeRespondTask.note" defaultMessage="Note any additional details here." />}
+          floatingLabelText={
+            <FormattedMessage
+              id="datetimeRespondTask.note"
+              defaultMessage="Note any additional details here."
+            />
+          }
           name="note"
           value={this.state.note}
           multiLine
@@ -216,7 +275,17 @@ class DatetimeRespondTask extends Component {
           onChange={this.handleChangeNote.bind(this)}
         />
         <p className="task__resolver">
-          <FlatButton className="task__save" label={<FormattedMessage id="datetimeRespondTask.resolveTask" defaultMessage="Resolve task" />} primary onClick={this.handlePressButton.bind(this)} />
+          <FlatButton
+            className="task__save"
+            label={
+              <FormattedMessage
+                id="datetimeRespondTask.resolveTask"
+                defaultMessage="Resolve task"
+              />
+            }
+            primary
+            onClick={this.handlePressButton.bind(this)}
+          />
         </p>
       </div>
     );
