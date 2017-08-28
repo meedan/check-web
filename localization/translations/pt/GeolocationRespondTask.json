@@ -1,0 +1,7 @@
+{
+  "geolocationRespondTask.placeName": "Digite o nome de uma localidade",
+  "geolocationRespondTask.coordinates": "Latitude, Longitude",
+  "geolocationRespondTask.pressReturnToSave": "Pressione enter para salvar sua resposta",
+  "geolocationRespondTask.cancelTask": "Cancelar",
+  "geolocationRespondTask.resolveTask": "Resolver Tarefa"
+}

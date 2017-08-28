@@ -6,6 +6,8 @@
   "tasks.shortAnswer": "إجابة قصيرة",
   "tasks.chooseOne": "سؤال أحادي الاختيارات",
   "tasks.chooseMultiple": "سؤال متعدد الاختيارات",
+  "tasks.geolocation": "الموقع",
+  "tasks.datetime": "التاريخ والزمن",
   "tasks.taskLabel": "السؤال",
   "tasks.description": "وصف",
   "tasks.addDescription": "أضف وصفاً"
