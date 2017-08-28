@@ -282,7 +282,7 @@ class DatetimeRespondTask extends Component {
                 style={{ marginLeft: units(2) }}
               >
                 {Object.values(timezones).map(tz =>
-                  <MenuItem key={tz.code} value={tz.code} primaryText={tz.label} />,
+                  <MenuItem key={tz.code} value={tz.code} primaryText={<span dir="ltr">{tz.label}</span>} />,
                 )}
               </SelectField>
             </FlexRow>
@@ -291,6 +291,16 @@ class DatetimeRespondTask extends Component {
         <div style={styles.error}>
           {this.state.timeError ? this.state.timeError : ''}
         </div>
+        <label className="task__label">
+          <FormattedMessage id="datetimeRespondTask.timeOptional" defaultMessage="Time (optional)" />
+        </label>
+        <div id="task__response-time">
+          <TextField hintText="00" name="hour" style={timeStyles} inputStyle={timeStyles} hintStyle={timeStyles} value={this.state.hour} onChange={this.handleChangeTime.bind(this, 'hour')} /> : <TextField name="minute" hintText="00" style={timeStyles} inputStyle={timeStyles} hintStyle={timeStyles} value={this.state.minute} onChange={this.handleChangeTime.bind(this, 'minute')} />
+          <SelectField value={this.state.timezone} onChange={this.handleChangeTimezone.bind(this)} autoWidth className="task__datetime-timezone">
+            {Object.values(timezones).map(tz => <MenuItem key={tz.code} value={tz.code} primaryText={<span dir="ltr">{tz.label}</span>} />)}
+          </SelectField>
+        </div>
+        <small className="task__error">{this.state.timeError ? this.state.timeError : ''}</small>
         <TextField
           floatingLabelText={
             <FormattedMessage

@@ -7,6 +7,7 @@ module ApiHelpers
     @config['api_path'] + '/test/'
   end
 
+
   def request_api(path, params)
     require 'net/http'
     uri = URI(api_path + path)
@@ -21,8 +22,9 @@ module ApiHelpers
   end
 
   def api_create_and_confirm_user(params = {})
-    email = "test-#{Time.now.to_i}-#{rand(1000)}@test.com"
-    user = request_api 'user', { name: 'User With Email', email: email, password: '12345678', password_confirmation: '12345678', provider: '' }
+    email = params[:email] || "test-#{Time.now.to_i}-#{rand(1000)}@test.com"
+    password = params[:password] || "12345678"
+    user = request_api 'user', { name: 'User With Email', email: email, password: password, password_confirmation: password, provider: '' }
     request_api 'confirm_user', { email: email }
     user
   end
@@ -33,9 +35,10 @@ module ApiHelpers
     user
   end
 
-  def api_create_team
+  def api_create_team(params = {})
+    team = params[:team] || "Test Team #{Time.now.to_i}"
     user = api_register_and_login_with_email
-    request_api 'team', { name: "Test Team #{Time.now.to_i}", email: user.email }
+    request_api 'team', { name: team, email: user.email }
   end
 
   def api_create_team_and_project
