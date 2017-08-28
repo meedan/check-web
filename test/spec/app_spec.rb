@@ -827,7 +827,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Edit task answer
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Task "Foo or bar???" answered by User With Email: "Foo edited"')).to be(false)
-      @driver.find_element(:css, '.task').click
       @driver.find_element(:css, '.task-actions__icon').click
       @driver.find_element(:css, '.task-actions__edit-response').click
       fill_field('textarea[name="editedresponse"]', ' edited')
@@ -1107,7 +1106,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       # Edit task
       expect(@driver.page_source.include?('Task "When?" edited to "When was it?" by')).to be(false)
       # TODO: you should not have to click the task to be able to edit the answer. So the following line should be able to be removed. — CGB 2017-8-27
-      @driver.find_element(:css, '.task').click
       @driver.find_element(:css, '.task-actions__icon').click
       @driver.find_element(:css, '.task-actions__edit-response').click
       update_field('textarea[name="label"]', 'When was it?')
@@ -1128,7 +1126,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Delete task
       expect(@driver.page_source.include?('When was it')).to be(true)
-      @driver.find_element(:css, '.task').click
       @driver.find_element(:css, '.task-actions__icon').click
       @driver.find_element(:css, '.task-actions__edit-response').click
       @driver.find_element(:css, '.task-actions__delete').click
