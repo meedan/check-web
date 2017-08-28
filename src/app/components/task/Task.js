@@ -434,6 +434,21 @@ class Task extends Component {
               </IconButton>
             }
           >
+            {response ?
+              <Can
+                permissions={task.first_response.permissions}
+                permission="update Dynamic"
+              >
+                <MenuItem
+                  className="task-actions__edit-response"
+                  onClick={this.handleEditResponse.bind(this)}
+                >
+                  <FormattedMessage id="task.editResponse" defaultMessage="Edit response" />
+                </MenuItem>
+              </Can>
+              : null
+           }
+
             <MenuItem
               className="task-actions__edit"
               onClick={this.handleEdit.bind(this)}
@@ -464,7 +479,7 @@ class Task extends Component {
       </div>
     );
 
-    const taskBody = response == null
+    const taskBody = !response
       ? (<form
         onSubmit={this.handleSubmit.bind(this)}
         name={`task-response-${task.id}`}
@@ -708,16 +723,6 @@ class Task extends Component {
                     values={{ byName: by.name }}
                   />
                 </small>
-                <Can
-                  permissions={task.first_response.permissions}
-                  permission="update Dynamic"
-                >
-                  <span
-                    id="task__edit-response-button"
-                    onClick={this.handleEditResponse.bind(this)}
-                    style={{ fontSize: '20px' }}
-                  > &nbsp; ✐ </span>
-                </Can>
               </div> : null }
             {taskActions}
           </CardActions>

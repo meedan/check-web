@@ -12,6 +12,10 @@
     "defaultMessage": "Save"
   },
   {
+    "id": "task.editResponse",
+    "defaultMessage": "Edit response"
+  },
+  {
     "id": "task.edit",
     "defaultMessage": "Edit question"
   },

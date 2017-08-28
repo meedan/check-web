@@ -827,7 +827,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Edit task answer
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Task "Foo or bar???" answered by User With Email: "Foo edited"')).to be(false)
-      @driver.find_element(:css, '#task__edit-response-button').click
+      @driver.find_element(:css, '.task-actions').click
+      @driver.find_element(:css, '.task-actions__edit-response').click
       fill_field('textarea[name="editedresponse"]', ' edited')
       @driver.action.send_keys(:enter).perform
       sleep 2
@@ -1054,7 +1055,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Edit task answer
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Task "Where was it?" answered by User With Email: "Vancouver"')).to be(false)
-      @driver.find_element(:css, '#task__edit-response-button').click
+      @driver.find_element(:css, '.task-actions').click
+      @driver.find_element(:css, '.task-actions__edit-response').click
       update_field('textarea[name="response"]', 'Vancouver')
       update_field('textarea[name="coordinates"]', '49.2577142, -123.1941156')
       @driver.action.send_keys(:enter).perform
@@ -1112,7 +1114,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Edit task response
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('12:34')).to be(false)
-      @driver.find_element(:css, '#task__edit-response-button').click
+      @driver.find_element(:css, '.task-actions').click
+      @driver.find_element(:css, '.task-actions__edit-response').click
       update_field('input[name="hour"]', '12')
       update_field('input[name="minute"]', '34')
       update_field('textarea[name="note"]', '')
