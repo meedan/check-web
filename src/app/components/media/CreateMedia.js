@@ -26,7 +26,7 @@ const messages = defineMessages({
   error: {
     id: 'createMedia.error',
     defaultMessage:
-      'Something went wrong! Try pasting the text of this post instead, or adding a different link.',
+      'Something went wrong! The server returned an error code {code}. Please contact a system administrator.',
   },
   mediaInput: {
     id: 'createMedia.mediaInput',
@@ -50,11 +50,11 @@ const messages = defineMessages({
   },
   helper: {
     id: 'createMedia.helper',
-    defaultMessage: 'Add a link, quote or image for verification',
+    defaultMessage: 'Add a link, quote, image or source for verification',
   },
   bridge_helper: {
     id: 'bridge.createMedia.helper',
-    defaultMessage: 'Add a link, quote or image for translation',
+    defaultMessage: 'Add a link, quote, image or source for translation',
   },
 });
 
@@ -109,13 +109,16 @@ class CreateProjectMedia extends Component {
   }
 
   handleSubmitError(context, prefix, transactionError) {
+    let message = '';
     let json = null;
     try {
       json = JSON.parse(transactionError.source);
-    } catch (e) {
-      json = JSON.stringify(transactionError);
     }
-    let message = this.props.intl.formatMessage(messages.error); // TODO: review error message
+    catch (e) {
+      json = {
+        error: this.props.intl.formatMessage(messages.error, { code: transactionError.status })
+      };
+    }
     if (json && json.error) {
       const matches = json.error.match(
         this.state.mode === 'source' ?
