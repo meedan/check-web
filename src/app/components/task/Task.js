@@ -430,7 +430,7 @@ class Task extends Component {
               className="task-actions__edit"
               onClick={this.handleEdit.bind(this)}
             >
-              <FormattedMessage id="task.edit" defaultMessage="Edit task" />
+              <FormattedMessage id="task.edit" defaultMessage="Edit question" />
             </MenuItem>
             <Can permissions={task.permissions} permission="destroy Task">
               <MenuItem
