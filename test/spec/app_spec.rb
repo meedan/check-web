@@ -1069,5 +1069,64 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 3
       expect(@driver.page_source.include?('Where was it')).to be(false)
     end
+
+    it "should add, edit, answer, update answer and delete datetime task", annotation: true do
+      media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
+      sleep 5
+
+      # Create a task
+      expect(@driver.page_source.include?('When?')).to be(false)
+      expect(@driver.page_source.include?('Task "When?" created by')).to be(false)
+      @driver.find_element(:css, '.create-task__add-button').click
+      sleep 1
+      @driver.find_element(:css, '.create-task__add-datetime').click
+      sleep 1
+      fill_field('#task-label-input', 'When?')
+      @driver.find_element(:css, '.create-task__dialog-submit-button').click
+      sleep 2
+      expect(@driver.page_source.include?('When?')).to be(true)
+      expect(@driver.page_source.include?('Task "When?" created by')).to be(true)
+
+      # Answer task
+      expect(@driver.page_source.include?('Task "When?" answered by')).to be(false)
+      @driver.find_element(:css, '.task__label').click
+      fill_field('input[name="hour"]', '23')
+      fill_field('input[name="minute"]', '59')
+      @driver.find_element(:css, '#task__response-date').click
+      sleep 2
+      @driver.find_elements(:css, 'button').last.click
+      sleep 1
+      fill_field('textarea[name="note"]', 'Test')
+      @driver.action.send_keys(:enter).perform
+      sleep 2
+      expect(@driver.page_source.include?('Task "When?" answered by')).to be(true)
+
+      # Edit task
+      expect(@driver.page_source.include?('Task "When?" edited to "When was it?" by')).to be(false)
+      @driver.find_element(:css, '.task__actions svg').click
+      @driver.find_elements(:css, '.media-actions__menu--active span').first.click
+      update_field('textarea[name="label"]', 'When was it?')
+      @driver.find_element(:css, '.task__save').click
+      sleep 2
+      expect(@driver.page_source.include?('Task "When?" edited to "When was it?" by')).to be(true)
+
+      # Edit task response
+      expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('12:34')).to be(false)
+      @driver.find_element(:css, '#task__edit-response-button').click
+      update_field('input[name="hour"]', '12')
+      update_field('input[name="minute"]', '34')
+      update_field('textarea[name="note"]', '')
+      @driver.action.send_keys(:enter).perform
+      sleep 2
+      expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('12:34')).to be(true)
+
+      # Delete task
+      expect(@driver.page_source.include?('When was it')).to be(true)
+      @driver.find_element(:css, '.task__actions svg').click
+      @driver.find_elements(:css, '.media-actions__menu--active span').last.click
+      @driver.switch_to.alert.accept
+      sleep 3
+      expect(@driver.page_source.include?('When was it')).to be(false)
+    end
   end
 end

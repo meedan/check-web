@@ -18,6 +18,7 @@ import { Card, CardText } from 'material-ui/Card';
 import MenuButton from '../MenuButton';
 import MdImage from 'react-icons/lib/md/image';
 import ParsedText from '../ParsedText';
+import DatetimeTaskResponse from '../task/DatetimeTaskResponse';
 
 const messages = defineMessages({
   error: {
@@ -246,6 +247,8 @@ class Annotation extends Component {
             else {
               return name;
             }
+          } else if (type === 'datetime') {
+            return (<DatetimeTaskResponse response={object.value} />);
           } else {
             return (<ParsedText text={object.value} />);
           }

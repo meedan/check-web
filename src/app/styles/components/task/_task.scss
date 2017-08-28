@@ -182,6 +182,54 @@
 //   cursor: pointer;
 // }
 
-// .ReactModal__Overlay {
-//   z-index: 1200;
-// }
+    img {
+      width: 56px;
+      height: 56px;
+      cursor: pointer;
+    }
+  }
+
+  .task__icon {
+    color: $black-54;
+    position: absolute;
+    #{$to-direction}: 0;
+    bottom: 15px;
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  #task__response-time {
+    color: $black-38;
+    display: flex;
+    align-items: center;
+  }
+
+  .task__error {
+    display: block;
+    color: $alert-red;
+  }
+
+  .task__datetime-timezone {
+    margin-#{$from-direction}: units(2);
+  }
+
+  .task__datetime-response a {
+    color: $black-87;
+    text-decoration: underline;
+  }
+}
+
+#task__edit-response-button {
+  cursor: pointer;
+}
+
+.ReactModal__Overlay {
+  z-index: 1200;
+}
+
+.leaflet-container {
+  height: 600px;
+}
