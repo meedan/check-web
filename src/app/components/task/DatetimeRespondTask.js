@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import {
@@ -8,14 +8,40 @@ import {
   intlShape,
 } from 'react-intl';
 import DatePicker from 'material-ui/DatePicker';
-import CheckContext from '../../CheckContext';
 import areIntlLocalesSupported from 'intl-locales-supported';
-import persianUtils from 'material-ui-persian-date-picker-utils';
 import IntlPolyfill from 'intl';
-import MdDateRange from 'react-icons/lib/md/date-range';
-import timezones from '../../timezones';
+import IconDateRange from 'material-ui/svg-icons/action/date-range';
+import IconSchedule from 'material-ui/svg-icons/action/schedule';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+import CheckContext from '../../CheckContext';
+import timezones from '../../timezones';
+import { FlexRow, units, black54, black38, caption } from '../../styles/js/variables';
+
+
+const styles = {
+  primaryColumn: {
+    flex: 10,
+  },
+  secondaryColumn: {
+    color: black54,
+    height: units(2.5),
+    width: units(2.5),
+    flex: '1',
+  },
+  row: {
+    marginBottom: units(2),
+  },
+  time: {
+    width: units(6),
+    textAlign: 'center',
+  },
+  label: {
+    font: caption,
+    color: black38,
+  },
+};
+
 
 const messages = defineMessages({
   ok: {
@@ -102,7 +128,7 @@ class DatetimeRespondTask extends Component {
   }
 
   handleChangeTime(part, e) {
-    const value = parseInt(e.target.value);
+    const value = parseInt(e.target.value, 10);
 
     const validators = {
       hour: [0, 23],
@@ -143,10 +169,10 @@ class DatetimeRespondTask extends Component {
       }
       let hour = 0;
       let minute = 0;
-      if (this.state.hour != '') {
+      if (this.state.hour !== '') {
         hour = this.state.hour;
       }
-      if (this.state.minute != '') {
+      if (this.state.minute !== '') {
         minute = this.state.minute;
       }
       let offset = '';
@@ -183,29 +209,20 @@ class DatetimeRespondTask extends Component {
       require('intl/locale-data/jsonp/fr');
     }
 
-    const timeStyles = {
-      width: '42px',
-      textAlign: 'center',
-    };
-
     return (
       <div>
-        <div
-          style={{
-            position: 'relative',
-            display: 'inline-block',
-            width: '100%',
-            marginBottom: '16px',
-          }}
-        >
-          <span className="task__icon"><MdDateRange /></span>
+        <FlexRow style={styles.row}>
+          <IconDateRange
+            className="task__icon"
+            style={styles.secondaryColumn}
+          />
           <DatePicker
             floatingLabelText={
               <FormattedMessage
                 id="datetimeRespondTask.pickDate"
                 defaultMessage="Pick a date from the calendar"
               />
-            }
+              }
             id="task__response-date"
             className="task__response-input"
             name="response"
@@ -218,45 +235,55 @@ class DatetimeRespondTask extends Component {
             okLabel={this.props.intl.formatMessage(messages.ok)}
             cancelLabel={this.props.intl.formatMessage(messages.cancel)}
             mode="landscape"
+            style={styles.primaryColumn}
           />
-        </div>
-        <label className="task__label">
-          <FormattedMessage
-            id="datetimeRespondTask.timeOptional"
-            defaultMessage="Time (optional)"
+        </FlexRow>
+
+        <FlexRow style={styles.row}>
+          <IconSchedule
+            className="task__icon"
+            style={styles.secondaryColumn}
           />
-        </label>
-        <div id="task__response-time">
-          <TextField
-            hintText="00"
-            name="hour"
-            style={timeStyles}
-            inputStyle={timeStyles}
-            hintStyle={timeStyles}
-            value={this.state.hour}
-            onChange={this.handleChangeTime.bind(this, 'hour')}
-          />{' '}
-          :{' '}
-          <TextField
-            name="minute"
-            hintText="00"
-            style={timeStyles}
-            inputStyle={timeStyles}
-            hintStyle={timeStyles}
-            value={this.state.minute}
-            onChange={this.handleChangeTime.bind(this, 'minute')}
-          />
-          <SelectField
-            value={this.state.timezone}
-            onChange={this.handleChangeTimezone.bind(this)}
-            autoWidth
-            className="task__datetime-timezone"
-          >
-            {Object.values(timezones).map(tz =>
-              <MenuItem key={tz.code} value={tz.code} primaryText={tz.label} />,
-            )}
-          </SelectField>
-        </div>
+          <div style={styles.primaryColumn}>
+            <label htmlFor="task__response-time" style={styles.label} className="task__label">
+              <FormattedMessage
+                id="datetimeRespondTask.timeOptional"
+                defaultMessage="Time (optional)"
+              />
+            </label>
+            <div id="task__response-time">
+              <TextField
+                hintText="00"
+                name="hour"
+                style={styles.time}
+                inputStyle={styles.time}
+                hintStyle={styles.time}
+                value={this.state.hour}
+                onChange={this.handleChangeTime.bind(this, 'hour')}
+              />{' '}
+              :{' '}
+              <TextField
+                name="minute"
+                hintText="00"
+                style={styles.time}
+                inputStyle={styles.time}
+                hintStyle={styles.time}
+                value={this.state.minute}
+                onChange={this.handleChangeTime.bind(this, 'minute')}
+              />
+              <SelectField
+                value={this.state.timezone}
+                onChange={this.handleChangeTimezone.bind(this)}
+                autoWidth
+                className="task__datetime-timezone"
+              >
+                {Object.values(timezones).map(tz =>
+                  <MenuItem key={tz.code} value={tz.code} primaryText={tz.label} />,
+                )}
+              </SelectField>
+            </div>
+          </div>
+        </FlexRow>
         <small className="task__error">
           {this.state.timeError ? this.state.timeError : ''}
         </small>
