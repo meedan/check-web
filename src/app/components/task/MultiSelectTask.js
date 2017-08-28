@@ -7,6 +7,7 @@ import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-i
 import MdCancel from 'react-icons/lib/md/cancel';
 import MdCheckBoxOutlineBlank from 'react-icons/lib/md/check-box-outline-blank';
 import Message from '../Message';
+import { FlexRow } from '../../styles/js/variables';
 
 const messages = defineMessages({
   addValue: {
@@ -388,7 +389,7 @@ class MultiSelectTask extends Component {
             />,
           )}
 
-          <div className="task__options_other">
+          <FlexRow className="task__options_other">
             {other
               ? [
                 <Checkbox
@@ -411,7 +412,7 @@ class MultiSelectTask extends Component {
                 />,
               ]
               : null}
-          </div>
+          </FlexRow>
 
           {editable
             ? <TextField

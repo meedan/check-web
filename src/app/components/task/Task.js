@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay';
-import { Card, CardText } from 'material-ui/Card';
+import { Card, CardHeader, CardActions, CardText } from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
-import MdInfoOutline from 'react-icons/lib/md/info-outline';
 import IconMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
 import IconButton from 'material-ui/IconButton';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
-import Tooltip from 'rc-tooltip';
 import 'rc-tooltip/assets/bootstrap.css';
 import SingleChoiceTask from './SingleChoiceTask';
 import MultiSelectTask from './MultiSelectTask';
@@ -22,6 +20,7 @@ import Can from '../Can';
 import ParsedText from '../ParsedText';
 import GeolocationRespondTask from './GeolocationRespondTask';
 import GeolocationTaskResponse from './GeolocationTaskResponse';
+import { units } from '../../styles/js/variables';
 
 const messages = defineMessages({
   confirmDelete: {
@@ -50,10 +49,6 @@ class Task extends Component {
 
   handleCancelFocus() {
     this.setState({ focus: false, response: null, responseOther: null, otherSelected: false });
-  }
-
-  handleClick(e) {
-    e.stopPropagation();
   }
 
   handleSubmit(e) {
@@ -377,7 +372,7 @@ class Task extends Component {
     const { note } = data;
     const { by } = data;
 
-    const dialogActions = [
+    const createTaskActions = [
       <FlatButton
         key="tasks__cancel"
         label={<FormattedMessage id="tasks.cancelEdit" defaultMessage="Cancel" />}
@@ -420,17 +415,6 @@ class Task extends Component {
 
     const taskQuestion = (
       <div className="task__question">
-        {task.description
-          ? <Tooltip
-            placement="left"
-            trigger={['click']}
-            overlay={<span>{task.description}</span>}
-            overlayClassName="task__description-tooltip"
-          >
-            <MdInfoOutline className="task__description-icon" title={task.description} />
-          </Tooltip>
-          : null}
-
         <div className="task__label-container">
           <span className="task__label">{task.label}</span>
         </div>
@@ -439,19 +423,21 @@ class Task extends Component {
 
     return (
       <div>
-        <Card onClick={this.handleClick.bind(this)} className="task" style={{ zIndex: 'auto' }}>
-          <CardText className="task__card-text" style={{ display: 'flex' }}>
+        <Card className="task" style={{ marginBottom: units(1) }}>
+          <CardHeader
+            actAsExpander
+            showExpandableButton
+            title={taskQuestion}
+            subtitle={task.description ? task.description : null}
+          />
+
+          <CardText
+            expandable
+            className="task__card-text"
+          >
             <Message message={this.state.message} />
             {response == null
               ? <form onSubmit={this.handleSubmit.bind(this)} name={`task-response-${task.id}`}>
-                <input
-                  type="checkbox"
-                  className="task__response-toggle"
-                  id={`task-${task.id}-response-toggle`}
-                />
-                <label htmlFor={`task-${task.id}-response-toggle`}>
-                  {taskQuestion}
-                </label>
 
                 <div className="task__response-inputs">
                   {task.type === 'geolocation'
@@ -486,7 +472,6 @@ class Task extends Component {
                           onChange={this.handleChange.bind(this)}
                           fullWidth
                           multiLine
-                          style={{ display: '' }}
                         />,
                         <TextField
                           key="task__response-note-input"
@@ -635,21 +620,21 @@ class Task extends Component {
                       permissions={task.first_response.permissions}
                       permission="update Dynamic"
                     >
-                      <span
+                      <FlatButton
                         id="task__edit-response-button"
                         onClick={this.handleEditResponse.bind(this)}
                       >
-                          ✐
-                        </span>
+                        <FormattedMessage id="task.edit" defaultMessage="Edit task" />
+                      </FlatButton>
                     </Can>
                   </p>
                 </div>}
-            {taskActions}
           </CardText>
+          <CardActions expandable>{taskActions}</CardActions>
         </Card>
 
         <Dialog
-          actions={dialogActions}
+          actions={createTaskActions}
           modal={false}
           open={!!this.state.editing}
           onRequestClose={this.handleCancelEdit.bind(this)}
