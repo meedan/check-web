@@ -1,5 +1,6 @@
 import styled, { css, keyframes } from 'styled-components';
 import { CardTitle } from 'material-ui/Card';
+import TextField from 'material-ui/TextField';
 import { stripUnit, rgba } from 'polished';
 
 // Styles for overriding material UI
@@ -310,4 +311,20 @@ export const breakWordStyles = `
   hyphens: auto;
   overflow-wrap: break-word;
   word-break: break-word;
+`;
+
+// A smaller TextField
+// that better aligns with multiple choice options
+const StyledSmallTextField = styled(TextField)`
+  height: ${units(3)}!important;
+  font: ${body2} !important;
+  * {
+    bottom: 0!important;
+  }
+  div {
+    font-size: inherit!important;
+  }
+  textarea {
+    margin: 0!important;
+  }
 `;

@@ -103,7 +103,8 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
                 permissions,
                 content,
                 annotator {
-                  name
+                  name,
+                  profile_image
                 }
               }
             }

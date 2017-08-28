@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay';
 import { Card, CardHeader, CardActions, CardText } from 'material-ui/Card';
+import Avatar from 'material-ui/Avatar';
 import TextField from 'material-ui/TextField';
 import {
   FormattedMessage,
@@ -370,7 +371,7 @@ class Task extends Component {
     const { task } = this.props;
 
     if (task.first_response) {
-      data.by = task.first_response.annotator.name;
+      data.by = task.first_response.annotator;
       const fields = JSON.parse(task.first_response.content);
       fields.forEach((field) => {
         if (/^response_/.test(field.field_name)) {
@@ -416,7 +417,14 @@ class Task extends Component {
     ];
 
     const taskActions = (
-      <div style={{ marginLeft: 'auto' }}>
+      <div
+        style={{
+          marginLeft: 'auto',
+          position: 'absolute',
+          bottom: '0',
+          right: '0',
+        }}
+      >
         <Can permissions={task.permissions} permission="update Task">
           <IconMenu
             className="task-actions"
@@ -504,7 +512,6 @@ class Task extends Component {
                   onChange={this.handleChange.bind(this)}
                   fullWidth
                   multiLine
-                  style={{ display: '' }}
                 />,
                 <TextField
                   key="task__response-note-input"
@@ -661,26 +668,6 @@ class Task extends Component {
           >
             <ParsedText text={note} />
           </p>
-          <p className="task__resolver">
-            <small>
-              <FormattedMessage
-                id="task.resolvedBy"
-                defaultMessage={'Resolved by {by}'}
-                values={{ by }}
-              />
-            </small>
-            <Can
-              permissions={task.first_response.permissions}
-              permission="update Dynamic"
-            >
-              <span
-                id="task__edit-response-button"
-                onClick={this.handleEditResponse.bind(this)}
-              >
-                  &nbsp; ✐
-                </span>
-            </Can>
-          </p>
         </div>;
 
     return (
@@ -698,7 +685,42 @@ class Task extends Component {
             <Message message={this.state.message} />
             {taskBody}
           </CardText>
-          <CardActions expandable>{taskActions}</CardActions>
+
+          <CardActions
+            expandable={!data.by}
+            style={{ display: 'flex', alignItems: 'center' }}
+          >
+
+            { data.by ?
+              <div
+                className="task__resolver"
+                style={{ display: 'flex', alignItems: 'center' }}
+              >
+                <Avatar
+                  style={{ margin: `0 ${units(1)}` }}
+                  size={parseInt(units(3), 10)}
+                  src={by.profile_image}
+                />
+                <small>
+                  <FormattedMessage
+                    id="task.resolvedBy"
+                    defaultMessage={'Resolved by {byName}'}
+                    values={{ byName: by.name }}
+                  />
+                </small>
+                <Can
+                  permissions={task.first_response.permissions}
+                  permission="update Dynamic"
+                >
+                  <span
+                    id="task__edit-response-button"
+                    onClick={this.handleEditResponse.bind(this)}
+                    style={{ fontSize: '20px' }}
+                  > &nbsp; ✐ </span>
+                </Can>
+              </div> : null }
+            {taskActions}
+          </CardActions>
         </Card>
 
         <Dialog

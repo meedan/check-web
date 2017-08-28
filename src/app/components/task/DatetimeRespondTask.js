@@ -16,10 +16,14 @@ import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import CheckContext from '../../CheckContext';
 import timezones from '../../timezones';
-import { FlexRow, units, black54, black38, caption } from '../../styles/js/variables';
-
+import { FlexRow, units, black87, black54, black38, caption, alertRed } from '../../styles/js/variables';
 
 const styles = {
+  error: {
+    font: 'caption',
+    color: alertRed,
+    display: 'block',
+  },
   primaryColumn: {
     flex: 10,
   },
@@ -41,7 +45,6 @@ const styles = {
     color: black38,
   },
 };
-
 
 const messages = defineMessages({
   ok: {
@@ -251,7 +254,7 @@ class DatetimeRespondTask extends Component {
                 defaultMessage="Time (optional)"
               />
             </label>
-            <div id="task__response-time">
+            <FlexRow style={{ justifyContent: 'flex-start', alignItems: 'center' }} id="task__response-time">
               <TextField
                 hintText="00"
                 name="hour"
@@ -261,7 +264,7 @@ class DatetimeRespondTask extends Component {
                 value={this.state.hour}
                 onChange={this.handleChangeTime.bind(this, 'hour')}
               />{' '}
-              :{' '}
+              <div>:</div>{' '}
               <TextField
                 name="minute"
                 hintText="00"
@@ -276,17 +279,18 @@ class DatetimeRespondTask extends Component {
                 onChange={this.handleChangeTimezone.bind(this)}
                 autoWidth
                 className="task__datetime-timezone"
+                style={{ marginLeft: units(2) }}
               >
                 {Object.values(timezones).map(tz =>
                   <MenuItem key={tz.code} value={tz.code} primaryText={tz.label} />,
                 )}
               </SelectField>
-            </div>
+            </FlexRow>
           </div>
         </FlexRow>
-        <small className="task__error">
+        <div style={styles.error}>
           {this.state.timeError ? this.state.timeError : ''}
-        </small>
+        </div>
         <TextField
           floatingLabelText={
             <FormattedMessage

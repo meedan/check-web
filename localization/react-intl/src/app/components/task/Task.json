@@ -29,7 +29,7 @@
   },
   {
     "id": "task.resolvedBy",
-    "defaultMessage": "Resolved by {by}"
+    "defaultMessage": "Resolved by {byName}"
   },
   {
     "id": "tasks.taskLabel",
