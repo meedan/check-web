@@ -26,6 +26,7 @@ import {
 
 const StyledMetadata = styled(FlexRow)`
   margin-top: ${units(3)};
+  flex-wrap: wrap;
 
   > * {
     padding: 0 ${units(1)};
