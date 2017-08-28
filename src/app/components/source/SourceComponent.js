@@ -1043,7 +1043,7 @@ class SourceComponent extends Component {
                 </Popover>
               </div>
 
-              <Dialog title={this.props.intl.formatMessage(messages.otherDialogTitle)} actions={actions} actionsContainerClassName="sourceComponent__action-container" open={this.state.dialogOpen} onRequestClose={this.handleCloseDialog.bind(this)} contentStyle={{ width: '608px' }}>
+              <Dialog title={this.props.intl.formatMessage(messages.otherDialogTitle)} actions={actions} actionsContainerClassName="sourceComponent__action-container" open={this.state.dialogOpen} onRequestClose={this.handleCloseDialog.bind(this)}>
                 <TextField
                   id="source__other-label-input"
                   floatingLabelText={this.props.intl.formatMessage(messages.label)}

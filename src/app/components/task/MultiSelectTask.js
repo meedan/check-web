@@ -272,7 +272,6 @@ class MultiSelectTask extends Component {
           open={this.props.mode === 'create'}
           onRequestClose={this.props.onDismiss}
           autoScrollBodyContent
-          contentStyle={{ width: '608px' }}
         >
           <Message message={this.state.message} />
           <TextField
