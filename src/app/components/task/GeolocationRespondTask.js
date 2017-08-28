@@ -164,7 +164,6 @@ class GeolocationRespondTask extends Component {
           onChange={this.handleChange.bind(this)}
           fullWidth
           multiLine
-          style={{ display: '' }}
         />
         <TextField
           id="task__response-geolocation-coordinates"
@@ -181,8 +180,8 @@ class GeolocationRespondTask extends Component {
         <p className="task__resolver">
           <small><FormattedMessage id="geolocationRespondTask.pressReturnToSave" defaultMessage="Press return to save your response" /></small>
         </p>
-        <div style={{ height: '400px', width: '100%' }}>
-          <Map center={position} zoom={this.state.zoom} onClick={this.updatePositionOnClick.bind(this)}>
+        <div>
+          <Map style={{ height: '400px' }} center={position} zoom={this.state.zoom} onClick={this.updatePositionOnClick.bind(this)}>
             <TileLayer
               attribution="2017 <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a>"
               url="http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png"

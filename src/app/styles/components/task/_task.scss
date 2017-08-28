@@ -131,105 +131,65 @@
 //     margin-#{$to-direction}: units(1);
 //   }
 
-//   // Task description tooltip
-//   // via rc-tooltip, outside Task.js markup tree
-//   //
-//   &__description-tooltip {
-//     @include when-smaller-than(mobile-breakpoint) {
-//       max-width: 40vw;
-//     }
-//     max-width: layout(column-width-medium);
+.task__geolocation-response {
+  .task__note {
+    color: $black-54;
+    padding-#{$from-direction}: units(1);
+  }
 
-//     span {
-//       word-wrap: break-word;
-//     }
-//   }
+  .task__geolocation-image {
+    border: 1px solid $black-05;
+    margin-left: auto;
 
-//   .leaflet-container {
-//     height: 400px;
-//   }
+    img {
+      cursor: pointer;
+      display: block;
+      height: 56px;
+      width: 56px;
+    }
+  }
 
-//   .task__geolocation-response {
-//     display: flex;
-//     text-align: $from-direction;
+  #task__edit-response-button {
+    cursor: pointer;
+  }
 
-//     .task__response,
-//     .task__note {
-//       align-items: center;
-//       display: flex;
-//       justify-content: center;
-//     }
+  .task__icon {
+    bottom: 15px;
+    color: $black-54;
+    position: absolute;
 
-//     .task__note {
-//       color: $black-54;
-//       padding-#{$from-direction}: units(1);
-//     }
+    svg {
+      height: 20px;
+      width: 20px;
+    }
+    #{$to-direction}: 0;
+  }
+}
 
-//     .task__geolocation-image {
-//       flex-grow: 1;
-//       text-align: $to-direction;
-//     }
+#task__response-time {
+  align-items: center;
+  color: $black-38;
+  display: flex;
+}
 
-//     img {
-//       cursor: pointer;
-//       height: 56px;
-//       width: 56px;
-//     }
-//   }
-// }
+.task__error {
+  color: $alert-red;
+  display: block;
+}
 
-// #task__edit-response-button {
-//   cursor: pointer;
-// }
+.task__datetime-timezone {
+  margin-#{$from-direction}: units(2);
+}
 
-//     img {
-//       width: 56px;
-//       height: 56px;
-//       cursor: pointer;
-//     }
-//   }
+.task__datetime-response a {
+  color: $black-87;
+  text-decoration: underline;
+}
 
-//   .task__icon {
-//     color: $black-54;
-//     position: absolute;
-//     #{$to-direction}: 0;
-//     bottom: 15px;
+#task__edit-response-button {
+  cursor: pointer;
+}
 
-//     svg {
-//       width: 20px;
-//       height: 20px;
-//     }
-//   }
-
-//   #task__response-time {
-//     color: $black-38;
-//     display: flex;
-//     align-items: center;
-//   }
-
-//   .task__error {
-//     display: block;
-//     color: $alert-red;
-//   }
-
-//   .task__datetime-timezone {
-//     margin-#{$from-direction}: units(2);
-//   }
-
-//   .task__datetime-response a {
-//     color: $black-87;
-//     text-decoration: underline;
-//   }
-// }
-
-// #task__edit-response-button {
-//   cursor: pointer;
-// }
-
-// .ReactModal__Overlay {
-//   z-index: 1200;
-// }
-
-// .leaflet-container {
-//   height: 600px;
-// }
+.ReactModal__Overlay {
+  z-index: 1200;
+}

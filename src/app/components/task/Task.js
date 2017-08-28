@@ -22,6 +22,7 @@ import GeolocationRespondTask from './GeolocationRespondTask';
 import GeolocationTaskResponse from './GeolocationTaskResponse';
 import DatetimeRespondTask from './DatetimeRespondTask';
 import DatetimeTaskResponse from './DatetimeTaskResponse';
+import { units } from '../../styles/js/variables';
 
 const messages = defineMessages({
   confirmDelete: {
@@ -366,6 +367,10 @@ class Task extends Component {
     return data;
   }
 
+  handleCancel(task) {
+    document.getElementById(`task__label-${task.id}`).click();
+  }
+
   render() {
     const { task } = this.props;
     const data = this.getResponseData();
@@ -430,6 +435,7 @@ class Task extends Component {
             showExpandableButton
             title={taskQuestion}
             subtitle={task.description ? task.description : null}
+            id={`task__label-${task.id}`}
           />
 
           <CardText
@@ -446,6 +452,7 @@ class Task extends Component {
                   { task.type === 'single_choice' ? <SingleChoiceTask mode="respond" response={response} note={note} jsonoptions={task.jsonoptions} onSubmit={this.handleSubmitWithArgs.bind(this)} /> : null }
                   { task.type === 'multiple_choice' ? <MultiSelectTask mode="respond" jsonresponse={response} note={note} jsonoptions={task.jsonoptions} onSubmit={this.handleSubmitWithArgs.bind(this)} /> : null }
                   { task.type === 'free_text' ? [<TextField
+                    key="task__response-input"
                     className="task__response-input"
                     onFocus={this.handleFocus.bind(this)}
                     name="response"
@@ -456,6 +463,7 @@ class Task extends Component {
                     style={{ display: '' }}
                   />,
                     <TextField
+                      key="task__response-note-input"
                       className="task__response-note-input"
                       hintText={<FormattedMessage id="task.noteLabel" defaultMessage="Note any additional details here." />}
                       name="note"
@@ -464,7 +472,7 @@ class Task extends Component {
                       fullWidth
                       multiLine
                     />,
-                    <p className="task__resolver"><small><FormattedMessage id="task.pressReturnToSave" defaultMessage="Press return to save your response" /></small></p>,
+                    <p key="task__resolver" className="task__resolver"><small><FormattedMessage id="task.pressReturnToSave" defaultMessage="Press return to save your response" /></small></p>,
                   ] : null
                    }
                 </div>
@@ -472,12 +480,12 @@ class Task extends Component {
             : (this.state.editingResponse ?
               <div className="task__editing">
                 <form onSubmit={this.handleSubmitUpdate.bind(this)} name={`edit-response-${task.first_response.id}`}>
-                  {taskQuestion}
                   { task.type === 'geolocation' ? <GeolocationRespondTask onCancel={this.handleCancel.bind(this, task)} response={response} onSubmit={this.handleSubmitUpdateWithArgs.bind(this)} onDismiss={this.handleCancelEditResponse.bind(this)} /> : null }
                   { task.type === 'datetime' ? <DatetimeRespondTask response={response} note={note} onSubmit={this.handleSubmitUpdateWithArgs.bind(this)} onDismiss={this.handleCancelEditResponse.bind(this)} /> : null }
                   { task.type === 'single_choice' ? <SingleChoiceTask mode="edit_response" response={response} note={note} jsonoptions={task.jsonoptions} onDismiss={this.handleCancelEditResponse.bind(this)} onSubmit={this.handleSubmitUpdateWithArgs.bind(this)} /> : null }
                   { task.type === 'multiple_choice' ? <MultiSelectTask mode="edit_response" jsonresponse={response} note={note} jsonoptions={task.jsonoptions} onDismiss={this.handleCancelEditResponse.bind(this)} onSubmit={this.handleSubmitUpdateWithArgs.bind(this)} /> : null }
                   { task.type === 'free_text' ? [<TextField
+                    key="task__response-input"
                     className="task__response-input"
                     defaultValue={response}
                     name="editedresponse"
@@ -487,6 +495,7 @@ class Task extends Component {
                     multiLine
                   />,
                     <TextField
+                      key="task__response-note-label"
                       hintText={<FormattedMessage id="task.noteLabel" defaultMessage="Note any additional details here." />}
                       defaultValue={note}
                       name="editednote"
@@ -495,19 +504,18 @@ class Task extends Component {
                       fullWidth
                       multiLine
                     />,
-                    <p className="task__resolver"><small><FormattedMessage id="task.pressReturnToSave" defaultMessage="Press return to save your response" /></small> <span id="task__cancel-button" onClick={this.handleCancelEditResponse.bind(this)}>✖</span></p>] : null
+                    <p key="task__resolver" className="task__resolver"><small><FormattedMessage id="task.pressReturnToSave" defaultMessage="Press return to save your response" /></small> <span id="task__cancel-button" onClick={this.handleCancelEditResponse.bind(this)}>✖</span></p>] : null
                   }
                 </form>
               </div>
             :
               <div className="task__resolved">
-                {taskQuestion}
                 { task.type === 'free_text' ? <p className="task__response"><ParsedText text={response} /></p> : null }
                 { task.type === 'geolocation' ? <p className="task__response"><GeolocationTaskResponse response={response} /></p> : null }
                 { task.type === 'datetime' ? <p className="task__response"><DatetimeTaskResponse response={response} /></p> : null }
                 { task.type === 'single_choice' ? <SingleChoiceTask mode="show_response" response={response} note={note} jsonoptions={task.jsonoptions} /> : null }
                 { task.type === 'multiple_choice' ? <MultiSelectTask mode="show_response" jsonresponse={response} note={note} jsonoptions={task.jsonoptions} /> : null }
-                <p style={{ display: note ? 'block' : 'none' }} className="task__note"><ParsedText text={note} /></p>
+                <p style={{ display: note ? 'block' : 'none', marginTop: units(1) }} className="task__note"><ParsedText text={note} /></p>
                 <p className="task__resolver">
                   <small><FormattedMessage id="task.resolvedBy" defaultMessage={'Resolved by {by}'} values={{ by }} /></small>
                   <Can permissions={task.first_response.permissions} permission="update Dynamic">

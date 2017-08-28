@@ -3,11 +3,23 @@ import Checkbox from 'material-ui/Checkbox';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
+import styled from 'styled-components';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import MdCancel from 'react-icons/lib/md/cancel';
 import MdCheckBoxOutlineBlank from 'react-icons/lib/md/check-box-outline-blank';
 import Message from '../Message';
-import { FlexRow } from '../../styles/js/variables';
+import { units, body2 } from '../../styles/js/variables';
+
+const StyledSmallTextField = styled(TextField)`
+  height: auto!important;
+  font: ${body2} !important;
+  div {
+    font-size: inherit!important;
+  }
+  textarea {
+    margin: 0!important;
+  }
+`;
 
 const messages = defineMessages({
   addValue: {
@@ -384,22 +396,23 @@ class MultiSelectTask extends Component {
               checked={this.isChecked(item.label, index)}
               onCheck={this.handleSelectCheckbox.bind(this)}
               id={item.label}
-              style={{ padding: '5px' }}
               disabled={!editable}
+              style={{ paddingBottom: units(1) }}
             />,
           )}
 
-          <FlexRow className="task__options_other">
+          <div style={{ display: 'flex', justifyContent: 'flex-start' }} className="task__options_other">
             {other
               ? [
-                <Checkbox
-                  key="task__option_other_checkbox"
-                  className="task__option_other_checkbox"
-                  checked={this.state.otherSelected || !!responseOther}
-                  onCheck={this.handleSelectCheckboxOther.bind(this)}
-                  disabled={!editable}
-                />,
-                <TextField
+                <div>
+                  <Checkbox
+                    key="task__option_other_checkbox"
+                    className="task__option_other_checkbox"
+                    checked={this.state.otherSelected || !!responseOther}
+                    onCheck={this.handleSelectCheckboxOther.bind(this)}
+                    disabled={!editable}
+                  /></div>,
+                <StyledSmallTextField
                   key="task__option_other_text_input"
                   className="task__option_other_text_input"
                   placeholder={other.label}
@@ -412,10 +425,10 @@ class MultiSelectTask extends Component {
                 />,
               ]
               : null}
-          </FlexRow>
+          </div>
 
           {editable
-            ? <TextField
+            ? <StyledSmallTextField
               className="task__response-note-input"
               hintText={
                 <FormattedMessage
@@ -427,6 +440,7 @@ class MultiSelectTask extends Component {
               value={responseNote}
               onKeyPress={keyPressCallback}
               onChange={this.handleChange.bind(this)}
+              style={{ marginTop: units(2) }}
               fullWidth
               multiLine
             />

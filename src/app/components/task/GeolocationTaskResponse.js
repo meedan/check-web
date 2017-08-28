@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import Dialog from 'material-ui/Dialog';
 import { Map, Marker, Popup, TileLayer } from 'react-leaflet';
 import config from 'config';
+import { FlexRow } from '../../styles/js/variables';
 
 class GeolocationTaskResponse extends Component {
   constructor(props) {
@@ -35,7 +36,7 @@ class GeolocationTaskResponse extends Component {
     }
 
     return (
-      <p className="task__geolocation-response">
+      <FlexRow className="task__geolocation-response">
         <span className="task__response">{name}</span>
         { coordinatesString ? <span className="task__note">{coordinatesString}</span> : null }
         { imgPath ? <span className="task__geolocation-image"><img src={imgPath} alt="" onClick={this.handleOpenMap.bind(this)} /></span> : null }
@@ -59,7 +60,7 @@ class GeolocationTaskResponse extends Component {
             </div>
           </Dialog>
         : null }
-      </p>
+      </FlexRow>
     );
   }
 }
