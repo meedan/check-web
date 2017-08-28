@@ -304,7 +304,6 @@ class CreateTask extends Component {
               this.state.type === 'datetime')
           }
           onRequestClose={this.handleCloseDialog.bind(this)}
-          contentStyle={{ width: '608px' }}
         >
           <Message message={this.state.message} />
 
