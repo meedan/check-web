@@ -50,7 +50,7 @@ class Annotations extends Component {
         <TimelineHeader msgObj={messages} msgKey="timelineTitle" />
         <ul
           className="annotations__list annotations-list"
-          style={{ margin: units(1) }}
+          style={{ margin: `0 ${units(1)}`, padding: `0 ${units(1)}` }}
         >
           {annotations.map(annotation =>
             <li key={annotation.node.dbid} className="annotations__list-item">
