@@ -1,7 +1,7 @@
 {
-  "accountCard.fbStats": "{likes} curtidas",
-  "accountCard.twitterStats": "{tweets} Tuítes • {followers} Seguidores • {following} Seguindo",
-  "accountCard.youtubeStats": "{videos} Vídeos • {subscribers} Assinantes",
+  "accountCard.fbStats": "{likes, number} curtidas",
+  "accountCard.twitterStats": "{tweets, number} Tuítes • {followers, number} Seguidores • {following, number} Seguindo",
+  "accountCard.youtubeStats": "{videos, number} Vídeos • {subscribers, number} Assinantes",
   "mediaDetail.byUser": "por {username}",
   "accountCard.providerAccount": "conta de {provider}",
   "mediaDetail.added": "Adicionado {byUser}"

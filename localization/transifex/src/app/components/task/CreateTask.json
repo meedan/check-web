@@ -6,6 +6,8 @@
   "tasks.shortAnswer": "Short answer",
   "tasks.chooseOne": "Choose one",
   "tasks.chooseMultiple": "Choose multiple",
+  "tasks.geolocation": "Location",
+  "tasks.datetime": "Date and time",
   "tasks.taskLabel": "Prompt",
   "tasks.description": "Description",
   "tasks.addDescription": "Add a description"

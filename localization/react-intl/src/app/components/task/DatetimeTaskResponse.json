@@ -1,0 +1,10 @@
+[
+  {
+    "id": "datetimeTaskResponse.timeIs",
+    "defaultMessage": "View this timezone on time.is"
+  },
+  {
+    "id": "datetimeTaskResponse.taskResponse",
+    "defaultMessage": "{date} at {timeLink}"
+  }
+]
