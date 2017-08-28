@@ -24,6 +24,10 @@
     "defaultMessage": "Delete task"
   },
   {
+    "id": "task.hintText",
+    "defaultMessage": "Type a response"
+  },
+  {
     "id": "task.noteLabel",
     "defaultMessage": "Note any additional details here."
   },

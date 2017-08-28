@@ -525,6 +525,10 @@ class Task extends Component {
                   name="response"
                   onKeyPress={this.handleKeyPress.bind(this)}
                   onChange={this.handleChange.bind(this)}
+                  hintText={<FormattedMessage
+                    id="task.hintText"
+                    defaultMessage="Type a response"
+                  />}
                   fullWidth
                   multiLine
                 />,
