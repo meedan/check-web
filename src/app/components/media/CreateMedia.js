@@ -17,6 +17,7 @@ import CreateProjectSourceMutation from '../../relay/CreateProjectSourceMutation
 import Message from '../Message';
 import CheckContext from '../../CheckContext';
 import ContentColumn from '../layout/ContentColumn';
+import HttpStatus from '../../HttpStatus';
 
 const messages = defineMessages({
   submitting: {
@@ -101,7 +102,7 @@ class CreateProjectMedia extends Component {
   }
 
   handleSubmitError(context, prefix, transactionError) {
-    let message = this.props.intl.formatMessage(messages.error, { code: transactionError.status });
+    let message = this.props.intl.formatMessage(messages.error, { code: `${transactionError.status} ${HttpStatus.getMessage(transactionError.status)}` });
     let json = null;
     try {
       json = JSON.parse(transactionError.source);

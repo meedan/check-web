@@ -14,6 +14,7 @@ import CheckContext from '../../CheckContext';
 import MdInsertPhoto from 'react-icons/lib/md/insert-photo';
 import UploadImage from '../UploadImage';
 import ContentColumn from '../layout/ContentColumn';
+import HttpStatus from '../../HttpStatus';
 
 const messages = defineMessages({
   invalidCommand: {
@@ -101,7 +102,7 @@ class AddAnnotation extends Component {
 
   fail(transaction) {
     const transactionError = transaction.getError();
-    let message = this.props.intl.formatMessage(messages.error, { code: transactionError.status });
+    let message = this.props.intl.formatMessage(messages.error, { code: `${transactionError.status} ${HttpStatus.getMessage(transactionError.status)}` });
     let json = null;
     try {
       json = JSON.parse(transactionError.source);
