@@ -850,7 +850,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should search for reverse images", search: true do
       page = api_create_team_project_and_link_and_redirect_to_media_page 'https://www.instagram.com/p/BRYob0dA1SC/'
-      sleep 1
+      sleep 3
       expect(@driver.page_source.include?('This item contains at least one image. Click Search to look for potential duplicates on Google.')).to be(true)
       expect((@driver.current_url.to_s =~ /google/).nil?).to be(true)
       current_window = @driver.window_handles.last
