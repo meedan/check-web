@@ -66,7 +66,7 @@ class SocialMediaCard extends Component {
               { sourceUrl
                 ? <Link to={sourceUrl}>{authorName || authorUsername}</Link>
                 : <a
-                  href={sourceUrl || authorUrl /*todo: link to source here */}
+                  href={authorUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="social-media-card__name"
