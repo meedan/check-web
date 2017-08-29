@@ -714,11 +714,12 @@ class Task extends Component {
         <Card
           className="task"
           style={{ marginBottom: units(1) }}
-          initiallyExpanded={!!response}
+          // initiallyExpanded={!!response}
+          initiallyExpanded
         >
           <CardHeader
-            actAsExpander
-            showExpandableButton
+            // actAsExpander
+            // showExpandableButton
             title={taskQuestion}
             subtitle={task.description ? task.description : null}
             id={`task__label-${task.id}`}
@@ -730,7 +731,7 @@ class Task extends Component {
           </CardText>
 
           <CardActions
-            expandable={!data.by}
+            // expandable={!data.by}
             style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start' }}
           >
             {taskActions}

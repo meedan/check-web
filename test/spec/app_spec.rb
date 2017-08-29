@@ -41,7 +41,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       puts "Could not copy local ./config.js to ../build/web/js/"
     end
 
-    #EXTRACT USER:PWD FROM URL FOR CHROME    
+    #EXTRACT USER:PWD FROM URL FOR CHROME
     if ((browser_capabilities == :chrome) and (@config['self_url'].include? "@" and @config['self_url'].include? ":"))
       @config['self_url'] = @config['self_url'][0..(@config['self_url'].index('//')+1)] + @config['self_url'][(@config['self_url'].index('@')+1)..-1]
     end
@@ -641,7 +641,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     #   skip("Needs to be implemented")
     # end
 @team1_slug = 'team1'+Time.now.to_i.to_s
-    
+
     it "should navigate between teams", bin4: true, quick: true do
       # setup
       user = api_register_and_login_with_email(email: @user_mail, password: @password)
@@ -827,7 +827,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Answer task
       expect(@driver.page_source.include?('Task "Foo or bar?" answered by')).to be(false)
-      @driver.find_element(:css, '.task__label').click
       fill_field('textarea[name="response"]', 'Foo')
       @driver.action.send_keys(:enter).perform
       sleep 2
@@ -1054,7 +1053,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Answer task
       expect(@driver.page_source.include?('Task "Where?" answered by')).to be(false)
-      @driver.find_element(:css, '.task__label').click
       fill_field('textarea[name="response"]', 'Salvador')
       fill_field('textarea[name="coordinates"]', '-12.9015866, -38.560239')
       @driver.action.send_keys(:enter).perform
@@ -1108,7 +1106,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Answer task
       expect(@driver.page_source.include?('Task "When?" answered by')).to be(false)
-      @driver.find_element(:css, '.task__label').click
       fill_field('input[name="hour"]', '23')
       fill_field('input[name="minute"]', '59')
       @driver.find_element(:css, '#task__response-date').click

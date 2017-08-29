@@ -110,25 +110,29 @@ class MediaDetail extends Component {
 
     const status = getStatus(mediaStatuses(media), mediaLastStatus(media));
 
-    const cardHeaderTitle = (<MediaStatus
-      media={media}
-      readonly={this.props.readonly}
-    />);
+    const cardHeaderTitle = <MediaStatus media={media} readonly={this.props.readonly} />;
 
-    const cardHeaderSubtitle = (<div style={{ display: 'flex' }}>
-      <Link to={mediaUrl} className="media__heading">{heading}</Link>
-      <div style={{ paddingLeft: units(1), paddingRight: units(1) }}>
-        {MediaUtil.socialIcon(media.domain)}
+    const cardHeaderSubtitle = (
+      <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap' }}>
+        <Link
+          to={mediaUrl}
+          className="media__heading"
+          style={{ paddingRight: units(1) }}
+        >
+          <span style={{ display: 'inline-flex', alignItems: 'flex-start', height: units(2), paddingRight: units(1) }}>
+            {MediaUtil.socialIcon(media.domain)}
+          </span>
+          {heading}
+        </Link>
+        <span className="media-detail__check-notes-count">
+          {annotationsCount}
+        </span>
       </div>
-      <span
-        className="media-detail__check-notes-count"
-      >
-        {annotationsCount}
-      </span>
-    </div>);
+    );
 
-    const cardClassName = `${this.statusToClass('media-detail', mediaLastStatus(media))} ` +
-          `media-detail--${MediaUtil.mediaTypeCss(media, data)}`;
+    const cardClassName =
+      `${this.statusToClass('media-detail', mediaLastStatus(media))} ` +
+      `media-detail--${MediaUtil.mediaTypeCss(media, data)}`;
 
     const locale = this.props.intl.locale;
     const isRtl = rtlDetect.isRtlLang(locale);
@@ -140,14 +144,8 @@ class MediaDetail extends Component {
         borderColor={getStatusStyle(status, 'backgroundColor')}
         fromDirection={fromDirection}
       >
-        <Card
-          initiallyExpanded={this.props.initiallyExpanded}
-        >
-          <CardHeader
-            title={cardHeaderTitle}
-            subtitle={cardHeaderSubtitle}
-            showExpandableButton
-          />
+        <Card initiallyExpanded={this.props.initiallyExpanded}>
+          <CardHeader title={cardHeaderTitle} subtitle={cardHeaderSubtitle} showExpandableButton />
 
           <CardText expandable>
             <FadeIn className={this.statusToClass('media-detail__media', mediaLastStatus(media))}>
