@@ -36,7 +36,7 @@ class SourceCard extends React.Component {
       <Card className="source-card">
         <CardText className="source-card__content">
           <div className="source-card__avatar">
-            <SourcePicture source={source} />
+            <SourcePicture object={source} type="source" />
           </div>
           <article className="source-card__body">
             <div className="source-card__heading"><MappedMessage msgObj={messages} msgKey="disclaimer" /></div>

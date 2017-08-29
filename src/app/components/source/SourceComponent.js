@@ -52,6 +52,7 @@ import deepEqual from 'deep-equal';
 import capitalize from 'lodash.capitalize';
 import LinkifyIt from 'linkify-it';
 import styled from 'styled-components';
+import SourcePicture from './SourcePicture';
 
 const FlexRow = styled.div`
   display: flex;
@@ -171,11 +172,12 @@ class SourceComponent extends Component {
   }
 
   subscribe() {
+    const that = this;
     const pusher = this.getContext().pusher;
-    if (pusher) {
-      pusher.subscribe(this.props.source.pusher_channel).bind('source_updated', (data) => {
-        const source = JSON.parse(data.message);
-
+    const pusherChannel = this.props.source.source.pusher_channel;
+    if (pusher && pusherChannel) {
+      pusher.subscribe(pusherChannel).bind('source_updated', (data) => {
+        that.props.relay.forceFetch();
       });
     }
   }
@@ -183,7 +185,7 @@ class SourceComponent extends Component {
   unsubscribe() {
     const pusher = this.getContext().pusher;
     if (pusher) {
-      pusher.unsubscribe(this.props.source.pusher_channel);
+      pusher.unsubscribe(this.props.source.source.pusher_channel);
     }
   }
 
@@ -928,10 +930,7 @@ class SourceComponent extends Component {
       <div className="source__profile-content">
         <section className="layout-two-column">
           <div className="column-secondary">
-            <div
-              className="source__avatar"
-              style={{ backgroundImage: `url(${source.image})` }}
-            />
+            <SourcePicture object={source} type="source" />
           </div>
 
           <div className="column-primary">
