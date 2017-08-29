@@ -8,7 +8,6 @@ import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 import TextField from 'material-ui/TextField';
 import styled from 'styled-components';
 import rtlDetect from 'rtl-detect';
-import MediaStatus from './MediaStatus';
 import MediaTags from './MediaTags';
 import MediaActions from './MediaActions';
 import MediaUtil from './MediaUtil';
@@ -234,7 +233,7 @@ class MediaMetadata extends Component {
   }
 
   render() {
-    const { media, readonly, mediaUrl } = this.props;
+    const { media, mediaUrl } = this.props;
     const createdAt = MediaUtil.createdAt(media);
     const context = this.getContext();
     const currentProject = this.currentProject();
@@ -310,7 +309,7 @@ class MediaMetadata extends Component {
         {this.state.isEditing
           ? editDialog
           : null}
-        <MediaStatus media={media} readonly={readonly} />
+
         {byUser
           ? <span className="media-detail__check-added-by">
             <FormattedMessage

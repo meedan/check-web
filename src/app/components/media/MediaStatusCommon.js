@@ -83,10 +83,12 @@ class MediaStatusCommon extends Component {
         {this.canUpdate()
           ?
             <DropDownMenu
+              style={{ height: '24px' }}
               value={currentStatus.label}
               underlineStyle={{ borderWidth: 0 }}
-              iconStyle={{ fill: black54 }}
-              labelStyle={{ textTransform: 'uppercase', color: getStatusStyle(currentStatus, 'color') }}
+              iconStyle={{ fill: black54, padding: 0, height: 0, top: 0 }}
+              labelStyle={{ height: '24px', lineHeight: '24px', paddingLeft: 0, textTransform: 'uppercase', color: getStatusStyle(currentStatus, 'color') }}
+
               selectedMenuItemStyle={{ color: getStatusStyle(currentStatus, 'color') }}
               className={`media-status__label media-status__current${this.currentStatusToClass(mediaLastStatus(media))}`}
             >
@@ -101,14 +103,7 @@ class MediaStatusCommon extends Component {
                   onClick={that.handleStatusClick.bind(that, status.id)}
                   style={{ textTransform: 'uppercase', color: getStatusStyle(status, 'color') }}
                   value={status.label}
-                  primaryText={<div>
-                    {mediaLastStatus(media) === status.id ?
-                      <FaCircle />
-                      : <FaCircleO />
-                    }
-                    <span style={{ margin: `0 ${units(1)}` }}>{status.label}</span>
-                  </div>
-                  }
+                  primaryText={status.label}
                 />,
             )}
             </DropDownMenu>

@@ -731,7 +731,7 @@ class Task extends Component {
 
           <CardActions
             expandable={!data.by}
-            style={{ display: 'flex', alignItems: 'center' }}
+            style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start' }}
           >
             {taskActions}
           </CardActions>

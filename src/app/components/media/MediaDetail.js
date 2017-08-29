@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { injectIntl, intlShape } from 'react-intl';
 import { Link } from 'react-router';
 import config from 'config';
+import MediaStatus from './MediaStatus';
 import { Card, CardHeader, CardText, CardActions } from 'material-ui/Card';
 import styled from 'styled-components';
 import rtlDetect from 'rtl-detect';
@@ -109,18 +110,22 @@ class MediaDetail extends Component {
 
     const status = getStatus(mediaStatuses(media), mediaLastStatus(media));
 
-    const cardHeaderTitle = <Link to={mediaUrl} className="media__heading">{heading}</Link>;
+    const cardHeaderTitle = (<MediaStatus
+      media={media}
+      readonly={this.props.readonly}
+    />);
 
-    const cardHeaderSubtitle = [
-      MediaUtil.socialIcon(media.domain),
+    const cardHeaderSubtitle = (<div style={{ display: 'flex' }}>
+      <Link to={mediaUrl} className="media__heading">{heading}</Link>
+      <div>{MediaUtil.socialIcon(media.domain)}</div>
       <span
         className="media-detail__check-notes-count"
         style={{ paddingLeft: units(1), paddingRight: units(1) }}
         key="media-detail__annotations-count"
       >
         {annotationsCount}
-      </span>,
-    ];
+      </span>
+    </div>);
 
     const cardClassName = `${this.statusToClass('media-detail', mediaLastStatus(media))} ` +
           `media-detail--${MediaUtil.mediaTypeCss(media, data)}`;
