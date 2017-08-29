@@ -18,11 +18,15 @@ class UpdateSourceMutation extends Relay.Mutation {
   }
 
   getVariables() {
-    return {
+    let vars = {
       id: this.props.source.id,
       name: this.props.source.name,
       slogan: this.props.source.description,
     };
+    if (this.props.source.refresh_accounts) {
+      vars.refresh_accounts = 1;
+    }
+    return vars;
   }
 
   getFiles() {

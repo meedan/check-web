@@ -57,6 +57,7 @@ const SourceContainer = Relay.createContainer(SourceComponent, {
           user_id,
           description,
           permissions,
+          pusher_channel,
           verification_statuses,
           account_sources(first: 10000) {
             edges {
@@ -67,6 +68,7 @@ const SourceContainer = Relay.createContainer(SourceComponent, {
                   created_at,
                   updated_at,
                   embed,
+                  image,
                   url,
                   provider,
                   user {
@@ -93,6 +95,7 @@ const SourceContainer = Relay.createContainer(SourceComponent, {
                 created_at,
                 updated_at,
                 embed,
+                image,
                 url,
                 provider,
                 user {

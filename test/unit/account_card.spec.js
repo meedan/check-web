@@ -6,7 +6,7 @@ import AccountCard from '../../src/app/components/source/AccountCard';
 
 describe('<AccountCard />', () => {
 
-  const account = { id: '123', provider: 'facebook', url: 'http://www.facebook.com/foobar', embed: { name: 'Foo Bar', username: 'foobar', url: 'http://www.facebook.com/foobar', picture: 'http://placehold.it/200x200', description: 'The Story of Foo Bar', raw: { api: {} } } };
+  const account = { image: 'http://placehold.it/200x200', id: '123', provider: 'facebook', url: 'http://www.facebook.com/foobar', embed: { name: 'Foo Bar', username: 'foobar', url: 'http://www.facebook.com/foobar', picture: 'http://placehold.it/200x200', description: 'The Story of Foo Bar', raw: { api: {} } } };
 
   it('renders name, description and avatar', () => {
     const accountChips = mountWithIntl(<AccountCard account={account} />);

@@ -6,6 +6,7 @@ import MediaUtil from '../media/MediaUtil';
 import ParsedText from '../ParsedText';
 import TimeBefore from '../TimeBefore';
 import { truncateLength } from '../../helpers'
+import SourcePicture from './SourcePicture';
 
 class AccountCard extends React.Component {
   accountStats(account) {
@@ -29,7 +30,7 @@ class AccountCard extends React.Component {
       <Card className="source-card">
         <CardText className="source-card__content">
           <div className="source-card__avatar">
-            <img src={account.embed.picture} className="social-media-card__author-avatar" />
+            <SourcePicture object={account} type="account" />
           </div>
 
           <article className="source-card__body">
