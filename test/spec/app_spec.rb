@@ -71,6 +71,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
   # The tests themselves start here
 
   context "web" do
+=begin    
     it "should filter by medias or sources", bin6: true do
       api_create_team_project_and_link 'https://twitter.com/TheWho/status/890135323216367616'
       @driver.navigate.to @config['self_url']
@@ -431,17 +432,142 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Tagged #bar')).to be(true)
     end
 
-    # it "should edit basic source data (name, description/bio, avatar)" do
-    #   skip("Needs to be implemented")
-    # end
+    it "should edit basic source data (name, description/bio, avatar)", bin: true do
+      api_create_team_project_and_source_and_redirect_to_source('ACDC', 'https://twitter.com/acdc')
+      sleep 3 until element = @driver.find_element(:css, '.source__tab-button-notes')
+      element.click
+      sleep 1 until element = @driver.find_element(:class, "source__edit-button")
+      element.click
+      input = @driver.find_element(:id, 'source__name-container')
+      input.send_keys(" - EDIT ACDC")
+      input = @driver.find_element(:id, 'source__bio-container')
+      input.send_keys(" - EDIT DESC")
+      @driver.find_element(:class, "source__edit-avatar-button").click
+      sleep 1
+      input = @driver.find_element(:css, 'input[type=file]')
+      input.send_keys(File.join(File.dirname(__FILE__), 'test.png'))
+      sleep 1
+      @driver.find_element(:class, 'source__edit-save-button').click
+      sleep 3 until @driver.find_element(:class, 'footer')
+      displayed_name = get_element('h1.source__name').text
+      expect(displayed_name.include? "EDIT").to be(true)
+    end
+    it "should add and remove accounts to sources", bin: true  do
+      api_create_team_project_and_source_and_redirect_to_source('GOT', 'https://twitter.com/GameOfThrones')
+      sleep 3 until element = @driver.find_element(:css, '.source__tab-button-notes')
+      element.click
+p "as!"      
+      sleep 1 until element = @driver.find_element(:class, "source__edit-button")
+p "a!f"      
+      element.click
+p "a!c"      
+      sleep 1 until @driver.find_element(:class, "source__edit-addinfo-button").click
+      sleep 1
+p "a!"      
+      @driver.find_element(:class, "source__add-link").click
+p "!"      
+      input = @driver.find_element(:id, "source__link-input0")
+p "!d"      
+      input.send_keys("www.acdc.com")
+p "!"      
+      @driver.find_element(:class, 'source__edit-save-button').click
+p "!r"      
+      sleep 3 until @driver.find_element(:class, 'footer')
+p "!"      
+      displayed_name = get_element('h1.source__name').text
+p "!f"      
+      expect(@driver.page_source.include?('www.acdc.com')).to be(true)
+    end
 
-    # it "should add and remove accounts to sources" do
-    #   skip("Needs to be implemented")
-    # end
+=end
 
-    # it "should edit source metadata (contact, phone, location, organization, other)" do
+    it "should edit source metadata (contact, phone, location, organization, other)", bin: true do
     #   skip("Needs to be implemented")
-    # end
+      api_create_team_project_and_source_and_redirect_to_source('GOT', 'https://twitter.com/GameOfThrones')
+      sleep 3 until element = @driver.find_element(:css, '.source__tab-button-notes')
+      element.click
+      sleep 1 until element = @driver.find_element(:class, "source__edit-button")
+      element.click
+      sleep 1 
+      @driver.find_element(:class, "source__edit-buttons-add-merge").click
+      sleep 1
+p "aa!s"      
+      @driver.find_element(:class, "source__add-phone").click
+      str= @driver.page_source
+      str = str[str.index('undefined-undefined-Phone-')..str.length]
+      str = str[0..(str.index('"')-1)] 
+      p str
+p "a!"      
+      element = @driver.find_element(:id, str)
+p "sssa!"      
+p "sa!"      
+      #element.send_keys('9898989898')
+      fill_field(str, "989898989", :id)
+
+      sleep 1
+p "=========="
+      @driver.find_element(:class, "source__edit-buttons-add-merge").click
+      sleep 1
+p "aa!s"      
+      @driver.find_element(:class, "source__add-organization").click
+p "asaa!s"      
+      str= @driver.page_source
+p "waa!s"      
+      str = str[str.index('undefined-undefined-Organization-')..str.length]
+p "saa!s"      
+      str = str[0..(str.index('"')-1)] 
+      element = @driver.find_element(:id, str)
+      fill_field(str, "ORGANIZATION", :id)
+p "sa!"      
+      #element.send_keys("Organization")
+
+      @driver.find_element(:class, "source__edit-buttons-add-merge").click
+      sleep 1
+      @driver.find_element(:class, "source__add-location").click
+      str= @driver.page_source
+
+      str = str[str.index('undefined-undefined-Location-')..str.length]
+      str = str[0..(str.index('"')-1)] 
+      fill_field(str, "Location 123", :id)
+
+p "sssssssssssssss"      
+
+      sleep 1      
+      fill_field("addTag", "TAG", :id)
+
+p "asdsdsdsa!s"      
+sleep 1
+      #source__add-other
+      @driver.find_element(:class, "source__edit-buttons-add-merge").click
+p "sssa!"      
+      sleep 1
+      @driver.find_element(:class, "source__add-other").click
+p "a!"      
+      sleep 1
+      #element = @driver.find_element(:id, "source__other-label-input")
+p "sa!"      
+      fill_field("source__other-label-input", "label", :id)
+
+p "a!"      
+      #element = @driver.find_element(:id, "source__other-value-input")
+p "sa!"      
+      fill_field("source__other-value-input", "value", :id)
+
+      @driver.action.send_keys("\t").perform
+      @driver.action.send_keys("\t").perform
+      @driver.action.send_keys("\n").perform
+
+
+      sleep 2
+      @driver.find_element(:class, 'source__edit-save-button').click
+      sleep 3 
+      @driver.find_element(:class, 'footer')
+      #displayed_name = get_element('h1.source__name').text
+      #expect(displayed_name.include? "EDIT").to be(true)
+
+
+    end
+=begin
 
     # it "should add and remove tags" do
     #   skip("Needs to be implemented")
@@ -1159,5 +1285,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 2
       expect(@driver.find_element(:class, "message").nil?).to be(false)
     end
+=end    
   end
 end
