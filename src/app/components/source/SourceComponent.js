@@ -930,7 +930,7 @@ class SourceComponent extends Component {
       <div className="source__profile-content">
         <section className="layout-two-column">
           <div className="column-secondary">
-            <SourcePicture object={source} type="source" />
+            <SourcePicture object={source} type="source" className="source__avatar" />
           </div>
 
           <div className="column-primary">

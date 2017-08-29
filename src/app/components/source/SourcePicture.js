@@ -14,22 +14,26 @@ class SourcePicture extends Component {
     };
   }
 
-  setImage() {
-    const image = this.props.object.image;
+  setImage(image) {
     if (image && image != '' && image != this.state.avatarUrl) {
       this.setState({ avatarUrl: image });
     }
   }
 
   componentDidMount() {
-    this.setImage();
+    this.setImage(this.props.object.image);
   }
 
-  componentDidUpdate() {
-    this.setImage();
+  componentWillReceiveProps(nextProps) {
+    if (this.state.avatarUrl != nextProps.object.image) {
+      this.setImage(nextProps.object.image);
+    }
   }
 
   handleAvatarError() {
+    if (this.state.avatarUrl != this.defaultAvatar()) {
+      this.setState({ avatarUrl: this.defaultAvatar() });
+    }
     this.refreshAvatar();
   }
 
@@ -95,7 +99,7 @@ class SourcePicture extends Component {
 
   render() {
     return(
-      <img src={this.state.avatarUrl} className="social-media-card__author-avatar source__avatar" onError={this.handleAvatarError.bind(this)} />
+      <img src={this.state.avatarUrl} className={`social-media-card__author-avatar ${this.props.className}`} onError={this.handleAvatarError.bind(this)} />
     );
   }
 }
