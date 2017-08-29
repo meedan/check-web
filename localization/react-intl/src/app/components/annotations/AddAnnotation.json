@@ -8,8 +8,8 @@
     "defaultMessage": "Your {type} was added!"
   },
   {
-    "id": "addAnnotation.createTagFailed",
-    "defaultMessage": "Sorry, could not create the tag"
+    "id": "addAnnotation.error",
+    "defaultMessage": "Something went wrong! The server returned an error code {code}. Please contact a system administrator."
   },
   {
     "id": "addAnnotation.inputHint",

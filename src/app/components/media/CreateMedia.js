@@ -48,14 +48,6 @@ const messages = defineMessages({
     id: 'createMedia.submitButton',
     defaultMessage: 'Post',
   },
-  helper: {
-    id: 'createMedia.helper',
-    defaultMessage: 'Add a link, quote, image or source for verification',
-  },
-  bridge_helper: {
-    id: 'bridge.createMedia.helper',
-    defaultMessage: 'Add a link, quote, image or source for translation',
-  },
 });
 
 class CreateProjectMedia extends Component {
@@ -109,15 +101,13 @@ class CreateProjectMedia extends Component {
   }
 
   handleSubmitError(context, prefix, transactionError) {
-    let message = '';
+    let message = this.props.intl.formatMessage(messages.error, { code: transactionError.status });
     let json = null;
     try {
       json = JSON.parse(transactionError.source);
     }
     catch (e) {
-      json = {
-        error: this.props.intl.formatMessage(messages.error, { code: transactionError.status })
-      };
+      // do nothing
     }
     if (json && json.error) {
       const matches = json.error.match(
@@ -260,9 +250,6 @@ class CreateProjectMedia extends Component {
           onImage={this.onImage.bind(this)}
           onError={this.onImageError.bind(this)}
         />,
-        <div className="create-media__helper" key="createMedia.media.helper">
-          <MappedMessage msgObj={messages} msgKey="helper" />
-        </div>,
       ];
     case 'source':
       return [
@@ -302,9 +289,6 @@ class CreateProjectMedia extends Component {
           onKeyPress={this.handleKeyPress.bind(this)}
           ref={input => (this.mediaInput = input)}
         />,
-        <div key="createMedia.source.helper" className="create-media__helper">
-          <MappedMessage msgObj={messages} msgKey="helper" />
-        </div>,
       ];
     }
   }

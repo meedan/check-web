@@ -24,9 +24,10 @@ const messages = defineMessages({
     id: 'addAnnotation.annotationAdded',
     defaultMessage: 'Your {type} was added!',
   },
-  createTagFailed: {
-    id: 'addAnnotation.createTagFailed',
-    defaultMessage: 'Sorry, could not create the tag',
+  error: {
+    id: 'addAnnotation.error',
+    defaultMessage:
+      'Something went wrong! The server returned an error code {code}. Please contact a system administrator.',
   },
   inputHint: {
     id: 'addAnnotation.inputHint',
@@ -99,16 +100,19 @@ class AddAnnotation extends Component {
   }
 
   fail(transaction) {
-    const that = this;
-    const error = transaction.getError();
-    let message = this.props.intl.formatMessage(messages.createTagFailed);
+    const transactionError = transaction.getError();
+    let message = this.props.intl.formatMessage(messages.error, { code: transactionError.status });
+    let json = null;
     try {
-      const json = JSON.parse(error.source);
-      if (json.error) {
-        message = json.error;
-      }
-    } catch (e) { }
-    that.setState({ message, isSubmitting: false });
+      json = JSON.parse(transactionError.source);
+    }
+    catch (e) {
+      // do nothing
+    }
+    if (json && json.error) {
+      message = json.error;
+    }
+    this.setState({ message: message.replace(/<br\s*\/?>/mg, '; '), isSubmitting: false });
   }
 
   getContext() {
@@ -246,7 +250,7 @@ class AddAnnotation extends Component {
 
   addDynamic(that, annotated, annotated_id, annotated_type, params, annotation_type) {
     const { formatMessage } = that.props.intl;
-    
+
     const onFailure = (transaction) => { that.fail(transaction); };
 
     const onSuccess = (response) => { that.success(formatMessage(messages.annotationAdded, { type: annotation_type })); };
