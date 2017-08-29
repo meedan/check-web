@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { defineMessages, injectIntl, intlShape } from 'react-intl';
-import FaCircle from 'react-icons/lib/fa/circle';
-import FaCircleO from 'react-icons/lib/fa/circle-o';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import { can } from '../Can';
@@ -9,8 +7,7 @@ import CheckContext from '../../CheckContext';
 import { getStatus, getStatusStyle } from '../../helpers';
 import { mediaStatuses, mediaLastStatus } from '../../customHelpers';
 import {
-  units,
-  black54,
+  black16,
 } from '../../styles/js/variables';
 
 const messages = defineMessages({
@@ -86,7 +83,7 @@ class MediaStatusCommon extends Component {
               style={{ height: '24px' }}
               value={currentStatus.label}
               underlineStyle={{ borderWidth: 0 }}
-              iconStyle={{ fill: black54, padding: 0, height: 0, top: 0 }}
+              iconStyle={{ fill: black16, padding: 0, height: 0, top: 0 }}
               labelStyle={{ height: '24px', lineHeight: '24px', paddingLeft: 0, textTransform: 'uppercase', color: getStatusStyle(currentStatus, 'color') }}
 
               selectedMenuItemStyle={{ color: getStatusStyle(currentStatus, 'color') }}

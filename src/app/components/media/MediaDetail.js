@@ -117,11 +117,11 @@ class MediaDetail extends Component {
 
     const cardHeaderSubtitle = (<div style={{ display: 'flex' }}>
       <Link to={mediaUrl} className="media__heading">{heading}</Link>
-      <div>{MediaUtil.socialIcon(media.domain)}</div>
+      <div style={{ paddingLeft: units(1), paddingRight: units(1) }}>
+        {MediaUtil.socialIcon(media.domain)}
+      </div>
       <span
         className="media-detail__check-notes-count"
-        style={{ paddingLeft: units(1), paddingRight: units(1) }}
-        key="media-detail__annotations-count"
       >
         {annotationsCount}
       </span>
