@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
 import { defineMessages, injectIntl, intlShape } from 'react-intl';
 import deepEqual from 'deep-equal';
 import MediaUtil from './MediaUtil';
@@ -49,6 +50,7 @@ class SocialMediaCard extends Component {
     const bodyText = MediaUtil.bodyText(media, data);
     const bodyImageUrl = MediaUtil.bodyImageUrl(media, data);
     const stats = MediaUtil.stats(media, data, this.props.intl);
+    const sourceUrl = media.team && media.project && media.project_source ? `/${media.team.slug}/project/${media.project.dbid}/source/${media.project_source.dbid}` : null;
 
     return (
       <article className="social-media-card">
@@ -61,14 +63,18 @@ class SocialMediaCard extends Component {
           <div className="social-media-card__header / card-header">
             <AuthorPicture media={media} data={data} />
             <div className="social-media-card__header-text-primary / header-text-primary">
-              <a
-                href={authorUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="social-media-card__name"
-              >
-                {authorName || authorUsername}
-              </a>
+              { sourceUrl
+                ? <Link to={sourceUrl}>{authorName || authorUsername}</Link>
+                : <a
+                  href={authorUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="social-media-card__name"
+                >
+                  {authorName || authorUsername}
+                </a>
+              }
+
               {authorName && authorUsername && authorName !== authorUsername
                 ? <a
                   href={authorUrl}

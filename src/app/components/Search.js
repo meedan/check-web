@@ -560,6 +560,13 @@ const SearchResultsContainer = Relay.createContainer(injectIntl(SearchResultsCom
                 dbid,
                 title
               },
+              project_source {
+                dbid,
+                project_id,
+                source {
+                  name
+                }
+              },
               media {
                 url,
                 quote,
