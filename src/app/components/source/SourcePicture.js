@@ -48,18 +48,15 @@ class SourcePicture extends Component {
     if (this.state.queriedBackend) {
       return;
     }
-    if (this.isUploadedImage()) {
-      console.log('Not querying backend...');
-      this.setState({ avatarUrl: this.defaultAvatar(), queriedBackend: true });
-    }
-    else {
-      console.log('Querying backend...');
+    
+    this.setState({ avatarUrl: this.defaultAvatar(), queriedBackend: true });
+    
+    if (!this.isUploadedImage()) {
       const onFailure = (transaction) => {
         this.setState({ avatarUrl: this.defaultAvatar(), queriedBackend: true });
       };
 
       const onSuccess = (response) => {
-        console.log(response);
         let avatarUrl = this.defaultAvatar();
         try {
           let object = this.props.type === 'source' ? response.updateSource.source : (this.props.type === 'account' ? response.updateAccount.account : {});
