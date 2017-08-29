@@ -52,7 +52,7 @@ const HttpStatus = {
     CREATED             : "Created",
     ACCEPTED            : "Accepted",
     NON_AUTHORITATIVE   : "Non-Authoritative Information",
-    NO_CONTENT          : "",
+    NO_CONTENT          : "No Content",
     RESET_CONTENT       : "Reset Content",
     PARTIAL_CONTENT     : "Partial Content",
     MULTIPLE_CHOICE     : "Multiple Choices",
