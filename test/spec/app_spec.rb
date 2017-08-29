@@ -290,7 +290,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       me_page = MePage.new(config: @config, driver: page.driver).load
       avatar = me_page.avatar
-      expect(avatar.attribute('style').match(/test\.png/).nil?).to be(false)
+      expect(avatar.attribute('src').match(/test\.png/).nil?).to be(false)
     end
 
     it "should redirect to 404 page", other: true do
