@@ -6,6 +6,8 @@
   "tasks.shortAnswer": "Réponse courte",
   "tasks.chooseOne": "Choix unique",
   "tasks.chooseMultiple": "Choix multiples",
+  "tasks.geolocation": "Emplacement",
+  "tasks.datetime": "Date et horaire",
   "tasks.taskLabel": "Saisie",
   "tasks.description": "Description",
   "tasks.addDescription": "Ajouter une description"

@@ -1,5 +1,6 @@
 {
   "login.passwordInputHint": "Password",
+  "login.disclaimer": "We won’t publish without your permission",
   "login.title": "Sign in",
   "login.registerTitle": "Register",
   "login.nameLabel": "Your name",
@@ -10,8 +11,6 @@
   "login.signUp": "REGISTER",
   "loginEmail.lostPassword": "Forgot password",
   "login.with": "Continue with {provider}",
-  "login.disclaimer": "We won’t publish without your permission",
   "login.newAccount": "Create a new account with email",
-  "login.alreadyHasAccount": "I already have an account",
-  "login.return": "Return to sign in by email"
+  "login.alreadyHasAccount": "I already have an account"
 }
