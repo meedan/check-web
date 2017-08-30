@@ -13,7 +13,6 @@ import MdFormatQuote from 'react-icons/lib/md/format-quote';
 import styled from 'styled-components';
 import config from 'config';
 import urlRegex from 'url-regex';
-import MappedMessage from '../MappedMessage';
 import UploadImage from '../UploadImage';
 import PenderCard from '../PenderCard';
 import CreateProjectMediaMutation from '../../relay/CreateProjectMediaMutation';
@@ -21,7 +20,7 @@ import CreateProjectSourceMutation from '../../relay/CreateProjectSourceMutation
 import Message from '../Message';
 import CheckContext from '../../CheckContext';
 import ContentColumn from '../layout/ContentColumn';
-import { FadeIn, mediaQuery, units, title, borderRadiusDefault, columnWidthMedium, white, caption, black38, black54, black87 } from '../../styles/js/variables';
+import { FadeIn, units, title, borderRadiusDefault, columnWidthMedium, white, black54, black87 } from '../../styles/js/variables';
 import HttpStatus from '../../HttpStatus';
 
 // Some of the icons are not standard Material-UI;
@@ -57,14 +56,6 @@ const StyledCreateMediaCard = styled(Card)`
   .create-media__insert-photo {
     display: flex;
   }
-`;
-
-const StyledHelper = styled.div`
-  ${mediaQuery.handheld`
-    display: none;
-  `} 
-  color: ${black38};
-  font: ${caption};
 `;
 
 const StyledTitle = styled.div`
@@ -304,9 +295,6 @@ class CreateProjectMedia extends Component {
           onImage={this.onImage.bind(this)}
           onError={this.onImageError.bind(this)}
         />,
-        <StyledHelper key="createMedia.media.helper">
-          <MappedMessage msgObj={messages} msgKey="helper" />
-        </StyledHelper>,
       ];
     case 'source':
       return [
@@ -377,8 +365,6 @@ class CreateProjectMedia extends Component {
                   <div className="create-media__insert-photo">
                     <IconButton
                       id="create-media__link"
-                      title={this.props.intl.formatMessage(messages.uploadImage)}
-                      className={this.state.fileMode ? 'create-media__file' : ''}
                       onClick={this.setMode.bind(this, 'link')}
                     >
                       <IconLink />
@@ -386,8 +372,6 @@ class CreateProjectMedia extends Component {
                   </div>
                   <IconButton
                     id="create-media__quote"
-                    title={this.props.intl.formatMessage(messages.uploadImage)}
-                    className={this.state.fileMode ? 'create-media__file' : ''}
                     onClick={this.setMode.bind(this, 'quote')}
                   >
                     <SvgIcon>
@@ -396,8 +380,6 @@ class CreateProjectMedia extends Component {
                   </IconButton>
                   <IconButton
                     id="create-media__source"
-                    title={this.props.intl.formatMessage(messages.uploadImage)}
-                    className={this.state.fileMode ? 'create-media__file' : ''}
                     onClick={this.setMode.bind(this, 'source')}
                   >
                     <SvgIcon color={black54}>
@@ -406,8 +388,6 @@ class CreateProjectMedia extends Component {
                   </IconButton>
                   <IconButton
                     id="create-media__image"
-                    title={this.props.intl.formatMessage(messages.uploadImage)}
-                    className={this.state.fileMode ? 'create-media__file' : ''}
                     onClick={this.setMode.bind(this, 'image')}
                   >
                     <IconInsertPhoto />
