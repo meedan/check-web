@@ -46,10 +46,13 @@ import DeleteTagMutation from '../../relay/DeleteTagMutation';
 import CreateAccountSourceMutation from '../../relay/mutation/CreateAccountSourceMutation';
 import DeleteAccountSourceMutation from '../../relay/mutation/DeleteAccountSourceMutation';
 import UpdateSourceMutation from '../../relay/UpdateSourceMutation';
+import UpdateProjectSourceMutation from '../../relay/mutation/UpdateProjectSourceMutation';
+import Pusher from 'pusher-js';
 import deepEqual from 'deep-equal';
 import capitalize from 'lodash.capitalize';
 import LinkifyIt from 'linkify-it';
 import styled from 'styled-components';
+import SourcePicture from './SourcePicture';
 
 const FlexRow = styled.div`
   display: flex;
@@ -157,10 +160,33 @@ class SourceComponent extends Component {
 
   componentDidMount() {
     this.setContextSource();
+    this.subscribe();
   }
 
   componentDidUpdate() {
     this.setContextSource();
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
+
+  subscribe() {
+    const that = this;
+    const pusher = this.getContext().pusher;
+    const pusherChannel = this.props.source.source.pusher_channel;
+    if (pusher && pusherChannel) {
+      pusher.subscribe(pusherChannel).bind('source_updated', (data) => {
+        that.props.relay.forceFetch();
+      });
+    }
+  }
+
+  unsubscribe() {
+    const pusher = this.getContext().pusher;
+    if (pusher) {
+      pusher.unsubscribe(this.props.source.source.pusher_channel);
+    }
   }
 
   getContext() {
@@ -646,7 +672,7 @@ class SourceComponent extends Component {
     const deleteLinks = this.state.deleteLinks ? this.state.deleteLinks.slice(0) : [];
     const showAccounts = source.account_sources.edges.filter(as => (deleteLinks.indexOf(as.node.id) < 0));
 
-    return (<div>
+    return (<div key="renderAccountsEdit">
       { showAccounts.map((as, index) =>
         <div key={as.node.id} className="source__url">
           <FlexRow>
@@ -904,10 +930,7 @@ class SourceComponent extends Component {
       <div className="source__profile-content">
         <section className="layout-two-column">
           <div className="column-secondary">
-            <div
-              className="source__avatar"
-              style={{ backgroundImage: `url(${source.image})` }}
-            />
+            <SourcePicture object={source} type="source" className="source__avatar" />
           </div>
 
           <div className="column-primary">

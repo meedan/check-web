@@ -1,0 +1,9 @@
+{
+  "datetimeRespondTask.ok": "موافق",
+  "datetimeRespondTask.cancel": "إلغاء",
+  "datetimeRespondTask.timeError": "توقيت غير صحيح",
+  "datetimeRespondTask.pickDate": "إختر التاريخ على التقويم المتاح",
+  "datetimeRespondTask.timeOptional": "الزمن (اختياري)",
+  "datetimeRespondTask.note": "اكتب هنا التعليقات الإضافية.",
+  "datetimeRespondTask.resolveTask": "إنجاز المهمة"
+}

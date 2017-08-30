@@ -5,7 +5,7 @@
   },
   {
     "id": "createMedia.error",
-    "defaultMessage": "Something went wrong! Try pasting the text of this post instead, or adding a different link."
+    "defaultMessage": "Something went wrong! The server returned an error code {code}. Please contact a system administrator."
   },
   {
     "id": "createMedia.mediaInput",
@@ -26,14 +26,6 @@
   {
     "id": "createMedia.submitButton",
     "defaultMessage": "Post"
-  },
-  {
-    "id": "createMedia.helper",
-    "defaultMessage": "Add a link, quote or image for verification"
-  },
-  {
-    "id": "bridge.createMedia.helper",
-    "defaultMessage": "Add a link, quote or image for translation"
   },
   {
     "id": "createMedia.imageTitle",

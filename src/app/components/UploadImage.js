@@ -4,6 +4,7 @@ import Dropzone from 'react-dropzone';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import MdHighlightRemove from 'react-icons/lib/md/highlight-remove';
 import AboutRoute from '../relay/AboutRoute';
+import { unhumanizeSize } from '../helpers';
 
 const messages = defineMessages({
   changeFile: {
@@ -13,6 +14,10 @@ const messages = defineMessages({
   invalidExtension: {
     id: 'uploadImage.invalidExtension',
     defaultMessage: 'Validation failed: File cannot have type "{extension}", allowed types: {allowed_types}',
+  },
+  fileTooLarge: {
+    id: 'uploadImage.fileTooLarge',
+    defaultMessage: 'Validation failed: File size should be less than {size}',
   },
 });
 
@@ -25,13 +30,20 @@ class UploadImageComponent extends Component {
   onDrop(files) {
     const file = files[0];
     const valid_extensions = this.props.about.upload_extensions.toLowerCase().split(/[\s,]+/);
-    const extension = file.name.substr(file.name.lastIndexOf('.')+1).toLowerCase();
+    const extension = file.name.substr(file.name.lastIndexOf('.') + 1).toLowerCase();
     if (valid_extensions.length > 0 && valid_extensions.indexOf(extension) < 0) {
       if (this.props.onError) {
         this.props.onError(file, this.props.intl.formatMessage(messages.invalidExtension, { extension, allowed_types: this.props.about.upload_extensions }));
       }
       return;
     }
+    if (file.size && unhumanizeSize(this.props.about.upload_max_size) < file.size) {
+      if (this.props.onError) {
+        this.props.onError(file, this.props.intl.formatMessage(messages.fileTooLarge, { size: this.props.about.upload_max_size }));
+      }
+      return;
+    }
+
     this.props.onImage(file);
     this.setState({ file });
   }
@@ -68,14 +80,15 @@ class UploadImageComponent extends Component {
           <div>
             { this.state.file ?
               this.props.intl.formatMessage(messages.changeFile, { filename: this.state.file.name }) :
-              <FormattedMessage id="uploadImage.message"
+              <FormattedMessage
+                id="uploadImage.message"
                 defaultMessage="Drop an image file here, or click to upload a file (max size: {upload_max_size}, allowed extensions: {upload_extensions}, allowed dimensions between {upload_min_dimensions} and {upload_max_dimensions} pixels)"
-                        values={{
-                          upload_max_size: about.upload_max_size,
-                          upload_extensions: about.upload_extensions,
-                          upload_max_dimensions: about.upload_max_dimensions,
-                          upload_min_dimensions: about.upload_min_dimensions
-                        }}
+                values={{
+                  upload_max_size: about.upload_max_size,
+                  upload_extensions: about.upload_extensions,
+                  upload_max_dimensions: about.upload_max_dimensions,
+                  upload_min_dimensions: about.upload_min_dimensions,
+                }}
               />
             }
           </div>
@@ -106,7 +119,7 @@ const UploadImageContainer = Relay.createContainer(injectIntl(UploadImageCompone
 class UploadImage extends Component {
   render() {
     const route = new AboutRoute();
-    return (<Relay.RootContainer Component={UploadImageContainer} route={route} renderFetched={data => <UploadImageContainer {...this.props} {...data} /> } />);
+    return (<Relay.RootContainer Component={UploadImageContainer} route={route} renderFetched={data => <UploadImageContainer {...this.props} {...data} />} />);
   }
 }
 

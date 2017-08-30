@@ -1,5 +1,6 @@
 {
   "login.passwordInputHint": "كلمة المرور",
+  "login.disclaimer": "لن يتم أي نشر بدون موافقتك",
   "login.title": "تسجيل الدخول",
   "login.registerTitle": "تسجيل حساب جديد",
   "login.nameLabel": "اسمك",
@@ -10,8 +11,6 @@
   "login.signUp": "تسجيل حساب جديد",
   "loginEmail.lostPassword": "نسيت كلمة المرور",
   "login.with": "سجل دخول باستخدام {provider}",
-  "login.disclaimer": "لن يتم أي نشر بدون موافقتك",
   "login.newAccount": "تسجيل حساب جديد بالبريد الإلكتروني",
-  "login.alreadyHasAccount": "لدي حساب بالفعل",
-  "login.return": "العودة لتسجيل الدخول بالبريد الإلكتروني"
+  "login.alreadyHasAccount": "لدي حساب بالفعل"
 }

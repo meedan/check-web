@@ -1,0 +1,9 @@
+{
+  "datetimeRespondTask.ok": "OK",
+  "datetimeRespondTask.cancel": "Cancel",
+  "datetimeRespondTask.timeError": "Error: invalid time",
+  "datetimeRespondTask.pickDate": "Pick a date from the calendar",
+  "datetimeRespondTask.timeOptional": "Time (optional)",
+  "datetimeRespondTask.note": "Note any additional details here.",
+  "datetimeRespondTask.resolveTask": "Resolve task"
+}

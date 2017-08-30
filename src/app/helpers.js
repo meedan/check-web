@@ -69,6 +69,15 @@ function notify(title, body, url, icon, name) {
   }
 }
 
+// Convert human-readable file size to bytes
+// https://stackoverflow.com/a/6974728/209184
+function unhumanizeSize(text) {
+  const powers = { k: 1, m: 2, g: 3, t: 4 };
+  const regex = /(\d+(?:\.\d+)?)\s?(k|m|g|t)?b?/i;
+  const res = regex.exec(text);
+  return res[1] * Math.pow(1024, powers[res[2].toLowerCase()]);
+}
+
 export {
   bemClass,
   bemClassFromMediaStatus,
@@ -78,4 +87,5 @@ export {
   getStatusStyle,
   notify,
   truncateLength,
+  unhumanizeSize,
 };

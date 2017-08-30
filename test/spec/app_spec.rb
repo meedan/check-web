@@ -281,13 +281,13 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should upload image when registering", bin5: true do
-      email, password, avatar = [@email + '.br', '12345678', File.join(File.dirname(__FILE__), 'test.png')]
+      email, password, avatar = ["test-#{Time.now.to_i}@example.com", '12345678', File.join(File.dirname(__FILE__), 'test.png')]
       page = LoginPage.new(config: @config, driver: @driver).load
-          .register_and_login_with_email(email: email, password: password, file: avatar)
+             .register_and_login_with_email(email: email, password: password, file: avatar)
 
       me_page = MePage.new(config: @config, driver: page.driver).load
       avatar = me_page.avatar
-      expect(avatar.attribute('style').match(/test\.png/).nil?).to be(false)
+      expect(avatar.attribute('src').match(/test\.png/).nil?).to be(false)
     end
 
     it "should redirect to 404 page", bin4: true do
@@ -871,7 +871,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should search for reverse images", bin2: true do
       page = api_create_team_project_and_link_and_redirect_to_media_page 'https://www.instagram.com/p/BRYob0dA1SC/'
-      sleep 1
+      sleep 3
       expect(@driver.page_source.include?('This item contains at least one image. Click Search to look for potential duplicates on Google.')).to be(true)
       expect((@driver.current_url.to_s =~ /google/).nil?).to be(true)
       current_window = @driver.window_handles.last
