@@ -53,7 +53,7 @@ module ApiHelpers
     data = api_create_team_and_project
     claim = request_api 'claim', { quote: quote, email: data[:user].email, team_id: data[:team].dbid, project_id: data[:project].dbid }
     @driver.quit if quit
-    claim 
+    claim
   end
 
   def api_create_team_project_and_link(url = @media_url)
@@ -74,7 +74,7 @@ module ApiHelpers
     sleep 2
     MediaPage.new(config: @config, driver: @driver)
   end
-  
+
   def api_create_claim_and_go_to_search_page
     media = api_create_team_project_and_claim(false, 'My search result')
     @driver.navigate.to media.full_url
