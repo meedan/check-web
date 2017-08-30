@@ -78,6 +78,12 @@ function unhumanizeSize(text) {
   return res[1] * Math.pow(1024, powers[res[2].toLowerCase()]);
 }
 
+// Convert Arabic/Persian numbers to English
+// https://codereview.stackexchange.com/questions/166750/convert-persian-and-arabic-digits-to-english
+function convertNumbers2English(string) {
+  return string.replace(/[\u0660-\u0669]/g, c => c.charCodeAt(0) - 0x0660).replace(/[\u06f0-\u06f9]/g, c => c.charCodeAt(0) - 0x06f0);
+}
+
 export {
   bemClass,
   bemClassFromMediaStatus,
@@ -88,4 +94,5 @@ export {
   notify,
   truncateLength,
   unhumanizeSize,
+  convertNumbers2English,
 };

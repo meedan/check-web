@@ -9,14 +9,13 @@ import {
 } from 'react-intl';
 import DatePicker from 'material-ui/DatePicker';
 import areIntlLocalesSupported from 'intl-locales-supported';
+import persianUtils from 'material-ui-persian-date-picker-utils';
 import IntlPolyfill from 'intl';
 import IconDateRange from 'material-ui/svg-icons/action/date-range';
 import IconSchedule from 'material-ui/svg-icons/action/schedule';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
-import CheckContext from '../../CheckContext';
-import timezones from '../../timezones';
-import { FlexRow, units, black54, black38, caption, alertRed } from '../../styles/js/variables';
+import { convertNumbers2English } from '../../helpers';
 
 const styles = {
   error: {
@@ -131,7 +130,7 @@ class DatetimeRespondTask extends Component {
   }
 
   handleChangeTime(part, e) {
-    const value = parseInt(e.target.value, 10);
+    const value = parseInt(convertNumbers2English(e.target.value));
 
     const validators = {
       hour: [0, 23],
