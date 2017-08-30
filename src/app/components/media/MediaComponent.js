@@ -151,10 +151,10 @@ class MediaComponent extends Component {
         prefix={MediaUtil.title(media, data, this.props.intl)}
         skipTeam={false}
         team={this.getContext().team}
-        className="media"
         data-id={media.dbid}
       >
         <StyledBackgroundColor
+          className="media"
           style={{
             backgroundColor: getStatusStyle(status, 'backgroundColor'),
           }}
