@@ -80,23 +80,4 @@
       }
     }
   }
-
-  // overrides – use sparingly
-  //
-  &__expanded {
-    .media-detail {
-      border-#{$from-direction}: 0;
-    }
-
-    .media-detail__header,
-    .media-detail__heading {
-      display: none;
-    }
-  }
-}
-
-.home--media {
-  .footer {
-    display: none;
-  }
 }

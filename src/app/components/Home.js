@@ -8,7 +8,6 @@ import merge from 'lodash.merge';
 import config from 'config';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import Header from './Header';
-import FooterRelay from '../relay/FooterRelay';
 import LoginContainer from './LoginContainer';
 import BrowserSupport from './BrowserSupport';
 import CheckContext from '../CheckContext';
@@ -122,7 +121,6 @@ class Home extends Component {
             </ContentColumn>
             <Header {...this.props} loggedIn={this.state.token} />
             <div className="home__content">{children}</div>
-            <FooterRelay {...this.props} />
           </div>
         </span>
       </MuiThemeProvider>
