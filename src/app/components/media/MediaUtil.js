@@ -59,11 +59,11 @@ const messages = defineMessages({
   },
   favoritesCount: {
     id: 'media.favoritesCount',
-    defaultMessage: '{favoritesCount, plural, =0 {} one {1 favorite} other {# favorites}}',
+    defaultMessage: '{favoritesCount, plural, one {1 favorite} other {# favorites}}',
   },
   retweetsCount: {
     id: 'media.retweetsCount',
-    defaultMessage: '{retweetsCount, plural, =0 {} one {1 retweet} other {# retweets}}',
+    defaultMessage: '{retweetsCount, plural, one {1 retweet} other {# retweets}}',
   },
 });
 
@@ -227,18 +227,19 @@ const MediaUtil = {
 
   stats(media, data, intl) {
     try {
-      return (
-        {
-          'twitter.com': [
+      switch (media.domain) {
+        case 'twitter.com':
+          return [
             intl.formatMessage(messages.favoritesCount, {
               favoritesCount: data.raw.api.favorite_count,
             }),
             intl.formatMessage(messages.retweetsCount, {
               retweetsCount: data.raw.api.retweet_count,
             }),
-          ],
-        }[media.domain] || []
-      );
+          ];
+        default:
+          return [];
+      }
     } catch (e) {
       return [];
     }
