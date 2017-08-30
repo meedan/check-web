@@ -47,6 +47,21 @@ module AppSpecHelpers
     input.click
   end
 
+  def delete_task(task_text)
+    expect(@driver.page_source.include?(task_text)).to be(true)
+    # In case the menu is left open (which happens for unknown reason),
+    # click somewhere non-interactive, to ensure menu closes...
+    @driver.find_element(:css, '.task__label').click
+    sleep 1
+    # Open the menu
+    @driver.find_element(:css, '.task-actions__icon').click
+    sleep 2
+    @driver.find_element(:css, '.task-actions__delete').click
+    @driver.switch_to.alert.accept
+    sleep 3
+    expect(@driver.page_source.include?(task_text)).to be(false)
+  end
+
   def twitter_login
     @driver.navigate.to 'https://twitter.com/login'
     fill_field('.js-username-field', @config['twitter_user'])

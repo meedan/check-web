@@ -71,7 +71,7 @@ module ApiHelpers
   def api_create_team_project_and_claim_and_redirect_to_media_page(quote = 'Claim')
     media = api_create_team_project_and_claim false, quote
     @driver.navigate.to media.full_url
-    sleep 10
+    sleep 2
     MediaPage.new(config: @config, driver: @driver)
   end
 

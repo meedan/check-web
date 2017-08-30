@@ -811,12 +811,13 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should add, edit, answer, update answer and delete short answer task", bin3: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
-      sleep 10
+      sleep 3
 
       # Create a task
       expect(@driver.page_source.include?('Foo or bar?')).to be(false)
       expect(@driver.page_source.include?('Task "Foo or bar?" created by')).to be(false)
       @driver.find_element(:css, '.create-task__add-button').click
+      sleep 1
       @driver.find_element(:css, '.create-task__add-short-answer').click
       sleep 1
       fill_field('#task-label-input', 'Foo or bar?')
@@ -857,13 +858,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Task "Foo or bar???" answered by User With Email: "Foo edited"')).to be(true)
 
       # Delete task
-      expect(@driver.page_source.include?('Foo')).to be(true)
-      @driver.find_element(:css, '.task-actions__icon').click
-      sleep 2
-      @driver.find_element(:css, '.task-actions__delete').click
-      @driver.switch_to.alert.accept
-      sleep 3
-      expect(@driver.page_source.include?('Foo')).to be(false)
+      delete_task('Foo')
     end
 
     # it "should add, edit, answer, update answer and delete single_choice task" do
@@ -1087,15 +1082,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Task "Where was it?" answered by User With Email: "Vancouver"')).to be(true)
 
       # Delete task
-      expect(@driver.page_source.include?('Where was it')).to be(true)
-
-      # For some reason the menu is already showing ... so commenting this out.... CGB 2017-8-29
-      # @driver.find_element(:css, '.task-actions__icon').click
-      sleep 2
-      @driver.find_element(:css, '.task-actions__delete').click
-      @driver.switch_to.alert.accept
-      sleep 3
-      expect(@driver.page_source.include?('Where was it')).to be(false)
+      delete_task('Where was it')
     end
 
     it "should add, edit, answer, update answer and delete datetime task", bin3: true do
@@ -1149,15 +1136,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('12:34')).to be(true)
 
       # Delete task
-      expect(@driver.page_source.include?('When was it')).to be(true)
-
-      # For some reason the menu is already showing CGB 2017-8-29
-      # @driver.find_element(:css, '.task-actions__icon').click
-      sleep 5
-      @driver.find_element(:css, '.task-actions__delete').click
-      @driver.switch_to.alert.accept
-      sleep 3
-      expect(@driver.page_source.include?('When was it')).to be(false)
+      delete_task('When was it')
     end
 
     #Add slack notificatios to a team
