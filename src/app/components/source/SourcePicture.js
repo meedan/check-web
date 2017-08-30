@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
+import config from 'config';
 import Relay from 'react-relay';
 import UpdateSourceMutation from '../../relay/UpdateSourceMutation';
 import UpdateAccountMutation from '../../relay/UpdateAccountMutation';
-import config from 'config';
 
 class SourcePicture extends Component {
   constructor(props) {
@@ -14,24 +14,24 @@ class SourcePicture extends Component {
     };
   }
 
-  setImage(image) {
-    if (image && image != '' && image != this.state.avatarUrl) {
-      this.setState({ avatarUrl: image });
-    }
-  }
-
   componentDidMount() {
     this.setImage(this.props.object.image);
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.state.avatarUrl != nextProps.object.image) {
+    if (this.state.avatarUrl !== nextProps.object.image) {
       this.setImage(nextProps.object.image);
     }
   }
 
+  setImage(image) {
+    if (image && image !== '' && image !== this.state.avatarUrl) {
+      this.setState({ avatarUrl: image });
+    }
+  }
+
   handleAvatarError() {
-    if (this.state.avatarUrl != this.defaultAvatar()) {
+    if (this.state.avatarUrl !== this.defaultAvatar()) {
       this.setState({ avatarUrl: this.defaultAvatar() });
     }
     this.refreshAvatar();
@@ -45,7 +45,7 @@ class SourcePicture extends Component {
     remoteLink.href = config.restBaseUrl;
     const avatarLink = document.createElement('a');
     avatarLink.href = this.props.object.image;
-    return avatarLink.host == remoteLink.host;
+    return avatarLink.host === remoteLink.host;
   }
 
   refreshAvatar() {
@@ -56,7 +56,7 @@ class SourcePicture extends Component {
     this.setState({ avatarUrl: this.defaultAvatar(), queriedBackend: true });
 
     if (!this.isUploadedImage()) {
-      const onFailure = (transaction) => {
+      const onFailure = () => {
         this.setState({ avatarUrl: this.defaultAvatar(), queriedBackend: true });
       };
 
@@ -65,8 +65,7 @@ class SourcePicture extends Component {
         try {
           const object = this.props.type === 'source' ? response.updateSource.source : (this.props.type === 'account' ? response.updateAccount.account : {});
           avatarUrl = object.image || this.defaultAvatar();
-        } catch (e) {
-        }
+        } catch (e) {}
         this.setState({ avatarUrl, queriedBackend: true });
       };
 
@@ -97,7 +96,7 @@ class SourcePicture extends Component {
 
   render() {
     return (
-      <img src={this.state.avatarUrl} className={`social-media-card__author-avatar ${this.props.className}`} onError={this.handleAvatarError.bind(this)} />
+      <img alt="avatar" src={this.state.avatarUrl} className={`social-media-card__author-avatar ${this.props.className}`} onError={this.handleAvatarError.bind(this)} />
     );
   }
 }
