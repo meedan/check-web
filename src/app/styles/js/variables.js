@@ -74,7 +74,8 @@ export const caption = `400 ${units(1.5)}/${units(2.5)} ${fontStackSans}`;
 export const tiny = `400 ${units(1)}/${units(1.5)} ${fontStackSans}`;
 
 // Layout
-export const headerHeight = units(7);
+export const headerHeight = units(8);
+export const gutterMedium = units(3);
 
 // Breakpoints
 export const breakpointMobile = `${units(85)}`;
@@ -82,6 +83,7 @@ export const breakpointMobile = `${units(85)}`;
 // Transitions
 export const transitionSpeedFast = '150ms';
 export const transitionSpeedDefault = '300ms';
+export const transitionSpeedSlow = '500ms';
 
 // Borders
 export const defaultBorderRadius = '2px';
@@ -264,6 +266,7 @@ export const muiThemeWithoutRtl = {
 
 export const mediaQuery = {
   handheld: (...args) => css`@media (max-width: ${breakpointMobile}) { ${css(...args)} }`,
+  desktop: (...args) => css`@media (min-width: ${breakpointMobile}) { ${css(...args)} }`,
 };
 
 

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import styled from 'styled-components';
+import { stripUnit } from 'polished';
 import PageTitle from '../PageTitle';
 import MediaDetail from './MediaDetail';
 import MediaUtil from './MediaUtil';
@@ -9,19 +10,18 @@ import CheckContext from '../../CheckContext';
 import Tasks from '../task/Tasks';
 import CreateTask from '../task/CreateTask';
 import {
-  bemClass,
-  bemClassFromMediaStatus,
   getStatus,
   getStatusStyle,
 } from '../../helpers';
 import ContentColumn from '../layout/ContentColumn';
 import { mediaStatuses, mediaLastStatus } from '../../customHelpers';
-import { units, FlexRow, subheading2, black87, black54, black16 } from '../../styles/js/variables';
+import { headerHeight, transitionSpeedSlow, gutterMedium, units, FlexRow, subheading2, black87, black54, black16, mediaQuery } from '../../styles/js/variables';
 
-const TaskHeader = styled.div`
+const StyledTaskHeaderRow = styled.div`
   align-items: baseline;
   justify-content: space-between;
   padding-top: ${units(5)};
+  display: flex;
 
   h2 {
     color: ${black87};
@@ -41,6 +41,37 @@ const TaskHeader = styled.div`
     color: ${black16};
     cursor: pointer;
   }
+`;
+
+const StyledTwoColumnLayout = styled(ContentColumn)`
+  flex-direction: column;
+  ${mediaQuery.desktop`
+    display: flex;
+    justify-content: center;
+    max-width: ${units(120)};
+    padding: 0;
+    flex-direction: row;
+
+    .media__media-column {
+      max-width: ${units(150)} !important;
+    }
+
+    .media__annotations-column {
+      max-width: ${units(50)};
+
+      .annotations__list {
+        max-height: 52vh;
+        overflow-y: scroll;
+      }
+    }
+  `}
+`;
+
+const StyledBackgroundColor = styled.div`
+  margin-top: -${stripUnit(headerHeight) + stripUnit(gutterMedium)}px;
+  padding-bottom: ${units(6)};
+  padding-top: ${stripUnit(headerHeight) + stripUnit(gutterMedium)}px;
+  transition: background-color ${transitionSpeedSlow} ease;
 `;
 
 class MediaComponent extends Component {
@@ -120,31 +151,21 @@ class MediaComponent extends Component {
         prefix={MediaUtil.title(media, data, this.props.intl)}
         skipTeam={false}
         team={this.getContext().team}
+        className="media"
+        data-id={media.dbid}
       >
-        <div
-          className={bemClass('media', media.tasks.edges.length, '--has-tasks')}
-          data-id={media.dbid}
+        <StyledBackgroundColor
+          style={{
+            backgroundColor: getStatusStyle(status, 'backgroundColor'),
+          }}
         >
-          <div
-            className={bemClassFromMediaStatus(
-              'media__expanded',
-              mediaLastStatus(media),
-            )}
-            style={{
-              backgroundColor: getStatusStyle(status, 'backgroundColor'),
-            }}
-          >
 
-            <ContentColumn
-              flex
-              style={{ maxWidth: units(120), padding: 0 }}
-              className="media__expanded-column-wrapper"
-            >
-              <ContentColumn className="media__media-column">
-                <MediaDetail initiallyExpanded media={media} />
-                {this.props.extras}
-                <TaskHeader className="media__tasks-header">
-                  {media.tasks.edges.length
+          <StyledTwoColumnLayout>
+            <ContentColumn>
+              <MediaDetail initiallyExpanded media={media} />
+              {this.props.extras}
+              <StyledTaskHeaderRow>
+                {media.tasks.edges.length
                     ? <FlexRow>
                       <h2>
                         <FormattedMessage
@@ -154,11 +175,10 @@ class MediaComponent extends Component {
                       </h2>
                         &nbsp;
                       <FlexRow>
-                        {
-                            media.tasks.edges.filter(
-                              t => !!t.node.first_response,
-                            ).length
-                          }/{media.tasks.edges.length}&nbsp;
+                        { media.tasks.edges.filter(
+                          t => !!t.node.first_response,
+                          ).length
+                        }/{media.tasks.edges.length}&nbsp;
                         <FormattedMessage
                           id="mediaComponent.resolved"
                           defaultMessage="resolved"
@@ -166,20 +186,19 @@ class MediaComponent extends Component {
                       </FlexRow>
                     </FlexRow>
                     : null}
-                  <CreateTask style={{ marginLeft: 'auto' }} media={media} />
-                </TaskHeader>
-                <Tasks tasks={media.tasks.edges} media={media} />
-              </ContentColumn>
-              <ContentColumn className="media__annotations-column">
-                <Annotations
-                  annotations={media.log.edges}
-                  annotated={media}
-                  annotatedType="ProjectMedia"
-                />
-              </ContentColumn>
+                <CreateTask style={{ marginLeft: 'auto' }} media={media} />
+              </StyledTaskHeaderRow>
+              <Tasks tasks={media.tasks.edges} media={media} />
             </ContentColumn>
-          </div>
-        </div>
+            <ContentColumn className="media__annotations-column">
+              <Annotations
+                annotations={media.log.edges}
+                annotated={media}
+                annotatedType="ProjectMedia"
+              />
+            </ContentColumn>
+          </StyledTwoColumnLayout>
+        </StyledBackgroundColor>
       </PageTitle>
     );
   }
