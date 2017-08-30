@@ -11,6 +11,7 @@ import MdDateRange from 'react-icons/lib/md/date-range';
 import timezones from '../../timezones';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+import { convertNumbers2English } from '../../helpers';
 
 const messages = defineMessages({
   ok: {
@@ -95,7 +96,7 @@ class DatetimeRespondTask extends Component {
   }
 
   handleChangeTime(part, e) {
-    const value = parseInt(e.target.value);
+    const value = parseInt(convertNumbers2English(e.target.value));
 
     const validators = {
       hour: [0, 23],
