@@ -1142,13 +1142,11 @@ class SourceComponent extends Component {
           </Card>
 
           { !isEditing ?
-            <div>
+            <ContentColumn>
               { this.state.showTab === 'annotation' ? <Annotations annotations={source.log.edges} annotated={this.props.source} annotatedType="ProjectSource" /> : null }
-              <ContentColumn>
-                { this.state.showTab === 'media' ? <Medias medias={source.medias.edges} /> : null }
-                { this.state.showTab === 'account' ? source.accounts.edges.map(account => <AccountCard key={account.node.id} account={account.node} />) : null }
-              </ContentColumn>
-            </div> : null
+              { this.state.showTab === 'media' ? <Medias medias={source.medias.edges} /> : null }
+              { this.state.showTab === 'account' ? source.accounts.edges.map(account => <AccountCard key={account.node.id} account={account.node} />) : null }
+            </ContentColumn> : null
           }
         </div>
       </PageTitle>
