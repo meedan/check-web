@@ -7,6 +7,7 @@ import ParsedText from '../ParsedText';
 import TimeBefore from '../TimeBefore';
 import { truncateLength } from '../../helpers';
 import SourcePicture from './SourcePicture';
+import { units, black54 } from '../../styles/js/variables';
 
 class AccountCard extends React.Component {
   accountStats(account) {
@@ -54,7 +55,10 @@ class AccountCard extends React.Component {
             </div>
           </article>
 
-          <div className="media-detail__check-metadata source-card__footer">
+          <div
+            className="media-detail__check-metadata source-card__footer"
+            style={{ color: black54, padding: `${units(2)} 0` }}
+          >
             <span className="media-detail__check-added-by"><FormattedMessage id="mediaDetail.added" defaultMessage={'Added {byUser}'} values={{ byUser }} /> </span>
             { account.created_at ? <span className="media-detail__check-added-at"> <TimeBefore date={MediaUtil.createdAt({ published: account.created_at })} /> </span> : null }
           </div>
