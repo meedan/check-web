@@ -43,41 +43,4 @@
     padding-top: layout(header-height) + layout(gutter-medium);
     transition: background-color $transition-speed-slow ease;
   }
-
-  &__expanded-column-wrapper {
-    @include when-taller-than(tallscreen-breakpoint) {
-      justify-content: space-around;
-    }
-    display: flex;
-    flex-direction: column;
-    padding: 0;
-  }
-
-  &__tasks-header {
-    align-items: baseline;
-
-    h2 {
-      color: $black-87;
-      flex: 1;
-      font: font(subheading2);
-      margin: 0;
-    }
-
-    & > span {
-      color: $black-54;
-      font: font(subheading2);
-      margin-#{$to-direction}: units(2);
-    }
-
-    .create-task {
-      align-self: center;
-      color: $black-16;
-      cursor: pointer;
-
-      svg {
-        height: units(3);
-        width: units(3);
-      }
-    }
-  }
 }

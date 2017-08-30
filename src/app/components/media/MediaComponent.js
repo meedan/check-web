@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
+import styled from 'styled-components';
 import PageTitle from '../PageTitle';
 import MediaDetail from './MediaDetail';
 import MediaUtil from './MediaUtil';
@@ -15,7 +16,32 @@ import {
 } from '../../helpers';
 import ContentColumn from '../layout/ContentColumn';
 import { mediaStatuses, mediaLastStatus } from '../../customHelpers';
-import { units, FlexRow } from '../../styles/js/variables';
+import { units, FlexRow, subheading2, black87, black54, black16 } from '../../styles/js/variables';
+
+const TaskHeader = styled.div`
+  align-items: baseline;
+  justify-content: space-between;
+  padding-top: ${units(5)};
+
+  h2 {
+    color: ${black87};
+    flex: 1;
+    font: ${subheading2};
+    margin: 0;
+  }
+
+  & > span {
+    color: ${black54};
+    font: ${subheading2};
+    margin: 0 ${units(2)};
+  }
+
+  .create-task {
+    align-self: center;
+    color: ${black16};
+    cursor: pointer;
+  }
+`;
 
 class MediaComponent extends Component {
   componentDidMount() {
@@ -110,20 +136,14 @@ class MediaComponent extends Component {
           >
 
             <ContentColumn
-              style={{ maxWidth: units(120) }}
+              flex
+              style={{ maxWidth: units(120), padding: 0 }}
               className="media__expanded-column-wrapper"
             >
               <ContentColumn className="media__media-column">
                 <MediaDetail initiallyExpanded media={media} />
                 {this.props.extras}
-                <FlexRow
-                  className="media__tasks-header"
-                  style={{
-                    justifyContent: 'space-between',
-                    paddingTop: units(5),
-                  }}
-                >
-
+                <TaskHeader className="media__tasks-header">
                   {media.tasks.edges.length
                     ? <FlexRow>
                       <h2>
@@ -147,7 +167,7 @@ class MediaComponent extends Component {
                     </FlexRow>
                     : null}
                   <CreateTask style={{ marginLeft: 'auto' }} media={media} />
-                </FlexRow>
+                </TaskHeader>
                 <Tasks tasks={media.tasks.edges} media={media} />
               </ContentColumn>
               <ContentColumn className="media__annotations-column">
