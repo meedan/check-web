@@ -835,6 +835,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       # Edit task
       expect(@driver.page_source.include?('Task "Foo or bar?" edited to "This or that?" by')).to be(false)
       @driver.find_element(:css, '.task-actions__icon').click
+      sleep 2
       @driver.find_element(:css, '.task-actions__edit').click
       fill_field('textarea[name="label"]', '??')
       @driver.find_element(:css, '.task__save').click
@@ -844,7 +845,12 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       # Edit task answer
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Task "Foo or bar???" answered by User With Email: "Foo edited"')).to be(false)
       @driver.find_element(:css, '.task-actions__icon').click
+      sleep 2
       @driver.find_element(:css, '.task-actions__edit-response').click
+
+      # Ensure menu closes and textarea is focused...
+      @driver.find_element(:css, 'textarea[name="editedresponse"]').click
+
       fill_field('textarea[name="editedresponse"]', ' edited')
       @driver.action.send_keys(:enter).perform
       sleep 2
@@ -853,6 +859,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       # Delete task
       expect(@driver.page_source.include?('Foo')).to be(true)
       @driver.find_element(:css, '.task-actions__icon').click
+      sleep 2
       @driver.find_element(:css, '.task-actions__delete').click
       @driver.switch_to.alert.accept
       sleep 3
@@ -1062,6 +1069,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       # Edit task
       expect(@driver.page_source.include?('Task "Where?" edited to "Where was it?" by')).to be(false)
       @driver.find_element(:css, '.task-actions__icon').click
+      sleep 2
       @driver.find_element(:css, '.task-actions__edit').click
       update_field('textarea[name="label"]', 'Where was it?')
       @driver.find_element(:css, '.task__save').click
@@ -1081,6 +1089,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       # Delete task
       expect(@driver.page_source.include?('Where was it')).to be(true)
       @driver.find_element(:css, '.task-actions__icon').click
+      sleep 2
       @driver.find_element(:css, '.task-actions__delete').click
       @driver.switch_to.alert.accept
       sleep 3
@@ -1121,6 +1130,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Task "When?" edited to "When was it?" by')).to be(false)
       # TODO: you should not have to click the task to be able to edit the answer. So the following line should be able to be removed. — CGB 2017-8-27
       @driver.find_element(:css, '.task-actions__icon').click
+      sleep 2
       @driver.find_element(:css, '.task-actions__edit-response').click
       update_field('textarea[name="label"]', 'When was it?')
       @driver.find_element(:css, '.task__save').click
@@ -1141,6 +1151,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       # Delete task
       expect(@driver.page_source.include?('When was it')).to be(true)
       @driver.find_element(:css, '.task-actions__icon').click
+      sleep 2
       @driver.find_element(:css, '.task-actions__edit-response').click
       @driver.find_element(:css, '.task-actions__delete').click
       @driver.switch_to.alert.accept
