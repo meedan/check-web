@@ -833,7 +833,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Task "Foo or bar?" answered by')).to be(true)
 
       # Edit task
-      expect(@driver.page_source.include?('Task "Foo or bar?" edited to "This or that?" by')).to be(false)
+      expect(@driver.page_source.include?('Task "Foo or bar?" edited to "Foo or bar???" by')).to be(false)
       @driver.find_element(:css, '.task-actions__icon').click
       @driver.find_element(:css, '.task-actions__edit').click
       fill_field('textarea[name="label"]', '??')
