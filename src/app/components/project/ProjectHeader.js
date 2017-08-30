@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay';
+import { Link } from 'react-router';
 import IconArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
 import IconButton from 'material-ui/IconButton';
 import DropDownMenu from 'material-ui/DropDownMenu';
@@ -54,7 +55,10 @@ class ProjectHeaderComponent extends Component {
       <div style={{ display: 'flex', alignItems: 'center', overflow: 'hidden' }}>
 
         {isProjectSubpage
-          ? <IconButton href={backUrl} className="project-header__back-button">
+          ? <IconButton
+            containerElement={<Link to={backUrl} />}
+            className="project-header__back-button"
+          >
             <IconArrowBack color={black54} />
           </IconButton>
           : null}
