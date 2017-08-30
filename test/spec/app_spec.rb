@@ -146,7 +146,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Try to add duplicate
       page.add_tag(new_tag)
-      sleep 5
+      sleep 10
 
       # Verify that tag is not added and that error message is displayed
       expect(page.tags.count(new_tag)).to be(1)
@@ -1158,6 +1158,20 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       @driver.find_element(:class, "team__save-button").click
       sleep 2
       expect(@driver.find_element(:class, "message").nil?).to be(false)
+    end
+
+    it "should paginate project page", bin2: true do
+      page = api_create_team_project_claims_sources_and_redirect_to_project_page 21
+      page.load
+      sleep 5
+      @driver.find_element(:xpath, "//span[contains(text(), 'Sources')]").click
+      sleep 10
+      results = @driver.find_elements(:css, '.medias__item')
+      expect(results.size == 40).to be(true)
+      results.last.location_once_scrolled_into_view
+      sleep 5
+      results = @driver.find_elements(:css, '.medias__item')
+      expect(results.size == 42).to be(true)
     end
   end
 end
