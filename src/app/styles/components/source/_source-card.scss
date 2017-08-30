@@ -1,7 +1,7 @@
 .source-card {
   margin-bottom: units(2);
 
-  div {
+  > div {
     padding-bottom: 0 !important;
   }
   padding-#{$from-direction}: units(1);
@@ -67,5 +67,7 @@ div.source-card__content {
 }
 
 .source-card__footer {
+  border-top: 1px solid $black-16;
   color: $black-54 !important;
+  padding: units(2) 0 !important;
 }
