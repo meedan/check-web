@@ -1160,7 +1160,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.find_element(:class, "message").nil?).to be(false)
     end
 
-    it "should paginate project page" do
+    it "should paginate project page", bin2: true do
       page = api_create_team_project_claims_sources_and_redirect_to_project_page 21
       page.load
       sleep 5
