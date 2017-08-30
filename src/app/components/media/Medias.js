@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import MediaDetail from './MediaDetail';
+import { units } from '../../styles/js/variables';
 
 class Medias extends Component {
   render() {
@@ -12,7 +13,7 @@ class Medias extends Component {
             const media = node.node;
 
             return (
-              <li key={media.dbid} className="medias__item">
+              <li key={media.dbid} style={{ marginBottom: units(1) }}>
                 <MediaDetail media={media} condensed />
               </li>
             );
