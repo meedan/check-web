@@ -1,5 +1,5 @@
-import React, { Component, PropTypes } from 'react';
-import { FormattedMessage, FormattedDate, FormattedTime, injectIntl, intlShape, defineMessages } from 'react-intl';
+import React, { Component } from 'react';
+import { FormattedMessage, FormattedDate, injectIntl, intlShape, defineMessages } from 'react-intl';
 
 const messages = defineMessages({
   timeIs: {
@@ -11,8 +11,8 @@ const messages = defineMessages({
 class DatetimeTaskResponse extends Component {
   render() {
     const values = this.props.response.match(/^(\d+-\d+-\d+) (\d+):(\d+) ([+-]?\d+) (.*)$/);
-    let hour = parseInt(values[2]);
-    let minute = parseInt(values[3]);
+    let hour = parseInt(values[2], 10);
+    let minute = parseInt(values[3], 10);
     if (hour < 10) {
       hour = `0${hour}`;
     }

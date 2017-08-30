@@ -16,7 +16,7 @@ import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import CheckContext from '../../CheckContext';
 import timezones from '../../timezones';
-import { FlexRow, units, black87, black54, black38, caption, alertRed } from '../../styles/js/variables';
+import { FlexRow, units, black54, black38, caption, alertRed } from '../../styles/js/variables';
 
 const styles = {
   error: {
@@ -78,10 +78,10 @@ class DatetimeRespondTask extends Component {
         /^(\d+-\d+-\d+) (\d+):(\d+) ([+-]?\d+) (.*)$/,
       );
       date = new Date(`${values[1]} 00:00`);
-      if (parseInt(values[2]) > 0) {
+      if (parseInt(values[2], 10) > 0) {
         hour = values[2];
       }
-      if (parseInt(values[3]) > 0) {
+      if (parseInt(values[3], 10) > 0) {
         minute = values[3];
       }
       timezone = values[5];
@@ -144,7 +144,7 @@ class DatetimeRespondTask extends Component {
     state[part] = e.target.value;
 
     if (
-      e.target.value != '' &&
+      e.target.value !== '' &&
       (isNaN(value) ||
         value < validators[part][0] ||
         value > validators[part][1])
@@ -291,16 +291,6 @@ class DatetimeRespondTask extends Component {
         <div style={styles.error}>
           {this.state.timeError ? this.state.timeError : ''}
         </div>
-        <label className="task__label">
-          <FormattedMessage id="datetimeRespondTask.timeOptional" defaultMessage="Time (optional)" />
-        </label>
-        <div id="task__response-time">
-          <TextField hintText="00" name="hour" style={timeStyles} inputStyle={timeStyles} hintStyle={timeStyles} value={this.state.hour} onChange={this.handleChangeTime.bind(this, 'hour')} /> : <TextField name="minute" hintText="00" style={timeStyles} inputStyle={timeStyles} hintStyle={timeStyles} value={this.state.minute} onChange={this.handleChangeTime.bind(this, 'minute')} />
-          <SelectField value={this.state.timezone} onChange={this.handleChangeTimezone.bind(this)} autoWidth className="task__datetime-timezone">
-            {Object.values(timezones).map(tz => <MenuItem key={tz.code} value={tz.code} primaryText={<span dir="ltr">{tz.label}</span>} />)}
-          </SelectField>
-        </div>
-        <small className="task__error">{this.state.timeError ? this.state.timeError : ''}</small>
         <TextField
           floatingLabelText={
             <FormattedMessage

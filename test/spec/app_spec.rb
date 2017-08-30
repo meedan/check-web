@@ -809,9 +809,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     #   skip("Needs to be implemented")
     # end
 
-    it "should add, edit, answer, update answer and delete task", bin3: true do
+    it "should add, edit, answer, update answer and delete short answer task", bin3: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
-      sleep 3
+      sleep 10
 
       # Create a task
       expect(@driver.page_source.include?('Foo or bar?')).to be(false)
@@ -1078,7 +1078,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Edit task answer
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Task "Where was it?" answered by User With Email: "Vancouver"')).to be(false)
-      @driver.find_element(:css, '.task-actions').click
+      @driver.find_element(:css, '.task-actions__icon').click
       @driver.find_element(:css, '.task-actions__edit-response').click
       update_field('textarea[name="response"]', 'Vancouver')
       update_field('textarea[name="coordinates"]', '49.2577142, -123.1941156')
@@ -1088,7 +1088,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Delete task
       expect(@driver.page_source.include?('Where was it')).to be(true)
-      @driver.find_element(:css, '.task-actions__icon').click
+
+      # For some reason the menu is already showing ... so commenting this out.... CGB 2017-8-29
+      # @driver.find_element(:css, '.task-actions__icon').click
       sleep 2
       @driver.find_element(:css, '.task-actions__delete').click
       @driver.switch_to.alert.accept
@@ -1098,7 +1100,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should add, edit, answer, update answer and delete datetime task", bin3: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
-      sleep 5
 
       # Create a task
       expect(@driver.page_source.include?('When?')).to be(false)
@@ -1128,10 +1129,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Edit task
       expect(@driver.page_source.include?('Task "When?" edited to "When was it?" by')).to be(false)
-      # TODO: you should not have to click the task to be able to edit the answer. So the following line should be able to be removed. — CGB 2017-8-27
       @driver.find_element(:css, '.task-actions__icon').click
       sleep 2
-      @driver.find_element(:css, '.task-actions__edit-response').click
+      @driver.find_element(:css, '.task-actions__edit').click
       update_field('textarea[name="label"]', 'When was it?')
       @driver.find_element(:css, '.task__save').click
       sleep 2
@@ -1139,7 +1139,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Edit task response
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('12:34')).to be(false)
-      @driver.find_element(:css, '.task-actions').click
+      @driver.find_element(:css, '.task-actions__icon').click
       @driver.find_element(:css, '.task-actions__edit-response').click
       update_field('input[name="hour"]', '12')
       update_field('input[name="minute"]', '34')
@@ -1150,9 +1150,10 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Delete task
       expect(@driver.page_source.include?('When was it')).to be(true)
-      @driver.find_element(:css, '.task-actions__icon').click
-      sleep 2
-      @driver.find_element(:css, '.task-actions__edit-response').click
+
+      # For some reason the menu is already showing CGB 2017-8-29
+      # @driver.find_element(:css, '.task-actions__icon').click
+      sleep 5
       @driver.find_element(:css, '.task-actions__delete').click
       @driver.switch_to.alert.accept
       sleep 3

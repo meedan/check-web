@@ -7,7 +7,7 @@ module AppSpecHelpers
       element if element.displayed?
     }
   end
-  
+
   def update_field(selector, value, type = :css, visible = true)
     wait = Selenium::WebDriver::Wait.new(timeout: 50)
     input = wait.until {
@@ -101,7 +101,7 @@ module AppSpecHelpers
     slack_auth
     create_team
   end
-  
+
   def login_or_register_with_email
     login_with_email(false)
     result = Selenium::WebDriver::Wait.new(timeout: 5).until {
@@ -280,9 +280,9 @@ module AppSpecHelpers
           })
         dr = Selenium::WebDriver.for(:chrome, :desired_capabilities => caps , :url => webdriver_url)
       else
-        dr = Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: browser_capabilities)  
+        dr = Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: browser_capabilities)
       end
-    end  
+    end
     dr
   end
 end

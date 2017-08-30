@@ -95,7 +95,7 @@ class GeolocationRespondTask extends Component {
     let coordinates = [0, 0];
     try {
       const coordinatesString = this.state.coordinatesString;
-      if (coordinatesString && coordinatesString != '') {
+      if (coordinatesString && coordinatesString !== '') {
         const pair = coordinatesString.split(/, ?/);
         coordinates = [parseFloat(pair[0]), parseFloat(pair[1])];
       }
