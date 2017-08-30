@@ -4,6 +4,7 @@ import Dropzone from 'react-dropzone';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import MdHighlightRemove from 'react-icons/lib/md/highlight-remove';
 import AboutRoute from '../relay/AboutRoute';
+import { unhumanizeSize } from '../helpers';
 
 const messages = defineMessages({
   changeFile: {
@@ -14,6 +15,10 @@ const messages = defineMessages({
     id: 'uploadImage.invalidExtension',
     defaultMessage: 'Validation failed: File cannot have type "{extension}", allowed types: {allowed_types}',
   },
+  fileTooLarge: {
+    id: 'uploadImage.fileTooLarge',
+    defaultMessage: 'Validation failed: File size should be less than {size}',
+  }
 });
 
 class UploadImageComponent extends Component {
@@ -32,6 +37,13 @@ class UploadImageComponent extends Component {
       }
       return;
     }
+    if (file.size && unhumanizeSize(this.props.about.upload_max_size) < file.size) {
+      if (this.props.onError) {
+        this.props.onError(file, this.props.intl.formatMessage(messages.fileTooLarge, { size: this.props.about.upload_max_size }));
+      }
+      return;
+    }
+
     this.props.onImage(file);
     this.setState({ file });
   }

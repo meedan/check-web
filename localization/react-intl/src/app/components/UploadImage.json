@@ -8,6 +8,10 @@
     "defaultMessage": "Validation failed: File cannot have type \"{extension}\", allowed types: {allowed_types}"
   },
   {
+    "id": "uploadImage.fileTooLarge",
+    "defaultMessage": "Validation failed: File size should be less than {size}"
+  },
+  {
     "id": "uploadImage.message",
     "defaultMessage": "Drop an image file here, or click to upload a file (max size: {upload_max_size}, allowed extensions: {upload_extensions}, allowed dimensions between {upload_min_dimensions} and {upload_max_dimensions} pixels)"
   }

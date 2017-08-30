@@ -17,6 +17,7 @@ import CreateProjectSourceMutation from '../../relay/CreateProjectSourceMutation
 import Message from '../Message';
 import CheckContext from '../../CheckContext';
 import ContentColumn from '../layout/ContentColumn';
+import HttpStatus from '../../HttpStatus';
 
 const messages = defineMessages({
   submitting: {
@@ -26,7 +27,7 @@ const messages = defineMessages({
   error: {
     id: 'createMedia.error',
     defaultMessage:
-      'Something went wrong! Try pasting the text of this post instead, or adding a different link.',
+      'Something went wrong! The server returned an error code {code}. Please contact a system administrator.',
   },
   mediaInput: {
     id: 'createMedia.mediaInput',
@@ -47,14 +48,6 @@ const messages = defineMessages({
   submitButton: {
     id: 'createMedia.submitButton',
     defaultMessage: 'Post',
-  },
-  helper: {
-    id: 'createMedia.helper',
-    defaultMessage: 'Add a link, quote or image for verification',
-  },
-  bridge_helper: {
-    id: 'bridge.createMedia.helper',
-    defaultMessage: 'Add a link, quote or image for translation',
   },
 });
 
@@ -108,8 +101,34 @@ class CreateProjectMedia extends Component {
     this.setState({ url, message: null });
   }
 
+  handleSubmitError(context, prefix, transactionError) {
+    let message = this.props.intl.formatMessage(messages.error, { code: `${transactionError.status} ${HttpStatus.getMessage(transactionError.status)}` });
+    let json = null;
+    try {
+      json = JSON.parse(transactionError.source);
+    }
+    catch (e) {
+      // do nothing
+    }
+    if (json && json.error) {
+      const matches = json.error.match(
+        this.state.mode === 'source' ?
+          /Account with this URL exists and has source id ([0-9]+)$/ :
+          /This media already exists in this project and has id ([0-9]+)/
+      );
+      if (matches) {
+        this.props.projectComponent.props.relay.forceFetch();
+        const pxid = matches[1];
+        message = null;
+        context.history.push(prefix + pxid);
+      } else {
+        message = json.error;
+      }
+    }
+    this.setState({ message, isSubmitting: false });
+  }
+
   submitSource() {
-    const that = this;
     const context = new CheckContext(this).getContextStore();
     const prefix = `/${context.team.slug}/project/${context.project.dbid}/source/`;
     const inputValue = document.getElementById('create-media-source-name-input').value.trim();
@@ -124,31 +143,8 @@ class CreateProjectMedia extends Component {
       message: this.props.intl.formatMessage(messages.submitting),
     });
 
-    const handleError = (json) => {
-      let message = this.props.intl.formatMessage(messages.error); // TODO: review error message
-      if (json && json.error) {
-        const matches = json.error.match(
-          /Account with this URL exists and has source id ([0-9]+)$/,
-        );
-        if (matches) {
-          that.props.projectComponent.props.relay.forceFetch();
-          const psid = matches[1];
-          message = null;
-          context.history.push(prefix + psid);
-        } else {
-          message = json.error;
-        }
-      }
-      that.setState({ message, isSubmitting: false });
-    };
-
     const onFailure = (transaction) => {
-      const transactionError = transaction.getError();
-      try {
-        handleError(JSON.parse(transactionError.source));
-      } catch (e) {
-        handleError(JSON.stringify(transactionError));
-      }
+      this.handleSubmitError(context, prefix, transaction.getError());
     };
 
     const onSuccess = (response) => {
@@ -168,7 +164,6 @@ class CreateProjectMedia extends Component {
   }
 
   submitMedia() {
-    const that = this;
     const context = new CheckContext(this).getContextStore();
     const prefix = `/${context.team.slug}/project/${context.project.dbid}/media/`;
 
@@ -201,31 +196,8 @@ class CreateProjectMedia extends Component {
       message: this.props.intl.formatMessage(messages.submitting),
     });
 
-    const handleError = (json) => {
-      let message = this.props.intl.formatMessage(messages.error);
-      if (json && json.error) {
-        const matches = json.error.match(
-          /This media already exists in this project and has id ([0-9]+)/,
-        );
-        if (matches) {
-          that.props.projectComponent.props.relay.forceFetch();
-          const pmid = matches[1];
-          message = null;
-          context.history.push(prefix + pmid);
-        } else {
-          message = json.error;
-        }
-      }
-      that.setState({ message, isSubmitting: false });
-    };
-
     const onFailure = (transaction) => {
-      const transactionError = transaction.getError();
-      try {
-        handleError(JSON.parse(transactionError.source));
-      } catch (e) {
-        handleError(JSON.stringify(transactionError));
-      }
+      this.handleSubmitError(context, prefix, transaction.getError());
     };
 
     const onSuccess = (response) => {
@@ -279,9 +251,6 @@ class CreateProjectMedia extends Component {
           onImage={this.onImage.bind(this)}
           onError={this.onImageError.bind(this)}
         />,
-        <div className="create-media__helper" key="createMedia.media.helper">
-          <MappedMessage msgObj={messages} msgKey="helper" />
-        </div>,
       ];
     case 'source':
       return [
@@ -321,9 +290,6 @@ class CreateProjectMedia extends Component {
           onKeyPress={this.handleKeyPress.bind(this)}
           ref={input => (this.mediaInput = input)}
         />,
-        <div key="createMedia.source.helper" className="create-media__helper">
-          <MappedMessage msgObj={messages} msgKey="helper" />
-        </div>,
       ];
     }
   }
