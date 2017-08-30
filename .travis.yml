@@ -32,7 +32,7 @@ before_install:
 - 'echo "script.engine.groovy.inline.update: on" | sudo tee -a /etc/elasticsearch/elasticsearch.yml'
 - sudo /usr/share/elasticsearch/bin/plugin install analysis-icu
 - sudo service elasticsearch restart
-- git clone --branch fix/6257-pagination https://github.com/meedan/check-api.git
+- git clone https://github.com/meedan/check-api.git
 - cp travis/check-api.yml check-api/config/config.yml
 - cp check-api/config/initializers/secret_token.rb.example check-api/config/initializers/secret_token.rb
 - cp travis/check-api-database.yml check-api/config/database.yml
