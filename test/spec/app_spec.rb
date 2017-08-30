@@ -1139,13 +1139,13 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       delete_task('When was it')
     end
 
-    #Add slack notificatios to a team
+    #Add slack notifications to a team
     it "should add slack notifications to a team", bin2:true, quick: true do
       team = "TestTeam #{Time.now.to_i}"
       api_create_team(team:team)
       p = Page.new(config: @config, driver: @driver)
       p.go(@config['self_url'] + '/' + team)
-      wait_page_load(item: "footer")
+      sleep 5
       @driver.find_element(:class, "team__edit-button").click
       @driver.find_element(:id, "team__settings-slack-notifications-enabled").click
       @driver.find_element(:id, "team__settings-slack-webhook").click
