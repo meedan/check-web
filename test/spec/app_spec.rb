@@ -34,17 +34,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     $media_id = nil
     @team1_slug = 'team1'+Time.now.to_i.to_s
     @user_mail = 'sysops_' + Time.now.to_i.to_s + '@meedan.com'
-@v = {}
-@v["bin"] = 0
-@v["bin1"] = 0
-@v["bin2"] = 0
-@v["bin3"] = 0
-@v["bin4"] = 0
-@v["bin5"] = 0
-@v["bin6"] = 0
-@t1 = 0
-@delta = 0
-@tag = ""
     begin
       FileUtils.cp('./config.js', '../build/web/js/config.js')
     rescue
@@ -61,39 +50,16 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
   end
 
   after :all do
-p "***$$$$$$$$$$$$$$$$****"
-p @v
-p "****$$$$$$$$$$$$$$$***"
     FileUtils.cp('../config.js', '../build/web/js/config.js')    
     FileUtils.cp('../config.js', '../build/web/js/config.js')
   end
 
   before :each do |example|
     $caller_name = example.metadata[:description_args]
-@t1 = Time.now
-if example.metadata[:bin] then @tag = "bin"  end
-if example.metadata[:bin1] then @tag = "bin1"  end
-if example.metadata[:bin2] then @tag = "bin2"  end
-if example.metadata[:bin3] then @tag = "bin3"  end
-if example.metadata[:bin4] then @tag = "bin4"  end
-if example.metadata[:bin5] then @tag = "bin5"  end
-if example.metadata[:bin6] then @tag = "bin6"  end    
-p $caller_name
-p @tag
     @driver = new_driver(webdriver_url,browser_capabilities)
   end
 
   after :each do |example|
-# code to time
-@delta = Time.now    - @t1
-if example.metadata[:bin] then @tag = "bin"  end
-if example.metadata[:bin1] then @tag = "bin1"  end
-if example.metadata[:bin2] then @tag = "bin2"  end
-if example.metadata[:bin3] then @tag = "bin3"  end
-if example.metadata[:bin4] then @tag = "bin4"  end
-if example.metadata[:bin5] then @tag = "bin5"  end
-if example.metadata[:bin6] then @tag = "bin6"  end    
-@v[$tag] = @v[@tag] + @delta 
     if example.exception
       link = save_screenshot("Test failed: #{example.description}")
       print " [Test \"#{example.description}\" failed! Check screenshot at #{link}] "
@@ -464,7 +430,7 @@ if example.metadata[:bin6] then @tag = "bin6"  end
       expect(@driver.page_source.include?('Tagged #bar')).to be(true)
     end
 
-    it "should edit basic source data (name, description/bio, avatar)", bin3: true do
+    it "should edit basic source data (name, description/bio, avatar)", bin2: true do
       api_create_team_project_and_source_and_redirect_to_source('ACDC', 'https://twitter.com/acdc')
       sleep 3 until element = @driver.find_element(:css, '.source__tab-button-notes')
       element.click
@@ -485,7 +451,7 @@ if example.metadata[:bin6] then @tag = "bin6"  end
       expect(displayed_name.include? "EDIT").to be(true)
     end
 
-    it "should add and remove accounts to sources", bin3: true  do
+    it "should add and remove accounts to sources", bin2: true  do
       api_create_team_project_and_source_and_redirect_to_source('GOT', 'https://twitter.com/GameOfThrones')
       sleep 5
       element = @driver.find_element(:class, "source__edit-button")
@@ -514,7 +480,7 @@ if example.metadata[:bin6] then @tag = "bin6"  end
       expect(@driver.page_source.include?('AC/DC Official Website')).to be(false)
     end
 
-    it "should edit source metadata (contact, phone, location, organization, other)", bin3: true do    
+    it "should edit source metadata (contact, phone, location, organization, other)", bin2: true do    
       api_create_team_project_and_source_and_redirect_to_source('GOT', 'https://twitter.com/GameOfThrones')
       sleep 5
       element = @driver.find_element(:class, "source__edit-button")
@@ -571,7 +537,7 @@ if example.metadata[:bin6] then @tag = "bin6"  end
       expect(@driver.page_source.include?('989898989')).to be(true)      
     end
 
-    it "should add and remove source tags", bin3: true do
+    it "should add and remove source tags", bin2: true do
       api_create_team_project_and_source_and_redirect_to_source('GOT', 'https://twitter.com/GameOfThrones')
       sleep 5
       element = @driver.find_element(:class, "source__edit-button")
@@ -603,7 +569,7 @@ if example.metadata[:bin6] then @tag = "bin6"  end
       expect(@driver.page_source.include?('TAG2')).to be(false)
     end
 
-    it "should add and remove source languages",bin3: true  do
+    it "should add and remove source languages",bin2: true  do
       api_create_team_project_and_source_and_redirect_to_source('GOT', 'https://twitter.com/GameOfThrones')
       sleep 5
       element = @driver.find_element(:class, "source__edit-button")

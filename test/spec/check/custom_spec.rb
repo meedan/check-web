@@ -2,7 +2,7 @@ require_relative '../spec_helper.rb'
 
 shared_examples 'custom' do
 
-  it "should register and redirect to newly created media", media: true do
+  it "should register and redirect to newly created media", bin1: true do
     api_create_team_and_project
     page = ProjectPage.new(config: @config, driver: @driver).load
            .create_media(input: @media_url)
@@ -15,7 +15,7 @@ shared_examples 'custom' do
     expect($media_id.nil?).to be(false)
   end
 
-  it "should register and redirect to newly created image media", media: true do
+  it "should register and redirect to newly created image media", bin1: true do
     api_create_team_and_project
     page = ProjectPage.new(config: @config, driver: @driver).load
            .create_image_media(File.expand_path('../test.png', File.dirname(__FILE__)))
@@ -28,7 +28,7 @@ shared_examples 'custom' do
     expect($media_id.nil?).to be(false)
   end
 
-  it "should set status to media as a command", annotation: true do
+  it "should set status to media as a command", bin3: true do
     media = api_create_team_project_and_claim
     @driver.navigate.to media.full_url
     sleep 2
@@ -47,7 +47,7 @@ shared_examples 'custom' do
     expect(@driver.page_source.include?('Status')).to be(true)
   end
 
-  it "should change a media status via the dropdown menu", annotation: true do
+  it "should change a media status via the dropdown menu", bin3: true do
     media = api_create_team_project_and_claim
     @driver.navigate.to media.full_url
     sleep 2
@@ -59,7 +59,7 @@ shared_examples 'custom' do
     expect(media_pg.contains_element?('.annotation__status--verified')).to be(true)
   end
 
-  it "should search by status", search: true do
+  it "should search by status", bin2: true do
     api_create_claim_and_go_to_search_page
     @driver.find_element(:xpath, "//*[contains(text(), 'Inconclusive')]").click
     sleep 10
@@ -73,7 +73,7 @@ shared_examples 'custom' do
     expect(@driver.page_source.include?('My search result')).to be(true)
   end
 
-  it "should search by status through URL", search: true do
+  it "should search by status through URL", bin2: true do
     api_create_claim_and_go_to_search_page
     @driver.navigate.to @config['self_url'] + '/' + get_team + '/search/%7B"status"%3A%5B"false"%5D%7D'
     sleep 10
