@@ -273,10 +273,10 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       page = ProjectPage.new(config: @config, driver: @driver).load
              .create_image_media(File.join(File.dirname(__FILE__), 'test.png'))
 
-      sleep 8 # wait for Sidekiq
+      sleep 10 # wait for Sidekiq
 
       @driver.navigate.to @config['self_url'] + '/' + get_team + '/search'
-      sleep 3
+      sleep 5
       expect(@driver.find_element(:link_text, 'test.png').nil?).to be(false)
     end
 
