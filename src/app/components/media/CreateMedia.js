@@ -3,13 +3,16 @@ import { defineMessages, injectIntl, intlShape, FormattedMessage } from 'react-i
 import Relay from 'react-relay';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
-import MdInsertPhoto from 'react-icons/lib/md/insert-photo';
-import MdInsertLink from 'react-icons/lib/md/insert-link';
+import IconButton from 'material-ui/IconButton';
+import Card from 'material-ui/Card';
+import SvgIcon from 'material-ui/SvgIcon';
+import IconInsertPhoto from 'material-ui/svg-icons/editor/insert-photo';
+import IconLink from 'material-ui/svg-icons/content/link';
 import FaFeed from 'react-icons/lib/fa/feed';
 import MdFormatQuote from 'react-icons/lib/md/format-quote';
+import styled from 'styled-components';
 import config from 'config';
 import urlRegex from 'url-regex';
-import MappedMessage from '../MappedMessage';
 import UploadImage from '../UploadImage';
 import PenderCard from '../PenderCard';
 import CreateProjectMediaMutation from '../../relay/CreateProjectMediaMutation';
@@ -17,7 +20,49 @@ import CreateProjectSourceMutation from '../../relay/CreateProjectSourceMutation
 import Message from '../Message';
 import CheckContext from '../../CheckContext';
 import ContentColumn from '../layout/ContentColumn';
+import { FadeIn, units, title, borderRadiusDefault, columnWidthMedium, white, black54, black87 } from '../../styles/js/variables';
 import HttpStatus from '../../HttpStatus';
+
+// Some of the icons are not standard Material-UI;
+// these styles make them match.
+const iconStyle = {
+  fontSize: units(3),
+  color: black54,
+};
+
+const StyledCreateMediaCard = styled(Card)`
+  background-color: ${white};
+  border-radius: ${borderRadiusDefault};
+  margin: 0 auto ${units(2)};
+  max-width: ${columnWidthMedium};
+  padding: ${units(2)} ${units(1)};
+  width: 100%;
+
+  footer {
+    align-items: top;
+    display: flex;
+  }
+
+  .create-media__buttons {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+
+    margin-left: auto;
+  }
+
+  // The button to show the dropzone
+  //
+  .create-media__insert-photo {
+    display: flex;
+  }
+`;
+
+const StyledTitle = styled.div`
+  color: ${black87};
+  font: ${title};
+  padding: 0 ${units(1)};
+`;
 
 const messages = defineMessages({
   submitting: {
@@ -106,15 +151,14 @@ class CreateProjectMedia extends Component {
     let json = null;
     try {
       json = JSON.parse(transactionError.source);
-    }
-    catch (e) {
+    } catch (e) {
       // do nothing
     }
     if (json && json.error) {
       const matches = json.error.match(
         this.state.mode === 'source' ?
           /Account with this URL exists and has source id ([0-9]+)$/ :
-          /This media already exists in this project and has id ([0-9]+)/
+          /This media already exists in this project and has id ([0-9]+)/,
       );
       if (matches) {
         this.props.projectComponent.props.relay.forceFetch();
@@ -259,7 +303,6 @@ class CreateProjectMedia extends Component {
           hintText={this.props.intl.formatMessage(messages.sourceInput)}
           fullWidth
           id="create-media-source-name-input"
-          className="create-media__input"
           multiLine
           onKeyPress={this.handleKeyPress.bind(this)}
           ref={input => (this.mediaInput = input)}
@@ -269,7 +312,6 @@ class CreateProjectMedia extends Component {
           hintText={this.props.intl.formatMessage(messages.sourceUrlInput)}
           fullWidth
           id="create-media-source-url-input"
-          className="create-media__input"
           multiLine
           onKeyPress={this.handleKeyPress.bind(this)}
           ref={input => (this.mediaInput = input)}
@@ -285,7 +327,6 @@ class CreateProjectMedia extends Component {
           fullWidth
           name="url"
           id="create-media-input"
-          className="create-media__input"
           multiLine
           onKeyPress={this.handleKeyPress.bind(this)}
           ref={input => (this.mediaInput = input)}
@@ -298,72 +339,72 @@ class CreateProjectMedia extends Component {
     const isPreviewingUrl = this.state.url !== '';
 
     return (
-      <div className="create-media">
-        <span className="create-media__title">{this.renderTitle()}</span>
-        <Message message={this.state.message} />
-        <ContentColumn>
-          <div id="media-preview" className="create-media__preview">
-            {isPreviewingUrl
-              ? <PenderCard url={this.state.url} penderUrl={config.penderUrl} />
-              : null}
-          </div>
-
-          <form
-            name="media"
-            id="media-url-container"
-            className="create-media__form"
-            onSubmit={this.handleSubmit.bind(this)}
-          >
-            <div id="create-media__field">
-              {this.renderFormInputs()}
+      <FadeIn>
+        <StyledCreateMediaCard className="create-media">
+          <StyledTitle>{this.renderTitle()}</StyledTitle>
+          <Message message={this.state.message} />
+          <ContentColumn>
+            <div id="media-preview" className="create-media__preview">
+              {isPreviewingUrl
+                ? <PenderCard url={this.state.url} penderUrl={config.penderUrl} />
+                : null}
             </div>
 
-            <footer>
-              <div className="create-media__buttons">
-                <div className="create-media__insert-photo">
-                  <MdInsertLink
-                    id="create-media__link"
-                    title={this.props.intl.formatMessage(messages.uploadImage)}
-                    className={this.state.fileMode ? 'create-media__file' : ''}
-                    onClick={this.setMode.bind(this, 'link')}
-                  />
-                </div>
-                <div className="create-media__insert-photo">
-                  <MdFormatQuote
-                    id="create-media__quote"
-                    title={this.props.intl.formatMessage(messages.uploadImage)}
-                    className={this.state.fileMode ? 'create-media__file' : ''}
-                    onClick={this.setMode.bind(this, 'quote')}
-                  />
-                </div>
-                <div className="create-media__insert-photo">
-                  <FaFeed
-                    id="create-media__source"
-                    title={this.props.intl.formatMessage(messages.uploadImage)}
-                    className={this.state.fileMode ? 'create-media__file' : ''}
-                    onClick={this.setMode.bind(this, 'source')}
-                  />
-                </div>
-                <div className="create-media__insert-photo">
-                  <MdInsertPhoto
-                    id="create-media__image"
-                    title={this.props.intl.formatMessage(messages.uploadImage)}
-                    className={this.state.fileMode ? 'create-media__file' : ''}
-                    onClick={this.setMode.bind(this, 'image')}
-                  />
-                </div>
-                <FlatButton
-                  id="create-media-submit"
-                  primary
-                  onClick={this.handleSubmit.bind(this)}
-                  label={this.props.intl.formatMessage(messages.submitButton)}
-                  className="create-media__button create-media__button--submit"
-                />
+            <form
+              name="media"
+              id="media-url-container"
+              className="create-media__form"
+              onSubmit={this.handleSubmit.bind(this)}
+            >
+              <div id="create-media__field">
+                {this.renderFormInputs()}
               </div>
-            </footer>
-          </form>
-        </ContentColumn>
-      </div>
+
+              <footer>
+                <div className="create-media__buttons">
+                  <div className="create-media__insert-photo">
+                    <IconButton
+                      id="create-media__link"
+                      onClick={this.setMode.bind(this, 'link')}
+                    >
+                      <IconLink />
+                    </IconButton>
+                  </div>
+                  <IconButton
+                    id="create-media__quote"
+                    onClick={this.setMode.bind(this, 'quote')}
+                  >
+                    <SvgIcon>
+                      <MdFormatQuote style={iconStyle} />
+                    </SvgIcon>
+                  </IconButton>
+                  <IconButton
+                    id="create-media__source"
+                    onClick={this.setMode.bind(this, 'source')}
+                  >
+                    <SvgIcon color={black54}>
+                      <FaFeed style={iconStyle} />
+                    </SvgIcon>
+                  </IconButton>
+                  <IconButton
+                    id="create-media__image"
+                    onClick={this.setMode.bind(this, 'image')}
+                  >
+                    <IconInsertPhoto />
+                  </IconButton>
+                  <FlatButton
+                    id="create-media-submit"
+                    primary
+                    onClick={this.handleSubmit.bind(this)}
+                    label={this.props.intl.formatMessage(messages.submitButton)}
+                    className="create-media__button create-media__button--submit"
+                  />
+                </div>
+              </footer>
+            </form>
+          </ContentColumn>
+        </StyledCreateMediaCard>
+      </FadeIn>
     );
   }
 }

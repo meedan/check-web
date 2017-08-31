@@ -106,8 +106,7 @@ class AddAnnotation extends Component {
     let json = null;
     try {
       json = JSON.parse(transactionError.source);
-    }
-    catch (e) {
+    } catch (e) {
       // do nothing
     }
     if (json && json.error) {
@@ -260,10 +259,12 @@ class AddAnnotation extends Component {
 
     // /location location_name=Salvador&location_position=-12.9016241,-38.4198075
     const fields = {};
-    if (params) params.split('&').forEach((part) => {
-      const pair = part.split('=');
-      fields[pair[0]] = pair[1];
-    });
+    if (params) {
+      params.split('&').forEach((part) => {
+        const pair = part.split('=');
+        fields[pair[0]] = pair[1];
+      });
+    }
 
     Relay.Store.commitUpdate(
       new CreateDynamicMutation({

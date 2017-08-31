@@ -1,0 +1,11 @@
+{
+  "mediaDetail.mediaTitle": "Título",
+  "mediaDetail.moveFailed": "Desculpe, não foi possível mover este item",
+  "mediaDetail.byUser": "por {username}",
+  "mediaDetail.cancelButton": "Cancelar",
+  "mediaDetail.move": "Mover",
+  "mediaDetail.doneButton": "Feito",
+  "mediaDetail.added": "Adicionado {byUser}",
+  "mediaDetail.dialogHeader": "Mover este {mediaType} para um projeto diferente",
+  "mediaDetail.dialogMediaPath": "Atualmente em {teamName} > {projectTitle}"
+}

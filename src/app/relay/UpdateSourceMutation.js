@@ -18,7 +18,7 @@ class UpdateSourceMutation extends Relay.Mutation {
   }
 
   getVariables() {
-    let vars = {
+    const vars = {
       id: this.props.source.id,
       name: this.props.source.name,
       slogan: this.props.source.description,

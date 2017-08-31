@@ -77,17 +77,17 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 10
 
       expect(@driver.page_source.include?("The Who's official Twitter page")).to be(false)
-      expect(@driver.page_source.include?('Tweet by')).to be(true)
+      expect(@driver.page_source.include?('Happy birthday Mick')).to be(true)
 
       @driver.find_element(:xpath, "//span[contains(text(), 'Sources')]").click
       sleep 10
       expect(@driver.page_source.include?("The Who's official Twitter page")).to be(true)
-      expect(@driver.page_source.include?('Tweet by')).to be(true)
+      expect(@driver.page_source.include?('Happy birthday Mick')).to be(true)
 
       @driver.find_element(:xpath, "//span[contains(text(), 'Media')]").click
       sleep 10
       expect(@driver.page_source.include?("The Who's official Twitter page")).to be(true)
-      expect(@driver.page_source.include?('Tweet by')).to be(false)
+      expect(@driver.page_source.include?('Happy birthday Mick')).to be(false)
     end
 
     it "should register and create a claim", bin5: true do
@@ -124,13 +124,13 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should edit the title of a media", bin1: true do
       url = 'https://twitter.com/softlandscapes/status/834385935240462338'
       media_pg = api_create_team_project_and_link_and_redirect_to_media_page url
-      expect(media_pg.primary_heading.text).to eq('Tweet by soft landscapes')
+      expect(media_pg.primary_heading.text).to eq('https://t.co/i17DJNqiWX')
       sleep 3 # :/ clicks can misfire if pender iframe moves the button position at the wrong moment
       media_pg.set_title('Edited media title')
       expect(media_pg.primary_heading.text).to eq('Edited media title')
       project_pg = media_pg.go_to_project
       sleep 3
-      expect(project_pg.elements('.media-detail__heading').map(&:text).include?('Edited media title')).to be(true)
+      expect(project_pg.elements('.media__heading').map(&:text).include?('Edited media title')).to be(true)
     end
 
     it "should not add a duplicated tag from tags list", bin3: true, quick: true  do
@@ -146,7 +146,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Try to add duplicate
       page.add_tag(new_tag)
-      sleep 5
+      sleep 10
 
       # Verify that tag is not added and that error message is displayed
       expect(page.tags.count(new_tag)).to be(1)
@@ -156,24 +156,27 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should display a default title for new media", bin1: true, quick:true do
       # Tweets
       media_pg = api_create_team_project_and_link_and_redirect_to_media_page('https://twitter.com/firstdraftnews/status/835587295394869249')
-      expect(media_pg.primary_heading.text).to eq('Tweet by First Draft')
+      expect(media_pg.primary_heading.text.include?('In a chat about getting')).to be(true)
       project_pg = media_pg.go_to_project
       sleep 1
-      expect(project_pg.elements('.media-detail__heading').map(&:text).include?('Tweet by First Draft')).to be(true)
+      @wait.until {
+        element = @driver.find_element(:partial_link_text, 'In a chat about getting')
+        expect(element.displayed?).to be(true)
+      }
 
       # YouTube
       media_pg = api_create_team_project_and_link_and_redirect_to_media_page('https://www.youtube.com/watch?v=ykLgjhBnik0')
-      expect(media_pg.primary_heading.text).to eq('Video by First Draft')
+      expect(media_pg.primary_heading.text).to eq("How To Check An Account's Authenticity")
       project_pg = media_pg.go_to_project
       sleep 1
-      expect(project_pg.elements('.media-detail__heading').map(&:text).include?('Video by First Draft')).to be(true)
+      expect(project_pg.elements('.media__heading').map(&:text).include?("How To Check An Account's Authenticity")).to be(true)
 
       # Facebook
       media_pg = api_create_team_project_and_link_and_redirect_to_media_page('https://www.facebook.com/FirstDraftNews/posts/1808121032783161')
-      expect(media_pg.primary_heading.text).to eq('Facebook post by First Draft')
+      expect(media_pg.primary_heading.text).to eq('First Draft on Facebook')
       project_pg = media_pg.go_to_project
       sleep 1
-      expect(project_pg.elements('.media-detail__heading').map(&:text).include?('Facebook post by First Draft')).to be(true)
+      expect(project_pg.elements('.media__heading').map(&:text).include?('First Draft on Facebook')).to be(true)
     end
 
     it "should login using Slack", bin5: true, quick:true do
@@ -255,14 +258,14 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       api_create_team_and_project
       page = ProjectPage.new(config: @config, driver: @driver).load
 
-      expect(page.contains_string?('Tweet by Marcelo Souza')).to be(false)
+      expect(page.contains_string?('This is a test')).to be(false)
 
       page.create_media(input: 'https://twitter.com/marcouza/status/771009514732650497?t=' + Time.now.to_i.to_s)
 
       page.driver.navigate.to @config['self_url']
       page.wait_for_element('.project .media-detail')
 
-      expect(page.contains_string?('Tweet by Marcelo Souza')).to be(true)
+      expect(page.contains_string?('This is a test')).to be(true)
     end
 
     it "should search for image", bin2: true do
@@ -274,8 +277,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       @driver.navigate.to @config['self_url'] + '/' + get_team + '/search'
       sleep 5
-      imgsrc = @driver.find_element(:css, '.image-media-card img').attribute('src')
-      expect(imgsrc.match(/test\.png$/).nil?).to be(false)
+      expect(@driver.find_element(:link_text, 'test.png').nil?).to be(false)
     end
 
     it "should upload image when registering", bin5: true do
@@ -807,7 +809,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     #   skip("Needs to be implemented")
     # end
 
-    it "should add, edit, answer, update answer and delete task", bin3: true do
+    it "should add, edit, answer, update answer and delete short answer task", bin3: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
       sleep 3
 
@@ -815,6 +817,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Foo or bar?')).to be(false)
       expect(@driver.page_source.include?('Task "Foo or bar?" created by')).to be(false)
       @driver.find_element(:css, '.create-task__add-button').click
+      sleep 1
       @driver.find_element(:css, '.create-task__add-short-answer').click
       sleep 1
       fill_field('#task-label-input', 'Foo or bar?')
@@ -825,16 +828,16 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Answer task
       expect(@driver.page_source.include?('Task "Foo or bar?" answered by')).to be(false)
-      @driver.find_element(:css, '.task__label').click
       fill_field('textarea[name="response"]', 'Foo')
       @driver.action.send_keys(:enter).perform
       sleep 2
       expect(@driver.page_source.include?('Task "Foo or bar?" answered by')).to be(true)
 
       # Edit task
-      expect(@driver.page_source.include?('Task "Foo or bar?" edited to "This or that?" by')).to be(false)
-      @driver.find_element(:css, '.task__actions svg').click
-      @driver.find_elements(:css, '.media-actions__menu--active span').first.click
+      expect(@driver.page_source.include?('Task "Foo or bar?" edited to "Foo or bar???" by')).to be(false)
+      @driver.find_element(:css, '.task-actions__icon').click
+      sleep 2
+      @driver.find_element(:css, '.task-actions__edit').click
       fill_field('textarea[name="label"]', '??')
       @driver.find_element(:css, '.task__save').click
       sleep 2
@@ -842,19 +845,20 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Edit task answer
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Task "Foo or bar???" answered by User With Email: "Foo edited"')).to be(false)
-      @driver.find_element(:css, '#task__edit-response-button').click
+      @driver.find_element(:css, '.task-actions__icon').click
+      sleep 2
+      @driver.find_element(:css, '.task-actions__edit-response').click
+
+      # Ensure menu closes and textarea is focused...
+      @driver.find_element(:css, 'textarea[name="editedresponse"]').click
+
       fill_field('textarea[name="editedresponse"]', ' edited')
       @driver.action.send_keys(:enter).perform
       sleep 2
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Task "Foo or bar???" answered by User With Email: "Foo edited"')).to be(true)
 
       # Delete task
-      expect(@driver.page_source.include?('Foo')).to be(true)
-      @driver.find_element(:css, '.task__actions svg').click
-      @driver.find_elements(:css, '.media-actions__menu--active span').last.click
-      @driver.switch_to.alert.accept
-      sleep 3
-      expect(@driver.page_source.include?('Foo')).to be(false)
+      delete_task('Foo')
     end
 
     # it "should add, edit, answer, update answer and delete single_choice task" do
@@ -884,7 +888,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       title1 = @driver.title
       expect((title1 =~ /Random/).nil?).to be(false)
       @driver.find_element(:css, '.media-actions__icon').click
-      @driver.find_element(:css, '#media-actions__refresh').click
+      @driver.find_element(:css, '.media-actions__refresh').click
       sleep 5
       title2 = @driver.title
       expect((title2 =~ /Random/).nil?).to be(false)
@@ -1004,14 +1008,14 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       @driver.find_element(:css, '.media-actions__icon').click
       sleep 1
       if @config['app_name'] == 'bridge'
-        expect(@driver.page_source.include?('Embed...')).to be(false)
+        expect(@driver.page_source.include?('Embed')).to be(false)
         @driver.navigate.to "#{@driver.current_url}/embed"
         sleep 2
         expect(@driver.page_source.include?('Not available')).to be(true)
       elsif @config['app_name'] == 'check'
-        expect(@driver.page_source.include?('Embed...')).to be(true)
+        expect(@driver.page_source.include?('Embed')).to be(true)
         url = @driver.current_url.to_s
-        @driver.find_element(:css, '#media-actions__embed').click
+        @driver.find_element(:css, '.media-actions__embed').click
         sleep 2
         expect(@driver.current_url.to_s == "#{url}/embed").to be(true)
         expect(@driver.page_source.include?('Not available')).to be(false)
@@ -1051,7 +1055,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Answer task
       expect(@driver.page_source.include?('Task "Where?" answered by')).to be(false)
-      @driver.find_element(:css, '.task__label').click
       fill_field('textarea[name="response"]', 'Salvador')
       fill_field('textarea[name="coordinates"]', '-12.9015866, -38.560239')
       @driver.action.send_keys(:enter).perform
@@ -1060,8 +1063,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Edit task
       expect(@driver.page_source.include?('Task "Where?" edited to "Where was it?" by')).to be(false)
-      @driver.find_element(:css, '.task__actions svg').click
-      @driver.find_elements(:css, '.media-actions__menu--active span').first.click
+      @driver.find_element(:css, '.task-actions__icon').click
+      sleep 2
+      @driver.find_element(:css, '.task-actions__edit').click
       update_field('textarea[name="label"]', 'Where was it?')
       @driver.find_element(:css, '.task__save').click
       sleep 2
@@ -1069,7 +1073,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Edit task answer
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Task "Where was it?" answered by User With Email: "Vancouver"')).to be(false)
-      @driver.find_element(:css, '#task__edit-response-button').click
+      @driver.find_element(:css, '.task-actions__icon').click
+      @driver.find_element(:css, '.task-actions__edit-response').click
       update_field('textarea[name="response"]', 'Vancouver')
       update_field('textarea[name="coordinates"]', '49.2577142, -123.1941156')
       @driver.action.send_keys(:enter).perform
@@ -1077,17 +1082,11 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Task "Where was it?" answered by User With Email: "Vancouver"')).to be(true)
 
       # Delete task
-      expect(@driver.page_source.include?('Where was it')).to be(true)
-      @driver.find_element(:css, '.task__actions svg').click
-      @driver.find_elements(:css, '.media-actions__menu--active span').last.click
-      @driver.switch_to.alert.accept
-      sleep 3
-      expect(@driver.page_source.include?('Where was it')).to be(false)
+      delete_task('Where was it')
     end
 
     it "should add, edit, answer, update answer and delete datetime task", bin3: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
-      sleep 5
 
       # Create a task
       expect(@driver.page_source.include?('When?')).to be(false)
@@ -1104,7 +1103,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Answer task
       expect(@driver.page_source.include?('Task "When?" answered by')).to be(false)
-      @driver.find_element(:css, '.task__label').click
       fill_field('input[name="hour"]', '23')
       fill_field('input[name="minute"]', '59')
       @driver.find_element(:css, '#task__response-date').click
@@ -1118,8 +1116,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Edit task
       expect(@driver.page_source.include?('Task "When?" edited to "When was it?" by')).to be(false)
-      @driver.find_element(:css, '.task__actions svg').click
-      @driver.find_elements(:css, '.media-actions__menu--active span').first.click
+      @driver.find_element(:css, '.task-actions__icon').click
+      sleep 2
+      @driver.find_element(:css, '.task-actions__edit').click
       update_field('textarea[name="label"]', 'When was it?')
       @driver.find_element(:css, '.task__save').click
       sleep 2
@@ -1127,7 +1126,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Edit task response
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('12:34')).to be(false)
-      @driver.find_element(:css, '#task__edit-response-button').click
+      @driver.find_element(:css, '.task-actions__icon').click
+      @driver.find_element(:css, '.task-actions__edit-response').click
       update_field('input[name="hour"]', '12')
       update_field('input[name="minute"]', '34')
       update_field('textarea[name="note"]', '')
@@ -1136,21 +1136,16 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('12:34')).to be(true)
 
       # Delete task
-      expect(@driver.page_source.include?('When was it')).to be(true)
-      @driver.find_element(:css, '.task__actions svg').click
-      @driver.find_elements(:css, '.media-actions__menu--active span').last.click
-      @driver.switch_to.alert.accept
-      sleep 3
-      expect(@driver.page_source.include?('When was it')).to be(false)
+      delete_task('When was it')
     end
 
-    #Add slack notificatios to a team
+    #Add slack notifications to a team
     it "should add slack notifications to a team", bin2:true, quick: true do
       team = "TestTeam #{Time.now.to_i}"
       api_create_team(team:team)
       p = Page.new(config: @config, driver: @driver)
       p.go(@config['self_url'] + '/' + team)
-      wait_page_load(item: "footer")
+      sleep 5
       @driver.find_element(:class, "team__edit-button").click
       @driver.find_element(:id, "team__settings-slack-notifications-enabled").click
       @driver.find_element(:id, "team__settings-slack-webhook").click
@@ -1158,6 +1153,20 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       @driver.find_element(:class, "team__save-button").click
       sleep 2
       expect(@driver.find_element(:class, "message").nil?).to be(false)
+    end
+
+    it "should paginate project page", bin2: true do
+      page = api_create_team_project_claims_sources_and_redirect_to_project_page 21
+      page.load
+      sleep 5
+      @driver.find_element(:xpath, "//span[contains(text(), 'Sources')]").click
+      sleep 10
+      results = @driver.find_elements(:css, '.medias__item')
+      expect(results.size == 40).to be(true)
+      results.last.location_once_scrolled_into_view
+      sleep 5
+      results = @driver.find_elements(:css, '.medias__item')
+      expect(results.size == 42).to be(true)
     end
   end
 end

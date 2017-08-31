@@ -2,11 +2,13 @@
   "task.confirmDelete": "Are you sure you want to delete this task?",
   "tasks.cancelEdit": "Cancel",
   "tasks.save": "Save",
-  "task.edit": "Edit task",
+  "task.resolvedBy": "Resolved by {byName}",
+  "task.editResponse": "Edit response",
+  "task.edit": "Edit question",
   "task.delete": "Delete task",
+  "task.hintText": "Type a response",
   "task.noteLabel": "Note any additional details here.",
   "task.pressReturnToSave": "Press return to save your response",
-  "task.resolvedBy": "Resolved by {by}",
   "tasks.taskLabel": "Task label",
   "tasks.description": "Description"
 }

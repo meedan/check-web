@@ -2,6 +2,11 @@
   &:empty {
     display: none;
   }
+
+  &--editing {
+    margin: units(1) 0;
+    width: 100%;
+  }
 }
 
 .media-tags__header {
@@ -11,11 +16,11 @@
 
 .media-tags__heading {
   font-weight: $font-weight-medium;
-  margin-#{$from-direction}: 0;
-  margin-#{$to-direction}: units(2);
   margin-bottom: 1px;
   margin-top: 4px;
   text-transform: uppercase;
+  margin-#{$from-direction}: 0;
+  margin-#{$to-direction}: units(2);
 }
 
 .media-tags__message {
@@ -25,10 +30,10 @@
 
 .media-tags__suggestions {
   display: inline-block;
-  margin-#{$from-direction}: 0;
-  margin-#{$to-direction}: units(1);
   margin-bottom: 0;
   margin-top: units(1);
+  margin-#{$from-direction}: 0;
+  margin-#{$to-direction}: units(1);
 }
 
 .media-tags__tag,
@@ -38,22 +43,27 @@
 
 .media-tags .tags-list .ReactTags__tag {
   @include chip;
-  margin-#{$to-direction}: units(2);
   min-width: units(7);
-}
-
-// Tags list in both modes
-.media-tags__list,
-.media-tags .tags-list {
-  // TBD
+  margin-#{$to-direction}: units(2);
 }
 
 // TODO standardize with other form inputs — CGB 2017-3-12
 .media-tags .tags-list input {
-  border: $border-width-small solid $black-16;
-  border-radius: units(.5);
-  color: $black-38;
-  font: font(caption);
-  margin: units(.5) units(1);
-  padding: units(.5) units(1);
+  border-bottom: $border-width-small solid $black-16 !important;
+  border-width: 0;
+  color: $black-87;
+  font: font(body2);
+  margin: units(1);
+  padding: units(1);
+
+  &:focus {
+    border-bottom-color: $check-blue !important;
+    outline: none;
+  }
+}
+
+button.ReactTags__remove {
+  background-color: transparent;
+  border: 0;
+  font-size: 1em;
 }

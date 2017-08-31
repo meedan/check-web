@@ -44,7 +44,7 @@ function safelyParseJSON(jsonString) {
   } catch (e) {}
 }
 
-function truncateLength(text, length = 100) {
+function truncateLength(text, length = 70) {
   return truncate(text, { length, separator: /,? +/, ellipsis: '…' });
 }
 
@@ -72,10 +72,16 @@ function notify(title, body, url, icon, name) {
 // Convert human-readable file size to bytes
 // https://stackoverflow.com/a/6974728/209184
 function unhumanizeSize(text) {
-  var powers = {'k': 1, 'm': 2, 'g': 3, 't': 4};
-  var regex = /(\d+(?:\.\d+)?)\s?(k|m|g|t)?b?/i;
-  var res = regex.exec(text);
+  const powers = { k: 1, m: 2, g: 3, t: 4 };
+  const regex = /(\d+(?:\.\d+)?)\s?(k|m|g|t)?b?/i;
+  const res = regex.exec(text);
   return res[1] * Math.pow(1024, powers[res[2].toLowerCase()]);
+}
+
+// Convert Arabic/Persian numbers to English
+// https://codereview.stackexchange.com/questions/166750/convert-persian-and-arabic-digits-to-english
+function convertNumbers2English(string) {
+  return string.replace(/[\u0660-\u0669]/g, c => c.charCodeAt(0) - 0x0660).replace(/[\u06f0-\u06f9]/g, c => c.charCodeAt(0) - 0x06f0);
 }
 
 export {
@@ -87,5 +93,6 @@ export {
   getStatusStyle,
   notify,
   truncateLength,
-  unhumanizeSize
+  unhumanizeSize,
+  convertNumbers2English,
 };

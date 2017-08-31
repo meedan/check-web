@@ -1,30 +1,65 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
-import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
+import {
+  FormattedMessage,
+  defineMessages,
+  injectIntl,
+  intlShape,
+} from 'react-intl';
 import DatePicker from 'material-ui/DatePicker';
-import CheckContext from '../../CheckContext';
 import areIntlLocalesSupported from 'intl-locales-supported';
-import persianUtils from 'material-ui-persian-date-picker-utils';
 import IntlPolyfill from 'intl';
-import MdDateRange from 'react-icons/lib/md/date-range';
-import timezones from '../../timezones';
+import IconDateRange from 'material-ui/svg-icons/action/date-range';
+import IconSchedule from 'material-ui/svg-icons/action/schedule';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+import CheckContext from '../../CheckContext';
+import { convertNumbers2English } from '../../helpers';
+import { alertRed, black38, black54, units, caption, FlexRow } from '../../styles/js/variables';
+import timezones from '../../timezones';
+
+const styles = {
+  error: {
+    font: 'caption',
+    color: alertRed,
+    display: 'block',
+  },
+  primaryColumn: {
+    flex: 10,
+  },
+  secondaryColumn: {
+    color: black54,
+    height: units(2.5),
+    width: units(2.5),
+    flex: '1',
+  },
+  row: {
+    marginBottom: units(2),
+  },
+  time: {
+    width: units(6),
+    textAlign: 'center',
+  },
+  label: {
+    font: caption,
+    color: black38,
+  },
+};
 
 const messages = defineMessages({
   ok: {
     id: 'datetimeRespondTask.ok',
-    defaultMessage: 'OK'
+    defaultMessage: 'OK',
   },
   cancel: {
     id: 'datetimeRespondTask.cancel',
-    defaultMessage: 'Cancel'
+    defaultMessage: 'Cancel',
   },
   timeError: {
     id: 'datetimeRespondTask.timeError',
-    defaultMessage: 'Error: invalid time'
-  }
+    defaultMessage: 'Error: invalid time',
+  },
 });
 
 class DatetimeRespondTask extends Component {
@@ -34,18 +69,20 @@ class DatetimeRespondTask extends Component {
     let date = '';
     let hour = '';
     let minute = '';
-    let note = this.props.note || '';
+    const note = this.props.note || '';
     let timezone = new Date().toString().match(/\(([A-Za-z\s].*)\)/)[1];
 
     const response = this.props.response;
 
     if (response) {
-      const values = response.match(/^(\d+-\d+-\d+) (\d+):(\d+) ([+-]?\d+) (.*)$/);
+      const values = response.match(
+        /^(\d+-\d+-\d+) (\d+):(\d+) ([+-]?\d+) (.*)$/,
+      );
       date = new Date(`${values[1]} 00:00`);
-      if (parseInt(values[2]) > 0) {
+      if (parseInt(values[2], 10) > 0) {
         hour = values[2];
       }
-      if (parseInt(values[3]) > 0) {
+      if (parseInt(values[3], 10) > 0) {
         minute = values[3];
       }
       timezone = values[5];
@@ -83,7 +120,7 @@ class DatetimeRespondTask extends Component {
   }
 
   handleChange(e, date) {
-    this.setState({ taskAnswerDisabled: !this.canSubmit(date), date: date });
+    this.setState({ taskAnswerDisabled: !this.canSubmit(date), date });
   }
 
   handleChangeTimezone(e, index, value) {
@@ -95,22 +132,26 @@ class DatetimeRespondTask extends Component {
   }
 
   handleChangeTime(part, e) {
-    const value = parseInt(e.target.value);
+    const value = parseInt(convertNumbers2English(e.target.value));
 
     const validators = {
       hour: [0, 23],
-      minute: [0, 59]
+      minute: [0, 59],
     };
 
     const state = {
-      taskAnswerDisabled: !this.canSubmit()
+      taskAnswerDisabled: !this.canSubmit(),
     };
     state[part] = e.target.value;
 
-    if (e.target.value != '' && (isNaN(value) || value < validators[part][0] || value > validators[part][1])) {
+    if (
+      e.target.value !== '' &&
+      (isNaN(value) ||
+        value < validators[part][0] ||
+        value > validators[part][1])
+    ) {
       state.timeError = this.props.intl.formatMessage(messages.timeError);
-    }
-    else {
+    } else {
       state.timeError = null;
     }
 
@@ -119,37 +160,36 @@ class DatetimeRespondTask extends Component {
 
   handleSubmit() {
     if (!this.state.taskAnswerDisabled && !this.state.timeError) {
-
       const date = this.state.date;
       const note = this.state.note;
-      let month = '' + (date.getMonth() + 1);
-      let day = '' + date.getDate();
+      let month = `${date.getMonth() + 1}`;
+      let day = `${date.getDate()}`;
       const year = date.getFullYear();
       if (month.length < 2) {
-        month = '0' + month;
+        month = `0${month}`;
       }
       if (day.length < 2) {
-        day = '0' + day;
+        day = `0${day}`;
       }
       let hour = 0;
       let minute = 0;
-      if (this.state.hour != '') {
+      if (this.state.hour !== '') {
         hour = this.state.hour;
       }
-      if (this.state.minute != '') {
+      if (this.state.minute !== '') {
         minute = this.state.minute;
       }
       let offset = '';
-      let timezone = this.state.timezone;
+      const timezone = this.state.timezone;
       if (timezones[timezone]) {
         offset = timezones[timezone].offset;
         if (offset > 0) {
-          offset = '+' + offset;
+          offset = `+${offset}`;
         }
       }
 
       const response = `${year}-${month}-${day} ${hour}:${minute} ${offset} ${timezone}`;
- 
+
       this.setState({ taskAnswerDisabled: true });
       this.props.onSubmit(response, note);
     }
@@ -162,7 +202,7 @@ class DatetimeRespondTask extends Component {
   render() {
     const locale = this.getLocale();
     let DateTimeFormat;
-    
+
     if (areIntlLocalesSupported(['en', 'pt', 'ar', 'fr'])) {
       DateTimeFormat = global.Intl.DateTimeFormat;
     } else {
@@ -173,17 +213,20 @@ class DatetimeRespondTask extends Component {
       require('intl/locale-data/jsonp/fr');
     }
 
-    const timeStyles = {
-      width: '42px',
-      textAlign: 'center'
-    };
-
     return (
       <div>
-        <div style={{position: 'relative', display: 'inline-block', width: '100%', marginBottom: '16px' }}>
-          <span className="task__icon"><MdDateRange /></span>
+        <FlexRow style={styles.row}>
+          <IconDateRange
+            className="task__icon"
+            style={styles.secondaryColumn}
+          />
           <DatePicker
-            floatingLabelText={<FormattedMessage id="datetimeRespondTask.pickDate" defaultMessage="Pick a date from the calendar" />}
+            floatingLabelText={
+              <FormattedMessage
+                id="datetimeRespondTask.pickDate"
+                defaultMessage="Pick a date from the calendar"
+              />
+              }
             id="task__response-date"
             className="task__response-input"
             name="response"
@@ -196,28 +239,85 @@ class DatetimeRespondTask extends Component {
             okLabel={this.props.intl.formatMessage(messages.ok)}
             cancelLabel={this.props.intl.formatMessage(messages.cancel)}
             mode="landscape"
+            style={styles.primaryColumn}
           />
+        </FlexRow>
+
+        <FlexRow style={styles.row}>
+          <IconSchedule
+            className="task__icon"
+            style={styles.secondaryColumn}
+          />
+          <div style={styles.primaryColumn}>
+            <label htmlFor="task__response-time" style={styles.label} className="task__label">
+              <FormattedMessage
+                id="datetimeRespondTask.timeOptional"
+                defaultMessage="Time (optional)"
+              />
+            </label>
+            <FlexRow style={{ justifyContent: 'flex-start', alignItems: 'center' }} id="task__response-time">
+              <TextField
+                hintText="00"
+                name="hour"
+                style={styles.time}
+                inputStyle={styles.time}
+                hintStyle={styles.time}
+                value={this.state.hour}
+                onChange={this.handleChangeTime.bind(this, 'hour')}
+              />{' '}
+              <div>:</div>{' '}
+              <TextField
+                name="minute"
+                hintText="00"
+                style={styles.time}
+                inputStyle={styles.time}
+                hintStyle={styles.time}
+                value={this.state.minute}
+                onChange={this.handleChangeTime.bind(this, 'minute')}
+              />
+              <SelectField
+                value={this.state.timezone}
+                onChange={this.handleChangeTimezone.bind(this)}
+                autoWidth
+                className="task__datetime-timezone"
+                style={{ marginLeft: units(2) }}
+              >
+                {Object.values(timezones).map(tz =>
+                  <MenuItem key={tz.code} value={tz.code} primaryText={<span dir="ltr">{tz.label}</span>} />,
+                )}
+              </SelectField>
+            </FlexRow>
+          </div>
+        </FlexRow>
+        <div style={styles.error}>
+          {this.state.timeError ? this.state.timeError : ''}
         </div>
-        <label className="task__label">
-          <FormattedMessage id="datetimeRespondTask.timeOptional" defaultMessage="Time (optional)" />
-        </label>
-        <div id="task__response-time">
-          <TextField hintText="00" name="hour" style={timeStyles} inputStyle={timeStyles} hintStyle={timeStyles} value={this.state.hour} onChange={this.handleChangeTime.bind(this, 'hour')} /> : <TextField name="minute" hintText="00" style={timeStyles} inputStyle={timeStyles} hintStyle={timeStyles} value={this.state.minute} onChange={this.handleChangeTime.bind(this, 'minute')} />
-          <SelectField value={this.state.timezone} onChange={this.handleChangeTimezone.bind(this)} autoWidth={true} className="task__datetime-timezone">
-            {Object.values(timezones).map(tz => <MenuItem key={tz.code} value={tz.code} primaryText={<span dir="ltr">{tz.label}</span>} />)}
-          </SelectField>
-        </div>
-        <small className="task__error">{this.state.timeError ? this.state.timeError : ''}</small>
         <TextField
-          floatingLabelText={<FormattedMessage id="datetimeRespondTask.note" defaultMessage="Note any additional details here." />}
+          floatingLabelText={
+            <FormattedMessage
+              id="datetimeRespondTask.note"
+              defaultMessage="Note any additional details here."
+            />
+          }
           name="note"
           value={this.state.note}
           multiLine
           fullWidth
           onKeyPress={this.handleKeyPress.bind(this)}
-          onChange={this.handleChangeNote.bind(this)} />
+          onChange={this.handleChangeNote.bind(this)}
+        />
         <p className="task__resolver">
-          <FlatButton className="task__save" label={<FormattedMessage id="datetimeRespondTask.resolveTask" defaultMessage="Resolve task" />} primary onClick={this.handlePressButton.bind(this)} />
+          <FlatButton
+            className="task__save"
+            label={
+              <FormattedMessage
+                id="datetimeRespondTask.resolveTask"
+                defaultMessage="Resolve task"
+              />
+            }
+            primary
+            onClick={this.handlePressButton.bind(this)}
+          />
         </p>
       </div>
     );

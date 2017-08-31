@@ -676,7 +676,7 @@ class SourceComponent extends Component {
     const deleteLinks = this.state.deleteLinks ? this.state.deleteLinks.slice(0) : [];
     const showAccounts = source.account_sources.edges.filter(as => (deleteLinks.indexOf(as.node.id) < 0));
 
-    return <div key="renderAccountsEdit">
+    return (<div key="renderAccountsEdit">
       { showAccounts.map((as, index) =>
         <div key={as.node.id} className="source__url">
           <FlexRow>
@@ -711,7 +711,7 @@ class SourceComponent extends Component {
           }
         </div>)
       }
-    </div>;
+    </div>);
   }
 
   renderMetadataView() {
@@ -1070,7 +1070,7 @@ class SourceComponent extends Component {
                 </Popover>
               </div>
 
-              <Dialog title={this.props.intl.formatMessage(messages.otherDialogTitle)} actions={actions} actionsContainerClassName="sourceComponent__action-container" open={this.state.dialogOpen} onRequestClose={this.handleCloseDialog.bind(this)} contentStyle={{ width: '608px' }}>
+              <Dialog title={this.props.intl.formatMessage(messages.otherDialogTitle)} actions={actions} actionsContainerClassName="sourceComponent__action-container" open={this.state.dialogOpen} onRequestClose={this.handleCloseDialog.bind(this)}>
                 <TextField
                   id="source__other-label-input"
                   floatingLabelText={this.props.intl.formatMessage(messages.label)}
@@ -1146,13 +1146,11 @@ class SourceComponent extends Component {
           </Card>
 
           { !isEditing ?
-            <div>
+            <ContentColumn>
               { this.state.showTab === 'annotation' ? <Annotations annotations={source.log.edges} annotated={this.props.source} annotatedType="ProjectSource" /> : null }
-              <ContentColumn>
-                { this.state.showTab === 'media' ? <Medias medias={source.medias.edges} /> : null }
-                { this.state.showTab === 'account' ? source.accounts.edges.map(account => <AccountCard key={account.node.id} account={account.node} />) : null }
-              </ContentColumn>
-            </div> : null
+              { this.state.showTab === 'media' ? <Medias medias={source.medias.edges} /> : null }
+              { this.state.showTab === 'account' ? source.accounts.edges.map(account => <AccountCard key={account.node.id} account={account.node} />) : null }
+            </ContentColumn> : null
           }
         </div>
       </PageTitle>

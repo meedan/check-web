@@ -14,20 +14,6 @@ class HeaderCard extends Component {
     const teamProfileBottomPad = unitless(8);
     const teamProfileFabHeight = unitless(5);
 
-    // TODO — Use styled components instead of the cardHeaderStyle object.
-    // For an unknown reason, using CardHeader makes nested TextFields stop working
-    // (somehow styled-components seems to be breaking handleChange in the parent in TeamComponent.)
-    // To reproduce this break, replace <Card style={cardHeaderStyle}> component with <CardHeader>.
-    // Then try to edit the Team form.
-    // - CGB 2017-7-12
-    //
-    // const CardHeader = styled(Card)`
-    //   margin-bottom: ${units(6)};
-    //   margin-top: -${teamProfileOffset}px;
-    //   padding-bottom: ${teamProfileBottomPad}px;
-    //   padding-top: ${teamProfileOffset}px;
-    // `;
-
     const cardHeaderStyle = {
       marginBottom: units(6),
       marginTop: `-${teamProfileOffset}`,

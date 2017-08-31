@@ -7,7 +7,7 @@ module AppSpecHelpers
       element if element.displayed?
     }
   end
-  
+
   def update_field(selector, value, type = :css, visible = true)
     wait = Selenium::WebDriver::Wait.new(timeout: 50)
     input = wait.until {
@@ -45,6 +45,21 @@ module AppSpecHelpers
       element if element.displayed?
     }
     input.click
+  end
+
+  def delete_task(task_text)
+    expect(@driver.page_source.include?(task_text)).to be(true)
+    # In case the menu is left open (which happens for unknown reason),
+    # click somewhere non-interactive, to ensure menu closes...
+    @driver.find_element(:css, '.task__label').click
+    sleep 1
+    # Open the menu
+    @driver.find_element(:css, '.task-actions__icon').click
+    sleep 2
+    @driver.find_element(:css, '.task-actions__delete').click
+    @driver.switch_to.alert.accept
+    sleep 3
+    expect(@driver.page_source.include?(task_text)).to be(false)
   end
 
   def twitter_login
@@ -101,7 +116,7 @@ module AppSpecHelpers
     slack_auth
     create_team
   end
-  
+
   def login_or_register_with_email
     login_with_email(false)
     result = Selenium::WebDriver::Wait.new(timeout: 5).until {
@@ -280,9 +295,9 @@ module AppSpecHelpers
           })
         dr = Selenium::WebDriver.for(:chrome, :desired_capabilities => caps , :url => webdriver_url)
       else
-        dr = Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: browser_capabilities)  
+        dr = Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: browser_capabilities)
       end
-    end  
+    end
     dr
   end
 end

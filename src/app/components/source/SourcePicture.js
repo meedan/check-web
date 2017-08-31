@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
+import config from 'config';
 import Relay from 'react-relay';
 import UpdateSourceMutation from '../../relay/UpdateSourceMutation';
 import UpdateAccountMutation from '../../relay/UpdateAccountMutation';
-import config from 'config';
 
 class SourcePicture extends Component {
   constructor(props) {
@@ -10,14 +10,8 @@ class SourcePicture extends Component {
 
     this.state = {
       avatarUrl: this.defaultAvatar(),
-      queriedBackend: false
+      queriedBackend: false,
     };
-  }
-
-  setImage(image) {
-    if (image && image != '' && image != this.state.avatarUrl) {
-      this.setState({ avatarUrl: image });
-    }
   }
 
   componentDidMount() {
@@ -25,13 +19,19 @@ class SourcePicture extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.state.avatarUrl != nextProps.object.image) {
+    if (this.state.avatarUrl !== nextProps.object.image) {
       this.setImage(nextProps.object.image);
     }
   }
 
+  setImage(image) {
+    if (image && image !== '' && image !== this.state.avatarUrl) {
+      this.setState({ avatarUrl: image });
+    }
+  }
+
   handleAvatarError() {
-    if (this.state.avatarUrl != this.defaultAvatar()) {
+    if (this.state.avatarUrl !== this.defaultAvatar()) {
       this.setState({ avatarUrl: this.defaultAvatar() });
     }
     this.refreshAvatar();
@@ -45,29 +45,27 @@ class SourcePicture extends Component {
     remoteLink.href = config.restBaseUrl;
     const avatarLink = document.createElement('a');
     avatarLink.href = this.props.object.image;
-    return avatarLink.host == remoteLink.host;
+    return avatarLink.host === remoteLink.host;
   }
 
   refreshAvatar() {
     if (this.state.queriedBackend) {
       return;
     }
-    
+
     this.setState({ avatarUrl: this.defaultAvatar(), queriedBackend: true });
-    
+
     if (!this.isUploadedImage()) {
-      const onFailure = (transaction) => {
+      const onFailure = () => {
         this.setState({ avatarUrl: this.defaultAvatar(), queriedBackend: true });
       };
 
       const onSuccess = (response) => {
         let avatarUrl = this.defaultAvatar();
         try {
-          let object = this.props.type === 'source' ? response.updateSource.source : (this.props.type === 'account' ? response.updateAccount.account : {});
+          const object = this.props.type === 'source' ? response.updateSource.source : (this.props.type === 'account' ? response.updateAccount.account : {});
           avatarUrl = object.image || this.defaultAvatar();
-        }
-        catch (e) {
-        }
+        } catch (e) {}
         this.setState({ avatarUrl, queriedBackend: true });
       };
 
@@ -78,14 +76,13 @@ class SourcePicture extends Component {
             source: {
               refresh_accounts: 1,
               id: this.props.object.id,
-            }
+            },
           });
-        }
-        else if (this.props.type === 'account') {
+        } else if (this.props.type === 'account') {
           mutation = new UpdateAccountMutation({
             account: {
               id: this.props.object.id,
-            }
+            },
           });
         }
         Relay.Store.commitUpdate(mutation, { onSuccess, onFailure });
@@ -98,8 +95,8 @@ class SourcePicture extends Component {
   }
 
   render() {
-    return(
-      <img src={this.state.avatarUrl} className={`social-media-card__author-avatar ${this.props.className}`} onError={this.handleAvatarError.bind(this)} />
+    return (
+      <img alt="avatar" src={this.state.avatarUrl} className={`social-media-card__author-avatar ${this.props.className}`} onError={this.handleAvatarError.bind(this)} />
     );
   }
 }

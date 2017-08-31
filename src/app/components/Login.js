@@ -28,7 +28,7 @@ import { stringHelper } from '../customHelpers';
 import {
   muiThemeWithoutRtl,
   units,
-  media,
+  mediaQuery,
   caption,
   body2,
   black54,
@@ -63,7 +63,7 @@ const StyledEnhancedButton = styled(EnhancedButton)`
     height: ${units(6)};
   }
 
-  ${media.handheld`
+  ${mediaQuery.handheld`
     width: 100% !important;
   `}
 
@@ -88,7 +88,7 @@ const StyledEnhancedButton = styled(EnhancedButton)`
 
 const StyledCard = styled(Card)`
   padding: ${units(11)} ${units(15)} ${units(3)} !important;
-  ${media.handheld`
+  ${mediaQuery.handheld`
     padding: ${units(8)} ${units(4)} ${units(3)} !important;
   `}
 
