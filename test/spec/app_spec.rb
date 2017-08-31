@@ -482,10 +482,8 @@ p @tag
 =end    
     it "should add and remove accounts to sources", bin: true  do
       api_create_team_project_and_source_and_redirect_to_source('GOT', 'https://twitter.com/GameOfThrones')
-      sleep 3 until element = @driver.find_element(:css, '.source__tab-button-notes')
-      element.click
-      wait_page_load(item: "Save")
-      sleep 1 until element = @driver.find_element(:class, "source__edit-button")
+      sleep 5
+      element = @driver.find_element(:class, "source__edit-button")
       element.click
       sleep 3 
       @driver.find_element(:class, "source__edit-addinfo-button").click
