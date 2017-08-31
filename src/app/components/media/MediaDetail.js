@@ -14,7 +14,7 @@ import ImageMediaCard from './ImageMediaCard';
 import CheckContext from '../../CheckContext';
 import { getStatus, getStatusStyle } from '../../helpers';
 import { mediaStatuses, mediaLastStatus } from '../../customHelpers';
-import { units, black87, FadeIn, defaultBorderRadius } from '../../styles/js/variables';
+import { units, black87, FadeIn, FlexRow, defaultBorderRadius } from '../../styles/js/variables';
 
 const StyledMediaDetail = styled.div`
 
@@ -24,14 +24,6 @@ const StyledMediaDetail = styled.div`
     border-radius: ${defaultBorderRadius};
   }
 
-  .media-detail__header {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-  }
-
-  // Optional title (on project page)
-  //
   .media__heading {
     &,
     & > a,
@@ -117,7 +109,7 @@ class MediaDetail extends Component {
     const cardHeaderTitle = <MediaStatus media={media} readonly={this.props.readonly} />;
 
     const cardHeaderSubtitle = (
-      <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap' }}>
+      <FlexRow style={{ flexWrap: 'wrap' }}>
         <Link
           to={mediaUrl}
           className="media__heading"
@@ -131,7 +123,7 @@ class MediaDetail extends Component {
         <span className="media-detail__check-notes-count">
           {annotationsCount}
         </span>
-      </div>
+      </FlexRow>
     );
 
     const cardClassName =

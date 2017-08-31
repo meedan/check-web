@@ -10,7 +10,7 @@ import PageTitle from './PageTitle';
 import SearchRoute from '../relay/SearchRoute';
 import TeamRoute from '../relay/TeamRoute';
 import MediaDetail from './media/MediaDetail';
-import { bemClass, getStatusStyle, notify } from '../helpers';
+import { bemClass, notify } from '../helpers';
 import CheckContext from '../CheckContext';
 import ContentColumn from './layout/ContentColumn';
 import MediasLoading from './media/MediasLoading';

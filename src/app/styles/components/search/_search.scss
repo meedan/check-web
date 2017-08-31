@@ -28,7 +28,6 @@
 
     div {
       @include when-smaller-than(mobile-breakpoint) {
-        flex-flow: nowrap column;
         padding: 0;
 
         h4 {
