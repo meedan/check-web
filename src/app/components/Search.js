@@ -15,6 +15,7 @@ import CheckContext from '../CheckContext';
 import ContentColumn from './layout/ContentColumn';
 import MediasLoading from './media/MediasLoading';
 import SourceCard from './source/SourceCard';
+import { FlexRow } from '../styles/js/variables';
 
 const pageSize = 20;
 
@@ -318,7 +319,7 @@ class SearchQueryComponent extends Component {
             <section className="search__filters filters">
               {/* Status */}
               {this.showField('status')
-                ? <div>
+                ? <FlexRow>
                   <h4><FormattedMessage id="search.statusHeading" defaultMessage="Status" /></h4>
                   <ul className="media-tags__suggestions-list">
                     {statuses.map(status =>
@@ -331,18 +332,17 @@ class SearchQueryComponent extends Component {
                             this.statusIsSelected(status.id),
                             '--selected',
                           )}
-                        style={{ backgroundColor: getStatusStyle(status, 'backgroundColor') }}
                       >
                         {status.label}
                       </li>,
                       )}
                   </ul>
-                </div>
+                </FlexRow>
                 : null}
 
               {/* Project */}
               {this.showField('project')
-                ? <div>
+                ? <FlexRow>
                   <h4>
                     <FormattedMessage id="search.projectHeading" defaultMessage="Project" />
                   </h4>
@@ -362,12 +362,12 @@ class SearchQueryComponent extends Component {
                       </li>,
                       )}
                   </ul>
-                </div>
+                </FlexRow>
                 : null}
 
               {/* Tags */}
               {this.showField('tags') && suggestedTags.length
-                ? <div>
+                ? <FlexRow>
                   <h4>
                     <FormattedMessage id="status.categoriesHeading" defaultMessage="Categories" />
                   </h4>
@@ -387,12 +387,12 @@ class SearchQueryComponent extends Component {
                       </li>,
                       )}
                   </ul>
-                </div>
+                </FlexRow>
                 : null}
 
               {/* Sort */}
               {this.showField('sort')
-                ? <div>
+                ? <FlexRow>
                   <h4><FormattedMessage id="search.sort" defaultMessage="Sort" /></h4>
                   <ul className="search-query__sort-actions media-tags__suggestions-list">
                     <li
@@ -439,12 +439,12 @@ class SearchQueryComponent extends Component {
                       <FormattedMessage id="search.sortByOldest" defaultMessage="Oldest first" />
                     </li>
                   </ul>
-                </div>
+                </FlexRow>
                 : null}
 
               {/* Show */}
               {this.showField('show')
-                ? <div>
+                ? <FlexRow>
                   <h4><FormattedMessage id="search.show" defaultMessage="Show" /></h4>
                   <ul className="search-query__sort-actions media-tags__suggestions-list">
                     <li
@@ -468,7 +468,7 @@ class SearchQueryComponent extends Component {
                       <FormattedMessage id="search.showSources" defaultMessage="Sources" />
                     </li>
                   </ul>
-                </div>
+                </FlexRow>
                 : null}
 
             </section>
