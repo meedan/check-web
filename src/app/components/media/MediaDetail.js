@@ -5,6 +5,7 @@ import config from 'config';
 import { Card, CardHeader, CardText, CardActions } from 'material-ui/Card';
 import styled from 'styled-components';
 import MdFormatQuote from 'react-icons/lib/md/format-quote';
+import IconInsertPhoto from 'material-ui/svg-icons/editor/insert-photo';
 import rtlDetect from 'rtl-detect';
 import MediaStatus from './MediaStatus';
 import QuoteMediaCard from './QuoteMediaCard';
@@ -16,6 +17,10 @@ import CheckContext from '../../CheckContext';
 import { getStatus, getStatusStyle } from '../../helpers';
 import { mediaStatuses, mediaLastStatus } from '../../customHelpers';
 import { units, black87, FadeIn, FlexRow, defaultBorderRadius } from '../../styles/js/variables';
+
+const styles = {
+  mediaIcon: { width: units(2), height: units(2), color: black87 },
+};
 
 const StyledMediaDetail = styled.div`
 
@@ -114,11 +119,12 @@ class MediaDetail extends Component {
         <Link
           to={mediaUrl}
           className="media__heading"
-          style={{ paddingRight: units(1) }}
+          style={{ paddingRight: units(1), display: 'inline-flex', alignItems: 'center' }}
         >
-          <span style={{ display: 'inline-flex', alignItems: 'flex-start', height: units(2), paddingRight: units(1) }}>
-            { media.quote ? <MdFormatQuote /> : MediaUtil.socialIcon(media.domain) }
-          </span>
+          <div style={{ display: 'inline-flex', alignItems: 'flex-start', height: units(2), paddingRight: units(1) }}>
+            {/* TODO refactor mediaIcon to handle quotes and images — 2017-8-30 CGB */}
+            { media.quote ? <MdFormatQuote style={styles.mediaIcon} /> : media.media.embed_path ? <IconInsertPhoto style={styles.mediaIcon} /> : MediaUtil.socialIcon(media.domain) }
+          </div>
           {heading}
         </Link>
         <span className="media-detail__check-notes-count">
