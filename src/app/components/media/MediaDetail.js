@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { injectIntl, intlShape } from 'react-intl';
 import { Link } from 'react-router';
 import config from 'config';
-import MediaStatus from './MediaStatus';
 import { Card, CardHeader, CardText, CardActions } from 'material-ui/Card';
 import styled from 'styled-components';
 import rtlDetect from 'rtl-detect';
+import MediaStatus from './MediaStatus';
 import QuoteMediaCard from './QuoteMediaCard';
 import MediaMetadata from './MediaMetadata';
 import MediaUtil from './MediaUtil';
@@ -14,11 +14,15 @@ import ImageMediaCard from './ImageMediaCard';
 import CheckContext from '../../CheckContext';
 import { getStatus, getStatusStyle } from '../../helpers';
 import { mediaStatuses, mediaLastStatus } from '../../customHelpers';
-import { units, black87, FadeIn } from '../../styles/js/variables';
+import { units, black87, FadeIn, defaultBorderRadius } from '../../styles/js/variables';
 
 const StyledMediaDetail = styled.div`
-  border-${props => props.fromDirection}: ${units(1)} solid;
-  border-color: ${props => props.borderColor};
+
+  .card-with-border {
+    border-${props => props.fromDirection}: ${units(1)} solid;
+    border-color: ${props => props.borderColor};
+    border-radius: ${defaultBorderRadius};
+  }
 
   .media-detail__header {
     display: flex;
@@ -144,8 +148,16 @@ class MediaDetail extends Component {
         borderColor={getStatusStyle(status, 'backgroundColor')}
         fromDirection={fromDirection}
       >
-        <Card initiallyExpanded={this.props.initiallyExpanded}>
-          <CardHeader title={cardHeaderTitle} subtitle={cardHeaderSubtitle} showExpandableButton />
+        <Card
+          className="card-with-border"
+          initiallyExpanded={this.props.initiallyExpanded}
+        >
+
+          <CardHeader
+            title={cardHeaderTitle}
+            subtitle={cardHeaderSubtitle}
+            showExpandableButton
+          />
 
           <CardText expandable>
             <FadeIn className={this.statusToClass('media-detail__media', mediaLastStatus(media))}>
