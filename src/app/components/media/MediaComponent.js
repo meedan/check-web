@@ -53,11 +53,6 @@ const StyledTwoColumnLayout = styled(ContentColumn)`
 
     .media__annotations-column {
       max-width: ${units(50)};
-
-      .annotations__list {
-        max-height: 52vh;
-        overflow-y: scroll;
-      }
     }
   `}
 `;

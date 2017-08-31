@@ -20,12 +20,19 @@ const messages = defineMessages({
   },
 });
 
-const StyledCard = styled(Card)`
+const StyledAnnotationCard = styled(Card)`
   display: flex;
   flex-direction: column;
+  .annotations__list {
+    height: calc(100vh - 350px);
+    overflow-y: scroll;
+    .annotations__list-item:last-of-type .annotation--card {
+      padding-bottom: ${units(6)};
+    }
+  }
 `;
 
-const StyledCardActions = styled(CardActions)`
+const StyledAnnotationCardActions = styled(CardActions)`
   margin-top: auto;
   background-color: ${white};
   border-top: 1px solid ${black16};
@@ -47,7 +54,7 @@ class Annotations extends Component {
     const annotations = props.annotations;
 
     return (
-      <StyledCard className="annotations">
+      <StyledAnnotationCard className="annotations">
         <TimelineHeader msgObj={messages} msgKey="timelineTitle" />
         <ReactChatView
           className="annotations__list annotations-list"
@@ -70,7 +77,7 @@ class Annotations extends Component {
             </div>,
           )}
         </ReactChatView>
-        <StyledCardActions>
+        <StyledAnnotationCardActions>
           {props.annotatedType === 'ProjectMedia'
             ? <Can
               permissions={props.annotated.permissions}
@@ -87,8 +94,8 @@ class Annotations extends Component {
               annotatedType={props.annotatedType}
               types={props.types}
             />}
-        </StyledCardActions>
-      </StyledCard>
+        </StyledAnnotationCardActions>
+      </StyledAnnotationCard>
     );
   }
 }
