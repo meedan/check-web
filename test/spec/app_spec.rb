@@ -69,6 +69,7 @@ p "****$$$$$$$$$$$$$$$***"
   end
 
   before :each do |example|
+    $caller_name = example.metadata[:description_args]
 @t1 = Time.now
 if example.metadata[:bin] then @tag = "bin"  end
 if example.metadata[:bin1] then @tag = "bin1"  end
@@ -79,14 +80,19 @@ if example.metadata[:bin5] then @tag = "bin5"  end
 if example.metadata[:bin6] then @tag = "bin6"  end    
 p $caller_name
 p @tag
-
-    $caller_name = example.metadata[:description_args]
     @driver = new_driver(webdriver_url,browser_capabilities)
   end
 
   after :each do |example|
 # code to time
 @delta = Time.now    - @t1
+if example.metadata[:bin] then @tag = "bin"  end
+if example.metadata[:bin1] then @tag = "bin1"  end
+if example.metadata[:bin2] then @tag = "bin2"  end
+if example.metadata[:bin3] then @tag = "bin3"  end
+if example.metadata[:bin4] then @tag = "bin4"  end
+if example.metadata[:bin5] then @tag = "bin5"  end
+if example.metadata[:bin6] then @tag = "bin6"  end    
 @v[$tag] = @v[@tag] + @delta 
     if example.exception
       link = save_screenshot("Test failed: #{example.description}")
@@ -98,7 +104,6 @@ p @tag
   # The tests themselves start here
 
   context "web" do
-=begin    
     it "should filter by medias or sources", bin6: true do
       api_create_team_project_and_link 'https://twitter.com/TheWho/status/890135323216367616'
       @driver.navigate.to @config['self_url']
@@ -459,7 +464,7 @@ p @tag
       expect(@driver.page_source.include?('Tagged #bar')).to be(true)
     end
 
-    it "should edit basic source data (name, description/bio, avatar)", bin: true do
+    it "should edit basic source data (name, description/bio, avatar)", bin3: true do
       api_create_team_project_and_source_and_redirect_to_source('ACDC', 'https://twitter.com/acdc')
       sleep 3 until element = @driver.find_element(:css, '.source__tab-button-notes')
       element.click
@@ -479,8 +484,8 @@ p @tag
       displayed_name = get_element('h1.source__name').text
       expect(displayed_name.include? "EDIT").to be(true)
     end
-=end    
-    it "should add and remove accounts to sources", bin1: true  do
+
+    it "should add and remove accounts to sources", bin3: true  do
       api_create_team_project_and_source_and_redirect_to_source('GOT', 'https://twitter.com/GameOfThrones')
       sleep 5
       element = @driver.find_element(:class, "source__edit-button")
@@ -493,13 +498,23 @@ p @tag
       fill_field("source__link-input0", "www.acdc.com", :id)
       sleep 2
       @driver.find_element(:class, 'source__edit-save-button').click
-      sleep 3 until @driver.find_element(:class, 'footer')
-      displayed_name = get_element('h1.source__name').text
-      expect(@driver.page_source.include?('www.acdc.com')).to be(true)
+      sleep 3 
+      @driver.find_element(:class, 'footer')      
+      expect(@driver.page_source.include?('AC/DC Official Website')).to be(true)
+      #delete
+      element = @driver.find_element(:class, "source__edit-button")
+      element.click
+      sleep 3
+      list = @driver.find_elements(:css => "svg[class='create-task__remove-option-button create-task__md-icon']")
+      list[1].click
+      sleep 1
+      @driver.find_element(:class, 'source__edit-save-button').click
+      sleep 3 
+      @driver.find_element(:class, 'footer')      
+      expect(@driver.page_source.include?('AC/DC Official Website')).to be(false)
     end
 
-
-    it "should edit source metadata (contact, phone, location, organization, other)", bin1: true do    
+    it "should edit source metadata (contact, phone, location, organization, other)", bin3: true do    
       api_create_team_project_and_source_and_redirect_to_source('GOT', 'https://twitter.com/GameOfThrones')
       sleep 5
       element = @driver.find_element(:class, "source__edit-button")
@@ -511,7 +526,6 @@ p @tag
       str= @driver.page_source
       str = str[str.index('undefined-undefined-Phone-')..str.length]
       str = str[0..(str.index('"')-1)] 
-      p str
       element = @driver.find_element(:id, str)
       fill_field(str, "989898989", :id)
 
@@ -529,7 +543,6 @@ p @tag
       sleep 1
       @driver.find_element(:class, "source__add-location").click
       str= @driver.page_source
-
       str = str[str.index('undefined-undefined-Location-')..str.length]
       str = str[0..(str.index('"')-1)] 
       fill_field(str, "Location 123", :id)
@@ -558,7 +571,7 @@ p @tag
       expect(@driver.page_source.include?('989898989')).to be(true)      
     end
 
-    it "should add and remove tags", bin1: true do
+    it "should add and remove source tags", bin3: true do
       api_create_team_project_and_source_and_redirect_to_source('GOT', 'https://twitter.com/GameOfThrones')
       sleep 5
       element = @driver.find_element(:class, "source__edit-button")
@@ -590,7 +603,7 @@ p @tag
       expect(@driver.page_source.include?('TAG2')).to be(false)
     end
 
-    it "should add and remove languages",bin1: true  do
+    it "should add and remove source languages",bin3: true  do
       api_create_team_project_and_source_and_redirect_to_source('GOT', 'https://twitter.com/GameOfThrones')
       sleep 5
       element = @driver.find_element(:class, "source__edit-button")
@@ -616,7 +629,6 @@ p @tag
       sleep 3
       expect(@driver.page_source.include?('Acoli')).to be(false)
     end
-=begin
 
     it "should not add a duplicated tag from command line", bin3: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
@@ -1326,6 +1338,5 @@ p @tag
       sleep 2
       expect(@driver.find_element(:class, "message").nil?).to be(false)
     end
-=end    
   end
 end
