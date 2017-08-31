@@ -432,7 +432,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should edit basic source data (name, description/bio, avatar)", bin2: true do
       api_create_team_project_and_source_and_redirect_to_source('ACDC', 'https://twitter.com/acdc')
-      sleep 3 until element = @driver.find_element(:css, '.source__tab-button-notes')
+      sleep 5
+      element = @driver.find_element(:css, '.source__tab-button-notes')
       element.click
       sleep 1 until element = @driver.find_element(:class, "source__edit-button")
       element.click
