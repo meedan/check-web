@@ -9,13 +9,13 @@ import {
 } from 'react-intl';
 import DatePicker from 'material-ui/DatePicker';
 import areIntlLocalesSupported from 'intl-locales-supported';
-import persianUtils from 'material-ui-persian-date-picker-utils';
 import IntlPolyfill from 'intl';
 import IconDateRange from 'material-ui/svg-icons/action/date-range';
 import IconSchedule from 'material-ui/svg-icons/action/schedule';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import { convertNumbers2English } from '../../helpers';
+import { alertRed, black38, black54, units, caption, FlexRow } from '../../styles/js/variables';
 
 const styles = {
   error: {
