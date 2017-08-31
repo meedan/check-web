@@ -34,7 +34,17 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     $media_id = nil
     @team1_slug = 'team1'+Time.now.to_i.to_s
     @user_mail = 'sysops_' + Time.now.to_i.to_s + '@meedan.com'
-
+@v = {}
+@v["bin"] = 0
+@v["bin1"] = 0
+@v["bin2"] = 0
+@v["bin3"] = 0
+@v["bin4"] = 0
+@v["bin5"] = 0
+@v["bin6"] = 0
+@t1 = 0
+@delta = 0
+@tag = ""
     begin
       FileUtils.cp('./config.js', '../build/web/js/config.js')
     rescue
@@ -47,20 +57,37 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     @driver = new_driver(webdriver_url,browser_capabilities)
-
     api_create_team_project_and_claim(true)
   end
 
   after :all do
+p "***$$$$$$$$$$$$$$$$****"
+p @v
+p "****$$$$$$$$$$$$$$$***"
+    FileUtils.cp('../config.js', '../build/web/js/config.js')    
     FileUtils.cp('../config.js', '../build/web/js/config.js')
   end
 
   before :each do |example|
+@t1 = Time.now
+if example.metadata[:bin] then @tag = "bin"  end
+if example.metadata[:bin1] then @tag = "bin1"  end
+if example.metadata[:bin2] then @tag = "bin2"  end
+if example.metadata[:bin3] then @tag = "bin3"  end
+if example.metadata[:bin4] then @tag = "bin4"  end
+if example.metadata[:bin5] then @tag = "bin5"  end
+if example.metadata[:bin6] then @tag = "bin6"  end    
+p $caller_name
+p @tag
+
     $caller_name = example.metadata[:description_args]
     @driver = new_driver(webdriver_url,browser_capabilities)
   end
 
   after :each do |example|
+# code to time
+@delta = Time.now    - @t1
+@v[$tag] = @v[@tag] + @delta 
     if example.exception
       link = save_screenshot("Test failed: #{example.description}")
       print " [Test \"#{example.description}\" failed! Check screenshot at #{link}] "
@@ -452,37 +479,26 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       displayed_name = get_element('h1.source__name').text
       expect(displayed_name.include? "EDIT").to be(true)
     end
+=end    
     it "should add and remove accounts to sources", bin: true  do
       api_create_team_project_and_source_and_redirect_to_source('GOT', 'https://twitter.com/GameOfThrones')
       sleep 3 until element = @driver.find_element(:css, '.source__tab-button-notes')
       element.click
-p "as!"      
       sleep 1 until element = @driver.find_element(:class, "source__edit-button")
-p "a!f"      
       element.click
-p "a!c"      
       sleep 1 until @driver.find_element(:class, "source__edit-addinfo-button").click
       sleep 1
-p "a!"      
       @driver.find_element(:class, "source__add-link").click
-p "!"      
       input = @driver.find_element(:id, "source__link-input0")
-p "!d"      
       input.send_keys("www.acdc.com")
-p "!"      
       @driver.find_element(:class, 'source__edit-save-button').click
-p "!r"      
       sleep 3 until @driver.find_element(:class, 'footer')
-p "!"      
       displayed_name = get_element('h1.source__name').text
-p "!f"      
       expect(@driver.page_source.include?('www.acdc.com')).to be(true)
     end
 
-=end
 
-    it "should edit source metadata (contact, phone, location, organization, other)", bin: true do
-    #   skip("Needs to be implemented")
+    it "should edit source metadata (contact, phone, location, organization, other)", bin: true do    
       api_create_team_project_and_source_and_redirect_to_source('GOT', 'https://twitter.com/GameOfThrones')
       sleep 3 until element = @driver.find_element(:css, '.source__tab-button-notes')
       element.click
@@ -491,35 +507,23 @@ p "!f"
       sleep 1 
       @driver.find_element(:class, "source__edit-buttons-add-merge").click
       sleep 1
-p "aa!s"      
       @driver.find_element(:class, "source__add-phone").click
       str= @driver.page_source
       str = str[str.index('undefined-undefined-Phone-')..str.length]
       str = str[0..(str.index('"')-1)] 
       p str
-p "a!"      
       element = @driver.find_element(:id, str)
-p "sssa!"      
-p "sa!"      
-      #element.send_keys('9898989898')
       fill_field(str, "989898989", :id)
 
       sleep 1
-p "=========="
       @driver.find_element(:class, "source__edit-buttons-add-merge").click
       sleep 1
-p "aa!s"      
       @driver.find_element(:class, "source__add-organization").click
-p "asaa!s"      
       str= @driver.page_source
-p "waa!s"      
       str = str[str.index('undefined-undefined-Organization-')..str.length]
-p "saa!s"      
       str = str[0..(str.index('"')-1)] 
       element = @driver.find_element(:id, str)
       fill_field(str, "ORGANIZATION", :id)
-p "sa!"      
-      #element.send_keys("Organization")
 
       @driver.find_element(:class, "source__edit-buttons-add-merge").click
       sleep 1
@@ -530,52 +534,90 @@ p "sa!"
       str = str[0..(str.index('"')-1)] 
       fill_field(str, "Location 123", :id)
 
-p "sssssssssssssss"      
-
-      sleep 1      
-      fill_field("addTag", "TAG", :id)
-
-p "asdsdsdsa!s"      
-sleep 1
+      sleep 1
       #source__add-other
       @driver.find_element(:class, "source__edit-buttons-add-merge").click
-p "sssa!"      
       sleep 1
       @driver.find_element(:class, "source__add-other").click
-p "a!"      
       sleep 1
-      #element = @driver.find_element(:id, "source__other-label-input")
-p "sa!"      
       fill_field("source__other-label-input", "label", :id)
-
-p "a!"      
-      #element = @driver.find_element(:id, "source__other-value-input")
-p "sa!"      
       fill_field("source__other-value-input", "value", :id)
 
       @driver.action.send_keys("\t").perform
       @driver.action.send_keys("\t").perform
       @driver.action.send_keys("\n").perform
 
-
       sleep 2
       @driver.find_element(:class, 'source__edit-save-button').click
       sleep 3 
       @driver.find_element(:class, 'footer')
-      #displayed_name = get_element('h1.source__name').text
-      #expect(displayed_name.include? "EDIT").to be(true)
 
+      expect(@driver.page_source.include?('label: value')).to be(true)
+      expect(@driver.page_source.include?('Location 123')).to be(true)
+      expect(@driver.page_source.include?('ORGANIZATION')).to be(true)
+      expect(@driver.page_source.include?('989898989')).to be(true)      
+    end
 
+    it "should add and remove tags", bin: true do
+      api_create_team_project_and_source_and_redirect_to_source('GOT', 'https://twitter.com/GameOfThrones')
+      sleep 3 until element = @driver.find_element(:css, '.source__tab-button-notes')
+      element.click
+      sleep 1 until element = @driver.find_element(:class, "source__edit-button")
+      element.click
+      sleep 1 
+      @driver.find_element(:class, "source__edit-buttons-add-merge").click
+      sleep 1
+      @driver.find_element(:class, "source__add-tags").click
+      sleep 1
+      fill_field("sourceTagInput", "TAG1", :id)
+      @driver.action.send_keys("\n").perform
+      fill_field("sourceTagInput", "TAG2", :id)
+      @driver.action.send_keys("\n").perform
+      sleep 3 
+      @driver.navigate.refresh
+      sleep 3
+      expect(@driver.page_source.include?('TAG1')).to be(true)
+      expect(@driver.page_source.include?('TAG2')).to be(true)
+
+      #delete
+      sleep 1 until element = @driver.find_element(:class, "source__edit-button")
+      element.click
+      list = @driver.find_elements(:css => "div.source-tags__tag svg")
+      list[0].click
+      sleep 1
+      @driver.navigate.refresh
+      sleep 3
+      expect(@driver.page_source.include?('TAG1')).to be(true)
+      expect(@driver.page_source.include?('TAG2')).to be(false)
+    end
+
+    it "should add and remove languages",bin: true  do
+      api_create_team_project_and_source_and_redirect_to_source('GOT', 'https://twitter.com/GameOfThrones')
+      sleep 5
+      element = @driver.find_element(:class, "source__edit-button")
+      element.click
+      sleep 1 
+      @driver.find_element(:class, "source__edit-buttons-add-merge").click
+      sleep 1
+      @driver.find_element(:class, "source__add-languages").click
+      fill_field("sourceLanguageInput", "Acoli", :id)
+      e = @driver.find_element(:css,"span[role = 'menuitem']")
+      e.click
+      sleep 2
+      @driver.navigate.refresh
+      sleep 3
+      expect(@driver.page_source.include?('Acoli')).to be(true)
+      sleep 1 until element = @driver.find_element(:class, "source__edit-button")
+      element.click
+      sleep 1 
+      list = @driver.find_elements(:css => "div.source-tags__tag svg")
+      list[0].click
+      sleep 1
+      @driver.navigate.refresh
+      sleep 3
+      expect(@driver.page_source.include?('Acoli')).to be(false)
     end
 =begin
-
-    # it "should add and remove tags" do
-    #   skip("Needs to be implemented")
-    # end
-
-    # it "should add and remove languages" do
-    #   skip("Needs to be implemented")
-    # end
 
     it "should not add a duplicated tag from command line", bin3: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
