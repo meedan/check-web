@@ -24,29 +24,6 @@ const SourceContainer = Relay.createContainer(SourceComponent, {
           slug,
           get_suggested_tags,
         },
-        tags(first: 10000) {
-          edges {
-            node {
-              tag,
-              id
-            }
-          }
-        },
-        languages: annotations(annotation_type: "language", first: 10000) {
-          edges {
-            node {
-              id,
-              dbid,
-              annotation_type,
-              annotated_type,
-              annotated_id,
-              annotator,
-              content,
-              created_at,
-              updated_at
-            }
-          }
-        },
         source {
           id,
           dbid,
@@ -59,6 +36,36 @@ const SourceContainer = Relay.createContainer(SourceComponent, {
           permissions,
           pusher_channel,
           verification_statuses,
+          metadata: annotations(annotation_type: "metadata", first: 1) {
+            edges {
+              node {
+                id,
+                dbid,
+                annotation_type,
+                annotated_type,
+                annotated_id,
+                annotator,
+                content,
+                created_at,
+                updated_at
+              }
+            }
+          },
+          languages: annotations(annotation_type: "language", first: 10000) {
+            edges {
+              node {
+                id,
+                dbid,
+                annotation_type,
+                annotated_type,
+                annotated_id,
+                annotator,
+                content,
+                created_at,
+                updated_at
+              }
+            }
+          },
           account_sources(first: 10000) {
             edges {
               node {
@@ -68,7 +75,6 @@ const SourceContainer = Relay.createContainer(SourceComponent, {
                   created_at,
                   updated_at,
                   embed,
-                  image,
                   url,
                   provider,
                   user {
@@ -95,7 +101,6 @@ const SourceContainer = Relay.createContainer(SourceComponent, {
                 created_at,
                 updated_at,
                 embed,
-                image,
                 url,
                 provider,
                 user {
@@ -119,60 +124,6 @@ const SourceContainer = Relay.createContainer(SourceComponent, {
               node {
                 tag,
                 id
-              }
-            }
-          },
-          annotations(first: 10000) {
-            edges {
-              node {
-                id,
-                dbid,
-                content,
-                annotation_type,
-                created_at,
-                updated_at,
-                permissions,
-                medias(first: 10000) {
-                  edges {
-                    node {
-                      id,
-                      dbid,
-                      published,
-                      url,
-                      embed,
-                      project_id,
-                      last_status,
-                      log_count,
-                      permissions,
-                      verification_statuses,
-                      domain,
-                      user {
-                        name,
-                        source {
-                          dbid
-                        }
-                      }
-                    }
-                  }
-                },
-                annotator {
-                  name,
-                  profile_image,
-                  user {
-                    name,
-                    email,
-                    source {
-                      dbid,
-                      accounts(first: 10000) {
-                        edges {
-                          node {
-                            url
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
               }
             }
           },

@@ -172,6 +172,7 @@ class SourceComponent extends Component {
   }
 
   subscribe() {
+    if (!this.isProjectSource()) { return; }
     const that = this;
     const pusher = this.getContext().pusher;
     const pusherChannel = this.props.source.source.pusher_channel;
@@ -183,6 +184,7 @@ class SourceComponent extends Component {
   }
 
   unsubscribe() {
+    if (!this.isProjectSource()) { return; }
     const pusher = this.getContext().pusher;
     if (pusher) {
       pusher.unsubscribe(this.props.source.source.pusher_channel);
@@ -219,11 +221,13 @@ class SourceComponent extends Component {
 
   getMetadataAnnotation() {
     const source = this.getSource();
-    const metadata = source.annotations.edges.find(item => item.node && item.node.annotation_type === 'metadata');
+    const metadata = source.metadata.edges.find(item => item.node && item.node.annotation_type === 'metadata');
     return metadata && metadata.node ? metadata.node : null;
   }
 
   getMetadataFields() {
+    if (!this.isProjectSource()) { return; }
+
     const metadata = this.getMetadataAnnotation();
     const content = metadata && metadata.content ? JSON.parse(metadata.content) : [];
     return content[0] && content[0].value ? JSON.parse(content[0].value) : null;
@@ -813,7 +817,7 @@ class SourceComponent extends Component {
   renderLanguagesView() {
     if (!this.isProjectSource()) { return; }
 
-    return <SourceLanguages usedLanguages={this.props.source.languages.edges} />;
+    return <SourceLanguages usedLanguages={this.getSource().languages.edges} />;
   }
 
   renderLanguagesEdit() {
@@ -882,7 +886,7 @@ class SourceComponent extends Component {
       createLanguageAnnotation(lang.value);
     };
 
-    const languages = this.props.source.languages.edges;
+    const languages = this.getSource().languages.edges;
     const isEditing = this.state.addingLanguages || languages.length;
 
     return (
@@ -900,14 +904,14 @@ class SourceComponent extends Component {
   renderTagsView() {
     if (!this.isProjectSource()) { return; }
 
-    const tags = this.props.source.tags.edges;
+    const tags = this.getSource().tags.edges;
     return <SourceTags tags={tags} />;
   }
 
   renderTagsEdit() {
     if (!this.isProjectSource()) { return; }
 
-    const tags = this.props.source.tags.edges;
+    const tags = this.getSource().tags.edges;
     const tagLabels = tags.map(tag => tag.node.tag);
     const suggestedTags = (this.props.source.team && this.props.source.team.get_suggested_tags) ? this.props.source.team.get_suggested_tags.split(',') : [];
     const availableTags = suggestedTags.filter(suggested => !tagLabels.includes(suggested));
