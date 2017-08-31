@@ -14,8 +14,10 @@ import IconDateRange from 'material-ui/svg-icons/action/date-range';
 import IconSchedule from 'material-ui/svg-icons/action/schedule';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+import CheckContext from '../../CheckContext';
 import { convertNumbers2English } from '../../helpers';
 import { alertRed, black38, black54, units, caption, FlexRow } from '../../styles/js/variables';
+import timezones from '../../timezones';
 
 const styles = {
   error: {
