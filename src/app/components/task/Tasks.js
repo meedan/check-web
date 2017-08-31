@@ -8,8 +8,8 @@ class Tasks extends Component {
 
     return (
       <div className="tasks">
-        <ul className="tasks__list tasks-list">
-          {tasks.map(task => (
+        <ul className="tasks__list / tasks-list">
+          {tasks.sortp((a, b) => a.node.dbid - b.node.dbid).map(task => (
             <li key={task.node.dbid}><Task task={task.node} media={media} /></li>
           ))}
         </ul>
