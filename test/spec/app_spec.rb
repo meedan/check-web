@@ -489,8 +489,9 @@ p @tag
       @driver.find_element(:class, "source__edit-addinfo-button").click
       sleep 1
       @driver.find_element(:class, "source__add-link").click
-      input = @driver.find_element(:id, "source__link-input0")
-      input.send_keys("www.acdc.com")
+      sleep 1
+      fill_field("source__link-input0", "www.acdc.com", :id)
+      sleep 2
       @driver.find_element(:class, 'source__edit-save-button').click
       sleep 3 until @driver.find_element(:class, 'footer')
       displayed_name = get_element('h1.source__name').text
@@ -560,7 +561,7 @@ p @tag
     it "should add and remove tags", bin1: true do
       api_create_team_project_and_source_and_redirect_to_source('GOT', 'https://twitter.com/GameOfThrones')
       sleep 5
-      lement = @driver.find_element(:class, "source__edit-button")
+      element = @driver.find_element(:class, "source__edit-button")
       element.click
       sleep 1 
       @driver.find_element(:class, "source__edit-buttons-add-merge").click
