@@ -480,13 +480,15 @@ p @tag
       expect(displayed_name.include? "EDIT").to be(true)
     end
 =end    
-    it "should add and remove accounts to sources", bin1: true  do
+    it "should add and remove accounts to sources", bin: true  do
       api_create_team_project_and_source_and_redirect_to_source('GOT', 'https://twitter.com/GameOfThrones')
       sleep 3 until element = @driver.find_element(:css, '.source__tab-button-notes')
       element.click
+      wait_page_load(item: "Save")
       sleep 1 until element = @driver.find_element(:class, "source__edit-button")
       element.click
-      sleep 1 until @driver.find_element(:class, "source__edit-addinfo-button").click
+      sleep 3 
+      @driver.find_element(:class, "source__edit-addinfo-button").click
       sleep 1
       @driver.find_element(:class, "source__add-link").click
       input = @driver.find_element(:id, "source__link-input0")
@@ -498,7 +500,7 @@ p @tag
     end
 
 
-    it "should edit source metadata (contact, phone, location, organization, other)", bin1: true do    
+    it "should edit source metadata (contact, phone, location, organization, other)", bin: true do    
       api_create_team_project_and_source_and_redirect_to_source('GOT', 'https://twitter.com/GameOfThrones')
       sleep 3 until element = @driver.find_element(:css, '.source__tab-button-notes')
       element.click
@@ -558,7 +560,7 @@ p @tag
       expect(@driver.page_source.include?('989898989')).to be(true)      
     end
 
-    it "should add and remove tags", bin1: true do
+    it "should add and remove tags", bin: true do
       api_create_team_project_and_source_and_redirect_to_source('GOT', 'https://twitter.com/GameOfThrones')
       sleep 3 until element = @driver.find_element(:css, '.source__tab-button-notes')
       element.click
@@ -591,7 +593,7 @@ p @tag
       expect(@driver.page_source.include?('TAG2')).to be(false)
     end
 
-    it "should add and remove languages",bin1: true  do
+    it "should add and remove languages",bin: true  do
       api_create_team_project_and_source_and_redirect_to_source('GOT', 'https://twitter.com/GameOfThrones')
       sleep 5
       element = @driver.find_element(:class, "source__edit-button")
