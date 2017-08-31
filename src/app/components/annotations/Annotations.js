@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { defineMessages } from 'react-intl';
 import { Card, CardActions } from 'material-ui/Card';
 import styled from 'styled-components';
+import ReactChatView from 'react-chatview';
 import TimelineHeader from './TimelineHeader';
 import AddAnnotation from './AddAnnotation';
 import MediaAnnotation from './MediaAnnotation';
@@ -48,20 +49,27 @@ class Annotations extends Component {
     return (
       <StyledCard className="annotations">
         <TimelineHeader msgObj={messages} msgKey="timelineTitle" />
-        <ul
+        <ReactChatView
           className="annotations__list annotations-list"
-          style={{ margin: `0 ${units(1)}`, padding: `0 ${units(1)}` }}
+          flipped
+          reversed
+          scrollLoadThreshold={50}
+          onInfiniteLoad={() => true}
         >
           {annotations.map(annotation =>
-            <li key={annotation.node.dbid} className="annotations__list-item">
+            <div
+              style={{ margin: `0 ${units(1)}` }}
+              key={annotation.node.dbid}
+              className="annotations__list-item"
+            >
               {this.annotationComponent(
                 annotation.node,
                 props.annotated,
                 props.annotatedType,
               )}
-            </li>,
+            </div>,
           )}
-        </ul>
+        </ReactChatView>
         <StyledCardActions>
           {props.annotatedType === 'ProjectMedia'
             ? <Can

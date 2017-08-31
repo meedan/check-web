@@ -153,6 +153,7 @@
     "prop-types": "^15.5.10",
     "rc-tooltip": "^3.4.2",
     "react": "^15.6.1",
+    "react-chatview": "^0.2.4",
     "react-copy-to-clipboard": "^5.0.0",
     "react-document-title": "^2.0.2",
     "react-dom": "^15.4.1",
