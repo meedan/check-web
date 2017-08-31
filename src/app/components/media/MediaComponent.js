@@ -15,25 +15,20 @@ import {
 } from '../../helpers';
 import ContentColumn from '../layout/ContentColumn';
 import { mediaStatuses, mediaLastStatus } from '../../customHelpers';
-import { headerHeight, transitionSpeedSlow, gutterMedium, units, FlexRow, subheading2, black87, black54, black16, mediaQuery } from '../../styles/js/variables';
+import { headerHeight, transitionSpeedSlow, gutterMedium, units, FlexRow, subheading2, body1, black87, black54, black16, mediaQuery } from '../../styles/js/variables';
 
 const StyledTaskHeaderRow = styled.div`
-  align-items: baseline;
   justify-content: space-between;
   padding-top: ${units(5)};
   display: flex;
+  color: ${black54};
+  font: ${body1};
 
   h2 {
     color: ${black87};
     flex: 1;
     font: ${subheading2};
     margin: 0;
-  }
-
-  & > span {
-    color: ${black54};
-    font: ${subheading2};
-    margin: 0 ${units(2)};
   }
 
   .create-task {
