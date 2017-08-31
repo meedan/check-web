@@ -41,7 +41,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       puts "Could not copy local ./config.js to ../build/web/js/"
     end
 
-    #EXTRACT USER:PWD FROM URL FOR CHROME    
+    #EXTRACT USER:PWD FROM URL FOR CHROME
     if ((browser_capabilities == :chrome) and (@config['self_url'].include? "@" and @config['self_url'].include? ":"))
       @config['self_url'] = @config['self_url'][0..(@config['self_url'].index('//')+1)] + @config['self_url'][(@config['self_url'].index('@')+1)..-1]
     end
@@ -270,10 +270,10 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       page = ProjectPage.new(config: @config, driver: @driver).load
              .create_image_media(File.join(File.dirname(__FILE__), 'test.png'))
 
-      sleep 8 # wait for Sidekiq
+      sleep 10 # wait for Sidekiq
 
       @driver.navigate.to @config['self_url'] + '/' + get_team + '/search'
-      sleep 3
+      sleep 5
       imgsrc = @driver.find_element(:css, '.image-media-card img').attribute('src')
       expect(imgsrc.match(/test\.png$/).nil?).to be(false)
     end
@@ -639,7 +639,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     #   skip("Needs to be implemented")
     # end
 @team1_slug = 'team1'+Time.now.to_i.to_s
-    
+
     it "should navigate between teams", bin4: true, quick: true do
       # setup
       user = api_register_and_login_with_email(email: @user_mail, password: @password)
