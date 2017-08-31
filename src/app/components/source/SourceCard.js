@@ -10,17 +10,6 @@ import TimeBefore from '../TimeBefore';
 import SourcePicture from './SourcePicture';
 import { truncateLength } from '../../helpers';
 
-const messages = defineMessages({
-  disclaimer: {
-    id: 'sourceCard.header',
-    defaultMessage: 'Check Source',
-  },
-  bridge_disclaimer: {
-    id: 'bridge.sourceCard.header',
-    defaultMessage: 'Bridge Source',
-  },
-});
-
 class SourceCard extends React.Component {
   render() {
     const { source } = this.props.source;
@@ -39,8 +28,6 @@ class SourceCard extends React.Component {
             <SourcePicture object={source} type="source" />
           </div>
           <article className="source-card__body">
-            <div className="source-card__heading"><MappedMessage msgObj={messages} msgKey="disclaimer" /></div>
-
             <div className="source-card__name">
               <Link to={sourceUrl} className="header__app-link">{source.name}</Link>
             </div>
