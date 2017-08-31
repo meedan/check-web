@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 import config from 'config';
 import { Card, CardHeader, CardText, CardActions } from 'material-ui/Card';
 import styled from 'styled-components';
+import MdFormatQuote from 'react-icons/lib/md/format-quote';
 import rtlDetect from 'rtl-detect';
 import MediaStatus from './MediaStatus';
 import QuoteMediaCard from './QuoteMediaCard';
@@ -116,7 +117,7 @@ class MediaDetail extends Component {
           style={{ paddingRight: units(1) }}
         >
           <span style={{ display: 'inline-flex', alignItems: 'flex-start', height: units(2), paddingRight: units(1) }}>
-            {MediaUtil.socialIcon(media.domain)}
+            { media.quote ? <MdFormatQuote /> : MediaUtil.socialIcon(media.domain) }
           </span>
           {heading}
         </Link>
