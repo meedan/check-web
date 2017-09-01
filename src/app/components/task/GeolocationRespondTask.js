@@ -34,6 +34,12 @@ class GeolocationRespondTask extends Component {
       lng,
       name,
       coordinatesString,
+      original: {
+        lat,
+        lng,
+        name,
+        coordinatesString,
+      },
     };
   }
 
@@ -141,9 +147,8 @@ class GeolocationRespondTask extends Component {
   }
 
   handleCancel() {
-    if (this.props.onCancel) {
-      this.props.onCancel();
-    }
+    const ori = this.state.original;
+    this.setState({ name: ori.name, lat: ori.lat, lng: ori.lng, coordinatesString: ori.coordinatesString });
     if (this.props.onDismiss) {
       this.props.onDismiss();
     }

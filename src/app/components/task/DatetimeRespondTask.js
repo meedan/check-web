@@ -96,6 +96,13 @@ class DatetimeRespondTask extends Component {
       hour,
       minute,
       note,
+      original: {
+        timezone,
+        date,
+        hour,
+        minute,
+        note,
+      },
     };
   }
 
@@ -197,6 +204,14 @@ class DatetimeRespondTask extends Component {
 
   getLocale() {
     return new CheckContext(this).getContextStore().locale || 'en';
+  }
+
+  handleCancel() {
+    const ori = this.state.original;
+    this.setState({ timezone: ori.timezone, date: ori.date, hour: ori.hour, minute: ori.minute, note: ori.note });
+    if (this.props.onDismiss) {
+      this.props.onDismiss();
+    }
   }
 
   render() {
@@ -307,6 +322,11 @@ class DatetimeRespondTask extends Component {
           onChange={this.handleChangeNote.bind(this)}
         />
         <p className="task__resolver">
+          <FlatButton
+            className="task__cancel"
+            label={<FormattedMessage id="datetimeRespondTask.cancelTask" defaultMessage="Cancel" />}
+            onClick={this.handleCancel.bind(this)}
+          />
           <FlatButton
             className="task__save"
             label={

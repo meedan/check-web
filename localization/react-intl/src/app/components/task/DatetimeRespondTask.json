@@ -24,6 +24,10 @@
     "defaultMessage": "Note any additional details here."
   },
   {
+    "id": "datetimeRespondTask.cancelTask",
+    "defaultMessage": "Cancel"
+  },
+  {
     "id": "datetimeRespondTask.resolveTask",
     "defaultMessage": "Resolve task"
   }
