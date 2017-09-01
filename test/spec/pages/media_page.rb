@@ -12,7 +12,7 @@ class MediaPage < Page
 
   def set_title(string)
     edit
-    fill_input('.media-detail__title-input', string, {clear: true})
+    fill_input('.media-detail__title-input > input', string, {clear: true})
     click('.media-detail__save-edits') # Done
     @wait.until {
       string == primary_heading.text
@@ -27,9 +27,14 @@ class MediaPage < Page
     contains_element?('.media-detail__title-input')
   end
 
+  def pender_visible?
+    contains_element?('.pender-container')
+  end
+
   def edit
+    element('.media-detail').click unless pender_visible?
     element('.media-actions').click
-    element('.media-actions__menu-item').click
+    element('.media-actions__edit').click
     @wait.until { editing_mode? }
   end
 
@@ -71,7 +76,7 @@ class MediaPage < Page
   end
 
   def primary_heading
-    element('.media__primary-heading')
+    element('.media__heading')
   end
 
   def go_to_project

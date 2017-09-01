@@ -20,7 +20,7 @@ class DeleteDynamicMutation extends Relay.Mutation {
     let query = '';
     switch (this.props.parent_type) {
     case 'project_source':
-      query = Relay.QL`fragment on DestroyDynamicPayload { deletedId, project_source { translations: annotations(annotation_type: "translation", first: 10000) } }`;
+      query = Relay.QL`fragment on DestroyDynamicPayload { deletedId, project_source { source { log, log_count } } }`;
       break;
     }
     return query;

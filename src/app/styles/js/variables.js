@@ -1,5 +1,6 @@
 import styled, { css, keyframes } from 'styled-components';
 import { CardTitle } from 'material-ui/Card';
+import TextField from 'material-ui/TextField';
 import { stripUnit, rgba } from 'polished';
 
 // Styles for overriding material UI
@@ -73,7 +74,8 @@ export const caption = `400 ${units(1.5)}/${units(2.5)} ${fontStackSans}`;
 export const tiny = `400 ${units(1)}/${units(1.5)} ${fontStackSans}`;
 
 // Layout
-export const headerHeight = units(7);
+export const headerHeight = units(8);
+export const gutterMedium = units(3);
 
 // Breakpoints
 export const breakpointMobile = `${units(85)}`;
@@ -81,6 +83,7 @@ export const breakpointMobile = `${units(85)}`;
 // Transitions
 export const transitionSpeedFast = '150ms';
 export const transitionSpeedDefault = '300ms';
+export const transitionSpeedSlow = '500ms';
 
 // Borders
 export const defaultBorderRadius = '2px';
@@ -261,8 +264,9 @@ export const muiThemeWithoutRtl = {
 };
 
 
-export const media = {
+export const mediaQuery = {
   handheld: (...args) => css`@media (max-width: ${breakpointMobile}) { ${css(...args)} }`,
+  desktop: (...args) => css`@media (min-width: ${breakpointMobile}) { ${css(...args)} }`,
 };
 
 
@@ -305,3 +309,25 @@ export const anchorOrigin = {
   horizontal: 'left',
   vertical: 'bottom',
 };
+
+export const breakWordStyles = `
+  hyphens: auto;
+  overflow-wrap: break-word;
+  word-break: break-word;
+`;
+
+// A smaller TextField
+// that better aligns with multiple choice options
+const StyledSmallTextField = styled(TextField)`
+  height: ${units(3)}!important;
+  font: ${body2} !important;
+  * {
+    bottom: 0!important;
+  }
+  div {
+    font-size: inherit!important;
+  }
+  textarea {
+    margin: 0!important;
+  }
+`;

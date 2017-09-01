@@ -33,7 +33,7 @@ class GeolocationRespondTask extends Component {
       lat,
       lng,
       name,
-      coordinatesString
+      coordinatesString,
     };
   }
 
@@ -59,9 +59,8 @@ class GeolocationRespondTask extends Component {
     const value = document.getElementById('task__response-geolocation-name').value;
     if (typeof value !== 'undefined' && value !== null) {
       return !!value.trim();
-    } else {
-      return false;
     }
+    return false;
   }
 
   handleKeyPress(e) {
@@ -96,7 +95,7 @@ class GeolocationRespondTask extends Component {
     let coordinates = [0, 0];
     try {
       const coordinatesString = this.state.coordinatesString;
-      if (coordinatesString && coordinatesString != '') {
+      if (coordinatesString && coordinatesString !== '') {
         const pair = coordinatesString.split(/, ?/);
         coordinates = [parseFloat(pair[0]), parseFloat(pair[1])];
       }
@@ -108,19 +107,18 @@ class GeolocationRespondTask extends Component {
 
   handleSubmit() {
     if (!this.state.taskAnswerDisabled) {
-
       const name = document.getElementById('task__response-geolocation-name').value;
       const coordinates = this.getCoordinates();
- 
+
       const response = JSON.stringify({
         type: 'Feature',
         geometry: {
           type: 'Point',
-          coordinates
+          coordinates,
         },
         properties: {
-          name
-        }
+          name,
+        },
       });
 
       this.setState({ taskAnswerDisabled: true });
@@ -166,7 +164,6 @@ class GeolocationRespondTask extends Component {
           onChange={this.handleChange.bind(this)}
           fullWidth
           multiLine
-          style={{ display: '' }}
         />
         <TextField
           id="task__response-geolocation-coordinates"
@@ -183,8 +180,8 @@ class GeolocationRespondTask extends Component {
         <p className="task__resolver">
           <small><FormattedMessage id="geolocationRespondTask.pressReturnToSave" defaultMessage="Press return to save your response" /></small>
         </p>
-        <div style={{ height: '400px', width: '100%' }}>
-          <Map center={position} zoom={this.state.zoom} onClick={this.updatePositionOnClick.bind(this)}>
+        <div>
+          <Map style={{ height: '400px' }} center={position} zoom={this.state.zoom} onClick={this.updatePositionOnClick.bind(this)}>
             <TileLayer
               attribution="2017 <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a>"
               url="http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png"
@@ -194,8 +191,7 @@ class GeolocationRespondTask extends Component {
               onDragend={this.updatePosition.bind(this)}
               position={position}
               ref="marker"
-            >
-            </Marker>
+            />
           </Map>
         </div>
         <p className="task__resolver">

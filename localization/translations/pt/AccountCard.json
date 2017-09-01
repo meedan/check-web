@@ -4,5 +4,5 @@
   "accountCard.youtubeStats": "{videos, number} Vídeos • {subscribers, number} Assinantes",
   "mediaDetail.byUser": "por {username}",
   "accountCard.providerAccount": "conta de {provider}",
-  "mediaDetail.added": "Adicionado {byUser}"
+  "mediaDetail.added": "Adicionado por {byUser}"
 }

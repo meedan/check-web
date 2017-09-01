@@ -1,11 +1,3 @@
 {
-  "mediaDetail.moveFailed": "Sorry, we could not move this report",
-  "mediaDetail.mediaTitle": "Title",
-  "mediaDetail.byUser": "by {username}",
-  "mediaDetail.cancelButton": "Cancel",
-  "mediaDetail.move": "Move",
-  "mediaDetail.added": "Added {byUser}",
-  "mediaDetail.doneButton": "Done",
-  "mediaDetail.dialogHeader": "Move this {mediaType} to a different project",
-  "mediaDetail.dialogMediaPath": "Currently filed under {teamName} > {projectTitle}"
+  "mediaDetail.mediaTitle": "Title"
 }

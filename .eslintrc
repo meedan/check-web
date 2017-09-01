@@ -43,5 +43,8 @@
         "jsx-a11y/no-static-element-interactions": "warn",
 
         no-irregular-whitespace: ["error", { "skipComments": true }],
+
+        // Todo: consider standardizing on camelcase
+        "camelcase": "warn",
     }
 }

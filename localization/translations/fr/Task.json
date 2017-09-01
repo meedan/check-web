@@ -2,11 +2,13 @@
   "task.confirmDelete": "Voulez-vous vraiment effacer cette tâche ?",
   "tasks.cancelEdit": "Annuler",
   "tasks.save": "Sauvegarder",
-  "task.edit": "Modifier la tâche",
+  "task.resolvedBy": "Résolue par {byName}",
+  "task.editResponse": "Éditer la réponse",
+  "task.edit": "Éditer la tâche",
   "task.delete": "Effacer la tâche",
+  "task.hintText": "Taper votre réponse ici",
   "task.noteLabel": "Ajouter ici des détails supplémentaires.",
   "task.pressReturnToSave": "Pressez \"entrée\" pour sauvegarder votre réponse.",
-  "task.resolvedBy": "Résolue par {by}",
   "tasks.taskLabel": "Étiquette",
   "tasks.description": "Description"
 }

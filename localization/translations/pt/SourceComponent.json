@@ -17,7 +17,7 @@
   "sourceComponent.link": "Link",
   "sourceComponent.addLink": "Insira um link",
   "sourceComponent.addLinkHelper": "Adicione um link para uma página web ou perfil de mídia social",
-  "sourceComponent.invalidLink": "Por favor insira um URL válido",
+  "sourceComponent.invalidLink": "Por favor insira uma URL válida",
   "sourceComponent.other": "Outro (Especifique)",
   "sourceComponent.dateAdded": "Adicionado {date} • Fonte de {number} links",
   "sourceComponent.medias": "Mídia",

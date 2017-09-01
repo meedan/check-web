@@ -28,44 +28,6 @@ const sourceFragment = Relay.QL`
         }
       }
     },
-    annotations(first: 10000) {
-      edges {
-        node {
-          id,
-          content,
-          annotation_type,
-          updated_at,
-          permissions,
-          medias(first: 10000) {
-            edges {
-              node {
-                id,
-                dbid,
-                published,
-                url,
-                embed,
-                project_id,
-                last_status,
-                log_count,
-                permissions,
-                verification_statuses,
-                domain,
-                user {
-                  name,
-                  source {
-                    dbid
-                  }
-                }
-              }
-            }
-          },
-          annotator {
-            name,
-            profile_image
-          }
-        }
-      }
-    },
     medias(first: 10000) {
       edges {
         node {

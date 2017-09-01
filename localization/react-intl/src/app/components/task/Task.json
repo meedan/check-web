@@ -12,12 +12,24 @@
     "defaultMessage": "Save"
   },
   {
+    "id": "task.resolvedBy",
+    "defaultMessage": "Resolved by {byName}"
+  },
+  {
+    "id": "task.editResponse",
+    "defaultMessage": "Edit response"
+  },
+  {
     "id": "task.edit",
-    "defaultMessage": "Edit task"
+    "defaultMessage": "Edit question"
   },
   {
     "id": "task.delete",
     "defaultMessage": "Delete task"
+  },
+  {
+    "id": "task.hintText",
+    "defaultMessage": "Type a response"
   },
   {
     "id": "task.noteLabel",
@@ -26,10 +38,6 @@
   {
     "id": "task.pressReturnToSave",
     "defaultMessage": "Press return to save your response"
-  },
-  {
-    "id": "task.resolvedBy",
-    "defaultMessage": "Resolved by {by}"
   },
   {
     "id": "tasks.taskLabel",

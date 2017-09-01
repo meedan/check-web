@@ -46,10 +46,13 @@ import DeleteTagMutation from '../../relay/DeleteTagMutation';
 import CreateAccountSourceMutation from '../../relay/mutation/CreateAccountSourceMutation';
 import DeleteAccountSourceMutation from '../../relay/mutation/DeleteAccountSourceMutation';
 import UpdateSourceMutation from '../../relay/UpdateSourceMutation';
+import UpdateProjectSourceMutation from '../../relay/mutation/UpdateProjectSourceMutation';
+import Pusher from 'pusher-js';
 import deepEqual from 'deep-equal';
 import capitalize from 'lodash.capitalize';
 import LinkifyIt from 'linkify-it';
 import styled from 'styled-components';
+import SourcePicture from './SourcePicture';
 
 const FlexRow = styled.div`
   display: flex;
@@ -157,10 +160,35 @@ class SourceComponent extends Component {
 
   componentDidMount() {
     this.setContextSource();
+    this.subscribe();
   }
 
   componentDidUpdate() {
     this.setContextSource();
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
+
+  subscribe() {
+    if (!this.isProjectSource()) { return; }
+    const that = this;
+    const pusher = this.getContext().pusher;
+    const pusherChannel = this.props.source.source.pusher_channel;
+    if (pusher && pusherChannel) {
+      pusher.subscribe(pusherChannel).bind('source_updated', (data) => {
+        that.props.relay.forceFetch();
+      });
+    }
+  }
+
+  unsubscribe() {
+    if (!this.isProjectSource()) { return; }
+    const pusher = this.getContext().pusher;
+    if (pusher) {
+      pusher.unsubscribe(this.props.source.source.pusher_channel);
+    }
   }
 
   getContext() {
@@ -193,11 +221,13 @@ class SourceComponent extends Component {
 
   getMetadataAnnotation() {
     const source = this.getSource();
-    const metadata = source.annotations.edges.find(item => item.node && item.node.annotation_type === 'metadata');
+    const metadata = source.metadata.edges.find(item => item.node && item.node.annotation_type === 'metadata');
     return metadata && metadata.node ? metadata.node : null;
   }
 
   getMetadataFields() {
+    if (!this.isProjectSource()) { return; }
+
     const metadata = this.getMetadataAnnotation();
     const content = metadata && metadata.content ? JSON.parse(metadata.content) : [];
     return content[0] && content[0].value ? JSON.parse(content[0].value) : null;
@@ -646,7 +676,7 @@ class SourceComponent extends Component {
     const deleteLinks = this.state.deleteLinks ? this.state.deleteLinks.slice(0) : [];
     const showAccounts = source.account_sources.edges.filter(as => (deleteLinks.indexOf(as.node.id) < 0));
 
-    return (<div>
+    return (<div key="renderAccountsEdit">
       { showAccounts.map((as, index) =>
         <div key={as.node.id} className="source__url">
           <FlexRow>
@@ -787,7 +817,7 @@ class SourceComponent extends Component {
   renderLanguagesView() {
     if (!this.isProjectSource()) { return; }
 
-    return <SourceLanguages usedLanguages={this.props.source.languages.edges} />;
+    return <SourceLanguages usedLanguages={this.getSource().languages.edges} />;
   }
 
   renderLanguagesEdit() {
@@ -856,7 +886,7 @@ class SourceComponent extends Component {
       createLanguageAnnotation(lang.value);
     };
 
-    const languages = this.props.source.languages.edges;
+    const languages = this.getSource().languages.edges;
     const isEditing = this.state.addingLanguages || languages.length;
 
     return (
@@ -874,14 +904,14 @@ class SourceComponent extends Component {
   renderTagsView() {
     if (!this.isProjectSource()) { return; }
 
-    const tags = this.props.source.tags.edges;
+    const tags = this.getSource().tags.edges;
     return <SourceTags tags={tags} />;
   }
 
   renderTagsEdit() {
     if (!this.isProjectSource()) { return; }
 
-    const tags = this.props.source.tags.edges;
+    const tags = this.getSource().tags.edges;
     const tagLabels = tags.map(tag => tag.node.tag);
     const suggestedTags = (this.props.source.team && this.props.source.team.get_suggested_tags) ? this.props.source.team.get_suggested_tags.split(',') : [];
     const availableTags = suggestedTags.filter(suggested => !tagLabels.includes(suggested));
@@ -904,10 +934,7 @@ class SourceComponent extends Component {
       <div className="source__profile-content">
         <section className="layout-two-column">
           <div className="column-secondary">
-            <div
-              className="source__avatar"
-              style={{ backgroundImage: `url(${source.image})` }}
-            />
+            <SourcePicture object={source} type="source" className="source__avatar" />
           </div>
 
           <div className="column-primary">
@@ -1043,7 +1070,7 @@ class SourceComponent extends Component {
                 </Popover>
               </div>
 
-              <Dialog title={this.props.intl.formatMessage(messages.otherDialogTitle)} actions={actions} actionsContainerClassName="sourceComponent__action-container" open={this.state.dialogOpen} onRequestClose={this.handleCloseDialog.bind(this)} contentStyle={{ width: '608px' }}>
+              <Dialog title={this.props.intl.formatMessage(messages.otherDialogTitle)} actions={actions} actionsContainerClassName="sourceComponent__action-container" open={this.state.dialogOpen} onRequestClose={this.handleCloseDialog.bind(this)}>
                 <TextField
                   id="source__other-label-input"
                   floatingLabelText={this.props.intl.formatMessage(messages.label)}
@@ -1119,13 +1146,11 @@ class SourceComponent extends Component {
           </Card>
 
           { !isEditing ?
-            <div>
+            <ContentColumn>
               { this.state.showTab === 'annotation' ? <Annotations annotations={source.log.edges} annotated={this.props.source} annotatedType="ProjectSource" /> : null }
-              <ContentColumn>
-                { this.state.showTab === 'media' ? <Medias medias={source.medias.edges} /> : null }
-                { this.state.showTab === 'account' ? source.accounts.edges.map(account => <AccountCard key={account.node.id} account={account.node} />) : null }
-              </ContentColumn>
-            </div> : null
+              { this.state.showTab === 'media' ? <Medias medias={source.medias.edges} /> : null }
+              { this.state.showTab === 'account' ? source.accounts.edges.map(account => <AccountCard key={account.node.id} account={account.node} />) : null }
+            </ContentColumn> : null
           }
         </div>
       </PageTitle>

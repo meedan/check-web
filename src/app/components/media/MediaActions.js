@@ -1,8 +1,11 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
-import MdMoreHoriz from 'react-icons/lib/md/more-horiz';
-import { can } from '../Can';
+import IconMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
+import IconButton from 'material-ui/IconButton';
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
 import config from 'config';
+import { can } from '../Can';
 import CheckContext from '../../CheckContext';
 
 class MediaActions extends Component {
@@ -12,14 +15,6 @@ class MediaActions extends Component {
     this.state = {
       isMenuOpen: false,
     };
-  }
-
-  toggleMenu() {
-    this.setState({ isMenuOpen: !this.state.isMenuOpen });
-  }
-
-  bemClass(baseClass, modifierBoolean, modifierSuffix) {
-    return modifierBoolean ? [baseClass, baseClass + modifierSuffix].join(' ') : baseClass;
   }
 
   handleEmbed() {
@@ -33,29 +28,64 @@ class MediaActions extends Component {
     const menuItems = [];
 
     if (can(media.permissions, 'create Tag')) {
-      menuItems.push(<li key="mediaActions.edit" className="media-actions__menu-item" onClick={handleEdit}><FormattedMessage id="mediaActions.edit" defaultMessage="Edit..." /></li>);
+      menuItems.push(
+        <MenuItem
+          key="mediaActions.edit"
+          className="media-actions__edit"
+          onClick={handleEdit}
+        >
+          <FormattedMessage id="mediaActions.edit" defaultMessage="Edit" />
+        </MenuItem>,
+      );
     }
 
     if (can(media.permissions, 'update ProjectMedia')) {
-      menuItems.push(<li key="mediaActions.move" className="media-actions__menu-item" onClick={handleMove}><FormattedMessage id="mediaActions.move" defaultMessage="Move..." /></li>);
+      menuItems.push(
+        <MenuItem
+          key="mediaActions.move"
+          className="media-actions__move"
+          onClick={handleMove}
+        >
+          <FormattedMessage id="mediaActions.move" defaultMessage="Move" />
+        </MenuItem>,
+      );
       if (media.url) {
-        menuItems.push(<li key="mediaActions.refresh" className="media-actions__menu-item" id="media-actions__refresh" onClick={handleRefresh}><FormattedMessage id="mediaActions.refresh" defaultMessage="Refresh" /></li>);
+        menuItems.push(
+          <MenuItem
+            key="mediaActions.refresh"
+            className="media-actions__refresh"
+            id="media-actions__refresh"
+            onClick={handleRefresh}
+          >
+            <FormattedMessage id="mediaActions.refresh" defaultMessage="Refresh" />
+          </MenuItem>,
+        );
       }
     }
 
     if (config.appName === 'check') {
-      menuItems.push(<li key="mediaActions.embed" className="media-actions__menu-item" id="media-actions__embed" onClick={this.handleEmbed.bind(this)}><FormattedMessage id="mediaActions.embed" defaultMessage="Embed..." /></li>);
+      menuItems.push(
+        <MenuItem
+          key="mediaActions.embed"
+          className="media-actions__embed"
+          id="media-actions__embed"
+          onClick={this.handleEmbed.bind(this)}
+        >
+          <FormattedMessage id="mediaActions.embed" defaultMessage="Embed" />
+        </MenuItem>,
+      );
     }
 
-    return menuItems.length ? (
-      <div className={this.bemClass('media-actions', this.state.isMenuOpen, '--active')}>
-        <MdMoreHoriz className="media-actions__icon" onClick={this.toggleMenu.bind(this)} />
-        <div className={this.bemClass('media-actions__overlay', this.state.isMenuOpen, '--active')} onClick={this.toggleMenu.bind(this)} />
-        <ul className={this.bemClass('media-actions__menu', this.state.isMenuOpen, '--active')}>
+    return menuItems.length
+      ? <div style={{ marginLeft: 'auto' }}>
+        <IconMenu
+          className="media-actions"
+          iconButtonElement={<IconButton><IconMoreHoriz className="media-actions__icon" /></IconButton>}
+        >
           {menuItems}
-        </ul>
+        </IconMenu>
       </div>
-    ) : null;
+      : null;
   }
 }
 

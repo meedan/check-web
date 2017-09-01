@@ -6,8 +6,8 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import rtlDetect from 'rtl-detect';
 import merge from 'lodash.merge';
 import config from 'config';
+import injectTapEventPlugin from 'react-tap-event-plugin';
 import Header from './Header';
-import FooterRelay from '../relay/FooterRelay';
 import LoginContainer from './LoginContainer';
 import BrowserSupport from './BrowserSupport';
 import CheckContext from '../CheckContext';
@@ -15,10 +15,14 @@ import { bemClass } from '../helpers';
 import ContentColumn from './layout/ContentColumn';
 import { muiThemeWithoutRtl } from '../styles/js/variables';
 
+// Material-UI setup
+injectTapEventPlugin();
+
 const messages = defineMessages({
   needRegister: {
     id: 'home.needRegister',
-    defaultMessage: 'First you need to register. Once registered, you can request to join the team.',
+    defaultMessage:
+      'First you need to register. Once registered, you can request to join the team.',
   },
   somethingWrong: {
     id: 'home.somethingWrong',
@@ -77,7 +81,9 @@ class Home extends Component {
   render() {
     const { children } = this.props;
     const routeSlug = this.routeSlug(children);
-    const muiThemeWithRtl = getMuiTheme(merge(muiThemeWithoutRtl, { isRtl: rtlDetect.isRtlLang(this.props.intl.locale) }));
+    const muiThemeWithRtl = getMuiTheme(
+      merge(muiThemeWithoutRtl, { isRtl: rtlDetect.isRtlLang(this.props.intl.locale) }),
+    );
 
     if (!this.state.sessionStarted) {
       return null;
@@ -99,7 +105,7 @@ class Home extends Component {
     const routeIsPublic = children && children.props.route.public;
     if (!routeIsPublic && !this.state.token) {
       if (this.state.error) {
-        return (<LoginContainer loginCallback={this.loginCallback.bind(this)} message={message} />);
+        return <LoginContainer loginCallback={this.loginCallback.bind(this)} message={message} />;
       }
       return null;
     }
@@ -110,10 +116,11 @@ class Home extends Component {
           <Favicon url={`/images/logo/${config.appName}.ico`} animated={false} />
           <BrowserSupport />
           <div className={bemClass('home', routeSlug, `--${routeSlug}`)}>
-            <ContentColumn wide className="home__disclaimer"><span><FormattedMessage id="home.beta" defaultMessage="Beta" /></span></ContentColumn>
+            <ContentColumn wide className="home__disclaimer">
+              <span><FormattedMessage id="home.beta" defaultMessage="Beta" /></span>
+            </ContentColumn>
             <Header {...this.props} loggedIn={this.state.token} />
             <div className="home__content">{children}</div>
-            <FooterRelay {...this.props} />
           </div>
         </span>
       </MuiThemeProvider>

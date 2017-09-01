@@ -59,11 +59,11 @@ const messages = defineMessages({
   },
   favoritesCount: {
     id: 'media.favoritesCount',
-    defaultMessage: '{favoritesCount, plural, =0 {} one {1 favorite} other {# favorites}}',
+    defaultMessage: '{favoritesCount, plural, one {1 favorite} other {# favorites}}',
   },
   retweetsCount: {
     id: 'media.retweetsCount',
-    defaultMessage: '{retweetsCount, plural, =0 {} one {1 retweet} other {# retweets}}',
+    defaultMessage: '{retweetsCount, plural, one {1 retweet} other {# retweets}}',
   },
 });
 
@@ -122,27 +122,6 @@ const MediaUtil = {
   typeLabel(media, data, intl) {
     const type = this.mediaType(media, data);
     return type ? intl.formatMessage(type) : '';
-  },
-
-  attributedType(media, data, intl) {
-    let typeLabel = null;
-    try {
-      const type = this.mediaType(media, data);
-      typeLabel = intl.formatMessage(type);
-      if (type === messages.typePage) {
-        return intl.formatMessage(messages.onDomain, { typeLabel, domain: media.domain });
-      } else if (type === messages.typeImage) {
-        return data.title || typeLabel;
-      } else if (type === messages.typeClaim) {
-        return data.title && data.title !== media.quote ? data.title : typeLabel;
-      }
-      const attribution = this.authorName(media, data);
-      return attribution
-        ? intl.formatMessage(messages.byAttribution, { typeLabel, attribution })
-        : typeLabel;
-    } catch (e) {
-      return typeLabel || '';
-    }
   },
 
   title(media, data, intl) {
@@ -213,34 +192,15 @@ const MediaUtil = {
   socialIcon(domain) {
     switch (domain) {
     case 'twitter.com':
-      return <FaTwitter />;
+      return <FaTwitter alt={domain} key="socialIcon__Twitter" />;
     case 'youtube.com':
-      return <FaYoutubePlay />;
+      return <FaYoutubePlay alt={domain} key="socialIcon__Youtube" />;
     case 'instagram.com':
-      return <FaInstagram />;
+      return <FaInstagram alt={domain} key="socialIcon__Instagram" />;
     case 'facebook.com':
-      return <FaFacebookSquare />;
+      return <FaFacebookSquare alt={domain} key="socialIcon__Facebook" />;
     default:
-      return <MdLink />;
-    }
-  },
-
-  stats(media, data, intl) {
-    try {
-      return (
-        {
-          'twitter.com': [
-            intl.formatMessage(messages.favoritesCount, {
-              favoritesCount: data.raw.api.favorite_count,
-            }),
-            intl.formatMessage(messages.retweetsCount, {
-              retweetsCount: data.raw.api.retweet_count,
-            }),
-          ],
-        }[media.domain] || []
-      );
-    } catch (e) {
-      return [];
+      return <MdLink alt="link" key="socialIcon__Link" />;
     }
   },
 };
