@@ -145,7 +145,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Try to add duplicate
       page.add_tag(new_tag)
-      sleep 5
+      sleep 7
 
       # Verify that tag is not added and that error message is displayed
       expect(page.tags.count(new_tag)).to be(1)
@@ -266,6 +266,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should search for image", bin2: true do
       api_create_team_and_project
+      sleep 2
       page = ProjectPage.new(config: @config, driver: @driver).load
              .create_image_media(File.join(File.dirname(__FILE__), 'test.png'))
 
