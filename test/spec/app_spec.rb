@@ -69,7 +69,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
   # The tests themselves start here
 
   context "web" do
-=begin   
     it "should filter by medias or sources", bin6: true do
       api_create_team_project_and_link 'https://twitter.com/TheWho/status/890135323216367616'
       @driver.navigate.to @config['self_url']
@@ -366,7 +365,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 15
       expect(@driver.page_source.include?('Source exists')).to be(true)
     end
-=end
 
     it "should tag source as a command", bin6: true do
       api_create_team_project_and_source_and_redirect_to_source('ACDC', 'https://twitter.com/acdc')
@@ -602,7 +600,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 3
       expect(@driver.page_source.include?('Acoli')).to be(false)
     end
-=begin
 
     it "should not add a duplicated tag from command line", bin3: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
@@ -1318,6 +1315,5 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       results = @driver.find_elements(:css, '.medias__item')
       expect(results.size == 42).to be(true)
     end
-=end    
   end
 end
