@@ -450,7 +450,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       input.send_keys(File.join(File.dirname(__FILE__), 'test.png'))
       sleep 1
       @driver.find_element(:class, 'source__edit-save-button').click
-      sleep 3 until @driver.find_element(:class, 'footer')
+      sleep 5 
       displayed_name = get_element('h1.source__name').text
       expect(displayed_name.include? "EDIT").to be(true)
     end
@@ -468,8 +468,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       fill_field("source__link-input0", "www.acdc.com", :id)
       sleep 2
       @driver.find_element(:class, 'source__edit-save-button').click
-      sleep 3 
-      @driver.find_element(:class, 'footer')      
+      sleep 5 
       expect(@driver.page_source.include?('AC/DC Official Website')).to be(true)
       #delete
       element = @driver.find_element(:class, "source__edit-button")
@@ -479,8 +478,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       list[1].click
       sleep 1
       @driver.find_element(:class, 'source__edit-save-button').click
-      sleep 3 
-      @driver.find_element(:class, 'footer')      
+      sleep 5 
       expect(@driver.page_source.include?('AC/DC Official Website')).to be(false)
     end
 
@@ -532,9 +530,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       sleep 2
       @driver.find_element(:class, 'source__edit-save-button').click
-      sleep 3 
-      @driver.find_element(:class, 'footer')
-
+      sleep 5 
       expect(@driver.page_source.include?('label: value')).to be(true)
       expect(@driver.page_source.include?('Location 123')).to be(true)
       expect(@driver.page_source.include?('ORGANIZATION')).to be(true)
