@@ -432,7 +432,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Tagged #bar')).to be(true)
     end
 
-    it "should edit basic source data (name, description/bio, avatar)", bin2: true do
+    it "should edit basic source data (name, description/bio, avatar)", bin6: true do
       api_create_team_project_and_source_and_redirect_to_source('ACDC', 'https://twitter.com/acdc')
       sleep 5
       element = @driver.find_element(:css, '.source__tab-button-notes')
@@ -454,7 +454,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(displayed_name.include? "EDIT").to be(true)
     end
 
-    it "should add and remove accounts to sources", bin2: true  do
+    it "should add and remove accounts to sources", bin6: true  do
       api_create_team_project_and_source_and_redirect_to_source('GOT', 'https://twitter.com/GameOfThrones')
       sleep 5
       element = @driver.find_element(:class, "source__edit-button")
@@ -481,7 +481,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('AC/DC Official Website')).to be(false)
     end
 
-    it "should edit source metadata (contact, phone, location, organization, other)", bin2: true do    
+    it "should edit source metadata (contact, phone, location, organization, other)", bin6: true do    
       api_create_team_project_and_source_and_redirect_to_source('GOT', 'https://twitter.com/GameOfThrones')
       sleep 5
       element = @driver.find_element(:class, "source__edit-button")
@@ -536,7 +536,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('989898989')).to be(true)      
     end
 
-    it "should add and remove source tags", bin2: true do
+    it "should add and remove source tags", bin6: true do
       api_create_team_project_and_source_and_redirect_to_source('GOT', 'https://twitter.com/GameOfThrones')
       sleep 5
       element = @driver.find_element(:class, "source__edit-button")
@@ -568,7 +568,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('TAG2')).to be(false)
     end
 
-    it "should add and remove source languages",bin2: true  do
+    it "should add and remove source languages",bin6: true  do
       api_create_team_project_and_source_and_redirect_to_source('GOT', 'https://twitter.com/GameOfThrones')
       sleep 5
       element = @driver.find_element(:class, "source__edit-button")
@@ -782,7 +782,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     # it "should show 'edit project' link only to users with 'update project' permission" do
     #   skip("Needs to be implemented")
     # end
-@team1_slug = 'team1'+Time.now.to_i.to_s
 
     it "should navigate between teams", bin4: true, quick: true do
       # setup
