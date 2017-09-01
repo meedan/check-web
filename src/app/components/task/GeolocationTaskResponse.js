@@ -39,7 +39,11 @@ class GeolocationTaskResponse extends Component {
       <FlexRow className="task__geolocation-response">
         <span className="task__response">{name}</span>
         {coordinatesString
-          ? <span className="task__note" style={{ color: black38, paddingLeft: units(1), paddingRight: units(1) }}>({coordinatesString})</span>
+          ? <span className="task__note" style={{ color: black38, paddingLeft: units(1), paddingRight: units(1) }}>
+              <a style={{ textDecoration: 'underline' }} href={`https://www.openstreetmap.org/#map=9/${coordinates[0]}/${coordinates[1]}`} target="_blank" rel="noreferrer noopener">
+                ({coordinatesString})
+              </a>
+            </span>
           : null}
         {imgPath
           ? <span
@@ -69,7 +73,7 @@ class GeolocationTaskResponse extends Component {
             onRequestClose={this.handleCloseMap.bind(this)}
           >
             <div style={{ height: '500px', width: '100%' }}>
-              <Map center={position} zoom="7">
+              <Map center={position} zoom="9">
                 <TileLayer
                   attribution="2017 <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a>"
                   url="http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png"
