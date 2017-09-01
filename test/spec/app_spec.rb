@@ -1151,7 +1151,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       request_api('make_team_public', { slug: get_team })
 
       @driver.navigate.refresh
-      sleep 2
+      sleep 5
       @driver.find_element(:css, '.media-actions__icon').click
       sleep 1
       if @config['app_name'] == 'bridge'
