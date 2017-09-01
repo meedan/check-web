@@ -2,7 +2,7 @@ require_relative '../spec_helper.rb'
 
 shared_examples 'custom' do
 
-  it "should register and redirect to newly created media", bin1: true do
+  it "should register and redirect to newly created media", bin4: true do
     api_create_team_and_project
     page = ProjectPage.new(config: @config, driver: @driver).load
            .create_media(input: @media_url)
@@ -15,7 +15,7 @@ shared_examples 'custom' do
     expect($media_id.nil?).to be(false)
   end
 
-  it "should register and redirect to newly created image media", bin1: true do
+  it "should register and redirect to newly created image media", bin4: true do
     api_create_team_and_project
     page = ProjectPage.new(config: @config, driver: @driver).load
            .create_image_media(File.expand_path('../test.png', File.dirname(__FILE__)))
@@ -28,7 +28,7 @@ shared_examples 'custom' do
     expect($media_id.nil?).to be(false)
   end
 
-  it "should set status to media as a command", bin3: true do
+  it "should set status to media as a command", bin4: true do
     media = api_create_team_project_and_claim
     @driver.navigate.to media.full_url
     sleep 2
@@ -47,7 +47,7 @@ shared_examples 'custom' do
     expect(@driver.page_source.include?('Status')).to be(true)
   end
 
-  it "should change a media status via the dropdown menu", bin3: true do
+  it "should change a media status via the dropdown menu", bin4: true do
     media = api_create_team_project_and_claim
     @driver.navigate.to media.full_url
     sleep 2
