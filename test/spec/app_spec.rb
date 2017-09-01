@@ -69,6 +69,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
   # The tests themselves start here
 
   context "web" do
+=begin   
     it "should filter by medias or sources", bin6: true do
       api_create_team_project_and_link 'https://twitter.com/TheWho/status/890135323216367616'
       @driver.navigate.to @config['self_url']
@@ -453,7 +454,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       displayed_name = get_element('h1.source__name').text
       expect(displayed_name.include? "EDIT").to be(true)
     end
-
+=end
     it "should add and remove accounts to sources", bin6: true  do
       api_create_team_project_and_source_and_redirect_to_source('GOT', 'https://twitter.com/GameOfThrones')
       sleep 5
@@ -468,7 +469,21 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 2
       @driver.find_element(:class, 'source__edit-save-button').click
       sleep 5 
+p "A"      
       expect(@driver.page_source.include?('AC/DC Official Website')).to be(true)
+p "4A"      
+p @driver.find_element(:class, "source__tab-button-account")
+      #networks tab 
+      element = @driver.find_element(:class, "source__tab-button-account")
+      sleep 10
+p "3A"      
+      element.click
+p "2A"      
+      sleep 5
+p @driver.page_source      
+      expect(@driver.page_source.include?('The Official AC/DC website and store')).to be(true)
+p "1A"      
+
       #delete
       element = @driver.find_element(:class, "source__edit-button")
       element.click
@@ -480,7 +495,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 5 
       expect(@driver.page_source.include?('AC/DC Official Website')).to be(false)
     end
-
+=begin
     it "should edit source metadata (contact, phone, location, organization, other)", bin6: true do    
       api_create_team_project_and_source_and_redirect_to_source('GOT', 'https://twitter.com/GameOfThrones')
       sleep 5
@@ -1309,5 +1324,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       results = @driver.find_elements(:css, '.medias__item')
       expect(results.size == 42).to be(true)
     end
+=end    
   end
 end
