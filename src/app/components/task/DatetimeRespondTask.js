@@ -70,19 +70,16 @@ class DatetimeRespondTask extends Component {
     let hour = '';
     let minute = '';
     const note = this.props.note || '';
-    let timezone = new Date().toString().match(/\(([A-Za-z\s].*)\)/)[1];
+    let timezone = 'GMT';
 
     const response = this.props.response;
 
     if (response) {
-      const values = response.match(
-        /^(\d+-\d+-\d+) (\d+):(\d+) ([+-]?\d+) (.*)$/,
-      );
+      const values = response.match(/^(\d+-\d+-\d+) (\d+):(\d+) ([+-]?\d+) ([^ ]+)/);
+      const hasTime = !/notime/.test(response);
       date = new Date(`${values[1]} 00:00`);
-      if (parseInt(values[2], 10) > 0) {
+      if (hasTime) {
         hour = values[2];
-      }
-      if (parseInt(values[3], 10) > 0) {
         minute = values[3];
       }
       timezone = values[5];
@@ -194,8 +191,12 @@ class DatetimeRespondTask extends Component {
           offset = `+${offset}`;
         }
       }
+      let notime = '';
+      if (this.state.hour == '' && this.state.minute == '') {
+        notime = 'notime';
+      }
 
-      const response = `${year}-${month}-${day} ${hour}:${minute} ${offset} ${timezone}`;
+      const response = `${year}-${month}-${day} ${hour}:${minute} ${offset} ${timezone} ${notime}`;
 
       this.setState({ taskAnswerDisabled: true });
       this.props.onSubmit(response, note);
@@ -272,7 +273,7 @@ class DatetimeRespondTask extends Component {
             </label>
             <FlexRow style={{ justifyContent: 'flex-start', alignItems: 'center' }} id="task__response-time">
               <TextField
-                hintText="00"
+                hintText="HH"
                 name="hour"
                 style={styles.time}
                 inputStyle={styles.time}
@@ -283,7 +284,7 @@ class DatetimeRespondTask extends Component {
               <div>:</div>{' '}
               <TextField
                 name="minute"
-                hintText="00"
+                hintText="MM"
                 style={styles.time}
                 inputStyle={styles.time}
                 hintStyle={styles.time}
