@@ -366,6 +366,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 15
       expect(@driver.page_source.include?('Source exists')).to be(true)
     end
+=end
 
     it "should tag source as a command", bin6: true do
       api_create_team_project_and_source_and_redirect_to_source('ACDC', 'https://twitter.com/acdc')
@@ -436,9 +437,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should edit basic source data (name, description/bio, avatar)", bin6: true do
       api_create_team_project_and_source_and_redirect_to_source('ACDC', 'https://twitter.com/acdc')
       sleep 5
-      element = @driver.find_element(:css, '.source__tab-button-notes')
-      element.click
-      sleep 1 until element = @driver.find_element(:class, "source__edit-button")
+      element = @driver.find_element(:class, "source__edit-button")
       element.click
       input = @driver.find_element(:id, 'source__name-container')
       input.send_keys(" - EDIT ACDC")
@@ -454,7 +453,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       displayed_name = get_element('h1.source__name').text
       expect(displayed_name.include? "EDIT").to be(true)
     end
-=end
+
     it "should add and remove accounts to sources", bin6: true  do
       api_create_team_project_and_source_and_redirect_to_source('GOT', 'https://twitter.com/GameOfThrones')
       sleep 5
@@ -489,14 +488,14 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 5 
       expect(@driver.page_source.include?('AC/DC Official Website')).to be(false)
     end
-=begin
+
     it "should edit source metadata (contact, phone, location, organization, other)", bin6: true do    
       api_create_team_project_and_source_and_redirect_to_source('GOT', 'https://twitter.com/GameOfThrones')
       sleep 5
       element = @driver.find_element(:class, "source__edit-button")
       element.click
       sleep 1 
-      @driver.find_element(:class, "source__edit-buttons-add-merge").click
+      @driver.find_element(:class, "source__edit-addinfo-button").click
       sleep 1
       @driver.find_element(:class, "source__add-phone").click
       str= @driver.page_source
@@ -506,7 +505,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       fill_field(str, "989898989", :id)
 
       sleep 1
-      @driver.find_element(:class, "source__edit-buttons-add-merge").click
+      @driver.find_element(:class, "source__edit-addinfo-button").click
       sleep 1
       @driver.find_element(:class, "source__add-organization").click
       str= @driver.page_source
@@ -515,7 +514,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       element = @driver.find_element(:id, str)
       fill_field(str, "ORGANIZATION", :id)
 
-      @driver.find_element(:class, "source__edit-buttons-add-merge").click
+      @driver.find_element(:class, "source__edit-addinfo-button").click
       sleep 1
       @driver.find_element(:class, "source__add-location").click
       str= @driver.page_source
@@ -525,7 +524,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       sleep 1
       #source__add-other
-      @driver.find_element(:class, "source__edit-buttons-add-merge").click
+      @driver.find_element(:class, "source__edit-addinfo-button").click
       sleep 1
       @driver.find_element(:class, "source__add-other").click
       sleep 1
@@ -551,7 +550,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       element = @driver.find_element(:class, "source__edit-button")
       element.click
       sleep 1 
-      @driver.find_element(:class, "source__edit-buttons-add-merge").click
+      @driver.find_element(:class, "source__edit-addinfo-button").click
       sleep 1
       @driver.find_element(:class, "source__add-tags").click
       sleep 1
@@ -583,7 +582,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       element = @driver.find_element(:class, "source__edit-button")
       element.click
       sleep 1 
-      @driver.find_element(:class, "source__edit-buttons-add-merge").click
+      @driver.find_element(:class, "source__edit-addinfo-button").click
       sleep 1
       @driver.find_element(:class, "source__add-languages").click
       fill_field("sourceLanguageInput", "Acoli", :id)
@@ -603,6 +602,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 3
       expect(@driver.page_source.include?('Acoli')).to be(false)
     end
+=begin
 
     it "should not add a duplicated tag from command line", bin3: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
