@@ -469,20 +469,14 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 2
       @driver.find_element(:class, 'source__edit-save-button').click
       sleep 5 
-p "A"      
       expect(@driver.page_source.include?('AC/DC Official Website')).to be(true)
-p "4A"      
-p @driver.find_element(:class, "source__tab-button-account")
+
       #networks tab 
       element = @driver.find_element(:class, "source__tab-button-account")
       sleep 10
-p "3A"      
       element.click
-p "2A"      
       sleep 5
-p @driver.page_source      
       expect(@driver.page_source.include?('The Official AC/DC website and store')).to be(true)
-p "1A"      
 
       #delete
       element = @driver.find_element(:class, "source__edit-button")
