@@ -50,7 +50,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
   end
 
   after :all do
-    FileUtils.cp('../config.js', '../build/web/js/config.js')    
     FileUtils.cp('../config.js', '../build/web/js/config.js')
   end
 
