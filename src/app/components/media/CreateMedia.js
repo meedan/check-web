@@ -306,6 +306,7 @@ class CreateProjectMedia extends Component {
           multiLine
           onKeyPress={this.handleKeyPress.bind(this)}
           onChange={this.handleChange.bind(this)}
+          onFocus={this.handleChange.bind(this)}
           ref={input => (this.mediaInput = input)}
         />,
         <TextField
@@ -316,6 +317,7 @@ class CreateProjectMedia extends Component {
           multiLine
           onKeyPress={this.handleKeyPress.bind(this)}
           onChange={this.handleChange.bind(this)}
+          onFocus={this.handleChange.bind(this)}
           ref={input => (this.mediaInput = input)}
         />,
       ];
@@ -332,6 +334,7 @@ class CreateProjectMedia extends Component {
           multiLine
           onKeyPress={this.handleKeyPress.bind(this)}
           onChange={this.handleChange.bind(this)}
+          onFocus={this.handleChange.bind(this)}
           ref={input => (this.mediaInput = input)}
         />,
       ];
