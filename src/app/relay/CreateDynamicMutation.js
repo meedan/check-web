@@ -12,7 +12,14 @@ class CreateDynamicMutation extends Relay.Mutation {
     let query = '';
     switch (this.props.parent_type) {
     case 'source':
-      query = Relay.QL`fragment on CreateDynamicPayload { dynamicEdge, source { annotations } }`;
+      query = Relay.QL`fragment on CreateDynamicPayload {
+        dynamicEdge,
+        source {
+          log,
+          log_count,
+          languages: annotations(annotation_type: "language", first: 10000)
+        }
+      }`;
       break;
     case 'project_media':
       query = Relay.QL`fragment on CreateDynamicPayload {
@@ -30,7 +37,11 @@ class CreateDynamicMutation extends Relay.Mutation {
       query = Relay.QL`fragment on CreateDynamicPayload {
         dynamicEdge,
         project_source {
-          languages: annotations(annotation_type: "language", first: 10000)
+          source {
+            log,
+            log_count,
+            languages: annotations(annotation_type: "language", first: 10000)
+          }
         }
       }`;
       break;

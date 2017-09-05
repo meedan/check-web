@@ -112,10 +112,10 @@ class CreateProjectMedia extends Component {
 
   componentDidMount() {
     this.mediaInput.focus();
-    window.addEventListener('mousedown', this.handleClickOutside.bind(this), false);
   }
 
   onImage(file) {
+    this.setState({ message: null });
     document.forms.media.image = file;
   }
 
@@ -131,14 +131,14 @@ class CreateProjectMedia extends Component {
     this.setState({ fileMode: !this.state.fileMode });
   }
 
+  handleChange(e) {
+    this.setState({ message: null });
+  }
+
   handleKeyPress(e) {
     if (e.key === 'Enter' && !e.shiftKey) {
       this.handleSubmit(e);
     }
-  }
-
-  handleClickOutside() {
-    this.setState({ message: null });
   }
 
   handlePreview() {
@@ -305,6 +305,8 @@ class CreateProjectMedia extends Component {
           id="create-media-source-name-input"
           multiLine
           onKeyPress={this.handleKeyPress.bind(this)}
+          onChange={this.handleChange.bind(this)}
+          onFocus={this.handleChange.bind(this)}
           ref={input => (this.mediaInput = input)}
         />,
         <TextField
@@ -314,6 +316,8 @@ class CreateProjectMedia extends Component {
           id="create-media-source-url-input"
           multiLine
           onKeyPress={this.handleKeyPress.bind(this)}
+          onChange={this.handleChange.bind(this)}
+          onFocus={this.handleChange.bind(this)}
           ref={input => (this.mediaInput = input)}
         />,
       ];
@@ -329,6 +333,8 @@ class CreateProjectMedia extends Component {
           id="create-media-input"
           multiLine
           onKeyPress={this.handleKeyPress.bind(this)}
+          onChange={this.handleChange.bind(this)}
+          onFocus={this.handleChange.bind(this)}
           ref={input => (this.mediaInput = input)}
         />,
       ];

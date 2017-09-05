@@ -1,6 +1,6 @@
 {
-  "mediaActions.edit": "Editar...",
-  "mediaActions.move": "Mover...",
+  "mediaActions.edit": "Editar",
+  "mediaActions.move": "Mover",
   "mediaActions.refresh": "Recarregar",
   "mediaActions.embed": "Incorporar..."
 }

@@ -11,6 +11,7 @@ const messages = defineMessages({
 class DatetimeTaskResponse extends Component {
   render() {
     const values = this.props.response.match(/^(\d+-\d+-\d+) (\d+):(\d+) ([+-]?\d+) (.*)$/);
+    const noTime = /notime/.test(this.props.response);
     let hour = parseInt(values[2], 10);
     let minute = parseInt(values[3], 10);
     if (hour < 10) {
@@ -26,11 +27,11 @@ class DatetimeTaskResponse extends Component {
 
     return (
       <span className="task__datetime-response">
-        { (hour === '00' && minute === '00') ? formattedDate :
+        { noTime ? formattedDate :
         <FormattedMessage
           id="datetimeTaskResponse.taskResponse" defaultMessage={'{date} at {timeLink}'} values={{
             date: formattedDate,
-            timeLink: <a href={`https://time.is/${time}`} target="_blank" rel="noreferrer noopener" title={this.props.intl.formatMessage(messages.timeIs)}>{time}</a>,
+            timeLink: <a href={`https://time.is/${values[1]} ${time}`} target="_blank" rel="noreferrer noopener" title={this.props.intl.formatMessage(messages.timeIs)}>{time}</a>,
           }}
         /> }
       </span>
