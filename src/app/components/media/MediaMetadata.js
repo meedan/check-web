@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { injectIntl, defineMessages, FormattedMessage } from 'react-intl';
-import { Link } from 'react-router';
 import Relay from 'react-relay';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
@@ -11,7 +10,6 @@ import rtlDetect from 'rtl-detect';
 import MediaTags from './MediaTags';
 import MediaActions from './MediaActions';
 import MediaUtil from './MediaUtil';
-import TimeBefore from '../TimeBefore';
 import UpdateProjectMediaMutation from '../../relay/UpdateProjectMediaMutation';
 import CheckContext from '../../CheckContext';
 import ProfileLink from '../layout/ProfileLink';
@@ -234,7 +232,6 @@ class MediaMetadata extends Component {
 
   render() {
     const { media, mediaUrl } = this.props;
-    const createdAt = MediaUtil.createdAt(media);
     const context = this.getContext();
     const currentProject = this.currentProject();
     const destinationProjects = this.destinationProjects();
@@ -309,21 +306,14 @@ class MediaMetadata extends Component {
         {this.state.isEditing
           ? editDialog
           : null}
-
+        <span>{mediaUrl}</span>
         {byUser
           ? <span className="media-detail__check-added-by">
             <FormattedMessage
-              id="mediaDetail.added"
+              id="mediaDetail.addedBy"
               defaultMessage={'Added {byUser}'}
               values={{ byUser }}
             />{' '}
-          </span>
-          : null}
-        {createdAt
-          ? <span className="media-detail__check-added-at">
-            <Link className="media-detail__check-timestamp" to={mediaUrl}>
-              <TimeBefore date={createdAt} />
-            </Link>
           </span>
           : null}
         {media.tags ? <MediaTags media={media} tags={media.tags.edges} isEditing={false} /> : null}

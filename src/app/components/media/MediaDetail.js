@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { injectIntl, intlShape } from 'react-intl';
+import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import { Link } from 'react-router';
 import config from 'config';
 import { Card, CardHeader, CardText, CardActions } from 'material-ui/Card';
@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import MdFormatQuote from 'react-icons/lib/md/format-quote';
 import IconInsertPhoto from 'material-ui/svg-icons/editor/insert-photo';
 import rtlDetect from 'rtl-detect';
+import TimeBefore from '../TimeBefore';
 import MediaStatus from './MediaStatus';
 import QuoteMediaCard from './QuoteMediaCard';
 import MediaMetadata from './MediaMetadata';
@@ -16,10 +17,31 @@ import ImageMediaCard from './ImageMediaCard';
 import CheckContext from '../../CheckContext';
 import { getStatus, getStatusStyle } from '../../helpers';
 import { mediaStatuses, mediaLastStatus } from '../../customHelpers';
-import { units, black87, FadeIn, FlexRow, defaultBorderRadius } from '../../styles/js/variables';
+import {
+  units,
+  black87,
+  FadeIn,
+  FlexRow,
+  defaultBorderRadius,
+} from '../../styles/js/variables';
 
 const styles = {
-  mediaIcon: { width: units(2), height: units(2), color: black87 },
+  mediaIcon: {
+    width: units(2),
+    height: units(2),
+    color: black87,
+  },
+  subtitleLink: {
+    paddingRight: units(1),
+    display: 'inline-flex',
+    alignItems: 'center',
+  },
+  subtitleIconContainer: {
+    display: 'inline-flex',
+    alignItems: 'flex-start',
+    height: units(2),
+    paddingRight: units(1),
+  },
 };
 
 const StyledMediaDetail = styled.div`
@@ -61,7 +83,10 @@ class MediaDetail extends Component {
   statusToClass(baseClass, status) {
     // TODO: replace with helpers.js#bemClassFromMediaStatus
     return status.length
-      ? [baseClass, `${baseClass}--${status.toLowerCase().replace(/[ _]/g, '-')}`].join(' ')
+      ? [
+        baseClass,
+        `${baseClass}--${status.toLowerCase().replace(/[ _]/g, '-')}`,
+      ].join(' ')
       : baseClass;
   }
 
@@ -75,14 +100,16 @@ class MediaDetail extends Component {
     if (!projectId && annotated && annotatedType === 'Project') {
       projectId = annotated.dbid;
     }
-    const mediaUrl = projectId && media.team
-      ? `/${media.team.slug}/project/${projectId}/media/${media.dbid}`
-      : null;
+    const mediaUrl =
+      projectId && media.team
+        ? `/${media.team.slug}/project/${projectId}/media/${media.dbid}`
+        : null;
 
     let embedCard = null;
     media.url = media.media.url;
     media.quote = media.media.quote;
     media.embed_path = media.media.embed_path;
+    const createdAt = MediaUtil.createdAt(media);
 
     const heading = MediaUtil.title(media, data, this.props.intl);
 
@@ -112,21 +139,44 @@ class MediaDetail extends Component {
 
     const status = getStatus(mediaStatuses(media), mediaLastStatus(media));
 
-    const cardHeaderTitle = <MediaStatus media={media} readonly={this.props.readonly} />;
+    const cardHeaderTitle = (
+      <MediaStatus media={media} readonly={this.props.readonly} />
+    );
 
     const cardHeaderSubtitle = (
       <FlexRow style={{ flexWrap: 'wrap' }}>
         <Link
           to={mediaUrl}
           className="media__heading"
-          style={{ paddingRight: units(1), display: 'inline-flex', alignItems: 'center' }}
+          style={styles.subtitleLink}
         >
-          <div style={{ display: 'inline-flex', alignItems: 'flex-start', height: units(2), paddingRight: units(1) }}>
+          <div style={styles.subtitleIconContainer}>
             {/* TODO refactor mediaIcon to handle quotes and images — 2017-8-30 CGB */}
-            { media.quote ? <MdFormatQuote style={styles.mediaIcon} /> : media.media.embed_path ? <IconInsertPhoto style={styles.mediaIcon} /> : MediaUtil.socialIcon(media.domain) }
+            {media.quote ? (
+              <MdFormatQuote style={styles.mediaIcon} />
+            ) : media.media.embed_path ? (
+              <IconInsertPhoto style={styles.mediaIcon} />
+            ) : (
+              MediaUtil.socialIcon(media.domain)
+            )}
           </div>
           {heading}
         </Link>
+        {createdAt ? (
+          <span className="media-detail__check-added-at">
+            <FormattedMessage
+              id="mediaDetail.added"
+              defaultMessage={'Added '}
+            />
+            <Link
+              className="media-detail__check-timestamp"
+              to={mediaUrl}
+              style={{ paddingRight: units(1) }}
+            >
+              <TimeBefore date={createdAt} />
+            </Link>
+          </span>
+        ) : null}
         <span className="media-detail__check-notes-count">
           {annotationsCount}
         </span>
@@ -144,14 +194,15 @@ class MediaDetail extends Component {
     return (
       <StyledMediaDetail
         className={cardClassName}
-        borderColor={getStatusStyle(status, 'backgroundColor')}
+        borderColor={
+          this.props.borderColor || getStatusStyle(status, 'backgroundColor')
+        }
         fromDirection={fromDirection}
       >
         <Card
           className="card-with-border"
           initiallyExpanded={this.props.initiallyExpanded}
         >
-
           <CardHeader
             title={cardHeaderTitle}
             subtitle={cardHeaderSubtitle}
@@ -159,7 +210,12 @@ class MediaDetail extends Component {
           />
 
           <CardText expandable>
-            <FadeIn className={this.statusToClass('media-detail__media', mediaLastStatus(media))}>
+            <FadeIn
+              className={this.statusToClass(
+                'media-detail__media',
+                mediaLastStatus(media),
+              )}
+            >
               {embedCard}
             </FadeIn>
           </CardText>
