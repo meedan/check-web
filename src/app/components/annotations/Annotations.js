@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { defineMessages } from 'react-intl';
 import { Card, CardActions } from 'material-ui/Card';
 import styled from 'styled-components';
-import ReactChatView from 'react-chatview';
 import TimelineHeader from './TimelineHeader';
 import AddAnnotation from './AddAnnotation';
 import MediaAnnotation from './MediaAnnotation';
@@ -26,8 +25,20 @@ const StyledAnnotationCard = styled(Card)`
   .annotations__list {
     height: calc(100vh - 350px);
     overflow-y: scroll;
-    .annotations__list-item:last-of-type .annotation--card {
-      padding-bottom: ${units(6)};
+    display: flex;
+    // Scroll the log to the bottom
+    flex-direction: column-reverse;
+    border-top: 1px solid ${black16};
+    border-bottom: 1px solid ${black16};
+
+    .annotations__list-item {
+      margin: 0 ${units(1)};
+      &:first-of-type {
+        padding-bottom: ${units(6)};
+      }
+      &:last-of-type {
+        margin-top: ${units(6)};
+      }
     }
   }
 `;
@@ -35,7 +46,6 @@ const StyledAnnotationCard = styled(Card)`
 const StyledAnnotationCardActions = styled(CardActions)`
   margin-top: auto;
   background-color: ${white};
-  border-top: 1px solid ${black16};
 `;
 
 class Annotations extends Component {
@@ -56,16 +66,9 @@ class Annotations extends Component {
     return (
       <StyledAnnotationCard className="annotations">
         <TimelineHeader msgObj={messages} msgKey="timelineTitle" />
-        <ReactChatView
-          className="annotations__list annotations-list"
-          flipped
-          reversed
-          scrollLoadThreshold={50}
-          onInfiniteLoad={() => true}
-        >
-          {annotations.map(annotation =>
+        <div className="annotations__list">
+          {annotations.reverse().map(annotation =>
             <div
-              style={{ margin: `0 ${units(1)}` }}
               key={annotation.node.dbid}
               className="annotations__list-item"
             >
@@ -76,7 +79,7 @@ class Annotations extends Component {
               )}
             </div>,
           )}
-        </ReactChatView>
+        </div>
         <StyledAnnotationCardActions>
           {props.annotatedType === 'ProjectMedia'
             ? <Can

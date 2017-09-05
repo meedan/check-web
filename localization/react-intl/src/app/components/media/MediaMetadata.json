@@ -24,7 +24,7 @@
     "defaultMessage": "Done"
   },
   {
-    "id": "mediaDetail.added",
+    "id": "mediaDetail.addedBy",
     "defaultMessage": "Added {byUser}"
   },
   {
