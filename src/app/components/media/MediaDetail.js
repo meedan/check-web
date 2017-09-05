@@ -21,7 +21,6 @@ import {
   units,
   black87,
   FadeIn,
-  FlexRow,
   defaultBorderRadius,
 } from '../../styles/js/variables';
 
@@ -43,6 +42,12 @@ const styles = {
     paddingRight: units(1),
   },
 };
+
+const StyledCardHeader = styled(CardHeader)`
+  > div {
+    padding: 0!important;
+  }
+`;
 
 const StyledMediaDetail = styled.div`
 
@@ -144,7 +149,7 @@ class MediaDetail extends Component {
     );
 
     const cardHeaderSubtitle = (
-      <FlexRow style={{ flexWrap: 'wrap' }}>
+      <div>
         <Link
           to={mediaUrl}
           className="media__heading"
@@ -180,7 +185,7 @@ class MediaDetail extends Component {
         <span className="media-detail__check-notes-count">
           {annotationsCount}
         </span>
-      </FlexRow>
+      </div>
     );
 
     const cardClassName =
@@ -203,7 +208,7 @@ class MediaDetail extends Component {
           className="card-with-border"
           initiallyExpanded={this.props.initiallyExpanded}
         >
-          <CardHeader
+          <StyledCardHeader
             title={cardHeaderTitle}
             subtitle={cardHeaderSubtitle}
             showExpandableButton
