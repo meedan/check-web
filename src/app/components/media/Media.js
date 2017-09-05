@@ -120,13 +120,13 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
                       accounts(first: 10000) {
                         edges {
                           node {
-                            url 
-                          }   
-                        }   
-                      }   
-                    }   
-                  }   
-                } 
+                            url
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
               }
             }
           }
