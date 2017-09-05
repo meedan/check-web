@@ -167,24 +167,26 @@ class MediaDetail extends Component {
           </div>
           {heading}
         </Link>
-        {createdAt ? (
-          <span className="media-detail__check-added-at">
-            <FormattedMessage
-              id="mediaDetail.added"
-              defaultMessage={'Added '}
-            />
-            <Link
-              className="media-detail__check-timestamp"
-              to={mediaUrl}
-              style={{ paddingRight: units(1) }}
-            >
-              <TimeBefore date={createdAt} />
-            </Link>
+        <div>
+          {createdAt ? (
+            <span className="media-detail__check-added-at">
+              <FormattedMessage
+                id="mediaDetail.added"
+                defaultMessage={'Added '}
+              />
+              <Link
+                className="media-detail__check-timestamp"
+                to={mediaUrl}
+                style={{ paddingRight: units(1) }}
+              >
+                <TimeBefore date={createdAt} />
+              </Link>
+            </span>
+          ) : null}
+          <span className="media-detail__check-notes-count">
+            {annotationsCount}
           </span>
-        ) : null}
-        <span className="media-detail__check-notes-count">
-          {annotationsCount}
-        </span>
+        </div>
       </div>
     );
 
@@ -212,6 +214,7 @@ class MediaDetail extends Component {
             title={cardHeaderTitle}
             subtitle={cardHeaderSubtitle}
             showExpandableButton
+            style={{ paddingRight: units(5) }}
           />
 
           <CardText expandable>
