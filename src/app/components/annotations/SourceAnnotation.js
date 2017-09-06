@@ -82,13 +82,14 @@ class Annotation extends Component {
     const annotated = this.props.annotated;
     const permissionType = `${annotation.annotation_type.charAt(0).toUpperCase()}${annotation.annotation_type.slice(1)}`;
 
-    let annotationActions = (
+    // FIXME Hide actions for source annotations until delete is implemented #6282
+    const annotationActions = null;/*(
       <div className="annotation__actions">
         <Can permissions={annotation.permissions} permission={`destroy ${permissionType}`}>
           <button className="annotation__delete" onClick={this.handleDelete.bind(this, annotation.id)} title={this.props.intl.formatMessage(messages.deleteButton)}>×</button>
         </Can>
       </div>
-    );
+    );*/
 
     const updatedAt = MediaUtil.createdAt({ published: annotation.created_at });
     const timestamp = updatedAt ? <span className="annotation__timestamp"><TimeBefore date={updatedAt}/></span> : null;
