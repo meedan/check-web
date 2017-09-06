@@ -176,7 +176,7 @@ p "1i"
       media_pg = api_create_team_project_and_link_and_redirect_to_media_page('https://www.youtube.com/watch?v=ykLgjhBnik0')
       expect(media_pg.primary_heading.text).to eq("How To Check An Account's Authenticity")
       project_pg = media_pg.go_to_project
-      sleep 1
+      sleep 5
       expect(project_pg.elements('.media__heading').map(&:text).include?("How To Check An Account's Authenticity")).to be(true)
 
       # Facebook
@@ -457,7 +457,7 @@ p "1i"
       input.send_keys(File.join(File.dirname(__FILE__), 'test.png'))
       sleep 1
       @driver.find_element(:class, 'source__edit-save-button').click
-      sleep 5 
+      sleep 5
       displayed_name = get_element('h1.source__name').text
       expect(displayed_name.include? "EDIT").to be(true)
     end
@@ -467,7 +467,7 @@ p "1i"
       sleep 5
       element = @driver.find_element(:class, "source__edit-button")
       element.click
-      sleep 3 
+      sleep 3
       @driver.find_element(:class, "source__edit-addinfo-button").click
       sleep 1
       @driver.find_element(:class, "source__add-link").click
@@ -475,10 +475,10 @@ p "1i"
       fill_field("source__link-input0", "www.acdc.com", :id)
       sleep 2
       @driver.find_element(:class, 'source__edit-save-button').click
-      sleep 5 
+      sleep 5
       expect(@driver.page_source.include?('AC/DC Official Website')).to be(true)
 
-      #networks tab 
+      #networks tab
       element = @driver.find_element(:class, "source__tab-button-account")
       sleep 10
       element.click
@@ -493,22 +493,22 @@ p "1i"
       list[1].click
       sleep 1
       @driver.find_element(:class, 'source__edit-save-button').click
-      sleep 5 
+      sleep 5
       expect(@driver.page_source.include?('AC/DC Official Website')).to be(false)
     end
 
-    it "should edit source metadata (contact, phone, location, organization, other)", bin6: true do    
+    it "should edit source metadata (contact, phone, location, organization, other)", bin6: true do
       api_create_team_project_and_source_and_redirect_to_source('GOT', 'https://twitter.com/GameOfThrones')
       sleep 5
       element = @driver.find_element(:class, "source__edit-button")
       element.click
-      sleep 1 
+      sleep 1
       @driver.find_element(:class, "source__edit-addinfo-button").click
       sleep 1
       @driver.find_element(:class, "source__add-phone").click
       str= @driver.page_source
       str = str[str.index('undefined-undefined-Phone-')..str.length]
-      str = str[0..(str.index('"')-1)] 
+      str = str[0..(str.index('"')-1)]
       element = @driver.find_element(:id, str)
       fill_field(str, "989898989", :id)
 
@@ -518,7 +518,7 @@ p "1i"
       @driver.find_element(:class, "source__add-organization").click
       str= @driver.page_source
       str = str[str.index('undefined-undefined-Organization-')..str.length]
-      str = str[0..(str.index('"')-1)] 
+      str = str[0..(str.index('"')-1)]
       element = @driver.find_element(:id, str)
       fill_field(str, "ORGANIZATION", :id)
 
@@ -527,7 +527,7 @@ p "1i"
       @driver.find_element(:class, "source__add-location").click
       str= @driver.page_source
       str = str[str.index('undefined-undefined-Location-')..str.length]
-      str = str[0..(str.index('"')-1)] 
+      str = str[0..(str.index('"')-1)]
       fill_field(str, "Location 123", :id)
 
       sleep 1
@@ -545,11 +545,11 @@ p "1i"
 
       sleep 2
       @driver.find_element(:class, 'source__edit-save-button').click
-      sleep 5 
+      sleep 5
       expect(@driver.page_source.include?('label: value')).to be(true)
       expect(@driver.page_source.include?('Location 123')).to be(true)
       expect(@driver.page_source.include?('ORGANIZATION')).to be(true)
-      expect(@driver.page_source.include?('989898989')).to be(true)      
+      expect(@driver.page_source.include?('989898989')).to be(true)
     end
 
     it "should add and remove source tags", bin6: true do
@@ -557,7 +557,7 @@ p "1i"
       sleep 5
       element = @driver.find_element(:class, "source__edit-button")
       element.click
-      sleep 1 
+      sleep 1
       @driver.find_element(:class, "source__edit-addinfo-button").click
       sleep 1
       @driver.find_element(:class, "source__add-tags").click
@@ -566,7 +566,7 @@ p "1i"
       @driver.action.send_keys("\n").perform
       fill_field("sourceTagInput", "TAG2", :id)
       @driver.action.send_keys("\n").perform
-      sleep 3 
+      sleep 3
       @driver.navigate.refresh
       sleep 3
       expect(@driver.page_source.include?('TAG1')).to be(true)
@@ -589,7 +589,7 @@ p "1i"
       sleep 5
       element = @driver.find_element(:class, "source__edit-button")
       element.click
-      sleep 1 
+      sleep 1
       @driver.find_element(:class, "source__edit-addinfo-button").click
       sleep 1
       @driver.find_element(:class, "source__add-languages").click
@@ -602,7 +602,7 @@ p "1i"
       expect(@driver.page_source.include?('Acoli')).to be(true)
       sleep 1 until element = @driver.find_element(:class, "source__edit-button")
       element.click
-      sleep 1 
+      sleep 1
       list = @driver.find_elements(:css => "div.source-tags__tag svg")
       list[0].click
       sleep 1

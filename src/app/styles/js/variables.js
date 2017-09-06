@@ -78,7 +78,8 @@ export const headerHeight = units(8);
 export const gutterMedium = units(3);
 
 // Breakpoints
-export const breakpointMobile = `${units(85)}`;
+export const breakpointMobile = `${columnWidthMedium}`;
+export const breakpointDesktop = `${columnWidthLarge}`;
 
 // Transitions
 export const transitionSpeedFast = '150ms';
@@ -266,7 +267,7 @@ export const muiThemeWithoutRtl = {
 
 export const mediaQuery = {
   handheld: (...args) => css`@media (max-width: ${breakpointMobile}) { ${css(...args)} }`,
-  desktop: (...args) => css`@media (min-width: ${breakpointMobile}) { ${css(...args)} }`,
+  desktop: (...args) => css`@media (min-width: ${breakpointDesktop}) { ${css(...args)} }`,
 };
 
 

@@ -75,6 +75,7 @@ const SourceContainer = Relay.createContainer(SourceComponent, {
                   created_at,
                   updated_at,
                   embed,
+                  image,
                   url,
                   provider,
                   user {
@@ -101,6 +102,7 @@ const SourceContainer = Relay.createContainer(SourceComponent, {
                 created_at,
                 updated_at,
                 embed,
+                image,
                 url,
                 provider,
                 user {

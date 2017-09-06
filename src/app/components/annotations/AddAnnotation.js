@@ -328,10 +328,6 @@ class AddAnnotation extends Component {
     e.preventDefault();
   }
 
-  componentDidMount() {
-    // this.annotationInput.focus();
-  }
-
   handleKeyPress(e) {
     if (e.key === 'Enter' && !e.shiftKey) {
       this.handleSubmit(e);
@@ -365,7 +361,6 @@ class AddAnnotation extends Component {
             name="cmd" id="cmd-input"
             multiLine
             onKeyPress={this.handleKeyPress.bind(this)}
-            ref={input => this.annotationInput = input}
           />
           {(() => {
             if (this.state.fileMode) {
@@ -376,7 +371,12 @@ class AddAnnotation extends Component {
           })()}
           <div className="add-annotation__buttons">
             <div className="add-annotation__insert-photo">
-              <MdInsertPhoto id="add-annotation__switcher" title={this.props.intl.formatMessage(messages.addImage)} className={this.state.fileMode ? 'add-annotation__file' : ''} onClick={this.switchMode.bind(this)} />
+              <MdInsertPhoto
+                id="add-annotation__switcher"
+                title={this.props.intl.formatMessage(messages.addImage)}
+                className={this.state.fileMode ? 'add-annotation__file' : ''}
+                onClick={this.switchMode.bind(this)}
+              />
             </div>
             <FlatButton label={this.props.intl.formatMessage(messages.submitButton)} primary type="submit" />
           </div>
