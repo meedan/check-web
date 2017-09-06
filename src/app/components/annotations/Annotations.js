@@ -23,8 +23,13 @@ const StyledAnnotationCard = styled(Card)`
   display: flex;
   flex-direction: column;
   .annotations__list {
-    height: calc(100vh - 350px);
-    overflow-y: scroll;
+    // Chrome only hack to avoid broken scroll on Firefox :( CGB 2017-10-6
+    // TODO figure out a real solution for this
+    // See: https://github.com/philipwalton/flexbugs/issues/108
+    @media screen and (-webkit-min-device-pixel-ratio:0) { 
+      height: calc(100vh - 370px);
+    }
+    overflow: auto;
     display: flex;
     // Scroll the log to the bottom
     flex-direction: column-reverse;
