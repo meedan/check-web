@@ -32,10 +32,17 @@ class MediaPage < Page
   end
 
   def edit
+p "2t"    
     element('.media-detail').click unless pender_visible?
+p "2r"    
+begin
     element('.media-actions').click
-    element('.media-actions__edit').click
+rescue => e
+  p e
+end
+p "2w"    
     @wait.until { editing_mode? }
+p "2s"    
   end
 
   def tags
@@ -49,7 +56,9 @@ class MediaPage < Page
   end
 
   def add_tag(string)
+p "2s"    
     edit unless editing_mode?
+p "2"    
     fill_input('.ReactTags__tagInput input', string, { clear: true })
     press(:enter)
     @wait.until { has_tag?(string) }
