@@ -150,7 +150,8 @@ class Annotation extends Component {
     const annotated = this.props.annotated;
 
     let annotationActions = null;
-    if (annotation) {
+    // FIXME Hide actions for source annotations until delete is implemented #6282
+    if (annotation && typeof annotated.media !== 'undefined') {
       const permission = `destroy ${annotation.annotation_type.charAt(0).toUpperCase()}${annotation.annotation_type.slice(1)}`;
       annotationActions = can(annotation.permissions, permission) ? (
         <MenuButton>

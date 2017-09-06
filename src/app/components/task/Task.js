@@ -29,6 +29,7 @@ import GeolocationTaskResponse from './GeolocationTaskResponse';
 import DatetimeRespondTask from './DatetimeRespondTask';
 import DatetimeTaskResponse from './DatetimeTaskResponse';
 import { units } from '../../styles/js/variables';
+import ProfileLink from '../layout/ProfileLink';
 
 const messages = defineMessages({
   confirmDelete: {
@@ -432,7 +433,7 @@ class Task extends Component {
               <FormattedMessage
                 id="task.resolvedBy"
                 defaultMessage={'Resolved by {byName}'}
-                values={{ byName: by.name }}
+                values={{ byName: <ProfileLink user={by.user} /> }}
               />
             </small>
           </div> : null }
