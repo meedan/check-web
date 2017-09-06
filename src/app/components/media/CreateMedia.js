@@ -23,13 +23,6 @@ import ContentColumn from '../layout/ContentColumn';
 import { FadeIn, units, title, borderRadiusDefault, columnWidthMedium, white, black54, black87 } from '../../styles/js/variables';
 import HttpStatus from '../../HttpStatus';
 
-// Some of the icons are not standard Material-UI;
-// these styles make them match.
-const iconStyle = {
-  fontSize: units(3),
-  color: black54,
-};
-
 const StyledCreateMediaCard = styled(Card)`
   background-color: ${white};
   border-radius: ${borderRadiusDefault};
@@ -47,8 +40,10 @@ const StyledCreateMediaCard = styled(Card)`
     align-items: center;
     display: flex;
     justify-content: center;
-
     margin-left: auto;
+    > button {
+      color: ${black54},
+    }
   }
 
   // The button to show the dropzone
@@ -368,28 +363,28 @@ class CreateProjectMedia extends Component {
 
               <footer>
                 <div className="create-media__buttons">
-                  <div className="create-media__insert-photo">
-                    <IconButton
-                      id="create-media__link"
-                      onClick={this.setMode.bind(this, 'link')}
-                    >
-                      <IconLink />
-                    </IconButton>
-                  </div>
+                  <IconButton
+                    id="create-media__link"
+                    onClick={this.setMode.bind(this, 'link')}
+                  >
+                    <IconLink />
+                  </IconButton>
                   <IconButton
                     id="create-media__quote"
                     onClick={this.setMode.bind(this, 'quote')}
+                    style={{ fontSize: units(3) }}
                   >
                     <SvgIcon>
-                      <MdFormatQuote style={iconStyle} />
+                      <MdFormatQuote />
                     </SvgIcon>
                   </IconButton>
                   <IconButton
                     id="create-media__source"
                     onClick={this.setMode.bind(this, 'source')}
+                    style={{ fontSize: units(3) }}
                   >
-                    <SvgIcon color={black54}>
-                      <FaFeed style={iconStyle} />
+                    <SvgIcon>
+                      <FaFeed />
                     </SvgIcon>
                   </IconButton>
                   <IconButton
