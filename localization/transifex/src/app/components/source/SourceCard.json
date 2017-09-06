@@ -1,0 +1,4 @@
+{
+  "mediaDetail.byUser": "by {username}",
+  "mediaDetail.added": "Added {byUser}"
+}

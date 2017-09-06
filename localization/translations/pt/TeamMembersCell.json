@@ -2,5 +2,6 @@
   "teamMembersCell.contributor": "Colaborador",
   "teamMembersCell.journalist": "Jornalista",
   "teamMembersCell.editor": "Editor",
-  "teamMembersCell.owner": "Dono"
+  "teamMembersCell.owner": "Dono",
+  "teamMembersCell.deleteMember": "Excluir Membro"
 }

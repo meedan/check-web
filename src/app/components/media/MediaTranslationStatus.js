@@ -1,13 +1,12 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import Relay from 'react-relay';
+import { injectIntl, FormattedMessage } from 'react-intl';
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
+import TextField from 'material-ui/TextField';
 import CreateDynamicMutation from '../../relay/CreateDynamicMutation';
 import UpdateDynamicMutation from '../../relay/UpdateDynamicMutation';
 import MediaStatusCommon from './MediaStatusCommon';
-import { defineMessages, injectIntl, intlShape, FormattedMessage } from 'react-intl';
-import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
-import TextField from 'material-ui/TextField';
 
 class MediaStatus extends Component {
   constructor(props) {
@@ -16,20 +15,8 @@ class MediaStatus extends Component {
       open: false,
       submitted: false,
       setStatus: {},
-      note: ''
+      note: '',
     };
-  }
-
-  handleOpen() {
-    this.setState({ open: true });
-  }
-
-  handleClose() {
-    this.setState({ open: false });
-  }
-
-  resetState() {
-    this.setState({ open: false, submitted: false, setStatus: {} });
   }
 
   setStatus(context, store, media, status, parentComponent, note) {
@@ -37,15 +24,22 @@ class MediaStatus extends Component {
       note = '';
     }
 
-    if (status == 'error' && parentComponent && !parentComponent.state.open) {
+    if (status === 'error' && parentComponent && !parentComponent.state.open) {
       parentComponent.setState({ setStatus: { context, store, media, status } });
       parentComponent.handleOpen();
       return;
     }
-    const onFailure = (transaction) => { context.fail(transaction); };
-    const onSuccess = (response) => { context.success('status'); };
+
+    const onFailure = (transaction) => {
+      context.fail(transaction);
+    };
+
+    const onSuccess = () => {
+      context.success('status');
+    };
 
     let status_id = null;
+
     if (media.translation_status !== null) {
       status_id = media.translation_status.id;
     }
@@ -58,18 +52,13 @@ class MediaStatus extends Component {
           id: status_id,
           fields: {
             translation_status_status: status,
-            translation_status_note: note
-          }
-        }
+            translation_status_note: note,
+          },
+        },
       };
-      Relay.Store.commitUpdate(
-        new UpdateDynamicMutation(vars),
-        { onSuccess, onFailure },
-      );
-    }
-    
-    // Create new status
-    else {
+      Relay.Store.commitUpdate(new UpdateDynamicMutation(vars), { onSuccess, onFailure });
+    } else {
+      // Create new status
       const vars = {
         parent_type: 'project_media',
         annotated: media,
@@ -79,15 +68,24 @@ class MediaStatus extends Component {
           annotated_id: media.dbid,
           fields: {
             translation_status_status: status,
-            translation_status_note: note
-          }
-        }
+            translation_status_note: note,
+          },
+        },
       };
-      Relay.Store.commitUpdate(
-        new CreateDynamicMutation(vars),
-        { onSuccess, onFailure },
-      );
+      Relay.Store.commitUpdate(new CreateDynamicMutation(vars), { onSuccess, onFailure });
     }
+  }
+
+  handleOpen() {
+    this.setState({ open: true });
+  }
+
+  handleClose() {
+    this.setState({ open: false });
+  }
+
+  resetState() {
+    this.setState({ open: false, submitted: false, setStatus: {} });
   }
 
   handleKeyPress(e) {
@@ -105,9 +103,9 @@ class MediaStatus extends Component {
     const actions = [
       <FlatButton
         label={<FormattedMessage id="mediaStatus.cancelMessage" defaultMessage="Cancel" />}
-        secondary={true}
+        secondary
         onClick={this.handleClose.bind(this)}
-      />
+      />,
     ];
 
     return (
@@ -119,15 +117,25 @@ class MediaStatus extends Component {
           open={this.state.open}
           onRequestClose={this.handleClose.bind(this)}
         >
-          <p><FormattedMessage id="mediaStatus.messageDescription" defaultMessage="Please add a comment. it will be sent back to the original poster to inform them that their request will be closed." /></p>
+          <p>
+            <FormattedMessage
+              id="mediaStatus.messageDescription"
+              defaultMessage="Please add a comment. it will be sent back to the original poster to inform them that their request will be closed."
+            />
+          </p>
           <form name="media-status-note-form">
             <TextField
               className="media-status--note"
               name="note"
               onKeyPress={this.handleKeyPress.bind(this)}
-              errorText={<FormattedMessage id="mediaStatus.noteHint" defaultMessage="Press ENTER to submit" />}
+              errorText={
+                <FormattedMessage
+                  id="mediaStatus.noteHint"
+                  defaultMessage="Press ENTER to submit"
+                />
+              }
               errorStyle={{ color: '#757575' }}
-              autoFocus={true}
+              autoFocus
               fullWidth
               multiLine
             />
@@ -138,9 +146,5 @@ class MediaStatus extends Component {
     );
   }
 }
-
-MediaStatus.propTypes = {
-  intl: intlShape.isRequired,
-};
 
 export default injectIntl(MediaStatus);

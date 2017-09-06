@@ -5,17 +5,19 @@ import ProfileLink from '../layout/ProfileLink';
 import MediaUtil from '../media/MediaUtil';
 import ParsedText from '../ParsedText';
 import TimeBefore from '../TimeBefore';
-import { truncateLength } from '../../helpers'
+import { truncateLength } from '../../helpers';
+import SourcePicture from './SourcePicture';
+import { units, black54 } from '../../styles/js/variables';
 
 class AccountCard extends React.Component {
   accountStats(account) {
     switch (account.provider) {
-      case 'facebook':
-        return account.embed.likes ? <FormattedMessage id="accountCard.fbStats" defaultMessage="{likes} likes" values={{ likes: account.embed.likes }} /> : null;
-      case 'twitter':
-        return <FormattedHTMLMessage id="accountCard.twitterStats" defaultMessage="{tweets} Tweets &bull; {followers} Followers &bull; {following} Following" values={{ tweets: account.embed.statuses_count, followers: account.embed.followers_count, following: account.embed.friends_count }} />;
-      case 'youtube':
-        return <FormattedHTMLMessage id="accountCard.youtubeStats" defaultMessage="{videos} Videos &bull; {subscribers} Subscribers" values={{ videos: account.embed.video_count, subscribers: account.embed.subscriber_count}} />;
+    case 'facebook':
+      return account.embed.likes ? <FormattedMessage id="accountCard.fbStats" defaultMessage="{likes, number} likes" values={{ likes: account.embed.likes }} /> : null;
+    case 'twitter':
+      return account.embed.raw ? <FormattedHTMLMessage id="accountCard.twitterStats" defaultMessage="{tweets, number} Tweets &bull; {followers, number} Followers &bull; {following, number} Following" values={{ tweets: account.embed.raw.api.statuses_count, followers: account.embed.raw.api.followers_count, following: account.embed.raw.api.friends_count }} />  : null;
+    case 'youtube':
+      return account.embed.raw ? <FormattedHTMLMessage id="accountCard.youtubeStats" defaultMessage="{videos, number} Videos &bull; {subscribers, number} Subscribers" values={{ videos: account.embed.raw.api.video_count, subscribers: account.embed.raw.api.subscriber_count }} /> : null;
     }
   }
 
@@ -29,23 +31,23 @@ class AccountCard extends React.Component {
       <Card className="source-card">
         <CardText className="source-card__content">
           <div className="source-card__avatar">
-            <img src={account.embed.picture} className="social-media-card__author-avatar" />
+            <SourcePicture object={account} type="account" />
           </div>
 
           <article className="source-card__body">
             <div className="source-card__heading">
-              { MediaUtil.socialIcon(account.provider + '.com') /* TODO: refactor */ }
+              { MediaUtil.socialIcon(`${account.provider}.com`) /* TODO: refactor */ }
               <FormattedMessage id="accountCard.providerAccount" defaultMessage="{provider} account" values={{ provider: account.provider }} />
             </div>
 
             <div className="source-card__name">
-              <a href={ account.embed.url } target="_blank" rel="noopener noreferrer">{ account.embed.name }</a>
+              <a href={account.embed.url} target="_blank" rel="noopener noreferrer">{ account.embed.name }</a>
             </div>
 
             <div className="source-card__description"><ParsedText text={truncateLength(account.embed.description, 300)} /></div>
 
             <div className="source-card__url">
-              <a href={ account.embed.url } target="_blank" rel="noopener noreferrer">{ account.embed.url }</a>
+              <a href={account.embed.url} target="_blank" rel="noopener noreferrer">{ account.embed.url }</a>
             </div>
 
             <div className="source-card__account-stats">
@@ -53,7 +55,10 @@ class AccountCard extends React.Component {
             </div>
           </article>
 
-          <div className="media-detail__check-metadata source-card__footer">
+          <div
+            className="media-detail__check-metadata source-card__footer"
+            style={{ color: black54, padding: `${units(2)} 0` }}
+          >
             <span className="media-detail__check-added-by"><FormattedMessage id="mediaDetail.added" defaultMessage={'Added {byUser}'} values={{ byUser }} /> </span>
             { account.created_at ? <span className="media-detail__check-added-at"> <TimeBefore date={MediaUtil.createdAt({ published: account.created_at })} /> </span> : null }
           </div>

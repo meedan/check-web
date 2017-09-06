@@ -1,15 +1,13 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { FormattedMessage, defineMessages, intlShape, injectIntl } from 'react-intl';
 import Relay from 'react-relay';
-import CreateTagMutation from '../../relay/CreateTagMutation';
-import DeleteTagMutation from '../../relay/DeleteTagMutation';
-import Tags from '../source/Tags';
-import CheckContext from '../../CheckContext';
-import { Link } from 'react-router';
-import { searchQueryFromUrl, urlFromSearchQuery } from '../Search';
 import mergeWith from 'lodash.mergewith';
 import xor from 'lodash.xor';
-import isEqual from 'lodash.isequal';
+import CreateTagMutation from '../../relay/CreateTagMutation';
+import DeleteTagMutation from '../../relay/DeleteTagMutation';
+import Tags from '../Tags';
+import CheckContext from '../../CheckContext';
+import { searchQueryFromUrl, urlFromSearchQuery } from '../Search';
 
 const messages = defineMessages({
   loading: {
@@ -66,11 +64,11 @@ class MediaTags extends Component {
         if (json.error) {
           message = json.error;
         }
-      } catch (e) { }
+      } catch (e) {}
       that.setState({ message });
     };
 
-    const onSuccess = (response) => {
+    const onSuccess = () => {
       that.setState({ message: null });
     };
 
@@ -104,13 +102,13 @@ class MediaTags extends Component {
   searchTagUrl(tagString) {
     const { media } = this.props;
     const tagQuery = {
-      tags: [ tagString ]
+      tags: [tagString],
     };
     const searchQuery = searchQueryFromUrl();
 
     // Make a new query combining the current tag with whatever query is already in the URL.
     // This allows to support clicking tags on the search and project pages.
-    const query = mergeWith({}, searchQuery, tagQuery, function (objValue, srcValue) {
+    const query = mergeWith({}, searchQuery, tagQuery, (objValue, srcValue) => {
       if (Array.isArray(objValue)) {
         return xor(objValue, srcValue);
       }
@@ -127,7 +125,9 @@ class MediaTags extends Component {
 
   render() {
     const { media, tags } = this.props;
-    const suggestedTags = (media.team && media.team.get_suggested_tags) ? media.team.get_suggested_tags.split(',') : [];
+    const suggestedTags = media.team && media.team.get_suggested_tags
+      ? media.team.get_suggested_tags.split(',')
+      : [];
     const activeSuggestedTags = tags.filter(tag => suggestedTags.includes(tag.node.tag));
     const remainingTags = tags.filter(tag => !suggestedTags.includes(tag.node.tag));
     const searchQuery = searchQueryFromUrl();
@@ -136,25 +136,41 @@ class MediaTags extends Component {
     if (!this.props.isEditing) {
       return (
         <div className="media-tags">
-          {activeSuggestedTags.length ? (
-            <ul className="media-tags__suggestions">
+          {activeSuggestedTags.length
+            ? <ul className="media-tags__suggestions">
               {activeSuggestedTags.map(tag =>
-                <li key={tag.node.id}
-                    onClick={this.handleTagViewClick.bind(this, tag.node.tag)}
-                    className={this.bemClass('media-tags__suggestion', activeRegularTags.indexOf(tag.node.tag) > -1, '--selected')}>
-                    {tag.node.tag}
-                </li>
-              )}
-            </ul>
-          ) : null}
-          <ul className="media-tags__list">
-            {media.language ? <li className="media-tags__tag media-tags__language">{this.props.intl.formatMessage(messages.language, { language: media.language })}</li> : null}
-            {remainingTags.map(tag =>
-              <li key={tag.node.id}
+                <li
+                  key={tag.node.id}
                   onClick={this.handleTagViewClick.bind(this, tag.node.tag)}
-                  className={this.bemClass('media-tags__tag', activeRegularTags.indexOf(tag.node.tag) > -1, '--selected')}>
-                  {tag.node.tag.replace(/^#/, '')}
+                  className={this.bemClass(
+                      'media-tags__suggestion',
+                      activeRegularTags.indexOf(tag.node.tag) > -1,
+                      '--selected',
+                    )}
+                >
+                  {tag.node.tag}
+                </li>,
+                )}
+            </ul>
+            : null}
+          <ul className="media-tags__list">
+            {media.language
+              ? <li className="media-tags__tag media-tags__language">
+                {this.props.intl.formatMessage(messages.language, { language: media.language })}
               </li>
+              : null}
+            {remainingTags.map(tag =>
+              <li
+                key={tag.node.id}
+                onClick={this.handleTagViewClick.bind(this, tag.node.tag)}
+                className={this.bemClass(
+                  'media-tags__tag',
+                  activeRegularTags.indexOf(tag.node.tag) > -1,
+                  '--selected',
+                )}
+              >
+                {tag.node.tag.replace(/^#/, '')}
+              </li>,
             )}
           </ul>
         </div>
@@ -164,23 +180,31 @@ class MediaTags extends Component {
     return (
       <div className="media-tags media-tags--editing">
         <div className="media-tags__header">
-          <h4 className="media-tags__heading"><FormattedMessage id="mediaTags.heading" defaultMessage="Tags" /></h4>
+          <h4 className="media-tags__heading">
+            <FormattedMessage id="mediaTags.heading" defaultMessage="Tags" />
+          </h4>
           <span className="media-tags__message">{this.state.message}</span>
         </div>
 
-        {suggestedTags.length ? (
-          <div className="media-tags__suggestions">
+        {suggestedTags.length
+          ? <div className="media-tags__suggestions">
             <ul className="media-tags__suggestions-list">
               {suggestedTags.map(suggestedTag =>
-                <li key={suggestedTag}
-                    onClick={this.handleSuggestedTagEditClick.bind(this, suggestedTag)}
-                    className={this.bemClass('media-tags__suggestion', this.findTag(suggestedTag), '--selected')}>
-                    {suggestedTag}
-                </li>
-              )}
+                <li
+                  key={suggestedTag}
+                  onClick={this.handleSuggestedTagEditClick.bind(this, suggestedTag)}
+                  className={this.bemClass(
+                      'media-tags__suggestion',
+                      this.findTag(suggestedTag),
+                      '--selected',
+                    )}
+                >
+                  {suggestedTag}
+                </li>,
+                )}
             </ul>
           </div>
-        ) : null}
+          : null}
 
         <Tags tags={remainingTags} annotated={media} annotatedType="ProjectMedia" />
       </div>

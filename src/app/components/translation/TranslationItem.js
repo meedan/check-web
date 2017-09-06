@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import { defineMessages, FormattedMessage, injectIntl, intlShape } from 'react-intl';
+import { defineMessages, FormattedMessage, injectIntl } from 'react-intl';
 import Relay from 'react-relay';
-import { Card, CardText, CardActions } from 'material-ui/Card';
+import { Card, CardText } from 'material-ui/Card';
+import IconMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
+import IconButton from 'material-ui/IconButton';
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
-import CheckContext from '../../CheckContext';
-import MdMoreHoriz from 'react-icons/lib/md/more-horiz';
 import ParsedText from '../ParsedText';
 import UpdateDynamicMutation from '../../relay/UpdateDynamicMutation';
 import { rtlClass } from '../../helpers';
@@ -38,9 +40,7 @@ class TranslationItem extends Component {
         if (json.error) {
           message = json.error;
         }
-      }
-      catch (e) {
-      }
+      } catch (e) {}
       this.setState({ message });
     };
 
@@ -48,10 +48,10 @@ class TranslationItem extends Component {
       this.setState({ message: null, editing: false });
     };
 
-    const form = document.forms['translation_edit'];
+    const form = document.forms.translation_edit;
     const fields = {};
-    fields[`translation_text`] = form.translation_text ? form.translation_text.value : '';
-    fields[`translation_note`] = form.translation_note ? form.translation_note.value : '';
+    fields.translation_text = form.translation_text ? form.translation_text.value : '';
+    fields.translation_note = form.translation_note ? form.translation_note.value : '';
 
     if (!this.state.submitDisabled) {
       Relay.Store.commitUpdate(
@@ -71,22 +71,22 @@ class TranslationItem extends Component {
 
   getTranslationText(content) {
     const object = content.find(it => it.field_name === 'translation_text');
-    return object ? object.value : '' ;
+    return object ? object.value : '';
   }
 
   getTranslationNote(content) {
     const object = content.find(it => it.field_name === 'translation_note');
-    return object ? object.value : '' ;
+    return object ? object.value : '';
   }
 
   getTranslationLanguage(content) {
     const object = content.find(it => it.field_name === 'translation_language');
-    return object ? object.formatted_value : '' ;
+    return object ? object.formatted_value : '';
   }
 
   getTranslationLanguageCode(content) {
     const object = content.find(it => it.field_name === 'translation_language');
-    return object ? object.value : '' ;
+    return object ? object.value : '';
   }
 
   bemClass(baseClass, modifierBoolean, modifierSuffix) {
@@ -110,45 +110,71 @@ class TranslationItem extends Component {
 
     return (
       <div className="translation__component">
-        <Card className="translation__card" style={{'zIndex': 'auto'}}>
+        <Card className="translation__card" style={{ zIndex: 'auto' }}>
           <CardText className="translation__card-text">
-            <div className={`task__actions ${this.bemClass('media-actions', this.state.isMenuOpen, '--active')}`}>
-              <MdMoreHoriz className="task__actions-icon media-actions__icon" onClick={this.toggleMenu.bind(this)} />
-              <div className={this.bemClass('media-actions__overlay', this.state.isMenuOpen, '--active')} onClick={this.toggleMenu.bind(this)} />
-              <ul className={this.bemClass('media-actions__menu', this.state.isMenuOpen, '--active')}>
-                <li className="media-actions__menu-item" onClick={this.handleEdit.bind(this)}><FormattedMessage id="translation.edit" defaultMessage="Edit translation" /></li>
-              </ul>
-            </div>
-            {this.state.editing ?
-              <div>
+            <IconMenu
+              className="task-actions"
+              iconButtonElement={<IconButton className="task-actions__icon"><IconMoreHoriz /></IconButton>}
+            >
+              <MenuItem
+                className="task-actions__edit-translation"
+                onClick={this.handleEdit.bind(this)}
+              >
+                <FormattedMessage id="translation.edit" defaultMessage="Edit translation" />
+              </MenuItem>
+            </IconMenu>
+            {this.state.editing
+              ? <div>
                 <form name="translation_edit">
                   <TextField
                     name="translation_text"
-                    hintText={<FormattedMessage id="translation.translationText" defaultMessage="Translation text" />}
+                    hintText={
+                      <FormattedMessage
+                        id="translation.translationText"
+                        defaultMessage="Translation text"
+                      />
+                      }
                     defaultValue={text}
                     fullWidth
                     multiLine
                   />
                   <TextField
                     name="translation_note"
-                    hintText={<FormattedMessage id="translation.translationNote" defaultMessage="Note" />}
+                    hintText={
+                      <FormattedMessage id="translation.translationNote" defaultMessage="Note" />
+                      }
                     defaultValue={note}
                     fullWidth
                     multiLine
                   />
                 </form>
                 <div className="translation__card-actions">
-                  <FlatButton label={<FormattedMessage id="translation.cancelEdit" defaultMessage="Cancel" />} onClick={() => this.setState({ editing: false })} />
-                  <FlatButton className="task__submit" label={<FormattedMessage id="translation.submit" defaultMessage="Submit" />} primary onClick={this.handleSubmitUpdate.bind(this)} disabled={this.state.submitDisabled}/>
+                  <FlatButton
+                    label={
+                      <FormattedMessage id="translation.cancelEdit" defaultMessage="Cancel" />
+                      }
+                    onClick={() => this.setState({ editing: false })}
+                  />
+                  <FlatButton
+                    className="task__submit"
+                    label={<FormattedMessage id="translation.submit" defaultMessage="Submit" />}
+                    primary
+                    onClick={this.handleSubmitUpdate.bind(this)}
+                    disabled={this.state.submitDisabled}
+                  />
                 </div>
               </div>
-              :
-              <div>
-                <div className={`translation__card-title ${rtlClass(language_code)}`}><ParsedText text={text} /></div>
-                <p style={{ display: note ? 'block' : 'none' }} className="translation__note"><ParsedText text={note} /></p>
-              </div>
-            }
-            <span className="media-tags__tag">{this.props.intl.formatMessage(messages.language, { language })}</span>
+              : <div>
+                <div className={`translation__card-title ${rtlClass(language_code)}`}>
+                  <ParsedText text={text} />
+                </div>
+                <p style={{ display: note ? 'block' : 'none' }} className="translation__note">
+                  <ParsedText text={note} />
+                </p>
+              </div>}
+            <span className="media-tags__tag">
+              {this.props.intl.formatMessage(messages.language, { language })}
+            </span>
           </CardText>
         </Card>
       </div>

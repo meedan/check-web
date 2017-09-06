@@ -3,14 +3,14 @@
 .create-task__add-button {
   &--default {
     display: inline-block !important;
-    margin-#{$from-direction}: 0 !important;
-    margin-#{$to-direction}: auto !important;
     margin-bottom: units(2) !important;
-    margin-top: 0 !important;
+    margin-top: units(1) !important;
 
     &:hover {
       background-color: $black-05 !important;
     }
+    margin-#{$from-direction}: 0 !important;
+    margin-#{$to-direction}: auto !important;
   }
 }
 
@@ -28,16 +28,16 @@
 .create-task__add-task-description-label {
   bottom: units(2);
   font: font(caption);
-  padding-#{$from-direction}: units(1);
   position: absolute;
+  padding-#{$from-direction}: units(1);
   #{$from-direction}: units(2);
 }
 
 .create-task__add-task-description-icon {
   font-size: 24px;
-  margin-#{$to-direction}: units(2);
   position: relative;
   top: 4px;
+  margin-#{$to-direction}: units(2);
 }
 
 .create-task__add-task-description { // hidden checkbox

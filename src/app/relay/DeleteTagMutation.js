@@ -20,10 +20,13 @@ class DeleteTagMutation extends Relay.Mutation {
     let query = '';
     switch (this.props.parent_type) {
     case 'source':
-      query = Relay.QL`fragment on DestroyTagPayload { deletedId, source { annotations, tags } }`;
+      query = Relay.QL`fragment on DestroyTagPayload { deletedId, source { log, tags, log_count } }`;
       break;
     case 'project_media':
       query = Relay.QL`fragment on DestroyTagPayload { deletedId, project_media { log, tags, log_count } }`;
+      break;
+    case 'project_source':
+      query = Relay.QL`fragment on DestroyTagPayload { deletedId, project_source { source { log, tags, log_count } } }`;
       break;
     }
     return query;

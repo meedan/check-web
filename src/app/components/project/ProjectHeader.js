@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay';
+import { Link } from 'react-router';
 import IconArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
 import IconButton from 'material-ui/IconButton';
 import DropDownMenu from 'material-ui/DropDownMenu';
@@ -51,10 +52,13 @@ class ProjectHeaderComponent extends Component {
 
     const isProjectSubpage = path.length > backUrl.length;
     return (
-      <div style={{ display: 'flex', alignItems: 'center' }}>
+      <div style={{ display: 'flex', alignItems: 'center', overflow: 'hidden' }}>
 
         {isProjectSubpage
-          ? <IconButton href={backUrl} className="project-header__back-button">
+          ? <IconButton
+            containerElement={<Link to={backUrl} />}
+            className="project-header__back-button"
+          >
             <IconArrowBack color={black54} />
           </IconButton>
           : null}
@@ -64,7 +68,7 @@ class ProjectHeaderComponent extends Component {
           iconStyle={{ fill: black54 }}
           value={currentProject.title}
           className="project-header__title"
-          style={{ marginTop: `${units(1)}`, maxWidth: '50%', overflow: 'hidden' }}
+          style={{ marginTop: `${units(1)}`, minWidth: 130, maxWidth: '50%', overflow: 'hidden' }}
           labelStyle={{ paddingLeft: '0' }}
         >
           {currentProject.team.projects.edges

@@ -1,5 +1,6 @@
 {
-  "mediaActions.edit": "Modifier...",
-  "mediaActions.move": "Transférer...",
-  "mediaActions.refresh": "Rafraîchir"
+  "mediaActions.edit": "Modifier",
+  "mediaActions.move": "Transférer",
+  "mediaActions.refresh": "Rafraîchir",
+  "mediaActions.embed": "Insérer..."
 }

@@ -1,15 +1,67 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import { defineMessages } from 'react-intl';
+import { Card, CardActions } from 'material-ui/Card';
+import styled from 'styled-components';
+import TimelineHeader from './TimelineHeader';
 import AddAnnotation from './AddAnnotation';
 import MediaAnnotation from './MediaAnnotation';
-import SourceAnnotation from './SourceAnnotation';
-import Can, { can } from '../Can';
-import ContentColumn from '../layout/ContentColumn';
+import Can from '../Can';
+import { units, black16, white } from '../../styles/js/variables';
+
+const messages = defineMessages({
+  timelineTitle: {
+    id: 'mediaComponent.verificationTimeline',
+    defaultMessage: 'Verification Timeline',
+  },
+  bridge_timelineTitle: {
+    id: 'bridge.mediaComponent.verificationTimeline',
+    defaultMessage: 'Translation Timeline',
+  },
+});
+
+const StyledAnnotationCard = styled(Card)`
+  display: flex;
+  flex-direction: column;
+  .annotations__list {
+    // Chrome only hack to avoid broken scroll on Firefox :( CGB 2017-10-6
+    // TODO figure out a real solution for this
+    // See: https://github.com/philipwalton/flexbugs/issues/108
+    @media screen and (-webkit-min-device-pixel-ratio:0) { 
+      height: calc(100vh - 370px);
+    }
+    overflow: auto;
+    display: flex;
+    // Scroll the log to the bottom
+    flex-direction: column-reverse;
+    border-top: 1px solid ${black16};
+    border-bottom: 1px solid ${black16};
+
+    .annotations__list-item {
+      margin: 0 ${units(1)};
+      &:first-of-type {
+        padding-bottom: ${units(6)};
+      }
+      &:last-of-type {
+        margin-top: ${units(6)};
+      }
+    }
+  }
+`;
+
+const StyledAnnotationCardActions = styled(CardActions)`
+  margin-top: auto;
+  background-color: ${white};
+`;
 
 class Annotations extends Component {
   annotationComponent(node, annotated, annotatedType) {
-    return annotatedType === 'ProjectMedia' ?
-      <MediaAnnotation annotation={node} annotated={annotated} annotatedType={annotatedType} /> :
-      <SourceAnnotation annotation={node} annotated={annotated} annotatedType={annotatedType} />;
+    return (
+      <MediaAnnotation
+        annotation={node}
+        annotated={annotated}
+        annotatedType={annotatedType}
+      />
+    );
   }
 
   render() {
@@ -17,20 +69,41 @@ class Annotations extends Component {
     const annotations = props.annotations;
 
     return (
-      <div className="annotations">
-        <ContentColumn>
-          <ul className="annotations__list annotations-list">
-            {annotations.map(annotation => (
-              <li key={annotation.node.dbid} className="annotations__list-item">{this.annotationComponent(annotation.node, props.annotated, props.annotatedType)}</li>
-            ))}
-          </ul>
-        </ContentColumn>
-        {props.annotatedType === 'ProjectMedia' ? ( // TODO: remove to support Source as well
-          <Can permissions={props.annotated.permissions} permission="create Comment">
-            <AddAnnotation annotated={props.annotated} annotatedType={props.annotatedType} types={props.types} />
-          </Can>
-        ) : <AddAnnotation annotated={props.annotated} annotatedType={props.annotatedType} types={props.types} />}
-      </div>
+      <StyledAnnotationCard className="annotations">
+        <TimelineHeader msgObj={messages} msgKey="timelineTitle" />
+        <div className="annotations__list">
+          {annotations.reverse().map(annotation =>
+            <div
+              key={annotation.node.dbid}
+              className="annotations__list-item"
+            >
+              {this.annotationComponent(
+                annotation.node,
+                props.annotated,
+                props.annotatedType,
+              )}
+            </div>,
+          )}
+        </div>
+        <StyledAnnotationCardActions>
+          {props.annotatedType === 'ProjectMedia'
+            ? <Can
+              permissions={props.annotated.permissions}
+              permission="create Comment"
+            >
+              <AddAnnotation
+                annotated={props.annotated}
+                annotatedType={props.annotatedType}
+                types={props.types}
+              />
+            </Can>
+            : <AddAnnotation
+              annotated={props.annotated}
+              annotatedType={props.annotatedType}
+              types={props.types}
+            />}
+        </StyledAnnotationCardActions>
+      </StyledAnnotationCard>
     );
   }
 }

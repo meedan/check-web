@@ -28,13 +28,11 @@
 
     div {
       @include when-smaller-than(mobile-breakpoint) {
-        flex-flow: nowrap column;
         padding: 0;
 
         h4 {
-          padding-top: units(2);
+          padding: units(0.5);
           text-align: $from-direction;
-          padding-#{$from-direction}: units(1);
         }
       }
       display: flex;
@@ -43,9 +41,7 @@
       overflow-y: auto;
 
       h4 {
-        align-items: center;
         color: $black-87;
-        display: flex;
         flex: 1;
         margin: 0;
         min-width: units(6);

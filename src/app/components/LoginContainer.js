@@ -4,6 +4,7 @@ import Favicon from 'react-favicon';
 import config from 'config';
 import { mapGlobalMessage } from './MappedMessage';
 import Message from './Message';
+import FooterRelay from '../relay/FooterRelay';
 import Login from './Login';
 import { stringHelper } from '../customHelpers';
 import PageTitle from './PageTitle';
@@ -41,6 +42,7 @@ class LoginContainer extends Component {
           <p style={{ textAlign: 'center' }}>
             <FormattedHTMLMessage id="login.contactSupport" defaultMessage='For support contact <a href="mailto:{supportEmail}">{supportEmail}</a>.' values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }} />
           </p>
+          <FooterRelay {...this.props} />
         </ContentColumn>
       </PageTitle>
     );

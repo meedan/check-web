@@ -1,5 +1,9 @@
 {
-  "header.projectLabel": "مشروع",
-  "header.teamLabel": "فريق",
-  "header.teamsLabel": "فرق"
+  "headerActions.userTeams": "الفرق المُنضم إليها",
+  "headerActions.signIn": "تسجيل الدخول",
+  "headerActions.signOut": "خروج",
+  "headerActions.contactHuman": "اﻹتصال بنا",
+  "headerActions.tos": "شروط الاستخدام",
+  "headerActions.privacyPolicy": "سياسة الخصوصية",
+  "headerActions.about": "عن {appName}"
 }

@@ -12,7 +12,7 @@ class CreateFlagMutation extends Relay.Mutation {
     let query = '';
     switch (this.props.parent_type) {
     case 'source':
-      query = Relay.QL`fragment on CreateFlagPayload { flagEdge, source { annotations } }`;
+      query = Relay.QL`fragment on CreateFlagPayload { flagEdge, source { log, log_count } }`;
       break;
     case 'project_media':
       query = Relay.QL`fragment on CreateFlagPayload { flagEdge, project_media { log, log_count } }`;

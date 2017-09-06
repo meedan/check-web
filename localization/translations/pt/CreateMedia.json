@@ -1,15 +1,13 @@
 {
   "createMedia.submitting": "Enviando...",
-  "createMedia.error": "Algo deu errado! Tente colar o texto desta postagem, ou adicionar um link diferente.",
+  "createMedia.error": "Algo deu errado! O servidor retornou o erro {code}. Por favor entre em contato com o suporte.",
   "createMedia.mediaInput": "Cole ou digite",
   "createMedia.sourceInput": "Nome da fonte",
   "createMedia.sourceUrlInput": "URL da fonte",
   "createMedia.uploadImage": "Enviar uma imagem",
   "createMedia.submitButton": "Enviar",
-  "createMedia.helper": "Insira um link, citação ou imagem para verificação",
-  "bridge.createMedia.helper": "Insira um link, citação ou imagem para tradução",
   "createMedia.imageTitle": "Enviar uma imagem",
-  "createMedia.sourceTitle": "Adicionar uma fonte",
+  "createMedia.sourceTitle": "Insira uma fonte",
   "createMedia.linkTitle": "Insira um link",
   "createMedia.quoteTitle": "Insira uma citação"
 }

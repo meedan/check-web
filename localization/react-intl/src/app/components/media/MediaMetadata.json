@@ -1,0 +1,38 @@
+[
+  {
+    "id": "mediaDetail.mediaTitle",
+    "defaultMessage": "Title"
+  },
+  {
+    "id": "mediaDetail.moveFailed",
+    "defaultMessage": "Sorry, we could not move this report"
+  },
+  {
+    "id": "mediaDetail.byUser",
+    "defaultMessage": "by {username}"
+  },
+  {
+    "id": "mediaDetail.cancelButton",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "mediaDetail.move",
+    "defaultMessage": "Move"
+  },
+  {
+    "id": "mediaDetail.doneButton",
+    "defaultMessage": "Done"
+  },
+  {
+    "id": "mediaDetail.addedBy",
+    "defaultMessage": "Added {byUser}"
+  },
+  {
+    "id": "mediaDetail.dialogHeader",
+    "defaultMessage": "Move this {mediaType} to a different project"
+  },
+  {
+    "id": "mediaDetail.dialogMediaPath",
+    "defaultMessage": "Currently filed under {teamName} > {projectTitle}"
+  }
+]

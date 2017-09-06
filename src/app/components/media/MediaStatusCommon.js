@@ -1,13 +1,14 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { defineMessages, injectIntl, intlShape } from 'react-intl';
-import Relay from 'react-relay';
-import Can, { can } from '../Can';
+import DropDownMenu from 'material-ui/DropDownMenu';
+import MenuItem from 'material-ui/MenuItem';
+import { can } from '../Can';
 import CheckContext from '../../CheckContext';
-import MdArrowDropDown from 'react-icons/lib/md/arrow-drop-down';
-import FaCircle from 'react-icons/lib/fa/circle';
-import FaCircleO from 'react-icons/lib/fa/circle-o';
 import { getStatus, getStatusStyle } from '../../helpers';
 import { mediaStatuses, mediaLastStatus } from '../../customHelpers';
+import {
+  black16,
+} from '../../styles/js/variables';
 
 const messages = defineMessages({
   error: {
@@ -21,18 +22,12 @@ class MediaStatusCommon extends Component {
     super(props);
 
     this.state = {
-      isMediaStatusMenuOpen: false,
       message: null,
     };
   }
 
   canUpdate() {
     return !this.props.readonly && can(this.props.media.permissions, 'create Status');
-  }
-
-  toggleMediaStatusMenu() {
-    const newState = this.canUpdate() ? !this.state.isMediaStatusMenuOpen : false;
-    this.setState({ isMediaStatusMenuOpen: newState });
   }
 
   bemClass(baseClass, modifierBoolean, modifierSuffix) {
@@ -46,7 +41,7 @@ class MediaStatusCommon extends Component {
     return ` media-status__current--${status.toLowerCase().replace(/[ _]/g, '-')}`;
   }
 
-  handleStatusClick(clickedStatus, r) {
+  handleStatusClick(clickedStatus) {
     const { media } = this.props;
     const store = new CheckContext(this).getContextStore();
 
@@ -64,11 +59,11 @@ class MediaStatusCommon extends Component {
       if (json.error) {
         message = json.error;
       }
-    } catch (e) { }
+    } catch (e) {}
     that.setState({ message });
   }
 
-  success(response) {
+  success() {
     // this.setState({ message: 'Status updated.' });
   }
 
@@ -76,36 +71,41 @@ class MediaStatusCommon extends Component {
     const that = this;
     const { media } = this.props;
     const statuses = JSON.parse(mediaStatuses(media)).statuses;
-    const status = getStatus(mediaStatuses(media), mediaLastStatus(media));
+    const currentStatus = getStatus(mediaStatuses(media), mediaLastStatus(media));
 
     return (
-      <div className={this.bemClass('media-status', this.canUpdate(), '--editable')} onClick={this.toggleMediaStatusMenu.bind(this)}>
-        <div className={this.bemClass('media-status__overlay', this.state.isMediaStatusMenuOpen, '--active')} onClick={this.toggleMediaStatusMenu.bind(this)} />
+      <div className={this.bemClass('media-status', this.canUpdate(), '--editable')}>
+        <span className="media-status__message">{this.state.message}</span>
 
-        <div className={`media-status__current${this.currentStatusToClass(mediaLastStatus(media))}`} style={{ color: getStatusStyle(status, 'color') }}>
-          <span className="media-status__label media-status__label--current">{status.label}</span>
-          {this.canUpdate() ?
-            <MdArrowDropDown className="media-status__caret" />
-            : null
-          }
-          <span className="media-status__message">{this.state.message}</span>
-        </div>
+        {this.canUpdate()
+          ?
+            <DropDownMenu
+              style={{ height: '24px' }}
+              value={currentStatus.label}
+              underlineStyle={{ borderWidth: 0 }}
+              iconStyle={{ fill: black16, padding: 0, height: 0, top: 0 }}
+              labelStyle={{ height: '24px', lineHeight: '24px', paddingLeft: 0, textTransform: 'uppercase', color: getStatusStyle(currentStatus, 'color') }}
 
-        {this.canUpdate() ?
-          <ul className={this.bemClass('media-status__menu', this.state.isMediaStatusMenuOpen, '--active')}>
-            {statuses.map(status => (
-              <li key={status.id} className={`${that.bemClass('media-status__menu-item', (mediaLastStatus(media) === status.id), '--current')} media-status__menu-item--${status.id.replace('_', '-')}`} onClick={that.handleStatusClick.bind(that, status.id)} style={{ color: getStatusStyle(status, 'color') }}>
+              selectedMenuItemStyle={{ color: getStatusStyle(currentStatus, 'color') }}
+              className={`media-status__label media-status__current${this.currentStatusToClass(mediaLastStatus(media))}`}
+            >
+              {statuses.map(status =>
+                <MenuItem
+                  key={status.id}
+                  className={`${that.bemClass(
+                  'media-status__menu-item',
+                  mediaLastStatus(media) === status.id,
+                  '--current',
+                )} media-status__menu-item--${status.id.replace('_', '-')}`}
+                  onClick={that.handleStatusClick.bind(that, status.id)}
+                  style={{ textTransform: 'uppercase', color: getStatusStyle(status, 'color') }}
+                  value={status.label}
+                  primaryText={status.label}
+                />,
+            )}
+            </DropDownMenu>
 
-                <FaCircle className="media-status__icon media-status__icon--radio-button-selected" />
-
-                <FaCircleO className="media-status__icon media-status__icon--radio-button" />
-
-                <span className="media-status__label">{status.label}</span>
-              </li>
-              ))}
-          </ul>
-          : null
-        }
+          : null}
       </div>
     );
   }

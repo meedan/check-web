@@ -71,11 +71,18 @@ Then you can use `npm run transifex:upload` and `npm run transifex:download` to 
 
 #### Integration tests
 
+*Running*
+
 * Compile the code with `npm run build`
 * Copy `test/config.yml.example` to `test/config.yml` and set the configurations
 * Copy `test/config.js.example` to `test/config.js` and set the configurations
 * Start `chromedriver` and the application (`SERVER_PORT=3333 npm run publish`)
 * Run `npm run test:integration`
+
+*Writing*
+
+* Use API calls (instead of using Selenium) to create all test data you need _before_ the real thing that the test is testing
+* Tag the test with one of the existing tags
 
 #### Unit tests
 

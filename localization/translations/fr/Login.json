@@ -1,8 +1,6 @@
 {
-  "login.nameInputHint": "Votre nom",
-  "login.emailInputHint": "Courriel",
   "login.passwordInputHint": "Mot de passe",
-  "login.passwordConfirmInputHint": "Confirmation du mot de passe",
+  "login.disclaimer": "Nous ne publierons rien sans votre permission",
   "login.title": "Connexion",
   "login.registerTitle": "Enregistrement",
   "login.nameLabel": "Votre nom",
@@ -13,8 +11,6 @@
   "login.signUp": "ENREGISTREMENT",
   "loginEmail.lostPassword": "Mot de passe oublié",
   "login.with": "Connexion par {provider}",
-  "login.disclaimer": "Nous ne publierons rien sans votre permission",
   "login.newAccount": "Créer un nouveau compte par courriel",
-  "login.alreadyHasAccount": "J'ai déjà un compte",
-  "login.return": "Retour à connexion par courriel"
+  "login.alreadyHasAccount": "J'ai déjà un compte"
 }

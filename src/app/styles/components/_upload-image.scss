@@ -29,16 +29,26 @@
     margin-#{$to-direction}: units(6);
     position: relative;
     width: $_preview_size;
+  }
 
-    .remove-image {
-      @extend %icon;
-      #{$to-direction}: -1 * units(4);
-      color: $black-38;
-      cursor: pointer;
-      margin: 0;
-      position: absolute;
-      top: 0;
-      z-index: 1;
-    }
+  .no-preview {
+    $_preview_size: units(0);
+    display: block;
+    height: $_preview_size / 2;
+    margin: units(2) 0 0;
+    margin-#{$to-direction}: units(6);
+    position: relative;
+    width: $_preview_size;
+  }
+
+  .remove-image {
+    @extend %icon;
+    #{$to-direction}: -1 * units(4);
+    color: $black-38;
+    cursor: pointer;
+    margin: 0;
+    position: absolute;
+    top: 0;
+    z-index: 1;
   }
 }

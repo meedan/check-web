@@ -1,5 +1,6 @@
 import styled, { css, keyframes } from 'styled-components';
 import { CardTitle } from 'material-ui/Card';
+import TextField from 'material-ui/TextField';
 import { stripUnit, rgba } from 'polished';
 
 // Styles for overriding material UI
@@ -37,8 +38,8 @@ export const opaqueBlack02 = '#fafafa';
 //
 export const facebookBlue = '#3b5999';
 export const twitterBlue = '#0095ff';
-export const googleorange = '#db4437';
-export const slackgreen = '#2ab27b';
+export const googleOrange = '#db4437';
+export const slackGreen = '#2ab27b';
 
 // Units
 export function units(unit) {
@@ -73,10 +74,17 @@ export const caption = `400 ${units(1.5)}/${units(2.5)} ${fontStackSans}`;
 export const tiny = `400 ${units(1)}/${units(1.5)} ${fontStackSans}`;
 
 // Layout
-export const headerHeight = units(7);
+export const headerHeight = units(8);
+export const gutterMedium = units(3);
 
 // Breakpoints
-export const breakpointMobile = `${units(85)}`;
+export const breakpointMobile = `${columnWidthMedium}`;
+export const breakpointDesktop = `${columnWidthLarge}`;
+
+// Transitions
+export const transitionSpeedFast = '150ms';
+export const transitionSpeedDefault = '300ms';
+export const transitionSpeedSlow = '500ms';
 
 // Borders
 export const defaultBorderRadius = '2px';
@@ -86,15 +94,15 @@ export const defaultBorderWidth = '1px';
 //
 export function boxShadow(level) {
   if (level === 1) {
-    return `0 1px 3px ${rgba(black, 0.12)}, 0 1px 2px ${rgba(black, 0.24)}`;
+    return `0 1px 6px ${rgba(black, 0.12)}, 0 1px 4px ${rgba(black, 0.12)}`;
   } else if (level === 2) {
-    return `0 3px 6px ${rgba(black, 0.16)}, 0 3px 6px ${rgba(black, 0.23)}`;
+    return `0 3px 10px ${rgba(black, 0.16)}, 0 3px 10px ${rgba(black, 0.23)}`;
   } else if (level === 3) {
-    return `0 10px 20px ${rgba(black, 0.19)}, 0 6px 6px ${rgba(black, 0.23)}`;
+    return `0 10px 30px ${rgba(black, 0.19)}, 0 6px 10px ${rgba(black, 0.23)}`;
   } else if (level === 4) {
-    return `0 14px 28px ${rgba(black, 0.25)}, 0 10px 10px ${rgba(black, 0.22)}`;
+    return `0 14px 45px ${rgba(black, 0.25)}, 0 10px 18px ${rgba(black, 0.22)}`;
   } else if (level === 5) {
-    return `0 19px 38px ${rgba(black, 0.3)}, 0 15px 12px ${rgba(black, 0.22)}`;
+    return `0 19px 60px ${rgba(black, 0.3)}, 0 15px 20px ${rgba(black, 0.22)}`;
   }
 
   return null;
@@ -232,6 +240,7 @@ export const muiThemeWithoutRtl = {
     accent1Color: checkBlue,
     accent2Color: checkBlue,
     accent3Color: checkBlue,
+    pickerHeaderColor: checkBlue,
   },
   appBar: {
     color: black02,
@@ -256,8 +265,9 @@ export const muiThemeWithoutRtl = {
 };
 
 
-export const media = {
+export const mediaQuery = {
   handheld: (...args) => css`@media (max-width: ${breakpointMobile}) { ${css(...args)} }`,
+  desktop: (...args) => css`@media (min-width: ${breakpointDesktop}) { ${css(...args)} }`,
 };
 
 
@@ -300,3 +310,25 @@ export const anchorOrigin = {
   horizontal: 'left',
   vertical: 'bottom',
 };
+
+export const breakWordStyles = `
+  hyphens: auto;
+  overflow-wrap: break-word;
+  word-break: break-word;
+`;
+
+// A smaller TextField
+// that better aligns with multiple choice options
+const StyledSmallTextField = styled(TextField)`
+  height: ${units(3)}!important;
+  font: ${body2} !important;
+  * {
+    bottom: 0!important;
+  }
+  div {
+    font-size: inherit!important;
+  }
+  textarea {
+    margin: 0!important;
+  }
+`;

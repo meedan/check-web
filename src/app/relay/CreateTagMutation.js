@@ -12,10 +12,13 @@ class CreateTagMutation extends Relay.Mutation {
     let query = '';
     switch (this.props.parent_type) {
     case 'source':
-      query = Relay.QL`fragment on CreateTagPayload { tagEdge, source { annotations, tags } }`;
+      query = Relay.QL`fragment on CreateTagPayload { tagEdge, source { log, tags, log_count } }`;
       break;
     case 'project_media':
       query = Relay.QL`fragment on CreateTagPayload { tagEdge, project_media { log, tags, log_count } }`;
+      break;
+    case 'project_source':
+      query = Relay.QL`fragment on CreateTagPayload { tagEdge, project_source { source { log, tags, log_count } } }`;
       break;
     }
     return query;

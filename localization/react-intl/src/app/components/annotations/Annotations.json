@@ -1,0 +1,10 @@
+[
+  {
+    "id": "mediaComponent.verificationTimeline",
+    "defaultMessage": "Verification Timeline"
+  },
+  {
+    "id": "bridge.mediaComponent.verificationTimeline",
+    "defaultMessage": "Translation Timeline"
+  }
+]

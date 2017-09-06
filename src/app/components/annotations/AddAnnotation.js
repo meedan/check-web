@@ -14,6 +14,7 @@ import CheckContext from '../../CheckContext';
 import MdInsertPhoto from 'react-icons/lib/md/insert-photo';
 import UploadImage from '../UploadImage';
 import ContentColumn from '../layout/ContentColumn';
+import HttpStatus from '../../HttpStatus';
 
 const messages = defineMessages({
   invalidCommand: {
@@ -24,9 +25,10 @@ const messages = defineMessages({
     id: 'addAnnotation.annotationAdded',
     defaultMessage: 'Your {type} was added!',
   },
-  createTagFailed: {
-    id: 'addAnnotation.createTagFailed',
-    defaultMessage: 'Sorry, could not create the tag',
+  error: {
+    id: 'addAnnotation.error',
+    defaultMessage:
+      'Something went wrong! The server returned an error code {code}. Please contact a system administrator.',
   },
   inputHint: {
     id: 'addAnnotation.inputHint',
@@ -99,16 +101,18 @@ class AddAnnotation extends Component {
   }
 
   fail(transaction) {
-    const that = this;
-    const error = transaction.getError();
-    let message = this.props.intl.formatMessage(messages.createTagFailed);
+    const transactionError = transaction.getError();
+    let message = this.props.intl.formatMessage(messages.error, { code: `${transactionError.status} ${HttpStatus.getMessage(transactionError.status)}` });
+    let json = null;
     try {
-      const json = JSON.parse(error.source);
-      if (json.error) {
-        message = json.error;
-      }
-    } catch (e) { }
-    that.setState({ message, isSubmitting: false });
+      json = JSON.parse(transactionError.source);
+    } catch (e) {
+      // do nothing
+    }
+    if (json && json.error) {
+      message = json.error;
+    }
+    this.setState({ message: message.replace(/<br\s*\/?>/mg, '; '), isSubmitting: false });
   }
 
   getContext() {
@@ -116,16 +120,16 @@ class AddAnnotation extends Component {
     return context;
   }
 
-  addComment(that, annotated, annotated_id, annotated_type, comment, annotation_type) {
-    const { formatMessage } = that.props.intl;
+  addComment(annotated, annotated_id, annotated_type, comment, annotation_type) {
+    const { formatMessage } = this.props.intl;
 
-    const onFailure = (transaction) => { that.fail(transaction); };
+    const onFailure = (transaction) => { this.fail(transaction); };
 
     const onSuccess = (response) => {
-      that.success(formatMessage(messages.annotationAdded, { type: formatMessage(messages.typeComment) }));
+      this.success(formatMessage(messages.annotationAdded, { type: formatMessage(messages.typeComment) }));
     };
 
-    const annotator = that.getContext().currentUser;
+    const annotator = this.getContext().currentUser;
 
     let image = '';
     if (this.state.fileMode) {
@@ -138,7 +142,7 @@ class AddAnnotation extends Component {
         annotator,
         annotated,
         image,
-        context: that.getContext(),
+        context: this.getContext(),
         annotation: {
           text: comment,
           annotated_type,
@@ -149,18 +153,18 @@ class AddAnnotation extends Component {
     );
   }
 
-  addTag(that, annotated, annotated_id, annotated_type, tags, annotation_type) {
+  addTag(annotated, annotated_id, annotated_type, tags, annotation_type) {
     const tagsList = [...new Set(tags.split(','))];
 
-    const { formatMessage } = that.props.intl;
+    const { formatMessage } = this.props.intl;
 
-    const onFailure = (transaction) => { that.fail(transaction); };
+    const onFailure = (transaction) => { this.fail(transaction); };
 
-    const onSuccess = (response) => { that.success(formatMessage(messages.annotationAdded, { type: formatMessage(messages.typeTag) })); };
+    const onSuccess = (response) => { this.success(formatMessage(messages.annotationAdded, { type: formatMessage(messages.typeTag) })); };
 
-    const annotator = that.getContext().currentUser;
+    const annotator = this.getContext().currentUser;
 
-    const context = that.getContext();
+    const context = this.getContext();
 
     tagsList.map((tag) => {
       Relay.Store.commitUpdate(
@@ -180,14 +184,14 @@ class AddAnnotation extends Component {
     });
   }
 
-  addStatus(that, annotated, annotated_id, annotated_type, status, annotation_type) {
-    const { formatMessage } = that.props.intl;
+  addStatus(annotated, annotated_id, annotated_type, status, annotation_type) {
+    const { formatMessage } = this.props.intl;
 
-    const onFailure = (transaction) => { that.fail(transaction); };
+    const onFailure = (transaction) => { this.fail(transaction); };
 
-    const onSuccess = (response) => { that.success(formatMessage(messages.annotationAdded, { type: formatMessage(messages.typeStatus) })); };
+    const onSuccess = (response) => { this.success(formatMessage(messages.annotationAdded, { type: formatMessage(messages.typeStatus) })); };
 
-    const annotator = that.getContext().currentUser;
+    const annotator = this.getContext().currentUser;
 
     let status_id = '';
     if (annotated.last_status_obj !== null) {
@@ -197,7 +201,7 @@ class AddAnnotation extends Component {
       parent_type: annotated_type.replace(/([a-z])([A-Z])/, '$1_$2').toLowerCase(),
       annotated,
       annotator,
-      context: that.getContext(),
+      context: this.getContext(),
       annotation: {
         status,
         annotated_type,
@@ -219,21 +223,21 @@ class AddAnnotation extends Component {
     }
   }
 
-  addFlag(that, annotated, annotated_id, annotated_type, flag, annotation_type) {
-    const { formatMessage } = that.props.intl;
+  addFlag(annotated, annotated_id, annotated_type, flag, annotation_type) {
+    const { formatMessage } = this.props.intl;
 
-    const onFailure = (transaction) => { that.fail(transaction); };
+    const onFailure = (transaction) => { this.fail(transaction); };
 
-    const onSuccess = (response) => { that.success(formatMessage(messages.annotationAdded, { type: formatMessage(messages.typeFlag) })); };
+    const onSuccess = (response) => { this.success(formatMessage(messages.annotationAdded, { type: formatMessage(messages.typeFlag) })); };
 
-    const annotator = that.getContext().currentUser;
+    const annotator = this.getContext().currentUser;
 
     Relay.Store.commitUpdate(
       new CreateFlagMutation({
         parent_type: annotated_type.replace(/([a-z])([A-Z])/, '$1_$2').toLowerCase(),
         annotated,
         annotator,
-        context: that.getContext(),
+        context: this.getContext(),
         annotation: {
           flag,
           annotated_type,
@@ -244,28 +248,30 @@ class AddAnnotation extends Component {
     );
   }
 
-  addDynamic(that, annotated, annotated_id, annotated_type, params, annotation_type) {
-    const { formatMessage } = that.props.intl;
-    
-    const onFailure = (transaction) => { that.fail(transaction); };
+  addDynamic(annotated, annotated_id, annotated_type, params, annotation_type) {
+    const { formatMessage } = this.props.intl;
 
-    const onSuccess = (response) => { that.success(formatMessage(messages.annotationAdded, { type: annotation_type })); };
+    const onFailure = (transaction) => { this.fail(transaction); };
 
-    const annotator = that.getContext().currentUser;
+    const onSuccess = (response) => { this.success(formatMessage(messages.annotationAdded, { type: annotation_type })); };
+
+    const annotator = this.getContext().currentUser;
 
     // /location location_name=Salvador&location_position=-12.9016241,-38.4198075
     const fields = {};
-    if (params) params.split('&').forEach((part) => {
-      const pair = part.split('=');
-      fields[pair[0]] = pair[1];
-    });
+    if (params) {
+      params.split('&').forEach((part) => {
+        const pair = part.split('=');
+        fields[pair[0]] = pair[1];
+      });
+    }
 
     Relay.Store.commitUpdate(
       new CreateDynamicMutation({
         parent_type: annotated_type.replace(/([a-z])([A-Z])/, '$1_$2').toLowerCase(),
         annotator,
         annotated,
-        context: that.getContext(),
+        context: this.getContext(),
         annotation: {
           fields,
           annotation_type,
@@ -305,7 +311,7 @@ class AddAnnotation extends Component {
         action = this.addFlag.bind(this);
         break;
       default:
-        action = this.addDynamic;
+        action = this.addDynamic.bind(this);
         break;
       }
 
@@ -313,17 +319,13 @@ class AddAnnotation extends Component {
         const annotated = this.props.annotated;
         const annotated_id = annotated.dbid;
         const annotated_type = this.props.annotatedType;
-        action(this, annotated, annotated_id, annotated_type, command.args, command.type);
+        action(annotated, annotated_id, annotated_type, command.args, command.type);
       } else {
         this.failure();
       }
     }
 
     e.preventDefault();
-  }
-
-  componentDidMount() {
-    // this.annotationInput.focus();
   }
 
   handleKeyPress(e) {
@@ -359,7 +361,6 @@ class AddAnnotation extends Component {
             name="cmd" id="cmd-input"
             multiLine
             onKeyPress={this.handleKeyPress.bind(this)}
-            ref={input => this.annotationInput = input}
           />
           {(() => {
             if (this.state.fileMode) {
@@ -370,7 +371,12 @@ class AddAnnotation extends Component {
           })()}
           <div className="add-annotation__buttons">
             <div className="add-annotation__insert-photo">
-              <MdInsertPhoto id="add-annotation__switcher" title={this.props.intl.formatMessage(messages.addImage)} className={this.state.fileMode ? 'add-annotation__file' : ''} onClick={this.switchMode.bind(this)} />
+              <MdInsertPhoto
+                id="add-annotation__switcher"
+                title={this.props.intl.formatMessage(messages.addImage)}
+                className={this.state.fileMode ? 'add-annotation__file' : ''}
+                onClick={this.switchMode.bind(this)}
+              />
             </div>
             <FlatButton label={this.props.intl.formatMessage(messages.submitButton)} primary type="submit" />
           </div>

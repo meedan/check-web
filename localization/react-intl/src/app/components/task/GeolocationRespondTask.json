@@ -1,0 +1,22 @@
+[
+  {
+    "id": "geolocationRespondTask.placeName",
+    "defaultMessage": "Type the name of the location"
+  },
+  {
+    "id": "geolocationRespondTask.coordinates",
+    "defaultMessage": "Latitude, Longitude"
+  },
+  {
+    "id": "geolocationRespondTask.pressReturnToSave",
+    "defaultMessage": "Press return to save your response"
+  },
+  {
+    "id": "geolocationRespondTask.cancelTask",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "geolocationRespondTask.resolveTask",
+    "defaultMessage": "Resolve task"
+  }
+]

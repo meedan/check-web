@@ -1,8 +1,8 @@
 {
   "addAnnotation.invalidCommand": " أمر غير صحيح",
   "addAnnotation.annotationAdded": "تم إضافة {type}",
-  "addAnnotation.createTagFailed": "عذراً، لم نستطع إضافة الوسم",
-  "addAnnotation.inputHint": "أضف تعليقاً على هذا التقرير",
+  "addAnnotation.error": "حدث خطأ ما! أرجع الخادم رسالة خطأ {code}. الرجاء اﻹتصال بفريق الدعم.",
+  "addAnnotation.inputHint": "أضف تعليقاً",
   "addAnnotation.submitButton": "إرسال",
   "addAnnotation.typeComment": "تعليق",
   "addAnnotation.typeTag": "وسم",

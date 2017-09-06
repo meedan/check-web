@@ -11,8 +11,8 @@ class CreateCommentMutation extends Relay.Mutation {
   getFatQuery() {
     let query = '';
     switch (this.props.parent_type) {
-    case 'source':
-      query = Relay.QL`fragment on CreateCommentPayload { commentEdge, source { annotations } }`;
+    case 'project_source':
+      query = Relay.QL`fragment on CreateCommentPayload { commentEdge, project_source { source { log, log_count } } }`;
       break;
     case 'project_media':
       query = Relay.QL`fragment on CreateCommentPayload { commentEdge, project_media { log, log_count } }`;
