@@ -72,7 +72,7 @@ class DatetimeRespondTask extends Component {
     const note = this.props.note || '';
     let timezone = 'GMT';
 
-    const response = this.props.response;
+    const response = convertNumbers2English(this.props.response);
 
     if (response) {
       const values = response.match(/^(\d+-\d+-\d+) (\d+):(\d+) ([+-]?\d+) ([^ ]+)/);
