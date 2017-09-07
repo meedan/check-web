@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { FormattedMessage, FormattedDate, injectIntl, intlShape, defineMessages } from 'react-intl';
+import { convertNumbers2English } from '../../helpers';
 
 const messages = defineMessages({
   timeIs: {
@@ -10,8 +11,9 @@ const messages = defineMessages({
 
 class DatetimeTaskResponse extends Component {
   render() {
-    const values = this.props.response.match(/^(\d+-\d+-\d+) (\d+):(\d+) ([+-]?\d+) (.*)$/);
-    const noTime = /notime/.test(this.props.response);
+    const response = convertNumbers2English(this.props.response);
+    const values = response.match(/^(\d+-\d+-\d+) (\d+):(\d+) ([+-]?\d+) (.*)$/);
+    const noTime = /notime/.test(response);
     let hour = parseInt(values[2], 10);
     let minute = parseInt(values[3], 10);
     if (hour < 10) {
