@@ -20,7 +20,7 @@ class CreateAccountSourceMutation extends Relay.Mutation {
       account: {
         url: this.props.url,
         embed: '',
-      }
+      },
     };
 
     return { account_sourceEdge: { node: account_source } };
@@ -28,7 +28,7 @@ class CreateAccountSourceMutation extends Relay.Mutation {
 
   getConfigs() {
     const fieldIds = {};
-    fieldIds['source'] = this.props.source.id;
+    fieldIds.source = this.props.source.id;
 
     return [
       {
