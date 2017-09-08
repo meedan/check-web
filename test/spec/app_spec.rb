@@ -1389,7 +1389,7 @@ p "2b"
 p "2v"
       expect(@driver.page_source.include?('Task "When?" answered by')).to be(true)
 p "2c"
-
+=begin
       # Edit task
       expect(@driver.page_source.include?('Task "When?" edited to "When was it?" by')).to be(false)
 p "2"
@@ -1436,6 +1436,30 @@ p "2s"
 
       # Delete task
       delete_task('When was it')
+=end
+ # Edit task
+      expect(@driver.page_source.include?('Task "When?" edited to "When was it?" by')).to be(false)
+      @driver.find_element(:css, '.task-actions__icon').click
+      sleep 2
+      @driver.find_element(:css, '.task-actions__edit').click
+      update_field('textarea[name="label"]', 'When was it?')
+      @driver.find_element(:css, '.task__save').click
+      sleep 2
+      expect(@driver.page_source.include?('Task "When?" edited to "When was it?" by')).to be(true)
+
+      # Edit task response
+      expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('12:34')).to be(false)
+      @driver.find_element(:css, '.task-actions__icon').click
+      @driver.find_element(:css, '.task-actions__edit-response').click
+      update_field('input[name="hour"]', '12')
+      update_field('input[name="minute"]', '34')
+      update_field('textarea[name="note"]', '')
+      @driver.action.send_keys(:enter).perform
+      sleep 2
+      expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('12:34')).to be(true)
+
+      # Delete task
+      delete_task('When was it')      
     end
 
     #Add slack notifications to a team
