@@ -1343,6 +1343,7 @@ p "A a task"
     end
 
     it "should add, edit, answer, update answer and delete datetime task", bin3: true do
+=begin
       @driver.manage.window.maximize
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
 p "2o"
@@ -1389,7 +1390,6 @@ p "2b"
 p "2v"
       expect(@driver.page_source.include?('Task "When?" answered by')).to be(true)
 p "2c"
-=begin
       # Edit task
       expect(@driver.page_source.include?('Task "When?" edited to "When was it?" by')).to be(false)
 p "2"
@@ -1437,7 +1437,35 @@ p "2s"
       # Delete task
       delete_task('When was it')
 =end
- # Edit task
+      media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
+
+      # Create a task
+      expect(@driver.page_source.include?('When?')).to be(false)
+      expect(@driver.page_source.include?('Task "When?" created by')).to be(false)
+      @driver.find_element(:css, '.create-task__add-button').click
+      sleep 1
+      @driver.find_element(:css, '.create-task__add-datetime').click
+      sleep 1
+      fill_field('#task-label-input', 'When?')
+      @driver.find_element(:css, '.create-task__dialog-submit-button').click
+      sleep 2
+      expect(@driver.page_source.include?('When?')).to be(true)
+      expect(@driver.page_source.include?('Task "When?" created by')).to be(true)
+
+      # Answer task
+      expect(@driver.page_source.include?('Task "When?" answered by')).to be(false)
+      fill_field('input[name="hour"]', '23')
+      fill_field('input[name="minute"]', '59')
+      @driver.find_element(:css, '#task__response-date').click
+      sleep 2
+      @driver.find_elements(:css, 'button').last.click
+      sleep 1
+      fill_field('textarea[name="note"]', 'Test')
+      @driver.action.send_keys(:enter).perform
+      sleep 2
+      expect(@driver.page_source.include?('Task "When?" answered by')).to be(true)
+
+      # Edit task
       expect(@driver.page_source.include?('Task "When?" edited to "When was it?" by')).to be(false)
       @driver.find_element(:css, '.task-actions__icon').click
       sleep 2
@@ -1459,7 +1487,7 @@ p "2s"
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('12:34')).to be(true)
 
       # Delete task
-      delete_task('When was it')      
+      delete_task('When was it')
     end
 
     #Add slack notifications to a team
