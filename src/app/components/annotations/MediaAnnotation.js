@@ -18,27 +18,28 @@ import { Card, CardText } from 'material-ui/Card';
 import MenuButton from '../MenuButton';
 import MdImage from 'react-icons/lib/md/image';
 import ParsedText from '../ParsedText';
+import DatetimeTaskResponse from '../task/DatetimeTaskResponse';
 
 const messages = defineMessages({
   error: {
     id: 'annotation.error',
-    defaultMessage: 'Could not delete annotation'
+    defaultMessage: 'Could not delete annotation',
   },
   deleteButton: {
     id: 'annotation.deleteButton',
-    defaultMessage: 'Delete'
+    defaultMessage: 'Delete',
   },
   reverseImage: {
     id: 'annotation.reverseImage',
-    defaultMessage: 'This item contains at least one image. Click Search to look for potential duplicates on Google.'
+    defaultMessage: 'This item contains at least one image. Click Search to look for potential duplicates on Google.',
   },
   reverseImageFacebook: {
     id: 'annotation.reverseImageFacebook',
-    defaultMessage: 'This item contains at least one image. Consider a reverse image search.'
+    defaultMessage: 'This item contains at least one image. Consider a reverse image search.',
   },
   and: {
     id: 'annotation.and',
-    defaultMessage: 'and'
+    defaultMessage: 'and',
   },
   newClaim: {
     id: 'annotation.newClaim',
@@ -107,7 +108,7 @@ class Annotation extends Component {
     const onSuccess = (response) => {
       this.setState({ disableMachineTranslation: true });
     };
-    if (!this.state.disableMachineTranslation){
+    if (!this.state.disableMachineTranslation) {
       Relay.Store.commitUpdate(
         new UpdateProjectMediaMutation({
           update_mt: 1,
@@ -149,12 +150,13 @@ class Annotation extends Component {
     const annotated = this.props.annotated;
 
     let annotationActions = null;
-    if (annotation) {
+    // FIXME Hide actions for source annotations until delete is implemented #6282
+    if (annotation && typeof annotated.media !== 'undefined') {
       const permission = `destroy ${annotation.annotation_type.charAt(0).toUpperCase()}${annotation.annotation_type.slice(1)}`;
       annotationActions = can(annotation.permissions, permission) ? (
         <MenuButton>
           <Can permissions={annotation.permissions} permission={permission}>
-            <li className='annotation__delete' onClick={this.handleDelete.bind(this, annotation.id)}>
+            <li className="annotation__delete" onClick={this.handleDelete.bind(this, annotation.id)}>
               <span>{this.props.intl.formatMessage(messages.deleteButton)}</span>
             </li>
           </Can>
@@ -163,7 +165,7 @@ class Annotation extends Component {
     }
 
     const updatedAt = MediaUtil.createdAt({ published: activity.created_at });
-    const timestamp = updatedAt ? <span className="annotation__timestamp"><TimeBefore date={updatedAt}/></span> : null;
+    const timestamp = updatedAt ? <span className="annotation__timestamp"><TimeBefore date={updatedAt} /></span> : null;
     const authorName = <ProfileLink user={activity.user} className={'annotation__author-name'} />;
     const object = JSON.parse(activity.object_after);
     const content = object.data;
@@ -176,18 +178,18 @@ class Annotation extends Component {
       const commentContent = JSON.parse(annotation.content);
       contentTemplate = (
         <div>
-          <div className='annotation__card-content'>
+          <div className="annotation__card-content">
             <ParsedText text={commentText} />
             {/* thumbnail */ }
             { commentContent.original ?
-              <img src={commentContent.thumbnail} className='annotation__card-thumbnail' alt="" onClick={this.handleOpenCommentImage.bind(this, commentContent.original)} />
+              <img src={commentContent.thumbnail} className="annotation__card-thumbnail" alt="" onClick={this.handleOpenCommentImage.bind(this, commentContent.original)} />
             : null }
           </div>
 
           {/* embedded medias */ }
           <div className="annotation__card-embedded-medias">
-          {annotation.medias.edges.map(media => (
-            <div><MediaDetail media={media.node} condensed readonly /></div>
+            {annotation.medias.edges.map(media => (
+              <div><MediaDetail media={media.node} condensed readonly /></div>
           ))}
           </div>
 
@@ -232,13 +234,23 @@ class Annotation extends Component {
         const format_response = (type) => {
           if (type === 'multiple_choice') {
             const response_obj = JSON.parse(object.value);
-            let selected_array = response_obj.selected || [];
-            if (response_obj.other) { selected_array.push(response_obj.other) }
-            const last_item = selected_array.length > 1 ? ' ' + this.props.intl.formatMessage(messages.and) + ' ' + selected_array.splice(-1, 1) : '';
+            const selected_array = response_obj.selected || [];
+            if (response_obj.other) { selected_array.push(response_obj.other); }
+            const last_item = selected_array.length > 1 ? ` ${this.props.intl.formatMessage(messages.and)} ${selected_array.splice(-1, 1)}` : '';
             return (selected_array.join(', ') + last_item);
-          } else {
-            return (<ParsedText text={object.value} />);
+          } else if (type === 'geolocation') {
+            const geojson = JSON.parse(object.value);
+            const coordinates = geojson.geometry.coordinates;
+            const name = geojson.properties.name;
+            if (coordinates[0] != 0 || coordinates[1] != 0) {
+              return (<a style={{ textDecoration: 'underline' }} href={`http://www.openstreetmap.org/?mlat=${coordinates[0]}&mlon=${coordinates[1]}&zoom=12#map=12/${coordinates[0]}/${coordinates[1]}`} target="_blank" rel="noreferrer noopener">{name}</a>);
+            }
+
+            return name;
+          } else if (type === 'datetime') {
+            return (<DatetimeTaskResponse response={object.value} />);
           }
+          return (<ParsedText text={object.value} />);
         };
         contentTemplate = (<span className="// annotation__task-resolved">
           <FormattedMessage
@@ -260,9 +272,10 @@ class Annotation extends Component {
       if (object.field_name === 'translation_text') {
         const translationContent = JSON.parse(annotation.content);
         let language = translationContent.find(it => it.field_name === 'translation_language');
-        language = (language && language.formatted_value) || '?' ;
+        language = (language && language.formatted_value) || '?';
         contentTemplate = (<span className="annotation__translation-text">
-          <FormattedMessage id="annotation.translation" defaultMessage={'Translated to {language} by {author}: "{translation}"'}
+          <FormattedMessage
+            id="annotation.translation" defaultMessage={'Translated to {language} by {author}: "{translation}"'}
             values={{ language, author: authorName, translation: <ParsedText text={object.value} /> }}
           />
         </span>);
@@ -272,23 +285,23 @@ class Annotation extends Component {
         const formatted_value = JSON.parse(annotation.content)[0].formatted_value;
         if (formatted_value.length == 0) {
           contentTemplate = (<span className="annotation__mt-translations">
-          <button className="annotation__mt-translations" onClick={this.handleUpdateMachineTranslation.bind(this)} disabled={this.state.disableMachineTranslation}>
-            <FormattedMessage id="annotation.emptyMachineTranslation" defaultMessage="Add machine translation" />
-          </button>
+            <button className="annotation__mt-translations" onClick={this.handleUpdateMachineTranslation.bind(this)} disabled={this.state.disableMachineTranslation}>
+              <FormattedMessage id="annotation.emptyMachineTranslation" defaultMessage="Add machine translation" />
+            </button>
           </span>);
         } else {
           contentTemplate = (<span className="annotation__mt-translations">
-          <ul className="mt-list">
-            {formatted_value.map(mt => (
-              <li className='mt__list-item'>
-                <FormattedMessage
-                  id="annotation.machineTranslation"
-                  defaultMessage={'Machine translation for "{lang}" is: {text}'}
-                  values={{ lang: mt.lang_name, text: mt.text }}
-                />
-              </li>
+            <ul className="mt-list">
+              {formatted_value.map(mt => (
+                <li className="mt__list-item">
+                  <FormattedMessage
+                    id="annotation.machineTranslation"
+                    defaultMessage={'Machine translation for "{lang}" is: {text}'}
+                    values={{ lang: mt.lang_name, text: mt.text }}
+                  />
+                </li>
             ))}
-          </ul>
+            </ul>
           </span>);
         }
       }
@@ -301,7 +314,7 @@ class Annotation extends Component {
             id="annotation.translationStatus"
             defaultMessage={'Translation status set to {status} by {author}'}
             values={{ status: <span className={`annotation__status annotation__status--${statusCode}`}>{status.label}</span>,
-                      author: authorName }}
+              author: authorName }}
           />
         </span>);
       }
@@ -310,18 +323,19 @@ class Annotation extends Component {
         const published = JSON.parse(object.value);
         const colors = {
           twitter: '#4099FF',
-          facebook: '#3b5998'
-        }
+          facebook: '#3b5998',
+        };
         contentTemplate = [];
-        for (var provider in published) {
-          let name = provider.charAt(0).toUpperCase() + provider.slice(1);
-          let color = colors[provider] || '#333';
+        for (const provider in published) {
+          const name = provider.charAt(0).toUpperCase() + provider.slice(1);
+          const color = colors[provider] || '#333';
           contentTemplate.push(
             <span>
-              <FormattedMessage id="annotation.translationPublished" defaultMessage={'Translation published to {link}'}
+              <FormattedMessage
+                id="annotation.translationPublished" defaultMessage={'Translation published to {link}'}
                 values={{ link: <a style={{ color, fontWeight: 'bold' }} href={published[provider]} target="_blank" rel="noreferrer noopener">{name}</a> }}
               />
-            </span>
+            </span>,
           );
         }
       }
@@ -340,8 +354,7 @@ class Annotation extends Component {
               />
             </span>
           );
-        }
-        else if (keepLink) {
+        } else if (keepLink) {
           contentTemplate = (
             <span className="annotation__keep">
               <FormattedHTMLMessage
@@ -351,8 +364,7 @@ class Annotation extends Component {
               />
             </span>
           );
-        }
-        else if (keepStatus === 418) {
+        } else if (keepStatus === 418) {
           contentTemplate = (
             <span className="annotation__keep">
               <FormattedHTMLMessage
@@ -364,8 +376,7 @@ class Annotation extends Component {
               </span>
             </span>
           );
-        }
-        else {
+        } else {
           contentTemplate = (
             <span className="annotation__keep">
               <FormattedHTMLMessage
@@ -404,7 +415,7 @@ class Annotation extends Component {
             <FormattedMessage
               id="annotation.newReport"
               defaultMessage={'New {reportType} added by {author}'}
-              values={{ reportType , author: authorName }}
+              values={{ reportType, author: authorName }}
             />
           </span>);
         } else {
@@ -430,7 +441,7 @@ class Annotation extends Component {
             values={{
               previousProject: <Link to={urlPrefix + previousProject.dbid}><span>{previousProject.title}</span></Link>,
               currentProject: <Link to={urlPrefix + currentProject.dbid}><span>{currentProject.title}</span></Link>,
-              author: authorName
+              author: authorName,
             }}
           />
         </span>);
@@ -457,7 +468,7 @@ class Annotation extends Component {
         const author = authorName;
         if (editedTitle || editedNote || createdNote) {
           contentTemplate = (<span>
-            <span className="// annotation__update-task"></span>
+            <span className="// annotation__update-task" />
             { editedTitle ? <FormattedMessage id="annotation.taskLabelUpdated" defaultMessage={'Task "{from}" edited to "{to}" by {author}'} values={{ from: from.label, to: to.label, author }} /> : null }
             { editedNote ? <FormattedMessage id="annotation.taskNoteUpdated" defaultMessage={'Task "{title}" has note edited from "{from}" to "{to}" by {author}'} values={{ title: to.label, from: from.description, to: to.description, author }} /> : null }
             { createdNote ? <FormattedMessage id="annotation.taskNoteCreated" defaultMessage={'Task "{title}" has new note "{note}" by {author}'} values={{ title: to.label, note: to.description, author }} /> : null }
@@ -480,27 +491,27 @@ class Annotation extends Component {
     return (
       <section className={`annotation ${templateClass} ${typeClass}`} id={`annotation-${activity.dbid}`}>
         {useCardTemplate ? (
-            <Card className='annotation__card'>
-              <CardText className='annotation__card-text'>
-                <div className='annotation__card-avatar-col'>
-                  <div className='annotation__card-avatar' style={{ backgroundImage: `url(${activity.user.profile_image})` }} />
-                </div>
-                <div className='annotation__card-main-col'>
-                  {contentTemplate}
-                  <footer className='annotation__card-footer'>
-                    <span className='annotation__card-footer-text'>
-                      <ProfileLink user={activity.user} className={'annotation__card-author'} /><span>{timestamp}</span>
-                    </span>
-                    {annotationActions}
-                  </footer>
-                </div>
+          <Card className="annotation__card">
+            <CardText className="annotation__card-text">
+              <div className="annotation__card-avatar-col">
+                <div className="annotation__card-avatar" style={{ backgroundImage: `url(${activity.user.profile_image})` }} />
+              </div>
+              <div className="annotation__card-main-col">
+                {contentTemplate}
+                <footer className="annotation__card-footer">
+                  <span className="annotation__card-footer-text">
+                    <ProfileLink user={activity.user} className={'annotation__card-author'} /><span>{timestamp}</span>
+                  </span>
+                  {annotationActions}
+                </footer>
+              </div>
 
-              </CardText>
-            </Card>
+            </CardText>
+          </Card>
           ) : (
-            <div className='annotation__default'>
-              <span className='annotation__default-text'>
-                <span className='annotation__default-content'>{contentTemplate}</span>
+            <div className="annotation__default">
+              <span className="annotation__default-text">
+                <span className="annotation__default-content">{contentTemplate}</span>
                 {timestamp}
               </span>
             </div>

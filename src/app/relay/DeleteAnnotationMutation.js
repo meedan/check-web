@@ -16,7 +16,7 @@ class DeleteAnnotationMutation extends Relay.Mutation {
     let query = '';
     switch (this.props.parent_type) {
     case 'source':
-      query = Relay.QL`fragment on DestroyAnnotationPayload { deletedId, source { annotations, tags } }`;
+      query = Relay.QL`fragment on DestroyAnnotationPayload { deletedId, source { log, tags, log_count } }`;
       break;
     case 'project_media':
       query = Relay.QL`fragment on DestroyAnnotationPayload { deletedId, project_media { log, tags, tasks, embed, log_count, last_status, last_status_obj { id } } }`;

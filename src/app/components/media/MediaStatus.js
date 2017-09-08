@@ -1,19 +1,16 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import config from 'config';
 import MediaVerificationStatus from './MediaVerificationStatus';
 import MediaTranslationStatus from './MediaTranslationStatus';
-import config from 'config';
 
 class MediaStatus extends Component {
   render() {
     if (config.appName === 'check') {
-      return (<MediaVerificationStatus {...this.props} />);
+      return <MediaVerificationStatus {...this.props} />;
+    } else if (config.appName === 'bridge') {
+      return <MediaTranslationStatus {...this.props} />;
     }
-    else if (config.appName == 'bridge') {
-      return (<MediaTranslationStatus {...this.props} />);
-    }
-    else {
-      return null;
-    }
+    return null;
   }
 }
 

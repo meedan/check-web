@@ -8,6 +8,22 @@ module AppSpecHelpers
     }
   end
 
+  def update_field(selector, value, type = :css, visible = true)
+    wait = Selenium::WebDriver::Wait.new(timeout: 50)
+    input = wait.until {
+      element = @driver.find_element(type, selector)
+      if visible
+        element if element.displayed?
+      else
+        element
+      end
+    }
+    sleep 0.5
+    input.clear
+    sleep 0.5
+    input.send_keys(value)
+  end
+
   def fill_field(selector, value, type = :css, visible = true)
     wait = Selenium::WebDriver::Wait.new(timeout: 50)
     input = wait.until {
@@ -31,6 +47,21 @@ module AppSpecHelpers
     input.click
   end
 
+  def delete_task(task_text)
+    expect(@driver.page_source.include?(task_text)).to be(true)
+    # In case the menu is left open (which happens for unknown reason),
+    # click somewhere non-interactive, to ensure menu closes...
+    @driver.find_element(:css, '.task__label').click
+    sleep 1
+    # Open the menu
+    @driver.find_element(:css, '.task-actions__icon').click
+    sleep 2
+    @driver.find_element(:css, '.task-actions__delete').click
+    @driver.switch_to.alert.accept
+    sleep 3
+    expect(@driver.page_source.include?(task_text)).to be(false)
+  end
+
   def twitter_login
     @driver.navigate.to 'https://twitter.com/login'
     fill_field('.js-username-field', @config['twitter_user'])
@@ -42,7 +73,7 @@ module AppSpecHelpers
   end
 
   def twitter_auth
-		sleep 5
+    sleep 5
     @driver.find_element(:xpath, "//button[@id='twitter-login']").click
     sleep 5
     window = @driver.window_handles.first
@@ -188,18 +219,6 @@ module AppSpecHelpers
     @config['self_url'] + '/' + get_team + '/' + path
   end
 
-  def confirm_email(email)
-    request_api('/test/confirm_user', { email: email })
-  end
-
-  def request_api(path, params)
-    require 'net/http'
-    api_path = @driver.execute_script("return config.restBaseUrl.replace(/\\/api\\/.*/, '#{path}')").to_s
-    uri = URI(api_path)
-    uri.query = URI.encode_www_form(params)
-    Net::HTTP.get_response(uri)
-  end
-
   def create_claim_and_go_to_search_page
     page = LoginPage.new(config: @config, driver: @driver).load.login_with_email(email: @email, password: @password)
     @wait.until { @driver.page_source.include?('Claim') }
@@ -225,19 +244,60 @@ module AppSpecHelpers
     uploaded.link
   end
 
-  def create_source(name, url)
-    login_with_email
-    @driver.navigate.to @config['self_url']
-    sleep 15
-    @driver.find_element(:css, '#create-media__source').click
-    sleep 1
-    fill_field('#create-media-source-name-input', name)
-    fill_field('#create-media-source-url-input', url)
-    sleep 1
-    press_button('#create-media-submit')
-    sleep 15
-    expect(@driver.current_url.to_s.match(/\/source\/[0-9]+$/).nil?).to be(false)
-    title = get_element('.source__name').text
-    expect(title == name).to be(true)
+  def wait_page_load(options = {})
+    driver = options[:driver] || @driver
+    item = options[:item] || "root"
+    @wait.until {driver.page_source.include?(item) }
+  end
+
+  def go(new_url)
+    if defined? $caller_name and $caller_name.length > 0
+      method_id = $caller_name[0]
+      method_id.gsub! (/(\s)/), '_'
+      method_id.gsub! (/("|\[|\])/), ''
+      if new_url.include? '?'
+        new_url = new_url + '&test_id='+method_id
+      else
+        new_url = new_url + '?test_id='+method_id
+      end
+    end
+    @driver.navigate.to new_url
+  end
+
+
+  def new_driver(webdriver_url, browser_capabilities)
+    if @config.key?('proxy') and !webdriver_url.include? "browserstack"
+      proxy = Selenium::WebDriver::Proxy.new(
+        :http     => @config['proxy'],
+        :ftp      => @config['proxy'],
+        :ssl      => @config['proxy']
+      )
+      if (Dir.entries(".").include? "extension.crx")
+        caps = Selenium::WebDriver::Remote::Capabilities.chrome ({
+            'chromeOptions' => {
+              'extensions' => [
+                Base64.strict_encode64(File.open('./extension.crx', 'rb').read)
+              ]
+            }, :proxy => proxy
+          })
+      else
+        caps = Selenium::WebDriver::Remote::Capabilities.chrome(:proxy => proxy)
+      end
+      dr = Selenium::WebDriver.for(:chrome, :desired_capabilities => caps , :url => webdriver_url)
+    else
+      if ((Dir.entries(".").include? "extension.crx") and (browser_capabilities == :chrome))
+        caps = Selenium::WebDriver::Remote::Capabilities.chrome ({
+            'chromeOptions' => {
+              'extensions' => [
+                Base64.strict_encode64(File.open('./extension.crx', 'rb').read)
+              ]
+            }
+          })
+        dr = Selenium::WebDriver.for(:chrome, :desired_capabilities => caps , :url => webdriver_url)
+      else
+        dr = Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: browser_capabilities)
+      end
+    end
+    dr
   end
 end

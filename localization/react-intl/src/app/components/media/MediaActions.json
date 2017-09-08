@@ -1,11 +1,11 @@
 [
   {
     "id": "mediaActions.edit",
-    "defaultMessage": "Edit..."
+    "defaultMessage": "Edit"
   },
   {
     "id": "mediaActions.move",
-    "defaultMessage": "Move..."
+    "defaultMessage": "Move"
   },
   {
     "id": "mediaActions.refresh",
@@ -13,6 +13,6 @@
   },
   {
     "id": "mediaActions.embed",
-    "defaultMessage": "Embed..."
+    "defaultMessage": "Embed"
   }
 ]

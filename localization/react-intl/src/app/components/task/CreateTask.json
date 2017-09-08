@@ -28,6 +28,14 @@
     "defaultMessage": "Choose multiple"
   },
   {
+    "id": "tasks.geolocation",
+    "defaultMessage": "Location"
+  },
+  {
+    "id": "tasks.datetime",
+    "defaultMessage": "Date and time"
+  },
+  {
     "id": "tasks.taskLabel",
     "defaultMessage": "Prompt"
   },

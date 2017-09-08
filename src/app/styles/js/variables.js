@@ -1,5 +1,6 @@
 import styled, { css, keyframes } from 'styled-components';
 import { CardTitle } from 'material-ui/Card';
+import TextField from 'material-ui/TextField';
 import { stripUnit, rgba } from 'polished';
 
 // Styles for overriding material UI
@@ -10,7 +11,7 @@ export const black = '#000000';
 export const alertRed = '#d0021b';
 export const checkBlue = '#2e77fc';
 export const highlightBlue = '#f1f6ff';
-export const modalBlue = 'rgba(0, 15, 41, .9)';
+export const modalBlue = 'rgba(0, 15, 41, .8)';
 
 // Material blacks
 //
@@ -72,15 +73,17 @@ export const caption = `400 ${units(1.5)}/${units(2.5)} ${fontStackSans}`;
 export const tiny = `400 ${units(1)}/${units(1.5)} ${fontStackSans}`;
 
 // Layout
-export const headerHeight = units(7);
-export const headerOffset = units(1);
+export const headerHeight = units(8);
+export const gutterMedium = units(3);
 
 // Breakpoints
-export const breakpointMobile = `${units(85)}`;
+export const breakpointMobile = `${columnWidthMedium}`;
+export const breakpointDesktop = `${columnWidthLarge}`;
 
 // Transitions
 export const transitionSpeedFast = '150ms';
 export const transitionSpeedDefault = '300ms';
+export const transitionSpeedSlow = '500ms';
 
 // Borders
 export const defaultBorderRadius = '2px';
@@ -212,6 +215,15 @@ export const StyledMdCardTitle =
     padding-bottom: 8px !important;
   `;
 
+// A Flexbox row, center aligned
+// This one is nice because it's only using styled components.
+//
+export const FlexRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
 // FadeIn
 //
 // 1. This is a styled component that uses their keyframes function
@@ -245,6 +257,7 @@ export const muiThemeWithoutRtl = {
     accent1Color: checkBlue,
     accent2Color: checkBlue,
     accent3Color: checkBlue,
+    pickerHeaderColor: checkBlue,
   },
   appBar: {
     color: black02,
@@ -266,10 +279,15 @@ export const muiThemeWithoutRtl = {
   menuItem: {
     hoverColor: highlightBlue,
   },
+  overlay: {
+    backgroundColor: modalBlue,
+  },
 };
+
 
 export const mediaQuery = {
   handheld: (...args) => css`@media (max-width: ${breakpointMobile}) { ${css(...args)} }`,
+  desktop: (...args) => css`@media (min-width: ${breakpointDesktop}) { ${css(...args)} }`,
 };
 
 const shimmerKeyframes = keyframes`
@@ -311,3 +329,25 @@ export const defaultAnchorOrigin = {
   horizontal: 'left',
   vertical: 'bottom',
 };
+
+export const breakWordStyles = `
+  hyphens: auto;
+  overflow-wrap: break-word;
+  word-break: break-word;
+`;
+
+// A smaller TextField
+// that better aligns with multiple choice options
+const StyledSmallTextField = styled(TextField)`
+  height: ${units(3)}!important;
+  font: ${body2} !important;
+  * {
+    bottom: 0!important;
+  }
+  div {
+    font-size: inherit!important;
+  }
+  textarea {
+    margin: 0!important;
+  }
+`;

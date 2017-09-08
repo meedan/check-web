@@ -1,34 +1,52 @@
-import React, { Component, PropTypes } from 'react';
-import Message from '../Message';
+import React, { Component } from 'react';
 import Checkbox from 'material-ui/Checkbox';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
+import styled from 'styled-components';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import MdCancel from 'react-icons/lib/md/cancel';
 import MdCheckBoxOutlineBlank from 'react-icons/lib/md/check-box-outline-blank';
+import Message from '../Message';
+import { units, body2 } from '../../styles/js/variables';
+
+// A smaller TextField
+// that better aligns with multiple choice options
+const StyledSmallTextField = styled(TextField)`
+  height: ${units(3)}!important;
+  font: ${body2} !important;
+  * {
+    bottom: 0!important;
+  }
+  div {
+    font-size: inherit!important;
+  }
+  textarea {
+    margin: 0!important;
+  }
+`;
 
 const messages = defineMessages({
   addValue: {
     id: 'multiSelectTask.addValue',
-    defaultMessage: 'Add Option'
+    defaultMessage: 'Add Option',
   },
   value: {
     id: 'multiSelectTask.value',
-    defaultMessage: 'Value'
+    defaultMessage: 'Value',
   },
   addOther: {
     id: 'multiSelectTask.addOther',
-    defaultMessage: 'Add "Other"'
+    defaultMessage: 'Add "Other"',
   },
   other: {
     id: 'multiSelectTask.other',
-    defaultMessage: 'Other'
+    defaultMessage: 'Other',
   },
   newTask: {
     id: 'multiSelectTask.newTask',
-    defaultMessage: 'New task'
-  }
+    defaultMessage: 'New task',
+  },
 });
 
 class MultiSelectTask extends Component {
@@ -39,43 +57,53 @@ class MultiSelectTask extends Component {
       label: null,
       description: null,
       message: null,
-      options: [{label: ''}, {label: ''}],
+      options: [{ label: '' }, { label: '' }],
       responseOther: null,
       submitDisabled: true,
-      taskAnswerDisabled: true
+      taskAnswerDisabled: true,
     };
   }
 
   handleSubmitTask() {
-    const jsonoptions = JSON.stringify(this.state.options.filter(item => item.label != ''));
+    const jsonoptions = JSON.stringify(this.state.options.filter(item => item.label !== ''));
 
-    if (!this.state.submitDisabled){
+    if (!this.state.submitDisabled) {
       this.props.onSubmit(this.state.label, this.state.description, jsonoptions);
       this.setState({ submitDisabled: true });
     }
   }
 
   handleSubmitResponse() {
-    if (!this.state.taskAnswerDisabled){
+    if (!this.state.taskAnswerDisabled) {
       const props_response = this.props.jsonresponse ? JSON.parse(this.props.jsonresponse) : {};
-      let response_obj = {};
+      const response_obj = {};
 
-      response_obj.selected = Array.isArray(this.state.response) ? this.state.response.slice(0) : props_response.selected;
-      response_obj.other = (typeof this.state.responseOther !== 'undefined' && this.state.responseOther !== null) ? this.state.responseOther : (props_response.other || null);
+      response_obj.selected = Array.isArray(this.state.response)
+        ? this.state.response.slice(0)
+        : props_response.selected;
+      response_obj.other = typeof this.state.responseOther !== 'undefined' &&
+        this.state.responseOther !== null
+        ? this.state.responseOther
+        : props_response.other || null;
 
       this.props.onSubmit(JSON.stringify(response_obj), this.state.note);
       this.setState({ taskAnswerDisabled: true });
     }
   }
 
-  canSubmit(){
+  canSubmit() {
     const props_response = this.props.jsonresponse ? JSON.parse(this.props.jsonresponse) : {};
-    let response_obj = {};
+    const response_obj = {};
 
-    response_obj.selected = Array.isArray(this.state.response) ? this.state.response.slice(0) : (props_response.selected || []);
-    response_obj.other = (typeof this.state.responseOther !== 'undefined' && this.state.responseOther !== null) ? this.state.responseOther.trim() : (props_response.other || null);
+    response_obj.selected = Array.isArray(this.state.response)
+      ? this.state.response.slice(0)
+      : props_response.selected || [];
+    response_obj.other = typeof this.state.responseOther !== 'undefined' &&
+      this.state.responseOther !== null
+      ? this.state.responseOther.trim()
+      : props_response.other || null;
 
-    const can_submit = (response_obj.selected.length + !!response_obj.other) > 0;
+    const can_submit = response_obj.selected.length + !!response_obj.other > 0;
 
     this.setState({ taskAnswerDisabled: !can_submit });
     return can_submit;
@@ -94,17 +122,17 @@ class MultiSelectTask extends Component {
     this.setState({ description: e.target.value });
   }
 
-  handleAddValue(){
-    let options = Array.isArray(this.state.options) ? this.state.options.slice(0) : [];
+  handleAddValue() {
+    const options = Array.isArray(this.state.options) ? this.state.options.slice(0) : [];
     this.state.hasOther ? options.splice(-1, 0, { label: '' }) : options.push({ label: '' });
     this.setState({ options });
 
     this.validateMultiSelect(this.state.label, options);
   }
 
-  handleAddOther(){
-    let options = Array.isArray(this.state.options) ? this.state.options.slice(0) : [];
-    let other = true;
+  handleAddOther() {
+    const options = Array.isArray(this.state.options) ? this.state.options.slice(0) : [];
+    const other = true;
     let label = '';
 
     if (!this.state.hasOther) {
@@ -116,20 +144,20 @@ class MultiSelectTask extends Component {
     this.validateMultiSelect(this.state.label, options);
   }
 
-  handleEditOption(e){
-    let options = this.state.options.slice(0);
-    options[parseInt(e.target.id)].label = e.target.value;
+  handleEditOption(e) {
+    const options = this.state.options.slice(0);
+    options[parseInt(e.target.id, 10)].label = e.target.value;
     this.setState({ options });
 
     this.validateMultiSelect(this.state.label, options);
   }
 
-  handleRemoveOption(index){
-    let options = this.state.options.slice(0);
+  handleRemoveOption(index) {
+    const options = this.state.options.slice(0);
     let hasOther = null;
 
     if (this.state.hasOther) {
-      hasOther = (index === options.length - 1) ? false : true;
+      hasOther = index !== options.length - 1;
     } else {
       hasOther = false;
     }
@@ -141,14 +169,19 @@ class MultiSelectTask extends Component {
   }
 
   validateMultiSelect(label, options) {
-    const valid = !!(label && label.trim()) && (options.filter(item => item.label != '').length > 1);
+    const valid = !!(label && label.trim()) && options.filter(item => item.label !== '').length > 1;
     this.setState({ submitDisabled: !valid });
     return valid;
   }
 
   handleCancelResponse() {
-    this.setState({ response: null, responseOther: null, otherSelected: false, note: '', focus: false }, this.canSubmit);
-    if (this.props.onDismiss) { this.props.onDismiss(); }
+    this.setState(
+      { response: null, responseOther: null, otherSelected: false, note: '', focus: false },
+      this.canSubmit,
+    );
+    if (this.props.onDismiss) {
+      this.props.onDismiss();
+    }
   }
 
   handleSelectCheckbox(e, inputChecked) {
@@ -171,8 +204,10 @@ class MultiSelectTask extends Component {
 
   addToResponse(value) {
     const state_response = Array.isArray(this.state.response) ? this.state.response.slice(0) : null;
-    const props_response = !state_response && this.props.jsonresponse ? JSON.parse(this.props.jsonresponse).selected : null;
-    let response = state_response || props_response || [];
+    const props_response = !state_response && this.props.jsonresponse
+      ? JSON.parse(this.props.jsonresponse).selected
+      : null;
+    const response = state_response || props_response || [];
 
     response.push(value);
     this.setState({ response }, this.canSubmit);
@@ -180,8 +215,10 @@ class MultiSelectTask extends Component {
 
   removeFromResponse(value) {
     const state_response = Array.isArray(this.state.response) ? this.state.response.slice(0) : null;
-    const props_response = !state_response && this.props.jsonresponse ? JSON.parse(this.props.jsonresponse).selected : null;
-    let response = state_response || props_response || [];
+    const props_response = !state_response && this.props.jsonresponse
+      ? JSON.parse(this.props.jsonresponse).selected
+      : null;
+    const response = state_response || props_response || [];
 
     const responseIndex = response.findIndex(item => item === value);
     if (responseIndex > -1) {
@@ -206,40 +243,97 @@ class MultiSelectTask extends Component {
   }
 
   renderCreateDialog() {
-    const canRemove = (this.state.options.length > 2);
+    const canRemove = this.state.options.length > 2;
     const { formatMessage } = this.props.intl;
     const actions = [
-      <FlatButton label={<FormattedMessage id="tasks.cancelAdd" defaultMessage="Cancel" />} primary onClick={this.props.onDismiss.bind(this)} />,
-      <FlatButton className="create-task__dialog-submit-button" label={<FormattedMessage id="tasks.add" defaultMessage="Create Task" />} primary keyboardFocused onClick={this.handleSubmitTask.bind(this)} disabled={this.state.submitDisabled}/>,
+      <FlatButton
+        className="create-task__dialog-cancel-button"
+        label={<FormattedMessage id="tasks.cancelAdd" defaultMessage="Cancel" />}
+        primary
+        onClick={this.props.onDismiss.bind(this)}
+      />,
+      <FlatButton
+        className="create-task__dialog-submit-button"
+        label={<FormattedMessage id="tasks.add" defaultMessage="Create Task" />}
+        primary
+        keyboardFocused
+        onClick={this.handleSubmitTask.bind(this)}
+        disabled={this.state.submitDisabled}
+      />,
     ];
 
     return (
       <div>
-        <Dialog title={this.props.intl.formatMessage(messages.newTask)} className="create-task__dialog" actions={actions} modal={false} open={this.props.mode === 'create'} onRequestClose={this.props.onDismiss} autoScrollBodyContent={true} contentStyle={{width: '608px'}}>
+        <Dialog
+          title={this.props.intl.formatMessage(messages.newTask)}
+          className="create-task__dialog"
+          actions={actions}
+          modal={false}
+          open={this.props.mode === 'create'}
+          onRequestClose={this.props.onDismiss}
+          autoScrollBodyContent
+        >
           <Message message={this.state.message} />
-          <TextField id="task-label-input" className="tasks__task-label-input" floatingLabelText={<FormattedMessage id="tasks.taskPrompt" defaultMessage="Prompt" />} onChange={this.handleLabelChange.bind(this)} multiLine fullWidth />
+          <TextField
+            id="task-label-input"
+            className="tasks__task-label-input"
+            floatingLabelText={<FormattedMessage id="tasks.taskPrompt" defaultMessage="Prompt" />}
+            onChange={this.handleLabelChange.bind(this)}
+            multiLine
+            fullWidth
+          />
           <div className="create-task__add-options">
-            { this.state.options.map((item, index) => <div>
+            {this.state.options.map((item, index) =>
+              <div key={`create-task__add-options-multiselect-${index.toString()}`}>
                 <MdCheckBoxOutlineBlank className="create-task__md-icon" />
-                <TextField className="create-task__add-option-input"
+                <TextField
+                  className="create-task__add-option-input"
                   id={index.toString()}
                   onChange={this.handleEditOption.bind(this)}
-                  placeholder={ formatMessage(messages.value) + ' ' + (index + 1) }
+                  placeholder={`${formatMessage(messages.value)} ${index + 1}`}
                   value={item.label}
                   disabled={item.other}
                 />
-                { canRemove ? <MdCancel className="create-task__remove-option-button create-task__md-icon" onClick={this.handleRemoveOption.bind(this, index)}/> : null }
-              </div>)
-            }
+                {canRemove
+                  ? <MdCancel
+                    className="create-task__remove-option-button create-task__md-icon"
+                    onClick={this.handleRemoveOption.bind(this, index)}
+                  />
+                  : null}
+              </div>,
+            )}
             <div className="create-task__add-options-buttons">
-              <FlatButton label={this.props.intl.formatMessage(messages.addValue)} onClick={this.handleAddValue.bind(this)} />
-              <FlatButton label={this.props.intl.formatMessage(messages.addOther)} onClick={this.handleAddOther.bind(this)} disabled={this.state.hasOther} />
+              <FlatButton
+                label={this.props.intl.formatMessage(messages.addValue)}
+                onClick={this.handleAddValue.bind(this)}
+              />
+              <FlatButton
+                label={this.props.intl.formatMessage(messages.addOther)}
+                onClick={this.handleAddOther.bind(this)}
+                disabled={this.state.hasOther}
+              />
             </div>
           </div>
-          <input className="create-task__add-task-description" id="create-task__add-task-description" type="checkbox" />
-          <TextField id="task-description-input" className="create-task__task-description-input" floatingLabelText={<FormattedMessage id="tasks.description" defaultMessage="Description" />} onChange={this.handleDescriptionChange.bind(this)} multiLine />
-          <label className="create-task__add-task-description-label" htmlFor="create-task__add-task-description">
-            <span className="create-task__add-task-description-icon">+</span> <FormattedMessage id="tasks.addDescription" defaultMessage="Add a description" />
+          <input
+            className="create-task__add-task-description"
+            id="create-task__add-task-description"
+            type="checkbox"
+          />
+          <TextField
+            id="task-description-input"
+            className="create-task__task-description-input"
+            floatingLabelText={
+              <FormattedMessage id="tasks.description" defaultMessage="Description" />
+            }
+            onChange={this.handleDescriptionChange.bind(this)}
+            multiLine
+          />
+          <label
+            className="create-task__add-task-description-label"
+            htmlFor="create-task__add-task-description"
+          >
+            <span className="create-task__add-task-description-icon">+</span>{' '}
+            <FormattedMessage id="tasks.addDescription" defaultMessage="Add a description" />
           </label>
         </Dialog>
       </div>
@@ -248,10 +342,10 @@ class MultiSelectTask extends Component {
 
   isChecked(value, index) {
     if (this.state.response) {
-      return (this.state.response.findIndex(item => item === value) > -1);
+      return this.state.response.findIndex(item => item === value) > -1;
     } else if (this.props.jsonresponse) {
       const response = JSON.parse(this.props.jsonresponse).selected || [];
-      return (response.findIndex(item => item === value) > -1);
+      return response.findIndex(item => item === value) > -1;
     }
 
     return false;
@@ -260,60 +354,106 @@ class MultiSelectTask extends Component {
   renderOptions(jsonresponse, note, jsonoptions) {
     let options = null;
 
-    const editable =  (jsonresponse == null) || (this.props.mode === 'edit_response');
+    const editable = jsonresponse == null || this.props.mode === 'edit_response';
     const submitCallback = this.handleSubmitResponse.bind(this);
     const cancelCallback = this.handleCancelResponse.bind(this);
     const keyPressCallback = this.handleKeyPress.bind(this);
 
-    const actionBtns = (<div>
-        <FlatButton label={<FormattedMessage id="tasks.cancelEdit" defaultMessage="Cancel" />} onClick={cancelCallback} />
-        <FlatButton className="task__submit" label={<FormattedMessage id="tasks.submit" defaultMessage="Resolve Task" />} primary onClick={submitCallback} disabled={this.state.taskAnswerDisabled}/>
-      </div>);
+    const actionBtns = (
+      <div>
+        <FlatButton
+          label={<FormattedMessage id="tasks.cancelEdit" defaultMessage="Cancel" />}
+          onClick={cancelCallback}
+        />
+        <FlatButton
+          className="task__submit"
+          label={<FormattedMessage id="tasks.submit" defaultMessage="Resolve Task" />}
+          primary
+          onClick={submitCallback}
+          disabled={this.state.taskAnswerDisabled}
+        />
+      </div>
+    );
 
     if (jsonoptions) {
       options = JSON.parse(jsonoptions);
     }
 
     if (Array.isArray(options) && options.length > 0) {
-      const otherIndex = options.findIndex( item => item.other );
-      const other = (otherIndex >= 0) ? options.splice(otherIndex, 1).pop() : null;
+      const otherIndex = options.findIndex(item => item.other);
+      const other = otherIndex >= 0 ? options.splice(otherIndex, 1).pop() : null;
 
       const response = jsonresponse ? JSON.parse(jsonresponse) : {};
-      let responseOther = (typeof this.state.responseOther !== 'undefined' && this.state.responseOther !== null) ? this.state.responseOther : (response.other || '');
-      let responseNote = (typeof this.state.note !== 'undefined' && this.state.note !== null) ? this.state.note : (note || '');
+      const responseOther = typeof this.state.responseOther !== 'undefined' &&
+        this.state.responseOther !== null
+        ? this.state.responseOther
+        : response.other || '';
+      const responseNote = typeof this.state.note !== 'undefined' && this.state.note !== null
+        ? this.state.note
+        : note || '';
 
-      return (<div className="task__options">
-        { options.map( (item, index) => <Checkbox label={item.label} checked={this.isChecked(item.label, index)} onCheck={this.handleSelectCheckbox.bind(this)} id={item.label} style={{ padding: '5px' }} disabled={!editable} />) }
-
-        <div className="task__options_other">
-        { other ?
-          [ <Checkbox className="task__option_other_checkbox" checked={this.state.otherSelected || !!responseOther} onCheck={this.handleSelectCheckboxOther.bind(this)} disabled={!editable} />,
-            <TextField className="task__option_other_text_input"
-              placeholder={other.label}
-              value={responseOther}
-              name={'response'}
-              onKeyPress={keyPressCallback}
-              onChange={this.handleEditOther.bind(this)}
+      return (
+        <div className="task__options">
+          {options.map((item, index) =>
+            <Checkbox
+              key={`task__options-multiselect-${index.toString()}`}
+              label={item.label}
+              checked={this.isChecked(item.label, index)}
+              onCheck={this.handleSelectCheckbox.bind(this)}
+              id={item.label}
               disabled={!editable}
-              multiLine
-            />
-          ] : null }
-        </div>
+              style={{ paddingBottom: units(1) }}
+            />,
+          )}
 
-        { editable ?
-          <TextField
+          <div style={{ display: 'flex', justifyContent: 'flex-start' }} className="task__options_other">
+            {other
+              ? [
+                <div key="task__option_other_checkbox">
+                  <Checkbox
+                    className="task__option_other_checkbox"
+                    checked={this.state.otherSelected || !!responseOther}
+                    onCheck={this.handleSelectCheckboxOther.bind(this)}
+                    disabled={!editable}
+                  /></div>,
+                <StyledSmallTextField
+                  key="task__option_other_text_input"
+                  className="task__option_other_text_input"
+                  hintText={other.label}
+                  value={responseOther}
+                  name={'response'}
+                  onKeyPress={keyPressCallback}
+                  onChange={this.handleEditOther.bind(this)}
+                  disabled={!editable}
+                  multiLine
+                />,
+              ]
+              : null}
+          </div>
+
+          {editable
+            ? <StyledSmallTextField
               className="task__response-note-input"
-              hintText={<FormattedMessage id="task.noteLabel" defaultMessage="Note any additional details here." />}
+              hintText={
+                <FormattedMessage
+                  id="task.noteLabel"
+                  defaultMessage="Note any additional details here."
+                />
+                }
               name={'note'}
               value={responseNote}
               onKeyPress={keyPressCallback}
               onChange={this.handleChange.bind(this)}
+              style={{ marginTop: units(2) }}
               fullWidth
               multiLine
-            /> : null
-        }
-        { (this.state.focus && editable) || (this.props.mode === 'edit_response') ? actionBtns : null }
-      </div>);
+            />
+            : null}
+          {(this.state.focus && editable) || this.props.mode === 'edit_response'
+            ? actionBtns
+            : null}
+        </div>
+      );
     }
   }
 
@@ -324,10 +464,14 @@ class MultiSelectTask extends Component {
 
     return (
       <div>
-        { this.props.mode === 'create' ? this.renderCreateDialog() : null }
-        { this.props.mode === 'respond' ? this.renderOptions(jsonresponse, note, jsonoptions) : null }
-        { this.props.mode === 'show_response' ? this.renderOptions(jsonresponse, note, jsonoptions) : null }
-        { this.props.mode === 'edit_response' ? this.renderOptions(jsonresponse, note, jsonoptions) : null }
+        {this.props.mode === 'create' ? this.renderCreateDialog() : null}
+        {this.props.mode === 'respond' ? this.renderOptions(jsonresponse, note, jsonoptions) : null}
+        {this.props.mode === 'show_response'
+          ? this.renderOptions(jsonresponse, note, jsonoptions)
+          : null}
+        {this.props.mode === 'edit_response'
+          ? this.renderOptions(jsonresponse, note, jsonoptions)
+          : null}
         {/* this.props.mode === 'edit_task' ? this.renderCreateDialog() : null */}
       </div>
     );

@@ -1,0 +1,11 @@
+{
+  "mediaDetail.mediaTitle": "Titre",
+  "mediaDetail.moveFailed": "Désolé, il n'a pas été possible de transférer ce rapport",
+  "mediaDetail.byUser": "par {username}",
+  "mediaDetail.cancelButton": "Annuler",
+  "mediaDetail.move": "Transférer",
+  "mediaDetail.doneButton": "Terminé",
+  "mediaDetail.added": "Rajouté {byUser}",
+  "mediaDetail.dialogHeader": "Transférer ce(tte) {mediaType} à un projet différent",
+  "mediaDetail.dialogMediaPath": "Actuellement classé dans {teamName} > {projectTitle}"
+}

@@ -137,7 +137,6 @@
 
 // non-comments
 .annotation__status {
-  @include media-status-font-colors;
   font: font(caption);
   font-weight: $font-weight-medium;
   text-transform: uppercase;

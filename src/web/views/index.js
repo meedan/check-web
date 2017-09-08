@@ -63,6 +63,7 @@ export default ({ config, metadata, url }) => `
         <script src="/js/vendor.bundle.js" defer="defer"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pusher/4.0.0/pusher.min.js"></script>
         <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Mono" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet.css" />
       </head>
       <body>
         <div id="root"></div>

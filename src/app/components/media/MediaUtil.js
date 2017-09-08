@@ -5,8 +5,8 @@ import FaTwitter from 'react-icons/lib/fa/twitter';
 import FaYoutubePlay from 'react-icons/lib/fa/youtube-play';
 import MdLink from 'react-icons/lib/md/link';
 import { defineMessages } from 'react-intl';
-import { truncateLength } from '../../helpers';
 import config from 'config';
+import { truncateLength } from '../../helpers';
 
 const messages = defineMessages({
   notesCount: {
@@ -59,11 +59,11 @@ const messages = defineMessages({
   },
   favoritesCount: {
     id: 'media.favoritesCount',
-    defaultMessage: '{favoritesCount, plural, =0 {} one {1 favorite} other {# favorites}}',
+    defaultMessage: '{favoritesCount, plural, one {1 favorite} other {# favorites}}',
   },
   retweetsCount: {
     id: 'media.retweetsCount',
-    defaultMessage: '{retweetsCount, plural, =0 {} one {1 retweet} other {# retweets}}',
+    defaultMessage: '{retweetsCount, plural, one {1 retweet} other {# retweets}}',
   },
 });
 
@@ -88,20 +88,20 @@ const MediaUtil = {
     return data.author_url;
   },
 
-  mediaType(media, data) {
+  mediaType(media) {
     let type = null;
     try {
-      const socialMedia = ({
+      const socialMedia = {
         'twitter.com': messages.typeTwitter,
         'facebook.com': messages.typeFacebook,
         'instagram.com': messages.typeInstagram,
         'youtube.com': messages.typeVideo,
-      }[media.domain]);
+      }[media.domain];
 
       if (socialMedia) {
         type = socialMedia;
       } else if (media.quote) {
-        type = (config.appName === 'check') ? messages.typeClaim : messages.bridge_typeClaim;
+        type = config.appName === 'check' ? messages.typeClaim : messages.bridge_typeClaim;
       } else if (media.embed_path) {
         type = messages.typeImage;
       } else if (media.domain) {
@@ -124,25 +124,6 @@ const MediaUtil = {
     return type ? intl.formatMessage(type) : '';
   },
 
-  attributedType(media, data, intl) {
-    let typeLabel = null;
-    try {
-      const type = this.mediaType(media, data);
-      typeLabel = intl.formatMessage(type);
-      if (type === messages.typePage) {
-        return intl.formatMessage(messages.onDomain, { typeLabel, domain: media.domain });
-      } else if (type === messages.typeImage) {
-        return data.title || typeLabel;
-      } else if (type === messages.typeClaim) {
-        return (data.title && data.title != media.quote) ? data.title : typeLabel;
-      }
-      const attribution = this.authorName(media, data);
-      return attribution ? intl.formatMessage(messages.byAttribution, { typeLabel, attribution }) : typeLabel;
-    } catch (e) {
-      return typeLabel || '';
-    }
-  },
-
   title(media, data, intl) {
     if (data && data.title && data.title.trim().length) {
       return truncateLength(data.title);
@@ -160,8 +141,12 @@ const MediaUtil = {
       }
       const attribution = this.authorName(media, data);
       const text = this.bodyText(media, data);
-      const byAttribution = attribution ? intl.formatMessage(messages.byAttribution, { typeLabel, attribution }) : typeLabel;
-      return text ? intl.formatMessage(messages.withText, { typeLabel: byAttribution, text }) : byAttribution;
+      const byAttribution = attribution
+        ? intl.formatMessage(messages.byAttribution, { typeLabel, attribution })
+        : typeLabel;
+      return text
+        ? intl.formatMessage(messages.withText, { typeLabel: byAttribution, text })
+        : byAttribution;
     } catch (e) {
       return typeLabel || '';
     }
@@ -172,10 +157,11 @@ const MediaUtil = {
     return intl.formatMessage(messages.notesCount, { notesCount: media.log_count });
   },
 
-  createdAt(media) { // check media
+  createdAt(media) {
+    // check media
     let date = null;
     try {
-      date = new Date(parseInt(media.published) * 1000);
+      date = new Date(parseInt(media.published, 10) * 1000);
       if (isNaN(date)) date = null;
     } catch (e) {
       date = null;
@@ -183,7 +169,8 @@ const MediaUtil = {
     return date;
   },
 
-  embedPublishedAt(media, data) { // embedded media
+  embedPublishedAt(media, data) {
+    // embedded media
     let date = null;
     try {
       date = new Date(data.published_at);
@@ -205,28 +192,15 @@ const MediaUtil = {
   socialIcon(domain) {
     switch (domain) {
     case 'twitter.com':
-      return <FaTwitter />;
+      return <FaTwitter alt={domain} key="socialIcon__Twitter" />;
     case 'youtube.com':
-      return <FaYoutubePlay />;
+      return <FaYoutubePlay alt={domain} key="socialIcon__Youtube" />;
     case 'instagram.com':
-      return <FaInstagram />;
+      return <FaInstagram alt={domain} key="socialIcon__Instagram" />;
     case 'facebook.com':
-      return <FaFacebookSquare />;
-    default :
-      return <MdLink />;
-    }
-  },
-
-  stats(media, data) {
-    try {
-      return ({
-        'twitter.com': [
-          intl.formatMessage(messages.favoritesCount, { favoritesCount: data.favorite_count }),
-          intl.formatMessage(messages.retweetsCount, { retweetsCount: data.retweet_count }),
-        ],
-      }[media.domain] || []);
-    } catch (e) {
-      return [];
+      return <FaFacebookSquare alt={domain} key="socialIcon__Facebook" />;
+    default:
+      return <MdLink alt="link" key="socialIcon__Link" />;
     }
   },
 };

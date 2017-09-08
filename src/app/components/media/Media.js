@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import Relay from 'react-relay';
 import CheckContext from '../../CheckContext';
 import MediaRoute from '../../relay/MediaRoute';
@@ -30,6 +30,13 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
           get_languages
         },
         project_id,
+        project_source {
+          dbid,
+          project_id,
+          source {
+            name
+          }
+        },
         pusher_channel,
         verification_statuses,
         translation_statuses,
@@ -103,7 +110,22 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
                 permissions,
                 content,
                 annotator {
-                  name
+                  name,
+                  profile_image,
+                  user {
+                    name,
+                    profile_image,
+                    source {
+                      dbid,
+                      accounts(first: 10000) {
+                        edges {
+                          node {
+                            url
+                          }
+                        }
+                      }
+                    }
+                  }
                 }
               }
             }

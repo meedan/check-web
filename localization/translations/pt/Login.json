@@ -1,5 +1,6 @@
 {
   "login.passwordInputHint": "Senha",
+  "login.disclaimer": "Não vamos publicar sem a sua permissão",
   "login.title": "Entrar",
   "login.registerTitle": "Registrar",
   "login.nameLabel": "Seu nome",
@@ -10,8 +11,6 @@
   "login.signUp": "REGISTRAR",
   "loginEmail.lostPassword": "Esqueci a senha",
   "login.with": "Entrar com {provider}",
-  "login.disclaimer": "Não vamos publicar sem a sua permissão",
   "login.newAccount": "Criar uma nova conta com e-mail",
-  "login.alreadyHasAccount": "Já tenho uma conta",
-  "login.return": "Voltar para login com e-mail"
+  "login.alreadyHasAccount": "Já tenho uma conta"
 }

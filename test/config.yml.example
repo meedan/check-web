@@ -15,3 +15,4 @@ slack_password:
 slack_name:
 imgur_client_id:
 proxy: # localhost:8080 for JMeter test script capture and replay as per https://github.com/meedan/check#load-testing
+api_path: 'http://api.test:13000'

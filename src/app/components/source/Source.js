@@ -15,19 +15,14 @@ const SourceContainer = Relay.createContainer(SourceComponent, {
         updated_at,
         source_id,
         project_id,
+        project {
+          get_languages
+        },
         permissions,
         team {
           name,
           slug,
           get_suggested_tags,
-        },
-        tags(first: 10000) {
-          edges {
-            node {
-              tag,
-              id
-            }
-          }
         },
         source {
           id,
@@ -39,7 +34,67 @@ const SourceContainer = Relay.createContainer(SourceComponent, {
           user_id,
           description,
           permissions,
+          pusher_channel,
           verification_statuses,
+          metadata: annotations(annotation_type: "metadata", first: 1) {
+            edges {
+              node {
+                id,
+                dbid,
+                annotation_type,
+                annotated_type,
+                annotated_id,
+                annotator,
+                content,
+                created_at,
+                updated_at
+              }
+            }
+          },
+          languages: annotations(annotation_type: "language", first: 10000) {
+            edges {
+              node {
+                id,
+                dbid,
+                annotation_type,
+                annotated_type,
+                annotated_id,
+                annotator,
+                content,
+                created_at,
+                updated_at
+              }
+            }
+          },
+          account_sources(first: 10000) {
+            edges {
+              node {
+                id,
+                account {
+                  id,
+                  created_at,
+                  updated_at,
+                  embed,
+                  image,
+                  url,
+                  provider,
+                  user {
+                    name,
+                    email,
+                    source {
+                      accounts(first: 10000) {
+                        edges {
+                          node {
+                            url
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
           accounts(first: 10000) {
             edges {
               node {
@@ -47,6 +102,7 @@ const SourceContainer = Relay.createContainer(SourceComponent, {
                 created_at,
                 updated_at,
                 embed,
+                image,
                 url,
                 provider,
                 user {
@@ -73,55 +129,100 @@ const SourceContainer = Relay.createContainer(SourceComponent, {
               }
             }
           },
-          annotations(first: 10000) {
+          log(first: 10000) {
             edges {
               node {
                 id,
                 dbid,
-                content,
-                annotation_type,
+                item_type,
+                item_id,
+                event,
+                event_type,
                 created_at,
-                updated_at,
-                permissions,
-                medias(first: 10000) {
+                object_after,
+                object_changes_json,
+                meta,
+                projects(first: 2) {
                   edges {
                     node {
                       id,
                       dbid,
-                      published,
-                      url,
-                      embed,
-                      project_id,
-                      last_status,
-                      log_count,
-                      permissions,
-                      verification_statuses,
-                      domain,
-                      user {
-                        name,
-                        source {
-                          dbid
+                      title
+                    }
+                  }
+                }
+                user {
+                  name,
+                  profile_image,
+                  email,
+                  source {
+                    dbid,
+                    accounts(first: 10000) {
+                      edges {
+                        node {
+                          url
                         }
                       }
                     }
                   }
-                },
-                annotator {
-                  name,
-                  profile_image,
-                  user {
-                    name,
-                    email,
-                    source {
-                      dbid,
-                      accounts(first: 10000) {
-                        edges {
-                          node {
-                            url
+                }
+                task {
+                  id,
+                  dbid,
+                  label,
+                  type
+                }
+                annotation {
+                  id,
+                  dbid,
+                  content,
+                  annotation_type,
+                  updated_at,
+                  created_at,
+                  permissions,
+                  medias(first: 10000) {
+                    edges {
+                      node {
+                        id,
+                        dbid,
+                        quote,
+                        published,
+                        url,
+                        embed,
+                        project_id,
+                        last_status,
+                        field_value(annotation_type_field_name: "translation_status:translation_status_status"),
+                        log_count,
+                        permissions,
+                        verification_statuses,
+                        translation_statuses,
+                        domain,
+                        team {
+                          slug
+                        }
+                        media {
+                          embed_path,
+                          thumbnail_path,
+                          url,
+                          quote
+                        }
+                        user {
+                          name,
+                          source {
+                            dbid
                           }
                         }
                       }
                     }
+                  }
+                  annotator {
+                    name,
+                    profile_image
+                  }
+                  version {
+                    id
+                    item_id
+                    item_type
                   }
                 }
               }

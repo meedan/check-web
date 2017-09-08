@@ -1,6 +1,4 @@
 {
-  "sourceCard.header": "Check Source",
-  "bridge.sourceCard.header": "Bridge Source",
   "mediaDetail.byUser": "by {username}",
   "mediaDetail.added": "Added {byUser}"
 }

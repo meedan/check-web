@@ -2,11 +2,13 @@
   "task.confirmDelete": "هل أنت متأكد أنك تود حذف هذه المهمة؟",
   "tasks.cancelEdit": "إلغاء",
   "tasks.save": "حفظ",
+  "task.resolvedBy": "تم إنجازها بواسطة  {byName}",
+  "task.editResponse": "تحرير اﻹجابة",
   "task.edit": "تحرير المهمة",
   "task.delete": "حذف المهمة",
+  "task.hintText": "أكتب اﻹجابة هنا",
   "task.noteLabel": "اكتب هنا التعليقات الإضافية.",
   "task.pressReturnToSave": "إضغط \"إدخال\" لحفظ إجابتك",
-  "task.resolvedBy": "تم إنجازها بواسطة  {by}",
   "tasks.taskLabel": "عنوان المهمة",
   "tasks.description": "وصف"
 }

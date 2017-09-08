@@ -1,0 +1,10 @@
+[
+  {
+    "id": "sourceLanguages.label",
+    "defaultMessage": "Languages"
+  },
+  {
+    "id": "sourceLanguages.addLanguageHelper",
+    "defaultMessage": "Select a language"
+  }
+]

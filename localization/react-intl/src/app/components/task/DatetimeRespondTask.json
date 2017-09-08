@@ -1,0 +1,34 @@
+[
+  {
+    "id": "datetimeRespondTask.ok",
+    "defaultMessage": "OK"
+  },
+  {
+    "id": "datetimeRespondTask.cancel",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "datetimeRespondTask.timeError",
+    "defaultMessage": "Error: invalid time"
+  },
+  {
+    "id": "datetimeRespondTask.pickDate",
+    "defaultMessage": "Pick a date from the calendar"
+  },
+  {
+    "id": "datetimeRespondTask.timeOptional",
+    "defaultMessage": "Time (optional)"
+  },
+  {
+    "id": "datetimeRespondTask.note",
+    "defaultMessage": "Note any additional details here."
+  },
+  {
+    "id": "datetimeRespondTask.cancelTask",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "datetimeRespondTask.resolveTask",
+    "defaultMessage": "Resolve task"
+  }
+]

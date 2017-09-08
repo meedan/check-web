@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
-import { defineMessages, FormattedMessage, injectIntl, intlShape } from 'react-intl';
+import { defineMessages, FormattedMessage, injectIntl } from 'react-intl';
 import Relay from 'react-relay';
 import Select from 'react-select';
-import TranslationItem from './TranslationItem';
 import { Card, CardText, CardActions } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
+import difference from 'lodash.difference';
+import intersection from 'lodash.intersection';
+import TranslationItem from './TranslationItem';
 import CheckContext from '../../CheckContext';
 import CreateDynamicMutation from '../../relay/CreateDynamicMutation';
 import AboutRoute from '../../relay/AboutRoute';
-import difference from 'lodash.difference';
-import intersection from 'lodash.intersection';
 
 const messages = defineMessages({
   inputHint: {
@@ -27,7 +27,7 @@ const messages = defineMessages({
   },
   submitBlank: {
     id: 'translation.submitBlank',
-    defaultMessage: 'Can\'t submit a blank translation',
+    defaultMessage: "Can't submit a blank translation",
   },
 });
 
@@ -61,7 +61,7 @@ class TranslationComponent extends Component {
       if (json.error) {
         message = json.error;
       }
-    } catch (e) { }
+    } catch (e) {}
     that.setState({ message, submitDisabled: false });
   }
 
@@ -74,21 +74,30 @@ class TranslationComponent extends Component {
     input.value = '';
     input.blur();
 
-    this.setState({ message: this.props.intl.formatMessage(messages.translationAdded), submitDisabled: true });
+    this.setState({
+      message: this.props.intl.formatMessage(messages.translationAdded),
+      submitDisabled: true,
+    });
   }
 
   addTranslation(that, annotated, annotated_id, annotated_type, params) {
-    const onFailure = (transaction) => { that.fail(transaction); };
+    const onFailure = (transaction) => {
+      that.fail(transaction);
+    };
 
-    const onSuccess = (response) => { that.success(); };
+    const onSuccess = () => {
+      that.success();
+    };
 
     const annotator = that.getContext().currentUser;
 
     const fields = {};
-    if (params) params.split('&').forEach((part) => {
-      const pair = part.split('=');
-      fields[pair[0]] = pair[1];
-    });
+    if (params) {
+      params.split('&').forEach((part) => {
+        const pair = part.split('=');
+        fields[pair[0]] = pair[1];
+      });
+    }
 
     Relay.Store.commitUpdate(
       new CreateDynamicMutation({
@@ -130,7 +139,7 @@ class TranslationComponent extends Component {
 
   canSubmit() {
     const translation = document.forms.addtranslation.translation.value.trim();
-    this.setState({ submitDisabled: (translation && this.state.code ? false : true) });
+    this.setState({ submitDisabled: !(translation && this.state.code) });
   }
 
   handleSubmit(e) {
@@ -142,7 +151,8 @@ class TranslationComponent extends Component {
       const translation = document.forms.addtranslation.translation.value.trim();
       const note = document.forms.addtranslation.note.value.trim();
 
-      const args = `translation_text=${translation}&translation_language=${this.state.code}&translation_note=${note}`;
+      const args = `translation_text=${translation}&translation_language=${this.state
+        .code}&translation_note=${note}`;
 
       this.addTranslation(this, annotated, annotated_id, annotated_type, args);
     }
@@ -153,40 +163,59 @@ class TranslationComponent extends Component {
   getAvailableLanguages() {
     const usedLanguages = this.props.annotated.translations.edges
       .map(tr => JSON.parse(tr.node.content).find(it => it.field_name === 'translation_language'))
-      .map(it => it.value).concat(this.props.annotated.language_code);
+      .map(it => it.value)
+      .concat(this.props.annotated.language_code);
     const supportedLanguages = JSON.parse(this.props.about.languages_supported);
-    const projectLanguages = this.props.annotated.project.get_languages ? JSON.parse(this.props.annotated.project.get_languages) : null;
-    return difference(projectLanguages ? intersection(Object.keys(supportedLanguages), projectLanguages) : Object.keys(supportedLanguages), usedLanguages)
-      .map(l => {
-        return { value: l, label: supportedLanguages[l] };
-      });
+    const projectLanguages = this.props.annotated.project.get_languages
+      ? JSON.parse(this.props.annotated.project.get_languages)
+      : null;
+    return difference(
+      projectLanguages
+        ? intersection(Object.keys(supportedLanguages), projectLanguages)
+        : Object.keys(supportedLanguages),
+      usedLanguages,
+    ).map(l => ({ value: l, label: supportedLanguages[l] }));
   }
 
   render() {
-    const {translations} = this.props.annotated;
+    const { translations } = this.props.annotated;
     const options = this.getAvailableLanguages();
 
     return (
       <div className="translation__component">
-        {translations.edges.map(tr => <TranslationItem key={tr.node.id} translation={tr.node} media={this.props.annotated} />)}
-        {options.length > 0 ?
-          (<Card className="translation__card">
+        {translations.edges.map(tr =>
+          <TranslationItem key={tr.node.id} translation={tr.node} media={this.props.annotated} />,
+        )}
+        {options.length > 0
+          ? <Card className="translation__card">
             <CardText className="translation__card-text">
-              <div className="translation__card-title"><FormattedMessage id="translation.title" defaultMessage="Add a translation" /></div>
+              <div className="translation__card-title">
+                <FormattedMessage id="translation.title" defaultMessage="Add a translation" />
+              </div>
               <Select
                 value={this.state.code}
                 options={options}
                 multi={false}
-                placeholder={<FormattedMessage id="translation.selectLanguage" defaultMessage="Select language" />}
+                placeholder={
+                  <FormattedMessage
+                    id="translation.selectLanguage"
+                    defaultMessage="Select language"
+                  />
+                  }
                 onChange={this.handleChangeTargetLanguage.bind(this)}
-                clearable={true}
+                clearable
               />
-              <form className="add-translation" name="addtranslation" onSubmit={this.handleSubmit.bind(this)}>
+              <form
+                className="add-translation"
+                name="addtranslation"
+                onSubmit={this.handleSubmit.bind(this)}
+              >
                 <TextField
                   hintText={this.props.intl.formatMessage(messages.inputHint)}
                   errorText={this.state.message}
                   errorStyle={styles.errorStyle}
-                  name="translation" id="translation-input"
+                  name="translation"
+                  id="translation-input"
                   multiLine
                   fullWidth
                   onChange={this.handleChange.bind(this)}
@@ -194,8 +223,14 @@ class TranslationComponent extends Component {
                   onKeyPress={this.handleKeyPress.bind(this)}
                 />
                 <TextField
-                  hintText={<FormattedMessage id="translation.noteLabel" defaultMessage="Note any additional details here." />}
-                  name="note" id="note-input"
+                  hintText={
+                    <FormattedMessage
+                      id="translation.noteLabel"
+                      defaultMessage="Note any additional details here."
+                    />
+                    }
+                  name="note"
+                  id="note-input"
                   onKeyPress={this.handleKeyPress.bind(this)}
                   onChange={this.handleChange.bind(this)}
                   fullWidth
@@ -204,10 +239,15 @@ class TranslationComponent extends Component {
               </form>
             </CardText>
             <CardActions className="translation__card-actions">
-              <FlatButton label={<FormattedMessage id="translation.submit" defaultMessage="Submit" />} primary onClick={this.handleSubmit.bind(this)} disabled={this.state.submitDisabled} />
+              <FlatButton
+                label={<FormattedMessage id="translation.submit" defaultMessage="Submit" />}
+                primary
+                onClick={this.handleSubmit.bind(this)}
+                disabled={this.state.submitDisabled}
+              />
             </CardActions>
-          </Card>) : null
-        }
+          </Card>
+          : null}
       </div>
     );
   }
@@ -230,7 +270,13 @@ const TranslationContainer = Relay.createContainer(injectIntl(TranslationCompone
 class Translation extends Component {
   render() {
     const route = new AboutRoute();
-    return (<Relay.RootContainer Component={TranslationContainer} route={route} renderFetched={data => <TranslationContainer {...this.props} {...data} />} />);
+    return (
+      <Relay.RootContainer
+        Component={TranslationContainer}
+        route={route}
+        renderFetched={data => <TranslationContainer {...this.props} {...data} />}
+      />
+    );
   }
 }
 
