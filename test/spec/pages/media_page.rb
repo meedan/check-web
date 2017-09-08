@@ -32,18 +32,12 @@ class MediaPage < Page
   end
 
   def edit
-p "2t"    
     element('.media-detail').click unless pender_visible?
-p "2r"    
-begin
     element('.media-actions').click
-rescue => e
-  p e
-end
-p "2w"    
-    @wait.until { editing_mode? }
-p "2s"    
+    @driver.find_element(:class, 'media-actions__menu-item').click
+    sleep 3
   end
+
 
   def tags
     list = []
@@ -56,9 +50,7 @@ p "2s"
   end
 
   def add_tag(string)
-p "2s"    
     edit unless editing_mode?
-p "2"    
     fill_input('.ReactTags__tagInput input', string, { clear: true })
     press(:enter)
     @wait.until { has_tag?(string) }

@@ -34,6 +34,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     $media_id = nil
     @team1_slug = 'team1'+Time.now.to_i.to_s
     @user_mail = 'sysops_' + Time.now.to_i.to_s + '@meedan.com'
+    @t = 0
     begin
       FileUtils.cp('./config.js', '../build/web/js/config.js')
     rescue
@@ -56,15 +57,18 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
   before :each do |example|
     $caller_name = example.metadata[:description_args]
 p $caller_name
+@t = Time.now
     @driver = new_driver(webdriver_url,browser_capabilities)
   end
 
   after :each do |example|
-    if example.exception
+    p example.exception
+    if false #example.exception
       link = save_screenshot("Test failed: #{example.description}")
       print " [Test \"#{example.description}\" failed! Check screenshot at #{link}] "
     end
     @driver.quit
+    p (Time.now - @t).to_s
   end
 
   # The tests themselves start here
@@ -134,31 +138,22 @@ p $caller_name
 
     it "should not add a duplicated tag from tags list", bin3: true, quick: true  do
       page = api_create_team_project_and_claim_and_redirect_to_media_page
-p "1s"      
       new_tag = Time.now.to_i.to_s
 
       # Validate assumption that tag does not exist
       expect(page.has_tag?(new_tag)).to be(false)
-p "1sa"      
 
       # Add tag from tags list
       page.add_tag(new_tag)
-p "1w"      
       expect(page.has_tag?(new_tag)).to be(true)
 
-p "1r"      
       # Try to add duplicate
       page.add_tag(new_tag)
-p "1t"      
       sleep 10
 
       # Verify that tag is not added and that error message is displayed
-p "1y"      
       expect(page.tags.count(new_tag)).to be(1)
-p "1u"      
       expect(page.contains_string?('Tag already exists')).to be(true)
-p "1i"      
-      @driver.quit
     end
 
     it "should display a default title for new media", bin1: true, quick:true do
@@ -630,7 +625,6 @@ p "1i"
       # Verify that tag is not added and that error message is displayed
       expect(media_pg.tags.count(new_tag)).to be(1)
       expect(@driver.page_source.include?('Tag already exists')).to be(true)
-      @driver.quit
     end
 
     it "should not create duplicated media", bin1: true do
@@ -665,7 +659,6 @@ p "1i"
       page.wait_for_element('.media')
       expect(page.has_tag?(new_tag)).to be(true)
       expect(page.contains_string?("Tagged \##{new_tag}")).to be(true)
-      @driver.quit
     end
 
     it "should tag media as a command", bin3: true do
@@ -686,7 +679,6 @@ p "1i"
       page.wait_for_element('.media')
       expect(page.has_tag?('command')).to be(true)
       expect(page.contains_string?('Tagged #command')).to be(true)
-      @driver.quit
     end
 
     it "should comment media as a command", bin3: true, quick:true do
@@ -707,7 +699,6 @@ p "1i"
       @driver.navigate.refresh
       sleep 3
       expect(@driver.page_source.include?('This is my comment')).to be(true)
-      @driver.quit
     end
 
     it "should flag media as a command", bin3: true do
@@ -723,7 +714,6 @@ p "1i"
       media_pg.driver.navigate.refresh
       media_pg.wait_for_element('.media')
       expect(media_pg.contains_string?('Flag')).to be(true)
-      @driver.quit
     end
 
     it "should edit project", bin4: true do
@@ -739,7 +729,6 @@ p "1i"
 
       expect(@driver.page_source.include?(new_title)).to be(true)
       expect(@driver.page_source.include?(new_description)).to be(true)
-      @driver.quit
     end
 
     it "should redirect to 404 page if id does not exist", bin4: true do
@@ -792,6 +781,7 @@ p "1i"
         expect(@driver.find_element(:class, "message").nil?).to be(false)
       }
       api_logout
+      @driver.quit
 
       @driver = new_driver(webdriver_url,browser_capabilities)
       page = Page.new(config: @config, driver: @driver)
@@ -824,7 +814,7 @@ p "1i"
         expect(@driver.find_element(:class, "message").nil?).to be(false)
       }
       api_logout
-
+      @driver.quit
       @driver = new_driver(webdriver_url,browser_capabilities)
       page = Page.new(config: @config, driver: @driver)
       page.go(@config['api_path'] + '/test/session?email='+@user_mail)
@@ -844,7 +834,7 @@ p "1i"
       page.ask_join_team(subdomain: utp[:team].slug)
       sleep 3        
       api_logout
-      @driver.execute_script('window.close()')
+      @driver.quit
 
       @driver = new_driver(webdriver_url,browser_capabilities)
       page = Page.new(config: @config, driver: @driver)
@@ -857,7 +847,6 @@ p "1i"
       page.edit_user_role(subdomain: @team1_slug)
       sleep 5
       expect(@driver.page_source.include?('Editor')).to be(true)
-      @driver.quit      
     end
 
     it "should delete member from team", bin4:true do
@@ -869,7 +858,6 @@ p "1i"
           .delete_user_team(subdomain: @team1_slug)
 
       expect(@driver.find_elements(:xpath => '//button').length == 4).to be(true)
-      @driver.quit
     end
 
     it "should delete tag from tags list (for media and source)", bin3:true  do
@@ -880,7 +868,8 @@ p "1i"
       @driver.find_element(:class, 'media-actions__menu-item').click
       sleep 3
       fill_field('.ReactTags__tagInput input', "TAG")
-      @driver.action.send_keys("\n").perform      sleep 1
+      @driver.action.send_keys("\n").perform      
+      sleep 1
       fill_field('.ReactTags__tagInput input', "TAG2")
       @driver.action.send_keys("\n").perform
       expect(page.tags.length == 2).to be(true)
@@ -888,7 +877,6 @@ p "1i"
       list[1].click
       sleep 3
       expect(page.tags.length == 1).to be(true)
-      @driver.quit
     end
 
     it "should show 'manage team' link only to team owners", bin3: true do
@@ -917,18 +905,16 @@ p "1i"
       @driver.find_element(:class,"header-actions__menu-toggle").click
       sleep 3
       expect(@driver.page_source.include?('Manage team')).to be(false)
-      @driver.quit
     end
 
 
     it "should show 'edit project' link only to users with 'update project' permission", bin3: true do
-      utp = api_create_team_and_project(params = {})
+      utp = api_create_team_and_project()
       user2 = api_register_and_login_with_email
       page = TeamsPage.new(config: @config, driver: @driver).load
       page.ask_join_team(subdomain: utp[:team].slug)
       sleep 3        
       api_logout
-
       @driver = new_driver(webdriver_url,browser_capabilities)
       page = Page.new(config: @config, driver: @driver)
       page.go(@config['api_path'] + '/test/session?email='+utp[:user].email)
@@ -950,7 +936,6 @@ p "1i"
       @driver.find_element(:class,"header-actions__menu-toggle").click
       sleep 3
       expect(@driver.page_source.include?('Edit project')).to be(false)
-      @driver.quit
     end
 
     it "should update notes count after delete annotation", bin3: true do
@@ -963,7 +948,6 @@ p "1i"
       media_pg.delete_annotation
       sleep 1
       expect(notes_count.text == '1 note').to be(true)
-      @driver.quit
     end
 
     it "should auto refresh project when media is created", bin1: true do
@@ -1005,7 +989,6 @@ p "1i"
       sleep 5
       expect(@driver.page_source.include?('Auto-Refresh')).to be(true)
       sleep 2
-      @driver.quit
     end
 
     # it "should cancel request through switch teams" do
@@ -1074,17 +1057,16 @@ p "1i"
       expect(@driver.page_source.include?('This is my comment with image')).to be(true)
       imgsrc = @driver.find_element(:css, '.annotation__card-thumbnail').attribute('src')
       expect(imgsrc.match(/test\.png$/).nil?).to be(false)
-      @driver.quit
     end
 
     # it "should move media to another project" do
     #   skip("Needs to be implemented")
     # end
 
-    it "should add, edit, answer, update answer and delete short answer task", bin3: true do
+    it "should add, edit, answer, update answer and delete short answer task", bin32: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
       sleep 3
-
+p "Create a task"
       # Create a task
       expect(@driver.page_source.include?('Foo or bar?')).to be(false)
       expect(@driver.page_source.include?('Task "Foo or bar?" created by')).to be(false)
@@ -1097,9 +1079,11 @@ p "1i"
       sleep 2
       expect(@driver.page_source.include?('Foo or bar?')).to be(true)
       expect(@driver.page_source.include?('Task "Foo or bar?" created by')).to be(true)
+p "A a task"
 
       # Answer task
       expect(@driver.page_source.include?('Task "Foo or bar?" answered by')).to be(false)
+      @driver.find_element(:css, '.task__label').click
       fill_field('textarea[name="response"]', 'Foo')
       @driver.action.send_keys(:enter).perform
       sleep 2
@@ -1107,9 +1091,10 @@ p "1i"
 
       # Edit task
       expect(@driver.page_source.include?('Task "Foo or bar?" edited to "Foo or bar???" by')).to be(false)
-      @driver.find_element(:css, '.task-actions__icon').click
+      @driver.find_element(:css, '.task__actions.media-actions').click
       sleep 2
-      @driver.find_element(:css, '.task-actions__edit').click
+      #@driver.find_element(:css, '.task-actions__edit').click
+      @driver.find_element(:xpath, "//span[.='Edit task']").click
       fill_field('textarea[name="label"]', '??')
       @driver.find_element(:css, '.task__save').click
       sleep 2
@@ -1117,10 +1102,13 @@ p "1i"
 
       # Edit task answer
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Task "Foo or bar???" answered by User With Email: "Foo edited"')).to be(false)
-      @driver.find_element(:css, '.task-actions__icon').click
+p "SDSD" 
+      @driver.find_element(:id, 'task__edit-response-button').click
       sleep 2
-      @driver.find_element(:css, '.task-actions__edit-response').click
+p "SDSD" 
+      #@driver.find_element(:css, '.task-actions__edit-response').click
 
+p "SDSD" 
       # Ensure menu closes and textarea is focused...
       @driver.find_element(:css, 'textarea[name="editedresponse"]').click
 
@@ -1131,7 +1119,6 @@ p "1i"
 
       # Delete task
       delete_task('Foo')
-      @driver.quit
     end
 
     # it "should add, edit, answer, update answer and delete single_choice task" do
@@ -1356,7 +1343,6 @@ p "1i"
 
       # Delete task
       delete_task('Where was it')
-      @driver.quit
     end
 
     it "should add, edit, answer, update answer and delete datetime task", bin3: true do
@@ -1411,7 +1397,6 @@ p "1i"
 
       # Delete task
       delete_task('When was it')
-      @driver.quit
     end
 
     #Add slack notifications to a team
