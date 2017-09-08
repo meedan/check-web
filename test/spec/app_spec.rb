@@ -122,7 +122,7 @@ p $caller_name
       expect((@driver.current_url.to_s =~ /\/forbidden$/).nil?).to be(false)
     end
 
-    include_examples "custom"
+    #include_examples "custom"
 
     it "should edit the title of a media", bin__1: true do
       url = 'https://twitter.com/softlandscapes/status/834385935240462338'
@@ -1393,8 +1393,8 @@ p "2c"
       # Edit task
       expect(@driver.page_source.include?('Task "When?" edited to "When was it?" by')).to be(false)
 p "2"
-      #@driver.find_element(:css, '.task-actions__icon').click
-      @driver.find_element(:css, '.task__actions.media-actions').click
+      @driver.find_element(:css, '.task-actions__icon').click
+      #@driver.find_element(:css, '.task__actions.media-actions').click
 
 p "2v"
       sleep 2
@@ -1411,7 +1411,8 @@ p "27"
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('12:34')).to be(false)
 p "2i"
       #@driver.find_element(:css, '.task-actions__icon').click
-      @driver.find_element(:css, '.task__actions.media-actions').click
+      @driver.find_element(:css, '.task-actions__icon').click
+      #@driver.find_element(:css, '.task__actions.media-actions').click
 p "2u---------"
       #@driver.find_ele@driver.find_element(:xpath, "//span[.='Edit task']").clickment(:xpath, "//span[.='Edit task']").click
       @driver.find_element(:xpath,'//*[@id="task__edit-response-button"]').click
