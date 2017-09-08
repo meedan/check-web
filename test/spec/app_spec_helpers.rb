@@ -47,19 +47,6 @@ module AppSpecHelpers
     input.click
   end
 
-  def NEWdelete_task(task_text)
-    expect(@driver.page_source.include?(task_text)).to be(true)
-    @driver.find_element(:css, '.task__label').click
-    sleep 1
-    # Open the menu
-    @driver.find_element(:css, '.task__actions.media-actions').click
-    sleep 2
-    @driver.find_element(:xpath, "//span[.='Delete task']").click
-    @driver.switch_to.alert.accept
-    sleep 3
-    expect(@driver.page_source.include?(task_text)).to be(false)
-  end
-
   def delete_task(task_text)
     expect(@driver.page_source.include?(task_text)).to be(true)
     # In case the menu is left open (which happens for unknown reason),

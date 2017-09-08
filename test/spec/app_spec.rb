@@ -74,7 +74,8 @@ p $caller_name
   # The tests themselves start here
 
   context "web" do
-    it "should filter by medias or sources", bin__6: true do
+=begin    
+    it "should filter by medias or sources", bin6: true do
       api_create_team_project_and_link 'https://twitter.com/TheWho/status/890135323216367616'
       @driver.navigate.to @config['self_url']
       sleep 10
@@ -93,7 +94,7 @@ p $caller_name
       expect(@driver.page_source.include?('Happy birthday Mick')).to be(false)
     end
 
-    it "should register and create a claim", bin__5: true do
+    it "should register and create a claim", bin5: true do
       page = LoginPage.new(config: @config, driver: @driver).load
       begin
         page = page.register_and_login_with_email(email: @email, password: @password)
@@ -107,7 +108,7 @@ p $caller_name
         .logout
     end
 
-    it "should redirect to access denied page", bin__4: true do
+    it "should redirect to access denied page", bin4: true do
       user = api_register_and_login_with_email
       api_logout
       api_register_and_login_with_email
@@ -122,9 +123,9 @@ p $caller_name
       expect((@driver.current_url.to_s =~ /\/forbidden$/).nil?).to be(false)
     end
 
-    #include_examples "custom"
+    include_examples "custom"
 
-    it "should edit the title of a media", bin__1: true do
+    it "should edit the title of a media", bin1: true do
       url = 'https://twitter.com/softlandscapes/status/834385935240462338'
       media_pg = api_create_team_project_and_link_and_redirect_to_media_page url
       expect(media_pg.primary_heading.text).to eq('https://t.co/i17DJNqiWX')
@@ -135,8 +136,8 @@ p $caller_name
       sleep 3
       expect(project_pg.elements('.media__heading').map(&:text).include?('Edited media title')).to be(true)
     end
-
-    it "should not add a duplicated tag from tags list", bin__3: true, quick: true  do
+=end
+    it "should not add a duplicated tag from tags list", bin3: true, quick: true  do
       page = api_create_team_project_and_claim_and_redirect_to_media_page
       new_tag = Time.now.to_i.to_s
 
@@ -155,8 +156,9 @@ p $caller_name
       expect(page.tags.count(new_tag)).to be(1)
       expect(page.contains_string?('Tag already exists')).to be(true)
     end
+=begin    
 
-    it "should display a default title for new media", bin__1: true, quick:true do
+    it "should display a default title for new media", bin1: true, quick:true do
       # Tweets
       media_pg = api_create_team_project_and_link_and_redirect_to_media_page('https://twitter.com/firstdraftnews/status/835587295394869249')
       expect(media_pg.primary_heading.text.include?('In a chat about getting')).to be(true)
@@ -182,7 +184,7 @@ p $caller_name
       expect(project_pg.elements('.media__heading').map(&:text).include?('First Draft on Facebook')).to be(true)
     end
 
-    it "should login using Slack", bin__5: true, quick:true do
+    it "should login using Slack", bin5: true, quick:true do
       login_with_slack
       @driver.navigate.to @config['self_url'] + '/check/me'
       displayed_name = get_element('h1.source__name').text.upcase
@@ -190,7 +192,7 @@ p $caller_name
       expect(displayed_name == expected_name).to be(true)
     end
 
-    it "should localize interface based on browser language", bin__4: true do
+    it "should localize interface based on browser language", bin4: true do
       unless browser_capabilities['appiumVersion']
         caps = Selenium::WebDriver::Remote::Capabilities.chrome(chromeOptions: { prefs: { 'intl.accept_languages' => 'fr' } })
         driver = Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: caps)
@@ -208,25 +210,25 @@ p $caller_name
       end
     end
 
-    it "should access user confirmed page", bin__5: true do
+    it "should access user confirmed page", bin5: true do
       @driver.navigate.to @config['self_url'] + '/check/user/confirmed'
       title = get_element('.main-title')
       expect(title.text == 'Account Confirmed').to be(true)
     end
 
-    it "should access user unconfirmed page", bin__5: true do
+    it "should access user unconfirmed page", bin5: true do
       @driver.navigate.to @config['self_url'] + '/check/user/unconfirmed'
       title = get_element('.main-title')
       expect(title.text == 'Error').to be(true)
     end
 
-    it "should access user already confirmed page", bin__5: true do
+    it "should access user already confirmed page", bin5: true do
       @driver.navigate.to @config['self_url'] + '/check/user/already-confirmed'
       title = get_element('.main-title')
       expect(title.text == 'Account Already Confirmed').to be(true)
     end
 
-    it "should login using Facebook", bin__5: true, quick:true do
+    it "should login using Facebook", bin5: true, quick:true do
       login_pg = LoginPage.new(config: @config, driver: @driver).load
       login_pg.login_with_facebook
 
@@ -236,7 +238,7 @@ p $caller_name
       expect(displayed_name).to eq(expected_name)
     end
 
-    it "should register and login using e-mail", bin__5: true, quick:true do
+    it "should register and login using e-mail", bin5: true, quick:true do
       login_pg = LoginPage.new(config: @config, driver: @driver).load
       email, password = ['sysops+' + Time.now.to_i.to_s + '@meedan.com', '22345678']
       login_pg.register_and_login_with_email(email: email, password: password)
@@ -246,7 +248,7 @@ p $caller_name
       expect(displayed_name == 'User With Email').to be(true)
     end
 
-    it "should create a project for a team", bin__4: true do
+    it "should create a project for a team", bin4: true do
       team = api_create_team
       @driver.navigate.to @config['self_url']
       project_name = "Project #{Time.now}"
@@ -257,7 +259,7 @@ p $caller_name
       expect(team_pg.project_titles.include?(project_name)).to be(true)
     end
 
-    it "should create project media", bin__1: true do
+    it "should create project media", bin1: true do
       api_create_team_and_project
       page = ProjectPage.new(config: @config, driver: @driver).load
 
@@ -271,7 +273,7 @@ p $caller_name
       expect(page.contains_string?('This is a test')).to be(true)
     end
 
-    it "should search for image", bin__2: true do
+    it "should search for image", bin2: true do
       api_create_team_and_project
       sleep 2
       page = ProjectPage.new(config: @config, driver: @driver).load
@@ -284,7 +286,7 @@ p $caller_name
       expect(@driver.find_element(:link_text, 'test.png').nil?).to be(false)
     end
 
-    it "should upload image when registering", bin__5: true do
+    it "should upload image when registering", bin5: true do
       email, password, avatar = ["test-#{Time.now.to_i}@example.com", '12345678', File.join(File.dirname(__FILE__), 'test.png')]
       page = LoginPage.new(config: @config, driver: @driver).load
              .register_and_login_with_email(email: email, password: password, file: avatar)
@@ -294,19 +296,19 @@ p $caller_name
       expect(avatar.attribute('src').match(/test\.png/).nil?).to be(false)
     end
 
-    it "should redirect to 404 page", bin__4: true do
+    it "should redirect to 404 page", bin4: true do
       @driver.navigate.to @config['self_url'] + '/something-that/does-not-exist'
       title = get_element('.main-title')
       expect(title.text == 'Not Found').to be(true)
     end
 
-    it "should redirect to login screen if not logged in", bin__5: true do
+    it "should redirect to login screen if not logged in", bin5: true do
       @driver.navigate.to @config['self_url'] + '/check/teams'
       title = get_element('.login__heading')
       expect(title.text == 'Sign in').to be(true)
     end
 
-    it "should login using Twitter", bin__5: true, quick:true do
+    it "should login using Twitter", bin5: true, quick:true do
       login_with_twitter
       @driver.navigate.to @config['self_url'] + '/check/me'
       displayed_name = get_element('h1.source__name').text.upcase
@@ -314,14 +316,14 @@ p $caller_name
       expect(displayed_name == expected_name).to be(true)
     end
 
-    it "should show teams at /check/teams", bin__4: true do
+    it "should show teams at /check/teams", bin4: true do
       api_create_team
       @driver.navigate.to @config['self_url'] + '/check/teams'
       sleep 2
       expect(@driver.find_elements(:css, '.teams').empty?).to be(false)
     end
 
-    it "should go to source page through user/:id", bin__6: true do
+    it "should go to source page through user/:id", bin6: true do
       user = api_register_and_login_with_email
       @driver.navigate.to @config['self_url'] + '/check/user/' + user.dbid.to_s
       sleep 1
@@ -329,7 +331,7 @@ p $caller_name
       expect(title.text == 'User With Email').to be(true)
     end
 
-    it "should go back and forward in the history", bin__4: true do
+    it "should go back and forward in the history", bin4: true do
       @driver.navigate.to @config['self_url']
       expect((@driver.current_url.to_s =~ /\/$/).nil?).to be(false)
       @driver.navigate.to @config['self_url'] + '/check/tos'
@@ -340,7 +342,7 @@ p $caller_name
       expect((@driver.current_url.to_s =~ /\/tos$/).nil?).to be(false)
     end
 
-    it "should create source and redirect to newly created source", bin__6: true do
+    it "should create source and redirect to newly created source", bin6: true do
       api_create_team_and_project
       @driver.navigate.to @config['self_url']
       sleep 15
@@ -356,7 +358,7 @@ p $caller_name
       expect(title == @source_name).to be(true)
     end
 
-    it "should not create duplicated source", bin__6: true do
+    it "should not create duplicated source", bin6: true do
       api_create_team_project_and_source('Megadeth', 'https://twitter.com/megadeth')
       @driver.navigate.to @config['self_url']
       sleep 5
@@ -371,7 +373,7 @@ p $caller_name
       expect(@driver.page_source.include?('Source exists')).to be(true)
     end
 
-    it "should tag source as a command", bin__6: true do
+    it "should tag source as a command", bin6: true do
       api_create_team_project_and_source_and_redirect_to_source('ACDC', 'https://twitter.com/acdc')
       sleep 3
       @driver.find_element(:css, '.source__tab-button-notes').click
@@ -390,7 +392,7 @@ p $caller_name
       expect(@driver.page_source.include?('Tagged #command')).to be(true)
     end
 
-    it "should comment source as a command", bin__6: true do
+    it "should comment source as a command", bin6: true do
       api_create_team_project_and_source_and_redirect_to_source('The Beatles', 'https://twitter.com/thebeatles')
       sleep 3
       @driver.find_element(:css, '.source__tab-button-notes').click
@@ -409,7 +411,7 @@ p $caller_name
       expect(@driver.page_source.include?('This is my comment')).to be(true)
     end
 
-    it "should not create report as source", bin__6: true do
+    it "should not create report as source", bin6: true do
       api_create_team_and_project
       @driver.navigate.to @config['self_url']
       sleep 5
@@ -424,7 +426,7 @@ p $caller_name
       expect(message.match(/Sorry, this is not a profile/).nil?).to be(false)
     end
 
-    it "should tag source multiple times with commas with command", bin__6: true do
+    it "should tag source multiple times with commas with command", bin6: true do
       api_create_team_project_and_source_and_redirect_to_source('Motorhead', 'https://twitter.com/mymotorhead')
       sleep 5
       @driver.find_element(:css, '.source__tab-button-notes').click
@@ -437,7 +439,7 @@ p $caller_name
       expect(@driver.page_source.include?('Tagged #bar')).to be(true)
     end
 
-    it "should edit basic source data (name, description/bio, avatar)", bin__6: true do
+    it "should edit basic source data (name, description/bio, avatar)", bin6: true do
       api_create_team_project_and_source_and_redirect_to_source('ACDC', 'https://twitter.com/acdc')
       sleep 5
       element = @driver.find_element(:class, "source__edit-button")
@@ -457,7 +459,7 @@ p $caller_name
       expect(displayed_name.include? "EDIT").to be(true)
     end
 
-    it "should add and remove accounts to sources", bin__6: true  do
+    it "should add and remove accounts to sources", bin6: true  do
       api_create_team_project_and_source_and_redirect_to_source('GOT', 'https://twitter.com/GameOfThrones')
       sleep 5
       element = @driver.find_element(:class, "source__edit-button")
@@ -492,7 +494,7 @@ p $caller_name
       expect(@driver.page_source.include?('AC/DC Official Website')).to be(false)
     end
 
-    it "should edit source metadata (contact, phone, location, organization, other)", bin__6: true do
+    it "should edit source metadata (contact, phone, location, organization, other)", bin6: true do
       api_create_team_project_and_source_and_redirect_to_source('GOT', 'https://twitter.com/GameOfThrones')
       sleep 5
       element = @driver.find_element(:class, "source__edit-button")
@@ -547,7 +549,7 @@ p $caller_name
       expect(@driver.page_source.include?('989898989')).to be(true)
     end
 
-    it "should add and remove source tags", bin__6: true do
+    it "should add and remove source tags", bin6: true do
       api_create_team_project_and_source_and_redirect_to_source('GOT', 'https://twitter.com/GameOfThrones')
       sleep 5
       element = @driver.find_element(:class, "source__edit-button")
@@ -579,7 +581,7 @@ p $caller_name
       expect(@driver.page_source.include?('TAG2')).to be(false)
     end
 
-    it "should add and remove source languages",bin__6: true  do
+    it "should add and remove source languages",bin6: true  do
       api_create_team_project_and_source_and_redirect_to_source('GOT', 'https://twitter.com/GameOfThrones')
       sleep 5
       element = @driver.find_element(:class, "source__edit-button")
@@ -606,7 +608,7 @@ p $caller_name
       expect(@driver.page_source.include?('Acoli')).to be(false)
     end
 
-    it "should not add a duplicated tag from command line", bin__3: true do
+    it "should not add a duplicated tag from command line", bin3: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
 
       new_tag = Time.now.to_i.to_s
@@ -627,7 +629,7 @@ p $caller_name
       expect(@driver.page_source.include?('Tag already exists')).to be(true)
     end
 
-    it "should not create duplicated media", bin__1: true do
+    it "should not create duplicated media", bin1: true do
       api_create_team_project_and_link_and_redirect_to_media_page @media_url
       id1 = @driver.current_url.to_s.gsub(/^.*\/media\//, '').to_i
       expect(id1 > 0).to be(true)
@@ -645,7 +647,7 @@ p $caller_name
       expect(id1 == id2).to be(true)
     end
 
-    it "should tag media from tags list", bin__3: true do
+    it "should tag media from tags list", bin3: true do
       page = api_create_team_project_and_claim_and_redirect_to_media_page
 
       new_tag = Time.now.to_i.to_s
@@ -661,7 +663,7 @@ p $caller_name
       expect(page.contains_string?("Tagged \##{new_tag}")).to be(true)
     end
 
-    it "should tag media as a command", bin__3: true do
+    it "should tag media as a command", bin3: true do
       page = api_create_team_project_and_claim_and_redirect_to_media_page
 
       expect(page.has_tag?('command')).to be(false)
@@ -681,7 +683,7 @@ p $caller_name
       expect(page.contains_string?('Tagged #command')).to be(true)
     end
 
-    it "should comment media as a command", bin__3: true, quick:true do
+    it "should comment media as a command", bin3: true, quick:true do
       api_create_team_project_and_claim_and_redirect_to_media_page
 
       # First, verify that there isn't any comment
@@ -701,7 +703,7 @@ p $caller_name
       expect(@driver.page_source.include?('This is my comment')).to be(true)
     end
 
-    it "should flag media as a command", bin__3: true do
+    it "should flag media as a command", bin3: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
 
       expect(media_pg.contains_string?('Flag')).to be(false)
@@ -716,7 +718,7 @@ p $caller_name
       expect(media_pg.contains_string?('Flag')).to be(true)
     end
 
-    it "should edit project", bin__4: true do
+    it "should edit project", bin4: true do
       api_create_team_and_project
       project_pg = ProjectPage.new(config: @config, driver: @driver).load
 
@@ -731,7 +733,7 @@ p $caller_name
       expect(@driver.page_source.include?(new_description)).to be(true)
     end
 
-    it "should redirect to 404 page if id does not exist", bin__4: true do
+    it "should redirect to 404 page if id does not exist", bin4: true do
       api_create_team_and_project
       @driver.navigate.to @config['self_url']
       sleep 3
@@ -742,7 +744,7 @@ p $caller_name
       expect((@driver.current_url.to_s =~ /\/404$/).nil?).to be(false)
     end
 
-    it "should logout", bin__5: true do
+    it "should logout", bin5: true do
       api_create_team_and_project
       @driver.navigate.to @config['self_url']
       page = ProjectPage.new(config: @config, driver: @driver).logout
@@ -750,7 +752,7 @@ p $caller_name
       expect(page.contains_string?('Sign in')).to be(true)
     end
 
-    it "should navigate between teams", bin__4: true, quick: true do
+    it "should navigate between teams", bin4: true, quick: true do
       # setup
       user = api_register_and_login_with_email(email: @user_mail, password: @password)
       team = request_api 'team', { name: 'Team 1', email: user.email, slug: @team1_slug }
@@ -773,7 +775,7 @@ p $caller_name
     end
 
     #As a different user, request to join one team and be accepted.
-    it "should join team", bin__4:true, quick: true do
+    it "should join team", bin4:true, quick: true do
       user = api_register_and_login_with_email(email: "new"+@user_mail, password: @password)
       page = TeamsPage.new(config: @config, driver: @driver).load
       page.ask_join_team(subdomain: @team1_slug)
@@ -795,7 +797,7 @@ p $caller_name
       }
     end    
 
-    it "should redirect to team page if user asking to join a team is already a member", bin__4:true do
+    it "should redirect to team page if user asking to join a team is already a member", bin4:true do
       page = Page.new(config: @config, driver: @driver)
       page.go(@config['api_path'] + '/test/session?email=new'+@user_mail)
       page = TeamsPage.new(config: @config, driver: @driver).load
@@ -806,7 +808,7 @@ p $caller_name
       }    
     end
 
-    it "should reject member to join team", bin__4:true do
+    it "should reject member to join team", bin4:true do
       user = api_register_and_login_with_email
       page = TeamsPage.new(config: @config, driver: @driver).load
       page.ask_join_team(subdomain: @team1_slug)
@@ -827,7 +829,7 @@ p $caller_name
     end
 
     #TO DO PROBLEMS WITH MENU
-    it "should change member role", bin__3:true  do
+    it "should change member role", bin3:true  do
       utp = api_create_team
       user2 = api_register_and_login_with_email
       page = TeamsPage.new(config: @config, driver: @driver).load
@@ -849,7 +851,7 @@ p $caller_name
       expect(@driver.page_source.include?('Editor')).to be(true)
     end
 
-    it "should delete member from team", bin__4:true do
+    it "should delete member from team", bin4:true do
       page = Page.new(config: @config, driver: @driver)
       page.go(@config['api_path'] + '/test/session?email='+@user_mail)
       #As the group creator, go to the members page and approve the joining request.
@@ -860,7 +862,7 @@ p $caller_name
       expect(@driver.find_elements(:xpath => '//button').length == 4).to be(true)
     end
 
-    it "should delete tag from tags list (for media and source)", bin__3:true  do
+    it "should delete tag from tags list (for media and source)", bin3:true  do
     #   source implemented at "should add and remove source tags"
       page = api_create_team_project_and_claim_and_redirect_to_media_page
       @driver.find_element(:css, '.media-detail').click
@@ -879,7 +881,7 @@ p $caller_name
       expect(page.tags.length == 1).to be(true)
     end
 
-    it "should show 'manage team' link only to team owners", bin__3: true do
+    it "should show 'manage team' link only to team owners", bin3: true do
       user = api_register_and_login_with_email
       team = request_api 'team', { name: "team#{Time.now.to_i}", email: user.email, slug: "team#{Time.now.to_i}" }
       user2 = api_register_and_login_with_email
@@ -908,7 +910,7 @@ p $caller_name
     end
 
 
-    it "should show 'edit project' link only to users with 'update project' permission", bin__3: true do
+    it "should show 'edit project' link only to users with 'update project' permission", bin3: true do
       utp = api_create_team_and_project()
       user2 = api_register_and_login_with_email
       page = TeamsPage.new(config: @config, driver: @driver).load
@@ -938,7 +940,7 @@ p $caller_name
       expect(@driver.page_source.include?('Edit project')).to be(false)
     end
 
-    it "should update notes count after delete annotation", bin__3: true do
+    it "should update notes count after delete annotation", bin3: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
       media_pg.fill_input('#cmd-input', 'Test')
       media_pg.element('#cmd-input').submit
@@ -950,7 +952,7 @@ p $caller_name
       expect(notes_count.text == '1 note').to be(true)
     end
 
-    it "should auto refresh project when media is created", bin__1: true do
+    it "should auto refresh project when media is created", bin1: true do
       api_create_team_and_project
       @driver.navigate.to @config['self_url']
 
@@ -971,7 +973,7 @@ p $caller_name
       expect(@driver.page_source.include?('Auto-Refresh')).to be(true)
     end
 
-    it "should auto refresh media when annotation is created", bin__3: true do
+    it "should auto refresh media when annotation is created", bin3: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
       url = media_pg.driver.current_url
       sleep 3
@@ -1023,7 +1025,7 @@ p $caller_name
     #   skip("Needs to be implemented")
     # end
 
-    it "should add image to media comment", bin__3: true do
+    it "should add image to media comment", bin3: true do
       api_create_team_project_and_claim_and_redirect_to_media_page
 
       # First, verify that there isn't any comment with image
@@ -1063,7 +1065,7 @@ p $caller_name
     #   skip("Needs to be implemented")
     # end
 
-    it "should add, edit, answer, update answer and delete short answer task", bin__3: true do
+    it "should add, edit, answer, update answer and delete short answer task", bin3: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
       sleep 3
 p "Create a task"
@@ -1124,7 +1126,7 @@ p "A a task"
     #   skip("Needs to be implemented")
     # end
 
-    it "should search for reverse images", bin__2: true do
+    it "should search for reverse images", bin2: true do
       page = api_create_team_project_and_link_and_redirect_to_media_page 'https://www.instagram.com/p/BRYob0dA1SC/'
       sleep 3
       expect(@driver.page_source.include?('This item contains at least one image. Click Search to look for potential duplicates on Google.')).to be(true)
@@ -1137,7 +1139,7 @@ p "A a task"
       @driver.switch_to.window(current_window)
     end
 
-    it "should refresh media", bin__1: true do
+    it "should refresh media", bin1: true do
       page = api_create_team_project_and_link_and_redirect_to_media_page 'http://ca.ios.ba/files/meedan/random.php'
       sleep 2
       title1 = @driver.title
@@ -1150,7 +1152,7 @@ p "A a task"
       expect(title1 != title2).to be(true)
     end
 
-    it "should search by project", bin__2: true do
+    it "should search by project", bin2: true do
       api_create_claim_and_go_to_search_page
       expect((@driver.current_url.to_s.match(/project/)).nil?).to be(true)
       @driver.find_element(:xpath, "//li[contains(text(), 'Project')]").click
@@ -1162,7 +1164,7 @@ p "A a task"
       expect((@driver.title =~ /Project/).nil?).to be(true)
     end
 
-    it "should search and change sort criteria", bin__2: true do
+    it "should search and change sort criteria", bin2: true do
       api_create_claim_and_go_to_search_page
       expect((@driver.current_url.to_s.match(/recent_activity/)).nil?).to be(true)
 
@@ -1179,7 +1181,7 @@ p "A a task"
       expect(@driver.page_source.include?('My search result')).to be(true)
     end
 
-    it "should search and change sort order", bin__2: true do
+    it "should search and change sort order", bin2: true do
       api_create_claim_and_go_to_search_page
       expect((@driver.current_url.to_s.match(/ASC|DESC/)).nil?).to be(true)
 
@@ -1196,7 +1198,7 @@ p "A a task"
       expect(@driver.page_source.include?('My search result')).to be(true)
     end
 
-    it "should search by project through URL", bin__2: true do
+    it "should search by project through URL", bin2: true do
       api_create_claim_and_go_to_search_page
       @driver.navigate.to @config['self_url'] + '/' + get_team + '/search/%7B"projects"%3A%5B0%5D%7D'
       sleep 10
@@ -1205,7 +1207,7 @@ p "A a task"
       expect(selected.size == 3).to be(true)
     end
 
-    it "should change search sort criteria through URL", bin__2: true do
+    it "should change search sort criteria through URL", bin2: true do
       api_create_claim_and_go_to_search_page
       @driver.navigate.to @config['self_url'] + '/' + get_team + '/search/%7B"sort"%3A"recent_activity"%7D'
       sleep 10
@@ -1214,7 +1216,7 @@ p "A a task"
       expect(selected == ['Recent activity', 'Newest first', 'Media'].sort).to be(true)
     end
 
-    it "should change search sort order through URL", bin__2: true do
+    it "should change search sort order through URL", bin2: true do
       api_create_claim_and_go_to_search_page
       @driver.navigate.to @config['self_url'] + '/' + get_team + '/search/%7B"sort_type"%3A"ASC"%7D'
       sleep 10
@@ -1223,7 +1225,7 @@ p "A a task"
       expect(selected == ['Created', 'Oldest first', 'Media'].sort).to be(true)
     end
 
-    it "should not reset password", bin__5: true do
+    it "should not reset password", bin5: true do
       page = LoginPage.new(config: @config, driver: @driver)
       page.reset_password('test@meedan.com')
       sleep 2
@@ -1231,7 +1233,7 @@ p "A a task"
       expect(@driver.page_source.include?('Password reset sent')).to be(false)
     end
 
-    it "should reset password", bin__5: true do
+    it "should reset password", bin5: true do
       user = api_create_and_confirm_user
       page = LoginPage.new(config: @config, driver: @driver)
       page.reset_password(user.email)
@@ -1240,7 +1242,7 @@ p "A a task"
       expect(@driver.page_source.include?('Password reset sent')).to be(true)
     end
 
-    it "should set metatags", bin__4: true do
+    it "should set metatags", bin4: true do
       api_create_team_project_and_link_and_redirect_to_media_page 'https://twitter.com/marcouza/status/875424957613920256'
       sleep 2
       request_api('make_team_public', { slug: get_team })
@@ -1253,7 +1255,7 @@ p "A a task"
       expect(twitter_title == 'This is a test').to be(true)
     end
 
-    it "should embed", bin__1: true do
+    it "should embed", bin1: true do
       api_create_team_project_and_claim_and_redirect_to_media_page
       sleep 2
       request_api('make_team_public', { slug: get_team })
@@ -1282,7 +1284,7 @@ p "A a task"
         sleep 1
         @driver.find_element(:css, '#media-embed__actions-copy').click
         sleep 1
-        @driver.navigate.to 'https://pastebin__.mozilla.org/'
+        @driver.navigate.to 'https://pastebin.mozilla.org/'
         @driver.find_element(:css, '#code').send_keys(' ')
         @driver.action.send_keys(:control, 'v').perform
         sleep 1
@@ -1291,7 +1293,7 @@ p "A a task"
       end
     end
 
-    it "should add, edit, answer, update answer and delete geolocation task", bin__3: true do
+    it "should add, edit, answer, update answer and delete geolocation task", bin3: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
       sleep 3
       # Create a task
@@ -1343,100 +1345,6 @@ p "A a task"
     end
 
     it "should add, edit, answer, update answer and delete datetime task", bin3: true do
-=begin
-      @driver.manage.window.maximize
-      media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
-p "2o"
-      # Create a task
-      expect(@driver.page_source.include?('When?')).to be(false)
-p "2i"
-      expect(@driver.page_source.include?('Task "When?" created by')).to be(false)
-p "2u"
-      @driver.find_element(:css, '.create-task__add-button').click
-p "2y"
-      sleep 1
-      @driver.find_element(:css, '.create-task__add-datetime').click
-p "2t"
-      sleep 1
-      fill_field('#task-label-input', 'When?')
-p "2r"
-      @driver.find_element(:css, '.create-task__dialog-submit-button').click
-      sleep 2
-p "2e"
-      expect(@driver.page_source.include?('When?')).to be(true)
-p "2s"
-      expect(@driver.page_source.include?('Task "When?" created by')).to be(true)
-p "2a"
-
-      # Answer task
-      expect(@driver.page_source.include?('Task "When?" answered by')).to be(false)
-p "2w"
-      @driver.find_element(:class, "task__label").click
-p "2s"
-      fill_field('input[name="hour"]', '23')
-p "2n"
-      fill_field('input[name="minute"]', '59')
-p "2g"
-      @driver.find_element(:css, '#task__response-date').click
-      sleep 2
-p "2n"
-      @driver.find_elements(:css, 'button').last.click
-      sleep 1
-p "n2"
-      fill_field('textarea[name="note"]', 'Test')
-      @driver.action.send_keys(:enter).perform
-p "2b"
-      sleep 2
-p "2v"
-      expect(@driver.page_source.include?('Task "When?" answered by')).to be(true)
-p "2c"
-      # Edit task
-      expect(@driver.page_source.include?('Task "When?" edited to "When was it?" by')).to be(false)
-p "2"
-      @driver.find_element(:css, '.task-actions__icon').click
-      #@driver.find_element(:css, '.task__actions.media-actions').click
-
-p "2v"
-      sleep 2
-      @driver.find_element(:xpath, "//span[.='Edit task']").click
-p "2c"
-      update_field('textarea[name="label"]', 'When was it?')
-      @driver.find_element(:css, '.task__save').click
-p "2z"
-      sleep 2
-      expect(@driver.page_source.include?('Task "When?" edited to "When was it?" by')).to be(true)
-p "27"
-
-      # Edit task response
-      expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('12:34')).to be(false)
-p "2i"
-      #@driver.find_element(:css, '.task-actions__icon').click
-      @driver.find_element(:css, '.task-actions__icon').click
-      #@driver.find_element(:css, '.task__actions.media-actions').click
-p "2u---------"
-      #@driver.find_ele@driver.find_element(:xpath, "//span[.='Edit task']").clickment(:xpath, "//span[.='Edit task']").click
-      @driver.find_element(:xpath,'//*[@id="task__edit-response-button"]').click
-      
-
-p "2y"
-      #update_field('input[name="hour"]', '12')
-      fill_field('input[name="hour"]', '12')
-
-p "2t"
-      #update_field('input[name="minute"]', '34')
-      fill_field('input[name="minute"]', '34')
-p "2r"
-      fill_field('textarea[name="note"]', '')
-p "2e"
-      @driver.action.send_keys(:enter).perform
-p "2w"
-      sleep 2
-      expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('12:34')).to be(true)
-p "2s"
-
-      # Delete task
-      delete_task('When was it')
-=end
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
 
       # Create a task
@@ -1491,7 +1399,7 @@ p "2s"
     end
 
     #Add slack notifications to a team
-    it "should add slack notifications to a team", bin__2:true, quick: true do
+    it "should add slack notifications to a team", bin2:true, quick: true do
       team = "TestTeam #{Time.now.to_i}"
       api_create_team(team:team)
       p = Page.new(config: @config, driver: @driver)
@@ -1506,7 +1414,7 @@ p "2s"
       expect(@driver.find_element(:class, "message").nil?).to be(false)
     end
 
-    it "should paginate project page", bin__2: true do
+    it "should paginate project page", bin2: true do
       page = api_create_team_project_claims_sources_and_redirect_to_project_page 21
       page.load
       sleep 5
@@ -1519,5 +1427,6 @@ p "2s"
       results = @driver.find_elements(:css, '.medias__item')
       expect(results.size == 42).to be(true)
     end
+=end
   end
 end
