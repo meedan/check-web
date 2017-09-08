@@ -30,7 +30,7 @@ class UserComponent extends React.Component {
       <PageTitle prefix={user.source.name} skipTeam={true}>
         <div className="profile">
           <HeaderCard
-            teamPermissions={'{}'}
+            canEdit={false}
             direction={direction}
             handleEnterEditMode={this.handleEnterEditMode.bind(this)}
             isEditing={false}

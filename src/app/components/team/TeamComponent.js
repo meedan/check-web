@@ -16,7 +16,7 @@ import MappedMessage from '../MappedMessage';
 import UpdateTeamMutation from '../../relay/UpdateTeamMutation';
 import Message from '../Message';
 import CreateProject from '../project/CreateProject';
-import Can from '../Can';
+import Can, { can } from '../Can';
 import CheckContext from '../../CheckContext';
 import ContentColumn from '../layout/ContentColumn';
 import ParsedText from '../ParsedText';
@@ -286,7 +286,7 @@ class TeamComponent extends Component {
       <PageTitle prefix={false} skipTeam={false} team={team}>
         <div className="team">
           <HeaderCard
-            teamPermissions={team.permissions}
+            canEdit={can(team.permissions, 'update Team')}
             direction={direction}
             handleEnterEditMode={this.handleEnterEditMode.bind(this)}
             isEditing={isEditing}
