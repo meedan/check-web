@@ -867,7 +867,8 @@ p $caller_name
       page = api_create_team_project_and_claim_and_redirect_to_media_page
       @driver.find_element(:css, '.media-detail').click
       @driver.find_element(:css, '.media-actions').click
-      @driver.find_element(:class, 'media-actions__menu-item').click
+      #@driver.find_element(:class, 'media-actions__menu-item').click
+      @driver.find_element(:css,'.media-actions__edit').click
       sleep 3
       fill_field('.ReactTags__tagInput input', "TAG")
       @driver.action.send_keys("\n").perform      
