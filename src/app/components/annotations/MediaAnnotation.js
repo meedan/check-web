@@ -243,7 +243,7 @@ class Annotation extends Component {
             const coordinates = geojson.geometry.coordinates;
             const name = geojson.properties.name;
             if (coordinates[0] != 0 || coordinates[1] != 0) {
-              return (<a style={{ textDecoration: 'underline' }} href={`https://www.openstreetmap.org/#map=9/${coordinates[0]}/${coordinates[1]}`} target="_blank" rel="noreferrer noopener">{name}</a>);
+              return (<a style={{ textDecoration: 'underline' }} href={`http://www.openstreetmap.org/?mlat=${coordinates[0]}&mlon=${coordinates[1]}&zoom=12#map=12/${coordinates[0]}/${coordinates[1]}`} target="_blank" rel="noreferrer noopener">{name}</a>);
             }
 
             return name;

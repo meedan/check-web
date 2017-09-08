@@ -40,7 +40,7 @@ class GeolocationTaskResponse extends Component {
         <span className="task__response">{name}</span>
         {coordinatesString
           ? <span className="task__note" style={{ color: black38, paddingLeft: units(1), paddingRight: units(1) }}>
-              <a style={{ textDecoration: 'underline' }} href={`https://www.openstreetmap.org/#map=9/${coordinates[0]}/${coordinates[1]}`} target="_blank" rel="noreferrer noopener">
+              <a style={{ textDecoration: 'underline' }} href={`http://www.openstreetmap.org/?mlat=${coordinates[0]}&mlon=${coordinates[1]}&zoom=12#map=12/${coordinates[0]}/${coordinates[1]}`} target="_blank" rel="noreferrer noopener">
                 ({coordinatesString})
               </a>
             </span>
