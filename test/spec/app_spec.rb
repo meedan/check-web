@@ -74,7 +74,6 @@ p $caller_name
   # The tests themselves start here
 
   context "web" do
-=begin    
     it "should filter by medias or sources", bin6: true do
       api_create_team_project_and_link 'https://twitter.com/TheWho/status/890135323216367616'
       @driver.navigate.to @config['self_url']
@@ -136,8 +135,8 @@ p $caller_name
       sleep 3
       expect(project_pg.elements('.media__heading').map(&:text).include?('Edited media title')).to be(true)
     end
-=end
-    it "should not add a duplicated tag from tags list", bin3: true, quick: true  do
+
+   it "should not add a duplicated tag from tags list", bin3: true, quick: true  do
       page = api_create_team_project_and_claim_and_redirect_to_media_page
       new_tag = Time.now.to_i.to_s
 
@@ -156,7 +155,6 @@ p $caller_name
       expect(page.tags.count(new_tag)).to be(1)
       expect(page.contains_string?('Tag already exists')).to be(true)
     end
-=begin    
 
     it "should display a default title for new media", bin1: true, quick:true do
       # Tweets
@@ -1069,7 +1067,7 @@ p $caller_name
     it "should add, edit, answer, update answer and delete short answer task", bin3: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
       sleep 3
-p "Create a task"
+
       # Create a task
       expect(@driver.page_source.include?('Foo or bar?')).to be(false)
       expect(@driver.page_source.include?('Task "Foo or bar?" created by')).to be(false)
@@ -1082,11 +1080,9 @@ p "Create a task"
       sleep 2
       expect(@driver.page_source.include?('Foo or bar?')).to be(true)
       expect(@driver.page_source.include?('Task "Foo or bar?" created by')).to be(true)
-p "A a task"
 
       # Answer task
       expect(@driver.page_source.include?('Task "Foo or bar?" answered by')).to be(false)
-      @driver.find_element(:css, '.task__label').click
       fill_field('textarea[name="response"]', 'Foo')
       @driver.action.send_keys(:enter).perform
       sleep 2
@@ -1094,9 +1090,9 @@ p "A a task"
 
       # Edit task
       expect(@driver.page_source.include?('Task "Foo or bar?" edited to "Foo or bar???" by')).to be(false)
-      @driver.find_element(:css, '.task__actions.media-actions').click
+      @driver.find_element(:css, '.task-actions__icon').click
       sleep 2
-      @driver.find_element(:xpath, "//span[.='Edit task']").click
+      @driver.find_element(:css, '.task-actions__edit').click
       fill_field('textarea[name="label"]', '??')
       @driver.find_element(:css, '.task__save').click
       sleep 2
@@ -1104,9 +1100,10 @@ p "A a task"
 
       # Edit task answer
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Task "Foo or bar???" answered by User With Email: "Foo edited"')).to be(false)
-      @driver.find_element(:id, 'task__edit-response-button').click
+      @driver.find_element(:css, '.task-actions__icon').click
       sleep 2
- 
+      @driver.find_element(:css, '.task-actions__edit-response').click
+
       # Ensure menu closes and textarea is focused...
       @driver.find_element(:css, 'textarea[name="editedresponse"]').click
 
@@ -1297,6 +1294,7 @@ p "A a task"
     it "should add, edit, answer, update answer and delete geolocation task", bin3: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
       sleep 3
+
       # Create a task
       expect(@driver.page_source.include?('Where?')).to be(false)
       expect(@driver.page_source.include?('Task "Where?" created by')).to be(false)
@@ -1309,11 +1307,9 @@ p "A a task"
       sleep 2
       expect(@driver.page_source.include?('Where?')).to be(true)
       expect(@driver.page_source.include?('Task "Where?" created by')).to be(true)
-  
+
       # Answer task
       expect(@driver.page_source.include?('Task "Where?" answered by')).to be(false)
-      @driver.find_element(:class, "task__label").click
-      sleep 1
       fill_field('textarea[name="response"]', 'Salvador')
       fill_field('textarea[name="coordinates"]', '-12.9015866, -38.560239')
       @driver.action.send_keys(:enter).perform
@@ -1322,9 +1318,9 @@ p "A a task"
 
       # Edit task
       expect(@driver.page_source.include?('Task "Where?" edited to "Where was it?" by')).to be(false)
-      @driver.find_element(:css, '.task__actions.media-actions').click
+      @driver.find_element(:css, '.task-actions__icon').click
       sleep 2
-      @driver.find_element(:xpath, "//span[.='Edit task']").click
+      @driver.find_element(:css, '.task-actions__edit').click
       update_field('textarea[name="label"]', 'Where was it?')
       @driver.find_element(:css, '.task__save').click
       sleep 2
@@ -1332,9 +1328,8 @@ p "A a task"
 
       # Edit task answer
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Task "Where was it?" answered by User With Email: "Vancouver"')).to be(false)
-
-      sleep 2
-      @driver.find_element(:id, 'task__edit-response-button').click
+      @driver.find_element(:css, '.task-actions__icon').click
+      @driver.find_element(:css, '.task-actions__edit-response').click
       update_field('textarea[name="response"]', 'Vancouver')
       update_field('textarea[name="coordinates"]', '49.2577142, -123.1941156')
       @driver.action.send_keys(:enter).perform
@@ -1342,7 +1337,7 @@ p "A a task"
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Task "Where was it?" answered by User With Email: "Vancouver"')).to be(true)
 
       # Delete task
-      delete_task('Where was it')
+      delete_task('Where was it')    
     end
 
     it "should add, edit, answer, update answer and delete datetime task", bin3: true do
@@ -1428,6 +1423,5 @@ p "A a task"
       results = @driver.find_elements(:css, '.medias__item')
       expect(results.size == 42).to be(true)
     end
-=end
   end
 end
