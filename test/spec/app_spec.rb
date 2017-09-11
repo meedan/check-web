@@ -1062,7 +1062,7 @@ p $caller_name.to_s + ';' + (Time.now - @t).to_s
     #   skip("Needs to be implemented")
     # end
 
-    it "should add, edit, answer, update answer and delete short answer task", bin3: true do
+    it "should add, edit, answer, update answer and delete short answer task", bin1: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
       sleep 3
 
@@ -1290,7 +1290,7 @@ p $caller_name.to_s + ';' + (Time.now - @t).to_s
       end
     end
 
-    it "should add, edit, answer, update answer and delete geolocation task", bin3: true do
+    it "should add, edit, answer, update answer and delete geolocation task", bin1: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
       sleep 3
 
@@ -1339,7 +1339,7 @@ p $caller_name.to_s + ';' + (Time.now - @t).to_s
       delete_task('Where was it')    
     end
 
-    it "should add, edit, answer, update answer and delete datetime task", bin3: true do
+    it "should add, edit, answer, update answer and delete datetime task", bin1: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
 
       # Create a task
@@ -1394,7 +1394,7 @@ p $caller_name.to_s + ';' + (Time.now - @t).to_s
     end
 
     #Add slack notifications to a team
-    it "should add slack notifications to a team", bin2:true, quick: true do
+    it "should add slack notifications to a team", bin4:true, quick: true do
       api_register_and_login_with_email
       team = "test#{Time.now.to_i}"
       api_create_team(team:team)
@@ -1409,7 +1409,7 @@ p $caller_name.to_s + ';' + (Time.now - @t).to_s
       expect(@driver.find_element(:class, "message").nil?).to be(false)
     end
 
-    it "should paginate project page", bin2: true do
+    it "should paginate project page", bin1: true do
       page = api_create_team_project_claims_sources_and_redirect_to_project_page 21
       page.load
       sleep 5
