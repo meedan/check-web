@@ -56,19 +56,17 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
   before :each do |example|
     $caller_name = example.metadata[:description_args]
-p $caller_name
 @t = Time.now
     @driver = new_driver(webdriver_url,browser_capabilities)
   end
 
   after :each do |example|
-    p example.exception
     if false #example.exception
       link = save_screenshot("Test failed: #{example.description}")
       print " [Test \"#{example.description}\" failed! Check screenshot at #{link}] "
     end
     @driver.quit
-    p (Time.now - @t).to_s
+p $caller_name + "\t" + (Time.now - @t).to_s + "\t" 
   end
 
   # The tests themselves start here
@@ -1137,20 +1135,27 @@ p $caller_name
       expect((@driver.current_url.to_s =~ /google/).nil?).to be(false)
       @driver.switch_to.window(current_window)
     end
-
+=end
     it "should refresh media", bin1: true do
       page = api_create_team_project_and_link_and_redirect_to_media_page 'http://ca.ios.ba/files/meedan/random.php'
+p "1q"      
       sleep 2
       title1 = @driver.title
+p "1w"      
       expect((title1 =~ /Random/).nil?).to be(false)
+p "1d"      
       @driver.find_element(:css, '.media-actions__icon').click
+p "g1"      
       @driver.find_element(:css, '.media-actions__refresh').click
+p "f1"      
       sleep 5
       title2 = @driver.title
+p "d1"      
       expect((title2 =~ /Random/).nil?).to be(false)
+p "s1"      
       expect(title1 != title2).to be(true)
     end
-
+=begin
     it "should search by project", bin2: true do
       api_create_claim_and_go_to_search_page
       expect((@driver.current_url.to_s.match(/project/)).nil?).to be(true)
@@ -1410,30 +1415,21 @@ p $caller_name
       sleep 2
       expect(@driver.find_element(:class, "message").nil?).to be(false)
     end
-=end
 
     it "should paginate project page", bin2: true do
       page = api_create_team_project_claims_sources_and_redirect_to_project_page 21
       page.load
-p "Ar"      
       sleep 5
-p "Ar2"      
       @driver.find_element(:xpath, "//span[contains(text(), 'Sources')]").click
       sleep 10
-p "Ae"      
       results = @driver.find_elements(:css, '.medias__item')
-      p results.size
-p "Aw"      
       expect(results.size == 40).to be(true)
-p "Aq"      
       results.last.location_once_scrolled_into_view
-p "Aa"      
       sleep 5
       results = @driver.find_elements(:css, '.medias__item')
       p results.size
-p "As"      
       expect(results.size == 42).to be(true)
-p "aAs"      
     end
+=end    
   end
 end
