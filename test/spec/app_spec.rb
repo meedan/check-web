@@ -56,17 +56,15 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
   before :each do |example|
     $caller_name = example.metadata[:description_args]
-@t = Time.now
     @driver = new_driver(webdriver_url,browser_capabilities)
   end
 
   after :each do |example|
-    if false #example.exception
+    if example.exception
       link = save_screenshot("Test failed: #{example.description}")
       print " [Test \"#{example.description}\" failed! Check screenshot at #{link}] "
     end
     @driver.quit
-p $caller_name.to_s + ';' + (Time.now - @t).to_s 
   end
 
   # The tests themselves start here

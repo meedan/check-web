@@ -266,7 +266,6 @@ module AppSpecHelpers
 
 
   def new_driver(webdriver_url, browser_capabilities)
-    #@config['proxy'] = "localhost:8888"
     if @config.key?('proxy') and !webdriver_url.include? "browserstack"
       proxy = Selenium::WebDriver::Proxy.new(
         :http     => @config['proxy'],
