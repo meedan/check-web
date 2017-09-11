@@ -74,6 +74,7 @@ p $caller_name
   # The tests themselves start here
 
   context "web" do
+=begin    
     it "should filter by medias or sources", bin6: true do
       api_create_team_project_and_link 'https://twitter.com/TheWho/status/890135323216367616'
       @driver.navigate.to @config['self_url']
@@ -1396,10 +1397,10 @@ p $caller_name
 
     #Add slack notifications to a team
     it "should add slack notifications to a team", bin2:true, quick: true do
-      team = "TestTeam #{Time.now.to_i}"
+      api_register_and_login_with_email
+      team = "test#{Time.now.to_i}"
       api_create_team(team:team)
-      p = Page.new(config: @config, driver: @driver)
-      p.go(@config['self_url'] + '/' + team)
+      go(@config['self_url'] + '/' + team)
       sleep 5
       @driver.find_element(:class, "team__edit-button").click
       @driver.find_element(:id, "team__settings-slack-notifications-enabled").click
@@ -1409,19 +1410,30 @@ p $caller_name
       sleep 2
       expect(@driver.find_element(:class, "message").nil?).to be(false)
     end
+=end
 
     it "should paginate project page", bin2: true do
       page = api_create_team_project_claims_sources_and_redirect_to_project_page 21
       page.load
+p "Ar"      
       sleep 5
+p "Ar2"      
       @driver.find_element(:xpath, "//span[contains(text(), 'Sources')]").click
       sleep 10
+p "Ae"      
       results = @driver.find_elements(:css, '.medias__item')
+      p results.size
+p "Aw"      
       expect(results.size == 40).to be(true)
+p "Aq"      
       results.last.location_once_scrolled_into_view
+p "Aa"      
       sleep 5
       results = @driver.find_elements(:css, '.medias__item')
+      p results.size
+p "As"      
       expect(results.size == 42).to be(true)
+p "aAs"      
     end
   end
 end
