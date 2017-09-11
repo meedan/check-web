@@ -1,7 +1,6 @@
 require_relative '../spec_helper.rb'
 
 shared_examples 'custom' do
-
   it "should register and redirect to newly created media", bin4: true do
     api_create_team_and_project
     page = ProjectPage.new(config: @config, driver: @driver).load
@@ -47,13 +46,12 @@ shared_examples 'custom' do
     expect(@driver.page_source.include?('Status')).to be(true)
   end
 
-  it "should change a media status via the dropdown menu", bin4: true do
+ it "should change a media status via the dropdown menu", bin4: true do
     media = api_create_team_project_and_claim
     @driver.navigate.to media.full_url
     sleep 2
     media_pg = MediaPage.new(config: @config, driver: @driver)
     expect(media_pg.status_label).to eq('UNSTARTED')
-
     media_pg.change_status(:verified)
     expect(media_pg.status_label).to eq('VERIFIED')
     expect(media_pg.contains_element?('.annotation__status--verified')).to be(true)

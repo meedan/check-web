@@ -66,13 +66,12 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       print " [Test \"#{example.description}\" failed! Check screenshot at #{link}] "
     end
     @driver.quit
-p $caller_name + "\t" + (Time.now - @t).to_s + "\t" 
+p $caller_name.to_s + ';' + (Time.now - @t).to_s 
   end
 
   # The tests themselves start here
 
   context "web" do
-=begin    
     it "should filter by medias or sources", bin6: true do
       api_create_team_project_and_link 'https://twitter.com/TheWho/status/890135323216367616'
       @driver.navigate.to @config['self_url']
@@ -1135,27 +1134,21 @@ p $caller_name + "\t" + (Time.now - @t).to_s + "\t"
       expect((@driver.current_url.to_s =~ /google/).nil?).to be(false)
       @driver.switch_to.window(current_window)
     end
-=end
+
     it "should refresh media", bin1: true do
       page = api_create_team_project_and_link_and_redirect_to_media_page 'http://ca.ios.ba/files/meedan/random.php'
-p "1q"      
       sleep 2
       title1 = @driver.title
-p "1w"      
       expect((title1 =~ /Random/).nil?).to be(false)
-p "1d"      
       @driver.find_element(:css, '.media-actions__icon').click
-p "g1"      
+      sleep 1
       @driver.find_element(:css, '.media-actions__refresh').click
-p "f1"      
-      sleep 5
+      sleep 10
       title2 = @driver.title
-p "d1"      
       expect((title2 =~ /Random/).nil?).to be(false)
-p "s1"      
-      expect(title1 != title2).to be(true)
+      expect(title1.eql? title2).to be(false)
     end
-=begin
+
     it "should search by project", bin2: true do
       api_create_claim_and_go_to_search_page
       expect((@driver.current_url.to_s.match(/project/)).nil?).to be(true)
@@ -1430,6 +1423,5 @@ p "s1"
       p results.size
       expect(results.size == 42).to be(true)
     end
-=end    
   end
 end

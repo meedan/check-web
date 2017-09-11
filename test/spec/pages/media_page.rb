@@ -6,7 +6,9 @@ class MediaPage < Page
 
   def change_status(status)
     element('.media-status__label').click
+sleep 2
     element(".media-status__menu-item--#{status.to_s}").click
+sleep 2
     wait_for_element(".media-status__current--#{status.to_s}")
   end
 
@@ -31,11 +33,18 @@ class MediaPage < Page
     contains_element?('.pender-container')
   end
 
-  def edit
+  def editNO
     element('.media-detail').click unless pender_visible?
     element('.media-actions').click
     @driver.find_element(:class, 'media-actions__menu-item').click
     sleep 3
+  end
+
+  def edit
+    element('.media-detail').click unless pender_visible?
+    element('.media-actions').click
+    element('.media-actions__edit').click
+    @wait.until { editing_mode? }
   end
 
 
