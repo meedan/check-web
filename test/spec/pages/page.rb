@@ -33,6 +33,7 @@ class Page
 
   def element(selector, options = {})
     wait = options[:timeout] ? Selenium::WebDriver::Wait.new(timeout: options[:timeout]) : @wait
+
     wait.until {
       element = @driver.find_element(:css, selector)
       element if element.displayed? || options[:hidden]
@@ -41,6 +42,7 @@ class Page
 
   def elements(selector, options = {})
     wait = options[:timeout] ? Selenium::WebDriver::Wait.new(timeout: options[:timeout]) : @wait
+
     wait.until {
       @driver.find_elements(:css, selector)
     }
