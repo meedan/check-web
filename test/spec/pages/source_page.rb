@@ -20,4 +20,10 @@ class SourcePage < Page
   def avatar
     element('.source__avatar')
   end
+
+  def delete_annotation
+    element('.annotation .menu-button').click
+    element('.annotation__delete').click
+  end
+
 end

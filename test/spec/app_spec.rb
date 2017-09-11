@@ -131,7 +131,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(project_pg.elements('.media__heading').map(&:text).include?('Edited media title')).to be(true)
     end
 
-    it "should not add a duplicated tag from tags list", bin3: true, quick: true  do
+   it "should not add a duplicated tag from tags list", bin3: true, quick: true  do
       page = api_create_team_project_and_claim_and_redirect_to_media_page
       new_tag = Time.now.to_i.to_s
 
@@ -745,50 +745,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(page.contains_string?('Sign in')).to be(true)
     end
 
-    # it "should ask to join team" do
-    #   skip("Needs to be implemented")
-    # end
-
-    # it "should redirect to team page if user asking to join a team is already a member" do
-    #   skip("Needs to be implemented")
-    # end
-
-    # it "should reject member to join team" do
-    #   skip("Needs to be implemented")
-    # end
-
-    # it "should accept member to join team" do
-    #   skip("Needs to be implemented")
-    # end
-
-    # it "should change member role" do
-    #   skip("Needs to be implemented")
-    # end
-
-    # it "should delete member from team" do
-    #   skip("Needs to be implemented")
-    # end
-
-    # it "should delete annotation from annotations list (for media, source and project)" do
-    #   skip("Needs to be implemented")
-    # end
-
-    # it "should delete tag from tags list (for media and source)" do
-    #   skip("Needs to be implemented")
-    # end
-
-    # it "should edit team" do
-    #   skip("Needs to be implemented")
-    # end
-
-    # it "should show 'manage team' link only to team owners" do
-    #   skip("Needs to be implemented")
-    # end
-
-    # it "should show 'edit project' link only to users with 'update project' permission" do
-    #   skip("Needs to be implemented")
-    # end
-
     it "should navigate between teams", bin4: true, quick: true do
       # setup
       user = api_register_and_login_with_email(email: @user_mail, password: @password)
@@ -811,15 +767,17 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(page.project_titles.include?('Team 1 Project')).to be(false)
     end
 
-    #As a different user, request to join one team.
+    #As a different user, request to join one team and be accepted.
     it "should join team", bin4:true, quick: true do
-      api_register_and_login_with_email
+      user = api_register_and_login_with_email(email: "new"+@user_mail, password: @password)
       page = TeamsPage.new(config: @config, driver: @driver).load
       page.ask_join_team(subdomain: @team1_slug)
       @wait.until {
         expect(@driver.find_element(:class, "message").nil?).to be(false)
       }
       api_logout
+      @driver.quit
+
       @driver = new_driver(webdriver_url,browser_capabilities)
       page = Page.new(config: @config, driver: @driver)
       page.go(@config['api_path'] + '/test/session?email='+@user_mail)
@@ -830,6 +788,150 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
         elems = @driver.find_elements(:css => ".team-members__list > div")
         expect(elems.size).to be > 1
       }
+    end    
+
+    it "should redirect to team page if user asking to join a team is already a member", bin4:true do
+      page = Page.new(config: @config, driver: @driver)
+      page.go(@config['api_path'] + '/test/session?email=new'+@user_mail)
+      page = TeamsPage.new(config: @config, driver: @driver).load
+      @driver.navigate.to @config['self_url'] + "/"+@team1_slug+"/join"
+      sleep 3
+      @wait.until {
+        expect(@driver.current_url.eql? @config['self_url']+"/"+@team1_slug ).to be(true)
+      }    
+    end
+
+    it "should reject member to join team", bin4:true do
+      user = api_register_and_login_with_email
+      page = TeamsPage.new(config: @config, driver: @driver).load
+      page.ask_join_team(subdomain: @team1_slug)
+      @wait.until {
+        expect(@driver.find_element(:class, "message").nil?).to be(false)
+      }
+      api_logout
+      @driver.quit
+      @driver = new_driver(webdriver_url,browser_capabilities)
+      page = Page.new(config: @config, driver: @driver)
+      page.go(@config['api_path'] + '/test/session?email='+@user_mail)
+      #As the group creator, go to the members page and approve the joining request.
+      page = TeamsPage.new(config: @config, driver: @driver).load
+          .disapprove_join_team(subdomain: @team1_slug)
+      @wait.until {
+        expect(@driver.page_source.include?('Requests to join')).to be(false)
+      }      
+    end
+
+    #TO DO PROBLEMS WITH MENU
+    it "should change member role", bin3:true  do
+      utp = api_create_team
+      user2 = api_register_and_login_with_email
+      page = TeamsPage.new(config: @config, driver: @driver).load
+      page.ask_join_team(subdomain: utp[:team].slug)
+      sleep 3        
+      api_logout
+      @driver.quit
+
+      @driver = new_driver(webdriver_url,browser_capabilities)
+      page = Page.new(config: @config, driver: @driver)
+      page.go(@config['api_path'] + '/test/session?email='+utp[:user].email)
+      #As the group creator, go to the members page and approve the joining request.
+      page = TeamsPage.new(config: @config, driver: @driver).load
+      page.approve_join_team(subdomain: utp[:team].slug)      
+      sleep 3
+      expect(@driver.page_source.include?('Editor')).to be(false)
+      page.edit_user_role(subdomain: @team1_slug)
+      sleep 5
+      expect(@driver.page_source.include?('Editor')).to be(true)
+    end
+
+    it "should delete member from team", bin4:true do
+      page = Page.new(config: @config, driver: @driver)
+      page.go(@config['api_path'] + '/test/session?email='+@user_mail)
+      #As the group creator, go to the members page and approve the joining request.
+      sleep 1
+      page = TeamsPage.new(config: @config, driver: @driver).load
+          .delete_user_team(subdomain: @team1_slug)
+
+      expect(@driver.find_elements(:xpath => '//button').length == 4).to be(true)
+    end
+
+    it "should delete tag from tags list (for media and source)", bin3:true  do
+    #   source implemented at "should add and remove source tags"
+      page = api_create_team_project_and_claim_and_redirect_to_media_page
+      @driver.find_element(:css, '.media-detail').click
+      @driver.find_element(:css, '.media-actions').click
+      #@driver.find_element(:class, 'media-actions__menu-item').click
+      @driver.find_element(:css,'.media-actions__edit').click
+      sleep 3
+      fill_field('.ReactTags__tagInput input', "TAG")
+      @driver.action.send_keys("\n").perform      
+      sleep 1
+      fill_field('.ReactTags__tagInput input', "TAG2")
+      @driver.action.send_keys("\n").perform
+      expect(page.tags.length == 2).to be(true)
+      list = @driver.find_elements(:class, "ReactTags__remove")
+      list[1].click
+      sleep 3
+      expect(page.tags.length == 1).to be(true)
+    end
+
+    it "should show 'manage team' link only to team owners", bin3: true do
+      user = api_register_and_login_with_email
+      team = request_api 'team', { name: "team#{Time.now.to_i}", email: user.email, slug: "team#{Time.now.to_i}" }
+      user2 = api_register_and_login_with_email
+      page = TeamsPage.new(config: @config, driver: @driver).load
+      page.ask_join_team(subdomain: team.slug)
+      @wait.until {
+        expect(@driver.find_element(:class, "message").nil?).to be(false)
+      }
+      api_logout
+      @driver = new_driver(webdriver_url,browser_capabilities)
+      page = Page.new(config: @config, driver: @driver)
+      page.go(@config['api_path'] + '/test/session?email='+user.email)
+      #As the group creator, go to the members page and approve the joining request.
+      page = TeamsPage.new(config: @config, driver: @driver).load
+          .approve_join_team(subdomain: team.slug)
+      api_logout
+
+      @driver = new_driver(webdriver_url,browser_capabilities)
+      page = Page.new(config: @config, driver: @driver)
+      page.go(@config['api_path'] + '/test/session?email='+user2.email)
+      page = TeamsPage.new(config: @config, driver: @driver).load
+      sleep 3
+      @driver.find_element(:class,"header-actions__menu-toggle").click
+      sleep 3
+      expect(@driver.page_source.include?('Manage team')).to be(false)
+    end
+
+
+    it "should show 'edit project' link only to users with 'update project' permission", bin3: true do
+      utp = api_create_team_and_project()
+      user2 = api_register_and_login_with_email
+      page = TeamsPage.new(config: @config, driver: @driver).load
+      page.ask_join_team(subdomain: utp[:team].slug)
+      sleep 3        
+      api_logout
+      @driver = new_driver(webdriver_url,browser_capabilities)
+      page = Page.new(config: @config, driver: @driver)
+      page.go(@config['api_path'] + '/test/session?email='+utp[:user].email)
+      #As the group creator, go to the members page and approve the joining request.
+      page = TeamsPage.new(config: @config, driver: @driver).load
+          .approve_join_team(subdomain: utp[:team].slug)
+      go(@config['self_url'] + '/'+utp[:team].slug+'/project/'+utp[:project].dbid.to_s)
+      sleep 3
+      @driver.find_element(:class,"header-actions__menu-toggle").click
+      sleep 3
+      expect(@driver.page_source.include?('Edit project')).to be(true)
+      api_logout
+
+      @driver = new_driver(webdriver_url,browser_capabilities)
+      page = Page.new(config: @config, driver: @driver)
+      page.go(@config['api_path'] + '/test/session?email='+user2.email)
+      go(@config['self_url'] + '/'+utp[:team].slug+'/project/'+utp[:project].dbid.to_s)
+      sleep 3
+      @driver.find_element(:class,"header-actions__menu-toggle").click
+      sleep 3
+      expect(@driver.page_source.include?('Edit project')).to be(false)
     end
 
     it "should update notes count after delete annotation", bin3: true do
@@ -882,6 +984,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       sleep 5
       expect(@driver.page_source.include?('Auto-Refresh')).to be(true)
+      sleep 2
     end
 
     # it "should cancel request through switch teams" do
@@ -956,7 +1059,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     #   skip("Needs to be implemented")
     # end
 
-    it "should add, edit, answer, update answer and delete short answer task", bin3: true do
+    it "should add, edit, answer, update answer and delete short answer task", bin1: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
       sleep 3
 
@@ -1035,11 +1138,12 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       title1 = @driver.title
       expect((title1 =~ /Random/).nil?).to be(false)
       @driver.find_element(:css, '.media-actions__icon').click
+      sleep 1
       @driver.find_element(:css, '.media-actions__refresh').click
-      sleep 5
+      sleep 10
       title2 = @driver.title
       expect((title2 =~ /Random/).nil?).to be(false)
-      expect(title1 != title2).to be(true)
+      expect(title1.eql? title2).to be(false)
     end
 
     it "should search by project", bin2: true do
@@ -1183,7 +1287,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       end
     end
 
-    it "should add, edit, answer, update answer and delete geolocation task", bin3: true do
+    it "should add, edit, answer, update answer and delete geolocation task", bin1: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
       sleep 3
 
@@ -1229,10 +1333,10 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Task "Where was it?" answered by User With Email: "Vancouver"')).to be(true)
 
       # Delete task
-      delete_task('Where was it')
+      delete_task('Where was it')    
     end
 
-    it "should add, edit, answer, update answer and delete datetime task", bin3: true do
+    it "should add, edit, answer, update answer and delete datetime task", bin1: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
 
       # Create a task
@@ -1287,11 +1391,11 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     #Add slack notifications to a team
-    it "should add slack notifications to a team", bin2:true, quick: true do
-      team = "TestTeam #{Time.now.to_i}"
+    it "should add slack notifications to a team", bin4:true, quick: true do
+      api_register_and_login_with_email
+      team = "test#{Time.now.to_i}"
       api_create_team(team:team)
-      p = Page.new(config: @config, driver: @driver)
-      p.go(@config['self_url'] + '/' + team)
+      go(@config['self_url'] + '/' + team)
       sleep 5
       @driver.find_element(:class, "team__edit-button").click
       @driver.find_element(:id, "team__settings-slack-notifications-enabled").click
@@ -1302,7 +1406,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.find_element(:class, "message").nil?).to be(false)
     end
 
-    it "should paginate project page", bin2: true do
+    it "should paginate project page", bin1: true do
       page = api_create_team_project_claims_sources_and_redirect_to_project_page 21
       page.load
       sleep 5
@@ -1313,6 +1417,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       results.last.location_once_scrolled_into_view
       sleep 5
       results = @driver.find_elements(:css, '.medias__item')
+      p results.size
       expect(results.size == 42).to be(true)
     end
   end
