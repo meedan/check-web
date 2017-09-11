@@ -36,14 +36,16 @@ module ApiHelpers
   end
 
   def api_create_team(params = {})
-    team = params[:team] || "Test Team #{Time.now.to_i}"
+    team_name = params[:team] || "team#{Time.now.to_i}"
     user = api_register_and_login_with_email
-    request_api 'team', { name: team, email: user.email }
+    team = request_api 'team', { name: team_name, slug: team_name, email: user.email }
+    { user: user, team: team }
   end
 
-  def api_create_team_and_project
+  def api_create_team_and_project(params = {})
+    team = params[:team] || "Test#{Time.now.to_i}"
     user = api_register_and_login_with_email
-    team = request_api 'team', { name: "Test Team #{Time.now.to_i}", slug: "test-team-#{Time.now.to_i}-#{rand(1000).to_i}", email: user.email }
+    team = request_api 'team', { name: team, slug: team, email: user.email }
     team_id = team.dbid
     project = request_api 'project', { title: "Test Project #{Time.now.to_i}", team_id: team_id }
     { project: project, user: user, team: team }
@@ -53,7 +55,15 @@ module ApiHelpers
     data = api_create_team_and_project
     claim = request_api 'claim', { quote: quote, email: data[:user].email, team_id: data[:team].dbid, project_id: data[:project].dbid }
     @driver.quit if quit
-    claim
+    claim  
+  end
+
+  def api_create_team_and_project
+    user = api_register_and_login_with_email
+    team = request_api 'team', { name: "Test Team #{Time.now.to_i}", slug: "test-team-#{Time.now.to_i}-#{rand(1000).to_i}", email: user.email }
+    team_id = team.dbid
+    project = request_api 'project', { title: "Test Project #{Time.now.to_i}", team_id: team_id }
+    { project: project, user: user, team: team }
   end
 
   def api_create_team_project_claims_sources_and_redirect_to_project_page(count)
@@ -67,7 +77,8 @@ module ApiHelpers
 
   def api_create_team_project_and_link(url = @media_url)
     data = api_create_team_and_project
-    request_api 'link', { url: url, email: data[:user].email, team_id: data[:team].dbid, project_id: data[:project].dbid }
+    media = request_api 'link', { url: url, email: data[:user].email, team_id: data[:team].dbid, project_id: data[:project].dbid }
+    media
   end
 
   def api_create_team_project_and_link_and_redirect_to_media_page(url = @media_url)
