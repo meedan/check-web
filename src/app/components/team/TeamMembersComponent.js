@@ -67,26 +67,28 @@ class TeamMembersComponent extends Component {
           {(() => {
             if (requestingMembership) {
               return (
-                <Card style={cardInCardGroupStyle}>
+                <Can permissions={team.permissions} permission="update Team">
+                  <Card style={cardInCardGroupStyle}>
 
-                  <StyledMdCardTitle
-                    title={<FormattedMessage
-                      id="teamMembershipRequests.requestsToJoin"
-                      defaultMessage={'Requests to join'}
-                    />}
-                  />
+                    <StyledMdCardTitle
+                      title={<FormattedMessage
+                        id="teamMembershipRequests.requestsToJoin"
+                        defaultMessage={'Requests to join'}
+                      />}
+                    />
 
-                  <List>
-                    {(() => teamUsersRequestingMembership.map(teamUser => (
-                      <TeamMembersListItem
-                        teamUser={teamUser}
-                        key={teamUser.node.id}
-                        className=""
-                        requestingMembership
-                      />
-                      )))()}
-                  </List>
-                </Card>
+                    <List>
+                      {(() => teamUsersRequestingMembership.map(teamUser => (
+                        <TeamMembersListItem
+                          teamUser={teamUser}
+                          key={teamUser.node.id}
+                          className=""
+                          requestingMembership
+                        />
+                        )))()}
+                    </List>
+                  </Card>
+                </Can>
               );
             }
 
