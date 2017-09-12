@@ -14,4 +14,16 @@ describe('<Can />', () => {
     const wrapper = render(<Can permissions='{"create Media":false}' permission='create Media' children={<div id='child'></div>} />);
     expect(wrapper.find('#child')).to.have.length(0);
   });
+
+  it('should render "otherwise" component if permission is not satisfied', function() {
+    const wrapper = render(
+      <Can
+        permissions='{"create Media":false}'
+        permission='create Media'
+        children={<div id='child'></div>}
+        otherwise={<div id='otherwise'></div>}
+      />);
+    expect(wrapper.find('#child')).to.have.length(0);
+    expect(wrapper.find('#otherwise')).to.have.length(1);
+  });
 });
