@@ -8,6 +8,7 @@ import TeamInviteCard from './TeamInviteCard';
 import PageTitle from '../PageTitle';
 import TeamMembersListItem from './TeamMembersListItem';
 import ContentColumn from '../layout/ContentColumn';
+import Can from '../Can';
 import {
   cardInCardGroupStyle,
   StyledMdCardTitle,
@@ -95,18 +96,20 @@ class TeamMembersComponent extends Component {
           <Card>
             <FlexRow>
               <StyledMdCardTitle title={<FormattedMessage id="teamMembersComponent.mainHeading" defaultMessage="Members" />} />
-              <RaisedButton
-                style={{ marginLeft: 'auto', marginRight: units(2) }}
-                onClick={this.handleEditMembers.bind(this)}
-                className="team-members__edit-button"
-                icon={<MdCreate className="team-members__edit-icon" />}
-                label={isEditing
-                    ? <FormattedMessage
-                      id="teamMembersComponent.editDoneButton"
-                      defaultMessage="Done"
-                    />
-                    : <FormattedMessage id="teamMembersComponent.editButton" defaultMessage="Edit" />}
-              />
+              <Can permissions={team.permissions} permission="update Team">
+                <RaisedButton
+                  style={{ marginLeft: 'auto', marginRight: units(2) }}
+                  onClick={this.handleEditMembers.bind(this)}
+                  className="team-members__edit-button"
+                  icon={<MdCreate className="team-members__edit-icon" />}
+                  label={isEditing
+                      ? <FormattedMessage
+                        id="teamMembersComponent.editDoneButton"
+                        defaultMessage="Done"
+                      />
+                      : <FormattedMessage id="teamMembersComponent.editButton" defaultMessage="Edit" />}
+                />
+              </Can>
             </FlexRow>
             <List className="team-members__list">
               {(() =>
