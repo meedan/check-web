@@ -11,7 +11,7 @@ export const black = '#000000';
 export const alertRed = '#d0021b';
 export const checkBlue = '#2e77fc';
 export const highlightBlue = '#f1f6ff';
-export const modalBlue = 'rgba(0, 15, 41, .9)';
+export const modalBlue = 'rgba(0, 15, 41, .8)';
 
 // Material blacks
 //
@@ -261,6 +261,9 @@ export const muiThemeWithoutRtl = {
   },
   menuItem: {
     hoverColor: highlightBlue,
+  },
+  overlay: {
+    backgroundColor: modalBlue,
   },
 };
 

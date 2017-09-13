@@ -16,6 +16,7 @@ import IconButton from 'material-ui/IconButton';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import 'rc-tooltip/assets/bootstrap.css';
+import styled from 'styled-components';
 import SingleChoiceTask from './SingleChoiceTask';
 import MultiSelectTask from './MultiSelectTask';
 import Message from '../Message';
@@ -30,6 +31,12 @@ import DatetimeRespondTask from './DatetimeRespondTask';
 import DatetimeTaskResponse from './DatetimeTaskResponse';
 import { units } from '../../styles/js/variables';
 import ProfileLink from '../layout/ProfileLink';
+
+const StyledWordBreakDiv = styled.div`
+  hyphens: auto;
+  overflow-wrap: break-word;
+  word-break: break-word;
+`;
 
 const messages = defineMessages({
   confirmDelete: {
@@ -667,7 +674,7 @@ class Task extends Component {
                 : null}
           </form>
         </div>
-        : <div className="task__resolved">
+        : <StyledWordBreakDiv className="task__resolved">
           {task.type === 'free_text'
               ? <p className="task__response">
                 <ParsedText text={response} />
@@ -708,10 +715,10 @@ class Task extends Component {
           >
             <ParsedText text={note} />
           </p>
-        </div>;
+        </StyledWordBreakDiv>;
 
     return (
-      <div>
+      <StyledWordBreakDiv>
         <Card
           className="task"
           style={{ marginBottom: units(1) }}
@@ -775,7 +782,7 @@ class Task extends Component {
               />}
           </form>
         </Dialog>
-      </div>
+      </StyledWordBreakDiv>
     );
   }
 }
