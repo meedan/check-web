@@ -30,13 +30,6 @@ const StyledMetadata = styled(FlexRow)`
     padding: 0 ${units(1)};
   }
 
-  .media-detail__check-added-at,
-  .media-detail__check-added-by {
-    align-items: center;
-    display: flex;
-    flex-shrink: 0;
-  }
-
   // Move dialog
   //
   .media-detail__dialog-header {
@@ -233,17 +226,12 @@ class MediaMetadata extends Component {
 
   render() {
     const { media, mediaUrl } = this.props;
-    const data = JSON.parse(media.embed);
     const context = this.getContext();
     const currentProject = this.currentProject();
     const destinationProjects = this.destinationProjects();
     const locale = this.props.intl.locale;
     const isRtl = rtlDetect.isRtlLang(locale);
     const fromDirection = isRtl ? 'right' : 'left';
-    const sourceUrl = media.team && media.project && media.project_source ? `/${media.team.slug}/project/${media.project.dbid}/source/${media.project_source.dbid}` : null;
-    const authorName = MediaUtil.authorName(media, data);
-    const authorUsername = MediaUtil.authorUsername(media, data);
-    const authorUrl = MediaUtil.authorUrl(media, data);
 
     const byUser = media.user &&
       media.user.source &&
@@ -323,18 +311,6 @@ class MediaMetadata extends Component {
           </span>
           : null}
         {media.tags ? <MediaTags media={media} tags={media.tags.edges} isEditing={false} /> : null}
-
-        { sourceUrl
-          ? <Link to={sourceUrl}>{authorName || authorUsername}</Link>
-          : <a
-            href={sourceUrl || authorUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="social-media-card__name"
-          >
-            {authorName || authorUsername}
-          </a>
-        }
 
         {this.props.readonly || this.state.isEditing
           ? null
