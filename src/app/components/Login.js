@@ -12,6 +12,7 @@ import MDEmail from 'react-icons/lib/md/email';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import rtlDetect from 'rtl-detect';
+import { Link } from 'react-router';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
@@ -417,19 +418,19 @@ class Login extends Component {
                       />
                   }
                 />
-
                 {this.state.type === 'login'
                   ? <span className="login__forgot-password">
-                    <FlatButton
-                      href="/check/user/password-reset"
-                      style={styles.secondaryButton}
-                      label={
-                        <FormattedMessage
-                          id="loginEmail.lostPassword"
-                          defaultMessage="Forgot password"
-                        />
-                        }
-                    />
+                    <Link to="/check/user/password-reset">
+                      <FlatButton
+                        style={styles.secondaryButton}
+                        label={
+                          <FormattedMessage
+                            id="loginEmail.lostPassword"
+                            defaultMessage="Forgot password"
+                          />
+                          }
+                      />
+                    </Link>
                   </span>
                   : null}
               </div>
