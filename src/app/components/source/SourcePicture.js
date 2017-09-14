@@ -96,7 +96,7 @@ class SourcePicture extends Component {
 
   render() {
     return (
-      <img alt="avatar" style={this.props.style} src={this.state.avatarUrl} onError={this.handleAvatarError.bind(this)} />
+      <img alt="avatar" style={this.props.style} src={this.state.avatarUrl} className={`${this.props.className}`} onError={this.handleAvatarError.bind(this)} />
     );
   }
 }

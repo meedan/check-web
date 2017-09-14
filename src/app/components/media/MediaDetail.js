@@ -14,7 +14,6 @@ import QuoteMediaCard from './QuoteMediaCard';
 import MediaMetadata from './MediaMetadata';
 import MediaUtil from './MediaUtil';
 import PenderCard from '../PenderCard';
-import SourcePicture from '../source/SourcePicture';
 import ImageMediaCard from './ImageMediaCard';
 import CheckContext from '../../CheckContext';
 

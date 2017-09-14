@@ -7,7 +7,6 @@ import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 import TextField from 'material-ui/TextField';
 import styled from 'styled-components';
 import rtlDetect from 'rtl-detect';
-import { Link } from 'react-router';
 import MediaTags from './MediaTags';
 import MediaActions from './MediaActions';
 import MediaUtil from './MediaUtil';
