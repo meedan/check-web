@@ -5,6 +5,7 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 import TextField from 'material-ui/TextField';
+import { Link } from 'react-router';
 import styled from 'styled-components';
 import rtlDetect from 'rtl-detect';
 import MediaTags from './MediaTags';
@@ -68,6 +69,10 @@ const messages = defineMessages({
     id: 'mediaDetail.moveFailed',
     defaultMessage: 'Sorry, we could not move this report',
   },
+  trash: {
+    id: 'mediaDetail.trash',
+    defaultMessage: 'Trash',
+  },
 });
 
 class MediaMetadata extends Component {
@@ -112,6 +117,64 @@ class MediaMetadata extends Component {
     Relay.Store.commitUpdate(
       new UpdateProjectMediaMutation({
         refresh_media: 1,
+        id: this.props.media.id,
+      }),
+      { onSuccess, onFailure },
+    );
+  }
+
+  handleSendToTrash() {
+    const onFailure = (transaction) => {
+      const transactionError = transaction.getError();
+      transactionError.json
+        ? transactionError.json().then(this.handleError)
+        : this.handleError(JSON.stringify(transactionError));
+    };
+
+    const onSuccess = (response) => {
+      const pm = response.updateProjectMedia.project_media;
+      const message = <FormattedMessage 
+                        id="mediaMetadata.movedToTrash" 
+                        defaultMessage={'Sent to {trash}'} 
+                        values={{
+                          trash: <Link to={`/${pm.team.slug}/trash`}>{this.props.intl.formatMessage(messages.trash)}</Link>
+                        }}
+                      />;
+      this.context.setMessage(message);
+    };
+
+    Relay.Store.commitUpdate(
+      new UpdateProjectMediaMutation({
+        archived: 1,
+        id: this.props.media.id,
+      }),
+      { onSuccess, onFailure },
+    );
+  }
+
+  handleRestore() {
+    const onFailure = (transaction) => {
+      const transactionError = transaction.getError();
+      transactionError.json
+        ? transactionError.json().then(this.handleError)
+        : this.handleError(JSON.stringify(transactionError));
+    };
+
+    const onSuccess = (response) => {
+      const pm = response.updateProjectMedia.project_media;
+      const message = <FormattedMessage 
+                        id="mediaMetadata.movedBack" 
+                        defaultMessage={'Moved back to project: {project}'} 
+                        values={{
+                          project: <Link to={`/${pm.team.slug}/project/${pm.project_id}`}>{pm.project.title}</Link>
+                        }}
+                      />;
+      this.context.setMessage(message);
+    };
+
+    Relay.Store.commitUpdate(
+      new UpdateProjectMediaMutation({
+        archived: 0,
         id: this.props.media.id,
       }),
       { onSuccess, onFailure },
@@ -324,6 +387,8 @@ class MediaMetadata extends Component {
             handleEdit={this.handleEdit.bind(this)}
             handleMove={this.handleMove.bind(this)}
             handleRefresh={this.handleRefresh.bind(this)}
+            handleSendToTrash={this.handleSendToTrash.bind(this)}
+            handleRestore={this.handleRestore.bind(this)}
             style={{ display: 'flex' }}
           />}
 
@@ -370,6 +435,7 @@ class MediaMetadata extends Component {
 
 MediaMetadata.contextTypes = {
   store: React.PropTypes.object,
+  setMessage: React.PropTypes.func
 };
 
 export default injectIntl(MediaMetadata);

@@ -16,6 +16,7 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
         dbid,
         quote,
         published,
+        archived,
         url,
         embed,
         last_status,

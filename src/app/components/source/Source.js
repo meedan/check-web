@@ -243,7 +243,7 @@ const SourceContainer = Relay.createContainer(SourceComponent, {
                 permissions,
                 project_id,
                 verification_statuses,
-
+                archived,
                 id,
                 dbid,
                 quote,

@@ -24,10 +24,10 @@ class MediaActions extends Component {
   }
 
   render() {
-    const { media, handleEdit, handleMove, handleRefresh } = this.props;
+    const { media, handleEdit, handleMove, handleRefresh, handleSendToTrash, handleRestore } = this.props;
     const menuItems = [];
 
-    if (can(media.permissions, 'create Tag')) {
+    if (can(media.permissions, 'update ProjectMedia')) {
       menuItems.push(
         <MenuItem
           key="mediaActions.edit"
@@ -35,6 +35,19 @@ class MediaActions extends Component {
           onClick={handleEdit}
         >
           <FormattedMessage id="mediaActions.edit" defaultMessage="Edit" />
+        </MenuItem>,
+      );
+    }
+
+    if (can(media.permissions, 'restore ProjectMedia')) {
+      menuItems.push(
+        <MenuItem
+          key="mediaActions.restore"
+          className="media-actions__restore"
+          id="media-actions__restore"
+          onClick={handleRestore}
+        >
+          <FormattedMessage id="mediaActions.restore" defaultMessage="Restore to project" />
         </MenuItem>,
       );
     }
@@ -47,6 +60,14 @@ class MediaActions extends Component {
           onClick={handleMove}
         >
           <FormattedMessage id="mediaActions.move" defaultMessage="Move" />
+        </MenuItem>,
+
+        <MenuItem
+          key="mediaActions.sendToTrash"
+          className="media-actions__send-to-trash"
+          onClick={handleSendToTrash}
+        >
+          <FormattedMessage id="mediaActions.sendToTrash" defaultMessage="Send to trash" />
         </MenuItem>,
       );
       if (media.url) {
@@ -63,7 +84,7 @@ class MediaActions extends Component {
       }
     }
 
-    if (config.appName === 'check') {
+    if (config.appName === 'check' && can(media.permissions, 'embed ProjectMedia')) {
       menuItems.push(
         <MenuItem
           key="mediaActions.embed"

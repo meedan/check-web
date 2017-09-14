@@ -104,6 +104,14 @@
     "defaultMessage": "Moved from project {previousProject} to {currentProject} by {author}"
   },
   {
+    "id": "annotation.movedToTrash",
+    "defaultMessage": "Moved to trash"
+  },
+  {
+    "id": "annotation.movedFromTrash",
+    "defaultMessage": "{author} moved this out of the trash"
+  },
+  {
     "id": "annotation.taskLabelUpdated",
     "defaultMessage": "Task \"{from}\" edited to \"{to}\" by {author}"
   },

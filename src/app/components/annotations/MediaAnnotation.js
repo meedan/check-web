@@ -169,7 +169,7 @@ class Annotation extends Component {
     const authorName = <ProfileLink user={activity.user} className={'annotation__author-name'} />;
     const object = JSON.parse(activity.object_after);
     const content = object.data;
-    const activityType = activity.event_type;
+    let activityType = activity.event_type;
     let contentTemplate = null;
 
     switch (activityType) {
@@ -446,6 +446,25 @@ class Annotation extends Component {
           />
         </span>);
       }
+      else if (activity.object_changes_json == '{"archived":[false,true]}') {
+        activityType = 'move_to_trash';
+        contentTemplate = (<div>
+          <div className="annotation__card-content annotation__card-trash">
+            <FormattedMessage id="annotation.movedToTrash" defaultMessage="Moved to trash" />
+          </div>
+        </div>);
+      }
+      else if (activity.object_changes_json == '{"archived":[true,false]}') {
+        contentTemplate = (<span>
+          <FormattedMessage
+            id="annotation.movedFromTrash"
+            defaultMessage={'{author} moved this out of the trash'}
+            values={{
+              author: authorName
+            }}
+          />
+        </span>);
+      }
       break;
     case 'update_task':
       const changes = JSON.parse(activity.object_changes_json);
@@ -485,14 +504,14 @@ class Annotation extends Component {
       return null;
     }
 
-    const useCardTemplate = activityType === 'create_comment';
+    const useCardTemplate = (activityType === 'create_comment' || activityType === 'move_to_trash');
     const templateClass = `annotation--${useCardTemplate ? 'card' : 'default'}`;
     const typeClass = annotation ? `annotation--${annotation.annotation_type}` : '';
     return (
       <section className={`annotation ${templateClass} ${typeClass}`} id={`annotation-${activity.dbid}`}>
         {useCardTemplate ? (
           <Card className="annotation__card">
-            <CardText className="annotation__card-text">
+            <CardText className={`annotation__card-text annotation__card-activity-${activityType.replace(/_/g, '-')}`}>
               <div className="annotation__card-avatar-col">
                 <div className="annotation__card-avatar" style={{ backgroundImage: `url(${activity.user.profile_image})` }} />
               </div>

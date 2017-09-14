@@ -2,5 +2,9 @@
   {
     "id": "teamMenuRelay.manageTeam",
     "defaultMessage": "Manage team"
+  },
+  {
+    "id": "teamMenuRelay.trash",
+    "defaultMessage": "Trash"
   }
 ]

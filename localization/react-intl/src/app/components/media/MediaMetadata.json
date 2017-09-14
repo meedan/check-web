@@ -8,6 +8,18 @@
     "defaultMessage": "Sorry, we could not move this report"
   },
   {
+    "id": "mediaDetail.trash",
+    "defaultMessage": "Trash"
+  },
+  {
+    "id": "mediaMetadata.movedToTrash",
+    "defaultMessage": "Sent to {trash}"
+  },
+  {
+    "id": "mediaMetadata.movedBack",
+    "defaultMessage": "Moved back to project: {project}"
+  },
+  {
     "id": "mediaDetail.byUser",
     "defaultMessage": "by {username}"
   },

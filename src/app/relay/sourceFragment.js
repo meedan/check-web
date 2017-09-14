@@ -43,7 +43,7 @@ const sourceFragment = Relay.QL`
           permissions,
           project_id,
           verification_statuses,
-
+          archived,
           id,
           dbid,
           quote,

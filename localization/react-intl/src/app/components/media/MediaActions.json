@@ -4,8 +4,16 @@
     "defaultMessage": "Edit"
   },
   {
+    "id": "mediaActions.restore",
+    "defaultMessage": "Restore to project"
+  },
+  {
     "id": "mediaActions.move",
     "defaultMessage": "Move"
+  },
+  {
+    "id": "mediaActions.sendToTrash",
+    "defaultMessage": "Send to trash"
   },
   {
     "id": "mediaActions.refresh",
