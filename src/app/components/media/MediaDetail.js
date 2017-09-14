@@ -19,18 +19,26 @@ import CheckContext from '../../CheckContext';
 
 import { getStatus, getStatusStyle } from '../../helpers';
 import { mediaStatuses, mediaLastStatus } from '../../customHelpers';
-import { FlexRow, units, black87, FadeIn, defaultBorderRadius } from '../../styles/js/variables';
+import { FlexRow, FadeIn, units, black87, black54, defaultBorderRadius } from '../../styles/js/variables';
 
 const styles = {
   mediaIcon: {
     width: units(2),
     height: units(2),
-    color: black87,
+    color: black54,
   },
-  subtitleLink: {
+  cardHeaderTextPrimary: {
     paddingRight: units(1),
     display: 'inline-flex',
     alignItems: 'center',
+    fontSize: 16,
+  },
+  cardHeaderTextSecondary: {
+    justifyContent: 'flex-start',
+    flexWrap: 'wrap',
+    marginTop: units(1),
+    fontSize: 14,
+    fontWeight: 400,
   },
   subtitleIconContainer: {
     display: 'inline-flex',
@@ -137,7 +145,7 @@ class MediaDetail extends Component {
 
     const status = getStatus(mediaStatuses(media), mediaLastStatus(media));
 
-    const cardHeaderTitle = <MediaStatus media={media} readonly={this.props.readonly} />;
+    const cardHeaderStatus = <MediaStatus media={media} readonly={this.props.readonly} />;
 
     const sourceUrl = media.team && media.project && media.project_source
       ? `/${media.team.slug}/project/${media.project.dbid}/source/${media.project_source.dbid}`
@@ -145,24 +153,23 @@ class MediaDetail extends Component {
     const authorName = MediaUtil.authorName(media, data);
     const authorUsername = MediaUtil.authorUsername(media, data);
     const authorUrl = MediaUtil.authorUrl(media, data);
-
-    const cardHeaderSubtitle = (
-      <div>
-        <Link to={mediaUrl} className="media__heading" style={styles.subtitleLink}>
-          <div style={styles.subtitleIconContainer}>
-            {/* TODO refactor mediaIcon to handle quotes and images — 2017-8-30 CGB */}
-            {media.quote
+    const mediaIcon = (<div style={styles.subtitleIconContainer}>
+      {media.quote
               ? <MdFormatQuote style={styles.mediaIcon} />
               : media.media.embed_path
                 ? <IconInsertPhoto style={styles.mediaIcon} />
                 : MediaUtil.socialIcon(media.domain)}
-          </div>
+    </div>);
+
+    const cardHeaderText = (
+      <div>
+        <Link to={mediaUrl} className="media__heading" style={styles.cardHeaderTextPrimary}>
           {heading}
         </Link>
-        <FlexRow>
+        <FlexRow style={styles.cardHeaderTextSecondary}>
+          {mediaIcon}
           {createdAt
             ? <span className="media-detail__check-added-at">
-              <FormattedMessage id="mediaDetail.added" defaultMessage={'Added '} />
               <Link
                 className="media-detail__check-timestamp"
                 to={mediaUrl}
@@ -206,8 +213,8 @@ class MediaDetail extends Component {
       >
         <Card className="card-with-border" initiallyExpanded={this.props.initiallyExpanded}>
           <StyledCardHeader
-            title={cardHeaderTitle}
-            subtitle={cardHeaderSubtitle}
+            title={cardHeaderStatus}
+            subtitle={cardHeaderText}
             showExpandableButton
             style={{ paddingRight: units(5) }}
           />
