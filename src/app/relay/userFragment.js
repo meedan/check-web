@@ -4,6 +4,7 @@ const userFragment = Relay.QL`
   fragment on User {
     id,
     name,
+    email,
     provider,
     profile_image,
     current_team {

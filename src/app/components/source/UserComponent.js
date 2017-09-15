@@ -3,15 +3,28 @@ import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-i
 import rtlDetect from 'rtl-detect';
 import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
 import UserInfo from './UserInfo';
-import Can from '../Can';
+import UserInfoEdit from './UserInfoEdit';
+import { can } from '../Can';
 import HeaderCard from '../HeaderCard';
-import Message from '../Message';
 import PageTitle from '../PageTitle';
 import ContentColumn from '../layout/ContentColumn';
+import SwitchTeams from '../team/SwitchTeams';
 
 class UserComponent extends React.Component {
-  handleEnterEditMode = () => {
+  constructor(props) {
+    super(props);
 
+    this.state = {
+      isEditing: false,
+    };
+  }
+
+  handleEnterEditMode = () => {
+    this.setState({ isEditing: true });
+  };
+
+  handleLeaveEditMode = () => {
+    this.setState({ isEditing: false });
   };
 
   render() {
@@ -30,16 +43,18 @@ class UserComponent extends React.Component {
       <PageTitle prefix={user.source.name} skipTeam={true}>
         <div className="profile">
           <HeaderCard
-            canEdit={false}
+            canEdit={can(user.permissions, 'update User')}
             direction={direction}
             handleEnterEditMode={this.handleEnterEditMode.bind(this)}
-            isEditing={false}
+            isEditing={this.state.isEditing}
           >
             <ContentColumn>
-              <Message message={''} />
-              <UserInfo user={user} />
+              { this.state.isEditing ? <UserInfoEdit user={user} onCancelEdit={this.handleLeaveEditMode} /> : <UserInfo user={user} />}
             </ContentColumn>
           </HeaderCard>
+          <ContentColumn>
+            <SwitchTeams />
+          </ContentColumn>
         </div>
       </PageTitle>
     );

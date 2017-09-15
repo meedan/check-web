@@ -8,6 +8,10 @@ const UserContainer = Relay.createContainer(UserComponent, {
   fragments: {
     user: () => Relay.QL`
       fragment on User {
+        id,
+        name,
+        email,
+        permissions,
         teams (first: 10000){
           edges {
             node {

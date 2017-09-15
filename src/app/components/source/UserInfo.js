@@ -21,7 +21,7 @@ class UserInfo extends React.Component {
           <div className="column-primary">
             <div className="source__primary-info">
               <h1 className="source__name">
-                {source.name}
+                {user.name}
               </h1>
               <div className="source__description">
                 <p className="source__description-text">
