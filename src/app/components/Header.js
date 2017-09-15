@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router';
+import IconButton from 'material-ui/IconButton';
 import IconSearch from 'material-ui/svg-icons/action/search';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
 import Divider from 'material-ui/Divider';
-import IconArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
-import IconButton from 'material-ui/IconButton';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import rtlDetect from 'rtl-detect';
 import { mapGlobalMessage } from './MappedMessage';
@@ -20,48 +19,44 @@ import TeamPublicHeader from './team/TeamPublicHeader';
 import ProjectHeader from './project/ProjectHeader';
 import { stringHelper } from '../customHelpers';
 import {
-  black02,
   defaultAnchorOrigin,
   units,
-  headerOffset,
-  headerHeight,
-  Row,
   mediaQuery,
+  headerHeight,
+  headerOffset,
+  Row,
+  black02,
 } from '../styles/js/variables';
+
+const HeaderBar = styled.div`
+  background-color: ${black02};
+  display: flex;
+  align-items: center;
+  padding: 0 ${units(2)};
+  z-index: 2;
+  height: ${headerHeight};
+  overflow: hidden;
+  ${mediaQuery.handheld`
+    padding: 0 ${units(1)};
+  `}
+`;
 
 class Header extends Component {
   render() {
+    const locale = this.props.intl.locale;
+    const isRtl = rtlDetect.isRtlLang(locale);
+    const fromDirection = isRtl ? 'right' : 'left';
+    const hasTeam = this.props.params && this.props.params.team;
     const { loggedIn } = this.props;
     const path = this.props.location
       ? this.props.location.pathname
       : window.location.pathname;
     const showCheckLogo = /^\/(check(\/.*)?)?$/.test(path);
     const joinPage = /^\/([^/]+)\/join$/.test(path);
-    const locale = this.props.intl.locale;
-    const isRtl = rtlDetect.isRtlLang(locale);
-    const fromDirection = isRtl ? 'right' : 'left';
-    const hasTeam = this.props.params && this.props.params.team;
-    const regexProject = /(.*\/project\/[0-9]+)/;
-    const regexMedia = /\/media\/[0-9]/;
-    const backUrl = (regexMedia.test(path)) ? path.match(regexProject)[1] : null;
-    const isProjectSubpage = regexMedia.test(path);
-
-    const HeaderBar = styled.div`
-      background-color: ${black02};
-      display: flex;
-      align-items: center;
-      padding: 0 ${units(2)};
-      z-index: 2;
-      height: ${headerHeight};
-      overflow: hidden;
-      ${mediaQuery.handheld`
-        padding: 0 ${units(1)};
-      `}
-    `;
 
     const AlignOpposite = styled.div`
       margin-${fromDirection}: auto;
-    `;
+      `;
 
     const Offset = styled.div`
       padding: 0 ${headerOffset} !important;
@@ -69,7 +64,7 @@ class Header extends Component {
 
     const yourTeamsMenuItem = (
       <MenuItem
-        href="/check/teams"
+        containerElement={<Link to="/check/teams" />}
         key="headerActions.userTeams"
         primaryText={
           <FormattedMessage
@@ -92,13 +87,8 @@ class Header extends Component {
       <MenuItem
         key="headerActions.logIn"
         className="header-actions__menu-item--login"
-        href="/"
-        primaryText={
-          <FormattedMessage
-            id="headerActions.signIn"
-            defaultMessage="Sign In"
-          />
-        }
+        containerElement={<Link to="/" />}
+        primaryText={<FormattedMessage id="headerActions.signIn" defaultMessage="Sign In" />}
       />
     );
 
@@ -107,12 +97,7 @@ class Header extends Component {
         key="headerActions.logOut"
         className="header-actions__menu-item--logout"
         onClick={logout}
-        primaryText={
-          <FormattedMessage
-            id="headerActions.signOut"
-            defaultMessage="Sign Out"
-          />
-        }
+        primaryText={<FormattedMessage id="headerActions.signOut" defaultMessage="Sign Out" />}
       />
     );
 
@@ -121,7 +106,7 @@ class Header extends Component {
         key="headerActions.contactHuman"
         target="_blank"
         rel="noopener noreferrer"
-        href={stringHelper('CONTACT_HUMAN_URL')}
+        containerElement={<Link to={stringHelper('CONTACT_HUMAN_URL')} />}
         primaryText={
           <FormattedMessage
             id="headerActions.contactHuman"
@@ -134,7 +119,7 @@ class Header extends Component {
     const TosMenuItem = (
       <MenuItem
         key="headerActions.tos"
-        href={stringHelper('TOS_URL')}
+        containerElement={<Link to={stringHelper('TOS_URL')} />}
         target="_blank"
         rel="noopener noreferrer"
         primaryText={
@@ -151,7 +136,7 @@ class Header extends Component {
         key="headerActions.privacyPolicy"
         target="_blank"
         rel="noopener noreferrer"
-        href={stringHelper('PP_URL')}
+        containerElement={<Link to={stringHelper('PP_URL')} />}
         primaryText={
           <FormattedMessage
             id="headerActions.privacyPolicy"
@@ -166,7 +151,7 @@ class Header extends Component {
         key="headerActions.about"
         target="_blank"
         rel="noopener noreferrer"
-        href={stringHelper('ABOUT_URL')}
+        containerElement={<Link to={stringHelper('ABOUT_URL')} />}
         primaryText={
           <FormattedMessage
             id="headerActions.about"
@@ -226,7 +211,7 @@ class Header extends Component {
       <Offset key="header.searchButton">
         <IconButton
           className="header-actions__search-icon"
-          href={`/${this.props.params.team}/search`}
+          containerElement={<Link to={`/${this.props.params.team}/search`} />}
           name="search"
         >
           <IconSearch />
@@ -234,23 +219,11 @@ class Header extends Component {
       </Offset>
     );
 
-    const backButton = (
-      <IconButton
-        className="project-header__back-button"
-        href={backUrl}
-      >
-        <IconArrowBack />
-      </IconButton>
-    );
-
     const teamAndProjectHeader = (
       <Row containsEllipsis>
         <Offset>
           <TeamHeader {...this.props} />
         </Offset>
-        {isProjectSubpage
-          ? backButton
-          : null}
         <Offset>
           <ProjectHeader {...this.props} />
         </Offset>

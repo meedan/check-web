@@ -39,6 +39,7 @@
 
         //Todo: improve a11y compliance
         "jsx-a11y/no-static-element-interactions": "warn",
+        "jsx-a11y/anchor-has-content": "warn",
 
         no-irregular-whitespace: ["error", { "skipComments": true }],
 

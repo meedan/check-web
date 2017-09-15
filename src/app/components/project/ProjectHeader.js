@@ -3,10 +3,9 @@ import Relay from 'react-relay';
 import { Link } from 'react-router';
 import IconArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
 import IconButton from 'material-ui/IconButton';
-import DropDownMenu from 'material-ui/DropDownMenu';
-import MenuItem from 'material-ui/MenuItem';
+import styled from 'styled-components';
 import ProjectRoute from '../../relay/ProjectRoute';
-import { black54, subheading2, ellipsisStyles } from '../../styles/js/variables';
+import { black54, units, subheading2, ellipsisStyles } from '../../styles/js/variables';
 
 class ProjectHeaderComponent extends Component {
 
@@ -17,9 +16,16 @@ class ProjectHeaderComponent extends Component {
       font: ${subheading2};
       color: ${black54};
       ${ellipsisStyles}
+      margin: 0 ${units(2)};
     `;
+    const path = this.props.location
+      ? this.props.location.pathname
+      : window.location.pathname;
+    const regexProject = /(.*\/project\/[0-9]+)/;
+    const regexMedia = /\/media\/[0-9]/;
+    const backUrl = (regexMedia.test(path)) ? path.match(regexProject)[1] : null;
+    const isProjectSubpage = regexMedia.test(path);
 
-    const isProjectSubpage = path.length > backUrl.length;
     return (
       <div style={{ display: 'flex', alignItems: 'center', overflow: 'hidden' }}>
 
@@ -31,31 +37,7 @@ class ProjectHeaderComponent extends Component {
             <IconArrowBack color={black54} />
           </IconButton>
           : null}
-
-        <DropDownMenu
-          underlineStyle={{ borderWidth: 0 }}
-          iconStyle={{ fill: black54 }}
-          value={currentProject.title}
-          className="project-header__title"
-          style={{ marginTop: `${units(1)}`, minWidth: 130, maxWidth: '50%', overflow: 'hidden' }}
-          labelStyle={{ paddingLeft: '0' }}
-        >
-          {currentProject.team.projects.edges
-            .sortp((a, b) => a.node.title.localeCompare(b.node.title))
-            .map((p) => {
-              const projectPath = `/${currentProject.team.slug}/project/${p.node.dbid}`;
-              return (
-                <MenuItem
-                  href={projectPath}
-                  key={p.node.dbid}
-                  value={p.node.title}
-                  primaryText={p.node.title}
-                  className="project-list__project"
-                  style={{ maxWidth: '300px', overflow: 'hidden', textOverflow: 'ellipsis' }}
-                />
-              );
-            })}
-        </DropDownMenu>
+        <Title>{currentProject.title}</Title>
       </div>
     );
   }
