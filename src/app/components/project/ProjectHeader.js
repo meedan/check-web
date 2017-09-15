@@ -46,7 +46,7 @@ class ProjectHeaderComponent extends Component {
               const projectPath = `/${currentProject.team.slug}/project/${p.node.dbid}`;
               return (
                 <MenuItem
-                  href={projectPath}
+                  containerElement={<Link to={projectPath} />}
                   key={p.node.dbid}
                   value={p.node.title}
                   primaryText={p.node.title}
