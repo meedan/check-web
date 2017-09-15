@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages, intlShape, injectIntl } from 'react-intl';
 import KeyboardArrowRight from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 import config from 'config';
+import { Link } from 'react-router';
 import { Card, CardActions, CardHeader } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import { List, ListItem } from 'material-ui/List';
@@ -160,7 +161,7 @@ class SwitchTeamsComponent extends Component {
               hoverColor={highlightBlue}
               focusRippleColor={checkBlue}
               touchRippleColor={checkBlue}
-              href={buildUrl(team)}
+              containerElement={<Link to={buildUrl(team)} />}
               leftAvatar={<Avatar style={teamAvatarStyle} src={team.avatar} />}
               onClick={that.setCurrentTeam.bind(that, team, currentUser)}
               primaryText={team.name}

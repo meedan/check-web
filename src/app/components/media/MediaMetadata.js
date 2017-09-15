@@ -30,13 +30,6 @@ const StyledMetadata = styled(FlexRow)`
     padding: 0 ${units(1)};
   }
 
-  .media-detail__check-added-at,
-  .media-detail__check-added-by {
-    align-items: center;
-    display: flex;
-    flex-shrink: 0;
-  }
-
   // Move dialog
   //
   .media-detail__dialog-header {
@@ -380,6 +373,7 @@ class MediaMetadata extends Component {
           </span>
           : null}
         {media.tags ? <MediaTags media={media} tags={media.tags.edges} isEditing={false} /> : null}
+
         {this.props.readonly || this.state.isEditing
           ? null
           : <MediaActions

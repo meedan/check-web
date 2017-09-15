@@ -1,5 +1,9 @@
 [
   {
+    "id": "teamMenuRelay.viewTeam",
+    "defaultMessage": "View team"
+  },
+  {
     "id": "teamMenuRelay.manageTeam",
     "defaultMessage": "Manage team"
   },

@@ -11,6 +11,7 @@ const TeamContainer = Relay.createContainer(TeamMembersComponent, {
         dbid,
         name,
         slug,
+        permissions,
         team_users(first: 10000) {
           edges {
             node {

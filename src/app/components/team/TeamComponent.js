@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay';
+import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import TextField from 'material-ui/TextField';
@@ -447,17 +448,17 @@ class TeamComponent extends Component {
                       {team.projects.edges
                         .sortp((a, b) => a.node.title.localeCompare(b.node.title))
                         .map(p =>
-                          <ListItem
-                            innerDivStyle={listItemStyle}
-                            key={p.node.dbid}
-                            className="team__project"
-                            hoverColor={highlightBlue}
-                            focusRippleColor={checkBlue}
-                            touchRippleColor={checkBlue}
-                            href={`/${team.slug}/project/${p.node.dbid}`}
-                            primaryText={p.node.title}
-                            rightIcon={<KeyboardArrowRight />}
-                          />,
+                          <Link key={p.node.dbid} to={`/${team.slug}/project/${p.node.dbid}`}>
+                            <ListItem
+                              innerDivStyle={listItemStyle}
+                              className="team__project"
+                              hoverColor={highlightBlue}
+                              focusRippleColor={checkBlue}
+                              touchRippleColor={checkBlue}
+                              primaryText={p.node.title}
+                              rightIcon={<KeyboardArrowRight />}
+                            />
+                          </Link>,
                         )}
                     </List>
                     <Can permissions={team.permissions} permission="create Project">

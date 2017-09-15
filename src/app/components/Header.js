@@ -67,7 +67,7 @@ class Header extends Component {
 
     const yourTeamsMenuItem = (
       <MenuItem
-        href="/check/teams"
+        containerElement={<Link to="/check/teams" />}
         key="headerActions.userTeams"
         primaryText={<FormattedMessage id="headerActions.userTeams" defaultMessage="Your Teams" />}
       />
@@ -83,7 +83,7 @@ class Header extends Component {
       <MenuItem
         key="headerActions.logIn"
         className="header-actions__menu-item--login"
-        href="/"
+        containerElement={<Link to="/" />}
         primaryText={<FormattedMessage id="headerActions.signIn" defaultMessage="Sign In" />}
       />
     );
@@ -102,7 +102,7 @@ class Header extends Component {
         key="headerActions.contactHuman"
         target="_blank"
         rel="noopener noreferrer"
-        href={stringHelper('CONTACT_HUMAN_URL')}
+        containerElement={<Link to={stringHelper('CONTACT_HUMAN_URL')} />}
         primaryText={
           <FormattedMessage id="headerActions.contactHuman" defaultMessage="Contact a Human" />
         }
@@ -112,7 +112,7 @@ class Header extends Component {
     const TosMenuItem = (
       <MenuItem
         key="headerActions.tos"
-        href={stringHelper('TOS_URL')}
+        containerElement={<Link to={stringHelper('TOS_URL')} />}
         target="_blank"
         rel="noopener noreferrer"
         primaryText={<FormattedMessage id="headerActions.tos" defaultMessage="Terms of Service" />}
@@ -124,7 +124,7 @@ class Header extends Component {
         key="headerActions.privacyPolicy"
         target="_blank"
         rel="noopener noreferrer"
-        href={stringHelper('PP_URL')}
+        containerElement={<Link to={stringHelper('PP_URL')} />}
         primaryText={
           <FormattedMessage id="headerActions.privacyPolicy" defaultMessage="Privacy Policy" />
         }
@@ -136,7 +136,7 @@ class Header extends Component {
         key="headerActions.about"
         target="_blank"
         rel="noopener noreferrer"
-        href={stringHelper('ABOUT_URL')}
+        containerElement={<Link to={stringHelper('ABOUT_URL')} />}
         primaryText={
           <FormattedMessage
             id="headerActions.about"
@@ -169,7 +169,7 @@ class Header extends Component {
 
     const searchButton = (
       <IconButton
-        href={`/${this.props.params.team}/search`}
+        containerElement={<Link to={`/${this.props.params.team}/search`} />}
         name="search"
         key="header.searchButton"
         className="header-actions__search-icon"
@@ -187,7 +187,7 @@ class Header extends Component {
           key="header.userMenu.signIn"
           primary
           label={<FormattedMessage id="headerActions.signIn" defaultMessage="Sign In" />}
-          href="/"
+          containerElement={<Link to="/" />}
         />
       );
     })();

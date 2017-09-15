@@ -104,6 +104,7 @@ class UserPasswordReset extends Component {
                   onChange={this.handleChange.bind(this)}
                   errorText={this.state.errorMsg}
                   fullWidth
+                  autoFocus
                 />
               </div>
             </CardText>,
