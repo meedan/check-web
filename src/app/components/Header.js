@@ -174,16 +174,17 @@ class Header extends Component {
       }
       return (
         <Offset key="header.userMenu.signIn">
-          <RaisedButton
-            primary
-            href="/"
-            label={
-              <FormattedMessage
-                defaultMessage="Sign In"
-                id="headerActions.signIn"
-              />
-            }
-          />
+          <Link to="/">
+            <RaisedButton
+              primary
+              label={
+                <FormattedMessage
+                  defaultMessage="Sign In"
+                  id="headerActions.signIn"
+                />
+              }
+            />
+          </Link>
         </Offset>
       );
     })();
