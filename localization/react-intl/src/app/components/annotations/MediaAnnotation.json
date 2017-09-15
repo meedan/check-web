@@ -32,6 +32,10 @@
     "defaultMessage": "Tagged #{tag} by {author}"
   },
   {
+    "id": "annotation.deletedComment",
+    "defaultMessage": "Comment deleted"
+  },
+  {
     "id": "annotation.taskCreated",
     "defaultMessage": "Task \"{task}\" created by {author}"
   },

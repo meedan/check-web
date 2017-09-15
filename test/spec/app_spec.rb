@@ -839,9 +839,11 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 1
       notes_count = get_element('.media-detail__check-notes-count')
       expect(notes_count.text == '2 notes').to be(true)
+      expect(@driver.page_source.include?('Comment deleted')).to be(false)
       media_pg.delete_annotation
       sleep 1
-      expect(notes_count.text == '1 note').to be(true)
+      expect(notes_count.text == '2 notes').to be(true)
+      expect(@driver.page_source.include?('Comment deleted')).to be(true)
     end
 
     it "should auto refresh project when media is created", bin1: true do
@@ -983,8 +985,10 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       # Edit task
       expect(@driver.page_source.include?('Task "Foo or bar?" edited to "Foo or bar???" by')).to be(false)
       @driver.find_element(:css, '.task-actions__icon').click
-      sleep 2
-      @driver.find_element(:css, '.task-actions__edit').click
+      sleep 3
+      editbutton = @driver.find_element(:css, '.task-actions__edit')
+      editbutton.location_once_scrolled_into_view
+      editbutton.click
       fill_field('textarea[name="label"]', '??')
       @driver.find_element(:css, '.task__save').click
       sleep 2
