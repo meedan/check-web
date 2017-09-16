@@ -117,7 +117,7 @@ class Header extends Component {
     const userMenuButton = (() => {
       if (loggedIn) {
         return (
-          <IconButton key="header.userMenu" style={{ width: 56, height: 56 }}>
+          <IconButton key="header.userMenu" style={{ width: units(7), height: units(7) }}>
             <UserMenuRelay {...this.props} />
           </IconButton>
         );

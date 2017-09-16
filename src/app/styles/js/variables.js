@@ -331,7 +331,7 @@ export const FlexRow = styled.div`
 // 1.
 const slideInKeyframes = keyframes`
   from {
-    transform: translate3d(-100%, 0, 0);
+    transform: translate3d(-20%, 0, 0);
     visibility: visible;
   }
 
@@ -342,8 +342,8 @@ const slideInKeyframes = keyframes`
 
 // 2.
 export const SlideIn = styled.div`
-  animation: ${slideInKeyframes} ease-in .3s;
-  animation-duration: .3s;
+  animation: ${slideInKeyframes} ease-in .2s;
+  animation-duration: .2s;
   animation-fill-mode: forwards;
 `;
 

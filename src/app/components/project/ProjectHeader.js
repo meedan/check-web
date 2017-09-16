@@ -26,10 +26,11 @@ class ProjectHeaderComponent extends Component {
             containerElement={<Link to={backUrl} />}
             className="project-header__back-button"
           >
+
             <FadeIn>
-
-              <IconArrowBack color={black54} />
-
+              <SlideIn>
+                <IconArrowBack color={black54} />
+              </SlideIn>
             </FadeIn>
           </IconButton>
           : null}
