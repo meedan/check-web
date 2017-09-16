@@ -3,7 +3,7 @@ import Relay from 'react-relay';
 import TeamRoute from '../../relay/TeamRoute';
 import teamFragment from '../../relay/teamFragment';
 import TeamHeaderComponent from './TeamHeaderComponent';
-import { avatarSize, headerHeight, defaultBorderRadius, Pulse } from '../../styles/js/variables';
+import { avatarSize, headerHeight, defaultBorderRadius, Pulse } from '../../styles/js/shared';
 
 const TeamHeaderContainer = Relay.createContainer(TeamHeaderComponent, {
   fragments: {

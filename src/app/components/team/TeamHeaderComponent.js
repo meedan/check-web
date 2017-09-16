@@ -19,7 +19,7 @@ import {
   white,
   units,
   caption,
-} from '../../styles/js/variables';
+} from '../../styles/js/shared';
 import { stringHelper } from '../../customHelpers';
 
 const drawerTopOffset = units(6.5);

@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 import IconArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
 import IconButton from 'material-ui/IconButton';
 import ProjectRoute from '../../relay/ProjectRoute';
-import { HeaderTitle, FadeIn, SlideIn, black54 } from '../../styles/js/variables';
+import { HeaderTitle, FadeIn, SlideIn, black54 } from '../../styles/js/shared';
 
 class ProjectHeaderComponent extends Component {
 

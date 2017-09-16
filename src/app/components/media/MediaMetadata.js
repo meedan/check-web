@@ -19,7 +19,7 @@ import {
   black87,
   title,
   units,
-} from '../../styles/js/variables';
+} from '../../styles/js/shared';
 
 const StyledMetadata = styled(FlexRow)`
   margin-top: ${units(3)};

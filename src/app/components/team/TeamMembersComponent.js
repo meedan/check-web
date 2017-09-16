@@ -7,14 +7,14 @@ import { List } from 'material-ui/List';
 import TeamInviteCard from './TeamInviteCard';
 import PageTitle from '../PageTitle';
 import TeamMembersListItem from './TeamMembersListItem';
-import ContentColumn from '../layout/ContentColumn';
 import Can from '../Can';
 import {
-  cardInCardGroupStyle,
-  StyledMdCardTitle,
+  ContentColumn,
   FlexRow,
+  StyledMdCardTitle,
+  cardInCardGroupStyle,
   units,
-} from '../../styles/js/variables';
+} from '../../styles/js/shared';
 
 const messages = defineMessages({
   title: {

@@ -6,10 +6,9 @@ import FlatButton from 'material-ui/FlatButton';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import config from 'config';
 import styled from 'styled-components';
-import ContentColumn from '../layout/ContentColumn';
 import PageTitle from '../PageTitle';
 import PenderCard from '../PenderCard';
-import { FlexRow, units, black87, black54, alertRed } from '../../styles/js/variables';
+import { FlexRow, ContentColumn, units, black87, black54, alertRed } from '../../styles/js/shared';
 
 const StyledPopover = styled(Popover)`
   .media-embed__customization-label {

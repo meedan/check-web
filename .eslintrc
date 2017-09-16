@@ -5,7 +5,7 @@
         "node": true
     },
     "extends": "airbnb",
-    globals: {
+    "globals": {
         "describe": true,
         "it": true,
     },
@@ -24,9 +24,9 @@
 
         // Todo: reconfigure eslint to be aware of our configuration
         // files we import without extensions (or set this rule to "off".)
-        "import/no-extraneous-dependencies": "warn",
-        "import/no-unresolved": "warn",
-        "import/extensions": "warn",
+        "import/no-extraneous-dependencies": "off",
+        "import/no-unresolved": "off",
+        "import/extensions": "off",
 
         //Todo: ensure class methods use `this`
         "class-methods-use-this": "warn",
@@ -41,9 +41,9 @@
         "jsx-a11y/no-static-element-interactions": "warn",
         "jsx-a11y/anchor-has-content": "warn",
 
-        no-irregular-whitespace: ["error", { "skipComments": true }],
+        "no-irregular-whitespace": ["error", { "skipComments": true }],
 
         // Todo: consider standardizing on camelcase
-        "camelcase": "warn",
+        "camelcase": "off",
     }
 }

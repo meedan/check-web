@@ -7,7 +7,7 @@ import ParsedText from '../ParsedText';
 import TimeBefore from '../TimeBefore';
 import { truncateLength } from '../../helpers';
 import SourcePicture from './SourcePicture';
-import { units, black54 } from '../../styles/js/variables';
+import { units, black54 } from '../../styles/js/shared';
 
 class AccountCard extends React.Component {
   accountStats(account) {

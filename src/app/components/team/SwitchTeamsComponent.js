@@ -20,7 +20,7 @@ import {
   listItemButtonStyle,
   white,
   black05,
-} from '../../styles/js/variables';
+} from '../../styles/js/shared';
 import UpdateUserMutation from '../../relay/UpdateUserMutation';
 import DeleteTeamUserMutation from '../../relay/DeleteTeamUserMutation';
 import CheckContext from '../../CheckContext';

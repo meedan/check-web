@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Dialog from 'material-ui/Dialog';
 import { Map, Marker, TileLayer } from 'react-leaflet';
 import config from 'config';
-import { units, black05, black38, FlexRow } from '../../styles/js/variables';
+import { units, black05, black38, FlexRow } from '../../styles/js/shared';
 
 class GeolocationTaskResponse extends Component {
   constructor(props) {

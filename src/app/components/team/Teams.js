@@ -1,9 +1,8 @@
-import React, { Component, PropTypes } from 'react';
-import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
+import React, { Component } from 'react';
+import { defineMessages, injectIntl, intlShape } from 'react-intl';
 import SwitchTeams from './SwitchTeams';
 import PageTitle from '../PageTitle';
-import ContentColumn from '../layout/ContentColumn';
-import Heading from '../layout/Heading';
+import { ContentColumn } from '../../styles/js/shared';
 
 const messages = defineMessages({
   title: {

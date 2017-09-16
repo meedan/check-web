@@ -42,7 +42,7 @@ import {
   boxShadow,
   transitionSpeedFast,
   defaultBorderRadius,
-} from '../styles/js/variables';
+} from '../styles/js/shared';
 
 
 const StyledEnhancedButton = styled(EnhancedButton)`

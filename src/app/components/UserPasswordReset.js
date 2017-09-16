@@ -1,15 +1,13 @@
-import React, { Component, PropTypes } from 'react';
-import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
+import React, { Component } from 'react';
+import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import Relay from 'react-relay';
-import { Link } from 'react-router';
 import { Card, CardText, CardActions, CardTitle } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
-import config from 'config';
 import ResetPasswordMutation from '../relay/ResetPasswordMutation';
 import CheckContext from '../CheckContext';
 import { stringHelper } from '../customHelpers';
-import ContentColumn from './layout/ContentColumn';
+import { ContentColumn } from '../styles/js/shared';
 
 const messages = defineMessages({
   emailNotFoundContactSupport: {

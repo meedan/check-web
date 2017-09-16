@@ -19,8 +19,7 @@ import CreateProjectMediaMutation from '../../relay/CreateProjectMediaMutation';
 import CreateProjectSourceMutation from '../../relay/CreateProjectSourceMutation';
 import Message from '../Message';
 import CheckContext from '../../CheckContext';
-import ContentColumn from '../layout/ContentColumn';
-import { FadeIn, units, title, borderRadiusDefault, columnWidthMedium, white, black54, black87 } from '../../styles/js/variables';
+import { FadeIn, ContentColumn, units, title, borderRadiusDefault, columnWidthMedium, white, black54, black87 } from '../../styles/js/shared';
 import HttpStatus from '../../HttpStatus';
 
 const StyledCreateMediaCard = styled(Card)`

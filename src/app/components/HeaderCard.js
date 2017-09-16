@@ -5,7 +5,7 @@ import { Card } from 'material-ui/Card';
 import styled from 'styled-components';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import Can from './Can';
-import { units, unitless, black54, boxShadow, black87 } from '../styles/js/variables';
+import { units, unitless, black54, boxShadow, black87 } from '../styles/js/shared';
 
 class HeaderCard extends Component {
   render() {

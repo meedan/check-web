@@ -24,7 +24,7 @@ import {
   headerOffset,
   Row,
   black02,
-} from '../styles/js/variables';
+} from '../styles/js/shared';
 
 const HeaderBar = styled.div`
   background-color: ${black02};

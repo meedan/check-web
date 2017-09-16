@@ -1,6 +1,6 @@
-import React, {Component, PropTypes} from 'react';
-import {FormattedMessage} from 'react-intl';
-import ContentColumn from './layout/ContentColumn';
+import React, { Component } from 'react';
+import { FormattedMessage } from 'react-intl';
+import { ContentColumn } from '../styles/js/shared';
 
 class NotFound extends Component {
   render() {

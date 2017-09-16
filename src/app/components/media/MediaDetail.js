@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
+import { injectIntl, intlShape } from 'react-intl';
 import { Link } from 'react-router';
 import config from 'config';
 import { Card, CardHeader, CardText, CardActions } from 'material-ui/Card';
@@ -19,7 +19,7 @@ import CheckContext from '../../CheckContext';
 
 import { getStatus, getStatusStyle } from '../../helpers';
 import { mediaStatuses, mediaLastStatus } from '../../customHelpers';
-import { FlexRow, FadeIn, units, black87, black54, defaultBorderRadius } from '../../styles/js/variables';
+import { FlexRow, FadeIn, units, black87, black54, defaultBorderRadius } from '../../styles/js/shared';
 
 const styles = {
   mediaIcon: {

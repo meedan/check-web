@@ -17,7 +17,7 @@ import {
   Text,
   buttonInButtonGroupStyle,
   units,
-} from '../../styles/js/variables';
+} from '../../styles/js/shared';
 
 const messages = defineMessages({
   contributor: {
