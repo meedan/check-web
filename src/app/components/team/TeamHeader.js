@@ -11,10 +11,6 @@ const TeamHeaderContainer = Relay.createContainer(TeamHeaderComponent, {
   },
 });
 
-// Hmm... This padding has to be manually balanced to match the
-// loaded state of the team icon in the AppBar.
-// 2017-7-24 CGB
-//
 const styles = {
   loadingHeaderOuterStyle: {
     height: headerHeight,

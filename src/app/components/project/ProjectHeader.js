@@ -16,7 +16,7 @@ class ProjectHeaderComponent extends Component {
       font: ${subheading2};
       color: ${black54};
       ${ellipsisStyles}
-      margin: 0 ${units(2)};
+      margin: 0 ${props => props.offset ? units(2) : '0'};
     `;
     const path = this.props.location
       ? this.props.location.pathname
@@ -37,7 +37,7 @@ class ProjectHeaderComponent extends Component {
             <IconArrowBack color={black54} />
           </IconButton>
           : null}
-        <Title>{currentProject.title}</Title>
+        <Title offset={!isProjectSubpage}>{currentProject.title}</Title>
       </div>
     );
   }

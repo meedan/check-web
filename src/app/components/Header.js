@@ -6,10 +6,8 @@ import IconSearch from 'material-ui/svg-icons/action/search';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
-import Divider from 'material-ui/Divider';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import rtlDetect from 'rtl-detect';
-import { mapGlobalMessage } from './MappedMessage';
 import UserMenuRelay from '../relay/UserMenuRelay';
 import { logout } from '../redux/actions';
 import TeamMenuRelay from '../relay/TeamMenuRelay';
@@ -116,54 +114,6 @@ class Header extends Component {
       />
     );
 
-    const TosMenuItem = (
-      <MenuItem
-        key="headerActions.tos"
-        containerElement={<Link to={stringHelper('TOS_URL')} />}
-        target="_blank"
-        rel="noopener noreferrer"
-        primaryText={
-          <FormattedMessage
-            id="headerActions.tos"
-            defaultMessage="Terms of Service"
-          />
-        }
-      />
-    );
-
-    const privacyMenuItem = (
-      <MenuItem
-        key="headerActions.privacyPolicy"
-        target="_blank"
-        rel="noopener noreferrer"
-        containerElement={<Link to={stringHelper('PP_URL')} />}
-        primaryText={
-          <FormattedMessage
-            id="headerActions.privacyPolicy"
-            defaultMessage="Privacy Policy"
-          />
-        }
-      />
-    );
-
-    const aboutMenuItem = (
-      <MenuItem
-        key="headerActions.about"
-        target="_blank"
-        rel="noopener noreferrer"
-        containerElement={<Link to={stringHelper('ABOUT_URL')} />}
-        primaryText={
-          <FormattedMessage
-            id="headerActions.about"
-            defaultMessage="About {appName}"
-            values={{
-              appName: mapGlobalMessage(this.props.intl, 'appNameHuman'),
-            }}
-          />
-        }
-      />
-    );
-
     const userMenuButton = (() => {
       if (loggedIn) {
         return (
@@ -200,11 +150,7 @@ class Header extends Component {
         {!joinPage && editProjectMenuItem}
         {!joinPage && manageTeamMenuItem}
         {loggedIn ? logOutMenuItem : logInMenuItem}
-        <Divider />
         {contactMenuItem}
-        {TosMenuItem}
-        {privacyMenuItem}
-        {aboutMenuItem}
       </IconMenu>
     );
 

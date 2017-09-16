@@ -4,8 +4,8 @@ import { Link } from 'react-router';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import Divider from 'material-ui/Divider';
+import { injectIntl, FormattedMessage } from 'react-intl';
 import CheckContext from '../../CheckContext';
-
 import {
   Text,
   Row,
@@ -13,14 +13,40 @@ import {
   subheading2,
   ellipsisStyles,
   avatarStyle,
-  black54,
   headerHeight,
   avatarSize,
-  headerOffset,
   mediaQuery,
   black87,
+  black54,
+  white,
   units,
+  caption,
 } from '../../styles/js/variables';
+import { stringHelper } from '../../customHelpers';
+
+const drawerTopOffset = '90px';
+
+const styles = {
+  drawerFooter: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    backgroundColor: white,
+    padding: `${units(2)} ${units(4)}`,
+  },
+  drawerFooterLink: {
+    font: caption,
+  },
+  drawerProjects: {
+    overflow: 'auto',
+    marginBottom: 'auto',
+  },
+  drawerProjectsAndFooter: {
+    display: 'flex',
+    flexDirection: 'column',
+    height: `calc(100vh - ${drawerTopOffset})`,
+  },
+};
 
 class TeamHeaderComponent extends Component {
   constructor(props) {
@@ -45,6 +71,46 @@ class TeamHeaderComponent extends Component {
   render() {
     const team = this.props.team;
     const isProjectUrl = /(.*\/project\/[0-9]+)/.test(window.location.pathname);
+
+
+    const TosMenuItem = (
+      <Link style={styles.drawerFooterLink} to={stringHelper('TOS_URL')}>
+        <FormattedMessage
+          id="headerActions.tos"
+          defaultMessage="Terms"
+        />
+      </Link>
+    );
+
+    const privacyMenuItem = (
+      <Link style={styles.drawerFooterLink} to={stringHelper('PP_URL')}>
+        <FormattedMessage
+          id="headerActions.privacyPolicy"
+          defaultMessage="Privacy"
+        />
+      </Link>
+    );
+
+    const aboutMenuItem = (
+      <Link style={styles.drawerFooterLink} to={stringHelper('ABOUT_URL')}>
+        <FormattedMessage
+          id="headerActions.about"
+          defaultMessage="About"
+        />
+      </Link>
+    );
+
+    const contactMenuItem = (
+      <Link
+        style={styles.drawerFooterLink}
+        to={stringHelper('CONTACT_HUMAN_URL')}
+      >
+        <FormattedMessage
+          id="headerActions.contactHuman"
+          defaultMessage="Contact"
+        />
+      </Link>
+    );
 
     const TeamLink = styled(Link)`
       align-items: center;
@@ -76,7 +142,6 @@ class TeamHeaderComponent extends Component {
       ${ellipsisStyles}
       font: ${subheading2};
       color: ${black54};
-      padding: 0 ${headerOffset};
       ${mediaQuery.handheld`
          max-width: 35vw;
       `}
@@ -120,7 +185,7 @@ class TeamHeaderComponent extends Component {
               ? <TeamAvatar />
               : <Row>
                 <TeamAvatar />
-                <TeamName>
+                <TeamName style={{ margin: `0 ${units(2)}` }}>
                   {team.name}
                 </TeamName>
               </Row>}
@@ -130,12 +195,24 @@ class TeamHeaderComponent extends Component {
           docked={false}
           open={this.state.open}
           onRequestChange={open => this.setState({ open })}
+          style={{ position: 'relative' }}
         >
           <MenuItem className="team-header__drawer-team-link" leftIcon={<TeamAvatar />} href={`/${this.props.team.slug}/`}>
             <Headline>{team.name}</Headline>
           </MenuItem>
           <Divider />
-          {projectList}
+          <div style={styles.drawerProjectsAndFooter}>
+            <div style={styles.drawerProjects}>
+              {projectList}
+            </div>
+
+            <div style={styles.drawerFooter}>
+              {TosMenuItem}
+              {privacyMenuItem}
+              {aboutMenuItem}
+              {contactMenuItem}
+            </div>
+          </div>
         </Drawer>
       </div>
     );
@@ -146,4 +223,4 @@ TeamHeaderComponent.contextTypes = {
   store: React.PropTypes.object,
 };
 
-export default TeamHeaderComponent;
+export default injectIntl(TeamHeaderComponent);
