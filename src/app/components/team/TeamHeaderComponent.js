@@ -22,7 +22,7 @@ import {
 } from '../../styles/js/variables';
 import { stringHelper } from '../../customHelpers';
 
-const drawerTopOffset = '90px';
+const drawerTopOffset = units(6.5);
 
 const styles = {
   drawerFooter: {
@@ -139,7 +139,7 @@ class TeamHeaderComponent extends Component {
     const Headline = styled(HeaderTitle)`
       font: ${subheading2};
       font-weight: 600;
-      line-height: ${units(6.5)};
+      line-height: ${drawerTopOffset};
       color: ${black87};
     `;
 
