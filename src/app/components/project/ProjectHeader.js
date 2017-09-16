@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 import IconArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
 import IconButton from 'material-ui/IconButton';
 import ProjectRoute from '../../relay/ProjectRoute';
-import { HeaderTitle, black54 } from '../../styles/js/variables';
+import { HeaderTitle, FadeIn, SlideIn, black54 } from '../../styles/js/variables';
 
 class ProjectHeaderComponent extends Component {
 
@@ -26,7 +26,11 @@ class ProjectHeaderComponent extends Component {
             containerElement={<Link to={backUrl} />}
             className="project-header__back-button"
           >
-            <IconArrowBack color={black54} />
+            <FadeIn>
+
+              <IconArrowBack color={black54} />
+
+            </FadeIn>
           </IconButton>
           : null}
         <HeaderTitle offset={!isProjectSubpage}>{currentProject.title}</HeaderTitle>

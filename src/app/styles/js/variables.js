@@ -326,6 +326,27 @@ export const FlexRow = styled.div`
   align-items: center;
 `;
 
+
+// SlideIn
+// 1.
+const slideInKeyframes = keyframes`
+  from {
+    transform: translate3d(-100%, 0, 0);
+    visibility: visible;
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+`;
+
+// 2.
+export const SlideIn = styled.div`
+  animation: ${slideInKeyframes} ease-in .3s;
+  animation-duration: .3s;
+  animation-fill-mode: forwards;
+`;
+
 // FadeIn
 //
 // 1. This is a styled component that uses their keyframes function
