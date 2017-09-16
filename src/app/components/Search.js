@@ -472,6 +472,8 @@ class SearchQueryComponent extends Component {
                 : null}
 
             </section>
+
+            { this.props.addons }
           </div>
         </ContentColumn>
       </PageTitle>
