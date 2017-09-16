@@ -9,15 +9,13 @@ import CheckContext from '../../CheckContext';
 import {
   Text,
   Row,
+  HeaderTitle,
   defaultBorderRadius,
   subheading2,
-  ellipsisStyles,
   avatarStyle,
   headerHeight,
   avatarSize,
-  mediaQuery,
   black87,
-  black54,
   white,
   units,
   caption,
@@ -138,16 +136,7 @@ class TeamHeaderComponent extends Component {
       overflow: hidden;
     `;
 
-    const TeamName = styled.h3`
-      ${ellipsisStyles}
-      font: ${subheading2};
-      color: ${black54};
-      ${mediaQuery.handheld`
-         max-width: 35vw;
-      `}
-    `;
-
-    const Headline = styled.h2`
+    const Headline = styled(HeaderTitle)`
       font: ${subheading2};
       font-weight: 600;
       line-height: ${units(6.5)};
@@ -185,9 +174,9 @@ class TeamHeaderComponent extends Component {
               ? <TeamAvatar />
               : <Row>
                 <TeamAvatar />
-                <TeamName style={{ margin: `0 ${units(2)}` }}>
+                <HeaderTitle offset>
                   {team.name}
-                </TeamName>
+                </HeaderTitle>
               </Row>}
           </TeamLink>
         </TeamNav>
@@ -195,7 +184,6 @@ class TeamHeaderComponent extends Component {
           docked={false}
           open={this.state.open}
           onRequestChange={open => this.setState({ open })}
-          style={{ position: 'relative' }}
         >
           <MenuItem className="team-header__drawer-team-link" leftIcon={<TeamAvatar />} href={`/${this.props.team.slug}/`}>
             <Headline>{team.name}</Headline>

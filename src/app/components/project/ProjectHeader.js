@@ -3,21 +3,13 @@ import Relay from 'react-relay';
 import { Link } from 'react-router';
 import IconArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
 import IconButton from 'material-ui/IconButton';
-import styled from 'styled-components';
 import ProjectRoute from '../../relay/ProjectRoute';
-import { black54, units, subheading2, ellipsisStyles } from '../../styles/js/variables';
+import { HeaderTitle, black54 } from '../../styles/js/variables';
 
 class ProjectHeaderComponent extends Component {
 
   render() {
     const currentProject = this.props.project;
-
-    const Title = styled.h3`
-      font: ${subheading2};
-      color: ${black54};
-      ${ellipsisStyles}
-      margin: 0 ${props => props.offset ? units(2) : '0'};
-    `;
     const path = this.props.location
       ? this.props.location.pathname
       : window.location.pathname;
@@ -37,7 +29,7 @@ class ProjectHeaderComponent extends Component {
             <IconArrowBack color={black54} />
           </IconButton>
           : null}
-        <Title offset={!isProjectSubpage}>{currentProject.title}</Title>
+        <HeaderTitle offset={!isProjectSubpage}>{currentProject.title}</HeaderTitle>
       </div>
     );
   }

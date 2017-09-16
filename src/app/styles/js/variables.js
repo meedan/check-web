@@ -1,6 +1,5 @@
 import styled, { css, keyframes } from 'styled-components';
 import { CardTitle } from 'material-ui/Card';
-import TextField from 'material-ui/TextField';
 import { stripUnit, rgba } from 'polished';
 
 // Styles for overriding material UI
@@ -174,75 +173,6 @@ export const avatarStyle = `
   width: ${largeAvatarSize};
   ${backgroundCover}
   background-color: ${white};
-  `;
-
-// ===================================================================
-// Styled Components
-//
-// Used as components, like: <Text />
-//
-// ===================================================================
-
-// Text with optional ellipsis prop
-//
-// <Text ellipsis />
-//
-export const Text = styled.div`
-  ${props => props.ellipsis ? ellipsisStyles : ''}
-  ${props => props.font ? `font: ${props.font}` : ''}
-`;
-
-// <Row />
-//
-// The prop `containsEllipsis` adds overflow to flex-items
-// See: https://codepen.io/unthinkingly/pen/XMwJLG for why
-//
-export const Row = styled.div`
-  display: flex;
-  align-items: center;
-  ${props => props.containsEllipsis ? '& > * {overflow: hidden; }' : ''}
-`;
-
-// Shared Material UI style overrides using styled-components
-// This is not ideal because of the !important declarations ...
-// Still figuring out how best to customize our Material components,
-// feedback welcome! WIP CGB 2017-7-12
-//
-export const StyledMdCardTitle =
-  styled(CardTitle)` > span {
-      font: ${title} !important;
-    }
-    padding-bottom: 8px !important;
-  `;
-
-// A Flexbox row, center aligned
-// This one is nice because it's only using styled components.
-//
-export const FlexRow = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-// FadeIn
-//
-// 1. This is a styled component that uses their keyframes function
-const fadeInKeyframes = keyframes`
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-`;
-
-// 2. Now we can wrap elements in <FadeIn>
-export const FadeIn = styled.div`
-  animation: ${fadeInKeyframes} ease-in .3s;
-  animation-duration: .3s;
-  animation-fill-mode: forwards;
-  opacity: 0;
 `;
 
 // Material UI theme configuration
@@ -336,18 +266,83 @@ export const breakWordStyles = `
   word-break: break-word;
 `;
 
-// A smaller TextField
-// that better aligns with multiple choice options
-const StyledSmallTextField = styled(TextField)`
-  height: ${units(3)}!important;
-  font: ${body2} !important;
-  * {
-    bottom: 0!important;
+// ===================================================================
+// Styled Components
+//
+// Used as components, like: <Text />
+//
+// ===================================================================
+
+// Text with optional ellipsis prop
+//
+// <Text ellipsis />
+//
+export const Text = styled.div`
+  ${props => props.ellipsis ? ellipsisStyles : ''}
+  ${props => props.font ? `font: ${props.font}` : ''}
+`;
+
+export const HeaderTitle = styled.h3`
+  ${ellipsisStyles}
+  font: ${subheading2};
+  color: ${black54};
+  max-width: 65vw;
+  margin: ${props => props.offset ? units(2) : '0'};
+  ${mediaQuery.handheld`
+     max-width: 35vw;
+  `}
+`;
+
+// <Row />
+//
+// The prop `containsEllipsis` adds overflow to flex-items
+// See: https://codepen.io/unthinkingly/pen/XMwJLG
+//
+export const Row = styled.div`
+  display: flex;
+  align-items: center;
+  ${props => props.containsEllipsis ? '& > * {overflow: hidden; }' : ''}
+`;
+
+// Shared Material UI style overrides using styled-components
+// This is not ideal because of the !important declarations ...
+// Still figuring out how best to customize our Material components,
+// feedback welcome! WIP CGB 2017-7-12
+//
+export const StyledMdCardTitle =
+  styled(CardTitle)` > span {
+      font: ${title} !important;
+    }
+    padding-bottom: 8px !important;
+  `;
+
+// A Flexbox row, center aligned
+//
+// Deprecated: just use Row — CGB 2017 Sept 15
+//
+export const FlexRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+// FadeIn
+//
+// 1. This is a styled component that uses their keyframes function
+const fadeInKeyframes = keyframes`
+  from {
+    opacity: 0;
   }
-  div {
-    font-size: inherit!important;
+
+  to {
+    opacity: 1;
   }
-  textarea {
-    margin: 0!important;
-  }
+`;
+
+// 2. Now we can wrap elements in <FadeIn>
+export const FadeIn = styled.div`
+  animation: ${fadeInKeyframes} ease-in .3s;
+  animation-duration: .3s;
+  animation-fill-mode: forwards;
+  opacity: 0;
 `;
