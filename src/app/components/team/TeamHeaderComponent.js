@@ -13,12 +13,10 @@ import {
   HeaderTitle,
   defaultBorderRadius,
   subheading2,
-  body2,
   avatarStyle,
   headerHeight,
   avatarSize,
   black87,
-  black54,
   white,
   units,
   caption,
@@ -46,11 +44,6 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     height: `calc(100vh - ${drawerTopOffset})`,
-  },
-  drawerSubtitle: {
-    font: body2,
-    padding: `${units(2)} ${units(2)} 0 ${units(2)}`,
-    color: black54,
   },
 };
 
@@ -144,7 +137,7 @@ class TeamHeaderComponent extends Component {
       overflow: hidden;
     `;
 
-    const SubHeadline = styled(HeaderTitle)`
+    const Headline = styled(HeaderTitle)`
       font: ${subheading2};
       font-weight: 600;
       line-height: ${drawerTopOffset};
@@ -188,29 +181,22 @@ class TeamHeaderComponent extends Component {
               </Row>}
           </TeamLink>
         </TeamNav>
-
         <Drawer
           docked={false}
           open={this.state.open}
           onRequestChange={open => this.setState({ open })}
         >
           <MenuItem className="team-header__drawer-team-link" leftIcon={<TeamAvatar />} href={`/${this.props.team.slug}/`}>
-            <SubHeadline>{team.name}</SubHeadline>
+            <Headline>{team.name}</Headline>
           </MenuItem>
           <Divider />
           <div style={styles.drawerProjectsAndFooter}>
-            <div style={styles.drawerSubtitle}>
-              <FormattedMessage
-                id="headerActions.projectTitle"
-                defaultMessage="Projects"
-              />
-            </div>
             <div style={styles.drawerProjects}>
               {projectList}
             </div>
 
             <div>
-              <UserMenu {...this.props} />
+              <UserMenu hideContactMenuItem {...this.props} />
             </div>
 
             <div style={styles.drawerFooter}>

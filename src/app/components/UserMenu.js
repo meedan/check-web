@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import MenuItem from 'material-ui/MenuItem';
 import { Link } from 'react-router';
+import { FormattedMessage } from 'react-intl';
 import { logout } from '../redux/actions';
 import TeamMenuRelay from '../relay/TeamMenuRelay';
 import ProjectMenuRelay from '../relay/ProjectMenuRelay';
-import { FormattedMessage } from 'react-intl';
 import { stringHelper } from '../customHelpers';
 
 class UserMenu extends Component {
@@ -78,7 +78,7 @@ class UserMenu extends Component {
         { !joinPage && editProjectMenuItem }
         { !joinPage && manageTeamMenuItem }
         { loggedIn ? logOutMenuItem : logInMenuItem }
-        { contactMenuItem }
+        {this.props.hideContactMenuItem ? null : contactMenuItem}
       </div>
     );
   }
