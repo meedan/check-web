@@ -44,6 +44,7 @@ class TeamHeader extends Component {
         Component={TeamHeaderContainer}
         route={route}
         renderLoading={function () { return loadingPlaceholder; }}
+        renderFetched={data => <TeamHeaderContainer {...this.props} {...data} />}
       />
     );
   }
