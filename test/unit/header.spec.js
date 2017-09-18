@@ -2,7 +2,7 @@ import React from 'react';
 import { expect } from 'chai';
 import IconMenu from 'material-ui/IconMenu';
 import IconArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
-import UserMenuRelay from '../../src/app/relay/UserMenuRelay';
+import UserAvatarRelay from '../../src/app/relay/UserAvatarRelay';
 import Header from '../../src/app/components/Header';
 import TeamHeader from '../../src/app/components/team/TeamHeader';
 import TeamPublicHeader from '../../src/app/components/team/TeamPublicHeader';
@@ -30,6 +30,6 @@ describe('<Header />', () => {
     const header = mountWithIntl(<Header location={location} loggedIn params={{}} />);
     expect(header.find(TeamHeader)).to.have.length(0);
     expect(header.find(IconMenu)).to.have.length(1);
-    expect(header.find(UserMenuRelay)).to.have.length(1);
+    expect(header.find(UserAvatarRelay)).to.have.length(1);
   });
 });

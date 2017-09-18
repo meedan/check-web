@@ -5,6 +5,7 @@ import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import Divider from 'material-ui/Divider';
 import { injectIntl, FormattedMessage } from 'react-intl';
+import UserMenu from '../UserMenu';
 import CheckContext from '../../CheckContext';
 import {
   Text,
@@ -187,6 +188,7 @@ class TeamHeaderComponent extends Component {
               </Row>}
           </TeamLink>
         </TeamNav>
+
         <Drawer
           docked={false}
           open={this.state.open}
@@ -205,6 +207,10 @@ class TeamHeaderComponent extends Component {
             </div>
             <div style={styles.drawerProjects}>
               {projectList}
+            </div>
+
+            <div>
+              <UserMenu {...this.props} />
             </div>
 
             <div style={styles.drawerFooter}>

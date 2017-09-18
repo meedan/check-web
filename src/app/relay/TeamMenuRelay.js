@@ -16,20 +16,30 @@ class TeamMenu extends Component {
     const { team } = this.props;
 
     return (
-      <Can permissions={team.permissions} permission="update Team" otherwise={
-        <MenuItem
-          key="teamMenuRelay.viewTeam"
-          onClick={this.handleClick.bind(this)}
-          primaryText={
-            <FormattedMessage id="teamMenuRelay.viewTeam" defaultMessage="View team" />
-          }
-        />
-      }>
+      <Can
+        permissions={team.permissions}
+        permission="update Team"
+        otherwise={
+          <MenuItem
+            key="teamMenuRelay.viewTeam"
+            onClick={this.handleClick.bind(this)}
+            primaryText={
+              <FormattedMessage
+                id="teamMenuRelay.viewTeam"
+                defaultMessage="View team"
+              />
+            }
+          />
+        }
+      >
         <MenuItem
           key="teamMenuRelay.manageTeam"
           onClick={this.handleClick.bind(this)}
           primaryText={
-            <FormattedMessage id="teamMenuRelay.manageTeam" defaultMessage="Manage team" />
+            <FormattedMessage
+              id="teamMenuRelay.manageTeam"
+              defaultMessage="Manage team"
+            />
           }
         />
       </Can>
@@ -59,7 +69,9 @@ class TeamMenuRelay extends Component {
   render() {
     if (this.props.params.team) {
       const route = new TeamRoute({ teamSlug: this.props.params.team });
-      return <Relay.RootContainer Component={TeamMenuContainer} route={route} />;
+      return (
+        <Relay.RootContainer Component={TeamMenuContainer} route={route} />
+      );
     }
     return null;
   }
