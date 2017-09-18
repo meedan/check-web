@@ -11,7 +11,7 @@ import UserAvatarRelay from '../relay/UserAvatarRelay';
 import TeamHeader from './team/TeamHeader';
 import TeamPublicHeader from './team/TeamPublicHeader';
 import ProjectHeader from './project/ProjectHeader';
-import UserMenu from './UserMenu';
+import UserMenuItems from './UserMenuItems';
 import { stringHelper } from '../customHelpers';
 import {
   defaultAnchorOrigin,
@@ -89,7 +89,7 @@ class Header extends Component {
         iconButtonElement={userAvatarButton}
         className="header-actions__menu-toggle"
       >
-        <UserMenu {...this.props} />
+        <UserMenuItems {...this.props} />
       </IconMenu>
     );
 

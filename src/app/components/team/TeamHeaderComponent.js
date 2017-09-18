@@ -5,7 +5,7 @@ import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import Divider from 'material-ui/Divider';
 import { injectIntl, FormattedMessage } from 'react-intl';
-import UserMenu from '../UserMenu';
+import UserMenuItems from '../UserMenuItems';
 import CheckContext from '../../CheckContext';
 import {
   Text,
@@ -28,10 +28,10 @@ const drawerTopOffset = units(6.5);
 const styles = {
   drawerFooter: {
     display: 'flex',
+    alignItems: 'flex-start',
     justifyContent: 'space-between',
-    alignItems: 'center',
     backgroundColor: white,
-    padding: `${units(2)} ${units(4)}`,
+    padding: `${units(2)}`,
   },
   drawerFooterLink: {
     font: caption,
@@ -196,7 +196,7 @@ class TeamHeaderComponent extends Component {
             </div>
 
             <div>
-              <UserMenu hideContactMenuItem {...this.props} />
+              <UserMenuItems hideContactMenuItem {...this.props} />
             </div>
 
             <div style={styles.drawerFooter}>

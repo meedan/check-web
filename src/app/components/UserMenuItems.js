@@ -7,7 +7,7 @@ import TeamMenuRelay from '../relay/TeamMenuRelay';
 import ProjectMenuRelay from '../relay/ProjectMenuRelay';
 import { stringHelper } from '../customHelpers';
 
-class UserMenu extends Component {
+class UserMenuItems extends Component {
 
   render() {
     const path = this.props.location
@@ -84,4 +84,4 @@ class UserMenu extends Component {
   }
 }
 
-export default UserMenu;
+export default UserMenuItems;
