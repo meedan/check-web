@@ -25,7 +25,7 @@
   },
   {
     "id": "trash.emptyTrashConfirmationText",
-    "defaultMessage": "Are you sure? This will permanently delete {itemsCount} items and {notesCount} annotations. Type \"confirm\" if you want to proceed."
+    "defaultMessage": "Are you sure? This will permanently delete {itemsCount, plural, =0 {0 items} one {1 item} other {# items}} and {notesCount, plural, =0 {0 annotations} one {1 annotation} other {# annotations}}. Type \"confirm\" if you want to proceed."
   },
   {
     "id": "trash.typeHere",

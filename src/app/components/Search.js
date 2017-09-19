@@ -670,11 +670,6 @@ class SearchResultsComponent extends Component {
 
         </InfiniteScroll>
 
-        {(() => {
-          if (medias.length + sources.length < count) {
-            return <MediasLoading />;
-          }
-        })()}
       </div>
     );
   }

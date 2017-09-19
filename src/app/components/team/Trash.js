@@ -115,6 +115,7 @@ class TrashComponent extends Component {
       Relay.Store.commitUpdate(
         new UpdateTeamMutation({
           empty_trash: 1,
+          search_id: this.props.team.search_id,
           id: this.props.team.id,
         }),
         { onSuccess, onFailure },
@@ -147,7 +148,7 @@ class TrashComponent extends Component {
       <div className="trash">
         <Dialog actions={actions} modal={false} open={this.state.open} onRequestClose={this.handleClose.bind(this)}>
           <h2><FormattedMessage id="trash.emptyTrash" defaultMessage="Empty trash" /></h2>
-          <p><FormattedMessage id="trash.emptyTrashConfirmationText" defaultMessage={'Are you sure? This will permanently delete {itemsCount} items and {notesCount} annotations. Type "confirm" if you want to proceed.'} values={{ itemsCount: team.trash_size.project_media.toString(), notesCount: team.trash_size.annotation.toString() }} /></p>
+          <p><FormattedMessage id="trash.emptyTrashConfirmationText" defaultMessage={'Are you sure? This will permanently delete {itemsCount, plural, =0 {0 items} one {1 item} other {# items}} and {notesCount, plural, =0 {0 annotations} one {1 annotation} other {# annotations}}. Type "confirm" if you want to proceed.'} values={{ itemsCount: team.trash_size.project_media.toString(), notesCount: team.trash_size.annotation.toString() }} /></p>
           <TextField id="trash__confirm" fullWidth={true} hintText={<FormattedMessage id="trash.typeHere" defaultMessage="Type here" />} />
         </Dialog>
 
@@ -184,6 +185,7 @@ const TrashContainer = Relay.createContainer(TrashComponent, {
         slug
         permissions
         trash_size
+        search_id
       }
     `
   }
