@@ -24,6 +24,7 @@ import {
   white,
   units,
   caption,
+  highlightBlue,
 } from '../../styles/js/shared';
 import { stringHelper } from '../../customHelpers';
 
@@ -51,6 +52,43 @@ const styles = {
   },
 };
 
+const TeamLink = styled(Link)`
+  align-items: center;
+  display: flex;
+  height: 100%;
+  overflow: hidden;
+  width: 100%;
+  cursor: pointer;
+
+  &,
+  &:hover {
+    text-decoration: none;
+  }
+
+  &:active {
+    background-color: ${highlightBlue};
+  }
+
+  &,
+  &:visited {
+    color: inherit;
+  }
+`;
+
+const TeamNav = styled.nav`
+  border-radius: ${defaultBorderRadius};
+  display: flex;
+  height: ${headerHeight};
+  overflow: hidden;
+`;
+
+const Headline = styled(HeaderTitle)`
+  font: ${subheading2};
+  font-weight: 600;
+  line-height: ${drawerTopOffset};
+  color: ${black87};
+`;
+
 class TeamHeaderComponent extends Component {
   constructor(props) {
     super(props);
@@ -74,39 +112,6 @@ class TeamHeaderComponent extends Component {
   render() {
     const team = this.props.team;
     const isProjectUrl = /(.*\/project\/[0-9]+)/.test(window.location.pathname);
-
-    const TeamLink = styled(Link)`
-      align-items: center;
-      display: flex;
-      height: 100%;
-      overflow: hidden;
-      width: 100%;
-      cursor: pointer;
-
-      &,
-      &:hover {
-        text-decoration: none;
-      }
-
-      &,
-      &:visited {
-        color: inherit;
-      }
-    `;
-
-    const TeamNav = styled.nav`
-      border-radius: ${defaultBorderRadius};
-      display: flex;
-      height: ${headerHeight};
-      overflow: hidden;
-    `;
-
-    const Headline = styled(HeaderTitle)`
-      font: ${subheading2};
-      font-weight: 600;
-      line-height: ${drawerTopOffset};
-      color: ${black87};
-    `;
 
     const TeamAvatar = styled.div`
       ${avatarStyle}
@@ -200,12 +205,12 @@ class TeamHeaderComponent extends Component {
           onClick={this.handleToggle}
           style={{ padding: 0 }}
         >
-          {userAvatarButton}
           <TeamNav>
             <TeamLink
               title={team.name}
               className="team-header__avatar"
             >
+              {userAvatarButton}
               {isProjectUrl
                 ? <TeamAvatar />
                 : <Row>
