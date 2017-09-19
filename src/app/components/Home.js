@@ -12,9 +12,8 @@ import LoginContainer from './LoginContainer';
 import BrowserSupport from './BrowserSupport';
 import CheckContext from '../CheckContext';
 import { bemClass } from '../helpers';
-import ContentColumn from './layout/ContentColumn';
-import { muiThemeWithoutRtl } from '../styles/js/variables';
 import Message from './Message';
+import { muiThemeWithoutRtl, ContentColumn } from '../styles/js/shared';
 
 // Material-UI setup
 injectTapEventPlugin();

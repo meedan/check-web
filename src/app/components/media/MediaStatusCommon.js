@@ -8,7 +8,7 @@ import { getStatus, getStatusStyle } from '../../helpers';
 import { mediaStatuses, mediaLastStatus } from '../../customHelpers';
 import {
   black16,
-} from '../../styles/js/variables';
+} from '../../styles/js/shared';
 
 const messages = defineMessages({
   error: {

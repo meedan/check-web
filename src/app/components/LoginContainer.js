@@ -8,8 +8,7 @@ import FooterRelay from '../relay/FooterRelay';
 import Login from './Login';
 import { stringHelper } from '../customHelpers';
 import PageTitle from './PageTitle';
-import ContentColumn from './layout/ContentColumn';
-import { FadeIn, units } from '../styles/js/variables';
+import { FadeIn, ContentColumn, units } from '../styles/js/shared';
 
 class LoginContainer extends Component {
 

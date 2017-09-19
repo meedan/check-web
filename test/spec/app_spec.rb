@@ -248,8 +248,10 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       project_pg = TeamPage.new(config: @config, driver: @driver).create_project(name: project_name)
 
       expect(project_pg.driver.current_url.to_s.match(/\/project\/[0-9]+$/).nil?).to be(false)
-      team_pg = project_pg.click_team_avatar
-      expect(team_pg.project_titles.include?(project_name)).to be(true)
+      team_pg = project_pg.click_team_link
+      sleep 2
+      element = @driver.find_element(:partial_link_text, project_name)
+      expect(element.displayed?).to be(true)
     end
 
     it "should create project media", bin1: true do

@@ -12,10 +12,9 @@ import TeamRoute from '../relay/TeamRoute';
 import MediaDetail from './media/MediaDetail';
 import { bemClass, notify } from '../helpers';
 import CheckContext from '../CheckContext';
-import ContentColumn from './layout/ContentColumn';
 import MediasLoading from './media/MediasLoading';
 import SourceCard from './source/SourceCard';
-import { FlexRow } from '../styles/js/variables';
+import { FlexRow, ContentColumn } from '../styles/js/shared';
 
 const pageSize = 20;
 

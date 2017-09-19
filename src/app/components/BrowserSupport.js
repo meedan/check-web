@@ -4,13 +4,13 @@ import styled from 'styled-components';
 import IconButton from 'material-ui/IconButton';
 import MdClear from 'react-icons/lib/md/clear';
 import { mapGlobalMessage } from './MappedMessage';
-import ContentColumn from './layout/ContentColumn';
 
 import {
+  ContentColumn,
   units,
   black54,
   white,
-} from '../styles/js/variables';
+} from '../styles/js/shared';
 
 const Message = styled.div`
   padding: ${units(1)};

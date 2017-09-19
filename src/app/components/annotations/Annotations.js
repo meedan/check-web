@@ -6,7 +6,7 @@ import TimelineHeader from './TimelineHeader';
 import AddAnnotation from './AddAnnotation';
 import MediaAnnotation from './MediaAnnotation';
 import Can from '../Can';
-import { units, black16, white } from '../../styles/js/variables';
+import { units, black16, white } from '../../styles/js/shared';
 
 const messages = defineMessages({
   timelineTitle: {

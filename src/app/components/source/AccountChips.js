@@ -9,14 +9,12 @@ class AccountChips extends React.Component {
       return (
         <div className="media-tags">
           <ul className="media-tags__list">
-            { accounts.map((account, index) => {
-              return <li key={index} className="media-tags__tag">
-                { MediaUtil.socialIcon(account.provider + '.com') /*TODO: refactor */ }
-                <a href={ account.url } target="_blank" rel="noopener noreferrer">
-                  { account.embed.username || account.embed.url }
-                </a>
-              </li>
-            }) }
+            { accounts.map((account, index) => <li key={index} className="media-tags__tag">
+              { MediaUtil.socialIcon(`${account.provider}.com`) /* TODO: refactor */ }
+              <a href={account.url} target="_blank" rel="noopener noreferrer">
+                { account.embed.username || account.embed.url }
+              </a>
+            </li>) }
           </ul>
         </div>
       );

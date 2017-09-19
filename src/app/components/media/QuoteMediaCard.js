@@ -7,7 +7,7 @@ import {
   headline,
   units,
   subheading2,
-} from '../../styles/js/variables';
+} from '../../styles/js/shared';
 
 const Quote = styled.div`
   margin: ${units(3)};

@@ -9,7 +9,7 @@ import CreateTeamUserMutation from '../../relay/CreateTeamUserMutation';
 import { mapGlobalMessage } from '../MappedMessage';
 import Message from '../Message';
 import CheckContext from '../../CheckContext';
-import ContentColumn from '../layout/ContentColumn';
+import { ContentColumn } from '../../styles/js/shared';
 
 const messages = defineMessages({
   error: {

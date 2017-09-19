@@ -19,9 +19,9 @@ import Message from '../Message';
 import CreateProject from '../project/CreateProject';
 import Can from '../Can';
 import CheckContext from '../../CheckContext';
-import ContentColumn from '../layout/ContentColumn';
 import ParsedText from '../ParsedText';
 import {
+  ContentColumn,
   highlightBlue,
   checkBlue,
   titleStyle,
@@ -33,7 +33,7 @@ import {
   title,
   subheading1,
   avatarStyle,
-} from '../../styles/js/variables';
+} from '../../styles/js/shared';
 
 const messages = defineMessages({
   editError: {

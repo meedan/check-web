@@ -16,7 +16,7 @@ import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import CheckContext from '../../CheckContext';
 import { convertNumbers2English } from '../../helpers';
-import { alertRed, black38, black54, units, caption, FlexRow } from '../../styles/js/variables';
+import { alertRed, black38, black54, units, caption, FlexRow } from '../../styles/js/shared';
 import timezones from '../../timezones';
 
 const styles = {

@@ -6,10 +6,9 @@ import { CreateProjectMedia } from '../media';
 import Can from '../Can';
 import PageTitle from '../PageTitle';
 import CheckContext from '../../CheckContext';
-import ContentColumn from '../layout/ContentColumn';
 import MediasLoading from '../media/MediasLoading';
 import Search from '../Search';
-import { units } from '../../styles/js/variables';
+import { ContentColumn, units } from '../../styles/js/shared';
 
 const ProjectWrapper = styled.div`
   display: flex;

@@ -14,17 +14,5 @@
   {
     "id": "headerActions.contactHuman",
     "defaultMessage": "Contact a Human"
-  },
-  {
-    "id": "headerActions.tos",
-    "defaultMessage": "Terms of Service"
-  },
-  {
-    "id": "headerActions.privacyPolicy",
-    "defaultMessage": "Privacy Policy"
-  },
-  {
-    "id": "headerActions.about",
-    "defaultMessage": "About {appName}"
   }
 ]

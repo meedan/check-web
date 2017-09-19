@@ -21,7 +21,7 @@ class DeleteAccountSourceMutation extends Relay.Mutation {
 
   getConfigs() {
     const fieldIds = {};
-    fieldIds['source'] = this.props.source.id;
+    fieldIds.source = this.props.source.id;
 
     return [
       {
