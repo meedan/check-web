@@ -2,7 +2,6 @@ import React from 'react';
 import { expect } from 'chai';
 import IconMenu from 'material-ui/IconMenu';
 import IconArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
-import UserAvatarRelay from '../../src/app/relay/UserAvatarRelay';
 import Header from '../../src/app/components/Header';
 import TeamHeader from '../../src/app/components/team/TeamHeader';
 import TeamPublicHeader from '../../src/app/components/team/TeamPublicHeader';
@@ -25,11 +24,10 @@ describe('<Header />', () => {
     expect(header.find(IconArrowBack)).to.have.length(0);
   });
 
-  it('renders the logo, avatar and menu on the teams page', () => {
+  it('does not show the avatar or team icon on teams page', () => {
     const location = { pathname: '/check/teams' };
     const header = mountWithIntl(<Header location={location} loggedIn params={{}} />);
     expect(header.find(TeamHeader)).to.have.length(0);
-    expect(header.find(IconMenu)).to.have.length(1);
-    expect(header.find(UserAvatarRelay)).to.have.length(1);
+    expect(header.find(IconMenu)).to.have.length(0);
   });
 });
