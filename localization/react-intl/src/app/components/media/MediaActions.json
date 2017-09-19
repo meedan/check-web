@@ -22,5 +22,9 @@
   {
     "id": "mediaActions.embed",
     "defaultMessage": "Embed"
+  },
+  {
+    "id": "mediaActions.deleteForever",
+    "defaultMessage": "Delete forever"
   }
 ]

@@ -3,6 +3,7 @@ import { injectIntl, defineMessages, FormattedMessage } from 'react-intl';
 import Relay from 'react-relay';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 import TextField from 'material-ui/TextField';
 import { Link } from 'react-router';
@@ -12,6 +13,7 @@ import MediaTags from './MediaTags';
 import MediaActions from './MediaActions';
 import MediaUtil from './MediaUtil';
 import UpdateProjectMediaMutation from '../../relay/UpdateProjectMediaMutation';
+import DeleteProjectMediaMutation from '../../relay/DeleteProjectMediaMutation';
 import CheckContext from '../../CheckContext';
 import ProfileLink from '../layout/ProfileLink';
 import Message from '../Message';
@@ -77,6 +79,8 @@ class MediaMetadata extends Component {
       openMoveDialog: false,
       mediaVersion: false,
       openEditDialog: false,
+      openDeleteDialog: false,
+      confirmationError: false,
     };
   }
 
@@ -169,6 +173,48 @@ class MediaMetadata extends Component {
       new UpdateProjectMediaMutation({
         archived: 0,
         id: this.props.media.id,
+      }),
+      { onSuccess, onFailure },
+    );
+  }
+
+  handleConfirmDeleteForever() {
+    const confirmValue = document.getElementById('delete-forever__confirm').value;
+    if (confirmValue && confirmValue.toUpperCase() === 'CONFIRM') {
+      this.setState({ confirmationError: false });
+      this.handleCloseDialogs();
+      this.handleRequestDeleteForever();
+    }
+    else {
+      this.setState({ confirmationError: true });
+    }
+  }
+
+  handleDeleteForever() {
+    this.setState({ openDeleteDialog: true });
+  }
+
+  handleRequestDeleteForever() {
+    const { media } = this.props;
+
+    const onFailure = (transaction) => {
+      const transactionError = transaction.getError();
+      transactionError.json
+        ? transactionError.json().then(this.handleError)
+        : this.handleError(JSON.stringify(transactionError));
+    };
+
+    const onSuccess = (response) => {
+      const message = <FormattedMessage id="mediaMetadata.deletedForever" defaultMessage="Deleted" />;
+      const history = this.getContext().history;
+      history.push(`/${media.team.slug}/project/${media.project_id}`);
+      this.context.setMessage(message);
+    };
+
+    Relay.Store.commitUpdate(
+      new DeleteProjectMediaMutation({
+        id: media.id,
+        check_search_team: media.team.search_id
       }),
       { onSuccess, onFailure },
     );
@@ -279,7 +325,7 @@ class MediaMetadata extends Component {
   }
 
   handleCloseDialogs() {
-    this.setState({ isEditing: false, openMoveDialog: false, dstProj: null });
+    this.setState({ isEditing: false, openMoveDialog: false, dstProj: null, openDeleteDialog: false });
   }
 
   handleSelectDestProject(event, dstProj) {
@@ -354,6 +400,17 @@ class MediaMetadata extends Component {
       </span>
     </Dialog>);
 
+    const deleteDialogActions = [
+      <FlatButton label={<FormattedMessage id="mediaDetail.cancel" defaultMessage="Cancel" />} 
+                  primary={true} 
+                  onClick={this.handleCloseDialogs.bind(this)} 
+      />,
+      <RaisedButton label={<FormattedMessage id="mediaDetail.deleteForever" defaultMessage="Delete forever" />} 
+                    primary={true} 
+                    onClick={this.handleConfirmDeleteForever.bind(this)} 
+      />,
+    ];
+
     return (
       <StyledMetadata
         fromDirection={fromDirection}
@@ -383,6 +440,7 @@ class MediaMetadata extends Component {
             handleRefresh={this.handleRefresh.bind(this)}
             handleSendToTrash={this.handleSendToTrash.bind(this)}
             handleRestore={this.handleRestore.bind(this)}
+            handleDeleteForever={this.handleDeleteForever.bind(this)}
             style={{ display: 'flex' }}
           />}
 
@@ -421,6 +479,19 @@ class MediaMetadata extends Component {
               />,
             )}
           </RadioButtonGroup>
+        </Dialog>
+
+        <Dialog actions={deleteDialogActions} modal={false} open={this.state.openDeleteDialog} onRequestClose={this.handleCloseDialogs.bind(this)}>
+          <h2><FormattedMessage id="mediaDetail.deleteForever" defaultMessage="Delete forever" /></h2>
+          <p><FormattedMessage id="mediaDetail.deleteForeverConfirmationText" defaultMessage={'Are you sure? This will permanently delete this item and its {notesCount, plural, =0 {0 annotations} one {1 annotation} other {# annotations}}. Type "confirm" if you want to proceed.'} values={{ notesCount: media.log_count.toString() }} /></p>
+          <TextField id="delete-forever__confirm"
+                     fullWidth={true}
+                     errorText={this.state.confirmationError ? 
+                                <FormattedMessage id="mediaDetail.confirmationError" defaultMessage="Did not match" /> : 
+                                null
+                               }  
+                     hintText={<FormattedMessage id="mediaDetail.typeHere" defaultMessage="Type here" />} 
+          />
         </Dialog>
       </StyledMetadata>
     );

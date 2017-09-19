@@ -756,6 +756,7 @@ const SearchResultsContainer = Relay.createContainer(injectIntl(SearchResultsCom
               }
               team {
                 slug
+                search_id
               }
               tags(first: 10000) {
                 edges {
