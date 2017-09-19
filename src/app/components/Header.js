@@ -139,6 +139,7 @@ class Header extends Component {
       }
       return (
         <Row containsEllipsis>
+          {userMenuIcon}
           {teamAndProjectHeader}
         </Row>
       );
@@ -149,18 +150,13 @@ class Header extends Component {
         return (
           <AlignOpposite>
             <Row>
-              {[
-                searchButton,
-                userMenuIcon,
-              ]}
+              {searchButton}
             </Row>
           </AlignOpposite>
         );
       }
       return (
-        <AlignOpposite>
-          {userMenuIcon}
-        </AlignOpposite>
+        null
       );
     })();
 
