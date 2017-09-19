@@ -7,7 +7,8 @@ import UserInfoEdit from './UserInfoEdit';
 import { can } from '../Can';
 import HeaderCard from '../HeaderCard';
 import PageTitle from '../PageTitle';
-import ContentColumn from '../layout/ContentColumn';
+import { ContentColumn } from '../../styles/js/shared';
+
 import SwitchTeams from '../team/SwitchTeams';
 
 class UserComponent extends React.Component {
