@@ -30,6 +30,7 @@ class TrashComponent extends Component {
       emptyTrashDisabled: false,
       refreshedAt: 0,
       open: false,
+      confirmationError: false,
     };
   }
 
@@ -78,8 +79,12 @@ class TrashComponent extends Component {
   handleConfirmEmptyTrash() {
     const confirmValue = document.getElementById('trash__confirm').value;
     if (confirmValue && confirmValue.toUpperCase() === 'CONFIRM') {
+      this.setState({ confirmationError: false });
       this.handleClose();
       this.handleEmptyTrash();
+    }
+    else {
+      this.setState({ confirmationError: true });
     }
   }
 
@@ -149,7 +154,14 @@ class TrashComponent extends Component {
         <Dialog actions={actions} modal={false} open={this.state.open} onRequestClose={this.handleClose.bind(this)}>
           <h2><FormattedMessage id="trash.emptyTrash" defaultMessage="Empty trash" /></h2>
           <p><FormattedMessage id="trash.emptyTrashConfirmationText" defaultMessage={'Are you sure? This will permanently delete {itemsCount, plural, =0 {0 items} one {1 item} other {# items}} and {notesCount, plural, =0 {0 annotations} one {1 annotation} other {# annotations}}. Type "confirm" if you want to proceed.'} values={{ itemsCount: team.trash_size.project_media.toString(), notesCount: team.trash_size.annotation.toString() }} /></p>
-          <TextField id="trash__confirm" fullWidth={true} hintText={<FormattedMessage id="trash.typeHere" defaultMessage="Type here" />} />
+          <TextField id="trash__confirm"
+                     fullWidth={true}
+                     errorText={this.state.confirmationError ? 
+                                <FormattedMessage id="trash.confirmationError" defaultMessage="Did not match" /> : 
+                                null
+                               }  
+                     hintText={<FormattedMessage id="trash.typeHere" defaultMessage="Type here" />} 
+          />
         </Dialog>
 
         <Search title={title} team={team.slug} query={query} fields={['status', 'sort', 'tags']} addons={
