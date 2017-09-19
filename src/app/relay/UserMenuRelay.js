@@ -6,7 +6,7 @@ import userFragment from './userFragment';
 
 const UserMenuContainer = Relay.createContainer(UserMenu, {
   fragments: {
-    me: () => userFragment,
+    user: () => userFragment,
   },
 });
 

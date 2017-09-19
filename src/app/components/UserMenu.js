@@ -3,10 +3,10 @@ import Avatar from 'material-ui/Avatar';
 
 class UserMenu extends Component {
   render() {
-    const me = this.props.me;
-    if (me) {
+    const user = this.props.user;
+    if (user) {
       return (
-        <Avatar src={me.profile_image} size={32} className="avatar" />
+        <Avatar src={user.profile_image} size={32} className="avatar" />
       );
     }
     return null;

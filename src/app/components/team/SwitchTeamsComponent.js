@@ -100,8 +100,8 @@ class SwitchTeamsComponent extends Component {
   }
 
   render() {
-    const currentUser = this.props.me;
-    const teamUsers = this.props.me.team_users.edges;
+    const currentUser = this.props.user;
+    const teamUsers = this.props.user.team_users.edges;
     const that = this;
     const otherTeams = [];
     const pendingTeams = [];
@@ -195,7 +195,7 @@ class SwitchTeamsComponent extends Component {
 
 SwitchTeamsComponent.propTypes = {
   intl: intlShape.isRequired,
-  me: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
 };
 
 SwitchTeamsComponent.contextTypes = {
