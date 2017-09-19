@@ -4,12 +4,16 @@ import { Link } from 'react-router';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import Divider from 'material-ui/Divider';
+import IconButton from 'material-ui/IconButton';
 import { injectIntl, FormattedMessage } from 'react-intl';
+import RaisedButton from 'material-ui/RaisedButton';
+import UserAvatarRelay from '../../relay/UserAvatarRelay';
 import UserMenuItems from '../UserMenuItems';
 import CheckContext from '../../CheckContext';
 import {
   Text,
   Row,
+  Offset,
   HeaderTitle,
   defaultBorderRadius,
   subheading2,
@@ -71,46 +75,6 @@ class TeamHeaderComponent extends Component {
     const team = this.props.team;
     const isProjectUrl = /(.*\/project\/[0-9]+)/.test(window.location.pathname);
 
-
-    const TosMenuItem = (
-      <Link style={styles.drawerFooterLink} to={stringHelper('TOS_URL')}>
-        <FormattedMessage
-          id="headerActions.tos"
-          defaultMessage="Terms"
-        />
-      </Link>
-    );
-
-    const privacyMenuItem = (
-      <Link style={styles.drawerFooterLink} to={stringHelper('PP_URL')}>
-        <FormattedMessage
-          id="headerActions.privacyPolicy"
-          defaultMessage="Privacy"
-        />
-      </Link>
-    );
-
-    const aboutMenuItem = (
-      <Link style={styles.drawerFooterLink} to={stringHelper('ABOUT_URL')}>
-        <FormattedMessage
-          id="headerActions.about"
-          defaultMessage="About"
-        />
-      </Link>
-    );
-
-    const contactMenuItem = (
-      <Link
-        style={styles.drawerFooterLink}
-        to={stringHelper('CONTACT_HUMAN_URL')}
-      >
-        <FormattedMessage
-          id="headerActions.contactHuman"
-          defaultMessage="Contact"
-        />
-      </Link>
-    );
-
     const TeamLink = styled(Link)`
       align-items: center;
       display: flex;
@@ -151,6 +115,45 @@ class TeamHeaderComponent extends Component {
       height: ${avatarSize};
     `;
 
+    const TosMenuItem = (
+      <Link style={styles.drawerFooterLink} to={stringHelper('TOS_URL')}>
+        <FormattedMessage
+          id="headerActions.tos"
+          defaultMessage="Terms"
+        />
+      </Link>
+    );
+
+    const privacyMenuItem = (
+      <Link style={styles.drawerFooterLink} to={stringHelper('PP_URL')}>
+        <FormattedMessage
+          id="headerActions.privacyPolicy"
+          defaultMessage="Privacy"
+        />
+      </Link>
+    );
+
+    const aboutMenuItem = (
+      <Link style={styles.drawerFooterLink} to={stringHelper('ABOUT_URL')}>
+        <FormattedMessage
+          id="headerActions.about"
+          defaultMessage="About"
+        />
+      </Link>
+    );
+
+    const contactMenuItem = (
+      <Link
+        style={styles.drawerFooterLink}
+        to={stringHelper('CONTACT_HUMAN_URL')}
+      >
+        <FormattedMessage
+          id="headerActions.contactHuman"
+          defaultMessage="Contact"
+        />
+      </Link>
+    );
+
     const projectList = this.props.team.projects.edges
       .sortp((a, b) => a.node.title.localeCompare(b.node.title))
       .map((p) => {
@@ -163,24 +166,53 @@ class TeamHeaderComponent extends Component {
         );
       });
 
+    const { loggedIn } = this.props;
+
+    const userAvatarButton = (() => {
+      if (loggedIn) {
+        return (
+          <IconButton key="header.userAvatar" style={{ width: units(7), height: units(7) }}>
+            <UserAvatarRelay {...this.props} />
+          </IconButton>
+        );
+      }
+      return (
+        <Offset key="header.signIn">
+          <Link to="/">
+            <RaisedButton
+              primary
+              label={
+                <FormattedMessage
+                  defaultMessage="Sign In"
+                  id="headerActions.signIn"
+                />
+              }
+            />
+          </Link>
+        </Offset>
+      );
+    })();
+
     return (
       <div>
-        <TeamNav>
-          <TeamLink
-            onClick={this.handleToggle}
-            title={team.name}
-            className="team-header__avatar"
-          >
-            {isProjectUrl
-              ? <TeamAvatar />
-              : <Row>
-                <TeamAvatar />
-                <HeaderTitle offset>
-                  {team.name}
-                </HeaderTitle>
-              </Row>}
-          </TeamLink>
-        </TeamNav>
+        <Row className="header-actions__menu-toggle" onClick={this.handleToggle} style={{ padding: 0 }}>
+          {userAvatarButton}
+          <TeamNav>
+            <TeamLink
+              title={team.name}
+              className="team-header__avatar"
+            >
+              {isProjectUrl
+                ? <TeamAvatar />
+                : <Row>
+                  <TeamAvatar />
+                  <HeaderTitle offset>
+                    {team.name}
+                  </HeaderTitle>
+                </Row>}
+            </TeamLink>
+          </TeamNav>
+        </Row>
         <Drawer
           docked={false}
           open={this.state.open}

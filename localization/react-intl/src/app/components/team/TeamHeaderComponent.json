@@ -14,5 +14,9 @@
   {
     "id": "headerActions.contactHuman",
     "defaultMessage": "Contact"
+  },
+  {
+    "id": "headerActions.signIn",
+    "defaultMessage": "Sign In"
   }
 ]

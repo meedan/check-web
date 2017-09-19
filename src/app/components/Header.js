@@ -3,10 +3,8 @@ import styled from 'styled-components';
 import { Link } from 'react-router';
 import IconButton from 'material-ui/IconButton';
 import IconSearch from 'material-ui/svg-icons/action/search';
-import RaisedButton from 'material-ui/RaisedButton';
-import { FormattedMessage, injectIntl } from 'react-intl';
+import { injectIntl } from 'react-intl';
 import rtlDetect from 'rtl-detect';
-import UserAvatarRelay from '../relay/UserAvatarRelay';
 import TeamHeader from './team/TeamHeader';
 import TeamPublicHeader from './team/TeamPublicHeader';
 import ProjectHeader from './project/ProjectHeader';
@@ -15,9 +13,9 @@ import {
   units,
   mediaQuery,
   headerHeight,
-  headerOffset,
   Row,
   black02,
+  Offset,
 } from '../styles/js/shared';
 
 const HeaderBar = styled.div`
@@ -39,7 +37,6 @@ class Header extends Component {
     const isRtl = rtlDetect.isRtlLang(locale);
     const fromDirection = isRtl ? 'right' : 'left';
     const hasTeam = this.props.params && this.props.params.team;
-    const { loggedIn } = this.props;
     const path = this.props.location
       ? this.props.location.pathname
       : window.location.pathname;
@@ -49,35 +46,6 @@ class Header extends Component {
     const AlignOpposite = styled.div`
       margin-${fromDirection}: auto;
       `;
-
-    const Offset = styled.div`
-      padding: 0 ${headerOffset} !important;
-    `;
-
-    const userAvatarButton = (() => {
-      if (loggedIn) {
-        return (
-          <IconButton key="header.userAvatar" style={{ width: units(7), height: units(7) }}>
-            <UserAvatarRelay {...this.props} />
-          </IconButton>
-        );
-      }
-      return (
-        <Offset key="header.signIn">
-          <Link to="/">
-            <RaisedButton
-              primary
-              label={
-                <FormattedMessage
-                  defaultMessage="Sign In"
-                  id="headerActions.signIn"
-                />
-              }
-            />
-          </Link>
-        </Offset>
-      );
-    })();
 
     const searchButton = (
       <Offset key="header.searchButton">
@@ -125,7 +93,6 @@ class Header extends Component {
       }
       return (
         <Row containsEllipsis>
-          {userAvatarButton}
           {teamAndProjectHeader}
         </Row>
       );

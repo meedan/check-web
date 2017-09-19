@@ -377,3 +377,7 @@ export const ContentColumn = styled.div`
   ${props => props.wide ? `max-width: ${columnWidthWide}` : ''}
   ${props => props.flex ? 'display: flex; flex-direction: column;' : ''}
 `;
+
+export const Offset = styled.div`
+  padding: 0 ${units(1)};
+`;
