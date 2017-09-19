@@ -1,15 +1,14 @@
 import React from 'react';
-import { Link } from 'react-router';
 import { expect } from 'chai';
 import { mountWithIntl } from './helpers/intl-test';
-
+import { Pulse } from '../../src/app/styles/js/shared';
 import TeamHeader from '../../src/app/components/team/TeamHeader';
 
 describe('<TeamHeader />', () => {
   const params = { team: 'team-slug' };
 
-  it('links to team while loading', () => {
+  it('pulses while loading', () => {
     const teamHeader = mountWithIntl(<TeamHeader params={params} />);
-    expect(teamHeader.find(Link).props()).to.have.property('to', '/team-slug');
+    expect(teamHeader.find(Pulse));
   });
 });

@@ -1,7 +1,7 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router';
-import ContentColumn from './layout/ContentColumn';
+import { ContentColumn } from '../styles/js/shared';
 
 class UserConfirmed extends Component {
   render() {

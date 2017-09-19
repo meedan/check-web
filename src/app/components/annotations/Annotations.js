@@ -6,7 +6,7 @@ import TimelineHeader from './TimelineHeader';
 import AddAnnotation from './AddAnnotation';
 import MediaAnnotation from './MediaAnnotation';
 import Can from '../Can';
-import { units, black16, white } from '../../styles/js/variables';
+import { units, black16, white } from '../../styles/js/shared';
 
 const messages = defineMessages({
   timelineTitle: {
@@ -72,7 +72,7 @@ class Annotations extends Component {
       <StyledAnnotationCard className="annotations">
         <TimelineHeader msgObj={messages} msgKey="timelineTitle" />
         <div className="annotations__list">
-          {annotations.reverse().map(annotation =>
+          {annotations.map(annotation =>
             <div
               key={annotation.node.dbid}
               className="annotations__list-item"

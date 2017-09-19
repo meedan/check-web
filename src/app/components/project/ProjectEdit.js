@@ -9,7 +9,7 @@ import UpdateProjectMutation from '../../relay/UpdateProjectMutation';
 import PageTitle from '../PageTitle';
 import ProjectRoute from '../../relay/ProjectRoute';
 import CheckContext from '../../CheckContext';
-import ContentColumn from '../layout/ContentColumn';
+import { ContentColumn } from '../../styles/js/shared';
 
 const messages = defineMessages({
   error: {

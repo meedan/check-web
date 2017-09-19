@@ -1,6 +1,5 @@
 import styled, { css, keyframes } from 'styled-components';
 import { CardTitle } from 'material-ui/Card';
-import TextField from 'material-ui/TextField';
 import { stripUnit, rgba } from 'polished';
 
 // Styles for overriding material UI
@@ -50,8 +49,7 @@ export const columnWidthSmall = units(56);
 export const columnWidthMedium = units(85);
 export const columnWidthLarge = units(100);
 export const columnWidthWide = units(152);
-export const appBarInnerHeight = units(6);
-export const avatarSize = units(5);
+export const appBarInnerHeight = units(7);
 
 // Unitless
 export function unitless(unit) {
@@ -156,76 +154,25 @@ export const listItemWithButtonsStyle =
 // CSS Helpers
 //
 // Can be applied in a stylesheet or added to a styled component.
+// For an ellipsis without fixed width, a parent should have overflow: hidden
+// And that parent (or any descendants) should not be display: flex
+// See: https://codepen.io/unthinkingly/pen/XMwJLG
 //
 export const ellipsisStyles = 'overflow: hidden; text-overflow: ellipsis; white-space: nowrap;';
 
-export const backgroundCover = 'background-position: center; background-size: cover;';
+export const backgroundCover = 'background-repeat: no-repeat; background-position: center; background-size: cover;';
 
-export const defaultAvatarSize = units(9);
+export const largeAvatarSize = units(9);
+export const avatarSize = units(5);
 
 export const avatarStyle = `
   border: ${defaultBorderWidth} solid ${black05};
   border-radius: ${defaultBorderRadius};
   flex: 0 0 auto;
-  height: ${defaultAvatarSize};
-  width: ${defaultAvatarSize};
+  height: ${largeAvatarSize};
+  width: ${largeAvatarSize};
   ${backgroundCover}
-  `;
-
-// ===================================================================
-// Styled Components
-//
-// Used as components, like: <Text />
-//
-// ===================================================================
-
-// Text with optional ellipsis prop
-//
-// <Text ellipsis>
-export const Text = styled.span`
-  ${props => props.ellipsis ? ellipsisStyles : ''}
-`;
-
-// Shared Material UI style overrides using styled-components
-// This is not ideal because of the !important declarations ...
-// Still figuring out how best to customize our Material components,
-// feedback welcome! WIP CGB 2017-7-12
-//
-export const StyledMdCardTitle =
-  styled(CardTitle)` > span {
-      font: ${title} !important;
-    }
-    padding-bottom: 8px !important;
-  `;
-
-// A Flexbox row, center aligned
-// This one is nice because it's only using styled components.
-//
-export const FlexRow = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-// FadeIn
-//
-// 1. This is a styled component that uses their keyframes function
-const fadeInKeyframes = keyframes`
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-`;
-
-// 2. Now we can wrap elements in <FadeIn>
-export const FadeIn = styled.div`
-  animation: ${fadeInKeyframes} ease-in .3s;
-  animation-duration: .3s;
-  animation-fill-mode: forwards;
-  opacity: 0;
+  background-color: ${white};
 `;
 
 // Material UI theme configuration
@@ -273,7 +220,6 @@ export const mediaQuery = {
   desktop: (...args) => css`@media (min-width: ${breakpointDesktop}) { ${css(...args)} }`,
 };
 
-
 const shimmerKeyframes = keyframes`
   0% {
     background-position: 0% 50%;
@@ -309,7 +255,7 @@ export const Pulse = styled.div`
 `;
 
 // For positioning Material-UI menus
-export const anchorOrigin = {
+export const defaultAnchorOrigin = {
   horizontal: 'left',
   vertical: 'bottom',
 };
@@ -320,18 +266,114 @@ export const breakWordStyles = `
   word-break: break-word;
 `;
 
-// A smaller TextField
-// that better aligns with multiple choice options
-const StyledSmallTextField = styled(TextField)`
-  height: ${units(3)}!important;
-  font: ${body2} !important;
-  * {
-    bottom: 0!important;
+// ===================================================================
+// Styled Components
+//
+// Used as components, like: <Text />
+//
+// ===================================================================
+
+// Text with optional ellipsis prop
+//
+// <Text ellipsis />
+//
+export const Text = styled.div`
+  ${props => props.ellipsis ? ellipsisStyles : ''}
+  ${props => props.font ? `font: ${props.font}` : ''}
+`;
+
+export const HeaderTitle = styled.h3`
+  ${ellipsisStyles}
+  font: ${subheading2};
+  color: ${black54};
+  max-width: 65vw;
+  margin: ${props => props.offset ? units(2) : '0'};
+  ${mediaQuery.handheld`
+     max-width: 35vw;
+  `}
+`;
+
+// <Row />
+//
+// The prop `containsEllipsis` adds overflow to flex-items
+// See: https://codepen.io/unthinkingly/pen/XMwJLG
+//
+export const Row = styled.div`
+  display: flex;
+  align-items: center;
+  ${props => props.containsEllipsis ? '& > * {overflow: hidden; }' : ''}
+`;
+
+// Shared Material UI style overrides using styled-components
+// This is not ideal because of the !important declarations ...
+// Still figuring out how best to customize our Material components,
+// feedback welcome! WIP CGB 2017-7-12
+//
+export const StyledMdCardTitle =
+  styled(CardTitle)` > span {
+      font: ${title} !important;
+    }
+    padding-bottom: 8px !important;
+  `;
+
+// A Flexbox row, center aligned
+//
+// Deprecated: just use Row — CGB 2017 Sept 15
+//
+export const FlexRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+
+// SlideIn
+// 1.
+const slideInKeyframes = keyframes`
+  from {
+    transform: translate3d(-20%, 0, 0);
+    visibility: visible;
   }
-  div {
-    font-size: inherit!important;
+
+  to {
+    transform: translate3d(0, 0, 0);
   }
-  textarea {
-    margin: 0!important;
+`;
+
+// 2.
+export const SlideIn = styled.div`
+  animation: ${slideInKeyframes} ease-in .2s;
+  animation-duration: .2s;
+  animation-fill-mode: forwards;
+`;
+
+// FadeIn
+//
+// 1. This is a styled component that uses their keyframes function
+const fadeInKeyframes = keyframes`
+  from {
+    opacity: 0;
   }
+
+  to {
+    opacity: 1;
+  }
+`;
+
+// 2. Now we can wrap elements in <FadeIn>
+export const FadeIn = styled.div`
+  animation: ${fadeInKeyframes} ease-in .3s;
+  animation-duration: .3s;
+  animation-fill-mode: forwards;
+  opacity: 0;
+`;
+
+export const ContentColumn = styled.div`
+  margin: 0 auto;
+  padding: 0 ${props => props.noPadding ? '0' : units(1)};
+  width: 100%;
+  max-width: ${columnWidthMedium};
+  ${props => props.narrow ? `max-width: ${columnWidthSmall}` : ''}
+  ${props => props.wide ? `max-width: ${columnWidthWide}` : ''}
+  ${props => props.flex ? 'display: flex; flex-direction: column;' : ''}
 `;

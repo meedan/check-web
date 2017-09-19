@@ -5,7 +5,7 @@
   "mediaDetail.cancelButton": "Cancel",
   "mediaDetail.move": "Move",
   "mediaDetail.doneButton": "Done",
-  "mediaDetail.added": "Added {byUser}",
+  "mediaDetail.addedBy": "Added {byUser}",
   "mediaDetail.dialogHeader": "Move this {mediaType} to a different project",
   "mediaDetail.dialogMediaPath": "Currently filed under {teamName} > {projectTitle}"
 }

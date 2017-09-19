@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages, intlShape, injectIntl } from 'react-intl';
 import KeyboardArrowRight from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 import config from 'config';
+import { Link } from 'react-router';
 import { Card, CardActions, CardHeader } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import { List, ListItem } from 'material-ui/List';
@@ -19,7 +20,7 @@ import {
   listItemButtonStyle,
   white,
   black05,
-} from '../../styles/js/variables';
+} from '../../styles/js/shared';
 import UpdateUserMutation from '../../relay/UpdateUserMutation';
 import DeleteTeamUserMutation from '../../relay/DeleteTeamUserMutation';
 import CheckContext from '../../CheckContext';
@@ -160,7 +161,7 @@ class SwitchTeamsComponent extends Component {
               hoverColor={highlightBlue}
               focusRippleColor={checkBlue}
               touchRippleColor={checkBlue}
-              href={buildUrl(team)}
+              containerElement={<Link to={buildUrl(team)} />}
               leftAvatar={<Avatar style={teamAvatarStyle} src={team.avatar} />}
               onClick={that.setCurrentTeam.bind(that, team, currentUser)}
               primaryText={team.name}

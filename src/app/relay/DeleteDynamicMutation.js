@@ -9,7 +9,7 @@ class DeleteDynamicMutation extends Relay.Mutation {
   }
 
   static fragments = {
-     annotation: () => Relay.QL`fragment on Annotation { id }`,
+    annotation: () => Relay.QL`fragment on Annotation { id }`,
   };
 
   getVariables() {

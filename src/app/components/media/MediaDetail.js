@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
+import { injectIntl, intlShape } from 'react-intl';
 import { Link } from 'react-router';
 import config from 'config';
 import { Card, CardHeader, CardText, CardActions } from 'material-ui/Card';
 import styled from 'styled-components';
 import MdFormatQuote from 'react-icons/lib/md/format-quote';
+import FaFeed from 'react-icons/lib/fa/feed';
 import IconInsertPhoto from 'material-ui/svg-icons/editor/insert-photo';
 import rtlDetect from 'rtl-detect';
 import TimeBefore from '../TimeBefore';
@@ -15,25 +16,29 @@ import MediaUtil from './MediaUtil';
 import PenderCard from '../PenderCard';
 import ImageMediaCard from './ImageMediaCard';
 import CheckContext from '../../CheckContext';
+
 import { getStatus, getStatusStyle } from '../../helpers';
 import { mediaStatuses, mediaLastStatus } from '../../customHelpers';
-import {
-  units,
-  black87,
-  FadeIn,
-  defaultBorderRadius,
-} from '../../styles/js/variables';
+import { FlexRow, FadeIn, units, black87, black54, defaultBorderRadius } from '../../styles/js/shared';
 
 const styles = {
   mediaIcon: {
     width: units(2),
     height: units(2),
-    color: black87,
+    color: black54,
   },
-  subtitleLink: {
+  cardHeaderTextPrimary: {
     paddingRight: units(1),
     display: 'inline-flex',
     alignItems: 'center',
+    fontSize: 16,
+  },
+  cardHeaderTextSecondary: {
+    justifyContent: 'flex-start',
+    flexWrap: 'wrap',
+    marginTop: units(1),
+    fontSize: 14,
+    fontWeight: 400,
   },
   subtitleIconContainer: {
     display: 'inline-flex',
@@ -88,10 +93,7 @@ class MediaDetail extends Component {
   statusToClass(baseClass, status) {
     // TODO: replace with helpers.js#bemClassFromMediaStatus
     return status.length
-      ? [
-        baseClass,
-        `${baseClass}--${status.toLowerCase().replace(/[ _]/g, '-')}`,
-      ].join(' ')
+      ? [baseClass, `${baseClass}--${status.toLowerCase().replace(/[ _]/g, '-')}`].join(' ')
       : baseClass;
   }
 
@@ -105,10 +107,9 @@ class MediaDetail extends Component {
     if (!projectId && annotated && annotatedType === 'Project') {
       projectId = annotated.dbid;
     }
-    const mediaUrl =
-      projectId && media.team
-        ? `/${media.team.slug}/project/${projectId}/media/${media.dbid}`
-        : null;
+    const mediaUrl = projectId && media.team
+      ? `/${media.team.slug}/project/${projectId}/media/${media.dbid}`
+      : null;
 
     let embedCard = null;
     media.url = media.media.url;
@@ -144,49 +145,55 @@ class MediaDetail extends Component {
 
     const status = getStatus(mediaStatuses(media), mediaLastStatus(media));
 
-    const cardHeaderTitle = (
-      <MediaStatus media={media} readonly={this.props.readonly} />
-    );
+    const cardHeaderStatus = <MediaStatus media={media} readonly={this.props.readonly} />;
 
-    const cardHeaderSubtitle = (
+    const sourceUrl = media.team && media.project && media.project_source
+      ? `/${media.team.slug}/project/${media.project.dbid}/source/${media.project_source.dbid}`
+      : null;
+    const authorName = MediaUtil.authorName(media, data);
+    const authorUsername = MediaUtil.authorUsername(media, data);
+    const authorUrl = MediaUtil.authorUrl(media, data);
+    const mediaIcon = (<div style={styles.subtitleIconContainer}>
+      {media.quote
+              ? <MdFormatQuote style={styles.mediaIcon} />
+              : media.media.embed_path
+                ? <IconInsertPhoto style={styles.mediaIcon} />
+                : MediaUtil.socialIcon(media.domain)}
+    </div>);
+
+    const cardHeaderText = (
       <div>
-        <Link
-          to={mediaUrl}
-          className="media__heading"
-          style={styles.subtitleLink}
-        >
-          <div style={styles.subtitleIconContainer}>
-            {/* TODO refactor mediaIcon to handle quotes and images — 2017-8-30 CGB */}
-            {media.quote ? (
-              <MdFormatQuote style={styles.mediaIcon} />
-            ) : media.media.embed_path ? (
-              <IconInsertPhoto style={styles.mediaIcon} />
-            ) : (
-              MediaUtil.socialIcon(media.domain)
-            )}
-          </div>
+        <Link to={mediaUrl} className="media__heading" style={styles.cardHeaderTextPrimary}>
           {heading}
         </Link>
-        <div>
-          {createdAt ? (
-            <span className="media-detail__check-added-at">
-              <FormattedMessage
-                id="mediaDetail.added"
-                defaultMessage={'Added '}
-              />
+        <FlexRow style={styles.cardHeaderTextSecondary}>
+          {mediaIcon}
+          {createdAt
+            ? <span className="media-detail__check-added-at">
               <Link
                 className="media-detail__check-timestamp"
                 to={mediaUrl}
-                style={{ paddingRight: units(1) }}
               >
-                <TimeBefore date={createdAt} />
+                <TimeBefore style={{ marginRight: units(1) }} date={createdAt} />
+              </Link>
+              <Link to={mediaUrl}>
+                <span style={{ marginRight: units(1) }} className="media-detail__check-notes-count">
+                  {annotationsCount}
+                </span>
               </Link>
             </span>
-          ) : null}
-          <span className="media-detail__check-notes-count">
-            {annotationsCount}
-          </span>
-        </div>
+            : null}
+          {sourceUrl
+              ? <Link to={sourceUrl}>
+                <FlexRow>
+                  {/* ideally this would be SourcePicture not FaFeed — CGB 2017-9-13 */}
+                  <FaFeed style={{ width: 16 }} />
+                  {' '}
+                  {authorName || authorUsername}
+                </FlexRow>
+              </Link>
+              : null}
+        </FlexRow>
       </div>
     );
 
@@ -201,29 +208,19 @@ class MediaDetail extends Component {
     return (
       <StyledMediaDetail
         className={cardClassName}
-        borderColor={
-          this.props.borderColor || getStatusStyle(status, 'backgroundColor')
-        }
+        borderColor={this.props.borderColor || getStatusStyle(status, 'backgroundColor')}
         fromDirection={fromDirection}
       >
-        <Card
-          className="card-with-border"
-          initiallyExpanded={this.props.initiallyExpanded}
-        >
+        <Card className="card-with-border" initiallyExpanded={this.props.initiallyExpanded}>
           <StyledCardHeader
-            title={cardHeaderTitle}
-            subtitle={cardHeaderSubtitle}
+            title={cardHeaderStatus}
+            subtitle={cardHeaderText}
             showExpandableButton
             style={{ paddingRight: units(5) }}
           />
 
           <CardText expandable>
-            <FadeIn
-              className={this.statusToClass(
-                'media-detail__media',
-                mediaLastStatus(media),
-              )}
-            >
+            <FadeIn className={this.statusToClass('media-detail__media', mediaLastStatus(media))}>
               {embedCard}
             </FadeIn>
           </CardText>

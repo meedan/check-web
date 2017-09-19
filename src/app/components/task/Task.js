@@ -29,7 +29,7 @@ import GeolocationRespondTask from './GeolocationRespondTask';
 import GeolocationTaskResponse from './GeolocationTaskResponse';
 import DatetimeRespondTask from './DatetimeRespondTask';
 import DatetimeTaskResponse from './DatetimeTaskResponse';
-import { units } from '../../styles/js/variables';
+import { units } from '../../styles/js/shared';
 import ProfileLink from '../layout/ProfileLink';
 
 const StyledWordBreakDiv = styled.div`
@@ -399,7 +399,7 @@ class Task extends Component {
   }
 
   render() {
-    const { task } = this.props;
+    const { task, media } = this.props;
     const data = this.getResponseData();
     const { response } = data;
     const { note } = data;
@@ -508,7 +508,8 @@ class Task extends Component {
     );
 
     const taskBody = !response
-      ? (<form
+      ? (<Can permissions={media.permissions} permission="create Dynamic">
+      <form
         onSubmit={this.handleSubmit.bind(this)}
         name={`task-response-${task.id}`}
       >
@@ -586,7 +587,7 @@ class Task extends Component {
               ]
               : null}
         </div>
-      </form>)
+      </form></Can>)
       : this.state.editingResponse
         ? <div className="task__editing">
           <form

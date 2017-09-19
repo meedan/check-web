@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay';
-import { Link } from 'react-router';
 import TeamRoute from '../../relay/TeamRoute';
 import teamFragment from '../../relay/teamFragment';
 import TeamHeaderComponent from './TeamHeaderComponent';
-import { avatarSize, appBarInnerHeight, defaultBorderRadius, Pulse } from '../../styles/js/variables';
+import { avatarSize, headerHeight, defaultBorderRadius, Pulse } from '../../styles/js/shared';
 
 const TeamHeaderContainer = Relay.createContainer(TeamHeaderComponent, {
   fragments: {
@@ -12,13 +11,9 @@ const TeamHeaderContainer = Relay.createContainer(TeamHeaderComponent, {
   },
 });
 
-// Hmm... This padding has to be manually balanced to match the
-// loaded state of the team icon in the AppBar.
-// 2017-7-24 CGB
-//
 const styles = {
   loadingHeaderOuterStyle: {
-    height: appBarInnerHeight,
+    height: headerHeight,
     display: 'flex',
     alignItems: 'center',
   },
@@ -30,7 +25,6 @@ const styles = {
   },
 };
 
-
 class TeamHeader extends Component {
   render() {
     const teamSlug = this.props.params && this.props.params.team
@@ -41,9 +35,7 @@ class TeamHeader extends Component {
 
     const loadingPlaceholder = (
       <nav style={styles.loadingHeaderOuterStyle} >
-        <Link to={`/${teamSlug}`}>
-          <Pulse style={styles.loadingHeaderInnerStyle} />
-        </Link>
+        <Pulse style={styles.loadingHeaderInnerStyle} />
       </nav>
     );
 
@@ -51,11 +43,7 @@ class TeamHeader extends Component {
       <Relay.RootContainer
         Component={TeamHeaderContainer}
         route={route}
-        renderLoading={function () {
-          return (
-            loadingPlaceholder
-          );
-        }}
+        renderLoading={function () { return loadingPlaceholder; }}
       />
     );
   }

@@ -33,6 +33,7 @@ import {
   CreateTeam,
   JoinTeam,
   Teams,
+  Trash,
 } from '../components/team';
 import {
   CreateProjectMedia,
@@ -158,6 +159,7 @@ export default class Root extends Component {
                 <Route path=":team/project/:projectId/edit" component={ProjectEdit} />
                 <Route path=":team/project/:projectId(/:query)" component={Project} public />
                 <Route path=":team/search(/:query)" component={Search} public />
+                <Route path=":team/trash(/:query)" component={Trash} />
                 <Route path=":team" component={Team} public />
 
                 <Route path="*" component={NotFound} public />

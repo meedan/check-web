@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import MediaDetail from './MediaDetail';
-import { units } from '../../styles/js/variables';
+import { units } from '../../styles/js/shared';
 
 class Medias extends Component {
   render() {

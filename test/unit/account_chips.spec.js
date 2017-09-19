@@ -11,7 +11,6 @@ import FaYoutubePlay from 'react-icons/lib/fa/youtube-play';
 import AccountChips from '../../src/app/components/source/AccountChips';
 
 describe('<AccountChips />', () => {
-
   const accounts = [{ id: '123', provider: 'facebook', url: 'http://www.facebook.com/foobar', embed: { username: 'Foo Bar', url: 'http://www.facebook.com/foobar' } },
                     { id: '124', provider: 'twitter', url: 'http://www.twitter.com/foobar', embed: { username: 'Foo Bar', url: 'http://www.twitter.com/foobar' } },
                     { id: '125', provider: '', url: 'http://www.foobar.com', embed: { username: '', url: 'http://www.foobar.com' } }];

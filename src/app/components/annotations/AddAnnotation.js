@@ -1,9 +1,9 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { defineMessages, injectIntl, intlShape } from 'react-intl';
 import Relay from 'react-relay';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
-import { orange500 } from 'material-ui/styles/colors';
+import MdInsertPhoto from 'react-icons/lib/md/insert-photo';
 import CreateCommentMutation from '../../relay/CreateCommentMutation';
 import CreateTagMutation from '../../relay/CreateTagMutation';
 import CreateStatusMutation from '../../relay/CreateStatusMutation';
@@ -11,9 +11,8 @@ import UpdateStatusMutation from '../../relay/UpdateStatusMutation';
 import CreateFlagMutation from '../../relay/CreateFlagMutation';
 import CreateDynamicMutation from '../../relay/CreateDynamicMutation';
 import CheckContext from '../../CheckContext';
-import MdInsertPhoto from 'react-icons/lib/md/insert-photo';
 import UploadImage from '../UploadImage';
-import ContentColumn from '../layout/ContentColumn';
+import { ContentColumn, alertRed } from '../../styles/js/shared';
 import HttpStatus from '../../HttpStatus';
 
 const messages = defineMessages({
@@ -62,7 +61,7 @@ const messages = defineMessages({
 
 const styles = {
   errorStyle: {
-    color: '#757575',
+    color: alertRed,
   },
 };
 
@@ -82,14 +81,17 @@ class AddAnnotation extends Component {
     if (matches !== null) {
       command.type = matches[1];
       command.args = matches[2];
-    } else if (/^[^\/]/.test(input) || !input) {
+    } else if (/^[^/]/.test(input) || !input) {
       command = { type: 'comment', args: input };
     }
     return command;
   }
 
   failure() {
-    this.setState({ message: this.props.intl.formatMessage(messages.invalidCommand), isSubmitting: false });
+    this.setState({
+      message: this.props.intl.formatMessage(messages.invalidCommand),
+      isSubmitting: false,
+    });
   }
 
   success(message) {
@@ -102,7 +104,11 @@ class AddAnnotation extends Component {
 
   fail(transaction) {
     const transactionError = transaction.getError();
-    let message = this.props.intl.formatMessage(messages.error, { code: `${transactionError.status} ${HttpStatus.getMessage(transactionError.status)}` });
+    let message = this.props.intl.formatMessage(messages.error, {
+      code: `${transactionError.status} ${HttpStatus.getMessage(
+        transactionError.status,
+      )}`,
+    });
     let json = null;
     try {
       json = JSON.parse(transactionError.source);
@@ -112,7 +118,10 @@ class AddAnnotation extends Component {
     if (json && json.error) {
       message = json.error;
     }
-    this.setState({ message: message.replace(/<br\s*\/?>/mg, '; '), isSubmitting: false });
+    this.setState({
+      message: message.replace(/<br\s*\/?>/gm, '; '),
+      isSubmitting: false,
+    });
   }
 
   getContext() {
@@ -120,13 +129,24 @@ class AddAnnotation extends Component {
     return context;
   }
 
-  addComment(annotated, annotated_id, annotated_type, comment, annotation_type) {
+  addComment(
+    annotated,
+    annotated_id,
+    annotated_type,
+    comment,
+  ) {
     const { formatMessage } = this.props.intl;
 
-    const onFailure = (transaction) => { this.fail(transaction); };
+    const onFailure = (transaction) => {
+      this.fail(transaction);
+    };
 
-    const onSuccess = (response) => {
-      this.success(formatMessage(messages.annotationAdded, { type: formatMessage(messages.typeComment) }));
+    const onSuccess = () => {
+      this.success(
+        formatMessage(messages.annotationAdded, {
+          type: formatMessage(messages.typeComment),
+        }),
+      );
     };
 
     const annotator = this.getContext().currentUser;
@@ -138,7 +158,9 @@ class AddAnnotation extends Component {
 
     Relay.Store.commitUpdate(
       new CreateCommentMutation({
-        parent_type: annotated_type.replace(/([a-z])([A-Z])/, '$1_$2').toLowerCase(),
+        parent_type: annotated_type
+          .replace(/([a-z])([A-Z])/, '$1_$2')
+          .toLowerCase(),
         annotator,
         annotated,
         image,
@@ -153,14 +175,22 @@ class AddAnnotation extends Component {
     );
   }
 
-  addTag(annotated, annotated_id, annotated_type, tags, annotation_type) {
+  addTag(annotated, annotated_id, annotated_type, tags) {
     const tagsList = [...new Set(tags.split(','))];
 
     const { formatMessage } = this.props.intl;
 
-    const onFailure = (transaction) => { this.fail(transaction); };
+    const onFailure = (transaction) => {
+      this.fail(transaction);
+    };
 
-    const onSuccess = (response) => { this.success(formatMessage(messages.annotationAdded, { type: formatMessage(messages.typeTag) })); };
+    const onSuccess = () => {
+      this.success(
+        formatMessage(messages.annotationAdded, {
+          type: formatMessage(messages.typeTag),
+        }),
+      );
+    };
 
     const annotator = this.getContext().currentUser;
 
@@ -171,7 +201,9 @@ class AddAnnotation extends Component {
         new CreateTagMutation({
           annotated,
           annotator,
-          parent_type: annotated_type.replace(/([a-z])([A-Z])/, '$1_$2').toLowerCase(),
+          parent_type: annotated_type
+            .replace(/([a-z])([A-Z])/, '$1_$2')
+            .toLowerCase(),
           context,
           annotation: {
             tag: tag.trim(),
@@ -184,12 +216,20 @@ class AddAnnotation extends Component {
     });
   }
 
-  addStatus(annotated, annotated_id, annotated_type, status, annotation_type) {
+  addStatus(annotated, annotated_id, annotated_type, status) {
     const { formatMessage } = this.props.intl;
 
-    const onFailure = (transaction) => { this.fail(transaction); };
+    const onFailure = (transaction) => {
+      this.fail(transaction);
+    };
 
-    const onSuccess = (response) => { this.success(formatMessage(messages.annotationAdded, { type: formatMessage(messages.typeStatus) })); };
+    const onSuccess = () => {
+      this.success(
+        formatMessage(messages.annotationAdded, {
+          type: formatMessage(messages.typeStatus),
+        }),
+      );
+    };
 
     const annotator = this.getContext().currentUser;
 
@@ -198,7 +238,9 @@ class AddAnnotation extends Component {
       status_id = annotated.last_status_obj.id;
     }
     const status_attr = {
-      parent_type: annotated_type.replace(/([a-z])([A-Z])/, '$1_$2').toLowerCase(),
+      parent_type: annotated_type
+        .replace(/([a-z])([A-Z])/, '$1_$2')
+        .toLowerCase(),
       annotated,
       annotator,
       context: this.getContext(),
@@ -211,30 +253,40 @@ class AddAnnotation extends Component {
     };
     // Add or Update status
     if (status_id && status_id.length) {
-      Relay.Store.commitUpdate(
-        new UpdateStatusMutation(status_attr),
-        { onSuccess, onFailure },
-      );
+      Relay.Store.commitUpdate(new UpdateStatusMutation(status_attr), {
+        onSuccess,
+        onFailure,
+      });
     } else {
-      Relay.Store.commitUpdate(
-        new CreateStatusMutation(status_attr),
-        { onSuccess, onFailure },
-      );
+      Relay.Store.commitUpdate(new CreateStatusMutation(status_attr), {
+        onSuccess,
+        onFailure,
+      });
     }
   }
 
-  addFlag(annotated, annotated_id, annotated_type, flag, annotation_type) {
+  addFlag(annotated, annotated_id, annotated_type, flag) {
     const { formatMessage } = this.props.intl;
 
-    const onFailure = (transaction) => { this.fail(transaction); };
+    const onFailure = (transaction) => {
+      this.fail(transaction);
+    };
 
-    const onSuccess = (response) => { this.success(formatMessage(messages.annotationAdded, { type: formatMessage(messages.typeFlag) })); };
+    const onSuccess = () => {
+      this.success(
+        formatMessage(messages.annotationAdded, {
+          type: formatMessage(messages.typeFlag),
+        }),
+      );
+    };
 
     const annotator = this.getContext().currentUser;
 
     Relay.Store.commitUpdate(
       new CreateFlagMutation({
-        parent_type: annotated_type.replace(/([a-z])([A-Z])/, '$1_$2').toLowerCase(),
+        parent_type: annotated_type
+          .replace(/([a-z])([A-Z])/, '$1_$2')
+          .toLowerCase(),
         annotated,
         annotator,
         context: this.getContext(),
@@ -251,9 +303,15 @@ class AddAnnotation extends Component {
   addDynamic(annotated, annotated_id, annotated_type, params, annotation_type) {
     const { formatMessage } = this.props.intl;
 
-    const onFailure = (transaction) => { this.fail(transaction); };
+    const onFailure = (transaction) => {
+      this.fail(transaction);
+    };
 
-    const onSuccess = (response) => { this.success(formatMessage(messages.annotationAdded, { type: annotation_type })); };
+    const onSuccess = () => {
+      this.success(
+        formatMessage(messages.annotationAdded, { type: annotation_type }),
+      );
+    };
 
     const annotator = this.getContext().currentUser;
 
@@ -268,7 +326,9 @@ class AddAnnotation extends Component {
 
     Relay.Store.commitUpdate(
       new CreateDynamicMutation({
-        parent_type: annotated_type.replace(/([a-z])([A-Z])/, '$1_$2').toLowerCase(),
+        parent_type: annotated_type
+          .replace(/([a-z])([A-Z])/, '$1_$2')
+          .toLowerCase(),
         annotator,
         annotated,
         context: this.getContext(),
@@ -289,7 +349,9 @@ class AddAnnotation extends Component {
 
   handleSubmit(e) {
     const command = this.parseCommand(document.forms.addannotation.cmd.value);
-    if (this.state.isSubmitting) { return e.preventDefault(); }
+    if (this.state.isSubmitting) {
+      return e.preventDefault();
+    }
 
     this.setState({ isSubmitting: true });
     let action = null;
@@ -319,7 +381,13 @@ class AddAnnotation extends Component {
         const annotated = this.props.annotated;
         const annotated_id = annotated.dbid;
         const annotated_type = this.props.annotatedType;
-        action(annotated, annotated_id, annotated_type, command.args, command.type);
+        action(
+          annotated,
+          annotated_id,
+          annotated_type,
+          command.args,
+          command.type,
+        );
       } else {
         this.failure();
       }
@@ -348,7 +416,11 @@ class AddAnnotation extends Component {
 
   render() {
     return (
-      <form className="add-annotation" name="addannotation" onSubmit={this.handleSubmit.bind(this)}>
+      <form
+        className="add-annotation"
+        name="addannotation"
+        onSubmit={this.handleSubmit.bind(this)}
+      >
         <ContentColumn flex>
           <TextField
             hintText={this.props.intl.formatMessage(messages.inputHint)}
@@ -356,16 +428,20 @@ class AddAnnotation extends Component {
             style={{ width: '100%' }}
             errorStyle={styles.errorStyle}
             onFocus={this.handleFocus.bind(this)}
-            ref={ref => this.cmd = ref}
+            ref={ref => (this.cmd = ref)}
             errorText={this.state.message}
-            name="cmd" id="cmd-input"
+            name="cmd"
+            id="cmd-input"
             multiLine
             onKeyPress={this.handleKeyPress.bind(this)}
           />
           {(() => {
             if (this.state.fileMode) {
               return (
-                <UploadImage onImage={this.onImage.bind(this)} onError={this.onImageError.bind(this)} />
+                <UploadImage
+                  onImage={this.onImage.bind(this)}
+                  onError={this.onImageError.bind(this)}
+                />
               );
             }
           })()}
@@ -378,7 +454,11 @@ class AddAnnotation extends Component {
                 onClick={this.switchMode.bind(this)}
               />
             </div>
-            <FlatButton label={this.props.intl.formatMessage(messages.submitButton)} primary type="submit" />
+            <FlatButton
+              label={this.props.intl.formatMessage(messages.submitButton)}
+              primary
+              type="submit"
+            />
           </div>
         </ContentColumn>
       </form>

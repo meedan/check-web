@@ -13,9 +13,8 @@ import {
   getStatus,
   getStatusStyle,
 } from '../../helpers';
-import ContentColumn from '../layout/ContentColumn';
 import { mediaStatuses, mediaLastStatus } from '../../customHelpers';
-import { headerHeight, transitionSpeedSlow, gutterMedium, units, FlexRow, subheading2, body1, black87, black54, black16, mediaQuery } from '../../styles/js/variables';
+import { ContentColumn, headerHeight, transitionSpeedSlow, gutterMedium, units, FlexRow, subheading2, body1, black87, black54, black16, mediaQuery } from '../../styles/js/shared';
 
 const StyledTaskHeaderRow = styled.div`
   justify-content: space-between;

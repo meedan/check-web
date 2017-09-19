@@ -8,6 +8,22 @@
     "defaultMessage": "Sorry, we could not move this report"
   },
   {
+    "id": "mediaDetail.trash",
+    "defaultMessage": "Trash"
+  },
+  {
+    "id": "mediaMetadata.movedToTrash",
+    "defaultMessage": "Sent to {trash}"
+  },
+  {
+    "id": "mediaMetadata.movedBack",
+    "defaultMessage": "Moved back to project: {project}"
+  },
+  {
+    "id": "mediaMetadata.deletedForever",
+    "defaultMessage": "Deleted"
+  },
+  {
     "id": "mediaDetail.byUser",
     "defaultMessage": "by {username}"
   },
@@ -24,6 +40,14 @@
     "defaultMessage": "Done"
   },
   {
+    "id": "mediaDetail.cancel",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "mediaDetail.deleteForever",
+    "defaultMessage": "Delete forever"
+  },
+  {
     "id": "mediaDetail.addedBy",
     "defaultMessage": "Added {byUser}"
   },
@@ -34,5 +58,17 @@
   {
     "id": "mediaDetail.dialogMediaPath",
     "defaultMessage": "Currently filed under {teamName} > {projectTitle}"
+  },
+  {
+    "id": "mediaDetail.deleteForeverConfirmationText",
+    "defaultMessage": "Are you sure? This will permanently delete this item and its {notesCount, plural, =0 {0 annotations} one {1 annotation} other {# annotations}}. Type \"confirm\" if you want to proceed."
+  },
+  {
+    "id": "mediaDetail.confirmationError",
+    "defaultMessage": "Did not match"
+  },
+  {
+    "id": "mediaDetail.typeHere",
+    "defaultMessage": "Type here"
   }
 ]

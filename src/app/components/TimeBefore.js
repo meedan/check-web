@@ -7,7 +7,7 @@ class TimeBefore extends Component {
     const datetimeLabel = new Date(+date - date.getTimezoneOffset() * 60 * 1000).toISOString().split('.')[0].replace('T', ' ').slice(0, -3);
 
     return (
-      <time title={datetimeLabel}>
+      <time style={this.props.style} title={datetimeLabel}>
         {this.props.intl.formatRelative(date)}
       </time>
     );

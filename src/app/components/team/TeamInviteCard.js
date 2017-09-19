@@ -19,7 +19,7 @@ import {
   units,
   breakpointMobile,
   FlexRow,
-} from '../../styles/js/variables';
+} from '../../styles/js/shared';
 
 class TeamInviteCard extends Component {
   constructor(props) {

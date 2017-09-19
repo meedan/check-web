@@ -12,9 +12,9 @@ function can(permissionsData, permission) {
 class Can extends Component {
   render() {
     if (can(this.props.permissions, this.props.permission)) {
-      return (this.props.children);
+      return this.props.children;
     }
-    return null;
+    return this.props.otherwise || null;
   }
 }
 

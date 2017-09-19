@@ -8,7 +8,7 @@ import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-i
 import MdCancel from 'react-icons/lib/md/cancel';
 import MdCheckBoxOutlineBlank from 'react-icons/lib/md/check-box-outline-blank';
 import Message from '../Message';
-import { units, body2 } from '../../styles/js/variables';
+import { units, body2 } from '../../styles/js/shared';
 
 // A smaller TextField
 // that better aligns with multiple choice options

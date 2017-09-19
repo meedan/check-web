@@ -5,7 +5,7 @@
   "mediaDetail.cancelButton": "إلغاء",
   "mediaDetail.move": "نقل",
   "mediaDetail.doneButton": "تم",
-  "mediaDetail.added": "أضيف {byUser}",
+  "mediaDetail.addedBy": "أضيف {byUser}",
   "mediaDetail.dialogHeader": "انقل {mediaType} إلى مشروع آخر",
   "mediaDetail.dialogMediaPath": "مضاف حالياً إلى {teamName} > {projectTitle}"
 }

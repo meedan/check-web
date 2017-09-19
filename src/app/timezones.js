@@ -199,7 +199,7 @@ const timezones = {
   PHOT: { code: 'PHOT', label: 'PHOT (+13 GMT)', offset: 13 },
   TKT: { code: 'TKT', label: 'TKT (+13 GMT)', offset: 13 },
   TOT: { code: 'TOT', label: 'TOT (+13 GMT)', offset: 13 },
-  LINT: { code: 'LINT', label: 'LINT (+14 GMT)', offset: 14 }
+  LINT: { code: 'LINT', label: 'LINT (+14 GMT)', offset: 14 },
 };
 
 export default timezones;

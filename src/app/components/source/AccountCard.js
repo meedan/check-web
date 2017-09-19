@@ -7,7 +7,7 @@ import ParsedText from '../ParsedText';
 import TimeBefore from '../TimeBefore';
 import { truncateLength } from '../../helpers';
 import SourcePicture from './SourcePicture';
-import { units, black54 } from '../../styles/js/variables';
+import { units, black54 } from '../../styles/js/shared';
 
 class AccountCard extends React.Component {
   accountStats(account) {
@@ -15,7 +15,7 @@ class AccountCard extends React.Component {
     case 'facebook':
       return account.embed.likes ? <FormattedMessage id="accountCard.fbStats" defaultMessage="{likes, number} likes" values={{ likes: account.embed.likes }} /> : null;
     case 'twitter':
-      return account.embed.raw ? <FormattedHTMLMessage id="accountCard.twitterStats" defaultMessage="{tweets, number} Tweets &bull; {followers, number} Followers &bull; {following, number} Following" values={{ tweets: account.embed.raw.api.statuses_count, followers: account.embed.raw.api.followers_count, following: account.embed.raw.api.friends_count }} />  : null;
+      return account.embed.raw ? <FormattedHTMLMessage id="accountCard.twitterStats" defaultMessage="{tweets, number} Tweets &bull; {followers, number} Followers &bull; {following, number} Following" values={{ tweets: account.embed.raw.api.statuses_count, followers: account.embed.raw.api.followers_count, following: account.embed.raw.api.friends_count }} /> : null;
     case 'youtube':
       return account.embed.raw ? <FormattedHTMLMessage id="accountCard.youtubeStats" defaultMessage="{videos, number} Videos &bull; {subscribers, number} Subscribers" values={{ videos: account.embed.raw.api.video_count, subscribers: account.embed.raw.api.subscriber_count }} /> : null;
     }

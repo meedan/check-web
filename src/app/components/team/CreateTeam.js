@@ -15,14 +15,14 @@ import config from 'config';
 import PageTitle from '../PageTitle';
 import CreateTeamMutation from '../../relay/CreateTeamMutation';
 import Message from '../Message';
-import ContentColumn from '../layout/ContentColumn';
 import CheckContext from '../../CheckContext';
 import {
+  ContentColumn,
   caption,
   subheading2,
   checkBlue,
   black38,
-} from '../../styles/js/variables';
+} from '../../styles/js/shared';
 
 const TeamUrlRow = styled.div`
   align-items: flex-end;
