@@ -61,12 +61,8 @@ class Header extends Component {
 
     const teamAndProjectHeader = (
       <Row containsEllipsis>
-        <Offset>
-          <TeamHeader {...this.props} />
-        </Offset>
-        <Offset>
-          <ProjectHeader {...this.props} />
-        </Offset>
+        <div><TeamHeader {...this.props} /></div>
+        <div><ProjectHeader {...this.props} /></div>
       </Row>
     );
 

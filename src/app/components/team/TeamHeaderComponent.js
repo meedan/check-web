@@ -15,6 +15,7 @@ import {
   Row,
   Offset,
   HeaderTitle,
+  FadeIn,
   defaultBorderRadius,
   subheading2,
   avatarStyle,
@@ -195,8 +196,12 @@ class TeamHeaderComponent extends Component {
 
     return (
       <div>
-        <Row className="header-actions__menu-toggle" onClick={this.handleToggle} style={{ padding: 0 }}>
-          {userAvatarButton}
+        <Row
+          className="header-actions__menu-toggle"
+          onClick={this.handleToggle}
+          style={{ padding: 0 }}
+        >
+          <FadeIn>{userAvatarButton}</FadeIn>
           <TeamNav>
             <TeamLink
               title={team.name}
