@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { Link } from 'react-router';
 import IconButton from 'material-ui/IconButton';
 import IconSearch from 'material-ui/svg-icons/action/search';
-import IconMenu from 'material-ui/IconMenu';
 import RaisedButton from 'material-ui/RaisedButton';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import rtlDetect from 'rtl-detect';
@@ -11,10 +10,8 @@ import UserAvatarRelay from '../relay/UserAvatarRelay';
 import TeamHeader from './team/TeamHeader';
 import TeamPublicHeader from './team/TeamPublicHeader';
 import ProjectHeader from './project/ProjectHeader';
-import UserMenuItems from './UserMenuItems';
 import { stringHelper } from '../customHelpers';
 import {
-  defaultAnchorOrigin,
   units,
   mediaQuery,
   headerHeight,
@@ -82,17 +79,6 @@ class Header extends Component {
       );
     })();
 
-    const userMenuIcon = (
-      <IconMenu
-        key="header.userMenu"
-        anchorOrigin={defaultAnchorOrigin}
-        iconButtonElement={userAvatarButton}
-        className="header-actions__menu-toggle"
-      >
-        <UserMenuItems {...this.props} />
-      </IconMenu>
-    );
-
     const searchButton = (
       <Offset key="header.searchButton">
         <IconButton
@@ -139,7 +125,7 @@ class Header extends Component {
       }
       return (
         <Row containsEllipsis>
-          {userMenuIcon}
+          {userAvatarButton}
           {teamAndProjectHeader}
         </Row>
       );
