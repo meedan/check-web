@@ -5,7 +5,7 @@ export Login from './Login';
 export LoginContainer from './LoginContainer';
 export Message from './Message';
 export NotFound from './NotFound';
-export UserMenu from './UserMenu';
+export UserAvatar from './UserAvatar';
 export AccessDenied from './AccessDenied';
 export UserAlreadyConfirmed from './UserAlreadyConfirmed';
 export UserConfirmed from './UserConfirmed';
