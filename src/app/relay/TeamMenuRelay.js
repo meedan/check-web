@@ -7,41 +7,51 @@ import Can from '../components/Can';
 import CheckContext from '../CheckContext';
 
 class TeamMenu extends Component {
-  handleClick() {
+  getHistory() {
     const history = new CheckContext(this).getContextStore().history;
+    return history;
+  }
+
+  handleClick() {
+    const history = this.getHistory();
     history.push(`/${this.props.team.slug}/members`);
+  }
+
+  handleClickTrash() {
+    const history = this.getHistory();
+    history.push(`/${this.props.team.slug}/trash`);
   }
 
   render() {
     const { team } = this.props;
 
     return (
-      <Can
-        permissions={team.permissions}
-        permission="update Team"
-        otherwise={
-          <MenuItem
-            key="teamMenuRelay.viewTeam"
-            onClick={this.handleClick.bind(this)}
-            primaryText={
-              <FormattedMessage
-                id="teamMenuRelay.viewTeam"
-                defaultMessage="View team"
-              />
-            }
-          />
-        }
-      >
+      <Can permissions={team.permissions} permission="update Team" otherwise={
         <MenuItem
-          key="teamMenuRelay.manageTeam"
+          key="teamMenuRelay.viewTeam"
           onClick={this.handleClick.bind(this)}
           primaryText={
-            <FormattedMessage
-              id="teamMenuRelay.manageTeam"
-              defaultMessage="Manage team"
-            />
+            <FormattedMessage id="teamMenuRelay.viewTeam" defaultMessage="View team" />
           }
         />
+      }>
+        <span>
+          <MenuItem
+            key="teamMenuRelay.manageTeam"
+            onClick={this.handleClick.bind(this)}
+            primaryText={
+              <FormattedMessage id="teamMenuRelay.manageTeam" defaultMessage="Manage team" />
+            }
+          />
+
+          <MenuItem
+            key="teamMenuRelay.trash"
+            onClick={this.handleClickTrash.bind(this)}
+            primaryText={
+              <FormattedMessage id="teamMenuRelay.trash" defaultMessage="Trash" />
+            }
+          />
+        </span>
       </Can>
     );
   }
@@ -69,9 +79,7 @@ class TeamMenuRelay extends Component {
   render() {
     if (this.props.params.team) {
       const route = new TeamRoute({ teamSlug: this.props.params.team });
-      return (
-        <Relay.RootContainer Component={TeamMenuContainer} route={route} />
-      );
+      return <Relay.RootContainer Component={TeamMenuContainer} route={route} />;
     }
     return null;
   }

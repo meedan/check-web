@@ -15,8 +15,27 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
           project_id,
           overridden,
           embed,
+          dbid,
           log,
-          log_count
+          log_count,
+          archived,
+          permissions,
+          tasks(first: 10000) {
+            edges {
+              node {
+                permissions
+                first_response {
+                  permissions
+                }
+              }
+            }
+          }
+          team {
+            slug
+          }
+          project {
+            title
+          }
         }
         project {
           project_medias
@@ -36,6 +55,7 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
       refresh_media: this.props.refresh_media,
       update_mt: this.props.update_mt,
       update_keep: this.props.update_keep,
+      archived: this.props.archived,
     };
     if (this.props.srcProj) {
       vars.previous_project_id = this.props.srcProj.dbid;

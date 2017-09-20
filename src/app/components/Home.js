@@ -12,6 +12,7 @@ import LoginContainer from './LoginContainer';
 import BrowserSupport from './BrowserSupport';
 import CheckContext from '../CheckContext';
 import { bemClass } from '../helpers';
+import Message from './Message';
 import { muiThemeWithoutRtl, ContentColumn } from '../styles/js/shared';
 
 // Material-UI setup
@@ -77,6 +78,18 @@ class Home extends Component {
     return null;
   }
 
+  getChildContext() {
+    return {
+      setMessage: (message) => {
+        this.setState({ message });
+      },
+    };
+  }
+
+  resetMessage() {
+    this.setState({ message: null });
+  }
+
   render() {
     const { children } = this.props;
     const routeSlug = this.routeSlug(children);
@@ -119,6 +132,7 @@ class Home extends Component {
               <span><FormattedMessage id="home.beta" defaultMessage="Beta" /></span>
             </ContentColumn>
             <Header {...this.props} loggedIn={this.state.token} />
+            <Message message={this.state.message} onClick={this.resetMessage.bind(this)} className="home__message" />
             <div className="home__content">{children}</div>
           </div>
         </span>
@@ -133,6 +147,10 @@ Home.propTypes = {
 
 Home.contextTypes = {
   store: React.PropTypes.object,
+};
+
+Home.childContextTypes = {
+  setMessage: React.PropTypes.func,
 };
 
 export default injectIntl(Home);

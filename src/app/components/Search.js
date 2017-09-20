@@ -290,7 +290,7 @@ class SearchQueryComponent extends Component {
     const suggestedTags = this.props.team.get_suggested_tags
       ? this.props.team.get_suggested_tags.split(',')
       : [];
-    const title = this.props.project ? this.props.project.title : this.title(statuses, projects);
+    const title = this.props.title || (this.props.project ? this.props.project.title : this.title(statuses, projects));
 
     return (
       <PageTitle prefix={title} skipTeam={false} team={this.props.team}>
@@ -471,6 +471,8 @@ class SearchQueryComponent extends Component {
                 : null}
 
             </section>
+
+            { this.props.addons }
           </div>
         </ContentColumn>
       </PageTitle>
@@ -667,11 +669,6 @@ class SearchResultsComponent extends Component {
 
         </InfiniteScroll>
 
-        {(() => {
-          if (medias.length + sources.length < count) {
-            return <MediasLoading />;
-          }
-        })()}
       </div>
     );
   }
@@ -704,6 +701,7 @@ const SearchResultsContainer = Relay.createContainer(injectIntl(SearchResultsCom
               published,
               updated_at,
               embed,
+              archived,
               log_count,
               verification_statuses,
               translation_statuses,
@@ -757,6 +755,7 @@ const SearchResultsContainer = Relay.createContainer(injectIntl(SearchResultsCom
               }
               team {
                 slug
+                search_id
               }
               tags(first: 10000) {
                 edges {
@@ -867,6 +866,7 @@ class Search extends Component {
     const queryRoute = new TeamRoute({ teamSlug });
     const resultsRoute = new SearchRoute({ query: JSON.stringify(query) });
     const { formatMessage } = this.props.intl;
+    const { fields } = this.props;
 
     return (
       <div className="search">
@@ -878,6 +878,7 @@ class Search extends Component {
             return (
               <ContentColumn>
                 <div className="search__query">
+                  { (!fields || fields.indexOf('keyword') > -1) ?
                   <div className="search__form search__form--loading">
                     <input
                       disabled
@@ -886,7 +887,7 @@ class Search extends Component {
                       id="search-input"
                       className="search__input"
                     />
-                  </div>
+                  </div> : null }
                 </div>
               </ContentColumn>
             );

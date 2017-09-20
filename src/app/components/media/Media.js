@@ -16,6 +16,7 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
         dbid,
         quote,
         published,
+        archived,
         url,
         embed,
         last_status,
@@ -231,9 +232,10 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
           }
         }
         team {
-          get_suggested_tags,
-          private,
+          get_suggested_tags
+          private
           slug
+          search_id
         }
       }
 `,
