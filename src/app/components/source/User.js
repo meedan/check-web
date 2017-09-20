@@ -2,40 +2,11 @@ import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 import UserRoute from '../../relay/UserRoute';
 import UserComponent from './UserComponent';
-import sourceFragment from '../../relay/sourceFragment';
+import userFragment from '../../relay/userFragment';
 
 const UserContainer = Relay.createContainer(UserComponent, {
   fragments: {
-    user: () => Relay.QL`
-      fragment on User {
-        id,
-        name,
-        email,
-        permissions,
-        teams (first: 10000){
-          edges {
-            node {
-              name
-            }
-          }
-        },
-        current_team {
-          name,
-          permissions,
-          projects (first: 1000){
-            edges {
-              node {
-                title,
-                dbid,
-              }
-            }
-          }
-        },
-        source {
-          ${sourceFragment}
-        }
-      }
-    `,
+    user: () => userFragment
   },
 });
 

@@ -45,9 +45,14 @@ const messages = defineMessages({
 });
 
 class SwitchTeamsComponent extends Component {
+  getContext() {
+    const context = new CheckContext(this);
+    return context;
+  }
+
   setCurrentTeam(team, user) {
     const that = this;
-    const context = new CheckContext(this);
+    const context = this.getContext();
     const history = context.getContextStore().history;
 
     const currentUser = context.getContextStore().currentUser;
@@ -101,8 +106,15 @@ class SwitchTeamsComponent extends Component {
   }
 
   render() {
-    const currentUser = this.props.user;
+    const user = this.props.user;
+    const currentUser = this.getContext().getContextStore().currentUser;
     const teamUsers = this.props.user.team_users.edges;
+
+    const isUserSelf = (user.id === currentUser.id);
+    const cardTitle = isUserSelf ?
+      <FormattedMessage id="teams.yourTeams" defaultMessage="Your Teams" /> :
+      <FormattedMessage id="teams.userTeams" defaultMessage="{name} is a member of {number} teams" values={{ name: user.name, number: teamUsers.length }} />;
+
     const that = this;
     const otherTeams = [];
     const pendingTeams = [];
@@ -152,7 +164,7 @@ class SwitchTeamsComponent extends Component {
       <Card>
         <CardHeader
           titleStyle={titleStyle}
-          title={<FormattedMessage id="teams.yourTeams" defaultMessage="Your Teams" />}
+          title={cardTitle}
         />
         <List className="teams" style={listStyle}>
           {otherTeams.map((team, index) =>
@@ -184,11 +196,14 @@ class SwitchTeamsComponent extends Component {
             />,
           )}
         </List>
-        <CardActions>
-          <FlatButton href="/check/teams/new">
-            <FormattedMessage id="switchTeams.newTeamLink" defaultMessage="+ New team" />
-          </FlatButton>
-        </CardActions>
+        { isUserSelf ?
+          <CardActions>
+            <FlatButton
+              label={<FormattedMessage id="switchTeams.newTeamLink" defaultMessage="Create Team" />}
+              onClick={() => this.getContext().getContextStore().history.push('/check/teams/new')}
+            />
+          </CardActions> : null
+        }
       </Card>
     );
   }

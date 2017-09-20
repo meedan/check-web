@@ -37,7 +37,7 @@ class UserInfo extends React.Component {
                 id="UserInfo.dateJoined" defaultMessage="Joined {date} &bull; {number} teams"
                 values={{
                   date: this.props.intl.formatDate(MediaUtil.createdAt({ published: source.created_at }), { year: 'numeric', month: 'short', day: '2-digit' }),
-                  number: user.teams.edges.length || '0',
+                  number: user.team_users.edges.length || '0',
                 }}
               />
             </div>

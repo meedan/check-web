@@ -7,9 +7,8 @@ import UserInfoEdit from './UserInfoEdit';
 import { can } from '../Can';
 import HeaderCard from '../HeaderCard';
 import PageTitle from '../PageTitle';
+import SwitchTeamsComponent from '../team/SwitchTeamsComponent';
 import { ContentColumn } from '../../styles/js/shared';
-
-import SwitchTeams from '../team/SwitchTeams';
 
 class UserComponent extends React.Component {
   constructor(props) {
@@ -30,7 +29,6 @@ class UserComponent extends React.Component {
 
   render() {
 
-    const team =  this.props.user.current_team;
     const { user } = this.props;
 
     const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
@@ -41,7 +39,7 @@ class UserComponent extends React.Component {
     };
 
     return (
-      <PageTitle prefix={user.source.name} skipTeam={true}>
+      <PageTitle prefix={user.name} skipTeam={true}>
         <div className="profile">
           <HeaderCard
             canEdit={can(user.permissions, 'update User')}
@@ -54,12 +52,16 @@ class UserComponent extends React.Component {
             </ContentColumn>
           </HeaderCard>
           <ContentColumn>
-            <SwitchTeams />
+            <SwitchTeamsComponent user={user} />
           </ContentColumn>
         </div>
       </PageTitle>
     );
   }
 }
+
+UserComponent.contextTypes = {
+  store: React.PropTypes.object,
+};
 
 export default injectIntl(UserComponent);
