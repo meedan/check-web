@@ -277,13 +277,14 @@ class Login extends Component {
           </Column>
           <Column>
             <h3>{headerText}</h3>
-            <h4>
-              {subheaderText || <FormattedMessage
-                id="login.disclaimer"
-                defaultMessage={'We won’t publish without your permission'}
-              />
-                  }
-            </h4>
+            { subheaderText ?
+              <h4>
+                <FormattedMessage
+                  id="login.disclaimer"
+                  defaultMessage={'We won’t publish without your permission'}
+                />
+              </h4> : null
+            }
           </Column>
         </Row>
       </StyledEnhancedButton>
@@ -447,6 +448,7 @@ class Login extends Component {
                 defaultMessage={'Continue with {provider}'}
                 values={{ provider: 'Slack' }}
               />}
+              subheaderText={true}
             />
 
             <BigButton
@@ -458,6 +460,7 @@ class Login extends Component {
                 defaultMessage={'Continue with {provider}'}
                 values={{ provider: 'Twitter' }}
               />}
+              subheaderText={true}
             />
 
             <BigButton
@@ -471,6 +474,7 @@ class Login extends Component {
                   values={{ provider: 'Facebook' }}
                 />
               }
+              subheaderText={true}
             />
 
             {this.state.type === 'login'
@@ -484,6 +488,7 @@ class Login extends Component {
                     defaultMessage="Create a new account with email"
                   />
                 }
+                subheaderText={false}
               />
 
               : <BigButton
@@ -496,6 +501,7 @@ class Login extends Component {
                     defaultMessage="I already have an account"
                   />
                 }
+                subheaderText={false}
               />}
           </BigButtons>
         </div>
