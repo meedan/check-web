@@ -87,7 +87,7 @@ class TeamHeaderComponent extends Component {
         <DrawerButtonGroup
           title={team.name}
           className="header-actions__drawer-toggle"
-          onClick={this.props.toggle}
+          onClick={this.props.drawerToggle}
         >
           {userAvatarOrSignIn}
           {isProjectUrl
@@ -98,9 +98,11 @@ class TeamHeaderComponent extends Component {
               <Offset>
                 <TeamAvatar />
               </Offset>
-              <HeaderTitle>
-                {team.name}
-              </HeaderTitle>
+              <Offset>
+                <HeaderTitle>
+                  {team.name}
+                </HeaderTitle>
+              </Offset>
             </Row>}
         </DrawerButtonGroup>
       </div>

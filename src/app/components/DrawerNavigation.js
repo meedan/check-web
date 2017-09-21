@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import Relay from 'react-relay';
 import TeamRoute from '../relay/TeamRoute';
 import teamFragment from '../relay/teamFragment';
-import DrawerContentsComponent from './DrawerContentsComponent';
+import DrawerNavigationComponent from './DrawerNavigationComponent';
 
-class DrawerContents extends Component {
+class DrawerNavigation extends Component {
 
   render() {
-    const DrawerContentsContainer = Relay.createContainer(DrawerContentsComponent, {
+    const DrawerContentsContainer = Relay.createContainer(DrawerNavigationComponent, {
       fragments: {
         team: () => teamFragment,
       },
@@ -29,4 +29,4 @@ class DrawerContents extends Component {
   }
 }
 
-export default DrawerContents;
+export default DrawerNavigation;

@@ -3,7 +3,6 @@ import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-i
 import Favicon from 'react-favicon';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import Drawer from 'material-ui/Drawer';
 import rtlDetect from 'rtl-detect';
 import merge from 'lodash.merge';
 import config from 'config';
@@ -12,7 +11,7 @@ import Header from './Header';
 import LoginContainer from './LoginContainer';
 import BrowserSupport from './BrowserSupport';
 import CheckContext from '../CheckContext';
-import DrawerContents from './DrawerContents';
+import DrawerNavigation from './DrawerNavigation';
 import { bemClass } from '../helpers';
 import Message from './Message';
 import { muiThemeWithoutRtl, ContentColumn } from '../styles/js/shared';
@@ -72,7 +71,7 @@ class Home extends Component {
     context.startNetwork(this.state.token);
   }
 
-  handleToggle = () => this.setState({ open: !this.state.open });
+  handleDrawerToggle = () => this.setState({ open: !this.state.open });
 
   loginCallback() {
     this.setState({ error: false });
@@ -140,7 +139,7 @@ class Home extends Component {
               </span>
             </ContentColumn>
             <Header
-              toggle={this.handleToggle.bind(this)}
+              drawerToggle={this.handleDrawerToggle.bind(this)}
               {...this.props}
               loggedIn={this.state.token}
             />
@@ -149,13 +148,14 @@ class Home extends Component {
               {children}
             </div>
           </div>
-          <Drawer
+          <DrawerNavigation
             docked={false}
             open={this.state.open}
+            drawerToggle={this.handleDrawerToggle.bind(this)}
             onRequestChange={open => this.setState({ open })}
-          >
-            <DrawerContents {...this.props} />
-          </Drawer>
+            loggedIn={this.state.token}
+            {...this.props}
+          />
         </span>
       </MuiThemeProvider>
     );

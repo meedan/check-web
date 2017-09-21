@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import MenuItem from 'material-ui/MenuItem';
 import { Link } from 'react-router';
 import Divider from 'material-ui/Divider';
+import Drawer from 'material-ui/Drawer';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 import { stringHelper } from '../customHelpers';
@@ -18,7 +19,7 @@ import {
   avatarStyle,
 } from '../styles/js/shared';
 
-class DrawerContents extends Component {
+class DrawerNavigation extends Component {
 
   render() {
     const team = this.props.team;
@@ -68,6 +69,7 @@ class DrawerContents extends Component {
         target="_blank"
         rel="noopener noreferrer"
         href={stringHelper('TOS_URL')}
+        onClick={this.props.drawerToggle}
       >
         <FormattedMessage
           id="headerActions.tos"
@@ -82,6 +84,7 @@ class DrawerContents extends Component {
         target="_blank"
         rel="noopener noreferrer"
         href={stringHelper('PP_URL')}
+        onClick={this.props.drawerToggle}
       >
         <FormattedMessage
           id="headerActions.privacyPolicy"
@@ -96,6 +99,7 @@ class DrawerContents extends Component {
         target="_blank"
         rel="noopener noreferrer"
         href={stringHelper('ABOUT_URL')}
+        onClick={this.props.drawerToggle}
       >
         <FormattedMessage
           id="headerActions.about"
@@ -110,6 +114,7 @@ class DrawerContents extends Component {
         target="_blank"
         rel="noopener noreferrer"
         href={stringHelper('CONTACT_HUMAN_URL')}
+        onClick={this.props.drawerToggle}
       >
         <FormattedMessage
           id="headerActions.contactHuman"
@@ -125,7 +130,7 @@ class DrawerContents extends Component {
 
         return (
           <MenuItem key={p.node.dbid}>
-            <Link to={projectPath}>
+            <Link to={projectPath} onClick={this.props.drawerToggle}>
               <Text ellipsis>{p.node.title}</Text>
             </Link>
           </MenuItem>
@@ -133,12 +138,12 @@ class DrawerContents extends Component {
       });
 
     return (
-      <div>
+      <Drawer {...this.props}>
         <MenuItem
           className="team-header__drawer-team-link"
           leftIcon={<TeamAvatar />}
         >
-          <Link to={`/${this.props.team.slug}/`}>
+          <Link to={`/${this.props.team.slug}/`} onClick={this.props.drawerToggle}>
             <Headline>{team.name}</Headline>
           </Link>
         </MenuItem>
@@ -159,10 +164,10 @@ class DrawerContents extends Component {
             {contactMenuItem}
           </div>
         </div>
-      </div>
+      </Drawer>
     );
   }
 }
 
-export default DrawerContents;
+export default DrawerNavigation;
 
