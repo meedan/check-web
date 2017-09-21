@@ -3,6 +3,7 @@ import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-i
 import Favicon from 'react-favicon';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import Drawer from 'material-ui/Drawer';
 import rtlDetect from 'rtl-detect';
 import merge from 'lodash.merge';
 import config from 'config';
@@ -11,6 +12,7 @@ import Header from './Header';
 import LoginContainer from './LoginContainer';
 import BrowserSupport from './BrowserSupport';
 import CheckContext from '../CheckContext';
+import DrawerContents from './DrawerContents';
 import { bemClass } from '../helpers';
 import Message from './Message';
 import { muiThemeWithoutRtl, ContentColumn } from '../styles/js/shared';
@@ -39,6 +41,14 @@ class Home extends Component {
       token: null,
       error: false,
       sessionStarted: false,
+    };
+  }
+
+  getChildContext() {
+    return {
+      setMessage: (message) => {
+        this.setState({ message });
+      },
     };
   }
 
@@ -76,14 +86,6 @@ class Home extends Component {
       return 'source'; // TODO: other pages as needed
     }
     return null;
-  }
-
-  getChildContext() {
-    return {
-      setMessage: (message) => {
-        this.setState({ message });
-      },
-    };
   }
 
   resetMessage() {
@@ -129,12 +131,23 @@ class Home extends Component {
           <BrowserSupport />
           <div className={bemClass('home', routeSlug, `--${routeSlug}`)}>
             <ContentColumn wide className="home__disclaimer">
-              <span><FormattedMessage id="home.beta" defaultMessage="Beta" /></span>
+              <span>
+                <FormattedMessage id="home.beta" defaultMessage="Beta" />
+              </span>
             </ContentColumn>
             <Header {...this.props} loggedIn={this.state.token} />
             <Message message={this.state.message} onClick={this.resetMessage.bind(this)} className="home__message" />
-            <div className="home__content">{children}</div>
+            <div className="home__content">
+              {children}
+            </div>
           </div>
+          <Drawer
+            docked={false}
+            open={this.state.open}
+            onRequestChange={open => this.setState({ open })}
+          >
+            <DrawerContents {...this.props} />
+          </Drawer>
         </span>
       </MuiThemeProvider>
     );

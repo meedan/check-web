@@ -378,6 +378,7 @@ export const ContentColumn = styled.div`
   ${props => props.flex ? 'display: flex; flex-direction: column;' : ''}
 `;
 
+// Offset (pad)
 export const Offset = styled.div`
   padding: 0 ${units(1)} !important;
 `;
