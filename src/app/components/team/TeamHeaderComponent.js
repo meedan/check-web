@@ -4,7 +4,6 @@ import { Link } from 'react-router';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import Divider from 'material-ui/Divider';
-import IconButton from 'material-ui/IconButton';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import RaisedButton from 'material-ui/RaisedButton';
 import UserAvatarRelay from '../../relay/UserAvatarRelay';
@@ -18,13 +17,11 @@ import {
   defaultBorderRadius,
   subheading2,
   avatarStyle,
-  headerHeight,
   avatarSize,
   black87,
   white,
   units,
   caption,
-  highlightBlue,
 } from '../../styles/js/shared';
 import { stringHelper } from '../../customHelpers';
 
@@ -50,24 +47,19 @@ const styles = {
     flexDirection: 'column',
     height: `calc(100vh - ${drawerTopOffset})`,
   },
+  userAvatar: {
+    width: units(7),
+    height: units(7),
+  },
 };
 
-const TeamLink = styled(Link)`
+const TeamLink = styled.div`
   align-items: center;
   display: flex;
   height: 100%;
   overflow: hidden;
   width: 100%;
   cursor: pointer;
-
-  &,
-  &:hover {
-    text-decoration: none;
-  }
-
-  &:active {
-    background-color: ${highlightBlue};
-  }
 
   &,
   &:visited {
@@ -78,7 +70,6 @@ const TeamLink = styled(Link)`
 const TeamNav = styled.nav`
   border-radius: ${defaultBorderRadius};
   display: flex;
-  height: ${headerHeight};
   overflow: hidden;
 `;
 
@@ -121,42 +112,59 @@ class TeamHeaderComponent extends Component {
     `;
 
     const TosMenuItem = (
-      <Link style={styles.drawerFooterLink} to={stringHelper('TOS_URL')}>
+      <a
+        style={styles.drawerFooterLink}
+        target="_blank"
+        rel="noopener noreferrer"
+        href={stringHelper('TOS_URL')}
+      >
         <FormattedMessage
           id="headerActions.tos"
           defaultMessage="Terms"
         />
-      </Link>
+      </a>
     );
 
     const privacyMenuItem = (
-      <Link style={styles.drawerFooterLink} to={stringHelper('PP_URL')}>
+      <a
+        style={styles.drawerFooterLink}
+        target="_blank"
+        rel="noopener noreferrer"
+        href={stringHelper('PP_URL')}
+      >
         <FormattedMessage
           id="headerActions.privacyPolicy"
           defaultMessage="Privacy"
         />
-      </Link>
+      </a>
     );
 
     const aboutMenuItem = (
-      <Link style={styles.drawerFooterLink} to={stringHelper('ABOUT_URL')}>
+      <a
+        style={styles.drawerFooterLink}
+        target="_blank"
+        rel="noopener noreferrer"
+        href={stringHelper('ABOUT_URL')}
+      >
         <FormattedMessage
           id="headerActions.about"
           defaultMessage="About"
         />
-      </Link>
+      </a>
     );
 
     const contactMenuItem = (
-      <Link
+      <a
         style={styles.drawerFooterLink}
-        to={stringHelper('CONTACT_HUMAN_URL')}
+        target="_blank"
+        rel="noopener noreferrer"
+        href={stringHelper('CONTACT_HUMAN_URL')}
       >
         <FormattedMessage
           id="headerActions.contactHuman"
           defaultMessage="Contact"
         />
-      </Link>
+      </a>
     );
 
     const projectList = this.props.team.projects.edges
@@ -165,8 +173,10 @@ class TeamHeaderComponent extends Component {
         const projectPath = `/${this.props.team.slug}/project/${p.node.dbid}`;
 
         return (
-          <MenuItem key={p.node.dbid} href={projectPath}>
-            <Text ellipsis>{p.node.title}</Text>
+          <MenuItem key={p.node.dbid}>
+            <Link to={projectPath}>
+              <Text ellipsis>{p.node.title}</Text>
+            </Link>
           </MenuItem>
         );
       });
@@ -176,9 +186,11 @@ class TeamHeaderComponent extends Component {
     const userAvatarButton = (() => {
       if (loggedIn) {
         return (
-          <IconButton key="header.userAvatar" style={{ width: units(7), height: units(7) }}>
-            <UserAvatarRelay {...this.props} />
-          </IconButton>
+          <Offset>
+            <Row>
+              <UserAvatarRelay {...this.props} />
+            </Row>
+          </Offset>
         );
       }
       return (
@@ -200,12 +212,11 @@ class TeamHeaderComponent extends Component {
 
     return (
       <div>
-        <Row
-          className="header-actions__menu-toggle"
-          onClick={this.handleToggle}
-          style={{ padding: 0 }}
-        >
-          <TeamNav>
+        <Row>
+          <TeamNav
+            onClick={this.handleToggle}
+            className="header-actions__menu-toggle"
+          >
             <TeamLink
               title={team.name}
               className="team-header__avatar"
@@ -227,8 +238,13 @@ class TeamHeaderComponent extends Component {
           open={this.state.open}
           onRequestChange={open => this.setState({ open })}
         >
-          <MenuItem className="team-header__drawer-team-link" leftIcon={<TeamAvatar />} href={`/${this.props.team.slug}/`}>
-            <Headline>{team.name}</Headline>
+          <MenuItem
+            className="team-header__drawer-team-link"
+            leftIcon={<TeamAvatar />}
+          >
+            <Link to={`/${this.props.team.slug}/`}>
+              <Headline>{team.name}</Headline>
+            </Link>
           </MenuItem>
           <Divider />
           <div style={styles.drawerProjectsAndFooter}>

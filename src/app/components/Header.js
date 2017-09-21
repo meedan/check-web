@@ -23,7 +23,6 @@ const HeaderBar = styled.div`
   display: flex;
   align-items: center;
   padding: 0 ${units(2)};
-  z-index: 2;
   height: ${headerHeight};
   overflow: hidden;
   ${mediaQuery.handheld`
