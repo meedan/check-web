@@ -7,6 +7,7 @@
   "annotation.newClaim": "إدعاء جديد أُضيف بواسطة {author}",
   "annotation.statusSetHeader": "تم تغيير الحالة إلى {status} بواسطة {author}",
   "annotation.taggedHeader": "تم وسمه #{tag} بواسطة {author}",
+  "annotation.deletedComment": "تم حذف التعليق",
   "annotation.taskCreated": "تم إضافة السؤال \"{task}\" بواسطة {author}",
   "annotation.taskResolve": "تم حل المهمة \"{task}\" بواسطة {author}: \"{response}\"",
   "annotation.reverseImageSearch": "بحث",
@@ -25,6 +26,8 @@
   "annotation.newReport": "{reportType} جديد أُضيف بواسطة {author}",
   "annotation.titleChanged": "غُيّر العنوان إلى {title} بواسطة {author}",
   "annotation.projectMoved": "نُقِل من {previousProject} إلى {currentProject} بواسطة {author}",
+  "annotation.movedToTrash": "تم الارسال إلى سلة المهملات",
+  "annotation.movedFromTrash": "قام {author} باستعادة هذا العنصر من سلة المهملات",
   "annotation.taskLabelUpdated": "عُدلت المهمة من \"{from}\" إلى \"{to}\" بواسطة {author}",
   "annotation.taskNoteUpdated": "عُدّل التعليق الإضافي للمهمة \"{title}\" من \"{from}\" إلى \"{to}\" بواسطة {author}",
   "annotation.taskNoteCreated": "تعليق إضافي جديد \"{note}\"  للمهمة \"{title}\" كُتب بواسطة {author}"

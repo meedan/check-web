@@ -1,6 +1,9 @@
 {
   "mediaActions.edit": "تحرير",
+  "mediaActions.restore": "استعادة إلى المشروع",
   "mediaActions.move": "نقل",
+  "mediaActions.sendToTrash": "ارسل إلى سلة المهملات",
   "mediaActions.refresh": "تحديث الصفحة",
-  "mediaActions.embed": "تضمين..."
+  "mediaActions.embed": "تضمين...",
+  "mediaActions.deleteForever": "حذف نهائي"
 }
