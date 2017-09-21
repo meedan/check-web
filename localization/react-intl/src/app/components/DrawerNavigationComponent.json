@@ -16,7 +16,11 @@
     "defaultMessage": "Contact"
   },
   {
-    "id": "drawer.projectsSubheading",
+    "id": "drawerNavigation.userTeams",
+    "defaultMessage": "Your Teams"
+  },
+  {
+    "id": "drawerNavigation.projectsSubheading",
     "defaultMessage": "Projects"
   }
 ]

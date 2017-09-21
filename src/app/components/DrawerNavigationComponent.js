@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 import Divider from 'material-ui/Divider';
 import Drawer from 'material-ui/Drawer';
 import { FormattedMessage } from 'react-intl';
+import IconButton from 'material-ui/IconButton';
 import styled from 'styled-components';
 import { stringHelper } from '../customHelpers';
 import UserMenuItems from './UserMenuItems';
@@ -19,6 +20,7 @@ import {
   black05,
   black54,
   units,
+  boxShadow,
   caption,
   avatarSize,
   avatarStyle,
@@ -28,9 +30,10 @@ import {
 class DrawerNavigation extends Component {
 
   render() {
-    const team = this.props.team;
+    const {team, loggedIn} = this.props;
     const drawerTopOffset = units(6.5);
     const drawerHeaderHeight = units(14);
+
     const styles = {
       drawerFooter: {
         display: 'flex',
@@ -50,6 +53,15 @@ class DrawerNavigation extends Component {
         display: 'flex',
         flexDirection: 'column',
         height: `calc(100vh - ${drawerHeaderHeight})`,
+      },
+      drawerYourProfileButton: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: units(4),
+        height: units(4),
+        padding: 0,
+        margin: `0 ${units(1)}`,
       },
     };
 
@@ -75,7 +87,7 @@ class DrawerNavigation extends Component {
     `;
 
     const SubHeading = styled.div`
-      font: ${body2};
+      font: ${caption};
       color: ${black54};
       padding: ${units(2)} ${units(2)} ${units(1)} ${units(2)};
     `;
@@ -140,17 +152,26 @@ class DrawerNavigation extends Component {
       </a>
     );
 
+    const yourProfileButton = (
+      <Link to="/check/teams" onClick={this.props.drawerToggle}>
+        <IconButton style={styles.drawerYourProfileButton}
+          tooltip={<FormattedMessage id="drawerNavigation.userTeams" defaultMessage="Your Teams" /> }
+          tooltipPosition="bottom-center"
+        >
+          <UserAvatarRelay size={units(4)} {...this.props} />
+        </IconButton>
+      </Link>
+    );
+
     const projectList = this.props.team.projects.edges
       .sortp((a, b) => a.node.title.localeCompare(b.node.title))
       .map((p) => {
         const projectPath = `/${this.props.team.slug}/project/${p.node.dbid}`;
 
         return (
-          <MenuItem key={p.node.dbid}>
-            <Link to={projectPath} onClick={this.props.drawerToggle}>
-              <Text ellipsis>{p.node.title}</Text>
-            </Link>
-          </MenuItem>
+          <Link to={projectPath} onClick={this.props.drawerToggle}>
+            <MenuItem key={p.node.dbid} primaryText={<Text ellipsis>{p.node.title}</Text>}></MenuItem>
+          </Link>
         );
       });
 
@@ -160,7 +181,7 @@ class DrawerNavigation extends Component {
           <Row style={{ alignItems: 'flex-start', justifyContent: 'space-between' }}>
             <TeamAvatar size={units(7)} />
             <Offset>
-              <UserAvatarRelay size={units(4)} {...this.props} />
+              { loggedIn && yourProfileButton }
             </Offset>
           </Row>
 
@@ -178,7 +199,7 @@ class DrawerNavigation extends Component {
           <div style={styles.drawerProjects}>
             <SubHeading>
               <FormattedMessage
-                id="drawer.projectsSubheading"
+                id="drawerNavigation.projectsSubheading"
                 defaultMessage="Projects"
               />
             </SubHeading>
