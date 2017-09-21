@@ -62,7 +62,6 @@ const StyledBackgroundColor = styled.div`
   padding-top: ${stripUnit(headerHeight) + stripUnit(gutterMedium)}px;
   transition: background-color ${transitionSpeedSlow} ease;
   min-height: 100vh;
-  z-index: -1;
 `;
 
 class MediaComponent extends Component {

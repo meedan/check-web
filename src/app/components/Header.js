@@ -25,6 +25,11 @@ const HeaderBar = styled.div`
   padding: 0 ${units(2)};
   height: ${headerHeight};
   overflow: hidden;
+  /* Relative positioning is used here to create a new
+  positioning context to avoid a z-index inconsistency
+  on Safari, Safari Mobile, Ubuntu Chrome,
+  Ubuntu Firefox 2017-9-20 CGB */
+  position: relative;
   ${mediaQuery.handheld`
     padding: 0 ${units(1)};
   `}
