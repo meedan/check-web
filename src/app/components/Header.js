@@ -3,27 +3,19 @@ import styled from 'styled-components';
 import { Link } from 'react-router';
 import IconButton from 'material-ui/IconButton';
 import IconSearch from 'material-ui/svg-icons/action/search';
-import IconMenu from 'material-ui/IconMenu';
-import MenuItem from 'material-ui/MenuItem';
-import RaisedButton from 'material-ui/RaisedButton';
-import { FormattedMessage, injectIntl } from 'react-intl';
+import { injectIntl } from 'react-intl';
 import rtlDetect from 'rtl-detect';
-import UserMenuRelay from '../relay/UserMenuRelay';
-import { logout } from '../redux/actions';
-import TeamMenuRelay from '../relay/TeamMenuRelay';
-import ProjectMenuRelay from '../relay/ProjectMenuRelay';
 import TeamHeader from './team/TeamHeader';
 import TeamPublicHeader from './team/TeamPublicHeader';
 import ProjectHeader from './project/ProjectHeader';
 import { stringHelper } from '../customHelpers';
 import {
-  defaultAnchorOrigin,
   units,
   mediaQuery,
   headerHeight,
-  headerOffset,
   Row,
   black02,
+  Offset,
 } from '../styles/js/shared';
 
 const HeaderBar = styled.div`
@@ -45,7 +37,6 @@ class Header extends Component {
     const isRtl = rtlDetect.isRtlLang(locale);
     const fromDirection = isRtl ? 'right' : 'left';
     const hasTeam = this.props.params && this.props.params.team;
-    const { loggedIn } = this.props;
     const path = this.props.location
       ? this.props.location.pathname
       : window.location.pathname;
@@ -55,104 +46,6 @@ class Header extends Component {
     const AlignOpposite = styled.div`
       margin-${fromDirection}: auto;
       `;
-
-    const Offset = styled.div`
-      padding: 0 ${headerOffset} !important;
-    `;
-
-    const yourTeamsMenuItem = (
-      <MenuItem
-        containerElement={<Link to="/check/teams" />}
-        key="headerActions.userTeams"
-        primaryText={
-          <FormattedMessage
-            id="headerActions.userTeams"
-            defaultMessage="Your Teams"
-          />
-        }
-      />
-    );
-
-    const editProjectMenuItem = (
-      <ProjectMenuRelay key="headerActions.projectMenu" {...this.props} />
-    );
-
-    const manageTeamMenuItem = (
-      <TeamMenuRelay key="headerActions.teamMenu" {...this.props} />
-    );
-
-    const logInMenuItem = (
-      <MenuItem
-        key="headerActions.logIn"
-        className="header-actions__menu-item--login"
-        containerElement={<Link to="/" />}
-        primaryText={<FormattedMessage id="headerActions.signIn" defaultMessage="Sign In" />}
-      />
-    );
-
-    const logOutMenuItem = (
-      <MenuItem
-        key="headerActions.logOut"
-        className="header-actions__menu-item--logout"
-        onClick={logout}
-        primaryText={<FormattedMessage id="headerActions.signOut" defaultMessage="Sign Out" />}
-      />
-    );
-
-    const contactMenuItem = (
-      <MenuItem
-        key="headerActions.contactHuman"
-        target="_blank"
-        rel="noopener noreferrer"
-        containerElement={<Link to={stringHelper('CONTACT_HUMAN_URL')} />}
-        primaryText={
-          <FormattedMessage
-            id="headerActions.contactHuman"
-            defaultMessage="Contact a Human"
-          />
-        }
-      />
-    );
-
-    const userMenuButton = (() => {
-      if (loggedIn) {
-        return (
-          <IconButton key="header.userMenu" style={{ width: units(7), height: units(7) }}>
-            <UserMenuRelay {...this.props} />
-          </IconButton>
-        );
-      }
-      return (
-        <Offset key="header.userMenu.signIn">
-          <Link to="/">
-            <RaisedButton
-              primary
-              label={
-                <FormattedMessage
-                  defaultMessage="Sign In"
-                  id="headerActions.signIn"
-                />
-              }
-            />
-          </Link>
-        </Offset>
-      );
-    })();
-
-    const userMenu = (
-      <IconMenu
-        key="header.userMenu"
-        anchorOrigin={defaultAnchorOrigin}
-        iconButtonElement={userMenuButton}
-        className="header-actions__menu-toggle"
-      >
-        {loggedIn && yourTeamsMenuItem}
-        {!joinPage && editProjectMenuItem}
-        {!joinPage && manageTeamMenuItem}
-        {loggedIn ? logOutMenuItem : logInMenuItem}
-        {contactMenuItem}
-      </IconMenu>
-    );
 
     const searchButton = (
       <Offset key="header.searchButton">
@@ -168,12 +61,8 @@ class Header extends Component {
 
     const teamAndProjectHeader = (
       <Row containsEllipsis>
-        <Offset>
-          <TeamHeader {...this.props} />
-        </Offset>
-        <Offset>
-          <ProjectHeader {...this.props} />
-        </Offset>
+        <div><TeamHeader {...this.props} /></div>
+        <div><ProjectHeader {...this.props} /></div>
       </Row>
     );
 
@@ -210,18 +99,13 @@ class Header extends Component {
         return (
           <AlignOpposite>
             <Row>
-              {[
-                searchButton,
-                userMenu,
-              ]}
+              {searchButton}
             </Row>
           </AlignOpposite>
         );
       }
       return (
-        <AlignOpposite>
-          {userMenu}
-        </AlignOpposite>
+        null
       );
     })();
 

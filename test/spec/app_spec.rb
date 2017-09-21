@@ -586,8 +586,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 1
       @driver.find_element(:class, "source__add-languages").click
       fill_field("sourceLanguageInput", "Acoli", :id)
-      e = @driver.find_element(:css,"span[role = 'menuitem']")
-      e.click
+      @driver.action.send_keys(:down).perform
+      @driver.action.send_keys(:return).perform
       sleep 2
       @driver.navigate.refresh
       sleep 3
