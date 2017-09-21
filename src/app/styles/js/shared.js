@@ -381,5 +381,3 @@ export const ContentColumn = styled.div`
 export const Offset = styled.div`
   padding: 0 ${units(1)} !important;
 `;
-
-export const headerAvatarSize = 34;
