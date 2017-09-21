@@ -28,10 +28,6 @@ const DrawerButtonGroup = styled(Row)`
 `;
 
 class TeamHeaderComponent extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { open: false };
-  }
 
   componentWillMount() {
     this.updateContext();
@@ -44,8 +40,6 @@ class TeamHeaderComponent extends Component {
   updateContext() {
     new CheckContext(this).setContextStore({ team: this.props.team });
   }
-
-  handleToggle = () => this.setState({ open: !this.state.open });
 
   render() {
     const team = this.props.team;
@@ -93,7 +87,7 @@ class TeamHeaderComponent extends Component {
         <DrawerButtonGroup
           title={team.name}
           className="header-actions__drawer-toggle"
-          onClick={this.handleToggle}
+          onClick={this.props.toggle}
         >
           {userAvatarOrSignIn}
           {isProjectUrl

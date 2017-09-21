@@ -41,8 +41,10 @@ class Home extends Component {
       token: null,
       error: false,
       sessionStarted: false,
+      open: false,
     };
   }
+
 
   getChildContext() {
     return {
@@ -69,6 +71,8 @@ class Home extends Component {
     context.setContext();
     context.startNetwork(this.state.token);
   }
+
+  handleToggle = () => this.setState({ open: !this.state.open });
 
   loginCallback() {
     this.setState({ error: false });
@@ -135,7 +139,11 @@ class Home extends Component {
                 <FormattedMessage id="home.beta" defaultMessage="Beta" />
               </span>
             </ContentColumn>
-            <Header {...this.props} loggedIn={this.state.token} />
+            <Header
+              toggle={this.handleToggle.bind(this)}
+              {...this.props}
+              loggedIn={this.state.token}
+            />
             <Message message={this.state.message} onClick={this.resetMessage.bind(this)} className="home__message" />
             <div className="home__content">
               {children}
