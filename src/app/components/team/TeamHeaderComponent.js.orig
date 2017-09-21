@@ -1,0 +1,255 @@
+import React, { Component } from 'react';
+import styled from 'styled-components';
+import { Link } from 'react-router';
+import { injectIntl, FormattedMessage } from 'react-intl';
+import RaisedButton from 'material-ui/RaisedButton';
+import UserAvatarRelay from '../../relay/UserAvatarRelay';
+import CheckContext from '../../CheckContext';
+import {
+  Row,
+  Offset,
+  HeaderTitle,
+<<<<<<< HEAD
+  headerHeight,
+  black05,
+=======
+  subheading2,
+>>>>>>> 586217ba135958341d5e770c8c963039d4caf8b0
+  avatarStyle,
+  avatarSize,
+} from '../../styles/js/shared';
+
+<<<<<<< HEAD
+=======
+const drawerTopOffset = units(6.5);
+
+const styles = {
+  drawerFooter: {
+    display: 'flex',
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
+    backgroundColor: white,
+    padding: `${units(2)}`,
+  },
+  drawerFooterLink: {
+    font: caption,
+  },
+  drawerProjects: {
+    overflow: 'auto',
+    marginBottom: 'auto',
+  },
+  drawerProjectsAndFooter: {
+    display: 'flex',
+    flexDirection: 'column',
+    height: `calc(100vh - ${drawerTopOffset})`,
+  },
+};
+
+>>>>>>> 586217ba135958341d5e770c8c963039d4caf8b0
+const DrawerButtonGroup = styled(Row)`
+  align-items: center;
+  display: flex;
+  height: ${headerHeight};
+  overflow: hidden;
+  width: 100%;
+  cursor: pointer;
+  &:hover {
+    background-color: ${black05};
+  }
+`;
+
+<<<<<<< HEAD
+=======
+const Headline = styled(HeaderTitle)`
+  font: ${subheading2};
+  font-weight: 600;
+  line-height: ${drawerTopOffset};
+  color: ${black87};
+`;
+
+>>>>>>> 586217ba135958341d5e770c8c963039d4caf8b0
+class TeamHeaderComponent extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { open: false };
+  }
+
+  componentWillMount() {
+    this.updateContext();
+  }
+
+  componentWillUpdate() {
+    this.updateContext();
+  }
+
+  updateContext() {
+    new CheckContext(this).setContextStore({ team: this.props.team });
+  }
+
+  handleToggle = () => this.setState({ open: !this.state.open });
+
+  render() {
+    const team = this.props.team;
+    const isProjectUrl = /(.*\/project\/[0-9]+)/.test(window.location.pathname);
+
+    const { loggedIn } = this.props;
+
+    // Team Avatar
+    const TeamAvatar = styled.div`
+      ${avatarStyle}
+      background-image: url(${team.avatar});
+      width: ${avatarSize};
+      height: ${avatarSize};
+    `;
+
+<<<<<<< HEAD
+=======
+    const TosMenuItem = (
+      <a
+        style={styles.drawerFooterLink}
+        target="_blank"
+        rel="noopener noreferrer"
+        href={stringHelper('TOS_URL')}
+      >
+        <FormattedMessage
+          id="headerActions.tos"
+          defaultMessage="Terms"
+        />
+      </a>
+    );
+
+    const privacyMenuItem = (
+      <a
+        style={styles.drawerFooterLink}
+        target="_blank"
+        rel="noopener noreferrer"
+        href={stringHelper('PP_URL')}
+      >
+        <FormattedMessage
+          id="headerActions.privacyPolicy"
+          defaultMessage="Privacy"
+        />
+      </a>
+    );
+
+    const aboutMenuItem = (
+      <a
+        style={styles.drawerFooterLink}
+        target="_blank"
+        rel="noopener noreferrer"
+        href={stringHelper('ABOUT_URL')}
+      >
+        <FormattedMessage
+          id="headerActions.about"
+          defaultMessage="About"
+        />
+      </a>
+    );
+
+    const contactMenuItem = (
+      <a
+        style={styles.drawerFooterLink}
+        target="_blank"
+        rel="noopener noreferrer"
+        href={stringHelper('CONTACT_HUMAN_URL')}
+      >
+        <FormattedMessage
+          id="headerActions.contactHuman"
+          defaultMessage="Contact"
+        />
+      </a>
+    );
+
+    const projectList = this.props.team.projects.edges
+      .sortp((a, b) => a.node.title.localeCompare(b.node.title))
+      .map((p) => {
+        const projectPath = `/${this.props.team.slug}/project/${p.node.dbid}`;
+
+        return (
+          <MenuItem key={p.node.dbid}>
+            <Link to={projectPath}>
+              <Text ellipsis>{p.node.title}</Text>
+            </Link>
+          </MenuItem>
+        );
+      });
+
+    const { loggedIn } = this.props;
+
+>>>>>>> 586217ba135958341d5e770c8c963039d4caf8b0
+    const userAvatarOrSignIn = (() => {
+      if (loggedIn) {
+        return (
+          <Offset>
+            <Row>
+              <UserAvatarRelay {...this.props} />
+            </Row>
+          </Offset>
+        );
+      }
+      return (
+        <Offset key="header.signIn">
+          <Link to="/">
+            <RaisedButton
+              primary
+              label={
+                <FormattedMessage
+                  defaultMessage="Sign In"
+                  id="headerActions.signIn"
+                />
+              }
+            />
+          </Link>
+        </Offset>
+      );
+    })();
+
+    return (
+      <div>
+        <DrawerButtonGroup
+          title={team.name}
+          className="header-actions__drawer-toggle"
+          onClick={this.handleToggle}
+<<<<<<< HEAD
+=======
+        >
+          {userAvatarOrSignIn}
+          {isProjectUrl
+            ? <TeamAvatar />
+            : <Row>
+              <TeamAvatar />
+              <HeaderTitle offset>
+                {team.name}
+              </HeaderTitle>
+            </Row>}
+        </DrawerButtonGroup>
+        <Drawer
+          docked={false}
+          open={this.state.open}
+          onRequestChange={open => this.setState({ open })}
+>>>>>>> 586217ba135958341d5e770c8c963039d4caf8b0
+        >
+          {userAvatarOrSignIn}
+          {isProjectUrl
+            ? <Offset>
+              <TeamAvatar />
+            </Offset>
+            : <Row>
+              <Offset>
+                <TeamAvatar />
+              </Offset>
+              <HeaderTitle>
+                {team.name}
+              </HeaderTitle>
+            </Row>}
+        </DrawerButtonGroup>
+      </div>
+    );
+  }
+}
+
+TeamHeaderComponent.contextTypes = {
+  store: React.PropTypes.object,
+};
+
+export default injectIntl(TeamHeaderComponent);
