@@ -7,16 +7,22 @@ import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 import { stringHelper } from '../customHelpers';
 import UserMenuItems from './UserMenuItems';
+import UserAvatarRelay from '../relay/UserAvatarRelay';
 import {
   Text,
+  Row,
+  Offset,
   HeaderTitle,
   subheading2,
   black87,
   white,
+  black05,
+  black54,
   units,
   caption,
   avatarSize,
   avatarStyle,
+  body2,
 } from '../styles/js/shared';
 
 class DrawerNavigation extends Component {
@@ -24,7 +30,7 @@ class DrawerNavigation extends Component {
   render() {
     const team = this.props.team;
     const drawerTopOffset = units(6.5);
-
+    const drawerHeaderHeight = units(14);
     const styles = {
       drawerFooter: {
         display: 'flex',
@@ -43,24 +49,35 @@ class DrawerNavigation extends Component {
       drawerProjectsAndFooter: {
         display: 'flex',
         flexDirection: 'column',
-        height: `calc(100vh - ${drawerTopOffset})`,
+        height: `calc(100vh - ${drawerHeaderHeight})`,
       },
     };
+
+    const DrawerHeader = styled.div`
+      height: ${drawerHeaderHeight};
+      background-color: ${black05};
+      padding: ${units(2)};
+    `;
 
     // Team Avatar
     const TeamAvatar = styled.div`
       ${avatarStyle}
       background-image: url(${team.avatar});
-      width: ${avatarSize};
-      height: ${avatarSize};
+      width: ${props => props.size ? props.size : avatarSize};
+      height: ${props => props.size ? props.size : avatarSize};
     `;
 
-
     const Headline = styled(HeaderTitle)`
-      font: ${subheading2};
-      font-weight: 600;
-      line-height: ${drawerTopOffset};
-      color: ${black87};
+      font: ${body2};
+      font-weight: 700;
+      padding-top: ${units(1)};
+      color: ${black54};
+    `;
+
+    const SubHeading = styled.div`
+      font: ${body2};
+      color: ${black54};
+      padding: ${units(2)} ${units(2)} ${units(1)} ${units(2)};
     `;
 
     const TosMenuItem = (
@@ -139,17 +156,32 @@ class DrawerNavigation extends Component {
 
     return (
       <Drawer {...this.props}>
-        <MenuItem
-          className="team-header__drawer-team-link"
-          leftIcon={<TeamAvatar />}
-        >
-          <Link to={`/${this.props.team.slug}/`} onClick={this.props.drawerToggle}>
+        <DrawerHeader>
+          <Row style={{ alignItems: 'flex-start', justifyContent: 'space-between' }}>
+            <TeamAvatar size={units(7)} />
+            <Offset>
+              <UserAvatarRelay size={units(4)} {...this.props} />
+            </Offset>
+          </Row>
+
+          <Link
+            className="team-header__drawer-team-link"
+            to={`/${this.props.team.slug}/`}
+            onClick={this.props.drawerToggle}
+          >
             <Headline>{team.name}</Headline>
           </Link>
-        </MenuItem>
+        </DrawerHeader>
+
         <Divider />
         <div style={styles.drawerProjectsAndFooter}>
           <div style={styles.drawerProjects}>
+            <SubHeading>
+              <FormattedMessage
+                id="drawer.projectsSubheading"
+                defaultMessage="Projects"
+              />
+            </SubHeading>
             {projectList}
           </div>
 

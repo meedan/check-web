@@ -29,6 +29,7 @@ class UserAvatarRelay extends Component {
         Component={UserAvatarContainer}
         route={route}
         renderLoading={() => <StyledAvatarLoader />}
+        renderFetched={data => <UserAvatarContainer {...this.props} {...data} />}
       />
     );
   }

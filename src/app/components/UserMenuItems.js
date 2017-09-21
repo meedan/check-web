@@ -73,7 +73,7 @@ class UserMenuItems extends Component {
     );
 
     return (
-      <div onClick={this.props.drawerToggle}>
+      <div>
         { loggedIn && yourTeamsMenuItem }
         { !joinPage && editProjectMenuItem }
         { !joinPage && manageTeamMenuItem }
