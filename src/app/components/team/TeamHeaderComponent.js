@@ -14,7 +14,6 @@ import {
   Row,
   Offset,
   HeaderTitle,
-  defaultBorderRadius,
   subheading2,
   avatarStyle,
   avatarSize,
@@ -47,13 +46,9 @@ const styles = {
     flexDirection: 'column',
     height: `calc(100vh - ${drawerTopOffset})`,
   },
-  userAvatar: {
-    width: units(7),
-    height: units(7),
-  },
 };
 
-const TeamLink = styled.div`
+const DrawerButtonGroup = styled(Row)`
   align-items: center;
   display: flex;
   height: 100%;
@@ -65,12 +60,6 @@ const TeamLink = styled.div`
   &:visited {
     color: inherit;
   }
-`;
-
-const TeamNav = styled.nav`
-  border-radius: ${defaultBorderRadius};
-  display: flex;
-  overflow: hidden;
 `;
 
 const Headline = styled(HeaderTitle)`
@@ -183,7 +172,7 @@ class TeamHeaderComponent extends Component {
 
     const { loggedIn } = this.props;
 
-    const userAvatarButton = (() => {
+    const userAvatarOrSignIn = (() => {
       if (loggedIn) {
         return (
           <Offset>
@@ -212,27 +201,21 @@ class TeamHeaderComponent extends Component {
 
     return (
       <div>
-        <Row>
-          <TeamNav
-            onClick={this.handleToggle}
-            className="header-actions__menu-toggle"
-          >
-            <TeamLink
-              title={team.name}
-              className="team-header__avatar"
-            >
-              {userAvatarButton}
-              {isProjectUrl
-                ? <TeamAvatar />
-                : <Row>
-                  <TeamAvatar />
-                  <HeaderTitle offset>
-                    {team.name}
-                  </HeaderTitle>
-                </Row>}
-            </TeamLink>
-          </TeamNav>
-        </Row>
+        <DrawerButtonGroup
+          title={team.name}
+          className="header-actions__drawer-toggle"
+          onClick={this.handleToggle}
+        >
+          {userAvatarOrSignIn}
+          {isProjectUrl
+            ? <TeamAvatar />
+            : <Row>
+              <TeamAvatar />
+              <HeaderTitle offset>
+                {team.name}
+              </HeaderTitle>
+            </Row>}
+        </DrawerButtonGroup>
         <Drawer
           docked={false}
           open={this.state.open}

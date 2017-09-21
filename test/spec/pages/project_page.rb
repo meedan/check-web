@@ -41,7 +41,7 @@ class ProjectPage < Page
   end
 
   def edit(options)
-    element('.header-actions__menu-toggle').click
+    element('.header-actions__drawer-toggle').click
     element('.project-menu').click
     wait_for_element('.project-edit')
     element('body').click
@@ -59,7 +59,7 @@ class ProjectPage < Page
   end
 
   def click_team_link
-    element('.team-header__avatar').click
+    element('.header-actions__drawer-toggle').click
     wait_for_element('.team-header__drawer-team-link')
     element('.team-header__drawer-team-link').click
     TeamPage.new(config: @config, driver: @driver)
