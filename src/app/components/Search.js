@@ -725,6 +725,7 @@ const SearchResultsContainer = Relay.createContainer(injectIntl(SearchResultsCom
               project {
                 id,
                 dbid,
+                search_id,
                 title
               },
               project_source {
