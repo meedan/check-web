@@ -14,13 +14,10 @@ import {
   Row,
   Offset,
   HeaderTitle,
-  subheading2,
-  black87,
   white,
   black05,
   black54,
   units,
-  boxShadow,
   caption,
   avatarSize,
   avatarStyle,
@@ -30,8 +27,7 @@ import {
 class DrawerNavigation extends Component {
 
   render() {
-    const {team, loggedIn} = this.props;
-    const drawerTopOffset = units(6.5);
+    const { team, loggedIn } = this.props;
     const drawerHeaderHeight = units(14);
 
     const styles = {
@@ -154,8 +150,9 @@ class DrawerNavigation extends Component {
 
     const yourProfileButton = (
       <Link to="/check/teams" onClick={this.props.drawerToggle}>
-        <IconButton style={styles.drawerYourProfileButton}
-          tooltip={<FormattedMessage id="drawerNavigation.userTeams" defaultMessage="Your Teams" /> }
+        <IconButton
+          style={styles.drawerYourProfileButton}
+          tooltip={<FormattedMessage id="drawerNavigation.userTeams" defaultMessage="Your Teams" />}
           tooltipPosition="bottom-center"
         >
           <UserAvatarRelay size={units(4)} {...this.props} />
@@ -170,7 +167,7 @@ class DrawerNavigation extends Component {
 
         return (
           <Link to={projectPath} onClick={this.props.drawerToggle}>
-            <MenuItem key={p.node.dbid} primaryText={<Text ellipsis>{p.node.title}</Text>}></MenuItem>
+            <MenuItem key={p.node.dbid} primaryText={<Text ellipsis>{p.node.title}</Text>} />
           </Link>
         );
       });
