@@ -15,7 +15,6 @@ import {
   headerHeight,
   Row,
   black02,
-  Offset,
 } from '../styles/js/shared';
 
 const HeaderBar = styled.div`
@@ -52,15 +51,14 @@ class Header extends Component {
       `;
 
     const searchButton = (
-      <Offset key="header.searchButton">
-        <IconButton
-          className="header-actions__search-icon"
-          containerElement={<Link to={`/${this.props.params.team}/search`} />}
-          name="search"
-        >
-          <IconSearch />
-        </IconButton>
-      </Offset>
+      <IconButton
+        key="header.searchButton"
+        className="header-actions__search-icon"
+        containerElement={<Link to={`/${this.props.params.team}/search`} />}
+        name="search"
+      >
+        <IconSearch />
+      </IconButton>
     );
 
     const teamAndProjectHeader = (
