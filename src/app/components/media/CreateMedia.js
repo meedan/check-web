@@ -3,9 +3,10 @@ import { defineMessages, injectIntl, intlShape, FormattedMessage } from 'react-i
 import Relay from 'react-relay';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
-import IconButton from 'material-ui/IconButton';
+import rtlDetect from 'rtl-detect';
 import Card from 'material-ui/Card';
 import SvgIcon from 'material-ui/SvgIcon';
+import { Tabs, Tab } from 'material-ui/Tabs';
 import IconInsertPhoto from 'material-ui/svg-icons/editor/insert-photo';
 import IconLink from 'material-ui/svg-icons/content/link';
 import FaFeed from 'react-icons/lib/fa/feed';
@@ -19,30 +20,51 @@ import CreateProjectMediaMutation from '../../relay/CreateProjectMediaMutation';
 import CreateProjectSourceMutation from '../../relay/CreateProjectSourceMutation';
 import Message from '../Message';
 import CheckContext from '../../CheckContext';
-import { FadeIn, ContentColumn, units, title, borderRadiusDefault, columnWidthMedium, white, black54, black87 } from '../../styles/js/shared';
+import {
+  FadeIn,
+  Row,
+  ContentColumn,
+  units,
+  title,
+  caption,
+  borderRadiusDefault,
+  columnWidthMedium,
+  white,
+  black05,
+  black54,
+  black87,
+} from '../../styles/js/shared';
 import HttpStatus from '../../HttpStatus';
+
+const tabHeight = units(3);
+
+const Icon = styled.div`
+  svg {
+    color: ${black54}!important;
+    padding: 0 ${units(0.5)};
+  }
+`;
+
+const Text = styled.div`
+  font: ${caption};
+  text-transform: none;
+  color: ${black54};
+
+  padding: 0 ${units(1)};
+  ${props => props.active ? `background-color: ${black05} !important` : null}
+`;
 
 const StyledCreateMediaCard = styled(Card)`
   background-color: ${white};
   border-radius: ${borderRadiusDefault};
   margin: 0 auto ${units(2)};
   max-width: ${columnWidthMedium};
-  padding: ${units(2)} ${units(1)};
+  padding: ${units(2)} 0;
   width: 100%;
 
   footer {
     align-items: top;
     display: flex;
-  }
-
-  .create-media__buttons {
-    align-items: center;
-    display: flex;
-    justify-content: center;
-    margin-left: auto;
-    > button {
-      color: ${black54},
-    }
   }
 
   // The button to show the dropzone
@@ -337,6 +359,17 @@ class CreateProjectMedia extends Component {
 
   render() {
     const isPreviewingUrl = this.state.url !== '';
+    const locale = this.props.intl.locale;
+    const isRtl = rtlDetect.isRtlLang(locale);
+    const fromDirection = isRtl ? 'right' : 'left';
+    const toDirection = isRtl ? 'left' : 'right';
+
+    const styles = {
+      tab: {
+        border: `1px soild ${black05}`,
+        height: `${tabHeight} !important`,
+      },
+    };
 
     return (
       <FadeIn>
@@ -361,44 +394,70 @@ class CreateProjectMedia extends Component {
               </div>
 
               <footer>
-                <div className="create-media__buttons">
-                  <IconButton
-                    id="create-media__link"
-                    onClick={this.setMode.bind(this, 'link')}
-                  >
-                    <IconLink />
-                  </IconButton>
-                  <IconButton
-                    id="create-media__quote"
-                    onClick={this.setMode.bind(this, 'quote')}
-                    style={{ fontSize: units(3) }}
-                  >
-                    <SvgIcon>
-                      <MdFormatQuote />
-                    </SvgIcon>
-                  </IconButton>
-                  <IconButton
-                    id="create-media__source"
-                    onClick={this.setMode.bind(this, 'source')}
-                    style={{ fontSize: units(3) }}
-                  >
-                    <SvgIcon>
-                      <FaFeed />
-                    </SvgIcon>
-                  </IconButton>
-                  <IconButton
-                    id="create-media__image"
-                    onClick={this.setMode.bind(this, 'image')}
-                  >
-                    <IconInsertPhoto />
-                  </IconButton>
-                  <FlatButton
-                    id="create-media-submit"
-                    primary
-                    onClick={this.handleSubmit.bind(this)}
-                    label={this.props.intl.formatMessage(messages.submitButton)}
-                    className="create-media__button create-media__button--submit"
-                  />
+                <div className="create-media__buttons" style={{ width: '100%' }}>
+                  <Row style={{ flexWrap: 'wrap' }}>
+                    <Tabs
+                      rippleColor="transparent"
+                      inkBarStyle={{ display: 'none' }}
+                    >
+                      <Tab
+                        id="create-media__link"
+                        onClick={this.setMode.bind(this, 'link')}
+                        buttonStyle={{ height: tabHeight }}
+                        styles={styles.tab}
+                        label={
+                          <Row>
+                            <Icon><IconLink /></Icon>
+                            <Text><FormattedMessage id="createMedia.link" defaultMessage="Link" /></Text>
+                          </Row>
+                        }
+                      />
+                      <Tab
+                        id="create-media__quote"
+                        onClick={this.setMode.bind(this, 'quote')}
+                        buttonStyle={{ height: tabHeight }}
+                        styles={styles.tab}
+                        label={
+                          <Row>
+                            <SvgIcon style={{ fontSize: units(3) }}> <MdFormatQuote /> </SvgIcon>
+                            <Text><FormattedMessage id="createMedia.quote" defaultMessage="Quote" /></Text>
+                          </Row>
+                        }
+                      />
+                      <Tab
+                        id="create-media__source"
+                        onClick={this.setMode.bind(this, 'source')}
+                        buttonStyle={{ height: tabHeight }}
+                        styles={styles.tab}
+                        label={
+                          <Row>
+                            <Icon><SvgIcon style={{ fontSize: units(3) }}> <FaFeed /> </SvgIcon></Icon>
+                            <Text><FormattedMessage id="createMedia.source" defaultMessage="Source" /></Text>
+                          </Row>
+                        }
+                      />
+                      <Tab
+                        id="create-media__image"
+                        onClick={this.setMode.bind(this, 'image')}
+                        buttonStyle={{ height: tabHeight }}
+                        styles={styles.tab}
+                        label={
+                          <Row>
+                            <Icon><IconInsertPhoto /></Icon>
+                            <Text><FormattedMessage id="createMedia.image" defaultMessage="Photo" /></Text>
+                          </Row>
+                      }
+                      />
+                    </Tabs>
+                    <FlatButton
+                      id="create-media-submit"
+                      primary
+                      onClick={this.handleSubmit.bind(this)}
+                      label={this.props.intl.formatMessage(messages.submitButton)}
+                      className="create-media__button create-media__button--submit"
+                      style={{ marginLeft: 'auto' }}
+                    />
+                  </Row>
                 </div>
               </footer>
             </form>
