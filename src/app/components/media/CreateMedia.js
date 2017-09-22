@@ -4,7 +4,7 @@ import Relay from 'react-relay';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import rtlDetect from 'rtl-detect';
-import Card from 'material-ui/Card';
+import { Card, CardText, CardActions, CardHeader, CardTitle } from 'material-ui/Card';
 import SvgIcon from 'material-ui/SvgIcon';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import IconInsertPhoto from 'material-ui/svg-icons/editor/insert-photo';
@@ -33,6 +33,7 @@ import {
   black05,
   black54,
   black87,
+  mediaQuery,
 } from '../../styles/js/shared';
 import HttpStatus from '../../HttpStatus';
 
@@ -49,35 +50,16 @@ const Text = styled.div`
   font: ${caption};
   text-transform: none;
   color: ${black54};
-
   padding: 0 ${units(1)};
   ${props => props.active ? `background-color: ${black05} !important` : null}
+  ${mediaQuery.handheld`
+    display: none;    
+  `}
 `;
 
 const StyledCreateMediaCard = styled(Card)`
-  background-color: ${white};
-  border-radius: ${borderRadiusDefault};
   margin: 0 auto ${units(2)};
   max-width: ${columnWidthMedium};
-  padding: ${units(2)} 0;
-  width: 100%;
-
-  footer {
-    align-items: top;
-    display: flex;
-  }
-
-  // The button to show the dropzone
-  //
-  .create-media__insert-photo {
-    display: flex;
-  }
-`;
-
-const StyledTitle = styled.div`
-  color: ${black87};
-  font: ${title};
-  padding: 0 ${units(1)};
 `;
 
 const messages = defineMessages({
@@ -361,22 +343,21 @@ class CreateProjectMedia extends Component {
     const isPreviewingUrl = this.state.url !== '';
     const locale = this.props.intl.locale;
     const isRtl = rtlDetect.isRtlLang(locale);
-    const fromDirection = isRtl ? 'right' : 'left';
-    const toDirection = isRtl ? 'left' : 'right';
+    const fromDirection = isRtl ? 'Right' : 'Left';
+    const toDirection = isRtl ? 'Left' : 'Right';
 
     const styles = {
       tab: {
-        border: `1px soild ${black05}`,
-        height: `${tabHeight} !important`,
+        margin: isRtl ? `0 0 0 ${units(1)}` : `0 ${units(1)} 0 0`,
       },
     };
 
     return (
       <FadeIn>
         <StyledCreateMediaCard className="create-media">
-          <StyledTitle>{this.renderTitle()}</StyledTitle>
-          <Message message={this.state.message} />
-          <ContentColumn>
+          <CardHeader title={this.renderTitle()} />
+          <CardText>
+            <Message message={this.state.message} />
             <div id="media-preview" className="create-media__preview">
               {isPreviewingUrl
                 ? <PenderCard url={this.state.url} penderUrl={config.penderUrl} />
@@ -393,18 +374,17 @@ class CreateProjectMedia extends Component {
                 {this.renderFormInputs()}
               </div>
 
-              <footer>
+              
                 <div className="create-media__buttons" style={{ width: '100%' }}>
                   <Row style={{ flexWrap: 'wrap' }}>
                     <Tabs
-                      rippleColor="transparent"
                       inkBarStyle={{ display: 'none' }}
                     >
                       <Tab
                         id="create-media__link"
                         onClick={this.setMode.bind(this, 'link')}
                         buttonStyle={{ height: tabHeight }}
-                        styles={styles.tab}
+                        style={styles.tab}
                         label={
                           <Row>
                             <Icon><IconLink /></Icon>
@@ -416,7 +396,7 @@ class CreateProjectMedia extends Component {
                         id="create-media__quote"
                         onClick={this.setMode.bind(this, 'quote')}
                         buttonStyle={{ height: tabHeight }}
-                        styles={styles.tab}
+                        style={styles.tab}
                         label={
                           <Row>
                             <SvgIcon style={{ fontSize: units(3) }}> <MdFormatQuote /> </SvgIcon>
@@ -428,7 +408,7 @@ class CreateProjectMedia extends Component {
                         id="create-media__source"
                         onClick={this.setMode.bind(this, 'source')}
                         buttonStyle={{ height: tabHeight }}
-                        styles={styles.tab}
+                        style={styles.tab}
                         label={
                           <Row>
                             <Icon><SvgIcon style={{ fontSize: units(3) }}> <FaFeed /> </SvgIcon></Icon>
@@ -440,7 +420,7 @@ class CreateProjectMedia extends Component {
                         id="create-media__image"
                         onClick={this.setMode.bind(this, 'image')}
                         buttonStyle={{ height: tabHeight }}
-                        styles={styles.tab}
+                        style={styles.tab}
                         label={
                           <Row>
                             <Icon><IconInsertPhoto /></Icon>
@@ -459,9 +439,9 @@ class CreateProjectMedia extends Component {
                     />
                   </Row>
                 </div>
-              </footer>
+              
             </form>
-          </ContentColumn>
+          </CardText>
         </StyledCreateMediaCard>
       </FadeIn>
     );
