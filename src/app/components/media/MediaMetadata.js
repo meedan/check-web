@@ -143,6 +143,8 @@ class MediaMetadata extends Component {
     Relay.Store.commitUpdate(
       new UpdateProjectMediaMutation({
         archived: 1,
+        check_search_team: this.props.media.team.search_id,
+        check_search_project: this.props.media.project.search_id,
         id: this.props.media.id,
       }),
       { onSuccess, onFailure },
@@ -172,6 +174,8 @@ class MediaMetadata extends Component {
     Relay.Store.commitUpdate(
       new UpdateProjectMediaMutation({
         archived: 0,
+        check_search_team: this.props.media.team.search_id,
+        check_search_project: this.props.media.project.search_id,
         id: this.props.media.id,
       }),
       { onSuccess, onFailure },
