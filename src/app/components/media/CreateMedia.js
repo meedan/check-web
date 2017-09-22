@@ -31,6 +31,7 @@ import {
   columnWidthMedium,
   white,
   black05,
+  black38,
   black54,
   black87,
   mediaQuery,
@@ -41,7 +42,7 @@ const tabHeight = units(3);
 
 const Icon = styled.div`
   svg {
-    color: ${black54}!important;
+    color: ${black38} !important;
     padding: 0 ${units(0.5)};
   }
 `;
@@ -50,8 +51,7 @@ const Text = styled.div`
   font: ${caption};
   text-transform: none;
   color: ${black54};
-  padding: 0 ${units(1)};
-  ${props => props.active ? `background-color: ${black05} !important` : null}
+  padding: 0 ${units(0.5)};
   ${mediaQuery.handheld`
     display: none;    
   `}
@@ -60,6 +60,20 @@ const Text = styled.div`
 const StyledCreateMediaCard = styled(Card)`
   margin: 0 auto ${units(2)};
   max-width: ${columnWidthMedium};
+`;
+
+const TabLabel = styled(Row)`
+  ${props => 
+    props.active ? `
+      border-radius: ${units(3)};
+      div {
+        color: ${black87} !important;
+        font-weight: 700 !important;
+      }
+      svg {
+        color: ${black87} !important;
+      }`
+    : null}
 `;
 
 const messages = defineMessages({
@@ -348,7 +362,7 @@ class CreateProjectMedia extends Component {
 
     const styles = {
       tab: {
-        margin: isRtl ? `0 0 0 ${units(1)}` : `0 ${units(1)} 0 0`,
+        margin: isRtl ? `0 0 0 ${units(2)}` : `0 ${units(2)} 0 0`,
       },
     };
 
@@ -374,7 +388,6 @@ class CreateProjectMedia extends Component {
                 {this.renderFormInputs()}
               </div>
 
-              
                 <div className="create-media__buttons" style={{ width: '100%' }}>
                   <Row style={{ flexWrap: 'wrap' }}>
                     <Tabs
@@ -386,10 +399,10 @@ class CreateProjectMedia extends Component {
                         buttonStyle={{ height: tabHeight }}
                         style={styles.tab}
                         label={
-                          <Row>
+                          <TabLabel active={ this.state.mode == "link" }>
                             <Icon><IconLink /></Icon>
                             <Text><FormattedMessage id="createMedia.link" defaultMessage="Link" /></Text>
-                          </Row>
+                          </TabLabel>
                         }
                       />
                       <Tab
@@ -398,10 +411,10 @@ class CreateProjectMedia extends Component {
                         buttonStyle={{ height: tabHeight }}
                         style={styles.tab}
                         label={
-                          <Row>
-                            <SvgIcon style={{ fontSize: units(3) }}> <MdFormatQuote /> </SvgIcon>
+                          <TabLabel active={ this.state.mode == "quote" }>
+                            <Icon><SvgIcon style={{ fontSize: units(3) }}> <MdFormatQuote /> </SvgIcon></Icon>
                             <Text><FormattedMessage id="createMedia.quote" defaultMessage="Quote" /></Text>
-                          </Row>
+                          </TabLabel>
                         }
                       />
                       <Tab
@@ -410,10 +423,10 @@ class CreateProjectMedia extends Component {
                         buttonStyle={{ height: tabHeight }}
                         style={styles.tab}
                         label={
-                          <Row>
+                          <TabLabel active={ this.state.mode == "source" }>
                             <Icon><SvgIcon style={{ fontSize: units(3) }}> <FaFeed /> </SvgIcon></Icon>
                             <Text><FormattedMessage id="createMedia.source" defaultMessage="Source" /></Text>
-                          </Row>
+                          </TabLabel>
                         }
                       />
                       <Tab
@@ -422,10 +435,10 @@ class CreateProjectMedia extends Component {
                         buttonStyle={{ height: tabHeight }}
                         style={styles.tab}
                         label={
-                          <Row>
+                          <TabLabel active={ this.state.mode == "image" }>
                             <Icon><IconInsertPhoto /></Icon>
                             <Text><FormattedMessage id="createMedia.image" defaultMessage="Photo" /></Text>
-                          </Row>
+                          </TabLabel>
                       }
                       />
                     </Tabs>
