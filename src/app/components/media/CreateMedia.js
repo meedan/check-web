@@ -35,14 +35,14 @@ import HttpStatus from '../../HttpStatus';
 
 const tabHeight = units(3);
 
-const Icon = styled.div`
+const StyledIcon = styled.div`
   svg {
     color: ${black38} !important;
     padding: 0 ${units(0.5)};
   }
 `;
 
-const Text = styled.div`
+const StyledText = styled.div`
   font: ${caption};
   text-transform: none;
   color: ${black54};
@@ -57,9 +57,10 @@ const StyledCreateMediaCard = styled(Card)`
   max-width: ${columnWidthMedium};
 `;
 
-const TabLabel = styled(Row)`
+const StyledTabLabel = styled(Row)`
   ${props =>
-    props.active ? `
+    props.active
+      ? `
       border-radius: ${units(3)};
       div {
         color: ${black87} !important;
@@ -68,7 +69,7 @@ const TabLabel = styled(Row)`
       svg {
         color: ${black87} !important;
       }`
-    : null}
+      : null}
 `;
 
 const messages = defineMessages({
@@ -104,7 +105,6 @@ const messages = defineMessages({
 });
 
 class CreateProjectMedia extends Component {
-
   constructor(props) {
     super(props);
 
@@ -154,7 +154,9 @@ class CreateProjectMedia extends Component {
   }
 
   handleSubmitError(context, prefix, transactionError) {
-    let message = this.props.intl.formatMessage(messages.error, { code: `${transactionError.status} ${HttpStatus.getMessage(transactionError.status)}` });
+    let message = this.props.intl.formatMessage(messages.error, {
+      code: `${transactionError.status} ${HttpStatus.getMessage(transactionError.status)}`,
+    });
     let json = null;
     try {
       json = JSON.parse(transactionError.source);
@@ -163,9 +165,9 @@ class CreateProjectMedia extends Component {
     }
     if (json && json.error) {
       const matches = json.error.match(
-        this.state.mode === 'source' ?
-          /Account with this URL exists and has source id ([0-9]+)$/ :
-          /This media already exists in this project and has id ([0-9]+)/,
+        this.state.mode === 'source'
+          ? /Account with this URL exists and has source id ([0-9]+)$/
+          : /This media already exists in this project and has id ([0-9]+)/,
       );
       if (matches) {
         this.props.projectComponent.props.relay.forceFetch();
@@ -363,30 +365,33 @@ class CreateProjectMedia extends Component {
     };
 
     const tabLabelLink = (
-      <TabLabel active={this.state.mode === 'link'}>
-        <Icon><IconLink /></Icon>
-        <Text><FormattedMessage id="createMedia.link" defaultMessage="Link" /></Text>
-      </TabLabel>);
+      <StyledTabLabel active={this.state.mode === 'link'}>
+        <StyledIcon><IconLink /></StyledIcon>
+        <StyledText><FormattedMessage id="createMedia.link" defaultMessage="Link" /></StyledText>
+      </StyledTabLabel>
+    );
 
     const tabLabelQuote = (
-      <TabLabel active={this.state.mode === 'quote'}>
-        <Icon><SvgIcon style={styles.svgIcon}><MdFormatQuote /></SvgIcon></Icon>
-        <Text><FormattedMessage id="createMedia.quote" defaultMessage="Quote" /></Text>
-      </TabLabel>
+      <StyledTabLabel active={this.state.mode === 'quote'}>
+        <StyledIcon><SvgIcon style={styles.svgIcon}><MdFormatQuote /></SvgIcon></StyledIcon>
+        <StyledText><FormattedMessage id="createMedia.quote" defaultMessage="Quote" /></StyledText>
+      </StyledTabLabel>
     );
 
     const tabLabelSource = (
-      <TabLabel active={this.state.mode === 'source'}>
-        <Icon><SvgIcon style={styles.svgIcon}><FaFeed /></SvgIcon></Icon>
-        <Text><FormattedMessage id="createMedia.source" defaultMessage="Source" /></Text>
-      </TabLabel>
+      <StyledTabLabel active={this.state.mode === 'source'}>
+        <StyledIcon><SvgIcon style={styles.svgIcon}><FaFeed /></SvgIcon></StyledIcon>
+        <StyledText>
+          <FormattedMessage id="createMedia.source" defaultMessage="Source" />
+        </StyledText>
+      </StyledTabLabel>
     );
 
     const tabLabelImage = (
-      <TabLabel active={this.state.mode === 'image'}>
-        <Icon><IconInsertPhoto /></Icon>
-        <Text><FormattedMessage id="createMedia.image" defaultMessage="Photo" /></Text>
-      </TabLabel>
+      <StyledTabLabel active={this.state.mode === 'image'}>
+        <StyledIcon><IconInsertPhoto /></StyledIcon>
+        <StyledText><FormattedMessage id="createMedia.image" defaultMessage="Photo" /></StyledText>
+      </StyledTabLabel>
     );
 
     return (
