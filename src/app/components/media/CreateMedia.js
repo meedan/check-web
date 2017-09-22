@@ -4,7 +4,7 @@ import Relay from 'react-relay';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import rtlDetect from 'rtl-detect';
-import { Card, CardText, CardActions, CardHeader, CardTitle } from 'material-ui/Card';
+import { Card, CardText, CardHeader } from 'material-ui/Card';
 import SvgIcon from 'material-ui/SvgIcon';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import IconInsertPhoto from 'material-ui/svg-icons/editor/insert-photo';
@@ -23,14 +23,9 @@ import CheckContext from '../../CheckContext';
 import {
   FadeIn,
   Row,
-  ContentColumn,
   units,
-  title,
   caption,
-  borderRadiusDefault,
   columnWidthMedium,
-  white,
-  black05,
   black38,
   black54,
   black87,
@@ -53,7 +48,7 @@ const Text = styled.div`
   color: ${black54};
   padding: 0 ${units(0.5)};
   ${mediaQuery.handheld`
-    display: none;    
+    display: none;
   `}
 `;
 
@@ -63,7 +58,7 @@ const StyledCreateMediaCard = styled(Card)`
 `;
 
 const TabLabel = styled(Row)`
-  ${props => 
+  ${props =>
     props.active ? `
       border-radius: ${units(3)};
       div {
@@ -143,7 +138,7 @@ class CreateProjectMedia extends Component {
     this.setState({ fileMode: !this.state.fileMode });
   }
 
-  handleChange(e) {
+  handleChange() {
     this.setState({ message: null });
   }
 
@@ -357,14 +352,42 @@ class CreateProjectMedia extends Component {
     const isPreviewingUrl = this.state.url !== '';
     const locale = this.props.intl.locale;
     const isRtl = rtlDetect.isRtlLang(locale);
-    const fromDirection = isRtl ? 'Right' : 'Left';
-    const toDirection = isRtl ? 'Left' : 'Right';
 
     const styles = {
+      svgIcon: {
+        fontSize: units(3),
+      },
       tab: {
         margin: isRtl ? `0 0 0 ${units(2)}` : `0 ${units(2)} 0 0`,
       },
     };
+
+    const tabLabelLink = (
+      <TabLabel active={this.state.mode === 'link'}>
+        <Icon><IconLink /></Icon>
+        <Text><FormattedMessage id="createMedia.link" defaultMessage="Link" /></Text>
+      </TabLabel>);
+
+    const tabLabelQuote = (
+      <TabLabel active={this.state.mode === 'quote'}>
+        <Icon><SvgIcon style={styles.svgIcon}><MdFormatQuote /></SvgIcon></Icon>
+        <Text><FormattedMessage id="createMedia.quote" defaultMessage="Quote" /></Text>
+      </TabLabel>
+    );
+
+    const tabLabelSource = (
+      <TabLabel active={this.state.mode === 'source'}>
+        <Icon><SvgIcon style={styles.svgIcon}><FaFeed /></SvgIcon></Icon>
+        <Text><FormattedMessage id="createMedia.source" defaultMessage="Source" /></Text>
+      </TabLabel>
+    );
+
+    const tabLabelImage = (
+      <TabLabel active={this.state.mode === 'image'}>
+        <Icon><IconInsertPhoto /></Icon>
+        <Text><FormattedMessage id="createMedia.image" defaultMessage="Photo" /></Text>
+      </TabLabel>
+    );
 
     return (
       <FadeIn>
@@ -388,71 +411,48 @@ class CreateProjectMedia extends Component {
                 {this.renderFormInputs()}
               </div>
 
-                <div className="create-media__buttons" style={{ width: '100%' }}>
-                  <Row style={{ flexWrap: 'wrap' }}>
-                    <Tabs
-                      inkBarStyle={{ display: 'none' }}
-                    >
-                      <Tab
-                        id="create-media__link"
-                        onClick={this.setMode.bind(this, 'link')}
-                        buttonStyle={{ height: tabHeight }}
-                        style={styles.tab}
-                        label={
-                          <TabLabel active={ this.state.mode == "link" }>
-                            <Icon><IconLink /></Icon>
-                            <Text><FormattedMessage id="createMedia.link" defaultMessage="Link" /></Text>
-                          </TabLabel>
-                        }
-                      />
-                      <Tab
-                        id="create-media__quote"
-                        onClick={this.setMode.bind(this, 'quote')}
-                        buttonStyle={{ height: tabHeight }}
-                        style={styles.tab}
-                        label={
-                          <TabLabel active={ this.state.mode == "quote" }>
-                            <Icon><SvgIcon style={{ fontSize: units(3) }}> <MdFormatQuote /> </SvgIcon></Icon>
-                            <Text><FormattedMessage id="createMedia.quote" defaultMessage="Quote" /></Text>
-                          </TabLabel>
-                        }
-                      />
-                      <Tab
-                        id="create-media__source"
-                        onClick={this.setMode.bind(this, 'source')}
-                        buttonStyle={{ height: tabHeight }}
-                        style={styles.tab}
-                        label={
-                          <TabLabel active={ this.state.mode == "source" }>
-                            <Icon><SvgIcon style={{ fontSize: units(3) }}> <FaFeed /> </SvgIcon></Icon>
-                            <Text><FormattedMessage id="createMedia.source" defaultMessage="Source" /></Text>
-                          </TabLabel>
-                        }
-                      />
-                      <Tab
-                        id="create-media__image"
-                        onClick={this.setMode.bind(this, 'image')}
-                        buttonStyle={{ height: tabHeight }}
-                        style={styles.tab}
-                        label={
-                          <TabLabel active={ this.state.mode == "image" }>
-                            <Icon><IconInsertPhoto /></Icon>
-                            <Text><FormattedMessage id="createMedia.image" defaultMessage="Photo" /></Text>
-                          </TabLabel>
-                      }
-                      />
-                    </Tabs>
-                    <FlatButton
-                      id="create-media-submit"
-                      primary
-                      onClick={this.handleSubmit.bind(this)}
-                      label={this.props.intl.formatMessage(messages.submitButton)}
-                      className="create-media__button create-media__button--submit"
-                      style={{ marginLeft: 'auto' }}
+              <div style={{ width: '100%' }}>
+                <Row style={{ flexWrap: 'wrap' }}>
+                  <Tabs inkBarStyle={{ display: 'none' }}>
+                    <Tab
+                      id="create-media__link"
+                      onClick={this.setMode.bind(this, 'link')}
+                      buttonStyle={{ height: tabHeight }}
+                      style={styles.tab}
+                      label={tabLabelLink}
                     />
-                  </Row>
-                </div>
-              
+                    <Tab
+                      id="create-media__quote"
+                      onClick={this.setMode.bind(this, 'quote')}
+                      buttonStyle={{ height: tabHeight }}
+                      style={styles.tab}
+                      label={tabLabelQuote}
+                    />
+                    <Tab
+                      id="create-media__source"
+                      onClick={this.setMode.bind(this, 'source')}
+                      buttonStyle={{ height: tabHeight }}
+                      style={styles.tab}
+                      label={tabLabelSource}
+                    />
+                    <Tab
+                      id="create-media__image"
+                      onClick={this.setMode.bind(this, 'image')}
+                      buttonStyle={{ height: tabHeight }}
+                      style={styles.tab}
+                      label={tabLabelImage}
+                    />
+                  </Tabs>
+                  <FlatButton
+                    id="create-media-submit"
+                    primary
+                    onClick={this.handleSubmit.bind(this)}
+                    label={this.props.intl.formatMessage(messages.submitButton)}
+                    className="create-media__button create-media__button--submit"
+                    style={{ marginLeft: 'auto' }}
+                  />
+                </Row>
+              </div>
             </form>
           </CardText>
         </StyledCreateMediaCard>
