@@ -127,6 +127,15 @@ class Home extends Component {
       return null;
     }
 
+    const drawer = (<DrawerNavigation
+      docked={false}
+      open={this.state.open}
+      drawerToggle={this.handleDrawerToggle.bind(this)}
+      onRequestChange={open => this.setState({ open })}
+      loggedIn={this.state.token}
+      {...this.props}
+    />);
+
     return (
       <MuiThemeProvider muiTheme={muiThemeWithRtl}>
         <span>
@@ -148,14 +157,7 @@ class Home extends Component {
               {children}
             </div>
           </div>
-          <DrawerNavigation
-            docked={false}
-            open={this.state.open}
-            drawerToggle={this.handleDrawerToggle.bind(this)}
-            onRequestChange={open => this.setState({ open })}
-            loggedIn={this.state.token}
-            {...this.props}
-          />
+          { this.state.token && this.props.params.team ? drawer : null }
         </span>
       </MuiThemeProvider>
     );
