@@ -1,9 +1,5 @@
 [
   {
-    "id": "headerActions.userTeams",
-    "defaultMessage": "Your Teams"
-  },
-  {
     "id": "headerActions.signIn",
     "defaultMessage": "Sign In"
   },

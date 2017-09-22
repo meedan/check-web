@@ -1,9 +1,3 @@
 {
-  "headerActions.userTeams": "Vos équipes",
-  "headerActions.signIn": "Connexion",
-  "headerActions.signOut": "Déconnexion",
-  "headerActions.contactHuman": "Contactez un humain",
-  "headerActions.tos": "Conditions d'utilisation",
-  "headerActions.privacyPolicy": "Politique de confidentialité",
-  "headerActions.about": "A propos de {appName} "
+  "headerActions.signIn": "Connexion"
 }

@@ -150,8 +150,7 @@ class Annotation extends Component {
     const annotated = this.props.annotated;
 
     let annotationActions = null;
-    // FIXME Hide actions for source annotations until delete is implemented #6282
-    if (annotation && typeof annotated.media !== 'undefined') {
+    if (annotation) {
       const permission = `destroy ${annotation.annotation_type.charAt(0).toUpperCase()}${annotation.annotation_type.slice(1)}`;
       annotationActions = can(annotation.permissions, permission) ? (
         <MenuButton>
@@ -224,7 +223,11 @@ class Annotation extends Component {
       contentTemplate = (<em>
         <FormattedMessage
           id="annotation.deletedComment"
-          defaultMessage={'Comment deleted'}
+          defaultMessage={'Comment deleted by {author}: "{comment}"'}
+          values={{
+            author: authorName,
+            comment: content.text
+          }}
         />
       </em>);
       break;

@@ -1,6 +1,9 @@
 {
   "mediaActions.edit": "Edit",
+  "mediaActions.restore": "Restore to project",
   "mediaActions.move": "Move",
+  "mediaActions.sendToTrash": "Send to trash",
   "mediaActions.refresh": "Refresh",
-  "mediaActions.embed": "Embed"
+  "mediaActions.embed": "Embed",
+  "mediaActions.deleteForever": "Delete forever"
 }

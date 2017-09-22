@@ -2,7 +2,7 @@ require_relative './login_page.rb'
 
 module LoggedInPage
   def logout
-    menu = element('.header-actions__menu-toggle')
+    menu = element('.header-actions__drawer-toggle')
     menu.click
 
     # Wait for menu transition to complete

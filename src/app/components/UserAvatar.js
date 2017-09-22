@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Avatar from 'material-ui/Avatar';
 import styled from 'styled-components';
-import { avatarStyle, headerAvatarSize } from '../styles/js/shared';
+import { stripUnit } from 'polished';
+import { avatarStyle, avatarSize } from '../styles/js/shared';
 
 const StyledAvatar = styled(Avatar)`
   ${avatarStyle};
@@ -9,10 +10,15 @@ const StyledAvatar = styled(Avatar)`
 
 class UserAvatar extends Component {
   render() {
-    const me = this.props.me;
+    const { size, me } = this.props;
+
     if (me) {
       return (
-        <StyledAvatar src={me.profile_image} size={headerAvatarSize} className="avatar" />
+        <StyledAvatar
+          src={me.profile_image}
+          size={size ? stripUnit(size) : stripUnit(avatarSize)}
+          className="avatar"
+        />
       );
     }
     return null;

@@ -4,12 +4,12 @@ import styled from 'styled-components';
 import MeRoute from './MeRoute';
 import UserAvatar from '../components/UserAvatar';
 import userFragment from './userFragment';
-import { Pulse, white, headerAvatarSize } from '../styles/js/shared';
+import { Pulse, white, avatarSize } from '../styles/js/shared';
 
 const StyledAvatarLoader = styled(Pulse)`
   background-color: ${white};
-  width: ${headerAvatarSize}px;
-  height: ${headerAvatarSize}px;
+  width: ${avatarSize}px;
+  height: ${avatarSize}px;
   border-radius: 50%;
   flex: 0 0 auto;
 `;
@@ -29,6 +29,7 @@ class UserAvatarRelay extends Component {
         Component={UserAvatarContainer}
         route={route}
         renderLoading={() => <StyledAvatarLoader />}
+        renderFetched={data => <UserAvatarContainer {...this.props} {...data} />}
       />
     );
   }

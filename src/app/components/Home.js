@@ -11,6 +11,7 @@ import Header from './Header';
 import LoginContainer from './LoginContainer';
 import BrowserSupport from './BrowserSupport';
 import CheckContext from '../CheckContext';
+import DrawerNavigation from './DrawerNavigation';
 import { bemClass } from '../helpers';
 import Message from './Message';
 import { muiThemeWithoutRtl, ContentColumn } from '../styles/js/shared';
@@ -39,6 +40,16 @@ class Home extends Component {
       token: null,
       error: false,
       sessionStarted: false,
+      open: false,
+    };
+  }
+
+
+  getChildContext() {
+    return {
+      setMessage: (message) => {
+        this.setState({ message });
+      },
     };
   }
 
@@ -60,6 +71,8 @@ class Home extends Component {
     context.startNetwork(this.state.token);
   }
 
+  handleDrawerToggle = () => this.setState({ open: !this.state.open });
+
   loginCallback() {
     this.setState({ error: false });
     this.forceUpdate();
@@ -76,14 +89,6 @@ class Home extends Component {
       return 'source'; // TODO: other pages as needed
     }
     return null;
-  }
-
-  getChildContext() {
-    return {
-      setMessage: (message) => {
-        this.setState({ message });
-      },
-    };
   }
 
   resetMessage() {
@@ -122,6 +127,15 @@ class Home extends Component {
       return null;
     }
 
+    const drawer = (<DrawerNavigation
+      docked={false}
+      open={this.state.open}
+      drawerToggle={this.handleDrawerToggle.bind(this)}
+      onRequestChange={open => this.setState({ open })}
+      loggedIn={this.state.token}
+      {...this.props}
+    />);
+
     return (
       <MuiThemeProvider muiTheme={muiThemeWithRtl}>
         <span>
@@ -129,12 +143,21 @@ class Home extends Component {
           <BrowserSupport />
           <div className={bemClass('home', routeSlug, `--${routeSlug}`)}>
             <ContentColumn wide className="home__disclaimer">
-              <span><FormattedMessage id="home.beta" defaultMessage="Beta" /></span>
+              <span>
+                <FormattedMessage id="home.beta" defaultMessage="Beta" />
+              </span>
             </ContentColumn>
-            <Header {...this.props} loggedIn={this.state.token} />
+            <Header
+              drawerToggle={this.handleDrawerToggle.bind(this)}
+              {...this.props}
+              loggedIn={this.state.token}
+            />
             <Message message={this.state.message} onClick={this.resetMessage.bind(this)} className="home__message" />
-            <div className="home__content">{children}</div>
+            <div className="home__content">
+              {children}
+            </div>
           </div>
+          { this.state.token && this.props.params.team ? drawer : null }
         </span>
       </MuiThemeProvider>
     );

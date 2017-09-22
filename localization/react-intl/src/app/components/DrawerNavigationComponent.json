@@ -1,0 +1,26 @@
+[
+  {
+    "id": "headerActions.tos",
+    "defaultMessage": "Terms"
+  },
+  {
+    "id": "headerActions.privacyPolicy",
+    "defaultMessage": "Privacy"
+  },
+  {
+    "id": "headerActions.about",
+    "defaultMessage": "About"
+  },
+  {
+    "id": "headerActions.contactHuman",
+    "defaultMessage": "Contact"
+  },
+  {
+    "id": "drawerNavigation.userTeams",
+    "defaultMessage": "Your Teams"
+  },
+  {
+    "id": "drawerNavigation.projectsSubheading",
+    "defaultMessage": "Projects"
+  }
+]
