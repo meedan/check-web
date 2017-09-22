@@ -10,12 +10,12 @@ const StyledAvatar = styled(Avatar)`
 
 class UserAvatar extends Component {
   render() {
-    const { size, me } = this.props;
+    const { size, user } = this.props;
 
-    if (me) {
+    if (user) {
       return (
         <StyledAvatar
-          src={me.profile_image}
+          src={user.profile_image}
           size={size ? stripUnit(size) : stripUnit(avatarSize)}
           className="avatar"
         />
