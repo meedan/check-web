@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import Relay from 'react-relay';
+import { Link } from 'react-router';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import { ListItem } from 'material-ui/List';
@@ -9,7 +10,6 @@ import MdClear from 'react-icons/lib/md/clear';
 import IconButton from 'material-ui/IconButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import UpdateTeamUserMutation from '../../relay/UpdateTeamUserMutation';
-import { profileLink } from './TeamUtil';
 import {
   selectStyle,
   checkBlue,
@@ -87,7 +87,7 @@ class TeamMembersListItem extends Component {
       >
         <FlexRow>
           <FlexRow>
-            <a href={profileLink(teamUser.node.user)}>
+            <Link to={`/check/user/${teamUser.node.user.dbid}`} className="team-members__profile-link">
               <FlexRow>
                 <Avatar
                   className="avatar"
@@ -99,7 +99,7 @@ class TeamMembersListItem extends Component {
                   {teamUser.node.user.name}
                 </Text>
               </FlexRow>
-            </a>
+            </Link>
           </FlexRow>
 
           {(() => {

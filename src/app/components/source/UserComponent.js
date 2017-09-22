@@ -40,7 +40,7 @@ class UserComponent extends React.Component {
 
     return (
       <PageTitle prefix={user.name} skipTeam={true}>
-        <div className="profile">
+        <div className="source">
           <HeaderCard
             canEdit={can(user.permissions, 'update User')}
             direction={direction}

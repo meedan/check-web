@@ -52,6 +52,7 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
           thumbnail_path
         }
         user {
+          dbid,
           name,
           email,
           source {
@@ -115,6 +116,7 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
                   name,
                   profile_image,
                   user {
+                    dbid,
                     name,
                     profile_image,
                     source {
@@ -156,6 +158,7 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
                 }
               }
               user {
+                dbid,
                 name,
                 profile_image,
                 email,
