@@ -32,6 +32,10 @@
     "defaultMessage": "Cancelled"
   },
   {
+    "id": "switchTeams.noTeams",
+    "defaultMessage": "You are not a member of any teams yet."
+  },
+  {
     "id": "switchTeams.newTeamLink",
     "defaultMessage": "Create Team"
   }

@@ -166,36 +166,39 @@ class SwitchTeamsComponent extends Component {
           titleStyle={titleStyle}
           title={cardTitle}
         />
-        <List className="teams" style={listStyle}>
-          {otherTeams.map((team, index) =>
-            <ListItem
-              key={index}
-              hoverColor={highlightBlue}
-              focusRippleColor={checkBlue}
-              touchRippleColor={checkBlue}
-              containerElement={<Link to={buildUrl(team)} />}
-              leftAvatar={<Avatar style={teamAvatarStyle} src={team.avatar} />}
-              onClick={that.setCurrentTeam.bind(that, team, currentUser)}
-              primaryText={team.name}
-              rightIcon={<KeyboardArrowRight />}
-              secondaryText={that.membersCountString(team.members_count)}
-            />,
-          )}
+        { (otherTeams.length + pendingTeams.length) ?
+          <List className="teams" style={listStyle}>
+            {otherTeams.map((team, index) =>
+              <ListItem
+                key={index}
+                hoverColor={highlightBlue}
+                focusRippleColor={checkBlue}
+                touchRippleColor={checkBlue}
+                containerElement={<Link to={buildUrl(team)} />}
+                leftAvatar={<Avatar style={teamAvatarStyle} src={team.avatar} />}
+                onClick={that.setCurrentTeam.bind(that, team, currentUser)}
+                primaryText={team.name}
+                rightIcon={<KeyboardArrowRight />}
+                secondaryText={that.membersCountString(team.members_count)}
+              />,
+            )}
 
-          {pendingTeams.map((team, index) =>
-            <ListItem
-              key={index}
-              hoverColor={highlightBlue}
-              focusRippleColor={checkBlue}
-              touchRippleColor={checkBlue}
-              href={buildUrl(team)}
-              leftAvatar={<Avatar style={teamAvatarStyle} src={team.avatar} />}
-              primaryText={team.name}
-              rightIconButton={teamButton(team)}
-              secondaryText={that.requestedToJoinString()}
-            />,
-          )}
-        </List>
+            {pendingTeams.map((team, index) =>
+              <ListItem
+                key={index}
+                hoverColor={highlightBlue}
+                focusRippleColor={checkBlue}
+                touchRippleColor={checkBlue}
+                href={buildUrl(team)}
+                leftAvatar={<Avatar style={teamAvatarStyle} src={team.avatar} />}
+                primaryText={team.name}
+                rightIconButton={teamButton(team)}
+                secondaryText={that.requestedToJoinString()}
+              />,
+            )}
+          </List> : <FormattedMessage id="switchTeams.noTeams" defaultMessage="You are not a member of any teams yet." />
+        }
+
         { isUserSelf ?
           <CardActions>
             <FlatButton
