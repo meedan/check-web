@@ -17,7 +17,11 @@
   },
   {
     "id": "createMedia.quoteAttributionInput",
-    "defaultMessage": "Attribute to name or URL"
+    "defaultMessage": "Source name"
+  },
+  {
+    "id": "createMedia.quoteAttributionLink",
+    "defaultMessage": "Link to source"
   },
   {
     "id": "createMedia.sourceInput",

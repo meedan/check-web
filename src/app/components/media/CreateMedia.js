@@ -90,9 +90,13 @@ const messages = defineMessages({
     id: 'createMedia.quoteInput',
     defaultMessage: 'Paste or type a quote',
   },
-  quoteAttributionInput: {
+  quoteAttributionTextInput: {
     id: 'createMedia.quoteAttributionInput',
-    defaultMessage: 'Attribute to name or URL',
+    defaultMessage: 'Source name',
+  },
+  quoteAttributionLinkInput: {
+    id: 'createMedia.quoteAttributionLink',
+    defaultMessage: 'Link to source',
   },
   sourceInput: {
     id: 'createMedia.sourceInput',
@@ -240,6 +244,8 @@ class CreateProjectMedia extends Component {
       }
     } else if (this.state.mode === 'quote') {
       quote = document.getElementById('create-media-quote-text-input').value.trim();
+      // TODO: add quote attributionText
+      // TODO: add attribtionLink
     } else {
       inputValue = document.getElementById('create-media-input').value.trim();
       urls = inputValue.match(urlRegex());
@@ -348,11 +354,18 @@ class CreateProjectMedia extends Component {
           {...defaultInputProps}
         />,
         <TextField
-          key="createMedia.quoteAttribution.input"
-          hintText={this.props.intl.formatMessage(messages.quoteAttributionInput)}
-          name="quoteAttribiution"
-          id="create-media-quote-attribution-input"
-          {...this.defaultInputProps}
+          key="createMedia.quoteAttributionText.input"
+          hintText={this.props.intl.formatMessage(messages.quoteAttributionTextInput)}
+          name="quoteAttributionText"
+          id="create-media-quote-attribution-text-input"
+          {...defaultInputProps}
+        />,
+        <TextField
+          key="createMedia.quoteAttributionLink.input"
+          hintText={this.props.intl.formatMessage(messages.quoteAttributionLinkInput)}
+          name="quoteAttributionLink"
+          id="create-media-quote-attribution-link-input"
+          {...defaultInputProps}
         />,
       ];
     case 'link':

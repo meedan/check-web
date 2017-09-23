@@ -23,24 +23,23 @@ const QuoteAttribution = styled.div`
 
 class QuoteMediaCard extends Component {
   render() {
-    const { quoteText, attributionName, attributionUrl, languageCode } = this.props;
-    console.log(attributionUrl);
+    const { quote, quoteAttributionText, quoteAttributionLink, languageCode } = this.props;
     const anchor = document.createElement('a');
-    anchor.setAttribute('href', attributionUrl);
+    anchor.setAttribute('href', quoteAttributionLink);
     const attributionUrlHost = anchor.hostname;
 
     return (
       <Quote>
         <div>
           <QuoteText className={`quote__text ${rtlClass(languageCode)}`}>
-            {quoteText}
+            {quote}
           </QuoteText>
           <QuoteAttribution>
-            {attributionName
-              ? <div>— {attributionName}</div>
+            {quoteAttributionText
+              ? <div>— {quoteAttributionText}</div>
               : null}
-            {attributionUrl
-              ? <a href={attributionUrl} target="_blank" rel="noopener noreferrer">
+            {quoteAttributionLink
+              ? <a href={quoteAttributionLink} target="_blank" rel="noopener noreferrer">
                 {attributionUrlHost}
               </a>
               : null}
