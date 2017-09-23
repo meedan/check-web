@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router';
 import { rtlClass } from '../../helpers';
 import {
   breakWordStyles,
@@ -25,6 +24,10 @@ const QuoteAttribution = styled.div`
 class QuoteMediaCard extends Component {
   render() {
     const { quoteText, attributionName, attributionUrl, languageCode } = this.props;
+    console.log(attributionUrl);
+    const anchor = document.createElement('a');
+    anchor.setAttribute('href', attributionUrl);
+    const attributionUrlHost = anchor.hostname;
 
     return (
       <Quote>
@@ -37,9 +40,9 @@ class QuoteMediaCard extends Component {
               ? <div>— {attributionName}</div>
               : null}
             {attributionUrl
-              ? <Link to={attributionUrl}>
-                {attributionUrl}
-              </Link>
+              ? <a href={attributionUrl} target="_blank" rel="noopener noreferrer">
+                {attributionUrlHost}
+              </a>
               : null}
           </QuoteAttribution>
         </div>

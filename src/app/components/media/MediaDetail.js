@@ -150,15 +150,19 @@ class MediaDetail extends Component {
     const sourceUrl = media.team && media.project && media.project_source
       ? `/${media.team.slug}/project/${media.project.dbid}/source/${media.project_source.dbid}`
       : null;
+
     const authorName = MediaUtil.authorName(media, data);
+
     const authorUsername = MediaUtil.authorUsername(media, data);
+
     const authorUrl = MediaUtil.authorUrl(media, data);
+
     const mediaIcon = (<div style={styles.subtitleIconContainer}>
       {media.quote
-              ? <MdFormatQuote style={styles.mediaIcon} />
-              : media.media.embed_path
-                ? <IconInsertPhoto style={styles.mediaIcon} />
-                : MediaUtil.socialIcon(media.domain)}
+      ? <MdFormatQuote style={styles.mediaIcon} />
+      : media.media.embed_path
+        ? <IconInsertPhoto style={styles.mediaIcon} />
+        : MediaUtil.socialIcon(media.domain)}
     </div>);
 
     const cardHeaderText = (
