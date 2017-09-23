@@ -3,9 +3,10 @@ import { defineMessages, injectIntl, intlShape, FormattedMessage } from 'react-i
 import Relay from 'react-relay';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
-import IconButton from 'material-ui/IconButton';
-import Card from 'material-ui/Card';
+import rtlDetect from 'rtl-detect';
+import { Card, CardText, CardHeader } from 'material-ui/Card';
 import SvgIcon from 'material-ui/SvgIcon';
+import { Tabs, Tab } from 'material-ui/Tabs';
 import IconInsertPhoto from 'material-ui/svg-icons/editor/insert-photo';
 import IconLink from 'material-ui/svg-icons/content/link';
 import FaFeed from 'react-icons/lib/fa/feed';
@@ -19,43 +20,55 @@ import CreateProjectMediaMutation from '../../relay/CreateProjectMediaMutation';
 import CreateProjectSourceMutation from '../../relay/CreateProjectSourceMutation';
 import Message from '../Message';
 import CheckContext from '../../CheckContext';
-import { FadeIn, ContentColumn, units, title, borderRadiusDefault, columnWidthMedium, white, black54, black87 } from '../../styles/js/shared';
+import {
+  FadeIn,
+  Row,
+  units,
+  caption,
+  columnWidthMedium,
+  black38,
+  black54,
+  black87,
+  mediaQuery,
+} from '../../styles/js/shared';
 import HttpStatus from '../../HttpStatus';
 
-const StyledCreateMediaCard = styled(Card)`
-  background-color: ${white};
-  border-radius: ${borderRadiusDefault};
-  margin: 0 auto ${units(2)};
-  max-width: ${columnWidthMedium};
-  padding: ${units(2)} ${units(1)};
-  width: 100%;
+const tabHeight = units(3);
 
-  footer {
-    align-items: top;
-    display: flex;
-  }
-
-  .create-media__buttons {
-    align-items: center;
-    display: flex;
-    justify-content: center;
-    margin-left: auto;
-    > button {
-      color: ${black54},
-    }
-  }
-
-  // The button to show the dropzone
-  //
-  .create-media__insert-photo {
-    display: flex;
+const Icon = styled.div`
+  svg {
+    color: ${black38} !important;
+    padding: 0 ${units(0.5)};
   }
 `;
 
-const StyledTitle = styled.div`
-  color: ${black87};
-  font: ${title};
-  padding: 0 ${units(1)};
+const Text = styled.div`
+  font: ${caption};
+  text-transform: none;
+  color: ${black54};
+  padding: 0 ${units(0.5)};
+  ${mediaQuery.handheld`
+    display: none;
+  `}
+`;
+
+const StyledCreateMediaCard = styled(Card)`
+  margin: 0 auto ${units(2)};
+  max-width: ${columnWidthMedium};
+`;
+
+const TabLabel = styled(Row)`
+  ${props =>
+    props.active ? `
+      border-radius: ${units(3)};
+      div {
+        color: ${black87} !important;
+        font-weight: 700 !important;
+      }
+      svg {
+        color: ${black87} !important;
+      }`
+    : null}
 `;
 
 const messages = defineMessages({
@@ -125,7 +138,7 @@ class CreateProjectMedia extends Component {
     this.setState({ fileMode: !this.state.fileMode });
   }
 
-  handleChange(e) {
+  handleChange() {
     this.setState({ message: null });
   }
 
@@ -337,13 +350,51 @@ class CreateProjectMedia extends Component {
 
   render() {
     const isPreviewingUrl = this.state.url !== '';
+    const locale = this.props.intl.locale;
+    const isRtl = rtlDetect.isRtlLang(locale);
+
+    const styles = {
+      svgIcon: {
+        fontSize: units(3),
+      },
+      tab: {
+        margin: isRtl ? `0 0 0 ${units(2)}` : `0 ${units(2)} 0 0`,
+      },
+    };
+
+    const tabLabelLink = (
+      <TabLabel active={this.state.mode === 'link'}>
+        <Icon><IconLink /></Icon>
+        <Text><FormattedMessage id="createMedia.link" defaultMessage="Link" /></Text>
+      </TabLabel>);
+
+    const tabLabelQuote = (
+      <TabLabel active={this.state.mode === 'quote'}>
+        <Icon><SvgIcon style={styles.svgIcon}><MdFormatQuote /></SvgIcon></Icon>
+        <Text><FormattedMessage id="createMedia.quote" defaultMessage="Quote" /></Text>
+      </TabLabel>
+    );
+
+    const tabLabelSource = (
+      <TabLabel active={this.state.mode === 'source'}>
+        <Icon><SvgIcon style={styles.svgIcon}><FaFeed /></SvgIcon></Icon>
+        <Text><FormattedMessage id="createMedia.source" defaultMessage="Source" /></Text>
+      </TabLabel>
+    );
+
+    const tabLabelImage = (
+      <TabLabel active={this.state.mode === 'image'}>
+        <Icon><IconInsertPhoto /></Icon>
+        <Text><FormattedMessage id="createMedia.image" defaultMessage="Photo" /></Text>
+      </TabLabel>
+    );
 
     return (
       <FadeIn>
         <StyledCreateMediaCard className="create-media">
-          <StyledTitle>{this.renderTitle()}</StyledTitle>
-          <Message message={this.state.message} />
-          <ContentColumn>
+          <CardHeader title={this.renderTitle()} />
+          <CardText>
+            <Message message={this.state.message} />
             <div id="media-preview" className="create-media__preview">
               {isPreviewingUrl
                 ? <PenderCard url={this.state.url} penderUrl={config.penderUrl} />
@@ -360,49 +411,50 @@ class CreateProjectMedia extends Component {
                 {this.renderFormInputs()}
               </div>
 
-              <footer>
-                <div className="create-media__buttons">
-                  <IconButton
-                    id="create-media__link"
-                    onClick={this.setMode.bind(this, 'link')}
-                  >
-                    <IconLink />
-                  </IconButton>
-                  <IconButton
-                    id="create-media__quote"
-                    onClick={this.setMode.bind(this, 'quote')}
-                    style={{ fontSize: units(3) }}
-                  >
-                    <SvgIcon>
-                      <MdFormatQuote />
-                    </SvgIcon>
-                  </IconButton>
-                  <IconButton
-                    id="create-media__source"
-                    onClick={this.setMode.bind(this, 'source')}
-                    style={{ fontSize: units(3) }}
-                  >
-                    <SvgIcon>
-                      <FaFeed />
-                    </SvgIcon>
-                  </IconButton>
-                  <IconButton
-                    id="create-media__image"
-                    onClick={this.setMode.bind(this, 'image')}
-                  >
-                    <IconInsertPhoto />
-                  </IconButton>
+              <div style={{ width: '100%' }}>
+                <Row style={{ flexWrap: 'wrap' }}>
+                  <Tabs inkBarStyle={{ display: 'none' }}>
+                    <Tab
+                      id="create-media__link"
+                      onClick={this.setMode.bind(this, 'link')}
+                      buttonStyle={{ height: tabHeight }}
+                      style={styles.tab}
+                      label={tabLabelLink}
+                    />
+                    <Tab
+                      id="create-media__quote"
+                      onClick={this.setMode.bind(this, 'quote')}
+                      buttonStyle={{ height: tabHeight }}
+                      style={styles.tab}
+                      label={tabLabelQuote}
+                    />
+                    <Tab
+                      id="create-media__source"
+                      onClick={this.setMode.bind(this, 'source')}
+                      buttonStyle={{ height: tabHeight }}
+                      style={styles.tab}
+                      label={tabLabelSource}
+                    />
+                    <Tab
+                      id="create-media__image"
+                      onClick={this.setMode.bind(this, 'image')}
+                      buttonStyle={{ height: tabHeight }}
+                      style={styles.tab}
+                      label={tabLabelImage}
+                    />
+                  </Tabs>
                   <FlatButton
                     id="create-media-submit"
                     primary
                     onClick={this.handleSubmit.bind(this)}
                     label={this.props.intl.formatMessage(messages.submitButton)}
                     className="create-media__button create-media__button--submit"
+                    style={{ marginLeft: 'auto' }}
                   />
-                </div>
-              </footer>
+                </Row>
+              </div>
             </form>
-          </ContentColumn>
+          </CardText>
         </StyledCreateMediaCard>
       </FadeIn>
     );
