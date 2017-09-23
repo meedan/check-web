@@ -7,7 +7,7 @@ import DrawerNavigationComponent from './DrawerNavigationComponent';
 class DrawerNavigation extends Component {
 
   render() {
-    const DrawerContentsContainer = Relay.createContainer(DrawerNavigationComponent, {
+    const DrawerNavigationContainer = Relay.createContainer(DrawerNavigationComponent, {
       fragments: {
         team: () => teamFragment,
       },
@@ -21,9 +21,9 @@ class DrawerNavigation extends Component {
 
     return (
       <Relay.RootContainer
-        Component={DrawerContentsContainer}
+        Component={DrawerNavigationContainer}
         route={route}
-        renderFetched={data => <DrawerContentsContainer {...this.props} {...data} />}
+        renderFetched={data => <DrawerNavigationContainer {...this.props} {...data} />}
       />
     );
   }
