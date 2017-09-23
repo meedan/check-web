@@ -12,8 +12,8 @@
     "defaultMessage": "Paste or type"
   },
   {
-    "id": "createMedia.quoteTextInput",
-    "defaultMessage": "Paste or type the text of a quote"
+    "id": "createMedia.quoteInput",
+    "defaultMessage": "Paste or type a quote"
   },
   {
     "id": "createMedia.quoteAttributionInput",

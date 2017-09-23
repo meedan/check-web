@@ -86,9 +86,9 @@ const messages = defineMessages({
     id: 'createMedia.mediaInput',
     defaultMessage: 'Paste or type',
   },
-  quoteTextInput: {
-    id: 'createMedia.quoteTextInput',
-    defaultMessage: 'Paste or type the text of a quote',
+  quoteInput: {
+    id: 'createMedia.quoteInput',
+    defaultMessage: 'Paste or type a quote',
   },
   quoteAttributionInput: {
     id: 'createMedia.quoteAttributionInput',
@@ -238,6 +238,8 @@ class CreateProjectMedia extends Component {
       if (!image || this.state.isSubmitting) {
         return;
       }
+    } else if (this.state.mode === 'quote') {
+      quote = document.getElementById('create-media-quote-text-input').value.trim();
     } else {
       inputValue = document.getElementById('create-media-input').value.trim();
       urls = inputValue.match(urlRegex());
@@ -246,7 +248,7 @@ class CreateProjectMedia extends Component {
         return;
       }
       if (!url.length || inputValue !== url) {
-        // if anything other than a single url
+        // if anything other than a single url, save it as a quote
         quote = inputValue;
       }
     }
@@ -339,9 +341,9 @@ class CreateProjectMedia extends Component {
     case 'quote':
       return [
         <TextField
-          key="createMedia.quoteText.input"
-          hintText={this.props.intl.formatMessage(messages.quoteTextInput)}
-          name="quoteText"
+          key="createMedia.quote.input"
+          hintText={this.props.intl.formatMessage(messages.quoteInput)}
+          name="quote"
           id="create-media-quote-text-input"
           {...defaultInputProps}
         />,
@@ -357,7 +359,7 @@ class CreateProjectMedia extends Component {
     default:
       return [
         <TextField
-          key="createMedia.quote.input"
+          key="createMedia.media.input"
           hintText={this.props.intl.formatMessage(messages.mediaInput)}
           name="url"
           id="create-media-input"
