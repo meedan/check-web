@@ -86,6 +86,14 @@ const messages = defineMessages({
     id: 'createMedia.mediaInput',
     defaultMessage: 'Paste or type',
   },
+  quoteTextInput: {
+    id: 'createMedia.quoteTextInput',
+    defaultMessage: 'Paste or type the text of a quote',
+  },
+  quoteAttributionInput: {
+    id: 'createMedia.quoteAttributionInput',
+    defaultMessage: 'Attribute to name or URL',
+  },
   sourceInput: {
     id: 'createMedia.sourceInput',
     defaultMessage: 'Source name',
@@ -104,6 +112,7 @@ const messages = defineMessages({
   },
 });
 
+
 class CreateProjectMedia extends Component {
   constructor(props) {
     super(props);
@@ -114,6 +123,7 @@ class CreateProjectMedia extends Component {
       isSubmitting: false,
       fileMode: false,
       mode: 'link',
+      submittable: false,
     };
   }
 
@@ -122,7 +132,7 @@ class CreateProjectMedia extends Component {
   }
 
   onImage(file) {
-    this.setState({ message: null });
+    this.setState({ message: null, submittable: true });
     document.forms.media.image = file;
   }
 
@@ -143,14 +153,10 @@ class CreateProjectMedia extends Component {
   }
 
   handleKeyPress(e) {
+    this.setState({ submittable: true });
     if (e.key === 'Enter' && !e.shiftKey) {
       this.handleSubmit(e);
     }
-  }
-
-  handlePreview() {
-    const url = document.getElementById('create-media-input').value;
-    this.setState({ url, message: null });
   }
 
   handleSubmitError(context, prefix, transactionError) {
@@ -215,6 +221,7 @@ class CreateProjectMedia extends Component {
       { onSuccess, onFailure },
     );
   }
+
 
   submitMedia() {
     const context = new CheckContext(this).getContextStore();
@@ -296,6 +303,15 @@ class CreateProjectMedia extends Component {
   }
 
   renderFormInputs() {
+    const defaultInputProps = {
+      fullWidth: true,
+      multiLine: true,
+      onKeyPress: this.handleKeyPress.bind(this),
+      onChange: this.handleChange.bind(this),
+      onFocus: this.handleChange.bind(this),
+      ref: input => (this.mediaInput = input),
+    };
+
     switch (this.state.mode) {
     case 'image':
       return [
@@ -310,41 +326,42 @@ class CreateProjectMedia extends Component {
         <TextField
           key="createMedia.source.name"
           hintText={this.props.intl.formatMessage(messages.sourceInput)}
-          fullWidth
           id="create-media-source-name-input"
-          multiLine
-          onKeyPress={this.handleKeyPress.bind(this)}
-          onChange={this.handleChange.bind(this)}
-          onFocus={this.handleChange.bind(this)}
-          ref={input => (this.mediaInput = input)}
+          {...defaultInputProps}
         />,
         <TextField
           key="createMedia.source.url"
           hintText={this.props.intl.formatMessage(messages.sourceUrlInput)}
-          fullWidth
           id="create-media-source-url-input"
-          multiLine
-          onKeyPress={this.handleKeyPress.bind(this)}
-          onChange={this.handleChange.bind(this)}
-          onFocus={this.handleChange.bind(this)}
-          ref={input => (this.mediaInput = input)}
+          {...defaultInputProps}
+        />,
+      ];
+    case 'quote':
+      return [
+        <TextField
+          key="createMedia.quoteText.input"
+          hintText={this.props.intl.formatMessage(messages.quoteTextInput)}
+          name="quoteText"
+          id="create-media-quote-text-input"
+          {...defaultInputProps}
+        />,
+        <TextField
+          key="createMedia.quoteAttribution.input"
+          hintText={this.props.intl.formatMessage(messages.quoteAttributionInput)}
+          name="quoteAttribiution"
+          id="create-media-quote-attribution-input"
+          {...this.defaultInputProps}
         />,
       ];
     case 'link':
-    case 'quote':
     default:
       return [
         <TextField
           key="createMedia.quote.input"
           hintText={this.props.intl.formatMessage(messages.mediaInput)}
-          fullWidth
           name="url"
           id="create-media-input"
-          multiLine
-          onKeyPress={this.handleKeyPress.bind(this)}
-          onChange={this.handleChange.bind(this)}
-          onFocus={this.handleChange.bind(this)}
-          ref={input => (this.mediaInput = input)}
+          {...defaultInputProps}
         />,
       ];
     }
@@ -361,6 +378,9 @@ class CreateProjectMedia extends Component {
       },
       tab: {
         margin: isRtl ? `0 0 0 ${units(2)}` : `0 ${units(2)} 0 0`,
+      },
+      submitButton: {
+        margin: isRtl ? '0 0 0 auto' : '0 auto 0 0',
       },
     };
 
@@ -394,6 +414,11 @@ class CreateProjectMedia extends Component {
       </StyledTabLabel>
     );
 
+    const defaultTabProps = {
+      buttonStyle: { height: tabHeight },
+      style: styles.tab,
+    };
+
     return (
       <FadeIn>
         <StyledCreateMediaCard className="create-media">
@@ -422,39 +447,36 @@ class CreateProjectMedia extends Component {
                     <Tab
                       id="create-media__link"
                       onClick={this.setMode.bind(this, 'link')}
-                      buttonStyle={{ height: tabHeight }}
-                      style={styles.tab}
                       label={tabLabelLink}
+                      {...defaultTabProps}
                     />
                     <Tab
                       id="create-media__quote"
                       onClick={this.setMode.bind(this, 'quote')}
-                      buttonStyle={{ height: tabHeight }}
-                      style={styles.tab}
                       label={tabLabelQuote}
+                      {...defaultTabProps}
                     />
                     <Tab
                       id="create-media__source"
                       onClick={this.setMode.bind(this, 'source')}
-                      buttonStyle={{ height: tabHeight }}
-                      style={styles.tab}
                       label={tabLabelSource}
+                      {...defaultTabProps}
                     />
                     <Tab
                       id="create-media__image"
                       onClick={this.setMode.bind(this, 'image')}
-                      buttonStyle={{ height: tabHeight }}
-                      style={styles.tab}
                       label={tabLabelImage}
+                      {...defaultTabProps}
                     />
                   </Tabs>
                   <FlatButton
                     id="create-media-submit"
                     primary
+                    disabled={!this.state.submittable}
                     onClick={this.handleSubmit.bind(this)}
                     label={this.props.intl.formatMessage(messages.submitButton)}
                     className="create-media__button create-media__button--submit"
-                    style={{ marginLeft: 'auto' }}
+                    style={styles.submitButton}
                   />
                 </Row>
               </div>

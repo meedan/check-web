@@ -12,6 +12,14 @@
     "defaultMessage": "Paste or type"
   },
   {
+    "id": "createMedia.quoteTextInput",
+    "defaultMessage": "Paste or type the text of a quote"
+  },
+  {
+    "id": "createMedia.quoteAttributionInput",
+    "defaultMessage": "Attribute to name or URL"
+  },
+  {
     "id": "createMedia.sourceInput",
     "defaultMessage": "Source name"
   },
