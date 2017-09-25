@@ -137,7 +137,7 @@ class ProjectEditComponent extends Component {
 
   render() {
     const { project } = this.props;
-    const isSlackEnabled = project.team && project.team.get_slack_notifications_enabled === '1';
+    const isSlackEnabled = project.team && project.team.get_slack_notifications_enabled === '1' && project.team.limits.slack_integration !== false;
 
     return (
       <PageTitle prefix={project.title} skipTeam={false} team={this.currentContext().team}>

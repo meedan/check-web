@@ -349,6 +349,7 @@ class TeamComponent extends Component {
                           fullWidth
                         />
 
+                        { team.limits.slack_integration === false ? null : <div>
                         <Checkbox
                           style={{ marginTop: units(6) }}
                           label={
@@ -377,7 +378,7 @@ class TeamComponent extends Component {
                           floatingLabelText={this.props.intl.formatMessage(messages.slackChannel)}
                           onChange={this.handleChange.bind(this, 'slackChannel')}
                           fullWidth
-                        />
+                        /></div> }
                       </CardText>
 
                       <CardActions style={{ marginTop: units(4) }}>
