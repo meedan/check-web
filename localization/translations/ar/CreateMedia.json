@@ -9,5 +9,9 @@
   "createMedia.imageTitle": "ارفع صورة",
   "createMedia.sourceTitle": "أضف مصدراً",
   "createMedia.linkTitle": "أضف رابطاً",
-  "createMedia.quoteTitle": "أضف اقتباساً"
+  "createMedia.quoteTitle": "أضف اقتباساً",
+  "createMedia.link": "رابط",
+  "createMedia.quote": "نص",
+  "createMedia.source": "مصدر",
+  "createMedia.image": "صورة"
 }
