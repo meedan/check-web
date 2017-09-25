@@ -524,7 +524,7 @@ class Annotation extends Component {
           <Card className="annotation__card">
             <CardText className={`annotation__card-text annotation__card-activity-${activityType.replace(/_/g, '-')}`}>
               <div className="annotation__card-avatar-col">
-                <div className="annotation__card-avatar" style={{ backgroundImage: `url(${activity.user.profile_image})` }} />
+                <div className="annotation__card-avatar" style={{ backgroundImage: `url(${activity.user.source.image})` }} />
               </div>
               <div className="annotation__card-main-col">
                 {contentTemplate}

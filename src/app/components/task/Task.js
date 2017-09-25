@@ -434,7 +434,7 @@ class Task extends Component {
             <Avatar
               style={{ margin: `0 ${units(1)}` }}
               size={parseInt(units(3), 10)}
-              src={by.profile_image}
+              src={by.user.source.image}
             />
             <small>
               <FormattedMessage

@@ -15,7 +15,7 @@ class UserAvatar extends Component {
     if (user) {
       return (
         <StyledAvatar
-          src={user.profile_image}
+          src={user.source.image}
           size={size ? stripUnit(size) : stripUnit(avatarSize)}
           className="avatar"
         />

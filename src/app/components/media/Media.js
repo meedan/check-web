@@ -121,6 +121,7 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
                     profile_image,
                     source {
                       dbid,
+                      image,
                       accounts(first: 10000) {
                         edges {
                           node {
@@ -164,6 +165,7 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
                 email,
                 source {
                   dbid,
+                  image,
                   accounts(first: 10000) {
                     edges {
                       node {
