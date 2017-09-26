@@ -137,7 +137,7 @@ class TeamComponent extends Component {
 
   cancelEditTeam(e) {
     e.preventDefault();
-    this.setState({ isEditing: false });
+    this.setState({ avatar: null, isEditing: false });
   }
 
   handleEditTeam() {
@@ -152,12 +152,13 @@ class TeamComponent extends Component {
       } catch (e) {
         return '';
       }
-      return this.setState({ message, submitDisabled: false });
+      return this.setState({ message, avatar: null, submitDisabled: false });
     };
 
     const onSuccess = () => {
       this.setState({
         message: this.props.intl.formatMessage(messages.editSuccess),
+        avatar: null,
         isEditing: false,
         submitDisabled: false,
       });
