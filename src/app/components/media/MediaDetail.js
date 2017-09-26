@@ -125,7 +125,7 @@ class MediaDetail extends Component {
     } else if (media.quote && media.quote.length) {
       embedCard = (
         <QuoteMediaCard
-          quoteText={media.quote}
+          quote={media.quote}
           languageCode={media.language_code}
           quoteAttributionText={media.quote_attribution_text}
           quoteAttributionLink={media.quote_attribution_link}

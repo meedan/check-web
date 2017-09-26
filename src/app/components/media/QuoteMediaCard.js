@@ -24,9 +24,11 @@ const QuoteAttribution = styled.div`
 class QuoteMediaCard extends Component {
   render() {
     const { quote, quoteAttributionText, quoteAttributionLink, languageCode } = this.props;
+
+    // Extract the hostname using the browser, without a regex
     const anchor = document.createElement('a');
     anchor.setAttribute('href', quoteAttributionLink);
-    const attributionUrlHost = anchor.hostname;
+    const attributionUrlHostname = anchor.hostname;
 
     return (
       <Quote>
@@ -36,11 +38,12 @@ class QuoteMediaCard extends Component {
           </QuoteText>
           <QuoteAttribution>
             {quoteAttributionText
-              ? <div>— {quoteAttributionText}</div>
+              // TODO link to source page
+              ? <div>— <a href="#">{quoteAttributionText}</a></div>
               : null}
             {quoteAttributionLink
               ? <a href={quoteAttributionLink} target="_blank" rel="noopener noreferrer">
-                {attributionUrlHost}
+                {attributionUrlHostname}
               </a>
               : null}
           </QuoteAttribution>
