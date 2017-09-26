@@ -13,7 +13,7 @@
   },
   {
     "id": "createMedia.quoteInput",
-    "defaultMessage": "Paste or type a quote"
+    "defaultMessage": "Paste or type a claim"
   },
   {
     "id": "createMedia.quoteAttributionInput",
@@ -53,7 +53,7 @@
   },
   {
     "id": "createMedia.quoteTitle",
-    "defaultMessage": "Add a quote"
+    "defaultMessage": "Add a claim"
   },
   {
     "id": "createMedia.link",
@@ -61,7 +61,7 @@
   },
   {
     "id": "createMedia.quote",
-    "defaultMessage": "Quote"
+    "defaultMessage": "Claim"
   },
   {
     "id": "createMedia.source",

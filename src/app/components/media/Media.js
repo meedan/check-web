@@ -15,8 +15,6 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
         id,
         dbid,
         quote,
-        quote_attribution_text,
-        quote_attribution_link,
         published,
         archived,
         url,
@@ -50,8 +48,6 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
         media {
           url,
           quote,
-          quote_attribution_text,
-          quote_attribution_link,
           embed_path,
           thumbnail_path
         }

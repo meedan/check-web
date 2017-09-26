@@ -88,7 +88,7 @@ const messages = defineMessages({
   },
   quoteInput: {
     id: 'createMedia.quoteInput',
-    defaultMessage: 'Paste or type a quote',
+    defaultMessage: 'Paste or type a claim',
   },
   quoteAttributionTextInput: {
     id: 'createMedia.quoteAttributionInput',
@@ -304,7 +304,7 @@ class CreateProjectMedia extends Component {
     case 'link':
       return <FormattedMessage id="createMedia.linkTitle" defaultMessage="Add a link" />;
     case 'quote':
-      return <FormattedMessage id="createMedia.quoteTitle" defaultMessage="Add a quote" />;
+      return <FormattedMessage id="createMedia.quoteTitle" defaultMessage="Add a claim" />;
     default:
       return null;
     }
@@ -384,8 +384,7 @@ class CreateProjectMedia extends Component {
 
   render() {
     const isPreviewingUrl = this.state.url !== '';
-    const locale = this.props.intl.locale;
-    const isRtl = rtlDetect.isRtlLang(locale);
+    const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
 
     const styles = {
       svgIcon: {
@@ -409,7 +408,7 @@ class CreateProjectMedia extends Component {
     const tabLabelQuote = (
       <StyledTabLabel active={this.state.mode === 'quote'}>
         <StyledIcon><SvgIcon style={styles.svgIcon}><MdFormatQuote /></SvgIcon></StyledIcon>
-        <StyledText><FormattedMessage id="createMedia.quote" defaultMessage="Quote" /></StyledText>
+        <StyledText><FormattedMessage id="createMedia.quote" defaultMessage="Claim" /></StyledText>
       </StyledTabLabel>
     );
 
