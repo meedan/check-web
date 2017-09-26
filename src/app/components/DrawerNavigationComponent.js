@@ -67,7 +67,6 @@ class DrawerNavigation extends Component {
       padding: ${units(2)};
     `;
 
-    // Team Avatar
     const TeamAvatar = styled.div`
       ${avatarStyle}
       background-image: url(${team.avatar});
@@ -162,8 +161,8 @@ class DrawerNavigation extends Component {
         const projectPath = `/${this.props.team.slug}/project/${p.node.dbid}`;
 
         return (
-          <Link to={projectPath}>
-            <MenuItem key={p.node.dbid} primaryText={<Text ellipsis>{p.node.title}</Text>} />
+          <Link key={p.node.dbid} to={projectPath}>
+            <MenuItem primaryText={<Text ellipsis>{p.node.title}</Text>} />
           </Link>
         );
       });
