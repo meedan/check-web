@@ -42,7 +42,7 @@ const StyledIcon = styled.div`
   }
 `;
 
-const StyledText = styled.div`
+const StyledTabLabelText = styled.div`
   font: ${caption};
   text-transform: none;
   color: ${black54};
@@ -404,37 +404,37 @@ class CreateProjectMedia extends Component {
         margin: isRtl ? `0 0 0 ${units(2)}` : `0 ${units(2)} 0 0`,
       },
       submitButton: {
-        margin: isRtl ? '0 0 0 auto' : '0 auto 0 0',
+        margin: isRtl ? '0 auto 0 0' : '0 0 0 auto',
       },
     };
 
     const tabLabelLink = (
       <StyledTabLabel active={this.state.mode === 'link'}>
         <StyledIcon><IconLink /></StyledIcon>
-        <StyledText><FormattedMessage id="createMedia.link" defaultMessage="Link" /></StyledText>
+        <StyledTabLabelText><FormattedMessage id="createMedia.link" defaultMessage="Link" /></StyledTabLabelText>
       </StyledTabLabel>
     );
 
     const tabLabelQuote = (
       <StyledTabLabel active={this.state.mode === 'quote'}>
         <StyledIcon><SvgIcon style={styles.svgIcon}><MdFormatQuote /></SvgIcon></StyledIcon>
-        <StyledText><FormattedMessage id="createMedia.quote" defaultMessage="Claim" /></StyledText>
+        <StyledTabLabelText><FormattedMessage id="createMedia.quote" defaultMessage="Claim" /></StyledTabLabelText>
       </StyledTabLabel>
     );
 
     const tabLabelSource = (
       <StyledTabLabel active={this.state.mode === 'source'}>
         <StyledIcon><SvgIcon style={styles.svgIcon}><FaFeed /></SvgIcon></StyledIcon>
-        <StyledText>
+        <StyledTabLabelText>
           <FormattedMessage id="createMedia.source" defaultMessage="Source" />
-        </StyledText>
+        </StyledTabLabelText>
       </StyledTabLabel>
     );
 
     const tabLabelImage = (
       <StyledTabLabel active={this.state.mode === 'image'}>
         <StyledIcon><IconInsertPhoto /></StyledIcon>
-        <StyledText><FormattedMessage id="createMedia.image" defaultMessage="Photo" /></StyledText>
+        <StyledTabLabelText><FormattedMessage id="createMedia.image" defaultMessage="Photo" /></StyledTabLabelText>
       </StyledTabLabel>
     );
 
@@ -465,7 +465,7 @@ class CreateProjectMedia extends Component {
                 {this.renderFormInputs()}
               </div>
 
-              <div style={{ width: '100%' }}>
+              <div style={{ marginTop: units(2), width: '100%' }}>
                 <Row style={{ flexWrap: 'wrap' }}>
                   <Tabs inkBarStyle={{ display: 'none' }}>
                     <Tab
