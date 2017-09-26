@@ -165,7 +165,7 @@ class Annotation extends Component {
 
     const updatedAt = MediaUtil.createdAt({ published: activity.created_at });
     const timestamp = updatedAt ? <span className="annotation__timestamp"><TimeBefore date={updatedAt} /></span> : null;
-    const authorName = <ProfileLink user={activity.user} className={'annotation__author-name'} />;
+    const authorName = <Link to={`/check/user/${activity.user.dbid}`} className={'annotation__author-name'}>{activity.user.name}</Link>;
     const object = JSON.parse(activity.object_after);
     const content = object.data;
     let activityType = activity.event_type;
@@ -524,13 +524,13 @@ class Annotation extends Component {
           <Card className="annotation__card">
             <CardText className={`annotation__card-text annotation__card-activity-${activityType.replace(/_/g, '-')}`}>
               <div className="annotation__card-avatar-col">
-                <div className="annotation__card-avatar" style={{ backgroundImage: `url(${activity.user.profile_image})` }} />
+                <div className="annotation__card-avatar" style={{ backgroundImage: `url(${activity.user.source.image})` }} />
               </div>
               <div className="annotation__card-main-col">
                 {contentTemplate}
                 <footer className="annotation__card-footer">
                   <span className="annotation__card-footer-text">
-                    <ProfileLink user={activity.user} className={'annotation__card-author'} /><span>{timestamp}</span>
+                    <Link to={`/check/user/${activity.user.dbid}`} className={'annotation__card-author'}>{activity.user.name}</Link><span>{timestamp}</span>
                   </span>
                   {annotationActions}
                 </footer>

@@ -1,26 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 import UserRoute from '../../relay/UserRoute';
-import SourceComponent from './SourceComponent';
-import sourceFragment from '../../relay/sourceFragment';
-
-class UserComponent extends Component {
-  render() {
-    const source = this.props.user.source;
-
-    return (<SourceComponent source={source} />);
-  }
-}
+import UserComponent from './UserComponent';
+import userFragment from '../../relay/userFragment';
 
 const UserContainer = Relay.createContainer(UserComponent, {
   fragments: {
-    user: () => Relay.QL`
-      fragment on User {
-        source {
-          ${sourceFragment}
-        }
-      }
-    `,
+    user: () => userFragment
   },
 });
 

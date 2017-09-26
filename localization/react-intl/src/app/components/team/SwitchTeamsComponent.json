@@ -16,6 +16,14 @@
     "defaultMessage": "You requested to join"
   },
   {
+    "id": "teams.yourTeams",
+    "defaultMessage": "Your Teams"
+  },
+  {
+    "id": "teams.userTeams",
+    "defaultMessage": "{name} is a member of {number} teams"
+  },
+  {
     "id": "switchTeams.cancelJoinRequest",
     "defaultMessage": "Cancel"
   },
@@ -24,11 +32,11 @@
     "defaultMessage": "Cancelled"
   },
   {
-    "id": "teams.yourTeams",
-    "defaultMessage": "Your Teams"
+    "id": "switchTeams.noTeams",
+    "defaultMessage": "You are not a member of any teams yet."
   },
   {
     "id": "switchTeams.newTeamLink",
-    "defaultMessage": "+ New team"
+    "defaultMessage": "Create Team"
   }
 ]
