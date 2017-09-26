@@ -254,6 +254,7 @@ class CreateProjectMedia extends Component {
       quote = document.getElementById('create-media-quote-input').value.trim();
       // TODO: add quote attributionText
       // TODO: add attribtionLink
+      // should be something like this `quote_attributions = JSON.stringify({ name: attributionText, link: attribtionLink })`
     } else {
       inputValue = document.getElementById('create-media-input').value.trim();
       urls = inputValue.match(urlRegex());
@@ -286,6 +287,7 @@ class CreateProjectMedia extends Component {
       new CreateProjectMediaMutation({
         url,
         quote,
+        // TODO: set quote_attributions
         image,
         project: context.project,
       }),
