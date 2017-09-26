@@ -14,13 +14,10 @@ import {
   Row,
   Offset,
   HeaderTitle,
-  subheading2,
-  black87,
   white,
   black05,
   black54,
   units,
-  boxShadow,
   caption,
   avatarSize,
   avatarStyle,
@@ -30,8 +27,7 @@ import {
 class DrawerNavigation extends Component {
 
   render() {
-    const {team, loggedIn} = this.props;
-    const drawerTopOffset = units(6.5);
+    const { team, loggedIn } = this.props;
     const drawerHeaderHeight = units(14);
 
     const styles = {
@@ -98,7 +94,6 @@ class DrawerNavigation extends Component {
         target="_blank"
         rel="noopener noreferrer"
         href={stringHelper('TOS_URL')}
-        onClick={this.props.drawerToggle}
       >
         <FormattedMessage
           id="headerActions.tos"
@@ -113,7 +108,6 @@ class DrawerNavigation extends Component {
         target="_blank"
         rel="noopener noreferrer"
         href={stringHelper('PP_URL')}
-        onClick={this.props.drawerToggle}
       >
         <FormattedMessage
           id="headerActions.privacyPolicy"
@@ -128,7 +122,6 @@ class DrawerNavigation extends Component {
         target="_blank"
         rel="noopener noreferrer"
         href={stringHelper('ABOUT_URL')}
-        onClick={this.props.drawerToggle}
       >
         <FormattedMessage
           id="headerActions.about"
@@ -143,7 +136,6 @@ class DrawerNavigation extends Component {
         target="_blank"
         rel="noopener noreferrer"
         href={stringHelper('CONTACT_HUMAN_URL')}
-        onClick={this.props.drawerToggle}
       >
         <FormattedMessage
           id="headerActions.contactHuman"
@@ -153,9 +145,10 @@ class DrawerNavigation extends Component {
     );
 
     const yourProfileButton = (
-      <Link to="/check/teams" onClick={this.props.drawerToggle}>
-        <IconButton style={styles.drawerYourProfileButton}
-          tooltip={<FormattedMessage id="drawerNavigation.userTeams" defaultMessage="Your Teams" /> }
+      <Link to="/check/teams">
+        <IconButton
+          style={styles.drawerYourProfileButton}
+          tooltip={<FormattedMessage id="drawerNavigation.userTeams" defaultMessage="Your Teams" />}
           tooltipPosition="bottom-center"
         >
           <UserAvatarRelay size={units(4)} {...this.props} />
@@ -169,52 +162,53 @@ class DrawerNavigation extends Component {
         const projectPath = `/${this.props.team.slug}/project/${p.node.dbid}`;
 
         return (
-          <Link to={projectPath} onClick={this.props.drawerToggle}>
-            <MenuItem key={p.node.dbid} primaryText={<Text ellipsis>{p.node.title}</Text>}></MenuItem>
+          <Link to={projectPath}>
+            <MenuItem key={p.node.dbid} primaryText={<Text ellipsis>{p.node.title}</Text>} />
           </Link>
         );
       });
 
     return (
       <Drawer {...this.props}>
-        <DrawerHeader>
-          <Row style={{ alignItems: 'flex-start', justifyContent: 'space-between' }}>
-            <TeamAvatar size={units(7)} />
-            <Offset>
-              { loggedIn && yourProfileButton }
-            </Offset>
-          </Row>
+        <div onClick={this.props.drawerToggle}>
+          <DrawerHeader>
+            <Row style={{ alignItems: 'flex-start', justifyContent: 'space-between' }}>
+              <TeamAvatar size={units(7)} />
+              <Offset>
+                { loggedIn && yourProfileButton }
+              </Offset>
+            </Row>
 
-          <Link
-            className="team-header__drawer-team-link"
-            to={`/${this.props.team.slug}/`}
-            onClick={this.props.drawerToggle}
-          >
-            <Headline>{team.name}</Headline>
-          </Link>
-        </DrawerHeader>
+            <Link
+              className="team-header__drawer-team-link"
+              to={`/${this.props.team.slug}/`}
+            >
+              <Headline>{team.name}</Headline>
+            </Link>
+          </DrawerHeader>
 
-        <Divider />
-        <div style={styles.drawerProjectsAndFooter}>
-          <div style={styles.drawerProjects}>
-            <SubHeading>
-              <FormattedMessage
-                id="drawerNavigation.projectsSubheading"
-                defaultMessage="Projects"
-              />
-            </SubHeading>
-            {projectList}
-          </div>
+          <Divider />
+          <div style={styles.drawerProjectsAndFooter}>
+            <div style={styles.drawerProjects}>
+              <SubHeading>
+                <FormattedMessage
+                  id="drawerNavigation.projectsSubheading"
+                  defaultMessage="Projects"
+                />
+              </SubHeading>
+              {projectList}
+            </div>
 
-          <div>
-            <UserMenuItems hideContactMenuItem {...this.props} />
-          </div>
+            <div>
+              <UserMenuItems hideContactMenuItem {...this.props} />
+            </div>
 
-          <div style={styles.drawerFooter}>
-            {TosMenuItem}
-            {privacyMenuItem}
-            {aboutMenuItem}
-            {contactMenuItem}
+            <div style={styles.drawerFooter}>
+              {TosMenuItem}
+              {privacyMenuItem}
+              {aboutMenuItem}
+              {contactMenuItem}
+            </div>
           </div>
         </div>
       </Drawer>

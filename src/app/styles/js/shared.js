@@ -289,7 +289,7 @@ export const HeaderTitle = styled.h3`
   max-width: 65vw;
   margin: ${props => props.offset ? units(2) : '0'};
   ${mediaQuery.handheld`
-     max-width: 35vw;
+     max-width: 30vw;
   `}
 `;
 

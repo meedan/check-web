@@ -15,7 +15,6 @@ import IconMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
 import IconButton from 'material-ui/IconButton';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
-import 'rc-tooltip/assets/bootstrap.css';
 import styled from 'styled-components';
 import SingleChoiceTask from './SingleChoiceTask';
 import MultiSelectTask from './MultiSelectTask';
@@ -509,25 +508,25 @@ class Task extends Component {
 
     const taskBody = !response
       ? (<Can permissions={media.permissions} permission="create Dynamic">
-      <form
-        onSubmit={this.handleSubmit.bind(this)}
-        name={`task-response-${task.id}`}
-      >
+        <form
+          onSubmit={this.handleSubmit.bind(this)}
+          name={`task-response-${task.id}`}
+        >
 
-        <div className="task__response-inputs">
-          {task.type === 'geolocation'
+          <div className="task__response-inputs">
+            {task.type === 'geolocation'
               ? <GeolocationRespondTask
                 onCancel={this.handleCancel.bind(this, task)}
                 onSubmit={this.handleSubmitWithArgs.bind(this)}
               />
               : null}
-          {task.type === 'datetime'
+            {task.type === 'datetime'
               ? <DatetimeRespondTask
                 onSubmit={this.handleSubmitWithArgs.bind(this)}
                 note={''}
               />
               : null}
-          {task.type === 'single_choice'
+            {task.type === 'single_choice'
               ? <SingleChoiceTask
                 mode="respond"
                 response={response}
@@ -536,7 +535,7 @@ class Task extends Component {
                 onSubmit={this.handleSubmitWithArgs.bind(this)}
               />
               : null}
-          {task.type === 'multiple_choice'
+            {task.type === 'multiple_choice'
               ? <MultiSelectTask
                 mode="respond"
                 jsonresponse={response}
@@ -545,7 +544,7 @@ class Task extends Component {
                 onSubmit={this.handleSubmitWithArgs.bind(this)}
               />
               : null}
-          {task.type === 'free_text'
+            {task.type === 'free_text'
               ? [
                 <TextField
                   key="task__response-input"
@@ -586,8 +585,8 @@ class Task extends Component {
                 </p>,
               ]
               : null}
-        </div>
-      </form></Can>)
+          </div>
+        </form></Can>)
       : this.state.editingResponse
         ? <div className="task__editing">
           <form

@@ -42,5 +42,21 @@
   {
     "id": "createMedia.quoteTitle",
     "defaultMessage": "Add a quote"
+  },
+  {
+    "id": "createMedia.link",
+    "defaultMessage": "Link"
+  },
+  {
+    "id": "createMedia.quote",
+    "defaultMessage": "Quote"
+  },
+  {
+    "id": "createMedia.source",
+    "defaultMessage": "Source"
+  },
+  {
+    "id": "createMedia.image",
+    "defaultMessage": "Photo"
   }
 ]
