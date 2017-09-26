@@ -23,7 +23,14 @@ class UpdateUserNameEmailMutation extends Relay.Mutation {
   }
 
   getConfigs() {
-    return [];
+    return [
+      {
+        type: 'FIELDS_CHANGE',
+        fieldIDs: {
+          user: this.props.id,
+        },
+      },
+    ]
   }
 }
 
