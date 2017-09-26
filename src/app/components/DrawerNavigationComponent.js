@@ -43,7 +43,7 @@ class DrawerNavigation extends Component {
       },
       drawerFooterLink: {
         font: caption,
-        padding: `0 ${units(1)}`,
+        minWidth: '20%',
       },
       drawerProjects: {
         overflow: 'auto',
