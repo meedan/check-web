@@ -16,12 +16,20 @@
     "defaultMessage": "Paste or type a claim"
   },
   {
-    "id": "createMedia.quoteAttributionInput",
+    "id": "createMedia.quoteAttributionTextInput",
     "defaultMessage": "Source name"
   },
   {
     "id": "createMedia.quoteAttributionLink",
-    "defaultMessage": "Link to source"
+    "defaultMessage": "URL or context"
+  },
+  {
+    "id": "createMedia.quoteAttributionTextInputHelper",
+    "defaultMessage": "Who said this?"
+  },
+  {
+    "id": "createMedia.quoteAttributionLinkHelper",
+    "defaultMessage": "Add URL or describe the content"
   },
   {
     "id": "createMedia.sourceInput",
@@ -29,7 +37,7 @@
   },
   {
     "id": "createMedia.sourceUrlInput",
-    "defaultMessage": "Link to source"
+    "defaultMessage": "URL or context"
   },
   {
     "id": "createMedia.uploadImage",

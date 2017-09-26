@@ -91,12 +91,20 @@ const messages = defineMessages({
     defaultMessage: 'Paste or type a claim',
   },
   quoteAttributionTextInput: {
-    id: 'createMedia.quoteAttributionInput',
+    id: 'createMedia.quoteAttributionTextInput',
     defaultMessage: 'Source name',
   },
   quoteAttributionLinkInput: {
     id: 'createMedia.quoteAttributionLink',
-    defaultMessage: 'Link to source',
+    defaultMessage: 'URL or context',
+  },
+  quoteAttributionTextInputHelper: {
+    id: 'createMedia.quoteAttributionTextInputHelper',
+    defaultMessage: 'Who said this?',
+  },
+  quoteAttributionLinkInputHelper: {
+    id: 'createMedia.quoteAttributionLinkHelper',
+    defaultMessage: 'Add URL or describe the content',
   },
   sourceInput: {
     id: 'createMedia.sourceInput',
@@ -104,7 +112,7 @@ const messages = defineMessages({
   },
   sourceUrlInput: {
     id: 'createMedia.sourceUrlInput',
-    defaultMessage: 'Link to source',
+    defaultMessage: 'URL or context',
   },
   uploadImage: {
     id: 'createMedia.uploadImage',
@@ -348,23 +356,25 @@ class CreateProjectMedia extends Component {
       return [
         <TextField
           key="createMedia.quote.input"
-          hintText={this.props.intl.formatMessage(messages.quoteInput)}
+          floatingLabelText={this.props.intl.formatMessage(messages.quoteInput)}
           name="quote"
           id="create-media-quote-text-input"
           {...defaultInputProps}
         />,
         <TextField
           key="createMedia.quoteAttributionText.input"
-          hintText={this.props.intl.formatMessage(messages.quoteAttributionTextInput)}
+          floatingLabelText={this.props.intl.formatMessage(messages.quoteAttributionTextInput)}
           name="quoteAttributionText"
           id="create-media-quote-attribution-text-input"
+          hintText={this.props.intl.formatMessage(messages.quoteAttributionTextInputHelper)}
           {...defaultInputProps}
         />,
         <TextField
           key="createMedia.quoteAttributionLink.input"
-          hintText={this.props.intl.formatMessage(messages.quoteAttributionLinkInput)}
+          floatingLabelText={this.props.intl.formatMessage(messages.quoteAttributionLinkInput)}
           name="quoteAttributionLink"
           id="create-media-quote-attribution-link-input"
+          hintText={this.props.intl.formatMessage(messages.quoteAttributionLinkInputHelper)}
           {...defaultInputProps}
         />,
       ];
