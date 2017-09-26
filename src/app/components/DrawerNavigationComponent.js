@@ -36,12 +36,14 @@ class DrawerNavigation extends Component {
       drawerFooter: {
         display: 'flex',
         alignItems: 'flex-start',
+        flexWrap: 'wrap',
         justifyContent: 'space-between',
         backgroundColor: white,
         padding: `${gutterSmall}`,
       },
       drawerFooterLink: {
         font: caption,
+        padding: `0 ${units(1)}`,
       },
       drawerProjects: {
         overflow: 'auto',
