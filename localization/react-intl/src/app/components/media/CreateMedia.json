@@ -16,19 +16,19 @@
     "defaultMessage": "Paste or type a claim"
   },
   {
-    "id": "createMedia.quoteAttributionTextInput",
+    "id": "createMedia.quoteAttributionSourceInput",
     "defaultMessage": "Source name"
   },
   {
-    "id": "createMedia.quoteAttributionLink",
+    "id": "createMedia.quoteAttributionContext",
     "defaultMessage": "URL or context"
   },
   {
-    "id": "createMedia.quoteAttributionTextInputHelper",
+    "id": "createMedia.quoteAttributionSourceInputHelper",
     "defaultMessage": "Who said this?"
   },
   {
-    "id": "createMedia.quoteAttributionLinkHelper",
+    "id": "createMedia.quoteAttributionContextHelper",
     "defaultMessage": "Add URL or describe the content"
   },
   {

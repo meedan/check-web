@@ -91,20 +91,20 @@ const messages = defineMessages({
     id: 'createMedia.quoteInput',
     defaultMessage: 'Paste or type a claim',
   },
-  quoteAttributionTextInput: {
-    id: 'createMedia.quoteAttributionTextInput',
+  quoteAttributionSourceInput: {
+    id: 'createMedia.quoteAttributionSourceInput',
     defaultMessage: 'Source name',
   },
-  quoteAttributionLinkInput: {
-    id: 'createMedia.quoteAttributionLink',
+  quoteAttributionContextInput: {
+    id: 'createMedia.quoteAttributionContext',
     defaultMessage: 'URL or context',
   },
-  quoteAttributionTextInputHelper: {
-    id: 'createMedia.quoteAttributionTextInputHelper',
+  quoteAttributionSourceInputHelper: {
+    id: 'createMedia.quoteAttributionSourceInputHelper',
     defaultMessage: 'Who said this?',
   },
-  quoteAttributionLinkInputHelper: {
-    id: 'createMedia.quoteAttributionLinkHelper',
+  quoteAttributionContextInputHelper: {
+    id: 'createMedia.quoteAttributionContextHelper',
     defaultMessage: 'Add URL or describe the content',
   },
   sourceInput: {
@@ -362,11 +362,11 @@ class CreateProjectMedia extends Component {
           {...defaultInputProps}
         />,
         <AutoComplete
-          key="createMedia.quoteAttributionText.input"
+          key="createMedia.quoteAttributionSource.input"
           id="create-media-quote-attribution-source-input"
-          name="quoteAttributionText"
+          name="quoteAttributionSource"
           filter={AutoComplete.fuzzyFilter}
-          floatingLabelText={this.props.intl.formatMessage(messages.quoteAttributionTextInput)}
+          floatingLabelText={this.props.intl.formatMessage(messages.quoteAttributionSourceInput)}
           // TODO: implement real sources
           dataSource={['Foo Source', 'Bar Source', 'Baz Source']}
           // errorText={}
@@ -375,15 +375,15 @@ class CreateProjectMedia extends Component {
           // onNewRequest={}
           // ref={'autocomplete'}
           fullWidth
-          hintText={this.props.intl.formatMessage(messages.quoteAttributionTextInputHelper)}
+          hintText={this.props.intl.formatMessage(messages.quoteAttributionSourceInputHelper)}
           {...defaultInputProps}
         />,
         <TextField
-          key="createMedia.quoteAttributionLink.input"
-          floatingLabelText={this.props.intl.formatMessage(messages.quoteAttributionLinkInput)}
-          name="quoteAttributionLink"
+          key="createMedia.quoteAttributionContext.input"
+          floatingLabelText={this.props.intl.formatMessage(messages.quoteAttributionContextInput)}
+          name="quoteAttributionContext"
           id="create-media-quote-attribution-link-input"
-          hintText={this.props.intl.formatMessage(messages.quoteAttributionLinkInputHelper)}
+          hintText={this.props.intl.formatMessage(messages.quoteAttributionContextInputHelper)}
           {...defaultInputProps}
         />,
       ];

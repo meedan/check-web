@@ -127,8 +127,8 @@ class MediaDetail extends Component {
         <QuoteMediaCard
           quote={media.quote}
           languageCode={media.language_code}
-          quoteAttributionText={media.quote_attribution_text}
-          quoteAttributionLink={media.quote_attribution_link}
+          quoteAttributionSource={media.quote_attribution_source}
+          quoteAttributionContext={media.quote_attribution_context}
           attributionName={null}
           attributionUrl={null}
 

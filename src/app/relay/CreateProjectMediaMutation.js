@@ -24,8 +24,6 @@ class CreateProjectMediaMutation extends Relay.Mutation {
     return {
       url: this.props.url,
       quote: this.props.quote,
-      quote_attribution_text: this.props.quoteAttributionText,
-      quote_attribution_link: this.props.quoteAttributionLink,
       project_id: this.props.project.dbid,
     };
   }

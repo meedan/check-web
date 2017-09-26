@@ -133,9 +133,6 @@ class MediaComponent extends Component {
     const data = JSON.parse(media.embed);
     media.url = media.media.url;
     media.quote = media.media.quote;
-    media.quote_attribution_text = media.media.quote_attribution_text;
-    media.quote_attribution_link = media.media.quote_attribution_link;
-    media.quote = media.media.quote;
     media.embed_path = media.media.embed_path;
     const status = getStatus(mediaStatuses(media), mediaLastStatus(media));
 
