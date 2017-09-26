@@ -7,6 +7,7 @@ import rtlDetect from 'rtl-detect';
 import { Card, CardText, CardHeader } from 'material-ui/Card';
 import SvgIcon from 'material-ui/SvgIcon';
 import { Tabs, Tab } from 'material-ui/Tabs';
+import AutoComplete from 'material-ui/AutoComplete';
 import IconInsertPhoto from 'material-ui/svg-icons/editor/insert-photo';
 import IconLink from 'material-ui/svg-icons/content/link';
 import FaFeed from 'react-icons/lib/fa/feed';
@@ -123,7 +124,6 @@ const messages = defineMessages({
     defaultMessage: 'Post',
   },
 });
-
 
 class CreateProjectMedia extends Component {
   constructor(props) {
@@ -251,7 +251,7 @@ class CreateProjectMedia extends Component {
         return;
       }
     } else if (this.state.mode === 'quote') {
-      quote = document.getElementById('create-media-quote-text-input').value.trim();
+      quote = document.getElementById('create-media-quote-input').value.trim();
       // TODO: add quote attributionText
       // TODO: add attribtionLink
     } else {
@@ -358,14 +358,23 @@ class CreateProjectMedia extends Component {
           key="createMedia.quote.input"
           floatingLabelText={this.props.intl.formatMessage(messages.quoteInput)}
           name="quote"
-          id="create-media-quote-text-input"
+          id="create-media-quote-input"
           {...defaultInputProps}
         />,
-        <TextField
+        <AutoComplete
           key="createMedia.quoteAttributionText.input"
-          floatingLabelText={this.props.intl.formatMessage(messages.quoteAttributionTextInput)}
+          id="create-media-quote-attribution-source-input"
           name="quoteAttributionText"
-          id="create-media-quote-attribution-text-input"
+          filter={AutoComplete.fuzzyFilter}
+          floatingLabelText={this.props.intl.formatMessage(messages.quoteAttributionTextInput)}
+          // TODO: implement real sources
+          dataSource={['Foo Source', 'Bar Source', 'Baz Source']}
+          // errorText={}
+          // dataSourceConfig={{ text: 'label', value: 'value' }}
+          // openOnFocus
+          // onNewRequest={}
+          // ref={'autocomplete'}
+          fullWidth
           hintText={this.props.intl.formatMessage(messages.quoteAttributionTextInputHelper)}
           {...defaultInputProps}
         />,
