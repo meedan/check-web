@@ -20,6 +20,7 @@ class UpdateTeamMutation extends Relay.Mutation {
           get_slack_webhook
           get_slack_channel
           contacts
+          avatar
         }
       }
     `;
@@ -34,7 +35,13 @@ class UpdateTeamMutation extends Relay.Mutation {
       set_slack_webhook: this.props.set_slack_webhook,
       set_slack_channel: this.props.set_slack_channel,
       empty_trash: this.props.empty_trash,
-      contact: this.props.contact
+      contact: this.props.contact,
+    };
+  }
+
+  getFiles() {
+    return {
+      logo: this.props.avatar,
     };
   }
 
@@ -45,7 +52,7 @@ class UpdateTeamMutation extends Relay.Mutation {
         children: [Relay.QL`
           fragment on UpdateTeamPayload {
             team {
-              name, id, description, get_slack_notifications_enabled, get_slack_webhook, get_slack_channel,
+              name, id, description, get_slack_notifications_enabled, get_slack_webhook, get_slack_channel, avatar,
               contacts(first: 1) { edges { node { web, location, phone } } }
             }
           }`,
