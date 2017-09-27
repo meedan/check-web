@@ -244,6 +244,7 @@ class CreateProjectMedia extends Component {
     let urls = '';
     let url = '';
     let quote = '';
+    let quoteAttributions = '';
 
     if (this.state.mode === 'image') {
       image = document.forms.media.image;
@@ -252,9 +253,10 @@ class CreateProjectMedia extends Component {
       }
     } else if (this.state.mode === 'quote') {
       quote = document.getElementById('create-media-quote-input').value.trim();
-      // TODO: add quote attributionText
-      // TODO: add attribtionLink
-      // should be something like this `quote_attributions = JSON.stringify({ name: attributionText, link: attribtionLink })`
+      quoteAttributions = JSON.stringify({
+        name: document.getElementById('create-media-quote-attribution-source-input').value.trim(),
+        link: document.getElementById('create-media-quote-attribution-link-input').value.trim()
+      });
     } else {
       inputValue = document.getElementById('create-media-input').value.trim();
       urls = inputValue.match(urlRegex());
@@ -287,7 +289,7 @@ class CreateProjectMedia extends Component {
       new CreateProjectMediaMutation({
         url,
         quote,
-        // TODO: set quote_attributions
+        quoteAttributions,
         image,
         project: context.project,
       }),
