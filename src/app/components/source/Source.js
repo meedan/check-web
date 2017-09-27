@@ -152,6 +152,7 @@ const SourceContainer = Relay.createContainer(SourceComponent, {
                   }
                 }
                 user {
+                  dbid,
                   name,
                   profile_image,
                   email,

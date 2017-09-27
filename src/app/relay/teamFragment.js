@@ -9,6 +9,7 @@ const teamFragment = Relay.QL`
     description,
     slug,
     permissions,
+    limits,
     get_slack_notifications_enabled,
     get_slack_webhook,
     get_slack_channel,

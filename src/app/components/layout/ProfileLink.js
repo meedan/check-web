@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 class ProfileLink extends React.Component {
   render() {
@@ -6,14 +7,10 @@ class ProfileLink extends React.Component {
 
     if (!user) { return null };
 
-    let url = user.email ? 'mailto:' + user.email : '';
-
-    if (user && user.source && user.source.accounts && user.source.accounts.edges && user.source.accounts.edges.length > 0){
-      url = user.source.accounts.edges[0].node.url;
-    }
+    let url = user.dbid ? `/check/user/${user.dbid}` : '';
 
     return url ?
-        <a target="_blank" rel="noopener noreferrer" className={className} href={url}>{user.name}</a> :
+        <Link to={url} className={className}>{user.name}</Link> :
         <span className={className}>{user.name}</span>;
   }
 }

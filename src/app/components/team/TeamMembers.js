@@ -16,6 +16,7 @@ const TeamContainer = Relay.createContainer(TeamMembersComponent, {
           edges {
             node {
               user{
+                dbid,
                 name,
                 email,
                 profile_image,
