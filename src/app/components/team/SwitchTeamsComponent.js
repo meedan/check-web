@@ -145,9 +145,9 @@ class SwitchTeamsComponent extends Component {
     teamUsers.map((teamUser) => {
       const team = teamUser.node.team;
       const status = teamUser.node.status;
-      const visible = !teamUser.node.private;
+      const visible = !teamUser.node.team.private;
 
-      if (!visible) { return; }
+      if (!isUserSelf && !visible) { return; }
 
       if (status === 'requested' || status === 'banned') {
         team.status = status;
