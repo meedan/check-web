@@ -41,7 +41,7 @@ class UpdateTeamMutation extends Relay.Mutation {
 
   getFiles() {
     return {
-      logo: this.props.avatar,
+      file: this.props.avatar,
     };
   }
 
