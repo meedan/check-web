@@ -7,7 +7,7 @@
   "annotation.newClaim": "New claim added by {author}",
   "annotation.statusSetHeader": "Status set to {status} by {author}",
   "annotation.taggedHeader": "Tagged #{tag} by {author}",
-  "annotation.deletedComment": "Comment deleted",
+  "annotation.deletedComment": "Comment deleted by {author}: \"{comment}\"",
   "annotation.taskCreated": "Task \"{task}\" created by {author}",
   "annotation.taskResolve": "Task \"{task}\" answered by {author}: \"{response}\"",
   "annotation.reverseImageSearch": "Search",

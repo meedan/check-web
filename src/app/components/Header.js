@@ -29,6 +29,7 @@ const HeaderBar = styled.div`
   on Safari, Safari Mobile, Ubuntu Chrome,
   Ubuntu Firefox 2017-9-20 CGB */
   position: relative;
+  z-index: 1;
   ${mediaQuery.handheld`
     padding: 0 ${units(1)};
   `}

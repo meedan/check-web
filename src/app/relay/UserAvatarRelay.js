@@ -19,7 +19,7 @@ class UserAvatarRelay extends Component {
   render() {
     const UserAvatarContainer = Relay.createContainer(UserAvatar, {
       fragments: {
-        me: () => userFragment,
+        user: () => userFragment,
       },
     });
 
