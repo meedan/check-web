@@ -9,6 +9,7 @@ import styled from 'styled-components';
 import { stringHelper } from '../customHelpers';
 import UserMenuItems from './UserMenuItems';
 import UserAvatarRelay from '../relay/UserAvatarRelay';
+
 import {
   Text,
   Row,
@@ -22,6 +23,7 @@ import {
   avatarSize,
   avatarStyle,
   body2,
+  gutterSmall,
 } from '../styles/js/shared';
 
 class DrawerNavigation extends Component {
@@ -34,12 +36,14 @@ class DrawerNavigation extends Component {
       drawerFooter: {
         display: 'flex',
         alignItems: 'flex-start',
+        flexWrap: 'wrap',
         justifyContent: 'space-between',
         backgroundColor: white,
-        padding: `${units(2)}`,
+        padding: `${gutterSmall}`,
       },
       drawerFooterLink: {
         font: caption,
+        minWidth: '20%',
       },
       drawerProjects: {
         overflow: 'auto',
@@ -64,10 +68,9 @@ class DrawerNavigation extends Component {
     const DrawerHeader = styled.div`
       height: ${drawerHeaderHeight};
       background-color: ${black05};
-      padding: ${units(2)};
+      padding: ${gutterSmall};
     `;
 
-    // Team Avatar
     const TeamAvatar = styled.div`
       ${avatarStyle}
       background-image: url(${team.avatar});
@@ -85,7 +88,7 @@ class DrawerNavigation extends Component {
     const SubHeading = styled.div`
       font: ${caption};
       color: ${black54};
-      padding: ${units(2)} ${units(2)} ${units(1)} ${units(2)};
+      padding: ${gutterSmall} ${gutterSmall} ${units(1)} ${gutterSmall};
     `;
 
     const TosMenuItem = (
@@ -162,8 +165,8 @@ class DrawerNavigation extends Component {
         const projectPath = `/${this.props.team.slug}/project/${p.node.dbid}`;
 
         return (
-          <Link to={projectPath}>
-            <MenuItem key={p.node.dbid} primaryText={<Text ellipsis>{p.node.title}</Text>} />
+          <Link key={p.node.dbid} to={projectPath}>
+            <MenuItem primaryText={<Text ellipsis>{p.node.title}</Text>} />
           </Link>
         );
       });
