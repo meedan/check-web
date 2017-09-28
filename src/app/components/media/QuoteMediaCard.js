@@ -4,7 +4,7 @@ import rtlDetect from 'rtl-detect';
 import { Link } from 'react-router';
 import { rtlClass } from '../../helpers';
 
-import { Row, breakWordStyles, headline, units, subheading2, black38 } from '../../styles/js/shared';
+import { Row, breakWordStyles, headline, units, subheading2 } from '../../styles/js/shared';
 
 const Quote = styled.div`
   margin: ${units(3)};
@@ -15,27 +15,9 @@ const StyledQuoteText = styled.div`
   font: ${headline};
 `;
 
-// stringToHostname()
-//
-// We want only the hostname to display in the attributionContext.
-//
-// Extract the hostname using the browser (without a regex.)
-// and try to set the hostname, unless it's localhost,
-// which is a browser fallback; it's probably not a url.
-//
-// TODO: make this link parsing more robust...
-// • Presence of 'localhost' is not the only indicator a link is malformed.
-// • A string without the protocol will return false, but should be parsed.
-//
-function stringToHostname(testString) {
-  const anchor = document.createElement('a');
-  anchor.setAttribute('href', testString);
-  return anchor.hostname.includes('localhost') ? false : anchor.hostname;
-}
-
 class QuoteMediaCard extends Component {
   render() {
-    const { quote, quoteAttributionSource, quoteAttributionContext, languageCode } = this.props;
+    const { quote, quoteAttributions, languageCode } = this.props;
 
     const isRtl = rtlDetect.isRtlLang(languageCode);
 
@@ -46,16 +28,6 @@ class QuoteMediaCard extends Component {
       margin-top: ${units(4)};
     `;
 
-    // If it doesn't seem like a link, display the plain text "context"
-    //
-    const attributionContextAsLinkOrText = (
-      stringToHostname(quoteAttributionContext)
-        ? (<a href={quoteAttributionContext} target="_blank" rel="noopener noreferrer">
-          {stringToHostname(quoteAttributionContext)}
-        </a>)
-        : (<div style={{ color: black38 }}> {quoteAttributionContext} </div>)
-      );
-
     return (
       <Quote>
         <div>
@@ -65,16 +37,11 @@ class QuoteMediaCard extends Component {
           <Row>
             <StyledQuoteAttribution>
               {/* If there is any attribution, display it */}
-              { quoteAttributionSource
+              { quoteAttributions && quoteAttributions.name
                 ? <div>
                     —{' '} {/* TODO link to source page here */}
-                  <Link to="TODO">{quoteAttributionSource}</Link>
+                  <Link to="TODO">{quoteAttributions.name == null ? '' : quoteAttributions.name}</Link>
                 </div>
-                : null}
-
-              {/* If there is any "context" display it */}
-              { quoteAttributionContext
-                ? attributionContextAsLinkOrText
                 : null}
             </StyledQuoteAttribution>
           </Row>

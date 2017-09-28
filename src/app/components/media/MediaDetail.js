@@ -115,6 +115,9 @@ class MediaDetail extends Component {
     media.url = media.media.url;
     media.quote = media.media.quote;
     media.embed_path = media.media.embed_path;
+    // TODO get any quoteAttributions for quotes.
+    // media.quoteAttributions = media.media.quoteAttributions;
+
     const createdAt = MediaUtil.createdAt(media);
 
     const heading = MediaUtil.title(media, data, this.props.intl);
@@ -127,11 +130,7 @@ class MediaDetail extends Component {
         <QuoteMediaCard
           quote={media.quote}
           languageCode={media.language_code}
-          quoteAttributionSource={media.quote_attribution_source}
-          quoteAttributionContext={media.quote_attribution_context}
-          attributionName={null}
-          attributionUrl={null}
-
+          // quoteAttributions={media.quoteAttributions}
         />
       );
     } else if (media.url) {

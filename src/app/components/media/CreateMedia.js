@@ -244,7 +244,7 @@ class CreateProjectMedia extends Component {
     let urls = '';
     let url = '';
     let quote = '';
-    let quoteAttributions = '';
+    let quoteAttributions = {};
 
     if (this.state.mode === 'image') {
       image = document.forms.media.image;
@@ -255,7 +255,9 @@ class CreateProjectMedia extends Component {
       quote = document.getElementById('create-media-quote-input').value.trim();
       quoteAttributions = JSON.stringify({
         name: document.getElementById('create-media-quote-attribution-source-input').value.trim(),
-        link: document.getElementById('create-media-quote-attribution-link-input').value.trim()
+        // TODO: support attribution context
+        //
+        // context: document.getElementById('create-media-quote-attribution-context-input').value.trim(),
       });
     } else {
       inputValue = document.getElementById('create-media-input').value.trim();
@@ -371,23 +373,18 @@ class CreateProjectMedia extends Component {
           name="quoteAttributionSource"
           filter={AutoComplete.fuzzyFilter}
           floatingLabelText={this.props.intl.formatMessage(messages.quoteAttributionSourceInput)}
-          // TODO: implement real sources
           dataSource={['Foo Source', 'Bar Source', 'Baz Source']}
+          //
+          // TODO: implement real sources instead of these ^
+          //
+          // The following props might be useful:
+          //
           // errorText={}
           // dataSourceConfig={{ text: 'label', value: 'value' }}
           // openOnFocus
           // onNewRequest={}
           // ref={'autocomplete'}
-          fullWidth
           hintText={this.props.intl.formatMessage(messages.quoteAttributionSourceInputHelper)}
-          {...defaultInputProps}
-        />,
-        <TextField
-          key="createMedia.quoteAttributionContext.input"
-          floatingLabelText={this.props.intl.formatMessage(messages.quoteAttributionContextInput)}
-          name="quoteAttributionContext"
-          id="create-media-quote-attribution-link-input"
-          hintText={this.props.intl.formatMessage(messages.quoteAttributionContextInputHelper)}
           {...defaultInputProps}
         />,
       ];
