@@ -791,6 +791,10 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     #   skip("Needs to be implemented")
     # end
 
+    # it "should edit team logo" do
+    #   skip("Needs to be implemented")
+    # end
+
     it "should navigate between teams", bin4: true, quick: true do
       # setup
       user = api_register_and_login_with_email(email: @user_mail, password: @password)
