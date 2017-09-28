@@ -157,6 +157,8 @@ class MediaDetail extends Component {
 
     const authorUsername = MediaUtil.authorUsername(media, data);
 
+    const sourceName = MediaUtil.sourceName(media, data);
+
     const authorUrl = MediaUtil.authorUrl(media, data);
 
     const mediaIcon = (<div style={styles.subtitleIconContainer}>
@@ -195,7 +197,7 @@ class MediaDetail extends Component {
                   {/* ideally this would be SourcePicture not FaFeed — CGB 2017-9-13 */}
                   <FaFeed style={{ width: 16 }} />
                   {' '}
-                  {authorName || authorUsername}
+                  {authorName || authorUsername || sourceName}
                 </FlexRow>
               </Link>
               : null}

@@ -111,9 +111,6 @@ class SwitchTeamsComponent extends Component {
     const teamUsers = this.props.user.team_users.edges;
 
     const isUserSelf = (user.id === currentUser.id);
-    const cardTitle = isUserSelf ?
-      <FormattedMessage id="teams.yourTeams" defaultMessage="Your Teams" /> :
-      <FormattedMessage id="teams.userTeams" defaultMessage="{name} is a member of {number} teams" values={{ name: user.name, number: teamUsers.length }} />;
 
     const that = this;
     const otherTeams = [];
@@ -148,6 +145,10 @@ class SwitchTeamsComponent extends Component {
     teamUsers.map((teamUser) => {
       const team = teamUser.node.team;
       const status = teamUser.node.status;
+      const visible = !teamUser.node.private;
+
+      if (!visible) { return; }
+
       if (status === 'requested' || status === 'banned') {
         team.status = status;
         team.teamUser_id = teamUser.node.id;
@@ -159,6 +160,10 @@ class SwitchTeamsComponent extends Component {
     const buildUrl = function buildUrl(team) {
       return `${window.location.protocol}//${config.selfHost}/${team.slug}`;
     };
+
+    const cardTitle = isUserSelf ?
+      <FormattedMessage id="teams.yourTeams" defaultMessage="Your Teams" /> :
+      <FormattedMessage id="teams.userTeams" defaultMessage="{name} is a member of {number} teams" values={{ name: user.name, number: pendingTeams.length + otherTeams.length }} />;
 
     return (
       <Card>
