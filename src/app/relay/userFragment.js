@@ -26,6 +26,7 @@ const userFragment = Relay.QL`
             name,
             avatar,
             slug,
+            private,
             members_count
           }
           id,
