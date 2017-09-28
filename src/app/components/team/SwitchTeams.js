@@ -11,7 +11,7 @@ const SwitchTeamsContainer = Relay.createContainer(
   injectIntl(SwitchTeamsComponent),
   {
     fragments: {
-      me: () => userFragment,
+      user: () => userFragment,
     },
   },
 );
@@ -28,4 +28,3 @@ function SwitchTeams() {
 }
 
 export default SwitchTeams;
-

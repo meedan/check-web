@@ -9,5 +9,9 @@
   "createMedia.imageTitle": "Enviar uma imagem",
   "createMedia.sourceTitle": "Insira uma fonte",
   "createMedia.linkTitle": "Insira um link",
-  "createMedia.quoteTitle": "Insira uma citação"
+  "createMedia.quoteTitle": "Insira uma citação",
+  "createMedia.link": "Link",
+  "createMedia.quote": "Citação",
+  "createMedia.source": "Fonte",
+  "createMedia.image": "Foto"
 }

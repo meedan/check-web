@@ -7,7 +7,7 @@
   "annotation.newClaim": "Nouveau témoignage ajouté par {author}",
   "annotation.statusSetHeader": "Statut fixé à {status} par {author}",
   "annotation.taggedHeader": "Classé #{tag} par {author}",
-  "annotation.deletedComment": "Commentaire effacé",
+  "annotation.deletedComment": "Commentaire effacé par {author} : {comment}",
   "annotation.taskCreated": "Tâche \"{task}\" ajoutée par {author}",
   "annotation.taskResolve": "Tâche \"{task}\" résolue par {author} : {response}",
   "annotation.reverseImageSearch": "Recherche",

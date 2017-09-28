@@ -742,6 +742,7 @@ const SearchResultsContainer = Relay.createContainer(injectIntl(SearchResultsCom
                 thumbnail_path
               }
               user {
+                dbid,
                 name,
                 source {
                   dbid,

@@ -9,5 +9,9 @@
   "createMedia.imageTitle": "Charger une image",
   "createMedia.sourceTitle": "Ajouter une source",
   "createMedia.linkTitle": "Ajouter un lien",
-  "createMedia.quoteTitle": "Ajouter une citation"
+  "createMedia.quoteTitle": "Ajouter une citation",
+  "createMedia.link": "Lien",
+  "createMedia.quote": "Citation",
+  "createMedia.source": "Source",
+  "createMedia.image": "Photo"
 }

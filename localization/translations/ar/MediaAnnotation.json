@@ -7,7 +7,7 @@
   "annotation.newClaim": "إدعاء جديد أُضيف بواسطة {author}",
   "annotation.statusSetHeader": "تم تغيير الحالة إلى {status} بواسطة {author}",
   "annotation.taggedHeader": "تم وسمه #{tag} بواسطة {author}",
-  "annotation.deletedComment": "تم حذف التعليق",
+  "annotation.deletedComment": "تم حذف التعليق بواسطة {author}: \"{comment}\"",
   "annotation.taskCreated": "تم إضافة السؤال \"{task}\" بواسطة {author}",
   "annotation.taskResolve": "تم حل المهمة \"{task}\" بواسطة {author}: \"{response}\"",
   "annotation.reverseImageSearch": "بحث",

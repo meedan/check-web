@@ -148,10 +148,10 @@ class DrawerNavigation extends Component {
     );
 
     const yourProfileButton = (
-      <Link to="/check/teams">
+      <Link to="/check/me">
         <IconButton
           style={styles.drawerYourProfileButton}
-          tooltip={<FormattedMessage id="drawerNavigation.userTeams" defaultMessage="Your Teams" />}
+          tooltip={<FormattedMessage id="drawerNavigation.userProfile" defaultMessage="Your Profile" />}
           tooltipPosition="bottom-center"
         >
           <UserAvatarRelay size={units(4)} {...this.props} />
@@ -220,4 +220,3 @@ class DrawerNavigation extends Component {
 }
 
 export default DrawerNavigation;
-

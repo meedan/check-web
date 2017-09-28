@@ -28,7 +28,15 @@
     "defaultMessage": "Your Teams"
   },
   {
+    "id": "teams.userTeams",
+    "defaultMessage": "{name} is a member of {number} teams"
+  },
+  {
+    "id": "switchTeams.noTeams",
+    "defaultMessage": "You are not a member of any teams yet."
+  },
+  {
     "id": "switchTeams.newTeamLink",
-    "defaultMessage": "+ New team"
+    "defaultMessage": "Create Team"
   }
 ]

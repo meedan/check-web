@@ -50,19 +50,17 @@ class HeaderCard extends Component {
       <Card style={cardHeaderStyle}>
         <div>{this.props.children}</div>
         <section style={{ position: 'relative' }}>
-          {this.props.isEditing === false
-            ? <Can permissions={this.props.teamPermissions} permission="update Team">
-              <TooltipButton
-                className="team__edit-button"
-                tooltip={
-                  <FormattedMessage id="teamComponent.editButton" defaultMessage="Edit profile" />
-                  }
-                tooltipPosition="top-center"
-                onTouchTap={this.props.handleEnterEditMode}
-              >
-                <MDEdit />
-              </TooltipButton>
-            </Can>
+          {this.props.canEdit && !this.props.isEditing ?
+            <TooltipButton
+              className="team__edit-button"
+              tooltip={
+                <FormattedMessage id="teamComponent.editButton" defaultMessage="Edit profile" />
+                }
+              tooltipPosition="top-center"
+              onTouchTap={this.props.handleEnterEditMode}
+            >
+              <MDEdit />
+            </TooltipButton>
             : null}
         </section>
       </Card>

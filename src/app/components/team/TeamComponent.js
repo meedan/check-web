@@ -17,7 +17,7 @@ import MappedMessage from '../MappedMessage';
 import UpdateTeamMutation from '../../relay/UpdateTeamMutation';
 import Message from '../Message';
 import CreateProject from '../project/CreateProject';
-import Can from '../Can';
+import Can, { can } from '../Can';
 import CheckContext from '../../CheckContext';
 import ParsedText from '../ParsedText';
 import {
@@ -287,7 +287,7 @@ class TeamComponent extends Component {
       <PageTitle prefix={false} skipTeam={false} team={team}>
         <div className="team">
           <HeaderCard
-            teamPermissions={team.permissions}
+            canEdit={can(team.permissions, 'update Team')}
             direction={direction}
             handleEnterEditMode={this.handleEnterEditMode.bind(this)}
             isEditing={isEditing}
@@ -349,6 +349,7 @@ class TeamComponent extends Component {
                           fullWidth
                         />
 
+                        { team.limits.slack_integration === false ? null : <div>
                         <Checkbox
                           style={{ marginTop: units(6) }}
                           label={
@@ -377,7 +378,7 @@ class TeamComponent extends Component {
                           floatingLabelText={this.props.intl.formatMessage(messages.slackChannel)}
                           onChange={this.handleChange.bind(this, 'slackChannel')}
                           fullWidth
-                        />
+                        /></div> }
                       </CardText>
 
                       <CardActions style={{ marginTop: units(4) }}>

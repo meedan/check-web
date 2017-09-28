@@ -7,7 +7,7 @@
   "annotation.newClaim": "Nova alegação inserida por {author}",
   "annotation.statusSetHeader": "Status modificado para {status} por {author}",
   "annotation.taggedHeader": "Marcado #{tag} por {author}",
-  "annotation.deletedComment": "Comentário excluído",
+  "annotation.deletedComment": "Comentário excluído por {author}: {comment}",
   "annotation.taskCreated": "Tarefa \\\"{task}\\\" criada por {author}",
   "annotation.taskResolve": "Tarefa \\\"{task}\\\" respondida por {author}: \\\"{response}\\\"",
   "annotation.reverseImageSearch": "Buscar",
