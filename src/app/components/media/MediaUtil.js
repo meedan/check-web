@@ -85,7 +85,11 @@ const MediaUtil = {
   },
 
   sourceName(media, data) {
-    return media.project_source.source.name;
+    try {
+      return media.project_source.source.name;
+    } catch (e) {
+      return '';
+    }
   },
 
   authorUrl(media, data) {
