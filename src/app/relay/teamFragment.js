@@ -28,6 +28,13 @@ const teamFragment = Relay.QL`
         }
       }
     },
+    sources(first: 10000) {
+      edges {
+        node {
+          name
+        }
+      }
+    },
     projects(first: 10000) {
       edges {
         node {

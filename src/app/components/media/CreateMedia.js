@@ -359,6 +359,7 @@ class CreateProjectMedia extends Component {
         />,
       ];
     case 'quote':
+      const context = new CheckContext(this).getContextStore();
       return [
         <TextField
           key="createMedia.quote.input"
@@ -373,7 +374,7 @@ class CreateProjectMedia extends Component {
           name="quoteAttributionSource"
           filter={AutoComplete.fuzzyFilter}
           floatingLabelText={this.props.intl.formatMessage(messages.quoteAttributionSourceInput)}
-          dataSource={['Foo Source', 'Bar Source', 'Baz Source']}
+          dataSource={context.team.sources.edges.map(function(obj){return obj.node.name})}
           //
           // TODO: implement real sources instead of these ^
           //
