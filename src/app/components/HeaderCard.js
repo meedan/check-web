@@ -4,23 +4,21 @@ import MDEdit from 'react-icons/lib/md/edit';
 import { Card } from 'material-ui/Card';
 import styled from 'styled-components';
 import { FormattedMessage, injectIntl } from 'react-intl';
-import { stripUnit } from 'polished';
 import Can from './Can';
-import { units, unitless, headerHeight, gutterMedium, black54, boxShadow, black87 } from '../styles/js/shared';
+import { units, unitless, black54, boxShadow, black87 } from '../styles/js/shared';
 
 class HeaderCard extends Component {
   render() {
     // Define variables for styles
-    const teamProfileOffset = stripUnit(headerHeight) + stripUnit(gutterMedium);
+    const teamProfileOffset = unitless(18);
     const teamProfileBottomPad = unitless(8);
     const teamProfileFabHeight = unitless(5);
 
     const cardHeaderStyle = {
       marginBottom: units(6),
-      marginTop: `-${teamProfileOffset}px`,
+      marginTop: `-${teamProfileOffset}`,
       paddingBottom: teamProfileBottomPad,
       paddingTop: teamProfileOffset,
-      borderRadius: '0px',
     };
 
     //  IconButton with tooltip

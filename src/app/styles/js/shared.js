@@ -74,7 +74,6 @@ export const tiny = `400 ${units(1)}/${units(1.5)} ${fontStackSans}`;
 // Layout
 export const headerHeight = units(8);
 export const gutterMedium = units(3);
-export const gutterSmall = units(2);
 
 // Breakpoints
 export const breakpointMobile = `${columnWidthMedium}`;
