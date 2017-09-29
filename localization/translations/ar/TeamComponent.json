@@ -1,7 +1,6 @@
 {
-  "teamComponent.editError": "عذراً، لم نستطع تحرير معلومات الفريق",
+  "teamComponent.editError": "عذراً ، لم نستطع تحرير معلومات الفريق",
   "teamComponent.editSuccess": "تم تحديث معلومات الفريق بنجاح!",
-  "teamComponent.changeAvatar": "لا يمكنك تعديل هذا الآن، لكننا نعمل جاهدين لإتاحته بأسرع وقت!",
   "teamComponent.teamName": "اسم الفريق",
   "teamComponent.teamDescription": "وصف الفريق",
   "teamComponent.location": "الموقع",

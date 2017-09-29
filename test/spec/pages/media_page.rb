@@ -10,10 +10,18 @@ class MediaPage < Page
     wait_for_element(".media-status__current--#{status.to_s}")
   end
 
+  def toggle_card
+    toggle_button_selector=".media-detail > div > div > div > button"
+    wait_for_element(toggle_button_selector)
+    @driver.find_element(:css, toggle_button_selector).click
+    sleep 2
+  end
+
   def set_title(string)
     edit
     fill_input('.media-detail__title-input > input', string, {clear: true})
     click('.media-detail__save-edits') # Done
+    toggle_card # Cose the card so the header appears
     @wait.until {
       string == primary_heading.text
     }
@@ -32,7 +40,8 @@ class MediaPage < Page
   end
 
   def edit
-    element('.media-detail').click unless pender_visible?
+    # For some reason this line fails if pender_visible? is false — CGB 2017-9-29
+    # element('.media-detail').click unless pender_visible?
     element('.media-actions').click
     element('.media-actions__edit').click
     @wait.until { editing_mode? }

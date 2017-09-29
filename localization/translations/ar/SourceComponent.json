@@ -1,6 +1,6 @@
 {
   "sourceComponent.addInfo": "أضف معلومات",
-  "sourceComponent.editError": "عذراً، لم نستطع تحرير هذا المصدر",
+  "sourceComponent.editError": "عذراً ، لم نستطع تحرير هذا المصدر",
   "sourceComponent.createTagError": "خطأ في إدخال الوسم",
   "sourceComponent.selectLanguageError": "إختر اللغة من اللائحة المتاحة",
   "sourceComponent.editSuccess": "تم تحديث معلومات المصدر بنجاح!",

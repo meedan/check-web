@@ -2,7 +2,7 @@
   "createTeam.slugChecking": "التحقق من توافر المسار...",
   "createTeam.slugAvailable": "متاح!",
   "createTeam.slugUnavailable": "الرابط غير متاح.",
-  "createTeam.createTeamError": "عذراً، لم نستطع إضافة الفريق.",
+  "createTeam.createTeamError": "عذراً ، لم نستطع إضافة الفريق",
   "createTeam.title": "أضف فريق",
   "createTeam.teamNameHint": "اسم الفريق",
   "createTeam.teamSlugHint": "مسار الفريق",

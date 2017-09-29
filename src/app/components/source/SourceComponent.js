@@ -727,7 +727,7 @@ class SourceComponent extends Component {
 
   onImage(file) {
     document.forms['edit-source-form'].image = file;
-    this.setState({ image: file });
+    this.setState({ message: null, image: file });
   }
 
   onClear = () => {
@@ -735,7 +735,7 @@ class SourceComponent extends Component {
       document.forms['edit-source-form'].image = null;
     }
 
-    this.setState({ image: null });
+    this.setState({ message: null, image: null });
   };
 
   onImageError(file, message) {
