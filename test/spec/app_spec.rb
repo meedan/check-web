@@ -162,6 +162,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should display a default title for new media", bin1: true, quick:true do
       # Tweets
       media_pg = api_create_team_project_and_link_and_redirect_to_media_page('https://twitter.com/firstdraftnews/status/835587295394869249')
+      media_pg.toggle_card # Collapse card to show the title
       expect(media_pg.primary_heading.text.include?('In a chat about getting')).to be(true)
       project_pg = media_pg.go_to_project
       sleep 1
@@ -172,6 +173,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # YouTube
       media_pg = api_create_team_project_and_link_and_redirect_to_media_page('https://www.youtube.com/watch?v=ykLgjhBnik0')
+      media_pg.toggle_card # Collapse card to show the title
       expect(media_pg.primary_heading.text).to eq("How To Check An Account's Authenticity")
       project_pg = media_pg.go_to_project
       sleep 5
@@ -179,6 +181,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Facebook
       media_pg = api_create_team_project_and_link_and_redirect_to_media_page('https://www.facebook.com/FirstDraftNews/posts/1808121032783161')
+      media_pg.toggle_card # Collapse card to show the title
       expect(media_pg.primary_heading.text).to eq('First Draft on Facebook')
       project_pg = media_pg.go_to_project
       sleep 1
