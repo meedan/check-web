@@ -17,10 +17,8 @@ const StyledQuoteText = styled.div`
 
 class QuoteMediaCard extends Component {
   render() {
-    const { quote, quoteAttributions, languageCode } = this.props;
-
+    const { quote, sourceName, sourceUrl, languageCode } = this.props;
     const isRtl = rtlDetect.isRtlLang(languageCode);
-
     const StyledQuoteAttribution = styled.div`
       font: ${subheading2};
       text-align: ${isRtl ? 'left' : 'right'};
@@ -36,11 +34,12 @@ class QuoteMediaCard extends Component {
           </StyledQuoteText>
           <Row>
             <StyledQuoteAttribution>
-              {/* If there is any attribution, display it */}
-              { quoteAttributions && quoteAttributions.name
+              {sourceName && sourceUrl
                 ? <div>
-                    —{' '} {/* TODO link to source page here */}
-                  <Link to="TODO">{quoteAttributions.name == null ? '' : quoteAttributions.name}</Link>
+                  {'— '}
+                  <Link to={sourceUrl}>
+                    {sourceName}
+                  </Link>
                 </div>
                 : null}
             </StyledQuoteAttribution>
