@@ -113,7 +113,7 @@ const messages = defineMessages({
   },
   sourceUrlInput: {
     id: 'createMedia.sourceUrlInput',
-    defaultMessage: 'URL or context',
+    defaultMessage: 'Link to source',
   },
   uploadImage: {
     id: 'createMedia.uploadImage',
@@ -244,7 +244,7 @@ class CreateProjectMedia extends Component {
     let urls = '';
     let url = '';
     let quote = '';
-    let quoteAttributions = {};
+    let quoteAttributions = '';
 
     if (this.state.mode === 'image') {
       image = document.forms.media.image;
@@ -358,7 +358,7 @@ class CreateProjectMedia extends Component {
           {...defaultInputProps}
         />,
       ];
-    case 'quote':
+    case 'quote': {
       const context = new CheckContext(this).getContextStore();
       return [
         <TextField
@@ -374,7 +374,7 @@ class CreateProjectMedia extends Component {
           name="quoteAttributionSource"
           filter={AutoComplete.fuzzyFilter}
           floatingLabelText={this.props.intl.formatMessage(messages.quoteAttributionSourceInput)}
-          dataSource={context.team.sources.edges.map(function(obj){return obj.node.name})}
+          dataSource={context.team.sources.edges.map(obj => obj.node.name)}
           //
           // TODO: implement real sources instead of these ^
           //
@@ -389,6 +389,7 @@ class CreateProjectMedia extends Component {
           {...defaultInputProps}
         />,
       ];
+    }
     case 'link':
     default:
       return [

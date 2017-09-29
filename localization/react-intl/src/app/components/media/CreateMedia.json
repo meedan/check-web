@@ -37,7 +37,7 @@
   },
   {
     "id": "createMedia.sourceUrlInput",
-    "defaultMessage": "URL or context"
+    "defaultMessage": "Link to source"
   },
   {
     "id": "createMedia.uploadImage",
