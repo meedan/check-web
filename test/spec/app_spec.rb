@@ -135,10 +135,10 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(project_pg.elements('.media__heading').map(&:text).include?('Edited media title')).to be(true)
     end
 
-    # This test fails ~ 30% of the time for some reason.
-    # Todo: consider fixing it
+    # This test fails ~ 30% of the time for some reason. 
+    # TODO fix it
     # CGB 2017-9-29
-    #
+    # 
     # it "should not add a duplicated tag from tags list", bin3: true, quick: true  do
     #   page = api_create_team_project_and_claim_and_redirect_to_media_page
     #   new_tag = Time.now.to_i.to_s
@@ -279,20 +279,18 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(page.contains_string?('This is a test')).to be(true)
     end
 
-    # Disable because it is flaky.
-    # Todo:
-    # it "should search for image", bin2: true do
-    #   api_create_team_and_project
-    #   sleep 2
-    #   page = ProjectPage.new(config: @config, driver: @driver).load
-    #          .create_image_media(File.join(File.dirname(__FILE__), 'test.png'))
+    it "should search for image", bin2: true do
+      api_create_team_and_project
+      sleep 2
+      page = ProjectPage.new(config: @config, driver: @driver).load
+             .create_image_media(File.join(File.dirname(__FILE__), 'test.png'))
 
-    #   sleep 10 # wait for Sidekiq
+      sleep 10 # wait for Sidekiq
 
-    #   @driver.navigate.to @config['self_url'] + '/' + get_team + '/search'
-    #   sleep 5
-    #   expect(@driver.find_element(:link_text, 'test.png').nil?).to be(false)
-    # end
+      @driver.navigate.to @config['self_url'] + '/' + get_team + '/search'
+      sleep 5
+      expect(@driver.find_element(:link_text, 'test.png').nil?).to be(false)
+    end
 
     it "should upload image when registering", bin5: true do
       email, password, avatar = ["test-#{Time.now.to_i}@example.com", '12345678', File.join(File.dirname(__FILE__), 'test.png')]
@@ -381,29 +379,24 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Source exists')).to be(true)
     end
 
-    # This test is flaky
-    # Todo: consider fixing it or removing it
-    #
-    # CGB 2017-9-29
-    #
-    # it "should tag source as a command", bin6: true do
-    #   api_create_team_project_and_source_and_redirect_to_source('ACDC', 'https://twitter.com/acdc')
-    #   sleep 3
-    #   @driver.find_element(:css, '.source__tab-button-notes').click
+    it "should tag source as a command", bin6: true do
+      api_create_team_project_and_source_and_redirect_to_source('ACDC', 'https://twitter.com/acdc')
+      sleep 3
+      @driver.find_element(:css, '.source__tab-button-notes').click
 
-    #   expect(@driver.page_source.include?('Tagged #command')).to be(false)
+      expect(@driver.page_source.include?('Tagged #command')).to be(false)
 
-    #   fill_field('#cmd-input', '/tag command')
-    #   @driver.action.send_keys(:enter).perform
-    #   sleep 5
+      fill_field('#cmd-input', '/tag command')
+      @driver.action.send_keys(:enter).perform
+      sleep 5
 
-    #   expect(@driver.page_source.include?('Tagged #command')).to be(true)
+      expect(@driver.page_source.include?('Tagged #command')).to be(true)
 
-    #   @driver.navigate.refresh
-    #   sleep 5
-    #   @driver.find_element(:css, '.source__tab-button-notes').click
-    #   expect(@driver.page_source.include?('Tagged #command')).to be(true)
-    # end
+      @driver.navigate.refresh
+      sleep 5
+      @driver.find_element(:css, '.source__tab-button-notes').click
+      expect(@driver.page_source.include?('Tagged #command')).to be(true)
+    end
 
     it "should comment source as a command", bin6: true do
       api_create_team_project_and_source_and_redirect_to_source('The Beatles', 'https://twitter.com/thebeatles')
