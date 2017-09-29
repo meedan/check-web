@@ -122,15 +122,19 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should edit the title of a media", bin1: true do
       url = 'https://twitter.com/softlandscapes/status/834385935240462338'
       media_pg = api_create_team_project_and_link_and_redirect_to_media_page url
+      media_pg.wait_for_element('.media-detail')
+      media_pg.toggle_card # Make sure the card is closed
       expect(media_pg.primary_heading.text).to eq('https://t.co/i17DJNqiWX')
-      sleep 3 # :/ clicks can misfire if pender iframe moves the button position at the wrong moment
+      media_pg.toggle_card # Expand the card so the edit button is accessible
+      media_pg.wait_for_element('.media-actions')
+      sleep 3 # Clicks can misfire if pender iframe moves the button position at the wrong moment
       media_pg.set_title('Edited media title')
       expect(media_pg.primary_heading.text).to eq('Edited media title')
       project_pg = media_pg.go_to_project
-      sleep 3
+      project_pg.wait_for_element('.media__heading')
       expect(project_pg.elements('.media__heading').map(&:text).include?('Edited media title')).to be(true)
     end
-
+    
     it "should not add a duplicated tag from tags list", bin3: true, quick: true  do
       page = api_create_team_project_and_claim_and_redirect_to_media_page
       new_tag = Time.now.to_i.to_s
