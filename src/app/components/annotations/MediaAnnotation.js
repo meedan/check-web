@@ -3,7 +3,7 @@ import { FormattedMessage, FormattedHTMLMessage, defineMessages, injectIntl, int
 import MappedMessage from '../MappedMessage';
 import Relay from 'react-relay';
 import Tooltip from 'rc-tooltip';
-import 'rc-tooltip/assets/bootstrap.css';
+import 'rc-tooltip/assets/bootstrap_white.css';
 import MediaDetail from '../media/MediaDetail';
 import MediaUtil from '../media/MediaUtil';
 import DynamicAnnotation from '../annotations/DynamicAnnotation';

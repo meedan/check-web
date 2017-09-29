@@ -4,6 +4,7 @@ import sourceFragment from './sourceFragment';
 const userFragment = Relay.QL`
   fragment on User {
     id,
+    dbid,
     name,
     email,
     permissions,
