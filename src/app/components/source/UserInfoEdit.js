@@ -49,7 +49,7 @@ const messages = defineMessages({
   },
   addLinkHelper: {
     id: 'userInfoEdit.addLinkHelper',
-    defaultMessage: 'Add a link to a web page or social media profile. Note: this does not affect your login method.',
+    defaultMessage: 'Add a link to a web page or social media profile',
   },
   invalidLink: {
     id: 'userInfoEdit.invalidLink',
