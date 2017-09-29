@@ -11,9 +11,10 @@ class MediaPage < Page
   end
 
   def toggle_card
-    sleep 5
-    @driver.find_element(:css,'.media-detail > div > div > div > button').click
-    sleep 5
+    toggle_button_selector=".media-detail > div > div > div > button"
+    wait_for_element(toggle_button_selector)
+    @driver.find_element(:css, toggle_button_selector).click
+    sleep 2
   end
 
   def set_title(string)
