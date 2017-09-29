@@ -8,10 +8,6 @@
     "defaultMessage": "Team information updated successfully!"
   },
   {
-    "id": "teamComponent.changeAvatar",
-    "defaultMessage": "You can't change this right now, but we're hard at work to enable it soon!"
-  },
-  {
     "id": "teamComponent.teamName",
     "defaultMessage": "Team name"
   },
