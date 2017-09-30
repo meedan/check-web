@@ -9,6 +9,8 @@ import { teamStatuses } from '../customHelpers';
 import PageTitle from './PageTitle';
 import SearchRoute from '../relay/SearchRoute';
 import TeamRoute from '../relay/TeamRoute';
+import checkSearchResultFragment from '../relay/checkSearchResultFragment';
+import bridgeSearchResultFragment from '../relay/bridgeSearchResultFragment';
 import MediaDetail from './media/MediaDetail';
 import { bemClass, notify } from '../helpers';
 import CheckContext from '../CheckContext';
@@ -682,143 +684,20 @@ SearchResultsComponent.propTypes = {
   intl: intlShape.isRequired,
 };
 
+let fragment = null;
+if (config.appName === 'check') {
+  fragment = checkSearchResultFragment;
+}
+else if (config.appName === 'bridge') {
+  fragment = bridgeSearchResultFragment;
+}
+
 const SearchResultsContainer = Relay.createContainer(injectIntl(SearchResultsComponent), {
   initialVariables: {
     pageSize,
   },
   fragments: {
-    search: () => Relay.QL`
-      fragment on CheckSearch {
-        id,
-        pusher_channel,
-        medias(first: $pageSize) {
-          edges {
-            node {
-              id,
-              dbid,
-              url,
-              quote,
-              published,
-              updated_at,
-              embed,
-              archived,
-              log_count,
-              verification_statuses,
-              translation_statuses,
-              overridden,
-              project_id,
-              pusher_channel,
-              language,
-              language_code,
-              domain,
-              permissions,
-              last_status,
-              field_value(annotation_type_field_name: "translation_status:translation_status_status"),
-              translation_status: annotation(annotation_type: "translation_status") {
-                id
-                dbid
-              }
-              last_status_obj {
-                id,
-                dbid
-              }
-              project {
-                id,
-                dbid,
-                search_id,
-                title
-              },
-              project_source {
-                dbid,
-                project_id,
-                source {
-                  name
-                }
-              },
-              media {
-                url,
-                quote,
-                embed_path,
-                thumbnail_path
-              }
-              user {
-                dbid,
-                name,
-                source {
-                  dbid,
-                  accounts(first: 10000) {
-                    edges {
-                      node {
-                        url
-                      }
-                    }
-                  }
-                }
-              }
-              team {
-                slug
-                search_id
-              }
-              tags(first: 10000) {
-                edges {
-                  node {
-                    tag,
-                    id
-                  }
-                }
-              }
-            }
-          }
-        },
-        sources(first: $pageSize) {
-          edges {
-            node {
-              id,
-              dbid,
-              team {
-                dbid,
-                slug
-              },
-              project_id,
-              updated_at,
-              source_id,
-              source {
-                id,
-                dbid,
-                name,
-                description,
-                image,
-                accounts(first: 10000) {
-                  edges {
-                    node {
-                      id,
-                      data,
-                      embed,
-                      provider,
-                      url
-                    }
-                  }
-                }
-              },
-              user {
-                name,
-                source {
-                  dbid,
-                  accounts(first: 10000) {
-                    edges {
-                      node {
-                        url
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        number_of_results
-      }
-    `,
+    search: () => fragment
   },
 });
 
