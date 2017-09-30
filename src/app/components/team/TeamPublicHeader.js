@@ -1,8 +1,6 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import Relay from 'react-relay';
-import { Link } from 'react-router';
 import PublicTeamRoute from '../../relay/PublicTeamRoute';
-import MdArrowDropDown from 'react-icons/lib/md/arrow-drop-down';
 import TeamHeaderComponent from './TeamHeaderComponent';
 
 const TeamPublicHeaderContainer = Relay.createContainer(TeamHeaderComponent, {

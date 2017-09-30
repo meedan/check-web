@@ -55,18 +55,18 @@ class TeamHeaderComponent extends Component {
     `;
 
     const userAvatarOrMenuButton = (() => {
-      if (loggedIn) {
+      if (!loggedIn || !team) {
         return (
           <Offset>
-            <Row>
-              <UserAvatarRelay {...this.props} />
-            </Row>
+            <IconMenu />
           </Offset>
         );
       }
       return (
         <Offset>
-          <IconMenu />
+          <Row>
+            <UserAvatarRelay {...this.props} />
+          </Row>
         </Offset>
       );
     })();

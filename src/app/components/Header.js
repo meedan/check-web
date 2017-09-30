@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router';
 import IconButton from 'material-ui/IconButton';
+import IconMenu from 'material-ui/svg-icons/navigation/menu';
 import IconSearch from 'material-ui/svg-icons/action/search';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -61,13 +62,6 @@ class Header extends Component {
       </IconButton>
     );
 
-    const teamAndProjectHeader = (
-      <Row containsEllipsis>
-        <div><TeamHeader {...this.props} /></div>
-        <div><ProjectHeader {...this.props} /></div>
-      </Row>
-    );
-
     // TODO: move the logo somewhere CGB 2017-9-29
     // const checkLogo = (
     //   <Link to="/check/teams">
@@ -103,7 +97,8 @@ class Header extends Component {
       }
       return (
         <Row containsEllipsis>
-          {teamAndProjectHeader}
+          <div><TeamHeader {...this.props} /></div>
+          <div><ProjectHeader {...this.props} /></div>
         </Row>
       );
     })();

@@ -162,7 +162,7 @@ class DrawerNavigation extends Component {
         const projectPath = `/${this.props.team.slug}/project/${p.node.dbid}`;
 
         return (
-          <Link to={projectPath} key={p.node.dbid}>
+          <Link to={projectPath} key={p.node.dbid} >
             <MenuItem primaryText={<Text ellipsis>{p.node.title}</Text>} />
           </Link>
         );
