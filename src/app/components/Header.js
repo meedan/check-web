@@ -3,7 +3,8 @@ import styled from 'styled-components';
 import { Link } from 'react-router';
 import IconButton from 'material-ui/IconButton';
 import IconSearch from 'material-ui/svg-icons/action/search';
-import { injectIntl } from 'react-intl';
+import { injectIntl, FormattedMessage } from 'react-intl';
+import RaisedButton from 'material-ui/RaisedButton';
 import rtlDetect from 'rtl-detect';
 import TeamHeader from './team/TeamHeader';
 import TeamPublicHeader from './team/TeamPublicHeader';
@@ -14,6 +15,7 @@ import {
   mediaQuery,
   headerHeight,
   Row,
+  Offset,
   black02,
 } from '../styles/js/shared';
 
@@ -40,13 +42,10 @@ class Header extends Component {
     const locale = this.props.intl.locale;
     const isRtl = rtlDetect.isRtlLang(locale);
     const fromDirection = isRtl ? 'right' : 'left';
-    const hasTeam = this.props.params && this.props.params.team;
     const path = this.props.location
       ? this.props.location.pathname
       : window.location.pathname;
-    const showCheckLogo = /^\/(check(\/.*)?)?$/.test(path);
     const joinPage = /^\/([^/]+)\/join$/.test(path);
-
     const AlignOpposite = styled.div`
       margin-${fromDirection}: auto;
       `;
@@ -69,20 +68,32 @@ class Header extends Component {
       </Row>
     );
 
-    const checkLogo = (
-      <Link to="/check/teams">
-        <img
-          width={units(8)}
-          alt="Team Logo"
-          src={stringHelper('LOGO_URL')}
-        />
-      </Link>
-    );
+    // TODO: move the logo somewhere CGB 2017-9-29
+    // const checkLogo = (
+    //   <Link to="/check/teams">
+    //     <img
+    //       width={units(8)}
+    //       alt="Team Logo"
+    //       src={stringHelper('LOGO_URL')}
+    //     />
+    //   </Link>
+    // );
+
+    const signInButton = (() => {
+      if (!this.props.loggedIn) {
+        return (
+          <Link to="/">
+            <RaisedButton
+              primary
+              label={<FormattedMessage defaultMessage="Sign In" id="headerActions.signIn" />}
+            />
+          </Link>
+        );
+      }
+      return (null);
+    })();
 
     const primary = (() => {
-      if (showCheckLogo) {
-        return checkLogo;
-      }
       if (joinPage) {
         return (
           <Row containsEllipsis>
@@ -97,20 +108,16 @@ class Header extends Component {
       );
     })();
 
-    const secondary = (() => {
-      if (hasTeam) {
-        return (
-          <AlignOpposite>
-            <Row>
-              {searchButton}
-            </Row>
-          </AlignOpposite>
-        );
-      }
-      return (
-        null
-      );
-    })();
+    const secondary = (() => (
+      <AlignOpposite>
+        <Row>
+          <Offset>
+            {signInButton}
+          </Offset>
+          {searchButton}
+        </Row>
+      </AlignOpposite>
+      ))();
 
     return (
       <HeaderBar>

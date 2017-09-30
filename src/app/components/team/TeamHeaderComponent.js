@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router';
-import { injectIntl, FormattedMessage } from 'react-intl';
-import RaisedButton from 'material-ui/RaisedButton';
+import { injectIntl } from 'react-intl';
+import IconMenu from 'material-ui/svg-icons/navigation/menu';
 import UserAvatarRelay from '../../relay/UserAvatarRelay';
 import CheckContext from '../../CheckContext';
 import {
@@ -55,7 +54,7 @@ class TeamHeaderComponent extends Component {
       height: ${avatarSize};
     `;
 
-    const userAvatarOrSignIn = (() => {
+    const userAvatarOrMenuButton = (() => {
       if (loggedIn) {
         return (
           <Offset>
@@ -66,18 +65,8 @@ class TeamHeaderComponent extends Component {
         );
       }
       return (
-        <Offset key="header.signIn">
-          <Link to="/">
-            <RaisedButton
-              primary
-              label={
-                <FormattedMessage
-                  defaultMessage="Sign In"
-                  id="headerActions.signIn"
-                />
-              }
-            />
-          </Link>
+        <Offset>
+          <IconMenu />
         </Offset>
       );
     })();
@@ -89,7 +78,7 @@ class TeamHeaderComponent extends Component {
           className="header-actions__drawer-toggle"
           onClick={this.props.drawerToggle}
         >
-          {userAvatarOrSignIn}
+          {userAvatarOrMenuButton}
           {isProjectUrl
             ? <Offset>
               <TeamAvatar />

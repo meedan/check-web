@@ -149,15 +149,15 @@ class Home extends Component {
             </ContentColumn>
             <Header
               drawerToggle={this.handleDrawerToggle.bind(this)}
-              {...this.props}
               loggedIn={this.state.token}
+              {...this.props}
             />
             <Message message={this.state.message} onClick={this.resetMessage.bind(this)} className="home__message" />
             <div className="home__content">
               {children}
             </div>
           </div>
-          { this.state.token && this.props.params.team ? drawer : null }
+          { drawer }
         </span>
       </MuiThemeProvider>
     );
