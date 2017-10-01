@@ -41,6 +41,7 @@ const HeaderBar = styled.div`
 class Header extends Component {
   render() {
     const locale = this.props.intl.locale;
+    const { inTeamContext, loggedIn, drawerToggle } = this.props;
     const isRtl = rtlDetect.isRtlLang(locale);
     const fromDirection = isRtl ? 'right' : 'left';
     const path = this.props.location
@@ -62,19 +63,16 @@ class Header extends Component {
       </IconButton>
     );
 
-    // TODO: move the logo somewhere CGB 2017-9-29
-    // const checkLogo = (
-    //   <Link to="/check/teams">
-    //     <img
-    //       width={units(8)}
-    //       alt="Team Logo"
-    //       src={stringHelper('LOGO_URL')}
-    //     />
-    //   </Link>
-    // );
+    const checkLogo = (
+      <img
+        width={units(8)}
+        alt="Team Logo"
+        src={stringHelper('LOGO_URL')}
+      />
+    );
 
     const signInButton = (() => {
-      if (!this.props.loggedIn) {
+      if (!loggedIn) {
         return (
           <Link to="/">
             <RaisedButton
@@ -88,7 +86,13 @@ class Header extends Component {
     })();
 
     const primary = (() => {
-      if (joinPage) {
+      if (!inTeamContext) {
+        return (
+          <Row>
+            <div onClick={drawerToggle}>{checkLogo}</div>
+          </Row>
+        );
+      } else if (joinPage) {
         return (
           <Row containsEllipsis>
             <TeamPublicHeader {...this.props} />
@@ -109,7 +113,7 @@ class Header extends Component {
           <Offset>
             {signInButton}
           </Offset>
-          {searchButton}
+          {inTeamContext ? searchButton : null}
         </Row>
       </AlignOpposite>
       ))();

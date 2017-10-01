@@ -101,6 +101,8 @@ class Home extends Component {
     const muiThemeWithRtl = getMuiTheme(
       merge(muiThemeWithoutRtl, { isRtl: rtlDetect.isRtlLang(this.props.intl.locale) }),
     );
+    const inTeamContext = !!this.props.params.team;
+    const loggedIn = !!this.state.token;
 
     if (!this.state.sessionStarted) {
       return null;
@@ -140,7 +142,8 @@ class Home extends Component {
             </ContentColumn>
             <Header
               drawerToggle={this.handleDrawerToggle.bind(this)}
-              loggedIn={this.state.token}
+              loggedIn={loggedIn}
+              inTeamContext={inTeamContext}
               {...this.props}
             />
             <Message message={this.state.message} onClick={this.resetMessage.bind(this)} className="home__message" />
@@ -153,7 +156,8 @@ class Home extends Component {
             open={this.state.open}
             drawerToggle={this.handleDrawerToggle.bind(this)}
             onRequestChange={open => this.setState({ open })}
-            loggedIn={this.state.token}
+            loggedIn={loggedIn}
+            inTeamContext={inTeamContext}
             {...this.props}
           />
         </span>

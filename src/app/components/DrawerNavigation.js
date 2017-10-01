@@ -7,25 +7,28 @@ import DrawerNavigationComponent from './DrawerNavigationComponent';
 class DrawerNavigation extends Component {
 
   render() {
-    const DrawerNavigationContainer = Relay.createContainer(DrawerNavigationComponent, {
-      fragments: {
-        team: () => teamFragment,
-      },
-    });
+    if (this.props.params.team) {
+      const DrawerNavigationContainer = Relay.createContainer(DrawerNavigationComponent, {
+        fragments: {
+          team: () => teamFragment,
+        },
+      });
+      const teamSlug = this.props.params && this.props.params.team
+        ? this.props.params.team
+        : '';
 
-    const teamSlug = this.props.params && this.props.params.team
-      ? this.props.params.team
-      : '';
+      const route = new TeamRoute({ teamSlug });
+      return (
+        <Relay.RootContainer
+          Component={DrawerNavigationContainer}
+          route={route}
+          renderFetched={data => <DrawerNavigationContainer {...this.props} {...data} />}
+        />
+      );
+    }
 
-    const route = new TeamRoute({ teamSlug });
-
-    return (
-      <Relay.RootContainer
-        Component={DrawerNavigationContainer}
-        route={route}
-        renderFetched={data => <DrawerNavigationContainer {...this.props} {...data} />}
-      />
-    );
+    // If there is no team, render the drawer directly, without a Relay container
+    return (<DrawerNavigationComponent {...this.props} />);
   }
 }
 

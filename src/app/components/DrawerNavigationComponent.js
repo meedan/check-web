@@ -27,7 +27,7 @@ import {
 class DrawerNavigation extends Component {
 
   render() {
-    const { team, loggedIn } = this.props;
+    const { inTeamContext, loggedIn, drawerToggle } = this.props;
     const drawerHeaderHeight = units(14);
 
     const styles = {
@@ -70,7 +70,6 @@ class DrawerNavigation extends Component {
     // Team Avatar
     const TeamAvatar = styled.div`
       ${avatarStyle}
-      background-image: url(${team.avatar});
       width: ${props => props.size ? props.size : avatarSize};
       height: ${props => props.size ? props.size : avatarSize};
     `;
@@ -156,52 +155,57 @@ class DrawerNavigation extends Component {
       </Link>
     );
 
-    const projectList = this.props.team.projects.edges
-      .sortp((a, b) => a.node.title.localeCompare(b.node.title))
-      .map((p) => {
-        const projectPath = `/${this.props.team.slug}/project/${p.node.dbid}`;
-
-        return (
-          <Link to={projectPath} key={p.node.dbid} >
-            <MenuItem primaryText={<Text ellipsis>{p.node.title}</Text>} />
-          </Link>
-        );
-      });
-
     return (
       <Drawer {...this.props}>
-        <div onClick={this.props.drawerToggle}>
-          <DrawerHeader>
-            <Row style={{ alignItems: 'flex-start', justifyContent: 'space-between' }}>
-              <TeamAvatar size={units(7)} />
-              <Offset>
-                { loggedIn && yourProfileButton }
-              </Offset>
-            </Row>
+        <div onClick={drawerToggle}>
+          { inTeamContext
+            ? (<DrawerHeader>
+              <Row style={{ alignItems: 'flex-start', justifyContent: 'space-between' }}>
+                <TeamAvatar style={{ backgroundImage: `url(${this.props.team.avatar})` }}size={units(7)} />
+                <Offset>
+                  { loggedIn && yourProfileButton }
+                </Offset>
+              </Row>
 
-            <Link
-              className="team-header__drawer-team-link"
-              to={`/${this.props.team.slug}/`}
-            >
-              <Headline>{team.name}</Headline>
-            </Link>
-          </DrawerHeader>
+              <Link
+                className="team-header__drawer-team-link"
+                to={`/${this.props.team.slug}/`}
+              >
+                <Headline>{this.props.team.name}</Headline>
+              </Link>
+            </DrawerHeader>)
+            : null
+          }
 
           <Divider />
-          <div style={styles.drawerProjectsAndFooter}>
-            <div style={styles.drawerProjects}>
-              <SubHeading>
-                <FormattedMessage
-                  id="drawerNavigation.projectsSubheading"
-                  defaultMessage="Projects"
-                />
-              </SubHeading>
-              {projectList}
-            </div>
 
-            <div>
-              <UserMenuItems hideContactMenuItem {...this.props} />
-            </div>
+          <div style={styles.drawerProjectsAndFooter}>
+            { inTeamContext
+              ? (<div>
+                <SubHeading>
+                  <FormattedMessage
+                    id="drawerNavigation.projectsSubheading"
+                    defaultMessage="Projects"
+                  />
+                </SubHeading>
+                <div style={styles.drawerProjects}>
+                  {this.props.team.projects.edges
+                    .sortp((a, b) => a.node.title.localeCompare(b.node.title))
+                    .map((p) => {
+                      const projectPath = `/${this.props.params.slug}/project/${p.node.dbid}`;
+                      return (
+                        <Link to={projectPath} key={p.node.dbid} >
+                          <MenuItem primaryText={<Text ellipsis>{p.node.title}</Text>} />
+                        </Link>
+                      );
+                    })}
+                </div>
+              </div>)
+              : null }
+
+            { loggedIn
+              ? (<div><UserMenuItems hideContactMenuItem {...this.props} /></div>)
+              : null }
 
             <div style={styles.drawerFooter}>
               {TosMenuItem}
