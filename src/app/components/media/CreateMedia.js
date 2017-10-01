@@ -244,7 +244,7 @@ class CreateProjectMedia extends Component {
     let urls = '';
     let url = '';
     let quote = '';
-    let quoteAttributions = '';
+    let quoteAttributions = JSON.stringify({});
 
     if (this.state.mode === 'image') {
       image = document.forms.media.image;
