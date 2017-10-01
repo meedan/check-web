@@ -21,7 +21,12 @@ class CreateProjectMediaMutation extends Relay.Mutation {
   }
 
   getVariables() {
-    return { url: this.props.url, quote: this.props.quote, project_id: this.props.project.dbid };
+    return {
+      url: this.props.url,
+      quote: this.props.quote,
+      quote_attributions: this.props.quoteAttributions,
+      project_id: this.props.project.dbid,
+    };
   }
 
   getFiles() {
@@ -53,8 +58,8 @@ class CreateProjectMediaMutation extends Relay.Mutation {
       {
         type: 'FIELDS_CHANGE',
         fieldIDs: {
-          'check_search_team' : this.props.project.team.search_id,
-          'check_search_project' : this.props.project.search_id
+          check_search_team: this.props.project.team.search_id,
+          check_search_project: this.props.project.search_id,
         },
       },
       {

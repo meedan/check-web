@@ -393,35 +393,35 @@ class TeamComponent extends Component {
                           />
 
                           { team.limits.slack_integration === false ? null : <div>
-                          <Checkbox
-                            style={{ marginTop: units(6) }}
-                            label={
-                              <FormattedMessage
-                                id="teamComponent.slackNotificationsEnabled"
-                                defaultMessage="Enable Slack notifications"
-                              />
+                            <Checkbox
+                              style={{ marginTop: units(6) }}
+                              label={
+                                <FormattedMessage
+                                  id="teamComponent.slackNotificationsEnabled"
+                                  defaultMessage="Enable Slack notifications"
+                                />
                             }
-                            defaultChecked={team.get_slack_notifications_enabled === '1'}
-                            onCheck={this.handleChange.bind(this, 'slackNotificationsEnabled')}
-                            id="team__settings-slack-notifications-enabled"
-                            value="1"
-                          />
+                              defaultChecked={team.get_slack_notifications_enabled === '1'}
+                              onCheck={this.handleChange.bind(this, 'slackNotificationsEnabled')}
+                              id="team__settings-slack-notifications-enabled"
+                              value="1"
+                            />
 
-                          <TextField
-                            id="team__settings-slack-webhook"
-                            defaultValue={team.get_slack_webhook}
-                            floatingLabelText={this.props.intl.formatMessage(messages.slackWebhook)}
-                            onChange={this.handleChange.bind(this, 'slackWebhook')}
-                            fullWidth
-                          />
+                            <TextField
+                              id="team__settings-slack-webhook"
+                              defaultValue={team.get_slack_webhook}
+                              floatingLabelText={this.props.intl.formatMessage(messages.slackWebhook)}
+                              onChange={this.handleChange.bind(this, 'slackWebhook')}
+                              fullWidth
+                            />
 
-                          <TextField
-                            id="team__settings-slack-channel"
-                            defaultValue={team.get_slack_channel}
-                            floatingLabelText={this.props.intl.formatMessage(messages.slackChannel)}
-                            onChange={this.handleChange.bind(this, 'slackChannel')}
-                            fullWidth
-                          /></div> }
+                            <TextField
+                              id="team__settings-slack-channel"
+                              defaultValue={team.get_slack_channel}
+                              floatingLabelText={this.props.intl.formatMessage(messages.slackChannel)}
+                              onChange={this.handleChange.bind(this, 'slackChannel')}
+                              fullWidth
+                            /></div> }
                         </CardText>
 
                         <CardActions style={{ marginTop: units(4) }}>
