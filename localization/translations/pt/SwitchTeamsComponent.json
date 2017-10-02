@@ -6,5 +6,7 @@
   "switchTeams.cancelJoinRequest": "Cancelar",
   "switchTeams.bannedJoinRequest": "Cancelado",
   "teams.yourTeams": "Suas equipes",
-  "switchTeams.newTeamLink": "+ Nova equipe"
+  "teams.userTeams": "{name} é membro de {number} equipes",
+  "switchTeams.noTeams": "Você ainda não é membro de nenhuma equipe.",
+  "switchTeams.newTeamLink": "Criar Equipe"
 }

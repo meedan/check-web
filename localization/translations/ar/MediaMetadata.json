@@ -1,6 +1,6 @@
 {
   "mediaDetail.mediaTitle": "العنوان",
-  "mediaDetail.moveFailed": "عذراً، لم نستطع نقل هذا التقرير",
+  "mediaDetail.moveFailed": "عذراً ، لم نستطع نقل هذا التقرير",
   "mediaDetail.trash": "سلة المهملات",
   "mediaMetadata.movedToTrash": "تم الارسال إلى {trash}",
   "mediaMetadata.movedBack": "تمت اﻹستعادة إلى مشروع {project}",

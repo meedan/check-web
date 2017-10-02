@@ -1,0 +1,10 @@
+{
+  "userInfoEdit.sourceName": "Nome",
+  "userInfoEdit.sourceBio": "Bio",
+  "userInfoEdit.userEmail": "E-mail",
+  "userInfoEdit.addLink": "Adicionar Link",
+  "userInfoEdit.editError": "Desculpe, não foi possível editar a fonte",
+  "userInfoEdit.addLinkLabel": "Adicionar um link",
+  "userInfoEdit.addLinkHelper": "Adicionar um link para página web ou perfil de mídia social",
+  "userInfoEdit.invalidLink": "Por favor insira uma URL válida"
+}

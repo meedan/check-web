@@ -19,34 +19,41 @@ import CheckContext from '../../CheckContext';
 
 import { getStatus, getStatusStyle } from '../../helpers';
 import { mediaStatuses, mediaLastStatus } from '../../customHelpers';
-import { FlexRow, FadeIn, units, black87, black54, defaultBorderRadius } from '../../styles/js/shared';
+import {
+  FlexRow,
+  FadeIn,
+  units,
+  black87,
+  black38,
+  defaultBorderRadius,
+} from '../../styles/js/shared';
 
-const styles = {
-  mediaIcon: {
-    width: units(2),
-    height: units(2),
-    color: black54,
-  },
-  cardHeaderTextPrimary: {
-    paddingRight: units(1),
-    display: 'inline-flex',
-    alignItems: 'center',
-    fontSize: 16,
-  },
-  cardHeaderTextSecondary: {
-    justifyContent: 'flex-start',
-    flexWrap: 'wrap',
-    marginTop: units(1),
-    fontSize: 14,
-    fontWeight: 400,
-  },
-  subtitleIconContainer: {
-    display: 'inline-flex',
-    alignItems: 'flex-start',
-    height: units(2),
-    paddingRight: units(1),
-  },
-};
+const StyledCardHeaderTextPrimary = styled(Link)`
+    padding-right: ${units(1)};
+    display: inline-flex;
+    align-items: center;
+    font-size: '16px';
+    margin-bottom: ${units(0.5)};
+`;
+
+const StyledMediaIconContainer = styled.div`
+  display: inline-flex;
+  align-items: flex-start;
+  height: ${units(2)};
+  padding-right: ${units(1)};
+  svg {
+    width: ${units(2)} !important;
+    height: ${units(2)} !important;
+    color: ${black38} !important;
+  }
+`;
+
+const StyledHeaderTextSecondary = styled(FlexRow)`
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  font-size: 14;
+  font-weight: 400;
+`;
 
 const StyledCardHeader = styled(CardHeader)`
   > div {
@@ -82,6 +89,7 @@ class MediaDetail extends Component {
 
     this.state = {
       mediaVersion: false,
+      expanded: null,
     };
   }
 
@@ -89,6 +97,22 @@ class MediaDetail extends Component {
     const context = new CheckContext(this).getContextStore();
     return context;
   }
+
+  handleExpandChange = (expanded) => {
+    this.setState({ expanded });
+  };
+
+  handleToggle = (event, toggle) => {
+    this.setState({ expanded: toggle });
+  };
+
+  handleExpand = () => {
+    this.setState({ expanded: true });
+  };
+
+  handleReduce = () => {
+    this.setState({ expanded: false });
+  };
 
   statusToClass(baseClass, status) {
     // TODO: replace with helpers.js#bemClassFromMediaStatus
@@ -102,6 +126,16 @@ class MediaDetail extends Component {
     const data = JSON.parse(media.embed);
     const annotationsCount = MediaUtil.notesCount(media, data, this.props.intl);
     const randomNumber = Math.floor(Math.random() * 1000000);
+    const status = getStatus(mediaStatuses(media), mediaLastStatus(media));
+    const cardHeaderStatus = <MediaStatus media={media} readonly={this.props.readonly} />;
+    const authorName = MediaUtil.authorName(media, data);
+    const authorUsername = MediaUtil.authorUsername(media, data);
+    const sourceName = MediaUtil.sourceName(media, data);
+    const createdAt = MediaUtil.createdAt(media);
+    const heading = MediaUtil.title(media, data, this.props.intl);
+    const sourceUrl = media.team && media.project && media.project_source
+      ? `/${media.team.slug}/project/${media.project.dbid}/source/${media.project_source.dbid}`
+      : null;
 
     let projectId = media.project_id;
     if (!projectId && annotated && annotatedType === 'Project') {
@@ -110,14 +144,12 @@ class MediaDetail extends Component {
     const mediaUrl = projectId && media.team
       ? `/${media.team.slug}/project/${projectId}/media/${media.dbid}`
       : null;
-
     let embedCard = null;
+
     media.url = media.media.url;
     media.quote = media.media.quote;
     media.embed_path = media.media.embed_path;
-    const createdAt = MediaUtil.createdAt(media);
-
-    const heading = MediaUtil.title(media, data, this.props.intl);
+    media.quoteAttributions = media.media.quoteAttributions;
 
     if (media.media.embed_path) {
       const path = media.media.embed_path;
@@ -125,10 +157,10 @@ class MediaDetail extends Component {
     } else if (media.quote && media.quote.length) {
       embedCard = (
         <QuoteMediaCard
-          quoteText={media.quote}
+          quote={media.quote}
           languageCode={media.language_code}
-          attributionName={null}
-          attributionUrl={null}
+          sourceUrl={sourceUrl}
+          sourceName={sourceName}
         />
       );
     } else if (media.url) {
@@ -143,37 +175,34 @@ class MediaDetail extends Component {
       );
     }
 
-    const status = getStatus(mediaStatuses(media), mediaLastStatus(media));
+    const mediaIcon = (() => {
+      if (media.media.embed_path && media.media.embed_path !== '') {
+        return (<IconInsertPhoto />);
+      } else if (media.quote) {
+        return (<MdFormatQuote />);
+      }
+      return (MediaUtil.socialIcon(media.domain));
+    })();
 
-    const cardHeaderStatus = <MediaStatus media={media} readonly={this.props.readonly} />;
-
-    const sourceUrl = media.team && media.project && media.project_source
-      ? `/${media.team.slug}/project/${media.project.dbid}/source/${media.project_source.dbid}`
-      : null;
-    const authorName = MediaUtil.authorName(media, data);
-    const authorUsername = MediaUtil.authorUsername(media, data);
-    const authorUrl = MediaUtil.authorUrl(media, data);
-    const mediaIcon = (<div style={styles.subtitleIconContainer}>
-      {media.quote
-              ? <MdFormatQuote style={styles.mediaIcon} />
-              : media.media.embed_path
-                ? <IconInsertPhoto style={styles.mediaIcon} />
-                : MediaUtil.socialIcon(media.domain)}
-    </div>);
+    // Don't display redunant heading if the card is explicitly expanded with state
+    // (or implicitly expanded with initiallyExpanded prop)
+    const shouldNotDisplayHeading =
+      this.state.expanded || (this.state.expanded == null && this.props.initiallyExpanded);
 
     const cardHeaderText = (
       <div>
-        <Link to={mediaUrl} className="media__heading" style={styles.cardHeaderTextPrimary}>
-          {heading}
-        </Link>
-        <FlexRow style={styles.cardHeaderTextSecondary}>
-          {mediaIcon}
+        {shouldNotDisplayHeading
+          ? null
+          : <StyledCardHeaderTextPrimary to={mediaUrl} className="media__heading">
+            {heading}
+          </StyledCardHeaderTextPrimary>}
+        <StyledHeaderTextSecondary shouldNotDisplayHeading>
+          <StyledMediaIconContainer>
+            {mediaIcon}
+          </StyledMediaIconContainer>
           {createdAt
             ? <span className="media-detail__check-added-at">
-              <Link
-                className="media-detail__check-timestamp"
-                to={mediaUrl}
-              >
+              <Link className="media-detail__check-timestamp" to={mediaUrl}>
                 <TimeBefore style={{ marginRight: units(1) }} date={createdAt} />
               </Link>
               <Link to={mediaUrl}>
@@ -184,16 +213,16 @@ class MediaDetail extends Component {
             </span>
             : null}
           {sourceUrl
-              ? <Link to={sourceUrl}>
-                <FlexRow>
-                  {/* ideally this would be SourcePicture not FaFeed — CGB 2017-9-13 */}
-                  <FaFeed style={{ width: 16 }} />
-                  {' '}
-                  {authorName || authorUsername}
-                </FlexRow>
-              </Link>
-              : null}
-        </FlexRow>
+          ? <Link to={sourceUrl}>
+            <FlexRow>
+              {/* ideally this would be SourcePicture not FaFeed — CGB 2017-9-13 */}
+              <FaFeed style={{ width: 16 }} />
+              {' '}
+              {authorName || authorUsername || sourceName}
+            </FlexRow>
+          </Link>
+          : null}
+        </StyledHeaderTextSecondary>
       </div>
     );
 
@@ -211,7 +240,12 @@ class MediaDetail extends Component {
         borderColor={this.props.borderColor || getStatusStyle(status, 'backgroundColor')}
         fromDirection={fromDirection}
       >
-        <Card className="card-with-border" initiallyExpanded={this.props.initiallyExpanded}>
+        <Card
+          className="card-with-border"
+          initiallyExpanded={this.props.initiallyExpanded}
+          expanded={this.state.expanded}
+          onExpandChange={this.handleExpandChange}
+        >
           <StyledCardHeader
             title={cardHeaderStatus}
             subtitle={cardHeaderText}
