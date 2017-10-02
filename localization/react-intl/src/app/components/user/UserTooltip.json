@@ -1,0 +1,6 @@
+[
+  {
+    "id": "userTooltip.dateJoined",
+    "defaultMessage": "Joined {date} • {number} teams"
+  }
+]
