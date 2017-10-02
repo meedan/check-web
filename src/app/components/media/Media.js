@@ -117,20 +117,7 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
                   name,
                   profile_image,
                   user {
-                    dbid,
-                    name,
-                    profile_image,
-                    source {
-                      dbid,
-                      image,
-                      accounts(first: 10000) {
-                        edges {
-                          node {
-                            url
-                          }
-                        }
-                      }
-                    }
+                    ${userFragment}
                   }
                 }
               }
