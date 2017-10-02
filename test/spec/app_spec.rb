@@ -712,7 +712,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Reload the page and verify that comment is still there
       @driver.navigate.refresh
-      sleep 3
+      sleep 5
       expect(@driver.page_source.include?('This is my comment')).to be(true)
     end
 
