@@ -1063,6 +1063,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       title1 = @driver.title
       expect((title1 =~ /Random/).nil?).to be(false)
       @driver.find_element(:css, '.media-actions__icon').click
+      sleep 1
       @driver.find_element(:css, '.media-actions__refresh').click
       sleep 5
       title2 = @driver.title
