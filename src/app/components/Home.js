@@ -101,8 +101,6 @@ class Home extends Component {
     const muiThemeWithRtl = getMuiTheme(
       merge(muiThemeWithoutRtl, { isRtl: rtlDetect.isRtlLang(this.props.intl.locale) }),
     );
-    const inTeamContext = !!this.props.params.team;
-    const loggedIn = !!this.state.token;
 
     if (!this.state.sessionStarted) {
       return null;
@@ -129,6 +127,17 @@ class Home extends Component {
       return null;
     }
 
+    // @chris with @alex 2017-10-2
+    //
+    // TODO: If this strategy seems sound, implement these constants.
+    // These are passed in to both Header and DrawerNavigation.
+    //
+    // Goal: Avoid errors caused by missing team data.
+    const inTeamContext = !!this.props.params.team;
+    const loggedIn = !!this.state.token;
+    const currentUserIsMember = true;
+    const teamIsPublic = true;
+
     return (
       <MuiThemeProvider muiTheme={muiThemeWithRtl}>
         <span>
@@ -144,6 +153,8 @@ class Home extends Component {
               drawerToggle={this.handleDrawerToggle.bind(this)}
               loggedIn={loggedIn}
               inTeamContext={inTeamContext}
+              currentUserIsMember={currentUserIsMember}
+              teamIsPublic={teamIsPublic}
               {...this.props}
             />
             <Message message={this.state.message} onClick={this.resetMessage.bind(this)} className="home__message" />
@@ -158,6 +169,8 @@ class Home extends Component {
             onRequestChange={open => this.setState({ open })}
             loggedIn={loggedIn}
             inTeamContext={inTeamContext}
+            currentUserIsMember={currentUserIsMember}
+            teamIsPublic={teamIsPublic}
             {...this.props}
           />
         </span>

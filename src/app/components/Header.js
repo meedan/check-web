@@ -41,13 +41,12 @@ const HeaderBar = styled.div`
 class Header extends Component {
   render() {
     const locale = this.props.intl.locale;
-    const { inTeamContext, loggedIn, drawerToggle } = this.props;
+    const { inTeamContext, loggedIn, drawerToggle, currentUserIsMember, teamIsPublic } = this.props;
     const isRtl = rtlDetect.isRtlLang(locale);
     const fromDirection = isRtl ? 'right' : 'left';
     const path = this.props.location
       ? this.props.location.pathname
       : window.location.pathname;
-    const joinPage = /^\/([^/]+)\/join$/.test(path);
     const AlignOpposite = styled.div`
       margin-${fromDirection}: auto;
       `;
@@ -86,23 +85,28 @@ class Header extends Component {
     })();
 
     const primary = (() => {
-      if (!inTeamContext) {
+      // TODO review this conditional with @alex
+      if (inTeamContext && (currentUserIsMember || teamIsPublic)) {
         return (
-          <Row>
-            <div onClick={drawerToggle}>{checkLogo}</div>
+          <Row containsEllipsis>
+            <div><TeamHeader {...this.props} /></div>
+            <div><ProjectHeader {...this.props} /></div>
           </Row>
         );
-      } else if (joinPage) {
+
+      // TODO review this conditional with @alex
+      } else if (inTeamContext && (!currentUserIsMember || !teamIsPublic)) {
         return (
           <Row containsEllipsis>
             <TeamPublicHeader {...this.props} />
           </Row>
         );
       }
+
+      // Otherwise display the most basic header
       return (
-        <Row containsEllipsis>
-          <div><TeamHeader {...this.props} /></div>
-          <div><ProjectHeader {...this.props} /></div>
+        <Row>
+          <div onClick={drawerToggle}>{checkLogo}</div>
         </Row>
       );
     })();

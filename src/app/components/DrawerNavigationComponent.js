@@ -28,6 +28,18 @@ class DrawerNavigation extends Component {
 
   render() {
     const { inTeamContext, loggedIn, drawerToggle } = this.props;
+
+    // Goal: we want to be able to render this component with:
+    //  teamFragment, teamPublicFragment or no fragment.
+    //
+    // See DrawerNavigation
+    //
+    // — @chris with @alex 2017-10-2
+
+    // TODO implement these props to make these conditionals work.
+    const currentUserIsMember = this.props.currentUserIsMember;
+    const teamIsPublic = this.props.teamIsPublic;
+
     const drawerHeaderHeight = units(14);
 
     const styles = {
@@ -158,7 +170,9 @@ class DrawerNavigation extends Component {
     return (
       <Drawer {...this.props}>
         <div onClick={drawerToggle}>
-          { inTeamContext
+
+          {/* TODO review this conditional with @alex */}
+          { inTeamContext && (currentUserIsMember || teamIsPublic)
             ? (<DrawerHeader>
               <Row style={{ alignItems: 'flex-start', justifyContent: 'space-between' }}>
                 <TeamAvatar style={{ backgroundImage: `url(${this.props.team.avatar})` }}size={units(7)} />
@@ -180,7 +194,9 @@ class DrawerNavigation extends Component {
           <Divider />
 
           <div style={styles.drawerProjectsAndFooter}>
-            { inTeamContext
+
+            {/* TODO review this conditional with @alex */}
+            { inTeamContext && (currentUserIsMember || teamIsPublic)
               ? (<div>
                 <SubHeading>
                   <FormattedMessage
