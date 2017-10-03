@@ -144,6 +144,25 @@ class DrawerNavigation extends Component {
       </a>
     );
 
+    const productGuidesMenuItem = (
+      <a
+        key="drawer.productGuidesMenuItem"
+        style={styles.drawerFooterLink}
+        target="_blank"
+        rel="noopener noreferrer"
+        href="http://medium.com/meedan-product-guides"
+      >
+        <MenuItem
+          primaryText={
+            <FormattedMessage
+              id="headerActions.productGuides"
+              defaultMessage="Product Guides"
+            />
+          }
+        />
+      </a>
+    );
+
     const yourProfileButton = (
       <Link to="/check/me">
         <IconButton
@@ -202,7 +221,7 @@ class DrawerNavigation extends Component {
             <div>
               <UserMenuItems hideContactMenuItem {...this.props} />
             </div>
-
+            {productGuidesMenuItem}
             <div style={styles.drawerFooter}>
               {TosMenuItem}
               {privacyMenuItem}
