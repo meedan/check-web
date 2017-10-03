@@ -71,6 +71,11 @@ class Home extends Component {
     context.startNetwork(this.state.token);
   }
 
+  getContext() {
+    const context = new CheckContext(this).getContextStore();
+    return context;
+  }
+
   handleDrawerToggle = () => this.setState({ open: !this.state.open });
 
   loginCallback() {
@@ -127,16 +132,23 @@ class Home extends Component {
       return null;
     }
 
-    // @chris with @alex 2017-10-2
+    // @chris with @alex 2017-10-3
     //
-    // TODO: If this strategy seems sound, implement these constants.
-    // These are passed in to both Header and DrawerNavigation.
-    //
-    // Goal: Avoid errors caused by missing team data.
+    // TODO: Fix currentUserIsMember function.
+    // context.currentUser.teams keys are actually the team names, not slugs
+    
     const inTeamContext = !!this.props.params.team;
     const loggedIn = !!this.state.token;
-    const currentUserIsMember = true;
-    const teamIsPublic = true;
+
+    const currentUserIsMember = (() => {
+      if (inTeamContext && loggedIn) {
+        const context = this.getContext();
+        const teams = JSON.parse(context.currentUser.teams);
+        const team = teams[this.props.params.team] || {};
+        return (team.status === 'member');
+      }
+      return false;
+    })();
 
     return (
       <MuiThemeProvider muiTheme={muiThemeWithRtl}>
@@ -154,7 +166,6 @@ class Home extends Component {
               loggedIn={loggedIn}
               inTeamContext={inTeamContext}
               currentUserIsMember={currentUserIsMember}
-              teamIsPublic={teamIsPublic}
               {...this.props}
             />
             <Message message={this.state.message} onClick={this.resetMessage.bind(this)} className="home__message" />
@@ -170,7 +181,6 @@ class Home extends Component {
             loggedIn={loggedIn}
             inTeamContext={inTeamContext}
             currentUserIsMember={currentUserIsMember}
-            teamIsPublic={teamIsPublic}
             {...this.props}
           />
         </span>

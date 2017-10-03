@@ -18,9 +18,5 @@
   {
     "id": "drawerNavigation.userProfile",
     "defaultMessage": "Your Profile"
-  },
-  {
-    "id": "drawerNavigation.projectsSubheading",
-    "defaultMessage": "Projects"
   }
 ]

@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
-import MenuItem from 'material-ui/MenuItem';
 import { Link } from 'react-router';
 import Divider from 'material-ui/Divider';
 import Drawer from 'material-ui/Drawer';
 import { FormattedMessage } from 'react-intl';
 import IconButton from 'material-ui/IconButton';
 import styled from 'styled-components';
+import Projects from './drawer/Projects'
 import { stringHelper } from '../customHelpers';
 import UserMenuItems from './UserMenuItems';
 import UserAvatarRelay from '../relay/UserAvatarRelay';
 import {
-  Text,
   Row,
   Offset,
   HeaderTitle,
@@ -29,16 +28,14 @@ class DrawerNavigation extends Component {
   render() {
     const { inTeamContext, loggedIn, drawerToggle } = this.props;
 
-    // Goal: we want to be able to render this component with:
-    //  teamFragment, teamPublicFragment or no fragment.
+    // This component now renders based on teamPublicFragment
+    // and decides whether to include <Project> which has its own team route/relay
     //
     // See DrawerNavigation
     //
-    // — @chris with @alex 2017-10-2
+    // — @chris with @alex 2017-10-3
 
-    // TODO implement these props to make these conditionals work.
     const currentUserIsMember = this.props.currentUserIsMember;
-    const teamIsPublic = this.props.teamIsPublic;
 
     const drawerHeaderHeight = units(14);
 
@@ -91,12 +88,6 @@ class DrawerNavigation extends Component {
       font-weight: 700;
       padding-top: ${units(1)};
       color: ${black54};
-    `;
-
-    const SubHeading = styled.div`
-      font: ${caption};
-      color: ${black54};
-      padding: ${units(2)} ${units(2)} ${units(1)} ${units(2)};
     `;
 
     const TosMenuItem = (
@@ -171,9 +162,8 @@ class DrawerNavigation extends Component {
       <Drawer {...this.props}>
         <div onClick={drawerToggle}>
 
-          {/* TODO review this conditional with @alex */}
-          { inTeamContext && (currentUserIsMember || teamIsPublic)
-            ? (<DrawerHeader>
+          { inTeamContext ?
+            (<DrawerHeader>
               <Row style={{ alignItems: 'flex-start', justifyContent: 'space-between' }}>
                 <TeamAvatar style={{ backgroundImage: `url(${this.props.team.avatar})` }}size={units(7)} />
                 <Offset>
@@ -195,29 +185,7 @@ class DrawerNavigation extends Component {
 
           <div style={styles.drawerProjectsAndFooter}>
 
-            {/* TODO review this conditional with @alex */}
-            { inTeamContext && (currentUserIsMember || teamIsPublic)
-              ? (<div>
-                <SubHeading>
-                  <FormattedMessage
-                    id="drawerNavigation.projectsSubheading"
-                    defaultMessage="Projects"
-                  />
-                </SubHeading>
-                <div style={styles.drawerProjects}>
-                  {this.props.team.projects.edges
-                    .sortp((a, b) => a.node.title.localeCompare(b.node.title))
-                    .map((p) => {
-                      const projectPath = `/${this.props.params.slug}/project/${p.node.dbid}`;
-                      return (
-                        <Link to={projectPath} key={p.node.dbid} >
-                          <MenuItem primaryText={<Text ellipsis>{p.node.title}</Text>} />
-                        </Link>
-                      );
-                    })}
-                </div>
-              </div>)
-              : null }
+            { (inTeamContext && (currentUserIsMember || !this.props.team.private )) ? <Projects team={this.props.team.slug} /> : null }
 
             { loggedIn
               ? (<div><UserMenuItems hideContactMenuItem {...this.props} /></div>)

@@ -1,16 +1,12 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay';
-import TeamRoute from '../relay/TeamRoute';
+import PublicTeamRoute from '../relay/PublicTeamRoute';
 import teamPublicFragment from '../relay/teamPublicFragment';
-import teamFragment from '../relay/teamFragment';
 import DrawerNavigationComponent from './DrawerNavigationComponent';
-
 
 class DrawerNavigation extends Component {
   render() {
-    const inTeamContext = this.props.inTeamContext;
-
-    // TODO @chris with @alex 2017-10-2
+    // TODO @chris with @alex 2017-10-3
     //
     // Problem:
     //
@@ -18,30 +14,22 @@ class DrawerNavigation extends Component {
     //   `Server response was missing for query 'team'`
     // This happens when the Drawer tries to load for a private team context with a non-member user.
     //
-    // I think we could implment `currentUserIsMember` and `teamIsPublic` (below).
-    //
-    // Goal of the logic below:
-    //
-    //   If there is a "teamContext" then render with Relay.createContainer:
-    //      1a. If (currentUserIsMember || teamIsPublic) use teamFragment
-    //      1b. If not a member or public team, use teamPublicFragment
-    //   2. If there is no team context, render the drawer without a Relay container
-    //
-    // (There are more conditionals inside the DrawerNavigationComponent.)
+    // Alex and Caio's approach:
+    // - We'll load the teamPublicFragment by default
+    // - Inside DrawerNavigationComponent we'll decide if we'll need the Project List (drawer/Projects.js)
+    // - Project list is contained in its own Relay which queries Team type
 
-    // TODO: implement these two constants
-    const { currentUserIsMember, teamIsPublic } = this.props;
-
-    if (inTeamContext) {
+    if (this.props.inTeamContext) {
       const DrawerNavigationContainer = Relay.createContainer(DrawerNavigationComponent, {
         fragments: {
-          team: () => (currentUserIsMember || teamIsPublic) ? teamFragment : teamPublicFragment,
+          team: () => teamPublicFragment,
         },
       });
 
       const teamSlug = this.props.params.team;
 
-      const route = new TeamRoute({ teamSlug });
+      const route = new PublicTeamRoute({ teamSlug });
+
       return (
         <Relay.RootContainer
           Component={DrawerNavigationContainer}
