@@ -1,9 +1,0 @@
-{
-  "headerActions.userTeams": "الفرق المُنضم إليها",
-  "headerActions.signOut": "خروج",
-  "headerActions.signIn": "تسجيل الدخول",
-  "headerActions.contactHuman": "اﻹتصال بنا",
-  "headerActions.tos": "شروط الاستخدام",
-  "headerActions.privacyPolicy": "سياسة الخصوصية",
-  "headerActions.about": "عن {appName}"
-}
