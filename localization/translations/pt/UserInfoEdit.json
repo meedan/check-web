@@ -5,6 +5,6 @@
   "userInfoEdit.addLink": "Adicionar Link",
   "userInfoEdit.editError": "Desculpe, não foi possível editar a fonte",
   "userInfoEdit.addLinkLabel": "Adicionar um link",
-  "userInfoEdit.addLinkHelper": "Adicionar um link para página web ou perfil de mídia social",
+  "userInfoEdit.addLinkHelper": "Adicione um link para uma página web ou perfil de mídia social. Isso não mudará sua método de entrar.",
   "userInfoEdit.invalidLink": "Por favor insira uma URL válida"
 }

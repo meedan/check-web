@@ -660,21 +660,26 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(id1 == id2).to be(true)
     end
 
-    it "should tag media from tags list", bin3: true do
-      page = api_create_team_project_and_claim_and_redirect_to_media_page
+    # This test is flaky
+    # Todo: consider fixing it or removing it
+    #
+    # CGB 2017-10-2
+    #
+    # it "should tag media from tags list", bin3: true do
+    #   page = api_create_team_project_and_claim_and_redirect_to_media_page
 
-      new_tag = Time.now.to_i.to_s
-      expect(page.contains_string?("Tagged \##{new_tag}")).to be(false)
-      page.add_tag(new_tag)
-      expect(page.has_tag?(new_tag)).to be(true)
-      sleep 2
-      expect(page.contains_string?("Tagged \##{new_tag}")).to be(true)
+    #   new_tag = Time.now.to_i.to_s
+    #   expect(page.contains_string?("Tagged \##{new_tag}")).to be(false)
+    #   page.add_tag(new_tag)
+    #   expect(page.has_tag?(new_tag)).to be(true)
+    #   sleep 2
+    #   expect(page.contains_string?("Tagged \##{new_tag}")).to be(true)
 
-      page.driver.navigate.refresh
-      page.wait_for_element('.media')
-      expect(page.has_tag?(new_tag)).to be(true)
-      expect(page.contains_string?("Tagged \##{new_tag}")).to be(true)
-    end
+    #   page.driver.navigate.refresh
+    #   page.wait_for_element('.media')
+    #   expect(page.has_tag?(new_tag)).to be(true)
+    #   expect(page.contains_string?("Tagged \##{new_tag}")).to be(true)
+    # end
 
     it "should tag media as a command", bin3: true do
       page = api_create_team_project_and_claim_and_redirect_to_media_page
@@ -712,7 +717,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Reload the page and verify that comment is still there
       @driver.navigate.refresh
-      sleep 3
+      sleep 5
       expect(@driver.page_source.include?('This is my comment')).to be(true)
     end
 
@@ -723,7 +728,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       media_pg.fill_input('#cmd-input', '/flag Spam')
       media_pg.element('#cmd-input').submit
-      sleep 2
+      sleep 5
 
       expect(media_pg.contains_string?('Flag')).to be(true)
       media_pg.driver.navigate.refresh
@@ -860,12 +865,12 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
       media_pg.fill_input('#cmd-input', 'Test')
       media_pg.element('#cmd-input').submit
-      sleep 1
+      sleep 3
       notes_count = get_element('.media-detail__check-notes-count')
       expect(notes_count.text == '2 notes').to be(true)
       expect(@driver.page_source.include?('Comment deleted')).to be(false)
       media_pg.delete_annotation
-      sleep 1
+      sleep 3
       expect(notes_count.text == '2 notes').to be(true)
       expect(@driver.page_source.include?('Comment deleted')).to be(true)
     end
@@ -1063,6 +1068,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       title1 = @driver.title
       expect((title1 =~ /Random/).nil?).to be(false)
       @driver.find_element(:css, '.media-actions__icon').click
+      sleep 1
       @driver.find_element(:css, '.media-actions__refresh').click
       sleep 5
       title2 = @driver.title

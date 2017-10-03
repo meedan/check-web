@@ -374,7 +374,9 @@ class CreateProjectMedia extends Component {
           name="quoteAttributionSource"
           filter={AutoComplete.fuzzyFilter}
           floatingLabelText={this.props.intl.formatMessage(messages.quoteAttributionSourceInput)}
-          dataSource={context.team.sources.edges.map(obj => obj.node.name)}
+          // Unique names
+          // https://stackoverflow.com/a/33121880/209184
+          dataSource={Array.from(new Set(context.team.sources.edges.map(obj => obj.node.name)))}
           //
           // TODO: implement real sources instead of these ^
           //

@@ -39,7 +39,7 @@ class MediaActions extends Component {
       );
     }
 
-    if (can(media.permissions, 'restore ProjectMedia')) {
+    if (can(media.permissions, 'restore ProjectMedia') && media.archived) {
       menuItems.push(
         <MenuItem
           key="mediaActions.restore"
@@ -61,15 +61,20 @@ class MediaActions extends Component {
         >
           <FormattedMessage id="mediaActions.move" defaultMessage="Move" />
         </MenuItem>,
-
-        <MenuItem
-          key="mediaActions.sendToTrash"
-          className="media-actions__send-to-trash"
-          onClick={handleSendToTrash}
-        >
-          <FormattedMessage id="mediaActions.sendToTrash" defaultMessage="Send to trash" />
-        </MenuItem>,
       );
+
+      if (!media.archived) {
+        menuItems.push(
+          <MenuItem
+            key="mediaActions.sendToTrash"
+            className="media-actions__send-to-trash"
+            onClick={handleSendToTrash}
+          >
+            <FormattedMessage id="mediaActions.sendToTrash" defaultMessage="Send to trash" />
+          </MenuItem>,
+        );
+      }
+
       if (media.url) {
         menuItems.push(
           <MenuItem
