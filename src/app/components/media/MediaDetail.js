@@ -218,7 +218,7 @@ class MediaDetail extends Component {
               {/* ideally this would be SourcePicture not FaFeed — CGB 2017-9-13 */}
               <FaFeed style={{ width: 16 }} />
               {' '}
-              {authorName || authorUsername || sourceName}
+              {sourceName || authorName || authorUsername}
             </FlexRow>
           </Link>
           : null}

@@ -712,7 +712,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Reload the page and verify that comment is still there
       @driver.navigate.refresh
-      sleep 3
+      sleep 5
       expect(@driver.page_source.include?('This is my comment')).to be(true)
     end
 
@@ -723,7 +723,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       media_pg.fill_input('#cmd-input', '/flag Spam')
       media_pg.element('#cmd-input').submit
-      sleep 2
+      sleep 5
 
       expect(media_pg.contains_string?('Flag')).to be(true)
       media_pg.driver.navigate.refresh
@@ -860,12 +860,12 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
       media_pg.fill_input('#cmd-input', 'Test')
       media_pg.element('#cmd-input').submit
-      sleep 1
+      sleep 3
       notes_count = get_element('.media-detail__check-notes-count')
       expect(notes_count.text == '2 notes').to be(true)
       expect(@driver.page_source.include?('Comment deleted')).to be(false)
       media_pg.delete_annotation
-      sleep 1
+      sleep 3
       expect(notes_count.text == '2 notes').to be(true)
       expect(@driver.page_source.include?('Comment deleted')).to be(true)
     end
