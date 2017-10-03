@@ -723,7 +723,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       media_pg.fill_input('#cmd-input', '/flag Spam')
       media_pg.element('#cmd-input').submit
-      sleep 2
+      sleep 5
 
       expect(media_pg.contains_string?('Flag')).to be(true)
       media_pg.driver.navigate.refresh
