@@ -8,6 +8,7 @@ import { getStatus, getStatusStyle } from '../../helpers';
 import { mediaStatuses, mediaLastStatus } from '../../customHelpers';
 import {
   black16,
+  units,
 } from '../../styles/js/shared';
 
 const messages = defineMessages({
@@ -73,6 +74,16 @@ class MediaStatusCommon extends Component {
     const statuses = JSON.parse(mediaStatuses(media)).statuses;
     const currentStatus = getStatus(mediaStatuses(media), mediaLastStatus(media));
 
+    const styles = {
+      label: {
+        height: units(3),
+        lineHeight: units(3),
+        paddingLeft: 0,
+        textTransform: 'uppercase',
+        color: getStatusStyle(currentStatus, 'color'),
+      },
+    };
+
     return (
       <div className={this.bemClass('media-status', this.canUpdate(), '--editable')}>
         <span className="media-status__message">{this.state.message}</span>
@@ -80,11 +91,11 @@ class MediaStatusCommon extends Component {
         {this.canUpdate()
           ?
             <DropDownMenu
-              style={{ height: '24px' }}
+              style={{ height: units(3) }}
               value={currentStatus.label}
               underlineStyle={{ borderWidth: 0 }}
               iconStyle={{ fill: black16, padding: 0, height: 0, top: 0 }}
-              labelStyle={{ height: '24px', lineHeight: '24px', paddingLeft: 0, textTransform: 'uppercase', color: getStatusStyle(currentStatus, 'color') }}
+              labelStyle={styles.label}
 
               selectedMenuItemStyle={{ color: getStatusStyle(currentStatus, 'color') }}
               className={`media-status__label media-status__current${this.currentStatusToClass(mediaLastStatus(media))}`}
@@ -105,7 +116,10 @@ class MediaStatusCommon extends Component {
             )}
             </DropDownMenu>
 
-          : null}
+          : <div style={styles.label}>
+            {currentStatus.label}
+          </div>
+        }
       </div>
     );
   }
