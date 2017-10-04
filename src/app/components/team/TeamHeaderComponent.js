@@ -1,20 +1,30 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router';
-import rtlDetect from 'rtl-detect';
 import { injectIntl } from 'react-intl';
-
+import IconMenu from 'material-ui/svg-icons/navigation/menu';
+import UserAvatarRelay from '../../relay/UserAvatarRelay';
 import CheckContext from '../../CheckContext';
 import {
-  defaultBorderRadius,
-  subheading2,
-  ellipsisStyles,
+  Row,
+  Offset,
+  HeaderTitle,
+  headerHeight,
+  black05,
   avatarStyle,
-  units,
-  white,
-  appBarInnerHeight,
   avatarSize,
-} from '../../styles/js/variables.js';
+} from '../../styles/js/shared';
+
+const DrawerButtonGroup = styled(Row)`
+  align-items: center;
+  display: flex;
+  height: ${headerHeight};
+  overflow: hidden;
+  width: 100%;
+  cursor: pointer;
+  &:hover {
+    background-color: ${black05};
+  }
+`;
 
 class TeamHeaderComponent extends Component {
 
@@ -33,57 +43,58 @@ class TeamHeaderComponent extends Component {
   render() {
     const team = this.props.team;
     const isProjectUrl = /(.*\/project\/[0-9]+)/.test(window.location.pathname);
-    const locale = this.props.intl.locale;
-    const isRtl = rtlDetect.isRtlLang(locale);
-    const fromDirection = isRtl ? 'right' : 'left';
 
-    const TeamLink = styled(Link)`
-      align-items: center;
-      display: flex;
-      height: 100%;
-      overflow: hidden;
-      width: 100%;
+    const { loggedIn } = this.props;
 
-      &,
-      &:hover {
-        text-decoration: none;
-      }
-
-      &,
-      &:visited {
-        color: inherit;
-      }
-    `;
-
-    const TeamNav = styled.nav`
-      border-radius: ${defaultBorderRadius};
-      display: flex;
-      height: ${appBarInnerHeight};
-      overflow: hidden;
-    `;
-
-    const TeamName = styled.h3`
-      ${ellipsisStyles}
-      font: ${subheading2};
-      margin-${fromDirection}: ${units(2)};
-    `;
-
+    // Team Avatar
     const TeamAvatar = styled.div`
       ${avatarStyle}
       background-image: url(${team.avatar});
-      background-color: ${white};
-      margin: 0;
       width: ${avatarSize};
       height: ${avatarSize};
     `;
 
+    const userAvatarOrMenuButton = (() => {
+      if (!loggedIn || !team) {
+        return (
+          <Offset>
+            <IconMenu />
+          </Offset>
+        );
+      }
+      return (
+        <Offset>
+          <Row>
+            <UserAvatarRelay {...this.props} />
+          </Row>
+        </Offset>
+      );
+    })();
+
     return (
-      <TeamNav>
-        <TeamLink to={`/${team.slug}`} title={team.name} className="team-header__avatar">
-          <TeamAvatar />
-          {isProjectUrl ? null : <TeamName>{team.name}</TeamName>}
-        </TeamLink>
-      </TeamNav>
+      <div>
+        <DrawerButtonGroup
+          title={team.name}
+          className="header-actions__drawer-toggle"
+          onClick={this.props.drawerToggle}
+        >
+          {userAvatarOrMenuButton}
+          {isProjectUrl
+            ? <Offset>
+              <TeamAvatar />
+            </Offset>
+            : <Row>
+              <Offset>
+                <TeamAvatar />
+              </Offset>
+              <Offset>
+                <HeaderTitle>
+                  {team.name}
+                </HeaderTitle>
+              </Offset>
+            </Row>}
+        </DrawerButtonGroup>
+      </div>
     );
   }
 }

@@ -15,7 +15,7 @@ import IconMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
 import IconButton from 'material-ui/IconButton';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
-import 'rc-tooltip/assets/bootstrap.css';
+import styled from 'styled-components';
 import SingleChoiceTask from './SingleChoiceTask';
 import MultiSelectTask from './MultiSelectTask';
 import Message from '../Message';
@@ -28,8 +28,17 @@ import GeolocationRespondTask from './GeolocationRespondTask';
 import GeolocationTaskResponse from './GeolocationTaskResponse';
 import DatetimeRespondTask from './DatetimeRespondTask';
 import DatetimeTaskResponse from './DatetimeTaskResponse';
-import { units } from '../../styles/js/variables';
+import { units } from '../../styles/js/shared';
 import ProfileLink from '../layout/ProfileLink';
+import Tooltip from 'rc-tooltip';
+import 'rc-tooltip/assets/bootstrap_white.css';
+import UserTooltip from '../user/UserTooltip';
+
+const StyledWordBreakDiv = styled.div`
+  hyphens: auto;
+  overflow-wrap: break-word;
+  word-break: break-word;
+`;
 
 const messages = defineMessages({
   confirmDelete: {
@@ -392,7 +401,7 @@ class Task extends Component {
   }
 
   render() {
-    const { task } = this.props;
+    const { task, media } = this.props;
     const data = this.getResponseData();
     const { response } = data;
     const { note } = data;
@@ -424,11 +433,13 @@ class Task extends Component {
             className="task__resolver"
             style={{ display: 'flex', alignItems: 'center' }}
           >
-            <Avatar
-              style={{ margin: `0 ${units(1)}` }}
-              size={parseInt(units(3), 10)}
-              src={by.profile_image}
-            />
+            <Tooltip placement="top" overlay={<UserTooltip user={by.user}/>}>
+              <Avatar
+                style={{ margin: `0 ${units(1)}` }}
+                size={parseInt(units(3), 10)}
+                src={by.user.source.image}
+              />
+            </Tooltip>
             <small>
               <FormattedMessage
                 id="task.resolvedBy"
@@ -501,25 +512,26 @@ class Task extends Component {
     );
 
     const taskBody = !response
-      ? (<form
-        onSubmit={this.handleSubmit.bind(this)}
-        name={`task-response-${task.id}`}
-      >
+      ? (<Can permissions={media.permissions} permission="create Dynamic">
+        <form
+          onSubmit={this.handleSubmit.bind(this)}
+          name={`task-response-${task.id}`}
+        >
 
-        <div className="task__response-inputs">
-          {task.type === 'geolocation'
+          <div className="task__response-inputs">
+            {task.type === 'geolocation'
               ? <GeolocationRespondTask
                 onCancel={this.handleCancel.bind(this, task)}
                 onSubmit={this.handleSubmitWithArgs.bind(this)}
               />
               : null}
-          {task.type === 'datetime'
+            {task.type === 'datetime'
               ? <DatetimeRespondTask
                 onSubmit={this.handleSubmitWithArgs.bind(this)}
                 note={''}
               />
               : null}
-          {task.type === 'single_choice'
+            {task.type === 'single_choice'
               ? <SingleChoiceTask
                 mode="respond"
                 response={response}
@@ -528,7 +540,7 @@ class Task extends Component {
                 onSubmit={this.handleSubmitWithArgs.bind(this)}
               />
               : null}
-          {task.type === 'multiple_choice'
+            {task.type === 'multiple_choice'
               ? <MultiSelectTask
                 mode="respond"
                 jsonresponse={response}
@@ -537,7 +549,7 @@ class Task extends Component {
                 onSubmit={this.handleSubmitWithArgs.bind(this)}
               />
               : null}
-          {task.type === 'free_text'
+            {task.type === 'free_text'
               ? [
                 <TextField
                   key="task__response-input"
@@ -578,8 +590,8 @@ class Task extends Component {
                 </p>,
               ]
               : null}
-        </div>
-      </form>)
+          </div>
+        </form></Can>)
       : this.state.editingResponse
         ? <div className="task__editing">
           <form
@@ -667,7 +679,7 @@ class Task extends Component {
                 : null}
           </form>
         </div>
-        : <div className="task__resolved">
+        : <StyledWordBreakDiv className="task__resolved">
           {task.type === 'free_text'
               ? <p className="task__response">
                 <ParsedText text={response} />
@@ -708,10 +720,10 @@ class Task extends Component {
           >
             <ParsedText text={note} />
           </p>
-        </div>;
+        </StyledWordBreakDiv>;
 
     return (
-      <div>
+      <StyledWordBreakDiv>
         <Card
           className="task"
           style={{ marginBottom: units(1) }}
@@ -775,7 +787,7 @@ class Task extends Component {
               />}
           </form>
         </Dialog>
-      </div>
+      </StyledWordBreakDiv>
     );
   }
 }

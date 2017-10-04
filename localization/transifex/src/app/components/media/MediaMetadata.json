@@ -1,11 +1,20 @@
 {
   "mediaDetail.mediaTitle": "Title",
   "mediaDetail.moveFailed": "Sorry, we could not move this report",
+  "mediaDetail.trash": "Trash",
+  "mediaMetadata.movedToTrash": "Sent to {trash}",
+  "mediaMetadata.movedBack": "Moved back to project: {project}",
+  "mediaMetadata.deletedForever": "Deleted",
   "mediaDetail.byUser": "by {username}",
   "mediaDetail.cancelButton": "Cancel",
   "mediaDetail.move": "Move",
   "mediaDetail.doneButton": "Done",
-  "mediaDetail.added": "Added {byUser}",
+  "mediaDetail.cancel": "Cancel",
+  "mediaDetail.deleteForever": "Delete forever",
+  "mediaDetail.addedBy": "Added {byUser}",
   "mediaDetail.dialogHeader": "Move this {mediaType} to a different project",
-  "mediaDetail.dialogMediaPath": "Currently filed under {teamName} > {projectTitle}"
+  "mediaDetail.dialogMediaPath": "Currently filed under {teamName} > {projectTitle}",
+  "mediaDetail.deleteForeverConfirmationText": "Are you sure? This will permanently delete this item and its {notesCount, plural, =0 {0 annotations} one {1 annotation} other {# annotations}}. Type \"confirm\" if you want to proceed.",
+  "mediaDetail.confirmationError": "Did not match",
+  "mediaDetail.typeHere": "Type here"
 }

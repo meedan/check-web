@@ -69,6 +69,15 @@
   }
 }
 
+.annotation__card-activity-move-to-trash {
+  background: $check-blue;
+  color: #fff;
+
+  .annotation__card-author, .annotation__card-trash, .annotation__timestamp {
+    color: #fff;
+  }
+}
+
 .annotation__card-thumbnail {
   float: $to-direction;
   padding: units(1);

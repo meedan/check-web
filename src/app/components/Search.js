@@ -9,13 +9,14 @@ import { teamStatuses } from '../customHelpers';
 import PageTitle from './PageTitle';
 import SearchRoute from '../relay/SearchRoute';
 import TeamRoute from '../relay/TeamRoute';
+import checkSearchResultFragment from '../relay/checkSearchResultFragment';
+import bridgeSearchResultFragment from '../relay/bridgeSearchResultFragment';
 import MediaDetail from './media/MediaDetail';
 import { bemClass, notify } from '../helpers';
 import CheckContext from '../CheckContext';
-import ContentColumn from './layout/ContentColumn';
 import MediasLoading from './media/MediasLoading';
 import SourceCard from './source/SourceCard';
-import { FlexRow } from '../styles/js/variables';
+import { FlexRow, ContentColumn } from '../styles/js/shared';
 
 const pageSize = 20;
 
@@ -291,7 +292,7 @@ class SearchQueryComponent extends Component {
     const suggestedTags = this.props.team.get_suggested_tags
       ? this.props.team.get_suggested_tags.split(',')
       : [];
-    const title = this.props.project ? this.props.project.title : this.title(statuses, projects);
+    const title = this.props.title || (this.props.project ? this.props.project.title : this.title(statuses, projects));
 
     return (
       <PageTitle prefix={title} skipTeam={false} team={this.props.team}>
@@ -472,6 +473,8 @@ class SearchQueryComponent extends Component {
                 : null}
 
             </section>
+
+            { this.props.addons }
           </div>
         </ContentColumn>
       </PageTitle>
@@ -668,11 +671,6 @@ class SearchResultsComponent extends Component {
 
         </InfiniteScroll>
 
-        {(() => {
-          if (medias.length + sources.length < count) {
-            return <MediasLoading />;
-          }
-        })()}
       </div>
     );
   }
@@ -686,139 +684,20 @@ SearchResultsComponent.propTypes = {
   intl: intlShape.isRequired,
 };
 
+let fragment = null;
+if (config.appName === 'check') {
+  fragment = checkSearchResultFragment;
+}
+else if (config.appName === 'bridge') {
+  fragment = bridgeSearchResultFragment;
+}
+
 const SearchResultsContainer = Relay.createContainer(injectIntl(SearchResultsComponent), {
   initialVariables: {
     pageSize,
   },
   fragments: {
-    search: () => Relay.QL`
-      fragment on CheckSearch {
-        id,
-        pusher_channel,
-        medias(first: $pageSize) {
-          edges {
-            node {
-              id,
-              dbid,
-              url,
-              quote,
-              published,
-              updated_at,
-              embed,
-              log_count,
-              verification_statuses,
-              translation_statuses,
-              overridden,
-              project_id,
-              pusher_channel,
-              language,
-              language_code,
-              domain,
-              permissions,
-              last_status,
-              field_value(annotation_type_field_name: "translation_status:translation_status_status"),
-              translation_status: annotation(annotation_type: "translation_status") {
-                id
-                dbid
-              }
-              last_status_obj {
-                id,
-                dbid
-              }
-              project {
-                id,
-                dbid,
-                title
-              },
-              project_source {
-                dbid,
-                project_id,
-                source {
-                  name
-                }
-              },
-              media {
-                url,
-                quote,
-                embed_path,
-                thumbnail_path
-              }
-              user {
-                name,
-                source {
-                  dbid,
-                  accounts(first: 10000) {
-                    edges {
-                      node {
-                        url
-                      }
-                    }
-                  }
-                }
-              }
-              team {
-                slug
-              }
-              tags(first: 10000) {
-                edges {
-                  node {
-                    tag,
-                    id
-                  }
-                }
-              }
-            }
-          }
-        },
-        sources(first: $pageSize) {
-          edges {
-            node {
-              id,
-              dbid,
-              team {
-                dbid,
-                slug
-              },
-              project_id,
-              updated_at,
-              source_id,
-              source {
-                id,
-                dbid,
-                name,
-                description,
-                image,
-                accounts(first: 10000) {
-                  edges {
-                    node {
-                      id,
-                      data,
-                      embed,
-                      provider,
-                      url
-                    }
-                  }
-                }
-              },
-              user {
-                name,
-                source {
-                  dbid,
-                  accounts(first: 10000) {
-                    edges {
-                      node {
-                        url
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        number_of_results
-      }
-    `,
+    search: () => fragment
   },
 });
 
@@ -868,6 +747,7 @@ class Search extends Component {
     const queryRoute = new TeamRoute({ teamSlug });
     const resultsRoute = new SearchRoute({ query: JSON.stringify(query) });
     const { formatMessage } = this.props.intl;
+    const { fields } = this.props;
 
     return (
       <div className="search">
@@ -879,6 +759,7 @@ class Search extends Component {
             return (
               <ContentColumn>
                 <div className="search__query">
+                  { (!fields || fields.indexOf('keyword') > -1) ?
                   <div className="search__form search__form--loading">
                     <input
                       disabled
@@ -887,7 +768,7 @@ class Search extends Component {
                       id="search-input"
                       className="search__input"
                     />
-                  </div>
+                  </div> : null }
                 </div>
               </ContentColumn>
             );

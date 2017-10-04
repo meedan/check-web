@@ -7,6 +7,7 @@
   "annotation.newClaim": "Nova alegação inserida por {author}",
   "annotation.statusSetHeader": "Status modificado para {status} por {author}",
   "annotation.taggedHeader": "Marcado #{tag} por {author}",
+  "annotation.deletedComment": "Comentário excluído por {author}: {comment}",
   "annotation.taskCreated": "Tarefa \\\"{task}\\\" criada por {author}",
   "annotation.taskResolve": "Tarefa \\\"{task}\\\" respondida por {author}: \\\"{response}\\\"",
   "annotation.reverseImageSearch": "Buscar",
@@ -25,6 +26,8 @@
   "annotation.newReport": "Novo {reportType} inserida por {author}",
   "annotation.titleChanged": "Título alterado para {title} por {author}",
   "annotation.projectMoved": "Movido do projeto {previousProject} para {currentProject} por {author}",
+  "annotation.movedToTrash": "Movido para Lixeira",
+  "annotation.movedFromTrash": "{author} moveu para fora da lixeira",
   "annotation.taskLabelUpdated": "Tarefa \\\"{from}\\\" editada para \\\"{to}\\\" por {author}",
   "annotation.taskNoteUpdated": "Tarefa \\\"{title}\\\" tem uma nota editada de \\\"{from}\\\" para \\\"{to}\\\" por {author}",
   "annotation.taskNoteCreated": "Tarefa \\\"{title}\\\" tem uma nova nota \\\"{note}\\\" por {author}"

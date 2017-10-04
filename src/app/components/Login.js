@@ -12,6 +12,7 @@ import MDEmail from 'react-icons/lib/md/email';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import rtlDetect from 'rtl-detect';
+import { Link } from 'react-router';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
@@ -41,7 +42,7 @@ import {
   boxShadow,
   transitionSpeedFast,
   defaultBorderRadius,
-} from '../styles/js/variables';
+} from '../styles/js/shared';
 
 
 const StyledEnhancedButton = styled(EnhancedButton)`
@@ -276,13 +277,14 @@ class Login extends Component {
           </Column>
           <Column>
             <h3>{headerText}</h3>
-            <h4>
-              {subheaderText || <FormattedMessage
-                id="login.disclaimer"
-                defaultMessage={'We won’t publish without your permission'}
-              />
-                  }
-            </h4>
+            { subheaderText ?
+              <h4>
+                <FormattedMessage
+                  id="login.disclaimer"
+                  defaultMessage={'We won’t publish without your permission'}
+                />
+              </h4> : null
+            }
           </Column>
         </Row>
       </StyledEnhancedButton>
@@ -417,19 +419,19 @@ class Login extends Component {
                       />
                   }
                 />
-
                 {this.state.type === 'login'
                   ? <span className="login__forgot-password">
-                    <FlatButton
-                      href="/check/user/password-reset"
-                      style={styles.secondaryButton}
-                      label={
-                        <FormattedMessage
-                          id="loginEmail.lostPassword"
-                          defaultMessage="Forgot password"
-                        />
-                        }
-                    />
+                    <Link to="/check/user/password-reset">
+                      <FlatButton
+                        style={styles.secondaryButton}
+                        label={
+                          <FormattedMessage
+                            id="loginEmail.lostPassword"
+                            defaultMessage="Forgot password"
+                          />
+                          }
+                      />
+                    </Link>
                   </span>
                   : null}
               </div>
@@ -446,6 +448,7 @@ class Login extends Component {
                 defaultMessage={'Continue with {provider}'}
                 values={{ provider: 'Slack' }}
               />}
+              subheaderText={true}
             />
 
             <BigButton
@@ -457,6 +460,7 @@ class Login extends Component {
                 defaultMessage={'Continue with {provider}'}
                 values={{ provider: 'Twitter' }}
               />}
+              subheaderText={true}
             />
 
             <BigButton
@@ -470,6 +474,7 @@ class Login extends Component {
                   values={{ provider: 'Facebook' }}
                 />
               }
+              subheaderText={true}
             />
 
             {this.state.type === 'login'
@@ -483,6 +488,7 @@ class Login extends Component {
                     defaultMessage="Create a new account with email"
                   />
                 }
+                subheaderText={false}
               />
 
               : <BigButton
@@ -495,6 +501,7 @@ class Login extends Component {
                     defaultMessage="I already have an account"
                   />
                 }
+                subheaderText={false}
               />}
           </BigButtons>
         </div>

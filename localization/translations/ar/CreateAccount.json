@@ -1,8 +1,0 @@
-{
-  "createAccount.createSourceError": "عذراً، لم نستطع إضافة هذا المصدر",
-  "createAccount.sourceUrlHint": "تويتر، فيسبوك، يوتيوب...",
-  "createAccount.createButton": "انشئ",
-  "createAccount.createSource": "انشئ مصدر",
-  "createAccount.sourceUrl": "رابط المصدر",
-  "createAccount.preview": "عرض"
-}

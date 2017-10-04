@@ -1,250 +1,167 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router';
-import AppBar from 'material-ui/AppBar';
+import Relay from 'react-relay';
 import IconButton from 'material-ui/IconButton';
-import IconMoreVert from 'material-ui/svg-icons/navigation/more-vert';
+import IconMenu from 'material-ui/svg-icons/navigation/menu';
 import IconSearch from 'material-ui/svg-icons/action/search';
-import IconMenu from 'material-ui/IconMenu';
-import MenuItem from 'material-ui/MenuItem';
+import { injectIntl, FormattedMessage } from 'react-intl';
 import RaisedButton from 'material-ui/RaisedButton';
-import Divider from 'material-ui/Divider';
-import { FormattedMessage, injectIntl } from 'react-intl';
-import { mapGlobalMessage } from './MappedMessage';
-import UserMenuRelay from '../relay/UserMenuRelay';
-import { logout } from '../redux/actions';
-import TeamMenuRelay from '../relay/TeamMenuRelay';
-import ProjectMenuRelay from '../relay/ProjectMenuRelay';
+import rtlDetect from 'rtl-detect';
 import TeamHeader from './team/TeamHeader';
 import TeamPublicHeader from './team/TeamPublicHeader';
 import ProjectHeader from './project/ProjectHeader';
 import { stringHelper } from '../customHelpers';
-import { appBarInnerHeight, anchorOrigin, units } from '../styles/js/variables';
+import PublicTeamRoute from '../relay/PublicTeamRoute';
+import teamPublicFragment from '../relay/teamPublicFragment';
+import {
+  units,
+  mediaQuery,
+  headerHeight,
+  Row,
+  Offset,
+  black02,
+} from '../styles/js/shared';
 
-const MenuActionsSecondary = styled.div`
+const HeaderBar = styled.div`
+  background-color: ${black02};
   display: flex;
   align-items: center;
-  & > * {
-    margin-left: ${units(1)} !important;
-    margin-right: ${units(1)} !important;
-    display: flex-item !important;
-  }
+  padding: 0 ${units(2)};
+  height: ${headerHeight};
+  overflow: hidden;
+  /* Relative positioning is used here to create a new
+  positioning context to avoid a z-index inconsistency
+  on Safari, Safari Mobile, Ubuntu Chrome,
+  Ubuntu Firefox 2017-9-20 CGB */
+  position: relative;
+  z-index: 1;
+  ${mediaQuery.handheld`
+    padding: 0 ${units(1)};
+  `}
 `;
 
-const styles = {
-  appBar: {
-    boxShadow: 'none',
-  },
-  elementsPrimary: {
-    display: 'flex',
-    alignItems: 'center',
-    height: appBarInnerHeight,
-  },
-  teamHeader: {
-    alignItems: 'center',
-    display: 'flex',
-    justifyContent: 'center',
-    minWidth: units(6),
-    overflow: 'hidden',
-    margin: `0 ${units(1)}`,
-  },
-};
-
-class Header extends Component {
-
+class HeaderComponent extends Component {
   render() {
-    const { loggedIn } = this.props;
-    const path = this.props.location ? this.props.location.pathname : window.location.pathname;
-    const showCheckLogo = /^\/(check(\/.*)?)?$/.test(path);
-    const joinPage = /^\/([^/]+)\/join$/.test(path);
-
-
-    const menuButton = (
-      <IconButton className="header-actions__menu-toggle">
-        <IconMoreVert />
-      </IconButton>
-    );
-
-    const yourTeamsMenuItem = (
-      <MenuItem
-        href="/check/teams"
-        key="headerActions.userTeams"
-        primaryText={<FormattedMessage id="headerActions.userTeams" defaultMessage="Your Teams" />}
-      />
-    );
-
-    const editProjectMenuItem = (
-      <ProjectMenuRelay key="headerActions.projectMenu" {...this.props} />
-    );
-
-    const manageTeamMenuItem = <TeamMenuRelay key="headerActions.teamMenu" {...this.props} />;
-
-    const logInMenuItem = (
-      <MenuItem
-        key="headerActions.logIn"
-        className="header-actions__menu-item--login"
-        href="/"
-        primaryText={<FormattedMessage id="headerActions.signIn" defaultMessage="Sign In" />}
-      />
-    );
-
-    const logOutMenuItem = (
-      <MenuItem
-        key="headerActions.logOut"
-        className="header-actions__menu-item--logout"
-        onClick={logout}
-        primaryText={<FormattedMessage id="headerActions.signOut" defaultMessage="Sign Out" />}
-      />
-    );
-
-    const contactMenuItem = (
-      <MenuItem
-        key="headerActions.contactHuman"
-        target="_blank"
-        rel="noopener noreferrer"
-        href={stringHelper('CONTACT_HUMAN_URL')}
-        primaryText={
-          <FormattedMessage id="headerActions.contactHuman" defaultMessage="Contact a Human" />
-        }
-      />
-    );
-
-    const TosMenuItem = (
-      <MenuItem
-        key="headerActions.tos"
-        href={stringHelper('TOS_URL')}
-        target="_blank"
-        rel="noopener noreferrer"
-        primaryText={<FormattedMessage id="headerActions.tos" defaultMessage="Terms of Service" />}
-      />
-    );
-
-    const privacyMenuItem = (
-      <MenuItem
-        key="headerActions.privacyPolicy"
-        target="_blank"
-        rel="noopener noreferrer"
-        href={stringHelper('PP_URL')}
-        primaryText={
-          <FormattedMessage id="headerActions.privacyPolicy" defaultMessage="Privacy Policy" />
-        }
-      />
-    );
-
-    const aboutMenuItem = (
-      <MenuItem
-        key="headerActions.about"
-        target="_blank"
-        rel="noopener noreferrer"
-        href={stringHelper('ABOUT_URL')}
-        primaryText={
-          <FormattedMessage
-            id="headerActions.about"
-            defaultMessage="About {appName}"
-            values={{
-              appName: mapGlobalMessage(this.props.intl, 'appNameHuman'),
-            }}
-          />
-        }
-      />
-    );
-
-    const secondaryMenu = (
-      <IconMenu
-        key="header.secondaryMenu"
-        anchorOrigin={anchorOrigin}
-        iconButtonElement={menuButton}
-      >
-        {loggedIn && yourTeamsMenuItem}
-        {!joinPage && editProjectMenuItem}
-        {!joinPage && manageTeamMenuItem}
-        {loggedIn ? logOutMenuItem : logInMenuItem}
-        <Divider />
-        {contactMenuItem}
-        {TosMenuItem}
-        {privacyMenuItem}
-        {aboutMenuItem}
-      </IconMenu>
-    );
+    const locale = this.props.intl.locale;
+    const { inTeamContext, loggedIn, drawerToggle, currentUserIsMember } = this.props;
+    const isRtl = rtlDetect.isRtlLang(locale);
+    const fromDirection = isRtl ? 'right' : 'left';
+    const path = this.props.location
+      ? this.props.location.pathname
+      : window.location.pathname;
+    const AlignOpposite = styled.div`
+      margin-${fromDirection}: auto;
+      `;
 
     const searchButton = (
       <IconButton
-        href={`/${this.props.params.team}/search`}
-        name="search"
         key="header.searchButton"
         className="header-actions__search-icon"
+        containerElement={<Link to={`/${this.props.params.team}/search`} />}
+        name="search"
       >
         <IconSearch />
       </IconButton>
     );
 
-    const userMenu = (() => {
-      if (loggedIn) {
-        return <UserMenuRelay key="header.userMenu" {...this.props} />;
-      }
-      return (
-        <RaisedButton
-          key="header.userMenu.signIn"
-          primary
-          label={<FormattedMessage id="headerActions.signIn" defaultMessage="Sign In" />}
-          href="/"
-        />
-      );
-    })();
+    const checkLogo = (
+      <img
+        width={units(8)}
+        alt="Team Logo"
+        src={stringHelper('LOGO_URL')}
+      />
+    );
 
-    const elementsSecondary = (() => {
-      if (this.props.params && this.props.params.team) {
+    const signInButton = (() => {
+      if (!loggedIn) {
         return (
-          <MenuActionsSecondary>
-            {[searchButton, userMenu, secondaryMenu]}
-          </MenuActionsSecondary>
-        );
-      }
-      return (
-        <MenuActionsSecondary>
-          {[userMenu, secondaryMenu]}
-        </MenuActionsSecondary>
-      );
-    })();
-
-    const elementsTitle = (() => {
-      if (showCheckLogo) {
-        return null;
-      }
-      return (
-        <div style={styles.elementsPrimary}>
-          <ProjectHeader {...this.props} />
-        </div>
-      );
-    })();
-
-    const elementsPrimary = (() => {
-      if (!showCheckLogo) {
-        return (
-          <div style={styles.teamHeader}>
-            {joinPage
-              ? <TeamPublicHeader {...this.props} />
-              : <TeamHeader {...this.props} />}
-          </div>
-        );
-      } return (
-        <div style={styles.elementsPrimary}>
-          <Link style={styles.elementsPrimary} to="/check/teams">
-            <img width={units(8)} alt="Team Logo" src={stringHelper('LOGO_URL')} />
+          <Link to="/">
+            <RaisedButton
+              primary
+              label={<FormattedMessage defaultMessage="Sign In" id="headerActions.signIn" />}
+            />
           </Link>
-        </div>
+        );
+      }
+      return (null);
+    })();
+
+    const primary = (() => {
+      if (inTeamContext && (currentUserIsMember || !this.props.team.private)) {
+        return (
+          <Row containsEllipsis>
+            <div><TeamHeader {...this.props} /></div>
+            <div><ProjectHeader {...this.props} /></div>
+          </Row>
+        );
+
+      } else if (inTeamContext && !currentUserIsMember && this.props.team.private) {
+        return (
+          <Row containsEllipsis>
+            <TeamPublicHeader {...this.props} />
+          </Row>
+        );
+      }
+
+      // Otherwise display the most basic header
+      return (
+        <Row>
+          <div onClick={drawerToggle}>{checkLogo}</div>
+        </Row>
       );
     })();
+
+    const secondary = (() => (
+      <AlignOpposite>
+        <Row>
+          <Offset>
+            {signInButton}
+          </Offset>
+          {inTeamContext ? searchButton : null}
+        </Row>
+      </AlignOpposite>
+      ))();
 
     return (
-      <AppBar
-        style={styles.appBar}
-        title={elementsTitle}
-        iconElementLeft={elementsPrimary}
-        iconElementRight={elementsSecondary}
-      />
+      <HeaderBar>
+        {primary}
+        {secondary}
+      </HeaderBar>
     );
   }
 }
 
-export default injectIntl(Header);
+class Header extends Component {
+  render() {
+    if (this.props.inTeamContext) {
+      const HeaderContainer = Relay.createContainer(HeaderComponent, {
+        fragments: {
+          team: () => teamPublicFragment,
+        },
+      });
+
+      const teamSlug = this.props.params.team;
+
+      const route = new PublicTeamRoute({ teamSlug });
+
+      return (
+        <Relay.RootContainer
+          Component={HeaderContainer}
+          route={route}
+          renderFetched={
+            data => <HeaderContainer
+              {...this.props}
+              {...data}
+            />
+          }
+        />
+      );
+    }
+
+    return (<HeaderComponent {...this.props} />);
+  }
+}
+
+export default Header;
+export { HeaderComponent };

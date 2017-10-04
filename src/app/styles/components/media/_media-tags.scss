@@ -41,6 +41,13 @@
   @include chip;
 }
 
+.media-tags__tag {
+  svg {
+    color: $opaque-black-54;
+    margin-#{$to-direction}: units(1);
+  }
+}
+
 .media-tags .tags-list .ReactTags__tag {
   @include chip;
   min-width: units(7);

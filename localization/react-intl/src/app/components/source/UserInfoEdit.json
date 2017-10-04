@@ -1,0 +1,34 @@
+[
+  {
+    "id": "userInfoEdit.sourceName",
+    "defaultMessage": "Name"
+  },
+  {
+    "id": "userInfoEdit.sourceBio",
+    "defaultMessage": "Bio"
+  },
+  {
+    "id": "userInfoEdit.userEmail",
+    "defaultMessage": "Email"
+  },
+  {
+    "id": "userInfoEdit.addLink",
+    "defaultMessage": "Add Link"
+  },
+  {
+    "id": "userInfoEdit.editError",
+    "defaultMessage": "Sorry, could not edit the source"
+  },
+  {
+    "id": "userInfoEdit.addLinkLabel",
+    "defaultMessage": "Add a link"
+  },
+  {
+    "id": "userInfoEdit.addLinkHelper",
+    "defaultMessage": "Add a link to a web page or social media profile. Note: this does not affect your login method."
+  },
+  {
+    "id": "userInfoEdit.invalidLink",
+    "defaultMessage": "Please enter a valid URL"
+  }
+]

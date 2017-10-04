@@ -4,6 +4,7 @@ import CheckContext from '../../CheckContext';
 import MediaRoute from '../../relay/MediaRoute';
 import MediaParentComponent from './MediaParentComponent';
 import MediasLoading from './MediasLoading';
+import userFragment from '../../relay/userFragment';
 
 const MediaContainer = Relay.createContainer(MediaParentComponent, {
   initialVariables: {
@@ -16,6 +17,7 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
         dbid,
         quote,
         published,
+        archived,
         url,
         embed,
         last_status,
@@ -27,6 +29,7 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
           id,
           dbid,
           title,
+          search_id,
           get_languages
         },
         project_id,
@@ -50,6 +53,7 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
           thumbnail_path
         }
         user {
+          dbid,
           name,
           email,
           source {
@@ -113,18 +117,7 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
                   name,
                   profile_image,
                   user {
-                    name,
-                    profile_image,
-                    source {
-                      dbid,
-                      accounts(first: 10000) {
-                        edges {
-                          node {
-                            url
-                          }
-                        }
-                      }
-                    }
+                    ${userFragment}
                   }
                 }
               }
@@ -154,19 +147,7 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
                 }
               }
               user {
-                name,
-                profile_image,
-                email,
-                source {
-                  dbid,
-                  accounts(first: 10000) {
-                    edges {
-                      node {
-                        url
-                      }
-                    }
-                  }
-                }
+                ${userFragment}
               }
               task {
                 id,
@@ -231,9 +212,10 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
           }
         }
         team {
-          get_suggested_tags,
-          private,
+          get_suggested_tags
+          private
           slug
+          search_id
         }
       }
 `,

@@ -1,47 +1,49 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import rtlDetect from 'rtl-detect';
 import { Link } from 'react-router';
 import { rtlClass } from '../../helpers';
-import {
-  breakWordStyles,
-  headline,
-  units,
-  subheading2,
-} from '../../styles/js/variables';
+
+import { Row, breakWordStyles, headline, units, subheading2 } from '../../styles/js/shared';
 
 const Quote = styled.div`
   margin: ${units(3)};
 `;
 
-const QuoteText = styled.div`
+const StyledQuoteText = styled.div`
   ${breakWordStyles}
   font: ${headline};
 `;
 
-const QuoteAttribution = styled.div`
-  font: ${subheading2};
-`;
-
 class QuoteMediaCard extends Component {
   render() {
-    const { quoteText, attributionName, attributionUrl, languageCode } = this.props;
+    const { quote, sourceName, sourceUrl, languageCode } = this.props;
+    const isRtl = rtlDetect.isRtlLang(languageCode);
+    const StyledQuoteAttribution = styled.div`
+      font: ${subheading2};
+      text-align: ${isRtl ? 'left' : 'right'};
+      margin: ${isRtl ? `0 auto 0 ${units(2)}` : `0 ${units(2)} 0 auto`};
+      margin-top: ${units(4)};
+    `;
 
     return (
       <Quote>
         <div>
-          <QuoteText className={`quote__text ${rtlClass(languageCode)}`}>
-            {quoteText}
-          </QuoteText>
-          <QuoteAttribution>
-            {attributionName
-              ? <div>— {attributionName}</div>
-              : null}
-            {attributionUrl
-              ? <Link to={attributionUrl}>
-                {attributionUrl}
-              </Link>
-              : null}
-          </QuoteAttribution>
+          <StyledQuoteText className={`quote__text ${rtlClass(languageCode)}`}>
+            {quote}
+          </StyledQuoteText>
+          <Row>
+            <StyledQuoteAttribution>
+              {sourceName && sourceUrl
+                ? <div>
+                  {'— '}
+                  <Link to={sourceUrl}>
+                    {sourceName}
+                  </Link>
+                </div>
+                : null}
+            </StyledQuoteAttribution>
+          </Row>
         </div>
       </Quote>
     );

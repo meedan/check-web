@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages, intlShape, injectIntl } from 'react-intl';
 import KeyboardArrowRight from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 import config from 'config';
-import { Card, CardActions, CardHeader } from 'material-ui/Card';
+import { Link } from 'react-router';
+import { Card, CardActions, CardText, CardHeader } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import { List, ListItem } from 'material-ui/List';
 import Avatar from 'material-ui/Avatar';
@@ -19,7 +20,7 @@ import {
   listItemButtonStyle,
   white,
   black05,
-} from '../../styles/js/variables';
+} from '../../styles/js/shared';
 import UpdateUserMutation from '../../relay/UpdateUserMutation';
 import DeleteTeamUserMutation from '../../relay/DeleteTeamUserMutation';
 import CheckContext from '../../CheckContext';
@@ -44,9 +45,14 @@ const messages = defineMessages({
 });
 
 class SwitchTeamsComponent extends Component {
+  getContext() {
+    const context = new CheckContext(this);
+    return context;
+  }
+
   setCurrentTeam(team, user) {
     const that = this;
-    const context = new CheckContext(this);
+    const context = this.getContext();
     const history = context.getContextStore().history;
 
     const currentUser = context.getContextStore().currentUser;
@@ -100,8 +106,12 @@ class SwitchTeamsComponent extends Component {
   }
 
   render() {
-    const currentUser = this.props.me;
-    const teamUsers = this.props.me.team_users.edges;
+    const user = this.props.user;
+    const currentUser = this.getContext().getContextStore().currentUser;
+    const teamUsers = this.props.user.team_users.edges;
+
+    const isUserSelf = (user.id === currentUser.id);
+
     const that = this;
     const otherTeams = [];
     const pendingTeams = [];
@@ -135,6 +145,10 @@ class SwitchTeamsComponent extends Component {
     teamUsers.map((teamUser) => {
       const team = teamUser.node.team;
       const status = teamUser.node.status;
+      const visible = !teamUser.node.team.private;
+
+      if (!isUserSelf && !visible) { return; }
+
       if (status === 'requested' || status === 'banned') {
         team.status = status;
         team.teamUser_id = teamUser.node.id;
@@ -147,47 +161,57 @@ class SwitchTeamsComponent extends Component {
       return `${window.location.protocol}//${config.selfHost}/${team.slug}`;
     };
 
+    const cardTitle = isUserSelf ?
+      <FormattedMessage id="teams.yourTeams" defaultMessage="Your Teams" /> :
+      <FormattedMessage id="teams.userTeams" defaultMessage="{name} is a member of {number} teams" values={{ name: user.name, number: pendingTeams.length + otherTeams.length }} />;
+
     return (
       <Card>
         <CardHeader
           titleStyle={titleStyle}
-          title={<FormattedMessage id="teams.yourTeams" defaultMessage="Your Teams" />}
+          title={cardTitle}
         />
-        <List className="teams" style={listStyle}>
-          {otherTeams.map((team, index) =>
-            <ListItem
-              key={index}
-              hoverColor={highlightBlue}
-              focusRippleColor={checkBlue}
-              touchRippleColor={checkBlue}
-              href={buildUrl(team)}
-              leftAvatar={<Avatar style={teamAvatarStyle} src={team.avatar} />}
-              onClick={that.setCurrentTeam.bind(that, team, currentUser)}
-              primaryText={team.name}
-              rightIcon={<KeyboardArrowRight />}
-              secondaryText={that.membersCountString(team.members_count)}
-            />,
-          )}
+        { (otherTeams.length + pendingTeams.length) ?
+          <List className="teams" style={listStyle}>
+            {otherTeams.map((team, index) =>
+              <ListItem
+                key={index}
+                hoverColor={highlightBlue}
+                focusRippleColor={checkBlue}
+                touchRippleColor={checkBlue}
+                containerElement={<Link to={buildUrl(team)} />}
+                leftAvatar={<Avatar style={teamAvatarStyle} src={team.avatar} />}
+                onClick={that.setCurrentTeam.bind(that, team, currentUser)}
+                primaryText={team.name}
+                rightIcon={<KeyboardArrowRight />}
+                secondaryText={that.membersCountString(team.members_count)}
+              />,
+            )}
 
-          {pendingTeams.map((team, index) =>
-            <ListItem
-              key={index}
-              hoverColor={highlightBlue}
-              focusRippleColor={checkBlue}
-              touchRippleColor={checkBlue}
-              href={buildUrl(team)}
-              leftAvatar={<Avatar style={teamAvatarStyle} src={team.avatar} />}
-              primaryText={team.name}
-              rightIconButton={teamButton(team)}
-              secondaryText={that.requestedToJoinString()}
-            />,
-          )}
-        </List>
-        <CardActions>
-          <FlatButton href="/check/teams/new">
-            <FormattedMessage id="switchTeams.newTeamLink" defaultMessage="+ New team" />
-          </FlatButton>
-        </CardActions>
+            {pendingTeams.map((team, index) =>
+              <ListItem
+                key={index}
+                hoverColor={highlightBlue}
+                focusRippleColor={checkBlue}
+                touchRippleColor={checkBlue}
+                href={buildUrl(team)}
+                leftAvatar={<Avatar style={teamAvatarStyle} src={team.avatar} />}
+                primaryText={team.name}
+                rightIconButton={teamButton(team)}
+                secondaryText={that.requestedToJoinString()}
+              />,
+            )}
+          </List> : <CardText><FormattedMessage id="switchTeams.noTeams" defaultMessage="You are not a member of any teams yet." /></CardText>
+        }
+
+        { isUserSelf ?
+          <CardActions>
+            <FlatButton
+              label={<FormattedMessage id="switchTeams.newTeamLink" defaultMessage="Create Team" />}
+              onClick={() => this.getContext().getContextStore().history.push('/check/teams/new')}
+            />
+          </CardActions> : null
+        }
       </Card>
     );
   }
@@ -195,7 +219,7 @@ class SwitchTeamsComponent extends Component {
 
 SwitchTeamsComponent.propTypes = {
   intl: intlShape.isRequired,
-  me: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
 };
 
 SwitchTeamsComponent.contextTypes = {

@@ -82,17 +82,16 @@ class Annotation extends Component {
     const annotated = this.props.annotated;
     const permissionType = `${annotation.annotation_type.charAt(0).toUpperCase()}${annotation.annotation_type.slice(1)}`;
 
-    // FIXME Hide actions for source annotations until delete is implemented #6282
-    const annotationActions = null;/*(
+    const annotationActions = (
       <div className="annotation__actions">
         <Can permissions={annotation.permissions} permission={`destroy ${permissionType}`}>
           <button className="annotation__delete" onClick={this.handleDelete.bind(this, annotation.id)} title={this.props.intl.formatMessage(messages.deleteButton)}>×</button>
         </Can>
       </div>
-    );*/
+    );
 
     const updatedAt = MediaUtil.createdAt({ published: annotation.created_at });
-    const timestamp = updatedAt ? <span className="annotation__timestamp"><TimeBefore date={updatedAt}/></span> : null;
+    const timestamp = updatedAt ? <span className="annotation__timestamp"><TimeBefore date={updatedAt} /></span> : null;
     const content = JSON.parse(annotation.content);
     let contentTemplate;
 
@@ -102,18 +101,18 @@ class Annotation extends Component {
       const commentContent = JSON.parse(annotation.content);
       contentTemplate = (
         <div>
-          <div className='annotation__card-content'>
+          <div className="annotation__card-content">
             <ParsedText text={commentText} />
-              {/* thumbnail */ }
-              { commentContent.original ?
-                <img src={commentContent.thumbnail} className='annotation__card-thumbnail' alt="" onClick={this.handleOpenCommentImage.bind(this, commentContent.original)} />
+            {/* thumbnail */ }
+            { commentContent.original ?
+              <img src={commentContent.thumbnail} className="annotation__card-thumbnail" alt="" onClick={this.handleOpenCommentImage.bind(this, commentContent.original)} />
               : null }
           </div>
 
           {/* embedded medias */ }
           <div className="annotation__card-embedded-medias">
-          {annotation.medias.edges.map(media => (
-            <div><MediaDetail media={media.node} condensed readonly /></div>
+            {annotation.medias.edges.map(media => (
+              <div><MediaDetail media={media.node} condensed readonly /></div>
           ))}
           </div>
 
@@ -169,27 +168,27 @@ class Annotation extends Component {
     return (
       <section className={`annotation ${templateClass} ${typeClass}`} id={`annotation-${annotation.dbid}`}>
         {useCardTemplate ? (
-            <Card className='annotation__card'>
-              <CardText className='annotation__card-text'>
-                <div className='annotation__card-avatar-col'>
-                  <div className='annotation__card-avatar' style={{ backgroundImage: `url(${annotation.annotator.profile_image})` }} />
-                </div>
-                <div className='annotation__card-main-col'>
-                  {contentTemplate}
-                  <footer className='annotation__card-footer'>
-                    <span className='annotation__card-footer-text'>
-                      <ProfileLink user={annotation.annotator.user} className={'annotation__card-author'} /> <span>{timestamp}</span>
-                    </span>
-                    {annotationActions}
-                  </footer>
-                </div>
+          <Card className="annotation__card">
+            <CardText className="annotation__card-text">
+              <div className="annotation__card-avatar-col">
+                <div className="annotation__card-avatar" style={{ backgroundImage: `url(${annotation.annotator.profile_image})` }} />
+              </div>
+              <div className="annotation__card-main-col">
+                {contentTemplate}
+                <footer className="annotation__card-footer">
+                  <span className="annotation__card-footer-text">
+                    <ProfileLink user={annotation.annotator.user} className={'annotation__card-author'} /> <span>{timestamp}</span>
+                  </span>
+                  {annotationActions}
+                </footer>
+              </div>
 
-              </CardText>
-            </Card>
+            </CardText>
+          </Card>
           ) : (
-            <div className='annotation__default'>
-              <span className='annotation__default-text'>
-                <span className='annotation__default-content'>{contentTemplate}</span>
+            <div className="annotation__default">
+              <span className="annotation__default-text">
+                <span className="annotation__default-content">{contentTemplate}</span>
                 {timestamp}
               </span>
             </div>

@@ -1,8 +1,8 @@
 {
-  "createTeam.slugChecking": "En train de vérifier les disponibilités...",
+  "createTeam.slugChecking": "Vérification de la disponibilité en cours...",
   "createTeam.slugAvailable": "Disponible!",
   "createTeam.slugUnavailable": "Cette URL n'est pas disponible.",
-  "createTeam.createTeamError": "Désolé, ce n'était pas possible de créer l'équipe",
+  "createTeam.createTeamError": "Désolé, il n'a pas été possible de créer l'équipe",
   "createTeam.title": "Créer une équipe",
   "createTeam.teamNameHint": "Nom de l'équipe",
   "createTeam.teamSlugHint": "team-slug",

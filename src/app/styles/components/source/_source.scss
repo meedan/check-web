@@ -128,13 +128,6 @@
   &__edit-buttons-clear {
     clear: both;
   }
-
-  .media-tags__tag {
-    svg {
-      color: $opaque-black-54;
-      margin-#{$to-direction}: units(1);
-    }
-  }
 }
 
 .layout-two-column {

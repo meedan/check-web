@@ -20,6 +20,21 @@ const sourceFragment = Relay.QL`
         }
       }
     },
+    account_sources(first: 10000) {
+      edges {
+        node {
+          id,
+          account {
+            id,
+            created_at,
+            updated_at,
+            embed,
+            url,
+            provider,
+          }
+        }
+      }
+    },
     tags(first: 10000) {
       edges {
         node {
@@ -43,7 +58,7 @@ const sourceFragment = Relay.QL`
           permissions,
           project_id,
           verification_statuses,
-
+          archived,
           id,
           dbid,
           quote,

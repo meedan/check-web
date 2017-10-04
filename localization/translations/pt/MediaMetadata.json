@@ -1,11 +1,20 @@
 {
   "mediaDetail.mediaTitle": "Título",
   "mediaDetail.moveFailed": "Desculpe, não foi possível mover este item",
+  "mediaDetail.trash": "Lixeira",
+  "mediaMetadata.movedToTrash": "Enviar para {trash} ",
+  "mediaMetadata.movedBack": "Voltou ao projeto: {project}",
+  "mediaMetadata.deletedForever": "Excluído",
   "mediaDetail.byUser": "por {username}",
   "mediaDetail.cancelButton": "Cancelar",
   "mediaDetail.move": "Mover",
   "mediaDetail.doneButton": "Feito",
-  "mediaDetail.added": "Adicionado {byUser}",
-  "mediaDetail.dialogHeader": "Mover este {mediaType} para um projeto diferente",
-  "mediaDetail.dialogMediaPath": "Atualmente em {teamName} > {projectTitle}"
+  "mediaDetail.cancel": "Cancelar",
+  "mediaDetail.deleteForever": "Apagar permanentemente",
+  "mediaDetail.addedBy": "Adicionado {byUser}",
+  "mediaDetail.dialogHeader": "Mover {mediaType} para um projeto diferente",
+  "mediaDetail.dialogMediaPath": "Atualmente em {teamName} > {projectTitle}",
+  "mediaDetail.deleteForeverConfirmationText": "Você tem certeza? Isso irá apagar definitivamente este item e {notesCount, plural, =0 {0 anotações} one {1 anotação} other {# anotações}}. Digite \"confirma\" se deseja prosseguir.",
+  "mediaDetail.confirmationError": "Inválido",
+  "mediaDetail.typeHere": "Digite aqui"
 }

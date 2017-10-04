@@ -1,9 +1,13 @@
 import Relay from 'react-relay';
+import sourceFragment from './sourceFragment';
 
 const userFragment = Relay.QL`
   fragment on User {
     id,
+    dbid,
     name,
+    email,
+    permissions,
     provider,
     profile_image,
     current_team {
@@ -23,6 +27,7 @@ const userFragment = Relay.QL`
             name,
             avatar,
             slug,
+            private,
             members_count
           }
           id,
@@ -30,6 +35,9 @@ const userFragment = Relay.QL`
           role
         }
       }
+    },
+    source {
+      ${sourceFragment}
     }
   }
 `;

@@ -16,7 +16,7 @@ import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import CheckContext from '../../CheckContext';
 import { convertNumbers2English } from '../../helpers';
-import { alertRed, black38, black54, units, caption, FlexRow } from '../../styles/js/variables';
+import { alertRed, black38, black54, units, caption, FlexRow } from '../../styles/js/shared';
 import timezones from '../../timezones';
 
 const styles = {
@@ -72,9 +72,10 @@ class DatetimeRespondTask extends Component {
     const note = this.props.note || '';
     let timezone = 'GMT';
 
-    const response = this.props.response;
+    let response = this.props.response;
 
     if (response) {
+      response = convertNumbers2English(response);
       const values = response.match(/^(\d+-\d+-\d+) (\d+):(\d+) ([+-]?\d+) ([^ ]+)/);
       const hasTime = !/notime/.test(response);
       date = new Date(`${values[1]} 00:00`);

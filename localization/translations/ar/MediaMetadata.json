@@ -1,11 +1,20 @@
 {
   "mediaDetail.mediaTitle": "العنوان",
-  "mediaDetail.moveFailed": "عذراً، لم نستطع نقل هذا التقرير",
+  "mediaDetail.moveFailed": "عذراً ، لم نستطع نقل هذا التقرير",
+  "mediaDetail.trash": "سلة المهملات",
+  "mediaMetadata.movedToTrash": "تم الارسال إلى {trash}",
+  "mediaMetadata.movedBack": "تمت اﻹستعادة إلى مشروع {project}",
+  "mediaMetadata.deletedForever": "تم الحذف",
   "mediaDetail.byUser": "بواسطة {username}",
   "mediaDetail.cancelButton": "إلغاء",
   "mediaDetail.move": "نقل",
   "mediaDetail.doneButton": "تم",
-  "mediaDetail.added": "أضيف {byUser}",
+  "mediaDetail.cancel": "إلغاء",
+  "mediaDetail.deleteForever": "حذف نهائي",
+  "mediaDetail.addedBy": "أضيف {byUser}",
   "mediaDetail.dialogHeader": "انقل {mediaType} إلى مشروع آخر",
-  "mediaDetail.dialogMediaPath": "مضاف حالياً إلى {teamName} > {projectTitle}"
+  "mediaDetail.dialogMediaPath": "مضاف حالياً إلى {teamName} > {projectTitle}",
+  "mediaDetail.deleteForeverConfirmationText": "هل أنت متأكد؟ سوف يتم حذف نهائي {notesCount, plural, =0 {٠ تعليق} one {تعليق واحد} other {# تعليقات}}. أكتب \"confirm\" للمتابعة.",
+  "mediaDetail.confirmationError": "ليس مطابق",
+  "mediaDetail.typeHere": "أكتب هنا"
 }

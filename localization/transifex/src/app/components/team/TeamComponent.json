@@ -1,7 +1,6 @@
 {
   "teamComponent.editError": "Sorry, could not edit the team",
   "teamComponent.editSuccess": "Team information updated successfully!",
-  "teamComponent.changeAvatar": "You can't change this right now, but we're hard at work to enable it soon!",
   "teamComponent.teamName": "Team name",
   "teamComponent.teamDescription": "Team description",
   "teamComponent.location": "Location",

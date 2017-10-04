@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import config from 'config';
 import { bemClass } from '../../helpers';
 import PenderCard from '../PenderCard';
-import ContentColumn from '../layout/ContentColumn';
+import { ContentColumn } from '../../styles/js/shared';
 import CloseButton from '../CloseButton';
 
 class MediaInspector extends Component {

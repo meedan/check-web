@@ -2,6 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import { FormattedMessage, FormattedHTMLMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import MappedMessage from '../MappedMessage';
 import Relay from 'react-relay';
+import Tooltip from 'rc-tooltip';
+import 'rc-tooltip/assets/bootstrap_white.css';
 import MediaDetail from '../media/MediaDetail';
 import MediaUtil from '../media/MediaUtil';
 import DynamicAnnotation from '../annotations/DynamicAnnotation';
@@ -19,6 +21,7 @@ import MenuButton from '../MenuButton';
 import MdImage from 'react-icons/lib/md/image';
 import ParsedText from '../ParsedText';
 import DatetimeTaskResponse from '../task/DatetimeTaskResponse';
+import UserTooltip from '../user/UserTooltip';
 
 const messages = defineMessages({
   error: {
@@ -150,8 +153,7 @@ class Annotation extends Component {
     const annotated = this.props.annotated;
 
     let annotationActions = null;
-    // FIXME Hide actions for source annotations until delete is implemented #6282
-    if (annotation && typeof annotated.media !== 'undefined') {
+    if (annotation) {
       const permission = `destroy ${annotation.annotation_type.charAt(0).toUpperCase()}${annotation.annotation_type.slice(1)}`;
       annotationActions = can(annotation.permissions, permission) ? (
         <MenuButton>
@@ -166,10 +168,10 @@ class Annotation extends Component {
 
     const updatedAt = MediaUtil.createdAt({ published: activity.created_at });
     const timestamp = updatedAt ? <span className="annotation__timestamp"><TimeBefore date={updatedAt} /></span> : null;
-    const authorName = <ProfileLink user={activity.user} className={'annotation__author-name'} />;
+    const authorName = <Link to={`/check/user/${activity.user.dbid}`} className={'annotation__author-name'}>{activity.user.name}</Link>;
     const object = JSON.parse(activity.object_after);
     const content = object.data;
-    const activityType = activity.event_type;
+    let activityType = activity.event_type;
     let contentTemplate = null;
 
     switch (activityType) {
@@ -220,6 +222,18 @@ class Annotation extends Component {
         />
       </span>);
       break;
+    case 'destroy_comment':
+      contentTemplate = (<em>
+        <FormattedMessage
+          id="annotation.deletedComment"
+          defaultMessage={'Comment deleted by {author}: "{comment}"'}
+          values={{
+            author: authorName,
+            comment: content.text
+          }}
+        />
+      </em>);
+      break;
     case 'create_task':
       contentTemplate = (<span>
         <FormattedMessage
@@ -243,7 +257,7 @@ class Annotation extends Component {
             const coordinates = geojson.geometry.coordinates;
             const name = geojson.properties.name;
             if (coordinates[0] != 0 || coordinates[1] != 0) {
-              return (<a style={{ textDecoration: 'underline' }} href={`https://www.openstreetmap.org/#map=9/${coordinates[0]}/${coordinates[1]}`} target="_blank" rel="noreferrer noopener">{name}</a>);
+              return (<a style={{ textDecoration: 'underline' }} href={`http://www.openstreetmap.org/?mlat=${coordinates[0]}&mlon=${coordinates[1]}&zoom=12#map=12/${coordinates[0]}/${coordinates[1]}`} target="_blank" rel="noreferrer noopener">{name}</a>);
             }
 
             return name;
@@ -446,6 +460,25 @@ class Annotation extends Component {
           />
         </span>);
       }
+      else if (activity.object_changes_json == '{"archived":[false,true]}') {
+        activityType = 'move_to_trash';
+        contentTemplate = (<div>
+          <div className="annotation__card-content annotation__card-trash">
+            <FormattedMessage id="annotation.movedToTrash" defaultMessage="Moved to trash" />
+          </div>
+        </div>);
+      }
+      else if (activity.object_changes_json == '{"archived":[true,false]}') {
+        contentTemplate = (<span>
+          <FormattedMessage
+            id="annotation.movedFromTrash"
+            defaultMessage={'{author} moved this out of the trash'}
+            values={{
+              author: authorName
+            }}
+          />
+        </span>);
+      }
       break;
     case 'update_task':
       const changes = JSON.parse(activity.object_changes_json);
@@ -485,22 +518,24 @@ class Annotation extends Component {
       return null;
     }
 
-    const useCardTemplate = activityType === 'create_comment';
+    const useCardTemplate = (activityType === 'create_comment' || activityType === 'move_to_trash');
     const templateClass = `annotation--${useCardTemplate ? 'card' : 'default'}`;
     const typeClass = annotation ? `annotation--${annotation.annotation_type}` : '';
     return (
       <section className={`annotation ${templateClass} ${typeClass}`} id={`annotation-${activity.dbid}`}>
         {useCardTemplate ? (
           <Card className="annotation__card">
-            <CardText className="annotation__card-text">
+            <CardText className={`annotation__card-text annotation__card-activity-${activityType.replace(/_/g, '-')}`}>
               <div className="annotation__card-avatar-col">
-                <div className="annotation__card-avatar" style={{ backgroundImage: `url(${activity.user.profile_image})` }} />
+                <Tooltip placement="top" overlay={<UserTooltip user={activity.user}/>}>
+                  <div className="annotation__card-avatar" style={{ backgroundImage: `url(${activity.user.source.image})` }} />
+                </Tooltip>
               </div>
               <div className="annotation__card-main-col">
                 {contentTemplate}
                 <footer className="annotation__card-footer">
                   <span className="annotation__card-footer-text">
-                    <ProfileLink user={activity.user} className={'annotation__card-author'} /><span>{timestamp}</span>
+                    <Link to={`/check/user/${activity.user.dbid}`} className={'annotation__card-author'}>{activity.user.name}</Link><span>{timestamp}</span>
                   </span>
                   {annotationActions}
                 </footer>

@@ -9,8 +9,8 @@ import intersection from 'lodash.intersection';
 
 const messages = defineMessages({
   languages: {
-    id: "sourceLanguages.label",
-    defaultMessage: "Languages",
+    id: 'sourceLanguages.label',
+    defaultMessage: 'Languages',
   },
   addLanguageHelper: {
     id: 'sourceLanguages.addLanguageHelper',
@@ -29,12 +29,10 @@ class LanguageComponent extends React.Component {
     const projectLanguages = this.props.projectLanguages ? JSON.parse(this.props.projectLanguages) : null;
 
     return difference(projectLanguages ? intersection(Object.keys(supportedLanguages), projectLanguages) : Object.keys(supportedLanguages), usedLanguages)
-      .map(l => {
-        return { value: l, label: supportedLanguages[l] };
-      });
+      .map(l => ({ value: l, label: supportedLanguages[l] }));
   }
 
-  renderLanguages(){
+  renderLanguages() {
     const usedLanguages = this.props.usedLanguages
       .map(tr => ({ id: tr.node.id, content: JSON.parse(tr.node.content).find(it => it.field_name === 'language') }));
 
@@ -43,41 +41,42 @@ class LanguageComponent extends React.Component {
     return (
       <div className="source-tags__tags">
         {usedLanguages.map(language =>
-          <Chip key={language.id}
+          <Chip
+            key={language.id}
             className="source-tags__tag"
             onRequestDelete={this.props.onDelete ? () => {
               this.props.onDelete(language.id);
             } : null}
           >
             {supportedLanguages[language.content.value]}
-          </Chip>
+          </Chip>,
         )}
       </div>
     );
   }
 
-  renderLanguagesView(){
+  renderLanguagesView() {
     return this.renderLanguages();
   }
 
-  renderLanguagesEdit(){
+  renderLanguagesEdit() {
     const selectCallback = (value) => {
       this.props.onSelect(value);
 
       setTimeout(() => {
-        this.refs['autocomplete'].setState({ searchText: '' });
+        this.refs.autocomplete.setState({ searchText: '' });
       }, 500);
     };
 
-    return <div>
+    return (<div>
       <AutoComplete
         id="sourceLanguageInput"
         errorText={this.props.errorText}
         filter={AutoComplete.caseInsensitiveFilter}
         floatingLabelText={this.props.intl.formatMessage(messages.languages)}
         dataSource={this.getAvailableLanguages()}
-        dataSourceConfig={{ text: 'label' , value: 'value'}}
-        openOnFocus={true}
+        dataSourceConfig={{ text: 'label', value: 'value' }}
+        openOnFocus
         onNewRequest={selectCallback}
         ref={'autocomplete'}
         fullWidth
@@ -87,7 +86,7 @@ class LanguageComponent extends React.Component {
         {this.props.intl.formatMessage(messages.addLanguageHelper)}
       </div>
       {this.renderLanguages()}
-    </div>;
+    </div>);
   }
 
   render() {

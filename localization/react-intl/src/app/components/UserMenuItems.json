@@ -1,0 +1,10 @@
+[
+  {
+    "id": "headerActions.signOut",
+    "defaultMessage": "Sign Out"
+  },
+  {
+    "id": "headerActions.contactHuman",
+    "defaultMessage": "Contact a Human"
+  }
+]

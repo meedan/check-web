@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay';
+import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import TextField from 'material-ui/TextField';
@@ -16,11 +17,13 @@ import MappedMessage from '../MappedMessage';
 import UpdateTeamMutation from '../../relay/UpdateTeamMutation';
 import Message from '../Message';
 import CreateProject from '../project/CreateProject';
-import Can from '../Can';
+import Can, { can } from '../Can';
 import CheckContext from '../../CheckContext';
-import ContentColumn from '../layout/ContentColumn';
 import ParsedText from '../ParsedText';
+import UploadImage from '../UploadImage';
+import globalStrings from '../../globalStrings';
 import {
+  ContentColumn,
   highlightBlue,
   checkBlue,
   titleStyle,
@@ -32,7 +35,7 @@ import {
   title,
   subheading1,
   avatarStyle,
-} from '../../styles/js/variables';
+} from '../../styles/js/shared';
 
 const messages = defineMessages({
   editError: {
@@ -42,10 +45,6 @@ const messages = defineMessages({
   editSuccess: {
     id: 'teamComponent.editSuccess',
     defaultMessage: 'Team information updated successfully!',
-  },
-  changeAvatar: {
-    id: 'teamComponent.changeAvatar',
-    defaultMessage: "You can't change this right now, but we're hard at work to enable it soon!",
   },
   teamName: {
     id: 'teamComponent.teamName',
@@ -101,6 +100,7 @@ class TeamComponent extends Component {
     this.state = {
       message: null,
       isEditing: false,
+      editProfileImg: false,
       submitDisabled: false,
       values: {
         name: team.name,
@@ -137,15 +137,13 @@ class TeamComponent extends Component {
 
   cancelEditTeam(e) {
     e.preventDefault();
-    this.setState({ isEditing: false });
+    this.setState({ avatar: null, isEditing: false });
   }
 
-  editTeamInfo() {
-    const that = this;
-
+  handleEditTeam() {
     const onFailure = (transaction) => {
       const error = transaction.getError();
-      let message = that.props.intl.formatMessage(messages.editError);
+      let message = this.props.intl.formatMessage(messages.editError);
       try {
         const json = JSON.parse(error.source);
         if (json.error) {
@@ -154,20 +152,22 @@ class TeamComponent extends Component {
       } catch (e) {
         return '';
       }
-      return that.setState({ message, submitDisabled: false });
+      return this.setState({ message, avatar: null, submitDisabled: false });
     };
 
     const onSuccess = () => {
       this.setState({
-        message: that.props.intl.formatMessage(messages.editSuccess),
+        message: this.props.intl.formatMessage(messages.editSuccess),
+        avatar: null,
         isEditing: false,
         submitDisabled: false,
       });
     };
 
-    const values = that.state.values;
+    const values = this.state.values;
+    const form = document.forms['edit-team-form'];
 
-    if (!that.state.submitDisabled) {
+    if (!this.state.submitDisabled) {
       Relay.Store.commitUpdate(
         new UpdateTeamMutation({
           name: values.name,
@@ -180,20 +180,21 @@ class TeamComponent extends Component {
             phone: values.contact_phone,
             web: values.contact_web,
           }),
-          id: that.props.team.id,
+          id: this.props.team.id,
+          avatar: form.avatar,
         }),
         { onSuccess, onFailure },
       );
-      that.setState({ submitDisabled: true });
+      this.setState({ submitDisabled: true });
     }
   }
 
-  handleEditTeam() {
-    this.editTeamInfo();
-  }
+  handleEditProfileImg = () => {
+    this.setState({ editProfileImg: true });
+  };
 
   handleEnterEditMode(e) {
-    this.setState({ isEditing: true });
+    this.setState({ isEditing: true, editProfileImg: false });
     e.preventDefault();
   }
 
@@ -207,6 +208,22 @@ class TeamComponent extends Component {
 
     values[key] = value;
     this.setState({ values });
+  }
+
+  onImage(file) {
+    document.forms['edit-team-form'].avatar = file;
+    this.setState({ message: null, avatar: file });
+  }
+
+  onClear = () => {
+    if (document.forms['edit-team-form']) {
+      document.forms['edit-team-form'].avatar = null;
+    }
+    this.setState({ message: null, avatar: null });
+  };
+
+  onImageError(file, message) {
+    this.setState({ message, avatar: null });
   }
 
   render() {
@@ -282,11 +299,13 @@ class TeamComponent extends Component {
       }
     }
 
+    const avatarPreview = this.state.avatar && this.state.avatar.preview;
+
     return (
       <PageTitle prefix={false} skipTeam={false} team={team}>
         <div className="team">
           <HeaderCard
-            teamPermissions={team.permissions}
+            canEdit={can(team.permissions, 'update Team')}
             direction={direction}
             handleEnterEditMode={this.handleEnterEditMode.bind(this)}
             isEditing={isEditing}
@@ -296,114 +315,141 @@ class TeamComponent extends Component {
               {(() => {
                 if (isEditing) {
                   return (
-                    <div>
-                      <CardText>
-                        <TextField
-                          className="team__name-input"
-                          id="team__name-container"
-                          defaultValue={team.name}
-                          floatingLabelText={this.props.intl.formatMessage(messages.teamName)}
-                          onChange={this.handleChange.bind(this, 'name')}
-                          fullWidth
+                    <form
+                      onSubmit={this.handleEditTeam.bind(this)}
+                      name="edit-team-form"
+                    >
+                      <div>
+                        <TeamAvatar
+                          style={{ backgroundImage: `url(${avatarPreview || team.avatar})` }}
                         />
-
-                        <TextField
-                          className="team__description"
-                          id="team__description-container"
-                          defaultValue={team.description}
-                          floatingLabelText={this.props.intl.formatMessage(
-                            messages.teamDescription,
-                          )}
-                          onChange={this.handleChange.bind(this, 'description')}
-                          fullWidth
-                          multiLine
-                          rows={1}
-                          rowsMax={4}
-                        />
-
-                        <TextField
-                          className="team__location"
-                          id="team__location-container"
-                          defaultValue={contact ? contact.node.location : ''}
-                          floatingLabelText={this.props.intl.formatMessage(messages.location)}
-                          onChange={this.handleChange.bind(this, 'contact_location')}
-                          fullWidth
-                        />
-
-                        <TextField
-                          className="team__phone"
-                          id="team__phone-container"
-                          defaultValue={contact ? contact.node.phone : ''}
-                          floatingLabelText={this.props.intl.formatMessage(messages.phone)}
-                          onChange={this.handleChange.bind(this, 'contact_phone')}
-                          fullWidth
-                        />
-
-                        <TextField
-                          className="team__location-name-input"
-                          id="team__link-container"
-                          defaultValue={contact ? contact.node.web : ''}
-                          floatingLabelText={this.props.intl.formatMessage(messages.website)}
-                          onChange={this.handleChange.bind(this, 'contact_web')}
-                          fullWidth
-                        />
-
-                        <Checkbox
-                          style={{ marginTop: units(6) }}
-                          label={
-                            <FormattedMessage
-                              id="teamComponent.slackNotificationsEnabled"
-                              defaultMessage="Enable Slack notifications"
+                        {!this.state.editProfileImg ? (
+                          <div className="team__edit-avatar-button">
+                            <FlatButton
+                              label={this.props.intl.formatMessage(globalStrings.edit)}
+                              onClick={this.handleEditProfileImg.bind(this)}
+                              primary
                             />
-                          }
-                          defaultChecked={team.get_slack_notifications_enabled === '1'}
-                          onCheck={this.handleChange.bind(this, 'slackNotificationsEnabled')}
-                          id="team__settings-slack-notifications-enabled"
-                          value="1"
-                        />
+                          </div>
+                        ) : null}
+                        {this.state.editProfileImg ? (
+                          <UploadImage
+                            onImage={this.onImage.bind(this)}
+                            onClear={this.onClear}
+                            onError={this.onImageError.bind(this)}
+                            noPreview
+                          />
+                        ) : null}
 
-                        <TextField
-                          id="team__settings-slack-webhook"
-                          defaultValue={team.get_slack_webhook}
-                          floatingLabelText={this.props.intl.formatMessage(messages.slackWebhook)}
-                          onChange={this.handleChange.bind(this, 'slackWebhook')}
-                          fullWidth
-                        />
+                        <CardText>
+                          <TextField
+                            className="team__name-input"
+                            id="team__name-container"
+                            defaultValue={team.name}
+                            floatingLabelText={this.props.intl.formatMessage(messages.teamName)}
+                            onChange={this.handleChange.bind(this, 'name')}
+                            fullWidth
+                          />
 
-                        <TextField
-                          id="team__settings-slack-channel"
-                          defaultValue={team.get_slack_channel}
-                          floatingLabelText={this.props.intl.formatMessage(messages.slackChannel)}
-                          onChange={this.handleChange.bind(this, 'slackChannel')}
-                          fullWidth
-                        />
-                      </CardText>
+                          <TextField
+                            className="team__description"
+                            id="team__description-container"
+                            defaultValue={team.description}
+                            floatingLabelText={this.props.intl.formatMessage(
+                              messages.teamDescription,
+                            )}
+                            onChange={this.handleChange.bind(this, 'description')}
+                            fullWidth
+                            multiLine
+                            rows={1}
+                            rowsMax={4}
+                          />
 
-                      <CardActions style={{ marginTop: units(4) }}>
-                        <FlatButton
-                          label={
-                            <FormattedMessage
-                              id="teamComponent.cancelButton"
-                              defaultMessage="Cancel"
+                          <TextField
+                            className="team__location"
+                            id="team__location-container"
+                            defaultValue={contact ? contact.node.location : ''}
+                            floatingLabelText={this.props.intl.formatMessage(messages.location)}
+                            onChange={this.handleChange.bind(this, 'contact_location')}
+                            fullWidth
+                          />
+
+                          <TextField
+                            className="team__phone"
+                            id="team__phone-container"
+                            defaultValue={contact ? contact.node.phone : ''}
+                            floatingLabelText={this.props.intl.formatMessage(messages.phone)}
+                            onChange={this.handleChange.bind(this, 'contact_phone')}
+                            fullWidth
+                          />
+
+                          <TextField
+                            className="team__location-name-input"
+                            id="team__link-container"
+                            defaultValue={contact ? contact.node.web : ''}
+                            floatingLabelText={this.props.intl.formatMessage(messages.website)}
+                            onChange={this.handleChange.bind(this, 'contact_web')}
+                            fullWidth
+                          />
+
+                          { team.limits.slack_integration === false ? null : <div>
+                            <Checkbox
+                              style={{ marginTop: units(6) }}
+                              label={
+                                <FormattedMessage
+                                  id="teamComponent.slackNotificationsEnabled"
+                                  defaultMessage="Enable Slack notifications"
+                                />
+                            }
+                              defaultChecked={team.get_slack_notifications_enabled === '1'}
+                              onCheck={this.handleChange.bind(this, 'slackNotificationsEnabled')}
+                              id="team__settings-slack-notifications-enabled"
+                              value="1"
                             />
-                          }
-                          onClick={this.cancelEditTeam.bind(this)}
-                        />
 
-                        <FlatButton
-                          className="team__save-button"
-                          label={
-                            <FormattedMessage
-                              id="teamComponent.saveButton"
-                              defaultMessage="Save"
-                              disabled={this.state.submitDisabled}
+                            <TextField
+                              id="team__settings-slack-webhook"
+                              defaultValue={team.get_slack_webhook}
+                              floatingLabelText={this.props.intl.formatMessage(messages.slackWebhook)}
+                              onChange={this.handleChange.bind(this, 'slackWebhook')}
+                              fullWidth
                             />
-                          }
-                          primary
-                          onClick={this.handleEditTeam.bind(this)}
-                        />
-                      </CardActions>
-                    </div>
+
+                            <TextField
+                              id="team__settings-slack-channel"
+                              defaultValue={team.get_slack_channel}
+                              floatingLabelText={this.props.intl.formatMessage(messages.slackChannel)}
+                              onChange={this.handleChange.bind(this, 'slackChannel')}
+                              fullWidth
+                            /></div> }
+                        </CardText>
+
+                        <CardActions style={{ marginTop: units(4) }}>
+                          <FlatButton
+                            label={
+                              <FormattedMessage
+                                id="teamComponent.cancelButton"
+                                defaultMessage="Cancel"
+                              />
+                            }
+                            onClick={this.cancelEditTeam.bind(this)}
+                          />
+
+                          <FlatButton
+                            className="team__save-button"
+                            label={
+                              <FormattedMessage
+                                id="teamComponent.saveButton"
+                                defaultMessage="Save"
+                                disabled={this.state.submitDisabled}
+                              />
+                            }
+                            primary
+                            onClick={this.handleEditTeam.bind(this)}
+                          />
+                        </CardActions>
+                      </div>
+                    </form>
                   );
                 }
 
@@ -411,7 +457,6 @@ class TeamComponent extends Component {
                   <section style={{ display: 'flex' }}>
                     <TeamAvatar
                       style={{ backgroundImage: `url(${team.avatar})` }}
-                      title={this.props.intl.formatMessage(messages.changeAvatar)}
                     />
                     <div style={{ flex: 3 }}>
                       <div className="team__primary-info">
@@ -447,17 +492,17 @@ class TeamComponent extends Component {
                       {team.projects.edges
                         .sortp((a, b) => a.node.title.localeCompare(b.node.title))
                         .map(p =>
-                          <ListItem
-                            innerDivStyle={listItemStyle}
-                            key={p.node.dbid}
-                            className="team__project"
-                            hoverColor={highlightBlue}
-                            focusRippleColor={checkBlue}
-                            touchRippleColor={checkBlue}
-                            href={`/${team.slug}/project/${p.node.dbid}`}
-                            primaryText={p.node.title}
-                            rightIcon={<KeyboardArrowRight />}
-                          />,
+                          <Link key={p.node.dbid} to={`/${team.slug}/project/${p.node.dbid}`}>
+                            <ListItem
+                              innerDivStyle={listItemStyle}
+                              className="team__project"
+                              hoverColor={highlightBlue}
+                              focusRippleColor={checkBlue}
+                              touchRippleColor={checkBlue}
+                              primaryText={p.node.title}
+                              rightIcon={<KeyboardArrowRight />}
+                            />
+                          </Link>,
                         )}
                     </List>
                     <Can permissions={team.permissions} permission="create Project">

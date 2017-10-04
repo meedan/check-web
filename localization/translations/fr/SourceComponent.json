@@ -1,6 +1,6 @@
 {
   "sourceComponent.addInfo": "Ajouter des renseignements",
-  "sourceComponent.editError": "Désolé, ce n'était pas possible d'éditer la source",
+  "sourceComponent.editError": "Désolé, il n'a pas été possible d'éditer la source",
   "sourceComponent.createTagError": "La création du tag a échoué",
   "sourceComponent.selectLanguageError": "Sélectionnez un langage parmi la liste.",
   "sourceComponent.editSuccess": "L'information de la source a été mise à jour avec succès!",

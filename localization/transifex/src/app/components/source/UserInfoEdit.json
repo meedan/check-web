@@ -1,0 +1,10 @@
+{
+  "userInfoEdit.sourceName": "Name",
+  "userInfoEdit.sourceBio": "Bio",
+  "userInfoEdit.userEmail": "Email",
+  "userInfoEdit.addLink": "Add Link",
+  "userInfoEdit.editError": "Sorry, could not edit the source",
+  "userInfoEdit.addLinkLabel": "Add a link",
+  "userInfoEdit.addLinkHelper": "Add a link to a web page or social media profile. Note: this does not affect your login method.",
+  "userInfoEdit.invalidLink": "Please enter a valid URL"
+}

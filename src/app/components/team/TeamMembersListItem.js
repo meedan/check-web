@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import Relay from 'react-relay';
+import { Link } from 'react-router';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import { ListItem } from 'material-ui/List';
@@ -9,7 +10,9 @@ import MdClear from 'react-icons/lib/md/clear';
 import IconButton from 'material-ui/IconButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import UpdateTeamUserMutation from '../../relay/UpdateTeamUserMutation';
-import { profileLink } from './TeamUtil';
+import Tooltip from 'rc-tooltip';
+import 'rc-tooltip/assets/bootstrap_white.css';
+import UserTooltip from '../user/UserTooltip';
 import {
   selectStyle,
   checkBlue,
@@ -17,7 +20,7 @@ import {
   Text,
   buttonInButtonGroupStyle,
   units,
-} from '../../styles/js/variables';
+} from '../../styles/js/shared';
 
 const messages = defineMessages({
   contributor: {
@@ -87,19 +90,21 @@ class TeamMembersListItem extends Component {
       >
         <FlexRow>
           <FlexRow>
-            <a href={profileLink(teamUser.node.user)}>
+            <Link to={`/check/user/${teamUser.node.user.dbid}`} className="team-members__profile-link">
               <FlexRow>
-                <Avatar
-                  className="avatar"
-                  src={teamUser.node.user.profile_image}
-                  alt={teamUser.node.user.name}
-                  style={{ marginRight: units(2) }}
-                />
+                <Tooltip placement="top" overlay={<UserTooltip user={teamUser.node.user}/>}>
+                  <Avatar
+                    className="avatar"
+                    src={teamUser.node.user.source.image}
+                    alt={teamUser.node.user.name}
+                    style={{ marginRight: units(2) }}
+                  />
+                </Tooltip>
                 <Text ellipsis>
                   {teamUser.node.user.name}
                 </Text>
               </FlexRow>
-            </a>
+            </Link>
           </FlexRow>
 
           {(() => {

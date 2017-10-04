@@ -1,3 +1,5 @@
 {
-  "teamMenuRelay.manageTeam": "Manage team"
+  "teamMenuRelay.viewTeam": "View team",
+  "teamMenuRelay.manageTeam": "Manage team",
+  "teamMenuRelay.trash": "Trash"
 }
