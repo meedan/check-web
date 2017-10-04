@@ -29,7 +29,7 @@ class ProjectPage < Page
     fill_input('input[type=file]', file, { hidden: true })
     sleep 3
     @driver.find_element(:css, '#create-media-submit').click
-    wait_for_element('.image-media-card')
+    wait_for_selector('.image-media-card')
     MediaPage.new(config: @config, driver: @driver)
   end
 

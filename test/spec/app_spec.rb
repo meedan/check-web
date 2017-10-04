@@ -180,7 +180,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       # Facebook
       media_pg = api_create_team_project_and_link_and_redirect_to_media_page('https://www.facebook.com/FirstDraftNews/posts/1808121032783161')
       media_pg.toggle_card # Collapse card to show the title
-      wait_for_element('.media__heading')
+      wait_for_selector('.media__heading')
       expect(media_pg.primary_heading.text).to eq('First Draft on Facebook')
       project_pg = media_pg.go_to_project
       sleep 1
@@ -625,7 +625,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Acoli')).to be(false)
     end
 
-    it "should not add a duplicated tag from command line", bin3: true do
+    it "should not add a duplicated tag from command line", bin4: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
 
       new_tag = Time.now.to_i.to_s
@@ -685,7 +685,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     #   expect(page.contains_string?("Tagged \##{new_tag}")).to be(true)
     # end
 
-    it "should tag media as a command", bin3: true do
+    it "should tag media as a command", bin4: true do
       page = api_create_team_project_and_claim_and_redirect_to_media_page
 
       expect(page.has_tag?('command')).to be(false)
@@ -705,7 +705,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(page.contains_string?('Tagged #command')).to be(true)
     end
 
-    it "should comment media as a command", bin3: true, quick:true do
+    it "should comment media as a command", bin4: true, quick:true do
       api_create_team_project_and_claim_and_redirect_to_media_page
 
       # First, verify that there isn't any comment
@@ -725,7 +725,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('This is my comment')).to be(true)
     end
 
-    it "should flag media as a command", bin3: true do
+    it "should flag media as a command", bin4: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
 
       expect(media_pg.contains_string?('Flag')).to be(false)
@@ -1055,7 +1055,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should search for reverse images", bin2: true do
       page = api_create_team_project_and_link_and_redirect_to_media_page 'https://www.instagram.com/p/BRYob0dA1SC/'
-      sleep 3
+      wait_for_selector('.annotation__reverse-image')
       expect(@driver.page_source.include?('This item contains at least one image. Click Search to look for potential duplicates on Google.')).to be(true)
       expect((@driver.current_url.to_s =~ /google/).nil?).to be(true)
       current_window = @driver.window_handles.last
