@@ -183,7 +183,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector('.media__heading')
       expect(media_pg.primary_heading.text).to eq('First Draft on Facebook')
       project_pg = media_pg.go_to_project
-      sleep 1
+      wait_for_selector('.media__heading')
       expect(project_pg.elements('.media__heading').map(&:text).include?('First Draft on Facebook')).to be(true)
     end
 
@@ -874,7 +874,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(notes_count.text == '2 notes').to be(true)
       expect(@driver.page_source.include?('Comment deleted')).to be(false)
       media_pg.delete_annotation
-      sleep 3
+      wait_for_selector('.annotation__deleted')
       expect(notes_count.text == '2 notes').to be(true)
       expect(@driver.page_source.include?('Comment deleted')).to be(true)
     end
@@ -960,7 +960,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       # Add a comment as a command
       fill_field('#cmd-input', 'This is my comment with image')
       @driver.find_element(:css, '.add-annotation__insert-photo').click
-      sleep 1
+      wait_for_selector('input[type=file]')
       input = @driver.find_element(:css, 'input[type=file]')
       input.send_keys(File.join(File.dirname(__FILE__), 'test.png'))
       sleep 3
@@ -993,7 +993,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should add, edit, answer, update answer and delete short answer task", bin3: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
-      sleep 3
+      wait_for_selector('.create-task__add-button')
 
       # Create a task
       expect(@driver.page_source.include?('Foo or bar?')).to be(false)
@@ -1223,7 +1223,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should add, edit, answer, update answer and delete geolocation task", bin3: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
-      sleep 3
+      wait_for_selector('.create-task__add-button')
 
       # Create a task
       expect(@driver.page_source.include?('Where?')).to be(false)
@@ -1243,7 +1243,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       fill_field('textarea[name="response"]', 'Salvador')
       fill_field('textarea[name="coordinates"]', '-12.9015866, -38.560239')
       @driver.action.send_keys(:enter).perform
-      sleep 2
+      wait_for_selector('.annotation--task_response_geolocation')
       expect(@driver.page_source.include?('Task "Where?" answered by')).to be(true)
 
       # Edit task
@@ -1272,6 +1272,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should add, edit, answer, update answer and delete datetime task", bin3: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
+      wait_for_selector('.create-task__add-button')
 
       # Create a task
       expect(@driver.page_source.include?('When?')).to be(false)

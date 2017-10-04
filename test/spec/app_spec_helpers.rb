@@ -108,7 +108,7 @@ module AppSpecHelpers
   end
 
   def slack_auth
-    wait_for_element("//button[@id='slack-login']", :xpath).click
+    wait_for_selector("//button[@id='slack-login']", :xpath).click
     sleep 5
     window = @driver.window_handles.last
     @driver.switch_to.window(window)

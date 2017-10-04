@@ -223,7 +223,7 @@ class Annotation extends Component {
       </span>);
       break;
     case 'destroy_comment':
-      contentTemplate = (<em>
+      contentTemplate = (<em className="annotation__deleted">
         <FormattedMessage
           id="annotation.deletedComment"
           defaultMessage={'Comment deleted by {author}: "{comment}"'}
