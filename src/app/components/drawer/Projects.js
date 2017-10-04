@@ -19,13 +19,6 @@ const SubHeading = styled.div`
   padding: ${units(2)} ${units(2)} ${units(1)} ${units(2)};
 `;
 
-const styles = {
-  drawerProjects: {
-    overflow: 'auto',
-    marginBottom: 'auto',
-  },
-};
-
 class ProjectsComponent extends Component {
   render() {
     return (
@@ -36,7 +29,7 @@ class ProjectsComponent extends Component {
             defaultMessage="Projects"
           />
         </SubHeading>
-        <div style={styles.drawerProjects}>
+        <div>
           {this.props.team.projects.edges
             .sortp((a, b) => a.node.title.localeCompare(b.node.title))
             .map((p) => {

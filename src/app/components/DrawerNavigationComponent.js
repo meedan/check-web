@@ -6,7 +6,7 @@ import MenuItem from 'material-ui/MenuItem';
 import { FormattedMessage } from 'react-intl';
 import IconButton from 'material-ui/IconButton';
 import styled from 'styled-components';
-import Projects from './drawer/Projects'
+import Projects from './drawer/Projects';
 import { stringHelper } from '../customHelpers';
 import UserMenuItems from './UserMenuItems';
 import UserAvatarRelay from '../relay/UserAvatarRelay';
@@ -47,6 +47,7 @@ class DrawerNavigation extends Component {
         justifyContent: 'space-between',
         backgroundColor: white,
         padding: `${units(2)}`,
+        flexWrap: 'wrap',
       },
       drawerFooterLink: {
         font: caption,
@@ -204,11 +205,13 @@ class DrawerNavigation extends Component {
           <Divider />
 
           <div style={styles.drawerProjectsAndFooter}>
-            { (inTeamContext && (currentUserIsMember || !this.props.team.private )) ? <Projects team={this.props.team.slug} /> : null }
+            <div style={styles.drawerProjects}>
+              { (inTeamContext && (currentUserIsMember || !this.props.team.private)) ? <Projects team={this.props.team.slug} /> : null }
+            </div>
 
             { loggedIn
-              ? (<div><UserMenuItems hideContactMenuItem {...this.props} /></div>)
-              : null }
+                ? (<div><UserMenuItems hideContactMenuItem {...this.props} /></div>)
+                : null }
 
             {productGuidesMenuItem}
 
