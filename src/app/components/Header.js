@@ -41,7 +41,7 @@ const HeaderBar = styled.div`
 class Header extends Component {
   render() {
     const locale = this.props.intl.locale;
-    const { inTeamContext, loggedIn, drawerToggle, currentUserIsMember, teamIsPublic } = this.props;
+    const { inTeamContext, loggedIn, drawerToggle, currentUserIsMember } = this.props;
     const isRtl = rtlDetect.isRtlLang(locale);
     const fromDirection = isRtl ? 'right' : 'left';
     const path = this.props.location
@@ -50,6 +50,9 @@ class Header extends Component {
     const AlignOpposite = styled.div`
       margin-${fromDirection}: auto;
       `;
+
+      console.log('this.props');
+      console.log(this.props);
 
     const searchButton = (
       <IconButton
@@ -85,8 +88,7 @@ class Header extends Component {
     })();
 
     const primary = (() => {
-      // TODO review this conditional with @alex
-      if (inTeamContext && (currentUserIsMember || teamIsPublic)) {
+      if (inTeamContext && (currentUserIsMember || !this.props.team.private)) {
         return (
           <Row containsEllipsis>
             <div><TeamHeader {...this.props} /></div>
@@ -94,8 +96,7 @@ class Header extends Component {
           </Row>
         );
 
-      // TODO review this conditional with @alex
-      } else if (inTeamContext && (!currentUserIsMember || !teamIsPublic)) {
+      } else if (inTeamContext && !currentUserIsMember && this.props.team.private) {
         return (
           <Row containsEllipsis>
             <TeamPublicHeader {...this.props} />
