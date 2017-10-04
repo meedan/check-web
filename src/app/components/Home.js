@@ -71,6 +71,11 @@ class Home extends Component {
     context.startNetwork(this.state.token);
   }
 
+  getContext() {
+    const context = new CheckContext(this).getContextStore();
+    return context;
+  }
+
   handleDrawerToggle = () => this.setState({ open: !this.state.open });
 
   loginCallback() {
@@ -127,14 +132,23 @@ class Home extends Component {
       return null;
     }
 
-    const drawer = (<DrawerNavigation
-      docked={false}
-      open={this.state.open}
-      drawerToggle={this.handleDrawerToggle.bind(this)}
-      onRequestChange={open => this.setState({ open })}
-      loggedIn={this.state.token}
-      {...this.props}
-    />);
+    // @chris with @alex 2017-10-3
+    //
+    // TODO: Fix currentUserIsMember function.
+    // context.currentUser.teams keys are actually the team names, not slugs
+    
+    const inTeamContext = !!this.props.params.team;
+    const loggedIn = !!this.state.token;
+
+    const currentUserIsMember = (() => {
+      if (inTeamContext && loggedIn) {
+        const context = this.getContext();
+        const teams = JSON.parse(context.currentUser.teams);
+        const team = teams[this.props.params.team] || {};
+        return (team.status === 'member');
+      }
+      return false;
+    })();
 
     return (
       <MuiThemeProvider muiTheme={muiThemeWithRtl}>
@@ -149,15 +163,26 @@ class Home extends Component {
             </ContentColumn>
             <Header
               drawerToggle={this.handleDrawerToggle.bind(this)}
+              loggedIn={loggedIn}
+              inTeamContext={inTeamContext}
+              currentUserIsMember={currentUserIsMember}
               {...this.props}
-              loggedIn={this.state.token}
             />
             <Message message={this.state.message} onClick={this.resetMessage.bind(this)} className="home__message" />
             <div className="home__content">
               {children}
             </div>
           </div>
-          { this.state.token && this.props.params.team ? drawer : null }
+          <DrawerNavigation
+            docked={false}
+            open={this.state.open}
+            drawerToggle={this.handleDrawerToggle.bind(this)}
+            onRequestChange={open => this.setState({ open })}
+            loggedIn={loggedIn}
+            inTeamContext={inTeamContext}
+            currentUserIsMember={currentUserIsMember}
+            {...this.props}
+          />
         </span>
       </MuiThemeProvider>
     );

@@ -5,7 +5,7 @@ import { FormattedMessage, defineMessages, intlShape, injectIntl } from 'react-i
 import KeyboardArrowRight from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 import config from 'config';
 import { Link } from 'react-router';
-import { Card, CardActions, CardHeader } from 'material-ui/Card';
+import { Card, CardActions, CardText, CardHeader } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import { List, ListItem } from 'material-ui/List';
 import Avatar from 'material-ui/Avatar';
@@ -201,7 +201,7 @@ class SwitchTeamsComponent extends Component {
                 secondaryText={that.requestedToJoinString()}
               />,
             )}
-          </List> : <FormattedMessage id="switchTeams.noTeams" defaultMessage="You are not a member of any teams yet." />
+          </List> : <CardText><FormattedMessage id="switchTeams.noTeams" defaultMessage="You are not a member of any teams yet." /></CardText>
         }
 
         { isUserSelf ?

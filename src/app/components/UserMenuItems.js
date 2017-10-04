@@ -26,15 +26,6 @@ class UserMenuItems extends Component {
       <TeamMenuRelay key="headerActions.teamMenu" {...this.props} />
     );
 
-    const logInMenuItem = (
-      <MenuItem
-        key="headerActions.logIn"
-        className="header-actions__menu-item--login"
-        containerElement={<Link to="/" />}
-        primaryText={<FormattedMessage id="headerActions.signIn" defaultMessage="Sign In" />}
-      />
-    );
-
     const logOutMenuItem = (
       <MenuItem
         key="headerActions.logOut"
@@ -63,7 +54,7 @@ class UserMenuItems extends Component {
       <div>
         { !joinPage && editProjectMenuItem }
         { !joinPage && manageTeamMenuItem }
-        { loggedIn ? logOutMenuItem : logInMenuItem }
+        { loggedIn && logOutMenuItem }
         {this.props.hideContactMenuItem ? null : contactMenuItem}
       </div>
     );

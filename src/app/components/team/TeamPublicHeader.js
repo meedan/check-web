@@ -1,20 +1,12 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import Relay from 'react-relay';
-import { Link } from 'react-router';
 import PublicTeamRoute from '../../relay/PublicTeamRoute';
-import MdArrowDropDown from 'react-icons/lib/md/arrow-drop-down';
+import teamPublicFragment from '../../relay/teamPublicFragment';
 import TeamHeaderComponent from './TeamHeaderComponent';
 
 const TeamPublicHeaderContainer = Relay.createContainer(TeamHeaderComponent, {
   fragments: {
-    team: () => Relay.QL`
-      fragment on PublicTeam {
-        name,
-        avatar,
-        dbid,
-        slug
-      }
-    `,
+    team: () => teamPublicFragment,
   },
 });
 
@@ -26,6 +18,7 @@ class TeamPublicHeader extends Component {
       <Relay.RootContainer
         Component={TeamPublicHeaderContainer}
         route={route}
+        renderFetched={data => <TeamPublicHeaderContainer {...this.props} {...data} />}
       />
     );
   }
