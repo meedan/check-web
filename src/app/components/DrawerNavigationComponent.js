@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
-import MenuItem from 'material-ui/MenuItem';
 import { Link } from 'react-router';
 import Divider from 'material-ui/Divider';
 import Drawer from 'material-ui/Drawer';
+import MenuItem from 'material-ui/MenuItem';
 import { FormattedMessage } from 'react-intl';
 import IconButton from 'material-ui/IconButton';
 import styled from 'styled-components';
+import Projects from './drawer/Projects';
 import { stringHelper } from '../customHelpers';
 import UserMenuItems from './UserMenuItems';
 import UserAvatarRelay from '../relay/UserAvatarRelay';
 import {
-  Text,
   Row,
   Offset,
   HeaderTitle,
@@ -27,7 +27,17 @@ import {
 class DrawerNavigation extends Component {
 
   render() {
-    const { team, loggedIn } = this.props;
+    const { inTeamContext, loggedIn, drawerToggle } = this.props;
+
+    // This component now renders based on teamPublicFragment
+    // and decides whether to include <Project> which has its own team route/relay
+    //
+    // See DrawerNavigation
+    //
+    // — @chris with @alex 2017-10-3
+
+    const currentUserIsMember = this.props.currentUserIsMember;
+
     const drawerHeaderHeight = units(14);
 
     const styles = {
@@ -37,6 +47,7 @@ class DrawerNavigation extends Component {
         justifyContent: 'space-between',
         backgroundColor: white,
         padding: `${units(2)}`,
+        flexWrap: 'wrap',
       },
       drawerFooterLink: {
         font: caption,
@@ -70,7 +81,6 @@ class DrawerNavigation extends Component {
     // Team Avatar
     const TeamAvatar = styled.div`
       ${avatarStyle}
-      background-image: url(${team.avatar});
       width: ${props => props.size ? props.size : avatarSize};
       height: ${props => props.size ? props.size : avatarSize};
     `;
@@ -80,12 +90,6 @@ class DrawerNavigation extends Component {
       font-weight: 700;
       padding-top: ${units(1)};
       color: ${black54};
-    `;
-
-    const SubHeading = styled.div`
-      font: ${caption};
-      color: ${black54};
-      padding: ${units(2)} ${units(2)} ${units(1)} ${units(2)};
     `;
 
     const TosMenuItem = (
@@ -175,53 +179,42 @@ class DrawerNavigation extends Component {
       </Link>
     );
 
-    const projectList = this.props.team.projects.edges
-      .sortp((a, b) => a.node.title.localeCompare(b.node.title))
-      .map((p) => {
-        const projectPath = `/${this.props.team.slug}/project/${p.node.dbid}`;
-
-        return (
-          <Link to={projectPath} key={p.node.dbid}>
-            <MenuItem primaryText={<Text ellipsis>{p.node.title}</Text>} />
-          </Link>
-        );
-      });
-
     return (
       <Drawer {...this.props}>
-        <div onClick={this.props.drawerToggle}>
-          <DrawerHeader>
-            <Row style={{ alignItems: 'flex-start', justifyContent: 'space-between' }}>
-              <TeamAvatar size={units(7)} />
-              <Offset>
-                { loggedIn && yourProfileButton }
-              </Offset>
-            </Row>
+        <div onClick={drawerToggle}>
 
-            <Link
-              className="team-header__drawer-team-link"
-              to={`/${this.props.team.slug}/`}
-            >
-              <Headline>{team.name}</Headline>
-            </Link>
-          </DrawerHeader>
+          { inTeamContext ?
+            (<DrawerHeader>
+              <Row style={{ alignItems: 'flex-start', justifyContent: 'space-between' }}>
+                <TeamAvatar style={{ backgroundImage: `url(${this.props.team.avatar})` }}size={units(7)} />
+                <Offset>
+                  { loggedIn && yourProfileButton }
+                </Offset>
+              </Row>
+
+              <Link
+                className="team-header__drawer-team-link"
+                to={`/${this.props.team.slug}/`}
+              >
+                <Headline>{this.props.team.name}</Headline>
+              </Link>
+            </DrawerHeader>)
+            : null
+          }
 
           <Divider />
+
           <div style={styles.drawerProjectsAndFooter}>
             <div style={styles.drawerProjects}>
-              <SubHeading>
-                <FormattedMessage
-                  id="drawerNavigation.projectsSubheading"
-                  defaultMessage="Projects"
-                />
-              </SubHeading>
-              {projectList}
+              { (inTeamContext && (currentUserIsMember || !this.props.team.private)) ? <Projects team={this.props.team.slug} /> : null }
             </div>
 
-            <div>
-              <UserMenuItems hideContactMenuItem {...this.props} />
-            </div>
+            { loggedIn
+                ? (<div><UserMenuItems hideContactMenuItem {...this.props} /></div>)
+                : null }
+
             {productGuidesMenuItem}
+
             <div style={styles.drawerFooter}>
               {TosMenuItem}
               {privacyMenuItem}
