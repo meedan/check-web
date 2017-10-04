@@ -95,7 +95,7 @@ class TeamMembersListItem extends Component {
                 <Tooltip placement="top" overlay={<UserTooltip user={teamUser.node.user}/>}>
                   <Avatar
                     className="avatar"
-                    src={teamUser.node.user.profile_image}
+                    src={teamUser.node.user.source.image}
                     alt={teamUser.node.user.name}
                     style={{ marginRight: units(2) }}
                   />
