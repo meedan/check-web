@@ -101,8 +101,14 @@ module AppSpecHelpers
     sleep 3
   end
 
+  def wait_for_element(selector, type = :css, timeout = 30)
+    @wait = Selenium::WebDriver::Wait.new(timeout: timeout)
+    element = @wait.until { @driver.find_element(type, selector) }
+    element
+  end
+
   def slack_auth
-    @driver.find_element(:xpath, "//button[@id='slack-login']").click
+    wait_for_element("//button[@id='slack-login']", :xpath).click
     sleep 5
     window = @driver.window_handles.last
     @driver.switch_to.window(window)

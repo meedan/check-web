@@ -9,7 +9,6 @@ class Page
     @wait = Selenium::WebDriver::Wait.new(timeout: 10)
   end
 
-
   def go(new_url)
     if defined? $caller_name and $caller_name.length > 0
       method_id = $caller_name[0]
@@ -24,12 +23,10 @@ class Page
     @driver.navigate.to new_url
   end
 
-
   def load
     go(url)
     self
   end
-
 
   def element(selector, options = {})
     wait = options[:timeout] ? Selenium::WebDriver::Wait.new(timeout: options[:timeout]) : @wait

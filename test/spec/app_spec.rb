@@ -9,8 +9,6 @@ require_relative './pages/teams_page.rb'
 require_relative './pages/page.rb'
 require_relative './api_helpers.rb'
 
-
-
 CONFIG = YAML.load_file('config.yml')
 
 require_relative "#{CONFIG['app_name']}/custom_spec.rb"
@@ -182,6 +180,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       # Facebook
       media_pg = api_create_team_project_and_link_and_redirect_to_media_page('https://www.facebook.com/FirstDraftNews/posts/1808121032783161')
       media_pg.toggle_card # Collapse card to show the title
+      wait_for_element('.media__heading')
       expect(media_pg.primary_heading.text).to eq('First Draft on Facebook')
       project_pg = media_pg.go_to_project
       sleep 1
