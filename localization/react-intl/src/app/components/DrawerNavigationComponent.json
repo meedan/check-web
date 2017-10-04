@@ -16,6 +16,10 @@
     "defaultMessage": "Contact"
   },
   {
+    "id": "headerActions.productGuides",
+    "defaultMessage": "Product Guides"
+  },
+  {
     "id": "drawerNavigation.userProfile",
     "defaultMessage": "Your Profile"
   }

@@ -151,6 +151,7 @@
     "polished": "^1.2.1",
     "postcss-cli": "^2.3.2",
     "prop-types": "^15.5.10",
+    "rc-tooltip": "^3.5.0",
     "react": "^15.6.1",
     "react-chatview": "^0.2.4",
     "react-copy-to-clipboard": "^5.0.0",

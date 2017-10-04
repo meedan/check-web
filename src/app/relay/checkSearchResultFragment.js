@@ -35,6 +35,10 @@ const checkSearchResultFragment = Relay.QL`
           },
           project_source {
             dbid,
+            project_id,
+            source {
+              name
+            }
           },
           media {
             url,

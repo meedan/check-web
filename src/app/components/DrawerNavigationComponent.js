@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import Divider from 'material-ui/Divider';
 import Drawer from 'material-ui/Drawer';
+import MenuItem from 'material-ui/MenuItem';
 import { FormattedMessage } from 'react-intl';
 import IconButton from 'material-ui/IconButton';
 import styled from 'styled-components';
@@ -146,6 +147,25 @@ class DrawerNavigation extends Component {
       </a>
     );
 
+    const productGuidesMenuItem = (
+      <a
+        key="drawer.productGuidesMenuItem"
+        style={styles.drawerFooterLink}
+        target="_blank"
+        rel="noopener noreferrer"
+        href="http://medium.com/meedan-product-guides"
+      >
+        <MenuItem
+          primaryText={
+            <FormattedMessage
+              id="headerActions.productGuides"
+              defaultMessage="Product Guides"
+            />
+          }
+        />
+      </a>
+    );
+
     const yourProfileButton = (
       <Link to="/check/me">
         <IconButton
@@ -184,12 +204,13 @@ class DrawerNavigation extends Component {
           <Divider />
 
           <div style={styles.drawerProjectsAndFooter}>
-
             { (inTeamContext && (currentUserIsMember || !this.props.team.private )) ? <Projects team={this.props.team.slug} /> : null }
 
             { loggedIn
               ? (<div><UserMenuItems hideContactMenuItem {...this.props} /></div>)
               : null }
+
+            {productGuidesMenuItem}
 
             <div style={styles.drawerFooter}>
               {TosMenuItem}

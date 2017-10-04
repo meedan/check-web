@@ -11,6 +11,6 @@
   "media.onDomain": "{typeLabel} على {domain}",
   "media.byAttribution": "{typeLabel} من {attribution}",
   "media.withText": "{typeLabel}: {text}",
-  "media.favoritesCount": "{favoritesCount, plural, one {مُفَضَّل واحد} other {# مُفَضَّلات}}",
-  "media.retweetsCount": "{retweetsCount, plural, one {ريتويت واحد} other {# ريتويتات}}"
+  "media.favoritesCount": "{favoritesCount, plural, zero {لا مُفَضَّل} one {مُفَضَّل واحد} two {مُفَضَّلين} few {# مُفَضَّلات} many {# مُفَضَّل} other {# مُفَضَّل}}",
+  "media.retweetsCount": "{retweetsCount, plural, zero {لا ريتويت} one {ريتويت واحد} two {ريتويتين} few {# ريتويتات} many {# ريتويت} other {# ريتويت}}"
 }

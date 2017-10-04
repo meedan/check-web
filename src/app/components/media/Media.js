@@ -4,6 +4,7 @@ import CheckContext from '../../CheckContext';
 import MediaRoute from '../../relay/MediaRoute';
 import MediaParentComponent from './MediaParentComponent';
 import MediasLoading from './MediasLoading';
+import userFragment from '../../relay/userFragment';
 
 const MediaContainer = Relay.createContainer(MediaParentComponent, {
   initialVariables: {
@@ -28,7 +29,7 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
           id,
           dbid,
           title,
-          search_id
+          search_id,
           get_languages
         },
         project_id,
@@ -116,20 +117,7 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
                   name,
                   profile_image,
                   user {
-                    dbid,
-                    name,
-                    profile_image,
-                    source {
-                      dbid,
-                      image,
-                      accounts(first: 10000) {
-                        edges {
-                          node {
-                            url
-                          }
-                        }
-                      }
-                    }
+                    ${userFragment}
                   }
                 }
               }
@@ -159,21 +147,7 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
                 }
               }
               user {
-                dbid,
-                name,
-                profile_image,
-                email,
-                source {
-                  dbid,
-                  image,
-                  accounts(first: 10000) {
-                    edges {
-                      node {
-                        url
-                      }
-                    }
-                  }
-                }
+                ${userFragment}
               }
               task {
                 id,

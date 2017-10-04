@@ -126,6 +126,16 @@ class MediaDetail extends Component {
     const data = JSON.parse(media.embed);
     const annotationsCount = MediaUtil.notesCount(media, data, this.props.intl);
     const randomNumber = Math.floor(Math.random() * 1000000);
+    const status = getStatus(mediaStatuses(media), mediaLastStatus(media));
+    const cardHeaderStatus = <MediaStatus media={media} readonly={this.props.readonly} />;
+    const authorName = MediaUtil.authorName(media, data);
+    const authorUsername = MediaUtil.authorUsername(media, data);
+    const sourceName = MediaUtil.sourceName(media, data);
+    const createdAt = MediaUtil.createdAt(media);
+    const heading = MediaUtil.title(media, data, this.props.intl);
+    const sourceUrl = media.team && media.project && media.project_source
+      ? `/${media.team.slug}/project/${media.project.dbid}/source/${media.project_source.dbid}`
+      : null;
 
     let projectId = media.project_id;
     if (!projectId && annotated && annotatedType === 'Project') {
@@ -134,14 +144,12 @@ class MediaDetail extends Component {
     const mediaUrl = projectId && media.team
       ? `/${media.team.slug}/project/${projectId}/media/${media.dbid}`
       : null;
-
     let embedCard = null;
+
     media.url = media.media.url;
     media.quote = media.media.quote;
     media.embed_path = media.media.embed_path;
-    const createdAt = MediaUtil.createdAt(media);
-
-    const heading = MediaUtil.title(media, data, this.props.intl);
+    media.quoteAttributions = media.media.quoteAttributions;
 
     if (media.media.embed_path) {
       const path = media.media.embed_path;
@@ -149,10 +157,10 @@ class MediaDetail extends Component {
     } else if (media.quote && media.quote.length) {
       embedCard = (
         <QuoteMediaCard
-          quoteText={media.quote}
+          quote={media.quote}
           languageCode={media.language_code}
-          attributionName={null}
-          attributionUrl={null}
+          sourceUrl={sourceUrl}
+          sourceName={sourceName}
         />
       );
     } else if (media.url) {
@@ -175,18 +183,6 @@ class MediaDetail extends Component {
       }
       return (MediaUtil.socialIcon(media.domain));
     })();
-
-    const status = getStatus(mediaStatuses(media), mediaLastStatus(media));
-
-    const cardHeaderStatus = <MediaStatus media={media} readonly={this.props.readonly} />;
-
-    const sourceUrl = media.team && media.project && media.project_source
-      ? `/${media.team.slug}/project/${media.project.dbid}/source/${media.project_source.dbid}`
-      : null;
-
-    const authorName = MediaUtil.authorName(media, data);
-
-    const authorUsername = MediaUtil.authorUsername(media, data);
 
     // Don't display redunant heading if the card is explicitly expanded with state
     // (or implicitly expanded with initiallyExpanded prop)
@@ -217,15 +213,15 @@ class MediaDetail extends Component {
             </span>
             : null}
           {sourceUrl
-            ? <Link to={sourceUrl}>
-              <FlexRow>
-                {/* ideally this would be SourcePicture not FaFeed — CGB 2017-9-13 */}
-                <FaFeed style={{ width: 16 }} />
-                {' '}
-                {authorName || authorUsername}
-              </FlexRow>
-            </Link>
-            : null}
+          ? <Link to={sourceUrl}>
+            <FlexRow>
+              {/* ideally this would be SourcePicture not FaFeed — CGB 2017-9-13 */}
+              <FaFeed style={{ width: 16 }} />
+              {' '}
+              {sourceName || authorName || authorUsername}
+            </FlexRow>
+          </Link>
+          : null}
         </StyledHeaderTextSecondary>
       </div>
     );

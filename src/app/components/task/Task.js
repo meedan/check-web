@@ -30,6 +30,9 @@ import DatetimeRespondTask from './DatetimeRespondTask';
 import DatetimeTaskResponse from './DatetimeTaskResponse';
 import { units } from '../../styles/js/shared';
 import ProfileLink from '../layout/ProfileLink';
+import Tooltip from 'rc-tooltip';
+import 'rc-tooltip/assets/bootstrap_white.css';
+import UserTooltip from '../user/UserTooltip';
 
 const StyledWordBreakDiv = styled.div`
   hyphens: auto;
@@ -430,11 +433,13 @@ class Task extends Component {
             className="task__resolver"
             style={{ display: 'flex', alignItems: 'center' }}
           >
-            <Avatar
-              style={{ margin: `0 ${units(1)}` }}
-              size={parseInt(units(3), 10)}
-              src={by.user.source.image}
-            />
+            <Tooltip placement="top" overlay={<UserTooltip user={by.user}/>}>
+              <Avatar
+                style={{ margin: `0 ${units(1)}` }}
+                size={parseInt(units(3), 10)}
+                src={by.user.source.image}
+              />
+            </Tooltip>
             <small>
               <FormattedMessage
                 id="task.resolvedBy"
