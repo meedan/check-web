@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router';
+import Relay from 'react-relay';
 import IconButton from 'material-ui/IconButton';
 import IconMenu from 'material-ui/svg-icons/navigation/menu';
 import IconSearch from 'material-ui/svg-icons/action/search';
@@ -11,6 +12,8 @@ import TeamHeader from './team/TeamHeader';
 import TeamPublicHeader from './team/TeamPublicHeader';
 import ProjectHeader from './project/ProjectHeader';
 import { stringHelper } from '../customHelpers';
+import PublicTeamRoute from '../relay/PublicTeamRoute';
+import teamPublicFragment from '../relay/teamPublicFragment';
 import {
   units,
   mediaQuery,
@@ -38,7 +41,7 @@ const HeaderBar = styled.div`
   `}
 `;
 
-class Header extends Component {
+class HeaderComponent extends Component {
   render() {
     const locale = this.props.intl.locale;
     const { inTeamContext, loggedIn, drawerToggle, currentUserIsMember } = this.props;
@@ -50,9 +53,6 @@ class Header extends Component {
     const AlignOpposite = styled.div`
       margin-${fromDirection}: auto;
       `;
-
-      console.log('this.props');
-      console.log(this.props);
 
     const searchButton = (
       <IconButton
@@ -132,4 +132,35 @@ class Header extends Component {
   }
 }
 
-export default injectIntl(Header);
+class Header extends Component {
+  render() {
+    if (this.props.inTeamContext) {
+      const HeaderContainer = Relay.createContainer(HeaderComponent, {
+        fragments: {
+          team: () => teamPublicFragment,
+        },
+      });
+
+      const teamSlug = this.props.params.team;
+
+      const route = new PublicTeamRoute({ teamSlug });
+
+      return (
+        <Relay.RootContainer
+          Component={HeaderContainer}
+          route={route}
+          renderFetched={
+            data => <HeaderContainer
+              {...this.props}
+              {...data}
+            />
+          }
+        />
+      );
+    }
+
+    return (<HeaderComponent {...this.props} />);
+  }
+}
+
+export default Header;
