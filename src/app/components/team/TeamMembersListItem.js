@@ -10,9 +10,6 @@ import MdClear from 'react-icons/lib/md/clear';
 import IconButton from 'material-ui/IconButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import UpdateTeamUserMutation from '../../relay/UpdateTeamUserMutation';
-import Tooltip from 'rc-tooltip';
-import 'rc-tooltip/assets/bootstrap_white.css';
-import UserTooltip from '../user/UserTooltip';
 import {
   selectStyle,
   checkBlue,
@@ -92,14 +89,12 @@ class TeamMembersListItem extends Component {
           <FlexRow>
             <Link to={`/check/user/${teamUser.node.user.dbid}`} className="team-members__profile-link">
               <FlexRow>
-                <Tooltip placement="top" overlay={<UserTooltip user={teamUser.node.user}/>}>
-                  <Avatar
-                    className="avatar"
-                    src={teamUser.node.user.source.image}
-                    alt={teamUser.node.user.name}
-                    style={{ marginRight: units(2) }}
-                  />
-                </Tooltip>
+                <Avatar
+                  className="avatar"
+                  src={teamUser.node.user.source.image}
+                  alt={teamUser.node.user.name}
+                  style={{ marginRight: units(2) }}
+                />
                 <Text ellipsis>
                   {teamUser.node.user.name}
                 </Text>
