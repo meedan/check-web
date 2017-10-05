@@ -62,7 +62,7 @@ class UserTooltipComponent extends React.Component {
                 id="userTooltip.dateJoined" defaultMessage="Joined {date} &bull; {number} teams"
                 values={{
                   date: this.props.intl.formatDate(MediaUtil.createdAt({ published: source.created_at }), { year: 'numeric', month: 'short', day: '2-digit' }),
-                  number: 0,
+                  number: user.number_of_teams,
                 }}
               />
             </div>
@@ -81,6 +81,7 @@ const UserTooltipContainer = Relay.createContainer(injectIntl(UserTooltipCompone
         id,
         dbid,
         name,
+        number_of_teams,
         source {
           id,
           dbid,
