@@ -287,11 +287,15 @@ class MediaMetadata extends Component {
   destinationProjects() {
     const projectId = this.props.media.project_id;
     const context = this.getContext();
-    const projects = context.team.projects.edges.sortp((a, b) =>
-      a.node.title.localeCompare(b.node.title),
-    );
+    if (context.team.projects) {
+      const projects = context.team.projects.edges.sortp((a, b) =>
+        a.node.title.localeCompare(b.node.title),
+      );
 
-    return projects.filter(p => p.node.dbid !== projectId);
+      return projects.filter(p => p.node.dbid !== projectId);
+    }
+
+    return [];
   }
 
   handleSave(media, event) {
@@ -339,8 +343,6 @@ class MediaMetadata extends Component {
   render() {
     const { media, mediaUrl } = this.props;
     const context = this.getContext();
-    const currentProject = this.currentProject();
-    const destinationProjects = this.destinationProjects();
     const locale = this.props.intl.locale;
     const isRtl = rtlDetect.isRtlLang(locale);
     const fromDirection = isRtl ? 'right' : 'left';
@@ -466,7 +468,7 @@ class MediaMetadata extends Component {
             <FormattedMessage
               id="mediaDetail.dialogMediaPath"
               defaultMessage={'Currently filed under {teamName} > {projectTitle}'}
-              values={{ teamName: context.team.name, projectTitle: currentProject.node.title }}
+              values={{ teamName: context.team.name, projectTitle: media.project.title }}
             />
           </small>
           <RadioButtonGroup
@@ -474,7 +476,7 @@ class MediaMetadata extends Component {
             className="media-detail__dialog-radio-group"
             onChange={this.handleSelectDestProject.bind(this)}
           >
-            {destinationProjects.map(proj =>
+            {this.destinationProjects().map(proj =>
               <RadioButton
                 key={proj.node.dbid}
                 label={proj.node.title}

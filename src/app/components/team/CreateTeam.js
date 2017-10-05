@@ -171,8 +171,14 @@ class CreateTeam extends Component {
     const onSuccess = (response) => {
       this.setState({ message: null });
       const team = response.createTeam.team;
+      
+      const context = this.getContext();
+      const teams = JSON.parse(context.currentUser.teams);
+      teams[team.slug] = { status: 'member' };
+      context.currentUser.teams = JSON.stringify(teams);
+      
       const path = `/${team.slug}`;
-      this.getContext().history.push(path);
+      context.history.push(path);
     };
 
     Relay.Store.commitUpdate(

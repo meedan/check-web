@@ -21,8 +21,10 @@ class UpdateStatusMutation extends Relay.Mutation {
     return query;
   }
 
-  /*
   getOptimisticResponse() {
+    const user = Object.assign({}, this.props.annotator);
+    user.source = null;
+
     const status = {
       id: this.props.id,
       updated_at: new Date().toString(),
@@ -34,6 +36,7 @@ class UpdateStatusMutation extends Relay.Mutation {
       annotator: {
         name: this.props.annotator.name,
         profile_image: this.props.annotator.profile_image,
+        user,
       },
       medias: {
         edges: [],
@@ -45,7 +48,6 @@ class UpdateStatusMutation extends Relay.Mutation {
 
     return { statusEdge: { node: status }, project_media: media };
   }
-  */
 
   getVariables() {
     const status = this.props.annotation;

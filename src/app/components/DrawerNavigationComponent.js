@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
-import Divider from 'material-ui/Divider';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import { FormattedMessage } from 'react-intl';
@@ -25,7 +24,6 @@ import {
 } from '../styles/js/shared';
 
 class DrawerNavigation extends Component {
-
   render() {
     const { inTeamContext, loggedIn, drawerToggle } = this.props;
 
@@ -81,8 +79,8 @@ class DrawerNavigation extends Component {
     // Team Avatar
     const TeamAvatar = styled.div`
       ${avatarStyle}
-      width: ${props => props.size ? props.size : avatarSize};
-      height: ${props => props.size ? props.size : avatarSize};
+      width: ${props => (props.size ? props.size : avatarSize)};
+      height: ${props => (props.size ? props.size : avatarSize)};
     `;
 
     const Headline = styled(HeaderTitle)`
@@ -99,10 +97,7 @@ class DrawerNavigation extends Component {
         rel="noopener noreferrer"
         href={stringHelper('TOS_URL')}
       >
-        <FormattedMessage
-          id="headerActions.tos"
-          defaultMessage="Terms"
-        />
+        <FormattedMessage id="headerActions.tos" defaultMessage="Terms" />
       </a>
     );
 
@@ -113,10 +108,7 @@ class DrawerNavigation extends Component {
         rel="noopener noreferrer"
         href={stringHelper('PP_URL')}
       >
-        <FormattedMessage
-          id="headerActions.privacyPolicy"
-          defaultMessage="Privacy"
-        />
+        <FormattedMessage id="headerActions.privacyPolicy" defaultMessage="Privacy" />
       </a>
     );
 
@@ -127,10 +119,7 @@ class DrawerNavigation extends Component {
         rel="noopener noreferrer"
         href={stringHelper('ABOUT_URL')}
       >
-        <FormattedMessage
-          id="headerActions.about"
-          defaultMessage="About"
-        />
+        <FormattedMessage id="headerActions.about" defaultMessage="About" />
       </a>
     );
 
@@ -141,10 +130,7 @@ class DrawerNavigation extends Component {
         rel="noopener noreferrer"
         href={stringHelper('CONTACT_HUMAN_URL')}
       >
-        <FormattedMessage
-          id="headerActions.contactHuman"
-          defaultMessage="Contact"
-        />
+        <FormattedMessage id="headerActions.contactHuman" defaultMessage="Contact" />
       </a>
     );
 
@@ -158,10 +144,7 @@ class DrawerNavigation extends Component {
       >
         <MenuItem
           primaryText={
-            <FormattedMessage
-              id="headerActions.productGuides"
-              defaultMessage="Product Guides"
-            />
+            <FormattedMessage id="headerActions.productGuides" defaultMessage="Product Guides" />
           }
         />
       </a>
@@ -171,7 +154,9 @@ class DrawerNavigation extends Component {
       <Link to="/check/me">
         <IconButton
           style={styles.drawerYourProfileButton}
-          tooltip={<FormattedMessage id="drawerNavigation.userProfile" defaultMessage="Your Profile" />}
+          tooltip={
+            <FormattedMessage id="drawerNavigation.userProfile" defaultMessage="Your Profile" />
+          }
           tooltipPosition="bottom-center"
         >
           <UserAvatarRelay size={units(4)} {...this.props} />
@@ -179,39 +164,44 @@ class DrawerNavigation extends Component {
       </Link>
     );
 
+    const checkLogo = <img width={units(8)} alt="Team Logo" src={stringHelper('LOGO_URL')} />;
+
     return (
       <Drawer {...this.props}>
         <div onClick={drawerToggle}>
 
-          { inTeamContext ?
-            (<DrawerHeader>
+          {inTeamContext
+            ? <DrawerHeader>
               <Row style={{ alignItems: 'flex-start', justifyContent: 'space-between' }}>
-                <TeamAvatar style={{ backgroundImage: `url(${this.props.team.avatar})` }}size={units(7)} />
+                <TeamAvatar
+                  style={{ backgroundImage: `url(${this.props.team.avatar})` }}
+                  size={units(7)}
+                />
                 <Offset>
-                  { loggedIn && yourProfileButton }
+                  {loggedIn && yourProfileButton}
                 </Offset>
               </Row>
 
-              <Link
-                className="team-header__drawer-team-link"
-                to={`/${this.props.team.slug}/`}
-              >
+              <Link className="team-header__drawer-team-link" to={`/${this.props.team.slug}/`}>
                 <Headline>{this.props.team.name}</Headline>
               </Link>
-            </DrawerHeader>)
-            : null
-          }
-
-          <Divider />
+            </DrawerHeader>
+            : <DrawerHeader>
+              <Row style={{ alignItems: 'flex-start', justifyContent: 'space-between' }}>
+                <Offset>
+                  {loggedIn ? yourProfileButton : checkLogo}
+                </Offset>
+              </Row>
+            </DrawerHeader>}
 
           <div style={styles.drawerProjectsAndFooter}>
             <div style={styles.drawerProjects}>
-              { (inTeamContext && (currentUserIsMember || !this.props.team.private)) ? <Projects team={this.props.team.slug} /> : null }
+              {inTeamContext && (currentUserIsMember || !this.props.team.private)
+                ? <Projects team={this.props.team.slug} />
+                : null}
             </div>
 
-            { loggedIn
-                ? (<div><UserMenuItems hideContactMenuItem {...this.props} /></div>)
-                : null }
+            {loggedIn ? <div><UserMenuItems hideContactMenuItem {...this.props} /></div> : null}
 
             {productGuidesMenuItem}
 

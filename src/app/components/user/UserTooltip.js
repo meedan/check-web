@@ -1,4 +1,5 @@
 import React from 'react';
+import Relay from 'react-relay';
 import { FormattedHTMLMessage, injectIntl } from 'react-intl';
 import { Link } from 'react-router';
 import Avatar from 'material-ui/Avatar';
@@ -7,6 +8,7 @@ import MdLaunch from 'react-icons/lib/md/launch';
 import ParsedText from '../ParsedText';
 import MediaUtil from '../media/MediaUtil';
 import { truncateLength } from '../../helpers';
+import UserRoute from '../../relay/UserRoute';
 import {
   white,
   black54,
@@ -15,7 +17,7 @@ import {
   units,
 } from '../../styles/js/shared';
 
-class UserTooltip extends React.Component {
+class UserTooltipComponent extends React.Component {
   accountLink(account) {
     return <a key={account.id} href={account.url} target="_blank" rel="noopener noreferrer" style={{ paddingRight: units(1) }}>
       { MediaUtil.socialIcon(`${account.provider}.com`) /* TODO: refactor */ }
@@ -60,7 +62,7 @@ class UserTooltip extends React.Component {
                 id="userTooltip.dateJoined" defaultMessage="Joined {date} &bull; {number} teams"
                 values={{
                   date: this.props.intl.formatDate(MediaUtil.createdAt({ published: source.created_at }), { year: 'numeric', month: 'short', day: '2-digit' }),
-                  number: user.team_users.edges.length || '0',
+                  number: user.number_of_teams,
                 }}
               />
             </div>
@@ -72,4 +74,47 @@ class UserTooltip extends React.Component {
   }
 }
 
-export default injectIntl(UserTooltip);
+const UserTooltipContainer = Relay.createContainer(injectIntl(UserTooltipComponent), {
+  fragments: {
+    user: () => Relay.QL`
+      fragment on User {
+        id,
+        dbid,
+        name,
+        number_of_teams,
+        source {
+          id,
+          dbid,
+          image,
+          description,
+          created_at,
+          account_sources(first: 10000) {
+            edges {
+              node {
+                account {
+                  id,
+                  url,
+                  provider
+                }
+              }
+            }
+          }
+        }
+      }
+    `,
+  },
+});
+
+class UserTooltip extends React.Component {
+  render() {
+    const route = new UserRoute({ userId: this.props.user.dbid });
+    return (
+      <Relay.RootContainer
+        Component={UserTooltipContainer}
+        route={route}
+      />
+    );
+  }
+}
+
+export default UserTooltip;

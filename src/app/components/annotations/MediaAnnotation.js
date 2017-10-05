@@ -2,6 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import { FormattedMessage, FormattedHTMLMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import MappedMessage from '../MappedMessage';
 import Relay from 'react-relay';
+import Tooltip from 'rc-tooltip';
+import 'rc-tooltip/assets/bootstrap_white.css';
 import MediaDetail from '../media/MediaDetail';
 import MediaUtil from '../media/MediaUtil';
 import DynamicAnnotation from '../annotations/DynamicAnnotation';
@@ -19,6 +21,7 @@ import MenuButton from '../MenuButton';
 import MdImage from 'react-icons/lib/md/image';
 import ParsedText from '../ParsedText';
 import DatetimeTaskResponse from '../task/DatetimeTaskResponse';
+import UserTooltip from '../user/UserTooltip';
 
 const messages = defineMessages({
   error: {
@@ -165,7 +168,7 @@ class Annotation extends Component {
 
     const updatedAt = MediaUtil.createdAt({ published: activity.created_at });
     const timestamp = updatedAt ? <span className="annotation__timestamp"><TimeBefore date={updatedAt} /></span> : null;
-    const authorName = <Link to={`/check/user/${activity.user.dbid}`} className={'annotation__author-name'}>{activity.user.name}</Link>;
+    const authorName = activity.user ? <Link to={`/check/user/${activity.user.dbid}`} className={'annotation__author-name'}>{activity.user.name}</Link> : null;
     const object = JSON.parse(activity.object_after);
     const content = object.data;
     let activityType = activity.event_type;
@@ -524,7 +527,9 @@ class Annotation extends Component {
           <Card className="annotation__card">
             <CardText className={`annotation__card-text annotation__card-activity-${activityType.replace(/_/g, '-')}`}>
               <div className="annotation__card-avatar-col">
-                <div className="annotation__card-avatar" style={{ backgroundImage: `url(${activity.user.source.image})` }} />
+                <Tooltip placement="top" overlay={<UserTooltip user={activity.user}/>}>
+                  <div className="annotation__card-avatar" style={{ backgroundImage: `url(${activity.user.source.image})` }} />
+                </Tooltip>
               </div>
               <div className="annotation__card-main-col">
                 {contentTemplate}

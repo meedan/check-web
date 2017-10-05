@@ -5,7 +5,6 @@ import MediaRoute from '../../relay/MediaRoute';
 import MediaParentComponent from './MediaParentComponent';
 import MediasLoading from './MediasLoading';
 import userFragment from '../../relay/userFragment';
-import userTooltipFragment from '../../relay/fragment/userTooltipFragment';
 
 const MediaContainer = Relay.createContainer(MediaParentComponent, {
   initialVariables: {
@@ -118,7 +117,14 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
                   name,
                   profile_image,
                   user {
-                    ${userTooltipFragment}
+                    id,
+                    dbid,
+                    name,
+                    source {
+                      id,
+                      dbid,
+                      image,
+                    }
                   }
                 }
               }
@@ -148,7 +154,14 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
                 }
               }
               user {
-                ${userTooltipFragment}
+                id,
+                dbid,
+                name,
+                source {
+                  id,
+                  dbid,
+                  image,
+                }
               }
               task {
                 id,
