@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import MenuItem from 'material-ui/MenuItem';
 import { Link } from 'react-router';
 import { FormattedMessage } from 'react-intl';
+import Divider from 'material-ui/Divider';
 import { logout } from '../redux/actions';
 import TeamMenuRelay from '../relay/TeamMenuRelay';
 import ProjectMenuRelay from '../relay/ProjectMenuRelay';
@@ -52,6 +53,7 @@ class UserMenuItems extends Component {
 
     return (
       <div>
+        <Divider />
         { !joinPage && editProjectMenuItem }
         { !joinPage && manageTeamMenuItem }
         { loggedIn && logOutMenuItem }
