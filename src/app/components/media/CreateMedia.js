@@ -139,10 +139,6 @@ class CreateProjectMedia extends Component {
     };
   }
 
-  componentDidMount() {
-    this.mediaInput.focus();
-  }
-
   onImage(file) {
     this.setState({ message: null, submittable: true });
     document.forms.media.image = file;
@@ -161,11 +157,20 @@ class CreateProjectMedia extends Component {
   }
 
   handleChange() {
-    this.setState({ message: null });
+    this.setState({
+      message: null,
+      submittable: (
+                    this.mediaInput.getValue().length > 0 ||
+                    (this.secondaryInput && this.secondaryInput.getValue().length > 0)
+                   )
+    });
+  }
+
+  handleTabChange() {
+    this.setState({ message: null, submittable: false });
   }
 
   handleKeyPress(e) {
-    this.setState({ submittable: true });
     if (e.key === 'Enter' && !e.shiftKey) {
       this.handleSubmit(e);
     }
@@ -196,7 +201,7 @@ class CreateProjectMedia extends Component {
         message = json.error;
       }
     }
-    this.setState({ message, isSubmitting: false });
+    this.setState({ message, isSubmitting: false, submittable: false });
   }
 
   submitSource() {
@@ -330,8 +335,6 @@ class CreateProjectMedia extends Component {
       multiLine: true,
       onKeyPress: this.handleKeyPress.bind(this),
       onChange: this.handleChange.bind(this),
-      onFocus: this.handleChange.bind(this),
-      ref: input => (this.mediaInput = input),
     };
 
     switch (this.state.mode) {
@@ -349,12 +352,15 @@ class CreateProjectMedia extends Component {
           key="createMedia.source.name"
           hintText={this.props.intl.formatMessage(messages.sourceInput)}
           id="create-media-source-name-input"
+          ref={input => (this.mediaInput = input)}
+          autoFocus
           {...defaultInputProps}
         />,
         <TextField
           key="createMedia.source.url"
           hintText={this.props.intl.formatMessage(messages.sourceUrlInput)}
           id="create-media-source-url-input"
+          ref={input => (this.secondaryInput = input)}
           {...defaultInputProps}
         />,
       ];
@@ -363,9 +369,11 @@ class CreateProjectMedia extends Component {
       return [
         <TextField
           key="createMedia.quote.input"
-          floatingLabelText={this.props.intl.formatMessage(messages.quoteInput)}
+          hintText={this.props.intl.formatMessage(messages.quoteInput)}
           name="quote"
           id="create-media-quote-input"
+          ref={input => (this.mediaInput = input)}
+          autoFocus
           {...defaultInputProps}
         />,
         <AutoComplete
@@ -373,21 +381,10 @@ class CreateProjectMedia extends Component {
           id="create-media-quote-attribution-source-input"
           name="quoteAttributionSource"
           filter={AutoComplete.fuzzyFilter}
-          floatingLabelText={this.props.intl.formatMessage(messages.quoteAttributionSourceInput)}
+          hintText={this.props.intl.formatMessage(messages.quoteAttributionSourceInput)}
           // Unique names
           // https://stackoverflow.com/a/33121880/209184
           dataSource={Array.from(new Set(context.team.sources.edges.map(obj => obj.node.name)))}
-          //
-          // TODO: implement real sources instead of these ^
-          //
-          // The following props might be useful:
-          //
-          // errorText={}
-          // dataSourceConfig={{ text: 'label', value: 'value' }}
-          // openOnFocus
-          // onNewRequest={}
-          // ref={'autocomplete'}
-          hintText={this.props.intl.formatMessage(messages.quoteAttributionSourceInputHelper)}
           {...defaultInputProps}
         />,
       ];
@@ -400,6 +397,8 @@ class CreateProjectMedia extends Component {
           hintText={this.props.intl.formatMessage(messages.mediaInput)}
           name="url"
           id="create-media-input"
+          ref={input => (this.mediaInput = input)}
+          autoFocus
           {...defaultInputProps}
         />,
       ];
@@ -481,7 +480,7 @@ class CreateProjectMedia extends Component {
 
               <div style={{ marginTop: units(2), width: '100%' }}>
                 <Row style={{ flexWrap: 'wrap' }}>
-                  <Tabs inkBarStyle={{ display: 'none' }}>
+                  <Tabs inkBarStyle={{ display: 'none' }} onChange={this.handleTabChange.bind(this)}>
                     <Tab
                       id="create-media__link"
                       onClick={this.setMode.bind(this, 'link')}
