@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay';
 import TeamRoute from '../../relay/TeamRoute';
-import userFragment from '../../relay/userFragment';
+import userTooltipFragment from '../../relay/fragment/userTooltipFragment';
 import TeamMembersComponent from './TeamMembersComponent';
 
 const TeamContainer = Relay.createContainer(TeamMembersComponent, {
@@ -17,7 +17,7 @@ const TeamContainer = Relay.createContainer(TeamMembersComponent, {
           edges {
             node {
               user {
-                ${userFragment}
+                ${userTooltipFragment}
               },
               status,
               team_id,
