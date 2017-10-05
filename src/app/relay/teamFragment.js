@@ -15,6 +15,7 @@ const teamFragment = Relay.QL`
     get_slack_channel,
     get_suggested_tags,
     pusher_channel,
+    public_team_id,
     translation_statuses,
     media_verification_statuses,
     source_verification_statuses,
