@@ -26,7 +26,15 @@ class TeamMenu extends Component {
     const { team } = this.props;
 
     return (
-      <Can permissions={team.permissions} permission="update Team">
+      <Can permissions={team.permissions} permission="update Team" otherwise={
+        <MenuItem
+          key="teamMenuRelay.viewTeam"
+          onClick={this.handleClick.bind(this)}
+          primaryText={
+            <FormattedMessage id="teamMenuRelay.viewTeam" defaultMessage="View team" />
+          }
+        />
+      }>
         <span>
           <MenuItem
             key="teamMenuRelay.manageTeam"
