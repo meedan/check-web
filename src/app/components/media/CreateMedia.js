@@ -384,7 +384,7 @@ class CreateProjectMedia extends Component {
           hintText={this.props.intl.formatMessage(messages.quoteAttributionSourceInput)}
           // Unique names
           // https://stackoverflow.com/a/33121880/209184
-          dataSource={Array.from(new Set(context.team.sources.edges.map(obj => obj.node.name)))}
+          dataSource={context.team.sources.edges.map(obj => obj.node.name)}
           {...defaultInputProps}
         />,
       ];
