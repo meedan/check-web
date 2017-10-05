@@ -21,6 +21,7 @@ class UpdateStatusMutation extends Relay.Mutation {
     return query;
   }
 
+  /*
   getOptimisticResponse() {
     const status = {
       id: this.props.id,
@@ -44,6 +45,7 @@ class UpdateStatusMutation extends Relay.Mutation {
 
     return { statusEdge: { node: status }, project_media: media };
   }
+  */
 
   getVariables() {
     const status = this.props.annotation;
