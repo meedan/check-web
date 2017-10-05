@@ -1,31 +1,50 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay';
-import TeamRoute from '../relay/TeamRoute';
-import teamFragment from '../relay/teamFragment';
+import PublicTeamRoute from '../relay/PublicTeamRoute';
+import teamPublicFragment from '../relay/teamPublicFragment';
 import DrawerNavigationComponent from './DrawerNavigationComponent';
 
 class DrawerNavigation extends Component {
-
   render() {
-    const DrawerNavigationContainer = Relay.createContainer(DrawerNavigationComponent, {
-      fragments: {
-        team: () => teamFragment,
-      },
-    });
+    // TODO @chris with @alex 2017-10-3
+    //
+    // Problem:
+    //
+    // The current implementation breaks in some cases with a Relay error:
+    //   `Server response was missing for query 'team'`
+    // This happens when the Drawer tries to load for a private team context with a non-member user.
+    //
+    // Alex and Caio's approach:
+    // - We'll load the teamPublicFragment by default
+    // - Inside DrawerNavigationComponent we'll decide if we'll need the Project List (drawer/Projects.js)
+    // - Project list is contained in its own Relay which queries Team type
 
-    const teamSlug = this.props.params && this.props.params.team
-      ? this.props.params.team
-      : '';
+    if (this.props.inTeamContext) {
+      const DrawerNavigationContainer = Relay.createContainer(DrawerNavigationComponent, {
+        fragments: {
+          team: () => teamPublicFragment,
+        },
+      });
 
-    const route = new TeamRoute({ teamSlug });
+      const teamSlug = this.props.params.team;
 
-    return (
-      <Relay.RootContainer
-        Component={DrawerNavigationContainer}
-        route={route}
-        renderFetched={data => <DrawerNavigationContainer {...this.props} {...data} />}
-      />
-    );
+      const route = new PublicTeamRoute({ teamSlug });
+
+      return (
+        <Relay.RootContainer
+          Component={DrawerNavigationContainer}
+          route={route}
+          renderFetched={
+            data => <DrawerNavigationContainer
+              {...this.props}
+              {...data}
+            />
+          }
+        />
+      );
+    }
+
+    return (<DrawerNavigationComponent {...this.props} />);
   }
 }
 

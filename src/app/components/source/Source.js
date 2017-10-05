@@ -4,6 +4,7 @@ import CheckContext from '../../CheckContext';
 import SourceRoute from '../../relay/SourceRoute';
 import SourceComponent from './SourceComponent';
 import sourceFragment from '../../relay/sourceFragment';
+import userFragment from '../../relay/userFragment';
 
 const SourceContainer = Relay.createContainer(SourceComponent, {
   fragments: {
@@ -152,20 +153,7 @@ const SourceContainer = Relay.createContainer(SourceComponent, {
                   }
                 }
                 user {
-                  dbid,
-                  name,
-                  profile_image,
-                  email,
-                  source {
-                    dbid,
-                    accounts(first: 10000) {
-                      edges {
-                        node {
-                          url
-                        }
-                      }
-                    }
-                  }
+                  ${userFragment}
                 }
                 task {
                   id,
