@@ -991,7 +991,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     # it "should move media to another project" do
     #   skip("Needs to be implemented")
     # end
-=end
+
     it "should add, edit, answer, update answer and delete short answer task", bin3: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
       wait_for_selector('.create-task__add-button')
@@ -1045,7 +1045,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       # Delete task
       delete_task('Foo')
     end
-=begin
+
     # it "should add, edit, answer, update answer and delete single_choice task" do
     #   skip("Needs to be implemented")
     # end
@@ -1327,12 +1327,19 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 =end
     #Add slack notifications to a team
-    it "should add slack notifications to a team", bin2:true, quick: true do
-      team = "TestTeam #{Time.now.to_i}"
+    it "should add slack notifications to a team", bin3:true, quick: true do
+ p "Aa"
+      team = "testteam#{Time.now.to_i}"
+ p "A2"
       api_create_team(team:team)
+ p "A4"
       p = Page.new(config: @config, driver: @driver)
+ p "A5"
+ p @config['self_url'] + '/' + team
       p.go(@config['self_url'] + '/' + team)
+ p "A7"
       sleep 5
+ p "A8"
       @driver.find_element(:class, "team__edit-button").click
       @driver.find_element(:id, "team__settings-slack-notifications-enabled").click
       @driver.find_element(:id, "team__settings-slack-webhook").click
