@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import MenuItem from 'material-ui/MenuItem';
 import { Link } from 'react-router';
 import { FormattedMessage } from 'react-intl';
+import Divider from 'material-ui/Divider';
 import { logout } from '../redux/actions';
 import TeamMenuRelay from '../relay/TeamMenuRelay';
 import ProjectMenuRelay from '../relay/ProjectMenuRelay';
@@ -24,15 +25,6 @@ class UserMenuItems extends Component {
 
     const manageTeamMenuItem = (
       <TeamMenuRelay key="headerActions.teamMenu" {...this.props} />
-    );
-
-    const logInMenuItem = (
-      <MenuItem
-        key="headerActions.logIn"
-        className="header-actions__menu-item--login"
-        containerElement={<Link to="/" />}
-        primaryText={<FormattedMessage id="headerActions.signIn" defaultMessage="Sign In" />}
-      />
     );
 
     const logOutMenuItem = (
@@ -61,9 +53,10 @@ class UserMenuItems extends Component {
 
     return (
       <div>
+        <Divider />
         { !joinPage && editProjectMenuItem }
         { !joinPage && manageTeamMenuItem }
-        { loggedIn ? logOutMenuItem : logInMenuItem }
+        { loggedIn && logOutMenuItem }
         {this.props.hideContactMenuItem ? null : contactMenuItem}
       </div>
     );

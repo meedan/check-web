@@ -168,7 +168,7 @@ class Annotation extends Component {
 
     const updatedAt = MediaUtil.createdAt({ published: activity.created_at });
     const timestamp = updatedAt ? <span className="annotation__timestamp"><TimeBefore date={updatedAt} /></span> : null;
-    const authorName = <Link to={`/check/user/${activity.user.dbid}`} className={'annotation__author-name'}>{activity.user.name}</Link>;
+    const authorName = activity.user ? <Link to={`/check/user/${activity.user.dbid}`} className={'annotation__author-name'}>{activity.user.name}</Link> : null;
     const object = JSON.parse(activity.object_after);
     const content = object.data;
     let activityType = activity.event_type;

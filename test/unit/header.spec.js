@@ -1,33 +1,69 @@
 import React from 'react';
 import { expect } from 'chai';
-import IconMenu from 'material-ui/IconMenu';
 import IconArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
-import Header from '../../src/app/components/Header';
+import { HeaderComponent } from '../../src/app/components/Header';
 import TeamHeader from '../../src/app/components/team/TeamHeader';
 import TeamPublicHeader from '../../src/app/components/team/TeamPublicHeader';
 import { mountWithIntl } from './helpers/intl-test';
 
-describe('<Header />', () => {
-  it('renders team header on members page', () => {
+describe('<HeaderComponent />', () => {
+  const privateTeam = {
+    name: 'team',
+    avatar: 'http://localhost:3000/images/team.png',
+    dbid: 1,
+    private: true,
+    slug: 'team',
+  };
+
+  it('renders team header on private team members page when user is a member', () => {
     const location = { pathname: '/team/members' };
-    const header = mountWithIntl(<Header location={location} params={{}} />);
+    const params = { team: 'team' };
+    const header = mountWithIntl(
+      <HeaderComponent
+        inTeamContext
+        loggedIn
+        currentUserIsMember
+        team={privateTeam}
+        location={location}
+        params={params}
+      />,
+    );
     expect(header.find(TeamHeader)).to.have.length(1);
     expect(header.find(TeamPublicHeader)).to.have.length(0);
     expect(header.find(IconArrowBack)).to.have.length(0);
   });
 
-  it('renders public team header on team join page', () => {
+  it('renders public team header on private team join page when user is not a member', () => {
     const location = { pathname: '/team/join' };
-    const header = mountWithIntl(<Header location={location} params={{}} />);
+    const params = { team: 'team' };
+    const header = mountWithIntl(
+      <HeaderComponent
+        inTeamContext
+        loggedIn
+        currentUserIsMember={false}
+        team={privateTeam}
+        location={location}
+        params={params}
+      />,
+    );
     expect(header.find(TeamHeader)).to.have.length(0);
     expect(header.find(TeamPublicHeader)).to.have.length(1);
     expect(header.find(IconArrowBack)).to.have.length(0);
   });
 
-  it('does not show the avatar or team icon on teams page', () => {
-    const location = { pathname: '/check/teams' };
-    const header = mountWithIntl(<Header location={location} loggedIn params={{}} />);
+  it('renders the Check logo and not TeamHeader or TeamPublicHeader on 404 page', () => {
+    const location = { pathname: '/check/404' };
+    const params = { team: 'team' };
+    const header = mountWithIntl(
+      <HeaderComponent
+        inTeamContext={false}
+        loggedIn
+        location={location}
+        params={params}
+      />,
+    );
+    expect(header.find('[src="/images/logo/check.svg"]')).to.have.length(1);
     expect(header.find(TeamHeader)).to.have.length(0);
-    expect(header.find(IconMenu)).to.have.length(0);
+    expect(header.find(TeamPublicHeader)).to.have.length(0);
   });
 });
