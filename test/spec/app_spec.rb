@@ -53,6 +53,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
   before :each do |example|
     $caller_name = example.metadata[:description_args]
+    p $caller_name
     @driver = new_driver(webdriver_url,browser_capabilities)
   end
 
@@ -65,7 +66,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
   end
 
   # The tests themselves start here
-
   context "web" do
     it "should filter by medias or sources", bin6: true do
       api_create_team_project_and_link 'https://twitter.com/TheWho/status/890135323216367616'
