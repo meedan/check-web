@@ -22,6 +22,11 @@ class UpdateTeamMutation extends Relay.Mutation {
           contacts
           avatar
         }
+        public_team {
+          avatar
+          name
+          description
+        }
       }
     `;
   }
@@ -60,7 +65,7 @@ class UpdateTeamMutation extends Relay.Mutation {
       },
       {
         type: 'FIELDS_CHANGE',
-        fieldIDs: { team: this.props.id },
+        fieldIDs: { team: this.props.id, public_team: this.props.public_id },
       },
       {
         type: 'NODE_DELETE',

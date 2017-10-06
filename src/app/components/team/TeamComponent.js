@@ -181,6 +181,7 @@ class TeamComponent extends Component {
             web: values.contact_web,
           }),
           id: this.props.team.id,
+          public_id: this.props.team.public_team_id,
           avatar: form.avatar,
         }),
         { onSuccess, onFailure },
