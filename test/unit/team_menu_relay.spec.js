@@ -1,7 +1,7 @@
 import React from 'react';
 import { expect } from 'chai';
 import { mountWithIntl } from './helpers/intl-test';
-import TeamMenuRelay from '../../src/app/components/team/TeamMenuRelay';
+import TeamMenu from '../../src/app/components/team/TeamMenu';
 
 describe('<TeamMenu />', () => {
   const team = {
@@ -11,6 +11,6 @@ describe('<TeamMenu />', () => {
 
   it('show "View team" if user is not allowed to manage team', () => {
     const teamMenu = mountWithIntl(<TeamMenu team={team} />);
-    expect(teamMenu.find('.menuitem').html().to.contain('View team'));
+    expect(teamMenu.find('MenuItem').text()).to.equal('View team');
   });
 });

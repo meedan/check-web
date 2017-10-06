@@ -9,6 +9,10 @@ import CreateTeam from '../../src/app/components/team/CreateTeam';
 const intlProvider = new IntlProvider({ locale: 'en', messages: {} }, {});
 const { intl } = intlProvider.getChildContext();
 
+// Needed for onTouchTap
+import injectTapEventPlugin from 'react-tap-event-plugin';
+injectTapEventPlugin();
+
 describe('<CreateTeam />', () => {
   it('creates a slug that contains Unicode alphanumeric chars only', function() {
     const createTeam = mountWithIntl(<CreateTeam />);

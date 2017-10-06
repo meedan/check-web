@@ -1,14 +1,14 @@
 [
   {
-    "id": "teamMenuRelay.viewTeam",
+    "id": "teamMenu.viewTeam",
     "defaultMessage": "View team"
   },
   {
-    "id": "teamMenuRelay.manageTeam",
+    "id": "teamMenu.manageTeam",
     "defaultMessage": "Manage team"
   },
   {
-    "id": "teamMenuRelay.trash",
+    "id": "teamMenu.trash",
     "defaultMessage": "Trash"
   }
 ]

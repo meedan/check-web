@@ -6,7 +6,6 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import rtlDetect from 'rtl-detect';
 import merge from 'lodash.merge';
 import config from 'config';
-import injectTapEventPlugin from 'react-tap-event-plugin';
 import Header from './Header';
 import LoginContainer from './LoginContainer';
 import BrowserSupport from './BrowserSupport';
@@ -16,7 +15,8 @@ import { bemClass } from '../helpers';
 import Message from './Message';
 import { muiThemeWithoutRtl, ContentColumn } from '../styles/js/shared';
 
-// Material-UI setup
+// Needed for onTouchTap
+import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
 const messages = defineMessages({
@@ -136,7 +136,7 @@ class Home extends Component {
     //
     // TODO: Fix currentUserIsMember function.
     // context.currentUser.teams keys are actually the team names, not slugs
-    
+
     const inTeamContext = !!this.props.params.team;
     const loggedIn = !!this.state.token;
 
