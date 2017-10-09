@@ -12,7 +12,7 @@ import CreateFlagMutation from '../../relay/CreateFlagMutation';
 import CreateDynamicMutation from '../../relay/CreateDynamicMutation';
 import CheckContext from '../../CheckContext';
 import UploadImage from '../UploadImage';
-import { ContentColumn, alertRed } from '../../styles/js/shared';
+import { ContentColumn, alertRed, units } from '../../styles/js/shared';
 import HttpStatus from '../../HttpStatus';
 
 const messages = defineMessages({
@@ -420,6 +420,7 @@ class AddAnnotation extends Component {
         className="add-annotation"
         name="addannotation"
         onSubmit={this.handleSubmit.bind(this)}
+        style={{ height: '100%', padding: units(2), position: 'relative', zIndex: 0 }}
       >
         <ContentColumn flex>
           <TextField
@@ -444,6 +445,7 @@ class AddAnnotation extends Component {
                 />
               );
             }
+            return null;
           })()}
           <div className="add-annotation__buttons">
             <div className="add-annotation__insert-photo">
