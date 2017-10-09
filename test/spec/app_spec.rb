@@ -67,7 +67,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
   # The tests themselves start here
   context "web" do
-=begin    
     it "should filter by medias or sources", bin6: true do
       api_create_team_project_and_link 'https://twitter.com/TheWho/status/890135323216367616'
       @driver.navigate.to @config['self_url']
@@ -991,7 +990,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     # it "should move media to another project" do
     #   skip("Needs to be implemented")
     # end
-=end
+
     it "should add, edit, answer, update answer and delete short answer task", bin3: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
       wait_for_selector('.create-task__add-button')
@@ -1055,7 +1054,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       # Delete task
       delete_task('Foo')
     end
-=begin
+
     # it "should add, edit, answer, update answer and delete single_choice task" do
     #   skip("Needs to be implemented")
     # end
@@ -1335,7 +1334,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       # Delete task
       delete_task('When was it')
     end
-=end
+
     #Add slack notifications to a team
     it "should add slack notifications to a team", bin3:true, quick: true do
       team = "testteam#{Time.now.to_i}"
@@ -1361,7 +1360,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 2
       expect(@driver.find_element(:class, "message").nil?).to be(false)
     end
-=begin
 
     it "should paginate project page", bin2: true do
       page = api_create_team_project_claims_sources_and_redirect_to_project_page 21
@@ -1376,6 +1374,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       results = @driver.find_elements(:css, '.medias__item')
       expect(results.size == 42).to be(true)
     end
-=end    
+
   end
 end
