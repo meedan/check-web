@@ -993,7 +993,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     # end
 =end
     it "should add, edit, answer, update answer and delete short answer task", bin3: true do
-begin
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
       wait_for_selector('.create-task__add-button')
 
@@ -1010,13 +1009,7 @@ begin
       fill_field('#task-label-input', 'Foo or bar?')
       el = wait_for_selector('.create-task__dialog-submit-button', :css)
       el.click
-p (".........B..")
-l = @driver.find_elements(:class,"annotations__list-item")
-p l.length
       media_pg.wait_all_elements(2, "annotations__list-item", :class) #Wait for refresh page
-p (".........A..")
-l = @driver.find_elements(:class,"annotations__list-item")
-p l.length
       expect(@driver.page_source.include?('Foo or bar?')).to be(true)
       expect(@driver.page_source.include?('Task "Foo or bar?" created by')).to be(true)
 
@@ -1031,7 +1024,8 @@ p l.length
       expect(@driver.page_source.include?('Task "Foo or bar?" edited to "Foo or bar???" by')).to be(false)
       el = wait_for_selector('.task-actions__icon', :css)
       el.click
-      sleep 3
+#      sleep 3
+      media_pg.wait_all_elements(6, "annotations__list-item", :class)
       editbutton = wait_for_selector('.task-actions__edit', :css)
       editbutton.location_once_scrolled_into_view
       editbutton.click
@@ -1040,7 +1034,6 @@ p l.length
       editbutton.click
       sleep 2
       expect(@driver.page_source.include?('Task "Foo or bar?" edited to "Foo or bar???" by')).to be(true)
-
 
       # Edit task answer
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Task "Foo or bar???" answered by User With Email: "Foo edited"')).to be(false)
@@ -1061,9 +1054,6 @@ p l.length
 
       # Delete task
       delete_task('Foo')
-rescue=>e
-  p e
-end
     end
 =begin
     # it "should add, edit, answer, update answer and delete single_choice task" do
