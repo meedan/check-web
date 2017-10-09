@@ -67,6 +67,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
   # The tests themselves start here
   context "web" do
+=begin    
     it "should filter by medias or sources", bin6: true do
       api_create_team_project_and_link 'https://twitter.com/TheWho/status/890135323216367616'
       @driver.navigate.to @config['self_url']
@@ -990,7 +991,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     # it "should move media to another project" do
     #   skip("Needs to be implemented")
     # end
-
+=end
     it "should add, edit, answer, update answer and delete short answer task", bin3: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
       wait_for_selector('.create-task__add-button')
@@ -1001,10 +1002,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       el = wait_for_selector('.create-task__add-button', :css)
       el.click
-      sleep 1
       el = wait_for_selector('.create-task__add-short-answer', :css)
       el.click
-      sleep 1
+      wait_for_selector('#task-label-input', :css)
       fill_field('#task-label-input', 'Foo or bar?')
       el = wait_for_selector('.create-task__dialog-submit-button', :css)
       el.click
@@ -1023,15 +1023,15 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Task "Foo or bar?" edited to "Foo or bar???" by')).to be(false)
       el = wait_for_selector('.task-actions__icon', :css)
       el.click
-#      sleep 3
       media_pg.wait_all_elements(6, "annotations__list-item", :class)
+
       editbutton = wait_for_selector('.task-actions__edit', :css)
       editbutton.location_once_scrolled_into_view
       editbutton.click
       fill_field('textarea[name="label"]', '??')
       editbutton = wait_for_selector('.task__save', :css)
       editbutton.click
-      sleep 2
+      media_pg.wait_all_elements(7, "annotations__list-item", :class)
       expect(@driver.page_source.include?('Task "Foo or bar?" edited to "Foo or bar???" by')).to be(true)
 
       # Edit task answer
@@ -1054,7 +1054,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       # Delete task
       delete_task('Foo')
     end
-
+=begin
     # it "should add, edit, answer, update answer and delete single_choice task" do
     #   skip("Needs to be implemented")
     # end
@@ -1374,6 +1374,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       results = @driver.find_elements(:css, '.medias__item')
       expect(results.size == 42).to be(true)
     end
-
+=end
   end
 end
