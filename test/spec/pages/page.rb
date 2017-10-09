@@ -60,6 +60,21 @@ class Page
     element
   end
 
+  def wait_for_selector_list(selector, type = :css, timeout = 30)
+    @wait = Selenium::WebDriver::Wait.new(timeout: timeout)
+    elements = @wait.until { @driver.find_elements(type, selector) }
+    elements
+  end
+
+  def wait_all_elements(size, selector, type = :css)
+      count = 0
+      begin
+        count = count + 1
+        l = @driver.find_elements(type, selector)
+        sleep 1
+      end while (l.length < size and count < 10)
+  end
+
   def wait_for_string(string)
     @wait.until {
       contains_string?(string)

@@ -1010,7 +1010,13 @@ begin
       fill_field('#task-label-input', 'Foo or bar?')
       el = wait_for_selector('.create-task__dialog-submit-button', :css)
       el.click
-      sleep 5
+p (".........B..")
+l = @driver.find_elements(:class,"annotations__list-item")
+p l.length
+      media_pg.wait_all_elements(2, "annotations__list-item", :class) #Wait for refresh page
+p (".........A..")
+l = @driver.find_elements(:class,"annotations__list-item")
+p l.length
       expect(@driver.page_source.include?('Foo or bar?')).to be(true)
       expect(@driver.page_source.include?('Task "Foo or bar?" created by')).to be(true)
 
@@ -1021,17 +1027,12 @@ begin
       media_pg.wait_all_elements(3, "annotations__list-item", :class)
       expect(@driver.page_source.include?('Task "Foo or bar?" answered by')).to be(true)
 
-p "B edit"
-l = @driver.find_elements( :class, "annotations__list-item")
-p l.length
-
       # Edit task
       expect(@driver.page_source.include?('Task "Foo or bar?" edited to "Foo or bar???" by')).to be(false)
-      @driver.find_element(:css, '.task-actions__icon').click
+      el = wait_for_selector('.task-actions__icon', :css)
+      el.click
       sleep 3
-      l = @driver.find_elements( :css, '.task-actions__edit')
-      l[0].click
-      editbutton = @driver.find_element(:css, '.task-actions__edit')
+      editbutton = wait_for_selector('.task-actions__edit', :css)
       editbutton.location_once_scrolled_into_view
       editbutton.click
       fill_field('textarea[name="label"]', '??')
@@ -1055,7 +1056,7 @@ p l.length
 
       fill_field('textarea[name="editedresponse"]', ' edited')
       @driver.action.send_keys(:enter).perform
-      media_pg.wait_all_elements(7, "annotations__list-item", :class)
+      media_pg.wait_all_elements(7, "annotations__list-item", :class) #Wait for refresh page
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Task "Foo or bar???" answered by User With Email: "Foo edited"')).to be(true)
 
       # Delete task
