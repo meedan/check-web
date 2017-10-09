@@ -991,7 +991,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     #   skip("Needs to be implemented")
     # end
 
-    it "should add, edit, answer, update answer and delete short answer task", bin3: true do
+    it "should add, edit, answer, update answer and delete short answer task", bin: true , bin3: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
       wait_for_selector('.create-task__add-button')
 
@@ -1047,7 +1047,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       fill_field('textarea[name="editedresponse"]', ' edited')
       @driver.action.send_keys(:enter).perform
-      media_pg.wait_all_elements(7, "annotations__list-item", :class) #Wait for refresh page
+      media_pg.wait_all_elements(8, "annotations__list-item", :class) #Wait for refresh page
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Task "Foo or bar???" answered by User With Email: "Foo edited"')).to be(true)
 
       # Delete task
