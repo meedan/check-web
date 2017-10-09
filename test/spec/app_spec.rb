@@ -1335,7 +1335,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       # Delete task
       delete_task('When was it')
     end
-
+=end
     #Add slack notifications to a team
     it "should add slack notifications to a team", bin3:true, quick: true do
       team = "testteam#{Time.now.to_i}"
@@ -1361,6 +1361,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 2
       expect(@driver.find_element(:class, "message").nil?).to be(false)
     end
+=begin
 
     it "should paginate project page", bin2: true do
       page = api_create_team_project_claims_sources_and_redirect_to_project_page 21
