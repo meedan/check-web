@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import { defineMessages } from 'react-intl';
+import { defineMessages, injectIntl } from 'react-intl';
 import { Card, CardActions } from 'material-ui/Card';
 import styled from 'styled-components';
+import rtlDetect from 'rtl-detect';
 import TimelineHeader from './TimelineHeader';
 import AddAnnotation from './AddAnnotation';
 import MediaAnnotation from './MediaAnnotation';
 import Can from '../Can';
-import { units, black16, white } from '../../styles/js/shared';
+import { units, black16, white, opaqueBlack16, borderWidthMedium } from '../../styles/js/shared';
 
 const messages = defineMessages({
   timelineTitle: {
@@ -37,7 +38,19 @@ const StyledAnnotationCard = styled(Card)`
     border-bottom: 1px solid ${black16};
 
     .annotations__list-item {
+      position: relative;
       margin: 0 ${units(1)};
+      // The timeline line
+      &::before {
+        background-color: ${opaqueBlack16};
+        bottom: 0;
+        content: '';
+        display: block;
+        position: absolute;
+        top: 0;
+        width: ${borderWidthMedium};
+        ${props => (props.isRtl ? 'right' : 'left')}: ${units(4)};
+      }
       &:first-of-type {
         padding-bottom: ${units(6)};
       }
@@ -69,14 +82,14 @@ class Annotations extends Component {
     const annotations = props.annotations;
 
     return (
-      <StyledAnnotationCard className="annotations">
+      <StyledAnnotationCard
+        className="annotations"
+        isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}
+      >
         <TimelineHeader msgObj={messages} msgKey="timelineTitle" />
         <div className="annotations__list">
           {annotations.map(annotation =>
-            <div
-              key={annotation.node.dbid}
-              className="annotations__list-item"
-            >
+            <div key={annotation.node.dbid} className="annotations__list-item">
               {this.annotationComponent(
                 annotation.node,
                 props.annotated,
@@ -108,4 +121,4 @@ class Annotations extends Component {
   }
 }
 
-export default Annotations;
+export default injectIntl(Annotations);

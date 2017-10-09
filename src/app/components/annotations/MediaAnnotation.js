@@ -1,18 +1,17 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { FormattedMessage, FormattedHTMLMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
-import MappedMessage from '../MappedMessage';
 import Relay from 'react-relay';
 import Tooltip from 'rc-tooltip';
 import 'rc-tooltip/assets/bootstrap_white.css';
+import styled from 'styled-components';
+import rtlDetect from 'rtl-detect';
 import MediaDetail from '../media/MediaDetail';
 import MediaUtil from '../media/MediaUtil';
-import DynamicAnnotation from '../annotations/DynamicAnnotation';
 import DeleteAnnotationMutation from '../../relay/DeleteAnnotationMutation';
 import DeleteVersionMutation from '../../relay/DeleteVersionMutation';
 import UpdateProjectMediaMutation from '../../relay/UpdateProjectMediaMutation';
 import Can, { can } from '../Can';
 import TimeBefore from '../TimeBefore';
-import ProfileLink from '../layout/ProfileLink';
 import { Link } from 'react-router';
 import { getStatus, getStatusStyle } from '../../helpers';
 import Lightbox from 'react-image-lightbox';
@@ -22,6 +21,8 @@ import MdImage from 'react-icons/lib/md/image';
 import ParsedText from '../ParsedText';
 import DatetimeTaskResponse from '../task/DatetimeTaskResponse';
 import UserTooltip from '../user/UserTooltip';
+import { units, white, opaqueBlack16, borderWidthMedium, borderWidthLarge } from '../../styles/js/shared';
+import { stripUnit } from 'polished';
 
 const messages = defineMessages({
   error: {
@@ -229,7 +230,7 @@ class Annotation extends Component {
           defaultMessage={'Comment deleted by {author}: "{comment}"'}
           values={{
             author: authorName,
-            comment: content.text
+            comment: content.text,
           }}
         />
       </em>);
@@ -459,22 +460,20 @@ class Annotation extends Component {
             }}
           />
         </span>);
-      }
-      else if (activity.object_changes_json == '{"archived":[false,true]}') {
+      } else if (activity.object_changes_json == '{"archived":[false,true]}') {
         activityType = 'move_to_trash';
         contentTemplate = (<div>
           <div className="annotation__card-content annotation__card-trash">
             <FormattedMessage id="annotation.movedToTrash" defaultMessage="Moved to trash" />
           </div>
         </div>);
-      }
-      else if (activity.object_changes_json == '{"archived":[true,false]}') {
+      } else if (activity.object_changes_json == '{"archived":[true,false]}') {
         contentTemplate = (<span>
           <FormattedMessage
             id="annotation.movedFromTrash"
             defaultMessage={'{author} moved this out of the trash'}
             values={{
-              author: authorName
+              author: authorName,
             }}
           />
         </span>);
@@ -518,16 +517,41 @@ class Annotation extends Component {
       return null;
     }
 
+    const StyledAnnotation = styled.section`
+      position: relative;
+      &:not(.annotation--card) {
+        // The timeline dot
+        &::before {
+          background-color: ${opaqueBlack16};
+          border-radius: 100%;
+          content: '';
+          height: ${units(1)};
+          outline: ${borderWidthLarge} solid ${white};
+          position: absolute;
+          top: ${units(2)};
+          width: ${units(1)};
+          ${props => props.isRtl ? 'right' : 'left'}:
+            ${stripUnit(units(4)) - (
+              stripUnit(borderWidthMedium) + (stripUnit(borderWidthMedium) / 2)
+            )}px;
+        }
+      }
+    `;
+
     const useCardTemplate = (activityType === 'create_comment' || activityType === 'move_to_trash');
     const templateClass = `annotation--${useCardTemplate ? 'card' : 'default'}`;
     const typeClass = annotation ? `annotation--${annotation.annotation_type}` : '';
     return (
-      <section className={`annotation ${templateClass} ${typeClass}`} id={`annotation-${activity.dbid}`}>
+      <StyledAnnotation
+        className={`annotation ${templateClass} ${typeClass}`}
+        id={`annotation-${activity.dbid}`}
+        isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}
+      >
         {useCardTemplate ? (
           <Card className="annotation__card">
             <CardText className={`annotation__card-text annotation__card-activity-${activityType.replace(/_/g, '-')}`}>
               <div className="annotation__card-avatar-col">
-                <Tooltip placement="top" overlay={<UserTooltip user={activity.user}/>}>
+                <Tooltip placement="top" overlay={<UserTooltip user={activity.user} />}>
                   <div className="annotation__card-avatar" style={{ backgroundImage: `url(${activity.user.source.image})` }} />
                 </Tooltip>
               </div>
@@ -552,7 +576,7 @@ class Annotation extends Component {
             </div>
           )
         }
-      </section>
+      </StyledAnnotation>
     );
   }
 }

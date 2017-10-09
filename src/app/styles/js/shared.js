@@ -87,6 +87,8 @@ export const transitionSpeedSlow = '500ms';
 // Borders
 export const defaultBorderRadius = '2px';
 export const defaultBorderWidth = '1px';
+export const borderWidthMedium = '2px';
+export const borderWidthLarge = '3px';
 
 // Material design box shadows
 //

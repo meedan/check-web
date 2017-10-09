@@ -73,7 +73,9 @@
   background: $check-blue;
   color: #fff;
 
-  .annotation__card-author, .annotation__card-trash, .annotation__timestamp {
+  .annotation__card-author,
+  .annotation__card-trash,
+  .annotation__timestamp {
     color: #fff;
   }
 }
