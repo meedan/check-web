@@ -54,12 +54,9 @@ shared_examples 'custom' do
   it "should change a media status via the dropdown menu", bin4: true do
     media = api_create_team_project_and_claim
     @driver.navigate.to media.full_url
-    p "-------"
     wait_for_selector("media__notes-heading", :class) #sleep 10    
-    p "-------"
     media_pg = MediaPage.new(config: @config, driver: @driver)
     expect(media_pg.status_label).to eq('UNSTARTED')
-
     media_pg.change_status(:verified)
     expect(media_pg.status_label).to eq('VERIFIED')
     expect(media_pg.contains_element?('.annotation__status--verified')).to be(true)

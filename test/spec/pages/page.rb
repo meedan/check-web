@@ -70,9 +70,10 @@ class Page
       count = 0
       begin
         count = count + 1
-        l = @driver.find_elements(type, selector)
+        el = @driver.find_elements(type, selector)
         sleep 1
-      end while (l.length < size and count < 10)
+      end while (el.length < size and count < 10)
+      el
   end
 
   def wait_for_string(string)
