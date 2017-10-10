@@ -1,7 +1,7 @@
 // The menu on the annotations
 // TODO: Consider standardizing all menu buttons to use the same component.
 //
-.menu-button {
+.menu-button { // THIS CLASS USED IN TESTS
   align-items: center;
   display: flex;
   font-size: units(3);
@@ -23,8 +23,8 @@
 
   .menu-button__menu {
     @include menu;
-    #{$to-direction}: -1 * units(1);
     top: 100%;
     z-index: 6; // TODO: better z-index strategy
+    #{$to-direction}: -1 * units(1);
   }
 }

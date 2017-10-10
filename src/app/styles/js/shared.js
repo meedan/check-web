@@ -85,10 +85,12 @@ export const transitionSpeedDefault = '300ms';
 export const transitionSpeedSlow = '500ms';
 
 // Borders
-export const defaultBorderRadius = '2px';
-export const defaultBorderWidth = '1px';
+export const borderWidthSmall = '1px';
 export const borderWidthMedium = '2px';
 export const borderWidthLarge = '3px';
+
+// Border radius
+export const defaultBorderRadius = '2px';
 
 // Material design box shadows
 //
@@ -123,11 +125,11 @@ export const titleStyle = {
 
 export const listStyle = {
   padding: '0',
-  borderBottom: `${defaultBorderWidth} solid ${black05}`,
+  borderBottom: `${borderWidthSmall} solid ${black05}`,
 };
 
 export const listItemStyle = {
-  borderTop: `${defaultBorderWidth} solid ${black05}`,
+  borderTop: `${borderWidthSmall} solid ${black05}`,
 };
 
 export const listItemButtonStyle = {
@@ -164,15 +166,16 @@ export const ellipsisStyles = 'overflow: hidden; text-overflow: ellipsis; white-
 
 export const backgroundCover = 'background-repeat: no-repeat; background-position: center; background-size: cover;';
 
-export const largeAvatarSize = units(9);
+export const avatarSizeLarge = units(9);
 export const avatarSize = units(5);
+export const avatarSizeSmall = units(4);
 
 export const avatarStyle = `
-  border: ${defaultBorderWidth} solid ${black05};
+  border: ${borderWidthSmall} solid ${black05};
   border-radius: ${defaultBorderRadius};
   flex: 0 0 auto;
-  height: ${largeAvatarSize};
-  width: ${largeAvatarSize};
+  height: ${avatarSizeLarge};
+  width: ${avatarSizeLarge};
   ${backgroundCover}
   background-color: ${white};
 `;

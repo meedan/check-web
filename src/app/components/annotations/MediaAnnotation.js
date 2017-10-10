@@ -5,6 +5,12 @@ import Tooltip from 'rc-tooltip';
 import 'rc-tooltip/assets/bootstrap_white.css';
 import styled from 'styled-components';
 import rtlDetect from 'rtl-detect';
+import { stripUnit } from 'polished';
+import { Link } from 'react-router';
+import Lightbox from 'react-image-lightbox';
+import { Card, CardText } from 'material-ui/Card';
+import Avatar from 'material-ui/Avatar';
+import MdImage from 'react-icons/lib/md/image';
 import MediaDetail from '../media/MediaDetail';
 import MediaUtil from '../media/MediaUtil';
 import DeleteAnnotationMutation from '../../relay/DeleteAnnotationMutation';
@@ -12,17 +18,30 @@ import DeleteVersionMutation from '../../relay/DeleteVersionMutation';
 import UpdateProjectMediaMutation from '../../relay/UpdateProjectMediaMutation';
 import Can, { can } from '../Can';
 import TimeBefore from '../TimeBefore';
-import { Link } from 'react-router';
 import { getStatus, getStatusStyle } from '../../helpers';
-import Lightbox from 'react-image-lightbox';
-import { Card, CardText } from 'material-ui/Card';
 import MenuButton from '../MenuButton';
-import MdImage from 'react-icons/lib/md/image';
 import ParsedText from '../ParsedText';
 import DatetimeTaskResponse from '../task/DatetimeTaskResponse';
 import UserTooltip from '../user/UserTooltip';
-import { units, white, opaqueBlack16, borderWidthMedium, borderWidthLarge } from '../../styles/js/shared';
-import { stripUnit } from 'polished';
+import {
+  units,
+  white,
+  opaqueBlack16,
+  black05,
+  black16,
+  black38,
+  black54,
+  black87,
+  checkBlue,
+  borderWidthSmall,
+  borderWidthMedium,
+  borderWidthLarge,
+  caption,
+  columnWidthMedium,
+  breakWordStyles,
+  avatarStyle,
+  avatarSizeSmall,
+} from '../../styles/js/shared';
 
 const messages = defineMessages({
   error: {
@@ -517,8 +536,16 @@ class Annotation extends Component {
       return null;
     }
 
+    const dotSize = borderWidthLarge;
+
+    const dotOffset = stripUnit(units(4)) - stripUnit(dotSize);
+
     const StyledAnnotation = styled.section`
       position: relative;
+      display: flex;
+      padding: ${units(1)} 0;
+      position: relative;
+
       &:not(.annotation--card) {
         // The timeline dot
         &::before {
@@ -526,15 +553,214 @@ class Annotation extends Component {
           border-radius: 100%;
           content: '';
           height: ${units(1)};
-          outline: ${borderWidthLarge} solid ${white};
+          outline: ${dotSize} solid ${white};
           position: absolute;
           top: ${units(2)};
           width: ${units(1)};
-          ${props => props.isRtl ? 'right' : 'left'}:
-            ${stripUnit(units(4)) - (
-              stripUnit(borderWidthMedium) + (stripUnit(borderWidthMedium) / 2)
-            )}px;
+          ${props => props.isRtl ? 'right' : 'left'}: ${dotOffset}px;
         }
+      }
+
+      .annotation__default {
+        color: ${black87};
+        display: flex;
+        font: ${caption};
+        max-width: ${columnWidthMedium};
+
+        &-content {
+          @extend ${breakWordStyles};
+          display: block;
+          margin-${props => props.isRtl ? 'left' : 'right'}: ${units(2)};
+        }
+        ${props => props.isRtl ? 'padding-right' : 'padding-left'}: ${units(10)};
+      }
+
+      .annotation__card {
+        max-width: ${units(90)};
+        width: 100%;
+        z-index: initial !important;
+
+        & > div {
+          padding-bottom: 0 !important;
+        }
+
+        img {
+          cursor: pointer;
+        }
+      }
+
+      .annotation__card-text {
+        display: flex;
+        padding: ${units(3)} ${units(2)} 0 !important;
+      }
+
+      .annotation__card-avatar-col {
+        margin-${props => props.isRtl ? 'left' : 'right'}: ${units(3)};
+      }
+
+      .annotation__card-avatar {
+        ${avatarStyle}
+        width: ${avatarSizeSmall} !important;
+        height: ${avatarSizeSmall} !important;
+      }
+
+      .annotation__card-main-col {
+        flex: 1;
+      }
+
+      .annotation__card-content {
+        ${breakWordStyles}
+        display: flex;
+        width: 100%;
+
+        & > span:first-child {
+          flex: 1;
+        }
+      }
+
+      .annotation__card-activity-move-to-trash {
+        background: ${checkBlue};
+        color: #fff;
+
+        .annotation__card-author,
+        .annotation__card-trash,
+        .annotation__timestamp {
+          color: #fff;
+        }
+      }
+
+      .annotation__card-thumbnail {
+        padding: ${units(1)};
+      }
+
+      .annotation__card-footer {
+        // see also .media-detail__check-metadata
+        align-items: center;
+        border-top: ${borderWidthSmall} solid ${black05};
+        color: ${black54};
+        display: flex;
+        flex: 1;
+        flex-flow: wrap row;
+        font: ${caption};
+        height: ${units(5.5)};
+        margin-top: ${units(3)};
+        padding-${props => props.isRtl ? 'left' : 'right'}: ${units(1)};
+      }
+
+      .annotation__card-footer-text {
+        flex: 1;
+        padding-${props => props.isRtl ? 'left' : 'right'}: ${units(1)};
+      }
+
+      .annotation__card-author {
+        color: ${black87};
+        padding-${props => props.isRtl ? 'left' : 'right'}: ${units(1)};
+      }
+
+      .annotation__content {
+        flex: 1;
+        width: 100%;
+      }
+
+      .annotation__header {
+        align-items: baseline;
+        display: flex;
+        margin-bottom: ${units(0.5)};
+        white-space: pre;
+      }
+
+      .annotation__timestamp {
+        color: ${black38};
+        display: inline;
+        flex: 1;
+        white-space: pre;
+        margin-${props => props.isRtl ? 'left' : 'right'}: ${units(1)};
+      }
+
+      .annotation__actions {
+        align-self: flex-start;
+        display: none;
+        flex: 1;
+        text-align: ${props => props.isRtl ? 'left' : 'right'};
+      }
+
+      .annotation__body {
+        ${breakWordStyles}
+      }
+
+      .annotation__embedded-media {
+        padding-bottom: ${units(1)};
+        padding-top: ${units(1)};
+      }
+
+      // non-comments
+      .annotation__status {
+        font: ${caption};
+        text-transform: uppercase;
+        margin: 0 3px;
+      }
+
+      .annotation__tag {
+        &::before {
+          content: '#';
+        }
+      }
+
+      .annotation__update-task > span {
+        display: block;
+      }
+
+      .annotation__comment {
+        margin-top: ${units(0.5)};
+
+        .annotation__comment-text {
+          width: 80%;
+        }
+
+        img {
+          cursor: zoom-in;
+          max-width: 20%;
+          min-width: ${units(6)};
+        }
+
+        br {
+          clear: both;
+        }
+      }
+
+      .add-annotation__buttons {
+        align-items: center;
+        display: flex;
+        justify-content: flex-end;
+        margin-${props => props.isRtl ? 'right' : 'left'}: auto;
+      }
+
+      // IN TESTS
+      .add-annotation__insert-photo {
+        svg {
+          path {
+            color: ${black16};
+          }
+          margin-${props => props.isRtl ? 'left' : 'right'}: 0;
+        }
+      }
+
+      .annotation__reverse-image-search,
+      .annotation__keep-retry {
+        cursor: pointer;
+        display: inline-block;
+        font-weight: 700;
+        margin: 0 ${units(1)};
+        text-transform: uppercase;
+      }
+
+      .annotation__card-embedded-medias {
+        clear: both;
+        margin-top: ${units(0.5)};
+      }
+
+      .annotation__keep a {
+        text-decoration: underline;
       }
     `;
 
@@ -552,7 +778,7 @@ class Annotation extends Component {
             <CardText className={`annotation__card-text annotation__card-activity-${activityType.replace(/_/g, '-')}`}>
               <div className="annotation__card-avatar-col">
                 <Tooltip placement="top" overlay={<UserTooltip user={activity.user} />}>
-                  <div className="annotation__card-avatar" style={{ backgroundImage: `url(${activity.user.source.image})` }} />
+                  <Avatar className="annotation__card-avatar" style={{ backgroundImage: `url(${activity.user.source.image})` }} />
                 </Tooltip>
               </div>
               <div className="annotation__card-main-col">

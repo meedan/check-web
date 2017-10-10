@@ -12,7 +12,7 @@ import CreateFlagMutation from '../../relay/CreateFlagMutation';
 import CreateDynamicMutation from '../../relay/CreateDynamicMutation';
 import CheckContext from '../../CheckContext';
 import UploadImage from '../UploadImage';
-import { ContentColumn, alertRed, units } from '../../styles/js/shared';
+import { ContentColumn, Row, alertRed, units } from '../../styles/js/shared';
 import HttpStatus from '../../HttpStatus';
 
 const messages = defineMessages({
@@ -447,7 +447,7 @@ class AddAnnotation extends Component {
             }
             return null;
           })()}
-          <div className="add-annotation__buttons">
+          <Row className="add-annotation__buttons">
             <div className="add-annotation__insert-photo">
               <MdInsertPhoto
                 id="add-annotation__switcher"
@@ -461,7 +461,7 @@ class AddAnnotation extends Component {
               primary
               type="submit"
             />
-          </div>
+          </Row>
         </ContentColumn>
       </form>
     );
