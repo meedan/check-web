@@ -9,7 +9,7 @@ describe('<TeamMenu />', () => {
     permissions: JSON.stringify({ 'update Team': false }),
   };
 
-  it('show "View team" if user is not allowed to manage team', () => {
+  it('should show "View team" if user is not allowed to manage team', () => {
     const teamMenu = mountWithIntl(<TeamMenu team={team} />);
     expect(teamMenu.find('MenuItem').text()).to.equal('View team');
   });
