@@ -1,7 +1,6 @@
 require_relative '../spec_helper.rb'
 
 shared_examples 'custom' do
-=begin
   it "should register and redirect to newly created media", bin4: true do
     api_create_team_and_project
     page = ProjectPage.new(config: @config, driver: @driver).load
@@ -55,7 +54,9 @@ shared_examples 'custom' do
   it "should change a media status via the dropdown menu", bin4: true do
     media = api_create_team_project_and_claim
     @driver.navigate.to media.full_url
-    sleep 2
+    p "-------"
+    wait_for_selector("media__notes-heading", :class) #sleep 10    
+    p "-------"
     media_pg = MediaPage.new(config: @config, driver: @driver)
     expect(media_pg.status_label).to eq('UNSTARTED')
 
@@ -63,9 +64,8 @@ shared_examples 'custom' do
     expect(media_pg.status_label).to eq('VERIFIED')
     expect(media_pg.contains_element?('.annotation__status--verified')).to be(true)
   end
-=end
+
   it "should search by status", bin2: true do
-begin
     api_create_claim_and_go_to_search_page
     before = wait_for_selector("search__results-heading", :class)
     txt = before.text
@@ -82,20 +82,17 @@ begin
     expect((@driver.title =~ /Unstarted/).nil?).to be(false)
     expect((@driver.current_url.to_s.match(/undetermined/)).nil?).to be(false)
     expect(@driver.page_source.include?('My search result')).to be(true)
-rescue => e
-  p e
-end
-
   end
-=begin
+
   it "should search by status through URL", bin2: true do
     api_create_claim_and_go_to_search_page
+    before = wait_for_selector("search__results-heading", :class)
+    txt = before.text
     @driver.navigate.to @config['self_url'] + '/' + get_team + '/search/%7B"status"%3A%5B"false"%5D%7D'
-    sleep 10
+    txt = wait_txt_change(txt, "search__results-heading", :class)
     expect((@driver.title =~ /False/).nil?).to be(false)
     expect(@driver.page_source.include?('My search result')).to be(false)
     selected = @driver.find_elements(:css, '.media-tags__suggestion--selected').map(&:text).sort
     expect(selected == ['False', 'Created', 'Newest first', 'Media'].sort).to be(true)
   end
-=end  
 end
