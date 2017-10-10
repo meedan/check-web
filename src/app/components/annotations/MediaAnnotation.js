@@ -27,20 +27,17 @@ import {
   units,
   white,
   opaqueBlack16,
-  black05,
-  black16,
   black38,
   black54,
   black87,
   checkBlue,
-  borderWidthSmall,
-  borderWidthMedium,
   borderWidthLarge,
   caption,
   columnWidthMedium,
   breakWordStyles,
   avatarStyle,
   avatarSizeSmall,
+  Row,
 } from '../../styles/js/shared';
 
 const messages = defineMessages({
@@ -633,25 +630,6 @@ class Annotation extends Component {
         padding: ${units(1)};
       }
 
-      .annotation__card-footer {
-        // see also .media-detail__check-metadata
-        align-items: center;
-        border-top: ${borderWidthSmall} solid ${black05};
-        color: ${black54};
-        display: flex;
-        flex: 1;
-        flex-flow: wrap row;
-        font: ${caption};
-        height: ${units(5.5)};
-        margin-top: ${units(3)};
-        padding-${props => props.isRtl ? 'left' : 'right'}: ${units(1)};
-      }
-
-      .annotation__card-footer-text {
-        flex: 1;
-        padding-${props => props.isRtl ? 'left' : 'right'}: ${units(1)};
-      }
-
       .annotation__card-author {
         color: ${black87};
         padding-${props => props.isRtl ? 'left' : 'right'}: ${units(1)};
@@ -728,23 +706,6 @@ class Annotation extends Component {
         }
       }
 
-      .add-annotation__buttons {
-        align-items: center;
-        display: flex;
-        justify-content: flex-end;
-        margin-${props => props.isRtl ? 'right' : 'left'}: auto;
-      }
-
-      // IN TESTS
-      .add-annotation__insert-photo {
-        svg {
-          path {
-            color: ${black16};
-          }
-          margin-${props => props.isRtl ? 'left' : 'right'}: 0;
-        }
-      }
-
       .annotation__reverse-image-search,
       .annotation__keep-retry {
         cursor: pointer;
@@ -761,6 +722,18 @@ class Annotation extends Component {
 
       .annotation__keep a {
         text-decoration: underline;
+      }
+    `;
+
+    const AnnotationMetadata = styled(Row)`
+      color: ${black54};
+      flex-flow: wrap row;
+      font: ${caption};
+      margin-top: ${units(3)};
+      padding-${props => props.isRtl ? 'left' : 'right'}: ${units(1)};
+      .annotation__card-footer-text {
+        flex: 1;
+        padding-${props => props.isRtl ? 'left' : 'right'}: ${units(1)};
       }
     `;
 
@@ -783,12 +756,19 @@ class Annotation extends Component {
               </div>
               <div className="annotation__card-main-col">
                 {contentTemplate}
-                <footer className="annotation__card-footer">
+                <AnnotationMetadata>
                   <span className="annotation__card-footer-text">
-                    <Link to={`/check/user/${activity.user.dbid}`} className={'annotation__card-author'}>{activity.user.name}</Link><span>{timestamp}</span>
+                    <Link
+                      to={`/check/user/${activity.user.dbid}`}
+                      className={'annotation__card-author'}
+                    >{activity.user.name}
+                    </Link>
+                    <span>
+                      {timestamp}
+                    </span>
                   </span>
                   {annotationActions}
-                </footer>
+                </AnnotationMetadata>
               </div>
 
             </CardText>

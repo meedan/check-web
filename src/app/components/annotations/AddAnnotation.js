@@ -4,6 +4,8 @@ import Relay from 'react-relay';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import MdInsertPhoto from 'react-icons/lib/md/insert-photo';
+import styled from 'styled-components';
+import rtlDetect from 'rtl-detect';
 import CreateCommentMutation from '../../relay/CreateCommentMutation';
 import CreateTagMutation from '../../relay/CreateTagMutation';
 import CreateStatusMutation from '../../relay/CreateStatusMutation';
@@ -12,7 +14,7 @@ import CreateFlagMutation from '../../relay/CreateFlagMutation';
 import CreateDynamicMutation from '../../relay/CreateDynamicMutation';
 import CheckContext from '../../CheckContext';
 import UploadImage from '../UploadImage';
-import { ContentColumn, Row, alertRed, units } from '../../styles/js/shared';
+import { ContentColumn, Row, black38, black87, alertRed, units } from '../../styles/js/shared';
 import HttpStatus from '../../HttpStatus';
 
 const messages = defineMessages({
@@ -415,6 +417,23 @@ class AddAnnotation extends Component {
   }
 
   render() {
+    const AddAnnotationButtonGroup = styled(Row)`
+      align-items: center;
+      display: flex;
+      justify-content: flex-end;
+      margin-${props => props.isRtl ? 'right' : 'left'}: auto;
+      .add-annotation__insert-photo {
+        svg {
+          path { color: ${black38}; }
+          &:hover path { 
+            color: ${black87};
+            cusor: pointer;
+          }
+          margin-${props => props.isRtl ? 'left' : 'right'}: 0;
+        }
+      }
+    `;
+
     return (
       <form
         className="add-annotation"
@@ -447,7 +466,10 @@ class AddAnnotation extends Component {
             }
             return null;
           })()}
-          <Row className="add-annotation__buttons">
+          <AddAnnotationButtonGroup
+            className="add-annotation__buttons"
+            isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}
+          >
             <div className="add-annotation__insert-photo">
               <MdInsertPhoto
                 id="add-annotation__switcher"
@@ -461,7 +483,7 @@ class AddAnnotation extends Component {
               primary
               type="submit"
             />
-          </Row>
+          </AddAnnotationButtonGroup>
         </ContentColumn>
       </form>
     );
