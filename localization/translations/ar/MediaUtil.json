@@ -1,5 +1,5 @@
 {
-  "media.notesCount": "{notesCount, plural, =0 {لا تعليق} one {تعليق واحد} other {# تعليقات}}",
+  "media.notesCount": "{notesCount, plural, =0 {بدون تعليق} one {تعليق واحد} other {# تعليقات}}",
   "media.typeTwitter": "تويت",
   "media.typeFacebook": "نشرة فيسبوك",
   "media.typeInstagram": "انستقرام",
