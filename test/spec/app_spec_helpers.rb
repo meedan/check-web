@@ -107,6 +107,12 @@ module AppSpecHelpers
     element
   end
 
+  def wait_for_selector_list(selector, type = :css, timeout = 30)
+    @wait = Selenium::WebDriver::Wait.new(timeout: timeout)
+    elements = @wait.until { @driver.find_elements(type, selector) }
+    elements
+  end
+
   def wait_txt_change(txt, selector, type = :css)
     count = 0
     begin
@@ -115,6 +121,16 @@ module AppSpecHelpers
       sleep 1
     end while (el.text == txt and count < 10)
     el.text
+  end
+
+  def wait_size_change(s, selector, type = :css)
+    count = 0
+    begin
+      count = count + 1
+      el = wait_for_selector_list(selector, type)
+      sleep 1
+    end while (s == el.size and count < 10)
+    el.size
   end
 
 

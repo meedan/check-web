@@ -67,6 +67,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
   # The tests themselves start here
   context "web" do
+=begin    
     include_examples "custom"
     it "should filter by medias or sources", bin6: true do
       api_create_team_project_and_link 'https://twitter.com/TheWho/status/890135323216367616'
@@ -1353,19 +1354,19 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 2
       expect(@driver.find_element(:class, "message").nil?).to be(false)
     end
-
+=end
     it "should paginate project page", bin2: true do
       page = api_create_team_project_claims_sources_and_redirect_to_project_page 21
       page.load
-      sleep 5
-      @driver.find_element(:xpath, "//span[contains(text(), 'Sources')]").click
-      sleep 10
+      el = wait_for_selector("//span[contains(text(), 'Sources')]", :xpath)
+      el.click
+      wait_for_selector("source-card", :class)
       results = @driver.find_elements(:css, '.medias__item')
       expect(results.size == 40).to be(true)
+      old = results.size
       results.last.location_once_scrolled_into_view
-      sleep 5
-      results = @driver.find_elements(:css, '.medias__item')
-      expect(results.size == 42).to be(true)
+      size = wait_size_change(old, '.medias__item')
+      expect(size == 42).to be(true)
     end
   end
 end
