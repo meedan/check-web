@@ -225,7 +225,7 @@ describe('<SwitchTeamsComponent />', () => {
     }
   };
 
-  it('show private teams to members of the same team', () => {
+  it('should show private teams to members of the same team', () => {
     getStore().currentUser = currentUser;
     const switchTeam = mountWithIntl(<SwitchTeamsComponent user={otherUser} />);
     expect(switchTeam.find('.teams').children()).to.have.length(1);
