@@ -67,6 +67,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
   # The tests themselves start here
   context "web" do
+    include_examples "custom"
+=begin    
     it "should filter by medias or sources", bin6: true do
       api_create_team_project_and_link 'https://twitter.com/TheWho/status/890135323216367616'
       @driver.navigate.to @config['self_url']
@@ -114,8 +116,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Access Denied')).to be(true)
       expect((@driver.current_url.to_s =~ /\/forbidden$/).nil?).to be(false)
     end
-
-    include_examples "custom"
 
     it "should edit the title of a media", bin1: true do
       url = 'https://twitter.com/softlandscapes/status/834385935240462338'
@@ -1343,19 +1343,14 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 5
       el = wait_for_selector("team__edit-button", :class)
       el.click
-      #@driver.find_element(:class, "team__edit-button").click
       el = wait_for_selector("team__settings-slack-notifications-enabled", :id)
       el.click
-      #@driver.find_element(:id, "team__settings-slack-notifications-enabled").click
       el = wait_for_selector("team__settings-slack-webhook", :id)
       el.click
-      #      @driver.find_element(:id, "team__settings-slack-webhook").click
       el = wait_for_selector("team__settings-slack-webhook", :id)
       el.send_keys "https://hooks.slack.com/services/T02528QUL/BBBBBBBBB/AAAAAAAAAAAAAAAAAAAAAAAA"
-      #      @driver.find_element(:id, "team__settings-slack-webhook").send_keys "https://hooks.slack.com/services/T02528QUL/BBBBBBBBB/AAAAAAAAAAAAAAAAAAAAAAAA"
       el = wait_for_selector("team__save-button", :class)
       el.click
-      #      @driver.find_element(:class, "team__save-button").click
       sleep 2
       expect(@driver.find_element(:class, "message").nil?).to be(false)
     end
@@ -1373,5 +1368,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       results = @driver.find_elements(:css, '.medias__item')
       expect(results.size == 42).to be(true)
     end
+=end
   end
 end

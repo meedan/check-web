@@ -107,6 +107,17 @@ module AppSpecHelpers
     element
   end
 
+  def wait_txt_change(txt, selector, type = :css)
+    count = 0
+    begin
+      count = count + 1
+      el = wait_for_selector(selector, type)
+      sleep 1
+    end while (el.text == txt and count < 10)
+    el.text
+  end
+
+
   def slack_auth
     wait_for_selector("//button[@id='slack-login']", :xpath).click
     sleep 5
