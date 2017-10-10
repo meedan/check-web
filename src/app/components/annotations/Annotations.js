@@ -20,14 +20,14 @@ const messages = defineMessages({
   },
 });
 
-const StyledAnnotationCard = styled(Card)`
+const StyledAnnotation = styled.div`
   display: flex;
   flex-direction: column;
   .annotations__list {
     // Chrome only hack to avoid broken scroll on Firefox :( CGB 2017-10-6
     // TODO figure out a real solution for this
     // See: https://github.com/philipwalton/flexbugs/issues/108
-    @media screen and (-webkit-min-device-pixel-ratio:0) { 
+    @media screen and (-webkit-min-device-pixel-ratio:0) {
       height: calc(100vh - 370px);
     }
     overflow: auto;
@@ -82,41 +82,42 @@ class Annotations extends Component {
     const annotations = props.annotations;
 
     return (
-      <StyledAnnotationCard
+      <StyledAnnotation
         className="annotations"
         isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}
-      >
+      > <Card>
         <TimelineHeader msgObj={messages} msgKey="timelineTitle" />
         <div className="annotations__list">
           {annotations.map(annotation =>
             <div key={annotation.node.dbid} className="annotations__list-item">
               {this.annotationComponent(
-                annotation.node,
-                props.annotated,
-                props.annotatedType,
-              )}
+                  annotation.node,
+                  props.annotated,
+                  props.annotatedType,
+                )}
             </div>,
-          )}
+            )}
         </div>
         <StyledAnnotationCardActions>
           {props.annotatedType === 'ProjectMedia'
-            ? <Can
-              permissions={props.annotated.permissions}
-              permission="create Comment"
-            >
-              <AddAnnotation
+              ? <Can
+                permissions={props.annotated.permissions}
+                permission="create Comment"
+              >
+                <AddAnnotation
+                  annotated={props.annotated}
+                  annotatedType={props.annotatedType}
+                  types={props.types}
+                />
+              </Can>
+              : <AddAnnotation
                 annotated={props.annotated}
                 annotatedType={props.annotatedType}
                 types={props.types}
-              />
-            </Can>
-            : <AddAnnotation
-              annotated={props.annotated}
-              annotatedType={props.annotatedType}
-              types={props.types}
-            />}
+              />}
         </StyledAnnotationCardActions>
-      </StyledAnnotationCard>
+      </Card>
+      </StyledAnnotation>
     );
   }
 }
