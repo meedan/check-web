@@ -387,3 +387,27 @@ export const ContentColumn = styled.div`
 export const Offset = styled.div`
   padding: 0 ${units(1)} !important;
 `;
+
+// Material style Chip
+// Deprecated: use the material-ui/chip component instead
+export const ChipStyles = `
+    background-color: ${black05};
+    border: 0;
+    border-radius: 30px;
+    color: ${black54};
+    cursor: pointer;
+    display: inline-block;
+    font: ${body2};
+    margin: ${units(0.5)};
+    padding: ${units(0.5)} ${units(2)};
+
+    &--selected {
+      background-color: ${black10};
+      color: ${black87};
+    }
+
+    &:hover {
+      background-color: ${black16};
+    }
+  }
+`;
