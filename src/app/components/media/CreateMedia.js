@@ -131,10 +131,9 @@ class CreateProjectMedia extends Component {
 
     this.state = {
       message: null,
-      isSubmitting: false,
-      fileMode: false,
       mode: 'link',
       submittable: false,
+      isSubmitting: false,
     };
   }
 
@@ -149,10 +148,6 @@ class CreateProjectMedia extends Component {
 
   setMode(mode) {
     this.setState({ mode });
-  }
-
-  switchMode() {
-    this.setState({ fileMode: !this.state.fileMode });
   }
 
   handleChange() {
