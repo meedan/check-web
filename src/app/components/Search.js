@@ -7,6 +7,7 @@ import sortby from 'lodash.sortby';
 import config from 'config';
 import styled from 'styled-components';
 import Chip from 'material-ui/Chip';
+import rtlDetect from 'rtl-detect';
 import { teamStatuses } from '../customHelpers';
 import PageTitle from './PageTitle';
 import SearchRoute from '../relay/SearchRoute';
@@ -430,6 +431,7 @@ class SearchQueryComponent extends Component {
                     id="search-input"
                     defaultValue={this.state.query.keyword || ''}
                     ref={input => (this.searchQueryInput = input)}
+                    isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}
                     autofocus
                   />
                 </form>
@@ -439,7 +441,9 @@ class SearchQueryComponent extends Component {
             {/* Status */}
             {this.showField('status')
                   ?
-                    <StyledFilterRow>
+                    <StyledFilterRow
+                      isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}
+                    >
                       <h4><FormattedMessage id="search.statusHeading" defaultMessage="Status" /></h4>
                       {statuses.map(status =>
                         <StyledFilterOption
