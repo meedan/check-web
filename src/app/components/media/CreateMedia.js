@@ -130,7 +130,6 @@ class CreateProjectMedia extends Component {
     super(props);
 
     this.state = {
-      url: '',
       message: null,
       isSubmitting: false,
       fileMode: false,
@@ -406,7 +405,6 @@ class CreateProjectMedia extends Component {
   }
 
   render() {
-    const isPreviewingUrl = this.state.url !== '';
     const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
 
     const styles = {
@@ -462,11 +460,6 @@ class CreateProjectMedia extends Component {
           <CardHeader title={this.renderTitle()} />
           <CardText>
             <Message message={this.state.message} />
-            <div id="media-preview" className="create-media__preview">
-              {isPreviewingUrl
-                ? <PenderCard url={this.state.url} penderUrl={config.penderUrl} />
-                : null}
-            </div>
 
             <form
               name="media"
