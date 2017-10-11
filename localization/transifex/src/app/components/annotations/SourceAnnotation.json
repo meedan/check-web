@@ -1,6 +1,0 @@
-{
-  "annotation.error": "Could not delete annotation",
-  "annotation.deleteButton": "Delete",
-  "annotation.taggedHeader": "Tagged #{tag} by {author}",
-  "annotation.flaggedHeader": "Flagged as {flag} by {author}"
-}
