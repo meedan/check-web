@@ -34,10 +34,10 @@ class UserInfo extends React.Component {
 
             <div className="source__contact-info">
               <FormattedHTMLMessage
-                id="UserInfo.dateJoined" defaultMessage="Joined {date} &bull; {number} teams"
+                id="UserInfo.dateJoined" defaultMessage="Joined {date} &bull; {teamsCount, plural, =0 {No teams} one {1 team} other {# teams}}"
                 values={{
                   date: this.props.intl.formatDate(MediaUtil.createdAt({ published: source.created_at }), { year: 'numeric', month: 'short', day: '2-digit' }),
-                  number: user.team_users.edges.length || '0',
+                  teamsCount: user.team_users.edges.length || 0,
                 }}
               />
             </div>

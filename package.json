@@ -174,7 +174,6 @@
     "react-router": "^3.0.0",
     "react-router-redux": "^4.0.5",
     "react-select": "1.0.0-rc.2",
-    "react-simpletabs": "^0.7.0",
     "react-tag-input": "^4.6.1",
     "react-tap-event-plugin": "^2.0.1",
     "react-truncate": "^2.1.0",

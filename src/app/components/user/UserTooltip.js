@@ -29,7 +29,7 @@ class UserTooltipComponent extends React.Component {
     const { source } = this.props.user;
 
     return (
-      <div style={{backgroundColor: white, opacity: 1 }}>
+      <div>
         <section className="layout-two-column">
           <div className="column-secondary">
             <Avatar
@@ -59,10 +59,10 @@ class UserTooltipComponent extends React.Component {
 
             <div className="tooltip__contact-info">
               <FormattedHTMLMessage
-                id="userTooltip.dateJoined" defaultMessage="Joined {date} &bull; {number} teams"
+                id="userTooltip.dateJoined" defaultMessage="Joined {date} &bull; {teamsCount, plural, =0 {No teams} one {1 team} other {# teams}}"
                 values={{
                   date: this.props.intl.formatDate(MediaUtil.createdAt({ published: source.created_at }), { year: 'numeric', month: 'short', day: '2-digit' }),
-                  number: user.number_of_teams,
+                  teamsCount: user.number_of_teams,
                 }}
               />
             </div>

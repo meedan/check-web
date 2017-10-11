@@ -28,7 +28,8 @@ const userFragment = Relay.QL`
             avatar,
             slug,
             private,
-            members_count
+            members_count,
+            permissions
           }
           id,
           status,

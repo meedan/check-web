@@ -1,12 +1,11 @@
 {
   "switchTeams.error": "Désolé, il n'a pas été possible de changer d'équipe",
-  "switchTeams.member": "membre",
-  "switchTeams.members": "membres",
+  "switchTeams.member": "{membersCount, plural, =0 {Aucun membre} one {1 membre} other {# membres}}",
   "switchTeams.joinRequestMessage": "Vous avez demandé à rejoindre",
   "switchTeams.cancelJoinRequest": "Annuler",
   "switchTeams.bannedJoinRequest": "Annulé",
   "teams.yourTeams": "Vos équipes",
-  "teams.userTeams": "{name} fait partie de {number} équipes",
-  "switchTeams.noTeams": "Vous ne faites encore partie d'aucune équipe.",
+  "teams.userTeams": "Les équipes de {name}",
+  "switchTeams.noTeams": "Membre d'aucune équipe.",
   "switchTeams.newTeamLink": "Créer une équipe"
 }

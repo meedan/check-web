@@ -28,17 +28,23 @@ function nodeWithIntlProp(node) {
 }
 
 const store = {
+  currentUser: {
+  },
+
+  team: {
+    projects: {
+      edges: [
+        { node: { dbid: 1 } }
+      ]
+    }
+  },
+
   getState: function() {
     return {
       app: {
         context: {
-          team: {
-            projects: {
-              edges: [
-                { node: { dbid: 1 } }
-              ]
-            }
-          }
+          team: this.team,
+          currentUser: this.currentUser
         }
       }
     }
@@ -47,6 +53,11 @@ const store = {
 
 const muiTheme = getMuiTheme();
 
+/**
+ * You can manipulate the global context through this function, e.g.:
+ *
+ * getStore().currentUser = { foo: 'foo', bar: 'bar' }
+ */
 export function getStore() {
   return store;
 }
