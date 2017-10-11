@@ -29,7 +29,7 @@ class UserTooltipComponent extends React.Component {
     const { source } = this.props.user;
 
     return (
-      <div style={{backgroundColor: white, opacity: 1 }}>
+      <div>
         <section className="layout-two-column">
           <div className="column-secondary">
             <Avatar
