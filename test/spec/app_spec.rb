@@ -67,7 +67,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
   # The tests themselves start here
   context "web" do
-=begin    
+
     include_examples "custom"
     it "should filter by medias or sources", bin6: true do
       api_create_team_project_and_link 'https://twitter.com/TheWho/status/890135323216367616'
@@ -1229,7 +1229,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
         sleep 5
       end
     end
-=end
+
     it "should add, edit, answer, update answer and delete geolocation task", bin3: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
       wait_for_selector('.create-task__add-button')
@@ -1278,7 +1278,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       # Delete task
       delete_task('Where was it')
     end
-=begin
+
     it "should add, edit, answer, update answer and delete datetime task", bin3: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
       wait_for_selector('.create-task__add-button')
@@ -1368,6 +1368,5 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       size = wait_size_change(old, '.medias__item')
       expect(size == 42).to be(true)
     end
-=end    
   end
 end
