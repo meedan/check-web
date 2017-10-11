@@ -54,7 +54,6 @@ const StyledSearchInput = styled.input`
   padding-${props => (props.isRtl ? 'right' : 'left')}: ${units(6)};
 `;
 
-
 const StyledSearchFiltersSection = styled.section`
   padding: ${units(1)};
   margin-top: ${units(1)};
@@ -70,11 +69,9 @@ const StyledSearchFiltersSection = styled.section`
 `;
 
 const StyledFilterRow = styled(Row)`
-  flex-wrap: nowrap;
   max-height: ${units(20)};
-  overflow-x: auto;
-  overflow-y: auto;
   min-height: ${units(5)};
+  flex-wrap: wrap;
 
   h4 {
     color: ${black87};
@@ -83,16 +80,27 @@ const StyledFilterRow = styled(Row)`
     margin-${props => (props.isRtl ? 'left' : 'right')}: ${units(2)};
   }
 
-  ${mediaQuery.handheld`
-    padding: 0;
+  ${mediaQuery.tablet`
+    justify-content: flex-end;
+    h4 {
+      margin-${props => (props.isRtl ? 'left' : 'right')}: auto;
+    }
+  `};
 
-    // DEPRECATED: upgrade this component to use dropdowns
-    // instead of this technique CGB 2017-10-10
+  ${mediaQuery.handheld`
+    // Make them a single row that scrolls horizontally.
+    // DEPRECATED: upgrade this component to use dropdowns per spec.
+    // CGB 2017-10-10
+    padding: 0;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    overflow-x: auto;
+    overflow-y: auto;
     // Hide the scrollbar
     &::-webkit-scrollbar {
       width: 0px;
       height: 0px;
-      background: transparent;-
+      background: transparent;
     }
 
     h4 {
@@ -100,21 +108,6 @@ const StyledFilterRow = styled(Row)`
       text-align: ${props => (props.isRtl ? 'right' : 'left')};
     }
   `}
-`;
-
-const StyledSearchResultsWrapper = styled(ContentColumn)`
-      padding-bottom: 0 0 ${units(2)};
-
-      .results li {
-        margin-top: ${units(1)};
-        list-style-type: none;
-      }
-
-    .search__results-heading {
-      color: ${black87};
-      margin-top: ${units(3)};
-      text-align: center;
-    }
 `;
 
 const StyledFilterOption = styled(Chip)`
@@ -131,8 +124,23 @@ const StyledFilterOption = styled(Chip)`
     ${props => props.active
       ? `color: ${black87}!important; font-weight: 700!important;`
       : `color: ${black38}!important;
-    `} 
+    `}
   }
+`;
+
+const StyledSearchResultsWrapper = styled(ContentColumn)`
+      padding-bottom: 0 0 ${units(2)};
+
+      .results li {
+        margin-top: ${units(1)};
+        list-style-type: none;
+      }
+
+    .search__results-heading {
+      color: ${black87};
+      margin-top: ${units(3)};
+      text-align: center;
+    }
 `;
 
 export function searchQueryFromUrlQuery(urlQuery) {
