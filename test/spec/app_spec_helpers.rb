@@ -8,6 +8,23 @@ module AppSpecHelpers
     }
   end
 
+  def time_handle(selector, value, type = :css, visible = true)
+    wait = Selenium::WebDriver::Wait.new(timeout: 50)
+    input = wait.until {
+      element = @driver.find_element(type, selector)
+      if visible
+        element if element.displayed?
+      else
+        element
+      end
+    }
+    sleep 0.5
+    input.clear
+    sleep 0.5
+    input.send_keys(value)
+  end
+
+
   def update_field(selector, value, type = :css, visible = true)
     wait = Selenium::WebDriver::Wait.new(timeout: 50)
     input = wait.until {
@@ -47,17 +64,36 @@ module AppSpecHelpers
     input.click
   end
 
+  def alert_accept
+    begin
+      @driver.switch_to.alert.accept
+      return true
+    rescue => e
+      sleep 2
+      return false
+    end
+  end
+
   def delete_task(task_text)
     expect(@driver.page_source.include?(task_text)).to be(true)
-    # In case the menu is left open (which happens for unknown reason),
-    # click somewhere non-interactive, to ensure menu closes...
-    @driver.find_element(:css, '.task__label').click
+    el = wait_for_selector('.task__label')
+    el.click
+    
     sleep 1
     # Open the menu
-    @driver.find_element(:css, '.task-actions__icon').click
+    el = wait_for_selector('.task-actions__icon')
+    el.click
     sleep 2
-    @driver.find_element(:css, '.task-actions__delete').click
-    @driver.switch_to.alert.accept
+    el = wait_for_selector('.task-actions__delete')
+    el.click
+
+    n = 0
+    ret = false
+    begin
+      ret = alert_accept
+      n = n + 1
+    end while (!ret and n < 10)
+
     sleep 3
     expect(@driver.page_source.include?(task_text)).to be(false)
   end
