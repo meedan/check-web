@@ -390,7 +390,7 @@ export const Offset = styled.div`
 
 // Material style Chip
 // Deprecated: use the material-ui/chip component instead
-export const ChipStyles = `
+export const chipStyles = `
     background-color: ${black05};
     border: 0;
     border-radius: 30px;

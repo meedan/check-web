@@ -5,6 +5,8 @@ import InfiniteScroll from 'react-infinite-scroller';
 import isEqual from 'lodash.isequal';
 import sortby from 'lodash.sortby';
 import config from 'config';
+import styled from 'styled-components';
+import Chip from 'material-ui/Chip';
 import { teamStatuses } from '../customHelpers';
 import PageTitle from './PageTitle';
 import SearchRoute from '../relay/SearchRoute';
@@ -16,9 +18,107 @@ import { bemClass, notify } from '../helpers';
 import CheckContext from '../CheckContext';
 import MediasLoading from './media/MediasLoading';
 import SourceCard from './source/SourceCard';
-import { FlexRow, ContentColumn } from '../styles/js/shared';
+import { white,
+  black87,
+  black38,
+  black16,
+  boxShadow,
+  Row,
+  ContentColumn,
+  columnWidthMedium,
+  units,
+  borderWidthSmall,
+  transitionSpeedFast,
+  transitionSpeedDefault,
+  mediaQuery } from '../styles/js/shared';
 
 const pageSize = 20;
+
+const StyledSearchInput = styled.input`
+  background: ${units(2)} 50% url('/images/search.svg') ${white} no-repeat;
+  background-size: ${units(2)};
+  border: ${borderWidthSmall} solid ${black16};
+  border-radius: ${units(0.5)};
+  height: ${units(6)};
+  margin-top: ${units(1)};
+  outline: none;
+  transition: box-shadow ${transitionSpeedFast};
+  width: 100%;
+  font-size: 16px;
+
+
+  &:focus {
+    @include ${boxShadow(2)};
+    transition: box-shadow ${transitionSpeedDefault};
+  }
+  padding-${props => (props.isRtl ? 'right' : 'left')}: ${units(6)};
+`;
+
+const StyledFilterRow = styled(Row)`
+  flex-wrap: nowrap;
+  max-height: ${units(20)};
+  overflow-x: auto;
+  overflow-y: auto;
+  min-height: ${units(6)};
+
+  // The chip
+  > div {
+    margin: 0 ${units(0.5)} ${units(0.5)}!important;
+  }
+
+  h4 {
+    color: ${black87};
+    margin: 0;
+    min-width: ${units(6)};
+    margin-${props => (props.isRtl ? 'left' : 'right')}: ${units(2)};
+  }
+
+  ${mediaQuery.handheld`
+    padding: 0;
+
+    // DEPRECATED: upgrade this component to use dropdowns
+    // instead of this technique CGB 2017-10-10
+    // Hide the scrollbar
+    &::-webkit-scrollbar {
+      width: 0px;
+      height: 0px;
+      background: transparent;
+    }
+
+    h4 {
+      padding: ${units(0.5)};
+      text-align: ${props => (props.isRtl ? 'right' : 'left')};
+    }
+  `}
+`;
+
+const StyledSearchFiltersSection = styled.section`
+  padding: ${units(1)};
+
+  ${mediaQuery.handheld`
+    padding: ${units(2)} 0;
+  `}
+
+  .search__filters-loader {
+    margin: ${units(4)} 0;
+    text-align: center;
+  }
+`;
+
+const StyledSearchResultsWrapper = styled(ContentColumn)`
+      padding-bottom: 0 0 ${units(2)};
+
+      .results li {
+        margin-top: ${units(1)};
+        list-style-type: none;
+      }
+
+    .search__results-heading {
+      color: ${black87};
+      margin-top: ${units(3)};
+      text-align: center;
+    }
+`;
 
 export function searchQueryFromUrlQuery(urlQuery) {
   try {
@@ -296,183 +396,180 @@ class SearchQueryComponent extends Component {
 
     return (
       <PageTitle prefix={title} skipTeam={false} team={this.props.team}>
+
         <ContentColumn>
           <div className="search__query">
 
             {/* Keyword */}
             {this.showField('keyword')
-              ? <form
-                id="search-form"
-                className="search__form"
-                onSubmit={this.handleSubmit.bind(this)}
-              >
-                <input
-                  placeholder={this.props.intl.formatMessage(messages.searchInputHint)}
-                  name="search-input"
-                  id="search-input"
-                  className="search__input"
-                  defaultValue={this.state.query.keyword || ''}
-                  ref={input => (this.searchQueryInput = input)}
-                />
-              </form>
-              : null}
+                ? <form
+                  id="search-form"
+                  className="search__form"
+                  onSubmit={this.handleSubmit.bind(this)}
+                >
+                  <StyledSearchInput
+                    placeholder={this.props.intl.formatMessage(messages.searchInputHint)}
+                    name="search-input"
+                    id="search-input"
+                    className="search__input"
+                    defaultValue={this.state.query.keyword || ''}
+                    ref={input => (this.searchQueryInput = input)}
+                  />
+                </form>
+                : null}
 
-            <section className="search__filters filters">
+            <StyledSearchFiltersSection>
               {/* Status */}
               {this.showField('status')
-                ? <FlexRow>
-                  <h4><FormattedMessage id="search.statusHeading" defaultMessage="Status" /></h4>
-                  <ul className="media-tags__suggestions-list">
-                    {statuses.map(status =>
-                      <li
-                        key={status.id}
-                        title={status.description}
-                        onClick={this.handleStatusClick.bind(this, status.id)}
-                        className={bemClass(
-                            'media-tags__suggestion',
-                            this.statusIsSelected(status.id),
-                            '--selected',
-                          )}
-                      >
-                        {status.label}
-                      </li>,
-                      )}
-                  </ul>
-                </FlexRow>
-                : null}
+                  ?
+                    <StyledFilterRow>
+                      <h4><FormattedMessage id="search.statusHeading" defaultMessage="Status" /></h4>
+                      {statuses.map(status =>
+                        <Chip
+                          key={status.id}
+                          title={status.description}
+                          onClick={this.handleStatusClick.bind(this, status.id)}
+                          className={bemClass(
+                              'media-tags__suggestion',
+                              this.statusIsSelected(status.id),
+                              '--selected',
+                            )}
+                        >
+                          {status.label}
+                        </Chip>,
+                        )}
+                    </StyledFilterRow>
+                  : null}
 
               {/* Project */}
               {this.showField('project')
-                ? <FlexRow>
-                  <h4>
-                    <FormattedMessage id="search.projectHeading" defaultMessage="Project" />
-                  </h4>
-                  <ul className="media-tags__suggestions-list">
-                    {projects.map(project =>
-                      <li
-                        key={project.node.dbid}
-                        title={project.node.description}
-                        onClick={this.handleProjectClick.bind(this, project.node.dbid)}
-                        className={bemClass(
-                            'media-tags__suggestion',
-                            this.projectIsSelected(project.node.dbid),
-                            '--selected',
-                          )}
-                      >
-                        {project.node.title}
-                      </li>,
-                      )}
-                  </ul>
-                </FlexRow>
-                : null}
+                  ?
+                    <StyledFilterRow>
+                      <h4>
+                        <FormattedMessage id="search.projectHeading" defaultMessage="Project" />
+                      </h4>
+                      {projects.map(project =>
+                        <Chip
+                          key={project.node.dbid}
+                          title={project.node.description}
+                          onClick={this.handleProjectClick.bind(this, project.node.dbid)}
+                          className={bemClass(
+                              'media-tags__suggestion',
+                              this.projectIsSelected(project.node.dbid),
+                              '--selected',
+                            )}
+                        >
+                          {project.node.title}
+                        </Chip>,
+                        )}
+                    </StyledFilterRow>
+                  : null}
 
               {/* Tags */}
               {this.showField('tags') && suggestedTags.length
-                ? <FlexRow>
-                  <h4>
-                    <FormattedMessage id="status.categoriesHeading" defaultMessage="Categories" />
-                  </h4>
-                  <ul className="media-tags__suggestions-list">
-                    {suggestedTags.map(tag =>
-                      <li
-                        key={tag}
-                        title={null}
-                        onClick={this.handleTagClick.bind(this, tag)}
-                        className={bemClass(
-                            'media-tags__suggestion',
-                            this.tagIsSelected(tag),
-                            '--selected',
-                          )}
-                      >
-                        {tag}
-                      </li>,
-                      )}
-                  </ul>
-                </FlexRow>
-                : null}
+                  ?
+                    <StyledFilterRow>
+                      <h4>
+                        <FormattedMessage id="status.categoriesHeading" defaultMessage="Categories" />
+                      </h4>
+                      {suggestedTags.map(tag =>
+                        <Chip
+                          key={tag}
+                          title={null}
+                          onClick={this.handleTagClick.bind(this, tag)}
+                          className={bemClass(
+                              'media-tags__suggestion',
+                              this.tagIsSelected(tag),
+                              '--selected',
+                            )}
+                        >
+                          {tag}
+                        </Chip>,
+                        )}
+                    </StyledFilterRow>
+                  : null}
 
               {/* Sort */}
               {this.showField('sort')
-                ? <FlexRow>
-                  <h4><FormattedMessage id="search.sort" defaultMessage="Sort" /></h4>
-                  <ul className="search-query__sort-actions media-tags__suggestions-list">
-                    <li
-                      onClick={this.handleSortClick.bind(this, 'recent_added')}
-                      className={bemClass(
-                          'media-tags__suggestion',
-                          this.sortIsSelected('recent_added'),
-                          '--selected',
-                        )}
-                    >
-                      <FormattedMessage id="search.sortByCreated" defaultMessage="Created" />
-                    </li>
-                    <li
-                      onClick={this.handleSortClick.bind(this, 'recent_activity')}
-                      className={bemClass(
-                          'media-tags__suggestion',
-                          this.sortIsSelected('recent_activity'),
-                          '--selected',
-                        )}
-                    >
-                      <FormattedMessage
-                        id="search.sortByRecentActivity"
-                        defaultMessage="Recent activity"
-                      />
-                    </li>
-                    <li
-                      onClick={this.handleSortClick.bind(this, 'DESC')}
-                      className={bemClass(
-                          'media-tags__suggestion',
-                          this.sortIsSelected('DESC'),
-                          '--selected',
-                        )}
-                    >
-                      <FormattedMessage id="search.sortByNewest" defaultMessage="Newest first" />
-                    </li>
-                    <li
-                      onClick={this.handleSortClick.bind(this, 'ASC')}
-                      className={bemClass(
-                          'media-tags__suggestion',
-                          this.sortIsSelected('ASC'),
-                          '--selected',
-                        )}
-                    >
-                      <FormattedMessage id="search.sortByOldest" defaultMessage="Oldest first" />
-                    </li>
-                  </ul>
-                </FlexRow>
-                : null}
+                  ?
+                    <StyledFilterRow className="search-query__sort-actions media-tags__suggestions-list">
+                      <h4><FormattedMessage id="search.sort" defaultMessage="Sort" /></h4>
+                      <Chip
+                        onClick={this.handleSortClick.bind(this, 'recent_added')}
+                        className={bemClass(
+                            'media-tags__suggestion',
+                            this.sortIsSelected('recent_added'),
+                            '--selected',
+                          )}
+                      >
+                        <FormattedMessage id="search.sortByCreated" defaultMessage="Created" />
+                      </Chip>
+                      <Chip
+                        onClick={this.handleSortClick.bind(this, 'recent_activity')}
+                        className={bemClass(
+                            'media-tags__suggestion',
+                            this.sortIsSelected('recent_activity'),
+                            '--selected',
+                          )}
+                      >
+                        <FormattedMessage
+                          id="search.sortByRecentActivity"
+                          defaultMessage="Recent activity"
+                        />
+                      </Chip>
+                      <Chip
+                        onClick={this.handleSortClick.bind(this, 'DESC')}
+                        className={bemClass(
+                            'media-tags__suggestion',
+                            this.sortIsSelected('DESC'),
+                            '--selected',
+                          )}
+                      >
+                        <FormattedMessage id="search.sortByNewest" defaultMessage="Newest first" />
+                      </Chip>
+                      <Chip
+                        onClick={this.handleSortClick.bind(this, 'ASC')}
+                        className={bemClass(
+                            'media-tags__suggestion',
+                            this.sortIsSelected('ASC'),
+                            '--selected',
+                          )}
+                      >
+                        <FormattedMessage id="search.sortByOldest" defaultMessage="Oldest first" />
+                      </Chip>
+                    </StyledFilterRow>
+                  : null}
 
               {/* Show */}
               {this.showField('show')
-                ? <FlexRow>
-                  <h4><FormattedMessage id="search.show" defaultMessage="Show" /></h4>
-                  <ul className="search-query__sort-actions media-tags__suggestions-list">
-                    <li
-                      onClick={this.handleShowClick.bind(this, 'medias')}
-                      className={bemClass(
-                          'media-tags__suggestion',
-                          this.showIsSelected('medias'),
-                          '--selected',
-                        )}
-                    >
-                      <FormattedMessage id="search.showMedia" defaultMessage="Media" />
-                    </li>
-                    <li
-                      onClick={this.handleShowClick.bind(this, 'sources')}
-                      className={bemClass(
-                          'media-tags__suggestion',
-                          this.showIsSelected('sources'),
-                          '--selected',
-                        )}
-                    >
-                      <FormattedMessage id="search.showSources" defaultMessage="Sources" />
-                    </li>
-                  </ul>
-                </FlexRow>
-                : null}
+                  ?
+                    <StyledFilterRow className="search-query__sort-actions media-tags__suggestions-list">
+                      <h4><FormattedMessage id="search.show" defaultMessage="Show" /></h4>
+                      <Chip
+                        onClick={this.handleShowClick.bind(this, 'medias')}
+                        className={bemClass(
+                            'media-tags__suggestion',
+                            this.showIsSelected('medias'),
+                            '--selected',
+                          )}
+                      >
+                        <FormattedMessage id="search.showMedia" defaultMessage="Media" />
+                      </Chip>
+                      <Chip
+                        onClick={this.handleShowClick.bind(this, 'sources')}
+                        className={bemClass(
+                            'media-tags__suggestion',
+                            this.showIsSelected('sources'),
+                            '--selected',
+                          )}
+                      >
+                        <FormattedMessage id="search.showSources" defaultMessage="Sources" />
+                      </Chip>
+                    </StyledFilterRow>
 
-            </section>
+                  : null}
+
+            </StyledSearchFiltersSection>
 
             { this.props.addons }
           </div>
@@ -654,12 +751,10 @@ class SearchResultsComponent extends Component {
     const searchResults = this.mergeResults(medias, sources);
 
     return (
-      <div className="search__results results">
+      <StyledSearchResultsWrapper className="search__results results">
         <h3 className="search__results-heading">{title}</h3>
-
         <InfiniteScroll hasMore loadMore={this.loadMore.bind(this)} threshold={500}>
-
-          <ul className="search__results-list results medias-list">
+          <div className="search__results-list results medias-list">
             {searchResults.map(item =>
               <li key={item.node.id} className="medias__item">
                 {item.node.media
@@ -667,11 +762,9 @@ class SearchResultsComponent extends Component {
                   : <SourceCard source={item.node} />}
               </li>,
             )}
-          </ul>
-
+          </div>
         </InfiniteScroll>
-
-      </div>
+      </StyledSearchResultsWrapper>
     );
   }
 }
@@ -687,8 +780,7 @@ SearchResultsComponent.propTypes = {
 let fragment = null;
 if (config.appName === 'check') {
   fragment = checkSearchResultFragment;
-}
-else if (config.appName === 'bridge') {
+} else if (config.appName === 'bridge') {
   fragment = bridgeSearchResultFragment;
 }
 
@@ -697,7 +789,7 @@ const SearchResultsContainer = Relay.createContainer(injectIntl(SearchResultsCom
     pageSize,
   },
   fragments: {
-    search: () => fragment
+    search: () => fragment,
   },
 });
 
@@ -760,15 +852,15 @@ class Search extends Component {
               <ContentColumn>
                 <div className="search__query">
                   { (!fields || fields.indexOf('keyword') > -1) ?
-                  <div className="search__form search__form--loading">
-                    <input
-                      disabled
-                      placeholder={formatMessage(messages.loading)}
-                      name="search-input"
-                      id="search-input"
-                      className="search__input"
-                    />
-                  </div> : null }
+                    <div className="search__form search__form--loading">
+                      <StyledSearchInput
+                        disabled
+                        placeholder={formatMessage(messages.loading)}
+                        name="search-input"
+                        id="search-input"
+                        className="search__input"
+                      />
+                    </div> : null }
                 </div>
               </ContentColumn>
             );
