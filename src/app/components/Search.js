@@ -6,7 +6,6 @@ import isEqual from 'lodash.isequal';
 import sortby from 'lodash.sortby';
 import config from 'config';
 import styled from 'styled-components';
-import Chip from 'material-ui/Chip';
 import rtlDetect from 'rtl-detect';
 import { teamStatuses } from '../customHelpers';
 import PageTitle from './PageTitle';
@@ -97,8 +96,7 @@ const StyledFilterRow = styled(Row)`
     justify-content: flex-start;
     overflow-x: auto;
     overflow-y: auto;
-    // Hide the scrollbar
-    &::-webkit-scrollbar {
+    &::-webkit-scrollbar { // Hide scrollbar
       width: 0px;
       height: 0px;
       background: transparent;
@@ -107,41 +105,43 @@ const StyledFilterRow = styled(Row)`
     h4 {
       padding: ${units(0.5)};
       text-align: ${props => (props.isRtl ? 'right' : 'left')};
+      margin-${props => (props.isRtl ? 'left' : 'right')}: ${units(2)};
     }
   `}
 `;
 
-const StyledFilterOption = styled(Chip)`
-  margin: 0 ${units(0.5)} ${units(0.5)} !important;
-  background-color: ${black05} !important;
+const StyledFilterButton = styled.div`
+  margin: 0 ${units(0.5)}};
+  background-color: ${black05};
+  border-radius: ${units(3)};
+  padding: 0 ${units(1.5)};
+  font: ${caption};
+  line-height: ${units(3.5)};
+  transition: all ${transitionSpeedDefault};
+  white-space: nowrap;
   &:hover {
-    cursor: pointer !important;
-    background-color: ${black16} !important;
+    cursor: pointer;
+    background-color: ${black16};
   }
-  span {
-    font: ${caption} !important;
-    line-height: ${units(3.5)} !important;
-    transition: all ${transitionSpeedDefault};
-    ${props => props.active
-      ? `color: ${black87}!important; font-weight: 700!important;`
-      : `color: ${black38}!important;
-    `}
-  }
+  ${props => props.active
+    ? `color: ${black87}!important; font-weight: 700;`
+    : `color: ${black38};
+  `}
 `;
 
 const StyledSearchResultsWrapper = styled(ContentColumn)`
-      padding-bottom: 0 0 ${units(2)};
+    padding-bottom: 0 0 ${units(2)};
 
-      .results li {
-        margin-top: ${units(1)};
-        list-style-type: none;
-      }
-
-    .search__results-heading {
-      color: ${black87};
-      margin-top: ${units(3)};
-      text-align: center;
+    .results li {
+      margin-top: ${units(1)};
+      list-style-type: none;
     }
+
+  .search__results-heading {
+    color: ${black87};
+    margin-top: ${units(3)};
+    text-align: center;
+  }
 `;
 
 export function searchQueryFromUrlQuery(urlQuery) {
@@ -446,14 +446,14 @@ class SearchQueryComponent extends Component {
                     >
                       <h4><FormattedMessage id="search.statusHeading" defaultMessage="Status" /></h4>
                       {statuses.map(status =>
-                        <StyledFilterOption
+                        <StyledFilterButton
                           active={this.statusIsSelected(status.id)}
                           key={status.id}
                           title={status.description}
                           onClick={this.handleStatusClick.bind(this, status.id)}
                         >
                           {status.label}
-                        </StyledFilterOption>,
+                        </StyledFilterButton>,
                         )}
                     </StyledFilterRow>
                   : null}
@@ -466,14 +466,14 @@ class SearchQueryComponent extends Component {
                         <FormattedMessage id="search.projectHeading" defaultMessage="Project" />
                       </h4>
                       {projects.map(project =>
-                        <StyledFilterOption
+                        <StyledFilterButton
                           active={this.projectIsSelected(project.node.dbid)}
                           key={project.node.dbid}
                           title={project.node.description}
                           onClick={this.handleProjectClick.bind(this, project.node.dbid)}
                         >
                           {project.node.title}
-                        </StyledFilterOption>,
+                        </StyledFilterButton>,
                         )}
                     </StyledFilterRow>
                   : null}
@@ -486,14 +486,14 @@ class SearchQueryComponent extends Component {
                         <FormattedMessage id="status.categoriesHeading" defaultMessage="Categories" />
                       </h4>
                       {suggestedTags.map(tag =>
-                        <StyledFilterOption
+                        <StyledFilterButton
                           active={this.tagIsSelected(tag)}
                           key={tag}
                           title={null}
                           onClick={this.handleTagClick.bind(this, tag)}
                         >
                           {tag}
-                        </StyledFilterOption>,
+                        </StyledFilterButton>,
                         )}
                     </StyledFilterRow>
                   : null}
@@ -504,13 +504,13 @@ class SearchQueryComponent extends Component {
                     <StyledFilterRow className="search-query__sort-actions media-tags__suggestions-list">
                       <h4><FormattedMessage id="search.sort" defaultMessage="Sort" /></h4>
 
-                      <StyledFilterOption
+                      <StyledFilterButton
                         active={this.sortIsSelected('recent_added')}
                         onClick={this.handleSortClick.bind(this, 'recent_added')}
                       >
                         <FormattedMessage id="search.sortByCreated" defaultMessage="Created" />
-                      </StyledFilterOption>
-                      <StyledFilterOption
+                      </StyledFilterButton>
+                      <StyledFilterButton
                         active={this.sortIsSelected('recent_activity')}
                         onClick={this.handleSortClick.bind(this, 'recent_activity')}
                       >
@@ -518,19 +518,19 @@ class SearchQueryComponent extends Component {
                           id="search.sortByRecentActivity"
                           defaultMessage="Recent activity"
                         />
-                      </StyledFilterOption>
-                      <StyledFilterOption
+                      </StyledFilterButton>
+                      <StyledFilterButton
                         active={this.sortIsSelected('DESC')}
                         onClick={this.handleSortClick.bind(this, 'DESC')}
                       >
                         <FormattedMessage id="search.sortByNewest" defaultMessage="Newest first" />
-                      </StyledFilterOption>
-                      <StyledFilterOption
+                      </StyledFilterButton>
+                      <StyledFilterButton
                         active={this.sortIsSelected('ASC')}
                         onClick={this.handleSortClick.bind(this, 'ASC')}
                       >
                         <FormattedMessage id="search.sortByOldest" defaultMessage="Oldest first" />
-                      </StyledFilterOption>
+                      </StyledFilterButton>
                     </StyledFilterRow>
                   : null}
 
@@ -539,18 +539,18 @@ class SearchQueryComponent extends Component {
                   ?
                     <StyledFilterRow className="search-query__sort-actions media-tags__suggestions-list">
                       <h4><FormattedMessage id="search.show" defaultMessage="Show" /></h4>
-                      <StyledFilterOption
+                      <StyledFilterButton
                         active={this.showIsSelected('medias')}
                         onClick={this.handleShowClick.bind(this, 'medias')}
                       >
                         <FormattedMessage id="search.showMedia" defaultMessage="Media" />
-                      </StyledFilterOption>
-                      <StyledFilterOption
+                      </StyledFilterButton>
+                      <StyledFilterButton
                         active={this.showIsSelected('sources')}
                         onClick={this.handleShowClick.bind(this, 'sources')}
                       >
                         <FormattedMessage id="search.showSources" defaultMessage="Sources" />
-                      </StyledFilterOption>
+                      </StyledFilterButton>
                     </StyledFilterRow>
 
                   : null}
