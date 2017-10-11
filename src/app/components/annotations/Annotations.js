@@ -28,7 +28,10 @@ const StyledAnnotation = styled.div`
     // TODO figure out a real solution for this
     // See: https://github.com/philipwalton/flexbugs/issues/108
     @media screen and (-webkit-min-device-pixel-ratio:0) {
-      height: calc(100vh - 370px);
+      height: ${props => props.height == 'short'
+        ? 'calc(100vh - 480px)'
+        : 'calc(100vh - 300px)'
+      };
     }
     overflow: auto;
     display: flex;
@@ -85,6 +88,7 @@ class Annotations extends Component {
       <StyledAnnotation
         className="annotations"
         isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}
+        height={this.props.height}
       > <Card>
         <TimelineHeader msgObj={messages} msgKey="timelineTitle" />
         <div className="annotations__list">

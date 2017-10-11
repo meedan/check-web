@@ -1312,8 +1312,6 @@ class SourceComponent extends Component {
   }
 
   renderSourceEdit(source) {
-    const avatarPreview = this.state.image && this.state.image.preview;
-
     const actions = [
       <FlatButton
         label={this.props.intl.formatMessage(globalStrings.cancel)}
@@ -1572,6 +1570,7 @@ class SourceComponent extends Component {
                     annotations={source.log.edges}
                     annotated={this.props.source}
                     annotatedType="ProjectSource"
+                    height={'short'}
                   />
                 ) : null}
                 {this.state.showTab === 'media' ? (
