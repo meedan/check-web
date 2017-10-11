@@ -4,7 +4,7 @@ import { Card, CardActions } from 'material-ui/Card';
 import styled from 'styled-components';
 import TimelineHeader from './TimelineHeader';
 import AddAnnotation from './AddAnnotation';
-import MediaAnnotation from './MediaAnnotation';
+import Annotation from './Annotation';
 import Can from '../Can';
 import { units, black16, white } from '../../styles/js/shared';
 
@@ -26,7 +26,7 @@ const StyledAnnotationCard = styled(Card)`
     // Chrome only hack to avoid broken scroll on Firefox :( CGB 2017-10-6
     // TODO figure out a real solution for this
     // See: https://github.com/philipwalton/flexbugs/issues/108
-    @media screen and (-webkit-min-device-pixel-ratio:0) { 
+    @media screen and (-webkit-min-device-pixel-ratio:0) {
       height: calc(100vh - 370px);
     }
     overflow: auto;
@@ -56,7 +56,7 @@ const StyledAnnotationCardActions = styled(CardActions)`
 class Annotations extends Component {
   annotationComponent(node, annotated, annotatedType) {
     return (
-      <MediaAnnotation
+      <Annotation
         annotation={node}
         annotated={annotated}
         annotatedType={annotatedType}
