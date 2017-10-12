@@ -4,14 +4,6 @@
     "defaultMessage": "New task"
   },
   {
-    "id": "tasks.description",
-    "defaultMessage": "Description"
-  },
-  {
-    "id": "tasks.addDescription",
-    "defaultMessage": "Add a description"
-  },
-  {
     "id": "tasks.cancelAdd",
     "defaultMessage": "Cancel"
   },
@@ -46,5 +38,13 @@
   {
     "id": "tasks.taskLabel",
     "defaultMessage": "Prompt"
+  },
+  {
+    "id": "tasks.description",
+    "defaultMessage": "Description"
+  },
+  {
+    "id": "tasks.addDescription",
+    "defaultMessage": "Add a description"
   }
 ]

@@ -1,8 +1,17 @@
 import React, { Component } from 'react';
 import Dialog from 'material-ui/Dialog';
 import { Map, Marker, TileLayer } from 'react-leaflet';
+import styled from 'styled-components';
 import config from 'config';
 import { units, black05, black38, FlexRow } from '../../styles/js/shared';
+
+const StyledMap = styled.div`
+  height: 500px;
+  width: 100%;
+  .leaflet-container {
+    min-height: 500px;
+  }
+`;
 
 class GeolocationTaskResponse extends Component {
   constructor(props) {
@@ -72,7 +81,7 @@ class GeolocationTaskResponse extends Component {
             open={this.state.zoomedMap}
             onRequestClose={this.handleCloseMap.bind(this)}
           >
-            <div style={{ height: '500px', width: '100%' }}>
+            <StyledMap>
               <Map center={position} zoom="9">
                 <TileLayer
                   attribution="2017 <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a>"
@@ -80,7 +89,7 @@ class GeolocationTaskResponse extends Component {
                 />
                 <Marker draggable={false} position={position} />
               </Map>
-            </div>
+            </StyledMap>
           </Dialog>
           : null}
       </FlexRow>

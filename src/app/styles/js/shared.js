@@ -435,3 +435,37 @@ export const StyledIconButton = styled(IconButton)`
     margin: 0!important;
   }
 `;
+
+
+// Hide descriptions with CSS checkbox technique
+//
+// DEPRECATED
+// TODO: replace this with a conditional based on state
+export const StyledTaskDescription = styled.div`
+  margin-top ${units(2)};
+
+  .create-task__task-description-input {
+    display: none !important;
+    width: 100% !important;
+  }
+
+  .create-task__add-task-description-label {
+    bottom: ${units(2)};
+    font: ${caption};
+    padding: 0 ${units(1)};
+  }
+
+  .create-task__add-task-description {
+    display: none; // hidden checkbox
+
+    &:checked {
+      & ~ .create-task__task-description-input {
+        display: block !important;
+      }
+
+      & ~ .create-task__add-task-description-label {
+        display: none !important;
+      }
+    }
+  }
+`;

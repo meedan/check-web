@@ -16,11 +16,22 @@ import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
+import styled from 'styled-components';
 import Can from '../Can';
 import CreateTaskMutation from '../../relay/CreateTaskMutation';
 import Message from '../Message';
 import SingleChoiceTask from './SingleChoiceTask';
 import MultiSelectTask from './MultiSelectTask';
+import { units, StyledTaskDescription, black05 } from '../../styles/js/shared';
+
+const StyledCreateTaskButton = styled(FlatButton)`
+  margin-bottom: ${units(2)} !important;
+
+  &:hover {
+    background-color: ${black05} !important;
+  }
+`;
+
 
 const messages = defineMessages({
   newTask: {
@@ -216,7 +227,8 @@ class CreateTask extends Component {
       <div>
 
         <Can permissions={media.permissions} permission="create Task">
-          <FlatButton
+
+          <StyledCreateTaskButton
             className="create-task__add-button create-task__add-button--default"
             onClick={this.handleClick.bind(this)}
             label={
@@ -313,6 +325,7 @@ class CreateTask extends Component {
             ? <TextField
               id="task-label-input"
               className="create-task__task-label-input"
+              fullWidth
               floatingLabelText={
                 <FormattedMessage
                   id="tasks.taskLabel"
@@ -325,7 +338,7 @@ class CreateTask extends Component {
             : null}
 
           {this.state.type === 'free_text'
-            ? <span>
+            ? <StyledTaskDescription>
               <input
                 className="create-task__add-task-description"
                 id="create-task__add-task-description"
@@ -348,14 +361,14 @@ class CreateTask extends Component {
                 htmlFor="create-task__add-task-description"
               >
                 <span className="create-task__add-task-description-icon">
-                    +
-                  </span>{' '}
+                      +
+                    </span>{' '}
                 <FormattedMessage
                   id="tasks.addDescription"
                   defaultMessage="Add a description"
                 />
               </label>
-            </span>
+            </StyledTaskDescription>
             : null}
         </Dialog>
 
