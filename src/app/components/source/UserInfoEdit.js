@@ -15,6 +15,9 @@ import UpdateSourceMutation from '../../relay/UpdateSourceMutation';
 import UpdateUserNameEmailMutation from '../../relay/mutation/UpdateUserNameEmailMutation';
 import CreateAccountSourceMutation from '../../relay/mutation/CreateAccountSourceMutation';
 import DeleteAccountSourceMutation from '../../relay/mutation/DeleteAccountSourceMutation';
+import {
+  StyledIconButton,
+} from '../../styles/js/shared';
 
 const FlexRow = styled.div`
   display: flex;
@@ -151,7 +154,7 @@ class UserInfoEdit extends React.Component {
       const message = isEditing ? this.state.message : null;
 
       this.setState({ submitDisabled, message });
-      if (!isEditing) { this.handleLeaveEditMode() }
+      if (!isEditing) { this.handleLeaveEditMode(); }
     };
 
     const pendingMutations = this.state.pendingMutations ? this.state.pendingMutations.slice(0) : [];
@@ -352,7 +355,9 @@ class UserInfoEdit extends React.Component {
               style={{ width: '85%' }}
               disabled
             />
-            <MdCancel className="create-task__remove-option-button create-task__md-icon" onClick={() => this.handleRemoveLink(as.node.id)} />
+            <StyledIconButton>
+              <MdCancel className="create-task__remove-option-button" onClick={() => this.handleRemoveLink(as.node.id)} />
+            </StyledIconButton>
           </FlexRow>
         </div>)
       }
@@ -368,7 +373,9 @@ class UserInfoEdit extends React.Component {
               onChange={e => this.handleChangeLink(e, index)}
               style={{ width: '85%' }}
             />
-            <MdCancel className="create-task__remove-option-button create-task__md-icon" onClick={() => this.handleRemoveNewLink(index)} />
+            <StyledIconButton>
+              <MdCancel className="create-task__remove-option-button" onClick={() => this.handleRemoveNewLink(index)} />
+            </StyledIconButton>
           </FlexRow>
           { link.error
             ? null

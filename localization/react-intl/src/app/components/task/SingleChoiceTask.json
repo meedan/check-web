@@ -32,14 +32,6 @@
     "defaultMessage": "Prompt"
   },
   {
-    "id": "tasks.description",
-    "defaultMessage": "Description"
-  },
-  {
-    "id": "tasks.addDescription",
-    "defaultMessage": "Add a description"
-  },
-  {
     "id": "tasks.cancelEdit",
     "defaultMessage": "Cancel"
   },

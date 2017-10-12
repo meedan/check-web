@@ -504,7 +504,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       element = @driver.find_element(:class, "source__edit-button")
       element.click
       sleep 3
-      list = @driver.find_elements(:css => "svg[class='create-task__remove-option-button create-task__md-icon']")
+      list = @driver.find_elements(:css => "svg[class='create-task__remove-option-button']")
       list[1].click
       sleep 1
       @driver.find_element(:class, 'source__edit-save-button').click

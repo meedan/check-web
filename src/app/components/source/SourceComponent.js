@@ -13,7 +13,6 @@ import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import { CardActions } from 'material-ui/Card';
-import IconButton from 'material-ui/IconButton';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import Popover from 'material-ui/Popover';
 import Menu from 'material-ui/Menu';
@@ -67,6 +66,7 @@ import {
   gutterMedium,
   subheading1,
   borderRadiusDefault,
+  StyledIconButton,
   } from '../../styles/js/shared';
 
 const sourceAvatarWidth = units(10);
@@ -906,10 +906,12 @@ class SourceComponent extends Component {
                 style={{ width: '85%' }}
                 disabled
               />
-              <MdCancel
-                className="create-task__remove-option-button create-task__md-icon"
-                onClick={() => this.handleRemoveLink(as.node.id)}
-              />
+              <StyledIconButton>
+                <MdCancel
+                  className="create-task__remove-option-button"
+                  onClick={() => this.handleRemoveLink(as.node.id)}
+                />
+              </StyledIconButton>
             </Row>
           </div>
         ))}
@@ -927,10 +929,12 @@ class SourceComponent extends Component {
                 onChange={e => this.handleChangeLink(e, index)}
                 style={{ width: '85%' }}
               />
-              <MdCancel
-                className="create-task__remove-option-button create-task__md-icon"
-                onClick={() => this.handleRemoveNewLink(index)}
-              />
+              <StyledIconButton>
+                <MdCancel
+                  className="create-task__remove-option-button"
+                  onClick={() => this.handleRemoveNewLink(index)}
+                />
+              </StyledIconButton>
             </Row>
             {link.error ? null : (
               <div className="source__helper">
@@ -1033,10 +1037,12 @@ class SourceComponent extends Component {
                 handleChangeField(type, e);
               }}
             />
-            <MdCancel
-              className="create-task__remove-option-button create-task__md-icon"
-              onClick={handleRemoveField.bind(this, type)}
-            />
+            <StyledIconButton>
+              <MdCancel
+                className="create-task__remove-option-button"
+                onClick={handleRemoveField.bind(this, type)}
+              />
+            </StyledIconButton>
           </Row>
         </div>
       ) : null;
@@ -1054,10 +1060,12 @@ class SourceComponent extends Component {
                   handleChangeCustomField(index, e);
                 }}
               />
-              <MdCancel
-                className="create-task__remove-option-button create-task__md-icon"
-                onClick={handleRemoveCustomField.bind(this, index)}
-              />
+              <StyledIconButton>
+                <MdCancel
+                  className="create-task__remove-option-button"
+                  onClick={handleRemoveCustomField.bind(this, index)}
+                />
+              </StyledIconButton>
             </Row>
           </div>
         ));
@@ -1528,7 +1536,7 @@ class SourceComponent extends Component {
             data-id={source.dbid}
             data-user-id={source.user_id}
           >
-            <StyledSourceProfileCard isEditing>
+            <StyledSourceProfileCard>
               <ContentColumn>
                 <Message message={this.state.message} />
                 {isEditing ? (
@@ -1544,7 +1552,7 @@ class SourceComponent extends Component {
                     permission="update Source"
                   >
                     <StyledEditButtonWrapper>
-                      <IconButton
+                      <StyledIconButton
                         className="source__edit-button"
                         tooltip={
                           <FormattedMessage
@@ -1556,7 +1564,7 @@ class SourceComponent extends Component {
                         onTouchTap={this.handleEnterEditMode.bind(this)}
                       >
                         <MDEdit />
-                      </IconButton>
+                      </StyledIconButton>
                     </StyledEditButtonWrapper>
                   </Can>
                 </section>

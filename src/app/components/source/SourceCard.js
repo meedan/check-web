@@ -1,38 +1,55 @@
 import React from 'react';
-import { FormattedMessage, defineMessages } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import { Link } from 'react-router';
 import { Card, CardText } from 'material-ui/Card';
+import styled from 'styled-components';
+import rtlDetect from 'rtl-detect';
 import MediaUtil from '../media/MediaUtil';
 import ProfileLink from '../layout/ProfileLink';
-import MappedMessage from '../MappedMessage';
 import ParsedText from '../ParsedText';
 import TimeBefore from '../TimeBefore';
 import SourcePicture from './SourcePicture';
 import { truncateLength } from '../../helpers';
+import { units, avatarStyle, opaqueBlack54 } from '../../styles/js/shared';
+
+const StyledSourcePicture = styled(SourcePicture)`
+    ${avatarStyle}
+`;
+
+const StyledSourceCardBody = styled.div`
+  margin-${props => (props.isRtl ? 'right' : 'left')}: ${units(2)};
+  color: ${opaqueBlack54};
+  .source-card__account-link {
+    svg {
+      margin-${props => (props.isRtl ? 'left' : 'right')}: ${units(1)};
+    }
+  }
+`;
 
 class SourceCard extends React.Component {
   render() {
     const { source } = this.props.source;
     const createdAt = MediaUtil.createdAt(source);
 
-    const { team, project_id, source_id } = this.props.source;
+    const { team, project_id } = this.props.source;
     const sourceUrl = `/${team.slug}/project/${project_id}/source/${source.dbid}`;
 
     const byUser = (source.user && source.user.source && source.user.source.dbid && source.user.name !== 'Pender') ?
       (<FormattedMessage id="mediaDetail.byUser" defaultMessage={'by {username}'} values={{ username: <ProfileLink user={source.user} /> }} />) : '';
 
     return (
-      <Card className="source-card">
-        <CardText className="source-card__content">
-          <div className="source-card__avatar">
-            <SourcePicture object={source} type="source" />
-          </div>
-          <article className="source-card__body">
+      <Card className="source-card" style={{ marginBottom: units(2) }}>
+        <CardText className="source-card__content" style={{ display: 'flex', paddingBottom: units(1) }}>
+          <StyledSourcePicture object={source} type="source" />
+          <StyledSourceCardBody
+            className="source-card__body"
+            isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}
+          >
             <div className="source-card__name">
               <Link to={sourceUrl} className="header__app-link">{source.name}</Link>
             </div>
 
-            <div className="source-card__description"><ParsedText text={truncateLength(source.description, 600)} /></div>
+            <div className="source-card__description" style={{ paddingTop: units(1.0) }}><ParsedText text={truncateLength(source.description, 600)} /></div>
 
             <div className="source-card__accounts">
               <ul>
@@ -45,7 +62,7 @@ class SourceCard extends React.Component {
 
               </ul>
             </div>
-          </article>
+          </StyledSourceCardBody>
           <div className="media-detail__check-metadata source-card__footer">
             {byUser ? <span className="media-detail__check-added-by"><FormattedMessage id="mediaDetail.added" defaultMessage={'Added {byUser}'} values={{ byUser }} /> </span> : null}
             {createdAt ? <span className="media-detail__check-added-at">
@@ -58,4 +75,4 @@ class SourceCard extends React.Component {
   }
 }
 
-export default SourceCard;
+export default injectIntl(SourceCard);

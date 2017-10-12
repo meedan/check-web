@@ -1,5 +1,6 @@
 import styled, { css, keyframes } from 'styled-components';
 import { CardTitle } from 'material-ui/Card';
+import IconButton from 'material-ui/IconButton';
 import { stripUnit, rgba } from 'polished';
 
 // Styles for overriding material UI
@@ -220,7 +221,6 @@ export const muiThemeWithoutRtl = {
   },
 };
 
-
 export const mediaQuery = {
   handheld: (...args) => css`@media (max-width: ${breakpointMobile}) { ${css(...args)} }`,
   tablet: (...args) => css`@media (max-width: ${breakpointTablet}) { ${css(...args)} }`,
@@ -243,7 +243,6 @@ export const Shimmer = styled.div`
   background: linear-gradient(90deg, ${opaqueBlack05}, ${opaqueBlack05}, ${opaqueBlack02}, ${opaqueBlack02}, ${white}, ${opaqueBlack02}, ${opaqueBlack05}, ${opaqueBlack05});
   background-size: 400%;
 `;
-
 
 export const pulseKeyframes = keyframes`
   0% {
@@ -411,5 +410,28 @@ export const chipStyles = `
     &:hover {
       background-color: ${black16};
     }
+  }
+`;
+
+// Tags (ensure wrapping, alignment when many tags)
+export const StyledTagsWrapper = styled.div`
+  display: inline;
+  flex-wrap: wrap;
+  > div {
+    display: inline-flex !important;
+    margin: ${units(0.5)} ${units(1)} ${units(0.5)} 0 !important;
+    > span {
+      color: ${black54} !important;
+    }
+  }
+`;
+
+// It seems that this component is not centered in Material UI 0.x
+// So we must always use this wrapper, or similar.
+export const StyledIconButton = styled(IconButton)`
+  font-size: 20px !important;
+  color: ${black54} !important;
+  svg {
+    margin: 0!important;
   }
 `;
