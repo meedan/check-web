@@ -69,13 +69,13 @@ shared_examples 'custom' do
     el = wait_for_selector("//*[contains(text(), 'Inconclusive')]", :xpath)
     el.click
     x = wait_for_selector("search__results-heading", :class)
-    txt = wait_txt_change(txt, "search__results-heading", :class)
+    txt = wait_for_text_change(txt, "search__results-heading", :class)
     expect((@driver.title =~ /Inconclusive/).nil?).to be(false)
     expect((@driver.current_url.to_s.match(/not_applicable/)).nil?).to be(false)
     expect(@driver.page_source.include?('My search result')).to be(false)
     el = wait_for_selector("//*[contains(text(), 'Unstarted')]", :xpath)
     el.click
-    wait_txt_change(txt, "search__results-heading", :class)
+    wait_for_text_change(txt, "search__results-heading", :class)
     expect((@driver.title =~ /Unstarted/).nil?).to be(false)
     expect((@driver.current_url.to_s.match(/undetermined/)).nil?).to be(false)
     expect(@driver.page_source.include?('My search result')).to be(true)
@@ -86,7 +86,7 @@ shared_examples 'custom' do
     before = wait_for_selector("search__results-heading", :class)
     txt = before.text
     @driver.navigate.to @config['self_url'] + '/' + get_team + '/search/%7B"status"%3A%5B"false"%5D%7D'
-    txt = wait_txt_change(txt, "search__results-heading", :class)
+    txt = wait_for_text_change(txt, "search__results-heading", :class)
     expect((@driver.title =~ /False/).nil?).to be(false)
     expect(@driver.page_source.include?('My search result')).to be(false)
     selected = @driver.find_elements(:css, '.media-tags__suggestion--selected').map(&:text).sort

@@ -251,7 +251,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(displayed_name == 'User With Email').to be(true)
     end
 
-    it "should create a project for a team", bin4: true do
+    it "should create a project for a team", bin3: true do
       team = api_create_team
       @driver.navigate.to @config['self_url']
       project_name = "Project #{Time.now}"
@@ -618,7 +618,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Acoli')).to be(false)
     end
 
-    it "should not add a duplicated tag from command line", bin4: true do
+    it "should not add a duplicated tag from command line", bin3: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
 
       new_tag = Time.now.to_i.to_s
@@ -1372,7 +1372,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(results.size == 40).to be(true)
       old = results.size
       results.last.location_once_scrolled_into_view
-      size = wait_size_change(old, '.medias__item')
+      size = wait_for_size_change(old, '.medias__item')
       expect(size == 42).to be(true)
     end
   end

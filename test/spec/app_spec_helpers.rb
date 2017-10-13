@@ -149,23 +149,23 @@ module AppSpecHelpers
     elements
   end
 
-  def wait_txt_change(txt, selector, type = :css)
-    count = 0
+  def wait_for_text_change(txt, selector, type = :css, count:10)
+    c = 0
     begin
-      count = count + 1
+      c = c + 1
       el = wait_for_selector(selector, type)
       sleep 1
-    end while (el.text == txt and count < 10)
+    end while (el.text == txt and c < count)
     el.text
   end
 
-  def wait_size_change(s, selector, type = :css)
-    count = 0
+  def wait_for_size_change(s, selector, type = :css, count:10)
+    c = 0
     begin
-      count = count + 1
+      c = c + 1
       el = wait_for_selector_list(selector, type)
       sleep 1
-    end while (s == el.size and count < 10)
+    end while (s == el.size and c < count)
     el.size
   end
 
