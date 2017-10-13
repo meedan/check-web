@@ -85,6 +85,7 @@ const checkSearchResultFragment = Relay.QL`
             slug
           },
           project_id,
+          published,
           updated_at,
           source_id,
           source {
