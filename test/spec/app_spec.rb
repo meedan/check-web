@@ -67,7 +67,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
   # The tests themselves start here
   context "web" do
-
+=begin
     include_examples "custom"
     it "should filter by medias or sources", bin6: true do
       api_create_team_project_and_link 'https://twitter.com/TheWho/status/890135323216367616'
@@ -943,22 +943,23 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     # it "should find medias when searching by tag" do
     #   skip("Needs to be implemented")
     # end
-
+=end
     it "should add image to media comment", bin3: true do
       api_create_team_project_and_claim_and_redirect_to_media_page
-
       # First, verify that there isn't any comment with image
       expect(@driver.page_source.include?('This is my comment with image')).to be(false)
 
+      old = @driver.find_elements(:class, "annotations__list-item").length
       # Add a comment as a command
       fill_field('#cmd-input', 'This is my comment with image')
-      @driver.find_element(:css, '.add-annotation__insert-photo').click
+      el = wait_for_selector('.add-annotation__insert-photo')
+      el.click
       wait_for_selector('input[type=file]')
-      input = @driver.find_element(:css, 'input[type=file]')
+      input = wait_for_selector('input[type=file]')
       input.send_keys(File.join(File.dirname(__FILE__), 'test.png'))
-      sleep 3
-      @driver.find_element(:css, '.add-annotation__buttons button').click
-      sleep 5
+      el = wait_for_selector('.add-annotation__buttons button')
+      el.click
+      wait_for_size_change(old, "annotations__list-item", :class)
 
       # Verify that comment was added to annotations list
       expect(@driver.page_source.include?('This is my comment with image')).to be(true)
@@ -974,17 +975,18 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Reload the page and verify that comment is still there
       @driver.navigate.refresh
-      sleep 3
+      wait_for_selector('add-annotation__buttons', :class)
       expect(@driver.page_source.include?('This is my comment with image')).to be(true)
       imgsrc = @driver.find_element(:css, '.annotation__card-thumbnail').attribute('src')
       expect(imgsrc.match(/test\.png$/).nil?).to be(false)
     end
+=begin
 
     # it "should move media to another project" do
     #   skip("Needs to be implemented")
     # end
 
-    it "should add, edit, answer, update answer and delete short answer task", bin: true , bin3: true do
+    it "should add, edit, answer, update answer and delete short answer task", bin3: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
       wait_for_selector('.create-task__add-button')
 
@@ -1340,7 +1342,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       delete_task('When was it')
     end
 =end
-
+#######
+=begin
     #Add slack notifications to a team
     it "should add slack notifications to a team", bin3:true, quick: true do
       team = "testteam#{Time.now.to_i}"
@@ -1375,5 +1378,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       size = wait_for_size_change(old, '.medias__item')
       expect(size == 42).to be(true)
     end
+=end    
   end
 end
