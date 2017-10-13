@@ -224,6 +224,11 @@ class Home extends Component {
               message={this.state.message}
               onClick={this.resetMessage.bind(this)}
               className="home__message"
+              style={{
+                position: 'absolute',
+                width: '100%',
+                zIndex: '1000',
+              }}
             />
             <StyledContent>
               {children}
