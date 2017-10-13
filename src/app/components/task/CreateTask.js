@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay';
-import {
-  FormattedMessage,
-  defineMessages,
-  injectIntl,
-} from 'react-intl';
+import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import FlatButton from 'material-ui/FlatButton';
 import MdShortText from 'react-icons/lib/md/short-text';
 import MdRadioButtonChecked from 'react-icons/lib/md/radio-button-checked';
@@ -31,7 +27,6 @@ const StyledCreateTaskButton = styled(FlatButton)`
     background-color: ${black05} !important;
   }
 `;
-
 
 const messages = defineMessages({
   newTask: {
@@ -207,9 +202,7 @@ class CreateTask extends Component {
 
     const actions = [
       <FlatButton
-        label={
-          <FormattedMessage id="tasks.cancelAdd" defaultMessage="Cancel" />
-        }
+        label={<FormattedMessage id="tasks.cancelAdd" defaultMessage="Cancel" />}
         primary
         onClick={this.handleCloseDialog.bind(this)}
       />,
@@ -231,9 +224,7 @@ class CreateTask extends Component {
           <StyledCreateTaskButton
             className="create-task__add-button create-task__add-button--default"
             onClick={this.handleClick.bind(this)}
-            label={
-              <FormattedMessage id="tasks.addTask" defaultMessage="Add task" />
-            }
+            label={<FormattedMessage id="tasks.addTask" defaultMessage="Add task" />}
           />
         </Can>
 
@@ -250,55 +241,34 @@ class CreateTask extends Component {
               onClick={this.handleOpenDialog.bind(this, 'free_text')}
               leftIcon={<MdShortText />}
               primaryText={
-                <FormattedMessage
-                  id="tasks.shortAnswer"
-                  defaultMessage="Short answer"
-                />
+                <FormattedMessage id="tasks.shortAnswer" defaultMessage="Short answer" />
               }
             />
             <MenuItem
               className="create-task__add-choose-one"
               onClick={this.handleOpenDialog.bind(this, 'single_choice')}
               leftIcon={<MdRadioButtonChecked />}
-              primaryText={
-                <FormattedMessage
-                  id="tasks.chooseOne"
-                  defaultMessage="Choose one"
-                />
-              }
+              primaryText={<FormattedMessage id="tasks.chooseOne" defaultMessage="Choose one" />}
             />
             <MenuItem
               className="create-task__add-choose-multiple"
               onClick={this.handleOpenDialog.bind(this, 'multiple_choice')}
               leftIcon={<MdCheckBox />}
               primaryText={
-                <FormattedMessage
-                  id="tasks.chooseMultiple"
-                  defaultMessage="Choose multiple"
-                />
+                <FormattedMessage id="tasks.chooseMultiple" defaultMessage="Choose multiple" />
               }
             />
             <MenuItem
               className="create-task__add-geolocation"
               onClick={this.handleOpenDialog.bind(this, 'geolocation')}
               leftIcon={<MdLocationOn />}
-              primaryText={
-                <FormattedMessage
-                  id="tasks.geolocation"
-                  defaultMessage="Location"
-                />
-              }
+              primaryText={<FormattedMessage id="tasks.geolocation" defaultMessage="Location" />}
             />
             <MenuItem
               className="create-task__add-datetime"
               onClick={this.handleOpenDialog.bind(this, 'datetime')}
               leftIcon={<MdDateRange />}
-              primaryText={
-                <FormattedMessage
-                  id="tasks.datetime"
-                  defaultMessage="Date and time"
-                />
-              }
+              primaryText={<FormattedMessage id="tasks.datetime" defaultMessage="Date and time" />}
             />
           </Menu>
         </Popover>
@@ -327,10 +297,7 @@ class CreateTask extends Component {
               className="create-task__task-label-input"
               fullWidth
               floatingLabelText={
-                <FormattedMessage
-                  id="tasks.taskLabel"
-                  defaultMessage="Prompt"
-                />
+                <FormattedMessage id="tasks.taskLabel" defaultMessage="Prompt" />
                 }
               onChange={this.handleLabelChange.bind(this)}
               multiLine
@@ -348,10 +315,7 @@ class CreateTask extends Component {
                 id="task-description-input"
                 className="create-task__task-description-input"
                 floatingLabelText={
-                  <FormattedMessage
-                    id="tasks.description"
-                    defaultMessage="Description"
-                  />
+                  <FormattedMessage id="tasks.description" defaultMessage="Description" />
                   }
                 onChange={this.handleDescriptionChange.bind(this)}
                 multiLine
@@ -361,12 +325,9 @@ class CreateTask extends Component {
                 htmlFor="create-task__add-task-description"
               >
                 <span className="create-task__add-task-description-icon">
-                      +
-                    </span>{' '}
-                <FormattedMessage
-                  id="tasks.addDescription"
-                  defaultMessage="Add a description"
-                />
+                    +
+                  </span>{' '}
+                <FormattedMessage id="tasks.addDescription" defaultMessage="Add a description" />
               </label>
             </StyledTaskDescription>
             : null}

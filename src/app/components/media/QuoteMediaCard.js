@@ -14,9 +14,8 @@ const Quote = styled.div`
 const StyledQuoteText = styled.div`
   ${breakWordStyles}
   font: ${headline};
-  ${props => (props.quoteIsRtl
-    ? 'direction: rtl; text-align: right;'
-    : 'direction: ltr; text-align: left;')};
+  ${props =>
+    props.quoteIsRtl ? 'direction: rtl; text-align: right;' : 'direction: ltr; text-align: left;'};
 `;
 
 class QuoteMediaCard extends Component {

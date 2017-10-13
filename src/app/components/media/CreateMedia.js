@@ -159,10 +159,9 @@ class CreateProjectMedia extends Component {
   handleChange() {
     this.setState({
       message: null,
-      submittable: (
-                    this.mediaInput.getValue().length > 0 ||
-                    (this.secondaryInput && this.secondaryInput.getValue().length > 0)
-                   )
+      submittable:
+        this.mediaInput.getValue().length > 0 ||
+          (this.secondaryInput && this.secondaryInput.getValue().length > 0),
     });
   }
 
@@ -238,7 +237,6 @@ class CreateProjectMedia extends Component {
       { onSuccess, onFailure },
     );
   }
-
 
   submitMedia() {
     const context = new CheckContext(this).getContextStore();
@@ -382,8 +380,8 @@ class CreateProjectMedia extends Component {
           name="quoteAttributionSource"
           filter={AutoComplete.fuzzyFilter}
           hintText={this.props.intl.formatMessage(messages.quoteAttributionSourceInput)}
-          // Unique names
-          // https://stackoverflow.com/a/33121880/209184
+            // Unique names
+            // https://stackoverflow.com/a/33121880/209184
           dataSource={context.team.sources.edges.map(obj => obj.node.name)}
           {...defaultInputProps}
         />,
@@ -424,14 +422,18 @@ class CreateProjectMedia extends Component {
     const tabLabelLink = (
       <StyledTabLabel active={this.state.mode === 'link'}>
         <StyledIcon><IconLink /></StyledIcon>
-        <StyledTabLabelText><FormattedMessage id="createMedia.link" defaultMessage="Link" /></StyledTabLabelText>
+        <StyledTabLabelText>
+          <FormattedMessage id="createMedia.link" defaultMessage="Link" />
+        </StyledTabLabelText>
       </StyledTabLabel>
     );
 
     const tabLabelQuote = (
       <StyledTabLabel active={this.state.mode === 'quote'}>
         <StyledIcon><SvgIcon style={styles.svgIcon}><MdFormatQuote /></SvgIcon></StyledIcon>
-        <StyledTabLabelText><FormattedMessage id="createMedia.quote" defaultMessage="Claim" /></StyledTabLabelText>
+        <StyledTabLabelText>
+          <FormattedMessage id="createMedia.quote" defaultMessage="Claim" />
+        </StyledTabLabelText>
       </StyledTabLabel>
     );
 
@@ -447,7 +449,9 @@ class CreateProjectMedia extends Component {
     const tabLabelImage = (
       <StyledTabLabel active={this.state.mode === 'image'}>
         <StyledIcon><IconInsertPhoto /></StyledIcon>
-        <StyledTabLabelText><FormattedMessage id="createMedia.image" defaultMessage="Photo" /></StyledTabLabelText>
+        <StyledTabLabelText>
+          <FormattedMessage id="createMedia.image" defaultMessage="Photo" />
+        </StyledTabLabelText>
       </StyledTabLabel>
     );
 

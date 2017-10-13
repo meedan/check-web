@@ -186,12 +186,20 @@ class TranslationComponent extends Component {
     return (
       <div>
         {translations.edges.map(tr =>
-          <TranslationItem key={tr.node.id} translation={tr.node} media={this.props.annotated} localeIsRtl={rtlDetect.isRtlLang(this.props.intl.locale)} />,
+          <TranslationItem
+            key={tr.node.id}
+            translation={tr.node}
+            media={this.props.annotated}
+            localeIsRtl={rtlDetect.isRtlLang(this.props.intl.locale)}
+          />,
         )}
         {options.length > 0
           ? <Card className="translation__card" style={{ position: 'relative' }}>
             <CardText className="translation__card-text" style={{ paddingBottom: '0' }}>
-              <div className="translation__card-title" style={{ marginBottom: units(3), fontWeight: '700' }}>
+              <div
+                className="translation__card-title"
+                style={{ marginBottom: units(3), fontWeight: '700' }}
+              >
                 <FormattedMessage id="translation.title" defaultMessage="Add a translation" />
               </div>
               <Select

@@ -247,10 +247,12 @@ class MediaEmbed extends Component {
                 <FlatButton
                   id="media-embed__actions-copy"
                   onClick={this.handleCodeMenuOpen.bind(this)}
-                  label={<FormattedMessage
-                    id="mediaEmbed.copyEmbedCode"
-                    defaultMessage="Copy embed code"
-                  />}
+                  label={
+                    <FormattedMessage
+                      id="mediaEmbed.copyEmbedCode"
+                      defaultMessage="Copy embed code"
+                    />
+                    }
                 />
               </CopyToClipboard>
             </p>

@@ -29,15 +29,15 @@ const StyledTranslationText = styled.div`
   margin-top: ${units(1)};
   margin-bottom: ${units(1)};
 
-  ${props => (props.localeIsRtl
-    ? `direction: rtl; text-align: right; margin-left: ${units(3)};`
-    : `direction: ltr; text-align: left; margin-right: ${units(3)};`
-  )}
+  ${props =>
+    props.localeIsRtl
+      ? `direction: rtl; text-align: right; margin-left: ${units(3)};`
+      : `direction: ltr; text-align: left; margin-right: ${units(3)};`}
 `;
 
 const StyledNote = styled.p`
-  display: ${props => props.note ? 'block' : 'none'};
-  text-align: ${props => props.localeIsRtl ? 'right' : 'left'};
+  display: ${props => (props.note ? 'block' : 'none')};
+  text-align: ${props => (props.localeIsRtl ? 'right' : 'left')};
   color: ${black54};
   margin-top: ${units(3)};
 `;
@@ -191,21 +191,19 @@ class TranslationItem extends Component {
                 >
                   <ParsedText text={text} />
                 </StyledTranslationText>
-                <StyledNote
-                  localeIsRtl={this.props.localeIsRtl}
-                  note
-                >
+                <StyledNote localeIsRtl={this.props.localeIsRtl} note>
                   <ParsedText text={note} />
                 </StyledNote>
-              </div>
-            }
+              </div>}
             <Row style={{ justifyContent: 'space-between' }}>
               <span className="media-tags__tag">
                 {this.props.intl.formatMessage(messages.language, { language })}
               </span>
               <IconMenu
                 className="task-actions"
-                iconButtonElement={<IconButton className="task-actions__icon"><IconMoreHoriz /></IconButton>}
+                iconButtonElement={
+                  <IconButton className="task-actions__icon"><IconMoreHoriz /></IconButton>
+                }
               >
                 <MenuItem
                   className="task-actions__edit-translation"

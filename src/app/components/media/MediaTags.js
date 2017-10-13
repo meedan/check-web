@@ -10,7 +10,17 @@ import DeleteTagMutation from '../../relay/DeleteTagMutation';
 import Tags from '../Tags';
 import CheckContext from '../../CheckContext';
 import { searchQueryFromUrl, urlFromSearchQuery } from '../Search';
-import { units, caption, opaqueBlack54, body2, black16, black87, checkBlue, borderWidthSmall, chipStyles } from '../../styles/js/shared';
+import {
+  units,
+  caption,
+  opaqueBlack54,
+  body2,
+  black16,
+  black87,
+  checkBlue,
+  borderWidthSmall,
+  chipStyles,
+} from '../../styles/js/shared';
 
 const messages = defineMessages({
   loading: {

@@ -302,7 +302,8 @@ class MultiSelectTask extends Component {
                     <MdCancel
                       className="create-task__remove-option-button"
                       onClick={this.handleRemoveOption.bind(this, index)}
-                    /></StyledIconButton>
+                    />
+                  </StyledIconButton>
                   : null}
               </div>,
             )}
@@ -412,7 +413,10 @@ class MultiSelectTask extends Component {
             />,
           )}
 
-          <div style={{ display: 'flex', justifyContent: 'flex-start' }} className="task__options_other">
+          <div
+            style={{ display: 'flex', justifyContent: 'flex-start' }}
+            className="task__options_other"
+          >
             {other
               ? [
                 <div key="task__option_other_checkbox">
@@ -421,7 +425,8 @@ class MultiSelectTask extends Component {
                     checked={this.state.otherSelected || !!responseOther}
                     onCheck={this.handleSelectCheckboxOther.bind(this)}
                     disabled={!editable}
-                  /></div>,
+                  />
+                </div>,
                 <StyledSmallTextField
                   key="task__option_other_text_input"
                   className="task__option_other_text_input"
