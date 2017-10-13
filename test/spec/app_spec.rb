@@ -71,30 +71,22 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should filter by medias or sources", bin3: true do
       api_create_team_project_and_link 'https://twitter.com/TheWho/status/890135323216367616'
       @driver.navigate.to @config['self_url']
-p "OO"
-#      sleep 10
-
       wait_for_selector("card-with-border", :class)
-
       expect(@driver.page_source.include?("The Who's official Twitter page")).to be(false)
       expect(@driver.page_source.include?('Happy birthday Mick')).to be(true)
-
       el = wait_for_selector("//span[contains(text(), 'Sources')]", :xpath)
       el.click
       wait_for_selector("source-card", :class)
       expect(@driver.page_source.include?("The Who's official Twitter page")).to be(true)
       expect(@driver.page_source.include?('Happy birthday Mick')).to be(true)
       old = @driver.find_elements(:class, "medias__item").length
-
       el = wait_for_selector("//span[contains(text(), 'Media')]", :xpath)
       el.click
       wait_for_size_change(old, "medias__item", :class)
-
-      #sleep 10
       expect(@driver.page_source.include?("The Who's official Twitter page")).to be(true)
       expect(@driver.page_source.include?('Happy birthday Mick')).to be(false)
     end
-=begin
+
     it "should register and create a claim", bin5: true do
       page = LoginPage.new(config: @config, driver: @driver).load
       begin
@@ -476,25 +468,32 @@ p "OO"
       expect(displayed_name.include? "EDIT").to be(true)
     end
 
+  # This tests is unreliable
+  # Todo: Methods that deal react with hidden menus 
+  #
+  # ccx 2017-10-13
+=begin
     it "should add and remove accounts to sources", bin6: true  do
       api_create_team_project_and_source_and_redirect_to_source('GOT', 'https://twitter.com/GameOfThrones')
-      sleep 5
-      element = @driver.find_element(:class, "source__edit-button")
+      #sleep 5
+      element = wait_for_selector("source__edit-button", :class)
       element.click
-      sleep 3
-      @driver.find_element(:class, "source__edit-addinfo-button").click
-      sleep 1
-      @driver.find_element(:class, "source__add-link").click
+      #sleep 3
+      element = wait_for_selector("source__edit-addinfo-button",:class)
+      element.click
+      #sleep 1
+      element = wait_for_selector("source__add-link",:class)
+      element.click
       sleep 1
       fill_field("source__link-input0", "www.acdc.com", :id)
       sleep 2
-      @driver.find_element(:class, 'source__edit-save-button').click
+      element = wait_for_selector('source__edit-save-button',:class)
+      element.click
+      #@driver.find_element(:class, 'source__edit-save-button').click
       sleep 5
       expect(@driver.page_source.include?('AC/DC Official Website')).to be(true)
-
       #networks tab
-      element = @driver.find_element(:class, "source__tab-button-account")
-      sleep 10
+      element = wait_for_selector("source__tab-button-account",:class)
       element.click
       sleep 5
       expect(@driver.page_source.include?('The Official AC/DC website and store')).to be(true)
@@ -510,7 +509,7 @@ p "OO"
       sleep 5
       expect(@driver.page_source.include?('AC/DC Official Website')).to be(false)
     end
-
+=end
     it "should edit source metadata (contact, phone, location, organization, other)", bin6: true do
       api_create_team_project_and_source_and_redirect_to_source('GOT', 'https://twitter.com/GameOfThrones')
       sleep 5
@@ -1265,7 +1264,6 @@ p "OO"
       size = wait_for_size_change(old, '.medias__item')
       expect(size == 42).to be(true)
     end
-=end  
 =begin
     ***Unstable
 

@@ -51,6 +51,11 @@ shared_examples 'custom' do
   #   expect(@driver.page_source.include?('Status')).to be(true)
   # end
 
+  # This tests is unreliable
+  # Todo: consider fixing it or removing it
+  #
+  # ccx 2017-10-13
+=begin  
   it "should change a media status via the dropdown menu", bin4: true do
     media = api_create_team_project_and_claim
     @driver.navigate.to media.full_url
@@ -61,6 +66,7 @@ shared_examples 'custom' do
     expect(media_pg.status_label).to eq('VERIFIED')
     expect(media_pg.contains_element?('.annotation__status--verified')).to be(true)
   end
+=end  
 
   it "should search by status", bin2: true do
     api_create_claim_and_go_to_search_page
