@@ -1230,6 +1230,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       end
     end
 
+=begin
+    ***Unstable***
+
     it "should add, edit, answer, update answer and delete geolocation task", bin3: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
       wait_for_selector('.create-task__add-button')
@@ -1278,6 +1281,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       # Delete task
       delete_task('Where was it')
     end
+=end
 
     it "should add, edit, answer, update answer and delete datetime task", bin3: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
