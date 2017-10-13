@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import rtlDetect from 'rtl-detect';
 import TimelineHeader from './TimelineHeader';
 import AddAnnotation from './AddAnnotation';
-import MediaAnnotation from './MediaAnnotation';
+import Annotation from './Annotation';
 import Can from '../Can';
 import { units, black16, white, opaqueBlack16, borderWidthMedium } from '../../styles/js/shared';
 
@@ -72,7 +72,7 @@ const StyledAnnotationCardActions = styled(CardActions)`
 class Annotations extends Component {
   annotationComponent(node, annotated, annotatedType) {
     return (
-      <MediaAnnotation
+      <Annotation
         annotation={node}
         annotated={annotated}
         annotatedType={annotatedType}

@@ -23,6 +23,7 @@ import Avatar from 'material-ui/Avatar';
 import MdImage from 'react-icons/lib/md/image';
 import MediaDetail from '../media/MediaDetail';
 import MediaUtil from '../media/MediaUtil';
+import DynamicAnnotation from '../annotations/DynamicAnnotation';
 import DeleteAnnotationMutation from '../../relay/DeleteAnnotationMutation';
 import DeleteVersionMutation from '../../relay/DeleteVersionMutation';
 import UpdateProjectMediaMutation from '../../relay/UpdateProjectMediaMutation';
@@ -265,11 +266,9 @@ class Annotation extends Component {
   }
 
   handleDelete(id) {
-    const that = this;
-
     const onFailure = (transaction) => {
       const error = transaction.getError();
-      let message = that.props.intl.formatMessage(messages.error);
+      let message = this.props.intl.formatMessage(messages.error);
       try {
         const json = JSON.parse(error.source);
         if (json.error) {
@@ -287,10 +286,16 @@ class Annotation extends Component {
       id,
     };
     if (this.props.annotation.annotation.version === null) {
-      Relay.Store.commitUpdate(new DeleteAnnotationMutation(destroy_attr), { onSuccess, onFailure });
+      Relay.Store.commitUpdate(
+        new DeleteAnnotationMutation(destroy_attr),
+        { onSuccess, onFailure },
+      );
     } else {
       destroy_attr.id = this.props.annotation.annotation.version.id;
-      Relay.Store.commitUpdate(new DeleteVersionMutation(destroy_attr), { onSuccess, onFailure });
+      Relay.Store.commitUpdate(
+        new DeleteVersionMutation(destroy_attr),
+        { onSuccess, onFailure },
+      );
     }
   }
 

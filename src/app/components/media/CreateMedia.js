@@ -130,43 +130,34 @@ class CreateProjectMedia extends Component {
     super(props);
 
     this.state = {
-      url: '',
       message: null,
-      isSubmitting: false,
-      fileMode: false,
       mode: 'link',
       submittable: false,
+      isSubmitting: false,
+      previousInput: null,
     };
   }
 
-  onImage(file) {
+  handleImage(file) {
     this.setState({ message: null, submittable: true });
     document.forms.media.image = file;
   }
 
-  onImageError(file, message) {
-    this.setState({ message });
+  handleImageError(file, message) {
+    this.setState({ message, submittable: false });
   }
 
   setMode(mode) {
     this.setState({ mode });
   }
 
-  switchMode() {
-    this.setState({ fileMode: !this.state.fileMode });
-  }
-
   handleChange() {
     this.setState({
+      previousInput: this.primaryInput ? this.primaryInput.getValue() : this.state.previousInput,
       message: null,
-      submittable:
-        this.mediaInput.getValue().length > 0 ||
-          (this.secondaryInput && this.secondaryInput.getValue().length > 0),
+      submittable: (this.primaryInput && this.primaryInput.getValue().length > 0) ||
+                   (this.secondaryInput && this.secondaryInput.getValue().length > 0)
     });
-  }
-
-  handleTabChange() {
-    this.setState({ message: null, submittable: false });
   }
 
   handleKeyPress(e) {
@@ -335,13 +326,15 @@ class CreateProjectMedia extends Component {
       onChange: this.handleChange.bind(this),
     };
 
+    const context = new CheckContext(this).getContextStore();
+
     switch (this.state.mode) {
     case 'image':
       return [
         <UploadImage
           key="createMedia.image.upload"
-          onImage={this.onImage.bind(this)}
-          onError={this.onImageError.bind(this)}
+          onImage={this.handleImage.bind(this)}
+          onError={this.handleImageError.bind(this)}
         />,
       ];
     case 'source':
@@ -350,7 +343,8 @@ class CreateProjectMedia extends Component {
           key="createMedia.source.name"
           hintText={this.props.intl.formatMessage(messages.sourceInput)}
           id="create-media-source-name-input"
-          ref={input => (this.mediaInput = input)}
+          ref={input => (this.primaryInput = input)}
+          defaultValue={this.state.previousInput}
           autoFocus
           {...defaultInputProps}
         />,
@@ -363,14 +357,14 @@ class CreateProjectMedia extends Component {
         />,
       ];
     case 'quote': {
-      const context = new CheckContext(this).getContextStore();
       return [
         <TextField
           key="createMedia.quote.input"
           hintText={this.props.intl.formatMessage(messages.quoteInput)}
           name="quote"
           id="create-media-quote-input"
-          ref={input => (this.mediaInput = input)}
+          ref={input => (this.primaryInput = input)}
+          defaultValue={this.state.previousInput}
           autoFocus
           {...defaultInputProps}
         />,
@@ -380,8 +374,6 @@ class CreateProjectMedia extends Component {
           name="quoteAttributionSource"
           filter={AutoComplete.fuzzyFilter}
           hintText={this.props.intl.formatMessage(messages.quoteAttributionSourceInput)}
-            // Unique names
-            // https://stackoverflow.com/a/33121880/209184
           dataSource={context.team.sources.edges.map(obj => obj.node.name)}
           {...defaultInputProps}
         />,
@@ -395,7 +387,8 @@ class CreateProjectMedia extends Component {
           hintText={this.props.intl.formatMessage(messages.mediaInput)}
           name="url"
           id="create-media-input"
-          ref={input => (this.mediaInput = input)}
+          ref={input => (this.primaryInput = input)}
+          defaultValue={this.state.previousInput}
           autoFocus
           {...defaultInputProps}
         />,
@@ -404,7 +397,6 @@ class CreateProjectMedia extends Component {
   }
 
   render() {
-    const isPreviewingUrl = this.state.url !== '';
     const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
 
     const styles = {
@@ -466,11 +458,6 @@ class CreateProjectMedia extends Component {
           <CardHeader title={this.renderTitle()} />
           <CardText>
             <Message message={this.state.message} />
-            <div id="media-preview" className="create-media__preview">
-              {isPreviewingUrl
-                ? <PenderCard url={this.state.url} penderUrl={config.penderUrl} />
-                : null}
-            </div>
 
             <form
               name="media"
@@ -484,7 +471,7 @@ class CreateProjectMedia extends Component {
 
               <div style={{ marginTop: units(2), width: '100%' }}>
                 <Row style={{ flexWrap: 'wrap' }}>
-                  <Tabs inkBarStyle={{ display: 'none' }} onChange={this.handleTabChange.bind(this)}>
+                  <Tabs inkBarStyle={{ display: 'none' }}>
                     <Tab
                       id="create-media__link"
                       onClick={this.setMode.bind(this, 'link')}
