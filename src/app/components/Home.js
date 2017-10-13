@@ -6,7 +6,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import rtlDetect from 'rtl-detect';
 import merge from 'lodash.merge';
 import config from 'config';
-import styled from 'styled-components';
+import styled, { injectGlobal } from 'styled-components';
 import Header from './Header';
 import LoginContainer from './LoginContainer';
 import BrowserSupport from './BrowserSupport';
@@ -24,6 +24,43 @@ import {
   mediaQuery,
   borderRadiusDefault,
 } from '../styles/js/shared';
+
+// Global styles
+// for localization, across all components
+injectGlobal`
+  [lang="ar"] {
+    direction: rtl;
+
+    * {
+      letter-spacing: 0 !important;
+    }
+
+    body {
+      font-size: 16px;
+    }
+
+    .home__disclaimer > span {
+      font-size: 11px;
+    }
+
+    .footer {
+      font-size: 14px;
+    }
+
+    .rc-tooltip-inner {
+      text-align: unset !important;
+    }
+
+    .create-task__action-container {
+      text-align: left !important;
+    }
+
+    // Flip all icons except logos
+    svg:not(.logo) {
+      transform: scale(-1, 1);
+    }
+  }
+`;
 
 const StyledWrapper = styled.div`
   display: flex;
