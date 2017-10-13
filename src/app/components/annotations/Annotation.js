@@ -8,7 +8,6 @@ import {
 } from 'react-intl';
 import Relay from 'react-relay';
 import Tooltip from 'rc-tooltip';
-import 'rc-tooltip/assets/bootstrap_white.css';
 import styled from 'styled-components';
 import rtlDetect from 'rtl-detect';
 import { stripUnit } from 'polished';
@@ -468,7 +467,7 @@ class Annotation extends Component {
           defaultMessage={'Comment deleted by {author}: "{comment}"'}
           values={{
             author: authorName,
-            comment: content.text
+            comment: content.text,
           }}
         />
       </em>);
