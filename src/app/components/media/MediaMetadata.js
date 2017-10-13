@@ -15,7 +15,6 @@ import MediaUtil from './MediaUtil';
 import UpdateProjectMediaMutation from '../../relay/UpdateProjectMediaMutation';
 import DeleteProjectMediaMutation from '../../relay/DeleteProjectMediaMutation';
 import CheckContext from '../../CheckContext';
-import ProfileLink from '../layout/ProfileLink';
 import Message from '../Message';
 import {
   FlexRow,
@@ -130,13 +129,13 @@ class MediaMetadata extends Component {
 
     const onSuccess = (response) => {
       const pm = response.updateProjectMedia.project_media;
-      const message = <FormattedMessage
-                        id="mediaMetadata.movedToTrash"
-                        defaultMessage={'Sent to {trash}'}
-                        values={{
-                          trash: <Link to={`/${pm.team.slug}/trash`}>{this.props.intl.formatMessage(messages.trash)}</Link>
-                        }}
-                      />;
+      const message = (<FormattedMessage
+        id="mediaMetadata.movedToTrash"
+        defaultMessage={'Sent to {trash}'}
+        values={{
+          trash: <Link to={`/${pm.team.slug}/trash`}>{this.props.intl.formatMessage(messages.trash)}</Link>,
+        }}
+      />);
       this.context.setMessage(message);
     };
 
@@ -161,13 +160,13 @@ class MediaMetadata extends Component {
 
     const onSuccess = (response) => {
       const pm = response.updateProjectMedia.project_media;
-      const message = <FormattedMessage
-                        id="mediaMetadata.movedBack"
-                        defaultMessage={'Moved back to project: {project}'}
-                        values={{
-                          project: <Link to={`/${pm.team.slug}/project/${pm.project_id}`}>{pm.project.title}</Link>
-                        }}
-                      />;
+      const message = (<FormattedMessage
+        id="mediaMetadata.movedBack"
+        defaultMessage={'Moved back to project: {project}'}
+        values={{
+          project: <Link to={`/${pm.team.slug}/project/${pm.project_id}`}>{pm.project.title}</Link>,
+        }}
+      />);
       this.context.setMessage(message);
     };
 
@@ -188,8 +187,7 @@ class MediaMetadata extends Component {
       this.setState({ confirmationError: false });
       this.handleCloseDialogs();
       this.handleRequestDeleteForever();
-    }
-    else {
+    } else {
       this.setState({ confirmationError: true });
     }
   }
@@ -218,7 +216,7 @@ class MediaMetadata extends Component {
     Relay.Store.commitUpdate(
       new DeleteProjectMediaMutation({
         id: media.id,
-        check_search_team: media.team.search_id
+        check_search_team: media.team.search_id,
       }),
       { onSuccess, onFailure },
     );
@@ -407,13 +405,15 @@ class MediaMetadata extends Component {
     </Dialog>);
 
     const deleteDialogActions = [
-      <FlatButton label={<FormattedMessage id="mediaDetail.cancel" defaultMessage="Cancel" />}
-                  primary={true}
-                  onClick={this.handleCloseDialogs.bind(this)}
+      <FlatButton
+        label={<FormattedMessage id="mediaDetail.cancel" defaultMessage="Cancel" />}
+        primary
+        onClick={this.handleCloseDialogs.bind(this)}
       />,
-      <RaisedButton label={<FormattedMessage id="mediaDetail.deleteForever" defaultMessage="Delete forever" />}
-                    primary={true}
-                    onClick={this.handleConfirmDeleteForever.bind(this)}
+      <RaisedButton
+        label={<FormattedMessage id="mediaDetail.deleteForever" defaultMessage="Delete forever" />}
+        primary
+        onClick={this.handleConfirmDeleteForever.bind(this)}
       />,
     ];
 
@@ -448,6 +448,7 @@ class MediaMetadata extends Component {
             handleRestore={this.handleRestore.bind(this)}
             handleDeleteForever={this.handleDeleteForever.bind(this)}
             style={{ display: 'flex' }}
+            locale={this.props.intl.locale}
           />}
 
         <Dialog
@@ -490,13 +491,14 @@ class MediaMetadata extends Component {
         <Dialog actions={deleteDialogActions} modal={false} open={this.state.openDeleteDialog} onRequestClose={this.handleCloseDialogs.bind(this)}>
           <h2><FormattedMessage id="mediaDetail.deleteForever" defaultMessage="Delete forever" /></h2>
           <p><FormattedMessage id="mediaDetail.deleteForeverConfirmationText" defaultMessage={'Are you sure? This will permanently delete this item and its {notesCount, plural, =0 {0 annotations} one {1 annotation} other {# annotations}}. Type "confirm" if you want to proceed.'} values={{ notesCount: media.log_count.toString() }} /></p>
-          <TextField id="delete-forever__confirm"
-                     fullWidth={true}
-                     errorText={this.state.confirmationError ?
-                                <FormattedMessage id="mediaDetail.confirmationError" defaultMessage="Did not match" /> :
-                                null
-                               }
-                     hintText={<FormattedMessage id="mediaDetail.typeHere" defaultMessage="Type here" />}
+          <TextField
+            id="delete-forever__confirm"
+            fullWidth
+            errorText={this.state.confirmationError ?
+              <FormattedMessage id="mediaDetail.confirmationError" defaultMessage="Did not match" /> :
+              null
+             }
+            hintText={<FormattedMessage id="mediaDetail.typeHere" defaultMessage="Type here" />}
           />
         </Dialog>
       </StyledMetadata>
@@ -506,7 +508,7 @@ class MediaMetadata extends Component {
 
 MediaMetadata.contextTypes = {
   store: React.PropTypes.object,
-  setMessage: React.PropTypes.func
+  setMessage: React.PropTypes.func,
 };
 
 export default injectIntl(MediaMetadata);

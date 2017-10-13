@@ -67,6 +67,8 @@ const StyledMediaDetail = styled.div`
     border-${props => props.fromDirection}: ${units(1)} solid;
     border-color: ${props => props.borderColor};
     border-radius: ${defaultBorderRadius};
+    // Disable border in some views
+    ${props => props.hideBorder ? 'border: none;' : null}
   }
 
   .media__heading {
@@ -239,6 +241,7 @@ class MediaDetail extends Component {
         className={cardClassName}
         borderColor={this.props.borderColor || getStatusStyle(status, 'backgroundColor')}
         fromDirection={fromDirection}
+        hideBorder={this.props.hideBorder}
       >
         <Card
           className="card-with-border"
@@ -277,6 +280,7 @@ MediaDetail.contextTypes = {
 
 MediaDetail.defaultProps = {
   initiallyExpanded: false,
+  hideBorder: false,
 };
 
 export default injectIntl(MediaDetail);
