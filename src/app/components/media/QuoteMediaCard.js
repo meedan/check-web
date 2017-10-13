@@ -21,7 +21,7 @@ const StyledQuoteText = styled.div`
 class QuoteMediaCard extends Component {
   render() {
     const { quote, sourceName, sourceUrl, languageCode } = this.props;
-    const localeIsRtl = rtlDetect.isRtlLang(this.props.locale);
+    const localeIsRtl = rtlDetect.isRtlLang(this.props.intl.locale);
 
     const StyledQuoteAttribution = styled.div`
       font: ${subheading2};
