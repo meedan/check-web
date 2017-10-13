@@ -19,9 +19,9 @@ import {
 
 class UserTooltipComponent extends React.Component {
   accountLink(account) {
-    return <a key={account.id} href={account.url} target="_blank" rel="noopener noreferrer" style={{ paddingRight: units(1) }}>
+    return (<a key={account.id} href={account.url} target="_blank" rel="noopener noreferrer" style={{ paddingRight: units(1) }}>
       { MediaUtil.socialIcon(`${account.provider}.com`) /* TODO: refactor */ }
-    </a>;
+    </a>);
   }
 
   render() {
@@ -46,7 +46,7 @@ class UserTooltipComponent extends React.Component {
                 {user.name}
               </strong>
 
-              <Link to={`/check/user/${user.dbid}`} style={{float: 'right'}}>
+              <Link to={`/check/user/${user.dbid}`} style={{ float: 'right' }}>
                 <MdLaunch />
               </Link>
 

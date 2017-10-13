@@ -462,18 +462,16 @@ class Annotation extends Component {
         );
       break;
     case 'destroy_comment':
-      contentTemplate = (
-        <em>
-          <FormattedMessage
-            id="annotation.deletedComment"
-            defaultMessage={'Comment deleted by {author}: "{comment}"'}
-            values={{
-              author: authorName,
-              comment: content.text,
-            }}
-          />
-        </em>
-        );
+      contentTemplate = (<em className="annotation__deleted">
+        <FormattedMessage
+          id="annotation.deletedComment"
+          defaultMessage={'Comment deleted by {author}: "{comment}"'}
+          values={{
+            author: authorName,
+            comment: content.text
+          }}
+        />
+      </em>);
       break;
     case 'create_task':
       contentTemplate = (

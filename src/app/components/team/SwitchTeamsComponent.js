@@ -125,7 +125,7 @@ class SwitchTeamsComponent extends Component {
     teamUsers.map((teamUser) => {
       const team = teamUser.node.team;
       const status = teamUser.node.status;
-      const visible = can(team.permissions, "read Team");
+      const visible = can(team.permissions, 'read Team');
 
       if (!isUserSelf && !visible) { return; }
 

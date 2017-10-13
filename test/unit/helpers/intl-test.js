@@ -14,7 +14,7 @@ import { mount, shallow } from 'enzyme';
 
 // You can pass your messages to the IntlProvider. Optional: remove if unneeded.
 // const messages = require('../locales/en'); // en.json
- const messages = {}; // en.json
+const messages = {}; // en.json
 
 // Create the IntlProvider to retrieve context for wrapping around.
 const intlProvider = new IntlProvider({ locale: 'en', messages }, {});
@@ -34,21 +34,21 @@ const store = {
   team: {
     projects: {
       edges: [
-        { node: { dbid: 1 } }
-      ]
-    }
+        { node: { dbid: 1 } },
+      ],
+    },
   },
 
-  getState: function() {
+  getState() {
     return {
       app: {
         context: {
           team: this.team,
-          currentUser: this.currentUser
-        }
-      }
-    }
-  }
+          currentUser: this.currentUser,
+        },
+      },
+    };
+  },
 };
 
 const muiTheme = getMuiTheme();
@@ -65,7 +65,7 @@ export function getStore() {
 export function mountWithIntl(node) {
   return mount(nodeWithIntlProp(node), {
     context: { intl, store, muiTheme },
-    childContextTypes: { intl: intlShape, store: React.PropTypes.object, muiTheme: React.PropTypes.object }
+    childContextTypes: { intl: intlShape, store: React.PropTypes.object, muiTheme: React.PropTypes.object },
   });
 }
 

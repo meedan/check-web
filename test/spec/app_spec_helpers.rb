@@ -8,6 +8,23 @@ module AppSpecHelpers
     }
   end
 
+  def time_handle(selector, value, type = :css, visible = true)
+    wait = Selenium::WebDriver::Wait.new(timeout: 50)
+    input = wait.until {
+      element = @driver.find_element(type, selector)
+      if visible
+        element if element.displayed?
+      else
+        element
+      end
+    }
+    sleep 0.5
+    input.clear
+    sleep 0.5
+    input.send_keys(value)
+  end
+
+
   def update_field(selector, value, type = :css, visible = true)
     wait = Selenium::WebDriver::Wait.new(timeout: 50)
     input = wait.until {
@@ -47,17 +64,36 @@ module AppSpecHelpers
     input.click
   end
 
+  def alert_accept
+    begin
+      @driver.switch_to.alert.accept
+      return true
+    rescue => e
+      sleep 2
+      return false
+    end
+  end
+
   def delete_task(task_text)
     expect(@driver.page_source.include?(task_text)).to be(true)
-    # In case the menu is left open (which happens for unknown reason),
-    # click somewhere non-interactive, to ensure menu closes...
-    @driver.find_element(:css, '.task__label').click
+    el = wait_for_selector('.task__label')
+    el.click
+    
     sleep 1
     # Open the menu
-    @driver.find_element(:css, '.task-actions__icon').click
+    el = wait_for_selector('.task-actions__icon')
+    el.click
     sleep 2
-    @driver.find_element(:css, '.task-actions__delete').click
-    @driver.switch_to.alert.accept
+    el = wait_for_selector('.task-actions__delete')
+    el.click
+
+    n = 0
+    ret = false
+    begin
+      ret = alert_accept
+      n = n + 1
+    end while (!ret and n < 10)
+
     sleep 3
     expect(@driver.page_source.include?(task_text)).to be(false)
   end
@@ -101,8 +137,41 @@ module AppSpecHelpers
     sleep 3
   end
 
+  def wait_for_selector(selector, type = :css, timeout = 30)
+    @wait = Selenium::WebDriver::Wait.new(timeout: timeout)
+    element = @wait.until { @driver.find_element(type, selector) }
+    element
+  end
+
+  def wait_for_selector_list(selector, type = :css, timeout = 30)
+    @wait = Selenium::WebDriver::Wait.new(timeout: timeout)
+    elements = @wait.until { @driver.find_elements(type, selector) }
+    elements
+  end
+
+  def wait_for_text_change(txt, selector, type = :css, count=10)
+    c = 0
+    begin
+      c = c + 1
+      el = wait_for_selector(selector, type)
+      sleep 1
+    end while (el.text == txt and c < count)
+    el.text
+  end
+
+  def wait_for_size_change(s, selector, type = :css, count=10)
+    c = 0
+    begin
+      c = c + 1
+      el = wait_for_selector_list(selector, type)
+      sleep 1
+    end while (s == el.size and c < count)
+    el.size
+  end
+
+
   def slack_auth
-    @driver.find_element(:xpath, "//button[@id='slack-login']").click
+    wait_for_selector("//button[@id='slack-login']", :xpath).click
     sleep 5
     window = @driver.window_handles.last
     @driver.switch_to.window(window)

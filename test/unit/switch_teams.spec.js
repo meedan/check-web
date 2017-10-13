@@ -18,7 +18,7 @@ describe('<SwitchTeamsComponent />', () => {
       name: 'Karim',
       avatar: 'http://localhost:3000/uploads/team/1/LSD_logo_headphone-300x300.jpg',
       slug: 'karim',
-      members_count: 2
+      members_count: 2,
     },
     team_users: {
       edges: [
@@ -32,12 +32,12 @@ describe('<SwitchTeamsComponent />', () => {
               slug: 'karim',
               private: true,
               members_count: 2,
-              permissions: '{"read Team":true,"update Team":true,"destroy Team":true,"create Project":true,"create Account":false,"create TeamUser":false,"create User":true,"create Contact":true}'
+              permissions: '{"read Team":true,"update Team":true,"destroy Team":true,"create Project":true,"create Account":false,"create TeamUser":false,"create User":true,"create Contact":true}',
             },
             id: 'VGVhbVVzZXIvMQ==\n',
             status: 'member',
-            role: 'owner'
-          }
+            role: 'owner',
+          },
         },
         {
           node: {
@@ -49,14 +49,14 @@ describe('<SwitchTeamsComponent />', () => {
               slug: 'team2',
               private: true,
               members_count: 1,
-              permissions: '{"read Team":true,"update Team":false,"destroy Team":false,"create Project":true,"create Account":false,"create TeamUser":false,"create User":true,"create Contact":true}'
+              permissions: '{"read Team":true,"update Team":false,"destroy Team":false,"create Project":true,"create Account":false,"create TeamUser":false,"create User":true,"create Contact":true}',
             },
             id: 'VGVhbVVzZXIvMg==\n',
             status: 'member',
-            role: 'owner'
-          }
-        }
-      ]
+            role: 'owner',
+          },
+        },
+      ],
     },
     source: {
       id: 'U291cmNlLzE=\n',
@@ -74,10 +74,10 @@ describe('<SwitchTeamsComponent />', () => {
           {
             node: {
               url: 'https://meedan.slack.com/team/karim',
-              provider: 'page'
-            }
-          }
-        ]
+              provider: 'page',
+            },
+          },
+        ],
       },
       account_sources: {
         edges: [
@@ -101,28 +101,28 @@ describe('<SwitchTeamsComponent />', () => {
                     metatags: [
                       {
                         'http-equiv': 'refresh',
-                        content: '0; URL=/?redir=%252Fteam%252Fkarim&nojsmode=1'
+                        content: '0; URL=/?redir=%252Fteam%252Fkarim&nojsmode=1',
                       },
                       {
                         name: 'referrer',
-                        content: 'no-referrer'
+                        content: 'no-referrer',
                       },
                       {
                         name: 'superfish',
-                        content: 'nofish'
+                        content: 'nofish',
                       },
                       {
                         name: 'author',
-                        content: 'Slack'
+                        content: 'Slack',
                       },
                       {
                         name: 'msapplication-TileColor',
-                        content: '#FFFFFF'
+                        content: '#FFFFFF',
                       },
                       {
                         name: 'msapplication-TileImage',
-                        content: 'https://a.slack-edge.com/436da/marketing/img/meta/app-144.png'
-                      }
+                        content: 'https://a.slack-edge.com/436da/marketing/img/meta/app-144.png',
+                      },
                     ],
                     oembed: {
                       type: 'rich',
@@ -135,8 +135,8 @@ describe('<SwitchTeamsComponent />', () => {
                       thumbnail_url: 'http://pender:3200/screenshots/https-meedan-slack-com-redir-team-karim.png',
                       html: '<iframe src="https://meedan.slack.com/?redir=/team/karim" width="800" height="200" scrolling="no" border="0" seamless>Not supported</iframe>',
                       width: 800,
-                      height: 200
-                    }
+                      height: 200,
+                    },
                   },
                   url: 'https://meedan.slack.com/?redir=/team/karim',
                   provider: 'page',
@@ -144,22 +144,22 @@ describe('<SwitchTeamsComponent />', () => {
                   parsed_at: '2017-09-21T22:47:48.943+00:00',
                   favicon: 'https://www.google.com/s2/favicons?domain_url=meedan.slack.com/?redir=/team/karim',
                   embed_tag: '<script src="http://pender:3200/api/medias.js?url=https%3A%2F%2Fmeedan.slack.com%2Fteam%2Fkarim" type="text/javascript"></script>',
-                  refreshes_count: 1
+                  refreshes_count: 1,
                 },
                 url: 'https://meedan.slack.com/team/karim',
-                provider: 'page'
-              }
-            }
-          }
-        ]
+                provider: 'page',
+              },
+            },
+          },
+        ],
       },
       tags: {
-        edges: []
+        edges: [],
       },
       medias: {
-        edges: []
-      }
-    }
+        edges: [],
+      },
+    },
   };
 
   const otherUser = {
@@ -176,7 +176,7 @@ describe('<SwitchTeamsComponent />', () => {
       name: 'Karim',
       avatar: 'http://localhost:3000/uploads/team/1/LSD_logo_headphone-300x300.jpg',
       slug: 'karim',
-      members_count: 2
+      members_count: 2,
     },
     team_users: {
       edges: [
@@ -188,16 +188,16 @@ describe('<SwitchTeamsComponent />', () => {
               name: 'Karim',
               avatar: 'http://localhost:3000/uploads/team/1/LSD_logo_headphone-300x300.jpg',
               slug: 'karim',
-              'private': true,
+              private: true,
               members_count: 2,
-              permissions: '{"read Team":true,"update Team":true,"destroy Team":true,"create Project":true,"create Account":false,"create TeamUser":false,"create User":true,"create Contact":true}'
+              permissions: '{"read Team":true,"update Team":true,"destroy Team":true,"create Project":true,"create Account":false,"create TeamUser":false,"create User":true,"create Contact":true}',
             },
             id: 'VGVhbVVzZXIvMw==\n',
             status: 'member',
-            role: 'contributor'
-          }
-        }
-      ]
+            role: 'contributor',
+          },
+        },
+      ],
     },
     source: {
       id: 'U291cmNlLzEw\n',
@@ -211,18 +211,18 @@ describe('<SwitchTeamsComponent />', () => {
       permissions: '{"read Source":false,"update Source":false,"destroy Source":false,"create Account":false,"create ProjectSource":false,"create Project":true}',
       verification_statuses: '{"label":"Status","default":"undetermined","statuses":[{"description":"Default, just added to Check, no work has started","id":"undetermined","label":"Unstarted","style":{"backgroundColor":"green","color":"orange"}},{"description":"Conclusion: the source is credible","id":"credible","label":"Credible","style":{"backgroundColor":"green","color":"orange"}},{"description":"Conclusion: the source is not credible","id":"not_credible","label":"Not Credible","style":{"backgroundColor":"green","color":"orange"}},{"description":"Conclusion: the source is slightly credible","id":"slightly_credible","label":"Slightly Credible","style":{"backgroundColor":"green","color":"orange"}},{"description":"Conclusion: the source is a sockpuppet","id":"sockpuppet","label":"Sockpuppet","style":{"backgroundColor":"green","color":"orange"}}]}',
       accounts: {
-        edges: []
+        edges: [],
       },
       account_sources: {
-        edges: []
+        edges: [],
       },
       tags: {
-        edges: []
+        edges: [],
       },
       medias: {
-        edges: []
-      }
-    }
+        edges: [],
+      },
+    },
   };
 
   it('should show private teams to members of the same team', () => {

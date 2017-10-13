@@ -156,7 +156,7 @@ class CreateProjectMedia extends Component {
       previousInput: this.primaryInput ? this.primaryInput.getValue() : this.state.previousInput,
       message: null,
       submittable: (this.primaryInput && this.primaryInput.getValue().length > 0) ||
-                   (this.secondaryInput && this.secondaryInput.getValue().length > 0)
+                   (this.secondaryInput && this.secondaryInput.getValue().length > 0),
     });
   }
 
