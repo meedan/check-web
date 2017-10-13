@@ -102,7 +102,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
         .logout
     end
 
-    it "should redirect to access denied page", bin4: true do
+    it "should redirect to access denied page", bin6: true do
       user = api_register_and_login_with_email
       api_logout
       api_register_and_login_with_email
@@ -195,7 +195,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(displayed_name == expected_name).to be(true)
     end
 
-    it "should localize interface based on browser language", bin4: true do
+    it "should localize interface based on browser language", bin6: true do
       unless browser_capabilities['appiumVersion']
         caps = Selenium::WebDriver::Remote::Capabilities.chrome(chromeOptions: { prefs: { 'intl.accept_languages' => 'fr' } })
         driver = Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: caps)
@@ -321,13 +321,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       displayed_name = get_element('h1.source__name').text.upcase
       expected_name = @config['twitter_name'].upcase
       expect(displayed_name == expected_name).to be(true)
-    end
-
-    it "should show teams at /check/teams", bin4: true do
-      api_create_team
-      @driver.navigate.to @config['self_url'] + '/check/teams'
-      sleep 2
-      expect(@driver.find_elements(:css, '.teams').empty?).to be(false)
     end
 
     it "should go to source page through user/:id", bin6: true do
@@ -1231,7 +1224,14 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
 =begin
-    ***Unstable***
+    ***Unstable
+
+    it "should show teams at /check/teams", bin4: true do
+      api_create_team
+      @driver.navigate.to @config['self_url'] + '/check/teams'
+      sleep 2
+      expect(@driver.find_elements(:css, '.teams').empty?).to be(false)
+    end
 
     it "should add, edit, answer, update answer and delete geolocation task", bin3: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
