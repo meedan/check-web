@@ -71,22 +71,30 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should filter by medias or sources", bin3: true do
       api_create_team_project_and_link 'https://twitter.com/TheWho/status/890135323216367616'
       @driver.navigate.to @config['self_url']
-      sleep 10
+p "OO"
+#      sleep 10
+
+      wait_for_selector("card-with-border", :class)
 
       expect(@driver.page_source.include?("The Who's official Twitter page")).to be(false)
       expect(@driver.page_source.include?('Happy birthday Mick')).to be(true)
 
-      @driver.find_element(:xpath, "//span[contains(text(), 'Sources')]").click
-      sleep 10
+      el = wait_for_selector("//span[contains(text(), 'Sources')]", :xpath)
+      el.click
+      wait_for_selector("source-card", :class)
       expect(@driver.page_source.include?("The Who's official Twitter page")).to be(true)
       expect(@driver.page_source.include?('Happy birthday Mick')).to be(true)
+      old = @driver.find_elements(:class, "medias__item").length
 
-      @driver.find_element(:xpath, "//span[contains(text(), 'Media')]").click
-      sleep 10
+      el = wait_for_selector("//span[contains(text(), 'Media')]", :xpath)
+      el.click
+      wait_for_size_change(old, "medias__item", :class)
+
+      #sleep 10
       expect(@driver.page_source.include?("The Who's official Twitter page")).to be(true)
       expect(@driver.page_source.include?('Happy birthday Mick')).to be(false)
     end
-
+=begin
     it "should register and create a claim", bin5: true do
       page = LoginPage.new(config: @config, driver: @driver).load
       begin
@@ -1223,6 +1231,41 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       end
     end
 
+    #Add slack notifications to a team
+    it "should add slack notifications to a team", bin3:true, quick: true do
+      team = "testteam#{Time.now.to_i}"
+      api_create_team(team:team)
+      p = Page.new(config: @config, driver: @driver)
+      p.go(@config['self_url'] + '/' + team)
+      sleep 5
+      el = wait_for_selector("team__edit-button", :class)
+      el.click
+      el = wait_for_selector("team__settings-slack-notifications-enabled", :id)
+      el.click
+      el = wait_for_selector("team__settings-slack-webhook", :id)
+      el.click
+      el = wait_for_selector("team__settings-slack-webhook", :id)
+      el.send_keys "https://hooks.slack.com/services/T02528QUL/BBBBBBBBB/AAAAAAAAAAAAAAAAAAAAAAAA"
+      el = wait_for_selector("team__save-button", :class)
+      el.click
+      sleep 2
+      expect(@driver.find_element(:class, "message").nil?).to be(false)
+    end
+
+    it "should paginate project page", bin2: true do
+      page = api_create_team_project_claims_sources_and_redirect_to_project_page 21
+      page.load
+      el = wait_for_selector("//span[contains(text(), 'Sources')]", :xpath)
+      el.click
+      wait_for_selector("source-card", :class)
+      results = @driver.find_elements(:css, '.medias__item')
+      expect(results.size == 40).to be(true)
+      old = results.size
+      results.last.location_once_scrolled_into_view
+      size = wait_for_size_change(old, '.medias__item')
+      expect(size == 42).to be(true)
+    end
+=end  
 =begin
     ***Unstable
 
@@ -1340,40 +1383,5 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       delete_task('When was it')
     end
 =end
-
-    #Add slack notifications to a team
-    it "should add slack notifications to a team", bin3:true, quick: true do
-      team = "testteam#{Time.now.to_i}"
-      api_create_team(team:team)
-      p = Page.new(config: @config, driver: @driver)
-      p.go(@config['self_url'] + '/' + team)
-      sleep 5
-      el = wait_for_selector("team__edit-button", :class)
-      el.click
-      el = wait_for_selector("team__settings-slack-notifications-enabled", :id)
-      el.click
-      el = wait_for_selector("team__settings-slack-webhook", :id)
-      el.click
-      el = wait_for_selector("team__settings-slack-webhook", :id)
-      el.send_keys "https://hooks.slack.com/services/T02528QUL/BBBBBBBBB/AAAAAAAAAAAAAAAAAAAAAAAA"
-      el = wait_for_selector("team__save-button", :class)
-      el.click
-      sleep 2
-      expect(@driver.find_element(:class, "message").nil?).to be(false)
-    end
-
-    it "should paginate project page", bin2: true do
-      page = api_create_team_project_claims_sources_and_redirect_to_project_page 21
-      page.load
-      el = wait_for_selector("//span[contains(text(), 'Sources')]", :xpath)
-      el.click
-      wait_for_selector("source-card", :class)
-      results = @driver.find_elements(:css, '.medias__item')
-      expect(results.size == 40).to be(true)
-      old = results.size
-      results.last.location_once_scrolled_into_view
-      size = wait_for_size_change(old, '.medias__item')
-      expect(size == 42).to be(true)
-    end
   end
 end
