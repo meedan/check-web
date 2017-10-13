@@ -67,9 +67,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
   # The tests themselves start here
   context "web" do
-=begin
     include_examples "custom"
-    it "should filter by medias or sources", bin6: true do
+    it "should filter by medias or sources", bin3: true do
       api_create_team_project_and_link 'https://twitter.com/TheWho/status/890135323216367616'
       @driver.navigate.to @config['self_url']
       sleep 10
@@ -943,7 +942,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     # it "should find medias when searching by tag" do
     #   skip("Needs to be implemented")
     # end
-=end
+
     it "should add image to media comment", bin3: true do
       api_create_team_project_and_claim_and_redirect_to_media_page
       # First, verify that there isn't any comment with image
@@ -980,7 +979,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       imgsrc = @driver.find_element(:css, '.annotation__card-thumbnail').attribute('src')
       expect(imgsrc.match(/test\.png$/).nil?).to be(false)
     end
-=begin
 
     # it "should move media to another project" do
     #   skip("Needs to be implemented")
@@ -1342,8 +1340,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       delete_task('When was it')
     end
 =end
-#######
-=begin
+
     #Add slack notifications to a team
     it "should add slack notifications to a team", bin3:true, quick: true do
       team = "testteam#{Time.now.to_i}"
@@ -1378,6 +1375,5 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       size = wait_for_size_change(old, '.medias__item')
       expect(size == 42).to be(true)
     end
-=end    
   end
 end
