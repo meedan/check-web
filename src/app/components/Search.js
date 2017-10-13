@@ -18,7 +18,8 @@ import { notify } from '../helpers';
 import CheckContext from '../CheckContext';
 import MediasLoading from './media/MediasLoading';
 import SourceCard from './source/SourceCard';
-import { white,
+import {
+  white,
   black87,
   black38,
   black16,

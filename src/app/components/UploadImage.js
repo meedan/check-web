@@ -1,10 +1,71 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import Relay from 'react-relay';
 import Dropzone from 'react-dropzone';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import MdHighlightRemove from 'react-icons/lib/md/highlight-remove';
+import styled from 'styled-components';
+import rtlDetect from 'rtl-detect';
 import AboutRoute from '../relay/AboutRoute';
 import { unhumanizeSize } from '../helpers';
+import {
+  black38,
+  Row,
+  units,
+  borderWidthMedium,
+  borderRadiusLarge,
+  StyledIconButton,
+} from '../styles/js/shared';
+
+const previewSize = units(10);
+
+const StyledUploader = styled.div`
+    display: flex;
+    margin: ${units(1)} 0 ${units(2)};
+    align-items: flex-start;
+
+    .with-file,
+    .without-file {
+      align-items: flex-start;
+      border: ${borderWidthMedium} dashed ${black38};
+      border-radius: ${borderRadiusLarge};
+      color: ${black38};
+      cursor: pointer;
+      display: flex;
+      height: auto;
+      justify-content: center;
+      margin-top: ${units(2)};
+      padding: ${units(3)};
+      text-align: center;
+      width: 100%;
+    }
+
+    .preview {
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-size: contain;
+      display: block;
+      margin: ${units(2)} 0 0;
+      position: relative;
+      height: ${previewSize};
+      width: ${previewSize};
+    }
+
+    // Hmm, not sure what conditions trigger this state
+    // @chris 2017-1012
+    .no-preview {
+      height: 0;
+      width: 0;
+      display: block;
+      margin: ${units(2)} 0 0;
+      position: relative;
+    }
+
+    .remove-image {
+      color: ${black38};
+      cursor: pointer;
+      margin: 0;
+    }
+`;
 
 const messages = defineMessages({
   changeFile: {
@@ -61,11 +122,17 @@ class UploadImageComponent extends Component {
 
     if (this.state.file && this.props.noPreview) {
       return (
-        <span className="no-preview"><MdHighlightRemove className="remove-image" onClick={this.onDelete.bind(this)} /></span>
+        <Row><span className="no-preview" />
+          <StyledIconButton className="remove-image" onClick={this.onDelete.bind(this)}>
+            <MdHighlightRemove />
+          </StyledIconButton></Row>
       );
     } else if (this.state.file) {
       return (
-        <span className="preview" style={style}><MdHighlightRemove className="remove-image" onClick={this.onDelete.bind(this)} /></span>
+        <Row><span className="preview" style={style} />
+          <StyledIconButton className="remove-image" onClick={this.onDelete.bind(this)}>
+            <MdHighlightRemove />
+          </StyledIconButton></Row>
       );
     }
   }
@@ -74,7 +141,7 @@ class UploadImageComponent extends Component {
     const about = this.props.about;
 
     return (
-      <div className="upload-file">
+      <StyledUploader isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
         { this.preview() }
         <Dropzone onDrop={this.onDrop.bind(this)} multiple={false} className={this.state.file ? 'with-file' : 'without-file'}>
           <div>
@@ -94,7 +161,7 @@ class UploadImageComponent extends Component {
           </div>
         </Dropzone>
         <br />
-      </div>
+      </StyledUploader>
     );
   }
 }
