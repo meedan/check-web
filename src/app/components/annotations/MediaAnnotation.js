@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
-import { FormattedMessage, FormattedHTMLMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
+import {
+  FormattedMessage,
+  FormattedHTMLMessage,
+  defineMessages,
+  injectIntl,
+  intlShape,
+} from 'react-intl';
 import Relay from 'react-relay';
 import Tooltip from 'rc-tooltip';
 import 'rc-tooltip/assets/bootstrap_white.css';
@@ -9,6 +15,10 @@ import { stripUnit } from 'polished';
 import { Link } from 'react-router';
 import Lightbox from 'react-image-lightbox';
 import { Card, CardText } from 'material-ui/Card';
+import IconMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
+import IconButton from 'material-ui/IconButton';
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
 import Avatar from 'material-ui/Avatar';
 import MdImage from 'react-icons/lib/md/image';
 import MediaDetail from '../media/MediaDetail';
@@ -19,7 +29,6 @@ import UpdateProjectMediaMutation from '../../relay/UpdateProjectMediaMutation';
 import Can, { can } from '../Can';
 import TimeBefore from '../TimeBefore';
 import { getStatus, getStatusStyle } from '../../helpers';
-import MenuButton from '../MenuButton';
 import ParsedText from '../ParsedText';
 import DatetimeTaskResponse from '../task/DatetimeTaskResponse';
 import UserTooltip from '../user/UserTooltip';
@@ -38,7 +47,179 @@ import {
   avatarStyle,
   avatarSizeSmall,
   Row,
+  defaultBorderRadius,
 } from '../../styles/js/shared';
+
+const dotSize = borderWidthLarge;
+
+const dotOffset = stripUnit(units(4)) - stripUnit(dotSize);
+
+const StyledDefaultAnnotation = styled.div`
+  color: ${black87};
+  display: flex;
+  font: ${caption};
+  max-width: ${columnWidthMedium};
+  ${props => (props.isRtl ? 'padding-right' : 'padding-left')}: ${units(10)};
+
+  .annotation__default-content {
+    @extend ${breakWordStyles};
+    display: block;
+    margin-${props => (props.isRtl ? 'left' : 'right')}: ${units(2)};
+  }
+`;
+
+const StyledAnnotationCardWrapper = styled.div`
+  max-width: ${units(90)};
+  width: 100%;
+  z-index: initial !important;
+
+  > div > div {
+    padding-bottom: 0 !important;
+  }
+
+  img {
+    cursor: pointer;
+  }
+`;
+
+const StyledAvatarColumn = styled.div`
+  margin-${props => (props.isRtl ? 'left' : 'right')}: ${units(3)};
+  .avatar {
+    ${avatarStyle}
+    width: ${avatarSizeSmall} !important;
+    height: ${avatarSizeSmall} !important;
+  }
+`;
+
+const StyledPrimaryColumn = styled.div`
+  flex: 1;
+
+  .annotation__card-content {
+    ${breakWordStyles}
+    display: flex;
+    width: 100%;
+
+    & > span:first-child {
+      flex: 1;
+    }
+  }
+
+  .annotation__card-thumbnail {
+    padding: ${units(1)};
+  }
+
+  .annotation__status {
+    font: ${caption};
+    text-transform: uppercase;
+    margin: 0 3px;
+  }
+`;
+
+const StyledAnnotationWrapper = styled.section`
+  position: relative;
+  display: flex;
+  padding: ${units(1)} 0;
+  position: relative;
+
+  &:not(.annotation--card) {
+    // The timeline dot
+    &::before {
+      background-color: ${opaqueBlack16};
+      border-radius: 100%;
+      content: '';
+      height: ${units(1)};
+      outline: ${dotSize} solid ${white};
+      position: absolute;
+      top: ${units(2)};
+      width: ${units(1)};
+      ${props => (props.isRtl ? 'right' : 'left')}: ${dotOffset}px;
+    }
+  }
+
+  .annotation__card-text {
+    display: flex;
+    padding: ${units(3)} ${units(2)} ${units(1)} !important;
+  }
+
+  .annotation__card-activity-move-to-trash {
+    background: ${checkBlue};
+    color: #fff;
+    border-radius: ${defaultBorderRadius};
+
+    .annotation__card-trash,
+    .annotation__timestamp {
+      color: #fff;
+    }
+  }
+
+  .annotation__timestamp {
+    color: ${black38};
+    display: inline;
+    flex: 1;
+    white-space: pre;
+    margin-${props => (props.isRtl ? 'left' : 'right')}: ${units(1)};
+  }
+
+  .annotation__actions {
+    align-self: flex-start;
+    display: none;
+    flex: 1;
+    text-align: ${props => (props.isRtl ? 'left' : 'right')};
+  }
+
+  .annotation__body {
+    ${breakWordStyles}
+  }
+
+  .annotation__embedded-media {
+    padding-bottom: ${units(1)};
+    padding-top: ${units(1)};
+  }
+
+  .annotation__tag {
+    &::before {
+      content: '#';
+    }
+  }
+
+  .annotation__update-task > span {
+    display: block;
+  }
+
+  .annotation__reverse-image-search,
+  .annotation__keep-retry {
+    cursor: pointer;
+    display: inline-block;
+    font-weight: 700;
+    margin: 0 ${units(1)};
+    text-transform: uppercase;
+  }
+
+  .annotation__card-embedded-medias {
+    clear: both;
+    margin-top: ${units(0.5)};
+  }
+
+  .annotation__keep a {
+    text-decoration: underline;
+  }
+`;
+
+const StyledAnnotationMetadata = styled(Row)`
+  color: ${black54};
+  flex-flow: wrap row;
+  font: ${caption};
+  margin-top: ${units(3)};
+
+  .annotation__card-author {
+    color: ${black87};
+    padding-${props => (props.isRtl ? 'left' : 'right')}: ${units(1)};
+  }
+`;
+
+const StyledAnnotationActionsWrapper = styled.div`
+  margin-${props => (props.isRtl ? 'right' : 'left')}: auto;
+`;
 
 const messages = defineMessages({
   error: {
@@ -51,7 +232,8 @@ const messages = defineMessages({
   },
   reverseImage: {
     id: 'annotation.reverseImage',
-    defaultMessage: 'This item contains at least one image. Click Search to look for potential duplicates on Google.',
+    defaultMessage:
+      'This item contains at least one image. Click Search to look for potential duplicates on Google.',
   },
   reverseImageFacebook: {
     id: 'annotation.reverseImageFacebook',
@@ -93,11 +275,10 @@ class Annotation extends Component {
         if (json.error) {
           message = json.error;
         }
-      } catch (e) { }
+      } catch (e) {}
     };
 
-    const onSuccess = (response) => {
-    };
+    const onSuccess = (response) => {};
 
     // Either to destroy versions or annotations
     const destroy_attr = {
@@ -106,23 +287,19 @@ class Annotation extends Component {
       id,
     };
     if (this.props.annotation.annotation.version === null) {
-      Relay.Store.commitUpdate(
-        new DeleteAnnotationMutation(destroy_attr),
-        { onSuccess, onFailure },
-      );
+      Relay.Store.commitUpdate(new DeleteAnnotationMutation(destroy_attr), { onSuccess, onFailure });
     } else {
       destroy_attr.id = this.props.annotation.annotation.version.id;
-      Relay.Store.commitUpdate(
-        new DeleteVersionMutation(destroy_attr),
-        { onSuccess, onFailure },
-      );
+      Relay.Store.commitUpdate(new DeleteVersionMutation(destroy_attr), { onSuccess, onFailure });
     }
   }
 
   handleUpdateMachineTranslation() {
     const onFailure = (transaction) => {
       const transactionError = transaction.getError();
-      transactionError.json ? transactionError.json().then(handleError) : handleError(JSON.stringify(transactionError));
+      transactionError.json
+        ? transactionError.json().then(handleError)
+        : handleError(JSON.stringify(transactionError));
     };
 
     const onSuccess = (response) => {
@@ -168,24 +345,42 @@ class Annotation extends Component {
     const activity = this.props.annotation;
     const annotation = activity.annotation;
     const annotated = this.props.annotated;
+    const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
 
     let annotationActions = null;
     if (annotation) {
-      const permission = `destroy ${annotation.annotation_type.charAt(0).toUpperCase()}${annotation.annotation_type.slice(1)}`;
-      annotationActions = can(annotation.permissions, permission) ? (
-        <MenuButton>
+      const permission = `destroy ${annotation.annotation_type
+        .charAt(0)
+        .toUpperCase()}${annotation.annotation_type.slice(1)}`;
+      annotationActions = can(annotation.permissions, permission)
+        ? (<IconMenu
+          iconButtonElement={
+            <IconButton>
+              <IconMoreHoriz />
+            </IconButton>
+            }
+        >
           <Can permissions={annotation.permissions} permission={permission}>
-            <li className="annotation__delete" onClick={this.handleDelete.bind(this, annotation.id)}>
-              <span>{this.props.intl.formatMessage(messages.deleteButton)}</span>
-            </li>
+            <MenuItem
+              className="annotation__delete"
+              onClick={this.handleDelete.bind(this, annotation.id)}
+            >
+              {this.props.intl.formatMessage(messages.deleteButton)}
+            </MenuItem>
           </Can>
-        </MenuButton>
-      ) : null;
+        </IconMenu>)
+        : null;
     }
 
     const updatedAt = MediaUtil.createdAt({ published: activity.created_at });
-    const timestamp = updatedAt ? <span className="annotation__timestamp"><TimeBefore date={updatedAt} /></span> : null;
-    const authorName = activity.user ? <Link to={`/check/user/${activity.user.dbid}`} className={'annotation__author-name'}>{activity.user.name}</Link> : null;
+    const timestamp = updatedAt
+      ? <span className="annotation__timestamp"><TimeBefore date={updatedAt} /></span>
+      : null;
+    const authorName = activity.user
+      ? (<Link to={`/check/user/${activity.user.dbid}`} className={'annotation__author-name'}>
+        {activity.user.name}
+      </Link>)
+      : null;
     const object = JSON.parse(activity.object_after);
     const content = object.data;
     let activityType = activity.event_type;
@@ -199,155 +394,237 @@ class Annotation extends Component {
         <div>
           <div className="annotation__card-content">
             <ParsedText text={commentText} />
-            {/* thumbnail */ }
-            { commentContent.original ?
-              <img src={commentContent.thumbnail} className="annotation__card-thumbnail" alt="" onClick={this.handleOpenCommentImage.bind(this, commentContent.original)} />
-            : null }
+            {/* thumbnail */}
+            {commentContent.original
+                ? <img
+                  src={commentContent.thumbnail}
+                  className="annotation__card-thumbnail"
+                  alt=""
+                  onClick={this.handleOpenCommentImage.bind(this, commentContent.original)}
+                />
+                : null}
           </div>
 
-          {/* embedded medias */ }
+          {/* embedded medias */}
           <div className="annotation__card-embedded-medias">
-            {annotation.medias.edges.map(media => (
-              <div><MediaDetail media={media.node} condensed readonly /></div>
-          ))}
+            {annotation.medias.edges.map(media =>
+              <div><MediaDetail media={media.node} condensed readonly /></div>,
+              )}
           </div>
 
-          {/* lightbox */ }
-          { (commentContent.original && !!this.state.zoomedCommentImage) ?
-            <Lightbox onCloseRequest={this.handleCloseCommentImage.bind(this)} mainSrc={this.state.zoomedCommentImage} />
-          : null }
+          {/* lightbox */}
+          {commentContent.original && !!this.state.zoomedCommentImage
+              ? <Lightbox
+                onCloseRequest={this.handleCloseCommentImage.bind(this)}
+                mainSrc={this.state.zoomedCommentImage}
+              />
+              : null}
         </div>
-      );
+        );
       break;
     case 'update_status':
       const statusCode = content.status.toLowerCase().replace(/[ _]/g, '-');
       const status = getStatus(this.props.annotated.verification_statuses, content.status);
-      contentTemplate = (<span>
-        <FormattedMessage
-          id="annotation.statusSetHeader"
-          defaultMessage={'Status set to {status} by {author}'}
-          values={{ status: <span className={`annotation__status annotation__status--${statusCode}`} style={{ color: getStatusStyle(status, 'color') }}>{status.label}</span>, author: authorName }}
-        />
-      </span>);
+      contentTemplate = (
+        <span>
+          <FormattedMessage
+            id="annotation.statusSetHeader"
+            defaultMessage={'Status set to {status} by {author}'}
+            values={{
+              status: (
+                <span
+                  className={`annotation__status annotation__status--${statusCode}`}
+                  style={{ color: getStatusStyle(status, 'color') }}
+                >
+                  {status.label}
+                </span>
+                ),
+              author: authorName,
+            }}
+          />
+        </span>
+        );
       break;
     case 'create_tag':
-      contentTemplate = (<span>
-        <FormattedMessage
-          id="annotation.taggedHeader"
-          defaultMessage={'Tagged #{tag} by {author}'}
-          values={{ tag: content.tag.replace(/^#/, ''), author: authorName }}
-        />
-      </span>);
+      contentTemplate = (
+        <span>
+          <FormattedMessage
+            id="annotation.taggedHeader"
+            defaultMessage={'Tagged #{tag} by {author}'}
+            values={{ tag: content.tag.replace(/^#/, ''), author: authorName }}
+          />
+        </span>
+        );
       break;
     case 'destroy_comment':
-      contentTemplate = (<em>
-        <FormattedMessage
-          id="annotation.deletedComment"
-          defaultMessage={'Comment deleted by {author}: "{comment}"'}
-          values={{
-            author: authorName,
-            comment: content.text,
-          }}
-        />
-      </em>);
+      contentTemplate = (
+        <em>
+          <FormattedMessage
+            id="annotation.deletedComment"
+            defaultMessage={'Comment deleted by {author}: "{comment}"'}
+            values={{
+              author: authorName,
+              comment: content.text,
+            }}
+          />
+        </em>
+        );
       break;
     case 'create_task':
-      contentTemplate = (<span>
-        <FormattedMessage
-          id="annotation.taskCreated"
-          defaultMessage={'Task "{task}" created by {author}'}
-          values={{ task: content.label, author: authorName }}
-        />
-      </span>);
+      contentTemplate = (
+        <span>
+          <FormattedMessage
+            id="annotation.taskCreated"
+            defaultMessage={'Task "{task}" created by {author}'}
+            values={{ task: content.label, author: authorName }}
+          />
+        </span>
+        );
       break;
-    case 'create_dynamicannotationfield': case 'update_dynamicannotationfield':
+    case 'create_dynamicannotationfield':
+    case 'update_dynamicannotationfield':
       if (/^response_/.test(object.field_name) && activity.task) {
         const format_response = (type) => {
           if (type === 'multiple_choice') {
             const response_obj = JSON.parse(object.value);
             const selected_array = response_obj.selected || [];
-            if (response_obj.other) { selected_array.push(response_obj.other); }
-            const last_item = selected_array.length > 1 ? ` ${this.props.intl.formatMessage(messages.and)} ${selected_array.splice(-1, 1)}` : '';
-            return (selected_array.join(', ') + last_item);
+            if (response_obj.other) {
+              selected_array.push(response_obj.other);
+            }
+            const last_item = selected_array.length > 1
+                ? ` ${this.props.intl.formatMessage(messages.and)} ${selected_array.splice(-1, 1)}`
+                : '';
+            return selected_array.join(', ') + last_item;
           } else if (type === 'geolocation') {
             const geojson = JSON.parse(object.value);
             const coordinates = geojson.geometry.coordinates;
             const name = geojson.properties.name;
             if (coordinates[0] != 0 || coordinates[1] != 0) {
-              return (<a style={{ textDecoration: 'underline' }} href={`http://www.openstreetmap.org/?mlat=${coordinates[0]}&mlon=${coordinates[1]}&zoom=12#map=12/${coordinates[0]}/${coordinates[1]}`} target="_blank" rel="noreferrer noopener">{name}</a>);
+              return (
+                <a
+                  style={{ textDecoration: 'underline' }}
+                  href={`http://www.openstreetmap.org/?mlat=${coordinates[0]}&mlon=${coordinates[1]}&zoom=12#map=12/${coordinates[0]}/${coordinates[1]}`}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                >
+                  {name}
+                </a>
+              );
             }
 
             return name;
           } else if (type === 'datetime') {
-            return (<DatetimeTaskResponse response={object.value} />);
+            return <DatetimeTaskResponse response={object.value} />;
           }
-          return (<ParsedText text={object.value} />);
+          return <ParsedText text={object.value} />;
         };
-        contentTemplate = (<span className="// annotation__task-resolved">
-          <FormattedMessage
-            id="annotation.taskResolve"
-            defaultMessage={'Task "{task}" answered by {author}: "{response}"'}
-            values={{ task: activity.task.label, author: authorName, response: format_response(activity.task.type) }}
-          />
-        </span>);
+        contentTemplate = (
+          <span className="// annotation__task-resolved">
+            <FormattedMessage
+              id="annotation.taskResolve"
+              defaultMessage={'Task "{task}" answered by {author}: "{response}"'}
+              values={{
+                task: activity.task.label,
+                author: authorName,
+                response: format_response(activity.task.type),
+              }}
+            />
+          </span>
+          );
       }
 
       if (object.field_name === 'reverse_image_path') {
-        const [reverseImage, value] = (annotated.domain === 'facebook.com') ? [messages.reverseImageFacebook, null] : [messages.reverseImage, object.value];
-        contentTemplate = (<span className="annotation__reverse-image">
-          <MdImage /> <span>{this.props.intl.formatMessage(reverseImage)}</span>
-          <span className="annotation__reverse-image-search" title="Google Images" onClick={this.handleReverseImageSearch.bind(this, value)}><FormattedMessage id="annotation.reverseImageSearch" defaultMessage="Search" /></span>
-        </span>);
+        const [reverseImage, value] = annotated.domain === 'facebook.com'
+            ? [messages.reverseImageFacebook, null]
+            : [messages.reverseImage, object.value];
+        contentTemplate = (
+          <span className="annotation__reverse-image">
+            <MdImage /> <span>{this.props.intl.formatMessage(reverseImage)}</span>
+            <span
+              className="annotation__reverse-image-search"
+              title="Google Images"
+              onClick={this.handleReverseImageSearch.bind(this, value)}
+            >
+              <FormattedMessage id="annotation.reverseImageSearch" defaultMessage="Search" />
+            </span>
+          </span>
+          );
       }
 
       if (object.field_name === 'translation_text') {
         const translationContent = JSON.parse(annotation.content);
         let language = translationContent.find(it => it.field_name === 'translation_language');
         language = (language && language.formatted_value) || '?';
-        contentTemplate = (<span className="annotation__translation-text">
-          <FormattedMessage
-            id="annotation.translation" defaultMessage={'Translated to {language} by {author}: "{translation}"'}
-            values={{ language, author: authorName, translation: <ParsedText text={object.value} /> }}
-          />
-        </span>);
+        contentTemplate = (
+          <span className="annotation__translation-text">
+            <FormattedMessage
+              id="annotation.translation"
+              defaultMessage={'Translated to {language} by {author}: "{translation}"'}
+              values={{
+                language,
+                author: authorName,
+                translation: <ParsedText text={object.value} />,
+              }}
+            />
+          </span>
+          );
       }
 
       if (object.field_name === 'mt_translations') {
         const formatted_value = JSON.parse(annotation.content)[0].formatted_value;
         if (formatted_value.length == 0) {
-          contentTemplate = (<span className="annotation__mt-translations">
-            <button className="annotation__mt-translations" onClick={this.handleUpdateMachineTranslation.bind(this)} disabled={this.state.disableMachineTranslation}>
-              <FormattedMessage id="annotation.emptyMachineTranslation" defaultMessage="Add machine translation" />
-            </button>
-          </span>);
+          contentTemplate = (
+            <span className="annotation__mt-translations">
+              <button
+                className="annotation__mt-translations"
+                onClick={this.handleUpdateMachineTranslation.bind(this)}
+                disabled={this.state.disableMachineTranslation}
+              >
+                <FormattedMessage
+                  id="annotation.emptyMachineTranslation"
+                  defaultMessage="Add machine translation"
+                />
+              </button>
+            </span>
+            );
         } else {
-          contentTemplate = (<span className="annotation__mt-translations">
-            <ul className="mt-list">
-              {formatted_value.map(mt => (
-                <li className="mt__list-item">
-                  <FormattedMessage
-                    id="annotation.machineTranslation"
-                    defaultMessage={'Machine translation for "{lang}" is: {text}'}
-                    values={{ lang: mt.lang_name, text: mt.text }}
-                  />
-                </li>
-            ))}
-            </ul>
-          </span>);
+          contentTemplate = (
+            <span className="annotation__mt-translations">
+              <ul className="mt-list">
+                {formatted_value.map(mt =>
+                  <li className="mt__list-item">
+                    <FormattedMessage
+                      id="annotation.machineTranslation"
+                      defaultMessage={'Machine translation for "{lang}" is: {text}'}
+                      values={{ lang: mt.lang_name, text: mt.text }}
+                    />
+                  </li>,
+                  )}
+              </ul>
+            </span>
+            );
         }
       }
 
       if (object.field_name === 'translation_status_status') {
         const statusCode = object.value.toLowerCase().replace(/[ _]/g, '-');
         const status = getStatus(this.props.annotated.translation_statuses, object.value);
-        contentTemplate = (<span>
-          <FormattedMessage
-            id="annotation.translationStatus"
-            defaultMessage={'Translation status set to {status} by {author}'}
-            values={{ status: <span className={`annotation__status annotation__status--${statusCode}`}>{status.label}</span>,
-              author: authorName }}
-          />
-        </span>);
+        contentTemplate = (
+          <span>
+            <FormattedMessage
+              id="annotation.translationStatus"
+              defaultMessage={'Translation status set to {status} by {author}'}
+              values={{
+                status: (
+                  <span className={`annotation__status annotation__status--${statusCode}`}>
+                    {status.label}
+                  </span>
+                  ),
+                author: authorName,
+              }}
+            />
+          </span>
+          );
       }
 
       if (object.field_name === 'translation_published') {
@@ -363,11 +640,23 @@ class Annotation extends Component {
           contentTemplate.push(
             <span>
               <FormattedMessage
-                id="annotation.translationPublished" defaultMessage={'Translation published to {link}'}
-                values={{ link: <a style={{ color, fontWeight: 'bold' }} href={published[provider]} target="_blank" rel="noreferrer noopener">{name}</a> }}
+                id="annotation.translationPublished"
+                defaultMessage={'Translation published to {link}'}
+                values={{
+                  link: (
+                    <a
+                      style={{ color, fontWeight: 'bold' }}
+                      href={published[provider]}
+                      target="_blank"
+                      rel="noreferrer noopener"
+                    >
+                      {name}
+                    </a>
+                    ),
+                }}
               />
             </span>,
-          );
+            );
         }
       }
 
@@ -381,20 +670,24 @@ class Annotation extends Component {
             <span className="annotation__keep">
               <FormattedHTMLMessage
                 id="annotation.keepRetried"
-                defaultMessage={'There is a new attempt to archive this item in Keep. Please check back in an hour.'}
+                defaultMessage={
+                    'There is a new attempt to archive this item in Keep. Please check back in an hour.'
+                  }
               />
             </span>
-          );
+            );
         } else if (keepLink) {
           contentTemplate = (
             <span className="annotation__keep">
               <FormattedHTMLMessage
                 id="annotation.keepSuccess"
-                defaultMessage={'In case this link goes offline, you can <a href="{keepLink}" target="_blank" rel="noopener noreferrer">access a backup via Keep</a>'}
+                defaultMessage={
+                    'In case this link goes offline, you can <a href="{keepLink}" target="_blank" rel="noopener noreferrer">access a backup via Keep</a>'
+                  }
                 values={{ keepLink }}
               />
             </span>
-          );
+            );
         } else if (keepStatus === 418) {
           contentTemplate = (
             <span className="annotation__keep">
@@ -406,57 +699,76 @@ class Annotation extends Component {
                 <FormattedMessage id="annotation.keepRetry" defaultMessage="Retry" />
               </span>
             </span>
-          );
+            );
         } else {
           contentTemplate = (
             <span className="annotation__keep">
               <FormattedHTMLMessage
                 id="annotation.keepWait"
-                defaultMessage={'This item is being archived in Keep. Come back in an hour to receive a confirmation link.'}
+                defaultMessage={
+                    'This item is being archived in Keep. Come back in an hour to receive a confirmation link.'
+                  }
               />
             </span>
-          );
+            );
         }
       }
 
       if (object.field_name === 'embed_code_copied') {
-        contentTemplate = (<span className="annotation__embed-code-copied"><strong>
-          <FormattedMessage
-            id="annotation.embedCodeCopied"
-            defaultMessage={'An embed code of the item has been generated and copied, so the item may now be publicly viewable.'}
-          />
-        </strong></span>);
+        contentTemplate = (
+          <span className="annotation__embed-code-copied">
+            <strong>
+              <FormattedMessage
+                id="annotation.embedCodeCopied"
+                defaultMessage={
+                    'An embed code of the item has been generated and copied, so the item may now be publicly viewable.'
+                  }
+              />
+            </strong>
+          </span>
+          );
       }
 
       break;
     case 'create_flag':
-      contentTemplate = (<span>
-        <FormattedMessage
-          id="annotation.flaggedHeader"
-          defaultMessage={'Flagged as {flag} by {author}'}
-          values={{ flag: content.flag, author: authorName }}
-        />
-      </span>);
+      contentTemplate = (
+        <span>
+          <FormattedMessage
+            id="annotation.flaggedHeader"
+            defaultMessage={'Flagged as {flag} by {author}'}
+            values={{ flag: content.flag, author: authorName }}
+          />
+        </span>
+        );
       break;
-    case 'update_embed': case 'create_embed':
+    case 'update_embed':
+    case 'create_embed':
       if (content.title) {
         if (annotated.quote && annotated.quote === content.title) {
-          const reportType = MediaUtil.typeLabel(annotated, content, this.props.intl).toLowerCase();
-          contentTemplate = (<span>
-            <FormattedMessage
-              id="annotation.newReport"
-              defaultMessage={'New {reportType} added by {author}'}
-              values={{ reportType, author: authorName }}
-            />
-          </span>);
+          const reportType = MediaUtil.typeLabel(
+              annotated,
+              content,
+              this.props.intl,
+            ).toLowerCase();
+          contentTemplate = (
+            <span>
+              <FormattedMessage
+                id="annotation.newReport"
+                defaultMessage={'New {reportType} added by {author}'}
+                values={{ reportType, author: authorName }}
+              />
+            </span>
+            );
         } else {
-          contentTemplate = (<span>
-            <FormattedMessage
-              id="annotation.titleChanged"
-              defaultMessage={'Title changed to {title} by {author}'}
-              values={{ title: <span>{content.title}</span>, author: authorName }}
-            />
-          </span>);
+          contentTemplate = (
+            <span>
+              <FormattedMessage
+                id="annotation.titleChanged"
+                defaultMessage={'Title changed to {title} by {author}'}
+                values={{ title: <span>{content.title}</span>, author: authorName }}
+              />
+            </span>
+            );
         }
       }
       break;
@@ -465,34 +777,50 @@ class Annotation extends Component {
         const previousProject = activity.projects.edges[0].node;
         const currentProject = activity.projects.edges[1].node;
         const urlPrefix = `/${annotated.team.slug}/project/`;
-        contentTemplate = (<span>
-          <FormattedMessage
-            id="annotation.projectMoved"
-            defaultMessage={'Moved from project {previousProject} to {currentProject} by {author}'}
-            values={{
-              previousProject: <Link to={urlPrefix + previousProject.dbid}><span>{previousProject.title}</span></Link>,
-              currentProject: <Link to={urlPrefix + currentProject.dbid}><span>{currentProject.title}</span></Link>,
-              author: authorName,
-            }}
-          />
-        </span>);
+        contentTemplate = (
+          <span>
+            <FormattedMessage
+              id="annotation.projectMoved"
+              defaultMessage={
+                  'Moved from project {previousProject} to {currentProject} by {author}'
+                }
+              values={{
+                previousProject: (
+                  <Link to={urlPrefix + previousProject.dbid}>
+                    <span>{previousProject.title}</span>
+                  </Link>
+                  ),
+                currentProject: (
+                  <Link to={urlPrefix + currentProject.dbid}>
+                    <span>{currentProject.title}</span>
+                  </Link>
+                  ),
+                author: authorName,
+              }}
+            />
+          </span>
+          );
       } else if (activity.object_changes_json == '{"archived":[false,true]}') {
         activityType = 'move_to_trash';
-        contentTemplate = (<div>
-          <div className="annotation__card-content annotation__card-trash">
-            <FormattedMessage id="annotation.movedToTrash" defaultMessage="Moved to trash" />
+        contentTemplate = (
+          <div>
+            <div className="annotation__card-content annotation__card-trash">
+              <FormattedMessage id="annotation.movedToTrash" defaultMessage="Moved to trash" />
+            </div>
           </div>
-        </div>);
+          );
       } else if (activity.object_changes_json == '{"archived":[true,false]}') {
-        contentTemplate = (<span>
-          <FormattedMessage
-            id="annotation.movedFromTrash"
-            defaultMessage={'{author} moved this out of the trash'}
-            values={{
-              author: authorName,
-            }}
-          />
-        </span>);
+        contentTemplate = (
+          <span>
+            <FormattedMessage
+              id="annotation.movedFromTrash"
+              defaultMessage={'{author} moved this out of the trash'}
+              values={{
+                author: authorName,
+              }}
+            />
+          </span>
+          );
       }
       break;
     case 'update_task':
@@ -515,12 +843,34 @@ class Annotation extends Component {
         }
         const author = authorName;
         if (editedTitle || editedNote || createdNote) {
-          contentTemplate = (<span>
-            <span className="// annotation__update-task" />
-            { editedTitle ? <FormattedMessage id="annotation.taskLabelUpdated" defaultMessage={'Task "{from}" edited to "{to}" by {author}'} values={{ from: from.label, to: to.label, author }} /> : null }
-            { editedNote ? <FormattedMessage id="annotation.taskNoteUpdated" defaultMessage={'Task "{title}" has note edited from "{from}" to "{to}" by {author}'} values={{ title: to.label, from: from.description, to: to.description, author }} /> : null }
-            { createdNote ? <FormattedMessage id="annotation.taskNoteCreated" defaultMessage={'Task "{title}" has new note "{note}" by {author}'} values={{ title: to.label, note: to.description, author }} /> : null }
-          </span>);
+          contentTemplate = (
+            <span>
+              <span className="annotation__update-task" />
+              {editedTitle
+                  ? <FormattedMessage
+                    id="annotation.taskLabelUpdated"
+                    defaultMessage={'Task "{from}" edited to "{to}" by {author}'}
+                    values={{ from: from.label, to: to.label, author }}
+                  />
+                  : null}
+              {editedNote
+                  ? <FormattedMessage
+                    id="annotation.taskNoteUpdated"
+                    defaultMessage={
+                        'Task "{title}" has note edited from "{from}" to "{to}" by {author}'
+                      }
+                    values={{ title: to.label, from: from.description, to: to.description, author }}
+                  />
+                  : null}
+              {createdNote
+                  ? <FormattedMessage
+                    id="annotation.taskNoteCreated"
+                    defaultMessage={'Task "{title}" has new note "{note}" by {author}'}
+                    values={{ title: to.label, note: to.description, author }}
+                  />
+                  : null}
+            </span>
+            );
         }
       }
       break;
@@ -533,256 +883,64 @@ class Annotation extends Component {
       return null;
     }
 
-    const dotSize = borderWidthLarge;
-
-    const dotOffset = stripUnit(units(4)) - stripUnit(dotSize);
-
-    const StyledAnnotation = styled.section`
-      position: relative;
-      display: flex;
-      padding: ${units(1)} 0;
-      position: relative;
-
-      &:not(.annotation--card) {
-        // The timeline dot
-        &::before {
-          background-color: ${opaqueBlack16};
-          border-radius: 100%;
-          content: '';
-          height: ${units(1)};
-          outline: ${dotSize} solid ${white};
-          position: absolute;
-          top: ${units(2)};
-          width: ${units(1)};
-          ${props => props.isRtl ? 'right' : 'left'}: ${dotOffset}px;
-        }
-      }
-
-      .annotation__default {
-        color: ${black87};
-        display: flex;
-        font: ${caption};
-        max-width: ${columnWidthMedium};
-
-        &-content {
-          @extend ${breakWordStyles};
-          display: block;
-          margin-${props => props.isRtl ? 'left' : 'right'}: ${units(2)};
-        }
-        ${props => props.isRtl ? 'padding-right' : 'padding-left'}: ${units(10)};
-      }
-
-      .annotation__card {
-        max-width: ${units(90)};
-        width: 100%;
-        z-index: initial !important;
-
-        & > div {
-          padding-bottom: 0 !important;
-        }
-
-        img {
-          cursor: pointer;
-        }
-      }
-
-      .annotation__card-text {
-        display: flex;
-        padding: ${units(3)} ${units(2)} 0 !important;
-      }
-
-      .annotation__card-avatar-col {
-        margin-${props => props.isRtl ? 'left' : 'right'}: ${units(3)};
-      }
-
-      .annotation__card-avatar {
-        ${avatarStyle}
-        width: ${avatarSizeSmall} !important;
-        height: ${avatarSizeSmall} !important;
-      }
-
-      .annotation__card-main-col {
-        flex: 1;
-      }
-
-      .annotation__card-content {
-        ${breakWordStyles}
-        display: flex;
-        width: 100%;
-
-        & > span:first-child {
-          flex: 1;
-        }
-      }
-
-      .annotation__card-activity-move-to-trash {
-        background: ${checkBlue};
-        color: #fff;
-
-        .annotation__card-author,
-        .annotation__card-trash,
-        .annotation__timestamp {
-          color: #fff;
-        }
-      }
-
-      .annotation__card-thumbnail {
-        padding: ${units(1)};
-      }
-
-      .annotation__card-author {
-        color: ${black87};
-        padding-${props => props.isRtl ? 'left' : 'right'}: ${units(1)};
-      }
-
-      .annotation__content {
-        flex: 1;
-        width: 100%;
-      }
-
-      .annotation__header {
-        align-items: baseline;
-        display: flex;
-        margin-bottom: ${units(0.5)};
-        white-space: pre;
-      }
-
-      .annotation__timestamp {
-        color: ${black38};
-        display: inline;
-        flex: 1;
-        white-space: pre;
-        margin-${props => props.isRtl ? 'left' : 'right'}: ${units(1)};
-      }
-
-      .annotation__actions {
-        align-self: flex-start;
-        display: none;
-        flex: 1;
-        text-align: ${props => props.isRtl ? 'left' : 'right'};
-      }
-
-      .annotation__body {
-        ${breakWordStyles}
-      }
-
-      .annotation__embedded-media {
-        padding-bottom: ${units(1)};
-        padding-top: ${units(1)};
-      }
-
-      // non-comments
-      .annotation__status {
-        font: ${caption};
-        text-transform: uppercase;
-        margin: 0 3px;
-      }
-
-      .annotation__tag {
-        &::before {
-          content: '#';
-        }
-      }
-
-      .annotation__update-task > span {
-        display: block;
-      }
-
-      .annotation__comment {
-        margin-top: ${units(0.5)};
-
-        .annotation__comment-text {
-          width: 80%;
-        }
-
-        img {
-          cursor: zoom-in;
-          max-width: 20%;
-          min-width: ${units(6)};
-        }
-
-        br {
-          clear: both;
-        }
-      }
-
-      .annotation__reverse-image-search,
-      .annotation__keep-retry {
-        cursor: pointer;
-        display: inline-block;
-        font-weight: 700;
-        margin: 0 ${units(1)};
-        text-transform: uppercase;
-      }
-
-      .annotation__card-embedded-medias {
-        clear: both;
-        margin-top: ${units(0.5)};
-      }
-
-      .annotation__keep a {
-        text-decoration: underline;
-      }
-    `;
-
-    const AnnotationMetadata = styled(Row)`
-      color: ${black54};
-      flex-flow: wrap row;
-      font: ${caption};
-      margin-top: ${units(3)};
-      padding-${props => props.isRtl ? 'left' : 'right'}: ${units(1)};
-      .annotation__card-footer-text {
-        flex: 1;
-        padding-${props => props.isRtl ? 'left' : 'right'}: ${units(1)};
-      }
-    `;
-
-    const useCardTemplate = (activityType === 'create_comment' || activityType === 'move_to_trash');
+    const useCardTemplate = activityType === 'create_comment' || activityType === 'move_to_trash';
     const templateClass = `annotation--${useCardTemplate ? 'card' : 'default'}`;
     const typeClass = annotation ? `annotation--${annotation.annotation_type}` : '';
     return (
-      <StyledAnnotation
+      <StyledAnnotationWrapper
         className={`annotation ${templateClass} ${typeClass}`}
         id={`annotation-${activity.dbid}`}
         isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}
       >
-        {useCardTemplate ? (
-          <Card className="annotation__card">
-            <CardText className={`annotation__card-text annotation__card-activity-${activityType.replace(/_/g, '-')}`}>
-              <div className="annotation__card-avatar-col">
-                <Tooltip placement="top" overlay={<UserTooltip user={activity.user} />}>
-                  <Avatar className="annotation__card-avatar" style={{ backgroundImage: `url(${activity.user.source.image})` }} />
-                </Tooltip>
-              </div>
-              <div className="annotation__card-main-col">
-                {contentTemplate}
-                <AnnotationMetadata>
-                  <span className="annotation__card-footer-text">
-                    <Link
-                      to={`/check/user/${activity.user.dbid}`}
-                      className={'annotation__card-author'}
-                    >{activity.user.name}
-                    </Link>
-                    <span>
-                      {timestamp}
-                    </span>
-                  </span>
-                  {annotationActions}
-                </AnnotationMetadata>
-              </div>
+        {useCardTemplate
+          ? <StyledAnnotationCardWrapper isRtl={isRtl}>
+            <Card>
+              <CardText
+                className={`annotation__card-text annotation__card-activity-${activityType.replace(
+                    /_/g,
+                    '-',
+                  )}`}
+              >
+                <StyledAvatarColumn isRtl={isRtl}>
+                  <Tooltip placement="top" overlay={<UserTooltip user={activity.user} />}>
+                    <Avatar
+                      className="avatar"
+                      style={{ backgroundImage: `url(${activity.user.source.image})` }}
+                    />
+                  </Tooltip>
+                </StyledAvatarColumn>
 
-            </CardText>
-          </Card>
-          ) : (
-            <div className="annotation__default">
-              <span className="annotation__default-text">
-                <span className="annotation__default-content">{contentTemplate}</span>
-                {timestamp}
-              </span>
-            </div>
-          )
-        }
-      </StyledAnnotation>
+                <StyledPrimaryColumn isRtl={isRtl}>
+                  {contentTemplate}
+                  <StyledAnnotationMetadata isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
+                    <span>
+                      <Link
+                        to={`/check/user/${activity.user.dbid}`}
+                        className={'annotation__card-author'}
+                      >
+                        {activity.user.name}
+                      </Link>
+                      <span>
+                        {timestamp}
+                      </span>
+                    </span>
+
+                    <StyledAnnotationActionsWrapper isRtl={isRtl}>
+                      {annotationActions}
+                    </StyledAnnotationActionsWrapper>
+                  </StyledAnnotationMetadata>
+                </StyledPrimaryColumn>
+
+              </CardText>
+            </Card>
+          </StyledAnnotationCardWrapper>
+          : <StyledDefaultAnnotation isRtl={isRtl} className="annotation__default">
+            <span>
+              <span className="annotation__default-content">{contentTemplate}</span>
+              {timestamp}
+            </span>
+          </StyledDefaultAnnotation>}
+      </StyledAnnotationWrapper>
     );
   }
 }
