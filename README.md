@@ -26,7 +26,7 @@ If you are just getting started, you probably want to install the full [Check](h
 The dev mode build (`npm run build:dev`.) is intended to be used instead of the existing "full build" (`npm run build`) during local development. The dev mode reduces build time primarily by enabling webpack's `watch` feature, which uses caching and auto-rebuilding. It also disables sourcemaps by default.
 
 * Run `npm run build:dev`.
-* This runs both a the javascript and Sass compiler. It monitors for changes, automatically triggering a rebuild. Press Ctrl+C to stop.
+* This runs the compiler. It monitors for changes, automatically triggering a rebuild. Press Ctrl+C to stop.
 * The script is defined in [package.json]() — it uses both [gulp](http://gulpjs.com/ "gulp.js") and [webpack](https://webpack.github.io/ "webpack module bundler")
 
 *Dev mode with LiveReload*
