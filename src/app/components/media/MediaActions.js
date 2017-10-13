@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import IconMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
 import IconButton from 'material-ui/IconButton';
 import IconMenu from 'material-ui/IconMenu';
@@ -122,7 +122,7 @@ class MediaActions extends Component {
     }
 
     return menuItems.length
-      ? <StyledIconMenuWrapper isRtl={rtlDetect.isRtlLang(this.props.locale)}>
+      ? <StyledIconMenuWrapper isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
         <IconMenu
           className="media-actions"
           iconButtonElement={
@@ -141,4 +141,4 @@ MediaActions.contextTypes = {
   store: React.PropTypes.object,
 };
 
-export default MediaActions;
+export default injectIntl(MediaActions);
