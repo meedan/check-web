@@ -358,7 +358,7 @@ class Annotation extends Component {
       annotationActions = can(annotation.permissions, permission)
         ? (<IconMenu
           iconButtonElement={
-            <IconButton>
+            <IconButton className="menu-button">
               <IconMoreHoriz />
             </IconButton>
             }
