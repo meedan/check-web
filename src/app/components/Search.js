@@ -7,6 +7,7 @@ import sortby from 'lodash.sortby';
 import config from 'config';
 import styled from 'styled-components';
 import rtlDetect from 'rtl-detect';
+import { bemClass } from '../helpers';
 import { teamStatuses } from '../customHelpers';
 import PageTitle from './PageTitle';
 import SearchRoute from '../relay/SearchRoute';
@@ -452,6 +453,11 @@ class SearchQueryComponent extends Component {
                           key={status.id}
                           title={status.description}
                           onClick={this.handleStatusClick.bind(this, status.id)}
+                          className={bemClass(
+                            'media-tags__suggestion',
+                            this.statusIsSelected(status.id),
+                            '--selected',
+                          )}
                         >
                           {status.label}
                         </StyledFilterButton>,
@@ -472,6 +478,11 @@ class SearchQueryComponent extends Component {
                           key={project.node.dbid}
                           title={project.node.description}
                           onClick={this.handleProjectClick.bind(this, project.node.dbid)}
+                          className={bemClass(
+                            'media-tags__suggestion',
+                            this.projectIsSelected(project.node.dbid),
+                            '--selected',
+                          )}
                         >
                           {project.node.title}
                         </StyledFilterButton>,
@@ -492,6 +503,11 @@ class SearchQueryComponent extends Component {
                           key={tag}
                           title={null}
                           onClick={this.handleTagClick.bind(this, tag)}
+                          className={bemClass(
+                            'media-tags__suggestion',
+                            this.tagIsSelected(tag),
+                            '--selected',
+                          )}
                         >
                           {tag}
                         </StyledFilterButton>,
@@ -508,12 +524,22 @@ class SearchQueryComponent extends Component {
                       <StyledFilterButton
                         active={this.sortIsSelected('recent_added')}
                         onClick={this.handleSortClick.bind(this, 'recent_added')}
+                        className={bemClass(
+                          'media-tags__suggestion',
+                          this.sortIsSelected('recent_added'),
+                          '--selected',
+                        )}
                       >
                         <FormattedMessage id="search.sortByCreated" defaultMessage="Created" />
                       </StyledFilterButton>
                       <StyledFilterButton
                         active={this.sortIsSelected('recent_activity')}
                         onClick={this.handleSortClick.bind(this, 'recent_activity')}
+                        className={bemClass(
+                          'media-tags__suggestion',
+                          this.sortIsSelected('recent_activity'),
+                          '--selected',
+                        )}
                       >
                         <FormattedMessage
                           id="search.sortByRecentActivity"
@@ -523,12 +549,22 @@ class SearchQueryComponent extends Component {
                       <StyledFilterButton
                         active={this.sortIsSelected('DESC')}
                         onClick={this.handleSortClick.bind(this, 'DESC')}
+                        className={bemClass(
+                          'media-tags__suggestion',
+                          this.sortIsSelected('DESC'),
+                          '--selected',
+                        )}
                       >
                         <FormattedMessage id="search.sortByNewest" defaultMessage="Newest first" />
                       </StyledFilterButton>
                       <StyledFilterButton
                         active={this.sortIsSelected('ASC')}
                         onClick={this.handleSortClick.bind(this, 'ASC')}
+                        className={bemClass(
+                          'media-tags__suggestion',
+                          this.sortIsSelected('ASC'),
+                          '--selected',
+                        )}
                       >
                         <FormattedMessage id="search.sortByOldest" defaultMessage="Oldest first" />
                       </StyledFilterButton>
@@ -543,12 +579,22 @@ class SearchQueryComponent extends Component {
                       <StyledFilterButton
                         active={this.showIsSelected('medias')}
                         onClick={this.handleShowClick.bind(this, 'medias')}
+                        className={bemClass(
+                          'media-tags__suggestion',
+                          this.showIsSelected('medias'),
+                          '--selected',
+                        )}
                       >
                         <FormattedMessage id="search.showMedia" defaultMessage="Media" />
                       </StyledFilterButton>
                       <StyledFilterButton
                         active={this.showIsSelected('sources')}
                         onClick={this.handleShowClick.bind(this, 'sources')}
+                        className={bemClass(
+                          'media-tags__suggestion',
+                          this.showIsSelected('sources'),
+                          '--selected',
+                        )}
                       >
                         <FormattedMessage id="search.showSources" defaultMessage="Sources" />
                       </StyledFilterButton>
