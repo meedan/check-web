@@ -79,8 +79,8 @@ class MediaPage < Page
   end
 
   def delete_annotation
-    # TODO: specify particular annotation
     element('.annotation .menu-button').click
+    wait_for_selector('.annotation__delete')
     element('.annotation__delete').click
   end
 

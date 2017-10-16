@@ -6,9 +6,8 @@ class Page
   def initialize(options)
     @config = options[:config]
     @driver = options[:driver]
-    @wait = Selenium::WebDriver::Wait.new(timeout: 10)
+    @wait = Selenium::WebDriver::Wait.new(timeout: 30)
   end
-
 
   def go(new_url)
     if defined? $caller_name and $caller_name.length > 0
@@ -24,12 +23,10 @@ class Page
     @driver.navigate.to new_url
   end
 
-
   def load
     go(url)
     self
   end
-
 
   def element(selector, options = {})
     wait = options[:timeout] ? Selenium::WebDriver::Wait.new(timeout: options[:timeout]) : @wait
@@ -55,6 +52,28 @@ class Page
   def wait_for_element(selector, options = {})
     element(selector, options)
     nil
+  end
+
+  def wait_for_selector(selector, type = :css, timeout = 30)
+    @wait = Selenium::WebDriver::Wait.new(timeout: timeout)
+    element = @wait.until { @driver.find_element(type, selector) }
+    element
+  end
+
+  def wait_for_selector_list(selector, type = :css, timeout = 30)
+    @wait = Selenium::WebDriver::Wait.new(timeout: timeout)
+    elements = @wait.until { @driver.find_elements(type, selector) }
+    elements
+  end
+
+  def wait_all_elements(size, selector, type = :css)
+      count = 0
+      begin
+        count = count + 1
+        el = @driver.find_elements(type, selector)
+        sleep 1
+      end while (el.length < size and count < 10)
+      el
   end
 
   def wait_for_string(string)

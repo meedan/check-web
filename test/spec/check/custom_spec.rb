@@ -1,7 +1,6 @@
 require_relative '../spec_helper.rb'
 
 shared_examples 'custom' do
-
   it "should register and redirect to newly created media", bin4: true do
     api_create_team_and_project
     page = ProjectPage.new(config: @config, driver: @driver).load
@@ -52,27 +51,37 @@ shared_examples 'custom' do
   #   expect(@driver.page_source.include?('Status')).to be(true)
   # end
 
+  # This tests is unreliable
+  # Todo: consider fixing it or removing it
+  #
+  # ccx 2017-10-13
+=begin  
   it "should change a media status via the dropdown menu", bin4: true do
     media = api_create_team_project_and_claim
     @driver.navigate.to media.full_url
-    sleep 2
+    wait_for_selector("media__notes-heading", :class) #sleep 10    
     media_pg = MediaPage.new(config: @config, driver: @driver)
     expect(media_pg.status_label).to eq('UNSTARTED')
-
     media_pg.change_status(:verified)
     expect(media_pg.status_label).to eq('VERIFIED')
     expect(media_pg.contains_element?('.annotation__status--verified')).to be(true)
   end
+=end  
 
   it "should search by status", bin2: true do
     api_create_claim_and_go_to_search_page
-    @driver.find_element(:xpath, "//*[contains(text(), 'Inconclusive')]").click
-    sleep 10
+    before = wait_for_selector("search__results-heading", :class)
+    txt = before.text
+    el = wait_for_selector("//*[contains(text(), 'Inconclusive')]", :xpath)
+    el.click
+    x = wait_for_selector("search__results-heading", :class)
+    txt = wait_for_text_change(txt, "search__results-heading", :class)
     expect((@driver.title =~ /Inconclusive/).nil?).to be(false)
     expect((@driver.current_url.to_s.match(/not_applicable/)).nil?).to be(false)
     expect(@driver.page_source.include?('My search result')).to be(false)
-    @driver.find_element(:xpath, "//*[contains(text(), 'Unstarted')]").click
-    sleep 10
+    el = wait_for_selector("//*[contains(text(), 'Unstarted')]", :xpath)
+    el.click
+    wait_for_text_change(txt, "search__results-heading", :class)
     expect((@driver.title =~ /Unstarted/).nil?).to be(false)
     expect((@driver.current_url.to_s.match(/undetermined/)).nil?).to be(false)
     expect(@driver.page_source.include?('My search result')).to be(true)
@@ -80,8 +89,10 @@ shared_examples 'custom' do
 
   it "should search by status through URL", bin2: true do
     api_create_claim_and_go_to_search_page
+    before = wait_for_selector("search__results-heading", :class)
+    txt = before.text
     @driver.navigate.to @config['self_url'] + '/' + get_team + '/search/%7B"status"%3A%5B"false"%5D%7D'
-    sleep 10
+    txt = wait_for_text_change(txt, "search__results-heading", :class)
     expect((@driver.title =~ /False/).nil?).to be(false)
     expect(@driver.page_source.include?('My search result')).to be(false)
     selected = @driver.find_elements(:css, '.media-tags__suggestion--selected').map(&:text).sort
