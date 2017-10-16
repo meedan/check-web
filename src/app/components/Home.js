@@ -25,41 +25,13 @@ import {
   borderRadiusDefault,
 } from '../styles/js/shared';
 
+import { layout, typography, localeAr } from '../styles/js/global';
+
 // Global styles
-// for localization, across all components
 injectGlobal`
-  [lang="ar"] {
-    direction: rtl;
-
-    * {
-      letter-spacing: 0 !important;
-    }
-
-    body {
-      font-size: 16px;
-    }
-
-    .home__disclaimer > span {
-      font-size: 11px;
-    }
-
-    .footer {
-      font-size: 14px;
-    }
-
-    .rc-tooltip-inner {
-      text-align: unset !important;
-    }
-
-    .create-task__action-container {
-      text-align: left !important;
-    }
-
-    // Flip all icons except logos
-    svg:not(.logo) {
-      transform: scale(-1, 1);
-    }
-  }
+  ${layout}
+  ${typography}
+  ${localeAr}
 `;
 
 const StyledWrapper = styled.div`
