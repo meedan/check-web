@@ -8,6 +8,8 @@ import MdCancel from 'react-icons/lib/md/cancel';
 import styled from 'styled-components';
 import capitalize from 'lodash.capitalize';
 import LinkifyIt from 'linkify-it';
+import rtlDetect from 'rtl-detect';
+import SourcePicture from './SourcePicture';
 import Message from '../Message';
 import UploadImage from '../UploadImage';
 import globalStrings from '../../globalStrings';
@@ -18,6 +20,14 @@ import DeleteAccountSourceMutation from '../../relay/mutation/DeleteAccountSourc
 import {
   StyledIconButton,
 } from '../../styles/js/shared';
+
+import {
+  StyledSourceProfileCard,
+  StyledSourceButtonGroup,
+  StyledTwoColumns,
+  StyledSmallColumn,
+  StyledBigColumn,
+} from '../../styles/js/source';
 
 const FlexRow = styled.div`
   display: flex;
@@ -387,19 +397,15 @@ class UserInfoEdit extends React.Component {
   }
 
   render() {
-    const avatarPreview = this.state.image && this.state.image.preview;
     const { user } = this.props;
     const { source } = this.props.user;
 
     return (
-      <div className="source__profile-content">
+      <StyledSourceProfileCard>
         <Message message={this.state.message} />
-        <section className="layout-two-column">
-          <div className="column-secondary">
-            <div
-              className="source__avatar"
-              style={{ backgroundImage: `url(${avatarPreview || source.image})` }}
-            />
+        <StyledTwoColumns>
+          <StyledSmallColumn isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
+            <SourcePicture object={source} type="source" className="source__avatar" />
             { !this.state.editProfileImg ?
               <div className="source__edit-avatar-button">
                 <FlatButton
@@ -409,9 +415,9 @@ class UserInfoEdit extends React.Component {
                 />
               </div> : null
             }
-          </div>
+          </StyledSmallColumn>
 
-          <div className="column-primary">
+          <StyledBigColumn>
             <form onSubmit={this.handleSubmit.bind(this)} name="edit-source-form">
               { this.state.editProfileImg ?
                 <UploadImage onImage={this.onImage.bind(this)} onClear={this.onClear} onError={this.onImageError.bind(this)} noPreview /> : null
@@ -446,7 +452,10 @@ class UserInfoEdit extends React.Component {
               { this.renderAccountsEdit() }
             </form>
 
-            <div className="source__edit-buttons">
+            <StyledSourceButtonGroup
+              className="source__edit-buttons"
+              isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}
+            >
               <div className="source__edit-buttons-add-merge">
                 <FlatButton
                   className="source__edit-addlink-button"
@@ -469,11 +478,10 @@ class UserInfoEdit extends React.Component {
                   label={this.props.intl.formatMessage(globalStrings.save)}
                 />
               </div>
-              <div className="source__edit-buttons-clear" />
-            </div>
-          </div>
-        </section>
-      </div>
+            </StyledSourceButtonGroup>
+          </StyledBigColumn>
+        </StyledTwoColumns>
+      </StyledSourceProfileCard>
     );
   }
 }

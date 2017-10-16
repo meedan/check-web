@@ -22,8 +22,6 @@ import MDEdit from 'react-icons/lib/md/edit';
 import deepEqual from 'deep-equal';
 import capitalize from 'lodash.capitalize';
 import LinkifyIt from 'linkify-it';
-import styled from 'styled-components';
-import { stripUnit } from 'polished';
 import rtlDetect from 'rtl-detect';
 import AccountCard from './AccountCard';
 import AccountChips from './AccountChips';
@@ -49,143 +47,23 @@ import CreateAccountSourceMutation from '../../relay/mutation/CreateAccountSourc
 import DeleteAccountSourceMutation from '../../relay/mutation/DeleteAccountSourceMutation';
 import UpdateSourceMutation from '../../relay/UpdateSourceMutation';
 import SourcePicture from './SourcePicture';
+import {
+  StyledSourceWrapper,
+  StyledSourceEditButtonWrapper,
+  StyledSourceProfileCard,
+  StyledSourceContactInfo,
+  StyledSourceButtonGroup,
+  StyledTwoColumns,
+  StyledSmallColumn,
+  StyledBigColumn,
+} from '../../styles/js/source';
 
 import {
   ContentColumn,
   Row,
-  mediaQuery,
-  units,
-  headline,
-  black38,
-  black54,
-  black87,
-  caption,
-  boxShadow,
-  headerHeight,
-  avatarStyles,
-  gutterMedium,
-  subheading1,
-  borderRadiusDefault,
   StyledIconButton,
-  } from '../../styles/js/shared';
-
-const sourceAvatarWidth = units(10);
-const sourceProfileOffset = units(24);
-const sourceProfileBottomPad = 0;
-const sourceProfileFabWidth = units(5);
-
-const StyledSourceWrapper = styled.div`
-  .source {
-    z-index: 0;
-
-    // Sticky annotations at bottom
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    min-height: calc(100vh - ${stripUnit(headerHeight) + stripUnit(gutterMedium)}px);
-    z-index: 0;
-    & > .annotations {
-      margin-top: auto;
-    }
-
-    &__avatar {
-      ${avatarStyles}
-      width: ${sourceAvatarWidth};
-      height: ${sourceAvatarWidth};
-      border-radius: ${borderRadiusDefault};
-      margin-top: ${units(2.5)};
-      margin-${props => (props.isRtl ? 'left' : 'right')}: ${units(2)};
-    }
-  }
-
-  .home--source {
-    .footer {
-      display: none;
-    }
-  }
-`;
-
-const StyledEditButtonWrapper = styled.div`
-  // Ideally this would be a FAB component,
-  // but MUI FAB doesn't have a tooltip
-  // so we're doing our own using iconButton
-  .source__edit-button {
-    box-shadow: ${boxShadow(2)};
-    background-color: white !important;
-    border-radius: 50% !important;
-    bottom: ${((-1 * stripUnit(sourceProfileFabWidth)) / 2) +
-      stripUnit(sourceProfileBottomPad)}px !important;
-    position: absolute !important;
-    ${props => (props.isRtl ? 'left' : 'right')}: 16% !important;
-
-    &:hover {
-      box-shadow: ${boxShadow(4)};
-
-      svg {
-        fill: ${black87} !important;
-      }
-    }
-    svg {
-      fill: ${black54} !important;
-      font-size: 20px;
-    }
-  }
-`;
-
-const StyledEditModeButtonGroup = styled.div`
-  margin: ${units(6)} auto;
-  display: flex;
-
-  .source__edit-buttons-cancel-save {
-    margin-${props => (props.isRtl ? 'right' : 'left')}: auto;
-  }
-`;
-
-const StyledSourceProfileCard = styled.div`
-  margin-bottom: ${units(6)};
-  margin-top: ${stripUnit(sourceProfileOffset) * -1}px;
-  padding-bottom: ${sourceProfileBottomPad};
-  padding-top: ${sourceProfileOffset};
-  background-color: white;
-
-  .source__name {
-    font: ${headline};
-    margin-bottom: ${units(1)};
-  }
-
-  .source__description-text {
-    color: ${black54};
-    font: ${subheading1};
-    margin-bottom: ${units(1)};
-  }
-
-  .source__metadata {
-    margin: ${units(1)} 0;
-    color: ${black38};
-    font: ${caption};
-  }
-
-  .source__helper {
-    color: ${black38};
-    font: ${caption};
-    margin-bottom: ${units(2)};
-    ${mediaQuery.handheld`
-      display: none;
-    `}
-  }
-`;
-
-const StyledContactInfo = styled.div`
-  color: ${black54};
-  display: flex;
-  flex-flow: wrap row;
-  font: ${caption};
-  margin: ${units(2)} 0;
-
-  & > span {
-    margin-${props => (props.isRtl ? 'left' : 'right')}: ${units(2)};
-  }
-`;
+  units,
+} from '../../styles/js/shared';
 
 const messages = defineMessages({
   addInfo: {
@@ -1229,16 +1107,16 @@ class SourceComponent extends Component {
   renderSourceView(source, isProjectSource) {
     return (
       <div>
-        <Row style={{ alignItems: 'flex-start' }}>
-          <div style={{ flex: 0 }}>
+        <StyledTwoColumns>
+          <StyledSmallColumn isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
             <SourcePicture
               object={source}
               type="source"
               className="source__avatar"
             />
-          </div>
+          </StyledSmallColumn>
 
-          <div style={{ flex: 3 }}>
+          <StyledBigColumn>
             <div className="source__primary-info">
               <h1 className="source__name">{source.name}</h1>
               <div className="source__description">
@@ -1257,7 +1135,7 @@ class SourceComponent extends Component {
             ) : null}
 
             {isProjectSource ? (
-              <StyledContactInfo
+              <StyledSourceContactInfo
                 isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}
               >
                 <FormattedHTMLMessage
@@ -1271,14 +1149,15 @@ class SourceComponent extends Component {
                     number: source.medias.edges.length || '0',
                   }}
                 />
-              </StyledContactInfo>
+              </StyledSourceContactInfo>
             ) : null}
 
             {this.renderTagsView()}
             {this.renderLanguagesView()}
             {this.renderMetadataView()}
-          </div>
-        </Row>
+          </StyledBigColumn>
+        </StyledTwoColumns>
+
         {isProjectSource ? (
           <Tabs value={this.state.showTab} onChange={this.handleTabChange}>
             <Tab
@@ -1339,8 +1218,8 @@ class SourceComponent extends Component {
     ];
 
     return (
-      <Row style={{ alignItems: 'flex-start' }}>
-        <div style={{ flex: 0 }}>
+      <StyledTwoColumns>
+        <StyledSmallColumn isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
           <SourcePicture
             object={source}
             type="source"
@@ -1355,9 +1234,9 @@ class SourceComponent extends Component {
               />
             </div>
             ) : null}
-        </div>
+        </StyledSmallColumn>
 
-        <div style={{ flex: 3 }}>
+        <StyledBigColumn>
           <form
             onSubmit={this.handleSubmit.bind(this)}
             name="edit-source-form"
@@ -1399,7 +1278,7 @@ class SourceComponent extends Component {
             {this.renderMetadataEdit()}
           </form>
 
-          <StyledEditModeButtonGroup isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
+          <StyledSourceButtonGroup isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
             <div className="source__edit-buttons-add-merge">
               <FlatButton
                 className="source__edit-addinfo-button"
@@ -1514,9 +1393,9 @@ class SourceComponent extends Component {
                 label={this.props.intl.formatMessage(globalStrings.save)}
               />
             </div>
-          </StyledEditModeButtonGroup>
-        </div>
-      </Row>
+          </StyledSourceButtonGroup>
+        </StyledBigColumn>
+      </StyledTwoColumns>
     );
   }
 
@@ -1551,7 +1430,7 @@ class SourceComponent extends Component {
                     permissions={source.permissions}
                     permission="update Source"
                   >
-                    <StyledEditButtonWrapper>
+                    <StyledSourceEditButtonWrapper>
                       <StyledIconButton
                         className="source__edit-button"
                         tooltip={
@@ -1565,7 +1444,7 @@ class SourceComponent extends Component {
                       >
                         <MDEdit />
                       </StyledIconButton>
-                    </StyledEditButtonWrapper>
+                    </StyledSourceEditButtonWrapper>
                   </Can>
                 </section>
               ) : null}

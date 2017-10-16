@@ -1,10 +1,23 @@
 import React from 'react';
 import { FormattedHTMLMessage, injectIntl } from 'react-intl';
+import rtlDetect from 'rtl-detect';
 import AccountChips from './AccountChips';
 import SourcePicture from './SourcePicture';
 import ParsedText from '../ParsedText';
 import MediaUtil from '../media/MediaUtil';
 import { truncateLength } from '../../helpers';
+import {
+  StyledSourceWrapper,
+  StyledSourceProfileCard,
+  StyledSourceContactInfo,
+  StyledTwoColumns,
+  StyledSmallColumn,
+  StyledBigColumn,
+} from '../../styles/js/source';
+
+import {
+  Row,
+} from '../../styles/js/shared';
 
 class UserInfo extends React.Component {
   render() {
@@ -12,39 +25,41 @@ class UserInfo extends React.Component {
     const { source } = this.props.user;
 
     return (
-      <div className="source__profile-content">
-        <section className="layout-two-column">
-          <div className="column-secondary">
-            <SourcePicture object={source} type="source" className="source__avatar" />
-          </div>
+      <StyledSourceWrapper>
+        <StyledSourceProfileCard>
+          <StyledTwoColumns>
+            <StyledSmallColumn isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
+              <SourcePicture object={source} type="source" className="source__avatar" />
+            </StyledSmallColumn>
 
-          <div className="column-primary">
-            <div className="source__primary-info">
-              <h1 className="source__name">
-                {user.name}
-              </h1>
-              <div className="source__description">
-                <p className="source__description-text">
-                  <ParsedText text={truncateLength(source.description, 600)} />
-                </p>
+            <StyledBigColumn>
+              <div className="source__primary-info">
+                <h1 className="source__name">
+                  {user.name}
+                </h1>
+                <div className="source__description">
+                  <p className="source__description-text">
+                    <ParsedText text={truncateLength(source.description, 600)} />
+                  </p>
+                </div>
               </div>
-            </div>
 
-            <AccountChips accounts={source.account_sources.edges.map(as => as.node.account)} />
+              <AccountChips accounts={source.account_sources.edges.map(as => as.node.account)} />
 
-            <div className="source__contact-info">
-              <FormattedHTMLMessage
-                id="UserInfo.dateJoined" defaultMessage="Joined {date} &bull; {teamsCount, plural, =0 {No teams} one {1 team} other {# teams}}"
-                values={{
-                  date: this.props.intl.formatDate(MediaUtil.createdAt({ published: source.created_at }), { year: 'numeric', month: 'short', day: '2-digit' }),
-                  teamsCount: user.team_users.edges.length || 0,
-                }}
-              />
-            </div>
+              <StyledSourceContactInfo>
+                <FormattedHTMLMessage
+                  id="UserInfo.dateJoined" defaultMessage="Joined {date} &bull; {teamsCount, plural, =0 {No teams} one {1 team} other {# teams}}"
+                  values={{
+                    date: this.props.intl.formatDate(MediaUtil.createdAt({ published: source.created_at }), { year: 'numeric', month: 'short', day: '2-digit' }),
+                    teamsCount: user.team_users.edges.length || 0,
+                  }}
+                />
+              </StyledSourceContactInfo>
 
-          </div>
-        </section>
-      </div>
+            </StyledBigColumn>
+          </StyledTwoColumns>
+        </StyledSourceProfileCard>
+      </StyledSourceWrapper>
     );
   }
 }

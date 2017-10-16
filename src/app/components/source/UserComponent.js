@@ -1,7 +1,6 @@
 import React from 'react';
-import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
+import { injectIntl } from 'react-intl';
 import rtlDetect from 'rtl-detect';
-import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
 import UserInfo from './UserInfo';
 import UserInfoEdit from './UserInfoEdit';
 import { can } from '../Can';
@@ -9,6 +8,9 @@ import HeaderCard from '../HeaderCard';
 import PageTitle from '../PageTitle';
 import SwitchTeamsComponent from '../team/SwitchTeamsComponent';
 import { ContentColumn } from '../../styles/js/shared';
+import {
+  StyledSourceWrapper,
+} from '../../styles/js/source';
 
 class UserComponent extends React.Component {
   constructor(props) {
@@ -28,7 +30,6 @@ class UserComponent extends React.Component {
   };
 
   render() {
-
     const { user } = this.props;
 
     const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
@@ -39,22 +40,24 @@ class UserComponent extends React.Component {
     };
 
     return (
-      <PageTitle prefix={user.name} skipTeam={true}>
-        <div className="source">
-          <HeaderCard
-            canEdit={can(user.permissions, 'update User')}
-            direction={direction}
-            handleEnterEditMode={this.handleEnterEditMode.bind(this)}
-            isEditing={this.state.isEditing}
-          >
+      <PageTitle prefix={user.name} skipTeam>
+        <StyledSourceWrapper>
+          <div className="source">
+            <HeaderCard
+              canEdit={can(user.permissions, 'update User')}
+              direction={direction}
+              handleEnterEditMode={this.handleEnterEditMode.bind(this)}
+              isEditing={this.state.isEditing}
+            >
+              <ContentColumn>
+                { this.state.isEditing ? <UserInfoEdit user={user} onCancelEdit={this.handleLeaveEditMode} /> : <UserInfo user={user} />}
+              </ContentColumn>
+            </HeaderCard>
             <ContentColumn>
-              { this.state.isEditing ? <UserInfoEdit user={user} onCancelEdit={this.handleLeaveEditMode} /> : <UserInfo user={user} />}
+              <SwitchTeamsComponent user={user} />
             </ContentColumn>
-          </HeaderCard>
-          <ContentColumn>
-            <SwitchTeamsComponent user={user} />
-          </ContentColumn>
-        </div>
+          </div>
+        </StyledSourceWrapper>
       </PageTitle>
     );
   }
