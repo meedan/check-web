@@ -55,6 +55,12 @@ import {
   StyledTwoColumns,
   StyledSmallColumn,
   StyledBigColumn,
+  StyledSourceName,
+  StyledSourceMetadata,
+  StyledSourceHelper,
+  StyledSourceDescription,
+  StyledSourcePicture,
+  StyledAvatarEditButton,
 } from '../../styles/js/source';
 
 import {
@@ -813,9 +819,9 @@ class SourceComponent extends Component {
               </StyledIconButton>
             </Row>
             {link.error ? null : (
-              <div className="source__helper">
+              <StyledSourceHelper>
                 {this.props.intl.formatMessage(messages.addLinkHelper)}
-              </div>
+              </StyledSourceHelper>
             )}
           </div>
         ))}
@@ -832,9 +838,9 @@ class SourceComponent extends Component {
 
     const renderMetadataFieldView = type =>
       metadata[type] ? (
-        <span className={`source__metadata-${type}`}>
+        <StyledSourceMetadata className={`source__metadata-${type}`}>
           {`${this.labelForType(type)}: ${metadata[type]}`} <br />
-        </span>
+        </StyledSourceMetadata>
       ) : null;
 
     const renderMetadaCustomFields = () => {
@@ -842,9 +848,9 @@ class SourceComponent extends Component {
         return metadata.other.map(
           (cf, index) =>
             cf.value ? (
-              <span key={index} className={'source__metadata-other'}>
+              <StyledSourceMetadata key={index} className={'source__metadata-other'}>
                 {`${cf.label}: ${cf.value}`} <br />
-              </span>
+              </StyledSourceMetadata>
             ) : null,
         );
       }
@@ -852,12 +858,12 @@ class SourceComponent extends Component {
 
     if (metadata) {
       return (
-        <div className="source__metadata">
+        <StyledSourceMetadata className="source__metadata">
           {renderMetadataFieldView('phone')}
           {renderMetadataFieldView('organization')}
           {renderMetadataFieldView('location')}
           {renderMetadaCustomFields()}
-        </div>
+        </StyledSourceMetadata>
       );
     }
   }
@@ -1109,12 +1115,12 @@ class SourceComponent extends Component {
 
           <StyledBigColumn>
             <div className="source__primary-info">
-              <h1 className="source__name">{source.name}</h1>
-              <div className="source__description">
-                <p className="source__description-text">
+              <StyledSourceName className="source__name">{source.name}</StyledSourceName>
+              <StyledSourceDescription>
+                <p>
                   <ParsedText text={truncateLength(source.description, 600)} />
                 </p>
-              </div>
+              </StyledSourceDescription>
             </div>
 
             {isProjectSource ? (
@@ -1211,19 +1217,19 @@ class SourceComponent extends Component {
     return (
       <StyledTwoColumns>
         <StyledSmallColumn isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
-          <SourcePicture
+          <StyledSourcePicture
             object={source}
             type="source"
             className="source__avatar"
           />
           {!this.state.editProfileImg ? (
-            <div className="source__edit-avatar-button" style={{ maxWidth: units(10) }}>
+            <StyledAvatarEditButton className="source__edit-avatar-button">
               <FlatButton
                 label={this.props.intl.formatMessage(globalStrings.edit)}
                 onClick={this.handleEditProfileImg.bind(this)}
                 primary
               />
-            </div>
+            </StyledAvatarEditButton>
             ) : null}
         </StyledSmallColumn>
 

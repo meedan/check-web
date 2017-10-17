@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { stripUnit } from 'polished';
+import SourcePicture from '../../components/source/SourcePicture';
 
 import {
   mediaQuery,
@@ -14,6 +15,7 @@ import {
   gutterMedium,
   subheading1,
   Row,
+  avatarSizeLarge,
   } from './shared';
 
 const sourceProfileOffset = units(24);
@@ -53,7 +55,41 @@ export const StyledSourceButtonGroup = styled.div`
 
   .source__edit-buttons-cancel-save {
     margin-${props => (props.isRtl ? 'right' : 'left')}: auto;
+
+    ${mediaQuery.desktop`
+      margin-${props => (props.isRtl ? 'left' : 'right')}: ${units(3)};
+    `}
+
+    .source__edit-cancel-button {
+      margin-${props => (props.isRtl ? 'left' : 'right')}: ${units(1)} !important;      
+    }
   }
+`;
+
+export const StyledSourceName = styled.h1`
+  font: ${headline};
+  margin-bottom: ${units(1)};
+`;
+
+export const StyledSourceDescription = styled.div`
+  color: ${black54};
+  font: ${subheading1};
+  margin-bottom: ${units(1)};
+`;
+
+export const StyledSourceMetadata = styled.span`
+  margin: ${units(1)} 0;
+  color: ${black38};
+  font: ${caption};
+`;
+
+export const StyledSourceHelper = styled.div`
+  color: ${black38};
+  font: ${caption};
+  margin-bottom: ${units(2)};
+  ${mediaQuery.handheld`
+    display: none;
+  `}
 `;
 
 export const StyledSourceProfileCard = styled.div`
@@ -63,32 +99,6 @@ export const StyledSourceProfileCard = styled.div`
   padding-top: ${sourceProfileOffset};
   background-color: white;
   box-shadow: ${boxShadow(1)};
-
-  .source__name {
-    font: ${headline};
-    margin-bottom: ${units(1)};
-  }
-
-  .source__description-text {
-    color: ${black54};
-    font: ${subheading1};
-    margin-bottom: ${units(1)};
-  }
-
-  .source__metadata {
-    margin: ${units(1)} 0;
-    color: ${black38};
-    font: ${caption};
-  }
-
-  .source__helper {
-    color: ${black38};
-    font: ${caption};
-    margin-bottom: ${units(2)};
-    ${mediaQuery.handheld`
-      display: none;
-    `}
-  }
 `;
 
 export const StyledSourceContactInfo = styled.div`
@@ -103,10 +113,20 @@ export const StyledSourceContactInfo = styled.div`
   }
 `;
 
+export const StyledAvatarEditButton = styled.div`
+  button {
+    min-width: ${avatarSizeLarge}!important;
+  }
+`;
+
+export const StyledSourcePicture = styled(SourcePicture)`
+  margin-top: ${units(2)};
+`;
+
 
 // Two column layout
-// TODO: I think this can also be used on the Team
-// Might be merged with a HeaderCard component
+// TODO: I think this can also be used on the Team, so
+// might be merged with a HeaderCard component
 // @chris 2017-10-16
 export const StyledTwoColumns = styled(Row)`
   align-items: flex-start;
@@ -115,6 +135,7 @@ export const StyledTwoColumns = styled(Row)`
 export const StyledSmallColumn = styled.div`
   flex: 0;
   margin-${props => (props.isRtl ? 'left' : 'right')}: ${units(2)};
+  justify-content: center;
 `;
 
 export const StyledBigColumn = styled.div`

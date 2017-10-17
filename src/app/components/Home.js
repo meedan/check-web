@@ -25,13 +25,14 @@ import {
   borderRadiusDefault,
 } from '../styles/js/shared';
 
-import { layout, typography, localeAr } from '../styles/js/global';
+import { layout, typography, localeAr, removeYellowAutocomplete } from '../styles/js/global';
 
 // Global styles
 injectGlobal`
   ${layout}
   ${typography}
   ${localeAr}
+  ${removeYellowAutocomplete}
 `;
 
 const StyledWrapper = styled.div`

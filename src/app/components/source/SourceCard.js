@@ -10,7 +10,7 @@ import ParsedText from '../ParsedText';
 import TimeBefore from '../TimeBefore';
 import SourcePicture from './SourcePicture';
 import { truncateLength } from '../../helpers';
-import { units, avatarStyle, opaqueBlack54 } from '../../styles/js/shared';
+import { units, avatarStyle, opaqueBlack54, subheading1, black87 } from '../../styles/js/shared';
 
 const StyledSourcePicture = styled(SourcePicture)`
     ${avatarStyle}
@@ -46,7 +46,7 @@ class SourceCard extends React.Component {
             isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}
           >
             <div className="source-card__name">
-              <Link to={sourceUrl} className="header__app-link">{source.name}</Link>
+              <Link style={{ font: subheading1, color: black87 }} to={sourceUrl} className="header__app-link">{source.name}</Link>
             </div>
 
             <div className="source-card__description" style={{ paddingTop: units(1.0) }}><ParsedText text={truncateLength(source.description, 600)} /></div>

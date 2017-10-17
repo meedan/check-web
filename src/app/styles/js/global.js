@@ -109,3 +109,12 @@ export const localeAr = `
     }
   }
 `;
+
+// Remove Chrome's yellow autofill
+// https://blog.mariusschulz.com/2016/03/20/how-to-remove-webkits-banana-yellow-autofill-background
+// NOTE this means inputs all have to be on a white canvas unless you override this.
+export const removeYellowAutocomplete = `
+  input:-webkit-autofill {
+      -webkit-box-shadow: inset 0 0 0px 9999px white;
+  }
+`;
