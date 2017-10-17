@@ -155,7 +155,6 @@ class SourceComponent extends Component {
       dialogOpen: false,
       message: null,
       isEditing: false,
-      metadata: this.getMetadataFields(),
       submitDisabled: false,
       showTab: 'media',
     };
@@ -239,10 +238,12 @@ class SourceComponent extends Component {
       return;
     }
 
-    const metadata = this.getMetadataAnnotation();
+    const annotation = this.getMetadataAnnotation();
     const content =
-      metadata && metadata.content ? JSON.parse(metadata.content) : [];
-    return content[0] && content[0].value ? JSON.parse(content[0].value) : null;
+      annotation && annotation.content ? JSON.parse(annotation.content) : [];
+    const metadata =
+      content[0] && content[0].value ? JSON.parse(content[0].value) : null;
+    return metadata ? Object.assign({}, metadata) : {};
   }
 
   handleAddInfoMenu = (event) => {
@@ -255,9 +256,8 @@ class SourceComponent extends Component {
   };
 
   handleAddMetadataField = (type) => {
-    const metadata = this.state.metadata
-      ? Object.assign({}, this.state.metadata)
-      : {};
+    const metadata = this.state.metadata || this.getMetadataFields();
+
     if (!metadata[type]) {
       metadata[type] = '';
     }
@@ -265,9 +265,8 @@ class SourceComponent extends Component {
   };
 
   handleAddCustomField() {
-    const metadata = this.state.metadata
-      ? Object.assign({}, this.state.metadata)
-      : {};
+    const metadata = this.state.metadata || this.getMetadataFields();
+
     if (!metadata.other) {
       metadata.other = [];
     }
@@ -362,7 +361,7 @@ class SourceComponent extends Component {
     this.setState({
       isEditing: false,
       message: null,
-      metadata: this.getMetadataFields(),
+      metadata: null,
     });
     this.onClear();
   }
@@ -483,6 +482,7 @@ class SourceComponent extends Component {
     Relay.Store.commitUpdate(
       new UpdateDynamicMutation({
         annotated,
+        parent_type: 'source',
         dynamic: {
           id: annotation_id,
           fields,
@@ -666,9 +666,8 @@ class SourceComponent extends Component {
 
   updateMetadata() {
     const source = this.getSource();
-    const metadata = this.state.metadata
-      ? Object.assign({}, this.state.metadata)
-      : {};
+    const metadata = this.state.metadata || this.getMetadataFields();
+
     const metadataAnnotation = this.getMetadataAnnotation();
 
     if (deepEqual(metadata, this.getMetadataFields())) {
@@ -829,7 +828,7 @@ class SourceComponent extends Component {
       return;
     }
 
-    const metadata = this.state.metadata;
+    const metadata = this.state.metadata || this.getMetadataFields();
 
     const renderMetadataFieldView = type =>
       metadata[type] ? (
@@ -868,36 +867,28 @@ class SourceComponent extends Component {
       return;
     }
 
-    const metadata = this.state.metadata;
+    const metadata = this.state.metadata || this.getMetadataFields();
 
     const handleChangeField = (type, e) => {
-      const metadata = this.state.metadata
-        ? Object.assign({}, this.state.metadata)
-        : {};
+      const metadata = this.state.metadata || this.getMetadataFields();
       metadata[type] = e.target.value;
       this.setState({ metadata });
     };
 
     const handleRemoveField = (type) => {
-      const metadata = this.state.metadata
-        ? Object.assign({}, this.state.metadata)
-        : {};
+      const metadata = this.state.metadata || this.getMetadataFields();
       delete metadata[type];
       this.setState({ metadata });
     };
 
     const handleChangeCustomField = (index, e) => {
-      const metadata = this.state.metadata
-        ? Object.assign({}, this.state.metadata)
-        : {};
+      const metadata = this.state.metadata || this.getMetadataFields();
       metadata.other[index].value = e.target.value;
       this.setState({ metadata });
     };
 
     const handleRemoveCustomField = (index) => {
-      const metadata = this.state.metadata
-        ? Object.assign({}, this.state.metadata)
-        : {};
+      const metadata = this.state.metadata || this.getMetadataFields();
       metadata.other.splice(index, 1);
       this.setState({ metadata });
     };

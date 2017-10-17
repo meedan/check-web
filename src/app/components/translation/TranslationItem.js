@@ -87,6 +87,7 @@ class TranslationItem extends Component {
       Relay.Store.commitUpdate(
         new UpdateDynamicMutation({
           annotated: this.props.media,
+          parent_type: 'project_media',
           dynamic: {
             id: translation.id,
             fields,
