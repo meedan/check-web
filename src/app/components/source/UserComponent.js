@@ -8,9 +8,6 @@ import HeaderCard from '../HeaderCard';
 import PageTitle from '../PageTitle';
 import SwitchTeamsComponent from '../team/SwitchTeamsComponent';
 import { ContentColumn } from '../../styles/js/shared';
-import {
-  StyledSourceWrapper,
-} from '../../styles/js/source';
 
 class UserComponent extends React.Component {
   constructor(props) {
@@ -41,23 +38,21 @@ class UserComponent extends React.Component {
 
     return (
       <PageTitle prefix={user.name} skipTeam>
-        <StyledSourceWrapper>
-          <div className="source">
-            <HeaderCard
-              canEdit={can(user.permissions, 'update User')}
-              direction={direction}
-              handleEnterEditMode={this.handleEnterEditMode.bind(this)}
-              isEditing={this.state.isEditing}
-            >
-              <ContentColumn>
-                { this.state.isEditing ? <UserInfoEdit user={user} onCancelEdit={this.handleLeaveEditMode} /> : <UserInfo user={user} />}
-              </ContentColumn>
-            </HeaderCard>
+        <div className="source">
+          <HeaderCard
+            canEdit={can(user.permissions, 'update User')}
+            direction={direction}
+            handleEnterEditMode={this.handleEnterEditMode.bind(this)}
+            isEditing={this.state.isEditing}
+          >
             <ContentColumn>
-              <SwitchTeamsComponent user={user} />
+              { this.state.isEditing ? <UserInfoEdit user={user} onCancelEdit={this.handleLeaveEditMode} /> : <UserInfo user={user} />}
             </ContentColumn>
-          </div>
-        </StyledSourceWrapper>
+          </HeaderCard>
+          <ContentColumn>
+            <SwitchTeamsComponent user={user} />
+          </ContentColumn>
+        </div>
       </PageTitle>
     );
   }

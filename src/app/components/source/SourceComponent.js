@@ -48,7 +48,6 @@ import DeleteAccountSourceMutation from '../../relay/mutation/DeleteAccountSourc
 import UpdateSourceMutation from '../../relay/UpdateSourceMutation';
 import SourcePicture from './SourcePicture';
 import {
-  StyledSourceWrapper,
   StyledSourceEditButtonWrapper,
   StyledSourceProfileCard,
   StyledSourceContactInfo,
@@ -1113,6 +1112,7 @@ class SourceComponent extends Component {
               object={source}
               type="source"
               className="source__avatar"
+              style={{ marginTop: units(2) }}
             />
           </StyledSmallColumn>
 
@@ -1409,69 +1409,67 @@ class SourceComponent extends Component {
         skipTeam={false}
         team={this.props.source.team}
       >
-        <StyledSourceWrapper>
-          <div
-            className="source"
-            data-id={source.dbid}
-            data-user-id={source.user_id}
-          >
-            <StyledSourceProfileCard>
-              <ContentColumn>
-                <Message message={this.state.message} />
-                {isEditing ? (
+        <div
+          className="source"
+          data-id={source.dbid}
+          data-user-id={source.user_id}
+        >
+          <StyledSourceProfileCard>
+            <ContentColumn>
+              <Message message={this.state.message} />
+              {isEditing ? (
                   this.renderSourceEdit(source, isProjectSource)
                 ) : (
                   this.renderSourceView(source, isProjectSource)
                 )}
-              </ContentColumn>
-              {!isEditing ? (
-                <section style={{ position: 'relative' }}>
-                  <Can
-                    permissions={source.permissions}
-                    permission="update Source"
-                  >
-                    <StyledSourceEditButtonWrapper>
-                      <StyledIconButton
-                        className="source__edit-button"
-                        tooltip={
-                          <FormattedMessage
-                            id="sourceComponent.editButton"
-                            defaultMessage="Edit profile"
-                          />
-                        }
-                        tooltipPosition="top-center"
-                        onTouchTap={this.handleEnterEditMode.bind(this)}
-                      >
-                        <MDEdit />
-                      </StyledIconButton>
-                    </StyledSourceEditButtonWrapper>
-                  </Can>
-                </section>
-              ) : null}
-            </StyledSourceProfileCard>
-
+            </ContentColumn>
             {!isEditing ? (
-              <ContentColumn>
-                {this.state.showTab === 'annotation' ? (
-                  <Annotations
-                    annotations={source.log.edges}
-                    annotated={this.props.source}
-                    annotatedType="ProjectSource"
-                    height={'short'}
-                  />
+              <section style={{ position: 'relative' }}>
+                <Can
+                  permissions={source.permissions}
+                  permission="update Source"
+                >
+                  <StyledSourceEditButtonWrapper>
+                    <StyledIconButton
+                      className="source__edit-button"
+                      tooltip={
+                        <FormattedMessage
+                          id="sourceComponent.editButton"
+                          defaultMessage="Edit profile"
+                        />
+                        }
+                      tooltipPosition="top-center"
+                      onTouchTap={this.handleEnterEditMode.bind(this)}
+                    >
+                      <MDEdit />
+                    </StyledIconButton>
+                  </StyledSourceEditButtonWrapper>
+                </Can>
+              </section>
+              ) : null}
+          </StyledSourceProfileCard>
+
+          {!isEditing ? (
+            <ContentColumn>
+              {this.state.showTab === 'annotation' ? (
+                <Annotations
+                  annotations={source.log.edges}
+                  annotated={this.props.source}
+                  annotatedType="ProjectSource"
+                  height={'short'}
+                />
                 ) : null}
-                {this.state.showTab === 'media' ? (
-                  <Medias medias={source.medias.edges} />
+              {this.state.showTab === 'media' ? (
+                <Medias medias={source.medias.edges} />
                 ) : null}
-                {this.state.showTab === 'account' ? (
+              {this.state.showTab === 'account' ? (
                   source.accounts.edges.map(account => (
                     <AccountCard key={account.node.id} account={account.node} />
                   ))
                 ) : null}
-              </ContentColumn>
+            </ContentColumn>
             ) : null}
-          </div>
-        </StyledSourceWrapper>
+        </div>
       </PageTitle>
     );
   }
