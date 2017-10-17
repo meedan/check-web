@@ -467,6 +467,7 @@ class SourceComponent extends Component {
     Relay.Store.commitUpdate(
       new UpdateDynamicMutation({
         annotated,
+        parent_type: 'source',
         dynamic: {
           id: annotation_id,
           fields,

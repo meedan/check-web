@@ -288,6 +288,7 @@ class Task extends Component {
       Relay.Store.commitUpdate(
         new UpdateDynamicMutation({
           annotated: that.props.media,
+          parent_type: 'project_media',
           dynamic: {
             id: task.first_response.id,
             fields,
@@ -330,6 +331,7 @@ class Task extends Component {
     Relay.Store.commitUpdate(
       new UpdateDynamicMutation({
         annotated: that.props.media,
+        parent_type: 'project_media',
         dynamic: {
           id: task.first_response.id,
           fields,
