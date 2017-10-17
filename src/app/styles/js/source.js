@@ -11,51 +11,14 @@ import {
   caption,
   boxShadow,
   headerHeight,
-  avatarStyles,
   gutterMedium,
   subheading1,
-  borderRadiusDefault,
   Row,
   } from './shared';
 
-const sourceAvatarWidth = units(10);
 const sourceProfileOffset = units(24);
 const sourceProfileBottomPad = 0;
 const sourceProfileFabWidth = units(5);
-
-export const StyledSourceWrapper = styled.div`
-  .source {
-    z-index: 0;
-
-    // Sticky annotations at bottom
-    // TODO: Refactor this to be a more generic layout helper
-    // @chris 2017-10-16
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    min-height: calc(100vh - ${stripUnit(headerHeight) + stripUnit(gutterMedium)}px);
-    z-index: 0;
-    & > .annotations {
-      margin-top: auto;
-    }
-
-    // TODO: this should be self-contained in the avatar component
-    // @chris 2017-10-16
-    &__avatar {
-      ${avatarStyles}
-      width: ${sourceAvatarWidth};
-      height: ${sourceAvatarWidth};
-      border-radius: ${borderRadiusDefault};
-      margin-top: ${units(2.5)};
-    }
-  }
-
-  .home--source {
-    .footer {
-      display: none;
-    }
-  }
-`;
 
 export const StyledSourceEditButtonWrapper = styled.div`
   // Ideally this would be a FAB component,
@@ -99,6 +62,7 @@ export const StyledSourceProfileCard = styled.div`
   padding-bottom: ${sourceProfileBottomPad};
   padding-top: ${sourceProfileOffset};
   background-color: white;
+  box-shadow: ${boxShadow(1)};
 
   .source__name {
     font: ${headline};

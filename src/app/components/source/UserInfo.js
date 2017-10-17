@@ -7,7 +7,6 @@ import ParsedText from '../ParsedText';
 import MediaUtil from '../media/MediaUtil';
 import { truncateLength } from '../../helpers';
 import {
-  StyledSourceWrapper,
   StyledSourceProfileCard,
   StyledSourceContactInfo,
   StyledTwoColumns,
@@ -17,6 +16,7 @@ import {
 
 import {
   Row,
+  units,
 } from '../../styles/js/shared';
 
 class UserInfo extends React.Component {
@@ -28,7 +28,7 @@ class UserInfo extends React.Component {
       <StyledSourceProfileCard>
         <StyledTwoColumns>
           <StyledSmallColumn isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
-            <SourcePicture object={source} type="source" className="source__avatar" />
+            <SourcePicture object={source} type="source" className="source__avatar" style={{ marginTop: units(2) }} />
           </StyledSmallColumn>
 
           <StyledBigColumn>
