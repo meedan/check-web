@@ -11,6 +11,7 @@ import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
 import KeyboardArrowRight from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 import { List, ListItem } from 'material-ui/List';
 import styled from 'styled-components';
+import TeamMembers from './TeamMembers';
 import HeaderCard from '../HeaderCard';
 import PageTitle from '../PageTitle';
 import MappedMessage from '../MappedMessage';
@@ -26,13 +27,11 @@ import {
   ContentColumn,
   highlightBlue,
   checkBlue,
-  titleStyle,
-  listItemStyle,
+  title,
   listStyle,
   units,
   black54,
   caption,
-  title,
   subheading1,
   avatarStyle,
 } from '../../styles/js/shared';
@@ -268,6 +267,12 @@ class TeamComponent extends Component {
       margin-${direction.to}: ${units(2)};
     `;
 
+    const StyledCardHeader = styled(CardHeader)`
+      span { 
+        font: ${title} !important;
+      }
+    `;
+
     if (contact) {
       if (contact.node.location) {
         contactInfo.push(
@@ -479,23 +484,23 @@ class TeamComponent extends Component {
               })()}
             </ContentColumn>
           </HeaderCard>
+
           {(() => {
             if (!isEditing) {
               return (
                 <ContentColumn>
-                  <Card>
-                    <CardHeader
-                      titleStyle={titleStyle}
+                  <TeamMembers {...this.props} />
+                  <Card style={{ marginTop: units(2) }}>
+                    <StyledCardHeader
                       title={<MappedMessage msgObj={messages} msgKey="verificationProjects" />}
                     />
 
-                    <List className="projects" style={listStyle}>
+                    <List className="projects" style={{ padding: '0' }}>
                       {team.projects.edges
                         .sortp((a, b) => a.node.title.localeCompare(b.node.title))
                         .map(p =>
                           <Link key={p.node.dbid} to={`/${team.slug}/project/${p.node.dbid}`}>
                             <ListItem
-                              innerDivStyle={listItemStyle}
                               className="team__project"
                               hoverColor={highlightBlue}
                               focusRippleColor={checkBlue}
@@ -507,7 +512,7 @@ class TeamComponent extends Component {
                         )}
                     </List>
                     <Can permissions={team.permissions} permission="create Project">
-                      <CardActions>
+                      <CardActions style={{ padding: `0 ${units(2)} ${units(2)}` }}>
                         <CreateProject team={team} autoFocus={team.projects.edges.length === 0} />
                       </CardActions>
                     </Can>
