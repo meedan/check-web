@@ -5,15 +5,16 @@ import AccountChips from './AccountChips';
 import ParsedText from '../ParsedText';
 import MediaUtil from '../media/MediaUtil';
 import { truncateLength } from '../../helpers';
+
 import {
-  StyledSourceContactInfo,
+  StyledContactInfo,
   StyledTwoColumns,
   StyledSmallColumn,
   StyledBigColumn,
-  StyledSourceName,
-  StyledSourceDescription,
-  StyledSourcePicture,
-} from '../../styles/js/source';
+  StyledName,
+  StyledDescription,
+  StyledPicture,
+} from '../../styles/js/HeaderCard';
 
 class UserInfo extends React.Component {
   render() {
@@ -23,24 +24,24 @@ class UserInfo extends React.Component {
     return (
       <StyledTwoColumns>
         <StyledSmallColumn isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
-          <StyledSourcePicture object={source} type="source" className="source__avatar" />
+          <StyledPicture object={source} type="source" className="source__avatar" />
         </StyledSmallColumn>
 
         <StyledBigColumn>
           <div className="source__primary-info">
-            <StyledSourceName className="source__name">
+            <StyledName className="source__name">
               {user.name}
-            </StyledSourceName>
-            <StyledSourceDescription>
+            </StyledName>
+            <StyledDescription>
               <p>
                 <ParsedText text={truncateLength(source.description, 600)} />
               </p>
-            </StyledSourceDescription>
+            </StyledDescription>
           </div>
 
           <AccountChips accounts={source.account_sources.edges.map(as => as.node.account)} />
 
-          <StyledSourceContactInfo>
+          <StyledContactInfo>
             <FormattedHTMLMessage
               id="UserInfo.dateJoined" defaultMessage="Joined {date} &bull; {teamsCount, plural, =0 {No teams} one {1 team} other {# teams}}"
               values={{
@@ -48,7 +49,7 @@ class UserInfo extends React.Component {
                 teamsCount: user.team_users.edges.length || 0,
               }}
             />
-          </StyledSourceContactInfo>
+          </StyledContactInfo>
 
         </StyledBigColumn>
       </StyledTwoColumns>

@@ -48,20 +48,20 @@ import DeleteAccountSourceMutation from '../../relay/mutation/DeleteAccountSourc
 import UpdateSourceMutation from '../../relay/UpdateSourceMutation';
 import SourcePicture from './SourcePicture';
 import {
-  StyledSourceEditButtonWrapper,
-  StyledSourceProfileCard,
-  StyledSourceContactInfo,
-  StyledSourceButtonGroup,
+  StyledEditButtonWrapper,
+  StyledProfileCard,
+  StyledContactInfo,
+  StyledButtonGroup,
   StyledTwoColumns,
   StyledSmallColumn,
   StyledBigColumn,
-  StyledSourceName,
-  StyledSourceMetadata,
-  StyledSourceHelper,
-  StyledSourceDescription,
-  StyledSourcePicture,
+  StyledName,
+  StyledMetadata,
+  StyledHelper,
+  StyledDescription,
+  StyledPicture,
   StyledAvatarEditButton,
-} from '../../styles/js/source';
+} from '../../styles/js/HeaderCard';
 
 import {
   ContentColumn,
@@ -819,9 +819,9 @@ class SourceComponent extends Component {
               </StyledIconButton>
             </Row>
             {link.error ? null : (
-              <StyledSourceHelper>
+              <StyledHelper>
                 {this.props.intl.formatMessage(messages.addLinkHelper)}
-              </StyledSourceHelper>
+              </StyledHelper>
             )}
           </div>
         ))}
@@ -838,9 +838,9 @@ class SourceComponent extends Component {
 
     const renderMetadataFieldView = type =>
       metadata[type] ? (
-        <StyledSourceMetadata className={`source__metadata-${type}`}>
+        <StyledMetadata className={`source__metadata-${type}`}>
           {`${this.labelForType(type)}: ${metadata[type]}`} <br />
-        </StyledSourceMetadata>
+        </StyledMetadata>
       ) : null;
 
     const renderMetadaCustomFields = () => {
@@ -848,9 +848,9 @@ class SourceComponent extends Component {
         return metadata.other.map(
           (cf, index) =>
             cf.value ? (
-              <StyledSourceMetadata key={index} className={'source__metadata-other'}>
+              <StyledMetadata key={index} className={'source__metadata-other'}>
                 {`${cf.label}: ${cf.value}`} <br />
-              </StyledSourceMetadata>
+              </StyledMetadata>
             ) : null,
         );
       }
@@ -858,12 +858,12 @@ class SourceComponent extends Component {
 
     if (metadata) {
       return (
-        <StyledSourceMetadata className="source__metadata">
+        <StyledMetadata className="source__metadata">
           {renderMetadataFieldView('phone')}
           {renderMetadataFieldView('organization')}
           {renderMetadataFieldView('location')}
           {renderMetadaCustomFields()}
-        </StyledSourceMetadata>
+        </StyledMetadata>
       );
     }
   }
@@ -1115,12 +1115,12 @@ class SourceComponent extends Component {
 
           <StyledBigColumn>
             <div className="source__primary-info">
-              <StyledSourceName className="source__name">{source.name}</StyledSourceName>
-              <StyledSourceDescription>
+              <StyledName className="source__name">{source.name}</StyledName>
+              <StyledDescription>
                 <p>
                   <ParsedText text={truncateLength(source.description, 600)} />
                 </p>
-              </StyledSourceDescription>
+              </StyledDescription>
             </div>
 
             {isProjectSource ? (
@@ -1132,7 +1132,7 @@ class SourceComponent extends Component {
             ) : null}
 
             {isProjectSource ? (
-              <StyledSourceContactInfo
+              <StyledContactInfo
                 isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}
               >
                 <FormattedHTMLMessage
@@ -1146,7 +1146,7 @@ class SourceComponent extends Component {
                     number: source.medias.edges.length || '0',
                   }}
                 />
-              </StyledSourceContactInfo>
+              </StyledContactInfo>
             ) : null}
 
             {this.renderTagsView()}
@@ -1217,7 +1217,7 @@ class SourceComponent extends Component {
     return (
       <StyledTwoColumns>
         <StyledSmallColumn isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
-          <StyledSourcePicture
+          <StyledPicture
             object={source}
             type="source"
             className="source__avatar"
@@ -1275,7 +1275,7 @@ class SourceComponent extends Component {
             {this.renderMetadataEdit()}
           </form>
 
-          <StyledSourceButtonGroup isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
+          <StyledButtonGroup isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
             <div className="source__edit-buttons-add-merge">
               <FlatButton
                 className="source__edit-addinfo-button"
@@ -1390,7 +1390,7 @@ class SourceComponent extends Component {
                 label={this.props.intl.formatMessage(globalStrings.save)}
               />
             </div>
-          </StyledSourceButtonGroup>
+          </StyledButtonGroup>
         </StyledBigColumn>
       </StyledTwoColumns>
     );
@@ -1411,7 +1411,7 @@ class SourceComponent extends Component {
           data-id={source.dbid}
           data-user-id={source.user_id}
         >
-          <StyledSourceProfileCard>
+          <StyledProfileCard>
             <ContentColumn>
               <Message message={this.state.message} />
               {isEditing ? (
@@ -1426,7 +1426,7 @@ class SourceComponent extends Component {
                   permissions={source.permissions}
                   permission="update Source"
                 >
-                  <StyledSourceEditButtonWrapper>
+                  <StyledEditButtonWrapper>
                     <StyledIconButton
                       className="source__edit-button"
                       tooltip={
@@ -1440,11 +1440,11 @@ class SourceComponent extends Component {
                     >
                       <MDEdit />
                     </StyledIconButton>
-                  </StyledSourceEditButtonWrapper>
+                  </StyledEditButtonWrapper>
                 </Can>
               </section>
               ) : null}
-          </StyledSourceProfileCard>
+          </StyledProfileCard>
 
           {!isEditing ? (
             <ContentColumn>

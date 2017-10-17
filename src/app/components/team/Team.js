@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import Relay from 'react-relay';
 import TeamRoute from '../../relay/TeamRoute';
 import TeamComponent from './TeamComponent';

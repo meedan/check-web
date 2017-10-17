@@ -22,14 +22,14 @@ import {
 } from '../../styles/js/shared';
 
 import {
-  StyledSourceButtonGroup,
+  StyledButtonGroup,
   StyledTwoColumns,
   StyledSmallColumn,
   StyledBigColumn,
-  StyledSourcePicture,
+  StyledPicture,
   StyledAvatarEditButton,
-  StyledSourceHelper,
-} from '../../styles/js/source';
+  StyledHelper,
+} from '../../styles/js/HeaderCard';
 
 const messages = defineMessages({
   sourceName: {
@@ -385,7 +385,7 @@ class UserInfoEdit extends React.Component {
           </Row>
           { link.error
             ? null
-            : <StyledSourceHelper>{this.props.intl.formatMessage(messages.addLinkHelper)}</StyledSourceHelper>
+            : <StyledHelper>{this.props.intl.formatMessage(messages.addLinkHelper)}</StyledHelper>
           }
         </div>)
       }
@@ -400,7 +400,7 @@ class UserInfoEdit extends React.Component {
       <StyledTwoColumns>
         <Message message={this.state.message} />
         <StyledSmallColumn isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
-          <StyledSourcePicture object={source} type="source" className="source__avatar" />
+          <StyledPicture object={source} type="source" className="source__avatar" />
           { !this.state.editProfileImg ?
             <StyledAvatarEditButton className="source__edit-avatar-button">
               <FlatButton
@@ -447,7 +447,7 @@ class UserInfoEdit extends React.Component {
             { this.renderAccountsEdit() }
           </form>
 
-          <StyledSourceButtonGroup isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
+          <StyledButtonGroup isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
             <div>
               <FlatButton
                 primary
@@ -469,7 +469,7 @@ class UserInfoEdit extends React.Component {
                 label={this.props.intl.formatMessage(globalStrings.save)}
               />
             </div>
-          </StyledSourceButtonGroup>
+          </StyledButtonGroup>
         </StyledBigColumn>
       </StyledTwoColumns>
     );
