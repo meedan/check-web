@@ -16,9 +16,10 @@ class HeaderCard extends Component {
 
     const cardHeaderStyle = {
       marginBottom: units(6),
-      marginTop: `-${teamProfileOffset}`,
-      paddingBottom: teamProfileBottomPad,
-      paddingTop: teamProfileOffset,
+      marginTop: `-${teamProfileOffset}px`,
+      paddingBottom: `${teamProfileBottomPad}px`,
+      paddingTop: `${teamProfileOffset}px`,
+      zIndex: '0',
     };
 
     //  IconButton with tooltip
