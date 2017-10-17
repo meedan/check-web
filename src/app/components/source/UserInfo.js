@@ -25,41 +25,39 @@ class UserInfo extends React.Component {
     const { source } = this.props.user;
 
     return (
-      <StyledSourceWrapper>
-        <StyledSourceProfileCard>
-          <StyledTwoColumns>
-            <StyledSmallColumn isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
-              <SourcePicture object={source} type="source" className="source__avatar" />
-            </StyledSmallColumn>
+      <StyledSourceProfileCard>
+        <StyledTwoColumns>
+          <StyledSmallColumn isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
+            <SourcePicture object={source} type="source" className="source__avatar" />
+          </StyledSmallColumn>
 
-            <StyledBigColumn>
-              <div className="source__primary-info">
-                <h1 className="source__name">
-                  {user.name}
-                </h1>
-                <div className="source__description">
-                  <p className="source__description-text">
-                    <ParsedText text={truncateLength(source.description, 600)} />
-                  </p>
-                </div>
+          <StyledBigColumn>
+            <div className="source__primary-info">
+              <h1 className="source__name">
+                {user.name}
+              </h1>
+              <div className="source__description">
+                <p className="source__description-text">
+                  <ParsedText text={truncateLength(source.description, 600)} />
+                </p>
               </div>
+            </div>
 
-              <AccountChips accounts={source.account_sources.edges.map(as => as.node.account)} />
+            <AccountChips accounts={source.account_sources.edges.map(as => as.node.account)} />
 
-              <StyledSourceContactInfo>
-                <FormattedHTMLMessage
-                  id="UserInfo.dateJoined" defaultMessage="Joined {date} &bull; {teamsCount, plural, =0 {No teams} one {1 team} other {# teams}}"
-                  values={{
-                    date: this.props.intl.formatDate(MediaUtil.createdAt({ published: source.created_at }), { year: 'numeric', month: 'short', day: '2-digit' }),
-                    teamsCount: user.team_users.edges.length || 0,
-                  }}
-                />
-              </StyledSourceContactInfo>
+            <StyledSourceContactInfo>
+              <FormattedHTMLMessage
+                id="UserInfo.dateJoined" defaultMessage="Joined {date} &bull; {teamsCount, plural, =0 {No teams} one {1 team} other {# teams}}"
+                values={{
+                  date: this.props.intl.formatDate(MediaUtil.createdAt({ published: source.created_at }), { year: 'numeric', month: 'short', day: '2-digit' }),
+                  teamsCount: user.team_users.edges.length || 0,
+                }}
+              />
+            </StyledSourceContactInfo>
 
-            </StyledBigColumn>
-          </StyledTwoColumns>
-        </StyledSourceProfileCard>
-      </StyledSourceWrapper>
+          </StyledBigColumn>
+        </StyledTwoColumns>
+      </StyledSourceProfileCard>
     );
   }
 }

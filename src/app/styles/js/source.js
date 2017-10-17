@@ -28,6 +28,8 @@ export const StyledSourceWrapper = styled.div`
     z-index: 0;
 
     // Sticky annotations at bottom
+    // TODO: Refactor this to be a more generic layout helper
+    // @chris 2017-10-16
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -37,6 +39,8 @@ export const StyledSourceWrapper = styled.div`
       margin-top: auto;
     }
 
+    // TODO: this should be self-contained in the avatar component
+    // @chris 2017-10-16
     &__avatar {
       ${avatarStyles}
       width: ${sourceAvatarWidth};
