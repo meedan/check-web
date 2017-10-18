@@ -4,16 +4,18 @@ import Relay from 'react-relay';
 import Avatar from 'material-ui/Avatar';
 import UpdateSourceMutation from '../../relay/UpdateSourceMutation';
 import UpdateAccountMutation from '../../relay/UpdateAccountMutation';
-import { avatarSizeLarge, defaultBorderRadius, borderWidthSmall, black05 } from '../../styles/js/shared';
+import { avatarSizeLarge, defaultBorderRadius, borderWidthSmall, black02 } from '../../styles/js/shared';
 
 const styles = {
   user: {
-    border: `${borderWidthSmall} solid ${black05}`,
+    border: `${borderWidthSmall} solid ${black02}`,
     borderRadius: '50%',
+    flexShrink: 0,
   },
   source: {
-    border: `${borderWidthSmall} solid ${black05}`,
+    border: `${borderWidthSmall} solid ${black02}`,
     borderRadius: defaultBorderRadius,
+    flexShrink: 0,
   },
 };
 
@@ -118,12 +120,12 @@ class SourcePicture extends Component {
 
 
   render() {
-    const size = this.props.size ? this.props.size : avatarSizeLarge;
+    const size = this.props.size ? parseInt(this.props.size, 10) : parseInt(avatarSizeLarge, 10);
     return (
       <Avatar
         alt="avatar"
         size={size}
-        style={this.props.type === 'source' ? styles.source : styles.user}
+        style={(this.props.type === 'source' || this.props.type === 'account') ? styles.source : styles.user}
         src={this.state.avatarUrl}
         className={`${this.props.className}`}
         onError={this.handleAvatarError.bind(this)}
