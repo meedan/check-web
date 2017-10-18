@@ -55,7 +55,6 @@ class UserMenuItems extends Component {
       <div>
         <Divider />
         { !joinPage && editProjectMenuItem }
-        { !joinPage && manageTeamMenuItem }
         { loggedIn && logOutMenuItem }
         {this.props.hideContactMenuItem ? null : contactMenuItem}
       </div>
