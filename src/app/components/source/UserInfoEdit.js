@@ -18,6 +18,7 @@ import DeleteAccountSourceMutation from '../../relay/mutation/DeleteAccountSourc
 import {
   StyledIconButton,
   Row,
+  ContentColumn,
 } from '../../styles/js/shared';
 
 import {
