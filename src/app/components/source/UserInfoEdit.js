@@ -26,7 +26,7 @@ import {
   StyledTwoColumns,
   StyledSmallColumn,
   StyledBigColumn,
-  StyledPicture,
+  StyledAvatar,
   StyledAvatarEditButton,
   StyledHelper,
 } from '../../styles/js/HeaderCard';
@@ -400,7 +400,7 @@ class UserInfoEdit extends React.Component {
       <StyledTwoColumns>
         <Message message={this.state.message} />
         <StyledSmallColumn isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
-          <StyledPicture object={source} type="source" className="source__avatar" />
+          <StyledAvatar object={source} type="source" className="source__avatar" />
           { !this.state.editProfileImg ?
             <StyledAvatarEditButton className="source__edit-avatar-button">
               <FlatButton

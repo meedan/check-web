@@ -30,6 +30,7 @@ import {
   title,
   units,
   avatarStyle,
+  Row,
 } from '../../styles/js/shared';
 
 import {
@@ -38,7 +39,7 @@ import {
   StyledBigColumn,
   StyledName,
   StyledDescription,
-  StyledMetadata,
+  StyledContactInfo,
   StyledAvatarEditButton,
 } from '../../styles/js/HeaderCard';
 
@@ -248,7 +249,6 @@ class TeamComponent extends Component {
     const TeamAvatar = styled.div`
       ${avatarStyle};
       margin-top: ${units(2.5)};
-      margin-${direction.to}: ${units(2)};
     `;
 
     const StyledCardHeader = styled(CardHeader)`
@@ -260,31 +260,31 @@ class TeamComponent extends Component {
     if (contact) {
       if (contact.node.location) {
         contactInfo.push(
-          <StyledMetadata key="contactInfo.location" className="team__location">
+          <StyledContactInfo key="contactInfo.location" className="team__location">
             <span className="team__location-name">
               <ParsedText text={contact.node.location} />
             </span>
-          </StyledMetadata>,
+          </StyledContactInfo>,
         );
       }
 
       if (contact.node.phone) {
         contactInfo.push(
-          <StyledMetadata key="contactInfo.phone" className="team__phone">
+          <StyledContactInfo key="contactInfo.phone" className="team__phone">
             <span className="team__phone-name">
               <ParsedText text={contact.node.phone} />
             </span>
-          </StyledMetadata>,
+          </StyledContactInfo>,
         );
       }
 
       if (contact.node.web) {
         contactInfo.push(
-          <StyledMetadata key="contactInfo.web" className="team__web">
+          <StyledContactInfo key="contactInfo.web" className="team__web">
             <span className="team__link-name">
               <ParsedText text={contact.node.web} />
             </span>
-          </StyledMetadata>,
+          </StyledContactInfo>,
         );
       }
     }
@@ -461,9 +461,9 @@ class TeamComponent extends Component {
                         </StyledDescription>
                       </div>
 
-                      <StyledContactInfo>
+                      <Row>
                         {contactInfo}
-                      </StyledContactInfo>
+                      </Row>
                     </StyledBigColumn>
                   </StyledTwoColumns>
                 );

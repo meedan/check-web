@@ -7,6 +7,7 @@ import {
   mediaQuery,
   units,
   headline,
+  black05,
   black38,
   black54,
   black87,
@@ -18,7 +19,15 @@ import {
   Row,
   avatarSizeLarge,
   unitless,
+  borderWidthSmall,
+  defaultBorderRadius,
   } from './shared';
+
+// The "Header Card" is the layout at the top of Source, Profile and Team.
+// Currently we have an actual HeaderCard component that the TeamComponent uses, but the user profile and source profile are using a selection of these constants without the HeaderCard component.
+// See: components/HeaderCard
+// TODO: Standardize to use the HeaderCard in all three components that use this layout.
+// @chris 2017-10-17
 
 const sourceProfileOffset = units(24);
 const sourceProfileBottomPad = units(6);
@@ -106,7 +115,8 @@ export const StyledContactInfo = styled.div`
   display: flex;
   flex-flow: wrap row;
   font: ${caption};
-  margin: ${units(2)} 0;
+
+  margin: ${props => (props.noVerticalMargin ? '0' : `${units(2)} 0`)};
 
   & > span {
     margin-${props => (props.isRtl ? 'left' : 'right')}: ${units(2)};
@@ -119,37 +129,14 @@ export const StyledAvatarEditButton = styled.div`
   }
 `;
 
-export const StyledPicture = styled(SourcePicture)`
+export const StyledAvatar = styled(SourcePicture)`
   margin-top: ${units(2)};
+  border: ${borderWidthSmall} solid ${black05};
+  border-radius: ${defaultBorderRadius};
+  flex-shrink: 0;
+  height: ${avatarSizeLarge};
+  width: ${avatarSizeLarge};
 `;
-
-
-// // Define variables for TooltipButton
-// const teamProfileOffset = unitless(18);
-// const teamProfileBottomPad = unitless(8);
-// const teamProfileFabHeight = unitless(5);
-
-// export const TooltipButton = styled(IconButton)`
-//   box-shadow: ${boxShadow(2)};
-//   background-color: white !important;
-//   border-radius: 50% !important;
-//   position: absolute !important;
-//   ${props => (props.isRtl ? 'left' : 'right')}: 80px !important;
-//   bottom: -${(teamProfileFabHeight * 0.5) + teamProfileBottomPad}px;
-
-//   &:hover {
-//     box-shadow: ${boxShadow(4)};
-
-//     svg {
-//       fill: ${black87} !important;
-//     }
-//   }
-
-//   svg {
-//     fill: ${black54} !important;
-//     font-size: 20px;
-//   }
-// `;
 
 export const StyledTwoColumns = styled(Row)`
   align-items: flex-start;
@@ -159,6 +146,9 @@ export const StyledTwoColumns = styled(Row)`
 export const StyledSmallColumn = styled.div`
   flex: 0;
   margin-${props => (props.isRtl ? 'left' : 'right')}: ${units(2)};
+  ${mediaQuery.desktop`
+    margin-${props => (props.isRtl ? 'left' : 'right')}: ${units(3)};
+  `}
   justify-content: center;
   flex-shrink: 0;
 `;

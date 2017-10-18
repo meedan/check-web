@@ -13,7 +13,7 @@ import {
   StyledBigColumn,
   StyledName,
   StyledDescription,
-  StyledPicture,
+  StyledAvatar,
 } from '../../styles/js/HeaderCard';
 
 class UserInfo extends React.Component {
@@ -24,7 +24,7 @@ class UserInfo extends React.Component {
     return (
       <StyledTwoColumns>
         <StyledSmallColumn isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
-          <StyledPicture object={source} type="source" className="source__avatar" />
+          <StyledAvatar object={source} type="source" className="source__avatar" />
         </StyledSmallColumn>
 
         <StyledBigColumn>

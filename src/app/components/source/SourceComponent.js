@@ -46,7 +46,6 @@ import DeleteTagMutation from '../../relay/DeleteTagMutation';
 import CreateAccountSourceMutation from '../../relay/mutation/CreateAccountSourceMutation';
 import DeleteAccountSourceMutation from '../../relay/mutation/DeleteAccountSourceMutation';
 import UpdateSourceMutation from '../../relay/UpdateSourceMutation';
-import SourcePicture from './SourcePicture';
 import {
   StyledEditButtonWrapper,
   StyledProfileCard,
@@ -59,7 +58,7 @@ import {
   StyledMetadata,
   StyledHelper,
   StyledDescription,
-  StyledPicture,
+  StyledAvatar,
   StyledAvatarEditButton,
 } from '../../styles/js/HeaderCard';
 
@@ -67,7 +66,6 @@ import {
   ContentColumn,
   Row,
   StyledIconButton,
-  units,
 } from '../../styles/js/shared';
 
 const messages = defineMessages({
@@ -1105,11 +1103,10 @@ class SourceComponent extends Component {
       <div>
         <StyledTwoColumns>
           <StyledSmallColumn isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
-            <SourcePicture
+            <StyledAvatar
               object={source}
               type="source"
               className="source__avatar"
-              style={{ marginTop: units(2) }}
             />
           </StyledSmallColumn>
 
@@ -1217,7 +1214,7 @@ class SourceComponent extends Component {
     return (
       <StyledTwoColumns>
         <StyledSmallColumn isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
-          <StyledPicture
+          <StyledAvatar
             object={source}
             type="source"
             className="source__avatar"
