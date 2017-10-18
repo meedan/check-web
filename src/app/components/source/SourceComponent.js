@@ -352,6 +352,7 @@ class SourceComponent extends Component {
       addingLanguages: false,
       editProfileImg: false,
       message: null,
+      metadata: null,
       tagErrorMessage: null,
       languageErrorMessage: null,
       submitDisabled: false,
@@ -832,7 +833,7 @@ class SourceComponent extends Component {
       return;
     }
 
-    const metadata = this.state.metadata || this.getMetadataFields();
+    const metadata = this.getMetadataFields();
 
     const renderMetadataFieldView = type =>
       metadata[type] ? (
