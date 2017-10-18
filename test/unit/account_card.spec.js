@@ -11,7 +11,7 @@ describe('<AccountCard />', () => {
     const accountChips = mountWithIntl(<AccountCard account={account} />);
     expect(accountChips.find('.source-card__name').html()).to.contain(account.embed.name);
     expect(accountChips.find('.source-card__description').html()).to.contain(account.embed.description);
-    expect(accountChips.find('.source-card__avatar').html()).to.contain(`<img alt="avatar" height="72px" width="72px" src="${account.embed.picture}"`);
+    expect(accountChips.find('.source-card__avatar').html()).to.contain(`src="${account.embed.picture}"`);
   });
 
   it('links to account\'s URL', () => {
