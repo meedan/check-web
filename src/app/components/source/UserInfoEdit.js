@@ -8,7 +8,6 @@ import MdCancel from 'react-icons/lib/md/cancel';
 import capitalize from 'lodash.capitalize';
 import LinkifyIt from 'linkify-it';
 import rtlDetect from 'rtl-detect';
-
 import Message from '../Message';
 import UploadImage from '../UploadImage';
 import globalStrings from '../../globalStrings';
@@ -397,81 +396,83 @@ class UserInfoEdit extends React.Component {
     const { source } = this.props.user;
 
     return (
-      <StyledTwoColumns>
+      <ContentColumn noPadding>
         <Message message={this.state.message} />
-        <StyledSmallColumn isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
-          <StyledAvatar object={source} type="source" className="source__avatar" />
-          { !this.state.editProfileImg ?
-            <StyledAvatarEditButton className="source__edit-avatar-button">
-              <FlatButton
-                label={this.props.intl.formatMessage(globalStrings.edit)}
-                onClick={this.handleEditProfileImg.bind(this)}
-                primary
-              />
-            </StyledAvatarEditButton> : null
-          }
-        </StyledSmallColumn>
-
-        <StyledBigColumn>
-          <form onSubmit={this.handleSubmit.bind(this)} name="edit-source-form">
-            { this.state.editProfileImg ?
-              <UploadImage onImage={this.onImage.bind(this)} onClear={this.onClear} onError={this.onImageError.bind(this)} noPreview /> : null
+        <StyledTwoColumns>
+          <StyledSmallColumn isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
+            <StyledAvatar object={source} type="source" className="source__avatar" />
+            { !this.state.editProfileImg ?
+              <StyledAvatarEditButton className="source__edit-avatar-button">
+                <FlatButton
+                  label={this.props.intl.formatMessage(globalStrings.edit)}
+                  onClick={this.handleEditProfileImg.bind(this)}
+                  primary
+                />
+              </StyledAvatarEditButton> : null
             }
-            <TextField
-              className="source__name-input"
-              name="name"
-              id="source__name-container"
-              defaultValue={user.name}
-              floatingLabelText={this.props.intl.formatMessage(messages.sourceName)}
-              style={{ width: '85%' }}
-            />
-            <TextField
-              className="source__bio-input"
-              name="description"
-              id="source__bio-container"
-              defaultValue={source.description}
-              floatingLabelText={this.props.intl.formatMessage(messages.sourceBio)}
-              multiLine
-              rowsMax={4}
-              style={{ width: '85%' }}
-            />
-            <TextField
-              className="source__email-input"
-              name="email"
-              id="source__email-container"
-              defaultValue={user.email}
-              floatingLabelText={this.props.intl.formatMessage(messages.userEmail)}
-              style={{ width: '85%' }}
-            />
+          </StyledSmallColumn>
 
-            { this.renderAccountsEdit() }
-          </form>
+          <StyledBigColumn>
+            <form onSubmit={this.handleSubmit.bind(this)} name="edit-source-form">
+              { this.state.editProfileImg ?
+                <UploadImage onImage={this.onImage.bind(this)} onClear={this.onClear} onError={this.onImageError.bind(this)} noPreview /> : null
+              }
+              <TextField
+                className="source__name-input"
+                name="name"
+                id="source__name-container"
+                defaultValue={user.name}
+                floatingLabelText={this.props.intl.formatMessage(messages.sourceName)}
+                style={{ width: '85%' }}
+              />
+              <TextField
+                className="source__bio-input"
+                name="description"
+                id="source__bio-container"
+                defaultValue={source.description}
+                floatingLabelText={this.props.intl.formatMessage(messages.sourceBio)}
+                multiLine
+                rowsMax={4}
+                style={{ width: '85%' }}
+              />
+              <TextField
+                className="source__email-input"
+                name="email"
+                id="source__email-container"
+                defaultValue={user.email}
+                floatingLabelText={this.props.intl.formatMessage(messages.userEmail)}
+                style={{ width: '85%' }}
+              />
 
-          <StyledButtonGroup isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
-            <div>
-              <FlatButton
-                primary
-                onClick={this.handleAddLink}
-                label={this.props.intl.formatMessage(messages.addLink)}
-              />
-            </div>
+              { this.renderAccountsEdit() }
+            </form>
 
-            <div className="source__edit-buttons-cancel-save">
-              <FlatButton
-                className="source__edit-cancel-button"
-                onClick={this.handleLeaveEditMode.bind(this)}
-                label={this.props.intl.formatMessage(globalStrings.cancel)}
-              />
-              <RaisedButton
-                className="source__edit-save-button"
-                primary
-                onClick={this.handleSubmit.bind(this)}
-                label={this.props.intl.formatMessage(globalStrings.save)}
-              />
-            </div>
-          </StyledButtonGroup>
-        </StyledBigColumn>
-      </StyledTwoColumns>
+            <StyledButtonGroup isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
+              <div>
+                <FlatButton
+                  primary
+                  onClick={this.handleAddLink}
+                  label={this.props.intl.formatMessage(messages.addLink)}
+                />
+              </div>
+
+              <div className="source__edit-buttons-cancel-save">
+                <FlatButton
+                  className="source__edit-cancel-button"
+                  onClick={this.handleLeaveEditMode.bind(this)}
+                  label={this.props.intl.formatMessage(globalStrings.cancel)}
+                />
+                <RaisedButton
+                  className="source__edit-save-button"
+                  primary
+                  onClick={this.handleSubmit.bind(this)}
+                  label={this.props.intl.formatMessage(globalStrings.save)}
+                />
+              </div>
+            </StyledButtonGroup>
+          </StyledBigColumn>
+        </StyledTwoColumns>
+      </ContentColumn>
     );
   }
 }

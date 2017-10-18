@@ -28,11 +28,12 @@ const StyledAnnotation = styled.div`
     // TODO figure out a real solution for this
     // See: https://github.com/philipwalton/flexbugs/issues/108
     @media screen and (-webkit-min-device-pixel-ratio:0) {
-      height: ${props => props.height == 'short'
-        ? 'calc(100vh - 480px)'
-        : 'calc(100vh - 300px)'
+      height: ${props => props.height === 'short'
+        ? 'calc(100vh - 580px);'
+        : 'calc(100vh - 300px);'
       };
     }
+    min-height: 250px;
     overflow: auto;
     display: flex;
     // Scroll the log to the bottom

@@ -1450,7 +1450,7 @@ class SourceComponent extends Component {
                   annotations={source.log.edges}
                   annotated={this.props.source}
                   annotatedType="ProjectSource"
-                  height={'short'}
+                  height="short"
                 />
                 ) : null}
               {this.state.showTab === 'media' ? (

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import MDEdit from 'react-icons/lib/md/edit';
 import { FormattedMessage, injectIntl } from 'react-intl';
-import rtlDetect from 'rtl-detect';
 
 import {
   StyledIconButton,
@@ -28,7 +27,6 @@ class HeaderCard extends Component {
           <StyledEditButtonWrapper>
             {this.props.canEdit && !this.props.isEditing ?
               <StyledIconButton
-                isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}
                 className="team__edit-button"
                 tooltip={
                   <FormattedMessage id="teamComponent.editButton" defaultMessage="Edit profile" />
