@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { stripUnit } from 'polished';
 import SourcePicture from '../../components/source/SourcePicture';
-import { Card } from 'material-ui/Card';
 
 import {
   mediaQuery,
@@ -13,12 +12,9 @@ import {
   black87,
   caption,
   boxShadow,
-  headerHeight,
-  gutterMedium,
   subheading1,
   Row,
   avatarSizeLarge,
-  unitless,
   borderWidthSmall,
   defaultBorderRadius,
   } from './shared';
@@ -131,11 +127,7 @@ export const StyledAvatarEditButton = styled.div`
 
 export const StyledAvatar = styled(SourcePicture)`
   margin-top: ${units(2)};
-  border: ${borderWidthSmall} solid ${black05};
-  border-radius: ${defaultBorderRadius};
   flex-shrink: 0;
-  height: ${avatarSizeLarge};
-  width: ${avatarSizeLarge};
 `;
 
 export const StyledTwoColumns = styled(Row)`

@@ -24,7 +24,7 @@ class UserInfo extends React.Component {
     return (
       <StyledTwoColumns>
         <StyledSmallColumn isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
-          <StyledAvatar object={source} type="source" className="source__avatar" />
+          <StyledAvatar object={source} type="user" className="source__avatar" />
         </StyledSmallColumn>
 
         <StyledBigColumn>

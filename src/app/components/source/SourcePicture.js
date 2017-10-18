@@ -1,16 +1,28 @@
 import React, { Component } from 'react';
 import config from 'config';
 import Relay from 'react-relay';
+import Avatar from 'material-ui/Avatar';
 import UpdateSourceMutation from '../../relay/UpdateSourceMutation';
 import UpdateAccountMutation from '../../relay/UpdateAccountMutation';
-import { avatarSizeLarge } from '../../styles/js/shared';
+import { avatarSizeLarge, defaultBorderRadius, borderWidthSmall, black05 } from '../../styles/js/shared';
+
+const styles = {
+  user: {
+    border: `${borderWidthSmall} solid ${black05}`,
+    borderRadius: '50%',
+  },
+  source: {
+    border: `${borderWidthSmall} solid ${black05}`,
+    borderRadius: defaultBorderRadius,
+  },
+};
 
 class SourcePicture extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      avatarUrl: this.defaultAvatar(),
+      avatarUrl: this.defaultAvatar(this.props.type),
       queriedBackend: false,
     };
   }
@@ -32,8 +44,8 @@ class SourcePicture extends Component {
   }
 
   handleAvatarError() {
-    if (this.state.avatarUrl !== this.defaultAvatar()) {
-      this.setState({ avatarUrl: this.defaultAvatar() });
+    if (this.state.avatarUrl !== this.defaultAvatar(this.props.type)) {
+      this.setState({ avatarUrl: this.defaultAvatar(this.props.type) });
     }
     this.refreshAvatar();
   }
@@ -54,18 +66,25 @@ class SourcePicture extends Component {
       return;
     }
 
-    this.setState({ avatarUrl: this.defaultAvatar(), queriedBackend: true });
+    this.setState({ avatarUrl: this.defaultAvatar(this.props.type), queriedBackend: true });
 
     if (!this.isUploadedImage()) {
       const onFailure = () => {
-        this.setState({ avatarUrl: this.defaultAvatar(), queriedBackend: true });
+        this.setState({
+          avatarUrl: this.defaultAvatar(),
+          queriedBackend: true,
+        });
       };
 
       const onSuccess = (response) => {
-        let avatarUrl = this.defaultAvatar();
+        let avatarUrl = this.defaultAvatar(this.props.type);
         try {
-          const object = this.props.type === 'source' ? response.updateSource.source : (this.props.type === 'account' ? response.updateAccount.account : {});
-          avatarUrl = object.image || this.defaultAvatar();
+          const object = (this.props.type === 'source' || this.props.type === 'user')
+            ? response.updateSource.source
+            : this.props.type === 'account'
+              ? response.updateAccount.account
+              : {};
+          avatarUrl = object.image || this.defaultAvatar(this.props.type);
         } catch (e) {}
         this.setState({ avatarUrl, queriedBackend: true });
       };
@@ -91,14 +110,24 @@ class SourcePicture extends Component {
     }
   }
 
-  defaultAvatar() {
-    return config.restBaseUrl.replace(/\/api.*/, '/images/source.png');
+  defaultAvatar(type) {
+    return type === 'source'
+    ? config.restBaseUrl.replace(/\/api.*/, '/images/source.png')
+    : config.restBaseUrl.replace(/\/api.*/, '/images/user.png');
   }
+
 
   render() {
     const size = this.props.size ? this.props.size : avatarSizeLarge;
     return (
-      <img alt="avatar" height={size} width={size} style={this.props.style} src={this.state.avatarUrl} className={`${this.props.className}`} onError={this.handleAvatarError.bind(this)} />
+      <Avatar
+        alt="avatar"
+        size={size}
+        style={this.props.type === 'source' ? styles.source : styles.user}
+        src={this.state.avatarUrl}
+        className={`${this.props.className}`}
+        onError={this.handleAvatarError.bind(this)}
+      />
     );
   }
 }

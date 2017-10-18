@@ -18,7 +18,7 @@ import IconMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
 import IconButton from 'material-ui/IconButton';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
-import Avatar from 'material-ui/Avatar';
+import SourcePicture from '../source/SourcePicture';
 import MdImage from 'react-icons/lib/md/image';
 import MediaDetail from '../media/MediaDetail';
 import MediaUtil from '../media/MediaUtil';
@@ -43,10 +43,9 @@ import {
   caption,
   columnWidthMedium,
   breakWordStyles,
-  avatarStyle,
-  avatarSizeSmall,
   Row,
   defaultBorderRadius,
+  avatarSizeSmall,
 } from '../../styles/js/shared';
 
 const dotSize = borderWidthLarge;
@@ -83,11 +82,6 @@ const StyledAnnotationCardWrapper = styled.div`
 
 const StyledAvatarColumn = styled.div`
   margin-${props => (props.isRtl ? 'left' : 'right')}: ${units(3)};
-  .avatar {
-    ${avatarStyle}
-    width: ${avatarSizeSmall} !important;
-    height: ${avatarSizeSmall} !important;
-  }
 `;
 
 const StyledPrimaryColumn = styled.div`
@@ -904,9 +898,11 @@ class Annotation extends Component {
               >
                 <StyledAvatarColumn isRtl={isRtl}>
                   <Tooltip placement="top" overlay={<UserTooltip user={activity.user} />}>
-                    <Avatar
+                    <SourcePicture
                       className="avatar"
-                      style={{ backgroundImage: `url(${activity.user.source.image})` }}
+                      type="user"
+                      src={activity.user.source.image}
+                      size={avatarSizeSmall}
                     />
                   </Tooltip>
                 </StyledAvatarColumn>
