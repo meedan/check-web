@@ -3,6 +3,7 @@ import config from 'config';
 import Relay from 'react-relay';
 import UpdateSourceMutation from '../../relay/UpdateSourceMutation';
 import UpdateAccountMutation from '../../relay/UpdateAccountMutation';
+import { avatarSizeLarge } from '../../styles/js/shared';
 
 class SourcePicture extends Component {
   constructor(props) {
@@ -95,8 +96,9 @@ class SourcePicture extends Component {
   }
 
   render() {
+    const size = this.props.size ? this.props.size : avatarSizeLarge;
     return (
-      <img alt="avatar" style={this.props.style} src={this.state.avatarUrl} className={`${this.props.className}`} onError={this.handleAvatarError.bind(this)} />
+      <img alt="avatar" height={size} width={size} style={this.props.style} src={this.state.avatarUrl} className={`${this.props.className}`} onError={this.handleAvatarError.bind(this)} />
     );
   }
 }

@@ -5,9 +5,10 @@ import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import MdCancel from 'react-icons/lib/md/cancel';
-import styled from 'styled-components';
 import capitalize from 'lodash.capitalize';
 import LinkifyIt from 'linkify-it';
+import rtlDetect from 'rtl-detect';
+
 import Message from '../Message';
 import UploadImage from '../UploadImage';
 import globalStrings from '../../globalStrings';
@@ -15,12 +16,20 @@ import UpdateSourceMutation from '../../relay/UpdateSourceMutation';
 import UpdateUserNameEmailMutation from '../../relay/mutation/UpdateUserNameEmailMutation';
 import CreateAccountSourceMutation from '../../relay/mutation/CreateAccountSourceMutation';
 import DeleteAccountSourceMutation from '../../relay/mutation/DeleteAccountSourceMutation';
+import {
+  StyledIconButton,
+  Row,
+} from '../../styles/js/shared';
 
-const FlexRow = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-`;
+import {
+  StyledButtonGroup,
+  StyledTwoColumns,
+  StyledSmallColumn,
+  StyledBigColumn,
+  StyledAvatar,
+  StyledAvatarEditButton,
+  StyledHelper,
+} from '../../styles/js/HeaderCard';
 
 const messages = defineMessages({
   sourceName: {
@@ -151,7 +160,7 @@ class UserInfoEdit extends React.Component {
       const message = isEditing ? this.state.message : null;
 
       this.setState({ submitDisabled, message });
-      if (!isEditing) { this.handleLeaveEditMode() }
+      if (!isEditing) { this.handleLeaveEditMode(); }
     };
 
     const pendingMutations = this.state.pendingMutations ? this.state.pendingMutations.slice(0) : [];
@@ -344,7 +353,7 @@ class UserInfoEdit extends React.Component {
     return (<div key="renderAccountsEdit">
       { showAccounts.map((as, index) =>
         <div key={as.node.id} className="source__url">
-          <FlexRow>
+          <Row>
             <TextField
               id={`source__link-item${index.toString()}`}
               defaultValue={as.node.account.url}
@@ -352,13 +361,15 @@ class UserInfoEdit extends React.Component {
               style={{ width: '85%' }}
               disabled
             />
-            <MdCancel className="create-task__remove-option-button create-task__md-icon" onClick={() => this.handleRemoveLink(as.node.id)} />
-          </FlexRow>
+            <StyledIconButton>
+              <MdCancel className="create-task__remove-option-button" onClick={() => this.handleRemoveLink(as.node.id)} />
+            </StyledIconButton>
+          </Row>
         </div>)
       }
       { links.map((link, index) =>
         <div key={index.toString()} className="source__url-input">
-          <FlexRow>
+          <Row>
             <TextField
               id={`source__link-input${index.toString()}`}
               name={`source__link-input${index.toString()}`}
@@ -368,11 +379,13 @@ class UserInfoEdit extends React.Component {
               onChange={e => this.handleChangeLink(e, index)}
               style={{ width: '85%' }}
             />
-            <MdCancel className="create-task__remove-option-button create-task__md-icon" onClick={() => this.handleRemoveNewLink(index)} />
-          </FlexRow>
+            <StyledIconButton>
+              <MdCancel className="create-task__remove-option-button" onClick={() => this.handleRemoveNewLink(index)} />
+            </StyledIconButton>
+          </Row>
           { link.error
             ? null
-            : <div className="source__helper">{this.props.intl.formatMessage(messages.addLinkHelper)}</div>
+            : <StyledHelper>{this.props.intl.formatMessage(messages.addLinkHelper)}</StyledHelper>
           }
         </div>)
       }
@@ -380,93 +393,85 @@ class UserInfoEdit extends React.Component {
   }
 
   render() {
-    const avatarPreview = this.state.image && this.state.image.preview;
     const { user } = this.props;
     const { source } = this.props.user;
 
     return (
-      <div className="source__profile-content">
+      <StyledTwoColumns>
         <Message message={this.state.message} />
-        <section className="layout-two-column">
-          <div className="column-secondary">
-            <div
-              className="source__avatar"
-              style={{ backgroundImage: `url(${avatarPreview || source.image})` }}
-            />
-            { !this.state.editProfileImg ?
-              <div className="source__edit-avatar-button">
-                <FlatButton
-                  label={this.props.intl.formatMessage(globalStrings.edit)}
-                  onClick={this.handleEditProfileImg.bind(this)}
-                  primary
-                />
-              </div> : null
+        <StyledSmallColumn isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
+          <StyledAvatar object={source} type="source" className="source__avatar" />
+          { !this.state.editProfileImg ?
+            <StyledAvatarEditButton className="source__edit-avatar-button">
+              <FlatButton
+                label={this.props.intl.formatMessage(globalStrings.edit)}
+                onClick={this.handleEditProfileImg.bind(this)}
+                primary
+              />
+            </StyledAvatarEditButton> : null
+          }
+        </StyledSmallColumn>
+
+        <StyledBigColumn>
+          <form onSubmit={this.handleSubmit.bind(this)} name="edit-source-form">
+            { this.state.editProfileImg ?
+              <UploadImage onImage={this.onImage.bind(this)} onClear={this.onClear} onError={this.onImageError.bind(this)} noPreview /> : null
             }
-          </div>
+            <TextField
+              className="source__name-input"
+              name="name"
+              id="source__name-container"
+              defaultValue={user.name}
+              floatingLabelText={this.props.intl.formatMessage(messages.sourceName)}
+              style={{ width: '85%' }}
+            />
+            <TextField
+              className="source__bio-input"
+              name="description"
+              id="source__bio-container"
+              defaultValue={source.description}
+              floatingLabelText={this.props.intl.formatMessage(messages.sourceBio)}
+              multiLine
+              rowsMax={4}
+              style={{ width: '85%' }}
+            />
+            <TextField
+              className="source__email-input"
+              name="email"
+              id="source__email-container"
+              defaultValue={user.email}
+              floatingLabelText={this.props.intl.formatMessage(messages.userEmail)}
+              style={{ width: '85%' }}
+            />
 
-          <div className="column-primary">
-            <form onSubmit={this.handleSubmit.bind(this)} name="edit-source-form">
-              { this.state.editProfileImg ?
-                <UploadImage onImage={this.onImage.bind(this)} onClear={this.onClear} onError={this.onImageError.bind(this)} noPreview /> : null
-              }
-              <TextField
-                className="source__name-input"
-                name="name"
-                id="source__name-container"
-                defaultValue={user.name}
-                floatingLabelText={this.props.intl.formatMessage(messages.sourceName)}
-                style={{ width: '85%' }}
+            { this.renderAccountsEdit() }
+          </form>
+
+          <StyledButtonGroup isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
+            <div>
+              <FlatButton
+                primary
+                onClick={this.handleAddLink}
+                label={this.props.intl.formatMessage(messages.addLink)}
               />
-              <TextField
-                className="source__bio-input"
-                name="description"
-                id="source__bio-container"
-                defaultValue={source.description}
-                floatingLabelText={this.props.intl.formatMessage(messages.sourceBio)}
-                multiLine
-                rowsMax={4}
-                style={{ width: '85%' }}
-              />
-              <TextField
-                className="source__email-input"
-                name="email"
-                id="source__email-container"
-                defaultValue={user.email}
-                floatingLabelText={this.props.intl.formatMessage(messages.userEmail)}
-                style={{ width: '85%' }}
-              />
-
-              { this.renderAccountsEdit() }
-            </form>
-
-            <div className="source__edit-buttons">
-              <div className="source__edit-buttons-add-merge">
-                <FlatButton
-                  className="source__edit-addlink-button"
-                  primary
-                  onClick={this.handleAddLink}
-                  label={this.props.intl.formatMessage(messages.addLink)}
-                />
-              </div>
-
-              <div className="source__edit-buttons-cancel-save">
-                <FlatButton
-                  className="source__edit-cancel-button"
-                  onClick={this.handleLeaveEditMode.bind(this)}
-                  label={this.props.intl.formatMessage(globalStrings.cancel)}
-                />
-                <RaisedButton
-                  className="source__edit-save-button"
-                  primary
-                  onClick={this.handleSubmit.bind(this)}
-                  label={this.props.intl.formatMessage(globalStrings.save)}
-                />
-              </div>
-              <div className="source__edit-buttons-clear" />
             </div>
-          </div>
-        </section>
-      </div>
+
+            <div className="source__edit-buttons-cancel-save">
+              <FlatButton
+                className="source__edit-cancel-button"
+                onClick={this.handleLeaveEditMode.bind(this)}
+                label={this.props.intl.formatMessage(globalStrings.cancel)}
+              />
+              <RaisedButton
+                className="source__edit-save-button"
+                primary
+                onClick={this.handleSubmit.bind(this)}
+                label={this.props.intl.formatMessage(globalStrings.save)}
+              />
+            </div>
+          </StyledButtonGroup>
+        </StyledBigColumn>
+      </StyledTwoColumns>
     );
   }
 }

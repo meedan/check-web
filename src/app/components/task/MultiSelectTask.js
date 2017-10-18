@@ -8,7 +8,7 @@ import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-i
 import MdCancel from 'react-icons/lib/md/cancel';
 import MdCheckBoxOutlineBlank from 'react-icons/lib/md/check-box-outline-blank';
 import Message from '../Message';
-import { units, body2 } from '../../styles/js/shared';
+import { units, body2, StyledIconButton, StyledTaskDescription } from '../../styles/js/shared';
 
 // A smaller TextField
 // that better aligns with multiple choice options
@@ -282,10 +282,12 @@ class MultiSelectTask extends Component {
             multiLine
             fullWidth
           />
-          <div className="create-task__add-options">
+          <div className="create-task__add-options" style={{ marginTop: units(2) }}>
             {this.state.options.map((item, index) =>
               <div key={`create-task__add-options-multiselect-${index.toString()}`}>
-                <MdCheckBoxOutlineBlank className="create-task__md-icon" />
+                <StyledIconButton>
+                  <MdCheckBoxOutlineBlank />
+                </StyledIconButton>
                 <TextField
                   className="create-task__add-option-input"
                   id={index.toString()}
@@ -293,16 +295,19 @@ class MultiSelectTask extends Component {
                   placeholder={`${formatMessage(messages.value)} ${index + 1}`}
                   value={item.label}
                   disabled={item.other}
+                  style={{ padding: `${units(0.5)} ${units(1)}`, width: '75%' }}
                 />
                 {canRemove
-                  ? <MdCancel
-                    className="create-task__remove-option-button create-task__md-icon"
-                    onClick={this.handleRemoveOption.bind(this, index)}
-                  />
+                  ? <StyledIconButton>
+                    <MdCancel
+                      className="create-task__remove-option-button"
+                      onClick={this.handleRemoveOption.bind(this, index)}
+                    />
+                  </StyledIconButton>
                   : null}
               </div>,
             )}
-            <div className="create-task__add-options-buttons">
+            <div style={{ marginTop: units(1) }}>
               <FlatButton
                 label={this.props.intl.formatMessage(messages.addValue)}
                 onClick={this.handleAddValue.bind(this)}
@@ -314,27 +319,29 @@ class MultiSelectTask extends Component {
               />
             </div>
           </div>
-          <input
-            className="create-task__add-task-description"
-            id="create-task__add-task-description"
-            type="checkbox"
-          />
-          <TextField
-            id="task-description-input"
-            className="create-task__task-description-input"
-            floatingLabelText={
-              <FormattedMessage id="tasks.description" defaultMessage="Description" />
-            }
-            onChange={this.handleDescriptionChange.bind(this)}
-            multiLine
-          />
-          <label
-            className="create-task__add-task-description-label"
-            htmlFor="create-task__add-task-description"
-          >
-            <span className="create-task__add-task-description-icon">+</span>{' '}
-            <FormattedMessage id="tasks.addDescription" defaultMessage="Add a description" />
-          </label>
+          <StyledTaskDescription>
+            <input
+              className="create-task__add-task-description"
+              id="create-task__add-task-description"
+              type="checkbox"
+            />
+            <TextField
+              id="task-description-input"
+              className="create-task__task-description-input"
+              floatingLabelText={
+                <FormattedMessage id="tasks.description" defaultMessage="Description" />
+              }
+              onChange={this.handleDescriptionChange.bind(this)}
+              multiLine
+            />
+            <label
+              className="create-task__add-task-description-label"
+              htmlFor="create-task__add-task-description"
+            >
+              <span className="create-task__add-task-description-icon">+</span>{' '}
+              <FormattedMessage id="tasks.addDescription" defaultMessage="Add a description" />
+            </label>
+          </StyledTaskDescription>
         </Dialog>
       </div>
     );
@@ -406,7 +413,10 @@ class MultiSelectTask extends Component {
             />,
           )}
 
-          <div style={{ display: 'flex', justifyContent: 'flex-start' }} className="task__options_other">
+          <div
+            style={{ display: 'flex', justifyContent: 'flex-start' }}
+            className="task__options_other"
+          >
             {other
               ? [
                 <div key="task__option_other_checkbox">
@@ -415,7 +425,8 @@ class MultiSelectTask extends Component {
                     checked={this.state.otherSelected || !!responseOther}
                     onCheck={this.handleSelectCheckboxOther.bind(this)}
                     disabled={!editable}
-                  /></div>,
+                  />
+                </div>,
                 <StyledSmallTextField
                   key="task__option_other_text_input"
                   className="task__option_other_text_input"

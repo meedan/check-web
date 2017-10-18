@@ -61,7 +61,7 @@ class TeamMembersComponent extends Component {
         skipTeam={false}
         team={team}
       >
-        <ContentColumn>
+        <div>
           <TeamInviteCard team={team} />
 
           {(() => {
@@ -125,7 +125,7 @@ class TeamMembersComponent extends Component {
                 ))()}
             </List>
           </Card>
-        </ContentColumn>
+        </div>
       </PageTitle>
     );
   }

@@ -1,13 +1,29 @@
 import React from 'react';
-import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
+import { FormattedMessage, FormattedHTMLMessage, injectIntl } from 'react-intl';
 import { Card, CardText } from 'material-ui/Card';
+import styled from 'styled-components';
+import rtlDetect from 'rtl-detect';
 import ProfileLink from '../layout/ProfileLink';
 import MediaUtil from '../media/MediaUtil';
 import ParsedText from '../ParsedText';
 import TimeBefore from '../TimeBefore';
 import { truncateLength } from '../../helpers';
 import SourcePicture from './SourcePicture';
-import { units, black54 } from '../../styles/js/shared';
+import { units, black54, avatarStyle, opaqueBlack54 } from '../../styles/js/shared';
+
+const StyledSourcePicture = styled(SourcePicture)`
+    ${avatarStyle}
+`;
+
+const StyledAccountCardBody = styled.div`
+  margin-${props => (props.isRtl ? 'right' : 'left')}: ${units(2)};
+  color: ${opaqueBlack54};
+  .source-card__heading {
+    svg {
+      margin-${props => (props.isRtl ? 'left' : 'right')}: ${units(1)};
+    }
+  }
+`;
 
 class AccountCard extends React.Component {
   accountStats(account) {
@@ -28,13 +44,11 @@ class AccountCard extends React.Component {
       (<FormattedMessage id="mediaDetail.byUser" defaultMessage={'by {username}'} values={{ username: <ProfileLink user={account.user} /> }} />) : '';
 
     return (
-      <Card className="source-card">
-        <CardText className="source-card__content">
-          <div className="source-card__avatar">
-            <SourcePicture object={account} type="account" />
-          </div>
+      <Card className="source-card" style={{ marginBottom: units(2) }}>
+        <CardText style={{ display: 'flex', paddingBottom: 0 }}>
+          <StyledSourcePicture className="source-card__avatar" object={account} type="account" />
 
-          <article className="source-card__body">
+          <StyledAccountCardBody isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
             <div className="source-card__heading">
               { MediaUtil.socialIcon(`${account.provider}.com`) /* TODO: refactor */ }
               <FormattedMessage id="accountCard.providerAccount" defaultMessage="{provider} account" values={{ provider: account.provider }} />
@@ -44,28 +58,29 @@ class AccountCard extends React.Component {
               <a href={account.embed.url} target="_blank" rel="noopener noreferrer">{ account.embed.name }</a>
             </div>
 
-            <div className="source-card__description"><ParsedText text={truncateLength(account.embed.description, 300)} /></div>
+            <div className="source-card__description" style={{ paddingTop: units(1.5) }}>
+              <ParsedText text={truncateLength(account.embed.description, 300)} />
+            </div>
 
-            <div className="source-card__url">
+            <div className="source-card__url" style={{ paddingTop: units(1.5) }}>
               <a href={account.embed.url} target="_blank" rel="noopener noreferrer">{ account.embed.url }</a>
             </div>
 
             <div className="source-card__account-stats">
               { this.accountStats(account) }
             </div>
-          </article>
-
-          <div
-            className="media-detail__check-metadata source-card__footer"
-            style={{ color: black54, padding: `${units(2)} 0` }}
-          >
-            <span className="media-detail__check-added-by"><FormattedMessage id="mediaDetail.added" defaultMessage={'Added {byUser}'} values={{ byUser }} /> </span>
-            { account.created_at ? <span className="media-detail__check-added-at"> <TimeBefore date={MediaUtil.createdAt({ published: account.created_at })} /> </span> : null }
-          </div>
+          </StyledAccountCardBody>
         </CardText>
+        <div
+          className="media-detail__check-metadata source-card__footer"
+          style={{ color: black54, padding: `${units(2)}` }}
+        >
+          <span className="media-detail__check-added-by"><FormattedMessage id="mediaDetail.added" defaultMessage={'Added {byUser}'} values={{ byUser }} /> </span>
+          { account.created_at ? <span className="media-detail__check-added-at"> <TimeBefore date={MediaUtil.createdAt({ published: account.created_at })} /> </span> : null }
+        </div>
       </Card>
     );
   }
 }
 
-export default AccountCard;
+export default injectIntl(AccountCard);

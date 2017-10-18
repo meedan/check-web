@@ -67,6 +67,8 @@ const StyledMediaDetail = styled.div`
     border-${props => props.fromDirection}: ${units(1)} solid;
     border-color: ${props => props.borderColor};
     border-radius: ${defaultBorderRadius};
+    // Disable border in some views
+    ${props => (props.hideBorder ? 'border: none;' : null)}
   }
 
   .media__heading {
@@ -177,11 +179,11 @@ class MediaDetail extends Component {
 
     const mediaIcon = (() => {
       if (media.media.embed_path && media.media.embed_path !== '') {
-        return (<IconInsertPhoto />);
+        return <IconInsertPhoto />;
       } else if (media.quote) {
-        return (<MdFormatQuote />);
+        return <MdFormatQuote />;
       }
-      return (MediaUtil.socialIcon(media.domain));
+      return MediaUtil.socialIcon(media.domain);
     })();
 
     // Don't display redunant heading if the card is explicitly expanded with state
@@ -213,15 +215,15 @@ class MediaDetail extends Component {
             </span>
             : null}
           {sourceUrl
-          ? <Link to={sourceUrl}>
-            <FlexRow>
-              {/* ideally this would be SourcePicture not FaFeed — CGB 2017-9-13 */}
-              <FaFeed style={{ width: 16 }} />
-              {' '}
-              {sourceName || authorName || authorUsername}
-            </FlexRow>
-          </Link>
-          : null}
+            ? <Link to={sourceUrl}>
+              <FlexRow>
+                {/* ideally this would be SourcePicture not FaFeed — CGB 2017-9-13 */}
+                <FaFeed style={{ width: 16 }} />
+                {' '}
+                {sourceName || authorName || authorUsername}
+              </FlexRow>
+            </Link>
+            : null}
         </StyledHeaderTextSecondary>
       </div>
     );
@@ -239,6 +241,7 @@ class MediaDetail extends Component {
         className={cardClassName}
         borderColor={this.props.borderColor || getStatusStyle(status, 'backgroundColor')}
         fromDirection={fromDirection}
+        hideBorder={this.props.hideBorder}
       >
         <Card
           className="card-with-border"
@@ -277,6 +280,7 @@ MediaDetail.contextTypes = {
 
 MediaDetail.defaultProps = {
   initiallyExpanded: false,
+  hideBorder: false,
 };
 
 export default injectIntl(MediaDetail);

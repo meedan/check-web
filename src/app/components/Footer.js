@@ -1,6 +1,33 @@
 import React, { Component, PropTypes } from 'react';
 import { defineMessages } from 'react-intl';
+import styled from 'styled-components';
 import MappedMessage from './MappedMessage';
+import {
+  opaqueBlack38,
+  units,
+  caption,
+} from '../styles/js/shared';
+
+const StyledFooter = styled.footer`
+  color: ${opaqueBlack38};
+  font: ${caption};
+  margin: ${units(4)} 0;
+  text-align: center;
+
+  span {
+    display: inline-block;
+    margin: ${units(1)} 0;
+
+    i {
+      font-style: normal;
+    }
+  }
+
+  a,
+  a:hover {
+    color: ${opaqueBlack38};
+  }
+`;
 
 const messages = defineMessages({
   footer: {
@@ -10,16 +37,16 @@ const messages = defineMessages({
   bridge_footer: {
     id: 'bridge.footer.madeBy',
     defaultMessage: 'Bridge: Translate the global web. Made with ✨ by',
-  }
+  },
 });
 
 class Footer extends Component {
   render() {
     const about = this.props.about;
     return (
-      <footer className="footer">
+      <StyledFooter className="footer">
         <span><MappedMessage msgObj={messages} msgKey="footer" /> <a target="_blank" rel="noopener noreferrer" href="http://meedan.com">Meedan</a></span>
-      </footer>
+      </StyledFooter>
     );
   }
 }

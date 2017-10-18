@@ -5,7 +5,6 @@ require_relative './spec_helper.rb'
 require_relative './app_spec_helpers.rb'
 require_relative './pages/login_page.rb'
 require_relative './pages/me_page.rb'
-require_relative './pages/teams_page.rb'
 require_relative './pages/page.rb'
 require_relative './pages/project_page.rb'
 
@@ -138,7 +137,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should join team" do
       page = LoginPage.new(config: @config, driver: @driver).load
           .register_and_login_with_email(email: 'newsysops' + Time.now.to_i.to_s + '@meedan.com', password: '22345678')
-      page = TeamsPage.new(config: @config, driver: @driver).load
+      page = MePage.new(config: @config, driver: @driver).load
           .ask_join_team(subdomain: @t1)
       sleep 3
 
@@ -148,7 +147,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     #As the group creator, go to the members page and approve the joining request.
     it "should as the group creator, go to the members page and approve the joining request" do
       page = LoginPage.new(config: @config, driver: @driver).load.login_with_email(email: @e1, password: @password)
-      page = TeamsPage.new(config: @config, driver: @driver).load
+      page = MePage.new(config: @config, driver: @driver).load
           .approve_join_team(subdomain: @t1)
       elems = @driver.find_elements(:css => ".team-members__list > div")
       expect(elems.size).to be > 1
@@ -157,9 +156,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     #Switch teams
     it "should switch teams" do
       page = LoginPage.new(config: @config, driver: @driver).load.login_with_email(email: @e1, password: @password)
-      page = TeamsPage.new(config: @config, driver: @driver).load
+      page = MePage.new(config: @config, driver: @driver).load
           .select_team(name: @t1)
-      page = TeamsPage.new(config: @config, driver: @driver).load
+      page = MePage.new(config: @config, driver: @driver).load
           .select_team(name: @t2)
       sleep 3
       expect(page.team_name).to eq(@t2)
@@ -193,7 +192,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should create a project for a team " do
       page = LoginPage.new(config: @config, driver: @driver).load
           .login_with_email(email: @e1, password: @password, project: true)
-      page = TeamsPage.new(config: @config, driver: @driver).load
+      page = MePage.new(config: @config, driver: @driver).load
           .select_team(name: @t2)
       sleep 3
       expect(page.team_name).to eq(@t2)

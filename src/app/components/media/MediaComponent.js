@@ -9,12 +9,22 @@ import Annotations from '../annotations/Annotations';
 import CheckContext from '../../CheckContext';
 import Tasks from '../task/Tasks';
 import CreateTask from '../task/CreateTask';
-import {
-  getStatus,
-  getStatusStyle,
-} from '../../helpers';
+import { getStatus, getStatusStyle } from '../../helpers';
 import { mediaStatuses, mediaLastStatus } from '../../customHelpers';
-import { ContentColumn, headerHeight, transitionSpeedSlow, gutterMedium, units, FlexRow, subheading2, body1, black87, black54, black16, mediaQuery } from '../../styles/js/shared';
+import {
+  ContentColumn,
+  headerHeight,
+  transitionSpeedSlow,
+  gutterMedium,
+  units,
+  FlexRow,
+  subheading2,
+  body1,
+  black87,
+  black54,
+  black16,
+  mediaQuery,
+} from '../../styles/js/shared';
 
 const StyledTaskHeaderRow = styled.div`
   justify-content: space-between;
@@ -106,14 +116,12 @@ class MediaComponent extends Component {
     const pusher = this.getContext().pusher;
     if (pusher) {
       const that = this;
-      pusher
-        .subscribe(this.props.media.pusher_channel)
-        .bind('media_updated', (data) => {
-          const annotation = JSON.parse(data.message);
-          if (annotation.annotated_id === that.props.media.dbid) {
-            that.props.relay.forceFetch();
-          }
-        });
+      pusher.subscribe(this.props.media.pusher_channel).bind('media_updated', (data) => {
+        const annotation = JSON.parse(data.message);
+        if (annotation.annotated_id === that.props.media.dbid) {
+          that.props.relay.forceFetch();
+        }
+      });
     }
   }
 
@@ -152,30 +160,24 @@ class MediaComponent extends Component {
 
           <StyledTwoColumnLayout>
             <ContentColumn>
-              <MediaDetail borderColor="transparent" initiallyExpanded media={media} />
+              <MediaDetail hideBorder initiallyExpanded media={media} />
               {this.props.extras}
               <StyledTaskHeaderRow>
                 {media.tasks.edges.length
-                    ? <FlexRow>
-                      <h2>
-                        <FormattedMessage
-                          id="mediaComponent.verificationTasks"
-                          defaultMessage="Verification tasks"
-                        />
-                      </h2>
-                        &nbsp;
-                      <FlexRow>
-                        { media.tasks.edges.filter(
-                          t => !!t.node.first_response,
-                          ).length
-                        }/{media.tasks.edges.length}&nbsp;
-                        <FormattedMessage
-                          id="mediaComponent.resolved"
-                          defaultMessage="resolved"
-                        />
-                      </FlexRow>
+                  ? <FlexRow>
+                    <h2>
+                      <FormattedMessage
+                        id="mediaComponent.verificationTasks"
+                        defaultMessage="Verification tasks"
+                      />
+                    </h2>
+                      &nbsp;
+                    <FlexRow>
+                      {media.tasks.edges.filter(t => !!t.node.first_response).length}/{media.tasks.edges.length}&nbsp;
+                      <FormattedMessage id="mediaComponent.resolved" defaultMessage="resolved" />
                     </FlexRow>
-                    : null}
+                  </FlexRow>
+                  : null}
                 <CreateTask style={{ marginLeft: 'auto' }} media={media} />
               </StyledTaskHeaderRow>
               <Tasks tasks={media.tasks.edges} media={media} />

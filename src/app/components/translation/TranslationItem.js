@@ -8,9 +8,39 @@ import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
+import styled from 'styled-components';
 import ParsedText from '../ParsedText';
 import UpdateDynamicMutation from '../../relay/UpdateDynamicMutation';
 import { rtlClass } from '../../helpers';
+import { units, Row, black54 } from '../../styles/js/shared';
+
+const styles = {
+  translationCard: {
+    zIndex: 'auto',
+    position: 'relative',
+    borderRadius: '0',
+  },
+  cardText: {
+    paddingBottom: '0',
+  },
+};
+
+const StyledTranslationText = styled.div`
+  margin-top: ${units(1)};
+  margin-bottom: ${units(1)};
+
+  ${props =>
+    props.localeIsRtl
+      ? `direction: rtl; text-align: right; margin-left: ${units(3)};`
+      : `direction: ltr; text-align: left; margin-right: ${units(3)};`}
+`;
+
+const StyledNote = styled.p`
+  display: ${props => (props.note ? 'block' : 'none')};
+  text-align: ${props => (props.localeIsRtl ? 'right' : 'left')};
+  color: ${black54};
+  margin-top: ${units(3)};
+`;
 
 const messages = defineMessages({
   language: {
@@ -111,19 +141,9 @@ class TranslationItem extends Component {
 
     return (
       <div className="translation__component">
-        <Card className="translation__card" style={{ zIndex: 'auto' }}>
-          <CardText className="translation__card-text">
-            <IconMenu
-              className="task-actions"
-              iconButtonElement={<IconButton className="task-actions__icon"><IconMoreHoriz /></IconButton>}
-            >
-              <MenuItem
-                className="task-actions__edit-translation"
-                onClick={this.handleEdit.bind(this)}
-              >
-                <FormattedMessage id="translation.edit" defaultMessage="Edit translation" />
-              </MenuItem>
-            </IconMenu>
+        <Card className="translation__card" style={styles.translationCard}>
+          <CardText className="translation__card-text" style={styles.cardText}>
+
             {this.state.editing
               ? <div>
                 <form name="translation_edit">
@@ -149,7 +169,7 @@ class TranslationItem extends Component {
                     multiLine
                   />
                 </form>
-                <div className="translation__card-actions">
+                <div style={{ textAlign: this.props.localeIsRtl ? 'left' : 'right' }}>
                   <FlatButton
                     label={
                       <FormattedMessage id="translation.cancelEdit" defaultMessage="Cancel" />
@@ -166,16 +186,34 @@ class TranslationItem extends Component {
                 </div>
               </div>
               : <div>
-                <div className={`translation__card-title ${rtlClass(language_code)}`}>
+                <StyledTranslationText
+                  localeIsRtl={this.props.localeIsRtl}
+                  className={`${rtlClass(language_code)}`}
+                >
                   <ParsedText text={text} />
-                </div>
-                <p style={{ display: note ? 'block' : 'none' }} className="translation__note">
+                </StyledTranslationText>
+                <StyledNote localeIsRtl={this.props.localeIsRtl} note>
                   <ParsedText text={note} />
-                </p>
+                </StyledNote>
               </div>}
-            <span className="media-tags__tag">
-              {this.props.intl.formatMessage(messages.language, { language })}
-            </span>
+            <Row style={{ justifyContent: 'space-between' }}>
+              <span className="media-tags__tag">
+                {this.props.intl.formatMessage(messages.language, { language })}
+              </span>
+              <IconMenu
+                className="task-actions"
+                iconButtonElement={
+                  <IconButton className="task-actions__icon"><IconMoreHoriz /></IconButton>
+                }
+              >
+                <MenuItem
+                  className="task-actions__edit-translation"
+                  onClick={this.handleEdit.bind(this)}
+                >
+                  <FormattedMessage id="translation.edit" defaultMessage="Edit translation" />
+                </MenuItem>
+              </IconMenu>
+            </Row>
           </CardText>
         </Card>
       </div>

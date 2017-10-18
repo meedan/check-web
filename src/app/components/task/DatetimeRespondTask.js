@@ -1,12 +1,7 @@
 import React, { Component } from 'react';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
-import {
-  FormattedMessage,
-  defineMessages,
-  injectIntl,
-  intlShape,
-} from 'react-intl';
+import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import DatePicker from 'material-ui/DatePicker';
 import areIntlLocalesSupported from 'intl-locales-supported';
 import IntlPolyfill from 'intl';
@@ -151,9 +146,7 @@ class DatetimeRespondTask extends Component {
 
     if (
       e.target.value !== '' &&
-      (isNaN(value) ||
-        value < validators[part][0] ||
-        value > validators[part][1])
+      (isNaN(value) || value < validators[part][0] || value > validators[part][1])
     ) {
       state.timeError = this.props.intl.formatMessage(messages.timeError);
     } else {
@@ -193,7 +186,7 @@ class DatetimeRespondTask extends Component {
         }
       }
       let notime = '';
-      if (this.state.hour == '' && this.state.minute == '') {
+      if (this.state.hour === '' && this.state.minute === '') {
         notime = 'notime';
       }
 
@@ -210,7 +203,13 @@ class DatetimeRespondTask extends Component {
 
   handleCancel() {
     const ori = this.state.original;
-    this.setState({ timezone: ori.timezone, date: ori.date, hour: ori.hour, minute: ori.minute, note: ori.note });
+    this.setState({
+      timezone: ori.timezone,
+      date: ori.date,
+      hour: ori.hour,
+      minute: ori.minute,
+      note: ori.note,
+    });
     if (this.props.onDismiss) {
       this.props.onDismiss();
     }
@@ -233,17 +232,14 @@ class DatetimeRespondTask extends Component {
     return (
       <div>
         <FlexRow style={styles.row}>
-          <IconDateRange
-            className="task__icon"
-            style={styles.secondaryColumn}
-          />
+          <IconDateRange className="task__icon" style={styles.secondaryColumn} />
           <DatePicker
             floatingLabelText={
               <FormattedMessage
                 id="datetimeRespondTask.pickDate"
                 defaultMessage="Pick a date from the calendar"
               />
-              }
+            }
             id="task__response-date"
             className="task__response-input"
             name="response"
@@ -261,10 +257,7 @@ class DatetimeRespondTask extends Component {
         </FlexRow>
 
         <FlexRow style={styles.row}>
-          <IconSchedule
-            className="task__icon"
-            style={styles.secondaryColumn}
-          />
+          <IconSchedule className="task__icon" style={styles.secondaryColumn} />
           <div style={styles.primaryColumn}>
             <label htmlFor="task__response-time" style={styles.label} className="task__label">
               <FormattedMessage
@@ -272,7 +265,10 @@ class DatetimeRespondTask extends Component {
                 defaultMessage="Time (optional)"
               />
             </label>
-            <FlexRow style={{ justifyContent: 'flex-start', alignItems: 'center' }} id="task__response-time">
+            <FlexRow
+              style={{ justifyContent: 'flex-start', alignItems: 'center' }}
+              id="task__response-time"
+            >
               <TextField
                 hintText="HH"
                 name="hour"
@@ -300,7 +296,11 @@ class DatetimeRespondTask extends Component {
                 style={{ marginLeft: units(2) }}
               >
                 {Object.values(timezones).map(tz =>
-                  <MenuItem key={tz.code} value={tz.code} primaryText={<span dir="ltr">{tz.label}</span>} />,
+                  <MenuItem
+                    key={tz.code}
+                    value={tz.code}
+                    primaryText={<span dir="ltr">{tz.label}</span>}
+                  />,
                 )}
               </SelectField>
             </FlexRow>

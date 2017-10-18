@@ -1,6 +1,15 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import { units, ContentColumn, FadeIn, Shimmer, black05, defaultBorderWidth, borderRadiusDefault, white } from '../../styles/js/shared';
+import {
+  units,
+  ContentColumn,
+  FadeIn,
+  Shimmer,
+  black05,
+  defaultBorderWidth,
+  borderRadiusDefault,
+  white,
+} from '../../styles/js/shared';
 
 const gridUnit = units(1.5);
 

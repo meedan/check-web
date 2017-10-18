@@ -5,7 +5,6 @@ require_relative './spec_helper.rb'
 require_relative './app_spec_helpers.rb'
 require_relative './pages/login_page.rb'
 require_relative './pages/me_page.rb'
-require_relative './pages/teams_page.rb'
 require_relative './pages/page.rb'
 require_relative './api_helpers.rb'
 
@@ -502,7 +501,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       element = @driver.find_element(:class, "source__edit-button")
       element.click
       sleep 3
-      list = @driver.find_elements(:css => "svg[class='create-task__remove-option-button create-task__md-icon']")
+      list = @driver.find_elements(:css => "svg[class='create-task__remove-option-button']")
       list[1].click
       sleep 1
       @driver.find_element(:class, 'source__edit-save-button').click
@@ -830,13 +829,13 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       request_api 'project', { title: 'Team 2 Project', team_id: team.dbid }
 
       # test
-      page = TeamsPage.new(config: @config, driver: @driver).load.select_team(name: 'Team 1')
+      page = MePage.new(config: @config, driver: @driver).load.select_team(name: 'Team 1')
 
       expect(page.team_name).to eq('Team 1')
       expect(page.project_titles.include?('Team 1 Project')).to be(true)
       expect(page.project_titles.include?('Team 2 Project')).to be(false)
 
-      page = TeamsPage.new(config: @config, driver: page.driver).load.select_team(name: 'Team 2')
+      page = MePage.new(config: @config, driver: page.driver).load.select_team(name: 'Team 2')
 
       expect(page.team_name).to eq('Team 2')
       expect(page.project_titles.include?('Team 2 Project')).to be(true)
@@ -846,7 +845,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     #As a different user, request to join one team.
     it "should join team", bin4:true, quick: true do
       api_register_and_login_with_email
-      page = TeamsPage.new(config: @config, driver: @driver).load
+      page = MePage.new(config: @config, driver: @driver).load
       page.ask_join_team(subdomain: @team1_slug)
       @wait.until {
         expect(@driver.find_element(:class, "message").nil?).to be(false)
@@ -856,7 +855,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       page = Page.new(config: @config, driver: @driver)
       page.go(@config['api_path'] + '/test/session?email='+@user_mail)
       #As the group creator, go to the members page and approve the joining request.
-      page = TeamsPage.new(config: @config, driver: @driver).load
+      page = MePage.new(config: @config, driver: @driver).load
           .approve_join_team(subdomain: @team1_slug)
       @wait.until {
         elems = @driver.find_elements(:css => ".team-members__list > div")
@@ -1057,11 +1056,11 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should search by project", bin2: true do
       api_create_claim_and_go_to_search_page
       expect((@driver.current_url.to_s.match(/project/)).nil?).to be(true)
-      @driver.find_element(:xpath, "//li[contains(text(), 'Project')]").click
+      @driver.find_element(:xpath, "//div[contains(text(), 'Project')]").click
       sleep 10
       expect((@driver.current_url.to_s.match(/project/)).nil?).to be(false)
       expect((@driver.title =~ /Project/).nil?).to be(false)
-      @driver.find_element(:xpath, "//li[contains(text(), 'Project')]").click
+      @driver.find_element(:xpath, "//div[contains(text(), 'Project')]").click
       sleep 10
       expect((@driver.title =~ /Project/).nil?).to be(true)
     end

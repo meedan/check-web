@@ -48,6 +48,9 @@ function truncateLength(text, length = 70) {
   return truncate(text, { length, separator: /,? +/, ellipsis: '…' });
 }
 
+// DEPRECATED
+// Apply styles conditionally with style components
+// Pass in `isRtl` as a prop
 function rtlClass(language_code) {
   return (rtlDetect.isRtlLang(language_code)) ? 'translation__rtl' : 'translation__ltr';
 }

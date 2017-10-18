@@ -1,67 +1,47 @@
 import React, { Component } from 'react';
-import IconButton from 'material-ui/IconButton';
 import MDEdit from 'react-icons/lib/md/edit';
-import { Card } from 'material-ui/Card';
-import styled from 'styled-components';
 import { FormattedMessage, injectIntl } from 'react-intl';
-import Can from './Can';
-import { units, unitless, black54, boxShadow, black87 } from '../styles/js/shared';
+import rtlDetect from 'rtl-detect';
+
+import {
+  StyledIconButton,
+} from '../styles/js/shared';
+
+import {
+  StyledProfileCard,
+  StyledEditButtonWrapper,
+} from '../styles/js/HeaderCard';
+
+
+// The "Header Card" is the layout at the top of Source, Profile and Team.
+// Currently we have an actual HeaderCard component that the TeamComponent uses, but the user profile and source profile are using a selection of these constants without the HeaderCard component.
+// See: styles/js/HeaderCard
+// TODO: Standardize to use the HeaderCard in all three components that use this layout.
+// @chris 2017-10-17
 
 class HeaderCard extends Component {
   render() {
-    // Define variables for styles
-    const teamProfileOffset = unitless(18);
-    const teamProfileBottomPad = unitless(8);
-    const teamProfileFabHeight = unitless(5);
-
-    const cardHeaderStyle = {
-      marginBottom: units(6),
-      marginTop: `-${teamProfileOffset}`,
-      paddingBottom: teamProfileBottomPad,
-      paddingTop: teamProfileOffset,
-    };
-
-    //  IconButton with tooltip
-    const TooltipButton = styled(IconButton)`
-      box-shadow: ${boxShadow(2)};
-      background-color: white !important;
-      border-radius: 50% !important;
-      position: absolute !important;
-      ${this.props.direction.to}: 80px !important;
-      bottom: -${(teamProfileFabHeight * 0.5) + teamProfileBottomPad}px;
-
-      &:hover {
-        box-shadow: ${boxShadow(4)};
-
-        svg {
-          fill: ${black87} !important;
-        }
-      }
-
-      svg {
-        fill: ${black54} !important;
-        font-size: 20px;
-      }
-    `;
-
     return (
-      <Card style={cardHeaderStyle}>
+      <StyledProfileCard>
         <div>{this.props.children}</div>
         <section style={{ position: 'relative' }}>
-          {this.props.canEdit && !this.props.isEditing ?
-            <TooltipButton
-              className="team__edit-button"
-              tooltip={
-                <FormattedMessage id="teamComponent.editButton" defaultMessage="Edit profile" />
-                }
-              tooltipPosition="top-center"
-              onTouchTap={this.props.handleEnterEditMode}
-            >
-              <MDEdit />
-            </TooltipButton>
-            : null}
+          <StyledEditButtonWrapper>
+            {this.props.canEdit && !this.props.isEditing ?
+              <StyledIconButton
+                isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}
+                className="team__edit-button"
+                tooltip={
+                  <FormattedMessage id="teamComponent.editButton" defaultMessage="Edit profile" />
+                  }
+                tooltipPosition="top-center"
+                onTouchTap={this.props.handleEnterEditMode}
+              >
+                <MDEdit />
+              </StyledIconButton>
+              : null}
+          </StyledEditButtonWrapper>
         </section>
-      </Card>
+      </StyledProfileCard>
     );
   }
 }

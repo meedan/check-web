@@ -1,14 +1,66 @@
-import React, { Component, PropTypes } from 'react';
-import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
+import React, { Component } from 'react';
+import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import Relay from 'react-relay';
-import { Link } from 'react-router';
 import { Card, CardText, CardActions, CardTitle } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
+import styled from 'styled-components';
+import rtlDetect from 'rtl-detect';
 import ChangePasswordMutation from '../relay/ChangePasswordMutation';
 import CheckContext from '../CheckContext';
 import { stringHelper } from '../customHelpers';
+import {
+  columnWidthMedium,
+  units,
+  alertRed,
+  black54,
+} from '../styles/js/shared';
+
+const StyledPasswordChange = styled.div`
+  .user-password-change__card {
+    margin: ${units(9)} auto auto;
+    max-width: ${columnWidthMedium};
+    text-align: center;
+  }
+
+  .user-password-change__confirm-card {
+    margin: ${units(10)} auto auto;
+    max-width: ${columnWidthMedium};
+  }
+
+  .user-password-change__password-input-field {
+    margin-top: ${units(1)};
+  }
+
+  .user-password-change__logo {
+    display: block;
+    margin: ${units(7)} auto 0;
+  }
+
+  .user-password-change__error {
+    color: ${alertRed};
+    display: block;
+    margin: ${units(1)} auto;
+  }
+
+  .user-password-change__title {
+    color: ${black54};
+    display: block;
+    font: font(title);
+    margin: ${units(1)} auto;
+  }
+
+  .user-password-change__submit-button {
+    margin-bottom: ${units(6)};
+    margin-top: ${units(3)};
+  }
+
+  .user-password-change__actions {
+    text-align: ${props => (props.isRtl ? 'left' : 'right')};
+  }
+
+`;
 
 const messages = defineMessages({
   newPassword: {
@@ -30,12 +82,12 @@ class UserPasswordChange extends Component {
     super(props);
     this.state = {
       showConfirmDialog: false,
-      submitDisabled: true
-    }
+      submitDisabled: true,
+    };
   }
 
-  getQueryStringValue (key) {
-    return decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent(key).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
+  getQueryStringValue(key) {
+    return decodeURIComponent(window.location.search.replace(new RegExp(`^(?:.*[&\\?]${encodeURIComponent(key).replace(/[\.\+\*]/g, '\\$&')}(?:\\=([^&]*))?)?.*$`, 'i'), '$1'));
   }
 
   getHistory() {
@@ -66,7 +118,7 @@ class UserPasswordChange extends Component {
     let errorMsg = '';
 
     if (bothFilled) {
-        errorMsg = sameSize && !samePass ? this.props.intl.formatMessage(messages.unmatchingPasswords) : '';
+      errorMsg = sameSize && !samePass ? this.props.intl.formatMessage(messages.unmatchingPasswords) : '';
     }
 
     this.setState({ errorMsg, submitDisabled: !samePass });
@@ -100,7 +152,7 @@ class UserPasswordChange extends Component {
       that.setState({ showConfirmDialog: true });
     };
 
-    if (!that.state.submitDisabled){
+    if (!that.state.submitDisabled) {
       Relay.Store.commitUpdate(
         new ChangePasswordMutation({
           reset_password_token: token,
@@ -115,7 +167,7 @@ class UserPasswordChange extends Component {
 
   render() {
     return (
-      <div>
+      <StyledPasswordChange isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
         { this.state.showConfirmDialog ?
           <Card className="user-password-change__confirm-card">
             <CardTitle title={<FormattedMessage id="passwordChange.successTitle" defaultMessage="Password updated" />} />
@@ -123,7 +175,7 @@ class UserPasswordChange extends Component {
               <FormattedMessage id="passwordChange.successMsg" defaultMessage="You're all set. Now you can log in with your new password." />
             </CardText>
             <CardActions className="user-password-change__actions">
-              <FlatButton label={<FormattedMessage id="passwordChange.signIn" defaultMessage="Got it"/>} primary onClick={this.handleSignIn.bind(this)} />
+              <FlatButton label={<FormattedMessage id="passwordChange.signIn" defaultMessage="Got it" />} primary onClick={this.handleSignIn.bind(this)} />
             </CardActions>
           </Card> :
           <Card className="user-password-change__card">
@@ -134,26 +186,28 @@ class UserPasswordChange extends Component {
               <span className="user-password-change__error">{this.state.errorMsg}</span>
 
               <div className="user-password-change__password-input">
-                <TextField className="user-password-change__password-input-field"
+                <TextField
+                  className="user-password-change__password-input-field"
                   id="password-change-password-input"
                   type="password"
                   placeholder={this.props.intl.formatMessage(messages.newPassword)}
                   onChange={this.handleChangePassword.bind(this)}
                 />
                 <br />
-                <TextField className="user-password-change__password-input-field"
+                <TextField
+                  className="user-password-change__password-input-field"
                   id="password-change-password-input-confirm"
                   type="password"
                   placeholder={this.props.intl.formatMessage(messages.confirmPassword)}
                   onChange={this.handleChangePasswordConfirm.bind(this)}
                 />
                 <br />
-                <RaisedButton className="user-password-change__submit-button" label="Change Password" onClick={this.handleSubmit.bind(this)} primary={true} disabled={this.state.submitDisabled} />
+                <RaisedButton className="user-password-change__submit-button" label="Change Password" onClick={this.handleSubmit.bind(this)} primary disabled={this.state.submitDisabled} />
               </div>
             </CardText>
           </Card>
         }
-      </div>
+      </StyledPasswordChange>
     );
   }
 }

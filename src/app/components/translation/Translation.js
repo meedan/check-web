@@ -7,10 +7,12 @@ import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import difference from 'lodash.difference';
 import intersection from 'lodash.intersection';
+import rtlDetect from 'rtl-detect';
 import TranslationItem from './TranslationItem';
 import CheckContext from '../../CheckContext';
 import CreateDynamicMutation from '../../relay/CreateDynamicMutation';
 import AboutRoute from '../../relay/AboutRoute';
+import { units } from '../../styles/js/shared';
 
 const messages = defineMessages({
   inputHint: {
@@ -182,14 +184,22 @@ class TranslationComponent extends Component {
     const options = this.getAvailableLanguages();
 
     return (
-      <div className="translation__component">
+      <div>
         {translations.edges.map(tr =>
-          <TranslationItem key={tr.node.id} translation={tr.node} media={this.props.annotated} />,
+          <TranslationItem
+            key={tr.node.id}
+            translation={tr.node}
+            media={this.props.annotated}
+            localeIsRtl={rtlDetect.isRtlLang(this.props.intl.locale)}
+          />,
         )}
         {options.length > 0
-          ? <Card className="translation__card">
-            <CardText className="translation__card-text">
-              <div className="translation__card-title">
+          ? <Card className="translation__card" style={{ position: 'relative' }}>
+            <CardText className="translation__card-text" style={{ paddingBottom: '0' }}>
+              <div
+                className="translation__card-title"
+                style={{ marginBottom: units(3), fontWeight: '700' }}
+              >
                 <FormattedMessage id="translation.title" defaultMessage="Add a translation" />
               </div>
               <Select
@@ -238,7 +248,7 @@ class TranslationComponent extends Component {
                 />
               </form>
             </CardText>
-            <CardActions className="translation__card-actions">
+            <CardActions style={{ textAlign: this.props.localeIsRtl ? 'left' : 'right' }}>
               <FlatButton
                 label={<FormattedMessage id="translation.submit" defaultMessage="Submit" />}
                 primary
@@ -280,4 +290,4 @@ class Translation extends Component {
   }
 }
 
-export default Translation;
+export default injectIntl(Translation);

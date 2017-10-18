@@ -24,7 +24,7 @@ describe('<Annotation />', () => {
     },
     user: {
       source: {
-        image: null
+        image: null,
       },
     },
   };

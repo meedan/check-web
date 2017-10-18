@@ -156,7 +156,7 @@ class CreateProjectMedia extends Component {
       previousInput: this.primaryInput ? this.primaryInput.getValue() : this.state.previousInput,
       message: null,
       submittable: (this.primaryInput && this.primaryInput.getValue().length > 0) ||
-                   (this.secondaryInput && this.secondaryInput.getValue().length > 0)
+                   (this.secondaryInput && this.secondaryInput.getValue().length > 0),
     });
   }
 
@@ -228,7 +228,6 @@ class CreateProjectMedia extends Component {
       { onSuccess, onFailure },
     );
   }
-
 
   submitMedia() {
     const context = new CheckContext(this).getContextStore();
@@ -415,14 +414,18 @@ class CreateProjectMedia extends Component {
     const tabLabelLink = (
       <StyledTabLabel active={this.state.mode === 'link'}>
         <StyledIcon><IconLink /></StyledIcon>
-        <StyledTabLabelText><FormattedMessage id="createMedia.link" defaultMessage="Link" /></StyledTabLabelText>
+        <StyledTabLabelText>
+          <FormattedMessage id="createMedia.link" defaultMessage="Link" />
+        </StyledTabLabelText>
       </StyledTabLabel>
     );
 
     const tabLabelQuote = (
       <StyledTabLabel active={this.state.mode === 'quote'}>
         <StyledIcon><SvgIcon style={styles.svgIcon}><MdFormatQuote /></SvgIcon></StyledIcon>
-        <StyledTabLabelText><FormattedMessage id="createMedia.quote" defaultMessage="Claim" /></StyledTabLabelText>
+        <StyledTabLabelText>
+          <FormattedMessage id="createMedia.quote" defaultMessage="Claim" />
+        </StyledTabLabelText>
       </StyledTabLabel>
     );
 
@@ -438,7 +441,9 @@ class CreateProjectMedia extends Component {
     const tabLabelImage = (
       <StyledTabLabel active={this.state.mode === 'image'}>
         <StyledIcon><IconInsertPhoto /></StyledIcon>
-        <StyledTabLabelText><FormattedMessage id="createMedia.image" defaultMessage="Photo" /></StyledTabLabelText>
+        <StyledTabLabelText>
+          <FormattedMessage id="createMedia.image" defaultMessage="Photo" />
+        </StyledTabLabelText>
       </StyledTabLabel>
     );
 
