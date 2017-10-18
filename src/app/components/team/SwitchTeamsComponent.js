@@ -101,7 +101,7 @@ class SwitchTeamsComponent extends Component {
       backgroundColor: white,
     };
 
-    const teamButton = function teamButton(team) {
+    const teamButton = (team) => {
       if (team.status === 'requested') {
         return (
           <FlatButton
