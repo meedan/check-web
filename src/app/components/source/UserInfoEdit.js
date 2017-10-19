@@ -401,7 +401,7 @@ class UserInfoEdit extends React.Component {
         <Message message={this.state.message} />
         <StyledTwoColumns>
           <StyledSmallColumn isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
-            <StyledAvatar object={source} type="source" className="source__avatar" />
+            <StyledAvatar object={source} type="user" className="source__avatar" />
             { !this.state.editProfileImg ?
               <StyledAvatarEditButton className="source__edit-avatar-button">
                 <FlatButton
