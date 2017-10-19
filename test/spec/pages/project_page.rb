@@ -41,10 +41,8 @@ class ProjectPage < Page
   end
 
   def edit(options)
-    element('.header-actions__drawer-toggle').click
     element('.project-menu').click
     wait_for_element('.project-edit')
-    element('body').click
     sleep 1
     element('.project-edit__title-field input').clear
     fill_input('.project-edit__title-field input', options[:title])
