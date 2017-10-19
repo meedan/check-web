@@ -40,6 +40,13 @@ class ProjectPage < Page
     MediaPage.new(config: @config, driver: @driver)
   end
 
+  # This test needs a little work.
+  # It works if you sleep on the first step,
+  # but I did not get it working yet with `wait_for_element`
+  # instead of sleep.
+  #
+  # @chris 2017-10-19
+  #
   def edit(options)
     sleep 4
     element('.project-menu').click

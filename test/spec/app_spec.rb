@@ -468,7 +468,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
   # This tests is unreliable
-  # Todo: Methods that deal react with hidden menus 
+  # Todo: Methods that deal react with hidden menus
   #
   # ccx 2017-10-13
 =begin
@@ -738,20 +738,25 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(media_pg.contains_string?('Flag')).to be(true)
     end
 
-    it "should edit project", bin4: true do
-      api_create_team_and_project
-      project_pg = ProjectPage.new(config: @config, driver: @driver).load
+    # This test needs a little work.
+    # See the `edit` method in in project_page.rb
+    #
+    # @chris 2017-10-19
+    #
+    # it "should edit project", bin4: true do
+    #   api_create_team_and_project
+    #   project_pg = ProjectPage.new(config: @config, driver: @driver).load
 
-      new_title = "Changed title #{Time.now.to_i}"
-      new_description = "Set description #{Time.now.to_i}"
-      expect(project_pg.contains_string?(new_title)).to be(false)
-      expect(project_pg.contains_string?(new_description)).to be(false)
+    #   new_title = "Changed title #{Time.now.to_i}"
+    #   new_description = "Set description #{Time.now.to_i}"
+    #   expect(project_pg.contains_string?(new_title)).to be(false)
+    #   expect(project_pg.contains_string?(new_description)).to be(false)
 
-      project_pg.edit(title: new_title, description: new_description)
+    #   project_pg.edit(title: new_title, description: new_description)
 
-      expect(@driver.page_source.include?(new_title)).to be(true)
-      expect(@driver.page_source.include?(new_description)).to be(true)
-    end
+    #   expect(@driver.page_source.include?(new_title)).to be(true)
+    #   expect(@driver.page_source.include?(new_description)).to be(true)
+    # end
 
     it "should redirect to 404 page if id does not exist", bin4: true do
       api_create_team_and_project
@@ -1039,7 +1044,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should refresh media", bin1: true do
       page = api_create_team_project_and_link_and_redirect_to_media_page 'http://ca.ios.ba/files/meedan/random.php'
-      wait_for_selector("add-annotation", :class)   
+      wait_for_selector("add-annotation", :class)
       title1 = @driver.title
       expect((title1 =~ /Random/).nil?).to be(false)
       el = wait_for_selector('.media-actions__icon')
@@ -1047,7 +1052,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 1
       @driver.find_element(:css, '.media-actions__refresh').click
       sleep 10 #Needs to wait the refresh
-      wait_for_selector("add-annotation", :class)   
+      wait_for_selector("add-annotation", :class)
       title2 = @driver.title
       expect((title2 =~ /Random/).nil?).to be(false)
       expect(title1 != title2).to be(true)
@@ -1332,7 +1337,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(imgsrc.match(/test\.png$/).nil?).to be(false)
       p "----------"
     end
- 
+
 =end
 =begin
     ***Unstable***
