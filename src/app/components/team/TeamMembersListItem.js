@@ -5,10 +5,11 @@ import { Link } from 'react-router';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import { ListItem } from 'material-ui/List';
-import Avatar from 'material-ui/Avatar';
+import SourcePicture from '../source//SourcePicture';
 import MdClear from 'react-icons/lib/md/clear';
 import IconButton from 'material-ui/IconButton';
 import RaisedButton from 'material-ui/RaisedButton';
+import rtlDetect from 'rtl-detect';
 import UpdateTeamUserMutation from '../../relay/UpdateTeamUserMutation';
 import Tooltip from 'rc-tooltip';
 import 'rc-tooltip/assets/bootstrap_white.css';
@@ -20,6 +21,7 @@ import {
   Text,
   buttonInButtonGroupStyle,
   units,
+  avatarSize,
 } from '../../styles/js/shared';
 
 const messages = defineMessages({
@@ -92,12 +94,13 @@ class TeamMembersListItem extends Component {
           <FlexRow>
             <Link to={`/check/user/${teamUser.node.user.dbid}`} className="team-members__profile-link">
               <FlexRow>
-                <Tooltip placement="top" overlay={<UserTooltip user={teamUser.node.user}/>}>
-                  <Avatar
+                <Tooltip placement="top" overlay={<UserTooltip user={teamUser.node.user} />}>
+                  <SourcePicture
                     className="avatar"
-                    src={teamUser.node.user.source.image}
+                    object={teamUser.node.user.source}
                     alt={teamUser.node.user.name}
-                    style={{ marginRight: units(2) }}
+                    style={rtlDetect.isRtlLang(this.props.intl.locale) ? { marginLeft: units(2) } : { marginRight: units(2) }}
+                    size={avatarSize}
                   />
                 </Tooltip>
                 <Text ellipsis>

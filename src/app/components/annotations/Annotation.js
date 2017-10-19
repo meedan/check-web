@@ -901,7 +901,6 @@ class Annotation extends Component {
                     <SourcePicture
                       className="avatar"
                       type="user"
-                      src={activity.user.source.image}
                       size={avatarSizeSmall}
                       object={activity.user.source}
                     />

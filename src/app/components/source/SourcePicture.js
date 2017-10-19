@@ -125,7 +125,7 @@ class SourcePicture extends Component {
       <Avatar
         alt="avatar"
         size={size}
-        style={(this.props.type === 'source' || this.props.type === 'account') ? styles.source : styles.user}
+        style={(this.props.type === 'source' || this.props.type === 'account') ? Object.assign(styles.source, this.props.style) : Object.assign(styles.user, this.props.style)}
         src={this.state.avatarUrl}
         className={`${this.props.className}`}
         onError={this.handleAvatarError.bind(this)}
