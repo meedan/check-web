@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay';
-import MenuItem from 'material-ui/MenuItem';
+import FlatButton from 'material-ui/FlatButton';
 import ProjectRoute from './ProjectRoute';
 import Can from '../components/Can';
 import CheckContext from '../CheckContext';
+import { black38 } from '../styles/js/shared';
 
 class ProjectMenu extends Component {
   handleEditClick() {
@@ -18,11 +19,12 @@ class ProjectMenu extends Component {
 
     return (
       <Can permissions={project.permissions} permission="update Project">
-        <MenuItem
+        <FlatButton
           key="projectMenuRelay.editProject"
           className="project-menu"
           onClick={this.handleEditClick.bind(this)}
-          primaryText={
+          style={{ color: black38 }}
+          label={
             <FormattedMessage id="projectMenuRelay.editProject" defaultMessage="Edit project" />
           }
         />

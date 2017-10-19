@@ -14,6 +14,7 @@ import ProjectHeader from './project/ProjectHeader';
 import { stringHelper } from '../customHelpers';
 import PublicTeamRoute from '../relay/PublicTeamRoute';
 import teamPublicFragment from '../relay/teamPublicFragment';
+import ProjectMenuRelay from '../relay/ProjectMenuRelay';
 import {
   units,
   mediaQuery,
@@ -53,6 +54,12 @@ class HeaderComponent extends Component {
     const AlignOpposite = styled.div`
       margin-${fromDirection}: auto;
       `;
+
+    const joinPage = /^\/([^/]+)\/join$/.test(path);
+
+    const editProjectMenuItem = (
+      <ProjectMenuRelay key="headerActions.projectMenu" {...this.props} />
+    );
 
     const searchButton = (
       <IconButton
@@ -95,7 +102,6 @@ class HeaderComponent extends Component {
             <div><ProjectHeader {...this.props} /></div>
           </Row>
         );
-
       } else if (inTeamContext && !currentUserIsMember && this.props.team.private) {
         return (
           <Row containsEllipsis>
@@ -117,6 +123,9 @@ class HeaderComponent extends Component {
         <Row>
           <Offset>
             {signInButton}
+          </Offset>
+          <Offset>
+            { !joinPage && editProjectMenuItem }
           </Offset>
           {inTeamContext ? searchButton : null}
         </Row>
