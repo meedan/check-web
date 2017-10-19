@@ -393,12 +393,14 @@ class Annotation extends Component {
             <ParsedText text={commentText} />
             {/* thumbnail */}
             {commentContent.original
-                ? <img
-                  src={commentContent.thumbnail}
-                  className="annotation__card-thumbnail"
-                  alt=""
-                  onClick={this.handleOpenCommentImage.bind(this, commentContent.original)}
-                />
+                ? <div>
+                  <img
+                    src={commentContent.thumbnail}
+                    className="annotation__card-thumbnail"
+                    alt=""
+                    onClick={this.handleOpenCommentImage.bind(this, commentContent.original)}
+                  />
+                </div>
                 : null}
           </div>
 
