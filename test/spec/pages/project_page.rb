@@ -41,6 +41,7 @@ class ProjectPage < Page
   end
 
   def edit(options)
+    sleep 4
     element('.project-menu').click
     wait_for_element('.project-edit')
     sleep 1
