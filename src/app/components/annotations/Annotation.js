@@ -903,6 +903,7 @@ class Annotation extends Component {
                       type="user"
                       src={activity.user.source.image}
                       size={avatarSizeSmall}
+                      object={activity.user.source}
                     />
                   </Tooltip>
                 </StyledAvatarColumn>

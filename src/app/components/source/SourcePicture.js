@@ -24,7 +24,7 @@ class SourcePicture extends Component {
     super(props);
 
     this.state = {
-      avatarUrl: this.defaultAvatar(this.props.type),
+      avatarUrl: this.defaultAvatar(),
       queriedBackend: false,
     };
   }
@@ -34,7 +34,7 @@ class SourcePicture extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.state.avatarUrl !== nextProps.object.image) {
+    if (nextProps.object.image && (this.state.avatarUrl !== nextProps.object.image)) {
       this.setImage(nextProps.object.image);
     }
   }
@@ -46,8 +46,8 @@ class SourcePicture extends Component {
   }
 
   handleAvatarError() {
-    if (this.state.avatarUrl !== this.defaultAvatar(this.props.type)) {
-      this.setState({ avatarUrl: this.defaultAvatar(this.props.type) });
+    if (this.state.avatarUrl !== this.defaultAvatar()) {
+      this.setState({ avatarUrl: this.defaultAvatar() });
     }
     this.refreshAvatar();
   }
@@ -68,7 +68,7 @@ class SourcePicture extends Component {
       return;
     }
 
-    this.setState({ avatarUrl: this.defaultAvatar(this.props.type), queriedBackend: true });
+    this.setState({ avatarUrl: this.defaultAvatar(), queriedBackend: true });
 
     if (!this.isUploadedImage()) {
       const onFailure = () => {
@@ -79,14 +79,14 @@ class SourcePicture extends Component {
       };
 
       const onSuccess = (response) => {
-        let avatarUrl = this.defaultAvatar(this.props.type);
+        let avatarUrl = this.defaultAvatar();
         try {
           const object = (this.props.type === 'source' || this.props.type === 'user')
             ? response.updateSource.source
             : this.props.type === 'account'
               ? response.updateAccount.account
               : {};
-          avatarUrl = object.image || this.defaultAvatar(this.props.type);
+          avatarUrl = object.image || this.defaultAvatar();
         } catch (e) {}
         this.setState({ avatarUrl, queriedBackend: true });
       };
@@ -112,8 +112,8 @@ class SourcePicture extends Component {
     }
   }
 
-  defaultAvatar(type) {
-    return type === 'source'
+  defaultAvatar() {
+    return this.props.type === 'source'
     ? config.restBaseUrl.replace(/\/api.*/, '/images/source.png')
     : config.restBaseUrl.replace(/\/api.*/, '/images/user.png');
   }
