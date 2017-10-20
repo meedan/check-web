@@ -160,9 +160,6 @@ class TrashComponent extends Component {
     return (
       <div
         className="trash"
-        style={{
-          textAlign: rtlDetect.isRtlLang(this.props.intl.locale) ? 'left' : 'right',
-        }}
       >
         <Dialog
           actions={actions}
