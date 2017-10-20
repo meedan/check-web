@@ -9,6 +9,7 @@ import Projects from './drawer/Projects';
 import { stringHelper } from '../customHelpers';
 import UserMenuItems from './UserMenuItems';
 import UserAvatarRelay from '../relay/UserAvatarRelay';
+import CheckContext from '../CheckContext';
 import {
   Row,
   Offset,
@@ -24,6 +25,16 @@ import {
 } from '../styles/js/shared';
 
 class DrawerNavigation extends Component {
+  getHistory() {
+    const history = new CheckContext(this).getContextStore().history;
+    return history;
+  }
+
+  handleAvatarClick = () => {
+    this.getHistory().push('/check/me');
+    this.props.drawerToggle();
+  }
+
   render() {
     const { inTeamContext, loggedIn, drawerToggle } = this.props;
 
@@ -151,17 +162,16 @@ class DrawerNavigation extends Component {
     );
 
     const yourProfileButton = (
-      <Link to="/check/me">
-        <IconButton
-          style={styles.drawerYourProfileButton}
-          tooltip={
-            <FormattedMessage id="drawerNavigation.userProfile" defaultMessage="Your Profile" />
-          }
-          tooltipPosition="bottom-center"
-        >
-          <UserAvatarRelay size={units(4)} {...this.props} />
-        </IconButton>
-      </Link>
+      <IconButton
+        style={styles.drawerYourProfileButton}
+        tooltip={
+          <FormattedMessage id="drawerNavigation.userProfile" defaultMessage="Your Profile" />
+        }
+        tooltipPosition="bottom-center"
+        onTouchTap={this.handleAvatarClick}
+      >
+        <UserAvatarRelay size={units(4)} {...this.props} />
+      </IconButton>
     );
 
     const checkLogo = <img width={units(8)} alt="Team Logo" src={stringHelper('LOGO_URL')} />;
@@ -217,5 +227,9 @@ class DrawerNavigation extends Component {
     );
   }
 }
+
+DrawerNavigation.contextTypes = {
+  store: React.PropTypes.object,
+};
 
 export default DrawerNavigation;

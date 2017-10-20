@@ -51,8 +51,6 @@ class CreateTask extends Component {
   }
 
   handleClick(event) {
-    event.preventDefault();
-
     this.setState({
       menuOpen: true,
       anchorEl: event.currentTarget,
