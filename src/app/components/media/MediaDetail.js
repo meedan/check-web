@@ -147,7 +147,7 @@ class MediaDetail extends Component {
       ? `/${media.team.slug}/project/${projectId}/media/${media.dbid}`
       : null;
 
-    const projectTitle = media.project.title;
+    const projectTitle = media.project ? media.project.title : null;
     const projectUrl = projectId && media.team
       ? `/${media.team.slug}/project/${projectId}`
       : null;
@@ -218,7 +218,7 @@ class MediaDetail extends Component {
               <Link className="media-detail__check-timestamp" to={mediaUrl}>
                 <TimeBefore style={{ marginRight: units(1) }} date={createdAt} />
               </Link>
-              {!projectPage && <Link to={projectUrl}>in {projectTitle}</Link>}
+              {(!projectPage && projectTitle) && <Link to={projectUrl}>in {projectTitle}</Link>}
               <Link to={mediaUrl}>
                 <span style={{ margin: `0 ${units(1)}` }} className="media-detail__check-notes-count">
                   {annotationsCount}
