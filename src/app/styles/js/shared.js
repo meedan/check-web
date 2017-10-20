@@ -301,6 +301,12 @@ export const HeaderTitle = styled.h3`
   `}
 `;
 
+export const HiddenOnMobile = styled.div`
+   ${mediaQuery.handheld`
+     display: none;
+  `}
+`;
+
 // <Row />
 //
 // The prop `containsEllipsis` adds overflow to flex-items

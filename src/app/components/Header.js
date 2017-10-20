@@ -2,10 +2,8 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router';
 import Relay from 'react-relay';
-import IconButton from 'material-ui/IconButton';
-import IconMenu from 'material-ui/svg-icons/navigation/menu';
 import IconSearch from 'material-ui/svg-icons/action/search';
-import { injectIntl, FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import RaisedButton from 'material-ui/RaisedButton';
 import rtlDetect from 'rtl-detect';
 import TeamHeader from './team/TeamHeader';
@@ -22,6 +20,7 @@ import {
   Row,
   Offset,
   black02,
+  StyledIconButton,
 } from '../styles/js/shared';
 
 const HeaderBar = styled.div`
@@ -30,7 +29,6 @@ const HeaderBar = styled.div`
   align-items: center;
   padding: 0 ${units(2)};
   height: ${headerHeight};
-  overflow: hidden;
   /* Relative positioning is used here to create a new
   positioning context to avoid a z-index inconsistency
   on Safari, Safari Mobile, Ubuntu Chrome,
@@ -62,14 +60,15 @@ class HeaderComponent extends Component {
     );
 
     const searchButton = (
-      <IconButton
+      <StyledIconButton
         key="header.searchButton"
         className="header-actions__search-icon"
         containerElement={<Link to={`/${this.props.params.team}/search`} />}
         name="search"
+        tooltip={<FormattedMessage defaultMessage="Search" id="headerActions.search" />}
       >
         <IconSearch />
-      </IconButton>
+      </StyledIconButton>
     );
 
     const checkLogo = (
@@ -124,9 +123,7 @@ class HeaderComponent extends Component {
           <Offset>
             {signInButton}
           </Offset>
-          <Offset>
-            { !joinPage && editProjectMenuItem }
-          </Offset>
+          { !joinPage && editProjectMenuItem }
           {inTeamContext ? searchButton : null}
         </Row>
       </AlignOpposite>

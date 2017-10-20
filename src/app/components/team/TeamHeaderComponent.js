@@ -12,6 +12,7 @@ import {
   black05,
   avatarStyle,
   avatarSize,
+  HiddenOnMobile,
 } from '../../styles/js/shared';
 
 const DrawerButtonGroup = styled(Row)`
@@ -63,11 +64,13 @@ class TeamHeaderComponent extends Component {
         );
       }
       return (
-        <Offset>
-          <Row>
-            <UserAvatarRelay {...this.props} />
-          </Row>
-        </Offset>
+        <HiddenOnMobile>
+          <Offset>
+            <Row>
+              <UserAvatarRelay {...this.props} />
+            </Row>
+          </Offset>
+        </HiddenOnMobile>
       );
     })();
 

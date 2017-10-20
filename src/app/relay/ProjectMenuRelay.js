@@ -1,11 +1,19 @@
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay';
-import FlatButton from 'material-ui/FlatButton';
+import IconEdit from 'material-ui/svg-icons/image/edit';
+import styled from 'styled-components';
 import ProjectRoute from './ProjectRoute';
 import Can from '../components/Can';
 import CheckContext from '../CheckContext';
-import { black38 } from '../styles/js/shared';
+import { StyledIconButton } from '../styles/js/shared';
+
+const SmallerStyledIconButton = styled(StyledIconButton)`
+  svg {
+    height: 22px!important;
+    width: 22px!important;
+  }
+`;
 
 class ProjectMenu extends Component {
   handleEditClick() {
@@ -14,24 +22,30 @@ class ProjectMenu extends Component {
     history.push(editPath);
   }
 
+
   render() {
     const { project } = this.props;
 
+    const editProjectButton = (<SmallerStyledIconButton
+      onClick={this.handleEditClick.bind(this)}
+      tooltip={<FormattedMessage id="projectMenuRelay.editProject" defaultMessage="Edit project" />}
+    >
+      <IconEdit />
+    </SmallerStyledIconButton>);
+
     return (
       <Can permissions={project.permissions} permission="update Project">
-        <FlatButton
+        <div
           key="projectMenuRelay.editProject"
           className="project-menu"
-          onClick={this.handleEditClick.bind(this)}
-          style={{ color: black38 }}
-          label={
-            <FormattedMessage id="projectMenuRelay.editProject" defaultMessage="Edit project" />
-          }
-        />
+        >
+          {editProjectButton}
+        </div>
       </Can>
     );
   }
 }
+
 
 ProjectMenu.contextTypes = {
   store: React.PropTypes.object,
