@@ -1,13 +1,5 @@
 [
   {
-    "id": "teamMenu.viewTeam",
-    "defaultMessage": "View team"
-  },
-  {
-    "id": "teamMenu.manageTeam",
-    "defaultMessage": "Manage team"
-  },
-  {
     "id": "teamMenu.trash",
     "defaultMessage": "Trash"
   }

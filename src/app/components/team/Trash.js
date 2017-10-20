@@ -5,7 +5,6 @@ import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
-import rtlDetect from 'rtl-detect';
 import TeamRoute from '../../relay/TeamRoute';
 import UpdateTeamMutation from '../../relay/UpdateTeamMutation';
 import Can from '../Can';

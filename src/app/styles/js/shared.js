@@ -297,7 +297,7 @@ export const HeaderTitle = styled.h3`
   max-width: 65vw;
   margin: ${props => props.offset ? units(2) : '0'};
   ${mediaQuery.handheld`
-     max-width: 30vw;
+     max-width: 20vw;
   `}
 `;
 
@@ -394,7 +394,7 @@ export const ContentColumn = styled.div`
 
 // Offset (pad)
 export const Offset = styled.div`
-  padding: 0 ${units(1)} !important;
+  padding: 0 ${units(1)};
 `;
 
 // Material style Chip
@@ -438,9 +438,19 @@ export const StyledTagsWrapper = styled.div`
 // So we must always use this wrapper, or similar.
 export const StyledIconButton = styled(IconButton)`
   font-size: 20px !important;
-  color: ${black54} !important;
   svg {
+    color: ${black38} !important;
     margin: 0!important;
+  }
+`;
+
+// In the Header, the search icon is visually smaller than the
+// rest of the icons, so we make the rest of the icons smaller to match.
+// (the difference is ~ 2px)
+export const SmallerStyledIconButton = styled(StyledIconButton)`
+  svg {
+    height: 22px!important;
+    width: 22px!important;
   }
 `;
 

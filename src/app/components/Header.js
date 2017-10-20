@@ -13,6 +13,8 @@ import { stringHelper } from '../customHelpers';
 import PublicTeamRoute from '../relay/PublicTeamRoute';
 import teamPublicFragment from '../relay/teamPublicFragment';
 import ProjectMenuRelay from '../relay/ProjectMenuRelay';
+import TeamMenuRelay from '../relay/TeamMenuRelay';
+
 import {
   units,
   mediaQuery,
@@ -57,6 +59,10 @@ class HeaderComponent extends Component {
 
     const editProjectMenuItem = (
       <ProjectMenuRelay key="headerActions.projectMenu" {...this.props} />
+    );
+
+    const trashButton = (
+      <TeamMenuRelay {...this.props} />
     );
 
     const searchButton = (
@@ -124,6 +130,7 @@ class HeaderComponent extends Component {
             {signInButton}
           </Offset>
           { !joinPage && editProjectMenuItem }
+          {inTeamContext ? trashButton : null}
           {inTeamContext ? searchButton : null}
         </Row>
       </AlignOpposite>

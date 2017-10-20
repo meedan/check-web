@@ -252,7 +252,7 @@ class TeamComponent extends Component {
     `;
 
     const StyledCardHeader = styled(CardHeader)`
-      span { 
+      span {
         font: ${title} !important;
       }
     `;
@@ -475,7 +475,9 @@ class TeamComponent extends Component {
             if (!isEditing) {
               return (
                 <ContentColumn>
-                  <TeamMembers {...this.props} />
+                  <Can permissions={team.permissions} permission="update Team">
+                    <TeamMembers {...this.props} />
+                  </Can>
                   <Card style={{ marginTop: units(2) }}>
                     <StyledCardHeader
                       title={<MappedMessage msgObj={messages} msgKey="verificationProjects" />}

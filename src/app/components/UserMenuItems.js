@@ -4,7 +4,6 @@ import { Link } from 'react-router';
 import { FormattedMessage } from 'react-intl';
 import Divider from 'material-ui/Divider';
 import { logout } from '../redux/actions';
-import TeamMenuRelay from '../relay/TeamMenuRelay';
 import { stringHelper } from '../customHelpers';
 
 class UserMenuItems extends Component {

@@ -2,18 +2,10 @@ import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay';
 import IconEdit from 'material-ui/svg-icons/image/edit';
-import styled from 'styled-components';
 import ProjectRoute from './ProjectRoute';
 import Can from '../components/Can';
 import CheckContext from '../CheckContext';
-import { StyledIconButton } from '../styles/js/shared';
-
-const SmallerStyledIconButton = styled(StyledIconButton)`
-  svg {
-    height: 22px!important;
-    width: 22px!important;
-  }
-`;
+import { SmallerStyledIconButton } from '../styles/js/shared';
 
 class ProjectMenu extends Component {
   handleEditClick() {
@@ -21,7 +13,6 @@ class ProjectMenu extends Component {
     const editPath = `${window.location.pathname.match(/.*\/project\/\d+/)[0]}/edit`;
     history.push(editPath);
   }
-
 
   render() {
     const { project } = this.props;

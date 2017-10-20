@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
-import Relay from 'react-relay';
-import MenuItem from 'material-ui/MenuItem';
+import IconDelete from 'material-ui/svg-icons/action/delete';
 import Can from '../Can';
 import CheckContext from '../../CheckContext';
+import { SmallerStyledIconButton } from '../../styles/js/shared';
 
 class TeamMenu extends Component {
   getHistory() {
@@ -25,32 +25,16 @@ class TeamMenu extends Component {
     const { team } = this.props;
 
     return (
-      <Can permissions={team.permissions} permission="update Team" otherwise={
-        <MenuItem
-          key="teamMenu.viewTeam"
-          onClick={this.handleClick.bind(this)}
-          primaryText={
-            <FormattedMessage id="teamMenu.viewTeam" defaultMessage="View team" />
+      <Can permissions={team.permissions} permission="update Team">
+        <SmallerStyledIconButton
+          key="teamMenu.trash"
+          onClick={this.handleClickTrash.bind(this)}
+          tooltip={
+            <FormattedMessage id="teamMenu.trash" defaultMessage="Trash" />
           }
-        />
-      }>
-        <span>
-          <MenuItem
-            key="teamMenu.manageTeam"
-            onClick={this.handleClick.bind(this)}
-            primaryText={
-              <FormattedMessage id="teamMenu.manageTeam" defaultMessage="Manage team" />
-            }
-          />
-
-          <MenuItem
-            key="teamMenu.trash"
-            onClick={this.handleClickTrash.bind(this)}
-            primaryText={
-              <FormattedMessage id="teamMenu.trash" defaultMessage="Trash" />
-            }
-          />
-        </span>
+        >
+          <IconDelete />
+        </SmallerStyledIconButton>
       </Can>
     );
   }
