@@ -20,7 +20,7 @@ import CheckContext from '../../CheckContext';
 import { getStatus, getStatusStyle } from '../../helpers';
 import { mediaStatuses, mediaLastStatus } from '../../customHelpers';
 import {
-  FlexRow,
+  Row,
   FadeIn,
   units,
   black87,
@@ -48,7 +48,7 @@ const StyledMediaIconContainer = styled.div`
   }
 `;
 
-const StyledHeaderTextSecondary = styled(FlexRow)`
+const StyledHeaderTextSecondary = styled(Row)`
   justify-content: flex-start;
   flex-wrap: wrap;
   font-size: 14;
@@ -146,6 +146,17 @@ class MediaDetail extends Component {
     const mediaUrl = projectId && media.team
       ? `/${media.team.slug}/project/${projectId}/media/${media.dbid}`
       : null;
+
+    const projectTitle = media.project ? media.project.title : null;
+    const projectUrl = projectId && media.team
+      ? `/${media.team.slug}/project/${projectId}`
+      : null;
+    const path = this.props.location
+      ? this.props.location.pathname
+      : window.location.pathname;
+
+    const projectPage = /^\/.*\/project\//.test(path);
+
     let embedCard = null;
 
     media.url = media.media.url;
@@ -154,8 +165,8 @@ class MediaDetail extends Component {
     media.quoteAttributions = media.media.quoteAttributions;
 
     if (media.media.embed_path) {
-      const path = media.media.embed_path;
-      embedCard = <ImageMediaCard imagePath={path} />;
+      const embedPath = media.media.embed_path;
+      embedCard = <ImageMediaCard imagePath={embedPath} />;
     } else if (media.quote && media.quote.length) {
       embedCard = (
         <QuoteMediaCard
@@ -203,25 +214,26 @@ class MediaDetail extends Component {
             {mediaIcon}
           </StyledMediaIconContainer>
           {createdAt
-            ? <span className="media-detail__check-added-at">
+            ? <Row className="media-detail__check-added-at">
               <Link className="media-detail__check-timestamp" to={mediaUrl}>
                 <TimeBefore style={{ marginRight: units(1) }} date={createdAt} />
               </Link>
+              {(!projectPage && projectTitle) && <Link to={projectUrl}>in {projectTitle}</Link>}
               <Link to={mediaUrl}>
-                <span style={{ marginRight: units(1) }} className="media-detail__check-notes-count">
+                <span style={{ margin: `0 ${units(1)}` }} className="media-detail__check-notes-count">
                   {annotationsCount}
                 </span>
               </Link>
-            </span>
+            </Row>
             : null}
           {sourceUrl
             ? <Link to={sourceUrl}>
-              <FlexRow>
+              <Row>
                 {/* ideally this would be SourcePicture not FaFeed — CGB 2017-9-13 */}
                 <FaFeed style={{ width: 16 }} />
                 {' '}
                 {sourceName || authorName || authorUsername}
-              </FlexRow>
+              </Row>
             </Link>
             : null}
         </StyledHeaderTextSecondary>
