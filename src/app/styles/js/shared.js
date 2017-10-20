@@ -295,7 +295,6 @@ export const HeaderTitle = styled.h3`
   font: ${subheading2};
   color: ${black54};
   max-width: 65vw;
-  margin: ${props => props.offset ? units(2) : '0'};
   ${mediaQuery.handheld`
      max-width: 20vw;
   `}
@@ -392,9 +391,14 @@ export const ContentColumn = styled.div`
   ${props => props.flex ? 'display: flex; flex-direction: column;' : ''}
 `;
 
-// Offset (pad)
+// Offset (pad one side)
 export const Offset = styled.div`
-  padding: 0 ${units(1)};
+  padding-${props => (props.isRtl ? 'left' : 'right')}: ${units(1)};
+`;
+
+export const OffsetBothSides = styled.div`
+  padding-left: ${units(1)};
+  padding-right: ${units(1)};
 `;
 
 // Material style Chip

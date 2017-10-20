@@ -104,13 +104,13 @@ class HeaderComponent extends Component {
         return (
           <Row containsEllipsis>
             <div><TeamHeader {...this.props} /></div>
-            <div><ProjectHeader {...this.props} /></div>
+            <div><ProjectHeader isRtl {...this.props} /></div>
           </Row>
         );
       } else if (inTeamContext && !currentUserIsMember && this.props.team.private) {
         return (
           <Row containsEllipsis>
-            <TeamPublicHeader {...this.props} />
+            <TeamPublicHeader isRtl {...this.props} />
           </Row>
         );
       }
@@ -126,7 +126,7 @@ class HeaderComponent extends Component {
     const secondary = (() => (
       <AlignOpposite>
         <Row>
-          <Offset>
+          <Offset isRtl>
             {signInButton}
           </Offset>
           { !joinPage && editProjectMenuItem }

@@ -16,15 +16,11 @@ import UpdateProjectMediaMutation from '../../relay/UpdateProjectMediaMutation';
 import DeleteProjectMediaMutation from '../../relay/DeleteProjectMediaMutation';
 import CheckContext from '../../CheckContext';
 import Message from '../Message';
-import { FlexRow, black87, title, units } from '../../styles/js/shared';
+import { Row, black87, title, units } from '../../styles/js/shared';
 
-const StyledMetadata = styled(FlexRow)`
-  margin-top: ${units(3)};
+const StyledMetadata = styled(Row)`
+  margin: ${units(2)} ${units(1)} 0;
   flex-wrap: wrap;
-
-  > * {
-    padding: 0 ${units(1)};
-  }
 
   // Move dialog
   //
@@ -441,7 +437,7 @@ class MediaMetadata extends Component {
               id="mediaDetail.addedBy"
               defaultMessage={'Added {byUser}'}
               values={{ byUser }}
-            />{' '}
+            />
           </span>
           : null}
         {media.tags ? <MediaTags media={media} tags={media.tags.edges} isEditing={false} /> : null}

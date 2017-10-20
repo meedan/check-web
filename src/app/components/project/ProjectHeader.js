@@ -22,19 +22,19 @@ class ProjectHeaderComponent extends Component {
       <div style={{ display: 'flex', alignItems: 'center', overflow: 'hidden' }}>
 
         {isProjectSubpage
-          ? <IconButton
-            containerElement={<Link to={backUrl} />}
-            className="project-header__back-button"
-          >
-
-            <FadeIn>
-              <SlideIn>
-                <IconArrowBack color={black54} />
-              </SlideIn>
-            </FadeIn>
-          </IconButton>
+          ?
+            <IconButton
+              containerElement={<Link to={backUrl} />}
+              className="project-header__back-button"
+            >
+              <FadeIn>
+                <SlideIn>
+                  <IconArrowBack color={black54} />
+                </SlideIn>
+              </FadeIn>
+            </IconButton>
           : null}
-        <HeaderTitle offset={!isProjectSubpage}>{currentProject.title}</HeaderTitle>
+        <HeaderTitle>{currentProject.title}</HeaderTitle>
       </div>
     );
   }

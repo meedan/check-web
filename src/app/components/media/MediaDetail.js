@@ -15,8 +15,8 @@ import MediaMetadata from './MediaMetadata';
 import MediaUtil from './MediaUtil';
 import PenderCard from '../PenderCard';
 import ImageMediaCard from './ImageMediaCard';
+import WebPageMediaCard from './WebPageMediaCard';
 import CheckContext from '../../CheckContext';
-
 import { getStatus, getStatusStyle } from '../../helpers';
 import { mediaStatuses, mediaLastStatus } from '../../customHelpers';
 import {
@@ -26,6 +26,7 @@ import {
   black87,
   black38,
   defaultBorderRadius,
+  Offset,
 } from '../../styles/js/shared';
 
 const StyledCardHeaderTextPrimary = styled(Link)`
@@ -176,6 +177,11 @@ class MediaDetail extends Component {
           sourceName={sourceName}
         />
       );
+    } else if (media.url && JSON.parse(media.embed).provider == 'page') {
+      embedCard = (<WebPageMediaCard
+        media={media}
+        data={data}
+      />);
     } else if (media.url) {
       embedCard = (
         <PenderCard
@@ -202,6 +208,14 @@ class MediaDetail extends Component {
     const shouldNotDisplayHeading =
       this.state.expanded || (this.state.expanded == null && this.props.initiallyExpanded);
 
+    const cardClassName =
+      `${this.statusToClass('media-detail', mediaLastStatus(media))} ` +
+      `media-detail--${MediaUtil.mediaTypeCss(media, data)}`;
+
+    const locale = this.props.intl.locale;
+    const isRtl = rtlDetect.isRtlLang(locale);
+    const fromDirection = isRtl ? 'right' : 'left';
+
     const cardHeaderText = (
       <div>
         {shouldNotDisplayHeading
@@ -215,38 +229,37 @@ class MediaDetail extends Component {
           </StyledMediaIconContainer>
           {createdAt
             ? <Row className="media-detail__check-added-at">
-              <Link className="media-detail__check-timestamp" to={mediaUrl}>
-                <TimeBefore style={{ marginRight: units(1) }} date={createdAt} />
-              </Link>
+              <Offset isRtl={isRtl}>
+                <Link className="media-detail__check-timestamp" to={mediaUrl}>
+                  <TimeBefore date={createdAt} />
+                </Link>
+              </Offset>
               {(!projectPage && projectTitle) && <Link to={projectUrl}>in {projectTitle}</Link>}
-              <Link to={mediaUrl}>
-                <span style={{ margin: `0 ${units(1)}` }} className="media-detail__check-notes-count">
-                  {annotationsCount}
-                </span>
-              </Link>
+              <Offset isRtl={isRtl}>
+                <Link to={mediaUrl}>
+                  <span className="media-detail__check-notes-count">
+                    {annotationsCount}
+                  </span>
+                </Link>
+              </Offset>
             </Row>
             : null}
           {sourceUrl
-            ? <Link to={sourceUrl}>
-              <Row>
-                {/* ideally this would be SourcePicture not FaFeed — CGB 2017-9-13 */}
-                <FaFeed style={{ width: 16 }} />
-                {' '}
-                {sourceName || authorName || authorUsername}
-              </Row>
-            </Link>
+            ? <Offset isRtl={isRtl}>
+              <Link to={sourceUrl}>
+                <Row>
+                  {/* ideally this would be SourcePicture not FaFeed — CGB 2017-9-13 */}
+                  <FaFeed style={{ width: 16 }} />
+                  {' '}
+                  {sourceName || authorName || authorUsername}
+                </Row>
+              </Link>
+            </Offset>
             : null}
         </StyledHeaderTextSecondary>
       </div>
     );
 
-    const cardClassName =
-      `${this.statusToClass('media-detail', mediaLastStatus(media))} ` +
-      `media-detail--${MediaUtil.mediaTypeCss(media, data)}`;
-
-    const locale = this.props.intl.locale;
-    const isRtl = rtlDetect.isRtlLang(locale);
-    const fromDirection = isRtl ? 'right' : 'left';
 
     return (
       <StyledMediaDetail
