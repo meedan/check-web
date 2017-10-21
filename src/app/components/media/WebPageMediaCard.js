@@ -6,19 +6,19 @@ import styled from 'styled-components';
 import MediaUtil from './MediaUtil';
 import TimeBefore from '../TimeBefore';
 import ParsedText from '../ParsedText';
-import { units, Row, Offset, black05, defaultBorderRadius, subheading1, black87, body2 } from '../../styles/js/shared';
+import { units, Row, Offset, black05, defaultBorderRadius, subheading1, body2 } from '../../styles/js/shared';
 
 const StyledImage = styled.img`
   border: 1px solid ${black05};
   border-radius: ${defaultBorderRadius};
   max-width: ${units(5)};
   max-height: ${units(5)};
+  // Visually align the favicon with the title
+  ${props => props.topMargin ? 'margin-top: 2px;' : null}
 `;
 
-const StyledSubheading = styled.h2`
+const StyledSubheading = styled.h3`
   font: ${subheading1};
-  color: ${black87};
-  margin: 0;
 `;
 
 const StyledLinkWrapper = styled.div`
@@ -39,9 +39,9 @@ class WebPageMediaCard extends Component {
     const authorUsername = MediaUtil.authorUsername(media, data);
     const picture = (() => {
       if (data.picture && !data.picture.match(/\/screenshots\//)) {
-        return (data.picture);
+        return (<StyledImage alt="" src={data.picture} />);
       } else if (data.favicon) {
-        return (data.favicon);
+        return (<StyledImage alt="" src={data.favicon} topMargin />);
       }
       return (null);
     })();
@@ -52,9 +52,7 @@ class WebPageMediaCard extends Component {
 
           {(picture) ?
             <Offset isRtl={isRtl}>
-              <div>
-                <StyledImage alt="" src={picture} />
-              </div>
+              {picture}
             </Offset>
           : null }
 
