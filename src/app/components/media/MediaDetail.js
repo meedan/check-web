@@ -177,7 +177,7 @@ class MediaDetail extends Component {
           sourceName={sourceName}
         />
       );
-    } else if (media.url && JSON.parse(media.embed).provider == 'page') {
+    } else if (media.url && data.provider === 'page') {
       embedCard = (<WebPageMediaCard
         media={media}
         data={data}

@@ -313,7 +313,7 @@ export const HiddenOnMobile = styled.div`
 //
 export const Row = styled.div`
   display: flex;
-  align-items: center;
+  ${props => props.alignTop ? 'align-items: top;' : 'align-items: center;'}
   ${props => props.containsEllipsis ? '& > * {overflow: hidden; }' : ''}
 `;
 
