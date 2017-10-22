@@ -153,7 +153,7 @@ class MediaDetail extends Component {
       : null;
 
     const heading = (
-      <StyledHeading>
+      <StyledHeading className="media__heading">
         <Link to={mediaUrl}>
           { isWebPage
             ? (data.title || authorName || authorUsername)
