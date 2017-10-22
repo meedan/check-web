@@ -7,6 +7,8 @@ import UpdateAccountMutation from '../../relay/UpdateAccountMutation';
 import {
   avatarSizeLarge,
   avatarSize,
+  avatarSizeSmall,
+  avatarSizeExtraSmall,
   defaultBorderRadius,
   borderWidthSmall,
   black02,
@@ -17,10 +19,28 @@ const StyledImage = styled.img`
   border-radius: ${props =>
     props.type === 'source' ? defaultBorderRadius : '50%'};
   flex-shrink: 0;
-  max-width: ${props =>
-    props.size === 'large' ? avatarSizeLarge : avatarSize};
-  max-height: ${props =>
-    props.size === 'large' ? avatarSizeLarge : avatarSize};
+  ${props => (() => {
+    if (props.size === 'large') {
+      return (`
+        max-width: ${avatarSizeLarge};
+        max-height: ${avatarSizeLarge};
+      `);
+    } else if (props.size === 'small') {
+      return (`
+        max-width: ${avatarSizeSmall};
+        max-height: ${avatarSizeSmall};
+      `);
+    } else if (props.size === 'extraSmall') {
+      return (`
+        max-width: ${avatarSizeExtraSmall};
+        max-height: ${avatarSizeExtraSmall};
+      `);
+    }
+    return (`
+        max-width: ${avatarSize};
+        max-height: ${avatarSize};
+    `);
+  })()}
   align-self: flex-start;
 `;
 
@@ -136,6 +156,7 @@ class SourcePicture extends Component {
         type={this.props.type}
         className={`${this.props.className}`}
         onError={this.handleAvatarError.bind(this)}
+        style={this.props.style}
       />
     );
   }

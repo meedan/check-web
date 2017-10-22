@@ -173,6 +173,7 @@ export const backgroundCover = 'background-repeat: no-repeat; background-positio
 export const avatarSizeLarge = units(9);
 export const avatarSize = units(5);
 export const avatarSizeSmall = units(4);
+export const avatarSizeExtraSmall = units(3);
 
 // avatarStyle is deprecated
 // prefer SourcePicture instead

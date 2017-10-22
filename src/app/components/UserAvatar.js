@@ -10,7 +10,6 @@ class UserAvatar extends Component {
         <SourcePicture
           object={user.source}
           type="user"
-          size="small"
           className="avatar"
         />
       );

@@ -45,7 +45,6 @@ import {
   breakWordStyles,
   Row,
   defaultBorderRadius,
-  avatarSizeSmall,
 } from '../../styles/js/shared';
 
 const dotSize = borderWidthLarge;
