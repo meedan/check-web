@@ -15,6 +15,13 @@ const StyledImage = styled.img`
   margin-top: 2px; // visual alignment
 `;
 
+const StyledContentImage = styled.img`
+  border: 1px solid ${black05};
+  max-width: 100%;
+  max-height: 100%;
+  margin-top: ${units(1)};
+`;
+
 const StyledLinkWrapper = styled.div`
   font: ${caption};
 `;
@@ -27,7 +34,7 @@ class WebPageMediaCard extends Component {
   render() {
     const { media, data, heading, isRtl, authorName, authorUsername } = this.props;
     const url = MediaUtil.url(media, data);
-    const pictureUrl = (() => {
+    const authorPictureUrl = (() => {
       if (data.picture && !data.picture.match(/\/screenshots\//)) {
         return (data.picture);
       } else if (data.favicon) {
@@ -36,9 +43,9 @@ class WebPageMediaCard extends Component {
       return (null);
     })();
 
-    const picture = (pictureUrl)
+    const authorPicture = (authorPictureUrl)
       ? (<Offset isRtl={isRtl}>
-        <StyledImage alt="" src={pictureUrl} />
+        <StyledImage alt="" src={authorPictureUrl} />
       </Offset>)
       : null;
 
@@ -51,26 +58,32 @@ class WebPageMediaCard extends Component {
       </a>)
       : null;
 
+    const webPageUrl = url
+    ? (<StyledLinkWrapper>
+      <a href={url} target="_blank" rel="noopener noreferrer">
+        {url}
+      </a>
+    </StyledLinkWrapper>)
+    : null;
+
+    const imageRegex = /(\.gif|\.jpg)\??.*$/;
+    const contentPicture = (() => {
+      if (url && url.match(imageRegex)) {
+        return (<StyledContentImage src={url} alt="" />);
+      }
+      return (null);
+    })();
+
     return (
       <article>
         <Row alignTop>
-
-          { picture }
-
+          { authorPicture }
           <Offset isRtl={isRtl}>
-
             { heading}
-
             { webPageName }
-
             { data.description && <div><ParsedText text={data.description} /></div> }
-
-            {url &&
-              <StyledLinkWrapper>
-                <a href={url} target="_blank" rel="noopener noreferrer">
-                  {url}
-                </a>
-              </StyledLinkWrapper>}
+            {webPageUrl}
+            {contentPicture}
           </Offset>
         </Row>
       </article>
