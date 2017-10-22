@@ -1,10 +1,9 @@
 {
   "mediaEmbed.embedPreview": "Embed preview",
   "mediaEmbed.notAvailable": "Not available",
-  "mediaEmbed.customizationOptionShowTasks": "Show tasks",
-  "mediaEmbed.customizationOptionShowTasksSlogan": "Add completed tasks to the embed",
+  "mediaEmbed.customizationOptionShowCompleteTasks": "Show complete tasks",
+  "mediaEmbed.customizationOptionShowIncompleteTasks": "Show incomplete tasks",
   "mediaEmbed.customizationOptionShowNotes": "Show notes",
-  "mediaEmbed.customizationOptionShowNotesSlogan": "Add notes to the embed",
   "mediaEmbed.warning": "Warning — sharing this will expose information to people outside your private team. Proceed with caution.",
   "mediaEmbed.copyButtonInactive": "Copied",
   "mediaEmbed.copyButton": "Copy",
