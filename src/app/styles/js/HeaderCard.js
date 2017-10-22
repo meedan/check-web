@@ -6,7 +6,6 @@ import {
   mediaQuery,
   units,
   headline,
-  black05,
   black38,
   black54,
   black87,
@@ -15,8 +14,6 @@ import {
   subheading1,
   Row,
   avatarSizeLarge,
-  borderWidthSmall,
-  defaultBorderRadius,
   } from './shared';
 
 // The "Header Card" is the layout at the top of Source, Profile and Team.
@@ -26,7 +23,6 @@ import {
 // @chris 2017-10-17
 
 const sourceProfileOffset = units(24);
-const sourceProfileBottomPad = units(6);
 const sourceProfileFabWidth = units(5);
 
 // Ideally this would be a FAB component,

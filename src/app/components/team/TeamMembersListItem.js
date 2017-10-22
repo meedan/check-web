@@ -21,7 +21,7 @@ import {
   Text,
   buttonInButtonGroupStyle,
   units,
-  avatarSize,
+  Offset,
 } from '../../styles/js/shared';
 
 const messages = defineMessages({
@@ -95,13 +95,13 @@ class TeamMembersListItem extends Component {
             <Link to={`/check/user/${teamUser.node.user.dbid}`} className="team-members__profile-link">
               <FlexRow>
                 <Tooltip placement="top" overlay={<UserTooltip user={teamUser.node.user} />}>
-                  <SourcePicture
-                    className="avatar"
-                    object={teamUser.node.user.source}
-                    alt={teamUser.node.user.name}
-                    style={rtlDetect.isRtlLang(this.props.intl.locale) ? { marginLeft: units(2) } : { marginRight: units(2) }}
-                    size={avatarSize}
-                  />
+                  <Offset isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
+                    <SourcePicture
+                      className="avatar"
+                      object={teamUser.node.user.source}
+                      alt={teamUser.node.user.name}
+                    />
+                  </Offset>
                 </Tooltip>
                 <Text ellipsis>
                   {teamUser.node.user.name}

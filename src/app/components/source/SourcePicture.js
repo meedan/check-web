@@ -1,23 +1,18 @@
 import React, { Component } from 'react';
 import config from 'config';
 import Relay from 'react-relay';
-import Avatar from 'material-ui/Avatar';
+import styled from 'styled-components';
 import UpdateSourceMutation from '../../relay/UpdateSourceMutation';
 import UpdateAccountMutation from '../../relay/UpdateAccountMutation';
-import { avatarSizeLarge, defaultBorderRadius, borderWidthSmall, black02 } from '../../styles/js/shared';
+import { avatarSizeLarge, avatarSize, defaultBorderRadius, borderWidthSmall, black02 } from '../../styles/js/shared';
 
-const styles = {
-  user: {
-    border: `${borderWidthSmall} solid ${black02}`,
-    borderRadius: '50%',
-    flexShrink: 0,
-  },
-  source: {
-    border: `${borderWidthSmall} solid ${black02}`,
-    borderRadius: defaultBorderRadius,
-    flexShrink: 0,
-  },
-};
+const StyledImage = styled.img`
+  border: ${borderWidthSmall} solid ${black02};
+  border-radius: ${props => props.type === 'source' ? defaultBorderRadius : '50%'};
+  flex-shrink: 0;
+  max-width: ${props => props.size === 'large' ? avatarSizeLarge : avatarSize};
+  max-height: ${props => props.size === 'large' ? avatarSizeLarge : avatarSize};
+`;
 
 class SourcePicture extends Component {
   constructor(props) {
@@ -122,10 +117,9 @@ class SourcePicture extends Component {
   render() {
     const size = this.props.size ? parseInt(this.props.size, 10) : parseInt(avatarSizeLarge, 10);
     return (
-      <Avatar
+      <StyledImage
         alt="avatar"
         size={size}
-        style={(this.props.type === 'source' || this.props.type === 'account') ? Object.assign(styles.source, this.props.style) : Object.assign(styles.user, this.props.style)}
         src={this.state.avatarUrl}
         className={`${this.props.className}`}
         onError={this.handleAvatarError.bind(this)}
