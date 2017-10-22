@@ -27,9 +27,20 @@ import {
   black38,
   defaultBorderRadius,
   Offset,
+  subheading1,
 } from '../../styles/js/shared';
 
-const StyledCardHeaderTextPrimary = styled(Link)`
+const StyledHeading = styled.h3`
+  font: ${subheading1};
+  font-weight: 500;
+  &,
+  a,
+  a:visited {
+    color: ${black87} !important;
+  }
+`;
+
+const StyledHeadingContainer = styled.span`
     padding-right: ${units(1)};
     display: inline-flex;
     align-items: center;
@@ -70,14 +81,6 @@ const StyledMediaDetail = styled.div`
     border-radius: ${defaultBorderRadius};
     // Disable border in some views
     ${props => (props.hideBorder ? 'border: none;' : null)}
-  }
-
-  .media__heading {
-    &,
-    & > a,
-    & > a:visited {
-      color: ${black87} !important;
-    }
   }
 
   .media-detail__description {
@@ -139,25 +142,35 @@ class MediaDetail extends Component {
     const sourceName = MediaUtil.sourceName(media, data);
     const createdAt = MediaUtil.createdAt(media);
     const isWebPage = media.url && data.provider === 'page';
-    const heading = isWebPage
-      ? (authorName || authorUsername)
-      : MediaUtil.title(media, data, this.props.intl);
-    const sourceUrl = media.team && media.project && media.project_source
-      ? `/${media.team.slug}/project/${media.project.dbid}/source/${media.project_source.dbid}`
-      : null;
-
     let projectId = media.project_id;
+
     if (!projectId && annotated && annotatedType === 'Project') {
       projectId = annotated.dbid;
     }
+
     const mediaUrl = projectId && media.team
       ? `/${media.team.slug}/project/${projectId}/media/${media.dbid}`
       : null;
 
+    const heading = (
+      <StyledHeading>
+        <Link to={mediaUrl}>
+          { isWebPage
+            ? (authorName || authorUsername)
+            : MediaUtil.title(media, data, this.props.intl)}
+        </Link>
+      </StyledHeading>);
+
+    const sourceUrl = media.team && media.project && media.project_source
+      ? `/${media.team.slug}/project/${media.project.dbid}/source/${media.project_source.dbid}`
+      : null;
+
     const projectTitle = media.project ? media.project.title : null;
+
     const projectUrl = projectId && media.team
       ? `/${media.team.slug}/project/${projectId}`
       : null;
+
     const path = this.props.location
       ? this.props.location.pathname
       : window.location.pathname;
@@ -186,6 +199,7 @@ class MediaDetail extends Component {
     } else if (isWebPage) {
       embedCard = (<WebPageMediaCard
         media={media}
+        mediaUrl={mediaUrl}
         data={data}
         heading={heading}
         isRtl={isRtl}
@@ -226,9 +240,9 @@ class MediaDetail extends Component {
       <div>
         {shouldNotDisplayHeading
           ? null
-          : <StyledCardHeaderTextPrimary to={mediaUrl} className="media__heading">
+          : <StyledHeadingContainer>
             {heading}
-          </StyledCardHeaderTextPrimary>}
+          </StyledHeadingContainer>}
         <StyledHeaderTextSecondary shouldNotDisplayHeading>
           <StyledMediaIconContainer>
             {mediaIcon}

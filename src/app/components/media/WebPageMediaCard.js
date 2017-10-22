@@ -4,7 +4,8 @@ import deepEqual from 'deep-equal';
 import styled from 'styled-components';
 import MediaUtil from './MediaUtil';
 import ParsedText from '../ParsedText';
-import { units, Row, Offset, black05, defaultBorderRadius, subheading1, caption } from '../../styles/js/shared';
+import { Link } from 'react-router';
+import { units, Row, Offset, black05, defaultBorderRadius, caption } from '../../styles/js/shared';
 
 const StyledImage = styled.img`
   border: 1px solid ${black05};
@@ -12,11 +13,6 @@ const StyledImage = styled.img`
   max-width: ${units(5)};
   max-height: ${units(5)};
   margin-top: 2px; // visual alignment
-`;
-
-const StyledSubheading = styled.h3`
-  font: ${subheading1};
-  font-weight: 500;
 `;
 
 const StyledLinkWrapper = styled.div`
@@ -31,8 +27,7 @@ class WebPageMediaCard extends Component {
   render() {
     const { media, data, heading, isRtl, authorName, authorUsername } = this.props;
     const url = MediaUtil.url(media, data);
-    const hasUniqueAuthorUsername = ((authorName && authorUsername) && (authorName !== authorUsername));
-    const picture = (() => {
+    const pictureUrl = (() => {
       if (data.picture && !data.picture.match(/\/screenshots\//)) {
         return (data.picture);
       } else if (data.favicon) {
@@ -41,47 +36,46 @@ class WebPageMediaCard extends Component {
       return (null);
     })();
 
+    const picture = (pictureUrl)
+      ? (<Offset isRtl={isRtl}>
+        <StyledImage alt="" src={pictureUrl} />
+      </Offset>)
+      : null;
+
+    // Todo: move webPageName logic to Pender
+    const hasUniqueAuthorUsername =
+      (authorName && authorUsername && (authorName !== authorUsername));
+    const webPageName = hasUniqueAuthorUsername
+      ? (<a href={data.author_url} target="_blank" rel="noopener noreferrer">
+        {authorUsername}
+      </a>)
+      : null;
+
     return (
       <article>
         <Row alignTop>
 
-          {(picture) ?
-            <Offset isRtl={isRtl}>
-              <StyledImage alt="" src={picture} />
-            </Offset>
-          : null }
+          { picture }
 
           <Offset isRtl={isRtl}>
 
-            { heading &&
-              <StyledSubheading> {heading} </StyledSubheading>}
+            { heading}
 
-            { hasUniqueAuthorUsername
-              ? <a href={data.author_url} target="_blank" rel="noopener noreferrer">
-                {authorUsername}
-              </a>
-              : null
-              }
+            { webPageName }
 
             { data.description && <div><ParsedText text={data.description} /></div> }
 
-            {data.url &&
+            {url &&
               <StyledLinkWrapper>
-                <a href={data.url} target="_blank" rel="noopener noreferrer">
-                  {data.url}
+                <a href={url} target="_blank" rel="noopener noreferrer">
+                  {url}
                 </a>
               </StyledLinkWrapper>}
-
           </Offset>
-
         </Row>
       </article>
     );
   }
 }
-
-WebPageMediaCard.propTypes = {
-  intl: intlShape.isRequired,
-};
 
 export default injectIntl(WebPageMediaCard);
