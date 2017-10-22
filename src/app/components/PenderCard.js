@@ -80,6 +80,7 @@ class PenderCard extends Component {
         <PenderCardContainer
           id={this.props.domId}
           className="pender-card"
+          style={{ maxHeight: 'none' }}
         />
 
         <PenderCardLoader
