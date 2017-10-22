@@ -1,22 +1,16 @@
 import React, { Component } from 'react';
-import Avatar from 'material-ui/Avatar';
-import styled from 'styled-components';
-import { stripUnit } from 'polished';
-import { avatarStyle, avatarSize } from '../styles/js/shared';
-
-const StyledAvatar = styled(Avatar)`
-  ${avatarStyle};
-`;
+import SourcePicture from './source/SourcePicture';
 
 class UserAvatar extends Component {
   render() {
-    const { size, user } = this.props;
+    const { user } = this.props;
 
     if (user) {
       return (
-        <StyledAvatar
-          src={user.source.image}
-          size={size ? stripUnit(size) : stripUnit(avatarSize)}
+        <SourcePicture
+          object={user.source}
+          type="user"
+          size="small"
           className="avatar"
         />
       );
