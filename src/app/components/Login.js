@@ -32,6 +32,7 @@ import {
   mediaQuery,
   caption,
   body2,
+  title,
   black54,
   black38,
   checkBlue,
@@ -44,6 +45,13 @@ import {
   defaultBorderRadius,
 } from '../styles/js/shared';
 
+const StyledSubHeader = styled.h2`
+    font: ${title};
+    font-weight: 600;
+    color: ${black54};
+    text-align: center;
+    margin-top: ${units(2)};
+`;
 
 const StyledEnhancedButton = styled(EnhancedButton)`
   border: 0;
@@ -92,11 +100,6 @@ const StyledCard = styled(Card)`
   ${mediaQuery.handheld`
     padding: ${units(8)} ${units(4)} ${units(3)} !important;
   `}
-
-  // hide the yellow autocomplete in Chrome
-  input:-webkit-autofill {
-      -webkit-box-shadow: 0 0 0px 1000px white inset;
-  }
 `;
 
 const BigButtons = styled.div`
@@ -306,7 +309,7 @@ class Login extends Component {
                 className="login__icon"
                 src={stringHelper('LOGO_URL')}
               />
-              <h2 style={{ textAlign: 'center' }} className="login__heading">
+              <StyledSubHeader className="login__heading">
                 {this.state.type === 'login'
                   ? <FormattedMessage
                     id="login.title"
@@ -316,7 +319,7 @@ class Login extends Component {
                     id="login.registerTitle"
                     defaultMessage="Register"
                   />}
-              </h2>
+              </StyledSubHeader>
               <Message message={this.state.message} />
               {this.state.type === 'login'
                 ? null
@@ -448,7 +451,7 @@ class Login extends Component {
                 defaultMessage={'Continue with {provider}'}
                 values={{ provider: 'Slack' }}
               />}
-              subheaderText={true}
+              subheaderText
             />
 
             <BigButton
@@ -460,7 +463,7 @@ class Login extends Component {
                 defaultMessage={'Continue with {provider}'}
                 values={{ provider: 'Twitter' }}
               />}
-              subheaderText={true}
+              subheaderText
             />
 
             <BigButton
@@ -474,7 +477,7 @@ class Login extends Component {
                   values={{ provider: 'Facebook' }}
                 />
               }
-              subheaderText={true}
+              subheaderText
             />
 
             {this.state.type === 'login'

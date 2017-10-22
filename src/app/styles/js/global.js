@@ -4,8 +4,8 @@ import {
   body1,
   black87,
   title,
-  black54,
   opaqueBlack87,
+  subHeading1,
 } from './shared';
 
 export const layout = `
@@ -39,7 +39,13 @@ export const typography = `
   }
 
   h2 {
-    color: ${black54};
+    color: ${black87};
+    font: ${subHeading1};
+  }
+
+  h1, h2, h3, h4, h5 {
+    margin: 0;
+    padding: 0;
   }
 
   a {
