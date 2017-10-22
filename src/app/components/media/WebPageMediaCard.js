@@ -1,24 +1,27 @@
 import React, { Component } from 'react';
-import { injectIntl, intlShape } from 'react-intl';
+import { injectIntl } from 'react-intl';
 import deepEqual from 'deep-equal';
 import styled from 'styled-components';
 import MediaUtil from './MediaUtil';
 import ParsedText from '../ParsedText';
-import { Link } from 'react-router';
 import { units, Row, Offset, black05, defaultBorderRadius, caption } from '../../styles/js/shared';
 
-const StyledImage = styled.img`
+// If there is an AuthorPicture
+// as a large icon or small favicon
+const StyledAuthorImage = styled.img`
   border: 1px solid ${black05};
   border-radius: ${defaultBorderRadius};
-  max-width: ${units(5)};
-  max-height: ${units(5)};
+  max-width: ${units(10)};
+  max-height: ${units(10)};
   margin-top: 2px; // visual alignment
 `;
 
+// If it is a link to a jpg, png, or gif
 const StyledContentImage = styled.img`
   border: 1px solid ${black05};
+  border-radius: ${defaultBorderRadius};
   max-width: 100%;
-  max-height: 100%;
+  max-height: ${units(60)};
   margin-top: ${units(1)};
 `;
 
@@ -45,7 +48,7 @@ class WebPageMediaCard extends Component {
 
     const authorPicture = (authorPictureUrl)
       ? (<Offset isRtl={isRtl}>
-        <StyledImage alt="" src={authorPictureUrl} />
+        <StyledAuthorImage alt="" src={authorPictureUrl} />
       </Offset>)
       : null;
 
@@ -66,7 +69,7 @@ class WebPageMediaCard extends Component {
     </StyledLinkWrapper>)
     : null;
 
-    const imageRegex = /(\.gif|\.jpg)\??.*$/;
+    const imageRegex = /\/.*\.(gifv?|jpe?g|png)(\?|#)?.*$/;
     const contentPicture = (() => {
       if (url && url.match(imageRegex)) {
         return (<StyledContentImage src={url} alt="" />);
