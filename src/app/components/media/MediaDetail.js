@@ -156,7 +156,7 @@ class MediaDetail extends Component {
       <StyledHeading>
         <Link to={mediaUrl}>
           { isWebPage
-            ? (authorName || authorUsername)
+            ? (data.title || authorName || authorUsername)
             : MediaUtil.title(media, data, this.props.intl)}
         </Link>
       </StyledHeading>);
