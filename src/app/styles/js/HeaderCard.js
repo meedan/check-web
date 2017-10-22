@@ -126,7 +126,6 @@ export const StyledAvatarEditButton = styled.div`
 `;
 
 export const StyledAvatar = styled(SourcePicture)`
-  margin-top: ${units(2)};
   flex-shrink: 0;
 `;
 
