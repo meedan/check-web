@@ -903,7 +903,7 @@ class Annotation extends Component {
                     <SourcePicture
                       className="avatar"
                       type="user"
-                      size={avatarSizeSmall}
+                      size="small"
                       object={activity.user.source}
                     />
                   </Tooltip>

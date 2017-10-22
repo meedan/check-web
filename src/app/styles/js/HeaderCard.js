@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { stripUnit } from 'polished';
-import SourcePicture from '../../components/source/SourcePicture';
 
 import {
   mediaQuery,
@@ -119,10 +118,6 @@ export const StyledAvatarEditButton = styled.div`
   button {
     min-width: ${avatarSizeLarge}!important;
   }
-`;
-
-export const StyledAvatar = styled(SourcePicture)`
-  flex-shrink: 0;
 `;
 
 export const StyledTwoColumns = styled(Row)`

@@ -9,7 +9,7 @@ import ParsedText from '../ParsedText';
 import TimeBefore from '../TimeBefore';
 import { truncateLength } from '../../helpers';
 import SourcePicture from './SourcePicture';
-import { units, black54, opaqueBlack54, avatarSizeSmall } from '../../styles/js/shared';
+import { units, black54, opaqueBlack54 } from '../../styles/js/shared';
 
 const StyledAccountCardBody = styled.div`
   margin-${props => (props.isRtl ? 'right' : 'left')}: ${units(2)};
@@ -42,7 +42,7 @@ class AccountCard extends React.Component {
     return (
       <Card className="source-card" style={{ marginBottom: units(2) }}>
         <CardText style={{ display: 'flex', paddingBottom: 0 }}>
-          <SourcePicture className="source-card__avatar" object={account} type="account" size={avatarSizeSmall} />
+          <SourcePicture className="source-card__avatar" object={account} type="source" size="small" />
 
           <StyledAccountCardBody isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
             <div className="source-card__heading">

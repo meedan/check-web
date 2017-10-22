@@ -5,14 +5,14 @@ import { Link } from 'react-router';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import { ListItem } from 'material-ui/List';
-import SourcePicture from '../source//SourcePicture';
 import MdClear from 'react-icons/lib/md/clear';
 import IconButton from 'material-ui/IconButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import rtlDetect from 'rtl-detect';
-import UpdateTeamUserMutation from '../../relay/UpdateTeamUserMutation';
-import Tooltip from 'rc-tooltip';
 import 'rc-tooltip/assets/bootstrap_white.css';
+import Tooltip from 'rc-tooltip';
+import SourcePicture from '../source/SourcePicture';
+import UpdateTeamUserMutation from '../../relay/UpdateTeamUserMutation';
 import UserTooltip from '../user/UserTooltip';
 import {
   selectStyle,
@@ -20,7 +20,6 @@ import {
   FlexRow,
   Text,
   buttonInButtonGroupStyle,
-  units,
   Offset,
 } from '../../styles/js/shared';
 
@@ -100,6 +99,8 @@ class TeamMembersListItem extends Component {
                       className="avatar"
                       object={teamUser.node.user.source}
                       alt={teamUser.node.user.name}
+                      size="small"
+                      type="user"
                     />
                   </Offset>
                 </Tooltip>

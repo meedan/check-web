@@ -4,14 +4,24 @@ import Relay from 'react-relay';
 import styled from 'styled-components';
 import UpdateSourceMutation from '../../relay/UpdateSourceMutation';
 import UpdateAccountMutation from '../../relay/UpdateAccountMutation';
-import { avatarSizeLarge, avatarSize, defaultBorderRadius, borderWidthSmall, black02 } from '../../styles/js/shared';
+import {
+  avatarSizeLarge,
+  avatarSize,
+  defaultBorderRadius,
+  borderWidthSmall,
+  black02,
+} from '../../styles/js/shared';
 
 const StyledImage = styled.img`
   border: ${borderWidthSmall} solid ${black02};
-  border-radius: ${props => props.type === 'source' ? defaultBorderRadius : '50%'};
+  border-radius: ${props =>
+    props.type === 'source' ? defaultBorderRadius : '50%'};
   flex-shrink: 0;
-  max-width: ${props => props.size === 'large' ? avatarSizeLarge : avatarSize};
-  max-height: ${props => props.size === 'large' ? avatarSizeLarge : avatarSize};
+  max-width: ${props =>
+    props.size === 'large' ? avatarSizeLarge : avatarSize};
+  max-height: ${props =>
+    props.size === 'large' ? avatarSizeLarge : avatarSize};
+  align-self: flex-start;
 `;
 
 class SourcePicture extends Component {
@@ -29,7 +39,10 @@ class SourcePicture extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.object.image && (this.state.avatarUrl !== nextProps.object.image)) {
+    if (
+      nextProps.object.image &&
+      this.state.avatarUrl !== nextProps.object.image
+    ) {
       this.setImage(nextProps.object.image);
     }
   }
@@ -76,7 +89,8 @@ class SourcePicture extends Component {
       const onSuccess = (response) => {
         let avatarUrl = this.defaultAvatar();
         try {
-          const object = (this.props.type === 'source' || this.props.type === 'user')
+          const object = this.props.type === 'source' ||
+            this.props.type === 'user'
             ? response.updateSource.source
             : this.props.type === 'account'
               ? response.updateAccount.account
@@ -109,18 +123,17 @@ class SourcePicture extends Component {
 
   defaultAvatar() {
     return this.props.type === 'source'
-    ? config.restBaseUrl.replace(/\/api.*/, '/images/source.png')
-    : config.restBaseUrl.replace(/\/api.*/, '/images/user.png');
+      ? config.restBaseUrl.replace(/\/api.*/, '/images/source.png')
+      : config.restBaseUrl.replace(/\/api.*/, '/images/user.png');
   }
 
-
   render() {
-    const size = this.props.size ? parseInt(this.props.size, 10) : parseInt(avatarSizeLarge, 10);
     return (
       <StyledImage
         alt="avatar"
-        size={size}
+        size={this.props.size}
         src={this.state.avatarUrl}
+        type={this.props.type}
         className={`${this.props.className}`}
         onError={this.handleAvatarError.bind(this)}
       />

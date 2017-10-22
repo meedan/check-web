@@ -174,6 +174,8 @@ export const avatarSizeLarge = units(9);
 export const avatarSize = units(5);
 export const avatarSizeSmall = units(4);
 
+// avatarStyle is deprecated
+// prefer SourcePicture instead
 export const avatarStyle = `
   border: ${borderWidthSmall} solid ${black05};
   border-radius: ${defaultBorderRadius};
