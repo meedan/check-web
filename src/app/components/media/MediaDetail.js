@@ -127,6 +127,9 @@ class MediaDetail extends Component {
   render() {
     const { media, annotated, annotatedType } = this.props;
     const data = JSON.parse(media.embed);
+    const locale = this.props.intl.locale;
+    const isRtl = rtlDetect.isRtlLang(locale);
+    const fromDirection = isRtl ? 'right' : 'left';
     const annotationsCount = MediaUtil.notesCount(media, data, this.props.intl);
     const randomNumber = Math.floor(Math.random() * 1000000);
     const status = getStatus(mediaStatuses(media), mediaLastStatus(media));
@@ -135,7 +138,10 @@ class MediaDetail extends Component {
     const authorUsername = MediaUtil.authorUsername(media, data);
     const sourceName = MediaUtil.sourceName(media, data);
     const createdAt = MediaUtil.createdAt(media);
-    const heading = MediaUtil.title(media, data, this.props.intl);
+    const isWebPage = media.url && data.provider === 'page';
+    const heading = isWebPage
+      ? (authorName || authorUsername)
+      : MediaUtil.title(media, data, this.props.intl);
     const sourceUrl = media.team && media.project && media.project_source
       ? `/${media.team.slug}/project/${media.project.dbid}/source/${media.project_source.dbid}`
       : null;
@@ -177,10 +183,14 @@ class MediaDetail extends Component {
           sourceName={sourceName}
         />
       );
-    } else if (media.url && data.provider === 'page') {
+    } else if (isWebPage) {
       embedCard = (<WebPageMediaCard
         media={media}
         data={data}
+        heading={heading}
+        isRtl={isRtl}
+        authorName={authorName}
+        authorUserName={authorUsername}
       />);
     } else if (media.url) {
       embedCard = (
@@ -211,10 +221,6 @@ class MediaDetail extends Component {
     const cardClassName =
       `${this.statusToClass('media-detail', mediaLastStatus(media))} ` +
       `media-detail--${MediaUtil.mediaTypeCss(media, data)}`;
-
-    const locale = this.props.intl.locale;
-    const isRtl = rtlDetect.isRtlLang(locale);
-    const fromDirection = isRtl ? 'right' : 'left';
 
     const cardHeaderText = (
       <div>
