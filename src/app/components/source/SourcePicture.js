@@ -12,6 +12,10 @@ import {
   defaultBorderRadius,
 } from '../../styles/js/shared';
 
+// Sources are square. If the image is not square,
+// shink it to show the whole logo.
+// Users are round. If the image is not round,
+// stretch it to cover it the whole circle.
 const StyledImage = styled.div`
   flex-shrink: 0;
   align-self: flex-start;
@@ -70,6 +74,7 @@ class SourcePicture extends Component {
   }
 
   setImage(image) {
+    // Don't use screeshots as a source image
     if (image && image !== '' && image !== this.state.avatarUrl && !image.match(/\/screenshots\//)) {
       this.setState({ avatarUrl: image });
     }
@@ -117,7 +122,7 @@ class SourcePicture extends Component {
             : this.props.type === 'account'
               ? response.updateAccount.account
               : {};
-          avatarUrl = (object.image && !object.image.match(/\/screenshots\//)) ? object.image : this.defaultAvatar();
+          avatarUrl = object.image || this.defaultAvatar();
         } catch (e) {}
         this.setState({ avatarUrl, queriedBackend: true });
       };
