@@ -1200,7 +1200,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
         @driver.find_element(:css, '#code').send_keys(' ')
         @driver.action.send_keys(:control, 'v').perform
         sleep 1
-        expect((@driver.find_element(:css, '#code').attribute('value') =~ /hide_tasks%3D1%26hide_notes%3D1/).nil?).to be(false)
+        expect((@driver.find_element(:css, '#code').attribute('value') =~ /hide_open_tasks%3D1%26hide_tasks%3D1%26hide_notes%3D1/).nil?).to be(false)
         sleep 5
       end
     end

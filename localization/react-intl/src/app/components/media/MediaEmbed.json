@@ -8,20 +8,16 @@
     "defaultMessage": "Not available"
   },
   {
-    "id": "mediaEmbed.customizationOptionShowTasks",
-    "defaultMessage": "Show tasks"
+    "id": "mediaEmbed.customizationOptionShowCompleteTasks",
+    "defaultMessage": "Show complete tasks"
   },
   {
-    "id": "mediaEmbed.customizationOptionShowTasksSlogan",
-    "defaultMessage": "Add completed tasks to the embed"
+    "id": "mediaEmbed.customizationOptionShowIncompleteTasks",
+    "defaultMessage": "Show incomplete tasks"
   },
   {
     "id": "mediaEmbed.customizationOptionShowNotes",
     "defaultMessage": "Show notes"
-  },
-  {
-    "id": "mediaEmbed.customizationOptionShowNotesSlogan",
-    "defaultMessage": "Add notes to the embed"
   },
   {
     "id": "mediaEmbed.warning",

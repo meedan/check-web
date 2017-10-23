@@ -73,6 +73,7 @@ class MediaEmbed extends Component {
       codeCopied: false,
       customizationOptions: {
         showTasks: true,
+        showOpenTasks: true,
         showNotes: true,
       },
     };
@@ -127,6 +128,9 @@ class MediaEmbed extends Component {
   render() {
     let url = window.location.href.replace(/\/embed$/, '');
     const parts = [];
+    if (!this.state.customizationOptions.showOpenTasks) {
+      parts.push('hide_open_tasks=1');
+    }
     if (!this.state.customizationOptions.showTasks) {
       parts.push('hide_tasks=1');
     }
@@ -162,16 +166,9 @@ class MediaEmbed extends Component {
                 <FlexRow>
                   <span className="media-embed__customization-label">
                     <FormattedMessage
-                      id="mediaEmbed.customizationOptionShowTasks"
-                      defaultMessage="Show tasks"
+                      id="mediaEmbed.customizationOptionShowCompleteTasks"
+                      defaultMessage="Show complete tasks"
                     />{' '}
-                    <br />
-                    <span className="media-embed__customization-slogan">
-                      <FormattedMessage
-                        id="mediaEmbed.customizationOptionShowTasksSlogan"
-                        defaultMessage="Add completed tasks to the embed"
-                      />
-                    </span>
                   </span>
                   <span>
                     <Checkbox
@@ -185,16 +182,25 @@ class MediaEmbed extends Component {
                 <FlexRow>
                   <span className="media-embed__customization-label">
                     <FormattedMessage
+                      id="mediaEmbed.customizationOptionShowIncompleteTasks"
+                      defaultMessage="Show incomplete tasks"
+                    />{' '}
+                  </span>
+                  <span>
+                    <Checkbox
+                      className="media-embed__customization-option"
+                      checked={this.state.customizationOptions.showOpenTasks}
+                      onCheck={this.handleSelectCheckbox.bind(this, 'showOpenTasks')}
+                    />
+                  </span>
+                </FlexRow>
+
+                <FlexRow>
+                  <span className="media-embed__customization-label">
+                    <FormattedMessage
                       id="mediaEmbed.customizationOptionShowNotes"
                       defaultMessage="Show notes"
                     />{' '}
-                    <br />
-                    <span className="media-embed__customization-slogan">
-                      <FormattedMessage
-                        id="mediaEmbed.customizationOptionShowNotesSlogan"
-                        defaultMessage="Add notes to the embed"
-                      />
-                    </span>
                   </span>
                   <span>
                     <Checkbox

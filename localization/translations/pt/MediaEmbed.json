@@ -1,10 +1,9 @@
 {
   "mediaEmbed.embedPreview": "Pré-visualização da incorporação",
   "mediaEmbed.notAvailable": "Não disponível",
-  "mediaEmbed.customizationOptionShowTasks": "Mostrar tarefas",
-  "mediaEmbed.customizationOptionShowTasksSlogan": "Adicionar tarefas concluídas à incorporação",
+  "mediaEmbed.customizationOptionShowCompleteTasks": "Mostrar tarefas concluídas",
+  "mediaEmbed.customizationOptionShowIncompleteTasks": "Mostrar tarefas inconcluídas",
   "mediaEmbed.customizationOptionShowNotes": "Mostrar notas",
-  "mediaEmbed.customizationOptionShowNotesSlogan": "Adicione notas à incorporação",
   "mediaEmbed.warning": "Aviso — compartilhar isto irá expor informação para pessoas externas à sua equipe privada. Proceda com cuidado.",
   "mediaEmbed.copyButtonInactive": "Copiado",
   "mediaEmbed.copyButton": "Copiar",
