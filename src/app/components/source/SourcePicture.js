@@ -10,38 +10,40 @@ import {
   avatarSizeSmall,
   avatarSizeExtraSmall,
   defaultBorderRadius,
-  borderWidthSmall,
-  black02,
 } from '../../styles/js/shared';
 
-const StyledImage = styled.img`
-  border: ${borderWidthSmall} solid ${black02};
+const StyledImage = styled.div`
+  flex-shrink: 0;
+  align-self: flex-start;
   border-radius: ${props =>
     props.type === 'source' ? defaultBorderRadius : '50%'};
-  flex-shrink: 0;
+  background-repeat: no-repeat;
+  background-position: ${props => props.type === 'source' ? 'top' : 'center'};
+  background-size: ${props => props.type === 'source' ? 'contain' : 'cover'};
+  background-image: url('${props => props.avatarUrl}');
+
   ${props => (() => {
     if (props.size === 'large') {
       return (`
-        max-width: ${avatarSizeLarge};
-        max-height: ${avatarSizeLarge};
+        width: ${avatarSizeLarge};
+        height: ${avatarSizeLarge};
       `);
     } else if (props.size === 'small') {
       return (`
-        max-width: ${avatarSizeSmall};
-        max-height: ${avatarSizeSmall};
+        width: ${avatarSizeSmall};
+        height: ${avatarSizeSmall};
       `);
     } else if (props.size === 'extraSmall') {
       return (`
-        max-width: ${avatarSizeExtraSmall};
-        max-height: ${avatarSizeExtraSmall};
+        width: ${avatarSizeExtraSmall};
+        height: ${avatarSizeExtraSmall};
       `);
     }
     return (`
-        max-width: ${avatarSize};
-        max-height: ${avatarSize};
+        width: ${avatarSize};
+        height: ${avatarSize};
     `);
   })()}
-  align-self: flex-start;
 `;
 
 class SourcePicture extends Component {
@@ -68,7 +70,7 @@ class SourcePicture extends Component {
   }
 
   setImage(image) {
-    if (image && image !== '' && image !== this.state.avatarUrl) {
+    if (image && image !== '' && image !== this.state.avatarUrl && !image.match(/\/screenshots\//)) {
       this.setState({ avatarUrl: image });
     }
   }
@@ -115,7 +117,7 @@ class SourcePicture extends Component {
             : this.props.type === 'account'
               ? response.updateAccount.account
               : {};
-          avatarUrl = object.image || this.defaultAvatar();
+          avatarUrl = (object.image && !object.image.match(/\/screenshots\//)) ? object.image : this.defaultAvatar();
         } catch (e) {}
         this.setState({ avatarUrl, queriedBackend: true });
       };
@@ -152,11 +154,11 @@ class SourcePicture extends Component {
       <StyledImage
         alt="avatar"
         size={this.props.size}
-        src={this.state.avatarUrl}
         type={this.props.type}
         className={`${this.props.className}`}
         onError={this.handleAvatarError.bind(this)}
         style={this.props.style}
+        avatarUrl={this.state.avatarUrl}
       />
     );
   }
