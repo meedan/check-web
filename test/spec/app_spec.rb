@@ -291,15 +291,21 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     #   expect(@driver.find_element(:link_text, 'test.png').nil?).to be(false)
     # end
 
-    it "should upload image when registering", bin5: true do
-      email, password, avatar = ["test-#{Time.now.to_i}@example.com", '12345678', File.join(File.dirname(__FILE__), 'test.png')]
-      page = LoginPage.new(config: @config, driver: @driver).load
-             .register_and_login_with_email(email: email, password: password, file: avatar)
+    # Disabled because the functionality changed to use a 
+    # background image in CSS instead of an <img> element.
+    # 
+    #  I think we could do something like this instead: 
+    #  https://stackoverflow.com/questions/11198882/how-do-you-test-if-a-div-has-a-certain-css-style-in-rspec-capybara
+    # 
+    # it "should upload image when registering", bin5: true do
+    #   email, password, avatar = ["test-#{Time.now.to_i}@example.com", '12345678', File.join(File.dirname(__FILE__), 'test.png')]
+    #   page = LoginPage.new(config: @config, driver: @driver).load
+    #          .register_and_login_with_email(email: email, password: password, file: avatar)
 
-      me_page = MePage.new(config: @config, driver: page.driver).load
-      avatar = me_page.avatar
-      expect(avatar.attribute('src').match(/test\.png/).nil?).to be(false)
-    end
+    #   me_page = MePage.new(config: @config, driver: page.driver).load
+    #   avatar = me_page.avatar
+    #   expect(avatar.attribute('src').match(/test\.png/).nil?).to be(false)
+    # end
 
     it "should redirect to 404 page", bin4: true do
       @driver.navigate.to @config['self_url'] + '/something-that/does-not-exist'
