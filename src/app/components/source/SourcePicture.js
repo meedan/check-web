@@ -10,6 +10,7 @@ import {
   avatarSizeSmall,
   avatarSizeExtraSmall,
   defaultBorderRadius,
+  black05,
 } from '../../styles/js/shared';
 
 // Sources are square. If the image is not square,
@@ -22,9 +23,10 @@ const StyledImage = styled.div`
   border-radius: ${props =>
     props.type === 'source' ? defaultBorderRadius : '50%'};
   background-repeat: no-repeat;
-  background-position: ${props => props.type === 'source' ? 'top' : 'center'};
+  background-position: center;
   background-size: ${props => props.type === 'source' ? 'contain' : 'cover'};
   background-image: url('${props => props.avatarUrl}');
+  ${props => props.type === 'source' ? `border: 1px solid ${black05};` : null}
 
   ${props => (() => {
     if (props.size === 'large') {
