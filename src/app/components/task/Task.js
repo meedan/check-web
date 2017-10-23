@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay';
 import { Card, CardHeader, CardActions, CardText } from 'material-ui/Card';
-import Avatar from 'material-ui/Avatar';
 import TextField from 'material-ui/TextField';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import Dialog from 'material-ui/Dialog';
@@ -11,6 +10,7 @@ import IconButton from 'material-ui/IconButton';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import styled from 'styled-components';
+import SourcePicture from '../source/SourcePicture';
 import SingleChoiceTask from './SingleChoiceTask';
 import MultiSelectTask from './MultiSelectTask';
 import Message from '../Message';
@@ -418,10 +418,11 @@ class Task extends Component {
         {data.by
           ? <div className="task__resolver" style={{ display: 'flex', alignItems: 'center' }}>
             <Tooltip placement="top" overlay={<UserTooltip user={by.user} />}>
-              <Avatar
+              <SourcePicture
                 style={{ margin: `0 ${units(1)}` }}
-                size={parseInt(units(3), 10)}
-                src={by.user.source.image}
+                size="extraSmall"
+                type="user"
+                object={by.user.source}
               />
             </Tooltip>
             <small>

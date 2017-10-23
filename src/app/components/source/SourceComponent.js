@@ -27,6 +27,7 @@ import AccountCard from './AccountCard';
 import AccountChips from './AccountChips';
 import SourceLanguages from './SourceLanguages';
 import SourceTags from './SourceTags';
+import SourcePicture from './SourcePicture';
 import Annotations from '../annotations/Annotations';
 import PageTitle from '../PageTitle';
 import Medias from '../media/Medias';
@@ -58,7 +59,6 @@ import {
   StyledMetadata,
   StyledHelper,
   StyledDescription,
-  StyledAvatar,
   StyledAvatarEditButton,
 } from '../../styles/js/HeaderCard';
 
@@ -1104,10 +1104,11 @@ class SourceComponent extends Component {
       <div>
         <StyledTwoColumns>
           <StyledSmallColumn isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
-            <StyledAvatar
+            <SourcePicture
               object={source}
               type="source"
               className="source__avatar"
+              size="large"
             />
           </StyledSmallColumn>
 
@@ -1215,10 +1216,11 @@ class SourceComponent extends Component {
     return (
       <StyledTwoColumns>
         <StyledSmallColumn isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
-          <StyledAvatar
+          <SourcePicture
             object={source}
             type="source"
             className="source__avatar"
+            size="large"
           />
           {!this.state.editProfileImg ? (
             <StyledAvatarEditButton className="source__edit-avatar-button">

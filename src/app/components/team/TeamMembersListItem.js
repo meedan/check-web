@@ -5,14 +5,14 @@ import { Link } from 'react-router';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import { ListItem } from 'material-ui/List';
-import SourcePicture from '../source//SourcePicture';
 import MdClear from 'react-icons/lib/md/clear';
 import IconButton from 'material-ui/IconButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import rtlDetect from 'rtl-detect';
-import UpdateTeamUserMutation from '../../relay/UpdateTeamUserMutation';
-import Tooltip from 'rc-tooltip';
 import 'rc-tooltip/assets/bootstrap_white.css';
+import Tooltip from 'rc-tooltip';
+import SourcePicture from '../source/SourcePicture';
+import UpdateTeamUserMutation from '../../relay/UpdateTeamUserMutation';
 import UserTooltip from '../user/UserTooltip';
 import {
   selectStyle,
@@ -20,8 +20,7 @@ import {
   FlexRow,
   Text,
   buttonInButtonGroupStyle,
-  units,
-  avatarSize,
+  Offset,
 } from '../../styles/js/shared';
 
 const messages = defineMessages({
@@ -95,13 +94,15 @@ class TeamMembersListItem extends Component {
             <Link to={`/check/user/${teamUser.node.user.dbid}`} className="team-members__profile-link">
               <FlexRow>
                 <Tooltip placement="top" overlay={<UserTooltip user={teamUser.node.user} />}>
-                  <SourcePicture
-                    className="avatar"
-                    object={teamUser.node.user.source}
-                    alt={teamUser.node.user.name}
-                    style={rtlDetect.isRtlLang(this.props.intl.locale) ? { marginLeft: units(2) } : { marginRight: units(2) }}
-                    size={avatarSize}
-                  />
+                  <Offset isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
+                    <SourcePicture
+                      className="avatar"
+                      object={teamUser.node.user.source}
+                      alt={teamUser.node.user.name}
+                      size="small"
+                      type="user"
+                    />
+                  </Offset>
                 </Tooltip>
                 <Text ellipsis>
                   {teamUser.node.user.name}

@@ -248,7 +248,6 @@ class TeamComponent extends Component {
 
     const TeamAvatar = styled.div`
       ${avatarStyle};
-      margin-top: ${units(2.5)};
     `;
 
     const StyledCardHeader = styled(CardHeader)`

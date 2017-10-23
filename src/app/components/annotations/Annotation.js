@@ -45,7 +45,6 @@ import {
   breakWordStyles,
   Row,
   defaultBorderRadius,
-  avatarSizeSmall,
 } from '../../styles/js/shared';
 
 const dotSize = borderWidthLarge;
@@ -903,7 +902,7 @@ class Annotation extends Component {
                     <SourcePicture
                       className="avatar"
                       type="user"
-                      size={avatarSizeSmall}
+                      size="small"
                       object={activity.user.source}
                     />
                   </Tooltip>

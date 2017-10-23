@@ -10,11 +10,7 @@ import ParsedText from '../ParsedText';
 import TimeBefore from '../TimeBefore';
 import SourcePicture from './SourcePicture';
 import { truncateLength } from '../../helpers';
-import { units, avatarStyle, opaqueBlack54, subheading1, black87 } from '../../styles/js/shared';
-
-const StyledSourcePicture = styled(SourcePicture)`
-    ${avatarStyle}
-`;
+import { units, opaqueBlack54, subheading1, black87 } from '../../styles/js/shared';
 
 const StyledSourceCardBody = styled.div`
   margin-${props => (props.isRtl ? 'right' : 'left')}: ${units(2)};
@@ -28,10 +24,8 @@ const StyledSourceCardBody = styled.div`
 
 class SourceCard extends React.Component {
   render() {
-    const { source } = this.props.source;
+    const { source, team, project_id } = this.props.source;
     const createdAt = MediaUtil.createdAt(source);
-
-    const { team, project_id } = this.props.source;
     const sourceUrl = `/${team.slug}/project/${project_id}/source/${source.dbid}`;
 
     const byUser = (source.user && source.user.source && source.user.source.dbid && source.user.name !== 'Pender') ?
@@ -40,7 +34,7 @@ class SourceCard extends React.Component {
     return (
       <Card className="source-card" style={{ marginBottom: units(2) }}>
         <CardText className="source-card__content" style={{ display: 'flex', paddingBottom: units(1) }}>
-          <StyledSourcePicture object={source} type="source" />
+          <SourcePicture size="large" object={source} type="source" />
           <StyledSourceCardBody
             className="source-card__body"
             isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}

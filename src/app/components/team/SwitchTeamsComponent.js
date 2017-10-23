@@ -138,10 +138,6 @@ class SwitchTeamsComponent extends Component {
       return otherTeams.push(team);
     });
 
-    const buildUrl = function buildUrl(team) {
-      return `${window.location.protocol}//${config.selfHost}/${team.slug}`;
-    };
-
     const cardTitle = isUserSelf ?
       <FormattedMessage id="teams.yourTeams" defaultMessage="Your teams" /> :
       <FormattedMessage id="teams.userTeams" defaultMessage="{name}'s teams" values={{ name: user.name }} />;
@@ -160,7 +156,7 @@ class SwitchTeamsComponent extends Component {
                 hoverColor={highlightBlue}
                 focusRippleColor={checkBlue}
                 touchRippleColor={checkBlue}
-                containerElement={<Link to={buildUrl(team)} />}
+                containerElement={<Link to={`/${team.slug}`} />}
                 leftAvatar={<Avatar style={teamAvatarStyle} src={team.avatar} />}
                 onClick={this.setCurrentTeam.bind(this, team, currentUser)}
                 primaryText={team.name}
@@ -175,7 +171,7 @@ class SwitchTeamsComponent extends Component {
                 hoverColor={highlightBlue}
                 focusRippleColor={checkBlue}
                 touchRippleColor={checkBlue}
-                href={buildUrl(team)}
+                containerElement={<Link to={`/${team.slug}`} />}
                 leftAvatar={<Avatar style={teamAvatarStyle} src={team.avatar} />}
                 primaryText={team.name}
                 rightIconButton={teamButton(team)}

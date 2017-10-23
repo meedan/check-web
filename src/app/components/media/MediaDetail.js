@@ -141,7 +141,11 @@ class MediaDetail extends Component {
     const authorUsername = MediaUtil.authorUsername(media, data);
     const sourceName = MediaUtil.sourceName(media, data);
     const createdAt = MediaUtil.createdAt(media);
+    const isImage = !!media.media.embed_path;
+    const isQuote = media.quote && media.quote.length;
     const isWebPage = media.url && data.provider === 'page';
+    const isPender = media.url && data.provider !== 'page';
+
     let projectId = media.project_id;
 
     if (!projectId && annotated && annotatedType === 'Project') {
@@ -157,7 +161,7 @@ class MediaDetail extends Component {
         <Link to={mediaUrl}>
           { isWebPage
             ? (data.title || authorName || authorUsername)
-            : MediaUtil.title(media, data, this.props.intl)}
+            : MediaUtil.title(media, data, this.props.intl) }
         </Link>
       </StyledHeading>);
 
@@ -177,46 +181,49 @@ class MediaDetail extends Component {
 
     const projectPage = /^\/.*\/project\//.test(path);
 
-    let embedCard = null;
-
     media.url = media.media.url;
     media.quote = media.media.quote;
     media.embed_path = media.media.embed_path;
     media.quoteAttributions = media.media.quoteAttributions;
 
-    if (media.media.embed_path) {
-      const embedPath = media.media.embed_path;
-      embedCard = <ImageMediaCard imagePath={embedPath} />;
-    } else if (media.quote && media.quote.length) {
-      embedCard = (
-        <QuoteMediaCard
-          quote={media.quote}
-          languageCode={media.language_code}
-          sourceUrl={sourceUrl}
-          sourceName={sourceName}
-        />
-      );
-    } else if (isWebPage) {
-      embedCard = (<WebPageMediaCard
-        media={media}
-        mediaUrl={mediaUrl}
-        data={data}
-        heading={heading}
-        isRtl={isRtl}
-        authorName={authorName}
-        authorUserName={authorUsername}
-      />);
-    } else if (media.url) {
-      embedCard = (
-        <PenderCard
-          url={media.url}
-          penderUrl={config.penderUrl}
-          fallback={null}
-          domId={`pender-card-${randomNumber}`}
-          mediaVersion={this.state.mediaVersion || data.refreshes_count}
-        />
-      );
-    }
+    const embedCard = (() => {
+      if (isImage) {
+        return <ImageMediaCard imagePath={media.embed_path} />;
+      } else if (isQuote) {
+        return (
+          <QuoteMediaCard
+            quote={media.quote}
+            languageCode={media.language_code}
+            sourceUrl={sourceUrl}
+            sourceName={sourceName}
+          />
+        );
+      } else if (isWebPage) {
+        return (
+          <WebPageMediaCard
+            media={media}
+            mediaUrl={mediaUrl}
+            data={data}
+            heading={heading}
+            isRtl={isRtl}
+            authorName={authorName}
+            authorUserName={authorUsername}
+          />
+        );
+      } else if (isPender) {
+        return (
+          <PenderCard
+            url={media.url}
+            penderUrl={config.penderUrl}
+            fallback={null}
+            domId={`pender-card-${randomNumber}`}
+            mediaVersion={this.state.mediaVersion || data.refreshes_count}
+          />
+        );
+      }
+
+      return (null);
+    })();
 
     const mediaIcon = (() => {
       if (media.media.embed_path && media.media.embed_path !== '') {
@@ -229,6 +236,7 @@ class MediaDetail extends Component {
 
     // Don't display redunant heading if the card is explicitly expanded with state
     // (or implicitly expanded with initiallyExpanded prop)
+    // TODO: always display it if it's been edited
     const shouldNotDisplayHeading =
       this.state.expanded || (this.state.expanded == null && this.props.initiallyExpanded);
 
@@ -264,14 +272,14 @@ class MediaDetail extends Component {
               </Offset>
             </Row>
             : null}
-          {sourceUrl
+          {sourceUrl && sourceName
             ? <Offset isRtl={isRtl}>
               <Link to={sourceUrl}>
                 <Row>
                   {/* ideally this would be SourcePicture not FaFeed — CGB 2017-9-13 */}
                   <FaFeed style={{ width: 16 }} />
                   {' '}
-                  {sourceName || authorName || authorUsername}
+                  { sourceName }
                 </Row>
               </Link>
             </Offset>

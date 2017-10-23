@@ -9,7 +9,6 @@ import PageTitle from '../PageTitle';
 import TeamMembersListItem from './TeamMembersListItem';
 import Can from '../Can';
 import {
-  ContentColumn,
   FlexRow,
   StyledMdCardTitle,
   cardInCardGroupStyle,
