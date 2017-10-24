@@ -48,22 +48,16 @@ class HeaderComponent extends Component {
     const { inTeamContext, loggedIn, drawerToggle, currentUserIsMember } = this.props;
     const isRtl = rtlDetect.isRtlLang(locale);
     const fromDirection = isRtl ? 'right' : 'left';
-    const path = this.props.location
-      ? this.props.location.pathname
-      : window.location.pathname;
+
     const AlignOpposite = styled.div`
       margin-${fromDirection}: auto;
       `;
-
-    const joinPage = /^\/([^/]+)\/join$/.test(path);
 
     const editProjectMenuItem = (
       <ProjectMenuRelay key="headerActions.projectMenu" {...this.props} />
     );
 
-    const trashButton = (
-      <TeamMenuRelay {...this.props} />
-    );
+    const trashButton = <TeamMenuRelay {...this.props} />;
 
     const searchButton = (
       <StyledIconButton
@@ -77,13 +71,7 @@ class HeaderComponent extends Component {
       </StyledIconButton>
     );
 
-    const checkLogo = (
-      <img
-        width={units(8)}
-        alt="Team Logo"
-        src={stringHelper('LOGO_URL')}
-      />
-    );
+    const checkLogo = <img width={units(8)} alt="Team Logo" src={stringHelper('LOGO_URL')} />;
 
     const signInButton = (() => {
       if (!loggedIn) {
@@ -96,18 +84,24 @@ class HeaderComponent extends Component {
           </Link>
         );
       }
-      return (null);
+      return null;
     })();
 
+    const teamPrivateContentShouldShow =
+      (inTeamContext && currentUserIsMember) || (inTeamContext && !this.props.team.private);
+
+    const teamPublicContentShouldShow =
+      inTeamContext && !currentUserIsMember && this.props.team.private;
+
     const primary = (() => {
-      if (inTeamContext && (currentUserIsMember || !this.props.team.private)) {
+      if (teamPrivateContentShouldShow) {
         return (
           <Row containsEllipsis>
             <div><TeamHeader {...this.props} /></div>
             <div><ProjectHeader isRtl {...this.props} /></div>
           </Row>
         );
-      } else if (inTeamContext && !currentUserIsMember && this.props.team.private) {
+      } else if (teamPublicContentShouldShow) {
         return (
           <Row containsEllipsis>
             <TeamPublicHeader isRtl {...this.props} />
@@ -123,18 +117,17 @@ class HeaderComponent extends Component {
       );
     })();
 
-    const secondary = (() => (
+    const secondary = (() =>
       <AlignOpposite>
         <Row>
           <Offset isRtl>
             {signInButton}
           </Offset>
-          { !joinPage && editProjectMenuItem }
-          {inTeamContext ? trashButton : null}
-          {inTeamContext ? searchButton : null}
+          {teamPrivateContentShouldShow && editProjectMenuItem}
+          {teamPrivateContentShouldShow && trashButton}
+          {teamPrivateContentShouldShow && searchButton}
         </Row>
-      </AlignOpposite>
-      ))();
+      </AlignOpposite>)();
 
     return (
       <HeaderBar>
@@ -162,17 +155,12 @@ class Header extends Component {
         <Relay.RootContainer
           Component={HeaderContainer}
           route={route}
-          renderFetched={
-            data => <HeaderContainer
-              {...this.props}
-              {...data}
-            />
-          }
+          renderFetched={data => <HeaderContainer {...this.props} {...data} />}
         />
       );
     }
 
-    return (<HeaderComponent {...this.props} />);
+    return <HeaderComponent {...this.props} />;
   }
 }
 
