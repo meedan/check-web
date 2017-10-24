@@ -308,6 +308,7 @@ class MediaMetadata extends Component {
     const newTitle = (titleInput.value || '').trim();
 
     if (newTitle === this.props.heading) {
+      this.setState({ isEditing: false });
       return;
     }
 
