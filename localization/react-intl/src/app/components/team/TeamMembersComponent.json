@@ -1,9 +1,5 @@
 [
   {
-    "id": "teamMembersComponent.title",
-    "defaultMessage": "Team Members"
-  },
-  {
     "id": "teamMembershipRequests.requestsToJoin",
     "defaultMessage": "Requests to join"
   },
