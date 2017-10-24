@@ -474,9 +474,7 @@ class TeamComponent extends Component {
             if (!isEditing) {
               return (
                 <ContentColumn>
-                  <Can permissions={team.permissions} permission="update Team">
-                    <TeamMembers {...this.props} />
-                  </Can>
+                  <TeamMembers {...this.props} />
                   <Card style={{ marginTop: units(2) }}>
                     <StyledCardHeader
                       title={<MappedMessage msgObj={messages} msgKey="verificationProjects" />}
