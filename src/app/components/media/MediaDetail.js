@@ -156,12 +156,12 @@ class MediaDetail extends Component {
       ? `/${media.team.slug}/project/${projectId}/media/${media.dbid}`
       : null;
 
+    const title = isWebPage ? (data.title || authorName || authorUsername) : MediaUtil.title(media, data, this.props.intl);
+
     const heading = (
       <StyledHeading className="media__heading">
         <Link to={mediaUrl}>
-          { isWebPage
-            ? (data.title || authorName || authorUsername)
-            : MediaUtil.title(media, data, this.props.intl) }
+          {title}
         </Link>
       </StyledHeading>);
 
@@ -315,7 +315,7 @@ class MediaDetail extends Component {
             </FadeIn>
           </CardText>
           <CardActions expandable>
-            <MediaMetadata data={data} heading={heading} {...this.props} />
+            <MediaMetadata data={data} heading={title} {...this.props} />
           </CardActions>
         </Card>
       </StyledMediaDetail>

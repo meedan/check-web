@@ -307,6 +307,10 @@ class MediaMetadata extends Component {
     const titleInput = document.querySelector(`#media-detail-title-input-${media.dbid}`);
     const newTitle = (titleInput.value || '').trim();
 
+    if (newTitle === this.props.heading) {
+      return;
+    }
+
     const onFailure = (transaction) => {
       const transactionError = transaction.getError();
       transactionError.json
