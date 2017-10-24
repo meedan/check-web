@@ -183,10 +183,12 @@ class DrawerNavigation extends Component {
           {inTeamContext
             ? <DrawerHeader>
               <Row style={{ alignItems: 'flex-start', justifyContent: 'space-between' }}>
-                <TeamAvatar
-                  style={{ backgroundImage: `url(${this.props.team.avatar})` }}
-                  size={units(7)}
-                />
+                <Link style={{ cursor: 'pointer' }} to={`/${this.props.team.slug}/`}>
+                  <TeamAvatar
+                    style={{ backgroundImage: `url(${this.props.team.avatar})` }}
+                    size={units(7)}
+                  />
+                </Link>
                 <Offset>
                   {loggedIn && yourProfileButton}
                 </Offset>

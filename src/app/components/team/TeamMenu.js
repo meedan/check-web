@@ -11,11 +11,6 @@ class TeamMenu extends Component {
     return history;
   }
 
-  handleClick() {
-    const history = this.getHistory();
-    history.push(`/${this.props.team.slug}/members`);
-  }
-
   handleClickTrash() {
     const history = this.getHistory();
     history.push(`/${this.props.team.slug}/trash`);

@@ -310,26 +310,26 @@ class TeamComponent extends Component {
                           <TeamAvatar
                             style={{ backgroundImage: `url(${avatarPreview || team.avatar})` }}
                           />
-                          {!this.state.editProfileImg ? (
-                            <StyledAvatarEditButton className="team__edit-avatar-button">
+                          {!this.state.editProfileImg
+                            ? <StyledAvatarEditButton className="team__edit-avatar-button">
                               <FlatButton
                                 label={this.props.intl.formatMessage(globalStrings.edit)}
                                 onClick={this.handleEditProfileImg.bind(this)}
                                 primary
                               />
                             </StyledAvatarEditButton>
-                              ) : null}
+                            : null}
                         </StyledSmallColumn>
 
                         <StyledBigColumn>
-                          {this.state.editProfileImg ? (
-                            <UploadImage
+                          {this.state.editProfileImg
+                            ? <UploadImage
                               onImage={this.onImage.bind(this)}
                               onClear={this.onClear}
                               onError={this.onImageError.bind(this)}
                               noPreview
                             />
-                                ) : null}
+                            : null}
 
                           <CardText>
                             <TextField
@@ -346,8 +346,8 @@ class TeamComponent extends Component {
                               id="team__description-container"
                               defaultValue={team.description}
                               floatingLabelText={this.props.intl.formatMessage(
-                                      messages.teamDescription,
-                                    )}
+                                messages.teamDescription,
+                              )}
                               onChange={this.handleChange.bind(this, 'description')}
                               fullWidth
                               multiLine
@@ -382,36 +382,46 @@ class TeamComponent extends Component {
                               fullWidth
                             />
 
-                            { team.limits.slack_integration === false ? null : <div>
-                              <Checkbox
-                                style={{ marginTop: units(6) }}
-                                label={
-                                  <FormattedMessage
-                                    id="teamComponent.slackNotificationsEnabled"
-                                    defaultMessage="Enable Slack notifications"
-                                  />
+                            {team.limits.slack_integration === false
+                              ? null
+                              : <div>
+                                <Checkbox
+                                  style={{ marginTop: units(6) }}
+                                  label={
+                                    <FormattedMessage
+                                      id="teamComponent.slackNotificationsEnabled"
+                                      defaultMessage="Enable Slack notifications"
+                                    />
                                     }
-                                defaultChecked={team.get_slack_notifications_enabled === '1'}
-                                onCheck={this.handleChange.bind(this, 'slackNotificationsEnabled')}
-                                id="team__settings-slack-notifications-enabled"
-                                value="1"
-                              />
+                                  defaultChecked={team.get_slack_notifications_enabled === '1'}
+                                  onCheck={this.handleChange.bind(
+                                      this,
+                                      'slackNotificationsEnabled',
+                                    )}
+                                  id="team__settings-slack-notifications-enabled"
+                                  value="1"
+                                />
 
-                              <TextField
-                                id="team__settings-slack-webhook"
-                                defaultValue={team.get_slack_webhook}
-                                floatingLabelText={this.props.intl.formatMessage(messages.slackWebhook)}
-                                onChange={this.handleChange.bind(this, 'slackWebhook')}
-                                fullWidth
-                              />
+                                <TextField
+                                  id="team__settings-slack-webhook"
+                                  defaultValue={team.get_slack_webhook}
+                                  floatingLabelText={this.props.intl.formatMessage(
+                                      messages.slackWebhook,
+                                    )}
+                                  onChange={this.handleChange.bind(this, 'slackWebhook')}
+                                  fullWidth
+                                />
 
-                              <TextField
-                                id="team__settings-slack-channel"
-                                defaultValue={team.get_slack_channel}
-                                floatingLabelText={this.props.intl.formatMessage(messages.slackChannel)}
-                                onChange={this.handleChange.bind(this, 'slackChannel')}
-                                fullWidth
-                              /></div> }
+                                <TextField
+                                  id="team__settings-slack-channel"
+                                  defaultValue={team.get_slack_channel}
+                                  floatingLabelText={this.props.intl.formatMessage(
+                                      messages.slackChannel,
+                                    )}
+                                  onChange={this.handleChange.bind(this, 'slackChannel')}
+                                  fullWidth
+                                />
+                              </div>}
                           </CardText>
 
                           <CardActions style={{ marginTop: units(4) }}>
@@ -421,7 +431,7 @@ class TeamComponent extends Component {
                                   id="teamComponent.cancelButton"
                                   defaultMessage="Cancel"
                                 />
-                                  }
+                              }
                               onClick={this.cancelEditTeam.bind(this)}
                             />
 
@@ -433,7 +443,7 @@ class TeamComponent extends Component {
                                   defaultMessage="Save"
                                   disabled={this.state.submitDisabled}
                                 />
-                                  }
+                              }
                               primary
                               onClick={this.handleEditTeam.bind(this)}
                             />
@@ -456,7 +466,7 @@ class TeamComponent extends Component {
                         </StyledName>
                         <StyledDescription>
                           {<ParsedText text={team.description} /> ||
-                          <MappedMessage msgObj={messages} msgKey="verificationTeam" />}
+                            <MappedMessage msgObj={messages} msgKey="verificationTeam" />}
                         </StyledDescription>
                       </div>
 
@@ -474,8 +484,15 @@ class TeamComponent extends Component {
             if (!isEditing) {
               return (
                 <ContentColumn>
-                  <TeamMembers {...this.props} />
-                  <Card style={{ marginTop: units(2) }}>
+
+                  <Card style={{ marginTop: units(2), marginBottom: units(2) }}>
+                    <Can permissions={team.permissions} permission="create Project">
+                      <CardActions style={{ padding: `0 ${units(2)} ${units(2)}` }}>
+                        <CreateProject team={team} autoFocus={team.projects.edges.length === 0} />
+                      </CardActions>
+                    </Can>
+                  </Card>
+                  <Card style={{ marginTop: units(2), marginBottom: units(2) }}>
                     <StyledCardHeader
                       title={<MappedMessage msgObj={messages} msgKey="verificationProjects" />}
                     />
@@ -496,12 +513,8 @@ class TeamComponent extends Component {
                           </Link>,
                         )}
                     </List>
-                    <Can permissions={team.permissions} permission="create Project">
-                      <CardActions style={{ padding: `0 ${units(2)} ${units(2)}` }}>
-                        <CreateProject team={team} autoFocus={team.projects.edges.length === 0} />
-                      </CardActions>
-                    </Can>
                   </Card>
+                  <TeamMembers {...this.props} />
                 </ContentColumn>
               );
             }
