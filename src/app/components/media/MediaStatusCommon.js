@@ -6,10 +6,7 @@ import { can } from '../Can';
 import CheckContext from '../../CheckContext';
 import { getStatus, getStatusStyle } from '../../helpers';
 import { mediaStatuses, mediaLastStatus } from '../../customHelpers';
-import {
-  black16,
-  units,
-} from '../../styles/js/shared';
+import { black16, units } from '../../styles/js/shared';
 
 const messages = defineMessages({
   error: {
@@ -89,37 +86,35 @@ class MediaStatusCommon extends Component {
         <span className="media-status__message">{this.state.message}</span>
 
         {this.canUpdate()
-          ?
-            <DropDownMenu
-              style={{ height: units(3) }}
-              value={currentStatus.label}
-              underlineStyle={{ borderWidth: 0 }}
-              iconStyle={{ fill: black16, padding: 0, height: 0, top: 0 }}
-              labelStyle={styles.label}
-
-              selectedMenuItemStyle={{ color: getStatusStyle(currentStatus, 'color') }}
-              className={`media-status__label media-status__current${this.currentStatusToClass(mediaLastStatus(media))}`}
-            >
-              {statuses.map(status =>
-                <MenuItem
-                  key={status.id}
-                  className={`${that.bemClass(
-                  'media-status__menu-item',
-                  mediaLastStatus(media) === status.id,
-                  '--current',
-                )} media-status__menu-item--${status.id.replace('_', '-')}`}
-                  onClick={that.handleStatusClick.bind(that, status.id)}
-                  style={{ textTransform: 'uppercase', color: getStatusStyle(status, 'color') }}
-                  value={status.label}
-                  primaryText={status.label}
-                />,
-            )}
-            </DropDownMenu>
-
+          ? <DropDownMenu
+            style={{ height: units(3) }}
+            value={currentStatus.label}
+            underlineStyle={{ borderWidth: 0 }}
+            iconStyle={{ fill: black16, padding: 0, height: 0, top: 0 }}
+            labelStyle={styles.label}
+            selectedMenuItemStyle={{ color: getStatusStyle(currentStatus, 'color') }}
+            className={`media-status__label media-status__current${this.currentStatusToClass(
+                mediaLastStatus(media),
+              )}`}
+          >
+            {statuses.map(status =>
+              <MenuItem
+                key={status.id}
+                className={`${that.bemClass(
+                    'media-status__menu-item',
+                    mediaLastStatus(media) === status.id,
+                    '--current',
+                  )} media-status__menu-item--${status.id.replace('_', '-')}`}
+                onClick={that.handleStatusClick.bind(that, status.id)}
+                style={{ textTransform: 'uppercase', color: getStatusStyle(status, 'color') }}
+                value={status.label}
+                primaryText={status.label}
+              />,
+              )}
+          </DropDownMenu>
           : <div style={styles.label}>
             {currentStatus.label}
-          </div>
-        }
+          </div>}
       </div>
     );
   }

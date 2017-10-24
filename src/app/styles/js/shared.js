@@ -1,5 +1,6 @@
 import styled, { css, keyframes } from 'styled-components';
 import { CardTitle } from 'material-ui/Card';
+import IconButton from 'material-ui/IconButton';
 import { stripUnit, rgba } from 'polished';
 
 // Styles for overriding material UI
@@ -73,10 +74,13 @@ export const tiny = `400 ${units(1)}/${units(1.5)} ${fontStackSans}`;
 
 // Layout
 export const headerHeight = units(8);
+export const gutterLarge = units(5);
 export const gutterMedium = units(3);
+export const gutterSmall = units(2);
 
 // Breakpoints
-export const breakpointMobile = `${columnWidthMedium}`;
+export const breakpointMobile = `${columnWidthSmall}`;
+export const breakpointTablet = `${columnWidthMedium}`;
 export const breakpointDesktop = `${columnWidthLarge}`;
 
 // Transitions
@@ -85,8 +89,12 @@ export const transitionSpeedDefault = '300ms';
 export const transitionSpeedSlow = '500ms';
 
 // Borders
+export const borderWidthSmall = '1px';
+export const borderWidthMedium = '2px';
+export const borderWidthLarge = '3px';
+
+// Border radius
 export const defaultBorderRadius = '2px';
-export const defaultBorderWidth = '1px';
 
 // Material design box shadows
 //
@@ -121,11 +129,11 @@ export const titleStyle = {
 
 export const listStyle = {
   padding: '0',
-  borderBottom: `${defaultBorderWidth} solid ${black05}`,
+  borderBottom: `${borderWidthSmall} solid ${black05}`,
 };
 
 export const listItemStyle = {
-  borderTop: `${defaultBorderWidth} solid ${black05}`,
+  borderTop: `${borderWidthSmall} solid ${black05}`,
 };
 
 export const listItemButtonStyle = {
@@ -162,15 +170,19 @@ export const ellipsisStyles = 'overflow: hidden; text-overflow: ellipsis; white-
 
 export const backgroundCover = 'background-repeat: no-repeat; background-position: center; background-size: cover;';
 
-export const largeAvatarSize = units(9);
+export const avatarSizeLarge = units(9);
 export const avatarSize = units(5);
+export const avatarSizeSmall = units(4);
+export const avatarSizeExtraSmall = units(3);
 
+// avatarStyle is deprecated
+// prefer SourcePicture instead
 export const avatarStyle = `
-  border: ${defaultBorderWidth} solid ${black05};
+  border: ${borderWidthSmall} solid ${black05};
   border-radius: ${defaultBorderRadius};
   flex: 0 0 auto;
-  height: ${largeAvatarSize};
-  width: ${largeAvatarSize};
+  height: ${avatarSizeLarge};
+  width: ${avatarSizeLarge};
   ${backgroundCover}
   background-color: ${white};
 `;
@@ -214,9 +226,9 @@ export const muiThemeWithoutRtl = {
   },
 };
 
-
 export const mediaQuery = {
   handheld: (...args) => css`@media (max-width: ${breakpointMobile}) { ${css(...args)} }`,
+  tablet: (...args) => css`@media (max-width: ${breakpointTablet}) { ${css(...args)} }`,
   desktop: (...args) => css`@media (min-width: ${breakpointDesktop}) { ${css(...args)} }`,
 };
 
@@ -236,7 +248,6 @@ export const Shimmer = styled.div`
   background: linear-gradient(90deg, ${opaqueBlack05}, ${opaqueBlack05}, ${opaqueBlack02}, ${opaqueBlack02}, ${white}, ${opaqueBlack02}, ${opaqueBlack05}, ${opaqueBlack05});
   background-size: 400%;
 `;
-
 
 export const pulseKeyframes = keyframes`
   0% {
@@ -287,9 +298,14 @@ export const HeaderTitle = styled.h3`
   font: ${subheading2};
   color: ${black54};
   max-width: 65vw;
-  margin: ${props => props.offset ? units(2) : '0'};
   ${mediaQuery.handheld`
-     max-width: 30vw;
+     max-width: 20vw;
+  `}
+`;
+
+export const HiddenOnMobile = styled.div`
+   ${mediaQuery.handheld`
+     display: none;
   `}
 `;
 
@@ -300,7 +316,7 @@ export const HeaderTitle = styled.h3`
 //
 export const Row = styled.div`
   display: flex;
-  align-items: center;
+  ${props => props.alignTop ? 'align-items: top;' : 'align-items: center;'}
   ${props => props.containsEllipsis ? '& > * {overflow: hidden; }' : ''}
 `;
 
@@ -378,7 +394,103 @@ export const ContentColumn = styled.div`
   ${props => props.flex ? 'display: flex; flex-direction: column;' : ''}
 `;
 
-// Offset (pad)
+// Offset (pad one side)
 export const Offset = styled.div`
-  padding: 0 ${units(1)} !important;
+  padding-${props => (props.isRtl ? 'left' : 'right')}: ${units(1)};
+`;
+
+export const OffsetBothSides = styled.div`
+  padding-left: ${units(1)};
+  padding-right: ${units(1)};
+`;
+
+// Material style Chip
+// Deprecated: use the material-ui/chip component instead
+export const chipStyles = `
+    background-color: ${black05};
+    border: 0;
+    border-radius: 30px;
+    color: ${black54};
+    cursor: pointer;
+    display: inline-block;
+    font: ${body2};
+    margin: ${units(0.5)};
+    padding: ${units(0.5)} ${units(2)};
+
+    &--selected {
+      background-color: ${black10};
+      color: ${black87};
+    }
+
+    &:hover {
+      background-color: ${black16};
+    }
+  }
+`;
+
+// Tags (ensure wrapping, alignment when many tags)
+export const StyledTagsWrapper = styled.div`
+  display: inline;
+  flex-wrap: wrap;
+  > div {
+    display: inline-flex !important;
+    margin: ${units(0.5)} ${units(1)} ${units(0.5)} 0 !important;
+    > span {
+      color: ${black54} !important;
+    }
+  }
+`;
+
+// It seems that this component is not centered in Material UI 0.x
+// So we must always use this wrapper, or similar.
+export const StyledIconButton = styled(IconButton)`
+  font-size: 20px !important;
+  svg {
+    color: ${black38} !important;
+    margin: 0!important;
+  }
+`;
+
+// In the Header, the search icon is visually smaller than the
+// rest of the icons, so we make the rest of the icons smaller to match.
+// (the difference is ~ 2px)
+export const SmallerStyledIconButton = styled(StyledIconButton)`
+  svg {
+    height: 22px!important;
+    width: 22px!important;
+  }
+`;
+
+
+// Hide descriptions with CSS checkbox technique
+//
+// DEPRECATED
+// TODO: replace this with a conditional based on state
+export const StyledTaskDescription = styled.div`
+  margin-top ${units(2)};
+
+  .create-task__task-description-input {
+    display: none !important;
+    width: 100% !important;
+  }
+
+  .create-task__add-task-description-label {
+    bottom: ${units(2)};
+    font: ${caption};
+    padding: 0 ${units(1)};
+  }
+
+  .create-task__add-task-description {
+    display: none; // hidden checkbox
+
+    &:checked {
+      & ~ .create-task__task-description-input {
+        display: block !important;
+      }
+
+      & ~ .create-task__add-task-description-label {
+        display: none !important;
+      }
+    }
+  }
 `;

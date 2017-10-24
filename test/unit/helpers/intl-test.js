@@ -14,7 +14,7 @@ import { mount, shallow } from 'enzyme';
 
 // You can pass your messages to the IntlProvider. Optional: remove if unneeded.
 // const messages = require('../locales/en'); // en.json
- const messages = {}; // en.json
+const messages = {}; // en.json
 
 // Create the IntlProvider to retrieve context for wrapping around.
 const intlProvider = new IntlProvider({ locale: 'en', messages }, {});
@@ -28,25 +28,36 @@ function nodeWithIntlProp(node) {
 }
 
 const store = {
-  getState: function() {
+  currentUser: {
+  },
+
+  team: {
+    projects: {
+      edges: [
+        { node: { dbid: 1 } },
+      ],
+    },
+  },
+
+  getState() {
     return {
       app: {
         context: {
-          team: {
-            projects: {
-              edges: [
-                { node: { dbid: 1 } }
-              ]
-            }
-          }
-        }
-      }
-    }
-  }
+          team: this.team,
+          currentUser: this.currentUser,
+        },
+      },
+    };
+  },
 };
 
 const muiTheme = getMuiTheme();
 
+/**
+ * You can manipulate the global context through this function, e.g.:
+ *
+ * getStore().currentUser = { foo: 'foo', bar: 'bar' }
+ */
 export function getStore() {
   return store;
 }
@@ -54,7 +65,7 @@ export function getStore() {
 export function mountWithIntl(node) {
   return mount(nodeWithIntlProp(node), {
     context: { intl, store, muiTheme },
-    childContextTypes: { intl: intlShape, store: React.PropTypes.object, muiTheme: React.PropTypes.object }
+    childContextTypes: { intl: intlShape, store: React.PropTypes.object, muiTheme: React.PropTypes.object },
   });
 }
 

@@ -148,7 +148,12 @@ class GeolocationRespondTask extends Component {
 
   handleCancel() {
     const ori = this.state.original;
-    this.setState({ name: ori.name, lat: ori.lat, lng: ori.lng, coordinatesString: ori.coordinatesString });
+    this.setState({
+      name: ori.name,
+      lat: ori.lat,
+      lng: ori.lng,
+      coordinatesString: ori.coordinatesString,
+    });
     if (this.props.onDismiss) {
       this.props.onDismiss();
     }
@@ -162,7 +167,12 @@ class GeolocationRespondTask extends Component {
         <TextField
           id="task__response-geolocation-name"
           className="task__response-input"
-          floatingLabelText={<FormattedMessage id="geolocationRespondTask.placeName" defaultMessage="Type the name of the location" />}
+          floatingLabelText={
+            <FormattedMessage
+              id="geolocationRespondTask.placeName"
+              defaultMessage="Type the name of the location"
+            />
+          }
           name="response"
           value={this.state.name}
           onKeyPress={this.handleKeyPress.bind(this)}
@@ -173,7 +183,12 @@ class GeolocationRespondTask extends Component {
         <TextField
           id="task__response-geolocation-coordinates"
           className="task__response-note-input"
-          floatingLabelText={<FormattedMessage id="geolocationRespondTask.coordinates" defaultMessage="Latitude, Longitude" />}
+          floatingLabelText={
+            <FormattedMessage
+              id="geolocationRespondTask.coordinates"
+              defaultMessage="Latitude, Longitude"
+            />
+          }
           name="coordinates"
           onKeyPress={this.handleKeyPress.bind(this)}
           onChange={this.handleChangeCoordinates.bind(this)}
@@ -183,10 +198,20 @@ class GeolocationRespondTask extends Component {
           multiLine
         />
         <p className="task__resolver">
-          <small><FormattedMessage id="geolocationRespondTask.pressReturnToSave" defaultMessage="Press return to save your response" /></small>
+          <small>
+            <FormattedMessage
+              id="geolocationRespondTask.pressReturnToSave"
+              defaultMessage="Press return to save your response"
+            />
+          </small>
         </p>
         <div>
-          <Map style={{ height: '400px' }} center={position} zoom={this.state.zoom} onClick={this.updatePositionOnClick.bind(this)}>
+          <Map
+            style={{ height: '400px' }}
+            center={position}
+            zoom={this.state.zoom}
+            onClick={this.updatePositionOnClick.bind(this)}
+          >
             <TileLayer
               attribution="2017 <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a>"
               url="http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png"
@@ -200,8 +225,25 @@ class GeolocationRespondTask extends Component {
           </Map>
         </div>
         <p className="task__resolver">
-          <FlatButton className="task__cancel" label={<FormattedMessage id="geolocationRespondTask.cancelTask" defaultMessage="Cancel" />} onClick={this.handleCancel.bind(this)} />
-          <FlatButton disabled={this.state.taskAnswerDisabled} className="task__save" label={<FormattedMessage id="geolocationRespondTask.resolveTask" defaultMessage="Resolve task" />} primary onClick={this.handlePressButton.bind(this)} />
+          <FlatButton
+            className="task__cancel"
+            label={
+              <FormattedMessage id="geolocationRespondTask.cancelTask" defaultMessage="Cancel" />
+            }
+            onClick={this.handleCancel.bind(this)}
+          />
+          <FlatButton
+            disabled={this.state.taskAnswerDisabled}
+            className="task__save"
+            label={
+              <FormattedMessage
+                id="geolocationRespondTask.resolveTask"
+                defaultMessage="Resolve task"
+              />
+            }
+            primary
+            onClick={this.handlePressButton.bind(this)}
+          />
         </p>
       </div>
     );

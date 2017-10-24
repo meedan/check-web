@@ -1,12 +1,11 @@
 {
   "switchTeams.error": "عذراً ، لم نستطع تغيير الفريق",
-  "switchTeams.member": "عضو",
-  "switchTeams.members": "أعضاء",
+  "switchTeams.member": "{membersCount, plural, =0 {بدون أعضاء} one {عضو واحد} other {# أعضاء}}",
   "switchTeams.joinRequestMessage": "لقد أرسلت طلب انضمام للفريق",
   "switchTeams.cancelJoinRequest": "إلغاء",
   "switchTeams.bannedJoinRequest": "تم الإلغاء",
   "teams.yourTeams": "الفرق المُنضم إليها",
-  "teams.userTeams": "{name} عضو في {number} فرق",
-  "switchTeams.noTeams": "أنت ليس عضواً في أي فريق",
+  "teams.userTeams": "الفرق {name} مُنضم إليها",
+  "switchTeams.noTeams": "ليس عضواً في أي فريق",
   "switchTeams.newTeamLink": "أضف فريقاً"
 }

@@ -48,6 +48,7 @@ class MediaStatus extends Component {
     if (status_id != null) {
       const vars = {
         annotated: media,
+        parent_type: 'project_media',
         dynamic: {
           id: status_id,
           fields: {

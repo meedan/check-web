@@ -82,27 +82,32 @@ class TrashComponent extends Component {
       this.setState({ confirmationError: false });
       this.handleClose();
       this.handleEmptyTrash();
-    }
-    else {
+    } else {
       this.setState({ confirmationError: true });
     }
   }
 
   handleEmptyTrash() {
-    const message = <FormattedMessage
-                      id="trash.emptyInProgress"
-                      defaultMessage={'Empty trash operation is in progress. Please check back later. {refresh}'}
-                      values={{
-                        refresh: <span onClick={this.handleRefresh.bind(this)} style={{ textDecoration: 'underline', cursor: 'pointer' }}>
-                                   {this.props.intl.formatMessage(messages.refresh)}
-                                 </span>
-                      }}
-                    />;
+    const message = (
+      <FormattedMessage
+        id="trash.emptyInProgress"
+        defaultMessage={'Empty trash operation is in progress. Please check back later. {refresh}'}
+        values={{
+          refresh: (
+            <span
+              onClick={this.handleRefresh.bind(this)}
+              style={{ textDecoration: 'underline', cursor: 'pointer' }}
+            >
+              {this.props.intl.formatMessage(messages.refresh)}
+            </span>
+          ),
+        }}
+      />
+    );
 
     if (this.state.emptyTrashDisabled) {
       this.handleMessage(message);
-    }
-    else {
+    } else {
       this.setState({ emptyTrashDisabled: true });
 
       const onFailure = (transaction) => {
@@ -139,41 +144,70 @@ class TrashComponent extends Component {
     const title = this.props.intl.formatMessage(messages.title);
 
     const actions = [
-      <FlatButton label={<FormattedMessage id="trash.cancel" defaultMessage="Cancel" />} 
-                  primary={true} 
-                  onClick={this.handleClose.bind(this)} 
+      <FlatButton
+        label={<FormattedMessage id="trash.cancel" defaultMessage="Cancel" />}
+        primary
+        onClick={this.handleClose.bind(this)}
       />,
-      <RaisedButton label={<FormattedMessage id="trash.deleteAll" defaultMessage="Delete all" />} 
-                    primary={true} 
-                    onClick={this.handleConfirmEmptyTrash.bind(this)} 
+      <RaisedButton
+        label={<FormattedMessage id="trash.deleteAll" defaultMessage="Delete all" />}
+        primary
+        onClick={this.handleConfirmEmptyTrash.bind(this)}
       />,
     ];
 
     return (
-      <div className="trash">
-        <Dialog actions={actions} modal={false} open={this.state.open} onRequestClose={this.handleClose.bind(this)}>
+      <div
+        className="trash"
+      >
+        <Dialog
+          actions={actions}
+          modal={false}
+          open={this.state.open}
+          onRequestClose={this.handleClose.bind(this)}
+        >
           <h2><FormattedMessage id="trash.emptyTrash" defaultMessage="Empty trash" /></h2>
-          <p><FormattedMessage id="trash.emptyTrashConfirmationText" defaultMessage={'Are you sure? This will permanently delete {itemsCount, plural, =0 {0 items} one {1 item} other {# items}} and {notesCount, plural, =0 {0 annotations} one {1 annotation} other {# annotations}}. Type "confirm" if you want to proceed.'} values={{ itemsCount: team.trash_size.project_media.toString(), notesCount: team.trash_size.annotation.toString() }} /></p>
-          <TextField id="trash__confirm"
-                     fullWidth={true}
-                     errorText={this.state.confirmationError ? 
-                                <FormattedMessage id="trash.confirmationError" defaultMessage="Did not match" /> : 
-                                null
-                               }  
-                     hintText={<FormattedMessage id="trash.typeHere" defaultMessage="Type here" />} 
+          <p>
+            <FormattedMessage
+              id="trash.emptyTrashConfirmationText"
+              defaultMessage={
+                'Are you sure? This will permanently delete {itemsCount, plural, =0 {0 items} one {1 item} other {# items}} and {notesCount, plural, =0 {0 annotations} one {1 annotation} other {# annotations}}. Type "confirm" if you want to proceed.'
+              }
+              values={{
+                itemsCount: team.trash_size.project_media.toString(),
+                notesCount: team.trash_size.annotation.toString(),
+              }}
+            />
+          </p>
+          <TextField
+            id="trash__confirm"
+            fullWidth
+            errorText={
+              this.state.confirmationError
+                ? <FormattedMessage id="trash.confirmationError" defaultMessage="Did not match" />
+                : null
+            }
+            hintText={<FormattedMessage id="trash.typeHere" defaultMessage="Type here" />}
           />
         </Dialog>
 
-        <Search title={title} team={team.slug} query={query} fields={['status', 'sort', 'tags']} addons={
-          <Can permissions={team.permissions} permission="update Team">
-            <RaisedButton label={<FormattedMessage id="trash.emptyTrash" defaultMessage="Empty trash" />}
-                          className="trash__empty-trash-button"
-                          primary={true}
-                          onClick={this.handleOpen.bind(this)}
-                          disabled={this.state.emptyTrashDisabled}
-            />
-          </Can>
-        } />
+        <Search
+          title={title}
+          team={team.slug}
+          query={query}
+          fields={['status', 'sort', 'tags']}
+          addons={
+            <Can permissions={team.permissions} permission="update Team">
+              <RaisedButton
+                label={<FormattedMessage id="trash.emptyTrash" defaultMessage="Empty trash" />}
+                className="trash__empty-trash-button"
+                primary
+                onClick={this.handleOpen.bind(this)}
+                disabled={this.state.emptyTrashDisabled}
+              />
+            </Can>
+          }
+        />
       </div>
     );
   }
@@ -199,15 +233,22 @@ const TrashContainer = Relay.createContainer(TrashComponent, {
         trash_size
         search_id
       }
-    `
-  }
+    `,
+  },
 });
 
 class Trash extends Component {
   render() {
     const slug = this.props.params.team || '';
     const route = new TeamRoute({ teamSlug: slug });
-    return (<Relay.RootContainer Component={TrashContainer} forceFetch={true} route={route} renderFetched={data => <TrashContainer {...this.props} {...data} />}  />);
+    return (
+      <Relay.RootContainer
+        Component={TrashContainer}
+        forceFetch
+        route={route}
+        renderFetched={data => <TrashContainer {...this.props} {...data} />}
+      />
+    );
   }
 }
 

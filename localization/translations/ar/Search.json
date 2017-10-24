@@ -2,7 +2,7 @@
   "search.title": "بحث",
   "search.loading": "تحميل...",
   "search.inputHint": "بحث",
-  "search.results": "{resultsCount, plural, =0 {لا نتيجة} one {نتيجة واحدة} other {# نتائج}}",
+  "search.results": "{resultsCount, plural, =0 {بدون نتيجة} one {نتيجة واحدة} other {# نتائج}}",
   "search.newTranslationRequestNotification": "طلب جديد للترجمة",
   "search.newTranslationNotification": "ترجمة جديدة",
   "search.newTranslationNotificationBody": "تمت ترجمة تقرير",

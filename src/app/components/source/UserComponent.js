@@ -1,7 +1,6 @@
 import React from 'react';
-import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
+import { injectIntl } from 'react-intl';
 import rtlDetect from 'rtl-detect';
-import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
 import UserInfo from './UserInfo';
 import UserInfoEdit from './UserInfoEdit';
 import { can } from '../Can';
@@ -28,7 +27,6 @@ class UserComponent extends React.Component {
   };
 
   render() {
-
     const { user } = this.props;
 
     const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
@@ -39,7 +37,7 @@ class UserComponent extends React.Component {
     };
 
     return (
-      <PageTitle prefix={user.name} skipTeam={true}>
+      <PageTitle prefix={user.name} skipTeam>
         <div className="source">
           <HeaderCard
             canEdit={can(user.permissions, 'update User')}

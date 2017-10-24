@@ -1,6 +1,0 @@
-{
-  "annotation.error": "Ce n'était pas possible d'effacer le commentaire",
-  "annotation.deleteButton": "Effacer",
-  "annotation.taggedHeader": "Classé #{tag} par {author}",
-  "annotation.flaggedHeader": "Marqué {flag} par {author}"
-}

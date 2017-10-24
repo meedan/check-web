@@ -29,7 +29,7 @@ class ProjectPage < Page
     fill_input('input[type=file]', file, { hidden: true })
     sleep 3
     @driver.find_element(:css, '#create-media-submit').click
-    wait_for_element('.image-media-card')
+    wait_for_selector('.image-media-card')
     MediaPage.new(config: @config, driver: @driver)
   end
 
@@ -40,11 +40,17 @@ class ProjectPage < Page
     MediaPage.new(config: @config, driver: @driver)
   end
 
+  # This test needs a little work.
+  # It works if you sleep on the first step,
+  # but I did not get it working yet with `wait_for_element`
+  # instead of sleep.
+  #
+  # @chris 2017-10-19
+  #
   def edit(options)
-    element('.header-actions__drawer-toggle').click
+    sleep 4
     element('.project-menu').click
     wait_for_element('.project-edit')
-    element('body').click
     sleep 1
     element('.project-edit__title-field input').clear
     fill_input('.project-edit__title-field input', options[:title])

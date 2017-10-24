@@ -3,6 +3,7 @@ import { injectIntl, defineMessages } from 'react-intl';
 import AutoComplete from 'material-ui/AutoComplete';
 import Chip from 'material-ui/Chip';
 import globalStrings from '../../globalStrings';
+import { StyledTagsWrapper } from '../../styles/js/shared';
 
 const messages = defineMessages({
   addTagHelper: {
@@ -24,7 +25,7 @@ class SourceTags extends React.Component {
     const tags = this.props.tags;
 
     return (
-      <div className="source-tags__tags">
+      <StyledTagsWrapper className="source-tags__tags">
         {tags.map(tag =>
           <Chip
             key={tag.node.id}
@@ -36,7 +37,7 @@ class SourceTags extends React.Component {
             {tag.node.tag.replace(/^#/, '')}
           </Chip>,
         )}
-      </div>
+      </StyledTagsWrapper>
     );
   }
 

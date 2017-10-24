@@ -15,20 +15,32 @@ import MediaMetadata from './MediaMetadata';
 import MediaUtil from './MediaUtil';
 import PenderCard from '../PenderCard';
 import ImageMediaCard from './ImageMediaCard';
+import WebPageMediaCard from './WebPageMediaCard';
 import CheckContext from '../../CheckContext';
-
 import { getStatus, getStatusStyle } from '../../helpers';
 import { mediaStatuses, mediaLastStatus } from '../../customHelpers';
 import {
-  FlexRow,
+  Row,
   FadeIn,
   units,
   black87,
   black38,
   defaultBorderRadius,
+  Offset,
+  subheading1,
 } from '../../styles/js/shared';
 
-const StyledCardHeaderTextPrimary = styled(Link)`
+const StyledHeading = styled.h3`
+  font: ${subheading1};
+  font-weight: 500;
+  &,
+  a,
+  a:visited {
+    color: ${black87} !important;
+  }
+`;
+
+const StyledHeadingContainer = styled.span`
     padding-right: ${units(1)};
     display: inline-flex;
     align-items: center;
@@ -48,7 +60,7 @@ const StyledMediaIconContainer = styled.div`
   }
 `;
 
-const StyledHeaderTextSecondary = styled(FlexRow)`
+const StyledHeaderTextSecondary = styled(Row)`
   justify-content: flex-start;
   flex-wrap: wrap;
   font-size: 14;
@@ -67,14 +79,8 @@ const StyledMediaDetail = styled.div`
     border-${props => props.fromDirection}: ${units(1)} solid;
     border-color: ${props => props.borderColor};
     border-radius: ${defaultBorderRadius};
-  }
-
-  .media__heading {
-    &,
-    & > a,
-    & > a:visited {
-      color: ${black87} !important;
-    }
+    // Disable border in some views
+    ${props => (props.hideBorder ? 'border: none;' : null)}
   }
 
   .media-detail__description {
@@ -124,6 +130,9 @@ class MediaDetail extends Component {
   render() {
     const { media, annotated, annotatedType } = this.props;
     const data = JSON.parse(media.embed);
+    const locale = this.props.intl.locale;
+    const isRtl = rtlDetect.isRtlLang(locale);
+    const fromDirection = isRtl ? 'right' : 'left';
     const annotationsCount = MediaUtil.notesCount(media, data, this.props.intl);
     const randomNumber = Math.floor(Math.random() * 1000000);
     const status = getStatus(mediaStatuses(media), mediaLastStatus(media));
@@ -132,113 +141,160 @@ class MediaDetail extends Component {
     const authorUsername = MediaUtil.authorUsername(media, data);
     const sourceName = MediaUtil.sourceName(media, data);
     const createdAt = MediaUtil.createdAt(media);
-    const heading = MediaUtil.title(media, data, this.props.intl);
+    const isImage = !!media.media.embed_path;
+    const isQuote = media.media.quote && media.media.quote.length;
+    const isWebPage = media.media.url && data.provider === 'page';
+    const isPender = media.media.url && data.provider !== 'page';
+
+    let projectId = media.project_id;
+
+    if (!projectId && annotated && annotatedType === 'Project') {
+      projectId = annotated.dbid;
+    }
+
+    const mediaUrl = projectId && media.team
+      ? `/${media.team.slug}/project/${projectId}/media/${media.dbid}`
+      : null;
+
+    const title = isWebPage ? (data.title || authorName || authorUsername) : MediaUtil.title(media, data, this.props.intl);
+
+    const heading = (
+      <StyledHeading className="media__heading">
+        <Link to={mediaUrl}>
+          {title}
+        </Link>
+      </StyledHeading>);
+
     const sourceUrl = media.team && media.project && media.project_source
       ? `/${media.team.slug}/project/${media.project.dbid}/source/${media.project_source.dbid}`
       : null;
 
-    let projectId = media.project_id;
-    if (!projectId && annotated && annotatedType === 'Project') {
-      projectId = annotated.dbid;
-    }
-    const mediaUrl = projectId && media.team
-      ? `/${media.team.slug}/project/${projectId}/media/${media.dbid}`
+    const projectTitle = media.project ? media.project.title : null;
+
+    const projectUrl = projectId && media.team
+      ? `/${media.team.slug}/project/${projectId}`
       : null;
-    let embedCard = null;
+
+    const path = this.props.location
+      ? this.props.location.pathname
+      : window.location.pathname;
+
+    const projectPage = /^\/.*\/project\//.test(path);
 
     media.url = media.media.url;
     media.quote = media.media.quote;
     media.embed_path = media.media.embed_path;
     media.quoteAttributions = media.media.quoteAttributions;
 
-    if (media.media.embed_path) {
-      const path = media.media.embed_path;
-      embedCard = <ImageMediaCard imagePath={path} />;
-    } else if (media.quote && media.quote.length) {
-      embedCard = (
-        <QuoteMediaCard
-          quote={media.quote}
-          languageCode={media.language_code}
-          sourceUrl={sourceUrl}
-          sourceName={sourceName}
-        />
-      );
-    } else if (media.url) {
-      embedCard = (
-        <PenderCard
-          url={media.url}
-          penderUrl={config.penderUrl}
-          fallback={null}
-          domId={`pender-card-${randomNumber}`}
-          mediaVersion={this.state.mediaVersion || data.refreshes_count}
-        />
-      );
-    }
+    const embedCard = (() => {
+      if (isImage) {
+        return <ImageMediaCard imagePath={media.embed_path} />;
+      } else if (isQuote) {
+        return (
+          <QuoteMediaCard
+            quote={media.quote}
+            languageCode={media.language_code}
+            sourceUrl={sourceUrl}
+            sourceName={sourceName}
+          />
+        );
+      } else if (isWebPage) {
+        return (
+          <WebPageMediaCard
+            media={media}
+            mediaUrl={mediaUrl}
+            data={data}
+            heading={heading}
+            isRtl={isRtl}
+            authorName={authorName}
+            authorUserName={authorUsername}
+          />
+        );
+      } else if (isPender) {
+        return (
+          <PenderCard
+            url={media.url}
+            penderUrl={config.penderUrl}
+            fallback={null}
+            domId={`pender-card-${randomNumber}`}
+            mediaVersion={this.state.mediaVersion || data.refreshes_count}
+          />
+        );
+      }
+
+      return (null);
+    })();
 
     const mediaIcon = (() => {
       if (media.media.embed_path && media.media.embed_path !== '') {
-        return (<IconInsertPhoto />);
+        return <IconInsertPhoto />;
       } else if (media.quote) {
-        return (<MdFormatQuote />);
+        return <MdFormatQuote />;
       }
-      return (MediaUtil.socialIcon(media.domain));
+      return MediaUtil.socialIcon(media.domain);
     })();
 
     // Don't display redunant heading if the card is explicitly expanded with state
     // (or implicitly expanded with initiallyExpanded prop)
+    // TODO: always display it if it's been edited
     const shouldNotDisplayHeading =
       this.state.expanded || (this.state.expanded == null && this.props.initiallyExpanded);
-
-    const cardHeaderText = (
-      <div>
-        {shouldNotDisplayHeading
-          ? null
-          : <StyledCardHeaderTextPrimary to={mediaUrl} className="media__heading">
-            {heading}
-          </StyledCardHeaderTextPrimary>}
-        <StyledHeaderTextSecondary shouldNotDisplayHeading>
-          <StyledMediaIconContainer>
-            {mediaIcon}
-          </StyledMediaIconContainer>
-          {createdAt
-            ? <span className="media-detail__check-added-at">
-              <Link className="media-detail__check-timestamp" to={mediaUrl}>
-                <TimeBefore style={{ marginRight: units(1) }} date={createdAt} />
-              </Link>
-              <Link to={mediaUrl}>
-                <span style={{ marginRight: units(1) }} className="media-detail__check-notes-count">
-                  {annotationsCount}
-                </span>
-              </Link>
-            </span>
-            : null}
-          {sourceUrl
-          ? <Link to={sourceUrl}>
-            <FlexRow>
-              {/* ideally this would be SourcePicture not FaFeed — CGB 2017-9-13 */}
-              <FaFeed style={{ width: 16 }} />
-              {' '}
-              {sourceName || authorName || authorUsername}
-            </FlexRow>
-          </Link>
-          : null}
-        </StyledHeaderTextSecondary>
-      </div>
-    );
 
     const cardClassName =
       `${this.statusToClass('media-detail', mediaLastStatus(media))} ` +
       `media-detail--${MediaUtil.mediaTypeCss(media, data)}`;
 
-    const locale = this.props.intl.locale;
-    const isRtl = rtlDetect.isRtlLang(locale);
-    const fromDirection = isRtl ? 'right' : 'left';
+    const cardHeaderText = (
+      <div>
+        {shouldNotDisplayHeading
+          ? null
+          : <StyledHeadingContainer>
+            {heading}
+          </StyledHeadingContainer>}
+        <StyledHeaderTextSecondary shouldNotDisplayHeading>
+          <StyledMediaIconContainer>
+            {mediaIcon}
+          </StyledMediaIconContainer>
+          {createdAt
+            ? <Row className="media-detail__check-added-at">
+              <Offset isRtl={isRtl}>
+                <Link className="media-detail__check-timestamp" to={mediaUrl}>
+                  <TimeBefore date={createdAt} />
+                </Link>
+              </Offset>
+              {(!projectPage && projectTitle) && <Link to={projectUrl}>in {projectTitle}</Link>}
+              <Offset isRtl={isRtl}>
+                <Link to={mediaUrl}>
+                  <span className="media-detail__check-notes-count">
+                    {annotationsCount}
+                  </span>
+                </Link>
+              </Offset>
+            </Row>
+            : null}
+          {sourceUrl && sourceName
+            ? <Offset isRtl={isRtl}>
+              <Link to={sourceUrl}>
+                <Row>
+                  {/* ideally this would be SourcePicture not FaFeed — CGB 2017-9-13 */}
+                  <FaFeed style={{ width: 16 }} />
+                  {' '}
+                  { sourceName }
+                </Row>
+              </Link>
+            </Offset>
+            : null}
+        </StyledHeaderTextSecondary>
+      </div>
+    );
+
 
     return (
       <StyledMediaDetail
         className={cardClassName}
         borderColor={this.props.borderColor || getStatusStyle(status, 'backgroundColor')}
         fromDirection={fromDirection}
+        hideBorder={this.props.hideBorder}
       >
         <Card
           className="card-with-border"
@@ -259,7 +315,7 @@ class MediaDetail extends Component {
             </FadeIn>
           </CardText>
           <CardActions expandable>
-            <MediaMetadata data={data} heading={heading} {...this.props} />
+            <MediaMetadata data={data} heading={title} {...this.props} />
           </CardActions>
         </Card>
       </StyledMediaDetail>
@@ -277,6 +333,7 @@ MediaDetail.contextTypes = {
 
 MediaDetail.defaultProps = {
   initiallyExpanded: false,
+  hideBorder: false,
 };
 
 export default injectIntl(MediaDetail);

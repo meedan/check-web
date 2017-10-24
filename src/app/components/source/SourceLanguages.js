@@ -6,6 +6,7 @@ import Chip from 'material-ui/Chip';
 import AboutRoute from '../../relay/AboutRoute';
 import difference from 'lodash.difference';
 import intersection from 'lodash.intersection';
+import { StyledTagsWrapper } from '../../styles/js/shared';
 
 const messages = defineMessages({
   languages: {
@@ -39,7 +40,7 @@ class LanguageComponent extends React.Component {
     const supportedLanguages = JSON.parse(this.props.about.languages_supported);
 
     return (
-      <div className="source-tags__tags">
+      <StyledTagsWrapper className="source-tags__tags">
         {usedLanguages.map(language =>
           <Chip
             key={language.id}
@@ -51,7 +52,7 @@ class LanguageComponent extends React.Component {
             {supportedLanguages[language.content.value]}
           </Chip>,
         )}
-      </div>
+      </StyledTagsWrapper>
     );
   }
 

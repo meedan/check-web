@@ -2,10 +2,8 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router';
 import Relay from 'react-relay';
-import IconButton from 'material-ui/IconButton';
-import IconMenu from 'material-ui/svg-icons/navigation/menu';
 import IconSearch from 'material-ui/svg-icons/action/search';
-import { injectIntl, FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import RaisedButton from 'material-ui/RaisedButton';
 import rtlDetect from 'rtl-detect';
 import TeamHeader from './team/TeamHeader';
@@ -14,6 +12,9 @@ import ProjectHeader from './project/ProjectHeader';
 import { stringHelper } from '../customHelpers';
 import PublicTeamRoute from '../relay/PublicTeamRoute';
 import teamPublicFragment from '../relay/teamPublicFragment';
+import ProjectMenuRelay from '../relay/ProjectMenuRelay';
+import TeamMenuRelay from '../relay/TeamMenuRelay';
+
 import {
   units,
   mediaQuery,
@@ -21,6 +22,7 @@ import {
   Row,
   Offset,
   black02,
+  StyledIconButton,
 } from '../styles/js/shared';
 
 const HeaderBar = styled.div`
@@ -29,7 +31,6 @@ const HeaderBar = styled.div`
   align-items: center;
   padding: 0 ${units(2)};
   height: ${headerHeight};
-  overflow: hidden;
   /* Relative positioning is used here to create a new
   positioning context to avoid a z-index inconsistency
   on Safari, Safari Mobile, Ubuntu Chrome,
@@ -47,31 +48,30 @@ class HeaderComponent extends Component {
     const { inTeamContext, loggedIn, drawerToggle, currentUserIsMember } = this.props;
     const isRtl = rtlDetect.isRtlLang(locale);
     const fromDirection = isRtl ? 'right' : 'left';
-    const path = this.props.location
-      ? this.props.location.pathname
-      : window.location.pathname;
+
     const AlignOpposite = styled.div`
       margin-${fromDirection}: auto;
       `;
 
+    const editProjectMenuItem = (
+      <ProjectMenuRelay key="headerActions.projectMenu" {...this.props} />
+    );
+
+    const trashButton = <TeamMenuRelay {...this.props} />;
+
     const searchButton = (
-      <IconButton
+      <StyledIconButton
         key="header.searchButton"
         className="header-actions__search-icon"
         containerElement={<Link to={`/${this.props.params.team}/search`} />}
         name="search"
+        tooltip={<FormattedMessage defaultMessage="Search" id="headerActions.search" />}
       >
         <IconSearch />
-      </IconButton>
+      </StyledIconButton>
     );
 
-    const checkLogo = (
-      <img
-        width={units(8)}
-        alt="Team Logo"
-        src={stringHelper('LOGO_URL')}
-      />
-    );
+    const checkLogo = <img width={units(8)} alt="Team Logo" src={stringHelper('LOGO_URL')} />;
 
     const signInButton = (() => {
       if (!loggedIn) {
@@ -84,22 +84,27 @@ class HeaderComponent extends Component {
           </Link>
         );
       }
-      return (null);
+      return null;
     })();
 
+    const teamPrivateContentShouldShow =
+      (inTeamContext && currentUserIsMember) || (inTeamContext && !this.props.team.private);
+
+    const teamPublicContentShouldShow =
+      inTeamContext && !currentUserIsMember && this.props.team.private;
+
     const primary = (() => {
-      if (inTeamContext && (currentUserIsMember || !this.props.team.private)) {
+      if (teamPrivateContentShouldShow) {
         return (
           <Row containsEllipsis>
             <div><TeamHeader {...this.props} /></div>
-            <div><ProjectHeader {...this.props} /></div>
+            <div><ProjectHeader isRtl {...this.props} /></div>
           </Row>
         );
-
-      } else if (inTeamContext && !currentUserIsMember && this.props.team.private) {
+      } else if (teamPublicContentShouldShow) {
         return (
           <Row containsEllipsis>
-            <TeamPublicHeader {...this.props} />
+            <TeamPublicHeader isRtl {...this.props} />
           </Row>
         );
       }
@@ -112,16 +117,17 @@ class HeaderComponent extends Component {
       );
     })();
 
-    const secondary = (() => (
+    const secondary = (() =>
       <AlignOpposite>
         <Row>
-          <Offset>
+          <Offset isRtl>
             {signInButton}
           </Offset>
-          {inTeamContext ? searchButton : null}
+          {teamPrivateContentShouldShow && editProjectMenuItem}
+          {teamPrivateContentShouldShow && trashButton}
+          {teamPrivateContentShouldShow && searchButton}
         </Row>
-      </AlignOpposite>
-      ))();
+      </AlignOpposite>)();
 
     return (
       <HeaderBar>
@@ -149,17 +155,12 @@ class Header extends Component {
         <Relay.RootContainer
           Component={HeaderContainer}
           route={route}
-          renderFetched={
-            data => <HeaderContainer
-              {...this.props}
-              {...data}
-            />
-          }
+          renderFetched={data => <HeaderContainer {...this.props} {...data} />}
         />
       );
     }
 
-    return (<HeaderComponent {...this.props} />);
+    return <HeaderComponent {...this.props} />;
   }
 }
 

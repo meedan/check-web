@@ -6,7 +6,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import rtlDetect from 'rtl-detect';
 import merge from 'lodash.merge';
 import config from 'config';
-import injectTapEventPlugin from 'react-tap-event-plugin';
+import styled, { injectGlobal } from 'styled-components';
 import Header from './Header';
 import LoginContainer from './LoginContainer';
 import BrowserSupport from './BrowserSupport';
@@ -14,9 +14,72 @@ import CheckContext from '../CheckContext';
 import DrawerNavigation from './DrawerNavigation';
 import { bemClass } from '../helpers';
 import Message from './Message';
-import { muiThemeWithoutRtl, ContentColumn } from '../styles/js/shared';
+import {
+  muiThemeWithoutRtl,
+  units,
+  gutterMedium,
+  black38,
+  white,
+  tiny,
+  mediaQuery,
+  borderRadiusDefault,
+} from '../styles/js/shared';
 
-// Material-UI setup
+import { layout, typography, localeAr, removeYellowAutocomplete } from '../styles/js/global';
+
+// Global styles
+injectGlobal`
+  ${layout}
+  ${typography}
+  ${localeAr}
+  ${removeYellowAutocomplete}
+`;
+
+const StyledWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  position: relative;
+`;
+
+const StyledContent = styled.div`
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding-top: ${gutterMedium};
+  width: 100%;
+`;
+
+// The "beta" label
+//
+const StyledDisclaimer = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  & > span {
+    ${mediaQuery.handheld`
+      ${props => (props.isRtl ? 'left' : 'right')}: 2%;
+    `}
+    background-color: ${black38};
+    border-radius: 0;
+    color: ${white};
+    font: ${tiny};
+    letter-spacing: 1px;
+    padding: 2px ${units(0.5)} 1px;
+    position: absolute;
+    text-transform: uppercase;
+    z-index: 1;
+    ${props => (props.isRtl ? 'left' : 'right')}: ${units(23)};
+    border-bottom-right-radius: ${borderRadiusDefault};
+    border-bottom-left-radius: ${borderRadiusDefault};
+  }
+`;
+
+// Needed for onTouchTap
+import injectTapEventPlugin from 'react-tap-event-plugin';
+
 injectTapEventPlugin();
 
 const messages = defineMessages({
@@ -43,7 +106,6 @@ class Home extends Component {
       open: false,
     };
   }
-
 
   getChildContext() {
     return {
@@ -136,7 +198,7 @@ class Home extends Component {
     //
     // TODO: Fix currentUserIsMember function.
     // context.currentUser.teams keys are actually the team names, not slugs
-    
+
     const inTeamContext = !!this.props.params.team;
     const loggedIn = !!this.state.token;
 
@@ -145,7 +207,7 @@ class Home extends Component {
         const context = this.getContext();
         const teams = JSON.parse(context.currentUser.teams);
         const team = teams[this.props.params.team] || {};
-        return (team.status === 'member');
+        return team.status === 'member';
       }
       return false;
     })();
@@ -155,12 +217,12 @@ class Home extends Component {
         <span>
           <Favicon url={`/images/logo/${config.appName}.ico`} animated={false} />
           <BrowserSupport />
-          <div className={bemClass('home', routeSlug, `--${routeSlug}`)}>
-            <ContentColumn wide className="home__disclaimer">
+          <StyledWrapper className={bemClass('home', routeSlug, `--${routeSlug}`)}>
+            <StyledDisclaimer isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
               <span>
                 <FormattedMessage id="home.beta" defaultMessage="Beta" />
               </span>
-            </ContentColumn>
+            </StyledDisclaimer>
             <Header
               drawerToggle={this.handleDrawerToggle.bind(this)}
               loggedIn={loggedIn}
@@ -168,11 +230,20 @@ class Home extends Component {
               currentUserIsMember={currentUserIsMember}
               {...this.props}
             />
-            <Message message={this.state.message} onClick={this.resetMessage.bind(this)} className="home__message" />
-            <div className="home__content">
+            <Message
+              message={this.state.message}
+              onClick={this.resetMessage.bind(this)}
+              className="home__message"
+              style={{
+                position: 'absolute',
+                width: '100%',
+                zIndex: '1000',
+              }}
+            />
+            <StyledContent>
               {children}
-            </div>
-          </div>
+            </StyledContent>
+          </StyledWrapper>
           <DrawerNavigation
             docked={false}
             open={this.state.open}

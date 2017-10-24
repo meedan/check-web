@@ -23,6 +23,7 @@ done
 if [ "${NODE_ENV}" != "production" ]; then
   echo "NODE_ENV is ${NODE_ENV} - disabling caching for static assets";
   sed -i -e 's/s-maxage=900, max-age=300/no-cache/g' /etc/nginx/sites-enabled/${APP};
+  sed -i -e '/NOTPRODUCTION/,+3 s/^/#/' /etc/nginx/sites-enabled/${APP}
 fi
 
 echo "starting nginx";

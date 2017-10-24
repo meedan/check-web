@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import { defineMessages } from 'react-intl';
+import { defineMessages, injectIntl } from 'react-intl';
 import { Card, CardActions } from 'material-ui/Card';
 import styled from 'styled-components';
+import rtlDetect from 'rtl-detect';
 import TimelineHeader from './TimelineHeader';
 import AddAnnotation from './AddAnnotation';
-import MediaAnnotation from './MediaAnnotation';
+import Annotation from './Annotation';
 import Can from '../Can';
-import { units, black16, white } from '../../styles/js/shared';
+import { units, black16, white, opaqueBlack16, borderWidthMedium } from '../../styles/js/shared';
 
 const messages = defineMessages({
   timelineTitle: {
@@ -19,16 +20,20 @@ const messages = defineMessages({
   },
 });
 
-const StyledAnnotationCard = styled(Card)`
+const StyledAnnotation = styled.div`
   display: flex;
   flex-direction: column;
   .annotations__list {
     // Chrome only hack to avoid broken scroll on Firefox :( CGB 2017-10-6
     // TODO figure out a real solution for this
     // See: https://github.com/philipwalton/flexbugs/issues/108
-    @media screen and (-webkit-min-device-pixel-ratio:0) { 
-      height: calc(100vh - 370px);
+    @media screen and (-webkit-min-device-pixel-ratio:0) {
+      height: ${props => props.height === 'short'
+        ? 'calc(100vh - 580px);'
+        : 'calc(100vh - 300px);'
+      };
     }
+    min-height: 250px;
     overflow: auto;
     display: flex;
     // Scroll the log to the bottom
@@ -37,7 +42,19 @@ const StyledAnnotationCard = styled(Card)`
     border-bottom: 1px solid ${black16};
 
     .annotations__list-item {
+      position: relative;
       margin: 0 ${units(1)};
+      // The timeline line
+      &::before {
+        background-color: ${opaqueBlack16};
+        bottom: 0;
+        content: '';
+        display: block;
+        position: absolute;
+        top: 0;
+        width: ${borderWidthMedium};
+        ${props => (props.isRtl ? 'right' : 'left')}: ${units(4)};
+      }
       &:first-of-type {
         padding-bottom: ${units(6)};
       }
@@ -56,7 +73,7 @@ const StyledAnnotationCardActions = styled(CardActions)`
 class Annotations extends Component {
   annotationComponent(node, annotated, annotatedType) {
     return (
-      <MediaAnnotation
+      <Annotation
         annotation={node}
         annotated={annotated}
         annotatedType={annotatedType}
@@ -69,43 +86,45 @@ class Annotations extends Component {
     const annotations = props.annotations;
 
     return (
-      <StyledAnnotationCard className="annotations">
+      <StyledAnnotation
+        className="annotations"
+        isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}
+        height={this.props.height}
+      > <Card>
         <TimelineHeader msgObj={messages} msgKey="timelineTitle" />
         <div className="annotations__list">
           {annotations.map(annotation =>
-            <div
-              key={annotation.node.dbid}
-              className="annotations__list-item"
-            >
+            <div key={annotation.node.dbid} className="annotations__list-item">
               {this.annotationComponent(
-                annotation.node,
-                props.annotated,
-                props.annotatedType,
-              )}
+                  annotation.node,
+                  props.annotated,
+                  props.annotatedType,
+                )}
             </div>,
-          )}
+            )}
         </div>
         <StyledAnnotationCardActions>
           {props.annotatedType === 'ProjectMedia'
-            ? <Can
-              permissions={props.annotated.permissions}
-              permission="create Comment"
-            >
-              <AddAnnotation
+              ? <Can
+                permissions={props.annotated.permissions}
+                permission="create Comment"
+              >
+                <AddAnnotation
+                  annotated={props.annotated}
+                  annotatedType={props.annotatedType}
+                  types={props.types}
+                />
+              </Can>
+              : <AddAnnotation
                 annotated={props.annotated}
                 annotatedType={props.annotatedType}
                 types={props.types}
-              />
-            </Can>
-            : <AddAnnotation
-              annotated={props.annotated}
-              annotatedType={props.annotatedType}
-              types={props.types}
-            />}
+              />}
         </StyledAnnotationCardActions>
-      </StyledAnnotationCard>
+      </Card>
+      </StyledAnnotation>
     );
   }
 }
 
-export default Annotations;
+export default injectIntl(Annotations);

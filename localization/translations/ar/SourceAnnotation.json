@@ -1,6 +1,0 @@
-{
-  "annotation.error": "لم نتمكن من حذف التعليق",
-  "annotation.deleteButton": "حذف",
-  "annotation.taggedHeader": "تم وسمه #{tag} بواسطة {author}",
-  "annotation.flaggedHeader": "تم وسمه #{tag} بواسطة {author}"
-}

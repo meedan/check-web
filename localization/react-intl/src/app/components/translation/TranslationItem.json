@@ -4,10 +4,6 @@
     "defaultMessage": "language: {language}"
   },
   {
-    "id": "translation.edit",
-    "defaultMessage": "Edit translation"
-  },
-  {
     "id": "translation.translationText",
     "defaultMessage": "Translation text"
   },
@@ -22,5 +18,9 @@
   {
     "id": "translation.submit",
     "defaultMessage": "Submit"
+  },
+  {
+    "id": "translation.edit",
+    "defaultMessage": "Edit translation"
   }
 ]

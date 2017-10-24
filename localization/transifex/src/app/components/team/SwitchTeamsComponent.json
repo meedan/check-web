@@ -1,12 +1,11 @@
 {
   "switchTeams.error": "Sorry, could not switch teams",
-  "switchTeams.member": "member",
-  "switchTeams.members": "members",
+  "switchTeams.member": "{membersCount, plural, =0 {No members} one {1 member} other {# members}}",
   "switchTeams.joinRequestMessage": "You requested to join",
   "switchTeams.cancelJoinRequest": "Cancel",
   "switchTeams.bannedJoinRequest": "Cancelled",
-  "teams.yourTeams": "Your Teams",
-  "teams.userTeams": "{name} is a member of {number} teams",
-  "switchTeams.noTeams": "You are not a member of any teams yet.",
+  "teams.yourTeams": "Your teams",
+  "teams.userTeams": "{name}'s teams",
+  "switchTeams.noTeams": "Not a member of any team.",
   "switchTeams.newTeamLink": "Create Team"
 }

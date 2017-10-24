@@ -7,6 +7,7 @@ import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-i
 import MdCancel from 'react-icons/lib/md/cancel';
 import MdRadioButtonUnchecked from 'react-icons/lib/md/radio-button-unchecked';
 import Message from '../Message';
+import { StyledTaskDescription, units } from '../../styles/js/shared';
 
 const messages = defineMessages({
   addValue: {
@@ -231,7 +232,7 @@ class SingleChoiceTask extends Component {
             multiLine
             fullWidth
           />
-          <div className="create-task__add-options">
+          <div style={{ marginTop: units(2) }}>
             {this.state.options.map((item, index) =>
               <div key={`create-task__add-options-radiobutton-${index.toString()}`}>
                 <MdRadioButtonUnchecked
@@ -246,6 +247,7 @@ class SingleChoiceTask extends Component {
                   placeholder={`${formatMessage(messages.value)} ${index + 1}`}
                   value={item.label}
                   disabled={item.other}
+                  style={{ padding: `${units(0.5)} ${units(1)}`, width: '75%' }}
                 />
                 {canRemove
                   ? <MdCancel
@@ -256,7 +258,7 @@ class SingleChoiceTask extends Component {
                   : null}
               </div>,
             )}
-            <div className="create-task__add-options-buttons">
+            <div style={{ marginTop: units(1) }}>
               <FlatButton
                 label={this.props.intl.formatMessage(messages.addValue)}
                 onClick={this.handleAddValue.bind(this)}
@@ -268,27 +270,29 @@ class SingleChoiceTask extends Component {
               />
             </div>
           </div>
-          <input
-            className="create-task__add-task-description"
-            id="create-task__add-task-description"
-            type="checkbox"
-          />
-          <TextField
-            id="task-description-input"
-            className="create-task__task-description-input"
-            floatingLabelText={
-              <FormattedMessage id="tasks.description" defaultMessage="Description" />
-            }
-            onChange={this.handleDescriptionChange.bind(this)}
-            multiLine
-          />
-          <label
-            className="create-task__add-task-description-label"
-            htmlFor="create-task__add-task-description"
-          >
-            <span className="create-task__add-task-description-icon">+</span>{' '}
-            <FormattedMessage id="tasks.addDescription" defaultMessage="Add a description" />
-          </label>
+          <StyledTaskDescription>
+            <input
+              className="create-task__add-task-description"
+              id="create-task__add-task-description"
+              type="checkbox"
+            />
+            <TextField
+              id="task-description-input"
+              className="create-task__task-description-input"
+              floatingLabelText={
+                <FormattedMessage id="tasks.description" defaultMessage="Description" />
+              }
+              onChange={this.handleDescriptionChange.bind(this)}
+              multiLine
+            />
+            <label
+              className="create-task__add-task-description-label"
+              htmlFor="create-task__add-task-description"
+            >
+              <span className="create-task__add-task-description-icon">+</span>{' '}
+              <FormattedMessage id="tasks.addDescription" defaultMessage="Add a description" />
+            </label>
+          </StyledTaskDescription>
         </Dialog>
       </div>
     );

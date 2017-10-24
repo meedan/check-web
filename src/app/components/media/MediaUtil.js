@@ -92,10 +92,6 @@ const MediaUtil = {
     }
   },
 
-  authorUrl(media, data) {
-    return data.author_url;
-  },
-
   mediaType(media) {
     let type = null;
     try {
@@ -187,14 +183,6 @@ const MediaUtil = {
       date = null;
     }
     return date;
-  },
-
-  bodyText(media, data) {
-    return data.description;
-  },
-
-  bodyImageUrl(media, data) {
-    return data.picture;
   },
 
   socialIcon(domain) {

@@ -5,11 +5,7 @@
   },
   {
     "id": "switchTeams.member",
-    "defaultMessage": "member"
-  },
-  {
-    "id": "switchTeams.members",
-    "defaultMessage": "members"
+    "defaultMessage": "{membersCount, plural, =0 {No members} one {1 member} other {# members}}"
   },
   {
     "id": "switchTeams.joinRequestMessage",
@@ -25,15 +21,15 @@
   },
   {
     "id": "teams.yourTeams",
-    "defaultMessage": "Your Teams"
+    "defaultMessage": "Your teams"
   },
   {
     "id": "teams.userTeams",
-    "defaultMessage": "{name} is a member of {number} teams"
+    "defaultMessage": "{name}'s teams"
   },
   {
     "id": "switchTeams.noTeams",
-    "defaultMessage": "You are not a member of any teams yet."
+    "defaultMessage": "Not a member of any team."
   },
   {
     "id": "switchTeams.newTeamLink",

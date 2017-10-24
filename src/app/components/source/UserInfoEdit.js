@@ -5,9 +5,10 @@ import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import MdCancel from 'react-icons/lib/md/cancel';
-import styled from 'styled-components';
 import capitalize from 'lodash.capitalize';
 import LinkifyIt from 'linkify-it';
+import rtlDetect from 'rtl-detect';
+import SourcePicture from './SourcePicture';
 import Message from '../Message';
 import UploadImage from '../UploadImage';
 import globalStrings from '../../globalStrings';
@@ -15,12 +16,16 @@ import UpdateSourceMutation from '../../relay/UpdateSourceMutation';
 import UpdateUserNameEmailMutation from '../../relay/mutation/UpdateUserNameEmailMutation';
 import CreateAccountSourceMutation from '../../relay/mutation/CreateAccountSourceMutation';
 import DeleteAccountSourceMutation from '../../relay/mutation/DeleteAccountSourceMutation';
+import { StyledIconButton, Row, ContentColumn } from '../../styles/js/shared';
 
-const FlexRow = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-`;
+import {
+  StyledButtonGroup,
+  StyledTwoColumns,
+  StyledSmallColumn,
+  StyledBigColumn,
+  StyledAvatarEditButton,
+  StyledHelper,
+} from '../../styles/js/HeaderCard';
 
 const messages = defineMessages({
   sourceName: {
@@ -49,7 +54,8 @@ const messages = defineMessages({
   },
   addLinkHelper: {
     id: 'userInfoEdit.addLinkHelper',
-    defaultMessage: 'Add a link to a web page or social media profile. Note: this does not affect your login method.',
+    defaultMessage:
+      'Add a link to a web page or social media profile. Note: this does not affect your login method.',
   },
   invalidLink: {
     id: 'userInfoEdit.invalidLink',
@@ -121,7 +127,9 @@ class UserInfoEdit extends React.Component {
   }
 
   handleRemoveLink = (id) => {
-    const deleteLinks = this.state.deleteLinks ? this.state.deleteLinks.slice(0) : [];
+    const deleteLinks = this.state.deleteLinks
+      ? this.state.deleteLinks.slice(0)
+      : [];
     deleteLinks.push(id);
     this.setState({ deleteLinks });
   };
@@ -140,26 +148,35 @@ class UserInfoEdit extends React.Component {
       if (json.error) {
         message = json.error;
       }
-    } catch (e) { }
+    } catch (e) {}
     this.setState({ message, hasFailure: true, submitDisabled: false });
   };
 
   success = (response, mutation) => {
     const manageEditingState = () => {
       const submitDisabled = this.state.pendingMutations.length > 0;
-      const isEditing = (submitDisabled || this.state.hasFailure);
+      const isEditing = submitDisabled || this.state.hasFailure;
       const message = isEditing ? this.state.message : null;
 
       this.setState({ submitDisabled, message });
-      if (!isEditing) { this.handleLeaveEditMode() }
+      if (!isEditing) {
+        this.handleLeaveEditMode();
+      }
     };
 
-    const pendingMutations = this.state.pendingMutations ? this.state.pendingMutations.slice(0) : [];
-    this.setState({ pendingMutations: pendingMutations.filter(m => m !== mutation) }, manageEditingState);
+    const pendingMutations = this.state.pendingMutations
+      ? this.state.pendingMutations.slice(0)
+      : [];
+    this.setState(
+      { pendingMutations: pendingMutations.filter(m => m !== mutation) },
+      manageEditingState,
+    );
   };
 
   registerPendingMutation = (mutation) => {
-    const pendingMutations = this.state.pendingMutations ? this.state.pendingMutations.slice(0) : [];
+    const pendingMutations = this.state.pendingMutations
+      ? this.state.pendingMutations.slice(0)
+      : [];
     pendingMutations.push(mutation);
     this.setState({ pendingMutations });
   };
@@ -176,12 +193,14 @@ class UserInfoEdit extends React.Component {
         if (json.error) {
           message = json.error;
         }
-      } catch (e) { }
+      } catch (e) {}
 
       this.setState({ message, submitDisabled: false });
     };
 
-    const onSuccess = (response) => { this.success(response, 'updateSource'); };
+    const onSuccess = (response) => {
+      this.success(response, 'updateSource');
+    };
     const form = document.forms['edit-source-form'];
 
     if (source.description === form.description.value && !form.image) {
@@ -216,12 +235,14 @@ class UserInfoEdit extends React.Component {
         if (json.error) {
           message = json.error;
         }
-      } catch (e) { }
+      } catch (e) {}
 
       this.setState({ message, submitDisabled: false });
     };
 
-    const onSuccess = (response) => { this.success(response, 'updateUser'); };
+    const onSuccess = (response) => {
+      this.success(response, 'updateUser');
+    };
     const form = document.forms['edit-source-form'];
 
     if (user.name === form.name.value && user.email === form.email.value) {
@@ -246,14 +267,20 @@ class UserInfoEdit extends React.Component {
     let links = this.state.links ? this.state.links.slice(0) : [];
     links = links.filter(link => !!link.url.trim());
 
-    const deleteLinks = this.state.deleteLinks ? this.state.deleteLinks.slice(0) : [];
+    const deleteLinks = this.state.deleteLinks
+      ? this.state.deleteLinks.slice(0)
+      : [];
 
     if (!links.length && !deleteLinks.length) {
       return false;
     }
 
-    links.forEach((link) => { this.createAccountSource(link.url); });
-    deleteLinks.forEach((id) => { this.deleteAccountSource(id); });
+    links.forEach((link) => {
+      this.createAccountSource(link.url);
+    });
+    deleteLinks.forEach((id) => {
+      this.deleteAccountSource(id);
+    });
 
     return true;
   }
@@ -273,7 +300,7 @@ class UserInfoEdit extends React.Component {
           if (json.error) {
             message = json.error;
           }
-        } catch (e) { }
+        } catch (e) {}
 
         links[index].error = message;
       }
@@ -281,9 +308,13 @@ class UserInfoEdit extends React.Component {
       this.setState({ hasFailure: true, submitDisabled: false });
     };
 
-    const onSuccess = (response) => { this.success(response, 'createAccount'); };
+    const onSuccess = (response) => {
+      this.success(response, 'createAccount');
+    };
 
-    if (!url) { return; }
+    if (!url) {
+      return;
+    }
 
     this.registerPendingMutation('createAccount');
 
@@ -299,8 +330,12 @@ class UserInfoEdit extends React.Component {
 
   deleteAccountSource(asId) {
     const { source } = this.props.user;
-    const onFailure = (transaction) => { this.fail(transaction); };
-    const onSuccess = (response) => { this.success(response, 'deleteAccount'); };
+    const onFailure = (transaction) => {
+      this.fail(transaction);
+    };
+    const onSuccess = (response) => {
+      this.success(response, 'deleteAccount');
+    };
 
     this.registerPendingMutation('deleteAccount');
 
@@ -338,83 +373,115 @@ class UserInfoEdit extends React.Component {
   renderAccountsEdit() {
     const { source } = this.props.user;
     const links = this.state.links ? this.state.links.slice(0) : [];
-    const deleteLinks = this.state.deleteLinks ? this.state.deleteLinks.slice(0) : [];
-    const showAccounts = source.account_sources.edges.filter(as => (deleteLinks.indexOf(as.node.id) < 0));
+    const deleteLinks = this.state.deleteLinks
+      ? this.state.deleteLinks.slice(0)
+      : [];
+    const showAccounts = source.account_sources.edges.filter(
+      as => deleteLinks.indexOf(as.node.id) < 0,
+    );
 
-    return (<div key="renderAccountsEdit">
-      { showAccounts.map((as, index) =>
-        <div key={as.node.id} className="source__url">
-          <FlexRow>
-            <TextField
-              id={`source__link-item${index.toString()}`}
-              defaultValue={as.node.account.url}
-              floatingLabelText={capitalize(as.node.account.provider)}
-              style={{ width: '85%' }}
-              disabled
-            />
-            <MdCancel className="create-task__remove-option-button create-task__md-icon" onClick={() => this.handleRemoveLink(as.node.id)} />
-          </FlexRow>
-        </div>)
-      }
-      { links.map((link, index) =>
-        <div key={index.toString()} className="source__url-input">
-          <FlexRow>
-            <TextField
-              id={`source__link-input${index.toString()}`}
-              name={`source__link-input${index.toString()}`}
-              value={link.url}
-              errorText={link.error}
-              floatingLabelText={this.props.intl.formatMessage(messages.addLinkLabel)}
-              onChange={e => this.handleChangeLink(e, index)}
-              style={{ width: '85%' }}
-            />
-            <MdCancel className="create-task__remove-option-button create-task__md-icon" onClick={() => this.handleRemoveNewLink(index)} />
-          </FlexRow>
-          { link.error
-            ? null
-            : <div className="source__helper">{this.props.intl.formatMessage(messages.addLinkHelper)}</div>
-          }
-        </div>)
-      }
-    </div>);
+    return (
+      <div key="renderAccountsEdit">
+        {showAccounts.map((as, index) =>
+          <div key={as.node.id} className="source__url">
+            <Row>
+              <TextField
+                id={`source__link-item${index.toString()}`}
+                defaultValue={as.node.account.url}
+                floatingLabelText={capitalize(as.node.account.provider)}
+                style={{ width: '85%' }}
+                disabled
+              />
+              <StyledIconButton>
+                <MdCancel
+                  className="create-task__remove-option-button"
+                  onClick={() => this.handleRemoveLink(as.node.id)}
+                />
+              </StyledIconButton>
+            </Row>
+          </div>,
+        )}
+        {links.map((link, index) =>
+          <div key={index.toString()} className="source__url-input">
+            <Row>
+              <TextField
+                id={`source__link-input${index.toString()}`}
+                name={`source__link-input${index.toString()}`}
+                value={link.url}
+                errorText={link.error}
+                floatingLabelText={this.props.intl.formatMessage(
+                  messages.addLinkLabel,
+                )}
+                onChange={e => this.handleChangeLink(e, index)}
+                style={{ width: '85%' }}
+              />
+              <StyledIconButton>
+                <MdCancel
+                  className="create-task__remove-option-button"
+                  onClick={() => this.handleRemoveNewLink(index)}
+                />
+              </StyledIconButton>
+            </Row>
+            {link.error
+              ? null
+              : <StyledHelper>
+                {this.props.intl.formatMessage(messages.addLinkHelper)}
+              </StyledHelper>}
+          </div>,
+        )}
+      </div>
+    );
   }
 
   render() {
-    const avatarPreview = this.state.image && this.state.image.preview;
     const { user } = this.props;
     const { source } = this.props.user;
 
     return (
-      <div className="source__profile-content">
+      <ContentColumn noPadding>
         <Message message={this.state.message} />
-        <section className="layout-two-column">
-          <div className="column-secondary">
-            <div
+        <StyledTwoColumns>
+          <StyledSmallColumn
+            isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}
+          >
+            <SourcePicture
+              size="large"
+              object={source}
+              type="user"
               className="source__avatar"
-              style={{ backgroundImage: `url(${avatarPreview || source.image})` }}
             />
-            { !this.state.editProfileImg ?
-              <div className="source__edit-avatar-button">
+            {!this.state.editProfileImg
+              ? <StyledAvatarEditButton className="source__edit-avatar-button">
                 <FlatButton
                   label={this.props.intl.formatMessage(globalStrings.edit)}
                   onClick={this.handleEditProfileImg.bind(this)}
                   primary
                 />
-              </div> : null
-            }
-          </div>
+              </StyledAvatarEditButton>
+              : null}
+          </StyledSmallColumn>
 
-          <div className="column-primary">
-            <form onSubmit={this.handleSubmit.bind(this)} name="edit-source-form">
-              { this.state.editProfileImg ?
-                <UploadImage onImage={this.onImage.bind(this)} onClear={this.onClear} onError={this.onImageError.bind(this)} noPreview /> : null
-              }
+          <StyledBigColumn>
+            <form
+              onSubmit={this.handleSubmit.bind(this)}
+              name="edit-source-form"
+            >
+              {this.state.editProfileImg
+                ? <UploadImage
+                  onImage={this.onImage.bind(this)}
+                  onClear={this.onClear}
+                  onError={this.onImageError.bind(this)}
+                  noPreview
+                />
+                : null}
               <TextField
                 className="source__name-input"
                 name="name"
                 id="source__name-container"
                 defaultValue={user.name}
-                floatingLabelText={this.props.intl.formatMessage(messages.sourceName)}
+                floatingLabelText={this.props.intl.formatMessage(
+                  messages.sourceName,
+                )}
                 style={{ width: '85%' }}
               />
               <TextField
@@ -422,7 +489,9 @@ class UserInfoEdit extends React.Component {
                 name="description"
                 id="source__bio-container"
                 defaultValue={source.description}
-                floatingLabelText={this.props.intl.formatMessage(messages.sourceBio)}
+                floatingLabelText={this.props.intl.formatMessage(
+                  messages.sourceBio,
+                )}
                 multiLine
                 rowsMax={4}
                 style={{ width: '85%' }}
@@ -432,17 +501,20 @@ class UserInfoEdit extends React.Component {
                 name="email"
                 id="source__email-container"
                 defaultValue={user.email}
-                floatingLabelText={this.props.intl.formatMessage(messages.userEmail)}
+                floatingLabelText={this.props.intl.formatMessage(
+                  messages.userEmail,
+                )}
                 style={{ width: '85%' }}
               />
 
-              { this.renderAccountsEdit() }
+              {this.renderAccountsEdit()}
             </form>
 
-            <div className="source__edit-buttons">
-              <div className="source__edit-buttons-add-merge">
+            <StyledButtonGroup
+              isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}
+            >
+              <div>
                 <FlatButton
-                  className="source__edit-addlink-button"
                   primary
                   onClick={this.handleAddLink}
                   label={this.props.intl.formatMessage(messages.addLink)}
@@ -462,11 +534,10 @@ class UserInfoEdit extends React.Component {
                   label={this.props.intl.formatMessage(globalStrings.save)}
                 />
               </div>
-              <div className="source__edit-buttons-clear" />
-            </div>
-          </div>
-        </section>
-      </div>
+            </StyledButtonGroup>
+          </StyledBigColumn>
+        </StyledTwoColumns>
+      </ContentColumn>
     );
   }
 }

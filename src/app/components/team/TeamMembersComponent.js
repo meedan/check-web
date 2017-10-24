@@ -9,7 +9,6 @@ import PageTitle from '../PageTitle';
 import TeamMembersListItem from './TeamMembersListItem';
 import Can from '../Can';
 import {
-  ContentColumn,
   FlexRow,
   StyledMdCardTitle,
   cardInCardGroupStyle,
@@ -61,7 +60,7 @@ class TeamMembersComponent extends Component {
         skipTeam={false}
         team={team}
       >
-        <ContentColumn>
+        <div>
           <TeamInviteCard team={team} />
 
           {(() => {
@@ -125,7 +124,7 @@ class TeamMembersComponent extends Component {
                 ))()}
             </List>
           </Card>
-        </ContentColumn>
+        </div>
       </PageTitle>
     );
   }

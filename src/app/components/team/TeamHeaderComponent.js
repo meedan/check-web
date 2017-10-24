@@ -7,11 +7,13 @@ import CheckContext from '../../CheckContext';
 import {
   Row,
   Offset,
+  OffsetBothSides,
   HeaderTitle,
   headerHeight,
   black05,
   avatarStyle,
   avatarSize,
+  HiddenOnMobile,
 } from '../../styles/js/shared';
 
 const DrawerButtonGroup = styled(Row)`
@@ -41,10 +43,8 @@ class TeamHeaderComponent extends Component {
   }
 
   render() {
-    const team = this.props.team;
     const isProjectUrl = /(.*\/project\/[0-9]+)/.test(window.location.pathname);
-
-    const { loggedIn } = this.props;
+    const { loggedIn, team, isRtl } = this.props;
 
     // Team Avatar
     const TeamAvatar = styled.div`
@@ -57,17 +57,19 @@ class TeamHeaderComponent extends Component {
     const userAvatarOrMenuButton = (() => {
       if (!loggedIn || !team) {
         return (
-          <Offset>
+          <OffsetBothSides>
             <IconMenu />
-          </Offset>
+          </OffsetBothSides>
         );
       }
       return (
-        <Offset>
-          <Row>
-            <UserAvatarRelay {...this.props} />
-          </Row>
-        </Offset>
+        <HiddenOnMobile>
+          <OffsetBothSides>
+            <Row>
+              <UserAvatarRelay {...this.props} />
+            </Row>
+          </OffsetBothSides>
+        </HiddenOnMobile>
       );
     })();
 
@@ -80,14 +82,14 @@ class TeamHeaderComponent extends Component {
         >
           {userAvatarOrMenuButton}
           {isProjectUrl
-            ? <Offset>
+            ? <Offset isRtl={isRtl}>
               <TeamAvatar />
             </Offset>
             : <Row>
-              <Offset>
+              <Offset isRtl={isRtl}>
                 <TeamAvatar />
               </Offset>
-              <Offset>
+              <Offset isRtl={isRtl}>
                 <HeaderTitle>
                   {team.name}
                 </HeaderTitle>

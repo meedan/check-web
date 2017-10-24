@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay';
-import MenuItem from 'material-ui/MenuItem';
+import IconEdit from 'material-ui/svg-icons/image/edit';
 import ProjectRoute from './ProjectRoute';
 import Can from '../components/Can';
 import CheckContext from '../CheckContext';
+import { SmallerStyledIconButton } from '../styles/js/shared';
 
 class ProjectMenu extends Component {
   handleEditClick() {
@@ -16,20 +17,26 @@ class ProjectMenu extends Component {
   render() {
     const { project } = this.props;
 
+    const editProjectButton = (<SmallerStyledIconButton
+      onClick={this.handleEditClick.bind(this)}
+      tooltip={<FormattedMessage id="projectMenuRelay.editProject" defaultMessage="Edit project" />}
+    >
+      <IconEdit />
+    </SmallerStyledIconButton>);
+
     return (
       <Can permissions={project.permissions} permission="update Project">
-        <MenuItem
+        <div
           key="projectMenuRelay.editProject"
           className="project-menu"
-          onClick={this.handleEditClick.bind(this)}
-          primaryText={
-            <FormattedMessage id="projectMenuRelay.editProject" defaultMessage="Edit project" />
-          }
-        />
+        >
+          {editProjectButton}
+        </div>
       </Can>
     );
   }
 }
+
 
 ProjectMenu.contextTypes = {
   store: React.PropTypes.object,

@@ -16,7 +16,7 @@ const ProjectWrapper = styled.div`
   flex-direction: column;
   height: 100%;
   overflow-y: visible;
-  padding: 0 ${units(2)};
+  padding: 0 ${units(2)} ${units(5)};
   position: relative;
   width: 100%;
 `;
@@ -71,7 +71,7 @@ class ProjectComponent extends Component {
       <PageTitle prefix={project.title} skipTeam={false} team={this.currentContext().team}>
         <ProjectWrapper className="project">
           {project.description && project.description.trim().length
-            ? <div style={{ margin: `0 ${units(1)}` }} className="project__description">
+            ? <div style={{ margin: `0 ${units(1)} ${units(1)}` }} className="project__description">
               <p>{project.description}</p>
             </div>
             : null}
