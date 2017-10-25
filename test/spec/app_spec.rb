@@ -357,18 +357,22 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should not create duplicated source", bin6: true do
-      api_create_team_project_and_source('Megadeth', 'https://twitter.com/megadeth')
-      @driver.navigate.to @config['self_url']
+      api_create_team_project_and_source_and_redirect_to_source('Megadeth', 'https://twitter.com/megadeth')
+      id1 = @driver.current_url.to_s.gsub(/^.*\/source\//, '').to_i
+      expect(id1 > 0).to be(true)
+      @driver.navigate.to @driver.current_url.to_s.gsub(/\/source\/[0-9]+$/, '')
       sleep 5
       @driver.find_element(:css, '#create-media__source').click
       sleep 1
       fill_field('#create-media-source-name-input', 'Megadeth')
       fill_field('#create-media-source-url-input', 'https://twitter.com/megadeth')
       sleep 1
-      expect(@driver.page_source.include?('Source exists')).to be(false)
       press_button('#create-media-submit')
-      sleep 15
-      expect(@driver.page_source.include?('Source exists')).to be(true)
+      sleep 10
+      id2 = @driver.current_url.to_s.gsub(/^.*\/source\//, '').to_i
+      expect(id2 > 0).to be(true)
+
+      expect(id1 == id2).to be(true)
     end
 
     # This test is flaky
