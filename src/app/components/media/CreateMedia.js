@@ -177,16 +177,12 @@ class CreateProjectMedia extends Component {
       // do nothing
     }
     if (json && json.error) {
-      const matches = json.error.match(
-        this.state.mode === 'source'
-          ? /Account with this URL exists and has source id ([0-9]+)$/
-          : /This media already exists in this project and has id ([0-9]+)/,
-      );
+      const matches = json.error.match(/This \b(media|source|account)\b already exists in project ([0-9]+) and has id ([0-9]+)/);
       if (matches) {
         this.props.projectComponent.props.relay.forceFetch();
-        const pxid = matches[1];
+        const type = matches[1] == 'media' ? 'media' : 'source';
         message = null;
-        context.history.push(prefix + pxid);
+        context.history.push(`/${context.team.slug}/project/${matches[2]}/${type}/${matches[3]}`);
       } else {
         message = json.error;
       }
