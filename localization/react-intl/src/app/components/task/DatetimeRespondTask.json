@@ -12,6 +12,14 @@
     "defaultMessage": "Error: invalid time"
   },
   {
+    "id": "datetimeRespondTask.cancelTask",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "datetimeRespondTask.resolveTask",
+    "defaultMessage": "Resolve task"
+  },
+  {
     "id": "datetimeRespondTask.pickDate",
     "defaultMessage": "Pick a date from the calendar"
   },
@@ -22,13 +30,5 @@
   {
     "id": "datetimeRespondTask.note",
     "defaultMessage": "Note any additional details here."
-  },
-  {
-    "id": "datetimeRespondTask.cancelTask",
-    "defaultMessage": "Cancel"
-  },
-  {
-    "id": "datetimeRespondTask.resolveTask",
-    "defaultMessage": "Resolve task"
   }
 ]
