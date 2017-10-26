@@ -1019,10 +1019,10 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el.click
 
       # Ensure menu closes and textarea is focused...
-      el = wait_for_selector('textarea[name="editedresponse"]', :css)
+      el = wait_for_selector('textarea[name="response"]', :css)
       el.click
 
-      fill_field('textarea[name="editedresponse"]', ' edited')
+      fill_field('textarea[name="response"]', ' edited')
       @driver.find_element(:css, '.task__save').click
       media_pg.wait_all_elements(8, "annotations__list-item", :class) #Wait for refresh page
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Task "Foo or bar???" answered by User With Email: "Foo edited"')).to be(true)
