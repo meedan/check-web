@@ -82,7 +82,7 @@ class DatetimeRespondTask extends Component {
     }
 
     this.state = {
-      taskAnswerDisabled: false,
+      taskAnswerDisabled: true,
       timeError: null,
       timezone,
       date,
@@ -104,15 +104,6 @@ class DatetimeRespondTask extends Component {
     return !!value;
   }
 
-  handleKeyPress(e) {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      if (this.canSubmit()) {
-        this.handleSubmit();
-      }
-      e.preventDefault();
-    }
-  }
-
   handlePressButton() {
     if (this.canSubmit()) {
       this.handleSubmit();
@@ -120,11 +111,11 @@ class DatetimeRespondTask extends Component {
   }
 
   handleChange(e, date) {
-    this.setState({ taskAnswerDisabled: !this.canSubmit(date), date });
+    this.setState({ focus: true, taskAnswerDisabled: !this.canSubmit(date), date });
   }
 
   handleChangeTimezone(e, index, value) {
-    this.setState({ timezone: value });
+    this.setState({ focus: true, timezone: value });
   }
 
   handleChangeNote(e) {
@@ -140,6 +131,7 @@ class DatetimeRespondTask extends Component {
     };
 
     const state = {
+      focus: true,
       taskAnswerDisabled: !this.canSubmit(),
     };
     state[part] = e.target.value;
@@ -204,6 +196,8 @@ class DatetimeRespondTask extends Component {
   handleCancel() {
     const ori = this.state.original;
     this.setState({
+      focus: false,
+      taskAnswerDisabled: true,
       timezone: ori.timezone,
       date: ori.date,
       hour: ori.hour,
@@ -216,6 +210,28 @@ class DatetimeRespondTask extends Component {
   }
 
   render() {
+    const actionBtns = (
+      <p className="task__resolver">
+        <FlatButton
+          className="task__cancel"
+          label={<FormattedMessage id="datetimeRespondTask.cancelTask" defaultMessage="Cancel" />}
+          onClick={this.handleCancel.bind(this)}
+        />
+        <FlatButton
+          className="task__save"
+          label={
+            <FormattedMessage
+              id="datetimeRespondTask.resolveTask"
+              defaultMessage="Resolve task"
+            />
+          }
+          primary
+          onClick={this.handlePressButton.bind(this)}
+          disabled={this.state.taskAnswerDisabled}
+        />
+      </p>
+    );
+
     const locale = this.getLocale();
     let DateTimeFormat;
 
@@ -244,7 +260,6 @@ class DatetimeRespondTask extends Component {
             className="task__response-input"
             name="response"
             value={this.state.date}
-            onKeyPress={this.handleKeyPress.bind(this)}
             onChange={this.handleChange.bind(this)}
             fullWidth
             locale={locale}
@@ -277,6 +292,7 @@ class DatetimeRespondTask extends Component {
                 hintStyle={styles.time}
                 value={this.state.hour}
                 onChange={this.handleChangeTime.bind(this, 'hour')}
+                onFocus={() => {this.setState({ focus: true })}}
               />{' '}
               <div>:</div>{' '}
               <TextField
@@ -287,6 +303,7 @@ class DatetimeRespondTask extends Component {
                 hintStyle={styles.time}
                 value={this.state.minute}
                 onChange={this.handleChangeTime.bind(this, 'minute')}
+                onFocus={() => {this.setState({ focus: true })}}
               />
               <SelectField
                 value={this.state.timezone}
@@ -320,27 +337,10 @@ class DatetimeRespondTask extends Component {
           value={this.state.note}
           multiLine
           fullWidth
-          onKeyPress={this.handleKeyPress.bind(this)}
           onChange={this.handleChangeNote.bind(this)}
+          onFocus={() => {this.setState({ focus: true })}}
         />
-        <p className="task__resolver">
-          <FlatButton
-            className="task__cancel"
-            label={<FormattedMessage id="datetimeRespondTask.cancelTask" defaultMessage="Cancel" />}
-            onClick={this.handleCancel.bind(this)}
-          />
-          <FlatButton
-            className="task__save"
-            label={
-              <FormattedMessage
-                id="datetimeRespondTask.resolveTask"
-                defaultMessage="Resolve task"
-              />
-            }
-            primary
-            onClick={this.handlePressButton.bind(this)}
-          />
-        </p>
+        { this.state.focus ? actionBtns : null }
       </div>
     );
   }

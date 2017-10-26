@@ -291,12 +291,12 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     #   expect(@driver.find_element(:link_text, 'test.png').nil?).to be(false)
     # end
 
-    # Disabled because the functionality changed to use a 
+    # Disabled because the functionality changed to use a
     # background image in CSS instead of an <img> element.
-    # 
-    #  I think we could do something like this instead: 
+    #
+    #  I think we could do something like this instead:
     #  https://stackoverflow.com/questions/11198882/how-do-you-test-if-a-div-has-a-certain-css-style-in-rspec-capybara
-    # 
+    #
     # it "should upload image when registering", bin5: true do
     #   email, password, avatar = ["test-#{Time.now.to_i}@example.com", '12345678', File.join(File.dirname(__FILE__), 'test.png')]
     #   page = LoginPage.new(config: @config, driver: @driver).load
@@ -991,7 +991,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       # Answer task
       expect(@driver.page_source.include?('Task "Foo or bar?" answered by')).to be(false)
       fill_field('textarea[name="response"]', 'Foo')
-      @driver.action.send_keys(:enter).perform
+      @driver.find_element(:css, '.task__save').click
       media_pg.wait_all_elements(3, "annotations__list-item", :class)
       expect(@driver.page_source.include?('Task "Foo or bar?" answered by')).to be(true)
 
@@ -1019,11 +1019,11 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el.click
 
       # Ensure menu closes and textarea is focused...
-      el = wait_for_selector('textarea[name="editedresponse"]', :css)
+      el = wait_for_selector('textarea[name="response"]', :css)
       el.click
 
-      fill_field('textarea[name="editedresponse"]', ' edited')
-      @driver.action.send_keys(:enter).perform
+      fill_field('textarea[name="response"]', ' edited')
+      @driver.find_element(:css, '.task__save').click
       media_pg.wait_all_elements(8, "annotations__list-item", :class) #Wait for refresh page
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Task "Foo or bar???" answered by User With Email: "Foo edited"')).to be(true)
 

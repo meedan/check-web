@@ -1,0 +1,18 @@
+[
+  {
+    "id": "shortTextRespondTask.cancelTask",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "shortTextRespondTask.resolveTask",
+    "defaultMessage": "Resolve task"
+  },
+  {
+    "id": "shortTextRespondTask.responseHint",
+    "defaultMessage": "Answer here."
+  },
+  {
+    "id": "shortTextRespondTask.noteHint",
+    "defaultMessage": "Note any additional details here."
+  }
+]
