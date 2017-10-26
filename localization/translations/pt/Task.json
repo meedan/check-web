@@ -6,9 +6,6 @@
   "task.editResponse": "Editar resposta",
   "task.edit": "Editar questão",
   "task.delete": "Remover tarefa",
-  "task.hintText": "Digite uma resposta",
-  "task.noteLabel": "Anote quaisquer detalhes adicionais aqui.",
-  "task.pressReturnToSave": "Pressione enter para salvar sua resposta",
   "tasks.taskLabel": "Título da tarefa",
   "tasks.description": "Descrição"
 }

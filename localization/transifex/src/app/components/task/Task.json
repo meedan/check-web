@@ -6,9 +6,6 @@
   "task.editResponse": "Edit response",
   "task.edit": "Edit question",
   "task.delete": "Delete task",
-  "task.hintText": "Type a response",
-  "task.noteLabel": "Note any additional details here.",
-  "task.pressReturnToSave": "Press return to save your response",
   "tasks.taskLabel": "Task label",
   "tasks.description": "Description"
 }
