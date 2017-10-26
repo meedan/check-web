@@ -19,6 +19,7 @@ import UpdateDynamicMutation from '../../relay/UpdateDynamicMutation';
 import DeleteAnnotationMutation from '../../relay/DeleteAnnotationMutation';
 import Can from '../Can';
 import ParsedText from '../ParsedText';
+import ShortTextRespondTask from './ShortTextRespondTask';
 import GeolocationRespondTask from './GeolocationRespondTask';
 import GeolocationTaskResponse from './GeolocationTaskResponse';
 import DatetimeRespondTask from './DatetimeRespondTask';
@@ -56,20 +57,8 @@ class Task extends Component {
     };
   }
 
-  handleFocus() {
-    this.setState({ focus: true });
-  }
-
-  handleCancelFocus() {
-    this.setState({
-      focus: false,
-      response: null,
-      responseOther: null,
-      otherSelected: false,
-    });
-  }
-
   handleSubmit(e) {
+    return; //temporary
     const that = this;
     const task = this.props.task;
 
@@ -153,20 +142,6 @@ class Task extends Component {
     );
   }
 
-  handleKeyPress(e) {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      if (this.canSubmit(e.target.value)) {
-        this.setState({ taskAnswerDisabled: true });
-        this.handleSubmit(e);
-      }
-      e.preventDefault();
-    }
-  }
-
-  handleChange(e) {
-    this.setState({ taskAnswerDisabled: !this.canSubmit(e.target.value) });
-  }
-
   handleEdit() {
     this.setState({ editing: true, isMenuOpen: false });
   }
@@ -242,17 +217,8 @@ class Task extends Component {
     this.setState({ editingResponse: true });
   }
 
-  handleKeyPressUpdate(e) {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      if (this.canSubmit(e.target.value)) {
-        this.setState({ taskAnswerDisabled: true });
-        this.handleSubmitUpdate(e);
-      }
-      e.preventDefault();
-    }
-  }
-
   handleSubmitUpdate(e) {
+    return; //temporary: we won't use form onSubmit anymore
     const that = this;
     const task = this.props.task;
 
@@ -334,34 +300,11 @@ class Task extends Component {
     );
   }
 
-  toggleMenu() {
-    this.setState({ isMenuOpen: !this.state.isMenuOpen });
-  }
-
-  bemClass(baseClass, modifierBoolean, modifierSuffix) {
-    return modifierBoolean ? [baseClass, baseClass + modifierSuffix].join(' ') : baseClass;
-  }
-
   componentDidMount() {
     const that = this;
     window.addEventListener('click', () => {
       that.setState({ focus: false });
     });
-  }
-
-  canSubmit(value) {
-    if (typeof value !== 'undefined' && value !== null) {
-      return !!value.trim();
-    }
-    const task = this.props.task;
-    const form_id = this.state.editingResponse
-      ? `edit-response-${task.first_response.id}`
-      : `task-response-${task.id}`;
-    const form = document.forms[form_id];
-    const form_value = this.state.editingResponse ? form.editedresponse.value : form.response.value;
-    const state_response = this.state.response ? this.state.response.trim() : null;
-
-    return !!state_response || !!form_value.trim();
   }
 
   getResponseData() {
@@ -489,6 +432,12 @@ class Task extends Component {
         <form onSubmit={this.handleSubmit.bind(this)} name={`task-response-${task.id}`}>
 
           <div className="task__response-inputs">
+            {task.type === 'free_text'
+              ? <ShortTextRespondTask
+                onDismiss={this.handleCancel.bind(this, task)}
+                onSubmit={this.handleSubmitWithArgs.bind(this)}
+              />
+              : null}
             {task.type === 'geolocation'
                 ? <GeolocationRespondTask
                   onCancel={this.handleCancel.bind(this, task)}
@@ -516,46 +465,6 @@ class Task extends Component {
                   onSubmit={this.handleSubmitWithArgs.bind(this)}
                 />
                 : null}
-            {task.type === 'free_text'
-                ? [
-                  <TextField
-                    key="task__response-input"
-                    className="task__response-input"
-                    onFocus={this.handleFocus.bind(this)}
-                    name="response"
-                    onKeyPress={this.handleKeyPress.bind(this)}
-                    onChange={this.handleChange.bind(this)}
-                    hintText={
-                      <FormattedMessage id="task.hintText" defaultMessage="Type a response" />
-                      }
-                    fullWidth
-                    multiLine
-                  />,
-                  <TextField
-                    key="task__response-note-input"
-                    className="task__response-note-input"
-                    hintText={
-                      <FormattedMessage
-                        id="task.noteLabel"
-                        defaultMessage="Note any additional details here."
-                      />
-                      }
-                    name="note"
-                    onKeyPress={this.handleKeyPress.bind(this)}
-                    onChange={this.handleChange.bind(this)}
-                    fullWidth
-                    multiLine
-                  />,
-                  <p key="task__resolver" className="task__resolver">
-                    <small>
-                      <FormattedMessage
-                        id="task.pressReturnToSave"
-                        defaultMessage="Press return to save your response"
-                      />
-                    </small>
-                  </p>,
-                ]
-                : null}
           </div>
         </form>
       </Can>)
@@ -565,6 +474,14 @@ class Task extends Component {
             onSubmit={this.handleSubmitUpdate.bind(this)}
             name={`edit-response-${task.first_response.id}`}
           >
+            {task.type === 'free_text'
+                ? <ShortTextRespondTask
+                  response={response}
+                  note={note}
+                  onSubmit={this.handleSubmitUpdateWithArgs.bind(this)}
+                  onDismiss={this.handleCancelEditResponse.bind(this)}
+                />
+                : null}
             {task.type === 'geolocation'
                 ? <GeolocationRespondTask
                   onCancel={this.handleCancel.bind(this, task)}
@@ -600,49 +517,6 @@ class Task extends Component {
                   onDismiss={this.handleCancelEditResponse.bind(this)}
                   onSubmit={this.handleSubmitUpdateWithArgs.bind(this)}
                 />
-                : null}
-            {task.type === 'free_text'
-                ? [
-                  <TextField
-                    key="task__response-input"
-                    className="task__response-input"
-                    defaultValue={response}
-                    name="editedresponse"
-                    onKeyPress={this.handleKeyPressUpdate.bind(this)}
-                    onChange={this.handleChange.bind(this)}
-                    fullWidth
-                    multiLine
-                  />,
-                  <TextField
-                    key="task__response-note-label"
-                    hintText={
-                      <FormattedMessage
-                        id="task.noteLabel"
-                        defaultMessage="Note any additional details here."
-                      />
-                      }
-                    defaultValue={note}
-                    name="editednote"
-                    onKeyPress={this.handleKeyPressUpdate.bind(this)}
-                    onChange={this.handleChange.bind(this)}
-                    fullWidth
-                    multiLine
-                  />,
-                  <p key="task__resolver" className="task__resolver">
-                    <small>
-                      <FormattedMessage
-                        id="task.pressReturnToSave"
-                        defaultMessage="Press return to save your response"
-                      />
-                    </small>{' '}
-                    <span
-                      id="task__cancel-button"
-                      onClick={this.handleCancelEditResponse.bind(this)}
-                    >
-                        ✖
-                      </span>
-                  </p>,
-                ]
                 : null}
           </form>
         </div>
