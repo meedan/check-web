@@ -48,58 +48,11 @@ class Task extends Component {
     super(props);
 
     this.state = {
-      focus: false,
       editing: false,
       message: null,
       editingResponse: false,
       isMenuOpen: false,
-      taskAnswerDisabled: true,
     };
-  }
-
-  handleSubmit(e) {
-    return; //temporary
-    const that = this;
-    const task = this.props.task;
-
-    const onFailure = (transaction) => {
-      const error = transaction.getError();
-      let message = error.source;
-      try {
-        const json = JSON.parse(error.source);
-        if (json.error) {
-          message = json.error;
-        }
-      } catch (e) {}
-      that.setState({ message });
-    };
-
-    const onSuccess = (response) => {
-      that.setState({ message: null });
-    };
-
-    const form = document.forms[`task-response-${task.id}`];
-    const fields = {};
-    fields[`response_${task.type}`] = this.state.response || form.response.value;
-    fields[`note_${task.type}`] = form.note ? form.note.value : '';
-    fields[`task_${task.type}`] = task.dbid;
-
-    if (!that.state.taskAnswerDisabled) {
-      Relay.Store.commitUpdate(
-        new UpdateTaskMutation({
-          annotated: that.props.media,
-          task: {
-            id: task.id,
-            fields,
-            annotation_type: `task_response_${task.type}`,
-          },
-        }),
-        { onSuccess, onFailure },
-      );
-      that.setState({ taskAnswerDisabled: true });
-    }
-
-    e.preventDefault();
   }
 
   handleSubmitWithArgs(response, note) {
@@ -207,58 +160,11 @@ class Task extends Component {
   handleCancelEditResponse() {
     this.setState({
       editingResponse: false,
-      response: null,
-      responseOther: null,
-      otherSelected: false,
     });
   }
 
   handleEditResponse() {
     this.setState({ editingResponse: true });
-  }
-
-  handleSubmitUpdate(e) {
-    return; //temporary: we won't use form onSubmit anymore
-    const that = this;
-    const task = this.props.task;
-
-    const onFailure = (transaction) => {
-      const error = transaction.getError();
-      let message = error.source;
-      try {
-        const json = JSON.parse(error.source);
-        if (json.error) {
-          message = json.error;
-        }
-      } catch (e) {}
-      that.setState({ message });
-    };
-
-    const onSuccess = () => {
-      that.setState({ message: null, editingResponse: false });
-    };
-
-    const form = document.forms[`edit-response-${task.first_response.id}`];
-    const fields = {};
-    fields[`response_${task.type}`] = this.state.response || form.editedresponse.value;
-    fields[`note_${task.type}`] = form.editednote ? form.editednote.value : '';
-
-    if (!that.state.taskAnswerDisabled) {
-      Relay.Store.commitUpdate(
-        new UpdateDynamicMutation({
-          annotated: that.props.media,
-          parent_type: 'project_media',
-          dynamic: {
-            id: task.first_response.id,
-            fields,
-          },
-        }),
-        { onSuccess, onFailure },
-      );
-      that.setState({ taskAnswerDisabled: true });
-    }
-
-    e.preventDefault();
   }
 
   handleSubmitUpdateWithArgs(edited_response, edited_note) {
@@ -302,9 +208,6 @@ class Task extends Component {
 
   componentDidMount() {
     const that = this;
-    window.addEventListener('click', () => {
-      that.setState({ focus: false });
-    });
   }
 
   getResponseData() {
@@ -328,10 +231,6 @@ class Task extends Component {
     return data;
   }
 
-  handleCancel(task) {
-    document.getElementById(`task__label-${task.id}`).click();
-  }
-
   render() {
     const { task, media } = this.props;
     const data = this.getResponseData();
@@ -339,11 +238,10 @@ class Task extends Component {
     const { note } = data;
     const { by } = data;
 
-    const createTaskActions = [
+    const editTaskActions = [
       <FlatButton
         key="tasks__cancel"
         label={<FormattedMessage id="tasks.cancelEdit" defaultMessage="Cancel" />}
-        primary
         onClick={this.handleCancelEdit.bind(this)}
       />,
       <FlatButton
@@ -429,18 +327,16 @@ class Task extends Component {
 
     const taskBody = !response
       ? (<Can permissions={media.permissions} permission="create Dynamic">
-        <form onSubmit={this.handleSubmit.bind(this)} name={`task-response-${task.id}`}>
+        <form name={`task-response-${task.id}`}>
 
           <div className="task__response-inputs">
             {task.type === 'free_text'
               ? <ShortTextRespondTask
-                onDismiss={this.handleCancel.bind(this, task)}
                 onSubmit={this.handleSubmitWithArgs.bind(this)}
               />
               : null}
             {task.type === 'geolocation'
                 ? <GeolocationRespondTask
-                  onCancel={this.handleCancel.bind(this, task)}
                   onSubmit={this.handleSubmitWithArgs.bind(this)}
                 />
                 : null}
@@ -470,10 +366,7 @@ class Task extends Component {
       </Can>)
       : this.state.editingResponse
         ? <div className="task__editing">
-          <form
-            onSubmit={this.handleSubmitUpdate.bind(this)}
-            name={`edit-response-${task.first_response.id}`}
-          >
+          <form name={`edit-response-${task.first_response.id}`}>
             {task.type === 'free_text'
                 ? <ShortTextRespondTask
                   response={response}
@@ -484,7 +377,6 @@ class Task extends Component {
                 : null}
             {task.type === 'geolocation'
                 ? <GeolocationRespondTask
-                  onCancel={this.handleCancel.bind(this, task)}
                   response={response}
                   onSubmit={this.handleSubmitUpdateWithArgs.bind(this)}
                   onDismiss={this.handleCancelEditResponse.bind(this)}
@@ -593,7 +485,7 @@ class Task extends Component {
         </Card>
 
         <Dialog
-          actions={createTaskActions}
+          actions={editTaskActions}
           modal={false}
           open={!!this.state.editing}
           onRequestClose={this.handleCancelEdit.bind(this)}
@@ -609,17 +501,15 @@ class Task extends Component {
               fullWidth
               multiLine
             />
-            {task.type === 'geolocation'
-              ? null
-              : <TextField
-                name="description"
-                floatingLabelText={
-                  <FormattedMessage id="tasks.description" defaultMessage="Description" />
-                  }
-                defaultValue={task.description}
-                fullWidth
-                multiLine
-              />}
+            <TextField
+              name="description"
+              floatingLabelText={
+                <FormattedMessage id="tasks.description" defaultMessage="Description" />
+                }
+              defaultValue={task.description}
+              fullWidth
+              multiLine
+            />
           </form>
         </Dialog>
       </StyledWordBreakDiv>

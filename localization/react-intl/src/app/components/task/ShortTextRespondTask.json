@@ -8,7 +8,11 @@
     "defaultMessage": "Resolve task"
   },
   {
-    "id": "task.noteLabel",
+    "id": "shortTextRespondTask.responseHint",
+    "defaultMessage": "Answer here."
+  },
+  {
+    "id": "shortTextRespondTask.noteHint",
     "defaultMessage": "Note any additional details here."
   }
 ]

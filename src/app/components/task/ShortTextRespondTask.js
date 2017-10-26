@@ -77,7 +77,12 @@ class ShortTextRespondTask extends React.Component {
     return (
       <div>
         <TextField
-          key="task__response-input"
+          hintText={
+            <FormattedMessage
+              id="shortTextRespondTask.responseHint"
+              defaultMessage="Answer here."
+            />
+          }
           className="task__response-input"
           value={response}
           name="response"
@@ -87,10 +92,9 @@ class ShortTextRespondTask extends React.Component {
           multiLine
         />
         <TextField
-          key="task__response-note-label"
           hintText={
             <FormattedMessage
-              id="task.noteLabel"
+              id="shortTextRespondTask.noteHint"
               defaultMessage="Note any additional details here."
             />
           }
@@ -101,7 +105,7 @@ class ShortTextRespondTask extends React.Component {
           fullWidth
           multiLine
         />
-      {this.state.focus ? actionBtns : null}
+        {this.state.focus ? actionBtns : null}
       </div>
     );
   }

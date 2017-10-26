@@ -201,7 +201,6 @@ class CreateTask extends Component {
     const actions = [
       <FlatButton
         label={<FormattedMessage id="tasks.cancelAdd" defaultMessage="Cancel" />}
-        primary
         onClick={this.handleCloseDialog.bind(this)}
       />,
       <FlatButton
@@ -218,7 +217,6 @@ class CreateTask extends Component {
       <div>
 
         <Can permissions={media.permissions} permission="create Task">
-
           <StyledCreateTaskButton
             className="create-task__add-button create-task__add-button--default"
             onClick={this.handleClick.bind(this)}
@@ -287,48 +285,42 @@ class CreateTask extends Component {
         >
           <Message message={this.state.message} />
 
-          {this.state.type === 'free_text' ||
-            this.state.type === 'geolocation' ||
-            this.state.type === 'datetime'
-            ? <TextField
-              id="task-label-input"
-              className="create-task__task-label-input"
-              fullWidth
+          <TextField
+            id="task-label-input"
+            className="create-task__task-label-input"
+            fullWidth
+            floatingLabelText={
+              <FormattedMessage id="tasks.taskLabel" defaultMessage="Prompt" />
+              }
+            onChange={this.handleLabelChange.bind(this)}
+            multiLine
+          />
+
+          <StyledTaskDescription>
+            <input
+              className="create-task__add-task-description"
+              id="create-task__add-task-description"
+              type="checkbox"
+            />
+            <TextField
+              id="task-description-input"
+              className="create-task__task-description-input"
               floatingLabelText={
-                <FormattedMessage id="tasks.taskLabel" defaultMessage="Prompt" />
+                <FormattedMessage id="tasks.description" defaultMessage="Description" />
                 }
-              onChange={this.handleLabelChange.bind(this)}
+              onChange={this.handleDescriptionChange.bind(this)}
               multiLine
             />
-            : null}
-
-          {this.state.type === 'free_text'
-            ? <StyledTaskDescription>
-              <input
-                className="create-task__add-task-description"
-                id="create-task__add-task-description"
-                type="checkbox"
-              />
-              <TextField
-                id="task-description-input"
-                className="create-task__task-description-input"
-                floatingLabelText={
-                  <FormattedMessage id="tasks.description" defaultMessage="Description" />
-                  }
-                onChange={this.handleDescriptionChange.bind(this)}
-                multiLine
-              />
-              <label
-                className="create-task__add-task-description-label"
-                htmlFor="create-task__add-task-description"
-              >
-                <span className="create-task__add-task-description-icon">
-                    +
-                  </span>{' '}
-                <FormattedMessage id="tasks.addDescription" defaultMessage="Add a description" />
-              </label>
-            </StyledTaskDescription>
-            : null}
+            <label
+              className="create-task__add-task-description-label"
+              htmlFor="create-task__add-task-description"
+            >
+              <span className="create-task__add-task-description-icon">
+                  +
+                </span>{' '}
+              <FormattedMessage id="tasks.addDescription" defaultMessage="Add a description" />
+            </label>
+          </StyledTaskDescription>
         </Dialog>
 
         {this.renderDialog()}
