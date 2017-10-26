@@ -15,7 +15,6 @@ import TeamRoute from '../relay/TeamRoute';
 import checkSearchResultFragment from '../relay/checkSearchResultFragment';
 import bridgeSearchResultFragment from '../relay/bridgeSearchResultFragment';
 import MediaDetail from './media/MediaDetail';
-import { notify } from '../helpers';
 import CheckContext from '../CheckContext';
 import MediasLoading from './media/MediasLoading';
 import SourceCard from './source/SourceCard';
@@ -33,7 +32,8 @@ import {
   borderWidthSmall,
   transitionSpeedFast,
   transitionSpeedDefault,
-  mediaQuery } from '../styles/js/shared';
+  mediaQuery,
+} from '../styles/js/shared';
 
 const pageSize = 20;
 
@@ -73,6 +73,7 @@ const StyledSearchFiltersSection = styled.section`
 const StyledFilterRow = styled(Row)`
   max-height: ${units(20)};
   min-height: ${units(5)};
+  overflow-y: auto;
   flex-wrap: wrap;
 
   h4 {
@@ -125,9 +126,10 @@ const StyledFilterButton = styled.div`
     cursor: pointer;
     background-color: ${black16};
   }
-  ${props => props.active
-    ? `color: ${black87}!important; font-weight: 700;`
-    : `color: ${black38};
+  ${props =>
+    props.active
+      ? `color: ${black87}!important; font-weight: 700;`
+      : `color: ${black38};
   `}
 `;
 
@@ -412,199 +414,192 @@ class SearchQueryComponent extends Component {
     const suggestedTags = this.props.team.get_suggested_tags
       ? this.props.team.get_suggested_tags.split(',')
       : [];
-    const title = this.props.title || (this.props.project ? this.props.project.title : this.title(statuses, projects));
+    const title =
+      this.props.title ||
+      (this.props.project ? this.props.project.title : this.title(statuses, projects));
 
     return (
       <PageTitle prefix={title} skipTeam={false} team={this.props.team}>
 
         <ContentColumn>
 
-
           {/* Keyword */}
           {this.showField('keyword')
-                ? <form
-                  id="search-form"
-                  className="search__form"
-                  onSubmit={this.handleSubmit.bind(this)}
-                >
-                  <StyledSearchInput
-                    placeholder={this.props.intl.formatMessage(messages.searchInputHint)}
-                    name="search-input"
-                    id="search-input"
-                    defaultValue={this.state.query.keyword || ''}
-                    ref={input => (this.searchQueryInput = input)}
-                    isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}
-                    autofocus
-                  />
-                </form>
-                : null}
+            ? <form
+              id="search-form"
+              className="search__form"
+              onSubmit={this.handleSubmit.bind(this)}
+            >
+              <StyledSearchInput
+                placeholder={this.props.intl.formatMessage(messages.searchInputHint)}
+                name="search-input"
+                id="search-input"
+                defaultValue={this.state.query.keyword || ''}
+                ref={input => (this.searchQueryInput = input)}
+                isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}
+                autofocus
+              />
+            </form>
+            : null}
 
           <StyledSearchFiltersSection>
             {/* Status */}
             {this.showField('status')
-                  ?
-                    <StyledFilterRow
-                      isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}
-                    >
-                      <h4><FormattedMessage id="search.statusHeading" defaultMessage="Status" /></h4>
-                      {statuses.map(status =>
-                        <StyledFilterButton
-                          active={this.statusIsSelected(status.id)}
-                          key={status.id}
-                          title={status.description}
-                          onClick={this.handleStatusClick.bind(this, status.id)}
-                          className={bemClass(
-                            'media-tags__suggestion',
-                            this.statusIsSelected(status.id),
-                            '--selected',
-                          )}
-                        >
-                          {status.label}
-                        </StyledFilterButton>,
-                        )}
-                    </StyledFilterRow>
-                  : null}
+              ? <StyledFilterRow isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
+                <h4><FormattedMessage id="search.statusHeading" defaultMessage="Status" /></h4>
+                {statuses.map(status =>
+                  <StyledFilterButton
+                    active={this.statusIsSelected(status.id)}
+                    key={status.id}
+                    title={status.description}
+                    onClick={this.handleStatusClick.bind(this, status.id)}
+                    className={bemClass(
+                        'media-tags__suggestion',
+                        this.statusIsSelected(status.id),
+                        '--selected',
+                      )}
+                  >
+                    {status.label}
+                  </StyledFilterButton>,
+                  )}
+              </StyledFilterRow>
+              : null}
 
             {/* Project */}
             {this.showField('project')
-                  ?
-                    <StyledFilterRow>
-                      <h4>
-                        <FormattedMessage id="search.projectHeading" defaultMessage="Project" />
-                      </h4>
-                      {projects.map(project =>
-                        <StyledFilterButton
-                          active={this.projectIsSelected(project.node.dbid)}
-                          key={project.node.dbid}
-                          title={project.node.description}
-                          onClick={this.handleProjectClick.bind(this, project.node.dbid)}
-                          className={bemClass(
-                            'media-tags__suggestion',
-                            this.projectIsSelected(project.node.dbid),
-                            '--selected',
-                          )}
-                        >
-                          {project.node.title}
-                        </StyledFilterButton>,
-                        )}
-                    </StyledFilterRow>
-                  : null}
+              ? <StyledFilterRow>
+                <h4>
+                  <FormattedMessage id="search.projectHeading" defaultMessage="Project" />
+                </h4>
+                {projects.map(project =>
+                  <StyledFilterButton
+                    active={this.projectIsSelected(project.node.dbid)}
+                    key={project.node.dbid}
+                    title={project.node.description}
+                    onClick={this.handleProjectClick.bind(this, project.node.dbid)}
+                    className={bemClass(
+                        'media-tags__suggestion',
+                        this.projectIsSelected(project.node.dbid),
+                        '--selected',
+                      )}
+                  >
+                    {project.node.title}
+                  </StyledFilterButton>,
+                  )}
+              </StyledFilterRow>
+              : null}
 
             {/* Tags */}
             {this.showField('tags') && suggestedTags.length
-                  ?
-                    <StyledFilterRow>
-                      <h4>
-                        <FormattedMessage id="status.categoriesHeading" defaultMessage="Categories" />
-                      </h4>
-                      {suggestedTags.map(tag =>
-                        <StyledFilterButton
-                          active={this.tagIsSelected(tag)}
-                          key={tag}
-                          title={null}
-                          onClick={this.handleTagClick.bind(this, tag)}
-                          className={bemClass(
-                            'media-tags__suggestion',
-                            this.tagIsSelected(tag),
-                            '--selected',
-                          )}
-                        >
-                          {tag}
-                        </StyledFilterButton>,
-                        )}
-                    </StyledFilterRow>
-                  : null}
+              ? <StyledFilterRow>
+                <h4>
+                  <FormattedMessage id="status.categoriesHeading" defaultMessage="Categories" />
+                </h4>
+                {suggestedTags.map(tag =>
+                  <StyledFilterButton
+                    active={this.tagIsSelected(tag)}
+                    key={tag}
+                    title={null}
+                    onClick={this.handleTagClick.bind(this, tag)}
+                    className={bemClass(
+                        'media-tags__suggestion',
+                        this.tagIsSelected(tag),
+                        '--selected',
+                      )}
+                  >
+                    {tag}
+                  </StyledFilterButton>,
+                  )}
+              </StyledFilterRow>
+              : null}
 
             {/* Sort */}
             {this.showField('sort')
-                  ?
-                    <StyledFilterRow className="search-query__sort-actions media-tags__suggestions-list">
-                      <h4><FormattedMessage id="search.sort" defaultMessage="Sort" /></h4>
+              ? <StyledFilterRow className="search-query__sort-actions media-tags__suggestions-list">
+                <h4><FormattedMessage id="search.sort" defaultMessage="Sort" /></h4>
 
-                      <StyledFilterButton
-                        active={this.sortIsSelected('recent_added')}
-                        onClick={this.handleSortClick.bind(this, 'recent_added')}
-                        className={bemClass(
-                          'media-tags__suggestion',
-                          this.sortIsSelected('recent_added'),
-                          '--selected',
-                        )}
-                      >
-                        <FormattedMessage id="search.sortByCreated" defaultMessage="Created" />
-                      </StyledFilterButton>
-                      <StyledFilterButton
-                        active={this.sortIsSelected('recent_activity')}
-                        onClick={this.handleSortClick.bind(this, 'recent_activity')}
-                        className={bemClass(
-                          'media-tags__suggestion',
-                          this.sortIsSelected('recent_activity'),
-                          '--selected',
-                        )}
-                      >
-                        <FormattedMessage
-                          id="search.sortByRecentActivity"
-                          defaultMessage="Recent activity"
-                        />
-                      </StyledFilterButton>
-                      <StyledFilterButton
-                        active={this.sortIsSelected('DESC')}
-                        onClick={this.handleSortClick.bind(this, 'DESC')}
-                        className={bemClass(
-                          'media-tags__suggestion',
-                          this.sortIsSelected('DESC'),
-                          '--selected',
-                        )}
-                      >
-                        <FormattedMessage id="search.sortByNewest" defaultMessage="Newest first" />
-                      </StyledFilterButton>
-                      <StyledFilterButton
-                        active={this.sortIsSelected('ASC')}
-                        onClick={this.handleSortClick.bind(this, 'ASC')}
-                        className={bemClass(
-                          'media-tags__suggestion',
-                          this.sortIsSelected('ASC'),
-                          '--selected',
-                        )}
-                      >
-                        <FormattedMessage id="search.sortByOldest" defaultMessage="Oldest first" />
-                      </StyledFilterButton>
-                    </StyledFilterRow>
-                  : null}
+                <StyledFilterButton
+                  active={this.sortIsSelected('recent_added')}
+                  onClick={this.handleSortClick.bind(this, 'recent_added')}
+                  className={bemClass(
+                      'media-tags__suggestion',
+                      this.sortIsSelected('recent_added'),
+                      '--selected',
+                    )}
+                >
+                  <FormattedMessage id="search.sortByCreated" defaultMessage="Created" />
+                </StyledFilterButton>
+                <StyledFilterButton
+                  active={this.sortIsSelected('recent_activity')}
+                  onClick={this.handleSortClick.bind(this, 'recent_activity')}
+                  className={bemClass(
+                      'media-tags__suggestion',
+                      this.sortIsSelected('recent_activity'),
+                      '--selected',
+                    )}
+                >
+                  <FormattedMessage
+                    id="search.sortByRecentActivity"
+                    defaultMessage="Recent activity"
+                  />
+                </StyledFilterButton>
+                <StyledFilterButton
+                  active={this.sortIsSelected('DESC')}
+                  onClick={this.handleSortClick.bind(this, 'DESC')}
+                  className={bemClass(
+                      'media-tags__suggestion',
+                      this.sortIsSelected('DESC'),
+                      '--selected',
+                    )}
+                >
+                  <FormattedMessage id="search.sortByNewest" defaultMessage="Newest first" />
+                </StyledFilterButton>
+                <StyledFilterButton
+                  active={this.sortIsSelected('ASC')}
+                  onClick={this.handleSortClick.bind(this, 'ASC')}
+                  className={bemClass(
+                      'media-tags__suggestion',
+                      this.sortIsSelected('ASC'),
+                      '--selected',
+                    )}
+                >
+                  <FormattedMessage id="search.sortByOldest" defaultMessage="Oldest first" />
+                </StyledFilterButton>
+              </StyledFilterRow>
+              : null}
 
             {/* Show */}
             {this.showField('show')
-                  ?
-                    <StyledFilterRow className="search-query__sort-actions media-tags__suggestions-list">
-                      <h4><FormattedMessage id="search.show" defaultMessage="Show" /></h4>
-                      <StyledFilterButton
-                        active={this.showIsSelected('medias')}
-                        onClick={this.handleShowClick.bind(this, 'medias')}
-                        className={bemClass(
-                          'media-tags__suggestion',
-                          this.showIsSelected('medias'),
-                          '--selected',
-                        )}
-                      >
-                        <FormattedMessage id="search.showMedia" defaultMessage="Media" />
-                      </StyledFilterButton>
-                      <StyledFilterButton
-                        active={this.showIsSelected('sources')}
-                        onClick={this.handleShowClick.bind(this, 'sources')}
-                        className={bemClass(
-                          'media-tags__suggestion',
-                          this.showIsSelected('sources'),
-                          '--selected',
-                        )}
-                      >
-                        <FormattedMessage id="search.showSources" defaultMessage="Sources" />
-                      </StyledFilterButton>
-                    </StyledFilterRow>
-
-                  : null}
+              ? <StyledFilterRow className="search-query__sort-actions media-tags__suggestions-list">
+                <h4><FormattedMessage id="search.show" defaultMessage="Show" /></h4>
+                <StyledFilterButton
+                  active={this.showIsSelected('medias')}
+                  onClick={this.handleShowClick.bind(this, 'medias')}
+                  className={bemClass(
+                      'media-tags__suggestion',
+                      this.showIsSelected('medias'),
+                      '--selected',
+                    )}
+                >
+                  <FormattedMessage id="search.showMedia" defaultMessage="Media" />
+                </StyledFilterButton>
+                <StyledFilterButton
+                  active={this.showIsSelected('sources')}
+                  onClick={this.handleShowClick.bind(this, 'sources')}
+                  className={bemClass(
+                      'media-tags__suggestion',
+                      this.showIsSelected('sources'),
+                      '--selected',
+                    )}
+                >
+                  <FormattedMessage id="search.showSources" defaultMessage="Sources" />
+                </StyledFilterButton>
+              </StyledFilterRow>
+              : null}
 
           </StyledSearchFiltersSection>
 
-          { this.props.addons }
+          {this.props.addons}
         </ContentColumn>
       </PageTitle>
     );
@@ -883,15 +878,16 @@ class Search extends Component {
             return (
               <ContentColumn>
 
-                { (!fields || fields.indexOf('keyword') > -1) ?
-                  <div className="search__form search__form--loading">
+                {!fields || fields.indexOf('keyword') > -1
+                  ? <div className="search__form search__form--loading">
                     <StyledSearchInput
                       disabled
                       placeholder={formatMessage(messages.loading)}
                       name="search-input"
                       id="search-input"
                     />
-                  </div> : null }
+                  </div>
+                  : null}
 
               </ContentColumn>
             );
