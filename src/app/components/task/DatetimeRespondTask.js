@@ -340,7 +340,7 @@ class DatetimeRespondTask extends Component {
           onChange={this.handleChangeNote.bind(this)}
           onFocus={() => {this.setState({ focus: true })}}
         />
-        { this.state.focus ? actionBtns : null }
+        { this.state.focus || this.props.response ? actionBtns : null }
       </div>
     );
   }

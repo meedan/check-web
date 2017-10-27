@@ -249,7 +249,6 @@ class MultiSelectTask extends Component {
       <FlatButton
         className="create-task__dialog-cancel-button"
         label={<FormattedMessage id="tasks.cancelAdd" defaultMessage="Cancel" />}
-        primary
         onClick={this.props.onDismiss.bind(this)}
       />,
       <FlatButton
