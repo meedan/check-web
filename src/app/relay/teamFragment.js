@@ -36,7 +36,7 @@ const teamFragment = Relay.QL`
         }
       }
     },
-    projects(first: 10000) {
+    projects(first: $pageSize) {
       edges {
         node {
           title,

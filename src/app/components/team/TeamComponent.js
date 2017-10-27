@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay';
 import { Link } from 'react-router';
+import InfiniteScroll from 'react-infinite-scroller';
 import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import TextField from 'material-ui/TextField';
@@ -98,6 +99,8 @@ const messages = defineMessages({
     defaultMessage: 'Translation Projects',
   },
 });
+
+const pageSize = 20;
 
 class TeamComponent extends Component {
   constructor(props) {
@@ -224,6 +227,10 @@ class TeamComponent extends Component {
       showTab: value,
     });
   };
+
+  loadMore() {
+    this.props.relay.setVariables({ pageSize: this.props.team.projects.edges.length + pageSize });
+  }
 
   onImage(file) {
     document.forms['edit-team-form'].avatar = file;
@@ -533,22 +540,24 @@ class TeamComponent extends Component {
                           title={<MappedMessage msgObj={messages} msgKey="verificationProjects" />}
                         />
 
-                        <List className="projects" style={{ padding: '0' }}>
-                          {team.projects.edges
-                            .sortp((a, b) => a.node.title.localeCompare(b.node.title))
-                            .map(p =>
-                              <Link key={p.node.dbid} to={`/${team.slug}/project/${p.node.dbid}`}>
-                                <ListItem
-                                  className="team__project"
-                                  hoverColor={highlightBlue}
-                                  focusRippleColor={checkBlue}
-                                  touchRippleColor={checkBlue}
-                                  primaryText={p.node.title}
-                                  rightIcon={<KeyboardArrowRight />}
-                                />
-                              </Link>,
-                            )}
-                        </List>
+                        <InfiniteScroll hasMore loadMore={this.loadMore.bind(this)} threshold={500}>
+                          <List className="projects" style={{ padding: '0' }}>
+                            {team.projects.edges
+                              .sortp((a, b) => a.node.title.localeCompare(b.node.title))
+                              .map(p =>
+                                <Link key={p.node.dbid} to={`/${team.slug}/project/${p.node.dbid}`}>
+                                  <ListItem
+                                    className="team__project"
+                                    hoverColor={highlightBlue}
+                                    focusRippleColor={checkBlue}
+                                    touchRippleColor={checkBlue}
+                                    primaryText={p.node.title}
+                                    rightIcon={<KeyboardArrowRight />}
+                                  />
+                                </Link>,
+                              )}
+                          </List>
+                        </InfiniteScroll>
                       </Card>
                     </div>
                   ) : null }

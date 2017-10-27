@@ -8,6 +8,9 @@ class TeamHeader extends Component {
 
   render() {
     const TeamHeaderContainer = Relay.createContainer(TeamHeaderComponent, {
+      initialVariables: {
+        pageSize: 10000,
+      },
       fragments: {
         team: () => teamFragment,
       },
