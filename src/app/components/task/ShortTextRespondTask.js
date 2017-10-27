@@ -21,8 +21,7 @@ class ShortTextRespondTask extends React.Component {
   }
 
   canSubmit() {
-    const response = this.state.response ? this.state.response.trim() : this.props.response;
-    const can_submit = !!response;
+    const can_submit = (this.state.response && this.state.response.length > 0);
 
     this.setState({ taskAnswerDisabled: !can_submit });
     return can_submit;
@@ -105,7 +104,7 @@ class ShortTextRespondTask extends React.Component {
           fullWidth
           multiLine
         />
-        {this.state.focus ? actionBtns : null}
+        {this.state.focus || this.props.response ? actionBtns : null}
       </div>
     );
   }

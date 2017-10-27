@@ -198,7 +198,6 @@ class SingleChoiceTask extends Component {
       <FlatButton
         key="create-task__dialog-cancel-button"
         label={<FormattedMessage id="tasks.cancelAdd" defaultMessage="Cancel" />}
-        primary
         onClick={this.props.onDismiss.bind(this)}
       />,
       <FlatButton
