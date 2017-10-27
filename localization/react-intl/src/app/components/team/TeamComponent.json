@@ -62,5 +62,13 @@
   {
     "id": "teamComponent.saveButton",
     "defaultMessage": "Save"
+  },
+  {
+    "id": "teamComponent.members",
+    "defaultMessage": "Members"
+  },
+  {
+    "id": "teamComponent.projects",
+    "defaultMessage": "Projects"
   }
 ]

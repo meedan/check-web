@@ -49,7 +49,7 @@ class TeamMembersComponent extends Component {
     return (
 
       <div>
-
+        <TeamInviteCard team={team} />
         {(() => {
           if (requestingMembership) {
             return (
@@ -111,7 +111,6 @@ class TeamMembersComponent extends Component {
                 ))()}
           </List>
         </Card>
-        <TeamInviteCard team={team} />
       </div>
     );
   }
