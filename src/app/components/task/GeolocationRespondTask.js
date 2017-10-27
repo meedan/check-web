@@ -232,7 +232,7 @@ class GeolocationRespondTask extends Component {
             />
           </Map>
         </div>
-        { this.state.focus ? actionBtns : null }
+        { this.state.focus || this.props.response ? actionBtns : null }
       </div>
     );
   }
