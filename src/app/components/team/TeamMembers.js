@@ -4,6 +4,9 @@ import TeamRoute from '../../relay/TeamRoute';
 import TeamMembersComponent from './TeamMembersComponent';
 
 const TeamContainer = Relay.createContainer(TeamMembersComponent, {
+  initialVariables: {
+    pageSize: 20,
+  },
   fragments: {
     team: () => Relay.QL`
       fragment on Team {
@@ -12,7 +15,7 @@ const TeamContainer = Relay.createContainer(TeamMembersComponent, {
         name,
         slug,
         permissions,
-        team_users(first: 10000) {
+        team_users(first: $pageSize) {
           edges {
             node {
               user {

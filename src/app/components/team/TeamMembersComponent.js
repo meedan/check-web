@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
+import InfiniteScroll from 'react-infinite-scroller';
 import MdCreate from 'react-icons/lib/md/create';
 import RaisedButton from 'material-ui/RaisedButton';
 import { Card } from 'material-ui/Card';
@@ -14,6 +15,8 @@ import {
   units,
 } from '../../styles/js/shared';
 
+const pageSize = 20;
+
 class TeamMembersComponent extends Component {
   constructor(props) {
     super(props);
@@ -25,6 +28,10 @@ class TeamMembersComponent extends Component {
   handleEditMembers(e) {
     e.preventDefault();
     this.setState({ isEditing: !this.state.isEditing });
+  }
+
+  loadMore() {
+    this.props.relay.setVariables({ pageSize: this.props.team.team_users.edges.length + pageSize });
   }
 
   render() {
@@ -99,17 +106,19 @@ class TeamMembersComponent extends Component {
               />
             </Can>
           </FlexRow>
-          <List className="team-members__list">
-            {(() =>
-                teamUsersMembers.map(teamUser =>
-                  <TeamMembersListItem
-                    key={teamUser.node.id}
-                    teamUser={teamUser}
-                    team_id={team.id}
-                    isEditing={isEditing}
-                  />,
-                ))()}
-          </List>
+          <InfiniteScroll hasMore loadMore={this.loadMore.bind(this)} threshold={500}>
+            <List className="team-members__list">
+              {(() =>
+                  teamUsersMembers.map(teamUser =>
+                    <TeamMembersListItem
+                      key={teamUser.node.id}
+                      teamUser={teamUser}
+                      team_id={team.id}
+                      isEditing={isEditing}
+                    />,
+                  ))()}
+            </List>
+          </InfiniteScroll>
         </Card>
       </div>
     );
