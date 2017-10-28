@@ -21,10 +21,11 @@ class ShortTextRespondTask extends React.Component {
   }
 
   canSubmit() {
-    const can_submit = (this.state.response && this.state.response.length > 0);
+    const response = typeof this.state.response !== 'undefined' && this.state.response !== null
+      ? this.state.response : this.props.response || '';
 
-    this.setState({ taskAnswerDisabled: !can_submit });
-    return can_submit;
+    this.setState({ taskAnswerDisabled: !response });
+    return response;
   }
 
   handleChange(e) {
