@@ -11,6 +11,7 @@ class UserConfirmed extends Component {
       <ContentColumn>
         <Card>
           <CardTitle
+            className="main-title"
             title={<FormattedMessage id="userConfirmed.heading" defaultMessage="Account Confirmed" />}
           />
           <CardText>
