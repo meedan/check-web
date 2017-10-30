@@ -5,10 +5,10 @@
   },
   {
     "id": "userConfirmed.message",
-    "defaultMessage": "Thanks for confirming your e-mail address! Now you can {login}."
+    "defaultMessage": "Thanks for confirming your e-mail address! Now you can sign in."
   },
   {
-    "id": "userConfirmed.login",
-    "defaultMessage": "login"
+    "id": "headerActions.signIn",
+    "defaultMessage": "Sign In"
   }
 ]

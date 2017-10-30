@@ -1,5 +1,5 @@
 {
   "userConfirmed.heading": "تم تأكيد الحساب",
-  "userConfirmed.message": "شكراً لتأكيد عنوان بريدك الإلكتروني! يمكنك الآن {login}. ",
-  "userConfirmed.login": "تسجيل الدخول"
+  "userConfirmed.message": "شكراً لتأكيد عنوان بريدك الإلكتروني. يمكنك اﻵن تسجيل الدخول.",
+  "headerActions.signIn": "تسجيل الدخول"
 }

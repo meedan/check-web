@@ -119,7 +119,7 @@ class DatetimeRespondTask extends Component {
   }
 
   handleChangeNote(e) {
-    this.setState({ note: e.target.value });
+    this.setState({ note: e.target.value, taskAnswerDisabled: !this.canSubmit() });
   }
 
   handleChangeTime(part, e) {
