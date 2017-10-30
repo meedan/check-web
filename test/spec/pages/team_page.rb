@@ -15,7 +15,7 @@ class TeamPage < Page
 
   def create_project(options = {})
     name = options[:name] || "Project #{Time.now.to_i}"
-
+    element('.team__tab-button-projects').click
     element('#create-project-title').click
     fill_input('#create-project-title', name)
     element('#create-project-title').submit
