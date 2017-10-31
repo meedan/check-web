@@ -861,25 +861,25 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     #As a different user, request to join one team.
-    it "should join team", bin4:true, quick: true do
-      api_register_and_login_with_email
-      page = MePage.new(config: @config, driver: @driver).load
-      page.ask_join_team(subdomain: @team1_slug)
-      @wait.until {
-        expect(@driver.find_element(:class, "message").nil?).to be(false)
-      }
-      api_logout
-      @driver = new_driver(webdriver_url,browser_capabilities)
-      page = Page.new(config: @config, driver: @driver)
-      page.go(@config['api_path'] + '/test/session?email='+@user_mail)
-      #As the group creator, go to the members page and approve the joining request.
-      page = MePage.new(config: @config, driver: @driver).load
-          .approve_join_team(subdomain: @team1_slug)
-      @wait.until {
-        elems = @driver.find_elements(:css => ".team-members__list > div")
-        expect(elems.size).to be > 1
-      }
-    end
+    # it "should join team", bin4:true, quick: true do
+    #   api_register_and_login_with_email
+    #   page = MePage.new(config: @config, driver: @driver).load
+    #   page.ask_join_team(subdomain: @team1_slug)
+    #   @wait.until {
+    #     expect(@driver.find_element(:class, "message").nil?).to be(false)
+    #   }
+    #   api_logout
+    #   @driver = new_driver(webdriver_url,browser_capabilities)
+    #   page = Page.new(config: @config, driver: @driver)
+    #   page.go(@config['api_path'] + '/test/session?email='+@user_mail)
+    #   #As the group creator, go to the members page and approve the joining request.
+    #   page = MePage.new(config: @config, driver: @driver).load
+    #       .approve_join_team(subdomain: @team1_slug)
+    #   @wait.until {
+    #     elems = @driver.find_elements(:css => ".team-members__list > div")
+    #     expect(elems.size).to be > 1
+    #   }
+    # end
 
     it "should update notes count after delete annotation", bin3: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
