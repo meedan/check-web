@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay';
 import { Link } from 'react-router';
+import InfiniteScroll from 'react-infinite-scroller';
 import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import TextField from 'material-ui/TextField';
 import Checkbox from 'material-ui/Checkbox';
 import FlatButton from 'material-ui/FlatButton';
+import { Tabs, Tab } from 'material-ui/Tabs';
 import rtlDetect from 'rtl-detect';
 import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
 import KeyboardArrowRight from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
@@ -98,6 +100,8 @@ const messages = defineMessages({
   },
 });
 
+const pageSize = 20;
+
 class TeamComponent extends Component {
   constructor(props) {
     super(props);
@@ -108,6 +112,7 @@ class TeamComponent extends Component {
       isEditing: false,
       editProfileImg: false,
       submitDisabled: false,
+      showTab: 'members',
       values: {
         name: team.name,
         description: team.description,
@@ -215,6 +220,16 @@ class TeamComponent extends Component {
 
     values[key] = value;
     this.setState({ values });
+  }
+
+  handleTabChange = (value) => {
+    this.setState({
+      showTab: value,
+    });
+  };
+
+  loadMore() {
+    this.props.relay.setVariables({ pageSize: this.props.team.projects.edges.length + pageSize });
   }
 
   onImage(file) {
@@ -455,26 +470,50 @@ class TeamComponent extends Component {
                 }
 
                 return (
-                  <StyledTwoColumns>
-                    <StyledSmallColumn>
-                      <TeamAvatar style={{ backgroundImage: `url(${team.avatar})` }} />
-                    </StyledSmallColumn>
-                    <StyledBigColumn>
-                      <div className="team__primary-info">
-                        <StyledName className="team__name">
-                          {team.name}
-                        </StyledName>
-                        <StyledDescription>
-                          {<ParsedText text={team.description} /> ||
-                            <MappedMessage msgObj={messages} msgKey="verificationTeam" />}
-                        </StyledDescription>
-                      </div>
+                  <div>
+                    <StyledTwoColumns>
+                      <StyledSmallColumn>
+                        <TeamAvatar style={{ backgroundImage: `url(${team.avatar})` }} />
+                      </StyledSmallColumn>
+                      <StyledBigColumn>
+                        <div className="team__primary-info">
+                          <StyledName className="team__name">
+                            {team.name}
+                          </StyledName>
+                          <StyledDescription>
+                            {<ParsedText text={team.description} /> ||
+                              <MappedMessage msgObj={messages} msgKey="verificationTeam" />}
+                          </StyledDescription>
+                        </div>
 
-                      <Row>
-                        {contactInfo}
-                      </Row>
-                    </StyledBigColumn>
-                  </StyledTwoColumns>
+                        <Row>
+                          {contactInfo}
+                        </Row>
+                      </StyledBigColumn>
+                    </StyledTwoColumns>
+                    <Tabs value={this.state.showTab} onChange={this.handleTabChange}>
+                      <Tab
+                        label={
+                          <FormattedMessage
+                            id="teamComponent.members"
+                            defaultMessage="Members"
+                          />
+                        }
+                        value="members"
+                        className="team__tab-button-members"
+                      />
+                      <Tab
+                        label={
+                          <FormattedMessage
+                            id="teamComponent.projects"
+                            defaultMessage="Projects"
+                          />
+                        }
+                        value="projects"
+                        className="team__tab-button-projects"
+                      />
+                    </Tabs>
+                  </div>
                 );
               })()}
             </ContentColumn>
@@ -484,37 +523,44 @@ class TeamComponent extends Component {
             if (!isEditing) {
               return (
                 <ContentColumn>
+                  {this.state.showTab === 'members' ? (
+                    <TeamMembers {...this.props} />
+                  ) : null }
+                  {this.state.showTab === 'projects' ? (
+                    <div>
+                      <Card style={{ marginTop: units(2), marginBottom: units(2) }}>
+                        <Can permissions={team.permissions} permission="create Project">
+                          <CardActions style={{ padding: `0 ${units(2)} ${units(2)}` }}>
+                            <CreateProject team={team} autoFocus={team.projects.edges.length === 0} />
+                          </CardActions>
+                        </Can>
+                      </Card>
+                      <Card style={{ marginTop: units(2), marginBottom: units(2) }}>
+                        <StyledCardHeader
+                          title={<MappedMessage msgObj={messages} msgKey="verificationProjects" />}
+                        />
 
-                  <Card style={{ marginTop: units(2), marginBottom: units(2) }}>
-                    <Can permissions={team.permissions} permission="create Project">
-                      <CardActions style={{ padding: `0 ${units(2)} ${units(2)}` }}>
-                        <CreateProject team={team} autoFocus={team.projects.edges.length === 0} />
-                      </CardActions>
-                    </Can>
-                  </Card>
-                  <Card style={{ marginTop: units(2), marginBottom: units(2) }}>
-                    <StyledCardHeader
-                      title={<MappedMessage msgObj={messages} msgKey="verificationProjects" />}
-                    />
-
-                    <List className="projects" style={{ padding: '0' }}>
-                      {team.projects.edges
-                        .sortp((a, b) => a.node.title.localeCompare(b.node.title))
-                        .map(p =>
-                          <Link key={p.node.dbid} to={`/${team.slug}/project/${p.node.dbid}`}>
-                            <ListItem
-                              className="team__project"
-                              hoverColor={highlightBlue}
-                              focusRippleColor={checkBlue}
-                              touchRippleColor={checkBlue}
-                              primaryText={p.node.title}
-                              rightIcon={<KeyboardArrowRight />}
-                            />
-                          </Link>,
-                        )}
-                    </List>
-                  </Card>
-                  <TeamMembers {...this.props} />
+                        <InfiniteScroll hasMore loadMore={this.loadMore.bind(this)} threshold={500}>
+                          <List className="projects" style={{ padding: '0' }}>
+                            {team.projects.edges
+                              .sortp((a, b) => a.node.title.localeCompare(b.node.title))
+                              .map(p =>
+                                <Link key={p.node.dbid} to={`/${team.slug}/project/${p.node.dbid}`}>
+                                  <ListItem
+                                    className="team__project"
+                                    hoverColor={highlightBlue}
+                                    focusRippleColor={checkBlue}
+                                    touchRippleColor={checkBlue}
+                                    primaryText={p.node.title}
+                                    rightIcon={<KeyboardArrowRight />}
+                                  />
+                                </Link>,
+                              )}
+                          </List>
+                        </InfiniteScroll>
+                      </Card>
+                    </div>
+                  ) : null }
                 </ContentColumn>
               );
             }
