@@ -838,20 +838,22 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should navigate between teams", bin4: true, quick: true do
       # setup
-      user = api_register_and_login_with_email(email: @user_mail, password: @password)
-      team = request_api 'team', { name: 'Team 1', email: user.email, slug: @team1_slug }
+      user = api_register_and_login_with_email
+      team = request_api 'team', { name: 'Team 1', email: user.email, slug: "team-1-#{Time.now.to_i}" }
       request_api 'project', { title: 'Team 1 Project', team_id: team.dbid }
       team = request_api 'team', { name: 'Team 2', email: user.email, slug: "team-2-#{Time.now.to_i}" }
       request_api 'project', { title: 'Team 2 Project', team_id: team.dbid }
 
       # test
       page = MePage.new(config: @config, driver: @driver).load.select_team(name: 'Team 1')
+      page.click_projects_tab
 
       expect(page.team_name).to eq('Team 1')
       expect(page.project_titles.include?('Team 1 Project')).to be(true)
       expect(page.project_titles.include?('Team 2 Project')).to be(false)
 
       page = MePage.new(config: @config, driver: page.driver).load.select_team(name: 'Team 2')
+      page.click_projects_tab
 
       expect(page.team_name).to eq('Team 2')
       expect(page.project_titles.include?('Team 2 Project')).to be(true)
