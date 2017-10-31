@@ -257,6 +257,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       expect(project_pg.driver.current_url.to_s.match(/\/project\/[0-9]+$/).nil?).to be(false)
       team_pg = project_pg.click_team_link
+      team_pg.click_projects_tab
       sleep 2
       element = @driver.find_element(:partial_link_text, project_name)
       expect(element.displayed?).to be(true)
