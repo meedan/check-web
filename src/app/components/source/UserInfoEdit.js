@@ -395,7 +395,7 @@ class UserInfoEdit extends React.Component {
               <StyledIconButton>
                 <MdCancel
                   className="create-task__remove-option-button"
-                  onClick={() => this.handleRemoveLink(as.node.id)}
+                  onTouchTap={() => this.handleRemoveLink(as.node.id)}
                 />
               </StyledIconButton>
             </Row>
