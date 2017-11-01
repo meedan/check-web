@@ -392,11 +392,10 @@ class UserInfoEdit extends React.Component {
                 style={{ width: '85%' }}
                 disabled
               />
-              <StyledIconButton>
-                <MdCancel
-                  className="create-task__remove-option-button"
-                  onTouchTap={() => this.handleRemoveLink(as.node.id)}
-                />
+              <StyledIconButton
+                className="create-task__remove-option-button"
+                onClick={() => this.handleRemoveLink(as.node.id)}>
+                <MdCancel />
               </StyledIconButton>
             </Row>
           </div>,
@@ -415,11 +414,10 @@ class UserInfoEdit extends React.Component {
                 onChange={e => this.handleChangeLink(e, index)}
                 style={{ width: '85%' }}
               />
-              <StyledIconButton>
-                <MdCancel
-                  className="create-task__remove-option-button"
-                  onClick={() => this.handleRemoveNewLink(index)}
-                />
+              <StyledIconButton
+                className="create-task__remove-option-button"
+                onClick={() => this.handleRemoveNewLink(index)}>
+                <MdCancel />
               </StyledIconButton>
             </Row>
             {link.error
