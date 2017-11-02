@@ -88,11 +88,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should register and create a claim", bin5: true do
       page = LoginPage.new(config: @config, driver: @driver).load
-      begin
-        page = page.register_and_login_with_email(email: @email, password: @password)
-      rescue
-        page = page.login_with_email(email: @email, password: @password)
-      end
+      page = page.register_and_login_with_email(email: "sysops+#{Time.now.to_i}#{rand(1000)}@meedan.com", password: @password)
       page
         .create_team
         .create_project
