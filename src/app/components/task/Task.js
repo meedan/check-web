@@ -19,6 +19,7 @@ import UpdateDynamicMutation from '../../relay/UpdateDynamicMutation';
 import DeleteAnnotationMutation from '../../relay/DeleteAnnotationMutation';
 import Can from '../Can';
 import ParsedText from '../ParsedText';
+import ShortTextRespondTask from './ShortTextRespondTask';
 import GeolocationRespondTask from './GeolocationRespondTask';
 import GeolocationTaskResponse from './GeolocationTaskResponse';
 import DatetimeRespondTask from './DatetimeRespondTask';
@@ -47,75 +48,24 @@ class Task extends Component {
     super(props);
 
     this.state = {
-      focus: false,
-      editing: false,
+      editingQuestion: false,
       message: null,
       editingResponse: false,
       isMenuOpen: false,
-      taskAnswerDisabled: true,
+      submitDisabled: true,
     };
   }
 
-  handleFocus() {
-    this.setState({ focus: true });
-  }
+  canSubmit() {
+    const label = typeof this.state.label !== 'undefined' && this.state.label !== null
+      ? this.state.label : this.props.task.label || '';
 
-  handleCancelFocus() {
-    this.setState({
-      focus: false,
-      response: null,
-      responseOther: null,
-      otherSelected: false,
-    });
-  }
-
-  handleSubmit(e) {
-    const that = this;
-    const task = this.props.task;
-
-    const onFailure = (transaction) => {
-      const error = transaction.getError();
-      let message = error.source;
-      try {
-        const json = JSON.parse(error.source);
-        if (json.error) {
-          message = json.error;
-        }
-      } catch (e) {}
-      that.setState({ message });
-    };
-
-    const onSuccess = (response) => {
-      that.setState({ message: null });
-    };
-
-    const form = document.forms[`task-response-${task.id}`];
-    const fields = {};
-    fields[`response_${task.type}`] = this.state.response || form.response.value;
-    fields[`note_${task.type}`] = form.note ? form.note.value : '';
-    fields[`task_${task.type}`] = task.dbid;
-
-    if (!that.state.taskAnswerDisabled) {
-      Relay.Store.commitUpdate(
-        new UpdateTaskMutation({
-          annotated: that.props.media,
-          task: {
-            id: task.id,
-            fields,
-            annotation_type: `task_response_${task.type}`,
-          },
-        }),
-        { onSuccess, onFailure },
-      );
-      that.setState({ taskAnswerDisabled: true });
-    }
-
-    e.preventDefault();
+    this.setState({ submitDisabled: !label });
+    return label;
   }
 
   handleSubmitWithArgs(response, note) {
-    const that = this;
-    const task = this.props.task;
+    const {media, task} = this.props;
 
     const onFailure = (transaction) => {
       const error = transaction.getError();
@@ -126,11 +76,11 @@ class Task extends Component {
           message = json.error;
         }
       } catch (e) {}
-      that.setState({ message });
+      this.setState({ message });
     };
 
     const onSuccess = (response) => {
-      that.setState({ message: null });
+      this.setState({ message: null });
     };
 
     const fields = {};
@@ -142,7 +92,7 @@ class Task extends Component {
 
     Relay.Store.commitUpdate(
       new UpdateTaskMutation({
-        annotated: that.props.media,
+        annotated: media,
         task: {
           id: task.id,
           fields,
@@ -153,31 +103,22 @@ class Task extends Component {
     );
   }
 
-  handleKeyPress(e) {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      if (this.canSubmit(e.target.value)) {
-        this.setState({ taskAnswerDisabled: true });
-        this.handleSubmit(e);
-      }
-      e.preventDefault();
-    }
+  handleEditQuestion() {
+    this.setState({ editingQuestion: true, isMenuOpen: false });
   }
 
-  handleChange(e) {
-    this.setState({ taskAnswerDisabled: !this.canSubmit(e.target.value) });
+  handleCancelQuestionEdit() {
+    this.setState({ editingQuestion: false, submitDisabled: true });
   }
 
-  handleEdit() {
-    this.setState({ editing: true, isMenuOpen: false });
-  }
-
-  handleCancelEdit() {
-    this.setState({ editing: false });
+  handleQuestionEdit(e){
+    const state = {};
+    state[e.target.name] = e.target.value;
+    this.setState(state, this.canSubmit);
   }
 
   handleUpdateTask(e) {
-    const that = this;
-    const task = this.props.task;
+    const { media, task } = this.props;
     const form = document.forms[`edit-task-${task.dbid}`];
 
     const onFailure = (transaction) => {
@@ -189,40 +130,45 @@ class Task extends Component {
           message = json.error;
         }
       } catch (e) {}
-      that.setState({ message });
+      this.setState({ message });
     };
 
     const onSuccess = (response) => {
-      that.setState({ message: null, editing: false });
+      this.setState({ message: null, editingQuestion: false });
     };
 
     const taskObj = {
       id: task.id,
       label: form.label.value,
     };
+
     if (form.description) {
       taskObj.description = form.description.value;
     }
 
-    Relay.Store.commitUpdate(
-      new UpdateTaskMutation({
-        annotated: that.props.media,
-        task: taskObj,
-      }),
-      { onSuccess, onFailure },
-    );
+    if (!this.state.submitDisabled) {
+      Relay.Store.commitUpdate(
+        new UpdateTaskMutation({
+          annotated: media,
+          task: taskObj,
+        }),
+        { onSuccess, onFailure },
+      );
+    }
+    this.setState({ submitDisabled: true });
 
     e.preventDefault();
   }
 
   handleDelete() {
+    const { task, media } = this.props;
+
     if (window.confirm(this.props.intl.formatMessage(messages.confirmDelete))) {
-      const that = this;
       Relay.Store.commitUpdate(
         new DeleteAnnotationMutation({
           parent_type: 'project_media',
-          annotated: that.props.media,
-          id: that.props.task.id,
+          annotated: media,
+          id: task.id,
         }),
       );
     }
@@ -232,9 +178,6 @@ class Task extends Component {
   handleCancelEditResponse() {
     this.setState({
       editingResponse: false,
-      response: null,
-      responseOther: null,
-      otherSelected: false,
     });
   }
 
@@ -242,62 +185,8 @@ class Task extends Component {
     this.setState({ editingResponse: true });
   }
 
-  handleKeyPressUpdate(e) {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      if (this.canSubmit(e.target.value)) {
-        this.setState({ taskAnswerDisabled: true });
-        this.handleSubmitUpdate(e);
-      }
-      e.preventDefault();
-    }
-  }
-
-  handleSubmitUpdate(e) {
-    const that = this;
-    const task = this.props.task;
-
-    const onFailure = (transaction) => {
-      const error = transaction.getError();
-      let message = error.source;
-      try {
-        const json = JSON.parse(error.source);
-        if (json.error) {
-          message = json.error;
-        }
-      } catch (e) {}
-      that.setState({ message });
-    };
-
-    const onSuccess = () => {
-      that.setState({ message: null, editingResponse: false });
-    };
-
-    const form = document.forms[`edit-response-${task.first_response.id}`];
-    const fields = {};
-    fields[`response_${task.type}`] = this.state.response || form.editedresponse.value;
-    fields[`note_${task.type}`] = form.editednote ? form.editednote.value : '';
-
-    if (!that.state.taskAnswerDisabled) {
-      Relay.Store.commitUpdate(
-        new UpdateDynamicMutation({
-          annotated: that.props.media,
-          parent_type: 'project_media',
-          dynamic: {
-            id: task.first_response.id,
-            fields,
-          },
-        }),
-        { onSuccess, onFailure },
-      );
-      that.setState({ taskAnswerDisabled: true });
-    }
-
-    e.preventDefault();
-  }
-
   handleSubmitUpdateWithArgs(edited_response, edited_note) {
-    const that = this;
-    const task = this.props.task;
+    const {media, task} = this.props;
 
     const onFailure = (transaction) => {
       const error = transaction.getError();
@@ -308,11 +197,11 @@ class Task extends Component {
           message = json.error;
         }
       } catch (e) {}
-      that.setState({ message });
+      this.setState({ message });
     };
 
     const onSuccess = () => {
-      that.setState({ message: null, editingResponse: false });
+      this.setState({ message: null, editingResponse: false });
     };
 
     const fields = {};
@@ -323,7 +212,7 @@ class Task extends Component {
 
     Relay.Store.commitUpdate(
       new UpdateDynamicMutation({
-        annotated: that.props.media,
+        annotated: media,
         parent_type: 'project_media',
         dynamic: {
           id: task.first_response.id,
@@ -334,39 +223,12 @@ class Task extends Component {
     );
   }
 
-  toggleMenu() {
-    this.setState({ isMenuOpen: !this.state.isMenuOpen });
-  }
-
-  bemClass(baseClass, modifierBoolean, modifierSuffix) {
-    return modifierBoolean ? [baseClass, baseClass + modifierSuffix].join(' ') : baseClass;
-  }
-
   componentDidMount() {
     const that = this;
-    window.addEventListener('click', () => {
-      that.setState({ focus: false });
-    });
-  }
-
-  canSubmit(value) {
-    if (typeof value !== 'undefined' && value !== null) {
-      return !!value.trim();
-    }
-    const task = this.props.task;
-    const form_id = this.state.editingResponse
-      ? `edit-response-${task.first_response.id}`
-      : `task-response-${task.id}`;
-    const form = document.forms[form_id];
-    const form_value = this.state.editingResponse ? form.editedresponse.value : form.response.value;
-    const state_response = this.state.response ? this.state.response.trim() : null;
-
-    return !!state_response || !!form_value.trim();
   }
 
   getResponseData() {
     const data = {};
-
     const { task } = this.props;
 
     if (task.first_response) {
@@ -385,23 +247,16 @@ class Task extends Component {
     return data;
   }
 
-  handleCancel(task) {
-    document.getElementById(`task__label-${task.id}`).click();
-  }
-
   render() {
     const { task, media } = this.props;
     const data = this.getResponseData();
-    const { response } = data;
-    const { note } = data;
-    const { by } = data;
+    const { response, note, by } = data;
 
-    const createTaskActions = [
+    const editQuestionActions = [
       <FlatButton
         key="tasks__cancel"
         label={<FormattedMessage id="tasks.cancelEdit" defaultMessage="Cancel" />}
-        primary
-        onClick={this.handleCancelEdit.bind(this)}
+        onClick={this.handleCancelQuestionEdit.bind(this)}
       />,
       <FlatButton
         key="task__save"
@@ -410,6 +265,7 @@ class Task extends Component {
         primary
         keyboardFocused
         onClick={this.handleUpdateTask.bind(this)}
+        disabled={this.state.submitDisabled}
       />,
     ];
 
@@ -462,7 +318,7 @@ class Task extends Component {
                 </Can>
                 : null}
 
-              <MenuItem className="task-actions__edit" onClick={this.handleEdit.bind(this)}>
+              <MenuItem className="task-actions__edit" onClick={this.handleEditQuestion.bind(this)}>
                 <FormattedMessage id="task.edit" defaultMessage="Edit question" />
               </MenuItem>
               <Can permissions={task.permissions} permission="destroy Task">
@@ -486,12 +342,16 @@ class Task extends Component {
 
     const taskBody = !response
       ? (<Can permissions={media.permissions} permission="create Dynamic">
-        <form onSubmit={this.handleSubmit.bind(this)} name={`task-response-${task.id}`}>
+        <form name={`task-response-${task.id}`}>
 
           <div className="task__response-inputs">
+            {task.type === 'free_text'
+              ? <ShortTextRespondTask
+                onSubmit={this.handleSubmitWithArgs.bind(this)}
+              />
+              : null}
             {task.type === 'geolocation'
                 ? <GeolocationRespondTask
-                  onCancel={this.handleCancel.bind(this, task)}
                   onSubmit={this.handleSubmitWithArgs.bind(this)}
                 />
                 : null}
@@ -516,58 +376,22 @@ class Task extends Component {
                   onSubmit={this.handleSubmitWithArgs.bind(this)}
                 />
                 : null}
-            {task.type === 'free_text'
-                ? [
-                  <TextField
-                    key="task__response-input"
-                    className="task__response-input"
-                    onFocus={this.handleFocus.bind(this)}
-                    name="response"
-                    onKeyPress={this.handleKeyPress.bind(this)}
-                    onChange={this.handleChange.bind(this)}
-                    hintText={
-                      <FormattedMessage id="task.hintText" defaultMessage="Type a response" />
-                      }
-                    fullWidth
-                    multiLine
-                  />,
-                  <TextField
-                    key="task__response-note-input"
-                    className="task__response-note-input"
-                    hintText={
-                      <FormattedMessage
-                        id="task.noteLabel"
-                        defaultMessage="Note any additional details here."
-                      />
-                      }
-                    name="note"
-                    onKeyPress={this.handleKeyPress.bind(this)}
-                    onChange={this.handleChange.bind(this)}
-                    fullWidth
-                    multiLine
-                  />,
-                  <p key="task__resolver" className="task__resolver">
-                    <small>
-                      <FormattedMessage
-                        id="task.pressReturnToSave"
-                        defaultMessage="Press return to save your response"
-                      />
-                    </small>
-                  </p>,
-                ]
-                : null}
           </div>
         </form>
       </Can>)
       : this.state.editingResponse
         ? <div className="task__editing">
-          <form
-            onSubmit={this.handleSubmitUpdate.bind(this)}
-            name={`edit-response-${task.first_response.id}`}
-          >
+          <form name={`edit-response-${task.first_response.id}`}>
+            {task.type === 'free_text'
+                ? <ShortTextRespondTask
+                  response={response}
+                  note={note}
+                  onSubmit={this.handleSubmitUpdateWithArgs.bind(this)}
+                  onDismiss={this.handleCancelEditResponse.bind(this)}
+                />
+                : null}
             {task.type === 'geolocation'
                 ? <GeolocationRespondTask
-                  onCancel={this.handleCancel.bind(this, task)}
                   response={response}
                   onSubmit={this.handleSubmitUpdateWithArgs.bind(this)}
                   onDismiss={this.handleCancelEditResponse.bind(this)}
@@ -600,49 +424,6 @@ class Task extends Component {
                   onDismiss={this.handleCancelEditResponse.bind(this)}
                   onSubmit={this.handleSubmitUpdateWithArgs.bind(this)}
                 />
-                : null}
-            {task.type === 'free_text'
-                ? [
-                  <TextField
-                    key="task__response-input"
-                    className="task__response-input"
-                    defaultValue={response}
-                    name="editedresponse"
-                    onKeyPress={this.handleKeyPressUpdate.bind(this)}
-                    onChange={this.handleChange.bind(this)}
-                    fullWidth
-                    multiLine
-                  />,
-                  <TextField
-                    key="task__response-note-label"
-                    hintText={
-                      <FormattedMessage
-                        id="task.noteLabel"
-                        defaultMessage="Note any additional details here."
-                      />
-                      }
-                    defaultValue={note}
-                    name="editednote"
-                    onKeyPress={this.handleKeyPressUpdate.bind(this)}
-                    onChange={this.handleChange.bind(this)}
-                    fullWidth
-                    multiLine
-                  />,
-                  <p key="task__resolver" className="task__resolver">
-                    <small>
-                      <FormattedMessage
-                        id="task.pressReturnToSave"
-                        defaultMessage="Press return to save your response"
-                      />
-                    </small>{' '}
-                    <span
-                      id="task__cancel-button"
-                      onClick={this.handleCancelEditResponse.bind(this)}
-                    >
-                        ✖
-                      </span>
-                  </p>,
-                ]
                 : null}
           </form>
         </div>
@@ -719,10 +500,10 @@ class Task extends Component {
         </Card>
 
         <Dialog
-          actions={createTaskActions}
+          actions={editQuestionActions}
           modal={false}
-          open={!!this.state.editing}
-          onRequestClose={this.handleCancelEdit.bind(this)}
+          open={!!this.state.editingQuestion}
+          onRequestClose={this.handleCancelQuestionEdit.bind(this)}
         >
           <Message message={this.state.message} />
           <form name={`edit-task-${task.dbid}`}>
@@ -732,20 +513,20 @@ class Task extends Component {
                 <FormattedMessage id="tasks.taskLabel" defaultMessage="Task label" />
               }
               defaultValue={task.label}
+              onChange={this.handleQuestionEdit.bind(this)}
               fullWidth
               multiLine
             />
-            {task.type === 'geolocation'
-              ? null
-              : <TextField
-                name="description"
-                floatingLabelText={
-                  <FormattedMessage id="tasks.description" defaultMessage="Description" />
-                  }
-                defaultValue={task.description}
-                fullWidth
-                multiLine
-              />}
+            <TextField
+              name="description"
+              floatingLabelText={
+                <FormattedMessage id="tasks.description" defaultMessage="Description" />
+                }
+              defaultValue={task.description}
+              onChange={this.handleQuestionEdit.bind(this)}
+              fullWidth
+              multiLine
+            />
           </form>
         </Dialog>
       </StyledWordBreakDiv>

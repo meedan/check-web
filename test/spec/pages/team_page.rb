@@ -13,9 +13,14 @@ class TeamPage < Page
     elements('.team__project').map(&:text)
   end
 
+  def click_projects_tab
+    wait_for_element('.team__tab-button-projects')
+    @driver.find_element(:css, '.team__tab-button-projects').click
+  end
+
   def create_project(options = {})
     name = options[:name] || "Project #{Time.now.to_i}"
-
+    click_projects_tab
     element('#create-project-title').click
     fill_input('#create-project-title', name)
     element('#create-project-title').submit

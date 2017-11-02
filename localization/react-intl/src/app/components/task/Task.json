@@ -28,18 +28,6 @@
     "defaultMessage": "Delete task"
   },
   {
-    "id": "task.hintText",
-    "defaultMessage": "Type a response"
-  },
-  {
-    "id": "task.noteLabel",
-    "defaultMessage": "Note any additional details here."
-  },
-  {
-    "id": "task.pressReturnToSave",
-    "defaultMessage": "Press return to save your response"
-  },
-  {
     "id": "tasks.taskLabel",
     "defaultMessage": "Task label"
   },

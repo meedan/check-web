@@ -787,11 +787,10 @@ class SourceComponent extends Component {
                 style={{ width: '85%' }}
                 disabled
               />
-              <StyledIconButton>
-                <MdCancel
-                  className="create-task__remove-option-button"
-                  onClick={() => this.handleRemoveLink(as.node.id)}
-                />
+              <StyledIconButton
+                className="source__remove-link-button"
+                onClick={() => this.handleRemoveLink(as.node.id)}>
+                <MdCancel />
               </StyledIconButton>
             </Row>
           </div>
@@ -810,11 +809,10 @@ class SourceComponent extends Component {
                 onChange={e => this.handleChangeLink(e, index)}
                 style={{ width: '85%' }}
               />
-              <StyledIconButton>
-                <MdCancel
-                  className="create-task__remove-option-button"
-                  onClick={() => this.handleRemoveNewLink(index)}
-                />
+              <StyledIconButton
+                className="source__remove-link-button"
+                onClick={() => this.handleRemoveNewLink(index)}>
+                <MdCancel />
               </StyledIconButton>
             </Row>
             {link.error ? null : (
@@ -912,7 +910,7 @@ class SourceComponent extends Component {
             />
             <StyledIconButton>
               <MdCancel
-                className="create-task__remove-option-button"
+                className="source__remove-info-button"
                 onClick={handleRemoveField.bind(this, type)}
               />
             </StyledIconButton>
@@ -935,7 +933,7 @@ class SourceComponent extends Component {
               />
               <StyledIconButton>
                 <MdCancel
-                  className="create-task__remove-option-button"
+                  className="source__remove-info-button"
                   onClick={handleRemoveCustomField.bind(this, index)}
                 />
               </StyledIconButton>

@@ -27,7 +27,7 @@ class GeolocationRespondTask extends Component {
     }
 
     this.state = {
-      taskAnswerDisabled: !name,
+      taskAnswerDisabled: true,
       zoom: 5,
       draggable: true,
       lat,
@@ -51,14 +51,14 @@ class GeolocationRespondTask extends Component {
     const { lat, lng } = this.refs.marker.leafletElement.getLatLng();
     const zoom = this.refs.marker.leafletElement._map.getZoom();
     const coordinatesString = `${parseFloat(lat).toFixed(7)}, ${parseFloat(lng).toFixed(7)}`;
-    this.setState({ lat, lng, zoom, coordinatesString });
+    this.setState({ lat, lng, zoom, coordinatesString, focus: true });
   }
 
   updatePositionOnClick(e) {
     const { lat, lng } = e.latlng;
     const zoom = this.refs.marker.leafletElement._map.getZoom();
     const coordinatesString = `${parseFloat(lat).toFixed(7)}, ${parseFloat(lng).toFixed(7)}`;
-    this.setState({ lat, lng, zoom, coordinatesString });
+    this.setState({ lat, lng, zoom, coordinatesString, focus: true });
   }
 
   canSubmit() {
@@ -67,15 +67,6 @@ class GeolocationRespondTask extends Component {
       return !!value.trim();
     }
     return false;
-  }
-
-  handleKeyPress(e) {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      if (this.canSubmit()) {
-        this.handleSubmit();
-      }
-      e.preventDefault();
-    }
   }
 
   handlePressButton() {
@@ -149,6 +140,7 @@ class GeolocationRespondTask extends Component {
   handleCancel() {
     const ori = this.state.original;
     this.setState({
+      focus: false,
       name: ori.name,
       lat: ori.lat,
       lng: ori.lng,
@@ -161,6 +153,30 @@ class GeolocationRespondTask extends Component {
 
   render() {
     const position = [this.state.lat, this.state.lng];
+
+    const actionBtns = (
+      <p className="task__resolver">
+        <FlatButton
+          className="task__cancel"
+          label={
+            <FormattedMessage id="geolocationRespondTask.cancelTask" defaultMessage="Cancel" />
+          }
+          onClick={this.handleCancel.bind(this)}
+        />
+        <FlatButton
+          disabled={this.state.taskAnswerDisabled}
+          className="task__save"
+          label={
+            <FormattedMessage
+              id="geolocationRespondTask.resolveTask"
+              defaultMessage="Resolve task"
+            />
+          }
+          primary
+          onClick={this.handlePressButton.bind(this)}
+        />
+      </p>
+    );
 
     return (
       <div>
@@ -175,8 +191,8 @@ class GeolocationRespondTask extends Component {
           }
           name="response"
           value={this.state.name}
-          onKeyPress={this.handleKeyPress.bind(this)}
           onChange={this.handleChange.bind(this)}
+          onFocus={() => {this.setState({ focus: true })}}
           fullWidth
           multiLine
         />
@@ -190,21 +206,13 @@ class GeolocationRespondTask extends Component {
             />
           }
           name="coordinates"
-          onKeyPress={this.handleKeyPress.bind(this)}
           onChange={this.handleChangeCoordinates.bind(this)}
+          onFocus={() => {this.setState({ focus: true })}}
           onBlur={this.handleBlur.bind(this)}
           value={this.state.coordinatesString}
           fullWidth
           multiLine
         />
-        <p className="task__resolver">
-          <small>
-            <FormattedMessage
-              id="geolocationRespondTask.pressReturnToSave"
-              defaultMessage="Press return to save your response"
-            />
-          </small>
-        </p>
         <div>
           <Map
             style={{ height: '400px' }}
@@ -224,27 +232,7 @@ class GeolocationRespondTask extends Component {
             />
           </Map>
         </div>
-        <p className="task__resolver">
-          <FlatButton
-            className="task__cancel"
-            label={
-              <FormattedMessage id="geolocationRespondTask.cancelTask" defaultMessage="Cancel" />
-            }
-            onClick={this.handleCancel.bind(this)}
-          />
-          <FlatButton
-            disabled={this.state.taskAnswerDisabled}
-            className="task__save"
-            label={
-              <FormattedMessage
-                id="geolocationRespondTask.resolveTask"
-                defaultMessage="Resolve task"
-              />
-            }
-            primary
-            onClick={this.handlePressButton.bind(this)}
-          />
-        </p>
+        { this.state.focus || this.props.response ? actionBtns : null }
       </div>
     );
   }

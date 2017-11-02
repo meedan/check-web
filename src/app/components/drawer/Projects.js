@@ -47,6 +47,9 @@ class ProjectsComponent extends Component {
 }
 
 const ProjectsContainer = Relay.createContainer(ProjectsComponent, {
+  initialVariables: {
+    pageSize: 10000,
+  },
   fragments: {
     team: () => teamFragment,
   },

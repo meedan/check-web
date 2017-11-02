@@ -5,6 +5,9 @@ import TeamComponent from './TeamComponent';
 import teamFragment from '../../relay/teamFragment';
 
 const TeamContainer = Relay.createContainer(TeamComponent, {
+  initialVariables: {
+    pageSize: 20,
+  },
   fragments: {
     team: () => teamFragment,
   },

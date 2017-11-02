@@ -2,9 +2,9 @@
   "datetimeRespondTask.ok": "OK",
   "datetimeRespondTask.cancel": "Cancel",
   "datetimeRespondTask.timeError": "Error: invalid time",
+  "datetimeRespondTask.cancelTask": "Cancel",
+  "datetimeRespondTask.resolveTask": "Resolve task",
   "datetimeRespondTask.pickDate": "Pick a date from the calendar",
   "datetimeRespondTask.timeOptional": "Time (optional)",
-  "datetimeRespondTask.note": "Note any additional details here.",
-  "datetimeRespondTask.cancelTask": "Cancel",
-  "datetimeRespondTask.resolveTask": "Resolve task"
+  "datetimeRespondTask.note": "Note any additional details here."
 }

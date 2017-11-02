@@ -257,6 +257,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       expect(project_pg.driver.current_url.to_s.match(/\/project\/[0-9]+$/).nil?).to be(false)
       team_pg = project_pg.click_team_link
+      team_pg.click_projects_tab
       sleep 2
       element = @driver.find_element(:partial_link_text, project_name)
       expect(element.displayed?).to be(true)
@@ -291,12 +292,12 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     #   expect(@driver.find_element(:link_text, 'test.png').nil?).to be(false)
     # end
 
-    # Disabled because the functionality changed to use a 
+    # Disabled because the functionality changed to use a
     # background image in CSS instead of an <img> element.
-    # 
-    #  I think we could do something like this instead: 
+    #
+    #  I think we could do something like this instead:
     #  https://stackoverflow.com/questions/11198882/how-do-you-test-if-a-div-has-a-certain-css-style-in-rspec-capybara
-    # 
+    #
     # it "should upload image when registering", bin5: true do
     #   email, password, avatar = ["test-#{Time.now.to_i}@example.com", '12345678', File.join(File.dirname(__FILE__), 'test.png')]
     #   page = LoginPage.new(config: @config, driver: @driver).load
@@ -363,18 +364,22 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should not create duplicated source", bin6: true do
-      api_create_team_project_and_source('Megadeth', 'https://twitter.com/megadeth')
-      @driver.navigate.to @config['self_url']
+      api_create_team_project_and_source_and_redirect_to_source('Megadeth', 'https://twitter.com/megadeth')
+      id1 = @driver.current_url.to_s.gsub(/^.*\/source\//, '').to_i
+      expect(id1 > 0).to be(true)
+      @driver.navigate.to @driver.current_url.to_s.gsub(/\/source\/[0-9]+$/, '')
       sleep 5
       @driver.find_element(:css, '#create-media__source').click
       sleep 1
       fill_field('#create-media-source-name-input', 'Megadeth')
       fill_field('#create-media-source-url-input', 'https://twitter.com/megadeth')
       sleep 1
-      expect(@driver.page_source.include?('Source exists')).to be(false)
       press_button('#create-media-submit')
-      sleep 15
-      expect(@driver.page_source.include?('Source exists')).to be(true)
+      sleep 10
+      id2 = @driver.current_url.to_s.gsub(/^.*\/source\//, '').to_i
+      expect(id2 > 0).to be(true)
+
+      expect(id1 == id2).to be(true)
     end
 
     # This test is flaky
@@ -833,20 +838,22 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should navigate between teams", bin4: true, quick: true do
       # setup
-      user = api_register_and_login_with_email(email: @user_mail, password: @password)
-      team = request_api 'team', { name: 'Team 1', email: user.email, slug: @team1_slug }
+      user = api_register_and_login_with_email
+      team = request_api 'team', { name: 'Team 1', email: user.email, slug: "team-1-#{Time.now.to_i}" }
       request_api 'project', { title: 'Team 1 Project', team_id: team.dbid }
       team = request_api 'team', { name: 'Team 2', email: user.email, slug: "team-2-#{Time.now.to_i}" }
       request_api 'project', { title: 'Team 2 Project', team_id: team.dbid }
 
       # test
       page = MePage.new(config: @config, driver: @driver).load.select_team(name: 'Team 1')
+      page.click_projects_tab
 
       expect(page.team_name).to eq('Team 1')
       expect(page.project_titles.include?('Team 1 Project')).to be(true)
       expect(page.project_titles.include?('Team 2 Project')).to be(false)
 
       page = MePage.new(config: @config, driver: page.driver).load.select_team(name: 'Team 2')
+      page.click_projects_tab
 
       expect(page.team_name).to eq('Team 2')
       expect(page.project_titles.include?('Team 2 Project')).to be(true)
@@ -854,25 +861,25 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     #As a different user, request to join one team.
-    it "should join team", bin4:true, quick: true do
-      api_register_and_login_with_email
-      page = MePage.new(config: @config, driver: @driver).load
-      page.ask_join_team(subdomain: @team1_slug)
-      @wait.until {
-        expect(@driver.find_element(:class, "message").nil?).to be(false)
-      }
-      api_logout
-      @driver = new_driver(webdriver_url,browser_capabilities)
-      page = Page.new(config: @config, driver: @driver)
-      page.go(@config['api_path'] + '/test/session?email='+@user_mail)
-      #As the group creator, go to the members page and approve the joining request.
-      page = MePage.new(config: @config, driver: @driver).load
-          .approve_join_team(subdomain: @team1_slug)
-      @wait.until {
-        elems = @driver.find_elements(:css => ".team-members__list > div")
-        expect(elems.size).to be > 1
-      }
-    end
+    # it "should join team", bin4:true, quick: true do
+    #   api_register_and_login_with_email
+    #   page = MePage.new(config: @config, driver: @driver).load
+    #   page.ask_join_team(subdomain: @team1_slug)
+    #   @wait.until {
+    #     expect(@driver.find_element(:class, "message").nil?).to be(false)
+    #   }
+    #   api_logout
+    #   @driver = new_driver(webdriver_url,browser_capabilities)
+    #   page = Page.new(config: @config, driver: @driver)
+    #   page.go(@config['api_path'] + '/test/session?email='+@user_mail)
+    #   #As the group creator, go to the members page and approve the joining request.
+    #   page = MePage.new(config: @config, driver: @driver).load
+    #       .approve_join_team(subdomain: @team1_slug)
+    #   @wait.until {
+    #     elems = @driver.find_elements(:css => ".team-members__list > div")
+    #     expect(elems.size).to be > 1
+    #   }
+    # end
 
     it "should update notes count after delete annotation", bin3: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
@@ -987,7 +994,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       # Answer task
       expect(@driver.page_source.include?('Task "Foo or bar?" answered by')).to be(false)
       fill_field('textarea[name="response"]', 'Foo')
-      @driver.action.send_keys(:enter).perform
+      @driver.find_element(:css, '.task__save').click
       media_pg.wait_all_elements(3, "annotations__list-item", :class)
       expect(@driver.page_source.include?('Task "Foo or bar?" answered by')).to be(true)
 
@@ -1015,11 +1022,11 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el.click
 
       # Ensure menu closes and textarea is focused...
-      el = wait_for_selector('textarea[name="editedresponse"]', :css)
+      el = wait_for_selector('textarea[name="response"]', :css)
       el.click
 
-      fill_field('textarea[name="editedresponse"]', ' edited')
-      @driver.action.send_keys(:enter).perform
+      fill_field('textarea[name="response"]', ' edited')
+      @driver.find_element(:css, '.task__save').click
       media_pg.wait_all_elements(8, "annotations__list-item", :class) #Wait for refresh page
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Task "Foo or bar???" answered by User With Email: "Foo edited"')).to be(true)
 
