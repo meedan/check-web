@@ -393,7 +393,7 @@ class UserInfoEdit extends React.Component {
                 disabled
               />
               <StyledIconButton
-                className="create-task__remove-option-button"
+                className="source__remove-link-button"
                 onClick={() => this.handleRemoveLink(as.node.id)}>
                 <MdCancel />
               </StyledIconButton>
@@ -415,7 +415,7 @@ class UserInfoEdit extends React.Component {
                 style={{ width: '85%' }}
               />
               <StyledIconButton
-                className="create-task__remove-option-button"
+                className="source__remove-link-button"
                 onClick={() => this.handleRemoveNewLink(index)}>
                 <MdCancel />
               </StyledIconButton>
