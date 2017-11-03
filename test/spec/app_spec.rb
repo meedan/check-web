@@ -65,10 +65,10 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
   # The tests themselves start here
   context "web" do
-    
+
     include_examples "custom"
 
-    it "should filter by medias or sources", bin3: true do
+    it "should filter by medias or sources", bin6: true do
       api_create_team_project_and_link 'https://twitter.com/TheWho/status/890135323216367616'
       @driver.navigate.to @config['self_url']
       wait_for_selector("card-with-border", :class)
