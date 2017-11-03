@@ -240,9 +240,6 @@ class MediaDetail extends Component {
     const shouldDisplayHeading = isImage || MediaUtil.hasCustomTitle(media, data) ||
       !this.state.expanded && !(this.state.expanded == null && this.props.initiallyExpanded);
 
-    console.log('shouldDisplayHeading');
-    console.log(shouldDisplayHeading);
-
     const cardClassName =
       `${this.statusToClass('media-detail', mediaLastStatus(media))} ` +
       `media-detail--${MediaUtil.mediaTypeCss(media, data)}`;
