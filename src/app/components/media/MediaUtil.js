@@ -129,7 +129,7 @@ const MediaUtil = {
   },
 
   hasCustomTitle(media, data) {
-    const overridden = JSON.parse(media.overridden);
+    const overridden = media.overridden ? JSON.parse(media.overridden) : {};
     const title = data && data.title && data.title.trim();
     return overridden.title || media.quote && (title !== media.quote);
   },
