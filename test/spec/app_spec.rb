@@ -65,6 +65,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
   # The tests themselves start here
   context "web" do
+    
     include_examples "custom"
 
     it "should filter by medias or sources", bin3: true do
