@@ -69,7 +69,7 @@ p $caller_name
 
     include_examples "custom"
 
-    it "should filter by medias or sources", binx6: true do
+    it "should filter by medias or sources", bin6: true do
       api_create_team_project_and_link 'https://twitter.com/TheWho/status/890135323216367616'
       @driver.navigate.to @config['self_url']
       wait_for_selector("card-with-border", :class)
@@ -98,7 +98,7 @@ p $caller_name
         .logout
     end
 
-    it "should redirect to access denied page", binx6: true do
+    it "should redirect to access denied page", bin6: true do
       user = api_register_and_login_with_email
       api_logout
       api_register_and_login_with_email
@@ -113,7 +113,7 @@ p $caller_name
       expect((@driver.current_url.to_s =~ /\/forbidden$/).nil?).to be(false)
     end
 
-    it "should edit the title of a media", bin1 : true do
+    it "should edit the title of a media", bin1: true do
       url = 'https://twitter.com/softlandscapes/status/834385935240462338'
       media_pg = api_create_team_project_and_link_and_redirect_to_media_page url
       media_pg.wait_for_element('.media-detail')
@@ -153,7 +153,7 @@ p $caller_name
     #   expect(page.contains_string?('Tag already exists')).to be(true)
     # end
 
-    it "should display a default title for new media", bin1 : true, quick:true do
+    it "should display a default title for new media", bin1: true, quick:true do
       # Tweets
       media_pg = api_create_team_project_and_link_and_redirect_to_media_page('https://twitter.com/firstdraftnews/status/835587295394869249')
       media_pg.toggle_card # Collapse card to show the title
@@ -191,7 +191,7 @@ p $caller_name
       expect(displayed_name == expected_name).to be(true)
     end
 
-    it "should localize interface based on browser language", binx6: true do
+    it "should localize interface based on browser language", bin6: true do
       unless browser_capabilities['appiumVersion']
         caps = Selenium::WebDriver::Remote::Capabilities.chrome(chromeOptions: { prefs: { 'intl.accept_languages' => 'fr' } })
         driver = Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: caps)
@@ -261,7 +261,7 @@ p $caller_name
       expect(element.displayed?).to be(true)
     end
 
-    it "should create project media", bin1 : true do
+    it "should create project media", bin1: true do
       api_create_team_and_project
       page = ProjectPage.new(config: @config, driver: @driver).load
 
@@ -310,7 +310,7 @@ p $caller_name
       expect(displayed_name == expected_name).to be(true)
     end
 
-    it "should go to source page through user/:id", binx6: true do
+    it "should go to source page through user/:id", bin6: true do
       user = api_register_and_login_with_email
       @driver.navigate.to @config['self_url'] + '/check/user/' + user.dbid.to_s
       sleep 1
@@ -329,7 +329,7 @@ p $caller_name
       expect((@driver.current_url.to_s =~ /\/tos$/).nil?).to be(false)
     end
 
-    it "should create source and redirect to newly created source", binx6: true do
+    it "should create source and redirect to newly created source", bin6: true do
       api_create_team_and_project
       @driver.navigate.to @config['self_url']
       sleep 15
@@ -345,7 +345,7 @@ p $caller_name
       expect(title == @source_name).to be(true)
     end
 
-    it "should not create duplicated source", binx6: true do
+    it "should not create duplicated source", bin6: true do
       api_create_team_project_and_source_and_redirect_to_source('Megadeth', 'https://twitter.com/megadeth')
       id1 = @driver.current_url.to_s.gsub(/^.*\/source\//, '').to_i
       expect(id1 > 0).to be(true)
@@ -369,7 +369,7 @@ p $caller_name
     #
     # CGB 2017-9-29
     #
-    # it "should tag source as a command", binx6: true do
+    # it "should tag source as a command", bin6: true do
     #   api_create_team_project_and_source_and_redirect_to_source('ACDC', 'https://twitter.com/acdc')
     #   sleep 3
     #   @driver.find_element(:css, '.source__tab-button-notes').click
@@ -393,7 +393,7 @@ p $caller_name
     #
     # CGB 2017-10-2
     #
-    # it "should comment source as a command", binx6: true do
+    # it "should comment source as a command", bin6: true do
     #   api_create_team_project_and_source_and_redirect_to_source('The Beatles', 'https://twitter.com/thebeatles')
     #   sleep 3
     #   @driver.find_element(:css, '.source__tab-button-notes').click
@@ -412,7 +412,7 @@ p $caller_name
     #   expect(@driver.page_source.include?('This is my comment')).to be(true)
     # end
 
-    it "should not create report as source", binx6: true do
+    it "should not create report as source", bin6: true do
       api_create_team_and_project
       @driver.navigate.to @config['self_url']
       sleep 5
@@ -427,7 +427,7 @@ p $caller_name
       expect(message.match(/Sorry, this is not a profile/).nil?).to be(false)
     end
 
-    it "should tag source multiple times with commas with command", binx6: true do
+    it "should tag source multiple times with commas with command", bin6: true do
       api_create_team_project_and_source_and_redirect_to_source('Motorhead', 'https://twitter.com/mymotorhead')
       sleep 5
       @driver.find_element(:css, '.source__tab-button-notes').click
@@ -440,7 +440,7 @@ p $caller_name
       expect(@driver.page_source.include?('Tagged #bar')).to be(true)
     end
 
-    it "should edit basic source data (name, description/bio, avatar)", binx6: true do
+    it "should edit basic source data (name, description/bio, avatar)", bin6: true do
       api_create_team_project_and_source_and_redirect_to_source('ACDC', 'https://twitter.com/acdc')
       sleep 5
       element = @driver.find_element(:class, "source__edit-button")
@@ -465,7 +465,7 @@ p $caller_name
   #
   # ccx 2017-10-13
 =begin
-    it "should add and remove accounts to sources", binx6: true  do
+    it "should add and remove accounts to sources", bin6: true  do
       api_create_team_project_and_source_and_redirect_to_source('GOT', 'https://twitter.com/GameOfThrones')
       #sleep 5
       element = wait_for_selector("source__edit-button", :class)
@@ -502,7 +502,7 @@ p $caller_name
       expect(@driver.page_source.include?('AC/DC Official Website')).to be(false)
     end
 =end
-    it "should edit source metadata (contact, phone, location, organization, other)", binx6: true do
+    it "should edit source metadata (contact, phone, location, organization, other)", bin6: true do
       api_create_team_project_and_source_and_redirect_to_source('GOT', 'https://twitter.com/GameOfThrones')
       sleep 5
       element = @driver.find_element(:class, "source__edit-button")
@@ -557,7 +557,7 @@ p $caller_name
       expect(@driver.page_source.include?('989898989')).to be(true)
     end
 
-    it "should add and remove source tags", binx6: true do
+    it "should add and remove source tags", bin6: true do
       api_create_team_project_and_source_and_redirect_to_source('GOT', 'https://twitter.com/GameOfThrones')
       sleep 5
       element = @driver.find_element(:class, "source__edit-button")
@@ -589,7 +589,7 @@ p $caller_name
       expect(@driver.page_source.include?('TAG2')).to be(false)
     end
 
-    it "should add and remove source languages",binx6: true  do
+    it "should add and remove source languages",bin6: true  do
       api_create_team_project_and_source_and_redirect_to_source('GOT', 'https://twitter.com/GameOfThrones')
       sleep 5
       element = @driver.find_element(:class, "source__edit-button")
@@ -637,77 +637,56 @@ p $caller_name
       expect(@driver.page_source.include?('Tag already exists')).to be(true)
     end
 
-    it "should not create duplicated media", bin1 : true do
+    it "should not create duplicated media", bin4: true do
       api_create_team_project_and_link_and_redirect_to_media_page @media_url
       id1 = @driver.current_url.to_s.gsub(/^.*\/media\//, '').to_i
       expect(id1 > 0).to be(true)
       @driver.navigate.to @driver.current_url.to_s.gsub(/\/media\/[0-9]+$/, '')
-
       sleep 3
+      wait_for_selector("medias__item",:class)
+      media_url = @driver.current_url.to_s.gsub(/\/media\/[0-9]+$/, '')
       fill_field('#create-media-input', @media_url)
       sleep 2
       press_button('#create-media-submit')
-      sleep 10
-
-      id2 = @driver.current_url.to_s.gsub(/^.*\/media\//, '').to_i
-      expect(id2 > 0).to be(true)
-
-      expect(id1 == id2).to be(true)
+      sleep 3
+      wait_for_selector("add-annotation__insert-photo",:class)
+      expect(@driver.current_url.to_s.gsub(/\/media\/[0-9]+$/, '') == media_url).to be(true)
     end
 
-    # This test is flaky
-    # Todo: consider fixing it or removing it
-    #
-    # CGB 2017-10-2
-    #
-    # it "should tag media from tags list", binx3: true do
-    #   page = api_create_team_project_and_claim_and_redirect_to_media_page
-
-    #   new_tag = Time.now.to_i.to_s
-    #   expect(page.contains_string?("Tagged \##{new_tag}")).to be(false)
-    #   page.add_tag(new_tag)
-    #   expect(page.has_tag?(new_tag)).to be(true)
-    #   sleep 2
-    #   expect(page.contains_string?("Tagged \##{new_tag}")).to be(true)
-
-    #   page.driver.navigate.refresh
-    #   page.wait_for_element('.media')
-    #   expect(page.has_tag?(new_tag)).to be(true)
-    #   expect(page.contains_string?("Tagged \##{new_tag}")).to be(true)
-    # end
-
-    it "should tag media as a command", bin: true, bin4: true do
-begin      
-p "21"  
+    it "should tag media from tags list", bin5: true do
       page = api_create_team_project_and_claim_and_redirect_to_media_page
-p "22"  
+      sleep 5
+      wait_for_selector("add-annotation__buttons", :class)
+      new_tag = Time.now.to_i.to_s
+      expect(page.contains_string?("Tagged \##{new_tag}")).to be(false)
+      page.add_tag(new_tag)
+      expect(page.has_tag?(new_tag)).to be(true)
+      sleep 2
+      expect(page.contains_string?("Tagged \##{new_tag}")).to be(true)
+      page.driver.navigate.refresh
+      page.wait_for_element('.media')
+      expect(page.has_tag?(new_tag)).to be(true)
+      expect(page.contains_string?("Tagged \##{new_tag}")).to be(true)
+    end
+
+    it "should tag media as a command", bin4: true do
+      page = api_create_team_project_and_claim_and_redirect_to_media_page
 
       expect(page.has_tag?('command')).to be(false)
-p "23"  
       expect(page.contains_string?('Tagged #command')).to be(false)
-p "24"  
 
       # Add a tag as a command
       page.add_annotation('/tag command')
-p "25"  
 
       # Verify that tag was added to tags list and annotations list
       expect(page.has_tag?('command')).to be(true)
-p "26"  
       expect(page.contains_string?('Tagged #command')).to be(true)
 
-p "27"  
       # Reload the page and verify that tags are still there
       page.driver.navigate.refresh
-p "28"  
       page.wait_for_element('.media')
-p "29"  
       expect(page.has_tag?('command')).to be(true)
-p "2a"  
       expect(page.contains_string?('Tagged #command')).to be(true)
-rescue => e
-p e
-end      
     end
 
     it "should comment media as a command", bin4: true, quick:true do
@@ -941,7 +920,7 @@ end
       expect(@driver.page_source.include?('Comment deleted')).to be(true)
     end
 
-    it "should auto refresh project when media is created", bin1 : true do
+    it "should auto refresh project when media is created", bin1: true do
       api_create_team_and_project
       @driver.navigate.to @config['self_url']
 
@@ -1101,7 +1080,7 @@ end
       @driver.switch_to.window(current_window)
     end
 
-    it "should refresh media", bin1 : true do
+    it "should refresh media", bin1: true do
       page = api_create_team_project_and_link_and_redirect_to_media_page 'http://ca.ios.ba/files/meedan/random.php'
       wait_for_selector("add-annotation", :class)
       title1 = @driver.title
@@ -1220,7 +1199,7 @@ end
       expect(twitter_title == 'This is a test').to be(true)
     end
 
-    it "should embed", bin1 : true do
+    it "should embed", bin1: true do
       api_create_team_project_and_claim_and_redirect_to_media_page
       sleep 2
       request_api('make_team_public', { slug: get_team })
