@@ -14,7 +14,7 @@ shared_examples 'custom' do
     expect($media_id.nil?).to be(false)
   end
 
-  it "should register and redirect to newly created image media", bin: true, bin4: true do
+  it "should register and redirect to newly created image media", bin4: true do
     api_create_team_and_project
     page = ProjectPage.new(config: @config, driver: @driver).load
            .create_image_media(File.expand_path('../test.png', File.dirname(__FILE__)))

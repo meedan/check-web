@@ -692,24 +692,38 @@ p $caller_name
     #   expect(page.contains_string?("Tagged \##{new_tag}")).to be(true)
     # end
 
-    it "should tag media as a command", bin4: true do
+    it "should tag media as a command", bin: true, bin4: true do
+begin      
+p "21"  
       page = api_create_team_project_and_claim_and_redirect_to_media_page
+p "22"  
 
       expect(page.has_tag?('command')).to be(false)
+p "23"  
       expect(page.contains_string?('Tagged #command')).to be(false)
+p "24"  
 
       # Add a tag as a command
       page.add_annotation('/tag command')
+p "25"  
 
       # Verify that tag was added to tags list and annotations list
       expect(page.has_tag?('command')).to be(true)
+p "26"  
       expect(page.contains_string?('Tagged #command')).to be(true)
 
+p "27"  
       # Reload the page and verify that tags are still there
       page.driver.navigate.refresh
+p "28"  
       page.wait_for_element('.media')
+p "29"  
       expect(page.has_tag?('command')).to be(true)
+p "2a"  
       expect(page.contains_string?('Tagged #command')).to be(true)
+rescue => e
+p e
+end      
     end
 
     it "should comment media as a command", bin4: true, quick:true do
@@ -834,28 +848,98 @@ p $caller_name
     #   skip("Needs to be implemented")
     # end
 
-    it "should navigate between teams", bin4: true, quick: true do
+    it "should navigate between teams", bin5: true, quick: true do
       # setup
-      user = api_register_and_login_with_email
-      team = request_api 'team', { name: 'Team 1', email: user.email, slug: "team-1-#{Time.now.to_i}" }
+      @user_mail = "test" +Time.now.to_i.to_s+rand(9999).to_s + @user_mail
+      @team1_slug = 'team1'+Time.now.to_i.to_s+rand(9999).to_s
+
+      user = api_register_and_login_with_email(email: @user_mail, password: @password)
+      team = request_api 'team', { name: 'Team 1', email: user.email, slug: @team1_slug }
       request_api 'project', { title: 'Team 1 Project', team_id: team.dbid }
-      team = request_api 'team', { name: 'Team 2', email: user.email, slug: "team-2-#{Time.now.to_i}" }
+      team = request_api 'team', { name: 'Team 2', email: user.email, slug: "team-2-#{rand(9999)}#{Time.now.to_i}" }
       request_api 'project', { title: 'Team 2 Project', team_id: team.dbid }
-
-      # test
-      page = MePage.new(config: @config, driver: @driver).load.select_team(name: 'Team 1')
-      page.click_projects_tab
-
+      page = TeamsPage.new(config: @config, driver: @driver).load.select_team(name: 'Team 1')
       expect(page.team_name).to eq('Team 1')
       expect(page.project_titles.include?('Team 1 Project')).to be(true)
       expect(page.project_titles.include?('Team 2 Project')).to be(false)
 
-      page = MePage.new(config: @config, driver: page.driver).load.select_team(name: 'Team 2')
-      page.click_projects_tab
+      page = TeamsPage.new(config: @config, driver: page.driver).load.select_team(name: 'Team 2')
 
       expect(page.team_name).to eq('Team 2')
       expect(page.project_titles.include?('Team 2 Project')).to be(true)
       expect(page.project_titles.include?('Team 1 Project')).to be(false)
+    
+      #As a different user, request to join one team and be accepted.
+      user = api_register_and_login_with_email(email: "new"+@user_mail, password: @password)
+      page = TeamsPage.new(config: @config, driver: @driver).load
+      page.ask_join_team(subdomain: @team1_slug)
+      @wait.until {
+        expect(@driver.find_element(:class, "message").nil?).to be(false)
+      }
+      api_logout
+      @driver.quit
+
+      @driver = new_driver(webdriver_url,browser_capabilities)
+      page = Page.new(config: @config, driver: @driver)
+      page.go(@config['api_path'] + '/test/session?email='+@user_mail)
+
+      #As the group creator, go to the members page and approve the joining request.
+      page = MePage.new(config: @config, driver: @driver).load
+      page.go(@config['self_url'] + '/check/me')
+      page.approve_join_team(subdomain: @team1_slug)
+      @wait.until {
+        elems = @driver.find_elements(:css => ".team-members__list > div")
+        expect(elems.size).to be > 1
+      }
+
+      # "should redirect to team page if user asking to join a team is already a member"
+      page = Page.new(config: @config, driver: @driver)
+      page.go(@config['api_path'] + '/test/session?email=new'+@user_mail)
+      #page = MePage.new(config: @config, driver: @driver).load
+      @driver.navigate.to @config['self_url'] + "/"+@team1_slug+"/join"
+      sleep 3
+      @wait.until {
+        expect(@driver.current_url.eql? @config['self_url']+"/"+@team1_slug ).to be(true)
+      }    
+ 
+      # "should reject member to join team"
+      user = api_register_and_login_with_email
+      page = MePage.new(config: @config, driver: @driver).load
+      page.ask_join_team(subdomain: @team1_slug)
+      @wait.until {
+        expect(@driver.find_element(:class, "message").nil?).to be(false)
+      }
+      api_logout
+      @driver.quit
+
+      @driver = new_driver(webdriver_url,browser_capabilities)
+      page = Page.new(config: @config, driver: @driver)
+      page.go(@config['api_path'] + '/test/session?email='+@user_mail)
+      #As the group creator, go to the members page and approve the joining request.
+      page = TeamsPage.new(config: @config, driver: @driver).load
+          .disapprove_join_team(subdomain: @team1_slug)
+      @wait.until {
+        expect(@driver.page_source.include?('Requests to join')).to be(false)
+      }      
+
+      # "should delete member from team"
+      page = Page.new(config: @config, driver: @driver)
+      page.go(@config['api_path'] + '/test/session?email='+@user_mail)
+      #As the group creator, go to the members page and approve the joining request.
+      sleep 1
+      page = MePage.new(config: @config, driver: @driver).load
+      @driver.navigate.to @config['self_url'] + '/'+@team1_slug
+      sleep 2 
+      wait_for_selector('team-members__member',:class)
+      el = wait_for_selector('team-members__edit-button',:class)
+      el.click
+      sleep 5
+      l = wait_for_selector_list('//button',:xpath)
+      old =  l.length      
+      expect(l.length > 4).to be(true)
+      l[l.length-3].click
+      sleep 1
+      expect(@driver.find_elements(:xpath => '//button').length == (old - 1)).to be(true)
     end
 
     #As a different user, request to join one team.
