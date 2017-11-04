@@ -52,6 +52,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
   before :each do |example|
     $caller_name = example.metadata[:description_args]
+p $caller_name    
     @driver = new_driver(webdriver_url,browser_capabilities)
   end
 
