@@ -556,24 +556,41 @@ p $caller_name
       expect(@driver.page_source.include?('989898989')).to be(true)
     end
 
-    it "should add and remove source tags", bin6: true do
+    it "should add and remove sourcetags", bin: true, bin6: true do
       api_create_team_project_and_source_and_redirect_to_source('GOT', 'https://twitter.com/GameOfThrones')
+p "2"      
       sleep 5
-      element = @driver.find_element(:class, "source__edit-button")
+      element =  wait_for_selector("source__edit-button", :class)     
+p "2vd"      
       element.click
       sleep 1
-      @driver.find_element(:class, "source__edit-addinfo-button").click
+p "2v"      
+      element =  wait_for_selector("source__edit-addinfo-button", :class)     
+p "2w"      
+      element.click
+p "2e"      
       sleep 1
-      @driver.find_element(:class, "source__add-tags").click
+      element =  wait_for_selector("source__add-tags", :class)     
+p "2r"      
+      element.click
       sleep 1
+p "2h"      
       fill_field("sourceTagInput", "TAG1", :id)
+p "2g"      
       @driver.action.send_keys("\n").perform
+p "2f"      
       fill_field("sourceTagInput", "TAG2", :id)
+p "2d"      
       @driver.action.send_keys("\n").perform
+p "a2"      
       sleep 3
       @driver.navigate.refresh
+p "2a"      
       sleep 3
+      wait_for_selector("source__edit-button", :class)     
+p "2s"      
       expect(@driver.page_source.include?('TAG1')).to be(true)
+p "s2"      
       expect(@driver.page_source.include?('TAG2')).to be(true)
 
       #delete
