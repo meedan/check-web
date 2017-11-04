@@ -88,7 +88,7 @@ p $caller_name
       expect(@driver.page_source.include?('Happy birthday Mick')).to be(false)
     end
 
-    it "should register and create a claim", binx5: true do
+    it "should register and create a claim", bin5: true do
       page = LoginPage.new(config: @config, driver: @driver).load
       page = page.register_and_login_with_email(email: "sysops+#{Time.now.to_i}#{rand(1000)}@meedan.com", password: @password)
       page
@@ -183,7 +183,7 @@ p $caller_name
       expect(project_pg.elements('.media__heading').map(&:text).include?('First Draft on Facebook')).to be(true)
     end
 
-    it "should login using Slack", binx5: true, quick:true do
+    it "should login using Slack", bin5: true, quick:true do
       login_with_slack
       @driver.navigate.to @config['self_url'] + '/check/me'
       displayed_name = get_element('h1.source__name').text.upcase
@@ -209,25 +209,25 @@ p $caller_name
       end
     end
 
-    it "should access user confirmed page", binx5: true do
+    it "should access user confirmed page", bin5: true do
       @driver.navigate.to @config['self_url'] + '/check/user/confirmed'
       title = get_element('.main-title')
       expect(title.text == 'Account Confirmed').to be(true)
     end
 
-    it "should access user unconfirmed page", binx5: true do
+    it "should access user unconfirmed page", bin5: true do
       @driver.navigate.to @config['self_url'] + '/check/user/unconfirmed'
       title = get_element('.main-title')
       expect(title.text == 'Error').to be(true)
     end
 
-    it "should access user already confirmed page", binx5: true do
+    it "should access user already confirmed page", bin5: true do
       @driver.navigate.to @config['self_url'] + '/check/user/already-confirmed'
       title = get_element('.main-title')
       expect(title.text == 'Account Already Confirmed').to be(true)
     end
 
-    it "should login using Facebook", binx5: true, quick:true do
+    it "should login using Facebook", bin5: true, quick:true do
       login_pg = LoginPage.new(config: @config, driver: @driver).load
       login_pg.login_with_facebook
 
@@ -237,7 +237,7 @@ p $caller_name
       expect(displayed_name).to eq(expected_name)
     end
 
-    it "should register and login using e-mail", binx5: true, quick:true do
+    it "should register and login using e-mail", bin5: true, quick:true do
       login_pg = LoginPage.new(config: @config, driver: @driver).load
       email, password = ['sysops+' + Time.now.to_i.to_s + '@meedan.com', '22345678']
       login_pg.register_and_login_with_email(email: email, password: password)
@@ -290,35 +290,19 @@ p $caller_name
     #   expect(@driver.find_element(:link_text, 'test.png').nil?).to be(false)
     # end
 
-    # Disabled because the functionality changed to use a
-    # background image in CSS instead of an <img> element.
-    #
-    #  I think we could do something like this instead:
-    #  https://stackoverflow.com/questions/11198882/how-do-you-test-if-a-div-has-a-certain-css-style-in-rspec-capybara
-    #
-    # it "should upload image when registering", binx5: true do
-    #   email, password, avatar = ["test-#{Time.now.to_i}@example.com", '12345678', File.join(File.dirname(__FILE__), 'test.png')]
-    #   page = LoginPage.new(config: @config, driver: @driver).load
-    #          .register_and_login_with_email(email: email, password: password, file: avatar)
-
-    #   me_page = MePage.new(config: @config, driver: page.driver).load
-    #   avatar = me_page.avatar
-    #   expect(avatar.attribute('src').match(/test\.png/).nil?).to be(false)
-    # end
-
     it "should redirect to 404 page", bin4: true do
       @driver.navigate.to @config['self_url'] + '/something-that/does-not-exist'
       title = get_element('.main-title')
       expect(title.text == 'Not Found').to be(true)
     end
 
-    it "should redirect to login screen if not logged in", binx5: true do
+    it "should redirect to login screen if not logged in", bin5: true do
       @driver.navigate.to @config['self_url'] + '/check/teams'
       title = get_element('.login__heading')
       expect(title.text == 'Sign in').to be(true)
     end
 
-    it "should login using Twitter", binx5: true, quick:true do
+    it "should login using Twitter", bin5: true, quick:true do
       login_with_twitter
       @driver.navigate.to @config['self_url'] + '/check/me'
       displayed_name = get_element('h1.source__name').text.upcase
@@ -792,37 +776,13 @@ end
       expect((@driver.current_url.to_s =~ /\/404$/).nil?).to be(false)
     end
 
-    it "should logout", binx5: true do
+    it "should logout", bin5: true do
       api_create_team_and_project
       @driver.navigate.to @config['self_url']
       page = ProjectPage.new(config: @config, driver: @driver).logout
 
       expect(page.contains_string?('Sign in')).to be(true)
     end
-
-    # it "should ask to join team" do
-    #   skip("Needs to be implemented")
-    # end
-
-    # it "should redirect to team page if user asking to join a team is already a member" do
-    #   skip("Needs to be implemented")
-    # end
-
-    # it "should reject member to join team" do
-    #   skip("Needs to be implemented")
-    # end
-
-    # it "should accept member to join team" do
-    #   skip("Needs to be implemented")
-    # end
-
-    # it "should change member role" do
-    #   skip("Needs to be implemented")
-    # end
-
-    # it "should delete member from team" do
-    #   skip("Needs to be implemented")
-    # end
 
     # it "should delete annotation from annotations list (for media, source and project)" do
     #   skip("Needs to be implemented")
@@ -925,7 +885,6 @@ end
       @wait.until {
         expect(@driver.page_source.include?('Requests to join')).to be(false)
       }      
-p "s2"
 
       # "should delete member from team"
       page = Page.new(config: @config, driver: @driver)
@@ -941,7 +900,6 @@ p "s2"
       sleep 5
       l = wait_for_selector_list('//button',:xpath)
       old =  l.length      
-p old      
       expect(l.length > 4).to be(true)
       l[l.length-2].click
       sleep 1
@@ -1232,7 +1190,7 @@ p old
       expect(selected == ['Created', 'Oldest first', 'Media'].sort).to be(true)
     end
 
-    it "should not reset password", binx5: true do
+    it "should not reset password", bin5: true do
       page = LoginPage.new(config: @config, driver: @driver)
       page.reset_password('test@meedan.com')
       sleep 2
@@ -1240,7 +1198,7 @@ p old
       expect(@driver.page_source.include?('Password reset sent')).to be(false)
     end
 
-    it "should reset password", binx5: true do
+    it "should reset password", bin5: true do
       user = api_create_and_confirm_user
       page = LoginPage.new(config: @config, driver: @driver)
       page.reset_password(user.email)
@@ -1249,7 +1207,7 @@ p old
       expect(@driver.page_source.include?('Password reset sent')).to be(true)
     end
 
-    it "should set metatags", binx5: true do
+    it "should set metatags", bin5: true do
       api_create_team_project_and_link_and_redirect_to_media_page 'https://twitter.com/marcouza/status/875424957613920256'
       sleep 2
       request_api('make_team_public', { slug: get_team })
@@ -1498,5 +1456,20 @@ p old
       delete_task('When was it')
     end
 =end
+    # Disabled because the functionality changed to use a
+    # background image in CSS instead of an <img> element.
+    #
+    #  I think we could do something like this instead:
+    #  https://stackoverflow.com/questions/11198882/how-do-you-test-if-a-div-has-a-certain-css-style-in-rspec-capybara
+    #
+    # it "should upload image when registering", bin5 : true do
+    #   email, password, avatar = ["test-#{Time.now.to_i}@example.com", '12345678', File.join(File.dirname(__FILE__), 'test.png')]
+    #   page = LoginPage.new(config: @config, driver: @driver).load
+    #          .register_and_login_with_email(email: email, password: password, file: avatar)
+
+    #   me_page = MePage.new(config: @config, driver: page.driver).load
+    #   avatar = me_page.avatar
+    #   expect(avatar.attribute('src').match(/test\.png/).nil?).to be(false)
+    # end
   end
 end
