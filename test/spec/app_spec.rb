@@ -133,7 +133,7 @@ p $caller_name
     # Todo: consider fixing it
     # CGB 2017-9-29
     #
-    # it "should not add a duplicated tag from tags list", binx3: true, quick: true  do
+    # it "should not add a duplicated tag from tags list", bin3: true, quick: true  do
     #   page = api_create_team_project_and_claim_and_redirect_to_media_page
     #   new_tag = Time.now.to_i.to_s
 
@@ -247,7 +247,7 @@ p $caller_name
       expect(displayed_name == 'User With Email').to be(true)
     end
 
-    it "should create a project for a team", binx3: true do
+    it "should create a project for a team", bin3: true do
       team = api_create_team
       @driver.navigate.to @config['self_url']
       project_name = "Project #{Time.now}"
@@ -558,39 +558,25 @@ p $caller_name
 
     it "should add and remove sourcetags", bin: true, bin6: true do
       api_create_team_project_and_source_and_redirect_to_source('GOT', 'https://twitter.com/GameOfThrones')
-p "2"      
       sleep 5
       element =  wait_for_selector("source__edit-button", :class)     
-p "2vd"      
       element.click
       sleep 1
-p "2v"      
       element =  wait_for_selector("source__edit-addinfo-button", :class)     
-p "2w"      
       element.click
-p "2e"      
       sleep 1
       element =  wait_for_selector("source__add-tags", :class)     
-p "2r"      
       element.click
       sleep 1
-p "2h"      
       fill_field("sourceTagInput", "TAG1", :id)
-p "2g"      
       @driver.action.send_keys("\n").perform
-p "2f"      
       fill_field("sourceTagInput", "TAG2", :id)
-p "2d"      
       @driver.action.send_keys("\n").perform
-p "a2"      
       sleep 3
       @driver.navigate.refresh
-p "2a"      
       sleep 3
       wait_for_selector("source__edit-button", :class)     
-p "2s"      
       expect(@driver.page_source.include?('TAG1')).to be(true)
-p "s2"      
       expect(@driver.page_source.include?('TAG2')).to be(true)
 
       #delete
@@ -632,7 +618,7 @@ p "s2"
       expect(@driver.page_source.include?('Acoli')).to be(false)
     end
 
-    it "should not add a duplicated tag from command line", binx3: true do
+    it "should not add a duplicated tag from command line", bin3: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
 
       new_tag = Time.now.to_i.to_s
@@ -922,7 +908,7 @@ p "s2"
     #   }
     # end
 
-    it "should update notes count after delete annotation", binx3: true do
+    it "should update notes count after delete annotation", bin3: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
       media_pg.fill_input('#cmd-input', 'Test')
       media_pg.element('#cmd-input').submit
@@ -957,7 +943,7 @@ p "s2"
       expect(@driver.page_source.include?('Auto-Refresh')).to be(true)
     end
 
-    it "should auto refresh media when annotation is created", binx3: true do
+    it "should auto refresh media when annotation is created", bin3: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
       url = media_pg.driver.current_url
       sleep 3
@@ -1012,7 +998,7 @@ p "s2"
     #   skip("Needs to be implemented")
     # end
 
-    it "should add, edit, answer, update answer and delete short answer task", binx3: true do
+    it "should add, edit, answer, update answer and delete short answer task", bin3: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
       wait_for_selector('.create-task__add-button')
 
@@ -1258,7 +1244,7 @@ p "s2"
     end
 
     #Add slack notifications to a team
-    it "should add slack notifications to a team", binx3:true, quick: true do
+    it "should add slack notifications to a team", bin3:true, quick: true do
       team = "testteam#{Time.now.to_i}"
       api_create_team(team:team)
       p = Page.new(config: @config, driver: @driver)
@@ -1301,7 +1287,7 @@ p "s2"
       expect(@driver.find_elements(:css, '.teams').empty?).to be(false)
     end
 
-    it "should add, edit, answer, update answer and delete geolocation task", binx3: true do
+    it "should add, edit, answer, update answer and delete geolocation task", bin3: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
       wait_for_selector('.create-task__add-button')
 
@@ -1356,7 +1342,7 @@ p "s2"
   # Todo: locally prints 1 / 2 and remote 0 / 1
   #
   # ccx 2017-10-13
-     it "should add image to media comment", binx3: true do
+     it "should add image to media comment", bin3: true do
       p "----------"
       api_create_team_project_and_claim_and_redirect_to_media_page
       # First, verify that there isn't any comment with image
@@ -1400,7 +1386,7 @@ p "s2"
 =begin
     ***Unstable***
 
-    it "should add, edit, answer, update answer and delete datetime task", binx3: true do
+    it "should add, edit, answer, update answer and delete datetime task", bin3: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
       wait_for_selector('.create-task__add-button')
 
