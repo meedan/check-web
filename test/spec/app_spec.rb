@@ -1220,16 +1220,20 @@ p $caller_name
         sleep 2
         expect(@driver.current_url.to_s == "#{url}/embed").to be(true)
         expect(@driver.page_source.include?('Not available')).to be(false)
-        @driver.find_element(:css, '#media-embed__actions-customize').click
+        el = wait_for_selector('#media-embed__actions-customize')
+        el.click
         sleep 1
         @driver.find_elements(:css, '#media-embed__customization-menu input[type=checkbox]').map(&:click)
         sleep 1
         @driver.find_elements(:css, 'body').map(&:click)
         sleep 1
-        @driver.find_element(:css, '#media-embed__actions-copy').click
+        el = wait_for_selector('#media-embed__actions-copy')
+        el.click
+
         sleep 1
-        @driver.navigate.to 'https://pastebinx.mozilla.org/'
-        @driver.find_element(:css, '#code').send_keys(' ')
+        @driver.navigate.to 'https://pastebin.mozilla.org/'
+        el = wait_for_selector('#code')
+        el.send_keys(' ')
         @driver.action.send_keys(:control, 'v').perform
         sleep 1
         expect((@driver.find_element(:css, '#code').attribute('value') =~ /hide_open_tasks%3D1%26hide_tasks%3D1%26hide_notes%3D1/).nil?).to be(false)

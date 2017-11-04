@@ -57,7 +57,7 @@ shared_examples 'custom' do
     expect(media_pg.contains_element?('.annotation__status--verified')).to be(true)
   end
 
-  it "should search by status", binx2: true do
+  it "should search by status", bin2: true do
     api_create_claim_and_go_to_search_page
     before = wait_for_selector("search__results-heading", :class)
     txt = before.text
@@ -76,7 +76,7 @@ shared_examples 'custom' do
     expect(@driver.page_source.include?('My search result')).to be(true)
   end
 
-  it "should search by status through URL", binx2: true do
+  it "should search by status through URL", bin2: true do
     api_create_claim_and_go_to_search_page
     before = wait_for_selector("search__results-heading", :class)
     txt = before.text
