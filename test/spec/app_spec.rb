@@ -848,22 +848,26 @@ end
     #   skip("Needs to be implemented")
     # end
 
+
     it "should navigate between teams", bin5: true, quick: true do
       # setup
       @user_mail = "test" +Time.now.to_i.to_s+rand(9999).to_s + @user_mail
       @team1_slug = 'team1'+Time.now.to_i.to_s+rand(9999).to_s
-
       user = api_register_and_login_with_email(email: @user_mail, password: @password)
       team = request_api 'team', { name: 'Team 1', email: user.email, slug: @team1_slug }
       request_api 'project', { title: 'Team 1 Project', team_id: team.dbid }
       team = request_api 'team', { name: 'Team 2', email: user.email, slug: "team-2-#{rand(9999)}#{Time.now.to_i}" }
       request_api 'project', { title: 'Team 2 Project', team_id: team.dbid }
-      page = TeamsPage.new(config: @config, driver: @driver).load.select_team(name: 'Team 1')
+
+      page = MePage.new(config: @config, driver: @driver).load.select_team(name: 'Team 1')
+      page.click_projects_tab
+
       expect(page.team_name).to eq('Team 1')
       expect(page.project_titles.include?('Team 1 Project')).to be(true)
       expect(page.project_titles.include?('Team 2 Project')).to be(false)
 
-      page = TeamsPage.new(config: @config, driver: page.driver).load.select_team(name: 'Team 2')
+      page = MePage.new(config: @config, driver: @driver).load.select_team(name: 'Team 2')
+      page.click_projects_tab
 
       expect(page.team_name).to eq('Team 2')
       expect(page.project_titles.include?('Team 2 Project')).to be(true)
@@ -871,7 +875,7 @@ end
     
       #As a different user, request to join one team and be accepted.
       user = api_register_and_login_with_email(email: "new"+@user_mail, password: @password)
-      page = TeamsPage.new(config: @config, driver: @driver).load
+      page = MePage.new(config: @config, driver: @driver).load
       page.ask_join_team(subdomain: @team1_slug)
       @wait.until {
         expect(@driver.find_element(:class, "message").nil?).to be(false)
@@ -916,11 +920,12 @@ end
       page = Page.new(config: @config, driver: @driver)
       page.go(@config['api_path'] + '/test/session?email='+@user_mail)
       #As the group creator, go to the members page and approve the joining request.
-      page = TeamsPage.new(config: @config, driver: @driver).load
+      page = MePage.new(config: @config, driver: @driver).load
           .disapprove_join_team(subdomain: @team1_slug)
       @wait.until {
         expect(@driver.page_source.include?('Requests to join')).to be(false)
       }      
+p "s2"
 
       # "should delete member from team"
       page = Page.new(config: @config, driver: @driver)
@@ -936,10 +941,11 @@ end
       sleep 5
       l = wait_for_selector_list('//button',:xpath)
       old =  l.length      
+p old      
       expect(l.length > 4).to be(true)
-      l[l.length-3].click
+      l[l.length-2].click
       sleep 1
-      expect(@driver.find_elements(:xpath => '//button').length == (old - 1)).to be(true)
+      expect(wait_for_selector_list('//button',:xpath).length < old).to be(true)
     end
 
     #As a different user, request to join one team.
