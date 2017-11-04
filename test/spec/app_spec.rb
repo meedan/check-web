@@ -275,20 +275,19 @@ p $caller_name
       expect(page.contains_string?('This is a test')).to be(true)
     end
 
-    # Disable because it is flaky.
-    # Todo:
-    # it "should search for image", binx2: true do
-    #   api_create_team_and_project
-    #   sleep 2
-    #   page = ProjectPage.new(config: @config, driver: @driver).load
-    #          .create_image_media(File.join(File.dirname(__FILE__), 'test.png'))
-
-    #   sleep 10 # wait for Sidekiq
-
-    #   @driver.navigate.to @config['self_url'] + '/' + get_team + '/search'
-    #   sleep 5
-    #   expect(@driver.find_element(:link_text, 'test.png').nil?).to be(false)
-    # end
+    it "should search for image",  bin2: true do
+      api_create_team_and_project
+      sleep 2
+      page = ProjectPage.new(config: @config, driver: @driver).load
+             .create_image_media(File.join(File.dirname(__FILE__), 'test.png'))
+      
+      sleep 2
+      wait_for_selector("add-annotation__buttons", :class)
+      @driver.navigate.to @config['self_url'] + '/' + get_team + '/search'
+      sleep 5
+      wait_for_selector("search__results-heading", :class)
+      expect(@driver.find_element(:link_text, 'test.png').nil?).to be(false)
+    end
 
     it "should redirect to 404 page", bin4: true do
       @driver.navigate.to @config['self_url'] + '/something-that/does-not-exist'
@@ -1067,7 +1066,7 @@ p $caller_name
     #   skip("Needs to be implemented")
     # end
 
-    it "should search for reverse images", binx2: true do
+    it "should search for reverse images", bin2: true do
       page = api_create_team_project_and_link_and_redirect_to_media_page 'https://www.instagram.com/p/BRYob0dA1SC/'
       wait_for_selector('.annotation__reverse-image')
       expect(@driver.page_source.include?('This item contains at least one image. Click Search to look for potential duplicates on Google.')).to be(true)
@@ -1096,7 +1095,7 @@ p $caller_name
       expect(title1 != title2).to be(true)
     end
 
-    it "should search by project", binx2: true do
+    it "should search by project", bin2: true do
       api_create_claim_and_go_to_search_page
       expect((@driver.current_url.to_s.match(/project/)).nil?).to be(true)
       @driver.find_element(:xpath, "//div[contains(text(), 'Project')]").click
@@ -1108,7 +1107,7 @@ p $caller_name
       expect((@driver.title =~ /Project/).nil?).to be(true)
     end
 
-    it "should search and change sort criteria", binx2: true do
+    it "should search and change sort criteria", bin2: true do
       api_create_claim_and_go_to_search_page
       expect((@driver.current_url.to_s.match(/recent_activity/)).nil?).to be(true)
 
@@ -1125,7 +1124,7 @@ p $caller_name
       expect(@driver.page_source.include?('My search result')).to be(true)
     end
 
-    it "should search and change sort order", binx2: true do
+    it "should search and change sort order", bin2: true do
       api_create_claim_and_go_to_search_page
       expect((@driver.current_url.to_s.match(/ASC|DESC/)).nil?).to be(true)
 
@@ -1142,7 +1141,7 @@ p $caller_name
       expect(@driver.page_source.include?('My search result')).to be(true)
     end
 
-    it "should search by project through URL", binx2: true do
+    it "should search by project through URL", bin2: true do
       api_create_claim_and_go_to_search_page
       @driver.navigate.to @config['self_url'] + '/' + get_team + '/search/%7B"projects"%3A%5B0%5D%7D'
       sleep 10
@@ -1151,7 +1150,7 @@ p $caller_name
       expect(selected.size == 3).to be(true)
     end
 
-    it "should change search sort criteria through URL", binx2: true do
+    it "should change search sort criteria through URL", bin2: true do
       api_create_claim_and_go_to_search_page
       @driver.navigate.to @config['self_url'] + '/' + get_team + '/search/%7B"sort"%3A"recent_activity"%7D'
       sleep 10
@@ -1160,7 +1159,7 @@ p $caller_name
       expect(selected == ['Recent activity', 'Newest first', 'Media'].sort).to be(true)
     end
 
-    it "should change search sort order through URL", binx2: true do
+    it "should change search sort order through URL", bin2: true do
       api_create_claim_and_go_to_search_page
       @driver.navigate.to @config['self_url'] + '/' + get_team + '/search/%7B"sort_type"%3A"ASC"%7D'
       sleep 10
@@ -1262,7 +1261,7 @@ p $caller_name
       expect(@driver.find_element(:class, "message").nil?).to be(false)
     end
 
-    it "should paginate project page", binx2: true do
+    it "should paginate project page", bin2: true do
       page = api_create_team_project_claims_sources_and_redirect_to_project_page 21
       page.load
       el = wait_for_selector("//span[contains(text(), 'Sources')]", :xpath)
