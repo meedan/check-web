@@ -52,7 +52,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
   before :each do |example|
     $caller_name = example.metadata[:description_args]
-p $caller_name    
     @driver = new_driver(webdriver_url,browser_capabilities)
   end
 
@@ -618,7 +617,7 @@ p $caller_name
       expect(@driver.page_source.include?('Acoli')).to be(false)
     end
 
-    it "should not add a duplicated tag from command line", bin: true, bin3: true do
+    it "should not add a duplicated tag from command line", bin3: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
       new_tag = Time.now.to_i.to_s
       old = @driver.find_elements(:class,"annotations__list-item").length
@@ -628,26 +627,16 @@ p $caller_name
 
       # Try to add from command line
       media_pg.add_annotation("/tag #{new_tag}")
-
       old = wait_for_size_change(old, "annotations__list-item", :class)
-
-p "St"
-p new_tag
-
       media_pg.has_tag?(new_tag)
-p "Sr"
       expect(media_pg.has_tag?(new_tag)).to be(true)
-p "Se"
 
       # Try to add duplicate from command line
       media_pg.add_annotation("/tag #{new_tag}")
-p "Ssw"
 
       # Verify that tag is not added and that error message is displayed
-p "Ss"
       expect(media_pg.tags.count(new_tag)).to be(1)
       sleep 3
-p "aS"
       expect(@driver.page_source.include?('Tag already exists')).to be(true)
     end
 
