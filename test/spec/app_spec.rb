@@ -555,7 +555,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('989898989')).to be(true)
     end
 
-    it "should add and remove sourcetags", bin6: true do
+    it "should add and remove source tags", bin6: true do
       api_create_team_project_and_source_and_redirect_to_source('GOT', 'https://twitter.com/GameOfThrones')
       sleep 5
       element =  wait_for_selector("source__edit-button", :class)     
