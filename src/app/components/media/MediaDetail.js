@@ -262,7 +262,7 @@ class MediaDetail extends Component {
                   <TimeBefore date={createdAt} />
                 </Link>
               </Offset>
-              {(!projectPage && projectTitle) && <Link to={projectUrl}>in {projectTitle}</Link>}
+              {(!projectPage && projectTitle) && <Offset isRtl={isRtl}><Link to={projectUrl}>in {projectTitle}</Link></Offset>}
               <Offset isRtl={isRtl}>
                 <Link to={mediaUrl}>
                   <span className="media-detail__check-notes-count">
