@@ -2,24 +2,24 @@ import config from 'config';
 
 const customHelpers = {
   bridge: {
-    teamStatuses: function(team) {
+    teamStatuses(team) {
       return team.translation_statuses;
     },
-    mediaStatuses: function(media) {
+    mediaStatuses(media) {
       return media.translation_statuses;
     },
-    mediaLastStatus: function(media) {
+    mediaLastStatus(media) {
       return media.field_value || 'pending';
     },
   },
   check: {
-    teamStatuses: function(team){
+    teamStatuses(team) {
       return team.media_verification_statuses;
     },
-    mediaStatuses: function(media) {
+    mediaStatuses(media) {
       return media.verification_statuses;
     },
-    mediaLastStatus: function(media) {
+    mediaLastStatus(media) {
       return media.last_status;
     },
   },
@@ -38,7 +38,7 @@ const customStrings = {
   check: {
     ABOUT_URL: 'https://meedan.com/check',
     ADMIN_EMAIL: 'admin@checkmedia.org',
-    CONTACT_HUMAN_URL: 'https://docs.google.com/forms/d/e/1FAIpQLSdctP7RhxeHjTnevnvRi6AKs4fX3wNnxecVdBFwKe7GRVcchg/viewform',
+    CONTACT_HUMAN_URL: 'https://meedan.typeform.com/to/Tvf0b8',
     PP_URL: 'https://meedan.com/en/check/check_privacy.html',
     SUPPORT_EMAIL: 'check@meedan.com',
     TOS_URL: 'https://meedan.com/en/check/check_tos.html',
@@ -46,7 +46,7 @@ const customStrings = {
   },
 };
 
-function resolveHelper(name, args){
+function resolveHelper(name, args) {
   return customHelpers[config.appName][name].apply(this, args);
 }
 
@@ -70,5 +70,5 @@ export {
   teamStatuses,
   mediaStatuses,
   mediaLastStatus,
-  stringHelper
+  stringHelper,
 };
