@@ -4,7 +4,7 @@ import deepEqual from 'deep-equal';
 import styled from 'styled-components';
 import MediaUtil from './MediaUtil';
 import ParsedText from '../ParsedText';
-import { units, Row, Offset, black05, defaultBorderRadius, caption } from '../../styles/js/shared';
+import { units, Row, Offset, black05, defaultBorderRadius } from '../../styles/js/shared';
 
 // If there is an AuthorPicture
 // as a large icon or small favicon
@@ -23,10 +23,6 @@ const StyledContentImage = styled.img`
   max-width: 100%;
   max-height: ${units(60)};
   margin-top: ${units(1)};
-`;
-
-const StyledLinkWrapper = styled.div`
-  font: ${caption};
 `;
 
 class WebPageMediaCard extends Component {
@@ -61,14 +57,6 @@ class WebPageMediaCard extends Component {
       </a>)
       : null;
 
-    const webPageUrl = url
-    ? (<StyledLinkWrapper>
-      <a href={url} target="_blank" rel="noopener noreferrer">
-        {url}
-      </a>
-    </StyledLinkWrapper>)
-    : null;
-
     const imageRegex = /\/.*\.(gifv?|jpe?g|png)(\?|#)?.*$/;
     const contentPicture = (() => {
       if (url && url.match(imageRegex)) {
@@ -85,7 +73,6 @@ class WebPageMediaCard extends Component {
             { heading}
             { webPageName }
             { data.description && <div><ParsedText text={data.description} /></div> }
-            {webPageUrl}
             {contentPicture}
           </Offset>
         </Row>
