@@ -102,12 +102,11 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       api_logout
       api_register_and_login_with_email
       me_pg = MePage.new(config: @config, driver: @driver).load
-      sleep 3
+      @wait.until { @driver.page_source.include?('Create Team') }
       expect(@driver.page_source.include?('Access Denied')).to be(false)
       expect((@driver.current_url.to_s =~ /\/forbidden$/).nil?).to be(true)
-
       unauthorized_pg = SourcePage.new(id: user.dbid, config: @config, driver: @driver).load
-      sleep 3
+      wait_for_selector("main-title", :class)
       expect(@driver.page_source.include?('Access Denied')).to be(true)
       expect((@driver.current_url.to_s =~ /\/forbidden$/).nil?).to be(false)
     end
@@ -440,16 +439,16 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should edit basic source data (name, description/bio, avatar)", bin6: true do
       api_create_team_project_and_source_and_redirect_to_source('ACDC', 'https://twitter.com/acdc')
-      sleep 5
-      element = @driver.find_element(:class, "source__edit-button")
-      element.click
-      input = @driver.find_element(:id, 'source__name-container')
+      el = wait_for_selector("source__edit-button", :class)
+      el.click
+      input = wait_for_selector('source__name-container', :id)
       input.send_keys(" - EDIT ACDC")
-      input = @driver.find_element(:id, 'source__bio-container')
+      input = wait_for_selector('source__bio-container', :id)
       input.send_keys(" - EDIT DESC")
-      @driver.find_element(:class, "source__edit-avatar-button").click
+      el = wait_for_selector("source__edit-avatar-button", :class)
+      el.click
       sleep 1
-      input = @driver.find_element(:css, 'input[type=file]')
+      input = wait_for_selector('input[type=file]')
       input.send_keys(File.join(File.dirname(__FILE__), 'test.png'))
       sleep 1
       @driver.find_element(:class, 'source__edit-save-button').click
