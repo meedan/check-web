@@ -8,6 +8,8 @@ require_relative './pages/me_page.rb'
 require_relative './pages/page.rb'
 require_relative './api_helpers.rb'
 
+require_relative './extra.rb'
+
 CONFIG = YAML.load_file('config.yml')
 
 require_relative "#{CONFIG['app_name']}/custom_spec.rb"
@@ -590,7 +592,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('TAG2')).to be(false)
     end
 
-    it "should add and remove source languages",bin6: true  do
+    it "should add and remove source languages", bin6: true  do
       api_create_team_project_and_source_and_redirect_to_source('GOT', 'https://twitter.com/GameOfThrones')
       sleep 5
       element = @driver.find_element(:class, "source__edit-button")
@@ -628,7 +630,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       # Try to add from command line
       media_pg.add_annotation("/tag #{new_tag}")
       old = wait_for_size_change(old, "annotations__list-item", :class)
-      media_pg.has_tag?(new_tag)
       expect(media_pg.has_tag?(new_tag)).to be(true)
 
       # Try to add duplicate from command line
@@ -636,7 +637,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Verify that tag is not added and that error message is displayed
       expect(media_pg.tags.count(new_tag)).to be(1)
-      sleep 3
+      @wait.until { @driver.page_source.include?('Tag already exists') }
       expect(@driver.page_source.include?('Tag already exists')).to be(true)
     end
 
@@ -647,13 +648,12 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       @driver.navigate.to @driver.current_url.to_s.gsub(/\/media\/[0-9]+$/, '')
       sleep 3
       wait_for_selector("medias__item",:class)
-      media_url = @driver.current_url.to_s.gsub(/\/media\/[0-9]+$/, '')
       fill_field('#create-media-input', @media_url)
       sleep 2
       press_button('#create-media-submit')
-      sleep 3
       wait_for_selector("add-annotation__insert-photo",:class)
-      expect(@driver.current_url.to_s.gsub(/\/media\/[0-9]+$/, '') == media_url).to be(true)
+      id2 = @driver.current_url.to_s.gsub(/^.*\/media\//, '').to_i
+      expect(id1 == id2).to be(true)
     end
 
     it "should tag media from tags list", bin5: true do
@@ -791,7 +791,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     # end
 
 
-    it "should navigate between teams", bin5: true, quick: true do
+    it "should request to join, navigate between teams, accept, reject and delete member", bin5: true, quick: true do
       # setup
       @user_mail = "test" +Time.now.to_i.to_s+rand(9999).to_s + @user_mail
       @team1_slug = 'team1'+Time.now.to_i.to_s+rand(9999).to_s

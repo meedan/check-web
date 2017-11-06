@@ -32,6 +32,8 @@ shared_examples 'custom' do
     @driver.navigate.to media.full_url
     sleep 2
 
+    expect(@driver.page_source.include?('Status')).to be(false)
+
     # Add a status as a command
     fill_field('#cmd-input', '/status In Progress')
     @driver.action.send_keys(:enter).perform
