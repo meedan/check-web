@@ -16,11 +16,10 @@ import UpdateProjectMediaMutation from '../../relay/UpdateProjectMediaMutation';
 import DeleteProjectMediaMutation from '../../relay/DeleteProjectMediaMutation';
 import CheckContext from '../../CheckContext';
 import Message from '../Message';
-import { Row, black87, title, units } from '../../styles/js/shared';
+import { Row, black87, title, units, caption, Text } from '../../styles/js/shared';
 
-const StyledMetadata = styled(Row)`
-  margin: ${units(2)} ${units(1)} 0;
-  flex-wrap: wrap;
+const StyledMetadata = styled.div`
+  margin: ${units(1)} ${units(1)} 0;
 
   // Move dialog
   //
@@ -352,7 +351,7 @@ class MediaMetadata extends Component {
   }
 
   render() {
-    const { media, mediaUrl } = this.props;
+    const { media } = this.props;
     const context = this.getContext();
     const locale = this.props.intl.locale;
     const isRtl = rtlDetect.isRtlLang(locale);
@@ -432,34 +431,45 @@ class MediaMetadata extends Component {
       />,
     ];
 
+    const data = JSON.parse(media.embed);
+    const url = MediaUtil.url(media, data);
+
     return (
       <StyledMetadata fromDirection={fromDirection} className="media-detail__check-metadata">
         {this.state.isEditing ? editDialog : null}
-        <span>{mediaUrl}</span>
-        {byUser
-          ? <span className="media-detail__check-added-by">
-            <FormattedMessage
-              id="mediaDetail.addedBy"
-              defaultMessage={'Added {byUser}'}
-              values={{ byUser }}
-            />
-          </span>
-          : null}
-        {media.tags ? <MediaTags media={media} tags={media.tags.edges} isEditing={false} /> : null}
+        <Row>
+          <Text font={caption} breakWord>
+            <a href={url} target="_blank" rel="noopener noreferrer">
+              {url}
+            </a>
+          </Text>
+        </Row>
+        <Row>
+          {byUser
+            ? <span className="media-detail__check-added-by">
+              <FormattedMessage
+                id="mediaDetail.addedBy"
+                defaultMessage={'Added {byUser}'}
+                values={{ byUser }}
+              />
+            </span>
+            : null}
+          {media.tags ? <MediaTags media={media} tags={media.tags.edges} isEditing={false} /> : null}
 
-        {this.props.readonly || this.state.isEditing
-          ? null
-          : <MediaActions
-            media={media}
-            handleEdit={this.handleEdit.bind(this)}
-            handleMove={this.handleMove.bind(this)}
-            handleRefresh={this.handleRefresh.bind(this)}
-            handleSendToTrash={this.handleSendToTrash.bind(this)}
-            handleRestore={this.handleRestore.bind(this)}
-            handleDeleteForever={this.handleDeleteForever.bind(this)}
-            style={{ display: 'flex' }}
-            locale={this.props.intl.locale}
-          />}
+          {this.props.readonly || this.state.isEditing
+            ? null
+            : <MediaActions
+              media={media}
+              handleEdit={this.handleEdit.bind(this)}
+              handleMove={this.handleMove.bind(this)}
+              handleRefresh={this.handleRefresh.bind(this)}
+              handleSendToTrash={this.handleSendToTrash.bind(this)}
+              handleRestore={this.handleRestore.bind(this)}
+              handleDeleteForever={this.handleDeleteForever.bind(this)}
+              style={{ display: 'flex' }}
+              locale={this.props.intl.locale}
+            />}
+        </Row>
 
         <Dialog
           actions={moveDialogActions}

@@ -290,7 +290,10 @@ export const breakWordStyles = `
 //
 export const Text = styled.div`
   ${props => props.ellipsis ? ellipsisStyles : ''}
-  ${props => props.font ? `font: ${props.font}` : ''}
+  ${props => props.font ? `font: ${props.font};` : ''}
+  ${props => props.center ? 'text-align: center;' : ''}
+  ${props => props.color ? `color: ${props.color};` : ''}
+  ${props => props.breakWord ? breakWordStyles : ''}
 `;
 
 export const HeaderTitle = styled.h3`

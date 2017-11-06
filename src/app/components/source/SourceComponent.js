@@ -66,6 +66,8 @@ import {
   ContentColumn,
   Row,
   StyledIconButton,
+  Text,
+  black38,
 } from '../../styles/js/shared';
 
 const messages = defineMessages({
@@ -148,6 +150,14 @@ const messages = defineMessages({
   other: {
     id: 'sourceComponent.other',
     defaultMessage: 'Other (Specify)',
+  },
+  noAccounts: {
+    id: 'sourceNoAccounts',
+    defaultMessage: 'No networks associated with this source yet',
+  },
+  noMedia: {
+    id: 'sourceNoMedia',
+    defaultMessage: 'No media attributed to this source yet',
   },
 });
 
@@ -789,7 +799,8 @@ class SourceComponent extends Component {
               />
               <StyledIconButton
                 className="source__remove-link-button"
-                onClick={() => this.handleRemoveLink(as.node.id)}>
+                onClick={() => this.handleRemoveLink(as.node.id)}
+              >
                 <MdCancel />
               </StyledIconButton>
             </Row>
@@ -811,7 +822,8 @@ class SourceComponent extends Component {
               />
               <StyledIconButton
                 className="source__remove-link-button"
-                onClick={() => this.handleRemoveNewLink(index)}>
+                onClick={() => this.handleRemoveNewLink(index)}
+              >
                 <MdCancel />
               </StyledIconButton>
             </Row>
@@ -1455,12 +1467,22 @@ class SourceComponent extends Component {
                 />
                 ) : null}
               {this.state.showTab === 'media' ? (
-                <Medias medias={source.medias.edges} />
+                source.medias.edges.length === 0
+                  ? <Text center color={black38}>
+                    { this.props.intl.formatMessage(messages.noMedia) }
+                  </Text>
+                  : <Medias medias={source.medias.edges} />
                 ) : null}
+
               {this.state.showTab === 'account' ? (
-                  source.accounts.edges.map(account => (
+                  source.accounts.edges.length === 0
+                  ? <Text center color={black38}>
+                    { this.props.intl.formatMessage(messages.noAccounts) }
+                  </Text>
+                  : source.accounts.edges.map(account => (
                     <AccountCard key={account.node.id} account={account.node} />
-                  ))
+                    ),
+                  )
                 ) : null}
             </ContentColumn>
             ) : null}

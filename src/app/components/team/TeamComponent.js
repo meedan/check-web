@@ -33,6 +33,7 @@ import {
   units,
   avatarStyle,
   Row,
+  black54,
 } from '../../styles/js/shared';
 
 import {
@@ -97,6 +98,10 @@ const messages = defineMessages({
   bridge_verificationProjects: {
     id: 'bridge.teamComponent.title',
     defaultMessage: 'Translation Projects',
+  },
+  noProjects: {
+    id: 'teamComponent.noProjects',
+    defaultMessage: 'No projects yet',
   },
 });
 
@@ -540,9 +545,11 @@ class TeamComponent extends Component {
                           title={<MappedMessage msgObj={messages} msgKey="verificationProjects" />}
                         />
 
-                        <InfiniteScroll hasMore loadMore={this.loadMore.bind(this)} threshold={500}>
-                          <List className="projects" style={{ padding: '0' }}>
-                            {team.projects.edges
+                        {team.projects.edges.length === 0
+                          ? <CardText style={{ color: black54 }}><MappedMessage msgObj={messages} msgKey="noProjects" /></CardText>
+                          : <InfiniteScroll hasMore loadMore={this.loadMore.bind(this)} threshold={500}>
+                            <List className="projects" style={{ padding: '0' }}>
+                              {team.projects.edges
                               .sortp((a, b) => a.node.title.localeCompare(b.node.title))
                               .map(p =>
                                 <Link key={p.node.dbid} to={`/${team.slug}/project/${p.node.dbid}`}>
@@ -556,8 +563,9 @@ class TeamComponent extends Component {
                                   />
                                 </Link>,
                               )}
-                          </List>
-                        </InfiniteScroll>
+                            </List>
+                          </InfiniteScroll>
+                        }
                       </Card>
                     </div>
                   ) : null }

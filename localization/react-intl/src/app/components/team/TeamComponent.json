@@ -52,6 +52,10 @@
     "defaultMessage": "Translation Projects"
   },
   {
+    "id": "teamComponent.noProjects",
+    "defaultMessage": "No projects yet"
+  },
+  {
     "id": "teamComponent.slackNotificationsEnabled",
     "defaultMessage": "Enable Slack notifications"
   },

@@ -32,7 +32,7 @@ class SourceCard extends React.Component {
       (<FormattedMessage id="mediaDetail.byUser" defaultMessage={'by {username}'} values={{ username: <ProfileLink user={source.user} /> }} />) : '';
 
     return (
-      <Card className="source-card" style={{ marginBottom: units(2) }}>
+      <Card className="source-card" style={{ marginBottom: units(1) }}>
         <CardText className="source-card__content" style={{ display: 'flex', paddingBottom: units(1) }}>
           <SourcePicture size="large" object={source} type="source" />
           <StyledSourceCardBody
@@ -40,10 +40,10 @@ class SourceCard extends React.Component {
             isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}
           >
             <div className="source-card__name">
-              <Link style={{ font: subheading1, color: black87 }} to={sourceUrl} className="header__app-link">{source.name}</Link>
+              <Link style={{ font: subheading1, color: black87, fontWeight: 700 }} to={sourceUrl} className="header__app-link">{source.name}</Link>
             </div>
 
-            <div className="source-card__description" style={{ paddingTop: units(1.0) }}><ParsedText text={truncateLength(source.description, 600)} /></div>
+            <div className="source-card__description" style={{ paddingTop: units(0.5) }}><ParsedText text={truncateLength(source.description, 600)} /></div>
 
             <div className="source-card__accounts">
               <ul>
