@@ -19,6 +19,8 @@
   "sourceComponent.addLinkHelper": "Ajouter un lien vers une page Web ou un profil de réseau social.",
   "sourceComponent.invalidLink": "Veuillez saisir une URL valide.",
   "sourceComponent.other": "Autre (à spécifier)",
+  "sourceNoAccounts": "Aucun réseau associé à cette source",
+  "sourceNoMedia": "Aucun média associé à cette source",
   "sourceComponent.dateAdded": "Ajouté {date} • Source de {number} liens",
   "sourceComponent.medias": "Média",
   "sourceComponent.notes": "Notes",
