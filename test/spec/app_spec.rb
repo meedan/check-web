@@ -8,8 +8,6 @@ require_relative './pages/me_page.rb'
 require_relative './pages/page.rb'
 require_relative './api_helpers.rb'
 
-require_relative './extra.rb'
-
 CONFIG = YAML.load_file('config.yml')
 
 require_relative "#{CONFIG['app_name']}/custom_spec.rb"
