@@ -457,48 +457,44 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(displayed_name.include? "EDIT").to be(true)
     end
 
-  # This tests is unreliable
-  # Todo: Methods that deal react with hidden menus
-  #
-  # ccx 2017-10-13
-=begin
-    it "should add and remove accounts to sources", bin6: true  do
+    it "should add and remove accounts to sources", bin6: true do
       api_create_team_project_and_source_and_redirect_to_source('GOT', 'https://twitter.com/GameOfThrones')
-      #sleep 5
-      element = wait_for_selector("source__edit-button", :class)
+      wait_for_selector("source__tab-button-account",:class)
+      element = wait_for_selector("source__edit-button",:class)
       element.click
-      #sleep 3
+      sleep 1
       element = wait_for_selector("source__edit-addinfo-button",:class)
       element.click
-      #sleep 1
+      sleep 1
       element = wait_for_selector("source__add-link",:class)
       element.click
       sleep 1
       fill_field("source__link-input0", "www.acdc.com", :id)
       sleep 2
-      element = wait_for_selector('source__edit-save-button',:class)
+      element = wait_for_selector( 'source__edit-save-button',:class)
       element.click
-      #@driver.find_element(:class, 'source__edit-save-button').click
-      sleep 5
+      wait_for_selector( 'media-tags',:class)
       expect(@driver.page_source.include?('AC/DC Official Website')).to be(true)
+
       #networks tab
-      element = wait_for_selector("source__tab-button-account",:class)
+      element = @driver.find_element(:class, "source__tab-button-account")
       element.click
-      sleep 5
+      wait_for_selector('source-card',:class)
       expect(@driver.page_source.include?('The Official AC/DC website and store')).to be(true)
 
       #delete
-      element = @driver.find_element(:class, "source__edit-button")
+      element = wait_for_selector("source__edit-button",:class)
       element.click
       sleep 3
-      list = @driver.find_elements(:css => "svg[class='create-task__remove-option-button']")
-      list[1].click
-      sleep 1
-      @driver.find_element(:class, 'source__edit-save-button').click
-      sleep 5
+      list = wait_for_selector_list("svg[class='create-task__remove-option-button create-task__md-icon']")
+      element = wait_for_selector_list('.source__remove-link-button')[1]
+      element.click
+      element = wait_for_selector('source__edit-save-button',:class)
+      element.click
+      wait_for_selector( 'media-tags',:class)
       expect(@driver.page_source.include?('AC/DC Official Website')).to be(false)
     end
-=end
+
     it "should edit source metadata (contact, phone, location, organization, other)", bin6: true do
       api_create_team_project_and_source_and_redirect_to_source('GOT', 'https://twitter.com/GameOfThrones')
       sleep 5
@@ -767,13 +763,27 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     #   skip("Needs to be implemented")
     # end
 
-    # it "should delete tag from tags list (for media and source)" do
-    #   skip("Needs to be implemented")
-    # end
-
-    # it "should edit team" do
-    #   skip("Needs to be implemented")
-    # end
+    it "should delete tag from tags list (for media)", bin1:true  do
+      page = api_create_team_project_and_claim_and_redirect_to_media_page
+      expect(page.tags.length == 0).to be(true)
+      el = wait_for_selector('.media-detail')
+      el.click
+      el = wait_for_selector('.media-actions')
+      el.click
+      el = wait_for_selector('.media-actions__edit')
+      el.click
+      wait_for_selector('ReactTags__selected', :class)
+      fill_field('.ReactTags__tagInput input', "TAG")
+      @driver.action.send_keys("\n").perform      
+      sleep 1
+      fill_field('.ReactTags__tagInput input', "TAG2")
+      @driver.action.send_keys("\n").perform
+      expect(page.tags.length == 2).to be(true)
+      list = @driver.find_elements(:class, "ReactTags__remove")
+      list[1].click
+      sleep 3
+      expect(page.tags.length == 1).to be(true)
+    end
 
     # it "should show 'manage team' link only to team owners" do
     #   skip("Needs to be implemented")
@@ -783,10 +793,57 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     #   skip("Needs to be implemented")
     # end
 
-    # it "should edit team logo" do
-    #   skip("Needs to be implemented")
-    # end
+    it "should edit team and logo", bin1: true do
+      team = "testteam#{Time.now.to_i}"
+      api_create_team(team:team)
+      p = Page.new(config: @config, driver: @driver)
+      p.go(@config['self_url'] + '/' + team)
+      wait_for_selector("team-members__edit-button", :class)
+      expect(@driver.page_source.include?('Team information updated successfully!')).to be(false)
+      expect(@driver.page_source.include?('Rome')).to be(false)
+      expect(@driver.page_source.include?('www.meedan.com')).to be(false)
+      expect(@driver.page_source.include?('EDIT DESCRIPTION')).to be(false)
+      expect(@driver.page_source.include?(" - EDIT")).to be(false)
 
+      el = wait_for_selector('.team__edit-button')
+      el.click
+
+      el = wait_for_selector("team__name-container", :id)
+      el.click
+      el.send_keys " - EDIT"
+
+      el = wait_for_selector("team__description-container", :id)
+      el.click
+      el.send_keys "EDIT DESCRIPTION"
+
+      el = wait_for_selector("team__location-container", :id)
+      el.click
+      el.send_keys "Rome"
+
+      el = wait_for_selector("team__phone-container", :id)
+      el.click
+      el.send_keys "555199889988"
+
+      el = wait_for_selector("team__link-container", :id)
+      el.click
+      el.send_keys "www.meedan.com"
+
+      #Logo
+      el = wait_for_selector(".team__edit-avatar-button")
+      el.click
+      
+      input = wait_for_selector('input[type=file]')
+      input.send_keys(File.join(File.dirname(__FILE__), 'test.png'))
+
+      el = wait_for_selector("team__save-button", :class)
+      el.click
+      wait_for_selector("team-members__edit-button", :class)
+      expect(@driver.page_source.include?('Team information updated successfully!')).to be(true)
+      expect(@driver.page_source.include?('Rome')).to be(true)
+      expect(@driver.page_source.include?('www.meedan.com')).to be(true)
+      expect(@driver.page_source.include?('EDIT DESCRIPTION')).to be(true)
+      expect(@driver.page_source.include?(" - EDIT")).to be(true)
+    end
 
     it "should request to join, navigate between teams, accept, reject and delete member", bin5: true, quick: true do
       # setup
