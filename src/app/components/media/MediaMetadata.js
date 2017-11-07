@@ -16,7 +16,14 @@ import UpdateProjectMediaMutation from '../../relay/UpdateProjectMediaMutation';
 import DeleteProjectMediaMutation from '../../relay/DeleteProjectMediaMutation';
 import CheckContext from '../../CheckContext';
 import Message from '../Message';
-import { Row, black87, title, units, caption, Text } from '../../styles/js/shared';
+import {
+  Row,
+  black87,
+  title,
+  units,
+  caption,
+  Text,
+} from '../../styles/js/shared';
 
 const StyledMetadata = styled.div`
   margin: ${units(1)} ${units(1)} 0;
@@ -96,7 +103,9 @@ class MediaMetadata extends Component {
 
     const onSuccess = (response) => {
       this.setState({
-        mediaVersion: JSON.parse(response.updateProjectMedia.project_media.embed).refreshes_count,
+        mediaVersion: JSON.parse(
+          response.updateProjectMedia.project_media.embed,
+        ).refreshes_count,
       });
     };
 
@@ -162,7 +171,9 @@ class MediaMetadata extends Component {
           defaultMessage={'Moved back to project: {project}'}
           values={{
             project: (
-              <Link to={`/${pm.team.slug}/project/${pm.project_id}`}>{pm.project.title}</Link>
+              <Link to={`/${pm.team.slug}/project/${pm.project_id}`}>
+                {pm.project.title}
+              </Link>
             ),
           }}
         />
@@ -182,7 +193,8 @@ class MediaMetadata extends Component {
   }
 
   handleConfirmDeleteForever() {
-    const confirmValue = document.getElementById('delete-forever__confirm').value;
+    const confirmValue = document.getElementById('delete-forever__confirm')
+      .value;
     if (confirmValue && confirmValue.toUpperCase() === 'CONFIRM') {
       this.setState({ confirmationError: false });
       this.handleCloseDialogs();
@@ -208,7 +220,10 @@ class MediaMetadata extends Component {
 
     const onSuccess = (response) => {
       const message = (
-        <FormattedMessage id="mediaMetadata.deletedForever" defaultMessage="Deleted" />
+        <FormattedMessage
+          id="mediaMetadata.deletedForever"
+          defaultMessage="Deleted"
+        />
       );
       const history = this.getContext().history;
       history.push(`/${media.team.slug}/project/${media.project_id}`);
@@ -253,7 +268,11 @@ class MediaMetadata extends Component {
     const onSuccess = () => {
       if (/^\/[^/]+\/search\//.test(window.location.pathname)) {
         this.props.parentComponent.props.relay.forceFetch();
-      } else if (/^\/[^/]+\/project\/[0-9]+\/media\/[0-9]+$/.test(window.location.pathname)) {
+      } else if (
+        /^\/[^/]+\/project\/[0-9]+\/media\/[0-9]+$/.test(
+          window.location.pathname,
+        )
+      ) {
         history.push(`${path}/media/${media.dbid}`);
       }
     };
@@ -303,7 +322,9 @@ class MediaMetadata extends Component {
       event.preventDefault();
     }
 
-    const titleInput = document.querySelector(`#media-detail-title-input-${media.dbid}`);
+    const titleInput = document.querySelector(
+      `#media-detail-title-input-${media.dbid}`,
+    );
     const newTitle = (titleInput.value || '').trim();
 
     if (newTitle === this.props.heading) {
@@ -364,12 +385,23 @@ class MediaMetadata extends Component {
       ? (<FormattedMessage
         id="mediaDetail.byUser"
         defaultMessage={'by {username}'}
-        values={{ username: <Link to={`/check/user/${media.user.dbid}`}>{media.user.name}</Link> }}
+        values={{
+          username: (
+            <Link to={`/check/user/${media.user.dbid}`}>
+              {media.user.name}
+            </Link>
+            ),
+        }}
       />)
       : '';
     const moveDialogActions = [
       <FlatButton
-        label={<FormattedMessage id="mediaDetail.cancelButton" defaultMessage="Cancel" />}
+        label={
+          <FormattedMessage
+            id="mediaDetail.cancelButton"
+            defaultMessage="Cancel"
+          />
+        }
         primary
         onClick={this.handleCloseDialogs.bind(this)}
       />,
@@ -401,18 +433,30 @@ class MediaMetadata extends Component {
           />
         </form>
 
-        {media.tags ? <MediaTags media={media} tags={media.tags.edges} isEditing /> : null}
+        {media.tags
+          ? <MediaTags media={media} tags={media.tags.edges} isEditing />
+          : null}
 
         <span style={{ display: 'flex' }}>
           <FlatButton
             onClick={this.handleCancel.bind(this)}
             className="media-detail__cancel-edits"
-            label={<FormattedMessage id="mediaDetail.cancelButton" defaultMessage="Cancel" />}
+            label={
+              <FormattedMessage
+                id="mediaDetail.cancelButton"
+                defaultMessage="Cancel"
+              />
+            }
           />
           <FlatButton
             onClick={this.handleSave.bind(this, media)}
             className="media-detail__save-edits"
-            label={<FormattedMessage id="mediaDetail.doneButton" defaultMessage="Done" />}
+            label={
+              <FormattedMessage
+                id="mediaDetail.doneButton"
+                defaultMessage="Done"
+              />
+            }
           />
         </span>
       </Dialog>
@@ -420,12 +464,19 @@ class MediaMetadata extends Component {
 
     const deleteDialogActions = [
       <FlatButton
-        label={<FormattedMessage id="mediaDetail.cancel" defaultMessage="Cancel" />}
+        label={
+          <FormattedMessage id="mediaDetail.cancel" defaultMessage="Cancel" />
+        }
         primary
         onClick={this.handleCloseDialogs.bind(this)}
       />,
       <RaisedButton
-        label={<FormattedMessage id="mediaDetail.deleteForever" defaultMessage="Delete forever" />}
+        label={
+          <FormattedMessage
+            id="mediaDetail.deleteForever"
+            defaultMessage="Delete forever"
+          />
+        }
         primary
         onClick={this.handleConfirmDeleteForever.bind(this)}
       />,
@@ -435,7 +486,10 @@ class MediaMetadata extends Component {
     const url = MediaUtil.url(media, data);
 
     return (
-      <StyledMetadata fromDirection={fromDirection} className="media-detail__check-metadata">
+      <StyledMetadata
+        fromDirection={fromDirection}
+        className="media-detail__check-metadata"
+      >
         {this.state.isEditing ? editDialog : null}
         <Row>
           <Text font={caption} breakWord>
@@ -454,7 +508,13 @@ class MediaMetadata extends Component {
               />
             </span>
             : null}
-          {media.tags ? <MediaTags media={media} tags={media.tags.edges} isEditing={false} /> : null}
+          {media.tags
+            ? <MediaTags
+              media={media}
+              tags={media.tags.edges}
+              isEditing={false}
+            />
+            : null}
 
           {this.props.readonly || this.state.isEditing
             ? null
@@ -482,14 +542,25 @@ class MediaMetadata extends Component {
             <FormattedMessage
               id="mediaDetail.dialogHeader"
               defaultMessage={'Move this {mediaType} to a different project'}
-              values={{ mediaType: MediaUtil.typeLabel(media, this.props.data, this.props.intl) }}
+              values={{
+                mediaType: MediaUtil.typeLabel(
+                  media,
+                  this.props.data,
+                  this.props.intl,
+                ),
+              }}
             />
           </h4>
           <small className="media-detail__dialog-media-path">
             <FormattedMessage
               id="mediaDetail.dialogMediaPath"
-              defaultMessage={'Currently filed under {teamName} > {projectTitle}'}
-              values={{ teamName: context.team.name, projectTitle: media.project.title }}
+              defaultMessage={
+                'Currently filed under {teamName} > {projectTitle}'
+              }
+              values={{
+                teamName: context.team.name,
+                projectTitle: media.project.title,
+              }}
             />
           </small>
           <RadioButtonGroup
@@ -515,7 +586,10 @@ class MediaMetadata extends Component {
           onRequestClose={this.handleCloseDialogs.bind(this)}
         >
           <h2>
-            <FormattedMessage id="mediaDetail.deleteForever" defaultMessage="Delete forever" />
+            <FormattedMessage
+              id="mediaDetail.deleteForever"
+              defaultMessage="Delete forever"
+            />
           </h2>
           <p>
             <FormattedMessage
@@ -537,7 +611,12 @@ class MediaMetadata extends Component {
                 />
                 : null
             }
-            hintText={<FormattedMessage id="mediaDetail.typeHere" defaultMessage="Type here" />}
+            hintText={
+              <FormattedMessage
+                id="mediaDetail.typeHere"
+                defaultMessage="Type here"
+              />
+            }
           />
         </Dialog>
       </StyledMetadata>

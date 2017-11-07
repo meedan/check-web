@@ -77,6 +77,7 @@ export const headerHeight = units(8);
 export const gutterLarge = units(5);
 export const gutterMedium = units(3);
 export const gutterSmall = units(2);
+export const gutterXSmall = units(0.5);
 
 // Breakpoints
 export const breakpointMobile = `${columnWidthSmall}`;
@@ -294,13 +295,15 @@ export const Text = styled.div`
   ${props => props.center ? 'text-align: center;' : ''}
   ${props => props.color ? `color: ${props.color};` : ''}
   ${props => props.breakWord ? breakWordStyles : ''}
+  ${props => props.noShrink ? 'flex-shrink: 0;' : ''}
+  ${props => props.maxWidth ? `max-width: ${props.maxWidth}` : ''}
 `;
 
 export const HeaderTitle = styled.h3`
   ${ellipsisStyles}
   font: ${subheading2};
   color: ${black54};
-  max-width: 65vw;
+  max-width: 45vw;
   ${mediaQuery.handheld`
      max-width: 20vw;
   `}
@@ -314,11 +317,12 @@ export const HiddenOnMobile = styled.div`
 
 // <Row />
 //
-// The prop `containsEllipsis` adds overflow to flex-items
+// The prop `containsEllipsis` adds overflow to flex-items in case any descendant uses ellipsis
 // See: https://codepen.io/unthinkingly/pen/XMwJLG
 //
 export const Row = styled.div`
   display: flex;
+  ${props => props.noWrap ? 'flex-wrap: nowrap;' : 'flex-wrap: wrap;'}
   ${props => props.alignTop ? 'align-items: top;' : 'align-items: center;'}
   ${props => props.containsEllipsis ? '& > * {overflow: hidden; }' : ''}
 `;
@@ -397,9 +401,16 @@ export const ContentColumn = styled.div`
   ${props => props.flex ? 'display: flex; flex-direction: column;' : ''}
 `;
 
-// Offset (pad one side)
+// Offset (pad the far side)
+//
+// Optionally specify offsetSize | isRtl | ellipsis | noShrink
+//
+// Usage: <Offset size={units(10)}  isRtl={isRtl} />
+//
 export const Offset = styled.div`
-  padding-${props => (props.isRtl ? 'left' : 'right')}: ${units(1)};
+  ${props => props.ellipsis ? ellipsisStyles : ''}
+  padding-${props => (props.isRtl ? 'left' : 'right')}:
+    ${props => (props.offsetSize ? props.offsetSize : units(1))};
 `;
 
 export const OffsetBothSides = styled.div`
