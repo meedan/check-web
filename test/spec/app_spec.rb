@@ -457,48 +457,49 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(displayed_name.include? "EDIT").to be(true)
     end
 
-  # This tests is unreliable
-  # Todo: Methods that deal react with hidden menus
-  #
-  # ccx 2017-10-13
-=begin
-    it "should add and remove accounts to sources", bin6: true  do
+    it "should add and remove accounts to sources", bin6: true do
       api_create_team_project_and_source_and_redirect_to_source('GOT', 'https://twitter.com/GameOfThrones')
-      #sleep 5
-      element = wait_for_selector("source__edit-button", :class)
+      wait_for_selector("source__tab-button-account",:class)
+      element = wait_for_selector("source__edit-button",:class)
       element.click
-      #sleep 3
+      sleep 1
       element = wait_for_selector("source__edit-addinfo-button",:class)
       element.click
-      #sleep 1
+      sleep 1
       element = wait_for_selector("source__add-link",:class)
       element.click
       sleep 1
       fill_field("source__link-input0", "www.acdc.com", :id)
       sleep 2
-      element = wait_for_selector('source__edit-save-button',:class)
+      element = wait_for_selector( 'source__edit-save-button',:class)
       element.click
-      #@driver.find_element(:class, 'source__edit-save-button').click
-      sleep 5
+      wait_for_selector( 'media-tags',:class)
       expect(@driver.page_source.include?('AC/DC Official Website')).to be(true)
+
       #networks tab
-      element = wait_for_selector("source__tab-button-account",:class)
+      element = @driver.find_element(:class, "source__tab-button-account")
       element.click
-      sleep 5
+      wait_for_selector('source-card',:class)
       expect(@driver.page_source.include?('The Official AC/DC website and store')).to be(true)
 
       #delete
-      element = @driver.find_element(:class, "source__edit-button")
+      element = wait_for_selector("source__edit-button",:class)
       element.click
       sleep 3
-      list = @driver.find_elements(:css => "svg[class='create-task__remove-option-button']")
-      list[1].click
-      sleep 1
-      @driver.find_element(:class, 'source__edit-save-button').click
-      sleep 5
+      list = wait_for_selector_list("svg[class='create-task__remove-option-button create-task__md-icon']")
+      str= @driver.page_source
+      str = str[str.index('www.acdc.com')..str.length]
+      str = str[str.index('source__remove-link-button')..str.length]
+      str = str[0..str.index('tabindex') - 3]
+      str = "." +str.gsub(" ", ".")
+      element = wait_for_selector_list(str)[1]
+      element.click
+      element = wait_for_selector('source__edit-save-button',:class)
+      element.click
+      wait_for_selector( 'media-tags',:class)
       expect(@driver.page_source.include?('AC/DC Official Website')).to be(false)
     end
-=end
+
     it "should edit source metadata (contact, phone, location, organization, other)", bin6: true do
       api_create_team_project_and_source_and_redirect_to_source('GOT', 'https://twitter.com/GameOfThrones')
       sleep 5
