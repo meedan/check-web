@@ -487,12 +487,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       element.click
       sleep 3
       list = wait_for_selector_list("svg[class='create-task__remove-option-button create-task__md-icon']")
-      str= @driver.page_source
-      str = str[str.index('www.acdc.com')..str.length]
-      str = str[str.index('source__remove-link-button')..str.length]
-      str = str[0..str.index('tabindex') - 3]
-      str = "." +str.gsub(" ", ".")
-      element = wait_for_selector_list(str)[1]
+      element = wait_for_selector_list('.source__remove-link-button')[1]
       element.click
       element = wait_for_selector('source__edit-save-button',:class)
       element.click
@@ -770,6 +765,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should delete tag from tags list (for media)", bin1:true  do
       page = api_create_team_project_and_claim_and_redirect_to_media_page
+      expect(page.tags.length == 0).to be(true)
       el = wait_for_selector('.media-detail')
       el.click
       el = wait_for_selector('.media-actions')
@@ -803,16 +799,18 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       p = Page.new(config: @config, driver: @driver)
       p.go(@config['self_url'] + '/' + team)
       wait_for_selector("team-members__edit-button", :class)
-      str= @driver.page_source
-      str = str[str.index('team__edit-button')..str.length]
-      str = str[0..str.index('tabindex') - 3]
-      str = "." +str.gsub(" ", ".")
-      el = wait_for_selector(str)
+      expect(@driver.page_source.include?('Team information updated successfully!')).to be(false)
+      expect(@driver.page_source.include?('Rome')).to be(false)
+      expect(@driver.page_source.include?('www.meedan.com')).to be(false)
+      expect(@driver.page_source.include?('EDIT DESCRIPTION')).to be(false)
+      expect(@driver.page_source.include?(" - EDIT")).to be(false)
+
+      el = wait_for_selector('.team__edit-button')
       el.click
 
       el = wait_for_selector("team__name-container", :id)
       el.click
-      el.send_keys "EDIT"
+      el.send_keys " - EDIT"
 
       el = wait_for_selector("team__description-container", :id)
       el.click
@@ -820,7 +818,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       el = wait_for_selector("team__location-container", :id)
       el.click
-      el.send_keys "EDIT DESCRIPTION"
+      el.send_keys "Rome"
 
       el = wait_for_selector("team__phone-container", :id)
       el.click
@@ -831,16 +829,20 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el.send_keys "www.meedan.com"
 
       #Logo
-      str= @driver.page_source
-      str = str[str.index('team__edit-avatar-button')..str.length]
-      str = str[0..str.index('>') - 2]
-      str = "." +str.gsub(" ", ".")
-      el = wait_for_selector(str)
+      el = wait_for_selector(".team__edit-avatar-button")
       el.click
+      
+      input = wait_for_selector('input[type=file]')
+      input.send_keys(File.join(File.dirname(__FILE__), 'test.png'))
+
       el = wait_for_selector("team__save-button", :class)
       el.click
       wait_for_selector("team-members__edit-button", :class)
       expect(@driver.page_source.include?('Team information updated successfully!')).to be(true)
+      expect(@driver.page_source.include?('Rome')).to be(true)
+      expect(@driver.page_source.include?('www.meedan.com')).to be(true)
+      expect(@driver.page_source.include?('EDIT DESCRIPTION')).to be(true)
+      expect(@driver.page_source.include?(" - EDIT")).to be(true)
     end
 
     it "should request to join, navigate between teams, accept, reject and delete member", bin5: true, quick: true do
