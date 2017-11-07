@@ -784,7 +784,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     #   skip("Needs to be implemented")
     # end
 
-    it "should edit team", bin:1 true do
+    it "should edit team and logo", bin1: true do
       team = "testteam#{Time.now.to_i}"
       api_create_team(team:team)
       p = Page.new(config: @config, driver: @driver)
@@ -817,10 +817,16 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el.click
       el.send_keys "www.meedan.com"
 
+      #Logo
+      str= @driver.page_source
+      str = str[str.index('team__edit-avatar-button')..str.length]
+      str = str[0..str.index('>') - 2]
+      str = "." +str.gsub(" ", ".")
+      el = wait_for_selector(str)
+      el.click
       el = wait_for_selector("team__save-button", :class)
       el.click
       wait_for_selector("team-members__edit-button", :class)
-
       expect(@driver.page_source.include?('Team information updated successfully!')).to be(true)
     end
 
