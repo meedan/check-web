@@ -65,9 +65,10 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
   # The tests themselves start here
   context "web" do
+
     include_examples "custom"
 
-    it "should filter by medias or sources", bin3: true do
+    it "should filter by medias or sources", bin6: true do
       api_create_team_project_and_link 'https://twitter.com/TheWho/status/890135323216367616'
       @driver.navigate.to @config['self_url']
       wait_for_selector("card-with-border", :class)
@@ -101,12 +102,11 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       api_logout
       api_register_and_login_with_email
       me_pg = MePage.new(config: @config, driver: @driver).load
-      sleep 3
+      @wait.until { @driver.page_source.include?('Create Team') }
       expect(@driver.page_source.include?('Access Denied')).to be(false)
       expect((@driver.current_url.to_s =~ /\/forbidden$/).nil?).to be(true)
-
       unauthorized_pg = SourcePage.new(id: user.dbid, config: @config, driver: @driver).load
-      sleep 3
+      wait_for_selector("main-title", :class)
       expect(@driver.page_source.include?('Access Denied')).to be(true)
       expect((@driver.current_url.to_s =~ /\/forbidden$/).nil?).to be(false)
     end
@@ -273,36 +273,19 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(page.contains_string?('This is a test')).to be(true)
     end
 
-    # Disable because it is flaky.
-    # Todo:
-    # it "should search for image", bin2: true do
-    #   api_create_team_and_project
-    #   sleep 2
-    #   page = ProjectPage.new(config: @config, driver: @driver).load
-    #          .create_image_media(File.join(File.dirname(__FILE__), 'test.png'))
-
-    #   sleep 10 # wait for Sidekiq
-
-    #   @driver.navigate.to @config['self_url'] + '/' + get_team + '/search'
-    #   sleep 5
-    #   expect(@driver.find_element(:link_text, 'test.png').nil?).to be(false)
-    # end
-
-    # Disabled because the functionality changed to use a
-    # background image in CSS instead of an <img> element.
-    #
-    #  I think we could do something like this instead:
-    #  https://stackoverflow.com/questions/11198882/how-do-you-test-if-a-div-has-a-certain-css-style-in-rspec-capybara
-    #
-    # it "should upload image when registering", bin5: true do
-    #   email, password, avatar = ["test-#{Time.now.to_i}@example.com", '12345678', File.join(File.dirname(__FILE__), 'test.png')]
-    #   page = LoginPage.new(config: @config, driver: @driver).load
-    #          .register_and_login_with_email(email: email, password: password, file: avatar)
-
-    #   me_page = MePage.new(config: @config, driver: page.driver).load
-    #   avatar = me_page.avatar
-    #   expect(avatar.attribute('src').match(/test\.png/).nil?).to be(false)
-    # end
+    it "should search for image",  bin2: true do
+      api_create_team_and_project
+      sleep 2
+      page = ProjectPage.new(config: @config, driver: @driver).load
+             .create_image_media(File.join(File.dirname(__FILE__), 'test.png'))
+      
+      sleep 2
+      wait_for_selector("add-annotation__buttons", :class)
+      @driver.navigate.to @config['self_url'] + '/' + get_team + '/search'
+      sleep 5
+      wait_for_selector("search__results-heading", :class)
+      expect(@driver.find_element(:link_text, 'test.png').nil?).to be(false)
+    end
 
     it "should redirect to 404 page", bin4: true do
       @driver.navigate.to @config['self_url'] + '/something-that/does-not-exist'
@@ -364,17 +347,17 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       id1 = @driver.current_url.to_s.gsub(/^.*\/source\//, '').to_i
       expect(id1 > 0).to be(true)
       @driver.navigate.to @driver.current_url.to_s.gsub(/\/source\/[0-9]+$/, '')
-      sleep 5
-      @driver.find_element(:css, '#create-media__source').click
+      wait_for_selector("create-media-submit", :id)      
+      el = wait_for_selector('#create-media__source')
+      el.click
       sleep 1
       fill_field('#create-media-source-name-input', 'Megadeth')
       fill_field('#create-media-source-url-input', 'https://twitter.com/megadeth')
       sleep 1
       press_button('#create-media-submit')
-      sleep 10
+      wait_for_selector("source__tab-button-account", :class)            
       id2 = @driver.current_url.to_s.gsub(/^.*\/source\//, '').to_i
       expect(id2 > 0).to be(true)
-
       expect(id1 == id2).to be(true)
     end
 
@@ -456,16 +439,16 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should edit basic source data (name, description/bio, avatar)", bin6: true do
       api_create_team_project_and_source_and_redirect_to_source('ACDC', 'https://twitter.com/acdc')
-      sleep 5
-      element = @driver.find_element(:class, "source__edit-button")
-      element.click
-      input = @driver.find_element(:id, 'source__name-container')
+      el = wait_for_selector("source__edit-button", :class)
+      el.click
+      input = wait_for_selector('source__name-container', :id)
       input.send_keys(" - EDIT ACDC")
-      input = @driver.find_element(:id, 'source__bio-container')
+      input = wait_for_selector('source__bio-container', :id)
       input.send_keys(" - EDIT DESC")
-      @driver.find_element(:class, "source__edit-avatar-button").click
+      el = wait_for_selector("source__edit-avatar-button", :class)
+      el.click
       sleep 1
-      input = @driver.find_element(:css, 'input[type=file]')
+      input = wait_for_selector('input[type=file]')
       input.send_keys(File.join(File.dirname(__FILE__), 'test.png'))
       sleep 1
       @driver.find_element(:class, 'source__edit-save-button').click
@@ -574,12 +557,14 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should add and remove source tags", bin6: true do
       api_create_team_project_and_source_and_redirect_to_source('GOT', 'https://twitter.com/GameOfThrones')
       sleep 5
-      element = @driver.find_element(:class, "source__edit-button")
+      element =  wait_for_selector("source__edit-button", :class)     
       element.click
       sleep 1
-      @driver.find_element(:class, "source__edit-addinfo-button").click
+      element =  wait_for_selector("source__edit-addinfo-button", :class)     
+      element.click
       sleep 1
-      @driver.find_element(:class, "source__add-tags").click
+      element =  wait_for_selector("source__add-tags", :class)     
+      element.click
       sleep 1
       fill_field("sourceTagInput", "TAG1", :id)
       @driver.action.send_keys("\n").perform
@@ -588,6 +573,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 3
       @driver.navigate.refresh
       sleep 3
+      wait_for_selector("source__edit-button", :class)     
       expect(@driver.page_source.include?('TAG1')).to be(true)
       expect(@driver.page_source.include?('TAG2')).to be(true)
 
@@ -603,7 +589,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('TAG2')).to be(false)
     end
 
-    it "should add and remove source languages",bin6: true  do
+    it "should add and remove source languages", bin6: true  do
       api_create_team_project_and_source_and_redirect_to_source('GOT', 'https://twitter.com/GameOfThrones')
       sleep 5
       element = @driver.find_element(:class, "source__edit-button")
@@ -632,15 +618,15 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should not add a duplicated tag from command line", bin3: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
-
       new_tag = Time.now.to_i.to_s
+      old = @driver.find_elements(:class,"annotations__list-item").length
 
       # Validate assumption that tag does not exist
       expect(media_pg.has_tag?(new_tag)).to be(false)
 
       # Try to add from command line
       media_pg.add_annotation("/tag #{new_tag}")
-      Selenium::WebDriver::Wait.new(timeout: 10).until { media_pg.has_tag?(new_tag) } # TODO: wait inside MediaPage
+      old = wait_for_size_change(old, "annotations__list-item", :class)
       expect(media_pg.has_tag?(new_tag)).to be(true)
 
       # Try to add duplicate from command line
@@ -648,47 +634,40 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Verify that tag is not added and that error message is displayed
       expect(media_pg.tags.count(new_tag)).to be(1)
+      @wait.until { @driver.page_source.include?('Tag already exists') }
       expect(@driver.page_source.include?('Tag already exists')).to be(true)
     end
 
-    it "should not create duplicated media", bin1: true do
+    it "should not create duplicated media", bin4: true do
       api_create_team_project_and_link_and_redirect_to_media_page @media_url
       id1 = @driver.current_url.to_s.gsub(/^.*\/media\//, '').to_i
       expect(id1 > 0).to be(true)
       @driver.navigate.to @driver.current_url.to_s.gsub(/\/media\/[0-9]+$/, '')
-
       sleep 3
+      wait_for_selector("medias__item",:class)
       fill_field('#create-media-input', @media_url)
       sleep 2
       press_button('#create-media-submit')
-      sleep 10
-
+      wait_for_selector("add-annotation__insert-photo",:class)
       id2 = @driver.current_url.to_s.gsub(/^.*\/media\//, '').to_i
-      expect(id2 > 0).to be(true)
-
       expect(id1 == id2).to be(true)
     end
 
-    # This test is flaky
-    # Todo: consider fixing it or removing it
-    #
-    # CGB 2017-10-2
-    #
-    # it "should tag media from tags list", bin3: true do
-    #   page = api_create_team_project_and_claim_and_redirect_to_media_page
-
-    #   new_tag = Time.now.to_i.to_s
-    #   expect(page.contains_string?("Tagged \##{new_tag}")).to be(false)
-    #   page.add_tag(new_tag)
-    #   expect(page.has_tag?(new_tag)).to be(true)
-    #   sleep 2
-    #   expect(page.contains_string?("Tagged \##{new_tag}")).to be(true)
-
-    #   page.driver.navigate.refresh
-    #   page.wait_for_element('.media')
-    #   expect(page.has_tag?(new_tag)).to be(true)
-    #   expect(page.contains_string?("Tagged \##{new_tag}")).to be(true)
-    # end
+    it "should tag media from tags list", bin5: true do
+      page = api_create_team_project_and_claim_and_redirect_to_media_page
+      sleep 5
+      wait_for_selector("add-annotation__buttons", :class)
+      new_tag = Time.now.to_i.to_s
+      expect(page.contains_string?("Tagged \##{new_tag}")).to be(false)
+      page.add_tag(new_tag)
+      expect(page.has_tag?(new_tag)).to be(true)
+      sleep 2
+      expect(page.contains_string?("Tagged \##{new_tag}")).to be(true)
+      page.driver.navigate.refresh
+      page.wait_for_element('.media')
+      expect(page.has_tag?(new_tag)).to be(true)
+      expect(page.contains_string?("Tagged \##{new_tag}")).to be(true)
+    end
 
     it "should tag media as a command", bin4: true do
       page = api_create_team_project_and_claim_and_redirect_to_media_page
@@ -784,30 +763,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(page.contains_string?('Sign in')).to be(true)
     end
 
-    # it "should ask to join team" do
-    #   skip("Needs to be implemented")
-    # end
-
-    # it "should redirect to team page if user asking to join a team is already a member" do
-    #   skip("Needs to be implemented")
-    # end
-
-    # it "should reject member to join team" do
-    #   skip("Needs to be implemented")
-    # end
-
-    # it "should accept member to join team" do
-    #   skip("Needs to be implemented")
-    # end
-
-    # it "should change member role" do
-    #   skip("Needs to be implemented")
-    # end
-
-    # it "should delete member from team" do
-    #   skip("Needs to be implemented")
-    # end
-
     # it "should delete annotation from annotations list (for media, source and project)" do
     #   skip("Needs to be implemented")
     # end
@@ -832,15 +787,17 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     #   skip("Needs to be implemented")
     # end
 
-    it "should navigate between teams", bin4: true, quick: true do
+
+    it "should request to join, navigate between teams, accept, reject and delete member", bin5: true, quick: true do
       # setup
-      user = api_register_and_login_with_email
-      team = request_api 'team', { name: 'Team 1', email: user.email, slug: "team-1-#{Time.now.to_i}" }
+      @user_mail = "test" +Time.now.to_i.to_s+rand(9999).to_s + @user_mail
+      @team1_slug = 'team1'+Time.now.to_i.to_s+rand(9999).to_s
+      user = api_register_and_login_with_email(email: @user_mail, password: @password)
+      team = request_api 'team', { name: 'Team 1', email: user.email, slug: @team1_slug }
       request_api 'project', { title: 'Team 1 Project', team_id: team.dbid }
-      team = request_api 'team', { name: 'Team 2', email: user.email, slug: "team-2-#{Time.now.to_i}" }
+      team = request_api 'team', { name: 'Team 2', email: user.email, slug: "team-2-#{rand(9999)}#{Time.now.to_i}" }
       request_api 'project', { title: 'Team 2 Project', team_id: team.dbid }
 
-      # test
       page = MePage.new(config: @config, driver: @driver).load.select_team(name: 'Team 1')
       page.click_projects_tab
 
@@ -848,12 +805,84 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(page.project_titles.include?('Team 1 Project')).to be(true)
       expect(page.project_titles.include?('Team 2 Project')).to be(false)
 
-      page = MePage.new(config: @config, driver: page.driver).load.select_team(name: 'Team 2')
+      page = MePage.new(config: @config, driver: @driver).load.select_team(name: 'Team 2')
       page.click_projects_tab
 
       expect(page.team_name).to eq('Team 2')
       expect(page.project_titles.include?('Team 2 Project')).to be(true)
       expect(page.project_titles.include?('Team 1 Project')).to be(false)
+    
+      #As a different user, request to join one team and be accepted.
+      user = api_register_and_login_with_email(email: "new"+@user_mail, password: @password)
+      page = MePage.new(config: @config, driver: @driver).load
+      page.ask_join_team(subdomain: @team1_slug)
+      @wait.until {
+        expect(@driver.find_element(:class, "message").nil?).to be(false)
+      }
+      api_logout
+      @driver.quit
+
+      @driver = new_driver(webdriver_url,browser_capabilities)
+      page = Page.new(config: @config, driver: @driver)
+      page.go(@config['api_path'] + '/test/session?email='+@user_mail)
+
+      #As the group creator, go to the members page and approve the joining request.
+      page = MePage.new(config: @config, driver: @driver).load
+      page.go(@config['self_url'] + '/check/me')
+      page.approve_join_team(subdomain: @team1_slug)
+      @wait.until {
+        elems = @driver.find_elements(:css => ".team-members__list > div")
+        expect(elems.size).to be > 1
+      }
+
+      # "should redirect to team page if user asking to join a team is already a member"
+      page = Page.new(config: @config, driver: @driver)
+      page.go(@config['api_path'] + '/test/session?email=new'+@user_mail)
+      #page = MePage.new(config: @config, driver: @driver).load
+      @driver.navigate.to @config['self_url'] + "/"+@team1_slug+"/join"
+      sleep 3
+      @wait.until {
+        expect(@driver.current_url.eql? @config['self_url']+"/"+@team1_slug ).to be(true)
+      }    
+ 
+      # "should reject member to join team"
+      user = api_register_and_login_with_email
+      page = MePage.new(config: @config, driver: @driver).load
+      page.ask_join_team(subdomain: @team1_slug)
+      @wait.until {
+        expect(@driver.find_element(:class, "message").nil?).to be(false)
+      }
+      api_logout
+      @driver.quit
+
+      @driver = new_driver(webdriver_url,browser_capabilities)
+      page = Page.new(config: @config, driver: @driver)
+      page.go(@config['api_path'] + '/test/session?email='+@user_mail)
+      #As the group creator, go to the members page and approve the joining request.
+      page = MePage.new(config: @config, driver: @driver).load
+          .disapprove_join_team(subdomain: @team1_slug)
+      @wait.until {
+        expect(@driver.page_source.include?('Requests to join')).to be(false)
+      }      
+
+      # "should delete member from team"
+      page = Page.new(config: @config, driver: @driver)
+      page.go(@config['api_path'] + '/test/session?email='+@user_mail)
+      #As the group creator, go to the members page and approve the joining request.
+      sleep 1
+      page = MePage.new(config: @config, driver: @driver).load
+      @driver.navigate.to @config['self_url'] + '/'+@team1_slug
+      sleep 2 
+      wait_for_selector('team-members__member',:class)
+      el = wait_for_selector('team-members__edit-button',:class)
+      el.click
+      sleep 5
+      l = wait_for_selector_list('//button',:xpath)
+      old =  l.length      
+      expect(l.length > 4).to be(true)
+      l[l.length-2].click
+      sleep 1
+      expect(wait_for_selector_list('//button',:xpath).length < old).to be(true)
     end
 
     #As a different user, request to join one team.
@@ -1191,16 +1220,20 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
         sleep 2
         expect(@driver.current_url.to_s == "#{url}/embed").to be(true)
         expect(@driver.page_source.include?('Not available')).to be(false)
-        @driver.find_element(:css, '#media-embed__actions-customize').click
+        el = wait_for_selector('#media-embed__actions-customize')
+        el.click
         sleep 1
         @driver.find_elements(:css, '#media-embed__customization-menu input[type=checkbox]').map(&:click)
         sleep 1
         @driver.find_elements(:css, 'body').map(&:click)
         sleep 1
-        @driver.find_element(:css, '#media-embed__actions-copy').click
+        el = wait_for_selector('#media-embed__actions-copy')
+        el.click
+
         sleep 1
         @driver.navigate.to 'https://pastebin.mozilla.org/'
-        @driver.find_element(:css, '#code').send_keys(' ')
+        el = wait_for_selector('#code')
+        el.send_keys(' ')
         @driver.action.send_keys(:control, 'v').perform
         sleep 1
         expect((@driver.find_element(:css, '#code').attribute('value') =~ /hide_open_tasks%3D1%26hide_tasks%3D1%26hide_notes%3D1/).nil?).to be(false)
@@ -1406,5 +1439,20 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       delete_task('When was it')
     end
 =end
+    # Disabled because the functionality changed to use a
+    # background image in CSS instead of an <img> element.
+    #
+    #  I think we could do something like this instead:
+    #  https://stackoverflow.com/questions/11198882/how-do-you-test-if-a-div-has-a-certain-css-style-in-rspec-capybara
+    #
+    # it "should upload image when registering", bin5 : true do
+    #   email, password, avatar = ["test-#{Time.now.to_i}@example.com", '12345678', File.join(File.dirname(__FILE__), 'test.png')]
+    #   page = LoginPage.new(config: @config, driver: @driver).load
+    #          .register_and_login_with_email(email: email, password: password, file: avatar)
+
+    #   me_page = MePage.new(config: @config, driver: page.driver).load
+    #   avatar = me_page.avatar
+    #   expect(avatar.attribute('src').match(/test\.png/).nil?).to be(false)
+    # end
   end
 end

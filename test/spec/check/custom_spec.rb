@@ -27,46 +27,37 @@ shared_examples 'custom' do
     expect($media_id.nil?).to be(false)
   end
 
-  # This tests is unreliable
-  # Todo: consider fixing it or removing it
-  #
-  # CGB 2017-9-29
-  #
-  # it "should set status to media as a command", bin4: true do
-  #   media = api_create_team_project_and_claim
-  #   @driver.navigate.to media.full_url
-  #   sleep 2
-
-  #   # Add a status as a command
-  #   fill_field('#cmd-input', '/status In Progress')
-  #   @driver.action.send_keys(:enter).perform
-  #   sleep 5
-
-  #   # Verify that status was added to annotations list
-  #   expect(@driver.page_source.include?('Status')).to be(true)
-
-  #   # Reload the page and verify that status is still there
-  #   @driver.navigate.refresh
-  #   sleep 5
-  #   expect(@driver.page_source.include?('Status')).to be(true)
-  # end
-
-  # This tests is unreliable
-  # Todo: consider fixing it or removing it
-  #
-  # ccx 2017-10-13
-=begin  
-  it "should change a media status via the dropdown menu", bin4: true do
+  it "should set status to media as a command", bin4: true do
     media = api_create_team_project_and_claim
     @driver.navigate.to media.full_url
-    wait_for_selector("media__notes-heading", :class) #sleep 10    
+    sleep 2
+
+    expect(@driver.page_source.include?('Status')).to be(false)
+
+    # Add a status as a command
+    fill_field('#cmd-input', '/status In Progress')
+    @driver.action.send_keys(:enter).perform
+    sleep 5
+
+    # Verify that status was added to annotations list
+    expect(@driver.page_source.include?('Status')).to be(true)
+
+    # Reload the page and verify that status is still there
+    @driver.navigate.refresh
+    sleep 5
+    expect(@driver.page_source.include?('Status')).to be(true)
+  end
+
+  it "should change a media status via the dropdown menu", bin3: true do
+    media = api_create_team_project_and_claim
+    @driver.navigate.to media.full_url
+    wait_for_selector("media__notes-heading", :class)     
     media_pg = MediaPage.new(config: @config, driver: @driver)
     expect(media_pg.status_label).to eq('UNSTARTED')
     media_pg.change_status(:verified)
     expect(media_pg.status_label).to eq('VERIFIED')
     expect(media_pg.contains_element?('.annotation__status--verified')).to be(true)
   end
-=end  
 
   it "should search by status", bin2: true do
     api_create_claim_and_go_to_search_page

@@ -244,12 +244,11 @@ class MediaDetail extends Component {
       return MediaUtil.socialIcon(media.domain);
     })();
 
-    // Don't display redunant heading if the card is explicitly expanded with state
+    // Don't display redundant heading if the card is explicitly expanded with state
     // (or implicitly expanded with initiallyExpanded prop)
-    // TODO: always display it if it's been edited
-    const shouldNotDisplayHeading =
-      this.state.expanded ||
-      (this.state.expanded == null && this.props.initiallyExpanded);
+    // Always display it if it's been edited
+    const shouldDisplayHeading = isImage || MediaUtil.hasCustomTitle(media, data) ||
+      !this.state.expanded && !(this.state.expanded == null && this.props.initiallyExpanded);
 
     const cardClassName =
       `${this.statusToClass('media-detail', mediaLastStatus(media))} ` +
@@ -259,12 +258,9 @@ class MediaDetail extends Component {
 
     const cardHeaderText = (
       <div>
-        {shouldNotDisplayHeading
-          ? null
-          : <StyledHeadingContainer>
-            {heading}
-          </StyledHeadingContainer>}
-
+        {shouldDisplayHeading ?
+          <StyledHeadingContainer>{heading}</StyledHeadingContainer> : null
+        }
         <StyledHeaderTextSecondary>
           <Row>
             { createdAt

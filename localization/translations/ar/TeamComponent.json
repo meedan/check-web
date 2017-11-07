@@ -12,7 +12,10 @@
   "bridge.teamComponent.verificationTeam": "فريق الترجمة",
   "teamComponent.title": "مشاريع التحقق",
   "bridge.teamComponent.title": "مشاريع الترجمة",
+  "teamComponent.noProjects": "بدون أي مشروع",
   "teamComponent.slackNotificationsEnabled": "تفعيل تنبيهات Slack",
   "teamComponent.cancelButton": "إلغاء",
-  "teamComponent.saveButton": "حفظ"
+  "teamComponent.saveButton": "حفظ",
+  "teamComponent.members": "أعضاء",
+  "teamComponent.projects": "مشاريع"
 }

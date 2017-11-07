@@ -19,6 +19,8 @@
   "sourceComponent.addLinkHelper": "Add a link to a web page or social media profile",
   "sourceComponent.invalidLink": "Please enter a valid URL",
   "sourceComponent.other": "Other (Specify)",
+  "sourceNoAccounts": "No networks associated with this source yet",
+  "sourceNoMedia": "No media attributed to this source yet",
   "sourceComponent.dateAdded": "Added {date} • Source of {number} links",
   "sourceComponent.medias": "Media",
   "sourceComponent.notes": "Notes",
