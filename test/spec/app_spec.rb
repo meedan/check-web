@@ -780,10 +780,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     #   skip("Needs to be implemented")
     # end
 
-    # it "should edit team logo" do
-    #   skip("Needs to be implemented")
-    # end
-
     it "should edit team and logo", bin1: true do
       team = "testteam#{Time.now.to_i}"
       api_create_team(team:team)
