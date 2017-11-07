@@ -768,9 +768,26 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     #   skip("Needs to be implemented")
     # end
 
-    # it "should delete tag from tags list (for media and source)" do
-    #   skip("Needs to be implemented")
-    # end
+    it "should delete tag from tags list (for media)", bin1:true  do
+      page = api_create_team_project_and_claim_and_redirect_to_media_page
+      el = wait_for_selector('.media-detail')
+      el.click
+      el = wait_for_selector('.media-actions')
+      el.click
+      el = wait_for_selector('.media-actions__edit')
+      el.click
+      wait_for_selector('ReactTags__selected', :class)
+      fill_field('.ReactTags__tagInput input', "TAG")
+      @driver.action.send_keys("\n").perform      
+      sleep 1
+      fill_field('.ReactTags__tagInput input', "TAG2")
+      @driver.action.send_keys("\n").perform
+      expect(page.tags.length == 2).to be(true)
+      list = @driver.find_elements(:class, "ReactTags__remove")
+      list[1].click
+      sleep 3
+      expect(page.tags.length == 1).to be(true)
+    end
 
     # it "should show 'manage team' link only to team owners" do
     #   skip("Needs to be implemented")
