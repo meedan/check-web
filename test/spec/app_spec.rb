@@ -772,10 +772,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     #   skip("Needs to be implemented")
     # end
 
-    # it "should edit team" do
-    #   skip("Needs to be implemented")
-    # end
-
     # it "should show 'manage team' link only to team owners" do
     #   skip("Needs to be implemented")
     # end
@@ -788,6 +784,45 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     #   skip("Needs to be implemented")
     # end
 
+    it "should edit team", bin:1 true do
+      team = "testteam#{Time.now.to_i}"
+      api_create_team(team:team)
+      p = Page.new(config: @config, driver: @driver)
+      p.go(@config['self_url'] + '/' + team)
+      wait_for_selector("team-members__edit-button", :class)
+      str= @driver.page_source
+      str = str[str.index('team__edit-button')..str.length]
+      str = str[0..str.index('tabindex') - 3]
+      str = "." +str.gsub(" ", ".")
+      el = wait_for_selector(str)
+      el.click
+
+      el = wait_for_selector("team__name-container", :id)
+      el.click
+      el.send_keys "EDIT"
+
+      el = wait_for_selector("team__description-container", :id)
+      el.click
+      el.send_keys "EDIT DESCRIPTION"
+
+      el = wait_for_selector("team__location-container", :id)
+      el.click
+      el.send_keys "EDIT DESCRIPTION"
+
+      el = wait_for_selector("team__phone-container", :id)
+      el.click
+      el.send_keys "555199889988"
+
+      el = wait_for_selector("team__link-container", :id)
+      el.click
+      el.send_keys "www.meedan.com"
+
+      el = wait_for_selector("team__save-button", :class)
+      el.click
+      wait_for_selector("team-members__edit-button", :class)
+
+      expect(@driver.page_source.include?('Team information updated successfully!')).to be(true)
+    end
 
     it "should request to join, navigate between teams, accept, reject and delete member", bin5: true, quick: true do
       # setup
