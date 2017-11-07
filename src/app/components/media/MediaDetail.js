@@ -262,10 +262,10 @@ class MediaDetail extends Component {
           <StyledHeadingContainer>{heading}</StyledHeadingContainer> : null
         }
         <StyledHeaderTextSecondary>
-          <Row>
+          <Row wrap>
             { createdAt
-              ? <Row>
-                <Row noWrap>
+              ? <Row wrap>
+                <Row>
                   <StyledMediaIconContainer>
                     {mediaIcon}
                   </StyledMediaIconContainer>
@@ -279,7 +279,7 @@ class MediaDetail extends Component {
                 { shouldShowProjectName &&
                   <Offset isRtl={isRtl} >
                     <Link to={projectUrl} >
-                      <Row noWrap>
+                      <Row>
                         <Text noShrink>in&nbsp;</Text>
                         <Text ellipsis maxWidth="300px">{projectTitle}</Text>
                       </Row>
