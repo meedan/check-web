@@ -68,7 +68,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     include_examples "custom"
 
-    it "should filter by medias or sources", bin6: true do
+    it "should filter by medias or sources", bin: true, bin6: true do
       api_create_team_project_and_link 'https://twitter.com/TheWho/status/890135323216367616'
       @driver.navigate.to @config['self_url']
       wait_for_selector("card-with-border", :class)
@@ -83,6 +83,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el = wait_for_selector("//span[contains(text(), 'Media')]", :xpath)
       el.click
       wait_for_size_change(old, "medias__item", :class)
+      @wait.until { @driver.page_source.include?('@thewho') }
       expect(@driver.page_source.include?("The Who's official Twitter page")).to be(true)
       expect(@driver.page_source.include?('Happy birthday Mick')).to be(false)
     end
