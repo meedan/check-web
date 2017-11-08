@@ -74,6 +74,7 @@ class AddAnnotation extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      cmd: '',
       message: null,
       isSubmitting: false,
       fileMode: false,
@@ -100,12 +101,10 @@ class AddAnnotation extends Component {
   }
 
   success(message) {
-    const field = document.forms.addannotation.cmd;
     document.forms.addannotation.image = null;
-    field.value = '';
-    field.blur();
 
     this.setState({
+      cmd: '',
       message,
       isSubmitting: false,
       fileMode: false,
@@ -356,12 +355,16 @@ class AddAnnotation extends Component {
     );
   }
 
+  handleChange(e) {
+    this.setState({ cmd: e.target.value, message: null });
+  }
+
   handleFocus() {
     this.setState({ message: null });
   }
 
   handleSubmit(e) {
-    const command = this.parseCommand(document.forms.addannotation.cmd.value);
+    const command = this.parseCommand(this.state.cmd);
     if (this.state.isSubmitting) {
       return e.preventDefault();
     }
@@ -465,6 +468,8 @@ class AddAnnotation extends Component {
             id="cmd-input"
             multiLine
             onKeyPress={this.handleKeyPress.bind(this)}
+            value={this.state.cmd}
+            onChange={this.handleChange.bind(this)}
           />
           {(() => {
             if (this.state.fileMode) {
