@@ -65,6 +65,9 @@ const styles = {
   errorStyle: {
     color: alertRed,
   },
+  successStyle: {
+    color: black87,
+  },
 };
 
 class AddAnnotation extends Component {
@@ -97,11 +100,17 @@ class AddAnnotation extends Component {
   }
 
   success(message) {
-    this.setState({ message, isSubmitting: false, fileMode: false });
     const field = document.forms.addannotation.cmd;
     document.forms.addannotation.image = null;
     field.value = '';
     field.blur();
+
+    this.setState({
+      message,
+      isSubmitting: false,
+      fileMode: false,
+      messageStyle: styles.successStyle
+    });
   }
 
   fail(transaction) {
@@ -120,9 +129,11 @@ class AddAnnotation extends Component {
     if (json && json.error) {
       message = json.error;
     }
+
     this.setState({
       message: message.replace(/<br\s*\/?>/gm, '; '),
       isSubmitting: false,
+      messageStyle: styles.errorStyle,
     });
   }
 
@@ -425,7 +436,7 @@ class AddAnnotation extends Component {
       .add-annotation__insert-photo {
         svg {
           path { color: ${black38}; }
-          &:hover path { 
+          &:hover path {
             color: ${black87};
             cusor: pointer;
           }
@@ -446,7 +457,7 @@ class AddAnnotation extends Component {
             hintText={this.props.intl.formatMessage(messages.inputHint)}
             fullWidth={false}
             style={{ width: '100%' }}
-            errorStyle={styles.errorStyle}
+            errorStyle={this.state.messageStyle}
             onFocus={this.handleFocus.bind(this)}
             ref={ref => (this.cmd = ref)}
             errorText={this.state.message}
