@@ -395,7 +395,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     #   sleep 3
     #   @driver.find_element(:css, '.source__tab-button-notes').click
 
-    #   expect(@driver.page_source.include?('This is my comment')).to be(false)
+    #   expect(@driver.pa ge_source.include?('This is my comment')).to be(false)
 
     #   fill_field('#cmd-input', '/comment This is my comment')
     #   @driver.action.send_keys(:enter).perform

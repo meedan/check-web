@@ -22,7 +22,7 @@ class CreateTeamPage < Page
     fill_input('#team-slug-container', slug)
     sleep 1
     click_button('.create-team__submit-button > button')
-    wait_for_element('.team')
+    wait_for_selector('.team',:css,60)
     TeamPage.new(config: @config, driver: @driver)
   end
 end
