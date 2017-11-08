@@ -68,7 +68,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     include_examples "custom"
 
-    it "should filter by medias or sources", bin: true, bin6: true do
+    it "should filter by medias or sources", bin6: true do
       api_create_team_project_and_link 'https://twitter.com/TheWho/status/890135323216367616'
       @driver.navigate.to @config['self_url']
       wait_for_selector("card-with-border", :class)
@@ -551,10 +551,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('989898989')).to be(true)
     end
 
-    it "should add and remove source tags", bin6: true do
+    it "should add and remove source tags", bin: true, bin6: true do
       api_create_team_project_and_source_and_redirect_to_source('GOT', 'https://twitter.com/GameOfThrones')
-      sleep 5
-      element =  wait_for_selector("source__edit-button", :class)     
+      element =  wait_for_selector("source__edit-button", :class,60)     
       element.click
       sleep 1
       element =  wait_for_selector("source__edit-addinfo-button", :class)     
@@ -570,20 +569,21 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 3
       @driver.navigate.refresh
       sleep 3
-      wait_for_selector("source__edit-button", :class)     
+      wait_for_selector("source__edit-button", :class, 60)     
       expect(@driver.page_source.include?('TAG1')).to be(true)
       expect(@driver.page_source.include?('TAG2')).to be(true)
 
       #delete
-      sleep 1 until element = @driver.find_element(:class, "source__edit-button")
+      element = wait_for_selector("source__edit-button",:class)
       element.click
-      list = @driver.find_elements(:css => "div.source-tags__tag svg")
+      wait_for_selector("source__edit-buttons-add-merge", :class, 60)     
+      list = wait_for_selector_list("div.source-tags__tag svg")
       list[0].click
       sleep 1
       @driver.navigate.refresh
-      sleep 3
-      expect(@driver.page_source.include?('TAG1')).to be(true)
-      expect(@driver.page_source.include?('TAG2')).to be(false)
+      wait_for_selector("source__tab-button-account", :class, 60)           
+      expect(@driver.page_source.include?('TAG2')).to be(true)
+      expect(@driver.page_source.include?('TAG1')).to be(false)
     end
 
     it "should add and remove source languages", bin6: true  do
