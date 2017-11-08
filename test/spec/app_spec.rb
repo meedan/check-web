@@ -68,7 +68,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     include_examples "custom"
 
-    it "should filter by medias or sources", bin1: true do
+    it "should filter by medias or sources", bin6: true do
       api_create_team_project_and_link 'https://twitter.com/TheWho/status/890135323216367616'
       @driver.navigate.to @config['self_url']
       wait_for_selector("card-with-border", :class)
@@ -97,7 +97,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
         .logout
     end
 
-    it "should redirect to access denied page", bin2: true do
+    it "should redirect to access denied page", bin6: true do
       user = api_register_and_login_with_email
       api_logout
       api_register_and_login_with_email
@@ -189,7 +189,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(displayed_name == expected_name).to be(true)
     end
 
-    it "should localize interface based on browser language", bin3: true do
+    it "should localize interface based on browser language", bin6: true do
       unless browser_capabilities['appiumVersion']
         caps = Selenium::WebDriver::Remote::Capabilities.chrome(chromeOptions: { prefs: { 'intl.accept_languages' => 'fr' } })
         driver = Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: caps)
@@ -307,7 +307,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(displayed_name == expected_name).to be(true)
     end
 
-    it "should go to source page through user/:id", bin4: true do
+    it "should go to source page through user/:id", bin6: true do
       user = api_register_and_login_with_email
       @driver.navigate.to @config['self_url'] + '/check/user/' + user.dbid.to_s
       sleep 1
@@ -326,7 +326,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect((@driver.current_url.to_s =~ /\/tos$/).nil?).to be(false)
     end
 
-    it "should create source and redirect to newly created source", bin5: true do
+    it "should create source and redirect to newly created source", bin6: true do
       api_create_team_and_project
       @driver.navigate.to @config['self_url']
       sleep 15
@@ -342,7 +342,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(title == @source_name).to be(true)
     end
 
-    it "should not create duplicated source", bin1: true do
+    it "should not create duplicated source", bin6: true do
       api_create_team_project_and_source_and_redirect_to_source('Megadeth', 'https://twitter.com/megadeth')
       id1 = @driver.current_url.to_s.gsub(/^.*\/source\//, '').to_i
       expect(id1 > 0).to be(true)
@@ -395,7 +395,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     #   sleep 3
     #   @driver.find_element(:css, '.source__tab-button-notes').click
 
-    #   expect(@driver.pa ge_source.include?('This is my comment')).to be(false)
+    #   expect(@driver.page_source.include?('This is my comment')).to be(false)
 
     #   fill_field('#cmd-input', '/comment This is my comment')
     #   @driver.action.send_keys(:enter).perform
@@ -409,7 +409,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     #   expect(@driver.page_source.include?('This is my comment')).to be(true)
     # end
 
-    it "should not create report as source", bin2: true do
+    it "should not create report as source", bin6: true do
       api_create_team_and_project
       @driver.navigate.to @config['self_url']
       sleep 5
@@ -424,7 +424,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(message.match(/Sorry, this is not a profile/).nil?).to be(false)
     end
 
-    it "should tag source multiple times with commas with command", bin3: true do
+    it "should tag source multiple times with commas with command", bin6: true do
       api_create_team_project_and_source_and_redirect_to_source('Motorhead', 'https://twitter.com/mymotorhead')
       sleep 5
       @driver.find_element(:css, '.source__tab-button-notes').click
@@ -437,7 +437,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Tagged #bar')).to be(true)
     end
 
-    it "should edit basic source data (name, description/bio, avatar)", bin3: true do
+    it "should edit basic source data (name, description/bio, avatar)", bin6: true do
       api_create_team_project_and_source_and_redirect_to_source('ACDC', 'https://twitter.com/acdc')
       el = wait_for_selector("source__edit-button", :class)
       el.click
@@ -457,7 +457,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(displayed_name.include? "EDIT").to be(true)
     end
 
-    it "should add and remove accounts to sources", bin4: true do
+    it "should add and remove accounts to sources", bin6: true do
       api_create_team_project_and_source_and_redirect_to_source('GOT', 'https://twitter.com/GameOfThrones')
       wait_for_selector("source__tab-button-account",:class)
       element = wait_for_selector("source__edit-button",:class)
@@ -495,7 +495,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('AC/DC Official Website')).to be(false)
     end
 
-    it "should edit source metadata (contact, phone, location, organization, other)", bin5: true do
+    it "should edit source metadata (contact, phone, location, organization, other)", bin6: true do
       api_create_team_project_and_source_and_redirect_to_source('GOT', 'https://twitter.com/GameOfThrones')
       sleep 5
       element = @driver.find_element(:class, "source__edit-button")
@@ -550,7 +550,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('989898989')).to be(true)
     end
 
-    it "should add and remove source tags", bin1: true do
+    it "should add and remove source tags", bin6: true do
       api_create_team_project_and_source_and_redirect_to_source('GOT', 'https://twitter.com/GameOfThrones')
       sleep 5
       element =  wait_for_selector("source__edit-button", :class)     
@@ -585,7 +585,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('TAG2')).to be(false)
     end
 
-    it "should add and remove source languages", bin2: true  do
+    it "should add and remove source languages", bin6: true  do
       api_create_team_project_and_source_and_redirect_to_source('GOT', 'https://twitter.com/GameOfThrones')
       sleep 5
       element = @driver.find_element(:class, "source__edit-button")
