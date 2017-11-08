@@ -156,6 +156,8 @@ class CreateTeam extends Component {
   handleSubmit(e) {
     e.preventDefault();
 
+    const context = this.getContext();
+
     const onFailure = (transaction) => {
       const error = transaction.getError();
       let message = this.props.intl.formatMessage(messages.createTeamError);
@@ -171,8 +173,6 @@ class CreateTeam extends Component {
     const onSuccess = (response) => {
       this.setState({ message: null });
       const team = response.createTeam.team;
-
-      const context = this.getContext();
       const teams = JSON.parse(context.currentUser.teams);
       teams[team.slug] = { status: 'member' };
       context.currentUser.teams = JSON.stringify(teams);
@@ -186,6 +186,7 @@ class CreateTeam extends Component {
         name: this.state.displayName,
         slug: this.state.slugName,
         description: '',
+        user: context.currentUser,
       }),
       { onSuccess, onFailure },
     );
