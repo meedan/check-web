@@ -189,19 +189,19 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(displayed_name == expected_name).to be(true)
     end
 
-    it "should localize interface based on browser language", bin6: true do
+    it "should localize interface based on browser language", bin: true, bin6: true do
       unless browser_capabilities['appiumVersion']
         caps = Selenium::WebDriver::Remote::Capabilities.chrome(chromeOptions: { prefs: { 'intl.accept_languages' => 'fr' } })
         driver = Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: caps)
         driver.navigate.to @config['self_url']
-        sleep 1
+        @wait.until { driver.find_element(:id, "register-or-login") }
         expect(driver.find_element(:css, '.login__heading span').text == 'Connexion').to be(true)
         driver.quit
 
         caps = Selenium::WebDriver::Remote::Capabilities.chrome(chromeOptions: { prefs: { 'intl.accept_languages' => 'pt' } })
         driver = Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: caps)
         driver.navigate.to @config['self_url']
-        sleep 1
+        @wait.until { driver.find_element(:id, "register-or-login") }
         expect(driver.find_element(:css, '.login__heading span').text == 'Entrar').to be(true)
         driver.quit
       end
