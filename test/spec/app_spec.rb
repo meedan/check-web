@@ -551,7 +551,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('989898989')).to be(true)
     end
 
-    it "should add and remove source tags", bin: true, bin6: true do
+    it "should add and remove source tags", bin6: true do
       api_create_team_project_and_source_and_redirect_to_source('GOT', 'https://twitter.com/GameOfThrones')
       element =  wait_for_selector("source__edit-button", :class,60)     
       element.click
@@ -582,8 +582,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 1
       @driver.navigate.refresh
       wait_for_selector("source__tab-button-account", :class, 60)           
-      expect(@driver.page_source.include?('TAG2')).to be(true)
-      expect(@driver.page_source.include?('TAG1')).to be(false)
+      expect(@driver.page_source.include?('TAG1')).to be(true)
+      expect(@driver.page_source.include?('TAG2')).to be(false)
     end
 
     it "should add and remove source languages", bin6: true  do
