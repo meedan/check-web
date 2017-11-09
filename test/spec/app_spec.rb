@@ -778,9 +778,33 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(page.tags.length == 1).to be(true)
     end
 
-    # it "should show 'manage team' link only to team owners" do
-    #   skip("Needs to be implemented")
-    # end
+    it "should show 'manage team' link only to team owners", bin3: true do
+      user = api_register_and_login_with_email
+      team = request_api 'team', { name: "team#{Time.now.to_i}", email: user.email, slug: "team#{Time.now.to_i}" }
+      user2 = api_register_and_login_with_email
+      page = MePage.new(config: @config, driver: @driver).load
+      page.ask_join_team(subdomain: team.slug)
+      @wait.until {
+        expect(@driver.find_element(:class, "message").nil?).to be(false)
+      }
+      api_logout
+      @driver = new_driver(webdriver_url,browser_capabilities)
+      page = Page.new(config: @config, driver: @driver)
+      page.go(@config['api_path'] + '/test/session?email='+user.email)
+      #As the group creator, go to the members page and approve the joining request.
+      page = MePage.new(config: @config, driver: @driver).load
+          .approve_join_team(subdomain: team.slug)
+      el = wait_for_selector_list("team-members__edit-button",:class)     
+      expect(el.length > 0).to be(true)
+      api_logout
+
+      @driver = new_driver(webdriver_url,browser_capabilities)
+      page = Page.new(config: @config, driver: @driver)
+      page.go(@config['api_path'] + '/test/session?email='+user2.email)
+      page = MePage.new(config: @config, driver: @driver).load
+      el = wait_for_selector_list("team-members__edit-button",:class)     
+      expect(el.length == 0).to be(true)
+    end
 
     # it "should show 'edit project' link only to users with 'update project' permission" do
     #   skip("Needs to be implemented")
