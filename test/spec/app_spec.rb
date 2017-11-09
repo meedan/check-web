@@ -721,25 +721,17 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(media_pg.contains_string?('Flag')).to be(true)
     end
 
-    # This test needs a little work.
-    # See the `edit` method in in project_page.rb
-    #
-    # @chris 2017-10-19
-    #
-    # it "should edit project", bin4: true do
-    #   api_create_team_and_project
-    #   project_pg = ProjectPage.new(config: @config, driver: @driver).load
-
-    #   new_title = "Changed title #{Time.now.to_i}"
-    #   new_description = "Set description #{Time.now.to_i}"
-    #   expect(project_pg.contains_string?(new_title)).to be(false)
-    #   expect(project_pg.contains_string?(new_description)).to be(false)
-
-    #   project_pg.edit(title: new_title, description: new_description)
-
-    #   expect(@driver.page_source.include?(new_title)).to be(true)
-    #   expect(@driver.page_source.include?(new_description)).to be(true)
-    # end
+    it "should edit project", bin1: true do
+      api_create_team_and_project
+      project_pg = ProjectPage.new(config: @config, driver: @driver).load
+      new_title = "Changed title #{Time.now.to_i}"
+      new_description = "Set description #{Time.now.to_i}"
+      expect(project_pg.contains_string?(new_title)).to be(false)
+      expect(project_pg.contains_string?(new_description)).to be(false)
+      project_pg.edit(title: new_title, description: new_description)
+      expect(@driver.page_source.include?(new_title)).to be(true)
+      expect(@driver.page_source.include?(new_description)).to be(true)
+    end
 
     it "should redirect to 404 page if id does not exist", bin4: true do
       api_create_team_and_project
