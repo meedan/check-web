@@ -806,9 +806,24 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(el.length == 0).to be(true)
     end
 
-    # it "should show 'edit project' link only to users with 'update project' permission" do
-    #   skip("Needs to be implemented")
-    # end
+    it "should show 'edit project' link only to users with 'update project' permission", bin:true, bin3: true do
+      utp = api_create_team_project_and_two_users
+      page = Page.new(config: @config, driver: @driver)
+      page.go(@config['api_path'] + '/test/session?email='+utp[:user1]["email"])
+      go(@config['self_url'] + '/'+utp[:team]["slug"]+'/project/'+utp[:project]["dbid"].to_s)
+      sleep 3
+      el = wait_for_selector("header-actions__menu-toggle",:class)
+      el.click
+      sleep 3
+      expect(@driver.page_source.include?('Edit project')).to be(true)
+      page.go(@config['api_path'] + '/test/session?email='+utp[:user2]["email"])
+      go(@config['self_url'] + '/'+utp[:team]["slug"]+'/project/'+utp[:project]["dbid"].to_s)
+      sleep 3
+      el = wait_for_selector("header-actions__menu-toggle",:class)
+      el.click
+      sleep 3
+      expect(@driver.page_source.include?('Edit project')).to be(false)
+    end
 
     it "should edit team and logo", bin1: true do
       team = "testteam#{Time.now.to_i}"
