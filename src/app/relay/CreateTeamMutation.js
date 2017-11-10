@@ -46,7 +46,7 @@ class CreateTeamMutation extends Relay.Mutation {
       connectionName: 'team_users',
       edgeName: 'team_userEdge',
       rangeBehaviors: {
-        '': 'prepend',
+        '': 'append',
       },
     }];
   }

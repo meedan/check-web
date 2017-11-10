@@ -83,6 +83,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el = wait_for_selector("//span[contains(text(), 'Media')]", :xpath)
       el.click
       wait_for_size_change(old, "medias__item", :class)
+      @wait.until { @driver.page_source.include?('@thewho') }
       expect(@driver.page_source.include?("The Who's official Twitter page")).to be(true)
       expect(@driver.page_source.include?('Happy birthday Mick')).to be(false)
     end
@@ -97,7 +98,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
         .logout
     end
 
-    it "should redirect to access denied page", bin6: true do
+    it "should redirect to access denied page", bin1: true do
       user = api_register_and_login_with_email
       api_logout
       api_register_and_login_with_email
@@ -194,14 +195,14 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
         caps = Selenium::WebDriver::Remote::Capabilities.chrome(chromeOptions: { prefs: { 'intl.accept_languages' => 'fr' } })
         driver = Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: caps)
         driver.navigate.to @config['self_url']
-        sleep 1
+        @wait.until { driver.find_element(:id, "register-or-login") }
         expect(driver.find_element(:css, '.login__heading span').text == 'Connexion').to be(true)
         driver.quit
 
         caps = Selenium::WebDriver::Remote::Capabilities.chrome(chromeOptions: { prefs: { 'intl.accept_languages' => 'pt' } })
         driver = Selenium::WebDriver.for(:remote, url: webdriver_url, desired_capabilities: caps)
         driver.navigate.to @config['self_url']
-        sleep 1
+        @wait.until { driver.find_element(:id, "register-or-login") }
         expect(driver.find_element(:css, '.login__heading span').text == 'Entrar').to be(true)
         driver.quit
       end
@@ -552,8 +553,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should add and remove source tags", bin6: true do
       api_create_team_project_and_source_and_redirect_to_source('GOT', 'https://twitter.com/GameOfThrones')
-      sleep 5
-      element =  wait_for_selector("source__edit-button", :class)     
+      element =  wait_for_selector("source__edit-button", :class,60)     
       element.click
       sleep 1
       element =  wait_for_selector("source__edit-addinfo-button", :class)     
@@ -569,18 +569,19 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 3
       @driver.navigate.refresh
       sleep 3
-      wait_for_selector("source__edit-button", :class)     
+      wait_for_selector("source__edit-button", :class, 60)     
       expect(@driver.page_source.include?('TAG1')).to be(true)
       expect(@driver.page_source.include?('TAG2')).to be(true)
 
       #delete
-      sleep 1 until element = @driver.find_element(:class, "source__edit-button")
+      element = wait_for_selector("source__edit-button",:class)
       element.click
-      list = @driver.find_elements(:css => "div.source-tags__tag svg")
+      wait_for_selector("source__edit-buttons-add-merge", :class, 60)     
+      list = wait_for_selector_list("div.source-tags__tag svg")
       list[0].click
       sleep 1
       @driver.navigate.refresh
-      sleep 3
+      wait_for_selector("source__tab-button-account", :class, 60)           
       expect(@driver.page_source.include?('TAG1')).to be(true)
       expect(@driver.page_source.include?('TAG2')).to be(false)
     end
