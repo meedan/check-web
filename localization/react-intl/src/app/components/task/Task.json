@@ -12,6 +12,10 @@
     "defaultMessage": "Save"
   },
   {
+    "id": "tasks.done",
+    "defaultMessage": "Done"
+  },
+  {
     "id": "task.resolvedBy",
     "defaultMessage": "Resolved by {byName}"
   },
@@ -24,6 +28,10 @@
     "defaultMessage": "Edit question"
   },
   {
+    "id": "task.editAttribution",
+    "defaultMessage": "Edit attribution"
+  },
+  {
     "id": "task.delete",
     "defaultMessage": "Delete task"
   },
@@ -34,5 +42,13 @@
   {
     "id": "tasks.description",
     "defaultMessage": "Description"
+  },
+  {
+    "id": "tasks.editAttribution",
+    "defaultMessage": "Edit attribution"
+  },
+  {
+    "id": "tasks.attributionSlogan",
+    "defaultMessage": "For the task, \"{label}\""
   }
 ]
