@@ -17,7 +17,7 @@ import Message from '../Message';
 import UpdateTaskMutation from '../../relay/UpdateTaskMutation';
 import UpdateDynamicMutation from '../../relay/UpdateDynamicMutation';
 import DeleteAnnotationMutation from '../../relay/DeleteAnnotationMutation';
-import Can from '../Can';
+import Can, { can } from '../Can';
 import ParsedText from '../ParsedText';
 import ShortTextRespondTask from './ShortTextRespondTask';
 import GeolocationRespondTask from './GeolocationRespondTask';
@@ -29,6 +29,8 @@ import ProfileLink from '../layout/ProfileLink';
 import Tooltip from 'rc-tooltip';
 import 'rc-tooltip/assets/bootstrap_white.css';
 import UserTooltip from '../user/UserTooltip';
+import Attribution from './Attribution';
+import Sentence from '../Sentence';
 
 const StyledWordBreakDiv = styled.div`
   hyphens: auto;
@@ -53,6 +55,7 @@ class Task extends Component {
       editingResponse: false,
       isMenuOpen: false,
       submitDisabled: true,
+      editingAttribution: false,
     };
   }
 
@@ -111,10 +114,47 @@ class Task extends Component {
     this.setState({ editingQuestion: false, submitDisabled: true });
   }
 
+  handleCancelAttributionEdit() {
+    this.setState({ editingAttribution: false });
+  }
+
   handleQuestionEdit(e){
     const state = {};
     state[e.target.name] = e.target.value;
     this.setState(state, this.canSubmit);
+  }
+
+  handleUpdateAttribution(e) {
+    const { media, task } = this.props; 
+    const value = document.getElementById(`attribution-${task.dbid}`).value;
+
+    const onFailure = (transaction) => {
+      const error = transaction.getError();
+      let message = error.source;
+      try {
+        const json = JSON.parse(error.source);
+        if (json.error) {
+          message = json.error;
+        }
+      } catch (e) {}
+      this.setState({ message });
+    };
+
+    const onSuccess = () => {
+      this.setState({ message: null, editingAttribution: false });
+    };
+
+    Relay.Store.commitUpdate(
+      new UpdateDynamicMutation({
+        annotated: media,
+        parent_type: 'project_media',
+        dynamic: {
+          id: task.first_response.id,
+          set_attribution: value
+        },
+      }),
+      { onSuccess, onFailure },
+    );
   }
 
   handleUpdateTask(e) {
@@ -185,6 +225,10 @@ class Task extends Component {
     this.setState({ editingResponse: true });
   }
 
+  handleEditAttribution() {
+    this.setState({ editingAttribution: true, isMenuOpen: false });
+  }
+
   handleSubmitUpdateWithArgs(edited_response, edited_note) {
     const {media, task} = this.props;
 
@@ -232,7 +276,10 @@ class Task extends Component {
     const { task } = this.props;
 
     if (task.first_response) {
-      data.by = task.first_response.annotator;
+      data.by = [];
+      task.first_response.attribution.edges.forEach((user) => {
+        data.by.push(<ProfileLink user={user.node} />);
+      });
       const fields = JSON.parse(task.first_response.content);
       fields.forEach((field) => {
         if (/^response_/.test(field.field_name)) {
@@ -269,23 +316,31 @@ class Task extends Component {
       />,
     ];
 
+    const editAttributionActions = [
+      <FlatButton
+        key="tasks__cancel"
+        label={<FormattedMessage id="tasks.cancelEdit" defaultMessage="Cancel" />}
+        onClick={this.handleCancelAttributionEdit.bind(this)}
+      />,
+      <FlatButton
+        key="task__save"
+        className="task__save"
+        label={<FormattedMessage id="tasks.done" defaultMessage="Done" />}
+        primary
+        keyboardFocused
+        onClick={this.handleUpdateAttribution.bind(this)}
+      />,
+    ];
+
     const taskActions = (
       <div>
         {data.by
           ? <div className="task__resolver" style={{ display: 'flex', alignItems: 'center' }}>
-            <Tooltip placement="top" overlay={<UserTooltip user={by.user} />}>
-              <SourcePicture
-                style={{ margin: `0 ${units(1)}` }}
-                size="extraSmall"
-                type="user"
-                object={by.user.source}
-              />
-            </Tooltip>
             <small>
               <FormattedMessage
                 id="task.resolvedBy"
                 defaultMessage={'Resolved by {byName}'}
-                values={{ byName: <ProfileLink user={by.user} /> }}
+                values={{ byName: <Sentence list={by} /> }}
               />
             </small>
           </div>
@@ -309,18 +364,22 @@ class Task extends Component {
             >
               {response
                 ? <Can permissions={task.first_response.permissions} permission="update Dynamic">
-                  <MenuItem
-                    className="task-actions__edit-response"
-                    onClick={this.handleEditResponse.bind(this)}
-                  >
-                    <FormattedMessage id="task.editResponse" defaultMessage="Edit response" />
-                  </MenuItem>
-                </Can>
+                    <MenuItem className="task-actions__edit-response" onClick={this.handleEditResponse.bind(this)}>
+                      <FormattedMessage id="task.editResponse" defaultMessage="Edit response" />
+                    </MenuItem>
+                  </Can>
                 : null}
 
               <MenuItem className="task-actions__edit" onClick={this.handleEditQuestion.bind(this)}>
                 <FormattedMessage id="task.edit" defaultMessage="Edit question" />
               </MenuItem>
+
+              {(response && can(task.first_response.permissions, 'update Dynamic'))
+                ? <MenuItem className="task-actions__edit-attribution" onClick={this.handleEditAttribution.bind(this)}>
+                    <FormattedMessage id="task.editAttribution" defaultMessage="Edit attribution" />
+                  </MenuItem>
+                : null}
+
               <Can permissions={task.permissions} permission="destroy Task">
                 <MenuItem className="task-actions__delete" onClick={this.handleDelete.bind(this)}>
                   <FormattedMessage id="task.delete" defaultMessage="Delete task" />
@@ -528,6 +587,19 @@ class Task extends Component {
               multiLine
             />
           </form>
+        </Dialog>
+
+        <Dialog
+          actions={editAttributionActions}
+          modal={false}
+          open={!!this.state.editingAttribution}
+          onRequestClose={this.handleCancelAttributionEdit.bind(this)}
+          autoScrollBodyContent={true}
+        >
+          <Message message={this.state.message} />
+          <h2><FormattedMessage id="tasks.editAttribution" defaultMessage="Edit attribution" /></h2>
+          <p style={{ marginBottom: units(2), marginTop: units(2) }}><FormattedMessage id="tasks.attributionSlogan" defaultMessage='For the task, "{label}"' values={{ label: task.label }} /></p>
+          { this.state.editingAttribution ? <Attribution task={task} /> : null }
         </Dialog>
       </StyledWordBreakDiv>
     );

@@ -41,7 +41,14 @@ class UpdateDynamicMutation extends Relay.Mutation {
 
   getVariables() {
     const dynamic = this.props.dynamic;
-    return { set_fields: JSON.stringify(dynamic.fields), id: dynamic.id };
+    let vars = { id: dynamic.id };
+    if (dynamic.fields) {
+      vars.set_fields = JSON.stringify(dynamic.fields);
+    }
+    if (dynamic.set_attribution) {
+      vars.set_attribution = dynamic.set_attribution;
+    }
+    return vars;
   }
 
   getConfigs() {

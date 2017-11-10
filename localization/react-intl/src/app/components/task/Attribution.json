@@ -1,0 +1,10 @@
+[
+  {
+    "id": "attribution.noResults",
+    "defaultMessage": "No results"
+  },
+  {
+    "id": "attribution.search",
+    "defaultMessage": "Search team members"
+  }
+]

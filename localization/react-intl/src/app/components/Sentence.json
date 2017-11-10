@@ -1,0 +1,10 @@
+[
+  {
+    "id": "sentence.separator",
+    "defaultMessage": ","
+  },
+  {
+    "id": "sentence.lastSeparator",
+    "defaultMessage": "and"
+  }
+]
