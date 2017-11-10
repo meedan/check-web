@@ -56,6 +56,14 @@ const messages = defineMessages({
     id: 'mediaDetail.mediaTitle',
     defaultMessage: 'Title',
   },
+  mediaDescription: {
+    id: 'mediaDetail.mediaDescription',
+    defaultMessage: 'Description',
+  },
+  editReport: {
+    id: 'mediaDetail.editReport',
+    defaultMessage: 'Edit report',
+  },
   error: {
     id: 'mediaDetail.moveFailed',
     defaultMessage: 'Sorry, we could not move this report',
@@ -317,6 +325,10 @@ class MediaMetadata extends Component {
     return [];
   }
 
+  handleChangeDescription(e) {
+    this.setState({ description: e.target.value });
+  }
+
   handleSave(media, event) {
     if (event) {
       event.preventDefault();
@@ -327,10 +339,14 @@ class MediaMetadata extends Component {
     );
     const newTitle = (titleInput.value || '').trim();
 
-    if (newTitle === this.props.heading) {
+    if ((newTitle === this.props.heading) && !this.state.description) {
       this.setState({ isEditing: false });
       return;
     }
+
+    const embed = {};
+    embed.title = newTitle;
+    embed.description = this.state.description;
 
     const onFailure = (transaction) => {
       const transactionError = transaction.getError();
@@ -345,7 +361,7 @@ class MediaMetadata extends Component {
 
     Relay.Store.commitUpdate(
       new UpdateProjectMediaMutation({
-        embed: JSON.stringify({ title: newTitle }),
+        embed: JSON.stringify(embed),
         id: media.id,
       }),
       { onSuccess, onFailure },
@@ -414,9 +430,14 @@ class MediaMetadata extends Component {
       />,
     ];
 
+    const description = MediaUtil.hasCustomDescription(media)
+      ? JSON.parse(this.props.media.embed).description
+      : null;
+
     const editDialog = (
       <Dialog
         modal
+        title={this.props.intl.formatMessage(messages.editReport)}
         open={this.state.isEditing}
         onRequestClose={this.handleCloseDialogs.bind(this)}
         autoScrollBodyContent
@@ -427,8 +448,18 @@ class MediaMetadata extends Component {
             type="text"
             id={`media-detail-title-input-${media.dbid}`}
             className="media-detail__title-input"
-            placeholder={this.props.intl.formatMessage(messages.mediaTitle)}
+            floatingLabelText={this.props.intl.formatMessage(messages.mediaTitle)}
             defaultValue={this.props.heading}
+            style={{ width: '100%' }}
+          />
+
+          <TextField
+            type="text"
+            id={`media-detail-description-input-${media.dbid}`}
+            className="media-detail__description-input"
+            floatingLabelText={this.props.intl.formatMessage(messages.mediaDescription)}
+            defaultValue={description}
+            onChange={this.handleChangeDescription.bind(this)}
             style={{ width: '100%' }}
           />
         </form>
