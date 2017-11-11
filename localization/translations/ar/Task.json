@@ -2,10 +2,14 @@
   "task.confirmDelete": "هل أنت متأكد أنك تود حذف هذه المهمة؟",
   "tasks.cancelEdit": "إلغاء",
   "tasks.save": "حفظ",
+  "tasks.done": "تم",
   "task.resolvedBy": "تم إنجازها بواسطة  {byName}",
   "task.editResponse": "تحرير اﻹجابة",
   "task.edit": "تحرير المهمة",
+  "task.editAttribution": "تحرير اﻹسناد",
   "task.delete": "حذف المهمة",
   "tasks.taskLabel": "عنوان المهمة",
-  "tasks.description": "وصف"
+  "tasks.description": "وصف",
+  "tasks.editAttribution": "تحرير اﻹسناد",
+  "tasks.attributionSlogan": "للمهمة \"{label}\""
 }
