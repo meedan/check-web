@@ -128,29 +128,25 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(project_pg.elements('.media__heading').map(&:text).include?('Edited media title')).to be(true)
     end
 
-    # This test fails ~ 30% of the time for some reason.
-    # Todo: consider fixing it
-    # CGB 2017-9-29
-    #
-    # it "should not add a duplicated tag from tags list", bin3: true, quick: true  do
-    #   page = api_create_team_project_and_claim_and_redirect_to_media_page
-    #   new_tag = Time.now.to_i.to_s
-
-    #   # Validate assumption that tag does not exist
-    #   expect(page.has_tag?(new_tag)).to be(false)
-
-    #   # Add tag from tags list
-    #   page.add_tag(new_tag)
-    #   expect(page.has_tag?(new_tag)).to be(true)
-
-    #   # Try to add duplicate
-    #   page.add_tag(new_tag)
-    #   sleep 20
-
-    #   # Verify that tag is not added and that error message is displayed
-    #   expect(page.tags.count(new_tag)).to be(1)
-    #   expect(page.contains_string?('Tag already exists')).to be(true)
-    # end
+    it "should not add a duplicated tag from tags list", bin3: true, quick: true  do
+      page = api_create_team_project_and_claim_and_redirect_to_media_page
+      wait_for_selector("add-annotation__insert-photo",:class)
+      new_tag = Time.now.to_i.to_s
+      # Validate assumption that tag does not exist
+      expect(page.has_tag?(new_tag)).to be(false)
+      # Add tag from tags list
+      page.add_tag(new_tag)
+      el = wait_for_selector("media-detail__cancel-edits", :class)
+      el.click
+      expect(page.has_tag?(new_tag)).to be(true)
+      # Try to add duplicate
+      page.add_tag(new_tag)
+      expect(page.contains_string?('Tag already exists')).to be(true)
+      el = wait_for_selector("media-detail__cancel-edits", :class)
+      el.click
+      # Verify that tag is not added and that error message is displayed
+      expect(page.tags.count(new_tag)).to be(1)
+    end
 
     it "should display a default title for new media", bin1: true, quick:true do
       # Tweets
@@ -751,10 +747,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       expect(page.contains_string?('Sign in')).to be(true)
     end
-
-    # it "should delete annotation from annotations list (for media, source and project)" do
-    #   skip("Needs to be implemented")
-    # end
 
     it "should delete tag from tags list (for media)", bin1:true  do
       page = api_create_team_project_and_claim_and_redirect_to_media_page
@@ -1539,5 +1531,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     #   avatar = me_page.avatar
     #   expect(avatar.attribute('src').match(/test\.png/).nil?).to be(false)
     # end
-  end
+
+    # it "should delete annotation from annotations list (for media, source and project)" do
+    #   skip("Needs to be implemented")
+    # end
+    end
 end
