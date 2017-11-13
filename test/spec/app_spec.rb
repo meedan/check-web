@@ -141,6 +141,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(page.has_tag?(new_tag)).to be(true)
       # Try to add duplicate
       page.add_tag(new_tag)
+      @wait.until { @driver.page_source.include?('Validation') }
       expect(page.contains_string?('Tag already exists')).to be(true)
       el = wait_for_selector("media-detail__cancel-edits", :class)
       el.click
