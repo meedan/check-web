@@ -40,27 +40,21 @@ class ProjectPage < Page
     MediaPage.new(config: @config, driver: @driver)
   end
 
-  # This test needs a little work.
-  # It works if you sleep on the first step,
-  # but I did not get it working yet with `wait_for_element`
-  # instead of sleep.
-  #
-  # @chris 2017-10-19
-  #
-  def edit(options)
-    sleep 4
-    element('.project-menu').click
-    wait_for_element('.project-edit')
+  def edit(options)    
+    element = wait_for_selector('.project-menu', :css, 60)
+    element.click
     sleep 1
-    element('.project-edit__title-field input').clear
+    element = wait_for_selector('.project-edit__title-field input')
+    element.clear
     fill_input('.project-edit__title-field input', options[:title])
-    element('.project-edit__description-field textarea:last-child').clear
+    sleep 1 #(time for insert info in other field)
+    element = wait_for_selector('.project-edit__description-field textarea:last-child')
+    element.clear
     fill_input('.project-edit__description-field textarea:last-child', options[:description])
-    element('.project-edit__editing-button--save button span').click
-
-    wait_for_element('.project')
-    sleep 2
-
+    sleep 1 #(time for click button
+    element = wait_for_selector('.project-edit__editing-button--save button span')
+    element.click
+    @wait.until { @driver.page_source.include?(options[:title]) }
     self
   end
 

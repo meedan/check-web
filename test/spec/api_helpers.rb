@@ -113,4 +113,10 @@ module ApiHelpers
     uri = URI(api_path.gsub('/test/', '/api/users/logout'))
     Net::HTTP.get_response(uri)
   end
+
+  def api_create_team_project_and_two_users
+    ret = request_api 'create_team_project_and_two_users', {}
+    ret
+  end
+
 end
