@@ -586,27 +586,32 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should add and remove source languages", bin6: true  do
       api_create_team_project_and_source_and_redirect_to_source('GOT', 'https://twitter.com/GameOfThrones')
       sleep 5
-      element = @driver.find_element(:class, "source__edit-button")
+      element = wait_for_selector("source__edit-button",:class)
       element.click
       sleep 1
-      @driver.find_element(:class, "source__edit-addinfo-button").click
+      element = wait_for_selector("source__edit-addinfo-button",:class)
+      element.click
       sleep 1
-      @driver.find_element(:class, "source__add-languages").click
+      element = wait_for_selector("source__add-languages",:class)
+      element.click
+      sleep 1
       fill_field("sourceLanguageInput", "Acoli", :id)
       @driver.action.send_keys(:down).perform
       @driver.action.send_keys(:return).perform
-      sleep 2
+      sleep 1
       @driver.navigate.refresh
-      sleep 3
+      sleep 2
+      wait_for_selector("source__tab-button-media",:class)      
       expect(@driver.page_source.include?('Acoli')).to be(true)
-      sleep 1 until element = @driver.find_element(:class, "source__edit-button")
+      element = wait_for_selector("source__edit-button",:class)
       element.click
       sleep 1
-      list = @driver.find_elements(:css => "div.source-tags__tag svg")
-      list[0].click
+      elements =wait_for_selector_list("div.source-tags__tag svg")
+      elements[0].click
       sleep 1
       @driver.navigate.refresh
-      sleep 3
+      sleep 2
+      wait_for_selector("source__tab-button-media",:class)
       expect(@driver.page_source.include?('Acoli')).to be(false)
     end
 
@@ -1038,11 +1043,33 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Auto-Refresh')).to be(true)
     end
 
-    # it "should cancel request through switch teams" do
-    #   skip("Needs to be implemented")
-    # end
+    it "should give 404 when trying to acess a media that is not related to the project on the URL", bin: true, bin1: true do
+      data = api_create_team_project_and_link 'https://twitter.com/TheWho/status/890135323216367616'
+      @driver.navigate.to @config['self_url'] + '/check/me'     
+      wait_for_selector("team__edit-button", :class) 
+      el = wait_for_selector("//span[contains(text(), 'Create Team')]",:xpath)
+      el.click
+      team = "testteam#{Time.now.to_i}"
+      el = wait_for_selector("create-team__team-display-name-input",:class)
+      el.click
 
-    # it "should give 404 when trying to acess a media that is not related to the project on the URL" do
+      fill_field('team-name-container', team, :id)
+      el = wait_for_selector('team-slug-container',:id)
+      el.click
+      el.clear
+      fill_field('team-slug-container', team, :id)
+      el = wait_for_selector("create-team__submit-button",:class)
+      el.click
+      wait_for_selector("team-members__profile-link",:class)
+      url = @config['self_url'] + '/'+ team +'/project/'+data.project_id.to_s + '/media/'+data.media_id.to_s
+      @driver.navigate.to url
+      wait_for_selector("main-title",:class)
+      title = get_element('.main-title')
+      expect(title.text == 'Not Found').to be(true)
+    end
+
+
+    # it "should cancel request through switch teams" do
     #   skip("Needs to be implemented")
     # end
 
@@ -1290,7 +1317,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
         expect(@driver.page_source.include?('Embed')).to be(false)
         @driver.navigate.to "#{@driver.current_url}/embed"
         sleep 2
-        expect(@driver.page_source.include?('Not available')).to be(true)
+        expect(@drivre.page_source.include?('Not available')).to be(true)
       elsif @config['app_name'] == 'check'
         expect(@driver.page_source.include?('Embed')).to be(true)
         url = @driver.current_url.to_s
@@ -1533,7 +1560,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     #   expect(avatar.attribute('src').match(/test\.png/).nil?).to be(false)
     # end
 
-    # it "should delete annotation from annotations list (for media, source and project)" do
+    # i t"should delete annotation from annotations list (for media, source and project)" do
     #   skip("Needs to be implemented")
     # end
     end
