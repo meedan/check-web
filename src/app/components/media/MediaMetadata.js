@@ -85,6 +85,7 @@ class MediaMetadata extends Component {
       openEditDialog: false,
       openDeleteDialog: false,
       confirmationError: false,
+      submitDisabled: true,
     };
   }
 
@@ -303,6 +304,13 @@ class MediaMetadata extends Component {
     this.setState({ openMoveDialog: false });
   }
 
+  canSubmit() {
+    const title = this.state.title && !!this.state.title.trim();
+    const description = this.state.description && !!this.state.description.trim();
+
+    this.setState({ submitDisabled: !title && !description });
+  }
+
   currentProject() {
     const projectId = this.props.media.project_id;
     const context = this.getContext();
@@ -325,28 +333,27 @@ class MediaMetadata extends Component {
     return [];
   }
 
+  handleChangeTitle(e) {
+    this.setState({ title: e.target.value }, this.canSubmit);
+  }
+
   handleChangeDescription(e) {
-    this.setState({ description: e.target.value });
+    this.setState({ description: e.target.value }, this.canSubmit);
   }
 
   handleSave(media, event) {
+    if (this.state.submitDisabled) { return; }
+
     if (event) {
       event.preventDefault();
     }
 
-    const titleInput = document.querySelector(
-      `#media-detail-title-input-${media.dbid}`,
-    );
-    const newTitle = (titleInput.value || '').trim();
-
-    if ((newTitle === this.props.heading) && !this.state.description) {
-      this.setState({ isEditing: false });
-      return;
-    }
+    const title = this.state.title && this.state.title.trim();
+    const description = this.state.description && this.state.description.trim();
 
     const embed = {};
-    embed.title = newTitle;
-    embed.description = this.state.description;
+    embed.title = title;
+    embed.description = description;
 
     const onFailure = (transaction) => {
       const transactionError = transaction.getError();
@@ -367,11 +374,11 @@ class MediaMetadata extends Component {
       { onSuccess, onFailure },
     );
 
-    this.setState({ isEditing: false });
+    this.setState({ isEditing: false, submitDisabled: true });
   }
 
   handleCancel() {
-    this.setState({ isEditing: false });
+    this.setState({ isEditing: false, title: null, description: null, submitDisabled: true });
   }
 
   handleCloseDialogs() {
@@ -450,6 +457,7 @@ class MediaMetadata extends Component {
             className="media-detail__title-input"
             floatingLabelText={this.props.intl.formatMessage(messages.mediaTitle)}
             defaultValue={this.props.heading}
+            onChange={this.handleChangeTitle.bind(this)}
             style={{ width: '100%' }}
           />
 
@@ -488,6 +496,8 @@ class MediaMetadata extends Component {
                 defaultMessage="Done"
               />
             }
+            disabled={this.state.submitDisabled}
+            primary
           />
         </span>
       </Dialog>

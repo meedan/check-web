@@ -32,6 +32,7 @@ class EmbedUpdate extends React.Component {
                   values={{ title: to.title, author }}
                 />
                 : null}
+            { editedTitle && editedNote && <br />}
             {editedNote
                 ? <FormattedMessage
                   id="annotation.embedNoteUpdated"
@@ -41,6 +42,7 @@ class EmbedUpdate extends React.Component {
                   values={{ from: from.description, to: to.description, author }}
                 />
                 : null}
+            { editedTitle && createdNote && <br />}
             {createdNote
                 ? <FormattedMessage
                   id="annotation.embedNoteCreated"
