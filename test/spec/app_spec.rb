@@ -128,29 +128,26 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(project_pg.elements('.media__heading').map(&:text).include?('Edited media title')).to be(true)
     end
 
-    # This test fails ~ 30% of the time for some reason.
-    # Todo: consider fixing it
-    # CGB 2017-9-29
-    #
-    # it "should not add a duplicated tag from tags list", bin3: true, quick: true  do
-    #   page = api_create_team_project_and_claim_and_redirect_to_media_page
-    #   new_tag = Time.now.to_i.to_s
-
-    #   # Validate assumption that tag does not exist
-    #   expect(page.has_tag?(new_tag)).to be(false)
-
-    #   # Add tag from tags list
-    #   page.add_tag(new_tag)
-    #   expect(page.has_tag?(new_tag)).to be(true)
-
-    #   # Try to add duplicate
-    #   page.add_tag(new_tag)
-    #   sleep 20
-
-    #   # Verify that tag is not added and that error message is displayed
-    #   expect(page.tags.count(new_tag)).to be(1)
-    #   expect(page.contains_string?('Tag already exists')).to be(true)
-    # end
+    it "should not add a duplicated tag from tags list", bin3: true, quick: true  do
+      page = api_create_team_project_and_claim_and_redirect_to_media_page
+      wait_for_selector("add-annotation__insert-photo",:class)
+      new_tag = Time.now.to_i.to_s
+      # Validate assumption that tag does not exist
+      expect(page.has_tag?(new_tag)).to be(false)
+      # Add tag from tags list
+      page.add_tag(new_tag)
+      el = wait_for_selector("media-detail__cancel-edits", :class)
+      el.click
+      expect(page.has_tag?(new_tag)).to be(true)
+      # Try to add duplicate
+      page.add_tag(new_tag)
+      @wait.until { @driver.page_source.include?('Validation') }
+      expect(page.contains_string?('Tag already exists')).to be(true)
+      el = wait_for_selector("media-detail__cancel-edits", :class)
+      el.click
+      # Verify that tag is not added and that error message is displayed
+      expect(page.tags.count(new_tag)).to be(1)
+    end
 
     it "should display a default title for new media", bin1: true, quick:true do
       # Tweets
@@ -721,25 +718,17 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(media_pg.contains_string?('Flag')).to be(true)
     end
 
-    # This test needs a little work.
-    # See the `edit` method in in project_page.rb
-    #
-    # @chris 2017-10-19
-    #
-    # it "should edit project", bin4: true do
-    #   api_create_team_and_project
-    #   project_pg = ProjectPage.new(config: @config, driver: @driver).load
-
-    #   new_title = "Changed title #{Time.now.to_i}"
-    #   new_description = "Set description #{Time.now.to_i}"
-    #   expect(project_pg.contains_string?(new_title)).to be(false)
-    #   expect(project_pg.contains_string?(new_description)).to be(false)
-
-    #   project_pg.edit(title: new_title, description: new_description)
-
-    #   expect(@driver.page_source.include?(new_title)).to be(true)
-    #   expect(@driver.page_source.include?(new_description)).to be(true)
-    # end
+    it "should edit project", bin1: true do
+      api_create_team_and_project
+      project_pg = ProjectPage.new(config: @config, driver: @driver).load
+      new_title = "Changed title #{Time.now.to_i}"
+      new_description = "Set description #{Time.now.to_i}"
+      expect(project_pg.contains_string?(new_title)).to be(false)
+      expect(project_pg.contains_string?(new_description)).to be(false)
+      project_pg.edit(title: new_title, description: new_description)
+      expect(@driver.page_source.include?(new_title)).to be(true)
+      expect(@driver.page_source.include?(new_description)).to be(true)
+    end
 
     it "should redirect to 404 page if id does not exist", bin4: true do
       api_create_team_and_project
@@ -759,10 +748,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       expect(page.contains_string?('Sign in')).to be(true)
     end
-
-    # it "should delete annotation from annotations list (for media, source and project)" do
-    #   skip("Needs to be implemented")
-    # end
 
     it "should delete tag from tags list (for media)", bin1:true  do
       page = api_create_team_project_and_claim_and_redirect_to_media_page
@@ -786,13 +771,48 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(page.tags.length == 1).to be(true)
     end
 
-    # it "should show 'manage team' link only to team owners" do
-    #   skip("Needs to be implemented")
-    # end
+    it "should show 'manage team' link only to team owners", bin3: true do
+      user = api_register_and_login_with_email
+      team = request_api 'team', { name: "team#{Time.now.to_i}", email: user.email, slug: "team#{Time.now.to_i}" }
+      user2 = api_register_and_login_with_email
+      page = MePage.new(config: @config, driver: @driver).load
+      page.ask_join_team(subdomain: team.slug)
+      @wait.until {
+        expect(@driver.find_element(:class, "message").nil?).to be(false)
+      }
+      api_logout
+      @driver = new_driver(webdriver_url,browser_capabilities)
+      page = Page.new(config: @config, driver: @driver)
+      page.go(@config['api_path'] + '/test/session?email='+user.email)
+      #As the group creator, go to the members page and approve the joining request.
+      page = MePage.new(config: @config, driver: @driver).load
+          .approve_join_team(subdomain: team.slug)
+      el = wait_for_selector_list("team-members__edit-button",:class)     
+      expect(el.length > 0).to be(true)
+      api_logout
 
-    # it "should show 'edit project' link only to users with 'update project' permission" do
-    #   skip("Needs to be implemented")
-    # end
+      @driver = new_driver(webdriver_url,browser_capabilities)
+      page = Page.new(config: @config, driver: @driver)
+      page.go(@config['api_path'] + '/test/session?email='+user2.email)
+      page = MePage.new(config: @config, driver: @driver).load
+      el = wait_for_selector_list("team-members__edit-button",:class)     
+      expect(el.length == 0).to be(true)
+    end
+
+    it "should show 'edit project' link only to users with 'update project' permission", bin3: true do
+      utp = api_create_team_project_and_two_users
+      page = Page.new(config: @config, driver: @driver)
+      page.go(@config['api_path'] + '/test/session?email='+utp[:user1]["email"])
+      page.go(@config['self_url'] + '/'+utp[:team]["slug"]+'/project/'+utp[:project]["dbid"].to_s)
+      @wait.until { @driver.page_source.include?('Sources') }
+      l = wait_for_selector_list('button',:tag_name)
+      n = l.length
+      page.go(@config['api_path'] + '/test/session?email='+utp[:user2]["email"])
+      page.go(@config['self_url'] + '/'+utp[:team]["slug"]+'/project/'+utp[:project]["dbid"].to_s)
+      @wait.until { @driver.page_source.include?('Sources') }
+      l = wait_for_selector_list('button',:tag_name)
+      expect(n > l.length).to be(true)
+    end
 
     it "should edit team and logo", bin1: true do
       team = "testteam#{Time.now.to_i}"
@@ -1512,5 +1532,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     #   avatar = me_page.avatar
     #   expect(avatar.attribute('src').match(/test\.png/).nil?).to be(false)
     # end
-  end
+
+    # it "should delete annotation from annotations list (for media, source and project)" do
+    #   skip("Needs to be implemented")
+    # end
+    end
 end
