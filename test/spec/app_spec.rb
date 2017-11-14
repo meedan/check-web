@@ -359,29 +359,24 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(id1 == id2).to be(true)
     end
 
-    # This test is flaky
-    # Todo: consider fixing it or removing it
-    #
-    # CGB 2017-9-29
-    #
-    # it "should tag source as a command", bin6: true do
-    #   api_create_team_project_and_source_and_redirect_to_source('ACDC', 'https://twitter.com/acdc')
-    #   sleep 3
-    #   @driver.find_element(:css, '.source__tab-button-notes').click
-
-    #   expect(@driver.page_source.include?('Tagged #command')).to be(false)
-
-    #   fill_field('#cmd-input', '/tag command')
-    #   @driver.action.send_keys(:enter).perform
-    #   sleep 5
-
-    #   expect(@driver.page_source.include?('Tagged #command')).to be(true)
-
-    #   @driver.navigate.refresh
-    #   sleep 5
-    #   @driver.find_element(:css, '.source__tab-button-notes').click
-    #   expect(@driver.page_source.include?('Tagged #command')).to be(true)
-    # end
+    it "should tag source as a command", bin6: true do
+      api_create_team_project_and_source_and_redirect_to_source('ACDC', 'https://twitter.com/acdc')
+      wait_for_selector('source__tab-button-account', :class)
+      expect(@driver.page_source.include?('command')).to be(false)
+      el = wait_for_selector('.source__tab-button-notes')            
+      el.click
+      wait_for_selector('add-annotation__insert-photo', :class)
+      expect(@driver.page_source.include?('Tagged #command')).to be(false)
+      fill_field('#cmd-input', '/tag command')
+      @driver.action.send_keys(:enter).perform
+      sleep 5
+      wait_for_size_change(0,'annotations__list-item', :class)
+      expect(@driver.page_source.include?('Tagged #command')).to be(true)
+      @driver.navigate.refresh
+      sleep 3
+      wait_for_selector('source__tab-button-account', :class)
+      expect(@driver.page_source.include?('command')).to be(true)
+    end
 
     # This test is flaky
     # Todo: consider fixing it or removing it
@@ -585,16 +580,17 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should add and remove source languages", bin6: true  do
       api_create_team_project_and_source_and_redirect_to_source('GOT', 'https://twitter.com/GameOfThrones')
-      sleep 5
+      wait_for_selector("source__tab-button-account",:class)
       element = wait_for_selector("source__edit-button",:class)
       element.click
-      sleep 1
+      wait_for_selector("source__edit-buttons-cancel-save",:class)
       element = wait_for_selector("source__edit-addinfo-button",:class)
       element.click
-      sleep 1
+      sleep 2
       element = wait_for_selector("source__add-languages",:class)
       element.click
-      sleep 1
+      sleep 2
+      wait_for_size_change(0, "sourceLanguageInput",:id)
       fill_field("sourceLanguageInput", "Acoli", :id)
       @driver.action.send_keys(:down).perform
       @driver.action.send_keys(:return).perform
@@ -1043,7 +1039,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Auto-Refresh')).to be(true)
     end
 
-    it "should give 404 when trying to acess a media that is not related to the project on the URL", bin: true, bin1: true do
+    it "should give 404 when trying to acess a media that is not related to the project on the URL", bin1: true do
       data = api_create_team_project_and_link 'https://twitter.com/TheWho/status/890135323216367616'
       @driver.navigate.to @config['self_url'] + '/check/me'     
       wait_for_selector("team__edit-button", :class) 
