@@ -396,6 +396,7 @@ class MediaMetadata extends Component {
 
   render() {
     const { media } = this.props;
+    const data = JSON.parse(media.embed);
     const context = this.getContext();
     const locale = this.props.intl.locale;
     const isRtl = rtlDetect.isRtlLang(locale);
@@ -437,8 +438,8 @@ class MediaMetadata extends Component {
       />,
     ];
 
-    const description = MediaUtil.hasCustomDescription(media)
-      ? JSON.parse(this.props.media.embed).description
+    const description = MediaUtil.hasCustomDescription(media, data)
+      ? data.description
       : null;
 
     const editDialog = (
@@ -523,7 +524,6 @@ class MediaMetadata extends Component {
       />,
     ];
 
-    const data = JSON.parse(media.embed);
     const url = MediaUtil.url(media, data);
 
     return (
