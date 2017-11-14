@@ -257,6 +257,8 @@ class MediaDetail extends Component {
 
     const shouldShowProjectName = !projectPage && projectTitle;
 
+    const shouldShowDescription = MediaUtil.hasCustomDescription(media, data);
+
     const cardHeaderText = (
       <div>
         {shouldDisplayHeading ?
@@ -345,10 +347,10 @@ class MediaDetail extends Component {
                 mediaLastStatus(media),
               )}
             >
-              { MediaUtil.hasCustomDescription(media) ?
+              { shouldShowDescription &&
                 <Text font={caption}>
                   {JSON.parse(this.props.media.embed).description}
-                </Text> : null
+                </Text>
               }
               {embedCard}
             </FadeIn>
