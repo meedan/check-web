@@ -101,7 +101,7 @@
   },
   {
     "id": "annotation.titleChanged",
-    "defaultMessage": "Title changed to {title} by {author}"
+    "defaultMessage": "Title changed to \"{title}\" by {author}"
   },
   {
     "id": "annotation.projectMoved",
@@ -114,17 +114,5 @@
   {
     "id": "annotation.movedFromTrash",
     "defaultMessage": "{author} moved this out of the trash"
-  },
-  {
-    "id": "annotation.taskLabelUpdated",
-    "defaultMessage": "Task \"{from}\" edited to \"{to}\" by {author}"
-  },
-  {
-    "id": "annotation.taskNoteUpdated",
-    "defaultMessage": "Task \"{title}\" has note edited from \"{from}\" to \"{to}\" by {author}"
-  },
-  {
-    "id": "annotation.taskNoteCreated",
-    "defaultMessage": "Task \"{title}\" has new note \"{note}\" by {author}"
   }
 ]

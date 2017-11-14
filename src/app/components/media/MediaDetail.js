@@ -27,6 +27,7 @@ import {
   black38,
   defaultBorderRadius,
   Offset,
+  caption,
   subheading1,
   gutterXSmall,
   Text,
@@ -344,6 +345,11 @@ class MediaDetail extends Component {
                 mediaLastStatus(media),
               )}
             >
+              { MediaUtil.hasCustomDescription(media) ?
+                <Text font={caption}>
+                  {JSON.parse(this.props.media.embed).description}
+                </Text> : null
+              }
               {embedCard}
             </FadeIn>
           </CardText>

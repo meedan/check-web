@@ -134,6 +134,11 @@ const MediaUtil = {
     return overridden.title || media.quote && (title !== media.quote);
   },
 
+  hasCustomDescription(media) {
+    const overridden = media.overridden ? JSON.parse(media.overridden) : {};
+    return overridden.description;
+  },
+
   title(media, data, intl) {
     if (data && data.title && data.title.trim().length) {
       return truncateLength(data.title);
