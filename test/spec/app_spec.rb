@@ -590,13 +590,13 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       element = wait_for_selector("source__add-languages",:class)
       element.click
       sleep 2
-      wait_for_size_change(0, "sourceLanguageInput",:id)
       fill_field("sourceLanguageInput", "Acoli", :id)
       @driver.action.send_keys(:down).perform
       @driver.action.send_keys(:return).perform
       sleep 1
       @driver.navigate.refresh
       sleep 2
+      wait_for_size_change(0, "sourceLanguageInput",:id)
       wait_for_selector("source__tab-button-media",:class)      
       expect(@driver.page_source.include?('Acoli')).to be(true)
       element = wait_for_selector("source__edit-button",:class)
@@ -964,27 +964,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(wait_for_selector_list('//button',:xpath).length < old).to be(true)
     end
 
-    #As a different user, request to join one team.
-    # it "should join team", bin4:true, quick: true do
-    #   api_register_and_login_with_email
-    #   page = MePage.new(config: @config, driver: @driver).load
-    #   page.ask_join_team(subdomain: @team1_slug)
-    #   @wait.until {
-    #     expect(@driver.find_element(:class, "message").nil?).to be(false)
-    #   }
-    #   api_logout
-    #   @driver = new_driver(webdriver_url,browser_capabilities)
-    #   page = Page.new(config: @config, driver: @driver)
-    #   page.go(@config['api_path'] + '/test/session?email='+@user_mail)
-    #   #As the group creator, go to the members page and approve the joining request.
-    #   page = MePage.new(config: @config, driver: @driver).load
-    #       .approve_join_team(subdomain: @team1_slug)
-    #   @wait.until {
-    #     elems = @driver.find_elements(:css => ".team-members__list > div")
-    #     expect(elems.size).to be > 1
-    #   }
-    # end
-
     it "should update notes count after delete annotation", bin3: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
       media_pg.fill_input('#cmd-input', 'Test')
@@ -1063,7 +1042,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       title = get_element('.main-title')
       expect(title.text == 'Not Found').to be(true)
     end
-
 
     # it "should cancel request through switch teams" do
     #   skip("Needs to be implemented")
@@ -1376,15 +1354,15 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       size = wait_for_size_change(old, '.medias__item')
       expect(size == 42).to be(true)
     end
-=begin
-    ***Unstable
 
     it "should show teams at /check/teams", bin4: true do
-      api_create_team
+      api_create_team     
       @driver.navigate.to @config['self_url'] + '/check/teams'
-      sleep 2
+      wait_for_selector("teams", :class)
       expect(@driver.find_elements(:css, '.teams').empty?).to be(false)
     end
+
+=begin
 
     it "should add, edit, answer, update answer and delete geolocation task", bin3: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
