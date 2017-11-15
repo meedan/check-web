@@ -24,6 +24,7 @@ import {
   FadeIn,
   units,
   black87,
+  black54,
   black38,
   defaultBorderRadius,
   Offset,
@@ -348,7 +349,7 @@ class MediaDetail extends Component {
               )}
             >
               { shouldShowDescription &&
-                <Text font={caption}>
+                <Text font={caption} style={{ color: black54 }}>
                   {JSON.parse(this.props.media.embed).description}
                 </Text>
               }

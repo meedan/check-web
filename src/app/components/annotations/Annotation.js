@@ -19,7 +19,7 @@ import IconButton from 'material-ui/IconButton';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import EmbedUpdate from './EmbedUpdate';
-import TaskUpdate from './TaskUpdate';
+import TaskUpdate, { shouldLogChange } from './TaskUpdate';
 import SourcePicture from '../source/SourcePicture';
 import MdImage from 'react-icons/lib/md/image';
 import MediaDetail from '../media/MediaDetail';
@@ -824,7 +824,8 @@ class Annotation extends Component {
       }
       break;
     case 'update_task':
-        contentTemplate = <TaskUpdate activity={activity} authorName={authorName} />;
+        contentTemplate = shouldLogChange(activity) ?
+          <TaskUpdate activity={activity} authorName={authorName} /> : null;
       break;
     default:
       contentTemplate = null;
