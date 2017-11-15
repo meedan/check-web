@@ -125,7 +125,7 @@ class Task extends Component {
   }
 
   handleUpdateAttribution(e) {
-    const { media, task } = this.props; 
+    const { media, task } = this.props;
     const value = document.getElementById(`attribution-${task.dbid}`).value;
 
     const onFailure = (transaction) => {
@@ -183,7 +183,7 @@ class Task extends Component {
     };
 
     if (form.description) {
-      taskObj.description = form.description.value;
+      taskObj.description = form.description.value || null;
     }
 
     if (!this.state.submitDisabled) {
