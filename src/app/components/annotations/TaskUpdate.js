@@ -31,11 +31,17 @@ function shouldLogChange(activity) {
 }
 
 class TaskUpdate extends React.Component {
+  componentWillUpdate(nextProps, nextState) {
+    editedTitle = false;
+    editedNote = false;
+    createdNote = false;
+  }
+
   render() {
     const author = this.props.authorName;
 
     if (shouldLogChange(this.props.activity)) {
-      return (
+      const contentTemplate = (
         <span>
           <span className="annotation__update-task" />
           {editedTitle
@@ -65,6 +71,12 @@ class TaskUpdate extends React.Component {
           : null}
         </span>
       );
+
+      editedTitle = false;
+      editedNote = false;
+      createdNote = false;
+
+      return contentTemplate;
     }
     return null;
   }
