@@ -2,10 +2,14 @@
   "task.confirmDelete": "Voulez-vous vraiment effacer cette tâche ?",
   "tasks.cancelEdit": "Annuler",
   "tasks.save": "Sauvegarder",
+  "tasks.done": "Terminé",
   "task.resolvedBy": "Résolue par {byName}",
   "task.editResponse": "Éditer la réponse",
   "task.edit": "Éditer la tâche",
+  "task.editAttribution": "Éditer l'attribution",
   "task.delete": "Effacer la tâche",
   "tasks.taskLabel": "Étiquette",
-  "tasks.description": "Description"
+  "tasks.description": "Description",
+  "tasks.editAttribution": "Éditer l'attribution",
+  "tasks.attributionSlogan": "Pour la tâche \"{label}\""
 }

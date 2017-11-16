@@ -24,10 +24,14 @@ import {
   FadeIn,
   units,
   black87,
+  black54,
   black38,
   defaultBorderRadius,
   Offset,
+  caption,
   subheading1,
+  gutterXSmall,
+  Text,
 } from '../../styles/js/shared';
 
 const StyledHeading = styled.h3`
@@ -60,11 +64,11 @@ const StyledMediaIconContainer = styled.div`
   }
 `;
 
-const StyledHeaderTextSecondary = styled(Row)`
+const StyledHeaderTextSecondary = styled.div`
   justify-content: flex-start;
   flex-wrap: wrap;
-  font-size: 14;
   font-weight: 400;
+  white-space: nowrap;
 `;
 
 const StyledCardHeader = styled(CardHeader)`
@@ -74,7 +78,6 @@ const StyledCardHeader = styled(CardHeader)`
 `;
 
 const StyledMediaDetail = styled.div`
-
   .card-with-border {
     border-${props => props.fromDirection}: ${units(1)} solid;
     border-color: ${props => props.borderColor};
@@ -123,7 +126,10 @@ class MediaDetail extends Component {
   statusToClass(baseClass, status) {
     // TODO: replace with helpers.js#bemClassFromMediaStatus
     return status.length
-      ? [baseClass, `${baseClass}--${status.toLowerCase().replace(/[ _]/g, '-')}`].join(' ')
+      ? [
+        baseClass,
+        `${baseClass}--${status.toLowerCase().replace(/[ _]/g, '-')}`,
+      ].join(' ')
       : baseClass;
   }
 
@@ -136,7 +142,9 @@ class MediaDetail extends Component {
     const annotationsCount = MediaUtil.notesCount(media, data, this.props.intl);
     const randomNumber = Math.floor(Math.random() * 1000000);
     const status = getStatus(mediaStatuses(media), mediaLastStatus(media));
-    const cardHeaderStatus = <MediaStatus media={media} readonly={this.props.readonly} />;
+    const cardHeaderStatus = (
+      <MediaStatus media={media} readonly={this.props.readonly} />
+    );
     const authorName = MediaUtil.authorName(media, data);
     const authorUsername = MediaUtil.authorUsername(media, data);
     const sourceName = MediaUtil.sourceName(media, data);
@@ -156,17 +164,21 @@ class MediaDetail extends Component {
       ? `/${media.team.slug}/project/${projectId}/media/${media.dbid}`
       : null;
 
-    const title = isWebPage ? (data.title || authorName || authorUsername) : MediaUtil.title(media, data, this.props.intl);
+    const title = isWebPage
+      ? data.title || authorName || authorUsername
+      : MediaUtil.title(media, data, this.props.intl);
 
     const heading = (
       <StyledHeading className="media__heading">
         <Link to={mediaUrl}>
           {title}
         </Link>
-      </StyledHeading>);
+      </StyledHeading>
+    );
 
     const sourceUrl = media.team && media.project && media.project_source
-      ? `/${media.team.slug}/project/${media.project.dbid}/source/${media.project_source.dbid}`
+      ? `/${media.team.slug}/project/${media.project.dbid}/source/${media
+          .project_source.dbid}`
       : null;
 
     const projectTitle = media.project ? media.project.title : null;
@@ -222,7 +234,7 @@ class MediaDetail extends Component {
         );
       }
 
-      return (null);
+      return null;
     })();
 
     const mediaIcon = (() => {
@@ -234,65 +246,85 @@ class MediaDetail extends Component {
       return MediaUtil.socialIcon(media.domain);
     })();
 
-    // Don't display redunant heading if the card is explicitly expanded with state
+    // Don't display redundant heading if the card is explicitly expanded with state
     // (or implicitly expanded with initiallyExpanded prop)
-    // TODO: always display it if it's been edited
-    const shouldNotDisplayHeading =
-      this.state.expanded || (this.state.expanded == null && this.props.initiallyExpanded);
+    // Always display it if it's been edited
+    const shouldDisplayHeading = isImage || MediaUtil.hasCustomTitle(media, data) ||
+      !this.state.expanded && !(this.state.expanded == null && this.props.initiallyExpanded);
 
     const cardClassName =
       `${this.statusToClass('media-detail', mediaLastStatus(media))} ` +
       `media-detail--${MediaUtil.mediaTypeCss(media, data)}`;
 
+    const shouldShowProjectName = !projectPage && projectTitle;
+
+    const shouldShowDescription = MediaUtil.hasCustomDescription(media, data);
+
     const cardHeaderText = (
       <div>
-        {shouldNotDisplayHeading
-          ? null
-          : <StyledHeadingContainer>
-            {heading}
-          </StyledHeadingContainer>}
-        <StyledHeaderTextSecondary shouldNotDisplayHeading>
-          <StyledMediaIconContainer>
-            {mediaIcon}
-          </StyledMediaIconContainer>
-          {createdAt
-            ? <Row className="media-detail__check-added-at">
-              <Offset isRtl={isRtl}>
-                <Link className="media-detail__check-timestamp" to={mediaUrl}>
-                  <TimeBefore date={createdAt} />
-                </Link>
-              </Offset>
-              {(!projectPage && projectTitle) && <Link to={projectUrl}>in {projectTitle}</Link>}
-              <Offset isRtl={isRtl}>
-                <Link to={mediaUrl}>
-                  <span className="media-detail__check-notes-count">
-                    {annotationsCount}
-                  </span>
-                </Link>
-              </Offset>
-            </Row>
-            : null}
-          {sourceUrl && sourceName
+        {shouldDisplayHeading ?
+          <StyledHeadingContainer>{heading}</StyledHeadingContainer> : null
+        }
+        <StyledHeaderTextSecondary>
+          <Row wrap>
+            { createdAt
+              ? <Row wrap>
+                <Row>
+                  <StyledMediaIconContainer>
+                    {mediaIcon}
+                  </StyledMediaIconContainer>
+                  <Offset isRtl={isRtl}>
+                    <Link className="media-detail__check-timestamp" to={mediaUrl}>
+                      <TimeBefore date={createdAt} />
+                    </Link>
+                  </Offset>
+                </Row>
+
+                { shouldShowProjectName &&
+                  <Offset isRtl={isRtl} >
+                    <Link to={projectUrl} >
+                      <Row>
+                        <Text noShrink>in&nbsp;</Text>
+                        <Text ellipsis maxWidth="300px">{projectTitle}</Text>
+                      </Row>
+                    </Link>
+                  </Offset>
+                }
+
+                <Offset isRtl={isRtl}>
+                  <Link to={mediaUrl}>
+                    <span className="media-detail__check-notes-count">
+                      {annotationsCount}
+                    </span>
+                  </Link>
+                </Offset>
+              </Row>
+              : null }
+
+
+            {sourceUrl && sourceName
             ? <Offset isRtl={isRtl}>
               <Link to={sourceUrl}>
                 <Row>
                   {/* ideally this would be SourcePicture not FaFeed — CGB 2017-9-13 */}
                   <FaFeed style={{ width: 16 }} />
                   {' '}
-                  { sourceName }
+                  <Text ellipsis maxWidth="300px">{sourceName}</Text>
                 </Row>
               </Link>
             </Offset>
             : null}
+          </Row>
         </StyledHeaderTextSecondary>
       </div>
     );
 
-
     return (
       <StyledMediaDetail
         className={cardClassName}
-        borderColor={this.props.borderColor || getStatusStyle(status, 'backgroundColor')}
+        borderColor={
+          this.props.borderColor || getStatusStyle(status, 'backgroundColor')
+        }
         fromDirection={fromDirection}
         hideBorder={this.props.hideBorder}
       >
@@ -310,7 +342,17 @@ class MediaDetail extends Component {
           />
 
           <CardText expandable>
-            <FadeIn className={this.statusToClass('media-detail__media', mediaLastStatus(media))}>
+            <FadeIn
+              className={this.statusToClass(
+                'media-detail__media',
+                mediaLastStatus(media),
+              )}
+            >
+              { shouldShowDescription &&
+                <Text font={caption} style={{ color: black54 }}>
+                  {JSON.parse(this.props.media.embed).description}
+                </Text>
+              }
               {embedCard}
             </FadeIn>
           </CardText>

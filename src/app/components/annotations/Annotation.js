@@ -18,6 +18,8 @@ import IconMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
 import IconButton from 'material-ui/IconButton';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
+import EmbedUpdate from './EmbedUpdate';
+import TaskUpdate, { shouldLogChange } from './TaskUpdate';
 import SourcePicture from '../source/SourcePicture';
 import MdImage from 'react-icons/lib/md/image';
 import MediaDetail from '../media/MediaDetail';
@@ -738,6 +740,8 @@ class Annotation extends Component {
         );
       break;
     case 'update_embed':
+        contentTemplate = <EmbedUpdate activity={activity} authorName={authorName} />;
+      break;
     case 'create_embed':
       if (content.title) {
         if (annotated.quote && annotated.quote === content.title) {
@@ -760,7 +764,7 @@ class Annotation extends Component {
             <span>
               <FormattedMessage
                 id="annotation.titleChanged"
-                defaultMessage={'Title changed to {title} by {author}'}
+                defaultMessage={'Title changed to "{title}" by {author}'}
                 values={{ title: <span>{content.title}</span>, author: authorName }}
               />
             </span>
@@ -820,55 +824,8 @@ class Annotation extends Component {
       }
       break;
     case 'update_task':
-      const changes = JSON.parse(activity.object_changes_json);
-      if (changes.data) {
-        const from = changes.data[0];
-        const to = changes.data[1];
-        let editedTitle = false;
-        let editedNote = false;
-        let createdNote = false;
-        if (from.label && to.label && from.label != to.label) {
-          editedTitle = true;
-        }
-        if (to.description && from.description != to.description) {
-          editedNote = true;
-        }
-        if (!from.description && to.description) {
-          editedNote = false;
-          createdNote = true;
-        }
-        const author = authorName;
-        if (editedTitle || editedNote || createdNote) {
-          contentTemplate = (
-            <span>
-              <span className="annotation__update-task" />
-              {editedTitle
-                  ? <FormattedMessage
-                    id="annotation.taskLabelUpdated"
-                    defaultMessage={'Task "{from}" edited to "{to}" by {author}'}
-                    values={{ from: from.label, to: to.label, author }}
-                  />
-                  : null}
-              {editedNote
-                  ? <FormattedMessage
-                    id="annotation.taskNoteUpdated"
-                    defaultMessage={
-                        'Task "{title}" has note edited from "{from}" to "{to}" by {author}'
-                      }
-                    values={{ title: to.label, from: from.description, to: to.description, author }}
-                  />
-                  : null}
-              {createdNote
-                  ? <FormattedMessage
-                    id="annotation.taskNoteCreated"
-                    defaultMessage={'Task "{title}" has new note "{note}" by {author}'}
-                    values={{ title: to.label, note: to.description, author }}
-                  />
-                  : null}
-            </span>
-            );
-        }
-      }
+        contentTemplate = shouldLogChange(activity) ?
+          <TaskUpdate activity={activity} authorName={authorName} /> : null;
       break;
     default:
       contentTemplate = null;

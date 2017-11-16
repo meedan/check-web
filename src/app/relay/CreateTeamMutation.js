@@ -11,6 +11,10 @@ class CreateTeamMutation extends Relay.Mutation {
   getFatQuery() {
     return Relay.QL`
       fragment on CreateTeamPayload {
+        user {
+          team_users
+        }
+        team_userEdge
         team
       }
     `;
@@ -34,6 +38,16 @@ class CreateTeamMutation extends Relay.Mutation {
           }
         }`,
       ],
+    },
+    {
+      type: 'RANGE_ADD',
+      parentName: 'user',
+      parentID: this.props.user.id,
+      connectionName: 'team_users',
+      edgeName: 'team_userEdge',
+      rangeBehaviors: {
+        '': 'append',
+      },
     }];
   }
 }

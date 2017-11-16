@@ -4,6 +4,14 @@
     "defaultMessage": "Title"
   },
   {
+    "id": "mediaDetail.mediaDescription",
+    "defaultMessage": "Description"
+  },
+  {
+    "id": "mediaDetail.editReport",
+    "defaultMessage": "Edit report"
+  },
+  {
     "id": "mediaDetail.moveFailed",
     "defaultMessage": "Sorry, we could not move this report"
   },

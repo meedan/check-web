@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { defineMessages, injectIntl } from 'react-intl';
+import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import { Card, CardActions } from 'material-ui/Card';
 import styled from 'styled-components';
 import rtlDetect from 'rtl-detect';
@@ -7,7 +7,7 @@ import TimelineHeader from './TimelineHeader';
 import AddAnnotation from './AddAnnotation';
 import Annotation from './Annotation';
 import Can from '../Can';
-import { units, black16, white, opaqueBlack16, borderWidthMedium } from '../../styles/js/shared';
+import { units, black16, black38, white, opaqueBlack16, borderWidthMedium, Text } from '../../styles/js/shared';
 
 const messages = defineMessages({
   timelineTitle: {
@@ -93,14 +93,18 @@ class Annotations extends Component {
       > <Card>
         <TimelineHeader msgObj={messages} msgKey="timelineTitle" />
         <div className="annotations__list">
-          {annotations.map(annotation =>
-            <div key={annotation.node.dbid} className="annotations__list-item">
-              {this.annotationComponent(
-                  annotation.node,
-                  props.annotated,
-                  props.annotatedType,
-                )}
-            </div>,
+          { annotations.length === 0
+            ? <Text style={{ margin: 'auto', color: black38 }}>
+                <FormattedMessage id="annotation.noAnnotationsYet" defaultMessage="No annotations yet" />
+              </Text>
+            : annotations.map(annotation =>
+              <div key={annotation.node.dbid} className="annotations__list-item">
+                {this.annotationComponent(
+                    annotation.node,
+                    props.annotated,
+                    props.annotatedType,
+                  )}
+              </div>,
             )}
         </div>
         <StyledAnnotationCardActions>

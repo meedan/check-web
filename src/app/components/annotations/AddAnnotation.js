@@ -65,12 +65,16 @@ const styles = {
   errorStyle: {
     color: alertRed,
   },
+  successStyle: {
+    color: black87,
+  },
 };
 
 class AddAnnotation extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      cmd: '',
       message: null,
       isSubmitting: false,
       fileMode: false,
@@ -97,11 +101,15 @@ class AddAnnotation extends Component {
   }
 
   success(message) {
-    this.setState({ message, isSubmitting: false, fileMode: false });
-    const field = document.forms.addannotation.cmd;
     document.forms.addannotation.image = null;
-    field.value = '';
-    field.blur();
+
+    this.setState({
+      cmd: '',
+      message,
+      isSubmitting: false,
+      fileMode: false,
+      messageStyle: styles.successStyle
+    });
   }
 
   fail(transaction) {
@@ -120,9 +128,11 @@ class AddAnnotation extends Component {
     if (json && json.error) {
       message = json.error;
     }
+
     this.setState({
       message: message.replace(/<br\s*\/?>/gm, '; '),
       isSubmitting: false,
+      messageStyle: styles.errorStyle,
     });
   }
 
@@ -345,12 +355,16 @@ class AddAnnotation extends Component {
     );
   }
 
+  handleChange(e) {
+    this.setState({ cmd: e.target.value, message: null });
+  }
+
   handleFocus() {
     this.setState({ message: null });
   }
 
   handleSubmit(e) {
-    const command = this.parseCommand(document.forms.addannotation.cmd.value);
+    const command = this.parseCommand(this.state.cmd);
     if (this.state.isSubmitting) {
       return e.preventDefault();
     }
@@ -425,7 +439,7 @@ class AddAnnotation extends Component {
       .add-annotation__insert-photo {
         svg {
           path { color: ${black38}; }
-          &:hover path { 
+          &:hover path {
             color: ${black87};
             cusor: pointer;
           }
@@ -446,7 +460,7 @@ class AddAnnotation extends Component {
             hintText={this.props.intl.formatMessage(messages.inputHint)}
             fullWidth={false}
             style={{ width: '100%' }}
-            errorStyle={styles.errorStyle}
+            errorStyle={this.state.messageStyle}
             onFocus={this.handleFocus.bind(this)}
             ref={ref => (this.cmd = ref)}
             errorText={this.state.message}
@@ -454,6 +468,8 @@ class AddAnnotation extends Component {
             id="cmd-input"
             multiLine
             onKeyPress={this.handleKeyPress.bind(this)}
+            value={this.state.cmd}
+            onChange={this.handleChange.bind(this)}
           />
           {(() => {
             if (this.state.fileMode) {
