@@ -24,9 +24,11 @@ import {
   FadeIn,
   units,
   black87,
+  black54,
   black38,
   defaultBorderRadius,
   Offset,
+  caption,
   subheading1,
   gutterXSmall,
   Text,
@@ -256,6 +258,8 @@ class MediaDetail extends Component {
 
     const shouldShowProjectName = !projectPage && projectTitle;
 
+    const shouldShowDescription = MediaUtil.hasCustomDescription(media, data);
+
     const cardHeaderText = (
       <div>
         {shouldDisplayHeading ?
@@ -344,6 +348,11 @@ class MediaDetail extends Component {
                 mediaLastStatus(media),
               )}
             >
+              { shouldShowDescription &&
+                <Text font={caption} style={{ color: black54 }}>
+                  {JSON.parse(this.props.media.embed).description}
+                </Text>
+              }
               {embedCard}
             </FadeIn>
           </CardText>

@@ -56,6 +56,14 @@ const messages = defineMessages({
     id: 'mediaDetail.mediaTitle',
     defaultMessage: 'Title',
   },
+  mediaDescription: {
+    id: 'mediaDetail.mediaDescription',
+    defaultMessage: 'Description',
+  },
+  editReport: {
+    id: 'mediaDetail.editReport',
+    defaultMessage: 'Edit report',
+  },
   error: {
     id: 'mediaDetail.moveFailed',
     defaultMessage: 'Sorry, we could not move this report',
@@ -77,6 +85,7 @@ class MediaMetadata extends Component {
       openEditDialog: false,
       openDeleteDialog: false,
       confirmationError: false,
+      submitDisabled: true,
     };
   }
 
@@ -295,6 +304,13 @@ class MediaMetadata extends Component {
     this.setState({ openMoveDialog: false });
   }
 
+  canSubmit() {
+    const title = this.state.title && !!this.state.title.trim();
+    const description = this.state.description && !!this.state.description.trim();
+
+    this.setState({ submitDisabled: !title && !description });
+  }
+
   currentProject() {
     const projectId = this.props.media.project_id;
     const context = this.getContext();
@@ -317,20 +333,27 @@ class MediaMetadata extends Component {
     return [];
   }
 
+  handleChangeTitle(e) {
+    this.setState({ title: e.target.value }, this.canSubmit);
+  }
+
+  handleChangeDescription(e) {
+    this.setState({ description: e.target.value }, this.canSubmit);
+  }
+
   handleSave(media, event) {
+    if (this.state.submitDisabled) { return; }
+
     if (event) {
       event.preventDefault();
     }
 
-    const titleInput = document.querySelector(
-      `#media-detail-title-input-${media.dbid}`,
-    );
-    const newTitle = (titleInput.value || '').trim();
+    const title = this.state.title && this.state.title.trim();
+    const description = this.state.description && this.state.description.trim();
 
-    if (newTitle === this.props.heading) {
-      this.setState({ isEditing: false });
-      return;
-    }
+    const embed = {};
+    embed.title = title;
+    embed.description = description;
 
     const onFailure = (transaction) => {
       const transactionError = transaction.getError();
@@ -345,17 +368,17 @@ class MediaMetadata extends Component {
 
     Relay.Store.commitUpdate(
       new UpdateProjectMediaMutation({
-        embed: JSON.stringify({ title: newTitle }),
+        embed: JSON.stringify(embed),
         id: media.id,
       }),
       { onSuccess, onFailure },
     );
 
-    this.setState({ isEditing: false });
+    this.setState({ isEditing: false, submitDisabled: true });
   }
 
   handleCancel() {
-    this.setState({ isEditing: false });
+    this.setState({ isEditing: false, title: null, description: null, submitDisabled: true });
   }
 
   handleCloseDialogs() {
@@ -373,6 +396,7 @@ class MediaMetadata extends Component {
 
   render() {
     const { media } = this.props;
+    const data = JSON.parse(media.embed);
     const context = this.getContext();
     const locale = this.props.intl.locale;
     const isRtl = rtlDetect.isRtlLang(locale);
@@ -414,9 +438,14 @@ class MediaMetadata extends Component {
       />,
     ];
 
+    const description = MediaUtil.hasCustomDescription(media, data)
+      ? data.description
+      : null;
+
     const editDialog = (
       <Dialog
         modal
+        title={this.props.intl.formatMessage(messages.editReport)}
         open={this.state.isEditing}
         onRequestClose={this.handleCloseDialogs.bind(this)}
         autoScrollBodyContent
@@ -427,8 +456,19 @@ class MediaMetadata extends Component {
             type="text"
             id={`media-detail-title-input-${media.dbid}`}
             className="media-detail__title-input"
-            placeholder={this.props.intl.formatMessage(messages.mediaTitle)}
+            floatingLabelText={this.props.intl.formatMessage(messages.mediaTitle)}
             defaultValue={this.props.heading}
+            onChange={this.handleChangeTitle.bind(this)}
+            style={{ width: '100%' }}
+          />
+
+          <TextField
+            type="text"
+            id={`media-detail-description-input-${media.dbid}`}
+            className="media-detail__description-input"
+            floatingLabelText={this.props.intl.formatMessage(messages.mediaDescription)}
+            defaultValue={description}
+            onChange={this.handleChangeDescription.bind(this)}
             style={{ width: '100%' }}
           />
         </form>
@@ -457,6 +497,8 @@ class MediaMetadata extends Component {
                 defaultMessage="Done"
               />
             }
+            disabled={this.state.submitDisabled}
+            primary
           />
         </span>
       </Dialog>
@@ -482,7 +524,6 @@ class MediaMetadata extends Component {
       />,
     ];
 
-    const data = JSON.parse(media.embed);
     const url = MediaUtil.url(media, data);
 
     return (
