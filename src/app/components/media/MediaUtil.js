@@ -137,7 +137,9 @@ const MediaUtil = {
   hasCustomDescription(media, data) {
     const overridden = media.overridden ? JSON.parse(media.overridden) : {};
     const description = data && data.description && data.description.trim();
-    return overridden.description || media.quote && (description !== media.quote);
+    return overridden.description || // Link type report
+      media.quote && (description !== media.quote) || // Quote type report
+      (media.embed_path && description); // Image type report
   },
 
   title(media, data, intl) {
