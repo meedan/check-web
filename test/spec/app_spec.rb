@@ -1355,7 +1355,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(size == 42).to be(true)
     end
 
-    it "should show teams at /check/teams", bin4: true do
+    it "should show teams at /check/teams", bin1: true do
       api_create_team     
       @driver.navigate.to @config['self_url'] + '/check/teams'
       wait_for_selector("teams", :class)
@@ -1414,13 +1414,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 =end
 
-=begin
-  # This tests is unreliable
-  # Todo: locally prints 1 / 2 and remote 0 / 1
-  #
-  # ccx 2017-10-13
-     it "should add image to media comment", bin3: true do
-      p "----------"
+    it "should add image to media comment", bin: true, bin3: true do
       api_create_team_project_and_claim_and_redirect_to_media_page
       # First, verify that there isn't any comment with image
       expect(@driver.page_source.include?('This is my comment with image')).to be(false)
@@ -1435,8 +1429,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       input.send_keys(File.join(File.dirname(__FILE__), 'test.png'))
       el = wait_for_selector('.add-annotation__buttons button')
       el.click
-      p old
-      p wait_for_size_change(old, "annotations__list-item", :class)
+      wait_for_size_change(old, "annotations__list-item", :class)
 
       # Verify that comment was added to annotations list
       expect(@driver.page_source.include?('This is my comment with image')).to be(true)
@@ -1445,9 +1438,13 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Zoom image
       expect(@driver.find_elements(:css, '.image-current').empty?).to be(true)
-      @driver.find_element(:css, '.annotation__card-thumbnail').click
+      el = wait_for_selector('.annotation__card-thumbnail')
+      el.click
+
+      wait_for_selector('.close')
       expect(@driver.find_elements(:css, '.image-current').empty?).to be(false)
       @driver.action.send_keys(:escape).perform
+      @wait.until {@driver.find_elements(:css, '.close').length == 0 }
       expect(@driver.find_elements(:css, '.image-current').empty?).to be(true)
 
       # Reload the page and verify that comment is still there
@@ -1456,10 +1453,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('This is my comment with image')).to be(true)
       imgsrc = @driver.find_element(:css, '.annotation__card-thumbnail').attribute('src')
       expect(imgsrc.match(/test\.png$/).nil?).to be(false)
-      p "----------"
     end
 
-=end
 =begin
     ***Unstable***
 
