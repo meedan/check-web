@@ -1138,9 +1138,62 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       delete_task('Foo')
     end
 
-    # it "should add, edit, answer, update answer and delete single_choice task" do
-    #   skip("Needs to be implemented")
-    # end
+    it "should add, edit, answer, update answer and delete single_choice task", bin2: true  do
+      media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
+      wait_for_selector('.create-task__add-button')
+      # Create a task
+      expect(@driver.page_source.include?('Foo or bar?')).to be(false)
+      expect(@driver.page_source.include?('Task "Foo or bar?" created by')).to be(false)
+      el = wait_for_selector('.create-task__add-button', :css)
+      el.click
+      sleep 1
+      el = wait_for_selector('create-task__add-choose-one', :class)
+      el.click
+      wait_for_selector('#task-label-input', :css)
+      fill_field('#task-label-input', 'Foo or bar?')
+      fill_field('0', 'Foo', :id)
+      fill_field('1', 'Bar', :id)
+      el = wait_for_selector('.create-task__dialog-submit-button', :css)
+      el.click
+      media_pg.wait_all_elements(2, "annotations__list-item", :class) #Wait for refresh page
+      expect(@driver.page_source.include?('Foo or bar?')).to be(true)
+      expect(@driver.page_source.include?('Task "Foo or bar?" created by')).to be(true)
+      # Answer task
+      expect(@driver.page_source.include?('Task "Foo or bar?" answered by')).to be(false)
+      el = wait_for_selector('0', :id)
+      el.click
+      el = wait_for_selector('task__submit', :class)
+      el.click
+      media_pg.wait_all_elements(3, "annotations__list-item", :class)
+      expect(@driver.page_source.include?('Task "Foo or bar?" answered by')).to be(true)
+      # Edit task
+      expect(@driver.page_source.include?('Task "Foo or bar?" edited to "Foo or bar???" by')).to be(false)
+      el = wait_for_selector('.task-actions__icon', :css)
+      el.click
+      media_pg.wait_all_elements(6, "annotations__list-item", :class)
+      editbutton = wait_for_selector('.task-actions__edit', :css)
+      editbutton.location_once_scrolled_into_view
+      editbutton.click
+      fill_field('textarea[name="label"]', '??')
+      editbutton = wait_for_selector('.task__save', :css)
+      editbutton.click
+      media_pg.wait_all_elements(7, "annotations__list-item", :class)
+      expect(@driver.page_source.include?('Task "Foo or bar?" edited to "Foo or bar???" by')).to be(true)
+      # Edit task answer
+      expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Task "Foo or bar???" answered by User With Email: "Foo edited"')).to be(false)
+      el = wait_for_selector('.task-actions__icon', :css)
+      el.click
+      el = wait_for_selector('.task-actions__edit-response', :css)
+      el.click
+      el = wait_for_selector('1', :id)
+      el.click
+      el = wait_for_selector('task__submit', :class)
+      el.click
+      media_pg.wait_all_elements(8, "annotations__list-item", :class) #Wait for refresh page
+      expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Task "Foo or bar???" answered by User With Email: "Bar"')).to be(true)
+      # Delete task
+      delete_task('Foo')    
+    end
 
     # it "should add, edit, answer, update answer and delete multiple_choice task" do
     #   skip("Needs to be implemented")
@@ -1414,7 +1467,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 =end
 
-    it "should add image to media comment", bin: true, bin3: true do
+    it "should add image to media comment", bin3: true do
       api_create_team_project_and_claim_and_redirect_to_media_page
       # First, verify that there isn't any comment with image
       expect(@driver.page_source.include?('This is my comment with image')).to be(false)
@@ -1529,7 +1582,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     #   expect(avatar.attribute('src').match(/test\.png/).nil?).to be(false)
     # end
 
-    # i t"should delete annotation from annotations list (for media, source and project)" do
+    # it "should delete annotation from annotations list (for media, source and project)" do
     #   skip("Needs to be implemented")
     # end
     end
