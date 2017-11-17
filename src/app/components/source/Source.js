@@ -34,6 +34,7 @@ const SourceContainer = Relay.createContainer(SourceComponent, {
           image,
           user_id,
           description,
+          lock_version,
           permissions,
           pusher_channel,
           verification_statuses,
