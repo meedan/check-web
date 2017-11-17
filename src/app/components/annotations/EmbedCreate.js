@@ -42,7 +42,7 @@ class EmbedCreate extends React.Component {
             <FormattedMessage
               id="annotation.titleChanged"
               defaultMessage={'Title changed to "{title}" by {author}'}
-              values={{ title: <span>{content.title}</span>, author: authorName }}
+              values={{ title: content.title, author: authorName }}
             />
           }
           { editedTitle && createdNote && <br /> }
@@ -50,7 +50,7 @@ class EmbedCreate extends React.Component {
             <FormattedMessage
               id="annotation.embedNoteCreated"
               defaultMessage={'Description "{note}" was added by {author}'}
-              values={{ note: <span>{content.description}</span>, author: authorName }}
+              values={{ note: content.description, author: authorName }}
             />
           }
         </span>
