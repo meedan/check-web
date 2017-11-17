@@ -595,7 +595,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       @driver.action.send_keys(:return).perform
       sleep 1
       wait_for_size_change(0, "sourceLanguageInput",:id)
-      @driver.navigate.refresh
+      element = wait_for_selector("source__edit-save-button",:class)
+      element.click      
       sleep 2
       wait_for_selector("source-tags__tag",:class)  
       expect(@driver.page_source.include?('Acoli')).to be(true)
@@ -605,7 +606,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       elements =wait_for_selector_list("div.source-tags__tag svg")
       elements[0].click
       sleep 1
-      @driver.navigate.refresh
+      element = wait_for_selector("source__edit-save-button",:class)
+      element.click      
       sleep 2
       wait_for_selector("source__tab-button-media",:class)
       expect(@driver.page_source.include?('Acoli')).to be(false)
