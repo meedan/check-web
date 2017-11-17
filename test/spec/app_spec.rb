@@ -1215,7 +1215,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should search by project", bin2: true do
-      api_create_claim_and_go_to_search_pagetrew
+      api_create_claim_and_go_to_search_page
       expect((@driver.current_url.to_s.match(/project/)).nil?).to be(true)
       @driver.find_element(:xpath, "//div[contains(text(), 'Project')]").click
       sleep 10
