@@ -594,9 +594,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       @driver.action.send_keys(:down).perform
       @driver.action.send_keys(:return).perform
       sleep 1
+      wait_for_size_change(0, "sourceLanguageInput",:id)
       @driver.navigate.refresh
       sleep 2
-      wait_for_size_change(0, "sourceLanguageInput",:id)
       wait_for_selector("source__tab-button-media",:class)      
       expect(@driver.page_source.include?('Acoli')).to be(true)
       element = wait_for_selector("source__edit-button",:class)
@@ -1018,25 +1018,11 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Auto-Refresh')).to be(true)
     end
 
-    it "should give 404 when trying to acess a media that is not related to the project on the URL", bin1: true do
+    it "should give 404 when trying to access a media that is not related to the project on the URL", bin1: true do
+      t1 = api_create_team_and_project()
       data = api_create_team_project_and_link 'https://twitter.com/TheWho/status/890135323216367616'
-      @driver.navigate.to @config['self_url'] + '/check/me'     
-      wait_for_selector("team__edit-button", :class) 
-      el = wait_for_selector("//span[contains(text(), 'Create Team')]",:xpath)
-      el.click
-      team = "testteam#{Time.now.to_i}"
-      el = wait_for_selector("create-team__team-display-name-input",:class)
-      el.click
-
-      fill_field('team-name-container', team, :id)
-      el = wait_for_selector('team-slug-container',:id)
-      el.click
-      el.clear
-      fill_field('team-slug-container', team, :id)
-      el = wait_for_selector("create-team__submit-button",:class)
-      el.click
-      wait_for_selector("team-members__profile-link",:class)
-      url = @config['self_url'] + '/'+ team +'/project/'+data.project_id.to_s + '/media/'+data.media_id.to_s
+      url = data.full_url
+      url = url[0..data.full_url.index("project")+7]+t1[:project].dbid.to_s + url[url.index("/media")..url.length-1]
       @driver.navigate.to url
       wait_for_selector("main-title",:class)
       title = get_element('.main-title')
@@ -1229,7 +1215,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should search by project", bin2: true do
-      api_create_claim_and_go_to_search_page
+      api_create_claim_and_go_to_search_pagetrew
       expect((@driver.current_url.to_s.match(/project/)).nil?).to be(true)
       @driver.find_element(:xpath, "//div[contains(text(), 'Project')]").click
       sleep 10
@@ -1344,7 +1330,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
         expect(@driver.page_source.include?('Embed')).to be(false)
         @driver.navigate.to "#{@driver.current_url}/embed"
         sleep 2
-        expect(@drivre.page_source.include?('Not available')).to be(true)
+        expect(@driver.page_source.include?('Not available')).to be(true)
       elsif @config['app_name'] == 'check'
         expect(@driver.page_source.include?('Embed')).to be(true)
         url = @driver.current_url.to_s
