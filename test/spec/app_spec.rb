@@ -597,7 +597,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_size_change(0, "sourceLanguageInput",:id)
       @driver.navigate.refresh
       sleep 2
-      wait_for_selector("source__tab-button-media",:class)      
+      wait_for_selector("source-tags__tag",:class)  
       expect(@driver.page_source.include?('Acoli')).to be(true)
       element = wait_for_selector("source__edit-button",:class)
       element.click
