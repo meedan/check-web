@@ -4,51 +4,60 @@ import MediaUtil from '../media/MediaUtil';
 
 class EmbedCreate extends React.Component {
   render() {
-    let contentTemplate = null;
     const { content, annotated, authorName } = this.props;
+    let contentTemplate = null;
+    let addedReport = false;
+    let editedTitle = false;
+    let createdNote = false;
+
+    const reportType = MediaUtil.typeLabel(
+      annotated,
+      content,
+      this.props.intl,
+    ).toLowerCase();
 
     if (content.title) {
       if (annotated.quote && annotated.quote === content.title) {
-        const reportType = MediaUtil.typeLabel(
-            annotated,
-            content,
-            this.props.intl,
-          ).toLowerCase();
-        contentTemplate = (
-          <span>
+        addedReport = true;
+      } else {
+        editedTitle = true;
+      }
+    }
+
+    if (content.description) {
+      createdNote = true;
+    }
+
+    if (addedReport || editedTitle || createdNote) {
+      return (
+        <span className="annotation__update-embed">
+          { addedReport &&
             <FormattedMessage
               id="annotation.newReport"
               defaultMessage={'New {reportType} added by {author}'}
               values={{ reportType, author: authorName }}
             />
-          </span>
-          );
-      } else {
-        contentTemplate = (
-          <span>
+          }
+          { editedTitle &&
             <FormattedMessage
               id="annotation.titleChanged"
               defaultMessage={'Title changed to "{title}" by {author}'}
               values={{ title: <span>{content.title}</span>, author: authorName }}
             />
-          </span>
-          );
-      }
-    }
-
-    if (content.description) {
-      contentTemplate = (
-        <span>
-          <FormattedMessage
-            id="annotation.embedNoteCreated"
-            defaultMessage={'Description "{note}" was added by {author}'}
-            values={{ note: <span>{content.description}</span>, author: authorName }}
-          />
+          }
+          { editedTitle && createdNote && <br /> }
+          { createdNote &&
+            <FormattedMessage
+              id="annotation.embedNoteCreated"
+              defaultMessage={'Description "{note}" was added by {author}'}
+              values={{ note: <span>{content.description}</span>, author: authorName }}
+            />
+          }
         </span>
       );
     }
 
-    return contentTemplate;
+    return null;
   }
 }
 
