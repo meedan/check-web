@@ -359,29 +359,24 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(id1 == id2).to be(true)
     end
 
-    # This test is flaky
-    # Todo: consider fixing it or removing it
-    #
-    # CGB 2017-9-29
-    #
-    # it "should tag source as a command", bin6: true do
-    #   api_create_team_project_and_source_and_redirect_to_source('ACDC', 'https://twitter.com/acdc')
-    #   sleep 3
-    #   @driver.find_element(:css, '.source__tab-button-notes').click
-
-    #   expect(@driver.page_source.include?('Tagged #command')).to be(false)
-
-    #   fill_field('#cmd-input', '/tag command')
-    #   @driver.action.send_keys(:enter).perform
-    #   sleep 5
-
-    #   expect(@driver.page_source.include?('Tagged #command')).to be(true)
-
-    #   @driver.navigate.refresh
-    #   sleep 5
-    #   @driver.find_element(:css, '.source__tab-button-notes').click
-    #   expect(@driver.page_source.include?('Tagged #command')).to be(true)
-    # end
+    it "should tag source as a command", bin6: true do
+      api_create_team_project_and_source_and_redirect_to_source('ACDC', 'https://twitter.com/acdc')
+      wait_for_selector('source__tab-button-account', :class)
+      expect(@driver.page_source.include?('command')).to be(false)
+      el = wait_for_selector('.source__tab-button-notes')            
+      el.click
+      wait_for_selector('add-annotation__insert-photo', :class)
+      expect(@driver.page_source.include?('Tagged #command')).to be(false)
+      fill_field('#cmd-input', '/tag command')
+      @driver.action.send_keys(:enter).perform
+      sleep 5
+      wait_for_size_change(0,'annotations__list-item', :class)
+      expect(@driver.page_source.include?('Tagged #command')).to be(true)
+      @driver.navigate.refresh
+      sleep 3
+      wait_for_selector('source__tab-button-account', :class)
+      expect(@driver.page_source.include?('command')).to be(true)
+    end
 
     # This test is flaky
     # Todo: consider fixing it or removing it
@@ -585,28 +580,36 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should add and remove source languages", bin6: true  do
       api_create_team_project_and_source_and_redirect_to_source('GOT', 'https://twitter.com/GameOfThrones')
-      sleep 5
-      element = @driver.find_element(:class, "source__edit-button")
+      wait_for_selector("source__tab-button-account",:class)
+      element = wait_for_selector("source__edit-button",:class)
       element.click
-      sleep 1
-      @driver.find_element(:class, "source__edit-addinfo-button").click
-      sleep 1
-      @driver.find_element(:class, "source__add-languages").click
+      wait_for_selector("source__edit-buttons-cancel-save",:class)
+      element = wait_for_selector("source__edit-addinfo-button",:class)
+      element.click
+      sleep 2
+      element = wait_for_selector("source__add-languages",:class)
+      element.click
+      sleep 2
       fill_field("sourceLanguageInput", "Acoli", :id)
       @driver.action.send_keys(:down).perform
       @driver.action.send_keys(:return).perform
+      sleep 1
+      wait_for_size_change(0, "sourceLanguageInput",:id)
+      element = wait_for_selector("source__edit-save-button",:class)
+      element.click      
       sleep 2
-      @driver.navigate.refresh
-      sleep 3
+      wait_for_selector("source-tags__tag",:class)  
       expect(@driver.page_source.include?('Acoli')).to be(true)
-      sleep 1 until element = @driver.find_element(:class, "source__edit-button")
+      element = wait_for_selector("source__edit-button",:class)
       element.click
       sleep 1
-      list = @driver.find_elements(:css => "div.source-tags__tag svg")
-      list[0].click
+      elements =wait_for_selector_list("div.source-tags__tag svg")
+      elements[0].click
       sleep 1
-      @driver.navigate.refresh
-      sleep 3
+      element = wait_for_selector("source__edit-save-button",:class)
+      element.click      
+      sleep 2
+      wait_for_selector("source__tab-button-media",:class)
       expect(@driver.page_source.include?('Acoli')).to be(false)
     end
 
@@ -963,27 +966,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(wait_for_selector_list('//button',:xpath).length < old).to be(true)
     end
 
-    #As a different user, request to join one team.
-    # it "should join team", bin4:true, quick: true do
-    #   api_register_and_login_with_email
-    #   page = MePage.new(config: @config, driver: @driver).load
-    #   page.ask_join_team(subdomain: @team1_slug)
-    #   @wait.until {
-    #     expect(@driver.find_element(:class, "message").nil?).to be(false)
-    #   }
-    #   api_logout
-    #   @driver = new_driver(webdriver_url,browser_capabilities)
-    #   page = Page.new(config: @config, driver: @driver)
-    #   page.go(@config['api_path'] + '/test/session?email='+@user_mail)
-    #   #As the group creator, go to the members page and approve the joining request.
-    #   page = MePage.new(config: @config, driver: @driver).load
-    #       .approve_join_team(subdomain: @team1_slug)
-    #   @wait.until {
-    #     elems = @driver.find_elements(:css => ".team-members__list > div")
-    #     expect(elems.size).to be > 1
-    #   }
-    # end
-
     it "should update notes count after delete annotation", bin3: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
       media_pg.fill_input('#cmd-input', 'Test')
@@ -1038,11 +1020,18 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Auto-Refresh')).to be(true)
     end
 
-    # it "should cancel request through switch teams" do
-    #   skip("Needs to be implemented")
-    # end
+    it "should give 404 when trying to access a media that is not related to the project on the URL", bin1: true do
+      t1 = api_create_team_and_project()
+      data = api_create_team_project_and_link 'https://twitter.com/TheWho/status/890135323216367616'
+      url = data.full_url
+      url = url[0..data.full_url.index("project")+7]+t1[:project].dbid.to_s + url[url.index("/media")..url.length-1]
+      @driver.navigate.to url
+      wait_for_selector("main-title",:class)
+      title = get_element('.main-title')
+      expect(title.text == 'Not Found').to be(true)
+    end
 
-    # it "should give 404 when trying to acess a media that is not related to the project on the URL" do
+    # it "should cancel request through switch teams" do
     #   skip("Needs to be implemented")
     # end
 
@@ -1137,9 +1126,62 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       delete_task('Foo')
     end
 
-    # it "should add, edit, answer, update answer and delete single_choice task" do
-    #   skip("Needs to be implemented")
-    # end
+    it "should add, edit, answer, update answer and delete single_choice task", bin2: true  do
+      media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
+      wait_for_selector('.create-task__add-button')
+      # Create a task
+      expect(@driver.page_source.include?('Foo or bar?')).to be(false)
+      expect(@driver.page_source.include?('Task "Foo or bar?" created by')).to be(false)
+      el = wait_for_selector('.create-task__add-button', :css)
+      el.click
+      sleep 1
+      el = wait_for_selector('create-task__add-choose-one', :class)
+      el.click
+      wait_for_selector('#task-label-input', :css)
+      fill_field('#task-label-input', 'Foo or bar?')
+      fill_field('0', 'Foo', :id)
+      fill_field('1', 'Bar', :id)
+      el = wait_for_selector('.create-task__dialog-submit-button', :css)
+      el.click
+      media_pg.wait_all_elements(2, "annotations__list-item", :class) #Wait for refresh page
+      expect(@driver.page_source.include?('Foo or bar?')).to be(true)
+      expect(@driver.page_source.include?('Task "Foo or bar?" created by')).to be(true)
+      # Answer task
+      expect(@driver.page_source.include?('Task "Foo or bar?" answered by')).to be(false)
+      el = wait_for_selector('0', :id)
+      el.click
+      el = wait_for_selector('task__submit', :class)
+      el.click
+      media_pg.wait_all_elements(3, "annotations__list-item", :class)
+      expect(@driver.page_source.include?('Task "Foo or bar?" answered by')).to be(true)
+      # Edit task
+      expect(@driver.page_source.include?('Task "Foo or bar?" edited to "Foo or bar???" by')).to be(false)
+      el = wait_for_selector('.task-actions__icon', :css)
+      el.click
+      media_pg.wait_all_elements(6, "annotations__list-item", :class)
+      editbutton = wait_for_selector('.task-actions__edit', :css)
+      editbutton.location_once_scrolled_into_view
+      editbutton.click
+      fill_field('textarea[name="label"]', '??')
+      editbutton = wait_for_selector('.task__save', :css)
+      editbutton.click
+      media_pg.wait_all_elements(7, "annotations__list-item", :class)
+      expect(@driver.page_source.include?('Task "Foo or bar?" edited to "Foo or bar???" by')).to be(true)
+      # Edit task answer
+      expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Task "Foo or bar???" answered by User With Email: "Foo edited"')).to be(false)
+      el = wait_for_selector('.task-actions__icon', :css)
+      el.click
+      el = wait_for_selector('.task-actions__edit-response', :css)
+      el.click
+      el = wait_for_selector('1', :id)
+      el.click
+      el = wait_for_selector('task__submit', :class)
+      el.click
+      media_pg.wait_all_elements(8, "annotations__list-item", :class) #Wait for refresh page
+      expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Task "Foo or bar???" answered by User With Email: "Bar"')).to be(true)
+      # Delete task
+      delete_task('Foo')    
+    end
 
     # it "should add, edit, answer, update answer and delete multiple_choice task" do
     #   skip("Needs to be implemented")
@@ -1353,15 +1395,15 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       size = wait_for_size_change(old, '.medias__item')
       expect(size == 42).to be(true)
     end
-=begin
-    ***Unstable
 
-    it "should show teams at /check/teams", bin4: true do
-      api_create_team
+    it "should show teams at /check/teams", bin1: true do
+      api_create_team     
       @driver.navigate.to @config['self_url'] + '/check/teams'
-      sleep 2
+      wait_for_selector("teams", :class)
       expect(@driver.find_elements(:css, '.teams').empty?).to be(false)
     end
+
+=begin
 
     it "should add, edit, answer, update answer and delete geolocation task", bin3: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
@@ -1413,13 +1455,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 =end
 
-=begin
-  # This tests is unreliable
-  # Todo: locally prints 1 / 2 and remote 0 / 1
-  #
-  # ccx 2017-10-13
-     it "should add image to media comment", bin3: true do
-      p "----------"
+    it "should add image to media comment", bin3: true do
       api_create_team_project_and_claim_and_redirect_to_media_page
       # First, verify that there isn't any comment with image
       expect(@driver.page_source.include?('This is my comment with image')).to be(false)
@@ -1434,8 +1470,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       input.send_keys(File.join(File.dirname(__FILE__), 'test.png'))
       el = wait_for_selector('.add-annotation__buttons button')
       el.click
-      p old
-      p wait_for_size_change(old, "annotations__list-item", :class)
+      wait_for_size_change(old, "annotations__list-item", :class)
 
       # Verify that comment was added to annotations list
       expect(@driver.page_source.include?('This is my comment with image')).to be(true)
@@ -1444,9 +1479,13 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Zoom image
       expect(@driver.find_elements(:css, '.image-current').empty?).to be(true)
-      @driver.find_element(:css, '.annotation__card-thumbnail').click
+      el = wait_for_selector('.annotation__card-thumbnail')
+      el.click
+
+      wait_for_selector('.close')
       expect(@driver.find_elements(:css, '.image-current').empty?).to be(false)
       @driver.action.send_keys(:escape).perform
+      @wait.until {@driver.find_elements(:css, '.close').length == 0 }
       expect(@driver.find_elements(:css, '.image-current').empty?).to be(true)
 
       # Reload the page and verify that comment is still there
@@ -1455,10 +1494,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('This is my comment with image')).to be(true)
       imgsrc = @driver.find_element(:css, '.annotation__card-thumbnail').attribute('src')
       expect(imgsrc.match(/test\.png$/).nil?).to be(false)
-      p "----------"
     end
 
-=end
 =begin
     ***Unstable***
 

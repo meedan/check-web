@@ -67,7 +67,8 @@ module ApiHelpers
 
   def api_create_team_project_and_link(url = @media_url)
     data = api_create_team_and_project
-    request_api 'link', { url: url, email: data[:user].email, team_id: data[:team].dbid, project_id: data[:project].dbid }
+    data = request_api 'link', { url: url, email: data[:user].email, team_id: data[:team].dbid, project_id: data[:project].dbid }
+    data
   end
 
   def api_create_team_project_and_link_and_redirect_to_media_page(url = @media_url)
