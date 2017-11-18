@@ -19,6 +19,7 @@ import IconButton from 'material-ui/IconButton';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import EmbedUpdate from './EmbedUpdate';
+import EmbedCreate from './EmbedCreate';
 import TaskUpdate, { shouldLogChange } from './TaskUpdate';
 import SourcePicture from '../source/SourcePicture';
 import MdImage from 'react-icons/lib/md/image';
@@ -743,34 +744,7 @@ class Annotation extends Component {
         contentTemplate = <EmbedUpdate activity={activity} authorName={authorName} />;
       break;
     case 'create_embed':
-      if (content.title) {
-        if (annotated.quote && annotated.quote === content.title) {
-          const reportType = MediaUtil.typeLabel(
-              annotated,
-              content,
-              this.props.intl,
-            ).toLowerCase();
-          contentTemplate = (
-            <span>
-              <FormattedMessage
-                id="annotation.newReport"
-                defaultMessage={'New {reportType} added by {author}'}
-                values={{ reportType, author: authorName }}
-              />
-            </span>
-            );
-        } else {
-          contentTemplate = (
-            <span>
-              <FormattedMessage
-                id="annotation.titleChanged"
-                defaultMessage={'Title changed to "{title}" by {author}'}
-                values={{ title: <span>{content.title}</span>, author: authorName }}
-              />
-            </span>
-            );
-        }
-      }
+        contentTemplate = <EmbedCreate annotated={annotated} content={content} authorName={authorName}/>;
       break;
     case 'update_projectmedia':
       if (activity.projects.edges.length > 0 && activity.user) {
