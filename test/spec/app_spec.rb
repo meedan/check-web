@@ -1403,7 +1403,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.find_elements(:css, '.teams').empty?).to be(false)
     end
 
-    it "should add, edit, answer, update answer and delete geolocation task", bin: true, bin3: true do
+    it "should add, edit, answer, update answer and delete geolocation task", bin3: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
       wait_for_selector('.create-task__add-button')
 
@@ -1521,9 +1521,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       fill_field('#task-label-input', 'When?')
       el = wait_for_selector('.create-task__dialog-submit-button')
       el.click
-
       old = wait_for_size_change(old, "annotation__default-content", :class)
-
       expect(@driver.page_source.include?('When?')).to be(true)
       expect(@driver.page_source.include?('Task "When?" created by')).to be(true)
 
@@ -1531,9 +1529,10 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Task "When?" answered by')).to be(false)
       fill_field('input[name="hour"]', '23')
       fill_field('input[name="minute"]', '59')
-      @driver.find_element(:css, '#task__response-date').click
-      sleep 2
-      @driver.find_elements(:css, 'button').last.click
+      el = wait_for_selector('#task__response-date')
+      el.click
+      el = wait_for_selector_list('button')
+      el.last.click
       sleep 1
       fill_field('textarea[name="note"]', 'Test')
       el = wait_for_selector('.task__save')
@@ -1543,9 +1542,10 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Edit task
       expect(@driver.page_source.include?('Task "When?" edited to "When was it?" by')).to be(false)
-      @driver.find_element(:css, '.task-actions__icon').click
-      sleep 2
-      @driver.find_element(:css, '.task-actions__edit').click
+      el = wait_for_selector('.task-actions__icon')
+      el.click
+      el = wait_for_selector('.task-actions__edit')
+      el.click
       update_field('textarea[name="label"]', 'When was it?')
       el = wait_for_selector('.task__save')
       el.click
@@ -1554,8 +1554,10 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Edit task response
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('12:34')).to be(false)
-      @driver.find_element(:css, '.task-actions__icon').click
-      @driver.find_element(:css, '.task-actions__edit-response').click
+      el = wait_for_selector('.task-actions__icon')
+      el.click
+      el = wait_for_selector('.task-actions__edit-response')
+      el.click
       update_field('input[name="hour"]', '12')
       update_field('input[name="minute"]', '34')
       update_field('textarea[name="note"]', '')
