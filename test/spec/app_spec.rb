@@ -1496,9 +1496,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(imgsrc.match(/test\.png$/).nil?).to be(false)
     end
 
-=begin
-    ***Unstable***
-
     it "should add, edit, answer, update answer and delete datetime task", bin3: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
       wait_for_selector('.create-task__add-button')
@@ -1506,13 +1503,19 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       # Create a task
       expect(@driver.page_source.include?('When?')).to be(false)
       expect(@driver.page_source.include?('Task "When?" created by')).to be(false)
-      @driver.find_element(:css, '.create-task__add-button').click
+      old = wait_for_selector_list("annotation__default-content",:class).length     
+      el = wait_for_selector('.create-task__add-button')
+      el.click
       sleep 1
-      @driver.find_element(:css, '.create-task__add-datetime').click
+      el = wait_for_selector('.create-task__add-datetime')
+      el.click
       sleep 1
       fill_field('#task-label-input', 'When?')
-      @driver.find_element(:css, '.create-task__dialog-submit-button').click
-      sleep 2
+      el = wait_for_selector('.create-task__dialog-submit-button')
+      el.click
+
+      old = wait_for_size_change(old, "annotation__default-content", :class)
+
       expect(@driver.page_source.include?('When?')).to be(true)
       expect(@driver.page_source.include?('Task "When?" created by')).to be(true)
 
@@ -1525,8 +1528,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       @driver.find_elements(:css, 'button').last.click
       sleep 1
       fill_field('textarea[name="note"]', 'Test')
-      @driver.action.send_keys(:enter).perform
-      sleep 2
+      el = wait_for_selector('.task__save')
+      el.click
+      old = wait_for_size_change(old, "annotation__default-content", :class)
       expect(@driver.page_source.include?('Task "When?" answered by')).to be(true)
 
       # Edit task
@@ -1535,8 +1539,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 2
       @driver.find_element(:css, '.task-actions__edit').click
       update_field('textarea[name="label"]', 'When was it?')
-      @driver.find_element(:css, '.task__save').click
-      sleep 2
+      el = wait_for_selector('.task__save')
+      el.click
+      old = wait_for_size_change(old, "annotation__default-content", :class)
       expect(@driver.page_source.include?('Task "When?" edited to "When was it?" by')).to be(true)
 
       # Edit task response
@@ -1546,14 +1551,15 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       update_field('input[name="hour"]', '12')
       update_field('input[name="minute"]', '34')
       update_field('textarea[name="note"]', '')
-      @driver.action.send_keys(:enter).perform
-      sleep 2
+      el = wait_for_selector('.task__save')
+      el.click
+      old = wait_for_size_change(old, "annotation__default-content", :class)
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('12:34')).to be(true)
 
       # Delete task
       delete_task('When was it')
     end
-=end
+
     # Disabled because the functionality changed to use a
     # background image in CSS instead of an <img> element.
     #
