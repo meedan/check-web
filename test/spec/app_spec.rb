@@ -1403,22 +1403,24 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.find_elements(:css, '.teams').empty?).to be(false)
     end
 
-=begin
-
-    it "should add, edit, answer, update answer and delete geolocation task", bin3: true do
+    it "should add, edit, answer, update answer and delete geolocation task", bin: true, bin3: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
       wait_for_selector('.create-task__add-button')
 
       # Create a task
+      old = @driver.find_elements(:class, "annotations__list-item").length
       expect(@driver.page_source.include?('Where?')).to be(false)
       expect(@driver.page_source.include?('Task "Where?" created by')).to be(false)
-      @driver.find_element(:css, '.create-task__add-button').click
+      el = wait_for_selector('.create-task__add-button')
+      el.click
       sleep 1
-      @driver.find_element(:css, '.create-task__add-geolocation').click
+      el = wait_for_selector('.create-task__add-geolocation')
+      el.click
       sleep 1
       fill_field('#task-label-input', 'Where?')
-      @driver.find_element(:css, '.create-task__dialog-submit-button').click
-      sleep 2
+      el = wait_for_selector('.create-task__dialog-submit-button')
+      el.click
+      old = wait_for_size_change(old, "annotations__list-item", :class)
       expect(@driver.page_source.include?('Where?')).to be(true)
       expect(@driver.page_source.include?('Task "Where?" created by')).to be(true)
 
@@ -1426,34 +1428,40 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Task "Where?" answered by')).to be(false)
       fill_field('textarea[name="response"]', 'Salvador')
       fill_field('textarea[name="coordinates"]', '-12.9015866, -38.560239')
-      @driver.action.send_keys(:enter).perform
+      el = wait_for_selector('.task__save')
+      el.click      
       wait_for_selector('.annotation--task_response_geolocation')
+      old = wait_for_size_change(old, "annotations__list-item", :class)
       expect(@driver.page_source.include?('Task "Where?" answered by')).to be(true)
 
       # Edit task
       expect(@driver.page_source.include?('Task "Where?" edited to "Where was it?" by')).to be(false)
-      @driver.find_element(:css, '.task-actions__icon').click
-      sleep 2
-      @driver.find_element(:css, '.task-actions__edit').click
+      el = wait_for_selector('.task-actions__icon')
+      el.click
+      el = wait_for_selector('.task-actions__edit')
+      el.click
       update_field('textarea[name="label"]', 'Where was it?')
-      @driver.find_element(:css, '.task__save').click
-      sleep 2
+      el = wait_for_selector( '.task__save')
+      el.click
+      old = wait_for_size_change(old, "annotations__list-item", :class)
       expect(@driver.page_source.include?('Task "Where?" edited to "Where was it?" by')).to be(true)
 
       # Edit task answer
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Task "Where was it?" answered by User With Email: "Vancouver"')).to be(false)
-      @driver.find_element(:css, '.task-actions__icon').click
-      @driver.find_element(:css, '.task-actions__edit-response').click
+      el = wait_for_selector('.task-actions__icon')
+      el.click
+      el = wait_for_selector('.task-actions__edit-response')
+      el.click
       update_field('textarea[name="response"]', 'Vancouver')
       update_field('textarea[name="coordinates"]', '49.2577142, -123.1941156')
-      @driver.action.send_keys(:enter).perform
-      sleep 2
+      el = wait_for_selector('.task__save')
+      el.click      
+      old = wait_for_size_change(old, "annotations__list-item", :class)
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Task "Where was it?" answered by User With Email: "Vancouver"')).to be(true)
 
       # Delete task
       delete_task('Where was it')
     end
-=end
 
     it "should add image to media comment", bin3: true do
       api_create_team_project_and_claim_and_redirect_to_media_page
