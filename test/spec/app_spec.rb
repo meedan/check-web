@@ -1560,24 +1560,43 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       delete_task('When was it')
     end
 
-    # Disabled because the functionality changed to use a
-    # background image in CSS instead of an <img> element.
-    #
-    #  I think we could do something like this instead:
-    #  https://stackoverflow.com/questions/11198882/how-do-you-test-if-a-div-has-a-certain-css-style-in-rspec-capybara
-    #
-    # it "should upload image when registering", bin5 : true do
-    #   email, password, avatar = ["test-#{Time.now.to_i}@example.com", '12345678', File.join(File.dirname(__FILE__), 'test.png')]
-    #   page = LoginPage.new(config: @config, driver: @driver).load
-    #          .register_and_login_with_email(email: email, password: password, file: avatar)
+    it "should delete annotation from annotations list (for media and source)", bin5: true do
+      #source
+      api_create_team_project_and_source_and_redirect_to_source('Megadeth', 'https://twitter.com/megadeth')
+      wait_for_selector(".source__tab-button-account")
+      el = wait_for_selector(".source__tab-button-notes")
+      el.click
+      expect(@driver.page_source.include?('Your comment was added!')).to be(false)
+      old = wait_for_selector_list("annotation__default-content",:class).length     
+      fill_field('textarea[name="cmd"]', 'Test')
+      el = wait_for_selector("//span[contains(text(), 'Submit')]", :xpath)
+      el.click
+      old = wait_for_size_change(old, "annotation__default-content", :class)
+      expect(@driver.page_source.include?('Your comment was added!')).to be(true)
+      expect(@driver.page_source.include?('Comment deleted by')).to be(false)
+      el = wait_for_selector('.menu-button')
+      el.click
+      el = wait_for_selector('.annotation__delete')
+      el.click
+      wait_for_size_change(old, "annotation__default-content", :class)
+      expect(@driver.page_source.include?('Comment deleted by')).to be(true)
 
-    #   me_page = MePage.new(config: @config, driver: page.driver).load
-    #   avatar = me_page.avatar
-    #   expect(avatar.attribute('src').match(/test\.png/).nil?).to be(false)
-    # end
-
-    # it "should delete annotation from annotations list (for media, source and project)" do
-    #   skip("Needs to be implemented")
-    # end
+      #media
+      media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
+      expect(@driver.page_source.include?('Your comment was added!')).to be(false)
+      old = wait_for_selector_list("annotation__default-content",:class).length     
+      fill_field('textarea[name="cmd"]', 'Test')
+      el = wait_for_selector("//span[contains(text(), 'Submit')]", :xpath)
+      el.click
+      old = wait_for_size_change(old, "annotation__default-content", :class)
+      expect(@driver.page_source.include?('Your comment was added!')).to be(true)
+      expect(@driver.page_source.include?('Comment deleted by')).to be(false)
+      el = wait_for_selector('.menu-button')
+      el.click
+      el = wait_for_selector('.annotation__delete')
+      el.click
+      wait_for_size_change(old, "annotation__default-content", :class)
+      expect(@driver.page_source.include?('Comment deleted by')).to be(true)
     end
+  end
 end
