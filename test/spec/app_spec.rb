@@ -1546,7 +1546,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el.click
       el = wait_for_selector('.task-actions__edit')
       el.click
-      wait_for_selector("//span[contains(text(), 'Cancel')]", :xpath)
+      sleep 1
+      wait_for_selector"//span[contains(text(), 'Cancel')]", :xpath)
       update_field('textarea[name="label"]', 'When was it?')
       el = wait_for_selector('.task__save')
       el.click
