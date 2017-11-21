@@ -196,7 +196,11 @@ class SourceComponent extends Component {
     const pusherChannel = this.props.source.source.pusher_channel;
     if (pusher && pusherChannel) {
       pusher.subscribe(pusherChannel).bind('source_updated', (data) => {
-        if (that.state.isEditing) {
+        const source = this.getSource() || {};
+        const metadata = this.getMetadataAnnotation() || {};
+        const obj = JSON.parse(data.message);
+
+        if (that.state.isEditing && ((obj.annotation_type === 'metadata' && obj.lock_version > metadata.lock_version) || (!obj.annotation_type && obj.lock_version > source.lock_version))) {
           that.setState({ message: that.getConflictMessage() });
         }
         else {
