@@ -49,7 +49,8 @@ const SourceContainer = Relay.createContainer(SourceComponent, {
                 annotator,
                 content,
                 created_at,
-                updated_at
+                updated_at,
+                lock_version
               }
             }
           },

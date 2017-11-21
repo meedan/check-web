@@ -417,14 +417,22 @@ class SourceComponent extends Component {
   };
 
   fail = (transaction) => {
-    const error = transaction.getError();
     let message = this.props.intl.formatMessage(messages.editError);
-    try {
-      const json = JSON.parse(error.source);
-      if (json.error) {
-        message = json.error;
-      }
-    } catch (e) {}
+    
+    const error = transaction.getError();
+
+    if (error.status === 409) {
+      message = this.getConflictMessage();
+    }
+    else {
+      try {
+        const json = JSON.parse(error.source);
+        if (json.error) {
+          message = json.error;
+        }
+      } catch (e) { }
+    }
+
     this.setState({ message, hasFailure: true, submitDisabled: false });
   };
 
@@ -499,12 +507,16 @@ class SourceComponent extends Component {
 
     this.registerPendingMutation('updateMetadata');
 
+    const metadata = this.getMetadataAnnotation();
+    const lock_version = metadata ? metadata.lock_version : 0;
+
     Relay.Store.commitUpdate(
       new UpdateDynamicMutation({
         annotated,
         parent_type: 'source',
         dynamic: {
           id: annotation_id,
+          lock_version,
           fields,
         },
       }),
