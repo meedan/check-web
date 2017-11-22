@@ -196,7 +196,16 @@ class SourceComponent extends Component {
     const pusherChannel = this.props.source.source.pusher_channel;
     if (pusher && pusherChannel) {
       pusher.subscribe(pusherChannel).bind('source_updated', (data) => {
-        that.props.relay.forceFetch();
+        const source = this.getSource() || {};
+        const metadata = this.getMetadataAnnotation() || {};
+        const obj = JSON.parse(data.message);
+
+        if (that.state.isEditing && ((obj.annotation_type === 'metadata' && obj.lock_version > metadata.lock_version) || (!obj.annotation_type && obj.lock_version > source.lock_version))) {
+          that.setState({ message: that.getConflictMessage() });
+        }
+        else if (!that.state.isEditing) {
+          that.props.relay.forceFetch();
+        }
       });
     }
   }
@@ -412,14 +421,22 @@ class SourceComponent extends Component {
   };
 
   fail = (transaction) => {
-    const error = transaction.getError();
     let message = this.props.intl.formatMessage(messages.editError);
-    try {
-      const json = JSON.parse(error.source);
-      if (json.error) {
-        message = json.error;
-      }
-    } catch (e) {}
+    
+    const error = transaction.getError();
+
+    if (error.status === 409) {
+      message = this.getConflictMessage();
+    }
+    else {
+      try {
+        const json = JSON.parse(error.source);
+        if (json.error) {
+          message = json.error;
+        }
+      } catch (e) { }
+    }
+
     this.setState({ message, hasFailure: true, submitDisabled: false });
   };
 
@@ -494,12 +511,16 @@ class SourceComponent extends Component {
 
     this.registerPendingMutation('updateMetadata');
 
+    const metadata = this.getMetadataAnnotation();
+    const lock_version = metadata ? metadata.lock_version : 0;
+
     Relay.Store.commitUpdate(
       new UpdateDynamicMutation({
         annotated,
         parent_type: 'source',
         dynamic: {
           id: annotation_id,
+          lock_version,
           fields,
         },
       }),
@@ -698,18 +719,39 @@ class SourceComponent extends Component {
     return true;
   }
 
+  reloadInformation() {
+    this.props.relay.forceFetch();
+    this.setState({ message: null, isEditing: false });
+  }
+
+  getConflictMessage() {
+    return <FormattedMessage id="sourceComponent.conflictError" defaultMessage={'This item was edited by another user while you were making your edits. Please save your changes and {reloadLink}.'}
+             values={{
+               reloadLink: (<span onClick={this.reloadInformation.bind(this)} style={{ cursor: 'pointer', textDecoration: 'underline' }}>
+                              <FormattedMessage id="sourceComponent.clickToReload" defaultMessage="click here to reload" />
+                            </span>)
+             }}
+           />;
+  }
+
   updateSource() {
     const source = this.getSource();
     const onFailure = (transaction) => {
-      const error = transaction.getError();
       let message = this.props.intl.formatMessage(messages.editError);
+      
+      const error = transaction.getError();
 
-      try {
-        const json = JSON.parse(error.source);
-        if (json.error) {
-          message = json.error;
-        }
-      } catch (e) {}
+      if (error.status === 409) {
+        message = this.getConflictMessage();
+      }
+      else {
+        try {
+          const json = JSON.parse(error.source);
+          if (json.error) {
+            message = json.error;
+          }
+        } catch (e) {}
+      }
 
       this.setState({ message, hasFailure: true, submitDisabled: false });
     };
@@ -734,6 +776,7 @@ class SourceComponent extends Component {
           id: source.id,
           name: form.name.value,
           image: form.image,
+          lock_version: source.lock_version,
           description: form.description.value,
         },
       }),

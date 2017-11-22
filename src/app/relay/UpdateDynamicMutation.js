@@ -48,6 +48,9 @@ class UpdateDynamicMutation extends Relay.Mutation {
     if (dynamic.set_attribution) {
       vars.set_attribution = dynamic.set_attribution;
     }
+    if (dynamic.hasOwnProperty('lock_version')) {
+      vars.lock_version = dynamic.lock_version;
+    }
     return vars;
   }
 

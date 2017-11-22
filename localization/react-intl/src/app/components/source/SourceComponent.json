@@ -88,6 +88,14 @@
     "defaultMessage": "No media attributed to this source yet"
   },
   {
+    "id": "sourceComponent.conflictError",
+    "defaultMessage": "This item was edited by another user while you were making your edits. Please save your changes and {reloadLink}."
+  },
+  {
+    "id": "sourceComponent.clickToReload",
+    "defaultMessage": "click here to reload"
+  },
+  {
     "id": "sourceComponent.dateAdded",
     "defaultMessage": "Added {date} • Source of {number} links"
   },

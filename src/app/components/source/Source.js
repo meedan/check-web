@@ -34,6 +34,7 @@ const SourceContainer = Relay.createContainer(SourceComponent, {
           image,
           user_id,
           description,
+          lock_version,
           permissions,
           pusher_channel,
           verification_statuses,
@@ -48,7 +49,8 @@ const SourceContainer = Relay.createContainer(SourceComponent, {
                 annotator,
                 content,
                 created_at,
-                updated_at
+                updated_at,
+                lock_version
               }
             }
           },
