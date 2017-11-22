@@ -204,8 +204,11 @@ class Home extends Component {
 
     const currentUserIsMember = (() => {
       if (inTeamContext && loggedIn) {
-        const context = this.getContext();
-        const teams = JSON.parse(context.currentUser.teams);
+        const user = this.getContext().currentUser;
+        if (user.is_admin) {
+          return true;
+        }
+        const teams = JSON.parse(user.teams);
         const team = teams[this.props.params.team] || {};
         return team.status === 'member';
       }
