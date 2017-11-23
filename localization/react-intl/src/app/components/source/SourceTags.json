@@ -2,5 +2,9 @@
   {
     "id": "sourceTags.addTagHelper",
     "defaultMessage": "Create a tag or choose from existing"
+  },
+  {
+    "id": "sourceTags.error",
+    "defaultMessage": "Sorry, could not create the tag"
   }
 ]
