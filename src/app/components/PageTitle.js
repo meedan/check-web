@@ -6,7 +6,6 @@ import config from 'config';
 
 class PageTitle extends Component {
   render() {
-
     let title = this.props.title;
 
     if (!title) {

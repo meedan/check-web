@@ -6,7 +6,7 @@ class Sentence extends Component {
     const { list } = this.props;
 
     const lastIndex = list.length - 1;
-    
+
     if (lastIndex === -1) {
       return null;
     }

@@ -8,6 +8,7 @@ import ar from 'react-intl/locale-data/ar';
 import en from 'react-intl/locale-data/en';
 import fr from 'react-intl/locale-data/fr';
 import pt from 'react-intl/locale-data/pt';
+import config from 'config';
 import App from './App';
 import {
   RootLocale,
@@ -48,7 +49,6 @@ import {
 import Search from '../components/Search';
 import CheckContext from '../CheckContext';
 import translations from '../../../localization/translations/translations';
-import config from 'config';
 
 // Localization
 let locale = config.locale || navigator.languages || navigator.language || navigator.userLanguage || 'en';

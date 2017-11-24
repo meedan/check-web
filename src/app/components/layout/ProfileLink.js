@@ -5,13 +5,13 @@ class ProfileLink extends React.Component {
   render() {
     const { user, className } = this.props;
 
-    if (!user) { return null };
+    if (!user) { return null; }
 
-    let url = user.dbid ? `/check/user/${user.dbid}` : '';
+    const url = user.dbid ? `/check/user/${user.dbid}` : '';
 
     return url ?
-        <Link to={url} className={className}>{user.name}</Link> :
-        <span className={className}>{user.name}</span>;
+      <Link to={url} className={className}>{user.name}</Link> :
+      <span className={className}>{user.name}</span>;
   }
 }
 

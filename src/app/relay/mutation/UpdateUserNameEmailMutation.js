@@ -30,7 +30,7 @@ class UpdateUserNameEmailMutation extends Relay.Mutation {
           user: this.props.id,
         },
       },
-    ]
+    ];
   }
 }
 

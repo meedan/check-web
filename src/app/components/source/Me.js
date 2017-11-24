@@ -12,7 +12,7 @@ class MeComponent extends Component {
 
 const MeContainer = Relay.createContainer(MeComponent, {
   fragments: {
-    user: () => userFragment
+    user: () => userFragment,
   },
 });
 

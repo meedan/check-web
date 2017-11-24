@@ -202,8 +202,7 @@ class SourceComponent extends Component {
 
         if (that.state.isEditing && ((obj.annotation_type === 'metadata' && obj.lock_version > metadata.lock_version) || (!obj.annotation_type && obj.lock_version > source.lock_version))) {
           that.setState({ message: that.getConflictMessage() });
-        }
-        else if (!that.state.isEditing) {
+        } else if (!that.state.isEditing) {
           that.props.relay.forceFetch();
         }
       });
@@ -422,13 +421,12 @@ class SourceComponent extends Component {
 
   fail = (transaction) => {
     let message = this.props.intl.formatMessage(messages.editError);
-    
+
     const error = transaction.getError();
 
     if (error.status === 409) {
       message = this.getConflictMessage();
-    }
-    else {
+    } else {
       try {
         const json = JSON.parse(error.source);
         if (json.error) {
@@ -725,26 +723,26 @@ class SourceComponent extends Component {
   }
 
   getConflictMessage() {
-    return <FormattedMessage id="sourceComponent.conflictError" defaultMessage={'This item was edited by another user while you were making your edits. Please save your changes and {reloadLink}.'}
-             values={{
-               reloadLink: (<span onClick={this.reloadInformation.bind(this)} style={{ cursor: 'pointer', textDecoration: 'underline' }}>
-                              <FormattedMessage id="sourceComponent.clickToReload" defaultMessage="click here to reload" />
-                            </span>)
-             }}
-           />;
+    return (<FormattedMessage
+      id="sourceComponent.conflictError" defaultMessage={'This item was edited by another user while you were making your edits. Please save your changes and {reloadLink}.'}
+      values={{
+        reloadLink: (<span onClick={this.reloadInformation.bind(this)} style={{ cursor: 'pointer', textDecoration: 'underline' }}>
+          <FormattedMessage id="sourceComponent.clickToReload" defaultMessage="click here to reload" />
+        </span>),
+      }}
+    />);
   }
 
   updateSource() {
     const source = this.getSource();
     const onFailure = (transaction) => {
       let message = this.props.intl.formatMessage(messages.editError);
-      
+
       const error = transaction.getError();
 
       if (error.status === 409) {
         message = this.getConflictMessage();
-      }
-      else {
+      } else {
         try {
           const json = JSON.parse(error.source);
           if (json.error) {

@@ -394,7 +394,8 @@ class UserInfoEdit extends React.Component {
               />
               <StyledIconButton
                 className="source__remove-link-button"
-                onClick={() => this.handleRemoveLink(as.node.id)}>
+                onClick={() => this.handleRemoveLink(as.node.id)}
+              >
                 <MdCancel />
               </StyledIconButton>
             </Row>
@@ -416,7 +417,8 @@ class UserInfoEdit extends React.Component {
               />
               <StyledIconButton
                 className="source__remove-link-button"
-                onClick={() => this.handleRemoveNewLink(index)}>
+                onClick={() => this.handleRemoveNewLink(index)}
+              >
                 <MdCancel />
               </StyledIconButton>
             </Row>

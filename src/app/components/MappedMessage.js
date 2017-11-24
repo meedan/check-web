@@ -5,10 +5,10 @@ import config from 'config';
 
 function mapMessage(intl, msgObj, msgKey, values) {
   const appPrefix = config.appName === 'bridge' ? 'bridge_' : '';
-  const parent = msgObj ? msgObj : globalStrings;
+  const parent = msgObj || globalStrings;
   const string_resource = parent[appPrefix + msgKey];
 
-  return intl.formatHTMLMessage(string_resource, {...values});
+  return intl.formatHTMLMessage(string_resource, { ...values });
 }
 
 function mapGlobalMessage(intl, msgKey, values) {

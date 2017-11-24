@@ -292,7 +292,7 @@ class DatetimeRespondTask extends Component {
                 hintStyle={styles.time}
                 value={this.state.hour}
                 onChange={this.handleChangeTime.bind(this, 'hour')}
-                onFocus={() => {this.setState({ focus: true })}}
+                onFocus={() => { this.setState({ focus: true }); }}
               />{' '}
               <div>:</div>{' '}
               <TextField
@@ -303,7 +303,7 @@ class DatetimeRespondTask extends Component {
                 hintStyle={styles.time}
                 value={this.state.minute}
                 onChange={this.handleChangeTime.bind(this, 'minute')}
-                onFocus={() => {this.setState({ focus: true })}}
+                onFocus={() => { this.setState({ focus: true }); }}
               />
               <SelectField
                 value={this.state.timezone}
@@ -338,7 +338,7 @@ class DatetimeRespondTask extends Component {
           multiLine
           fullWidth
           onChange={this.handleChangeNote.bind(this)}
-          onFocus={() => {this.setState({ focus: true })}}
+          onFocus={() => { this.setState({ focus: true }); }}
         />
         { this.state.focus || this.props.response ? actionBtns : null }
       </div>
