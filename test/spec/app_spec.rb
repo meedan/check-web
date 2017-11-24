@@ -1183,9 +1183,72 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       delete_task('Foo')    
     end
 
-    # it "should add, edit, answer, update answer and delete multiple_choice task" do
-    #   skip("Needs to be implemented")
-    # end
+    it "should add, edit, answer, update answer and delete multiple_choice task", bin5:true do
+      media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
+      wait_for_selector('.create-task__add-button')
+      # Create a task
+      expect(@driver.page_source.include?('Foo, Doo or bar?')).to be(false)
+      expect(@driver.page_source.include?('Task "Foo, Doo or bar?" created by')).to be(false)
+      el = wait_for_selector('.create-task__add-button', :css)
+      el.click
+      sleep 1
+      el = wait_for_selector('create-task__add-choose-multiple', :class)
+      el.click
+      wait_for_selector('#task-label-input', :css)
+      fill_field('#task-label-input', 'Foo, Doo or bar?')
+      fill_field('0', 'Foo', :id)
+      fill_field('1', 'Bar', :id)
+      el = wait_for_selector("//span[contains(text(), 'Add Option')]",:xpath)
+      el.click
+      fill_field('2', 'Doo', :id)
+      el = wait_for_selector("//span[contains(text(), 'Add \"Other\"')]",:xpath)
+      el.click
+      el = wait_for_selector('.create-task__dialog-submit-button', :css)
+      el.click
+      media_pg.wait_all_elements(2, "annotations__list-item", :class)
+      expect(@driver.page_source.include?('Foo, Doo or bar?')).to be(true)
+      expect(@driver.page_source.include?('Task "Foo, Doo or bar?" created by')).to be(true)
+      # Answer task
+      expect(@driver.page_source.include?('Task "Foo, Doo or bar?" answered by')).to be(false)
+      el = wait_for_selector('Foo', :id)
+      el.click
+      el = wait_for_selector('Doo', :id)
+      el.click
+      el = wait_for_selector('task__submit', :class)
+      el.click
+      media_pg.wait_all_elements(3, "annotations__list-item", :class)
+      expect(@driver.page_source.include?('Task "Foo, Doo or bar?" answered by')).to be(true)
+      # Edit task
+      expect(@driver.page_source.include?('Task "Foo, Doo or bar?" edited to "Foo or bar???" by')).to be(false)
+      el = wait_for_selector('.task-actions__icon', :css)
+      el.click
+      media_pg.wait_all_elements(6, "annotations__list-item", :class)
+      editbutton = wait_for_selector('.task-actions__edit', :css)
+      editbutton.location_once_scrolled_into_view
+      editbutton.click
+      fill_field('textarea[name="label"]', '??')
+      editbutton = wait_for_selector('.task__save', :css)
+      editbutton.click
+      media_pg.wait_all_elements(7, "annotations__list-item", :class)
+      expect(@driver.page_source.include?('Task "Foo, Doo or bar?" edited to "Foo, Doo or bar???" by')).to be(true)
+      # Edit task answer
+      expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Task "Foo, Doo or bar???" answered by User With Email: "Foo and Boo"')).to be(false)
+      el = wait_for_selector('.task-actions__icon', :css)
+      el.click
+      el = wait_for_selector('.task-actions__edit-response', :css)
+      el.click
+      el = wait_for_selector('Doo', :id)
+      el.click
+      el = wait_for_selector('.task__option_other_text_input')
+      el.click
+      fill_field('textarea[name="response"]', 'Boo')
+      el = wait_for_selector('task__submit', :class)
+      el.click
+      media_pg.wait_all_elements(8, "annotations__list-item", :class) #Wait for refresh page
+      expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Task "Foo, Doo or bar???" answered by User With Email: "Foo and Boo"')).to be(true)
+      # Delete task
+      delete_task('Foo')    
+    end
 
     it "should search for reverse images", bin2: true do
       page = api_create_team_project_and_link_and_redirect_to_media_page 'https://www.instagram.com/p/BRYob0dA1SC/'
@@ -1504,9 +1567,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(imgsrc.match(/test\.png$/).nil?).to be(false)
     end
 
-    it "should add, edit, answer, update answer and delete datetime task", bin: true, bin3: true do
+    it "should add, edit, answer, update answer and delete datetime task", bin3: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
-begin      
       wait_for_selector('.create-task__add-button')
 
       # Create a task
@@ -1572,9 +1634,6 @@ begin
 
       # Delete task
       delete_task('When was it')
-rescue => e
-p e
-end      
     end
 
     it "should delete annotation from annotations list (for media and source)", bin5: true do
