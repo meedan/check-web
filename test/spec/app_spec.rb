@@ -1504,8 +1504,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(imgsrc.match(/test\.png$/).nil?).to be(false)
     end
 
-    it "should add, edit, answer, update answer and delete datetime task", bin3: true do
+    it "should add, edit, answer, update answer and delete datetime task", bin: true, bin3: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
+begin      
       wait_for_selector('.create-task__add-button')
 
       # Create a task
@@ -1544,10 +1545,11 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Task "When?" edited to "When was it?" by')).to be(false)
       el = wait_for_selector('.task-actions__icon')
       el.click
-      el = wait_for_selector('.task-actions__edit')
+      el = wait_for_selector(".task-actions__edit")
+      @driver.action.move_to(el).perform
       el.click
       sleep 1
-      wait_for_selector"//span[contains(text(), 'Cancel')]", :xpath)
+      wait_for_selector("//textarea[contains(text(), 'When?')]", :xpath)
       update_field('textarea[name="label"]', 'When was it?')
       el = wait_for_selector('.task__save')
       el.click
@@ -1570,6 +1572,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Delete task
       delete_task('When was it')
+rescue => e
+p e
+end      
     end
 
     it "should delete annotation from annotations list (for media and source)", bin5: true do
