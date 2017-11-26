@@ -203,7 +203,7 @@ class SourceComponent extends Component {
         if (that.state.isEditing && ((obj.annotation_type === 'metadata' && obj.lock_version > metadata.lock_version) || (!obj.annotation_type && obj.lock_version > source.lock_version))) {
           that.setState({ message: that.getConflictMessage() });
         }
-        else if (!that.state.isEditing) {
+        else if (!that.state.isEditing && that.getContext().clientSessionId != data.actor_session_id) {
           that.props.relay.forceFetch();
         }
       });
