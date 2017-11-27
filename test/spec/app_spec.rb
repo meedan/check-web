@@ -1031,9 +1031,19 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(title.text == 'Not Found').to be(true)
     end
 
-    # it "should cancel request through switch teams" do
-    #   skip("Needs to be implemented")
-    # end
+    it "should cancel request through switch teams", bin: true , bin1: true do
+      user = api_register_and_login_with_email
+      t1 = api_create_team(user: user)
+      t2 = api_create_team(user: user)
+      page = MePage.new(config: @config, driver: @driver).load
+          .select_team(name: t1.name)
+      wait_for_selector("team-members__edit-button",:class)        
+      expect(page.team_name).to eq(t1.name)
+      page = MePage.new(config: @config, driver: @driver).load
+          .select_team(name: t2.name)
+      wait_for_selector("team-members__edit-button",:class)        
+      expect(page.team_name).to eq(t2.name)
+    end
 
     # it "should linkify URLs on comments" do
     #   skip("Needs to be implemented")
