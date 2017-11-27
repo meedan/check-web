@@ -1,5 +1,7 @@
 {
   "mediaDetail.mediaTitle": "العنوان",
+  "mediaDetail.mediaDescription": "وصف",
+  "mediaDetail.editReport": "تحرير التقرير",
   "mediaDetail.moveFailed": "عذراً ، لم نستطع نقل هذا التقرير",
   "mediaDetail.trash": "سلة المهملات",
   "mediaMetadata.movedToTrash": "تم الارسال إلى {trash}",

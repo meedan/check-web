@@ -1,0 +1,5 @@
+{
+  "annotation.embedLabelUpdated": "تم تعديل العنوان إلى \"{title}\" من قِبَل {author}",
+  "annotation.embedNoteUpdated": "تم تعديل الوصف من \"{from}\" إلى \"{to}\" من قِبَل {author}",
+  "annotation.embedNoteCreated": "تمت إضافة وصف من قِبَل {author} : {note}"
+}

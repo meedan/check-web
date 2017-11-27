@@ -21,6 +21,8 @@
   "sourceComponent.other": "Autre (à spécifier)",
   "sourceNoAccounts": "Aucun réseau associé à cette source",
   "sourceNoMedia": "Aucun média associé à cette source",
+  "sourceComponent.conflictError": "Cet élément a été modifié par un autre usager pendant que vous l'éditiez. Prière de sauvegarder vos modifications puis {reloadLink}.",
+  "sourceComponent.clickToReload": "cliquez ici pour rafraîchir",
   "sourceComponent.dateAdded": "Ajouté {date} • Source de {number} liens",
   "sourceComponent.medias": "Média",
   "sourceComponent.notes": "Notes",

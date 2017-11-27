@@ -1,0 +1,5 @@
+{
+  "annotation.taskLabelUpdated": "Tarefa \"{from}\" editada para \"{to}\" por {author}",
+  "annotation.taskNoteUpdated": "Tarefa \"{title}\" tem uma nota editada de \"{from}\" para \"{to}\" por {author}",
+  "annotation.taskNoteCreated": "Tarefa \"{title}\" tem uma nova nota \"{note}\" por {author}"
+}
