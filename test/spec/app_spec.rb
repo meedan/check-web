@@ -1031,7 +1031,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(title.text == 'Not Found').to be(true)
     end
 
-    it "should cancel request through switch teams", bin: true , bin1: true do
+    it "should cancel request through switch teams", bin1: true do
       user = api_register_and_login_with_email
       t1 = api_create_team(user: user)
       t2 = api_create_team(user: user)
@@ -1045,9 +1045,18 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(page.team_name).to eq(t2.name)
     end
 
-    # it "should linkify URLs on comments" do
-    #   skip("Needs to be implemented")
-    # end
+    it "should linkify URLs on comments", bin: true , bin1: true do
+      media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
+      expect(@driver.page_source.include?('Your comment was added!')).to be(false)
+      old = wait_for_selector_list("annotation__default-content",:class).length     
+      fill_field('textarea[name="cmd"]', 'Go to https://meedan.com/en/')
+      el = wait_for_selector("//span[contains(text(), 'Submit')]", :xpath)
+      el.click
+      old = wait_for_size_change(old, "annotation__default-content", :class)
+      expect(@driver.page_source.include?('Your comment was added!')).to be(true)
+      el = wait_for_selector_list("//a[contains(text(), 'https://meedan.com/en/')]", :xpath)
+      expect(el.length == 1).to be(true)
+    end
 
     # it "should add and remove suggested tags" do
     #   skip("Needs to be implemented")
