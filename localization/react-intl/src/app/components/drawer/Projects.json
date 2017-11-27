@@ -1,5 +1,9 @@
 [
   {
+    "id": "projects.noProjects",
+    "defaultMessage": "No projects yet."
+  },
+  {
     "id": "projects.projectsSubheading",
     "defaultMessage": "Projects"
   }

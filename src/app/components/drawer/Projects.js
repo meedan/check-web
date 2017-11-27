@@ -20,7 +20,32 @@ const SubHeading = styled.div`
 `;
 
 class ProjectsComponent extends Component {
+
   render() {
+    const projectList = (() => {
+      if (this.props.team.projects.edges.length === 0) {
+        return (
+          <Text style={{ margin: `0 ${units(2)}` }} font={caption}>
+            <FormattedMessage
+              id="projects.noProjects"
+              defaultMessage="No projects yet."
+            />
+          </Text>
+        );
+      }
+
+      return this.props.team.projects.edges
+        .sortp((a, b) => a.node.title.localeCompare(b.node.title))
+        .map((p) => {
+          const projectPath = `/${this.props.team.slug}/project/${p.node.dbid}`;
+          return (
+            <Link to={projectPath} key={p.node.dbid} >
+              <MenuItem primaryText={<Text ellipsis>{p.node.title}</Text>} />
+            </Link>
+          );
+        });
+    })();
+
     return (
       <div>
         <SubHeading>
@@ -30,16 +55,7 @@ class ProjectsComponent extends Component {
           />
         </SubHeading>
         <div>
-          {this.props.team.projects.edges
-            .sortp((a, b) => a.node.title.localeCompare(b.node.title))
-            .map((p) => {
-              const projectPath = `/${this.props.team.slug}/project/${p.node.dbid}`;
-              return (
-                <Link to={projectPath} key={p.node.dbid} >
-                  <MenuItem primaryText={<Text ellipsis>{p.node.title}</Text>} />
-                </Link>
-              );
-            })}
+          {projectList}
         </div>
       </div>
     );
