@@ -33,7 +33,10 @@ class CheckContext {
   }
 
   startNetwork(token) {
-    const history = this.getContextStore().history;
+    const context = this.getContextStore();
+    const history = context.history;
+    const clientSessionId = context.clientSessionId || ('browser-' + Date.now() + '' + parseInt(Math.random() * 1000000));
+    this.setContextStore({ clientSessionId });
     Relay.injectNetworkLayer(new CheckNetworkLayer(config.relayPath, {
       history,
       team: () => {
@@ -48,6 +51,7 @@ class CheckContext {
         if (token) {
           headers['X-Check-Token'] = token;
         }
+        headers['X-Check-Client'] = clientSessionId;
         return headers;
       },
     }));

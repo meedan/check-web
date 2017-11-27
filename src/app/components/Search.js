@@ -736,14 +736,16 @@ class SearchResultsComponent extends Component {
           }
         }
 
-        that.props.relay.forceFetch();
+        if (that.currentContext().clientSessionId != data.actor_session_id) {
+          that.props.relay.forceFetch();
+        }
       });
       this.setState({ pusherSubscribed: true });
     }
   }
 
   unsubscribe() {
-    const pusher = this.getContext().pusher;
+    const pusher = this.currentContext().pusher;
     if (pusher && this.props.search.pusher_channel) {
       pusher.unsubscribe(this.props.search.pusher_channel);
     }
