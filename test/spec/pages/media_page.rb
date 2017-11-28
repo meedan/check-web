@@ -21,7 +21,6 @@ class MediaPage < Page
     edit
     fill_input('.media-detail__title-input > input', string, {clear: true})
     click('.media-detail__save-edits') # Done
-    toggle_card # Cose the card so the header appears
     @wait.until {
       string == primary_heading.text
     }
