@@ -1,0 +1,5 @@
+{
+  "annotation.taskLabelUpdated": "Tâche \"{from}\" modifiée à \"{to}\" par {author}",
+  "annotation.taskNoteUpdated": "Commentaire de la tâche \"{title}\" modifié de \"{from}\" à \"{to}\" par {author}",
+  "annotation.taskNoteCreated": "Tâche \"{title}\" a un nouveau commentaire par {author} : {note}"
+}

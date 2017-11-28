@@ -23,12 +23,7 @@
   "annotation.keepWait": "لقد تم إرسال هذا الرابط للحفاظ في Keep. من فضلك تابع هنا بعد ساعة للحصول على رابط النسخة اﻹحتياطية.",
   "annotation.embedCodeCopied": "لقد تم إنشاء و نسخ تعليمات تضمين ذلك العنصر و هو اﻵن قابل للعرض العام.",
   "annotation.flaggedHeader": "تم وسمه #{tag} بواسطة {author}",
-  "annotation.newReport": "{reportType} جديد أُضيف بواسطة {author}",
-  "annotation.titleChanged": "تم تغيير العنوان إلى {title} بواسطة {author}",
   "annotation.projectMoved": "تم نقله من {previousProject} إلى {currentProject} بواسطة {author}",
   "annotation.movedToTrash": "تم الارسال إلى سلة المهملات",
-  "annotation.movedFromTrash": "قام {author} باستعادة هذا العنصر من سلة المهملات",
-  "annotation.taskLabelUpdated": "عُدلت المهمة من \"{from}\" إلى \"{to}\" بواسطة {author}",
-  "annotation.taskNoteUpdated": "تم تعديل التعليق للمهمة \"{title}\" من \"{from}\" إلى \"{to}\" بواسطة {author}",
-  "annotation.taskNoteCreated": "تمت إضافة تعليق جديد \"{note}\"  للمهمة \"{title}\" بواسطة {author}"
+  "annotation.movedFromTrash": "قام {author} باستعادة هذا العنصر من سلة المهملات"
 }

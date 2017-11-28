@@ -23,12 +23,7 @@
   "annotation.keepWait": "Ce lien est en cours d'archivage sur Keep. Veuillez vérifier plus tard pour obtenir le lien d'archive.",
   "annotation.embedCodeCopied": "Un code d'insertion a été copié au presse-papier. L'élément est maintenant accessible au public.",
   "annotation.flaggedHeader": "Marqué {flag} par {author}",
-  "annotation.newReport": "Nouveau {reportType} ajouté par {author}",
-  "annotation.titleChanged": "Titre modifié par {author} : {title}",
   "annotation.projectMoved": "Transféré du projet {previousProject} à {currentProject} par {author}",
   "annotation.movedToTrash": "Mis à la corbeille",
-  "annotation.movedFromTrash": "Restauré par {author}",
-  "annotation.taskLabelUpdated": "Tâche \"{from}\" modifiée par {author} : {to}",
-  "annotation.taskNoteUpdated": "Commentaire de la tâche \"{title}\" modifié de \"{from}\" par {author} : {to}",
-  "annotation.taskNoteCreated": "Tâche \"{title}\" a un nouveau commentaire par {author} : {note}"
+  "annotation.movedFromTrash": "Restauré par {author}"
 }
