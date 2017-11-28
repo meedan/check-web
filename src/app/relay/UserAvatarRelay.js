@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Relay from 'react-relay';
 import styled from 'styled-components';
 import MeRoute from './MeRoute';
@@ -14,25 +14,22 @@ const StyledAvatarLoader = styled(Pulse)`
   flex: 0 0 auto;
 `;
 
-class UserAvatarRelay extends Component {
+const UserAvatarRelay = (props) => {
+  const UserAvatarContainer = Relay.createContainer(UserAvatar, {
+    fragments: {
+      user: () => userFragment,
+    },
+  });
 
-  render() {
-    const UserAvatarContainer = Relay.createContainer(UserAvatar, {
-      fragments: {
-        user: () => userFragment,
-      },
-    });
-
-    const route = new MeRoute();
-    return (
-      <Relay.RootContainer
-        Component={UserAvatarContainer}
-        route={route}
-        renderLoading={() => <StyledAvatarLoader />}
-        renderFetched={data => <UserAvatarContainer {...this.props} {...data} />}
-      />
-    );
-  }
-}
+  const route = new MeRoute();
+  return (
+    <Relay.RootContainer
+      Component={UserAvatarContainer}
+      route={route}
+      renderLoading={() => <StyledAvatarLoader />}
+      renderFetched={data => <UserAvatarContainer {...props} {...data} />}
+    />
+  );
+};
 
 export default UserAvatarRelay;
