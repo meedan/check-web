@@ -85,35 +85,6 @@ const StyledMediaTagsContainer = styled.div`
       margin-${props => (props.isRtl ? 'left' : 'right')}: ${units(1)};
     }
   }
-
-  .media-tags .tags-list .ReactTags__tag {
-    ${chipStyles}
-    min-width: ${units(7)};
-    margin-${props => (props.isRtl ? 'left' : 'right')}: ${units(2)};
-  }
-
-  // TODO standardize with other form inputs — CGB 2017-3-12
-  .media-tags .tags-list input {
-    border-bottom: ${borderWidthSmall} solid ${black16} !important;
-    border-width: 0;
-    color: ${black87};
-    font: ${body2};
-    margin: ${units(1)} 0;
-    padding: ${units(1)} 0;
-    width: 100%;
-
-    &:focus {
-      border-bottom-color: ${checkBlue} !important;
-      outline: none;
-    }
-  }
-
-  button.ReactTags__remove {
-    background-color: transparent;
-    border: 0;
-    font-size: 1em;
-  }
-
 `;
 
 class MediaTags extends Component {
@@ -223,6 +194,9 @@ class MediaTags extends Component {
     const remainingTags = tags.filter(tag => !suggestedTags.includes(tag.node.tag));
     const searchQuery = searchQueryFromUrl();
     const activeRegularTags = searchQuery.tags || [];
+    const updateCallback = (text) => {
+      this.props.onChange && this.props.onChange(text);
+    };
 
     if (!this.props.isEditing) {
       return (
@@ -300,7 +274,15 @@ class MediaTags extends Component {
             </div>
             : null}
 
-          <Tags tags={remainingTags} annotated={media} annotatedType="ProjectMedia" />
+          <Tags
+            tags={remainingTags}
+            errorText={this.state.message || this.props.errorText}
+            options={[]}
+            annotated={media}
+            annotatedType="ProjectMedia"
+            isEditing
+            onChange={(text) => { updateCallback(text); }}
+          />
         </div>
 
       </StyledMediaTagsContainer>

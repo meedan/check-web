@@ -276,7 +276,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 2
       page = ProjectPage.new(config: @config, driver: @driver).load
              .create_image_media(File.join(File.dirname(__FILE__), 'test.png'))
-      
+
       sleep 2
       wait_for_selector("add-annotation__buttons", :class)
       @driver.navigate.to @config['self_url'] + '/' + get_team + '/search'
@@ -345,7 +345,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       id1 = @driver.current_url.to_s.gsub(/^.*\/source\//, '').to_i
       expect(id1 > 0).to be(true)
       @driver.navigate.to @driver.current_url.to_s.gsub(/\/source\/[0-9]+$/, '')
-      wait_for_selector("create-media-submit", :id)      
+      wait_for_selector("create-media-submit", :id)
       el = wait_for_selector('#create-media__source')
       el.click
       sleep 1
@@ -353,7 +353,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       fill_field('#create-media-source-url-input', 'https://twitter.com/megadeth')
       sleep 1
       press_button('#create-media-submit')
-      wait_for_selector("source__tab-button-account", :class)            
+      wait_for_selector("source__tab-button-account", :class)
       id2 = @driver.current_url.to_s.gsub(/^.*\/source\//, '').to_i
       expect(id2 > 0).to be(true)
       expect(id1 == id2).to be(true)
@@ -363,7 +363,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       api_create_team_project_and_source_and_redirect_to_source('ACDC', 'https://twitter.com/acdc')
       wait_for_selector('source__tab-button-account', :class)
       expect(@driver.page_source.include?('command')).to be(false)
-      el = wait_for_selector('.source__tab-button-notes')            
+      el = wait_for_selector('.source__tab-button-notes')
       el.click
       wait_for_selector('add-annotation__insert-photo', :class)
       expect(@driver.page_source.include?('Tagged #command')).to be(false)
@@ -540,13 +540,13 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should add and remove source tags", bin6: true do
       api_create_team_project_and_source_and_redirect_to_source('GOT', 'https://twitter.com/GameOfThrones')
-      element =  wait_for_selector("source__edit-button", :class,60)     
+      element =  wait_for_selector("source__edit-button", :class,60)
       element.click
       sleep 1
-      element =  wait_for_selector("source__edit-addinfo-button", :class)     
+      element =  wait_for_selector("source__edit-addinfo-button", :class)
       element.click
       sleep 1
-      element =  wait_for_selector("source__add-tags", :class)     
+      element =  wait_for_selector("source__add-tags", :class)
       element.click
       sleep 1
       fill_field("sourceTagInput", "TAG1", :id)
@@ -556,19 +556,19 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 3
       @driver.navigate.refresh
       sleep 3
-      wait_for_selector("source__edit-button", :class, 60)     
+      wait_for_selector("source__edit-button", :class, 60)
       expect(@driver.page_source.include?('TAG1')).to be(true)
       expect(@driver.page_source.include?('TAG2')).to be(true)
 
       #delete
       element = wait_for_selector("source__edit-button",:class)
       element.click
-      wait_for_selector("source__edit-buttons-add-merge", :class, 60)     
+      wait_for_selector("source__edit-buttons-add-merge", :class, 60)
       list = wait_for_selector_list("div.source-tags__tag svg")
       list[0].click
       sleep 1
       @driver.navigate.refresh
-      wait_for_selector("source__tab-button-account", :class, 60)           
+      wait_for_selector("source__tab-button-account", :class, 60)
       expect(@driver.page_source.include?('TAG1')).to be(true)
       expect(@driver.page_source.include?('TAG2')).to be(false)
     end
@@ -591,9 +591,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 1
       wait_for_size_change(0, "sourceLanguageInput",:id)
       element = wait_for_selector("source__edit-save-button",:class)
-      element.click      
+      element.click
       sleep 2
-      wait_for_selector("source-tags__tag",:class)  
+      wait_for_selector("source-tags__tag",:class)
       expect(@driver.page_source.include?('Acoli')).to be(true)
       element = wait_for_selector("source__edit-button",:class)
       element.click
@@ -602,7 +602,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       elements[0].click
       sleep 1
       element = wait_for_selector("source__edit-save-button",:class)
-      element.click      
+      element.click
       sleep 2
       wait_for_selector("source__tab-button-media",:class)
       expect(@driver.page_source.include?('Acoli')).to be(false)
@@ -756,14 +756,14 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el.click
       el = wait_for_selector('.media-actions__edit')
       el.click
-      wait_for_selector('ReactTags__selected', :class)
-      fill_field('.ReactTags__tagInput input', "TAG")
-      @driver.action.send_keys("\n").perform      
+      wait_for_selector('source-tags__tags', :class)
+      fill_field('#sourceTagInput', "TAG")
+      @driver.action.send_keys("\n").perform
       sleep 1
-      fill_field('.ReactTags__tagInput input', "TAG2")
+      fill_field('#sourceTagInput', "TAG2")
       @driver.action.send_keys("\n").perform
       expect(page.tags.length == 2).to be(true)
-      list = @driver.find_elements(:class, "ReactTags__remove")
+      list = wait_for_selector_list("div.source-tags__tag svg")
       list[1].click
       sleep 3
       expect(page.tags.length == 1).to be(true)
@@ -785,7 +785,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       #As the group creator, go to the members page and approve the joining request.
       page = MePage.new(config: @config, driver: @driver).load
           .approve_join_team(subdomain: team.slug)
-      el = wait_for_selector_list("team-members__edit-button",:class)     
+      el = wait_for_selector_list("team-members__edit-button",:class)
       expect(el.length > 0).to be(true)
       api_logout
 
@@ -793,7 +793,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       page = Page.new(config: @config, driver: @driver)
       page.go(@config['api_path'] + '/test/session?email='+user2.email)
       page = MePage.new(config: @config, driver: @driver).load
-      el = wait_for_selector_list("team-members__edit-button",:class)     
+      el = wait_for_selector_list("team-members__edit-button",:class)
       expect(el.length == 0).to be(true)
     end
 
@@ -850,7 +850,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       #Logo
       el = wait_for_selector(".team__edit-avatar-button")
       el.click
-      
+
       input = wait_for_selector('input[type=file]')
       input.send_keys(File.join(File.dirname(__FILE__), 'test.png'))
 
@@ -887,7 +887,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(page.team_name).to eq('Team 2')
       expect(page.project_titles.include?('Team 2 Project')).to be(true)
       expect(page.project_titles.include?('Team 1 Project')).to be(false)
-    
+
       #As a different user, request to join one team and be accepted.
       user = api_register_and_login_with_email(email: "new"+@user_mail, password: @password)
       page = MePage.new(config: @config, driver: @driver).load
@@ -919,8 +919,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 3
       @wait.until {
         expect(@driver.current_url.eql? @config['self_url']+"/"+@team1_slug ).to be(true)
-      }    
- 
+      }
+
       # "should reject member to join team"
       user = api_register_and_login_with_email
       page = MePage.new(config: @config, driver: @driver).load
@@ -939,7 +939,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
           .disapprove_join_team(subdomain: @team1_slug)
       @wait.until {
         expect(@driver.page_source.include?('Requests to join')).to be(false)
-      }      
+      }
 
       # "should delete member from team"
       page = Page.new(config: @config, driver: @driver)
@@ -948,13 +948,13 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 1
       page = MePage.new(config: @config, driver: @driver).load
       @driver.navigate.to @config['self_url'] + '/'+@team1_slug
-      sleep 2 
+      sleep 2
       wait_for_selector('team-members__member',:class)
       el = wait_for_selector('team-members__edit-button',:class)
       el.click
       sleep 5
       l = wait_for_selector_list('//button',:xpath)
-      old =  l.length      
+      old =  l.length
       expect(l.length > 4).to be(true)
       l[l.length-2].click
       sleep 1
@@ -1199,7 +1199,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       media_pg.wait_all_elements(8, "annotations__list-item", :class) #Wait for refresh page
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Task "Foo or bar???" answered by User With Email: "Bar"')).to be(true)
       # Delete task
-      delete_task('Foo')    
+      delete_task('Foo')
     end
 
     it "should add, edit, answer, update answer and delete multiple_choice task", bin5:true do
@@ -1479,7 +1479,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should show teams at /check/teams", bin1: true do
-      api_create_team     
+      api_create_team
       @driver.navigate.to @config['self_url'] + '/check/teams'
       wait_for_selector("teams", :class)
       expect(@driver.find_elements(:css, '.teams').empty?).to be(false)

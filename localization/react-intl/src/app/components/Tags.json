@@ -1,10 +1,10 @@
 [
   {
-    "id": "tags.error",
-    "defaultMessage": "Sorry, could not create the tag"
+    "id": "tags.addTagHelper",
+    "defaultMessage": "Create a tag or choose from existing"
   },
   {
-    "id": "tags.addNewTag",
-    "defaultMessage": "Add new tag"
+    "id": "tags.error",
+    "defaultMessage": "Sorry, could not create the tag"
   }
 ]

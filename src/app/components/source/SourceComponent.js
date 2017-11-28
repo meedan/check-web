@@ -26,8 +26,8 @@ import rtlDetect from 'rtl-detect';
 import AccountCard from './AccountCard';
 import AccountChips from './AccountChips';
 import SourceLanguages from './SourceLanguages';
-import SourceTags from './SourceTags';
 import SourcePicture from './SourcePicture';
+import Tags from '../Tags';
 import Annotations from '../annotations/Annotations';
 import PageTitle from '../PageTitle';
 import Medias from '../media/Medias';
@@ -61,6 +61,7 @@ import {
   StyledDescription,
   StyledAvatarEditButton,
 } from '../../styles/js/HeaderCard';
+import styled from 'styled-components';
 
 import {
   ContentColumn,
@@ -160,6 +161,10 @@ const messages = defineMessages({
     defaultMessage: 'No media attributed to this source yet',
   },
 });
+
+const StyledTagInput = styled.div`
+  max-width: 85%;
+`;
 
 class SourceComponent extends Component {
   constructor(props) {
@@ -397,6 +402,10 @@ class SourceComponent extends Component {
   handleSubmit(e) {
     e.preventDefault();
 
+    const pendingTagInput = document.forms['edit-source-form'].sourceTagInput;
+    const pendingTag = pendingTagInput && pendingTagInput.value;
+    pendingTag && pendingTag.trim() && this.createTag(pendingTag);
+
     if (this.validateLinks() && !this.state.submitDisabled) {
       const updateSourceSent = this.updateSource();
       const updateLinksSent = this.updateLinks();
@@ -412,10 +421,6 @@ class SourceComponent extends Component {
       });
     }
   }
-
-  handleSelectTag = (chosenRequest, index) => {
-    this.createTag(chosenRequest);
-  };
 
   fail = (transaction) => {
     let message = this.props.intl.formatMessage(messages.editError);
@@ -570,23 +575,6 @@ class SourceComponent extends Component {
         { onSuccess, onFailure },
       );
     });
-  }
-
-  deleteTag(tagId) {
-    const { source } = this.props;
-    const onFailure = (transaction) => {
-      this.fail(transaction);
-    };
-    const onSuccess = (response) => {};
-
-    Relay.Store.commitUpdate(
-      new DeleteTagMutation({
-        annotated: source,
-        parent_type: 'project_source',
-        id: tagId,
-      }),
-      { onSuccess, onFailure },
-    );
   }
 
   createAccountSource(url) {
@@ -1117,7 +1105,7 @@ class SourceComponent extends Component {
     }
 
     const tags = this.getSource().tags.edges;
-    return <SourceTags tags={tags} />;
+    return <Tags tags={tags} />;
   }
 
   renderTagsEdit() {
@@ -1136,15 +1124,16 @@ class SourceComponent extends Component {
     );
     const isEditing = this.state.addingTags || tags.length;
 
-    return (
-      <SourceTags
-        errorText={this.state.tagErrorMessage}
-        tags={tags}
-        options={availableTags}
-        onDelete={this.deleteTag.bind(this)}
-        onSelect={this.handleSelectTag}
-        isEditing={isEditing}
-      />
+    return (<StyledTagInput>
+        <Tags
+          errorText={this.state.tagErrorMessage}
+          tags={tags}
+          options={availableTags}
+          annotated={this.props.source}
+          annotatedType={'ProjectSource'}
+          isEditing={isEditing}
+        />
+      </StyledTagInput>
     );
   }
 
