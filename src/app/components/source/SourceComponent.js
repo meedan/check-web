@@ -36,7 +36,7 @@ import Message from '../Message';
 import Can from '../Can';
 import CheckContext from '../../CheckContext';
 import ParsedText from '../ParsedText';
-import UploadImage from '../UploadImage';
+import UploadImageRelay from '../../relay/UploadImageRelay';
 import { truncateLength } from '../../helpers';
 import globalStrings from '../../globalStrings';
 import CreateDynamicMutation from '../../relay/CreateDynamicMutation';
@@ -191,7 +191,6 @@ class SourceComponent extends Component {
     if (!this.isProjectSource()) {
       return;
     }
-    const that = this;
     const pusher = this.getContext().pusher;
     const pusherChannel = this.props.source.source.pusher_channel;
     if (pusher && pusherChannel) {
@@ -200,10 +199,10 @@ class SourceComponent extends Component {
         const metadata = this.getMetadataAnnotation() || {};
         const obj = JSON.parse(data.message);
 
-        if (that.state.isEditing && ((obj.annotation_type === 'metadata' && obj.lock_version > metadata.lock_version) || (!obj.annotation_type && obj.lock_version > source.lock_version))) {
-          that.setState({ message: that.getConflictMessage() });
-        } else if (!that.state.isEditing && that.getContext().clientSessionId !== data.actor_session_id) {
-          that.props.relay.forceFetch();
+        if (this.state.isEditing && ((obj.annotation_type === 'metadata' && obj.lock_version > metadata.lock_version) || (!obj.annotation_type && obj.lock_version > source.lock_version))) {
+          this.setState({ message: this.getConflictMessage() });
+        } else if (!this.state.isEditing && this.getContext().clientSessionId !== data.actor_session_id) {
+          this.props.relay.forceFetch();
         }
       });
     }
@@ -220,8 +219,7 @@ class SourceComponent extends Component {
   }
 
   getContext() {
-    const context = new CheckContext(this).getContextStore();
-    return context;
+    return new CheckContext(this).getContextStore();
   }
 
   setContextSource() {
@@ -1290,7 +1288,7 @@ class SourceComponent extends Component {
             name="edit-source-form"
           >
             {this.state.editProfileImg ? (
-              <UploadImage
+              <UploadImageRelay
                 onImage={this.onImage.bind(this)}
                 onClear={this.onClear}
                 onError={this.onImageError.bind(this)}

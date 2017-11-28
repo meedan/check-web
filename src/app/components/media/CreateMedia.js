@@ -15,7 +15,7 @@ import MdFormatQuote from 'react-icons/lib/md/format-quote';
 import styled from 'styled-components';
 import config from 'config';
 import urlRegex from 'url-regex';
-import UploadImage from '../UploadImage';
+import UploadImageRelay from '../../relay/UploadImageRelay';
 import PenderCard from '../PenderCard';
 import CreateProjectMediaMutation from '../../relay/CreateProjectMediaMutation';
 import CreateProjectSourceMutation from '../../relay/CreateProjectSourceMutation';
@@ -333,7 +333,7 @@ class CreateProjectMedia extends Component {
     switch (this.state.mode) {
     case 'image':
       return [
-        <UploadImage
+        <UploadImageRelay
           key="createMedia.image.upload"
           onImage={this.handleImage.bind(this)}
           onError={this.handleImageError.bind(this)}

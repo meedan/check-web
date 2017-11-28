@@ -23,7 +23,7 @@ import CreateProject from '../project/CreateProject';
 import Can, { can } from '../Can';
 import CheckContext from '../../CheckContext';
 import ParsedText from '../ParsedText';
-import UploadImage from '../UploadImage';
+import UploadImageRelay from '../../relay/UploadImageRelay';
 import globalStrings from '../../globalStrings';
 import {
   ContentColumn,
@@ -343,7 +343,7 @@ class TeamComponent extends Component {
 
                         <StyledBigColumn>
                           {this.state.editProfileImg
-                            ? <UploadImage
+                            ? <UploadImageRelay
                               onImage={this.onImage.bind(this)}
                               onClear={this.onClear}
                               onError={this.onImageError.bind(this)}

@@ -28,22 +28,21 @@ class CreateProject extends Component {
   }
 
   handleSubmit(e) {
-    let that = this,
-      title = document.getElementById('create-project-title').value,
-      team = this.props.team,
-      context = new CheckContext(this),
-      history = context.getContextStore().history;
+    const title = document.getElementById('create-project-title').value;
+    const team = this.props.team;
+    const context = new CheckContext(this);
+    const history = context.getContextStore().history;
 
     const onFailure = (transaction) => {
       const error = transaction.getError();
-      let message = that.props.intl.formatMessage(messages.error);
+      let message = this.props.intl.formatMessage(messages.error);
       try {
         const json = JSON.parse(error.source);
         if (json.error) {
           message = json.error;
         }
       } catch (e) { }
-      that.setState({ message, submitDisabled: false });
+      this.setState({ message, submitDisabled: false });
     };
 
     const onSuccess = (response) => {
@@ -52,7 +51,7 @@ class CreateProject extends Component {
       history.push(path);
     };
 
-    if (!that.state.submitDisabled) {
+    if (!this.state.submitDisabled) {
       Relay.Store.commitUpdate(
         new CreateProjectMutation({
           title,
@@ -60,7 +59,7 @@ class CreateProject extends Component {
         }),
         { onSuccess, onFailure },
       );
-      that.setState({ submitDisabled: true });
+      this.setState({ submitDisabled: true });
     }
 
     e.preventDefault();

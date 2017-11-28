@@ -78,6 +78,10 @@ const messages = defineMessages({
 });
 
 class UserPasswordChange extends Component {
+  static getQueryStringValue(key) {
+    return decodeURIComponent(window.location.search.replace(new RegExp(`^(?:.*[&\\?]${encodeURIComponent(key).replace(/[.+*]/g, '\\$&')}(?:\\=([^&]*))?)?.*$`, 'i'), '$1'));
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -86,18 +90,12 @@ class UserPasswordChange extends Component {
     };
   }
 
-  getQueryStringValue(key) {
-    return decodeURIComponent(window.location.search.replace(new RegExp(`^(?:.*[&\\?]${encodeURIComponent(key).replace(/[\.\+\*]/g, '\\$&')}(?:\\=([^&]*))?)?.*$`, 'i'), '$1'));
-  }
-
   getHistory() {
-    const history = new CheckContext(this).getContextStore().history;
-    return history;
+    return new CheckContext(this).getContextStore().history;
   }
 
   handleSignIn() {
-    const history = this.getHistory();
-    history.push('/check/login/email');
+    this.getHistory().push('/check/login/email');
   }
 
   handleChangePassword(e) {
@@ -125,7 +123,6 @@ class UserPasswordChange extends Component {
   }
 
   handleSubmit(e) {
-    const that = this;
     const token = this.getQueryStringValue('reset_password_token');
 
     const onFailure = (transaction) => {
@@ -139,20 +136,22 @@ class UserPasswordChange extends Component {
           const matches = message.match(/match/);
 
           if (matches) {
-            message = that.props.intl.formatMessage(messages.unmatchingPasswords);
-            that.setState({ password: '', password_confirmation: '' });
+            message = this.props.intl.formatMessage(messages.unmatchingPasswords);
+            this.setState({ password: '', password_confirmation: '' });
           }
         }
-      } catch (e) { }
+      } catch (ex) {
+        // Do nothing.
+      }
 
-      that.setState({ errorMsg: message, submitDisabled: true });
+      this.setState({ errorMsg: message, submitDisabled: true });
     };
 
-    const onSuccess = (response) => {
-      that.setState({ showConfirmDialog: true });
+    const onSuccess = () => {
+      this.setState({ showConfirmDialog: true });
     };
 
-    if (!that.state.submitDisabled) {
+    if (!this.state.submitDisabled) {
       Relay.Store.commitUpdate(
         new ChangePasswordMutation({
           reset_password_token: token,
@@ -180,7 +179,7 @@ class UserPasswordChange extends Component {
           </Card> :
           <Card className="user-password-change__card">
             <CardText>
-              <img src={stringHelper('LOGO_URL')} className="user-password-change__logo" />
+              <img role="presentation" src={stringHelper('LOGO_URL')} className="user-password-change__logo" />
 
               <span className="user-password-change__title"><FormattedMessage id="passwordChange.title" defaultMessage="Change password" /></span>
               <span className="user-password-change__error">{this.state.errorMsg}</span>

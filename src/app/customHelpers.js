@@ -50,16 +50,16 @@ function resolveHelper(name, args) {
   return customHelpers[config.appName][name].apply(this, args);
 }
 
-function teamStatuses(team) {
-  return resolveHelper('teamStatuses', arguments);
+function teamStatuses(...args) {
+  return resolveHelper('teamStatuses', args);
 }
 
-function mediaStatuses(media) {
-  return resolveHelper('mediaStatuses', arguments);
+function mediaStatuses(...args) {
+  return resolveHelper('mediaStatuses', args);
 }
 
-function mediaLastStatus(media) {
-  return resolveHelper('mediaLastStatus', arguments);
+function mediaLastStatus(...args) {
+  return resolveHelper('mediaLastStatus', args);
 }
 
 function stringHelper(key) {

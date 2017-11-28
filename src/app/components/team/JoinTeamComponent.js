@@ -48,37 +48,34 @@ class JoinTeamComponent extends Component {
   }
 
   getContext() {
-    const context = new CheckContext(this).getContextStore();
-    return context;
+    return new CheckContext(this).getContextStore();
   }
 
   handleRequestAccess(e) {
     e.preventDefault();
     this.setState({ requestStatus: 'requested' });
 
-    const that = this;
-
     const onFailure = (transaction) => {
       const error = transaction.getError();
-      let message = that.props.intl.formatMessage(messages.error);
+      let message = this.props.intl.formatMessage(messages.error);
       try {
         const json = JSON.parse(error.source);
         if (json.error) {
           message = json.error;
         }
       } catch (e) {}
-      that.setState({ message });
+      this.setState({ message });
     };
 
     const onSuccess = (response) => {
-      const appName = mapGlobalMessage(that.props.intl, 'appNameHuman');
+      const appName = mapGlobalMessage(this.props.intl, 'appNameHuman');
       const status = response.createTeamUser.team_user.status;
       let message = messages.success;
       if (status === 'member') {
         message = messages.autoApprove;
       }
-      that.setState({
-        message: that.props.intl.formatMessage(message, { team: that.props.team.name, appName }),
+      this.setState({
+        message: this.props.intl.formatMessage(message, { team: this.props.team.name, appName }),
         requestStatus: status,
       });
     };
@@ -86,7 +83,7 @@ class JoinTeamComponent extends Component {
     Relay.Store.commitUpdate(
       new CreateTeamUserMutation({
         team_id: this.props.team.dbid,
-        user_id: that.getContext().currentUser.dbid,
+        user_id: this.getContext().currentUser.dbid,
         status: 'requested',
       }),
       { onSuccess, onFailure },

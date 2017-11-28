@@ -50,6 +50,30 @@ const messages = defineMessages({
 });
 
 class TranslationItem extends Component {
+  static getTranslationText(content) {
+    const object = content.find(it => it.field_name === 'translation_text');
+    return object ? object.value : '';
+  }
+
+  static getTranslationNote(content) {
+    const object = content.find(it => it.field_name === 'translation_note');
+    return object ? object.value : '';
+  }
+
+  static getTranslationLanguage(content) {
+    const object = content.find(it => it.field_name === 'translation_language');
+    return object ? object.formatted_value : '';
+  }
+
+  static getTranslationLanguageCode(content) {
+    const object = content.find(it => it.field_name === 'translation_language');
+    return object ? object.value : '';
+  }
+
+  static bemClass(baseClass, modifierBoolean, modifierSuffix) {
+    return modifierBoolean ? [baseClass, baseClass + modifierSuffix].join(' ') : baseClass;
+  }
+
   constructor(props) {
     super(props);
 
@@ -70,11 +94,13 @@ class TranslationItem extends Component {
         if (json.error) {
           message = json.error;
         }
-      } catch (e) {}
+      } catch (e) {
+        // Do nothing.
+      }
       this.setState({ message });
     };
 
-    const onSuccess = (response) => {
+    const onSuccess = () => {
       this.setState({ message: null, editing: false });
     };
 
@@ -98,30 +124,6 @@ class TranslationItem extends Component {
     }
 
     e.preventDefault();
-  }
-
-  getTranslationText(content) {
-    const object = content.find(it => it.field_name === 'translation_text');
-    return object ? object.value : '';
-  }
-
-  getTranslationNote(content) {
-    const object = content.find(it => it.field_name === 'translation_note');
-    return object ? object.value : '';
-  }
-
-  getTranslationLanguage(content) {
-    const object = content.find(it => it.field_name === 'translation_language');
-    return object ? object.formatted_value : '';
-  }
-
-  getTranslationLanguageCode(content) {
-    const object = content.find(it => it.field_name === 'translation_language');
-    return object ? object.value : '';
-  }
-
-  bemClass(baseClass, modifierBoolean, modifierSuffix) {
-    return modifierBoolean ? [baseClass, baseClass + modifierSuffix].join(' ') : baseClass;
   }
 
   handleEdit() {

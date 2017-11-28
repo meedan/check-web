@@ -10,7 +10,7 @@ import LinkifyIt from 'linkify-it';
 import rtlDetect from 'rtl-detect';
 import SourcePicture from './SourcePicture';
 import Message from '../Message';
-import UploadImage from '../UploadImage';
+import UploadImageRelay from '../../relay/UploadImageRelay';
 import globalStrings from '../../globalStrings';
 import UpdateSourceMutation from '../../relay/UpdateSourceMutation';
 import UpdateUserNameEmailMutation from '../../relay/mutation/UpdateUserNameEmailMutation';
@@ -467,7 +467,7 @@ class UserInfoEdit extends React.Component {
               name="edit-source-form"
             >
               {this.state.editProfileImg
-                ? <UploadImage
+                ? <UploadImageRelay
                   onImage={this.onImage.bind(this)}
                   onClear={this.onClear}
                   onError={this.onImageError.bind(this)}

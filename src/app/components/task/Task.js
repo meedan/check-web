@@ -10,6 +10,8 @@ import IconButton from 'material-ui/IconButton';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import styled from 'styled-components';
+import Tooltip from 'rc-tooltip';
+import 'rc-tooltip/assets/bootstrap_white.css';
 import SourcePicture from '../source/SourcePicture';
 import SingleChoiceTask from './SingleChoiceTask';
 import MultiSelectTask from './MultiSelectTask';
@@ -26,9 +28,6 @@ import DatetimeRespondTask from './DatetimeRespondTask';
 import DatetimeTaskResponse from './DatetimeTaskResponse';
 import { units } from '../../styles/js/shared';
 import ProfileLink from '../layout/ProfileLink';
-import Tooltip from 'rc-tooltip';
-import 'rc-tooltip/assets/bootstrap_white.css';
-import UserTooltip from '../user/UserTooltip';
 import Attribution from './Attribution';
 import Sentence from '../Sentence';
 
@@ -265,10 +264,6 @@ class Task extends Component {
       }),
       { onSuccess, onFailure },
     );
-  }
-
-  componentDidMount() {
-    const that = this;
   }
 
   getResponseData() {

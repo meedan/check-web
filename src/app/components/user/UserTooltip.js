@@ -1,26 +1,21 @@
 import React from 'react';
-import Relay from 'react-relay';
-import { FormattedHTMLMessage, injectIntl } from 'react-intl';
+import { FormattedHTMLMessage } from 'react-intl';
 import { Link } from 'react-router';
 import Avatar from 'material-ui/Avatar';
-import { Card, CardText } from 'material-ui/Card';
 import MdLaunch from 'react-icons/lib/md/launch';
 import ParsedText from '../ParsedText';
 import MediaUtil from '../media/MediaUtil';
 import { truncateLength } from '../../helpers';
-import UserRoute from '../../relay/UserRoute';
 import {
-  white,
-  black54,
   body2,
   caption,
   units,
 } from '../../styles/js/shared';
 
-class UserTooltipComponent extends React.Component {
-  accountLink(account) {
+class UserTooltip extends React.Component {
+  static accountLink(account) {
     return (<a key={account.id} href={account.url} target="_blank" rel="noopener noreferrer" style={{ paddingRight: units(1) }}>
-      { MediaUtil.socialIcon(`${account.provider}.com`) /* TODO: refactor */ }
+      { MediaUtil.socialIcon(`${account.provider}.com`) /* TODO Don't hardcode domain */ }
     </a>);
   }
 
@@ -70,49 +65,6 @@ class UserTooltipComponent extends React.Component {
           </div>
         </section>
       </div>
-    );
-  }
-}
-
-const UserTooltipContainer = Relay.createContainer(injectIntl(UserTooltipComponent), {
-  fragments: {
-    user: () => Relay.QL`
-      fragment on User {
-        id,
-        dbid,
-        name,
-        number_of_teams,
-        source {
-          id,
-          dbid,
-          image,
-          description,
-          created_at,
-          account_sources(first: 10000) {
-            edges {
-              node {
-                account {
-                  id,
-                  url,
-                  provider
-                }
-              }
-            }
-          }
-        }
-      }
-    `,
-  },
-});
-
-class UserTooltip extends React.Component {
-  render() {
-    const route = new UserRoute({ userId: this.props.user.dbid });
-    return (
-      <Relay.RootContainer
-        Component={UserTooltipContainer}
-        route={route}
-      />
     );
   }
 }

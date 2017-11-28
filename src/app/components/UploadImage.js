@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-import Relay from 'react-relay';
 import Dropzone from 'react-dropzone';
-import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
+import { FormattedMessage, defineMessages, intlShape } from 'react-intl';
 import MdHighlightRemove from 'react-icons/lib/md/highlight-remove';
 import styled from 'styled-components';
 import rtlDetect from 'rtl-detect';
-import AboutRoute from '../relay/AboutRoute';
 import { unhumanizeSize } from '../helpers';
 import {
   black38,
@@ -82,7 +80,7 @@ const messages = defineMessages({
   },
 });
 
-class UploadImageComponent extends Component {
+class UploadImage extends Component {
   constructor(props) {
     super(props);
     this.state = { file: null };
@@ -90,17 +88,22 @@ class UploadImageComponent extends Component {
 
   onDrop(files) {
     const file = files[0];
-    const valid_extensions = this.props.about.upload_extensions.toLowerCase().split(/[\s,]+/);
+    const validExtensions = this.props.about.upload_extensions.toLowerCase().split(/[\s,]+/);
     const extension = file.name.substr(file.name.lastIndexOf('.') + 1).toLowerCase();
-    if (valid_extensions.length > 0 && valid_extensions.indexOf(extension) < 0) {
+    if (validExtensions.length > 0 && validExtensions.indexOf(extension) < 0) {
       if (this.props.onError) {
-        this.props.onError(file, this.props.intl.formatMessage(messages.invalidExtension, { extension, allowed_types: this.props.about.upload_extensions }));
+        this.props.onError(file, this.props.intl.formatMessage(messages.invalidExtension, {
+          extension,
+          allowed_types: this.props.about.upload_extensions,
+        }));
       }
       return;
     }
     if (file.size && unhumanizeSize(this.props.about.upload_max_size) < file.size) {
       if (this.props.onError) {
-        this.props.onError(file, this.props.intl.formatMessage(messages.fileTooLarge, { size: this.props.about.upload_max_size }));
+        this.props.onError(file, this.props.intl.formatMessage(messages.fileTooLarge, {
+          size: this.props.about.upload_max_size,
+        }));
       }
       return;
     }
@@ -115,10 +118,7 @@ class UploadImageComponent extends Component {
   }
 
   preview() {
-    let style = {};
-    if (this.state.file) {
-      style = { backgroundImage: `url(${this.state.file.preview})` };
-    }
+    const style = this.state.file ? { backgroundImage: `url(${this.state.file.preview})` } : {};
 
     if (this.state.file && this.props.noPreview) {
       return (
@@ -135,6 +135,7 @@ class UploadImageComponent extends Component {
           </StyledIconButton></Row>
       );
     }
+    return null;
   }
 
   render() {
@@ -146,7 +147,9 @@ class UploadImageComponent extends Component {
         <Dropzone onDrop={this.onDrop.bind(this)} multiple={false} className={this.state.file ? 'with-file' : 'without-file'}>
           <div>
             { this.state.file ?
-              this.props.intl.formatMessage(messages.changeFile, { filename: this.state.file.name }) :
+              this.props.intl.formatMessage(messages.changeFile, {
+                filename: this.state.file.name,
+              }) :
               <FormattedMessage
                 id="uploadImage.message"
                 defaultMessage="Drop an image file here, or click to upload a file (max size: {upload_max_size}, allowed extensions: {upload_extensions}, allowed dimensions between {upload_min_dimensions} and {upload_max_dimensions} pixels)"
@@ -166,28 +169,8 @@ class UploadImageComponent extends Component {
   }
 }
 
-UploadImageComponent.propTypes = {
+UploadImage.propTypes = {
   intl: intlShape.isRequired,
 };
-
-const UploadImageContainer = Relay.createContainer(injectIntl(UploadImageComponent), {
-  fragments: {
-    about: () => Relay.QL`
-      fragment on About {
-        upload_max_size,
-        upload_extensions,
-        upload_max_dimensions,
-        upload_min_dimensions
-      }
-    `,
-  },
-});
-
-class UploadImage extends Component {
-  render() {
-    const route = new AboutRoute();
-    return (<Relay.RootContainer Component={UploadImageContainer} route={route} renderFetched={data => <UploadImageContainer {...this.props} {...data} />} />);
-  }
-}
 
 export default UploadImage;

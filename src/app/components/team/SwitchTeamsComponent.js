@@ -43,8 +43,7 @@ const messages = defineMessages({
 
 class SwitchTeamsComponent extends Component {
   getContext() {
-    const context = new CheckContext(this);
-    return context;
+    return new CheckContext(this);
   }
 
   setCurrentTeam(team, user) {

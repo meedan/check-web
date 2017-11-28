@@ -21,7 +21,7 @@ import { Card } from 'material-ui/Card';
 import styled from 'styled-components';
 import merge from 'lodash.merge';
 import Message from './Message';
-import UploadImage from './UploadImage';
+import UploadImageRelay from '../relay/UploadImageRelay';
 import CheckContext from '../CheckContext';
 import { login, request } from '../redux/actions';
 import { mapGlobalMessage } from './MappedMessage';
@@ -182,8 +182,7 @@ class Login extends Component {
   }
 
   getHistory() {
-    const history = new CheckContext(this).getContextStore().history;
-    return history;
+    return new CheckContext(this).getContextStore().history;
   }
 
   handleSwitchType() {
@@ -200,17 +199,16 @@ class Login extends Component {
 
   emailLogin() {
     const history = this.getHistory();
-    const that = this;
     const params = {
       'api_user[email]': this.state.email,
       'api_user[password]': this.state.password,
     };
 
-    const failureCallback = message => that.setState({ message });
+    const failureCallback = message => this.setState({ message });
 
     const successCallback = () => {
-      that.setState({ message: null });
-      that.props.loginCallback();
+      this.setState({ message: null });
+      this.props.loginCallback();
       history.push('/');
     };
 
@@ -219,7 +217,6 @@ class Login extends Component {
 
   registerEmail() {
     const history = this.getHistory();
-    const that = this;
     const form = document.forms.register;
     const params = {
       'api_user[email]': this.state.email,
@@ -229,11 +226,11 @@ class Login extends Component {
       'api_user[image]': form.image,
     };
 
-    const failureCallback = message => that.setState({ message });
+    const failureCallback = message => this.setState({ message });
 
     const successCallback = () => {
-      that.setState({ message: null });
-      that.props.loginCallback();
+      this.setState({ message: null });
+      this.props.loginCallback();
       history.push(window.location.pathname);
     };
 
@@ -401,7 +398,7 @@ class Login extends Component {
 
               {this.state.type === 'login'
                 ? null
-                : <UploadImage onImage={this.onImage.bind(this)} />}
+                : <UploadImageRelay onImage={this.onImage.bind(this)} />}
 
               <div className="login__actions" style={styles.buttonGroup}>
                 <RaisedButton

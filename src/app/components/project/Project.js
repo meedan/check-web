@@ -32,8 +32,7 @@ class ProjectComponent extends Component {
   }
 
   getContext() {
-    const context = new CheckContext(this);
-    return context;
+    return new CheckContext(this);
   }
 
   setContextProject() {
@@ -64,7 +63,6 @@ class ProjectComponent extends Component {
   }
 
   render() {
-    const that = this;
     const project = this.props.project;
 
     return (
@@ -76,7 +74,7 @@ class ProjectComponent extends Component {
             </div>
             : null}
           <Can permissions={project.permissions} permission="create Media">
-            <CreateProjectMedia projectComponent={that} />
+            <CreateProjectMedia projectComponent={this} />
           </Can>
 
           <ContentColumn noPadding>

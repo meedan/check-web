@@ -33,7 +33,7 @@ import TimeBefore from '../TimeBefore';
 import { getStatus, getStatusStyle } from '../../helpers';
 import ParsedText from '../ParsedText';
 import DatetimeTaskResponse from '../task/DatetimeTaskResponse';
-import UserTooltip from '../user/UserTooltip';
+import UserTooltipRelay from '../../relay/UserTooltipRelay';
 import {
   units,
   white,
@@ -829,7 +829,7 @@ class Annotation extends Component {
                   )}`}
               >
                 <StyledAvatarColumn isRtl={isRtl}>
-                  <Tooltip placement="top" overlay={<UserTooltip user={activity.user} />}>
+                  <Tooltip placement="top" overlay={<UserTooltipRelay user={activity.user} />}>
                     <SourcePicture
                       className="avatar"
                       type="user"

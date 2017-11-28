@@ -144,24 +144,23 @@ class MediaTags extends Component {
   }
 
   createTag(tagString) {
-    const that = this;
     const { media } = this.props;
     const context = new CheckContext(this).getContextStore();
 
     const onFailure = (transaction) => {
       const error = transaction.getError();
-      let message = that.props.intl.formatMessage(messages.error);
+      let message = this.props.intl.formatMessage(messages.error);
       try {
         const json = JSON.parse(error.source);
         if (json.error) {
           message = json.error;
         }
       } catch (e) {}
-      that.setState({ message });
+      this.setState({ message });
     };
 
     const onSuccess = () => {
-      that.setState({ message: null });
+      this.setState({ message: null });
     };
 
     Relay.Store.commitUpdate(

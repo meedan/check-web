@@ -26,8 +26,7 @@ import {
 
 class DrawerNavigation extends Component {
   getHistory() {
-    const history = new CheckContext(this).getContextStore().history;
-    return history;
+    return new CheckContext(this).getContextStore().history;
   }
 
   handleAvatarClick = () => {

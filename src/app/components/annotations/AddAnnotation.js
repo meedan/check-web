@@ -13,7 +13,7 @@ import UpdateStatusMutation from '../../relay/UpdateStatusMutation';
 import CreateFlagMutation from '../../relay/CreateFlagMutation';
 import CreateDynamicMutation from '../../relay/CreateDynamicMutation';
 import CheckContext from '../../CheckContext';
-import UploadImage from '../UploadImage';
+import UploadImageRelay from '../../relay/UploadImageRelay';
 import { ContentColumn, Row, black38, black87, alertRed, units } from '../../styles/js/shared';
 import HttpStatus from '../../HttpStatus';
 
@@ -137,8 +137,7 @@ class AddAnnotation extends Component {
   }
 
   getContext() {
-    const context = new CheckContext(this).getContextStore();
-    return context;
+    return new CheckContext(this).getContextStore();
   }
 
   addComment(
@@ -474,7 +473,7 @@ class AddAnnotation extends Component {
           {(() => {
             if (this.state.fileMode) {
               return (
-                <UploadImage
+                <UploadImageRelay
                   onImage={this.onImage.bind(this)}
                   onError={this.onImageError.bind(this)}
                 />

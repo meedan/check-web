@@ -56,8 +56,7 @@ class ProjectEditComponent extends Component {
   }
 
   getContext() {
-    const context = new CheckContext(this);
-    return context;
+    return new CheckContext(this);
   }
 
   setContextProject() {
@@ -97,7 +96,6 @@ class ProjectEditComponent extends Component {
   }
 
   updateProject(e) {
-    const that = this;
     const id = this.props.project.id;
     const title = this.state.title;
     const description = this.state.description;
@@ -107,17 +105,17 @@ class ProjectEditComponent extends Component {
 
     const onFailure = (transaction) => {
       const error = transaction.getError();
-      let message = that.props.intl.formatMessage(messages.error);
+      let message = this.props.intl.formatMessage(messages.error);
       try {
         const json = JSON.parse(error.source);
         if (json.error) {
           message = json.error;
         }
       } catch (e) { }
-      that.setState({ message });
+      this.setState({ message });
     };
 
-    const onSuccess = (response) => {
+    const onSuccess = () => {
       this.setState({ message: null, isEditing: false });
     };
 

@@ -83,8 +83,7 @@ export default class Root extends Component {
   };
 
   getContext() {
-    const context = new CheckContext(this);
-    return context;
+    return new CheckContext(this);
   }
 
   setStore() {

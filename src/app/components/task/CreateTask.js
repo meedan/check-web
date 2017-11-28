@@ -77,8 +77,6 @@ class CreateTask extends Component {
   }
 
   handleSubmitTask() {
-    const that = this;
-
     const onFailure = (transaction) => {
       const error = transaction.getError();
       let message = error.source;
@@ -88,11 +86,11 @@ class CreateTask extends Component {
           message = json.error;
         }
       } catch (e) {}
-      that.setState({ message });
+      this.setState({ message });
     };
 
-    const onSuccess = (response) => {
-      that.setState({
+    const onSuccess = () => {
+      this.setState({
         dialogOpen: false,
         label: '',
         description: '',
@@ -101,25 +99,23 @@ class CreateTask extends Component {
       });
     };
 
-    if (!that.state.submitDisabled) {
+    if (!this.state.submitDisabled) {
       Relay.Store.commitUpdate(
         new CreateTaskMutation({
-          label: that.state.label,
-          type: that.state.type,
-          description: that.state.description,
+          label: this.state.label,
+          type: this.state.type,
+          description: this.state.description,
           annotated_type: 'ProjectMedia',
-          annotated_id: that.props.media.id,
-          annotated_dbid: `${that.props.media.dbid}`,
+          annotated_id: this.props.media.id,
+          annotated_dbid: `${this.props.media.dbid}`,
         }),
         { onSuccess, onFailure },
       );
-      that.setState({ submitDisabled: true });
+      this.setState({ submitDisabled: true });
     }
   }
 
   handleSubmitTask2(label, description, jsonoptions) {
-    const that = this;
-
     const onFailure = (transaction) => {
       const error = transaction.getError();
       let message = error.source;
@@ -129,22 +125,22 @@ class CreateTask extends Component {
           message = json.error;
         }
       } catch (e) {}
-      that.setState({ message });
+      this.setState({ message });
     };
 
-    const onSuccess = (response) => {
-      that.setState({ dialogOpen: false, type: null, message: null });
+    const onSuccess = () => {
+      this.setState({ dialogOpen: false, type: null, message: null });
     };
 
     Relay.Store.commitUpdate(
       new CreateTaskMutation({
         label,
-        type: that.state.type,
+        type: this.state.type,
         jsonoptions,
         description,
         annotated_type: 'ProjectMedia',
-        annotated_id: that.props.media.id,
-        annotated_dbid: `${that.props.media.dbid}`,
+        annotated_id: this.props.media.id,
+        annotated_dbid: `${this.props.media.dbid}`,
       }),
       { onSuccess, onFailure },
     );

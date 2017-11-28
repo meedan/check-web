@@ -7,13 +7,11 @@ import { SmallerStyledIconButton } from '../../styles/js/shared';
 
 class TeamMenu extends Component {
   getHistory() {
-    const history = new CheckContext(this).getContextStore().history;
-    return history;
+    return new CheckContext(this).getContextStore().history;
   }
 
   handleClickTrash() {
-    const history = this.getHistory();
-    history.push(`/${this.props.team.slug}/trash`);
+    this.getHistory().push(`/${this.props.team.slug}/trash`);
   }
 
   render() {

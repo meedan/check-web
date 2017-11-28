@@ -13,7 +13,7 @@ import 'rc-tooltip/assets/bootstrap_white.css';
 import Tooltip from 'rc-tooltip';
 import SourcePicture from '../source/SourcePicture';
 import UpdateTeamUserMutation from '../../relay/UpdateTeamUserMutation';
-import UserTooltip from '../user/UserTooltip';
+import UserTooltipRelay from '../../relay/UserTooltipRelay';
 import {
   selectStyle,
   checkBlue,
@@ -93,7 +93,7 @@ class TeamMembersListItem extends Component {
           <FlexRow>
             <Link to={`/check/user/${teamUser.node.user.dbid}`} className="team-members__profile-link">
               <FlexRow>
-                <Tooltip placement="top" overlay={<UserTooltip user={teamUser.node.user} />}>
+                <Tooltip placement="top" overlay={<UserTooltipRelay user={teamUser.node.user} />}>
                   <Offset isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
                     <SourcePicture
                       className="avatar"

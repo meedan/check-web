@@ -40,25 +40,26 @@ class Tags extends Component {
 
   handleAddition(tags) {
     const props = this.props;
-    let tagsList = [...new Set(tags.split(','))],
-      that = this;
+    const tagsList = [...new Set(tags.split(','))];
 
-    const onFailure = function (transaction) {
+    const onFailure = (transaction) => {
       const error = transaction.getError();
-      let message = that.props.intl.formatMessage(messages.error);
+      let message = this.props.intl.formatMessage(messages.error);
 
       try {
         const json = JSON.parse(error.source);
         if (json.error) {
           message = json.error;
         }
-      } catch (e) { }
+      } catch (e) {
+        // Do nothing.
+      }
 
-      that.setState({ message });
+      this.setState({ message });
     };
 
-    const onSuccess = function (response) {
-      that.setState({ message: null });
+    const onSuccess = () => {
+      this.setState({ message: null });
     };
 
     const context = new CheckContext(this).getContextStore();

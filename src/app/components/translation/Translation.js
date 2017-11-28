@@ -50,12 +50,10 @@ class TranslationComponent extends Component {
   }
 
   getContext() {
-    const context = new CheckContext(this).getContextStore();
-    return context;
+    return new CheckContext(this).getContextStore();
   }
 
   fail(transaction) {
-    const that = this;
     const error = transaction.getError();
     let message = this.props.intl.formatMessage(messages.createTagFailed);
     try {
@@ -64,7 +62,7 @@ class TranslationComponent extends Component {
         message = json.error;
       }
     } catch (e) {}
-    that.setState({ message, submitDisabled: false });
+    this.setState({ message, submitDisabled: false });
   }
 
   success() {
@@ -82,16 +80,16 @@ class TranslationComponent extends Component {
     });
   }
 
-  addTranslation(that, annotated, annotated_id, annotated_type, params) {
+  addTranslation(annotated, annotated_id, annotated_type, params) {
     const onFailure = (transaction) => {
-      that.fail(transaction);
+      this.fail(transaction);
     };
 
     const onSuccess = () => {
-      that.success();
+      this.success();
     };
 
-    const annotator = that.getContext().currentUser;
+    const annotator = this.getContext().currentUser;
 
     const fields = {};
     if (params) {
@@ -106,7 +104,7 @@ class TranslationComponent extends Component {
         parent_type: annotated_type.replace(/([a-z])([A-Z])/, '$1_$2').toLowerCase(),
         annotator,
         annotated,
-        context: that.getContext(),
+        context: this.getContext(),
         annotation: {
           fields,
           annotation_type: 'translation',
@@ -156,7 +154,7 @@ class TranslationComponent extends Component {
       const args = `translation_text=${translation}&translation_language=${this.state
         .code}&translation_note=${note}`;
 
-      this.addTranslation(this, annotated, annotated_id, annotated_type, args);
+      this.addTranslation(annotated, annotated_id, annotated_type, args);
     }
 
     e.preventDefault();
