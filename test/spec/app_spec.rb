@@ -1520,8 +1520,10 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Task "Where?" edited to "Where was it?" by')).to be(false)
       el = wait_for_selector('.task-actions__icon')
       el.click
+      sleep 1
       el = wait_for_selector('.task-actions__edit')
       el.click
+      sleep 1
       update_field('textarea[name="label"]', 'Where was it?')
       el = wait_for_selector( '.task__save')
       el.click
@@ -1532,8 +1534,10 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Task "Where was it?" answered by User With Email: "Vancouver"')).to be(false)
       el = wait_for_selector('.task-actions__icon')
       el.click
+      sleep 1
       el = wait_for_selector('.task-actions__edit-response')
       el.click
+      sleep 1
       update_field('textarea[name="response"]', 'Vancouver')
       update_field('textarea[name="coordinates"]', '49.2577142, -123.1941156')
       el = wait_for_selector('.task__save')
