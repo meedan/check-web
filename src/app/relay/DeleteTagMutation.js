@@ -1,4 +1,3 @@
-import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 
 class DeleteTagMutation extends Relay.Mutation {
@@ -17,19 +16,16 @@ class DeleteTagMutation extends Relay.Mutation {
   }
 
   getFatQuery() {
-    let query = '';
     switch (this.props.parent_type) {
     case 'source':
-      query = Relay.QL`fragment on DestroyTagPayload { deletedId, source { log, tags, log_count } }`;
-      break;
+      return Relay.QL`fragment on DestroyTagPayload { deletedId, source { log, tags, log_count } }`;
     case 'project_media':
-      query = Relay.QL`fragment on DestroyTagPayload { deletedId, project_media { log, tags, log_count } }`;
-      break;
+      return Relay.QL`fragment on DestroyTagPayload { deletedId, project_media { log, tags, log_count } }`;
     case 'project_source':
-      query = Relay.QL`fragment on DestroyTagPayload { deletedId, project_source { source { log, tags, log_count } } }`;
-      break;
+      return Relay.QL`fragment on DestroyTagPayload { deletedId, project_source { source { log, tags, log_count } } }`;
+    default:
+      return '';
     }
-    return query;
   }
 
   getConfigs() {

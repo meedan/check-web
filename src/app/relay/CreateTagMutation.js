@@ -1,4 +1,3 @@
-import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 
 class CreateTagMutation extends Relay.Mutation {
@@ -9,19 +8,25 @@ class CreateTagMutation extends Relay.Mutation {
   }
 
   getFatQuery() {
-    let query = '';
     switch (this.props.parent_type) {
     case 'source':
-      query = Relay.QL`fragment on CreateTagPayload { tagEdge, source { log, tags, log_count } }`;
-      break;
+      return Relay.QL`fragment on CreateTagPayload {
+        tagEdge,
+        source { log, tags, log_count }
+      }`;
     case 'project_media':
-      query = Relay.QL`fragment on CreateTagPayload { tagEdge, project_media { log, tags, log_count } }`;
-      break;
+      return Relay.QL`fragment on CreateTagPayload {
+        tagEdge,
+        project_media { log, tags, log_count }
+      }`;
     case 'project_source':
-      query = Relay.QL`fragment on CreateTagPayload { tagEdge, project_source { source { log, tags, log_count } } }`;
-      break;
+      return Relay.QL`fragment on CreateTagPayload {
+        tagEdge,
+        project_source { source { log, tags, log_count } }
+      }`;
+    default:
+      return '';
     }
-    return query;
   }
 
   getVariables() {
@@ -61,7 +66,7 @@ class CreateTagMutation extends Relay.Mutation {
         parentID: this.props.annotated.id,
         connectionName: 'tags',
         edgeName: 'tagEdge',
-        rangeBehaviors: calls => 'prepend',
+        rangeBehaviors: () => 'prepend',
       },
       {
         type: 'FIELDS_CHANGE',

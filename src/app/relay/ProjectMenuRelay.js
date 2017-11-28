@@ -1,46 +1,7 @@
-import React, { Component } from 'react';
-import { FormattedMessage } from 'react-intl';
+import React from 'react';
 import Relay from 'react-relay';
-import IconEdit from 'material-ui/svg-icons/image/edit';
 import ProjectRoute from './ProjectRoute';
-import Can from '../components/Can';
-import CheckContext from '../CheckContext';
-import { SmallerStyledIconButton } from '../styles/js/shared';
-
-class ProjectMenu extends Component {
-  handleEditClick() {
-    const history = new CheckContext(this).getContextStore().history;
-    const editPath = `${window.location.pathname.match(/.*\/project\/\d+/)[0]}/edit`;
-    history.push(editPath);
-  }
-
-  render() {
-    const { project } = this.props;
-
-    const editProjectButton = (<SmallerStyledIconButton
-      onClick={this.handleEditClick.bind(this)}
-      tooltip={<FormattedMessage id="projectMenuRelay.editProject" defaultMessage="Edit project" />}
-    >
-      <IconEdit />
-    </SmallerStyledIconButton>);
-
-    return (
-      <Can permissions={project.permissions} permission="update Project">
-        <div
-          key="projectMenuRelay.editProject"
-          className="project-menu"
-        >
-          {editProjectButton}
-        </div>
-      </Can>
-    );
-  }
-}
-
-
-ProjectMenu.contextTypes = {
-  store: React.PropTypes.object,
-};
+import ProjectMenu from '../components/project/ProjectMenu';
 
 const ProjectMenuContainer = Relay.createContainer(ProjectMenu, {
   fragments: {
@@ -65,14 +26,12 @@ const ProjectMenuContainer = Relay.createContainer(ProjectMenu, {
   },
 });
 
-class ProjectMenuRelay extends Component {
-  render() {
-    if (this.props.params && this.props.params.projectId) {
-      const route = new ProjectRoute({ contextId: this.props.params.projectId });
-      return <Relay.RootContainer Component={ProjectMenuContainer} route={route} />;
-    }
-    return null;
+const ProjectMenuRelay = (props) => {
+  if (props.params && props.params.projectId) {
+    const route = new ProjectRoute({ contextId: props.params.projectId });
+    return <Relay.RootContainer Component={ProjectMenuContainer} route={route} />;
   }
-}
+  return null;
+};
 
 export default ProjectMenuRelay;

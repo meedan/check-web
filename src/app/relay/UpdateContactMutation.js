@@ -1,4 +1,3 @@
-import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 
 class UpdateContactMutation extends Relay.Mutation {
@@ -9,10 +8,16 @@ class UpdateContactMutation extends Relay.Mutation {
   }
 
   static fragments = {
-     contact: () => Relay.QL`fragment on Contact { id,location,web,phone }`,
-   };
+    contact: () => Relay.QL`fragment on Contact { id,location,web,phone }`,
+  };
+
   getVariables() {
-    return { id: this.props.id, location: this.props.location, web: this.props.web, phone: this.props.phone };
+    return {
+      id: this.props.id,
+      location: this.props.location,
+      web: this.props.web,
+      phone: this.props.phone,
+    };
   }
 
   getFatQuery() {
@@ -36,4 +41,5 @@ class UpdateContactMutation extends Relay.Mutation {
     }];
   }
 }
+
 export default UpdateContactMutation;

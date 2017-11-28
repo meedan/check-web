@@ -1,4 +1,3 @@
-import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 
 class UpdateStatusMutation extends Relay.Mutation {
@@ -9,16 +8,14 @@ class UpdateStatusMutation extends Relay.Mutation {
   }
 
   getFatQuery() {
-    let query = '';
     switch (this.props.parent_type) {
     case 'source':
-      query = Relay.QL`fragment on UpdateStatusPayload { statusEdge, source { log, log_count, id } }`;
-      break;
+      return Relay.QL`fragment on UpdateStatusPayload { statusEdge, source { log, log_count, id } }`;
     case 'project_media':
-      query = Relay.QL`fragment on UpdateStatusPayload { statusEdge, project_media { log, id, last_status, log_count } }`;
-      break;
+      return Relay.QL`fragment on UpdateStatusPayload { statusEdge, project_media { log, id, last_status, log_count } }`;
+    default:
+      return '';
     }
-    return query;
   }
 
   getOptimisticResponse() {

@@ -1,4 +1,3 @@
-import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 
 class UpdateDynamicMutation extends Relay.Mutation {
@@ -9,10 +8,9 @@ class UpdateDynamicMutation extends Relay.Mutation {
   }
 
   getFatQuery() {
-    let query = '';
     switch (this.props.parent_type) {
     case 'source':
-      query = Relay.QL`fragment on UpdateDynamicPayload {
+      return Relay.QL`fragment on UpdateDynamicPayload {
         dynamicEdge,
         source {
           log,
@@ -21,9 +19,8 @@ class UpdateDynamicMutation extends Relay.Mutation {
           metadata: annotations(annotation_type: "metadata")
         }
       }`;
-      break;
     case 'project_media':
-      query = Relay.QL`fragment on UpdateDynamicPayload {
+      return Relay.QL`fragment on UpdateDynamicPayload {
         dynamicEdge,
         project_media {
           tasks,
@@ -34,9 +31,9 @@ class UpdateDynamicMutation extends Relay.Mutation {
           translation_status: annotation(annotation_type: "translation_status")
         }
       }`;
-      break;
+    default:
+      return '';
     }
-    return query;
   }
 
   getVariables() {
@@ -48,7 +45,7 @@ class UpdateDynamicMutation extends Relay.Mutation {
     if (dynamic.set_attribution) {
       vars.set_attribution = dynamic.set_attribution;
     }
-    if (dynamic.hasOwnProperty('lock_version')) {
+    if (Object.prototype.hasOwnProperty.call(dynamic, 'lock_version')) {
       vars.lock_version = dynamic.lock_version;
     }
     return vars;

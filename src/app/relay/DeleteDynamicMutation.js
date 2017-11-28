@@ -1,4 +1,3 @@
-import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 
 class DeleteDynamicMutation extends Relay.Mutation {
@@ -17,13 +16,12 @@ class DeleteDynamicMutation extends Relay.Mutation {
   }
 
   getFatQuery() {
-    let query = '';
     switch (this.props.parent_type) {
     case 'project_source':
-      query = Relay.QL`fragment on DestroyDynamicPayload { deletedId, project_source { source { log, log_count } } }`;
-      break;
+      return Relay.QL`fragment on DestroyDynamicPayload { deletedId, project_source { source { log, log_count } } }`;
+    default:
+      return '';
     }
-    return query;
   }
 
   getConfigs() {

@@ -1,4 +1,3 @@
-import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 
 class CreateFlagMutation extends Relay.Mutation {
@@ -9,16 +8,14 @@ class CreateFlagMutation extends Relay.Mutation {
   }
 
   getFatQuery() {
-    let query = '';
     switch (this.props.parent_type) {
     case 'source':
-      query = Relay.QL`fragment on CreateFlagPayload { flagEdge, source { log, log_count } }`;
-      break;
+      return Relay.QL`fragment on CreateFlagPayload { flagEdge, source { log, log_count } }`;
     case 'project_media':
-      query = Relay.QL`fragment on CreateFlagPayload { flagEdge, project_media { log, log_count } }`;
-      break;
+      return Relay.QL`fragment on CreateFlagPayload { flagEdge, project_media { log, log_count } }`;
+    default:
+      return '';
     }
-    return query;
   }
 
   getOptimisticResponse() {
@@ -43,7 +40,11 @@ class CreateFlagMutation extends Relay.Mutation {
 
   getVariables() {
     const flag = this.props.annotation;
-    return { flag: flag.flag, annotated_id: `${flag.annotated_id}`, annotated_type: flag.annotated_type };
+    return {
+      flag: flag.flag,
+      annotated_id: `${flag.annotated_id}`,
+      annotated_type: flag.annotated_type,
+    };
   }
 
   getConfigs() {

@@ -1,4 +1,3 @@
-import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 
 class CreateCommentMutation extends Relay.Mutation {
@@ -9,16 +8,20 @@ class CreateCommentMutation extends Relay.Mutation {
   }
 
   getFatQuery() {
-    let query = '';
     switch (this.props.parent_type) {
     case 'source':
-      query = Relay.QL`fragment on CreateCommentPayload { commentEdge, source { annotations } }`;
-      break;
+      return Relay.QL`fragment on CreateCommentPayload {
+        commentEdge,
+        source { annotations }
+      }`;
     case 'project_media':
-      query = Relay.QL`fragment on CreateCommentPayload { commentEdge, project_media { log, log_count } }`;
-      break;
+      return Relay.QL`fragment on CreateCommentPayload {
+        commentEdge,
+        project_media { log, log_count }
+      }`;
+    default:
+      return '';
     }
-    return query;
   }
 
   getOptimisticResponse() {
@@ -43,7 +46,11 @@ class CreateCommentMutation extends Relay.Mutation {
 
   getVariables() {
     const comment = this.props.annotation;
-    return { text: comment.text, annotated_id: `${comment.annotated_id}`, annotated_type: comment.annotated_type };
+    return {
+      text: comment.text,
+      annotated_id: `${comment.annotated_id}`,
+      annotated_type: comment.annotated_type,
+    };
   }
 
   getConfigs() {

@@ -8,7 +8,10 @@ class CreateAccountSourceMutation extends Relay.Mutation {
   }
 
   getFatQuery() {
-    return Relay.QL`fragment on CreateAccountSourcePayload { account_sourceEdge, source { account_sources, accounts } }`;
+    return Relay.QL`fragment on CreateAccountSourcePayload {
+      account_sourceEdge,
+      source { account_sources, accounts }
+    }`;
   }
 
   getVariables() {
@@ -37,7 +40,7 @@ class CreateAccountSourceMutation extends Relay.Mutation {
         parentID: this.props.source.id,
         connectionName: 'account_sources',
         edgeName: 'account_sourceEdge',
-        rangeBehaviors: calls => 'prepend',
+        rangeBehaviors: () => 'prepend',
       },
       {
         type: 'FIELDS_CHANGE',

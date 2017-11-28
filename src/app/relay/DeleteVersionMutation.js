@@ -1,4 +1,3 @@
-import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 
 class DeleteVersionMutation extends Relay.Mutation {
@@ -13,16 +12,20 @@ class DeleteVersionMutation extends Relay.Mutation {
   }
 
   getFatQuery() {
-    let query = '';
     switch (this.props.parent_type) {
     case 'source':
-      query = Relay.QL`fragment on DestroyVersionPayload { deletedId, source { log, log_count } }`;
-      break;
+      return Relay.QL`fragment on DestroyVersionPayload {
+        deletedId,
+        source { log, log_count }
+      }`;
     case 'project_media':
-      query = Relay.QL`fragment on DestroyVersionPayload { deletedId, project_media { log, log_count, last_status, last_status_obj { id } } }`;
-      break;
+      return Relay.QL`fragment on DestroyVersionPayload {
+        deletedId,
+        project_media { log, log_count, last_status, last_status_obj { id } }
+      }`;
+    default:
+      return '';
     }
-    return query;
   }
 
   getConfigs() {
