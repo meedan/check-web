@@ -50,5 +50,8 @@
 
         // https://github.com/babel/babel-eslint/issues/487
         "no-undef": "off",
+
+        // Allow to override Array for cleaner code.
+        "no-extend-native": ["error", {"exceptions": ["Array"]}],
     }
 }
