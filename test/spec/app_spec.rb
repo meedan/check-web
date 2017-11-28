@@ -378,29 +378,24 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('command')).to be(true)
     end
 
-    # This test is flaky
-    # Todo: consider fixing it or removing it
-    #
-    # CGB 2017-10-2
-    #
-    # it "should comment source as a command", bin6: true do
-    #   api_create_team_project_and_source_and_redirect_to_source('The Beatles', 'https://twitter.com/thebeatles')
-    #   sleep 3
-    #   @driver.find_element(:css, '.source__tab-button-notes').click
-
-    #   expect(@driver.page_source.include?('This is my comment')).to be(false)
-
-    #   fill_field('#cmd-input', '/comment This is my comment')
-    #   @driver.action.send_keys(:enter).perform
-    #   sleep 5
-
-    #   expect(@driver.page_source.include?('This is my comment')).to be(true)
-
-    #   @driver.navigate.refresh
-    #   sleep 5
-    #   @driver.find_element(:css, '.source__tab-button-notes').click
-    #   expect(@driver.page_source.include?('This is my comment')).to be(true)
-    # end
+    it "should comment source as a command", bin6: true do
+      api_create_team_project_and_source_and_redirect_to_source('The Beatles', 'https://twitter.com/thebeatles')
+      wait_for_selector('source__tab-button-account', :class)
+      el = wait_for_selector('.source__tab-button-notes')
+      el.click
+      expect(@driver.page_source.include?('This is my comment')).to be(false)
+      old = @driver.find_elements(:class,"annotations__list-item").length
+      fill_field('#cmd-input', '/comment This is my comment')
+      @driver.action.send_keys(:enter).perform
+      wait_for_size_change(old,'annotations__list-item', :class)
+      expect(@driver.page_source.include?('This is my comment')).to be(true)
+      @driver.navigate.refresh
+      sleep 5
+      wait_for_selector('source__tab-button-account', :class)
+      el = wait_for_selector('.source__tab-button-notes')
+      el.click
+      expect(@driver.page_source.include?('This is my comment')).to be(true)
+    end
 
     it "should not create report as source", bin6: true do
       api_create_team_and_project
@@ -1031,21 +1026,45 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(title.text == 'Not Found').to be(true)
     end
 
-    # it "should cancel request through switch teams" do
-    #   skip("Needs to be implemented")
-    # end
+    it "should cancel request through switch teams", bin1: true do
+      user = api_register_and_login_with_email
+      t1 = api_create_team(user: user)
+      t2 = api_create_team(user: user)
+      page = MePage.new(config: @config, driver: @driver).load
+          .select_team(name: t1.name)
+      wait_for_selector("team-members__edit-button",:class)        
+      expect(page.team_name).to eq(t1.name)
+      page = MePage.new(config: @config, driver: @driver).load
+          .select_team(name: t2.name)
+      wait_for_selector("team-members__edit-button",:class)        
+      expect(page.team_name).to eq(t2.name)
+    end
 
-    # it "should linkify URLs on comments" do
-    #   skip("Needs to be implemented")
-    # end
+    it "should linkify URLs on comments", bin1: true do
+      media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
+      expect(@driver.page_source.include?('Your comment was added!')).to be(false)
+      old = wait_for_selector_list("annotation__default-content",:class).length     
+      fill_field('textarea[name="cmd"]', 'Go to https://meedan.com/en/')
+      el = wait_for_selector("//span[contains(text(), 'Submit')]", :xpath)
+      el.click
+      old = wait_for_size_change(old, "annotation__default-content", :class)
+      expect(@driver.page_source.include?('Your comment was added!')).to be(true)
+      el = wait_for_selector_list("//a[contains(text(), 'https://meedan.com/en/')]", :xpath)
+      expect(el.length == 1).to be(true)
+    end
 
-    # it "should add and remove suggested tags" do
-    #   skip("Needs to be implemented")
-    # end
-
-    # it "should find all medias with an empty search" do
-    #   skip("Needs to be implemented")
-    # end
+    it "should find all medias with an empty search", bin1: true do
+      api_create_media_and_go_to_search_page
+      old = wait_for_selector_list("medias__item", :class).length
+      el = wait_for_selector("search-input", :id)
+      el.click
+      @driver.action.send_keys(:enter).perform
+      sleep 3 #due the reload
+      wait_for_selector("search-input", :id)
+      current = wait_for_selector_list("medias__item", :class).length
+      expect(old == current).to be(true)
+      expect(current > 0).to be(true)
+    end
 
     # it "should find medias when searching by keyword" do
     #   skip("Needs to be implemented")
@@ -1501,8 +1520,10 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Task "Where?" edited to "Where was it?" by')).to be(false)
       el = wait_for_selector('.task-actions__icon')
       el.click
+      sleep 1
       el = wait_for_selector('.task-actions__edit')
       el.click
+      sleep 1
       update_field('textarea[name="label"]', 'Where was it?')
       el = wait_for_selector( '.task__save')
       el.click
@@ -1513,8 +1534,10 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Task "Where was it?" answered by User With Email: "Vancouver"')).to be(false)
       el = wait_for_selector('.task-actions__icon')
       el.click
+      sleep 1
       el = wait_for_selector('.task-actions__edit-response')
       el.click
+      sleep 1
       update_field('textarea[name="response"]', 'Vancouver')
       update_field('textarea[name="coordinates"]', '49.2577142, -123.1941156')
       el = wait_for_selector('.task__save')
@@ -1674,5 +1697,10 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_size_change(old, "annotation__default-content", :class)
       expect(@driver.page_source.include?('Comment deleted by')).to be(true)
     end
+
+    # Postponed due Alexandre's developement
+    # it "should add and remove suggested tags" do
+    #   skip("Needs to be implemented")
+    # end
   end
 end
