@@ -21,7 +21,6 @@ class MediaPage < Page
     edit
     fill_input('.media-detail__title-input > input', string, {clear: true})
     click('.media-detail__save-edits') # Done
-    toggle_card # Cose the card so the header appears
     @wait.until {
       string == primary_heading.text
     }
@@ -50,7 +49,7 @@ class MediaPage < Page
   def tags
     list = []
     if editing_mode?
-      list = elements('.ReactTags__tag')
+      list = elements('.source-tags__tag')
     else
       list = elements('.media-tags__tag')
     end
@@ -59,7 +58,7 @@ class MediaPage < Page
 
   def add_tag(string)
     edit unless editing_mode?
-    fill_input('.ReactTags__tagInput input', string, { clear: true })
+    fill_input('#sourceTagInput', string, { clear: true })
     press(:enter)
     @wait.until { has_tag?(string) }
   end
