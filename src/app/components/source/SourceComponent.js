@@ -405,7 +405,8 @@ class SourceComponent extends Component {
   handleSubmit(e) {
     e.preventDefault();
 
-    const pendingTag = document.forms['edit-source-form'].sourceTagInput.value;
+    const pendingTagInput = document.forms['edit-source-form'].sourceTagInput;
+    const pendingTag = pendingTagInput && pendingTagInput.value;
     pendingTag && pendingTag.trim() && this.createTag(pendingTag);
 
     if (this.validateLinks() && !this.state.submitDisabled) {
@@ -426,7 +427,7 @@ class SourceComponent extends Component {
 
   fail = (transaction) => {
     let message = this.props.intl.formatMessage(messages.editError);
-    
+
     const error = transaction.getError();
 
     if (error.status === 409) {
@@ -725,7 +726,7 @@ class SourceComponent extends Component {
     const source = this.getSource();
     const onFailure = (transaction) => {
       let message = this.props.intl.formatMessage(messages.editError);
-      
+
       const error = transaction.getError();
 
       if (error.status === 409) {
