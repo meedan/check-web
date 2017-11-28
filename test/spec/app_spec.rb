@@ -378,29 +378,24 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('command')).to be(true)
     end
 
-    # This test is flaky
-    # Todo: consider fixing it or removing it
-    #
-    # CGB 2017-10-2
-    #
-    # it "should comment source as a command", bin6: true do
-    #   api_create_team_project_and_source_and_redirect_to_source('The Beatles', 'https://twitter.com/thebeatles')
-    #   sleep 3
-    #   @driver.find_element(:css, '.source__tab-button-notes').click
-
-    #   expect(@driver.page_source.include?('This is my comment')).to be(false)
-
-    #   fill_field('#cmd-input', '/comment This is my comment')
-    #   @driver.action.send_keys(:enter).perform
-    #   sleep 5
-
-    #   expect(@driver.page_source.include?('This is my comment')).to be(true)
-
-    #   @driver.navigate.refresh
-    #   sleep 5
-    #   @driver.find_element(:css, '.source__tab-button-notes').click
-    #   expect(@driver.page_source.include?('This is my comment')).to be(true)
-    # end
+    it "should comment source as a command", bin6: true do
+      api_create_team_project_and_source_and_redirect_to_source('The Beatles', 'https://twitter.com/thebeatles')
+      wait_for_selector('source__tab-button-account', :class)
+      el = wait_for_selector('.source__tab-button-notes')
+      el.click
+      expect(@driver.page_source.include?('This is my comment')).to be(false)
+      old = @driver.find_elements(:class,"annotations__list-item").length
+      fill_field('#cmd-input', '/comment This is my comment')
+      @driver.action.send_keys(:enter).perform
+      wait_for_size_change(old,'annotations__list-item', :class)
+      expect(@driver.page_source.include?('This is my comment')).to be(true)
+      @driver.navigate.refresh
+      sleep 5
+      wait_for_selector('source__tab-button-account', :class)
+      el = wait_for_selector('.source__tab-button-notes')
+      el.click
+      expect(@driver.page_source.include?('This is my comment')).to be(true)
+    end
 
     it "should not create report as source", bin6: true do
       api_create_team_and_project
