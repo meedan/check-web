@@ -1063,6 +1063,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector("search-input", :id)
       current = wait_for_selector_list("medias__item", :class).length
       expect(old == current).to be(true)
+      expect(current > 0).to be(true)
     end
 
     # it "should find medias when searching by keyword" do
