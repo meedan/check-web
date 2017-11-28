@@ -1045,7 +1045,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(page.team_name).to eq(t2.name)
     end
 
-    it "should linkify URLs on comments", bin: true , bin1: true do
+    it "should linkify URLs on comments", bin1: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
       expect(@driver.page_source.include?('Your comment was added!')).to be(false)
       old = wait_for_selector_list("annotation__default-content",:class).length     
@@ -1058,13 +1058,17 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(el.length == 1).to be(true)
     end
 
-    # it "should add and remove suggested tags" do
-    #   skip("Needs to be implemented")
-    # end
-
-    # it "should find all medias with an empty search" do
-    #   skip("Needs to be implemented")
-    # end
+    it "should find all medias with an empty search", bin1: true do
+      api_create_media_and_go_to_search_page
+      old = wait_for_selector_list("medias__item", :class).length
+      el = wait_for_selector("search-input", :id)
+      el.click
+      @driver.action.send_keys(:enter).perform
+      sleep 3 #due the reload
+      wait_for_selector("search-input", :id)
+      current = wait_for_selector_list("medias__item", :class).length
+      expect(old == current).to be(true)
+    end
 
     # it "should find medias when searching by keyword" do
     #   skip("Needs to be implemented")
@@ -1693,5 +1697,10 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_size_change(old, "annotation__default-content", :class)
       expect(@driver.page_source.include?('Comment deleted by')).to be(true)
     end
+
+    # Postponed due Alexandre's developement
+    # it "should add and remove suggested tags" do
+    #   skip("Needs to be implemented")
+    # end
   end
 end

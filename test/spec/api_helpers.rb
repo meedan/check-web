@@ -86,6 +86,13 @@ module ApiHelpers
     MediaPage.new(config: @config, driver: @driver)
   end
 
+  def api_create_media_and_go_to_search_page
+    media = api_create_team_project_and_link
+    @driver.navigate.to media.full_url
+    @driver.navigate.to @config['self_url'] + '/' + get_team + '/search'
+    wait_for_selector(".search__results")
+  end
+
   def api_create_claim_and_go_to_search_page
     media = api_create_team_project_and_claim(false, 'My search result')
     @driver.navigate.to media.full_url
