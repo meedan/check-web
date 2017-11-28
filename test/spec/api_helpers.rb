@@ -36,9 +36,10 @@ module ApiHelpers
   end
 
   def api_create_team(params = {})
-    team = params[:team] || "Test Team #{Time.now.to_i}"
-    user = api_register_and_login_with_email
-    request_api 'team', { name: team, email: user.email }
+    team_name = params[:team] || "TestTeam#{Time.now.to_i}-#{rand(99999)}"
+    user = params[:user] || api_register_and_login_with_email
+    team = request_api 'team', { name: team_name, email: user.email }
+    team
   end
 
   def api_create_team_and_project
@@ -83,6 +84,13 @@ module ApiHelpers
     @driver.navigate.to media.full_url
     sleep 2
     MediaPage.new(config: @config, driver: @driver)
+  end
+
+  def api_create_media_and_go_to_search_page
+    media = api_create_team_project_and_link
+    @driver.navigate.to media.full_url
+    @driver.navigate.to @config['self_url'] + '/' + get_team + '/search'
+    wait_for_selector(".search__results")
   end
 
   def api_create_claim_and_go_to_search_page
