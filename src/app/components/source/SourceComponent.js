@@ -44,8 +44,8 @@ import UpdateDynamicMutation from '../../relay/UpdateDynamicMutation';
 import DeleteDynamicMutation from '../../relay/DeleteDynamicMutation';
 import CreateTagMutation from '../../relay/CreateTagMutation';
 import DeleteTagMutation from '../../relay/DeleteTagMutation';
-import CreateAccountSourceMutation from '../../relay/mutation/CreateAccountSourceMutation';
-import DeleteAccountSourceMutation from '../../relay/mutation/DeleteAccountSourceMutation';
+import CreateAccountSourceMutation from '../../relay/mutations/CreateAccountSourceMutation';
+import DeleteAccountSourceMutation from '../../relay/mutations/DeleteAccountSourceMutation';
 import UpdateSourceMutation from '../../relay/UpdateSourceMutation';
 import {
   StyledEditButtonWrapper,

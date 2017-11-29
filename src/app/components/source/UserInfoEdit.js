@@ -13,9 +13,9 @@ import Message from '../Message';
 import UploadImageRelay from '../../relay/UploadImageRelay';
 import globalStrings from '../../globalStrings';
 import UpdateSourceMutation from '../../relay/UpdateSourceMutation';
-import UpdateUserNameEmailMutation from '../../relay/mutation/UpdateUserNameEmailMutation';
-import CreateAccountSourceMutation from '../../relay/mutation/CreateAccountSourceMutation';
-import DeleteAccountSourceMutation from '../../relay/mutation/DeleteAccountSourceMutation';
+import UpdateUserNameEmailMutation from '../../relay/mutations/UpdateUserNameEmailMutation';
+import CreateAccountSourceMutation from '../../relay/mutations/CreateAccountSourceMutation';
+import DeleteAccountSourceMutation from '../../relay/mutations/DeleteAccountSourceMutation';
 import { StyledIconButton, Row, ContentColumn } from '../../styles/js/shared';
 
 import {
