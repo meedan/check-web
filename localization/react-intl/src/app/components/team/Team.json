@@ -1,0 +1,78 @@
+[
+  {
+    "id": "team.editError",
+    "defaultMessage": "Sorry, could not edit the team"
+  },
+  {
+    "id": "team.editSuccess",
+    "defaultMessage": "Team information updated successfully!"
+  },
+  {
+    "id": "team.teamName",
+    "defaultMessage": "Team name"
+  },
+  {
+    "id": "team.teamDescription",
+    "defaultMessage": "Team description"
+  },
+  {
+    "id": "team.location",
+    "defaultMessage": "Location"
+  },
+  {
+    "id": "team.phone",
+    "defaultMessage": "Phone number"
+  },
+  {
+    "id": "team.website",
+    "defaultMessage": "Website"
+  },
+  {
+    "id": "team.slackWebhook",
+    "defaultMessage": "Slack webhook"
+  },
+  {
+    "id": "team.slackChannel",
+    "defaultMessage": "Slack default #channel"
+  },
+  {
+    "id": "team.verificationTeam",
+    "defaultMessage": "Verification Team"
+  },
+  {
+    "id": "bridge.team.verificationTeam",
+    "defaultMessage": "Translation Team"
+  },
+  {
+    "id": "team.title",
+    "defaultMessage": "Verification Projects"
+  },
+  {
+    "id": "bridge.team.title",
+    "defaultMessage": "Translation Projects"
+  },
+  {
+    "id": "team.noProjects",
+    "defaultMessage": "No projects yet"
+  },
+  {
+    "id": "team.slackNotificationsEnabled",
+    "defaultMessage": "Enable Slack notifications"
+  },
+  {
+    "id": "team.cancelButton",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "team.saveButton",
+    "defaultMessage": "Save"
+  },
+  {
+    "id": "team.members",
+    "defaultMessage": "Members"
+  },
+  {
+    "id": "team.projects",
+    "defaultMessage": "Projects"
+  }
+]

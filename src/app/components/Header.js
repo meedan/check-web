@@ -6,8 +6,8 @@ import IconSearch from 'material-ui/svg-icons/action/search';
 import { FormattedMessage } from 'react-intl';
 import RaisedButton from 'material-ui/RaisedButton';
 import rtlDetect from 'rtl-detect';
-import TeamHeader from './team/TeamHeader';
-import TeamPublicHeader from './team/TeamPublicHeader';
+import TeamHeaderRelay from '../relay/containers/TeamHeaderRelay';
+import TeamPublicHeaderRelay from '../relay/containers/TeamPublicHeaderRelay';
 import ProjectHeader from './project/ProjectHeader';
 import { stringHelper } from '../customHelpers';
 import PublicTeamRoute from '../relay/PublicTeamRoute';
@@ -97,14 +97,14 @@ class HeaderComponent extends Component {
       if (teamPrivateContentShouldShow) {
         return (
           <Row containsEllipsis>
-            <div><TeamHeader {...this.props} /></div>
+            <div><TeamHeaderRelay {...this.props} /></div>
             <div><ProjectHeader isRtl {...this.props} /></div>
           </Row>
         );
       } else if (teamPublicContentShouldShow) {
         return (
           <Row containsEllipsis>
-            <TeamPublicHeader isRtl {...this.props} />
+            <TeamPublicHeaderRelay isRtl {...this.props} />
           </Row>
         );
       }

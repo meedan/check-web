@@ -6,7 +6,7 @@ import UserInfoEdit from './UserInfoEdit';
 import { can } from '../Can';
 import HeaderCard from '../HeaderCard';
 import PageTitle from '../PageTitle';
-import SwitchTeamsComponent from '../team/SwitchTeamsComponent';
+import SwitchTeams from '../team/SwitchTeams';
 import { ContentColumn } from '../../styles/js/shared';
 
 class UserComponent extends React.Component {
@@ -50,7 +50,7 @@ class UserComponent extends React.Component {
             </ContentColumn>
           </HeaderCard>
           <ContentColumn>
-            <SwitchTeamsComponent user={user} />
+            <SwitchTeams user={user} />
           </ContentColumn>
         </div>
       </PageTitle>

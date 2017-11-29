@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
+import { defineMessages, intlShape, FormattedMessage } from 'react-intl';
 import Relay from 'react-relay';
-import { defineMessages, injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
-import TeamRoute from '../../relay/TeamRoute';
 import UpdateTeamMutation from '../../relay/UpdateTeamMutation';
 import Can from '../Can';
 import CheckContext from '../../CheckContext';
@@ -22,7 +21,7 @@ const messages = defineMessages({
   },
 });
 
-class TrashComponent extends Component {
+class Trash extends Component {
   constructor(props) {
     super(props);
 
@@ -111,13 +110,15 @@ class TrashComponent extends Component {
 
       const onFailure = (transaction) => {
         const transactionError = transaction.getError();
-        transactionError.json
-          ? transactionError.json().then(this.handleMessage)
-          : this.handleMessage(JSON.stringify(transactionError));
+        if (transactionError.json) {
+          transactionError.json().then(this.handleMessage);
+        } else {
+          this.handleMessage(JSON.stringify(transactionError));
+        }
         this.setState({ emptyTrashDisabled: false });
       };
 
-      const onSuccess = (response) => {
+      const onSuccess = () => {
         this.handleMessage(message);
       };
 
@@ -212,43 +213,13 @@ class TrashComponent extends Component {
   }
 }
 
-TrashComponent.contextTypes = {
+Trash.contextTypes = {
   store: React.PropTypes.object,
   setMessage: React.PropTypes.func,
 };
 
-TrashComponent.propTypes = {
+Trash.propTypes = {
   intl: intlShape.isRequired,
 };
 
-const TrashContainer = Relay.createContainer(TrashComponent, {
-  fragments: {
-    team: () => Relay.QL`
-      fragment on Team {
-        id
-        dbid
-        slug
-        permissions
-        trash_size
-        search_id
-      }
-    `,
-  },
-});
-
-class Trash extends Component {
-  render() {
-    const slug = this.props.params.team || '';
-    const route = new TeamRoute({ teamSlug: slug });
-    return (
-      <Relay.RootContainer
-        Component={TrashContainer}
-        forceFetch
-        route={route}
-        renderFetched={data => <TrashContainer {...this.props} {...data} />}
-      />
-    );
-  }
-}
-
-export default injectIntl(Trash);
+export default Trash;

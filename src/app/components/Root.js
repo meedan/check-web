@@ -29,12 +29,8 @@ import {
   Me,
 } from '../components/source';
 import {
-  Team,
-  TeamMembers,
   CreateTeam,
-  JoinTeam,
   Teams,
-  Trash,
 } from '../components/team';
 import {
   CreateProjectMedia,
@@ -46,6 +42,9 @@ import {
   ProjectHeader,
   ProjectEdit,
 } from '../components/project';
+import TeamRelay from '../relay/containers/TeamRelay';
+import JoinTeamRelay from '../relay/containers/JoinTeamRelay';
+import TrashRelay from '../relay/containers/TrashRelay';
 import Search from '../components/Search';
 import CheckContext from '../CheckContext';
 import translations from '../../../localization/translations/translations';
@@ -135,7 +134,7 @@ export default class Root extends Component {
           <Provider store={store}>
             <Router history={this.state.history} onUpdate={this.logPageView.bind(this)}>
               <Route path="/" component={App}>
-                <IndexRoute component={Team} />
+                <IndexRoute component={TeamRelay} />
                 <Route path="check/user/already-confirmed" component={UserAlreadyConfirmed} public />
                 <Route path="check/user/confirmed" component={UserConfirmed} public />
                 <Route path="check/user/unconfirmed" component={UserUnconfirmed} public />
@@ -153,12 +152,12 @@ export default class Root extends Component {
                 <Route path=":team/project/:projectId/media/:mediaId" component={ProjectMedia} public />
                 <Route path=":team/project/:projectId/media/:mediaId/embed" component={MediaEmbed} public />
                 <Route path=":team/project/:projectId/source/:sourceId" component={Source} public />
-                <Route path=":team/join" component={JoinTeam} />
+                <Route path=":team/join" component={JoinTeamRelay} />
                 <Route path=":team/project/:projectId/edit" component={ProjectEdit} />
                 <Route path=":team/project/:projectId(/:query)" component={Project} public />
                 <Route path=":team/search(/:query)" component={Search} public />
-                <Route path=":team/trash(/:query)" component={Trash} />
-                <Route path=":team" component={Team} public />
+                <Route path=":team/trash(/:query)" component={TrashRelay} />
+                <Route path=":team" component={TeamRelay} public />
 
                 <Route path="*" component={NotFound} public />
               </Route>

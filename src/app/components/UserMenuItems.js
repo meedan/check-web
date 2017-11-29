@@ -21,7 +21,7 @@ const UserMenuItems = (props) => {
       key="headerActions.contactHuman"
       target="_blank"
       rel="noopener noreferrer"
-      containerElement={<Link to={stringHelper('CONTACT_HUMAN_URL')} />} // eslint-disable-line jsx-a11y/anchor-has-content
+      containerElement={<Link to={stringHelper('CONTACT_HUMAN_URL')} />}
       primaryText={
         <FormattedMessage
           id="headerActions.contactHuman"

@@ -78,6 +78,27 @@ const messages = defineMessages({
 });
 
 class CreateTeam extends Component {
+  static displayNameLabelClass(suffix) {
+    const defaultClass = 'create-team__team-display-name-label';
+    return suffix
+      ? [defaultClass, defaultClass + suffix].join(' ')
+      : defaultClass;
+  }
+
+  static slugClass(suffix) {
+    const defaultClass = 'create-team__team-slug';
+    return suffix
+      ? [defaultClass, defaultClass + suffix].join(' ')
+      : defaultClass;
+  }
+
+  static slugLabelClass(suffix) {
+    const defaultClass = 'create-team__team-slug-label';
+    return suffix
+      ? [defaultClass, defaultClass + suffix].join(' ')
+      : defaultClass;
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -97,27 +118,6 @@ class CreateTeam extends Component {
 
   getContext() {
     return new CheckContext(this).getContextStore();
-  }
-
-  displayNameLabelClass(suffix) {
-    const defaultClass = 'create-team__team-display-name-label';
-    return suffix
-      ? [defaultClass, defaultClass + suffix].join(' ')
-      : defaultClass;
-  }
-
-  slugClass(suffix) {
-    const defaultClass = 'create-team__team-slug';
-    return suffix
-      ? [defaultClass, defaultClass + suffix].join(' ')
-      : defaultClass;
-  }
-
-  slugLabelClass(suffix) {
-    const defaultClass = 'create-team__team-slug-label';
-    return suffix
-      ? [defaultClass, defaultClass + suffix].join(' ')
-      : defaultClass;
   }
 
   handleDisplayNameChange(e) {
@@ -165,7 +165,9 @@ class CreateTeam extends Component {
         if (json.error) {
           message = json.error;
         }
-      } catch (e) {}
+      } catch (ex) {
+        // Do nothing.
+      }
       this.setState({ message });
     };
 

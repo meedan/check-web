@@ -18,6 +18,10 @@
         "react/prop-types": "off",
         "react/forbid-prop-types": "off",
 
+        // TODO Fix a11y
+        "jsx-a11y/no-static-element-interactions": "off",
+        "jsx-a11y/anchor-has-content": "off",
+
         // TODO Reconfigure eslint to be aware of our configuration
         // files we import without extensions (or set this rule to "off")
         "import/no-extraneous-dependencies": "off",

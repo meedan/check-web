@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { defineMessages, FormattedMessage, injectIntl } from 'react-intl';
+import { defineMessages, FormattedMessage } from 'react-intl';
 import Relay from 'react-relay';
 import Select from 'react-select';
 import { Card, CardText, CardActions } from 'material-ui/Card';
@@ -11,7 +11,6 @@ import rtlDetect from 'rtl-detect';
 import TranslationItem from './TranslationItem';
 import CheckContext from '../../CheckContext';
 import CreateDynamicMutation from '../../relay/CreateDynamicMutation';
-import AboutRoute from '../../relay/AboutRoute';
 import { units } from '../../styles/js/shared';
 
 const messages = defineMessages({
@@ -39,7 +38,7 @@ const styles = {
   },
 };
 
-class TranslationComponent extends Component {
+class Translation extends Component {
   constructor(props) {
     super(props);
 
@@ -53,6 +52,23 @@ class TranslationComponent extends Component {
     return new CheckContext(this).getContextStore();
   }
 
+  getAvailableLanguages() {
+    const usedLanguages = this.props.annotated.translations.edges
+      .map(tr => JSON.parse(tr.node.content).find(it => it.field_name === 'translation_language'))
+      .map(it => it.value)
+      .concat(this.props.annotated.language_code);
+    const supportedLanguages = JSON.parse(this.props.about.languages_supported);
+    const projectLanguages = this.props.annotated.project.get_languages
+      ? JSON.parse(this.props.annotated.project.get_languages)
+      : null;
+    return difference(
+      projectLanguages
+        ? intersection(Object.keys(supportedLanguages), projectLanguages)
+        : Object.keys(supportedLanguages),
+      usedLanguages,
+    ).map(l => ({ value: l, label: supportedLanguages[l] }));
+  }
+
   fail(transaction) {
     const error = transaction.getError();
     let message = this.props.intl.formatMessage(messages.createTagFailed);
@@ -61,7 +77,9 @@ class TranslationComponent extends Component {
       if (json.error) {
         message = json.error;
       }
-    } catch (e) {}
+    } catch (e) {
+      // Do nothing.
+    }
     this.setState({ message, submitDisabled: false });
   }
 
@@ -160,23 +178,6 @@ class TranslationComponent extends Component {
     e.preventDefault();
   }
 
-  getAvailableLanguages() {
-    const usedLanguages = this.props.annotated.translations.edges
-      .map(tr => JSON.parse(tr.node.content).find(it => it.field_name === 'translation_language'))
-      .map(it => it.value)
-      .concat(this.props.annotated.language_code);
-    const supportedLanguages = JSON.parse(this.props.about.languages_supported);
-    const projectLanguages = this.props.annotated.project.get_languages
-      ? JSON.parse(this.props.annotated.project.get_languages)
-      : null;
-    return difference(
-      projectLanguages
-        ? intersection(Object.keys(supportedLanguages), projectLanguages)
-        : Object.keys(supportedLanguages),
-      usedLanguages,
-    ).map(l => ({ value: l, label: supportedLanguages[l] }));
-  }
-
   render() {
     const { translations } = this.props.annotated;
     const options = this.getAvailableLanguages();
@@ -261,31 +262,8 @@ class TranslationComponent extends Component {
   }
 }
 
-TranslationComponent.contextTypes = {
+Translation.contextTypes = {
   store: React.PropTypes.object,
 };
 
-const TranslationContainer = Relay.createContainer(injectIntl(TranslationComponent), {
-  fragments: {
-    about: () => Relay.QL`
-      fragment on About {
-        languages_supported
-      }
-    `,
-  },
-});
-
-class Translation extends Component {
-  render() {
-    const route = new AboutRoute();
-    return (
-      <Relay.RootContainer
-        Component={TranslationContainer}
-        route={route}
-        renderFetched={data => <TranslationContainer {...this.props} {...data} />}
-      />
-    );
-  }
-}
-
-export default injectIntl(Translation);
+export default Translation;

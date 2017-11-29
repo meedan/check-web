@@ -48,12 +48,6 @@ class ProjectsComponent extends Component {
 
     return (
       <div>
-        <SubHeading>
-          <FormattedMessage
-            id="projects.projectsSubheading"
-            defaultMessage="Projects"
-          />
-        </SubHeading>
         <div>
           {projectList}
         </div>

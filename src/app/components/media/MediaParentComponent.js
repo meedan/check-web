@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import config from 'config';
 import MediaComponent from './MediaComponent';
 import Can from '../Can';
-import Translation from '../translation/Translation';
+import TranslationRelay from '../../relay/containers/TranslationRelay';
 
 class MediaParentComponent extends Component {
   render() {
@@ -13,7 +13,7 @@ class MediaParentComponent extends Component {
           permissions={this.props.media.permissions}
           permission="create Dynamic"
         >
-          <Translation annotated={this.props.media} annotatedType="ProjectMedia" />
+          <TranslationRelay annotated={this.props.media} annotatedType="ProjectMedia" />
         </Can>,
       ]
       : [];
