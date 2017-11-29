@@ -1066,9 +1066,42 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(current > 0).to be(true)
     end
 
-    # it "should find medias when searching by keyword" do
-    #   skip("Needs to be implemented")
-    # end
+    it "should find medias when searching by keyword", bin1: true do
+      data = api_create_team_and_project
+      api_create_media(data: data, url: "https://www.facebook.com/permalink.php?story_fbid=10155901893214439&id=54421674438")
+      media = api_create_media(data: data, url: "https://twitter.com/TwitterVideo/status/931930009450795009")
+      @driver.navigate.to media.full_url
+      @driver.navigate.to @config['self_url'] + '/' + get_team + '/search'
+      wait_for_selector(".search__results")
+      old = wait_for_selector_list("medias__item", :class).length
+      expect(@driver.page_source.include?('weekly @Twitter video recap')).to be(true)
+      expect(@driver.page_source.include?('Meedan on Facebook')).to be(true)
+
+      el = wait_for_selector("search-input", :id)
+      el.click
+      el.send_keys "video"
+      @driver.action.send_keys(:enter).perform
+      sleep 3 #due the reload
+      wait_for_selector("search-input", :id)
+      current = wait_for_selector_list("medias__item", :class).length
+      expect(old > current).to be(true)
+      expect(current > 0).to be(true)
+      expect(@driver.page_source.include?('weekly @Twitter video recap')).to be(true)
+      expect(@driver.page_source.include?('Meedan on Facebook')).to be(false)
+
+      el = wait_for_selector("search-input", :id)
+      el.clear
+      el.click
+      el.send_keys "meedan"
+      @driver.action.send_keys(:enter).perform
+      sleep 3 #due the reload
+      wait_for_selector("search-input", :id)
+      current = wait_for_selector_list("medias__item", :class).length
+      expect(old > current).to be(true)
+      expect(current > 0).to be(true)
+      expect(@driver.page_source.include?('Meedan on Facebook')).to be(true)
+      expect(@driver.page_source.include?('weekly @Twitter video recap')).to be(false)
+    end
 
     # it "should find medias when searching by status" do
     #   skip("Needs to be implemented")

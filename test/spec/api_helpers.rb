@@ -91,6 +91,7 @@ module ApiHelpers
     @driver.navigate.to media.full_url
     @driver.navigate.to @config['self_url'] + '/' + get_team + '/search'
     wait_for_selector(".search__results")
+    media
   end
 
   def api_create_claim_and_go_to_search_page
@@ -127,5 +128,13 @@ module ApiHelpers
     ret = request_api 'create_team_project_and_two_users', {}
     ret
   end
+
+  def api_create_media(params = {})
+    data = params[:data] || api_create_team_and_project
+    url = params[:url] || @media_url
+    media = request_api 'link', { url: url, email: data[:user].email, team_id: data[:team].dbid, project_id: data[:project].dbid }
+    media
+  end
+
 
 end
