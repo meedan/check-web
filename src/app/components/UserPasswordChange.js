@@ -123,7 +123,7 @@ class UserPasswordChange extends Component {
   }
 
   handleSubmit(e) {
-    const token = this.getQueryStringValue('reset_password_token');
+    const token = UserPasswordChange.getQueryStringValue('reset_password_token');
 
     const onFailure = (transaction) => {
       const error = transaction.getError();

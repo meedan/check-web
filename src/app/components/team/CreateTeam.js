@@ -102,9 +102,9 @@ class CreateTeam extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      displayNameLabelClass: this.displayNameLabelClass(),
-      slugClass: this.slugClass(),
-      slugLabelClass: this.slugLabelClass(),
+      displayNameLabelClass: CreateTeam.displayNameLabelClass(),
+      slugClass: CreateTeam.slugClass(),
+      slugLabelClass: CreateTeam.slugLabelClass(),
       slugMessage: '',
       buttonIsDisabled: true,
       displayName: '',
@@ -123,8 +123,8 @@ class CreateTeam extends Component {
   handleDisplayNameChange(e) {
     const isTextEntered = e.target.value && e.target.value.length > 0;
     const newClass = isTextEntered
-      ? this.displayNameLabelClass('--text-entered')
-      : this.displayNameLabelClass();
+      ? CreateTeam.displayNameLabelClass('--text-entered')
+      : CreateTeam.displayNameLabelClass();
     this.setState({
       displayNameLabelClass: newClass,
       displayName: e.target.value,
@@ -145,10 +145,8 @@ class CreateTeam extends Component {
   }
 
   handleSlugChange(e) {
-    const slug = e.target.value;
-
     this.setState({
-      slugName: slug,
+      slugName: e.target.value,
     });
   }
 

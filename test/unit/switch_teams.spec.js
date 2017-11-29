@@ -1,9 +1,9 @@
 import React from 'react';
 import { expect } from 'chai';
 import { mountWithIntl, getStore } from './helpers/intl-test';
-import SwitchTeamsComponent from '../../src/app/components/team/SwitchTeamsComponent';
+import SwitchTeams from '../../src/app/components/team/SwitchTeams';
 
-describe('<SwitchTeamsComponent />', () => {
+describe('<SwitchTeams />', () => {
   const currentUser = {
     id: 'VXNlci8x\n',
     dbid: 1,
@@ -227,7 +227,7 @@ describe('<SwitchTeamsComponent />', () => {
 
   it('should show private teams to members of the same team', () => {
     getStore().currentUser = currentUser;
-    const switchTeam = mountWithIntl(<SwitchTeamsComponent user={otherUser} />);
+    const switchTeam = mountWithIntl(<SwitchTeams user={otherUser} />);
     expect(switchTeam.find('.teams').children()).to.have.length(1);
   });
 });

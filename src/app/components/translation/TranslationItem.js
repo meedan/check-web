@@ -70,10 +70,6 @@ class TranslationItem extends Component {
     return object ? object.value : '';
   }
 
-  static bemClass(baseClass, modifierBoolean, modifierSuffix) {
-    return modifierBoolean ? [baseClass, baseClass + modifierSuffix].join(' ') : baseClass;
-  }
-
   constructor(props) {
     super(props);
 
@@ -136,10 +132,10 @@ class TranslationItem extends Component {
 
   render() {
     const content = JSON.parse(this.props.translation.content);
-    const text = this.getTranslationText(content);
-    const note = this.getTranslationNote(content);
-    const language = this.getTranslationLanguage(content);
-    const language_code = this.getTranslationLanguageCode(content);
+    const text = TranslationItem.getTranslationText(content);
+    const note = TranslationItem.getTranslationNote(content);
+    const language = TranslationItem.getTranslationLanguage(content);
+    const language_code = TranslationItem.getTranslationLanguageCode(content);
 
     return (
       <div className="translation__component">

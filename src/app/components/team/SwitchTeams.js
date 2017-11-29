@@ -108,7 +108,7 @@ class SwitchTeams extends Component {
           <FlatButton
             style={listItemButtonStyle}
             hoverColor={alertRed}
-            onClick={this.cancelRequest.bind(this, team)}
+            onClick={SwitchTeams.cancelRequest(team)}
           >
             <FormattedMessage id="switchTeams.cancelJoinRequest" defaultMessage="Cancel" />
           </FlatButton>

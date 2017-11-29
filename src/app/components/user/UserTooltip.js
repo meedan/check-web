@@ -61,7 +61,7 @@ class UserTooltip extends React.Component {
                 }}
               />
             </div>
-            { source.account_sources.edges.map(as => this.accountLink(as.node.account)) }
+            { source.account_sources.edges.map(as => UserTooltip.accountLink(as.node.account)) }
           </div>
         </section>
       </div>
