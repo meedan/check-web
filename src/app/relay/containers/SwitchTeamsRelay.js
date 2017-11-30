@@ -1,8 +1,6 @@
 import React from 'react';
 import Relay from 'react-relay';
-import {
-  injectIntl,
-} from 'react-intl';
+import { injectIntl } from 'react-intl';
 import MeRoute from '../MeRoute';
 import userFragment from '../userFragment';
 import SwitchTeams from '../../components/team/SwitchTeams';

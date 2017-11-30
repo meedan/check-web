@@ -1,6 +1,6 @@
 import React from 'react';
 import { defineMessages, injectIntl, intlShape } from 'react-intl';
-import SwitchTeams from './SwitchTeams';
+import SwitchTeamsRelay from '../../relay/containers/SwitchTeamsRelay';
 import PageTitle from '../PageTitle';
 import { ContentColumn } from '../../styles/js/shared';
 
@@ -14,7 +14,7 @@ const messages = defineMessages({
 const Teams = props =>
   <PageTitle prefix={props.intl.formatMessage(messages.title)} skipTeam>
     <ContentColumn>
-      <SwitchTeams />
+      <SwitchTeamsRelay />
     </ContentColumn>
   </PageTitle>
 ;

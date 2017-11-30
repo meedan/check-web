@@ -152,7 +152,7 @@ class SingleChoiceTask extends Component {
     }
   }
 
-  handleSelectRadio() {
+  handleSelectRadio(e) {
     this.setState({
       focus: true,
       response: e.target.value,

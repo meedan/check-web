@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Relay from 'react-relay';
 import styled from 'styled-components';
 import ProjectRoute from '../../relay/ProjectRoute';
-import { CreateProjectMedia } from '../media';
+import CreateProjectMedia from '../media/CreateMedia';
 import Can from '../Can';
 import PageTitle from '../PageTitle';
 import CheckContext from '../../CheckContext';

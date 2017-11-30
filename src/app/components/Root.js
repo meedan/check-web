@@ -10,38 +10,25 @@ import fr from 'react-intl/locale-data/fr';
 import pt from 'react-intl/locale-data/pt';
 import config from 'config';
 import App from './App';
-import {
-  RootLocale,
-  IndexComponent,
-  NotFound,
-  AccessDenied,
-  UserAlreadyConfirmed,
-  UserConfirmed,
-  UserUnconfirmed,
-  UserPasswordChange,
-  UserPasswordReset,
-  LoginEmailPage,
-} from '../components';
-import {
-  Sources,
-  Source,
-  User,
-  Me,
-} from '../components/source';
-import {
-  CreateTeam,
-  Teams,
-} from '../components/team';
-import {
-  CreateProjectMedia,
-  ProjectMedia,
-  MediaEmbed,
-} from '../components/media';
-import {
-  Project,
-  ProjectHeader,
-  ProjectEdit,
-} from '../components/project';
+import RootLocale from './RootLocale';
+import NotFound from './NotFound';
+import AccessDenied from './AccessDenied';
+import UserAlreadyConfirmed from './UserAlreadyConfirmed';
+import UserConfirmed from './UserConfirmed';
+import UserUnconfirmed from './UserUnconfirmed';
+import UserPasswordChange from './UserPasswordChange';
+import UserPasswordReset from './UserPasswordReset';
+import Source from './source/Source';
+import User from './source/User';
+import Me from './source/Me';
+import CreateTeam from './team/CreateTeam';
+import Teams from './team/Teams';
+import CreateProjectMedia from './media/CreateMedia';
+import MediaEmbed from './media/MediaEmbed';
+import ProjectMedia from './media/Media';
+import Project from './project/Project';
+import ProjectHeader from './project/ProjectHeader';
+import ProjectEdit from './project/ProjectEdit';
 import TeamRelay from '../relay/containers/TeamRelay';
 import JoinTeamRelay from '../relay/containers/JoinTeamRelay';
 import TrashRelay from '../relay/containers/TrashRelay';

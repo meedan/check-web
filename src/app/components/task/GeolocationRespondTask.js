@@ -108,11 +108,17 @@ class GeolocationRespondTask extends Component {
   }
 
   handleChange(e) {
-    this.setState({ taskAnswerDisabled: !GeolocationRespondTask.canSubmit(), name: e.target.value });
+    this.setState({
+      taskAnswerDisabled: !GeolocationRespondTask.canSubmit(),
+      name: e.target.value,
+    });
   }
 
   handleChangeCoordinates(e) {
-    this.setState({ taskAnswerDisabled: !GeolocationRespondTask.canSubmit(), coordinatesString: e.target.value });
+    this.setState({
+      taskAnswerDisabled: !GeolocationRespondTask.canSubmit(),
+      coordinatesString: e.target.value,
+    });
   }
 
   handleBlur() {
