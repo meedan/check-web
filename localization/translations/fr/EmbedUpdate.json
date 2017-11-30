@@ -1,0 +1,5 @@
+{
+  "annotation.embedLabelUpdated": "Titre modifié par {author} : {title}",
+  "annotation.embedNoteUpdated": "Description modifiée par {author} de \"{from}\" à \"{to}\"",
+  "annotation.embedNoteCreated": "Description \"{note}\" ajoutée par {author}"
+}

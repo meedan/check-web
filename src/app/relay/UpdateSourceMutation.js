@@ -13,6 +13,7 @@ class UpdateSourceMutation extends Relay.Mutation {
         name,
         image,
         description,
+        lock_version,
       }
     }`;
   }
@@ -22,6 +23,7 @@ class UpdateSourceMutation extends Relay.Mutation {
       id: this.props.source.id,
       name: this.props.source.name,
       slogan: this.props.source.description,
+      lock_version: this.props.source.lock_version,
     };
     if (this.props.source.refresh_accounts) {
       vars.refresh_accounts = 1;

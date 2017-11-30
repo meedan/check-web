@@ -33,6 +33,7 @@ import {
   transitionSpeedFast,
   transitionSpeedDefault,
   mediaQuery,
+  ellipsisStyles,
 } from '../styles/js/shared';
 
 const pageSize = 20;
@@ -72,7 +73,6 @@ const StyledSearchFiltersSection = styled.section`
 
 const StyledFilterRow = styled(Row)`
   max-height: ${units(20)};
-  min-height: ${units(5)};
   overflow-y: auto;
   flex-wrap: wrap;
 
@@ -114,7 +114,7 @@ const StyledFilterRow = styled(Row)`
 `;
 
 const StyledFilterButton = styled.div`
-  margin: 0 ${units(0.5)}};
+  margin: 0 ${units(0.5)} ${units(0.5)}};
   background-color: ${black05};
   border-radius: ${units(3)};
   padding: 0 ${units(1.5)};
@@ -122,6 +122,8 @@ const StyledFilterButton = styled.div`
   line-height: ${units(3.5)};
   transition: all ${transitionSpeedDefault};
   white-space: nowrap;
+  max-width: ${units(20)};
+  ${ellipsisStyles}
   &:hover {
     cursor: pointer;
     background-color: ${black16};
@@ -736,14 +738,16 @@ class SearchResultsComponent extends Component {
           }
         }
 
-        that.props.relay.forceFetch();
+        if (that.currentContext().clientSessionId != data.actor_session_id) {
+          that.props.relay.forceFetch();
+        }
       });
       this.setState({ pusherSubscribed: true });
     }
   }
 
   unsubscribe() {
-    const pusher = this.getContext().pusher;
+    const pusher = this.currentContext().pusher;
     if (pusher && this.props.search.pusher_channel) {
       pusher.unsubscribe(this.props.search.pusher_channel);
     }

@@ -1,0 +1,14 @@
+[
+  {
+    "id": "annotation.newReport",
+    "defaultMessage": "New {reportType} added by {author}"
+  },
+  {
+    "id": "annotation.titleChanged",
+    "defaultMessage": "Title changed to \"{title}\" by {author}"
+  },
+  {
+    "id": "annotation.embedNoteCreated",
+    "defaultMessage": "Description \"{note}\" was added by {author}"
+  }
+]

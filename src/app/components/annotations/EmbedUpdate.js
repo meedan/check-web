@@ -10,7 +10,7 @@ class EmbedUpdate extends React.Component {
       let editedTitle = false;
       let editedNote = false;
       let createdNote = false;
-      if (from.title && to.title && from.title != to.title) {
+      if (to.title && from.title != to.title) {
         editedTitle = true;
       }
       if (to.description && from.description != to.description) {

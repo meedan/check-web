@@ -1,5 +1,7 @@
 {
   "mediaDetail.mediaTitle": "Título",
+  "mediaDetail.mediaDescription": "Descrição",
+  "mediaDetail.editReport": "Editar relato",
   "mediaDetail.moveFailed": "Desculpe, não foi possível mover este item",
   "mediaDetail.trash": "Lixeira",
   "mediaMetadata.movedToTrash": "Enviar para {trash} ",

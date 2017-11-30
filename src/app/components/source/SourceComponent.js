@@ -26,8 +26,8 @@ import rtlDetect from 'rtl-detect';
 import AccountCard from './AccountCard';
 import AccountChips from './AccountChips';
 import SourceLanguages from './SourceLanguages';
-import SourceTags from './SourceTags';
 import SourcePicture from './SourcePicture';
+import Tags from '../Tags';
 import Annotations from '../annotations/Annotations';
 import PageTitle from '../PageTitle';
 import Medias from '../media/Medias';
@@ -61,6 +61,7 @@ import {
   StyledDescription,
   StyledAvatarEditButton,
 } from '../../styles/js/HeaderCard';
+import styled from 'styled-components';
 
 import {
   ContentColumn,
@@ -161,6 +162,10 @@ const messages = defineMessages({
   },
 });
 
+const StyledTagInput = styled.div`
+  max-width: 85%;
+`;
+
 class SourceComponent extends Component {
   constructor(props) {
     super(props);
@@ -171,6 +176,7 @@ class SourceComponent extends Component {
       isEditing: false,
       submitDisabled: false,
       showTab: 'media',
+      shouldUpdate: false
     };
   }
 
@@ -196,7 +202,18 @@ class SourceComponent extends Component {
     const pusherChannel = this.props.source.source.pusher_channel;
     if (pusher && pusherChannel) {
       pusher.subscribe(pusherChannel).bind('source_updated', (data) => {
-        that.props.relay.forceFetch();
+        const source = this.getSource() || {};
+        const metadata = this.getMetadataAnnotation() || {};
+        const obj = JSON.parse(data.message);
+
+        if (that.state.isEditing && ((obj.annotation_type === 'metadata' && obj.lock_version > metadata.lock_version) || (!obj.annotation_type && obj.lock_version > source.lock_version))) {
+          that.setState({ message: that.getConflictMessage() });
+        }
+        else if (!that.state.isEditing && that.getContext().clientSessionId != data.actor_session_id) {
+          that.props.relay.forceFetch();
+        }
+
+        that.setState({ shouldUpdate: true });
       });
     }
   }
@@ -373,10 +390,15 @@ class SourceComponent extends Component {
   }
 
   handleLeaveEditMode() {
+    if (this.state.shouldUpdate) {
+      this.props.relay.forceFetch();
+    }
+
     this.setState({
       isEditing: false,
       message: null,
       metadata: null,
+      shouldUpdate: false,
     });
     this.onClear();
   }
@@ -390,6 +412,10 @@ class SourceComponent extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
+
+    const pendingTagInput = document.forms['edit-source-form'].sourceTagInput;
+    const pendingTag = pendingTagInput && pendingTagInput.value;
+    pendingTag && pendingTag.trim() && this.createTag(pendingTag);
 
     if (this.validateLinks() && !this.state.submitDisabled) {
       const updateSourceSent = this.updateSource();
@@ -407,19 +433,23 @@ class SourceComponent extends Component {
     }
   }
 
-  handleSelectTag = (chosenRequest, index) => {
-    this.createTag(chosenRequest);
-  };
-
   fail = (transaction) => {
-    const error = transaction.getError();
     let message = this.props.intl.formatMessage(messages.editError);
-    try {
-      const json = JSON.parse(error.source);
-      if (json.error) {
-        message = json.error;
-      }
-    } catch (e) {}
+
+    const error = transaction.getError();
+
+    if (error.status === 409) {
+      message = this.getConflictMessage();
+    }
+    else {
+      try {
+        const json = JSON.parse(error.source);
+        if (json.error) {
+          message = json.error;
+        }
+      } catch (e) { }
+    }
+
     this.setState({ message, hasFailure: true, submitDisabled: false });
   };
 
@@ -494,12 +524,16 @@ class SourceComponent extends Component {
 
     this.registerPendingMutation('updateMetadata');
 
+    const metadata = this.getMetadataAnnotation();
+    const lock_version = metadata ? metadata.lock_version : 0;
+
     Relay.Store.commitUpdate(
       new UpdateDynamicMutation({
         annotated,
         parent_type: 'source',
         dynamic: {
           id: annotation_id,
+          lock_version,
           fields,
         },
       }),
@@ -553,23 +587,6 @@ class SourceComponent extends Component {
         { onSuccess, onFailure },
       );
     });
-  }
-
-  deleteTag(tagId) {
-    const { source } = this.props;
-    const onFailure = (transaction) => {
-      this.fail(transaction);
-    };
-    const onSuccess = (response) => {};
-
-    Relay.Store.commitUpdate(
-      new DeleteTagMutation({
-        annotated: source,
-        parent_type: 'project_source',
-        id: tagId,
-      }),
-      { onSuccess, onFailure },
-    );
   }
 
   createAccountSource(url) {
@@ -698,18 +715,39 @@ class SourceComponent extends Component {
     return true;
   }
 
+  reloadInformation() {
+    this.props.relay.forceFetch();
+    this.setState({ message: null, isEditing: false });
+  }
+
+  getConflictMessage() {
+    return <FormattedMessage id="sourceComponent.conflictError" defaultMessage={'This item was edited by another user while you were making your edits. Please save your changes and {reloadLink}.'}
+             values={{
+               reloadLink: (<span onClick={this.reloadInformation.bind(this)} style={{ cursor: 'pointer', textDecoration: 'underline' }}>
+                              <FormattedMessage id="sourceComponent.clickToReload" defaultMessage="click here to reload" />
+                            </span>)
+             }}
+           />;
+  }
+
   updateSource() {
     const source = this.getSource();
     const onFailure = (transaction) => {
-      const error = transaction.getError();
       let message = this.props.intl.formatMessage(messages.editError);
 
-      try {
-        const json = JSON.parse(error.source);
-        if (json.error) {
-          message = json.error;
-        }
-      } catch (e) {}
+      const error = transaction.getError();
+
+      if (error.status === 409) {
+        message = this.getConflictMessage();
+      }
+      else {
+        try {
+          const json = JSON.parse(error.source);
+          if (json.error) {
+            message = json.error;
+          }
+        } catch (e) {}
+      }
 
       this.setState({ message, hasFailure: true, submitDisabled: false });
     };
@@ -734,6 +772,7 @@ class SourceComponent extends Component {
           id: source.id,
           name: form.name.value,
           image: form.image,
+          lock_version: source.lock_version,
           description: form.description.value,
         },
       }),
@@ -1078,7 +1117,7 @@ class SourceComponent extends Component {
     }
 
     const tags = this.getSource().tags.edges;
-    return <SourceTags tags={tags} />;
+    return <Tags tags={tags} />;
   }
 
   renderTagsEdit() {
@@ -1097,15 +1136,16 @@ class SourceComponent extends Component {
     );
     const isEditing = this.state.addingTags || tags.length;
 
-    return (
-      <SourceTags
-        errorText={this.state.tagErrorMessage}
-        tags={tags}
-        options={availableTags}
-        onDelete={this.deleteTag.bind(this)}
-        onSelect={this.handleSelectTag}
-        isEditing={isEditing}
-      />
+    return (<StyledTagInput>
+        <Tags
+          errorText={this.state.tagErrorMessage}
+          tags={tags}
+          options={availableTags}
+          annotated={this.props.source}
+          annotatedType={'ProjectSource'}
+          isEditing={isEditing}
+        />
+      </StyledTagInput>
     );
   }
 
