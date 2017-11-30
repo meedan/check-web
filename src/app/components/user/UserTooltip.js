@@ -4,6 +4,7 @@ import { FormattedHTMLMessage, injectIntl } from 'react-intl';
 import { Link } from 'react-router';
 import Avatar from 'material-ui/Avatar';
 import { Card, CardText } from 'material-ui/Card';
+import IconButton from 'material-ui/IconButton';
 import MdLaunch from 'react-icons/lib/md/launch';
 import ParsedText from '../ParsedText';
 import MediaUtil from '../media/MediaUtil';
@@ -11,17 +12,48 @@ import { truncateLength } from '../../helpers';
 import UserRoute from '../../relay/UserRoute';
 import {
   white,
+  black38,
   black54,
   body2,
   caption,
   units,
 } from '../../styles/js/shared';
+import {
+  StyledTwoColumns,
+  StyledSmallColumn,
+  StyledBigColumn,
+} from '../../styles/js/HeaderCard';
+import styled from 'styled-components';
+
+const StyledMdLaunch = styled(MdLaunch)`
+  float: right;
+  min-width: 20px !important;
+  min-height: 20px !important;
+
+  svg {
+    color: ${black38};
+  }
+`;
+
+const StyledSocialLink = styled.a`
+  min-width: 20px !important;
+  min-height: 20px !important;
+
+  svg {
+    min-width: 20px !important;
+    min-height: 20px !important;
+  }
+`;
+
+const StyledTooltip = styled.div`
+  max-width: 300px;
+`;
 
 class UserTooltipComponent extends React.Component {
   accountLink(account) {
-    return (<a key={account.id} href={account.url} target="_blank" rel="noopener noreferrer" style={{ paddingRight: units(1) }}>
+    return (<StyledSocialLink key={account.id} href={account.url} target="_blank" rel="noopener noreferrer" style={{ paddingRight: units(1) }}>
       { MediaUtil.socialIcon(`${account.provider}.com`) /* TODO: refactor */ }
-    </a>);
+    </StyledSocialLink>);
   }
 
   render() {
@@ -29,25 +61,24 @@ class UserTooltipComponent extends React.Component {
     const { source } = this.props.user;
 
     return (
-      <div>
-        <section className="layout-two-column">
-          <div className="column-secondary">
+      <StyledTooltip>
+        <StyledTwoColumns style={{ paddingBottom: 0 }}>
+          <StyledSmallColumn>
             <Avatar
               className="avatar"
               src={user.source.image}
               alt={user.name}
-              style={{ marginRight: units(2) }}
             />
-          </div>
+          </StyledSmallColumn>
 
-          <div className="column-primary">
+          <StyledBigColumn>
             <div className="tooltip__primary-info">
               <strong className="tooltip__name" style={{ font: body2, fontWeight: 500 }}>
                 {user.name}
               </strong>
 
-              <Link to={`/check/user/${user.dbid}`} style={{ float: 'right' }}>
-                <MdLaunch />
+              <Link to={`/check/user/${user.dbid}`} className="tooltip__profile-link" >
+                <StyledMdLaunch />
               </Link>
 
               <div className="tooltip__description">
@@ -67,9 +98,9 @@ class UserTooltipComponent extends React.Component {
               />
             </div>
             { source.account_sources.edges.map(as => this.accountLink(as.node.account)) }
-          </div>
-        </section>
-      </div>
+          </StyledBigColumn>
+        </StyledTwoColumns>
+      </StyledTooltip>
     );
   }
 }

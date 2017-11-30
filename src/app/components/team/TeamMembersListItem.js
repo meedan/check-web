@@ -9,7 +9,7 @@ import MdClear from 'react-icons/lib/md/clear';
 import IconButton from 'material-ui/IconButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import rtlDetect from 'rtl-detect';
-import 'rc-tooltip/assets/bootstrap_white.css';
+import '../../styles/css/tooltip.css';
 import Tooltip from 'rc-tooltip';
 import SourcePicture from '../source/SourcePicture';
 import UpdateTeamUserMutation from '../../relay/UpdateTeamUserMutation';
@@ -22,6 +22,7 @@ import {
   buttonInButtonGroupStyle,
   Offset,
 } from '../../styles/js/shared';
+import styled from 'styled-components';
 
 const messages = defineMessages({
   contributor: {
