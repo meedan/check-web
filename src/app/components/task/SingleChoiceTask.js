@@ -88,7 +88,11 @@ class SingleChoiceTask extends Component {
 
   handleAddValue() {
     const options = Array.isArray(this.state.options) ? this.state.options.slice(0) : [];
-    this.state.hasOther ? options.splice(-1, 0, { label: '' }) : options.push({ label: '' });
+    if (this.state.hasOther) {
+      options.splice(-1, 0, { label: '' });
+    } else {
+      options.push({ label: '' });
+    }
     this.setState({ options });
 
     this.validateSingleChoice(this.state.label, options);
@@ -148,7 +152,7 @@ class SingleChoiceTask extends Component {
     }
   }
 
-  handleSelectRadio(e) {
+  handleSelectRadio() {
     this.setState({
       focus: true,
       response: e.target.value,
@@ -158,7 +162,7 @@ class SingleChoiceTask extends Component {
     });
   }
 
-  handleSelectRadioOther(e) {
+  handleSelectRadioOther() {
     const input = document.querySelector('.task__option_other_text_input input');
     if (input) {
       input.focus();
@@ -332,10 +336,12 @@ class SingleChoiceTask extends Component {
       const responseIndex = options.findIndex(
         item => item.label === response || item.label === this.state.response,
       );
-      const responseOther = typeof this.state.responseOther !== 'undefined' &&
-        this.state.responseOther !== null
-        ? this.state.responseOther
-        : responseIndex < 0 ? response : '';
+      let responseOther = '';
+      if (typeof this.state.responseOther !== 'undefined' && this.state.responseOther !== null) {
+        responseOther = this.state.responseOther;
+      } else if (responseIndex < 0) {
+        responseOther = response;
+      }
       const responseOtherSelected = this.state.otherSelected || responseOther
         ? responseOther
         : 'none';
@@ -414,6 +420,8 @@ class SingleChoiceTask extends Component {
         </div>
       );
     }
+
+    return null;
   }
 
   render() {

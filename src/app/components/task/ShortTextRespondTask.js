@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 

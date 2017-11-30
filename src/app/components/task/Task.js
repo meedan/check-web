@@ -10,9 +10,7 @@ import IconButton from 'material-ui/IconButton';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import styled from 'styled-components';
-import Tooltip from 'rc-tooltip';
 import 'rc-tooltip/assets/bootstrap_white.css';
-import SourcePicture from '../source/SourcePicture';
 import SingleChoiceTask from './SingleChoiceTask';
 import MultiSelectTask from './MultiSelectTask';
 import Message from '../Message';
@@ -28,7 +26,7 @@ import DatetimeRespondTask from './DatetimeRespondTask';
 import DatetimeTaskResponse from './DatetimeTaskResponse';
 import { units } from '../../styles/js/shared';
 import ProfileLink from '../layout/ProfileLink';
-import Attribution from './Attribution';
+import AttributionRelay from '../../relay/containers/AttributionRelay';
 import Sentence from '../Sentence';
 
 const StyledWordBreakDiv = styled.div`
@@ -58,6 +56,29 @@ class Task extends Component {
     };
   }
 
+  getResponseData() {
+    const data = {};
+    const { task } = this.props;
+
+    if (task.first_response) {
+      data.by = [];
+      task.first_response.attribution.edges.forEach((user) => {
+        data.by.push(<ProfileLink user={user.node} />);
+      });
+      const fields = JSON.parse(task.first_response.content);
+      fields.forEach((field) => {
+        if (/^response_/.test(field.field_name)) {
+          data.response = field.value;
+        }
+        if (/^note_/.test(field.field_name)) {
+          data.note = field.value;
+        }
+      });
+    }
+
+    return data;
+  }
+
   canSubmit() {
     const label = typeof this.state.label !== 'undefined' && this.state.label !== null
       ? this.state.label : this.props.task.label || '';
@@ -77,11 +98,13 @@ class Task extends Component {
         if (json.error) {
           message = json.error;
         }
-      } catch (e) {}
+      } catch (e) {
+        // Do nothing.
+      }
       this.setState({ message });
     };
 
-    const onSuccess = (response) => {
+    const onSuccess = () => {
       this.setState({ message: null });
     };
 
@@ -123,7 +146,7 @@ class Task extends Component {
     this.setState(state, this.canSubmit);
   }
 
-  handleUpdateAttribution(e) {
+  handleUpdateAttribution() {
     const { media, task } = this.props;
     const value = document.getElementById(`attribution-${task.dbid}`).value;
 
@@ -135,7 +158,9 @@ class Task extends Component {
         if (json.error) {
           message = json.error;
         }
-      } catch (e) {}
+      } catch (ex) {
+        // Do nothing.
+      }
       this.setState({ message });
     };
 
@@ -156,7 +181,7 @@ class Task extends Component {
     );
   }
 
-  handleUpdateTask(e) {
+  handleUpdateTask() {
     const { media, task } = this.props;
     const form = document.forms[`edit-task-${task.dbid}`];
 
@@ -168,11 +193,13 @@ class Task extends Component {
         if (json.error) {
           message = json.error;
         }
-      } catch (e) {}
+      } catch (e) {
+        // Do nothing.
+      }
       this.setState({ message });
     };
 
-    const onSuccess = (response) => {
+    const onSuccess = () => {
       this.setState({ message: null, editingQuestion: false });
     };
 
@@ -202,6 +229,7 @@ class Task extends Component {
   handleDelete() {
     const { task, media } = this.props;
 
+    // eslint-disable-next-line no-alert
     if (window.confirm(this.props.intl.formatMessage(messages.confirmDelete))) {
       Relay.Store.commitUpdate(
         new DeleteAnnotationMutation({
@@ -239,7 +267,9 @@ class Task extends Component {
         if (json.error) {
           message = json.error;
         }
-      } catch (e) {}
+      } catch (e) {
+        // Do nothing.
+      }
       this.setState({ message });
     };
 
@@ -264,29 +294,6 @@ class Task extends Component {
       }),
       { onSuccess, onFailure },
     );
-  }
-
-  getResponseData() {
-    const data = {};
-    const { task } = this.props;
-
-    if (task.first_response) {
-      data.by = [];
-      task.first_response.attribution.edges.forEach((user) => {
-        data.by.push(<ProfileLink user={user.node} />);
-      });
-      const fields = JSON.parse(task.first_response.content);
-      fields.forEach((field) => {
-        if (/^response_/.test(field.field_name)) {
-          data.response = field.value;
-        }
-        if (/^note_/.test(field.field_name)) {
-          data.note = field.value;
-        }
-      });
-    }
-
-    return data;
   }
 
   render() {
@@ -394,47 +401,51 @@ class Task extends Component {
       </div>
     );
 
-    const taskBody = !response
-      ? (<Can permissions={media.permissions} permission="create Dynamic">
-        <form name={`task-response-${task.id}`}>
+    let taskBody = null;
+    if (!response) {
+      taskBody = (
+        <Can permissions={media.permissions} permission="create Dynamic">
+          <form name={`task-response-${task.id}`}>
 
-          <div className="task__response-inputs">
-            {task.type === 'free_text'
-              ? <ShortTextRespondTask
-                onSubmit={this.handleSubmitWithArgs.bind(this)}
-              />
-              : null}
-            {task.type === 'geolocation'
-                ? <GeolocationRespondTask
+            <div className="task__response-inputs">
+              {task.type === 'free_text'
+                ? <ShortTextRespondTask
                   onSubmit={this.handleSubmitWithArgs.bind(this)}
                 />
                 : null}
-            {task.type === 'datetime'
-                ? <DatetimeRespondTask onSubmit={this.handleSubmitWithArgs.bind(this)} note={''} />
-                : null}
-            {task.type === 'single_choice'
-                ? <SingleChoiceTask
-                  mode="respond"
-                  response={response}
-                  note={note}
-                  jsonoptions={task.jsonoptions}
-                  onSubmit={this.handleSubmitWithArgs.bind(this)}
-                />
-                : null}
-            {task.type === 'multiple_choice'
-                ? <MultiSelectTask
-                  mode="respond"
-                  jsonresponse={response}
-                  note={note}
-                  jsonoptions={task.jsonoptions}
-                  onSubmit={this.handleSubmitWithArgs.bind(this)}
-                />
-                : null}
-          </div>
-        </form>
-      </Can>)
-      : this.state.editingResponse
-        ? <div className="task__editing">
+              {task.type === 'geolocation'
+                  ? <GeolocationRespondTask
+                    onSubmit={this.handleSubmitWithArgs.bind(this)}
+                  />
+                  : null}
+              {task.type === 'datetime'
+                  ? <DatetimeRespondTask onSubmit={this.handleSubmitWithArgs.bind(this)} note={''} />
+                  : null}
+              {task.type === 'single_choice'
+                  ? <SingleChoiceTask
+                    mode="respond"
+                    response={response}
+                    note={note}
+                    jsonoptions={task.jsonoptions}
+                    onSubmit={this.handleSubmitWithArgs.bind(this)}
+                  />
+                  : null}
+              {task.type === 'multiple_choice'
+                  ? <MultiSelectTask
+                    mode="respond"
+                    jsonresponse={response}
+                    note={note}
+                    jsonoptions={task.jsonoptions}
+                    onSubmit={this.handleSubmitWithArgs.bind(this)}
+                  />
+                  : null}
+            </div>
+          </form>
+        </Can>
+      );
+    } else if (this.state.editingResponse) {
+      taskBody = (
+        <div className="task__editing">
           <form name={`edit-response-${task.first_response.id}`}>
             {task.type === 'free_text'
                 ? <ShortTextRespondTask
@@ -481,7 +492,10 @@ class Task extends Component {
                 : null}
           </form>
         </div>
-        : <StyledWordBreakDiv className="task__resolved">
+      );
+    } else {
+      taskBody = (
+        <StyledWordBreakDiv className="task__resolved">
           {task.type === 'free_text'
               ? <p className="task__response">
                 <ParsedText text={response} />
@@ -522,7 +536,9 @@ class Task extends Component {
           >
             <ParsedText text={note} />
           </p>
-        </StyledWordBreakDiv>;
+        </StyledWordBreakDiv>
+      );
+    }
 
     return (
       <StyledWordBreakDiv>
@@ -594,7 +610,7 @@ class Task extends Component {
           <Message message={this.state.message} />
           <h2><FormattedMessage id="tasks.editAttribution" defaultMessage="Edit attribution" /></h2>
           <p style={{ marginBottom: units(2), marginTop: units(2) }}><FormattedMessage id="tasks.attributionSlogan" defaultMessage='For the task, "{label}"' values={{ label: task.label }} /></p>
-          { this.state.editingAttribution ? <Attribution task={task} /> : null }
+          { this.state.editingAttribution ? <AttributionRelay task={task} /> : null }
         </Dialog>
       </StyledWordBreakDiv>
     );

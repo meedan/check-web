@@ -124,7 +124,11 @@ class MultiSelectTask extends Component {
 
   handleAddValue() {
     const options = Array.isArray(this.state.options) ? this.state.options.slice(0) : [];
-    this.state.hasOther ? options.splice(-1, 0, { label: '' }) : options.push({ label: '' });
+    if (this.state.hasOther) {
+      options.splice(-1, 0, { label: '' });
+    } else {
+      options.push({ label: '' });
+    }
     this.setState({ options });
 
     this.validateMultiSelect(this.state.label, options);
@@ -185,7 +189,11 @@ class MultiSelectTask extends Component {
   }
 
   handleSelectCheckbox(e, inputChecked) {
-    inputChecked ? this.addToResponse(e.target.id) : this.removeFromResponse(e.target.id);
+    if (inputChecked) {
+      this.addToResponse(e.target.id);
+    } else {
+      this.removeFromResponse(e.target.id);
+    }
     this.setState({ focus: true });
   }
 
@@ -240,6 +248,17 @@ class MultiSelectTask extends Component {
       }
       e.preventDefault();
     }
+  }
+
+  isChecked(value) {
+    if (this.state.response) {
+      return this.state.response.findIndex(item => item === value) > -1;
+    } else if (this.props.jsonresponse) {
+      const response = JSON.parse(this.props.jsonresponse).selected || [];
+      return response.findIndex(item => item === value) > -1;
+    }
+
+    return false;
   }
 
   renderCreateDialog() {
@@ -344,17 +363,6 @@ class MultiSelectTask extends Component {
         </Dialog>
       </div>
     );
-  }
-
-  isChecked(value, index) {
-    if (this.state.response) {
-      return this.state.response.findIndex(item => item === value) > -1;
-    } else if (this.props.jsonresponse) {
-      const response = JSON.parse(this.props.jsonresponse).selected || [];
-      return response.findIndex(item => item === value) > -1;
-    }
-
-    return false;
   }
 
   renderOptions(jsonresponse, note, jsonoptions) {
@@ -465,6 +473,8 @@ class MultiSelectTask extends Component {
         </div>
       );
     }
+
+    return null;
   }
 
   render() {

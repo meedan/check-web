@@ -85,7 +85,9 @@ class CreateTask extends Component {
         if (json.error) {
           message = json.error;
         }
-      } catch (e) {}
+      } catch (e) {
+        // Do nothing.
+      }
       this.setState({ message });
     };
 
@@ -124,7 +126,9 @@ class CreateTask extends Component {
         if (json.error) {
           message = json.error;
         }
-      } catch (e) {}
+      } catch (e) {
+        // Do nothing.
+      }
       this.setState({ message });
     };
 
@@ -189,6 +193,7 @@ class CreateTask extends Component {
         </div>
       );
     }
+    return null;
   }
 
   render() {

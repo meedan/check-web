@@ -1,15 +1,19 @@
 import React from 'react';
-import Relay from 'react-relay';
-import { FormattedMessage, injectIntl } from 'react-intl';
-import TeamRoute from '../../relay/TeamRoute';
-import CheckContext from '../../CheckContext';
+import { FormattedMessage } from 'react-intl';
 import Select from 'react-select';
 import Chip from 'material-ui/Chip';
-import { StyledTagsWrapper } from '../../styles/js/shared';
 import styled from 'styled-components';
-import { units } from '../../styles/js/shared';
+import {
+  StyledTagsWrapper,
+  units,
+} from '../../styles/js/shared';
 
-class AttributionComponent extends React.Component {
+class Attribution extends React.Component {
+  static resize() {
+    // https://github.com/callemall/material-ui/issues/5793#issuecomment-282306001
+    window.dispatchEvent(new Event('resize'));
+  }
+
   constructor(props) {
     super(props);
 
@@ -34,6 +38,16 @@ class AttributionComponent extends React.Component {
       selectedUsers,
       unselectedUsers,
     };
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  componentDidMount() {
+    Attribution.resize();
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  componentDidUpdate() {
+    Attribution.resize();
   }
 
   handleChange(value) {
@@ -62,21 +76,8 @@ class AttributionComponent extends React.Component {
     this.setState({ selectedUsers, unselectedUsers });
   }
 
-  resize() {
-    // https://github.com/callemall/material-ui/issues/5793#issuecomment-282306001
-    window.dispatchEvent(new Event('resize'));
-  }
-
-  componentDidMount() {
-    this.resize();
-  }
-
-  componentDidUpdate() {
-    this.resize();
-  }
-
   render() {
-    const { task, team } = this.props;
+    const { task } = this.props;
 
     const StyledSelect = styled(Select)`
       margin-bottom: 200px;
@@ -122,49 +123,5 @@ class AttributionComponent extends React.Component {
     );
   }
 }
-
-const AttributionContainer = Relay.createContainer(injectIntl(AttributionComponent), {
-  fragments: {
-    team: () => Relay.QL`
-      fragment on Team {
-        id
-        dbid
-        team_users(first: 10000) {
-          edges {
-            node {
-              id
-              status
-              user {
-                id
-                dbid
-                name
-              }
-            }
-          }
-        }
-      }
-    `,
-  },
-});
-
-class Attribution extends React.Component {
-  render() {
-    const context = new CheckContext(this).getContextStore();
-
-    const route = new TeamRoute({ teamSlug: context.team.slug });
-
-    return (
-      <Relay.RootContainer
-        Component={AttributionContainer}
-        renderFetched={data => <AttributionContainer {...this.props} {...data} />}
-        route={route}
-      />
-    );
-  }
-}
-
-Attribution.contextTypes = {
-  store: React.PropTypes.object,
-};
 
 export default Attribution;

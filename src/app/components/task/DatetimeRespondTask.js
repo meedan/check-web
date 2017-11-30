@@ -99,6 +99,10 @@ class DatetimeRespondTask extends Component {
     };
   }
 
+  getLocale() {
+    return new CheckContext(this).getContextStore().locale || 'en';
+  }
+
   canSubmit(date) {
     const value = date || this.state.date;
     return !!value;
@@ -123,7 +127,7 @@ class DatetimeRespondTask extends Component {
   }
 
   handleChangeTime(part, e) {
-    const value = parseInt(convertNumbers2English(e.target.value));
+    const value = parseInt(convertNumbers2English(e.target.value), 10);
 
     const validators = {
       hour: [0, 23],
@@ -189,10 +193,6 @@ class DatetimeRespondTask extends Component {
     }
   }
 
-  getLocale() {
-    return new CheckContext(this).getContextStore().locale || 'en';
-  }
-
   handleCancel() {
     const ori = this.state.original;
     this.setState({
@@ -239,10 +239,10 @@ class DatetimeRespondTask extends Component {
       DateTimeFormat = global.Intl.DateTimeFormat;
     } else {
       DateTimeFormat = IntlPolyfill.DateTimeFormat;
-      require('intl/locale-data/jsonp/pt');
-      require('intl/locale-data/jsonp/en');
-      require('intl/locale-data/jsonp/ar');
-      require('intl/locale-data/jsonp/fr');
+      require('intl/locale-data/jsonp/pt'); // eslint-disable-line global-require
+      require('intl/locale-data/jsonp/en'); // eslint-disable-line global-require
+      require('intl/locale-data/jsonp/ar'); // eslint-disable-line global-require
+      require('intl/locale-data/jsonp/fr'); // eslint-disable-line global-require
     }
 
     return (
