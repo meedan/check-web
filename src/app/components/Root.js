@@ -19,7 +19,7 @@ import UserUnconfirmed from './UserUnconfirmed';
 import UserPasswordChange from './UserPasswordChange';
 import UserPasswordReset from './UserPasswordReset';
 import SourceRelay from '../relay/containers/SourceRelay';
-import User from './source/User';
+import UserRelay from '../relay/containers/UserRelay';
 import MeRelay from '../relay/containers/MeRelay';
 import CreateTeam from './team/CreateTeam';
 import Teams from './team/Teams';
@@ -130,7 +130,7 @@ export default class Root extends Component {
                 <Route path="check/forbidden" component={AccessDenied} public />
                 <Route path="check/404" component={NotFound} public />
 
-                <Route path="check/user/:userId" component={User} />
+                <Route path="check/user/:userId" component={UserRelay} />
                 <Route path="check/me" component={MeRelay} />
                 <Route path="check/teams/new" component={CreateTeam} />
                 <Route path="check/teams" component={Teams} />
