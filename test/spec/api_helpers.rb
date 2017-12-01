@@ -91,7 +91,6 @@ module ApiHelpers
     @driver.navigate.to media.full_url
     @driver.navigate.to @config['self_url'] + '/' + get_team + '/search'
     wait_for_selector(".search__results")
-    media
   end
 
   def api_create_claim_and_go_to_search_page
@@ -116,6 +115,7 @@ module ApiHelpers
     source = api_create_team_project_and_source(name, url)
     @driver.navigate.to source.full_url
     sleep 2
+    source
   end
 
   def api_logout
@@ -136,5 +136,8 @@ module ApiHelpers
     media
   end
 
+  def api_create_project(team_id)
+    project = request_api 'project', { title: "TestProject#{Time.now.to_i}-#{rand(1000).to_i}", team_id: team_id }    
+  end
 
 end
