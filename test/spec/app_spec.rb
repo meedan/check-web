@@ -1126,6 +1126,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should move media to another project" , bin2: true do
       data = api_create_team_and_project  
+      prj2 = api_create_project(data[:team].dbid.to_s)
       p1 =  data[:project].team["projects"]["edges"][0]["node"]["title"]
       p2 = prj2.team["projects"]["edges"][1]["node"]["title"]
 p p1
