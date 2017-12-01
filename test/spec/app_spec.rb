@@ -1066,7 +1066,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(current > 0).to be(true)
     end
 
-    it "should find medias when searching by keyword", bin: true , bin2: true do
+    it "should find medias when searching by keyword", bin2: true do
       data = api_create_team_and_project
       api_create_media(data: data, url: "https://www.facebook.com/permalink.php?story_fbid=10155901893214439&id=54421674438")
       media = api_create_media(data: data, url: "https://twitter.com/TwitterVideo/status/931930009450795009")
