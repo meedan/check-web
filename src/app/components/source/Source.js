@@ -174,6 +174,7 @@ class SourceComponent extends Component {
       isEditing: false,
       submitDisabled: false,
       showTab: 'media',
+      shouldUpdate: false,
     };
   }
 
@@ -292,6 +293,8 @@ class SourceComponent extends Component {
         ) {
           this.props.relay.forceFetch();
         }
+
+        that.setState({ shouldUpdate: true });
       });
     }
   }
@@ -423,10 +426,15 @@ class SourceComponent extends Component {
   }
 
   handleLeaveEditMode() {
+    if (this.state.shouldUpdate) {
+      this.props.relay.forceFetch();
+    }
+
     this.setState({
       isEditing: false,
       message: null,
       metadata: null,
+      shouldUpdate: false,
     });
     this.onClear();
   }
