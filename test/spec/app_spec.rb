@@ -1103,7 +1103,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('weekly @Twitter video recap')).to be(false)
     end
 
-    it "should find medias when searching by status", bin: true, bin2: true do
+    it "should find medias when searching by status", bin2: true do
       api_create_media_and_go_to_search_page
       old = wait_for_selector_list("medias__item", :class).length
       el = wait_for_selector("//div[contains(text(), 'False')]",:xpath)
@@ -1124,13 +1124,72 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(current == 1).to be(true)
     end
 
-    # it "should find medias when searching by tag" do
-    #   skip("Needs to be implemented")
-    # end
+    it "should find medias when searching by tag", bin: true , bin2: true do
+      data = api_create_team_and_project
+      source = api_create_media(data: data, url: "https://www.facebook.com/permalink.php?story_fbid=10155901893214439&id=54421674438")
+      #data = api_create_team_project_and_source_and_redirect_to_source('ACDC', 'https://twitter.com/acdc')
+      @driver.navigate.to source.full_url
+p "aa"      
+      wait_for_selector('source__tab-button-account', :class)
+p "as"      
+      el = wait_for_selector('.source__tab-button-notes')
+p "a1"      
+      el.click
+p "a3"      
+      wait_for_selector('add-annotation__insert-photo', :class)
+p "a4"      
+      fill_field('#cmd-input', '/tag tagtag')
+p "ad4"      
+      @driver.action.send_keys(:enter).perform
+p "as4"      
+      sleep 5
+      wait_for_size_change(0,'annotations__list-item', :class)
+p "aa4"      
 
-    # it "should move media to another project" do
-    #   skip("Needs to be implemented")
-    # end
+      media = api_create_media(data: data, url: "https://twitter.com/TwitterVideo/status/931930009450795009")
+      @driver.navigate.to media.full_url
+      @driver.navigate.to @config['self_url'] + '/' + get_team + '/search'
+      wait_for_selector(".search__results")
+      old = wait_for_selector_list("medias__item", :class).length
+      expect(@driver.page_source.include?('weekly @Twitter video recap')).to be(true)
+      expect(@driver.page_source.include?('Meedan on Facebook')).to be(true)
+
+      el = wait_for_selector("search-input", :id)
+      el.clear
+      el.click
+      el.send_keys "tagtag"
+      @driver.action.send_keys(:enter).perform
+      sleep 3 #due the reload
+      wait_for_selector("search-input", :id)
+      current = wait_for_selector_list("medias__item", :class).length
+      expect(old > current).to be(true)
+      expect(current > 0).to be(true)
+      expect(@driver.page_source.include?('Meedan on Facebook')).to be(true)
+      expect(@driver.page_source.include?('weekly @Twitter video recap')).to be(false)
+    end
+
+    it "should move media to another project" , bin2: true do
+      data = api_create_team_and_project  
+p data
+p ",,,,,,,,,,,"          
+      prj2 = api_create_team_and_project(data[:project].dbid.to_s)
+      source = api_create_media(data: data, url: "https://www.facebook.com/permalink.php?story_fbid=10155901893214439&id=54421674438")
+      @driver.navigate.to source.full_url
+      url1 = source.full_url
+      wait_for_selector('source__tab-button-account', :class)
+      el = wait_for_selector('.media-actions__icon')
+      el.click
+      sleep 1
+      el = wait_for_selector('.media-actions__move')
+      el.click
+      sleep 1
+      els = wait_for_selector_list('.moveMedia')
+      els[0].click
+      el = wait_for_selector("//spam[contains(text(), 'Move')]",:xpath)
+      el.click
+      
+
+    end
 
     it "should add, edit, answer, update answer and delete short answer task", bin3: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
