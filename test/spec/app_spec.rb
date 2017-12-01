@@ -1070,9 +1070,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       data = api_create_team_and_project
       api_create_media(data: data, url: "https://www.facebook.com/permalink.php?story_fbid=10155901893214439&id=54421674438")
       media = api_create_media(data: data, url: "https://twitter.com/TwitterVideo/status/931930009450795009")
-      @driver.navigate.to media.full_url
-      @driver.navigate.to @config['self_url'] + '/' + get_team + '/search'
-      wait_for_selector(".search__results")
+      @driver.navigate.to @config['self_url'] + '/' + data[:team].slug + '/search'
+      sleep 3  #due the load
+      wait_for_selector("//h3[contains(text(), '2 results')]",:xpath)
       old = wait_for_selector_list("medias__item", :class).length
       expect(@driver.page_source.include?('weekly @Twitter video recap')).to be(true)
       expect(@driver.page_source.include?('Meedan on Facebook')).to be(true)
@@ -1081,8 +1081,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el.click
       el.send_keys "video"
       @driver.action.send_keys(:enter).perform
-      sleep 3 #due the reload
-      wait_for_selector("search-input", :id)
+      sleep 3  #due the load
+      wait_for_selector("//h3[contains(text(), '1 result')]",:xpath)
       current = wait_for_selector_list("medias__item", :class).length
       expect(old > current).to be(true)
       expect(current > 0).to be(true)
@@ -1094,8 +1094,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el.click
       el.send_keys "meedan"
       @driver.action.send_keys(:enter).perform
-      sleep 3 #due the reload
-      wait_for_selector("search-input", :id)
+      sleep 3  #due the load
+      wait_for_selector("//h3[contains(text(), '1 result')]",:xpath)
       current = wait_for_selector_list("medias__item", :class).length
       expect(old > current).to be(true)
       expect(current > 0).to be(true)
@@ -1103,7 +1103,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('weekly @Twitter video recap')).to be(false)
     end
 
-    it "should find medias when searching by status", bin: true, bin2: true do
+    it "should find medias when searching by status", bin2: true do
       api_create_media_and_go_to_search_page
       old = wait_for_selector_list("medias__item", :class).length
       el = wait_for_selector("//div[contains(text(), 'False')]",:xpath)
@@ -1124,13 +1124,20 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(current == 1).to be(true)
     end
 
-    # it "should find medias when searching by tag" do
-    #   skip("Needs to be implemented")
-    # end
-
-    # it "should move media to another project" do
-    #   skip("Needs to be implemented")
-    # end
+    it "should move media to another project", bin2: true do
+      data = api_create_team_and_project  
+      prj2 = api_create_project(data[:team].dbid.to_s)
+      p1 =  data[:project].team["projects"]["edges"][0]["node"]["title"]
+      p2 = prj2.team["projects"]["edges"][1]["node"]["title"]
+      media = api_create_media(data: data, url: "https://www.facebook.com/permalink.php?story_fbid=10155901893214439&id=54421674438")
+      @driver.navigate.to media.full_url
+      url1 = media.full_url
+      wait_for_selector('cmd-input', :id)
+      n1 =  wait_for_selector_list("//h3[contains(text(), '#{p1}')]",:xpath).length
+      n2 = wait_for_selector_list("//h3[contains(text(), '#{p2}')]",:xpath).length
+      expect(n1 == 1).to be(true) #At 1st project
+      expect(n2 == 0).to be(true)
+    end
 
     it "should add, edit, answer, update answer and delete short answer task", bin3: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
@@ -1752,5 +1759,44 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     # it "should add and remove suggested tags" do
     #   skip("Needs to be implemented")
     # end
+=begin
+
+    ## Search by tag not working in QA
+
+    it "should find medias when searching by tag", bin2: true do
+      data = api_create_team_and_project
+      source = api_create_media(data: data, url: "https://www.facebook.com/permalink.php?story_fbid=10155901893214439&id=54421674438")
+      #data = api_create_team_project_and_source_and_redirect_to_source('ACDC', 'https://twitter.com/acdc')
+      @driver.navigate.to source.full_url
+      wait_for_selector('cmd-input', :id)
+      wait_for_selector('add-annotation__insert-photo', :class)
+      fill_field('#cmd-input', '/tag tagtag')
+      @driver.action.send_keys(:enter).perform
+      sleep 5
+      wait_for_size_change(0,'annotations__list-item', :class)
+
+      media = api_create_media(data: data, url: "https://twitter.com/TwitterVideo/status/931930009450795009")
+      @driver.navigate.to media.full_url
+      @driver.navigate.to @config['self_url'] + '/' + get_team + '/search'
+      wait_for_selector(".search__results")
+      old = wait_for_selector_list("medias__item", :class).length
+      expect(@driver.page_source.include?('weekly @Twitter video recap')).to be(true)
+      expect(@driver.page_source.include?('Meedan on Facebook')).to be(true)
+
+      el = wait_for_selector("search-input", :id)
+      el.clear
+      el.click
+      el.send_keys "tagtag"
+      @driver.action.send_keys(:enter).perform
+      sleep 3 #due the reload
+      wait_for_selector("search-input", :id)
+      current = wait_for_selector_list("medias__item", :class).length
+      expect(old > current).to be(true)
+      expect(current > 0).to be(true)
+      expect(@driver.page_source.include?('Meedan on Facebook')).to be(true)
+      expect(@driver.page_source.include?('weekly @Twitter video recap')).to be(false)
+    end
+=end
+
   end
 end
