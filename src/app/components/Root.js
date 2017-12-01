@@ -18,9 +18,9 @@ import UserConfirmed from './UserConfirmed';
 import UserUnconfirmed from './UserUnconfirmed';
 import UserPasswordChange from './UserPasswordChange';
 import UserPasswordReset from './UserPasswordReset';
-import Source from './source/Source';
+import SourceRelay from '../relay/containers/SourceRelay';
 import User from './source/User';
-import Me from './source/Me';
+import MeRelay from '../relay/containers/MeRelay';
 import CreateTeam from './team/CreateTeam';
 import Teams from './team/Teams';
 import CreateProjectMedia from './media/CreateMedia';
@@ -131,14 +131,14 @@ export default class Root extends Component {
                 <Route path="check/404" component={NotFound} public />
 
                 <Route path="check/user/:userId" component={User} />
-                <Route path="check/me" component={Me} />
+                <Route path="check/me" component={MeRelay} />
                 <Route path="check/teams/new" component={CreateTeam} />
                 <Route path="check/teams" component={Teams} />
 
                 <Route path=":team/medias/new" component={CreateProjectMedia} />
                 <Route path=":team/project/:projectId/media/:mediaId" component={ProjectMedia} public />
                 <Route path=":team/project/:projectId/media/:mediaId/embed" component={MediaEmbed} public />
-                <Route path=":team/project/:projectId/source/:sourceId" component={Source} public />
+                <Route path=":team/project/:projectId/source/:sourceId" component={SourceRelay} public />
                 <Route path=":team/join" component={JoinTeamRelay} />
                 <Route path=":team/project/:projectId/edit" component={ProjectEdit} />
                 <Route path=":team/project/:projectId(/:query)" component={Project} public />

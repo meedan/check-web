@@ -1,0 +1,122 @@
+[
+  {
+    "id": "source.addInfo",
+    "defaultMessage": "Add Info"
+  },
+  {
+    "id": "source.editError",
+    "defaultMessage": "Sorry, could not edit the source"
+  },
+  {
+    "id": "source.createTagError",
+    "defaultMessage": "Failed to create tag"
+  },
+  {
+    "id": "source.selectLanguageError",
+    "defaultMessage": "Please select a language from the list"
+  },
+  {
+    "id": "source.editSuccess",
+    "defaultMessage": "Source information updated successfully!"
+  },
+  {
+    "id": "source.mergeSource",
+    "defaultMessage": "Merge Source"
+  },
+  {
+    "id": "source.sourceName",
+    "defaultMessage": "Source name"
+  },
+  {
+    "id": "source.sourceBio",
+    "defaultMessage": "Source bio"
+  },
+  {
+    "id": "source.phone",
+    "defaultMessage": "Phone"
+  },
+  {
+    "id": "source.organization",
+    "defaultMessage": "Organization"
+  },
+  {
+    "id": "source.otherDialogTitle",
+    "defaultMessage": "Custom Metadata Field"
+  },
+  {
+    "id": "source.label",
+    "defaultMessage": "Label"
+  },
+  {
+    "id": "source.value",
+    "defaultMessage": "Value"
+  },
+  {
+    "id": "source.languages",
+    "defaultMessage": "Languages"
+  },
+  {
+    "id": "source.location",
+    "defaultMessage": "Location"
+  },
+  {
+    "id": "source.link",
+    "defaultMessage": "Link"
+  },
+  {
+    "id": "source.addLink",
+    "defaultMessage": "Add a link"
+  },
+  {
+    "id": "source.addLinkHelper",
+    "defaultMessage": "Add a link to a web page or social media profile"
+  },
+  {
+    "id": "source.invalidLink",
+    "defaultMessage": "Please enter a valid URL"
+  },
+  {
+    "id": "source.other",
+    "defaultMessage": "Other (Specify)"
+  },
+  {
+    "id": "sourceNoAccounts",
+    "defaultMessage": "No networks associated with this source yet"
+  },
+  {
+    "id": "sourceNoMedia",
+    "defaultMessage": "No media attributed to this source yet"
+  },
+  {
+    "id": "source.conflictError",
+    "defaultMessage": "This item was edited by another user while you were making your edits. Please save your changes and {reloadLink}."
+  },
+  {
+    "id": "source.clickToReload",
+    "defaultMessage": "click here to reload"
+  },
+  {
+    "id": "source.dateAdded",
+    "defaultMessage": "Added {date} • Source of {number} links"
+  },
+  {
+    "id": "source.medias",
+    "defaultMessage": "Media"
+  },
+  {
+    "id": "source.notes",
+    "defaultMessage": "Notes"
+  },
+  {
+    "id": "source.network",
+    "defaultMessage": "Networks"
+  },
+  {
+    "id": "source.add",
+    "defaultMessage": "Add Field"
+  },
+  {
+    "id": "source.editButton",
+    "defaultMessage": "Edit profile"
+  }
+]
