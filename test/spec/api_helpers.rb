@@ -128,4 +128,11 @@ module ApiHelpers
     ret
   end
 
+  def api_create_media(params = {})
+    data = params[:data] || api_create_team_and_project
+    url = params[:url] || @media_url
+    media = request_api 'link', { url: url, email: data[:user].email, team_id: data[:team].dbid, project_id: data[:project].dbid }
+    media
+  end
+  
 end
