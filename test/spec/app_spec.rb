@@ -1124,19 +1124,19 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(current == 1).to be(true)
     end
 
-    it "should move media to another project" , bin2: true do
+    it "should move media to another project", bin: true , bin2: true do
       data = api_create_team_and_project  
       prj2 = api_create_project(data[:team].dbid.to_s)
       p1 =  data[:project].team["projects"]["edges"][0]["node"]["title"]
       p2 = prj2.team["projects"]["edges"][1]["node"]["title"]
-p p1
-p p2      
       source = api_create_media(data: data, url: "https://www.facebook.com/permalink.php?story_fbid=10155901893214439&id=54421674438")
       @driver.navigate.to source.full_url
       url1 = source.full_url
       wait_for_selector('cmd-input', :id)
-      expect(@driver.page_source.include?(p1)).to be(true)
-      expect(@driver.page_source.include?(p2)).to be(false)
+      n1 =  wait_for_selector_list("//h3[contains(text(), '#{p1}')]",:xpath).length
+      n2 = wait_for_selector_list("//h3[contains(text(), '#{p2}')]",:xpath).length
+      expect(n1 == 1).to be(true)
+      expect(n2 == 0).to be(true)
       el = wait_for_selector('.media-actions__icon')
       el.click
       sleep 1
@@ -1144,12 +1144,15 @@ p p2
       el.click
       sleep 1
       els = wait_for_selector_list('.media-detail__dialog-radio-group')
-      p els.length
       els[0].click
       el = wait_for_selector("//span[contains(text(), 'Move')]",:xpath)
       el.click
-      expect(@driver.page_source.include?(p1)).to be(false)
-      expect(@driver.page_source.include?(p2)).to be(true)     
+      sleep 5
+      wait_for_selector('cmd-input', :id)
+      n1 =  wait_for_selector_list("//h3[contains(text(), '#{p1}')]",:xpath).length
+      n2 = wait_for_selector_list("//h3[contains(text(), '#{p2}')]",:xpath).length
+      expect(n1 == 0).to be(true)
+      expect(n2 == 1).to be(true)
     end
 
     it "should add, edit, answer, update answer and delete short answer task", bin3: true do
