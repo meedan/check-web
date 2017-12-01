@@ -1070,8 +1070,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       data = api_create_team_and_project
       api_create_media(data: data, url: "https://www.facebook.com/permalink.php?story_fbid=10155901893214439&id=54421674438")
       media = api_create_media(data: data, url: "https://twitter.com/TwitterVideo/status/931930009450795009")
-      @driver.navigate.to media.full_url
-      @driver.navigate.to @config['self_url'] + '/' + get_team + '/search'
+      @driver.navigate.to @config['self_url'] + '/' + data[:team].slug + '/search'
       wait_for_selector(".search__results")
       old = wait_for_selector_list("medias__item", :class).length
       expect(@driver.page_source.include?('weekly @Twitter video recap')).to be(true)
@@ -1129,9 +1128,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       prj2 = api_create_project(data[:team].dbid.to_s)
       p1 =  data[:project].team["projects"]["edges"][0]["node"]["title"]
       p2 = prj2.team["projects"]["edges"][1]["node"]["title"]
-      source = api_create_media(data: data, url: "https://www.facebook.com/permalink.php?story_fbid=10155901893214439&id=54421674438")
-      @driver.navigate.to source.full_url
-      url1 = source.full_url
+      media = api_create_media(data: data, url: "https://www.facebook.com/permalink.php?story_fbid=10155901893214439&id=54421674438")
+      @driver.navigate.to media.full_url
+      url1 = media.full_url
       wait_for_selector('cmd-input', :id)
       n1 =  wait_for_selector_list("//h3[contains(text(), '#{p1}')]",:xpath).length
       n2 = wait_for_selector_list("//h3[contains(text(), '#{p2}')]",:xpath).length
