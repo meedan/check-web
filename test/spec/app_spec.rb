@@ -1124,7 +1124,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(current == 1).to be(true)
     end
 
-    it "should move media to another project", bin: true , bin2: true do
+    it "should move media to another project", bin2: true do
       data = api_create_team_and_project  
       prj2 = api_create_project(data[:team].dbid.to_s)
       p1 =  data[:project].team["projects"]["edges"][0]["node"]["title"]
@@ -1145,8 +1145,12 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 1
       els = wait_for_selector_list('.media-detail__dialog-radio-group')
       els[0].click
-      el = wait_for_selector("//span[contains(text(), 'Move')]",:xpath)
-      el.click
+      sleep 1
+      @driver.action.send_keys(:tab).perform
+      sleep 1
+      @driver.action.send_keys(:tab).perform
+      sleep 1
+      @driver.action.send_keys(:enter).perform
       sleep 5
       wait_for_selector('cmd-input', :id)
       n1 =  wait_for_selector_list("//h3[contains(text(), '#{p1}')]",:xpath).length
