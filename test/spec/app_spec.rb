@@ -1066,12 +1066,13 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(current > 0).to be(true)
     end
 
-    it "should find medias when searching by keyword", bin2: true do
+    it "should find medias when searching by keyword", bin: true , bin2: true do
       data = api_create_team_and_project
       api_create_media(data: data, url: "https://www.facebook.com/permalink.php?story_fbid=10155901893214439&id=54421674438")
       media = api_create_media(data: data, url: "https://twitter.com/TwitterVideo/status/931930009450795009")
       @driver.navigate.to @config['self_url'] + '/' + data[:team].slug + '/search'
-      wait_for_selector(".search__results")
+      sleep 3  #due the load
+      wait_for_selector("//h3[contains(text(), '2 results')]",:xpath)
       old = wait_for_selector_list("medias__item", :class).length
       expect(@driver.page_source.include?('weekly @Twitter video recap')).to be(true)
       expect(@driver.page_source.include?('Meedan on Facebook')).to be(true)
@@ -1080,8 +1081,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el.click
       el.send_keys "video"
       @driver.action.send_keys(:enter).perform
-      sleep 3 #due the reload
-      wait_for_selector("search-input", :id)
+      sleep 3  #due the load
+      wait_for_selector("//h3[contains(text(), '1 result')]",:xpath)
       current = wait_for_selector_list("medias__item", :class).length
       expect(old > current).to be(true)
       expect(current > 0).to be(true)
@@ -1093,8 +1094,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el.click
       el.send_keys "meedan"
       @driver.action.send_keys(:enter).perform
-      sleep 3 #due the reload
-      wait_for_selector("search-input", :id)
+      sleep 3  #due the load
+      wait_for_selector("//h3[contains(text(), '1 result')]",:xpath)
       current = wait_for_selector_list("medias__item", :class).length
       expect(old > current).to be(true)
       expect(current > 0).to be(true)
