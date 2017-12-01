@@ -1128,6 +1128,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       data = api_create_team_and_project  
       p1 =  data[:project].team["projects"]["edges"][0]["node"]["title"]
       p2 = prj2.team["projects"]["edges"][1]["node"]["title"]
+p p1
+p p2      
       source = api_create_media(data: data, url: "https://www.facebook.com/permalink.php?story_fbid=10155901893214439&id=54421674438")
       @driver.navigate.to source.full_url
       url1 = source.full_url
