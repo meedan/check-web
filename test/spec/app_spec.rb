@@ -1136,26 +1136,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       n2 = wait_for_selector_list("//h3[contains(text(), '#{p2}')]",:xpath).length
       expect(n1 == 1).to be(true) #At 1st project
       expect(n2 == 0).to be(true)
-      el = wait_for_selector('.media-actions__icon')
-      el.click
-      sleep 1
-      el = wait_for_selector('.media-actions__move')
-      el.click
-      sleep 1
-      els = wait_for_selector_list('.media-detail__dialog-radio-group')
-      els[0].click
-      sleep 1
-      @driver.action.send_keys(:tab).perform
-      sleep 1
-      @driver.action.send_keys(:tab).perform
-      sleep 1
-      @driver.action.send_keys(:enter).perform
-      sleep 5
-      wait_for_selector('cmd-input', :id)
-      n1 =  wait_for_selector_list("//h3[contains(text(), '#{p1}')]",:xpath).length
-      n2 = wait_for_selector_list("//h3[contains(text(), '#{p2}')]",:xpath).length
-      expect(n1 == 0).to be(true)
-      expect(n2 == 1).to be(true) #At 2nd project
     end
 
     it "should add, edit, answer, update answer and delete short answer task", bin3: true do
