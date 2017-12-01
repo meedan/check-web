@@ -1135,7 +1135,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector('cmd-input', :id)
       n1 =  wait_for_selector_list("//h3[contains(text(), '#{p1}')]",:xpath).length
       n2 = wait_for_selector_list("//h3[contains(text(), '#{p2}')]",:xpath).length
-      expect(n1 == 1).to be(true)
+      expect(n1 == 1).to be(true) #At 1st project
       expect(n2 == 0).to be(true)
       el = wait_for_selector('.media-actions__icon')
       el.click
@@ -1156,7 +1156,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       n1 =  wait_for_selector_list("//h3[contains(text(), '#{p1}')]",:xpath).length
       n2 = wait_for_selector_list("//h3[contains(text(), '#{p2}')]",:xpath).length
       expect(n1 == 0).to be(true)
-      expect(n2 == 1).to be(true)
+      expect(n2 == 1).to be(true) #At 2nd project
     end
 
     it "should add, edit, answer, update answer and delete short answer task", bin3: true do
