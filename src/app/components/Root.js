@@ -27,7 +27,6 @@ import CreateProjectMedia from './media/CreateMedia';
 import MediaEmbed from './media/MediaEmbed';
 import ProjectMedia from './media/Media';
 import Project from './project/Project';
-import ProjectHeader from './project/ProjectHeader';
 import ProjectEdit from './project/ProjectEdit';
 import TeamRelay from '../relay/containers/TeamRelay';
 import JoinTeamRelay from '../relay/containers/JoinTeamRelay';
@@ -44,10 +43,12 @@ if (locale.constructor === Array) {
 locale = locale.replace(/[-_].*$/, '');
 
 if (!global.Intl) {
+  // eslint-disable-next-line import/no-dynamic-require, global-require
   require(['intl'], (intl) => {
     global.Intl = intl;
-//    Commented out while build is not optimized for this!
-//    require('intl/locale-data/jsonp/' + locale + '.js');
+// TODO Commented out while build is not optimized for this!
+// eslint-disable-next-line global-require
+// require('intl/locale-data/jsonp/' + locale + '.js');
   });
 }
 
@@ -63,10 +64,32 @@ try {
   locale = 'en';
 }
 
-export default class Root extends Component {
+class Root extends Component {
   static propTypes = {
     store: PropTypes.object.isRequired,
   };
+
+  static logPageView() {
+    if (config.googleAnalyticsCode) {
+      ReactGA.set({ page: window.location.pathname });
+      ReactGA.pageview(window.location.pathname);
+    }
+  }
+
+  componentWillMount() {
+    this.setStore();
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  componentDidMount() {
+    if (config.googleAnalyticsCode) {
+      ReactGA.initialize(config.googleAnalyticsCode, { debug: false });
+    }
+  }
+
+  componentWillUpdate() {
+    this.setStore();
+  }
 
   getContext() {
     return new CheckContext(this);
@@ -89,27 +112,6 @@ export default class Root extends Component {
     this.setState(data);
   }
 
-  componentWillMount() {
-    this.setStore();
-  }
-
-  componentWillUpdate() {
-    this.setStore();
-  }
-
-  componentDidMount() {
-    if (config.googleAnalyticsCode) {
-      ReactGA.initialize(config.googleAnalyticsCode, { debug: false });
-    }
-  }
-
-  logPageView() {
-    if (config.googleAnalyticsCode) {
-      ReactGA.set({ page: window.location.pathname });
-      ReactGA.pageview(window.location.pathname);
-    }
-  }
-
   render() {
     const { store } = this.props;
     window.Check = { store };
@@ -119,7 +121,7 @@ export default class Root extends Component {
         <RootLocale locale={locale} />
         <IntlProvider locale={locale} messages={translations[locale]}>
           <Provider store={store}>
-            <Router history={this.state.history} onUpdate={this.logPageView.bind(this)}>
+            <Router history={this.state.history} onUpdate={Root.logPageView}>
               <Route path="/" component={App}>
                 <IndexRoute component={TeamRelay} />
                 <Route path="check/user/already-confirmed" component={UserAlreadyConfirmed} public />
@@ -159,3 +161,5 @@ export default class Root extends Component {
 Root.contextTypes = {
   store: React.PropTypes.object,
 };
+
+export default Root;

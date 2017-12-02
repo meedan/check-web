@@ -4,7 +4,6 @@ import CheckContext from '../../CheckContext';
 import MediaRoute from '../../relay/MediaRoute';
 import MediaParentComponent from './MediaParentComponent';
 import MediasLoading from './MediasLoading';
-import userFragment from '../../relay/userFragment';
 
 const MediaContainer = Relay.createContainer(MediaParentComponent, {
   initialVariables: {
@@ -245,6 +244,7 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
   },
 });
 
+// eslint-disable-next-line react/prefer-stateless-function
 class ProjectMedia extends Component {
   render() {
     let projectId = this.props.params.projectId || 0;
@@ -263,9 +263,7 @@ class ProjectMedia extends Component {
       <Relay.RootContainer
         Component={MediaContainer}
         route={route}
-        renderLoading={function () {
-          return <MediasLoading count={1} />;
-        }}
+        renderLoading={() => <MediasLoading count={1} />}
       />
     );
   }

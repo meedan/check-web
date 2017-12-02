@@ -75,15 +75,25 @@ const StyledBackgroundColor = styled.div`
 `;
 
 class MediaComponent extends Component {
+  static scrollToAnnotation() {
+    if (window.location.hash !== '') {
+      const id = window.location.hash.replace(/^#/, '');
+      const element = document.getElementById(id);
+      if (element.scrollIntoView !== undefined) {
+        element.scrollIntoView();
+      }
+    }
+  }
+
   componentDidMount() {
     this.setCurrentContext();
-    this.scrollToAnnotation();
+    MediaComponent.scrollToAnnotation();
     this.subscribe();
   }
 
   componentDidUpdate() {
     this.setCurrentContext();
-    this.scrollToAnnotation();
+    MediaComponent.scrollToAnnotation();
   }
 
   componentWillUnmount() {
@@ -101,22 +111,14 @@ class MediaComponent extends Component {
     }
   }
 
-  scrollToAnnotation() {
-    if (window.location.hash !== '') {
-      const id = window.location.hash.replace(/^#/, '');
-      const element = document.getElementById(id);
-      if (element.scrollIntoView !== undefined) {
-        element.scrollIntoView();
-      }
-    }
-  }
-
   subscribe() {
     const pusher = this.getContext().pusher;
     if (pusher) {
       pusher.subscribe(this.props.media.pusher_channel).bind('media_updated', (data) => {
         const annotation = JSON.parse(data.message);
-        if (annotation.annotated_id === this.props.media.dbid && this.getContext().clientSessionId != data.actor_session_id) {
+        if (annotation.annotated_id === this.props.media.dbid &&
+            this.getContext().clientSessionId !== data.actor_session_id
+        ) {
           this.props.relay.forceFetch();
         }
       });
@@ -171,7 +173,10 @@ class MediaComponent extends Component {
                     </h2>
                       &nbsp;
                     <FlexRow>
-                      {media.tasks.edges.filter(t => !!t.node.first_response).length}/{media.tasks.edges.length}&nbsp;
+                      {media.tasks.edges.filter(t => !!t.node.first_response).length}
+                      /
+                      {media.tasks.edges.length}
+                      &nbsp;
                       <FormattedMessage id="mediaComponent.resolved" defaultMessage="resolved" />
                     </FlexRow>
                   </FlexRow>

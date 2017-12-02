@@ -5,7 +5,7 @@ import UpdateStatusMutation from '../../relay/UpdateStatusMutation';
 import MediaStatusCommon from './MediaStatusCommon';
 
 class MediaStatus extends Component {
-  setStatus(context, store, media, status) {
+  static setStatus(context, store, media, status) {
     const onFailure = (transaction) => {
       context.fail(transaction);
     };
@@ -39,7 +39,11 @@ class MediaStatus extends Component {
   }
 
   render() {
-    return <MediaStatusCommon {...this.props} parentComponent={this} setStatus={this.setStatus} />;
+    return (<MediaStatusCommon
+      {...this.props}
+      parentComponent={this}
+      setStatus={MediaStatus.setStatus}
+    />);
   }
 }
 

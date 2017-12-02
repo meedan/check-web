@@ -7,6 +7,7 @@ import rtlDetect from 'rtl-detect';
 import merge from 'lodash.merge';
 import config from 'config';
 import styled, { injectGlobal } from 'styled-components';
+import injectTapEventPlugin from 'react-tap-event-plugin';
 import Header from './Header';
 import LoginContainer from './LoginContainer';
 import BrowserSupport from './BrowserSupport';
@@ -24,10 +25,13 @@ import {
   mediaQuery,
   borderRadiusDefault,
 } from '../styles/js/shared';
-
 import { layout, typography, localeAr, removeYellowAutocomplete } from '../styles/js/global';
 
+// Needed for onTouchTap
+injectTapEventPlugin();
+
 // Global styles
+// eslint-disable-next-line no-unused-expressions
 injectGlobal`
   ${layout}
   ${typography}
@@ -77,11 +81,6 @@ const StyledDisclaimer = styled.div`
   }
 `;
 
-// Needed for onTouchTap
-import injectTapEventPlugin from 'react-tap-event-plugin';
-
-injectTapEventPlugin();
-
 const messages = defineMessages({
   needRegister: {
     id: 'home.needRegister',
@@ -95,6 +94,19 @@ const messages = defineMessages({
 });
 
 class Home extends Component {
+  static routeSlug(children) {
+    if (!(children && children.props.route)) {
+      return null;
+    }
+    if (/\/media\/:mediaId/.test(children.props.route.path)) {
+      return 'media'; // TODO: other pages as needed
+    }
+    if (/\/source\/:sourceId/.test(children.props.route.path)) {
+      return 'source'; // TODO: other pages as needed
+    }
+    return null;
+  }
+
   constructor(props) {
     super(props);
 
@@ -144,26 +156,13 @@ class Home extends Component {
     this.forceUpdate();
   }
 
-  routeSlug(children) {
-    if (!(children && children.props.route)) {
-      return null;
-    }
-    if (/\/media\/:mediaId/.test(children.props.route.path)) {
-      return 'media'; // TODO: other pages as needed
-    }
-    if (/\/source\/:sourceId/.test(children.props.route.path)) {
-      return 'source'; // TODO: other pages as needed
-    }
-    return null;
-  }
-
   resetMessage() {
     this.setState({ message: null });
   }
 
   render() {
     const { children } = this.props;
-    const routeSlug = this.routeSlug(children);
+    const routeSlug = Home.routeSlug(children);
     const muiThemeWithRtl = getMuiTheme(
       merge(muiThemeWithoutRtl, { isRtl: rtlDetect.isRtlLang(this.props.intl.locale) }),
     );

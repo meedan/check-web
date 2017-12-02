@@ -32,7 +32,7 @@ import {
   mediaQuery,
   caption,
   body2,
-  title,
+  title1,
   black54,
   black38,
   checkBlue,
@@ -46,7 +46,7 @@ import {
 } from '../styles/js/shared';
 
 const StyledSubHeader = styled.h2`
-    font: ${title};
+    font: ${title1};
     font-weight: 600;
     color: ${black54};
     text-align: center;
@@ -151,6 +151,13 @@ const Column = styled.div`
 
 
 class Login extends Component {
+  static focusFirstInput() {
+    const input = document.querySelector('.login input');
+    if (input) {
+      input.focus();
+    }
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -163,8 +170,9 @@ class Login extends Component {
     };
   }
 
+  // eslint-disable-next-line class-methods-use-this
   componentDidMount() {
-    this.focusFirstInput();
+    Login.focusFirstInput();
   }
 
   onFormSubmit(e) {
@@ -177,6 +185,7 @@ class Login extends Component {
     }
   }
 
+  // eslint-disable-next-line class-methods-use-this
   onImage(file) {
     document.forms.register.image = file;
   }
@@ -187,14 +196,7 @@ class Login extends Component {
 
   handleSwitchType() {
     const type = this.state.type === 'login' ? 'register' : 'login';
-    this.setState({ type }, () => this.focusFirstInput());
-  }
-
-  focusFirstInput() {
-    const input = document.querySelector('.login input');
-    if (input) {
-      input.focus();
-    }
+    this.setState({ type }, () => Login.focusFirstInput());
   }
 
   emailLogin() {
@@ -239,12 +241,6 @@ class Login extends Component {
 
   oAuthLogin(provider) {
     login(provider, this.props.loginCallback);
-  }
-
-  bemClass(baseClass, modifierBoolean, modifierSuffix) {
-    return modifierBoolean
-      ? [baseClass, baseClass + modifierSuffix].join(' ')
-      : baseClass;
   }
 
   handleFieldChange(e) {

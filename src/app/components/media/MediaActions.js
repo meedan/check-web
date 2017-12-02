@@ -30,7 +30,16 @@ class MediaActions extends Component {
   }
 
   render() {
-    const { media, handleEdit, handleMove, handleRefresh, handleSendToTrash, handleRestore, handleDeleteForever } = this.props;
+    const {
+      media,
+      handleEdit,
+      handleMove,
+      handleRefresh,
+      handleSendToTrash,
+      handleRestore,
+      handleDeleteForever,
+    } = this.props;
+
     const menuItems = [];
 
     if (can(media.permissions, 'update ProjectMedia')) {

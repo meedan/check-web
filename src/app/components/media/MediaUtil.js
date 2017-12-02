@@ -84,7 +84,7 @@ const MediaUtil = {
     return data.username;
   },
 
-  sourceName(media, data) {
+  sourceName(media) {
     try {
       return media.project_source.source.name;
     } catch (e) {
@@ -131,14 +131,14 @@ const MediaUtil = {
   hasCustomTitle(media, data) {
     const overridden = media.overridden ? JSON.parse(media.overridden) : {};
     const title = data && data.title && data.title.trim();
-    return overridden.title || media.quote && (title !== media.quote);
+    return overridden.title || (media.quote && (title !== media.quote));
   },
 
   hasCustomDescription(media, data) {
     const overridden = media.overridden ? JSON.parse(media.overridden) : {};
     const description = data && data.description && data.description.trim();
     return overridden.description || // Link type report
-      media.quote && (description !== media.quote) || // Quote type report
+      (media.quote && (description !== media.quote)) || // Quote type report
       (media.embed_path && description); // Image type report
   },
 

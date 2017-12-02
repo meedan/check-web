@@ -30,7 +30,6 @@ import {
   Offset,
   caption,
   subheading1,
-  gutterXSmall,
   Text,
 } from '../../styles/js/shared';
 
@@ -93,6 +92,16 @@ const StyledMediaDetail = styled.div`
 `;
 
 class MediaDetail extends Component {
+  // TODO: replace with helpers.js#bemClassFromMediaStatus
+  static statusToClass(baseClass, status) {
+    return status.length
+      ? [
+        baseClass,
+        `${baseClass}--${status.toLowerCase().replace(/[ _]/g, '-')}`,
+      ].join(' ')
+      : baseClass;
+  }
+
   constructor(props) {
     super(props);
 
@@ -121,16 +130,6 @@ class MediaDetail extends Component {
   handleReduce = () => {
     this.setState({ expanded: false });
   };
-
-  statusToClass(baseClass, status) {
-    // TODO: replace with helpers.js#bemClassFromMediaStatus
-    return status.length
-      ? [
-        baseClass,
-        `${baseClass}--${status.toLowerCase().replace(/[ _]/g, '-')}`,
-      ].join(' ')
-      : baseClass;
-  }
 
   render() {
     const { media, annotated, annotatedType } = this.props;
@@ -249,10 +248,10 @@ class MediaDetail extends Component {
     // (or implicitly expanded with initiallyExpanded prop)
     // Always display it if it's been edited
     const shouldDisplayHeading = isImage || MediaUtil.hasCustomTitle(media, data) ||
-      !this.state.expanded && !(this.state.expanded == null && this.props.initiallyExpanded);
+      (!this.state.expanded && !(this.state.expanded == null && this.props.initiallyExpanded));
 
     const cardClassName =
-      `${this.statusToClass('media-detail', mediaLastStatus(media))} ` +
+      `${MediaDetail.statusToClass('media-detail', mediaLastStatus(media))} ` +
       `media-detail--${MediaUtil.mediaTypeCss(media, data)}`;
 
     const shouldShowProjectName = !projectPage && projectTitle;
@@ -342,7 +341,7 @@ class MediaDetail extends Component {
 
           <CardText expandable>
             <FadeIn
-              className={this.statusToClass(
+              className={MediaDetail.statusToClass(
                 'media-detail__media',
                 mediaLastStatus(media),
               )}

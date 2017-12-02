@@ -13,10 +13,8 @@ import IconLink from 'material-ui/svg-icons/content/link';
 import FaFeed from 'react-icons/lib/fa/feed';
 import MdFormatQuote from 'react-icons/lib/md/format-quote';
 import styled from 'styled-components';
-import config from 'config';
 import urlRegex from 'url-regex';
 import UploadImageRelay from '../../relay/UploadImageRelay';
-import PenderCard from '../PenderCard';
 import CreateProjectMediaMutation from '../../relay/CreateProjectMediaMutation';
 import CreateProjectSourceMutation from '../../relay/CreateProjectSourceMutation';
 import Message from '../Message';
@@ -138,6 +136,10 @@ class CreateProjectMedia extends Component {
     };
   }
 
+  setMode(mode) {
+    this.setState({ mode });
+  }
+
   handleImage(file) {
     this.setState({ message: null, submittable: true });
     document.forms.media.image = file;
@@ -145,10 +147,6 @@ class CreateProjectMedia extends Component {
 
   handleImageError(file, message) {
     this.setState({ message, submittable: false });
-  }
-
-  setMode(mode) {
-    this.setState({ mode });
   }
 
   handleChange() {
@@ -180,12 +178,11 @@ class CreateProjectMedia extends Component {
       if (json.error_info && json.error_info.code === 'ERR_OBJECT_EXISTS') {
         message = null;
         context.history.push(`/${context.team.slug}/project/${json.error_info.project_id}/${json.error_info.type}/${json.error_info.id}`);
-      }
-      else {
+      } else {
         const matches = json.error.match(/This \b(media|source|account)\b already exists in project ([0-9]+) and has id ([0-9]+)/);
         if (matches) {
           this.props.projectComponent.props.relay.forceFetch();
-          const type = matches[1] == 'media' ? 'media' : 'source';
+          const type = matches[1] === 'media' ? 'media' : 'source';
           message = null;
           context.history.push(`/${context.team.slug}/project/${matches[2]}/${type}/${matches[3]}`);
         } else {
@@ -252,8 +249,6 @@ class CreateProjectMedia extends Component {
       quoteAttributions = JSON.stringify({
         name: document.getElementById('create-media-quote-attribution-source-input').value.trim(),
         // TODO: support attribution context
-        //
-        // context: document.getElementById('create-media-quote-attribution-context-input').value.trim(),
       });
     } else {
       inputValue = document.getElementById('create-media-input').value.trim();

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { injectIntl } from 'react-intl';
 import rtlDetect from 'rtl-detect';
@@ -18,43 +18,41 @@ const StyledQuoteText = styled.div`
     props.quoteIsRtl ? 'direction: rtl; text-align: right;' : 'direction: ltr; text-align: left;'};
 `;
 
-class QuoteMediaCard extends Component {
-  render() {
-    const { quote, sourceName, sourceUrl, languageCode } = this.props;
-    const localeIsRtl = rtlDetect.isRtlLang(this.props.intl.locale);
+const QuoteMediaCard = (props) => {
+  const { quote, sourceName, sourceUrl, languageCode } = props;
+  const localeIsRtl = rtlDetect.isRtlLang(props.intl.locale);
 
-    const StyledQuoteAttribution = styled.div`
-      font: ${subheading2};
-      text-align: ${localeIsRtl ? 'left' : 'right'};
-      margin: ${localeIsRtl ? `0 auto 0 ${units(2)}` : `0 ${units(2)} 0 auto`};
-      margin-top: ${units(4)};
-    `;
+  const StyledQuoteAttribution = styled.div`
+    font: ${subheading2};
+    text-align: ${localeIsRtl ? 'left' : 'right'};
+    margin: ${localeIsRtl ? `0 auto 0 ${units(2)}` : `0 ${units(2)} 0 auto`};
+    margin-top: ${units(4)};
+  `;
 
-    return (
-      <Quote>
-        <div>
-          <StyledQuoteText
-            className={`quote__text ${rtlClass(languageCode)}`}
-            quoteIsRtl={rtlDetect.isRtlLang(languageCode)}
-          >
-            {quote}
-          </StyledQuoteText>
-          <Row>
-            <StyledQuoteAttribution>
-              {sourceName && sourceUrl
-                ? <div>
-                  {'— '}
-                  <Link to={sourceUrl}>
-                    {sourceName}
-                  </Link>
-                </div>
-                : null}
-            </StyledQuoteAttribution>
-          </Row>
-        </div>
-      </Quote>
-    );
-  }
-}
+  return (
+    <Quote>
+      <div>
+        <StyledQuoteText
+          className={`quote__text ${rtlClass(languageCode)}`}
+          quoteIsRtl={rtlDetect.isRtlLang(languageCode)}
+        >
+          {quote}
+        </StyledQuoteText>
+        <Row>
+          <StyledQuoteAttribution>
+            {sourceName && sourceUrl
+              ? <div>
+                {'— '}
+                <Link to={sourceUrl}>
+                  {sourceName}
+                </Link>
+              </div>
+              : null}
+          </StyledQuoteAttribution>
+        </Row>
+      </div>
+    </Quote>
+  );
+};
 
 export default injectIntl(QuoteMediaCard);

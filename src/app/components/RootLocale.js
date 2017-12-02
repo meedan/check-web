@@ -1,10 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Helmet from 'react-helmet';
 
-export default class RootLocale extends Component {
-  render() {
-    return (<Helmet
-      htmlAttributes={{ lang: this.props.locale }}
-    />);
-  }
-}
+const RootLocale = props =>
+  <Helmet htmlAttributes={{ lang: props.locale }} />
+;
+
+export default RootLocale;
