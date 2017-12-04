@@ -53,7 +53,7 @@ class CreateProject extends Component {
       this.setState({ message, submitDisabled: false });
     };
 
-    const onSuccess = () => {
+    const onSuccess = (response) => {
       const project = response.createProject.project;
       const path = `/${team.slug}/project/${project.dbid}`;
       history.push(path);

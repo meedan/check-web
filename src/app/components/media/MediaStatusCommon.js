@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { defineMessages, injectIntl, intlShape } from 'react-intl';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import { can } from '../Can';
@@ -6,6 +7,13 @@ import CheckContext from '../../CheckContext';
 import { getStatus, getStatusStyle } from '../../helpers';
 import { mediaStatuses, mediaLastStatus } from '../../customHelpers';
 import { black16, units } from '../../styles/js/shared';
+
+const messages = defineMessages({
+  error: {
+    id: 'mediaStatus.error',
+    defaultMessage: "We're sorry, but we encountered an error trying to update the status.",
+  },
+});
 
 class MediaStatusCommon extends Component {
   static bemClass(baseClass, modifierBoolean, modifierSuffix) {
@@ -34,8 +42,27 @@ class MediaStatusCommon extends Component {
     const store = new CheckContext(this).getContextStore();
 
     if (clickedStatus !== mediaLastStatus(media)) {
-      this.props.setStatus(store, media, clickedStatus, this.props.parentComponent, null);
+      this.props.setStatus(this, store, media, clickedStatus, this.props.parentComponent, null);
     }
+  }
+
+  fail(transaction) {
+    const error = transaction.getError();
+    let message = this.props.intl.formatMessage(messages.error);
+    try {
+      const json = JSON.parse(error.source);
+      if (json.error) {
+        message = json.error;
+      }
+    } catch (e) {
+      // Do nothing.
+    }
+    this.setState({ message });
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  success() {
+    // Do nothing. Remove eslint directive if this method does something.
   }
 
   render() {
@@ -92,8 +119,12 @@ class MediaStatusCommon extends Component {
   }
 }
 
+MediaStatusCommon.propTypes = {
+  intl: intlShape.isRequired,
+};
+
 MediaStatusCommon.contextTypes = {
   store: React.PropTypes.object,
 };
 
-export default MediaStatusCommon;
+export default injectIntl(MediaStatusCommon);

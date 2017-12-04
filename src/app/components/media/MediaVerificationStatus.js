@@ -13,10 +13,7 @@ class MediaStatus extends Component {
       context.success('status');
     };
 
-    let status_id = '';
-    if (media.last_status_obj !== null) {
-      status_id = media.last_status_obj.id;
-    }
+    const status_id = media.last_status_obj ? media.last_status_obj.id : '';
     const status_attr = {
       parent_type: 'project_media',
       annotated: media,
