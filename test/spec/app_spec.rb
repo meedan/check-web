@@ -805,14 +805,17 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       page = Page.new(config: @config, driver: @driver)
       page.go(@config['api_path'] + '/test/session?email='+utp[:user1]["email"])
       page.go(@config['self_url'] + '/'+utp[:team]["slug"]+'/project/'+utp[:project]["dbid"].to_s)
-      @wait.until { @driver.page_source.include?('Sources') }
-      l = wait_for_selector_list('button',:tag_name)
-      n = l.length
+      sleep 3 #for loading
+      wait_for_selector("//span[contains(text(), 'Sources')]", :xpath)      
+      l = wait_for_selector_list('project-menu',:class)
+      expect(l.length == 1).to be(true)
+
       page.go(@config['api_path'] + '/test/session?email='+utp[:user2]["email"])
       page.go(@config['self_url'] + '/'+utp[:team]["slug"]+'/project/'+utp[:project]["dbid"].to_s)
-      @wait.until { @driver.page_source.include?('Sources') }
-      l = wait_for_selector_list('button',:tag_name)
-      expect(n > l.length).to be(true)
+      sleep 3 #for loading
+      wait_for_selector("//span[contains(text(), 'Sources')]", :xpath)      
+      l = wait_for_selector_list('project-menu',:class)
+      expect(l.length == 0).to be(true)
     end
 
     it "should edit team and logo", bin1: true do
