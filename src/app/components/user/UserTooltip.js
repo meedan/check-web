@@ -1,6 +1,6 @@
 import React from 'react';
 import Relay from 'react-relay';
-import { FormattedHTMLMessage, injectIntl } from 'react-intl';
+import { FormattedMessage, FormattedHTMLMessage, defineMessages, injectIntl } from 'react-intl';
 import { Link } from 'react-router';
 import Avatar from 'material-ui/Avatar';
 import { Card, CardText } from 'material-ui/Card';
@@ -8,6 +8,7 @@ import IconButton from 'material-ui/IconButton';
 import MdLaunch from 'react-icons/lib/md/launch';
 import ParsedText from '../ParsedText';
 import MediaUtil from '../media/MediaUtil';
+import CheckContext from '../../CheckContext';
 import { truncateLength } from '../../helpers';
 import UserRoute from '../../relay/UserRoute';
 import {
@@ -49,7 +50,48 @@ const StyledTooltip = styled.div`
   max-width: 300px;
 `;
 
+const StyledUserRole = styled.span`
+  color: ${black54};
+  font: ${caption};
+  margin: ${units(1)};
+`;
+
+const messages = defineMessages({
+  contributor: {
+    id: 'UserTooltip.contributor',
+    defaultMessage: 'Contributor',
+  },
+  journalist: {
+    id: 'UserTooltip.journalist',
+    defaultMessage: 'Journalist',
+  },
+  editor: {
+    id: 'UserTooltip.editor',
+    defaultMessage: 'Editor',
+  },
+  owner: {
+    id: 'UserTooltip.owner',
+    defaultMessage: 'Owner',
+  },
+});
+
 class UserTooltipComponent extends React.Component {
+  getContext() {
+    const context = new CheckContext(this);
+    return context;
+  }
+
+  userRole() {
+    const context = this.getContext();
+    const team = context.getContextStore().currentUser.current_team;
+    const current_team_user = this.props.user.team_users.edges.find(tu => tu.node.team.slug === team.slug);
+    return current_team_user.node.status !== 'requested' ? current_team_user.node.role : '';
+  }
+
+  localizedRole(role) {
+    return role ? `${this.props.intl.formatMessage(messages[role])}` : '';
+  }
+
   accountLink(account) {
     return (<StyledSocialLink key={account.id} href={account.url} target="_blank" rel="noopener noreferrer" style={{ paddingRight: units(1) }}>
       { MediaUtil.socialIcon(`${account.provider}.com`) /* TODO: refactor */ }
@@ -59,6 +101,7 @@ class UserTooltipComponent extends React.Component {
   render() {
     const { user } = this.props;
     const { source } = this.props.user;
+    const role = this.userRole();
 
     return (
       <StyledTooltip>
@@ -76,6 +119,7 @@ class UserTooltipComponent extends React.Component {
               <strong className="tooltip__name" style={{ font: body2, fontWeight: 500 }}>
                 {user.name}
               </strong>
+              <StyledUserRole>{this.localizedRole(role)}</StyledUserRole>
 
               <Link to={`/check/user/${user.dbid}`} className="tooltip__profile-link" >
                 <StyledMdLaunch />
@@ -113,6 +157,22 @@ const UserTooltipContainer = Relay.createContainer(injectIntl(UserTooltipCompone
         dbid,
         name,
         number_of_teams,
+        team_users(first: 10000) {
+          edges {
+            node {
+              team {
+                id,
+                dbid,
+                name,
+                slug,
+                private,
+              }
+              id,
+              status,
+              role
+            }
+          }
+        },
         source {
           id,
           dbid,
@@ -147,5 +207,10 @@ class UserTooltip extends React.Component {
     );
   }
 }
+
+
+UserTooltipComponent.contextTypes = {
+  store: React.PropTypes.object,
+};
 
 export default UserTooltip;
