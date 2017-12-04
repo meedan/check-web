@@ -61,7 +61,7 @@ module AppSpecHelpers
     expect(@driver.page_source.include?(task_text)).to be(true)
     el = wait_for_selector('.task__label')
     el.click
-    
+
     sleep 1
     # Open the menu
     el = wait_for_selector('.task-actions__icon')
@@ -94,10 +94,6 @@ module AppSpecHelpers
   def twitter_auth
     sleep 3
     @driver.find_element(:xpath, "//button[@id='twitter-login']").click
-    sleep 3
-    window = @driver.window_handles.last
-    @driver.switch_to.window(window)
-    @driver.find_element(:xpath, "//input[@id='allow']").click
     sleep 5
     window = @driver.window_handles.first
     @driver.switch_to.window(window)
