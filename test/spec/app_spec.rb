@@ -88,7 +88,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Happy birthday Mick')).to be(false)
     end
 
-    it "should register and create a claim", bin5: true do
+    it "should register and create a claim", bin4: true do
       page = LoginPage.new(config: @config, driver: @driver).load
       page = page.register_and_login_with_email(email: "sysops+#{Time.now.to_i}#{rand(1000)}@meedan.com", password: @password)
       page
@@ -103,10 +103,12 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       api_logout
       api_register_and_login_with_email
       me_pg = MePage.new(config: @config, driver: @driver).load
-      @wait.until { @driver.page_source.include?('Create Team') }
+      sleep 3 #for loading
+      wait_for_selector("//span[contains(text(), 'Create Team')]", :xpath)      
       expect(@driver.page_source.include?('Access Denied')).to be(false)
       expect((@driver.current_url.to_s =~ /\/forbidden$/).nil?).to be(true)
       unauthorized_pg = SourcePage.new(id: user.dbid, config: @config, driver: @driver).load
+      sleep 3 #for loading
       wait_for_selector("main-title", :class)
       expect(@driver.page_source.include?('Access Denied')).to be(true)
       expect((@driver.current_url.to_s =~ /\/forbidden$/).nil?).to be(false)
@@ -179,7 +181,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(project_pg.elements('.media__heading').map(&:text).include?('First Draft on Facebook')).to be(true)
     end
 
-    it "should login using Slack", bin5: true, quick:true do
+    it "should login using Slack", bin4: true, quick:true do
       login_with_slack
       @driver.navigate.to @config['self_url'] + '/check/me'
       displayed_name = get_element('h1.source__name').text.upcase
@@ -1769,7 +1771,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     ## Search by tag not working in QA
 
-    it "should find medias when searching by tag", bin2: true do
+    it "should find medias when searching by tag" do
       data = api_create_team_and_project
       source = api_create_media(data: data, url: "https://www.facebook.com/permalink.php?story_fbid=10155901893214439&id=54421674438")
       #data = api_create_team_project_and_source_and_redirect_to_source('ACDC', 'https://twitter.com/acdc')
