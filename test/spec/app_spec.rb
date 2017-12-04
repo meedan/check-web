@@ -649,16 +649,17 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should tag media from tags list", bin5: true do
       page = api_create_team_project_and_claim_and_redirect_to_media_page
-      sleep 5
+      sleep 5 #for loading
       wait_for_selector("add-annotation__buttons", :class)
       new_tag = Time.now.to_i.to_s
       expect(page.contains_string?("Tagged \##{new_tag}")).to be(false)
       page.add_tag(new_tag)
+      @driver.action.send_keys(Keys.ESCAPE).perform
       expect(page.has_tag?(new_tag)).to be(true)
-      sleep 2
       expect(page.contains_string?("Tagged \##{new_tag}")).to be(true)
       page.driver.navigate.refresh
-      page.wait_for_element('.media')
+      sleep 5 #for loading
+      wait_for_selector("add-annotation__insert-photo",:class)
       expect(page.has_tag?(new_tag)).to be(true)
       expect(page.contains_string?("Tagged \##{new_tag}")).to be(true)
     end
