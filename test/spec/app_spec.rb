@@ -485,55 +485,62 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('AC/DC Official Website')).to be(false)
     end
 
-    it "should edit source metadata (contact, phone, location, organization, other)", bin6: true do
+    it "should edit source metadata (contact, phone, location, organization, other)", bin: true, bin6: true do
       api_create_team_project_and_source_and_redirect_to_source('GOT', 'https://twitter.com/GameOfThrones')
-      sleep 5
-      element = @driver.find_element(:class, "source__edit-button")
-      element.click
+      sleep 5 #Loading
+      wait_for_selector('.source__tab-button-account')
+      expect(@driver.page_source.include?('label: value')).to be(false)
+      expect(@driver.page_source.include?('Location 123')).to be(false)
+      expect(@driver.page_source.include?('ORGANIZATION')).to be(false)
+      expect(@driver.page_source.include?('989898989')).to be(false)
+      el = wait_for_selector('.source__edit-button')
+      el.click
+      sleep 1      
+      el = wait_for_selector('.source__edit-addinfo-button')
+      el.click
       sleep 1
-      @driver.find_element(:class, "source__edit-addinfo-button").click
-      sleep 1
-      @driver.find_element(:class, "source__add-phone").click
+      el = wait_for_selector('.source__add-phone')
+      el.click
       str= @driver.page_source
       str = str[str.index('undefined-undefined-Phone-')..str.length]
       str = str[0..(str.index('"')-1)]
-      element = @driver.find_element(:id, str)
       fill_field(str, "989898989", :id)
-
       sleep 1
       @driver.find_element(:class, "source__edit-addinfo-button").click
       sleep 1
-      @driver.find_element(:class, "source__add-organization").click
+      el = wait_for_selector(".source__add-organization")
+      el.click
       str= @driver.page_source
       str = str[str.index('undefined-undefined-Organization-')..str.length]
       str = str[0..(str.index('"')-1)]
-      element = @driver.find_element(:id, str)
       fill_field(str, "ORGANIZATION", :id)
-
-      @driver.find_element(:class, "source__edit-addinfo-button").click
+      el = wait_for_selector(".source__edit-addinfo-button")
+      el.click
       sleep 1
-      @driver.find_element(:class, "source__add-location").click
+      el = wait_for_selector(".source__add-location")
+      el.click
       str= @driver.page_source
       str = str[str.index('undefined-undefined-Location-')..str.length]
       str = str[0..(str.index('"')-1)]
       fill_field(str, "Location 123", :id)
-
       sleep 1
       #source__add-other
-      @driver.find_element(:class, "source__edit-addinfo-button").click
+      el = wait_for_selector(".source__edit-addinfo-button")
+      el.click
       sleep 1
-      @driver.find_element(:class, "source__add-other").click
+      el = wait_for_selector(".source__add-other")
+      el.click
       sleep 1
       fill_field("source__other-label-input", "label", :id)
       fill_field("source__other-value-input", "value", :id)
-
       @driver.action.send_keys("\t").perform
       @driver.action.send_keys("\t").perform
       @driver.action.send_keys("\n").perform
-
       sleep 2
-      @driver.find_element(:class, 'source__edit-save-button').click
-      sleep 5
+      el = wait_for_selector(".source__edit-save-button")
+      el.click
+      sleep 5 #reload
+      wait_for_selector('.source__edit-button')
       expect(@driver.page_source.include?('label: value')).to be(true)
       expect(@driver.page_source.include?('Location 123')).to be(true)
       expect(@driver.page_source.include?('ORGANIZATION')).to be(true)
