@@ -654,7 +654,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       new_tag = Time.now.to_i.to_s
       expect(page.contains_string?("Tagged \##{new_tag}")).to be(false)
       page.add_tag(new_tag)
-      @driver.action.send_keys(Keys.ESCAPE).perform
+      @driver.action.send_keys(:escape).perform
       expect(page.has_tag?(new_tag)).to be(true)
       expect(page.contains_string?("Tagged \##{new_tag}")).to be(true)
       page.driver.navigate.refresh
