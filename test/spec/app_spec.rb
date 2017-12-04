@@ -485,7 +485,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('AC/DC Official Website')).to be(false)
     end
 
-    it "should edit source metadata (contact, phone, location, organization, other)", bin: true, bin6: true do
+    it "should edit source metadata (contact, phone, location, organization, other)", bin6: true do
       api_create_team_project_and_source_and_redirect_to_source('GOT', 'https://twitter.com/GameOfThrones')
       sleep 5 #Loading
       wait_for_selector('.source__tab-button-account')
