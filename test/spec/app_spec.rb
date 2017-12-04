@@ -1115,19 +1115,21 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should find medias when searching by status", bin2: true do
       api_create_media_and_go_to_search_page
+      sleep 3 #waiting load
+      wait_for_selector("//h3[contains(text(), '1 result')]",:xpath)
       old = wait_for_selector_list("medias__item", :class).length
       el = wait_for_selector("//div[contains(text(), 'False')]",:xpath)
       el.click
       sleep 3 #due the reload
-      wait_for_selector("search-input", :id)
+      wait_for_selector("//h3[contains(text(), 'No results')]",:xpath)
       current = wait_for_selector_list("medias__item", :class).length
       expect(old > current).to be(true)
-      expect(current == 0).to be(true)
-      
+      expect(current == 0).to be(true)     
       old = wait_for_selector_list("medias__item", :class).length
       el = wait_for_selector("//div[contains(text(), 'Unstarted')]",:xpath)
       el.click
       sleep 3 #due the reload
+      wait_for_selector("//h3[contains(text(), '1 result')]",:xpath)
       wait_for_selector("search-input", :id)
       current = wait_for_selector_list("medias__item", :class).length
       expect(old < current).to be(true)
