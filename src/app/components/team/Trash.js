@@ -197,7 +197,7 @@ class Trash extends Component {
           query={query}
           fields={['status', 'sort', 'tags']}
           addons={
-            <Can permissions={team.permissions} permission="update Team">
+            <Can permissions={team.permissions} permission="empty Trash">
               <RaisedButton
                 label={<FormattedMessage id="trash.emptyTrash" defaultMessage="Empty trash" />}
                 className="trash__empty-trash-button"
