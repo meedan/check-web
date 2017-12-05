@@ -16,8 +16,7 @@ function mapGlobalMessage(intl, msgKey, values) {
 }
 
 const MappedMessage = props =>
-  <span>{mapMessage(props.intl, props.msgObj, props.msgKey, props.values)}</span>
-;
+  <span>{mapMessage(props.intl, props.msgObj, props.msgKey, props.values)}</span>;
 
 export default injectIntl(MappedMessage);
 export {

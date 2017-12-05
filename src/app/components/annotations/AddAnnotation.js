@@ -71,6 +71,22 @@ const styles = {
 };
 
 class AddAnnotation extends Component {
+  static parseCommand(input) {
+    const matches = input.match(/^\/([a-z_]+) (.*)/);
+    let command = { type: 'unk', args: null };
+    if (matches !== null) {
+      command.type = matches[1];
+      command.args = matches[2];
+    } else if (/^[^/]/.test(input) || !input) {
+      command = { type: 'comment', args: input };
+    }
+    return command;
+  }
+
+  static onImage(file) {
+    document.forms.addannotation.image = file;
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -81,16 +97,12 @@ class AddAnnotation extends Component {
     };
   }
 
-  parseCommand(input) {
-    const matches = input.match(/^\/([a-z_]+) (.*)/);
-    let command = { type: 'unk', args: null };
-    if (matches !== null) {
-      command.type = matches[1];
-      command.args = matches[2];
-    } else if (/^[^/]/.test(input) || !input) {
-      command = { type: 'comment', args: input };
-    }
-    return command;
+  onImageError(file, message) {
+    this.setState({ message });
+  }
+
+  getContext() {
+    return new CheckContext(this).getContextStore();
   }
 
   failure() {
@@ -134,10 +146,6 @@ class AddAnnotation extends Component {
       isSubmitting: false,
       messageStyle: styles.errorStyle,
     });
-  }
-
-  getContext() {
-    return new CheckContext(this).getContextStore();
   }
 
   addComment(
@@ -207,7 +215,7 @@ class AddAnnotation extends Component {
 
     const context = this.getContext();
 
-    tagsList.map((tag) => {
+    tagsList.forEach((tag) => {
       Relay.Store.commitUpdate(
         new CreateTagMutation({
           annotated,
@@ -363,15 +371,16 @@ class AddAnnotation extends Component {
   }
 
   handleSubmit(e) {
-    const command = this.parseCommand(this.state.cmd);
     if (this.state.isSubmitting) {
-      return e.preventDefault();
+      e.preventDefault();
+      return;
     }
 
     this.setState({ isSubmitting: true });
     let action = null;
+    const command = AddAnnotation.parseCommand(this.state.cmd);
 
-    if (this.props.types && this.props.types.indexOf(command.type) == -1) {
+    if (this.props.types && this.props.types.indexOf(command.type) < 0) {
       this.failure();
     } else {
       switch (command.type) {
@@ -415,14 +424,6 @@ class AddAnnotation extends Component {
     if (e.key === 'Enter' && !e.shiftKey) {
       this.handleSubmit(e);
     }
-  }
-
-  onImage(file) {
-    document.forms.addannotation.image = file;
-  }
-
-  onImageError(file, message) {
-    this.setState({ message });
   }
 
   switchMode() {
@@ -474,7 +475,7 @@ class AddAnnotation extends Component {
             if (this.state.fileMode) {
               return (
                 <UploadImageRelay
-                  onImage={this.onImage.bind(this)}
+                  onImage={AddAnnotation.onImage}
                   onError={this.onImageError.bind(this)}
                 />
               );

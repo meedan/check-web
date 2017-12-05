@@ -1,10 +1,10 @@
 import React from 'react';
 import Relay from 'react-relay';
-import PublicTeamRoute from '../relay/PublicTeamRoute';
-import teamPublicFragment from '../relay/teamPublicFragment';
-import DrawerNavigationComponent from './DrawerNavigationComponent';
+import PublicTeamRoute from '../../relay/PublicTeamRoute';
+import teamPublicFragment from '../../relay/teamPublicFragment';
+import DrawerNavigation from '../../components/drawer/DrawerNavigation';
 
-const DrawerNavigation = (props) => {
+const DrawerNavigationRelay = (props) => {
   // TODO @chris with @alex 2017-10-3
   //
   // Problem:
@@ -19,7 +19,7 @@ const DrawerNavigation = (props) => {
   // - Project list is contained in its own Relay which queries Team type
 
   if (props.inTeamContext) {
-    const DrawerNavigationContainer = Relay.createContainer(DrawerNavigationComponent, {
+    const DrawerNavigationContainer = Relay.createContainer(DrawerNavigation, {
       fragments: {
         team: () => teamPublicFragment,
       },
@@ -43,7 +43,7 @@ const DrawerNavigation = (props) => {
     );
   }
 
-  return (<DrawerNavigationComponent {...props} />);
+  return (<DrawerNavigation {...props} />);
 };
 
-export default DrawerNavigation;
+export default DrawerNavigationRelay;

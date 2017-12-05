@@ -8,7 +8,6 @@ const Tasks = props =>
         .sortp((a, b) => a.node.dbid - b.node.dbid)
         .map(task => <li key={task.node.dbid}><Task task={task.node} media={props.media} /></li>)}
     </ul>
-  </div>
-;
+  </div>;
 
 export default Tasks;

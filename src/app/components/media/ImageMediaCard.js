@@ -10,7 +10,6 @@ const ImageMediaCard = props =>
       src={props.imagePath}
       alt=""
     />
-  </article>
-;
+  </article>;
 
 export default ImageMediaCard;

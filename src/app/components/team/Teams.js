@@ -16,8 +16,7 @@ const Teams = props =>
     <ContentColumn>
       <SwitchTeamsRelay />
     </ContentColumn>
-  </PageTitle>
-;
+  </PageTitle>;
 
 Teams.propTypes = {
   intl: intlShape.isRequired,

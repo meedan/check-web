@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
+import { FormattedMessage, defineMessages, intlShape } from 'react-intl';
 import Relay from 'react-relay';
 import TextField from 'material-ui/TextField';
 import { Card, CardText, CardActions } from 'material-ui/Card';
@@ -7,7 +7,6 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Message from '../Message';
 import UpdateProjectMutation from '../../relay/UpdateProjectMutation';
 import PageTitle from '../PageTitle';
-import ProjectRoute from '../../relay/ProjectRoute';
 import CheckContext from '../../CheckContext';
 import { ContentColumn } from '../../styles/js/shared';
 
@@ -34,7 +33,7 @@ const messages = defineMessages({
   },
 });
 
-class ProjectEditComponent extends Component {
+class ProjectEdit extends Component {
   constructor(props) {
     super(props);
 
@@ -111,7 +110,9 @@ class ProjectEditComponent extends Component {
         if (json.error) {
           message = json.error;
         }
-      } catch (e) { }
+      } catch (ex) {
+        // Do nothihg.
+      }
       this.setState({ message });
     };
 
@@ -199,47 +200,12 @@ class ProjectEditComponent extends Component {
   }
 }
 
-ProjectEditComponent.propTypes = {
+ProjectEdit.propTypes = {
   intl: intlShape.isRequired,
 };
 
-ProjectEditComponent.contextTypes = {
+ProjectEdit.contextTypes = {
   store: React.PropTypes.object,
 };
-
-const ProjectEditContainer = Relay.createContainer(injectIntl(ProjectEditComponent), {
-  initialVariables: {
-    contextId: null,
-  },
-  fragments: {
-    project: () => Relay.QL`
-      fragment on Project {
-        id,
-        dbid,
-        title,
-        description,
-        permissions,
-        team {
-          id,
-          dbid,
-          slug
-        }
-      }
-    `,
-  },
-});
-
-class ProjectEdit extends Component {
-  render() {
-    const projectId = this.props.params.projectId;
-    const route = new ProjectRoute({ contextId: parseInt(projectId, 10) });
-    return (
-      <Relay.RootContainer
-        Component={ProjectEditContainer}
-        route={route}
-      />
-    );
-  }
-}
 
 export default ProjectEdit;

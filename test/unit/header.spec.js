@@ -1,12 +1,12 @@
 import React from 'react';
 import { expect } from 'chai';
 import IconArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
-import { HeaderComponent } from '../../src/app/components/Header';
+import Header from '../../src/app/components/Header';
 import TeamHeaderRelay from '../../src/app/relay/containers/TeamHeaderRelay';
 import TeamPublicHeaderRelay from '../../src/app/relay/containers/TeamPublicHeaderRelay';
 import { mountWithIntl } from './helpers/intl-test';
 
-describe('<HeaderComponent />', () => {
+describe('<Header />', () => {
   const privateTeam = {
     name: 'team',
     avatar: 'http://localhost:3000/images/team.png',
@@ -19,7 +19,7 @@ describe('<HeaderComponent />', () => {
     const location = { pathname: '/team/members' };
     const params = { team: 'team' };
     const header = mountWithIntl(
-      <HeaderComponent
+      <Header
         inTeamContext
         loggedIn
         currentUserIsMember
@@ -37,7 +37,7 @@ describe('<HeaderComponent />', () => {
     const location = { pathname: '/team/join' };
     const params = { team: 'team' };
     const header = mountWithIntl(
-      <HeaderComponent
+      <Header
         inTeamContext
         loggedIn
         currentUserIsMember={false}
@@ -55,7 +55,7 @@ describe('<HeaderComponent />', () => {
     const location = { pathname: '/check/404' };
     const params = { team: 'team' };
     const header = mountWithIntl(
-      <HeaderComponent
+      <Header
         inTeamContext={false}
         loggedIn
         location={location}

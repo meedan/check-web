@@ -8,11 +8,11 @@ import merge from 'lodash.merge';
 import config from 'config';
 import styled, { injectGlobal } from 'styled-components';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import Header from './Header';
+import HeaderRelay from '../relay/containers/HeaderRelay';
 import LoginContainer from './LoginContainer';
 import BrowserSupport from './BrowserSupport';
 import CheckContext from '../CheckContext';
-import DrawerNavigation from './DrawerNavigation';
+import DrawerNavigationRelay from '../relay/containers/DrawerNavigationRelay';
 import { bemClass } from '../helpers';
 import Message from './Message';
 import {
@@ -224,7 +224,7 @@ class Home extends Component {
                 <FormattedMessage id="home.beta" defaultMessage="Beta" />
               </span>
             </StyledDisclaimer>
-            <Header
+            <HeaderRelay
               drawerToggle={this.handleDrawerToggle.bind(this)}
               loggedIn={loggedIn}
               inTeamContext={inTeamContext}
@@ -245,7 +245,7 @@ class Home extends Component {
               {children}
             </StyledContent>
           </StyledWrapper>
-          <DrawerNavigation
+          <DrawerNavigationRelay
             docked={false}
             open={this.state.open}
             drawerToggle={this.handleDrawerToggle.bind(this)}

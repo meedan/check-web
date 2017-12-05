@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
-import Relay from 'react-relay';
 import styled from 'styled-components';
-import ProjectRoute from '../../relay/ProjectRoute';
 import CreateProjectMedia from '../media/CreateMedia';
 import Can from '../Can';
 import PageTitle from '../PageTitle';
 import CheckContext from '../../CheckContext';
-import MediasLoading from '../media/MediasLoading';
 import Search from '../Search';
 import { ContentColumn, units } from '../../styles/js/shared';
 
@@ -21,8 +18,7 @@ const ProjectWrapper = styled.div`
   width: 100%;
 `;
 
-class ProjectComponent extends Component {
-
+class Project extends Component {
   componentDidMount() {
     this.setContextProject();
   }
@@ -87,58 +83,8 @@ class ProjectComponent extends Component {
   }
 }
 
-ProjectComponent.contextTypes = {
+Project.contextTypes = {
   store: React.PropTypes.object,
 };
-
-const ProjectContainer = Relay.createContainer(ProjectComponent, {
-  initialVariables: {
-    contextId: null,
-  },
-  fragments: {
-    project: () => Relay.QL`
-      fragment on Project {
-        id,
-        dbid,
-        title,
-        description,
-        permissions,
-        search_id,
-        team {
-          id,
-          dbid,
-          slug,
-          search_id,
-          projects(first: 10000) {
-            edges {
-              node {
-                id,
-                dbid,
-                title
-              }
-            }
-          }
-        }
-      }
-    `,
-  },
-});
-
-class Project extends Component {
-  render() {
-    const projectId = this.props.params.projectId;
-    const route = new ProjectRoute({ contextId: parseInt(projectId, 10) });
-    return (
-      <Relay.RootContainer
-        Component={ProjectContainer}
-        route={route}
-        renderFetched={data => <ProjectContainer {...this.props} {...data} />}
-        renderLoading={function () {
-          return <MediasLoading />;
-        }}
-      />
-    );
-  }
-}
 
 export default Project;

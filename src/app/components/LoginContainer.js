@@ -40,8 +40,7 @@ const LoginContainer = props =>
       </p>
       <FooterRelay {...props} />
     </ContentColumn>
-  </PageTitle>
-;
+  </PageTitle>;
 
 LoginContainer.propTypes = {
   loginCallback: PropTypes.func,

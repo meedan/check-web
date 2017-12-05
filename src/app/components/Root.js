@@ -26,8 +26,8 @@ import Teams from './team/Teams';
 import CreateProjectMedia from './media/CreateMedia';
 import MediaEmbed from './media/MediaEmbed';
 import ProjectMedia from './media/Media';
-import Project from './project/Project';
-import ProjectEdit from './project/ProjectEdit';
+import ProjectRelay from '../relay/containers/ProjectRelay';
+import ProjectEditRelay from '../relay/containers/ProjectEditRelay';
 import TeamRelay from '../relay/containers/TeamRelay';
 import JoinTeamRelay from '../relay/containers/JoinTeamRelay';
 import TrashRelay from '../relay/containers/TrashRelay';
@@ -142,8 +142,8 @@ class Root extends Component {
                 <Route path=":team/project/:projectId/media/:mediaId/embed" component={MediaEmbed} public />
                 <Route path=":team/project/:projectId/source/:sourceId" component={SourceRelay} public />
                 <Route path=":team/join" component={JoinTeamRelay} />
-                <Route path=":team/project/:projectId/edit" component={ProjectEdit} />
-                <Route path=":team/project/:projectId(/:query)" component={Project} public />
+                <Route path=":team/project/:projectId/edit" component={ProjectEditRelay} />
+                <Route path=":team/project/:projectId(/:query)" component={ProjectRelay} public />
                 <Route path=":team/search(/:query)" component={Search} public />
                 <Route path=":team/trash(/:query)" component={TrashRelay} />
                 <Route path=":team" component={TeamRelay} public />

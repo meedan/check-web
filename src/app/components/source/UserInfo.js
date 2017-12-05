@@ -58,7 +58,6 @@ const UserInfo = props =>
       </StyledContactInfo>
 
     </StyledBigColumn>
-  </StyledTwoColumns>
-;
+  </StyledTwoColumns>;
 
 export default injectIntl(UserInfo);

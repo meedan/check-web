@@ -15,7 +15,6 @@ const Medias = props =>
         );
       })}
     </ul>
-  </div>
-;
+  </div>;
 
 export default Medias;

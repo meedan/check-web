@@ -39,7 +39,6 @@ const HeaderCard = props =>
           : null}
       </StyledEditButtonWrapper>
     </section>
-  </StyledProfileCard>
-;
+  </StyledProfileCard>;
 
 export default injectIntl(HeaderCard);
