@@ -497,7 +497,7 @@ class Annotation extends Component {
       break;
     case 'create_dynamicannotationfield':
     case 'update_dynamicannotationfield': {
-      const annotationContent = JSON.parse(annotation.content);
+      const annotationContent = annotation ? JSON.parse(annotation.content) : null;
       if (/^response_/.test(object.field_name) && activity.task) {
         const format_response = (type) => {
           if (type === 'multiple_choice') {
