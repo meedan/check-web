@@ -11,6 +11,7 @@ import MediaUtil from '../media/MediaUtil';
 import CheckContext from '../../CheckContext';
 import { truncateLength } from '../../helpers';
 import UserRoute from '../../relay/UserRoute';
+import rtlDetect from 'rtl-detect';
 import {
   white,
   black38,
@@ -21,13 +22,12 @@ import {
 } from '../../styles/js/shared';
 import {
   StyledTwoColumns,
-  StyledSmallColumn,
   StyledBigColumn,
 } from '../../styles/js/HeaderCard';
 import styled from 'styled-components';
 
 const StyledMdLaunch = styled(MdLaunch)`
-  float: right;
+  float: ${props => (props.isRtl ? 'left' : 'right')};
   min-width: 20px !important;
   min-height: 20px !important;
 
@@ -48,6 +48,15 @@ const StyledSocialLink = styled.a`
 
 const StyledTooltip = styled.div`
   max-width: 300px;
+`;
+
+const StyledSmallColumnTooltip = styled.div`
+  flex: 0;
+  margin-left: ${props => (props.isRtl ? units(2) : units(1))};
+  margin-right: ${props => (props.isRtl ? units(1) : units(2))};
+
+  justify-content: center;
+  flex-shrink: 0;
 `;
 
 const StyledUserRole = styled.span`
@@ -102,17 +111,18 @@ class UserTooltipComponent extends React.Component {
     const { user } = this.props;
     const { source } = this.props.user;
     const role = this.userRole();
+    const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
 
     return (
       <StyledTooltip>
         <StyledTwoColumns style={{ paddingBottom: 0 }}>
-          <StyledSmallColumn>
+          <StyledSmallColumnTooltip isRtl={isRtl}>
             <Avatar
               className="avatar"
               src={user.source.image}
               alt={user.name}
             />
-          </StyledSmallColumn>
+          </StyledSmallColumnTooltip>
 
           <StyledBigColumn>
             <div className="tooltip__primary-info">
@@ -122,7 +132,7 @@ class UserTooltipComponent extends React.Component {
               <StyledUserRole>{this.localizedRole(role)}</StyledUserRole>
 
               <Link to={`/check/user/${user.dbid}`} className="tooltip__profile-link" >
-                <StyledMdLaunch />
+                <StyledMdLaunch isRtl={isRtl} />
               </Link>
 
               <div className="tooltip__description">
