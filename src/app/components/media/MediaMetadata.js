@@ -7,11 +7,13 @@ import RaisedButton from 'material-ui/RaisedButton';
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 import TextField from 'material-ui/TextField';
 import { Link } from 'react-router';
+import Tooltip from 'rc-tooltip';
 import styled from 'styled-components';
 import rtlDetect from 'rtl-detect';
 import MediaTags from './MediaTags';
 import MediaActions from './MediaActions';
 import MediaUtil from './MediaUtil';
+import UserTooltip from '../user/UserTooltip';
 import UpdateProjectMediaMutation from '../../relay/UpdateProjectMediaMutation';
 import DeleteProjectMediaMutation from '../../relay/DeleteProjectMediaMutation';
 import CreateTagMutation from '../../relay/CreateTagMutation';
@@ -506,9 +508,11 @@ class MediaMetadata extends Component {
         defaultMessage={'by {username}'}
         values={{
           username: (
-            <Link to={`/check/user/${media.user.dbid}`}>
-              {media.user.name}
-            </Link>
+            <Tooltip placement="top" overlay={<UserTooltip user={media.user} />}>
+              <Link to={`/check/user/${media.user.dbid}`}>
+                {media.user.name}
+              </Link>
+            </Tooltip>
             ),
         }}
       />)

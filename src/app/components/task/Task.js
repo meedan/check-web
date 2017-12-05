@@ -27,7 +27,6 @@ import DatetimeTaskResponse from './DatetimeTaskResponse';
 import { units } from '../../styles/js/shared';
 import ProfileLink from '../layout/ProfileLink';
 import Tooltip from 'rc-tooltip';
-import 'rc-tooltip/assets/bootstrap_white.css';
 import UserTooltip from '../user/UserTooltip';
 import Attribution from './Attribution';
 import Sentence from '../Sentence';

@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
+import UserTooltip from '../user/UserTooltip';
+import Tooltip from 'rc-tooltip';
 
 class ProfileLink extends React.Component {
   render() {
@@ -10,8 +12,9 @@ class ProfileLink extends React.Component {
     let url = user.dbid ? `/check/user/${user.dbid}` : '';
 
     return url ?
-        <Link to={url} className={className}>{user.name}</Link> :
-        <span className={className}>{user.name}</span>;
+      <Tooltip placement="top" overlay={<UserTooltip user={user} />}>
+        <Link to={url} className={className}>{user.name}</Link>
+      </Tooltip> : <span className={className}>{user.name}</span>;
   }
 }
 

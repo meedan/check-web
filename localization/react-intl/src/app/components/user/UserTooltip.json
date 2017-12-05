@@ -1,5 +1,21 @@
 [
   {
+    "id": "UserTooltip.contributor",
+    "defaultMessage": "Contributor"
+  },
+  {
+    "id": "UserTooltip.journalist",
+    "defaultMessage": "Journalist"
+  },
+  {
+    "id": "UserTooltip.editor",
+    "defaultMessage": "Editor"
+  },
+  {
+    "id": "UserTooltip.owner",
+    "defaultMessage": "Owner"
+  },
+  {
     "id": "userTooltip.dateJoined",
     "defaultMessage": "Joined {date} • {teamsCount, plural, =0 {No teams} one {1 team} other {# teams}}"
   }
