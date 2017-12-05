@@ -1,3 +1,7 @@
 {
+  "UserTooltip.contributor": "Colaborador",
+  "UserTooltip.journalist": "Jornalista",
+  "UserTooltip.editor": "Editor",
+  "UserTooltip.owner": "Dono",
   "userTooltip.dateJoined": "Entrou em {date} • {teamsCount, plural, =0 {Nenhuma equipe} one {1 equipe} other {# equipes}}"
 }
