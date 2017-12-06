@@ -15,11 +15,12 @@ class ProjectPage < Page
   end
 
   def create_media(options = {})
-    sleep 2
+    sleep 2    
+    wait_for_selector("create-media-submit", :id)
     fill_input('#create-media-input', options[:input])
     press(:enter)
-#   wait_for_element('.medias-loading', { timeout: 30 })
-    wait_for_element('.media', { timeout: 45 })
+    sleep 2 #for loading
+    wait_for_selector(".media")
     MediaPage.new(config: @config, driver: @driver)
   end
 

@@ -5,7 +5,7 @@ shared_examples 'custom' do
     api_create_team_and_project
     page = ProjectPage.new(config: @config, driver: @driver).load
            .create_media(input: @media_url)
-
+    wait_for_selector('.add-annotation__buttons')
     expect(page.contains_string?('Added')).to be(true)
     expect(page.contains_string?('User With Email')).to be(true)
     expect(page.status_label == 'UNSTARTED').to be(true)
