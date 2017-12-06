@@ -1087,9 +1087,10 @@ Description should show in the media card right above content and a long entry m
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
       expect(@driver.page_source.include?('Your comment was added!')).to be(false)
       old = wait_for_selector_list("annotation__default-content",:class).length     
-      fill_field('textarea[name="cmd"]', 'Go to https://meedan.com/en/')
+      fill_field('textarea[name="cmd"]', 'https://meedan.com/en/')
       el = wait_for_selector("//span[contains(text(), 'Submit')]", :xpath)
       el.click
+      sleep 2 #wait for loading
       old = wait_for_size_change(old, "annotation__default-content", :class)
       expect(@driver.page_source.include?('Your comment was added!')).to be(true)
       el = wait_for_selector_list("//a[contains(text(), 'https://meedan.com/en/')]", :xpath)
@@ -1799,6 +1800,19 @@ Description should show in the media card right above content and a long entry m
       wait_for_size_change(old, "annotation__default-content", :class)
       expect(@driver.page_source.include?('Comment deleted by')).to be(true)
     end
+
+    it "should upload image when registering", bin3: true do
+      email, password, avatar = ["test-#{Time.now.to_i}@example.com", '12345678', File.join(File.dirname(__FILE__), 'test.png')]
+      page = LoginPage.new(config: @config, driver: @driver).load
+             .register_and_login_with_email(email: email, password: password, file: avatar)
+      me_page = MePage.new(config: @config, driver: page.driver).load
+      sleep 2 #for load
+      wait_for_selector('.team__edit-button')
+      script = "return window.getComputedStyle(document.getElementsByClassName('source__avatar')[0]).getPropertyValue('background-image')"
+      avatar = @driver.execute_script(script)
+      expect(avatar.include?('test.png')).to be(true)
+    end
+
 
     # Postponed due Alexandre's developement
     # it "should add and remove suggested tags" do
