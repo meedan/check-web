@@ -26,12 +26,11 @@ import {
 } from '../../styles/js/HeaderCard';
 import styled from 'styled-components';
 
-const StyledMdLaunch = styled(MdLaunch)`
+const StyledMdLaunch = styled.div`
   float: ${props => (props.isRtl ? 'left' : 'right')};
-  min-width: 20px !important;
-  min-height: 20px !important;
-
   svg {
+    min-width: 20px !important;
+    min-height: 20px !important;
     color: ${black38};
   }
 `;
@@ -132,7 +131,9 @@ class UserTooltipComponent extends React.Component {
               <StyledUserRole>{this.localizedRole(role)}</StyledUserRole>
 
               <Link to={`/check/user/${user.dbid}`} className="tooltip__profile-link" >
-                <StyledMdLaunch isRtl={isRtl} />
+                <StyledMdLaunch isRtl={isRtl}>
+                  <MdLaunch />
+                </StyledMdLaunch>
               </Link>
 
               <div className="tooltip__description">
