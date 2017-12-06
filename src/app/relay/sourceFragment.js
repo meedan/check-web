@@ -90,6 +90,7 @@ const sourceFragment = Relay.QL`
             thumbnail_path
           }
           user {
+            dbid,
             name,
             email,
             source {
@@ -179,6 +180,7 @@ const sourceFragment = Relay.QL`
                   }
                 }
                 user {
+                  dbid,
                   name,
                   profile_image,
                   email,

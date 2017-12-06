@@ -107,6 +107,7 @@ const checkSearchResultFragment = Relay.QL`
             }
           },
           user {
+            dbid,
             name,
             source {
               dbid,

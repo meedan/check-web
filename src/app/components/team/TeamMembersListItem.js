@@ -8,9 +8,9 @@ import { ListItem } from 'material-ui/List';
 import MdClear from 'react-icons/lib/md/clear';
 import IconButton from 'material-ui/IconButton';
 import RaisedButton from 'material-ui/RaisedButton';
-import rtlDetect from 'rtl-detect';
-import 'rc-tooltip/assets/bootstrap_white.css';
 import Tooltip from 'rc-tooltip';
+import rtlDetect from 'rtl-detect';
+import '../../styles/css/tooltip.css';
 import SourcePicture from '../source/SourcePicture';
 import UpdateTeamUserMutation from '../../relay/UpdateTeamUserMutation';
 import UserTooltipRelay from '../../relay/UserTooltipRelay';
@@ -91,9 +91,9 @@ class TeamMembersListItem extends Component {
       >
         <FlexRow>
           <FlexRow>
-            <Link to={`/check/user/${teamUser.node.user.dbid}`} className="team-members__profile-link">
-              <FlexRow>
-                <Tooltip placement="top" overlay={<UserTooltipRelay user={teamUser.node.user} />}>
+            <Tooltip placement="top" overlay={<UserTooltipRelay user={teamUser.node.user} />}>
+              <Link to={`/check/user/${teamUser.node.user.dbid}`} className="team-members__profile-link">
+                <FlexRow>
                   <Offset isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
                     <SourcePicture
                       className="avatar"
@@ -103,12 +103,12 @@ class TeamMembersListItem extends Component {
                       type="user"
                     />
                   </Offset>
-                </Tooltip>
-                <Text ellipsis>
-                  {teamUser.node.user.name}
-                </Text>
-              </FlexRow>
-            </Link>
+                  <Text ellipsis>
+                    {teamUser.node.user.name}
+                  </Text>
+                </FlexRow>
+              </Link>
+            </Tooltip>
           </FlexRow>
 
           {(() => {

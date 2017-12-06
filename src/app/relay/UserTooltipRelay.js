@@ -12,6 +12,22 @@ const UserTooltipContainer = Relay.createContainer(injectIntl(UserTooltip), {
         dbid,
         name,
         number_of_teams,
+        team_users(first: 10000) {
+          edges {
+            node {
+              team {
+                id,
+                dbid,
+                name,
+                slug,
+                private,
+              }
+              id,
+              status,
+              role
+            }
+          }
+        },
         source {
           id,
           dbid,

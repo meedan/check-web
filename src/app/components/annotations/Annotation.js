@@ -25,6 +25,7 @@ import TaskUpdate, { shouldLogChange } from './TaskUpdate';
 import SourcePicture from '../source/SourcePicture';
 import MediaDetail from '../media/MediaDetail';
 import MediaUtil from '../media/MediaUtil';
+import ProfileLink from '../layout/ProfileLink';
 import DeleteAnnotationMutation from '../../relay/DeleteAnnotationMutation';
 import DeleteVersionMutation from '../../relay/DeleteVersionMutation';
 import UpdateProjectMediaMutation from '../../relay/UpdateProjectMediaMutation';
@@ -390,10 +391,7 @@ class Annotation extends Component {
       ? <span className="annotation__timestamp"><TimeBefore date={updatedAt} /></span>
       : null;
     const authorName = activity.user
-      ? (<Link to={`/check/user/${activity.user.dbid}`} className={'annotation__author-name'}>
-        {activity.user.name}
-      </Link>)
-      : null;
+      ? <ProfileLink className={'annotation__author-name'} user={activity.user} /> : null;
     const object = JSON.parse(activity.object_after);
     const content = object.data;
     let activityType = activity.event_type;
@@ -849,27 +847,22 @@ class Annotation extends Component {
                     '-',
                   )}`}
               >
-                <StyledAvatarColumn isRtl={isRtl}>
-                  <Tooltip placement="top" overlay={<UserTooltipRelay user={activity.user} />}>
+                <Tooltip placement="top" overlay={<UserTooltipRelay user={activity.user} />}>
+                  <StyledAvatarColumn isRtl={isRtl}>
                     <SourcePicture
                       className="avatar"
                       type="user"
                       size="small"
                       object={activity.user.source}
                     />
-                  </Tooltip>
-                </StyledAvatarColumn>
+                  </StyledAvatarColumn>
+                </Tooltip>
 
                 <StyledPrimaryColumn isRtl={isRtl}>
                   {contentTemplate}
                   <StyledAnnotationMetadata isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
                     <span>
-                      <Link
-                        to={`/check/user/${activity.user.dbid}`}
-                        className={'annotation__card-author'}
-                      >
-                        {activity.user.name}
-                      </Link>
+                      <ProfileLink className={'annotation__card-author'} user={activity.user} />
                       <span>
                         {timestamp}
                       </span>

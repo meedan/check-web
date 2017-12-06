@@ -2,7 +2,7 @@
   "TeamMembersListItem.contributor": "Colaborador",
   "TeamMembersListItem.journalist": "Jornalista",
   "TeamMembersListItem.editor": "Editor",
-  "TeamMembersListItem.owner": "Proprietário",
+  "TeamMembersListItem.owner": "Dono",
   "TeamMembershipRequestsListItem.approve": "Aprovar",
   "TeamMembershipRequestsListItem.deny": "Ignorar",
   "TeamMembersListItem.deleteMember": "Excluir Membro"

@@ -2,6 +2,7 @@
   "mediaDetail.mediaTitle": "Title",
   "mediaDetail.mediaDescription": "Description",
   "mediaDetail.editReport": "Edit report",
+  "mediaDetail.editReportError": "Sorry, we could not edit this report",
   "mediaDetail.moveFailed": "Sorry, we could not move this report",
   "mediaDetail.trash": "Trash",
   "mediaMetadata.movedToTrash": "Sent to {trash}",

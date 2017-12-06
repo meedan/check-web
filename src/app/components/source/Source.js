@@ -164,7 +164,7 @@ const StyledTagInput = styled.div`
   max-width: 85%;
 `;
 
-class SourceComponent extends Component {
+class Source extends Component {
   constructor(props) {
     super(props);
 
@@ -294,7 +294,7 @@ class SourceComponent extends Component {
           this.props.relay.forceFetch();
         }
 
-        that.setState({ shouldUpdate: true });
+        this.setState({ shouldUpdate: true });
       });
     }
   }
@@ -1561,13 +1561,13 @@ class SourceComponent extends Component {
   }
 }
 
-SourceComponent.propTypes = {
+Source.propTypes = {
   intl: intlShape.isRequired,
   source: PropTypes.object,
 };
 
-SourceComponent.contextTypes = {
+Source.contextTypes = {
   store: React.PropTypes.object,
 };
 
-export default injectIntl(SourceComponent);
+export default injectIntl(Source);
