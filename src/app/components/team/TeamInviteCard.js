@@ -15,7 +15,7 @@ import {
 import {
   checkBlue,
   white,
-  title,
+  title1,
   units,
   breakpointMobile,
   FlexRow,
@@ -63,7 +63,7 @@ class TeamInviteCard extends Component {
     `;
 
     const StyledMdCardTitle = styled.h2`
-      font: ${title};
+      font: ${title1};
       color: ${white};
     `;
 

@@ -1,4 +1,3 @@
-import { SUCCESS, ERROR } from './ActionTypes';
 import superagent from 'superagent';
 import util from 'util';
 import config from 'config';
@@ -8,29 +7,25 @@ import config from 'config';
 // Request information from the backend
 // failureCallback: function(errorMessage)
 // successCallback: function(responseData)
-export function request(method, endpoint, failureCallback, successCallback, data, headers) {
+export function request(method_, endpoint, failureCallback, successCallback, data_, headers_) {
   // Default values for parameters
 
-  method = method.toLowerCase();
-  if (!headers) {
-    headers = {};
-  }
-  if (!data) {
-    data = {};
-  }
+  const method = method_.toLowerCase();
+  const headers = headers_ || {};
+  let data = data_ || {};
 
   let path = config.restBaseUrl + endpoint;
 
   if (method === 'get' && Object.keys(data).length > 0) {
     path += '?';
-    for (var key in data) {
+    Object.getOwnPropertyNames(data).forEach((key) => {
       path += `${key}=${data[key]}&`;
-    }
+    });
   } else if (method === 'post') {
     const formdata = new FormData();
-    for (var key in data) {
+    Object.getOwnPropertyNames(data).forEach((key) => {
       formdata.append(key, data[key]);
-    }
+    });
     data = formdata;
   }
 
@@ -38,27 +33,27 @@ export function request(method, endpoint, failureCallback, successCallback, data
 
   http.timeout(120000);
 
-  for (var key in headers) {
+  Object.getOwnPropertyNames(headers).forEach((key) => {
     http.set(key, headers[key]);
-  }
+  });
 
   http.withCredentials().send(data);
 
   http.end((err, response) => {
     if (err) {
       if (err.response) {
-        var json = JSON.parse(err.response.text);
-        var message = json.data ? json.data.message : json.error;
+        const json = JSON.parse(err.response.text);
+        const message = json.data ? json.data.message : json.error;
         failureCallback(message);
       } else {
         failureCallback(util.inspect(err));
       }
     } else {
-      var json = JSON.parse(response.text);
+      const json = JSON.parse(response.text);
       if (response.status === 200) {
         successCallback(json.data);
       } else {
-        var message = json.data ? json.data.message : json.error;
+        const message = json.data ? json.data.message : json.error;
         failureCallback(message);
       }
     }
@@ -76,17 +71,10 @@ export function login(provider, callback) {
 }
 
 export function logout() {
-  let failureCallback = function (message) { console.log(message); },
-    successCallback = function (data) {
-      window.location.assign(window.location.origin);
-    };
+  // eslint-disable-next-line no-console
+  const failureCallback = (message) => { console.log(message); };
+  const successCallback = () => {
+    window.location.assign(window.location.origin);
+  };
   request('delete', 'users/sign_out', failureCallback, successCallback);
-}
-
-function disableButton(id) {
-  const button = document.getElementById(id);
-  if (button) {
-    button.disabled = 'disabled';
-    button.innerHTML = 'Please wait...';
-  }
 }

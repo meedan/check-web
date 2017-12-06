@@ -1,4 +1,3 @@
-import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 
 class CreateDynamicMutation extends Relay.Mutation {
@@ -9,10 +8,9 @@ class CreateDynamicMutation extends Relay.Mutation {
   }
 
   getFatQuery() {
-    let query = '';
     switch (this.props.parent_type) {
     case 'source':
-      query = Relay.QL`fragment on CreateDynamicPayload {
+      return Relay.QL`fragment on CreateDynamicPayload {
         dynamicEdge,
         source {
           log,
@@ -20,9 +18,8 @@ class CreateDynamicMutation extends Relay.Mutation {
           languages: annotations(annotation_type: "language", first: 10000)
         }
       }`;
-      break;
     case 'project_media':
-      query = Relay.QL`fragment on CreateDynamicPayload {
+      return Relay.QL`fragment on CreateDynamicPayload {
         dynamicEdge,
         project_media {
           log,
@@ -32,9 +29,8 @@ class CreateDynamicMutation extends Relay.Mutation {
           translations: annotations(annotation_type: "translation", first: 10000)
         }
       }`;
-      break;
     case 'project_source':
-      query = Relay.QL`fragment on CreateDynamicPayload {
+      return Relay.QL`fragment on CreateDynamicPayload {
         dynamicEdge,
         project_source {
           source {
@@ -44,14 +40,19 @@ class CreateDynamicMutation extends Relay.Mutation {
           }
         }
       }`;
-      break;
+    default:
+      return '';
     }
-    return query;
   }
 
   getVariables() {
     const dynamic = this.props.annotation;
-    return { set_fields: JSON.stringify(dynamic.fields), annotation_type: dynamic.annotation_type, annotated_id: `${dynamic.annotated_id}`, annotated_type: dynamic.annotated_type };
+    return {
+      set_fields: JSON.stringify(dynamic.fields),
+      annotation_type: dynamic.annotation_type,
+      annotated_id: `${dynamic.annotated_id}`,
+      annotated_type: dynamic.annotated_type,
+    };
   }
 
   getConfigs() {

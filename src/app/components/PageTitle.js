@@ -1,35 +1,31 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 import DocumentTitle from 'react-document-title';
-import { defineMessages, injectIntl } from 'react-intl';
+import { injectIntl } from 'react-intl';
 import { mapGlobalMessage } from './MappedMessage';
-import config from 'config';
 
-class PageTitle extends Component {
-  render() {
+const PageTitle = (props) => {
+  let title = props.title;
 
-    let title = this.props.title;
+  if (!title) {
+    const appName = mapGlobalMessage(props.intl, 'appNameHuman');
+    let suffix = appName;
 
-    if (!title) {
-      const appName = mapGlobalMessage(this.props.intl, 'appNameHuman');
-      let suffix = appName;
-
-      if (!this.props.skipTeam) {
-        try {
-          suffix = `${this.props.team.name} ${appName}`;
-        } catch (e) {
-          if (!(e instanceof TypeError)) throw e;
-        }
+    if (!props.skipTeam) {
+      try {
+        suffix = `${props.team.name} ${appName}`;
+      } catch (e) {
+        if (!(e instanceof TypeError)) throw e;
       }
-
-      title = (this.props.prefix ? (`${this.props.prefix} | `) : '') + suffix;
     }
 
-    return (
-      <DocumentTitle title={title}>
-        {this.props.children}
-      </DocumentTitle>
-    );
+    title = (props.prefix ? (`${props.prefix} | `) : '') + suffix;
   }
-}
+
+  return (
+    <DocumentTitle title={title}>
+      {props.children}
+    </DocumentTitle>
+  );
+};
 
 export default injectIntl(PageTitle);

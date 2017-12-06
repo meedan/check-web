@@ -1,10 +1,10 @@
 import React from 'react';
-import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 
 class ShortTextRespondTask extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       taskAnswerDisabled: true,
@@ -87,7 +87,7 @@ class ShortTextRespondTask extends React.Component {
           value={response}
           name="response"
           onChange={this.handleChange.bind(this)}
-          onFocus={() => {this.setState({ focus: true })}}
+          onFocus={() => { this.setState({ focus: true }); }}
           fullWidth
           multiLine
         />
@@ -101,7 +101,7 @@ class ShortTextRespondTask extends React.Component {
           value={note}
           name="note"
           onChange={this.handleChange.bind(this)}
-          onFocus={() => {this.setState({ focus: true })}}
+          onFocus={() => { this.setState({ focus: true }); }}
           fullWidth
           multiLine
         />

@@ -1,9 +1,7 @@
-import React from 'react';
-import Relay from 'react-relay';
-import { injectIntl, defineMessages } from 'react-intl';
+import React, { Component } from 'react';
+import { defineMessages } from 'react-intl';
 import AutoComplete from 'material-ui/AutoComplete';
 import Chip from 'material-ui/Chip';
-import AboutRoute from '../../relay/AboutRoute';
 import difference from 'lodash.difference';
 import intersection from 'lodash.intersection';
 import { StyledTagsWrapper } from '../../styles/js/shared';
@@ -19,7 +17,7 @@ const messages = defineMessages({
   },
 });
 
-class LanguageComponent extends React.Component {
+class SourceLanguages extends Component {
   getAvailableLanguages() {
     const usedLanguages = this.props.usedLanguages
       .map(tr => JSON.parse(tr.node.content).find(it => it.field_name === 'language'))
@@ -27,15 +25,21 @@ class LanguageComponent extends React.Component {
 
     const supportedLanguages = JSON.parse(this.props.about.languages_supported);
 
-    const projectLanguages = this.props.projectLanguages ? JSON.parse(this.props.projectLanguages) : null;
+    const projectLanguages =
+      this.props.projectLanguages ? JSON.parse(this.props.projectLanguages) : null;
 
-    return difference(projectLanguages ? intersection(Object.keys(supportedLanguages), projectLanguages) : Object.keys(supportedLanguages), usedLanguages)
+    return difference(projectLanguages ?
+        intersection(Object.keys(supportedLanguages), projectLanguages) :
+        Object.keys(supportedLanguages), usedLanguages)
       .map(l => ({ value: l, label: supportedLanguages[l] }));
   }
 
   renderLanguages() {
     const usedLanguages = this.props.usedLanguages
-      .map(tr => ({ id: tr.node.id, content: JSON.parse(tr.node.content).find(it => it.field_name === 'language') }));
+      .map(tr => ({
+        id: tr.node.id,
+        content: JSON.parse(tr.node.content).find(it => it.field_name === 'language') }
+      ));
 
     const supportedLanguages = JSON.parse(this.props.about.languages_supported);
 
@@ -65,7 +69,7 @@ class LanguageComponent extends React.Component {
       this.props.onSelect(value);
 
       setTimeout(() => {
-        this.refs.autocomplete.setState({ searchText: '' });
+        this.autoComplete.setState({ searchText: '' });
       }, 500);
     };
 
@@ -79,7 +83,7 @@ class LanguageComponent extends React.Component {
         dataSourceConfig={{ text: 'label', value: 'value' }}
         openOnFocus
         onNewRequest={selectCallback}
-        ref={'autocomplete'}
+        ref={(a) => { this.autoComplete = a; }}
         fullWidth
         textFieldStyle={{ width: '85%' }}
       />
@@ -92,23 +96,6 @@ class LanguageComponent extends React.Component {
 
   render() {
     return (this.props.isEditing ? this.renderLanguagesEdit() : this.renderLanguagesView());
-  }
-}
-
-const LanguageContainer = Relay.createContainer(injectIntl(LanguageComponent), {
-  fragments: {
-    about: () => Relay.QL`
-      fragment on About {
-        languages_supported
-      }
-    `,
-  },
-});
-
-class SourceLanguages extends React.Component {
-  render() {
-    const route = new AboutRoute();
-    return (<Relay.RootContainer Component={LanguageContainer} route={route} renderFetched={data => <LanguageContainer {...this.props} {...data} />} />);
   }
 }
 

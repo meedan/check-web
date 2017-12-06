@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 class Sentence extends Component {
@@ -6,7 +6,7 @@ class Sentence extends Component {
     const { list } = this.props;
 
     const lastIndex = list.length - 1;
-    
+
     if (lastIndex === -1) {
       return null;
     }
@@ -22,12 +22,12 @@ class Sentence extends Component {
       <span>
         {list.map((element, index) => {
           if (index === lastIndex) {
-            return <span>{lastSeparator} {element}</span>;
+            return <span key={index}>{lastSeparator} {element}</span>;
           }
           if (index === lastIndex - 1) {
-            return <span>{element} </span>;
+            return <span key={index}>{element} </span>;
           }
-          return <span>{element}{separator} </span>;
+          return <span key={index}>{element}{separator} </span>;
         })}
       </span>
     );

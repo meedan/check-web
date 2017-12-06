@@ -78,12 +78,33 @@ const messages = defineMessages({
 });
 
 class CreateTeam extends Component {
+  static displayNameLabelClass(suffix) {
+    const defaultClass = 'create-team__team-display-name-label';
+    return suffix
+      ? [defaultClass, defaultClass + suffix].join(' ')
+      : defaultClass;
+  }
+
+  static slugClass(suffix) {
+    const defaultClass = 'create-team__team-slug';
+    return suffix
+      ? [defaultClass, defaultClass + suffix].join(' ')
+      : defaultClass;
+  }
+
+  static slugLabelClass(suffix) {
+    const defaultClass = 'create-team__team-slug-label';
+    return suffix
+      ? [defaultClass, defaultClass + suffix].join(' ')
+      : defaultClass;
+  }
+
   constructor(props) {
     super(props);
     this.state = {
-      displayNameLabelClass: this.displayNameLabelClass(),
-      slugClass: this.slugClass(),
-      slugLabelClass: this.slugLabelClass(),
+      displayNameLabelClass: CreateTeam.displayNameLabelClass(),
+      slugClass: CreateTeam.slugClass(),
+      slugLabelClass: CreateTeam.slugLabelClass(),
       slugMessage: '',
       buttonIsDisabled: true,
       displayName: '',
@@ -96,36 +117,14 @@ class CreateTeam extends Component {
   }
 
   getContext() {
-    const context = new CheckContext(this);
-    return context.getContextStore();
-  }
-
-  displayNameLabelClass(suffix) {
-    const defaultClass = 'create-team__team-display-name-label';
-    return suffix
-      ? [defaultClass, defaultClass + suffix].join(' ')
-      : defaultClass;
-  }
-
-  slugClass(suffix) {
-    const defaultClass = 'create-team__team-slug';
-    return suffix
-      ? [defaultClass, defaultClass + suffix].join(' ')
-      : defaultClass;
-  }
-
-  slugLabelClass(suffix) {
-    const defaultClass = 'create-team__team-slug-label';
-    return suffix
-      ? [defaultClass, defaultClass + suffix].join(' ')
-      : defaultClass;
+    return new CheckContext(this).getContextStore();
   }
 
   handleDisplayNameChange(e) {
     const isTextEntered = e.target.value && e.target.value.length > 0;
     const newClass = isTextEntered
-      ? this.displayNameLabelClass('--text-entered')
-      : this.displayNameLabelClass();
+      ? CreateTeam.displayNameLabelClass('--text-entered')
+      : CreateTeam.displayNameLabelClass();
     this.setState({
       displayNameLabelClass: newClass,
       displayName: e.target.value,
@@ -146,10 +145,8 @@ class CreateTeam extends Component {
   }
 
   handleSlugChange(e) {
-    const slug = e.target.value;
-
     this.setState({
-      slugName: slug,
+      slugName: e.target.value,
     });
   }
 
@@ -166,7 +163,9 @@ class CreateTeam extends Component {
         if (json.error) {
           message = json.error;
         }
-      } catch (e) {}
+      } catch (ex) {
+        // Do nothing.
+      }
       this.setState({ message });
     };
 

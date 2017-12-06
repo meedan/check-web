@@ -8,12 +8,12 @@ import { ListItem } from 'material-ui/List';
 import MdClear from 'react-icons/lib/md/clear';
 import IconButton from 'material-ui/IconButton';
 import RaisedButton from 'material-ui/RaisedButton';
+import Tooltip from 'rc-tooltip';
 import rtlDetect from 'rtl-detect';
 import '../../styles/css/tooltip.css';
-import Tooltip from 'rc-tooltip';
 import SourcePicture from '../source/SourcePicture';
 import UpdateTeamUserMutation from '../../relay/UpdateTeamUserMutation';
-import UserTooltip from '../user/UserTooltip';
+import UserTooltipRelay from '../../relay/UserTooltipRelay';
 import {
   selectStyle,
   checkBlue,
@@ -22,7 +22,6 @@ import {
   buttonInButtonGroupStyle,
   Offset,
 } from '../../styles/js/shared';
-import styled from 'styled-components';
 
 const messages = defineMessages({
   contributor: {
@@ -92,21 +91,21 @@ class TeamMembersListItem extends Component {
       >
         <FlexRow>
           <FlexRow>
-            <Tooltip placement="top" overlay={<UserTooltip user={teamUser.node.user} />}>
+            <Tooltip placement="top" overlay={<UserTooltipRelay user={teamUser.node.user} />}>
               <Link to={`/check/user/${teamUser.node.user.dbid}`} className="team-members__profile-link">
                 <FlexRow>
-                    <Offset isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
-                      <SourcePicture
-                        className="avatar"
-                        object={teamUser.node.user.source}
-                        alt={teamUser.node.user.name}
-                        size="small"
-                        type="user"
-                        />
-                    </Offset>
-                    <Text ellipsis>
-                      {teamUser.node.user.name}
-                    </Text>
+                  <Offset isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
+                    <SourcePicture
+                      className="avatar"
+                      object={teamUser.node.user.source}
+                      alt={teamUser.node.user.name}
+                      size="small"
+                      type="user"
+                    />
+                  </Offset>
+                  <Text ellipsis>
+                    {teamUser.node.user.name}
+                  </Text>
                 </FlexRow>
               </Link>
             </Tooltip>

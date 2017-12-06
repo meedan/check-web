@@ -14,11 +14,6 @@ import {
   units,
   caption,
   opaqueBlack54,
-  body2,
-  black16,
-  black87,
-  checkBlue,
-  borderWidthSmall,
   chipStyles,
 } from '../../styles/js/shared';
 
@@ -88,6 +83,10 @@ const StyledMediaTagsContainer = styled.div`
 `;
 
 class MediaTags extends Component {
+  static bemClass(baseClass, modifierBoolean, modifierSuffix) {
+    return modifierBoolean ? [baseClass, baseClass + modifierSuffix].join(' ') : baseClass;
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -97,10 +96,6 @@ class MediaTags extends Component {
 
   findTag(tagString) {
     return this.props.tags.find(tag => tag.node && tag.node.tag === tagString);
-  }
-
-  bemClass(baseClass, modifierBoolean, modifierSuffix) {
-    return modifierBoolean ? [baseClass, baseClass + modifierSuffix].join(' ') : baseClass;
   }
 
   handleSuggestedTagEditClick(tagString) {
@@ -126,7 +121,9 @@ class MediaTags extends Component {
         if (json.error) {
           message = json.error;
         }
-      } catch (e) {}
+      } catch (e) {
+        // Do nothing.
+      }
       this.setState({ message });
     };
 
@@ -174,6 +171,7 @@ class MediaTags extends Component {
       if (Array.isArray(objValue)) {
         return xor(objValue, srcValue);
       }
+      return null;
     });
     if (!query.tags.length) delete query.tags;
     return urlFromSearchQuery(query, `/${media.team.slug}/search`);
@@ -195,7 +193,9 @@ class MediaTags extends Component {
     const searchQuery = searchQueryFromUrl();
     const activeRegularTags = searchQuery.tags || [];
     const updateCallback = (text) => {
-      this.props.onChange && this.props.onChange(text);
+      if (this.props.onChange) {
+        this.props.onChange(text);
+      }
     };
 
     if (!this.props.isEditing) {
@@ -208,7 +208,7 @@ class MediaTags extends Component {
                   <li
                     key={tag.node.id}
                     onClick={this.handleTagViewClick.bind(this, tag.node.tag)}
-                    className={this.bemClass(
+                    className={MediaTags.bemClass(
                         'media-tags__suggestion',
                         activeRegularTags.indexOf(tag.node.tag) > -1,
                         '--selected',
@@ -229,7 +229,7 @@ class MediaTags extends Component {
                 <li
                   key={tag.node.id}
                   onClick={this.handleTagViewClick.bind(this, tag.node.tag)}
-                  className={this.bemClass(
+                  className={MediaTags.bemClass(
                     'media-tags__tag',
                     activeRegularTags.indexOf(tag.node.tag) > -1,
                     '--selected',
@@ -261,7 +261,7 @@ class MediaTags extends Component {
                   <li
                     key={suggestedTag}
                     onClick={this.handleSuggestedTagEditClick.bind(this, suggestedTag)}
-                    className={this.bemClass(
+                    className={MediaTags.bemClass(
                         'media-tags__suggestion',
                         this.findTag(suggestedTag),
                         '--selected',

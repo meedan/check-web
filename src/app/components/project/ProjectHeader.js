@@ -1,71 +1,42 @@
-import React, { Component } from 'react';
-import Relay from 'react-relay';
+import React from 'react';
 import { Link } from 'react-router';
 import IconArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
 import IconButton from 'material-ui/IconButton';
-import ProjectRoute from '../../relay/ProjectRoute';
 import { HeaderTitle, FadeIn, SlideIn, black54 } from '../../styles/js/shared';
 
-class ProjectHeaderComponent extends Component {
+const ProjectHeader = (props) => {
+  const currentProject = props.project;
+  const path = props.location
+    ? props.location.pathname
+    : window.location.pathname;
+  const regexProject = /(.*\/project\/[0-9]+)/;
+  const regexMedia = /\/media\/[0-9]/;
+  const backUrl = (regexMedia.test(path)) ? path.match(regexProject)[1] : null;
+  const isProjectSubpage = regexMedia.test(path);
 
-  render() {
-    const currentProject = this.props.project;
-    const path = this.props.location
-      ? this.props.location.pathname
-      : window.location.pathname;
-    const regexProject = /(.*\/project\/[0-9]+)/;
-    const regexMedia = /\/media\/[0-9]/;
-    const backUrl = (regexMedia.test(path)) ? path.match(regexProject)[1] : null;
-    const isProjectSubpage = regexMedia.test(path);
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', overflow: 'hidden' }}>
 
-    return (
-      <div style={{ display: 'flex', alignItems: 'center', overflow: 'hidden' }}>
-
-        {isProjectSubpage
-          ?
-            <IconButton
-              containerElement={<Link to={backUrl} />}
-              className="project-header__back-button"
-            >
-              <FadeIn>
-                <SlideIn>
-                  <IconArrowBack color={black54} />
-                </SlideIn>
-              </FadeIn>
-            </IconButton>
-          : null}
-        <HeaderTitle>{currentProject.title}</HeaderTitle>
-      </div>
-    );
-  }
-}
-
-ProjectHeaderComponent.contextTypes = {
-  store: React.PropTypes.object,
+      {isProjectSubpage
+        ?
+          <IconButton
+            containerElement={<Link to={backUrl} />}
+            className="project-header__back-button"
+          >
+            <FadeIn>
+              <SlideIn>
+                <IconArrowBack color={black54} />
+              </SlideIn>
+            </FadeIn>
+          </IconButton>
+        : null}
+      <HeaderTitle>{currentProject.title}</HeaderTitle>
+    </div>
+  );
 };
 
-const ProjectHeaderContainer = Relay.createContainer(ProjectHeaderComponent, {
-  fragments: {
-    project: () => Relay.QL`
-      fragment on Project {
-        title,
-        description
-      }
-    `,
-  },
-});
-
-class ProjectHeader extends Component {
-  render() {
-    if (this.props.params && this.props.params.projectId) {
-      const route = new ProjectRoute({ contextId: this.props.params.projectId });
-      return (<Relay.RootContainer
-        Component={ProjectHeaderContainer}
-        route={route}
-      />);
-    }
-    return null;
-  }
-}
+ProjectHeader.contextTypes = {
+  store: React.PropTypes.object,
+};
 
 export default ProjectHeader;

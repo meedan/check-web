@@ -75,34 +75,7 @@ const StyledBackgroundColor = styled.div`
 `;
 
 class MediaComponent extends Component {
-  componentDidMount() {
-    this.setCurrentContext();
-    this.scrollToAnnotation();
-    this.subscribe();
-  }
-
-  componentDidUpdate() {
-    this.setCurrentContext();
-    this.scrollToAnnotation();
-  }
-
-  componentWillUnmount() {
-    this.unsubscribe();
-  }
-
-  getContext() {
-    const context = new CheckContext(this).getContextStore();
-    return context;
-  }
-
-  setCurrentContext() {
-    const project = this.getContext().project;
-    if (project && project.dbid) {
-      this.props.relay.setVariables({ contextId: project.dbid });
-    }
-  }
-
-  scrollToAnnotation() {
+  static scrollToAnnotation() {
     if (window.location.hash !== '') {
       const id = window.location.hash.replace(/^#/, '');
       const element = document.getElementById(id);
@@ -112,14 +85,41 @@ class MediaComponent extends Component {
     }
   }
 
+  componentDidMount() {
+    this.setCurrentContext();
+    MediaComponent.scrollToAnnotation();
+    this.subscribe();
+  }
+
+  componentDidUpdate() {
+    this.setCurrentContext();
+    MediaComponent.scrollToAnnotation();
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
+
+  getContext() {
+    return new CheckContext(this).getContextStore();
+  }
+
+  setCurrentContext() {
+    const project = this.getContext().project;
+    if (project && project.dbid) {
+      this.props.relay.setVariables({ contextId: project.dbid });
+    }
+  }
+
   subscribe() {
     const pusher = this.getContext().pusher;
     if (pusher) {
-      const that = this;
       pusher.subscribe(this.props.media.pusher_channel).bind('media_updated', (data) => {
         const annotation = JSON.parse(data.message);
-        if (annotation.annotated_id === that.props.media.dbid && that.getContext().clientSessionId != data.actor_session_id) {
-          that.props.relay.forceFetch();
+        if (annotation.annotated_id === this.props.media.dbid &&
+            this.getContext().clientSessionId !== data.actor_session_id
+        ) {
+          this.props.relay.forceFetch();
         }
       });
     }
@@ -173,7 +173,10 @@ class MediaComponent extends Component {
                     </h2>
                       &nbsp;
                     <FlexRow>
-                      {media.tasks.edges.filter(t => !!t.node.first_response).length}/{media.tasks.edges.length}&nbsp;
+                      {media.tasks.edges.filter(t => !!t.node.first_response).length}
+                      /
+                      {media.tasks.edges.length}
+                      &nbsp;
                       <FormattedMessage id="mediaComponent.resolved" defaultMessage="resolved" />
                     </FlexRow>
                   </FlexRow>

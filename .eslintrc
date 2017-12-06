@@ -11,42 +11,40 @@
     },
     "rules": {
         "indent": [2, 2],
+
+        // Relax, React!
         "react/jsx-filename-extension": "off",
         "react/jsx-no-bind": "off",
         "react/prop-types": "off",
         "react/forbid-prop-types": "off",
 
-        // Todo: use pure functions where possible (or set this rule to "off")
-        "react/prefer-stateless-function": "warn",
+        // TODO Fix a11y
+        "jsx-a11y/no-static-element-interactions": "off",
+        "jsx-a11y/anchor-has-content": "off",
 
-        // Todo: don't assign to function parameters
-        "no-param-reassign": "warn",
-
-        // Todo: reconfigure eslint to be aware of our configuration
-        // files we import without extensions (or set this rule to "off".)
+        // TODO Reconfigure eslint to be aware of our configuration
+        // files we import without extensions (or set this rule to "off")
         "import/no-extraneous-dependencies": "off",
         "import/no-unresolved": "off",
         "import/extensions": "off",
 
-        //Todo: ensure class methods use `this`
-        "class-methods-use-this": "warn",
+        // TODO
+        "class-methods-use-this": ["error", { "exceptMethods": ["getMutation", "getFatQuery", "getConfigs"] }],
 
         // Styled components uses the "confusing" arrows
         "no-confusing-arrow": "off",
 
-        //Todo: Refactor to only have one component per file (or set this rule to off)
-        "react/no-multi-comp": "warn",
-
-        //Todo: improve a11y compliance
-        "jsx-a11y/no-static-element-interactions": "warn",
-        "jsx-a11y/anchor-has-content": "warn",
-
+        // Don't worry about spacing in comments
         "no-irregular-whitespace": ["error", { "skipComments": true }],
 
-        // Todo: consider standardizing on camelcase
+        // TODO Consider standardizing on camelCase
         "camelcase": "off",
 
-        // Todo: consider standardizing order
-        "react/sort-comp": "warn",
+        // Avoid issues with static properties
+        // https://github.com/babel/babel-eslint/issues/487
+        "no-undef": "off",
+
+        // Allow to override Array class for cleaner code
+        "no-extend-native": ["error", {"exceptions": ["Array"]}],
     }
 }

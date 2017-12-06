@@ -31,10 +31,9 @@ class Tags extends React.Component {
 
   handleAddition(tags) {
     const props = this.props;
-
     if (!props.annotated || !props.annotatedType) { return; }
 
-    let tagsList = [...new Set(tags.split(','))];
+    const tagsList = [...new Set(tags.split(','))];
 
     const onFailure = (transaction) => {
       const error = transaction.getError();
@@ -45,12 +44,14 @@ class Tags extends React.Component {
         if (json.error) {
           message = json.error;
         }
-      } catch (e) { }
+      } catch (e) {
+        // Do nothing.
+      }
 
       this.setState({ message });
     };
 
-    const onSuccess = (response) => {
+    const onSuccess = () => {
       this.setState({ message: null });
     };
 
@@ -71,6 +72,7 @@ class Tags extends React.Component {
         }),
         { onSuccess, onFailure },
       );
+      return null;
     });
   }
 
@@ -92,8 +94,11 @@ class Tags extends React.Component {
     const tags = this.props.tags;
 
     const deleteCallback = (id) => {
-      (this.props.onDelete && this.props.onDelete(id)) ||
-      (this.handleDelete && this.handleDelete(id));
+      if (this.props.onDelete) {
+        this.props.onDelete(id);
+      } else {
+        this.handleDelete(id);
+      }
     };
 
     return (
@@ -102,9 +107,7 @@ class Tags extends React.Component {
           <Chip
             key={tag.node.id}
             className="source-tags__tag"
-            onRequestDelete={ this.props.isEditing ?
-              () => { deleteCallback(tag.node.id); } : null
-            }
+            onRequestDelete={this.props.isEditing ? () => { deleteCallback(tag.node.id); } : null}
           >
             {tag.node.tag.replace(/^#/, '')}
           </Chip>,
@@ -119,15 +122,21 @@ class Tags extends React.Component {
 
   renderTagsEdit() {
     const selectCallback = (tag) => {
-      this.props.onSelect ? this.props.onSelect(tag) :  this.handleAddition(tag);
+      if (this.props.onSelect) {
+        this.props.onSelect(tag);
+      } else {
+        this.handleAddition(tag);
+      }
 
       setTimeout(() => {
-        this.refs.autocomplete.setState({ searchText: '' });
+        this.autoComplete.setState({ searchText: '' });
       }, 500);
     };
 
     const updateCallback = (text) => {
-      this.props.onChange && this.props.onChange(text);
+      if (this.props.onChange) {
+        this.props.onChange(text);
+      }
     };
 
     return (<div>
@@ -140,11 +149,11 @@ class Tags extends React.Component {
         dataSource={this.props.options}
         openOnFocus
         onNewRequest={selectCallback}
-        ref={'autocomplete'}
+        ref={(a) => { this.autoComplete = a; }}
         fullWidth
         onUpdateInput={(text) => { updateCallback(text); }}
       />
-      <div className="source__helper" style={{font: caption}}>
+      <div className="source__helper" style={{ font: caption }}>
         {this.props.intl.formatMessage(messages.addTagHelper)}
       </div>
       {this.renderTags()}

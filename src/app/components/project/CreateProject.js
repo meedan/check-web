@@ -1,10 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import { defineMessages, injectIntl, intlShape } from 'react-intl';
 import Relay from 'react-relay';
+import TextField from 'material-ui/TextField';
 import CreateProjectMutation from '../../relay/CreateProjectMutation';
 import Message from '../Message';
 import CheckContext from '../../CheckContext';
-import TextField from 'material-ui/TextField';
 
 const messages = defineMessages({
   addProject: {
@@ -27,23 +27,30 @@ class CreateProject extends Component {
     };
   }
 
+  componentDidMount() {
+    if (this.props.autofocus) {
+      this.projectInput.focus();
+    }
+  }
+
   handleSubmit(e) {
-    let that = this,
-      title = document.getElementById('create-project-title').value,
-      team = this.props.team,
-      context = new CheckContext(this),
-      history = context.getContextStore().history;
+    const title = document.getElementById('create-project-title').value;
+    const team = this.props.team;
+    const context = new CheckContext(this);
+    const history = context.getContextStore().history;
 
     const onFailure = (transaction) => {
       const error = transaction.getError();
-      let message = that.props.intl.formatMessage(messages.error);
+      let message = this.props.intl.formatMessage(messages.error);
       try {
         const json = JSON.parse(error.source);
         if (json.error) {
           message = json.error;
         }
-      } catch (e) { }
-      that.setState({ message, submitDisabled: false });
+      } catch (ex) {
+        // Do nothing.
+      }
+      this.setState({ message, submitDisabled: false });
     };
 
     const onSuccess = (response) => {
@@ -52,7 +59,7 @@ class CreateProject extends Component {
       history.push(path);
     };
 
-    if (!that.state.submitDisabled) {
+    if (!this.state.submitDisabled) {
       Relay.Store.commitUpdate(
         new CreateProjectMutation({
           title,
@@ -60,16 +67,10 @@ class CreateProject extends Component {
         }),
         { onSuccess, onFailure },
       );
-      that.setState({ submitDisabled: true });
+      this.setState({ submitDisabled: true });
     }
 
     e.preventDefault();
-  }
-
-  componentDidMount() {
-    if (this.props.autofocus) {
-      this.projectInput.focus();
-    }
   }
 
   render() {
@@ -80,7 +81,7 @@ class CreateProject extends Component {
           id="create-project-title"
           className={this.props.className || 'team__new-project-input'}
           floatingLabelText={this.props.intl.formatMessage(messages.addProject)}
-          ref={input => this.projectInput = input}
+          ref={(i) => { this.projectInput = i; }}
           style={this.props.style || { marginLeft: '8px' }}
           autoFocus={this.props.autoFocus}
         />

@@ -13,7 +13,7 @@ import rtlDetect from 'rtl-detect';
 import MediaTags from './MediaTags';
 import MediaActions from './MediaActions';
 import MediaUtil from './MediaUtil';
-import UserTooltip from '../user/UserTooltip';
+import UserTooltipRelay from '../../relay/UserTooltipRelay';
 import UpdateProjectMediaMutation from '../../relay/UpdateProjectMediaMutation';
 import DeleteProjectMediaMutation from '../../relay/DeleteProjectMediaMutation';
 import CreateTagMutation from '../../relay/CreateTagMutation';
@@ -22,7 +22,7 @@ import Message from '../Message';
 import {
   Row,
   black87,
-  title,
+  title1,
   units,
   caption,
   Text,
@@ -35,7 +35,7 @@ const StyledMetadata = styled.div`
   //
   .media-detail__dialog-header {
     color: ${black87};
-    font: ${title};
+    font: ${title1};
     height: ${units(4)};
     margin-bottom: ${units(0.5)};
     margin-top: ${units(0.5)};
@@ -96,8 +96,7 @@ class MediaMetadata extends Component {
   }
 
   getContext() {
-    const context = new CheckContext(this).getContextStore();
-    return context;
+    return new CheckContext(this).getContextStore();
   }
 
   handleError(json) {
@@ -111,9 +110,11 @@ class MediaMetadata extends Component {
   handleRefresh() {
     const onFailure = (transaction) => {
       const transactionError = transaction.getError();
-      transactionError.json
-        ? transactionError.json().then(this.handleError)
-        : this.handleError(JSON.stringify(transactionError));
+      if (transactionError.json) {
+        transactionError.json().then(this.handleError);
+      } else {
+        this.handleError(JSON.stringify(transactionError));
+      }
     };
 
     const onSuccess = (response) => {
@@ -136,9 +137,11 @@ class MediaMetadata extends Component {
   handleSendToTrash() {
     const onFailure = (transaction) => {
       const transactionError = transaction.getError();
-      transactionError.json
-        ? transactionError.json().then(this.handleError)
-        : this.handleError(JSON.stringify(transactionError));
+      if (transactionError.json) {
+        transactionError.json().then(this.handleError);
+      } else {
+        this.handleError(JSON.stringify(transactionError));
+      }
     };
 
     const onSuccess = (response) => {
@@ -173,9 +176,11 @@ class MediaMetadata extends Component {
   handleRestore() {
     const onFailure = (transaction) => {
       const transactionError = transaction.getError();
-      transactionError.json
-        ? transactionError.json().then(this.handleError)
-        : this.handleError(JSON.stringify(transactionError));
+      if (transactionError.json) {
+        transactionError.json().then(this.handleError);
+      } else {
+        this.handleError(JSON.stringify(transactionError));
+      }
     };
 
     const onSuccess = (response) => {
@@ -208,7 +213,8 @@ class MediaMetadata extends Component {
   }
 
   handleConfirmDeleteForever() {
-    const confirmValue = document.getElementById('delete-forever__confirm')
+    const confirmValue = document
+      .getElementById('delete-forever__confirm')
       .value;
     if (confirmValue && confirmValue.toUpperCase() === 'CONFIRM') {
       this.setState({ confirmationError: false });
@@ -228,12 +234,14 @@ class MediaMetadata extends Component {
 
     const onFailure = (transaction) => {
       const transactionError = transaction.getError();
-      transactionError.json
-        ? transactionError.json().then(this.handleError)
-        : this.handleError(JSON.stringify(transactionError));
+      if (transactionError.json) {
+        transactionError.json().then(this.handleError);
+      } else {
+        this.handleError(JSON.stringify(transactionError));
+      }
     };
 
-    const onSuccess = (response) => {
+    const onSuccess = () => {
       const message = (
         <FormattedMessage
           id="mediaMetadata.deletedForever"
@@ -273,9 +281,11 @@ class MediaMetadata extends Component {
         history.push(`/${media.team.slug}/project/${previousProjectId}`);
       }
       const transactionError = transaction.getError();
-      transactionError.json
-        ? transactionError.json().then(this.handleError)
-        : this.handleError(JSON.stringify(transactionError));
+      if (transactionError.json) {
+        transactionError.json().then(this.handleError);
+      } else {
+        this.handleError(JSON.stringify(transactionError));
+      }
     };
 
     const path = `/${media.team.slug}/project/${projectId}`;
@@ -396,7 +406,7 @@ class MediaMetadata extends Component {
     const context = this.getContext();
 
     if (pendingTag && pendingTag.trim()) {
-      let tagsList = [...new Set(pendingTag.split(','))];
+      const tagsList = [...new Set(pendingTag.split(','))];
 
       tagsList.map((tag) => {
         Relay.Store.commitUpdate(
@@ -415,10 +425,17 @@ class MediaMetadata extends Component {
         );
 
         this.registerPendingMutation('createTag');
+        return null;
       });
     }
 
-    this.setState({ message: null, tagErrorMessage: null, pendingMutations: null, hasFailure: false, submitDisabled: true });
+    this.setState({
+      message: null,
+      tagErrorMessage: null,
+      pendingMutations: null,
+      hasFailure: false,
+      submitDisabled: true,
+    });
   }
 
   fail = (transaction, mutation) => {
@@ -429,7 +446,9 @@ class MediaMetadata extends Component {
       if (json.error) {
         message = json.error;
       }
-    } catch (e) {}
+    } catch (e) {
+      // Do nothing.
+    }
     const tagErrorMessage = message;
 
     if (mutation === 'createTag') {
@@ -508,7 +527,7 @@ class MediaMetadata extends Component {
         defaultMessage={'by {username}'}
         values={{
           username: (
-            <Tooltip placement="top" overlay={<UserTooltip user={media.user} />}>
+            <Tooltip placement="top" overlay={<UserTooltipRelay user={media.user} />}>
               <Link to={`/check/user/${media.user.dbid}`}>
                 {media.user.name}
               </Link>
@@ -571,19 +590,18 @@ class MediaMetadata extends Component {
             style={{ width: '100%' }}
           />
 
-        { media.tags &&
-          <MediaTags
-            media={media}
-            tags={media.tags.edges}
-            errorText={this.state.tagErrorMessage}
-            onChange={() => {
-              this.setState({ tagErrorMessage: null });
-              this.canSubmit();
-            }}
-            ref={"mediaTags"}
-            isEditing
-          />
-        }
+          { media.tags ?
+            <MediaTags
+              media={media}
+              tags={media.tags.edges}
+              errorText={this.state.tagErrorMessage}
+              onChange={() => {
+                this.setState({ tagErrorMessage: null });
+                this.canSubmit();
+              }}
+              isEditing
+            /> : null
+          }
         </form>
 
         <span style={{ display: 'flex' }}>

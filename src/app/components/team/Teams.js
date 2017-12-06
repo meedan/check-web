@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { defineMessages, injectIntl, intlShape } from 'react-intl';
-import SwitchTeams from './SwitchTeams';
+import SwitchTeamsRelay from '../../relay/containers/SwitchTeamsRelay';
 import PageTitle from '../PageTitle';
 import { ContentColumn } from '../../styles/js/shared';
 
@@ -11,17 +11,12 @@ const messages = defineMessages({
   },
 });
 
-class Teams extends Component {
-  render() {
-    return (
-      <PageTitle prefix={this.props.intl.formatMessage(messages.title)} skipTeam>
-        <ContentColumn>
-          <SwitchTeams />
-        </ContentColumn>
-      </PageTitle>
-    );
-  }
-}
+const Teams = props =>
+  <PageTitle prefix={props.intl.formatMessage(messages.title)} skipTeam>
+    <ContentColumn>
+      <SwitchTeamsRelay />
+    </ContentColumn>
+  </PageTitle>;
 
 Teams.propTypes = {
   intl: intlShape.isRequired,

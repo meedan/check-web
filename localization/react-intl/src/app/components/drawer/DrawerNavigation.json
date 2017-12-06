@@ -1,0 +1,26 @@
+[
+  {
+    "id": "headerActions.tos",
+    "defaultMessage": "Terms"
+  },
+  {
+    "id": "headerActions.privacyPolicy",
+    "defaultMessage": "Privacy"
+  },
+  {
+    "id": "headerActions.about",
+    "defaultMessage": "About"
+  },
+  {
+    "id": "headerActions.contactHuman",
+    "defaultMessage": "Contact"
+  },
+  {
+    "id": "headerActions.productGuides",
+    "defaultMessage": "Product Guides"
+  },
+  {
+    "id": "drawerNavigation.userProfile",
+    "defaultMessage": "Your Profile"
+  }
+]

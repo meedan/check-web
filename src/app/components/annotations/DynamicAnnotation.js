@@ -1,32 +1,25 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 import { LocationField } from './field_types';
 
-class DynamicAnnotation extends Component {
-  fieldTypeToComponent(value, type) {
-    let component = null;
+const DynamicAnnotation = (props) => {
+  const { annotation } = props;
+
+  function fieldTypeToComponent(value, type) {
     switch (type) {
     case 'location':
-      component = <LocationField coordinates={value} />;
-      break;
+      return <LocationField coordinates={value} />;
     case 'text_field':
-      component = <p>{value}</p>;
-      break;
+      return <p>{value}</p>;
     default:
-      component = <span>{value}</span>;
-      break;
+      return <span>{value}</span>;
     }
-    return component;
   }
 
-  render() {
-    const { annotation } = this.props;
-    const that = this;
-    return (
-      <div>
-        {annotation.fields.map(field => that.fieldTypeToComponent(field.value, field.field_type))}
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      {annotation.fields.map(field => fieldTypeToComponent(field.value, field.field_type))}
+    </div>
+  );
+};
 
 export default DynamicAnnotation;

@@ -1,4 +1,3 @@
-import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 
 class ResetPasswordMutation extends Relay.Mutation {
@@ -15,7 +14,7 @@ class ResetPasswordMutation extends Relay.Mutation {
   }
 
   getVariables() {
-    return {email: this.props.email};
+    return { email: this.props.email };
   }
 }
 

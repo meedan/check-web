@@ -1,16 +1,14 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 import { bemClass } from '../../helpers';
 
-class DefaultButton extends Component {
-  render() {
-    const buttonClassName = `${bemClass('default-button', this.props.size, `--${this.props.size}`)} default-button--${this.props.style}`;
+const DefaultButton = (props) => {
+  const buttonClassName = `${bemClass('default-button', props.size, `--${props.size}`)} default-button--${props.style}`;
 
-    return (
-      <span className={this.props.className}>
-        <button type="submit" onClick={this.props.onClick} className={buttonClassName}>{this.props.children}</button>
-      </span>
-    );
-  }
-}
+  return (
+    <span className={props.className}>
+      <button type="submit" onClick={props.onClick} className={buttonClassName}>{props.children}</button>
+    </span>
+  );
+};
 
 export default DefaultButton;

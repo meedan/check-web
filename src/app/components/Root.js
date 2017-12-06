@@ -8,47 +8,32 @@ import ar from 'react-intl/locale-data/ar';
 import en from 'react-intl/locale-data/en';
 import fr from 'react-intl/locale-data/fr';
 import pt from 'react-intl/locale-data/pt';
+import config from 'config';
 import App from './App';
-import {
-  RootLocale,
-  IndexComponent,
-  NotFound,
-  AccessDenied,
-  UserAlreadyConfirmed,
-  UserConfirmed,
-  UserUnconfirmed,
-  UserPasswordChange,
-  UserPasswordReset,
-  LoginEmailPage,
-} from '../components';
-import {
-  Sources,
-  Source,
-  User,
-  Me,
-} from '../components/source';
-import {
-  Team,
-  TeamMembers,
-  CreateTeam,
-  JoinTeam,
-  Teams,
-  Trash,
-} from '../components/team';
-import {
-  CreateProjectMedia,
-  ProjectMedia,
-  MediaEmbed,
-} from '../components/media';
-import {
-  Project,
-  ProjectHeader,
-  ProjectEdit,
-} from '../components/project';
+import RootLocale from './RootLocale';
+import NotFound from './NotFound';
+import AccessDenied from './AccessDenied';
+import UserAlreadyConfirmed from './UserAlreadyConfirmed';
+import UserConfirmed from './UserConfirmed';
+import UserUnconfirmed from './UserUnconfirmed';
+import UserPasswordChange from './UserPasswordChange';
+import UserPasswordReset from './UserPasswordReset';
+import SourceRelay from '../relay/containers/SourceRelay';
+import UserRelay from '../relay/containers/UserRelay';
+import MeRelay from '../relay/containers/MeRelay';
+import CreateTeam from './team/CreateTeam';
+import Teams from './team/Teams';
+import CreateProjectMedia from './media/CreateMedia';
+import MediaEmbed from './media/MediaEmbed';
+import ProjectMedia from './media/Media';
+import ProjectRelay from '../relay/containers/ProjectRelay';
+import ProjectEditRelay from '../relay/containers/ProjectEditRelay';
+import TeamRelay from '../relay/containers/TeamRelay';
+import JoinTeamRelay from '../relay/containers/JoinTeamRelay';
+import TrashRelay from '../relay/containers/TrashRelay';
 import Search from '../components/Search';
 import CheckContext from '../CheckContext';
 import translations from '../../../localization/translations/translations';
-import config from 'config';
 
 // Localization
 let locale = config.locale || navigator.languages || navigator.language || navigator.userLanguage || 'en';
@@ -58,10 +43,12 @@ if (locale.constructor === Array) {
 locale = locale.replace(/[-_].*$/, '');
 
 if (!global.Intl) {
+  // eslint-disable-next-line import/no-dynamic-require, global-require
   require(['intl'], (intl) => {
     global.Intl = intl;
-//    Commented out while build is not optimized for this!
-//    require('intl/locale-data/jsonp/' + locale + '.js');
+// TODO Commented out while build is not optimized for this!
+// eslint-disable-next-line global-require
+// require('intl/locale-data/jsonp/' + locale + '.js');
   });
 }
 
@@ -77,14 +64,35 @@ try {
   locale = 'en';
 }
 
-export default class Root extends Component {
+class Root extends Component {
   static propTypes = {
     store: PropTypes.object.isRequired,
   };
 
+  static logPageView() {
+    if (config.googleAnalyticsCode) {
+      ReactGA.set({ page: window.location.pathname });
+      ReactGA.pageview(window.location.pathname);
+    }
+  }
+
+  componentWillMount() {
+    this.setStore();
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  componentDidMount() {
+    if (config.googleAnalyticsCode) {
+      ReactGA.initialize(config.googleAnalyticsCode, { debug: false });
+    }
+  }
+
+  componentWillUpdate() {
+    this.setStore();
+  }
+
   getContext() {
-    const context = new CheckContext(this);
-    return context;
+    return new CheckContext(this);
   }
 
   setStore() {
@@ -104,27 +112,6 @@ export default class Root extends Component {
     this.setState(data);
   }
 
-  componentWillMount() {
-    this.setStore();
-  }
-
-  componentWillUpdate() {
-    this.setStore();
-  }
-
-  componentDidMount() {
-    if (config.googleAnalyticsCode) {
-      ReactGA.initialize(config.googleAnalyticsCode, { debug: false });
-    }
-  }
-
-  logPageView() {
-    if (config.googleAnalyticsCode) {
-      ReactGA.set({ page: window.location.pathname });
-      ReactGA.pageview(window.location.pathname);
-    }
-  }
-
   render() {
     const { store } = this.props;
     window.Check = { store };
@@ -134,9 +121,9 @@ export default class Root extends Component {
         <RootLocale locale={locale} />
         <IntlProvider locale={locale} messages={translations[locale]}>
           <Provider store={store}>
-            <Router history={this.state.history} onUpdate={this.logPageView.bind(this)}>
+            <Router history={this.state.history} onUpdate={Root.logPageView}>
               <Route path="/" component={App}>
-                <IndexRoute component={Team} />
+                <IndexRoute component={TeamRelay} />
                 <Route path="check/user/already-confirmed" component={UserAlreadyConfirmed} public />
                 <Route path="check/user/confirmed" component={UserConfirmed} public />
                 <Route path="check/user/unconfirmed" component={UserUnconfirmed} public />
@@ -145,21 +132,21 @@ export default class Root extends Component {
                 <Route path="check/forbidden" component={AccessDenied} public />
                 <Route path="check/404" component={NotFound} public />
 
-                <Route path="check/user/:userId" component={User} />
-                <Route path="check/me" component={Me} />
+                <Route path="check/user/:userId" component={UserRelay} />
+                <Route path="check/me" component={MeRelay} />
                 <Route path="check/teams/new" component={CreateTeam} />
                 <Route path="check/teams" component={Teams} />
 
                 <Route path=":team/medias/new" component={CreateProjectMedia} />
                 <Route path=":team/project/:projectId/media/:mediaId" component={ProjectMedia} public />
                 <Route path=":team/project/:projectId/media/:mediaId/embed" component={MediaEmbed} public />
-                <Route path=":team/project/:projectId/source/:sourceId" component={Source} public />
-                <Route path=":team/join" component={JoinTeam} />
-                <Route path=":team/project/:projectId/edit" component={ProjectEdit} />
-                <Route path=":team/project/:projectId(/:query)" component={Project} public />
+                <Route path=":team/project/:projectId/source/:sourceId" component={SourceRelay} public />
+                <Route path=":team/join" component={JoinTeamRelay} />
+                <Route path=":team/project/:projectId/edit" component={ProjectEditRelay} />
+                <Route path=":team/project/:projectId(/:query)" component={ProjectRelay} public />
                 <Route path=":team/search(/:query)" component={Search} public />
-                <Route path=":team/trash(/:query)" component={Trash} />
-                <Route path=":team" component={Team} public />
+                <Route path=":team/trash(/:query)" component={TrashRelay} />
+                <Route path=":team" component={TeamRelay} public />
 
                 <Route path="*" component={NotFound} public />
               </Route>
@@ -174,3 +161,5 @@ export default class Root extends Component {
 Root.contextTypes = {
   store: React.PropTypes.object,
 };
+
+export default Root;

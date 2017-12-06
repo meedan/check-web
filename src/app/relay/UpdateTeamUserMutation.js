@@ -1,4 +1,3 @@
-import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 
 class UpdateTeamUserMutation extends Relay.Mutation {
@@ -17,7 +16,13 @@ class UpdateTeamUserMutation extends Relay.Mutation {
     if (typeof role !== 'undefined') {
       role = role.value;
     }
-    return { team_id: this.props.team_id, user_id: this.props.user_id, status: this.props.status, id: this.props.id, role };
+    return {
+      team_id: this.props.team_id,
+      user_id: this.props.user_id,
+      status: this.props.status,
+      id: this.props.id,
+      role,
+    };
   }
 
   getFatQuery() {

@@ -18,11 +18,11 @@ import IconMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
 import IconButton from 'material-ui/IconButton';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
+import MdImage from 'react-icons/lib/md/image';
 import EmbedUpdate from './EmbedUpdate';
 import EmbedCreate from './EmbedCreate';
 import TaskUpdate, { shouldLogChange } from './TaskUpdate';
 import SourcePicture from '../source/SourcePicture';
-import MdImage from 'react-icons/lib/md/image';
 import MediaDetail from '../media/MediaDetail';
 import MediaUtil from '../media/MediaUtil';
 import ProfileLink from '../layout/ProfileLink';
@@ -34,7 +34,7 @@ import TimeBefore from '../TimeBefore';
 import { getStatus, getStatusStyle } from '../../helpers';
 import ParsedText from '../ParsedText';
 import DatetimeTaskResponse from '../task/DatetimeTaskResponse';
-import UserTooltip from '../user/UserTooltip';
+import UserTooltipRelay from '../../relay/UserTooltipRelay';
 import {
   units,
   white,
@@ -246,10 +246,19 @@ const messages = defineMessages({
 });
 
 class Annotation extends Component {
+  static handleReverseImageSearch(path) {
+    const imagePath = path ? `?&image_url=${path}` : '';
+    window.open(`https://www.google.com/searchbyimage${imagePath}`);
+  }
+
   constructor(props) {
     super(props);
 
-    this.state = { zoomedCommentImage: false, retriedKeep: false, disableMachineTranslation: false };
+    this.state = {
+      zoomedCommentImage: false,
+      retriedKeep: false,
+      disableMachineTranslation: false,
+    };
   }
 
   handleCloseCommentImage() {
@@ -269,10 +278,15 @@ class Annotation extends Component {
         if (json.error) {
           message = json.error;
         }
-      } catch (e) {}
+      } catch (e) {
+        // eslint-disable-next-line no-console
+        console.log(message);
+      }
     };
 
-    const onSuccess = (response) => {};
+    const onSuccess = () => {
+      // Do nothing.
+    };
 
     // Either to destroy versions or annotations
     const destroy_attr = {
@@ -297,14 +311,17 @@ class Annotation extends Component {
   handleUpdateMachineTranslation() {
     const onFailure = (transaction) => {
       const transactionError = transaction.getError();
-      transactionError.json
-        ? transactionError.json().then(handleError)
-        : handleError(JSON.stringify(transactionError));
+      if (transactionError.json) {
+        transactionError.json().then(handleError);
+      } else {
+        handleError(JSON.stringify(transactionError));
+      }
     };
 
-    const onSuccess = (response) => {
+    const onSuccess = () => {
       this.setState({ disableMachineTranslation: true });
     };
+
     if (!this.state.disableMachineTranslation) {
       Relay.Store.commitUpdate(
         new UpdateProjectMediaMutation({
@@ -318,11 +335,13 @@ class Annotation extends Component {
   }
 
   handleRetryKeep() {
-    const onFailure = (transaction) => {
+    const onFailure = () => {
       this.setState({ retriedKeep: false });
     };
 
-    const onSuccess = (response) => {};
+    const onSuccess = () => {
+      // Do nothing.
+    };
 
     if (!this.state.retriedKeep) {
       Relay.Store.commitUpdate(
@@ -334,11 +353,6 @@ class Annotation extends Component {
       );
       this.setState({ retriedKeep: true });
     }
-  }
-
-  handleReverseImageSearch(path) {
-    const imagePath = path ? `?&image_url=${path}` : '';
-    window.open(`https://www.google.com/searchbyimage${imagePath}`);
   }
 
   render() {
@@ -384,21 +398,20 @@ class Annotation extends Component {
     let contentTemplate = null;
 
     switch (activityType) {
-    case 'create_comment':
-      const commentText = content.text;
-      const commentContent = JSON.parse(annotation.content);
+    case 'create_comment': {
+      const annotationContent = JSON.parse(annotation.content);
       contentTemplate = (
         <div>
           <div className="annotation__card-content">
-            <ParsedText text={commentText} />
+            <ParsedText text={content.text} />
             {/* thumbnail */}
-            {commentContent.original
+            {annotationContent.original
                 ? <div>
                   <img
-                    src={commentContent.thumbnail}
+                    src={annotationContent.thumbnail}
                     className="annotation__card-thumbnail"
                     alt=""
-                    onClick={this.handleOpenCommentImage.bind(this, commentContent.original)}
+                    onClick={this.handleOpenCommentImage.bind(this, annotationContent.original)}
                   />
                 </div>
                 : null}
@@ -412,7 +425,7 @@ class Annotation extends Component {
           </div>
 
           {/* lightbox */}
-          {commentContent.original && !!this.state.zoomedCommentImage
+          {annotationContent.original && !!this.state.zoomedCommentImage
               ? <Lightbox
                 onCloseRequest={this.handleCloseCommentImage.bind(this)}
                 mainSrc={this.state.zoomedCommentImage}
@@ -421,7 +434,8 @@ class Annotation extends Component {
         </div>
         );
       break;
-    case 'update_status':
+    }
+    case 'update_status': {
       const statusCode = content.status.toLowerCase().replace(/[ _]/g, '-');
       const status = getStatus(this.props.annotated.verification_statuses, content.status);
       contentTemplate = (
@@ -444,6 +458,7 @@ class Annotation extends Component {
         </span>
         );
       break;
+    }
     case 'create_tag':
       contentTemplate = (
         <span>
@@ -479,7 +494,8 @@ class Annotation extends Component {
         );
       break;
     case 'create_dynamicannotationfield':
-    case 'update_dynamicannotationfield':
+    case 'update_dynamicannotationfield': {
+      const annotationContent = annotation ? JSON.parse(annotation.content) : null;
       if (/^response_/.test(object.field_name) && activity.task) {
         const format_response = (type) => {
           if (type === 'multiple_choice') {
@@ -496,7 +512,7 @@ class Annotation extends Component {
             const geojson = JSON.parse(object.value);
             const coordinates = geojson.geometry.coordinates;
             const name = geojson.properties.name;
-            if (coordinates[0] != 0 || coordinates[1] != 0) {
+            if (coordinates[0] || coordinates[1]) {
               return (
                 <a
                   style={{ textDecoration: 'underline' }}
@@ -540,7 +556,7 @@ class Annotation extends Component {
             <span
               className="annotation__reverse-image-search"
               title="Google Images"
-              onClick={this.handleReverseImageSearch.bind(this, value)}
+              onClick={Annotation.handleReverseImageSearch.bind(value)}
             >
               <FormattedMessage id="annotation.reverseImageSearch" defaultMessage="Search" />
             </span>
@@ -549,8 +565,7 @@ class Annotation extends Component {
       }
 
       if (object.field_name === 'translation_text') {
-        const translationContent = JSON.parse(annotation.content);
-        let language = translationContent.find(it => it.field_name === 'translation_language');
+        let language = annotationContent.find(it => it.field_name === 'translation_language');
         language = (language && language.formatted_value) || '?';
         contentTemplate = (
           <span className="annotation__translation-text">
@@ -568,8 +583,8 @@ class Annotation extends Component {
       }
 
       if (object.field_name === 'mt_translations') {
-        const formatted_value = JSON.parse(annotation.content)[0].formatted_value;
-        if (formatted_value.length == 0) {
+        const formatted_value = annotationContent[0].formatted_value;
+        if (!formatted_value.length) {
           contentTemplate = (
             <span className="annotation__mt-translations">
               <button
@@ -631,7 +646,8 @@ class Annotation extends Component {
           facebook: '#3b5998',
         };
         contentTemplate = [];
-        for (const provider in published) {
+        Object.getOwnPropertyNames(published).forEach((provider) => {
+          // TODO Don't hardcode provider as below.
           const name = provider.charAt(0).toUpperCase() + provider.slice(1);
           const color = colors[provider] || '#333';
           contentTemplate.push(
@@ -654,13 +670,13 @@ class Annotation extends Component {
               />
             </span>,
             );
-        }
+        });
       }
 
       if (object.field_name === 'keep_backup_response') {
-        const keep = JSON.parse(JSON.parse(annotation.content)[0].value);
+        const keep = JSON.parse(annotationContent[0].value);
         const keepLink = keep.location;
-        const keepStatus = parseInt(keep.status);
+        const keepStatus = parseInt(keep.status, 10);
         contentTemplate = null;
         if (this.state.retriedKeep) {
           contentTemplate = (
@@ -727,6 +743,7 @@ class Annotation extends Component {
       }
 
       break;
+    }
     case 'create_flag':
       contentTemplate = (
         <span>
@@ -739,10 +756,14 @@ class Annotation extends Component {
         );
       break;
     case 'update_embed':
-        contentTemplate = <EmbedUpdate activity={activity} authorName={authorName} />;
+      contentTemplate = <EmbedUpdate activity={activity} authorName={authorName} />;
       break;
     case 'create_embed':
-        contentTemplate = <EmbedCreate annotated={annotated} content={content} authorName={authorName}/>;
+      contentTemplate = (<EmbedCreate
+        annotated={annotated}
+        content={content}
+        authorName={authorName}
+      />);
       break;
     case 'update_projectmedia':
       if (activity.projects.edges.length > 0 && activity.user) {
@@ -772,7 +793,7 @@ class Annotation extends Component {
             />
           </span>
           );
-      } else if (activity.object_changes_json == '{"archived":[false,true]}') {
+      } else if (activity.object_changes_json === '{"archived":[false,true]}') {
         activityType = 'move_to_trash';
         contentTemplate = (
           <div>
@@ -781,7 +802,7 @@ class Annotation extends Component {
             </div>
           </div>
           );
-      } else if (activity.object_changes_json == '{"archived":[true,false]}') {
+      } else if (activity.object_changes_json === '{"archived":[true,false]}') {
         contentTemplate = (
           <span>
             <FormattedMessage
@@ -796,8 +817,8 @@ class Annotation extends Component {
       }
       break;
     case 'update_task':
-        contentTemplate = shouldLogChange(activity) ?
-          <TaskUpdate activity={activity} authorName={authorName} /> : null;
+      contentTemplate = shouldLogChange(activity) ?
+        <TaskUpdate activity={activity} authorName={authorName} /> : null;
       break;
     default:
       contentTemplate = null;
@@ -826,16 +847,16 @@ class Annotation extends Component {
                     '-',
                   )}`}
               >
-              <Tooltip placement="top" overlay={<UserTooltip user={activity.user} />}>
-                <StyledAvatarColumn isRtl={isRtl}>
+                <Tooltip placement="top" overlay={<UserTooltipRelay user={activity.user} />}>
+                  <StyledAvatarColumn isRtl={isRtl}>
                     <SourcePicture
                       className="avatar"
                       type="user"
                       size="small"
                       object={activity.user.source}
                     />
-                </StyledAvatarColumn>
-              </Tooltip>
+                  </StyledAvatarColumn>
+                </Tooltip>
 
                 <StyledPrimaryColumn isRtl={isRtl}>
                   {contentTemplate}

@@ -30,40 +30,35 @@ class UserPasswordReset extends Component {
   }
 
   getHistory() {
-    const history = new CheckContext(this).getContextStore().history;
-    return history;
+    return new CheckContext(this).getContextStore().history;
   }
 
   handleGoBack() {
-    const history = this.getHistory();
-    history.goBack();
+    this.getHistory().goBack();
   }
 
   handleSignIn() {
-    const history = this.getHistory();
-    history.push('/');
+    this.getHistory().push('/');
   }
 
   handleChange(e) {
     const value = e.target.value.trim();
-    const canSubmit = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(value);
+    const canSubmit = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(value);
     const errorMsg = canSubmit ? '' : this.props.intl.formatMessage(messages.emailNotValid);
 
     this.setState({ errorMsg, email: value, submitDisabled: !canSubmit });
   }
 
   handleSubmit(e) {
-    const that = this;
-
-    const onFailure = (transaction) => {
-      that.setState({ errorMsg: that.props.intl.formatMessage(messages.emailNotFoundContactSupport, { supportEmail: stringHelper('SUPPORT_EMAIL') }), submitDisabled: true });
+    const onFailure = () => {
+      this.setState({ errorMsg: this.props.intl.formatMessage(messages.emailNotFoundContactSupport, { supportEmail: stringHelper('SUPPORT_EMAIL') }), submitDisabled: true });
     };
 
-    const onSuccess = (response) => {
-      that.setState({ showConfirmDialog: true });
+    const onSuccess = () => {
+      this.setState({ showConfirmDialog: true });
     };
 
-    if (!that.state.submitDisabled) {
+    if (!this.state.submitDisabled) {
       Relay.Store.commitUpdate(
         new ResetPasswordMutation({
           email: this.state.email,

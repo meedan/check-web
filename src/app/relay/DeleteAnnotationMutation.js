@@ -1,4 +1,3 @@
-import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 
 class DeleteAnnotationMutation extends Relay.Mutation {
@@ -13,19 +12,16 @@ class DeleteAnnotationMutation extends Relay.Mutation {
   }
 
   getFatQuery() {
-    let query = '';
     switch (this.props.parent_type) {
     case 'source':
-      query = Relay.QL`fragment on DestroyAnnotationPayload { deletedId, source { log, tags, log_count } }`;
-      break;
+      return Relay.QL`fragment on DestroyAnnotationPayload { deletedId, source { log, tags, log_count } }`;
     case 'project_media':
-      query = Relay.QL`fragment on DestroyAnnotationPayload { deletedId, project_media { log, tags, tasks, embed, log_count, last_status, last_status_obj { id } } }`;
-      break;
+      return Relay.QL`fragment on DestroyAnnotationPayload { deletedId, project_media { log, tags, tasks, embed, log_count, last_status, last_status_obj { id } } }`;
     case 'project_source':
-      query = Relay.QL`fragment on DestroyAnnotationPayload { deletedId, project_source { id, source { log, log_count, tags } } }`;
-      break;
+      return Relay.QL`fragment on DestroyAnnotationPayload { deletedId, project_source { id, source { log, log_count, tags } } }`;
+    default:
+      return '';
     }
-    return query;
   }
 
   getOptimisticResponse() {

@@ -1,4 +1,3 @@
-import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 
 class UpdateProjectMediaMutation extends Relay.Mutation {
@@ -75,7 +74,7 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
       ids.project = this.props.dstProj.id;
     }
 
-    let configs = [
+    const configs = [
       {
         type: 'FIELDS_CHANGE',
         fieldIDs: ids,

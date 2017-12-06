@@ -1,0 +1,42 @@
+[
+  {
+    "id": "joinTeam.error",
+    "defaultMessage": "Sorry, could not send your request"
+  },
+  {
+    "id": "joinTeam.success",
+    "defaultMessage": "Thanks for your interest in joining {team} {appName}! A team leader will review your application soon."
+  },
+  {
+    "id": "joinTeam.autoApprove",
+    "defaultMessage": "Thanks for joining {team} {appName}! You can start contributing right away."
+  },
+  {
+    "id": "joinTeam.title",
+    "defaultMessage": "Join Team"
+  },
+  {
+    "id": "joinTeam.mainHeading",
+    "defaultMessage": "Request to Join"
+  },
+  {
+    "id": "joinTeam.alreadyRequested",
+    "defaultMessage": "You already requested to join {team} {appName}."
+  },
+  {
+    "id": "joinTeam.requestHasBeenSent",
+    "defaultMessage": "Your request has been sent to the project admins for approval."
+  },
+  {
+    "id": "joinTeam.blurbGraf",
+    "defaultMessage": "To request access to the {link} {appName}, click below:"
+  },
+  {
+    "id": "joinTeam.buttonSubmitted",
+    "defaultMessage": "Request Sent"
+  },
+  {
+    "id": "joinTeam.buttonSubmit",
+    "defaultMessage": "Request to Join"
+  }
+]

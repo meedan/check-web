@@ -5,11 +5,11 @@ import MenuItem from 'material-ui/MenuItem';
 import { FormattedMessage } from 'react-intl';
 import IconButton from 'material-ui/IconButton';
 import styled from 'styled-components';
-import Projects from './drawer/Projects';
-import { stringHelper } from '../customHelpers';
-import UserMenuItems from './UserMenuItems';
-import UserAvatarRelay from '../relay/UserAvatarRelay';
-import CheckContext from '../CheckContext';
+import DrawerProjectsRelay from '../../relay/containers/DrawerProjectsRelay';
+import { stringHelper } from '../../customHelpers';
+import UserMenuItems from '../UserMenuItems';
+import UserAvatarRelay from '../../relay/UserAvatarRelay';
+import CheckContext from '../../CheckContext';
 import {
   Row,
   Offset,
@@ -22,12 +22,11 @@ import {
   avatarSize,
   avatarStyle,
   body2,
-} from '../styles/js/shared';
+} from '../../styles/js/shared';
 
 class DrawerNavigation extends Component {
   getHistory() {
-    const history = new CheckContext(this).getContextStore().history;
-    return history;
+    return new CheckContext(this).getContextStore().history;
   }
 
   handleAvatarClick = () => {
@@ -209,7 +208,7 @@ class DrawerNavigation extends Component {
           <div style={styles.drawerProjectsAndFooter}>
             <div style={styles.drawerProjects}>
               {inTeamContext && (currentUserIsMember || !this.props.team.private)
-                ? <Projects team={this.props.team.slug} />
+                ? <DrawerProjectsRelay team={this.props.team.slug} />
                 : null}
             </div>
 

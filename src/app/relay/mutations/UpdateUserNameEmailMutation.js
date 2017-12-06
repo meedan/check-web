@@ -1,4 +1,3 @@
-import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 
 class UpdateUserNameEmailMutation extends Relay.Mutation {
@@ -30,7 +29,7 @@ class UpdateUserNameEmailMutation extends Relay.Mutation {
           user: this.props.id,
         },
       },
-    ]
+    ];
   }
 }
 

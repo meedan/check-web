@@ -1,0 +1,18 @@
+[
+  {
+    "id": "teamMembershipRequests.requestsToJoin",
+    "defaultMessage": "Requests to join"
+  },
+  {
+    "id": "teamMembersComponent.mainHeading",
+    "defaultMessage": "Members"
+  },
+  {
+    "id": "teamMembersComponent.editDoneButton",
+    "defaultMessage": "Done"
+  },
+  {
+    "id": "teamMembersComponent.editButton",
+    "defaultMessage": "Edit"
+  }
+]

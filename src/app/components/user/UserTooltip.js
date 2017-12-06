@@ -1,19 +1,15 @@
 import React from 'react';
-import Relay from 'react-relay';
-import { FormattedMessage, FormattedHTMLMessage, defineMessages, injectIntl } from 'react-intl';
+import { FormattedHTMLMessage, defineMessages } from 'react-intl';
 import { Link } from 'react-router';
 import Avatar from 'material-ui/Avatar';
-import { Card, CardText } from 'material-ui/Card';
-import IconButton from 'material-ui/IconButton';
 import MdLaunch from 'react-icons/lib/md/launch';
+import rtlDetect from 'rtl-detect';
+import styled from 'styled-components';
 import ParsedText from '../ParsedText';
 import MediaUtil from '../media/MediaUtil';
 import CheckContext from '../../CheckContext';
 import { truncateLength } from '../../helpers';
-import UserRoute from '../../relay/UserRoute';
-import rtlDetect from 'rtl-detect';
 import {
-  white,
   black38,
   black54,
   body2,
@@ -24,7 +20,6 @@ import {
   StyledTwoColumns,
   StyledBigColumn,
 } from '../../styles/js/HeaderCard';
-import styled from 'styled-components';
 
 const StyledMdLaunch = styled.div`
   float: ${props => (props.isRtl ? 'left' : 'right')};
@@ -83,7 +78,13 @@ const messages = defineMessages({
   },
 });
 
-class UserTooltipComponent extends React.Component {
+class UserTooltip extends React.Component {
+  static accountLink(account) {
+    return (<StyledSocialLink key={account.id} href={account.url} target="_blank" rel="noopener noreferrer" style={{ paddingRight: units(1) }}>
+      { MediaUtil.socialIcon(`${account.provider}.com`) /* TODO: refactor */ }
+    </StyledSocialLink>);
+  }
+
   getContext() {
     const context = new CheckContext(this);
     return context;
@@ -92,18 +93,13 @@ class UserTooltipComponent extends React.Component {
   userRole() {
     const context = this.getContext();
     const team = context.getContextStore().currentUser.current_team;
-    const current_team_user = this.props.user.team_users.edges.find(tu => tu.node.team.slug === team.slug);
+    const current_team_user =
+      this.props.user.team_users.edges.find(tu => tu.node.team.slug === team.slug);
     return current_team_user.node.status !== 'requested' ? current_team_user.node.role : '';
   }
 
   localizedRole(role) {
     return role ? `${this.props.intl.formatMessage(messages[role])}` : '';
-  }
-
-  accountLink(account) {
-    return (<StyledSocialLink key={account.id} href={account.url} target="_blank" rel="noopener noreferrer" style={{ paddingRight: units(1) }}>
-      { MediaUtil.socialIcon(`${account.provider}.com`) /* TODO: refactor */ }
-    </StyledSocialLink>);
   }
 
   render() {
@@ -152,7 +148,7 @@ class UserTooltipComponent extends React.Component {
                 }}
               />
             </div>
-            { source.account_sources.edges.map(as => this.accountLink(as.node.account)) }
+            { source.account_sources.edges.map(as => UserTooltip.accountLink(as.node.account)) }
           </StyledBigColumn>
         </StyledTwoColumns>
       </StyledTooltip>
@@ -160,67 +156,7 @@ class UserTooltipComponent extends React.Component {
   }
 }
 
-const UserTooltipContainer = Relay.createContainer(injectIntl(UserTooltipComponent), {
-  fragments: {
-    user: () => Relay.QL`
-      fragment on User {
-        id,
-        dbid,
-        name,
-        number_of_teams,
-        team_users(first: 10000) {
-          edges {
-            node {
-              team {
-                id,
-                dbid,
-                name,
-                slug,
-                private,
-              }
-              id,
-              status,
-              role
-            }
-          }
-        },
-        source {
-          id,
-          dbid,
-          image,
-          description,
-          created_at,
-          account_sources(first: 10000) {
-            edges {
-              node {
-                account {
-                  id,
-                  url,
-                  provider
-                }
-              }
-            }
-          }
-        }
-      }
-    `,
-  },
-});
-
-class UserTooltip extends React.Component {
-  render() {
-    const route = new UserRoute({ userId: this.props.user.dbid });
-    return (
-      <Relay.RootContainer
-        Component={UserTooltipContainer}
-        route={route}
-      />
-    );
-  }
-}
-
-
-UserTooltipComponent.contextTypes = {
+UserTooltip.contextTypes = {
   store: React.PropTypes.object,
 };
 

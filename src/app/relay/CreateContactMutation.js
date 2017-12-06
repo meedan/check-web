@@ -1,4 +1,3 @@
-import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 
 class CreateContactMutation extends Relay.Mutation {
@@ -17,7 +16,12 @@ class CreateContactMutation extends Relay.Mutation {
   }
 
   getVariables() {
-    return { team_id: this.props.team_id, web: this.props.web, phone: this.props.phone, location: this.props.location };
+    return {
+      team_id: this.props.team_id,
+      web: this.props.web,
+      phone: this.props.phone,
+      location: this.props.location,
+    };
   }
 
   getConfigs() {

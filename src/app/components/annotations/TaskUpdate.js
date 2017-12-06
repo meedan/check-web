@@ -1,6 +1,7 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
+// TODO Move all this into the component - and modify Annotation.js accordingly.
 let from = null;
 let to = null;
 let editedTitle = false;
@@ -13,10 +14,10 @@ function shouldLogChange(activity) {
     from = changes.data[0];
     to = changes.data[1];
 
-    if (from.label && to.label && from.label != to.label) {
+    if (from.label && to.label && from.label !== to.label) {
       editedTitle = true;
     }
-    if (to.description && from.description != to.description) {
+    if (to.description && from.description !== to.description) {
       editedNote = true;
     }
     if (!from.description && to.description) {
@@ -28,10 +29,13 @@ function shouldLogChange(activity) {
       return true;
     }
   }
+  return false;
 }
 
 class TaskUpdate extends React.Component {
-  componentWillUpdate(nextProps, nextState) {
+
+  // eslint-disable-next-line class-methods-use-this
+  componentWillUpdate() {
     editedTitle = false;
     editedNote = false;
     createdNote = false;
@@ -46,27 +50,27 @@ class TaskUpdate extends React.Component {
           <span className="annotation__update-task" />
           {editedTitle
             ? <FormattedMessage
-            id="annotation.taskLabelUpdated"
-            defaultMessage={'Task "{from}" edited to "{to}" by {author}'}
-            values={{ from: from.label, to: to.label, author }}
+              id="annotation.taskLabelUpdated"
+              defaultMessage={'Task "{from}" edited to "{to}" by {author}'}
+              values={{ from: from.label, to: to.label, author }}
             />
           : null}
           { editedTitle && editedNote && <br />}
           { editedNote
             ? <FormattedMessage
-            id="annotation.taskNoteUpdated"
-            defaultMessage={
+              id="annotation.taskNoteUpdated"
+              defaultMessage={
               'Task "{title}" has note edited from "{from}" to "{to}" by {author}'
             }
-            values={{ title: to.label, from: from.description, to: to.description, author }}
+              values={{ title: to.label, from: from.description, to: to.description, author }}
             />
           : null}
           { editedTitle && createdNote && <br />}
           { createdNote
             ? <FormattedMessage
-            id="annotation.taskNoteCreated"
-            defaultMessage={'Task "{title}" has new note "{note}" by {author}'}
-            values={{ title: to.label, note: to.description, author }}
+              id="annotation.taskNoteCreated"
+              defaultMessage={'Task "{title}" has new note "{note}" by {author}'}
+              values={{ title: to.label, note: to.description, author }}
             />
           : null}
         </span>

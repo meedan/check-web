@@ -1,4 +1,3 @@
-import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
 
 class UpdateProjectMutation extends Relay.Mutation {
@@ -22,7 +21,12 @@ class UpdateProjectMutation extends Relay.Mutation {
   }
 
   getVariables() {
-    return { title: this.props.title, description: this.props.description, id: this.props.id, set_slack_channel: this.props.slackChannel };
+    return {
+      title: this.props.title,
+      description: this.props.description,
+      id: this.props.id,
+      set_slack_channel: this.props.slackChannel,
+    };
   }
 
   getConfigs() {

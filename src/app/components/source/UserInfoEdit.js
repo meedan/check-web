@@ -10,12 +10,12 @@ import LinkifyIt from 'linkify-it';
 import rtlDetect from 'rtl-detect';
 import SourcePicture from './SourcePicture';
 import Message from '../Message';
-import UploadImage from '../UploadImage';
+import UploadImageRelay from '../../relay/UploadImageRelay';
 import globalStrings from '../../globalStrings';
 import UpdateSourceMutation from '../../relay/UpdateSourceMutation';
-import UpdateUserNameEmailMutation from '../../relay/mutation/UpdateUserNameEmailMutation';
-import CreateAccountSourceMutation from '../../relay/mutation/CreateAccountSourceMutation';
-import DeleteAccountSourceMutation from '../../relay/mutation/DeleteAccountSourceMutation';
+import UpdateUserNameEmailMutation from '../../relay/mutations/UpdateUserNameEmailMutation';
+import CreateAccountSourceMutation from '../../relay/mutations/CreateAccountSourceMutation';
+import DeleteAccountSourceMutation from '../../relay/mutations/DeleteAccountSourceMutation';
 import { StyledIconButton, Row, ContentColumn } from '../../styles/js/shared';
 
 import {
@@ -72,15 +72,6 @@ class UserInfoEdit extends React.Component {
     };
   }
 
-  handleEditProfileImg = () => {
-    this.setState({ editProfileImg: true });
-  };
-
-  handleLeaveEditMode = () => {
-    this.onClear();
-    this.props.onCancelEdit();
-  };
-
   onImage(file) {
     document.forms['edit-source-form'].image = file;
     this.setState({ image: file });
@@ -98,13 +89,22 @@ class UserInfoEdit extends React.Component {
     this.setState({ message, image: null });
   }
 
+  handleEditProfileImg = () => {
+    this.setState({ editProfileImg: true });
+  };
+
+  handleLeaveEditMode = () => {
+    this.onClear();
+    this.props.onCancelEdit();
+  };
+
   handleSubmit(e) {
     e.preventDefault();
 
     if (this.validateLinks() && !this.state.submitDisabled) {
-      const updateSourceSent = this.updateSource();
-      const updateUserSent = this.updateUser();
-      const updateLinksSent = this.updateLinks();
+      this.updateSource();
+      this.updateUser();
+      this.updateLinks();
 
       this.setState({ submitDisabled: true, hasFailure: false, message: null });
     }
@@ -148,7 +148,9 @@ class UserInfoEdit extends React.Component {
       if (json.error) {
         message = json.error;
       }
-    } catch (e) {}
+    } catch (e) {
+      // Do nothing.
+    }
     this.setState({ message, hasFailure: true, submitDisabled: false });
   };
 
@@ -193,7 +195,9 @@ class UserInfoEdit extends React.Component {
         if (json.error) {
           message = json.error;
         }
-      } catch (e) {}
+      } catch (e) {
+        // Do nothing.
+      }
 
       this.setState({ message, submitDisabled: false });
     };
@@ -235,7 +239,9 @@ class UserInfoEdit extends React.Component {
         if (json.error) {
           message = json.error;
         }
-      } catch (e) {}
+      } catch (e) {
+        // Do nothing.
+      }
 
       this.setState({ message, submitDisabled: false });
     };
@@ -300,7 +306,9 @@ class UserInfoEdit extends React.Component {
           if (json.error) {
             message = json.error;
           }
-        } catch (e) {}
+        } catch (e) {
+          // Do nothing.
+        }
 
         links[index].error = message;
       }
@@ -356,7 +364,8 @@ class UserInfoEdit extends React.Component {
     let links = this.state.links ? this.state.links.slice(0) : [];
     links = links.filter(link => !!link.url.trim());
 
-    links.forEach((item) => {
+    links.forEach((item_) => {
+      const item = item_;
       const url = linkify.match(item.url);
       if (Array.isArray(url) && url[0] && url[0].url) {
         item.url = url[0].url;
@@ -394,7 +403,8 @@ class UserInfoEdit extends React.Component {
               />
               <StyledIconButton
                 className="source__remove-link-button"
-                onClick={() => this.handleRemoveLink(as.node.id)}>
+                onClick={() => this.handleRemoveLink(as.node.id)}
+              >
                 <MdCancel />
               </StyledIconButton>
             </Row>
@@ -416,7 +426,8 @@ class UserInfoEdit extends React.Component {
               />
               <StyledIconButton
                 className="source__remove-link-button"
-                onClick={() => this.handleRemoveNewLink(index)}>
+                onClick={() => this.handleRemoveNewLink(index)}
+              >
                 <MdCancel />
               </StyledIconButton>
             </Row>
@@ -465,7 +476,7 @@ class UserInfoEdit extends React.Component {
               name="edit-source-form"
             >
               {this.state.editProfileImg
-                ? <UploadImage
+                ? <UploadImageRelay
                   onImage={this.onImage.bind(this)}
                   onClear={this.onClear}
                   onError={this.onImageError.bind(this)}
