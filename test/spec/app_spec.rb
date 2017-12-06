@@ -113,19 +113,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Access Denied')).to be(true)
       expect((@driver.current_url.to_s =~ /\/forbidden$/).nil?).to be(false)
     end
-=begin
-    Similarly to "should edit the title of a media", the editing of a description should also be tested.
-This refers to ticket 0006339 : User can add a description to a media item
-
-Test cases to implement:
-
-- Edit a media description for the first time:
-Description should show in the media card right above the content //note: need to provide a proper className for targeting
-and a log entry must read `Description "{description}" was added by {author}`
-
-- Edit a media for the second time:
-Description should show in the media card right above content and a long entry must read `Description edited from "{previous_description}" to "{updated_description}" by {author}`
-=end
 
     it "should edit the description of a media", bin4: true do
       url = 'https://twitter.com/softlandscapes/status/834385935240462338'
