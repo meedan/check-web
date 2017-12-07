@@ -115,6 +115,7 @@ const bridgeSearchResultFragment = Relay.QL`
             }
           },
           user {
+            dbid,
             name,
             source {
               dbid,

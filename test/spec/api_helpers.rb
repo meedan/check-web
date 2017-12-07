@@ -115,6 +115,7 @@ module ApiHelpers
     source = api_create_team_project_and_source(name, url)
     @driver.navigate.to source.full_url
     sleep 2
+    source
   end
 
   def api_logout
@@ -134,5 +135,9 @@ module ApiHelpers
     media = request_api 'link', { url: url, email: data[:user].email, team_id: data[:team].dbid, project_id: data[:project].dbid }
     media
   end
-  
+
+  def api_create_project(team_id)
+    project = request_api 'project', { title: "TestProject#{Time.now.to_i}-#{rand(1000).to_i}", team_id: team_id }    
+  end
+
 end

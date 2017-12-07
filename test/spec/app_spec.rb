@@ -88,7 +88,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Happy birthday Mick')).to be(false)
     end
 
-    it "should register and create a claim", bin5: true do
+    it "should register and create a claim", bin4: true do
       page = LoginPage.new(config: @config, driver: @driver).load
       page = page.register_and_login_with_email(email: "sysops+#{Time.now.to_i}#{rand(1000)}@meedan.com", password: @password)
       page
@@ -103,13 +103,28 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       api_logout
       api_register_and_login_with_email
       me_pg = MePage.new(config: @config, driver: @driver).load
-      @wait.until { @driver.page_source.include?('Create Team') }
+      sleep 3 #for loading
+      wait_for_selector("//span[contains(text(), 'Create Team')]", :xpath)      
       expect(@driver.page_source.include?('Access Denied')).to be(false)
       expect((@driver.current_url.to_s =~ /\/forbidden$/).nil?).to be(true)
       unauthorized_pg = SourcePage.new(id: user.dbid, config: @config, driver: @driver).load
+      sleep 3 #for loading
       wait_for_selector("main-title", :class)
       expect(@driver.page_source.include?('Access Denied')).to be(true)
       expect((@driver.current_url.to_s =~ /\/forbidden$/).nil?).to be(false)
+    end
+
+    it "should edit the description of a media", bin4: true do
+      url = 'https://twitter.com/softlandscapes/status/834385935240462338'
+      media_pg = api_create_team_project_and_link_and_redirect_to_media_page url
+      media_pg.wait_for_element('.media-detail')
+      media_pg.toggle_card # Make sure the card is closed
+      expect(media_pg.contains_string?('Edited media description')).to be(false)
+      media_pg.toggle_card # Expand the card so the edit button is accessible
+      media_pg.wait_for_element('.media-actions')
+      sleep 3 # Clicks can misfire if pender iframe moves the button position at the wrong moment
+      media_pg.set_description('Edited media description')
+      expect(media_pg.contains_string?('Edited media description')).to be(true)
     end
 
     it "should edit the title of a media", bin1: true do
@@ -179,7 +194,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(project_pg.elements('.media__heading').map(&:text).include?('First Draft on Facebook')).to be(true)
     end
 
-    it "should login using Slack", bin5: true, quick:true do
+    it "should login using Slack", bin4: true, quick:true do
       login_with_slack
       @driver.navigate.to @config['self_url'] + '/check/me'
       displayed_name = get_element('h1.source__name').text.upcase
@@ -485,53 +500,60 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should edit source metadata (contact, phone, location, organization, other)", bin6: true do
       api_create_team_project_and_source_and_redirect_to_source('GOT', 'https://twitter.com/GameOfThrones')
-      sleep 5
-      element = @driver.find_element(:class, "source__edit-button")
-      element.click
+      sleep 5 #Loading
+      wait_for_selector('.source__tab-button-account')
+      expect(@driver.page_source.include?('label: value')).to be(false)
+      expect(@driver.page_source.include?('Location 123')).to be(false)
+      expect(@driver.page_source.include?('ORGANIZATION')).to be(false)
+      expect(@driver.page_source.include?('989898989')).to be(false)
+      el = wait_for_selector('.source__edit-button')
+      el.click
+      sleep 1      
+      el = wait_for_selector('.source__edit-addinfo-button')
+      el.click
       sleep 1
-      @driver.find_element(:class, "source__edit-addinfo-button").click
-      sleep 1
-      @driver.find_element(:class, "source__add-phone").click
+      el = wait_for_selector('.source__add-phone')
+      el.click
       str= @driver.page_source
       str = str[str.index('undefined-undefined-Phone-')..str.length]
       str = str[0..(str.index('"')-1)]
-      element = @driver.find_element(:id, str)
       fill_field(str, "989898989", :id)
-
       sleep 1
       @driver.find_element(:class, "source__edit-addinfo-button").click
       sleep 1
-      @driver.find_element(:class, "source__add-organization").click
+      el = wait_for_selector(".source__add-organization")
+      el.click
       str= @driver.page_source
       str = str[str.index('undefined-undefined-Organization-')..str.length]
       str = str[0..(str.index('"')-1)]
-      element = @driver.find_element(:id, str)
       fill_field(str, "ORGANIZATION", :id)
-
-      @driver.find_element(:class, "source__edit-addinfo-button").click
+      el = wait_for_selector(".source__edit-addinfo-button")
+      el.click
       sleep 1
-      @driver.find_element(:class, "source__add-location").click
+      el = wait_for_selector(".source__add-location")
+      el.click
       str= @driver.page_source
       str = str[str.index('undefined-undefined-Location-')..str.length]
       str = str[0..(str.index('"')-1)]
       fill_field(str, "Location 123", :id)
-
       sleep 1
       #source__add-other
-      @driver.find_element(:class, "source__edit-addinfo-button").click
+      el = wait_for_selector(".source__edit-addinfo-button")
+      el.click
       sleep 1
-      @driver.find_element(:class, "source__add-other").click
+      el = wait_for_selector(".source__add-other")
+      el.click
       sleep 1
       fill_field("source__other-label-input", "label", :id)
       fill_field("source__other-value-input", "value", :id)
-
       @driver.action.send_keys("\t").perform
       @driver.action.send_keys("\t").perform
       @driver.action.send_keys("\n").perform
-
       sleep 2
-      @driver.find_element(:class, 'source__edit-save-button').click
-      sleep 5
+      el = wait_for_selector(".source__edit-save-button")
+      el.click
+      sleep 5 #reload
+      wait_for_selector('.source__edit-button')
       expect(@driver.page_source.include?('label: value')).to be(true)
       expect(@driver.page_source.include?('Location 123')).to be(true)
       expect(@driver.page_source.include?('ORGANIZATION')).to be(true)
@@ -647,16 +669,18 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should tag media from tags list", bin5: true do
       page = api_create_team_project_and_claim_and_redirect_to_media_page
-      sleep 5
+      sleep 3 #for loading
       wait_for_selector("add-annotation__buttons", :class)
       new_tag = Time.now.to_i.to_s
       expect(page.contains_string?("Tagged \##{new_tag}")).to be(false)
       page.add_tag(new_tag)
+      el = wait_for_selector("media-detail__cancel-edits", :class)
+      el.click
       expect(page.has_tag?(new_tag)).to be(true)
-      sleep 2
       expect(page.contains_string?("Tagged \##{new_tag}")).to be(true)
       page.driver.navigate.refresh
-      page.wait_for_element('.media')
+      sleep 3 #for loading
+      wait_for_selector("add-annotation__insert-photo",:class)
       expect(page.has_tag?(new_tag)).to be(true)
       expect(page.contains_string?("Tagged \##{new_tag}")).to be(true)
     end
@@ -683,14 +707,16 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
     it "should comment media as a command", bin4: true, quick:true do
       api_create_team_project_and_claim_and_redirect_to_media_page
-
+      wait_for_selector('.create-task__add-button')
       # First, verify that there isn't any comment
       expect(@driver.page_source.include?('This is my comment')).to be(false)
+      old = wait_for_selector_list('annotations__list-item', :class)
 
       # Add a comment as a command
       fill_field('#cmd-input', '/comment This is my comment')
       @driver.action.send_keys(:enter).perform
       sleep 5
+      wait_for_size_change(old,'annotations__list-item', :class)
 
       # Verify that comment was added to annotations list
       expect(@driver.page_source.include?('This is my comment')).to be(true)
@@ -698,6 +724,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       # Reload the page and verify that comment is still there
       @driver.navigate.refresh
       sleep 5
+      wait_for_selector('.annotations__list-item')
       expect(@driver.page_source.include?('This is my comment')).to be(true)
     end
 
@@ -802,14 +829,17 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       page = Page.new(config: @config, driver: @driver)
       page.go(@config['api_path'] + '/test/session?email='+utp[:user1]["email"])
       page.go(@config['self_url'] + '/'+utp[:team]["slug"]+'/project/'+utp[:project]["dbid"].to_s)
-      @wait.until { @driver.page_source.include?('Sources') }
-      l = wait_for_selector_list('button',:tag_name)
-      n = l.length
+      sleep 3 #for loading
+      wait_for_selector("//span[contains(text(), 'Sources')]", :xpath)      
+      l = wait_for_selector_list('project-menu',:class)
+      expect(l.length == 1).to be(true)
+
       page.go(@config['api_path'] + '/test/session?email='+utp[:user2]["email"])
       page.go(@config['self_url'] + '/'+utp[:team]["slug"]+'/project/'+utp[:project]["dbid"].to_s)
-      @wait.until { @driver.page_source.include?('Sources') }
-      l = wait_for_selector_list('button',:tag_name)
-      expect(n > l.length).to be(true)
+      sleep 3 #for loading
+      wait_for_selector("//span[contains(text(), 'Sources')]", :xpath)      
+      l = wait_for_selector_list('project-menu',:class)
+      expect(l.length == 0).to be(true)
     end
 
     it "should edit team and logo", bin1: true do
@@ -1044,9 +1074,10 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
       expect(@driver.page_source.include?('Your comment was added!')).to be(false)
       old = wait_for_selector_list("annotation__default-content",:class).length     
-      fill_field('textarea[name="cmd"]', 'Go to https://meedan.com/en/')
+      fill_field('textarea[name="cmd"]', 'https://meedan.com/en/')
       el = wait_for_selector("//span[contains(text(), 'Submit')]", :xpath)
       el.click
+      sleep 2 #wait for loading
       old = wait_for_size_change(old, "annotation__default-content", :class)
       expect(@driver.page_source.include?('Your comment was added!')).to be(true)
       el = wait_for_selector_list("//a[contains(text(), 'https://meedan.com/en/')]", :xpath)
@@ -1070,9 +1101,9 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       data = api_create_team_and_project
       api_create_media(data: data, url: "https://www.facebook.com/permalink.php?story_fbid=10155901893214439&id=54421674438")
       media = api_create_media(data: data, url: "https://twitter.com/TwitterVideo/status/931930009450795009")
-      @driver.navigate.to media.full_url
-      @driver.navigate.to @config['self_url'] + '/' + get_team + '/search'
-      wait_for_selector(".search__results")
+      @driver.navigate.to @config['self_url'] + '/' + data[:team].slug + '/search'
+      sleep 3  #due the load
+      wait_for_selector("//h3[contains(text(), '2 results')]",:xpath)
       old = wait_for_selector_list("medias__item", :class).length
       expect(@driver.page_source.include?('weekly @Twitter video recap')).to be(true)
       expect(@driver.page_source.include?('Meedan on Facebook')).to be(true)
@@ -1081,8 +1112,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el.click
       el.send_keys "video"
       @driver.action.send_keys(:enter).perform
-      sleep 3 #due the reload
-      wait_for_selector("search-input", :id)
+      sleep 3  #due the load
+      wait_for_selector("//h3[contains(text(), '1 result')]",:xpath)
       current = wait_for_selector_list("medias__item", :class).length
       expect(old > current).to be(true)
       expect(current > 0).to be(true)
@@ -1094,8 +1125,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el.click
       el.send_keys "meedan"
       @driver.action.send_keys(:enter).perform
-      sleep 3 #due the reload
-      wait_for_selector("search-input", :id)
+      sleep 3  #due the load
+      wait_for_selector("//h3[contains(text(), '1 result')]",:xpath)
       current = wait_for_selector_list("medias__item", :class).length
       expect(old > current).to be(true)
       expect(current > 0).to be(true)
@@ -1103,34 +1134,43 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('weekly @Twitter video recap')).to be(false)
     end
 
-    it "should find medias when searching by status", bin: true, bin2: true do
+    it "should find medias when searching by status", bin2: true do
       api_create_media_and_go_to_search_page
+      sleep 3 #waiting load
+      wait_for_selector("//h3[contains(text(), '1 result')]",:xpath)
       old = wait_for_selector_list("medias__item", :class).length
       el = wait_for_selector("//div[contains(text(), 'False')]",:xpath)
       el.click
       sleep 3 #due the reload
-      wait_for_selector("search-input", :id)
+      wait_for_selector("//h3[contains(text(), 'No results')]",:xpath)
       current = wait_for_selector_list("medias__item", :class).length
       expect(old > current).to be(true)
-      expect(current == 0).to be(true)
-      
+      expect(current == 0).to be(true)     
       old = wait_for_selector_list("medias__item", :class).length
       el = wait_for_selector("//div[contains(text(), 'Unstarted')]",:xpath)
       el.click
       sleep 3 #due the reload
+      wait_for_selector("//h3[contains(text(), '1 result')]",:xpath)
       wait_for_selector("search-input", :id)
       current = wait_for_selector_list("medias__item", :class).length
       expect(old < current).to be(true)
       expect(current == 1).to be(true)
     end
 
-    # it "should find medias when searching by tag" do
-    #   skip("Needs to be implemented")
-    # end
-
-    # it "should move media to another project" do
-    #   skip("Needs to be implemented")
-    # end
+    it "should move media to another project", bin2: true do
+      data = api_create_team_and_project  
+      prj2 = api_create_project(data[:team].dbid.to_s)
+      p1 =  data[:project].team["projects"]["edges"][0]["node"]["title"]
+      p2 = prj2.team["projects"]["edges"][1]["node"]["title"]
+      media = api_create_media(data: data, url: "https://www.facebook.com/permalink.php?story_fbid=10155901893214439&id=54421674438")
+      @driver.navigate.to media.full_url
+      url1 = media.full_url
+      wait_for_selector('cmd-input', :id)
+      n1 =  wait_for_selector_list("//h3[contains(text(), '#{p1}')]",:xpath).length
+      n2 = wait_for_selector_list("//h3[contains(text(), '#{p2}')]",:xpath).length
+      expect(n1 == 1).to be(true) #At 1st project
+      expect(n2 == 0).to be(true)
+    end
 
     it "should add, edit, answer, update answer and delete short answer task", bin3: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
@@ -1748,9 +1788,61 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Comment deleted by')).to be(true)
     end
 
+    it "should upload image when registering", bin3: true do
+      email, password, avatar = ["test-#{Time.now.to_i}@example.com", '12345678', File.join(File.dirname(__FILE__), 'test.png')]
+      page = LoginPage.new(config: @config, driver: @driver).load
+             .register_and_login_with_email(email: email, password: password, file: avatar)
+      me_page = MePage.new(config: @config, driver: page.driver).load
+      sleep 2 #for load
+      wait_for_selector('.team__edit-button')
+      script = "return window.getComputedStyle(document.getElementsByClassName('source__avatar')[0]).getPropertyValue('background-image')"
+      avatar = @driver.execute_script(script)
+      expect(avatar.include?('test.png')).to be(true)
+    end
+
+
     # Postponed due Alexandre's developement
     # it "should add and remove suggested tags" do
     #   skip("Needs to be implemented")
     # end
+=begin
+
+    ## Search by tag not working in QA
+
+    it "should find medias when searching by tag" do
+      data = api_create_team_and_project
+      source = api_create_media(data: data, url: "https://www.facebook.com/permalink.php?story_fbid=10155901893214439&id=54421674438")
+      #data = api_create_team_project_and_source_and_redirect_to_source('ACDC', 'https://twitter.com/acdc')
+      @driver.navigate.to source.full_url
+      wait_for_selector('cmd-input', :id)
+      wait_for_selector('add-annotation__insert-photo', :class)
+      fill_field('#cmd-input', '/tag tagtag')
+      @driver.action.send_keys(:enter).perform
+      sleep 5
+      wait_for_size_change(0,'annotations__list-item', :class)
+
+      media = api_create_media(data: data, url: "https://twitter.com/TwitterVideo/status/931930009450795009")
+      @driver.navigate.to media.full_url
+      @driver.navigate.to @config['self_url'] + '/' + get_team + '/search'
+      wait_for_selector(".search__results")
+      old = wait_for_selector_list("medias__item", :class).length
+      expect(@driver.page_source.include?('weekly @Twitter video recap')).to be(true)
+      expect(@driver.page_source.include?('Meedan on Facebook')).to be(true)
+
+      el = wait_for_selector("search-input", :id)
+      el.clear
+      el.click
+      el.send_keys "tagtag"
+      @driver.action.send_keys(:enter).perform
+      sleep 3 #due the reload
+      wait_for_selector("search-input", :id)
+      current = wait_for_selector_list("medias__item", :class).length
+      expect(old > current).to be(true)
+      expect(current > 0).to be(true)
+      expect(@driver.page_source.include?('Meedan on Facebook')).to be(true)
+      expect(@driver.page_source.include?('weekly @Twitter video recap')).to be(false)
+    end
+=end
+
   end
 end

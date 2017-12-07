@@ -82,6 +82,7 @@ const SourceContainer = Relay.createContainer(SourceComponent, {
                   url,
                   provider,
                   user {
+                    dbid,
                     name,
                     email,
                     source {
@@ -109,6 +110,7 @@ const SourceContainer = Relay.createContainer(SourceComponent, {
                 url,
                 provider,
                 user {
+                  dbid,
                   name,
                   email,
                   source {
@@ -266,6 +268,7 @@ const SourceContainer = Relay.createContainer(SourceComponent, {
                   thumbnail_path
                 }
                 user {
+                  dbid,
                   name,
                   email,
                   source {
@@ -355,6 +358,7 @@ const SourceContainer = Relay.createContainer(SourceComponent, {
                         }
                       }
                       user {
+                        dbid,
                         name,
                         profile_image,
                         email,

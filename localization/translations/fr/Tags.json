@@ -1,4 +1,4 @@
 {
-  "tags.error": "Désolé, il n'a pas été possible de rajouter ce tag",
-  "tags.addNewTag": "Rajouter un nouveau tag"
+  "tags.addTagHelper": "Ajouter un nouveau tag ou en choisir un existant",
+  "tags.error": "Désolé, il n'a pas été possible de rajouter ce tag"
 }

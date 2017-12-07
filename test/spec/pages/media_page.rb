@@ -16,6 +16,14 @@ class MediaPage < Page
     @driver.find_element(:css, toggle_button_selector).click
     sleep 2
   end
+  
+  def set_description(string)
+    edit
+    fill_input('.media-detail__description-input > input', string, {clear: true})
+    click('.media-detail__save-edits') # Done
+    sleep 2 #reload
+    wait_for_selector("//div[contains(text(), '#{string}')]", :xpath)
+  end
 
   def set_title(string)
     edit
