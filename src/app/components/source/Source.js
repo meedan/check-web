@@ -247,7 +247,7 @@ class Source extends Component {
 
   getMetadataFields() {
     if (!this.isProjectSource()) {
-      return {};
+      return null;
     }
 
     const annotation = this.getMetadataAnnotation();
@@ -822,20 +822,18 @@ class Source extends Component {
     case 'location':
       return this.props.intl.formatMessage(messages.location);
     default:
-      return '';
+      return null;
     }
   }
 
   renderAccountsEdit() {
     if (!this.isProjectSource()) {
-      return '';
+      return null;
     }
 
     const source = this.getSource();
     const links = this.state.links ? this.state.links.slice(0) : [];
-    const deleteLinks = this.state.deleteLinks
-      ? this.state.deleteLinks.slice(0)
-      : [];
+    const deleteLinks = this.state.deleteLinks ? this.state.deleteLinks.slice(0) : [];
     const showAccounts = source.account_sources.edges.filter(
       as => deleteLinks.indexOf(as.node.id) < 0,
     );
@@ -895,7 +893,7 @@ class Source extends Component {
 
   renderMetadataView() {
     if (!this.isProjectSource()) {
-      return '';
+      return null;
     }
 
     const metadata = this.getMetadataFields();
@@ -931,8 +929,7 @@ class Source extends Component {
         </StyledMetadata>
       );
     }
-
-    return '';
+    return null;
   }
 
   renderMetadataEdit() {
@@ -943,27 +940,23 @@ class Source extends Component {
     const metadata = this.state.metadata || this.getMetadataFields();
 
     const handleChangeField = (type, e) => {
-      const m = this.state.metadata || this.getMetadataFields();
-      m[type] = e.target.value;
-      this.setState({ m });
+      metadata[type] = e.target.value;
+      this.setState({ metadata });
     };
 
     const handleRemoveField = (type) => {
-      const m = this.state.metadata || this.getMetadataFields();
-      delete m[type];
-      this.setState({ m });
+      delete metadata[type];
+      this.setState({ metadata });
     };
 
     const handleChangeCustomField = (index, e) => {
-      const m = this.state.metadata || this.getMetadataFields();
-      m.other[index].value = e.target.value;
-      this.setState({ m });
+      metadata.other[index].value = e.target.value;
+      this.setState({ metadata });
     };
 
     const handleRemoveCustomField = (index) => {
-      const m = this.state.metadata || this.getMetadataFields();
-      m.other.splice(index, 1);
-      this.setState({ m });
+      metadata.other.splice(index, 1);
+      this.setState({ metadata });
     };
 
     const renderMetadataFieldEdit = type =>
@@ -1024,7 +1017,6 @@ class Source extends Component {
         </div>
       );
     }
-
     return null;
   }
 
