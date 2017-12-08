@@ -1,7 +1,6 @@
 module AppSpecHelpers
-  def get_element(selector, type = :css)
-    sleep 3
-    wait = Selenium::WebDriver::Wait.new(timeout: 5)
+  def get_element(selector, type = :css, timeout = 40)
+    wait = Selenium::WebDriver::Wait.new(timeout: timeout)
     return wait.until {
       element = @driver.find_element(type, selector)
       element if element.displayed?
