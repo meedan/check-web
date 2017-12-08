@@ -493,34 +493,24 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Location 123')).to be(false)
       expect(@driver.page_source.include?('ORGANIZATION')).to be(false)
       expect(@driver.page_source.include?('989898989')).to be(false)
-      el = wait_for_selector('.source__edit-button')
-      el.click
+      wait_for_selector('.source__edit-button').click
       sleep 1
-      el = wait_for_selector('.source__edit-addinfo-button')
-      el.click
+      wait_for_selector('.source__edit-addinfo-button').click
       sleep 1
-      el = wait_for_selector('.source__add-phone')
-      el.click
+      wait_for_selector('.source__add-phone').click
       fill_field('.source__metadata-phone-input input[type="text"]', '989898989')
+      wait_for_selector('.source__edit-addinfo-button').click
       sleep 1
-      @driver.find_element(:class, 'source__edit-addinfo-button').click
-      sleep 1
-      el = wait_for_selector('.source__add-organization')
-      el.click
+      wait_for_selector('.source__add-organization').click
       fill_field('.source__metadata-organization-input input[type="text"]', 'ORGANIZATION')
-      el = wait_for_selector('.source__edit-addinfo-button')
-      el.click
+      wait_for_selector('.source__edit-addinfo-button').click
       sleep 1
-      el = wait_for_selector('.source__add-location')
-      el.click
+      wait_for_selector('.source__add-location').click
       fill_field('.source__metadata-location-input input[type="text"]', 'Location 123')
       sleep 1
-      #source__add-other
-      el = wait_for_selector('.source__edit-addinfo-button')
-      el.click
+      wait_for_selector('.source__edit-addinfo-button').click
       sleep 1
-      el = wait_for_selector('.source__add-other')
-      el.click
+      wait_for_selector('.source__add-other').click
       sleep 1
       fill_field('source__other-label-input', 'label', :id)
       fill_field('source__other-value-input', 'value', :id)
@@ -528,14 +518,22 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       @driver.action.send_keys("\t").perform
       @driver.action.send_keys("\n").perform
       sleep 2
-      el = wait_for_selector('.source__edit-save-button')
-      el.click
+      wait_for_selector('.source__edit-save-button').click
       sleep 5 #reload
       wait_for_selector('.source__edit-button')
       expect(@driver.page_source.include?('label: value')).to be(true)
       expect(@driver.page_source.include?('Location 123')).to be(true)
       expect(@driver.page_source.include?('ORGANIZATION')).to be(true)
       expect(@driver.page_source.include?('989898989')).to be(true)
+
+      # Now try to edit
+      wait_for_selector('.source__edit-button').click
+      sleep 1
+      fill_field('.source__metadata-phone-input input[type="text"]', '121212121')
+      wait_for_selector('.source__edit-save-button').click
+      sleep 5 #reload
+      wait_for_selector('.source__edit-button')
+      expect(@driver.page_source.include?('121212121')).to be(true)
     end
 
     it "should add and remove source tags", bin6: true do
