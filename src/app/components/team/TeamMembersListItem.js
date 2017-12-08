@@ -154,6 +154,7 @@ class TeamMembersListItem extends Component {
                 {isEditing && teamUser.node.status !== 'banned'
                   ?
                     <IconButton
+                      className="team-members__delete-member"
                       focusRippleColor={checkBlue}
                       touchRippleColor={checkBlue}
                       style={{ fontSize: '20px' }}
