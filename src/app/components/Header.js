@@ -102,6 +102,7 @@ class HeaderComponent extends Component {
           <Link to="/">
             <RaisedButton
               primary
+              className="header__signin-button"
               label={<FormattedMessage defaultMessage="Sign In" id="headerActions.signIn" />}
             />
           </Link>
@@ -113,7 +114,8 @@ class HeaderComponent extends Component {
     const { currentUser } = this.getContext();
 
     const yourProfileButton = (
-      <IconMenu
+      loggedIn && <IconMenu
+        className="header__user-menu"
         iconButtonElement={
           <IconButton
             style={styles.headerYourProfileButton}
@@ -125,7 +127,13 @@ class HeaderComponent extends Component {
         >
         <MenuItem
           containerElement={<Link to={`/check/me`} />}
-          >{currentUser.name}
+          >
+          {currentUser && currentUser.name}
+        </MenuItem>
+        <MenuItem
+          containerElement={<Link to={`/check/me`} />}
+          >
+          <FormattedMessage id="header.Profile" defaultMessage="Profile" />
         </MenuItem>
         <UserMenuItems {...this.props} />
       </IconMenu>
