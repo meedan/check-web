@@ -5,15 +5,21 @@ import Relay from 'react-relay';
 import IconSearch from 'material-ui/svg-icons/action/search';
 import { FormattedMessage } from 'react-intl';
 import RaisedButton from 'material-ui/RaisedButton';
+import IconButton from 'material-ui/IconButton';
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
 import rtlDetect from 'rtl-detect';
+import UserMenuItems from './UserMenuItems';
 import TeamHeader from './team/TeamHeader';
 import TeamPublicHeader from './team/TeamPublicHeader';
 import ProjectHeader from './project/ProjectHeader';
+import CheckContext from '../CheckContext';
 import { stringHelper } from '../customHelpers';
 import PublicTeamRoute from '../relay/PublicTeamRoute';
 import teamPublicFragment from '../relay/teamPublicFragment';
 import ProjectMenuRelay from '../relay/ProjectMenuRelay';
 import TeamMenuRelay from '../relay/TeamMenuRelay';
+import UserAvatarRelay from '../relay/UserAvatarRelay';
 
 import {
   units,
@@ -42,7 +48,24 @@ const HeaderBar = styled.div`
   `}
 `;
 
+const styles = {
+  headerYourProfileButton: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: units(4),
+    height: units(4),
+    padding: 0,
+    margin: `0 ${units(1)}`,
+  },
+};
+
 class HeaderComponent extends Component {
+  getContext() {
+    const context = new CheckContext(this).getContextStore();
+    return context;
+  }
+
   render() {
     const locale = this.props.intl.locale;
     const { inTeamContext, loggedIn, drawerToggle, currentUserIsMember } = this.props;
@@ -87,6 +110,27 @@ class HeaderComponent extends Component {
       return null;
     })();
 
+    const { currentUser } = this.getContext();
+
+    const yourProfileButton = (
+      <IconMenu
+        iconButtonElement={
+          <IconButton
+            style={styles.headerYourProfileButton}
+            >
+            <UserAvatarRelay size={units(4)} {...this.props} />
+          </IconButton>
+        }
+        anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
+        >
+        <MenuItem
+          containerElement={<Link to={`/check/me`} />}
+          >{currentUser.name}
+        </MenuItem>
+        <UserMenuItems {...this.props} />
+      </IconMenu>
+    );
+
     const teamPrivateContentShouldShow =
       (inTeamContext && currentUserIsMember) || (inTeamContext && !this.props.team.private);
 
@@ -126,6 +170,7 @@ class HeaderComponent extends Component {
           {teamPrivateContentShouldShow && editProjectMenuItem}
           {teamPrivateContentShouldShow && trashButton}
           {teamPrivateContentShouldShow && searchButton}
+          {yourProfileButton}
         </Row>
       </AlignOpposite>)();
 
@@ -163,6 +208,10 @@ class Header extends Component {
     return <HeaderComponent {...this.props} />;
   }
 }
+
+HeaderComponent.contextTypes = {
+  store: React.PropTypes.object,
+};
 
 export default Header;
 export { HeaderComponent };

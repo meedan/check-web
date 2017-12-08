@@ -30,11 +30,6 @@ class DrawerNavigation extends Component {
     return history;
   }
 
-  handleAvatarClick = () => {
-    this.getHistory().push('/check/me');
-    this.props.drawerToggle();
-  }
-
   render() {
     const { inTeamContext, loggedIn, drawerToggle } = this.props;
 
@@ -69,15 +64,6 @@ class DrawerNavigation extends Component {
         display: 'flex',
         flexDirection: 'column',
         height: `calc(100vh - ${drawerHeaderHeight})`,
-      },
-      drawerYourProfileButton: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: units(4),
-        height: units(4),
-        padding: 0,
-        margin: `0 ${units(1)}`,
       },
     };
 
@@ -161,19 +147,6 @@ class DrawerNavigation extends Component {
       </a>
     );
 
-    const yourProfileButton = (
-      <IconButton
-        style={styles.drawerYourProfileButton}
-        tooltip={
-          <FormattedMessage id="drawerNavigation.userProfile" defaultMessage="Your Profile" />
-        }
-        tooltipPosition="bottom-center"
-        onTouchTap={this.handleAvatarClick}
-      >
-        <UserAvatarRelay size={units(4)} {...this.props} />
-      </IconButton>
-    );
-
     const checkLogo = <img width={units(8)} alt="Team Logo" src={stringHelper('LOGO_URL')} />;
 
     return (
@@ -189,9 +162,6 @@ class DrawerNavigation extends Component {
                     size={units(7)}
                   />
                 </Link>
-                <Offset>
-                  {loggedIn && yourProfileButton}
-                </Offset>
               </Row>
 
               <Link className="team-header__drawer-team-link" to={`/${this.props.team.slug}/`}>
@@ -201,7 +171,7 @@ class DrawerNavigation extends Component {
             : <DrawerHeader>
               <Row style={{ alignItems: 'flex-start', justifyContent: 'space-between' }}>
                 <Offset>
-                  {loggedIn ? yourProfileButton : checkLogo}
+                  {loggedIn && checkLogo}
                 </Offset>
               </Row>
             </DrawerHeader>}
