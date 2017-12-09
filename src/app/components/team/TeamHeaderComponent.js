@@ -54,25 +54,6 @@ class TeamHeaderComponent extends Component {
       height: ${avatarSize};
     `;
 
-    const userAvatarOrMenuButton = (() => {
-      if (!loggedIn || !team) {
-        return (
-          <OffsetBothSides>
-            <IconMenu />
-          </OffsetBothSides>
-        );
-      }
-      return (
-        <HiddenOnMobile>
-          <OffsetBothSides>
-            <Row>
-              <UserAvatarRelay {...this.props} />
-            </Row>
-          </OffsetBothSides>
-        </HiddenOnMobile>
-      );
-    })();
-
     return (
       <div>
         <DrawerButtonGroup
@@ -80,15 +61,14 @@ class TeamHeaderComponent extends Component {
           className="header-actions__drawer-toggle"
           onClick={this.props.drawerToggle}
         >
-          {userAvatarOrMenuButton}
           {isProjectUrl
-            ? <Offset isRtl={isRtl}>
+            ? <OffsetBothSides>
               <TeamAvatar />
-            </Offset>
+            </OffsetBothSides>
             : <Row>
-              <Offset isRtl={isRtl}>
+              <OffsetBothSides>
                 <TeamAvatar />
-              </Offset>
+              </OffsetBothSides>
               <Offset isRtl={isRtl}>
                 <HeaderTitle>
                   {team.name}
