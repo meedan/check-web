@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import DocumentTitle from 'react-document-title';
 import { defineMessages, injectIntl } from 'react-intl';
 import { mapGlobalMessage } from './MappedMessage';
-import config from 'config';
 
 class PageTitle extends Component {
   render() {

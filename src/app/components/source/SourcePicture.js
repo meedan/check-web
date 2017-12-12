@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import config from 'config';
 import Relay from 'react-relay';
 import styled from 'styled-components';
+import config from 'config'; // eslint-disable-line require-path-exists/exists
 import UpdateSourceMutation from '../../relay/mutations/UpdateSourceMutation';
 import UpdateAccountMutation from '../../relay/mutations/UpdateAccountMutation';
 import {

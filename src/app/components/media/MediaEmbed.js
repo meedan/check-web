@@ -4,8 +4,8 @@ import Popover from 'material-ui/Popover';
 import Checkbox from 'material-ui/Checkbox';
 import FlatButton from 'material-ui/FlatButton';
 import CopyToClipboard from 'react-copy-to-clipboard';
-import config from 'config';
 import styled from 'styled-components';
+import config from 'config'; // eslint-disable-line require-path-exists/exists
 import PageTitle from '../PageTitle';
 import PenderCard from '../PenderCard';
 import { FlexRow, ContentColumn, units, black87, black54, alertRed } from '../../styles/js/shared';

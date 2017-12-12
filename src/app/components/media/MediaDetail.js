@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { injectIntl, intlShape } from 'react-intl';
 import { Link } from 'react-router';
-import config from 'config';
 import { Card, CardHeader, CardText, CardActions } from 'material-ui/Card';
 import styled from 'styled-components';
 import MdFormatQuote from 'react-icons/lib/md/format-quote';
 import FaFeed from 'react-icons/lib/fa/feed';
 import IconInsertPhoto from 'material-ui/svg-icons/editor/insert-photo';
 import rtlDetect from 'rtl-detect';
+import config from 'config'; // eslint-disable-line require-path-exists/exists
 import TimeBefore from '../TimeBefore';
 import MediaStatus from './MediaStatus';
 import QuoteMediaCard from './QuoteMediaCard';

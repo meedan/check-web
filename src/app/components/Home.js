@@ -5,8 +5,8 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import rtlDetect from 'rtl-detect';
 import merge from 'lodash.merge';
-import config from 'config';
 import styled, { injectGlobal } from 'styled-components';
+import config from 'config'; // eslint-disable-line require-path-exists/exists
 import Header from './Header';
 import LoginContainer from './LoginContainer';
 import BrowserSupport from './BrowserSupport';

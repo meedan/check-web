@@ -5,7 +5,7 @@ import FaTwitter from 'react-icons/lib/fa/twitter';
 import FaYoutubePlay from 'react-icons/lib/fa/youtube-play';
 import MdLink from 'react-icons/lib/md/link';
 import { defineMessages } from 'react-intl';
-import config from 'config';
+import config from 'config'; // eslint-disable-line require-path-exists/exists
 import { truncateLength } from '../../helpers';
 
 const messages = defineMessages({

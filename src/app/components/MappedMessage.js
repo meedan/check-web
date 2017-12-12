@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { formatHTMLMessage, injectIntl } from 'react-intl';
+import config from 'config'; // eslint-disable-line require-path-exists/exists
 import globalStrings from '../globalStrings';
-import config from 'config';
 
 function mapMessage(intl, msgObj, msgKey, values) {
   const appPrefix = config.appName === 'bridge' ? 'bridge_' : '';

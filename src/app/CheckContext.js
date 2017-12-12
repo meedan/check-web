@@ -1,50 +1,46 @@
 import Relay from 'react-relay';
+import config from 'config'; // eslint-disable-line require-path-exists/exists
 import { SET_CONTEXT } from './redux/ActionTypes';
 import { request } from './redux/actions';
 import CheckNetworkLayer from './CheckNetworkLayer';
-import config from 'config';
 
-// Verify if user is logged in, if so, start a session and set the context based on session information
+// Verify if user is logged in, if so, start a session
+// and set the context based on session information
 
 class CheckContext {
   constructor(caller) {
     this.caller = caller;
   }
 
-  getContextStore(store) {
-    if (!store) {
-      store = this.caller.context.store;
-    }
+  getContextStore(store_) {
+    const store = store_ || this.caller.context.store;
     return store.getState().app.context || {};
   }
 
-  setContextStore(data, store) {
-    if (!store) {
-      store = this.caller.context.store;
-    }
+  setContextStore(data, store_) {
+    const store = store_ || this.caller.context.store;
     const newContext = Object.assign({}, this.getContextStore(store));
     newContext.type = SET_CONTEXT;
-    for (const key in data) {
+    Object.getOwnPropertyNames(data).forEach((key) => {
       const value = data[key];
       if (value === null) {
         delete newContext[key];
       } else {
         newContext[key] = value;
       }
-    }
+    });
     store.dispatch(newContext);
   }
 
   startNetwork(token) {
-    const that = this;
     const context = this.getContextStore();
     const history = context.history;
-    const clientSessionId = context.clientSessionId || (`browser-${Date.now()}${parseInt(Math.random() * 1000000)}`);
+    const clientSessionId = context.clientSessionId || (`browser-${Date.now()}${parseInt(Math.random() * 1000000, 10)}`);
     this.setContextStore({ clientSessionId });
     Relay.injectNetworkLayer(new CheckNetworkLayer(config.relayPath, {
       history,
       team: () => {
-        const team = that.getContextStore().team;
+        const team = this.getContextStore().team;
         if (team) {
           return team.slug;
         }
@@ -63,29 +59,27 @@ class CheckContext {
 
   startSession() {
     const caller = this.caller;
-    const state = caller.state;
-    const that = this;
 
     // Failed login
-    const failureCallback = function (errorMessage) {
+    const failureCallback = (errorMessage) => {
       caller.setState({ message: errorMessage, error: true, sessionStarted: true });
     };
 
     // Successful login
-    const successCallback = function (userData) {
+    const successCallback = (userData) => {
       const newState = { sessionStarted: true };
 
       if (userData) {
         newState.token = userData.token;
-        that.startNetwork(userData.token);
+        this.startNetwork(userData.token);
       } else {
         newState.error = true;
       }
 
-      that.setContextStore({ currentUser: userData });
+      this.setContextStore({ currentUser: userData });
 
-      that.maybeRedirect(caller.props.location.pathname, userData);
-      that.setContext();
+      this.maybeRedirect(caller.props.location.pathname, userData);
+      this.setContext();
 
       caller.setState(newState);
     };
@@ -94,11 +88,11 @@ class CheckContext {
   }
 
   getTeamSlug() {
-    let slug = null;
-    if (this.caller.props.params && this.caller.props.params.team) {
-      slug = this.caller.props.params.team;
+    try {
+      return this.caller.props.params.team;
+    } catch (e) {
+      return null;
     }
-    return slug;
   }
 
   // Get context team and project from URL
@@ -107,11 +101,11 @@ class CheckContext {
       const slug = this.getTeamSlug();
       const newContext = {};
       const currentContext = this.getContextStore();
-      if (slug != null && (!currentContext.team || currentContext.team.slug != slug)) {
+      if (slug && (!currentContext.team || currentContext.team.slug !== slug)) {
         newContext.team = { slug };
       }
       if (this.caller.props.params.projectId && !currentContext.project) {
-        newContext.project = { dbid: parseInt(this.caller.props.params.projectId) };
+        newContext.project = { dbid: parseInt(this.caller.props.params.projectId, 10) };
       }
       this.setContextStore(newContext);
     }
@@ -142,7 +136,8 @@ class CheckContext {
 
     const userCurrentTeam = userData.current_team;
     if (!userCurrentTeam) {
-      return this.getContextStore().history.push('/check/teams/new');
+      this.getContextStore().history.push('/check/teams/new');
+      return;
     }
     const project = userCurrentTeam.projects[0];
     if (project && project.dbid) {

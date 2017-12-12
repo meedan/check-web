@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { FormattedHTMLMessage, FormattedMessage, injectIntl } from 'react-intl';
 import Favicon from 'react-favicon';
-import config from 'config';
+import config from 'config'; // eslint-disable-line require-path-exists/exists
 import { mapGlobalMessage } from './MappedMessage';
 import Message from './Message';
 import FooterRelay from '../relay/containers/FooterRelay';

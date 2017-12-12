@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import config from 'config';
+import config from 'config'; // eslint-disable-line require-path-exists/exists
 import MediaComponent from './MediaComponent';
 import Can from '../Can';
 import Translation from '../translation/Translation';

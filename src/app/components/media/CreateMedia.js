@@ -13,7 +13,6 @@ import IconLink from 'material-ui/svg-icons/content/link';
 import FaFeed from 'react-icons/lib/fa/feed';
 import MdFormatQuote from 'react-icons/lib/md/format-quote';
 import styled from 'styled-components';
-import config from 'config';
 import urlRegex from 'url-regex';
 import UploadImage from '../UploadImage';
 import PenderCard from '../PenderCard';

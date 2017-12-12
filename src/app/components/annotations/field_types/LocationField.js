@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import config from 'config';
+import config from 'config'; // eslint-disable-line require-path-exists/exists
 
 // You need a Google Maps Static API key... get one at https://console.developers.google.com
 // and add to config.js with key "googleStaticMapsKey"

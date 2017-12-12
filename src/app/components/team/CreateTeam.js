@@ -11,7 +11,7 @@ import {
   injectIntl,
   intlShape,
 } from 'react-intl';
-import config from 'config';
+import config from 'config'; // eslint-disable-line require-path-exists/exists
 import PageTitle from '../PageTitle';
 import CreateTeamMutation from '../../relay/mutations/CreateTeamMutation';
 import Message from '../Message';

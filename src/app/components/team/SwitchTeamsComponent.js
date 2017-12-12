@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages, intlShape, injectIntl } from 'react-intl';
 import KeyboardArrowRight from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
-import config from 'config';
 import { Link } from 'react-router';
 import { Card, CardActions, CardText, CardHeader } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';

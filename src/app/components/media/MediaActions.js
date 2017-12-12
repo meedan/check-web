@@ -5,8 +5,8 @@ import IconButton from 'material-ui/IconButton';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import styled from 'styled-components';
-import config from 'config';
 import rtlDetect from 'rtl-detect';
+import config from 'config'; // eslint-disable-line require-path-exists/exists
 import { can } from '../Can';
 import CheckContext from '../../CheckContext';
 

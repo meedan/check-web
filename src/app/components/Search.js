@@ -4,9 +4,9 @@ import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-i
 import InfiniteScroll from 'react-infinite-scroller';
 import isEqual from 'lodash.isequal';
 import sortby from 'lodash.sortby';
-import config from 'config';
 import styled from 'styled-components';
 import rtlDetect from 'rtl-detect';
+import config from 'config'; // eslint-disable-line require-path-exists/exists
 import { bemClass } from '../helpers';
 import { teamStatuses } from '../customHelpers';
 import PageTitle from './PageTitle';

@@ -1,9 +1,8 @@
-import config from 'config';
 import truncate from 'lodash.truncate';
 import rtlDetect from 'rtl-detect';
 
 // Functionally-pure sort: keeps the given array unchanged and returns sorted one.
-Array.prototype.sortp = function (fn) {
+Array.prototype.sortp = function sortp(fn) {
   return [].concat(this).sort(fn);
 };
 
@@ -17,6 +16,14 @@ function bemClassFromMediaStatus(baseClass, mediaStatus) {
     (mediaStatus && mediaStatus.length),
     `--${mediaStatus.toLowerCase().replace(/[ _]/g, '-')}`,
   );
+}
+
+function safelyParseJSON(jsonString) {
+  try {
+    return JSON.parse(jsonString);
+  } catch (e) {
+    return null;
+  }
 }
 
 function getStatus(statusesJson, id) {
@@ -36,12 +43,6 @@ function getStatusStyle(status, property) {
     style = status.style[property];
   }
   return style;
-}
-
-function safelyParseJSON(jsonString) {
-  try {
-    return JSON.parse(jsonString);
-  } catch (e) {}
 }
 
 function truncateLength(text, length = 70) {
@@ -64,12 +65,14 @@ function notify(title, body, url, icon, name) {
     Notification.requestPermission();
   } else {
     const notification = new Notification(title, { icon, body });
-    notification.onclick = function () {
+    notification.onclick = () => {
       window.open(url, name);
       window.focus();
       notification.close();
     };
   }
+
+  return true;
 }
 
 // Convert human-readable file size to bytes
@@ -78,13 +81,15 @@ function unhumanizeSize(text) {
   const powers = { k: 1, m: 2, g: 3, t: 4 };
   const regex = /(\d+(?:\.\d+)?)\s?(k|m|g|t)?b?/i;
   const res = regex.exec(text);
-  return res[1] * Math.pow(1024, powers[res[2].toLowerCase()]);
+  return res[1] * (1024 ** powers[res[2].toLowerCase()]);
 }
 
 // Convert Arabic/Persian numbers to English
 // https://codereview.stackexchange.com/questions/166750/convert-persian-and-arabic-digits-to-english
 function convertNumbers2English(string) {
-  return string.replace(/[\u0660-\u0669]/g, c => c.charCodeAt(0) - 0x0660).replace(/[\u06f0-\u06f9]/g, c => c.charCodeAt(0) - 0x06f0);
+  return string
+    .replace(/[\u0660-\u0669]/g, c => c.charCodeAt(0) - 0x0660)
+    .replace(/[\u06f0-\u06f9]/g, c => c.charCodeAt(0) - 0x06f0);
 }
 
 // Encode SVG for use as CSS background

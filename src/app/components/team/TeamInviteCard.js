@@ -6,8 +6,8 @@ import { Card, CardText } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import MdPaste from 'react-icons/lib/md/content-paste';
 import MdDone from 'react-icons/lib/md/done';
-import config from 'config';
 import rtlDetect from 'rtl-detect';
+import config from 'config'; // eslint-disable-line require-path-exists/exists
 import { encodeSvgDataUri } from '../../helpers';
 
 import {

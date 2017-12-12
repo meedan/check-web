@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Dialog from 'material-ui/Dialog';
 import { Map, Marker, TileLayer } from 'react-leaflet';
 import styled from 'styled-components';
-import config from 'config';
+import config from 'config'; // eslint-disable-line require-path-exists/exists
 import { units, black05, black38, FlexRow } from '../../styles/js/shared';
 
 const StyledMap = styled.div`
