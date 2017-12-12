@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { injectIntl } from 'react-intl';
 import IconMenu from 'material-ui/svg-icons/navigation/menu';
-import UserAvatarRelay from '../../relay/UserAvatarRelay';
+import UserAvatarRelay from '../../relay/containers/UserAvatarRelay';
 import CheckContext from '../../CheckContext';
 import {
   Row,

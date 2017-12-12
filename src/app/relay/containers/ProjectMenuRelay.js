@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay';
 import IconEdit from 'material-ui/svg-icons/image/edit';
-import ProjectRoute from './ProjectRoute';
-import Can from '../components/Can';
-import CheckContext from '../CheckContext';
-import { SmallerStyledIconButton } from '../styles/js/shared';
+import ProjectRoute from '../ProjectRoute';
+import Can from '../../components/Can';
+import CheckContext from '../../CheckContext';
+import { SmallerStyledIconButton } from '../../styles/js/shared';
 
 class ProjectMenu extends Component {
   handleEditClick() {
@@ -65,14 +65,12 @@ const ProjectMenuContainer = Relay.createContainer(ProjectMenu, {
   },
 });
 
-class ProjectMenuRelay extends Component {
-  render() {
-    if (this.props.params && this.props.params.projectId) {
-      const route = new ProjectRoute({ contextId: this.props.params.projectId });
-      return <Relay.RootContainer Component={ProjectMenuContainer} route={route} />;
-    }
-    return null;
+const ProjectMenuRelay = (props) => {
+  if (props.params && props.params.projectId) {
+    const route = new ProjectRoute({ contextId: props.params.projectId });
+    return <Relay.RootContainer Component={ProjectMenuContainer} route={route} />;
   }
-}
+  return null;
+};
 
 export default ProjectMenuRelay;

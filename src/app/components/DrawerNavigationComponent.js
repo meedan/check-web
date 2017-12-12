@@ -8,7 +8,7 @@ import styled from 'styled-components';
 import Projects from './drawer/Projects';
 import { stringHelper } from '../customHelpers';
 import UserMenuItems from './UserMenuItems';
-import UserAvatarRelay from '../relay/UserAvatarRelay';
+import UserAvatarRelay from '../relay/containers/UserAvatarRelay';
 import CheckContext from '../CheckContext';
 import {
   Row,

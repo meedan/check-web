@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay';
-import TeamRoute from './TeamRoute';
-import TeamMenu from '../components/team/TeamMenu';
+import TeamRoute from '../TeamRoute';
+import TeamMenu from '../../components/team/TeamMenu';
 
 const TeamMenuContainer = Relay.createContainer(TeamMenu, {
   fragments: {

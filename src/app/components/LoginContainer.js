@@ -4,7 +4,7 @@ import Favicon from 'react-favicon';
 import config from 'config';
 import { mapGlobalMessage } from './MappedMessage';
 import Message from './Message';
-import FooterRelay from '../relay/FooterRelay';
+import FooterRelay from '../relay/containers/FooterRelay';
 import Login from './Login';
 import { stringHelper } from '../customHelpers';
 import PageTitle from './PageTitle';

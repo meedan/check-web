@@ -17,9 +17,9 @@ import CheckContext from '../CheckContext';
 import { stringHelper } from '../customHelpers';
 import PublicTeamRoute from '../relay/PublicTeamRoute';
 import teamPublicFragment from '../relay/teamPublicFragment';
-import ProjectMenuRelay from '../relay/ProjectMenuRelay';
-import TeamMenuRelay from '../relay/TeamMenuRelay';
-import UserAvatarRelay from '../relay/UserAvatarRelay';
+import ProjectMenuRelay from '../relay/containers/ProjectMenuRelay';
+import TeamMenuRelay from '../relay/containers/TeamMenuRelay';
+import UserAvatarRelay from '../relay/containers/UserAvatarRelay';
 
 import {
   units,
