@@ -13,14 +13,14 @@ class AttributionComponent extends React.Component {
   constructor(props) {
     super(props);
 
-    let selectedUsers = [];
-    let selectedUserIds = [];
+    const selectedUsers = [];
+    const selectedUserIds = [];
     props.task.first_response.attribution.edges.forEach((user) => {
       selectedUserIds.push(user.node.dbid);
       selectedUsers.push({ value: user.node.dbid, label: user.node.name });
     });
 
-    let unselectedUsers = [];
+    const unselectedUsers = [];
     props.team.team_users.edges.forEach((team_user) => {
       const node = team_user.node;
       if (node.status === 'member') {
@@ -37,8 +37,8 @@ class AttributionComponent extends React.Component {
   }
 
   handleChange(value) {
-    let selectedUsers = this.state.selectedUsers.slice(0);
-    let unselectedUsers = [];
+    const selectedUsers = this.state.selectedUsers.slice(0);
+    const unselectedUsers = [];
     selectedUsers.push(value);
     this.state.unselectedUsers.forEach((user) => {
       if (user.value !== value.value) {
@@ -50,8 +50,8 @@ class AttributionComponent extends React.Component {
   }
 
   handleDelete(value) {
-    let unselectedUsers = this.state.unselectedUsers.slice(0);
-    let selectedUsers = [];
+    const unselectedUsers = this.state.unselectedUsers.slice(0);
+    const selectedUsers = [];
     unselectedUsers.push(value);
     this.state.selectedUsers.forEach((user) => {
       if (user.value !== value.value) {
@@ -89,7 +89,7 @@ class AttributionComponent extends React.Component {
       }
     `;
 
-    let selectedUserIds = [];
+    const selectedUserIds = [];
     this.state.selectedUsers.forEach((user) => {
       selectedUserIds.push(user.value);
     });
@@ -100,21 +100,22 @@ class AttributionComponent extends React.Component {
         <form name={`edit-task-attribution-${task.dbid}`}>
 
           <input type="hidden" value={value} name="selected-user-ids" id={`attribution-${task.dbid}`} />
-          
+
           <div style={{ marginTop: units(4), marginBottom: units(4) }}>
             <StyledTagsWrapper className="attribution__selected-users">
               {this.state.selectedUsers.map(user =>
                 <Chip key={user.value} className="attribution__selected-user" onRequestDelete={this.handleDelete.bind(this, user)}>
                   {user.label}
-                </Chip>
+                </Chip>,
               )}
             </StyledTagsWrapper>
           </div>
 
-          <StyledSelect options={this.state.unselectedUsers}
-                        onChange={this.handleChange.bind(this)}
-                        noResultsText={<FormattedMessage id="attribution.noResults" defaultMessage="No results" />}
-                        placeholder={<FormattedMessage id="attribution.search" defaultMessage="Search team members" />}
+          <StyledSelect
+            options={this.state.unselectedUsers}
+            onChange={this.handleChange.bind(this)}
+            noResultsText={<FormattedMessage id="attribution.noResults" defaultMessage="No results" />}
+            placeholder={<FormattedMessage id="attribution.search" defaultMessage="Search team members" />}
           />
         </form>
       </div>

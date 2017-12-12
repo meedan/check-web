@@ -34,7 +34,7 @@ class Tags extends React.Component {
 
     if (!props.annotated || !props.annotatedType) { return; }
 
-    let tagsList = [...new Set(tags.split(','))];
+    const tagsList = [...new Set(tags.split(','))];
 
     const onFailure = (transaction) => {
       const error = transaction.getError();
@@ -102,7 +102,7 @@ class Tags extends React.Component {
           <Chip
             key={tag.node.id}
             className="source-tags__tag"
-            onRequestDelete={ this.props.isEditing ?
+            onRequestDelete={this.props.isEditing ?
               () => { deleteCallback(tag.node.id); } : null
             }
           >
@@ -119,7 +119,7 @@ class Tags extends React.Component {
 
   renderTagsEdit() {
     const selectCallback = (tag) => {
-      this.props.onSelect ? this.props.onSelect(tag) :  this.handleAddition(tag);
+      this.props.onSelect ? this.props.onSelect(tag) : this.handleAddition(tag);
 
       setTimeout(() => {
         this.refs.autocomplete.setState({ searchText: '' });
@@ -144,7 +144,7 @@ class Tags extends React.Component {
         fullWidth
         onUpdateInput={(text) => { updateCallback(text); }}
       />
-      <div className="source__helper" style={{font: caption}}>
+      <div className="source__helper" style={{ font: caption }}>
         {this.props.intl.formatMessage(messages.addTagHelper)}
       </div>
       {this.renderTags()}

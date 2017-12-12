@@ -95,8 +95,8 @@ class Annotations extends Component {
         <div className="annotations__list">
           { annotations.length === 0
             ? <Text style={{ margin: 'auto', color: black38 }}>
-                <FormattedMessage id="annotation.noAnnotationsYet" defaultMessage="No annotations yet" />
-              </Text>
+              <FormattedMessage id="annotation.noAnnotationsYet" defaultMessage="No annotations yet" />
+            </Text>
             : annotations.map(annotation =>
               <div key={annotation.node.dbid} className="annotations__list-item">
                 {this.annotationComponent(

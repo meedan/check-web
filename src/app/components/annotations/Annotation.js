@@ -739,10 +739,10 @@ class Annotation extends Component {
         );
       break;
     case 'update_embed':
-        contentTemplate = <EmbedUpdate activity={activity} authorName={authorName} />;
+      contentTemplate = <EmbedUpdate activity={activity} authorName={authorName} />;
       break;
     case 'create_embed':
-        contentTemplate = <EmbedCreate annotated={annotated} content={content} authorName={authorName}/>;
+      contentTemplate = <EmbedCreate annotated={annotated} content={content} authorName={authorName} />;
       break;
     case 'update_projectmedia':
       if (activity.projects.edges.length > 0 && activity.user) {
@@ -796,8 +796,8 @@ class Annotation extends Component {
       }
       break;
     case 'update_task':
-        contentTemplate = shouldLogChange(activity) ?
-          <TaskUpdate activity={activity} authorName={authorName} /> : null;
+      contentTemplate = shouldLogChange(activity) ?
+        <TaskUpdate activity={activity} authorName={authorName} /> : null;
       break;
     default:
       contentTemplate = null;
@@ -826,16 +826,16 @@ class Annotation extends Component {
                     '-',
                   )}`}
               >
-              <Tooltip placement="top" overlay={<UserTooltip user={activity.user} />}>
-                <StyledAvatarColumn isRtl={isRtl}>
+                <Tooltip placement="top" overlay={<UserTooltip user={activity.user} />}>
+                  <StyledAvatarColumn isRtl={isRtl}>
                     <SourcePicture
                       className="avatar"
                       type="user"
                       size="small"
                       object={activity.user.source}
                     />
-                </StyledAvatarColumn>
-              </Tooltip>
+                  </StyledAvatarColumn>
+                </Tooltip>
 
                 <StyledPrimaryColumn isRtl={isRtl}>
                   {contentTemplate}

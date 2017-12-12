@@ -6,7 +6,7 @@ import userFragment from '../../relay/userFragment';
 
 const UserContainer = Relay.createContainer(UserComponent, {
   fragments: {
-    user: () => userFragment
+    user: () => userFragment,
   },
 });
 

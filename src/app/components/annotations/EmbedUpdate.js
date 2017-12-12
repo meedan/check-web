@@ -51,7 +51,7 @@ class EmbedUpdate extends React.Component {
                 />
                 : null}
           </span>
-          );
+        );
       }
 
       return null;

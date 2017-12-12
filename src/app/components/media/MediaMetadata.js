@@ -396,7 +396,7 @@ class MediaMetadata extends Component {
     const context = this.getContext();
 
     if (pendingTag && pendingTag.trim()) {
-      let tagsList = [...new Set(pendingTag.split(','))];
+      const tagsList = [...new Set(pendingTag.split(','))];
 
       tagsList.map((tag) => {
         Relay.Store.commitUpdate(
@@ -571,7 +571,7 @@ class MediaMetadata extends Component {
             style={{ width: '100%' }}
           />
 
-        { media.tags &&
+          { media.tags &&
           <MediaTags
             media={media}
             tags={media.tags.edges}
@@ -580,7 +580,7 @@ class MediaMetadata extends Component {
               this.setState({ tagErrorMessage: null });
               this.canSubmit();
             }}
-            ref={"mediaTags"}
+            ref={'mediaTags'}
             isEditing
           />
         }

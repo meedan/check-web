@@ -192,7 +192,7 @@ class GeolocationRespondTask extends Component {
           name="response"
           value={this.state.name}
           onChange={this.handleChange.bind(this)}
-          onFocus={() => {this.setState({ focus: true })}}
+          onFocus={() => { this.setState({ focus: true }); }}
           fullWidth
           multiLine
         />
@@ -207,7 +207,7 @@ class GeolocationRespondTask extends Component {
           }
           name="coordinates"
           onChange={this.handleChangeCoordinates.bind(this)}
-          onFocus={() => {this.setState({ focus: true })}}
+          onFocus={() => { this.setState({ focus: true }); }}
           onBlur={this.handleBlur.bind(this)}
           value={this.state.coordinatesString}
           fullWidth

@@ -95,18 +95,18 @@ class TeamMembersListItem extends Component {
             <Tooltip placement="top" overlay={<UserTooltip user={teamUser.node.user} />}>
               <Link to={`/check/user/${teamUser.node.user.dbid}`} className="team-members__profile-link">
                 <FlexRow>
-                    <Offset isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
-                      <SourcePicture
-                        className="avatar"
-                        object={teamUser.node.user.source}
-                        alt={teamUser.node.user.name}
-                        size="small"
-                        type="user"
-                        />
-                    </Offset>
-                    <Text ellipsis>
-                      {teamUser.node.user.name}
-                    </Text>
+                  <Offset isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
+                    <SourcePicture
+                      className="avatar"
+                      object={teamUser.node.user.source}
+                      alt={teamUser.node.user.name}
+                      size="small"
+                      type="user"
+                    />
+                  </Offset>
+                  <Text ellipsis>
+                    {teamUser.node.user.name}
+                  </Text>
                 </FlexRow>
               </Link>
             </Tooltip>

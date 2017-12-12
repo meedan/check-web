@@ -108,7 +108,7 @@ class AddAnnotation extends Component {
       message,
       isSubmitting: false,
       fileMode: false,
-      messageStyle: styles.successStyle
+      messageStyle: styles.successStyle,
     });
   }
 

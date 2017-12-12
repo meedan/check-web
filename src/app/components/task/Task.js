@@ -67,7 +67,7 @@ class Task extends Component {
   }
 
   handleSubmitWithArgs(response, note) {
-    const {media, task} = this.props;
+    const { media, task } = this.props;
 
     const onFailure = (transaction) => {
       const error = transaction.getError();
@@ -117,7 +117,7 @@ class Task extends Component {
     this.setState({ editingAttribution: false });
   }
 
-  handleQuestionEdit(e){
+  handleQuestionEdit(e) {
     const state = {};
     state[e.target.name] = e.target.value;
     this.setState(state, this.canSubmit);
@@ -149,7 +149,7 @@ class Task extends Component {
         parent_type: 'project_media',
         dynamic: {
           id: task.first_response.id,
-          set_attribution: value
+          set_attribution: value,
         },
       }),
       { onSuccess, onFailure },
@@ -229,7 +229,7 @@ class Task extends Component {
   }
 
   handleSubmitUpdateWithArgs(edited_response, edited_note) {
-    const {media, task} = this.props;
+    const { media, task } = this.props;
 
     const onFailure = (transaction) => {
       const error = transaction.getError();
@@ -363,10 +363,10 @@ class Task extends Component {
             >
               {response
                 ? <Can permissions={task.first_response.permissions} permission="update Dynamic">
-                    <MenuItem className="task-actions__edit-response" onClick={this.handleEditResponse.bind(this)}>
-                      <FormattedMessage id="task.editResponse" defaultMessage="Edit response" />
-                    </MenuItem>
-                  </Can>
+                  <MenuItem className="task-actions__edit-response" onClick={this.handleEditResponse.bind(this)}>
+                    <FormattedMessage id="task.editResponse" defaultMessage="Edit response" />
+                  </MenuItem>
+                </Can>
                 : null}
 
               <MenuItem className="task-actions__edit" onClick={this.handleEditQuestion.bind(this)}>
@@ -375,8 +375,8 @@ class Task extends Component {
 
               {(response && can(task.first_response.permissions, 'update Dynamic'))
                 ? <MenuItem className="task-actions__edit-attribution" onClick={this.handleEditAttribution.bind(this)}>
-                    <FormattedMessage id="task.editAttribution" defaultMessage="Edit attribution" />
-                  </MenuItem>
+                  <FormattedMessage id="task.editAttribution" defaultMessage="Edit attribution" />
+                </MenuItem>
                 : null}
 
               <Can permissions={task.permissions} permission="destroy Task">
@@ -593,7 +593,7 @@ class Task extends Component {
           modal={false}
           open={!!this.state.editingAttribution}
           onRequestClose={this.handleCancelAttributionEdit.bind(this)}
-          autoScrollBodyContent={true}
+          autoScrollBodyContent
         >
           <Message message={this.state.message} />
           <h2><FormattedMessage id="tasks.editAttribution" defaultMessage="Edit attribution" /></h2>

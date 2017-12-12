@@ -15,7 +15,7 @@ class ResetPasswordMutation extends Relay.Mutation {
   }
 
   getVariables() {
-    return {email: this.props.email};
+    return { email: this.props.email };
   }
 }
 

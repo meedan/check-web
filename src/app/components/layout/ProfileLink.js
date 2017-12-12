@@ -7,9 +7,9 @@ class ProfileLink extends React.Component {
   render() {
     const { user, className } = this.props;
 
-    if (!user) { return null };
+    if (!user) { return null; }
 
-    let url = user.dbid ? `/check/user/${user.dbid}` : '';
+    const url = user.dbid ? `/check/user/${user.dbid}` : '';
 
     return url ?
       <Tooltip placement="top" overlay={<UserTooltip user={user} />}>

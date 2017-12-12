@@ -5,7 +5,7 @@ import MediaUtil from '../media/MediaUtil';
 class EmbedCreate extends React.Component {
   render() {
     const { content, annotated, authorName } = this.props;
-    let contentTemplate = null;
+    const contentTemplate = null;
     let addedReport = false;
     let editedTitle = false;
     let createdNote = false;

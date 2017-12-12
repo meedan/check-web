@@ -176,7 +176,7 @@ class SourceComponent extends Component {
       isEditing: false,
       submitDisabled: false,
       showTab: 'media',
-      shouldUpdate: false
+      shouldUpdate: false,
     };
   }
 
@@ -208,8 +208,7 @@ class SourceComponent extends Component {
 
         if (that.state.isEditing && ((obj.annotation_type === 'metadata' && obj.lock_version > metadata.lock_version) || (!obj.annotation_type && obj.lock_version > source.lock_version))) {
           that.setState({ message: that.getConflictMessage() });
-        }
-        else if (!that.state.isEditing && that.getContext().clientSessionId != data.actor_session_id) {
+        } else if (!that.state.isEditing && that.getContext().clientSessionId != data.actor_session_id) {
           that.props.relay.forceFetch();
         }
 
@@ -440,8 +439,7 @@ class SourceComponent extends Component {
 
     if (error.status === 409) {
       message = this.getConflictMessage();
-    }
-    else {
+    } else {
       try {
         const json = JSON.parse(error.source);
         if (json.error) {
@@ -721,13 +719,14 @@ class SourceComponent extends Component {
   }
 
   getConflictMessage() {
-    return <FormattedMessage id="sourceComponent.conflictError" defaultMessage={'This item was edited by another user while you were making your edits. Please save your changes and {reloadLink}.'}
-             values={{
-               reloadLink: (<span onClick={this.reloadInformation.bind(this)} style={{ cursor: 'pointer', textDecoration: 'underline' }}>
-                              <FormattedMessage id="sourceComponent.clickToReload" defaultMessage="click here to reload" />
-                            </span>)
-             }}
-           />;
+    return (<FormattedMessage
+      id="sourceComponent.conflictError" defaultMessage={'This item was edited by another user while you were making your edits. Please save your changes and {reloadLink}.'}
+      values={{
+        reloadLink: (<span onClick={this.reloadInformation.bind(this)} style={{ cursor: 'pointer', textDecoration: 'underline' }}>
+          <FormattedMessage id="sourceComponent.clickToReload" defaultMessage="click here to reload" />
+        </span>),
+      }}
+    />);
   }
 
   updateSource() {
@@ -739,8 +738,7 @@ class SourceComponent extends Component {
 
       if (error.status === 409) {
         message = this.getConflictMessage();
-      }
-      else {
+      } else {
         try {
           const json = JSON.parse(error.source);
           if (json.error) {
@@ -1137,15 +1135,15 @@ class SourceComponent extends Component {
     const isEditing = this.state.addingTags || tags.length;
 
     return (<StyledTagInput>
-        <Tags
-          errorText={this.state.tagErrorMessage}
-          tags={tags}
-          options={availableTags}
-          annotated={this.props.source}
-          annotatedType={'ProjectSource'}
-          isEditing={isEditing}
-        />
-      </StyledTagInput>
+      <Tags
+        errorText={this.state.tagErrorMessage}
+        tags={tags}
+        options={availableTags}
+        annotated={this.props.source}
+        annotatedType={'ProjectSource'}
+        isEditing={isEditing}
+      />
+    </StyledTagInput>
     );
   }
 

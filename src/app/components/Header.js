@@ -119,20 +119,20 @@ class HeaderComponent extends Component {
         iconButtonElement={
           <IconButton
             style={styles.headerYourProfileButton}
-            >
+          >
             <UserAvatarRelay size={units(4)} {...this.props} />
           </IconButton>
         }
-        anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
-        >
+        anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
+      >
         <MenuItem
-          containerElement={<Link to={`/check/me`} />}
-          >
+          containerElement={<Link to={'/check/me'} />}
+        >
           {currentUser && currentUser.name}
         </MenuItem>
         <MenuItem
-          containerElement={<Link to={`/check/me`} />}
-          >
+          containerElement={<Link to={'/check/me'} />}
+        >
           <FormattedMessage id="header.Profile" defaultMessage="Profile" />
         </MenuItem>
         <UserMenuItems {...this.props} />

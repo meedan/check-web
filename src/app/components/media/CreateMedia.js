@@ -180,8 +180,7 @@ class CreateProjectMedia extends Component {
       if (json.error_info && json.error_info.code === 'ERR_OBJECT_EXISTS') {
         message = null;
         context.history.push(`/${context.team.slug}/project/${json.error_info.project_id}/${json.error_info.type}/${json.error_info.id}`);
-      }
-      else {
+      } else {
         const matches = json.error.match(/This \b(media|source|account)\b already exists in project ([0-9]+) and has id ([0-9]+)/);
         if (matches) {
           this.props.projectComponent.props.relay.forceFetch();
