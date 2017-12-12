@@ -13,6 +13,7 @@ import CheckContext from '../CheckContext';
 import {
   Row,
   Offset,
+  OffsetBothSides,
   HeaderTitle,
   white,
   black05,
@@ -153,19 +154,22 @@ class DrawerNavigation extends Component {
       <Drawer {...this.props}>
         <div onClick={drawerToggle}>
 
-          {inTeamContext
-            ? <DrawerHeader>
-              <Row style={{ alignItems: 'flex-start', justifyContent: 'space-between' }}>
-                <Link style={{ cursor: 'pointer' }} to={`/${this.props.team.slug}/`}>
+          {inTeamContext ?
+            <DrawerHeader>
+              <Link
+                className="team-header__drawer-team-link"
+                style={{ cursor: 'pointer' }}
+                to={`/${this.props.team.slug}/`}
+                >
+                <Row>
                   <TeamAvatar
                     style={{ backgroundImage: `url(${this.props.team.avatar})` }}
                     size={units(7)}
-                  />
-                </Link>
-              </Row>
-
-              <Link className="team-header__drawer-team-link" to={`/${this.props.team.slug}/`}>
-                <Headline>{this.props.team.name}</Headline>
+                    />
+                  <OffsetBothSides>
+                    <HeaderTitle>{this.props.team.name}</HeaderTitle>
+                  </OffsetBothSides>
+                </Row>
               </Link>
             </DrawerHeader>
             : <DrawerHeader>
