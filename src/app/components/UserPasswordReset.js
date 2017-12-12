@@ -4,7 +4,7 @@ import Relay from 'react-relay';
 import { Card, CardText, CardActions, CardTitle } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
-import ResetPasswordMutation from '../relay/ResetPasswordMutation';
+import ResetPasswordMutation from '../relay/mutations/ResetPasswordMutation';
 import CheckContext from '../CheckContext';
 import { stringHelper } from '../customHelpers';
 import { ContentColumn } from '../styles/js/shared';

@@ -39,14 +39,14 @@ import ParsedText from '../ParsedText';
 import UploadImage from '../UploadImage';
 import { truncateLength } from '../../helpers';
 import globalStrings from '../../globalStrings';
-import CreateDynamicMutation from '../../relay/CreateDynamicMutation';
-import UpdateDynamicMutation from '../../relay/UpdateDynamicMutation';
-import DeleteDynamicMutation from '../../relay/DeleteDynamicMutation';
-import CreateTagMutation from '../../relay/CreateTagMutation';
-import DeleteTagMutation from '../../relay/DeleteTagMutation';
-import CreateAccountSourceMutation from '../../relay/mutation/CreateAccountSourceMutation';
-import DeleteAccountSourceMutation from '../../relay/mutation/DeleteAccountSourceMutation';
-import UpdateSourceMutation from '../../relay/UpdateSourceMutation';
+import CreateDynamicMutation from '../../relay/mutations/CreateDynamicMutation';
+import UpdateDynamicMutation from '../../relay/mutations/UpdateDynamicMutation';
+import DeleteDynamicMutation from '../../relay/mutations/DeleteDynamicMutation';
+import CreateTagMutation from '../../relay/mutations/CreateTagMutation';
+import DeleteTagMutation from '../../relay/mutations/DeleteTagMutation';
+import CreateAccountSourceMutation from '../../relay/mutations/CreateAccountSourceMutation';
+import DeleteAccountSourceMutation from '../../relay/mutations/DeleteAccountSourceMutation';
+import UpdateSourceMutation from '../../relay/mutations/UpdateSourceMutation';
 import {
   StyledEditButtonWrapper,
   StyledProfileCard,

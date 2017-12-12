@@ -14,9 +14,9 @@ import MediaTags from './MediaTags';
 import MediaActions from './MediaActions';
 import MediaUtil from './MediaUtil';
 import UserTooltip from '../user/UserTooltip';
-import UpdateProjectMediaMutation from '../../relay/UpdateProjectMediaMutation';
-import DeleteProjectMediaMutation from '../../relay/DeleteProjectMediaMutation';
-import CreateTagMutation from '../../relay/CreateTagMutation';
+import UpdateProjectMediaMutation from '../../relay/mutations/UpdateProjectMediaMutation';
+import DeleteProjectMediaMutation from '../../relay/mutations/DeleteProjectMediaMutation';
+import CreateTagMutation from '../../relay/mutations/CreateTagMutation';
 import CheckContext from '../../CheckContext';
 import Message from '../Message';
 import {

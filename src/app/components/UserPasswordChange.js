@@ -7,7 +7,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import styled from 'styled-components';
 import rtlDetect from 'rtl-detect';
-import ChangePasswordMutation from '../relay/ChangePasswordMutation';
+import ChangePasswordMutation from '../relay/mutations/ChangePasswordMutation';
 import CheckContext from '../CheckContext';
 import { stringHelper } from '../customHelpers';
 import {

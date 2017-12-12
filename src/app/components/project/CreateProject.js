@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { defineMessages, injectIntl, intlShape } from 'react-intl';
 import Relay from 'react-relay';
-import CreateProjectMutation from '../../relay/CreateProjectMutation';
+import CreateProjectMutation from '../../relay/mutations/CreateProjectMutation';
 import Message from '../Message';
 import CheckContext from '../../CheckContext';
 import TextField from 'material-ui/TextField';

@@ -12,7 +12,7 @@ import rtlDetect from 'rtl-detect';
 import '../../styles/css/tooltip.css';
 import Tooltip from 'rc-tooltip';
 import SourcePicture from '../source/SourcePicture';
-import UpdateTeamUserMutation from '../../relay/UpdateTeamUserMutation';
+import UpdateTeamUserMutation from '../../relay/mutations/UpdateTeamUserMutation';
 import UserTooltip from '../user/UserTooltip';
 import {
   selectStyle,

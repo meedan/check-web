@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay';
-import CreateStatusMutation from '../../relay/CreateStatusMutation';
-import UpdateStatusMutation from '../../relay/UpdateStatusMutation';
+import CreateStatusMutation from '../../relay/mutations/CreateStatusMutation';
+import UpdateStatusMutation from '../../relay/mutations/UpdateStatusMutation';
 import MediaStatusCommon from './MediaStatusCommon';
 
 class MediaStatus extends Component {

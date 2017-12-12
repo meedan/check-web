@@ -17,8 +17,8 @@ import config from 'config';
 import urlRegex from 'url-regex';
 import UploadImage from '../UploadImage';
 import PenderCard from '../PenderCard';
-import CreateProjectMediaMutation from '../../relay/CreateProjectMediaMutation';
-import CreateProjectSourceMutation from '../../relay/CreateProjectSourceMutation';
+import CreateProjectMediaMutation from '../../relay/mutations/CreateProjectMediaMutation';
+import CreateProjectSourceMutation from '../../relay/mutations/CreateProjectSourceMutation';
 import Message from '../Message';
 import CheckContext from '../../CheckContext';
 import {

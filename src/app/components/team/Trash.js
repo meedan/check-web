@@ -6,7 +6,7 @@ import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
 import TeamRoute from '../../relay/TeamRoute';
-import UpdateTeamMutation from '../../relay/UpdateTeamMutation';
+import UpdateTeamMutation from '../../relay/mutations/UpdateTeamMutation';
 import Can from '../Can';
 import CheckContext from '../../CheckContext';
 import Search from '../Search';

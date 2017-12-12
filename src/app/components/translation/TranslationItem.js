@@ -10,7 +10,7 @@ import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import styled from 'styled-components';
 import ParsedText from '../ParsedText';
-import UpdateDynamicMutation from '../../relay/UpdateDynamicMutation';
+import UpdateDynamicMutation from '../../relay/mutations/UpdateDynamicMutation';
 import { rtlClass } from '../../helpers';
 import { units, Row, black54 } from '../../styles/js/shared';
 

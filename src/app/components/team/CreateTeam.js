@@ -13,7 +13,7 @@ import {
 } from 'react-intl';
 import config from 'config';
 import PageTitle from '../PageTitle';
-import CreateTeamMutation from '../../relay/CreateTeamMutation';
+import CreateTeamMutation from '../../relay/mutations/CreateTeamMutation';
 import Message from '../Message';
 import CheckContext from '../../CheckContext';
 import {

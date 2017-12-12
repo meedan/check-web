@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import config from 'config';
 import Relay from 'react-relay';
 import styled from 'styled-components';
-import UpdateSourceMutation from '../../relay/UpdateSourceMutation';
-import UpdateAccountMutation from '../../relay/UpdateAccountMutation';
+import UpdateSourceMutation from '../../relay/mutations/UpdateSourceMutation';
+import UpdateAccountMutation from '../../relay/mutations/UpdateAccountMutation';
 import {
   avatarSizeLarge,
   avatarSize,

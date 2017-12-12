@@ -10,7 +10,7 @@ import intersection from 'lodash.intersection';
 import rtlDetect from 'rtl-detect';
 import TranslationItem from './TranslationItem';
 import CheckContext from '../../CheckContext';
-import CreateDynamicMutation from '../../relay/CreateDynamicMutation';
+import CreateDynamicMutation from '../../relay/mutations/CreateDynamicMutation';
 import AboutRoute from '../../relay/AboutRoute';
 import { units } from '../../styles/js/shared';
 

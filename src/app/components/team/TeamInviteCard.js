@@ -8,9 +8,7 @@ import MdPaste from 'react-icons/lib/md/content-paste';
 import MdDone from 'react-icons/lib/md/done';
 import config from 'config';
 import rtlDetect from 'rtl-detect';
-import {
-  encodeSvgDataUri,
-} from '../../styles/js/helpers';
+import { encodeSvgDataUri } from '../../helpers';
 
 import {
   checkBlue,

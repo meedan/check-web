@@ -87,6 +87,14 @@ function convertNumbers2English(string) {
   return string.replace(/[\u0660-\u0669]/g, c => c.charCodeAt(0) - 0x0660).replace(/[\u06f0-\u06f9]/g, c => c.charCodeAt(0) - 0x06f0);
 }
 
+// Encode SVG for use as CSS background
+// via https://codepen.io/tigt/post/optimizing-svgs-in-data-uris
+function encodeSvgDataUri(svgString) {
+  const parsedString = svgString.replace(/\n+/g, '');
+  const uriPayload = encodeURIComponent(parsedString);
+  return `data:image/svg+xml,${uriPayload}`;
+}
+
 export {
   bemClass,
   bemClassFromMediaStatus,
@@ -98,4 +106,5 @@ export {
   truncateLength,
   unhumanizeSize,
   convertNumbers2English,
+  encodeSvgDataUri,
 };

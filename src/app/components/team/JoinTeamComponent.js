@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 import RaisedButton from 'material-ui/RaisedButton';
 import Card, { CardTitle, CardActions, CardText } from 'material-ui/Card';
 import PageTitle from '../PageTitle';
-import CreateTeamUserMutation from '../../relay/CreateTeamUserMutation';
+import CreateTeamUserMutation from '../../relay/mutations/CreateTeamUserMutation';
 import { mapGlobalMessage } from '../MappedMessage';
 import Message from '../Message';
 import CheckContext from '../../CheckContext';

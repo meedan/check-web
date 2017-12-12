@@ -21,8 +21,8 @@ import {
   white,
   black05,
 } from '../../styles/js/shared';
-import UpdateUserMutation from '../../relay/UpdateUserMutation';
-import DeleteTeamUserMutation from '../../relay/DeleteTeamUserMutation';
+import UpdateUserMutation from '../../relay/mutations/UpdateUserMutation';
+import DeleteTeamUserMutation from '../../relay/mutations/DeleteTeamUserMutation';
 import CheckContext from '../../CheckContext';
 import { can } from '../Can';
 

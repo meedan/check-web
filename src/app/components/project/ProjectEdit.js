@@ -5,7 +5,7 @@ import TextField from 'material-ui/TextField';
 import { Card, CardText, CardActions } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import Message from '../Message';
-import UpdateProjectMutation from '../../relay/UpdateProjectMutation';
+import UpdateProjectMutation from '../../relay/mutations/UpdateProjectMutation';
 import PageTitle from '../PageTitle';
 import ProjectRoute from '../../relay/ProjectRoute';
 import CheckContext from '../../CheckContext';

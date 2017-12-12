@@ -17,7 +17,7 @@ import TeamMembers from './TeamMembers';
 import HeaderCard from '../HeaderCard';
 import PageTitle from '../PageTitle';
 import MappedMessage from '../MappedMessage';
-import UpdateTeamMutation from '../../relay/UpdateTeamMutation';
+import UpdateTeamMutation from '../../relay/mutations/UpdateTeamMutation';
 import Message from '../Message';
 import CreateProject from '../project/CreateProject';
 import Can, { can } from '../Can';

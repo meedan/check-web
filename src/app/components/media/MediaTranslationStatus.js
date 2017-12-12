@@ -4,8 +4,8 @@ import { injectIntl, FormattedMessage } from 'react-intl';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
-import CreateDynamicMutation from '../../relay/CreateDynamicMutation';
-import UpdateDynamicMutation from '../../relay/UpdateDynamicMutation';
+import CreateDynamicMutation from '../../relay/mutations/CreateDynamicMutation';
+import UpdateDynamicMutation from '../../relay/mutations/UpdateDynamicMutation';
 import MediaStatusCommon from './MediaStatusCommon';
 
 class MediaStatus extends Component {

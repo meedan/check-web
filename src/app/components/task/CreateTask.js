@@ -14,7 +14,7 @@ import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
 import styled from 'styled-components';
 import Can from '../Can';
-import CreateTaskMutation from '../../relay/CreateTaskMutation';
+import CreateTaskMutation from '../../relay/mutations/CreateTaskMutation';
 import Message from '../Message';
 import SingleChoiceTask from './SingleChoiceTask';
 import MultiSelectTask from './MultiSelectTask';
