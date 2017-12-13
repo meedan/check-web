@@ -20,10 +20,9 @@ class DynamicAnnotation extends Component {
 
   render() {
     const { annotation } = this.props;
-    const that = this;
     return (
       <div>
-        {annotation.fields.map(field => that.fieldTypeToComponent(field.value, field.field_type))}
+        {annotation.fields.map(field => this.fieldTypeToComponent(field.value, field.field_type))}
       </div>
     );
   }

@@ -148,7 +148,9 @@ class UserInfoEdit extends React.Component {
       if (json.error) {
         message = json.error;
       }
-    } catch (e) {}
+    } catch (e) {
+      // Do nothing.
+    }
     this.setState({ message, hasFailure: true, submitDisabled: false });
   };
 
@@ -193,7 +195,9 @@ class UserInfoEdit extends React.Component {
         if (json.error) {
           message = json.error;
         }
-      } catch (e) {}
+      } catch (e) {
+        // Do nothing.
+      }
 
       this.setState({ message, submitDisabled: false });
     };
@@ -235,7 +239,9 @@ class UserInfoEdit extends React.Component {
         if (json.error) {
           message = json.error;
         }
-      } catch (e) {}
+      } catch (e) {
+        // Do nothing.
+      }
 
       this.setState({ message, submitDisabled: false });
     };
@@ -300,7 +306,9 @@ class UserInfoEdit extends React.Component {
           if (json.error) {
             message = json.error;
           }
-        } catch (e) {}
+        } catch (e) {
+          // Do nothing.
+        }
 
         links[index].error = message;
       }

@@ -137,8 +137,7 @@ class AddAnnotation extends Component {
   }
 
   getContext() {
-    const context = new CheckContext(this).getContextStore();
-    return context;
+    return new CheckContext(this).getContextStore();
   }
 
   addComment(

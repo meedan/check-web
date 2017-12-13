@@ -243,8 +243,7 @@ class SearchQueryComponent extends Component {
   }
 
   getContext() {
-    const context = new CheckContext(this);
-    return context;
+    return new CheckContext(this);
   }
 
   handleSubmit(e) {
@@ -323,10 +322,9 @@ class SearchQueryComponent extends Component {
   }
 
   handleTagClick(tag) {
-    const that = this;
     this.setState((prevState) => {
       const state = Object.assign({}, prevState);
-      const tagIsSelected = that.tagIsSelected(tag, state);
+      const tagIsSelected = this.tagIsSelected(tag, state);
       const selectedTags = state.query.tags || [];
 
       if (tagIsSelected) {
@@ -660,8 +658,7 @@ class SearchResultsComponent extends Component {
   }
 
   getContext() {
-    const context = new CheckContext(this);
-    return context;
+    return new CheckContext(this);
   }
 
   currentContext() {
@@ -671,7 +668,6 @@ class SearchResultsComponent extends Component {
   subscribe() {
     const pusher = this.currentContext().pusher;
     if (pusher && this.props.search.pusher_channel && !this.state.pusherSubscribed) {
-      const that = this;
       const channel = this.props.search.pusher_channel;
 
       pusher.unsubscribe(channel);
@@ -679,7 +675,7 @@ class SearchResultsComponent extends Component {
       pusher.subscribe(channel).bind('media_updated', (data) => {
         let content = null;
         let message = {};
-        const currentUser = that.currentContext().currentUser;
+        const currentUser = this.currentContext().currentUser;
         const currentUserId = currentUser ? currentUser.dbid : 0;
         const avatar = config.restBaseUrl.replace(/\/api.*/, '/images/bridge.png');
 
@@ -706,7 +702,7 @@ class SearchResultsComponent extends Component {
             `$1/media/${message.id}`,
           );
           notify(
-            that.props.intl.formatMessage(messages.newTranslationRequestNotification),
+            this.props.intl.formatMessage(messages.newTranslationRequestNotification),
             content,
             url,
             avatar,
@@ -729,8 +725,8 @@ class SearchResultsComponent extends Component {
               `$1/media/${message.annotated_id}`,
             );
             notify(
-              that.props.intl.formatMessage(messages.newTranslationNotification),
-              that.props.intl.formatMessage(messages.newTranslationNotificationBody),
+              this.props.intl.formatMessage(messages.newTranslationNotification),
+              this.props.intl.formatMessage(messages.newTranslationNotificationBody),
               url,
               avatar,
               '_self',
@@ -738,8 +734,8 @@ class SearchResultsComponent extends Component {
           }
         }
 
-        if (that.currentContext().clientSessionId != data.actor_session_id) {
-          that.props.relay.forceFetch();
+        if (this.currentContext().clientSessionId != data.actor_session_id) {
+          this.props.relay.forceFetch();
         }
       });
       this.setState({ pusherSubscribed: true });

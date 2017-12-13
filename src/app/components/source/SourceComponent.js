@@ -197,7 +197,6 @@ class SourceComponent extends Component {
     if (!this.isProjectSource()) {
       return;
     }
-    const that = this;
     const pusher = this.getContext().pusher;
     const pusherChannel = this.props.source.source.pusher_channel;
     if (pusher && pusherChannel) {
@@ -206,13 +205,13 @@ class SourceComponent extends Component {
         const metadata = this.getMetadataAnnotation() || {};
         const obj = JSON.parse(data.message);
 
-        if (that.state.isEditing && ((obj.annotation_type === 'metadata' && obj.lock_version > metadata.lock_version) || (!obj.annotation_type && obj.lock_version > source.lock_version))) {
-          that.setState({ message: that.getConflictMessage() });
-        } else if (!that.state.isEditing && that.getContext().clientSessionId != data.actor_session_id) {
-          that.props.relay.forceFetch();
+        if (this.state.isEditing && ((obj.annotation_type === 'metadata' && obj.lock_version > metadata.lock_version) || (!obj.annotation_type && obj.lock_version > source.lock_version))) {
+          this.setState({ message: this.getConflictMessage() });
+        } else if (!this.state.isEditing && this.getContext().clientSessionId != data.actor_session_id) {
+          this.props.relay.forceFetch();
         }
 
-        that.setState({ shouldUpdate: true });
+        this.setState({ shouldUpdate: true });
       });
     }
   }
@@ -228,8 +227,7 @@ class SourceComponent extends Component {
   }
 
   getContext() {
-    const context = new CheckContext(this).getContextStore();
-    return context;
+    return new CheckContext(this).getContextStore();
   }
 
   setContextSource() {
@@ -554,7 +552,9 @@ class SourceComponent extends Component {
         if (json.error) {
           tagErrorMessage = json.error;
         }
-      } catch (e) {}
+      } catch (e) {
+        // Do nothing.
+      }
 
       this.setState({
         tagErrorMessage,
@@ -602,7 +602,9 @@ class SourceComponent extends Component {
           if (json.error) {
             message = json.error;
           }
-        } catch (e) {}
+        } catch (e) {
+          // Do nothing.
+        }
 
         links[index].error = message;
       }
@@ -744,7 +746,9 @@ class SourceComponent extends Component {
           if (json.error) {
             message = json.error;
           }
-        } catch (e) {}
+        } catch (e) {
+          // Do nothing.
+        }
       }
 
       this.setState({ message, hasFailure: true, submitDisabled: false });
@@ -1038,7 +1042,9 @@ class SourceComponent extends Component {
           if (json.error) {
             languageErrorMessage = json.error;
           }
-        } catch (e) {}
+        } catch (e) {
+          // Do nothing.
+        }
 
         this.setState({
           languageErrorMessage,

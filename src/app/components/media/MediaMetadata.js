@@ -96,8 +96,7 @@ class MediaMetadata extends Component {
   }
 
   getContext() {
-    const context = new CheckContext(this).getContextStore();
-    return context;
+    return new CheckContext(this).getContextStore();
   }
 
   handleError(json) {
@@ -429,7 +428,9 @@ class MediaMetadata extends Component {
       if (json.error) {
         message = json.error;
       }
-    } catch (e) {}
+    } catch (e) {
+      // Do nothing.
+    }
     const tagErrorMessage = message;
 
     if (mutation === 'createTag') {

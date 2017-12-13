@@ -134,8 +134,7 @@ class Home extends Component {
   }
 
   getContext() {
-    const context = new CheckContext(this).getContextStore();
-    return context;
+    return new CheckContext(this).getContextStore();
   }
 
   handleDrawerToggle = () => this.setState({ open: !this.state.open });

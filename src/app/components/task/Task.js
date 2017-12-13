@@ -77,7 +77,9 @@ class Task extends Component {
         if (json.error) {
           message = json.error;
         }
-      } catch (e) {}
+      } catch (e) {
+        // Do nothing.
+      }
       this.setState({ message });
     };
 
@@ -135,7 +137,9 @@ class Task extends Component {
         if (json.error) {
           message = json.error;
         }
-      } catch (e) {}
+      } catch (e) {
+        // Do nothing.
+      }
       this.setState({ message });
     };
 
@@ -168,7 +172,9 @@ class Task extends Component {
         if (json.error) {
           message = json.error;
         }
-      } catch (e) {}
+      } catch (e) {
+        // Do nothing.
+      }
       this.setState({ message });
     };
 
@@ -239,7 +245,9 @@ class Task extends Component {
         if (json.error) {
           message = json.error;
         }
-      } catch (e) {}
+      } catch (e) {
+        // Do nothing.
+      }
       this.setState({ message });
     };
 
@@ -264,10 +272,6 @@ class Task extends Component {
       }),
       { onSuccess, onFailure },
     );
-  }
-
-  componentDidMount() {
-    const that = this;
   }
 
   getResponseData() {

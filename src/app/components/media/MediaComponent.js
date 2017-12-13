@@ -91,8 +91,7 @@ class MediaComponent extends Component {
   }
 
   getContext() {
-    const context = new CheckContext(this).getContextStore();
-    return context;
+    return new CheckContext(this).getContextStore();
   }
 
   setCurrentContext() {
@@ -115,11 +114,10 @@ class MediaComponent extends Component {
   subscribe() {
     const pusher = this.getContext().pusher;
     if (pusher) {
-      const that = this;
       pusher.subscribe(this.props.media.pusher_channel).bind('media_updated', (data) => {
         const annotation = JSON.parse(data.message);
-        if (annotation.annotated_id === that.props.media.dbid && that.getContext().clientSessionId != data.actor_session_id) {
-          that.props.relay.forceFetch();
+        if (annotation.annotated_id === this.props.media.dbid && this.getContext().clientSessionId != data.actor_session_id) {
+          this.props.relay.forceFetch();
         }
       });
     }

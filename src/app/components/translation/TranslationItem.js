@@ -50,6 +50,26 @@ const messages = defineMessages({
 });
 
 class TranslationItem extends Component {
+  static getTranslationText(content) {
+    const object = content.find(it => it.field_name === 'translation_text');
+    return object ? object.value : '';
+  }
+
+  static getTranslationNote(content) {
+    const object = content.find(it => it.field_name === 'translation_note');
+    return object ? object.value : '';
+  }
+
+  static getTranslationLanguage(content) {
+    const object = content.find(it => it.field_name === 'translation_language');
+    return object ? object.formatted_value : '';
+  }
+
+  static getTranslationLanguageCode(content) {
+    const object = content.find(it => it.field_name === 'translation_language');
+    return object ? object.value : '';
+  }
+
   constructor(props) {
     super(props);
 
@@ -70,18 +90,21 @@ class TranslationItem extends Component {
         if (json.error) {
           message = json.error;
         }
-      } catch (e) {}
+      } catch (e) {
+        // Do nothing.
+      }
       this.setState({ message });
     };
 
-    const onSuccess = (response) => {
+    const onSuccess = () => {
       this.setState({ message: null, editing: false });
     };
 
     const form = document.forms.translation_edit;
-    const fields = {};
-    fields.translation_text = form.translation_text ? form.translation_text.value : '';
-    fields.translation_note = form.translation_note ? form.translation_note.value : '';
+    const fields = {
+      translation_text: form.translation_text ? form.translation_text.value : '',
+      translation_note: form.translation_note ? form.translation_note.value : '',
+    };
 
     if (!this.state.submitDisabled) {
       Relay.Store.commitUpdate(
@@ -100,30 +123,6 @@ class TranslationItem extends Component {
     e.preventDefault();
   }
 
-  getTranslationText(content) {
-    const object = content.find(it => it.field_name === 'translation_text');
-    return object ? object.value : '';
-  }
-
-  getTranslationNote(content) {
-    const object = content.find(it => it.field_name === 'translation_note');
-    return object ? object.value : '';
-  }
-
-  getTranslationLanguage(content) {
-    const object = content.find(it => it.field_name === 'translation_language');
-    return object ? object.formatted_value : '';
-  }
-
-  getTranslationLanguageCode(content) {
-    const object = content.find(it => it.field_name === 'translation_language');
-    return object ? object.value : '';
-  }
-
-  bemClass(baseClass, modifierBoolean, modifierSuffix) {
-    return modifierBoolean ? [baseClass, baseClass + modifierSuffix].join(' ') : baseClass;
-  }
-
   handleEdit() {
     this.setState({ editing: true, isMenuOpen: false });
   }
@@ -134,10 +133,10 @@ class TranslationItem extends Component {
 
   render() {
     const content = JSON.parse(this.props.translation.content);
-    const text = this.getTranslationText(content);
-    const note = this.getTranslationNote(content);
-    const language = this.getTranslationLanguage(content);
-    const language_code = this.getTranslationLanguageCode(content);
+    const text = TranslationItem.getTranslationText(content);
+    const note = TranslationItem.getTranslationNote(content);
+    const language = TranslationItem.getTranslationLanguage(content);
+    const language_code = TranslationItem.getTranslationLanguageCode(content);
 
     return (
       <div className="translation__component">

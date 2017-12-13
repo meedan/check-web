@@ -49,7 +49,6 @@ class MediaStatusCommon extends Component {
   }
 
   fail(transaction) {
-    const that = this;
     const error = transaction.getError();
     let message = this.props.intl.formatMessage(messages.error);
     try {
@@ -57,8 +56,10 @@ class MediaStatusCommon extends Component {
       if (json.error) {
         message = json.error;
       }
-    } catch (e) {}
-    that.setState({ message });
+    } catch (e) {
+      // Do nothing.
+    }
+    this.setState({ message });
   }
 
   success() {
@@ -66,7 +67,6 @@ class MediaStatusCommon extends Component {
   }
 
   render() {
-    const that = this;
     const { media } = this.props;
     const statuses = JSON.parse(mediaStatuses(media)).statuses;
     const currentStatus = getStatus(mediaStatuses(media), mediaLastStatus(media));
@@ -100,12 +100,12 @@ class MediaStatusCommon extends Component {
             {statuses.map(status =>
               <MenuItem
                 key={status.id}
-                className={`${that.bemClass(
+                className={`${this.bemClass(
                     'media-status__menu-item',
                     mediaLastStatus(media) === status.id,
                     '--current',
                   )} media-status__menu-item--${status.id.replace('_', '-')}`}
-                onClick={that.handleStatusClick.bind(that, status.id)}
+                onClick={this.handleStatusClick.bind(that, status.id)}
                 style={{ textTransform: 'uppercase', color: getStatusStyle(status, 'color') }}
                 value={status.label}
                 primaryText={status.label}

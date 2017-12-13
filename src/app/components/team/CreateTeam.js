@@ -96,8 +96,7 @@ class CreateTeam extends Component {
   }
 
   getContext() {
-    const context = new CheckContext(this);
-    return context.getContextStore();
+    return new CheckContext(this);
   }
 
   displayNameLabelClass(suffix) {
@@ -166,7 +165,9 @@ class CreateTeam extends Component {
         if (json.error) {
           message = json.error;
         }
-      } catch (e) {}
+      } catch (e) {
+        // Do nothing.
+      }
       this.setState({ message });
     };
 

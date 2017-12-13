@@ -49,13 +49,28 @@ class TranslationComponent extends Component {
     };
   }
 
+  getAvailableLanguages() {
+    const usedLanguages = this.props.annotated.translations.edges
+      .map(tr => JSON.parse(tr.node.content).find(it => it.field_name === 'translation_language'))
+      .map(it => it.value)
+      .concat(this.props.annotated.language_code);
+    const supportedLanguages = JSON.parse(this.props.about.languages_supported);
+    const projectLanguages = this.props.annotated.project.get_languages
+      ? JSON.parse(this.props.annotated.project.get_languages)
+      : null;
+    return difference(
+      projectLanguages
+        ? intersection(Object.keys(supportedLanguages), projectLanguages)
+        : Object.keys(supportedLanguages),
+      usedLanguages,
+    ).map(l => ({ value: l, label: supportedLanguages[l] }));
+  }
+
   getContext() {
-    const context = new CheckContext(this).getContextStore();
-    return context;
+    return new CheckContext(this).getContextStore();
   }
 
   fail(transaction) {
-    const that = this;
     const error = transaction.getError();
     let message = this.props.intl.formatMessage(messages.createTagFailed);
     try {
@@ -63,8 +78,10 @@ class TranslationComponent extends Component {
       if (json.error) {
         message = json.error;
       }
-    } catch (e) {}
-    that.setState({ message, submitDisabled: false });
+    } catch (e) {
+      // Do nothing.
+    }
+    this.setState({ message, submitDisabled: false });
   }
 
   success() {
@@ -82,16 +99,16 @@ class TranslationComponent extends Component {
     });
   }
 
-  addTranslation(that, annotated, annotated_id, annotated_type, params) {
+  addTranslation(annotated, annotated_id, annotated_type, params) {
     const onFailure = (transaction) => {
-      that.fail(transaction);
+      this.fail(transaction);
     };
 
     const onSuccess = () => {
-      that.success();
+      this.success();
     };
 
-    const annotator = that.getContext().currentUser;
+    const annotator = this.getContext().currentUser;
 
     const fields = {};
     if (params) {
@@ -106,7 +123,7 @@ class TranslationComponent extends Component {
         parent_type: annotated_type.replace(/([a-z])([A-Z])/, '$1_$2').toLowerCase(),
         annotator,
         annotated,
-        context: that.getContext(),
+        context: this.getContext(),
         annotation: {
           fields,
           annotation_type: 'translation',
@@ -156,27 +173,10 @@ class TranslationComponent extends Component {
       const args = `translation_text=${translation}&translation_language=${this.state
         .code}&translation_note=${note}`;
 
-      this.addTranslation(this, annotated, annotated_id, annotated_type, args);
+      this.addTranslation(annotated, annotated_id, annotated_type, args);
     }
 
     e.preventDefault();
-  }
-
-  getAvailableLanguages() {
-    const usedLanguages = this.props.annotated.translations.edges
-      .map(tr => JSON.parse(tr.node.content).find(it => it.field_name === 'translation_language'))
-      .map(it => it.value)
-      .concat(this.props.annotated.language_code);
-    const supportedLanguages = JSON.parse(this.props.about.languages_supported);
-    const projectLanguages = this.props.annotated.project.get_languages
-      ? JSON.parse(this.props.annotated.project.get_languages)
-      : null;
-    return difference(
-      projectLanguages
-        ? intersection(Object.keys(supportedLanguages), projectLanguages)
-        : Object.keys(supportedLanguages),
-      usedLanguages,
-    ).map(l => ({ value: l, label: supportedLanguages[l] }));
   }
 
   render() {
@@ -277,17 +277,15 @@ const TranslationContainer = Relay.createContainer(injectIntl(TranslationCompone
   },
 });
 
-class Translation extends Component {
-  render() {
-    const route = new AboutRoute();
-    return (
-      <Relay.RootContainer
-        Component={TranslationContainer}
-        route={route}
-        renderFetched={data => <TranslationContainer {...this.props} {...data} />}
-      />
-    );
-  }
-}
+const Translation = (props) => {
+  const route = new AboutRoute();
+  return (
+    <Relay.RootContainer
+      Component={TranslationContainer}
+      route={route}
+      renderFetched={data => <TranslationContainer {...props} {...data} />}
+    />
+  );
+};
 
 export default injectIntl(Translation);

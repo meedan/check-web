@@ -269,7 +269,9 @@ class Annotation extends Component {
         if (json.error) {
           message = json.error;
         }
-      } catch (e) {}
+      } catch (e) {
+        // Do nothing.
+      }
     };
 
     const onSuccess = (response) => {};

@@ -62,8 +62,7 @@ const styles = {
 
 class HeaderComponent extends Component {
   getContext() {
-    const context = new CheckContext(this).getContextStore();
-    return context;
+    return new CheckContext(this).getContextStore();
   }
 
   render() {

@@ -42,8 +42,7 @@ const messages = defineMessages({
 
 class SwitchTeamsComponent extends Component {
   getContext() {
-    const context = new CheckContext(this);
-    return context;
+    return new CheckContext(this);
   }
 
   setCurrentTeam(team, user) {
@@ -62,7 +61,9 @@ class SwitchTeamsComponent extends Component {
         if (json.error) {
           message = json.error;
         }
-      } catch (e) {}
+      } catch (e) {
+        // Do nothing.
+      }
     };
 
     const onSuccess = (response) => {

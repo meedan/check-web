@@ -125,7 +125,9 @@ class SourcePicture extends Component {
               ? response.updateAccount.account
               : {};
           avatarUrl = object.image || this.defaultAvatar();
-        } catch (e) {}
+        } catch (e) {
+          // Do nothing.
+        }
         this.setState({ avatarUrl, queriedBackend: true });
       };
 

@@ -200,17 +200,16 @@ class Login extends Component {
 
   emailLogin() {
     const history = this.getHistory();
-    const that = this;
     const params = {
       'api_user[email]': this.state.email,
       'api_user[password]': this.state.password,
     };
 
-    const failureCallback = message => that.setState({ message });
+    const failureCallback = message => this.setState({ message });
 
     const successCallback = () => {
-      that.setState({ message: null });
-      that.props.loginCallback();
+      this.setState({ message: null });
+      this.props.loginCallback();
       history.push('/');
     };
 
@@ -219,7 +218,6 @@ class Login extends Component {
 
   registerEmail() {
     const history = this.getHistory();
-    const that = this;
     const form = document.forms.register;
     const params = {
       'api_user[email]': this.state.email,
@@ -229,11 +227,11 @@ class Login extends Component {
       'api_user[image]': form.image,
     };
 
-    const failureCallback = message => that.setState({ message });
+    const failureCallback = message => this.setState({ message });
 
     const successCallback = () => {
-      that.setState({ message: null });
-      that.props.loginCallback();
+      this.setState({ message: null });
+      this.props.loginCallback();
       history.push(window.location.pathname);
     };
 

@@ -43,8 +43,7 @@ class TrashComponent extends Component {
   }
 
   getContext() {
-    const context = new CheckContext(this);
-    return context;
+    return new CheckContext(this);
   }
 
   setContextTeam() {
