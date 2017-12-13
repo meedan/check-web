@@ -514,28 +514,19 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       sleep 1
       el = wait_for_selector('.source__add-phone')
       el.click
-      str= @driver.page_source
-      str = str[str.index('undefined-undefined-Phone-')..str.length]
-      str = str[0..(str.index('"')-1)]
-      fill_field(str, "989898989", :id)
+      fill_field('.source__metadata-phone-input input[type="text"]', '989898989')
       sleep 1
       @driver.find_element(:class, "source__edit-addinfo-button").click
       sleep 1
       el = wait_for_selector(".source__add-organization")
       el.click
-      str= @driver.page_source
-      str = str[str.index('undefined-undefined-Organization-')..str.length]
-      str = str[0..(str.index('"')-1)]
-      fill_field(str, "ORGANIZATION", :id)
+      fill_field('.source__metadata-organization-input input[type="text"]', 'ORGANIZATION')
       el = wait_for_selector(".source__edit-addinfo-button")
       el.click
       sleep 1
       el = wait_for_selector(".source__add-location")
       el.click
-      str= @driver.page_source
-      str = str[str.index('undefined-undefined-Location-')..str.length]
-      str = str[0..(str.index('"')-1)]
-      fill_field(str, "Location 123", :id)
+      fill_field('.source__metadata-location-input input[type="text"]', 'Location 123')
       sleep 1
       #source__add-other
       el = wait_for_selector(".source__edit-addinfo-button")
@@ -558,6 +549,15 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Location 123')).to be(true)
       expect(@driver.page_source.include?('ORGANIZATION')).to be(true)
       expect(@driver.page_source.include?('989898989')).to be(true)
+
+      # Now try to edit
+      wait_for_selector('.source__edit-button').click
+      sleep 1
+      fill_field('.source__metadata-phone-input input[type="text"]', '121212121')
+      wait_for_selector('.source__edit-save-button').click
+      sleep 5 #reload
+      wait_for_selector('.source__edit-button')
+      expect(@driver.page_source.include?('121212121')).to be(true)
     end
 
     it "should add and remove source tags", bin6: true do
