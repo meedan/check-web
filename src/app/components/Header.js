@@ -128,7 +128,7 @@ class HeaderComponent extends Component {
           {teamPrivateContentShouldShow && editProjectMenuItem}
           {teamPrivateContentShouldShow && trashButton}
           {teamPrivateContentShouldShow && searchButton}
-          <UserMenuRelay loggedIn={loggedIn} />
+          <UserMenuRelay {...this.props} />
         </Row>
       </AlignOpposite>)();
 

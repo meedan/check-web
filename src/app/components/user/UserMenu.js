@@ -6,7 +6,8 @@ import IconButton from 'material-ui/IconButton';
 import MenuItem from 'material-ui/MenuItem';
 import UserUtil from './UserUtil';
 import UserMenuItems from '../UserMenuItems';
-import UserAvatarRelay from '../../relay/UserAvatarRelay';
+import UserAvatar from '../UserAvatar';
+import CheckContext from '../../CheckContext';
 import {
   black54,
   units,
@@ -25,21 +26,32 @@ const styles = {
 };
 
 class UserMenu extends React.Component {
+  getContext() {
+    const context = new CheckContext(this);
+    return context;
+  }
+
   render() {
-    const { loggedIn, user } = this.props;
+    const { currentUserIsMember, inTeamContext, loggedIn, user } = this.props;
+    const { currentUser } = this.getContext().getContextStore();
 
-    const userRoleText = <span style={{ color: black54 }}>
-      {`(${UserUtil.userRole(user, user.current_team)})`}
-    </span>;
+    if (!loggedIn) {
+      return null;
+    }
 
-    return loggedIn ? (
+    const userRoleText = inTeamContext && currentUserIsMember &&
+      <span className="user-menu__role" style={{ color: black54 }}>
+        {`(${UserUtil.userRole(user, currentUser.current_team)})`}
+      </span>;
+
+    return (
       <IconMenu
         className="header__user-menu"
         iconButtonElement={
           <IconButton
             style={styles.UserMenuStyle}
             >
-            <UserAvatarRelay size={units(4)} {...this.props} />
+            <UserAvatar size={units(4)} {...this.props} />
           </IconButton>
         }
         anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
@@ -50,15 +62,14 @@ class UserMenu extends React.Component {
           >
           {user && user.name}
         </MenuItem>
-        <MenuItem
-          containerElement={<Link to={`/check/me`} />}
-          >
-          <FormattedMessage id="userMenu.Profile" defaultMessage="Profile" />
-        </MenuItem>
         <UserMenuItems {...this.props} />
       </IconMenu>
-    ) : null;
+    );
   }
 }
+
+UserMenu.contextTypes = {
+  store: React.PropTypes.object,
+};
 
 export default UserMenu;
