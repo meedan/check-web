@@ -105,7 +105,7 @@ class MediaStatusCommon extends Component {
                     mediaLastStatus(media) === status.id,
                     '--current',
                   )} media-status__menu-item--${status.id.replace('_', '-')}`}
-                onClick={this.handleStatusClick.bind(that, status.id)}
+                onClick={this.handleStatusClick.bind(this, status.id)}
                 style={{ textTransform: 'uppercase', color: getStatusStyle(status, 'color') }}
                 value={status.label}
                 primaryText={status.label}
