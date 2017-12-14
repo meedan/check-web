@@ -96,7 +96,7 @@ class CreateTeam extends Component {
   }
 
   getContext() {
-    return new CheckContext(this);
+    return new CheckContext(this).getContextStore();
   }
 
   displayNameLabelClass(suffix) {
