@@ -26,14 +26,8 @@ const styles = {
 };
 
 class UserMenu extends React.Component {
-  getContext() {
-    const context = new CheckContext(this);
-    return context;
-  }
-
   render() {
-    const { currentUserIsMember, inTeamContext, loggedIn, user } = this.props;
-    const { currentUser } = this.getContext().getContextStore();
+    const { currentUserIsMember, inTeamContext, loggedIn, user, team } = this.props;
 
     if (!loggedIn) {
       return null;
@@ -41,7 +35,7 @@ class UserMenu extends React.Component {
 
     const userRoleText = inTeamContext && currentUserIsMember &&
       <span className="user-menu__role" style={{ color: black54 }}>
-        {`(${UserUtil.userRole(user, currentUser.current_team)})`}
+        {`(${UserUtil.userRole(user, team)})`}
       </span>;
 
     return (
