@@ -8,6 +8,7 @@ import TextField from 'material-ui/TextField';
 import styled from 'styled-components';
 import rtlDetect from 'rtl-detect';
 import ChangePasswordMutation from '../relay/ChangePasswordMutation';
+import PageTitle from './PageTitle';
 import CheckContext from '../CheckContext';
 import { stringHelper } from '../customHelpers';
 import {
@@ -71,8 +72,12 @@ const messages = defineMessages({
   },
   unknownError: {
     id: 'passwordChange.unknownError',
-    defaultMessage: 'An unknown error has occurred. Please try again and contact {supportEmail} if the error persists.'
-  }
+    defaultMessage: 'An unknown error has occurred. Please try again and contact {supportEmail} if the error persists.',
+  },
+  title: {
+    id: 'passwordChange.title',
+    defaultMessage: 'Change password',
+  },
 });
 
 class UserPasswordChange extends Component {
@@ -95,7 +100,7 @@ class UserPasswordChange extends Component {
 
   handleSignIn() {
     const history = this.getHistory();
-    history.push('/check/login/email');
+    history.push('/');
   }
 
   handleChangePassword(e) {
@@ -149,60 +154,62 @@ class UserPasswordChange extends Component {
 
   render() {
     return (
-      <StyledPasswordChange isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
-        { this.state.showConfirmDialog ?
-          <Card className="user-password-change__confirm-card">
-            <CardTitle title={<FormattedMessage id="passwordChange.successTitle" defaultMessage="Password updated" />} />
-            <CardText>
-              <FormattedMessage
-                id="passwordChange.successMsg"
-                defaultMessage="You're all set. Now you can log in with your new password."
-              />
-            </CardText>
-            <CardActions className="user-password-change__actions">
-              <FlatButton
-                label={<FormattedMessage id="passwordChange.signIn" defaultMessage="Got it" />}
-                primary
-                onClick={this.handleSignIn.bind(this)}
-              />
-            </CardActions>
-          </Card> :
-          <Card className="user-password-change__card">
-            <CardText>
-              <img src={stringHelper('LOGO_URL')} className="user-password-change__logo" />
+      <PageTitle skipTeam={true} prefix={this.props.intl.formatMessage(messages.title)} >
+        <StyledPasswordChange isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
+          { this.state.showConfirmDialog ?
+            <Card className="user-password-change__confirm-card">
+              <CardTitle title={<FormattedMessage id="passwordChange.successTitle" defaultMessage="Password updated" />} />
+              <CardText>
+                <FormattedMessage
+                  id="passwordChange.successMsg"
+                  defaultMessage="You're all set. Now you can log in with your new password."
+                />
+              </CardText>
+              <CardActions className="user-password-change__actions">
+                <FlatButton
+                  label={<FormattedMessage id="passwordChange.signIn" defaultMessage="Got it" />}
+                  primary
+                  onClick={this.handleSignIn.bind(this)}
+                />
+              </CardActions>
+            </Card> :
+            <Card className="user-password-change__card">
+              <CardText>
+                <img src={stringHelper('LOGO_URL')} className="user-password-change__logo" />
 
-              <span className="user-password-change__title">
-                <FormattedMessage id="passwordChange.title" defaultMessage="Change password" />
-              </span>
+                <span className="user-password-change__title">
+                  <FormattedMessage id="passwordChange.title" defaultMessage="Change password" />
+                </span>
 
-              <div className="user-password-change__password-input">
-                <TextField
-                  className="user-password-change__password-input-field"
-                  id="password-change-password-input"
-                  type="password"
-                  placeholder={this.props.intl.formatMessage(messages.newPassword)}
-                  onChange={this.handleChangePassword.bind(this)}
-                />
-                <br />
-                <TextField
-                  className="user-password-change__password-input-field"
-                  id="password-change-password-input-confirm"
-                  type="password"
-                  placeholder={this.props.intl.formatMessage(messages.confirmPassword)}
-                  onChange={this.handleChangePasswordConfirm.bind(this)}
-                  errorText={this.state.errorMsg}
-                />
-                <br />
-                <RaisedButton
-                  className="user-password-change__submit-button"
-                  label="Change Password"
-                  onClick={this.handleSubmit.bind(this)} primary disabled={this.state.submitDisabled}
-                />
-              </div>
-            </CardText>
-          </Card>
-        }
-      </StyledPasswordChange>
+                <div className="user-password-change__password-input">
+                  <TextField
+                    className="user-password-change__password-input-field"
+                    id="password-change-password-input"
+                    type="password"
+                    placeholder={this.props.intl.formatMessage(messages.newPassword)}
+                    onChange={this.handleChangePassword.bind(this)}
+                  />
+                  <br />
+                  <TextField
+                    className="user-password-change__password-input-field"
+                    id="password-change-password-input-confirm"
+                    type="password"
+                    placeholder={this.props.intl.formatMessage(messages.confirmPassword)}
+                    onChange={this.handleChangePasswordConfirm.bind(this)}
+                    errorText={this.state.errorMsg}
+                  />
+                  <br />
+                  <RaisedButton
+                    className="user-password-change__submit-button"
+                    label="Change Password"
+                    onClick={this.handleSubmit.bind(this)} primary disabled={this.state.submitDisabled}
+                  />
+                </div>
+              </CardText>
+            </Card>
+          }
+        </StyledPasswordChange>
+      </PageTitle>
     );
   }
 }
