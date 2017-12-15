@@ -1,4 +1,5 @@
 {
   "headerActions.search": "Recherche",
-  "headerActions.signIn": "Connexion"
+  "headerActions.signIn": "Connexion",
+  "header.Profile": "Profil"
 }
