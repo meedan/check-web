@@ -6,6 +6,7 @@ import Avatar from 'material-ui/Avatar';
 import { Card, CardText } from 'material-ui/Card';
 import IconButton from 'material-ui/IconButton';
 import MdLaunch from 'react-icons/lib/md/launch';
+import UserUtil from './UserUtil';
 import ParsedText from '../ParsedText';
 import MediaUtil from '../media/MediaUtil';
 import CheckContext from '../../CheckContext';
@@ -89,13 +90,6 @@ class UserTooltipComponent extends React.Component {
     return context;
   }
 
-  userRole() {
-    const context = this.getContext();
-    const team = context.getContextStore().currentUser.current_team;
-    const current_team_user = this.props.user.team_users.edges.find(tu => tu.node.team.slug === team.slug);
-    return current_team_user.node.status !== 'requested' ? current_team_user.node.role : '';
-  }
-
   localizedRole(role) {
     return role ? `${this.props.intl.formatMessage(messages[role])}` : '';
   }
@@ -107,9 +101,9 @@ class UserTooltipComponent extends React.Component {
   }
 
   render() {
-    const { user } = this.props;
+    const { user, team } = this.props;
     const { source } = this.props.user;
-    const role = this.userRole();
+    const role = UserUtil.userRole(user, team);
     const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
 
     return (
@@ -214,6 +208,7 @@ class UserTooltip extends React.Component {
       <Relay.RootContainer
         Component={UserTooltipContainer}
         route={route}
+        renderFetched={data => <UserTooltipContainer {...this.props} {...data} />}
       />
     );
   }

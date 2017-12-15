@@ -113,7 +113,6 @@ class TeamMembersComponent extends Component {
                     <TeamMembersListItem
                       key={teamUser.node.id}
                       teamUser={teamUser}
-                      team_id={team.id}
                       isEditing={isEditing}
                     />,
                   ))()}

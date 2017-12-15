@@ -1,6 +1,6 @@
 const UserUtil = {
   userRole: function(user, team) {
-    if (!user.team_users || !team.slug) {
+    if (!(user && user.team_users) || !(team && team.slug)) {
       return null;
     }
 

@@ -377,7 +377,7 @@ class Annotation extends Component {
       ? <span className="annotation__timestamp"><TimeBefore date={updatedAt} /></span>
       : null;
     const authorName = activity.user
-      ? <ProfileLink className={'annotation__author-name'} user={activity.user} /> : null;
+      ? <ProfileLink className={'annotation__author-name'} user={activity.user} team={annotated.team} /> : null;
     const object = JSON.parse(activity.object_after);
     const content = object.data;
     let activityType = activity.event_type;
@@ -826,7 +826,7 @@ class Annotation extends Component {
                     '-',
                   )}`}
               >
-              <Tooltip placement="top" overlay={<UserTooltip user={activity.user} />}>
+              <Tooltip placement="top" overlay={<UserTooltip user={activity.user} team={annotated.team} />}>
                 <StyledAvatarColumn isRtl={isRtl}>
                     <SourcePicture
                       className="avatar"
@@ -841,7 +841,7 @@ class Annotation extends Component {
                   {contentTemplate}
                   <StyledAnnotationMetadata isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
                     <span>
-                      <ProfileLink className={'annotation__card-author'} user={activity.user} />
+                      <ProfileLink className={'annotation__card-author'} user={activity.user} team={annotated.team} />
                       <span>
                         {timestamp}
                       </span>

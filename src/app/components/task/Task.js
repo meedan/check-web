@@ -26,8 +26,6 @@ import DatetimeRespondTask from './DatetimeRespondTask';
 import DatetimeTaskResponse from './DatetimeTaskResponse';
 import { units } from '../../styles/js/shared';
 import ProfileLink from '../layout/ProfileLink';
-import Tooltip from 'rc-tooltip';
-import UserTooltip from '../user/UserTooltip';
 import Attribution from './Attribution';
 import Sentence from '../Sentence';
 
@@ -272,12 +270,12 @@ class Task extends Component {
 
   getResponseData() {
     const data = {};
-    const { task } = this.props;
+    const { task, media } = this.props;
 
     if (task.first_response) {
       data.by = [];
       task.first_response.attribution.edges.forEach((user) => {
-        data.by.push(<ProfileLink user={user.node} />);
+        data.by.push(<ProfileLink user={user.node} team={media.team} />);
       });
       const fields = JSON.parse(task.first_response.content);
       fields.forEach((field) => {
