@@ -1,0 +1,18 @@
+[
+  {
+    "id": "UserUtil.contributor",
+    "defaultMessage": "Contributor"
+  },
+  {
+    "id": "UserUtil.journalist",
+    "defaultMessage": "Journalist"
+  },
+  {
+    "id": "UserUtil.editor",
+    "defaultMessage": "Editor"
+  },
+  {
+    "id": "UserUtil.owner",
+    "defaultMessage": "Owner"
+  }
+]

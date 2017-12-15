@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { injectIntl } from 'react-intl';
 import { Link } from 'react-router';
 import IconMenu from 'material-ui/IconMenu';
 import IconButton from 'material-ui/IconButton';
@@ -33,9 +33,10 @@ class UserMenu extends React.Component {
       return null;
     }
 
-    const userRoleText = inTeamContext && currentUserIsMember &&
+    const role = inTeamContext && currentUserIsMember && UserUtil.userRole(user, team);
+    const localizedRoleText = role &&
       <span className="user-menu__role" style={{ color: black54 }}>
-        {`(${UserUtil.userRole(user, team)})`}
+        {`(${UserUtil.localizedRole(role, this.props.intl)})`}
       </span>;
 
     return (
@@ -52,7 +53,7 @@ class UserMenu extends React.Component {
         >
         <MenuItem
           containerElement={<Link to={`/check/me`} />}
-          secondaryText={userRoleText}
+          secondaryText={localizedRoleText}
           >
           {user && user.name}
         </MenuItem>
@@ -66,4 +67,4 @@ UserMenu.contextTypes = {
   store: React.PropTypes.object,
 };
 
-export default UserMenu;
+export default injectIntl(UserMenu);

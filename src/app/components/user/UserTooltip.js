@@ -1,6 +1,6 @@
 import React from 'react';
 import Relay from 'react-relay';
-import { FormattedMessage, FormattedHTMLMessage, defineMessages, injectIntl } from 'react-intl';
+import { FormattedHTMLMessage, injectIntl } from 'react-intl';
 import { Link } from 'react-router';
 import Avatar from 'material-ui/Avatar';
 import { Card, CardText } from 'material-ui/Card';
@@ -65,33 +65,10 @@ const StyledUserRole = styled.span`
   margin: ${units(1)};
 `;
 
-const messages = defineMessages({
-  contributor: {
-    id: 'UserTooltip.contributor',
-    defaultMessage: 'Contributor',
-  },
-  journalist: {
-    id: 'UserTooltip.journalist',
-    defaultMessage: 'Journalist',
-  },
-  editor: {
-    id: 'UserTooltip.editor',
-    defaultMessage: 'Editor',
-  },
-  owner: {
-    id: 'UserTooltip.owner',
-    defaultMessage: 'Owner',
-  },
-});
-
 class UserTooltipComponent extends React.Component {
   getContext() {
     const context = new CheckContext(this);
     return context;
-  }
-
-  localizedRole(role) {
-    return role ? `${this.props.intl.formatMessage(messages[role])}` : '';
   }
 
   accountLink(account) {
@@ -122,7 +99,7 @@ class UserTooltipComponent extends React.Component {
               <strong className="tooltip__name" style={{ font: body2, fontWeight: 500 }}>
                 {user.name}
               </strong>
-              <StyledUserRole>{this.localizedRole(role)}</StyledUserRole>
+              <StyledUserRole>{UserUtil.localizedRole(role, this.props.intl)}</StyledUserRole>
 
               <Link to={`/check/user/${user.dbid}`} className="tooltip__profile-link" >
                 <StyledMdLaunch isRtl={isRtl}>
