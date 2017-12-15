@@ -376,7 +376,7 @@ class Annotation extends Component {
     const timestamp = updatedAt
       ? <span className="annotation__timestamp"><TimeBefore date={updatedAt} /></span>
       : null;
-    const authorName = activity.user
+    let authorName = activity.user
       ? <ProfileLink className={'annotation__author-name'} user={activity.user} /> : null;
     const object = JSON.parse(activity.object_after);
     const content = object.data;
@@ -726,6 +726,60 @@ class Annotation extends Component {
           );
       }
 
+      if (object.field_name === 'pender_archive_response') {
+        const penderResponse = JSON.parse(JSON.parse(annotation.content)[0].value);
+        contentTemplate = null;
+        if (penderResponse.error) {
+          contentTemplate = (
+            <span className="annotation__pender-archive">
+              <FormattedHTMLMessage
+                id="annotation.penderArchiveResponseError"
+                defaultMessage={'There was an error when Keep tried to take a screenshot of this item.'}
+              />
+            </span>
+          );
+        } else if (penderResponse.screenshot_taken) {
+          activityType = 'screenshot_taken';
+          authorName = null;
+          contentTemplate = (
+            <div>
+              <div className="annotation__card-content annotation__pender-archive">
+                <FormattedHTMLMessage
+                  id="annotation.penderArchiveResponse"
+                  defaultMessage={'Keep has taken a screenshot of this URL.'}
+                />
+                <div>
+                  <img
+                    src={penderResponse.screenshot_url}
+                    className="annotation__card-thumbnail annotation__pender-archive-thumbnail"
+                    alt=""
+                    style={{ width: 80 }}
+                    onClick={this.handleOpenCommentImage.bind(this, penderResponse.screenshot_url)}
+                  />
+                </div>
+              </div>
+
+              {/* lightbox */}
+              {penderResponse.screenshot_url && !!this.state.zoomedCommentImage
+                  ? <Lightbox
+                    onCloseRequest={this.handleCloseCommentImage.bind(this)}
+                    mainSrc={this.state.zoomedCommentImage}
+                  />
+                  : null}
+            </div>
+          );
+        } else {
+          contentTemplate = (
+            <span className="annotation__pender-archive">
+              <FormattedHTMLMessage
+                id="annotation.penderArchiveWait"
+                defaultMessage={'The screenshot of this item is being taken by Keep. Come back in a few minutes to see it.'}
+              />
+            </span>
+          );
+        }
+      }
+
       break;
     case 'create_flag':
       contentTemplate = (
@@ -808,7 +862,7 @@ class Annotation extends Component {
       return null;
     }
 
-    const useCardTemplate = activityType === 'create_comment' || activityType === 'move_to_trash';
+    const useCardTemplate = activityType === 'create_comment' || activityType === 'move_to_trash' || activityType === 'screenshot_taken';
     const templateClass = `annotation--${useCardTemplate ? 'card' : 'default'}`;
     const typeClass = annotation ? `annotation--${annotation.annotation_type}` : '';
     return (
@@ -818,44 +872,73 @@ class Annotation extends Component {
         isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}
       >
         {useCardTemplate
-          ? <StyledAnnotationCardWrapper isRtl={isRtl}>
-            <Card>
-              <CardText
-                className={`annotation__card-text annotation__card-activity-${activityType.replace(
-                    /_/g,
-                    '-',
-                  )}`}
-              >
-              <Tooltip placement="top" overlay={<UserTooltip user={activity.user} />}>
-                <StyledAvatarColumn isRtl={isRtl}>
-                    <SourcePicture
-                      className="avatar"
-                      type="user"
-                      size="small"
-                      object={activity.user.source}
-                    />
-                </StyledAvatarColumn>
-              </Tooltip>
+          ? (authorName ? 
+            <StyledAnnotationCardWrapper isRtl={isRtl}>
+              <Card>
+                <CardText
+                  className={`annotation__card-text annotation__card-activity-${activityType.replace(
+                      /_/g,
+                      '-',
+                    )}`}
+                >
+                <Tooltip placement="top" overlay={<UserTooltip user={activity.user} />}>
+                  <StyledAvatarColumn isRtl={isRtl}>
+                      <SourcePicture
+                        className="avatar"
+                        type="user"
+                        size="small"
+                        object={activity.user.source}
+                      />
+                  </StyledAvatarColumn>
+                </Tooltip>
 
-                <StyledPrimaryColumn isRtl={isRtl}>
-                  {contentTemplate}
-                  <StyledAnnotationMetadata isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
-                    <span>
-                      <ProfileLink className={'annotation__card-author'} user={activity.user} />
+                  <StyledPrimaryColumn isRtl={isRtl}>
+                    {contentTemplate}
+                    <StyledAnnotationMetadata isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
                       <span>
-                        {timestamp}
+                        <ProfileLink className={'annotation__card-author'} user={activity.user} />
+                        <span>
+                          {timestamp}
+                        </span>
                       </span>
-                    </span>
 
-                    <StyledAnnotationActionsWrapper isRtl={isRtl}>
-                      {annotationActions}
-                    </StyledAnnotationActionsWrapper>
-                  </StyledAnnotationMetadata>
-                </StyledPrimaryColumn>
+                      <StyledAnnotationActionsWrapper isRtl={isRtl}>
+                        {annotationActions}
+                      </StyledAnnotationActionsWrapper>
+                    </StyledAnnotationMetadata>
+                  </StyledPrimaryColumn>
 
-              </CardText>
-            </Card>
-          </StyledAnnotationCardWrapper>
+                </CardText>
+              </Card>
+            </StyledAnnotationCardWrapper>
+            :
+            <StyledAnnotationCardWrapper isRtl={isRtl}>
+              <Card>
+                <CardText
+                  className={`annotation__card-text annotation__card-activity-${activityType.replace(
+                      /_/g,
+                      '-',
+                    )}`}
+                >
+                  <StyledPrimaryColumn isRtl={isRtl}>
+                    {contentTemplate}
+                    <StyledAnnotationMetadata isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
+                      <span>
+                        <span>
+                          {timestamp}
+                        </span>
+                      </span>
+
+                      <StyledAnnotationActionsWrapper isRtl={isRtl}>
+                        {annotationActions}
+                      </StyledAnnotationActionsWrapper>
+                    </StyledAnnotationMetadata>
+                  </StyledPrimaryColumn>
+
+                </CardText>
+              </Card>
+            </StyledAnnotationCardWrapper>
+          )
           : <StyledDefaultAnnotation isRtl={isRtl} className="annotation__default">
             <span>
               <span className="annotation__default-content">{contentTemplate}</span>
