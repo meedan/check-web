@@ -26,6 +26,7 @@ class UserPasswordReset extends Component {
     this.state = {
       showConfirmDialog: false,
       submitDisabled: true,
+      expiry: 0,
     };
   }
 
@@ -60,7 +61,8 @@ class UserPasswordReset extends Component {
     };
 
     const onSuccess = (response) => {
-      that.setState({ showConfirmDialog: true });
+      // TODO Handle `success !== true`
+      that.setState({ showConfirmDialog: true, expiry: response.resetPassword.expiry });
     };
 
     if (!that.state.submitDisabled) {
@@ -75,6 +77,10 @@ class UserPasswordReset extends Component {
   }
 
   render() {
+    const previousErrorMsg = this.props.location.state && this.props.location.state.errorMsg ?
+      `${this.props.location.state.errorMsg.replace(/\.$/, '')}. ` :
+      '';
+
     return (
       <ContentColumn className="user-password-reset__component">
         <Card className="user-password-reset__card">
@@ -83,8 +89,12 @@ class UserPasswordReset extends Component {
             <CardText>
               <FormattedMessage
                 id="passwordReset.confirmedText"
-                defaultMessage="We've sent you an email from {adminEmail} with instructions to reset your password. Make sure it didn't wind up in your spam mailbox. If you aren't receiving our password reset emails, contact {supportEmail}."
-                values={{ adminEmail: stringHelper('ADMIN_EMAIL'), supportEmail: stringHelper('SUPPORT_EMAIL') }}
+                defaultMessage="We've sent you an email from {adminEmail} with instructions to reset your password. Make sure it didn't wind up in your spam mailbox. If you aren't receiving our password reset emails, contact {supportEmail}. Please note that the link in this email will expire in {expiry} hours."
+                values={{
+                  adminEmail: stringHelper('ADMIN_EMAIL'),
+                  supportEmail: stringHelper('SUPPORT_EMAIL'),
+                  expiry: Math.floor(this.state.expiry / 3600),
+                }}
               />
             </CardText>,
             <CardActions className="user-password-reset__actions">
@@ -93,6 +103,7 @@ class UserPasswordReset extends Component {
           ] : [
             <CardTitle title={<FormattedMessage id="passwordReset.title" defaultMessage="Forgot password" />} />,
             <CardText>
+              {previousErrorMsg}
               <FormattedMessage id="passwordReset.text" defaultMessage="Happens to everybody! Add your address and an email will be sent with further instructions." />
               <div className="user-password-reset__email-input">
                 <TextField
