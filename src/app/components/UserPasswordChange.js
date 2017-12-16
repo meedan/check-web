@@ -60,7 +60,7 @@ const StyledPasswordChange = styled.div`
 const messages = defineMessages({
   newPassword: {
     id: 'passwordChange.newPassword',
-    defaultMessage: 'New password',
+    defaultMessage: 'New password (at least {min} chars)',
   },
   confirmPassword: {
     id: 'passwordChange.confirmPassword',
@@ -79,6 +79,12 @@ const messages = defineMessages({
     defaultMessage: 'Change password',
   },
 });
+
+// TODO: Read this from the backend.
+const passwordLength = {
+  min: 8,
+  max: 128,
+};
 
 class UserPasswordChange extends Component {
   constructor(props) {
@@ -110,10 +116,9 @@ class UserPasswordChange extends Component {
   handleChangePasswordConfirm(e) {
     const password = this.state.password;
     const password_confirmation = e.target.value;
-    const bothFilled = password.length > 0 && password_confirmation.length > 0;
-    const sameSize = password.length <= password_confirmation.length;
+    const bothFilled = password.length >= passwordLength.min && password_confirmation.length >= passwordLength.min;
     const samePass = password === password_confirmation;
-    const errorMsg = bothFilled && sameSize && !samePass ? this.props.intl.formatMessage(messages.unmatchingPasswords) : '';
+    const errorMsg = bothFilled && !samePass ? this.props.intl.formatMessage(messages.unmatchingPasswords) : '';
     this.setState({ password_confirmation, errorMsg, submitDisabled: !samePass });
   }
 
@@ -186,7 +191,7 @@ class UserPasswordChange extends Component {
                     className="user-password-change__password-input-field"
                     id="password-change-password-input"
                     type="password"
-                    placeholder={this.props.intl.formatMessage(messages.newPassword)}
+                    hintText={this.props.intl.formatMessage(messages.newPassword, { min: passwordLength.min })}
                     onChange={this.handleChangePassword.bind(this)}
                   />
                   <br />
@@ -194,7 +199,7 @@ class UserPasswordChange extends Component {
                     className="user-password-change__password-input-field"
                     id="password-change-password-input-confirm"
                     type="password"
-                    placeholder={this.props.intl.formatMessage(messages.confirmPassword)}
+                    hintText={this.props.intl.formatMessage(messages.confirmPassword)}
                     onChange={this.handleChangePasswordConfirm.bind(this)}
                     errorText={this.state.errorMsg}
                   />
