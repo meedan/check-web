@@ -12,9 +12,23 @@ import PageTitle from './PageTitle';
 import CheckContext from '../CheckContext';
 import { stringHelper } from '../customHelpers';
 import {
-  columnWidthMedium,
+  muiThemeWithoutRtl,
   units,
+  mediaQuery,
+  caption,
+  body2,
+  title,
   black54,
+  black38,
+  checkBlue,
+  twitterBlue,
+  facebookBlue,
+  slackGreen,
+  white,
+  boxShadow,
+  transitionSpeedFast,
+  defaultBorderRadius,
+  columnWidthMedium,
 } from '../styles/js/shared';
 
 const StyledPasswordChange = styled.div`
@@ -32,6 +46,7 @@ const StyledPasswordChange = styled.div`
   .user-password-change__password-input-field {
     margin-top: ${units(1)};
     text-align: ${props => (props.isRtl ? 'right' : 'left')};
+    width: ${units(50)} !important;
   }
 
   .user-password-change__logo {
@@ -42,8 +57,10 @@ const StyledPasswordChange = styled.div`
   .user-password-change__title {
     color: ${black54};
     display: block;
-    font: font(title);
     margin: ${units(1)} auto;
+    font: ${title};
+    font-weight: 600;
+    text-align: center;
   }
 
   .user-password-change__submit-button {
@@ -60,7 +77,7 @@ const StyledPasswordChange = styled.div`
 const messages = defineMessages({
   newPassword: {
     id: 'passwordChange.newPassword',
-    defaultMessage: 'New password (at least {min} chars)',
+    defaultMessage: 'New password (minimum {min} characters)',
   },
   confirmPassword: {
     id: 'passwordChange.confirmPassword',
@@ -119,7 +136,7 @@ class UserPasswordChange extends Component {
     const bothFilled = password.length >= passwordLength.min && password_confirmation.length >= passwordLength.min;
     const samePass = password === password_confirmation;
     const errorMsg = bothFilled && !samePass ? this.props.intl.formatMessage(messages.unmatchingPasswords) : '';
-    this.setState({ password_confirmation, errorMsg, submitDisabled: !samePass });
+    this.setState({ password_confirmation, errorMsg, submitDisabled: !(bothFilled && samePass) });
   }
 
   handleSubmit(e) {
