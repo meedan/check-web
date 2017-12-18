@@ -65,7 +65,7 @@ class UserPasswordReset extends Component {
 
     const onSuccess = (response) => {
       // TODO Handle `success !== true`
-      that.setState({ showConfirmDialog: true, expiry: response.resetPassword.expiry });
+      this.setState({ showConfirmDialog: true, expiry: response.resetPassword.expiry });
     };
 
     if (!this.state.submitDisabled) {
@@ -89,8 +89,8 @@ class UserPasswordReset extends Component {
         <ContentColumn className="user-password-reset__component">
           <Card className="user-password-reset__card">
             { this.state.showConfirmDialog ? [
-              <CardTitle title={<FormattedMessage id="passwordReset.confirmedTitle" defaultMessage="Password reset sent" />} />,
-              <CardText>
+              <CardTitle key="usr-1" title={<FormattedMessage id="passwordReset.confirmedTitle" defaultMessage="Password reset sent" />} />,
+              <CardText key="usr-2">
                 <FormattedMessage
                   id="passwordReset.confirmedText"
                   defaultMessage="We've sent you an email from {adminEmail} with instructions to reset your password. Make sure it didn't wind up in your spam mailbox. If you aren't receiving our password reset emails, contact {supportEmail}. Please note that the link in this email will expire in {expiry} hours."
@@ -101,12 +101,12 @@ class UserPasswordReset extends Component {
                   }}
                 />
               </CardText>,
-              <CardActions className="user-password-reset__actions">
+              <CardActions key="usr-3" className="user-password-reset__actions">
                 <FlatButton label={<FormattedMessage id="passwordReset.signIn" defaultMessage="Sign In" />} primary disabled={this.state.submitDisabled} onClick={this.handleSignIn.bind(this)} />
               </CardActions>,
             ] : [
-              <CardTitle title={<FormattedMessage id="passwordReset.title" defaultMessage="Forgot password" />} />,
-              <CardText>
+              <CardTitle key="usr-1" title={<FormattedMessage id="passwordReset.title" defaultMessage="Forgot password" />} />,
+              <CardText key="usr-2">
                 {previousErrorMsg}
                 <FormattedMessage id="passwordReset.text" defaultMessage="Happens to everybody! Add your address and an email will be sent with further instructions." />
                 <div className="user-password-reset__email-input">
@@ -121,7 +121,7 @@ class UserPasswordReset extends Component {
                   />
                 </div>
               </CardText>,
-              <CardActions className="user-password-reset__actions">
+              <CardActions key="usr-3" className="user-password-reset__actions">
                 <FlatButton label={<FormattedMessage id="passwordReset.cancel" defaultMessage="Cancel" />} onClick={this.handleGoBack.bind(this)} />
                 <FlatButton label={<FormattedMessage id="passwordReset.submit" defaultMessage="Reset Password" />} primary disabled={this.state.submitDisabled} onClick={this.handleSubmit.bind(this)} />
               </CardActions>,
