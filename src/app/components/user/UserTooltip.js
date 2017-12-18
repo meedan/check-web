@@ -1,11 +1,12 @@
 import React from 'react';
 import Relay from 'react-relay';
-import { FormattedHTMLMessage, defineMessages, injectIntl } from 'react-intl';
+import { FormattedHTMLMessage, injectIntl } from 'react-intl';
 import { Link } from 'react-router';
 import Avatar from 'material-ui/Avatar';
 import MdLaunch from 'react-icons/lib/md/launch';
 import rtlDetect from 'rtl-detect';
 import styled from 'styled-components';
+import UserUtil from './UserUtil';
 import ParsedText from '../ParsedText';
 import MediaUtil from '../media/MediaUtil';
 import CheckContext from '../../CheckContext';
@@ -61,25 +62,6 @@ const StyledUserRole = styled.span`
   margin: ${units(1)};
 `;
 
-const messages = defineMessages({
-  contributor: {
-    id: 'UserTooltip.contributor',
-    defaultMessage: 'Contributor',
-  },
-  journalist: {
-    id: 'UserTooltip.journalist',
-    defaultMessage: 'Journalist',
-  },
-  editor: {
-    id: 'UserTooltip.editor',
-    defaultMessage: 'Editor',
-  },
-  owner: {
-    id: 'UserTooltip.owner',
-    defaultMessage: 'Owner',
-  },
-});
-
 class UserTooltipComponent extends React.Component {
   static accountLink(account) {
     return (<StyledSocialLink key={account.id} href={account.url} target="_blank" rel="noopener noreferrer" style={{ paddingRight: units(1) }}>
@@ -104,9 +86,9 @@ class UserTooltipComponent extends React.Component {
   }
 
   render() {
-    const { user } = this.props;
+    const { user, team } = this.props;
     const { source } = this.props.user;
-    const role = this.userRole();
+    const role = UserUtil.userRole(user, team);
     const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
 
     return (
@@ -125,7 +107,7 @@ class UserTooltipComponent extends React.Component {
               <strong className="tooltip__name" style={{ font: body2, fontWeight: 500 }}>
                 {user.name}
               </strong>
-              <StyledUserRole>{this.localizedRole(role)}</StyledUserRole>
+              <StyledUserRole>{UserUtil.localizedRole(role, this.props.intl)}</StyledUserRole>
 
               <Link to={`/check/user/${user.dbid}`} className="tooltip__profile-link" >
                 <StyledMdLaunch isRtl={isRtl}>
@@ -157,6 +139,10 @@ class UserTooltipComponent extends React.Component {
     );
   }
 }
+
+UserTooltipComponent.contextTypes = {
+  store: React.PropTypes.object,
+};
 
 const UserTooltipContainer = Relay.createContainer(injectIntl(UserTooltipComponent), {
   fragments: {
@@ -211,12 +197,9 @@ const UserTooltip = (props) => {
     <Relay.RootContainer
       Component={UserTooltipContainer}
       route={route}
+      renderFetched={data => <UserTooltipContainer {...props} {...data} />}
     />
   );
-};
-
-UserTooltipComponent.contextTypes = {
-  store: React.PropTypes.object,
 };
 
 export default UserTooltip;

@@ -25,16 +25,11 @@ class UpdateUserMutation extends Relay.Mutation {
   }
 
   getConfigs() {
+    const fieldIds = { user: this.props.current_user_id };
+
     return [{
-      type: 'REQUIRED_CHILDREN',
-      children: [Relay.QL`
-        fragment on UpdateUserPayload {
-          user {
-            id,
-            current_team_id
-          }
-        }`,
-      ],
+      type: 'FIELDS_CHANGE',
+      fieldIDs: fieldIds,
     }];
   }
 }

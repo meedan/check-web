@@ -8,13 +8,27 @@ import TextField from 'material-ui/TextField';
 import styled from 'styled-components';
 import rtlDetect from 'rtl-detect';
 import ChangePasswordMutation from '../relay/mutations/ChangePasswordMutation';
+import PageTitle from './PageTitle';
 import CheckContext from '../CheckContext';
 import { stringHelper } from '../customHelpers';
 import {
-  columnWidthMedium,
+  muiThemeWithoutRtl,
   units,
-  alertRed,
+  mediaQuery,
+  caption,
+  body2,
+  title,
   black54,
+  black38,
+  checkBlue,
+  twitterBlue,
+  facebookBlue,
+  slackGreen,
+  white,
+  boxShadow,
+  transitionSpeedFast,
+  defaultBorderRadius,
+  columnWidthMedium,
 } from '../styles/js/shared';
 
 const StyledPasswordChange = styled.div`
@@ -31,6 +45,8 @@ const StyledPasswordChange = styled.div`
 
   .user-password-change__password-input-field {
     margin-top: ${units(1)};
+    text-align: ${props => (props.isRtl ? 'right' : 'left')};
+    width: ${units(50)} !important;
   }
 
   .user-password-change__logo {
@@ -38,17 +54,13 @@ const StyledPasswordChange = styled.div`
     margin: ${units(7)} auto 0;
   }
 
-  .user-password-change__error {
-    color: ${alertRed};
-    display: block;
-    margin: ${units(1)} auto;
-  }
-
   .user-password-change__title {
     color: ${black54};
     display: block;
-    font: font(title);
     margin: ${units(1)} auto;
+    font: ${title};
+    font-weight: 600;
+    text-align: center;
   }
 
   .user-password-change__submit-button {
@@ -65,7 +77,7 @@ const StyledPasswordChange = styled.div`
 const messages = defineMessages({
   newPassword: {
     id: 'passwordChange.newPassword',
-    defaultMessage: 'New password',
+    defaultMessage: 'New password (minimum {min} characters)',
   },
   confirmPassword: {
     id: 'passwordChange.confirmPassword',
@@ -73,9 +85,23 @@ const messages = defineMessages({
   },
   unmatchingPasswords: {
     id: 'passwordChange.unmatchingPasswords',
-    defaultMessage: "Passwords didn't match",
+    defaultMessage: 'Passwords didn\'t match',
+  },
+  unknownError: {
+    id: 'passwordChange.unknownError',
+    defaultMessage: 'An unknown error has occurred. Please try again and contact {supportEmail} if the error persists.',
+  },
+  title: {
+    id: 'passwordChange.title',
+    defaultMessage: 'Change password',
   },
 });
+
+// TODO: Read this from the backend.
+const passwordLength = {
+  min: 8,
+  max: 128,
+};
 
 class UserPasswordChange extends Component {
   static getQueryStringValue(key) {
@@ -97,7 +123,7 @@ class UserPasswordChange extends Component {
 
   handleSignIn() {
     const history = this.getHistory();
-    history.push('/check/login/email');
+    history.push('/');
   }
 
   handleChangePassword(e) {
@@ -105,23 +131,12 @@ class UserPasswordChange extends Component {
   }
 
   handleChangePasswordConfirm(e) {
-    this.setState({ password_confirmation: e.target.value }, this.canSubmit);
-  }
-
-  canSubmit() {
     const password = this.state.password;
-    const password_confirmation = this.state.password_confirmation;
-    const bothFilled = (!!password && !!password_confirmation);
-    const sameSize = (password.length <= password_confirmation.length);
-    const samePass = (password === password_confirmation);
-
-    let errorMsg = '';
-
-    if (bothFilled) {
-      errorMsg = sameSize && !samePass ? this.props.intl.formatMessage(messages.unmatchingPasswords) : '';
-    }
-
-    this.setState({ errorMsg, submitDisabled: !samePass });
+    const password_confirmation = e.target.value;
+    const bothFilled = password.length >= passwordLength.min && password_confirmation.length >= passwordLength.min;
+    const samePass = password === password_confirmation;
+    const errorMsg = bothFilled && !samePass ? this.props.intl.formatMessage(messages.unmatchingPasswords) : '';
+    this.setState({ password_confirmation, errorMsg, submitDisabled: !(bothFilled && samePass) });
   }
 
   handleSubmit(e) {
@@ -129,24 +144,18 @@ class UserPasswordChange extends Component {
 
     const onFailure = (transaction) => {
       const error = transaction.getError();
-      let message = '';
 
       try {
         const json = JSON.parse(error.source);
         if (json.error) {
-          message = json.error;
-          const matches = message.match(/match/);
-
-          if (matches) {
-            message = this.props.intl.formatMessage(messages.unmatchingPasswords);
-            this.setState({ password: '', password_confirmation: '' });
-          }
+          this.getHistory().push({ pathname: '/check/user/password-reset', state: { errorMsg: json.error }});
+          return;
         }
       } catch (ex) {
         // Do nothing.
       }
 
-      this.setState({ errorMsg: message, submitDisabled: true });
+      this.setState({ errorMsg: this.props.intl.formatMessage(messages.unknownError, { supportEmail: stringHelper('SUPPORT_EMAIL') }), submitDisabled: true });
     };
 
     const onSuccess = () => {
@@ -168,47 +177,62 @@ class UserPasswordChange extends Component {
 
   render() {
     return (
-      <StyledPasswordChange isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
-        { this.state.showConfirmDialog ?
-          <Card className="user-password-change__confirm-card">
-            <CardTitle title={<FormattedMessage id="passwordChange.successTitle" defaultMessage="Password updated" />} />
-            <CardText>
-              <FormattedMessage id="passwordChange.successMsg" defaultMessage="You're all set. Now you can log in with your new password." />
-            </CardText>
-            <CardActions className="user-password-change__actions">
-              <FlatButton label={<FormattedMessage id="passwordChange.signIn" defaultMessage="Got it" />} primary onClick={this.handleSignIn.bind(this)} />
-            </CardActions>
-          </Card> :
-          <Card className="user-password-change__card">
-            <CardText>
-              <img role="presentation" src={stringHelper('LOGO_URL')} className="user-password-change__logo" />
-
-              <span className="user-password-change__title"><FormattedMessage id="passwordChange.title" defaultMessage="Change password" /></span>
-              <span className="user-password-change__error">{this.state.errorMsg}</span>
-
-              <div className="user-password-change__password-input">
-                <TextField
-                  className="user-password-change__password-input-field"
-                  id="password-change-password-input"
-                  type="password"
-                  placeholder={this.props.intl.formatMessage(messages.newPassword)}
-                  onChange={this.handleChangePassword.bind(this)}
+      <PageTitle skipTeam={true} prefix={this.props.intl.formatMessage(messages.title)} >
+        <StyledPasswordChange isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
+          { this.state.showConfirmDialog ?
+            <Card className="user-password-change__confirm-card">
+              <CardTitle title={<FormattedMessage id="passwordChange.successTitle" defaultMessage="Password updated" />} />
+              <CardText>
+                <FormattedMessage
+                  id="passwordChange.successMsg"
+                  defaultMessage="You're all set. Now you can log in with your new password."
                 />
-                <br />
-                <TextField
-                  className="user-password-change__password-input-field"
-                  id="password-change-password-input-confirm"
-                  type="password"
-                  placeholder={this.props.intl.formatMessage(messages.confirmPassword)}
-                  onChange={this.handleChangePasswordConfirm.bind(this)}
+              </CardText>
+              <CardActions className="user-password-change__actions">
+                <FlatButton
+                  label={<FormattedMessage id="passwordChange.signIn" defaultMessage="Got it" />}
+                  primary
+                  onClick={this.handleSignIn.bind(this)}
                 />
-                <br />
-                <RaisedButton className="user-password-change__submit-button" label="Change Password" onClick={this.handleSubmit.bind(this)} primary disabled={this.state.submitDisabled} />
-              </div>
-            </CardText>
-          </Card>
-        }
-      </StyledPasswordChange>
+              </CardActions>
+            </Card> :
+            <Card className="user-password-change__card">
+              <CardText>
+                <img role="presentation" src={stringHelper('LOGO_URL')} className="user-password-change__logo" />
+
+                <span className="user-password-change__title">
+                  <FormattedMessage id="passwordChange.title" defaultMessage="Change password" />
+                </span>
+
+                <div className="user-password-change__password-input">
+                  <TextField
+                    className="user-password-change__password-input-field"
+                    id="password-change-password-input"
+                    type="password"
+                    hintText={this.props.intl.formatMessage(messages.newPassword, { min: passwordLength.min })}
+                    onChange={this.handleChangePassword.bind(this)}
+                  />
+                  <br />
+                  <TextField
+                    className="user-password-change__password-input-field"
+                    id="password-change-password-input-confirm"
+                    type="password"
+                    hintText={this.props.intl.formatMessage(messages.confirmPassword)}
+                    onChange={this.handleChangePasswordConfirm.bind(this)}
+                    errorText={this.state.errorMsg}
+                  />
+                  <br />
+                  <RaisedButton
+                    className="user-password-change__submit-button"
+                    label="Change Password"
+                    onClick={this.handleSubmit.bind(this)} primary disabled={this.state.submitDisabled}
+                  />
+                </div>
+              </CardText>
+            </Card>
+          }
+        </StyledPasswordChange>
+      </PageTitle>
     );
   }
 }

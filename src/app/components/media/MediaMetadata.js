@@ -509,7 +509,7 @@ class MediaMetadata extends Component {
         defaultMessage={'by {username}'}
         values={{
           username: (
-            <Tooltip placement="top" overlay={<UserTooltip user={media.user} />}>
+            <Tooltip placement="top" overlay={<UserTooltip user={media.user} team={media.team} />}>
               <Link to={`/check/user/${media.user.dbid}`}>
                 {media.user.name}
               </Link>

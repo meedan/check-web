@@ -6,11 +6,19 @@ class ResetPasswordMutation extends Relay.Mutation {
   }
 
   getFatQuery() {
-    return Relay.QL`fragment on ResetPasswordPayload { success }`;
+    return Relay.QL`fragment on ResetPasswordPayload { success, expiry }`;
   }
 
   getConfigs() {
-    return [];
+    return [{
+      type: 'REQUIRED_CHILDREN',
+      children: [Relay.QL`
+        fragment on ResetPasswordPayload {
+          success
+          expiry
+        }
+      `]
+    }];
   }
 
   getVariables() {

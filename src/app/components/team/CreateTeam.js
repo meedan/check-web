@@ -177,6 +177,7 @@ class CreateTeam extends Component {
       const teams = JSON.parse(context.currentUser.teams);
       teams[team.slug] = { status: 'member' };
       context.currentUser.teams = JSON.stringify(teams);
+      context.currentUser.current_team = team;
 
       const path = `/${team.slug}`;
       context.history.push(path);

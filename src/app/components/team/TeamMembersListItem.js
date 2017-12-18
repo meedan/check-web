@@ -92,7 +92,10 @@ class TeamMembersListItem extends Component {
       >
         <FlexRow>
           <FlexRow>
-            <Tooltip placement="top" overlay={<UserTooltip user={teamUser.node.user} />}>
+            <Tooltip
+              placement="top"
+              overlay={<UserTooltip user={teamUser.node.user} team={teamUser.node.team} />}
+              >
               <Link to={`/check/user/${teamUser.node.user.dbid}`} className="team-members__profile-link">
                 <FlexRow>
                   <Offset isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
