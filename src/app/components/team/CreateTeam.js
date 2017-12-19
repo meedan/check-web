@@ -123,8 +123,8 @@ class CreateTeam extends Component {
   handleDisplayNameChange(e) {
     const isTextEntered = e.target.value && e.target.value.length > 0;
     const newClass = isTextEntered
-      ? this.displayNameLabelClass('--text-entered')
-      : this.displayNameLabelClass();
+      ? CreateTeam.displayNameLabelClass('--text-entered')
+      : CreateTeam.displayNameLabelClass();
     this.setState({
       displayNameLabelClass: newClass,
       displayName: e.target.value,
