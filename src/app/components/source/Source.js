@@ -447,9 +447,9 @@ const SourceContainer = Relay.createContainer(SourceComponent, {
   },
 });
 
-const Source = (props) => {
+const Source = (props, context_) => {
   let projectId = props.params.projectId || 0;
-  const context = new CheckContext({ props });
+  const context = new CheckContext({ props, context: context_ });
   context.setContext();
   if (!projectId) {
     const store = context.getContextStore();
