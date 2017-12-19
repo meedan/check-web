@@ -41,6 +41,14 @@ const messages = defineMessages({
 });
 
 class SwitchTeamsComponent extends Component {
+  static cancelRequest(team) {
+    Relay.Store.commitUpdate(
+      new DeleteTeamUserMutation({
+        id: team.team_user_id,
+      }),
+    );
+  }
+
   getContext() {
     return new CheckContext(this);
   }
@@ -64,9 +72,10 @@ class SwitchTeamsComponent extends Component {
       } catch (e) {
         // Do nothing.
       }
+      console.error(message); // eslint-disable-line no-console
     };
 
-    const onSuccess = (response) => {
+    const onSuccess = () => {
       const path = `/${team.slug}`;
       history.push(path);
     };
@@ -77,14 +86,6 @@ class SwitchTeamsComponent extends Component {
         current_user_id: user.id,
       }),
       { onSuccess, onFailure },
-    );
-  }
-
-  cancelRequest(team) {
-    Relay.Store.commitUpdate(
-      new DeleteTeamUserMutation({
-        id: team.team_user_id,
-      }),
     );
   }
 
@@ -107,7 +108,7 @@ class SwitchTeamsComponent extends Component {
           <FlatButton
             style={listItemButtonStyle}
             hoverColor={alertRed}
-            onClick={this.cancelRequest.bind(this, team)}
+            onClick={SwitchTeamsComponent.cancelRequest(team)}
           >
             <FormattedMessage id="switchTeams.cancelJoinRequest" defaultMessage="Cancel" />
           </FlatButton>
@@ -122,7 +123,7 @@ class SwitchTeamsComponent extends Component {
       return '';
     };
 
-    teamUsers.map((teamUser) => {
+    teamUsers.forEach((teamUser) => {
       const team = teamUser.node.team;
       const status = teamUser.node.status;
       const visible = can(team.permissions, 'read Team');
@@ -132,10 +133,10 @@ class SwitchTeamsComponent extends Component {
       if (status === 'requested' || status === 'banned') {
         team.status = status;
         team.teamUser_id = teamUser.node.id;
-        return pendingTeams.push(team);
+        pendingTeams.push(team);
+      } else {
+        otherTeams.push(team);
       }
-
-      return otherTeams.push(team);
     });
 
     const cardTitle = isUserSelf ?
@@ -161,7 +162,9 @@ class SwitchTeamsComponent extends Component {
                 onClick={this.setCurrentTeam.bind(this, team, currentUser)}
                 primaryText={team.name}
                 rightIcon={<KeyboardArrowRight />}
-                secondaryText={this.props.intl.formatMessage(messages.switchTeamsMember, { membersCount: team.members_count })}
+                secondaryText={this.props.intl.formatMessage(
+                  messages.switchTeamsMember, { membersCount: team.members_count },
+                )}
               />,
             )}
 

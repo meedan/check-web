@@ -63,7 +63,7 @@ class JoinTeamComponent extends Component {
         if (json.error) {
           message = json.error;
         }
-      } catch (e) {
+      } catch (ex) {
         // Do nothing.
       }
       this.setState({ message });
@@ -98,12 +98,12 @@ class JoinTeamComponent extends Component {
       const user = this.getContext().currentUser;
       const userTeams = JSON.parse(user.teams);
       let redirect = true;
-      for (const teamName in userTeams) {
+      Object.keys(userTeams).forEach((teamName) => {
         const t = userTeams[teamName];
         if (t.id === team.dbid && team.private && t.status !== 'member') {
           redirect = false;
         }
-      }
+      });
       if (redirect) {
         this.getContext().history.push(`/${team.slug}`);
       }

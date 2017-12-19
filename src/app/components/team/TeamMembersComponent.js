@@ -41,7 +41,8 @@ class TeamMembersComponent extends Component {
     const teamUsersRequestingMembership = [];
     const teamUsersMembers = [];
 
-    teamUsers.edges.map((teamUser) => {
+    teamUsers.edges.map((teamUser_) => {
+      const teamUser = teamUser_;
       if (teamUser.node.status === 'requested') {
         return teamUsersRequestingMembership.push(teamUser);
       }
@@ -54,7 +55,6 @@ class TeamMembersComponent extends Component {
     const requestingMembership = !!teamUsersRequestingMembership.length;
 
     return (
-
       <div>
         <TeamInviteCard team={team} />
         {(() => {

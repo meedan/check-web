@@ -139,6 +139,22 @@ class TeamComponent extends Component {
     this.setContextTeam();
   }
 
+  onImage(file) {
+    document.forms['edit-team-form'].avatar = file;
+    this.setState({ message: null, avatar: file });
+  }
+
+  onClear() {
+    if (document.forms['edit-team-form']) {
+      document.forms['edit-team-form'].avatar = null;
+    }
+    this.setState({ message: null, avatar: null });
+  }
+
+  onImageError(file, message) {
+    this.setState({ message, avatar: null });
+  }
+
   setContextTeam() {
     const context = new CheckContext(this);
     const store = context.getContextStore();
@@ -206,9 +222,9 @@ class TeamComponent extends Component {
     }
   }
 
-  handleEditProfileImg = () => {
+  handleEditProfileImg() {
     this.setState({ editProfileImg: true });
-  };
+  }
 
   handleEnterEditMode(e) {
     this.setState({ isEditing: true, editProfileImg: false });
@@ -227,30 +243,14 @@ class TeamComponent extends Component {
     this.setState({ values });
   }
 
-  handleTabChange = (value) => {
+  handleTabChange(value) {
     this.setState({
       showTab: value,
     });
-  };
+  }
 
   loadMore() {
     this.props.relay.setVariables({ pageSize: this.props.team.projects.edges.length + pageSize });
-  }
-
-  onImage(file) {
-    document.forms['edit-team-form'].avatar = file;
-    this.setState({ message: null, avatar: file });
-  }
-
-  onClear = () => {
-    if (document.forms['edit-team-form']) {
-      document.forms['edit-team-form'].avatar = null;
-    }
-    this.setState({ message: null, avatar: null });
-  };
-
-  onImageError(file, message) {
-    this.setState({ message, avatar: null });
   }
 
   render() {
@@ -345,7 +345,7 @@ class TeamComponent extends Component {
                           {this.state.editProfileImg
                             ? <UploadImage
                               onImage={this.onImage.bind(this)}
-                              onClear={this.onClear}
+                              onClear={this.onClear.bind(this)}
                               onError={this.onImageError.bind(this)}
                               noPreview
                             />
@@ -496,7 +496,7 @@ class TeamComponent extends Component {
                         </Row>
                       </StyledBigColumn>
                     </StyledTwoColumns>
-                    <Tabs value={this.state.showTab} onChange={this.handleTabChange}>
+                    <Tabs value={this.state.showTab} onChange={this.handleTabChange.bind(this)}>
                       <Tab
                         label={
                           <FormattedMessage
@@ -536,7 +536,7 @@ class TeamComponent extends Component {
                       <Card style={{ marginTop: units(2), marginBottom: units(2) }}>
                         <Can permissions={team.permissions} permission="create Project">
                           <CardActions style={{ padding: `0 ${units(2)} ${units(2)}` }}>
-                            <CreateProject team={team} autoFocus={team.projects.edges.length === 0} />
+                            <CreateProject team={team} autoFocus={!team.projects.edges.length} />
                           </CardActions>
                         </Can>
                       </Card>
@@ -545,9 +545,16 @@ class TeamComponent extends Component {
                           title={<MappedMessage msgObj={messages} msgKey="verificationProjects" />}
                         />
 
-                        {team.projects.edges.length === 0
-                          ? <CardText style={{ color: black54 }}><MappedMessage msgObj={messages} msgKey="noProjects" /></CardText>
-                          : <InfiniteScroll hasMore loadMore={this.loadMore.bind(this)} threshold={500}>
+                        {!team.projects.edges.length ?
+                          <CardText style={{ color: black54 }}>
+                            <MappedMessage msgObj={messages} msgKey="noProjects" />
+                          </CardText>
+                          :
+                          <InfiniteScroll
+                            hasMore
+                            loadMore={this.loadMore.bind(this)}
+                            threshold={500}
+                          >
                             <List className="projects" style={{ padding: '0' }}>
                               {team.projects.edges
                               .sortp((a, b) => a.node.title.localeCompare(b.node.title))

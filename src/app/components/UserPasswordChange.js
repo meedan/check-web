@@ -12,22 +12,9 @@ import PageTitle from './PageTitle';
 import CheckContext from '../CheckContext';
 import { stringHelper } from '../customHelpers';
 import {
-  muiThemeWithoutRtl,
   units,
-  mediaQuery,
-  caption,
-  body2,
   title,
   black54,
-  black38,
-  checkBlue,
-  twitterBlue,
-  facebookBlue,
-  slackGreen,
-  white,
-  boxShadow,
-  transitionSpeedFast,
-  defaultBorderRadius,
   columnWidthMedium,
 } from '../styles/js/shared';
 
@@ -133,9 +120,11 @@ class UserPasswordChange extends Component {
   handleChangePasswordConfirm(e) {
     const password = this.state.password;
     const password_confirmation = e.target.value;
-    const bothFilled = password.length >= passwordLength.min && password_confirmation.length >= passwordLength.min;
+    const bothFilled =
+      password.length >= passwordLength.min && password_confirmation.length >= passwordLength.min;
     const samePass = password === password_confirmation;
-    const errorMsg = bothFilled && !samePass ? this.props.intl.formatMessage(messages.unmatchingPasswords) : '';
+    const errorMsg = bothFilled && !samePass ?
+      this.props.intl.formatMessage(messages.unmatchingPasswords) : '';
     this.setState({ password_confirmation, errorMsg, submitDisabled: !(bothFilled && samePass) });
   }
 
@@ -148,7 +137,7 @@ class UserPasswordChange extends Component {
       try {
         const json = JSON.parse(error.source);
         if (json.error) {
-          this.getHistory().push({ pathname: '/check/user/password-reset', state: { errorMsg: json.error }});
+          this.getHistory().push({ pathname: '/check/user/password-reset', state: { errorMsg: json.error } });
           return;
         }
       } catch (ex) {
@@ -177,7 +166,7 @@ class UserPasswordChange extends Component {
 
   render() {
     return (
-      <PageTitle skipTeam={true} prefix={this.props.intl.formatMessage(messages.title)} >
+      <PageTitle skipTeam prefix={this.props.intl.formatMessage(messages.title)} >
         <StyledPasswordChange isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
           { this.state.showConfirmDialog ?
             <Card className="user-password-change__confirm-card">
@@ -209,7 +198,9 @@ class UserPasswordChange extends Component {
                     className="user-password-change__password-input-field"
                     id="password-change-password-input"
                     type="password"
-                    hintText={this.props.intl.formatMessage(messages.newPassword, { min: passwordLength.min })}
+                    hintText={this.props.intl.formatMessage(
+                      messages.newPassword, { min: passwordLength.min },
+                    )}
                     onChange={this.handleChangePassword.bind(this)}
                   />
                   <br />
@@ -225,7 +216,9 @@ class UserPasswordChange extends Component {
                   <RaisedButton
                     className="user-password-change__submit-button"
                     label="Change Password"
-                    onClick={this.handleSubmit.bind(this)} primary disabled={this.state.submitDisabled}
+                    onClick={this.handleSubmit.bind(this)}
+                    primary
+                    disabled={this.state.submitDisabled}
                   />
                 </div>
               </CardText>

@@ -85,7 +85,7 @@ class UserPasswordReset extends Component {
       '';
 
     return (
-      <PageTitle skipTeam={true} prefix={this.props.intl.formatMessage(messages.title)} >
+      <PageTitle skipTeam prefix={this.props.intl.formatMessage(messages.title)} >
         <ContentColumn className="user-password-reset__component">
           <Card className="user-password-reset__card">
             { this.state.showConfirmDialog ? [

@@ -9,8 +9,8 @@ import MdClear from 'react-icons/lib/md/clear';
 import IconButton from 'material-ui/IconButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import rtlDetect from 'rtl-detect';
-import '../../styles/css/tooltip.css';
 import Tooltip from 'rc-tooltip';
+import '../../styles/css/tooltip.css';
 import SourcePicture from '../source/SourcePicture';
 import UpdateTeamUserMutation from '../../relay/mutations/UpdateTeamUserMutation';
 import UserTooltip from '../user/UserTooltip';
@@ -22,7 +22,6 @@ import {
   buttonInButtonGroupStyle,
   Offset,
 } from '../../styles/js/shared';
-import styled from 'styled-components';
 
 const messages = defineMessages({
   contributor: {
@@ -95,7 +94,7 @@ class TeamMembersListItem extends Component {
             <Tooltip
               placement="top"
               overlay={<UserTooltip user={teamUser.node.user} team={teamUser.node.team} />}
-              >
+            >
               <Link to={`/check/user/${teamUser.node.user.dbid}`} className="team-members__profile-link">
                 <FlexRow>
                   <Offset isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>

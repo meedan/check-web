@@ -111,13 +111,15 @@ class TrashComponent extends Component {
 
       const onFailure = (transaction) => {
         const transactionError = transaction.getError();
-        transactionError.json
-          ? transactionError.json().then(this.handleMessage)
-          : this.handleMessage(JSON.stringify(transactionError));
+        if (transactionError.json) {
+          transactionError.json().then(this.handleMessage);
+        } else {
+          this.handleMessage(JSON.stringify(transactionError));
+        }
         this.setState({ emptyTrashDisabled: false });
       };
 
-      const onSuccess = (response) => {
+      const onSuccess = () => {
         this.handleMessage(message);
       };
 
@@ -236,19 +238,17 @@ const TrashContainer = Relay.createContainer(TrashComponent, {
   },
 });
 
-class Trash extends Component {
-  render() {
-    const slug = this.props.params.team || '';
-    const route = new TeamRoute({ teamSlug: slug });
-    return (
-      <Relay.RootContainer
-        Component={TrashContainer}
-        forceFetch
-        route={route}
-        renderFetched={data => <TrashContainer {...this.props} {...data} />}
-      />
-    );
-  }
-}
+const Trash = (props) => {
+  const slug = props.params.team || '';
+  const route = new TeamRoute({ teamSlug: slug });
+  return (
+    <Relay.RootContainer
+      Component={TrashContainer}
+      forceFetch
+      route={route}
+      renderFetched={data => <TrashContainer {...props} {...data} />}
+    />
+  );
+};
 
 export default injectIntl(Trash);

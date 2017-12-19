@@ -20,7 +20,7 @@ const messages = defineMessages({
 });
 
 const UserUtil = {
-  userRole: function(user, team) {
+  userRole: (user, team) => {
     if (!(user && user.team_users) || !(team && team.slug)) {
       return null;
     }
@@ -29,9 +29,8 @@ const UserUtil = {
     return current_team_user && current_team_user.node.status !== 'requested' ? current_team_user.node.role : '';
   },
 
-  localizedRole: function(role, intl) {
-    return role ? `${intl.formatMessage(messages[role])}` : '';
-  },
+  localizedRole: (role, intl) =>
+    role ? `${intl.formatMessage(messages[role])}` : '',
 };
 
 export default UserUtil;

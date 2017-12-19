@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Relay from 'react-relay';
 import TeamRoute from '../../relay/TeamRoute';
 import TeamMembersComponent from './TeamMembersComponent';
@@ -44,15 +44,12 @@ const TeamContainer = Relay.createContainer(TeamMembersComponent, {
   },
 });
 
-class TeamMembers extends Component {
-
-  render() {
-    const route = new TeamRoute({ teamSlug: this.props.teamSlug });
-    return (<Relay.RootContainer
-      Component={TeamContainer}
-      route={route}
-    />);
-  }
-}
+const TeamMembers = (props) => {
+  const route = new TeamRoute({ teamSlug: props.teamSlug });
+  return (<Relay.RootContainer
+    Component={TeamContainer}
+    route={route}
+  />);
+};
 
 export default TeamMembers;

@@ -17,7 +17,7 @@ class ResetPasswordMutation extends Relay.Mutation {
           success
           expiry
         }
-      `]
+      `],
     }];
   }
 
