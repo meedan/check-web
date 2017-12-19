@@ -3,9 +3,9 @@ import Relay from 'react-relay';
 import { injectIntl, defineMessages } from 'react-intl';
 import AutoComplete from 'material-ui/AutoComplete';
 import Chip from 'material-ui/Chip';
-import AboutRoute from '../../relay/AboutRoute';
 import difference from 'lodash.difference';
 import intersection from 'lodash.intersection';
+import AboutRoute from '../../relay/AboutRoute';
 import { StyledTagsWrapper } from '../../styles/js/shared';
 
 const messages = defineMessages({
@@ -27,9 +27,15 @@ class LanguageComponent extends React.Component {
 
     const supportedLanguages = JSON.parse(this.props.about.languages_supported);
 
-    const projectLanguages = this.props.projectLanguages ? JSON.parse(this.props.projectLanguages) : null;
+    const projectLanguages = this.props.projectLanguages ?
+      JSON.parse(this.props.projectLanguages) : null;
 
-    return difference(projectLanguages ? intersection(Object.keys(supportedLanguages), projectLanguages) : Object.keys(supportedLanguages), usedLanguages)
+    return difference(
+        projectLanguages ?
+          intersection(Object.keys(supportedLanguages), projectLanguages) :
+          Object.keys(supportedLanguages),
+        usedLanguages,
+      )
       .map(l => ({ value: l, label: supportedLanguages[l] }));
   }
 
@@ -65,7 +71,7 @@ class LanguageComponent extends React.Component {
       this.props.onSelect(value);
 
       setTimeout(() => {
-        this.refs.autocomplete.setState({ searchText: '' });
+        this.autoComplete.setState({ searchText: '' });
       }, 500);
     };
 
@@ -79,7 +85,7 @@ class LanguageComponent extends React.Component {
         dataSourceConfig={{ text: 'label', value: 'value' }}
         openOnFocus
         onNewRequest={selectCallback}
-        ref={'autocomplete'}
+        ref={(a) => { this.autoComplete = a; }}
         fullWidth
         textFieldStyle={{ width: '85%' }}
       />
@@ -105,11 +111,13 @@ const LanguageContainer = Relay.createContainer(injectIntl(LanguageComponent), {
   },
 });
 
-class SourceLanguages extends React.Component {
-  render() {
-    const route = new AboutRoute();
-    return (<Relay.RootContainer Component={LanguageContainer} route={route} renderFetched={data => <LanguageContainer {...this.props} {...data} />} />);
-  }
-}
+const SourceLanguages = (props) => {
+  const route = new AboutRoute();
+  return (<Relay.RootContainer
+    Component={LanguageContainer}
+    route={route}
+    renderFetched={data => <LanguageContainer {...props} {...data} />}
+  />);
+};
 
 export default SourceLanguages;

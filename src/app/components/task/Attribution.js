@@ -1,15 +1,19 @@
 import React from 'react';
 import Relay from 'react-relay';
 import { FormattedMessage, injectIntl } from 'react-intl';
-import TeamRoute from '../../relay/TeamRoute';
-import CheckContext from '../../CheckContext';
 import Select from 'react-select';
 import Chip from 'material-ui/Chip';
-import { StyledTagsWrapper } from '../../styles/js/shared';
 import styled from 'styled-components';
-import { units } from '../../styles/js/shared';
+import TeamRoute from '../../relay/TeamRoute';
+import CheckContext from '../../CheckContext';
+import { StyledTagsWrapper, units } from '../../styles/js/shared';
 
 class AttributionComponent extends React.Component {
+  static resize() {
+    // https://github.com/callemall/material-ui/issues/5793#issuecomment-282306001
+    window.dispatchEvent(new Event('resize'));
+  }
+
   constructor(props) {
     super(props);
 
@@ -34,6 +38,16 @@ class AttributionComponent extends React.Component {
       selectedUsers,
       unselectedUsers,
     };
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  componentDidMount() {
+    AttributionComponent.resize();
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  componentDidUpdate() {
+    AttributionComponent.resize();
   }
 
   handleChange(value) {
@@ -62,21 +76,8 @@ class AttributionComponent extends React.Component {
     this.setState({ selectedUsers, unselectedUsers });
   }
 
-  resize() {
-    // https://github.com/callemall/material-ui/issues/5793#issuecomment-282306001
-    window.dispatchEvent(new Event('resize'));
-  }
-
-  componentDidMount() {
-    this.resize();
-  }
-
-  componentDidUpdate() {
-    this.resize();
-  }
-
   render() {
-    const { task, team } = this.props;
+    const { task } = this.props;
 
     const StyledSelect = styled(Select)`
       margin-bottom: 200px;
@@ -147,21 +148,18 @@ const AttributionContainer = Relay.createContainer(injectIntl(AttributionCompone
   },
 });
 
-class Attribution extends React.Component {
-  render() {
-    const context = new CheckContext(this).getContextStore();
+const Attribution = (props, context) => {
+  const contextStore = new CheckContext().getContextStore(context.store);
+  const route = new TeamRoute({ teamSlug: contextStore.team.slug });
 
-    const route = new TeamRoute({ teamSlug: context.team.slug });
-
-    return (
-      <Relay.RootContainer
-        Component={AttributionContainer}
-        renderFetched={data => <AttributionContainer {...this.props} {...data} />}
-        route={route}
-      />
-    );
-  }
-}
+  return (
+    <Relay.RootContainer
+      Component={AttributionContainer}
+      renderFetched={data => <AttributionContainer {...props} {...data} />}
+      route={route}
+    />
+  );
+};
 
 Attribution.contextTypes = {
   store: React.PropTypes.object,

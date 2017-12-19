@@ -1,10 +1,20 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
-import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
-import { Map, Marker, Popup, TileLayer } from 'react-leaflet';
+import { FormattedMessage, injectIntl } from 'react-intl';
+import { Map, Marker, TileLayer } from 'react-leaflet';
 
 class GeolocationRespondTask extends Component {
+  static canSubmit() {
+    // TODO Use ref instead of reading the DOM
+    //      at which point this method will no longer be static.
+    const value = document.getElementById('task__response-geolocation-name').value;
+    if (typeof value !== 'undefined' && value !== null) {
+      return !!value.trim();
+    }
+    return false;
+  }
+
   constructor(props) {
     super(props);
 
@@ -19,7 +29,7 @@ class GeolocationRespondTask extends Component {
       const geoJSON = JSON.parse(this.props.response);
       name = geoJSON.properties.name;
       const coordinates = geoJSON.geometry.coordinates;
-      if (coordinates[0] != 0 || coordinates[1] != 0) {
+      if (coordinates[0] || coordinates[1]) {
         lat = parseFloat(coordinates[0]).toFixed(7);
         lng = parseFloat(coordinates[1]).toFixed(7);
         coordinatesString = `${lat}, ${lng}`;
@@ -43,49 +53,12 @@ class GeolocationRespondTask extends Component {
     };
   }
 
-  toggleDraggable() {
-    this.setState({ draggable: !this.state.draggable });
+  componentDidMount() {
+    this.reloadMap();
   }
 
-  updatePosition() {
-    const { lat, lng } = this.refs.marker.leafletElement.getLatLng();
-    const zoom = this.refs.marker.leafletElement._map.getZoom();
-    const coordinatesString = `${parseFloat(lat).toFixed(7)}, ${parseFloat(lng).toFixed(7)}`;
-    this.setState({ lat, lng, zoom, coordinatesString, focus: true });
-  }
-
-  updatePositionOnClick(e) {
-    const { lat, lng } = e.latlng;
-    const zoom = this.refs.marker.leafletElement._map.getZoom();
-    const coordinatesString = `${parseFloat(lat).toFixed(7)}, ${parseFloat(lng).toFixed(7)}`;
-    this.setState({ lat, lng, zoom, coordinatesString, focus: true });
-  }
-
-  canSubmit() {
-    const value = document.getElementById('task__response-geolocation-name').value;
-    if (typeof value !== 'undefined' && value !== null) {
-      return !!value.trim();
-    }
-    return false;
-  }
-
-  handlePressButton() {
-    if (this.canSubmit()) {
-      this.handleSubmit();
-    }
-  }
-
-  handleChange(e) {
-    this.setState({ taskAnswerDisabled: !this.canSubmit(), name: e.target.value });
-  }
-
-  handleChangeCoordinates(e) {
-    this.setState({ taskAnswerDisabled: !this.canSubmit(), coordinatesString: e.target.value });
-  }
-
-  handleBlur() {
-    const coordinates = this.getCoordinates();
-    this.setState({ lat: coordinates[0], lng: coordinates[1] });
+  componentDidUpdate() {
+    this.reloadMap();
   }
 
   getCoordinates() {
@@ -100,6 +73,51 @@ class GeolocationRespondTask extends Component {
       coordinates = [0, 0];
     }
     return coordinates;
+  }
+
+  toggleDraggable() {
+    this.setState({ draggable: !this.state.draggable });
+  }
+
+  updatePosition() {
+    const { lat, lng } = this.marker.leafletElement.getLatLng();
+    // eslint-disable-next-line no-underscore-dangle
+    const zoom = this.marker.leafletElement._map.getZoom();
+    const coordinatesString = `${parseFloat(lat).toFixed(7)}, ${parseFloat(lng).toFixed(7)}`;
+    this.setState({ lat, lng, zoom, coordinatesString, focus: true });
+  }
+
+  updatePositionOnClick(e) {
+    const { lat, lng } = e.latlng;
+    // eslint-disable-next-line no-underscore-dangle
+    const zoom = this.marker.leafletElement._map.getZoom();
+    const coordinatesString = `${parseFloat(lat).toFixed(7)}, ${parseFloat(lng).toFixed(7)}`;
+    this.setState({ lat, lng, zoom, coordinatesString, focus: true });
+  }
+
+  handlePressButton() {
+    if (GeolocationRespondTask.canSubmit()) {
+      this.handleSubmit();
+    }
+  }
+
+  handleChange(e) {
+    this.setState({
+      taskAnswerDisabled: !GeolocationRespondTask.canSubmit(),
+      name: e.target.value,
+    });
+  }
+
+  handleChangeCoordinates(e) {
+    this.setState({
+      taskAnswerDisabled: !GeolocationRespondTask.canSubmit(),
+      coordinatesString: e.target.value,
+    });
+  }
+
+  handleBlur() {
+    const coordinates = this.getCoordinates();
+    this.setState({ lat: coordinates[0], lng: coordinates[1] });
   }
 
   handleSubmit() {
@@ -123,17 +141,10 @@ class GeolocationRespondTask extends Component {
     }
   }
 
-  componentDidUpdate() {
-    this.reloadMap();
-  }
-
-  componentDidMount() {
-    this.reloadMap();
-  }
-
   reloadMap() {
-    if (this.refs.marker && this.refs.marker.leafletElement) {
-      this.refs.marker.leafletElement._map.invalidateSize();
+    if (this.marker && this.marker.leafletElement) {
+      // eslint-disable-next-line no-underscore-dangle
+      this.marker.leafletElement._map.invalidateSize();
     }
   }
 
@@ -228,7 +239,7 @@ class GeolocationRespondTask extends Component {
               draggable={this.state.draggable}
               onDragend={this.updatePosition.bind(this)}
               position={position}
-              ref="marker"
+              ref={(m) => { this.marker = m; }}
             />
           </Map>
         </div>
@@ -237,9 +248,5 @@ class GeolocationRespondTask extends Component {
     );
   }
 }
-
-GeolocationRespondTask.propTypes = {
-  intl: intlShape.isRequired,
-};
 
 export default injectIntl(GeolocationRespondTask);

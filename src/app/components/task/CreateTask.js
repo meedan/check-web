@@ -91,7 +91,7 @@ class CreateTask extends Component {
       this.setState({ message });
     };
 
-    const onSuccess = (response) => {
+    const onSuccess = () => {
       this.setState({
         dialogOpen: false,
         label: '',
@@ -132,7 +132,7 @@ class CreateTask extends Component {
       this.setState({ message });
     };
 
-    const onSuccess = (response) => {
+    const onSuccess = () => {
       this.setState({ dialogOpen: false, type: null, message: null });
     };
 
@@ -193,6 +193,8 @@ class CreateTask extends Component {
         </div>
       );
     }
+
+    return null;
   }
 
   render() {

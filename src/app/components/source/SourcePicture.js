@@ -118,13 +118,11 @@ class SourcePicture extends Component {
       const onSuccess = (response) => {
         let avatarUrl = this.defaultAvatar();
         try {
-          const object = this.props.type === 'source' ||
-            this.props.type === 'user'
-            ? response.updateSource.source
-            : this.props.type === 'account'
-              ? response.updateAccount.account
-              : {};
-          avatarUrl = object.image || this.defaultAvatar();
+          if (['source', 'user'].includes(this.props.type)) {
+            avatarUrl = response.updateSource.source.image;
+          } else if (this.props.type === 'account') {
+            avatarUrl = response.updateAccount.account.image;
+          }
         } catch (e) {
           // Do nothing.
         }

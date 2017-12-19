@@ -45,18 +45,20 @@ class Tags extends React.Component {
         if (json.error) {
           message = json.error;
         }
-      } catch (e) { }
+      } catch (ex) {
+        // Do nothing.
+      }
 
       this.setState({ message });
     };
 
-    const onSuccess = (response) => {
+    const onSuccess = () => {
       this.setState({ message: null });
     };
 
     const context = new CheckContext(this).getContextStore();
 
-    tagsList.map((tag) => {
+    tagsList.forEach((tag) => {
       Relay.Store.commitUpdate(
         new CreateTagMutation({
           annotated: props.annotated,
@@ -92,8 +94,8 @@ class Tags extends React.Component {
     const tags = this.props.tags;
 
     const deleteCallback = (id) => {
-      (this.props.onDelete && this.props.onDelete(id)) ||
-      (this.handleDelete && this.handleDelete(id));
+      if (this.props.onDelete) this.props.onDelete(id);
+      if (this.handleDelete) this.handleDelete(id);
     };
 
     return (
@@ -119,15 +121,21 @@ class Tags extends React.Component {
 
   renderTagsEdit() {
     const selectCallback = (tag) => {
-      this.props.onSelect ? this.props.onSelect(tag) : this.handleAddition(tag);
+      if (this.props.onSelect) {
+        this.props.onSelect(tag);
+      } else {
+        this.handleAddition(tag);
+      }
 
       setTimeout(() => {
-        this.refs.autocomplete.setState({ searchText: '' });
+        this.autoComplete.setState({ searchText: '' });
       }, 500);
     };
 
     const updateCallback = (text) => {
-      this.props.onChange && this.props.onChange(text);
+      if (this.props.onChange) {
+        this.props.onChange(text);
+      }
     };
 
     return (<div>
@@ -140,7 +148,7 @@ class Tags extends React.Component {
         dataSource={this.props.options}
         openOnFocus
         onNewRequest={selectCallback}
-        ref={'autocomplete'}
+        ref={(a) => { this.autoComplete = a; }}
         fullWidth
         onUpdateInput={(text) => { updateCallback(text); }}
       />

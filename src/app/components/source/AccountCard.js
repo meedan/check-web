@@ -22,7 +22,7 @@ const StyledAccountCardBody = styled.div`
 `;
 
 class AccountCard extends React.Component {
-  accountStats(account) {
+  static accountStats(account) {
     switch (account.provider) {
     case 'facebook':
       return account.embed.likes ? <FormattedMessage id="accountCard.fbStats" defaultMessage="{likes, number} likes" values={{ likes: account.embed.likes }} /> : null;
@@ -30,6 +30,8 @@ class AccountCard extends React.Component {
       return account.embed.raw ? <FormattedHTMLMessage id="accountCard.twitterStats" defaultMessage="{tweets, number} Tweets &bull; {followers, number} Followers &bull; {following, number} Following" values={{ tweets: account.embed.raw.api.statuses_count, followers: account.embed.raw.api.followers_count, following: account.embed.raw.api.friends_count }} /> : null;
     case 'youtube':
       return account.embed.raw ? <FormattedHTMLMessage id="accountCard.youtubeStats" defaultMessage="{videos, number} Videos &bull; {subscribers, number} Subscribers" values={{ videos: account.embed.raw.api.video_count, subscribers: account.embed.raw.api.subscriber_count }} /> : null;
+    default:
+      return null;
     }
   }
 
@@ -63,7 +65,7 @@ class AccountCard extends React.Component {
             </div>
 
             <div className="source-card__account-stats">
-              { this.accountStats(account) }
+              { AccountCard.accountStats(account) }
             </div>
           </StyledAccountCardBody>
         </CardText>

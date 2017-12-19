@@ -1,14 +1,10 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 import Relay from 'react-relay';
 import MeRoute from '../../relay/MeRoute';
 import UserComponent from './UserComponent';
 import userFragment from '../../relay/userFragment';
 
-class MeComponent extends Component {
-  render() {
-    return (<UserComponent user={this.props.user} />);
-  }
-}
+const MeComponent = props => <UserComponent user={props.user} />;
 
 const MeContainer = Relay.createContainer(MeComponent, {
   fragments: {
@@ -16,11 +12,9 @@ const MeContainer = Relay.createContainer(MeComponent, {
   },
 });
 
-class Me extends Component {
-  render() {
-    const route = new MeRoute();
-    return (<Relay.RootContainer Component={MeContainer} route={route} />);
-  }
-}
+const Me = () => {
+  const route = new MeRoute();
+  return (<Relay.RootContainer Component={MeContainer} route={route} />);
+};
 
 export default Me;

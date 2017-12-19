@@ -46,7 +46,11 @@ class UserComponent extends React.Component {
             isEditing={this.state.isEditing}
           >
             <ContentColumn>
-              { this.state.isEditing ? <UserInfoEdit user={user} onCancelEdit={this.handleLeaveEditMode} /> : <UserInfo user={user} />}
+              { this.state.isEditing ?
+                <UserInfoEdit user={user} onCancelEdit={this.handleLeaveEditMode} />
+                :
+                <UserInfo user={user} />
+              }
             </ContentColumn>
           </HeaderCard>
           <ContentColumn>

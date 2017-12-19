@@ -23,6 +23,7 @@ import deepEqual from 'deep-equal';
 import capitalize from 'lodash.capitalize';
 import LinkifyIt from 'linkify-it';
 import rtlDetect from 'rtl-detect';
+import styled from 'styled-components';
 import AccountCard from './AccountCard';
 import AccountChips from './AccountChips';
 import SourceLanguages from './SourceLanguages';
@@ -43,7 +44,6 @@ import CreateDynamicMutation from '../../relay/mutations/CreateDynamicMutation';
 import UpdateDynamicMutation from '../../relay/mutations/UpdateDynamicMutation';
 import DeleteDynamicMutation from '../../relay/mutations/DeleteDynamicMutation';
 import CreateTagMutation from '../../relay/mutations/CreateTagMutation';
-import DeleteTagMutation from '../../relay/mutations/DeleteTagMutation';
 import CreateAccountSourceMutation from '../../relay/mutations/CreateAccountSourceMutation';
 import DeleteAccountSourceMutation from '../../relay/mutations/DeleteAccountSourceMutation';
 import UpdateSourceMutation from '../../relay/mutations/UpdateSourceMutation';
@@ -61,7 +61,6 @@ import {
   StyledDescription,
   StyledAvatarEditButton,
 } from '../../styles/js/HeaderCard';
-import styled from 'styled-components';
 
 import {
   ContentColumn,
@@ -193,37 +192,21 @@ class SourceComponent extends Component {
     this.unsubscribe();
   }
 
-  subscribe() {
-    if (!this.isProjectSource()) {
-      return;
-    }
-    const pusher = this.getContext().pusher;
-    const pusherChannel = this.props.source.source.pusher_channel;
-    if (pusher && pusherChannel) {
-      pusher.subscribe(pusherChannel).bind('source_updated', (data) => {
-        const source = this.getSource() || {};
-        const metadata = this.getMetadataAnnotation() || {};
-        const obj = JSON.parse(data.message);
-
-        if (this.state.isEditing && ((obj.annotation_type === 'metadata' && obj.lock_version > metadata.lock_version) || (!obj.annotation_type && obj.lock_version > source.lock_version))) {
-          this.setState({ message: this.getConflictMessage() });
-        } else if (!this.state.isEditing && this.getContext().clientSessionId != data.actor_session_id) {
-          this.props.relay.forceFetch();
-        }
-
-        this.setState({ shouldUpdate: true });
-      });
-    }
+  onImage(file) {
+    document.forms['edit-source-form'].image = file;
+    this.setState({ message: null, image: file });
   }
 
-  unsubscribe() {
-    if (!this.isProjectSource()) {
-      return;
+  onClear() {
+    if (document.forms['edit-source-form']) {
+      document.forms['edit-source-form'].image = null;
     }
-    const pusher = this.getContext().pusher;
-    if (pusher) {
-      pusher.unsubscribe(this.props.source.source.pusher_channel);
-    }
+
+    this.setState({ message: null, image: null });
+  }
+
+  onImageError(file, message) {
+    this.setState({ message, image: null });
   }
 
   getContext() {
@@ -244,13 +227,15 @@ class SourceComponent extends Component {
     }
   }
 
-  isProjectSource() {
-    return !!this.props.source.source;
-  }
-
-  getSource() {
-    const { source } = this.isProjectSource() ? this.props.source : this.props;
-    return source;
+  getConflictMessage() {
+    return (<FormattedMessage
+      id="sourceComponent.conflictError" defaultMessage={'This item was edited by another user while you were making your edits. Please save your changes and {reloadLink}.'}
+      values={{
+        reloadLink: (<span onClick={this.reloadInformation.bind(this)} style={{ cursor: 'pointer', textDecoration: 'underline' }}>
+          <FormattedMessage id="sourceComponent.clickToReload" defaultMessage="click here to reload" />
+        </span>),
+      }}
+    />);
   }
 
   getMetadataAnnotation() {
@@ -263,7 +248,7 @@ class SourceComponent extends Component {
 
   getMetadataFields() {
     if (!this.isProjectSource()) {
-      return;
+      return null;
     }
 
     const annotation = this.getMetadataAnnotation();
@@ -274,23 +259,78 @@ class SourceComponent extends Component {
     return metadata ? Object.assign({}, metadata) : {};
   }
 
-  handleAddInfoMenu = (event) => {
+  getSource() {
+    const { source } = this.isProjectSource() ? this.props.source : this.props;
+    return source;
+  }
+
+  reloadInformation() {
+    this.props.relay.forceFetch();
+    this.setState({ message: null, isEditing: false });
+  }
+
+  subscribe() {
+    if (!this.isProjectSource()) {
+      return;
+    }
+    const pusher = this.getContext().pusher;
+    const pusherChannel = this.props.source.source.pusher_channel;
+    if (pusher && pusherChannel) {
+      pusher.subscribe(pusherChannel).bind('source_updated', (data) => {
+        const source = this.getSource() || {};
+        const metadata = this.getMetadataAnnotation() || {};
+        const obj = JSON.parse(data.message);
+
+        if (
+          this.state.isEditing &&
+          (
+           (obj.annotation_type === 'metadata' && obj.lock_version > metadata.lock_version) ||
+           (!obj.annotation_type && obj.lock_version > source.lock_version)
+          )
+        ) {
+          this.setState({ message: this.getConflictMessage() });
+        } else if (
+          !this.state.isEditing && this.getContext().clientSessionId !== data.actor_session_id
+        ) {
+          this.props.relay.forceFetch();
+        }
+
+        this.setState({ shouldUpdate: true });
+      });
+    }
+  }
+
+  unsubscribe() {
+    if (!this.isProjectSource()) {
+      return;
+    }
+    const pusher = this.getContext().pusher;
+    if (pusher) {
+      pusher.unsubscribe(this.props.source.source.pusher_channel);
+    }
+  }
+
+  isProjectSource() {
+    return !!this.props.source.source;
+  }
+
+  handleAddInfoMenu(event) {
     event.preventDefault();
 
     this.setState({
       menuOpen: true,
       anchorEl: event.currentTarget,
     });
-  };
+  }
 
-  handleAddMetadataField = (type) => {
+  handleAddMetadataField(type) {
     const metadata = this.state.metadata || this.getMetadataFields();
 
     if (!metadata[type]) {
       metadata[type] = '';
     }
     this.setState({ metadata, menuOpen: false });
-  };
+  }
 
   handleAddCustomField() {
     const metadata = this.state.metadata || this.getMetadataFields();
@@ -411,8 +451,11 @@ class SourceComponent extends Component {
     e.preventDefault();
 
     const pendingTagInput = document.forms['edit-source-form'].sourceTagInput;
-    const pendingTag = pendingTagInput && pendingTagInput.value;
-    pendingTag && pendingTag.trim() && this.createTag(pendingTag);
+    const pendingTag = pendingTagInput ? pendingTagInput.value.trim() : null;
+
+    if (pendingTag) {
+      this.createTag(pendingTag);
+    }
 
     if (this.validateLinks() && !this.state.submitDisabled) {
       const updateSourceSent = this.updateSource();
@@ -443,7 +486,9 @@ class SourceComponent extends Component {
         if (json.error) {
           message = json.error;
         }
-      } catch (e) { }
+      } catch (e) {
+        // Do nothing.
+      }
     }
 
     this.setState({ message, hasFailure: true, submitDisabled: false });
@@ -563,7 +608,7 @@ class SourceComponent extends Component {
       });
     };
 
-    const onSuccess = (response) => {
+    const onSuccess = () => {
       this.setState({ tagErrorMessage: null });
     };
 
@@ -660,7 +705,8 @@ class SourceComponent extends Component {
     let links = this.state.links ? this.state.links.slice(0) : [];
     links = links.filter(link => !!link.url.trim());
 
-    links.forEach((item) => {
+    links.forEach((item_) => {
+      const item = item_;
       const url = linkify.match(item.url);
       if (Array.isArray(url) && url[0] && url[0].url) {
         item.url = url[0].url;
@@ -713,22 +759,6 @@ class SourceComponent extends Component {
     }
 
     return true;
-  }
-
-  reloadInformation() {
-    this.props.relay.forceFetch();
-    this.setState({ message: null, isEditing: false });
-  }
-
-  getConflictMessage() {
-    return (<FormattedMessage
-      id="sourceComponent.conflictError" defaultMessage={'This item was edited by another user while you were making your edits. Please save your changes and {reloadLink}.'}
-      values={{
-        reloadLink: (<span onClick={this.reloadInformation.bind(this)} style={{ cursor: 'pointer', textDecoration: 'underline' }}>
-          <FormattedMessage id="sourceComponent.clickToReload" defaultMessage="click here to reload" />
-        </span>),
-      }}
-    />);
   }
 
   updateSource() {
@@ -792,36 +822,19 @@ class SourceComponent extends Component {
       return this.props.intl.formatMessage(messages.organization);
     case 'location':
       return this.props.intl.formatMessage(messages.location);
+    default:
+      return null;
     }
-  }
-
-  onImage(file) {
-    document.forms['edit-source-form'].image = file;
-    this.setState({ message: null, image: file });
-  }
-
-  onClear = () => {
-    if (document.forms['edit-source-form']) {
-      document.forms['edit-source-form'].image = null;
-    }
-
-    this.setState({ message: null, image: null });
-  };
-
-  onImageError(file, message) {
-    this.setState({ message, image: null });
   }
 
   renderAccountsEdit() {
     if (!this.isProjectSource()) {
-      return;
+      return null;
     }
 
     const source = this.getSource();
     const links = this.state.links ? this.state.links.slice(0) : [];
-    const deleteLinks = this.state.deleteLinks
-      ? this.state.deleteLinks.slice(0)
-      : [];
+    const deleteLinks = this.state.deleteLinks ? this.state.deleteLinks.slice(0) : [];
     const showAccounts = source.account_sources.edges.filter(
       as => deleteLinks.indexOf(as.node.id) < 0,
     );
@@ -881,7 +894,7 @@ class SourceComponent extends Component {
 
   renderMetadataView() {
     if (!this.isProjectSource()) {
-      return;
+      return null;
     }
 
     const metadata = this.getMetadataFields();
@@ -904,6 +917,7 @@ class SourceComponent extends Component {
             ) : null,
         );
       }
+      return null;
     };
 
     if (metadata) {
@@ -916,41 +930,38 @@ class SourceComponent extends Component {
         </StyledMetadata>
       );
     }
+    return null;
   }
 
   renderMetadataEdit() {
     if (!this.isProjectSource()) {
-      return;
+      return null;
     }
 
     const metadata = this.state.metadata || this.getMetadataFields();
 
     const handleChangeField = (type, e) => {
-      const metadata = this.state.metadata || this.getMetadataFields();
       metadata[type] = e.target.value;
       this.setState({ metadata });
     };
 
     const handleRemoveField = (type) => {
-      const metadata = this.state.metadata || this.getMetadataFields();
       delete metadata[type];
       this.setState({ metadata });
     };
 
     const handleChangeCustomField = (index, e) => {
-      const metadata = this.state.metadata || this.getMetadataFields();
       metadata.other[index].value = e.target.value;
       this.setState({ metadata });
     };
 
     const handleRemoveCustomField = (index) => {
-      const metadata = this.state.metadata || this.getMetadataFields();
       metadata.other.splice(index, 1);
       this.setState({ metadata });
     };
 
     const renderMetadataFieldEdit = type =>
-      metadata.hasOwnProperty(type) ? (
+      Object.prototype.hasOwnProperty.call(metadata, type) ? (
         <div className={`source__metadata-${type}-input`}>
           <Row>
             <TextField
@@ -994,6 +1005,7 @@ class SourceComponent extends Component {
           </div>
         ));
       }
+      return null;
     };
 
     if (metadata) {
@@ -1006,11 +1018,12 @@ class SourceComponent extends Component {
         </div>
       );
     }
+    return null;
   }
 
   renderLanguagesView() {
     if (!this.isProjectSource()) {
-      return;
+      return null;
     }
 
     return <SourceLanguages usedLanguages={this.getSource().languages.edges} />;
@@ -1018,7 +1031,7 @@ class SourceComponent extends Component {
 
   renderLanguagesEdit() {
     if (!this.isProjectSource()) {
-      return;
+      return null;
     }
 
     const createLanguageAnnotation = (value) => {
@@ -1053,7 +1066,7 @@ class SourceComponent extends Component {
         });
       };
 
-      const onSuccess = (response) => {
+      const onSuccess = () => {
         this.setState({ languageErrorMessage: null });
       };
       const context = this.getContext();
@@ -1084,7 +1097,7 @@ class SourceComponent extends Component {
       const onFailure = (transaction) => {
         this.fail(transaction);
       };
-      const onSuccess = (response) => {};
+      const onSuccess = () => {};
 
       Relay.Store.commitUpdate(
         new DeleteDynamicMutation({
@@ -1117,7 +1130,7 @@ class SourceComponent extends Component {
 
   renderTagsView() {
     if (!this.isProjectSource()) {
-      return;
+      return null;
     }
 
     const tags = this.getSource().tags.edges;
@@ -1126,7 +1139,7 @@ class SourceComponent extends Component {
 
   renderTagsEdit() {
     if (!this.isProjectSource()) {
-      return;
+      return null;
     }
 
     const tags = this.getSource().tags.edges;
@@ -1140,16 +1153,17 @@ class SourceComponent extends Component {
     );
     const isEditing = this.state.addingTags || tags.length;
 
-    return (<StyledTagInput>
-      <Tags
-        errorText={this.state.tagErrorMessage}
-        tags={tags}
-        options={availableTags}
-        annotated={this.props.source}
-        annotatedType={'ProjectSource'}
-        isEditing={isEditing}
-      />
-    </StyledTagInput>
+    return (
+      <StyledTagInput>
+        <Tags
+          errorText={this.state.tagErrorMessage}
+          tags={tags}
+          options={availableTags}
+          annotated={this.props.source}
+          annotatedType={'ProjectSource'}
+          isEditing={isEditing}
+        />
+      </StyledTagInput>
     );
   }
 
@@ -1295,7 +1309,7 @@ class SourceComponent extends Component {
             {this.state.editProfileImg ? (
               <UploadImage
                 onImage={this.onImage.bind(this)}
-                onClear={this.onClear}
+                onClear={this.onClear.bind(this)}
                 onError={this.onImageError.bind(this)}
                 noPreview
               />
@@ -1334,7 +1348,7 @@ class SourceComponent extends Component {
               <FlatButton
                 className="source__edit-addinfo-button"
                 primary
-                onClick={this.handleAddInfoMenu}
+                onClick={this.handleAddInfoMenu.bind(this)}
                 label={this.props.intl.formatMessage(messages.addInfo)}
               />
               <Popover
@@ -1510,24 +1524,28 @@ class SourceComponent extends Component {
                   height="short"
                 />
                 ) : null}
-              {this.state.showTab === 'media' ? (
-                source.medias.edges.length === 0
-                  ? <Text center color={black38}>
-                    { this.props.intl.formatMessage(messages.noMedia) }
-                  </Text>
-                  : <Medias medias={source.medias.edges} />
+
+              {this.state.showTab === 'media' && !source.medias.edges.length ? (
+                <Text center color={black38}>
+                  { this.props.intl.formatMessage(messages.noMedia) }
+                </Text>
                 ) : null}
 
-              {this.state.showTab === 'account' ? (
-                  source.accounts.edges.length === 0
-                  ? <Text center color={black38}>
-                    { this.props.intl.formatMessage(messages.noAccounts) }
-                  </Text>
-                  : source.accounts.edges.map(account => (
-                    <AccountCard key={account.node.id} account={account.node} />
-                    ),
-                  )
+              {this.state.showTab === 'media' && source.medias.edges.length ? (
+                <Medias medias={source.medias.edges} />
                 ) : null}
+
+              {this.state.showTab === 'account' && !source.accounts.edges.length ? (
+                <Text center color={black38}>
+                  { this.props.intl.formatMessage(messages.noAccounts) }
+                </Text>
+                ) : null}
+
+              {this.state.showTab === 'account' && source.accounts.edges.length ? (
+                source.accounts.edges.map(account => (
+                  <AccountCard key={account.node.id} account={account.node} />
+                ))) : null}
+
             </ContentColumn>
             ) : null}
         </div>

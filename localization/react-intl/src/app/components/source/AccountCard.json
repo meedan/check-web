@@ -1,17 +1,5 @@
 [
   {
-    "id": "accountCard.fbStats",
-    "defaultMessage": "{likes, number} likes"
-  },
-  {
-    "id": "accountCard.twitterStats",
-    "defaultMessage": "{tweets, number} Tweets • {followers, number} Followers • {following, number} Following"
-  },
-  {
-    "id": "accountCard.youtubeStats",
-    "defaultMessage": "{videos, number} Videos • {subscribers, number} Subscribers"
-  },
-  {
     "id": "mediaDetail.byUser",
     "defaultMessage": "by {username}"
   },
@@ -22,5 +10,17 @@
   {
     "id": "mediaDetail.added",
     "defaultMessage": "Added {byUser}"
+  },
+  {
+    "id": "accountCard.fbStats",
+    "defaultMessage": "{likes, number} likes"
+  },
+  {
+    "id": "accountCard.twitterStats",
+    "defaultMessage": "{tweets, number} Tweets • {followers, number} Followers • {following, number} Following"
+  },
+  {
+    "id": "accountCard.youtubeStats",
+    "defaultMessage": "{videos, number} Videos • {subscribers, number} Subscribers"
   }
 ]
