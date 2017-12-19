@@ -749,11 +749,17 @@ class Annotation extends Component {
                   defaultMessage={'Keep has taken a screenshot of this URL.'}
                 />
                 <div>
-                  <img
-                    src={penderResponse.screenshot_url}
+                  <div 
+                    style={{ 
+                            background: `transparent url('${penderResponse.screenshot_url}') top left no-repeat`, 
+                            backgroundSize: 'cover',
+                            border: '1px solid #ccc',
+                            width: 80,
+                            height: 80,
+                            cursor: 'pointer',
+                            display: 'inline-block'
+                          }}
                     className="annotation__card-thumbnail annotation__pender-archive-thumbnail"
-                    alt=""
-                    style={{ width: 80 }}
                     onClick={this.handleOpenCommentImage.bind(this, penderResponse.screenshot_url)}
                   />
                 </div>
