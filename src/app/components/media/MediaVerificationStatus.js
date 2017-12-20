@@ -5,7 +5,7 @@ import UpdateStatusMutation from '../../relay/mutations/UpdateStatusMutation';
 import MediaStatusCommon from './MediaStatusCommon';
 
 class MediaStatus extends Component {
-  setStatus(context, store, media, status) {
+  static setStatus(context, store, media, status) {
     const onFailure = (transaction) => {
       context.fail(transaction);
     };
@@ -13,10 +13,6 @@ class MediaStatus extends Component {
       context.success('status');
     };
 
-    let status_id = '';
-    if (media.last_status_obj !== null) {
-      status_id = media.last_status_obj.id;
-    }
     const status_attr = {
       parent_type: 'project_media',
       annotated: media,
@@ -26,7 +22,7 @@ class MediaStatus extends Component {
         status,
         annotated_type: 'ProjectMedia',
         annotated_id: media.dbid,
-        status_id,
+        status_id: media.last_status_obj ? media.last_status_obj.id : '',
       },
     };
 
@@ -39,7 +35,11 @@ class MediaStatus extends Component {
   }
 
   render() {
-    return <MediaStatusCommon {...this.props} parentComponent={this} setStatus={this.setStatus} />;
+    return (<MediaStatusCommon
+      {...this.props}
+      parentComponent={this}
+      setStatus={MediaStatus.setStatus}
+    />);
   }
 }
 

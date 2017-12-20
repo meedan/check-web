@@ -61,7 +61,7 @@ class PenderCard extends Component {
     }
 
     if (loader) {
-      script.onload = function () { loader.style.display = 'none'; };
+      script.onload = () => { loader.style.display = 'none'; };
     }
   }
 

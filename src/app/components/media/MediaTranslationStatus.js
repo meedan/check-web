@@ -9,20 +9,8 @@ import UpdateDynamicMutation from '../../relay/mutations/UpdateDynamicMutation';
 import MediaStatusCommon from './MediaStatusCommon';
 
 class MediaStatus extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      open: false,
-      submitted: false,
-      setStatus: {},
-      note: '',
-    };
-  }
-
-  setStatus(context, store, media, status, parentComponent, note) {
-    if (!note) {
-      note = '';
-    }
+  static setStatus(context, store, media, status, parentComponent, note_) {
+    const note = note_ || '';
 
     if (status === 'error' && parentComponent && !parentComponent.state.open) {
       parentComponent.setState({ setStatus: { context, store, media, status } });
@@ -75,6 +63,16 @@ class MediaStatus extends Component {
       };
       Relay.Store.commitUpdate(new CreateDynamicMutation(vars), { onSuccess, onFailure });
     }
+  }
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      open: false,
+      submitted: false,
+      setStatus: {},
+      note: '',
+    };
   }
 
   handleOpen() {
@@ -142,7 +140,11 @@ class MediaStatus extends Component {
             />
           </form>
         </Dialog>
-        <MediaStatusCommon {...this.props} parentComponent={this} setStatus={this.setStatus} />
+        <MediaStatusCommon
+          {...this.props}
+          parentComponent={this}
+          setStatus={MediaStatus.setStatus}
+        />
       </span>
     );
   }

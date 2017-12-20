@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Relay from 'react-relay';
 import styled from 'styled-components';
 import ProjectRoute from '../../relay/ProjectRoute';
-import { CreateProjectMedia } from '../media';
+import CreateProjectMedia from '../media/CreateMedia';
 import Can from '../Can';
 import PageTitle from '../PageTitle';
 import CheckContext from '../../CheckContext';
@@ -22,7 +22,6 @@ const ProjectWrapper = styled.div`
 `;
 
 class ProjectComponent extends Component {
-
   componentDidMount() {
     this.setContextProject();
   }
@@ -124,21 +123,16 @@ const ProjectContainer = Relay.createContainer(ProjectComponent, {
   },
 });
 
-class Project extends Component {
-  render() {
-    const projectId = this.props.params.projectId;
-    const route = new ProjectRoute({ contextId: parseInt(projectId, 10) });
-    return (
-      <Relay.RootContainer
-        Component={ProjectContainer}
-        route={route}
-        renderFetched={data => <ProjectContainer {...this.props} {...data} />}
-        renderLoading={function () {
-          return <MediasLoading />;
-        }}
-      />
-    );
-  }
-}
+const Project = (props) => {
+  const route = new ProjectRoute({ contextId: parseInt(props.params.projectId, 10) });
+  return (
+    <Relay.RootContainer
+      Component={ProjectContainer}
+      route={route}
+      renderFetched={data => <ProjectContainer {...props} {...data} />}
+      renderLoading={() => <MediasLoading />}
+    />
+  );
+};
 
 export default Project;

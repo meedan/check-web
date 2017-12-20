@@ -111,11 +111,13 @@ class ProjectEditComponent extends Component {
         if (json.error) {
           message = json.error;
         }
-      } catch (e) { }
+      } catch (ex) {
+        // Do nothing.
+      }
       this.setState({ message });
     };
 
-    const onSuccess = (response) => {
+    const onSuccess = () => {
       this.setState({ message: null, isEditing: false });
     };
 
@@ -229,17 +231,14 @@ const ProjectEditContainer = Relay.createContainer(injectIntl(ProjectEditCompone
   },
 });
 
-class ProjectEdit extends Component {
-  render() {
-    const projectId = this.props.params.projectId;
-    const route = new ProjectRoute({ contextId: parseInt(projectId, 10) });
-    return (
-      <Relay.RootContainer
-        Component={ProjectEditContainer}
-        route={route}
-      />
-    );
-  }
-}
+const ProjectEdit = (props) => {
+  const route = new ProjectRoute({ contextId: parseInt(props.params.projectId, 10) });
+  return (
+    <Relay.RootContainer
+      Component={ProjectEditContainer}
+      route={route}
+    />
+  );
+};
 
 export default ProjectEdit;

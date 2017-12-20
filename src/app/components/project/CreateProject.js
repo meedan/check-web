@@ -1,10 +1,10 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { defineMessages, injectIntl, intlShape } from 'react-intl';
 import Relay from 'react-relay';
+import TextField from 'material-ui/TextField';
 import CreateProjectMutation from '../../relay/mutations/CreateProjectMutation';
 import Message from '../Message';
 import CheckContext from '../../CheckContext';
-import TextField from 'material-ui/TextField';
 
 const messages = defineMessages({
   addProject: {
@@ -27,8 +27,14 @@ class CreateProject extends Component {
     };
   }
 
+  componentDidMount() {
+    if (this.props.autofocus) {
+      this.projectInput.focus();
+    }
+  }
+
   handleSubmit(e) {
-    const title = document.getElementById('create-project-title').value;
+    const title = this.projectInput.getValue();
     const team = this.props.team;
     const context = new CheckContext(this);
     const history = context.getContextStore().history;
@@ -41,7 +47,9 @@ class CreateProject extends Component {
         if (json.error) {
           message = json.error;
         }
-      } catch (e) { }
+      } catch (ex) {
+        // Do nothing.
+      }
       this.setState({ message, submitDisabled: false });
     };
 
@@ -65,12 +73,6 @@ class CreateProject extends Component {
     e.preventDefault();
   }
 
-  componentDidMount() {
-    if (this.props.autofocus) {
-      this.projectInput.focus();
-    }
-  }
-
   render() {
     return (
       <form onSubmit={this.handleSubmit.bind(this)} className="create-project">
@@ -79,7 +81,7 @@ class CreateProject extends Component {
           id="create-project-title"
           className={this.props.className || 'team__new-project-input'}
           floatingLabelText={this.props.intl.formatMessage(messages.addProject)}
-          ref={input => this.projectInput = input}
+          ref={(i) => { this.projectInput = i; }}
           style={this.props.style || { marginLeft: '8px' }}
           autoFocus={this.props.autoFocus}
         />

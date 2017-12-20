@@ -347,6 +347,7 @@ class SearchQueryComponent extends Component {
         state.query.sort_type = sortParam;
         return { query: state.query };
       }
+      return { query: state.query };
     });
   }
 
@@ -373,7 +374,7 @@ class SearchQueryComponent extends Component {
   title(statuses, projects) {
     const query = this.state.query;
     return (
-      [].concat
+      [].concat // eslint-disable-line prefer-spread
         .apply(
           [],
           [
@@ -640,7 +641,18 @@ const SearchQueryContainer = Relay.createContainer(injectIntl(SearchQueryCompone
   },
 });
 
+// eslint-disable-next-line react/no-multi-comp
 class SearchResultsComponent extends Component {
+  static mergeResults(medias, sources) {
+    const query = searchQueryFromUrl();
+    const comparisonField = query.sort === 'recent_activity'
+      ? o => o.node.updated_at
+      : o => o.node.published;
+
+    const results = sortby(Array.concat(medias, sources), comparisonField);
+    return query.sort_type !== 'ASC' ? results.reverse() : results;
+  }
+
   constructor(props) {
     super(props);
 
@@ -734,7 +746,7 @@ class SearchResultsComponent extends Component {
           }
         }
 
-        if (this.currentContext().clientSessionId != data.actor_session_id) {
+        if (this.currentContext().clientSessionId !== data.actor_session_id) {
           this.props.relay.forceFetch();
         }
       });
@@ -753,20 +765,6 @@ class SearchResultsComponent extends Component {
     this.props.relay.setVariables({ pageSize: this.props.search.medias.edges.length + pageSize });
   }
 
-  mergeResults(medias, sources) {
-    const query = searchQueryFromUrl();
-    const comparisonField = query.sort === 'recent_activity'
-      ? function (o) {
-        return o.node.updated_at;
-      }
-      : function (o) {
-        return o.node.published;
-      };
-
-    const results = sortby(Array.concat(medias, sources), comparisonField);
-    return query.sort_type !== 'ASC' ? results.reverse() : results;
-  }
-
   render() {
     const medias = this.props.search ? this.props.search.medias.edges : [];
     const sources = this.props.search ? this.props.search.sources.edges : [];
@@ -775,7 +773,7 @@ class SearchResultsComponent extends Component {
       resultsCount: count,
     });
     const title = /\/project\//.test(window.location.pathname) ? '' : mediasCount;
-    const searchResults = this.mergeResults(medias, sources);
+    const searchResults = SearchResultsComponent.mergeResults(medias, sources);
 
     return (
       <StyledSearchResultsWrapper className="search__results results">
@@ -804,24 +802,19 @@ SearchResultsComponent.propTypes = {
   intl: intlShape.isRequired,
 };
 
-let fragment = null;
-if (config.appName === 'check') {
-  fragment = checkSearchResultFragment;
-} else if (config.appName === 'bridge') {
-  fragment = bridgeSearchResultFragment;
-}
-
 const SearchResultsContainer = Relay.createContainer(injectIntl(SearchResultsComponent), {
   initialVariables: {
     pageSize,
   },
   fragments: {
-    search: () => fragment,
+    search: () => config.appName === 'bridge' ? bridgeSearchResultFragment : checkSearchResultFragment,
   },
 });
 
+// eslint-disable-next-line react/no-multi-comp
 class Search extends Component {
-  noFilters(query) {
+  noFilters(query_) {
+    const query = query_;
     delete query.timestamp;
     delete query.parent;
     if (
@@ -874,31 +867,26 @@ class Search extends Component {
           Component={SearchQueryContainer}
           route={queryRoute}
           renderFetched={data => <SearchQueryContainer {...this.props} {...data} />}
-          renderLoading={function () {
-            return (
-              <ContentColumn>
+          renderLoading={() =>
+            <ContentColumn>
+              {!fields || fields.indexOf('keyword') > -1
+                ? <div className="search__form search__form--loading">
+                  <StyledSearchInput
+                    disabled
+                    placeholder={formatMessage(messages.loading)}
+                    name="search-input"
+                    id="search-input"
+                  />
+                </div>
+                : null}
 
-                {!fields || fields.indexOf('keyword') > -1
-                  ? <div className="search__form search__form--loading">
-                    <StyledSearchInput
-                      disabled
-                      placeholder={formatMessage(messages.loading)}
-                      name="search-input"
-                      id="search-input"
-                    />
-                  </div>
-                  : null}
-
-              </ContentColumn>
-            );
-          }}
+            </ContentColumn>
+          }
         />
         <Relay.RootContainer
           Component={SearchResultsContainer}
           route={resultsRoute}
-          renderLoading={function () {
-            return <MediasLoading />;
-          }}
+          renderLoading={() => <MediasLoading />}
         />
       </div>
     );
