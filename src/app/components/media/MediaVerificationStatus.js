@@ -6,13 +6,7 @@ import MediaStatusCommon from './MediaStatusCommon';
 
 class MediaStatus extends Component {
   static setStatus(context, store, media, status) {
-    const onFailure = (transaction) => {
-      context.fail(transaction);
-    };
-    const onSuccess = () => {
-      context.success('status');
-    };
-
+    const status_id: media.last_status_obj ? media.last_status_obj.id : '';
     const status_attr = {
       parent_type: 'project_media',
       annotated: media,
@@ -22,8 +16,16 @@ class MediaStatus extends Component {
         status,
         annotated_type: 'ProjectMedia',
         annotated_id: media.dbid,
-        status_id: media.last_status_obj ? media.last_status_obj.id : '',
+        status_id,
       },
+    };
+
+    const onFailure = (transaction) => {
+      context.fail(transaction);
+    };
+
+    const onSuccess = () => {
+      context.success('status');
     };
 
     // Add or Update status
