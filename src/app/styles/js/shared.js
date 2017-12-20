@@ -304,8 +304,11 @@ export const HeaderTitle = styled.h3`
   font: ${subheading2};
   color: ${black54};
   max-width: 45vw;
+  ${mediaQuery.tablet`
+     max-width: 27vw;
+  `}
   ${mediaQuery.handheld`
-     max-width: 20vw;
+     max-width: 18vw;
   `}
 `;
 

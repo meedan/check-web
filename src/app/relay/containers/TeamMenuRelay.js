@@ -21,7 +21,13 @@ class TeamMenuRelay extends Component {
   render() {
     if (this.props.params.team) {
       const route = new TeamRoute({ teamSlug: this.props.params.team });
-      return <Relay.RootContainer Component={TeamMenuContainer} route={route} />;
+      return (
+        <Relay.RootContainer
+          Component={TeamMenuContainer}
+          route={route}
+          renderFetched={data => <TeamMenuContainer {...this.props} {...data} />}
+        />
+      );
     }
     return null;
   }

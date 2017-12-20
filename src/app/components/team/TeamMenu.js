@@ -17,10 +17,10 @@ class TeamMenu extends Component {
   }
 
   render() {
-    const { team } = this.props;
+    const { currentUserIsMember } = this.props;
 
     return (
-      <Can permissions={team.permissions} permission="update Team">
+      currentUserIsMember ?
         <SmallerStyledIconButton
           key="teamMenu.trash"
           onClick={this.handleClickTrash.bind(this)}
@@ -29,8 +29,7 @@ class TeamMenu extends Component {
           }
         >
           <IconDelete />
-        </SmallerStyledIconButton>
-      </Can>
+        </SmallerStyledIconButton> : null
     );
   }
 }
