@@ -66,7 +66,7 @@ class TeamMembersComponent extends Component {
                   <StyledMdCardTitle
                     title={<FormattedMessage
                       id="teamMembershipRequests.requestsToJoin"
-                      defaultMessage={'Requests to join'}
+                      defaultMessage="Requests to join"
                     />}
                   />
 
@@ -78,7 +78,7 @@ class TeamMembersComponent extends Component {
                         className=""
                         requestingMembership
                       />
-                        )))()}
+                    )))()}
                   </List>
                 </Card>
               </Can>
@@ -98,24 +98,23 @@ class TeamMembersComponent extends Component {
                 className="team-members__edit-button"
                 icon={<MdCreate className="team-members__edit-icon" />}
                 label={isEditing
-                      ? <FormattedMessage
-                        id="teamMembersComponent.editDoneButton"
-                        defaultMessage="Done"
-                      />
-                      : <FormattedMessage id="teamMembersComponent.editButton" defaultMessage="Edit" />}
+                  ? <FormattedMessage
+                    id="teamMembersComponent.editDoneButton"
+                    defaultMessage="Done"
+                  />
+                  : <FormattedMessage id="teamMembersComponent.editButton" defaultMessage="Edit" />}
               />
             </Can>
           </FlexRow>
           <InfiniteScroll hasMore loadMore={this.loadMore.bind(this)} threshold={500}>
             <List className="team-members__list">
               {(() =>
-                  teamUsersMembers.map(teamUser =>
-                    <TeamMembersListItem
-                      key={teamUser.node.id}
-                      teamUser={teamUser}
-                      isEditing={isEditing}
-                    />,
-                  ))()}
+                teamUsersMembers.map(teamUser =>
+                  (<TeamMembersListItem
+                    key={teamUser.node.id}
+                    teamUser={teamUser}
+                    isEditing={isEditing}
+                  />)))()}
             </List>
           </InfiniteScroll>
         </Card>

@@ -13,12 +13,12 @@ const AccountChips = (props) => {
   return (
     <div className="media-tags">
       <ul className="media-tags__list">
-        { props.accounts.map((account, index) => <StyledTag key={index} className="media-tags__tag">
+        { props.accounts.map((account, index) => (<StyledTag key={index} className="media-tags__tag">
           { MediaUtil.socialIcon(`${account.provider}.com`) /* TODO: refactor */ }
           <a href={account.url} style={{ margin: `0 ${units(1)}` }} target="_blank" rel="noopener noreferrer">
             { account.embed.username || account.embed.url }
           </a>
-        </StyledTag>) }
+                                                  </StyledTag>)) }
       </ul>
     </div>
   );

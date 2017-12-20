@@ -12,11 +12,11 @@ const messages = defineMessages({
 });
 
 const Teams = props =>
-  <PageTitle prefix={props.intl.formatMessage(messages.title)} skipTeam>
+  (<PageTitle prefix={props.intl.formatMessage(messages.title)} skipTeam>
     <ContentColumn>
       <SwitchTeams />
     </ContentColumn>
-  </PageTitle>;
+   </PageTitle>);
 
 Teams.propTypes = {
   intl: intlShape.isRequired,

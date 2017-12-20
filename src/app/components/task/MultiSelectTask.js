@@ -191,7 +191,9 @@ class MultiSelectTask extends Component {
 
   handleCancelResponse() {
     this.setState(
-      { response: null, responseOther: null, otherSelected: false, note: '', focus: false },
+      {
+        response: null, responseOther: null, otherSelected: false, note: '', focus: false,
+      },
       this.canSubmit,
     );
     if (this.props.onDismiss) {
@@ -302,7 +304,7 @@ class MultiSelectTask extends Component {
           />
           <div className="create-task__add-options" style={{ marginTop: units(2) }}>
             {this.state.options.map((item, index) =>
-              <div key={`create-task__add-options-multiselect-${index.toString()}`}>
+              (<div key={`create-task__add-options-multiselect-${index.toString()}`}>
                 <StyledIconButton>
                   <MdCheckBoxOutlineBlank />
                 </StyledIconButton>
@@ -321,10 +323,9 @@ class MultiSelectTask extends Component {
                       className="create-task__remove-option-button"
                       onClick={this.handleRemoveOption.bind(this, index)}
                     />
-                  </StyledIconButton>
+                    </StyledIconButton>
                   : null}
-              </div>,
-            )}
+               </div>))}
             <div style={{ marginTop: units(1) }}>
               <FlatButton
                 label={this.props.intl.formatMessage(messages.addValue)}
@@ -409,7 +410,7 @@ class MultiSelectTask extends Component {
       return (
         <div className="task__options">
           {options.map((item, index) =>
-            <Checkbox
+            (<Checkbox
               key={`task__options-multiselect-${index.toString()}`}
               label={item.label}
               checked={this.isChecked(item.label, index)}
@@ -417,8 +418,7 @@ class MultiSelectTask extends Component {
               id={item.label}
               disabled={!editable}
               style={{ paddingBottom: units(1) }}
-            />,
-          )}
+            />))}
 
           <div
             style={{ display: 'flex', justifyContent: 'flex-start' }}
@@ -439,7 +439,7 @@ class MultiSelectTask extends Component {
                   className="task__option_other_text_input"
                   hintText={other.label}
                   value={responseOther}
-                  name={'response'}
+                  name="response"
                   onKeyPress={keyPressCallback}
                   onChange={this.handleEditOther.bind(this)}
                   disabled={!editable}
@@ -457,8 +457,8 @@ class MultiSelectTask extends Component {
                   id="task.noteLabel"
                   defaultMessage="Note any additional details here."
                 />
-                }
-              name={'note'}
+              }
+              name="note"
               value={responseNote}
               onKeyPress={keyPressCallback}
               onChange={this.handleChange.bind(this)}

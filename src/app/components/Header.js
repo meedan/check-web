@@ -45,7 +45,9 @@ const HeaderBar = styled.div`
 
 const HeaderComponent = (props) => {
   const locale = props.intl.locale;
-  const { inTeamContext, loggedIn, drawerToggle, currentUserIsMember } = props;
+  const {
+    inTeamContext, loggedIn, drawerToggle, currentUserIsMember,
+  } = props;
   const isRtl = rtlDetect.isRtlLang(locale);
   const fromDirection = isRtl ? 'right' : 'left';
 
@@ -119,7 +121,7 @@ const HeaderComponent = (props) => {
   })();
 
   const secondary = (() =>
-    <AlignOpposite>
+    (<AlignOpposite>
       <Row>
         <Offset isRtl>
           {signInButton}
@@ -129,7 +131,7 @@ const HeaderComponent = (props) => {
         {teamPrivateContentShouldShow && searchButton}
         <UserMenuRelay {...props} />
       </Row>
-    </AlignOpposite>)();
+     </AlignOpposite>))();
 
   return (
     <HeaderBar>

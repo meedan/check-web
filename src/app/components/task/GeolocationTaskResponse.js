@@ -59,7 +59,7 @@ class GeolocationTaskResponse extends Component {
               rel="noreferrer noopener"
             >
                 ({coordinatesString})
-              </a>
+            </a>
           </span>
           : null}
         {imgPath

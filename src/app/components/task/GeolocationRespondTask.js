@@ -84,7 +84,9 @@ class GeolocationRespondTask extends Component {
     // eslint-disable-next-line no-underscore-dangle
     const zoom = this.marker.leafletElement._map.getZoom();
     const coordinatesString = `${parseFloat(lat).toFixed(7)}, ${parseFloat(lng).toFixed(7)}`;
-    this.setState({ lat, lng, zoom, coordinatesString, focus: true });
+    this.setState({
+      lat, lng, zoom, coordinatesString, focus: true,
+    });
   }
 
   updatePositionOnClick(e) {
@@ -92,7 +94,9 @@ class GeolocationRespondTask extends Component {
     // eslint-disable-next-line no-underscore-dangle
     const zoom = this.marker.leafletElement._map.getZoom();
     const coordinatesString = `${parseFloat(lat).toFixed(7)}, ${parseFloat(lng).toFixed(7)}`;
-    this.setState({ lat, lng, zoom, coordinatesString, focus: true });
+    this.setState({
+      lat, lng, zoom, coordinatesString, focus: true,
+    });
   }
 
   handlePressButton() {

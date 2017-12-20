@@ -32,7 +32,7 @@ class HeaderCard extends Component {
                 className="team__edit-button"
                 tooltip={
                   <FormattedMessage id="teamComponent.editButton" defaultMessage="Edit profile" />
-                  }
+                }
                 tooltipPosition="top-center"
                 onTouchTap={this.props.handleEnterEditMode}
               >

@@ -160,12 +160,12 @@ class DrawerNavigation extends Component {
                 className="team-header__drawer-team-link"
                 style={{ cursor: 'pointer' }}
                 to={`/${this.props.team.slug}/`}
-                >
+              >
                 <Row>
                   <TeamAvatar
                     style={{ backgroundImage: `url(${this.props.team.avatar})` }}
                     size={units(7)}
-                    />
+                  />
                   <OffsetBothSides>
                     <HeaderTitle>{this.props.team.name}</HeaderTitle>
                   </OffsetBothSides>

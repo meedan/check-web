@@ -42,11 +42,9 @@ const messages = defineMessages({
 
 class SwitchTeamsComponent extends Component {
   static cancelRequest(team) {
-    Relay.Store.commitUpdate(
-      new DeleteTeamUserMutation({
-        id: team.team_user_id,
-      }),
-    );
+    Relay.Store.commitUpdate(new DeleteTeamUserMutation({
+      id: team.team_user_id,
+    }));
   }
 
   getContext() {
@@ -152,7 +150,7 @@ class SwitchTeamsComponent extends Component {
         { (otherTeams.length + pendingTeams.length) ?
           <List className="teams" style={listStyle}>
             {otherTeams.map((team, index) =>
-              <ListItem
+              (<ListItem
                 key={index}
                 hoverColor={highlightBlue}
                 focusRippleColor={checkBlue}
@@ -162,14 +160,11 @@ class SwitchTeamsComponent extends Component {
                 onClick={this.setCurrentTeam.bind(this, team, currentUser)}
                 primaryText={team.name}
                 rightIcon={<KeyboardArrowRight />}
-                secondaryText={this.props.intl.formatMessage(
-                  messages.switchTeamsMember, { membersCount: team.members_count },
-                )}
-              />,
-            )}
+                secondaryText={this.props.intl.formatMessage(messages.switchTeamsMember, { membersCount: team.members_count })}
+              />))}
 
             {pendingTeams.map((team, index) =>
-              <ListItem
+              (<ListItem
                 key={index}
                 hoverColor={highlightBlue}
                 focusRippleColor={checkBlue}
@@ -179,8 +174,7 @@ class SwitchTeamsComponent extends Component {
                 primaryText={team.name}
                 rightIconButton={teamButton(team)}
                 secondaryText={this.props.intl.formatMessage(messages.joinTeam)}
-              />,
-            )}
+              />))}
           </List> :
           <CardText>
             <FormattedMessage id="switchTeams.noTeams" defaultMessage="Not a member of any team." />

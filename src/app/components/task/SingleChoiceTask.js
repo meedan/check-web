@@ -144,7 +144,9 @@ class SingleChoiceTask extends Component {
 
   handleCancelResponse() {
     this.setState(
-      { response: null, responseOther: null, otherSelected: false, note: '', focus: false },
+      {
+        response: null, responseOther: null, otherSelected: false, note: '', focus: false,
+      },
       this.canSubmit,
     );
     if (this.props.onDismiss) {
@@ -180,7 +182,9 @@ class SingleChoiceTask extends Component {
   handleEditOther(e) {
     const value = e.target.value;
     this.setState(
-      { focus: true, response: value, responseOther: value, otherSelected: true },
+      {
+        focus: true, response: value, responseOther: value, otherSelected: true,
+      },
       this.canSubmit,
     );
   }
@@ -237,7 +241,7 @@ class SingleChoiceTask extends Component {
           />
           <div style={{ marginTop: units(2) }}>
             {this.state.options.map((item, index) =>
-              <div key={`create-task__add-options-radiobutton-${index.toString()}`}>
+              (<div key={`create-task__add-options-radiobutton-${index.toString()}`}>
                 <MdRadioButtonUnchecked
                   key="create-task__md-icon"
                   className="create-task__md-icon"
@@ -259,8 +263,7 @@ class SingleChoiceTask extends Component {
                     onClick={this.handleRemoveOption.bind(this, index)}
                   />
                   : null}
-              </div>,
-            )}
+               </div>))}
             <div style={{ marginTop: units(1) }}>
               <FlatButton
                 label={this.props.intl.formatMessage(messages.addValue)}
@@ -333,9 +336,7 @@ class SingleChoiceTask extends Component {
       const otherIndex = options.findIndex(item => item.other);
       const other = otherIndex >= 0 ? options.splice(otherIndex, 1).pop() : null;
 
-      const responseIndex = options.findIndex(
-        item => item.label === response || item.label === this.state.response,
-      );
+      const responseIndex = options.findIndex(item => item.label === response || item.label === this.state.response);
       let responseOther = '';
       if (typeof this.state.responseOther !== 'undefined' && this.state.responseOther !== null) {
         responseOther = this.state.responseOther;
@@ -359,15 +360,14 @@ class SingleChoiceTask extends Component {
             valueSelected={responseSelected}
           >
             {options.map((item, index) =>
-              <RadioButton
+              (<RadioButton
                 key={`task__options--radiobutton-${index.toString()}`}
                 label={item.label}
                 id={index.toString()}
                 value={item.label}
                 style={{ padding: '4px' }}
                 disabled={!editable}
-              />,
-            )}
+              />))}
           </RadioButtonGroup>
 
           <div className="task__options_other">
@@ -387,7 +387,7 @@ class SingleChoiceTask extends Component {
                   className="task__option_other_text_input"
                   placeholder={other.label}
                   value={responseOther}
-                  name={'response'}
+                  name="response"
                   onKeyPress={keyPressCallback}
                   onChange={this.handleEditOther.bind(this)}
                   disabled={!editable}
@@ -405,8 +405,8 @@ class SingleChoiceTask extends Component {
                   id="task.noteLabel"
                   defaultMessage="Note any additional details here."
                 />
-                }
-              name={'note'}
+              }
+              name="note"
               value={responseNote}
               onKeyPress={keyPressCallback}
               onChange={this.handleChange.bind(this)}

@@ -94,17 +94,19 @@ class UploadImageComponent extends Component {
     const extension = file.name.substr(file.name.lastIndexOf('.') + 1).toLowerCase();
     if (valid_extensions.length > 0 && valid_extensions.indexOf(extension) < 0) {
       if (this.props.onError) {
-        this.props.onError(file, this.props.intl.formatMessage(messages.invalidExtension,
-          { extension, allowed_types: this.props.about.upload_extensions }),
-        );
+        this.props.onError(file, this.props.intl.formatMessage(
+          messages.invalidExtension,
+          { extension, allowed_types: this.props.about.upload_extensions },
+        ));
       }
       return;
     }
     if (file.size && unhumanizeSize(this.props.about.upload_max_size) < file.size) {
       if (this.props.onError) {
-        this.props.onError(file, this.props.intl.formatMessage(messages.fileTooLarge,
-          { size: this.props.about.upload_max_size }),
-        );
+        this.props.onError(file, this.props.intl.formatMessage(
+          messages.fileTooLarge,
+          { size: this.props.about.upload_max_size },
+        ));
       }
       return;
     }
@@ -126,14 +128,16 @@ class UploadImageComponent extends Component {
         <Row><span className="no-preview" />
           <StyledIconButton className="remove-image" onClick={this.onDelete.bind(this)}>
             <MdHighlightRemove />
-          </StyledIconButton></Row>
+          </StyledIconButton>
+        </Row>
       );
     } else if (this.state.file) {
       return (
         <Row><span className="preview" style={style} />
           <StyledIconButton className="remove-image" onClick={this.onDelete.bind(this)}>
             <MdHighlightRemove />
-          </StyledIconButton></Row>
+          </StyledIconButton>
+        </Row>
       );
     }
     return null;

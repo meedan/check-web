@@ -141,9 +141,7 @@ class MediaEmbed extends Component {
       url = `${url}?${parts.join('&')}`;
     }
 
-    const embedTag = `<script src="${config.penderUrl}/api/medias.js?url=${encodeURIComponent(
-      url,
-    )}"></script>`;
+    const embedTag = `<script src="${config.penderUrl}/api/medias.js?url=${encodeURIComponent(url)}"></script>`;
 
     return (
       <PageTitle title={this.props.intl.formatMessage(messages.preview)}>
@@ -230,14 +228,14 @@ class MediaEmbed extends Component {
                 <p className="media-embed__copy-footer">
                   <input disabled readOnly value={embedTag} id="media-embed__code-field" />
                   {this.state.codeCopied
-                      ? <span className="media-embed__copy-button-inactive">
-                        <FormattedMessage
-                          id="mediaEmbed.copyButtonInactive"
-                          defaultMessage="Copied"
-                        />
+                    ? <span className="media-embed__copy-button-inactive">
+                      <FormattedMessage
+                        id="mediaEmbed.copyButtonInactive"
+                        defaultMessage="Copied"
+                      />
                       </span>
-                      : <span className="media-embed__copy-button">
-                        <FormattedMessage id="mediaEmbed.copyButton" defaultMessage="Copy" />
+                    : <span className="media-embed__copy-button">
+                      <FormattedMessage id="mediaEmbed.copyButton" defaultMessage="Copy" />
                       </span>}
                 </p>
               </div>
@@ -258,14 +256,14 @@ class MediaEmbed extends Component {
                       id="mediaEmbed.copyEmbedCode"
                       defaultMessage="Copy embed code"
                     />
-                    }
+                  }
                 />
               </CopyToClipboard>
             </p>
 
             <PenderCard
               url={url}
-              domId={'embed-id'}
+              domId="embed-id"
               penderUrl={config.penderUrl}
               fallback={null}
               mediaVersion={this.state.version}

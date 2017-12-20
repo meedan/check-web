@@ -185,7 +185,7 @@ class ProjectEditComponent extends Component {
                       autoComplete="off"
                       onChange={this.handleSlackChannelChange.bind(this)}
                     />
-                : null }
+                    : null }
                 </CardText>
                 <CardActions>
                   <div className="project-edit__editing-buttons">

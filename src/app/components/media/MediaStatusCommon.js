@@ -89,27 +89,26 @@ class MediaStatusCommon extends Component {
             style={{ height: units(3) }}
             value={currentStatus.label}
             underlineStyle={{ borderWidth: 0 }}
-            iconStyle={{ fill: black16, padding: 0, height: 0, top: 0 }}
+            iconStyle={{
+              fill: black16, padding: 0, height: 0, top: 0,
+            }}
             labelStyle={styles.label}
             selectedMenuItemStyle={{ color: getStatusStyle(currentStatus, 'color') }}
-            className={`media-status__label media-status__current${MediaStatusCommon.currentStatusToClass(
-                mediaLastStatus(media),
-              )}`}
+            className={`media-status__label media-status__current${MediaStatusCommon.currentStatusToClass(mediaLastStatus(media))}`}
           >
             {statuses.map(status =>
-              <MenuItem
+              (<MenuItem
                 key={status.id}
                 className={`${MediaStatusCommon.bemClass(
-                    'media-status__menu-item',
-                    mediaLastStatus(media) === status.id,
-                    '--current',
-                  )} media-status__menu-item--${status.id.replace('_', '-')}`}
+                  'media-status__menu-item',
+                  mediaLastStatus(media) === status.id,
+                  '--current',
+                )} media-status__menu-item--${status.id.replace('_', '-')}`}
                 onClick={this.handleStatusClick.bind(this, status.id)}
                 style={{ textTransform: 'uppercase', color: getStatusStyle(status, 'color') }}
                 value={status.label}
                 primaryText={status.label}
-              />,
-              )}
+              />))}
           </DropDownMenu>
           : <div style={styles.label}>
             {currentStatus.label}

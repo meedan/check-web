@@ -13,7 +13,7 @@ import {
   subheading1,
   Row,
   avatarSizeLarge,
-  } from './shared';
+} from './shared';
 
 // The "Header Card" is the layout at the top of Source, Profile and Team.
 // Currently we have an actual HeaderCard component that the TeamComponent uses,

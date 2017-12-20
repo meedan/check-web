@@ -313,12 +313,11 @@ class DatetimeRespondTask extends Component {
                 style={{ marginLeft: units(2) }}
               >
                 {Object.values(timezones).map(tz =>
-                  <MenuItem
+                  (<MenuItem
                     key={tz.code}
                     value={tz.code}
                     primaryText={<span dir="ltr">{tz.label}</span>}
-                  />,
-                )}
+                  />))}
               </SelectField>
             </FlexRow>
           </div>

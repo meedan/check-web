@@ -26,30 +26,30 @@ class EmbedUpdate extends React.Component {
           <span>
             <span className="annotation__update-embed" />
             {editedTitle
-                ? <FormattedMessage
-                  id="annotation.embedLabelUpdated"
-                  defaultMessage={'Title changed to "{title}" by {author}'}
-                  values={{ title: to.title, author }}
-                />
-                : null}
+              ? <FormattedMessage
+                id="annotation.embedLabelUpdated"
+                defaultMessage={'Title changed to "{title}" by {author}'}
+                values={{ title: to.title, author }}
+              />
+              : null}
             { editedTitle && editedNote && <br />}
             {editedNote
-                ? <FormattedMessage
-                  id="annotation.embedNoteUpdated"
-                  defaultMessage={
-                      'Description edited from "{from}" to "{to}" by {author}'
-                    }
-                  values={{ from: from.description, to: to.description, author }}
-                />
-                : null}
+              ? <FormattedMessage
+                id="annotation.embedNoteUpdated"
+                defaultMessage={
+                  'Description edited from "{from}" to "{to}" by {author}'
+                }
+                values={{ from: from.description, to: to.description, author }}
+              />
+              : null}
             { editedTitle && createdNote && <br />}
             {createdNote
-                ? <FormattedMessage
-                  id="annotation.embedNoteCreated"
-                  defaultMessage={'Description "{note}" was added by {author}'}
-                  values={{ label: to.label, note: to.description, author }}
-                />
-                : null}
+              ? <FormattedMessage
+                id="annotation.embedNoteCreated"
+                defaultMessage={'Description "{note}" was added by {author}'}
+                values={{ label: to.label, note: to.description, author }}
+              />
+              : null}
           </span>
         );
       }

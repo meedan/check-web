@@ -20,15 +20,15 @@ const ProjectHeaderComponent = (props) => {
       {isProjectSubpage
         ?
           <IconButton
-            containerElement={<Link to={backUrl} />}
-            className="project-header__back-button"
-          >
-            <FadeIn>
+          containerElement={<Link to={backUrl} />}
+          className="project-header__back-button"
+        >
+          <FadeIn>
               <SlideIn>
-                <IconArrowBack color={black54} />
-              </SlideIn>
+              <IconArrowBack color={black54} />
+            </SlideIn>
             </FadeIn>
-          </IconButton>
+        </IconButton>
         : null}
       <HeaderTitle>{currentProject.title}</HeaderTitle>
     </div>

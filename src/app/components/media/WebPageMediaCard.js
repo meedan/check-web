@@ -31,7 +31,9 @@ class WebPageMediaCard extends Component {
   }
 
   render() {
-    const { media, data, heading, isRtl, authorName, authorUsername } = this.props;
+    const {
+      media, data, heading, isRtl, authorName, authorUsername,
+    } = this.props;
     const url = MediaUtil.url(media, data);
     const authorPictureUrl = (() => {
       if (data.picture && !data.picture.match(/\/screenshots\//)) {

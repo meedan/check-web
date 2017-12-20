@@ -17,7 +17,7 @@ import {
 } from '../../styles/js/HeaderCard';
 
 const UserInfo = props =>
-  <StyledTwoColumns>
+  (<StyledTwoColumns>
     <StyledSmallColumn isRtl={rtlDetect.isRtlLang(props.intl.locale)}>
       <SourcePicture
         size="large"
@@ -58,6 +58,6 @@ const UserInfo = props =>
       </StyledContactInfo>
 
     </StyledBigColumn>
-  </StyledTwoColumns>;
+   </StyledTwoColumns>);
 
 export default injectIntl(UserInfo);

@@ -47,7 +47,9 @@ class CreateDynamicMutation extends Relay.Mutation {
 
   getVariables() {
     const dynamic = this.props.annotation;
-    return { set_fields: JSON.stringify(dynamic.fields), annotation_type: dynamic.annotation_type, annotated_id: `${dynamic.annotated_id}`, annotated_type: dynamic.annotated_type };
+    return {
+      set_fields: JSON.stringify(dynamic.fields), annotation_type: dynamic.annotation_type, annotated_id: `${dynamic.annotated_id}`, annotated_type: dynamic.annotated_type,
+    };
   }
 
   getConfigs() {

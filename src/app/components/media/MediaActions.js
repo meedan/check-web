@@ -30,95 +30,83 @@ class MediaActions extends Component {
   }
 
   render() {
-    const { media, handleEdit, handleMove, handleRefresh, handleSendToTrash, handleRestore, handleDeleteForever } = this.props;
+    const {
+      media, handleEdit, handleMove, handleRefresh, handleSendToTrash, handleRestore, handleDeleteForever,
+    } = this.props;
     const menuItems = [];
 
     if (can(media.permissions, 'update ProjectMedia')) {
-      menuItems.push(
-        <MenuItem
-          key="mediaActions.edit"
-          className="media-actions__edit"
-          onClick={handleEdit}
-        >
-          <FormattedMessage id="mediaActions.edit" defaultMessage="Edit" />
-        </MenuItem>,
-      );
+      menuItems.push(<MenuItem
+        key="mediaActions.edit"
+        className="media-actions__edit"
+        onClick={handleEdit}
+      >
+        <FormattedMessage id="mediaActions.edit" defaultMessage="Edit" />
+                     </MenuItem>);
     }
 
     if (can(media.permissions, 'restore ProjectMedia') && media.archived) {
-      menuItems.push(
-        <MenuItem
-          key="mediaActions.restore"
-          className="media-actions__restore"
-          id="media-actions__restore"
-          onClick={handleRestore}
-        >
-          <FormattedMessage id="mediaActions.restore" defaultMessage="Restore to project" />
-        </MenuItem>,
-      );
+      menuItems.push(<MenuItem
+        key="mediaActions.restore"
+        className="media-actions__restore"
+        id="media-actions__restore"
+        onClick={handleRestore}
+      >
+        <FormattedMessage id="mediaActions.restore" defaultMessage="Restore to project" />
+      </MenuItem>);
     }
 
     if (can(media.permissions, 'update ProjectMedia')) {
-      menuItems.push(
-        <MenuItem
-          key="mediaActions.move"
-          className="media-actions__move"
-          onClick={handleMove}
-        >
-          <FormattedMessage id="mediaActions.move" defaultMessage="Move" />
-        </MenuItem>,
-      );
+      menuItems.push(<MenuItem
+        key="mediaActions.move"
+        className="media-actions__move"
+        onClick={handleMove}
+      >
+        <FormattedMessage id="mediaActions.move" defaultMessage="Move" />
+      </MenuItem>);
 
       if (!media.archived) {
-        menuItems.push(
-          <MenuItem
-            key="mediaActions.sendToTrash"
-            className="media-actions__send-to-trash"
-            onClick={handleSendToTrash}
-          >
-            <FormattedMessage id="mediaActions.sendToTrash" defaultMessage="Send to trash" />
-          </MenuItem>,
-        );
+        menuItems.push(<MenuItem
+          key="mediaActions.sendToTrash"
+          className="media-actions__send-to-trash"
+          onClick={handleSendToTrash}
+        >
+          <FormattedMessage id="mediaActions.sendToTrash" defaultMessage="Send to trash" />
+        </MenuItem>);
       }
 
       if (media.url) {
-        menuItems.push(
-          <MenuItem
-            key="mediaActions.refresh"
-            className="media-actions__refresh"
-            id="media-actions__refresh"
-            onClick={handleRefresh}
-          >
-            <FormattedMessage id="mediaActions.refresh" defaultMessage="Refresh" />
-          </MenuItem>,
-        );
+        menuItems.push(<MenuItem
+          key="mediaActions.refresh"
+          className="media-actions__refresh"
+          id="media-actions__refresh"
+          onClick={handleRefresh}
+        >
+          <FormattedMessage id="mediaActions.refresh" defaultMessage="Refresh" />
+        </MenuItem>);
       }
     }
 
     if (config.appName === 'check' && can(media.permissions, 'embed ProjectMedia')) {
-      menuItems.push(
-        <MenuItem
-          key="mediaActions.embed"
-          className="media-actions__embed"
-          id="media-actions__embed"
-          onClick={this.handleEmbed.bind(this)}
-        >
-          <FormattedMessage id="mediaActions.embed" defaultMessage="Embed" />
-        </MenuItem>,
-      );
+      menuItems.push(<MenuItem
+        key="mediaActions.embed"
+        className="media-actions__embed"
+        id="media-actions__embed"
+        onClick={this.handleEmbed.bind(this)}
+      >
+        <FormattedMessage id="mediaActions.embed" defaultMessage="Embed" />
+                     </MenuItem>);
     }
 
     if (can(media.permissions, 'destroy ProjectMedia')) {
-      menuItems.push(
-        <MenuItem
-          key="mediaActions.deleteForever"
-          className="media-actions__delete-forever"
-          id="media-actions__delete-forever"
-          onClick={handleDeleteForever}
-        >
-          <FormattedMessage id="mediaActions.deleteForever" defaultMessage="Delete forever" />
-        </MenuItem>,
-      );
+      menuItems.push(<MenuItem
+        key="mediaActions.deleteForever"
+        className="media-actions__delete-forever"
+        id="media-actions__delete-forever"
+        onClick={handleDeleteForever}
+      >
+        <FormattedMessage id="mediaActions.deleteForever" defaultMessage="Delete forever" />
+      </MenuItem>);
     }
 
     return menuItems.length

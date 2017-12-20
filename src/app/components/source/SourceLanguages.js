@@ -31,11 +31,11 @@ class LanguageComponent extends React.Component {
       JSON.parse(this.props.projectLanguages) : null;
 
     return difference(
-        projectLanguages ?
-          intersection(Object.keys(supportedLanguages), projectLanguages) :
-          Object.keys(supportedLanguages),
-        usedLanguages,
-      )
+      projectLanguages ?
+        intersection(Object.keys(supportedLanguages), projectLanguages) :
+        Object.keys(supportedLanguages),
+      usedLanguages,
+    )
       .map(l => ({ value: l, label: supportedLanguages[l] }));
   }
 
@@ -48,7 +48,7 @@ class LanguageComponent extends React.Component {
     return (
       <StyledTagsWrapper className="source-tags__tags">
         {usedLanguages.map(language =>
-          <Chip
+          (<Chip
             key={language.id}
             className="source-tags__tag"
             onRequestDelete={this.props.onDelete ? () => {
@@ -56,8 +56,7 @@ class LanguageComponent extends React.Component {
             } : null}
           >
             {supportedLanguages[language.content.value]}
-          </Chip>,
-        )}
+           </Chip>))}
       </StyledTagsWrapper>
     );
   }

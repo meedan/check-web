@@ -153,7 +153,7 @@ class TranslationItem extends Component {
                         id="translation.translationText"
                         defaultMessage="Translation text"
                       />
-                      }
+                    }
                     defaultValue={text}
                     fullWidth
                     multiLine
@@ -162,7 +162,7 @@ class TranslationItem extends Component {
                     name="translation_note"
                     hintText={
                       <FormattedMessage id="translation.translationNote" defaultMessage="Note" />
-                      }
+                    }
                     defaultValue={note}
                     fullWidth
                     multiLine
@@ -172,7 +172,7 @@ class TranslationItem extends Component {
                   <FlatButton
                     label={
                       <FormattedMessage id="translation.cancelEdit" defaultMessage="Cancel" />
-                      }
+                    }
                     onClick={() => this.setState({ editing: false })}
                   />
                   <FlatButton

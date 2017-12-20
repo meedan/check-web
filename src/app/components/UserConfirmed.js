@@ -6,7 +6,7 @@ import { Card, CardTitle, CardText, CardActions } from 'material-ui/Card';
 import { ContentColumn } from '../styles/js/shared';
 
 const UserConfirmed = () =>
-  <ContentColumn>
+  (<ContentColumn>
     <Card>
       <CardTitle
         className="main-title"
@@ -16,7 +16,7 @@ const UserConfirmed = () =>
         <p>
           <FormattedMessage
             id="userConfirmed.message"
-            defaultMessage={'Thanks for confirming your e-mail address! Now you can sign in.'}
+            defaultMessage="Thanks for confirming your e-mail address! Now you can sign in."
           />
         </p>
 
@@ -27,6 +27,6 @@ const UserConfirmed = () =>
         </Link>
       </CardActions>
     </Card>
-  </ContentColumn>;
+   </ContentColumn>);
 
 export default UserConfirmed;

@@ -293,7 +293,7 @@ class CreateTask extends Component {
             fullWidth
             floatingLabelText={
               <FormattedMessage id="tasks.taskLabel" defaultMessage="Prompt" />
-              }
+            }
             onChange={this.handleLabelChange.bind(this)}
             multiLine
           />
@@ -309,7 +309,7 @@ class CreateTask extends Component {
               className="create-task__task-description-input"
               floatingLabelText={
                 <FormattedMessage id="tasks.description" defaultMessage="Description" />
-                }
+              }
               onChange={this.handleDescriptionChange.bind(this)}
               multiLine
             />
@@ -319,7 +319,7 @@ class CreateTask extends Component {
             >
               <span className="create-task__add-task-description-icon">
                   +
-                </span>{' '}
+              </span>{' '}
               <FormattedMessage id="tasks.addDescription" defaultMessage="Add a description" />
             </label>
           </StyledTaskDescription>

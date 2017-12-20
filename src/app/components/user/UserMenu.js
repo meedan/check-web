@@ -25,7 +25,9 @@ const styles = {
 };
 
 const UserMenu = (props) => {
-  const { currentUserIsMember, inTeamContext, loggedIn, user, team } = props;
+  const {
+    currentUserIsMember, inTeamContext, loggedIn, user, team,
+  } = props;
 
   if (!loggedIn) {
     return null;
@@ -48,7 +50,7 @@ const UserMenu = (props) => {
       anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
     >
       <MenuItem
-        containerElement={<Link to={'/check/me'} />}
+        containerElement={<Link to="/check/me" />}
         secondaryText={localizedRoleText}
       >
         {user && user.name}

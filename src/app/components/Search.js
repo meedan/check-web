@@ -410,8 +410,7 @@ class SearchQueryComponent extends Component {
   render() {
     const statuses = JSON.parse(teamStatuses(this.props.team)).statuses;
     const projects = this.props.team.projects.edges.sortp((a, b) =>
-      a.node.title.localeCompare(b.node.title),
-    );
+      a.node.title.localeCompare(b.node.title));
     const suggestedTags = this.props.team.get_suggested_tags
       ? this.props.team.get_suggested_tags.split(',')
       : [];
@@ -449,20 +448,19 @@ class SearchQueryComponent extends Component {
               ? <StyledFilterRow isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
                 <h4><FormattedMessage id="search.statusHeading" defaultMessage="Status" /></h4>
                 {statuses.map(status =>
-                  <StyledFilterButton
+                  (<StyledFilterButton
                     active={this.statusIsSelected(status.id)}
                     key={status.id}
                     title={status.description}
                     onClick={this.handleStatusClick.bind(this, status.id)}
                     className={bemClass(
-                        'media-tags__suggestion',
-                        this.statusIsSelected(status.id),
-                        '--selected',
-                      )}
+                      'media-tags__suggestion',
+                      this.statusIsSelected(status.id),
+                      '--selected',
+                    )}
                   >
                     {status.label}
-                  </StyledFilterButton>,
-                  )}
+                   </StyledFilterButton>))}
               </StyledFilterRow>
               : null}
 
@@ -473,20 +471,19 @@ class SearchQueryComponent extends Component {
                   <FormattedMessage id="search.projectHeading" defaultMessage="Project" />
                 </h4>
                 {projects.map(project =>
-                  <StyledFilterButton
+                  (<StyledFilterButton
                     active={this.projectIsSelected(project.node.dbid)}
                     key={project.node.dbid}
                     title={project.node.description}
                     onClick={this.handleProjectClick.bind(this, project.node.dbid)}
                     className={bemClass(
-                        'media-tags__suggestion',
-                        this.projectIsSelected(project.node.dbid),
-                        '--selected',
-                      )}
+                      'media-tags__suggestion',
+                      this.projectIsSelected(project.node.dbid),
+                      '--selected',
+                    )}
                   >
                     {project.node.title}
-                  </StyledFilterButton>,
-                  )}
+                   </StyledFilterButton>))}
               </StyledFilterRow>
               : null}
 
@@ -497,20 +494,19 @@ class SearchQueryComponent extends Component {
                   <FormattedMessage id="status.categoriesHeading" defaultMessage="Categories" />
                 </h4>
                 {suggestedTags.map(tag =>
-                  <StyledFilterButton
+                  (<StyledFilterButton
                     active={this.tagIsSelected(tag)}
                     key={tag}
                     title={null}
                     onClick={this.handleTagClick.bind(this, tag)}
                     className={bemClass(
-                        'media-tags__suggestion',
-                        this.tagIsSelected(tag),
-                        '--selected',
-                      )}
+                      'media-tags__suggestion',
+                      this.tagIsSelected(tag),
+                      '--selected',
+                    )}
                   >
                     {tag}
-                  </StyledFilterButton>,
-                  )}
+                   </StyledFilterButton>))}
               </StyledFilterRow>
               : null}
 
@@ -523,10 +519,10 @@ class SearchQueryComponent extends Component {
                   active={this.sortIsSelected('recent_added')}
                   onClick={this.handleSortClick.bind(this, 'recent_added')}
                   className={bemClass(
-                      'media-tags__suggestion',
-                      this.sortIsSelected('recent_added'),
-                      '--selected',
-                    )}
+                    'media-tags__suggestion',
+                    this.sortIsSelected('recent_added'),
+                    '--selected',
+                  )}
                 >
                   <FormattedMessage id="search.sortByCreated" defaultMessage="Created" />
                 </StyledFilterButton>
@@ -534,10 +530,10 @@ class SearchQueryComponent extends Component {
                   active={this.sortIsSelected('recent_activity')}
                   onClick={this.handleSortClick.bind(this, 'recent_activity')}
                   className={bemClass(
-                      'media-tags__suggestion',
-                      this.sortIsSelected('recent_activity'),
-                      '--selected',
-                    )}
+                    'media-tags__suggestion',
+                    this.sortIsSelected('recent_activity'),
+                    '--selected',
+                  )}
                 >
                   <FormattedMessage
                     id="search.sortByRecentActivity"
@@ -548,10 +544,10 @@ class SearchQueryComponent extends Component {
                   active={this.sortIsSelected('DESC')}
                   onClick={this.handleSortClick.bind(this, 'DESC')}
                   className={bemClass(
-                      'media-tags__suggestion',
-                      this.sortIsSelected('DESC'),
-                      '--selected',
-                    )}
+                    'media-tags__suggestion',
+                    this.sortIsSelected('DESC'),
+                    '--selected',
+                  )}
                 >
                   <FormattedMessage id="search.sortByNewest" defaultMessage="Newest first" />
                 </StyledFilterButton>
@@ -559,10 +555,10 @@ class SearchQueryComponent extends Component {
                   active={this.sortIsSelected('ASC')}
                   onClick={this.handleSortClick.bind(this, 'ASC')}
                   className={bemClass(
-                      'media-tags__suggestion',
-                      this.sortIsSelected('ASC'),
-                      '--selected',
-                    )}
+                    'media-tags__suggestion',
+                    this.sortIsSelected('ASC'),
+                    '--selected',
+                  )}
                 >
                   <FormattedMessage id="search.sortByOldest" defaultMessage="Oldest first" />
                 </StyledFilterButton>
@@ -577,10 +573,10 @@ class SearchQueryComponent extends Component {
                   active={this.showIsSelected('medias')}
                   onClick={this.handleShowClick.bind(this, 'medias')}
                   className={bemClass(
-                      'media-tags__suggestion',
-                      this.showIsSelected('medias'),
-                      '--selected',
-                    )}
+                    'media-tags__suggestion',
+                    this.showIsSelected('medias'),
+                    '--selected',
+                  )}
                 >
                   <FormattedMessage id="search.showMedia" defaultMessage="Media" />
                 </StyledFilterButton>
@@ -588,10 +584,10 @@ class SearchQueryComponent extends Component {
                   active={this.showIsSelected('sources')}
                   onClick={this.handleShowClick.bind(this, 'sources')}
                   className={bemClass(
-                      'media-tags__suggestion',
-                      this.showIsSelected('sources'),
-                      '--selected',
-                    )}
+                    'media-tags__suggestion',
+                    this.showIsSelected('sources'),
+                    '--selected',
+                  )}
                 >
                   <FormattedMessage id="search.showSources" defaultMessage="Sources" />
                 </StyledFilterButton>
@@ -781,12 +777,11 @@ class SearchResultsComponent extends Component {
         <InfiniteScroll hasMore loadMore={this.loadMore.bind(this)} threshold={500}>
           <div className="search__results-list results medias-list">
             {searchResults.map(item =>
-              <li key={item.node.id} className="medias__item">
+              (<li key={item.node.id} className="medias__item">
                 {item.node.media
                   ? <MediaDetail media={item.node} condensed parentComponent={this} />
                   : <SourceCard source={item.node} />}
-              </li>,
-            )}
+               </li>))}
           </div>
         </InfiniteScroll>
       </StyledSearchResultsWrapper>
@@ -868,7 +863,7 @@ class Search extends Component {
           route={queryRoute}
           renderFetched={data => <SearchQueryContainer {...this.props} {...data} />}
           renderLoading={() =>
-            <ContentColumn>
+            (<ContentColumn>
               {!fields || fields.indexOf('keyword') > -1
                 ? <div className="search__form search__form--loading">
                   <StyledSearchInput
@@ -877,10 +872,10 @@ class Search extends Component {
                     name="search-input"
                     id="search-input"
                   />
-                </div>
+                  </div>
                 : null}
 
-            </ContentColumn>
+             </ContentColumn>)
           }
         />
         <Relay.RootContainer

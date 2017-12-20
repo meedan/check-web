@@ -230,13 +230,11 @@ class Task extends Component {
 
     // eslint-disable-next-line no-alert
     if (window.confirm(this.props.intl.formatMessage(messages.confirmDelete))) {
-      Relay.Store.commitUpdate(
-        new DeleteAnnotationMutation({
-          parent_type: 'project_media',
-          annotated: media,
-          id: task.id,
-        }),
-      );
+      Relay.Store.commitUpdate(new DeleteAnnotationMutation({
+        parent_type: 'project_media',
+        annotated: media,
+        id: task.id,
+      }));
     }
     this.setState({ isMenuOpen: false });
   }
@@ -413,31 +411,31 @@ class Task extends Component {
                 />
                 : null}
               {task.type === 'geolocation'
-                  ? <GeolocationRespondTask
-                    onSubmit={this.handleSubmitWithArgs.bind(this)}
-                  />
-                  : null}
+                ? <GeolocationRespondTask
+                  onSubmit={this.handleSubmitWithArgs.bind(this)}
+                />
+                : null}
               {task.type === 'datetime'
-                  ? <DatetimeRespondTask onSubmit={this.handleSubmitWithArgs.bind(this)} note={''} />
-                  : null}
+                ? <DatetimeRespondTask onSubmit={this.handleSubmitWithArgs.bind(this)} note="" />
+                : null}
               {task.type === 'single_choice'
-                  ? <SingleChoiceTask
-                    mode="respond"
-                    response={response}
-                    note={note}
-                    jsonoptions={task.jsonoptions}
-                    onSubmit={this.handleSubmitWithArgs.bind(this)}
-                  />
-                  : null}
+                ? <SingleChoiceTask
+                  mode="respond"
+                  response={response}
+                  note={note}
+                  jsonoptions={task.jsonoptions}
+                  onSubmit={this.handleSubmitWithArgs.bind(this)}
+                />
+                : null}
               {task.type === 'multiple_choice'
-                  ? <MultiSelectTask
-                    mode="respond"
-                    jsonresponse={response}
-                    note={note}
-                    jsonoptions={task.jsonoptions}
-                    onSubmit={this.handleSubmitWithArgs.bind(this)}
-                  />
-                  : null}
+                ? <MultiSelectTask
+                  mode="respond"
+                  jsonresponse={response}
+                  note={note}
+                  jsonoptions={task.jsonoptions}
+                  onSubmit={this.handleSubmitWithArgs.bind(this)}
+                />
+                : null}
             </div>
           </form>
         </Can>
@@ -447,48 +445,48 @@ class Task extends Component {
         <div className="task__editing">
           <form name={`edit-response-${task.first_response.id}`}>
             {task.type === 'free_text'
-                ? <ShortTextRespondTask
-                  response={response}
-                  note={note}
-                  onSubmit={this.handleSubmitUpdateWithArgs.bind(this)}
-                  onDismiss={this.handleCancelEditResponse.bind(this)}
-                />
-                : null}
+              ? <ShortTextRespondTask
+                response={response}
+                note={note}
+                onSubmit={this.handleSubmitUpdateWithArgs.bind(this)}
+                onDismiss={this.handleCancelEditResponse.bind(this)}
+              />
+              : null}
             {task.type === 'geolocation'
-                ? <GeolocationRespondTask
-                  response={response}
-                  onSubmit={this.handleSubmitUpdateWithArgs.bind(this)}
-                  onDismiss={this.handleCancelEditResponse.bind(this)}
-                />
-                : null}
+              ? <GeolocationRespondTask
+                response={response}
+                onSubmit={this.handleSubmitUpdateWithArgs.bind(this)}
+                onDismiss={this.handleCancelEditResponse.bind(this)}
+              />
+              : null}
             {task.type === 'datetime'
-                ? <DatetimeRespondTask
-                  response={response}
-                  note={note}
-                  onSubmit={this.handleSubmitUpdateWithArgs.bind(this)}
-                  onDismiss={this.handleCancelEditResponse.bind(this)}
-                />
-                : null}
+              ? <DatetimeRespondTask
+                response={response}
+                note={note}
+                onSubmit={this.handleSubmitUpdateWithArgs.bind(this)}
+                onDismiss={this.handleCancelEditResponse.bind(this)}
+              />
+              : null}
             {task.type === 'single_choice'
-                ? <SingleChoiceTask
-                  mode="edit_response"
-                  response={response}
-                  note={note}
-                  jsonoptions={task.jsonoptions}
-                  onDismiss={this.handleCancelEditResponse.bind(this)}
-                  onSubmit={this.handleSubmitUpdateWithArgs.bind(this)}
-                />
-                : null}
+              ? <SingleChoiceTask
+                mode="edit_response"
+                response={response}
+                note={note}
+                jsonoptions={task.jsonoptions}
+                onDismiss={this.handleCancelEditResponse.bind(this)}
+                onSubmit={this.handleSubmitUpdateWithArgs.bind(this)}
+              />
+              : null}
             {task.type === 'multiple_choice'
-                ? <MultiSelectTask
-                  mode="edit_response"
-                  jsonresponse={response}
-                  note={note}
-                  jsonoptions={task.jsonoptions}
-                  onDismiss={this.handleCancelEditResponse.bind(this)}
-                  onSubmit={this.handleSubmitUpdateWithArgs.bind(this)}
-                />
-                : null}
+              ? <MultiSelectTask
+                mode="edit_response"
+                jsonresponse={response}
+                note={note}
+                jsonoptions={task.jsonoptions}
+                onDismiss={this.handleCancelEditResponse.bind(this)}
+                onSubmit={this.handleSubmitUpdateWithArgs.bind(this)}
+              />
+              : null}
           </form>
         </div>
       );
@@ -496,36 +494,36 @@ class Task extends Component {
       taskBody = (
         <StyledWordBreakDiv className="task__resolved">
           {task.type === 'free_text'
-              ? <p className="task__response">
-                <ParsedText text={response} />
+            ? <p className="task__response">
+              <ParsedText text={response} />
               </p>
-              : null}
+            : null}
           {task.type === 'geolocation'
-              ? <p className="task__response">
-                <GeolocationTaskResponse response={response} />
+            ? <p className="task__response">
+              <GeolocationTaskResponse response={response} />
               </p>
-              : null}
+            : null}
           {task.type === 'datetime'
-              ? <p className="task__response">
-                <DatetimeTaskResponse response={response} />
+            ? <p className="task__response">
+              <DatetimeTaskResponse response={response} />
               </p>
-              : null}
+            : null}
           {task.type === 'single_choice'
-              ? <SingleChoiceTask
-                mode="show_response"
-                response={response}
-                note={note}
-                jsonoptions={task.jsonoptions}
-              />
-              : null}
+            ? <SingleChoiceTask
+              mode="show_response"
+              response={response}
+              note={note}
+              jsonoptions={task.jsonoptions}
+            />
+            : null}
           {task.type === 'multiple_choice'
-              ? <MultiSelectTask
-                mode="show_response"
-                jsonresponse={response}
-                note={note}
-                jsonoptions={task.jsonoptions}
-              />
-              : null}
+            ? <MultiSelectTask
+              mode="show_response"
+              jsonresponse={response}
+              note={note}
+              jsonoptions={task.jsonoptions}
+            />
+            : null}
           <p
             style={{
               display: note ? 'block' : 'none',
@@ -590,7 +588,7 @@ class Task extends Component {
               name="description"
               floatingLabelText={
                 <FormattedMessage id="tasks.description" defaultMessage="Description" />
-                }
+              }
               defaultValue={task.description}
               onChange={this.handleQuestionEdit.bind(this)}
               fullWidth

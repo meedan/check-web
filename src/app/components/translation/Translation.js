@@ -186,13 +186,12 @@ class TranslationComponent extends Component {
     return (
       <div>
         {translations.edges.map(tr =>
-          <TranslationItem
+          (<TranslationItem
             key={tr.node.id}
             translation={tr.node}
             media={this.props.annotated}
             localeIsRtl={rtlDetect.isRtlLang(this.props.intl.locale)}
-          />,
-        )}
+          />))}
         {options.length > 0
           ? <Card className="translation__card" style={{ position: 'relative' }}>
             <CardText className="translation__card-text" style={{ paddingBottom: '0' }}>
@@ -211,7 +210,7 @@ class TranslationComponent extends Component {
                     id="translation.selectLanguage"
                     defaultMessage="Select language"
                   />
-                  }
+                }
                 onChange={this.handleChangeTargetLanguage.bind(this)}
                 clearable
               />
@@ -238,7 +237,7 @@ class TranslationComponent extends Component {
                       id="translation.noteLabel"
                       defaultMessage="Note any additional details here."
                     />
-                    }
+                  }
                   name="note"
                   id="note-input"
                   onKeyPress={this.handleKeyPress.bind(this)}

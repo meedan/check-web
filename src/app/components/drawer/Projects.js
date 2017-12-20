@@ -20,7 +20,6 @@ const SubHeading = styled.div`
 `;
 
 class ProjectsComponent extends Component {
-
   render() {
     const projectList = (() => {
       if (this.props.team.projects.edges.length === 0) {

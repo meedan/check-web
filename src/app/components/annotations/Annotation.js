@@ -360,7 +360,7 @@ class Annotation extends Component {
             <IconButton className="menu-button">
               <IconMoreHoriz />
             </IconButton>
-            }
+          }
         >
           <Can permissions={annotation.permissions} permission={permission}>
             <MenuItem
@@ -379,7 +379,7 @@ class Annotation extends Component {
       ? <span className="annotation__timestamp"><TimeBefore date={updatedAt} /></span>
       : null;
     const authorName = activity.user
-      ? <ProfileLink className={'annotation__author-name'} user={activity.user} team={annotated.team} /> : null;
+      ? <ProfileLink className="annotation__author-name" user={activity.user} team={annotated.team} /> : null;
     const object = JSON.parse(activity.object_after);
     const content = object.data;
     let activityType = activity.event_type;
@@ -395,33 +395,32 @@ class Annotation extends Component {
             <ParsedText text={commentText} />
             {/* thumbnail */}
             {commentContent.original
-                ? <div>
-                  <img
-                    src={commentContent.thumbnail}
-                    className="annotation__card-thumbnail"
-                    alt=""
-                    onClick={this.handleOpenCommentImage.bind(this, commentContent.original)}
-                  />
+              ? <div>
+                <img
+                  src={commentContent.thumbnail}
+                  className="annotation__card-thumbnail"
+                  alt=""
+                  onClick={this.handleOpenCommentImage.bind(this, commentContent.original)}
+                />
                 </div>
-                : null}
+              : null}
           </div>
 
           {/* embedded medias */}
           <div className="annotation__card-embedded-medias">
             {annotation.medias.edges.map(media =>
-              <div><MediaDetail media={media.node} condensed readonly /></div>,
-              )}
+              <div><MediaDetail media={media.node} condensed readonly /></div>)}
           </div>
 
           {/* lightbox */}
           {commentContent.original && !!this.state.zoomedCommentImage
-              ? <Lightbox
-                onCloseRequest={this.handleCloseCommentImage.bind(this)}
-                mainSrc={this.state.zoomedCommentImage}
-              />
-              : null}
+            ? <Lightbox
+              onCloseRequest={this.handleCloseCommentImage.bind(this)}
+              mainSrc={this.state.zoomedCommentImage}
+            />
+            : null}
         </div>
-        );
+      );
       break;
     case 'update_status':
       const statusCode = content.status.toLowerCase().replace(/[ _]/g, '-');
@@ -439,12 +438,12 @@ class Annotation extends Component {
                 >
                   {status.label}
                 </span>
-                ),
+              ),
               author: authorName,
             }}
           />
         </span>
-        );
+      );
       break;
     case 'create_tag':
       contentTemplate = (
@@ -455,7 +454,7 @@ class Annotation extends Component {
             values={{ tag: content.tag.replace(/^#/, ''), author: authorName }}
           />
         </span>
-        );
+      );
       break;
     case 'destroy_comment':
       contentTemplate = (<em className="annotation__deleted">
@@ -478,7 +477,7 @@ class Annotation extends Component {
             values={{ task: content.label, author: authorName }}
           />
         </span>
-        );
+      );
       break;
     case 'create_dynamicannotationfield':
     case 'update_dynamicannotationfield':
@@ -491,8 +490,8 @@ class Annotation extends Component {
               selected_array.push(response_obj.other);
             }
             const last_item = selected_array.length > 1
-                ? ` ${this.props.intl.formatMessage(messages.and)} ${selected_array.splice(-1, 1)}`
-                : '';
+              ? ` ${this.props.intl.formatMessage(messages.and)} ${selected_array.splice(-1, 1)}`
+              : '';
             return selected_array.join(', ') + last_item;
           } else if (type === 'geolocation') {
             const geojson = JSON.parse(object.value);
@@ -529,13 +528,13 @@ class Annotation extends Component {
               }}
             />
           </span>
-          );
+        );
       }
 
       if (object.field_name === 'reverse_image_path') {
         const [reverseImage, value] = annotated.domain === 'facebook.com'
-            ? [messages.reverseImageFacebook, null]
-            : [messages.reverseImage, object.value];
+          ? [messages.reverseImageFacebook, null]
+          : [messages.reverseImage, object.value];
         contentTemplate = (
           <span className="annotation__reverse-image">
             <MdImage /> <span>{this.props.intl.formatMessage(reverseImage)}</span>
@@ -547,7 +546,7 @@ class Annotation extends Component {
               <FormattedMessage id="annotation.reverseImageSearch" defaultMessage="Search" />
             </span>
           </span>
-          );
+        );
       }
 
       if (object.field_name === 'translation_text') {
@@ -566,7 +565,7 @@ class Annotation extends Component {
               }}
             />
           </span>
-          );
+        );
       }
 
       if (object.field_name === 'mt_translations') {
@@ -585,23 +584,22 @@ class Annotation extends Component {
                 />
               </button>
             </span>
-            );
+          );
         } else {
           contentTemplate = (
             <span className="annotation__mt-translations">
               <ul className="mt-list">
                 {formatted_value.map(mt =>
-                  <li className="mt__list-item">
+                  (<li className="mt__list-item">
                     <FormattedMessage
                       id="annotation.machineTranslation"
                       defaultMessage={'Machine translation for "{lang}" is: {text}'}
                       values={{ lang: mt.lang_name, text: mt.text }}
                     />
-                  </li>,
-                  )}
+                   </li>))}
               </ul>
             </span>
-            );
+          );
         }
       }
 
@@ -618,12 +616,12 @@ class Annotation extends Component {
                   <span className={`annotation__status annotation__status--${statusCode}`}>
                     {status.label}
                   </span>
-                  ),
+                ),
                 author: authorName,
               }}
             />
           </span>
-          );
+        );
       }
 
       if (object.field_name === 'translation_published') {
@@ -636,26 +634,24 @@ class Annotation extends Component {
         for (const provider in published) {
           const name = provider.charAt(0).toUpperCase() + provider.slice(1);
           const color = colors[provider] || '#333';
-          contentTemplate.push(
-            <span>
-              <FormattedMessage
-                id="annotation.translationPublished"
-                defaultMessage={'Translation published to {link}'}
-                values={{
-                  link: (
-                    <a
-                      style={{ color, fontWeight: 'bold' }}
-                      href={published[provider]}
-                      target="_blank"
-                      rel="noreferrer noopener"
-                    >
-                      {name}
-                    </a>
-                    ),
-                }}
-              />
-            </span>,
-            );
+          contentTemplate.push(<span>
+            <FormattedMessage
+              id="annotation.translationPublished"
+              defaultMessage={'Translation published to {link}'}
+              values={{
+                link: (
+                  <a
+                    style={{ color, fontWeight: 'bold' }}
+                    href={published[provider]}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                  >
+                    {name}
+                  </a>
+                ),
+              }}
+            />
+          </span>);
         }
       }
 
@@ -669,47 +665,43 @@ class Annotation extends Component {
             <span className="annotation__keep">
               <FormattedHTMLMessage
                 id="annotation.keepRetried"
-                defaultMessage={
-                    'There is a new attempt to archive this item in Keep. Please check back in an hour.'
-                  }
+                defaultMessage="There is a new attempt to archive this item in Keep. Please check back in an hour."
               />
             </span>
-            );
+          );
         } else if (keepLink) {
           contentTemplate = (
             <span className="annotation__keep">
               <FormattedHTMLMessage
                 id="annotation.keepSuccess"
                 defaultMessage={
-                    'In case this link goes offline, you can <a href="{keepLink}" target="_blank" rel="noopener noreferrer">access a backup via Keep</a>'
-                  }
+                  'In case this link goes offline, you can <a href="{keepLink}" target="_blank" rel="noopener noreferrer">access a backup via Keep</a>'
+                }
                 values={{ keepLink }}
               />
             </span>
-            );
+          );
         } else if (keepStatus === 418) {
           contentTemplate = (
             <span className="annotation__keep">
               <FormattedHTMLMessage
                 id="annotation.keepError"
-                defaultMessage={'There was an error when Keep tried to archive this item'}
+                defaultMessage="There was an error when Keep tried to archive this item"
               />
               <span className="annotation__keep-retry" onClick={this.handleRetryKeep.bind(this)}>
                 <FormattedMessage id="annotation.keepRetry" defaultMessage="Retry" />
               </span>
             </span>
-            );
+          );
         } else {
           contentTemplate = (
             <span className="annotation__keep">
               <FormattedHTMLMessage
                 id="annotation.keepWait"
-                defaultMessage={
-                    'This item is being archived in Keep. Come back in an hour to receive a confirmation link.'
-                  }
+                defaultMessage="This item is being archived in Keep. Come back in an hour to receive a confirmation link."
               />
             </span>
-            );
+          );
         }
       }
 
@@ -719,13 +711,11 @@ class Annotation extends Component {
             <strong>
               <FormattedMessage
                 id="annotation.embedCodeCopied"
-                defaultMessage={
-                    'An embed code of the item has been generated and copied, so the item may now be publicly viewable.'
-                  }
+                defaultMessage="An embed code of the item has been generated and copied, so the item may now be publicly viewable."
               />
             </strong>
           </span>
-          );
+        );
       }
 
       break;
@@ -738,7 +728,7 @@ class Annotation extends Component {
             values={{ flag: content.flag, author: authorName }}
           />
         </span>
-        );
+      );
       break;
     case 'update_embed':
       contentTemplate = <EmbedUpdate activity={activity} authorName={authorName} />;
@@ -756,24 +746,24 @@ class Annotation extends Component {
             <FormattedMessage
               id="annotation.projectMoved"
               defaultMessage={
-                  'Moved from project {previousProject} to {currentProject} by {author}'
-                }
+                'Moved from project {previousProject} to {currentProject} by {author}'
+              }
               values={{
                 previousProject: (
                   <Link to={urlPrefix + previousProject.dbid}>
                     <span>{previousProject.title}</span>
                   </Link>
-                  ),
+                ),
                 currentProject: (
                   <Link to={urlPrefix + currentProject.dbid}>
                     <span>{currentProject.title}</span>
                   </Link>
-                  ),
+                ),
                 author: authorName,
               }}
             />
           </span>
-          );
+        );
       } else if (activity.object_changes_json == '{"archived":[false,true]}') {
         activityType = 'move_to_trash';
         contentTemplate = (
@@ -782,7 +772,7 @@ class Annotation extends Component {
               <FormattedMessage id="annotation.movedToTrash" defaultMessage="Moved to trash" />
             </div>
           </div>
-          );
+        );
       } else if (activity.object_changes_json == '{"archived":[true,false]}') {
         contentTemplate = (
           <span>
@@ -794,7 +784,7 @@ class Annotation extends Component {
               }}
             />
           </span>
-          );
+        );
       }
       break;
     case 'update_task':
@@ -824,9 +814,9 @@ class Annotation extends Component {
             <Card>
               <CardText
                 className={`annotation__card-text annotation__card-activity-${activityType.replace(
-                    /_/g,
-                    '-',
-                  )}`}
+                  /_/g,
+                  '-',
+                )}`}
               >
                 <Tooltip placement="top" overlay={<UserTooltip user={activity.user} team={annotated.team} />}>
                   <StyledAvatarColumn isRtl={isRtl}>
@@ -843,7 +833,7 @@ class Annotation extends Component {
                   {contentTemplate}
                   <StyledAnnotationMetadata isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
                     <span>
-                      <ProfileLink className={'annotation__card-author'} user={activity.user} team={annotated.team} />
+                      <ProfileLink className="annotation__card-author" user={activity.user} team={annotated.team} />
                       <span>
                         {timestamp}
                       </span>

@@ -385,14 +385,12 @@ class UserInfoEdit extends React.Component {
     const deleteLinks = this.state.deleteLinks
       ? this.state.deleteLinks.slice(0)
       : [];
-    const showAccounts = source.account_sources.edges.filter(
-      as => deleteLinks.indexOf(as.node.id) < 0,
-    );
+    const showAccounts = source.account_sources.edges.filter(as => deleteLinks.indexOf(as.node.id) < 0);
 
     return (
       <div key="renderAccountsEdit">
         {showAccounts.map((as, index) =>
-          <div key={as.node.id} className="source__url">
+          (<div key={as.node.id} className="source__url">
             <Row>
               <TextField
                 id={`source__link-item${index.toString()}`}
@@ -408,19 +406,16 @@ class UserInfoEdit extends React.Component {
                 <MdCancel />
               </StyledIconButton>
             </Row>
-          </div>,
-        )}
+           </div>))}
         {links.map((link, index) =>
-          <div key={index.toString()} className="source__url-input">
+          (<div key={index.toString()} className="source__url-input">
             <Row>
               <TextField
                 id={`source__link-input${index.toString()}`}
                 name={`source__link-input${index.toString()}`}
                 value={link.url}
                 errorText={link.error}
-                floatingLabelText={this.props.intl.formatMessage(
-                  messages.addLinkLabel,
-                )}
+                floatingLabelText={this.props.intl.formatMessage(messages.addLinkLabel)}
                 onChange={e => this.handleChangeLink(e, index)}
                 style={{ width: '85%' }}
               />
@@ -435,9 +430,8 @@ class UserInfoEdit extends React.Component {
               ? null
               : <StyledHelper>
                 {this.props.intl.formatMessage(messages.addLinkHelper)}
-              </StyledHelper>}
-          </div>,
-        )}
+                </StyledHelper>}
+           </div>))}
       </div>
     );
   }
@@ -488,9 +482,7 @@ class UserInfoEdit extends React.Component {
                 name="name"
                 id="source__name-container"
                 defaultValue={user.name}
-                floatingLabelText={this.props.intl.formatMessage(
-                  messages.sourceName,
-                )}
+                floatingLabelText={this.props.intl.formatMessage(messages.sourceName)}
                 style={{ width: '85%' }}
               />
               <TextField
@@ -498,9 +490,7 @@ class UserInfoEdit extends React.Component {
                 name="description"
                 id="source__bio-container"
                 defaultValue={source.description}
-                floatingLabelText={this.props.intl.formatMessage(
-                  messages.sourceBio,
-                )}
+                floatingLabelText={this.props.intl.formatMessage(messages.sourceBio)}
                 multiLine
                 rowsMax={4}
                 style={{ width: '85%' }}
@@ -510,9 +500,7 @@ class UserInfoEdit extends React.Component {
                 name="email"
                 id="source__email-container"
                 defaultValue={user.email}
-                floatingLabelText={this.props.intl.formatMessage(
-                  messages.userEmail,
-                )}
+                floatingLabelText={this.props.intl.formatMessage(messages.userEmail)}
                 style={{ width: '85%' }}
               />
 

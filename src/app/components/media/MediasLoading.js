@@ -62,12 +62,10 @@ class MediasLoading extends Component {
     const medias = [];
 
     for (let i = 0; i < count; i += 1) {
-      medias.push(
-        <StyledLoadingCard key={i}>
-          <StyledShimmer />
-          <StyledShimmer />
-        </StyledLoadingCard>,
-      );
+      medias.push(<StyledLoadingCard key={i}>
+        <StyledShimmer />
+        <StyledShimmer />
+      </StyledLoadingCard>);
     }
 
     return (

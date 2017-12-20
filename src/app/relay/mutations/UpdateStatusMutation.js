@@ -48,8 +48,10 @@ class UpdateStatusMutation extends Relay.Mutation {
 
   getVariables() {
     const status = this.props.annotation;
-    return { id: status.status_id,
-      status: status.status };
+    return {
+      id: status.status_id,
+      status: status.status,
+    };
   }
 
   getConfigs() {

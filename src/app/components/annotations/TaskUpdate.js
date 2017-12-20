@@ -50,17 +50,19 @@ class TaskUpdate extends React.Component {
               defaultMessage={'Task "{from}" edited to "{to}" by {author}'}
               values={{ from: from.label, to: to.label, author }}
             />
-          : null}
+            : null}
           { editedTitle && editedNote && <br />}
           { editedNote
             ? <FormattedMessage
               id="annotation.taskNoteUpdated"
               defaultMessage={
-              'Task "{title}" has note edited from "{from}" to "{to}" by {author}'
-            }
-              values={{ title: to.label, from: from.description, to: to.description, author }}
+                'Task "{title}" has note edited from "{from}" to "{to}" by {author}'
+              }
+              values={{
+                title: to.label, from: from.description, to: to.description, author,
+              }}
             />
-          : null}
+            : null}
           { editedTitle && createdNote && <br />}
           { createdNote
             ? <FormattedMessage
@@ -68,7 +70,7 @@ class TaskUpdate extends React.Component {
               defaultMessage={'Task "{title}" has new note "{note}" by {author}'}
               values={{ title: to.label, note: to.description, author }}
             />
-          : null}
+            : null}
         </span>
       );
 

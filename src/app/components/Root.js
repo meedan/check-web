@@ -47,9 +47,9 @@ if (!global.Intl) {
   // eslint-disable-next-line import/no-dynamic-require, global-require, require-path-exists/tooManyArguments
   require(['intl'], (intl) => {
     global.Intl = intl;
-// TODO Commented out while build is not optimized for this!
-// eslint-disable-next-line global-require
-// require(`intl/locale-data/jsonp/${locale}.js`);
+    // TODO Commented out while build is not optimized for this!
+    // eslint-disable-next-line global-require
+    // require(`intl/locale-data/jsonp/${locale}.js`);
   });
 }
 

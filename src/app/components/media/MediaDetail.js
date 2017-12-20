@@ -177,7 +177,7 @@ class MediaDetail extends Component {
 
     const sourceUrl = media.team && media.project && media.project_source
       ? `/${media.team.slug}/project/${media.project.dbid}/source/${media
-          .project_source.dbid}`
+        .project_source.dbid}`
       : null;
 
     const projectTitle = media.project ? media.project.title : null;
@@ -302,17 +302,17 @@ class MediaDetail extends Component {
 
 
             {sourceUrl && sourceName
-            ? <Offset isRtl={isRtl}>
-              <Link to={sourceUrl}>
-                <Row>
-                  {/* ideally this would be SourcePicture not FaFeed — CGB 2017-9-13 */}
-                  <FaFeed style={{ width: 16 }} />
-                  {' '}
-                  <Text ellipsis maxWidth="300px">{sourceName}</Text>
-                </Row>
-              </Link>
-            </Offset>
-            : null}
+              ? <Offset isRtl={isRtl}>
+                <Link to={sourceUrl}>
+                  <Row>
+                    {/* ideally this would be SourcePicture not FaFeed — CGB 2017-9-13 */}
+                    <FaFeed style={{ width: 16 }} />
+                    {' '}
+                    <Text ellipsis maxWidth="300px">{sourceName}</Text>
+                  </Row>
+                </Link>
+                </Offset>
+              : null}
           </Row>
         </StyledHeaderTextSecondary>
       </div>

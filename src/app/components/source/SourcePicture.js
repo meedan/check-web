@@ -33,24 +33,24 @@ const StyledImage = styled.div`
       return (`
         width: ${avatarSizeLarge};
         height: ${avatarSizeLarge};
-      `);
+        `);
     } else if (props.size === 'small') {
       return (`
         width: ${avatarSizeSmall};
         height: ${avatarSizeSmall};
-      `);
+        `);
     } else if (props.size === 'extraSmall') {
       return (`
         width: ${avatarSizeExtraSmall};
         height: ${avatarSizeExtraSmall};
-      `);
+        `);
     }
     return (`
         width: ${avatarSize};
         height: ${avatarSize};
-    `);
+      `);
   })()}
-`;
+  `;
 
 class SourcePicture extends Component {
   constructor(props) {

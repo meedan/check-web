@@ -164,9 +164,7 @@ class Home extends Component {
   render() {
     const { children } = this.props;
     const routeSlug = this.routeSlug(children);
-    const muiThemeWithRtl = getMuiTheme(
-      merge(muiThemeWithoutRtl, { isRtl: rtlDetect.isRtlLang(this.props.intl.locale) }),
-    );
+    const muiThemeWithRtl = getMuiTheme(merge(muiThemeWithoutRtl, { isRtl: rtlDetect.isRtlLang(this.props.intl.locale) }));
 
     if (!this.state.sessionStarted) {
       return null;

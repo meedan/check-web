@@ -255,17 +255,17 @@ class Login extends Component {
   }
 
   render() {
-    const muiThemeWithRtl = getMuiTheme(
-      merge(muiThemeWithoutRtl, {
-        isRtl: rtlDetect.isRtlLang(this.props.intl.locale),
-      }),
-    );
+    const muiThemeWithRtl = getMuiTheme(merge(muiThemeWithoutRtl, {
+      isRtl: rtlDetect.isRtlLang(this.props.intl.locale),
+    }));
 
     const locale = this.props.intl.locale;
     const isRtl = rtlDetect.isRtlLang(locale);
     const fromDirection = isRtl ? 'right' : 'left';
 
-    const BigButton = ({ className, icon, id, onClick, headerText, subheaderText }) => (
+    const BigButton = ({
+      className, icon, id, onClick, headerText, subheaderText,
+    }) => (
       <StyledEnhancedButton
         id={id}
         className={className}
@@ -282,7 +282,7 @@ class Login extends Component {
               <h4>
                 <FormattedMessage
                   id="login.disclaimer"
-                  defaultMessage={'We won’t publish without your permission'}
+                  defaultMessage="We won’t publish without your permission"
                 />
               </h4> : null
             }
@@ -333,7 +333,7 @@ class Login extends Component {
                         id="login.nameLabel"
                         defaultMessage="Your name"
                       />
-                      }
+                    }
                   />
                 </div>}
 
@@ -366,9 +366,7 @@ class Login extends Component {
                   onChange={this.handleFieldChange.bind(this)}
                   floatingLabelText={
                     this.state.type === 'login'
-                      ? this.props.intl.formatMessage(
-                          messages.passwordInputHint,
-                        )
+                      ? this.props.intl.formatMessage(messages.passwordInputHint)
                       : <FormattedMessage
                         id="login.passwordLabel"
                         defaultMessage="Password (minimum 8 characters)"
@@ -393,7 +391,7 @@ class Login extends Component {
                         id="login.passwordConfirmLabel"
                         defaultMessage="Password confirmation"
                       />
-                      }
+                    }
                   />
                 </div>}
 
@@ -430,7 +428,7 @@ class Login extends Component {
                             id="loginEmail.lostPassword"
                             defaultMessage="Forgot password"
                           />
-                          }
+                        }
                       />
                     </Link>
                   </span>

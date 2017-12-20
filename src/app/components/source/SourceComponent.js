@@ -229,7 +229,8 @@ class SourceComponent extends Component {
 
   getConflictMessage() {
     return (<FormattedMessage
-      id="sourceComponent.conflictError" defaultMessage={'This item was edited by another user while you were making your edits. Please save your changes and {reloadLink}.'}
+      id="sourceComponent.conflictError"
+      defaultMessage={'This item was edited by another user while you were making your edits. Please save your changes and {reloadLink}.'}
       values={{
         reloadLink: (<span onClick={this.reloadInformation.bind(this)} style={{ cursor: 'pointer', textDecoration: 'underline' }}>
           <FormattedMessage id="sourceComponent.clickToReload" defaultMessage="click here to reload" />
@@ -240,9 +241,7 @@ class SourceComponent extends Component {
 
   getMetadataAnnotation() {
     const source = this.getSource();
-    const metadata = source.metadata.edges.find(
-      item => item.node && item.node.annotation_type === 'metadata',
-    );
+    const metadata = source.metadata.edges.find(item => item.node && item.node.annotation_type === 'metadata');
     return metadata && metadata.node ? metadata.node : null;
   }
 
@@ -284,7 +283,7 @@ class SourceComponent extends Component {
         if (
           this.state.isEditing &&
           (
-           (obj.annotation_type === 'metadata' && obj.lock_version > metadata.lock_version) ||
+            (obj.annotation_type === 'metadata' && obj.lock_version > metadata.lock_version) ||
            (!obj.annotation_type && obj.lock_version > source.lock_version)
           )
         ) {
@@ -588,9 +587,7 @@ class SourceComponent extends Component {
 
     const onFailure = (transaction) => {
       const error = transaction.getError();
-      let tagErrorMessage = this.props.intl.formatMessage(
-        messages.createTagError,
-      );
+      let tagErrorMessage = this.props.intl.formatMessage(messages.createTagError);
 
       try {
         const json = JSON.parse(error.source);
@@ -835,9 +832,7 @@ class SourceComponent extends Component {
     const source = this.getSource();
     const links = this.state.links ? this.state.links.slice(0) : [];
     const deleteLinks = this.state.deleteLinks ? this.state.deleteLinks.slice(0) : [];
-    const showAccounts = source.account_sources.edges.filter(
-      as => deleteLinks.indexOf(as.node.id) < 0,
-    );
+    const showAccounts = source.account_sources.edges.filter(as => deleteLinks.indexOf(as.node.id) < 0);
 
     return (
       <div key="renderAccountsEdit">
@@ -868,9 +863,7 @@ class SourceComponent extends Component {
                 name={`source__link-input${index.toString()}`}
                 value={link.url}
                 errorText={link.error}
-                floatingLabelText={this.props.intl.formatMessage(
-                  messages.addLink,
-                )}
+                floatingLabelText={this.props.intl.formatMessage(messages.addLink)}
                 onChange={e => this.handleChangeLink(e, index)}
                 style={{ width: '85%' }}
               />
@@ -908,14 +901,12 @@ class SourceComponent extends Component {
 
     const renderMetadaCustomFields = () => {
       if (Array.isArray(metadata.other)) {
-        return metadata.other.map(
-          (cf, index) =>
-            cf.value ? (
-              <StyledMetadata key={index} className={'source__metadata-other'}>
-                {`${cf.label}: ${cf.value}`} <br />
-              </StyledMetadata>
-            ) : null,
-        );
+        return metadata.other.map((cf, index) =>
+          cf.value ? (
+            <StyledMetadata key={index} className="source__metadata-other">
+              {`${cf.label}: ${cf.value}`} <br />
+            </StyledMetadata>
+          ) : null);
       }
       return null;
     };
@@ -985,7 +976,7 @@ class SourceComponent extends Component {
     const renderMetadaCustomFieldsEdit = () => {
       if (Array.isArray(metadata.other)) {
         return metadata.other.map((cf, index) => (
-          <div key={index} className={'source__metadata-other-input'}>
+          <div key={index} className="source__metadata-other-input">
             <Row>
               <TextField
                 defaultValue={cf.value}
@@ -1037,18 +1028,14 @@ class SourceComponent extends Component {
     const createLanguageAnnotation = (value) => {
       if (!value) {
         this.setState({
-          languageErrorMessage: this.props.intl.formatMessage(
-            messages.selectLanguageError,
-          ),
+          languageErrorMessage: this.props.intl.formatMessage(messages.selectLanguageError),
         });
         return;
       }
 
       const onFailure = (transaction) => {
         const error = transaction.getError();
-        let languageErrorMessage = this.props.intl.formatMessage(
-          messages.createTagError,
-        );
+        let languageErrorMessage = this.props.intl.formatMessage(messages.createTagError);
 
         try {
           const json = JSON.parse(error.source);
@@ -1148,9 +1135,7 @@ class SourceComponent extends Component {
       this.props.source.team && this.props.source.team.get_suggested_tags
         ? this.props.source.team.get_suggested_tags.split(',')
         : [];
-    const availableTags = suggestedTags.filter(
-      suggested => !tagLabels.includes(suggested),
-    );
+    const availableTags = suggestedTags.filter(suggested => !tagLabels.includes(suggested));
     const isEditing = this.state.addingTags || tags.length;
 
     return (
@@ -1160,7 +1145,7 @@ class SourceComponent extends Component {
           tags={tags}
           options={availableTags}
           annotated={this.props.source}
-          annotatedType={'ProjectSource'}
+          annotatedType="ProjectSource"
           isEditing={isEditing}
         />
       </StyledTagInput>
@@ -1192,9 +1177,7 @@ class SourceComponent extends Component {
 
             {isProjectSource ? (
               <AccountChips
-                accounts={source.account_sources.edges.map(
-                  as => as.node.account,
-                )}
+                accounts={source.account_sources.edges.map(as => as.node.account)}
               />
             ) : null}
 
@@ -1298,7 +1281,7 @@ class SourceComponent extends Component {
                 primary
               />
             </StyledAvatarEditButton>
-            ) : null}
+          ) : null}
         </StyledSmallColumn>
 
         <StyledBigColumn>
@@ -1313,15 +1296,13 @@ class SourceComponent extends Component {
                 onError={this.onImageError.bind(this)}
                 noPreview
               />
-              ) : null}
+            ) : null}
             <TextField
               className="source__name-input"
               name="name"
               id="source__name-container"
               defaultValue={source.name}
-              floatingLabelText={this.props.intl.formatMessage(
-                  messages.sourceName,
-                )}
+              floatingLabelText={this.props.intl.formatMessage(messages.sourceName)}
               style={{ width: '85%' }}
             />
             <TextField
@@ -1329,9 +1310,7 @@ class SourceComponent extends Component {
               name="description"
               id="source__bio-container"
               defaultValue={source.description}
-              floatingLabelText={this.props.intl.formatMessage(
-                  messages.sourceBio,
-                )}
+              floatingLabelText={this.props.intl.formatMessage(messages.sourceBio)}
               multiLine
               rowsMax={4}
               style={{ width: '85%' }}
@@ -1362,43 +1341,33 @@ class SourceComponent extends Component {
                   <MenuItem
                     className="source__add-phone"
                     onClick={this.handleAddMetadataField.bind(this, 'phone')}
-                    primaryText={this.props.intl.formatMessage(
-                        messages.phone,
-                      )}
+                    primaryText={this.props.intl.formatMessage(messages.phone)}
                   />
                   <MenuItem
                     className="source__add-organization"
                     onClick={this.handleAddMetadataField.bind(
-                        this,
-                        'organization',
-                      )}
-                    primaryText={this.props.intl.formatMessage(
-                        messages.organization,
-                      )}
+                      this,
+                      'organization',
+                    )}
+                    primaryText={this.props.intl.formatMessage(messages.organization)}
                   />
                   <MenuItem
                     className="source__add-location"
                     onClick={this.handleAddMetadataField.bind(
-                        this,
-                        'location',
-                      )}
-                    primaryText={this.props.intl.formatMessage(
-                        messages.location,
-                      )}
+                      this,
+                      'location',
+                    )}
+                    primaryText={this.props.intl.formatMessage(messages.location)}
                   />
                   <MenuItem
                     className="source__add-tags"
                     onClick={this.handleAddTags.bind(this)}
-                    primaryText={this.props.intl.formatMessage(
-                        globalStrings.tags,
-                      )}
+                    primaryText={this.props.intl.formatMessage(globalStrings.tags)}
                   />
                   <MenuItem
                     className="source__add-languages"
                     onClick={this.handleAddLanguages.bind(this)}
-                    primaryText={this.props.intl.formatMessage(
-                        messages.languages,
-                      )}
+                    primaryText={this.props.intl.formatMessage(messages.languages)}
                   />
                   <MenuItem
                     className="source__add-link"
@@ -1408,9 +1377,7 @@ class SourceComponent extends Component {
                   <MenuItem
                     className="source__add-other"
                     onClick={this.handleOpenDialog.bind(this)}
-                    primaryText={this.props.intl.formatMessage(
-                        messages.other,
-                      )}
+                    primaryText={this.props.intl.formatMessage(messages.other)}
                   />
                 </Menu>
               </Popover>
@@ -1425,9 +1392,7 @@ class SourceComponent extends Component {
             >
               <TextField
                 id="source__other-label-input"
-                floatingLabelText={this.props.intl.formatMessage(
-                    messages.label,
-                  )}
+                floatingLabelText={this.props.intl.formatMessage(messages.label)}
                 fullWidth
                 onChange={(e) => {
                   this.setState({ customFieldLabel: e.target.value });
@@ -1435,9 +1400,7 @@ class SourceComponent extends Component {
               />
               <TextField
                 id="source__other-value-input"
-                floatingLabelText={this.props.intl.formatMessage(
-                    messages.value,
-                  )}
+                floatingLabelText={this.props.intl.formatMessage(messages.value)}
                 onChange={(e) => {
                   this.setState({ customFieldValue: e.target.value });
                 }}
@@ -1483,10 +1446,10 @@ class SourceComponent extends Component {
             <ContentColumn>
               <Message message={this.state.message} />
               {isEditing ? (
-                  this.renderSourceEdit(source, isProjectSource)
-                ) : (
-                  this.renderSourceView(source, isProjectSource)
-                )}
+                this.renderSourceEdit(source, isProjectSource)
+              ) : (
+                this.renderSourceView(source, isProjectSource)
+              )}
             </ContentColumn>
             {!isEditing ? (
               <section style={{ position: 'relative' }}>
@@ -1502,7 +1465,7 @@ class SourceComponent extends Component {
                           id="sourceComponent.editButton"
                           defaultMessage="Edit profile"
                         />
-                        }
+                      }
                       tooltipPosition="top-center"
                       onTouchTap={this.handleEnterEditMode.bind(this)}
                     >
@@ -1511,7 +1474,7 @@ class SourceComponent extends Component {
                   </StyledEditButtonWrapper>
                 </Can>
               </section>
-              ) : null}
+            ) : null}
           </StyledProfileCard>
 
           {!isEditing ? (
@@ -1523,23 +1486,23 @@ class SourceComponent extends Component {
                   annotatedType="ProjectSource"
                   height="short"
                 />
-                ) : null}
+              ) : null}
 
               {this.state.showTab === 'media' && !source.medias.edges.length ? (
                 <Text center color={black38}>
                   { this.props.intl.formatMessage(messages.noMedia) }
                 </Text>
-                ) : null}
+              ) : null}
 
               {this.state.showTab === 'media' && source.medias.edges.length ? (
                 <Medias medias={source.medias.edges} />
-                ) : null}
+              ) : null}
 
               {this.state.showTab === 'account' && !source.accounts.edges.length ? (
                 <Text center color={black38}>
                   { this.props.intl.formatMessage(messages.noAccounts) }
                 </Text>
-                ) : null}
+              ) : null}
 
               {this.state.showTab === 'account' && source.accounts.edges.length ? (
                 source.accounts.edges.map(account => (
@@ -1547,7 +1510,7 @@ class SourceComponent extends Component {
                 ))) : null}
 
             </ContentColumn>
-            ) : null}
+          ) : null}
         </div>
       </PageTitle>
     );

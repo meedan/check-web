@@ -35,10 +35,10 @@ class DrawerNavigation extends Component {
           Component={DrawerNavigationContainer}
           route={route}
           renderFetched={
-            data => <DrawerNavigationContainer
+            data => (<DrawerNavigationContainer
               {...this.props}
               {...data}
-            />
+            />)
           }
         />
       );

@@ -198,9 +198,7 @@ class UserPasswordChange extends Component {
                     className="user-password-change__password-input-field"
                     id="password-change-password-input"
                     type="password"
-                    hintText={this.props.intl.formatMessage(
-                      messages.newPassword, { min: passwordLength.min },
-                    )}
+                    hintText={this.props.intl.formatMessage(messages.newPassword, { min: passwordLength.min })}
                     onChange={this.handleChangePassword.bind(this)}
                   />
                   <br />

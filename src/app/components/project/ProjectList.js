@@ -5,7 +5,7 @@ import CreateProject from './CreateProject';
 import { bemClass } from '../../helpers';
 
 const ProjectList = props =>
-  <ul className="project-list">
+  (<ul className="project-list">
     {props.team.projects.edges
       .sortp((a, b) => a.node.title.localeCompare(b.node.title))
       .map((p) => {
@@ -24,6 +24,6 @@ const ProjectList = props =>
         </li>
       </Can>
     ) : null}
-  </ul>;
+   </ul>);
 
 export default ProjectList;

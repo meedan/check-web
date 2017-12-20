@@ -46,30 +46,24 @@ class TeamMembersListItem extends Component {
   handleDeleteTeamUser(e) {
     e.preventDefault();
 
-    Relay.Store.commitUpdate(
-      new UpdateTeamUserMutation({
-        id: this.props.teamUser.node.id,
-        status: 'banned',
-      }),
-    );
+    Relay.Store.commitUpdate(new UpdateTeamUserMutation({
+      id: this.props.teamUser.node.id,
+      status: 'banned',
+    }));
   }
 
   handleRoleChange(val) {
-    Relay.Store.commitUpdate(
-      new UpdateTeamUserMutation({
-        id: this.props.teamUser.node.id,
-        role: val,
-      }),
-    );
+    Relay.Store.commitUpdate(new UpdateTeamUserMutation({
+      id: this.props.teamUser.node.id,
+      role: val,
+    }));
   }
 
   handleTeamMembershipRequest(status) {
-    Relay.Store.commitUpdate(
-      new UpdateTeamUserMutation({
-        id: this.props.teamUser.node.id,
-        status,
-      }),
-    );
+    Relay.Store.commitUpdate(new UpdateTeamUserMutation({
+      id: this.props.teamUser.node.id,
+      status,
+    }));
   }
 
   render() {
@@ -156,15 +150,15 @@ class TeamMembersListItem extends Component {
                 {isEditing && teamUser.node.status !== 'banned'
                   ?
                     <IconButton
-                      className="team-members__delete-member"
-                      focusRippleColor={checkBlue}
-                      touchRippleColor={checkBlue}
-                      style={{ fontSize: '20px' }}
-                      onClick={this.handleDeleteTeamUser.bind(this)}
-                      tooltip={<FormattedMessage id="TeamMembersListItem.deleteMember" defaultMessage="Delete Member" />}
-                    >
-                      <MdClear />
-                    </IconButton>
+                    className="team-members__delete-member"
+                    focusRippleColor={checkBlue}
+                    touchRippleColor={checkBlue}
+                    style={{ fontSize: '20px' }}
+                    onClick={this.handleDeleteTeamUser.bind(this)}
+                    tooltip={<FormattedMessage id="TeamMembersListItem.deleteMember" defaultMessage="Delete Member" />}
+                  >
+                    <MdClear />
+                  </IconButton>
                   : null}
               </FlexRow>
             );

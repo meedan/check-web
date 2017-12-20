@@ -29,9 +29,9 @@ const StyledAnnotation = styled.div`
     // See: https://github.com/philipwalton/flexbugs/issues/108
     @media screen and (-webkit-min-device-pixel-ratio:0) {
       height: ${props => props.height === 'short'
-        ? 'calc(100vh - 580px);'
-        : 'calc(100vh - 300px);'
-      };
+    ? 'calc(100vh - 580px);'
+    : 'calc(100vh - 300px);'
+};
     }
     min-height: 250px;
     overflow: auto;
@@ -93,22 +93,21 @@ class Annotations extends Component {
       > <Card>
         <TimelineHeader msgObj={messages} msgKey="timelineTitle" />
         <div className="annotations__list">
-          { annotations.length === 0
-            ? <Text style={{ margin: 'auto', color: black38 }}>
-              <FormattedMessage id="annotation.noAnnotationsYet" defaultMessage="No annotations yet" />
-            </Text>
-            : annotations.map(annotation =>
-              <div key={annotation.node.dbid} className="annotations__list-item">
-                {this.annotationComponent(
+            { annotations.length === 0
+              ? <Text style={{ margin: 'auto', color: black38 }}>
+                <FormattedMessage id="annotation.noAnnotationsYet" defaultMessage="No annotations yet" />
+                </Text>
+              : annotations.map(annotation =>
+                (<div key={annotation.node.dbid} className="annotations__list-item">
+                  {this.annotationComponent(
                     annotation.node,
                     props.annotated,
                     props.annotatedType,
                   )}
-              </div>,
-            )}
-        </div>
+                </div>))}
+          </div>
         <StyledAnnotationCardActions>
-          {props.annotatedType === 'ProjectMedia'
+            {props.annotatedType === 'ProjectMedia'
               ? <Can
                 permissions={props.annotated.permissions}
                 permission="create Comment"
@@ -124,7 +123,7 @@ class Annotations extends Component {
                 annotatedType={props.annotatedType}
                 types={props.types}
               />}
-        </StyledAnnotationCardActions>
+          </StyledAnnotationCardActions>
       </Card>
       </StyledAnnotation>
     );

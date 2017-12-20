@@ -44,7 +44,7 @@ const DatetimeTaskResponse = (props) => {
               >
                 {time}
               </a>
-              ),
+            ),
           }}
         />}
     </span>

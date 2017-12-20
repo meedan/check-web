@@ -79,7 +79,7 @@ class TeamInviteCard extends Component {
             <StyledMdCardTitle>
               <FormattedMessage
                 id="teamInviteCard.title"
-                defaultMessage={'Build Your Team'}
+                defaultMessage="Build Your Team"
               />
             </StyledMdCardTitle>
 
@@ -87,7 +87,8 @@ class TeamInviteCard extends Component {
               id="teamMembersComponent.inviteLink"
               defaultMessage={'To invite colleagues to join {teamName}, send them this link:'}
               values={{ teamName: this.props.team.name }}
-            /></p>
+            />
+            </p>
             <p>{joinUrl}</p>
             <CopyToClipboard
               text={joinUrl}
@@ -99,14 +100,14 @@ class TeamInviteCard extends Component {
                   icon={<MdDone />}
                   label={<FormattedMessage
                     id="teamInviteCard.copy"
-                    defaultMessage={'COPIED!'}
+                    defaultMessage="COPIED!"
                   />}
                 /> : <StyledMdRaisedButton
                   icon={<MdPaste />}
                   style={{ marginLeft: 'auto' }}
                   label={<FormattedMessage
                     id="teamInviteCard.copied"
-                    defaultMessage={'COPY'}
+                    defaultMessage="COPY"
                   />}
                 />}
               </FlexRow>

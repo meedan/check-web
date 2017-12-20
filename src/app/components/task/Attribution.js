@@ -105,10 +105,9 @@ class AttributionComponent extends React.Component {
           <div style={{ marginTop: units(4), marginBottom: units(4) }}>
             <StyledTagsWrapper className="attribution__selected-users">
               {this.state.selectedUsers.map(user =>
-                <Chip key={user.value} className="attribution__selected-user" onRequestDelete={this.handleDelete.bind(this, user)}>
+                (<Chip key={user.value} className="attribution__selected-user" onRequestDelete={this.handleDelete.bind(this, user)}>
                   {user.label}
-                </Chip>,
-              )}
+                 </Chip>))}
             </StyledTagsWrapper>
           </div>
 

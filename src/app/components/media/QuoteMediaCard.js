@@ -24,7 +24,9 @@ const StyledQuoteText = styled.div`
 `;
 
 const QuoteMediaCard = (props) => {
-  const { quote, sourceName, sourceUrl, languageCode } = props;
+  const {
+    quote, sourceName, sourceUrl, languageCode,
+  } = props;
   const localeIsRtl = rtlDetect.isRtlLang(props.intl.locale);
 
   const StyledQuoteAttribution = styled.div`

@@ -46,12 +46,12 @@ const SourceCard = (props) => {
 
           <div className="source-card__accounts">
             <ul>
-              { source.accounts.edges.map(account => <li key={account.node.id} className="source-card__account-link">
+              { source.accounts.edges.map(account => (<li key={account.node.id} className="source-card__account-link">
                 { MediaUtil.socialIcon(`${account.node.provider}.com`) /* TODO: refactor */ }
                 <a href={account.node.url} target="_blank" rel="noopener noreferrer">
                   { account.node.embed.username || account.node.embed.url }
                 </a>
-              </li>) }
+                                                      </li>)) }
 
             </ul>
           </div>

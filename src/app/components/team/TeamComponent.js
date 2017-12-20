@@ -278,33 +278,27 @@ class TeamComponent extends Component {
 
     if (contact) {
       if (contact.node.location) {
-        contactInfo.push(
-          <StyledContactInfo key="contactInfo.location" className="team__location">
-            <span className="team__location-name">
-              <ParsedText text={contact.node.location} />
-            </span>
-          </StyledContactInfo>,
-        );
+        contactInfo.push(<StyledContactInfo key="contactInfo.location" className="team__location">
+          <span className="team__location-name">
+            <ParsedText text={contact.node.location} />
+          </span>
+        </StyledContactInfo>);
       }
 
       if (contact.node.phone) {
-        contactInfo.push(
-          <StyledContactInfo key="contactInfo.phone" className="team__phone">
-            <span className="team__phone-name">
-              <ParsedText text={contact.node.phone} />
-            </span>
-          </StyledContactInfo>,
-        );
+        contactInfo.push(<StyledContactInfo key="contactInfo.phone" className="team__phone">
+          <span className="team__phone-name">
+            <ParsedText text={contact.node.phone} />
+          </span>
+        </StyledContactInfo>);
       }
 
       if (contact.node.web) {
-        contactInfo.push(
-          <StyledContactInfo key="contactInfo.web" className="team__web">
-            <span className="team__link-name">
-              <ParsedText text={contact.node.web} />
-            </span>
-          </StyledContactInfo>,
-        );
+        contactInfo.push(<StyledContactInfo key="contactInfo.web" className="team__web">
+          <span className="team__link-name">
+            <ParsedText text={contact.node.web} />
+          </span>
+        </StyledContactInfo>);
       }
     }
 
@@ -365,9 +359,7 @@ class TeamComponent extends Component {
                               className="team__description"
                               id="team__description-container"
                               defaultValue={team.description}
-                              floatingLabelText={this.props.intl.formatMessage(
-                                messages.teamDescription,
-                              )}
+                              floatingLabelText={this.props.intl.formatMessage(messages.teamDescription)}
                               onChange={this.handleChange.bind(this, 'description')}
                               fullWidth
                               multiLine
@@ -412,12 +404,12 @@ class TeamComponent extends Component {
                                       id="teamComponent.slackNotificationsEnabled"
                                       defaultMessage="Enable Slack notifications"
                                     />
-                                    }
+                                  }
                                   defaultChecked={team.get_slack_notifications_enabled === '1'}
                                   onCheck={this.handleChange.bind(
-                                      this,
-                                      'slackNotificationsEnabled',
-                                    )}
+                                    this,
+                                    'slackNotificationsEnabled',
+                                  )}
                                   id="team__settings-slack-notifications-enabled"
                                   value="1"
                                 />
@@ -425,9 +417,7 @@ class TeamComponent extends Component {
                                 <TextField
                                   id="team__settings-slack-webhook"
                                   defaultValue={team.get_slack_webhook}
-                                  floatingLabelText={this.props.intl.formatMessage(
-                                      messages.slackWebhook,
-                                    )}
+                                  floatingLabelText={this.props.intl.formatMessage(messages.slackWebhook)}
                                   onChange={this.handleChange.bind(this, 'slackWebhook')}
                                   fullWidth
                                 />
@@ -435,9 +425,7 @@ class TeamComponent extends Component {
                                 <TextField
                                   id="team__settings-slack-channel"
                                   defaultValue={team.get_slack_channel}
-                                  floatingLabelText={this.props.intl.formatMessage(
-                                      messages.slackChannel,
-                                    )}
+                                  floatingLabelText={this.props.intl.formatMessage(messages.slackChannel)}
                                   onChange={this.handleChange.bind(this, 'slackChannel')}
                                   fullWidth
                                 />
@@ -557,19 +545,18 @@ class TeamComponent extends Component {
                           >
                             <List className="projects" style={{ padding: '0' }}>
                               {team.projects.edges
-                              .sortp((a, b) => a.node.title.localeCompare(b.node.title))
-                              .map(p =>
-                                <Link key={p.node.dbid} to={`/${team.slug}/project/${p.node.dbid}`}>
-                                  <ListItem
-                                    className="team__project"
-                                    hoverColor={highlightBlue}
-                                    focusRippleColor={checkBlue}
-                                    touchRippleColor={checkBlue}
-                                    primaryText={p.node.title}
-                                    rightIcon={<KeyboardArrowRight />}
-                                  />
-                                </Link>,
-                              )}
+                                .sortp((a, b) => a.node.title.localeCompare(b.node.title))
+                                .map(p =>
+                                  (<Link key={p.node.dbid} to={`/${team.slug}/project/${p.node.dbid}`}>
+                                    <ListItem
+                                      className="team__project"
+                                      hoverColor={highlightBlue}
+                                      focusRippleColor={checkBlue}
+                                      touchRippleColor={checkBlue}
+                                      primaryText={p.node.title}
+                                      rightIcon={<KeyboardArrowRight />}
+                                    />
+                                  </Link>))}
                             </List>
                           </InfiniteScroll>
                         }

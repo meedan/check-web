@@ -11,7 +11,6 @@ import PageTitle from './PageTitle';
 import { FadeIn, ContentColumn, units } from '../styles/js/shared';
 
 class LoginContainer extends Component {
-
   render() {
     return (
       <PageTitle skipTeam>
@@ -29,7 +28,8 @@ class LoginContainer extends Component {
 
           <p style={{ textAlign: 'center' }}>
             <FormattedMessage
-              id="loginContainer.agreeTerms" defaultMessage={'By signing in, you agree to the {appName} {tosLink} and {ppLink}.'}
+              id="loginContainer.agreeTerms"
+              defaultMessage={'By signing in, you agree to the {appName} {tosLink} and {ppLink}.'}
               values={{
                 appName: mapGlobalMessage(this.props.intl, 'appNameHuman'),
                 tosLink: <a className="login-container__footer-link" target="_blank" rel="noopener noreferrer" href={stringHelper('TOS_URL')}><FormattedMessage id="tos.title" defaultMessage="Terms of Service" /></a>,

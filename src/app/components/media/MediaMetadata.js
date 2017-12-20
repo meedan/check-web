@@ -117,9 +117,7 @@ class MediaMetadata extends Component {
 
     const onSuccess = (response) => {
       this.setState({
-        mediaVersion: JSON.parse(
-          response.updateProjectMedia.project_media.embed,
-        ).refreshes_count,
+        mediaVersion: JSON.parse(response.updateProjectMedia.project_media.embed).refreshes_count,
       });
     };
 
@@ -283,9 +281,7 @@ class MediaMetadata extends Component {
       if (/^\/[^/]+\/search\//.test(window.location.pathname)) {
         this.props.parentComponent.props.relay.forceFetch();
       } else if (
-        /^\/[^/]+\/project\/[0-9]+\/media\/[0-9]+$/.test(
-          window.location.pathname,
-        )
+        /^\/[^/]+\/project\/[0-9]+\/media\/[0-9]+$/.test(window.location.pathname)
       ) {
         history.push(`${path}/media/${media.dbid}`);
       }
@@ -332,8 +328,7 @@ class MediaMetadata extends Component {
     const context = this.getContext();
     if (context.team.projects) {
       const projects = context.team.projects.edges.sortp((a, b) =>
-        a.node.title.localeCompare(b.node.title),
-      );
+        a.node.title.localeCompare(b.node.title));
 
       return projects.filter(p => p.node.dbid !== projectId);
     }
@@ -417,7 +412,9 @@ class MediaMetadata extends Component {
       });
     }
 
-    this.setState({ message: null, tagErrorMessage: null, pendingMutations: null, hasFailure: false, submitDisabled: true });
+    this.setState({
+      message: null, tagErrorMessage: null, pendingMutations: null, hasFailure: false, submitDisabled: true,
+    });
   }
 
   fail = (transaction, mutation) => {
@@ -514,7 +511,7 @@ class MediaMetadata extends Component {
                 {media.user.name}
               </Link>
             </Tooltip>
-            ),
+          ),
         }}
       />)
       : '';
@@ -581,10 +578,10 @@ class MediaMetadata extends Component {
               this.setState({ tagErrorMessage: null });
               this.canSubmit();
             }}
-            ref={'mediaTags'}
+            ref="mediaTags"
             isEditing
           />
-        }
+          }
         </form>
 
         <span style={{ display: 'flex' }}>
@@ -720,13 +717,12 @@ class MediaMetadata extends Component {
             onChange={this.handleSelectDestProject.bind(this)}
           >
             {this.destinationProjects().map(proj =>
-              <RadioButton
+              (<RadioButton
                 key={proj.node.dbid}
                 label={proj.node.title}
                 value={proj.node}
                 style={{ padding: units(1) }}
-              />,
-            )}
+              />))}
           </RadioButtonGroup>
         </Dialog>
 

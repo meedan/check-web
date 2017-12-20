@@ -25,38 +25,33 @@ function throwOnServerError(request, response) {
 class CheckNetworkLayer extends Relay.DefaultNetworkLayer {
   sendQueries(requests: Array<Relay.RelayQueryRequest>): ?Promise<any> {
     return Promise.all(requests.map(request => (
-      this._sendQuery(request).then(
-        (result) => {
-          const history = this._init.history;
-          if (result.status === 404 && window.location.pathname !== '/check/404') {
-            history.push('/check/404');
-          } else if (result.status === 401 || result.status === 403) {
-            const team = this._init.team();
-            if (team !== '') {
-              history.push(`/${team}/join`);
-            } else {
-              history.push('/check/forbidden');
-            }
-          }
-          return result.json();
-        }).then((payload) => {
-          if (Object.prototype.hasOwnProperty.call(payload, 'errors')) {
-            const error = createRequestError(request, '200', payload);
-            request.reject(error);
-          } else if (!Object.prototype.hasOwnProperty.call(payload, 'data')) {
-            request.reject(new Error(
-                'Server response was missing for query ' +
-                `\`${request.getDebugName()}\`.`,
-                ));
+      this._sendQuery(request).then((result) => {
+        const history = this._init.history;
+        if (result.status === 404 && window.location.pathname !== '/check/404') {
+          history.push('/check/404');
+        } else if (result.status === 401 || result.status === 403) {
+          const team = this._init.team();
+          if (team !== '') {
+            history.push(`/${team}/join`);
           } else {
-            request.resolve({ response: payload.data });
+            history.push('/check/forbidden');
           }
-        }).catch(
-          (error) => {
-            request.reject(error);
-          },
-        )
-      )));
+        }
+        return result.json();
+      }).then((payload) => {
+        if (Object.prototype.hasOwnProperty.call(payload, 'errors')) {
+          const error = createRequestError(request, '200', payload);
+          request.reject(error);
+        } else if (!Object.prototype.hasOwnProperty.call(payload, 'data')) {
+          request.reject(new Error('Server response was missing for query ' +
+                `\`${request.getDebugName()}\`.`));
+        } else {
+          request.resolve({ response: payload.data });
+        }
+      }).catch((error) => {
+        request.reject(error);
+      })
+    )));
   }
 
   _sendQuery(request: Relay.RelayQueryRequest): Promise<any> {

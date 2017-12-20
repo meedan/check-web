@@ -81,13 +81,11 @@ class Tags extends React.Component {
 
     if (!props.annotated || !props.annotatedType) { return; }
 
-    Relay.Store.commitUpdate(
-      new DeleteTagMutation({
-        annotated: props.annotated,
-        parent_type: props.annotatedType.replace(/([a-z])([A-Z])/, '$1_$2').toLowerCase(),
-        id,
-      }),
-    );
+    Relay.Store.commitUpdate(new DeleteTagMutation({
+      annotated: props.annotated,
+      parent_type: props.annotatedType.replace(/([a-z])([A-Z])/, '$1_$2').toLowerCase(),
+      id,
+    }));
   }
 
   renderTags() {
@@ -101,7 +99,7 @@ class Tags extends React.Component {
     return (
       <StyledTagsWrapper className="source-tags__tags">
         {tags.map(tag =>
-          <Chip
+          (<Chip
             key={tag.node.id}
             className="source-tags__tag"
             onRequestDelete={this.props.isEditing ?
@@ -109,8 +107,7 @@ class Tags extends React.Component {
             }
           >
             {tag.node.tag.replace(/^#/, '')}
-          </Chip>,
-        )}
+           </Chip>))}
       </StyledTagsWrapper>
     );
   }

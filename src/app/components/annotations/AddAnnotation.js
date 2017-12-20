@@ -115,9 +115,7 @@ class AddAnnotation extends Component {
   fail(transaction) {
     const transactionError = transaction.getError();
     let message = this.props.intl.formatMessage(messages.error, {
-      code: `${transactionError.status} ${HttpStatus.getMessage(
-        transactionError.status,
-      )}`,
+      code: `${transactionError.status} ${HttpStatus.getMessage(transactionError.status)}`,
     });
     let json = null;
     try {
@@ -153,11 +151,9 @@ class AddAnnotation extends Component {
     };
 
     const onSuccess = () => {
-      this.success(
-        formatMessage(messages.annotationAdded, {
-          type: formatMessage(messages.typeComment),
-        }),
-      );
+      this.success(formatMessage(messages.annotationAdded, {
+        type: formatMessage(messages.typeComment),
+      }));
     };
 
     const annotator = this.getContext().currentUser;
@@ -196,11 +192,9 @@ class AddAnnotation extends Component {
     };
 
     const onSuccess = () => {
-      this.success(
-        formatMessage(messages.annotationAdded, {
-          type: formatMessage(messages.typeTag),
-        }),
-      );
+      this.success(formatMessage(messages.annotationAdded, {
+        type: formatMessage(messages.typeTag),
+      }));
     };
 
     const annotator = this.getContext().currentUser;
@@ -235,11 +229,9 @@ class AddAnnotation extends Component {
     };
 
     const onSuccess = () => {
-      this.success(
-        formatMessage(messages.annotationAdded, {
-          type: formatMessage(messages.typeStatus),
-        }),
-      );
+      this.success(formatMessage(messages.annotationAdded, {
+        type: formatMessage(messages.typeStatus),
+      }));
     };
 
     const annotator = this.getContext().currentUser;
@@ -284,11 +276,9 @@ class AddAnnotation extends Component {
     };
 
     const onSuccess = () => {
-      this.success(
-        formatMessage(messages.annotationAdded, {
-          type: formatMessage(messages.typeFlag),
-        }),
-      );
+      this.success(formatMessage(messages.annotationAdded, {
+        type: formatMessage(messages.typeFlag),
+      }));
     };
 
     const annotator = this.getContext().currentUser;
@@ -319,9 +309,7 @@ class AddAnnotation extends Component {
     };
 
     const onSuccess = () => {
-      this.success(
-        formatMessage(messages.annotationAdded, { type: annotation_type }),
-      );
+      this.success(formatMessage(messages.annotationAdded, { type: annotation_type }));
     };
 
     const annotator = this.getContext().currentUser;
@@ -452,7 +440,9 @@ class AddAnnotation extends Component {
         className="add-annotation"
         name="addannotation"
         onSubmit={this.handleSubmit.bind(this)}
-        style={{ height: '100%', padding: units(2), position: 'relative', zIndex: 0 }}
+        style={{
+          height: '100%', padding: units(2), position: 'relative', zIndex: 0,
+        }}
       >
         <ContentColumn flex>
           <TextField
