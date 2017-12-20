@@ -75,13 +75,13 @@ class TranslationItem extends Component {
     super(props);
 
     this.state = {
-      message: null,
       isMenuOpen: false,
+      editing: false,
     };
   }
 
-  handleSubmitUpdate() {
-    const translation = this.props.translation;
+  handleSubmitUpdate(e) {
+    const { translation } = this.props;
 
     const onFailure = (transaction) => {
       const error = transaction.getError();
@@ -91,7 +91,7 @@ class TranslationItem extends Component {
         if (json.error) {
           message = json.error;
         }
-      } catch (e) {
+      } catch (ex) {
         // Do nothing.
       }
       this.setState({ message });
@@ -144,8 +144,8 @@ class TranslationItem extends Component {
         <Card className="translation__card" style={styles.translationCard}>
           <CardText className="translation__card-text" style={styles.cardText}>
 
-            {this.state.editing
-              ? <div>
+            {this.state.editing ?
+              <div>
                 <form name="translation_edit">
                   <TextField
                     name="translation_text"
@@ -158,6 +158,7 @@ class TranslationItem extends Component {
                     defaultValue={text}
                     fullWidth
                     multiLine
+                    errorText={this.state.message}
                   />
                   <TextField
                     name="translation_note"
@@ -185,7 +186,8 @@ class TranslationItem extends Component {
                   />
                 </div>
               </div>
-              : <div>
+              :
+              <div>
                 <StyledTranslationText
                   localeIsRtl={this.props.localeIsRtl}
                   className={`${rtlClass(language_code)}`}

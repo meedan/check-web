@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import IconDelete from 'material-ui/svg-icons/action/delete';
-import Can from '../Can';
 import CheckContext from '../../CheckContext';
 import { SmallerStyledIconButton } from '../../styles/js/shared';
 

@@ -110,7 +110,8 @@ const pageSize = 20;
 class TeamComponent extends Component {
   constructor(props) {
     super(props);
-    const team = this.props.team;
+
+    const { team } = this.props;
     const contact = team.contacts.edges[0] || { node: {} };
     this.state = {
       message: null,
@@ -158,7 +159,7 @@ class TeamComponent extends Component {
   setContextTeam() {
     const context = new CheckContext(this);
     const store = context.getContextStore();
-    const team = this.props.team;
+    const { team } = this.props;
 
     if (!store.team || store.team.slug !== team.slug) {
       context.setContextStore({ team });
@@ -196,7 +197,7 @@ class TeamComponent extends Component {
       });
     };
 
-    const values = this.state.values;
+    const { values } = this.state;
     const form = document.forms['edit-team-form'];
 
     if (!this.state.submitDisabled) {
@@ -232,13 +233,8 @@ class TeamComponent extends Component {
   }
 
   handleChange(key, e) {
-    let value = e.target.value;
-
-    if (e.target.type === 'checkbox' && !e.target.checked) {
-      value = '0';
-    }
+    const value = (e.target.type === 'checkbox' && !e.target.checked) ? '0' : e.target.value;
     const values = Object.assign({}, this.state.values);
-
     values[key] = value;
     this.setState({ values });
   }
@@ -254,8 +250,8 @@ class TeamComponent extends Component {
   }
 
   render() {
-    const team = this.props.team;
-    const isEditing = this.state.isEditing;
+    const { team } = this.props;
+    const { isEditing } = this.state;
     const contact = team.contacts.edges[0];
     const contactInfo = [];
 
@@ -278,27 +274,33 @@ class TeamComponent extends Component {
 
     if (contact) {
       if (contact.node.location) {
-        contactInfo.push(<StyledContactInfo key="contactInfo.location" className="team__location">
-          <span className="team__location-name">
-            <ParsedText text={contact.node.location} />
-          </span>
-        </StyledContactInfo>);
+        contactInfo.push((
+          <StyledContactInfo key="contactInfo.location" className="team__location">
+            <span className="team__location-name">
+              <ParsedText text={contact.node.location} />
+            </span>
+          </StyledContactInfo>
+        ));
       }
 
       if (contact.node.phone) {
-        contactInfo.push(<StyledContactInfo key="contactInfo.phone" className="team__phone">
-          <span className="team__phone-name">
-            <ParsedText text={contact.node.phone} />
-          </span>
-        </StyledContactInfo>);
+        contactInfo.push((
+          <StyledContactInfo key="contactInfo.phone" className="team__phone">
+            <span className="team__phone-name">
+              <ParsedText text={contact.node.phone} />
+            </span>
+          </StyledContactInfo>
+        ));
       }
 
       if (contact.node.web) {
-        contactInfo.push(<StyledContactInfo key="contactInfo.web" className="team__web">
-          <span className="team__link-name">
-            <ParsedText text={contact.node.web} />
-          </span>
-        </StyledContactInfo>);
+        contactInfo.push((
+          <StyledContactInfo key="contactInfo.web" className="team__web">
+            <span className="team__link-name">
+              <ParsedText text={contact.node.web} />
+            </span>
+          </StyledContactInfo>
+        ));
       }
     }
 
@@ -324,8 +326,8 @@ class TeamComponent extends Component {
                           <TeamAvatar
                             style={{ backgroundImage: `url(${avatarPreview || team.avatar})` }}
                           />
-                          {!this.state.editProfileImg
-                            ? <StyledAvatarEditButton className="team__edit-avatar-button">
+                          {!this.state.editProfileImg ?
+                            <StyledAvatarEditButton className="team__edit-avatar-button">
                               <FlatButton
                                 label={this.props.intl.formatMessage(globalStrings.edit)}
                                 onClick={this.handleEditProfileImg.bind(this)}
@@ -336,8 +338,8 @@ class TeamComponent extends Component {
                         </StyledSmallColumn>
 
                         <StyledBigColumn>
-                          {this.state.editProfileImg
-                            ? <UploadImage
+                          {this.state.editProfileImg ?
+                            <UploadImage
                               onImage={this.onImage.bind(this)}
                               onClear={this.onClear.bind(this)}
                               onError={this.onImageError.bind(this)}
@@ -359,7 +361,9 @@ class TeamComponent extends Component {
                               className="team__description"
                               id="team__description-container"
                               defaultValue={team.description}
-                              floatingLabelText={this.props.intl.formatMessage(messages.teamDescription)}
+                              floatingLabelText={
+                                this.props.intl.formatMessage(messages.teamDescription)
+                              }
                               onChange={this.handleChange.bind(this, 'description')}
                               fullWidth
                               multiLine
@@ -394,9 +398,10 @@ class TeamComponent extends Component {
                               fullWidth
                             />
 
-                            {team.limits.slack_integration === false
-                              ? null
-                              : <div>
+                            {team.limits.slack_integration === false ?
+                              null
+                              :
+                              <div>
                                 <Checkbox
                                   style={{ marginTop: units(6) }}
                                   label={
@@ -417,7 +422,9 @@ class TeamComponent extends Component {
                                 <TextField
                                   id="team__settings-slack-webhook"
                                   defaultValue={team.get_slack_webhook}
-                                  floatingLabelText={this.props.intl.formatMessage(messages.slackWebhook)}
+                                  floatingLabelText={
+                                    this.props.intl.formatMessage(messages.slackWebhook)
+                                  }
                                   onChange={this.handleChange.bind(this, 'slackWebhook')}
                                   fullWidth
                                 />
@@ -425,7 +432,9 @@ class TeamComponent extends Component {
                                 <TextField
                                   id="team__settings-slack-channel"
                                   defaultValue={team.get_slack_channel}
-                                  floatingLabelText={this.props.intl.formatMessage(messages.slackChannel)}
+                                  floatingLabelText={
+                                    this.props.intl.formatMessage(messages.slackChannel)
+                                  }
                                   onChange={this.handleChange.bind(this, 'slackChannel')}
                                   fullWidth
                                 />
@@ -546,8 +555,8 @@ class TeamComponent extends Component {
                             <List className="projects" style={{ padding: '0' }}>
                               {team.projects.edges
                                 .sortp((a, b) => a.node.title.localeCompare(b.node.title))
-                                .map(p =>
-                                  (<Link key={p.node.dbid} to={`/${team.slug}/project/${p.node.dbid}`}>
+                                .map(p => (
+                                  <Link key={p.node.dbid} to={`/${team.slug}/project/${p.node.dbid}`}>
                                     <ListItem
                                       className="team__project"
                                       hoverColor={highlightBlue}
@@ -556,7 +565,9 @@ class TeamComponent extends Component {
                                       primaryText={p.node.title}
                                       rightIcon={<KeyboardArrowRight />}
                                     />
-                                  </Link>))}
+                                  </Link>
+                                ))
+                              }
                             </List>
                           </InfiniteScroll>
                         }
@@ -579,7 +590,6 @@ TeamComponent.propTypes = {
   // https://github.com/yannickcr/eslint-plugin-react/issues/1389
   // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
-  team: PropTypes.object,
 };
 
 TeamComponent.contextTypes = {

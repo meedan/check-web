@@ -79,66 +79,28 @@ const messages = defineMessages({
 });
 
 class CreateTeam extends Component {
-  static displayNameLabelClass(suffix) {
-    const defaultClass = 'create-team__team-display-name-label';
-    return suffix
-      ? [defaultClass, defaultClass + suffix].join(' ')
-      : defaultClass;
-  }
-
-  static slugClass(suffix) {
-    const defaultClass = 'create-team__team-slug';
-    return suffix
-      ? [defaultClass, defaultClass + suffix].join(' ')
-      : defaultClass;
-  }
-
-  static slugLabelClass(suffix) {
-    const defaultClass = 'create-team__team-slug-label';
-    return suffix
-      ? [defaultClass, defaultClass + suffix].join(' ')
-      : defaultClass;
-  }
-
   constructor(props) {
     super(props);
     this.state = {
-      displayNameLabelClass: CreateTeam.displayNameLabelClass(),
-      slugClass: CreateTeam.slugClass(),
-      slugLabelClass: CreateTeam.slugLabelClass(),
-      slugMessage: '',
-      buttonIsDisabled: true,
-      displayName: '',
       slugName: '',
     };
   }
 
   componentDidMount() {
-    this.teamNameInput.focus();
+    this.teamDisplayName.focus();
   }
 
   getContext() {
     return new CheckContext(this).getContextStore();
   }
 
-  handleDisplayNameChange(e) {
-    const isTextEntered = e.target.value && e.target.value.length > 0;
-    const newClass = isTextEntered
-      ? CreateTeam.displayNameLabelClass('--text-entered')
-      : CreateTeam.displayNameLabelClass();
-    this.setState({
-      displayNameLabelClass: newClass,
-      displayName: e.target.value,
-    });
-  }
-
-  handleDisplayNameBlur(e) {
+  handleDisplayNameBlur() {
     function slugify(text) {
       const regex = XRegExp('[^\\p{L}\\p{N}]+', 'g');
       return XRegExp.replace(text.toString().toLowerCase().trim(), regex, '-');
     }
 
-    const slugSuggestion = slugify(e.target.value);
+    const slugSuggestion = slugify(this.teamDisplayName.getValue());
 
     if (!this.state.slugName && slugSuggestion.length) {
       this.setState({ slugName: slugSuggestion });
@@ -174,7 +136,7 @@ class CreateTeam extends Component {
 
     const onSuccess = (response) => {
       this.setState({ message: null });
-      const team = response.createTeam.team;
+      const { createTeam: { team } } = response;
       const teams = JSON.parse(context.currentUser.teams);
       teams[team.slug] = { status: 'member' };
       context.currentUser.teams = JSON.stringify(teams);
@@ -186,7 +148,7 @@ class CreateTeam extends Component {
 
     Relay.Store.commitUpdate(
       new CreateTeamMutation({
-        name: this.state.displayName,
+        name: this.teamDisplayName.getValue(),
         slug: this.state.slugName,
         description: '',
         user: context.currentUser,
@@ -202,7 +164,6 @@ class CreateTeam extends Component {
         prefix={this.props.intl.formatMessage(messages.title)}
         skipTeam
       >
-
         <main className="create-team">
           <ContentColumn narrow>
             <Message message={this.state.message} />
@@ -226,15 +187,13 @@ class CreateTeam extends Component {
                 <CardText>
                   <div className="create-team__team-display-name">
                     <TextField
-                      value={this.state.displayName}
                       type="text"
                       name="teamDisplayName"
                       id="team-name-container"
                       className="create-team__team-display-name-input"
-                      onChange={this.handleDisplayNameChange.bind(this)}
                       onBlur={this.handleDisplayNameBlur.bind(this)}
                       autoComplete="off"
-                      ref={input => (this.teamNameInput = input)}
+                      ref={(i) => { this.teamDisplayName = i; }}
                       floatingLabelText={
                         <FormattedMessage
                           id="createTeam.displayName"

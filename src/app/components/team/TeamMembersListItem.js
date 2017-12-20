@@ -67,8 +67,7 @@ class TeamMembersListItem extends Component {
   }
 
   render() {
-    const teamUser = this.props.teamUser;
-    const isEditing = this.props.isEditing;
+    const { teamUser, isEditing } = this.props;
 
     const roles = [
       { value: 'contributor', label: this.props.intl.formatMessage(messages.contributor) },
@@ -147,9 +146,8 @@ class TeamMembersListItem extends Component {
                   options={roles}
                   value={teamUser.node.role}
                 />
-                {isEditing && teamUser.node.status !== 'banned'
-                  ?
-                    <IconButton
+                {isEditing && teamUser.node.status !== 'banned' ?
+                  <IconButton
                     className="team-members__delete-member"
                     focusRippleColor={checkBlue}
                     touchRippleColor={checkBlue}

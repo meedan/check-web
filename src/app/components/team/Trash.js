@@ -136,14 +136,10 @@ class TrashComponent extends Component {
   }
 
   render() {
-    const team = this.props.team;
+    const { team } = this.props;
 
-    let query = this.props.params.query || '{}';
-    query = JSON.parse(query);
+    const query = JSON.parse(this.props.params.query || '{}');
     query.archived = 1;
-    query = JSON.stringify(query);
-
-    const title = this.props.intl.formatMessage(messages.title);
 
     const actions = [
       <FlatButton
@@ -194,9 +190,9 @@ class TrashComponent extends Component {
         </Dialog>
 
         <Search
-          title={title}
+          title={this.props.intl.formatMessage(messages.title)}
           team={team.slug}
-          query={query}
+          query={JSON.stringify(query)}
           fields={['status', 'sort', 'tags']}
           addons={
             <Can permissions={team.permissions} permission="empty Trash">

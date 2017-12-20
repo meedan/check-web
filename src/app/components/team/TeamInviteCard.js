@@ -22,13 +22,13 @@ import {
 class TeamInviteCard extends Component {
   constructor(props) {
     super(props);
-    this.state = { copyValue: '', copied: false };
+    this.state = { copied: false };
   }
 
   render() {
     const teamUrl = `${window.location.protocol}//${config.selfHost}/${this.props.team.slug}`;
     const joinUrl = `${teamUrl}/join`;
-    const locale = this.props.intl.locale;
+    const { locale } = this.props.intl;
     const isRtl = rtlDetect.isRtlLang(locale);
     const fromDirection = isRtl ? 'right' : 'left';
     const toDirection = isRtl ? 'left' : 'right';

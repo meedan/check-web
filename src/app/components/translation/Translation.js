@@ -86,10 +86,12 @@ class TranslationComponent extends Component {
   }
 
   success() {
+    // TODO Replace with React ref
     let input = document.getElementById('translation-input');
     input.value = '';
     input.blur();
 
+    // TODO Replace with React ref
     input = document.getElementById('note-input');
     input.value = '';
     input.blur();
@@ -114,8 +116,8 @@ class TranslationComponent extends Component {
     const fields = {};
     if (params) {
       params.split('&').forEach((part) => {
-        const pair = part.split('=');
-        fields[pair[0]] = pair[1];
+        const [p0, p1] = part.split('=');
+        fields[p0] = p1;
       });
     }
 
@@ -164,17 +166,11 @@ class TranslationComponent extends Component {
 
   handleSubmit(e) {
     if (!this.state.submitDisabled) {
-      const annotated = this.props.annotated;
-      const annotated_id = annotated.dbid;
-      const annotated_type = this.props.annotatedType;
-
+      const { annotated, annotated_type } = this.props;
       const translation = document.forms.addtranslation.translation.value.trim();
       const note = document.forms.addtranslation.note.value.trim();
-
-      const args = `translation_text=${translation}&translation_language=${this.state
-        .code}&translation_note=${note}`;
-
-      this.addTranslation(annotated, annotated_id, annotated_type, args);
+      const args = `translation_text=${translation}&translation_language=${this.state.code}&translation_note=${note}`;
+      this.addTranslation(annotated, annotated.dbid, annotated_type, args);
     }
 
     e.preventDefault();
@@ -186,15 +182,16 @@ class TranslationComponent extends Component {
 
     return (
       <div>
-        {translations.edges.map(tr =>
-          (<TranslationItem
+        {translations.edges.map(tr => (
+          <TranslationItem
             key={tr.node.id}
             translation={tr.node}
             media={this.props.annotated}
             localeIsRtl={rtlDetect.isRtlLang(this.props.intl.locale)}
-          />))}
-        {options.length > 0
-          ? <Card className="translation__card" style={{ position: 'relative' }}>
+          />
+        ))}
+        {options.length > 0 ?
+          <Card className="translation__card" style={{ position: 'relative' }}>
             <CardText className="translation__card-text" style={{ paddingBottom: '0' }}>
               <div
                 className="translation__card-title"

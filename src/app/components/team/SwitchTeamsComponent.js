@@ -53,9 +53,8 @@ class SwitchTeamsComponent extends Component {
 
   setCurrentTeam(team, user) {
     const context = this.getContext();
-    const history = context.getContextStore().history;
+    const { history, currentUser } = context.getContextStore();
 
-    const currentUser = context.getContextStore().currentUser;
     currentUser.current_team = team;
     context.setContextStore({ team, currentUser });
 
@@ -88,9 +87,8 @@ class SwitchTeamsComponent extends Component {
   }
 
   render() {
-    const user = this.props.user;
-    const currentUser = this.getContext().getContextStore().currentUser;
-    const teamUsers = this.props.user.team_users.edges;
+    const { user, user: { team_users: { edges: teamUsers } } } = this.props;
+    const { currentUser } = this.getContext().getContextStore();
     const isUserSelf = (user.id === currentUser.id);
     const otherTeams = [];
     const pendingTeams = [];
@@ -122,8 +120,7 @@ class SwitchTeamsComponent extends Component {
     };
 
     teamUsers.forEach((teamUser) => {
-      const team = teamUser.node.team;
-      const status = teamUser.node.status;
+      const { team, status } = teamUser.node;
       const visible = can(team.permissions, 'read Team');
 
       if (!isUserSelf && !visible) { return; }
@@ -149,9 +146,9 @@ class SwitchTeamsComponent extends Component {
         />
         { (otherTeams.length + pendingTeams.length) ?
           <List className="teams" style={listStyle}>
-            {otherTeams.map((team, index) =>
-              (<ListItem
-                key={index}
+            {otherTeams.map(team => (
+              <ListItem
+                key={team.dbid}
                 hoverColor={highlightBlue}
                 focusRippleColor={checkBlue}
                 touchRippleColor={checkBlue}
@@ -160,12 +157,15 @@ class SwitchTeamsComponent extends Component {
                 onClick={this.setCurrentTeam.bind(this, team, currentUser)}
                 primaryText={team.name}
                 rightIcon={<KeyboardArrowRight />}
-                secondaryText={this.props.intl.formatMessage(messages.switchTeamsMember, { membersCount: team.members_count })}
-              />))}
+                secondaryText={this.props.intl.formatMessage(messages.switchTeamsMember, {
+                  membersCount: team.members_count,
+                })}
+              />
+            ))}
 
-            {pendingTeams.map((team, index) =>
-              (<ListItem
-                key={index}
+            {pendingTeams.map(team => (
+              <ListItem
+                key={team.dbid}
                 hoverColor={highlightBlue}
                 focusRippleColor={checkBlue}
                 touchRippleColor={checkBlue}
@@ -174,7 +174,8 @@ class SwitchTeamsComponent extends Component {
                 primaryText={team.name}
                 rightIconButton={teamButton(team)}
                 secondaryText={this.props.intl.formatMessage(messages.joinTeam)}
-              />))}
+              />
+            ))}
           </List> :
           <CardText>
             <FormattedMessage id="switchTeams.noTeams" defaultMessage="Not a member of any team." />

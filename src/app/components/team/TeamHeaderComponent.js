@@ -58,11 +58,12 @@ class TeamHeaderComponent extends Component {
           className="header-actions__drawer-toggle"
           onClick={this.props.drawerToggle}
         >
-          {isProjectUrl
-            ? <OffsetBothSides>
+          {isProjectUrl ?
+            <OffsetBothSides>
               <TeamAvatar />
             </OffsetBothSides>
-            : <Row>
+            :
+            <Row>
               <OffsetBothSides>
                 <TeamAvatar />
               </OffsetBothSides>

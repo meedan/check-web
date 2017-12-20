@@ -37,6 +37,7 @@ class JoinTeamComponent extends Component {
     super(props);
     this.state = {
       requestStatus: '',
+      message: '',
     };
   }
 
@@ -72,11 +73,8 @@ class JoinTeamComponent extends Component {
 
     const onSuccess = (response) => {
       const appName = mapGlobalMessage(this.props.intl, 'appNameHuman');
-      const status = response.createTeamUser.team_user.status;
-      let message = messages.success;
-      if (status === 'member') {
-        message = messages.autoApprove;
-      }
+      const { createTeamUser: { team_user: { status } } } = response;
+      const message = status === 'member' ? messages.autoApprove : messages.success;
       this.setState({
         message: this.props.intl.formatMessage(message, { team: this.props.team.name, appName }),
         requestStatus: status,
@@ -95,8 +93,8 @@ class JoinTeamComponent extends Component {
 
   redirectIfMember() {
     if (this.alreadyMember()) {
-      const team = this.props.team;
-      const user = this.getContext().currentUser;
+      const { team } = this.props;
+      const { currentUser: user } = this.getContext();
       const userTeams = JSON.parse(user.teams);
       let redirect = true;
       Object.keys(userTeams).forEach((teamName) => {
@@ -116,9 +114,9 @@ class JoinTeamComponent extends Component {
   }
 
   render() {
-    const team = this.props.team;
+    const { team } = this.props;
     const appName = mapGlobalMessage(this.props.intl, 'appNameHuman');
-    const isRequestSent = this.state.requestStatus;
+    const { requestStatus: isRequestSent } = this.state;
     const disableRequest = isRequestSent !== '';
 
     return (
