@@ -1,8 +1,6 @@
 import React from 'react';
 import Relay from 'react-relay';
-import {
-  injectIntl,
-} from 'react-intl';
+import { injectIntl } from 'react-intl';
 import MeRoute from '../../relay/MeRoute';
 import userFragment from '../../relay/userFragment';
 import SwitchTeamsComponent from './SwitchTeamsComponent';
@@ -16,7 +14,7 @@ const SwitchTeamsContainer = Relay.createContainer(
   },
 );
 
-function SwitchTeams() {
+const SwitchTeams = () => {
   const route = new MeRoute();
   return (
     <Relay.RootContainer
@@ -25,6 +23,6 @@ function SwitchTeams() {
       forceFetch
     />
   );
-}
+};
 
 export default SwitchTeams;

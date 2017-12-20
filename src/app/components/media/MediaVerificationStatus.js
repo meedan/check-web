@@ -6,7 +6,7 @@ import MediaStatusCommon from './MediaStatusCommon';
 
 class MediaStatus extends Component {
   static setStatus(context, store, media, status) {
-    const status_id: media.last_status_obj ? media.last_status_obj.id : '';
+    const status_id = media.last_status_obj ? media.last_status_obj.id : '';
     const status_attr = {
       parent_type: 'project_media',
       annotated: media,
