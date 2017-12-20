@@ -46,10 +46,6 @@
         // TODO Consider standardizing on camelCase
         "camelcase": "off",
 
-        // Avoid issues with static properties
-        // https://github.com/babel/babel-eslint/issues/487
-        "no-undef": "off",
-
         // Allow to override Array class for cleaner code
         "no-extend-native": ["error", {"exceptions": ["Array"]}],
     }
