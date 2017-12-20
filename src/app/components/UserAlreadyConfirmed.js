@@ -3,8 +3,8 @@ import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router';
 import { ContentColumn } from '../styles/js/shared';
 
-const UserAlreadyConfirmed = () =>
-  (<ContentColumn className="card">
+const UserAlreadyConfirmed = () => (
+  <ContentColumn className="card">
     <h2 className="main-title"><FormattedMessage id="userAlreadyConfirmed.heading" defaultMessage="Account Already Confirmed" /></h2>
     <p>
       <FormattedMessage
@@ -13,6 +13,6 @@ const UserAlreadyConfirmed = () =>
         values={{ login: <Link to="/"><FormattedMessage id="userAlreadyConfirmed.login" defaultMessage="login" /></Link> }}
       />
     </p>
-   </ContentColumn>);
+  </ContentColumn>);
 
 export default UserAlreadyConfirmed;

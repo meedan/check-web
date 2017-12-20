@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Relay from 'react-relay';
 import { Link } from 'react-router';
 import InfiniteScroll from 'react-infinite-scroller';
-import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import TextField from 'material-ui/TextField';
 import Checkbox from 'material-ui/Checkbox';
@@ -576,12 +576,14 @@ class TeamComponent extends Component {
 }
 
 TeamComponent.propTypes = {
+  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
+  // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
   team: PropTypes.object,
 };
 
 TeamComponent.contextTypes = {
-  store: React.PropTypes.object,
+  store: PropTypes.object,
 };
 
 export default injectIntl(TeamComponent);

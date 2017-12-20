@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Relay from 'react-relay';
 import XRegExp from 'xregexp';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -293,11 +294,13 @@ class CreateTeam extends Component {
 }
 
 CreateTeam.propTypes = {
+  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
+  // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
 };
 
 CreateTeam.contextTypes = {
-  store: React.PropTypes.object,
+  store: PropTypes.object,
 };
 
 export default injectIntl(CreateTeam);

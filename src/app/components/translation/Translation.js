@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { defineMessages, FormattedMessage, injectIntl } from 'react-intl';
 import Relay from 'react-relay';
 import Select from 'react-select';
@@ -263,7 +264,7 @@ class TranslationComponent extends Component {
 }
 
 TranslationComponent.contextTypes = {
-  store: React.PropTypes.object,
+  store: PropTypes.object,
 };
 
 const TranslationContainer = Relay.createContainer(injectIntl(TranslationComponent), {

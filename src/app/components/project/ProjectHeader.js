@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Relay from 'react-relay';
 import { Link } from 'react-router';
 import IconArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
@@ -36,7 +37,7 @@ const ProjectHeaderComponent = (props) => {
 };
 
 ProjectHeaderComponent.contextTypes = {
-  store: React.PropTypes.object,
+  store: PropTypes.object,
 };
 
 const ProjectHeaderContainer = Relay.createContainer(ProjectHeaderComponent, {

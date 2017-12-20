@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import Favicon from 'react-favicon';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
@@ -261,15 +262,17 @@ class Home extends Component {
 }
 
 Home.propTypes = {
+  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
+  // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
 };
 
 Home.contextTypes = {
-  store: React.PropTypes.object,
+  store: PropTypes.object,
 };
 
 Home.childContextTypes = {
-  setMessage: React.PropTypes.func,
+  setMessage: PropTypes.func,
 };
 
 export default injectIntl(Home);

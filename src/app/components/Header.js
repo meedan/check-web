@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Link } from 'react-router';
 import Relay from 'react-relay';
@@ -142,7 +143,7 @@ const HeaderComponent = (props) => {
 };
 
 HeaderComponent.contextTypes = {
-  store: React.PropTypes.object,
+  store: PropTypes.object,
 };
 
 const Header = (props) => {

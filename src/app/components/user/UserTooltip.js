@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Relay from 'react-relay';
+import PropTypes from 'prop-types';
 import { FormattedHTMLMessage, injectIntl } from 'react-intl';
 import { Link } from 'react-router';
 import Avatar from 'material-ui/Avatar';
@@ -62,27 +63,17 @@ const StyledUserRole = styled.span`
   margin: ${units(1)};
 `;
 
-class UserTooltipComponent extends React.Component {
+class UserTooltipComponent extends Component {
   static accountLink(account) {
-    return (<StyledSocialLink key={account.id} href={account.url} target="_blank" rel="noopener noreferrer" style={{ paddingRight: units(1) }}>
-      { MediaUtil.socialIcon(`${account.provider}.com`) /* TODO: refactor */ }
-    </StyledSocialLink>);
+    return (
+      <StyledSocialLink key={account.id} href={account.url} target="_blank" rel="noopener noreferrer" style={{ paddingRight: units(1) }}>
+        { MediaUtil.socialIcon(`${account.provider}.com`) /* TODO: refactor */ }
+      </StyledSocialLink>
+    );
   }
 
   getContext() {
     return new CheckContext(this);
-  }
-
-  userRole() {
-    const context = this.getContext();
-    const team = context.getContextStore().currentUser.current_team;
-    const current_team_user =
-      this.props.user.team_users.edges.find(tu => tu.node.team.slug === team.slug);
-    return current_team_user.node.status !== 'requested' ? current_team_user.node.role : '';
-  }
-
-  localizedRole(role) {
-    return role ? `${this.props.intl.formatMessage(messages[role])}` : '';
   }
 
   render() {
@@ -142,7 +133,7 @@ class UserTooltipComponent extends React.Component {
 }
 
 UserTooltipComponent.contextTypes = {
-  store: React.PropTypes.object,
+  store: PropTypes.object,
 };
 
 const UserTooltipContainer = Relay.createContainer(injectIntl(UserTooltipComponent), {

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import Relay from 'react-relay';
 import { Card, CardText, CardActions, CardTitle } from 'material-ui/Card';
@@ -36,18 +37,15 @@ class UserPasswordReset extends Component {
   }
 
   getHistory() {
-    const history = new CheckContext(this).getContextStore().history;
-    return history;
+    return new CheckContext(this).getContextStore().history;
   }
 
   handleGoBack() {
-    const history = this.getHistory();
-    history.goBack();
+    this.getHistory().getBack();
   }
 
   handleSignIn() {
-    const history = this.getHistory();
-    history.push('/');
+    this.getHistory().push('/');
   }
 
   handleChange(e) {
@@ -134,7 +132,7 @@ class UserPasswordReset extends Component {
 }
 
 UserPasswordReset.contextTypes = {
-  store: React.PropTypes.object,
+  store: PropTypes.object,
 };
 
 export default injectIntl(UserPasswordReset);

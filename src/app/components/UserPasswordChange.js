@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import Relay from 'react-relay';
 import { Card, CardText, CardActions, CardTitle } from 'material-ui/Card';
@@ -104,13 +105,11 @@ class UserPasswordChange extends Component {
   }
 
   getHistory() {
-    const history = new CheckContext(this).getContextStore().history;
-    return history;
+    return new CheckContext(this).getContextStore().history;
   }
 
   handleSignIn() {
-    const history = this.getHistory();
-    history.push('/');
+    this.getHistory().push('/');
   }
 
   handleChangePassword(e) {
@@ -118,8 +117,8 @@ class UserPasswordChange extends Component {
   }
 
   handleChangePasswordConfirm(e) {
-    const password = this.state.password;
-    const password_confirmation = e.target.value;
+    const { password } = this.state;
+    const { value: password_confirmation } = e.target;
     const bothFilled =
       password.length >= passwordLength.min && password_confirmation.length >= passwordLength.min;
     const samePass = password === password_confirmation;
@@ -187,7 +186,7 @@ class UserPasswordChange extends Component {
             </Card> :
             <Card className="user-password-change__card">
               <CardText>
-                <img role="presentation" src={stringHelper('LOGO_URL')} className="user-password-change__logo" />
+                <img alt="" src={stringHelper('LOGO_URL')} className="user-password-change__logo" />
 
                 <span className="user-password-change__title">
                   <FormattedMessage id="passwordChange.title" defaultMessage="Change password" />
@@ -198,7 +197,10 @@ class UserPasswordChange extends Component {
                     className="user-password-change__password-input-field"
                     id="password-change-password-input"
                     type="password"
-                    hintText={this.props.intl.formatMessage(messages.newPassword, { min: passwordLength.min })}
+                    hintText={this.props.intl.formatMessage(
+                      messages.newPassword,
+                      { min: passwordLength.min },
+                    )}
                     onChange={this.handleChangePassword.bind(this)}
                   />
                   <br />
@@ -229,7 +231,7 @@ class UserPasswordChange extends Component {
 }
 
 UserPasswordChange.contextTypes = {
-  store: React.PropTypes.object,
+  store: PropTypes.object,
 };
 
 export default injectIntl(UserPasswordChange);

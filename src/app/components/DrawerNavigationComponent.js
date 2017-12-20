@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
@@ -27,8 +28,7 @@ import {
 
 class DrawerNavigation extends Component {
   getHistory() {
-    const history = new CheckContext(this).getContextStore().history;
-    return history;
+    return new CheckContext(this).getContextStore().history;
   }
 
   render() {
@@ -205,7 +205,7 @@ class DrawerNavigation extends Component {
 }
 
 DrawerNavigation.contextTypes = {
-  store: React.PropTypes.object,
+  store: PropTypes.object,
 };
 
 export default DrawerNavigation;

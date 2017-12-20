@@ -499,6 +499,8 @@ class MultiSelectTask extends Component {
 }
 
 MultiSelectTask.propTypes = {
+  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
+  // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
 };
 

@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { defineMessages } from 'react-intl';
 import styled from 'styled-components';
 import MappedMessage from './MappedMessage';

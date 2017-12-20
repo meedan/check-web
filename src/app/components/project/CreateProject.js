@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { defineMessages, injectIntl, intlShape } from 'react-intl';
 import Relay from 'react-relay';
 import TextField from 'material-ui/TextField';
@@ -93,13 +94,15 @@ class CreateProject extends Component {
 }
 
 CreateProject.propTypes = {
+  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
+  // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
   style: PropTypes.object,
   className: PropTypes.string,
 };
 
 CreateProject.contextTypes = {
-  store: React.PropTypes.object,
+  store: PropTypes.object,
 };
 
 export default injectIntl(CreateProject);

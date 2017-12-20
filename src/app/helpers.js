@@ -27,7 +27,7 @@ function safelyParseJSON(jsonString) {
 }
 
 function getStatus(statusesJson, id) {
-  const statuses = safelyParseJSON(statusesJson).statuses;
+  const { statuses } = safelyParseJSON(statusesJson);
   let status = '';
   statuses.forEach((st) => {
     if (st.id === id) {
@@ -38,11 +38,11 @@ function getStatus(statusesJson, id) {
 }
 
 function getStatusStyle(status, property) {
-  let style = '';
-  if (status && status.style) {
-    style = status.style[property];
+  try {
+    return status.style[property];
+  } catch (e) {
+    return '';
   }
-  return style;
 }
 
 function truncateLength(text, length = 70) {

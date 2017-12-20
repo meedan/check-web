@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { injectIntl, intlShape } from 'react-intl';
 import { Link } from 'react-router';
 import { Card, CardHeader, CardText, CardActions } from 'material-ui/Card';
@@ -365,11 +366,13 @@ class MediaDetail extends Component {
 }
 
 MediaDetail.propTypes = {
+  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
+  // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
 };
 
 MediaDetail.contextTypes = {
-  store: React.PropTypes.object,
+  store: PropTypes.object,
 };
 
 MediaDetail.defaultProps = {

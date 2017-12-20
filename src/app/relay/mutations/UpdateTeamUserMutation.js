@@ -12,7 +12,7 @@ class UpdateTeamUserMutation extends Relay.Mutation {
   };
 
   getVariables() {
-    let role = this.props.role;
+    let { role } = this.props;
     if (typeof role !== 'undefined') {
       role = role.value;
     }

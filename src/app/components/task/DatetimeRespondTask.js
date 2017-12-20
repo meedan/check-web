@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
@@ -346,11 +347,13 @@ class DatetimeRespondTask extends Component {
 }
 
 DatetimeRespondTask.propTypes = {
+  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
+  // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
 };
 
 DatetimeRespondTask.contextTypes = {
-  store: React.PropTypes.object,
+  store: PropTypes.object,
 };
 
 export default injectIntl(DatetimeRespondTask);

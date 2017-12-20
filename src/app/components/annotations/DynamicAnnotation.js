@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { LocationField } from './field_types';
 
 class DynamicAnnotation extends Component {

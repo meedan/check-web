@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { injectIntl } from 'react-intl';
 import rtlDetect from 'rtl-detect';
 import UserInfo from './UserInfo';
@@ -63,7 +64,7 @@ class UserComponent extends React.Component {
 }
 
 UserComponent.contextTypes = {
-  store: React.PropTypes.object,
+  store: PropTypes.object,
 };
 
 export default injectIntl(UserComponent);

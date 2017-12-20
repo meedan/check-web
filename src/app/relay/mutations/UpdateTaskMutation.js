@@ -12,7 +12,7 @@ class UpdateTaskMutation extends Relay.Mutation {
   }
 
   getVariables() {
-    const task = this.props.task;
+    const { task } = this.props;
     const params = { id: task.id };
     if (task.annotation_type && task.fields) {
       params.response = JSON.stringify({
@@ -27,16 +27,13 @@ class UpdateTaskMutation extends Relay.Mutation {
   }
 
   getConfigs() {
-    const fieldIds = {};
-    fieldIds.project_media = this.props.annotated.id;
-
     return [
       {
         type: 'FIELDS_CHANGE',
-        fieldIDs: fieldIds,
+        fieldIDs: { project_media: this.props.annotated.id },
       },
     ];
   }
 }
-export default UpdateTaskMutation;
 
+export default UpdateTaskMutation;

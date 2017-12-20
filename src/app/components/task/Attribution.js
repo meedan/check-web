@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Relay from 'react-relay';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import Select from 'react-select';
@@ -161,7 +162,7 @@ const Attribution = (props, context) => {
 };
 
 Attribution.contextTypes = {
-  store: React.PropTypes.object,
+  store: PropTypes.object,
 };
 
 export default Attribution;

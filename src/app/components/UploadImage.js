@@ -144,7 +144,7 @@ class UploadImageComponent extends Component {
   }
 
   render() {
-    const about = this.props.about;
+    const { about } = this.props;
 
     return (
       <StyledUploader isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
@@ -178,6 +178,8 @@ class UploadImageComponent extends Component {
 }
 
 UploadImageComponent.propTypes = {
+  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
+  // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
 };
 

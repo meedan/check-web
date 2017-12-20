@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Relay from 'react-relay';
 import TeamRoute from '../TeamRoute';
 import TeamMenu from '../../components/team/TeamMenu';
@@ -17,20 +17,18 @@ const TeamMenuContainer = Relay.createContainer(TeamMenu, {
   },
 });
 
-class TeamMenuRelay extends Component {
-  render() {
-    if (this.props.params.team) {
-      const route = new TeamRoute({ teamSlug: this.props.params.team });
-      return (
-        <Relay.RootContainer
-          Component={TeamMenuContainer}
-          route={route}
-          renderFetched={data => <TeamMenuContainer {...this.props} {...data} />}
-        />
-      );
-    }
-    return null;
+const TeamMenuRelay = (props) => {
+  if (props.params.team) {
+    const route = new TeamRoute({ teamSlug: props.params.team });
+    return (
+      <Relay.RootContainer
+        Component={TeamMenuContainer}
+        route={route}
+        renderFetched={data => <TeamMenuContainer {...props} {...data} />}
+      />
+    );
   }
-}
+  return null;
+};
 
 export default TeamMenuRelay;

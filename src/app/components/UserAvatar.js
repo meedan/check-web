@@ -1,21 +1,17 @@
-import React, { Component } from 'react';
+import React from 'react';
 import SourcePicture from './source/SourcePicture';
 
-class UserAvatar extends Component {
-  render() {
-    const { user } = this.props;
-
-    if (user) {
-      return (
-        <SourcePicture
-          object={user.source}
-          type="user"
-          className="avatar"
-        />
-      );
-    }
-    return null;
+const UserAvatar = (props) => {
+  if (props.user) {
+    return (
+      <SourcePicture
+        object={props.user.source}
+        type="user"
+        className="avatar"
+      />
+    );
   }
-}
+  return null;
+};
 
 export default UserAvatar;

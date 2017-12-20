@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Relay from 'react-relay';
 import { defineMessages, injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -215,11 +216,13 @@ class TrashComponent extends Component {
 }
 
 TrashComponent.contextTypes = {
-  store: React.PropTypes.object,
-  setMessage: React.PropTypes.func,
+  store: PropTypes.object,
+  setMessage: PropTypes.func,
 };
 
 TrashComponent.propTypes = {
+  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
+  // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
 };
 

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { defineMessages, FormattedMessage, injectIntl } from 'react-intl';
 import Relay from 'react-relay';
 import { Card, CardText } from 'material-ui/Card';
@@ -221,7 +222,7 @@ class TranslationItem extends Component {
 }
 
 TranslationItem.contextTypes = {
-  store: React.PropTypes.object,
+  store: PropTypes.object,
 };
 
 export default injectIntl(TranslationItem);

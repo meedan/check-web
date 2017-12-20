@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
+import PropTypes from 'prop-types';
 import Relay from 'react-relay';
 import IconEdit from 'material-ui/svg-icons/image/edit';
 import ProjectRoute from '../ProjectRoute';
@@ -9,20 +10,21 @@ import { SmallerStyledIconButton } from '../../styles/js/shared';
 
 class ProjectMenu extends Component {
   handleEditClick() {
-    const history = new CheckContext(this).getContextStore().history;
-    const editPath = `${window.location.pathname.match(/.*\/project\/\d+/)[0]}/edit`;
-    history.push(editPath);
+    const { history } = new CheckContext(this).getContextStore();
+    history.push(`${window.location.pathname.match(/.*\/project\/\d+/)[0]}/edit`);
   }
 
   render() {
     const { project } = this.props;
 
-    const editProjectButton = (<SmallerStyledIconButton
-      onClick={this.handleEditClick.bind(this)}
-      tooltip={<FormattedMessage id="projectMenuRelay.editProject" defaultMessage="Edit project" />}
-    >
-      <IconEdit />
-    </SmallerStyledIconButton>);
+    const editProjectButton = (
+      <SmallerStyledIconButton
+        onClick={this.handleEditClick.bind(this)}
+        tooltip={<FormattedMessage id="projectMenuRelay.editProject" defaultMessage="Edit project" />}
+      >
+        <IconEdit />
+      </SmallerStyledIconButton>
+    );
 
     return (
       <Can permissions={project.permissions} permission="update Project">
@@ -37,9 +39,8 @@ class ProjectMenu extends Component {
   }
 }
 
-
 ProjectMenu.contextTypes = {
-  store: React.PropTypes.object,
+  store: PropTypes.object,
 };
 
 const ProjectMenuContainer = Relay.createContainer(ProjectMenu, {

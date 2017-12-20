@@ -5,8 +5,8 @@ import RaisedButton from 'material-ui/RaisedButton';
 import { Card, CardTitle, CardText, CardActions } from 'material-ui/Card';
 import { ContentColumn } from '../styles/js/shared';
 
-const UserConfirmed = () =>
-  (<ContentColumn>
+const UserConfirmed = () => (
+  <ContentColumn>
     <Card>
       <CardTitle
         className="main-title"
@@ -27,6 +27,6 @@ const UserConfirmed = () =>
         </Link>
       </CardActions>
     </Card>
-   </ContentColumn>);
+  </ContentColumn>);
 
 export default UserConfirmed;

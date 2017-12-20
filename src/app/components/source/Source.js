@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Relay from 'react-relay';
 import CheckContext from '../../CheckContext';
 import SourceRoute from '../../relay/SourceRoute';
@@ -465,7 +466,7 @@ const Source = (props, context_) => {
 };
 
 Source.contextTypes = {
-  store: React.PropTypes.object,
+  store: PropTypes.object,
 };
 
 export default Source;

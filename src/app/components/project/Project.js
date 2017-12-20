@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Relay from 'react-relay';
 import styled from 'styled-components';
 import ProjectRoute from '../../relay/ProjectRoute';
@@ -87,7 +88,7 @@ class ProjectComponent extends Component {
 }
 
 ProjectComponent.contextTypes = {
-  store: React.PropTypes.object,
+  store: PropTypes.object,
 };
 
 const ProjectContainer = Relay.createContainer(ProjectComponent, {

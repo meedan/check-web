@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { defineMessages, injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import Relay from 'react-relay';
 import FlatButton from 'material-ui/FlatButton';
@@ -509,11 +510,13 @@ class CreateProjectMedia extends Component {
 }
 
 CreateProjectMedia.propTypes = {
+  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
+  // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
 };
 
 CreateProjectMedia.contextTypes = {
-  store: React.PropTypes.object,
+  store: PropTypes.object,
 };
 
 export default injectIntl(CreateProjectMedia);

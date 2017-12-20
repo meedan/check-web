@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { injectIntl, defineMessages } from 'react-intl';
 import Relay from 'react-relay';
 import AutoComplete from 'material-ui/AutoComplete';
@@ -162,7 +163,7 @@ class Tags extends React.Component {
 }
 
 Tags.contextTypes = {
-  store: React.PropTypes.object,
+  store: PropTypes.object,
 };
 
 export default injectIntl(Tags);

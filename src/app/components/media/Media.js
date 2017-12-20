@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Relay from 'react-relay';
 import CheckContext from '../../CheckContext';
 import MediaRoute from '../../relay/MediaRoute';
@@ -272,7 +273,7 @@ class ProjectMedia extends Component {
 }
 
 ProjectMedia.contextTypes = {
-  store: React.PropTypes.object,
+  store: PropTypes.object,
 };
 
 export default ProjectMedia;

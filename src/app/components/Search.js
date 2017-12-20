@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Relay from 'react-relay';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import InfiniteScroll from 'react-infinite-scroller';
@@ -604,11 +605,13 @@ class SearchQueryComponent extends Component {
 }
 
 SearchQueryComponent.propTypes = {
+  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
+  // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
 };
 
 SearchQueryComponent.contextTypes = {
-  store: React.PropTypes.object,
+  store: PropTypes.object,
 };
 
 const SearchQueryContainer = Relay.createContainer(injectIntl(SearchQueryComponent), {
@@ -790,10 +793,12 @@ class SearchResultsComponent extends Component {
 }
 
 SearchResultsComponent.contextTypes = {
-  store: React.PropTypes.object,
+  store: PropTypes.object,
 };
 
 SearchResultsComponent.propTypes = {
+  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
+  // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
 };
 
@@ -889,6 +894,8 @@ class Search extends Component {
 }
 
 Search.propTypes = {
+  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
+  // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
 };
 

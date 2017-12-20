@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { injectIntl, defineMessages, FormattedMessage } from 'react-intl';
 import Relay from 'react-relay';
 import Dialog from 'material-ui/Dialog';
@@ -772,8 +773,8 @@ class MediaMetadata extends Component {
 }
 
 MediaMetadata.contextTypes = {
-  store: React.PropTypes.object,
-  setMessage: React.PropTypes.func,
+  store: PropTypes.object,
+  setMessage: PropTypes.func,
 };
 
 export default injectIntl(MediaMetadata);

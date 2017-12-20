@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { injectIntl } from 'react-intl';
 import CheckContext from '../../CheckContext';
@@ -78,7 +79,7 @@ class TeamHeaderComponent extends Component {
 }
 
 TeamHeaderComponent.contextTypes = {
-  store: React.PropTypes.object,
+  store: PropTypes.object,
 };
 
 export default injectIntl(TeamHeaderComponent);

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import Relay from 'react-relay';
 import TextField from 'material-ui/TextField';
@@ -202,11 +203,13 @@ class ProjectEditComponent extends Component {
 }
 
 ProjectEditComponent.propTypes = {
+  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
+  // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
 };
 
 ProjectEditComponent.contextTypes = {
-  store: React.PropTypes.object,
+  store: PropTypes.object,
 };
 
 const ProjectEditContainer = Relay.createContainer(injectIntl(ProjectEditComponent), {
