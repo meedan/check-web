@@ -10,8 +10,18 @@ describe('<TeamMenu />', () => {
     permissions: JSON.stringify({ 'update Team': false }),
   };
 
+  it('should show trash icon if user is a team member', () => {
+    const teamMenu = mountWithIntl(<TeamMenu team={team} currentUserIsMember />);
+    expect(teamMenu.find(IconDelete)).to.have.length(1);
+  });
+
+  it('should not show trash icon if user is not a team member', () => {
+    const teamMenu = mountWithIntl(<TeamMenu team={team} />);
+    expect(teamMenu.find(IconDelete)).to.have.length(0);
+  });
+
   it('should not show trash icon if user is not signed in', () => {
     const teamMenu = mountWithIntl(<TeamMenu team={team} />);
-    expect(teamMenu.find(<IconDelete />)).to.have.length(0);
+    expect(teamMenu.find(IconDelete)).to.have.length(0);
   });
 });
