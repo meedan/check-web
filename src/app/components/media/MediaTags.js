@@ -11,6 +11,7 @@ import DeleteTagMutation from '../../relay/mutations/DeleteTagMutation';
 import Tags from '../Tags';
 import CheckContext from '../../CheckContext';
 import { searchQueryFromUrl, urlFromSearchQuery } from '../Search';
+import { safelyParseJSON } from '../../helpers';
 import {
   units,
   caption,
@@ -122,13 +123,9 @@ class MediaTags extends Component {
     const onFailure = (transaction) => {
       const error = transaction.getError();
       let message = this.props.intl.formatMessage(messages.error);
-      try {
-        const json = JSON.parse(error.source);
-        if (json.error) {
-          message = json.error;
-        }
-      } catch (e) {
-        // Do nothing.
+      const json = safelyParseJSON(error.source);
+      if (json && json.error) {
+        message = json.error;
       }
       this.setState({ message });
     };

@@ -8,6 +8,7 @@ import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-i
 import MdCancel from 'react-icons/lib/md/cancel';
 import MdCheckBoxOutlineBlank from 'react-icons/lib/md/check-box-outline-blank';
 import Message from '../Message';
+import { safelyParseJSON } from '../../helpers';
 import { units, body2, StyledIconButton, StyledTaskDescription } from '../../styles/js/shared';
 
 // A smaller TextField
@@ -103,7 +104,7 @@ class MultiSelectTask extends Component {
   }
 
   canSubmit() {
-    const props_response = this.props.jsonresponse ? JSON.parse(this.props.jsonresponse) : {};
+    const props_response = safelyParseJSON(this.props.jsonresponse) || {};
     const response_obj = {};
 
     response_obj.selected = Array.isArray(this.state.response)
@@ -249,8 +250,7 @@ class MultiSelectTask extends Component {
   }
 
   handleEditOther(e) {
-    const value = e.target.value;
-    this.setState({ focus: true, responseOther: value }, this.canSubmit);
+    this.setState({ focus: true, responseOther: e.target.value }, this.canSubmit);
   }
 
   handleKeyPress(e) {
@@ -303,8 +303,8 @@ class MultiSelectTask extends Component {
             fullWidth
           />
           <div className="create-task__add-options" style={{ marginTop: units(2) }}>
-            {this.state.options.map((item, index) =>
-              (<div key={`create-task__add-options-multiselect-${index.toString()}`}>
+            {this.state.options.map((item, index) => (
+              <div key={`create-task__add-options-multiselect-${index.toString()}`}>
                 <StyledIconButton>
                   <MdCheckBoxOutlineBlank />
                 </StyledIconButton>
@@ -317,15 +317,16 @@ class MultiSelectTask extends Component {
                   disabled={item.other}
                   style={{ padding: `${units(0.5)} ${units(1)}`, width: '75%' }}
                 />
-                {canRemove
-                  ? <StyledIconButton>
+                {canRemove ?
+                  <StyledIconButton>
                     <MdCancel
                       className="create-task__remove-option-button"
                       onClick={this.handleRemoveOption.bind(this, index)}
                     />
-                    </StyledIconButton>
+                  </StyledIconButton>
                   : null}
-               </div>))}
+              </div>
+            ))}
             <div style={{ marginTop: units(1) }}>
               <FlatButton
                 label={this.props.intl.formatMessage(messages.addValue)}
@@ -367,8 +368,7 @@ class MultiSelectTask extends Component {
   }
 
   renderOptions(jsonresponse, note, jsonoptions) {
-    let options = null;
-
+    const options = safelyParseJSON(jsonoptions);
     const editable = jsonresponse == null || this.props.mode === 'edit_response';
     const submitCallback = this.handleSubmitResponse.bind(this);
     const cancelCallback = this.handleCancelResponse.bind(this);
@@ -390,15 +390,10 @@ class MultiSelectTask extends Component {
       </div>
     );
 
-    if (jsonoptions) {
-      options = JSON.parse(jsonoptions);
-    }
-
     if (Array.isArray(options) && options.length > 0) {
       const otherIndex = options.findIndex(item => item.other);
       const other = otherIndex >= 0 ? options.splice(otherIndex, 1).pop() : null;
-
-      const response = jsonresponse ? JSON.parse(jsonresponse) : {};
+      const response = safelyParseJSON(jsonresponse) || {};
       const responseOther = typeof this.state.responseOther !== 'undefined' &&
         this.state.responseOther !== null
         ? this.state.responseOther
@@ -409,8 +404,8 @@ class MultiSelectTask extends Component {
 
       return (
         <div className="task__options">
-          {options.map((item, index) =>
-            (<Checkbox
+          {options.map((item, index) => (
+            <Checkbox
               key={`task__options-multiselect-${index.toString()}`}
               label={item.label}
               checked={this.isChecked(item.label, index)}
@@ -418,39 +413,38 @@ class MultiSelectTask extends Component {
               id={item.label}
               disabled={!editable}
               style={{ paddingBottom: units(1) }}
-            />))}
+            />
+          ))}
 
           <div
             style={{ display: 'flex', justifyContent: 'flex-start' }}
             className="task__options_other"
           >
-            {other
-              ? [
-                <div key="task__option_other_checkbox">
-                  <Checkbox
-                    className="task__option_other_checkbox"
-                    checked={this.state.otherSelected || !!responseOther}
-                    onCheck={this.handleSelectCheckboxOther.bind(this)}
-                    disabled={!editable}
-                  />
-                </div>,
-                <StyledSmallTextField
-                  key="task__option_other_text_input"
-                  className="task__option_other_text_input"
-                  hintText={other.label}
-                  value={responseOther}
-                  name="response"
-                  onKeyPress={keyPressCallback}
-                  onChange={this.handleEditOther.bind(this)}
+            {other ? [
+              <div key="task__option_other_checkbox">
+                <Checkbox
+                  className="task__option_other_checkbox"
+                  checked={this.state.otherSelected || !!responseOther}
+                  onCheck={this.handleSelectCheckboxOther.bind(this)}
                   disabled={!editable}
-                  multiLine
-                />,
-              ]
-              : null}
+                />
+              </div>,
+              <StyledSmallTextField
+                key="task__option_other_text_input"
+                className="task__option_other_text_input"
+                hintText={other.label}
+                value={responseOther}
+                name="response"
+                onKeyPress={keyPressCallback}
+                onChange={this.handleEditOther.bind(this)}
+                disabled={!editable}
+                multiLine
+              />,
+            ] : null}
           </div>
 
-          {editable
-            ? <StyledSmallTextField
+          {editable ?
+            <StyledSmallTextField
               className="task__response-note-input"
               hintText={
                 <FormattedMessage

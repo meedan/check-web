@@ -10,6 +10,7 @@ import CreateTeamUserMutation from '../../relay/mutations/CreateTeamUserMutation
 import { mapGlobalMessage } from '../MappedMessage';
 import Message from '../Message';
 import CheckContext from '../../CheckContext';
+import { safelyParseJSON } from '../../helpers';
 import { ContentColumn } from '../../styles/js/shared';
 
 const messages = defineMessages({
@@ -60,13 +61,9 @@ class JoinTeamComponent extends Component {
     const onFailure = (transaction) => {
       const error = transaction.getError();
       let message = this.props.intl.formatMessage(messages.error);
-      try {
-        const json = JSON.parse(error.source);
-        if (json.error) {
-          message = json.error;
-        }
-      } catch (ex) {
-        // Do nothing.
+      const json = safelyParseJSON(error.source);
+      if (json && json.error) {
+        message = json.error;
       }
       this.setState({ message });
     };

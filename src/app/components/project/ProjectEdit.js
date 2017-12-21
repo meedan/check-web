@@ -10,6 +10,7 @@ import UpdateProjectMutation from '../../relay/mutations/UpdateProjectMutation';
 import PageTitle from '../PageTitle';
 import ProjectRoute from '../../relay/ProjectRoute';
 import CheckContext from '../../CheckContext';
+import { safelyParseJSON } from '../../helpers';
 import { ContentColumn } from '../../styles/js/shared';
 
 const messages = defineMessages({
@@ -40,7 +41,6 @@ class ProjectEditComponent extends Component {
     super(props);
 
     this.state = {
-      isEditing: false,
       message: null,
       title: this.props.project.title,
       description: this.props.project.description,
@@ -97,29 +97,23 @@ class ProjectEditComponent extends Component {
   }
 
   updateProject(e) {
-    const id = this.props.project.id;
-    const title = this.state.title;
-    const description = this.state.description;
-    const slackChannel = this.state.slackChannel;
+    const { project: { id } } = this.props;
+    const { title, description, slackChannel } = this.state;
 
     this.setState({ title, description, slackChannel });
 
     const onFailure = (transaction) => {
       const error = transaction.getError();
       let message = this.props.intl.formatMessage(messages.error);
-      try {
-        const json = JSON.parse(error.source);
-        if (json.error) {
-          message = json.error;
-        }
-      } catch (ex) {
-        // Do nothing.
+      const json = safelyParseJSON(error.source);
+      if (json && json.error) {
+        message = json.error;
       }
       this.setState({ message });
     };
 
     const onSuccess = () => {
-      this.setState({ message: null, isEditing: false });
+      this.setState({ message: null });
     };
 
     Relay.Store.commitUpdate(

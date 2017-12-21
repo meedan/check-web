@@ -4,7 +4,7 @@ import { injectIntl } from 'react-intl';
 import { mapGlobalMessage } from './MappedMessage';
 
 const PageTitle = (props) => {
-  let title = props.title;
+  let { title } = props;
 
   if (!title) {
     const appName = mapGlobalMessage(props.intl, 'appNameHuman');

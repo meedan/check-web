@@ -63,13 +63,13 @@ class ProjectComponent extends Component {
   }
 
   render() {
-    const project = this.props.project;
+    const { project } = this.props;
 
     return (
       <PageTitle prefix={project.title} skipTeam={false} team={this.currentContext().team}>
         <ProjectWrapper className="project">
-          {project.description && project.description.trim().length
-            ? <div style={{ margin: `0 ${units(1)} ${units(1)}` }} className="project__description">
+          {project.description && project.description.trim().length ?
+            <div style={{ margin: `0 ${units(1)} ${units(1)}` }} className="project__description">
               <p>{project.description}</p>
             </div>
             : null}

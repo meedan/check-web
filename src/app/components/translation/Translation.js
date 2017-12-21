@@ -13,6 +13,7 @@ import TranslationItem from './TranslationItem';
 import CheckContext from '../../CheckContext';
 import CreateDynamicMutation from '../../relay/mutations/CreateDynamicMutation';
 import AboutRoute from '../../relay/AboutRoute';
+import { safelyParseJSON } from '../../helpers';
 import { units } from '../../styles/js/shared';
 
 const messages = defineMessages({
@@ -74,13 +75,9 @@ class TranslationComponent extends Component {
   fail(transaction) {
     const error = transaction.getError();
     let message = this.props.intl.formatMessage(messages.createTagFailed);
-    try {
-      const json = JSON.parse(error.source);
-      if (json.error) {
-        message = json.error;
-      }
-    } catch (e) {
-      // Do nothing.
+    const json = safelyParseJSON(error.source);
+    if (json && json.error) {
+      message = json.error;
     }
     this.setState({ message, submitDisabled: false });
   }

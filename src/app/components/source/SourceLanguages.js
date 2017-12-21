@@ -47,8 +47,8 @@ class LanguageComponent extends React.Component {
 
     return (
       <StyledTagsWrapper className="source-tags__tags">
-        {usedLanguages.map(language =>
-          (<Chip
+        {usedLanguages.map(language => (
+          <Chip
             key={language.id}
             className="source-tags__tag"
             onRequestDelete={this.props.onDelete ? () => {
@@ -56,7 +56,7 @@ class LanguageComponent extends React.Component {
             } : null}
           >
             {supportedLanguages[language.content.value]}
-           </Chip>))}
+          </Chip>))}
       </StyledTagsWrapper>
     );
   }
@@ -74,25 +74,26 @@ class LanguageComponent extends React.Component {
       }, 500);
     };
 
-    return (<div>
-      <AutoComplete
-        id="sourceLanguageInput"
-        errorText={this.props.errorText}
-        filter={AutoComplete.caseInsensitiveFilter}
-        floatingLabelText={this.props.intl.formatMessage(messages.languages)}
-        dataSource={this.getAvailableLanguages()}
-        dataSourceConfig={{ text: 'label', value: 'value' }}
-        openOnFocus
-        onNewRequest={selectCallback}
-        ref={(a) => { this.autoComplete = a; }}
-        fullWidth
-        textFieldStyle={{ width: '85%' }}
-      />
-      <div className="source__helper">
-        {this.props.intl.formatMessage(messages.addLanguageHelper)}
-      </div>
-      {this.renderLanguages()}
-    </div>);
+    return (
+      <div>
+        <AutoComplete
+          id="sourceLanguageInput"
+          errorText={this.props.errorText}
+          filter={AutoComplete.caseInsensitiveFilter}
+          floatingLabelText={this.props.intl.formatMessage(messages.languages)}
+          dataSource={this.getAvailableLanguages()}
+          dataSourceConfig={{ text: 'label', value: 'value' }}
+          openOnFocus
+          onNewRequest={selectCallback}
+          ref={(a) => { this.autoComplete = a; }}
+          fullWidth
+          textFieldStyle={{ width: '85%' }}
+        />
+        <div className="source__helper">
+          {this.props.intl.formatMessage(messages.addLanguageHelper)}
+        </div>
+        {this.renderLanguages()}
+      </div>);
   }
 
   render() {

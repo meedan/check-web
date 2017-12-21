@@ -9,6 +9,7 @@ import DeleteTagMutation from '../relay/mutations/DeleteTagMutation';
 import CheckContext from '../CheckContext';
 import globalStrings from '../globalStrings';
 import { caption, StyledTagsWrapper } from '../styles/js/shared';
+import { safelyParseJSON } from '../helpers';
 
 const messages = defineMessages({
   addTagHelper: {
@@ -26,30 +27,24 @@ class Tags extends React.Component {
     super(props);
 
     this.state = {
+      // False positive by eslint: searchText is used by this.autoComplete
+      // eslint-disable-next-line react/no-unused-state
       searchText: '',
     };
   }
 
   handleAddition(tags) {
-    const props = this.props;
-
-    if (!props.annotated || !props.annotatedType) { return; }
+    if (!this.props.annotated || !this.props.annotatedType) return;
 
     const tagsList = [...new Set(tags.split(','))];
 
     const onFailure = (transaction) => {
       const error = transaction.getError();
       let message = this.props.intl.formatMessage(messages.error);
-
-      try {
-        const json = JSON.parse(error.source);
-        if (json.error) {
-          message = json.error;
-        }
-      } catch (ex) {
-        // Do nothing.
+      const json = safelyParseJSON(error.source);
+      if (json && json.error) {
+        message = json.error;
       }
-
       this.setState({ message });
     };
 
@@ -62,14 +57,14 @@ class Tags extends React.Component {
     tagsList.forEach((tag) => {
       Relay.Store.commitUpdate(
         new CreateTagMutation({
-          annotated: props.annotated,
+          annotated: this.props.annotated,
           annotator: context.currentUser,
-          parent_type: props.annotatedType.replace(/([a-z])([A-Z])/, '$1_$2').toLowerCase(),
+          parent_type: this.props.annotatedType.replace(/([a-z])([A-Z])/, '$1_$2').toLowerCase(),
           context,
           annotation: {
             tag: tag.trim(),
-            annotated_type: props.annotatedType,
-            annotated_id: props.annotated.dbid,
+            annotated_type: this.props.annotatedType,
+            annotated_id: this.props.annotated.dbid,
           },
         }),
         { onSuccess, onFailure },
@@ -78,20 +73,16 @@ class Tags extends React.Component {
   }
 
   handleDelete(id) {
-    const props = this.props;
-
-    if (!props.annotated || !props.annotatedType) { return; }
+    if (!this.props.annotated || !this.props.annotatedType) return;
 
     Relay.Store.commitUpdate(new DeleteTagMutation({
-      annotated: props.annotated,
-      parent_type: props.annotatedType.replace(/([a-z])([A-Z])/, '$1_$2').toLowerCase(),
+      annotated: this.props.annotated,
+      parent_type: this.props.annotatedType.replace(/([a-z])([A-Z])/, '$1_$2').toLowerCase(),
       id,
     }));
   }
 
   renderTags() {
-    const tags = this.props.tags;
-
     const deleteCallback = (id) => {
       if (this.props.onDelete) this.props.onDelete(id);
       if (this.handleDelete) this.handleDelete(id);
@@ -99,8 +90,8 @@ class Tags extends React.Component {
 
     return (
       <StyledTagsWrapper className="source-tags__tags">
-        {tags.map(tag =>
-          (<Chip
+        {this.props.tags.map(tag => (
+          <Chip
             key={tag.node.id}
             className="source-tags__tag"
             onRequestDelete={this.props.isEditing ?
@@ -108,7 +99,8 @@ class Tags extends React.Component {
             }
           >
             {tag.node.tag.replace(/^#/, '')}
-           </Chip>))}
+          </Chip>
+        ))}
       </StyledTagsWrapper>
     );
   }
@@ -136,25 +128,27 @@ class Tags extends React.Component {
       }
     };
 
-    return (<div>
-      <AutoComplete
-        id="sourceTagInput"
-        name="sourceTagInput"
-        errorText={this.state.message || this.props.errorText}
-        filter={AutoComplete.caseInsensitiveFilter}
-        floatingLabelText={this.props.intl.formatMessage(globalStrings.tags)}
-        dataSource={this.props.options}
-        openOnFocus
-        onNewRequest={selectCallback}
-        ref={(a) => { this.autoComplete = a; }}
-        fullWidth
-        onUpdateInput={(text) => { updateCallback(text); }}
-      />
-      <div className="source__helper" style={{ font: caption }}>
-        {this.props.intl.formatMessage(messages.addTagHelper)}
+    return (
+      <div>
+        <AutoComplete
+          id="sourceTagInput"
+          name="sourceTagInput"
+          errorText={this.state.message || this.props.errorText}
+          filter={AutoComplete.caseInsensitiveFilter}
+          floatingLabelText={this.props.intl.formatMessage(globalStrings.tags)}
+          dataSource={this.props.options}
+          openOnFocus
+          onNewRequest={selectCallback}
+          ref={(a) => { this.autoComplete = a; }}
+          fullWidth
+          onUpdateInput={(text) => { updateCallback(text); }}
+        />
+        <div className="source__helper" style={{ font: caption }}>
+          {this.props.intl.formatMessage(messages.addTagHelper)}
+        </div>
+        {this.renderTags()}
       </div>
-      {this.renderTags()}
-    </div>);
+    );
   }
 
   render() {

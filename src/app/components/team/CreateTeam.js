@@ -17,6 +17,7 @@ import PageTitle from '../PageTitle';
 import CreateTeamMutation from '../../relay/mutations/CreateTeamMutation';
 import Message from '../Message';
 import CheckContext from '../../CheckContext';
+import { safelParseJSON } from '../../helpers';
 import {
   ContentColumn,
   caption,
@@ -81,7 +82,9 @@ const messages = defineMessages({
 class CreateTeam extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
+      teamName: '',
       slugName: '',
     };
   }
@@ -94,25 +97,21 @@ class CreateTeam extends Component {
     return new CheckContext(this).getContextStore();
   }
 
-  handleDisplayNameBlur() {
+  handleDisplayNameBlur(e) {
     function slugify(text) {
       const regex = XRegExp('[^\\p{L}\\p{N}]+', 'g');
       return XRegExp.replace(text.toString().toLowerCase().trim(), regex, '-');
     }
 
-    const slugSuggestion = slugify(this.teamDisplayName.getValue());
+    const slugName = slugify(e.target.value);
 
-    if (!this.state.slugName && slugSuggestion.length) {
-      this.setState({ slugName: slugSuggestion });
+    if (!this.state.slugName && slugName.length) {
+      this.setState({ teamName: e.target.value, slugName });
     }
   }
 
   handleSlugChange(e) {
-    const slug = e.target.value;
-
-    this.setState({
-      slugName: slug,
-    });
+    this.setState({ slugName: e.target.value });
   }
 
   handleSubmit(e) {
@@ -123,13 +122,9 @@ class CreateTeam extends Component {
     const onFailure = (transaction) => {
       const error = transaction.getError();
       let message = this.props.intl.formatMessage(messages.createTeamError);
-      try {
-        const json = JSON.parse(error.source);
-        if (json.error) {
-          message = json.error;
-        }
-      } catch (ex) {
-        // Do nothing.
+      const json = safelParseJSON(error.source);
+      if (json && json.error) {
+        message = json.error;
       }
       this.setState({ message });
     };
@@ -148,7 +143,7 @@ class CreateTeam extends Component {
 
     Relay.Store.commitUpdate(
       new CreateTeamMutation({
-        name: this.teamDisplayName.getValue(),
+        name: this.state.teamName,
         slug: this.state.slugName,
         description: '',
         user: context.currentUser,
@@ -188,7 +183,6 @@ class CreateTeam extends Component {
                   <div className="create-team__team-display-name">
                     <TextField
                       type="text"
-                      name="teamDisplayName"
                       id="team-name-container"
                       className="create-team__team-display-name-input"
                       onBlur={this.handleDisplayNameBlur.bind(this)}
@@ -219,7 +213,6 @@ class CreateTeam extends Component {
                     <TextField
                       value={this.state.slugName}
                       type="text"
-                      name="teamSlug"
                       id="team-slug-container"
                       className="create-team__team-slug-input"
                       onChange={this.handleSlugChange.bind(this)}

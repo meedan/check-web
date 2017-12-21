@@ -36,8 +36,7 @@ class TeamMembersComponent extends Component {
 
   render() {
     const { isEditing } = this.state;
-    const { team } = this.props;
-    const teamUsers = team.team_users;
+    const { team, team: { team_users: teamUsers } } = this.props;
     const teamUsersRequestingMembership = [];
     const teamUsersMembers = [];
 

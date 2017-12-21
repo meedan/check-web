@@ -6,29 +6,23 @@ import { Map, Marker, TileLayer } from 'react-leaflet';
 
 class GeolocationRespondTask extends Component {
   static canSubmit() {
-    // TODO Use ref instead of reading the DOM
-    //      at which point this method will no longer be static.
-    const value = document.getElementById('task__response-geolocation-name').value;
-    if (typeof value !== 'undefined' && value !== null) {
-      return !!value.trim();
-    }
-    return false;
+    // TODO Use React ref instead of reading the DOM
+    const { value } = document.getElementById('task__response-geolocation-name');
+    return value && value.length;
   }
 
   constructor(props) {
     super(props);
 
+    const { response } = this.props;
     let name = '';
     let coordinatesString = '';
     let lat = 0;
     let lng = 0;
-
-    const response = this.props.response;
-
     if (response) {
       const geoJSON = JSON.parse(this.props.response);
-      name = geoJSON.properties.name;
-      const coordinates = geoJSON.geometry.coordinates;
+      ({ name } = geoJSON.properties);
+      const { coordinates } = geoJSON.geometry;
       if (coordinates[0] || coordinates[1]) {
         lat = parseFloat(coordinates[0]).toFixed(7);
         lng = parseFloat(coordinates[1]).toFixed(7);
@@ -64,7 +58,7 @@ class GeolocationRespondTask extends Component {
   getCoordinates() {
     let coordinates = [0, 0];
     try {
-      const coordinatesString = this.state.coordinatesString;
+      const { coordinatesString } = this.state;
       if (coordinatesString && coordinatesString !== '') {
         const pair = coordinatesString.split(/, ?/);
         coordinates = [parseFloat(pair[0]), parseFloat(pair[1])];

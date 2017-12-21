@@ -12,7 +12,7 @@ import TextField from 'material-ui/TextField';
 import styled from 'styled-components';
 import ParsedText from '../ParsedText';
 import UpdateDynamicMutation from '../../relay/mutations/UpdateDynamicMutation';
-import { rtlClass } from '../../helpers';
+import { rtlClass, safelyParseJSON } from '../../helpers';
 import { units, Row, black54 } from '../../styles/js/shared';
 
 const styles = {
@@ -86,13 +86,9 @@ class TranslationItem extends Component {
     const onFailure = (transaction) => {
       const error = transaction.getError();
       let message = error.source;
-      try {
-        const json = JSON.parse(error.source);
-        if (json.error) {
-          message = json.error;
-        }
-      } catch (ex) {
-        // Do nothing.
+      const json = safelyParseJSON(error.source);
+      if (json && json.error) {
+        message = json.error;
       }
       this.setState({ message });
     };

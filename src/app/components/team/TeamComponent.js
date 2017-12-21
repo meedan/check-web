@@ -25,6 +25,7 @@ import CheckContext from '../../CheckContext';
 import ParsedText from '../ParsedText';
 import UploadImage from '../UploadImage';
 import globalStrings from '../../globalStrings';
+import { safelyParseJSON } from '../../helpers';
 import {
   ContentColumn,
   highlightBlue,
@@ -177,13 +178,9 @@ class TeamComponent extends Component {
     const onFailure = (transaction) => {
       const error = transaction.getError();
       let message = this.props.intl.formatMessage(messages.editError);
-      try {
-        const json = JSON.parse(error.source);
-        if (json.error) {
-          message = json.error;
-        }
-      } catch (e) {
-        return '';
+      const json = safelyParseJSON(error.source);
+      if (json && json.error) {
+        message = json.error;
       }
       return this.setState({ message, avatar: null, submitDisabled: false });
     };

@@ -31,7 +31,7 @@ import DeleteVersionMutation from '../../relay/mutations/DeleteVersionMutation';
 import UpdateProjectMediaMutation from '../../relay/mutations/UpdateProjectMediaMutation';
 import Can, { can } from '../Can';
 import TimeBefore from '../TimeBefore';
-import { getStatus, getStatusStyle } from '../../helpers';
+import { safelyParseJSON, getStatus, getStatusStyle } from '../../helpers';
 import ParsedText from '../ParsedText';
 import DatetimeTaskResponse from '../task/DatetimeTaskResponse';
 import UserTooltip from '../user/UserTooltip';
@@ -264,14 +264,11 @@ class Annotation extends Component {
     const onFailure = (transaction) => {
       const error = transaction.getError();
       let message = this.props.intl.formatMessage(messages.error);
-      try {
-        const json = JSON.parse(error.source);
-        if (json.error) {
-          message = json.error;
-        }
-      } catch (e) {
-        // Do nothing.
+      const json = safelyParseJSON(error.source);
+      if (json && json.error) {
+        message = json.error;
       }
+      console.error(message);
     };
 
     const onSuccess = (response) => {};

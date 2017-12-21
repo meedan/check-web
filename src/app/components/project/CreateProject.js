@@ -6,6 +6,7 @@ import TextField from 'material-ui/TextField';
 import CreateProjectMutation from '../../relay/mutations/CreateProjectMutation';
 import Message from '../Message';
 import CheckContext from '../../CheckContext';
+import { safelyParseJSON } from '../../helpers';
 
 const messages = defineMessages({
   addProject: {
@@ -36,26 +37,22 @@ class CreateProject extends Component {
 
   handleSubmit(e) {
     const title = this.projectInput.getValue();
-    const team = this.props.team;
+    const { team } = this.props;
     const context = new CheckContext(this);
-    const history = context.getContextStore().history;
+    const { history } = context.getContextStore();
 
     const onFailure = (transaction) => {
       const error = transaction.getError();
       let message = this.props.intl.formatMessage(messages.error);
-      try {
-        const json = JSON.parse(error.source);
-        if (json.error) {
-          message = json.error;
-        }
-      } catch (ex) {
-        // Do nothing.
+      const json = safelyParseJSON(error.source);
+      if (json && json.error) {
+        message = json.error;
       }
       this.setState({ message, submitDisabled: false });
     };
 
     const onSuccess = (response) => {
-      const project = response.createProject.project;
+      const { createProject: { project } } = response.createProject;
       const path = `/${team.slug}/project/${project.dbid}`;
       history.push(path);
     };
@@ -97,8 +94,6 @@ CreateProject.propTypes = {
   // https://github.com/yannickcr/eslint-plugin-react/issues/1389
   // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
-  style: PropTypes.object,
-  className: PropTypes.string,
 };
 
 CreateProject.contextTypes = {

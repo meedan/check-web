@@ -5,7 +5,7 @@ import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import { can } from '../Can';
 import CheckContext from '../../CheckContext';
-import { getStatus, getStatusStyle } from '../../helpers';
+import { getStatus, getStatusStyle, safelyParseJSON } from '../../helpers';
 import { mediaStatuses, mediaLastStatus } from '../../customHelpers';
 import { black16, units } from '../../styles/js/shared';
 
@@ -50,13 +50,9 @@ class MediaStatusCommon extends Component {
   fail(transaction) {
     const error = transaction.getError();
     let message = this.props.intl.formatMessage(messages.error);
-    try {
-      const json = JSON.parse(error.source);
-      if (json.error) {
-        message = json.error;
-      }
-    } catch (e) {
-      // Do nothing.
+    const json = safelyParseJSON(error.source);
+    if (json && json.error) {
+      message = json.error;
     }
     this.setState({ message });
   }

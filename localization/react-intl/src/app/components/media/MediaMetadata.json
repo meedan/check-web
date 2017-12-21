@@ -16,10 +16,6 @@
     "defaultMessage": "Sorry, we could not edit this report"
   },
   {
-    "id": "mediaDetail.moveFailed",
-    "defaultMessage": "Sorry, we could not move this report"
-  },
-  {
     "id": "mediaDetail.trash",
     "defaultMessage": "Trash"
   },

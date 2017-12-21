@@ -39,7 +39,7 @@ import translations from '../../../localization/translations/translations';
 // Localization
 let locale = config.locale || navigator.languages || navigator.language || navigator.userLanguage || 'en';
 if (locale.constructor === Array) {
-  locale = locale[0];
+  ([locale] = locale);
 }
 locale = locale.replace(/[-_].*$/, '');
 
@@ -105,7 +105,10 @@ class Root extends Component {
     const data = { history, locale };
 
     if (config.pusherKey) {
+      // Pusher is imported at runtime from a <script file> tag.
+      // eslint-disable-next-line no-undef
       Pusher.logToConsole = !!config.pusherDebug;
+      // eslint-disable-next-line no-undef
       const pusher = new Pusher(config.pusherKey, { encrypted: true });
       data.pusher = pusher;
     }

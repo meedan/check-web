@@ -1,6 +1,8 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
+// Turning off the following eslint rule because the input is an array of strings.
+/* eslint react/no-array-index-key: 0 */
 const Sentence = (props) => {
   const lastIndex = props.list.length - 1;
   if (lastIndex === -1) {

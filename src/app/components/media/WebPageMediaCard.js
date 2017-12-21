@@ -44,8 +44,8 @@ class WebPageMediaCard extends Component {
       return (null);
     })();
 
-    const authorPicture = (authorPictureUrl)
-      ? (<Offset isRtl={isRtl}>
+    const authorPicture = (authorPictureUrl) ? (
+      <Offset isRtl={isRtl}>
         <StyledAuthorImage alt="" src={authorPictureUrl} />
       </Offset>)
       : null;
@@ -53,8 +53,8 @@ class WebPageMediaCard extends Component {
     // Todo: move webPageName logic to Pender
     const hasUniqueAuthorUsername =
       (authorName && authorUsername && (authorName !== authorUsername));
-    const webPageName = hasUniqueAuthorUsername
-      ? (<a href={data.author_url} target="_blank" rel="noopener noreferrer">
+    const webPageName = hasUniqueAuthorUsername ? (
+      <a href={data.author_url} target="_blank" rel="noopener noreferrer">
         {authorUsername}
       </a>)
       : null;

@@ -46,21 +46,22 @@ const SourceCard = (props) => {
 
           <div className="source-card__accounts">
             <ul>
-              { source.accounts.edges.map(account => (<li key={account.node.id} className="source-card__account-link">
-                { MediaUtil.socialIcon(`${account.node.provider}.com`) /* TODO: refactor */ }
-                <a href={account.node.url} target="_blank" rel="noopener noreferrer">
-                  { account.node.embed.username || account.node.embed.url }
-                </a>
-                                                      </li>)) }
-
+              {source.accounts.edges.map(account => (
+                <li key={account.node.id} className="source-card__account-link">
+                  { MediaUtil.socialIcon(`${account.node.provider}.com`) /* TODO: refactor */ }
+                  <a href={account.node.url} target="_blank" rel="noopener noreferrer">
+                    { account.node.embed.username || account.node.embed.url }
+                  </a>
+                </li>))}
             </ul>
           </div>
         </StyledSourceCardBody>
         <div className="media-detail__check-metadata source-card__footer">
           {byUser ? <span className="media-detail__check-added-by"><FormattedMessage id="mediaDetail.added" defaultMessage={'Added {byUser}'} values={{ byUser }} /> </span> : null}
-          {createdAt ? <span className="media-detail__check-added-at">
-            <Link to={sourceUrl} className="media-detail__check-timestamp"><TimeBefore date={createdAt} /></Link>
-          </span> : null}
+          {createdAt ?
+            <span className="media-detail__check-added-at">
+              <Link to={sourceUrl} className="media-detail__check-timestamp"><TimeBefore date={createdAt} /></Link>
+            </span> : null}
         </div>
       </CardText>
     </Card>

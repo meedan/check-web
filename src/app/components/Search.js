@@ -8,7 +8,7 @@ import sortby from 'lodash.sortby';
 import styled from 'styled-components';
 import rtlDetect from 'rtl-detect';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
-import { bemClass } from '../helpers';
+import { notify, bemClass, safelyParseJSON } from '../helpers';
 import { teamStatuses } from '../customHelpers';
 import PageTitle from './PageTitle';
 import SearchRoute from '../relay/SearchRoute';
@@ -37,6 +37,7 @@ import {
   ellipsisStyles,
 } from '../styles/js/shared';
 
+// TODO This should be a config.
 const pageSize = 20;
 
 const StyledSearchInput = styled.input`
@@ -152,11 +153,7 @@ const StyledSearchResultsWrapper = styled(ContentColumn)`
 `;
 
 export function searchQueryFromUrlQuery(urlQuery) {
-  try {
-    return JSON.parse(decodeURIComponent(urlQuery));
-  } catch (e) {
-    return {};
-  }
+  return safelyParseJSON(decodeURIComponent(urlQuery), {});
 }
 
 export function searchQueryFromUrl() {
@@ -369,12 +366,11 @@ class SearchQueryComponent extends Component {
   }
 
   // Create title out of query parameters
-  // To understand this code:
-  // - http://stackoverflow.com/a/10865042/209184 for `[].concat.apply`
-  // - http://stackoverflow.com/a/19888749/209184 for `filter(Boolean)`
   title(statuses, projects) {
-    const query = this.state.query;
+    const { query } = this.state;
     return (
+      // Merge/flatten the array constructed below
+      // http://stackoverflow.com/a/10865042/209184
       [].concat // eslint-disable-line prefer-spread
         .apply(
           [],
@@ -393,6 +389,8 @@ class SearchQueryComponent extends Component {
               : [],
             query.keyword,
             query.tags,
+          // Remove empty entries
+          // http://stackoverflow.com/a/19888749/209184
           ].filter(Boolean),
         )
         .join(' ')
@@ -409,7 +407,7 @@ class SearchQueryComponent extends Component {
   }
 
   render() {
-    const statuses = JSON.parse(teamStatuses(this.props.team)).statuses;
+    const { statuses } = safelyParseJSON(teamStatuses(this.props.team), []);
     const projects = this.props.team.projects.edges.sortp((a, b) =>
       a.node.title.localeCompare(b.node.title));
     const suggestedTags = this.props.team.get_suggested_tags
@@ -423,10 +421,8 @@ class SearchQueryComponent extends Component {
       <PageTitle prefix={title} skipTeam={false} team={this.props.team}>
 
         <ContentColumn>
-
-          {/* Keyword */}
-          {this.showField('keyword')
-            ? <form
+          {this.showField('keyword') ?
+            <form
               id="search-form"
               className="search__form"
               onSubmit={this.handleSubmit.bind(this)}
@@ -436,7 +432,7 @@ class SearchQueryComponent extends Component {
                 name="search-input"
                 id="search-input"
                 defaultValue={this.state.query.keyword || ''}
-                ref={input => (this.searchQueryInput = input)}
+                ref={(input) => { this.searchQueryInput = input; }}
                 isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}
                 autofocus
               />
@@ -444,12 +440,11 @@ class SearchQueryComponent extends Component {
             : null}
 
           <StyledSearchFiltersSection>
-            {/* Status */}
-            {this.showField('status')
-              ? <StyledFilterRow isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
+            {this.showField('status') ?
+              <StyledFilterRow isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
                 <h4><FormattedMessage id="search.statusHeading" defaultMessage="Status" /></h4>
-                {statuses.map(status =>
-                  (<StyledFilterButton
+                {statuses.map(status => (
+                  <StyledFilterButton
                     active={this.statusIsSelected(status.id)}
                     key={status.id}
                     title={status.description}
@@ -461,18 +456,17 @@ class SearchQueryComponent extends Component {
                     )}
                   >
                     {status.label}
-                   </StyledFilterButton>))}
+                  </StyledFilterButton>))}
               </StyledFilterRow>
               : null}
 
-            {/* Project */}
-            {this.showField('project')
-              ? <StyledFilterRow>
+            {this.showField('project') ?
+              <StyledFilterRow>
                 <h4>
                   <FormattedMessage id="search.projectHeading" defaultMessage="Project" />
                 </h4>
-                {projects.map(project =>
-                  (<StyledFilterButton
+                {projects.map(project => (
+                  <StyledFilterButton
                     active={this.projectIsSelected(project.node.dbid)}
                     key={project.node.dbid}
                     title={project.node.description}
@@ -484,18 +478,17 @@ class SearchQueryComponent extends Component {
                     )}
                   >
                     {project.node.title}
-                   </StyledFilterButton>))}
+                  </StyledFilterButton>))}
               </StyledFilterRow>
               : null}
 
-            {/* Tags */}
-            {this.showField('tags') && suggestedTags.length
-              ? <StyledFilterRow>
+            {this.showField('tags') && suggestedTags.length ?
+              <StyledFilterRow>
                 <h4>
                   <FormattedMessage id="status.categoriesHeading" defaultMessage="Categories" />
                 </h4>
-                {suggestedTags.map(tag =>
-                  (<StyledFilterButton
+                {suggestedTags.map(tag => (
+                  <StyledFilterButton
                     active={this.tagIsSelected(tag)}
                     key={tag}
                     title={null}
@@ -507,13 +500,12 @@ class SearchQueryComponent extends Component {
                     )}
                   >
                     {tag}
-                   </StyledFilterButton>))}
+                  </StyledFilterButton>))}
               </StyledFilterRow>
               : null}
 
-            {/* Sort */}
-            {this.showField('sort')
-              ? <StyledFilterRow className="search-query__sort-actions media-tags__suggestions-list">
+            {this.showField('sort') ?
+              <StyledFilterRow className="search-query__sort-actions media-tags__suggestions-list">
                 <h4><FormattedMessage id="search.sort" defaultMessage="Sort" /></h4>
 
                 <StyledFilterButton
@@ -566,9 +558,8 @@ class SearchQueryComponent extends Component {
               </StyledFilterRow>
               : null}
 
-            {/* Show */}
-            {this.showField('show')
-              ? <StyledFilterRow className="search-query__sort-actions media-tags__suggestions-list">
+            {this.showField('show') ?
+              <StyledFilterRow className="search-query__sort-actions media-tags__suggestions-list">
                 <h4><FormattedMessage id="search.show" defaultMessage="Show" /></h4>
                 <StyledFilterButton
                   active={this.showIsSelected('medias')}
@@ -677,25 +668,19 @@ class SearchResultsComponent extends Component {
   }
 
   subscribe() {
-    const pusher = this.currentContext().pusher;
+    const { pusher } = this.currentContext();
     if (pusher && this.props.search.pusher_channel && !this.state.pusherSubscribed) {
-      const channel = this.props.search.pusher_channel;
+      const { search: { pusher_channel: channel } } = this.props;
 
       pusher.unsubscribe(channel);
 
       pusher.subscribe(channel).bind('media_updated', (data) => {
-        let content = null;
-        let message = {};
-        const currentUser = this.currentContext().currentUser;
+        const message = safelyParseJSON(data.message, {});
+        const { currentUser } = this.currentContext();
         const currentUserId = currentUser ? currentUser.dbid : 0;
         const avatar = config.restBaseUrl.replace(/\/api.*/, '/images/bridge.png');
 
-        try {
-          message = JSON.parse(data.message) || {};
-        } catch (e) {
-          message = {};
-        }
-
+        let content = null;
         try {
           content = message.quote || message.url || message.file.url;
         } catch (e) {
@@ -754,7 +739,7 @@ class SearchResultsComponent extends Component {
   }
 
   unsubscribe() {
-    const pusher = this.currentContext().pusher;
+    const { pusher } = this.currentContext();
     if (pusher && this.props.search.pusher_channel) {
       pusher.unsubscribe(this.props.search.pusher_channel);
     }
@@ -779,12 +764,12 @@ class SearchResultsComponent extends Component {
         <h3 className="search__results-heading">{title}</h3>
         <InfiniteScroll hasMore loadMore={this.loadMore.bind(this)} threshold={500}>
           <div className="search__results-list results medias-list">
-            {searchResults.map(item =>
-              (<li key={item.node.id} className="medias__item">
+            {searchResults.map(item => (
+              <li key={item.node.id} className="medias__item">
                 {item.node.media
                   ? <MediaDetail media={item.node} condensed parentComponent={this} />
                   : <SourceCard source={item.node} />}
-               </li>))}
+              </li>))}
           </div>
         </InfiniteScroll>
       </StyledSearchResultsWrapper>
@@ -867,20 +852,19 @@ class Search extends Component {
           Component={SearchQueryContainer}
           route={queryRoute}
           renderFetched={data => <SearchQueryContainer {...this.props} {...data} />}
-          renderLoading={() =>
-            (<ContentColumn>
-              {!fields || fields.indexOf('keyword') > -1
-                ? <div className="search__form search__form--loading">
+          renderLoading={() => (
+            <ContentColumn>
+              {!fields || fields.indexOf('keyword') > -1 ?
+                <div className="search__form search__form--loading">
                   <StyledSearchInput
                     disabled
                     placeholder={formatMessage(messages.loading)}
                     name="search-input"
                     id="search-input"
                   />
-                  </div>
+                </div>
                 : null}
-
-             </ContentColumn>)
+            </ContentColumn>)
           }
         />
         <Relay.RootContainer

@@ -38,7 +38,7 @@ import Can from '../Can';
 import CheckContext from '../../CheckContext';
 import ParsedText from '../ParsedText';
 import UploadImage from '../UploadImage';
-import { truncateLength } from '../../helpers';
+import { truncateLength, safelyParseJSON } from '../../helpers';
 import globalStrings from '../../globalStrings';
 import CreateDynamicMutation from '../../relay/mutations/CreateDynamicMutation';
 import UpdateDynamicMutation from '../../relay/mutations/UpdateDynamicMutation';
@@ -176,6 +176,9 @@ class SourceComponent extends Component {
       submitDisabled: false,
       showTab: 'media',
       shouldUpdate: false,
+      // TODO eslint false positive
+      // eslint-disable-next-line react/no-unused-state
+      image: null,
     };
   }
 
@@ -194,6 +197,8 @@ class SourceComponent extends Component {
 
   onImage(file) {
     document.forms['edit-source-form'].image = file;
+    // TODO eslint false positive
+    // eslint-disable-next-line react/no-unused-state
     this.setState({ message: null, image: file });
   }
 
@@ -201,11 +206,14 @@ class SourceComponent extends Component {
     if (document.forms['edit-source-form']) {
       document.forms['edit-source-form'].image = null;
     }
-
+    // TODO eslint false positive
+    // eslint-disable-next-line react/no-unused-state
     this.setState({ message: null, image: null });
   }
 
   onImageError(file, message) {
+    // TODO eslint false positive
+    // eslint-disable-next-line react/no-unused-state
     this.setState({ message, image: null });
   }
 
@@ -232,9 +240,12 @@ class SourceComponent extends Component {
       id="sourceComponent.conflictError"
       defaultMessage={'This item was edited by another user while you were making your edits. Please save your changes and {reloadLink}.'}
       values={{
-        reloadLink: (<span onClick={this.reloadInformation.bind(this)} style={{ cursor: 'pointer', textDecoration: 'underline' }}>
-          <FormattedMessage id="sourceComponent.clickToReload" defaultMessage="click here to reload" />
-        </span>),
+        reloadLink: (
+          // TODO Support keyboard events
+          // eslint-disable-next-line jsx-a11y/click-events-have-key-events
+          <span onClick={this.reloadInformation.bind(this)} style={{ cursor: 'pointer', textDecoration: 'underline' }}>
+            <FormattedMessage id="sourceComponent.clickToReload" defaultMessage="click here to reload" />
+          </span>),
       }}
     />);
   }
@@ -272,8 +283,8 @@ class SourceComponent extends Component {
     if (!this.isProjectSource()) {
       return;
     }
-    const pusher = this.getContext().pusher;
-    const pusherChannel = this.props.source.source.pusher_channel;
+    const { pusher } = this.getContext();
+    const { source: { source: { pusher_channel: pusherChannel } } } = this.props;
     if (pusher && pusherChannel) {
       pusher.subscribe(pusherChannel).bind('source_updated', (data) => {
         const source = this.getSource() || {};
@@ -284,7 +295,7 @@ class SourceComponent extends Component {
           this.state.isEditing &&
           (
             (obj.annotation_type === 'metadata' && obj.lock_version > metadata.lock_version) ||
-           (!obj.annotation_type && obj.lock_version > source.lock_version)
+            (!obj.annotation_type && obj.lock_version > source.lock_version)
           )
         ) {
           this.setState({ message: this.getConflictMessage() });
@@ -303,7 +314,7 @@ class SourceComponent extends Component {
     if (!this.isProjectSource()) {
       return;
     }
-    const pusher = this.getContext().pusher;
+    const { pusher } = this.getContext();
     if (pusher) {
       pusher.unsubscribe(this.props.source.source.pusher_channel);
     }
@@ -480,13 +491,9 @@ class SourceComponent extends Component {
     if (error.status === 409) {
       message = this.getConflictMessage();
     } else {
-      try {
-        const json = JSON.parse(error.source);
-        if (json.error) {
-          message = json.error;
-        }
-      } catch (e) {
-        // Do nothing.
+      const json = safelyParseJSON(error.source);
+      if (json && json.error) {
+        message = json.error;
       }
     }
 
@@ -587,19 +594,15 @@ class SourceComponent extends Component {
 
     const onFailure = (transaction) => {
       const error = transaction.getError();
-      let tagErrorMessage = this.props.intl.formatMessage(messages.createTagError);
+      let message = this.props.intl.formatMessage(messages.createTagError);
 
-      try {
-        const json = JSON.parse(error.source);
-        if (json.error) {
-          tagErrorMessage = json.error;
-        }
-      } catch (e) {
-        // Do nothing.
+      const json = safelyParseJSON(error.source);
+      if (json && json.error) {
+        message = json.error;
       }
 
       this.setState({
-        tagErrorMessage,
+        tagErrorMessage: message,
         hasFailure: true,
         submitDisabled: false,
       });
@@ -639,13 +642,9 @@ class SourceComponent extends Component {
       if (index > -1) {
         const error = transaction.getError();
         let message = this.props.intl.formatMessage(messages.invalidLink);
-        try {
-          const json = JSON.parse(error.source);
-          if (json.error) {
-            message = json.error;
-          }
-        } catch (e) {
-          // Do nothing.
+        const json = safelyParseJSON(error.source);
+        if (json && json.error) {
+          message = json.error;
         }
 
         links[index].error = message;
@@ -768,13 +767,9 @@ class SourceComponent extends Component {
       if (error.status === 409) {
         message = this.getConflictMessage();
       } else {
-        try {
-          const json = JSON.parse(error.source);
-          if (json.error) {
-            message = json.error;
-          }
-        } catch (e) {
-          // Do nothing.
+        const json = safelyParseJSON(error.source);
+        if (json && json.error) {
+          message = json.error;
         }
       }
 
@@ -832,7 +827,8 @@ class SourceComponent extends Component {
     const source = this.getSource();
     const links = this.state.links ? this.state.links.slice(0) : [];
     const deleteLinks = this.state.deleteLinks ? this.state.deleteLinks.slice(0) : [];
-    const showAccounts = source.account_sources.edges.filter(as => deleteLinks.indexOf(as.node.id) < 0);
+    const showAccounts =
+      source.account_sources.edges.filter(as => deleteLinks.indexOf(as.node.id) < 0);
 
     return (
       <div key="renderAccountsEdit">
@@ -901,9 +897,9 @@ class SourceComponent extends Component {
 
     const renderMetadaCustomFields = () => {
       if (Array.isArray(metadata.other)) {
-        return metadata.other.map((cf, index) =>
+        return metadata.other.map(cf =>
           cf.value ? (
-            <StyledMetadata key={index} className="source__metadata-other">
+            <StyledMetadata key={cf.dbid} className="source__metadata-other">
               {`${cf.label}: ${cf.value}`} <br />
             </StyledMetadata>
           ) : null);
@@ -976,7 +972,7 @@ class SourceComponent extends Component {
     const renderMetadaCustomFieldsEdit = () => {
       if (Array.isArray(metadata.other)) {
         return metadata.other.map((cf, index) => (
-          <div key={index} className="source__metadata-other-input">
+          <div key={cf.dbid} className="source__metadata-other-input">
             <Row>
               <TextField
                 defaultValue={cf.value}
@@ -1035,19 +1031,15 @@ class SourceComponent extends Component {
 
       const onFailure = (transaction) => {
         const error = transaction.getError();
-        let languageErrorMessage = this.props.intl.formatMessage(messages.createTagError);
+        let message = this.props.intl.formatMessage(messages.createTagError);
 
-        try {
-          const json = JSON.parse(error.source);
-          if (json.error) {
-            languageErrorMessage = json.error;
-          }
-        } catch (e) {
-          // Do nothing.
+        const json = safelyParseJSON(error.source);
+        if (json && json.error) {
+          message = json.error;
         }
 
         this.setState({
-          languageErrorMessage,
+          languageErrorMessage: message,
           hasFailure: true,
           submitDisabled: false,
         });
@@ -1430,7 +1422,7 @@ class SourceComponent extends Component {
   render() {
     const isProjectSource = this.isProjectSource();
     const source = this.getSource();
-    const isEditing = this.state.isEditing;
+    const { isEditing } = this.state;
     return (
       <PageTitle
         prefix={source.name}
@@ -1521,7 +1513,6 @@ SourceComponent.propTypes = {
   // https://github.com/yannickcr/eslint-plugin-react/issues/1389
   // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
-  source: PropTypes.object,
 };
 
 SourceComponent.contextTypes = {

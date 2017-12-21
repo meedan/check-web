@@ -18,6 +18,7 @@ import CreateTaskMutation from '../../relay/mutations/CreateTaskMutation';
 import Message from '../Message';
 import SingleChoiceTask from './SingleChoiceTask';
 import MultiSelectTask from './MultiSelectTask';
+import { safelyParseJSON } from '../../helpers';
 import { units, StyledTaskDescription, black05 } from '../../styles/js/shared';
 
 const StyledCreateTaskButton = styled(FlatButton)`
@@ -80,13 +81,9 @@ class CreateTask extends Component {
     const onFailure = (transaction) => {
       const error = transaction.getError();
       let message = error.source;
-      try {
-        const json = JSON.parse(error.source);
-        if (json.error) {
-          message = json.error;
-        }
-      } catch (e) {
-        // Do nothing.
+      const json = safelyParseJSON(error.source);
+      if (json && json.error) {
+        message = json.error;
       }
       this.setState({ message });
     };
@@ -121,13 +118,9 @@ class CreateTask extends Component {
     const onFailure = (transaction) => {
       const error = transaction.getError();
       let message = error.source;
-      try {
-        const json = JSON.parse(error.source);
-        if (json.error) {
-          message = json.error;
-        }
-      } catch (e) {
-        // Do nothing.
+      const json = safelyParseJSON(error.source);
+      if (json && json.error) {
+        message = json.error;
       }
       this.setState({ message });
     };

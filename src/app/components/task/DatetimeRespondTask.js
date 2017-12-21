@@ -67,19 +67,16 @@ class DatetimeRespondTask extends Component {
     let minute = '';
     const note = this.props.note || '';
     let timezone = 'GMT';
-
-    let response = this.props.response;
-
+    let { response } = this.props;
     if (response) {
       response = convertNumbers2English(response);
       const values = response.match(/^(\d+-\d+-\d+) (\d+):(\d+) ([+-]?\d+) ([^ ]+)/);
       const hasTime = !/notime/.test(response);
       date = new Date(`${values[1]} 00:00`);
       if (hasTime) {
-        hour = values[2];
-        minute = values[3];
+        ([, hour, minute] = values);
       }
-      timezone = values[5];
+      ([, , , , timezone] = values);
     }
 
     this.state = {
@@ -143,7 +140,7 @@ class DatetimeRespondTask extends Component {
 
     if (
       e.target.value !== '' &&
-      (isNaN(value) || value < validators[part][0] || value > validators[part][1])
+      (Math.isNaN(value) || value < validators[part][0] || value > validators[part][1])
     ) {
       state.timeError = this.props.intl.formatMessage(messages.timeError);
     } else {
@@ -155,8 +152,7 @@ class DatetimeRespondTask extends Component {
 
   handleSubmit() {
     if (!this.state.taskAnswerDisabled && !this.state.timeError) {
-      const date = this.state.date;
-      const note = this.state.note;
+      const { date, note, timezone } = this.state;
       let month = `${date.getMonth() + 1}`;
       let day = `${date.getDate()}`;
       const year = date.getFullYear();
@@ -169,15 +165,14 @@ class DatetimeRespondTask extends Component {
       let hour = 0;
       let minute = 0;
       if (this.state.hour !== '') {
-        hour = this.state.hour;
+        ({ hour } = this.state);
       }
       if (this.state.minute !== '') {
-        minute = this.state.minute;
+        ({ minute } = this.state);
       }
       let offset = '';
-      const timezone = this.state.timezone;
       if (timezones[timezone]) {
-        offset = timezones[timezone].offset;
+        ({ offset } = timezones[timezone]);
         if (offset > 0) {
           offset = `+${offset}`;
         }
@@ -195,15 +190,15 @@ class DatetimeRespondTask extends Component {
   }
 
   handleCancel() {
-    const ori = this.state.original;
+    const { original } = this.state;
     this.setState({
       focus: false,
       taskAnswerDisabled: true,
-      timezone: ori.timezone,
-      date: ori.date,
-      hour: ori.hour,
-      minute: ori.minute,
-      note: ori.note,
+      timezone: original.timezone,
+      date: original.date,
+      hour: original.hour,
+      minute: original.minute,
+      note: original.note,
     });
     if (this.props.onDismiss) {
       this.props.onDismiss();
@@ -237,9 +232,9 @@ class DatetimeRespondTask extends Component {
     let DateTimeFormat;
 
     if (areIntlLocalesSupported(['en', 'pt', 'ar', 'fr'])) {
-      DateTimeFormat = global.Intl.DateTimeFormat;
+      ({ DateTimeFormat } = global.Intl.DateTimeFormat);
     } else {
-      DateTimeFormat = IntlPolyfill.DateTimeFormat;
+      ({ DateTimeFormat } = IntlPolyfill.DateTimeFormat);
       require('intl/locale-data/jsonp/pt'); // eslint-disable-line global-require
       require('intl/locale-data/jsonp/en'); // eslint-disable-line global-require
       require('intl/locale-data/jsonp/ar'); // eslint-disable-line global-require

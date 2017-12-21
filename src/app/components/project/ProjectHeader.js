@@ -17,18 +17,16 @@ const ProjectHeaderComponent = (props) => {
 
   return (
     <div style={{ display: 'flex', alignItems: 'center', overflow: 'hidden' }}>
-
-      {isProjectSubpage
-        ?
-          <IconButton
+      {isProjectSubpage ?
+        <IconButton
           containerElement={<Link to={backUrl} />}
           className="project-header__back-button"
         >
           <FadeIn>
-              <SlideIn>
+            <SlideIn>
               <IconArrowBack color={black54} />
             </SlideIn>
-            </FadeIn>
+          </FadeIn>
         </IconButton>
         : null}
       <HeaderTitle>{currentProject.title}</HeaderTitle>

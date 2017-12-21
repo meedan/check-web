@@ -18,16 +18,16 @@ function bemClassFromMediaStatus(baseClass, mediaStatus) {
   );
 }
 
-function safelyParseJSON(jsonString) {
+function safelyParseJSON(jsonString, invalid = null) {
   try {
     return JSON.parse(jsonString);
   } catch (e) {
-    return null;
+    return invalid;
   }
 }
 
 function getStatus(statusesJson, id) {
-  const { statuses } = safelyParseJSON(statusesJson);
+  const { statuses } = safelyParseJSON(statusesJson, []);
   let status = '';
   statuses.forEach((st) => {
     if (st.id === id) {
@@ -49,7 +49,7 @@ function truncateLength(text, length = 70) {
   return truncate(text, { length, separator: /,? +/, ellipsis: '…' });
 }
 
-// DEPRECATED
+// TODO DEPRECATED
 // Apply styles conditionally with style components
 // Pass in `isRtl` as a prop
 function rtlClass(language_code) {

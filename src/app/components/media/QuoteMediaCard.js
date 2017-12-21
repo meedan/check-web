@@ -47,8 +47,8 @@ const QuoteMediaCard = (props) => {
         </StyledQuoteText>
         <Row>
           <StyledQuoteAttribution>
-            {sourceName && sourceUrl
-              ? <div>
+            {sourceName && sourceUrl ?
+              <div>
                 {'— '}
                 <Link to={sourceUrl}>
                   {sourceName}

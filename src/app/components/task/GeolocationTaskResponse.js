@@ -32,9 +32,7 @@ class GeolocationTaskResponse extends Component {
 
   render() {
     const geoJSON = JSON.parse(this.props.response);
-
-    const name = geoJSON.properties.name;
-    const coordinates = geoJSON.geometry.coordinates;
+    const { properties: { name, coordinates } } = geoJSON.properties;
     let coordinatesString = false;
     let imgPath = false;
     let position = [0, 0];
@@ -47,8 +45,8 @@ class GeolocationTaskResponse extends Component {
     return (
       <FlexRow className="task__geolocation-response">
         <span className="task__response">{name}</span>
-        {coordinatesString
-          ? <span
+        {coordinatesString ?
+          <span
             className="task__note"
             style={{ color: black38, paddingLeft: units(1), paddingRight: units(1) }}
           >
@@ -58,17 +56,18 @@ class GeolocationTaskResponse extends Component {
               target="_blank"
               rel="noreferrer noopener"
             >
-                ({coordinatesString})
+              ({coordinatesString})
             </a>
           </span>
           : null}
-        {imgPath
-          ? <span
+        {imgPath ?
+          <span // eslint-disable-line jsx-a11y/click-events-have-key-events
             style={{
               border: `1px solid ${black05}`,
               marginLeft: 'auto',
             }}
             className="task__geolocation-image"
+            onClick={this.handleOpenMap.bind(this)}
           >
             <img
               style={{
@@ -79,12 +78,11 @@ class GeolocationTaskResponse extends Component {
               }}
               src={imgPath}
               alt=""
-              onClick={this.handleOpenMap.bind(this)}
             />
           </span>
           : null}
-        {imgPath && !!this.state.zoomedMap
-          ? <Dialog
+        {imgPath && !!this.state.zoomedMap ?
+          <Dialog
             modal={false}
             open={this.state.zoomedMap}
             onRequestClose={this.handleCloseMap.bind(this)}

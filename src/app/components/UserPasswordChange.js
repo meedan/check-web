@@ -12,6 +12,7 @@ import ChangePasswordMutation from '../relay/mutations/ChangePasswordMutation';
 import PageTitle from './PageTitle';
 import CheckContext from '../CheckContext';
 import { stringHelper } from '../customHelpers';
+import { safelyParseJSON } from '../helpers';
 import {
   units,
   title,
@@ -132,17 +133,11 @@ class UserPasswordChange extends Component {
 
     const onFailure = (transaction) => {
       const error = transaction.getError();
-
-      try {
-        const json = JSON.parse(error.source);
-        if (json.error) {
-          this.getHistory().push({ pathname: '/check/user/password-reset', state: { errorMsg: json.error } });
-          return;
-        }
-      } catch (ex) {
-        // Do nothing.
+      const json = safelyParseJSON(error.source);
+      if (json && json.error) {
+        this.getHistory().push({ pathname: '/check/user/password-reset', state: { errorMsg: json.error } });
+        return;
       }
-
       this.setState({ errorMsg: this.props.intl.formatMessage(messages.unknownError, { supportEmail: stringHelper('SUPPORT_EMAIL') }), submitDisabled: true });
     };
 

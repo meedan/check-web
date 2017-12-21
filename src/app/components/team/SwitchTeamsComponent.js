@@ -24,6 +24,7 @@ import UpdateUserMutation from '../../relay/mutations/UpdateUserMutation';
 import DeleteTeamUserMutation from '../../relay/mutations/DeleteTeamUserMutation';
 import CheckContext from '../../CheckContext';
 import { can } from '../Can';
+import { safelyParseJSON } from '../../helpers';
 
 const messages = defineMessages({
   switchTeamsError: {
@@ -61,13 +62,9 @@ class SwitchTeamsComponent extends Component {
     const onFailure = (transaction) => {
       const error = transaction.getError();
       let message = this.props.intl.formatMessage(messages.switchTeamsError);
-      try {
-        const json = JSON.parse(error.source);
-        if (json.error) {
-          message = json.error;
-        }
-      } catch (e) {
-        // Do nothing.
+      const json = safelyParseJSON(error.source);
+      if (json && json.error) {
+        message = json.error;
       }
       console.error(message); // eslint-disable-line no-console
     };

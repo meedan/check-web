@@ -29,7 +29,6 @@ class TrashComponent extends Component {
 
     this.state = {
       emptyTrashDisabled: false,
-      refreshedAt: 0,
       open: false,
       confirmationError: false,
     };
@@ -65,7 +64,7 @@ class TrashComponent extends Component {
   }
 
   handleRefresh() {
-    this.setState({ refreshedAt: new Date().getTime() });
+    this.props.relay.forceFetch();
   }
 
   handleClose() {
@@ -94,6 +93,7 @@ class TrashComponent extends Component {
         defaultMessage={'Empty trash operation is in progress. Please check back later. {refresh}'}
         values={{
           refresh: (
+            // eslint-disable-next-line jsx-a11y/click-events-have-key-events
             <span
               onClick={this.handleRefresh.bind(this)}
               style={{ textDecoration: 'underline', cursor: 'pointer' }}

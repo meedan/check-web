@@ -75,7 +75,6 @@ class MediaStatus extends Component {
       open: false,
       submitted: false,
       setStatus: {},
-      note: '',
     };
   }
 

@@ -27,6 +27,7 @@ import { units } from '../../styles/js/shared';
 import ProfileLink from '../layout/ProfileLink';
 import Attribution from './Attribution';
 import Sentence from '../Sentence';
+import { safelyParseJSON } from '../../helpers';
 
 const StyledWordBreakDiv = styled.div`
   hyphens: auto;
@@ -49,7 +50,6 @@ class Task extends Component {
       editingQuestion: false,
       message: null,
       editingResponse: false,
-      isMenuOpen: false,
       submitDisabled: true,
       editingAttribution: false,
     };
@@ -92,13 +92,9 @@ class Task extends Component {
     const onFailure = (transaction) => {
       const error = transaction.getError();
       let message = error.source;
-      try {
-        const json = JSON.parse(error.source);
-        if (json.error) {
-          message = json.error;
-        }
-      } catch (e) {
-        // Do nothing.
+      const json = safelyParseJSON(error.source);
+      if (json && json.error) {
+        message = json.error;
       }
       this.setState({ message });
     };
@@ -128,7 +124,7 @@ class Task extends Component {
   }
 
   handleEditQuestion() {
-    this.setState({ editingQuestion: true, isMenuOpen: false });
+    this.setState({ editingQuestion: true });
   }
 
   handleCancelQuestionEdit() {
@@ -147,18 +143,15 @@ class Task extends Component {
 
   handleUpdateAttribution() {
     const { media, task } = this.props;
-    const value = document.getElementById(`attribution-${task.dbid}`).value;
+    // TODO Use React ref instead.
+    const { value } = document.getElementById(`attribution-${task.dbid}`);
 
     const onFailure = (transaction) => {
       const error = transaction.getError();
-      let message = error.source;
-      try {
-        const json = JSON.parse(error.source);
-        if (json.error) {
-          message = json.error;
-        }
-      } catch (ex) {
-        // Do nothing.
+      let { message } = error;
+      const json = safelyParseJSON(error.source);
+      if (json && json.error) {
+        message = json.error;
       }
       this.setState({ message });
     };
@@ -187,13 +180,9 @@ class Task extends Component {
     const onFailure = (transaction) => {
       const error = transaction.getError();
       let message = error.source;
-      try {
-        const json = JSON.parse(error.source);
-        if (json.error) {
-          message = json.error;
-        }
-      } catch (ex) {
-        // Do nothing.
+      const json = safelyParseJSON(error.source);
+      if (json && json.error) {
+        message = json.error;
       }
       this.setState({ message });
     };
@@ -236,7 +225,6 @@ class Task extends Component {
         id: task.id,
       }));
     }
-    this.setState({ isMenuOpen: false });
   }
 
   handleCancelEditResponse() {
@@ -250,7 +238,7 @@ class Task extends Component {
   }
 
   handleEditAttribution() {
-    this.setState({ editingAttribution: true, isMenuOpen: false });
+    this.setState({ editingAttribution: true });
   }
 
   handleSubmitUpdateWithArgs(edited_response, edited_note) {
@@ -259,13 +247,9 @@ class Task extends Component {
     const onFailure = (transaction) => {
       const error = transaction.getError();
       let message = error.source;
-      try {
-        const json = JSON.parse(error.source);
-        if (json.error) {
-          message = json.error;
-        }
-      } catch (e) {
-        // Do nothing.
+      const json = safelyParseJSON(error.source);
+      if (json && json.error) {
+        message = json.error;
       }
       this.setState({ message });
     };
@@ -333,8 +317,8 @@ class Task extends Component {
 
     const taskActions = (
       <div>
-        {data.by
-          ? <div className="task__resolver" style={{ display: 'flex', alignItems: 'center' }}>
+        {data.by ?
+          <div className="task__resolver" style={{ display: 'flex', alignItems: 'center' }}>
             <small>
               <FormattedMessage
                 id="task.resolvedBy"
@@ -361,8 +345,8 @@ class Task extends Component {
                 </IconButton>
               }
             >
-              {response
-                ? <Can permissions={task.first_response.permissions} permission="update Dynamic">
+              {response ?
+                <Can permissions={task.first_response.permissions} permission="update Dynamic">
                   <MenuItem className="task-actions__edit-response" onClick={this.handleEditResponse.bind(this)}>
                     <FormattedMessage id="task.editResponse" defaultMessage="Edit response" />
                   </MenuItem>
@@ -373,8 +357,8 @@ class Task extends Component {
                 <FormattedMessage id="task.edit" defaultMessage="Edit question" />
               </MenuItem>
 
-              {(response && can(task.first_response.permissions, 'update Dynamic'))
-                ? <MenuItem className="task-actions__edit-attribution" onClick={this.handleEditAttribution.bind(this)}>
+              {(response && can(task.first_response.permissions, 'update Dynamic')) ?
+                <MenuItem className="task-actions__edit-attribution" onClick={this.handleEditAttribution.bind(this)}>
                   <FormattedMessage id="task.editAttribution" defaultMessage="Edit attribution" />
                 </MenuItem>
                 : null}
@@ -405,21 +389,20 @@ class Task extends Component {
           <form name={`task-response-${task.id}`}>
 
             <div className="task__response-inputs">
-              {task.type === 'free_text'
-                ? <ShortTextRespondTask
+              {task.type === 'free_text' ?
+                <ShortTextRespondTask
                   onSubmit={this.handleSubmitWithArgs.bind(this)}
                 />
                 : null}
-              {task.type === 'geolocation'
-                ? <GeolocationRespondTask
+              {task.type === 'geolocation' ?
+                <GeolocationRespondTask
                   onSubmit={this.handleSubmitWithArgs.bind(this)}
-                />
+                /> : null}
+              {task.type === 'datetime' ?
+                <DatetimeRespondTask onSubmit={this.handleSubmitWithArgs.bind(this)} note="" />
                 : null}
-              {task.type === 'datetime'
-                ? <DatetimeRespondTask onSubmit={this.handleSubmitWithArgs.bind(this)} note="" />
-                : null}
-              {task.type === 'single_choice'
-                ? <SingleChoiceTask
+              {task.type === 'single_choice' ?
+                <SingleChoiceTask
                   mode="respond"
                   response={response}
                   note={note}
@@ -427,8 +410,8 @@ class Task extends Component {
                   onSubmit={this.handleSubmitWithArgs.bind(this)}
                 />
                 : null}
-              {task.type === 'multiple_choice'
-                ? <MultiSelectTask
+              {task.type === 'multiple_choice' ?
+                <MultiSelectTask
                   mode="respond"
                   jsonresponse={response}
                   note={note}
@@ -444,31 +427,31 @@ class Task extends Component {
       taskBody = (
         <div className="task__editing">
           <form name={`edit-response-${task.first_response.id}`}>
-            {task.type === 'free_text'
-              ? <ShortTextRespondTask
+            {task.type === 'free_text' ?
+              <ShortTextRespondTask
                 response={response}
                 note={note}
                 onSubmit={this.handleSubmitUpdateWithArgs.bind(this)}
                 onDismiss={this.handleCancelEditResponse.bind(this)}
               />
               : null}
-            {task.type === 'geolocation'
-              ? <GeolocationRespondTask
+            {task.type === 'geolocation' ?
+              <GeolocationRespondTask
                 response={response}
                 onSubmit={this.handleSubmitUpdateWithArgs.bind(this)}
                 onDismiss={this.handleCancelEditResponse.bind(this)}
               />
               : null}
-            {task.type === 'datetime'
-              ? <DatetimeRespondTask
+            {task.type === 'datetime' ?
+              <DatetimeRespondTask
                 response={response}
                 note={note}
                 onSubmit={this.handleSubmitUpdateWithArgs.bind(this)}
                 onDismiss={this.handleCancelEditResponse.bind(this)}
               />
               : null}
-            {task.type === 'single_choice'
-              ? <SingleChoiceTask
+            {task.type === 'single_choice' ?
+              <SingleChoiceTask
                 mode="edit_response"
                 response={response}
                 note={note}
@@ -477,8 +460,8 @@ class Task extends Component {
                 onSubmit={this.handleSubmitUpdateWithArgs.bind(this)}
               />
               : null}
-            {task.type === 'multiple_choice'
-              ? <MultiSelectTask
+            {task.type === 'multiple_choice' ?
+              <MultiSelectTask
                 mode="edit_response"
                 jsonresponse={response}
                 note={note}
@@ -493,31 +476,31 @@ class Task extends Component {
     } else {
       taskBody = (
         <StyledWordBreakDiv className="task__resolved">
-          {task.type === 'free_text'
-            ? <p className="task__response">
+          {task.type === 'free_text' ?
+            <p className="task__response">
               <ParsedText text={response} />
-              </p>
+            </p>
             : null}
-          {task.type === 'geolocation'
-            ? <p className="task__response">
+          {task.type === 'geolocation' ?
+            <p className="task__response">
               <GeolocationTaskResponse response={response} />
-              </p>
+            </p>
             : null}
-          {task.type === 'datetime'
-            ? <p className="task__response">
+          {task.type === 'datetime' ?
+            <p className="task__response">
               <DatetimeTaskResponse response={response} />
-              </p>
+            </p>
             : null}
-          {task.type === 'single_choice'
-            ? <SingleChoiceTask
+          {task.type === 'single_choice' ?
+            <SingleChoiceTask
               mode="show_response"
               response={response}
               note={note}
               jsonoptions={task.jsonoptions}
             />
             : null}
-          {task.type === 'multiple_choice'
-            ? <MultiSelectTask
+          {task.type === 'multiple_choice' ?
+            <MultiSelectTask
               mode="show_response"
               jsonresponse={response}
               note={note}
@@ -542,12 +525,9 @@ class Task extends Component {
         <Card
           className="task"
           style={{ marginBottom: units(1) }}
-          // initiallyExpanded={!!response}
           initiallyExpanded
         >
           <CardHeader
-            // actAsExpander
-            // showExpandableButton
             title={taskQuestion}
             subtitle={task.description ? task.description : null}
             id={`task__label-${task.id}`}
@@ -559,7 +539,6 @@ class Task extends Component {
           </CardText>
 
           <CardActions
-            // expandable={!data.by}
             style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start' }}
           >
             {taskActions}

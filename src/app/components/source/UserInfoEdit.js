@@ -16,8 +16,12 @@ import UpdateSourceMutation from '../../relay/mutations/UpdateSourceMutation';
 import UpdateUserNameEmailMutation from '../../relay/mutations/UpdateUserNameEmailMutation';
 import CreateAccountSourceMutation from '../../relay/mutations/CreateAccountSourceMutation';
 import DeleteAccountSourceMutation from '../../relay/mutations/DeleteAccountSourceMutation';
-import { StyledIconButton, Row, ContentColumn } from '../../styles/js/shared';
-
+import { safelyParseJSON } from '../../helpers';
+import {
+  StyledIconButton,
+  Row,
+  ContentColumn,
+} from '../../styles/js/shared';
 import {
   StyledButtonGroup,
   StyledTwoColumns,
@@ -69,11 +73,16 @@ class UserInfoEdit extends React.Component {
 
     this.state = {
       submitDisabled: false,
+      // TODO eslint false positive
+      // eslint-disable-next-line react/no-unused-state
+      image: null,
     };
   }
 
   onImage(file) {
     document.forms['edit-source-form'].image = file;
+    // TODO eslint false positive
+    // eslint-disable-next-line react/no-unused-state
     this.setState({ image: file });
   }
 
@@ -82,10 +91,14 @@ class UserInfoEdit extends React.Component {
       document.forms['edit-source-form'].image = null;
     }
 
+    // TODO eslint false positive
+    // eslint-disable-next-line react/no-unused-state
     this.setState({ image: null });
   }
 
   onImageError(file, message) {
+    // TODO eslint false positive
+    // eslint-disable-next-line react/no-unused-state
     this.setState({ message, image: null });
   }
 
@@ -110,14 +123,14 @@ class UserInfoEdit extends React.Component {
     }
   }
 
-  handleAddLink = () => {
+  handleAddLink() {
     const links = this.state.links ? this.state.links.slice(0) : [];
     const newEntry = {};
     newEntry.url = '';
     newEntry.error = '';
     links.push(newEntry);
-    this.setState({ links, menuOpen: false });
-  };
+    this.setState({ links });
+  }
 
   handleChangeLink(e, index) {
     const links = this.state.links ? this.state.links.slice(0) : [];
@@ -126,35 +139,31 @@ class UserInfoEdit extends React.Component {
     this.setState({ links });
   }
 
-  handleRemoveLink = (id) => {
+  handleRemoveLink(id) {
     const deleteLinks = this.state.deleteLinks
       ? this.state.deleteLinks.slice(0)
       : [];
     deleteLinks.push(id);
     this.setState({ deleteLinks });
-  };
+  }
 
-  handleRemoveNewLink = (index) => {
+  handleRemoveNewLink(index) {
     const links = this.state.links ? this.state.links.slice(0) : [];
     links.splice(index, 1);
     this.setState({ links });
-  };
+  }
 
-  fail = (transaction) => {
+  fail(transaction) {
     const error = transaction.getError();
     let message = this.props.intl.formatMessage(messages.editError);
-    try {
-      const json = JSON.parse(error.source);
-      if (json.error) {
-        message = json.error;
-      }
-    } catch (e) {
-      // Do nothing.
+    const json = safelyParseJSON(error.source);
+    if (json && json.error) {
+      message = json.error;
     }
     this.setState({ message, hasFailure: true, submitDisabled: false });
-  };
+  }
 
-  success = (response, mutation) => {
+  success(response, mutation) {
     const manageEditingState = () => {
       const submitDisabled = this.state.pendingMutations.length > 0;
       const isEditing = submitDisabled || this.state.hasFailure;
@@ -173,15 +182,15 @@ class UserInfoEdit extends React.Component {
       { pendingMutations: pendingMutations.filter(m => m !== mutation) },
       manageEditingState,
     );
-  };
+  }
 
-  registerPendingMutation = (mutation) => {
+  registerPendingMutation(mutation) {
     const pendingMutations = this.state.pendingMutations
       ? this.state.pendingMutations.slice(0)
       : [];
     pendingMutations.push(mutation);
     this.setState({ pendingMutations });
-  };
+  }
 
   updateSource() {
     const { source } = this.props.user;
@@ -189,22 +198,17 @@ class UserInfoEdit extends React.Component {
     const onFailure = (transaction) => {
       const error = transaction.getError();
       let message = this.props.intl.formatMessage(messages.editError);
-
-      try {
-        const json = JSON.parse(error.source);
-        if (json.error) {
-          message = json.error;
-        }
-      } catch (e) {
-        // Do nothing.
+      const json = safelyParseJSON(error.source);
+      if (json && json.error) {
+        message = json.error;
       }
-
       this.setState({ message, submitDisabled: false });
     };
 
     const onSuccess = (response) => {
       this.success(response, 'updateSource');
     };
+
     const form = document.forms['edit-source-form'];
 
     if (source.description === form.description.value && !form.image) {
@@ -233,16 +237,10 @@ class UserInfoEdit extends React.Component {
     const onFailure = (transaction) => {
       const error = transaction.getError();
       let message = this.props.intl.formatMessage(messages.editError);
-
-      try {
-        const json = JSON.parse(error.source);
-        if (json.error) {
-          message = json.error;
-        }
-      } catch (e) {
-        // Do nothing.
+      const json = safelyParseJSON(error.source);
+      if (json && json.error) {
+        message = json.error;
       }
-
       this.setState({ message, submitDisabled: false });
     };
 
@@ -301,15 +299,10 @@ class UserInfoEdit extends React.Component {
       if (index > -1) {
         const error = transaction.getError();
         let message = this.props.intl.formatMessage(messages.invalidLink);
-        try {
-          const json = JSON.parse(error.source);
-          if (json.error) {
-            message = json.error;
-          }
-        } catch (e) {
-          // Do nothing.
+        const json = safelyParseJSON(error.source);
+        if (json && json.error) {
+          message = json.error;
         }
-
         links[index].error = message;
       }
 
@@ -385,12 +378,13 @@ class UserInfoEdit extends React.Component {
     const deleteLinks = this.state.deleteLinks
       ? this.state.deleteLinks.slice(0)
       : [];
-    const showAccounts = source.account_sources.edges.filter(as => deleteLinks.indexOf(as.node.id) < 0);
+    const showAccounts =
+      source.account_sources.edges.filter(as => deleteLinks.indexOf(as.node.id) < 0);
 
     return (
       <div key="renderAccountsEdit">
-        {showAccounts.map((as, index) =>
-          (<div key={as.node.id} className="source__url">
+        {showAccounts.map((as, index) => (
+          <div key={as.node.id} className="source__url">
             <Row>
               <TextField
                 id={`source__link-item${index.toString()}`}
@@ -406,9 +400,9 @@ class UserInfoEdit extends React.Component {
                 <MdCancel />
               </StyledIconButton>
             </Row>
-           </div>))}
-        {links.map((link, index) =>
-          (<div key={index.toString()} className="source__url-input">
+          </div>))}
+        {links.map((link, index) => (
+          <div key={index.toString()} className="source__url-input">
             <Row>
               <TextField
                 id={`source__link-input${index.toString()}`}
@@ -426,12 +420,12 @@ class UserInfoEdit extends React.Component {
                 <MdCancel />
               </StyledIconButton>
             </Row>
-            {link.error
-              ? null
-              : <StyledHelper>
+            {link.error ?
+              null :
+              <StyledHelper>
                 {this.props.intl.formatMessage(messages.addLinkHelper)}
-                </StyledHelper>}
-           </div>))}
+              </StyledHelper>}
+          </div>))}
       </div>
     );
   }
@@ -453,8 +447,8 @@ class UserInfoEdit extends React.Component {
               type="user"
               className="source__avatar"
             />
-            {!this.state.editProfileImg
-              ? <StyledAvatarEditButton className="source__edit-avatar-button">
+            {!this.state.editProfileImg ?
+              <StyledAvatarEditButton className="source__edit-avatar-button">
                 <FlatButton
                   label={this.props.intl.formatMessage(globalStrings.edit)}
                   onClick={this.handleEditProfileImg.bind(this)}
@@ -469,8 +463,8 @@ class UserInfoEdit extends React.Component {
               onSubmit={this.handleSubmit.bind(this)}
               name="edit-source-form"
             >
-              {this.state.editProfileImg
-                ? <UploadImage
+              {this.state.editProfileImg ?
+                <UploadImage
                   onImage={this.onImage.bind(this)}
                   onClear={this.onClear.bind(this)}
                   onError={this.onImageError.bind(this)}

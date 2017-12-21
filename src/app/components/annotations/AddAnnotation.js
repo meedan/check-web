@@ -17,6 +17,7 @@ import CheckContext from '../../CheckContext';
 import UploadImage from '../UploadImage';
 import { ContentColumn, Row, black38, black87, alertRed, units } from '../../styles/js/shared';
 import HttpStatus from '../../HttpStatus';
+import { safelyParseJSON } from '../../helpers';
 
 const messages = defineMessages({
   invalidCommand: {
@@ -114,20 +115,14 @@ class AddAnnotation extends Component {
   }
 
   fail(transaction) {
-    const transactionError = transaction.getError();
+    const error = transaction.getError();
     let message = this.props.intl.formatMessage(messages.error, {
-      code: `${transactionError.status} ${HttpStatus.getMessage(transactionError.status)}`,
+      code: `${error.status} ${HttpStatus.getMessage(error.status)}`,
     });
-    let json = null;
-    try {
-      json = JSON.parse(transactionError.source);
-    } catch (e) {
-      // do nothing
-    }
+    const json = safelyParseJSON(error.source);
     if (json && json.error) {
       message = json.error;
     }
-
     this.setState({
       message: message.replace(/<br\s*\/?>/gm, '; '),
       isSubmitting: false,

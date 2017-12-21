@@ -20,6 +20,7 @@ import DeleteProjectMediaMutation from '../../relay/mutations/DeleteProjectMedia
 import CreateTagMutation from '../../relay/mutations/CreateTagMutation';
 import CheckContext from '../../CheckContext';
 import Message from '../Message';
+import { safelyParseJSON } from '../../helpers';
 import {
   Row,
   black87,
@@ -32,8 +33,6 @@ import {
 const StyledMetadata = styled.div`
   margin: ${units(1)} ${units(1)} 0;
 
-  // Move dialog
-  //
   .media-detail__dialog-header {
     color: ${black87};
     font: ${title};
@@ -72,10 +71,6 @@ const messages = defineMessages({
     id: 'mediaDetail.editReportError',
     defaultMessage: 'Sorry, we could not edit this report',
   },
-  error: {
-    id: 'mediaDetail.moveFailed',
-    defaultMessage: 'Sorry, we could not move this report',
-  },
   trash: {
     id: 'mediaDetail.trash',
     defaultMessage: 'Trash',
@@ -101,7 +96,7 @@ class MediaMetadata extends Component {
   }
 
   handleError(json) {
-    let message = `${this.props.intl.formatMessage(messages.error)}`;
+    let message = this.props.intl.formatMessage(messages.error);
     if (json && json.error) {
       message = json.error;
     }
@@ -346,7 +341,7 @@ class MediaMetadata extends Component {
   }
 
   handleSave(media, event) {
-    if (this.state.submitDisabled) { return; }
+    if (this.state.submitDisabled) return;
 
     if (event) {
       event.preventDefault();
@@ -356,9 +351,10 @@ class MediaMetadata extends Component {
     const title = this.state.title && this.state.title.trim();
     const description = this.state.description && this.state.description.trim();
 
-    const embed = {};
-    embed.title = title;
-    embed.description = description;
+    const embed = {
+      title,
+      description,
+    };
 
     const onEditFailure = (transaction) => {
       this.fail(transaction, 'editMedia');
@@ -414,31 +410,29 @@ class MediaMetadata extends Component {
     }
 
     this.setState({
-      message: null, tagErrorMessage: null, pendingMutations: null, hasFailure: false, submitDisabled: true,
+      message: null,
+      tagErrorMessage: null,
+      pendingMutations: null,
+      hasFailure: false,
+      submitDisabled: true,
     });
   }
 
-  fail = (transaction, mutation) => {
+  fail(transaction, mutation) {
     const error = transaction.getError();
     let message = this.props.intl.formatMessage(messages.editReportError);
-    try {
-      const json = JSON.parse(error.source);
-      if (json.error) {
-        message = json.error;
-      }
-    } catch (e) {
-      // Do nothing.
+    const json = safelyParseJSON(error.source);
+    if (json && json.error) {
+      message = json.error;
     }
-    const tagErrorMessage = message;
-
     if (mutation === 'createTag') {
-      this.setState({ tagErrorMessage, hasFailure: true, submitDisabled: false });
+      this.setState({ tagErrorMessage: message, hasFailure: true, submitDisabled: false });
     } else {
       this.setState({ message, hasFailure: true, submitDisabled: false });
     }
-  };
+  }
 
-  success = (response, mutation) => {
+  success(response, mutation) {
     const manageEditingState = () => {
       const submitDisabled = this.state.pendingMutations.length > 0;
       const isEditing = submitDisabled || this.state.hasFailure;
@@ -454,15 +448,15 @@ class MediaMetadata extends Component {
       { pendingMutations: pendingMutations.filter(m => m !== mutation) },
       manageEditingState,
     );
-  };
+  }
 
-  registerPendingMutation = (mutation) => {
+  registerPendingMutation(mutation) {
     const pendingMutations = this.state.pendingMutations
       ? this.state.pendingMutations.slice(0)
       : [];
     pendingMutations.push(mutation);
     this.setState({ pendingMutations });
-  };
+  }
 
   handleCancel() {
     this.setState({
