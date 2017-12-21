@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { injectIntl } from 'react-intl';
 import rtlDetect from 'rtl-detect';
 import { Link } from 'react-router';
+import ParsedText from '../ParsedText';
 import { rtlClass } from '../../helpers';
 
 import { Row, breakWordStyles, headline, units, subheading2 } from '../../styles/js/shared';
@@ -37,7 +38,7 @@ class QuoteMediaCard extends Component {
             className={`quote__text ${rtlClass(languageCode)}`}
             quoteIsRtl={rtlDetect.isRtlLang(languageCode)}
           >
-            {quote}
+            <ParsedText text={quote} />
           </StyledQuoteText>
           <Row>
             <StyledQuoteAttribution>
