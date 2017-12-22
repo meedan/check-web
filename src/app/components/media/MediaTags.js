@@ -11,16 +11,11 @@ import DeleteTagMutation from '../../relay/mutations/DeleteTagMutation';
 import Tags from '../Tags';
 import CheckContext from '../../CheckContext';
 import { searchQueryFromUrl, urlFromSearchQuery } from '../Search';
-import { safelyParseJSON } from '../../helpers';
+import { safelyParseJSON, bemClass } from '../../helpers';
 import {
   units,
   caption,
   opaqueBlack54,
-  body2,
-  black16,
-  black87,
-  checkBlue,
-  borderWidthSmall,
   chipStyles,
 } from '../../styles/js/shared';
 
@@ -89,6 +84,9 @@ const StyledMediaTagsContainer = styled.div`
   }
 `;
 
+// TODO Fix a11y issues
+/* eslint jsx-a11y/click-events-have-key-events: 0 */
+/* eslint jsx-a11y/no-noninteractive-element-interactions: 0 */
 class MediaTags extends Component {
   constructor(props) {
     super(props);
@@ -99,10 +97,6 @@ class MediaTags extends Component {
 
   findTag(tagString) {
     return this.props.tags.find(tag => tag.node && tag.node.tag === tagString);
-  }
-
-  bemClass(baseClass, modifierBoolean, modifierSuffix) {
-    return modifierBoolean ? [baseClass, baseClass + modifierSuffix].join(' ') : baseClass;
   }
 
   handleSuggestedTagEditClick(tagString) {
@@ -172,6 +166,7 @@ class MediaTags extends Component {
       if (Array.isArray(objValue)) {
         return xor(objValue, srcValue);
       }
+      return null;
     });
     if (!query.tags.length) delete query.tags;
     return urlFromSearchQuery(query, `/${media.team.slug}/search`);
@@ -179,7 +174,7 @@ class MediaTags extends Component {
 
   handleTagViewClick(tagString) {
     const url = this.searchTagUrl(tagString);
-    const history = new CheckContext(this).getContextStore().history;
+    const { history } = new CheckContext(this).getContextStore();
     history.push(url);
   }
 
@@ -193,47 +188,49 @@ class MediaTags extends Component {
     const searchQuery = searchQueryFromUrl();
     const activeRegularTags = searchQuery.tags || [];
     const updateCallback = (text) => {
-      this.props.onChange && this.props.onChange(text);
+      if (this.props.onChange) {
+        this.props.onChange(text);
+      }
     };
 
     if (!this.props.isEditing) {
       return (
         <StyledMediaTagsContainer isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
           <div className="media-tags">
-            {activeSuggestedTags.length
-              ? <ul className="media-tags__suggestions">
-                {activeSuggestedTags.map(tag =>
-                  (<li
+            {activeSuggestedTags.length ?
+              <ul className="media-tags__suggestions">
+                {activeSuggestedTags.map(tag => (
+                  <li
                     key={tag.node.id}
                     onClick={this.handleTagViewClick.bind(this, tag.node.tag)}
-                    className={this.bemClass(
+                    className={bemClass(
                       'media-tags__suggestion',
                       activeRegularTags.indexOf(tag.node.tag) > -1,
                       '--selected',
                     )}
                   >
                     {tag.node.tag}
-                   </li>))}
+                  </li>))}
               </ul>
               : null}
             <ul className="media-tags__list">
-              {media.language
-                ? <li className="media-tags__tag media-tags__language">
+              {media.language ?
+                <li className="media-tags__tag media-tags__language">
                   {this.props.intl.formatMessage(messages.language, { language: media.language })}
                 </li>
                 : null}
-              {remainingTags.map(tag =>
-                (<li
+              {remainingTags.map(tag => (
+                <li
                   key={tag.node.id}
                   onClick={this.handleTagViewClick.bind(this, tag.node.tag)}
-                  className={this.bemClass(
+                  className={bemClass(
                     'media-tags__tag',
                     activeRegularTags.indexOf(tag.node.tag) > -1,
                     '--selected',
                   )}
                 >
                   {tag.node.tag.replace(/^#/, '')}
-                 </li>))}
+                </li>))}
             </ul>
           </div>
         </StyledMediaTagsContainer>
@@ -250,21 +247,21 @@ class MediaTags extends Component {
             <span className="media-tags__message">{this.state.message}</span>
           </div>
 
-          {suggestedTags.length
-            ? <div className="media-tags__suggestions">
+          {suggestedTags.length ?
+            <div className="media-tags__suggestions">
               <ul className="media-tags__suggestions-list">
-                {suggestedTags.map(suggestedTag =>
-                  (<li
+                {suggestedTags.map(suggestedTag => (
+                  <li
                     key={suggestedTag}
                     onClick={this.handleSuggestedTagEditClick.bind(this, suggestedTag)}
-                    className={this.bemClass(
+                    className={bemClass(
                       'media-tags__suggestion',
                       this.findTag(suggestedTag),
                       '--selected',
                     )}
                   >
                     {suggestedTag}
-                   </li>))}
+                  </li>))}
               </ul>
             </div>
             : null}

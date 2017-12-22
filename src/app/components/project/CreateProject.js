@@ -52,7 +52,7 @@ class CreateProject extends Component {
     };
 
     const onSuccess = (response) => {
-      const { createProject: { project } } = response.createProject;
+      const { createProject: { project } } = response;
       const path = `/${team.slug}/project/${project.dbid}`;
       history.push(path);
     };

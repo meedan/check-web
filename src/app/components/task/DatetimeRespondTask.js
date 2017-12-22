@@ -140,7 +140,7 @@ class DatetimeRespondTask extends Component {
 
     if (
       e.target.value !== '' &&
-      (Math.isNaN(value) || value < validators[part][0] || value > validators[part][1])
+      (Number.isNaN(value) || value < validators[part][0] || value > validators[part][1])
     ) {
       state.timeError = this.props.intl.formatMessage(messages.timeError);
     } else {

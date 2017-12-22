@@ -32,7 +32,7 @@ class GeolocationTaskResponse extends Component {
 
   render() {
     const geoJSON = JSON.parse(this.props.response);
-    const { properties: { name, coordinates } } = geoJSON.properties;
+    const { properties: { name }, geometry: { coordinates } } = geoJSON;
     let coordinatesString = false;
     let imgPath = false;
     let position = [0, 0];
@@ -88,7 +88,7 @@ class GeolocationTaskResponse extends Component {
             onRequestClose={this.handleCloseMap.bind(this)}
           >
             <StyledMap>
-              <Map center={position} zoom="9">
+              <Map center={position} zoom={9}>
                 <TileLayer
                   attribution="2017 <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a>"
                   url="http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png"
