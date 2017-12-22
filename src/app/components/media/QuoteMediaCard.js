@@ -3,6 +3,7 @@ import { injectIntl } from 'react-intl';
 import rtlDetect from 'rtl-detect';
 import { Link } from 'react-router';
 import styled from 'styled-components';
+import ParsedText from '../ParsedText';
 import { rtlClass } from '../../helpers';
 import {
   Row,
@@ -43,7 +44,7 @@ const QuoteMediaCard = (props) => {
           className={`quote__text ${rtlClass(languageCode)}`}
           quoteIsRtl={rtlDetect.isRtlLang(languageCode)}
         >
-          {quote}
+          <ParsedText text={quote} />
         </StyledQuoteText>
         <Row>
           <StyledQuoteAttribution>
