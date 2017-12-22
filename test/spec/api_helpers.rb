@@ -17,6 +17,7 @@ module ApiHelpers
     begin
       ret = OpenStruct.new JSON.parse(response.body)['data']
     rescue
+      print "Failed to parse body of response #{response.inspect}"
     end
     ret
   end
@@ -137,7 +138,7 @@ module ApiHelpers
   end
 
   def api_create_project(team_id)
-    project = request_api 'project', { title: "TestProject#{Time.now.to_i}-#{rand(1000).to_i}", team_id: team_id }    
+    project = request_api 'project', { title: "TestProject#{Time.now.to_i}-#{rand(1000).to_i}", team_id: team_id }
   end
 
 end
