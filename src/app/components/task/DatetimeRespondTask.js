@@ -62,21 +62,20 @@ class DatetimeRespondTask extends Component {
   constructor(props) {
     super(props);
 
-    let date = '';
+    let date = null;
     let hour = '';
     let minute = '';
     const note = this.props.note || '';
     let timezone = 'GMT';
-    let { response } = this.props;
+    const response = this.props.response ? convertNumbers2English(this.props.response) : null;
     if (response) {
-      response = convertNumbers2English(response);
       const values = response.match(/^(\d+-\d+-\d+) (\d+):(\d+) ([+-]?\d+) ([^ ]+)/);
       const hasTime = !/notime/.test(response);
       date = new Date(`${values[1]} 00:00`);
       if (hasTime) {
-        ([, hour, minute] = values);
+        ([, , hour, minute] = values);
       }
-      ([, , , , timezone] = values);
+      ([, , , , , timezone] = values);
     }
 
     this.state = {
@@ -308,11 +307,11 @@ class DatetimeRespondTask extends Component {
                 className="task__datetime-timezone"
                 style={{ marginLeft: units(2) }}
               >
-                {Object.values(timezones).map(tz =>
-                  (<MenuItem
-                    key={tz.code}
-                    value={tz.code}
-                    primaryText={<span dir="ltr">{tz.label}</span>}
+                {Object.keys(timezones).map(tz => (
+                  <MenuItem
+                    key={tz}
+                    value={timezones[tz].code}
+                    primaryText={<span dir="ltr">{timezones[tz].label}</span>}
                   />))}
               </SelectField>
             </FlexRow>
