@@ -25,8 +25,8 @@ const StyledAnnotation = styled.div`
   flex-direction: column;
   .annotations__list {
     // Chrome only hack to avoid broken scroll on Firefox :( CGB 2017-10-6
-    // TODO figure out a real solution for this
-    // See: https://github.com/philipwalton/flexbugs/issues/108
+    // TODO Figure out a real solution for this
+    // https://github.com/philipwalton/flexbugs/issues/108
     @media screen and (-webkit-min-device-pixel-ratio:0) {
       height: ${props => props.height === 'short'
     ? 'calc(100vh - 580px);'

@@ -17,7 +17,7 @@ import {
 // but the user profile and source profile are using a selection of these constants
 // without the HeaderCard component.
 // See: styles/js/HeaderCard
-// TODO: Standardize to use the HeaderCard in all three components that use this layout.
+// TODO Standardize to use the HeaderCard in all three components that use this layout.
 // @chris 2017-10-17
 
 class HeaderCard extends Component {

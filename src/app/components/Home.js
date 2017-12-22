@@ -150,10 +150,10 @@ class Home extends Component {
       return null;
     }
     if (/\/media\/:mediaId/.test(children.props.route.path)) {
-      return 'media'; // TODO: other pages as needed
+      return 'media'; // TODO Other pages as needed
     }
     if (/\/source\/:sourceId/.test(children.props.route.path)) {
-      return 'source'; // TODO: other pages as needed
+      return 'source'; // TODO Other pages as needed
     }
     return null;
   }
@@ -194,7 +194,7 @@ class Home extends Component {
 
     // @chris with @alex 2017-10-3
     //
-    // TODO: Fix currentUserIsMember function.
+    // TODO Fix currentUserIsMember function.
     // context.currentUser.teams keys are actually the team names, not slugs
 
     const inTeamContext = !!this.props.params.team;

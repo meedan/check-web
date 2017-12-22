@@ -48,7 +48,7 @@ class AccountCard extends React.Component {
 
           <StyledAccountCardBody isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
             <div className="source-card__heading">
-              { MediaUtil.socialIcon(`${account.provider}.com`) /* TODO: refactor */ }
+              { MediaUtil.socialIcon(`${account.provider}.com`) /* TODO Remove tld assumption */ }
               <FormattedMessage id="accountCard.providerAccount" defaultMessage="{provider} account" values={{ provider: account.provider }} />
             </div>
 

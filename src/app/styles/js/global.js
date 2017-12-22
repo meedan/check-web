@@ -3,7 +3,7 @@ import {
   opaqueBlack54,
   body1,
   black87,
-  title,
+  title1,
   opaqueBlack87,
   subHeading1,
 } from './shared';
@@ -35,7 +35,7 @@ export const typography = `
   h1,
   .main-title {
     color: ${black87};
-    font: ${title};
+    font: ${title1};
   }
 
   h2 {

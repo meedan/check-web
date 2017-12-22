@@ -83,12 +83,12 @@ class TranslationComponent extends Component {
   }
 
   success() {
-    // TODO Replace with React ref
+    // TODO Use React ref
     let input = document.getElementById('translation-input');
     input.value = '';
     input.blur();
 
-    // TODO Replace with React ref
+    // TODO Use React ref
     input = document.getElementById('note-input');
     input.value = '';
     input.blur();

@@ -37,7 +37,7 @@ import {
   ellipsisStyles,
 } from '../styles/js/shared';
 
-// TODO This should be a config.
+// TODO Make this a config
 const pageSize = 20;
 
 const StyledSearchInput = styled.input`
@@ -290,7 +290,7 @@ class SearchQueryComponent extends Component {
     this.setState((prevState) => {
       const state = Object.assign({}, prevState);
       const statusIsSelected = this.statusIsSelected(statusCode, state);
-      const selectedStatuses = state.query.status || []; // TODO: avoid ambiguous reference
+      const selectedStatuses = state.query.status || []; // TODO Avoid ambiguous reference
 
       if (statusIsSelected) {
         selectedStatuses.splice(selectedStatuses.indexOf(statusCode), 1); // remove from array

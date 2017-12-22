@@ -167,7 +167,7 @@ class SingleChoiceTask extends Component {
   }
 
   handleSelectRadioOther() {
-    // TODO Use React ref instead.
+    // TODO Use React ref
     const input = document.querySelector('.task__option_other_text_input input');
     if (input) {
       input.focus();

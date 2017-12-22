@@ -30,7 +30,7 @@ import {
   ContentColumn,
   highlightBlue,
   checkBlue,
-  title,
+  title1,
   units,
   avatarStyle,
   Row,
@@ -265,7 +265,7 @@ class TeamComponent extends Component {
 
     const StyledCardHeader = styled(CardHeader)`
       span {
-        font: ${title} !important;
+        font: ${title1} !important;
       }
     `;
 

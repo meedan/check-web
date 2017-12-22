@@ -15,7 +15,7 @@ import { stringHelper } from '../customHelpers';
 import { safelyParseJSON } from '../helpers';
 import {
   units,
-  title,
+  title1,
   black54,
   columnWidthMedium,
 } from '../styles/js/shared';
@@ -47,7 +47,7 @@ const StyledPasswordChange = styled.div`
     color: ${black54};
     display: block;
     margin: ${units(1)} auto;
-    font: ${title};
+    font: ${title1};
     font-weight: 600;
     text-align: center;
   }
@@ -86,7 +86,7 @@ const messages = defineMessages({
   },
 });
 
-// TODO: Read this from the backend.
+// TODO Read this from the backend.
 const passwordLength = {
   min: 8,
   max: 128,

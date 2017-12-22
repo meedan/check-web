@@ -47,7 +47,7 @@ const StyledMediaTagsContainer = styled.div`
   }
 
   .media-tags__header {
-    // TODO remove in markup
+    // TODO Remove in markup
     display: none;
   }
 

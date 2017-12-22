@@ -18,7 +18,7 @@ import PenderCard from '../PenderCard';
 import ImageMediaCard from './ImageMediaCard';
 import WebPageMediaCard from './WebPageMediaCard';
 import CheckContext from '../../CheckContext';
-import { getStatus, getStatusStyle } from '../../helpers';
+import { getStatus, getStatusStyle, bemClassFromMediaStatus } from '../../helpers';
 import { mediaStatuses, mediaLastStatus } from '../../customHelpers';
 import {
   Row,
@@ -31,7 +31,6 @@ import {
   Offset,
   caption,
   subheading1,
-  gutterXSmall,
   Text,
 } from '../../styles/js/shared';
 
@@ -123,20 +122,14 @@ class MediaDetail extends Component {
     this.setState({ expanded: false });
   };
 
-  statusToClass(baseClass, status) {
-    // TODO: replace with helpers.js#bemClassFromMediaStatus
-    return status.length
-      ? [
-        baseClass,
-        `${baseClass}--${status.toLowerCase().replace(/[ _]/g, '-')}`,
-      ].join(' ')
-      : baseClass;
-  }
-
   render() {
-    const { media, annotated, annotatedType } = this.props;
+    const {
+      media,
+      annotated,
+      annotatedType,
+      intl: { locale },
+    } = this.props;
     const data = JSON.parse(media.embed);
-    const locale = this.props.intl.locale;
     const isRtl = rtlDetect.isRtlLang(locale);
     const fromDirection = isRtl ? 'right' : 'left';
     const annotationsCount = MediaUtil.notesCount(media, data, this.props.intl);
@@ -250,10 +243,10 @@ class MediaDetail extends Component {
     // (or implicitly expanded with initiallyExpanded prop)
     // Always display it if it's been edited
     const shouldDisplayHeading = isImage || MediaUtil.hasCustomTitle(media, data) ||
-      !this.state.expanded && !(this.state.expanded == null && this.props.initiallyExpanded);
+      (!this.state.expanded && !(this.state.expanded == null && this.props.initiallyExpanded));
 
     const cardClassName =
-      `${this.statusToClass('media-detail', mediaLastStatus(media))} ` +
+      `${bemClassFromMediaStatus('media-detail', mediaLastStatus(media))} ` +
       `media-detail--${MediaUtil.mediaTypeCss(media, data)}`;
 
     const shouldShowProjectName = !projectPage && projectTitle;
@@ -267,8 +260,8 @@ class MediaDetail extends Component {
         }
         <StyledHeaderTextSecondary>
           <Row wrap>
-            { createdAt
-              ? <Row wrap>
+            {createdAt ?
+              <Row wrap>
                 <Row>
                   <StyledMediaIconContainer>
                     {mediaIcon}
@@ -280,7 +273,7 @@ class MediaDetail extends Component {
                   </Offset>
                 </Row>
 
-                { shouldShowProjectName &&
+                {shouldShowProjectName ?
                   <Offset isRtl={isRtl} >
                     <Link to={projectUrl} >
                       <Row>
@@ -288,8 +281,7 @@ class MediaDetail extends Component {
                         <Text ellipsis maxWidth="300px">{projectTitle}</Text>
                       </Row>
                     </Link>
-                  </Offset>
-                }
+                  </Offset> : null}
 
                 <Offset isRtl={isRtl}>
                   <Link to={mediaUrl}>
@@ -298,12 +290,10 @@ class MediaDetail extends Component {
                     </span>
                   </Link>
                 </Offset>
-              </Row>
-              : null }
+              </Row> : null}
 
-
-            {sourceUrl && sourceName
-              ? <Offset isRtl={isRtl}>
+            {sourceUrl && sourceName ?
+              <Offset isRtl={isRtl}>
                 <Link to={sourceUrl}>
                   <Row>
                     {/* ideally this would be SourcePicture not FaFeed — CGB 2017-9-13 */}
@@ -312,8 +302,7 @@ class MediaDetail extends Component {
                     <Text ellipsis maxWidth="300px">{sourceName}</Text>
                   </Row>
                 </Link>
-                </Offset>
-              : null}
+              </Offset> : null}
           </Row>
         </StyledHeaderTextSecondary>
       </div>
@@ -343,16 +332,15 @@ class MediaDetail extends Component {
 
           <CardText expandable>
             <FadeIn
-              className={this.statusToClass(
+              className={bemClassFromMediaStatus(
                 'media-detail__media',
                 mediaLastStatus(media),
               )}
             >
-              { shouldShowDescription &&
+              {shouldShowDescription ?
                 <Text font={caption} style={{ color: black54 }}>
                   {JSON.parse(this.props.media.embed).description}
-                </Text>
-              }
+                </Text> : null}
               {embedCard}
             </FadeIn>
           </CardText>
@@ -373,11 +361,6 @@ MediaDetail.propTypes = {
 
 MediaDetail.contextTypes = {
   store: PropTypes.object,
-};
-
-MediaDetail.defaultProps = {
-  initiallyExpanded: false,
-  hideBorder: false,
 };
 
 export default injectIntl(MediaDetail);

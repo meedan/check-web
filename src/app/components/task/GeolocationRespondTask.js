@@ -6,7 +6,7 @@ import { Map, Marker, TileLayer } from 'react-leaflet';
 
 class GeolocationRespondTask extends Component {
   static canSubmit() {
-    // TODO Use React ref instead of reading the DOM
+    // TODO Use React ref
     const { value } = document.getElementById('task__response-geolocation-name');
     return value && value.length;
   }

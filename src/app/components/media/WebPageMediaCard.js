@@ -50,7 +50,7 @@ class WebPageMediaCard extends Component {
       </Offset>)
       : null;
 
-    // Todo: move webPageName logic to Pender
+    // TODO Move webPageName logic to Pender
     const hasUniqueAuthorUsername =
       (authorName && authorUsername && (authorName !== authorUsername));
     const webPageName = hasUniqueAuthorUsername ? (

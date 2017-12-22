@@ -33,7 +33,7 @@ import {
   mediaQuery,
   caption,
   body2,
-  title,
+  title1,
   black54,
   black38,
   checkBlue,
@@ -47,7 +47,7 @@ import {
 } from '../styles/js/shared';
 
 const StyledSubHeader = styled.h2`
-    font: ${title};
+    font: ${title1};
     font-weight: 600;
     color: ${black54};
     text-align: center;

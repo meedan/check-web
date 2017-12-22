@@ -143,7 +143,7 @@ class Task extends Component {
 
   handleUpdateAttribution() {
     const { media, task } = this.props;
-    // TODO Use React ref instead.
+    // TODO Use React ref
     const { value } = document.getElementById(`attribution-${task.dbid}`);
 
     const onFailure = (transaction) => {

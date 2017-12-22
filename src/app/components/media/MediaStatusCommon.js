@@ -5,7 +5,7 @@ import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import { can } from '../Can';
 import CheckContext from '../../CheckContext';
-import { getStatus, getStatusStyle, safelyParseJSON } from '../../helpers';
+import { getStatus, getStatusStyle, safelyParseJSON, bemClass } from '../../helpers';
 import { mediaStatuses, mediaLastStatus } from '../../customHelpers';
 import { black16, units } from '../../styles/js/shared';
 
@@ -17,10 +17,6 @@ const messages = defineMessages({
 });
 
 class MediaStatusCommon extends Component {
-  static bemClass(baseClass, modifierBoolean, modifierSuffix) {
-    return modifierBoolean ? [baseClass, baseClass + modifierSuffix].join(' ') : baseClass;
-  }
-
   static currentStatusToClass(status) {
     if (status === '') return '';
     return ` media-status__current--${status.toLowerCase().replace(/[ _]/g, '-')}`;
@@ -64,7 +60,7 @@ class MediaStatusCommon extends Component {
 
   render() {
     const { media } = this.props;
-    const statuses = JSON.parse(mediaStatuses(media)).statuses;
+    const { statuses } = JSON.parse(mediaStatuses(media));
     const currentStatus = getStatus(mediaStatuses(media), mediaLastStatus(media));
 
     const styles = {
@@ -78,11 +74,11 @@ class MediaStatusCommon extends Component {
     };
 
     return (
-      <div className={MediaStatusCommon.bemClass('media-status', this.canUpdate(), '--editable')}>
+      <div className={bemClass('media-status', this.canUpdate(), '--editable')}>
         <span className="media-status__message">{this.state.message}</span>
 
-        {this.canUpdate()
-          ? <DropDownMenu
+        {this.canUpdate() ?
+          <DropDownMenu
             style={{ height: units(3) }}
             value={currentStatus.label}
             underlineStyle={{ borderWidth: 0 }}
@@ -93,10 +89,10 @@ class MediaStatusCommon extends Component {
             selectedMenuItemStyle={{ color: getStatusStyle(currentStatus, 'color') }}
             className={`media-status__label media-status__current${MediaStatusCommon.currentStatusToClass(mediaLastStatus(media))}`}
           >
-            {statuses.map(status =>
-              (<MenuItem
+            {statuses.map(status => (
+              <MenuItem
                 key={status.id}
-                className={`${MediaStatusCommon.bemClass(
+                className={`${bemClass(
                   'media-status__menu-item',
                   mediaLastStatus(media) === status.id,
                   '--current',
@@ -107,7 +103,8 @@ class MediaStatusCommon extends Component {
                 primaryText={status.label}
               />))}
           </DropDownMenu>
-          : <div style={styles.label}>
+          :
+          <div style={styles.label}>
             {currentStatus.label}
           </div>}
       </div>
