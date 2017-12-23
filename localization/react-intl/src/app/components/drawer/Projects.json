@@ -1,10 +1,10 @@
 [
   {
-    "id": "DrawerProjects.noDrawerProjects",
-    "defaultMessage": "No DrawerProjects yet."
+    "id": "projects.noProjects",
+    "defaultMessage": "No projects yet."
   },
   {
-    "id": "DrawerProjects.DrawerProjectsSubheading",
-    "defaultMessage": "DrawerProjects"
+    "id": "projects.projectsSubheading",
+    "defaultMessage": "Projects"
   }
 ]

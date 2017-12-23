@@ -21,18 +21,18 @@ const SubHeading = styled.div`
 
 const DrawerProjectsComponent = (props) => {
   const projectList = (() => {
-    if (props.team.DrawerProjects.edges.length === 0) {
+    if (props.team.projects.edges.length === 0) {
       return (
         <Text style={{ margin: `0 ${units(2)}` }} font={caption}>
           <FormattedMessage
-            id="DrawerProjects.noDrawerProjects"
-            defaultMessage="No DrawerProjects yet."
+            id="projects.noProjects"
+            defaultMessage="No projects yet."
           />
         </Text>
       );
     }
 
-    return props.team.DrawerProjects.edges
+    return props.team.projects.edges
       .sortp((a, b) => a.node.title.localeCompare(b.node.title))
       .map((p) => {
         const projectPath = `/${props.team.slug}/project/${p.node.dbid}`;
@@ -48,8 +48,8 @@ const DrawerProjectsComponent = (props) => {
     <div>
       <SubHeading>
         <FormattedMessage
-          id="DrawerProjects.DrawerProjectsSubheading"
-          defaultMessage="DrawerProjects"
+          id="projects.projectsSubheading"
+          defaultMessage="Projects"
         />
       </SubHeading>
       <div>
