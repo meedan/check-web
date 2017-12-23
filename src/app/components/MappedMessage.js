@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { formatHTMLMessage, injectIntl } from 'react-intl';
+import React from 'react';
+import { injectIntl } from 'react-intl';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import globalStrings from '../globalStrings';
 
@@ -15,13 +15,8 @@ function mapGlobalMessage(intl, msgKey, values) {
   return mapMessage(intl, null, msgKey, values);
 }
 
-class MappedMessage extends Component {
-  render() {
-    return (
-      <span>{mapMessage(this.props.intl, this.props.msgObj, this.props.msgKey, this.props.values)}</span>
-    );
-  }
-}
+const MappedMessage = props => (
+  <span>{mapMessage(props.intl, props.msgObj, props.msgKey, props.values)}</span>);
 
 export default injectIntl(MappedMessage);
 export {

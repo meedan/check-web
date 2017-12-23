@@ -87,6 +87,7 @@ class MediaMetadata extends Component {
       openDeleteDialog: false,
       confirmationError: false,
       submitDisabled: true,
+      message: null,
     };
   }
 
@@ -140,7 +141,7 @@ class MediaMetadata extends Component {
       const message = (
         <FormattedMessage
           id="mediaMetadata.movedToTrash"
-          defaultMessage={'Sent to {trash}'}
+          defaultMessage="Sent to {trash}"
           values={{
             trash: (
               <Link to={`/${pm.team.slug}/trash`}>
@@ -179,7 +180,7 @@ class MediaMetadata extends Component {
       const message = (
         <FormattedMessage
           id="mediaMetadata.movedBack"
-          defaultMessage={'Moved back to project: {project}'}
+          defaultMessage="Moved back to project: {project}"
           values={{
             project: (
               <Link to={`/${pm.team.slug}/project/${pm.project_id}`}>
@@ -505,7 +506,7 @@ class MediaMetadata extends Component {
       media.user.name !== 'Pender' ? (
         <FormattedMessage
           id="mediaDetail.byUser"
-          defaultMessage={'by {username}'}
+          defaultMessage="by {username}"
           values={{
             username: (
               <Tooltip placement="top" overlay={<UserTooltip user={media.user} team={media.team} />}>
@@ -651,7 +652,7 @@ class MediaMetadata extends Component {
             <span className="media-detail__check-added-by">
               <FormattedMessage
                 id="mediaDetail.addedBy"
-                defaultMessage={'Added {byUser}'}
+                defaultMessage="Added {byUser}"
                 values={{ byUser }}
               />
             </span>
@@ -689,7 +690,7 @@ class MediaMetadata extends Component {
           <h4 className="media-detail__dialog-header">
             <FormattedMessage
               id="mediaDetail.dialogHeader"
-              defaultMessage={'Move this {mediaType} to a different project'}
+              defaultMessage="Move this {mediaType} to a different project"
               values={{
                 mediaType: MediaUtil.typeLabel(
                   media,
@@ -702,9 +703,7 @@ class MediaMetadata extends Component {
           <small className="media-detail__dialog-media-path">
             <FormattedMessage
               id="mediaDetail.dialogMediaPath"
-              defaultMessage={
-                'Currently filed under {teamName} > {projectTitle}'
-              }
+              defaultMessage="Currently filed under {teamName} > {projectTitle}"
               values={{
                 teamName: context.team.name,
                 projectTitle: media.project.title,
@@ -741,22 +740,19 @@ class MediaMetadata extends Component {
           <p>
             <FormattedMessage
               id="mediaDetail.deleteForeverConfirmationText"
-              defaultMessage={
-                'Are you sure? This will permanently delete this item and its {notesCount, plural, =0 {0 annotations} one {1 annotation} other {# annotations}}. Type "confirm" if you want to proceed.'
-              }
+              defaultMessage='Are you sure? This will permanently delete this item and its {notesCount, plural, =0 {0 annotations} one {1 annotation} other {# annotations}}. Type "confirm" if you want to proceed.'
               values={{ notesCount: media.log_count.toString() }}
             />
           </p>
           <TextField
             id="delete-forever__confirm"
             fullWidth
-            errorText={
-              this.state.confirmationError
-                ? <FormattedMessage
-                  id="mediaDetail.confirmationError"
-                  defaultMessage="Did not match"
-                />
-                : null
+            errorText={this.state.confirmationError ?
+              <FormattedMessage
+                id="mediaDetail.confirmationError"
+                defaultMessage="Did not match"
+              />
+              : null
             }
             hintText={
               <FormattedMessage

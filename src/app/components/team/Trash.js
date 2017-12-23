@@ -90,7 +90,7 @@ class TrashComponent extends Component {
     const message = (
       <FormattedMessage
         id="trash.emptyInProgress"
-        defaultMessage={'Empty trash operation is in progress. Please check back later. {refresh}'}
+        defaultMessage="Empty trash operation is in progress. Please check back later. {refresh}"
         values={{
           refresh: (
             // eslint-disable-next-line jsx-a11y/click-events-have-key-events
@@ -168,9 +168,7 @@ class TrashComponent extends Component {
           <p>
             <FormattedMessage
               id="trash.emptyTrashConfirmationText"
-              defaultMessage={
-                'Are you sure? This will permanently delete {itemsCount, plural, =0 {0 items} one {1 item} other {# items}} and {notesCount, plural, =0 {0 annotations} one {1 annotation} other {# annotations}}. Type "confirm" if you want to proceed.'
-              }
+              defaultMessage='Are you sure? This will permanently delete {itemsCount, plural, =0 {0 items} one {1 item} other {# items}} and {notesCount, plural, =0 {0 annotations} one {1 annotation} other {# annotations}}. Type "confirm" if you want to proceed.'
               values={{
                 itemsCount: team.trash_size.project_media.toString(),
                 notesCount: team.trash_size.annotation.toString(),

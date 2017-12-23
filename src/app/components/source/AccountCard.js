@@ -39,7 +39,7 @@ class AccountCard extends React.Component {
     const { account } = this.props;
 
     const byUser = (account.user) ?
-      (<FormattedMessage id="mediaDetail.byUser" defaultMessage={'by {username}'} values={{ username: <ProfileLink user={account.user} /> }} />) : '';
+      (<FormattedMessage id="mediaDetail.byUser" defaultMessage="by {username}" values={{ username: <ProfileLink user={account.user} /> }} />) : '';
 
     return (
       <Card className="source-card" style={{ marginBottom: units(2) }}>
@@ -73,7 +73,7 @@ class AccountCard extends React.Component {
           className="media-detail__check-metadata source-card__footer"
           style={{ color: black54, padding: `${units(2)}` }}
         >
-          <span className="media-detail__check-added-by"><FormattedMessage id="mediaDetail.added" defaultMessage={'Added {byUser}'} values={{ byUser }} /> </span>
+          <span className="media-detail__check-added-by"><FormattedMessage id="mediaDetail.added" defaultMessage="Added {byUser}" values={{ byUser }} /> </span>
           { account.created_at ? <span className="media-detail__check-added-at"> <TimeBefore date={MediaUtil.createdAt({ published: account.created_at })} /> </span> : null }
         </div>
       </Card>

@@ -7,6 +7,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import rtlDetect from 'rtl-detect';
 import merge from 'lodash.merge';
 import styled, { injectGlobal } from 'styled-components';
+import injectTapEventPlugin from 'react-tap-event-plugin';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import Header from './Header';
 import LoginContainer from './LoginContainer';
@@ -25,16 +26,17 @@ import {
   mediaQuery,
   borderRadiusDefault,
 } from '../styles/js/shared';
-
 import { layout, typography, localeAr, removeYellowAutocomplete } from '../styles/js/global';
 
+injectTapEventPlugin();
+
 // Global styles
-injectGlobal`
+injectGlobal([`
   ${layout}
   ${typography}
   ${localeAr}
   ${removeYellowAutocomplete}
-`;
+`]);
 
 const StyledWrapper = styled.div`
   display: flex;
@@ -78,11 +80,6 @@ const StyledDisclaimer = styled.div`
   }
 `;
 
-// Needed for onTouchTap
-import injectTapEventPlugin from 'react-tap-event-plugin';
-
-injectTapEventPlugin();
-
 const messages = defineMessages({
   needRegister: {
     id: 'home.needRegister',
@@ -96,6 +93,19 @@ const messages = defineMessages({
 });
 
 class Home extends Component {
+  static routeSlug(children) {
+    if (!(children && children.props.route)) {
+      return null;
+    }
+    if (/\/media\/:mediaId/.test(children.props.route.path)) {
+      return 'media'; // TODO Other pages as needed
+    }
+    if (/\/source\/:sourceId/.test(children.props.route.path)) {
+      return 'source'; // TODO Other pages as needed
+    }
+    return null;
+  }
+
   constructor(props) {
     super(props);
 
@@ -145,27 +155,17 @@ class Home extends Component {
     this.forceUpdate();
   }
 
-  routeSlug(children) {
-    if (!(children && children.props.route)) {
-      return null;
-    }
-    if (/\/media\/:mediaId/.test(children.props.route.path)) {
-      return 'media'; // TODO Other pages as needed
-    }
-    if (/\/source\/:sourceId/.test(children.props.route.path)) {
-      return 'source'; // TODO Other pages as needed
-    }
-    return null;
-  }
-
   resetMessage() {
     this.setState({ message: null });
   }
 
   render() {
     const { children } = this.props;
-    const routeSlug = this.routeSlug(children);
-    const muiThemeWithRtl = getMuiTheme(merge(muiThemeWithoutRtl, { isRtl: rtlDetect.isRtlLang(this.props.intl.locale) }));
+    const routeSlug = Home.routeSlug(children);
+    const muiThemeWithRtl = getMuiTheme(merge(
+      muiThemeWithoutRtl,
+      { isRtl: rtlDetect.isRtlLang(this.props.intl.locale) },
+    ));
 
     if (!this.state.sessionStarted) {
       return null;
@@ -173,12 +173,14 @@ class Home extends Component {
 
     let message = null;
     if (this.state.error) {
-      message = this.state.message;
+      ({ message } = this.state.message);
 
+      // TODO Don't parse error messages because they may be l10n'd - use error codes instead.
       if (!message && /^[^/]+\/join$/.test(children.props.route.path)) {
         message = this.props.intl.formatMessage(messages.needRegister);
       }
 
+      // TODO Don't parse error messages because they may be l10n'd - use error codes instead.
       if (this.state.error && message && message.match(/\{ \[Error: Request has been terminated/)) {
         message = this.props.intl.formatMessage(messages.somethingWrong);
       }

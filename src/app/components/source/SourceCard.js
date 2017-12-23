@@ -28,7 +28,7 @@ const SourceCard = (props) => {
   const sourceUrl = `/${team.slug}/project/${project_id}/source/${source.dbid}`;
 
   const byUser = (source.user && source.user.source && source.user.source.dbid && source.user.name !== 'Pender') ?
-    (<FormattedMessage id="mediaDetail.byUser" defaultMessage={'by {username}'} values={{ username: <ProfileLink user={source.user} /> }} />) : '';
+    (<FormattedMessage id="mediaDetail.byUser" defaultMessage="by {username}" values={{ username: <ProfileLink user={source.user} /> }} />) : '';
 
   return (
     <Card className="source-card" style={{ marginBottom: units(1) }}>
@@ -57,7 +57,7 @@ const SourceCard = (props) => {
           </div>
         </StyledSourceCardBody>
         <div className="media-detail__check-metadata source-card__footer">
-          {byUser ? <span className="media-detail__check-added-by"><FormattedMessage id="mediaDetail.added" defaultMessage={'Added {byUser}'} values={{ byUser }} /> </span> : null}
+          {byUser ? <span className="media-detail__check-added-by"><FormattedMessage id="mediaDetail.added" defaultMessage="Added {byUser}" values={{ byUser }} /> </span> : null}
           {createdAt ?
             <span className="media-detail__check-added-at">
               <Link to={sourceUrl} className="media-detail__check-timestamp"><TimeBefore date={createdAt} /></Link>

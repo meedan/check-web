@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay';
 import { Link } from 'react-router';
@@ -19,49 +19,47 @@ const SubHeading = styled.div`
   padding: ${units(2)} ${units(2)} ${units(1)} ${units(2)};
 `;
 
-class ProjectsComponent extends Component {
-  render() {
-    const projectList = (() => {
-      if (this.props.team.projects.edges.length === 0) {
-        return (
-          <Text style={{ margin: `0 ${units(2)}` }} font={caption}>
-            <FormattedMessage
-              id="projects.noProjects"
-              defaultMessage="No projects yet."
-            />
-          </Text>
-        );
-      }
-
-      return this.props.team.projects.edges
-        .sortp((a, b) => a.node.title.localeCompare(b.node.title))
-        .map((p) => {
-          const projectPath = `/${this.props.team.slug}/project/${p.node.dbid}`;
-          return (
-            <Link to={projectPath} key={p.node.dbid} >
-              <MenuItem primaryText={<Text ellipsis>{p.node.title}</Text>} />
-            </Link>
-          );
-        });
-    })();
-
-    return (
-      <div>
-        <SubHeading>
+const DrawerProjectsComponent = (props) => {
+  const projectList = (() => {
+    if (props.team.DrawerProjects.edges.length === 0) {
+      return (
+        <Text style={{ margin: `0 ${units(2)}` }} font={caption}>
           <FormattedMessage
-            id="projects.projectsSubheading"
-            defaultMessage="Projects"
+            id="DrawerProjects.noDrawerProjects"
+            defaultMessage="No DrawerProjects yet."
           />
-        </SubHeading>
-        <div>
-          {projectList}
-        </div>
-      </div>
-    );
-  }
-}
+        </Text>
+      );
+    }
 
-const ProjectsContainer = Relay.createContainer(ProjectsComponent, {
+    return props.team.DrawerProjects.edges
+      .sortp((a, b) => a.node.title.localeCompare(b.node.title))
+      .map((p) => {
+        const projectPath = `/${props.team.slug}/project/${p.node.dbid}`;
+        return (
+          <Link to={projectPath} key={p.node.dbid} >
+            <MenuItem primaryText={<Text ellipsis>{p.node.title}</Text>} />
+          </Link>
+        );
+      });
+  })();
+
+  return (
+    <div>
+      <SubHeading>
+        <FormattedMessage
+          id="DrawerProjects.DrawerProjectsSubheading"
+          defaultMessage="DrawerProjects"
+        />
+      </SubHeading>
+      <div>
+        {projectList}
+      </div>
+    </div>
+  );
+};
+
+const DrawerProjectsContainer = Relay.createContainer(DrawerProjectsComponent, {
   initialVariables: {
     pageSize: 10000,
   },
@@ -70,17 +68,15 @@ const ProjectsContainer = Relay.createContainer(ProjectsComponent, {
   },
 });
 
-class Projects extends Component {
-  render() {
-    const route = new TeamRoute({ teamSlug: this.props.team });
-    return (
-      <Relay.RootContainer
-        Component={ProjectsContainer}
-        route={route}
-        renderFetched={data => <ProjectsContainer {...this.props} {...data} />}
-      />
-    );
-  }
-}
+const DrawerProjects = (props) => {
+  const route = new TeamRoute({ teamSlug: props.team });
+  return (
+    <Relay.RootContainer
+      Component={DrawerProjectsContainer}
+      route={route}
+      renderFetched={data => <DrawerProjectsContainer {...props} {...data} />}
+    />
+  );
+};
 
-export default Projects;
+export default DrawerProjects;

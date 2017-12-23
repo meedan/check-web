@@ -4,12 +4,10 @@ import { Link } from 'react-router';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import { FormattedMessage } from 'react-intl';
-import IconButton from 'material-ui/IconButton';
 import styled from 'styled-components';
-import Projects from './drawer/Projects';
+import DrawerProjects from './drawer/Projects';
 import { stringHelper } from '../customHelpers';
 import UserMenuItems from './UserMenuItems';
-import UserAvatarRelay from '../relay/containers/UserAvatarRelay';
 import CheckContext from '../CheckContext';
 import {
   Row,
@@ -18,14 +16,14 @@ import {
   HeaderTitle,
   white,
   black05,
-  black54,
   units,
   caption,
   avatarSize,
   avatarStyle,
-  body2,
 } from '../styles/js/shared';
 
+// TODO Fix a11y issues
+/* eslint jsx-a11y/click-events-have-key-events: 0 */
 class DrawerNavigation extends Component {
   getHistory() {
     return new CheckContext(this).getContextStore().history;
@@ -41,7 +39,7 @@ class DrawerNavigation extends Component {
     //
     // — @chris with @alex 2017-10-3
 
-    const currentUserIsMember = this.props.currentUserIsMember;
+    const { currentUserIsMember } = this.props;
 
     const drawerHeaderHeight = units(14);
 
@@ -74,18 +72,10 @@ class DrawerNavigation extends Component {
       padding: ${units(2)};
     `;
 
-    // Team Avatar
     const TeamAvatar = styled.div`
       ${avatarStyle}
       width: ${props => (props.size ? props.size : avatarSize)};
       height: ${props => (props.size ? props.size : avatarSize)};
-    `;
-
-    const Headline = styled(HeaderTitle)`
-      font: ${body2};
-      font-weight: 700;
-      padding-top: ${units(1)};
-      color: ${black54};
     `;
 
     const TosMenuItem = (
@@ -171,8 +161,8 @@ class DrawerNavigation extends Component {
                   </OffsetBothSides>
                 </Row>
               </Link>
-            </DrawerHeader>
-            : <DrawerHeader>
+            </DrawerHeader> :
+            <DrawerHeader>
               <Row style={{ alignItems: 'flex-start', justifyContent: 'space-between' }}>
                 <Offset>
                   {loggedIn && checkLogo}
@@ -183,7 +173,7 @@ class DrawerNavigation extends Component {
           <div style={styles.drawerProjectsAndFooter}>
             <div style={styles.drawerProjects}>
               {inTeamContext && (currentUserIsMember || !this.props.team.private)
-                ? <Projects team={this.props.team.slug} />
+                ? <DrawerProjects team={this.props.team.slug} />
                 : null}
             </div>
 

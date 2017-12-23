@@ -1,21 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router';
-import UserTooltip from '../user/UserTooltip';
 import Tooltip from 'rc-tooltip';
+import UserTooltip from '../user/UserTooltip';
 
-class ProfileLink extends React.Component {
-  render() {
-    const { user, team, className } = this.props;
+const ProfileLink = (props) => {
+  if (!props.user) return null;
 
-    if (!user) { return null; }
+  const url = props.user.dbid ? `/check/user/${props.user.dbid}` : '';
 
-    const url = user.dbid ? `/check/user/${user.dbid}` : '';
-
-    return url ?
-      <Tooltip placement="top" overlay={<UserTooltip user={user} team={team} />}>
-        <Link to={url} className={className}>{user.name}</Link>
-      </Tooltip> : <span className={className}>{user.name}</span>;
-  }
-}
+  return url ?
+    <Tooltip placement="top" overlay={<UserTooltip user={props.user} team={props.team} />}>
+      <Link to={url} className={props.className}>{props.user.name}</Link>
+    </Tooltip> :
+    <span className={props.className}>{props.user.name}</span>;
+};
 
 export default ProfileLink;

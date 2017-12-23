@@ -32,7 +32,7 @@ const DatetimeTaskResponse = (props) => {
         ? formattedDate
         : <FormattedMessage
           id="datetimeTaskResponse.taskResponse"
-          defaultMessage={'{date} at {timeLink}'}
+          defaultMessage="{date} at {timeLink}"
           values={{
             date: formattedDate,
             timeLink: (

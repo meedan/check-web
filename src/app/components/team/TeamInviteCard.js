@@ -85,7 +85,7 @@ class TeamInviteCard extends Component {
 
             <p><FormattedMessage
               id="teamMembersComponent.inviteLink"
-              defaultMessage={'To invite colleagues to join {teamName}, send them this link:'}
+              defaultMessage="To invite colleagues to join {teamName}, send them this link:"
               values={{ teamName: this.props.team.name }}
             />
             </p>

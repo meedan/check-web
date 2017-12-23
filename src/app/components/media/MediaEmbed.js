@@ -145,13 +145,14 @@ class MediaEmbed extends Component {
 
     return (
       <PageTitle title={this.props.intl.formatMessage(messages.preview)}>
-        {config.appName !== 'check'
-          ? <ContentColumn className="card">
+        {config.appName !== 'check' ?
+          <ContentColumn className="card">
             <h2 className="main-title">
               <FormattedMessage id="mediaEmbed.notAvailable" defaultMessage="Not available" />
             </h2>
           </ContentColumn>
-          : <div id="media-embed">
+          :
+          <div id="media-embed">
             <StyledPopover
               open={this.state.customizationMenuOpened}
               anchorEl={this.state.customizationMenuAnchor}
@@ -227,16 +228,17 @@ class MediaEmbed extends Component {
                 </p>
                 <p className="media-embed__copy-footer">
                   <input disabled readOnly value={embedTag} id="media-embed__code-field" />
-                  {this.state.codeCopied
-                    ? <span className="media-embed__copy-button-inactive">
+                  {this.state.codeCopied ?
+                    <span className="media-embed__copy-button-inactive">
                       <FormattedMessage
                         id="mediaEmbed.copyButtonInactive"
                         defaultMessage="Copied"
                       />
-                      </span>
-                    : <span className="media-embed__copy-button">
+                    </span>
+                    :
+                    <span className="media-embed__copy-button">
                       <FormattedMessage id="mediaEmbed.copyButton" defaultMessage="Copy" />
-                      </span>}
+                    </span>}
                 </p>
               </div>
             </StyledPopover>

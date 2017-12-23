@@ -238,7 +238,7 @@ class SourceComponent extends Component {
   getConflictMessage() {
     return (<FormattedMessage
       id="sourceComponent.conflictError"
-      defaultMessage={'This item was edited by another user while you were making your edits. Please save your changes and {reloadLink}.'}
+      defaultMessage="This item was edited by another user while you were making your edits. Please save your changes and {reloadLink}."
       values={{
         reloadLink: (
           // TODO Support keyboard events

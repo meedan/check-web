@@ -139,7 +139,7 @@ class JoinTeamComponent extends Component {
                     return (
                       <FormattedMessage
                         id="joinTeamComponent.alreadyRequested"
-                        defaultMessage={'You already requested to join {team} {appName}.'}
+                        defaultMessage="You already requested to join {team} {appName}."
                         values={{ team: <Link to={`/${team.slug}`}>{team.name}</Link>, appName }}
                       />
                     );
@@ -155,7 +155,7 @@ class JoinTeamComponent extends Component {
                     <div>
                       <FormattedMessage
                         id="joinTeamComponent.blurbGraf"
-                        defaultMessage={'To request access to the {link} {appName}, click below:'}
+                        defaultMessage="To request access to the {link} {appName}, click below:"
                         values={{ link: <Link to={`/${team.slug}`}>{team.name}</Link>, appName }}
                       />
                     </div>

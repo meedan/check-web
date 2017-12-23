@@ -73,8 +73,24 @@ const styles = {
 };
 
 class AddAnnotation extends Component {
+  static onImage(file) {
+    document.forms.addannotation.image = file;
+  }
+
+  static parseCommand(input) {
+    const matches = input.match(/^\/([a-z_]+) (.*)/);
+    let command = { type: 'unk', args: null };
+    if (matches !== null) {
+      ([, command.type, command.args] = matches);
+    } else if (/^[^/]/.test(input) || !input) {
+      command = { type: 'comment', args: input };
+    }
+    return command;
+  }
+
   constructor(props) {
     super(props);
+
     this.state = {
       cmd: '',
       message: null,
@@ -83,16 +99,12 @@ class AddAnnotation extends Component {
     };
   }
 
-  parseCommand(input) {
-    const matches = input.match(/^\/([a-z_]+) (.*)/);
-    let command = { type: 'unk', args: null };
-    if (matches !== null) {
-      command.type = matches[1];
-      command.args = matches[2];
-    } else if (/^[^/]/.test(input) || !input) {
-      command = { type: 'comment', args: input };
-    }
-    return command;
+  onImageError(file, message) {
+    this.setState({ message });
+  }
+
+  getContext() {
+    return new CheckContext(this).getContextStore();
   }
 
   failure() {
@@ -130,10 +142,6 @@ class AddAnnotation extends Component {
     });
   }
 
-  getContext() {
-    return new CheckContext(this).getContextStore();
-  }
-
   addComment(
     annotated,
     annotated_id,
@@ -152,12 +160,9 @@ class AddAnnotation extends Component {
       }));
     };
 
-    const annotator = this.getContext().currentUser;
+    const { currentUser: annotator } = this.getContext();
 
-    let image = '';
-    if (this.state.fileMode) {
-      image = document.forms.addannotation.image;
-    }
+    const image = this.state.fileMode ? document.forms.addannotation.image : '';
 
     Relay.Store.commitUpdate(
       new CreateCommentMutation({
@@ -197,7 +202,7 @@ class AddAnnotation extends Component {
 
     const context = this.getContext();
 
-    tagsList.map((tag) => {
+    tagsList.forEach((tag) => {
       Relay.Store.commitUpdate(
         new CreateTagMutation({
           annotated,
@@ -314,8 +319,8 @@ class AddAnnotation extends Component {
     const fields = {};
     if (params) {
       params.split('&').forEach((part) => {
-        const pair = part.split('=');
-        fields[pair[0]] = pair[1];
+        const [pair0, pair1] = part.split('=');
+        fields[pair0] = pair1;
       });
     }
 
@@ -347,15 +352,16 @@ class AddAnnotation extends Component {
   }
 
   handleSubmit(e) {
-    const command = this.parseCommand(this.state.cmd);
+    const command = AddAnnotation.parseCommand(this.state.cmd);
     if (this.state.isSubmitting) {
-      return e.preventDefault();
+      e.preventDefault();
+      return;
     }
 
     this.setState({ isSubmitting: true });
     let action = null;
 
-    if (this.props.types && this.props.types.indexOf(command.type) == -1) {
+    if (this.props.types && this.props.types.indexOf(command.type) === -1) {
       this.failure();
     } else {
       switch (command.type) {
@@ -377,12 +383,10 @@ class AddAnnotation extends Component {
       }
 
       if (action) {
-        const annotated = this.props.annotated;
-        const annotated_id = annotated.dbid;
-        const annotated_type = this.props.annotatedType;
+        const { annotated, annotated_type } = this.props;
         action(
           annotated,
-          annotated_id,
+          annotated.dbid,
           annotated_type,
           command.args,
           command.type,
@@ -399,14 +403,6 @@ class AddAnnotation extends Component {
     if (e.key === 'Enter' && !e.shiftKey) {
       this.handleSubmit(e);
     }
-  }
-
-  onImage(file) {
-    document.forms.addannotation.image = file;
-  }
-
-  onImageError(file, message) {
-    this.setState({ message });
   }
 
   switchMode() {
@@ -447,7 +443,7 @@ class AddAnnotation extends Component {
             style={{ width: '100%' }}
             errorStyle={this.state.messageStyle}
             onFocus={this.handleFocus.bind(this)}
-            ref={ref => (this.cmd = ref)}
+            ref={(i) => { this.cmd = i; }}
             errorText={this.state.message}
             name="cmd"
             id="cmd-input"
@@ -460,7 +456,7 @@ class AddAnnotation extends Component {
             if (this.state.fileMode) {
               return (
                 <UploadImage
-                  onImage={this.onImage.bind(this)}
+                  onImage={AddAnnotation.onImage}
                   onError={this.onImageError.bind(this)}
                 />
               );

@@ -26,7 +26,7 @@ class CheckNetworkLayer extends Relay.DefaultNetworkLayer {
   sendQueries(requests: Array<Relay.RelayQueryRequest>): ?Promise<any> {
     return Promise.all(requests.map(request => (
       this._sendQuery(request).then((result) => {
-        const history = this._init.history;
+        const { history } = this._init;
         if (result.status === 404 && window.location.pathname !== '/check/404') {
           history.push('/check/404');
         } else if (result.status === 401 || result.status === 403) {

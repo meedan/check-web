@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Link } from 'react-router';
@@ -44,10 +44,15 @@ const HeaderBar = styled.div`
   `}
 `;
 
+// TODO Fix a11y issues
+/* eslint jsx-a11y/click-events-have-key-events: 0 */
 const HeaderComponent = (props) => {
-  const locale = props.intl.locale;
   const {
-    inTeamContext, loggedIn, drawerToggle, currentUserIsMember,
+    inTeamContext,
+    loggedIn,
+    drawerToggle,
+    currentUserIsMember,
+    intl: { locale },
   } = props;
   const isRtl = rtlDetect.isRtlLang(locale);
   const fromDirection = isRtl ? 'right' : 'left';
@@ -121,8 +126,8 @@ const HeaderComponent = (props) => {
     );
   })();
 
-  const secondary = (() =>
-    (<AlignOpposite>
+  const secondary = (() => (
+    <AlignOpposite>
       <Row>
         <Offset isRtl>
           {signInButton}
@@ -132,7 +137,7 @@ const HeaderComponent = (props) => {
         {teamPrivateContentShouldShow && searchButton}
         <UserMenuRelay {...props} />
       </Row>
-     </AlignOpposite>))();
+    </AlignOpposite>))();
 
   return (
     <HeaderBar>
@@ -169,5 +174,4 @@ const Header = (props) => {
   return <HeaderComponent {...props} />;
 };
 
-export default Header;
-export { HeaderComponent };
+export { Header as default, HeaderComponent };

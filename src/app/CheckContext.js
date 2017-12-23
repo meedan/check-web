@@ -34,20 +34,20 @@ class CheckContext {
 
   startNetwork(token) {
     const context = this.getContextStore();
-    const history = context.history;
+    const { history } = context;
     const clientSessionId = context.clientSessionId || (`browser-${Date.now()}${parseInt(Math.random() * 1000000, 10)}`);
     this.setContextStore({ clientSessionId });
     Relay.injectNetworkLayer(new CheckNetworkLayer(config.relayPath, {
       history,
       team: () => {
-        const team = this.getContextStore().team;
+        const { team } = this.getContextStore();
         if (team) {
           return team.slug;
         }
         return '';
       },
       get headers() {
-        const headers = config.relayHeaders;
+        const { headers } = config;
         if (token) {
           headers['X-Check-Token'] = token;
         }
@@ -58,11 +58,9 @@ class CheckContext {
   }
 
   startSession() {
-    const caller = this.caller;
-
     // Failed login
     const failureCallback = (errorMessage) => {
-      caller.setState({ message: errorMessage, error: true, sessionStarted: true });
+      this.caller.setState({ message: errorMessage, error: true, sessionStarted: true });
     };
 
     // Successful login
@@ -78,10 +76,10 @@ class CheckContext {
 
       this.setContextStore({ currentUser: userData });
 
-      this.maybeRedirect(caller.props.location.pathname, userData);
+      this.maybeRedirect(this.caller.props.location.pathname, userData);
       this.setContext();
 
-      caller.setState(newState);
+      this.caller.setState(newState);
     };
 
     request('get', 'me', failureCallback, successCallback);

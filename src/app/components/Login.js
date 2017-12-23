@@ -152,6 +152,10 @@ const Column = styled.div`
 
 
 class Login extends Component {
+  static onImage(file) {
+    document.forms.register.image = file;
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -164,8 +168,12 @@ class Login extends Component {
     };
   }
 
-  componentDidMount() {
-    this.focusFirstInput();
+  componentDidUpdate() {
+    if (this.state.type === 'login') {
+      this.inputEmail.focus();
+    } else {
+      this.inputName.focus();
+    }
   }
 
   onFormSubmit(e) {
@@ -178,24 +186,13 @@ class Login extends Component {
     }
   }
 
-  onImage(file) {
-    document.forms.register.image = file;
-  }
-
   getHistory() {
     return new CheckContext(this).getContextStore().history;
   }
 
   handleSwitchType() {
     const type = this.state.type === 'login' ? 'register' : 'login';
-    this.setState({ type }, () => this.focusFirstInput());
-  }
-
-  focusFirstInput() {
-    const input = document.querySelector('.login input');
-    if (input) {
-      input.focus();
-    }
+    this.setState({ type });
   }
 
   emailLogin() {
@@ -242,12 +239,6 @@ class Login extends Component {
     login(provider, this.props.loginCallback);
   }
 
-  bemClass(baseClass, modifierBoolean, modifierSuffix) {
-    return modifierBoolean
-      ? [baseClass, baseClass + modifierSuffix].join(' ')
-      : baseClass;
-  }
-
   handleFieldChange(e) {
     const state = {};
     state[e.target.name] = e.target.value;
@@ -259,7 +250,7 @@ class Login extends Component {
       isRtl: rtlDetect.isRtlLang(this.props.intl.locale),
     }));
 
-    const locale = this.props.intl.locale;
+    const { intl: { locale } } = this.props;
     const isRtl = rtlDetect.isRtlLang(locale);
     const fromDirection = isRtl ? 'right' : 'left';
 
@@ -319,14 +310,15 @@ class Login extends Component {
                   />}
               </StyledSubHeader>
               <Message message={this.state.message} />
-              {this.state.type === 'login'
-                ? null
-                : <div className="login__name">
+              {this.state.type === 'login' ?
+                null :
+                <div className="login__name">
                   <TextField
                     fullWidth
                     name="name"
                     value={this.state.name}
                     className="login__name-input"
+                    ref={(i) => { this.inputName = i; }}
                     onChange={this.handleFieldChange.bind(this)}
                     floatingLabelText={
                       <FormattedMessage
@@ -344,7 +336,7 @@ class Login extends Component {
                   name="email"
                   value={this.state.email}
                   className="login__email-input"
-                  id="login__email-input"
+                  ref={(i) => { this.inputEmail = i; }}
                   onChange={this.handleFieldChange.bind(this)}
                   floatingLabelText={
                     <FormattedMessage
@@ -362,7 +354,6 @@ class Login extends Component {
                   name="password"
                   value={this.state.password}
                   className="login__password-input"
-                  id="login__password-input"
                   onChange={this.handleFieldChange.bind(this)}
                   floatingLabelText={
                     this.state.type === 'login'
@@ -375,16 +366,15 @@ class Login extends Component {
                 />
               </div>
 
-              {this.state.type === 'login'
-                ? null
-                : <div className="login__password-confirmation">
+              {this.state.type === 'login' ?
+                null :
+                <div className="login__password-confirmation">
                   <TextField
                     fullWidth
                     type="password"
                     name="password_confirmation"
                     value={this.state.password_confirmation}
                     className="login__password-confirmation-input"
-                    id="login__password-confirmation-input"
                     onChange={this.handleFieldChange.bind(this)}
                     floatingLabelText={
                       <FormattedMessage
@@ -395,9 +385,9 @@ class Login extends Component {
                   />
                 </div>}
 
-              {this.state.type === 'login'
-                ? null
-                : <UploadImage onImage={this.onImage.bind(this)} />}
+              {this.state.type === 'login' ?
+                null :
+                <UploadImage onImage={Login.onImage} />}
 
               <div className="login__actions" style={styles.buttonGroup}>
                 <RaisedButton
@@ -418,8 +408,8 @@ class Login extends Component {
                       />
                   }
                 />
-                {this.state.type === 'login'
-                  ? <span className="login__forgot-password">
+                {this.state.type === 'login' ?
+                  <span className="login__forgot-password">
                     <Link to="/check/user/password-reset">
                       <FlatButton
                         style={styles.secondaryButton}
@@ -444,7 +434,7 @@ class Login extends Component {
               icon={<FASlack style={{ color: slackGreen }} className="logo" />}
               headerText={<FormattedMessage
                 id="login.with"
-                defaultMessage={'Continue with {provider}'}
+                defaultMessage="Continue with {provider}"
                 values={{ provider: 'Slack' }}
               />}
               subheaderText
@@ -456,7 +446,7 @@ class Login extends Component {
               icon={<FATwitter style={{ color: twitterBlue }} className="logo" />}
               headerText={<FormattedMessage
                 id="login.with"
-                defaultMessage={'Continue with {provider}'}
+                defaultMessage="Continue with {provider}"
                 values={{ provider: 'Twitter' }}
               />}
               subheaderText
@@ -469,15 +459,15 @@ class Login extends Component {
               headerText={
                 <FormattedMessage
                   id="login.with"
-                  defaultMessage={'Continue with {provider}'}
+                  defaultMessage="Continue with {provider}"
                   values={{ provider: 'Facebook' }}
                 />
               }
               subheaderText
             />
 
-            {this.state.type === 'login'
-              ? <BigButton
+            {this.state.type === 'login' ?
+              <BigButton
                 id="register-or-login"
                 onClick={this.handleSwitchType.bind(this)}
                 icon={<MDEmail style={{ color: black54 }} />}
@@ -489,8 +479,8 @@ class Login extends Component {
                 }
                 subheaderText={false}
               />
-
-              : <BigButton
+              :
+              <BigButton
                 id="register-or-login"
                 onClick={this.handleSwitchType.bind(this)}
                 icon={<MDEmail style={{ color: black54 }} />}

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { defineMessages } from 'react-intl';
 import styled from 'styled-components';
 import MappedMessage from './MappedMessage';
@@ -40,15 +40,9 @@ const messages = defineMessages({
   },
 });
 
-class Footer extends Component {
-  render() {
-    const about = this.props.about;
-    return (
-      <StyledFooter className="footer">
-        <span><MappedMessage msgObj={messages} msgKey="footer" /> <a target="_blank" rel="noopener noreferrer" href="http://meedan.com">Meedan</a></span>
-      </StyledFooter>
-    );
-  }
-}
+const Footer = () => (
+  <StyledFooter className="footer">
+    <span><MappedMessage msgObj={messages} msgKey="footer" /> <a target="_blank" rel="noopener noreferrer" href="http://meedan.com">Meedan</a></span>
+  </StyledFooter>);
 
 export default Footer;

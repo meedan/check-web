@@ -18,11 +18,11 @@ import IconMoreHoriz from 'material-ui/svg-icons/navigation/more-horiz';
 import IconButton from 'material-ui/IconButton';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
+import MdImage from 'react-icons/lib/md/image';
 import EmbedUpdate from './EmbedUpdate';
 import EmbedCreate from './EmbedCreate';
 import TaskUpdate, { shouldLogChange } from './TaskUpdate';
 import SourcePicture from '../source/SourcePicture';
-import MdImage from 'react-icons/lib/md/image';
 import MediaDetail from '../media/MediaDetail';
 import MediaUtil from '../media/MediaUtil';
 import ProfileLink from '../layout/ProfileLink';
@@ -245,11 +245,22 @@ const messages = defineMessages({
   },
 });
 
+// TODO Fix a11y issues
+/* eslint jsx-a11y/click-events-have-key-events: 0 */
 class Annotation extends Component {
+  static handleReverseImageSearch(path) {
+    const imagePath = path ? `?&image_url=${path}` : '';
+    window.open(`https://www.google.com/searchbyimage${imagePath}`);
+  }
+
   constructor(props) {
     super(props);
 
-    this.state = { zoomedCommentImage: false, retriedKeep: false, disableMachineTranslation: false };
+    this.state = {
+      zoomedCommentImage: false,
+      retriedKeep: false,
+      disableMachineTranslation: false,
+    };
   }
 
   handleCloseCommentImage() {
@@ -263,15 +274,11 @@ class Annotation extends Component {
   handleDelete(id) {
     const onFailure = (transaction) => {
       const error = transaction.getError();
-      let message = this.props.intl.formatMessage(messages.error);
       const json = safelyParseJSON(error.source);
-      if (json && json.error) {
-        message = json.error;
-      }
-      console.error(message);
+      this.handleError(json);
     };
 
-    const onSuccess = (response) => {};
+    const onSuccess = () => {};
 
     // Either to destroy versions or annotations
     const destroy_attr = {
@@ -293,17 +300,30 @@ class Annotation extends Component {
     }
   }
 
+  handleError(json) {
+    let message = this.props.intl.formatMessage(messages.error);
+    if (json && json.error) {
+      message = json.error;
+    }
+    // eslint-disable-next-line no-console
+    console.error(message);
+  }
+
   handleUpdateMachineTranslation() {
     const onFailure = (transaction) => {
-      const transactionError = transaction.getError();
-      transactionError.json
-        ? transactionError.json().then(handleError)
-        : handleError(JSON.stringify(transactionError));
+      // TODO Review this code to understand what it is supposed to do.
+      const error = transaction.getError();
+      if (error.json) {
+        error.json().then(this.handleError);
+      } else {
+        this.handleError(error);
+      }
     };
 
-    const onSuccess = (response) => {
+    const onSuccess = () => {
       this.setState({ disableMachineTranslation: true });
     };
+
     if (!this.state.disableMachineTranslation) {
       Relay.Store.commitUpdate(
         new UpdateProjectMediaMutation({
@@ -317,11 +337,11 @@ class Annotation extends Component {
   }
 
   handleRetryKeep() {
-    const onFailure = (transaction) => {
+    const onFailure = () => {
       this.setState({ retriedKeep: false });
     };
 
-    const onSuccess = (response) => {};
+    const onSuccess = () => {};
 
     if (!this.state.retriedKeep) {
       Relay.Store.commitUpdate(
@@ -335,15 +355,8 @@ class Annotation extends Component {
     }
   }
 
-  handleReverseImageSearch(path) {
-    const imagePath = path ? `?&image_url=${path}` : '';
-    window.open(`https://www.google.com/searchbyimage${imagePath}`);
-  }
-
   render() {
-    const activity = this.props.annotation;
-    const annotation = activity.annotation;
-    const annotated = this.props.annotated;
+    const { annotation: activity, annotated, annotation: { annotation } } = this.props;
     const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
 
     let annotationActions = null;
@@ -351,8 +364,8 @@ class Annotation extends Component {
       const permission = `destroy ${annotation.annotation_type
         .charAt(0)
         .toUpperCase()}${annotation.annotation_type.slice(1)}`;
-      annotationActions = can(annotation.permissions, permission)
-        ? (<IconMenu
+      annotationActions = can(annotation.permissions, permission) ? (
+        <IconMenu
           iconButtonElement={
             <IconButton className="menu-button">
               <IconMoreHoriz />
@@ -383,7 +396,7 @@ class Annotation extends Component {
     let contentTemplate = null;
 
     switch (activityType) {
-    case 'create_comment':
+    case 'create_comment': {
       const commentText = content.text;
       const commentContent = JSON.parse(annotation.content);
       contentTemplate = (
@@ -391,16 +404,14 @@ class Annotation extends Component {
           <div className="annotation__card-content">
             <ParsedText text={commentText} />
             {/* thumbnail */}
-            {commentContent.original
-              ? <div>
+            {commentContent.original ?
+              <div onClick={this.handleOpenCommentImage.bind(this, commentContent.original)}>
                 <img
                   src={commentContent.thumbnail}
                   className="annotation__card-thumbnail"
                   alt=""
-                  onClick={this.handleOpenCommentImage.bind(this, commentContent.original)}
                 />
-                </div>
-              : null}
+              </div> : null}
           </div>
 
           {/* embedded medias */}
@@ -419,14 +430,15 @@ class Annotation extends Component {
         </div>
       );
       break;
-    case 'update_status':
+    }
+    case 'update_status': {
       const statusCode = content.status.toLowerCase().replace(/[ _]/g, '-');
       const status = getStatus(this.props.annotated.verification_statuses, content.status);
       contentTemplate = (
         <span>
           <FormattedMessage
             id="annotation.statusSetHeader"
-            defaultMessage={'Status set to {status} by {author}'}
+            defaultMessage="Status set to {status} by {author}"
             values={{
               status: (
                 <span
@@ -442,35 +454,37 @@ class Annotation extends Component {
         </span>
       );
       break;
+    }
     case 'create_tag':
       contentTemplate = (
         <span>
           <FormattedMessage
             id="annotation.taggedHeader"
-            defaultMessage={'Tagged #{tag} by {author}'}
+            defaultMessage="Tagged #{tag} by {author}"
             values={{ tag: content.tag.replace(/^#/, ''), author: authorName }}
           />
         </span>
       );
       break;
     case 'destroy_comment':
-      contentTemplate = (<em className="annotation__deleted">
-        <FormattedMessage
-          id="annotation.deletedComment"
-          defaultMessage={'Comment deleted by {author}: "{comment}"'}
-          values={{
-            author: authorName,
-            comment: content.text,
-          }}
-        />
-      </em>);
+      contentTemplate = (
+        <em className="annotation__deleted">
+          <FormattedMessage
+            id="annotation.deletedComment"
+            defaultMessage='Comment deleted by {author}: "{comment}"'
+            values={{
+              author: authorName,
+              comment: content.text,
+            }}
+          />
+        </em>);
       break;
     case 'create_task':
       contentTemplate = (
         <span>
           <FormattedMessage
             id="annotation.taskCreated"
-            defaultMessage={'Task "{task}" created by {author}'}
+            defaultMessage='Task "{task}" created by {author}'
             values={{ task: content.label, author: authorName }}
           />
         </span>
@@ -492,9 +506,8 @@ class Annotation extends Component {
             return selected_array.join(', ') + last_item;
           } else if (type === 'geolocation') {
             const geojson = JSON.parse(object.value);
-            const coordinates = geojson.geometry.coordinates;
-            const name = geojson.properties.name;
-            if (coordinates[0] != 0 || coordinates[1] != 0) {
+            const { geometry: { coordinates }, properties: { name } } = geojson;
+            if (!coordinates[0] || !coordinates[1]) {
               return (
                 <a
                   style={{ textDecoration: 'underline' }}
@@ -517,7 +530,7 @@ class Annotation extends Component {
           <span className="// annotation__task-resolved">
             <FormattedMessage
               id="annotation.taskResolve"
-              defaultMessage={'Task "{task}" answered by {author}: "{response}"'}
+              defaultMessage='Task "{task}" answered by {author}: "{response}"'
               values={{
                 task: activity.task.label,
                 author: authorName,
@@ -538,7 +551,7 @@ class Annotation extends Component {
             <span
               className="annotation__reverse-image-search"
               title="Google Images"
-              onClick={this.handleReverseImageSearch.bind(this, value)}
+              onClick={Annotation.handleReverseImageSearch.bind(value)}
             >
               <FormattedMessage id="annotation.reverseImageSearch" defaultMessage="Search" />
             </span>
@@ -554,7 +567,7 @@ class Annotation extends Component {
           <span className="annotation__translation-text">
             <FormattedMessage
               id="annotation.translation"
-              defaultMessage={'Translated to {language} by {author}: "{translation}"'}
+              defaultMessage='Translated to {language} by {author}: "{translation}"'
               values={{
                 language,
                 author: authorName,
@@ -566,8 +579,9 @@ class Annotation extends Component {
       }
 
       if (object.field_name === 'mt_translations') {
-        const formatted_value = JSON.parse(annotation.content)[0].formatted_value;
-        if (formatted_value.length == 0) {
+        const annotation_content = JSON.parse(annotation.content);
+        const { formatted_value } = annotation_content[0];
+        if (!formatted_value.length) {
           contentTemplate = (
             <span className="annotation__mt-translations">
               <button
@@ -586,14 +600,14 @@ class Annotation extends Component {
           contentTemplate = (
             <span className="annotation__mt-translations">
               <ul className="mt-list">
-                {formatted_value.map(mt =>
-                  (<li className="mt__list-item">
+                {formatted_value.map(mt => (
+                  <li className="mt__list-item">
                     <FormattedMessage
                       id="annotation.machineTranslation"
-                      defaultMessage={'Machine translation for "{lang}" is: {text}'}
+                      defaultMessage='Machine translation for "{lang}" is: {text}'
                       values={{ lang: mt.lang_name, text: mt.text }}
                     />
-                   </li>))}
+                  </li>))}
               </ul>
             </span>
           );
@@ -607,7 +621,7 @@ class Annotation extends Component {
           <span>
             <FormattedMessage
               id="annotation.translationStatus"
-              defaultMessage={'Translation status set to {status} by {author}'}
+              defaultMessage="Translation status set to {status} by {author}"
               values={{
                 status: (
                   <span className={`annotation__status annotation__status--${statusCode}`}>
@@ -628,34 +642,36 @@ class Annotation extends Component {
           facebook: '#3b5998',
         };
         contentTemplate = [];
-        for (const provider in published) {
+        Object.getOwnPropertyNames(published).forEach((provider) => {
           const name = provider.charAt(0).toUpperCase() + provider.slice(1);
           const color = colors[provider] || '#333';
-          contentTemplate.push(<span>
-            <FormattedMessage
-              id="annotation.translationPublished"
-              defaultMessage={'Translation published to {link}'}
-              values={{
-                link: (
-                  <a
-                    style={{ color, fontWeight: 'bold' }}
-                    href={published[provider]}
-                    target="_blank"
-                    rel="noreferrer noopener"
-                  >
-                    {name}
-                  </a>
-                ),
-              }}
-            />
-          </span>);
-        }
+          contentTemplate.push((
+            <span>
+              <FormattedMessage
+                id="annotation.translationPublished"
+                defaultMessage="Translation published to {link}"
+                values={{
+                  link: (
+                    <a
+                      style={{ color, fontWeight: 'bold' }}
+                      href={published[provider]}
+                      target="_blank"
+                      rel="noreferrer noopener"
+                    >
+                      {name}
+                    </a>
+                  ),
+                }}
+              />
+            </span>));
+        });
       }
 
       if (object.field_name === 'keep_backup_response') {
-        const keep = JSON.parse(JSON.parse(annotation.content)[0].value);
+        const annotation_content = JSON.parse(annotation.content);
+        const keep = JSON.parse(annotation_content[0].value);
         const keepLink = keep.location;
-        const keepStatus = parseInt(keep.status);
+        const keepStatus = parseInt(keep.status, 10);
         contentTemplate = null;
         if (this.state.retriedKeep) {
           contentTemplate = (
@@ -671,9 +687,7 @@ class Annotation extends Component {
             <span className="annotation__keep">
               <FormattedHTMLMessage
                 id="annotation.keepSuccess"
-                defaultMessage={
-                  'In case this link goes offline, you can <a href="{keepLink}" target="_blank" rel="noopener noreferrer">access a backup via Keep</a>'
-                }
+                defaultMessage='In case this link goes offline, you can <a href="{keepLink}" target="_blank" rel="noopener noreferrer">access a backup via Keep</a>'
                 values={{ keepLink }}
               />
             </span>
@@ -721,17 +735,26 @@ class Annotation extends Component {
         <span>
           <FormattedMessage
             id="annotation.flaggedHeader"
-            defaultMessage={'Flagged as {flag} by {author}'}
+            defaultMessage="Flagged as {flag} by {author}"
             values={{ flag: content.flag, author: authorName }}
           />
         </span>
       );
       break;
     case 'update_embed':
-      contentTemplate = <EmbedUpdate activity={activity} authorName={authorName} />;
+      contentTemplate = (
+        <EmbedUpdate
+          activity={activity}
+          authorName={authorName}
+        />);
       break;
     case 'create_embed':
-      contentTemplate = <EmbedCreate annotated={annotated} content={content} authorName={authorName} />;
+      contentTemplate = (
+        <EmbedCreate
+          annotated={annotated}
+          content={content}
+          authorName={authorName}
+        />);
       break;
     case 'update_projectmedia':
       if (activity.projects.edges.length > 0 && activity.user) {
@@ -742,9 +765,7 @@ class Annotation extends Component {
           <span>
             <FormattedMessage
               id="annotation.projectMoved"
-              defaultMessage={
-                'Moved from project {previousProject} to {currentProject} by {author}'
-              }
+              defaultMessage="Moved from project {previousProject} to {currentProject} by {author}"
               values={{
                 previousProject: (
                   <Link to={urlPrefix + previousProject.dbid}>
@@ -761,7 +782,7 @@ class Annotation extends Component {
             />
           </span>
         );
-      } else if (activity.object_changes_json == '{"archived":[false,true]}') {
+      } else if (activity.object_changes_json === '{"archived":[false,true]}') {
         activityType = 'move_to_trash';
         contentTemplate = (
           <div>
@@ -770,12 +791,12 @@ class Annotation extends Component {
             </div>
           </div>
         );
-      } else if (activity.object_changes_json == '{"archived":[true,false]}') {
+      } else if (activity.object_changes_json === '{"archived":[true,false]}') {
         contentTemplate = (
           <span>
             <FormattedMessage
               id="annotation.movedFromTrash"
-              defaultMessage={'{author} moved this out of the trash'}
+              defaultMessage="{author} moved this out of the trash"
               values={{
                 author: authorName,
               }}
@@ -806,8 +827,8 @@ class Annotation extends Component {
         id={`annotation-${activity.dbid}`}
         isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}
       >
-        {useCardTemplate
-          ? <StyledAnnotationCardWrapper isRtl={isRtl}>
+        {useCardTemplate ?
+          <StyledAnnotationCardWrapper isRtl={isRtl}>
             <Card>
               <CardText
                 className={`annotation__card-text annotation__card-activity-${activityType.replace(
@@ -844,8 +865,8 @@ class Annotation extends Component {
 
               </CardText>
             </Card>
-          </StyledAnnotationCardWrapper>
-          : <StyledDefaultAnnotation isRtl={isRtl} className="annotation__default">
+          </StyledAnnotationCardWrapper> :
+          <StyledDefaultAnnotation isRtl={isRtl} className="annotation__default">
             <span>
               <span className="annotation__default-content">{contentTemplate}</span>
               {timestamp}

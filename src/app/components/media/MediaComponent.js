@@ -76,15 +76,25 @@ const StyledBackgroundColor = styled.div`
 `;
 
 class MediaComponent extends Component {
+  static scrollToAnnotation() {
+    if (window.location.hash !== '') {
+      const id = window.location.hash.replace(/^#/, '');
+      const element = document.getElementById(id);
+      if (element.scrollIntoView !== undefined) {
+        element.scrollIntoView();
+      }
+    }
+  }
+
   componentDidMount() {
     this.setCurrentContext();
-    this.scrollToAnnotation();
+    MediaComponent.scrollToAnnotation();
     this.subscribe();
   }
 
   componentDidUpdate() {
     this.setCurrentContext();
-    this.scrollToAnnotation();
+    MediaComponent.scrollToAnnotation();
   }
 
   componentWillUnmount() {
@@ -96,28 +106,20 @@ class MediaComponent extends Component {
   }
 
   setCurrentContext() {
-    const project = this.getContext().project;
+    const { project } = this.getContext();
     if (project && project.dbid) {
       this.props.relay.setVariables({ contextId: project.dbid });
     }
   }
 
-  scrollToAnnotation() {
-    if (window.location.hash !== '') {
-      const id = window.location.hash.replace(/^#/, '');
-      const element = document.getElementById(id);
-      if (element.scrollIntoView !== undefined) {
-        element.scrollIntoView();
-      }
-    }
-  }
-
   subscribe() {
-    const pusher = this.getContext().pusher;
+    const { pusher } = this.getContext();
     if (pusher) {
       pusher.subscribe(this.props.media.pusher_channel).bind('media_updated', (data) => {
         const annotation = JSON.parse(data.message);
-        if (annotation.annotated_id === this.props.media.dbid && this.getContext().clientSessionId != data.actor_session_id) {
+        if (annotation.annotated_id === this.props.media.dbid &&
+            this.getContext().clientSessionId !== data.actor_session_id
+        ) {
           this.props.relay.forceFetch();
         }
       });
@@ -125,7 +127,7 @@ class MediaComponent extends Component {
   }
 
   unsubscribe() {
-    const pusher = this.getContext().pusher;
+    const { pusher } = this.getContext();
     if (pusher) {
       pusher.unsubscribe(this.props.media.pusher_channel);
     }
@@ -136,7 +138,7 @@ class MediaComponent extends Component {
       return null;
     }
 
-    const media = this.props.media;
+    const { media } = this.props;
     const data = JSON.parse(media.embed);
     media.url = media.media.url;
     media.quote = media.media.quote;
@@ -156,14 +158,13 @@ class MediaComponent extends Component {
             backgroundColor: getStatusStyle(status, 'backgroundColor'),
           }}
         >
-
           <StyledTwoColumnLayout>
             <ContentColumn>
               <MediaDetail hideBorder initiallyExpanded media={media} />
               {this.props.extras}
               <StyledTaskHeaderRow>
-                {media.tasks.edges.length
-                  ? <FlexRow>
+                {media.tasks.edges.length ?
+                  <FlexRow>
                     <h2>
                       <FormattedMessage
                         id="mediaComponent.verificationTasks"
@@ -172,11 +173,13 @@ class MediaComponent extends Component {
                     </h2>
                       &nbsp;
                     <FlexRow>
-                      {media.tasks.edges.filter(t => !!t.node.first_response).length}/{media.tasks.edges.length}&nbsp;
+                      {media.tasks.edges.filter(t =>
+                        !!t.node.first_response).length}/{media.tasks.edges.length
+                      }
+                      &nbsp;
                       <FormattedMessage id="mediaComponent.resolved" defaultMessage="resolved" />
                     </FlexRow>
-                  </FlexRow>
-                  : null}
+                  </FlexRow> : null}
                 <CreateTask style={{ marginLeft: 'auto' }} media={media} />
               </StyledTaskHeaderRow>
               <Tasks tasks={media.tasks.edges} media={media} />

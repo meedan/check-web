@@ -322,7 +322,7 @@ class Task extends Component {
             <small>
               <FormattedMessage
                 id="task.resolvedBy"
-                defaultMessage={'Resolved by {byName}'}
+                defaultMessage="Resolved by {byName}"
                 values={{ byName: <Sentence list={by} /> }}
               />
             </small>

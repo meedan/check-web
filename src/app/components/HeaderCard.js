@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import MDEdit from 'react-icons/lib/md/edit';
 import { FormattedMessage, injectIntl } from 'react-intl';
 
@@ -20,30 +20,25 @@ import {
 // TODO Standardize to use the HeaderCard in all three components that use this layout.
 // @chris 2017-10-17
 
-class HeaderCard extends Component {
-  render() {
-    return (
-      <StyledProfileCard>
-        <div>{this.props.children}</div>
-        <section style={{ position: 'relative' }}>
-          <StyledEditButtonWrapper>
-            {this.props.canEdit && !this.props.isEditing ?
-              <StyledIconButton
-                className="team__edit-button"
-                tooltip={
-                  <FormattedMessage id="teamComponent.editButton" defaultMessage="Edit profile" />
-                }
-                tooltipPosition="top-center"
-                onTouchTap={this.props.handleEnterEditMode}
-              >
-                <MDEdit />
-              </StyledIconButton>
-              : null}
-          </StyledEditButtonWrapper>
-        </section>
-      </StyledProfileCard>
-    );
-  }
-}
+const HeaderCard = props => (
+  <StyledProfileCard>
+    <div>{props.children}</div>
+    <section style={{ position: 'relative' }}>
+      <StyledEditButtonWrapper>
+        {props.canEdit && !props.isEditing ?
+          <StyledIconButton
+            className="team__edit-button"
+            tooltip={
+              <FormattedMessage id="teamComponent.editButton" defaultMessage="Edit profile" />
+            }
+            tooltipPosition="top-center"
+            onTouchTap={props.handleEnterEditMode}
+          >
+            <MDEdit />
+          </StyledIconButton>
+          : null}
+      </StyledEditButtonWrapper>
+    </section>
+  </StyledProfileCard>);
 
 export default injectIntl(HeaderCard);

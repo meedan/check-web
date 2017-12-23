@@ -9,7 +9,7 @@ const UserAlreadyConfirmed = () => (
     <p>
       <FormattedMessage
         id="userAlreadyConfirmed.message"
-        defaultMessage={'Oops! Your account is already confirmed. Please {login} to get started.'}
+        defaultMessage="Oops! Your account is already confirmed. Please {login} to get started."
         values={{ login: <Link to="/"><FormattedMessage id="userAlreadyConfirmed.login" defaultMessage="login" /></Link> }}
       />
     </p>
