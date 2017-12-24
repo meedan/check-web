@@ -168,14 +168,6 @@ class Login extends Component {
     };
   }
 
-  componentDidUpdate() {
-    if (this.state.type === 'login') {
-      this.inputEmail.focus();
-    } else {
-      this.inputName.focus();
-    }
-  }
-
   onFormSubmit(e) {
     e.preventDefault();
 
@@ -192,7 +184,13 @@ class Login extends Component {
 
   handleSwitchType() {
     const type = this.state.type === 'login' ? 'register' : 'login';
-    this.setState({ type });
+    this.setState({ type }, () => {
+      if (type === 'login') {
+        this.inputEmail.focus();
+      } else {
+        this.inputName.focus();
+      }
+    });
   }
 
   emailLogin() {
@@ -269,7 +267,7 @@ class Login extends Component {
           </Column>
           <Column>
             <h3>{headerText}</h3>
-            { subheaderText ?
+            {subheaderText ?
               <h4>
                 <FormattedMessage
                   id="login.disclaimer"
@@ -299,12 +297,12 @@ class Login extends Component {
                 src={stringHelper('LOGO_URL')}
               />
               <StyledSubHeader className="login__heading">
-                {this.state.type === 'login'
-                  ? <FormattedMessage
+                {this.state.type === 'login' ?
+                  <FormattedMessage
                     id="login.title"
                     defaultMessage="Sign in"
-                  />
-                  : <FormattedMessage
+                  /> :
+                  <FormattedMessage
                     id="login.registerTitle"
                     defaultMessage="Register"
                   />}
@@ -344,6 +342,7 @@ class Login extends Component {
                       defaultMessage="Email address"
                     />
                   }
+                  autoFocus
                 />
               </div>
 
@@ -355,13 +354,12 @@ class Login extends Component {
                   value={this.state.password}
                   className="login__password-input"
                   onChange={this.handleFieldChange.bind(this)}
-                  floatingLabelText={
-                    this.state.type === 'login'
-                      ? this.props.intl.formatMessage(messages.passwordInputHint)
-                      : <FormattedMessage
-                        id="login.passwordLabel"
-                        defaultMessage="Password (minimum 8 characters)"
-                      />
+                  floatingLabelText={this.state.type === 'login' ?
+                    this.props.intl.formatMessage(messages.passwordInputHint) :
+                    <FormattedMessage
+                      id="login.passwordLabel"
+                      defaultMessage="Password (minimum 8 characters)"
+                    />
                   }
                 />
               </div>
@@ -396,16 +394,15 @@ class Login extends Component {
                   type="submit"
                   id="submit-register-or-login"
                   className={`login__submit login__submit--${this.state.type}`}
-                  label={
-                    this.state.type === 'login'
-                      ? <FormattedMessage
-                        id="login.signIn"
-                        defaultMessage="SIGN IN"
-                      />
-                      : <FormattedMessage
-                        id="login.signUp"
-                        defaultMessage="REGISTER"
-                      />
+                  label={this.state.type === 'login' ?
+                    <FormattedMessage
+                      id="login.signIn"
+                      defaultMessage="SIGN IN"
+                    /> :
+                    <FormattedMessage
+                      id="login.signUp"
+                      defaultMessage="REGISTER"
+                    />
                   }
                 />
                 {this.state.type === 'login' ?
@@ -432,11 +429,13 @@ class Login extends Component {
               onClick={this.oAuthLogin.bind(this, 'slack')}
               id="slack-login"
               icon={<FASlack style={{ color: slackGreen }} className="logo" />}
-              headerText={<FormattedMessage
-                id="login.with"
-                defaultMessage="Continue with {provider}"
-                values={{ provider: 'Slack' }}
-              />}
+              headerText={
+                <FormattedMessage
+                  id="login.with"
+                  defaultMessage="Continue with {provider}"
+                  values={{ provider: 'Slack' }}
+                />
+              }
               subheaderText
             />
 
@@ -444,11 +443,13 @@ class Login extends Component {
               onClick={this.oAuthLogin.bind(this, 'twitter')}
               id="twitter-login"
               icon={<FATwitter style={{ color: twitterBlue }} className="logo" />}
-              headerText={<FormattedMessage
-                id="login.with"
-                defaultMessage="Continue with {provider}"
-                values={{ provider: 'Twitter' }}
-              />}
+              headerText={
+                <FormattedMessage
+                  id="login.with"
+                  defaultMessage="Continue with {provider}"
+                  values={{ provider: 'Twitter' }}
+                />
+              }
               subheaderText
             />
 
