@@ -223,7 +223,7 @@ class AddAnnotation extends Component {
   }
 
   addStatus(annotated, annotated_id, annotated_type, status) {
-    const { formatMessage } = this.props.intl;
+    const { intl: { formatMessage } } = this.props;
 
     const onFailure = (transaction) => {
       this.fail(transaction);
@@ -383,7 +383,7 @@ class AddAnnotation extends Component {
       }
 
       if (action) {
-        const { annotated, annotated_type } = this.props;
+        const { annotated, annotatedType: annotated_type } = this.props;
         action(
           annotated,
           annotated.dbid,
