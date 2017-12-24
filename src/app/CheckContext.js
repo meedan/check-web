@@ -47,7 +47,7 @@ class CheckContext {
         return '';
       },
       get headers() {
-        const { headers } = config;
+        const { relayHeaders: headers } = config;
         if (token) {
           headers['X-Check-Token'] = token;
         }

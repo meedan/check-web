@@ -173,7 +173,7 @@ class Home extends Component {
 
     let message = null;
     if (this.state.error) {
-      ({ message } = this.state.message);
+      ({ message } = this.state);
 
       // TODO Don't parse error messages because they may be l10n'd - use error codes instead.
       if (!message && /^[^/]+\/join$/.test(children.props.route.path)) {
