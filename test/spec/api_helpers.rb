@@ -17,7 +17,7 @@ module ApiHelpers
     begin
       ret = OpenStruct.new JSON.parse(response.body)['data']
     rescue
-      print "Failed to parse body of response for endpoint `#{path}`:\n#{response.inspect}\n"
+      print "Failed to parse body of response for endpoint `#{path}`:\n#{response.inspect}\n" unless response.class <= Net::HTTPSuccess
     end
     ret
   end
