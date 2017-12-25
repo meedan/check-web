@@ -40,11 +40,11 @@ before_install:
 - bundle install --path=/tmp/bundler
 - bundle exec rake db:migrate RAILS_ENV=test
 - bundle exec rake lapis:api_keys:create_default RAILS_ENV=test
-- bundle exec thin -p 3000 -e test -t 60 --threadpool-size=60 --threaded start 2>/dev/null >/dev/null &
+- bundle exec thin -p 3000 -e test -t 60 --threadpool-size=60 --threaded start >/dev/null &
 - cd -
 - export RAILS_ENV=development
 # pender
-- git clone https://github.com/meedan/pender.git
+- git clone -b 4996-lint-2 https://github.com/meedan/pender.git
 - cp travis/pender.yml pender/config/config.yml
 - cp pender/config/initializers/secret_token.rb.example pender/config/initializers/secret_token.rb
 - cp pender/config/database.yml.travis pender/config/database.yml
@@ -53,7 +53,7 @@ before_install:
 - bundle install --path=/tmp/bundler
 - bundle exec rake db:migrate
 - bundle exec rails runner 'a = ApiKey.create!; a.access_token = "test"; a.save!'
-- bundle exec rails s -p 3005 2>/dev/null >/dev/null &
+- bundle exec rails s -p 3005 &
 - cd -
 # xvfb
 - export DISPLAY=:99.0
@@ -91,7 +91,7 @@ before_script:
 - sleep 5
 after_script:
 - size=$(du -k build/web/js/index.bundle.js | cut -f1) && size2=$(du -k build/web/js/vendor.bundle.js | cut -f1) && totalsize=$((size+size2)) && echo "Your bundle size is $totalsize kb"
-script: npm run test:unit && cd test && ./run
+script: cd test && CHROMEDRIVER_URL=http://localhost:9517 bundle exec rspec --example refresh spec/integration_spec.rb
 notifications:
   slack:
     secure: TAPzV/OeN5hl8JSGrqPcAtFO/NWa9IqMbyzuUpCZgNP9EbobmlTPx55mopI647rwVIQZM1RL+2SapHJbT7XCAjJ+uvzSQd0b/LaS/aXLKFcS3bBDcvKAUeCcCYUiDz7x832EYg0fsVErR2dZPxvuPtWtwrOlOaOo8HB1uVHjvKo20Wnr/J4+VNTGvhQ5awdmpHMh+KrWpjQi4Ta9zWOTmSYh3qhgaLKjIKXanoaWen87VJB6Jy8nJ3Bo6t3r3+sbCRN9/LUZ8sVcJnvzlKdOtiLGkz8u2YG2c8UD+iUt2VOk0o5L/o8YPoeukJyFuAHAdLrjOelwHCAD2dRfrpQG7y/8G0vjJRXg8DRaVBVIl9vpYM6lyVIw5I6a9XDbUeOnBAWHE3uj/xH0X0vcRREE5py6tbt1KPUBS9rc8JGdCW3ZXVZAXA+1cijR3AAZUZ0YEf9WKLYhsTFW9lYlDcmkrWgVD9vbtPGDg95sbtuB+H5dkEAOBkf2YGkqzO+aaQKLDHkib/1v4C1+T5lXqlWZUrP8EuRwWs6xJlhi6w72AZLo7kVmfGA3ZdKfVcPCqr83YBfhL0WbwgT94L+5STELxw/PhsyNyOM/sRLQgR24ga/lcg2+L395VIPrQvhgKc26yHBuqW2P6FSOEGMyEcZ34N1TMTtRF7/lkRmXyKt4zuc=
