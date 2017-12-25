@@ -32,7 +32,7 @@ before_install:
 - 'echo "script.engine.groovy.inline.update: on" | sudo tee -a /etc/elasticsearch/elasticsearch.yml'
 - sudo /usr/share/elasticsearch/bin/plugin install analysis-icu
 - sudo service elasticsearch restart
-- git clone -b 4996-lint-2 https://github.com/meedan/check-api.git
+- git clone https://github.com/meedan/check-api.git
 - cp travis/check-api.yml check-api/config/config.yml
 - cp check-api/config/initializers/secret_token.rb.example check-api/config/initializers/secret_token.rb
 - cp travis/check-api-database.yml check-api/config/database.yml
@@ -40,11 +40,11 @@ before_install:
 - bundle install --path=/tmp/bundler
 - bundle exec rake db:migrate RAILS_ENV=test
 - bundle exec rake lapis:api_keys:create_default RAILS_ENV=test
-- bundle exec thin -p 3000 -e test -t 60 --threadpool-size=60 --threaded start >/dev/null &
+- bundle exec thin -p 3000 -e test -t 60 --threadpool-size=60 --threaded start 2>/dev/null >/dev/null &
 - cd -
 - export RAILS_ENV=development
 # pender
-- git clone -b 4996-lint-2 https://github.com/meedan/pender.git
+- git clone https://github.com/meedan/pender.git
 - cp travis/pender.yml pender/config/config.yml
 - cp pender/config/initializers/secret_token.rb.example pender/config/initializers/secret_token.rb
 - cp pender/config/database.yml.travis pender/config/database.yml
@@ -53,7 +53,7 @@ before_install:
 - bundle install --path=/tmp/bundler
 - bundle exec rake db:migrate
 - bundle exec rails runner 'a = ApiKey.create!; a.access_token = "test"; a.save!'
-- bundle exec rails s -p 3005 &
+- bundle exec rails s -p 3005 2>/dev/null >/dev/null &
 - cd -
 # xvfb
 - export DISPLAY=:99.0
