@@ -44,7 +44,7 @@ before_install:
 - cd -
 - export RAILS_ENV=development
 # pender
-- git clone -b 4996-lint-2 https://github.com/meedan/pender.git
+- git clone https://github.com/meedan/pender.git
 - cp travis/pender.yml pender/config/config.yml
 - cp pender/config/initializers/secret_token.rb.example pender/config/initializers/secret_token.rb
 - cp pender/config/database.yml.travis pender/config/database.yml
