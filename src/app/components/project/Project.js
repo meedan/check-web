@@ -17,7 +17,7 @@ const ProjectWrapper = styled.div`
   flex-direction: column;
   height: 100%;
   overflow-y: visible;
-  padding: 0 ${units(2)} ${units(5)};
+  padding: 0 ${units(2)}};
   position: relative;
   width: 100%;
 `;

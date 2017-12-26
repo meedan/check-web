@@ -50,6 +50,7 @@ const StyledContent = styled.div`
   flex: 1;
   flex-direction: column;
   padding-top: ${gutterMedium};
+  padding-bottom: ${props => (props.inMediaPage ? '0' : gutterMedium)};
   width: 100%;
 `;
 
@@ -201,6 +202,9 @@ class Home extends Component {
 
     const inTeamContext = !!this.props.params.team;
     const loggedIn = !!this.state.token;
+    const inMediaPage = !!(this.props.params.team &&
+      this.props.params.mediaId &&
+      this.props.params.projectId);
 
     const currentUserIsMember = (() => {
       if (inTeamContext && loggedIn) {
@@ -243,7 +247,7 @@ class Home extends Component {
                 zIndex: '1000',
               }}
             />
-            <StyledContent>
+            <StyledContent inMediaPage={inMediaPage}>
               {children}
             </StyledContent>
           </StyledWrapper>
