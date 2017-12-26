@@ -166,9 +166,11 @@ class MediaTags extends Component {
       if (Array.isArray(objValue)) {
         return xor(objValue, srcValue);
       }
-      return null;
+      return undefined;
     });
-    if (!query.tags.length) delete query.tags;
+    if (!query.tags.length) {
+      delete query.tags;
+    }
     return urlFromSearchQuery(query, `/${media.team.slug}/search`);
   }
 
