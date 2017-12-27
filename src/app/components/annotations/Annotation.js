@@ -895,8 +895,8 @@ class Annotation extends Component {
                   '-',
                 )}`}
               >
-                <Tooltip placement="top" overlay={<UserTooltip user={activity.user} team={annotated.team} />}>
-                  {authorName ?
+                {authorName ?
+                  <Tooltip placement="top" overlay={<UserTooltip user={activity.user} team={annotated.team} />}>
                     <StyledAvatarColumn isRtl={isRtl}>
                       <SourcePicture
                         className="avatar"
@@ -904,8 +904,8 @@ class Annotation extends Component {
                         size="small"
                         object={activity.user.source}
                       />
-                    </StyledAvatarColumn> : null}
-                </Tooltip>
+                    </StyledAvatarColumn>
+                  </Tooltip> : null}
 
                 <StyledPrimaryColumn isRtl={isRtl}>
                   {contentTemplate}
