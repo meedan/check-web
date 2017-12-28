@@ -119,7 +119,7 @@ class TeamComponent extends Component {
       isEditing: false,
       editProfileImg: false,
       submitDisabled: false,
-      showTab: 'members',
+      showTab: 'projects',
       values: {
         name: team.name,
         description: team.description,
@@ -494,22 +494,22 @@ class TeamComponent extends Component {
                       <Tab
                         label={
                           <FormattedMessage
-                            id="teamComponent.members"
-                            defaultMessage="Members"
-                          />
-                        }
-                        value="members"
-                        className="team__tab-button-members"
-                      />
-                      <Tab
-                        label={
-                          <FormattedMessage
                             id="teamComponent.projects"
                             defaultMessage="Projects"
                           />
                         }
                         value="projects"
                         className="team__tab-button-projects"
+                      />
+                      <Tab
+                        label={
+                          <FormattedMessage
+                            id="teamComponent.members"
+                            defaultMessage="Members"
+                          />
+                        }
+                        value="members"
+                        className="team__tab-button-members"
                       />
                     </Tabs>
                   </div>
