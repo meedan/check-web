@@ -1,5 +1,9 @@
 [
   {
+    "id": "sourceCard.error",
+    "defaultMessage": "Sorry, could not refresh source"
+  },
+  {
     "id": "mediaDetail.byUser",
     "defaultMessage": "by {username}"
   },
