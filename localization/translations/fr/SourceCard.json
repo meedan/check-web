@@ -1,4 +1,5 @@
 {
+  "sourceCard.error": "Désolé, il n'a pas été possible de rafraîchir la source",
   "mediaDetail.byUser": "par {username}",
   "mediaDetail.added": "Rajouté {byUser}"
 }
