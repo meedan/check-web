@@ -101,6 +101,7 @@ const bridgeSearchResultFragment = Relay.QL`
             dbid,
             name,
             description,
+            permissions,
             image,
             accounts(first: 10000) {
               edges {
