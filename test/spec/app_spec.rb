@@ -977,7 +977,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       page = MePage.new(config: @config, driver: @driver).load
       @driver.navigate.to @config['self_url'] + '/'+@team1_slug
       sleep 2
-      click_button('.team__tab-button-members')
+      wait_for_selector('.team__tab-button-members').click
       sleep 2 # TODO: better soft keyboard strategies
       wait_for_selector('team-members__member',:class)
       el = wait_for_selector('team-members__edit-button',:class)
