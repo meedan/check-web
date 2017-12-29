@@ -53,10 +53,10 @@ class SourceCard extends React.Component {
   handleRefresh() {
     const onFailure = (transaction) => {
       const transactionError = transaction.getError();
-      if (transactionError.json) {
-        transactionError.json().then(this.handleError);
+      if (transactionError.source) {
+        this.handleError(JSON.parse(transactionError.source));
       } else {
-        this.handleError(JSON.stringify(transactionError));
+        this.handleError();
       }
     };
 
