@@ -14,9 +14,10 @@ import SourceActions from './SourceActions';
 import SourcePicture from './SourcePicture';
 import { truncateLength } from '../../helpers';
 import { units, opaqueBlack54, subheading1, black87 } from '../../styles/js/shared';
-import UpdateSourceMutation from '../../relay/mutations/UpdateSourceMutation';
+import { refreshSource } from '../../relay/mutations/UpdateSourceMutation';
 
 const StyledSourceCardBody = styled.div`
+  width: 100%;
   margin-${props => (props.isRtl ? 'right' : 'left')}: ${units(2)};
   color: ${opaqueBlack54};
   .source-card__account-link {
@@ -42,33 +43,25 @@ class SourceCard extends React.Component {
     };
   }
 
-  handleError(json) {
-    let message = `${this.props.intl.formatMessage(messages.error)}`;
-    if (json && json.error) {
-      message = json.error;
-    }
-    this.setState({ message });
-  }
-
   handleRefresh() {
+    const { id } = this.props.source.source;
+
     const onFailure = (transaction) => {
+      let message = `${this.props.intl.formatMessage(messages.error)}`;
       const transactionError = transaction.getError();
+
       if (transactionError.source) {
-        this.handleError(JSON.parse(transactionError.source));
-      } else {
-        this.handleError();
+        const json = safelyParseJSON(transactionError.source);
+
+        if (json && json.error) {
+          message = json.error;
+        }
       }
+
+      this.setState({ message });
     };
 
-    Relay.Store.commitUpdate(
-      new UpdateSourceMutation({
-        source: {
-          refresh_accounts: 1,
-          id: this.props.source.source.id,
-        },
-      }),
-      { onFailure },
-    );
+    refreshSource(id, onFailure);
   }
 
   render() {
