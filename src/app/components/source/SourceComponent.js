@@ -26,6 +26,7 @@ import rtlDetect from 'rtl-detect';
 import styled from 'styled-components';
 import AccountCard from './AccountCard';
 import AccountChips from './AccountChips';
+import SourceActions from './SourceActions';
 import SourceLanguages from './SourceLanguages';
 import SourcePicture from './SourcePicture';
 import Tags from '../Tags';
@@ -46,7 +47,7 @@ import DeleteDynamicMutation from '../../relay/mutations/DeleteDynamicMutation';
 import CreateTagMutation from '../../relay/mutations/CreateTagMutation';
 import CreateAccountSourceMutation from '../../relay/mutations/CreateAccountSourceMutation';
 import DeleteAccountSourceMutation from '../../relay/mutations/DeleteAccountSourceMutation';
-import UpdateSourceMutation from '../../relay/mutations/UpdateSourceMutation';
+import UpdateSourceMutation, { refreshSource } from '../../relay/mutations/UpdateSourceMutation';
 import {
   StyledEditButtonWrapper,
   StyledProfileCard,
@@ -517,6 +518,11 @@ class SourceComponent extends Component {
       manageEditingState,
     );
   };
+
+  handleRefresh() {
+    const { id } = this.props.source.source;
+    refreshSource(id, this.fail);
+  }
 
   registerPendingMutation = (mutation) => {
     const pendingMutations = this.state.pendingMutations
@@ -1315,65 +1321,66 @@ class SourceComponent extends Component {
           </form>
 
           <StyledButtonGroup isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
-            <div className="source__edit-buttons-add-merge">
+            <Row className="source__edit-buttons-add-merge">
               <FlatButton
                 className="source__edit-addinfo-button"
                 primary
                 onClick={this.handleAddInfoMenu.bind(this)}
                 label={this.props.intl.formatMessage(messages.addInfo)}
               />
-              <Popover
-                open={this.state.menuOpen}
-                anchorEl={this.state.anchorEl}
-                anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
-                targetOrigin={{ horizontal: 'left', vertical: 'top' }}
-                onRequestClose={this.handleRequestClose.bind(this)}
-              >
-                <Menu>
-                  <MenuItem
-                    className="source__add-phone"
-                    onClick={this.handleAddMetadataField.bind(this, 'phone')}
-                    primaryText={this.props.intl.formatMessage(messages.phone)}
-                  />
-                  <MenuItem
-                    className="source__add-organization"
-                    onClick={this.handleAddMetadataField.bind(
-                      this,
-                      'organization',
-                    )}
-                    primaryText={this.props.intl.formatMessage(messages.organization)}
-                  />
-                  <MenuItem
-                    className="source__add-location"
-                    onClick={this.handleAddMetadataField.bind(
-                      this,
-                      'location',
-                    )}
-                    primaryText={this.props.intl.formatMessage(messages.location)}
-                  />
-                  <MenuItem
-                    className="source__add-tags"
-                    onClick={this.handleAddTags.bind(this)}
-                    primaryText={this.props.intl.formatMessage(globalStrings.tags)}
-                  />
-                  <MenuItem
-                    className="source__add-languages"
-                    onClick={this.handleAddLanguages.bind(this)}
-                    primaryText={this.props.intl.formatMessage(messages.languages)}
-                  />
-                  <MenuItem
-                    className="source__add-link"
-                    onClick={this.handleAddLink.bind(this)}
-                    primaryText={this.props.intl.formatMessage(messages.link)}
-                  />
-                  <MenuItem
-                    className="source__add-other"
-                    onClick={this.handleOpenDialog.bind(this)}
-                    primaryText={this.props.intl.formatMessage(messages.other)}
-                  />
-                </Menu>
-              </Popover>
-            </div>
+              <SourceActions source={source} handleRefresh={this.handleRefresh.bind(this)} />
+            </Row>
+            <Popover
+              open={this.state.menuOpen}
+              anchorEl={this.state.anchorEl}
+              anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
+              targetOrigin={{ horizontal: 'left', vertical: 'top' }}
+              onRequestClose={this.handleRequestClose.bind(this)}
+            >
+              <Menu>
+                <MenuItem
+                  className="source__add-phone"
+                  onClick={this.handleAddMetadataField.bind(this, 'phone')}
+                  primaryText={this.props.intl.formatMessage(messages.phone)}
+                />
+                <MenuItem
+                  className="source__add-organization"
+                  onClick={this.handleAddMetadataField.bind(
+                    this,
+                    'organization',
+                  )}
+                  primaryText={this.props.intl.formatMessage(messages.organization)}
+                />
+                <MenuItem
+                  className="source__add-location"
+                  onClick={this.handleAddMetadataField.bind(
+                    this,
+                    'location',
+                  )}
+                  primaryText={this.props.intl.formatMessage(messages.location)}
+                />
+                <MenuItem
+                  className="source__add-tags"
+                  onClick={this.handleAddTags.bind(this)}
+                  primaryText={this.props.intl.formatMessage(globalStrings.tags)}
+                />
+                <MenuItem
+                  className="source__add-languages"
+                  onClick={this.handleAddLanguages.bind(this)}
+                  primaryText={this.props.intl.formatMessage(messages.languages)}
+                />
+                <MenuItem
+                  className="source__add-link"
+                  onClick={this.handleAddLink.bind(this)}
+                  primaryText={this.props.intl.formatMessage(messages.link)}
+                />
+                <MenuItem
+                  className="source__add-other"
+                  onClick={this.handleOpenDialog.bind(this)}
+                  primaryText={this.props.intl.formatMessage(messages.other)}
+                />
+              </Menu>
+            </Popover>
 
             <Dialog
               title={this.props.intl.formatMessage(messages.otherDialogTitle)}
