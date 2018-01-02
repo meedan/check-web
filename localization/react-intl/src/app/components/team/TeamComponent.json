@@ -68,11 +68,11 @@
     "defaultMessage": "Save"
   },
   {
-    "id": "teamComponent.members",
-    "defaultMessage": "Members"
-  },
-  {
     "id": "teamComponent.projects",
     "defaultMessage": "Projects"
+  },
+  {
+    "id": "teamComponent.members",
+    "defaultMessage": "Members"
   }
 ]

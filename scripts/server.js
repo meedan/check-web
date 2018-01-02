@@ -67,13 +67,19 @@ app.use((req, res, next) => {
         console.log(util.inspect(e));
         res.send(template({ config, metadata: null, url }));
       }).then((json) => {
-        const metadata = JSON.parse(json.data.project_media.metadata);
-        res.send(template({ config, metadata, url }));
+        try {
+          const metadata = JSON.parse(json.data.project_media.metadata);
+          res.send(template({ config, metadata, url }));
+        } catch (e) {
+          console.log(util.inspect(json));
+          res.send(template({ config, metadata: null, url }));
+        }
       }).catch((e) => {
         console.log(util.inspect(e));
         res.send(template({ config, metadata: null, url }));
       });
     } catch (e) {
+      console.log(util.inspect(e));
       res.send(template({ config, metadata: null, url }));
     }
   }

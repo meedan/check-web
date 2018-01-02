@@ -812,7 +812,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       #As the group creator, go to the members page and approve the joining request.
       page = MePage.new(config: @config, driver: @driver).load
           .approve_join_team(subdomain: team.slug)
-      el = wait_for_selector_list("team-members__edit-button",:class)
+      el = wait_for_selector_list("team__edit-button",:class)
       expect(el.length > 0).to be(true)
       api_logout
 
@@ -820,7 +820,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       page = Page.new(config: @config, driver: @driver)
       page.go(@config['api_path'] + '/test/session?email='+user2.email)
       page = MePage.new(config: @config, driver: @driver).load
-      el = wait_for_selector_list("team-members__edit-button",:class)
+      el = wait_for_selector_list("team__edit-button",:class)
       expect(el.length == 0).to be(true)
     end
 
@@ -847,7 +847,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       api_create_team(team:team)
       p = Page.new(config: @config, driver: @driver)
       p.go(@config['self_url'] + '/' + team)
-      wait_for_selector("team-members__edit-button", :class)
+      wait_for_selector("team__edit-button", :class)
       expect(@driver.page_source.include?('Team information updated successfully!')).to be(false)
       expect(@driver.page_source.include?('Rome')).to be(false)
       expect(@driver.page_source.include?('www.meedan.com')).to be(false)
@@ -886,7 +886,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       el = wait_for_selector("team__save-button", :class)
       el.click
-      wait_for_selector("team-members__edit-button", :class)
+      wait_for_selector("team__edit-button", :class)
       expect(@driver.page_source.include?('Team information updated successfully!')).to be(true)
       expect(@driver.page_source.include?('Rome')).to be(true)
       expect(@driver.page_source.include?('www.meedan.com')).to be(true)
@@ -977,6 +977,8 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       page = MePage.new(config: @config, driver: @driver).load
       @driver.navigate.to @config['self_url'] + '/'+@team1_slug
       sleep 2
+      wait_for_selector('.team__tab-button-members').click
+      sleep 2 # TODO: better soft keyboard strategies
       wait_for_selector('team-members__member',:class)
       el = wait_for_selector('team-members__edit-button',:class)
       el.click
@@ -1060,11 +1062,11 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       t2 = api_create_team(user: user)
       page = MePage.new(config: @config, driver: @driver).load
           .select_team(name: t1.name)
-      wait_for_selector("team-members__edit-button",:class)
+      wait_for_selector("team__edit-button",:class)
       expect(page.team_name).to eq(t1.name)
       page = MePage.new(config: @config, driver: @driver).load
           .select_team(name: t2.name)
-      wait_for_selector("team-members__edit-button",:class)
+      wait_for_selector("team__edit-button",:class)
       expect(page.team_name).to eq(t2.name)
     end
 
