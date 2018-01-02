@@ -209,7 +209,6 @@ class MediaDetail extends Component {
             media={media}
             mediaUrl={mediaUrl}
             data={data}
-            heading={heading}
             isRtl={isRtl}
             authorName={authorName}
             authorUserName={authorUsername}

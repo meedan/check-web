@@ -6,7 +6,7 @@ import FaYoutubePlay from 'react-icons/lib/fa/youtube-play';
 import MdLink from 'react-icons/lib/md/link';
 import { defineMessages } from 'react-intl';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
-import { safelyParseJSON, truncateLength } from '../../helpers';
+import { truncateLength } from '../../helpers';
 
 const messages = defineMessages({
   notesCount: {
@@ -129,13 +129,13 @@ const MediaUtil = {
   },
 
   hasCustomTitle(media, data) {
-    const overridden = media.overridden;
+    const { overridden } = media;
     const title = data && data.title && data.title.trim();
     return overridden.title || (media.quote && (title !== media.quote));
   },
 
   hasCustomDescription(media, data) {
-    const overridden = media.overridden;
+    const { overridden } = media;
     const description = data && data.description && data.description.trim();
     return overridden.description || // Link type report
       (media.quote && (description !== media.quote)) || // Quote type report
