@@ -1,17 +1,5 @@
 import Relay from 'react-relay';
 
-const refreshSource = (id, onFailure) => {
-  Relay.Store.commitUpdate(
-    new UpdateSourceMutation({
-      source: {
-        refresh_accounts: 1,
-        id,
-      },
-    }),
-    { onFailure },
-  );
-};
-
 class UpdateSourceMutation extends Relay.Mutation {
   getMutation() {
     return Relay.QL`mutation updateSource {
@@ -60,6 +48,18 @@ class UpdateSourceMutation extends Relay.Mutation {
     ];
   }
 }
+
+const refreshSource = (id, onFailure) => {
+  Relay.Store.commitUpdate(
+    new UpdateSourceMutation({
+      source: {
+        refresh_accounts: 1,
+        id,
+      },
+    }),
+    { onFailure },
+  );
+};
 
 export default UpdateSourceMutation;
 export { refreshSource };

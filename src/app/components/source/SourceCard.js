@@ -1,5 +1,4 @@
 import React from 'react';
-import Relay from 'react-relay';
 import { FormattedMessage, injectIntl, defineMessages } from 'react-intl';
 import { Link } from 'react-router';
 import { Card, CardText } from 'material-ui/Card';
@@ -12,7 +11,7 @@ import ParsedText from '../ParsedText';
 import TimeBefore from '../TimeBefore';
 import SourceActions from './SourceActions';
 import SourcePicture from './SourcePicture';
-import { truncateLength } from '../../helpers';
+import { truncateLength, safelyParseJSON } from '../../helpers';
 import { units, opaqueBlack54, subheading1, black87 } from '../../styles/js/shared';
 import { refreshSource } from '../../relay/mutations/UpdateSourceMutation';
 
