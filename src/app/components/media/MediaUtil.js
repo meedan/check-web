@@ -129,13 +129,13 @@ const MediaUtil = {
   },
 
   hasCustomTitle(media, data) {
-    const overridden = safelyParseJSON(media.overridden, {});
+    const overridden = media.overridden;
     const title = data && data.title && data.title.trim();
     return overridden.title || (media.quote && (title !== media.quote));
   },
 
   hasCustomDescription(media, data) {
-    const overridden = safelyParseJSON(media.overridden, {});
+    const overridden = media.overridden;
     const description = data && data.description && data.description.trim();
     return overridden.description || // Link type report
       (media.quote && (description !== media.quote)) || // Quote type report

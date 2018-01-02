@@ -139,7 +139,7 @@ class MediaComponent extends Component {
     }
 
     const { media } = this.props;
-    const data = JSON.parse(media.embed);
+    const data = media.embed;
     media.url = media.media.url;
     media.quote = media.media.quote;
     media.embed_path = media.media.embed_path;

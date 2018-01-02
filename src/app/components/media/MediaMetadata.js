@@ -495,7 +495,7 @@ class MediaMetadata extends Component {
 
   render() {
     const { media, intl: { locale } } = this.props;
-    const data = JSON.parse(media.embed);
+    const data = media.embed;
     const context = this.getContext();
     const isRtl = rtlDetect.isRtlLang(locale);
     const fromDirection = isRtl ? 'right' : 'left';

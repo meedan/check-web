@@ -129,7 +129,7 @@ class MediaDetail extends Component {
       annotatedType,
       intl: { locale },
     } = this.props;
-    const data = JSON.parse(media.embed);
+    const data = media.embed;
     const isRtl = rtlDetect.isRtlLang(locale);
     const fromDirection = isRtl ? 'right' : 'left';
     const annotationsCount = MediaUtil.notesCount(media, data, this.props.intl);
@@ -339,7 +339,7 @@ class MediaDetail extends Component {
             >
               {shouldShowDescription ?
                 <Text font={caption} style={{ color: black54 }}>
-                  {JSON.parse(this.props.media.embed).description}
+                  {this.props.media.embed.description}
                 </Text> : null}
               {embedCard}
             </FadeIn>
