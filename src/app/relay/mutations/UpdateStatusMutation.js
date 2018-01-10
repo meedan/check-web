@@ -18,34 +18,6 @@ class UpdateStatusMutation extends Relay.Mutation {
     }
   }
 
-  getOptimisticResponse() {
-    const user = Object.assign({}, this.props.annotator);
-    user.source = null;
-
-    const status = {
-      id: this.props.id,
-      updated_at: new Date().toString(),
-      annotation_type: 'status',
-      permissions: '{"destroy Annotation":true,"destroy Status":true}',
-      content: JSON.stringify({ status: this.props.annotation.status }),
-      status: this.props.annotation.status,
-      annotated_id: this.props.annotation.annotated_id,
-      annotator: {
-        name: this.props.annotator.name,
-        profile_image: this.props.annotator.profile_image,
-        user,
-      },
-      medias: {
-        edges: [],
-      },
-    };
-
-    const media = Object.assign({}, this.props.annotated);
-    media.last_status = this.props.annotation.status;
-
-    return { statusEdge: { node: status }, project_media: media };
-  }
-
   getVariables() {
     const status = this.props.annotation;
     return {
