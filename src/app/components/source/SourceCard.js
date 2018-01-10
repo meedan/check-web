@@ -67,7 +67,11 @@ class SourceCard extends React.Component {
       this.setState({ message });
     };
 
-    refreshSource(id, onFailure);
+    const onSuccess = () => {
+      this.setState({ message: null });
+    };
+
+    refreshSource(id, onSuccess, onFailure);
   }
 
   render() {

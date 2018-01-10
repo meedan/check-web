@@ -49,7 +49,7 @@ class UpdateSourceMutation extends Relay.Mutation {
   }
 }
 
-const refreshSource = (id, onFailure) => {
+const refreshSource = (id, onSuccess, onFailure) => {
   Relay.Store.commitUpdate(
     new UpdateSourceMutation({
       source: {
@@ -57,7 +57,7 @@ const refreshSource = (id, onFailure) => {
         id,
       },
     }),
-    { onFailure },
+    { onSuccess, onFailure },
   );
 };
 
