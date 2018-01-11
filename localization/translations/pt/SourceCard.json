@@ -1,4 +1,5 @@
 {
+  "sourceCard.error": "Desculpe, não foi possível recarregar a fonte",
   "mediaDetail.byUser": "por {username}",
   "mediaDetail.added": "Adicionado {byUser}"
 }

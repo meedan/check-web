@@ -19,7 +19,7 @@ if (buildConfig.transifex) {
     host: 'www.transifex.com',
     user: buildConfig.transifex.user,
     password: buildConfig.transifex.password,
-    project: 'check-2',
+    project: buildConfig.transifex.project,
     i18n_type: 'KEYVALUEJSON',
     local_path: './localization/translations/*/',
   });

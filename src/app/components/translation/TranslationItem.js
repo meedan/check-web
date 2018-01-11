@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { defineMessages, FormattedMessage, injectIntl } from 'react-intl';
 import Relay from 'react-relay';
 import { Card, CardText } from 'material-ui/Card';
@@ -10,8 +11,8 @@ import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import styled from 'styled-components';
 import ParsedText from '../ParsedText';
-import UpdateDynamicMutation from '../../relay/UpdateDynamicMutation';
-import { rtlClass } from '../../helpers';
+import UpdateDynamicMutation from '../../relay/mutations/UpdateDynamicMutation';
+import { rtlClass, safelyParseJSON } from '../../helpers';
 import { units, Row, black54 } from '../../styles/js/shared';
 
 const styles = {
@@ -50,38 +51,57 @@ const messages = defineMessages({
 });
 
 class TranslationItem extends Component {
+  static getTranslationText(content) {
+    const object = content.find(it => it.field_name === 'translation_text');
+    return object ? object.value : '';
+  }
+
+  static getTranslationNote(content) {
+    const object = content.find(it => it.field_name === 'translation_note');
+    return object ? object.value : '';
+  }
+
+  static getTranslationLanguage(content) {
+    const object = content.find(it => it.field_name === 'translation_language');
+    return object ? object.formatted_value : '';
+  }
+
+  static getTranslationLanguageCode(content) {
+    const object = content.find(it => it.field_name === 'translation_language');
+    return object ? object.value : '';
+  }
+
   constructor(props) {
     super(props);
 
     this.state = {
-      message: null,
       isMenuOpen: false,
+      editing: false,
     };
   }
 
-  handleSubmitUpdate() {
-    const translation = this.props.translation;
+  handleSubmitUpdate(e) {
+    const { translation } = this.props;
 
     const onFailure = (transaction) => {
       const error = transaction.getError();
       let message = error.source;
-      try {
-        const json = JSON.parse(error.source);
-        if (json.error) {
-          message = json.error;
-        }
-      } catch (e) {}
+      const json = safelyParseJSON(error.source);
+      if (json && json.error) {
+        message = json.error;
+      }
       this.setState({ message });
     };
 
-    const onSuccess = (response) => {
+    const onSuccess = () => {
       this.setState({ message: null, editing: false });
     };
 
     const form = document.forms.translation_edit;
-    const fields = {};
-    fields.translation_text = form.translation_text ? form.translation_text.value : '';
-    fields.translation_note = form.translation_note ? form.translation_note.value : '';
+    const fields = {
+      translation_text: form.translation_text ? form.translation_text.value : '',
+      translation_note: form.translation_note ? form.translation_note.value : '',
+    };
 
     if (!this.state.submitDisabled) {
       Relay.Store.commitUpdate(
@@ -100,30 +120,6 @@ class TranslationItem extends Component {
     e.preventDefault();
   }
 
-  getTranslationText(content) {
-    const object = content.find(it => it.field_name === 'translation_text');
-    return object ? object.value : '';
-  }
-
-  getTranslationNote(content) {
-    const object = content.find(it => it.field_name === 'translation_note');
-    return object ? object.value : '';
-  }
-
-  getTranslationLanguage(content) {
-    const object = content.find(it => it.field_name === 'translation_language');
-    return object ? object.formatted_value : '';
-  }
-
-  getTranslationLanguageCode(content) {
-    const object = content.find(it => it.field_name === 'translation_language');
-    return object ? object.value : '';
-  }
-
-  bemClass(baseClass, modifierBoolean, modifierSuffix) {
-    return modifierBoolean ? [baseClass, baseClass + modifierSuffix].join(' ') : baseClass;
-  }
-
   handleEdit() {
     this.setState({ editing: true, isMenuOpen: false });
   }
@@ -134,18 +130,18 @@ class TranslationItem extends Component {
 
   render() {
     const content = JSON.parse(this.props.translation.content);
-    const text = this.getTranslationText(content);
-    const note = this.getTranslationNote(content);
-    const language = this.getTranslationLanguage(content);
-    const language_code = this.getTranslationLanguageCode(content);
+    const text = TranslationItem.getTranslationText(content);
+    const note = TranslationItem.getTranslationNote(content);
+    const language = TranslationItem.getTranslationLanguage(content);
+    const language_code = TranslationItem.getTranslationLanguageCode(content);
 
     return (
       <div className="translation__component">
         <Card className="translation__card" style={styles.translationCard}>
           <CardText className="translation__card-text" style={styles.cardText}>
 
-            {this.state.editing
-              ? <div>
+            {this.state.editing ?
+              <div>
                 <form name="translation_edit">
                   <TextField
                     name="translation_text"
@@ -154,16 +150,17 @@ class TranslationItem extends Component {
                         id="translation.translationText"
                         defaultMessage="Translation text"
                       />
-                      }
+                    }
                     defaultValue={text}
                     fullWidth
                     multiLine
+                    errorText={this.state.message}
                   />
                   <TextField
                     name="translation_note"
                     hintText={
                       <FormattedMessage id="translation.translationNote" defaultMessage="Note" />
-                      }
+                    }
                     defaultValue={note}
                     fullWidth
                     multiLine
@@ -173,7 +170,7 @@ class TranslationItem extends Component {
                   <FlatButton
                     label={
                       <FormattedMessage id="translation.cancelEdit" defaultMessage="Cancel" />
-                      }
+                    }
                     onClick={() => this.setState({ editing: false })}
                   />
                   <FlatButton
@@ -185,7 +182,8 @@ class TranslationItem extends Component {
                   />
                 </div>
               </div>
-              : <div>
+              :
+              <div>
                 <StyledTranslationText
                   localeIsRtl={this.props.localeIsRtl}
                   className={`${rtlClass(language_code)}`}
@@ -222,7 +220,7 @@ class TranslationItem extends Component {
 }
 
 TranslationItem.contextTypes = {
-  store: React.PropTypes.object,
+  store: PropTypes.object,
 };
 
 export default injectIntl(TranslationItem);

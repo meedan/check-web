@@ -3,6 +3,5 @@
   "headerActions.privacyPolicy": "Privacy",
   "headerActions.about": "About",
   "headerActions.contactHuman": "Contact",
-  "headerActions.productGuides": "Product Guides",
-  "drawerNavigation.userProfile": "Your Profile"
+  "headerActions.productGuides": "Product Guides"
 }

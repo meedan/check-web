@@ -1,8 +1,8 @@
-import React, { Component, PropTypes } from 'react';
-import { LocationField } from './field_types';
+import React from 'react';
+import { LocationField } from './field_types/LocationField';
 
-class DynamicAnnotation extends Component {
-  fieldTypeToComponent(value, type) {
+const DynamicAnnotation = (props) => {
+  const fieldTypeToComponent = (value, type) => {
     let component = null;
     switch (type) {
     case 'location':
@@ -16,17 +16,13 @@ class DynamicAnnotation extends Component {
       break;
     }
     return component;
-  }
+  };
 
-  render() {
-    const { annotation } = this.props;
-    const that = this;
-    return (
-      <div>
-        {annotation.fields.map(field => that.fieldTypeToComponent(field.value, field.field_type))}
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      {props.annotation.fields.map(field => fieldTypeToComponent(field.value, field.field_type))}
+    </div>
+  );
+};
 
 export default DynamicAnnotation;

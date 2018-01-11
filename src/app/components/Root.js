@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Provider } from 'react-redux';
 import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
@@ -8,60 +9,48 @@ import ar from 'react-intl/locale-data/ar';
 import en from 'react-intl/locale-data/en';
 import fr from 'react-intl/locale-data/fr';
 import pt from 'react-intl/locale-data/pt';
+import config from 'config'; // eslint-disable-line require-path-exists/exists
 import App from './App';
-import {
-  RootLocale,
-  IndexComponent,
-  NotFound,
-  AccessDenied,
-  UserAlreadyConfirmed,
-  UserConfirmed,
-  UserUnconfirmed,
-  UserPasswordChange,
-  UserPasswordReset,
-  LoginEmailPage,
-} from '../components';
-import {
-  Sources,
-  Source,
-  User,
-  Me,
-} from '../components/source';
-import {
-  Team,
-  TeamMembers,
-  CreateTeam,
-  JoinTeam,
-  Teams,
-  Trash,
-} from '../components/team';
-import {
-  CreateProjectMedia,
-  ProjectMedia,
-  MediaEmbed,
-} from '../components/media';
-import {
-  Project,
-  ProjectHeader,
-  ProjectEdit,
-} from '../components/project';
-import Search from '../components/Search';
+import RootLocale from './RootLocale';
+import NotFound from './NotFound';
+import AccessDenied from './AccessDenied';
+import UserAlreadyConfirmed from './UserAlreadyConfirmed';
+import UserConfirmed from './UserConfirmed';
+import UserUnconfirmed from './UserUnconfirmed';
+import UserPasswordChange from './UserPasswordChange';
+import UserPasswordReset from './UserPasswordReset';
+import Source from './source/Source';
+import User from './source/User';
+import Me from './source/Me';
+import Team from './team/Team';
+import CreateTeam from './team/CreateTeam';
+import JoinTeam from './team/JoinTeam';
+import Teams from './team/Teams';
+import Trash from './team/Trash';
+import CreateProjectMedia from './media/CreateMedia';
+import ProjectMedia from './media/Media';
+import MediaEmbed from './media/MediaEmbed';
+import Project from './project/Project';
+import ProjectEdit from './project/ProjectEdit';
+import Search from './Search';
 import CheckContext from '../CheckContext';
 import translations from '../../../localization/translations/translations';
-import config from 'config';
 
 // Localization
 let locale = config.locale || navigator.languages || navigator.language || navigator.userLanguage || 'en';
 if (locale.constructor === Array) {
-  locale = locale[0];
+  ([locale] = locale);
 }
 locale = locale.replace(/[-_].*$/, '');
 
 if (!global.Intl) {
+  // eslint-disable-next-line max-len
+  // eslint-disable-next-line import/no-dynamic-require, global-require, require-path-exists/tooManyArguments
   require(['intl'], (intl) => {
     global.Intl = intl;
-//    Commented out while build is not optimized for this!
-//    require('intl/locale-data/jsonp/' + locale + '.js');
+    // TODO Commented out while build is not optimized for this!
+    // eslint-disable-next-line global-require
+    // require(`intl/locale-data/jsonp/${locale}.js`);
   });
 }
 
@@ -77,14 +66,35 @@ try {
   locale = 'en';
 }
 
-export default class Root extends Component {
+class Root extends Component {
   static propTypes = {
     store: PropTypes.object.isRequired,
   };
 
+  static logPageView() {
+    if (config.googleAnalyticsCode) {
+      ReactGA.set({ page: window.location.pathname });
+      ReactGA.pageview(window.location.pathname);
+    }
+  }
+
+  componentWillMount() {
+    this.setStore();
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  componentDidMount() {
+    if (config.googleAnalyticsCode) {
+      ReactGA.initialize(config.googleAnalyticsCode, { debug: false });
+    }
+  }
+
+  componentWillUpdate() {
+    this.setStore();
+  }
+
   getContext() {
-    const context = new CheckContext(this);
-    return context;
+    return new CheckContext(this);
   }
 
   setStore() {
@@ -95,34 +105,16 @@ export default class Root extends Component {
     const data = { history, locale };
 
     if (config.pusherKey) {
+      // Pusher is imported at runtime from a <script file> tag.
+      // eslint-disable-next-line no-undef
       Pusher.logToConsole = !!config.pusherDebug;
+      // eslint-disable-next-line no-undef
       const pusher = new Pusher(config.pusherKey, { encrypted: true });
       data.pusher = pusher;
     }
 
     context.setContextStore(data, store);
     this.setState(data);
-  }
-
-  componentWillMount() {
-    this.setStore();
-  }
-
-  componentWillUpdate() {
-    this.setStore();
-  }
-
-  componentDidMount() {
-    if (config.googleAnalyticsCode) {
-      ReactGA.initialize(config.googleAnalyticsCode, { debug: false });
-    }
-  }
-
-  logPageView() {
-    if (config.googleAnalyticsCode) {
-      ReactGA.set({ page: window.location.pathname });
-      ReactGA.pageview(window.location.pathname);
-    }
   }
 
   render() {
@@ -134,7 +126,7 @@ export default class Root extends Component {
         <RootLocale locale={locale} />
         <IntlProvider locale={locale} messages={translations[locale]}>
           <Provider store={store}>
-            <Router history={this.state.history} onUpdate={this.logPageView.bind(this)}>
+            <Router history={this.state.history} onUpdate={Root.logPageView}>
               <Route path="/" component={App}>
                 <IndexRoute component={Team} />
                 <Route path="check/user/already-confirmed" component={UserAlreadyConfirmed} public />
@@ -172,5 +164,7 @@ export default class Root extends Component {
 }
 
 Root.contextTypes = {
-  store: React.PropTypes.object,
+  store: PropTypes.object,
 };
+
+export default Root;

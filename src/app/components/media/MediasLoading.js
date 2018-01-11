@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import {
   units,
@@ -56,28 +56,16 @@ const StyledShimmer = styled(Shimmer)`
   }
 `;
 
-class MediasLoading extends Component {
-  render() {
-    const count = this.props.count || 3;
-    const medias = [];
-
-    for (let i = 0; i < count; i += 1) {
-      medias.push(
+const MediasLoading = props => (
+  <StyledLoadingOuter className="medias-loading">
+    <StyledLoadingInner>
+      {Array.from(Array(props.count || 3).keys()).map(i => (
         <StyledLoadingCard key={i}>
           <StyledShimmer />
           <StyledShimmer />
-        </StyledLoadingCard>,
-      );
-    }
-
-    return (
-      <StyledLoadingOuter className="medias-loading">
-        <StyledLoadingInner>
-          {medias}
-        </StyledLoadingInner>
-      </StyledLoadingOuter>
-    );
-  }
-}
+        </StyledLoadingCard>
+      ))}
+    </StyledLoadingInner>
+  </StyledLoadingOuter>);
 
 export default MediasLoading;

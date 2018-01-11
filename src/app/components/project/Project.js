@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Relay from 'react-relay';
 import styled from 'styled-components';
 import ProjectRoute from '../../relay/ProjectRoute';
-import { CreateProjectMedia } from '../media';
+import CreateProjectMedia from '../media/CreateMedia';
 import Can from '../Can';
 import PageTitle from '../PageTitle';
 import CheckContext from '../../CheckContext';
@@ -16,13 +17,12 @@ const ProjectWrapper = styled.div`
   flex-direction: column;
   height: 100%;
   overflow-y: visible;
-  padding: 0 ${units(2)} ${units(5)};
+  padding: 0 ${units(2)}};
   position: relative;
   width: 100%;
 `;
 
 class ProjectComponent extends Component {
-
   componentDidMount() {
     this.setContextProject();
   }
@@ -32,8 +32,7 @@ class ProjectComponent extends Component {
   }
 
   getContext() {
-    const context = new CheckContext(this);
-    return context;
+    return new CheckContext(this);
   }
 
   setContextProject() {
@@ -64,19 +63,18 @@ class ProjectComponent extends Component {
   }
 
   render() {
-    const that = this;
-    const project = this.props.project;
+    const { project } = this.props;
 
     return (
       <PageTitle prefix={project.title} skipTeam={false} team={this.currentContext().team}>
         <ProjectWrapper className="project">
-          {project.description && project.description.trim().length
-            ? <div style={{ margin: `0 ${units(1)} ${units(1)}` }} className="project__description">
+          {project.description && project.description.trim().length ?
+            <div style={{ margin: `0 ${units(1)} ${units(1)}` }} className="project__description">
               <p>{project.description}</p>
             </div>
             : null}
           <Can permissions={project.permissions} permission="create Media">
-            <CreateProjectMedia projectComponent={that} />
+            <CreateProjectMedia projectComponent={this} />
           </Can>
 
           <ContentColumn noPadding>
@@ -90,7 +88,7 @@ class ProjectComponent extends Component {
 }
 
 ProjectComponent.contextTypes = {
-  store: React.PropTypes.object,
+  store: PropTypes.object,
 };
 
 const ProjectContainer = Relay.createContainer(ProjectComponent, {
@@ -126,21 +124,16 @@ const ProjectContainer = Relay.createContainer(ProjectComponent, {
   },
 });
 
-class Project extends Component {
-  render() {
-    const projectId = this.props.params.projectId;
-    const route = new ProjectRoute({ contextId: parseInt(projectId, 10) });
-    return (
-      <Relay.RootContainer
-        Component={ProjectContainer}
-        route={route}
-        renderFetched={data => <ProjectContainer {...this.props} {...data} />}
-        renderLoading={function () {
-          return <MediasLoading />;
-        }}
-      />
-    );
-  }
-}
+const Project = (props) => {
+  const route = new ProjectRoute({ contextId: parseInt(props.params.projectId, 10) });
+  return (
+    <Relay.RootContainer
+      Component={ProjectContainer}
+      route={route}
+      renderFetched={data => <ProjectContainer {...props} {...data} />}
+      renderLoading={() => <MediasLoading />}
+    />
+  );
+};
 
 export default Project;

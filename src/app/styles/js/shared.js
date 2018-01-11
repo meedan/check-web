@@ -64,7 +64,7 @@ export const display3 = `400 ${units(7)}/${units(7)} ${fontStackSans}`;
 export const display2 = `500 45px/${units(6)} ${fontStackSans}`;
 export const display1 = `500 34px/${units(5)} ${fontStackSans}`;
 export const headline = `500 ${units(3)}/${units(4)} ${fontStackSans}`;
-export const title = `400 ${units(2.5)}/${units(4)} ${fontStackSans}`;
+export const title1 = `400 ${units(2.5)}/${units(4)} ${fontStackSans}`;
 export const subheading2 = `400 ${units(2)}/${units(3.5)} ${fontStackSans}`;
 export const subheading1 = `400 15px/${units(3)} ${fontStackSans}`;
 export const body2 = `400 14px/${units(3)} ${fontStackSans}`;
@@ -304,8 +304,11 @@ export const HeaderTitle = styled.h3`
   font: ${subheading2};
   color: ${black54};
   max-width: 45vw;
+  ${mediaQuery.tablet`
+     max-width: 27vw;
+  `}
   ${mediaQuery.handheld`
-     max-width: 20vw;
+     max-width: 18vw;
   `}
 `;
 
@@ -334,7 +337,7 @@ export const Row = styled.div`
 //
 export const StyledMdCardTitle =
   styled(CardTitle)` > span {
-      font: ${title} !important;
+      font: ${title1} !important;
     }
     padding-bottom: 8px !important;
   `;
@@ -479,7 +482,7 @@ export const SmallerStyledIconButton = styled(StyledIconButton)`
 // Hide descriptions with CSS checkbox technique
 //
 // DEPRECATED
-// TODO: replace this with a conditional based on state
+// TODO Replace this with a conditional based on state
 export const StyledTaskDescription = styled.div`
   margin-top ${units(2)};
 

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { defineMessages, injectIntl, intlShape } from 'react-intl';
 import Relay from 'react-relay';
 import TextField from 'material-ui/TextField';
@@ -6,16 +7,17 @@ import FlatButton from 'material-ui/FlatButton';
 import MdInsertPhoto from 'react-icons/lib/md/insert-photo';
 import styled from 'styled-components';
 import rtlDetect from 'rtl-detect';
-import CreateCommentMutation from '../../relay/CreateCommentMutation';
-import CreateTagMutation from '../../relay/CreateTagMutation';
-import CreateStatusMutation from '../../relay/CreateStatusMutation';
-import UpdateStatusMutation from '../../relay/UpdateStatusMutation';
-import CreateFlagMutation from '../../relay/CreateFlagMutation';
-import CreateDynamicMutation from '../../relay/CreateDynamicMutation';
+import CreateCommentMutation from '../../relay/mutations/CreateCommentMutation';
+import CreateTagMutation from '../../relay/mutations/CreateTagMutation';
+import CreateStatusMutation from '../../relay/mutations/CreateStatusMutation';
+import UpdateStatusMutation from '../../relay/mutations/UpdateStatusMutation';
+import CreateFlagMutation from '../../relay/mutations/CreateFlagMutation';
+import CreateDynamicMutation from '../../relay/mutations/CreateDynamicMutation';
 import CheckContext from '../../CheckContext';
 import UploadImage from '../UploadImage';
 import { ContentColumn, Row, black38, black87, alertRed, units } from '../../styles/js/shared';
 import HttpStatus from '../../HttpStatus';
+import { safelyParseJSON } from '../../helpers';
 
 const messages = defineMessages({
   invalidCommand: {
@@ -71,8 +73,24 @@ const styles = {
 };
 
 class AddAnnotation extends Component {
+  static onImage(file) {
+    document.forms.addannotation.image = file;
+  }
+
+  static parseCommand(input) {
+    const matches = input.match(/^\/([a-z_]+) (.*)/);
+    let command = { type: 'unk', args: null };
+    if (matches !== null) {
+      ([, command.type, command.args] = matches);
+    } else if (/^[^/]/.test(input) || !input) {
+      command = { type: 'comment', args: input };
+    }
+    return command;
+  }
+
   constructor(props) {
     super(props);
+
     this.state = {
       cmd: '',
       message: null,
@@ -81,16 +99,12 @@ class AddAnnotation extends Component {
     };
   }
 
-  parseCommand(input) {
-    const matches = input.match(/^\/([a-z_]+) (.*)/);
-    let command = { type: 'unk', args: null };
-    if (matches !== null) {
-      command.type = matches[1];
-      command.args = matches[2];
-    } else if (/^[^/]/.test(input) || !input) {
-      command = { type: 'comment', args: input };
-    }
-    return command;
+  onImageError(file, message) {
+    this.setState({ message });
+  }
+
+  getContext() {
+    return new CheckContext(this).getContextStore();
   }
 
   failure() {
@@ -108,37 +122,24 @@ class AddAnnotation extends Component {
       message,
       isSubmitting: false,
       fileMode: false,
-      messageStyle: styles.successStyle
+      messageStyle: styles.successStyle,
     });
   }
 
   fail(transaction) {
-    const transactionError = transaction.getError();
+    const error = transaction.getError();
     let message = this.props.intl.formatMessage(messages.error, {
-      code: `${transactionError.status} ${HttpStatus.getMessage(
-        transactionError.status,
-      )}`,
+      code: `${error.status} ${HttpStatus.getMessage(error.status)}`,
     });
-    let json = null;
-    try {
-      json = JSON.parse(transactionError.source);
-    } catch (e) {
-      // do nothing
-    }
+    const json = safelyParseJSON(error.source);
     if (json && json.error) {
       message = json.error;
     }
-
     this.setState({
       message: message.replace(/<br\s*\/?>/gm, '; '),
       isSubmitting: false,
       messageStyle: styles.errorStyle,
     });
-  }
-
-  getContext() {
-    const context = new CheckContext(this).getContextStore();
-    return context;
   }
 
   addComment(
@@ -154,19 +155,14 @@ class AddAnnotation extends Component {
     };
 
     const onSuccess = () => {
-      this.success(
-        formatMessage(messages.annotationAdded, {
-          type: formatMessage(messages.typeComment),
-        }),
-      );
+      this.success(formatMessage(messages.annotationAdded, {
+        type: formatMessage(messages.typeComment),
+      }));
     };
 
-    const annotator = this.getContext().currentUser;
+    const { currentUser: annotator } = this.getContext();
 
-    let image = '';
-    if (this.state.fileMode) {
-      image = document.forms.addannotation.image;
-    }
+    const image = this.state.fileMode ? document.forms.addannotation.image : '';
 
     Relay.Store.commitUpdate(
       new CreateCommentMutation({
@@ -197,18 +193,16 @@ class AddAnnotation extends Component {
     };
 
     const onSuccess = () => {
-      this.success(
-        formatMessage(messages.annotationAdded, {
-          type: formatMessage(messages.typeTag),
-        }),
-      );
+      this.success(formatMessage(messages.annotationAdded, {
+        type: formatMessage(messages.typeTag),
+      }));
     };
 
     const annotator = this.getContext().currentUser;
 
     const context = this.getContext();
 
-    tagsList.map((tag) => {
+    tagsList.forEach((tag) => {
       Relay.Store.commitUpdate(
         new CreateTagMutation({
           annotated,
@@ -229,18 +223,16 @@ class AddAnnotation extends Component {
   }
 
   addStatus(annotated, annotated_id, annotated_type, status) {
-    const { formatMessage } = this.props.intl;
+    const { intl: { formatMessage } } = this.props;
 
     const onFailure = (transaction) => {
       this.fail(transaction);
     };
 
     const onSuccess = () => {
-      this.success(
-        formatMessage(messages.annotationAdded, {
-          type: formatMessage(messages.typeStatus),
-        }),
-      );
+      this.success(formatMessage(messages.annotationAdded, {
+        type: formatMessage(messages.typeStatus),
+      }));
     };
 
     const annotator = this.getContext().currentUser;
@@ -285,11 +277,9 @@ class AddAnnotation extends Component {
     };
 
     const onSuccess = () => {
-      this.success(
-        formatMessage(messages.annotationAdded, {
-          type: formatMessage(messages.typeFlag),
-        }),
-      );
+      this.success(formatMessage(messages.annotationAdded, {
+        type: formatMessage(messages.typeFlag),
+      }));
     };
 
     const annotator = this.getContext().currentUser;
@@ -320,9 +310,7 @@ class AddAnnotation extends Component {
     };
 
     const onSuccess = () => {
-      this.success(
-        formatMessage(messages.annotationAdded, { type: annotation_type }),
-      );
+      this.success(formatMessage(messages.annotationAdded, { type: annotation_type }));
     };
 
     const annotator = this.getContext().currentUser;
@@ -331,8 +319,8 @@ class AddAnnotation extends Component {
     const fields = {};
     if (params) {
       params.split('&').forEach((part) => {
-        const pair = part.split('=');
-        fields[pair[0]] = pair[1];
+        const [pair0, pair1] = part.split('=');
+        fields[pair0] = pair1;
       });
     }
 
@@ -364,15 +352,16 @@ class AddAnnotation extends Component {
   }
 
   handleSubmit(e) {
-    const command = this.parseCommand(this.state.cmd);
+    const command = AddAnnotation.parseCommand(this.state.cmd);
     if (this.state.isSubmitting) {
-      return e.preventDefault();
+      e.preventDefault();
+      return;
     }
 
     this.setState({ isSubmitting: true });
     let action = null;
 
-    if (this.props.types && this.props.types.indexOf(command.type) == -1) {
+    if (this.props.types && this.props.types.indexOf(command.type) === -1) {
       this.failure();
     } else {
       switch (command.type) {
@@ -394,12 +383,10 @@ class AddAnnotation extends Component {
       }
 
       if (action) {
-        const annotated = this.props.annotated;
-        const annotated_id = annotated.dbid;
-        const annotated_type = this.props.annotatedType;
+        const { annotated, annotatedType: annotated_type } = this.props;
         action(
           annotated,
-          annotated_id,
+          annotated.dbid,
           annotated_type,
           command.args,
           command.type,
@@ -416,14 +403,6 @@ class AddAnnotation extends Component {
     if (e.key === 'Enter' && !e.shiftKey) {
       this.handleSubmit(e);
     }
-  }
-
-  onImage(file) {
-    document.forms.addannotation.image = file;
-  }
-
-  onImageError(file, message) {
-    this.setState({ message });
   }
 
   switchMode() {
@@ -453,7 +432,9 @@ class AddAnnotation extends Component {
         className="add-annotation"
         name="addannotation"
         onSubmit={this.handleSubmit.bind(this)}
-        style={{ height: '100%', padding: units(2), position: 'relative', zIndex: 0 }}
+        style={{
+          height: '100%', padding: units(2), position: 'relative', zIndex: 0,
+        }}
       >
         <ContentColumn flex>
           <TextField
@@ -462,7 +443,7 @@ class AddAnnotation extends Component {
             style={{ width: '100%' }}
             errorStyle={this.state.messageStyle}
             onFocus={this.handleFocus.bind(this)}
-            ref={ref => (this.cmd = ref)}
+            ref={(i) => { this.cmd = i; }}
             errorText={this.state.message}
             name="cmd"
             id="cmd-input"
@@ -475,7 +456,7 @@ class AddAnnotation extends Component {
             if (this.state.fileMode) {
               return (
                 <UploadImage
-                  onImage={this.onImage.bind(this)}
+                  onImage={AddAnnotation.onImage}
                   onError={this.onImageError.bind(this)}
                 />
               );
@@ -507,11 +488,13 @@ class AddAnnotation extends Component {
 }
 
 AddAnnotation.propTypes = {
+  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
+  // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
 };
 
 AddAnnotation.contextTypes = {
-  store: React.PropTypes.object,
+  store: PropTypes.object,
 };
 
 export default injectIntl(AddAnnotation);

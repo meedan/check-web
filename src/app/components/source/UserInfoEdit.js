@@ -12,12 +12,16 @@ import SourcePicture from './SourcePicture';
 import Message from '../Message';
 import UploadImage from '../UploadImage';
 import globalStrings from '../../globalStrings';
-import UpdateSourceMutation from '../../relay/UpdateSourceMutation';
-import UpdateUserNameEmailMutation from '../../relay/mutation/UpdateUserNameEmailMutation';
-import CreateAccountSourceMutation from '../../relay/mutation/CreateAccountSourceMutation';
-import DeleteAccountSourceMutation from '../../relay/mutation/DeleteAccountSourceMutation';
-import { StyledIconButton, Row, ContentColumn } from '../../styles/js/shared';
-
+import UpdateSourceMutation from '../../relay/mutations/UpdateSourceMutation';
+import UpdateUserNameEmailMutation from '../../relay/mutations/UpdateUserNameEmailMutation';
+import CreateAccountSourceMutation from '../../relay/mutations/CreateAccountSourceMutation';
+import DeleteAccountSourceMutation from '../../relay/mutations/DeleteAccountSourceMutation';
+import { safelyParseJSON } from '../../helpers';
+import {
+  StyledIconButton,
+  Row,
+  ContentColumn,
+} from '../../styles/js/shared';
 import {
   StyledButtonGroup,
   StyledTwoColumns,
@@ -69,55 +73,64 @@ class UserInfoEdit extends React.Component {
 
     this.state = {
       submitDisabled: false,
+      // TODO eslint false positive
+      // eslint-disable-next-line react/no-unused-state
+      image: null,
     };
   }
 
-  handleEditProfileImg = () => {
-    this.setState({ editProfileImg: true });
-  };
-
-  handleLeaveEditMode = () => {
-    this.onClear();
-    this.props.onCancelEdit();
-  };
-
   onImage(file) {
     document.forms['edit-source-form'].image = file;
+    // TODO eslint false positive
+    // eslint-disable-next-line react/no-unused-state
     this.setState({ image: file });
   }
 
-  onClear = () => {
+  onClear() {
     if (document.forms['edit-source-form']) {
       document.forms['edit-source-form'].image = null;
     }
 
+    // TODO eslint false positive
+    // eslint-disable-next-line react/no-unused-state
     this.setState({ image: null });
-  };
+  }
 
   onImageError(file, message) {
+    // TODO eslint false positive
+    // eslint-disable-next-line react/no-unused-state
     this.setState({ message, image: null });
+  }
+
+  handleEditProfileImg() {
+    this.setState({ editProfileImg: true });
+  }
+
+  handleLeaveEditMode() {
+    this.onClear();
+    this.props.onCancelEdit();
   }
 
   handleSubmit(e) {
     e.preventDefault();
 
     if (this.validateLinks() && !this.state.submitDisabled) {
-      const updateSourceSent = this.updateSource();
-      const updateUserSent = this.updateUser();
-      const updateLinksSent = this.updateLinks();
+      this.updateSource();
+      this.updateUser();
+      this.updateLinks();
 
       this.setState({ submitDisabled: true, hasFailure: false, message: null });
     }
   }
 
-  handleAddLink = () => {
+  handleAddLink() {
     const links = this.state.links ? this.state.links.slice(0) : [];
     const newEntry = {};
     newEntry.url = '';
     newEntry.error = '';
     links.push(newEntry);
-    this.setState({ links, menuOpen: false });
-  };
+    this.setState({ links });
+  }
 
   handleChangeLink(e, index) {
     const links = this.state.links ? this.state.links.slice(0) : [];
@@ -126,33 +139,31 @@ class UserInfoEdit extends React.Component {
     this.setState({ links });
   }
 
-  handleRemoveLink = (id) => {
+  handleRemoveLink(id) {
     const deleteLinks = this.state.deleteLinks
       ? this.state.deleteLinks.slice(0)
       : [];
     deleteLinks.push(id);
     this.setState({ deleteLinks });
-  };
+  }
 
-  handleRemoveNewLink = (index) => {
+  handleRemoveNewLink(index) {
     const links = this.state.links ? this.state.links.slice(0) : [];
     links.splice(index, 1);
     this.setState({ links });
-  };
+  }
 
-  fail = (transaction) => {
+  fail(transaction) {
     const error = transaction.getError();
     let message = this.props.intl.formatMessage(messages.editError);
-    try {
-      const json = JSON.parse(error.source);
-      if (json.error) {
-        message = json.error;
-      }
-    } catch (e) {}
+    const json = safelyParseJSON(error.source);
+    if (json && json.error) {
+      message = json.error;
+    }
     this.setState({ message, hasFailure: true, submitDisabled: false });
-  };
+  }
 
-  success = (response, mutation) => {
+  success(response, mutation) {
     const manageEditingState = () => {
       const submitDisabled = this.state.pendingMutations.length > 0;
       const isEditing = submitDisabled || this.state.hasFailure;
@@ -171,15 +182,15 @@ class UserInfoEdit extends React.Component {
       { pendingMutations: pendingMutations.filter(m => m !== mutation) },
       manageEditingState,
     );
-  };
+  }
 
-  registerPendingMutation = (mutation) => {
+  registerPendingMutation(mutation) {
     const pendingMutations = this.state.pendingMutations
       ? this.state.pendingMutations.slice(0)
       : [];
     pendingMutations.push(mutation);
     this.setState({ pendingMutations });
-  };
+  }
 
   updateSource() {
     const { source } = this.props.user;
@@ -187,20 +198,17 @@ class UserInfoEdit extends React.Component {
     const onFailure = (transaction) => {
       const error = transaction.getError();
       let message = this.props.intl.formatMessage(messages.editError);
-
-      try {
-        const json = JSON.parse(error.source);
-        if (json.error) {
-          message = json.error;
-        }
-      } catch (e) {}
-
+      const json = safelyParseJSON(error.source);
+      if (json && json.error) {
+        message = json.error;
+      }
       this.setState({ message, submitDisabled: false });
     };
 
     const onSuccess = (response) => {
       this.success(response, 'updateSource');
     };
+
     const form = document.forms['edit-source-form'];
 
     if (source.description === form.description.value && !form.image) {
@@ -229,14 +237,10 @@ class UserInfoEdit extends React.Component {
     const onFailure = (transaction) => {
       const error = transaction.getError();
       let message = this.props.intl.formatMessage(messages.editError);
-
-      try {
-        const json = JSON.parse(error.source);
-        if (json.error) {
-          message = json.error;
-        }
-      } catch (e) {}
-
+      const json = safelyParseJSON(error.source);
+      if (json && json.error) {
+        message = json.error;
+      }
       this.setState({ message, submitDisabled: false });
     };
 
@@ -295,13 +299,10 @@ class UserInfoEdit extends React.Component {
       if (index > -1) {
         const error = transaction.getError();
         let message = this.props.intl.formatMessage(messages.invalidLink);
-        try {
-          const json = JSON.parse(error.source);
-          if (json.error) {
-            message = json.error;
-          }
-        } catch (e) {}
-
+        const json = safelyParseJSON(error.source);
+        if (json && json.error) {
+          message = json.error;
+        }
         links[index].error = message;
       }
 
@@ -356,7 +357,8 @@ class UserInfoEdit extends React.Component {
     let links = this.state.links ? this.state.links.slice(0) : [];
     links = links.filter(link => !!link.url.trim());
 
-    links.forEach((item) => {
+    links.forEach((item_) => {
+      const item = item_;
       const url = linkify.match(item.url);
       if (Array.isArray(url) && url[0] && url[0].url) {
         item.url = url[0].url;
@@ -376,13 +378,12 @@ class UserInfoEdit extends React.Component {
     const deleteLinks = this.state.deleteLinks
       ? this.state.deleteLinks.slice(0)
       : [];
-    const showAccounts = source.account_sources.edges.filter(
-      as => deleteLinks.indexOf(as.node.id) < 0,
-    );
+    const showAccounts =
+      source.account_sources.edges.filter(as => deleteLinks.indexOf(as.node.id) < 0);
 
     return (
       <div key="renderAccountsEdit">
-        {showAccounts.map((as, index) =>
+        {showAccounts.map((as, index) => (
           <div key={as.node.id} className="source__url">
             <Row>
               <TextField
@@ -394,13 +395,13 @@ class UserInfoEdit extends React.Component {
               />
               <StyledIconButton
                 className="source__remove-link-button"
-                onClick={() => this.handleRemoveLink(as.node.id)}>
+                onClick={() => this.handleRemoveLink(as.node.id)}
+              >
                 <MdCancel />
               </StyledIconButton>
             </Row>
-          </div>,
-        )}
-        {links.map((link, index) =>
+          </div>))}
+        {links.map((link, index) => (
           <div key={index.toString()} className="source__url-input">
             <Row>
               <TextField
@@ -408,25 +409,23 @@ class UserInfoEdit extends React.Component {
                 name={`source__link-input${index.toString()}`}
                 value={link.url}
                 errorText={link.error}
-                floatingLabelText={this.props.intl.formatMessage(
-                  messages.addLinkLabel,
-                )}
+                floatingLabelText={this.props.intl.formatMessage(messages.addLinkLabel)}
                 onChange={e => this.handleChangeLink(e, index)}
                 style={{ width: '85%' }}
               />
               <StyledIconButton
                 className="source__remove-link-button"
-                onClick={() => this.handleRemoveNewLink(index)}>
+                onClick={() => this.handleRemoveNewLink(index)}
+              >
                 <MdCancel />
               </StyledIconButton>
             </Row>
-            {link.error
-              ? null
-              : <StyledHelper>
+            {link.error ?
+              null :
+              <StyledHelper>
                 {this.props.intl.formatMessage(messages.addLinkHelper)}
               </StyledHelper>}
-          </div>,
-        )}
+          </div>))}
       </div>
     );
   }
@@ -448,8 +447,8 @@ class UserInfoEdit extends React.Component {
               type="user"
               className="source__avatar"
             />
-            {!this.state.editProfileImg
-              ? <StyledAvatarEditButton className="source__edit-avatar-button">
+            {!this.state.editProfileImg ?
+              <StyledAvatarEditButton className="source__edit-avatar-button">
                 <FlatButton
                   label={this.props.intl.formatMessage(globalStrings.edit)}
                   onClick={this.handleEditProfileImg.bind(this)}
@@ -464,10 +463,10 @@ class UserInfoEdit extends React.Component {
               onSubmit={this.handleSubmit.bind(this)}
               name="edit-source-form"
             >
-              {this.state.editProfileImg
-                ? <UploadImage
+              {this.state.editProfileImg ?
+                <UploadImage
                   onImage={this.onImage.bind(this)}
-                  onClear={this.onClear}
+                  onClear={this.onClear.bind(this)}
                   onError={this.onImageError.bind(this)}
                   noPreview
                 />
@@ -477,9 +476,7 @@ class UserInfoEdit extends React.Component {
                 name="name"
                 id="source__name-container"
                 defaultValue={user.name}
-                floatingLabelText={this.props.intl.formatMessage(
-                  messages.sourceName,
-                )}
+                floatingLabelText={this.props.intl.formatMessage(messages.sourceName)}
                 style={{ width: '85%' }}
               />
               <TextField
@@ -487,9 +484,7 @@ class UserInfoEdit extends React.Component {
                 name="description"
                 id="source__bio-container"
                 defaultValue={source.description}
-                floatingLabelText={this.props.intl.formatMessage(
-                  messages.sourceBio,
-                )}
+                floatingLabelText={this.props.intl.formatMessage(messages.sourceBio)}
                 multiLine
                 rowsMax={4}
                 style={{ width: '85%' }}
@@ -499,9 +494,7 @@ class UserInfoEdit extends React.Component {
                 name="email"
                 id="source__email-container"
                 defaultValue={user.email}
-                floatingLabelText={this.props.intl.formatMessage(
-                  messages.userEmail,
-                )}
+                floatingLabelText={this.props.intl.formatMessage(messages.userEmail)}
                 style={{ width: '85%' }}
               />
 

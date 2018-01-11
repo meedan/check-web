@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { injectIntl, defineMessages, FormattedMessage } from 'react-intl';
 import Relay from 'react-relay';
 import Dialog from 'material-ui/Dialog';
@@ -14,28 +15,28 @@ import MediaTags from './MediaTags';
 import MediaActions from './MediaActions';
 import MediaUtil from './MediaUtil';
 import UserTooltip from '../user/UserTooltip';
-import UpdateProjectMediaMutation from '../../relay/UpdateProjectMediaMutation';
-import DeleteProjectMediaMutation from '../../relay/DeleteProjectMediaMutation';
-import CreateTagMutation from '../../relay/CreateTagMutation';
+import UpdateProjectMediaMutation from '../../relay/mutations/UpdateProjectMediaMutation';
+import DeleteProjectMediaMutation from '../../relay/mutations/DeleteProjectMediaMutation';
+import CreateTagMutation from '../../relay/mutations/CreateTagMutation';
 import CheckContext from '../../CheckContext';
 import Message from '../Message';
+import { safelyParseJSON } from '../../helpers';
 import {
   Row,
   black87,
-  title,
+  title1,
   units,
   caption,
   Text,
 } from '../../styles/js/shared';
 
 const StyledMetadata = styled.div`
-  margin: ${units(1)} ${units(1)} 0;
+  margin: ${units(1)} 0 0;
+  padding-${props => props.fromDirection}: ${units(1)};
 
-  // Move dialog
-  //
   .media-detail__dialog-header {
     color: ${black87};
-    font: ${title};
+    font: ${title1};
     height: ${units(4)};
     margin-bottom: ${units(0.5)};
     margin-top: ${units(0.5)};
@@ -71,10 +72,6 @@ const messages = defineMessages({
     id: 'mediaDetail.editReportError',
     defaultMessage: 'Sorry, we could not edit this report',
   },
-  error: {
-    id: 'mediaDetail.moveFailed',
-    defaultMessage: 'Sorry, we could not move this report',
-  },
   trash: {
     id: 'mediaDetail.trash',
     defaultMessage: 'Trash',
@@ -88,20 +85,19 @@ class MediaMetadata extends Component {
     this.state = {
       isEditing: false,
       openMoveDialog: false,
-      mediaVersion: false,
       openDeleteDialog: false,
       confirmationError: false,
       submitDisabled: true,
+      message: null,
     };
   }
 
   getContext() {
-    const context = new CheckContext(this).getContextStore();
-    return context;
+    return new CheckContext(this).getContextStore();
   }
 
   handleError(json) {
-    let message = `${this.props.intl.formatMessage(messages.error)}`;
+    let message = this.props.intl.formatMessage(messages.error);
     if (json && json.error) {
       message = json.error;
     }
@@ -110,18 +106,16 @@ class MediaMetadata extends Component {
 
   handleRefresh() {
     const onFailure = (transaction) => {
-      const transactionError = transaction.getError();
-      transactionError.json
-        ? transactionError.json().then(this.handleError)
-        : this.handleError(JSON.stringify(transactionError));
+      const error = transaction.getError();
+      if (error.json) {
+        error.json().then(this.handleError);
+      } else {
+        this.handleError(JSON.stringify(error));
+      }
     };
 
-    const onSuccess = (response) => {
-      this.setState({
-        mediaVersion: JSON.parse(
-          response.updateProjectMedia.project_media.embed,
-        ).refreshes_count,
-      });
+    const onSuccess = () => {
+      // Do nothing.
     };
 
     Relay.Store.commitUpdate(
@@ -135,10 +129,12 @@ class MediaMetadata extends Component {
 
   handleSendToTrash() {
     const onFailure = (transaction) => {
-      const transactionError = transaction.getError();
-      transactionError.json
-        ? transactionError.json().then(this.handleError)
-        : this.handleError(JSON.stringify(transactionError));
+      const error = transaction.getError();
+      if (error.json) {
+        error.json().then(this.handleError);
+      } else {
+        this.handleError(JSON.stringify(error));
+      }
     };
 
     const onSuccess = (response) => {
@@ -146,7 +142,7 @@ class MediaMetadata extends Component {
       const message = (
         <FormattedMessage
           id="mediaMetadata.movedToTrash"
-          defaultMessage={'Sent to {trash}'}
+          defaultMessage="Sent to {trash}"
           values={{
             trash: (
               <Link to={`/${pm.team.slug}/trash`}>
@@ -172,10 +168,12 @@ class MediaMetadata extends Component {
 
   handleRestore() {
     const onFailure = (transaction) => {
-      const transactionError = transaction.getError();
-      transactionError.json
-        ? transactionError.json().then(this.handleError)
-        : this.handleError(JSON.stringify(transactionError));
+      const error = transaction.getError();
+      if (error.json) {
+        error.json().then(this.handleError);
+      } else {
+        this.handleError(JSON.stringify(error));
+      }
     };
 
     const onSuccess = (response) => {
@@ -183,7 +181,7 @@ class MediaMetadata extends Component {
       const message = (
         <FormattedMessage
           id="mediaMetadata.movedBack"
-          defaultMessage={'Moved back to project: {project}'}
+          defaultMessage="Moved back to project: {project}"
           values={{
             project: (
               <Link to={`/${pm.team.slug}/project/${pm.project_id}`}>
@@ -208,8 +206,8 @@ class MediaMetadata extends Component {
   }
 
   handleConfirmDeleteForever() {
-    const confirmValue = document.getElementById('delete-forever__confirm')
-      .value;
+    // TODO Use React ref
+    const { value: confirmValue } = document.getElementById('delete-forever__confirm');
     if (confirmValue && confirmValue.toUpperCase() === 'CONFIRM') {
       this.setState({ confirmationError: false });
       this.handleCloseDialogs();
@@ -227,20 +225,22 @@ class MediaMetadata extends Component {
     const { media } = this.props;
 
     const onFailure = (transaction) => {
-      const transactionError = transaction.getError();
-      transactionError.json
-        ? transactionError.json().then(this.handleError)
-        : this.handleError(JSON.stringify(transactionError));
+      const error = transaction.getError();
+      if (error.json) {
+        error.json().then(this.handleError);
+      } else {
+        this.handleError(JSON.stringify(error));
+      }
     };
 
-    const onSuccess = (response) => {
+    const onSuccess = () => {
       const message = (
         <FormattedMessage
           id="mediaMetadata.deletedForever"
           defaultMessage="Deleted"
         />
       );
-      const history = this.getContext().history;
+      const { history } = this.getContext();
       history.push(`/${media.team.slug}/project/${media.project_id}`);
       this.context.setMessage(message);
     };
@@ -264,18 +264,20 @@ class MediaMetadata extends Component {
 
   handleMoveProjectMedia() {
     const { media } = this.props;
-    const projectId = this.state.dstProj.dbid;
-    const previousProjectId = this.currentProject().node.dbid;
-    const history = this.getContext().history;
+    const { dstProj: { dbid: projectId } } = this.state;
+    const { node: { dbid: previousProjectId } } = this.currentProject();
+    const { history } = this.getContext();
 
     const onFailure = (transaction) => {
       if (/^\/[^/]+\/project\/[0-9]+$/.test(window.location.pathname)) {
         history.push(`/${media.team.slug}/project/${previousProjectId}`);
       }
-      const transactionError = transaction.getError();
-      transactionError.json
-        ? transactionError.json().then(this.handleError)
-        : this.handleError(JSON.stringify(transactionError));
+      const error = transaction.getError();
+      if (error.json) {
+        error.json().then(this.handleError);
+      } else {
+        this.handleError(JSON.stringify(error));
+      }
     };
 
     const path = `/${media.team.slug}/project/${projectId}`;
@@ -284,9 +286,7 @@ class MediaMetadata extends Component {
       if (/^\/[^/]+\/search\//.test(window.location.pathname)) {
         this.props.parentComponent.props.relay.forceFetch();
       } else if (
-        /^\/[^/]+\/project\/[0-9]+\/media\/[0-9]+$/.test(
-          window.location.pathname,
-        )
+        /^\/[^/]+\/project\/[0-9]+\/media\/[0-9]+$/.test(window.location.pathname)
       ) {
         history.push(`${path}/media/${media.dbid}`);
       }
@@ -311,6 +311,7 @@ class MediaMetadata extends Component {
   }
 
   canSubmit() {
+    // TODO Use React ref
     let pendingTag = document.forms['edit-media-form'].sourceTagInput.value;
     pendingTag = pendingTag && pendingTag.trim();
 
@@ -333,8 +334,7 @@ class MediaMetadata extends Component {
     const context = this.getContext();
     if (context.team.projects) {
       const projects = context.team.projects.edges.sortp((a, b) =>
-        a.node.title.localeCompare(b.node.title),
-      );
+        a.node.title.localeCompare(b.node.title));
 
       return projects.filter(p => p.node.dbid !== projectId);
     }
@@ -351,7 +351,7 @@ class MediaMetadata extends Component {
   }
 
   handleSave(media, event) {
-    if (this.state.submitDisabled) { return; }
+    if (this.state.submitDisabled) return;
 
     if (event) {
       event.preventDefault();
@@ -361,9 +361,10 @@ class MediaMetadata extends Component {
     const title = this.state.title && this.state.title.trim();
     const description = this.state.description && this.state.description.trim();
 
-    const embed = {};
-    embed.title = title;
-    embed.description = description;
+    const embed = {
+      title,
+      description,
+    };
 
     const onEditFailure = (transaction) => {
       this.fail(transaction, 'editMedia');
@@ -396,9 +397,9 @@ class MediaMetadata extends Component {
     const context = this.getContext();
 
     if (pendingTag && pendingTag.trim()) {
-      let tagsList = [...new Set(pendingTag.split(','))];
+      const tagsList = [...new Set(pendingTag.split(','))];
 
-      tagsList.map((tag) => {
+      tagsList.forEach((tag) => {
         Relay.Store.commitUpdate(
           new CreateTagMutation({
             annotated: media,
@@ -418,28 +419,30 @@ class MediaMetadata extends Component {
       });
     }
 
-    this.setState({ message: null, tagErrorMessage: null, pendingMutations: null, hasFailure: false, submitDisabled: true });
+    this.setState({
+      message: null,
+      tagErrorMessage: null,
+      pendingMutations: null,
+      hasFailure: false,
+      submitDisabled: true,
+    });
   }
 
-  fail = (transaction, mutation) => {
+  fail(transaction, mutation) {
     const error = transaction.getError();
     let message = this.props.intl.formatMessage(messages.editReportError);
-    try {
-      const json = JSON.parse(error.source);
-      if (json.error) {
-        message = json.error;
-      }
-    } catch (e) {}
-    const tagErrorMessage = message;
-
+    const json = safelyParseJSON(error.source);
+    if (json && json.error) {
+      message = json.error;
+    }
     if (mutation === 'createTag') {
-      this.setState({ tagErrorMessage, hasFailure: true, submitDisabled: false });
+      this.setState({ tagErrorMessage: message, hasFailure: true, submitDisabled: false });
     } else {
       this.setState({ message, hasFailure: true, submitDisabled: false });
     }
-  };
+  }
 
-  success = (response, mutation) => {
+  success(response, mutation) {
     const manageEditingState = () => {
       const submitDisabled = this.state.pendingMutations.length > 0;
       const isEditing = submitDisabled || this.state.hasFailure;
@@ -455,15 +458,15 @@ class MediaMetadata extends Component {
       { pendingMutations: pendingMutations.filter(m => m !== mutation) },
       manageEditingState,
     );
-  };
+  }
 
-  registerPendingMutation = (mutation) => {
+  registerPendingMutation(mutation) {
     const pendingMutations = this.state.pendingMutations
       ? this.state.pendingMutations.slice(0)
       : [];
     pendingMutations.push(mutation);
     this.setState({ pendingMutations });
-  };
+  }
 
   handleCancel() {
     this.setState({
@@ -492,31 +495,29 @@ class MediaMetadata extends Component {
   }
 
   render() {
-    const { media } = this.props;
-    const data = JSON.parse(media.embed);
+    const { media, intl: { locale } } = this.props;
+    const data = media.embed;
     const context = this.getContext();
-    const locale = this.props.intl.locale;
     const isRtl = rtlDetect.isRtlLang(locale);
     const fromDirection = isRtl ? 'right' : 'left';
 
     const byUser = media.user &&
       media.user.source &&
       media.user.source.dbid &&
-      media.user.name !== 'Pender'
-      ? (<FormattedMessage
-        id="mediaDetail.byUser"
-        defaultMessage={'by {username}'}
-        values={{
-          username: (
-            <Tooltip placement="top" overlay={<UserTooltip user={media.user} />}>
-              <Link to={`/check/user/${media.user.dbid}`}>
-                {media.user.name}
-              </Link>
-            </Tooltip>
+      media.user.name !== 'Pender' ? (
+        <FormattedMessage
+          id="mediaDetail.byUser"
+          defaultMessage="by {username}"
+          values={{
+            username: (
+              <Tooltip placement="top" overlay={<UserTooltip user={media.user} team={media.team} />}>
+                <Link to={`/check/user/${media.user.dbid}`}>
+                  {media.user.name}
+                </Link>
+              </Tooltip>
             ),
-        }}
-      />)
-      : '';
+          }}
+        />) : '';
     const moveDialogActions = [
       <FlatButton
         label={
@@ -571,19 +572,18 @@ class MediaMetadata extends Component {
             style={{ width: '100%' }}
           />
 
-        { media.tags &&
-          <MediaTags
-            media={media}
-            tags={media.tags.edges}
-            errorText={this.state.tagErrorMessage}
-            onChange={() => {
-              this.setState({ tagErrorMessage: null });
-              this.canSubmit();
-            }}
-            ref={"mediaTags"}
-            isEditing
-          />
-        }
+          { media.tags ?
+            <MediaTags
+              media={media}
+              tags={media.tags.edges}
+              errorText={this.state.tagErrorMessage}
+              onChange={() => {
+                this.setState({ tagErrorMessage: null });
+                this.canSubmit();
+              }}
+              isEditing
+            /> : null
+          }
         </form>
 
         <span style={{ display: 'flex' }}>
@@ -649,26 +649,26 @@ class MediaMetadata extends Component {
           </Text>
         </Row>
         <Row>
-          {byUser
-            ? <span className="media-detail__check-added-by">
+          {byUser ?
+            <span className="media-detail__check-added-by">
               <FormattedMessage
                 id="mediaDetail.addedBy"
-                defaultMessage={'Added {byUser}'}
+                defaultMessage="Added {byUser}"
                 values={{ byUser }}
               />
             </span>
             : null}
-          {media.tags
-            ? <MediaTags
+          {media.tags ?
+            <MediaTags
               media={media}
               tags={media.tags.edges}
               isEditing={false}
             />
             : null}
 
-          {this.props.readonly || this.state.isEditing
-            ? null
-            : <MediaActions
+          {this.props.readonly || this.state.isEditing ?
+            null :
+            <MediaActions
               media={media}
               handleEdit={this.handleEdit.bind(this)}
               handleMove={this.handleMove.bind(this)}
@@ -677,7 +677,7 @@ class MediaMetadata extends Component {
               handleRestore={this.handleRestore.bind(this)}
               handleDeleteForever={this.handleDeleteForever.bind(this)}
               style={{ display: 'flex' }}
-              locale={this.props.intl.locale}
+              locale={locale}
             />}
         </Row>
 
@@ -691,7 +691,7 @@ class MediaMetadata extends Component {
           <h4 className="media-detail__dialog-header">
             <FormattedMessage
               id="mediaDetail.dialogHeader"
-              defaultMessage={'Move this {mediaType} to a different project'}
+              defaultMessage="Move this {mediaType} to a different project"
               values={{
                 mediaType: MediaUtil.typeLabel(
                   media,
@@ -704,9 +704,7 @@ class MediaMetadata extends Component {
           <small className="media-detail__dialog-media-path">
             <FormattedMessage
               id="mediaDetail.dialogMediaPath"
-              defaultMessage={
-                'Currently filed under {teamName} > {projectTitle}'
-              }
+              defaultMessage="Currently filed under {teamName} > {projectTitle}"
               values={{
                 teamName: context.team.name,
                 projectTitle: media.project.title,
@@ -719,13 +717,12 @@ class MediaMetadata extends Component {
             onChange={this.handleSelectDestProject.bind(this)}
           >
             {this.destinationProjects().map(proj =>
-              <RadioButton
+              (<RadioButton
                 key={proj.node.dbid}
                 label={proj.node.title}
                 value={proj.node}
                 style={{ padding: units(1) }}
-              />,
-            )}
+              />))}
           </RadioButtonGroup>
         </Dialog>
 
@@ -744,22 +741,19 @@ class MediaMetadata extends Component {
           <p>
             <FormattedMessage
               id="mediaDetail.deleteForeverConfirmationText"
-              defaultMessage={
-                'Are you sure? This will permanently delete this item and its {notesCount, plural, =0 {0 annotations} one {1 annotation} other {# annotations}}. Type "confirm" if you want to proceed.'
-              }
+              defaultMessage='Are you sure? This will permanently delete this item and its {notesCount, plural, =0 {0 annotations} one {1 annotation} other {# annotations}}. Type "confirm" if you want to proceed.'
               values={{ notesCount: media.log_count.toString() }}
             />
           </p>
           <TextField
             id="delete-forever__confirm"
             fullWidth
-            errorText={
-              this.state.confirmationError
-                ? <FormattedMessage
-                  id="mediaDetail.confirmationError"
-                  defaultMessage="Did not match"
-                />
-                : null
+            errorText={this.state.confirmationError ?
+              <FormattedMessage
+                id="mediaDetail.confirmationError"
+                defaultMessage="Did not match"
+              />
+              : null
             }
             hintText={
               <FormattedMessage
@@ -775,8 +769,8 @@ class MediaMetadata extends Component {
 }
 
 MediaMetadata.contextTypes = {
-  store: React.PropTypes.object,
-  setMessage: React.PropTypes.func,
+  store: PropTypes.object,
+  setMessage: PropTypes.func,
 };
 
 export default injectIntl(MediaMetadata);

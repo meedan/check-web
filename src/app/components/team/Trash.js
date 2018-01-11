@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Relay from 'react-relay';
 import { defineMessages, injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -6,7 +7,7 @@ import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
 import TeamRoute from '../../relay/TeamRoute';
-import UpdateTeamMutation from '../../relay/UpdateTeamMutation';
+import UpdateTeamMutation from '../../relay/mutations/UpdateTeamMutation';
 import Can from '../Can';
 import CheckContext from '../../CheckContext';
 import Search from '../Search';
@@ -28,7 +29,6 @@ class TrashComponent extends Component {
 
     this.state = {
       emptyTrashDisabled: false,
-      refreshedAt: 0,
       open: false,
       confirmationError: false,
     };
@@ -43,8 +43,7 @@ class TrashComponent extends Component {
   }
 
   getContext() {
-    const context = new CheckContext(this);
-    return context;
+    return new CheckContext(this);
   }
 
   setContextTeam() {
@@ -65,7 +64,7 @@ class TrashComponent extends Component {
   }
 
   handleRefresh() {
-    this.setState({ refreshedAt: new Date().getTime() });
+    this.props.relay.forceFetch();
   }
 
   handleClose() {
@@ -91,9 +90,10 @@ class TrashComponent extends Component {
     const message = (
       <FormattedMessage
         id="trash.emptyInProgress"
-        defaultMessage={'Empty trash operation is in progress. Please check back later. {refresh}'}
+        defaultMessage="Empty trash operation is in progress. Please check back later. {refresh}"
         values={{
           refresh: (
+            // eslint-disable-next-line jsx-a11y/click-events-have-key-events
             <span
               onClick={this.handleRefresh.bind(this)}
               style={{ textDecoration: 'underline', cursor: 'pointer' }}
@@ -112,13 +112,15 @@ class TrashComponent extends Component {
 
       const onFailure = (transaction) => {
         const transactionError = transaction.getError();
-        transactionError.json
-          ? transactionError.json().then(this.handleMessage)
-          : this.handleMessage(JSON.stringify(transactionError));
+        if (transactionError.json) {
+          transactionError.json().then(this.handleMessage);
+        } else {
+          this.handleMessage(JSON.stringify(transactionError));
+        }
         this.setState({ emptyTrashDisabled: false });
       };
 
-      const onSuccess = (response) => {
+      const onSuccess = () => {
         this.handleMessage(message);
       };
 
@@ -134,14 +136,10 @@ class TrashComponent extends Component {
   }
 
   render() {
-    const team = this.props.team;
+    const { team } = this.props;
 
-    let query = this.props.params.query || '{}';
-    query = JSON.parse(query);
+    const query = JSON.parse(this.props.params.query || '{}');
     query.archived = 1;
-    query = JSON.stringify(query);
-
-    const title = this.props.intl.formatMessage(messages.title);
 
     const actions = [
       <FlatButton
@@ -170,9 +168,7 @@ class TrashComponent extends Component {
           <p>
             <FormattedMessage
               id="trash.emptyTrashConfirmationText"
-              defaultMessage={
-                'Are you sure? This will permanently delete {itemsCount, plural, =0 {0 items} one {1 item} other {# items}} and {notesCount, plural, =0 {0 annotations} one {1 annotation} other {# annotations}}. Type "confirm" if you want to proceed.'
-              }
+              defaultMessage='Are you sure? This will permanently delete {itemsCount, plural, =0 {0 items} one {1 item} other {# items}} and {notesCount, plural, =0 {0 annotations} one {1 annotation} other {# annotations}}. Type "confirm" if you want to proceed.'
               values={{
                 itemsCount: team.trash_size.project_media.toString(),
                 notesCount: team.trash_size.annotation.toString(),
@@ -192,9 +188,9 @@ class TrashComponent extends Component {
         </Dialog>
 
         <Search
-          title={title}
+          title={this.props.intl.formatMessage(messages.title)}
           team={team.slug}
-          query={query}
+          query={JSON.stringify(query)}
           fields={['status', 'sort', 'tags']}
           addons={
             <Can permissions={team.permissions} permission="empty Trash">
@@ -214,11 +210,13 @@ class TrashComponent extends Component {
 }
 
 TrashComponent.contextTypes = {
-  store: React.PropTypes.object,
-  setMessage: React.PropTypes.func,
+  store: PropTypes.object,
+  setMessage: PropTypes.func,
 };
 
 TrashComponent.propTypes = {
+  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
+  // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
 };
 
@@ -237,19 +235,17 @@ const TrashContainer = Relay.createContainer(TrashComponent, {
   },
 });
 
-class Trash extends Component {
-  render() {
-    const slug = this.props.params.team || '';
-    const route = new TeamRoute({ teamSlug: slug });
-    return (
-      <Relay.RootContainer
-        Component={TrashContainer}
-        forceFetch
-        route={route}
-        renderFetched={data => <TrashContainer {...this.props} {...data} />}
-      />
-    );
-  }
-}
+const Trash = (props) => {
+  const slug = props.params.team || '';
+  const route = new TeamRoute({ teamSlug: slug });
+  return (
+    <Relay.RootContainer
+      Component={TrashContainer}
+      forceFetch
+      route={route}
+      renderFetched={data => <TrashContainer {...props} {...data} />}
+    />
+  );
+};
 
 export default injectIntl(Trash);

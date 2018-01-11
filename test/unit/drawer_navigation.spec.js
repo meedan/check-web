@@ -1,7 +1,7 @@
 import React from 'react';
 import { expect } from 'chai';
 import DrawerNavigationComponent from '../../src/app/components/DrawerNavigationComponent';
-import Projects from '../../src/app/components/drawer/Projects';
+import DrawerProjects from '../../src/app/components/drawer/Projects';
 import UserMenuItems from '../../src/app/components/UserMenuItems';
 
 import { mountWithIntl } from './helpers/intl-test';
@@ -36,7 +36,7 @@ describe('<DrawerNavigationComponent />', () => {
         params={params}
       />,
     );
-    expect(header.find(Projects)).to.have.length(1);
+    expect(header.find(DrawerProjects)).to.have.length(1);
   });
 
   it('does not render projects if user is logged in but not in a team context', () => {
@@ -49,7 +49,7 @@ describe('<DrawerNavigationComponent />', () => {
         params={params}
       />,
     );
-    expect(header.find(Projects)).to.have.length(0);
+    expect(header.find(DrawerProjects)).to.have.length(0);
   });
 
   it('does not render projects if user is logged in and in team context but not a member', () => {
@@ -65,7 +65,7 @@ describe('<DrawerNavigationComponent />', () => {
         params={params}
       />,
     );
-    expect(header.find(Projects)).to.have.length(0);
+    expect(header.find(DrawerProjects)).to.have.length(0);
   });
 
   it('renders with projects in team context if user is not logged in and it is a public team', () => {

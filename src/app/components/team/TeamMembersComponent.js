@@ -35,13 +35,13 @@ class TeamMembersComponent extends Component {
   }
 
   render() {
-    const isEditing = this.state.isEditing;
-    const team = this.props.team;
-    const teamUsers = team.team_users;
+    const { isEditing } = this.state;
+    const { team, team: { team_users: teamUsers } } = this.props;
     const teamUsersRequestingMembership = [];
     const teamUsersMembers = [];
 
-    teamUsers.edges.map((teamUser) => {
+    teamUsers.edges.map((teamUser_) => {
+      const teamUser = teamUser_;
       if (teamUser.node.status === 'requested') {
         return teamUsersRequestingMembership.push(teamUser);
       }
@@ -54,7 +54,6 @@ class TeamMembersComponent extends Component {
     const requestingMembership = !!teamUsersRequestingMembership.length;
 
     return (
-
       <div>
         <TeamInviteCard team={team} />
         {(() => {
@@ -66,7 +65,7 @@ class TeamMembersComponent extends Component {
                   <StyledMdCardTitle
                     title={<FormattedMessage
                       id="teamMembershipRequests.requestsToJoin"
-                      defaultMessage={'Requests to join'}
+                      defaultMessage="Requests to join"
                     />}
                   />
 
@@ -78,7 +77,7 @@ class TeamMembersComponent extends Component {
                         className=""
                         requestingMembership
                       />
-                        )))()}
+                    )))()}
                   </List>
                 </Card>
               </Can>
@@ -98,25 +97,23 @@ class TeamMembersComponent extends Component {
                 className="team-members__edit-button"
                 icon={<MdCreate className="team-members__edit-icon" />}
                 label={isEditing
-                      ? <FormattedMessage
-                        id="teamMembersComponent.editDoneButton"
-                        defaultMessage="Done"
-                      />
-                      : <FormattedMessage id="teamMembersComponent.editButton" defaultMessage="Edit" />}
+                  ? <FormattedMessage
+                    id="teamMembersComponent.editDoneButton"
+                    defaultMessage="Done"
+                  />
+                  : <FormattedMessage id="teamMembersComponent.editButton" defaultMessage="Edit" />}
               />
             </Can>
           </FlexRow>
           <InfiniteScroll hasMore loadMore={this.loadMore.bind(this)} threshold={500}>
             <List className="team-members__list">
               {(() =>
-                  teamUsersMembers.map(teamUser =>
-                    <TeamMembersListItem
-                      key={teamUser.node.id}
-                      teamUser={teamUser}
-                      team_id={team.id}
-                      isEditing={isEditing}
-                    />,
-                  ))()}
+                teamUsersMembers.map(teamUser =>
+                  (<TeamMembersListItem
+                    key={teamUser.node.id}
+                    teamUser={teamUser}
+                    isEditing={isEditing}
+                  />)))()}
             </List>
           </InfiniteScroll>
         </Card>

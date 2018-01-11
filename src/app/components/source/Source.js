@@ -1,9 +1,9 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import Relay from 'react-relay';
 import CheckContext from '../../CheckContext';
 import SourceRoute from '../../relay/SourceRoute';
 import SourceComponent from './SourceComponent';
-import sourceFragment from '../../relay/sourceFragment';
 import userFragment from '../../relay/userFragment';
 
 const SourceContainer = Relay.createContainer(SourceComponent, {
@@ -448,27 +448,25 @@ const SourceContainer = Relay.createContainer(SourceComponent, {
   },
 });
 
-class Source extends Component {
-  render() {
-    let projectId = this.props.params.projectId || 0;
-    const context = new CheckContext(this);
-    context.setContext();
-    if (projectId === 0) {
-      const store = context.getContextStore();
-      if (store.project) {
-        projectId = store.project.dbid;
-      }
+const Source = (props, context_) => {
+  let projectId = props.params.projectId || 0;
+  const context = new CheckContext({ props, context: context_ });
+  context.setContext();
+  if (!projectId) {
+    const store = context.getContextStore();
+    if (store.project) {
+      projectId = store.project.dbid;
     }
-
-    const ids = `${this.props.params.sourceId},${projectId}`;
-    const route = new SourceRoute({ ids });
-
-    return (<Relay.RootContainer Component={SourceContainer} route={route} forceFetch />);
   }
-}
+
+  const ids = `${props.params.sourceId},${projectId}`;
+  const route = new SourceRoute({ ids });
+
+  return (<Relay.RootContainer Component={SourceContainer} route={route} forceFetch />);
+};
 
 Source.contextTypes = {
-  store: React.PropTypes.object,
+  store: PropTypes.object,
 };
 
 export default Source;

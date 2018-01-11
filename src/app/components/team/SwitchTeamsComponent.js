@@ -1,9 +1,8 @@
-import Relay from 'react-relay';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Relay from 'react-relay';
 import { FormattedMessage, defineMessages, intlShape, injectIntl } from 'react-intl';
 import KeyboardArrowRight from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
-import config from 'config';
 import { Link } from 'react-router';
 import { Card, CardActions, CardText, CardHeader } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
@@ -21,10 +20,11 @@ import {
   white,
   black05,
 } from '../../styles/js/shared';
-import UpdateUserMutation from '../../relay/UpdateUserMutation';
-import DeleteTeamUserMutation from '../../relay/DeleteTeamUserMutation';
+import UpdateUserMutation from '../../relay/mutations/UpdateUserMutation';
+import DeleteTeamUserMutation from '../../relay/mutations/DeleteTeamUserMutation';
 import CheckContext from '../../CheckContext';
 import { can } from '../Can';
+import { safelyParseJSON } from '../../helpers';
 
 const messages = defineMessages({
   switchTeamsError: {
@@ -42,31 +42,34 @@ const messages = defineMessages({
 });
 
 class SwitchTeamsComponent extends Component {
+  static cancelRequest(team) {
+    Relay.Store.commitUpdate(new DeleteTeamUserMutation({
+      id: team.team_user_id,
+    }));
+  }
+
   getContext() {
-    const context = new CheckContext(this);
-    return context;
+    return new CheckContext(this);
   }
 
   setCurrentTeam(team, user) {
     const context = this.getContext();
-    const history = context.getContextStore().history;
+    const { history, currentUser } = context.getContextStore();
 
-    const currentUser = context.getContextStore().currentUser;
     currentUser.current_team = team;
     context.setContextStore({ team, currentUser });
 
     const onFailure = (transaction) => {
       const error = transaction.getError();
       let message = this.props.intl.formatMessage(messages.switchTeamsError);
-      try {
-        const json = JSON.parse(error.source);
-        if (json.error) {
-          message = json.error;
-        }
-      } catch (e) {}
+      const json = safelyParseJSON(error.source);
+      if (json && json.error) {
+        message = json.error;
+      }
+      console.error(message); // eslint-disable-line no-console
     };
 
-    const onSuccess = (response) => {
+    const onSuccess = () => {
       const path = `/${team.slug}`;
       history.push(path);
     };
@@ -80,18 +83,9 @@ class SwitchTeamsComponent extends Component {
     );
   }
 
-  cancelRequest(team) {
-    Relay.Store.commitUpdate(
-      new DeleteTeamUserMutation({
-        id: team.team_user_id,
-      }),
-    );
-  }
-
   render() {
-    const user = this.props.user;
-    const currentUser = this.getContext().getContextStore().currentUser;
-    const teamUsers = this.props.user.team_users.edges;
+    const { user, user: { team_users: { edges: teamUsers } } } = this.props;
+    const { currentUser } = this.getContext().getContextStore();
     const isUserSelf = (user.id === currentUser.id);
     const otherTeams = [];
     const pendingTeams = [];
@@ -107,7 +101,7 @@ class SwitchTeamsComponent extends Component {
           <FlatButton
             style={listItemButtonStyle}
             hoverColor={alertRed}
-            onClick={this.cancelRequest.bind(this, team)}
+            onClick={SwitchTeamsComponent.cancelRequest(team)}
           >
             <FormattedMessage id="switchTeams.cancelJoinRequest" defaultMessage="Cancel" />
           </FlatButton>
@@ -122,9 +116,8 @@ class SwitchTeamsComponent extends Component {
       return '';
     };
 
-    teamUsers.map((teamUser) => {
-      const team = teamUser.node.team;
-      const status = teamUser.node.status;
+    teamUsers.forEach((teamUser) => {
+      const { team, status } = teamUser.node;
       const visible = can(team.permissions, 'read Team');
 
       if (!isUserSelf && !visible) { return; }
@@ -132,10 +125,10 @@ class SwitchTeamsComponent extends Component {
       if (status === 'requested' || status === 'banned') {
         team.status = status;
         team.teamUser_id = teamUser.node.id;
-        return pendingTeams.push(team);
+        pendingTeams.push(team);
+      } else {
+        otherTeams.push(team);
       }
-
-      return otherTeams.push(team);
     });
 
     const cardTitle = isUserSelf ?
@@ -150,9 +143,9 @@ class SwitchTeamsComponent extends Component {
         />
         { (otherTeams.length + pendingTeams.length) ?
           <List className="teams" style={listStyle}>
-            {otherTeams.map((team, index) =>
+            {otherTeams.map(team => (
               <ListItem
-                key={index}
+                key={team.dbid}
                 hoverColor={highlightBlue}
                 focusRippleColor={checkBlue}
                 touchRippleColor={checkBlue}
@@ -161,13 +154,15 @@ class SwitchTeamsComponent extends Component {
                 onClick={this.setCurrentTeam.bind(this, team, currentUser)}
                 primaryText={team.name}
                 rightIcon={<KeyboardArrowRight />}
-                secondaryText={this.props.intl.formatMessage(messages.switchTeamsMember, { membersCount: team.members_count })}
-              />,
-            )}
+                secondaryText={this.props.intl.formatMessage(messages.switchTeamsMember, {
+                  membersCount: team.members_count,
+                })}
+              />
+            ))}
 
-            {pendingTeams.map((team, index) =>
+            {pendingTeams.map(team => (
               <ListItem
-                key={index}
+                key={team.dbid}
                 hoverColor={highlightBlue}
                 focusRippleColor={checkBlue}
                 touchRippleColor={checkBlue}
@@ -176,8 +171,8 @@ class SwitchTeamsComponent extends Component {
                 primaryText={team.name}
                 rightIconButton={teamButton(team)}
                 secondaryText={this.props.intl.formatMessage(messages.joinTeam)}
-              />,
-            )}
+              />
+            ))}
           </List> :
           <CardText>
             <FormattedMessage id="switchTeams.noTeams" defaultMessage="Not a member of any team." />
@@ -198,12 +193,14 @@ class SwitchTeamsComponent extends Component {
 }
 
 SwitchTeamsComponent.propTypes = {
+  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
+  // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
   user: PropTypes.object.isRequired,
 };
 
 SwitchTeamsComponent.contextTypes = {
-  store: React.PropTypes.object,
+  store: PropTypes.object,
 };
 
 export default injectIntl(SwitchTeamsComponent);

@@ -94,13 +94,19 @@ class UploadImageComponent extends Component {
     const extension = file.name.substr(file.name.lastIndexOf('.') + 1).toLowerCase();
     if (valid_extensions.length > 0 && valid_extensions.indexOf(extension) < 0) {
       if (this.props.onError) {
-        this.props.onError(file, this.props.intl.formatMessage(messages.invalidExtension, { extension, allowed_types: this.props.about.upload_extensions }));
+        this.props.onError(file, this.props.intl.formatMessage(
+          messages.invalidExtension,
+          { extension, allowed_types: this.props.about.upload_extensions },
+        ));
       }
       return;
     }
     if (file.size && unhumanizeSize(this.props.about.upload_max_size) < file.size) {
       if (this.props.onError) {
-        this.props.onError(file, this.props.intl.formatMessage(messages.fileTooLarge, { size: this.props.about.upload_max_size }));
+        this.props.onError(file, this.props.intl.formatMessage(
+          messages.fileTooLarge,
+          { size: this.props.about.upload_max_size },
+        ));
       }
       return;
     }
@@ -115,38 +121,43 @@ class UploadImageComponent extends Component {
   }
 
   preview() {
-    let style = {};
-    if (this.state.file) {
-      style = { backgroundImage: `url(${this.state.file.preview})` };
-    }
+    const style = this.state.file ? { backgroundImage: `url(${this.state.file.preview})` } : {};
 
     if (this.state.file && this.props.noPreview) {
       return (
         <Row><span className="no-preview" />
           <StyledIconButton className="remove-image" onClick={this.onDelete.bind(this)}>
             <MdHighlightRemove />
-          </StyledIconButton></Row>
+          </StyledIconButton>
+        </Row>
       );
     } else if (this.state.file) {
       return (
         <Row><span className="preview" style={style} />
           <StyledIconButton className="remove-image" onClick={this.onDelete.bind(this)}>
             <MdHighlightRemove />
-          </StyledIconButton></Row>
+          </StyledIconButton>
+        </Row>
       );
     }
+    return null;
   }
 
   render() {
-    const about = this.props.about;
+    const { about } = this.props;
 
     return (
       <StyledUploader isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
         { this.preview() }
-        <Dropzone onDrop={this.onDrop.bind(this)} multiple={false} className={this.state.file ? 'with-file' : 'without-file'}>
+        <Dropzone
+          onDrop={this.onDrop.bind(this)}
+          multiple={false}
+          className={this.state.file ? 'with-file' : 'without-file'}
+        >
           <div>
             { this.state.file ?
-              this.props.intl.formatMessage(messages.changeFile, { filename: this.state.file.name }) :
+              this.props.intl.formatMessage(messages.changeFile, { filename: this.state.file.name })
+              :
               <FormattedMessage
                 id="uploadImage.message"
                 defaultMessage="Drop an image file here, or click to upload a file (max size: {upload_max_size}, allowed extensions: {upload_extensions}, allowed dimensions between {upload_min_dimensions} and {upload_max_dimensions} pixels)"
@@ -167,6 +178,8 @@ class UploadImageComponent extends Component {
 }
 
 UploadImageComponent.propTypes = {
+  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
+  // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
 };
 
@@ -183,11 +196,13 @@ const UploadImageContainer = Relay.createContainer(injectIntl(UploadImageCompone
   },
 });
 
-class UploadImage extends Component {
-  render() {
-    const route = new AboutRoute();
-    return (<Relay.RootContainer Component={UploadImageContainer} route={route} renderFetched={data => <UploadImageContainer {...this.props} {...data} />} />);
-  }
-}
+const UploadImage = (props) => {
+  const route = new AboutRoute();
+  return (<Relay.RootContainer
+    Component={UploadImageContainer}
+    route={route}
+    renderFetched={data => <UploadImageContainer {...props} {...data} />}
+  />);
+};
 
 export default UploadImage;

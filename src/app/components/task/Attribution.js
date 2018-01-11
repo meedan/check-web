@@ -1,28 +1,33 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Relay from 'react-relay';
 import { FormattedMessage, injectIntl } from 'react-intl';
-import TeamRoute from '../../relay/TeamRoute';
-import CheckContext from '../../CheckContext';
 import Select from 'react-select';
 import Chip from 'material-ui/Chip';
-import { StyledTagsWrapper } from '../../styles/js/shared';
 import styled from 'styled-components';
-import { units } from '../../styles/js/shared';
+import TeamRoute from '../../relay/TeamRoute';
+import CheckContext from '../../CheckContext';
+import { StyledTagsWrapper, units } from '../../styles/js/shared';
 
 class AttributionComponent extends React.Component {
+  static resize() {
+    // https://github.com/callemall/material-ui/issues/5793#issuecomment-282306001
+    window.dispatchEvent(new Event('resize'));
+  }
+
   constructor(props) {
     super(props);
 
-    let selectedUsers = [];
-    let selectedUserIds = [];
+    const selectedUsers = [];
+    const selectedUserIds = [];
     props.task.first_response.attribution.edges.forEach((user) => {
       selectedUserIds.push(user.node.dbid);
       selectedUsers.push({ value: user.node.dbid, label: user.node.name });
     });
 
-    let unselectedUsers = [];
+    const unselectedUsers = [];
     props.team.team_users.edges.forEach((team_user) => {
-      const node = team_user.node;
+      const { node } = team_user;
       if (node.status === 'member') {
         if (selectedUserIds.indexOf(node.user.dbid) === -1) {
           unselectedUsers.push({ value: node.user.dbid, label: node.user.name });
@@ -36,9 +41,19 @@ class AttributionComponent extends React.Component {
     };
   }
 
+  // eslint-disable-next-line class-methods-use-this
+  componentDidMount() {
+    AttributionComponent.resize();
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  componentDidUpdate() {
+    AttributionComponent.resize();
+  }
+
   handleChange(value) {
-    let selectedUsers = this.state.selectedUsers.slice(0);
-    let unselectedUsers = [];
+    const selectedUsers = this.state.selectedUsers.slice(0);
+    const unselectedUsers = [];
     selectedUsers.push(value);
     this.state.unselectedUsers.forEach((user) => {
       if (user.value !== value.value) {
@@ -50,8 +65,8 @@ class AttributionComponent extends React.Component {
   }
 
   handleDelete(value) {
-    let unselectedUsers = this.state.unselectedUsers.slice(0);
-    let selectedUsers = [];
+    const unselectedUsers = this.state.unselectedUsers.slice(0);
+    const selectedUsers = [];
     unselectedUsers.push(value);
     this.state.selectedUsers.forEach((user) => {
       if (user.value !== value.value) {
@@ -62,21 +77,8 @@ class AttributionComponent extends React.Component {
     this.setState({ selectedUsers, unselectedUsers });
   }
 
-  resize() {
-    // https://github.com/callemall/material-ui/issues/5793#issuecomment-282306001
-    window.dispatchEvent(new Event('resize'));
-  }
-
-  componentDidMount() {
-    this.resize();
-  }
-
-  componentDidUpdate() {
-    this.resize();
-  }
-
   render() {
-    const { task, team } = this.props;
+    const { task } = this.props;
 
     const StyledSelect = styled(Select)`
       margin-bottom: 200px;
@@ -89,7 +91,7 @@ class AttributionComponent extends React.Component {
       }
     `;
 
-    let selectedUserIds = [];
+    const selectedUserIds = [];
     this.state.selectedUsers.forEach((user) => {
       selectedUserIds.push(user.value);
     });
@@ -100,21 +102,21 @@ class AttributionComponent extends React.Component {
         <form name={`edit-task-attribution-${task.dbid}`}>
 
           <input type="hidden" value={value} name="selected-user-ids" id={`attribution-${task.dbid}`} />
-          
+
           <div style={{ marginTop: units(4), marginBottom: units(4) }}>
             <StyledTagsWrapper className="attribution__selected-users">
-              {this.state.selectedUsers.map(user =>
+              {this.state.selectedUsers.map(user => (
                 <Chip key={user.value} className="attribution__selected-user" onRequestDelete={this.handleDelete.bind(this, user)}>
                   {user.label}
-                </Chip>
-              )}
+                </Chip>))}
             </StyledTagsWrapper>
           </div>
 
-          <StyledSelect options={this.state.unselectedUsers}
-                        onChange={this.handleChange.bind(this)}
-                        noResultsText={<FormattedMessage id="attribution.noResults" defaultMessage="No results" />}
-                        placeholder={<FormattedMessage id="attribution.search" defaultMessage="Search team members" />}
+          <StyledSelect
+            options={this.state.unselectedUsers}
+            onChange={this.handleChange.bind(this)}
+            noResultsText={<FormattedMessage id="attribution.noResults" defaultMessage="No results" />}
+            placeholder={<FormattedMessage id="attribution.search" defaultMessage="Search team members" />}
           />
         </form>
       </div>
@@ -146,24 +148,21 @@ const AttributionContainer = Relay.createContainer(injectIntl(AttributionCompone
   },
 });
 
-class Attribution extends React.Component {
-  render() {
-    const context = new CheckContext(this).getContextStore();
+const Attribution = (props, context) => {
+  const contextStore = new CheckContext().getContextStore(context.store);
+  const route = new TeamRoute({ teamSlug: contextStore.team.slug });
 
-    const route = new TeamRoute({ teamSlug: context.team.slug });
-
-    return (
-      <Relay.RootContainer
-        Component={AttributionContainer}
-        renderFetched={data => <AttributionContainer {...this.props} {...data} />}
-        route={route}
-      />
-    );
-  }
-}
+  return (
+    <Relay.RootContainer
+      Component={AttributionContainer}
+      renderFetched={data => <AttributionContainer {...props} {...data} />}
+      route={route}
+    />
+  );
+};
 
 Attribution.contextTypes = {
-  store: React.PropTypes.object,
+  store: PropTypes.object,
 };
 
 export default Attribution;

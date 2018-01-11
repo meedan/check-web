@@ -22,7 +22,7 @@ const StyledAccountCardBody = styled.div`
 `;
 
 class AccountCard extends React.Component {
-  accountStats(account) {
+  static accountStats(account) {
     switch (account.provider) {
     case 'facebook':
       return account.embed.likes ? <FormattedMessage id="accountCard.fbStats" defaultMessage="{likes, number} likes" values={{ likes: account.embed.likes }} /> : null;
@@ -30,6 +30,8 @@ class AccountCard extends React.Component {
       return account.embed.raw ? <FormattedHTMLMessage id="accountCard.twitterStats" defaultMessage="{tweets, number} Tweets &bull; {followers, number} Followers &bull; {following, number} Following" values={{ tweets: account.embed.raw.api.statuses_count, followers: account.embed.raw.api.followers_count, following: account.embed.raw.api.friends_count }} /> : null;
     case 'youtube':
       return account.embed.raw ? <FormattedHTMLMessage id="accountCard.youtubeStats" defaultMessage="{videos, number} Videos &bull; {subscribers, number} Subscribers" values={{ videos: account.embed.raw.api.video_count, subscribers: account.embed.raw.api.subscriber_count }} /> : null;
+    default:
+      return null;
     }
   }
 
@@ -37,7 +39,7 @@ class AccountCard extends React.Component {
     const { account } = this.props;
 
     const byUser = (account.user) ?
-      (<FormattedMessage id="mediaDetail.byUser" defaultMessage={'by {username}'} values={{ username: <ProfileLink user={account.user} /> }} />) : '';
+      (<FormattedMessage id="mediaDetail.byUser" defaultMessage="by {username}" values={{ username: <ProfileLink user={account.user} /> }} />) : '';
 
     return (
       <Card className="source-card" style={{ marginBottom: units(2) }}>
@@ -46,7 +48,7 @@ class AccountCard extends React.Component {
 
           <StyledAccountCardBody isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
             <div className="source-card__heading">
-              { MediaUtil.socialIcon(`${account.provider}.com`) /* TODO: refactor */ }
+              { MediaUtil.socialIcon(`${account.provider}.com`) /* TODO Remove tld assumption */ }
               <FormattedMessage id="accountCard.providerAccount" defaultMessage="{provider} account" values={{ provider: account.provider }} />
             </div>
 
@@ -63,7 +65,7 @@ class AccountCard extends React.Component {
             </div>
 
             <div className="source-card__account-stats">
-              { this.accountStats(account) }
+              { AccountCard.accountStats(account) }
             </div>
           </StyledAccountCardBody>
         </CardText>
@@ -71,7 +73,7 @@ class AccountCard extends React.Component {
           className="media-detail__check-metadata source-card__footer"
           style={{ color: black54, padding: `${units(2)}` }}
         >
-          <span className="media-detail__check-added-by"><FormattedMessage id="mediaDetail.added" defaultMessage={'Added {byUser}'} values={{ byUser }} /> </span>
+          <span className="media-detail__check-added-by"><FormattedMessage id="mediaDetail.added" defaultMessage="Added {byUser}" values={{ byUser }} /> </span>
           { account.created_at ? <span className="media-detail__check-added-at"> <TimeBefore date={MediaUtil.createdAt({ published: account.created_at })} /> </span> : null }
         </div>
       </Card>

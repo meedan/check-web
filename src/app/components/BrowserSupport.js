@@ -21,26 +21,18 @@ const Message = styled.div`
     align-items: center;
   }
 
-  // Not sure why this is necessary for vertical alignment. 
+  // Not sure why this is necessary for vertical alignment.
   // Is there a bug in IconButton? I think we are using it correctly.
   // - CGB 2017-7-12
   //
   button > div {
-    display: flex; 
+    display: flex;
     align-items: center;
   }
 `;
 
 class BrowserSupport extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      closed: this.closed(),
-    };
-  }
-
-  supported() {
+  static supported() {
     const ua = navigator.userAgent;
 
     if (/Chrome/i.test(ua) && !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|mobile|CriOS/i.test(ua)) {
@@ -49,22 +41,21 @@ class BrowserSupport extends Component {
     return false;
   }
 
-  closed() {
-    const closed = window.storage.getValue('close-unsupported-browser-message') === '1';
-    return closed;
+  static closed() {
+    return window.storage.getValue('close-unsupported-browser-message') === '1';
+  }
+
+  static shouldShowMessage() {
+    return !BrowserSupport.supported() && !BrowserSupport.closed();
   }
 
   close() {
     window.storage.set('close-unsupported-browser-message', '1');
-    this.setState({ closed: true });
-  }
-
-  shouldShowMessage() {
-    return !this.supported() && !this.closed();
+    this.forceUpdate();
   }
 
   render() {
-    if (this.shouldShowMessage()) {
+    if (BrowserSupport.shouldShowMessage()) {
       return (
         <Message>
           <ContentColumn>

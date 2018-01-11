@@ -1,6 +1,7 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
+// TODO Remove those global variables
 let from = null;
 let to = null;
 let editedTitle = false;
@@ -10,65 +11,66 @@ let createdNote = false;
 function shouldLogChange(activity) {
   const changes = JSON.parse(activity.object_changes_json);
   if (changes.data) {
-    from = changes.data[0];
-    to = changes.data[1];
+    ([from, to] = changes.data);
 
-    if (from.label && to.label && from.label != to.label) {
+    if (from.label && to.label && from.label !== to.label) {
       editedTitle = true;
     }
-    if (to.description && from.description != to.description) {
+    if (to.description && from.description !== to.description) {
       editedNote = true;
     }
     if (!from.description && to.description) {
       editedNote = false;
       createdNote = true;
     }
-
     if (editedTitle || editedNote || createdNote) {
       return true;
     }
   }
+  return false;
 }
 
 class TaskUpdate extends React.Component {
-  componentWillUpdate(nextProps, nextState) {
+  // TODO When removing global variables you can remove this eslint command
+  // eslint-disable-next-line class-methods-use-this
+  componentWillUpdate() {
     editedTitle = false;
     editedNote = false;
     createdNote = false;
   }
 
   render() {
-    const author = this.props.authorName;
+    const { authorName: author } = this.props;
 
     if (shouldLogChange(this.props.activity)) {
       const contentTemplate = (
         <span>
           <span className="annotation__update-task" />
-          {editedTitle
-            ? <FormattedMessage
-            id="annotation.taskLabelUpdated"
-            defaultMessage={'Task "{from}" edited to "{to}" by {author}'}
-            values={{ from: from.label, to: to.label, author }}
+          {editedTitle ?
+            <FormattedMessage
+              id="annotation.taskLabelUpdated"
+              defaultMessage='Task "{from}" edited to "{to}" by {author}'
+              values={{ from: from.label, to: to.label, author }}
             />
-          : null}
-          { editedTitle && editedNote && <br />}
-          { editedNote
-            ? <FormattedMessage
-            id="annotation.taskNoteUpdated"
-            defaultMessage={
-              'Task "{title}" has note edited from "{from}" to "{to}" by {author}'
-            }
-            values={{ title: to.label, from: from.description, to: to.description, author }}
+            : null}
+          {editedTitle && editedNote ? <br /> : null}
+          {editedNote ?
+            <FormattedMessage
+              id="annotation.taskNoteUpdated"
+              defaultMessage='Task "{title}" has note edited from "{from}" to "{to}" by {author}'
+              values={{
+                title: to.label, from: from.description, to: to.description, author,
+              }}
             />
-          : null}
-          { editedTitle && createdNote && <br />}
-          { createdNote
-            ? <FormattedMessage
-            id="annotation.taskNoteCreated"
-            defaultMessage={'Task "{title}" has new note "{note}" by {author}'}
-            values={{ title: to.label, note: to.description, author }}
+            : null}
+          {editedTitle && createdNote ? <br /> : null}
+          {createdNote ?
+            <FormattedMessage
+              id="annotation.taskNoteCreated"
+              defaultMessage='Task "{title}" has new note "{note}" by {author}'
+              values={{ title: to.label, note: to.description, author }}
             />
-          : null}
+            : null}
         </span>
       );
 
@@ -82,5 +84,4 @@ class TaskUpdate extends React.Component {
   }
 }
 
-export default TaskUpdate;
-export { shouldLogChange };
+export { TaskUpdate as default, shouldLogChange };

@@ -10,13 +10,12 @@ import IconButton from 'material-ui/IconButton';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import styled from 'styled-components';
-import SourcePicture from '../source/SourcePicture';
 import SingleChoiceTask from './SingleChoiceTask';
 import MultiSelectTask from './MultiSelectTask';
 import Message from '../Message';
-import UpdateTaskMutation from '../../relay/UpdateTaskMutation';
-import UpdateDynamicMutation from '../../relay/UpdateDynamicMutation';
-import DeleteAnnotationMutation from '../../relay/DeleteAnnotationMutation';
+import UpdateTaskMutation from '../../relay/mutations/UpdateTaskMutation';
+import UpdateDynamicMutation from '../../relay/mutations/UpdateDynamicMutation';
+import DeleteAnnotationMutation from '../../relay/mutations/DeleteAnnotationMutation';
 import Can, { can } from '../Can';
 import ParsedText from '../ParsedText';
 import ShortTextRespondTask from './ShortTextRespondTask';
@@ -26,10 +25,9 @@ import DatetimeRespondTask from './DatetimeRespondTask';
 import DatetimeTaskResponse from './DatetimeTaskResponse';
 import { units } from '../../styles/js/shared';
 import ProfileLink from '../layout/ProfileLink';
-import Tooltip from 'rc-tooltip';
-import UserTooltip from '../user/UserTooltip';
 import Attribution from './Attribution';
 import Sentence from '../Sentence';
+import { safelyParseJSON } from '../../helpers';
 
 const StyledWordBreakDiv = styled.div`
   hyphens: auto;
@@ -52,10 +50,32 @@ class Task extends Component {
       editingQuestion: false,
       message: null,
       editingResponse: false,
-      isMenuOpen: false,
       submitDisabled: true,
       editingAttribution: false,
     };
+  }
+
+  getResponseData() {
+    const data = {};
+    const { task, media } = this.props;
+
+    if (task.first_response) {
+      data.by = [];
+      task.first_response.attribution.edges.forEach((user) => {
+        data.by.push(<ProfileLink user={user.node} team={media.team} />);
+      });
+      const fields = JSON.parse(task.first_response.content);
+      fields.forEach((field) => {
+        if (/^response_/.test(field.field_name)) {
+          data.response = field.value;
+        }
+        if (/^note_/.test(field.field_name)) {
+          data.note = field.value;
+        }
+      });
+    }
+
+    return data;
   }
 
   canSubmit() {
@@ -67,21 +87,19 @@ class Task extends Component {
   }
 
   handleSubmitWithArgs(response, note) {
-    const {media, task} = this.props;
+    const { media, task } = this.props;
 
     const onFailure = (transaction) => {
       const error = transaction.getError();
       let message = error.source;
-      try {
-        const json = JSON.parse(error.source);
-        if (json.error) {
-          message = json.error;
-        }
-      } catch (e) {}
+      const json = safelyParseJSON(error.source);
+      if (json && json.error) {
+        message = json.error;
+      }
       this.setState({ message });
     };
 
-    const onSuccess = (response) => {
+    const onSuccess = () => {
       this.setState({ message: null });
     };
 
@@ -106,7 +124,7 @@ class Task extends Component {
   }
 
   handleEditQuestion() {
-    this.setState({ editingQuestion: true, isMenuOpen: false });
+    this.setState({ editingQuestion: true });
   }
 
   handleCancelQuestionEdit() {
@@ -117,25 +135,24 @@ class Task extends Component {
     this.setState({ editingAttribution: false });
   }
 
-  handleQuestionEdit(e){
+  handleQuestionEdit(e) {
     const state = {};
     state[e.target.name] = e.target.value;
     this.setState(state, this.canSubmit);
   }
 
-  handleUpdateAttribution(e) {
+  handleUpdateAttribution() {
     const { media, task } = this.props;
-    const value = document.getElementById(`attribution-${task.dbid}`).value;
+    // TODO Use React ref
+    const { value } = document.getElementById(`attribution-${task.dbid}`);
 
     const onFailure = (transaction) => {
       const error = transaction.getError();
-      let message = error.source;
-      try {
-        const json = JSON.parse(error.source);
-        if (json.error) {
-          message = json.error;
-        }
-      } catch (e) {}
+      let { message } = error;
+      const json = safelyParseJSON(error.source);
+      if (json && json.error) {
+        message = json.error;
+      }
       this.setState({ message });
     };
 
@@ -149,7 +166,7 @@ class Task extends Component {
         parent_type: 'project_media',
         dynamic: {
           id: task.first_response.id,
-          set_attribution: value
+          set_attribution: value,
         },
       }),
       { onSuccess, onFailure },
@@ -163,16 +180,14 @@ class Task extends Component {
     const onFailure = (transaction) => {
       const error = transaction.getError();
       let message = error.source;
-      try {
-        const json = JSON.parse(error.source);
-        if (json.error) {
-          message = json.error;
-        }
-      } catch (e) {}
+      const json = safelyParseJSON(error.source);
+      if (json && json.error) {
+        message = json.error;
+      }
       this.setState({ message });
     };
 
-    const onSuccess = (response) => {
+    const onSuccess = () => {
       this.setState({ message: null, editingQuestion: false });
     };
 
@@ -202,16 +217,14 @@ class Task extends Component {
   handleDelete() {
     const { task, media } = this.props;
 
+    // eslint-disable-next-line no-alert
     if (window.confirm(this.props.intl.formatMessage(messages.confirmDelete))) {
-      Relay.Store.commitUpdate(
-        new DeleteAnnotationMutation({
-          parent_type: 'project_media',
-          annotated: media,
-          id: task.id,
-        }),
-      );
+      Relay.Store.commitUpdate(new DeleteAnnotationMutation({
+        parent_type: 'project_media',
+        annotated: media,
+        id: task.id,
+      }));
     }
-    this.setState({ isMenuOpen: false });
   }
 
   handleCancelEditResponse() {
@@ -225,21 +238,19 @@ class Task extends Component {
   }
 
   handleEditAttribution() {
-    this.setState({ editingAttribution: true, isMenuOpen: false });
+    this.setState({ editingAttribution: true });
   }
 
   handleSubmitUpdateWithArgs(edited_response, edited_note) {
-    const {media, task} = this.props;
+    const { media, task } = this.props;
 
     const onFailure = (transaction) => {
       const error = transaction.getError();
       let message = error.source;
-      try {
-        const json = JSON.parse(error.source);
-        if (json.error) {
-          message = json.error;
-        }
-      } catch (e) {}
+      const json = safelyParseJSON(error.source);
+      if (json && json.error) {
+        message = json.error;
+      }
       this.setState({ message });
     };
 
@@ -264,33 +275,6 @@ class Task extends Component {
       }),
       { onSuccess, onFailure },
     );
-  }
-
-  componentDidMount() {
-    const that = this;
-  }
-
-  getResponseData() {
-    const data = {};
-    const { task } = this.props;
-
-    if (task.first_response) {
-      data.by = [];
-      task.first_response.attribution.edges.forEach((user) => {
-        data.by.push(<ProfileLink user={user.node} />);
-      });
-      const fields = JSON.parse(task.first_response.content);
-      fields.forEach((field) => {
-        if (/^response_/.test(field.field_name)) {
-          data.response = field.value;
-        }
-        if (/^note_/.test(field.field_name)) {
-          data.note = field.value;
-        }
-      });
-    }
-
-    return data;
   }
 
   render() {
@@ -333,12 +317,12 @@ class Task extends Component {
 
     const taskActions = (
       <div>
-        {data.by
-          ? <div className="task__resolver" style={{ display: 'flex', alignItems: 'center' }}>
+        {data.by ?
+          <div className="task__resolver" style={{ display: 'flex', alignItems: 'center' }}>
             <small>
               <FormattedMessage
                 id="task.resolvedBy"
-                defaultMessage={'Resolved by {byName}'}
+                defaultMessage="Resolved by {byName}"
                 values={{ byName: <Sentence list={by} /> }}
               />
             </small>
@@ -361,22 +345,22 @@ class Task extends Component {
                 </IconButton>
               }
             >
-              {response
-                ? <Can permissions={task.first_response.permissions} permission="update Dynamic">
-                    <MenuItem className="task-actions__edit-response" onClick={this.handleEditResponse.bind(this)}>
-                      <FormattedMessage id="task.editResponse" defaultMessage="Edit response" />
-                    </MenuItem>
-                  </Can>
+              {response ?
+                <Can permissions={task.first_response.permissions} permission="update Dynamic">
+                  <MenuItem className="task-actions__edit-response" onClick={this.handleEditResponse.bind(this)}>
+                    <FormattedMessage id="task.editResponse" defaultMessage="Edit response" />
+                  </MenuItem>
+                </Can>
                 : null}
 
               <MenuItem className="task-actions__edit" onClick={this.handleEditQuestion.bind(this)}>
                 <FormattedMessage id="task.edit" defaultMessage="Edit question" />
               </MenuItem>
 
-              {(response && can(task.first_response.permissions, 'update Dynamic'))
-                ? <MenuItem className="task-actions__edit-attribution" onClick={this.handleEditAttribution.bind(this)}>
-                    <FormattedMessage id="task.editAttribution" defaultMessage="Edit attribution" />
-                  </MenuItem>
+              {(response && can(task.first_response.permissions, 'update Dynamic')) ?
+                <MenuItem className="task-actions__edit-attribution" onClick={this.handleEditAttribution.bind(this)}>
+                  <FormattedMessage id="task.editAttribution" defaultMessage="Edit attribution" />
+                </MenuItem>
                 : null}
 
               <Can permissions={task.permissions} permission="destroy Task">
@@ -398,125 +382,131 @@ class Task extends Component {
       </div>
     );
 
-    const taskBody = !response
-      ? (<Can permissions={media.permissions} permission="create Dynamic">
-        <form name={`task-response-${task.id}`}>
+    let taskBody = null;
+    if (!response) {
+      taskBody = (
+        <Can permissions={media.permissions} permission="create Dynamic">
+          <form name={`task-response-${task.id}`}>
 
-          <div className="task__response-inputs">
-            {task.type === 'free_text'
-              ? <ShortTextRespondTask
-                onSubmit={this.handleSubmitWithArgs.bind(this)}
+            <div className="task__response-inputs">
+              {task.type === 'free_text' ?
+                <ShortTextRespondTask
+                  onSubmit={this.handleSubmitWithArgs.bind(this)}
+                />
+                : null}
+              {task.type === 'geolocation' ?
+                <GeolocationRespondTask
+                  onSubmit={this.handleSubmitWithArgs.bind(this)}
+                /> : null}
+              {task.type === 'datetime' ?
+                <DatetimeRespondTask onSubmit={this.handleSubmitWithArgs.bind(this)} note="" />
+                : null}
+              {task.type === 'single_choice' ?
+                <SingleChoiceTask
+                  mode="respond"
+                  response={response}
+                  note={note}
+                  jsonoptions={task.jsonoptions}
+                  onSubmit={this.handleSubmitWithArgs.bind(this)}
+                />
+                : null}
+              {task.type === 'multiple_choice' ?
+                <MultiSelectTask
+                  mode="respond"
+                  jsonresponse={response}
+                  note={note}
+                  jsonoptions={task.jsonoptions}
+                  onSubmit={this.handleSubmitWithArgs.bind(this)}
+                />
+                : null}
+            </div>
+          </form>
+        </Can>
+      );
+    } else if (this.state.editingResponse) {
+      taskBody = (
+        <div className="task__editing">
+          <form name={`edit-response-${task.first_response.id}`}>
+            {task.type === 'free_text' ?
+              <ShortTextRespondTask
+                response={response}
+                note={note}
+                onSubmit={this.handleSubmitUpdateWithArgs.bind(this)}
+                onDismiss={this.handleCancelEditResponse.bind(this)}
               />
               : null}
-            {task.type === 'geolocation'
-                ? <GeolocationRespondTask
-                  onSubmit={this.handleSubmitWithArgs.bind(this)}
-                />
-                : null}
-            {task.type === 'datetime'
-                ? <DatetimeRespondTask onSubmit={this.handleSubmitWithArgs.bind(this)} note={''} />
-                : null}
-            {task.type === 'single_choice'
-                ? <SingleChoiceTask
-                  mode="respond"
-                  response={response}
-                  note={note}
-                  jsonoptions={task.jsonoptions}
-                  onSubmit={this.handleSubmitWithArgs.bind(this)}
-                />
-                : null}
-            {task.type === 'multiple_choice'
-                ? <MultiSelectTask
-                  mode="respond"
-                  jsonresponse={response}
-                  note={note}
-                  jsonoptions={task.jsonoptions}
-                  onSubmit={this.handleSubmitWithArgs.bind(this)}
-                />
-                : null}
-          </div>
-        </form>
-      </Can>)
-      : this.state.editingResponse
-        ? <div className="task__editing">
-          <form name={`edit-response-${task.first_response.id}`}>
-            {task.type === 'free_text'
-                ? <ShortTextRespondTask
-                  response={response}
-                  note={note}
-                  onSubmit={this.handleSubmitUpdateWithArgs.bind(this)}
-                  onDismiss={this.handleCancelEditResponse.bind(this)}
-                />
-                : null}
-            {task.type === 'geolocation'
-                ? <GeolocationRespondTask
-                  response={response}
-                  onSubmit={this.handleSubmitUpdateWithArgs.bind(this)}
-                  onDismiss={this.handleCancelEditResponse.bind(this)}
-                />
-                : null}
-            {task.type === 'datetime'
-                ? <DatetimeRespondTask
-                  response={response}
-                  note={note}
-                  onSubmit={this.handleSubmitUpdateWithArgs.bind(this)}
-                  onDismiss={this.handleCancelEditResponse.bind(this)}
-                />
-                : null}
-            {task.type === 'single_choice'
-                ? <SingleChoiceTask
-                  mode="edit_response"
-                  response={response}
-                  note={note}
-                  jsonoptions={task.jsonoptions}
-                  onDismiss={this.handleCancelEditResponse.bind(this)}
-                  onSubmit={this.handleSubmitUpdateWithArgs.bind(this)}
-                />
-                : null}
-            {task.type === 'multiple_choice'
-                ? <MultiSelectTask
-                  mode="edit_response"
-                  jsonresponse={response}
-                  note={note}
-                  jsonoptions={task.jsonoptions}
-                  onDismiss={this.handleCancelEditResponse.bind(this)}
-                  onSubmit={this.handleSubmitUpdateWithArgs.bind(this)}
-                />
-                : null}
-          </form>
-        </div>
-        : <StyledWordBreakDiv className="task__resolved">
-          {task.type === 'free_text'
-              ? <p className="task__response">
-                <ParsedText text={response} />
-              </p>
+            {task.type === 'geolocation' ?
+              <GeolocationRespondTask
+                response={response}
+                onSubmit={this.handleSubmitUpdateWithArgs.bind(this)}
+                onDismiss={this.handleCancelEditResponse.bind(this)}
+              />
               : null}
-          {task.type === 'geolocation'
-              ? <p className="task__response">
-                <GeolocationTaskResponse response={response} />
-              </p>
+            {task.type === 'datetime' ?
+              <DatetimeRespondTask
+                response={response}
+                note={note}
+                onSubmit={this.handleSubmitUpdateWithArgs.bind(this)}
+                onDismiss={this.handleCancelEditResponse.bind(this)}
+              />
               : null}
-          {task.type === 'datetime'
-              ? <p className="task__response">
-                <DatetimeTaskResponse response={response} />
-              </p>
-              : null}
-          {task.type === 'single_choice'
-              ? <SingleChoiceTask
-                mode="show_response"
+            {task.type === 'single_choice' ?
+              <SingleChoiceTask
+                mode="edit_response"
                 response={response}
                 note={note}
                 jsonoptions={task.jsonoptions}
+                onDismiss={this.handleCancelEditResponse.bind(this)}
+                onSubmit={this.handleSubmitUpdateWithArgs.bind(this)}
               />
               : null}
-          {task.type === 'multiple_choice'
-              ? <MultiSelectTask
-                mode="show_response"
+            {task.type === 'multiple_choice' ?
+              <MultiSelectTask
+                mode="edit_response"
                 jsonresponse={response}
                 note={note}
                 jsonoptions={task.jsonoptions}
+                onDismiss={this.handleCancelEditResponse.bind(this)}
+                onSubmit={this.handleSubmitUpdateWithArgs.bind(this)}
               />
               : null}
+          </form>
+        </div>
+      );
+    } else {
+      taskBody = (
+        <StyledWordBreakDiv className="task__resolved">
+          {task.type === 'free_text' ?
+            <p className="task__response">
+              <ParsedText text={response} />
+            </p>
+            : null}
+          {task.type === 'geolocation' ?
+            <p className="task__response">
+              <GeolocationTaskResponse response={response} />
+            </p>
+            : null}
+          {task.type === 'datetime' ?
+            <p className="task__response">
+              <DatetimeTaskResponse response={response} />
+            </p>
+            : null}
+          {task.type === 'single_choice' ?
+            <SingleChoiceTask
+              mode="show_response"
+              response={response}
+              note={note}
+              jsonoptions={task.jsonoptions}
+            />
+            : null}
+          {task.type === 'multiple_choice' ?
+            <MultiSelectTask
+              mode="show_response"
+              jsonresponse={response}
+              note={note}
+              jsonoptions={task.jsonoptions}
+            />
+            : null}
           <p
             style={{
               display: note ? 'block' : 'none',
@@ -526,19 +516,18 @@ class Task extends Component {
           >
             <ParsedText text={note} />
           </p>
-        </StyledWordBreakDiv>;
+        </StyledWordBreakDiv>
+      );
+    }
 
     return (
       <StyledWordBreakDiv>
         <Card
           className="task"
           style={{ marginBottom: units(1) }}
-          // initiallyExpanded={!!response}
           initiallyExpanded
         >
           <CardHeader
-            // actAsExpander
-            // showExpandableButton
             title={taskQuestion}
             subtitle={task.description ? task.description : null}
             id={`task__label-${task.id}`}
@@ -550,7 +539,6 @@ class Task extends Component {
           </CardText>
 
           <CardActions
-            // expandable={!data.by}
             style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start' }}
           >
             {taskActions}
@@ -579,7 +567,7 @@ class Task extends Component {
               name="description"
               floatingLabelText={
                 <FormattedMessage id="tasks.description" defaultMessage="Description" />
-                }
+              }
               defaultValue={task.description}
               onChange={this.handleQuestionEdit.bind(this)}
               fullWidth
@@ -593,7 +581,7 @@ class Task extends Component {
           modal={false}
           open={!!this.state.editingAttribution}
           onRequestClose={this.handleCancelAttributionEdit.bind(this)}
-          autoScrollBodyContent={true}
+          autoScrollBodyContent
         >
           <Message message={this.state.message} />
           <h2><FormattedMessage id="tasks.editAttribution" defaultMessage="Edit attribution" /></h2>
@@ -606,6 +594,8 @@ class Task extends Component {
 }
 
 Task.propTypes = {
+  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
+  // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
 };
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Dialog from 'material-ui/Dialog';
 import { Map, Marker, TileLayer } from 'react-leaflet';
 import styled from 'styled-components';
-import config from 'config';
+import config from 'config'; // eslint-disable-line require-path-exists/exists
 import { units, black05, black38, FlexRow } from '../../styles/js/shared';
 
 const StyledMap = styled.div`
@@ -32,9 +32,7 @@ class GeolocationTaskResponse extends Component {
 
   render() {
     const geoJSON = JSON.parse(this.props.response);
-
-    const name = geoJSON.properties.name;
-    const coordinates = geoJSON.geometry.coordinates;
+    const { properties: { name }, geometry: { coordinates } } = geoJSON;
     let coordinatesString = false;
     let imgPath = false;
     let position = [0, 0];
@@ -47,8 +45,8 @@ class GeolocationTaskResponse extends Component {
     return (
       <FlexRow className="task__geolocation-response">
         <span className="task__response">{name}</span>
-        {coordinatesString
-          ? <span
+        {coordinatesString ?
+          <span
             className="task__note"
             style={{ color: black38, paddingLeft: units(1), paddingRight: units(1) }}
           >
@@ -58,17 +56,18 @@ class GeolocationTaskResponse extends Component {
               target="_blank"
               rel="noreferrer noopener"
             >
-                ({coordinatesString})
-              </a>
+              ({coordinatesString})
+            </a>
           </span>
           : null}
-        {imgPath
-          ? <span
+        {imgPath ?
+          <span // eslint-disable-line jsx-a11y/click-events-have-key-events
             style={{
               border: `1px solid ${black05}`,
               marginLeft: 'auto',
             }}
             className="task__geolocation-image"
+            onClick={this.handleOpenMap.bind(this)}
           >
             <img
               style={{
@@ -79,18 +78,17 @@ class GeolocationTaskResponse extends Component {
               }}
               src={imgPath}
               alt=""
-              onClick={this.handleOpenMap.bind(this)}
             />
           </span>
           : null}
-        {imgPath && !!this.state.zoomedMap
-          ? <Dialog
+        {imgPath && !!this.state.zoomedMap ?
+          <Dialog
             modal={false}
             open={this.state.zoomedMap}
             onRequestClose={this.handleCloseMap.bind(this)}
           >
             <StyledMap>
-              <Map center={position} zoom="9">
+              <Map center={position} zoom={9}>
                 <TileLayer
                   attribution="2017 <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a>"
                   url="http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png"

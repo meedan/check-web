@@ -9,10 +9,10 @@ import MdClear from 'react-icons/lib/md/clear';
 import IconButton from 'material-ui/IconButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import rtlDetect from 'rtl-detect';
-import '../../styles/css/tooltip.css';
 import Tooltip from 'rc-tooltip';
+import '../../styles/css/tooltip.css';
 import SourcePicture from '../source/SourcePicture';
-import UpdateTeamUserMutation from '../../relay/UpdateTeamUserMutation';
+import UpdateTeamUserMutation from '../../relay/mutations/UpdateTeamUserMutation';
 import UserTooltip from '../user/UserTooltip';
 import {
   selectStyle,
@@ -22,7 +22,6 @@ import {
   buttonInButtonGroupStyle,
   Offset,
 } from '../../styles/js/shared';
-import styled from 'styled-components';
 
 const messages = defineMessages({
   contributor: {
@@ -47,35 +46,28 @@ class TeamMembersListItem extends Component {
   handleDeleteTeamUser(e) {
     e.preventDefault();
 
-    Relay.Store.commitUpdate(
-      new UpdateTeamUserMutation({
-        id: this.props.teamUser.node.id,
-        status: 'banned',
-      }),
-    );
+    Relay.Store.commitUpdate(new UpdateTeamUserMutation({
+      id: this.props.teamUser.node.id,
+      status: 'banned',
+    }));
   }
 
   handleRoleChange(val) {
-    Relay.Store.commitUpdate(
-      new UpdateTeamUserMutation({
-        id: this.props.teamUser.node.id,
-        role: val,
-      }),
-    );
+    Relay.Store.commitUpdate(new UpdateTeamUserMutation({
+      id: this.props.teamUser.node.id,
+      role: val,
+    }));
   }
 
   handleTeamMembershipRequest(status) {
-    Relay.Store.commitUpdate(
-      new UpdateTeamUserMutation({
-        id: this.props.teamUser.node.id,
-        status,
-      }),
-    );
+    Relay.Store.commitUpdate(new UpdateTeamUserMutation({
+      id: this.props.teamUser.node.id,
+      status,
+    }));
   }
 
   render() {
-    const teamUser = this.props.teamUser;
-    const isEditing = this.props.isEditing;
+    const { teamUser, isEditing } = this.props;
 
     const roles = [
       { value: 'contributor', label: this.props.intl.formatMessage(messages.contributor) },
@@ -92,21 +84,24 @@ class TeamMembersListItem extends Component {
       >
         <FlexRow>
           <FlexRow>
-            <Tooltip placement="top" overlay={<UserTooltip user={teamUser.node.user} />}>
+            <Tooltip
+              placement="top"
+              overlay={<UserTooltip user={teamUser.node.user} team={teamUser.node.team} />}
+            >
               <Link to={`/check/user/${teamUser.node.user.dbid}`} className="team-members__profile-link">
                 <FlexRow>
-                    <Offset isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
-                      <SourcePicture
-                        className="avatar"
-                        object={teamUser.node.user.source}
-                        alt={teamUser.node.user.name}
-                        size="small"
-                        type="user"
-                        />
-                    </Offset>
-                    <Text ellipsis>
-                      {teamUser.node.user.name}
-                    </Text>
+                  <Offset isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
+                    <SourcePicture
+                      className="avatar"
+                      object={teamUser.node.user.source}
+                      alt={teamUser.node.user.name}
+                      size="small"
+                      type="user"
+                    />
+                  </Offset>
+                  <Text ellipsis>
+                    {teamUser.node.user.name}
+                  </Text>
                 </FlexRow>
               </Link>
             </Tooltip>
@@ -151,17 +146,17 @@ class TeamMembersListItem extends Component {
                   options={roles}
                   value={teamUser.node.role}
                 />
-                {isEditing && teamUser.node.status !== 'banned'
-                  ?
-                    <IconButton
-                      focusRippleColor={checkBlue}
-                      touchRippleColor={checkBlue}
-                      style={{ fontSize: '20px' }}
-                      onClick={this.handleDeleteTeamUser.bind(this)}
-                      tooltip={<FormattedMessage id="TeamMembersListItem.deleteMember" defaultMessage="Delete Member" />}
-                    >
-                      <MdClear />
-                    </IconButton>
+                {isEditing && teamUser.node.status !== 'banned' ?
+                  <IconButton
+                    className="team-members__delete-member"
+                    focusRippleColor={checkBlue}
+                    touchRippleColor={checkBlue}
+                    style={{ fontSize: '20px' }}
+                    onClick={this.handleDeleteTeamUser.bind(this)}
+                    tooltip={<FormattedMessage id="TeamMembersListItem.deleteMember" defaultMessage="Delete Member" />}
+                  >
+                    <MdClear />
+                  </IconButton>
                   : null}
               </FlexRow>
             );
@@ -175,6 +170,8 @@ class TeamMembersListItem extends Component {
 }
 
 TeamMembersListItem.propTypes = {
+  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
+  // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
 };
 

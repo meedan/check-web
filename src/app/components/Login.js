@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import {
   FormattedMessage,
   defineMessages,
@@ -32,7 +33,7 @@ import {
   mediaQuery,
   caption,
   body2,
-  title,
+  title1,
   black54,
   black38,
   checkBlue,
@@ -46,7 +47,7 @@ import {
 } from '../styles/js/shared';
 
 const StyledSubHeader = styled.h2`
-    font: ${title};
+    font: ${title1};
     font-weight: 600;
     color: ${black54};
     text-align: center;
@@ -151,6 +152,10 @@ const Column = styled.div`
 
 
 class Login extends Component {
+  static onImage(file) {
+    document.forms.register.image = file;
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -163,10 +168,6 @@ class Login extends Component {
     };
   }
 
-  componentDidMount() {
-    this.focusFirstInput();
-  }
-
   onFormSubmit(e) {
     e.preventDefault();
 
@@ -177,40 +178,33 @@ class Login extends Component {
     }
   }
 
-  onImage(file) {
-    document.forms.register.image = file;
-  }
-
   getHistory() {
-    const history = new CheckContext(this).getContextStore().history;
-    return history;
+    return new CheckContext(this).getContextStore().history;
   }
 
   handleSwitchType() {
     const type = this.state.type === 'login' ? 'register' : 'login';
-    this.setState({ type }, () => this.focusFirstInput());
-  }
-
-  focusFirstInput() {
-    const input = document.querySelector('.login input');
-    if (input) {
-      input.focus();
-    }
+    this.setState({ type }, () => {
+      if (type === 'login') {
+        this.inputEmail.focus();
+      } else {
+        this.inputName.focus();
+      }
+    });
   }
 
   emailLogin() {
     const history = this.getHistory();
-    const that = this;
     const params = {
       'api_user[email]': this.state.email,
       'api_user[password]': this.state.password,
     };
 
-    const failureCallback = message => that.setState({ message });
+    const failureCallback = message => this.setState({ message });
 
     const successCallback = () => {
-      that.setState({ message: null });
-      that.props.loginCallback();
+      this.setState({ message: null });
+      this.props.loginCallback();
       history.push('/');
     };
 
@@ -219,7 +213,6 @@ class Login extends Component {
 
   registerEmail() {
     const history = this.getHistory();
-    const that = this;
     const form = document.forms.register;
     const params = {
       'api_user[email]': this.state.email,
@@ -229,11 +222,11 @@ class Login extends Component {
       'api_user[image]': form.image,
     };
 
-    const failureCallback = message => that.setState({ message });
+    const failureCallback = message => this.setState({ message });
 
     const successCallback = () => {
-      that.setState({ message: null });
-      that.props.loginCallback();
+      this.setState({ message: null });
+      this.props.loginCallback();
       history.push(window.location.pathname);
     };
 
@@ -244,12 +237,6 @@ class Login extends Component {
     login(provider, this.props.loginCallback);
   }
 
-  bemClass(baseClass, modifierBoolean, modifierSuffix) {
-    return modifierBoolean
-      ? [baseClass, baseClass + modifierSuffix].join(' ')
-      : baseClass;
-  }
-
   handleFieldChange(e) {
     const state = {};
     state[e.target.name] = e.target.value;
@@ -257,17 +244,17 @@ class Login extends Component {
   }
 
   render() {
-    const muiThemeWithRtl = getMuiTheme(
-      merge(muiThemeWithoutRtl, {
-        isRtl: rtlDetect.isRtlLang(this.props.intl.locale),
-      }),
-    );
+    const muiThemeWithRtl = getMuiTheme(merge(muiThemeWithoutRtl, {
+      isRtl: rtlDetect.isRtlLang(this.props.intl.locale),
+    }));
 
-    const locale = this.props.intl.locale;
+    const { intl: { locale } } = this.props;
     const isRtl = rtlDetect.isRtlLang(locale);
     const fromDirection = isRtl ? 'right' : 'left';
 
-    const BigButton = ({ className, icon, id, onClick, headerText, subheaderText }) => (
+    const BigButton = ({
+      className, icon, id, onClick, headerText, subheaderText,
+    }) => (
       <StyledEnhancedButton
         id={id}
         className={className}
@@ -280,11 +267,11 @@ class Login extends Component {
           </Column>
           <Column>
             <h3>{headerText}</h3>
-            { subheaderText ?
+            {subheaderText ?
               <h4>
                 <FormattedMessage
                   id="login.disclaimer"
-                  defaultMessage={'We won’t publish without your permission'}
+                  defaultMessage="We won’t publish without your permission"
                 />
               </h4> : null
             }
@@ -310,32 +297,33 @@ class Login extends Component {
                 src={stringHelper('LOGO_URL')}
               />
               <StyledSubHeader className="login__heading">
-                {this.state.type === 'login'
-                  ? <FormattedMessage
+                {this.state.type === 'login' ?
+                  <FormattedMessage
                     id="login.title"
                     defaultMessage="Sign in"
-                  />
-                  : <FormattedMessage
+                  /> :
+                  <FormattedMessage
                     id="login.registerTitle"
                     defaultMessage="Register"
                   />}
               </StyledSubHeader>
               <Message message={this.state.message} />
-              {this.state.type === 'login'
-                ? null
-                : <div className="login__name">
+              {this.state.type === 'login' ?
+                null :
+                <div className="login__name">
                   <TextField
                     fullWidth
                     name="name"
                     value={this.state.name}
                     className="login__name-input"
+                    ref={(i) => { this.inputName = i; }}
                     onChange={this.handleFieldChange.bind(this)}
                     floatingLabelText={
                       <FormattedMessage
                         id="login.nameLabel"
                         defaultMessage="Your name"
                       />
-                      }
+                    }
                   />
                 </div>}
 
@@ -346,7 +334,7 @@ class Login extends Component {
                   name="email"
                   value={this.state.email}
                   className="login__email-input"
-                  id="login__email-input"
+                  ref={(i) => { this.inputEmail = i; }}
                   onChange={this.handleFieldChange.bind(this)}
                   floatingLabelText={
                     <FormattedMessage
@@ -354,6 +342,7 @@ class Login extends Component {
                       defaultMessage="Email address"
                     />
                   }
+                  autoFocus
                 />
               </div>
 
@@ -364,44 +353,39 @@ class Login extends Component {
                   name="password"
                   value={this.state.password}
                   className="login__password-input"
-                  id="login__password-input"
                   onChange={this.handleFieldChange.bind(this)}
-                  floatingLabelText={
-                    this.state.type === 'login'
-                      ? this.props.intl.formatMessage(
-                          messages.passwordInputHint,
-                        )
-                      : <FormattedMessage
-                        id="login.passwordLabel"
-                        defaultMessage="Password (minimum 8 characters)"
-                      />
+                  floatingLabelText={this.state.type === 'login' ?
+                    this.props.intl.formatMessage(messages.passwordInputHint) :
+                    <FormattedMessage
+                      id="login.passwordLabel"
+                      defaultMessage="Password (minimum 8 characters)"
+                    />
                   }
                 />
               </div>
 
-              {this.state.type === 'login'
-                ? null
-                : <div className="login__password-confirmation">
+              {this.state.type === 'login' ?
+                null :
+                <div className="login__password-confirmation">
                   <TextField
                     fullWidth
                     type="password"
                     name="password_confirmation"
                     value={this.state.password_confirmation}
                     className="login__password-confirmation-input"
-                    id="login__password-confirmation-input"
                     onChange={this.handleFieldChange.bind(this)}
                     floatingLabelText={
                       <FormattedMessage
                         id="login.passwordConfirmLabel"
                         defaultMessage="Password confirmation"
                       />
-                      }
+                    }
                   />
                 </div>}
 
-              {this.state.type === 'login'
-                ? null
-                : <UploadImage onImage={this.onImage.bind(this)} />}
+              {this.state.type === 'login' ?
+                null :
+                <UploadImage onImage={Login.onImage} />}
 
               <div className="login__actions" style={styles.buttonGroup}>
                 <RaisedButton
@@ -410,20 +394,19 @@ class Login extends Component {
                   type="submit"
                   id="submit-register-or-login"
                   className={`login__submit login__submit--${this.state.type}`}
-                  label={
-                    this.state.type === 'login'
-                      ? <FormattedMessage
-                        id="login.signIn"
-                        defaultMessage="SIGN IN"
-                      />
-                      : <FormattedMessage
-                        id="login.signUp"
-                        defaultMessage="REGISTER"
-                      />
+                  label={this.state.type === 'login' ?
+                    <FormattedMessage
+                      id="login.signIn"
+                      defaultMessage="SIGN IN"
+                    /> :
+                    <FormattedMessage
+                      id="login.signUp"
+                      defaultMessage="REGISTER"
+                    />
                   }
                 />
-                {this.state.type === 'login'
-                  ? <span className="login__forgot-password">
+                {this.state.type === 'login' ?
+                  <span className="login__forgot-password">
                     <Link to="/check/user/password-reset">
                       <FlatButton
                         style={styles.secondaryButton}
@@ -432,7 +415,7 @@ class Login extends Component {
                             id="loginEmail.lostPassword"
                             defaultMessage="Forgot password"
                           />
-                          }
+                        }
                       />
                     </Link>
                   </span>
@@ -446,11 +429,13 @@ class Login extends Component {
               onClick={this.oAuthLogin.bind(this, 'slack')}
               id="slack-login"
               icon={<FASlack style={{ color: slackGreen }} className="logo" />}
-              headerText={<FormattedMessage
-                id="login.with"
-                defaultMessage={'Continue with {provider}'}
-                values={{ provider: 'Slack' }}
-              />}
+              headerText={
+                <FormattedMessage
+                  id="login.with"
+                  defaultMessage="Continue with {provider}"
+                  values={{ provider: 'Slack' }}
+                />
+              }
               subheaderText
             />
 
@@ -458,11 +443,13 @@ class Login extends Component {
               onClick={this.oAuthLogin.bind(this, 'twitter')}
               id="twitter-login"
               icon={<FATwitter style={{ color: twitterBlue }} className="logo" />}
-              headerText={<FormattedMessage
-                id="login.with"
-                defaultMessage={'Continue with {provider}'}
-                values={{ provider: 'Twitter' }}
-              />}
+              headerText={
+                <FormattedMessage
+                  id="login.with"
+                  defaultMessage="Continue with {provider}"
+                  values={{ provider: 'Twitter' }}
+                />
+              }
               subheaderText
             />
 
@@ -473,15 +460,15 @@ class Login extends Component {
               headerText={
                 <FormattedMessage
                   id="login.with"
-                  defaultMessage={'Continue with {provider}'}
+                  defaultMessage="Continue with {provider}"
                   values={{ provider: 'Facebook' }}
                 />
               }
               subheaderText
             />
 
-            {this.state.type === 'login'
-              ? <BigButton
+            {this.state.type === 'login' ?
+              <BigButton
                 id="register-or-login"
                 onClick={this.handleSwitchType.bind(this)}
                 icon={<MDEmail style={{ color: black54 }} />}
@@ -493,8 +480,8 @@ class Login extends Component {
                 }
                 subheaderText={false}
               />
-
-              : <BigButton
+              :
+              <BigButton
                 id="register-or-login"
                 onClick={this.handleSwitchType.bind(this)}
                 icon={<MDEmail style={{ color: black54 }} />}
@@ -514,11 +501,13 @@ class Login extends Component {
 }
 
 Login.propTypes = {
+  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
+  // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
 };
 
 Login.contextTypes = {
-  store: React.PropTypes.object,
+  store: PropTypes.object,
 };
 
 export default injectIntl(Login);

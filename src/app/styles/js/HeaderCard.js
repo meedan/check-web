@@ -13,12 +13,14 @@ import {
   subheading1,
   Row,
   avatarSizeLarge,
-  } from './shared';
+} from './shared';
 
 // The "Header Card" is the layout at the top of Source, Profile and Team.
-// Currently we have an actual HeaderCard component that the TeamComponent uses, but the user profile and source profile are using a selection of these constants without the HeaderCard component.
+// Currently we have an actual HeaderCard component that the TeamComponent uses,
+// but the user profile and source profile are using a selection of these constants
+// without the HeaderCard component.
 // See: components/HeaderCard
-// TODO: Standardize to use the HeaderCard in all three components that use this layout.
+// TODO Standardize to use the HeaderCard in all three components that use this layout.
 // @chris 2017-10-17
 
 const sourceProfileOffset = units(24);
@@ -62,7 +64,7 @@ export const StyledButtonGroup = styled.div`
     `}
 
     .source__edit-cancel-button {
-      margin-${props => (props.isRtl ? 'left' : 'right')}: ${units(1)} !important;      
+      margin-${props => (props.isRtl ? 'left' : 'right')}: ${units(1)} !important;
     }
   }
 `;

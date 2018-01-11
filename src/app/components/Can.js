@@ -1,21 +1,19 @@
-import React, { Component, PropTypes } from 'react';
-
 function can(permissionsData, permission) {
   try {
     const permissions = JSON.parse(permissionsData);
     return permissions[permission];
   } catch (e) {
-    throw `Error parsing permissions data: ${permissionsData}`;
+    // eslint-disable-next-line no-console
+    console.error(`Error parsing permissions data: ${permissionsData}`);
   }
+  return false;
 }
 
-class Can extends Component {
-  render() {
-    if (can(this.props.permissions, this.props.permission)) {
-      return this.props.children;
-    }
-    return this.props.otherwise || null;
+const Can = (props) => {
+  if (can(props.permissions, props.permission)) {
+    return props.children;
   }
-}
+  return props.otherwise || null;
+};
 
 export { Can as default, can };

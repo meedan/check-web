@@ -58,7 +58,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
   after :each do |example|
     if example.exception
       link = save_screenshot("Test failed: #{example.description}")
-      print " [Test \"#{example.description}\" failed! Check screenshot at #{link}] "
+      print " [Test \"#{example.description}\" failed! Check screenshot at #{link} and browser console output: #{console_logs}] "
     end
     @driver.quit
   end
@@ -104,7 +104,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       api_register_and_login_with_email
       me_pg = MePage.new(config: @config, driver: @driver).load
       sleep 3 #for loading
-      wait_for_selector("//span[contains(text(), 'Create Team')]", :xpath)      
+      wait_for_selector("//span[contains(text(), 'Create Team')]", :xpath)
       expect(@driver.page_source.include?('Access Denied')).to be(false)
       expect((@driver.current_url.to_s =~ /\/forbidden$/).nil?).to be(true)
       unauthorized_pg = SourcePage.new(id: user.dbid, config: @config, driver: @driver).load
@@ -508,34 +508,25 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('989898989')).to be(false)
       el = wait_for_selector('.source__edit-button')
       el.click
-      sleep 1      
+      sleep 1
       el = wait_for_selector('.source__edit-addinfo-button')
       el.click
       sleep 1
       el = wait_for_selector('.source__add-phone')
       el.click
-      str= @driver.page_source
-      str = str[str.index('undefined-undefined-Phone-')..str.length]
-      str = str[0..(str.index('"')-1)]
-      fill_field(str, "989898989", :id)
+      fill_field('.source__metadata-phone-input input[type="text"]', '989898989')
       sleep 1
       @driver.find_element(:class, "source__edit-addinfo-button").click
       sleep 1
       el = wait_for_selector(".source__add-organization")
       el.click
-      str= @driver.page_source
-      str = str[str.index('undefined-undefined-Organization-')..str.length]
-      str = str[0..(str.index('"')-1)]
-      fill_field(str, "ORGANIZATION", :id)
+      fill_field('.source__metadata-organization-input input[type="text"]', 'ORGANIZATION')
       el = wait_for_selector(".source__edit-addinfo-button")
       el.click
       sleep 1
       el = wait_for_selector(".source__add-location")
       el.click
-      str= @driver.page_source
-      str = str[str.index('undefined-undefined-Location-')..str.length]
-      str = str[0..(str.index('"')-1)]
-      fill_field(str, "Location 123", :id)
+      fill_field('.source__metadata-location-input input[type="text"]', 'Location 123')
       sleep 1
       #source__add-other
       el = wait_for_selector(".source__edit-addinfo-button")
@@ -558,6 +549,15 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Location 123')).to be(true)
       expect(@driver.page_source.include?('ORGANIZATION')).to be(true)
       expect(@driver.page_source.include?('989898989')).to be(true)
+
+      # Now try to edit
+      wait_for_selector('.source__edit-button').click
+      sleep 1
+      fill_field('.source__metadata-phone-input input[type="text"]', '121212121')
+      wait_for_selector('.source__edit-save-button').click
+      sleep 5 #reload
+      wait_for_selector('.source__edit-button')
+      expect(@driver.page_source.include?('121212121')).to be(true)
     end
 
     it "should add and remove source tags", bin6: true do
@@ -812,7 +812,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       #As the group creator, go to the members page and approve the joining request.
       page = MePage.new(config: @config, driver: @driver).load
           .approve_join_team(subdomain: team.slug)
-      el = wait_for_selector_list("team-members__edit-button",:class)
+      el = wait_for_selector_list("team__edit-button",:class)
       expect(el.length > 0).to be(true)
       api_logout
 
@@ -820,7 +820,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       page = Page.new(config: @config, driver: @driver)
       page.go(@config['api_path'] + '/test/session?email='+user2.email)
       page = MePage.new(config: @config, driver: @driver).load
-      el = wait_for_selector_list("team-members__edit-button",:class)
+      el = wait_for_selector_list("team__edit-button",:class)
       expect(el.length == 0).to be(true)
     end
 
@@ -830,14 +830,14 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       page.go(@config['api_path'] + '/test/session?email='+utp[:user1]["email"])
       page.go(@config['self_url'] + '/'+utp[:team]["slug"]+'/project/'+utp[:project]["dbid"].to_s)
       sleep 3 #for loading
-      wait_for_selector("//span[contains(text(), 'Sources')]", :xpath)      
+      wait_for_selector("//span[contains(text(), 'Sources')]", :xpath)
       l = wait_for_selector_list('project-menu',:class)
       expect(l.length == 1).to be(true)
 
       page.go(@config['api_path'] + '/test/session?email='+utp[:user2]["email"])
       page.go(@config['self_url'] + '/'+utp[:team]["slug"]+'/project/'+utp[:project]["dbid"].to_s)
       sleep 3 #for loading
-      wait_for_selector("//span[contains(text(), 'Sources')]", :xpath)      
+      wait_for_selector("//span[contains(text(), 'Sources')]", :xpath)
       l = wait_for_selector_list('project-menu',:class)
       expect(l.length == 0).to be(true)
     end
@@ -847,7 +847,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       api_create_team(team:team)
       p = Page.new(config: @config, driver: @driver)
       p.go(@config['self_url'] + '/' + team)
-      wait_for_selector("team-members__edit-button", :class)
+      wait_for_selector("team__edit-button", :class)
       expect(@driver.page_source.include?('Team information updated successfully!')).to be(false)
       expect(@driver.page_source.include?('Rome')).to be(false)
       expect(@driver.page_source.include?('www.meedan.com')).to be(false)
@@ -886,7 +886,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       el = wait_for_selector("team__save-button", :class)
       el.click
-      wait_for_selector("team-members__edit-button", :class)
+      wait_for_selector("team__edit-button", :class)
       expect(@driver.page_source.include?('Team information updated successfully!')).to be(true)
       expect(@driver.page_source.include?('Rome')).to be(true)
       expect(@driver.page_source.include?('www.meedan.com')).to be(true)
@@ -964,7 +964,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       @driver = new_driver(webdriver_url,browser_capabilities)
       page = Page.new(config: @config, driver: @driver)
       page.go(@config['api_path'] + '/test/session?email='+@user_mail)
-      #As the group creator, go to the members page and approve the joining request.
       page = MePage.new(config: @config, driver: @driver).load
           .disapprove_join_team(subdomain: @team1_slug)
       @wait.until {
@@ -974,21 +973,22 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       # "should delete member from team"
       page = Page.new(config: @config, driver: @driver)
       page.go(@config['api_path'] + '/test/session?email='+@user_mail)
-      #As the group creator, go to the members page and approve the joining request.
       sleep 1
       page = MePage.new(config: @config, driver: @driver).load
       @driver.navigate.to @config['self_url'] + '/'+@team1_slug
       sleep 2
+      wait_for_selector('.team__tab-button-members').click
+      sleep 2 # TODO: better soft keyboard strategies
       wait_for_selector('team-members__member',:class)
       el = wait_for_selector('team-members__edit-button',:class)
       el.click
       sleep 5
-      l = wait_for_selector_list('//button',:xpath)
-      old =  l.length
-      expect(l.length > 4).to be(true)
-      l[l.length-2].click
+      l = wait_for_selector_list('team-members__delete-member',:class)
+      old = l.length
+      expect(l.length > 1).to be(true)
+      l[l.length-1].click
       sleep 1
-      expect(wait_for_selector_list('//button',:xpath).length < old).to be(true)
+      expect(wait_for_selector_list('team-members__delete-member',:class).length < old).to be(true)
     end
 
     it "should update notes count after delete annotation", bin3: true do
@@ -1062,18 +1062,18 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       t2 = api_create_team(user: user)
       page = MePage.new(config: @config, driver: @driver).load
           .select_team(name: t1.name)
-      wait_for_selector("team-members__edit-button",:class)        
+      wait_for_selector("team__edit-button",:class)
       expect(page.team_name).to eq(t1.name)
       page = MePage.new(config: @config, driver: @driver).load
           .select_team(name: t2.name)
-      wait_for_selector("team-members__edit-button",:class)        
+      wait_for_selector("team__edit-button",:class)
       expect(page.team_name).to eq(t2.name)
     end
 
     it "should linkify URLs on comments", bin1: true do
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
       expect(@driver.page_source.include?('Your comment was added!')).to be(false)
-      old = wait_for_selector_list("annotation__default-content",:class).length     
+      old = wait_for_selector_list("annotation__default-content",:class).length
       fill_field('textarea[name="cmd"]', 'https://meedan.com/en/')
       el = wait_for_selector("//span[contains(text(), 'Submit')]", :xpath)
       el.click
@@ -1145,7 +1145,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector("//h3[contains(text(), 'No results')]",:xpath)
       current = wait_for_selector_list("medias__item", :class).length
       expect(old > current).to be(true)
-      expect(current == 0).to be(true)     
+      expect(current == 0).to be(true)
       old = wait_for_selector_list("medias__item", :class).length
       el = wait_for_selector("//div[contains(text(), 'Unstarted')]",:xpath)
       el.click
@@ -1158,7 +1158,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     end
 
     it "should move media to another project", bin2: true do
-      data = api_create_team_and_project  
+      data = api_create_team_and_project
       prj2 = api_create_project(data[:team].dbid.to_s)
       p1 =  data[:project].team["projects"]["edges"][0]["node"]["title"]
       p2 = prj2.team["projects"]["edges"][1]["node"]["title"]
@@ -1356,7 +1356,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       media_pg.wait_all_elements(8, "annotations__list-item", :class) #Wait for refresh page
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Task "Foo, Doo or bar???" answered by User With Email: "Foo and Boo"')).to be(true)
       # Delete task
-      delete_task('Foo')    
+      delete_task('Foo')
     end
 
     it "should search for reverse images", bin2: true do
@@ -1601,7 +1601,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       fill_field('textarea[name="response"]', 'Salvador')
       fill_field('textarea[name="coordinates"]', '-12.9015866, -38.560239')
       el = wait_for_selector('.task__save')
-      el.click      
+      el.click
       wait_for_selector('.annotation--task_response_geolocation')
       old = wait_for_size_change(old, "annotations__list-item", :class)
       expect(@driver.page_source.include?('Task "Where?" answered by')).to be(true)
@@ -1631,7 +1631,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       update_field('textarea[name="response"]', 'Vancouver')
       update_field('textarea[name="coordinates"]', '49.2577142, -123.1941156')
       el = wait_for_selector('.task__save')
-      el.click      
+      el.click
       old = wait_for_size_change(old, "annotations__list-item", :class)
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Task "Where was it?" answered by User With Email: "Vancouver"')).to be(true)
 
@@ -1687,7 +1687,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       # Create a task
       expect(@driver.page_source.include?('When?')).to be(false)
       expect(@driver.page_source.include?('Task "When?" created by')).to be(false)
-      old = wait_for_selector_list("annotation__default-content",:class).length     
+      old = wait_for_selector_list("annotation__default-content",:class).length
       el = wait_for_selector('.create-task__add-button')
       el.click
       sleep 1
@@ -1756,7 +1756,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el = wait_for_selector(".source__tab-button-notes")
       el.click
       expect(@driver.page_source.include?('Your comment was added!')).to be(false)
-      old = wait_for_selector_list("annotation__default-content",:class).length     
+      old = wait_for_selector_list("annotation__default-content",:class).length
       fill_field('textarea[name="cmd"]', 'Test')
       el = wait_for_selector("//span[contains(text(), 'Submit')]", :xpath)
       el.click
@@ -1773,7 +1773,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       #media
       media_pg = api_create_team_project_and_claim_and_redirect_to_media_page
       expect(@driver.page_source.include?('Your comment was added!')).to be(false)
-      old = wait_for_selector_list("annotation__default-content",:class).length     
+      old = wait_for_selector_list("annotation__default-content",:class).length
       fill_field('textarea[name="cmd"]', 'Test')
       el = wait_for_selector("//span[contains(text(), 'Submit')]", :xpath)
       el.click

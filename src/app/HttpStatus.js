@@ -90,6 +90,7 @@ const HttpStatus = {
   getMessage(code) {
     const key = findKey(HttpStatus.codes, item => (item === code));
     if (key) return HttpStatus.messages[key];
+    return '';
   },
 };
 

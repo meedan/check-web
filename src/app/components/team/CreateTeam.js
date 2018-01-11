@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Relay from 'react-relay';
 import XRegExp from 'xregexp';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -11,11 +12,12 @@ import {
   injectIntl,
   intlShape,
 } from 'react-intl';
-import config from 'config';
+import config from 'config'; // eslint-disable-line require-path-exists/exists
 import PageTitle from '../PageTitle';
-import CreateTeamMutation from '../../relay/CreateTeamMutation';
+import CreateTeamMutation from '../../relay/mutations/CreateTeamMutation';
 import Message from '../Message';
 import CheckContext from '../../CheckContext';
+import { safelParseJSON } from '../../helpers';
 import {
   ContentColumn,
   caption,
@@ -80,56 +82,19 @@ const messages = defineMessages({
 class CreateTeam extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
-      displayNameLabelClass: this.displayNameLabelClass(),
-      slugClass: this.slugClass(),
-      slugLabelClass: this.slugLabelClass(),
-      slugMessage: '',
-      buttonIsDisabled: true,
-      displayName: '',
+      teamName: '',
       slugName: '',
     };
   }
 
   componentDidMount() {
-    this.teamNameInput.focus();
+    this.teamDisplayName.focus();
   }
 
   getContext() {
-    const context = new CheckContext(this);
-    return context.getContextStore();
-  }
-
-  displayNameLabelClass(suffix) {
-    const defaultClass = 'create-team__team-display-name-label';
-    return suffix
-      ? [defaultClass, defaultClass + suffix].join(' ')
-      : defaultClass;
-  }
-
-  slugClass(suffix) {
-    const defaultClass = 'create-team__team-slug';
-    return suffix
-      ? [defaultClass, defaultClass + suffix].join(' ')
-      : defaultClass;
-  }
-
-  slugLabelClass(suffix) {
-    const defaultClass = 'create-team__team-slug-label';
-    return suffix
-      ? [defaultClass, defaultClass + suffix].join(' ')
-      : defaultClass;
-  }
-
-  handleDisplayNameChange(e) {
-    const isTextEntered = e.target.value && e.target.value.length > 0;
-    const newClass = isTextEntered
-      ? this.displayNameLabelClass('--text-entered')
-      : this.displayNameLabelClass();
-    this.setState({
-      displayNameLabelClass: newClass,
-      displayName: e.target.value,
-    });
+    return new CheckContext(this).getContextStore();
   }
 
   handleDisplayNameBlur(e) {
@@ -138,19 +103,15 @@ class CreateTeam extends Component {
       return XRegExp.replace(text.toString().toLowerCase().trim(), regex, '-');
     }
 
-    const slugSuggestion = slugify(e.target.value);
+    const slugName = slugify(e.target.value);
 
-    if (!this.state.slugName && slugSuggestion.length) {
-      this.setState({ slugName: slugSuggestion });
+    if (!this.state.slugName && slugName.length) {
+      this.setState({ teamName: e.target.value, slugName });
     }
   }
 
   handleSlugChange(e) {
-    const slug = e.target.value;
-
-    this.setState({
-      slugName: slug,
-    });
+    this.setState({ slugName: e.target.value });
   }
 
   handleSubmit(e) {
@@ -161,21 +122,20 @@ class CreateTeam extends Component {
     const onFailure = (transaction) => {
       const error = transaction.getError();
       let message = this.props.intl.formatMessage(messages.createTeamError);
-      try {
-        const json = JSON.parse(error.source);
-        if (json.error) {
-          message = json.error;
-        }
-      } catch (e) {}
+      const json = safelParseJSON(error.source);
+      if (json && json.error) {
+        message = json.error;
+      }
       this.setState({ message });
     };
 
     const onSuccess = (response) => {
       this.setState({ message: null });
-      const team = response.createTeam.team;
+      const { createTeam: { team } } = response;
       const teams = JSON.parse(context.currentUser.teams);
       teams[team.slug] = { status: 'member' };
       context.currentUser.teams = JSON.stringify(teams);
+      context.currentUser.current_team = team;
 
       const path = `/${team.slug}`;
       context.history.push(path);
@@ -183,7 +143,7 @@ class CreateTeam extends Component {
 
     Relay.Store.commitUpdate(
       new CreateTeamMutation({
-        name: this.state.displayName,
+        name: this.state.teamName,
         slug: this.state.slugName,
         description: '',
         user: context.currentUser,
@@ -199,7 +159,6 @@ class CreateTeam extends Component {
         prefix={this.props.intl.formatMessage(messages.title)}
         skipTeam
       >
-
         <main className="create-team">
           <ContentColumn narrow>
             <Message message={this.state.message} />
@@ -223,15 +182,12 @@ class CreateTeam extends Component {
                 <CardText>
                   <div className="create-team__team-display-name">
                     <TextField
-                      value={this.state.displayName}
                       type="text"
-                      name="teamDisplayName"
                       id="team-name-container"
                       className="create-team__team-display-name-input"
-                      onChange={this.handleDisplayNameChange.bind(this)}
                       onBlur={this.handleDisplayNameBlur.bind(this)}
                       autoComplete="off"
-                      ref={input => (this.teamNameInput = input)}
+                      ref={(i) => { this.teamDisplayName = i; }}
                       floatingLabelText={
                         <FormattedMessage
                           id="createTeam.displayName"
@@ -257,13 +213,10 @@ class CreateTeam extends Component {
                     <TextField
                       value={this.state.slugName}
                       type="text"
-                      name="teamSlug"
                       id="team-slug-container"
                       className="create-team__team-slug-input"
                       onChange={this.handleSlugChange.bind(this)}
-                      hintText={this.props.intl.formatMessage(
-                        messages.teamSlugHint,
-                      )}
+                      hintText={this.props.intl.formatMessage(messages.teamSlugHint)}
                       autoComplete="off"
                       fullWidth
                     />
@@ -293,11 +246,13 @@ class CreateTeam extends Component {
 }
 
 CreateTeam.propTypes = {
+  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
+  // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
 };
 
 CreateTeam.contextTypes = {
-  store: React.PropTypes.object,
+  store: PropTypes.object,
 };
 
 export default injectIntl(CreateTeam);

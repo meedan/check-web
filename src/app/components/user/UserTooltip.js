@@ -1,19 +1,19 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Relay from 'react-relay';
-import { FormattedMessage, FormattedHTMLMessage, defineMessages, injectIntl } from 'react-intl';
+import PropTypes from 'prop-types';
+import { FormattedHTMLMessage, injectIntl } from 'react-intl';
 import { Link } from 'react-router';
 import Avatar from 'material-ui/Avatar';
-import { Card, CardText } from 'material-ui/Card';
-import IconButton from 'material-ui/IconButton';
 import MdLaunch from 'react-icons/lib/md/launch';
+import rtlDetect from 'rtl-detect';
+import styled from 'styled-components';
+import UserUtil from './UserUtil';
 import ParsedText from '../ParsedText';
 import MediaUtil from '../media/MediaUtil';
 import CheckContext from '../../CheckContext';
 import { truncateLength } from '../../helpers';
 import UserRoute from '../../relay/UserRoute';
-import rtlDetect from 'rtl-detect';
 import {
-  white,
   black38,
   black54,
   body2,
@@ -24,7 +24,6 @@ import {
   StyledTwoColumns,
   StyledBigColumn,
 } from '../../styles/js/HeaderCard';
-import styled from 'styled-components';
 
 const StyledMdLaunch = styled.div`
   float: ${props => (props.isRtl ? 'left' : 'right')};
@@ -64,52 +63,23 @@ const StyledUserRole = styled.span`
   margin: ${units(1)};
 `;
 
-const messages = defineMessages({
-  contributor: {
-    id: 'UserTooltip.contributor',
-    defaultMessage: 'Contributor',
-  },
-  journalist: {
-    id: 'UserTooltip.journalist',
-    defaultMessage: 'Journalist',
-  },
-  editor: {
-    id: 'UserTooltip.editor',
-    defaultMessage: 'Editor',
-  },
-  owner: {
-    id: 'UserTooltip.owner',
-    defaultMessage: 'Owner',
-  },
-});
+class UserTooltipComponent extends Component {
+  static accountLink(account) {
+    return (
+      <StyledSocialLink key={account.id} href={account.url} target="_blank" rel="noopener noreferrer" style={{ paddingRight: units(1) }}>
+        { MediaUtil.socialIcon(`${account.provider}.com`) /* TODO Remove tld assumption */ }
+      </StyledSocialLink>
+    );
+  }
 
-class UserTooltipComponent extends React.Component {
   getContext() {
-    const context = new CheckContext(this);
-    return context;
-  }
-
-  userRole() {
-    const context = this.getContext();
-    const team = context.getContextStore().currentUser.current_team;
-    const current_team_user = this.props.user.team_users.edges.find(tu => tu.node.team.slug === team.slug);
-    return current_team_user.node.status !== 'requested' ? current_team_user.node.role : '';
-  }
-
-  localizedRole(role) {
-    return role ? `${this.props.intl.formatMessage(messages[role])}` : '';
-  }
-
-  accountLink(account) {
-    return (<StyledSocialLink key={account.id} href={account.url} target="_blank" rel="noopener noreferrer" style={{ paddingRight: units(1) }}>
-      { MediaUtil.socialIcon(`${account.provider}.com`) /* TODO: refactor */ }
-    </StyledSocialLink>);
+    return new CheckContext(this);
   }
 
   render() {
-    const { user } = this.props;
+    const { user, team } = this.props;
     const { source } = this.props.user;
-    const role = this.userRole();
+    const role = UserUtil.userRole(user, team);
     const isRtl = rtlDetect.isRtlLang(this.props.intl.locale);
 
     return (
@@ -128,7 +98,7 @@ class UserTooltipComponent extends React.Component {
               <strong className="tooltip__name" style={{ font: body2, fontWeight: 500 }}>
                 {user.name}
               </strong>
-              <StyledUserRole>{this.localizedRole(role)}</StyledUserRole>
+              <StyledUserRole>{UserUtil.localizedRole(role, this.props.intl)}</StyledUserRole>
 
               <Link to={`/check/user/${user.dbid}`} className="tooltip__profile-link" >
                 <StyledMdLaunch isRtl={isRtl}>
@@ -145,20 +115,26 @@ class UserTooltipComponent extends React.Component {
 
             <div className="tooltip__contact-info">
               <FormattedHTMLMessage
-                id="userTooltip.dateJoined" defaultMessage="Joined {date} &bull; {teamsCount, plural, =0 {No teams} one {1 team} other {# teams}}"
+                id="userTooltip.dateJoined"
+                defaultMessage="Joined {date} &bull; {teamsCount, plural, =0 {No teams} one {1 team} other {# teams}}"
                 values={{
                   date: this.props.intl.formatDate(MediaUtil.createdAt({ published: source.created_at }), { year: 'numeric', month: 'short', day: '2-digit' }),
                   teamsCount: user.number_of_teams,
                 }}
               />
             </div>
-            { source.account_sources.edges.map(as => this.accountLink(as.node.account)) }
+            { source.account_sources.edges
+              .map(as => UserTooltipComponent.accountLink(as.node.account)) }
           </StyledBigColumn>
         </StyledTwoColumns>
       </StyledTooltip>
     );
   }
 }
+
+UserTooltipComponent.contextTypes = {
+  store: PropTypes.object,
+};
 
 const UserTooltipContainer = Relay.createContainer(injectIntl(UserTooltipComponent), {
   fragments: {
@@ -207,21 +183,15 @@ const UserTooltipContainer = Relay.createContainer(injectIntl(UserTooltipCompone
   },
 });
 
-class UserTooltip extends React.Component {
-  render() {
-    const route = new UserRoute({ userId: this.props.user.dbid });
-    return (
-      <Relay.RootContainer
-        Component={UserTooltipContainer}
-        route={route}
-      />
-    );
-  }
-}
-
-
-UserTooltipComponent.contextTypes = {
-  store: React.PropTypes.object,
+const UserTooltip = (props) => {
+  const route = new UserRoute({ userId: props.user.dbid });
+  return (
+    <Relay.RootContainer
+      Component={UserTooltipContainer}
+      route={route}
+      renderFetched={data => <UserTooltipContainer {...props} {...data} />}
+    />
+  );
 };
 
 export default UserTooltip;

@@ -14,10 +14,11 @@ import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
 import styled from 'styled-components';
 import Can from '../Can';
-import CreateTaskMutation from '../../relay/CreateTaskMutation';
+import CreateTaskMutation from '../../relay/mutations/CreateTaskMutation';
 import Message from '../Message';
 import SingleChoiceTask from './SingleChoiceTask';
 import MultiSelectTask from './MultiSelectTask';
+import { safelyParseJSON } from '../../helpers';
 import { units, StyledTaskDescription, black05 } from '../../styles/js/shared';
 
 const StyledCreateTaskButton = styled(FlatButton)`
@@ -77,22 +78,18 @@ class CreateTask extends Component {
   }
 
   handleSubmitTask() {
-    const that = this;
-
     const onFailure = (transaction) => {
       const error = transaction.getError();
       let message = error.source;
-      try {
-        const json = JSON.parse(error.source);
-        if (json.error) {
-          message = json.error;
-        }
-      } catch (e) {}
-      that.setState({ message });
+      const json = safelyParseJSON(error.source);
+      if (json && json.error) {
+        message = json.error;
+      }
+      this.setState({ message });
     };
 
-    const onSuccess = (response) => {
-      that.setState({
+    const onSuccess = () => {
+      this.setState({
         dialogOpen: false,
         label: '',
         description: '',
@@ -101,50 +98,46 @@ class CreateTask extends Component {
       });
     };
 
-    if (!that.state.submitDisabled) {
+    if (!this.state.submitDisabled) {
       Relay.Store.commitUpdate(
         new CreateTaskMutation({
-          label: that.state.label,
-          type: that.state.type,
-          description: that.state.description,
+          label: this.state.label,
+          type: this.state.type,
+          description: this.state.description,
           annotated_type: 'ProjectMedia',
-          annotated_id: that.props.media.id,
-          annotated_dbid: `${that.props.media.dbid}`,
+          annotated_id: this.props.media.id,
+          annotated_dbid: `${this.props.media.dbid}`,
         }),
         { onSuccess, onFailure },
       );
-      that.setState({ submitDisabled: true });
+      this.setState({ submitDisabled: true });
     }
   }
 
   handleSubmitTask2(label, description, jsonoptions) {
-    const that = this;
-
     const onFailure = (transaction) => {
       const error = transaction.getError();
       let message = error.source;
-      try {
-        const json = JSON.parse(error.source);
-        if (json.error) {
-          message = json.error;
-        }
-      } catch (e) {}
-      that.setState({ message });
+      const json = safelyParseJSON(error.source);
+      if (json && json.error) {
+        message = json.error;
+      }
+      this.setState({ message });
     };
 
-    const onSuccess = (response) => {
-      that.setState({ dialogOpen: false, type: null, message: null });
+    const onSuccess = () => {
+      this.setState({ dialogOpen: false, type: null, message: null });
     };
 
     Relay.Store.commitUpdate(
       new CreateTaskMutation({
         label,
-        type: that.state.type,
+        type: this.state.type,
         jsonoptions,
         description,
         annotated_type: 'ProjectMedia',
-        annotated_id: that.props.media.id,
-        annotated_dbid: `${that.props.media.dbid}`,
+        annotated_id: this.props.media.id,
+        annotated_dbid: `${this.props.media.dbid}`,
       }),
       { onSuccess, onFailure },
     );
@@ -193,6 +186,8 @@ class CreateTask extends Component {
         </div>
       );
     }
+
+    return null;
   }
 
   render() {
@@ -291,7 +286,7 @@ class CreateTask extends Component {
             fullWidth
             floatingLabelText={
               <FormattedMessage id="tasks.taskLabel" defaultMessage="Prompt" />
-              }
+            }
             onChange={this.handleLabelChange.bind(this)}
             multiLine
           />
@@ -307,7 +302,7 @@ class CreateTask extends Component {
               className="create-task__task-description-input"
               floatingLabelText={
                 <FormattedMessage id="tasks.description" defaultMessage="Description" />
-                }
+              }
               onChange={this.handleDescriptionChange.bind(this)}
               multiLine
             />
@@ -317,7 +312,7 @@ class CreateTask extends Component {
             >
               <span className="create-task__add-task-description-icon">
                   +
-                </span>{' '}
+              </span>{' '}
               <FormattedMessage id="tasks.addDescription" defaultMessage="Add a description" />
             </label>
           </StyledTaskDescription>

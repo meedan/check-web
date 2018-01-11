@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import Relay from 'react-relay';
 import TextField from 'material-ui/TextField';
 import { Card, CardText, CardActions } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import Message from '../Message';
-import UpdateProjectMutation from '../../relay/UpdateProjectMutation';
+import UpdateProjectMutation from '../../relay/mutations/UpdateProjectMutation';
 import PageTitle from '../PageTitle';
 import ProjectRoute from '../../relay/ProjectRoute';
 import CheckContext from '../../CheckContext';
+import { safelyParseJSON } from '../../helpers';
 import { ContentColumn } from '../../styles/js/shared';
 
 const messages = defineMessages({
@@ -39,7 +41,6 @@ class ProjectEditComponent extends Component {
     super(props);
 
     this.state = {
-      isEditing: false,
       message: null,
       title: this.props.project.title,
       description: this.props.project.description,
@@ -56,8 +57,7 @@ class ProjectEditComponent extends Component {
   }
 
   getContext() {
-    const context = new CheckContext(this);
-    return context;
+    return new CheckContext(this);
   }
 
   setContextProject() {
@@ -97,28 +97,23 @@ class ProjectEditComponent extends Component {
   }
 
   updateProject(e) {
-    const that = this;
-    const id = this.props.project.id;
-    const title = this.state.title;
-    const description = this.state.description;
-    const slackChannel = this.state.slackChannel;
+    const { project: { id } } = this.props;
+    const { title, description, slackChannel } = this.state;
 
     this.setState({ title, description, slackChannel });
 
     const onFailure = (transaction) => {
       const error = transaction.getError();
-      let message = that.props.intl.formatMessage(messages.error);
-      try {
-        const json = JSON.parse(error.source);
-        if (json.error) {
-          message = json.error;
-        }
-      } catch (e) { }
-      that.setState({ message });
+      let message = this.props.intl.formatMessage(messages.error);
+      const json = safelyParseJSON(error.source);
+      if (json && json.error) {
+        message = json.error;
+      }
+      this.setState({ message });
     };
 
-    const onSuccess = (response) => {
-      this.setState({ message: null, isEditing: false });
+    const onSuccess = () => {
+      this.setState({ message: null });
     };
 
     Relay.Store.commitUpdate(
@@ -185,7 +180,7 @@ class ProjectEditComponent extends Component {
                       autoComplete="off"
                       onChange={this.handleSlackChannelChange.bind(this)}
                     />
-                : null }
+                    : null }
                 </CardText>
                 <CardActions>
                   <div className="project-edit__editing-buttons">
@@ -202,11 +197,13 @@ class ProjectEditComponent extends Component {
 }
 
 ProjectEditComponent.propTypes = {
+  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
+  // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
 };
 
 ProjectEditComponent.contextTypes = {
-  store: React.PropTypes.object,
+  store: PropTypes.object,
 };
 
 const ProjectEditContainer = Relay.createContainer(injectIntl(ProjectEditComponent), {
@@ -231,17 +228,14 @@ const ProjectEditContainer = Relay.createContainer(injectIntl(ProjectEditCompone
   },
 });
 
-class ProjectEdit extends Component {
-  render() {
-    const projectId = this.props.params.projectId;
-    const route = new ProjectRoute({ contextId: parseInt(projectId, 10) });
-    return (
-      <Relay.RootContainer
-        Component={ProjectEditContainer}
-        route={route}
-      />
-    );
-  }
-}
+const ProjectEdit = (props) => {
+  const route = new ProjectRoute({ contextId: parseInt(props.params.projectId, 10) });
+  return (
+    <Relay.RootContainer
+      Component={ProjectEditContainer}
+      route={route}
+    />
+  );
+};
 
 export default ProjectEdit;

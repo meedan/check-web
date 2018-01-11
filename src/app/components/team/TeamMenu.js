@@ -1,26 +1,24 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import IconDelete from 'material-ui/svg-icons/action/delete';
-import Can from '../Can';
 import CheckContext from '../../CheckContext';
 import { SmallerStyledIconButton } from '../../styles/js/shared';
 
 class TeamMenu extends Component {
   getHistory() {
-    const history = new CheckContext(this).getContextStore().history;
-    return history;
+    return new CheckContext(this).getContextStore().history;
   }
 
   handleClickTrash() {
-    const history = this.getHistory();
-    history.push(`/${this.props.team.slug}/trash`);
+    this.getHistory().push(`/${this.props.team.slug}/trash`);
   }
 
   render() {
-    const { team } = this.props;
+    const { currentUserIsMember } = this.props;
 
     return (
-      <Can permissions={team.permissions} permission="update Team">
+      currentUserIsMember ?
         <SmallerStyledIconButton
           key="teamMenu.trash"
           onClick={this.handleClickTrash.bind(this)}
@@ -29,14 +27,13 @@ class TeamMenu extends Component {
           }
         >
           <IconDelete />
-        </SmallerStyledIconButton>
-      </Can>
+        </SmallerStyledIconButton> : null
     );
   }
 }
 
 TeamMenu.contextTypes = {
-  store: React.PropTypes.object,
+  store: PropTypes.object,
 };
 
 export default TeamMenu;

@@ -1,24 +1,20 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 import { injectIntl, intlShape } from 'react-intl';
 
-class TimeBefore extends Component {
-  timeElementWrapper(date) {
-    date = new Date(date);
-    const datetimeLabel = new Date(+date - date.getTimezoneOffset() * 60 * 1000).toISOString().split('.')[0].replace('T', ' ').slice(0, -3);
+const TimeBefore = (props) => {
+  const date = new Date(props.date);
+  const datetimeLabel = new Date(+date - (date.getTimezoneOffset() * 60 * 1000)).toISOString().split('.')[0].replace('T', ' ').slice(0, -3);
 
-    return (
-      <time style={this.props.style} title={datetimeLabel}>
-        {this.props.intl.formatRelative(date)}
-      </time>
-    );
-  }
-
-  render() {
-    return (this.timeElementWrapper(this.props.date));
-  }
-}
+  return (
+    <time style={props.style} title={datetimeLabel}>
+      {props.intl.formatRelative(date)}
+    </time>
+  );
+};
 
 TimeBefore.propTypes = {
+  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
+  // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
 };
 

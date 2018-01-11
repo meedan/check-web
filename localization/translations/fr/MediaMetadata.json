@@ -3,7 +3,6 @@
   "mediaDetail.mediaDescription": "Description",
   "mediaDetail.editReport": "Éditer le rapport",
   "mediaDetail.editReportError": "Désolé, il n'a pas été possible de modifier ce rapport",
-  "mediaDetail.moveFailed": "Désolé, il n'a pas été possible de transférer ce rapport",
   "mediaDetail.trash": "Corbeille",
   "mediaMetadata.movedToTrash": "Mis à la {trash}",
   "mediaMetadata.movedBack": "Restauré au projet {project}",

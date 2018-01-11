@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import {
   white,
@@ -25,32 +25,30 @@ const StyledMessage = styled(FadeIn)`
   }
 `;
 
-class Message extends Component {
-  render() {
-    const { message, onClick } = this.props;
-    if (message) {
-      if (typeof message === 'string' || message instanceof String) {
-        return (
-          <StyledMessage
-            style={this.props.style}
-            dangerouslySetInnerHTML={{ __html: message }}
-            onClick={onClick}
-            className={`message ${this.props.className}`}
-          />
-        );
-      }
+const Message = (props) => {
+  const { message, onClick } = props;
+  if (message) {
+    if (typeof message === 'string' || message instanceof String) {
       return (
         <StyledMessage
-          style={this.props.style}
+          style={props.style}
+          dangerouslySetInnerHTML={{ __html: message }}
           onClick={onClick}
-          className={`message ${this.props.className}`}
-        >
-          {message}
-        </StyledMessage>
+          className={`message ${props.className}`}
+        />
       );
     }
-    return null;
+    return (
+      <StyledMessage
+        style={props.style}
+        onClick={onClick}
+        className={`message ${props.className}`}
+      >
+        {message}
+      </StyledMessage>
+    );
   }
-}
+  return null;
+};
 
 export default Message;

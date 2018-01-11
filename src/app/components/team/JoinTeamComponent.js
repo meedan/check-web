@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Relay from 'react-relay';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import { Link } from 'react-router';
 import RaisedButton from 'material-ui/RaisedButton';
 import Card, { CardTitle, CardActions, CardText } from 'material-ui/Card';
 import PageTitle from '../PageTitle';
-import CreateTeamUserMutation from '../../relay/CreateTeamUserMutation';
+import CreateTeamUserMutation from '../../relay/mutations/CreateTeamUserMutation';
 import { mapGlobalMessage } from '../MappedMessage';
 import Message from '../Message';
 import CheckContext from '../../CheckContext';
+import { safelyParseJSON } from '../../helpers';
 import { ContentColumn } from '../../styles/js/shared';
 
 const messages = defineMessages({
@@ -36,6 +38,7 @@ class JoinTeamComponent extends Component {
     super(props);
     this.state = {
       requestStatus: '',
+      message: '',
     };
   }
 
@@ -48,37 +51,29 @@ class JoinTeamComponent extends Component {
   }
 
   getContext() {
-    const context = new CheckContext(this).getContextStore();
-    return context;
+    return new CheckContext(this).getContextStore();
   }
 
   handleRequestAccess(e) {
     e.preventDefault();
     this.setState({ requestStatus: 'requested' });
 
-    const that = this;
-
     const onFailure = (transaction) => {
       const error = transaction.getError();
-      let message = that.props.intl.formatMessage(messages.error);
-      try {
-        const json = JSON.parse(error.source);
-        if (json.error) {
-          message = json.error;
-        }
-      } catch (e) {}
-      that.setState({ message });
+      let message = this.props.intl.formatMessage(messages.error);
+      const json = safelyParseJSON(error.source);
+      if (json && json.error) {
+        message = json.error;
+      }
+      this.setState({ message });
     };
 
     const onSuccess = (response) => {
-      const appName = mapGlobalMessage(that.props.intl, 'appNameHuman');
-      const status = response.createTeamUser.team_user.status;
-      let message = messages.success;
-      if (status === 'member') {
-        message = messages.autoApprove;
-      }
-      that.setState({
-        message: that.props.intl.formatMessage(message, { team: that.props.team.name, appName }),
+      const appName = mapGlobalMessage(this.props.intl, 'appNameHuman');
+      const { createTeamUser: { team_user: { status } } } = response;
+      const message = status === 'member' ? messages.autoApprove : messages.success;
+      this.setState({
+        message: this.props.intl.formatMessage(message, { team: this.props.team.name, appName }),
         requestStatus: status,
       });
     };
@@ -86,7 +81,7 @@ class JoinTeamComponent extends Component {
     Relay.Store.commitUpdate(
       new CreateTeamUserMutation({
         team_id: this.props.team.dbid,
-        user_id: that.getContext().currentUser.dbid,
+        user_id: this.getContext().currentUser.dbid,
         status: 'requested',
       }),
       { onSuccess, onFailure },
@@ -95,16 +90,16 @@ class JoinTeamComponent extends Component {
 
   redirectIfMember() {
     if (this.alreadyMember()) {
-      const team = this.props.team;
-      const user = this.getContext().currentUser;
+      const { team } = this.props;
+      const { currentUser: user } = this.getContext();
       const userTeams = JSON.parse(user.teams);
       let redirect = true;
-      for (const teamName in userTeams) {
+      Object.keys(userTeams).forEach((teamName) => {
         const t = userTeams[teamName];
         if (t.id === team.dbid && team.private && t.status !== 'member') {
           redirect = false;
         }
-      }
+      });
       if (redirect) {
         this.getContext().history.push(`/${team.slug}`);
       }
@@ -116,9 +111,9 @@ class JoinTeamComponent extends Component {
   }
 
   render() {
-    const team = this.props.team;
+    const { team } = this.props;
     const appName = mapGlobalMessage(this.props.intl, 'appNameHuman');
-    const isRequestSent = this.state.requestStatus;
+    const { requestStatus: isRequestSent } = this.state;
     const disableRequest = isRequestSent !== '';
 
     return (
@@ -144,7 +139,7 @@ class JoinTeamComponent extends Component {
                     return (
                       <FormattedMessage
                         id="joinTeamComponent.alreadyRequested"
-                        defaultMessage={'You already requested to join {team} {appName}.'}
+                        defaultMessage="You already requested to join {team} {appName}."
                         values={{ team: <Link to={`/${team.slug}`}>{team.name}</Link>, appName }}
                       />
                     );
@@ -160,7 +155,7 @@ class JoinTeamComponent extends Component {
                     <div>
                       <FormattedMessage
                         id="joinTeamComponent.blurbGraf"
-                        defaultMessage={'To request access to the {link} {appName}, click below:'}
+                        defaultMessage="To request access to the {link} {appName}, click below:"
                         values={{ link: <Link to={`/${team.slug}`}>{team.name}</Link>, appName }}
                       />
                     </div>
@@ -210,11 +205,13 @@ class JoinTeamComponent extends Component {
 }
 
 JoinTeamComponent.propTypes = {
+  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
+  // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
 };
 
 JoinTeamComponent.contextTypes = {
-  store: React.PropTypes.object,
+  store: PropTypes.object,
 };
 
 export default injectIntl(JoinTeamComponent);

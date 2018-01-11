@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Link } from 'react-router';
 import Relay from 'react-relay';
@@ -12,8 +13,9 @@ import ProjectHeader from './project/ProjectHeader';
 import { stringHelper } from '../customHelpers';
 import PublicTeamRoute from '../relay/PublicTeamRoute';
 import teamPublicFragment from '../relay/teamPublicFragment';
-import ProjectMenuRelay from '../relay/ProjectMenuRelay';
-import TeamMenuRelay from '../relay/TeamMenuRelay';
+import ProjectMenuRelay from '../relay/containers/ProjectMenuRelay';
+import TeamMenuRelay from '../relay/containers/TeamMenuRelay';
+import UserMenuRelay from '../relay/containers/UserMenuRelay';
 
 import {
   units,
@@ -42,127 +44,134 @@ const HeaderBar = styled.div`
   `}
 `;
 
-class HeaderComponent extends Component {
-  render() {
-    const locale = this.props.intl.locale;
-    const { inTeamContext, loggedIn, drawerToggle, currentUserIsMember } = this.props;
-    const isRtl = rtlDetect.isRtlLang(locale);
-    const fromDirection = isRtl ? 'right' : 'left';
+// TODO Fix a11y issues
+/* eslint jsx-a11y/click-events-have-key-events: 0 */
+const HeaderComponent = (props) => {
+  const {
+    inTeamContext,
+    loggedIn,
+    drawerToggle,
+    currentUserIsMember,
+    intl: { locale },
+  } = props;
+  const isRtl = rtlDetect.isRtlLang(locale);
+  const fromDirection = isRtl ? 'right' : 'left';
 
-    const AlignOpposite = styled.div`
-      margin-${fromDirection}: auto;
-      `;
+  const AlignOpposite = styled.div`
+    margin-${fromDirection}: auto;
+    `;
 
-    const editProjectMenuItem = (
-      <ProjectMenuRelay key="headerActions.projectMenu" {...this.props} />
-    );
+  const editProjectMenuItem = (
+    <ProjectMenuRelay key="headerActions.projectMenu" {...props} />
+  );
 
-    const trashButton = <TeamMenuRelay {...this.props} />;
+  const trashButton = <TeamMenuRelay {...props} />;
 
-    const searchButton = (
-      <StyledIconButton
-        key="header.searchButton"
-        className="header-actions__search-icon"
-        containerElement={<Link to={`/${this.props.params.team}/search`} />}
-        name="search"
-        tooltip={<FormattedMessage defaultMessage="Search" id="headerActions.search" />}
-      >
-        <IconSearch />
-      </StyledIconButton>
-    );
+  const searchButton = (
+    <StyledIconButton
+      key="header.searchButton"
+      className="header-actions__search-icon"
+      containerElement={<Link to={`/${props.params.team}/search`} />}
+      name="search"
+      tooltip={<FormattedMessage defaultMessage="Search" id="headerActions.search" />}
+    >
+      <IconSearch />
+    </StyledIconButton>
+  );
 
-    const checkLogo = <img width={units(8)} alt="Team Logo" src={stringHelper('LOGO_URL')} />;
+  const checkLogo = <img width={units(8)} alt="Team Logo" src={stringHelper('LOGO_URL')} />;
 
-    const signInButton = (() => {
-      if (!loggedIn) {
-        return (
-          <Link to="/">
-            <RaisedButton
-              primary
-              label={<FormattedMessage defaultMessage="Sign In" id="headerActions.signIn" />}
-            />
-          </Link>
-        );
-      }
-      return null;
-    })();
-
-    const teamPrivateContentShouldShow =
-      (inTeamContext && currentUserIsMember) || (inTeamContext && !this.props.team.private);
-
-    const teamPublicContentShouldShow =
-      inTeamContext && !currentUserIsMember && this.props.team.private;
-
-    const primary = (() => {
-      if (teamPrivateContentShouldShow) {
-        return (
-          <Row containsEllipsis>
-            <div><TeamHeader {...this.props} /></div>
-            <div><ProjectHeader isRtl {...this.props} /></div>
-          </Row>
-        );
-      } else if (teamPublicContentShouldShow) {
-        return (
-          <Row containsEllipsis>
-            <TeamPublicHeader isRtl {...this.props} />
-          </Row>
-        );
-      }
-
-      // Otherwise display the most basic header
+  const signInButton = (() => {
+    if (!loggedIn) {
       return (
-        <Row>
-          <div onClick={drawerToggle}>{checkLogo}</div>
+        <Link to="/">
+          <RaisedButton
+            primary
+            className="header__signin-button"
+            label={<FormattedMessage defaultMessage="Sign In" id="headerActions.signIn" />}
+          />
+        </Link>
+      );
+    }
+    return null;
+  })();
+
+  const teamPrivateContentShouldShow =
+    (inTeamContext && currentUserIsMember) || (inTeamContext && !props.team.private);
+
+  const teamPublicContentShouldShow =
+    inTeamContext && !currentUserIsMember && props.team.private;
+
+  const primary = (() => {
+    if (teamPrivateContentShouldShow) {
+      return (
+        <Row containsEllipsis>
+          <div><TeamHeader {...props} /></div>
+          <div><ProjectHeader isRtl {...props} /></div>
         </Row>
       );
-    })();
-
-    const secondary = (() =>
-      <AlignOpposite>
-        <Row>
-          <Offset isRtl>
-            {signInButton}
-          </Offset>
-          {teamPrivateContentShouldShow && editProjectMenuItem}
-          {teamPrivateContentShouldShow && trashButton}
-          {teamPrivateContentShouldShow && searchButton}
-        </Row>
-      </AlignOpposite>)();
-
-    return (
-      <HeaderBar>
-        {primary}
-        {secondary}
-      </HeaderBar>
-    );
-  }
-}
-
-class Header extends Component {
-  render() {
-    if (this.props.inTeamContext) {
-      const HeaderContainer = Relay.createContainer(HeaderComponent, {
-        fragments: {
-          team: () => teamPublicFragment,
-        },
-      });
-
-      const teamSlug = this.props.params.team;
-
-      const route = new PublicTeamRoute({ teamSlug });
-
+    } else if (teamPublicContentShouldShow) {
       return (
-        <Relay.RootContainer
-          Component={HeaderContainer}
-          route={route}
-          renderFetched={data => <HeaderContainer {...this.props} {...data} />}
-        />
+        <Row containsEllipsis>
+          <TeamPublicHeader isRtl {...props} />
+        </Row>
       );
     }
 
-    return <HeaderComponent {...this.props} />;
-  }
-}
+    // Otherwise display the most basic header
+    return (
+      <Row>
+        <div onClick={drawerToggle}>{checkLogo}</div>
+      </Row>
+    );
+  })();
 
-export default Header;
-export { HeaderComponent };
+  const secondary = (() => (
+    <AlignOpposite>
+      <Row>
+        <Offset isRtl>
+          {signInButton}
+        </Offset>
+        {teamPrivateContentShouldShow && editProjectMenuItem}
+        {teamPrivateContentShouldShow && trashButton}
+        {teamPrivateContentShouldShow && searchButton}
+        <UserMenuRelay {...props} />
+      </Row>
+    </AlignOpposite>))();
+
+  return (
+    <HeaderBar>
+      {primary}
+      {secondary}
+    </HeaderBar>
+  );
+};
+
+HeaderComponent.contextTypes = {
+  store: PropTypes.object,
+};
+
+const Header = (props) => {
+  if (props.inTeamContext) {
+    const HeaderContainer = Relay.createContainer(HeaderComponent, {
+      fragments: {
+        team: () => teamPublicFragment,
+      },
+    });
+
+    const teamSlug = props.params.team;
+    const route = new PublicTeamRoute({ teamSlug });
+
+    return (
+      <Relay.RootContainer
+        Component={HeaderContainer}
+        route={route}
+        renderFetched={data => <HeaderContainer {...props} {...data} />}
+      />
+    );
+  }
+
+  return <HeaderComponent {...props} />;
+};
+
+export { Header as default, HeaderComponent };

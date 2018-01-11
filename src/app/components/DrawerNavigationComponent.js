@@ -1,38 +1,32 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import { FormattedMessage } from 'react-intl';
-import IconButton from 'material-ui/IconButton';
 import styled from 'styled-components';
-import Projects from './drawer/Projects';
+import DrawerProjects from './drawer/Projects';
 import { stringHelper } from '../customHelpers';
 import UserMenuItems from './UserMenuItems';
-import UserAvatarRelay from '../relay/UserAvatarRelay';
 import CheckContext from '../CheckContext';
 import {
   Row,
   Offset,
+  OffsetBothSides,
   HeaderTitle,
   white,
   black05,
-  black54,
   units,
   caption,
   avatarSize,
   avatarStyle,
-  body2,
 } from '../styles/js/shared';
 
+// TODO Fix a11y issues
+/* eslint jsx-a11y/click-events-have-key-events: 0 */
 class DrawerNavigation extends Component {
   getHistory() {
-    const history = new CheckContext(this).getContextStore().history;
-    return history;
-  }
-
-  handleAvatarClick = () => {
-    this.getHistory().push('/check/me');
-    this.props.drawerToggle();
+    return new CheckContext(this).getContextStore().history;
   }
 
   render() {
@@ -45,7 +39,7 @@ class DrawerNavigation extends Component {
     //
     // — @chris with @alex 2017-10-3
 
-    const currentUserIsMember = this.props.currentUserIsMember;
+    const { currentUserIsMember } = this.props;
 
     const drawerHeaderHeight = units(14);
 
@@ -70,15 +64,6 @@ class DrawerNavigation extends Component {
         flexDirection: 'column',
         height: `calc(100vh - ${drawerHeaderHeight})`,
       },
-      drawerYourProfileButton: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: units(4),
-        height: units(4),
-        padding: 0,
-        margin: `0 ${units(1)}`,
-      },
     };
 
     const DrawerHeader = styled.div`
@@ -87,18 +72,10 @@ class DrawerNavigation extends Component {
       padding: ${units(2)};
     `;
 
-    // Team Avatar
     const TeamAvatar = styled.div`
       ${avatarStyle}
       width: ${props => (props.size ? props.size : avatarSize)};
       height: ${props => (props.size ? props.size : avatarSize)};
-    `;
-
-    const Headline = styled(HeaderTitle)`
-      font: ${body2};
-      font-weight: 700;
-      padding-top: ${units(1)};
-      color: ${black54};
     `;
 
     const TosMenuItem = (
@@ -161,47 +138,34 @@ class DrawerNavigation extends Component {
       </a>
     );
 
-    const yourProfileButton = (
-      <IconButton
-        style={styles.drawerYourProfileButton}
-        tooltip={
-          <FormattedMessage id="drawerNavigation.userProfile" defaultMessage="Your Profile" />
-        }
-        tooltipPosition="bottom-center"
-        onTouchTap={this.handleAvatarClick}
-      >
-        <UserAvatarRelay size={units(4)} {...this.props} />
-      </IconButton>
-    );
-
     const checkLogo = <img width={units(8)} alt="Team Logo" src={stringHelper('LOGO_URL')} />;
 
     return (
       <Drawer {...this.props}>
         <div onClick={drawerToggle}>
 
-          {inTeamContext
-            ? <DrawerHeader>
-              <Row style={{ alignItems: 'flex-start', justifyContent: 'space-between' }}>
-                <Link style={{ cursor: 'pointer' }} to={`/${this.props.team.slug}/`}>
+          {inTeamContext ?
+            <DrawerHeader>
+              <Link
+                className="team-header__drawer-team-link"
+                style={{ cursor: 'pointer' }}
+                to={`/${this.props.team.slug}/`}
+              >
+                <Row>
                   <TeamAvatar
                     style={{ backgroundImage: `url(${this.props.team.avatar})` }}
                     size={units(7)}
                   />
-                </Link>
-                <Offset>
-                  {loggedIn && yourProfileButton}
-                </Offset>
-              </Row>
-
-              <Link className="team-header__drawer-team-link" to={`/${this.props.team.slug}/`}>
-                <Headline>{this.props.team.name}</Headline>
+                  <OffsetBothSides>
+                    <HeaderTitle>{this.props.team.name}</HeaderTitle>
+                  </OffsetBothSides>
+                </Row>
               </Link>
-            </DrawerHeader>
-            : <DrawerHeader>
+            </DrawerHeader> :
+            <DrawerHeader>
               <Row style={{ alignItems: 'flex-start', justifyContent: 'space-between' }}>
                 <Offset>
-                  {loggedIn ? yourProfileButton : checkLogo}
+                  {loggedIn && checkLogo}
                 </Offset>
               </Row>
             </DrawerHeader>}
@@ -209,7 +173,7 @@ class DrawerNavigation extends Component {
           <div style={styles.drawerProjectsAndFooter}>
             <div style={styles.drawerProjects}>
               {inTeamContext && (currentUserIsMember || !this.props.team.private)
-                ? <Projects team={this.props.team.slug} />
+                ? <DrawerProjects team={this.props.team.slug} />
                 : null}
             </div>
 
@@ -231,7 +195,7 @@ class DrawerNavigation extends Component {
 }
 
 DrawerNavigation.contextTypes = {
-  store: React.PropTypes.object,
+  store: PropTypes.object,
 };
 
 export default DrawerNavigation;

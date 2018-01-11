@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { defineMessages, injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import Relay from 'react-relay';
 import FlatButton from 'material-ui/FlatButton';
@@ -13,14 +14,14 @@ import IconLink from 'material-ui/svg-icons/content/link';
 import FaFeed from 'react-icons/lib/fa/feed';
 import MdFormatQuote from 'react-icons/lib/md/format-quote';
 import styled from 'styled-components';
-import config from 'config';
 import urlRegex from 'url-regex';
 import UploadImage from '../UploadImage';
-import PenderCard from '../PenderCard';
-import CreateProjectMediaMutation from '../../relay/CreateProjectMediaMutation';
-import CreateProjectSourceMutation from '../../relay/CreateProjectSourceMutation';
+import CreateProjectMediaMutation from '../../relay/mutations/CreateProjectMediaMutation';
+import CreateProjectSourceMutation from '../../relay/mutations/CreateProjectSourceMutation';
 import Message from '../Message';
 import CheckContext from '../../CheckContext';
+import HttpStatus from '../../HttpStatus';
+import { safelyParseJSON } from '../../helpers';
 import {
   FadeIn,
   Row,
@@ -32,7 +33,6 @@ import {
   black87,
   mediaQuery,
 } from '../../styles/js/shared';
-import HttpStatus from '../../HttpStatus';
 
 const tabHeight = units(3);
 
@@ -138,6 +138,10 @@ class CreateProjectMedia extends Component {
     };
   }
 
+  setMode(mode) {
+    this.setState({ mode });
+  }
+
   handleImage(file) {
     this.setState({ message: null, submittable: true });
     document.forms.media.image = file;
@@ -145,10 +149,6 @@ class CreateProjectMedia extends Component {
 
   handleImageError(file, message) {
     this.setState({ message, submittable: false });
-  }
-
-  setMode(mode) {
-    this.setState({ mode });
   }
 
   handleChange() {
@@ -170,27 +170,13 @@ class CreateProjectMedia extends Component {
     let message = this.props.intl.formatMessage(messages.error, {
       code: `${transactionError.status} ${HttpStatus.getMessage(transactionError.status)}`,
     });
-    let json = null;
-    try {
-      json = JSON.parse(transactionError.source);
-    } catch (e) {
-      // do nothing
-    }
-    if (json && json.error) {
+    const json = safelyParseJSON(transactionError.source);
+    if (json) {
       if (json.error_info && json.error_info.code === 'ERR_OBJECT_EXISTS') {
         message = null;
         context.history.push(`/${context.team.slug}/project/${json.error_info.project_id}/${json.error_info.type}/${json.error_info.id}`);
-      }
-      else {
-        const matches = json.error.match(/This \b(media|source|account)\b already exists in project ([0-9]+) and has id ([0-9]+)/);
-        if (matches) {
-          this.props.projectComponent.props.relay.forceFetch();
-          const type = matches[1] == 'media' ? 'media' : 'source';
-          message = null;
-          context.history.push(`/${context.team.slug}/project/${matches[2]}/${type}/${matches[3]}`);
-        } else {
-          message = json.error;
-        }
+      } else {
+        message = json.error;
       }
     }
     this.setState({ message, isSubmitting: false, submittable: false });
@@ -243,19 +229,18 @@ class CreateProjectMedia extends Component {
     let quoteAttributions = JSON.stringify({});
 
     if (this.state.mode === 'image') {
-      image = document.forms.media.image;
+      ({ media: { image } } = document.forms);
       if (!image || this.state.isSubmitting) {
         return;
       }
     } else if (this.state.mode === 'quote') {
+      // TODO Use React ref
       quote = document.getElementById('create-media-quote-input').value.trim();
       quoteAttributions = JSON.stringify({
         name: document.getElementById('create-media-quote-attribution-source-input').value.trim(),
-        // TODO: support attribution context
-        //
-        // context: document.getElementById('create-media-quote-attribution-context-input').value.trim(),
       });
     } else {
+      // TODO Use React ref
       inputValue = document.getElementById('create-media-input').value.trim();
       urls = inputValue.match(urlRegex());
       url = urls && urls[0] ? urls[0] : '';
@@ -345,7 +330,7 @@ class CreateProjectMedia extends Component {
           key="createMedia.source.name"
           hintText={this.props.intl.formatMessage(messages.sourceInput)}
           id="create-media-source-name-input"
-          ref={input => (this.primaryInput = input)}
+          ref={(input) => { this.primaryInput = input; }}
           defaultValue={this.state.previousInput}
           autoFocus
           {...defaultInputProps}
@@ -354,7 +339,7 @@ class CreateProjectMedia extends Component {
           key="createMedia.source.url"
           hintText={this.props.intl.formatMessage(messages.sourceUrlInput)}
           id="create-media-source-url-input"
-          ref={input => (this.secondaryInput = input)}
+          ref={(input) => { this.secondaryInput = input; }}
           {...defaultInputProps}
         />,
       ];
@@ -365,7 +350,7 @@ class CreateProjectMedia extends Component {
           hintText={this.props.intl.formatMessage(messages.quoteInput)}
           name="quote"
           id="create-media-quote-input"
-          ref={input => (this.primaryInput = input)}
+          ref={(input) => { this.primaryInput = input; }}
           defaultValue={this.state.previousInput}
           autoFocus
           {...defaultInputProps}
@@ -389,7 +374,7 @@ class CreateProjectMedia extends Component {
           hintText={this.props.intl.formatMessage(messages.mediaInput)}
           name="url"
           id="create-media-input"
-          ref={input => (this.primaryInput = input)}
+          ref={(input) => { this.primaryInput = input; }}
           defaultValue={this.state.previousInput}
           autoFocus
           {...defaultInputProps}
@@ -519,11 +504,13 @@ class CreateProjectMedia extends Component {
 }
 
 CreateProjectMedia.propTypes = {
+  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
+  // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
 };
 
 CreateProjectMedia.contextTypes = {
-  store: React.PropTypes.object,
+  store: PropTypes.object,
 };
 
 export default injectIntl(CreateProjectMedia);

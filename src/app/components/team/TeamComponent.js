@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Relay from 'react-relay';
 import { Link } from 'react-router';
 import InfiniteScroll from 'react-infinite-scroller';
-import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import TextField from 'material-ui/TextField';
 import Checkbox from 'material-ui/Checkbox';
@@ -17,7 +17,7 @@ import TeamMembers from './TeamMembers';
 import HeaderCard from '../HeaderCard';
 import PageTitle from '../PageTitle';
 import MappedMessage from '../MappedMessage';
-import UpdateTeamMutation from '../../relay/UpdateTeamMutation';
+import UpdateTeamMutation from '../../relay/mutations/UpdateTeamMutation';
 import Message from '../Message';
 import CreateProject from '../project/CreateProject';
 import Can, { can } from '../Can';
@@ -25,11 +25,12 @@ import CheckContext from '../../CheckContext';
 import ParsedText from '../ParsedText';
 import UploadImage from '../UploadImage';
 import globalStrings from '../../globalStrings';
+import { safelyParseJSON } from '../../helpers';
 import {
   ContentColumn,
   highlightBlue,
   checkBlue,
-  title,
+  title1,
   units,
   avatarStyle,
   Row,
@@ -110,14 +111,15 @@ const pageSize = 20;
 class TeamComponent extends Component {
   constructor(props) {
     super(props);
-    const team = this.props.team;
+
+    const { team } = this.props;
     const contact = team.contacts.edges[0] || { node: {} };
     this.state = {
       message: null,
       isEditing: false,
       editProfileImg: false,
       submitDisabled: false,
-      showTab: 'members',
+      showTab: 'projects',
       values: {
         name: team.name,
         description: team.description,
@@ -139,10 +141,26 @@ class TeamComponent extends Component {
     this.setContextTeam();
   }
 
+  onImage(file) {
+    document.forms['edit-team-form'].avatar = file;
+    this.setState({ message: null, avatar: file });
+  }
+
+  onClear() {
+    if (document.forms['edit-team-form']) {
+      document.forms['edit-team-form'].avatar = null;
+    }
+    this.setState({ message: null, avatar: null });
+  }
+
+  onImageError(file, message) {
+    this.setState({ message, avatar: null });
+  }
+
   setContextTeam() {
     const context = new CheckContext(this);
     const store = context.getContextStore();
-    const team = this.props.team;
+    const { team } = this.props;
 
     if (!store.team || store.team.slug !== team.slug) {
       context.setContextStore({ team });
@@ -160,13 +178,9 @@ class TeamComponent extends Component {
     const onFailure = (transaction) => {
       const error = transaction.getError();
       let message = this.props.intl.formatMessage(messages.editError);
-      try {
-        const json = JSON.parse(error.source);
-        if (json.error) {
-          message = json.error;
-        }
-      } catch (e) {
-        return '';
+      const json = safelyParseJSON(error.source);
+      if (json && json.error) {
+        message = json.error;
       }
       return this.setState({ message, avatar: null, submitDisabled: false });
     };
@@ -180,7 +194,7 @@ class TeamComponent extends Component {
       });
     };
 
-    const values = this.state.values;
+    const { values } = this.state;
     const form = document.forms['edit-team-form'];
 
     if (!this.state.submitDisabled) {
@@ -206,9 +220,9 @@ class TeamComponent extends Component {
     }
   }
 
-  handleEditProfileImg = () => {
+  handleEditProfileImg() {
     this.setState({ editProfileImg: true });
-  };
+  }
 
   handleEnterEditMode(e) {
     this.setState({ isEditing: true, editProfileImg: false });
@@ -216,46 +230,25 @@ class TeamComponent extends Component {
   }
 
   handleChange(key, e) {
-    let value = e.target.value;
-
-    if (e.target.type === 'checkbox' && !e.target.checked) {
-      value = '0';
-    }
+    const value = (e.target.type === 'checkbox' && !e.target.checked) ? '0' : e.target.value;
     const values = Object.assign({}, this.state.values);
-
     values[key] = value;
     this.setState({ values });
   }
 
-  handleTabChange = (value) => {
+  handleTabChange(value) {
     this.setState({
       showTab: value,
     });
-  };
+  }
 
   loadMore() {
     this.props.relay.setVariables({ pageSize: this.props.team.projects.edges.length + pageSize });
   }
 
-  onImage(file) {
-    document.forms['edit-team-form'].avatar = file;
-    this.setState({ message: null, avatar: file });
-  }
-
-  onClear = () => {
-    if (document.forms['edit-team-form']) {
-      document.forms['edit-team-form'].avatar = null;
-    }
-    this.setState({ message: null, avatar: null });
-  };
-
-  onImageError(file, message) {
-    this.setState({ message, avatar: null });
-  }
-
   render() {
-    const team = this.props.team;
-    const isEditing = this.state.isEditing;
+    const { team } = this.props;
+    const { isEditing } = this.state;
     const contact = team.contacts.edges[0];
     const contactInfo = [];
 
@@ -272,39 +265,39 @@ class TeamComponent extends Component {
 
     const StyledCardHeader = styled(CardHeader)`
       span {
-        font: ${title} !important;
+        font: ${title1} !important;
       }
     `;
 
     if (contact) {
       if (contact.node.location) {
-        contactInfo.push(
+        contactInfo.push((
           <StyledContactInfo key="contactInfo.location" className="team__location">
             <span className="team__location-name">
               <ParsedText text={contact.node.location} />
             </span>
-          </StyledContactInfo>,
-        );
+          </StyledContactInfo>
+        ));
       }
 
       if (contact.node.phone) {
-        contactInfo.push(
+        contactInfo.push((
           <StyledContactInfo key="contactInfo.phone" className="team__phone">
             <span className="team__phone-name">
               <ParsedText text={contact.node.phone} />
             </span>
-          </StyledContactInfo>,
-        );
+          </StyledContactInfo>
+        ));
       }
 
       if (contact.node.web) {
-        contactInfo.push(
+        contactInfo.push((
           <StyledContactInfo key="contactInfo.web" className="team__web">
             <span className="team__link-name">
               <ParsedText text={contact.node.web} />
             </span>
-          </StyledContactInfo>,
-        );
+          </StyledContactInfo>
+        ));
       }
     }
 
@@ -330,8 +323,8 @@ class TeamComponent extends Component {
                           <TeamAvatar
                             style={{ backgroundImage: `url(${avatarPreview || team.avatar})` }}
                           />
-                          {!this.state.editProfileImg
-                            ? <StyledAvatarEditButton className="team__edit-avatar-button">
+                          {!this.state.editProfileImg ?
+                            <StyledAvatarEditButton className="team__edit-avatar-button">
                               <FlatButton
                                 label={this.props.intl.formatMessage(globalStrings.edit)}
                                 onClick={this.handleEditProfileImg.bind(this)}
@@ -342,10 +335,10 @@ class TeamComponent extends Component {
                         </StyledSmallColumn>
 
                         <StyledBigColumn>
-                          {this.state.editProfileImg
-                            ? <UploadImage
+                          {this.state.editProfileImg ?
+                            <UploadImage
                               onImage={this.onImage.bind(this)}
-                              onClear={this.onClear}
+                              onClear={this.onClear.bind(this)}
                               onError={this.onImageError.bind(this)}
                               noPreview
                             />
@@ -365,9 +358,9 @@ class TeamComponent extends Component {
                               className="team__description"
                               id="team__description-container"
                               defaultValue={team.description}
-                              floatingLabelText={this.props.intl.formatMessage(
-                                messages.teamDescription,
-                              )}
+                              floatingLabelText={
+                                this.props.intl.formatMessage(messages.teamDescription)
+                              }
                               onChange={this.handleChange.bind(this, 'description')}
                               fullWidth
                               multiLine
@@ -402,9 +395,10 @@ class TeamComponent extends Component {
                               fullWidth
                             />
 
-                            {team.limits.slack_integration === false
-                              ? null
-                              : <div>
+                            {team.limits.slack_integration === false ?
+                              null
+                              :
+                              <div>
                                 <Checkbox
                                   style={{ marginTop: units(6) }}
                                   label={
@@ -412,12 +406,12 @@ class TeamComponent extends Component {
                                       id="teamComponent.slackNotificationsEnabled"
                                       defaultMessage="Enable Slack notifications"
                                     />
-                                    }
+                                  }
                                   defaultChecked={team.get_slack_notifications_enabled === '1'}
                                   onCheck={this.handleChange.bind(
-                                      this,
-                                      'slackNotificationsEnabled',
-                                    )}
+                                    this,
+                                    'slackNotificationsEnabled',
+                                  )}
                                   id="team__settings-slack-notifications-enabled"
                                   value="1"
                                 />
@@ -425,9 +419,9 @@ class TeamComponent extends Component {
                                 <TextField
                                   id="team__settings-slack-webhook"
                                   defaultValue={team.get_slack_webhook}
-                                  floatingLabelText={this.props.intl.formatMessage(
-                                      messages.slackWebhook,
-                                    )}
+                                  floatingLabelText={
+                                    this.props.intl.formatMessage(messages.slackWebhook)
+                                  }
                                   onChange={this.handleChange.bind(this, 'slackWebhook')}
                                   fullWidth
                                 />
@@ -435,9 +429,9 @@ class TeamComponent extends Component {
                                 <TextField
                                   id="team__settings-slack-channel"
                                   defaultValue={team.get_slack_channel}
-                                  floatingLabelText={this.props.intl.formatMessage(
-                                      messages.slackChannel,
-                                    )}
+                                  floatingLabelText={
+                                    this.props.intl.formatMessage(messages.slackChannel)
+                                  }
                                   onChange={this.handleChange.bind(this, 'slackChannel')}
                                   fullWidth
                                 />
@@ -496,17 +490,7 @@ class TeamComponent extends Component {
                         </Row>
                       </StyledBigColumn>
                     </StyledTwoColumns>
-                    <Tabs value={this.state.showTab} onChange={this.handleTabChange}>
-                      <Tab
-                        label={
-                          <FormattedMessage
-                            id="teamComponent.members"
-                            defaultMessage="Members"
-                          />
-                        }
-                        value="members"
-                        className="team__tab-button-members"
-                      />
+                    <Tabs value={this.state.showTab} onChange={this.handleTabChange.bind(this)}>
                       <Tab
                         label={
                           <FormattedMessage
@@ -516,6 +500,16 @@ class TeamComponent extends Component {
                         }
                         value="projects"
                         className="team__tab-button-projects"
+                      />
+                      <Tab
+                        label={
+                          <FormattedMessage
+                            id="teamComponent.members"
+                            defaultMessage="Members"
+                          />
+                        }
+                        value="members"
+                        className="team__tab-button-members"
                       />
                     </Tabs>
                   </div>
@@ -536,7 +530,7 @@ class TeamComponent extends Component {
                       <Card style={{ marginTop: units(2), marginBottom: units(2) }}>
                         <Can permissions={team.permissions} permission="create Project">
                           <CardActions style={{ padding: `0 ${units(2)} ${units(2)}` }}>
-                            <CreateProject team={team} autoFocus={team.projects.edges.length === 0} />
+                            <CreateProject team={team} autoFocus={!team.projects.edges.length} />
                           </CardActions>
                         </Can>
                       </Card>
@@ -545,24 +539,32 @@ class TeamComponent extends Component {
                           title={<MappedMessage msgObj={messages} msgKey="verificationProjects" />}
                         />
 
-                        {team.projects.edges.length === 0
-                          ? <CardText style={{ color: black54 }}><MappedMessage msgObj={messages} msgKey="noProjects" /></CardText>
-                          : <InfiniteScroll hasMore loadMore={this.loadMore.bind(this)} threshold={500}>
+                        {!team.projects.edges.length ?
+                          <CardText style={{ color: black54 }}>
+                            <MappedMessage msgObj={messages} msgKey="noProjects" />
+                          </CardText>
+                          :
+                          <InfiniteScroll
+                            hasMore
+                            loadMore={this.loadMore.bind(this)}
+                            threshold={500}
+                          >
                             <List className="projects" style={{ padding: '0' }}>
                               {team.projects.edges
-                              .sortp((a, b) => a.node.title.localeCompare(b.node.title))
-                              .map(p =>
-                                <Link key={p.node.dbid} to={`/${team.slug}/project/${p.node.dbid}`}>
-                                  <ListItem
-                                    className="team__project"
-                                    hoverColor={highlightBlue}
-                                    focusRippleColor={checkBlue}
-                                    touchRippleColor={checkBlue}
-                                    primaryText={p.node.title}
-                                    rightIcon={<KeyboardArrowRight />}
-                                  />
-                                </Link>,
-                              )}
+                                .sortp((a, b) => a.node.title.localeCompare(b.node.title))
+                                .map(p => (
+                                  <Link key={p.node.dbid} to={`/${team.slug}/project/${p.node.dbid}`}>
+                                    <ListItem
+                                      className="team__project"
+                                      hoverColor={highlightBlue}
+                                      focusRippleColor={checkBlue}
+                                      touchRippleColor={checkBlue}
+                                      primaryText={p.node.title}
+                                      rightIcon={<KeyboardArrowRight />}
+                                    />
+                                  </Link>
+                                ))
+                              }
                             </List>
                           </InfiniteScroll>
                         }
@@ -582,12 +584,13 @@ class TeamComponent extends Component {
 }
 
 TeamComponent.propTypes = {
+  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
+  // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
-  team: PropTypes.object,
 };
 
 TeamComponent.contextTypes = {
-  store: React.PropTypes.object,
+  store: PropTypes.object,
 };
 
 export default injectIntl(TeamComponent);

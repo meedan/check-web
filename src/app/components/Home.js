@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import Favicon from 'react-favicon';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import rtlDetect from 'rtl-detect';
 import merge from 'lodash.merge';
-import config from 'config';
 import styled, { injectGlobal } from 'styled-components';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+import config from 'config'; // eslint-disable-line require-path-exists/exists
 import Header from './Header';
 import LoginContainer from './LoginContainer';
 import BrowserSupport from './BrowserSupport';
@@ -24,16 +26,17 @@ import {
   mediaQuery,
   borderRadiusDefault,
 } from '../styles/js/shared';
-
 import { layout, typography, localeAr, removeYellowAutocomplete } from '../styles/js/global';
 
+injectTapEventPlugin();
+
 // Global styles
-injectGlobal`
+injectGlobal([`
   ${layout}
   ${typography}
   ${localeAr}
   ${removeYellowAutocomplete}
-`;
+`]);
 
 const StyledWrapper = styled.div`
   display: flex;
@@ -47,6 +50,7 @@ const StyledContent = styled.div`
   flex: 1;
   flex-direction: column;
   padding-top: ${gutterMedium};
+  padding-bottom: ${props => (props.inMediaPage ? '0' : gutterMedium)};
   width: 100%;
 `;
 
@@ -77,11 +81,6 @@ const StyledDisclaimer = styled.div`
   }
 `;
 
-// Needed for onTouchTap
-import injectTapEventPlugin from 'react-tap-event-plugin';
-
-injectTapEventPlugin();
-
 const messages = defineMessages({
   needRegister: {
     id: 'home.needRegister',
@@ -95,6 +94,19 @@ const messages = defineMessages({
 });
 
 class Home extends Component {
+  static routeSlug(children) {
+    if (!(children && children.props.route)) {
+      return null;
+    }
+    if (/\/media\/:mediaId/.test(children.props.route.path)) {
+      return 'media'; // TODO Other pages as needed
+    }
+    if (/\/source\/:sourceId/.test(children.props.route.path)) {
+      return 'source'; // TODO Other pages as needed
+    }
+    return null;
+  }
+
   constructor(props) {
     super(props);
 
@@ -134,8 +146,7 @@ class Home extends Component {
   }
 
   getContext() {
-    const context = new CheckContext(this).getContextStore();
-    return context;
+    return new CheckContext(this).getContextStore();
   }
 
   handleDrawerToggle = () => this.setState({ open: !this.state.open });
@@ -145,29 +156,17 @@ class Home extends Component {
     this.forceUpdate();
   }
 
-  routeSlug(children) {
-    if (!(children && children.props.route)) {
-      return null;
-    }
-    if (/\/media\/:mediaId/.test(children.props.route.path)) {
-      return 'media'; // TODO: other pages as needed
-    }
-    if (/\/source\/:sourceId/.test(children.props.route.path)) {
-      return 'source'; // TODO: other pages as needed
-    }
-    return null;
-  }
-
   resetMessage() {
     this.setState({ message: null });
   }
 
   render() {
     const { children } = this.props;
-    const routeSlug = this.routeSlug(children);
-    const muiThemeWithRtl = getMuiTheme(
-      merge(muiThemeWithoutRtl, { isRtl: rtlDetect.isRtlLang(this.props.intl.locale) }),
-    );
+    const routeSlug = Home.routeSlug(children);
+    const muiThemeWithRtl = getMuiTheme(merge(
+      muiThemeWithoutRtl,
+      { isRtl: rtlDetect.isRtlLang(this.props.intl.locale) },
+    ));
 
     if (!this.state.sessionStarted) {
       return null;
@@ -175,12 +174,14 @@ class Home extends Component {
 
     let message = null;
     if (this.state.error) {
-      message = this.state.message;
+      ({ message } = this.state);
 
+      // TODO Don't parse error messages because they may be l10n'd - use error codes instead.
       if (!message && /^[^/]+\/join$/.test(children.props.route.path)) {
         message = this.props.intl.formatMessage(messages.needRegister);
       }
 
+      // TODO Don't parse error messages because they may be l10n'd - use error codes instead.
       if (this.state.error && message && message.match(/\{ \[Error: Request has been terminated/)) {
         message = this.props.intl.formatMessage(messages.somethingWrong);
       }
@@ -196,11 +197,14 @@ class Home extends Component {
 
     // @chris with @alex 2017-10-3
     //
-    // TODO: Fix currentUserIsMember function.
+    // TODO Fix currentUserIsMember function.
     // context.currentUser.teams keys are actually the team names, not slugs
 
     const inTeamContext = !!this.props.params.team;
     const loggedIn = !!this.state.token;
+    const inMediaPage = !!(this.props.params.team &&
+      this.props.params.mediaId &&
+      this.props.params.projectId);
 
     const currentUserIsMember = (() => {
       if (inTeamContext && loggedIn) {
@@ -243,7 +247,7 @@ class Home extends Component {
                 zIndex: '1000',
               }}
             />
-            <StyledContent>
+            <StyledContent inMediaPage={inMediaPage}>
               {children}
             </StyledContent>
           </StyledWrapper>
@@ -264,15 +268,17 @@ class Home extends Component {
 }
 
 Home.propTypes = {
+  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
+  // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
 };
 
 Home.contextTypes = {
-  store: React.PropTypes.object,
+  store: PropTypes.object,
 };
 
 Home.childContextTypes = {
-  setMessage: React.PropTypes.func,
+  setMessage: PropTypes.func,
 };
 
 export default injectIntl(Home);

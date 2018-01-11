@@ -1,21 +1,19 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 import Relay from 'react-relay';
 import teamPublicFragment from '../../relay/teamPublicFragment';
 import PublicTeamRoute from '../../relay/PublicTeamRoute';
 import JoinTeamComponent from './JoinTeamComponent';
 
-const TeamContainer = Relay.createContainer(JoinTeamComponent, {
+const JoinTeamContainer = Relay.createContainer(JoinTeamComponent, {
   fragments: {
     team: () => teamPublicFragment,
   },
 });
 
-class JoinTeam extends Component {
-  render() {
-    const teamSlug = (this.props.params && this.props.params.team) ? this.props.params.team : '';
-    const route = new PublicTeamRoute({ teamSlug });
-    return (<Relay.RootContainer Component={TeamContainer} route={route} />);
-  }
-}
+const JoinTeam = (props) => {
+  const teamSlug = (props.params && props.params.team) ? props.params.team : '';
+  const route = new PublicTeamRoute({ teamSlug });
+  return (<Relay.RootContainer Component={JoinTeamContainer} route={route} />);
+};
 
 export default JoinTeam;

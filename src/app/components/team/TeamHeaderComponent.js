@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { injectIntl } from 'react-intl';
-import IconMenu from 'material-ui/svg-icons/navigation/menu';
-import UserAvatarRelay from '../../relay/UserAvatarRelay';
 import CheckContext from '../../CheckContext';
 import {
   Row,
@@ -13,7 +12,6 @@ import {
   black05,
   avatarStyle,
   avatarSize,
-  HiddenOnMobile,
 } from '../../styles/js/shared';
 
 const DrawerButtonGroup = styled(Row)`
@@ -29,7 +27,6 @@ const DrawerButtonGroup = styled(Row)`
 `;
 
 class TeamHeaderComponent extends Component {
-
   componentWillMount() {
     this.updateContext();
   }
@@ -44,7 +41,7 @@ class TeamHeaderComponent extends Component {
 
   render() {
     const isProjectUrl = /(.*\/project\/[0-9]+)/.test(window.location.pathname);
-    const { loggedIn, team, isRtl } = this.props;
+    const { team, isRtl } = this.props;
 
     // Team Avatar
     const TeamAvatar = styled.div`
@@ -54,25 +51,6 @@ class TeamHeaderComponent extends Component {
       height: ${avatarSize};
     `;
 
-    const userAvatarOrMenuButton = (() => {
-      if (!loggedIn || !team) {
-        return (
-          <OffsetBothSides>
-            <IconMenu />
-          </OffsetBothSides>
-        );
-      }
-      return (
-        <HiddenOnMobile>
-          <OffsetBothSides>
-            <Row>
-              <UserAvatarRelay {...this.props} />
-            </Row>
-          </OffsetBothSides>
-        </HiddenOnMobile>
-      );
-    })();
-
     return (
       <div>
         <DrawerButtonGroup
@@ -80,15 +58,15 @@ class TeamHeaderComponent extends Component {
           className="header-actions__drawer-toggle"
           onClick={this.props.drawerToggle}
         >
-          {userAvatarOrMenuButton}
-          {isProjectUrl
-            ? <Offset isRtl={isRtl}>
+          {isProjectUrl ?
+            <OffsetBothSides>
               <TeamAvatar />
-            </Offset>
-            : <Row>
-              <Offset isRtl={isRtl}>
+            </OffsetBothSides>
+            :
+            <Row>
+              <OffsetBothSides>
                 <TeamAvatar />
-              </Offset>
+              </OffsetBothSides>
               <Offset isRtl={isRtl}>
                 <HeaderTitle>
                   {team.name}
@@ -102,7 +80,7 @@ class TeamHeaderComponent extends Component {
 }
 
 TeamHeaderComponent.contextTypes = {
-  store: React.PropTypes.object,
+  store: PropTypes.object,
 };
 
 export default injectIntl(TeamHeaderComponent);

@@ -31,14 +31,7 @@
     "test:browsers:parallel": "cd test && PARALLEL_SPLIT_TEST_PROCESSES=2 parallel_split_test spec/browser_spec.rb && cd ..",
     "test:ff": "cd test && bundle exec rspec --fail-fast && cd ..",
     "test:bins": "grep -rI 'bin[0-9]' test/spec | grep -v '#' | sed 's/.*\\(bin[0-9]\\).*/\\1/g' | sort | uniq -c",
-    "lint:src": "eslint src --fix",
-    "precommit": "lint-staged"
-  },
-  "lint-staged": {
-    "*.js": [
-      "eslint --fix",
-      "git add"
-    ]
+    "test:lint": "eslint src/app"
   },
   "authors": [
     "Meedan"
@@ -49,19 +42,26 @@
     "autoprefixer": "^6.1.1",
     "babel-cli": "^6.24.1",
     "babel-core": "^6.20.0",
+    "babel-eslint": "^7.1.1",
     "babel-loader": "^6.2.9",
+    "babel-plugin-react-intl": "^2.3.0",
+    "babel-plugin-react-transform": "^2.0.2",
     "babel-plugin-transform-runtime": "^6.15.0",
     "babel-polyfill": "^6.13.0",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-react": "^6.16.0",
+    "babel-preset-stage-0": "^6.16.0",
+    "babel-relay-plugin": "^0.10.0",
     "chai": "^3.5.0",
     "chrome-storage-local": "^0.1.1",
-    "chromedriver": "2.25.3",
     "compression-webpack-plugin": "^0.3.2",
     "enzyme": "^2.7.1",
-    "eslint": "^3.12.2",
-    "eslint-config-airbnb": "^13.0.0",
-    "eslint-plugin-import": "^2.2.0",
-    "eslint-plugin-jsx-a11y": "^2.2.3",
-    "eslint-plugin-react": "^6.8.0",
+    "eslint": "4.13.1",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.5.1",
+    "eslint-plugin-require-path-exists": "^1.1.7",
     "expect": "^1.12.2",
     "finalhandler": "^0.5.1",
     "gulp": "^3.9.0",
@@ -108,14 +108,6 @@
     "webpack-node-externals": "^1.5.4"
   },
   "dependencies": {
-    "babel-cli": "^6.24.1",
-    "babel-eslint": "^7.1.1",
-    "babel-plugin-react-intl": "^2.3.0",
-    "babel-plugin-react-transform": "^2.0.2",
-    "babel-preset-es2015": "^6.18.0",
-    "babel-preset-react": "^6.16.0",
-    "babel-preset-stage-0": "^6.16.0",
-    "babel-relay-plugin": "^0.10.0",
     "crossmessaging": "0.2.2",
     "deep-equal": "^1.0.1",
     "express": "^4.14.0",

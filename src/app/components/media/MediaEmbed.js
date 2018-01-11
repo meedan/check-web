@@ -4,8 +4,8 @@ import Popover from 'material-ui/Popover';
 import Checkbox from 'material-ui/Checkbox';
 import FlatButton from 'material-ui/FlatButton';
 import CopyToClipboard from 'react-copy-to-clipboard';
-import config from 'config';
 import styled from 'styled-components';
+import config from 'config'; // eslint-disable-line require-path-exists/exists
 import PageTitle from '../PageTitle';
 import PenderCard from '../PenderCard';
 import { FlexRow, ContentColumn, units, black87, black54, alertRed } from '../../styles/js/shared';
@@ -141,19 +141,18 @@ class MediaEmbed extends Component {
       url = `${url}?${parts.join('&')}`;
     }
 
-    const embedTag = `<script src="${config.penderUrl}/api/medias.js?url=${encodeURIComponent(
-      url,
-    )}"></script>`;
+    const embedTag = `<script src="${config.penderUrl}/api/medias.js?url=${encodeURIComponent(url)}"></script>`;
 
     return (
       <PageTitle title={this.props.intl.formatMessage(messages.preview)}>
-        {config.appName !== 'check'
-          ? <ContentColumn className="card">
+        {config.appName !== 'check' ?
+          <ContentColumn className="card">
             <h2 className="main-title">
               <FormattedMessage id="mediaEmbed.notAvailable" defaultMessage="Not available" />
             </h2>
           </ContentColumn>
-          : <div id="media-embed">
+          :
+          <div id="media-embed">
             <StyledPopover
               open={this.state.customizationMenuOpened}
               anchorEl={this.state.customizationMenuAnchor}
@@ -229,16 +228,17 @@ class MediaEmbed extends Component {
                 </p>
                 <p className="media-embed__copy-footer">
                   <input disabled readOnly value={embedTag} id="media-embed__code-field" />
-                  {this.state.codeCopied
-                      ? <span className="media-embed__copy-button-inactive">
-                        <FormattedMessage
-                          id="mediaEmbed.copyButtonInactive"
-                          defaultMessage="Copied"
-                        />
-                      </span>
-                      : <span className="media-embed__copy-button">
-                        <FormattedMessage id="mediaEmbed.copyButton" defaultMessage="Copy" />
-                      </span>}
+                  {this.state.codeCopied ?
+                    <span className="media-embed__copy-button-inactive">
+                      <FormattedMessage
+                        id="mediaEmbed.copyButtonInactive"
+                        defaultMessage="Copied"
+                      />
+                    </span>
+                    :
+                    <span className="media-embed__copy-button">
+                      <FormattedMessage id="mediaEmbed.copyButton" defaultMessage="Copy" />
+                    </span>}
                 </p>
               </div>
             </StyledPopover>
@@ -258,14 +258,14 @@ class MediaEmbed extends Component {
                       id="mediaEmbed.copyEmbedCode"
                       defaultMessage="Copy embed code"
                     />
-                    }
+                  }
                 />
               </CopyToClipboard>
             </p>
 
             <PenderCard
               url={url}
-              domId={'embed-id'}
+              domId="embed-id"
               penderUrl={config.penderUrl}
               fallback={null}
               mediaVersion={this.state.version}
@@ -277,6 +277,8 @@ class MediaEmbed extends Component {
 }
 
 MediaEmbed.propTypes = {
+  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
+  // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
 };
 

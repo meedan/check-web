@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import config from 'config';
 import Relay from 'react-relay';
 import styled from 'styled-components';
-import UpdateSourceMutation from '../../relay/UpdateSourceMutation';
-import UpdateAccountMutation from '../../relay/UpdateAccountMutation';
+import config from 'config'; // eslint-disable-line require-path-exists/exists
+import UpdateSourceMutation from '../../relay/mutations/UpdateSourceMutation';
+import UpdateAccountMutation from '../../relay/mutations/UpdateAccountMutation';
 import {
   avatarSizeLarge,
   avatarSize,
@@ -33,24 +33,24 @@ const StyledImage = styled.div`
       return (`
         width: ${avatarSizeLarge};
         height: ${avatarSizeLarge};
-      `);
+        `);
     } else if (props.size === 'small') {
       return (`
         width: ${avatarSizeSmall};
         height: ${avatarSizeSmall};
-      `);
+        `);
     } else if (props.size === 'extraSmall') {
       return (`
         width: ${avatarSizeExtraSmall};
         height: ${avatarSizeExtraSmall};
-      `);
+        `);
     }
     return (`
         width: ${avatarSize};
         height: ${avatarSize};
-    `);
+      `);
   })()}
-`;
+  `;
 
 class SourcePicture extends Component {
   constructor(props) {
@@ -118,14 +118,14 @@ class SourcePicture extends Component {
       const onSuccess = (response) => {
         let avatarUrl = this.defaultAvatar();
         try {
-          const object = this.props.type === 'source' ||
-            this.props.type === 'user'
-            ? response.updateSource.source
-            : this.props.type === 'account'
-              ? response.updateAccount.account
-              : {};
-          avatarUrl = object.image || this.defaultAvatar();
-        } catch (e) {}
+          if (['source', 'user'].includes(this.props.type)) {
+            avatarUrl = response.updateSource.source.image;
+          } else if (this.props.type === 'account') {
+            avatarUrl = response.updateAccount.account.image;
+          }
+        } catch (e) {
+          // Do nothing.
+        }
         this.setState({ avatarUrl, queriedBackend: true });
       };
 

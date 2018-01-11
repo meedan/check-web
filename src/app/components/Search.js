@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Relay from 'react-relay';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import InfiniteScroll from 'react-infinite-scroller';
 import isEqual from 'lodash.isequal';
 import sortby from 'lodash.sortby';
-import config from 'config';
 import styled from 'styled-components';
 import rtlDetect from 'rtl-detect';
-import { bemClass } from '../helpers';
+import config from 'config'; // eslint-disable-line require-path-exists/exists
+import { notify, bemClass, safelyParseJSON } from '../helpers';
 import { teamStatuses } from '../customHelpers';
 import PageTitle from './PageTitle';
 import SearchRoute from '../relay/SearchRoute';
@@ -36,6 +37,7 @@ import {
   ellipsisStyles,
 } from '../styles/js/shared';
 
+// TODO Make this a config
 const pageSize = 20;
 
 const StyledSearchInput = styled.input`
@@ -151,11 +153,7 @@ const StyledSearchResultsWrapper = styled(ContentColumn)`
 `;
 
 export function searchQueryFromUrlQuery(urlQuery) {
-  try {
-    return JSON.parse(decodeURIComponent(urlQuery));
-  } catch (e) {
-    return {};
-  }
+  return safelyParseJSON(decodeURIComponent(urlQuery), {});
 }
 
 export function searchQueryFromUrl() {
@@ -243,8 +241,7 @@ class SearchQueryComponent extends Component {
   }
 
   getContext() {
-    const context = new CheckContext(this);
-    return context;
+    return new CheckContext(this);
   }
 
   handleSubmit(e) {
@@ -293,7 +290,7 @@ class SearchQueryComponent extends Component {
     this.setState((prevState) => {
       const state = Object.assign({}, prevState);
       const statusIsSelected = this.statusIsSelected(statusCode, state);
-      const selectedStatuses = state.query.status || []; // TODO: avoid ambiguous reference
+      const selectedStatuses = state.query.status || []; // TODO Avoid ambiguous reference
 
       if (statusIsSelected) {
         selectedStatuses.splice(selectedStatuses.indexOf(statusCode), 1); // remove from array
@@ -323,10 +320,9 @@ class SearchQueryComponent extends Component {
   }
 
   handleTagClick(tag) {
-    const that = this;
     this.setState((prevState) => {
       const state = Object.assign({}, prevState);
-      const tagIsSelected = that.tagIsSelected(tag, state);
+      const tagIsSelected = this.tagIsSelected(tag, state);
       const selectedTags = state.query.tags || [];
 
       if (tagIsSelected) {
@@ -349,6 +345,7 @@ class SearchQueryComponent extends Component {
         state.query.sort_type = sortParam;
         return { query: state.query };
       }
+      return { query: state.query };
     });
   }
 
@@ -369,13 +366,12 @@ class SearchQueryComponent extends Component {
   }
 
   // Create title out of query parameters
-  // To understand this code:
-  // - http://stackoverflow.com/a/10865042/209184 for `[].concat.apply`
-  // - http://stackoverflow.com/a/19888749/209184 for `filter(Boolean)`
   title(statuses, projects) {
-    const query = this.state.query;
+    const { query } = this.state;
     return (
-      [].concat
+      // Merge/flatten the array constructed below
+      // http://stackoverflow.com/a/10865042/209184
+      [].concat // eslint-disable-line prefer-spread
         .apply(
           [],
           [
@@ -393,6 +389,8 @@ class SearchQueryComponent extends Component {
               : [],
             query.keyword,
             query.tags,
+          // Remove empty entries
+          // http://stackoverflow.com/a/19888749/209184
           ].filter(Boolean),
         )
         .join(' ')
@@ -409,10 +407,9 @@ class SearchQueryComponent extends Component {
   }
 
   render() {
-    const statuses = JSON.parse(teamStatuses(this.props.team)).statuses;
+    const { statuses } = safelyParseJSON(teamStatuses(this.props.team), []);
     const projects = this.props.team.projects.edges.sortp((a, b) =>
-      a.node.title.localeCompare(b.node.title),
-    );
+      a.node.title.localeCompare(b.node.title));
     const suggestedTags = this.props.team.get_suggested_tags
       ? this.props.team.get_suggested_tags.split(',')
       : [];
@@ -424,10 +421,8 @@ class SearchQueryComponent extends Component {
       <PageTitle prefix={title} skipTeam={false} team={this.props.team}>
 
         <ContentColumn>
-
-          {/* Keyword */}
-          {this.showField('keyword')
-            ? <form
+          {this.showField('keyword') ?
+            <form
               id="search-form"
               className="search__form"
               onSubmit={this.handleSubmit.bind(this)}
@@ -437,7 +432,7 @@ class SearchQueryComponent extends Component {
                 name="search-input"
                 id="search-input"
                 defaultValue={this.state.query.keyword || ''}
-                ref={input => (this.searchQueryInput = input)}
+                ref={(input) => { this.searchQueryInput = input; }}
                 isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}
                 autofocus
               />
@@ -445,89 +440,82 @@ class SearchQueryComponent extends Component {
             : null}
 
           <StyledSearchFiltersSection>
-            {/* Status */}
-            {this.showField('status')
-              ? <StyledFilterRow isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
+            {this.showField('status') ?
+              <StyledFilterRow isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
                 <h4><FormattedMessage id="search.statusHeading" defaultMessage="Status" /></h4>
-                {statuses.map(status =>
+                {statuses.map(status => (
                   <StyledFilterButton
                     active={this.statusIsSelected(status.id)}
                     key={status.id}
                     title={status.description}
                     onClick={this.handleStatusClick.bind(this, status.id)}
                     className={bemClass(
-                        'media-tags__suggestion',
-                        this.statusIsSelected(status.id),
-                        '--selected',
-                      )}
+                      'media-tags__suggestion',
+                      this.statusIsSelected(status.id),
+                      '--selected',
+                    )}
                   >
                     {status.label}
-                  </StyledFilterButton>,
-                  )}
+                  </StyledFilterButton>))}
               </StyledFilterRow>
               : null}
 
-            {/* Project */}
-            {this.showField('project')
-              ? <StyledFilterRow>
+            {this.showField('project') ?
+              <StyledFilterRow>
                 <h4>
                   <FormattedMessage id="search.projectHeading" defaultMessage="Project" />
                 </h4>
-                {projects.map(project =>
+                {projects.map(project => (
                   <StyledFilterButton
                     active={this.projectIsSelected(project.node.dbid)}
                     key={project.node.dbid}
                     title={project.node.description}
                     onClick={this.handleProjectClick.bind(this, project.node.dbid)}
                     className={bemClass(
-                        'media-tags__suggestion',
-                        this.projectIsSelected(project.node.dbid),
-                        '--selected',
-                      )}
+                      'media-tags__suggestion',
+                      this.projectIsSelected(project.node.dbid),
+                      '--selected',
+                    )}
                   >
                     {project.node.title}
-                  </StyledFilterButton>,
-                  )}
+                  </StyledFilterButton>))}
               </StyledFilterRow>
               : null}
 
-            {/* Tags */}
-            {this.showField('tags') && suggestedTags.length
-              ? <StyledFilterRow>
+            {this.showField('tags') && suggestedTags.length ?
+              <StyledFilterRow>
                 <h4>
                   <FormattedMessage id="status.categoriesHeading" defaultMessage="Categories" />
                 </h4>
-                {suggestedTags.map(tag =>
+                {suggestedTags.map(tag => (
                   <StyledFilterButton
                     active={this.tagIsSelected(tag)}
                     key={tag}
                     title={null}
                     onClick={this.handleTagClick.bind(this, tag)}
                     className={bemClass(
-                        'media-tags__suggestion',
-                        this.tagIsSelected(tag),
-                        '--selected',
-                      )}
+                      'media-tags__suggestion',
+                      this.tagIsSelected(tag),
+                      '--selected',
+                    )}
                   >
                     {tag}
-                  </StyledFilterButton>,
-                  )}
+                  </StyledFilterButton>))}
               </StyledFilterRow>
               : null}
 
-            {/* Sort */}
-            {this.showField('sort')
-              ? <StyledFilterRow className="search-query__sort-actions media-tags__suggestions-list">
+            {this.showField('sort') ?
+              <StyledFilterRow className="search-query__sort-actions media-tags__suggestions-list">
                 <h4><FormattedMessage id="search.sort" defaultMessage="Sort" /></h4>
 
                 <StyledFilterButton
                   active={this.sortIsSelected('recent_added')}
                   onClick={this.handleSortClick.bind(this, 'recent_added')}
                   className={bemClass(
-                      'media-tags__suggestion',
-                      this.sortIsSelected('recent_added'),
-                      '--selected',
-                    )}
+                    'media-tags__suggestion',
+                    this.sortIsSelected('recent_added'),
+                    '--selected',
+                  )}
                 >
                   <FormattedMessage id="search.sortByCreated" defaultMessage="Created" />
                 </StyledFilterButton>
@@ -535,10 +523,10 @@ class SearchQueryComponent extends Component {
                   active={this.sortIsSelected('recent_activity')}
                   onClick={this.handleSortClick.bind(this, 'recent_activity')}
                   className={bemClass(
-                      'media-tags__suggestion',
-                      this.sortIsSelected('recent_activity'),
-                      '--selected',
-                    )}
+                    'media-tags__suggestion',
+                    this.sortIsSelected('recent_activity'),
+                    '--selected',
+                  )}
                 >
                   <FormattedMessage
                     id="search.sortByRecentActivity"
@@ -549,10 +537,10 @@ class SearchQueryComponent extends Component {
                   active={this.sortIsSelected('DESC')}
                   onClick={this.handleSortClick.bind(this, 'DESC')}
                   className={bemClass(
-                      'media-tags__suggestion',
-                      this.sortIsSelected('DESC'),
-                      '--selected',
-                    )}
+                    'media-tags__suggestion',
+                    this.sortIsSelected('DESC'),
+                    '--selected',
+                  )}
                 >
                   <FormattedMessage id="search.sortByNewest" defaultMessage="Newest first" />
                 </StyledFilterButton>
@@ -560,28 +548,27 @@ class SearchQueryComponent extends Component {
                   active={this.sortIsSelected('ASC')}
                   onClick={this.handleSortClick.bind(this, 'ASC')}
                   className={bemClass(
-                      'media-tags__suggestion',
-                      this.sortIsSelected('ASC'),
-                      '--selected',
-                    )}
+                    'media-tags__suggestion',
+                    this.sortIsSelected('ASC'),
+                    '--selected',
+                  )}
                 >
                   <FormattedMessage id="search.sortByOldest" defaultMessage="Oldest first" />
                 </StyledFilterButton>
               </StyledFilterRow>
               : null}
 
-            {/* Show */}
-            {this.showField('show')
-              ? <StyledFilterRow className="search-query__sort-actions media-tags__suggestions-list">
+            {this.showField('show') ?
+              <StyledFilterRow className="search-query__sort-actions media-tags__suggestions-list">
                 <h4><FormattedMessage id="search.show" defaultMessage="Show" /></h4>
                 <StyledFilterButton
                   active={this.showIsSelected('medias')}
                   onClick={this.handleShowClick.bind(this, 'medias')}
                   className={bemClass(
-                      'media-tags__suggestion',
-                      this.showIsSelected('medias'),
-                      '--selected',
-                    )}
+                    'media-tags__suggestion',
+                    this.showIsSelected('medias'),
+                    '--selected',
+                  )}
                 >
                   <FormattedMessage id="search.showMedia" defaultMessage="Media" />
                 </StyledFilterButton>
@@ -589,10 +576,10 @@ class SearchQueryComponent extends Component {
                   active={this.showIsSelected('sources')}
                   onClick={this.handleShowClick.bind(this, 'sources')}
                   className={bemClass(
-                      'media-tags__suggestion',
-                      this.showIsSelected('sources'),
-                      '--selected',
-                    )}
+                    'media-tags__suggestion',
+                    this.showIsSelected('sources'),
+                    '--selected',
+                  )}
                 >
                   <FormattedMessage id="search.showSources" defaultMessage="Sources" />
                 </StyledFilterButton>
@@ -609,11 +596,13 @@ class SearchQueryComponent extends Component {
 }
 
 SearchQueryComponent.propTypes = {
+  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
+  // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
 };
 
 SearchQueryComponent.contextTypes = {
-  store: React.PropTypes.object,
+  store: PropTypes.object,
 };
 
 const SearchQueryContainer = Relay.createContainer(injectIntl(SearchQueryComponent), {
@@ -642,7 +631,18 @@ const SearchQueryContainer = Relay.createContainer(injectIntl(SearchQueryCompone
   },
 });
 
+// eslint-disable-next-line react/no-multi-comp
 class SearchResultsComponent extends Component {
+  static mergeResults(medias, sources) {
+    const query = searchQueryFromUrl();
+    const comparisonField = query.sort === 'recent_activity'
+      ? o => o.node.updated_at
+      : o => o.node.published;
+
+    const results = sortby(Array.concat(medias, sources), comparisonField);
+    return query.sort_type !== 'ASC' ? results.reverse() : results;
+  }
+
   constructor(props) {
     super(props);
 
@@ -660,8 +660,7 @@ class SearchResultsComponent extends Component {
   }
 
   getContext() {
-    const context = new CheckContext(this);
-    return context;
+    return new CheckContext(this);
   }
 
   currentContext() {
@@ -669,26 +668,19 @@ class SearchResultsComponent extends Component {
   }
 
   subscribe() {
-    const pusher = this.currentContext().pusher;
+    const { pusher } = this.currentContext();
     if (pusher && this.props.search.pusher_channel && !this.state.pusherSubscribed) {
-      const that = this;
-      const channel = this.props.search.pusher_channel;
+      const { search: { pusher_channel: channel } } = this.props;
 
       pusher.unsubscribe(channel);
 
       pusher.subscribe(channel).bind('media_updated', (data) => {
-        let content = null;
-        let message = {};
-        const currentUser = that.currentContext().currentUser;
+        const message = safelyParseJSON(data.message, {});
+        const { currentUser } = this.currentContext();
         const currentUserId = currentUser ? currentUser.dbid : 0;
         const avatar = config.restBaseUrl.replace(/\/api.*/, '/images/bridge.png');
 
-        try {
-          message = JSON.parse(data.message) || {};
-        } catch (e) {
-          message = {};
-        }
-
+        let content = null;
         try {
           content = message.quote || message.url || message.file.url;
         } catch (e) {
@@ -706,7 +698,7 @@ class SearchResultsComponent extends Component {
             `$1/media/${message.id}`,
           );
           notify(
-            that.props.intl.formatMessage(messages.newTranslationRequestNotification),
+            this.props.intl.formatMessage(messages.newTranslationRequestNotification),
             content,
             url,
             avatar,
@@ -729,8 +721,8 @@ class SearchResultsComponent extends Component {
               `$1/media/${message.annotated_id}`,
             );
             notify(
-              that.props.intl.formatMessage(messages.newTranslationNotification),
-              that.props.intl.formatMessage(messages.newTranslationNotificationBody),
+              this.props.intl.formatMessage(messages.newTranslationNotification),
+              this.props.intl.formatMessage(messages.newTranslationNotificationBody),
               url,
               avatar,
               '_self',
@@ -738,8 +730,8 @@ class SearchResultsComponent extends Component {
           }
         }
 
-        if (that.currentContext().clientSessionId != data.actor_session_id) {
-          that.props.relay.forceFetch();
+        if (this.currentContext().clientSessionId !== data.actor_session_id) {
+          this.props.relay.forceFetch();
         }
       });
       this.setState({ pusherSubscribed: true });
@@ -747,7 +739,7 @@ class SearchResultsComponent extends Component {
   }
 
   unsubscribe() {
-    const pusher = this.currentContext().pusher;
+    const { pusher } = this.currentContext();
     if (pusher && this.props.search.pusher_channel) {
       pusher.unsubscribe(this.props.search.pusher_channel);
     }
@@ -755,20 +747,6 @@ class SearchResultsComponent extends Component {
 
   loadMore() {
     this.props.relay.setVariables({ pageSize: this.props.search.medias.edges.length + pageSize });
-  }
-
-  mergeResults(medias, sources) {
-    const query = searchQueryFromUrl();
-    const comparisonField = query.sort === 'recent_activity'
-      ? function (o) {
-        return o.node.updated_at;
-      }
-      : function (o) {
-        return o.node.published;
-      };
-
-    const results = sortby(Array.concat(medias, sources), comparisonField);
-    return query.sort_type !== 'ASC' ? results.reverse() : results;
   }
 
   render() {
@@ -779,20 +757,19 @@ class SearchResultsComponent extends Component {
       resultsCount: count,
     });
     const title = /\/project\//.test(window.location.pathname) ? '' : mediasCount;
-    const searchResults = this.mergeResults(medias, sources);
+    const searchResults = SearchResultsComponent.mergeResults(medias, sources);
 
     return (
       <StyledSearchResultsWrapper className="search__results results">
         <h3 className="search__results-heading">{title}</h3>
         <InfiniteScroll hasMore loadMore={this.loadMore.bind(this)} threshold={500}>
           <div className="search__results-list results medias-list">
-            {searchResults.map(item =>
+            {searchResults.map(item => (
               <li key={item.node.id} className="medias__item">
                 {item.node.media
                   ? <MediaDetail media={item.node} condensed parentComponent={this} />
                   : <SourceCard source={item.node} />}
-              </li>,
-            )}
+              </li>))}
           </div>
         </InfiniteScroll>
       </StyledSearchResultsWrapper>
@@ -801,31 +778,28 @@ class SearchResultsComponent extends Component {
 }
 
 SearchResultsComponent.contextTypes = {
-  store: React.PropTypes.object,
+  store: PropTypes.object,
 };
 
 SearchResultsComponent.propTypes = {
+  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
+  // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
 };
-
-let fragment = null;
-if (config.appName === 'check') {
-  fragment = checkSearchResultFragment;
-} else if (config.appName === 'bridge') {
-  fragment = bridgeSearchResultFragment;
-}
 
 const SearchResultsContainer = Relay.createContainer(injectIntl(SearchResultsComponent), {
   initialVariables: {
     pageSize,
   },
   fragments: {
-    search: () => fragment,
+    search: () => config.appName === 'bridge' ? bridgeSearchResultFragment : checkSearchResultFragment,
   },
 });
 
+// eslint-disable-next-line react/no-multi-comp
 class Search extends Component {
-  noFilters(query) {
+  noFilters(query_) {
+    const query = query_;
     delete query.timestamp;
     delete query.parent;
     if (
@@ -878,31 +852,25 @@ class Search extends Component {
           Component={SearchQueryContainer}
           route={queryRoute}
           renderFetched={data => <SearchQueryContainer {...this.props} {...data} />}
-          renderLoading={function () {
-            return (
-              <ContentColumn>
-
-                {!fields || fields.indexOf('keyword') > -1
-                  ? <div className="search__form search__form--loading">
-                    <StyledSearchInput
-                      disabled
-                      placeholder={formatMessage(messages.loading)}
-                      name="search-input"
-                      id="search-input"
-                    />
-                  </div>
-                  : null}
-
-              </ContentColumn>
-            );
-          }}
+          renderLoading={() => (
+            <ContentColumn>
+              {!fields || fields.indexOf('keyword') > -1 ?
+                <div className="search__form search__form--loading">
+                  <StyledSearchInput
+                    disabled
+                    placeholder={formatMessage(messages.loading)}
+                    name="search-input"
+                    id="search-input"
+                  />
+                </div>
+                : null}
+            </ContentColumn>)
+          }
         />
         <Relay.RootContainer
           Component={SearchResultsContainer}
           route={resultsRoute}
-          renderLoading={function () {
-            return <MediasLoading />;
-          }}
+          renderLoading={() => <MediasLoading />}
         />
       </div>
     );
@@ -910,6 +878,8 @@ class Search extends Component {
 }
 
 Search.propTypes = {
+  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
+  // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
 };
 

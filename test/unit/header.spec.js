@@ -66,4 +66,18 @@ describe('<HeaderComponent />', () => {
     expect(header.find(TeamHeader)).to.have.length(0);
     expect(header.find(TeamPublicHeader)).to.have.length(0);
   });
+
+  it('renders the sign in button when not logged in', () => {
+    const location = { pathname: '/check/404' };
+    const params = { team: 'team' };
+    const header = mountWithIntl(
+      <HeaderComponent
+        inTeamContext={false}
+        location={location}
+        params={params}
+      />,
+    );
+    expect(header.find('.header__signin-button')).to.have.length(1);
+    expect(header.find('.header__user-menu')).to.have.length(0);
+  });
 });

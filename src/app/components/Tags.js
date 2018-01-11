@@ -1,13 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { injectIntl, defineMessages } from 'react-intl';
 import Relay from 'react-relay';
 import AutoComplete from 'material-ui/AutoComplete';
 import Chip from 'material-ui/Chip';
-import CreateTagMutation from '../relay/CreateTagMutation';
-import DeleteTagMutation from '../relay/DeleteTagMutation';
+import CreateTagMutation from '../relay/mutations/CreateTagMutation';
+import DeleteTagMutation from '../relay/mutations/DeleteTagMutation';
 import CheckContext from '../CheckContext';
 import globalStrings from '../globalStrings';
 import { caption, StyledTagsWrapper } from '../styles/js/shared';
+import { safelyParseJSON } from '../helpers';
 
 const messages = defineMessages({
   addTagHelper: {
@@ -25,48 +27,44 @@ class Tags extends React.Component {
     super(props);
 
     this.state = {
+      // False positive by eslint: searchText is used by this.autoComplete
+      // eslint-disable-next-line react/no-unused-state
       searchText: '',
     };
   }
 
   handleAddition(tags) {
-    const props = this.props;
+    if (!this.props.annotated || !this.props.annotatedType) return;
 
-    if (!props.annotated || !props.annotatedType) { return; }
-
-    let tagsList = [...new Set(tags.split(','))];
+    const tagsList = [...new Set(tags.split(','))];
 
     const onFailure = (transaction) => {
       const error = transaction.getError();
       let message = this.props.intl.formatMessage(messages.error);
-
-      try {
-        const json = JSON.parse(error.source);
-        if (json.error) {
-          message = json.error;
-        }
-      } catch (e) { }
-
+      const json = safelyParseJSON(error.source);
+      if (json && json.error) {
+        message = json.error;
+      }
       this.setState({ message });
     };
 
-    const onSuccess = (response) => {
+    const onSuccess = () => {
       this.setState({ message: null });
     };
 
     const context = new CheckContext(this).getContextStore();
 
-    tagsList.map((tag) => {
+    tagsList.forEach((tag) => {
       Relay.Store.commitUpdate(
         new CreateTagMutation({
-          annotated: props.annotated,
+          annotated: this.props.annotated,
           annotator: context.currentUser,
-          parent_type: props.annotatedType.replace(/([a-z])([A-Z])/, '$1_$2').toLowerCase(),
+          parent_type: this.props.annotatedType.replace(/([a-z])([A-Z])/, '$1_$2').toLowerCase(),
           context,
           annotation: {
             tag: tag.trim(),
-            annotated_type: props.annotatedType,
-            annotated_id: props.annotated.dbid,
+            annotated_type: this.props.annotatedType,
+            annotated_id: this.props.annotated.dbid,
           },
         }),
         { onSuccess, onFailure },
@@ -75,40 +73,34 @@ class Tags extends React.Component {
   }
 
   handleDelete(id) {
-    const props = this.props;
+    if (!this.props.annotated || !this.props.annotatedType) return;
 
-    if (!props.annotated || !props.annotatedType) { return; }
-
-    Relay.Store.commitUpdate(
-      new DeleteTagMutation({
-        annotated: props.annotated,
-        parent_type: props.annotatedType.replace(/([a-z])([A-Z])/, '$1_$2').toLowerCase(),
-        id,
-      }),
-    );
+    Relay.Store.commitUpdate(new DeleteTagMutation({
+      annotated: this.props.annotated,
+      parent_type: this.props.annotatedType.replace(/([a-z])([A-Z])/, '$1_$2').toLowerCase(),
+      id,
+    }));
   }
 
   renderTags() {
-    const tags = this.props.tags;
-
     const deleteCallback = (id) => {
-      (this.props.onDelete && this.props.onDelete(id)) ||
-      (this.handleDelete && this.handleDelete(id));
+      if (this.props.onDelete) this.props.onDelete(id);
+      if (this.handleDelete) this.handleDelete(id);
     };
 
     return (
       <StyledTagsWrapper className="source-tags__tags">
-        {tags.map(tag =>
+        {this.props.tags.map(tag => (
           <Chip
             key={tag.node.id}
             className="source-tags__tag"
-            onRequestDelete={ this.props.isEditing ?
+            onRequestDelete={this.props.isEditing ?
               () => { deleteCallback(tag.node.id); } : null
             }
           >
             {tag.node.tag.replace(/^#/, '')}
-          </Chip>,
-        )}
+          </Chip>
+        ))}
       </StyledTagsWrapper>
     );
   }
@@ -119,36 +111,44 @@ class Tags extends React.Component {
 
   renderTagsEdit() {
     const selectCallback = (tag) => {
-      this.props.onSelect ? this.props.onSelect(tag) :  this.handleAddition(tag);
+      if (this.props.onSelect) {
+        this.props.onSelect(tag);
+      } else {
+        this.handleAddition(tag);
+      }
 
       setTimeout(() => {
-        this.refs.autocomplete.setState({ searchText: '' });
+        this.autoComplete.setState({ searchText: '' });
       }, 500);
     };
 
     const updateCallback = (text) => {
-      this.props.onChange && this.props.onChange(text);
+      if (this.props.onChange) {
+        this.props.onChange(text);
+      }
     };
 
-    return (<div>
-      <AutoComplete
-        id="sourceTagInput"
-        name="sourceTagInput"
-        errorText={this.state.message || this.props.errorText}
-        filter={AutoComplete.caseInsensitiveFilter}
-        floatingLabelText={this.props.intl.formatMessage(globalStrings.tags)}
-        dataSource={this.props.options}
-        openOnFocus
-        onNewRequest={selectCallback}
-        ref={'autocomplete'}
-        fullWidth
-        onUpdateInput={(text) => { updateCallback(text); }}
-      />
-      <div className="source__helper" style={{font: caption}}>
-        {this.props.intl.formatMessage(messages.addTagHelper)}
+    return (
+      <div>
+        <AutoComplete
+          id="sourceTagInput"
+          name="sourceTagInput"
+          errorText={this.state.message || this.props.errorText}
+          filter={AutoComplete.caseInsensitiveFilter}
+          floatingLabelText={this.props.intl.formatMessage(globalStrings.tags)}
+          dataSource={this.props.options}
+          openOnFocus
+          onNewRequest={selectCallback}
+          ref={(a) => { this.autoComplete = a; }}
+          fullWidth
+          onUpdateInput={(text) => { updateCallback(text); }}
+        />
+        <div className="source__helper" style={{ font: caption }}>
+          {this.props.intl.formatMessage(messages.addTagHelper)}
+        </div>
+        {this.renderTags()}
       </div>
-      {this.renderTags()}
-    </div>);
+    );
   }
 
   render() {
@@ -157,7 +157,7 @@ class Tags extends React.Component {
 }
 
 Tags.contextTypes = {
-  store: React.PropTypes.object,
+  store: PropTypes.object,
 };
 
 export default injectIntl(Tags);

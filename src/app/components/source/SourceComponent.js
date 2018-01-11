@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Relay from 'react-relay';
 import PropTypes from 'prop-types';
+import Relay from 'react-relay';
 import {
   FormattedMessage,
   FormattedHTMLMessage,
@@ -23,8 +23,10 @@ import deepEqual from 'deep-equal';
 import capitalize from 'lodash.capitalize';
 import LinkifyIt from 'linkify-it';
 import rtlDetect from 'rtl-detect';
+import styled from 'styled-components';
 import AccountCard from './AccountCard';
 import AccountChips from './AccountChips';
+import SourceActions from './SourceActions';
 import SourceLanguages from './SourceLanguages';
 import SourcePicture from './SourcePicture';
 import Tags from '../Tags';
@@ -37,16 +39,15 @@ import Can from '../Can';
 import CheckContext from '../../CheckContext';
 import ParsedText from '../ParsedText';
 import UploadImage from '../UploadImage';
-import { truncateLength } from '../../helpers';
+import { truncateLength, safelyParseJSON } from '../../helpers';
 import globalStrings from '../../globalStrings';
-import CreateDynamicMutation from '../../relay/CreateDynamicMutation';
-import UpdateDynamicMutation from '../../relay/UpdateDynamicMutation';
-import DeleteDynamicMutation from '../../relay/DeleteDynamicMutation';
-import CreateTagMutation from '../../relay/CreateTagMutation';
-import DeleteTagMutation from '../../relay/DeleteTagMutation';
-import CreateAccountSourceMutation from '../../relay/mutation/CreateAccountSourceMutation';
-import DeleteAccountSourceMutation from '../../relay/mutation/DeleteAccountSourceMutation';
-import UpdateSourceMutation from '../../relay/UpdateSourceMutation';
+import CreateDynamicMutation from '../../relay/mutations/CreateDynamicMutation';
+import UpdateDynamicMutation from '../../relay/mutations/UpdateDynamicMutation';
+import DeleteDynamicMutation from '../../relay/mutations/DeleteDynamicMutation';
+import CreateTagMutation from '../../relay/mutations/CreateTagMutation';
+import CreateAccountSourceMutation from '../../relay/mutations/CreateAccountSourceMutation';
+import DeleteAccountSourceMutation from '../../relay/mutations/DeleteAccountSourceMutation';
+import UpdateSourceMutation, { refreshSource } from '../../relay/mutations/UpdateSourceMutation';
 import {
   StyledEditButtonWrapper,
   StyledProfileCard,
@@ -61,7 +62,6 @@ import {
   StyledDescription,
   StyledAvatarEditButton,
 } from '../../styles/js/HeaderCard';
-import styled from 'styled-components';
 
 import {
   ContentColumn,
@@ -176,7 +176,10 @@ class SourceComponent extends Component {
       isEditing: false,
       submitDisabled: false,
       showTab: 'media',
-      shouldUpdate: false
+      shouldUpdate: false,
+      // TODO eslint false positive
+      // eslint-disable-next-line react/no-unused-state
+      image: null,
     };
   }
 
@@ -193,44 +196,30 @@ class SourceComponent extends Component {
     this.unsubscribe();
   }
 
-  subscribe() {
-    if (!this.isProjectSource()) {
-      return;
-    }
-    const that = this;
-    const pusher = this.getContext().pusher;
-    const pusherChannel = this.props.source.source.pusher_channel;
-    if (pusher && pusherChannel) {
-      pusher.subscribe(pusherChannel).bind('source_updated', (data) => {
-        const source = this.getSource() || {};
-        const metadata = this.getMetadataAnnotation() || {};
-        const obj = JSON.parse(data.message);
-
-        if (that.state.isEditing && ((obj.annotation_type === 'metadata' && obj.lock_version > metadata.lock_version) || (!obj.annotation_type && obj.lock_version > source.lock_version))) {
-          that.setState({ message: that.getConflictMessage() });
-        }
-        else if (!that.state.isEditing && that.getContext().clientSessionId != data.actor_session_id) {
-          that.props.relay.forceFetch();
-        }
-
-        that.setState({ shouldUpdate: true });
-      });
-    }
+  onImage(file) {
+    document.forms['edit-source-form'].image = file;
+    // TODO eslint false positive
+    // eslint-disable-next-line react/no-unused-state
+    this.setState({ message: null, image: file });
   }
 
-  unsubscribe() {
-    if (!this.isProjectSource()) {
-      return;
+  onClear() {
+    if (document.forms['edit-source-form']) {
+      document.forms['edit-source-form'].image = null;
     }
-    const pusher = this.getContext().pusher;
-    if (pusher) {
-      pusher.unsubscribe(this.props.source.source.pusher_channel);
-    }
+    // TODO eslint false positive
+    // eslint-disable-next-line react/no-unused-state
+    this.setState({ message: null, image: null });
+  }
+
+  onImageError(file, message) {
+    // TODO eslint false positive
+    // eslint-disable-next-line react/no-unused-state
+    this.setState({ message, image: null });
   }
 
   getContext() {
-    const context = new CheckContext(this).getContextStore();
-    return context;
+    return new CheckContext(this).getContextStore();
   }
 
   setContextSource() {
@@ -247,26 +236,30 @@ class SourceComponent extends Component {
     }
   }
 
-  isProjectSource() {
-    return !!this.props.source.source;
-  }
-
-  getSource() {
-    const { source } = this.isProjectSource() ? this.props.source : this.props;
-    return source;
+  getConflictMessage() {
+    return (<FormattedMessage
+      id="sourceComponent.conflictError"
+      defaultMessage="This item was edited by another user while you were making your edits. Please save your changes and {reloadLink}."
+      values={{
+        reloadLink: (
+          // TODO Support keyboard events
+          // eslint-disable-next-line jsx-a11y/click-events-have-key-events
+          <span onClick={this.reloadInformation.bind(this)} style={{ cursor: 'pointer', textDecoration: 'underline' }}>
+            <FormattedMessage id="sourceComponent.clickToReload" defaultMessage="click here to reload" />
+          </span>),
+      }}
+    />);
   }
 
   getMetadataAnnotation() {
     const source = this.getSource();
-    const metadata = source.metadata.edges.find(
-      item => item.node && item.node.annotation_type === 'metadata',
-    );
+    const metadata = source.metadata.edges.find(item => item.node && item.node.annotation_type === 'metadata');
     return metadata && metadata.node ? metadata.node : null;
   }
 
   getMetadataFields() {
     if (!this.isProjectSource()) {
-      return;
+      return null;
     }
 
     const annotation = this.getMetadataAnnotation();
@@ -277,23 +270,78 @@ class SourceComponent extends Component {
     return metadata ? Object.assign({}, metadata) : {};
   }
 
-  handleAddInfoMenu = (event) => {
+  getSource() {
+    const { source } = this.isProjectSource() ? this.props.source : this.props;
+    return source;
+  }
+
+  reloadInformation() {
+    this.props.relay.forceFetch();
+    this.setState({ message: null, isEditing: false });
+  }
+
+  subscribe() {
+    if (!this.isProjectSource()) {
+      return;
+    }
+    const { pusher } = this.getContext();
+    const { source: { source: { pusher_channel: pusherChannel } } } = this.props;
+    if (pusher && pusherChannel) {
+      pusher.subscribe(pusherChannel).bind('source_updated', (data) => {
+        const source = this.getSource() || {};
+        const metadata = this.getMetadataAnnotation() || {};
+        const obj = JSON.parse(data.message);
+
+        if (
+          this.state.isEditing &&
+          (
+            (obj.annotation_type === 'metadata' && obj.lock_version > metadata.lock_version) ||
+            (!obj.annotation_type && obj.lock_version > source.lock_version)
+          )
+        ) {
+          this.setState({ message: this.getConflictMessage() });
+        } else if (
+          !this.state.isEditing && this.getContext().clientSessionId !== data.actor_session_id
+        ) {
+          this.props.relay.forceFetch();
+        }
+
+        this.setState({ shouldUpdate: true });
+      });
+    }
+  }
+
+  unsubscribe() {
+    if (!this.isProjectSource()) {
+      return;
+    }
+    const { pusher } = this.getContext();
+    if (pusher) {
+      pusher.unsubscribe(this.props.source.source.pusher_channel);
+    }
+  }
+
+  isProjectSource() {
+    return !!this.props.source.source;
+  }
+
+  handleAddInfoMenu(event) {
     event.preventDefault();
 
     this.setState({
       menuOpen: true,
       anchorEl: event.currentTarget,
     });
-  };
+  }
 
-  handleAddMetadataField = (type) => {
+  handleAddMetadataField(type) {
     const metadata = this.state.metadata || this.getMetadataFields();
 
     if (!metadata[type]) {
       metadata[type] = '';
     }
     this.setState({ metadata, menuOpen: false });
-  };
+  }
 
   handleAddCustomField() {
     const metadata = this.state.metadata || this.getMetadataFields();
@@ -414,8 +462,11 @@ class SourceComponent extends Component {
     e.preventDefault();
 
     const pendingTagInput = document.forms['edit-source-form'].sourceTagInput;
-    const pendingTag = pendingTagInput && pendingTagInput.value;
-    pendingTag && pendingTag.trim() && this.createTag(pendingTag);
+    const pendingTag = pendingTagInput ? pendingTagInput.value.trim() : null;
+
+    if (pendingTag) {
+      this.createTag(pendingTag);
+    }
 
     if (this.validateLinks() && !this.state.submitDisabled) {
       const updateSourceSent = this.updateSource();
@@ -440,14 +491,11 @@ class SourceComponent extends Component {
 
     if (error.status === 409) {
       message = this.getConflictMessage();
-    }
-    else {
-      try {
-        const json = JSON.parse(error.source);
-        if (json.error) {
-          message = json.error;
-        }
-      } catch (e) { }
+    } else {
+      const json = safelyParseJSON(error.source);
+      if (json && json.error) {
+        message = json.error;
+      }
     }
 
     this.setState({ message, hasFailure: true, submitDisabled: false });
@@ -470,6 +518,11 @@ class SourceComponent extends Component {
       manageEditingState,
     );
   };
+
+  handleRefresh() {
+    const { id } = this.props.source.source;
+    refreshSource(id, this.fail);
+  }
 
   registerPendingMutation = (mutation) => {
     const pendingMutations = this.state.pendingMutations
@@ -547,25 +600,21 @@ class SourceComponent extends Component {
 
     const onFailure = (transaction) => {
       const error = transaction.getError();
-      let tagErrorMessage = this.props.intl.formatMessage(
-        messages.createTagError,
-      );
+      let message = this.props.intl.formatMessage(messages.createTagError);
 
-      try {
-        const json = JSON.parse(error.source);
-        if (json.error) {
-          tagErrorMessage = json.error;
-        }
-      } catch (e) {}
+      const json = safelyParseJSON(error.source);
+      if (json && json.error) {
+        message = json.error;
+      }
 
       this.setState({
-        tagErrorMessage,
+        tagErrorMessage: message,
         hasFailure: true,
         submitDisabled: false,
       });
     };
 
-    const onSuccess = (response) => {
+    const onSuccess = () => {
       this.setState({ tagErrorMessage: null });
     };
 
@@ -599,12 +648,10 @@ class SourceComponent extends Component {
       if (index > -1) {
         const error = transaction.getError();
         let message = this.props.intl.formatMessage(messages.invalidLink);
-        try {
-          const json = JSON.parse(error.source);
-          if (json.error) {
-            message = json.error;
-          }
-        } catch (e) {}
+        const json = safelyParseJSON(error.source);
+        if (json && json.error) {
+          message = json.error;
+        }
 
         links[index].error = message;
       }
@@ -660,7 +707,8 @@ class SourceComponent extends Component {
     let links = this.state.links ? this.state.links.slice(0) : [];
     links = links.filter(link => !!link.url.trim());
 
-    links.forEach((item) => {
+    links.forEach((item_) => {
+      const item = item_;
       const url = linkify.match(item.url);
       if (Array.isArray(url) && url[0] && url[0].url) {
         item.url = url[0].url;
@@ -715,21 +763,6 @@ class SourceComponent extends Component {
     return true;
   }
 
-  reloadInformation() {
-    this.props.relay.forceFetch();
-    this.setState({ message: null, isEditing: false });
-  }
-
-  getConflictMessage() {
-    return <FormattedMessage id="sourceComponent.conflictError" defaultMessage={'This item was edited by another user while you were making your edits. Please save your changes and {reloadLink}.'}
-             values={{
-               reloadLink: (<span onClick={this.reloadInformation.bind(this)} style={{ cursor: 'pointer', textDecoration: 'underline' }}>
-                              <FormattedMessage id="sourceComponent.clickToReload" defaultMessage="click here to reload" />
-                            </span>)
-             }}
-           />;
-  }
-
   updateSource() {
     const source = this.getSource();
     const onFailure = (transaction) => {
@@ -739,14 +772,11 @@ class SourceComponent extends Component {
 
       if (error.status === 409) {
         message = this.getConflictMessage();
-      }
-      else {
-        try {
-          const json = JSON.parse(error.source);
-          if (json.error) {
-            message = json.error;
-          }
-        } catch (e) {}
+      } else {
+        const json = safelyParseJSON(error.source);
+        if (json && json.error) {
+          message = json.error;
+        }
       }
 
       this.setState({ message, hasFailure: true, submitDisabled: false });
@@ -790,39 +820,21 @@ class SourceComponent extends Component {
       return this.props.intl.formatMessage(messages.organization);
     case 'location':
       return this.props.intl.formatMessage(messages.location);
+    default:
+      return null;
     }
-  }
-
-  onImage(file) {
-    document.forms['edit-source-form'].image = file;
-    this.setState({ message: null, image: file });
-  }
-
-  onClear = () => {
-    if (document.forms['edit-source-form']) {
-      document.forms['edit-source-form'].image = null;
-    }
-
-    this.setState({ message: null, image: null });
-  };
-
-  onImageError(file, message) {
-    this.setState({ message, image: null });
   }
 
   renderAccountsEdit() {
     if (!this.isProjectSource()) {
-      return;
+      return null;
     }
 
     const source = this.getSource();
     const links = this.state.links ? this.state.links.slice(0) : [];
-    const deleteLinks = this.state.deleteLinks
-      ? this.state.deleteLinks.slice(0)
-      : [];
-    const showAccounts = source.account_sources.edges.filter(
-      as => deleteLinks.indexOf(as.node.id) < 0,
-    );
+    const deleteLinks = this.state.deleteLinks ? this.state.deleteLinks.slice(0) : [];
+    const showAccounts =
+      source.account_sources.edges.filter(as => deleteLinks.indexOf(as.node.id) < 0);
 
     return (
       <div key="renderAccountsEdit">
@@ -853,9 +865,7 @@ class SourceComponent extends Component {
                 name={`source__link-input${index.toString()}`}
                 value={link.url}
                 errorText={link.error}
-                floatingLabelText={this.props.intl.formatMessage(
-                  messages.addLink,
-                )}
+                floatingLabelText={this.props.intl.formatMessage(messages.addLink)}
                 onChange={e => this.handleChangeLink(e, index)}
                 style={{ width: '85%' }}
               />
@@ -879,7 +889,7 @@ class SourceComponent extends Component {
 
   renderMetadataView() {
     if (!this.isProjectSource()) {
-      return;
+      return null;
     }
 
     const metadata = this.getMetadataFields();
@@ -893,15 +903,14 @@ class SourceComponent extends Component {
 
     const renderMetadaCustomFields = () => {
       if (Array.isArray(metadata.other)) {
-        return metadata.other.map(
-          (cf, index) =>
-            cf.value ? (
-              <StyledMetadata key={index} className={'source__metadata-other'}>
-                {`${cf.label}: ${cf.value}`} <br />
-              </StyledMetadata>
-            ) : null,
-        );
+        return metadata.other.map(cf =>
+          cf.value ? (
+            <StyledMetadata key={cf.dbid} className="source__metadata-other">
+              {`${cf.label}: ${cf.value}`} <br />
+            </StyledMetadata>
+          ) : null);
       }
+      return null;
     };
 
     if (metadata) {
@@ -914,41 +923,38 @@ class SourceComponent extends Component {
         </StyledMetadata>
       );
     }
+    return null;
   }
 
   renderMetadataEdit() {
     if (!this.isProjectSource()) {
-      return;
+      return null;
     }
 
     const metadata = this.state.metadata || this.getMetadataFields();
 
     const handleChangeField = (type, e) => {
-      const metadata = this.state.metadata || this.getMetadataFields();
       metadata[type] = e.target.value;
       this.setState({ metadata });
     };
 
     const handleRemoveField = (type) => {
-      const metadata = this.state.metadata || this.getMetadataFields();
       delete metadata[type];
       this.setState({ metadata });
     };
 
     const handleChangeCustomField = (index, e) => {
-      const metadata = this.state.metadata || this.getMetadataFields();
       metadata.other[index].value = e.target.value;
       this.setState({ metadata });
     };
 
     const handleRemoveCustomField = (index) => {
-      const metadata = this.state.metadata || this.getMetadataFields();
       metadata.other.splice(index, 1);
       this.setState({ metadata });
     };
 
     const renderMetadataFieldEdit = type =>
-      metadata.hasOwnProperty(type) ? (
+      Object.prototype.hasOwnProperty.call(metadata, type) ? (
         <div className={`source__metadata-${type}-input`}>
           <Row>
             <TextField
@@ -972,7 +978,7 @@ class SourceComponent extends Component {
     const renderMetadaCustomFieldsEdit = () => {
       if (Array.isArray(metadata.other)) {
         return metadata.other.map((cf, index) => (
-          <div key={index} className={'source__metadata-other-input'}>
+          <div key={cf.dbid} className="source__metadata-other-input">
             <Row>
               <TextField
                 defaultValue={cf.value}
@@ -992,6 +998,7 @@ class SourceComponent extends Component {
           </div>
         ));
       }
+      return null;
     };
 
     if (metadata) {
@@ -1004,11 +1011,12 @@ class SourceComponent extends Component {
         </div>
       );
     }
+    return null;
   }
 
   renderLanguagesView() {
     if (!this.isProjectSource()) {
-      return;
+      return null;
     }
 
     return <SourceLanguages usedLanguages={this.getSource().languages.edges} />;
@@ -1016,40 +1024,34 @@ class SourceComponent extends Component {
 
   renderLanguagesEdit() {
     if (!this.isProjectSource()) {
-      return;
+      return null;
     }
 
     const createLanguageAnnotation = (value) => {
       if (!value) {
         this.setState({
-          languageErrorMessage: this.props.intl.formatMessage(
-            messages.selectLanguageError,
-          ),
+          languageErrorMessage: this.props.intl.formatMessage(messages.selectLanguageError),
         });
         return;
       }
 
       const onFailure = (transaction) => {
         const error = transaction.getError();
-        let languageErrorMessage = this.props.intl.formatMessage(
-          messages.createTagError,
-        );
+        let message = this.props.intl.formatMessage(messages.createTagError);
 
-        try {
-          const json = JSON.parse(error.source);
-          if (json.error) {
-            languageErrorMessage = json.error;
-          }
-        } catch (e) {}
+        const json = safelyParseJSON(error.source);
+        if (json && json.error) {
+          message = json.error;
+        }
 
         this.setState({
-          languageErrorMessage,
+          languageErrorMessage: message,
           hasFailure: true,
           submitDisabled: false,
         });
       };
 
-      const onSuccess = (response) => {
+      const onSuccess = () => {
         this.setState({ languageErrorMessage: null });
       };
       const context = this.getContext();
@@ -1080,7 +1082,7 @@ class SourceComponent extends Component {
       const onFailure = (transaction) => {
         this.fail(transaction);
       };
-      const onSuccess = (response) => {};
+      const onSuccess = () => {};
 
       Relay.Store.commitUpdate(
         new DeleteDynamicMutation({
@@ -1113,7 +1115,7 @@ class SourceComponent extends Component {
 
   renderTagsView() {
     if (!this.isProjectSource()) {
-      return;
+      return null;
     }
 
     const tags = this.getSource().tags.edges;
@@ -1122,7 +1124,7 @@ class SourceComponent extends Component {
 
   renderTagsEdit() {
     if (!this.isProjectSource()) {
-      return;
+      return null;
     }
 
     const tags = this.getSource().tags.edges;
@@ -1131,18 +1133,17 @@ class SourceComponent extends Component {
       this.props.source.team && this.props.source.team.get_suggested_tags
         ? this.props.source.team.get_suggested_tags.split(',')
         : [];
-    const availableTags = suggestedTags.filter(
-      suggested => !tagLabels.includes(suggested),
-    );
+    const availableTags = suggestedTags.filter(suggested => !tagLabels.includes(suggested));
     const isEditing = this.state.addingTags || tags.length;
 
-    return (<StyledTagInput>
+    return (
+      <StyledTagInput>
         <Tags
           errorText={this.state.tagErrorMessage}
           tags={tags}
           options={availableTags}
           annotated={this.props.source}
-          annotatedType={'ProjectSource'}
+          annotatedType="ProjectSource"
           isEditing={isEditing}
         />
       </StyledTagInput>
@@ -1174,9 +1175,7 @@ class SourceComponent extends Component {
 
             {isProjectSource ? (
               <AccountChips
-                accounts={source.account_sources.edges.map(
-                  as => as.node.account,
-                )}
+                accounts={source.account_sources.edges.map(as => as.node.account)}
               />
             ) : null}
 
@@ -1280,7 +1279,7 @@ class SourceComponent extends Component {
                 primary
               />
             </StyledAvatarEditButton>
-            ) : null}
+          ) : null}
         </StyledSmallColumn>
 
         <StyledBigColumn>
@@ -1291,19 +1290,17 @@ class SourceComponent extends Component {
             {this.state.editProfileImg ? (
               <UploadImage
                 onImage={this.onImage.bind(this)}
-                onClear={this.onClear}
+                onClear={this.onClear.bind(this)}
                 onError={this.onImageError.bind(this)}
                 noPreview
               />
-              ) : null}
+            ) : null}
             <TextField
               className="source__name-input"
               name="name"
               id="source__name-container"
               defaultValue={source.name}
-              floatingLabelText={this.props.intl.formatMessage(
-                  messages.sourceName,
-                )}
+              floatingLabelText={this.props.intl.formatMessage(messages.sourceName)}
               style={{ width: '85%' }}
             />
             <TextField
@@ -1311,9 +1308,7 @@ class SourceComponent extends Component {
               name="description"
               id="source__bio-container"
               defaultValue={source.description}
-              floatingLabelText={this.props.intl.formatMessage(
-                  messages.sourceBio,
-                )}
+              floatingLabelText={this.props.intl.formatMessage(messages.sourceBio)}
               multiLine
               rowsMax={4}
               style={{ width: '85%' }}
@@ -1326,77 +1321,66 @@ class SourceComponent extends Component {
           </form>
 
           <StyledButtonGroup isRtl={rtlDetect.isRtlLang(this.props.intl.locale)}>
-            <div className="source__edit-buttons-add-merge">
+            <Row className="source__edit-buttons-add-merge">
               <FlatButton
                 className="source__edit-addinfo-button"
                 primary
-                onClick={this.handleAddInfoMenu}
+                onClick={this.handleAddInfoMenu.bind(this)}
                 label={this.props.intl.formatMessage(messages.addInfo)}
               />
-              <Popover
-                open={this.state.menuOpen}
-                anchorEl={this.state.anchorEl}
-                anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
-                targetOrigin={{ horizontal: 'left', vertical: 'top' }}
-                onRequestClose={this.handleRequestClose.bind(this)}
-              >
-                <Menu>
-                  <MenuItem
-                    className="source__add-phone"
-                    onClick={this.handleAddMetadataField.bind(this, 'phone')}
-                    primaryText={this.props.intl.formatMessage(
-                        messages.phone,
-                      )}
-                  />
-                  <MenuItem
-                    className="source__add-organization"
-                    onClick={this.handleAddMetadataField.bind(
-                        this,
-                        'organization',
-                      )}
-                    primaryText={this.props.intl.formatMessage(
-                        messages.organization,
-                      )}
-                  />
-                  <MenuItem
-                    className="source__add-location"
-                    onClick={this.handleAddMetadataField.bind(
-                        this,
-                        'location',
-                      )}
-                    primaryText={this.props.intl.formatMessage(
-                        messages.location,
-                      )}
-                  />
-                  <MenuItem
-                    className="source__add-tags"
-                    onClick={this.handleAddTags.bind(this)}
-                    primaryText={this.props.intl.formatMessage(
-                        globalStrings.tags,
-                      )}
-                  />
-                  <MenuItem
-                    className="source__add-languages"
-                    onClick={this.handleAddLanguages.bind(this)}
-                    primaryText={this.props.intl.formatMessage(
-                        messages.languages,
-                      )}
-                  />
-                  <MenuItem
-                    className="source__add-link"
-                    onClick={this.handleAddLink.bind(this)}
-                    primaryText={this.props.intl.formatMessage(messages.link)}
-                  />
-                  <MenuItem
-                    className="source__add-other"
-                    onClick={this.handleOpenDialog.bind(this)}
-                    primaryText={this.props.intl.formatMessage(
-                        messages.other,
-                      )}
-                  />
-                </Menu>
-              </Popover>
-            </div>
+              <SourceActions source={source} handleRefresh={this.handleRefresh.bind(this)} />
+            </Row>
+            <Popover
+              open={this.state.menuOpen}
+              anchorEl={this.state.anchorEl}
+              anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
+              targetOrigin={{ horizontal: 'left', vertical: 'top' }}
+              onRequestClose={this.handleRequestClose.bind(this)}
+            >
+              <Menu>
+                <MenuItem
+                  className="source__add-phone"
+                  onClick={this.handleAddMetadataField.bind(this, 'phone')}
+                  primaryText={this.props.intl.formatMessage(messages.phone)}
+                />
+                <MenuItem
+                  className="source__add-organization"
+                  onClick={this.handleAddMetadataField.bind(
+                    this,
+                    'organization',
+                  )}
+                  primaryText={this.props.intl.formatMessage(messages.organization)}
+                />
+                <MenuItem
+                  className="source__add-location"
+                  onClick={this.handleAddMetadataField.bind(
+                    this,
+                    'location',
+                  )}
+                  primaryText={this.props.intl.formatMessage(messages.location)}
+                />
+                <MenuItem
+                  className="source__add-tags"
+                  onClick={this.handleAddTags.bind(this)}
+                  primaryText={this.props.intl.formatMessage(globalStrings.tags)}
+                />
+                <MenuItem
+                  className="source__add-languages"
+                  onClick={this.handleAddLanguages.bind(this)}
+                  primaryText={this.props.intl.formatMessage(messages.languages)}
+                />
+                <MenuItem
+                  className="source__add-link"
+                  onClick={this.handleAddLink.bind(this)}
+                  primaryText={this.props.intl.formatMessage(messages.link)}
+                />
+                <MenuItem
+                  className="source__add-other"
+                  onClick={this.handleOpenDialog.bind(this)}
+                  primaryText={this.props.intl.formatMessage(messages.other)}
+                />
+              </Menu>
+            </Popover>
 
             <Dialog
               title={this.props.intl.formatMessage(messages.otherDialogTitle)}
@@ -1407,9 +1391,7 @@ class SourceComponent extends Component {
             >
               <TextField
                 id="source__other-label-input"
-                floatingLabelText={this.props.intl.formatMessage(
-                    messages.label,
-                  )}
+                floatingLabelText={this.props.intl.formatMessage(messages.label)}
                 fullWidth
                 onChange={(e) => {
                   this.setState({ customFieldLabel: e.target.value });
@@ -1417,9 +1399,7 @@ class SourceComponent extends Component {
               />
               <TextField
                 id="source__other-value-input"
-                floatingLabelText={this.props.intl.formatMessage(
-                    messages.value,
-                  )}
+                floatingLabelText={this.props.intl.formatMessage(messages.value)}
                 onChange={(e) => {
                   this.setState({ customFieldValue: e.target.value });
                 }}
@@ -1449,7 +1429,7 @@ class SourceComponent extends Component {
   render() {
     const isProjectSource = this.isProjectSource();
     const source = this.getSource();
-    const isEditing = this.state.isEditing;
+    const { isEditing } = this.state;
     return (
       <PageTitle
         prefix={source.name}
@@ -1465,10 +1445,10 @@ class SourceComponent extends Component {
             <ContentColumn>
               <Message message={this.state.message} />
               {isEditing ? (
-                  this.renderSourceEdit(source, isProjectSource)
-                ) : (
-                  this.renderSourceView(source, isProjectSource)
-                )}
+                this.renderSourceEdit(source, isProjectSource)
+              ) : (
+                this.renderSourceView(source, isProjectSource)
+              )}
             </ContentColumn>
             {!isEditing ? (
               <section style={{ position: 'relative' }}>
@@ -1484,7 +1464,7 @@ class SourceComponent extends Component {
                           id="sourceComponent.editButton"
                           defaultMessage="Edit profile"
                         />
-                        }
+                      }
                       tooltipPosition="top-center"
                       onTouchTap={this.handleEnterEditMode.bind(this)}
                     >
@@ -1493,7 +1473,7 @@ class SourceComponent extends Component {
                   </StyledEditButtonWrapper>
                 </Can>
               </section>
-              ) : null}
+            ) : null}
           </StyledProfileCard>
 
           {!isEditing ? (
@@ -1505,27 +1485,31 @@ class SourceComponent extends Component {
                   annotatedType="ProjectSource"
                   height="short"
                 />
-                ) : null}
-              {this.state.showTab === 'media' ? (
-                source.medias.edges.length === 0
-                  ? <Text center color={black38}>
-                    { this.props.intl.formatMessage(messages.noMedia) }
-                  </Text>
-                  : <Medias medias={source.medias.edges} />
-                ) : null}
+              ) : null}
 
-              {this.state.showTab === 'account' ? (
-                  source.accounts.edges.length === 0
-                  ? <Text center color={black38}>
-                    { this.props.intl.formatMessage(messages.noAccounts) }
-                  </Text>
-                  : source.accounts.edges.map(account => (
-                    <AccountCard key={account.node.id} account={account.node} />
-                    ),
-                  )
-                ) : null}
+              {this.state.showTab === 'media' && !source.medias.edges.length ? (
+                <Text center color={black38}>
+                  { this.props.intl.formatMessage(messages.noMedia) }
+                </Text>
+              ) : null}
+
+              {this.state.showTab === 'media' && source.medias.edges.length ? (
+                <Medias medias={source.medias.edges} />
+              ) : null}
+
+              {this.state.showTab === 'account' && !source.accounts.edges.length ? (
+                <Text center color={black38}>
+                  { this.props.intl.formatMessage(messages.noAccounts) }
+                </Text>
+              ) : null}
+
+              {this.state.showTab === 'account' && source.accounts.edges.length ? (
+                source.accounts.edges.map(account => (
+                  <AccountCard key={account.node.id} account={account.node} />
+                ))) : null}
+
             </ContentColumn>
-            ) : null}
+          ) : null}
         </div>
       </PageTitle>
     );
@@ -1533,12 +1517,13 @@ class SourceComponent extends Component {
 }
 
 SourceComponent.propTypes = {
+  // https://github.com/yannickcr/eslint-plugin-react/issues/1389
+  // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
-  source: PropTypes.object,
 };
 
 SourceComponent.contextTypes = {
-  store: React.PropTypes.object,
+  store: PropTypes.object,
 };
 
 export default injectIntl(SourceComponent);

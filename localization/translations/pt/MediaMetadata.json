@@ -3,7 +3,6 @@
   "mediaDetail.mediaDescription": "Descrição",
   "mediaDetail.editReport": "Editar relato",
   "mediaDetail.editReportError": "Desculpe, não foi possível editar este relato",
-  "mediaDetail.moveFailed": "Desculpe, não foi possível mover este item",
   "mediaDetail.trash": "Lixeira",
   "mediaMetadata.movedToTrash": "Enviar para {trash} ",
   "mediaMetadata.movedBack": "Voltou ao projeto: {project}",

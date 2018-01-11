@@ -5,7 +5,7 @@ import FaTwitter from 'react-icons/lib/fa/twitter';
 import FaYoutubePlay from 'react-icons/lib/fa/youtube-play';
 import MdLink from 'react-icons/lib/md/link';
 import { defineMessages } from 'react-intl';
-import config from 'config';
+import config from 'config'; // eslint-disable-line require-path-exists/exists
 import { truncateLength } from '../../helpers';
 
 const messages = defineMessages({
@@ -84,7 +84,7 @@ const MediaUtil = {
     return data.username;
   },
 
-  sourceName(media, data) {
+  sourceName(media) {
     try {
       return media.project_source.source.name;
     } catch (e) {
@@ -129,16 +129,16 @@ const MediaUtil = {
   },
 
   hasCustomTitle(media, data) {
-    const overridden = media.overridden ? JSON.parse(media.overridden) : {};
+    const { overridden } = media;
     const title = data && data.title && data.title.trim();
-    return overridden.title || media.quote && (title !== media.quote);
+    return overridden.title || (media.quote && (title !== media.quote));
   },
 
   hasCustomDescription(media, data) {
-    const overridden = media.overridden ? JSON.parse(media.overridden) : {};
+    const { overridden } = media;
     const description = data && data.description && data.description.trim();
     return overridden.description || // Link type report
-      media.quote && (description !== media.quote) || // Quote type report
+      (media.quote && (description !== media.quote)) || // Quote type report
       (media.embed_path && description); // Image type report
   },
 
@@ -180,7 +180,9 @@ const MediaUtil = {
     let date = null;
     try {
       date = new Date(parseInt(media.published, 10) * 1000);
-      if (isNaN(date)) date = null;
+      if (Number.isNaN(date.valueOf())) {
+        date = null;
+      }
     } catch (e) {
       date = null;
     }
@@ -192,7 +194,9 @@ const MediaUtil = {
     let date = null;
     try {
       date = new Date(data.published_at);
-      if (isNaN(date)) date = null;
+      if (Number.isNaN(date.valueOf())) {
+        date = null;
+      }
     } catch (e) {
       date = null;
     }

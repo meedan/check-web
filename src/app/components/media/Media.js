@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import Relay from 'react-relay';
 import CheckContext from '../../CheckContext';
 import MediaRoute from '../../relay/MediaRoute';
 import MediaParentComponent from './MediaParentComponent';
 import MediasLoading from './MediasLoading';
-import userFragment from '../../relay/userFragment';
 
 const MediaContainer = Relay.createContainer(MediaParentComponent, {
   initialVariables: {
@@ -49,6 +49,7 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
         media {
           url,
           quote,
+          embed,
           embed_path,
           thumbnail_path
         }
@@ -245,34 +246,30 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
   },
 });
 
-class ProjectMedia extends Component {
-  render() {
-    let projectId = this.props.params.projectId || 0;
-    const context = new CheckContext(this);
-    context.setContext();
-    if (projectId === 0) {
-      const store = context.getContextStore();
-      if (store.project) {
-        projectId = store.project.dbid;
-      }
+const ProjectMedia = (props, context_) => {
+  let projectId = props.params.projectId || 0;
+  const context = new CheckContext({ props, context: context_ });
+  context.setContext();
+  if (!projectId) {
+    const store = context.getContextStore();
+    if (store.project) {
+      projectId = store.project.dbid;
     }
-    const ids = `${this.props.params.mediaId},${projectId}`;
-    const route = new MediaRoute({ ids });
-
-    return (
-      <Relay.RootContainer
-        Component={MediaContainer}
-        route={route}
-        renderLoading={function () {
-          return <MediasLoading count={1} />;
-        }}
-      />
-    );
   }
-}
+  const ids = `${props.params.mediaId},${projectId}`;
+  const route = new MediaRoute({ ids });
+
+  return (
+    <Relay.RootContainer
+      Component={MediaContainer}
+      route={route}
+      renderLoading={() => <MediasLoading count={1} />}
+    />
+  );
+};
 
 ProjectMedia.contextTypes = {
-  store: React.PropTypes.object,
+  store: PropTypes.object,
 };
 
 export default ProjectMedia;

@@ -49,9 +49,7 @@ class PenderCard extends Component {
   addTag() {
     const script = document.createElement('script');
     const version = this.props.mediaVersion || 0;
-    script.src = `${this.props.penderUrl}/api/medias.js?version=${version}&url=${encodeURIComponent(
-      this.props.url,
-    )}`;
+    script.src = `${this.props.penderUrl}/api/medias.js?version=${version}&url=${encodeURIComponent(this.props.url)}`;
     script.async = true;
     script.type = 'text/javascript';
     const card = document.getElementById(this.props.domId);
@@ -61,7 +59,7 @@ class PenderCard extends Component {
     }
 
     if (loader) {
-      script.onload = function () { loader.style.display = 'none'; };
+      script.onload = () => { loader.style.display = 'none'; };
     }
   }
 
