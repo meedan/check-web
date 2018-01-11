@@ -26,6 +26,13 @@ const StyledSourceCardBody = styled.div`
   }
 `;
 
+const cardTextStyle = {
+  display: 'flex',
+  paddingLeft: units(3),
+  paddingRight: units(0.5),
+  paddingBottom: units(1),
+};
+
 const messages = defineMessages({
   error: {
     id: 'sourceCard.error',
@@ -60,7 +67,11 @@ class SourceCard extends React.Component {
       this.setState({ message });
     };
 
-    refreshSource(id, onFailure);
+    const onSuccess = () => {
+      this.setState({ message: null });
+    };
+
+    refreshSource(id, onSuccess, onFailure);
   }
 
   render() {
@@ -72,8 +83,8 @@ class SourceCard extends React.Component {
       (<FormattedMessage id="mediaDetail.byUser" defaultMessage="by {username}" values={{ username: <ProfileLink user={source.user} /> }} />) : '';
 
     return (
-      <Card className="source-card" style={{ marginBottom: units(1) }}>
-        <CardText className="source-card__content" style={{ display: 'flex', paddingBottom: units(1) }}>
+      <Card className="source-card">
+        <CardText className="source-card__content" style={cardTextStyle}>
           <SourcePicture size="large" object={source} type="source" />
           <StyledSourceCardBody
             className="source-card__body"

@@ -31,7 +31,8 @@ import {
 } from '../../styles/js/shared';
 
 const StyledMetadata = styled.div`
-  margin: ${units(1)} ${units(1)} 0;
+  margin: ${units(1)} 0 0;
+  padding-${props => props.fromDirection}: ${units(1)};
 
   .media-detail__dialog-header {
     color: ${black87};

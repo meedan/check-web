@@ -343,7 +343,7 @@ class MediaDetail extends Component {
               {embedCard}
             </FadeIn>
           </CardText>
-          <CardActions expandable>
+          <CardActions expandable style={{ paddingRight: units(0.5) }}>
             <MediaMetadata data={data} heading={title} {...this.props} />
           </CardActions>
         </Card>

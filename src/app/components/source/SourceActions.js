@@ -16,7 +16,7 @@ const SourceActions = (props) => {
   const { source, handleRefresh } = props;
   const menuItems = [];
 
-  if (can(source.permissions, 'update Source')) {
+  if (can(source.permissions, 'update Source') && source.accounts.edges.length) {
     menuItems.push((
       <MenuItem
         key="sourceActions.refresh"
