@@ -1,10 +1,19 @@
 import React, { Component } from 'react';
 import { injectIntl } from 'react-intl';
+import { Link } from 'react-router';
 import deepEqual from 'deep-equal';
 import styled from 'styled-components';
 import MediaUtil from './MediaUtil';
 import ParsedText from '../ParsedText';
-import { units, Row, Offset, black05, defaultBorderRadius } from '../../styles/js/shared';
+import {
+  units,
+  Row,
+  Offset,
+  black05,
+  black87,
+  subheading1,
+  defaultBorderRadius,
+} from '../../styles/js/shared';
 
 // If there is an AuthorPicture
 // as a large icon or small favicon
@@ -25,6 +34,16 @@ const StyledContentImage = styled.img`
   margin-top: ${units(1)};
 `;
 
+const StyledHeading = styled.h3`
+  font: ${subheading1};
+  font-weight: 500;
+  &,
+  a,
+  a:visited {
+    color: ${black87} !important;
+  }
+`;
+
 class WebPageMediaCard extends Component {
   shouldComponentUpdate(nextProps, nextState) {
     return !deepEqual(nextProps, this.props) || !deepEqual(nextState, this.state);
@@ -32,8 +51,9 @@ class WebPageMediaCard extends Component {
 
   render() {
     const {
-      media, data, heading, isRtl, authorName, authorUsername,
+      media, mediaUrl, data, isRtl, authorName, authorUsername,
     } = this.props;
+
     const url = MediaUtil.url(media, data);
     const authorPictureUrl = (() => {
       if (data.picture && !data.picture.match(/\/screenshots\//)) {
@@ -66,15 +86,23 @@ class WebPageMediaCard extends Component {
       }
       return (null);
     })();
+    const media_embed = media.media.embed;
+    const heading = (
+      <StyledHeading className="media__heading">
+        <Link to={mediaUrl}>
+          {media_embed.title}
+        </Link>
+      </StyledHeading>
+    );
 
     return (
       <article>
         <Row alignTop>
           { authorPicture }
           <Offset isRtl={isRtl}>
-            { heading}
+            { heading }
             { webPageName }
-            { data.description && <div><ParsedText text={data.description} /></div> }
+            { media_embed.description && <div><ParsedText text={media_embed.description} /></div> }
             {contentPicture}
           </Offset>
         </Row>
