@@ -38,5 +38,9 @@
   {
     "id": "mediaEmbed.copyEmbedCode",
     "defaultMessage": "Copy embed code"
+  },
+  {
+    "id": "mediaEmbed.copyShareUrl",
+    "defaultMessage": "Copy share URL"
   }
 ]
