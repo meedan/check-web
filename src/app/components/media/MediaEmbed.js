@@ -305,7 +305,6 @@ class MediaEmbed extends Component {
                 onClick={this.handleCustomizationMenuOpen.bind(this)}
                 label={<FormattedMessage id="mediaEmbed.customize" defaultMessage="Customize" />}
               />
-              
               <CopyToClipboard text={embedTag} onCopy={this.handleCopyEmbedCode.bind(this)}>
                 <FlatButton
                   id="media-embed__actions-copy"
@@ -318,7 +317,6 @@ class MediaEmbed extends Component {
                   }
                 />
               </CopyToClipboard>
-
               <CopyToClipboard text={shareUrl} onCopy={this.handleCopyShareUrl.bind(this)}>
                 <FlatButton
                   id="media-embed__actions-copy"
