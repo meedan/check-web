@@ -41,6 +41,7 @@ const checkSearchResultFragment = Relay.QL`
             }
           },
           media {
+            embed,
             url,
             quote,
             embed_path,
