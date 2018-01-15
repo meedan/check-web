@@ -49,6 +49,7 @@ const bridgeSearchResultFragment = Relay.QL`
             }
           },
           media {
+            embed,
             url,
             quote,
             embed_path,
