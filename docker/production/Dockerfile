@@ -45,6 +45,7 @@ USER ${DEPLOYUSER}
 RUN rm -rf ${DEPLOYDIR}/new/node_modules \
     && rsync -avp ${DEPLOYDIR}/new/* ${DEPLOYDIR}/latest/
 COPY ./.babelrc ${DEPLOYDIR}/latest/.babelrc
+COPY ./.eslintrc ${DEPLOYDIR}/latest/.eslintrc
 
 # get the relay.json file from github.com/meedan/check-api that corresponds to the current local git branch (defaults to 'develop')
 RUN /opt/bin/get_relay_json.sh
