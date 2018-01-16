@@ -182,8 +182,7 @@ const StyledAnnotationWrapper = styled.section`
     display: block;
   }
 
-  .annotation__reverse-image-search,
-  .annotation__keep-retry {
+  .annotation__reverse-image-search {
     cursor: pointer;
     display: inline-block;
     font-weight: 700;
@@ -258,7 +257,6 @@ class Annotation extends Component {
 
     this.state = {
       zoomedCommentImage: false,
-      retriedKeep: false,
       disableMachineTranslation: false,
     };
   }
@@ -333,25 +331,6 @@ class Annotation extends Component {
         { onSuccess, onFailure },
       );
       this.setState({ disableMachineTranslation: true });
-    }
-  }
-
-  handleRetryKeep() {
-    const onFailure = () => {
-      this.setState({ retriedKeep: false });
-    };
-
-    const onSuccess = () => {};
-
-    if (!this.state.retriedKeep) {
-      Relay.Store.commitUpdate(
-        new UpdateProjectMediaMutation({
-          update_keep: 1,
-          id: this.props.annotated.id,
-        }),
-        { onSuccess, onFailure },
-      );
-      this.setState({ retriedKeep: true });
     }
   }
 
@@ -673,16 +652,7 @@ class Annotation extends Component {
         const keepLink = keep.location;
         const keepStatus = parseInt(keep.status, 10);
         contentTemplate = null;
-        if (this.state.retriedKeep) {
-          contentTemplate = (
-            <span className="annotation__keep">
-              <FormattedHTMLMessage
-                id="annotation.keepRetried"
-                defaultMessage="There is a new attempt to archive this item in Keep. Please check back in an hour."
-              />
-            </span>
-          );
-        } else if (keepLink) {
+        if (keepLink) {
           contentTemplate = (
             <span className="annotation__keep">
               <FormattedHTMLMessage
@@ -699,9 +669,6 @@ class Annotation extends Component {
                 id="annotation.keepError"
                 defaultMessage="There was an error when Keep tried to archive this item"
               />
-              <span className="annotation__keep-retry" onClick={this.handleRetryKeep.bind(this)}>
-                <FormattedMessage id="annotation.keepRetry" defaultMessage="Retry" />
-              </span>
             </span>
           );
         } else {
