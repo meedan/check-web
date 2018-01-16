@@ -656,8 +656,8 @@ class Annotation extends Component {
           contentTemplate = (
             <span className="annotation__keep">
               <FormattedHTMLMessage
-                id="annotation.keepSuccess"
-                defaultMessage='In case this link goes offline, you can <a href="{keepLink}" target="_blank" rel="noopener noreferrer">access a backup via Keep</a>'
+                id="annotation.videoVaultSuccess"
+                defaultMessage='In case this link goes offline, you can <a href="{keepLink}" target="_blank" rel="noopener noreferrer">access a <b>Video Vault</b> backup via Keep</a>'
                 values={{ keepLink }}
               />
             </span>
@@ -666,8 +666,8 @@ class Annotation extends Component {
           contentTemplate = (
             <span className="annotation__keep">
               <FormattedHTMLMessage
-                id="annotation.keepError"
-                defaultMessage="There was an error when Keep tried to archive this item"
+                id="annotation.videoVaultError"
+                defaultMessage="There was an error when Keep tried to archive this item to Video Vault"
               />
             </span>
           );
@@ -675,8 +675,35 @@ class Annotation extends Component {
           contentTemplate = (
             <span className="annotation__keep">
               <FormattedHTMLMessage
-                id="annotation.keepWait"
-                defaultMessage="This item is being archived in Keep. Come back in an hour to receive a confirmation link."
+                id="annotation.videoVaultWait"
+                defaultMessage="This item is being archived to <b>Video Vault</b> by Keep. Come back in an hour to receive a confirmation link."
+              />
+            </span>
+          );
+        }
+      }
+
+      if (object.field_name === 'archive_is_response') {
+        const archiveIsAnnotationContent = JSON.parse(annotation.content);
+        const archiveIsResponse = JSON.parse(archiveIsAnnotationContent[0].value);
+        const archiveIsLink = archiveIsResponse.location;
+        contentTemplate = null;
+        if (archiveIsLink) {
+          contentTemplate = (
+            <span className="annotation__keep">
+              <FormattedHTMLMessage
+                id="annotation.archiveIsSuccess"
+                defaultMessage='In case this link goes offline, you can <a href="{archiveIsLink}" target="_blank" rel="noopener noreferrer">access a <b>Archive.is</b> backup via Keep</a>'
+                values={{ archiveIsLink }}
+              />
+            </span>
+          );
+        } else {
+          contentTemplate = (
+            <span className="annotation__keep">
+              <FormattedHTMLMessage
+                id="annotation.archiveIsWait"
+                defaultMessage="This item is being archived to <b>Archive.is</b> by Keep. Come back in some minutes to receive a confirmation link."
               />
             </span>
           );
