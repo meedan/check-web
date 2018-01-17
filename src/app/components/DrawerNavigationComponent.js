@@ -25,8 +25,21 @@ import {
 // TODO Fix a11y issues
 /* eslint jsx-a11y/click-events-have-key-events: 0 */
 class DrawerNavigation extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      showAddProj: false,
+    };
+  }
+
   getHistory() {
     return new CheckContext(this).getContextStore().history;
+  }
+
+  handleAddProj(e) {
+    this.setState({ showAddProj: !this.state.showAddProj });
+    e.stopPropagation();
   }
 
   render() {
@@ -173,7 +186,11 @@ class DrawerNavigation extends Component {
           <div style={styles.drawerProjectsAndFooter}>
             <div style={styles.drawerProjects}>
               {inTeamContext && (currentUserIsMember || !this.props.team.private)
-                ? <DrawerProjects team={this.props.team.slug} />
+                ? <DrawerProjects
+                  team={this.props.team.slug}
+                  showAddProj={this.state.showAddProj}
+                  handleAddProj={this.handleAddProj.bind(this)}
+                />
                 : null}
             </div>
 

@@ -1,7 +1,15 @@
 [
   {
     "id": "createProject.addProject",
-    "defaultMessage": "Add project +"
+    "defaultMessage": "Add project"
+  },
+  {
+    "id": "createProject.title",
+    "defaultMessage": "Add a project"
+  },
+  {
+    "id": "createProject.newProjectName",
+    "defaultMessage": "Project name"
   },
   {
     "id": "createProject.error",
