@@ -21,11 +21,8 @@ class ShortTextRespondTask extends React.Component {
   }
 
   canSubmit() {
-    const response = typeof this.state.response !== 'undefined' && this.state.response !== null
-      ? this.state.response : this.props.response || '';
-
-    this.setState({ taskAnswerDisabled: !response });
-    return response;
+    const taskAnswerDisabled = !(this.state.response && this.state.response.trim());
+    this.setState({ taskAnswerDisabled });
   }
 
   handleChange(e) {
@@ -44,12 +41,6 @@ class ShortTextRespondTask extends React.Component {
     }
   }
 
-  handlePressButton() {
-    if (this.canSubmit()) {
-      this.handleSubmit();
-    }
-  }
-
   render() {
     const actionBtns = (
       <p className="task__resolver">
@@ -61,7 +52,7 @@ class ShortTextRespondTask extends React.Component {
         <FlatButton
           className="task__save"
           label={<FormattedMessage id="shortTextRespondTask.resolveTask" defaultMessage="Resolve task" />}
-          onClick={this.handlePressButton.bind(this)}
+          onClick={this.handleSubmit.bind(this)}
           disabled={this.state.taskAnswerDisabled}
           primary
         />

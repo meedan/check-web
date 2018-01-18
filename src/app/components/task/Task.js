@@ -345,7 +345,7 @@ class Task extends Component {
                 </IconButton>
               }
             >
-              {response ?
+              {task.first_response ?
                 <Can permissions={task.first_response.permissions} permission="update Dynamic">
                   <MenuItem className="task-actions__edit-response" onClick={this.handleEditResponse.bind(this)}>
                     <FormattedMessage id="task.editResponse" defaultMessage="Edit response" />
@@ -383,7 +383,7 @@ class Task extends Component {
     );
 
     let taskBody = null;
-    if (!response) {
+    if (!task.first_response) {
       taskBody = (
         <Can permissions={media.permissions} permission="create Dynamic">
           <form name={`task-response-${task.id}`}>
