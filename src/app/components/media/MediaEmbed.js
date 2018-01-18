@@ -24,7 +24,7 @@ const StyledPopover = styled(Popover)`
     padding-#{$to-direction}: 16px;
   }
 
-  #media-embed__copy-code {
+  #media-embed__copy-code, #media-embed__copy-share-url {
     padding: 16px;
     width: 560px;
 
@@ -38,7 +38,7 @@ const StyledPopover = styled(Popover)`
       display: flex;
     }
 
-    #media-embed__code-field {
+    #media-embed__code-field, #media-embed__share-field {
       background: transparent;
       border: 1px solid #eee;
       flex-grow: 1;
@@ -71,6 +71,9 @@ class MediaEmbed extends Component {
       codeMenuAnchor: null,
       version: new Date().getTime(),
       codeCopied: false,
+      shareMenuOpened: false,
+      shareMenuAnchor: null,
+      urlCopied: false,
       customizationOptions: {
         showTasks: true,
         showOpenTasks: true,
@@ -115,6 +118,27 @@ class MediaEmbed extends Component {
     });
   }
 
+  handleShareMenuOpen(e) {
+    e.preventDefault();
+
+    this.setState({
+      shareMenuOpened: true,
+      shareMenuAnchor: e.currentTarget,
+    });
+  }
+
+  handleShareMenuClose() {
+    this.setState({
+      shareMenuOpened: false,
+    });
+  }
+
+  handleCopyShareUrl() {
+    this.setState({
+      urlCopied: true,
+    });
+  }
+
   handleSelectCheckbox(option) {
     const options = Object.assign({}, this.state.customizationOptions);
     options[option] = !options[option];
@@ -142,6 +166,7 @@ class MediaEmbed extends Component {
     }
 
     const embedTag = `<script src="${config.penderUrl}/api/medias.js?url=${encodeURIComponent(url)}"></script>`;
+    const shareUrl = url;
 
     return (
       <PageTitle title={this.props.intl.formatMessage(messages.preview)}>
@@ -243,6 +268,37 @@ class MediaEmbed extends Component {
               </div>
             </StyledPopover>
 
+            <StyledPopover
+              open={this.state.shareMenuOpened}
+              anchorEl={this.state.shareMenuAnchor}
+              anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
+              targetOrigin={{ horizontal: 'left', vertical: 'top' }}
+              onRequestClose={this.handleShareMenuClose.bind(this)}
+            >
+              <div id="media-embed__copy-share-url">
+                <p className="media-embed__warning">
+                  <FormattedMessage
+                    id="mediaEmbed.warning"
+                    defaultMessage="Warning — sharing this will expose information to people outside your private team. Proceed with caution."
+                  />
+                </p>
+                <p className="media-embed__copy-footer">
+                  <input disabled readOnly value={shareUrl} id="media-embed__share-field" />
+                  {this.state.urlCopied ?
+                    <span className="media-embed__copy-button-inactive">
+                      <FormattedMessage
+                        id="mediaEmbed.copyButtonInactive"
+                        defaultMessage="Copied"
+                      />
+                    </span>
+                    :
+                    <span className="media-embed__copy-button">
+                      <FormattedMessage id="mediaEmbed.copyButton" defaultMessage="Copy" />
+                    </span>}
+                </p>
+              </div>
+            </StyledPopover>
+
             <p id="media-embed__actions">
               <FlatButton
                 id="media-embed__actions-customize"
@@ -257,6 +313,18 @@ class MediaEmbed extends Component {
                     <FormattedMessage
                       id="mediaEmbed.copyEmbedCode"
                       defaultMessage="Copy embed code"
+                    />
+                  }
+                />
+              </CopyToClipboard>
+              <CopyToClipboard text={shareUrl} onCopy={this.handleCopyShareUrl.bind(this)}>
+                <FlatButton
+                  id="media-embed__actions-copy"
+                  onClick={this.handleShareMenuOpen.bind(this)}
+                  label={
+                    <FormattedMessage
+                      id="mediaEmbed.copyShareUrl"
+                      defaultMessage="Copy share URL"
                     />
                   }
                 />

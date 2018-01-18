@@ -16,6 +16,6 @@
   "teamComponent.slackNotificationsEnabled": "Ativar notificações via Slack",
   "teamComponent.cancelButton": "Cancelar",
   "teamComponent.saveButton": "Salvar",
-  "teamComponent.members": "Membros",
-  "teamComponent.projects": "Projetos"
+  "teamComponent.projects": "Projetos",
+  "teamComponent.members": "Membros"
 }

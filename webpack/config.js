@@ -52,9 +52,17 @@ export default {
   module: {
     loaders: [{
       test: /\.js$/,
-      loader: ['babel'],
+      loader: 'babel',
       exclude: /node_modules/,
       query: { presets: ['es2015', 'stage-0', 'react'], plugins: [path.join(__dirname, './babelRelayPlugin.js')]}
+    }, {
+      enforce: 'pre',
+      test: /\.js$/,
+      loader: 'eslint',
+      exclude: /node_modules/,
+      include: [
+        path.join(__dirname, '../src/app')
+      ]
     }, {
       test: /\.css?$/,
       loaders: ['style', 'raw']

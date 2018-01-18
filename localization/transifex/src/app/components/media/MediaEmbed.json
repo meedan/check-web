@@ -8,5 +8,6 @@
   "mediaEmbed.copyButtonInactive": "Copied",
   "mediaEmbed.copyButton": "Copy",
   "mediaEmbed.customize": "Customize",
-  "mediaEmbed.copyEmbedCode": "Copy embed code"
+  "mediaEmbed.copyEmbedCode": "Copy embed code",
+  "mediaEmbed.copyShareUrl": "Copy share URL"
 }
