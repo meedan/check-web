@@ -2,16 +2,30 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { defineMessages, injectIntl, intlShape } from 'react-intl';
 import Relay from 'react-relay';
+import { Card, CardActions, CardText, CardHeader } from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
+import FlatButton from 'material-ui/FlatButton';
+import styled from 'styled-components';
 import CreateProjectMutation from '../../relay/mutations/CreateProjectMutation';
-import Message from '../Message';
 import CheckContext from '../../CheckContext';
 import { safelyParseJSON } from '../../helpers';
+import {
+  title1,
+  units,
+} from '../../styles/js/shared';
 
 const messages = defineMessages({
   addProject: {
     id: 'createProject.addProject',
-    defaultMessage: 'Add project +',
+    defaultMessage: 'Add project',
+  },
+  cardTitle: {
+    id: 'createProject.title',
+    defaultMessage: 'Add a project',
+  },
+  newProjectName: {
+    id: 'createProject.newProjectName',
+    defaultMessage: 'Project name',
   },
   error: {
     id: 'createProject.error',
@@ -25,6 +39,7 @@ class CreateProject extends Component {
 
     this.state = {
       message: null,
+      name: null,
       submitDisabled: false,
     };
   }
@@ -34,6 +49,10 @@ class CreateProject extends Component {
       this.projectInput.focus();
     }
   }
+
+  handleChange = (e) => {
+    this.setState({ name: e.target.value });
+  };
 
   handleSubmit(e) {
     const title = this.projectInput.getValue();
@@ -72,21 +91,66 @@ class CreateProject extends Component {
   }
 
   render() {
-    return (
+    const textInput = (
+      <TextField
+        id="create-project-title"
+        className={this.props.className || 'team__new-project-input'}
+        floatingLabelText={this.props.intl.formatMessage(messages.newProjectName)}
+        ref={(i) => { this.projectInput = i; }}
+        style={this.props.style}
+        autoFocus={this.props.autoFocus}
+        errorText={this.state.message}
+        onChange={this.handleChange}
+        fullWidth
+      />
+    );
+
+    const submitButton = (
+      <FlatButton
+        id="create-project-submit-button"
+        label={this.props.intl.formatMessage(messages.addProject)}
+        onClick={this.handleSubmit.bind(this)}
+        primary
+        disabled={!this.state.name}
+      />
+    );
+
+    const form = (
       <form onSubmit={this.handleSubmit.bind(this)} className="create-project">
-
-        <TextField
-          id="create-project-title"
-          className={this.props.className || 'team__new-project-input'}
-          floatingLabelText={this.props.intl.formatMessage(messages.addProject)}
-          ref={(i) => { this.projectInput = i; }}
-          style={this.props.style || { marginLeft: '8px' }}
-          autoFocus={this.props.autoFocus}
-        />
-
-        <Message message={this.state.message} />
+        {textInput}
+        {submitButton}
       </form>
     );
+
+    const StyledCardHeader = styled(CardHeader)`
+      span {
+        font: ${title1} !important;
+      }
+    `;
+
+    if (this.props.renderCard) {
+      return (
+        <Card
+          style={{ marginTop: units(2), marginBottom: units(2) }}
+          initiallyExpanded
+        >
+          <StyledCardHeader
+            title={this.props.intl.formatMessage(messages.cardTitle)}
+            showExpandableButton
+          />
+          <CardText expandable>
+            <form onSubmit={this.handleSubmit.bind(this)} className="create-project">
+              {textInput}
+            </form>
+          </CardText>
+          <CardActions expandable>
+            {submitButton}
+          </CardActions>
+        </Card>
+      );
+    }
+
+    return form;
   }
 }
 

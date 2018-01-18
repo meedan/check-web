@@ -527,13 +527,13 @@ class TeamComponent extends Component {
                   ) : null }
                   {this.state.showTab === 'projects' ? (
                     <div>
-                      <Card style={{ marginTop: units(2), marginBottom: units(2) }}>
-                        <Can permissions={team.permissions} permission="create Project">
-                          <CardActions style={{ padding: `0 ${units(2)} ${units(2)}` }}>
-                            <CreateProject team={team} autoFocus={!team.projects.edges.length} />
-                          </CardActions>
-                        </Can>
-                      </Card>
+                      <Can permissions={team.permissions} permission="create Project">
+                        <CreateProject
+                          team={team}
+                          autoFocus={!team.projects.edges.length}
+                          renderCard
+                        />
+                      </Can>
                       <Card style={{ marginTop: units(2), marginBottom: units(2) }}>
                         <StyledCardHeader
                           title={<MappedMessage msgObj={messages} msgKey="verificationProjects" />}

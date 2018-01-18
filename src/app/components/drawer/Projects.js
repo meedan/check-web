@@ -1,12 +1,19 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import Relay from 'react-relay';
 import { Link } from 'react-router';
 import MenuItem from 'material-ui/MenuItem';
+import MdAddCircleOutline from 'material-ui/svg-icons/content/add-circle-outline';
+import MdHighlightOff from 'material-ui/svg-icons/action/highlight-off';
 import styled from 'styled-components';
+import rtlDetect from 'rtl-detect';
+import Can from '../Can';
+import CreateProject from '../project/CreateProject';
 import TeamRoute from '../../relay/TeamRoute';
 import teamFragment from '../../relay/teamFragment';
+
 import {
+  Row,
   Text,
   black54,
   units,
@@ -19,6 +26,13 @@ const SubHeading = styled.div`
   padding: ${units(2)} ${units(2)} ${units(1)} ${units(2)};
 `;
 
+const StyledAddProj = styled.div`
+  margin-${props => props.isRtl ? 'right' : 'left'}: auto;
+  float: ${props => props.isRtl ? 'left' : 'right'};
+`;
+
+// TODO Fix a11y issues
+/* eslint jsx-a11y/click-events-have-key-events: 0 */
 const DrawerProjectsComponent = (props) => {
   const projectList = (() => {
     if (props.team.projects.edges.length === 0) {
@@ -44,22 +58,43 @@ const DrawerProjectsComponent = (props) => {
       });
   })();
 
+  // avoid clicks to create project widget to close drawer
+  const createProject = (
+    <div onClick={(e) => { e.stopPropagation(); }} style={{ width: '100%', padding: '16px' }}>
+      <CreateProject className="project-list__input" team={props.team} autofocus />
+    </div>
+  );
+
   return (
     <div>
       <SubHeading>
-        <FormattedMessage
-          id="projects.projectsSubheading"
-          defaultMessage="Projects"
-        />
+        <Row>
+          <FormattedMessage
+            id="projects.projectsSubheading"
+            defaultMessage="Projects"
+          />
+          { props.handleAddProj &&
+            <Can permissions={props.team.permissions} permission="create Project">
+              <StyledAddProj
+                style={{ cursor: 'pointer' }}
+                onClick={props.handleAddProj}
+                isRtl={rtlDetect.isRtlLang(props.intl.locale)}
+                className="drawer__create-project-button"
+              >
+                { props.showAddProj ? <MdHighlightOff /> : <MdAddCircleOutline /> }
+              </StyledAddProj>
+            </Can>
+          }
+        </Row>
       </SubHeading>
       <div>
-        {projectList}
+        { props.showAddProj ? createProject : projectList }
       </div>
     </div>
   );
 };
 
-const DrawerProjectsContainer = Relay.createContainer(DrawerProjectsComponent, {
+const DrawerProjectsContainer = Relay.createContainer(injectIntl(DrawerProjectsComponent), {
   initialVariables: {
     pageSize: 10000,
   },
