@@ -662,12 +662,12 @@ class Annotation extends Component {
               />
             </span>
           );
-        } else if (keepStatus === 418) {
+        } else if (keepStatus === 418 || keep.error) {
           contentTemplate = (
             <span className="annotation__keep">
               <FormattedHTMLMessage
                 id="annotation.videoVaultError"
-                defaultMessage="There was an error when Keep tried to archive this item to Video Vault"
+                defaultMessage="There was an error when Keep tried to archive this item to <b>Video Vault</b>"
               />
             </span>
           );
@@ -695,6 +695,15 @@ class Annotation extends Component {
                 id="annotation.archiveIsSuccess"
                 defaultMessage='In case this link goes offline, you can <a href="{archiveIsLink}" target="_blank" rel="noopener noreferrer">access a <b>Archive.is</b> backup via Keep</a>'
                 values={{ archiveIsLink }}
+              />
+            </span>
+          );
+        } else if (archiveIsResponse.error) {
+          contentTemplate = (
+            <span className="annotation__keep">
+              <FormattedHTMLMessage
+                id="annotation.archiveIsError"
+                defaultMessage="There was an error when Keep tried to archive this item to <b>Archive.is</b>"
               />
             </span>
           );

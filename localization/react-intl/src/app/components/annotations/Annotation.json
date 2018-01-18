@@ -73,7 +73,7 @@
   },
   {
     "id": "annotation.videoVaultError",
-    "defaultMessage": "There was an error when Keep tried to archive this item to Video Vault"
+    "defaultMessage": "There was an error when Keep tried to archive this item to <b>Video Vault</b>"
   },
   {
     "id": "annotation.videoVaultWait",
@@ -82,6 +82,10 @@
   {
     "id": "annotation.archiveIsSuccess",
     "defaultMessage": "In case this link goes offline, you can <a href=\"{archiveIsLink}\" target=\"_blank\" rel=\"noopener noreferrer\">access a <b>Archive.is</b> backup via Keep</a>"
+  },
+  {
+    "id": "annotation.archiveIsError",
+    "defaultMessage": "There was an error when Keep tried to archive this item to <b>Archive.is</b>"
   },
   {
     "id": "annotation.archiveIsWait",
