@@ -76,8 +76,10 @@ const DrawerProjectsComponent = (props) => {
           { props.handleAddProj &&
             <Can permissions={props.team.permissions} permission="create Project">
               <StyledAddProj
+                style={{ cursor: 'pointer' }}
                 onClick={props.handleAddProj}
                 isRtl={rtlDetect.isRtlLang(props.intl.locale)}
+                className="drawer__create-project-button"
               >
                 { props.showAddProj ? <MdHighlightOff /> : <MdAddCircleOutline /> }
               </StyledAddProj>

@@ -107,6 +107,7 @@ class CreateProject extends Component {
 
     const submitButton = (
       <FlatButton
+        id="create-project-submit-button"
         label={this.props.intl.formatMessage(messages.addProject)}
         onClick={this.handleSubmit.bind(this)}
         primary
@@ -138,7 +139,9 @@ class CreateProject extends Component {
             showExpandableButton
           />
           <CardText expandable>
-            {textInput}
+            <form onSubmit={this.handleSubmit.bind(this)} className="create-project">
+              {textInput}
+            </form>
           </CardText>
           <CardActions expandable>
             {submitButton}
