@@ -158,7 +158,7 @@ class MediaDetail extends Component {
       : null;
 
     const title = isWebPage
-      ? data.title || authorName || authorUsername
+      ? MediaUtil.title(media, data, this.props.intl) || authorName || authorUsername
       : MediaUtil.title(media, data, this.props.intl);
 
     const heading = (
