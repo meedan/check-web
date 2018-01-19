@@ -182,8 +182,7 @@ const StyledAnnotationWrapper = styled.section`
     display: block;
   }
 
-  .annotation__reverse-image-search,
-  .annotation__keep-retry {
+  .annotation__reverse-image-search {
     cursor: pointer;
     display: inline-block;
     font-weight: 700;
@@ -258,7 +257,6 @@ class Annotation extends Component {
 
     this.state = {
       zoomedCommentImage: false,
-      retriedKeep: false,
       disableMachineTranslation: false,
     };
   }
@@ -333,25 +331,6 @@ class Annotation extends Component {
         { onSuccess, onFailure },
       );
       this.setState({ disableMachineTranslation: true });
-    }
-  }
-
-  handleRetryKeep() {
-    const onFailure = () => {
-      this.setState({ retriedKeep: false });
-    };
-
-    const onSuccess = () => {};
-
-    if (!this.state.retriedKeep) {
-      Relay.Store.commitUpdate(
-        new UpdateProjectMediaMutation({
-          update_keep: 1,
-          id: this.props.annotated.id,
-        }),
-        { onSuccess, onFailure },
-      );
-      this.setState({ retriedKeep: true });
     }
   }
 
@@ -673,43 +652,67 @@ class Annotation extends Component {
         const keepLink = keep.location;
         const keepStatus = parseInt(keep.status, 10);
         contentTemplate = null;
-        if (this.state.retriedKeep) {
+        if (keepLink) {
           contentTemplate = (
             <span className="annotation__keep">
               <FormattedHTMLMessage
-                id="annotation.keepRetried"
-                defaultMessage="There is a new attempt to archive this item in Keep. Please check back in an hour."
-              />
-            </span>
-          );
-        } else if (keepLink) {
-          contentTemplate = (
-            <span className="annotation__keep">
-              <FormattedHTMLMessage
-                id="annotation.keepSuccess"
-                defaultMessage='In case this link goes offline, you can <a href="{keepLink}" target="_blank" rel="noopener noreferrer">access a backup via Keep</a>'
+                id="annotation.videoVaultSuccess"
+                defaultMessage='In case this link goes offline, you can <a href="{keepLink}" target="_blank" rel="noopener noreferrer">access a <b>Video Vault</b> backup via Keep</a>'
                 values={{ keepLink }}
               />
             </span>
           );
-        } else if (keepStatus === 418) {
+        } else if (keepStatus === 418 || keep.error) {
           contentTemplate = (
             <span className="annotation__keep">
               <FormattedHTMLMessage
-                id="annotation.keepError"
-                defaultMessage="There was an error when Keep tried to archive this item"
+                id="annotation.videoVaultError"
+                defaultMessage="There was an error when Keep tried to archive this item to <b>Video Vault</b>"
               />
-              <span className="annotation__keep-retry" onClick={this.handleRetryKeep.bind(this)}>
-                <FormattedMessage id="annotation.keepRetry" defaultMessage="Retry" />
-              </span>
             </span>
           );
         } else {
           contentTemplate = (
             <span className="annotation__keep">
               <FormattedHTMLMessage
-                id="annotation.keepWait"
-                defaultMessage="This item is being archived in Keep. Come back in an hour to receive a confirmation link."
+                id="annotation.videoVaultWait"
+                defaultMessage="This item is being archived to <b>Video Vault</b> by Keep. Come back in an hour to receive a confirmation link."
+              />
+            </span>
+          );
+        }
+      }
+
+      if (object.field_name === 'archive_is_response') {
+        const archiveIsAnnotationContent = JSON.parse(annotation.content);
+        const archiveIsResponse = JSON.parse(archiveIsAnnotationContent[0].value);
+        const archiveIsLink = archiveIsResponse.location;
+        contentTemplate = null;
+        if (archiveIsLink) {
+          contentTemplate = (
+            <span className="annotation__keep">
+              <FormattedHTMLMessage
+                id="annotation.archiveIsSuccess"
+                defaultMessage='In case this link goes offline, you can <a href="{archiveIsLink}" target="_blank" rel="noopener noreferrer">access a <b>Archive.is</b> backup via Keep</a>'
+                values={{ archiveIsLink }}
+              />
+            </span>
+          );
+        } else if (archiveIsResponse.error) {
+          contentTemplate = (
+            <span className="annotation__keep">
+              <FormattedHTMLMessage
+                id="annotation.archiveIsError"
+                defaultMessage="There was an error when Keep tried to archive this item to <b>Archive.is</b>"
+              />
+            </span>
+          );
+        } else {
+          contentTemplate = (
+            <span className="annotation__keep">
+              <FormattedHTMLMessage
+                id="annotation.archiveIsWait"
+                defaultMessage="This item is being archived to <b>Archive.is</b> by Keep. Come back in some minutes to receive a confirmation link."
               />
             </span>
           );

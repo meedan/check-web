@@ -68,24 +68,28 @@
     "defaultMessage": "Translation published to {link}"
   },
   {
-    "id": "annotation.keepRetried",
-    "defaultMessage": "There is a new attempt to archive this item in Keep. Please check back in an hour."
+    "id": "annotation.videoVaultSuccess",
+    "defaultMessage": "In case this link goes offline, you can <a href=\"{keepLink}\" target=\"_blank\" rel=\"noopener noreferrer\">access a <b>Video Vault</b> backup via Keep</a>"
   },
   {
-    "id": "annotation.keepSuccess",
-    "defaultMessage": "In case this link goes offline, you can <a href=\"{keepLink}\" target=\"_blank\" rel=\"noopener noreferrer\">access a backup via Keep</a>"
+    "id": "annotation.videoVaultError",
+    "defaultMessage": "There was an error when Keep tried to archive this item to <b>Video Vault</b>"
   },
   {
-    "id": "annotation.keepError",
-    "defaultMessage": "There was an error when Keep tried to archive this item"
+    "id": "annotation.videoVaultWait",
+    "defaultMessage": "This item is being archived to <b>Video Vault</b> by Keep. Come back in an hour to receive a confirmation link."
   },
   {
-    "id": "annotation.keepRetry",
-    "defaultMessage": "Retry"
+    "id": "annotation.archiveIsSuccess",
+    "defaultMessage": "In case this link goes offline, you can <a href=\"{archiveIsLink}\" target=\"_blank\" rel=\"noopener noreferrer\">access a <b>Archive.is</b> backup via Keep</a>"
   },
   {
-    "id": "annotation.keepWait",
-    "defaultMessage": "This item is being archived in Keep. Come back in an hour to receive a confirmation link."
+    "id": "annotation.archiveIsError",
+    "defaultMessage": "There was an error when Keep tried to archive this item to <b>Archive.is</b>"
+  },
+  {
+    "id": "annotation.archiveIsWait",
+    "defaultMessage": "This item is being archived to <b>Archive.is</b> by Keep. Come back in some minutes to receive a confirmation link."
   },
   {
     "id": "annotation.embedCodeCopied",

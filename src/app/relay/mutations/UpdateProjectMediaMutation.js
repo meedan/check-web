@@ -56,7 +56,6 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
       project_id: this.props.project_id,
       refresh_media: this.props.refresh_media,
       update_mt: this.props.update_mt,
-      update_keep: this.props.update_keep,
       archived: this.props.archived,
     };
     if (this.props.srcProj) {
