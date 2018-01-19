@@ -1,0 +1,22 @@
+{
+  "mediaDetail.mediaTitle": "Título",
+  "mediaDetail.mediaDescription": "Descripción ",
+  "mediaDetail.editReport": "Editar informe",
+  "mediaDetail.editReportError": "Lo sentimos, no podemos editar este informe",
+  "mediaDetail.trash": "Papelera",
+  "mediaMetadata.movedToTrash": "Enviar a  {trash}",
+  "mediaMetadata.movedBack": "Devuelto al proyecto: {project}",
+  "mediaMetadata.deletedForever": "Eliminado",
+  "mediaDetail.byUser": "por {username}",
+  "mediaDetail.cancelButton": "Cancelar",
+  "mediaDetail.move": "Mover",
+  "mediaDetail.doneButton": "Hecho",
+  "mediaDetail.cancel": "Cancelar",
+  "mediaDetail.deleteForever": "Eliminar para siempre",
+  "mediaDetail.addedBy": "Añadido por  {byUser}",
+  "mediaDetail.dialogHeader": "Mover esto  {mediaType} a otro proyecto",
+  "mediaDetail.dialogMediaPath": "Actualmente archivado bajo  {teamName} > {projectTitle}",
+  "mediaDetail.deleteForeverConfirmationText": "¿Estás seguro? Esto eliminará  de forma permanente este ítem y sus {notesCount, plural, =0 {0 annotations} un {1 annotation} otro {# annotations}}. Escribe \"confirmar\" si deseas continuar.",
+  "mediaDetail.confirmationError": "No coincide",
+  "mediaDetail.typeHere": "Escribe aquí"
+}

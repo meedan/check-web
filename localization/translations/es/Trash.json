@@ -1,0 +1,11 @@
+{
+  "trash.title": "Papelera",
+  "trash.refresh": "Actualizar ahora",
+  "trash.emptyInProgress": "Estamos vaciando la papelera. Por favor vuelve más tarde. {refresh}",
+  "trash.cancel": "Cancelar",
+  "trash.deleteAll": "Eliminar todo",
+  "trash.emptyTrash": "Papelera vacía",
+  "trash.emptyTrashConfirmationText": "¿Estás seguro? Esto será eliminado de forma permanente {itemsCount, plural, =0 {0 items} un {1 item} otro {# items}} y {notesCount, plural, =0 {0 annotations} un {1 annotation} otro {# annotations}}. Escribe \"confirm\" si deseas continuar.",
+  "trash.confirmationError": "No coincide",
+  "trash.typeHere": "Escribe aquí "
+}

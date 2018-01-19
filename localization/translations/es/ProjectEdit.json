@@ -1,0 +1,8 @@
+{
+  "projectEdit.error": "Lo sentimos, no pudimos actualizar el proyecto",
+  "projectEdit.titleField": "Título del proyecto",
+  "projectEdit.descriptionField": "Descripción del proyecto",
+  "projectEdit.slackChannelField": " #canal de Slack",
+  "projectEdit.slackChannelPlaceholder": "Añade un #canal de Slack para recibir notificaciones sobre la actividad de este proyecto",
+  "projectEdit.saveButton": "Guardar"
+}

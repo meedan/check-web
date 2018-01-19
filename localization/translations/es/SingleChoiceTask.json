@@ -1,0 +1,15 @@
+{
+  "singleChoiceTask.addValue": "Añadir opción",
+  "singleChoiceTask.value": "Entrada",
+  "singleChoiceTask.addOther": "Añadir \"Otro\"",
+  "singleChoiceTask.other": "Otro",
+  "singleChoiceTask.newTask": "Nueva tarea",
+  "tasks.cancelAdd": "Cancelar",
+  "tasks.add": "Crear tarea",
+  "tasks.taskPrompt": "Rápido",
+  "tasks.description": "Descripción",
+  "tasks.addDescription": "Añade una descripción ",
+  "tasks.cancelEdit": "Cancelar",
+  "tasks.submit": "Resolver tarea",
+  "task.noteLabel": "Anota detalles adicionales aquí."
+}

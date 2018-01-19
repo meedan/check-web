@@ -1,4 +1,6 @@
 {
-  "createProject.addProject": "+ أضف مشروع",
+  "createProject.addProject": "أضف مشروعاً",
+  "createProject.title": "أضف مشروعاً",
+  "createProject.newProjectName": "عنوان المشروع",
   "createProject.error": "عذراً ، لم نستطع إضافة المشروع"
 }

@@ -1,0 +1,15 @@
+{
+  "task.confirmDelete": "¿Estás seguro de que quieres eliminar esta tarea?",
+  "tasks.cancelEdit": "Cancelar",
+  "tasks.save": "Guardar",
+  "tasks.done": "Hecho",
+  "task.resolvedBy": "Resuelto por {byName}",
+  "task.editResponse": "Editar respuesta ",
+  "task.edit": "Editar pregunta",
+  "task.editAttribution": "Editar atribución",
+  "task.delete": "Eliminar tarea",
+  "tasks.taskLabel": "Rótulo de tarea",
+  "tasks.description": "Descripción",
+  "tasks.editAttribution": "Editar atribución",
+  "tasks.attributionSlogan": "Para la tarea, \"{label}\""
+}

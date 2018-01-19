@@ -1,0 +1,16 @@
+{
+  "media.notesCount": "{notesCount, plural, =0 {No notes} un {1 note} otros {# notes}}",
+  "media.typeTwitter": "Tweet",
+  "media.typeFacebook": "Publicación de Facebook",
+  "media.typeInstagram": "Instagram",
+  "media.typeVideo": "Video",
+  "media.typeClaim": "Reclamo",
+  "bridge.media.typeClaim": "Cita",
+  "media.typeImage": "Imagen",
+  "media.typePage": "Página",
+  "media.onDomain": "{typeLabel} en {domain}",
+  "media.byAttribution": "{typeLabel} por {attribution}",
+  "media.withText": "{typeLabel}: {text}",
+  "media.favoritesCount": "{favoritesCount, plural, one {1 favorite} other {# favorites}}",
+  "media.retweetsCount": "{retweetsCount, plural, one {1 retweet} other {# retweets}}"
+}

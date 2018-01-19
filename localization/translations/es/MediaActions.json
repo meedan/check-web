@@ -1,0 +1,9 @@
+{
+  "mediaActions.edit": "Editar",
+  "mediaActions.restore": "Restaurar el proyecto",
+  "mediaActions.move": "Mover",
+  "mediaActions.sendToTrash": "Enviar a la papelera",
+  "mediaActions.refresh": "Actualizar ",
+  "mediaActions.embed": "Incrustar ",
+  "mediaActions.deleteForever": "Eliminar para siempre "
+}

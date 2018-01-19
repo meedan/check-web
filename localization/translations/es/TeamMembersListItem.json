@@ -1,0 +1,9 @@
+{
+  "TeamMembersListItem.contributor": "Contribuidor",
+  "TeamMembersListItem.journalist": "Periodista",
+  "TeamMembersListItem.editor": "Editor",
+  "TeamMembersListItem.owner": "Propietario",
+  "TeamMembershipRequestsListItem.approve": "Aprobado",
+  "TeamMembershipRequestsListItem.deny": "Ignorar ",
+  "TeamMembersListItem.deleteMember": "Eliminar miembro"
+}
