@@ -656,9 +656,9 @@ class Annotation extends Component {
           contentTemplate = (
             <span className="annotation__keep">
               <FormattedHTMLMessage
-                id="annotation.videoVaultSuccess"
-                defaultMessage='In case this link goes offline, you can <a href="{keepLink}" target="_blank" rel="noopener noreferrer">access a <b>Video Vault</b> backup via Keep</a>'
-                values={{ keepLink }}
+                id="annotation.archiverSuccess"
+                defaultMessage='In case this link goes offline, you can <a href="{link}" target="_blank" rel="noopener noreferrer">access a <b>{name}</b> backup via Keep</a>'
+                values={{ link: keepLink, name: 'Video Vault' }}
               />
             </span>
           );
@@ -666,8 +666,9 @@ class Annotation extends Component {
           contentTemplate = (
             <span className="annotation__keep">
               <FormattedHTMLMessage
-                id="annotation.videoVaultError"
-                defaultMessage="There was an error when Keep tried to archive this item to <b>Video Vault</b>"
+                id="annotation.archiverError"
+                defaultMessage="There was an error when Keep tried to archive this item to <b>{name}</b>"
+                values={{ name: 'Video Vault' }}
               />
             </span>
           );
@@ -675,8 +676,9 @@ class Annotation extends Component {
           contentTemplate = (
             <span className="annotation__keep">
               <FormattedHTMLMessage
-                id="annotation.videoVaultWait"
-                defaultMessage="This item is being archived to <b>Video Vault</b> by Keep. Come back in an hour to receive a confirmation link."
+                id="annotation.archiverWait"
+                defaultMessage="This item is being archived to <b>{name}</b> by Keep. Come back in some minutes to receive a confirmation link."
+                values={{ name: 'Video Vault' }}
               />
             </span>
           );
@@ -692,9 +694,9 @@ class Annotation extends Component {
           contentTemplate = (
             <span className="annotation__keep">
               <FormattedHTMLMessage
-                id="annotation.archiveIsSuccess"
-                defaultMessage='In case this link goes offline, you can <a href="{archiveIsLink}" target="_blank" rel="noopener noreferrer">access a <b>Archive.is</b> backup via Keep</a>'
-                values={{ archiveIsLink }}
+                id="annotation.archiverSuccess"
+                defaultMessage='In case this link goes offline, you can <a href="{link}" target="_blank" rel="noopener noreferrer">access a <b>{name}</b> backup via Keep</a>'
+                values={{ link: archiveIsLink, name: 'Archive.is' }}
               />
             </span>
           );
@@ -702,8 +704,9 @@ class Annotation extends Component {
           contentTemplate = (
             <span className="annotation__keep">
               <FormattedHTMLMessage
-                id="annotation.archiveIsError"
-                defaultMessage="There was an error when Keep tried to archive this item to <b>Archive.is</b>"
+                id="annotation.archiverError"
+                defaultMessage="There was an error when Keep tried to archive this item to <b>{name}</b>"
+                values={{ name: 'Archive.is' }}
               />
             </span>
           );
@@ -711,8 +714,9 @@ class Annotation extends Component {
           contentTemplate = (
             <span className="annotation__keep">
               <FormattedHTMLMessage
-                id="annotation.archiveIsWait"
-                defaultMessage="This item is being archived to <b>Archive.is</b> by Keep. Come back in some minutes to receive a confirmation link."
+                id="annotation.archiverWait"
+                defaultMessage="This item is being archived to <b>{name}</b> by Keep. Come back in some minutes to receive a confirmation link."
+                values={{ name: 'Archive.is' }}
               />
             </span>
           );
