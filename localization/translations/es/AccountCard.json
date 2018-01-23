@@ -1,5 +1,5 @@
 {
-  "mediaDetail.byUser": "Por {username}",
+  "mediaDetail.byUser": "por {username}",
   "accountCard.providerAccount": "{provider} cuenta",
   "mediaDetail.added": "Añadido {byUser}",
   "accountCard.fbStats": "{likes, number} Me gusta",

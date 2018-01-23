@@ -4,9 +4,9 @@
   "addAnnotation.error": "¡Algo salió mal! El servidor devolvió un código de error  {code}. Por favor contacta al administrador del sistema. ",
   "addAnnotation.inputHint": "Añade una nota acerca de esto ",
   "addAnnotation.submitButton": "Subir",
-  "addAnnotation.typeComment": "Comentario",
+  "addAnnotation.typeComment": "comentario",
   "addAnnotation.typeTag": "etiqueta",
   "addAnnotation.typeStatus": "estado",
   "addAnnotation.typeFlag": "marca",
-  "addAnnotation.addImage": "Añadir imagen "
+  "addAnnotation.addImage": "Añadir una imagen "
 }

@@ -13,7 +13,7 @@
   "mediaDetail.doneButton": "Hecho",
   "mediaDetail.cancel": "Cancelar",
   "mediaDetail.deleteForever": "Eliminar para siempre",
-  "mediaDetail.addedBy": "Añadido por  {byUser}",
+  "mediaDetail.addedBy": "Añadido {byUser}",
   "mediaDetail.dialogHeader": "Mover esto  {mediaType} a otro proyecto",
   "mediaDetail.dialogMediaPath": "Actualmente archivado bajo  {teamName} > {projectTitle}",
   "mediaDetail.deleteForeverConfirmationText": "¿Estás seguro? Esto eliminará  de forma permanente este ítem y sus {notesCount, plural, =0 {0 annotations} un {1 annotation} otro {# annotations}}. Escribe \"confirmar\" si deseas continuar.",
