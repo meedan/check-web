@@ -646,7 +646,7 @@ class Annotation extends Component {
         });
       }
 
-      if (object.field_name === 'keep_backup_response') {
+      if (object.field_name === 'keep_backup_response' && activityType === 'create_dynamicannotationfield') {
         const annotation_content = JSON.parse(annotation.content);
         const keep = JSON.parse(annotation_content[0].value);
         const keepLink = keep.location;
@@ -667,7 +667,7 @@ class Annotation extends Component {
             <span className="annotation__keep">
               <FormattedHTMLMessage
                 id="annotation.archiverError"
-                defaultMessage="There was an error when Keep tried to archive this item to <b>{name}</b>"
+                defaultMessage="There was an error when Keep tried to archive this item to <b>{name}</b>. Refresh this media to try again."
                 values={{ name: 'Video Vault' }}
               />
             </span>
@@ -685,7 +685,7 @@ class Annotation extends Component {
         }
       }
 
-      if (object.field_name === 'archive_is_response') {
+      if (object.field_name === 'archive_is_response' && activityType === 'create_dynamicannotationfield') {
         const archiveIsAnnotationContent = JSON.parse(annotation.content);
         const archiveIsResponse = JSON.parse(archiveIsAnnotationContent[0].value);
         const archiveIsLink = archiveIsResponse.location;
@@ -705,7 +705,7 @@ class Annotation extends Component {
             <span className="annotation__keep">
               <FormattedHTMLMessage
                 id="annotation.archiverError"
-                defaultMessage="There was an error when Keep tried to archive this item to <b>{name}</b>"
+                defaultMessage="There was an error when Keep tried to archive this item to <b>{name}</b>. Refresh this media to try again."
                 values={{ name: 'Archive.is' }}
               />
             </span>
@@ -736,7 +736,7 @@ class Annotation extends Component {
         );
       }
 
-      if (object.field_name === 'pender_archive_response') {
+      if (object.field_name === 'pender_archive_response' && activityType === 'create_dynamicannotationfield') {
         const penderResponse = JSON.parse(JSON.parse(annotation.content)[0].value);
         contentTemplate = null;
         if (penderResponse.error) {
@@ -744,7 +744,7 @@ class Annotation extends Component {
             <span className="annotation__pender-archive">
               <FormattedHTMLMessage
                 id="annotation.penderArchiveResponseError"
-                defaultMessage="There was an error when Keep tried to take a screenshot of this item."
+                defaultMessage="There was an error when Keep tried to take a screenshot of this item. Refresh this media to try again."
               />
             </span>
           );
