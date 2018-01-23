@@ -1,5 +1,5 @@
 {
-  "media.notesCount": "{notesCount, plural, =0 {No notes} un {1 note} otros {# notes}}",
+  "media.notesCount": "{notesCount, plural, =0 {Sin notas} one {1 nota} other {# notas}}",
   "media.typeTwitter": "Tweet",
   "media.typeFacebook": "Publicación de Facebook",
   "media.typeInstagram": "Instagram",
