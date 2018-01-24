@@ -1,0 +1,14 @@
+{
+  "createTask.newTask": "Nueva tarea",
+  "tasks.cancelAdd": "Cancelar",
+  "tasks.add": "Crear tarea ",
+  "tasks.addTask": "Añadir tarea",
+  "tasks.shortAnswer": "Respuesta corta",
+  "tasks.chooseOne": "Selecciona una ",
+  "tasks.chooseMultiple": "Selecciona varias",
+  "tasks.geolocation": "Localización ",
+  "tasks.datetime": "Fecha y hora",
+  "tasks.taskLabel": "Adelante",
+  "tasks.description": "Descripción",
+  "tasks.addDescription": "Añadir descripción"
+}

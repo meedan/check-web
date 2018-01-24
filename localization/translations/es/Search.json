@@ -1,0 +1,20 @@
+{
+  "search.title": "Buscar",
+  "search.loading": "Cargando…",
+  "search.inputHint": "Buscar",
+  "search.results": "{resultsCount, plural, =0 {Sin resultados} one {1 resultado} other {# resultados}}",
+  "search.newTranslationRequestNotification": "Nueva solicitud de traducción",
+  "search.newTranslationNotification": "Nueva traducción",
+  "search.newTranslationNotificationBody": "Un reporte fue marcado como “traducido” ",
+  "search.statusHeading": "Estado",
+  "search.projectHeading": "Proyecto",
+  "status.categoriesHeading": "Categorías",
+  "search.sort": "Categorizar",
+  "search.sortByCreated": "Creado",
+  "search.sortByRecentActivity": "Actividad reciente",
+  "search.sortByNewest": "Recientes primero",
+  "search.sortByOldest": "Antiguas primero",
+  "search.show": "Mostrar",
+  "search.showMedia": "Medios de comunicación ",
+  "search.showSources": "Fuentes"
+}

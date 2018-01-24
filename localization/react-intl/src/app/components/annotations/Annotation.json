@@ -68,24 +68,16 @@
     "defaultMessage": "Translation published to {link}"
   },
   {
-    "id": "annotation.keepRetried",
-    "defaultMessage": "There is a new attempt to archive this item in Keep. Please check back in an hour."
+    "id": "annotation.archiverSuccess",
+    "defaultMessage": "In case this link goes offline, you can <a href=\"{link}\" target=\"_blank\" rel=\"noopener noreferrer\">access a <b>{name}</b> backup via Keep</a>"
   },
   {
-    "id": "annotation.keepSuccess",
-    "defaultMessage": "In case this link goes offline, you can <a href=\"{keepLink}\" target=\"_blank\" rel=\"noopener noreferrer\">access a backup via Keep</a>"
+    "id": "annotation.archiverError",
+    "defaultMessage": "There was an error when Keep tried to archive this item to <b>{name}</b>. Refresh this media to try again."
   },
   {
-    "id": "annotation.keepError",
-    "defaultMessage": "There was an error when Keep tried to archive this item"
-  },
-  {
-    "id": "annotation.keepRetry",
-    "defaultMessage": "Retry"
-  },
-  {
-    "id": "annotation.keepWait",
-    "defaultMessage": "This item is being archived in Keep. Come back in an hour to receive a confirmation link."
+    "id": "annotation.archiverWait",
+    "defaultMessage": "This item is being archived to <b>{name}</b> by Keep. Come back in some minutes to receive a confirmation link."
   },
   {
     "id": "annotation.embedCodeCopied",
@@ -93,7 +85,7 @@
   },
   {
     "id": "annotation.penderArchiveResponseError",
-    "defaultMessage": "There was an error when Keep tried to take a screenshot of this item."
+    "defaultMessage": "There was an error when Keep tried to take a screenshot of this item. Refresh this media to try again."
   },
   {
     "id": "annotation.penderArchiveResponse",

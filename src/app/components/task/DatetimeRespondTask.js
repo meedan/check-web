@@ -238,6 +238,7 @@ class DatetimeRespondTask extends Component {
       require('intl/locale-data/jsonp/en'); // eslint-disable-line global-require
       require('intl/locale-data/jsonp/ar'); // eslint-disable-line global-require
       require('intl/locale-data/jsonp/fr'); // eslint-disable-line global-require
+      require('intl/locale-data/jsonp/es'); // eslint-disable-line global-require
     }
 
     return (

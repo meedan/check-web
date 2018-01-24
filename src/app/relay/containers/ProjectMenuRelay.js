@@ -52,14 +52,12 @@ const ProjectMenuContainer = Relay.createContainer(ProjectMenu, {
         title,
         description,
         permissions,
-        get_slack_channel,
         team {
           id,
           dbid,
           slug,
           permissions,
-          limits,
-          get_slack_notifications_enabled
+          limits
         }
       }
     `,

@@ -9,6 +9,7 @@ import ar from 'react-intl/locale-data/ar';
 import en from 'react-intl/locale-data/en';
 import fr from 'react-intl/locale-data/fr';
 import pt from 'react-intl/locale-data/pt';
+import es from 'react-intl/locale-data/es';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import App from './App';
 import RootLocale from './RootLocale';
@@ -60,6 +61,7 @@ try {
     fr,
     ar,
     pt,
+    es,
   };
   addLocaleData([...localeData[locale]]);
 } catch (e) {

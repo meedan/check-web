@@ -1533,27 +1533,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       end
     end
 
-    #Add slack notifications to a team
-    it "should add slack notifications to a team", bin3:true, quick: true do
-      team = "testteam#{Time.now.to_i}"
-      api_create_team(team:team)
-      p = Page.new(config: @config, driver: @driver)
-      p.go(@config['self_url'] + '/' + team)
-      sleep 5
-      el = wait_for_selector("team__edit-button", :class)
-      el.click
-      el = wait_for_selector("team__settings-slack-notifications-enabled", :id)
-      el.click
-      el = wait_for_selector("team__settings-slack-webhook", :id)
-      el.click
-      el = wait_for_selector("team__settings-slack-webhook", :id)
-      el.send_keys "https://hooks.slack.com/services/T02528QUL/BBBBBBBBB/AAAAAAAAAAAAAAAAAAAAAAAA"
-      el = wait_for_selector("team__save-button", :class)
-      el.click
-      sleep 2
-      expect(@driver.find_element(:class, "message").nil?).to be(false)
-    end
-
     it "should paginate project page", bin2: true do
       page = api_create_team_project_claims_sources_and_redirect_to_project_page 21
       page.load

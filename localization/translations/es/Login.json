@@ -1,0 +1,16 @@
+{
+  "login.passwordInputHint": "Contraseña",
+  "login.disclaimer": "No haremos publicaciones sin tu permio",
+  "login.title": "Iniciar sesión",
+  "login.registerTitle": "Registrarse",
+  "login.nameLabel": "Tu nombre",
+  "login.emailLabel": "Correo electrónico",
+  "login.passwordLabel": "Contraseña (mínimo 8 caracteres)",
+  "login.passwordConfirmLabel": "Confirmar contraseña",
+  "login.signIn": "INICIAR SESIÓN ",
+  "login.signUp": "REGISTRARSE ",
+  "loginEmail.lostPassword": "Olvidé la contraseña",
+  "login.with": "Continuar con {provider}",
+  "login.newAccount": "Crea una nueva cuenta con correo electrónico",
+  "login.alreadyHasAccount": "Ya tengo una cuenta"
+}

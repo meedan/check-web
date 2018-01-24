@@ -164,30 +164,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(page.team_name).to eq(@t2)
     end
 
-    #Add slack notificatios to a team
-    it "should add slack notifications to a team " do
-      page = LoginPage.new(config: @config, driver: @driver).load
-          .login_with_email(email: @e1, password: @password)
-      p = Page.new(config: @config, driver: @driver)
-      p.go(@config['self_url'] + '/' + @t2)
-      sleep 2
-      element = @driver.find_element(:class, "team__edit-button")
-      element.click
-      sleep 2
-      element = @driver.find_element(:id, "team__settings-slack-notifications-enabled")
-      sleep 2
-      element.click
-      element = @driver.find_element(:id, "team__settings-slack-webhook")
-      sleep 2
-      element.click
-      element.send_keys "https://hooks.slack.com/services/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"
-      sleep 2
-      element = @driver.find_element(:class, "team__save-button")
-      element.click
-      sleep 2
-      expect(@driver.find_element(:class, "message").nil?).to be(false)
-    end
-
     #Create a new project.
     it "should create a project for a team " do
       page = LoginPage.new(config: @config, driver: @driver).load
