@@ -13,7 +13,6 @@ class UpdateProjectMutation extends Relay.Mutation {
         project {
           id,
           title,
-          get_slack_channel,
           description
         }
       }
@@ -25,7 +24,6 @@ class UpdateProjectMutation extends Relay.Mutation {
       title: this.props.title,
       description: this.props.description,
       id: this.props.id,
-      set_slack_channel: this.props.slackChannel,
     };
   }
 
