@@ -148,6 +148,10 @@ const messages = defineMessages({
     id: 'sourceComponent.extractedHelper',
     defaultMessage: 'Extracted from {accountName} {provider} account',
   },
+  extractedHelperPg: {
+    id: 'sourceComponent.extractedHelperPg',
+    defaultMessage: 'Extracted from {url}',
+  },
   invalidLink: {
     id: 'sourceComponent.invalidLink',
     defaultMessage: 'Please enter a valid URL',
@@ -280,12 +284,16 @@ class SourceComponent extends Component {
   }
 
   getExtractedFieldMessage(source, fieldName) {
-    if (source.overridden[fieldName] === true) {
+    if (!source[fieldName] || source.overridden[fieldName] === true) {
       return null;
     }
 
     const account = source.accounts.edges.find(a =>
       a.node.dbid === source.overridden[fieldName]);
+
+    if (account.node.provider === 'page') {
+      return this.props.intl.formatMessage(messages.extractedHelperPg, { url: account.node.url });
+    }
 
     return this.props.intl.formatMessage(
       messages.extractedHelper,
