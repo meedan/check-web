@@ -18,6 +18,7 @@
   "sourceComponent.addLink": "Insira um link",
   "sourceComponent.addLinkHelper": "Adicione um link para uma página web ou perfil de mídia social",
   "sourceComponent.extractedHelper": "Extraído da conta {accountName} do {provider}",
+  "sourceComponent.extractedHelperPg": "Extraído de {url}",
   "sourceComponent.invalidLink": "Por favor insira uma URL válida",
   "sourceComponent.other": "Outro (Especifique)",
   "sourceNoAccounts": "Nenhuma rede associada a esta fonte ainda",
