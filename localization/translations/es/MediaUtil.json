@@ -1,5 +1,5 @@
 {
-  "media.notesCount": "{notesCount, plural, =0 {No notes} un {1 note} otros {# notes}}",
+  "media.notesCount": "{notesCount, plural, =0 {Sin notas} one {1 nota} other {# notas}}",
   "media.typeTwitter": "Tweet",
   "media.typeFacebook": "Publicación de Facebook",
   "media.typeInstagram": "Instagram",
@@ -11,6 +11,6 @@
   "media.onDomain": "{typeLabel} en {domain}",
   "media.byAttribution": "{typeLabel} por {attribution}",
   "media.withText": "{typeLabel}: {text}",
-  "media.favoritesCount": "{favoritesCount, plural, one {1 favorite} other {# favorites}}",
+  "media.favoritesCount": "{favoritesCount, plural, one {1 favorito} other {# favoritos}}",
   "media.retweetsCount": "{retweetsCount, plural, one {1 retweet} other {# retweets}}"
 }

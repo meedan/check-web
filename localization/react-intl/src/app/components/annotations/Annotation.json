@@ -73,7 +73,7 @@
   },
   {
     "id": "annotation.archiverError",
-    "defaultMessage": "There was an error when Keep tried to archive this item to <b>{name}</b>"
+    "defaultMessage": "There was an error when Keep tried to archive this item to <b>{name}</b>. Refresh this media to try again."
   },
   {
     "id": "annotation.archiverWait",
@@ -85,7 +85,7 @@
   },
   {
     "id": "annotation.penderArchiveResponseError",
-    "defaultMessage": "There was an error when Keep tried to take a screenshot of this item."
+    "defaultMessage": "There was an error when Keep tried to take a screenshot of this item. Refresh this media to try again."
   },
   {
     "id": "annotation.penderArchiveResponse",

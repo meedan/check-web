@@ -2,7 +2,5 @@
   "projectEdit.error": "عذراً ، لم نستطع تحديث هذا المشروع",
   "projectEdit.titleField": "عنوان المشروع",
   "projectEdit.descriptionField": "وصف المشروع",
-  "projectEdit.slackChannelField": "#قناة Slack",
-  "projectEdit.slackChannelPlaceholder": "أضف #قناة Slack حتى يتم إبلاغك بتحديثات هذا المشروع",
   "projectEdit.saveButton": "حفظ"
 }

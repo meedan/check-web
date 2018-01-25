@@ -12,14 +12,6 @@
     "defaultMessage": "Project Description"
   },
   {
-    "id": "projectEdit.slackChannelField",
-    "defaultMessage": "Slack #channel"
-  },
-  {
-    "id": "projectEdit.slackChannelPlaceholder",
-    "defaultMessage": "Add a Slack #channel to be notified about activity in this project"
-  },
-  {
     "id": "projectEdit.saveButton",
     "defaultMessage": "Save"
   }

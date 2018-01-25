@@ -26,14 +26,6 @@ const messages = defineMessages({
     id: 'projectEdit.descriptionField',
     defaultMessage: 'Project Description',
   },
-  slackChannelField: {
-    id: 'projectEdit.slackChannelField',
-    defaultMessage: 'Slack #channel',
-  },
-  slackChannelPlaceholder: {
-    id: 'projectEdit.slackChannelPlaceholder',
-    defaultMessage: 'Add a Slack #channel to be notified about activity in this project',
-  },
 });
 
 class ProjectEditComponent extends Component {
@@ -44,7 +36,6 @@ class ProjectEditComponent extends Component {
       message: null,
       title: this.props.project.title,
       description: this.props.project.description,
-      slackChannel: this.props.project.get_slack_channel,
     };
   }
 
@@ -92,15 +83,11 @@ class ProjectEditComponent extends Component {
     this.setState({ description: e.target.value });
   }
 
-  handleSlackChannelChange(e) {
-    this.setState({ slackChannel: e.target.value });
-  }
-
   updateProject(e) {
     const { project: { id } } = this.props;
-    const { title, description, slackChannel } = this.state;
+    const { title, description } = this.state;
 
-    this.setState({ title, description, slackChannel });
+    this.setState({ title, description });
 
     const onFailure = (transaction) => {
       const error = transaction.getError();
@@ -120,7 +107,6 @@ class ProjectEditComponent extends Component {
       new UpdateProjectMutation({
         title,
         description,
-        slackChannel,
         id,
       }),
       { onSuccess, onFailure },
@@ -132,7 +118,6 @@ class ProjectEditComponent extends Component {
 
   render() {
     const { project } = this.props;
-    const isSlackEnabled = project.team && project.team.get_slack_notifications_enabled === '1' && project.team.limits.slack_integration !== false;
 
     return (
       <PageTitle prefix={project.title} skipTeam={false} team={this.currentContext().team}>
@@ -166,21 +151,6 @@ class ProjectEditComponent extends Component {
                     autoComplete="off"
                     onChange={this.handleDescriptionChange.bind(this)}
                   />
-                  {isSlackEnabled ?
-                    <TextField
-                      name="slack-channel"
-                      className="project-edit__slack-channel-input"
-                      id="project-slack-channel-field"
-                      type="text"
-                      fullWidth
-                      value={this.state.slackChannel}
-                      placeholder={this.props.intl.formatMessage(messages.slackChannelPlaceholder)}
-                      floatingLabelText={this.props.intl.formatMessage(messages.slackChannelField)}
-                      floatingLabelFixed
-                      autoComplete="off"
-                      onChange={this.handleSlackChannelChange.bind(this)}
-                    />
-                    : null }
                 </CardText>
                 <CardActions>
                   <div className="project-edit__editing-buttons">
