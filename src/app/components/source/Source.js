@@ -35,6 +35,7 @@ const SourceContainer = Relay.createContainer(SourceComponent, {
           user_id,
           description,
           lock_version,
+          overridden,
           permissions,
           pusher_channel,
           verification_statuses,
@@ -103,6 +104,7 @@ const SourceContainer = Relay.createContainer(SourceComponent, {
             edges {
               node {
                 id,
+                dbid,
                 created_at,
                 updated_at,
                 embed,
