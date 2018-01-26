@@ -273,6 +273,7 @@ const SourceContainer = Relay.createContainer(SourceComponent, {
                   email,
                   source {
                     dbid,
+                    image,
                     accounts(first: 10000) {
                       edges {
                         node {
@@ -285,6 +286,16 @@ const SourceContainer = Relay.createContainer(SourceComponent, {
                 last_status_obj {
                   id
                   dbid
+                  assigned_to {
+                    id
+                    dbid
+                    name
+                    source {
+                      id
+                      dbid
+                      image
+                    }
+                  }
                 }
                 translation_status: annotation(annotation_type: "translation_status") {
                   id
