@@ -722,7 +722,7 @@ class MediaMetadata extends Component {
           {byUser ?
             <span className="media-detail__check-added-by" style={{ display: 'flex' }}>
               <UserAvatar
-                user={media.user.source.image}
+                user={media.user}
                 size="extraSmall"
                 style={{ display: 'inline-block', border: `1px solid ${black10}` }}
               />
