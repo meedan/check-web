@@ -4,12 +4,16 @@ import { FormattedMessage } from 'react-intl';
 // TODO Remove those global variables
 let from = null;
 let to = null;
+let assignment = null;
 let editedTitle = false;
 let editedNote = false;
 let createdNote = false;
+let changedAssignment = false;
+let removedAssignment = false;
 
 function shouldLogChange(activity) {
   const changes = JSON.parse(activity.object_changes_json);
+
   if (changes.data) {
     ([from, to] = changes.data);
 
@@ -23,9 +27,17 @@ function shouldLogChange(activity) {
       editedNote = false;
       createdNote = true;
     }
-    if (editedTitle || editedNote || createdNote) {
-      return true;
+  }
+  if (changes.assigned_to_id) {
+    assignment = changes.assigned_to_id;
+    if (assignment[1]) {
+      changedAssignment = true;
+    } else {
+      removedAssignment = true;
     }
+  }
+  if (editedTitle || editedNote || createdNote || changedAssignment || removedAssignment) {
+    return true;
   }
   return false;
 }
@@ -37,12 +49,26 @@ class TaskUpdate extends React.Component {
     editedTitle = false;
     editedNote = false;
     createdNote = false;
+    changedAssignment = false;
+    removedAssignment = false;
   }
 
   render() {
-    const { authorName: author } = this.props;
+    const { authorName: author, activity } = this.props;
 
-    if (shouldLogChange(this.props.activity)) {
+    if (shouldLogChange(activity)) {
+      let title = '';
+      let assigneeFrom = null;
+      let assigneeTo = null;
+      if (changedAssignment || removedAssignment) {
+        title = JSON.parse(activity.object_after).data.label;
+        if (activity.meta) {
+          const assignee = JSON.parse(activity.meta);
+          assigneeFrom = assignee.assigned_from_name;
+          assigneeTo = assignee.assigned_to_name;
+        }
+      }
+
       const contentTemplate = (
         <span>
           <span className="annotation__update-task" />
@@ -71,12 +97,28 @@ class TaskUpdate extends React.Component {
               values={{ title: to.label, note: to.description, author }}
             />
             : null}
+          {changedAssignment ?
+            <FormattedMessage
+              id="annotation.assignmentChanged"
+              defaultMessage='Task "{title}" assigned to "{assigneeTo}" by {author}'
+              values={{ title, assigneeTo, author }}
+            />
+            : null}
+          {removedAssignment ?
+            <FormattedMessage
+              id="annotation.assignmentRemoved"
+              defaultMessage='Task "{title}" unassigned from "{assigneeFrom}" by {author}'
+              values={{ title, assigneeFrom, author }}
+            />
+            : null}
         </span>
       );
 
       editedTitle = false;
       editedNote = false;
       createdNote = false;
+      changedAssignment = false;
+      removedAssignment = false;
 
       return contentTemplate;
     }

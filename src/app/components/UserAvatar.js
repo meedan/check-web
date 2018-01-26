@@ -7,6 +7,8 @@ const UserAvatar = (props) => {
       <SourcePicture
         object={props.user.source}
         type="user"
+        size={props.size}
+        style={props.style}
         className="avatar"
       />
     );

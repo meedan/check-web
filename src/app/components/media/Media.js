@@ -109,6 +109,16 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
               description,
               permissions,
               jsonoptions,
+              assigned_to {
+                name
+                id
+                dbid
+                source {
+                  id
+                  dbid
+                  image
+                }
+              }
               first_response {
                 id,
                 dbid,
@@ -120,6 +130,11 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
                       id
                       dbid
                       name
+                      source {
+                        id
+                        dbid
+                        image
+                      }
                     }
                   }
                 }
