@@ -97,15 +97,20 @@ class WebPageMediaCard extends Component {
 
     return (
       <article>
-        <Row alignTop>
-          { authorPicture }
-          <Offset isRtl={isRtl}>
-            { heading }
-            { webPageName }
-            { media_embed.description && <div><ParsedText text={media_embed.description} /></div> }
-            {contentPicture}
-          </Offset>
-        </Row>
+        {media_embed.html ?
+          <div dangerouslySetInnerHTML={{ __html: media_embed.html }} />
+          :
+          <Row alignTop>
+            { authorPicture }
+            <Offset isRtl={isRtl}>
+              { heading }
+              { webPageName }
+              { media_embed.description ?
+                <div><ParsedText text={media_embed.description} /></div>
+                : null }
+              { contentPicture }
+            </Offset>
+          </Row>}
       </article>
     );
   }
