@@ -98,7 +98,11 @@ class WebPageMediaCard extends Component {
     return (
       <article>
         {media_embed.html ?
-          <div dangerouslySetInnerHTML={{ __html: media_embed.html }} />
+          <div
+            dangerouslySetInnerHTML={{ // eslint-disable-line react/no-danger
+              __html: media_embed.html,
+            }}
+          />
           :
           <Row alignTop>
             { authorPicture }
