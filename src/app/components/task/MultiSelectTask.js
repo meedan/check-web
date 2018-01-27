@@ -8,6 +8,7 @@ import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-i
 import MdCancel from 'react-icons/lib/md/cancel';
 import MdCheckBoxOutlineBlank from 'react-icons/lib/md/check-box-outline-blank';
 import Message from '../Message';
+import Attribution from './Attribution';
 import { safelyParseJSON } from '../../helpers';
 import { units, body2, StyledIconButton, StyledTaskDescription } from '../../styles/js/shared';
 
@@ -62,6 +63,7 @@ class MultiSelectTask extends Component {
       responseOther: null,
       submitDisabled: true,
       taskAnswerDisabled: true,
+      showAssignmentField: false,
     };
   }
 
@@ -249,6 +251,10 @@ class MultiSelectTask extends Component {
     }
   }
 
+  toggleAssignmentField() {
+    this.setState({ showAssignmentField: !this.state.showAssignmentField });
+  }
+
   handleEditOther(e) {
     this.setState({ focus: true, responseOther: e.target.value }, this.canSubmit);
   }
@@ -361,6 +367,17 @@ class MultiSelectTask extends Component {
               <span className="create-task__add-task-description-icon">+</span>{' '}
               <FormattedMessage id="tasks.addDescription" defaultMessage="Add a description" />
             </label>
+
+            { this.state.showAssignmentField ?
+              <Attribution multi={false} selectedUsers={[]} id="new" /> :
+              <button
+                className="create-task__add-assignment-button"
+                onClick={this.toggleAssignmentField.bind(this)}
+              >
+                {'+ '}
+                <FormattedMessage id="tasks.assign" defaultMessage="Assign" />
+              </button>
+            }
           </StyledTaskDescription>
         </Dialog>
       </div>
