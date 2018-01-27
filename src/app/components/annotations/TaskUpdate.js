@@ -97,6 +97,8 @@ class TaskUpdate extends React.Component {
               values={{ title: to.label, note: to.description, author }}
             />
             : null}
+          {((editedTitle || editedNote || createdNote) &&
+            (changedAssignment || removedAssignment)) ? <br /> : null}
           {changedAssignment ?
             <FormattedMessage
               id="annotation.assignmentChanged"
