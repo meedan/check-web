@@ -231,7 +231,8 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
                       translation_statuses,
                       domain,
                       team {
-                        slug
+                        slug,
+                        get_embed_whitelist
                       }
                       media {
                         embed_path,
