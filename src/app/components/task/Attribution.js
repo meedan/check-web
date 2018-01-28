@@ -20,7 +20,7 @@ class AttributionComponent extends React.Component {
 
     const selectedUsers = [];
     const selectedUserIds = [];
-    props.task.first_response.attribution.edges.forEach((user) => {
+    props.selectedUsers.forEach((user) => {
       selectedUserIds.push(user.node.dbid);
       selectedUsers.push({ value: user.node.dbid, label: user.node.name });
     });
@@ -52,9 +52,18 @@ class AttributionComponent extends React.Component {
   }
 
   handleChange(value) {
-    const selectedUsers = this.state.selectedUsers.slice(0);
+    let selectedUsers = this.state.selectedUsers.slice(0);
     const unselectedUsers = [];
-    selectedUsers.push(value);
+
+    if (this.props.multi) {
+      selectedUsers.push(value);
+    } else {
+      if (selectedUsers.length > 0) {
+        unselectedUsers.push(selectedUsers[0]);
+      }
+      selectedUsers = [value];
+    }
+
     this.state.unselectedUsers.forEach((user) => {
       if (user.value !== value.value) {
         unselectedUsers.push(user);
@@ -62,6 +71,10 @@ class AttributionComponent extends React.Component {
     });
 
     this.setState({ selectedUsers, unselectedUsers });
+
+    if (this.props.onChange) {
+      this.props.onChange(value);
+    }
   }
 
   handleDelete(value) {
@@ -75,10 +88,14 @@ class AttributionComponent extends React.Component {
     });
 
     this.setState({ selectedUsers, unselectedUsers });
+
+    if (this.props.onChange) {
+      this.props.onChange({ value: 0 });
+    }
   }
 
   render() {
-    const { task } = this.props;
+    const { id } = this.props;
 
     const StyledSelect = styled(Select)`
       margin-bottom: 200px;
@@ -99,9 +116,9 @@ class AttributionComponent extends React.Component {
 
     return (
       <div id="attribution">
-        <form name={`edit-task-attribution-${task.dbid}`}>
+        <form name={`edit-task-attribution-${id}`}>
 
-          <input type="hidden" value={value} name="selected-user-ids" id={`attribution-${task.dbid}`} />
+          <input type="hidden" value={value} name="selected-user-ids" id={`attribution-${id}`} />
 
           <div style={{ marginTop: units(4), marginBottom: units(4) }}>
             <StyledTagsWrapper className="attribution__selected-users">

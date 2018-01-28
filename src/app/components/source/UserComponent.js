@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { injectIntl } from 'react-intl';
+import { injectIntl, FormattedMessage } from 'react-intl';
 import rtlDetect from 'rtl-detect';
+import { Tabs, Tab } from 'material-ui/Tabs';
 import UserInfo from './UserInfo';
+import UserAssignments from './UserAssignments';
 import UserInfoEdit from './UserInfoEdit';
 import { can } from '../Can';
 import HeaderCard from '../HeaderCard';
@@ -16,6 +18,7 @@ class UserComponent extends React.Component {
 
     this.state = {
       isEditing: false,
+      showTab: 'teams',
     };
   }
 
@@ -25,6 +28,12 @@ class UserComponent extends React.Component {
 
   handleLeaveEditMode = () => {
     this.setState({ isEditing: false });
+  };
+
+  handleTabChange = (value) => {
+    this.setState({
+      showTab: value,
+    });
   };
 
   render() {
@@ -53,9 +62,30 @@ class UserComponent extends React.Component {
                 <UserInfo user={user} />
               }
             </ContentColumn>
+            <Tabs value={this.state.showTab} onChange={this.handleTabChange}>
+              <Tab
+                label={
+                  <FormattedMessage
+                    id="userComponent.teams"
+                    defaultMessage="Teams"
+                  />
+                }
+                value="teams"
+              />
+              <Tab
+                label={
+                  <FormattedMessage
+                    id="userComponents.assignments"
+                    defaultMessage="Assignments"
+                  />
+                }
+                value="assignments"
+              />
+            </Tabs>
           </HeaderCard>
           <ContentColumn>
-            <SwitchTeamsComponent user={user} />
+            { this.state.showTab === 'teams' ? <SwitchTeamsComponent user={user} /> : null}
+            { this.state.showTab === 'assignments' ? <UserAssignments user={user} /> : null}
           </ContentColumn>
         </div>
       </PageTitle>

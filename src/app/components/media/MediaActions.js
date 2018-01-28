@@ -31,6 +31,7 @@ class MediaActions extends Component {
       handleSendToTrash,
       handleRestore,
       handleDeleteForever,
+      handleAssign,
     } = this.props;
     const menuItems = [];
 
@@ -112,6 +113,17 @@ class MediaActions extends Component {
           onClick={handleDeleteForever}
         >
           <FormattedMessage id="mediaActions.deleteForever" defaultMessage="Delete forever" />
+        </MenuItem>));
+    }
+
+    if (can(media.permissions, 'create Status')) {
+      menuItems.push((
+        <MenuItem
+          key="mediaActions.assign"
+          className="media-actions__assign"
+          onClick={handleAssign}
+        >
+          <FormattedMessage id="mediaActions.assign" defaultMessage="Assign" />
         </MenuItem>));
     }
 

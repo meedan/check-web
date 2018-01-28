@@ -23,8 +23,9 @@ import GeolocationRespondTask from './GeolocationRespondTask';
 import GeolocationTaskResponse from './GeolocationTaskResponse';
 import DatetimeRespondTask from './DatetimeRespondTask';
 import DatetimeTaskResponse from './DatetimeTaskResponse';
-import { units } from '../../styles/js/shared';
+import { units, black10 } from '../../styles/js/shared';
 import ProfileLink from '../layout/ProfileLink';
+import UserAvatar from '../UserAvatar';
 import Attribution from './Attribution';
 import Sentence from '../Sentence';
 import { safelyParseJSON } from '../../helpers';
@@ -55,14 +56,37 @@ class Task extends Component {
     };
   }
 
+  getAssignment() {
+    let assignment = document.getElementById(`attribution-${this.props.task.dbid}`);
+    if (assignment) {
+      assignment = parseInt(assignment.value, 10);
+    } else {
+      assignment = 0;
+    }
+    return assignment;
+  }
+
   getResponseData() {
     const data = {};
     const { task, media } = this.props;
 
     if (task.first_response) {
       data.by = [];
+      data.byPictures = [];
+      let i = 0;
       task.first_response.attribution.edges.forEach((user) => {
-        data.by.push(<ProfileLink user={user.node} team={media.team} />);
+        const u = user.node;
+        data.by.push(<ProfileLink user={u} team={media.team} />);
+        const style = {
+          zIndex: i,
+          display: 'inline-block',
+          border: `1px solid ${black10}`,
+          position: 'absolute',
+          top: 0,
+          left: i * 10,
+        };
+        data.byPictures.push(<UserAvatar user={u} key={u.dbid} size="extraSmall" style={style} />);
+        i += 1;
       });
       const fields = JSON.parse(task.first_response.content);
       fields.forEach((field) => {
@@ -76,6 +100,13 @@ class Task extends Component {
     }
 
     return data;
+  }
+
+  assignmentChanged(option) {
+    const assignee = this.props.task.assigned_to;
+    if ((assignee && option.value !== assignee.dbid) || (!assignee && option.value > 0)) {
+      this.setState({ submitDisabled: false });
+    }
   }
 
   canSubmit() {
@@ -194,6 +225,7 @@ class Task extends Component {
     const taskObj = {
       id: task.id,
       label: form.label.value,
+      assigned_to_id: this.getAssignment(),
     };
 
     if (form.description) {
@@ -280,7 +312,9 @@ class Task extends Component {
   render() {
     const { task, media } = this.props;
     const data = this.getResponseData();
-    const { response, note, by } = data;
+    const {
+      response, note, by, byPictures,
+    } = data;
 
     const editQuestionActions = [
       <FlatButton
@@ -315,16 +349,41 @@ class Task extends Component {
       />,
     ];
 
+    const taskAssignment = task.assigned_to ? (
+      <div className="task__assigned" style={{ display: 'flex', alignItems: 'center' }}>
+        <small style={{ display: 'flex' }}>
+          <UserAvatar
+            user={task.assigned_to}
+            size="extraSmall"
+            style={{ display: 'inline-block', border: `1px solid ${black10}` }}
+          />
+          <span style={{ lineHeight: '24px', paddingLeft: units(1), paddingRight: units(1) }}>
+            <FormattedMessage
+              id="task.assignedTo"
+              defaultMessage="Assigned to {name}"
+              values={{ name: <ProfileLink user={task.assigned_to} team={media.team} /> }}
+            />
+          </span>
+        </small>
+      </div>
+    ) : null;
+
     const taskActions = (
       <div>
+        {taskAssignment}
         {data.by ?
-          <div className="task__resolver" style={{ display: 'flex', alignItems: 'center' }}>
-            <small>
-              <FormattedMessage
-                id="task.resolvedBy"
-                defaultMessage="Resolved by {byName}"
-                values={{ byName: <Sentence list={by} /> }}
-              />
+          <div className="task__resolver" style={{ display: 'flex', alignItems: 'center', marginTop: units(1) }}>
+            <small style={{ display: 'flex' }}>
+              <span style={{ position: 'relative', width: 24 + ((byPictures.length - 1) * 10) }}>
+                {byPictures}
+              </span>
+              <span style={{ lineHeight: '24px', paddingLeft: units(1), paddingRight: units(1) }}>
+                <FormattedMessage
+                  id="task.resolvedBy"
+                  defaultMessage="Resolved by {byName}"
+                  values={{ byName: <Sentence list={by} /> }}
+                />
+              </span>
             </small>
           </div>
           : null}
@@ -520,6 +579,8 @@ class Task extends Component {
       );
     }
 
+    const assignedUsers = task.assigned_to ? [{ node: task.assigned_to }] : [];
+
     return (
       <StyledWordBreakDiv>
         <Card
@@ -573,6 +634,13 @@ class Task extends Component {
               fullWidth
               multiLine
             />
+            <h2 style={{ marginTop: units(2) }}><FormattedMessage id="tasks.assignment" defaultMessage="Assignment" /></h2>
+            <Attribution
+              multi={false}
+              selectedUsers={assignedUsers}
+              onChange={this.assignmentChanged.bind(this)}
+              id={task.dbid}
+            />
           </form>
         </Dialog>
 
@@ -585,8 +653,16 @@ class Task extends Component {
         >
           <Message message={this.state.message} />
           <h2><FormattedMessage id="tasks.editAttribution" defaultMessage="Edit attribution" /></h2>
-          <p style={{ marginBottom: units(2), marginTop: units(2) }}><FormattedMessage id="tasks.attributionSlogan" defaultMessage='For the task, "{label}"' values={{ label: task.label }} /></p>
-          { this.state.editingAttribution ? <Attribution task={task} /> : null }
+          <p style={{ marginBottom: units(2), marginTop: units(2) }}>
+            <FormattedMessage id="tasks.attributionSlogan" defaultMessage='For the task, "{label}"' values={{ label: task.label }} />
+          </p>
+          { this.state.editingAttribution ?
+            <Attribution
+              id={task.dbid}
+              multi
+              selectedUsers={task.first_response.attribution.edges}
+            />
+            : null }
         </Dialog>
       </StyledWordBreakDiv>
     );

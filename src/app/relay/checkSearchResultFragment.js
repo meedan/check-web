@@ -25,7 +25,17 @@ const checkSearchResultFragment = Relay.QL`
           last_status,
           last_status_obj {
             id,
-            dbid
+            dbid,
+            assigned_to {
+              id
+              dbid
+              name
+              source {
+                id
+                dbid
+                image
+              }
+            }
           }
           project {
             id,
@@ -52,6 +62,7 @@ const checkSearchResultFragment = Relay.QL`
             name,
             source {
               dbid,
+              image,
               accounts(first: 10000) {
                 edges {
                   node {

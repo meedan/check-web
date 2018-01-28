@@ -26,5 +26,9 @@
   {
     "id": "mediaActions.deleteForever",
     "defaultMessage": "Delete forever"
+  },
+  {
+    "id": "mediaActions.assign",
+    "defaultMessage": "Assign"
   }
 ]
