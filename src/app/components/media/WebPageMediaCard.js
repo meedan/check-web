@@ -52,6 +52,7 @@ class WebPageMediaCard extends Component {
   canEmbedHtml() {
     const { media: { team }, media: { media: { embed } } } = this.props;
     if (!embed.html) return false;
+    if (!team.get_embed_whitelist) return false;
     return team.get_embed_whitelist.split(',').some((domain) => {
       const url = new URL(embed.url);
       return url.hostname.indexOf(domain.trim()) > -1;

@@ -183,14 +183,23 @@ describe('<WebPageMediaCard />', () => {
     );
 
     webPageWithWhitelistedUrl.media.team.get_embed_whitelist = "checkmedia.org";
-
     const card2 = mountWithIntl(
       <WebPageMediaCard
         media={webPageWithWhitelistedUrl.media}
         data={webPageWithWhitelistedUrl.data}
       />,
     );
+
+    delete webPageWithWhitelistedUrl.media.team.get_embed_whitelist;
+    const card3 = mountWithIntl(
+      <WebPageMediaCard
+        media={webPageWithWhitelistedUrl.media}
+        data={webPageWithWhitelistedUrl.data}
+      />,
+    );
+
     expect(card1.text()).to.contain('hello!');
     expect(card2.text()).to.not.contain('hello!');
+    expect(card3.text()).to.not.contain('hello!');
   });
 });
