@@ -49,6 +49,15 @@ class WebPageMediaCard extends Component {
     return !deepEqual(nextProps, this.props) || !deepEqual(nextState, this.state);
   }
 
+  canEmbedHtml() {
+    const { media: { team }, media: { media: { embed } } } = this.props;
+    if (!embed.html) return false;
+    return team.get_embed_whitelist.split(',').some((domain) => {
+      const url = new URL(embed.url);
+      return url.hostname.indexOf(domain.trim()) > -1;
+    });
+  }
+
   render() {
     const {
       media, mediaUrl, data, isRtl, authorName, authorUsername,
@@ -97,7 +106,7 @@ class WebPageMediaCard extends Component {
 
     return (
       <article>
-        {media_embed.html ?
+        {this.canEmbedHtml() ?
           <div
             dangerouslySetInnerHTML={{ // eslint-disable-line react/no-danger
               __html: media_embed.html,
