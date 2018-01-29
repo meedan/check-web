@@ -64,6 +64,7 @@ class UserComponent extends React.Component {
             </ContentColumn>
             <Tabs value={this.state.showTab} onChange={this.handleTabChange}>
               <Tab
+                id="teams-tab"
                 label={
                   <FormattedMessage
                     id="userComponent.teams"
@@ -73,6 +74,7 @@ class UserComponent extends React.Component {
                 value="teams"
               />
               <Tab
+                id="assignments-tab"
                 label={
                   <FormattedMessage
                     id="userComponents.assignments"
