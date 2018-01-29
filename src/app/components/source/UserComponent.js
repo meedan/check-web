@@ -18,7 +18,7 @@ class UserComponent extends React.Component {
 
     this.state = {
       isEditing: false,
-      showTab: 'teams',
+      showTab: 'assignments',
     };
   }
 

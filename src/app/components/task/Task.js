@@ -349,7 +349,7 @@ class Task extends Component {
       />,
     ];
 
-    const taskAssignment = task.assigned_to ? (
+    const taskAssignment = task.assigned_to && !task.first_response ? (
       <div className="task__assigned" style={{ display: 'flex', alignItems: 'center' }}>
         <small style={{ display: 'flex' }}>
           <UserAvatar
@@ -414,6 +414,12 @@ class Task extends Component {
 
               <MenuItem className="task-actions__edit" onClick={this.handleEditQuestion.bind(this)}>
                 <FormattedMessage id="task.edit" defaultMessage="Edit question" />
+              </MenuItem>
+
+              <MenuItem className="task-actions__assign" onClick={this.handleEditQuestion.bind(this)}>
+                {task.assigned_to ?
+                  <FormattedMessage id="task.unassign" defaultMessage="Unassign" /> :
+                  <FormattedMessage id="task.assign" defaultMessage="Assign" />}
               </MenuItem>
 
               {(response && can(task.first_response.permissions, 'update Dynamic')) ?

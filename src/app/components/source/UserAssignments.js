@@ -73,7 +73,10 @@ class UserAssignmentsComponent extends Component {
                 <div key={`div-${assignment.dbid}`}>
                   <ListItem
                     key={`media-${assignment.dbid}`}
-                    containerElement={<Link to={assignment.path} />}
+                    containerElement={
+                      assignment.last_status_obj.assigned_to &&
+                      assignment.last_status_obj.assigned_to.dbid === user.dbid ?
+                        <Link to={assignment.path} /> : <span />}
                     primaryText={MediaUtil.title(assignment, assignment.embed, this.props.intl)}
                     secondaryText={
                       <small>

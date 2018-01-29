@@ -123,7 +123,9 @@ class MediaActions extends Component {
           className="media-actions__assign"
           onClick={handleAssign}
         >
-          <FormattedMessage id="mediaActions.assign" defaultMessage="Assign" />
+          { media.last_status_obj.assigned_to ?
+            <FormattedMessage id="mediaActions.unassign" defaultMessage="Unassign" /> :
+            <FormattedMessage id="mediaActions.assign" defaultMessage="Assign" />}
         </MenuItem>));
     }
 

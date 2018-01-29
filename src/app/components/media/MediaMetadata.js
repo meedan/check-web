@@ -600,7 +600,7 @@ class MediaMetadata extends Component {
         onClick={this.handleCloseDialogs.bind(this)}
       />,
       <FlatButton
-        label={<FormattedMessage id="mediaDetail.assign" defaultMessage="Assign" />}
+        label={<FormattedMessage id="mediaDetail.done" defaultMessage="Done" />}
         primary
         keyboardFocused
         onClick={this.handleAssignProjectMedia.bind(this)}
@@ -758,7 +758,7 @@ class MediaMetadata extends Component {
               locale={locale}
             />}
         </Row>
-        {assignment ?
+        {assignment && media.last_status !== 'verified' ?
           <Row>
             <div className="media-detail__assignment" style={{ display: 'flex', alignItems: 'center' }}>
               <UserAvatar

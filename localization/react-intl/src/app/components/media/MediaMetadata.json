@@ -44,8 +44,8 @@
     "defaultMessage": "Move"
   },
   {
-    "id": "mediaDetail.assign",
-    "defaultMessage": "Assign"
+    "id": "mediaDetail.done",
+    "defaultMessage": "Done"
   },
   {
     "id": "mediaDetail.doneButton",
