@@ -5,5 +5,7 @@
   "mediaActions.sendToTrash": "ارسل إلى سلة المهملات",
   "mediaActions.refresh": "تحديث",
   "mediaActions.embed": "تضمين...",
-  "mediaActions.deleteForever": "حذف نهائي"
+  "mediaActions.deleteForever": "حذف نهائي",
+  "mediaActions.unassign": "إلغاء التوكيل",
+  "mediaActions.assign": "توكيل"
 }

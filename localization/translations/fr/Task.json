@@ -3,13 +3,17 @@
   "tasks.cancelEdit": "Annuler",
   "tasks.save": "Sauvegarder",
   "tasks.done": "Terminé",
+  "task.assignedTo": "Affecté(e) à {name}",
   "task.resolvedBy": "Résolue par {byName}",
   "task.editResponse": "Éditer la réponse",
   "task.edit": "Éditer la tâche",
+  "task.unassign": "Désaffecter",
+  "task.assign": "Affecter",
   "task.editAttribution": "Éditer l'attribution",
   "task.delete": "Effacer la tâche",
   "tasks.taskLabel": "Étiquette",
   "tasks.description": "Description",
+  "tasks.assignment": "Affectations",
   "tasks.editAttribution": "Éditer l'attribution",
   "tasks.attributionSlogan": "Pour la tâche \"{label}\""
 }

@@ -5,6 +5,8 @@
   "annotation.reverseImageFacebook": "This item contains at least one image. Consider a reverse image search.",
   "annotation.and": "and",
   "annotation.newClaim": "New claim added by {author}",
+  "annotation.mediaAssigned": "Assigned to {name} by {author}",
+  "annotation.mediaUnassigned": "Unassigned from {name} by {author}",
   "annotation.statusSetHeader": "Status set to {status} by {author}",
   "annotation.taggedHeader": "Tagged #{tag} by {author}",
   "annotation.deletedComment": "Comment deleted by {author}: \"{comment}\"",

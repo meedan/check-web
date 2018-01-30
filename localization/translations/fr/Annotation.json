@@ -5,6 +5,8 @@
   "annotation.reverseImageFacebook": "Ce média contient une ou plusieurs images. Nous vous suggérons d'effectuer une recherche d'image inversée.",
   "annotation.and": "et",
   "annotation.newClaim": "Nouveau témoignage ajouté par {author}",
+  "annotation.mediaAssigned": "Affecté(e) à {name} par {author}",
+  "annotation.mediaUnassigned": "Desaffectée de {name} par {author}",
   "annotation.statusSetHeader": "Statut fixé à {status} par {author}",
   "annotation.taggedHeader": "Classé #{tag} par {author}",
   "annotation.deletedComment": "Commentaire effacé par {author} : {comment}",

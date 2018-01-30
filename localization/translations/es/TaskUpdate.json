@@ -1,5 +1,7 @@
 {
   "annotation.taskLabelUpdated": "La tarea \"{from}\" fue editada a \"{to}\" por {author}",
   "annotation.taskNoteUpdated": "La tarea \"{title}\" tiene una nota editada de  \"{from}\" a \"{to}\" por {author}",
-  "annotation.taskNoteCreated": "La tarea \"{title}\" tiene una nueva nota \"{note}\" por {author}"
+  "annotation.taskNoteCreated": "La tarea \"{title}\" tiene una nueva nota \"{note}\" por {author}",
+  "annotation.assignmentChanged": "Task \"{title}\" assigned to \"{assigneeTo}\" by {author}",
+  "annotation.assignmentRemoved": "Task \"{title}\" unassigned from \"{assigneeFrom}\" by {author}"
 }

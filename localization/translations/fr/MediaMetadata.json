@@ -10,13 +10,16 @@
   "mediaDetail.byUser": "par {username}",
   "mediaDetail.cancelButton": "Annuler",
   "mediaDetail.move": "Transférer",
+  "mediaDetail.done": "Terminé",
   "mediaDetail.doneButton": "Terminé",
   "mediaDetail.cancel": "Annuler",
   "mediaDetail.deleteForever": "Effacer définitivement",
   "mediaDetail.addedBy": "Rajouté {byUser}",
+  "mediaDetail.assignedTo": "Affecté(e) à {name}",
   "mediaDetail.dialogHeader": "Transférer ce(tte) {mediaType} à un projet différent",
   "mediaDetail.dialogMediaPath": "Actuellement classé dans {teamName} > {projectTitle}",
   "mediaDetail.deleteForeverConfirmationText": "Êtes-vous sûr ? Ceci effacera {notesCount, plural, =0 {aucune note} one {une note} other {# notes}}. Tapez \"confirm\" si vous voulez continuer.",
   "mediaDetail.confirmationError": "No correspond pas",
-  "mediaDetail.typeHere": "Tapez ici"
+  "mediaDetail.typeHere": "Tapez ici",
+  "mediaDetail.assignDialogHeader": "Affectation"
 }

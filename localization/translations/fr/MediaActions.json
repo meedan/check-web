@@ -5,5 +5,7 @@
   "mediaActions.sendToTrash": "Mettre à la corbeille",
   "mediaActions.refresh": "Rafraîchir",
   "mediaActions.embed": "Insérer...",
-  "mediaActions.deleteForever": "Effacer définitivement"
+  "mediaActions.deleteForever": "Effacer définitivement",
+  "mediaActions.unassign": "Désaffecter",
+  "mediaActions.assign": "Affecter"
 }
