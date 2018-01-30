@@ -60,7 +60,7 @@ class MediaStatusCommon extends Component {
 
   render() {
     const { media } = this.props;
-    const { statuses } = JSON.parse(mediaStatuses(media));
+    const { statuses } = mediaStatuses(media);
     const currentStatus = getStatus(mediaStatuses(media), mediaLastStatus(media));
 
     const styles = {
