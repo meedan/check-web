@@ -6,6 +6,6 @@
   "mediaActions.refresh": "Actualizar ",
   "mediaActions.embed": "Incrustar ",
   "mediaActions.deleteForever": "Eliminar para siempre ",
-  "mediaActions.unassign": "Unassign",
-  "mediaActions.assign": "Assign"
+  "mediaActions.unassign": "Desasignar ",
+  "mediaActions.assign": "Asignar"
 }
