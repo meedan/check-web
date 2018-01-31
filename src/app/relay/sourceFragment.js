@@ -95,6 +95,7 @@ const sourceFragment = Relay.QL`
             email,
             source {
               dbid,
+              image,
               accounts(first: 10000) {
                 edges {
                   node {
@@ -107,6 +108,16 @@ const sourceFragment = Relay.QL`
           last_status_obj {
             id
             dbid
+            assigned_to {
+              id
+              dbid
+              name
+              source {
+                id
+                dbid
+                image
+              }
+            }
           }
           translation_status: annotation(annotation_type: "translation_status") {
             id

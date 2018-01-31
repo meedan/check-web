@@ -24,6 +24,14 @@
     "defaultMessage": "New claim added by {author}"
   },
   {
+    "id": "annotation.mediaAssigned",
+    "defaultMessage": "Assigned to {name} by {author}"
+  },
+  {
+    "id": "annotation.mediaUnassigned",
+    "defaultMessage": "Unassigned from {name} by {author}"
+  },
+  {
     "id": "annotation.statusSetHeader",
     "defaultMessage": "Status set to {status} by {author}"
   },

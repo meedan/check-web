@@ -5,5 +5,7 @@
   "mediaActions.sendToTrash": "Enviar para lixeira",
   "mediaActions.refresh": "Recarregar",
   "mediaActions.embed": "Incorporar...",
-  "mediaActions.deleteForever": "Excluir permanentemente"
+  "mediaActions.deleteForever": "Excluir permanentemente",
+  "mediaActions.unassign": "Remover atribuição",
+  "mediaActions.assign": "Atribuir"
 }

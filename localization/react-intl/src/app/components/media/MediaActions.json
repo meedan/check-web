@@ -26,5 +26,13 @@
   {
     "id": "mediaActions.deleteForever",
     "defaultMessage": "Delete forever"
+  },
+  {
+    "id": "mediaActions.unassign",
+    "defaultMessage": "Unassign"
+  },
+  {
+    "id": "mediaActions.assign",
+    "defaultMessage": "Assign"
   }
 ]

@@ -10,5 +10,6 @@
   "tasks.datetime": "Fecha y hora",
   "tasks.taskLabel": "Adelante",
   "tasks.description": "Descripción",
-  "tasks.addDescription": "Añadir descripción"
+  "tasks.addDescription": "Añadir descripción",
+  "tasks.assign": "Assign"
 }

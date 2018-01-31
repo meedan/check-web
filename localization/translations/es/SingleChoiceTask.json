@@ -6,9 +6,10 @@
   "singleChoiceTask.newTask": "Nueva tarea",
   "tasks.cancelAdd": "Cancelar",
   "tasks.add": "Crear tarea",
-  "tasks.taskPrompt": "Rápido",
+  "tasks.taskPrompt": "Nombre de la tarea",
   "tasks.description": "Descripción",
   "tasks.addDescription": "Añade una descripción ",
+  "tasks.assign": "Assign",
   "tasks.cancelEdit": "Cancelar",
   "tasks.submit": "Resolver tarea",
   "task.noteLabel": "Anota detalles adicionales aquí."

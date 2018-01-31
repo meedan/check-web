@@ -13,10 +13,16 @@ class CreateTaskMutation extends Relay.Mutation {
 
   getVariables() {
     const {
-      label, type, description, jsonoptions, annotated_type, annotated_dbid,
+      label, type, description, jsonoptions, annotated_type, annotated_dbid, assigned_to_id,
     } = this.props;
     return {
-      label, type, description, jsonoptions, annotated_type, annotated_id: annotated_dbid,
+      label,
+      type,
+      description,
+      jsonoptions,
+      annotated_type,
+      annotated_id: annotated_dbid,
+      assigned_to_id,
     };
   }
 

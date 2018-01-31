@@ -3,7 +3,7 @@
   "tasks.add": "Añadir",
   "tasks.addTask": "Añadir tarea",
   "tasks.shortAnswer": "Respuesta corta",
-  "tasks.taskLabel": "Rótulo de la tarea",
+  "tasks.taskLabel": "Nombre de la tarea",
   "tasks.description": "Descripción",
   "tasks.addDescription": "Añadir descripción"
 }

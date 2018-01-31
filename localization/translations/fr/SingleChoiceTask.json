@@ -9,6 +9,7 @@
   "tasks.taskPrompt": "Étiquette",
   "tasks.description": "Description",
   "tasks.addDescription": "Ajouter une description",
+  "tasks.assign": "Affecter",
   "tasks.cancelEdit": "Annuler",
   "tasks.submit": "Résoudre la tâche",
   "task.noteLabel": "Ajouter ici des détails supplémentaires."

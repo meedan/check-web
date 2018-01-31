@@ -37,6 +37,7 @@ RUN chown -R ${DEPLOYUSER}:www-data ${DEPLOYDIR}
 USER ${DEPLOYUSER}
 RUN npm cache clean && npm install && npm install --only=dev
 
+
 # copy in the code and move it into the same directory as the built node_modules
 COPY . ${DEPLOYDIR}/new
 USER root
@@ -61,7 +62,7 @@ RUN rm -f ${DEPLOYDIR}/latest/build/web/js/config.js \
     && ln -s ${DEPLOYDIR}/shared/config/config-server.js ${DEPLOYDIR}/latest/config-server.js
 
 WORKDIR ${DEPLOYDIR}
-RUN mv ./latest ./${APP}-$(date -I) && ln -s ./${APP}-$(date -I) ./current
+RUN ln -s ./latest ./${APP}-$(date -I) && ln -s ./${APP}-$(date -I) ./current
 
 USER root
 RUN rm /etc/nginx/sites-enabled/default

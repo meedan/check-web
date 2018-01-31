@@ -23,7 +23,7 @@ import {
 const HeaderCard = props => (
   <StyledProfileCard>
     <div>{props.children}</div>
-    <section style={{ position: 'relative' }}>
+    <section style={{ position: 'relative', marginTop: -60, marginBottom: 120 }}>
       <StyledEditButtonWrapper>
         {props.canEdit && !props.isEditing ?
           <StyledIconButton
