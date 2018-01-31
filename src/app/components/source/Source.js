@@ -234,7 +234,13 @@ const SourceContainer = Relay.createContainer(SourceComponent, {
                 log_count,
                 domain,
                 last_status,
-                media,
+                media {
+                  embed,
+                  url,
+                  quote,
+                  embed_path,
+                  thumbnail_path
+                },
                 permissions,
                 project_id,
                 verification_statuses,
@@ -244,7 +250,6 @@ const SourceContainer = Relay.createContainer(SourceComponent, {
                 quote,
                 published,
                 url,
-                embed,
                 last_status,
                 field_value(annotation_type_field_name: "translation_status:translation_status_status"),
                 log_count,
