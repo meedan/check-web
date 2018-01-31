@@ -131,7 +131,7 @@ const MediaUtil = {
   hasCustomTitle(media, data) {
     const { overridden } = media;
     const title = data && data.title && data.title.trim();
-    return overridden.title || (media.quote && (title !== media.quote));
+    return overridden.title || (title && media.quote && (title !== media.quote));
   },
 
   hasCustomDescription(media, data) {
@@ -143,31 +143,43 @@ const MediaUtil = {
   },
 
   title(media, data, intl) {
-    if (data && data.title && data.title.trim().length) {
+    if (this.hasCustomTitle(media, data)) {
       return truncateLength(data.title);
     }
 
-    let typeLabel = null;
-    try {
-      const type = this.mediaType(media, data);
-      typeLabel = intl.formatMessage(type);
-      if (type === messages.typePage) {
-        return intl.formatMessage(messages.onDomain, { typeLabel, domain: media.domain });
-      } else if (type === messages.typeClaim) {
-        const text = data.quote;
-        return text ? intl.formatMessage(messages.withText, { typeLabel, text }) : typeLabel;
-      }
-      const attribution = this.authorName(media, data);
-      const text = this.bodyText(media, data);
-      const byAttribution = attribution
-        ? intl.formatMessage(messages.byAttribution, { typeLabel, attribution })
-        : typeLabel;
-      return text
-        ? intl.formatMessage(messages.withText, { typeLabel: byAttribution, text })
-        : byAttribution;
-    } catch (e) {
-      return typeLabel || '';
+    const type = this.mediaType(media, data);
+
+    const typeLabel = type ? intl.formatMessage(type) : '';
+    const attribution = this.authorName(media, data);
+    const byAttribution = attribution
+      ? intl.formatMessage(messages.byAttribution, { typeLabel, attribution })
+      : typeLabel;
+
+    let displayTitle = '';
+
+    switch (type) {
+    case messages.typePage:
+      displayTitle = media.media.embed.title ||
+      intl.formatMessage(messages.onDomain, { typeLabel, domain: media.domain });
+      break;
+    case messages.typeClaim:
+    case messages.typeQuote:
+      displayTitle = media.media.quote;
+      break;
+    case messages.typeImage:
+      displayTitle = data.title;
+      break;
+    case messages.typeFacebook:
+    case messages.typeTwitter:
+    case messages.typeInstagram:
+    case messages.typeVideo:
+      displayTitle = media.media.embed.title || byAttribution;
+      break;
+    default:
+      displayTitle = media.media.quote || data.title || byAttribution || '';
     }
+
+    return truncateLength(displayTitle);
   },
 
   // Return a text fragment "X notes" with proper pluralization.

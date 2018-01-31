@@ -92,9 +92,11 @@ class MediaMetadata extends Component {
       openMoveDialog: false,
       openDeleteDialog: false,
       confirmationError: false,
-      submitDisabled: true,
       message: null,
+      pendingMutations: null,
+      hasFailure: false,
       openAssignDialog: false,
+
     };
   }
 
@@ -360,17 +362,6 @@ class MediaMetadata extends Component {
     this.setState({ openAssignDialog: false });
   }
 
-  canSubmit() {
-    // TODO Use React ref
-    let pendingTag = document.forms['edit-media-form'].sourceTagInput.value;
-    pendingTag = pendingTag && pendingTag.trim();
-
-    const title = this.state.title && !!this.state.title.trim();
-    const description = this.state.description && !!this.state.description.trim();
-
-    this.setState({ submitDisabled: !title && !description && !pendingTag });
-  }
-
   currentProject() {
     const projectId = this.props.media.project_id;
     const context = this.getContext();
@@ -393,16 +384,14 @@ class MediaMetadata extends Component {
   }
 
   handleChangeTitle(e) {
-    this.setState({ title: e.target.value }, this.canSubmit);
+    this.setState({ title: e.target.value });
   }
 
   handleChangeDescription(e) {
-    this.setState({ description: e.target.value }, this.canSubmit);
+    this.setState({ description: e.target.value });
   }
 
   handleSave(media, event) {
-    if (this.state.submitDisabled) return;
-
     if (event) {
       event.preventDefault();
     }
@@ -432,7 +421,14 @@ class MediaMetadata extends Component {
       this.success(response, 'createTag');
     };
 
-    if (title || description) {
+    if ((typeof title !== 'undefined' && title !== null) ||
+      (typeof description !== 'undefined' && description !== null)) {
+      if (!title) {
+        embed.title = media.media.embed_path
+          ? media.media.embed_path.split('/').pop().replace('embed_', '')
+          : title;
+      }
+
       Relay.Store.commitUpdate(
         new UpdateProjectMediaMutation({
           embed: JSON.stringify(embed),
@@ -474,8 +470,9 @@ class MediaMetadata extends Component {
       tagErrorMessage: null,
       pendingMutations: null,
       hasFailure: false,
-      submitDisabled: true,
     });
+
+    this.manageEditingState();
   }
 
   fail(transaction, mutation) {
@@ -486,27 +483,29 @@ class MediaMetadata extends Component {
       message = json.error;
     }
     if (mutation === 'createTag') {
-      this.setState({ tagErrorMessage: message, hasFailure: true, submitDisabled: false });
+      this.setState({ tagErrorMessage: message, hasFailure: true });
     } else {
-      this.setState({ message, hasFailure: true, submitDisabled: false });
+      this.setState({ message, hasFailure: true });
     }
   }
 
+  manageEditingState = () => {
+    const isEditing = (!!this.state.pendingMutations &&
+    this.state.pendingMutations.length > 0) ||
+    this.state.hasFailure;
+
+    const message = isEditing ? this.state.message : null;
+
+    this.setState({ isEditing, message });
+  };
+
   success(response, mutation) {
-    const manageEditingState = () => {
-      const submitDisabled = this.state.pendingMutations.length > 0;
-      const isEditing = submitDisabled || this.state.hasFailure;
-      const message = isEditing ? this.state.message : null;
-
-      this.setState({ isEditing, submitDisabled, message });
-    };
-
     const pendingMutations = this.state.pendingMutations
       ? this.state.pendingMutations.slice(0)
       : [];
     this.setState(
       { pendingMutations: pendingMutations.filter(m => m !== mutation) },
-      manageEditingState,
+      this.manageEditingState,
     );
   }
 
@@ -526,7 +525,6 @@ class MediaMetadata extends Component {
       tagErrorMessage: null,
       title: null,
       description: null,
-      submitDisabled: true,
       pendingMutations: null,
     });
   }
@@ -648,7 +646,6 @@ class MediaMetadata extends Component {
               errorText={this.state.tagErrorMessage}
               onChange={() => {
                 this.setState({ tagErrorMessage: null });
-                this.canSubmit();
               }}
               isEditing
             /> : null
@@ -675,7 +672,6 @@ class MediaMetadata extends Component {
                 defaultMessage="Done"
               />
             }
-            disabled={this.state.submitDisabled}
             primary
           />
         </span>

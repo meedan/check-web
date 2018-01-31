@@ -4,11 +4,19 @@
     "defaultMessage": "Title changed to \"{title}\" by {author}"
   },
   {
+    "id": "annotation.embedLabelRemoved",
+    "defaultMessage": "Title \"{title}\" removed by {author}"
+  },
+  {
     "id": "annotation.embedNoteUpdated",
     "defaultMessage": "Description edited from \"{from}\" to \"{to}\" by {author}"
   },
   {
     "id": "annotation.embedNoteCreated",
     "defaultMessage": "Description \"{note}\" was added by {author}"
+  },
+  {
+    "id": "annotation.embedNoteRemoved",
+    "defaultMessage": "Description \"{note}\" was removed by {author}"
   }
 ]
