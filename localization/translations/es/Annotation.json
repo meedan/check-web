@@ -5,6 +5,8 @@
   "annotation.reverseImageFacebook": "Este ítem contiene al menos una imagen. Considera hacer una búsqueda inversa de la imagen.",
   "annotation.and": "y",
   "annotation.newClaim": "Nuevo reclamo añadido por {author}",
+  "annotation.mediaAssigned": "Assigned to {name} by {author}",
+  "annotation.mediaUnassigned": "Unassigned from {name} by {author}",
   "annotation.statusSetHeader": "Estado establecido como {status} por {author}",
   "annotation.taggedHeader": "Etiquetado #{tag} por {author}",
   "annotation.deletedComment": "Comentario eliminado por {author}: \"{comment}\"",
@@ -25,6 +27,6 @@
   "annotation.penderArchiveWait": "En este momento Keep está tomando la captura de pantalla de este ítem. Regresa en unos minutos para verlo.",
   "annotation.flaggedHeader": "Marcado como  {flag} por {author}",
   "annotation.projectMoved": "Movido del proyecto {previousProject} a {currentProject} por {author}",
-  "annotation.movedToTrash": "Movido a la papelera",
+  "annotation.movedToTrash": "Enviado a la papelera",
   "annotation.movedFromTrash": "{author} Sacó esto de la papelera "
 }

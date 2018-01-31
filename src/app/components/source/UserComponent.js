@@ -61,29 +61,29 @@ class UserComponent extends React.Component {
                 :
                 <UserInfo user={user} />
               }
+              <Tabs value={this.state.showTab} onChange={this.handleTabChange}>
+                <Tab
+                  id="teams-tab"
+                  label={
+                    <FormattedMessage
+                      id="userComponent.teams"
+                      defaultMessage="Teams"
+                    />
+                  }
+                  value="teams"
+                />
+                <Tab
+                  id="assignments-tab"
+                  label={
+                    <FormattedMessage
+                      id="userComponents.assignments"
+                      defaultMessage="Assignments"
+                    />
+                  }
+                  value="assignments"
+                />
+              </Tabs>
             </ContentColumn>
-            <Tabs value={this.state.showTab} onChange={this.handleTabChange}>
-              <Tab
-                id="teams-tab"
-                label={
-                  <FormattedMessage
-                    id="userComponent.teams"
-                    defaultMessage="Teams"
-                  />
-                }
-                value="teams"
-              />
-              <Tab
-                id="assignments-tab"
-                label={
-                  <FormattedMessage
-                    id="userComponents.assignments"
-                    defaultMessage="Assignments"
-                  />
-                }
-                value="assignments"
-              />
-            </Tabs>
           </HeaderCard>
           <ContentColumn>
             { this.state.showTab === 'teams' ? <SwitchTeamsComponent user={user} /> : null}

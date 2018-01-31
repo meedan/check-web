@@ -20,6 +20,9 @@ describe('<EmbedCreate />', () => {
 
   const annotated = {
     quote: 'This is a quote',
+    media: {
+      quote: 'This is a quote',
+    },
   };
 
   const authorName = 'Felis Catus';

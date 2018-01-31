@@ -507,7 +507,7 @@ class UserInfoEdit extends React.Component {
               <div>
                 <FlatButton
                   primary
-                  onClick={this.handleAddLink}
+                  onClick={this.handleAddLink.bind(this)}
                   label={this.props.intl.formatMessage(messages.addLink)}
                 />
               </div>

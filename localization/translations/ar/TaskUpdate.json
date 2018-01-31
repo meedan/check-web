@@ -1,5 +1,7 @@
 {
   "annotation.taskLabelUpdated": "تم تعديل المهمة من \"{from}\" إلى \"{to}\" من قِبَل {author}",
   "annotation.taskNoteUpdated": "تم تعديل التعليق للمهمة \"{title}\" من \"{from}\" إلى \"{to}\" من قِبَل {author}",
-  "annotation.taskNoteCreated": "تمت إضافة تعليق جديد \"{note}\" للمهمة \"{title}\" من قِبَل {author}"
+  "annotation.taskNoteCreated": "تمت إضافة تعليق جديد \"{note}\" للمهمة \"{title}\" من قِبَل {author}",
+  "annotation.assignmentChanged": "تم توكيل المهمة \"{title}\" إلى {assigneeTo} بواسطة {author}",
+  "annotation.assignmentRemoved": "تم إلغاء توكيل المهمة \"{title}\" من {assigneeFrom} بواسطة {author}"
 }
