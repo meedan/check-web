@@ -104,9 +104,9 @@ const MediaUtil = {
 
       if (socialMedia) {
         type = socialMedia;
-      } else if (media.quote) {
+      } else if (media.media.quote) {
         type = config.appName === 'check' ? messages.typeClaim : messages.bridge_typeClaim;
-      } else if (media.embed_path) {
+      } else if (media.media.embed_path) {
         type = messages.typeImage;
       } else if (media.domain) {
         type = messages.typePage;
