@@ -10,5 +10,6 @@
   "tasks.datetime": "التاريخ والزمن",
   "tasks.taskLabel": "السؤال",
   "tasks.description": "وصف",
-  "tasks.addDescription": "أضف وصفاً"
+  "tasks.addDescription": "أضف وصفاً",
+  "tasks.assign": "توكيل"
 }

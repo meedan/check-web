@@ -10,5 +10,13 @@
   {
     "id": "annotation.taskNoteCreated",
     "defaultMessage": "Task \"{title}\" has new note \"{note}\" by {author}"
+  },
+  {
+    "id": "annotation.assignmentChanged",
+    "defaultMessage": "Task \"{title}\" assigned to \"{assigneeTo}\" by {author}"
+  },
+  {
+    "id": "annotation.assignmentRemoved",
+    "defaultMessage": "Task \"{title}\" unassigned from \"{assigneeFrom}\" by {author}"
   }
 ]

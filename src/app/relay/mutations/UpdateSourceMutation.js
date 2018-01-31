@@ -14,6 +14,7 @@ class UpdateSourceMutation extends Relay.Mutation {
         image,
         description,
         lock_version,
+        overridden,
       }
     }`;
   }

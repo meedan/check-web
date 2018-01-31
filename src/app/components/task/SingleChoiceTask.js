@@ -7,6 +7,7 @@ import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-i
 import MdCancel from 'react-icons/lib/md/cancel';
 import MdRadioButtonUnchecked from 'react-icons/lib/md/radio-button-unchecked';
 import Message from '../Message';
+import Attribution from './Attribution';
 import { safelyParseJSON } from '../../helpers';
 import { StyledTaskDescription, units } from '../../styles/js/shared';
 
@@ -45,6 +46,7 @@ class SingleChoiceTask extends Component {
       responseOther: null,
       submitDisabled: true,
       taskAnswerDisabled: true,
+      showAssignmentField: false,
     };
   }
 
@@ -55,6 +57,10 @@ class SingleChoiceTask extends Component {
       this.props.onSubmit(this.state.label, this.state.description, jsonoptions);
       this.setState({ submitDisabled: true });
     }
+  }
+
+  toggleAssignmentField() {
+    this.setState({ showAssignmentField: !this.state.showAssignmentField });
   }
 
   handleSubmitResponse() {
@@ -302,6 +308,17 @@ class SingleChoiceTask extends Component {
               <span className="create-task__add-task-description-icon">+</span>{' '}
               <FormattedMessage id="tasks.addDescription" defaultMessage="Add a description" />
             </label>
+
+            { this.state.showAssignmentField ?
+              <Attribution multi={false} selectedUsers={[]} id="new" /> :
+              <button
+                className="create-task__add-assignment-button"
+                onClick={this.toggleAssignmentField.bind(this)}
+              >
+                {'+ '}
+                <FormattedMessage id="tasks.assign" defaultMessage="Assign" />
+              </button>
+            }
           </StyledTaskDescription>
         </Dialog>
       </div>

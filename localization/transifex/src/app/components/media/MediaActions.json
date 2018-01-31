@@ -5,5 +5,7 @@
   "mediaActions.sendToTrash": "Send to trash",
   "mediaActions.refresh": "Refresh",
   "mediaActions.embed": "Embed",
-  "mediaActions.deleteForever": "Delete forever"
+  "mediaActions.deleteForever": "Delete forever",
+  "mediaActions.unassign": "Unassign",
+  "mediaActions.assign": "Assign"
 }

@@ -17,6 +17,8 @@
   "sourceComponent.link": "الرابط",
   "sourceComponent.addLink": "أضف رابطاً",
   "sourceComponent.addLinkHelper": "أضف رابطاً لصفحة ويب أو لملف تعريف",
+  "sourceComponent.extractedHelper": "مستخرج من حساب {accountName} على {provider}",
+  "sourceComponent.extractedHelperPg": "مستخرج من {url}",
   "sourceComponent.invalidLink": "من فضلك أدخل رابطاً صحيحاً.",
   "sourceComponent.other": "آخر (تحديد)",
   "sourceNoAccounts": "بدون أي شبكة",

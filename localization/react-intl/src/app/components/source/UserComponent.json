@@ -1,0 +1,10 @@
+[
+  {
+    "id": "userComponent.teams",
+    "defaultMessage": "Teams"
+  },
+  {
+    "id": "userComponents.assignments",
+    "defaultMessage": "Assignments"
+  }
+]

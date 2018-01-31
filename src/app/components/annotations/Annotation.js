@@ -411,27 +411,49 @@ class Annotation extends Component {
       break;
     }
     case 'update_status': {
-      const statusCode = content.status.toLowerCase().replace(/[ _]/g, '-');
-      const status = getStatus(this.props.annotated.verification_statuses, content.status);
-      contentTemplate = (
-        <span>
-          <FormattedMessage
-            id="annotation.statusSetHeader"
-            defaultMessage="Status set to {status} by {author}"
-            values={{
-              status: (
-                <span
-                  className={`annotation__status annotation__status--${statusCode}`}
-                  style={{ color: getStatusStyle(status, 'color') }}
-                >
-                  {status.label}
-                </span>
-              ),
-              author: authorName,
-            }}
-          />
-        </span>
-      );
+      const statusChanges = JSON.parse(activity.object_changes_json);
+      if (statusChanges.assigned_to_id) {
+        const assignment = JSON.parse(activity.meta);
+        if (assignment.assigned_to_name) {
+          contentTemplate = (
+            <FormattedMessage
+              id="annotation.mediaAssigned"
+              defaultMessage="Assigned to {name} by {author}"
+              values={{ name: assignment.assigned_to_name, author: authorName }}
+            />
+          );
+        } else {
+          contentTemplate = (
+            <FormattedMessage
+              id="annotation.mediaUnassigned"
+              defaultMessage="Unassigned from {name} by {author}"
+              values={{ name: assignment.assigned_from_name, author: authorName }}
+            />
+          );
+        }
+      } else {
+        const statusCode = content.status.toLowerCase().replace(/[ _]/g, '-');
+        const status = getStatus(this.props.annotated.verification_statuses, content.status);
+        contentTemplate = (
+          <span>
+            <FormattedMessage
+              id="annotation.statusSetHeader"
+              defaultMessage="Status set to {status} by {author}"
+              values={{
+                status: (
+                  <span
+                    className={`annotation__status annotation__status--${statusCode}`}
+                    style={{ color: getStatusStyle(status, 'color') }}
+                  >
+                    {status.label}
+                  </span>
+                ),
+                author: authorName,
+              }}
+            />
+          </span>
+        );
+      }
       break;
     }
     case 'create_tag':

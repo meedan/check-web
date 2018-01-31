@@ -40,6 +40,10 @@
     "defaultMessage": "Add a description"
   },
   {
+    "id": "tasks.assign",
+    "defaultMessage": "Assign"
+  },
+  {
     "id": "tasks.cancelEdit",
     "defaultMessage": "Cancel"
   },

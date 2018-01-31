@@ -491,10 +491,12 @@ export const StyledTaskDescription = styled.div`
     width: 100% !important;
   }
 
-  .create-task__add-task-description-label {
+  .create-task__add-task-description-label, .create-task__add-assignment-button {
     bottom: ${units(2)};
     font: ${caption};
     padding: 0 ${units(1)};
+    color: ${black54};
+    cursor: pointer;
   }
 
   .create-task__add-task-description {
@@ -509,5 +511,10 @@ export const StyledTaskDescription = styled.div`
         display: none !important;
       }
     }
+  }
+
+  .create-task__add-assignment-button {
+    border: 0;
+    background: transparent;
   }
 `;

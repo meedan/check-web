@@ -18,11 +18,16 @@ import UserTooltip from '../user/UserTooltip';
 import UpdateProjectMediaMutation from '../../relay/mutations/UpdateProjectMediaMutation';
 import DeleteProjectMediaMutation from '../../relay/mutations/DeleteProjectMediaMutation';
 import CreateTagMutation from '../../relay/mutations/CreateTagMutation';
+import UpdateStatusMutation from '../../relay/mutations/UpdateStatusMutation';
 import CheckContext from '../../CheckContext';
 import Message from '../Message';
+import Attribution from '../task/Attribution';
+import UserAvatar from '../UserAvatar';
+import ProfileLink from '../layout/ProfileLink';
 import { safelyParseJSON } from '../../helpers';
 import {
   Row,
+  black10,
   black87,
   title1,
   units,
@@ -87,8 +92,11 @@ class MediaMetadata extends Component {
       openMoveDialog: false,
       openDeleteDialog: false,
       confirmationError: false,
-      submitDisabled: true,
       message: null,
+      pendingMutations: null,
+      hasFailure: false,
+      openAssignDialog: false,
+
     };
   }
 
@@ -310,15 +318,48 @@ class MediaMetadata extends Component {
     this.setState({ openMoveDialog: false });
   }
 
-  canSubmit() {
-    // TODO Use React ref
-    let pendingTag = document.forms['edit-media-form'].sourceTagInput.value;
-    pendingTag = pendingTag && pendingTag.trim();
+  handleAssign() {
+    this.setState({ openAssignDialog: true });
+  }
 
-    const title = this.state.title && !!this.state.title.trim();
-    const description = this.state.description && !!this.state.description.trim();
+  handleAssignProjectMedia() {
+    const { media } = this.props;
 
-    this.setState({ submitDisabled: !title && !description && !pendingTag });
+    const onFailure = (transaction) => {
+      const error = transaction.getError();
+      if (error.json) {
+        error.json().then(this.handleError);
+      } else {
+        this.handleError(JSON.stringify(error));
+      }
+    };
+
+    const onSuccess = () => {};
+
+    const status_id = media.last_status_obj ? media.last_status_obj.id : '';
+
+    let assignment = document.getElementById(`attribution-media-${media.dbid}`);
+    if (assignment) {
+      assignment = parseInt(assignment.value, 10);
+    } else {
+      assignment = 0;
+    }
+
+    const statusAttr = {
+      parent_type: 'project_media',
+      annotated: media,
+      annotation: {
+        status_id,
+        assigned_to_id: assignment,
+      },
+    };
+
+    Relay.Store.commitUpdate(
+      new UpdateStatusMutation(statusAttr),
+      { onSuccess, onFailure },
+    );
+
+    this.setState({ openAssignDialog: false });
   }
 
   currentProject() {
@@ -343,16 +384,14 @@ class MediaMetadata extends Component {
   }
 
   handleChangeTitle(e) {
-    this.setState({ title: e.target.value }, this.canSubmit);
+    this.setState({ title: e.target.value });
   }
 
   handleChangeDescription(e) {
-    this.setState({ description: e.target.value }, this.canSubmit);
+    this.setState({ description: e.target.value });
   }
 
   handleSave(media, event) {
-    if (this.state.submitDisabled) return;
-
     if (event) {
       event.preventDefault();
     }
@@ -382,7 +421,14 @@ class MediaMetadata extends Component {
       this.success(response, 'createTag');
     };
 
-    if (title || description) {
+    if ((typeof title !== 'undefined' && title !== null) ||
+      (typeof description !== 'undefined' && description !== null)) {
+      if (!title) {
+        embed.title = media.media.embed_path
+          ? media.media.embed_path.split('/').pop().replace('embed_', '')
+          : title;
+      }
+
       Relay.Store.commitUpdate(
         new UpdateProjectMediaMutation({
           embed: JSON.stringify(embed),
@@ -424,8 +470,9 @@ class MediaMetadata extends Component {
       tagErrorMessage: null,
       pendingMutations: null,
       hasFailure: false,
-      submitDisabled: true,
     });
+
+    this.manageEditingState();
   }
 
   fail(transaction, mutation) {
@@ -436,27 +483,29 @@ class MediaMetadata extends Component {
       message = json.error;
     }
     if (mutation === 'createTag') {
-      this.setState({ tagErrorMessage: message, hasFailure: true, submitDisabled: false });
+      this.setState({ tagErrorMessage: message, hasFailure: true });
     } else {
-      this.setState({ message, hasFailure: true, submitDisabled: false });
+      this.setState({ message, hasFailure: true });
     }
   }
 
+  manageEditingState = () => {
+    const isEditing = (!!this.state.pendingMutations &&
+    this.state.pendingMutations.length > 0) ||
+    this.state.hasFailure;
+
+    const message = isEditing ? this.state.message : null;
+
+    this.setState({ isEditing, message });
+  };
+
   success(response, mutation) {
-    const manageEditingState = () => {
-      const submitDisabled = this.state.pendingMutations.length > 0;
-      const isEditing = submitDisabled || this.state.hasFailure;
-      const message = isEditing ? this.state.message : null;
-
-      this.setState({ isEditing, submitDisabled, message });
-    };
-
     const pendingMutations = this.state.pendingMutations
       ? this.state.pendingMutations.slice(0)
       : [];
     this.setState(
       { pendingMutations: pendingMutations.filter(m => m !== mutation) },
-      manageEditingState,
+      this.manageEditingState,
     );
   }
 
@@ -476,7 +525,6 @@ class MediaMetadata extends Component {
       tagErrorMessage: null,
       title: null,
       description: null,
-      submitDisabled: true,
       pendingMutations: null,
     });
   }
@@ -487,6 +535,7 @@ class MediaMetadata extends Component {
       openMoveDialog: false,
       dstProj: null,
       openDeleteDialog: false,
+      openAssignDialog: false,
     });
   }
 
@@ -517,7 +566,7 @@ class MediaMetadata extends Component {
               </Tooltip>
             ),
           }}
-        />) : '';
+        />) : null;
     const moveDialogActions = [
       <FlatButton
         label={
@@ -535,6 +584,24 @@ class MediaMetadata extends Component {
         keyboardFocused
         onClick={this.handleMoveProjectMedia.bind(this)}
         disabled={!this.state.dstProj}
+      />,
+    ];
+    const assignDialogActions = [
+      <FlatButton
+        label={
+          <FormattedMessage
+            id="mediaDetail.cancelButton"
+            defaultMessage="Cancel"
+          />
+        }
+        primary
+        onClick={this.handleCloseDialogs.bind(this)}
+      />,
+      <FlatButton
+        label={<FormattedMessage id="mediaDetail.done" defaultMessage="Done" />}
+        primary
+        keyboardFocused
+        onClick={this.handleAssignProjectMedia.bind(this)}
       />,
     ];
 
@@ -579,7 +646,6 @@ class MediaMetadata extends Component {
               errorText={this.state.tagErrorMessage}
               onChange={() => {
                 this.setState({ tagErrorMessage: null });
-                this.canSubmit();
               }}
               isEditing
             /> : null
@@ -606,7 +672,6 @@ class MediaMetadata extends Component {
                 defaultMessage="Done"
               />
             }
-            disabled={this.state.submitDisabled}
             primary
           />
         </span>
@@ -634,6 +699,7 @@ class MediaMetadata extends Component {
     ];
 
     const url = MediaUtil.url(media, data);
+    const assignment = media.last_status_obj.assigned_to;
 
     return (
       <StyledMetadata
@@ -650,12 +716,19 @@ class MediaMetadata extends Component {
         </Row>
         <Row>
           {byUser ?
-            <span className="media-detail__check-added-by">
-              <FormattedMessage
-                id="mediaDetail.addedBy"
-                defaultMessage="Added {byUser}"
-                values={{ byUser }}
+            <span className="media-detail__check-added-by" style={{ display: 'flex' }}>
+              <UserAvatar
+                user={media.user}
+                size="extraSmall"
+                style={{ display: 'inline-block', border: `1px solid ${black10}` }}
               />
+              <span style={{ lineHeight: '24px', paddingLeft: units(1), paddingRight: units(1) }}>
+                <FormattedMessage
+                  id="mediaDetail.addedBy"
+                  defaultMessage="Added {byUser}"
+                  values={{ byUser }}
+                />
+              </span>
             </span>
             : null}
           {media.tags ?
@@ -676,10 +749,30 @@ class MediaMetadata extends Component {
               handleSendToTrash={this.handleSendToTrash.bind(this)}
               handleRestore={this.handleRestore.bind(this)}
               handleDeleteForever={this.handleDeleteForever.bind(this)}
+              handleAssign={this.handleAssign.bind(this)}
               style={{ display: 'flex' }}
               locale={locale}
             />}
         </Row>
+        {assignment && media.last_status !== 'verified' ?
+          <Row>
+            <div className="media-detail__assignment" style={{ display: 'flex', alignItems: 'center' }}>
+              <UserAvatar
+                user={media.last_status_obj.assigned_to}
+                size="extraSmall"
+                style={{ display: 'inline-block', border: `1px solid ${black10}` }}
+              />
+              <span style={{ lineHeight: '24px', paddingLeft: units(1), paddingRight: units(1) }}>
+                <FormattedMessage
+                  id="mediaDetail.assignedTo"
+                  defaultMessage="Assigned to {name}"
+                  values={{
+                    name: <ProfileLink user={assignment} team={media.team} />,
+                  }}
+                />
+              </span>
+            </div>
+          </Row> : null}
 
         <Dialog
           actions={moveDialogActions}
@@ -761,6 +854,29 @@ class MediaMetadata extends Component {
                 defaultMessage="Type here"
               />
             }
+          />
+        </Dialog>
+
+        <Dialog
+          actions={assignDialogActions}
+          modal
+          open={this.state.openAssignDialog}
+          onRequestClose={this.handleCloseDialogs.bind(this)}
+          autoScrollBodyContent
+        >
+          <h4 className="media-detail__dialog-header">
+            <FormattedMessage
+              id="mediaDetail.assignDialogHeader"
+              defaultMessage="Assignment"
+            />
+          </h4>
+          <Attribution
+            multi={false}
+            selectedUsers={
+              media.last_status_obj.assigned_to ?
+                [{ node: media.last_status_obj.assigned_to }] : []
+            }
+            id={`media-${media.dbid}`}
           />
         </Dialog>
       </StyledMetadata>

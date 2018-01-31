@@ -72,6 +72,14 @@
     "defaultMessage": "Add a link to a web page or social media profile"
   },
   {
+    "id": "sourceComponent.extractedHelper",
+    "defaultMessage": "Extracted from {accountName} {provider} account"
+  },
+  {
+    "id": "sourceComponent.extractedHelperPg",
+    "defaultMessage": "Extracted from {url}"
+  },
+  {
     "id": "sourceComponent.invalidLink",
     "defaultMessage": "Please enter a valid URL"
   },
