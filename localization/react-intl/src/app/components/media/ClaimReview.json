@@ -1,18 +1,14 @@
 [
   {
-    "id": "claimReview.title",
-    "defaultMessage": "Claim Review"
-  },
-  {
     "id": "claimReview.claim",
-    "defaultMessage": "Claim"
+    "defaultMessage": "Claim:"
   },
   {
     "id": "claimReview.claimedBy",
-    "defaultMessage": "Claimed by"
+    "defaultMessage": "Claimed by:"
   },
   {
     "id": "claimReview.reviewedBy",
-    "defaultMessage": "Fact-checked by {reviewer}"
+    "defaultMessage": "Fact-checked by {reviewer}:"
   }
 ]

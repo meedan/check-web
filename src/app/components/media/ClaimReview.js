@@ -1,8 +1,21 @@
 import React from 'react';
 import { injectIntl, FormattedMessage } from 'react-intl';
+import styled from 'styled-components';
+import {
+  units,
+} from '../../styles/js/shared';
+
+const ReviewContainer = styled.div`
+  padding-bottom: ${units(2)};
+`;
+
+const ReviewLabel = styled.span`
+  color: #666;
+`;
 
 const ClaimReview = (props) => {
   const { data } = props;
+  console.log(data);
   const reviewer = (
     <a href={data.author.url} target="_blank" rel="noopener noreferrer">
       {data.author.name || (new URL(data.author.url)).hostname}
@@ -11,32 +24,32 @@ const ClaimReview = (props) => {
   const rating = data.reviewRating.alternateName ||
     `${data.reviewRating.ratingValue} (${data.reviewRating.worstRating} - ${data.reviewRating.bestRating})`;
   return (
-    <div>
-      <h3>
-        <FormattedMessage
-          id="claimReview.title"
-          defaultMessage="Claim Review"
-        />
-      </h3>
+    <ReviewContainer>
       <ul>
         <li>
-          <FormattedMessage id="claimReview.claim" defaultMessage="Claim" />
-          : {data.claimReviewed}
+          <ReviewLabel>
+            <FormattedMessage id="claimReview.claim" defaultMessage="Claim: " />
+          </ReviewLabel>
+          {data.claimReviewed}
         </li>
         <li>
-          <FormattedMessage id="claimReview.claimedBy" defaultMessage="Claimed by" />
-          : {data.itemReviewed.author.name}
+          <ReviewLabel>
+            <FormattedMessage id="claimReview.claimedBy" defaultMessage="Claimed by: " />
+          </ReviewLabel>
+          {data.itemReviewed.author.name}
         </li>
         <li>
-          <FormattedMessage
-            id="claimReview.reviewedBy"
-            defaultMessage="Fact-checked by {reviewer}"
-            values={{ reviewer }}
-          />
-          : {rating}
+          <ReviewLabel>
+            <FormattedMessage
+              id="claimReview.reviewedBy"
+              defaultMessage="Fact-checked by {reviewer}: "
+              values={{ reviewer }}
+            />
+          </ReviewLabel>
+          {rating}
         </li>
       </ul>
-    </div>
+    </ReviewContainer>
   );
 };
 
