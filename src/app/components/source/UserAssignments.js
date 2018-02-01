@@ -127,6 +127,12 @@ const UserAssignmentsContainer = Relay.createContainer(injectIntl(UserAssignment
               id
               dbid
               embed
+              media {
+                embed
+                embed_path
+                quote
+              }
+              overridden
               project_id
               report_type
               project {
