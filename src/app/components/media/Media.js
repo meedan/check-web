@@ -59,6 +59,7 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
           email,
           source {
             dbid,
+            image,
             accounts(first: 10000) {
               edges {
                 node {
@@ -71,6 +72,16 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
         last_status_obj {
           id
           dbid
+          assigned_to {
+            id
+            dbid
+            name
+            source {
+              id
+              dbid
+              image
+            }
+          }
         }
         translation_status: annotation(annotation_type: "translation_status") {
           id
@@ -109,6 +120,16 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
               description,
               permissions,
               jsonoptions,
+              assigned_to {
+                name
+                id
+                dbid
+                source {
+                  id
+                  dbid
+                  image
+                }
+              }
               first_response {
                 id,
                 dbid,
@@ -120,6 +141,11 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
                       id
                       dbid
                       name
+                      source {
+                        id
+                        dbid
+                        image
+                      }
                     }
                   }
                 }
@@ -205,7 +231,8 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
                       translation_statuses,
                       domain,
                       team {
-                        slug
+                        slug,
+                        get_embed_whitelist
                       }
                       media {
                         embed_path,
@@ -237,6 +264,7 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
         }
         team {
           get_suggested_tags
+          get_embed_whitelist
           private
           slug
           search_id

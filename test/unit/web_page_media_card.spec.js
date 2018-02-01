@@ -102,6 +102,56 @@ describe('<WebPageMediaCard />', () => {
     },
   };
 
+  const webPageWithWhitelistedUrl = {
+    media: {
+      __dataID__: 'UHJvamVjdE1lZGlhLzEw\n',
+      id: 'UHJvamVjdE1lZGlhLzEw\n',
+      dbid: 10,
+      quote: null,
+      published: '1506728130',
+      archived: false,
+      url: 'https://meedan.com/en/',
+      team: {
+        get_embed_whitelist: "meedan.com, checkmedia.org"
+      },
+      embed: {
+        published_at: "",
+        username: "",
+        title: "Meedan",
+        description: "A team of designers, technologists and journalists who focus on open source investigation of digital media and crowdsourced translation of social media.",
+        picture: "http://meedan.com/images/logos/meedan-logo-600@2x.png",
+        author_url: "https://meedan.com",
+        author_picture: "http://meedan.com/images/logos/meedan-logo-600@2x.png",
+        author_name: "Meedan",
+      },
+      media: {
+        embed: {
+          title: "Web Page with a Good Picture",
+          url: "https://meedan.com/en/",
+          html: "hello!",
+        }
+      }
+    },
+    data: {
+      published_at: '',
+      username: '',
+      title: 'Meedan',
+      description: 'A team of designers, technologists and journalists who focus on open source investigation of digital media and crowdsourced translation of social media.',
+      picture: 'http://meedan.com/images/logos/meedan-logo-600@2x.png',
+      author_url: 'https://meedan.com',
+      author_picture: 'http://meedan.com/images/logos/meedan-logo-600@2x.png',
+      author_name: 'Meedan',
+      raw: {},
+      url: 'https://meedan.com/en/',
+      provider: 'page',
+      type: 'item',
+      parsed_at: '2017-09-29T23:35:29.690+00:00',
+      favicon: 'https://www.google.com/s2/favicons?domain_url=meedan.com/en/',
+      embed_tag: '<script src="http://pender:3200/api/medias.js?url=https%3A%2F%2Fmeedan.com%2Fen%2F" type="text/javascript"></script>',
+      refreshes_count: 1,
+    },
+  };
+
   it('renders a picture if there is a good picture', () => {
     const card = mountWithIntl(
       <WebPageMediaCard
@@ -122,5 +172,34 @@ describe('<WebPageMediaCard />', () => {
     );
 
     expect(card.find('img').html()).to.contain(`src="${webPageWithScreenshotPicture.data.favicon}"`);
+  });
+
+  it('displays the embed html only if the domain is whitelisted', () => {
+    const card1 = mountWithIntl(
+      <WebPageMediaCard
+        media={webPageWithWhitelistedUrl.media}
+        data={webPageWithWhitelistedUrl.data}
+      />,
+    );
+
+    webPageWithWhitelistedUrl.media.team.get_embed_whitelist = "checkmedia.org";
+    const card2 = mountWithIntl(
+      <WebPageMediaCard
+        media={webPageWithWhitelistedUrl.media}
+        data={webPageWithWhitelistedUrl.data}
+      />,
+    );
+
+    delete webPageWithWhitelistedUrl.media.team.get_embed_whitelist;
+    const card3 = mountWithIntl(
+      <WebPageMediaCard
+        media={webPageWithWhitelistedUrl.media}
+        data={webPageWithWhitelistedUrl.data}
+      />,
+    );
+
+    expect(card1.text()).to.contain('hello!');
+    expect(card2.text()).to.not.contain('hello!');
+    expect(card3.text()).to.not.contain('hello!');
   });
 });

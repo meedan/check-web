@@ -26,6 +26,7 @@ const StyledImage = styled.div`
   background-position: center;
   background-size: ${props => props.type === 'source' ? 'contain' : 'cover'};
   background-image: url('${props => props.avatarUrl}');
+  background-color: white;
   ${props => props.type === 'source' ? `border: 1px solid ${black05};` : null}
 
   ${props => (() => {
@@ -63,11 +64,14 @@ class SourcePicture extends Component {
   }
 
   componentDidMount() {
-    this.setImage(this.props.object.image);
+    if (this.props.object) {
+      this.setImage(this.props.object.image);
+    }
   }
 
   componentWillReceiveProps(nextProps) {
     if (
+      nextProps.object &&
       nextProps.object.image &&
       this.state.avatarUrl !== nextProps.object.image
     ) {

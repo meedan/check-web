@@ -5,7 +5,6 @@ import { Link } from 'react-router';
 import InfiniteScroll from 'react-infinite-scroller';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import TextField from 'material-ui/TextField';
-import Checkbox from 'material-ui/Checkbox';
 import FlatButton from 'material-ui/FlatButton';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import rtlDetect from 'rtl-detect';
@@ -76,14 +75,6 @@ const messages = defineMessages({
     id: 'teamComponent.website',
     defaultMessage: 'Website',
   },
-  slackWebhook: {
-    id: 'teamComponent.slackWebhook',
-    defaultMessage: 'Slack webhook',
-  },
-  slackChannel: {
-    id: 'teamComponent.slackChannel',
-    defaultMessage: 'Slack default #channel',
-  },
   verificationTeam: {
     id: 'teamComponent.verificationTeam',
     defaultMessage: 'Verification Team',
@@ -123,9 +114,6 @@ class TeamComponent extends Component {
       values: {
         name: team.name,
         description: team.description,
-        slackNotificationsEnabled: team.get_slack_notifications_enabled,
-        slackWebhook: team.get_slack_webhook,
-        slackChannel: team.get_slack_channel,
         contact_location: contact.node.location,
         contact_phone: contact.node.phone,
         contact_web: contact.node.web,
@@ -202,9 +190,6 @@ class TeamComponent extends Component {
         new UpdateTeamMutation({
           name: values.name,
           description: values.description,
-          set_slack_notifications_enabled: values.slackNotificationsEnabled,
-          set_slack_webhook: values.slackWebhook,
-          set_slack_channel: values.slackChannel,
           contact: JSON.stringify({
             location: values.contact_location,
             phone: values.contact_phone,
@@ -398,48 +383,6 @@ class TeamComponent extends Component {
                               onChange={this.handleChange.bind(this, 'contact_web')}
                               fullWidth
                             />
-
-                            {team.limits.slack_integration === false ?
-                              null
-                              :
-                              <div>
-                                <Checkbox
-                                  style={{ marginTop: units(6) }}
-                                  label={
-                                    <FormattedMessage
-                                      id="teamComponent.slackNotificationsEnabled"
-                                      defaultMessage="Enable Slack notifications"
-                                    />
-                                  }
-                                  defaultChecked={team.get_slack_notifications_enabled === '1'}
-                                  onCheck={this.handleChange.bind(
-                                    this,
-                                    'slackNotificationsEnabled',
-                                  )}
-                                  id="team__settings-slack-notifications-enabled"
-                                  value="1"
-                                />
-
-                                <TextField
-                                  id="team__settings-slack-webhook"
-                                  defaultValue={team.get_slack_webhook}
-                                  floatingLabelText={
-                                    this.props.intl.formatMessage(messages.slackWebhook)
-                                  }
-                                  onChange={this.handleChange.bind(this, 'slackWebhook')}
-                                  fullWidth
-                                />
-
-                                <TextField
-                                  id="team__settings-slack-channel"
-                                  defaultValue={team.get_slack_channel}
-                                  floatingLabelText={
-                                    this.props.intl.formatMessage(messages.slackChannel)
-                                  }
-                                  onChange={this.handleChange.bind(this, 'slackChannel')}
-                                  fullWidth
-                                />
-                              </div>}
                           </CardText>
 
                           <CardActions style={{ marginTop: units(4) }}>

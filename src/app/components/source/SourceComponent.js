@@ -144,6 +144,14 @@ const messages = defineMessages({
     id: 'sourceComponent.addLinkHelper',
     defaultMessage: 'Add a link to a web page or social media profile',
   },
+  extractedHelper: {
+    id: 'sourceComponent.extractedHelper',
+    defaultMessage: 'Extracted from {accountName} {provider} account',
+  },
+  extractedHelperPg: {
+    id: 'sourceComponent.extractedHelperPg',
+    defaultMessage: 'Extracted from {url}',
+  },
   invalidLink: {
     id: 'sourceComponent.invalidLink',
     defaultMessage: 'Please enter a valid URL',
@@ -275,214 +283,34 @@ class SourceComponent extends Component {
     return source;
   }
 
-  reloadInformation() {
-    this.props.relay.forceFetch();
-    this.setState({ message: null, isEditing: false });
-  }
-
-  subscribe() {
-    if (!this.isProjectSource()) {
-      return;
+  getExtractedFieldMessage(source, fieldName) {
+    if (!source[fieldName] || source.overridden[fieldName] === true) {
+      return null;
     }
-    const { pusher } = this.getContext();
-    const { source: { source: { pusher_channel: pusherChannel } } } = this.props;
-    if (pusher && pusherChannel) {
-      pusher.subscribe(pusherChannel).bind('source_updated', (data) => {
-        const source = this.getSource() || {};
-        const metadata = this.getMetadataAnnotation() || {};
-        const obj = JSON.parse(data.message);
 
-        if (
-          this.state.isEditing &&
-          (
-            (obj.annotation_type === 'metadata' && obj.lock_version > metadata.lock_version) ||
-            (!obj.annotation_type && obj.lock_version > source.lock_version)
-          )
-        ) {
-          this.setState({ message: this.getConflictMessage() });
-        } else if (
-          !this.state.isEditing && this.getContext().clientSessionId !== data.actor_session_id
-        ) {
-          this.props.relay.forceFetch();
-        }
+    const account = source.accounts.edges.find(a =>
+      a.node.dbid === source.overridden[fieldName]);
 
-        this.setState({ shouldUpdate: true });
-      });
+    if (account.node.provider === 'page') {
+      return this.props.intl.formatMessage(messages.extractedHelperPg, { url: account.node.url });
     }
+
+    return this.props.intl.formatMessage(
+      messages.extractedHelper,
+      {
+        accountName: account.node.embed.username,
+        provider: capitalize(account.node.provider),
+      },
+    );
   }
 
-  unsubscribe() {
-    if (!this.isProjectSource()) {
-      return;
-    }
-    const { pusher } = this.getContext();
-    if (pusher) {
-      pusher.unsubscribe(this.props.source.source.pusher_channel);
-    }
-  }
-
-  isProjectSource() {
-    return !!this.props.source.source;
-  }
-
-  handleAddInfoMenu(event) {
-    event.preventDefault();
-
-    this.setState({
-      menuOpen: true,
-      anchorEl: event.currentTarget,
-    });
-  }
-
-  handleAddMetadataField(type) {
-    const metadata = this.state.metadata || this.getMetadataFields();
-
-    if (!metadata[type]) {
-      metadata[type] = '';
-    }
-    this.setState({ metadata, menuOpen: false });
-  }
-
-  handleAddCustomField() {
-    const metadata = this.state.metadata || this.getMetadataFields();
-
-    if (!metadata.other) {
-      metadata.other = [];
-    }
-    metadata.other.push({
-      label: this.state.customFieldLabel,
-      value: this.state.customFieldValue,
-    });
-    this.setState({ metadata, dialogOpen: false });
-  }
-
-  handleAddTags = () => {
-    this.setState({ addingTags: true, menuOpen: false });
-  };
-
-  handleAddLanguages = () => {
-    this.setState({ addingLanguages: true, menuOpen: false });
-  };
-
-  handleAddLink = () => {
-    const links = this.state.links ? this.state.links.slice(0) : [];
-    const newEntry = {};
-    newEntry.url = '';
-    newEntry.error = '';
-    links.push(newEntry);
-    this.setState({ links, menuOpen: false });
-  };
-
-  handleOpenDialog() {
-    this.setState({
-      dialogOpen: true,
-      menuOpen: false,
-      customFieldLabel: '',
-      customFieldValue: '',
-    });
-  }
-
-  handleCloseDialog() {
-    this.setState({
-      dialogOpen: false,
-      customFieldLabel: '',
-      customFieldValue: '',
-    });
-  }
-
-  handleRemoveLink = (id) => {
-    const deleteLinks = this.state.deleteLinks
-      ? this.state.deleteLinks.slice(0)
+  registerPendingMutation = (mutation) => {
+    const pendingMutations = this.state.pendingMutations
+      ? this.state.pendingMutations.slice(0)
       : [];
-    deleteLinks.push(id);
-    this.setState({ deleteLinks });
+    pendingMutations.push(mutation);
+    this.setState({ pendingMutations });
   };
-
-  handleRemoveNewLink = (index) => {
-    const links = this.state.links ? this.state.links.slice(0) : [];
-    links.splice(index, 1);
-    this.setState({ links });
-  };
-
-  handleRequestClose() {
-    this.setState({
-      menuOpen: false,
-    });
-  }
-
-  handleEditProfileImg = () => {
-    this.setState({ editProfileImg: true });
-  };
-
-  handleTabChange = (value) => {
-    this.setState({
-      showTab: value,
-    });
-  };
-
-  handleEnterEditMode(e) {
-    this.setState({
-      isEditing: true,
-      addingTags: false,
-      addingLanguages: false,
-      editProfileImg: false,
-      message: null,
-      metadata: null,
-      tagErrorMessage: null,
-      languageErrorMessage: null,
-      submitDisabled: false,
-      links: [],
-      deleteLinks: [],
-    });
-    e.preventDefault();
-  }
-
-  handleLeaveEditMode() {
-    if (this.state.shouldUpdate) {
-      this.props.relay.forceFetch();
-    }
-
-    this.setState({
-      isEditing: false,
-      message: null,
-      metadata: null,
-      shouldUpdate: false,
-    });
-    this.onClear();
-  }
-
-  handleChangeLink(e, index) {
-    const links = this.state.links ? this.state.links.slice(0) : [];
-    links[index].url = e.target.value;
-    links[index].error = '';
-    this.setState({ links });
-  }
-
-  handleSubmit(e) {
-    e.preventDefault();
-
-    const pendingTagInput = document.forms['edit-source-form'].sourceTagInput;
-    const pendingTag = pendingTagInput ? pendingTagInput.value.trim() : null;
-
-    if (pendingTag) {
-      this.createTag(pendingTag);
-    }
-
-    if (this.validateLinks() && !this.state.submitDisabled) {
-      const updateSourceSent = this.updateSource();
-      const updateLinksSent = this.updateLinks();
-      const updateMetadataSent = this.updateMetadata();
-      const isEditing =
-        updateSourceSent || updateLinksSent || updateMetadataSent;
-
-      this.setState({
-        isEditing,
-        submitDisabled: true,
-        hasFailure: false,
-        message: null,
-      });
-    }
-  }
 
   fail = (transaction) => {
     let message = this.props.intl.formatMessage(messages.editError);
@@ -517,19 +345,6 @@ class SourceComponent extends Component {
       { pendingMutations: pendingMutations.filter(m => m !== mutation) },
       manageEditingState,
     );
-  };
-
-  handleRefresh() {
-    const { id } = this.props.source.source;
-    refreshSource(id, this.fail);
-  }
-
-  registerPendingMutation = (mutation) => {
-    const pendingMutations = this.state.pendingMutations
-      ? this.state.pendingMutations.slice(0)
-      : [];
-    pendingMutations.push(mutation);
-    this.setState({ pendingMutations });
   };
 
   createDynamicAnnotation(annotated, annotated_id, annotated_type, value) {
@@ -810,6 +625,220 @@ class SourceComponent extends Component {
     );
 
     return true;
+  }
+
+  handleAddInfoMenu(event) {
+    event.preventDefault();
+
+    this.setState({
+      menuOpen: true,
+      anchorEl: event.currentTarget,
+    });
+  }
+
+  handleAddMetadataField(type) {
+    const metadata = this.state.metadata || this.getMetadataFields();
+
+    if (!metadata[type]) {
+      metadata[type] = '';
+    }
+    this.setState({ metadata, menuOpen: false });
+  }
+
+  handleAddCustomField() {
+    const metadata = this.state.metadata || this.getMetadataFields();
+
+    if (!metadata.other) {
+      metadata.other = [];
+    }
+    metadata.other.push({
+      label: this.state.customFieldLabel,
+      value: this.state.customFieldValue,
+    });
+    this.setState({ metadata, dialogOpen: false });
+  }
+
+  handleAddTags = () => {
+    this.setState({ addingTags: true, menuOpen: false });
+  };
+
+  handleAddLanguages = () => {
+    this.setState({ addingLanguages: true, menuOpen: false });
+  };
+
+  handleAddLink = () => {
+    const links = this.state.links ? this.state.links.slice(0) : [];
+    const newEntry = {};
+    newEntry.url = '';
+    newEntry.error = '';
+    links.push(newEntry);
+    this.setState({ links, menuOpen: false });
+  };
+
+  handleOpenDialog() {
+    this.setState({
+      dialogOpen: true,
+      menuOpen: false,
+      customFieldLabel: '',
+      customFieldValue: '',
+    });
+  }
+
+  handleCloseDialog() {
+    this.setState({
+      dialogOpen: false,
+      customFieldLabel: '',
+      customFieldValue: '',
+    });
+  }
+
+  handleRefresh() {
+    const { id } = this.props.source.source;
+    refreshSource(id, this.fail);
+  }
+
+  handleRemoveLink = (id) => {
+    const deleteLinks = this.state.deleteLinks
+      ? this.state.deleteLinks.slice(0)
+      : [];
+    deleteLinks.push(id);
+    this.setState({ deleteLinks });
+  };
+
+  handleRemoveNewLink = (index) => {
+    const links = this.state.links ? this.state.links.slice(0) : [];
+    links.splice(index, 1);
+    this.setState({ links });
+  };
+
+  handleRequestClose() {
+    this.setState({
+      menuOpen: false,
+    });
+  }
+
+  handleEditProfileImg = () => {
+    this.setState({ editProfileImg: true });
+  };
+
+  handleTabChange = (value) => {
+    this.setState({
+      showTab: value,
+    });
+  };
+
+  handleEnterEditMode(e) {
+    this.setState({
+      isEditing: true,
+      addingTags: false,
+      addingLanguages: false,
+      editProfileImg: false,
+      message: null,
+      metadata: null,
+      tagErrorMessage: null,
+      languageErrorMessage: null,
+      submitDisabled: false,
+      links: [],
+      deleteLinks: [],
+    });
+    e.preventDefault();
+  }
+
+  handleLeaveEditMode() {
+    if (this.state.shouldUpdate) {
+      this.props.relay.forceFetch();
+    }
+
+    this.setState({
+      isEditing: false,
+      message: null,
+      metadata: null,
+      shouldUpdate: false,
+    });
+    this.onClear();
+  }
+
+  handleChangeLink(e, index) {
+    const links = this.state.links ? this.state.links.slice(0) : [];
+    links[index].url = e.target.value;
+    links[index].error = '';
+    this.setState({ links });
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+
+    const pendingTagInput = document.forms['edit-source-form'].sourceTagInput;
+    const pendingTag = pendingTagInput ? pendingTagInput.value.trim() : null;
+
+    if (pendingTag) {
+      this.createTag(pendingTag);
+    }
+
+    if (this.validateLinks() && !this.state.submitDisabled) {
+      const updateSourceSent = this.updateSource();
+      const updateLinksSent = this.updateLinks();
+      const updateMetadataSent = this.updateMetadata();
+      const isEditing =
+        updateSourceSent || updateLinksSent || updateMetadataSent;
+
+      this.setState({
+        isEditing,
+        submitDisabled: true,
+        hasFailure: false,
+        message: null,
+      });
+    }
+  }
+
+  isProjectSource() {
+    return !!this.props.source.source;
+  }
+
+  subscribe() {
+    if (!this.isProjectSource()) {
+      return;
+    }
+    const { pusher } = this.getContext();
+    const { source: { source: { pusher_channel: pusherChannel } } } = this.props;
+    if (pusher && pusherChannel) {
+      pusher.subscribe(pusherChannel).bind('source_updated', (data) => {
+        const source = this.getSource() || {};
+        const metadata = this.getMetadataAnnotation() || {};
+        const obj = JSON.parse(data.message);
+
+        if (
+          this.state.isEditing &&
+          (
+            (obj.annotation_type === 'metadata' && obj.lock_version > metadata.lock_version) ||
+            (!obj.annotation_type && obj.lock_version > source.lock_version)
+          )
+        ) {
+          this.setState({ message: this.getConflictMessage() });
+        } else if (
+          !this.state.isEditing && this.getContext().clientSessionId !== data.actor_session_id
+        ) {
+          this.props.relay.forceFetch();
+        }
+
+        this.setState({ shouldUpdate: true });
+      });
+    }
+  }
+
+  unsubscribe() {
+    if (!this.isProjectSource()) {
+      return;
+    }
+    const { pusher } = this.getContext();
+    if (pusher) {
+      pusher.unsubscribe(this.props.source.source.pusher_channel);
+    }
+  }
+
+  reloadInformation() {
+    this.props.relay.forceFetch();
+    this.setState({ message: null, isEditing: false });
   }
 
   labelForType(type) {
@@ -1303,6 +1332,9 @@ class SourceComponent extends Component {
               floatingLabelText={this.props.intl.formatMessage(messages.sourceName)}
               style={{ width: '85%' }}
             />
+            <StyledHelper>
+              {this.getExtractedFieldMessage(source, 'name')}
+            </StyledHelper>
             <TextField
               className="source__bio-input"
               name="description"
@@ -1313,6 +1345,9 @@ class SourceComponent extends Component {
               rowsMax={4}
               style={{ width: '85%' }}
             />
+            <StyledHelper>
+              {this.getExtractedFieldMessage(source, 'description')}
+            </StyledHelper>
 
             {this.renderAccountsEdit()}
             {this.renderTagsEdit()}

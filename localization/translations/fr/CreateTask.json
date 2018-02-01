@@ -10,5 +10,6 @@
   "tasks.datetime": "Date et horaire",
   "tasks.taskLabel": "Saisie",
   "tasks.description": "Description",
-  "tasks.addDescription": "Ajouter une description"
+  "tasks.addDescription": "Ajouter une description",
+  "tasks.assign": "Affecter"
 }

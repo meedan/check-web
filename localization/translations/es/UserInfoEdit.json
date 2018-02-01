@@ -1,0 +1,10 @@
+{
+  "userInfoEdit.sourceName": "Nombre",
+  "userInfoEdit.sourceBio": "Biografía",
+  "userInfoEdit.userEmail": "Correo electrónico",
+  "userInfoEdit.addLink": "Añadir enlace",
+  "userInfoEdit.editError": "Lo sentimos, no pudimos editar la fuente",
+  "userInfoEdit.addLinkLabel": "Añadir enlace",
+  "userInfoEdit.addLinkHelper": "Añade un enlace a una página web o perfil de redes sociales. Nota: Esto no afectará tu método de inicio de sesión.",
+  "userInfoEdit.invalidLink": "Por favor introduce un URL válido "
+}

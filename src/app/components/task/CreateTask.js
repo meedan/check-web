@@ -18,6 +18,7 @@ import CreateTaskMutation from '../../relay/mutations/CreateTaskMutation';
 import Message from '../Message';
 import SingleChoiceTask from './SingleChoiceTask';
 import MultiSelectTask from './MultiSelectTask';
+import Attribution from './Attribution';
 import { safelyParseJSON } from '../../helpers';
 import { units, StyledTaskDescription, black05 } from '../../styles/js/shared';
 
@@ -36,6 +37,16 @@ const messages = defineMessages({
   },
 });
 
+const getAssignment = () => {
+  let assignment = document.getElementById('attribution-new');
+  if (assignment) {
+    assignment = parseInt(assignment.value, 10);
+  } else {
+    assignment = 0;
+  }
+  return assignment;
+};
+
 class CreateTask extends Component {
   constructor(props) {
     super(props);
@@ -48,6 +59,7 @@ class CreateTask extends Component {
       description: null,
       message: null,
       submitDisabled: true,
+      showAssignmentField: false,
     };
   }
 
@@ -74,7 +86,7 @@ class CreateTask extends Component {
   }
 
   handleCloseDialog() {
-    this.setState({ dialogOpen: false, type: null });
+    this.setState({ dialogOpen: false, type: null, showAssignmentField: false });
   }
 
   handleSubmitTask() {
@@ -95,6 +107,7 @@ class CreateTask extends Component {
         description: '',
         type: null,
         message: null,
+        showAssignmentField: false,
       });
     };
 
@@ -107,6 +120,7 @@ class CreateTask extends Component {
           annotated_type: 'ProjectMedia',
           annotated_id: this.props.media.id,
           annotated_dbid: `${this.props.media.dbid}`,
+          assigned_to_id: getAssignment(),
         }),
         { onSuccess, onFailure },
       );
@@ -126,7 +140,12 @@ class CreateTask extends Component {
     };
 
     const onSuccess = () => {
-      this.setState({ dialogOpen: false, type: null, message: null });
+      this.setState({
+        dialogOpen: false,
+        type: null,
+        message: null,
+        showAssignmentField: false,
+      });
     };
 
     Relay.Store.commitUpdate(
@@ -138,6 +157,7 @@ class CreateTask extends Component {
         annotated_type: 'ProjectMedia',
         annotated_id: this.props.media.id,
         annotated_dbid: `${this.props.media.dbid}`,
+        assigned_to_id: getAssignment(),
       }),
       { onSuccess, onFailure },
     );
@@ -157,6 +177,10 @@ class CreateTask extends Component {
 
   handleDescriptionChange(e) {
     this.setState({ description: e.target.value });
+  }
+
+  toggleAssignmentField() {
+    this.setState({ showAssignmentField: !this.state.showAssignmentField });
   }
 
   validateShortText(label) {
@@ -315,6 +339,17 @@ class CreateTask extends Component {
               </span>{' '}
               <FormattedMessage id="tasks.addDescription" defaultMessage="Add a description" />
             </label>
+
+            { this.state.showAssignmentField ?
+              <Attribution multi={false} selectedUsers={[]} id="new" /> :
+              <button
+                className="create-task__add-assignment-button"
+                onClick={this.toggleAssignmentField.bind(this)}
+              >
+                {'+ '}
+                <FormattedMessage id="tasks.assign" defaultMessage="Assign" />
+              </button>
+            }
           </StyledTaskDescription>
         </Dialog>
 

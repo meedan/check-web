@@ -182,8 +182,7 @@ const StyledAnnotationWrapper = styled.section`
     display: block;
   }
 
-  .annotation__reverse-image-search,
-  .annotation__keep-retry {
+  .annotation__reverse-image-search {
     cursor: pointer;
     display: inline-block;
     font-weight: 700;
@@ -258,7 +257,6 @@ class Annotation extends Component {
 
     this.state = {
       zoomedCommentImage: false,
-      retriedKeep: false,
       disableMachineTranslation: false,
     };
   }
@@ -333,25 +331,6 @@ class Annotation extends Component {
         { onSuccess, onFailure },
       );
       this.setState({ disableMachineTranslation: true });
-    }
-  }
-
-  handleRetryKeep() {
-    const onFailure = () => {
-      this.setState({ retriedKeep: false });
-    };
-
-    const onSuccess = () => {};
-
-    if (!this.state.retriedKeep) {
-      Relay.Store.commitUpdate(
-        new UpdateProjectMediaMutation({
-          update_keep: 1,
-          id: this.props.annotated.id,
-        }),
-        { onSuccess, onFailure },
-      );
-      this.setState({ retriedKeep: true });
     }
   }
 
@@ -432,27 +411,49 @@ class Annotation extends Component {
       break;
     }
     case 'update_status': {
-      const statusCode = content.status.toLowerCase().replace(/[ _]/g, '-');
-      const status = getStatus(this.props.annotated.verification_statuses, content.status);
-      contentTemplate = (
-        <span>
-          <FormattedMessage
-            id="annotation.statusSetHeader"
-            defaultMessage="Status set to {status} by {author}"
-            values={{
-              status: (
-                <span
-                  className={`annotation__status annotation__status--${statusCode}`}
-                  style={{ color: getStatusStyle(status, 'color') }}
-                >
-                  {status.label}
-                </span>
-              ),
-              author: authorName,
-            }}
-          />
-        </span>
-      );
+      const statusChanges = JSON.parse(activity.object_changes_json);
+      if (statusChanges.assigned_to_id) {
+        const assignment = JSON.parse(activity.meta);
+        if (assignment.assigned_to_name) {
+          contentTemplate = (
+            <FormattedMessage
+              id="annotation.mediaAssigned"
+              defaultMessage="Assigned to {name} by {author}"
+              values={{ name: assignment.assigned_to_name, author: authorName }}
+            />
+          );
+        } else {
+          contentTemplate = (
+            <FormattedMessage
+              id="annotation.mediaUnassigned"
+              defaultMessage="Unassigned from {name} by {author}"
+              values={{ name: assignment.assigned_from_name, author: authorName }}
+            />
+          );
+        }
+      } else {
+        const statusCode = content.status.toLowerCase().replace(/[ _]/g, '-');
+        const status = getStatus(this.props.annotated.verification_statuses, content.status);
+        contentTemplate = (
+          <span>
+            <FormattedMessage
+              id="annotation.statusSetHeader"
+              defaultMessage="Status set to {status} by {author}"
+              values={{
+                status: (
+                  <span
+                    className={`annotation__status annotation__status--${statusCode}`}
+                    style={{ color: getStatusStyle(status, 'color') }}
+                  >
+                    {status.label}
+                  </span>
+                ),
+                author: authorName,
+              }}
+            />
+          </span>
+        );
+      }
       break;
     }
     case 'create_tag':
@@ -667,49 +668,77 @@ class Annotation extends Component {
         });
       }
 
-      if (object.field_name === 'keep_backup_response') {
+      if (object.field_name === 'keep_backup_response' && activityType === 'create_dynamicannotationfield') {
         const annotation_content = JSON.parse(annotation.content);
         const keep = JSON.parse(annotation_content[0].value);
         const keepLink = keep.location;
         const keepStatus = parseInt(keep.status, 10);
         contentTemplate = null;
-        if (this.state.retriedKeep) {
+        if (keepLink) {
           contentTemplate = (
             <span className="annotation__keep">
               <FormattedHTMLMessage
-                id="annotation.keepRetried"
-                defaultMessage="There is a new attempt to archive this item in Keep. Please check back in an hour."
+                id="annotation.archiverSuccess"
+                defaultMessage='In case this link goes offline, you can <a href="{link}" target="_blank" rel="noopener noreferrer">access a <b>{name}</b> backup via Keep</a>'
+                values={{ link: keepLink, name: 'Video Vault' }}
               />
             </span>
           );
-        } else if (keepLink) {
+        } else if (keepStatus === 418 || keep.error) {
           contentTemplate = (
             <span className="annotation__keep">
               <FormattedHTMLMessage
-                id="annotation.keepSuccess"
-                defaultMessage='In case this link goes offline, you can <a href="{keepLink}" target="_blank" rel="noopener noreferrer">access a backup via Keep</a>'
-                values={{ keepLink }}
+                id="annotation.archiverError"
+                defaultMessage="There was an error when Keep tried to archive this item to <b>{name}</b>. Refresh this media to try again."
+                values={{ name: 'Video Vault' }}
               />
-            </span>
-          );
-        } else if (keepStatus === 418) {
-          contentTemplate = (
-            <span className="annotation__keep">
-              <FormattedHTMLMessage
-                id="annotation.keepError"
-                defaultMessage="There was an error when Keep tried to archive this item"
-              />
-              <span className="annotation__keep-retry" onClick={this.handleRetryKeep.bind(this)}>
-                <FormattedMessage id="annotation.keepRetry" defaultMessage="Retry" />
-              </span>
             </span>
           );
         } else {
           contentTemplate = (
             <span className="annotation__keep">
               <FormattedHTMLMessage
-                id="annotation.keepWait"
-                defaultMessage="This item is being archived in Keep. Come back in an hour to receive a confirmation link."
+                id="annotation.archiverWait"
+                defaultMessage="This item is being archived to <b>{name}</b> by Keep. Come back in some minutes to receive a confirmation link."
+                values={{ name: 'Video Vault' }}
+              />
+            </span>
+          );
+        }
+      }
+
+      if (object.field_name === 'archive_is_response' && activityType === 'create_dynamicannotationfield') {
+        const archiveIsAnnotationContent = JSON.parse(annotation.content);
+        const archiveIsResponse = JSON.parse(archiveIsAnnotationContent[0].value);
+        const archiveIsLink = archiveIsResponse.location;
+        contentTemplate = null;
+        if (archiveIsLink) {
+          contentTemplate = (
+            <span className="annotation__keep">
+              <FormattedHTMLMessage
+                id="annotation.archiverSuccess"
+                defaultMessage='In case this link goes offline, you can <a href="{link}" target="_blank" rel="noopener noreferrer">access a <b>{name}</b> backup via Keep</a>'
+                values={{ link: archiveIsLink, name: 'Archive.is' }}
+              />
+            </span>
+          );
+        } else if (archiveIsResponse.error) {
+          contentTemplate = (
+            <span className="annotation__keep">
+              <FormattedHTMLMessage
+                id="annotation.archiverError"
+                defaultMessage="There was an error when Keep tried to archive this item to <b>{name}</b>. Refresh this media to try again."
+                values={{ name: 'Archive.is' }}
+              />
+            </span>
+          );
+        } else {
+          contentTemplate = (
+            <span className="annotation__keep">
+              <FormattedHTMLMessage
+                id="annotation.archiverWait"
+                defaultMessage="This item is being archived to <b>{name}</b> by Keep. Come back in some minutes to receive a confirmation link."
+                values={{ name: 'Archive.is' }}
               />
             </span>
           );
@@ -729,7 +758,7 @@ class Annotation extends Component {
         );
       }
 
-      if (object.field_name === 'pender_archive_response') {
+      if (object.field_name === 'pender_archive_response' && activityType === 'create_dynamicannotationfield') {
         const penderResponse = JSON.parse(JSON.parse(annotation.content)[0].value);
         contentTemplate = null;
         if (penderResponse.error) {
@@ -737,7 +766,7 @@ class Annotation extends Component {
             <span className="annotation__pender-archive">
               <FormattedHTMLMessage
                 id="annotation.penderArchiveResponseError"
-                defaultMessage="There was an error when Keep tried to take a screenshot of this item."
+                defaultMessage="There was an error when Keep tried to take a screenshot of this item. Refresh this media to try again."
               />
             </span>
           );

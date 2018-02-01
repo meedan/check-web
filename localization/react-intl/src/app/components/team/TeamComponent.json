@@ -28,14 +28,6 @@
     "defaultMessage": "Website"
   },
   {
-    "id": "teamComponent.slackWebhook",
-    "defaultMessage": "Slack webhook"
-  },
-  {
-    "id": "teamComponent.slackChannel",
-    "defaultMessage": "Slack default #channel"
-  },
-  {
     "id": "teamComponent.verificationTeam",
     "defaultMessage": "Verification Team"
   },
@@ -54,10 +46,6 @@
   {
     "id": "teamComponent.noProjects",
     "defaultMessage": "No projects yet"
-  },
-  {
-    "id": "teamComponent.slackNotificationsEnabled",
-    "defaultMessage": "Enable Slack notifications"
   },
   {
     "id": "teamComponent.cancelButton",

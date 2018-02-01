@@ -16,6 +16,10 @@
     "defaultMessage": "Done"
   },
   {
+    "id": "task.assignedTo",
+    "defaultMessage": "Assigned to {name}"
+  },
+  {
     "id": "task.resolvedBy",
     "defaultMessage": "Resolved by {byName}"
   },
@@ -26,6 +30,14 @@
   {
     "id": "task.edit",
     "defaultMessage": "Edit question"
+  },
+  {
+    "id": "task.unassign",
+    "defaultMessage": "Unassign"
+  },
+  {
+    "id": "task.assign",
+    "defaultMessage": "Assign"
   },
   {
     "id": "task.editAttribution",
@@ -42,6 +54,10 @@
   {
     "id": "tasks.description",
     "defaultMessage": "Description"
+  },
+  {
+    "id": "tasks.assignment",
+    "defaultMessage": "Assignment"
   },
   {
     "id": "tasks.editAttribution",

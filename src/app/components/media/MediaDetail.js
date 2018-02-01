@@ -129,6 +129,7 @@ class MediaDetail extends Component {
       annotatedType,
       intl: { locale },
     } = this.props;
+    // TODO drop data variable, use media.embed directly
     const data = media.embed;
     const isRtl = rtlDetect.isRtlLang(locale);
     const fromDirection = isRtl ? 'right' : 'left';
@@ -156,18 +157,6 @@ class MediaDetail extends Component {
     const mediaUrl = projectId && media.team
       ? `/${media.team.slug}/project/${projectId}/media/${media.dbid}`
       : null;
-
-    const title = isWebPage
-      ? data.title || authorName || authorUsername
-      : MediaUtil.title(media, data, this.props.intl);
-
-    const heading = (
-      <StyledHeading className="media__heading">
-        <Link to={mediaUrl}>
-          {title}
-        </Link>
-      </StyledHeading>
-    );
 
     const sourceUrl = media.team && media.project && media.project_source
       ? `/${media.team.slug}/project/${media.project.dbid}/source/${media
@@ -237,6 +226,18 @@ class MediaDetail extends Component {
       }
       return MediaUtil.socialIcon(media.domain);
     })();
+
+    const title = isWebPage
+      ? MediaUtil.title(media, data, this.props.intl) || authorName || authorUsername
+      : MediaUtil.title(media, data, this.props.intl);
+
+    const heading = (
+      <StyledHeading className="media__heading">
+        <Link to={mediaUrl}>
+          {title}
+        </Link>
+      </StyledHeading>
+    );
 
     // Don't display redundant heading if the card is explicitly expanded with state
     // (or implicitly expanded with initiallyExpanded prop)

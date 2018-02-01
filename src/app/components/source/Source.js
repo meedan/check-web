@@ -35,6 +35,7 @@ const SourceContainer = Relay.createContainer(SourceComponent, {
           user_id,
           description,
           lock_version,
+          overridden,
           permissions,
           pusher_channel,
           verification_statuses,
@@ -103,6 +104,7 @@ const SourceContainer = Relay.createContainer(SourceComponent, {
             edges {
               node {
                 id,
+                dbid,
                 created_at,
                 updated_at,
                 embed,
@@ -232,7 +234,13 @@ const SourceContainer = Relay.createContainer(SourceComponent, {
                 log_count,
                 domain,
                 last_status,
-                media,
+                media {
+                  embed,
+                  url,
+                  quote,
+                  embed_path,
+                  thumbnail_path
+                },
                 permissions,
                 project_id,
                 verification_statuses,
@@ -242,7 +250,6 @@ const SourceContainer = Relay.createContainer(SourceComponent, {
                 quote,
                 published,
                 url,
-                embed,
                 last_status,
                 field_value(annotation_type_field_name: "translation_status:translation_status_status"),
                 log_count,
@@ -273,6 +280,7 @@ const SourceContainer = Relay.createContainer(SourceComponent, {
                   email,
                   source {
                     dbid,
+                    image,
                     accounts(first: 10000) {
                       edges {
                         node {
@@ -285,6 +293,16 @@ const SourceContainer = Relay.createContainer(SourceComponent, {
                 last_status_obj {
                   id
                   dbid
+                  assigned_to {
+                    id
+                    dbid
+                    name
+                    source {
+                      id
+                      dbid
+                      image
+                    }
+                  }
                 }
                 translation_status: annotation(annotation_type: "translation_status") {
                   id

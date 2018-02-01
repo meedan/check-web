@@ -1,0 +1,6 @@
+{
+  "geolocationRespondTask.cancelTask": "Cancelar",
+  "geolocationRespondTask.resolveTask": "Resolver tarea",
+  "geolocationRespondTask.placeName": "Escribe el nombre de la ubicación",
+  "geolocationRespondTask.coordinates": "Latitud, Longitud"
+}

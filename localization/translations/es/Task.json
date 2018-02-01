@@ -1,0 +1,19 @@
+{
+  "task.confirmDelete": "¿Estás seguro de que quieres eliminar esta tarea?",
+  "tasks.cancelEdit": "Cancelar",
+  "tasks.save": "Guardar",
+  "tasks.done": "Hecho",
+  "task.assignedTo": "Asignado a {name}",
+  "task.resolvedBy": "Resuelto por {byName}",
+  "task.editResponse": "Editar respuesta ",
+  "task.edit": "Editar pregunta",
+  "task.unassign": "Desasignar ",
+  "task.assign": "Asignar",
+  "task.editAttribution": "Editar atribución",
+  "task.delete": "Eliminar tarea",
+  "tasks.taskLabel": "Nombre de la tarea",
+  "tasks.description": "Descripción",
+  "tasks.assignment": "Asignación",
+  "tasks.editAttribution": "Editar atribución",
+  "tasks.attributionSlogan": "Para la tarea, \"{label}\""
+}

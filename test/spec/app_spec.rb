@@ -104,6 +104,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       api_register_and_login_with_email
       me_pg = MePage.new(config: @config, driver: @driver).load
       sleep 3 #for loading
+      wait_for_selector("teams-tab", :id).click; sleep 1
       wait_for_selector("//span[contains(text(), 'Create Team')]", :xpath)
       expect(@driver.page_source.include?('Access Denied')).to be(false)
       expect((@driver.current_url.to_s =~ /\/forbidden$/).nil?).to be(true)
@@ -1531,27 +1532,6 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
         expect((@driver.find_element(:css, '#code').attribute('value') =~ /hide_open_tasks%3D1%26hide_tasks%3D1%26hide_notes%3D1/).nil?).to be(false)
         sleep 5
       end
-    end
-
-    #Add slack notifications to a team
-    it "should add slack notifications to a team", bin3:true, quick: true do
-      team = "testteam#{Time.now.to_i}"
-      api_create_team(team:team)
-      p = Page.new(config: @config, driver: @driver)
-      p.go(@config['self_url'] + '/' + team)
-      sleep 5
-      el = wait_for_selector("team__edit-button", :class)
-      el.click
-      el = wait_for_selector("team__settings-slack-notifications-enabled", :id)
-      el.click
-      el = wait_for_selector("team__settings-slack-webhook", :id)
-      el.click
-      el = wait_for_selector("team__settings-slack-webhook", :id)
-      el.send_keys "https://hooks.slack.com/services/T02528QUL/BBBBBBBBB/AAAAAAAAAAAAAAAAAAAAAAAA"
-      el = wait_for_selector("team__save-button", :class)
-      el.click
-      sleep 2
-      expect(@driver.find_element(:class, "message").nil?).to be(false)
     end
 
     it "should paginate project page", bin2: true do

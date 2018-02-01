@@ -1,5 +1,7 @@
 {
   "annotation.taskLabelUpdated": "Tâche \"{from}\" modifiée à \"{to}\" par {author}",
   "annotation.taskNoteUpdated": "Commentaire de la tâche \"{title}\" modifié de \"{from}\" à \"{to}\" par {author}",
-  "annotation.taskNoteCreated": "Tâche \"{title}\" a un nouveau commentaire par {author} : {note}"
+  "annotation.taskNoteCreated": "Tâche \"{title}\" a un nouveau commentaire par {author} : {note}",
+  "annotation.assignmentChanged": "La tâche \"{title}\" a été affectée à {assigneeTo} par {author}",
+  "annotation.assignmentRemoved": "La tâche \"{title}\" a été desaffectée de {assigneeFrom} par {author}"
 }

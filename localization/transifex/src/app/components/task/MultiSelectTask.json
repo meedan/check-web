@@ -9,6 +9,7 @@
   "tasks.taskPrompt": "Prompt",
   "tasks.description": "Description",
   "tasks.addDescription": "Add a description",
+  "tasks.assign": "Assign",
   "tasks.cancelEdit": "Cancel",
   "tasks.submit": "Resolve Task",
   "task.noteLabel": "Note any additional details here."
