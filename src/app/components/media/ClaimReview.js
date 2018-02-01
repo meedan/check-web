@@ -15,7 +15,6 @@ const ReviewLabel = styled.span`
 
 const ClaimReview = (props) => {
   const { data } = props;
-  console.log(data);
   const reviewer = (
     <a href={data.author.url} target="_blank" rel="noopener noreferrer">
       {data.author.name || (new URL(data.author.url)).hostname}

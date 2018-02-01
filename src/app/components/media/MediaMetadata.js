@@ -699,7 +699,7 @@ class MediaMetadata extends Component {
       />,
     ];
 
-    const claimReview = data.schema.ClaimReview ? data.schema.ClaimReview[0] : null;
+    const claimReview = data.schema && data.schema.ClaimReview ? data.schema.ClaimReview[0] : null;
     const url = MediaUtil.url(media, data);
     const assignment = media.last_status_obj.assigned_to;
 
