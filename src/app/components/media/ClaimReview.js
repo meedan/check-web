@@ -15,13 +15,24 @@ const ReviewLabel = styled.span`
 
 const ClaimReview = (props) => {
   const { data } = props;
+
+  // Bail early with bad data.
+  if (
+    !data.author || !data.author.url ||
+    !data.reviewRating || (!data.reviewRating.alternateName && !data.reviewRating.ratingValue) ||
+    !data.claimReviewed ||
+    !data.itemReviewed || !data.itemReviewed.author
+  ) {
+    return null;
+  }
+
   const reviewer = (
     <a href={data.author.url} target="_blank" rel="noopener noreferrer">
       {data.author.name || (new URL(data.author.url)).hostname}
     </a>
   );
   const rating = data.reviewRating.alternateName ||
-    `${data.reviewRating.ratingValue} (${data.reviewRating.worstRating} - ${data.reviewRating.bestRating})`;
+    `${data.reviewRating.ratingValue} (${data.reviewRating.worstRating}-${data.reviewRating.bestRating})`;
   return (
     <ReviewContainer>
       <ul>
