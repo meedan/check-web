@@ -46,7 +46,7 @@ class CreateProject extends Component {
   }
 
   componentDidMount() {
-    if (this.props.autofocus) {
+    if (this.props.autofocus && this.projectInput) {
       this.projectInput.focus();
     }
   }

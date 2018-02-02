@@ -1,0 +1,18 @@
+[
+  {
+    "id": "teamProjectsNudge.nudge",
+    "defaultMessage": "Want to add more projects? Free accounts can host up to 1 project at a time, and Check Pro allows you add an unlimited number of projects."
+  },
+  {
+    "id": "teamProjectsNudge.upgradeButton",
+    "defaultMessage": "Upgrade now"
+  },
+  {
+    "id": "teamProjectsNudge.title",
+    "defaultMessage": "Upgrade to Check Pro"
+  },
+  {
+    "id": "teamProjectsNudge.cancelButton",
+    "defaultMessage": "No, thanks"
+  }
+]

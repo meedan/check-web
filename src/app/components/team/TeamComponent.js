@@ -233,10 +233,6 @@ class TeamComponent extends Component {
 
   render() {
     const { team } = this.props;
-
-    console.log('team');
-    console.log(team);
-
     const { isEditing } = this.state;
     const contact = team.contacts.edges[0];
     const contactInfo = [];
