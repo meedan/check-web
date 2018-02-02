@@ -1,5 +1,7 @@
 {
   "annotation.embedLabelUpdated": "تم تعديل العنوان إلى \"{title}\" من قِبَل {author}",
+  "annotation.embedLabelRemoved": "تم حذف العنوان \"{title}\" بواسطة {author}",
   "annotation.embedNoteUpdated": "تم تعديل الوصف من \"{from}\" إلى \"{to}\" من قِبَل {author}",
-  "annotation.embedNoteCreated": "تمت إضافة وصف من قِبَل {author} : {note}"
+  "annotation.embedNoteCreated": "تمت إضافة وصف من قِبَل {author} : {note}",
+  "annotation.embedNoteRemoved": "تم حذف الوصف \"{note}\" بواسطة {author}"
 }
