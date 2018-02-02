@@ -14,6 +14,7 @@ import rtlDetect from 'rtl-detect';
 import MediaTags from './MediaTags';
 import MediaActions from './MediaActions';
 import MediaUtil from './MediaUtil';
+import ClaimReview from './ClaimReview';
 import UserTooltip from '../user/UserTooltip';
 import UpdateProjectMediaMutation from '../../relay/mutations/UpdateProjectMediaMutation';
 import DeleteProjectMediaMutation from '../../relay/mutations/DeleteProjectMediaMutation';
@@ -698,6 +699,7 @@ class MediaMetadata extends Component {
       />,
     ];
 
+    const claimReview = data.schema && data.schema.ClaimReview ? data.schema.ClaimReview[0] : null;
     const url = MediaUtil.url(media, data);
     const assignment = media.last_status_obj.assigned_to;
 
@@ -707,6 +709,9 @@ class MediaMetadata extends Component {
         className="media-detail__check-metadata"
       >
         {this.state.isEditing ? editDialog : null}
+
+        {claimReview ? <Row><ClaimReview data={claimReview} /></Row> : null}
+
         <Row>
           <Text font={caption} breakWord>
             <a href={url} target="_blank" rel="noopener noreferrer">

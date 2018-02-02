@@ -2,7 +2,7 @@
   "createMedia.submitting": "Subiendo....",
   "createMedia.error": "¡Algo salió mal! El servidor devolvió un código de error {code}. Por favor contacta al administrador del sistema. ",
   "createMedia.mediaInput": "Pegar o escribir",
-  "createMedia.quoteInput": "Pegar o escribir un reclamo",
+  "createMedia.quoteInput": "Pegar o escribir una afirmación",
   "createMedia.quoteAttributionSourceInput": "Nombre de la fuente",
   "createMedia.quoteAttributionContext": "URL o contexto",
   "createMedia.quoteAttributionSourceInputHelper": "¿Quién dijo esto?",
@@ -14,9 +14,9 @@
   "createMedia.imageTitle": "Subir una foto",
   "createMedia.sourceTitle": "Añadir una fuente",
   "createMedia.linkTitle": "Añadir un enlace",
-  "createMedia.quoteTitle": "Añadir reclamo",
+  "createMedia.quoteTitle": "Añadir afirmación",
   "createMedia.link": "Enlace",
-  "createMedia.quote": "Reclamo",
+  "createMedia.quote": "Afirmación",
   "createMedia.source": "Fuente",
   "createMedia.image": "Foto"
 }

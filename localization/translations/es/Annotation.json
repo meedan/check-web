@@ -4,7 +4,7 @@
   "annotation.reverseImage": "Este ítem contiene al menos una imagen. Haz clic en buscar para ver posibles duplicados en Google.",
   "annotation.reverseImageFacebook": "Este ítem contiene al menos una imagen. Considera hacer una búsqueda inversa de la imagen.",
   "annotation.and": "y",
-  "annotation.newClaim": "Nuevo reclamo añadido por {author}",
+  "annotation.newClaim": "Nueva afirmación añadida por {author}",
   "annotation.mediaAssigned": "Asignado a {name} por {author}",
   "annotation.mediaUnassigned": "Desasignado de {name} por {author}",
   "annotation.statusSetHeader": "Estado establecido como {status} por {author}",
