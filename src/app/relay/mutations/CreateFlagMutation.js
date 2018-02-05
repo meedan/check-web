@@ -12,7 +12,7 @@ class CreateFlagMutation extends Relay.Mutation {
     case 'source':
       return Relay.QL`fragment on CreateFlagPayload { flagEdge, source { log, log_count } }`;
     case 'project_media':
-      return Relay.QL`fragment on CreateFlagPayload { flagEdge, project_media { log, log_count } }`;
+      return Relay.QL`fragment on CreateFlagPayload { flagEdge, project_media { last_status, last_status_obj, log, log_count } }`;
     default:
       return '';
     }

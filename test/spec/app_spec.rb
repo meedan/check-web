@@ -998,11 +998,11 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       media_pg.element('#cmd-input').submit
       sleep 3
       notes_count = get_element('.media-detail__check-notes-count')
-      expect(notes_count.text == '2 notes').to be(true)
+      expect(notes_count.text == '3 notes').to be(true)
       expect(@driver.page_source.include?('Comment deleted')).to be(false)
       media_pg.delete_annotation
       wait_for_selector('.annotation__deleted')
-      expect(notes_count.text == '2 notes').to be(true)
+      expect(notes_count.text == '3 notes').to be(true)
       expect(@driver.page_source.include?('Comment deleted')).to be(true)
     end
 
