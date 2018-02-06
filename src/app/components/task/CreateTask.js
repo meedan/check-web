@@ -61,7 +61,7 @@ class CreateTask extends Component {
       message: null,
       submitDisabled: true,
       showAssignmentField: false,
-      required: true,
+      required: false,
     };
   }
 
@@ -131,7 +131,7 @@ class CreateTask extends Component {
     }
   }
 
-  handleSubmitTask2(label, description, jsonoptions) {
+  handleSubmitTask2(label, description, required, jsonoptions) {
     const onFailure = (transaction) => {
       const error = transaction.getError();
       let message = error.source;
@@ -154,9 +154,10 @@ class CreateTask extends Component {
     Relay.Store.commitUpdate(
       new CreateTaskMutation({
         label,
+        description,
+        required,
         type: this.state.type,
         jsonoptions,
-        description,
         annotated_type: 'ProjectMedia',
         annotated_id: this.props.media.id,
         annotated_dbid: `${this.props.media.dbid}`,
@@ -323,8 +324,13 @@ class CreateTask extends Component {
           />
 
           <Checkbox
-            label="Required"
-            defaultValue={this.state.required}
+            label={
+              <FormattedMessage
+                id="tasks.requiredCheckbox"
+                defaultMessage="Required"
+              />
+            }
+            checked={this.state.required}
             onCheck={this.handleSelectRequired.bind(this)}
           />
 
