@@ -97,10 +97,15 @@ class MediaStatusCommon extends Component {
                   mediaLastStatus(media) === status.id,
                   '--current',
                 )} media-status__menu-item--${status.id.replace('_', '-')}`}
-                onClick={this.handleStatusClick.bind(this, status.id)}
-                style={{ textTransform: 'uppercase', color: getStatusStyle(status, 'color') }}
+                onClick={status.can_change ? this.handleStatusClick.bind(this, status.id) : null}
+                style={{
+                  textTransform: 'uppercase',
+                  color: status.can_change ? getStatusStyle(status, 'color') : 'gray',
+                  cursor: status.can_change ? 'pointer' : 'not-allowed',
+                }}
                 value={status.label}
                 primaryText={status.label}
+                disabled={!status.can_change}
               />))}
           </DropDownMenu>
           :

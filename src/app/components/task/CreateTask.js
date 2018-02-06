@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay';
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
+import Checkbox from 'material-ui/Checkbox';
 import FlatButton from 'material-ui/FlatButton';
 import MdShortText from 'react-icons/lib/md/short-text';
 import MdRadioButtonChecked from 'react-icons/lib/md/radio-button-checked';
@@ -60,6 +61,7 @@ class CreateTask extends Component {
       message: null,
       submitDisabled: true,
       showAssignmentField: false,
+      required: true,
     };
   }
 
@@ -116,6 +118,7 @@ class CreateTask extends Component {
         new CreateTaskMutation({
           label: this.state.label,
           type: this.state.type,
+          required: this.state.required,
           description: this.state.description,
           annotated_type: 'ProjectMedia',
           annotated_id: this.props.media.id,
@@ -177,6 +180,10 @@ class CreateTask extends Component {
 
   handleDescriptionChange(e) {
     this.setState({ description: e.target.value });
+  }
+
+  handleSelectRequired(e, inputChecked) {
+    this.setState({ required: inputChecked });
   }
 
   toggleAssignmentField() {
@@ -313,6 +320,12 @@ class CreateTask extends Component {
             }
             onChange={this.handleLabelChange.bind(this)}
             multiLine
+          />
+
+          <Checkbox
+            label="Required"
+            defaultValue={this.state.required}
+            onCheck={this.handleSelectRequired.bind(this)}
           />
 
           <StyledTaskDescription>
