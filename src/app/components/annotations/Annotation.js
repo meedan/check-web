@@ -707,10 +707,14 @@ class Annotation extends Component {
         }
       }
 
-      if (object.field_name === 'archive_is_response' && activityType === 'create_dynamicannotationfield') {
+      if ((object.field_name === 'archive_is_response' || object.field_name === 'archive_org_response') && activityType === 'create_dynamicannotationfield') {
         const archiveIsAnnotationContent = JSON.parse(annotation.content);
         const archiveIsResponse = JSON.parse(archiveIsAnnotationContent[0].value);
         const archiveIsLink = archiveIsResponse.location;
+        let archiverName = 'Archive.is';
+        if (object.field_name === 'archive_org_response') {
+          archiverName = 'Archive.org';
+        }
         contentTemplate = null;
         if (archiveIsLink) {
           contentTemplate = (
@@ -718,7 +722,7 @@ class Annotation extends Component {
               <FormattedHTMLMessage
                 id="annotation.archiverSuccess"
                 defaultMessage='In case this link goes offline, you can <a href="{link}" target="_blank" rel="noopener noreferrer">access a <b>{name}</b> backup via Keep</a>'
-                values={{ link: archiveIsLink, name: 'Archive.is' }}
+                values={{ link: archiveIsLink, name: archiverName }}
               />
             </span>
           );
@@ -728,7 +732,7 @@ class Annotation extends Component {
               <FormattedHTMLMessage
                 id="annotation.archiverError"
                 defaultMessage="There was an error when Keep tried to archive this item to <b>{name}</b>. Refresh this media to try again."
-                values={{ name: 'Archive.is' }}
+                values={{ name: archiverName }}
               />
             </span>
           );
@@ -738,7 +742,7 @@ class Annotation extends Component {
               <FormattedHTMLMessage
                 id="annotation.archiverWait"
                 defaultMessage="This item is being archived to <b>{name}</b> by Keep. Come back in some minutes to receive a confirmation link."
-                values={{ name: 'Archive.is' }}
+                values={{ name: archiverName }}
               />
             </span>
           );
