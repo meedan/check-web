@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { defineMessages, injectIntl, intlShape } from 'react-intl';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
+import MdLockOutline from 'material-ui/svg-icons/action/lock-outline';
 import { can } from '../Can';
 import CheckContext from '../../CheckContext';
 import { getStatus, getStatusStyle, safelyParseJSON, bemClass } from '../../helpers';
@@ -105,6 +106,7 @@ class MediaStatusCommon extends Component {
                 }}
                 value={status.label}
                 primaryText={status.label}
+                rightIcon={status.can_change ? null : <MdLockOutline />}
                 disabled={!status.can_change}
               />))}
           </DropDownMenu>
