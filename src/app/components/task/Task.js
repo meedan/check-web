@@ -41,6 +41,10 @@ const messages = defineMessages({
     id: 'task.confirmDelete',
     defaultMessage: 'Are you sure you want to delete this task?',
   },
+  requiredLabel: {
+    id: 'task.requiredLabel',
+    defaultMessage: '(required)',
+  },
 });
 
 class Task extends Component {
@@ -442,7 +446,12 @@ class Task extends Component {
     const taskQuestion = (
       <div className="task__question">
         <div className="task__label-container">
-          <span className="task__label">{task.label}</span>
+          <span className="task__label">
+            {task.label + (task.required
+              ? ` ${this.props.intl.formatMessage(messages.requiredLabel)}`
+              : '')
+            }
+          </span>
         </div>
       </div>
     );
