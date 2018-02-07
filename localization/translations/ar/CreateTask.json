@@ -9,6 +9,7 @@
   "tasks.geolocation": "الموقع",
   "tasks.datetime": "التاريخ والزمن",
   "tasks.taskLabel": "السؤال",
+  "tasks.requiredCheckbox": "مطلوب",
   "tasks.description": "وصف",
   "tasks.addDescription": "أضف وصفاً",
   "tasks.assign": "توكيل"

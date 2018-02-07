@@ -9,6 +9,7 @@
   "tasks.geolocation": "Localización ",
   "tasks.datetime": "Fecha y hora",
   "tasks.taskLabel": "Adelante",
+  "tasks.requiredCheckbox": "Requerido",
   "tasks.description": "Descripción",
   "tasks.addDescription": "Añadir descripción",
   "tasks.assign": "Asignar"

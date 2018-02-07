@@ -9,6 +9,7 @@
   "tasks.geolocation": "Emplacement",
   "tasks.datetime": "Date et horaire",
   "tasks.taskLabel": "Saisie",
+  "tasks.requiredCheckbox": "Requis",
   "tasks.description": "Description",
   "tasks.addDescription": "Ajouter une description",
   "tasks.assign": "Affecter"
