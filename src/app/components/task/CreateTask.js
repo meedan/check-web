@@ -110,6 +110,7 @@ class CreateTask extends Component {
         type: null,
         message: null,
         showAssignmentField: false,
+        required: false,
       });
     };
 
