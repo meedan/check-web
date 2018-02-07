@@ -41,6 +41,16 @@ class ShortTextRespondTask extends React.Component {
     }
   }
 
+  handleKeyPress(e) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      if (!this.state.taskAnswerDisabled) {
+        this.setState({ taskAnswerDisabled: true });
+        this.handleSubmit();
+      }
+      e.preventDefault();
+    }
+  }
+
   render() {
     const actionBtns = (
       <p className="task__resolver">
@@ -78,6 +88,7 @@ class ShortTextRespondTask extends React.Component {
           value={response}
           name="response"
           onChange={this.handleChange.bind(this)}
+          onKeyPress={this.handleKeyPress.bind(this)}
           onFocus={() => { this.setState({ focus: true }); }}
           fullWidth
           multiLine

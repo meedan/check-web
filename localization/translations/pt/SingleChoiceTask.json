@@ -7,6 +7,7 @@
   "tasks.cancelAdd": "Cancelar",
   "tasks.add": "Criar Tarefa",
   "tasks.taskPrompt": "Questão",
+  "tasks.requiredCheckbox": "Requerido",
   "tasks.description": "Descrição",
   "tasks.addDescription": "Insira uma descrição",
   "tasks.assign": "Atribuir",

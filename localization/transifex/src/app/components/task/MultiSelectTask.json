@@ -7,6 +7,7 @@
   "tasks.cancelAdd": "Cancel",
   "tasks.add": "Create Task",
   "tasks.taskPrompt": "Prompt",
+  "tasks.requiredCheckbox": "Required",
   "tasks.description": "Description",
   "tasks.addDescription": "Add a description",
   "tasks.assign": "Assign",

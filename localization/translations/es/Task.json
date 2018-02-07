@@ -1,5 +1,6 @@
 {
   "task.confirmDelete": "¿Estás seguro de que quieres eliminar esta tarea?",
+  "task.requiredLabel": "(requerido)",
   "tasks.cancelEdit": "Cancelar",
   "tasks.save": "Guardar",
   "tasks.done": "Hecho",
