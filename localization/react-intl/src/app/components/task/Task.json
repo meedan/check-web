@@ -4,10 +4,6 @@
     "defaultMessage": "Are you sure you want to delete this task?"
   },
   {
-    "id": "task.requiredLabel",
-    "defaultMessage": "(required)"
-  },
-  {
     "id": "tasks.cancelEdit",
     "defaultMessage": "Cancel"
   },
@@ -54,6 +50,10 @@
   {
     "id": "tasks.taskLabel",
     "defaultMessage": "Task label"
+  },
+  {
+    "id": "tasks.requiredCheckbox",
+    "defaultMessage": "Required"
   },
   {
     "id": "tasks.description",
