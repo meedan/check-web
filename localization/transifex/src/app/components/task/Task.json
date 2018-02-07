@@ -1,6 +1,5 @@
 {
   "task.confirmDelete": "Are you sure you want to delete this task?",
-  "task.requiredLabel": "(required)",
   "tasks.cancelEdit": "Cancel",
   "tasks.save": "Save",
   "tasks.done": "Done",
@@ -13,6 +12,7 @@
   "task.editAttribution": "Edit attribution",
   "task.delete": "Delete task",
   "tasks.taskLabel": "Task label",
+  "tasks.requiredCheckbox": "Required",
   "tasks.description": "Description",
   "tasks.assignment": "Assignment",
   "tasks.editAttribution": "Edit attribution",

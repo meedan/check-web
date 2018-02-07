@@ -1,6 +1,5 @@
 {
   "task.confirmDelete": "Tem certeza que deseja apagar esta tarefa?",
-  "task.requiredLabel": "(requerido)",
   "tasks.cancelEdit": "Cancelar",
   "tasks.save": "Salvar",
   "tasks.done": "Feito",
@@ -13,6 +12,7 @@
   "task.editAttribution": "Editar atribuição",
   "task.delete": "Remover tarefa",
   "tasks.taskLabel": "Título da tarefa",
+  "tasks.requiredCheckbox": "Requerido",
   "tasks.description": "Descrição",
   "tasks.assignment": "Atribuição",
   "tasks.editAttribution": "Editar atribuição",
