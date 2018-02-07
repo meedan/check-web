@@ -552,7 +552,7 @@ class Annotation extends Component {
             <span
               className="annotation__reverse-image-search"
               title="Google Images"
-              onClick={Annotation.handleReverseImageSearch.bind(value)}
+              onClick={Annotation.handleReverseImageSearch.bind(this, value)}
             >
               <FormattedMessage id="annotation.reverseImageSearch" defaultMessage="Search" />
             </span>
