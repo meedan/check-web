@@ -117,6 +117,7 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
               dbid,
               label,
               type,
+              required,
               description,
               permissions,
               jsonoptions,

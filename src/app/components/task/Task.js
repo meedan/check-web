@@ -23,7 +23,7 @@ import GeolocationRespondTask from './GeolocationRespondTask';
 import GeolocationTaskResponse from './GeolocationTaskResponse';
 import DatetimeRespondTask from './DatetimeRespondTask';
 import DatetimeTaskResponse from './DatetimeTaskResponse';
-import { units, black10 } from '../../styles/js/shared';
+import { Row, units, black10, title1 } from '../../styles/js/shared';
 import ProfileLink from '../layout/ProfileLink';
 import UserAvatar from '../UserAvatar';
 import Attribution from './Attribution';
@@ -40,6 +40,10 @@ const messages = defineMessages({
   confirmDelete: {
     id: 'task.confirmDelete',
     defaultMessage: 'Are you sure you want to delete this task?',
+  },
+  requiredLabel: {
+    id: 'task.requiredLabel',
+    defaultMessage: '(required)',
   },
 });
 
@@ -439,10 +443,23 @@ class Task extends Component {
       </div>
     );
 
+    const RequiredIndicator = styled.div`
+      color: red;
+      font-weight: normal;
+      font: ${title1};
+    `;
+
     const taskQuestion = (
       <div className="task__question">
         <div className="task__label-container">
-          <span className="task__label">{task.label}</span>
+          <Row>
+            <span className="task__label">
+              {task.label}
+            </span>
+            <RequiredIndicator className="task__required">
+              {task.required ? '*' : null}
+            </RequiredIndicator>
+          </Row>
         </div>
       </div>
     );
