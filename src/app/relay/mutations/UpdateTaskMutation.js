@@ -8,7 +8,7 @@ class UpdateTaskMutation extends Relay.Mutation {
   }
 
   getFatQuery() {
-    return Relay.QL`fragment on UpdateTaskPayload { taskEdge, project_media { tasks, log, id, log_count } }`;
+    return Relay.QL`fragment on UpdateTaskPayload { taskEdge, project_media { verification_statuses, translation_statuses, last_status, last_status_obj, tasks, log, id, log_count } }`;
   }
 
   getVariables() {
@@ -22,6 +22,7 @@ class UpdateTaskMutation extends Relay.Mutation {
     } else if (task.label) {
       params.label = task.label;
       params.description = task.description;
+      params.required = task.required;
       params.assigned_to_id = task.assigned_to_id;
     }
     return params;

@@ -1,5 +1,7 @@
 {
   "annotation.embedLabelUpdated": "Título alterado para {title} por {author}",
+  "annotation.embedLabelRemoved": "Título \"{title}\" removido por {author}",
   "annotation.embedNoteUpdated": "Descrição editada de \"{from}\" para \"{to}\" por {author}",
-  "annotation.embedNoteCreated": "Descrição \"{note}\" inserada por {author}"
+  "annotation.embedNoteCreated": "Descrição \"{note}\" inserada por {author}",
+  "annotation.embedNoteRemoved": "Descrição \"{note}\" removida por {author}"
 }

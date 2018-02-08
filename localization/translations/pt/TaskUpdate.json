@@ -3,5 +3,5 @@
   "annotation.taskNoteUpdated": "Tarefa \"{title}\" tem uma nota editada de \"{from}\" para \"{to}\" por {author}",
   "annotation.taskNoteCreated": "Tarefa \"{title}\" tem uma nova nota \"{note}\" por {author}",
   "annotation.assignmentChanged": "Tarefa \"{title}\" foi atribuída a {assigneeTo} por {author}",
-  "annotation.assignmentRemoved": "Atribuição da tarefa \"{title}\" foi removada de {assigneeFrom} por {author}"
+  "annotation.assignmentRemoved": "Atribuição da tarefa \"{title}\" foi removida de {assigneeFrom} por {author}"
 }

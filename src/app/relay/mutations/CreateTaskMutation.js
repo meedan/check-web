@@ -8,16 +8,25 @@ class CreateTaskMutation extends Relay.Mutation {
   }
 
   getFatQuery() {
-    return Relay.QL`fragment on CreateTaskPayload { taskEdge, project_media { log, log_count } }`;
+    return Relay.QL`fragment on CreateTaskPayload { taskEdge, project_media { verification_statuses, translation_statuses, log, log_count, last_status, last_status_obj } }`;
   }
 
   getVariables() {
     const {
-      label, type, description, jsonoptions, annotated_type, annotated_dbid, assigned_to_id,
+      label,
+      type,
+      required,
+      description,
+      jsonoptions,
+      annotated_type,
+      annotated_dbid,
+      assigned_to_id,
     } = this.props;
+
     return {
       label,
       type,
+      required,
       description,
       jsonoptions,
       annotated_type,

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { defineMessages, injectIntl, intlShape } from 'react-intl';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
+import MdLockOutline from 'material-ui/svg-icons/action/lock-outline';
 import { can } from '../Can';
 import CheckContext from '../../CheckContext';
 import { getStatus, getStatusStyle, safelyParseJSON, bemClass } from '../../helpers';
@@ -60,7 +61,7 @@ class MediaStatusCommon extends Component {
 
   render() {
     const { media } = this.props;
-    const { statuses } = JSON.parse(mediaStatuses(media));
+    const { statuses } = mediaStatuses(media);
     const currentStatus = getStatus(mediaStatuses(media), mediaLastStatus(media));
 
     const styles = {
@@ -97,10 +98,16 @@ class MediaStatusCommon extends Component {
                   mediaLastStatus(media) === status.id,
                   '--current',
                 )} media-status__menu-item--${status.id.replace('_', '-')}`}
-                onClick={this.handleStatusClick.bind(this, status.id)}
-                style={{ textTransform: 'uppercase', color: getStatusStyle(status, 'color') }}
+                onClick={status.can_change ? this.handleStatusClick.bind(this, status.id) : null}
+                style={{
+                  textTransform: 'uppercase',
+                  color: status.can_change ? getStatusStyle(status, 'color') : 'gray',
+                  cursor: status.can_change ? 'pointer' : 'not-allowed',
+                }}
                 value={status.label}
                 primaryText={status.label}
+                rightIcon={status.can_change ? null : <MdLockOutline />}
+                disabled={!status.can_change}
               />))}
           </DropDownMenu>
           :

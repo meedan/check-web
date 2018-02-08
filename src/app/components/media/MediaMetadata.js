@@ -14,6 +14,7 @@ import rtlDetect from 'rtl-detect';
 import MediaTags from './MediaTags';
 import MediaActions from './MediaActions';
 import MediaUtil from './MediaUtil';
+import ClaimReview from './ClaimReview';
 import UserTooltip from '../user/UserTooltip';
 import UpdateProjectMediaMutation from '../../relay/mutations/UpdateProjectMediaMutation';
 import DeleteProjectMediaMutation from '../../relay/mutations/DeleteProjectMediaMutation';
@@ -543,6 +544,20 @@ class MediaMetadata extends Component {
     this.setState({ dstProj });
   }
 
+  isStatusFinal(id) {
+    let isFinal = false;
+    try {
+      this.props.media.verification_statuses.statuses.forEach((status) => {
+        if (status.id === id && status.completed === '1') {
+          isFinal = true;
+        }
+      });
+    } catch (e) {
+      isFinal = false;
+    }
+    return isFinal;
+  }
+
   render() {
     const { media, intl: { locale } } = this.props;
     const data = media.embed;
@@ -698,6 +713,7 @@ class MediaMetadata extends Component {
       />,
     ];
 
+    const claimReview = data.schema && data.schema.ClaimReview ? data.schema.ClaimReview[0] : null;
     const url = MediaUtil.url(media, data);
     const assignment = media.last_status_obj.assigned_to;
 
@@ -707,6 +723,9 @@ class MediaMetadata extends Component {
         className="media-detail__check-metadata"
       >
         {this.state.isEditing ? editDialog : null}
+
+        {claimReview ? <Row><ClaimReview data={claimReview} /></Row> : null}
+
         <Row>
           <Text font={caption} breakWord>
             <a href={url} target="_blank" rel="noopener noreferrer">
@@ -754,7 +773,7 @@ class MediaMetadata extends Component {
               locale={locale}
             />}
         </Row>
-        {assignment && media.last_status !== 'verified' ?
+        {assignment && !this.isStatusFinal(media.last_status) ?
           <Row>
             <div className="media-detail__assignment" style={{ display: 'flex', alignItems: 'center' }}>
               <UserAvatar

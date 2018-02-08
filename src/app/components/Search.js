@@ -407,7 +407,7 @@ class SearchQueryComponent extends Component {
   }
 
   render() {
-    const { statuses } = safelyParseJSON(teamStatuses(this.props.team), []);
+    const { statuses } = teamStatuses(this.props.team);
     const projects = this.props.team.projects.edges.sortp((a, b) =>
       a.node.title.localeCompare(b.node.title));
     const suggestedTags = this.props.team.get_suggested_tags

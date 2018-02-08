@@ -52,6 +52,10 @@
     "defaultMessage": "Task label"
   },
   {
+    "id": "tasks.requiredCheckbox",
+    "defaultMessage": "Required"
+  },
+  {
     "id": "tasks.description",
     "defaultMessage": "Description"
   },
