@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay';
 import { Card, CardHeader, CardActions, CardText } from 'material-ui/Card';
+import Checkbox from 'material-ui/Checkbox';
 import TextField from 'material-ui/TextField';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import Dialog from 'material-ui/Dialog';
@@ -41,10 +42,6 @@ const messages = defineMessages({
     id: 'task.confirmDelete',
     defaultMessage: 'Are you sure you want to delete this task?',
   },
-  requiredLabel: {
-    id: 'task.requiredLabel',
-    defaultMessage: '(required)',
-  },
 });
 
 class Task extends Component {
@@ -57,6 +54,7 @@ class Task extends Component {
       editingResponse: false,
       submitDisabled: true,
       editingAttribution: false,
+      required: null,
     };
   }
 
@@ -118,7 +116,6 @@ class Task extends Component {
       ? this.state.label : this.props.task.label || '';
 
     this.setState({ submitDisabled: !label });
-    return label;
   }
 
   handleSubmitWithArgs(response, note) {
@@ -163,7 +160,7 @@ class Task extends Component {
   }
 
   handleCancelQuestionEdit() {
-    this.setState({ editingQuestion: false, submitDisabled: true });
+    this.setState({ editingQuestion: false, submitDisabled: true, required: null });
   }
 
   handleCancelAttributionEdit() {
@@ -174,6 +171,10 @@ class Task extends Component {
     const state = {};
     state[e.target.name] = e.target.value;
     this.setState(state, this.canSubmit);
+  }
+
+  handleSelectRequired(e, inputChecked) {
+    this.setState({ required: inputChecked, submitDisabled: false });
   }
 
   handleUpdateAttribution() {
@@ -223,12 +224,13 @@ class Task extends Component {
     };
 
     const onSuccess = () => {
-      this.setState({ message: null, editingQuestion: false });
+      this.setState({ message: null, editingQuestion: false, required: null });
     };
 
     const taskObj = {
       id: task.id,
       label: form.label.value,
+      required: this.state.required,
       assigned_to_id: this.getAssignment(),
     };
 
@@ -604,6 +606,8 @@ class Task extends Component {
 
     const assignedUsers = task.assigned_to ? [{ node: task.assigned_to }] : [];
 
+    const required = this.state.required != null ? this.state.required : task.required;
+
     return (
       <StyledWordBreakDiv>
         <Card
@@ -647,6 +651,18 @@ class Task extends Component {
               fullWidth
               multiLine
             />
+
+            <Checkbox
+              label={
+                <FormattedMessage
+                  id="tasks.requiredCheckbox"
+                  defaultMessage="Required"
+                />
+              }
+              checked={required}
+              onCheck={this.handleSelectRequired.bind(this)}
+            />
+
             <TextField
               name="description"
               floatingLabelText={
