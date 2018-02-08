@@ -544,6 +544,20 @@ class MediaMetadata extends Component {
     this.setState({ dstProj });
   }
 
+  isStatusFinal(id) {
+    let isFinal = false;
+    try {
+      this.props.media.verification_statuses.statuses.forEach((status) => {
+        if (status.id === id && status.completed === '1') {
+          isFinal = true;
+        }
+      });
+    } catch (e) {
+      isFinal = false;
+    }
+    return isFinal;
+  }
+
   render() {
     const { media, intl: { locale } } = this.props;
     const data = media.embed;
@@ -759,7 +773,7 @@ class MediaMetadata extends Component {
               locale={locale}
             />}
         </Row>
-        {assignment && media.last_status !== 'verified' ?
+        {assignment && !this.isStatusFinal(media.last_status) ?
           <Row>
             <div className="media-detail__assignment" style={{ display: 'flex', alignItems: 'center' }}>
               <UserAvatar
