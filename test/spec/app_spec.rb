@@ -1262,7 +1262,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el.click
       el = wait_for_selector('task__submit', :class)
       el.click
-      media_pg.wait_all_elements(3, "annotations__list-item", :class)
+      media_pg.wait_all_elements(4, "annotations__list-item", :class)
       expect(@driver.page_source.include?('Task "Foo or bar?" answered by')).to be(true)
       # Edit task
       expect(@driver.page_source.include?('Task "Foo or bar?" edited to "Foo or bar???" by')).to be(false)
@@ -1275,7 +1275,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       fill_field('textarea[name="label"]', '??')
       editbutton = wait_for_selector('.task__save', :css)
       editbutton.click
-      media_pg.wait_all_elements(7, "annotations__list-item", :class)
+      media_pg.wait_all_elements(8, "annotations__list-item", :class)
       expect(@driver.page_source.include?('Task "Foo or bar?" edited to "Foo or bar???" by')).to be(true)
       # Edit task answer
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Task "Foo or bar???" answered by User With Email: "Foo edited"')).to be(false)
@@ -1287,7 +1287,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el.click
       el = wait_for_selector('task__submit', :class)
       el.click
-      media_pg.wait_all_elements(8, "annotations__list-item", :class) #Wait for refresh page
+      media_pg.wait_all_elements(9, "annotations__list-item", :class) #Wait for refresh page
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Task "Foo or bar???" answered by User With Email: "Bar"')).to be(true)
       # Delete task
       delete_task('Foo')
@@ -1326,20 +1326,20 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el.click
       el = wait_for_selector('task__submit', :class)
       el.click
-      media_pg.wait_all_elements(3, "annotations__list-item", :class)
+      media_pg.wait_all_elements(4, "annotations__list-item", :class)
       expect(@driver.page_source.include?('Task "Foo, Doo or bar?" answered by')).to be(true)
       # Edit task
       expect(@driver.page_source.include?('Task "Foo, Doo or bar?" edited to "Foo or bar???" by')).to be(false)
       el = wait_for_selector('.task-actions__icon', :css)
       el.click
-      media_pg.wait_all_elements(6, "annotations__list-item", :class)
+      media_pg.wait_all_elements(7, "annotations__list-item", :class)
       editbutton = wait_for_selector('.task-actions__edit', :css)
       editbutton.location_once_scrolled_into_view
       editbutton.click
       fill_field('textarea[name="label"]', '??')
       editbutton = wait_for_selector('.task__save', :css)
       editbutton.click
-      media_pg.wait_all_elements(7, "annotations__list-item", :class)
+      media_pg.wait_all_elements(8, "annotations__list-item", :class)
       expect(@driver.page_source.include?('Task "Foo, Doo or bar?" edited to "Foo, Doo or bar???" by')).to be(true)
       # Edit task answer
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Task "Foo, Doo or bar???" answered by User With Email: "Foo and Boo"')).to be(false)
@@ -1354,7 +1354,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       fill_field('textarea[name="response"]', 'Boo')
       el = wait_for_selector('task__submit', :class)
       el.click
-      media_pg.wait_all_elements(8, "annotations__list-item", :class) #Wait for refresh page
+      media_pg.wait_all_elements(9, "annotations__list-item", :class) #Wait for refresh page
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Task "Foo, Doo or bar???" answered by User With Email: "Foo and Boo"')).to be(true)
       # Delete task
       delete_task('Foo')
