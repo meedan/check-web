@@ -91,10 +91,6 @@ const messages = defineMessages({
     id: 'bridge.teamComponent.title',
     defaultMessage: 'Translation Projects',
   },
-  noProjects: {
-    id: 'teamComponent.noProjects',
-    defaultMessage: 'No projects yet',
-  },
 });
 
 const pageSize = 20;
@@ -484,7 +480,7 @@ class TeamComponent extends Component {
 
                         {!team.projects.edges.length ?
                           <CardText style={{ color: black54 }}>
-                            <MappedMessage msgObj={messages} msgKey="noProjects" />
+                            <FormattedMessage id="teamComponent.noProjects" defaultMessage="No projects yet" />
                           </CardText>
                           :
                           <InfiniteScroll
