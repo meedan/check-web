@@ -82,20 +82,6 @@ const SourceContainer = Relay.createContainer(SourceComponent, {
                   image,
                   url,
                   provider,
-                  user {
-                    dbid,
-                    name,
-                    email,
-                    source {
-                      accounts(first: 10000) {
-                        edges {
-                          node {
-                            url
-                          }
-                        }
-                      }
-                    }
-                  }
                 }
               }
             }
