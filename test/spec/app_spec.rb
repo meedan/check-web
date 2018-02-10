@@ -410,6 +410,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector('source__tab-button-account', :class)
       el = wait_for_selector('.source__tab-button-notes')
       el.click
+      wait_for_selector('annotation__card-content', :class)
       expect(@driver.page_source.include?('This is my comment')).to be(true)
     end
 
