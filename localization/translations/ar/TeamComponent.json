@@ -10,9 +10,9 @@
   "bridge.teamComponent.verificationTeam": "فريق الترجمة",
   "teamComponent.title": "مشاريع التحقق",
   "bridge.teamComponent.title": "مشاريع الترجمة",
-  "teamComponent.noProjects": "بدون أي مشروع",
   "teamComponent.cancelButton": "إلغاء",
   "teamComponent.saveButton": "حفظ",
   "teamComponent.projects": "مشاريع",
-  "teamComponent.members": "أعضاء"
+  "teamComponent.members": "أعضاء",
+  "teamComponent.noProjects": "بدون أي مشروع"
 }

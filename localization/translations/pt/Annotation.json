@@ -2,7 +2,7 @@
   "annotation.error": "Desculpe, não foi possível apagar a anotação",
   "annotation.deleteButton": "Excluir",
   "annotation.reverseImage": "Esse item contém pelo menos uma imagem. Clique em Busca para procurar possíveis duplicatas no Google.",
-  "annotation.reverseImageFacebook": "Esse item contém pelo menos uma imagem. Considere realizar uma busca de imagem inversa.",
+  "annotation.reverseImageFacebook": "Esse item contém uma ou mais imagens. Como estão contidas em uma postagem do Facebook, não podemos as enviar diretamente para o mecanismo de pesquisa. Considere realizar uma busca manual usando Google ou TinEye.",
   "annotation.and": "e",
   "annotation.newClaim": "Nova afirmação inserida por {author}",
   "annotation.mediaAssigned": "Atribuído(a) a {name} por {author}",
