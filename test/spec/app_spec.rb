@@ -410,6 +410,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       wait_for_selector('source__tab-button-account', :class)
       el = wait_for_selector('.source__tab-button-notes')
       el.click
+      wait_for_selector('annotation__card-content', :class)
       expect(@driver.page_source.include?('This is my comment')).to be(true)
     end
 
@@ -1197,7 +1198,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Task "Foo or bar?" answered by')).to be(false)
       fill_field('textarea[name="response"]', 'Foo')
       @driver.find_element(:css, '.task__save').click
-      media_pg.wait_all_elements(3, "annotations__list-item", :class)
+      media_pg.wait_all_elements(4, "annotations__list-item", :class)
       expect(@driver.page_source.include?('Task "Foo or bar?" answered by')).to be(true)
 
       # Edit task

@@ -10,9 +10,9 @@
   "bridge.teamComponent.verificationTeam": "Equipe de Tradução",
   "teamComponent.title": "Projetos de Verificação",
   "bridge.teamComponent.title": "Projetos de Tradução",
-  "teamComponent.noProjects": "Nenhum projeto ainda",
   "teamComponent.cancelButton": "Cancelar",
   "teamComponent.saveButton": "Salvar",
   "teamComponent.projects": "Projetos",
-  "teamComponent.members": "Membros"
+  "teamComponent.members": "Membros",
+  "teamComponent.noProjects": "Nenhum projeto ainda"
 }

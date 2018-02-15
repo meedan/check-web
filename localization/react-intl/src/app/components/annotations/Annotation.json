@@ -13,7 +13,7 @@
   },
   {
     "id": "annotation.reverseImageFacebook",
-    "defaultMessage": "This item contains at least one image. Consider a reverse image search."
+    "defaultMessage": "This item contains at least one image. However, the image is contained in a Facebook post, and {appName} cannot send that image directly to reverse image search. Consider conducting a manual search using tools like Google or TinEye."
   },
   {
     "id": "annotation.and",
@@ -77,7 +77,7 @@
   },
   {
     "id": "annotation.archiverSuccess",
-    "defaultMessage": "In case this link goes offline, you can <a href=\"{link}\" target=\"_blank\" rel=\"noopener noreferrer\">access a <b>{name}</b> backup via Keep</a>"
+    "defaultMessage": "In case this link goes offline, you can <a href=\"{link}\" target=\"_blank\" rel=\"noopener noreferrer\">access a backup on <b>{name}</b> via Keep</a>"
   },
   {
     "id": "annotation.archiverError",
@@ -85,7 +85,7 @@
   },
   {
     "id": "annotation.archiverWait",
-    "defaultMessage": "This item is being archived to <b>{name}</b> by Keep. Come back in some minutes to receive a confirmation link."
+    "defaultMessage": "This item is being archived to <b>{name}</b> by Keep. Come back in a few minutes to receive a confirmation link."
   },
   {
     "id": "annotation.embedCodeCopied",

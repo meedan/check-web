@@ -24,15 +24,15 @@ import capitalize from 'lodash.capitalize';
 import LinkifyIt from 'linkify-it';
 import rtlDetect from 'rtl-detect';
 import styled from 'styled-components';
-import AccountCard from './AccountCard';
 import AccountChips from './AccountChips';
 import SourceActions from './SourceActions';
 import SourceLanguages from './SourceLanguages';
 import SourcePicture from './SourcePicture';
+import SourceMedias from './SourceMedias';
+import SourceAnnotations from './SourceAnnotations';
+import SourceAccounts from './SourceAccounts';
 import Tags from '../Tags';
-import Annotations from '../annotations/Annotations';
 import PageTitle from '../PageTitle';
-import Medias from '../media/Medias';
 import MediaUtil from '../media/MediaUtil';
 import Message from '../Message';
 import Can from '../Can';
@@ -1220,7 +1220,7 @@ class SourceComponent extends Component {
                       MediaUtil.createdAt({ published: source.created_at }),
                       { year: 'numeric', month: 'short', day: '2-digit' },
                     ),
-                    number: source.medias.edges.length || '0',
+                    number: source.medias_count.toString(),
                   }}
                 />
               </StyledContactInfo>
@@ -1514,35 +1514,28 @@ class SourceComponent extends Component {
           {!isEditing ? (
             <ContentColumn>
               {this.state.showTab === 'annotation' ? (
-                <Annotations
-                  annotations={source.log.edges}
-                  annotated={this.props.source}
-                  annotatedType="ProjectSource"
-                  height="short"
-                />
+                <SourceAnnotations source={this.props.source} />
               ) : null}
 
-              {this.state.showTab === 'media' && !source.medias.edges.length ? (
+              {this.state.showTab === 'media' && source.medias_count === 0 ? (
                 <Text center color={black38}>
                   { this.props.intl.formatMessage(messages.noMedia) }
                 </Text>
               ) : null}
 
-              {this.state.showTab === 'media' && source.medias.edges.length ? (
-                <Medias medias={source.medias.edges} />
+              {this.state.showTab === 'media' && source.medias_count > 0 ? (
+                <SourceMedias source={this.props.source} />
               ) : null}
 
-              {this.state.showTab === 'account' && !source.accounts.edges.length ? (
+              {this.state.showTab === 'account' && source.accounts_count === 0 ? (
                 <Text center color={black38}>
                   { this.props.intl.formatMessage(messages.noAccounts) }
                 </Text>
               ) : null}
 
-              {this.state.showTab === 'account' && source.accounts.edges.length ? (
-                source.accounts.edges.map(account => (
-                  <AccountCard key={account.node.id} account={account.node} />
-                ))) : null}
-
+              {this.state.showTab === 'account' && source.accounts_count > 0 ? (
+                <SourceAccounts source={this.props.source} />
+              ) : null}
             </ContentColumn>
           ) : null}
         </div>
