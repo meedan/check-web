@@ -27,7 +27,7 @@ function safelyParseJSON(jsonString, invalid = null) {
 }
 
 function getStatus(statusesJson, id) {
-  const { statuses } = safelyParseJSON(statusesJson, []);
+  const { statuses } = statusesJson;
   let status = '';
   statuses.forEach((st) => {
     if (st.id === id) {

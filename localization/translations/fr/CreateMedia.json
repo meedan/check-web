@@ -2,7 +2,7 @@
   "createMedia.submitting": "En chargement...",
   "createMedia.error": "Une erreur s'est produite ! Le serveur a répondu avec une erreur {code}. Prière de contacter notre support technique.",
   "createMedia.mediaInput": "Copiez-collez ou tapez",
-  "createMedia.quoteInput": "Copiez-collez ou tapez un témoignage",
+  "createMedia.quoteInput": "Copiez-collez ou tapez une déclaration",
   "createMedia.quoteAttributionSourceInput": "Nom de la source",
   "createMedia.quoteAttributionContext": "URL ou contexte",
   "createMedia.quoteAttributionSourceInputHelper": "Qui a prononcé cela ?",
@@ -14,9 +14,9 @@
   "createMedia.imageTitle": "Charger une image",
   "createMedia.sourceTitle": "Ajouter une source",
   "createMedia.linkTitle": "Ajouter un lien",
-  "createMedia.quoteTitle": "Ajouter un témoignage",
+  "createMedia.quoteTitle": "Ajouter une déclaration",
   "createMedia.link": "Lien",
-  "createMedia.quote": "Témoignage",
+  "createMedia.quote": "Déclaration",
   "createMedia.source": "Source",
   "createMedia.image": "Photo"
 }

@@ -32,6 +32,10 @@
     "defaultMessage": "Prompt"
   },
   {
+    "id": "tasks.requiredCheckbox",
+    "defaultMessage": "Required"
+  },
+  {
     "id": "tasks.description",
     "defaultMessage": "Description"
   },

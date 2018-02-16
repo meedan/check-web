@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Checkbox from 'material-ui/Checkbox';
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
@@ -47,6 +48,7 @@ class SingleChoiceTask extends Component {
       submitDisabled: true,
       taskAnswerDisabled: true,
       showAssignmentField: false,
+      required: false,
     };
   }
 
@@ -54,7 +56,12 @@ class SingleChoiceTask extends Component {
     const jsonoptions = JSON.stringify(this.state.options.filter(item => item.label !== ''));
 
     if (!this.state.submitDisabled) {
-      this.props.onSubmit(this.state.label, this.state.description, jsonoptions);
+      this.props.onSubmit(
+        this.state.label,
+        this.state.description,
+        this.state.required,
+        jsonoptions,
+      );
       this.setState({ submitDisabled: true });
     }
   }
@@ -198,6 +205,10 @@ class SingleChoiceTask extends Component {
     }, this.canSubmit);
   }
 
+  handleSelectRequired(e, inputChecked) {
+    this.setState({ required: inputChecked });
+  }
+
   handleKeyPress(e) {
     if (e.key === 'Enter' && !e.shiftKey) {
       if (this.canSubmit()) {
@@ -240,6 +251,7 @@ class SingleChoiceTask extends Component {
           autoScrollBodyContent
         >
           <Message message={this.state.message} />
+
           <TextField
             id="task-label-input"
             className="tasks__task-label-input"
@@ -248,6 +260,18 @@ class SingleChoiceTask extends Component {
             multiLine
             fullWidth
           />
+
+          <Checkbox
+            label={
+              <FormattedMessage
+                id="tasks.requiredCheckbox"
+                defaultMessage="Required"
+              />
+            }
+            checked={this.state.required}
+            onCheck={this.handleSelectRequired.bind(this)}
+          />
+
           <div style={{ marginTop: units(2) }}>
             {this.state.options.map((item, index) => (
               <div key={`create-task__add-options-radiobutton-${index.toString()}`}>

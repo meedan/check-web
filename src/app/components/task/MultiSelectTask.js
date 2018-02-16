@@ -64,6 +64,7 @@ class MultiSelectTask extends Component {
       submitDisabled: true,
       taskAnswerDisabled: true,
       showAssignmentField: false,
+      required: false,
     };
   }
 
@@ -82,7 +83,12 @@ class MultiSelectTask extends Component {
     const jsonoptions = JSON.stringify(this.state.options.filter(item => item.label !== ''));
 
     if (!this.state.submitDisabled) {
-      this.props.onSubmit(this.state.label, this.state.description, jsonoptions);
+      this.props.onSubmit(
+        this.state.label,
+        this.state.description,
+        this.state.required,
+        jsonoptions,
+      );
       this.setState({ submitDisabled: true });
     }
   }
@@ -259,6 +265,10 @@ class MultiSelectTask extends Component {
     this.setState({ focus: true, responseOther: e.target.value }, this.canSubmit);
   }
 
+  handleSelectRequired(e, inputChecked) {
+    this.setState({ required: inputChecked });
+  }
+
   handleKeyPress(e) {
     if (e.key === 'Enter' && !e.shiftKey) {
       if (this.canSubmit()) {
@@ -300,6 +310,7 @@ class MultiSelectTask extends Component {
           autoScrollBodyContent
         >
           <Message message={this.state.message} />
+
           <TextField
             id="task-label-input"
             className="tasks__task-label-input"
@@ -308,6 +319,18 @@ class MultiSelectTask extends Component {
             multiLine
             fullWidth
           />
+
+          <Checkbox
+            label={
+              <FormattedMessage
+                id="tasks.requiredCheckbox"
+                defaultMessage="Required"
+              />
+            }
+            checked={this.state.required}
+            onCheck={this.handleSelectRequired.bind(this)}
+          />
+
           <div className="create-task__add-options" style={{ marginTop: units(2) }}>
             {this.state.options.map((item, index) => (
               <div key={`create-task__add-options-multiselect-${index.toString()}`}>

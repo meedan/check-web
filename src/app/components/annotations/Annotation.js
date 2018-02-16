@@ -35,6 +35,7 @@ import { safelyParseJSON, getStatus, getStatusStyle } from '../../helpers';
 import ParsedText from '../ParsedText';
 import DatetimeTaskResponse from '../task/DatetimeTaskResponse';
 import UserTooltip from '../user/UserTooltip';
+import { mapGlobalMessage } from '../MappedMessage';
 import {
   units,
   white,
@@ -232,7 +233,7 @@ const messages = defineMessages({
   },
   reverseImageFacebook: {
     id: 'annotation.reverseImageFacebook',
-    defaultMessage: 'This item contains at least one image. Consider a reverse image search.',
+    defaultMessage: 'This item contains at least one image. However, the image is contained in a Facebook post, and {appName} cannot send that image directly to reverse image search. Consider conducting a manual search using tools like Google or TinEye.',
   },
   and: {
     id: 'annotation.and',
@@ -548,14 +549,18 @@ class Annotation extends Component {
           : [messages.reverseImage, object.value];
         contentTemplate = (
           <span className="annotation__reverse-image">
-            <MdImage /> <span>{this.props.intl.formatMessage(reverseImage)}</span>
-            <span
-              className="annotation__reverse-image-search"
-              title="Google Images"
-              onClick={Annotation.handleReverseImageSearch.bind(value)}
-            >
-              <FormattedMessage id="annotation.reverseImageSearch" defaultMessage="Search" />
-            </span>
+            <MdImage />
+            <span>{this.props.intl.formatMessage(reverseImage, { appName: mapGlobalMessage(this.props.intl, 'appNameHuman') })}</span>
+            {annotated.domain === 'facebook.com' ?
+              null :
+              <span
+                className="annotation__reverse-image-search"
+                title="Google Images"
+                onClick={Annotation.handleReverseImageSearch.bind(this, value)}
+              >
+                <FormattedMessage id="annotation.reverseImageSearch" defaultMessage="Search" />
+              </span>
+            }
           </span>
         );
       }
@@ -679,7 +684,7 @@ class Annotation extends Component {
             <span className="annotation__keep">
               <FormattedHTMLMessage
                 id="annotation.archiverSuccess"
-                defaultMessage='In case this link goes offline, you can <a href="{link}" target="_blank" rel="noopener noreferrer">access a <b>{name}</b> backup via Keep</a>'
+                defaultMessage='In case this link goes offline, you can <a href="{link}" target="_blank" rel="noopener noreferrer">access a backup on <b>{name}</b> via Keep</a>'
                 values={{ link: keepLink, name: 'Video Vault' }}
               />
             </span>
@@ -699,7 +704,7 @@ class Annotation extends Component {
             <span className="annotation__keep">
               <FormattedHTMLMessage
                 id="annotation.archiverWait"
-                defaultMessage="This item is being archived to <b>{name}</b> by Keep. Come back in some minutes to receive a confirmation link."
+                defaultMessage="This item is being archived to <b>{name}</b> by Keep. Come back in a few minutes to receive a confirmation link."
                 values={{ name: 'Video Vault' }}
               />
             </span>
@@ -707,18 +712,22 @@ class Annotation extends Component {
         }
       }
 
-      if (object.field_name === 'archive_is_response' && activityType === 'create_dynamicannotationfield') {
+      if ((object.field_name === 'archive_is_response' || object.field_name === 'archive_org_response') && activityType === 'create_dynamicannotationfield') {
         const archiveIsAnnotationContent = JSON.parse(annotation.content);
         const archiveIsResponse = JSON.parse(archiveIsAnnotationContent[0].value);
         const archiveIsLink = archiveIsResponse.location;
+        let archiverName = 'Archive.is';
+        if (object.field_name === 'archive_org_response') {
+          archiverName = 'Archive.org';
+        }
         contentTemplate = null;
         if (archiveIsLink) {
           contentTemplate = (
             <span className="annotation__keep">
               <FormattedHTMLMessage
                 id="annotation.archiverSuccess"
-                defaultMessage='In case this link goes offline, you can <a href="{link}" target="_blank" rel="noopener noreferrer">access a <b>{name}</b> backup via Keep</a>'
-                values={{ link: archiveIsLink, name: 'Archive.is' }}
+                defaultMessage='In case this link goes offline, you can <a href="{link}" target="_blank" rel="noopener noreferrer">access a backup on <b>{name}</b> via Keep</a>'
+                values={{ link: archiveIsLink, name: archiverName }}
               />
             </span>
           );
@@ -728,7 +737,7 @@ class Annotation extends Component {
               <FormattedHTMLMessage
                 id="annotation.archiverError"
                 defaultMessage="There was an error when Keep tried to archive this item to <b>{name}</b>. Refresh this media to try again."
-                values={{ name: 'Archive.is' }}
+                values={{ name: archiverName }}
               />
             </span>
           );
@@ -737,8 +746,8 @@ class Annotation extends Component {
             <span className="annotation__keep">
               <FormattedHTMLMessage
                 id="annotation.archiverWait"
-                defaultMessage="This item is being archived to <b>{name}</b> by Keep. Come back in some minutes to receive a confirmation link."
-                values={{ name: 'Archive.is' }}
+                defaultMessage="This item is being archived to <b>{name}</b> by Keep. Come back in a few minutes to receive a confirmation link."
+                values={{ name: archiverName }}
               />
             </span>
           );
