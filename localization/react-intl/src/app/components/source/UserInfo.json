@@ -2,5 +2,9 @@
   {
     "id": "UserInfo.dateJoined",
     "defaultMessage": "Joined {date} • {teamsCount, plural, =0 {No teams} one {1 team} other {# teams}}"
+  },
+  {
+    "id": "UserInfo.confirmEmail",
+    "defaultMessage": "Email address {unconfimedEmail} unconfirmed. Click to resend confirmation to this address."
   }
 ]

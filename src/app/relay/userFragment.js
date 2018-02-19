@@ -7,6 +7,8 @@ const userFragment = Relay.QL`
     dbid,
     name,
     email,
+    confirmed,
+    unconfirmed_email,
     permissions,
     provider,
     profile_image,
