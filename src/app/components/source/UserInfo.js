@@ -57,13 +57,12 @@ const UserInfo = props => (
         />
       </StyledContactInfo>
 
-      if (!props.user.confirmed) {
-        <FormattedHTMLMessage
-          id="UserInfo.confirmEmail"
-          defaultMessage="Email address {unconfimedEmail} unconfirmed. Click to resend confirmation to this address."
-          values={{
-            unconfimedEmail: props.user.unconfirmed_email,
-          }}
+      {!props.user.confirmed && <FormattedHTMLMessage
+        id="UserInfo.confirmEmail"
+        defaultMessage="Email address {unconfimedEmail} unconfirmed. Click to resend confirmation to this address."
+        values={{
+          unconfimedEmail: props.user.unconfirmed_email,
+        }}
         />
       }
 
