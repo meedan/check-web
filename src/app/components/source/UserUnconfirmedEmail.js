@@ -26,8 +26,7 @@ const UserUnconfirmedEmail = (props) => {
     }));
   }
 
-  return !props.user.unconfirmed_email ?
-    null :
+  return props.user.unconfirmed_email ?
     <StyledUserConfirmation>
       <FormattedHTMLMessage
         id="UserInfo.confirmEmail"
@@ -42,7 +41,9 @@ const UserUnconfirmedEmail = (props) => {
       >
         <FormattedMessage id="UserInfo.resendConfirmation" defaultMessage="Resend" />
       </span>
-    </StyledUserConfirmation>;
+    </StyledUserConfirmation>
+    :
+    null;
 };
 
 export default injectIntl(UserUnconfirmedEmail);
