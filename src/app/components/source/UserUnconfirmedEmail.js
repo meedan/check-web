@@ -22,11 +22,11 @@ const StyledUserConfirmation = styled.div`
 const UserUnconfirmedEmail = (props) => {
   function handleResend() {
     Relay.Store.commitUpdate(new ResendConfirmationMutation({
-      email: props.user.unconfirmed_email,
+      user: props.user,
     }));
   }
 
-  return props.user.confirmed ?
+  return !props.user.unconfirmed_email ?
     null :
     <StyledUserConfirmation>
       <FormattedHTMLMessage

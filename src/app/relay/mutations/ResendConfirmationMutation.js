@@ -21,7 +21,7 @@ class ResendConfirmationMutation extends Relay.Mutation {
   }
 
   getVariables() {
-    return { email: this.props.email };
+    return { id: this.props.user.dbid };
   }
 }
 
