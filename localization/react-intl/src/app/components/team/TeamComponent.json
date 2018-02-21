@@ -52,6 +52,10 @@
     "defaultMessage": "Save"
   },
   {
+    "id": "teamComponent.upgradeButton",
+    "defaultMessage": "Upgrade to Check Pro"
+  },
+  {
     "id": "teamComponent.projects",
     "defaultMessage": "Projects"
   },

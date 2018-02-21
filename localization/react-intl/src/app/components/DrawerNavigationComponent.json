@@ -18,5 +18,9 @@
   {
     "id": "headerActions.productGuides",
     "defaultMessage": "Product Guides"
+  },
+  {
+    "id": "drawer.upgradeButton",
+    "defaultMessage": "Upgrade to Check Pro"
   }
 ]

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
+import RaisedButton from 'material-ui/RaisedButton';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 import DrawerProjects from './drawer/Projects';
@@ -197,6 +198,16 @@ class DrawerNavigation extends Component {
             {loggedIn ? <div><UserMenuItems hideContactMenuItem {...this.props} /></div> : null}
 
             {productGuidesMenuItem}
+
+            <RaisedButton
+              label={
+                <FormattedMessage
+                  id="drawer.upgradeButton"
+                  defaultMessage="Upgrade to Check Pro"
+                />
+              }
+              primary
+            />
 
             <div style={styles.drawerFooter}>
               {TosMenuItem}

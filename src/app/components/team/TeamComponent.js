@@ -6,6 +6,7 @@ import InfiniteScroll from 'react-infinite-scroller';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import rtlDetect from 'rtl-detect';
 import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
@@ -427,6 +428,15 @@ class TeamComponent extends Component {
                         <Row>
                           {contactInfo}
                         </Row>
+                        <RaisedButton
+                          label={
+                            <FormattedMessage
+                              id="teamComponent.upgradeButton"
+                              defaultMessage="Upgrade to Check Pro"
+                            />
+                          }
+                          primary
+                        />
                       </StyledBigColumn>
                     </StyledTwoColumns>
                     <Tabs value={this.state.showTab} onChange={this.handleTabChange.bind(this)}>

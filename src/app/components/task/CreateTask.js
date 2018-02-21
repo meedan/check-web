@@ -8,6 +8,7 @@ import MdRadioButtonChecked from 'react-icons/lib/md/radio-button-checked';
 import MdCheckBox from 'react-icons/lib/md/check-box';
 import MdLocationOn from 'react-icons/lib/md/location-on';
 import MdDateRange from 'react-icons/lib/md/date-range';
+import MdGrade from 'react-icons/lib/md/grade';
 import Popover from 'material-ui/Popover';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
@@ -20,6 +21,7 @@ import Message from '../Message';
 import SingleChoiceTask from './SingleChoiceTask';
 import MultiSelectTask from './MultiSelectTask';
 import Attribution from './Attribution';
+import TeamwideTasksNudgeDialog from './TeamwideTasksNudgeDialog';
 import { safelyParseJSON } from '../../helpers';
 import { units, StyledTaskDescription, black05 } from '../../styles/js/shared';
 
@@ -59,6 +61,7 @@ class CreateTask extends Component {
       label: null,
       description: null,
       message: null,
+      nudgeDialogOpen: false,
       submitDisabled: true,
       showAssignmentField: false,
       required: false,
@@ -85,6 +88,15 @@ class CreateTask extends Component {
       type,
       submitDisabled: true,
     });
+  }
+
+  handleTeamwideNudgeDialog() {
+    this.setState({ nudgeDialogOpen: true, menuOpen: false });
+  }
+
+  handleCloseTeamwideNudgeDialog() {
+    console.log('handleCloseTeamwideNudgeDialog');
+    this.setState({ nudgeDialogOpen: false });
   }
 
   handleCloseDialog() {
@@ -294,8 +306,19 @@ class CreateTask extends Component {
               leftIcon={<MdDateRange />}
               primaryText={<FormattedMessage id="tasks.datetime" defaultMessage="Date and time" />}
             />
+            <MenuItem
+              className="create-task__teamwide-nudge"
+              leftIcon={<MdGrade />}
+              onClick={this.handleTeamwideNudgeDialog.bind(this)}
+              primaryText={<FormattedMessage id="tasks.teamwideNudge" defaultMessage="Teamwide tasks" />}
+            />
           </Menu>
         </Popover>
+
+        <TeamwideTasksNudgeDialog
+          open={this.state.nudgeDialogOpen}
+          onDismiss={this.handleCloseTeamwideNudgeDialog.bind(this)}
+        />
 
         <Dialog
           title={this.props.intl.formatMessage(messages.newTask)}

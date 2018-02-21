@@ -56,38 +56,30 @@ class TeamMembersComponent extends Component {
     return (
       <div>
         <TeamInviteCard team={team} />
-        {(() => {
-          if (requestingMembership) {
-            return (
-              <Can permissions={team.permissions} permission="update Team">
-                <Card style={cardInCardGroupStyle}>
 
-                  <StyledMdCardTitle
-                    title={<FormattedMessage
-                      id="teamMembershipRequests.requestsToJoin"
-                      defaultMessage="Requests to join"
-                    />}
+        { requestingMembership &&
+          <Can permissions={team.permissions} permission="update Team">
+            <Card style={cardInCardGroupStyle}>
+              <StyledMdCardTitle
+                title={<FormattedMessage
+                  id="teamMembershipRequests.requestsToJoin"
+                  defaultMessage="Requests to join"
+                />}
+              />
+              <List>
+                { teamUsersRequestingMembership.map(teamUser => (
+                  <TeamMembersListItem
+                    teamUser={teamUser}
+                    key={teamUser.node.id}
+                    requestingMembership
                   />
+                ))}
+              </List>
+            </Card>
+          </Can>
+        }
 
-                  <List>
-                    {(() => teamUsersRequestingMembership.map(teamUser => (
-                      <TeamMembersListItem
-                        teamUser={teamUser}
-                        key={teamUser.node.id}
-                        className=""
-                        requestingMembership
-                      />
-                    )))()}
-                  </List>
-                </Card>
-              </Can>
-            );
-          }
-
-          return (null);
-        })()}
-
-        <Card>
+        <Card style={{ marginTop: units(2), marginBottom: units(2) }}>
           <FlexRow>
             <StyledMdCardTitle title={<FormattedMessage id="teamMembersComponent.mainHeading" defaultMessage="Members" />} />
             <Can permissions={team.permissions} permission="update Team">
@@ -107,13 +99,13 @@ class TeamMembersComponent extends Component {
           </FlexRow>
           <InfiniteScroll hasMore loadMore={this.loadMore.bind(this)} threshold={500}>
             <List className="team-members__list">
-              {(() =>
-                teamUsersMembers.map(teamUser =>
-                  (<TeamMembersListItem
-                    key={teamUser.node.id}
-                    teamUser={teamUser}
-                    isEditing={isEditing}
-                  />)))()}
+              { teamUsersMembers.map(teamUser => (
+                <TeamMembersListItem
+                  key={teamUser.node.id}
+                  teamUser={teamUser}
+                  isEditing={isEditing}
+                />
+              ))}
             </List>
           </InfiniteScroll>
         </Card>
