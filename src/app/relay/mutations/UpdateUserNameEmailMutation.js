@@ -12,6 +12,7 @@ class UpdateUserNameEmailMutation extends Relay.Mutation {
           id,
           name,
           email,
+          unconfirmed_email
         }
       }
     `;

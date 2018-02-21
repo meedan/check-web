@@ -6,7 +6,7 @@ import ParsedText from '../ParsedText';
 import MediaUtil from '../media/MediaUtil';
 import { truncateLength } from '../../helpers';
 import SourcePicture from './SourcePicture';
-
+import UserUnconfirmedEmail from './UserUnconfirmedEmail';
 import {
   StyledContactInfo,
   StyledTwoColumns,
@@ -56,6 +56,8 @@ const UserInfo = props => (
           }}
         />
       </StyledContactInfo>
+
+      <UserUnconfirmedEmail user={props.user} />
 
     </StyledBigColumn>
   </StyledTwoColumns>);
