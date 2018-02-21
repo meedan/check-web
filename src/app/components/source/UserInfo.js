@@ -6,7 +6,7 @@ import ParsedText from '../ParsedText';
 import MediaUtil from '../media/MediaUtil';
 import { truncateLength } from '../../helpers';
 import SourcePicture from './SourcePicture';
-
+import UserUnconfirmedEmail from './UserUnconfirmedEmail';
 import {
   StyledContactInfo,
   StyledTwoColumns,
@@ -57,14 +57,7 @@ const UserInfo = props => (
         />
       </StyledContactInfo>
 
-      {!props.user.confirmed && <FormattedHTMLMessage
-        id="UserInfo.confirmEmail"
-        defaultMessage="Email address {unconfimedEmail} unconfirmed. Click to resend confirmation to this address."
-        values={{
-          unconfimedEmail: props.user.unconfirmed_email,
-        }}
-        />
-      }
+      <UserUnconfirmedEmail user={props.user} />
 
     </StyledBigColumn>
   </StyledTwoColumns>);

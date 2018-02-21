@@ -6,7 +6,7 @@ class ResendConfirmationMutation extends Relay.Mutation {
   }
 
   getFatQuery() {
-    return Relay.QL`fragment on ResendConfirmationPayload { success, expiry }`;
+    return Relay.QL`fragment on ResendConfirmationPayload { success }`;
   }
 
   getConfigs() {
