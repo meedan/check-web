@@ -14,9 +14,8 @@ cache:
 addons:
   postgresql: "9.4"
 before_install:
-# decrypt configs
-- openssl aes-256-cbc -K $encrypted_b831c137562b_key -iv $encrypted_b831c137562b_iv -in travis.zip.enc -out travis.zip -d
-- unzip travis.zip
+# extract configs
+- git clone -b 6678-bridge-tests https://${TOKEN}:x-oauth-basic@github.com/meedan/configurator ./configurator
 # apt dependencies
 - sudo rm /etc/apt/sources.list.d/mongodb*
 - sudo apt-get -qq update
@@ -26,17 +25,16 @@ before_install:
 - export PATH=/tmp/bundler/ruby/2.3.0/bin:$PATH
 - export GEM_PATH=/tmp/bundler/ruby/2.3.0/gems:$GEM_PATH
 # check api
-- psql -c 'create database checkapi;' -U postgres
+- export TEST_ENV_NUMBER=0
+- psql -c 'create database checkdesk_test0;' -U postgres
 - redis-server 2>&1 >/dev/null &
 - wget https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-2.4.1.deb && sudo dpkg -i --force-confnew elasticsearch-2.4.1.deb && sudo service elasticsearch restart
 - sleep 15
 - 'echo "script.engine.groovy.inline.update: on" | sudo tee -a /etc/elasticsearch/elasticsearch.yml'
 - sudo /usr/share/elasticsearch/bin/plugin install analysis-icu
 - sudo service elasticsearch restart
-- git clone https://github.com/meedan/check-api.git
-- cp travis/check-api.yml check-api/config/config.yml
-- cp check-api/config/initializers/secret_token.rb.example check-api/config/initializers/secret_token.rb
-- cp travis/check-api-database.yml check-api/config/database.yml
+- git clone -b 6678-bridge-tests https://github.com/meedan/check-api.git
+- d=configurator/$APP/travis/check-api/; for f in $(find $d -type f); do cp "$f" "check-api/${f/$d/}"; done
 - cd check-api
 - bundle install --path=/tmp/bundler
 - bundle exec rake db:migrate RAILS_ENV=test
@@ -46,10 +44,7 @@ before_install:
 - export RAILS_ENV=development
 # pender
 - git clone https://github.com/meedan/pender.git
-- cp travis/pender.yml pender/config/config.yml
-- cp pender/config/initializers/secret_token.rb.example pender/config/initializers/secret_token.rb
-- cp pender/config/database.yml.travis pender/config/database.yml
-- cp pender/config/sidekiq.yml.example pender/config/sidekiq.yml
+- d=configurator/$APP/travis/pender/; for f in $(find $d -type f); do cp "$f" "pender/${f/$d/}"; done
 - cd pender
 - bundle install --path=/tmp/bundler
 - bundle exec rake db:migrate
@@ -78,11 +73,7 @@ before_install:
 # ruby / bundler / rspec
 - cd test && bundle install --path=/tmp/bundler && cd -
 # config files
-- cp travis/config-build.js config-build.js
-- cp travis/config-server.js config-server.js
-- cp travis/config.js config.js
-- cp travis/config.js test/config.js
-- cp travis/config.yml test/config.yml
+- d=configurator/$APP/travis/check-web/; for f in $(find $d -type f); do cp "$f" "${f/$d/}"; done
 # `npm install` runs here automatically on Travis
 before_script:
 - sleep 5
@@ -96,3 +87,7 @@ script: npm run test:lint && npm run test:unit && cd test && ./run
 notifications:
   slack:
     secure: TAPzV/OeN5hl8JSGrqPcAtFO/NWa9IqMbyzuUpCZgNP9EbobmlTPx55mopI647rwVIQZM1RL+2SapHJbT7XCAjJ+uvzSQd0b/LaS/aXLKFcS3bBDcvKAUeCcCYUiDz7x832EYg0fsVErR2dZPxvuPtWtwrOlOaOo8HB1uVHjvKo20Wnr/J4+VNTGvhQ5awdmpHMh+KrWpjQi4Ta9zWOTmSYh3qhgaLKjIKXanoaWen87VJB6Jy8nJ3Bo6t3r3+sbCRN9/LUZ8sVcJnvzlKdOtiLGkz8u2YG2c8UD+iUt2VOk0o5L/o8YPoeukJyFuAHAdLrjOelwHCAD2dRfrpQG7y/8G0vjJRXg8DRaVBVIl9vpYM6lyVIw5I6a9XDbUeOnBAWHE3uj/xH0X0vcRREE5py6tbt1KPUBS9rc8JGdCW3ZXVZAXA+1cijR3AAZUZ0YEf9WKLYhsTFW9lYlDcmkrWgVD9vbtPGDg95sbtuB+H5dkEAOBkf2YGkqzO+aaQKLDHkib/1v4C1+T5lXqlWZUrP8EuRwWs6xJlhi6w72AZLo7kVmfGA3ZdKfVcPCqr83YBfhL0WbwgT94L+5STELxw/PhsyNyOM/sRLQgR24ga/lcg2+L395VIPrQvhgKc26yHBuqW2P6FSOEGMyEcZ34N1TMTtRF7/lkRmXyKt4zuc=
+env:
+  matrix:
+    - APP=check
+    - APP=bridge
