@@ -13,7 +13,7 @@ import Message from '../Message';
 import UploadImage from '../UploadImage';
 import globalStrings from '../../globalStrings';
 import UpdateSourceMutation from '../../relay/mutations/UpdateSourceMutation';
-import UpdateUserNameEmailMutation from '../../relay/mutations/UpdateUserNameEmailMutation';
+import { updateUserNameEmail } from '../../relay/mutations/UpdateUserNameEmailMutation';
 import CreateAccountSourceMutation from '../../relay/mutations/CreateAccountSourceMutation';
 import DeleteAccountSourceMutation from '../../relay/mutations/DeleteAccountSourceMutation';
 import { safelyParseJSON } from '../../helpers';
@@ -254,16 +254,7 @@ class UserInfoEdit extends React.Component {
     }
 
     this.registerPendingMutation('updateUser');
-
-    Relay.Store.commitUpdate(
-      new UpdateUserNameEmailMutation({
-        id: user.id,
-        name: form.name.value,
-        email: form.email.value,
-      }),
-      { onSuccess, onFailure },
-    );
-
+    updateUserNameEmail(user.id, form.name.value, form.email.value, onSuccess, onFailure);
     return true;
   }
 
