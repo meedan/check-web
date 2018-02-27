@@ -32,29 +32,34 @@ class UserEmail extends React.Component {
     };
   }
 
-  render() {
-    const handleSubmit = () => {
-      const email = document.getElementById('user-email__input').value;
+  handleClickSkip = () => {
+    window.storage.set('dismiss-user-email-nudge', '1');
+    this.forceUpdate();
+  };
 
-      const onSuccess = () => {
-        this.setState({ message: null });
-        document.getElementById('user-email__input').value = '';
-      };
+  handleSubmit = () => {
+    const email = document.getElementById('user-email__input').value;
 
-      const onFailure = (transaction) => {
-        const error = transaction.getError();
-        const json = safelyParseJSON(error.source);
-        this.setState({ message: json.error });
-      };
-
-      if (email) {
-        updateUserNameEmail(this.props.user.id, this.props.user.name, email, onSuccess, onFailure);
-      }
+    const onSuccess = () => {
+      this.setState({ message: null });
+      document.getElementById('user-email__input').value = '';
     };
 
+    const onFailure = (transaction) => {
+      const error = transaction.getError();
+      const json = safelyParseJSON(error.source);
+      this.setState({ message: json.error });
+    };
+
+    if (email) {
+      updateUserNameEmail(this.props.user.id, this.props.user.name, email, onSuccess, onFailure);
+    }
+  };
+
+  render() {
     if (this.props.user.unconfirmed_email) {
       return <ConfirmEmail user={this.props.user} />;
-    } else if (!this.props.user.email) {
+    } else if (!this.props.user.email && window.storage.getValue('dismiss-user-email-nudge') !== '1') {
       return (
         <Card style={{ marginBottom: units(2) }}>
           <CardTitle title={this.props.intl.formatMessage(messages.title)} />
@@ -88,11 +93,11 @@ class UserEmail extends React.Component {
           <CardActions>
             <FlatButton
               label={this.props.intl.formatMessage(messages.skip)}
-              onClick={handleSubmit.bind(this)}
+              onClick={this.handleClickSkip}
             />
             <FlatButton
               label={this.props.intl.formatMessage(messages.submit)}
-              onClick={handleSubmit.bind(this)}
+              onClick={this.handleSubmit}
               primary
             />
           </CardActions>
