@@ -1,0 +1,10 @@
+[
+  {
+    "id": "UserInfo.confirmEmail",
+    "defaultMessage": "Email address <code>{unconfirmedEmail}</code> unconfirmed. Click Resend to resend a confirmation email to this address."
+  },
+  {
+    "id": "UserInfo.resendConfirmation",
+    "defaultMessage": "Resend"
+  }
+]
