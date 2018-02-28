@@ -15,7 +15,7 @@ class TeamSizeNudge extends React.Component {
     const nudge = (
       <FormattedMessage
         id="teamSizeNudge.nudge"
-        defaultMessage="Want to add more nembers? Free accounts can host up to 5 members at a time, and Check Pro allows you to add an unlimited number of members."
+        defaultMessage="Want to add more members? Free accounts can host up to 5 members at a time, and Check Pro allows you to add an unlimited number of members."
       />
     );
 
