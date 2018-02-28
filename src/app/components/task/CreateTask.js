@@ -23,7 +23,7 @@ import MultiSelectTask from './MultiSelectTask';
 import Attribution from './Attribution';
 import TeamwideTasksNudgeDialog from './TeamwideTasksNudgeDialog';
 import { safelyParseJSON } from '../../helpers';
-import { units, StyledTaskDescription, black05 } from '../../styles/js/shared';
+import { caption, units, StyledTaskDescription, black05, black54 } from '../../styles/js/shared';
 
 const StyledCreateTaskButton = styled(FlatButton)`
   margin-bottom: ${units(2)} !important;
@@ -95,7 +95,6 @@ class CreateTask extends Component {
   }
 
   handleCloseTeamwideNudgeDialog() {
-    console.log('handleCloseTeamwideNudgeDialog');
     this.setState({ nudgeDialogOpen: false });
   }
 
@@ -311,6 +310,7 @@ class CreateTask extends Component {
               leftIcon={<MdGrade />}
               onClick={this.handleTeamwideNudgeDialog.bind(this)}
               primaryText={<FormattedMessage id="tasks.teamwideNudge" defaultMessage="Teamwide tasks" />}
+              secondaryText={<span style={{ color: black54, font: caption, lineHeight: '48px' }}>PRO</span>}
             />
           </Menu>
         </Popover>

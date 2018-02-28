@@ -2,29 +2,24 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Card, CardActions, CardText, CardHeader } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
+import { stringHelper } from '../../customHelpers';
 import { Row, units } from '../../styles/js/shared';
 
 class TeamProjectsNudge extends React.Component {
   handleClickUpgrade = () => {
-    window.open('https://meedan.com/check');
-  };
-
-  handleClickCancel = () => {
-    window.storage.set('dismiss-team-projects-nudge', '1');
-    this.forceUpdate();
+    window.open(stringHelper('UPGRADE_URL'));
   };
 
   render() {
     const nudge = (
       <FormattedMessage
         id="teamProjectsNudge.nudge"
-        defaultMessage="Want to add more projects? Free accounts can host up to 1 project at a time, and Check Pro allows you add an unlimited number of projects."
+        defaultMessage="Want to add more projects? Free accounts can host up to 1 project at a time, and Check Pro allows you to add an unlimited number of projects."
       />
     );
 
     const upgradeButton = (
-      <RaisedButton
+      <FlatButton
         label={
           <FormattedMessage
             id="teamProjectsNudge.upgradeButton"
@@ -37,10 +32,6 @@ class TeamProjectsNudge extends React.Component {
     );
 
     if (this.props.renderCard) {
-      if (window.storage.getValue('dismiss-team-projects-nudge') === '1') {
-        return null;
-      }
-
       return (
         <Card>
           <CardHeader
@@ -55,15 +46,6 @@ class TeamProjectsNudge extends React.Component {
             {nudge}
           </CardText>
           <CardActions>
-            <FlatButton
-              label={
-                <FormattedMessage
-                  id="teamProjectsNudge.cancelButton"
-                  defaultMessage="No, thanks"
-                />
-              }
-              onClick={this.handleClickCancel}
-            />
             {upgradeButton}
           </CardActions>
         </Card>

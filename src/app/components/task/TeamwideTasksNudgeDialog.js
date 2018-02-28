@@ -2,7 +2,7 @@ import React from 'react';
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
+import { stringHelper } from '../../customHelpers';
 
 const messages = defineMessages({
   nudgeTitle: {
@@ -12,20 +12,26 @@ const messages = defineMessages({
 });
 
 const TeamwideTasksNudgeDialog = (props) => {
+  const handleClickUpgrade = () => {
+    window.open(stringHelper('UPGRADE_URL'));
+  };
+
   const actions = [
     <FlatButton
       label={
-        <FormattedMessage id="tasksNudge.cancelButton" defaultMessage="No, thanks" />
+        <FormattedMessage id="tasksNudge.cancelButton" defaultMessage="No thanks" />
       }
       onClick={props.onDismiss}
     />,
-    <RaisedButton
+    <FlatButton
       label={
         <FormattedMessage id="tasksNudge.upgradeButton" defaultMessage="Upgrade now" />
       }
+      onClick={handleClickUpgrade}
       primary
     />,
   ];
+
   return (
     <div>
       <Dialog
