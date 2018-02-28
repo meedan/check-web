@@ -12,6 +12,7 @@ import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
 import KeyboardArrowRight from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 import { List, ListItem } from 'material-ui/List';
 import styled from 'styled-components';
+import config from 'config'; // eslint-disable-line require-path-exists/exists
 import TeamMembers from './TeamMembers';
 import HeaderCard from '../HeaderCard';
 import PageTitle from '../PageTitle';
@@ -289,7 +290,8 @@ class TeamComponent extends Component {
 
     const avatarPreview = this.state.avatar && this.state.avatar.preview;
 
-    const showUpgradeButton = team.projects.edges.length &&
+    const showUpgradeButton = config.appName === 'check' &&
+      team.projects.edges.length &&
       team.projects.edges.find(p => p.node.medias_count > 0);
 
     return (
@@ -440,7 +442,7 @@ class TeamComponent extends Component {
                             label={
                               <FormattedMessage
                                 id="teamComponent.upgradeButton"
-                                defaultMessage="Upgrade"
+                                defaultMessage="Upgrade to PRO"
                               />
                             }
                             onClick={this.handleClickUpgrade}

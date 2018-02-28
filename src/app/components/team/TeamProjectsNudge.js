@@ -2,6 +2,7 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Card, CardActions, CardText, CardHeader } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
+import config from 'config'; // eslint-disable-line require-path-exists/exists
 import { stringHelper } from '../../customHelpers';
 import { Row, units } from '../../styles/js/shared';
 
@@ -30,6 +31,10 @@ class TeamProjectsNudge extends React.Component {
         onClick={this.handleClickUpgrade}
       />
     );
+
+    if (config.appName !== 'check') {
+      return null;
+    }
 
     if (this.props.renderCard) {
       return (
