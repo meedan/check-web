@@ -52,6 +52,10 @@
     "defaultMessage": "Save"
   },
   {
+    "id": "teamComponent.upgradeButton",
+    "defaultMessage": "Upgrade"
+  },
+  {
     "id": "teamComponent.projects",
     "defaultMessage": "Projects"
   },

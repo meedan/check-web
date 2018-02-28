@@ -25,6 +25,7 @@ import ParsedText from '../ParsedText';
 import UploadImage from '../UploadImage';
 import globalStrings from '../../globalStrings';
 import { safelyParseJSON } from '../../helpers';
+import { stringHelper } from '../../customHelpers';
 import {
   ContentColumn,
   highlightBlue,
@@ -217,6 +218,10 @@ class TeamComponent extends Component {
     this.setState({ values });
   }
 
+  handleClickUpgrade = () => {
+    window.open(stringHelper('UPGRADE_URL'));
+  };
+
   handleTabChange(value) {
     this.setState({
       showTab: value,
@@ -283,6 +288,9 @@ class TeamComponent extends Component {
     }
 
     const avatarPreview = this.state.avatar && this.state.avatar.preview;
+
+    const showUpgradeButton = team.projects.edges.length &&
+      team.projects.edges.find(p => p.node.medias_count > 0);
 
     return (
       <PageTitle prefix={false} skipTeam={false} team={team}>
@@ -427,6 +435,18 @@ class TeamComponent extends Component {
                         <Row>
                           {contactInfo}
                         </Row>
+                        {showUpgradeButton ?
+                          <FlatButton
+                            label={
+                              <FormattedMessage
+                                id="teamComponent.upgradeButton"
+                                defaultMessage="Upgrade"
+                              />
+                            }
+                            onClick={this.handleClickUpgrade}
+                            primary
+                          /> : null
+                        }
                       </StyledBigColumn>
                     </StyledTwoColumns>
                     <Tabs value={this.state.showTab} onChange={this.handleTabChange.bind(this)}>

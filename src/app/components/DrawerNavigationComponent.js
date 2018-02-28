@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
+import FlatButton from 'material-ui/FlatButton';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 import DrawerProjects from './drawer/Projects';
@@ -41,6 +42,10 @@ class DrawerNavigation extends Component {
     this.setState({ showAddProj: !this.state.showAddProj });
     e.stopPropagation();
   }
+
+  handleClickUpgrade = () => {
+    window.open(stringHelper('UPGRADE_URL'));
+  };
 
   render() {
     const { inTeamContext, loggedIn, drawerToggle } = this.props;
@@ -197,6 +202,17 @@ class DrawerNavigation extends Component {
             {loggedIn ? <div><UserMenuItems hideContactMenuItem {...this.props} /></div> : null}
 
             {productGuidesMenuItem}
+
+            <FlatButton
+              label={
+                <FormattedMessage
+                  id="drawer.upgradeButton"
+                  defaultMessage="Upgrade"
+                />
+              }
+              onClick={this.handleClickUpgrade}
+              primary
+            />
 
             <div style={styles.drawerFooter}>
               {TosMenuItem}

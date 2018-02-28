@@ -27,8 +27,13 @@ const SubHeading = styled.div`
 `;
 
 const StyledAddProj = styled.div`
+  display: flex;
+  align-items: center;
   margin-${props => props.isRtl ? 'right' : 'left'}: auto;
   float: ${props => props.isRtl ? 'left' : 'right'};
+  span {
+    margin-${props => props.isRtl ? 'left' : 'right'}: ${units(1)};
+  }
 `;
 
 // TODO Fix a11y issues
@@ -81,6 +86,10 @@ const DrawerProjectsComponent = (props) => {
                 isRtl={rtlDetect.isRtlLang(props.intl.locale)}
                 className="drawer__create-project-button"
               >
+                { props.team.projects.edges.length > 0 ?
+                  <span style={{ color: black54, font: caption }}>PRO</span>
+                  : null
+                }
                 { props.showAddProj ? <MdHighlightOff /> : <MdAddCircleOutline /> }
               </StyledAddProj>
             </Can>
