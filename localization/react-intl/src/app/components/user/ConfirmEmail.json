@@ -1,0 +1,14 @@
+[
+  {
+    "id": "ConfirmEmail.title",
+    "defaultMessage": "Confirm your email"
+  },
+  {
+    "id": "ConfirmEmail.content",
+    "defaultMessage": "A confirmation email was sent to {email} — please check your email and confirm your email. Edit your profile if you need to change the address."
+  },
+  {
+    "id": "ConfirmEmail.resendConfirmation",
+    "defaultMessage": "Resend"
+  }
+]

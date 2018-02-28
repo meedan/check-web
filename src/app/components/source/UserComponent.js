@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import rtlDetect from 'rtl-detect';
 import { Tabs, Tab } from 'material-ui/Tabs';
+import UserEmail from '../user/UserEmail';
 import UserInfo from './UserInfo';
 import UserAssignments from './UserAssignments';
 import UserInfoEdit from './UserInfoEdit';
@@ -86,6 +87,7 @@ class UserComponent extends React.Component {
             </ContentColumn>
           </HeaderCard>
           <ContentColumn>
+            <UserEmail user={user} />
             { this.state.showTab === 'teams' ? <SwitchTeamsComponent user={user} /> : null}
             { this.state.showTab === 'assignments' ? <UserAssignments user={user} /> : null}
           </ContentColumn>
