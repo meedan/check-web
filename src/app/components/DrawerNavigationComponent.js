@@ -6,6 +6,7 @@ import MenuItem from 'material-ui/MenuItem';
 import FlatButton from 'material-ui/FlatButton';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
+import config from 'config'; // eslint-disable-line require-path-exists/exists
 import DrawerProjects from './drawer/Projects';
 import { stringHelper } from '../customHelpers';
 import UserMenuItems from './UserMenuItems';
@@ -203,16 +204,18 @@ class DrawerNavigation extends Component {
 
             {productGuidesMenuItem}
 
-            <FlatButton
-              label={
-                <FormattedMessage
-                  id="drawer.upgradeButton"
-                  defaultMessage="Upgrade"
-                />
-              }
-              onClick={this.handleClickUpgrade}
-              primary
-            />
+            { config.appName === 'check' ?
+              <FlatButton
+                label={
+                  <FormattedMessage
+                    id="drawer.upgradeButton"
+                    defaultMessage="Upgrade to PRO"
+                  />
+                }
+                onClick={this.handleClickUpgrade}
+                primary
+              /> : null
+            }
 
             <div style={styles.drawerFooter}>
               {TosMenuItem}

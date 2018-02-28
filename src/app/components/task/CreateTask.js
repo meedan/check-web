@@ -15,6 +15,7 @@ import MenuItem from 'material-ui/MenuItem';
 import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
 import styled from 'styled-components';
+import config from 'config'; // eslint-disable-line require-path-exists/exists
 import Can from '../Can';
 import CreateTaskMutation from '../../relay/mutations/CreateTaskMutation';
 import Message from '../Message';
@@ -305,13 +306,15 @@ class CreateTask extends Component {
               leftIcon={<MdDateRange />}
               primaryText={<FormattedMessage id="tasks.datetime" defaultMessage="Date and time" />}
             />
-            <MenuItem
-              className="create-task__teamwide-nudge"
-              leftIcon={<MdGrade />}
-              onClick={this.handleTeamwideNudgeDialog.bind(this)}
-              primaryText={<FormattedMessage id="tasks.teamwideNudge" defaultMessage="Teamwide tasks" />}
-              secondaryText={<span style={{ color: black54, font: caption, lineHeight: '48px' }}>PRO</span>}
-            />
+            {config.appName === 'check' ?
+              <MenuItem
+                className="create-task__teamwide-nudge"
+                leftIcon={<MdGrade />}
+                onClick={this.handleTeamwideNudgeDialog.bind(this)}
+                primaryText={<FormattedMessage id="tasks.teamwideNudge" defaultMessage="Teamwide tasks" />}
+                secondaryText={<span style={{ color: black54, font: caption, lineHeight: '48px' }}>PRO</span>}
+              /> : null
+            }
           </Menu>
         </Popover>
 

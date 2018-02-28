@@ -6,6 +6,7 @@ import { Card, CardActions, CardText, CardHeader } from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import styled from 'styled-components';
+import config from 'config'; // eslint-disable-line require-path-exists/exists
 import TeamProjectsNudge from '../team/TeamProjectsNudge';
 import CreateProjectMutation from '../../relay/mutations/CreateProjectMutation';
 import CheckContext from '../../CheckContext';
@@ -131,7 +132,8 @@ class CreateProject extends Component {
 
     const { team } = this.props;
 
-    if (team.projects.edges.length >= team.limits.max_number_of_projects) {
+    if (config.appName === 'check' &&
+      team.projects.edges.length >= team.limits.max_number_of_projects) {
       return <TeamProjectsNudge renderCard={this.props.renderCard} />;
     }
 
