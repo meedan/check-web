@@ -15,7 +15,7 @@ addons:
   postgresql: "9.4"
 before_install:
 # extract configs
-- git clone -b 6678-bridge-tests https://${TOKEN}:x-oauth-basic@github.com/meedan/configurator ./configurator
+- git clone https://${TOKEN}:x-oauth-basic@github.com/meedan/configurator ./configurator
 # apt dependencies
 - sudo rm /etc/apt/sources.list.d/mongodb*
 - sudo apt-get -qq update
