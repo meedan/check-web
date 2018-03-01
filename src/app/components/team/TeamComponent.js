@@ -290,7 +290,10 @@ class TeamComponent extends Component {
 
     const avatarPreview = this.state.avatar && this.state.avatar.preview;
 
-    const showUpgradeButton = config.appName === 'check' &&
+    const context = new CheckContext(this).getContextStore();
+
+    const showUpgradeButton = context.currentUser &&
+      config.appName === 'check' &&
       team.projects.edges.length &&
       team.projects.edges.find(p => p.node.medias_count > 0);
 

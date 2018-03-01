@@ -204,7 +204,7 @@ class DrawerNavigation extends Component {
 
             {productGuidesMenuItem}
 
-            { config.appName === 'check' ?
+            { loggedIn && config.appName === 'check' ?
               <FlatButton
                 label={
                   <FormattedMessage
