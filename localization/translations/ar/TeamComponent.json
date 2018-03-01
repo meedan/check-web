@@ -12,6 +12,7 @@
   "bridge.teamComponent.title": "مشاريع الترجمة",
   "teamComponent.cancelButton": "إلغاء",
   "teamComponent.saveButton": "حفظ",
+  "teamComponent.upgradeButton": "Upgrade to PRO",
   "teamComponent.projects": "مشاريع",
   "teamComponent.members": "أعضاء",
   "teamComponent.noProjects": "بدون أي مشروع"

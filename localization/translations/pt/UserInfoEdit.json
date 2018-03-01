@@ -6,5 +6,7 @@
   "userInfoEdit.editError": "Desculpe, não foi possível editar a fonte",
   "userInfoEdit.addLinkLabel": "Adicionar um link",
   "userInfoEdit.addLinkHelper": "Adicione um link para uma página web ou perfil de mídia social. Isso não mudará sua método de entrar.",
+  "userInfoEdit.emailConfirmed": "✔ Endereço confirmado",
+  "userInfoEdit.emailPendingConfirm": "⚠ Confirmação pendente",
   "userInfoEdit.invalidLink": "Por favor insira uma URL válida"
 }

@@ -1,0 +1,5 @@
+{
+  "ConfirmEmail.title": "Confirma tu email",
+  "ConfirmEmail.content": "Te enviamos un correo electrónico de confirmación a {email} — Por favor revisa tu bandeja de entrada y sigue el proceso de verificación. Si necesitas cambiar tu correo electrónico edita tu perfil.",
+  "ConfirmEmail.resendConfirmation": "Reenviar"
+}

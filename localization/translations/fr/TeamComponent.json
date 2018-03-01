@@ -12,6 +12,7 @@
   "bridge.teamComponent.title": "Projets de traduction",
   "teamComponent.cancelButton": "Annuler",
   "teamComponent.saveButton": "Sauvegarder",
+  "teamComponent.upgradeButton": "Abonnement à Pro",
   "teamComponent.projects": "Projets",
   "teamComponent.members": "Membres",
   "teamComponent.noProjects": "Aucun projet"
