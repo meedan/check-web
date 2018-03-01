@@ -294,7 +294,7 @@ class TeamComponent extends Component {
 
     const showUpgradeButton = context.currentUser &&
       config.appName === 'check' &&
-      !team.limits.max_number_of_projects &&
+      team.limits.max_number_of_projects &&
       team.projects.edges.length &&
       team.projects.edges.find(p => p.node.medias_count > 0);
 
