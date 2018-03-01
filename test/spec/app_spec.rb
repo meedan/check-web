@@ -1203,7 +1203,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Edit task
       expect(@driver.page_source.include?('Task "Foo or bar?" edited to "Foo or bar???" by')).to be(false)
-      el = wait_for_selector('.task-actions__icon', :css)
+      el = wait_for_selector('.task-actions > button', :css)
       el.click
       media_pg.wait_all_elements(6, "annotations__list-item", :class)
 
@@ -1218,7 +1218,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Edit task answer
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Task "Foo or bar???" answered by User With Email: "Foo edited"')).to be(false)
-      el = wait_for_selector('.task-actions__icon', :css)
+      el = wait_for_selector('.task-actions > button', :css)
       el.click
 
       el = wait_for_selector('.task-actions__edit-response', :css)
@@ -1267,7 +1267,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Task "Foo or bar?" answered by')).to be(true)
       # Edit task
       expect(@driver.page_source.include?('Task "Foo or bar?" edited to "Foo or bar???" by')).to be(false)
-      el = wait_for_selector('.task-actions__icon', :css)
+      el = wait_for_selector('.task-actions > button', :css)
       el.click
       media_pg.wait_all_elements(6, "annotations__list-item", :class)
       editbutton = wait_for_selector('.task-actions__edit', :css)
@@ -1280,7 +1280,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Task "Foo or bar?" edited to "Foo or bar???" by')).to be(true)
       # Edit task answer
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Task "Foo or bar???" answered by User With Email: "Foo edited"')).to be(false)
-      el = wait_for_selector('.task-actions__icon', :css)
+      el = wait_for_selector('.task-actions > button', :css)
       el.click
       el = wait_for_selector('.task-actions__edit-response', :css)
       el.click
@@ -1331,7 +1331,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Task "Foo, Doo or bar?" answered by')).to be(true)
       # Edit task
       expect(@driver.page_source.include?('Task "Foo, Doo or bar?" edited to "Foo or bar???" by')).to be(false)
-      el = wait_for_selector('.task-actions__icon', :css)
+      el = wait_for_selector('.task-actions > button', :css)
       el.click
       media_pg.wait_all_elements(7, "annotations__list-item", :class)
       editbutton = wait_for_selector('.task-actions__edit', :css)
@@ -1344,7 +1344,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(@driver.page_source.include?('Task "Foo, Doo or bar?" edited to "Foo, Doo or bar???" by')).to be(true)
       # Edit task answer
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Task "Foo, Doo or bar???" answered by User With Email: "Foo and Boo"')).to be(false)
-      el = wait_for_selector('.task-actions__icon', :css)
+      el = wait_for_selector('.task-actions > button', :css)
       el.click
       el = wait_for_selector('.task-actions__edit-response', :css)
       el.click
@@ -1589,7 +1589,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Edit task
       expect(@driver.page_source.include?('Task "Where?" edited to "Where was it?" by')).to be(false)
-      el = wait_for_selector('.task-actions__icon')
+      el = wait_for_selector('.task-actions > button')
       el.click
       sleep 1
       el = wait_for_selector('.task-actions__edit')
@@ -1603,7 +1603,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Edit task answer
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Task "Where was it?" answered by User With Email: "Vancouver"')).to be(false)
-      el = wait_for_selector('.task-actions__icon')
+      el = wait_for_selector('.task-actions > button')
       el.click
       sleep 1
       el = wait_for_selector('.task-actions__edit-response')
@@ -1699,7 +1699,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Edit task
       expect(@driver.page_source.include?('Task "When?" edited to "When was it?" by')).to be(false)
-      el = wait_for_selector('.task-actions__icon')
+      el = wait_for_selector('.task-actions > button')
       el.click
       el = wait_for_selector(".task-actions__edit")
       @driver.action.move_to(el).perform
@@ -1714,7 +1714,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       # Edit task response
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('12:34')).to be(false)
-      el = wait_for_selector('.task-actions__icon')
+      el = wait_for_selector('.task-actions > button')
       el.click
       el = wait_for_selector('.task-actions__edit-response')
       el.click
