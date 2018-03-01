@@ -1213,7 +1213,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       fill_field('textarea[name="label"]', '??')
       editbutton = wait_for_selector('.task__save', :css)
       editbutton.click
-      media_pg.wait_all_elements(7, "annotations__list-item", :class)
+      media_pg.wait_all_elements(8, "annotations__list-item", :class)
       expect(@driver.page_source.include?('Task "Foo or bar?" edited to "Foo or bar???" by')).to be(true)
 
       # Edit task answer
