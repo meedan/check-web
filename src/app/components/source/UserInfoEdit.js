@@ -61,6 +61,16 @@ const messages = defineMessages({
     defaultMessage:
       'Add a link to a web page or social media profile. Note: this does not affect your login method.',
   },
+  emailConfirmed: {
+    id: 'userInfoEdit.emailConfirmed',
+    defaultMessage:
+      '✔ Address confirmed',
+  },
+  emailPendingConfirm: {
+    id: 'userInfoEdit.emailPendingConfirm',
+    defaultMessage:
+      '⚠ Confirmation pending',
+  },
   invalidLink: {
     id: 'userInfoEdit.invalidLink',
     defaultMessage: 'Please enter a valid URL',
@@ -425,6 +435,13 @@ class UserInfoEdit extends React.Component {
     const { user } = this.props;
     const { source } = this.props.user;
 
+    let emailHelperText = '';
+    if (user.unconfirmed_email) {
+      emailHelperText = this.props.intl.formatMessage(messages.emailPendingConfirm);
+    } else if (user.email && !user.unconfirmed_email) {
+      emailHelperText = this.props.intl.formatMessage(messages.emailConfirmed);
+    }
+
     return (
       <ContentColumn noPadding>
         <Message message={this.state.message} />
@@ -484,10 +501,13 @@ class UserInfoEdit extends React.Component {
                 className="source__email-input"
                 name="email"
                 id="source__email-container"
-                defaultValue={user.email}
+                defaultValue={user.unconfirmed_email || user.email}
                 floatingLabelText={this.props.intl.formatMessage(messages.userEmail)}
                 style={{ width: '85%' }}
               />
+              <StyledHelper>
+                {emailHelperText}
+              </StyledHelper>
 
               {this.renderAccountsEdit()}
             </form>
