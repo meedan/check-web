@@ -137,7 +137,7 @@ class CheckContext {
       this.getContextStore().history.push('/check/teams/new');
       return;
     }
-    const project = userCurrentTeam.projects[0];
+    const project = userData.current_project || userCurrentTeam.projects[0];
     if (project && project.dbid) {
       this.setContextAndRedirect(userCurrentTeam, project);
     } else {

@@ -6,5 +6,7 @@
   "userInfoEdit.editError": "Désolé, il n'a pas été possible d'éditer la source",
   "userInfoEdit.addLinkLabel": "Ajouter un lien",
   "userInfoEdit.addLinkHelper": "Ajouter un lien vers une page Web ou un profil de réseau social. Ceci n'affectera pas votre méthode de connexion.",
+  "userInfoEdit.emailConfirmed": "✔ Adresse confirmée",
+  "userInfoEdit.emailPendingConfirm": "⚠ En attente de confirmation",
   "userInfoEdit.invalidLink": "Veuillez saisir une URL valide"
 }

@@ -6,7 +6,6 @@ import ParsedText from '../ParsedText';
 import MediaUtil from '../media/MediaUtil';
 import { truncateLength } from '../../helpers';
 import SourcePicture from './SourcePicture';
-
 import {
   StyledContactInfo,
   StyledTwoColumns,
@@ -56,7 +55,6 @@ const UserInfo = props => (
           }}
         />
       </StyledContactInfo>
-
     </StyledBigColumn>
   </StyledTwoColumns>);
 

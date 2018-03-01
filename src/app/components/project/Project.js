@@ -10,6 +10,7 @@ import CheckContext from '../../CheckContext';
 import MediasLoading from '../media/MediasLoading';
 import Search from '../Search';
 import { ContentColumn, units } from '../../styles/js/shared';
+import UpdateUserMutation from '../../relay/mutations/UpdateUserMutation';
 
 const ProjectWrapper = styled.div`
   display: flex;
@@ -41,6 +42,15 @@ class ProjectComponent extends Component {
     const newContext = {};
 
     newContext.project = this.props.project;
+    if (currentContext.currentUser) {
+      Relay.Store.commitUpdate(
+        new UpdateUserMutation({
+          current_project_id: this.props.project.dbid,
+          current_user_id: currentContext.currentUser.id,
+        }),
+        { onSuccess: () => {}, onFailure: () => {} },
+      );
+    }
 
     let notFound = false;
     if (!currentContext.team || currentContext.team.slug !== this.props.project.team.slug) {

@@ -28,6 +28,14 @@
     "defaultMessage": "Add a link to a web page or social media profile. Note: this does not affect your login method."
   },
   {
+    "id": "userInfoEdit.emailConfirmed",
+    "defaultMessage": "✔ Address confirmed"
+  },
+  {
+    "id": "userInfoEdit.emailPendingConfirm",
+    "defaultMessage": "⚠ Confirmation pending"
+  },
+  {
     "id": "userInfoEdit.invalidLink",
     "defaultMessage": "Please enter a valid URL"
   }

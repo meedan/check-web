@@ -163,11 +163,11 @@ class TranslationComponent extends Component {
 
   handleSubmit(e) {
     if (!this.state.submitDisabled) {
-      const { annotated, annotated_type } = this.props;
+      const { annotated, annotatedType } = this.props;
       const translation = document.forms.addtranslation.translation.value.trim();
       const note = document.forms.addtranslation.note.value.trim();
       const args = `translation_text=${translation}&translation_language=${this.state.code}&translation_note=${note}`;
-      this.addTranslation(annotated, annotated.dbid, annotated_type, args);
+      this.addTranslation(annotated, annotated.dbid, annotatedType, args);
     }
 
     e.preventDefault();

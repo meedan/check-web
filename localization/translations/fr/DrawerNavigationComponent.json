@@ -3,5 +3,6 @@
   "headerActions.privacyPolicy": "Confidentialité",
   "headerActions.about": "A propos",
   "headerActions.contactHuman": "Contact",
-  "headerActions.productGuides": "Guides des produits"
+  "headerActions.productGuides": "Guides des produits",
+  "drawer.upgradeButton": "Abonnement à Pro"
 }

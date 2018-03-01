@@ -12,6 +12,7 @@ class UpdateUserNameEmailMutation extends Relay.Mutation {
           id,
           name,
           email,
+          unconfirmed_email
         }
       }
     `;
@@ -33,4 +34,16 @@ class UpdateUserNameEmailMutation extends Relay.Mutation {
   }
 }
 
+const updateUserNameEmail = (id, name, email, onSuccess, onFailure) => {
+  Relay.Store.commitUpdate(
+    new UpdateUserNameEmailMutation({
+      id,
+      name,
+      email,
+    }),
+    { onSuccess, onFailure },
+  );
+};
+
 export default UpdateUserNameEmailMutation;
+export { updateUserNameEmail };

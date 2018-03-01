@@ -94,7 +94,7 @@ class MediaStatus extends Component {
     if (e.key === 'Enter' && !e.shiftKey && !this.state.submitted) {
       this.setState({ submitted: true });
       const st = Object.assign({}, this.state.setStatus);
-      this.setStatus(st.context, st.store, st.media, st.status, this, e.target.value);
+      MediaStatus.setStatus(st.context, st.store, st.media, st.status, this, e.target.value);
       document.forms['media-status-note-form'].note.value = '';
       this.resetState();
       e.preventDefault();

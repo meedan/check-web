@@ -8,6 +8,7 @@ import MdPaste from 'react-icons/lib/md/content-paste';
 import MdDone from 'react-icons/lib/md/done';
 import rtlDetect from 'rtl-detect';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
+import TeamSizeNudge from './TeamSizeNudge';
 import { encodeSvgDataUri } from '../../helpers';
 
 import {
@@ -26,6 +27,7 @@ class TeamInviteCard extends Component {
   }
 
   render() {
+    const { team } = this.props;
     const teamUrl = `${window.location.protocol}//${config.selfHost}/${this.props.team.slug}`;
     const joinUrl = `${teamUrl}/join`;
     const { locale } = this.props.intl;
@@ -71,6 +73,10 @@ class TeamInviteCard extends Component {
         margin-${toDirection}: 0!important;
       }
     `;
+
+    if (team.team_users.edges.length >= team.limits.max_number_of_members) {
+      return <TeamSizeNudge renderCard />;
+    }
 
     return (
       <StyledMdCard>
