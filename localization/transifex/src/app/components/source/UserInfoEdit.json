@@ -6,5 +6,7 @@
   "userInfoEdit.editError": "Sorry, could not edit the source",
   "userInfoEdit.addLinkLabel": "Add a link",
   "userInfoEdit.addLinkHelper": "Add a link to a web page or social media profile. Note: this does not affect your login method.",
+  "userInfoEdit.emailConfirmed": "✔ Address confirmed",
+  "userInfoEdit.emailPendingConfirm": "⚠ Confirmation pending",
   "userInfoEdit.invalidLink": "Please enter a valid URL"
 }

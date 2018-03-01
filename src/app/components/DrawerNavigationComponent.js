@@ -147,7 +147,7 @@ class DrawerNavigation extends Component {
         style={styles.drawerFooterLink}
         target="_blank"
         rel="noopener noreferrer"
-        href="http://medium.com/meedan-product-guides"
+        href="https://medium.com/meedan-user-guides"
       >
         <MenuItem
           primaryText={
