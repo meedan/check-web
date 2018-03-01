@@ -21,6 +21,7 @@ const SpecialBlueCard = (props) => {
 
   const StyledCardIcon = styled.div`
     float: left;
+    margin-top: ${units(0.5)};
     svg {
       max-width: 20px;
       max-height: 20px;
@@ -33,9 +34,9 @@ const SpecialBlueCard = (props) => {
     background-repeat: no-repeat;
     background-size: auto;
     background-position: top ${toDirection};
-    padding-${toDirection}: ${units(21)};
+    padding-${toDirection}: ${units(6)};
     @media all and (max-width: ${breakpointMobile}) {
-      padding-${toDirection}: ${units(12)};
+      padding-${toDirection}: ${units(6)};
       background-size: ${units(10)};
     }
     margin-top: ${units(2)};

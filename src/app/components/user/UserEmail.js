@@ -1,9 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl, defineMessages } from 'react-intl';
 import { Card, CardActions, CardText, CardTitle } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import ConfirmEmail from './ConfirmEmail';
+import CheckContext from '../../CheckContext';
 import { safelyParseJSON } from '../../helpers';
 import { updateUserNameEmail } from '../../relay/mutations/UpdateUserNameEmailMutation';
 import { units } from '../../styles/js/shared';
@@ -57,7 +59,10 @@ class UserEmail extends React.Component {
   };
 
   render() {
-    if (this.props.user.unconfirmed_email) {
+    const context = new CheckContext(this).getContextStore();
+
+    if (this.props.user.unconfirmed_email &&
+      context.currentUser.dbid === this.props.user.dbid) {
       return <ConfirmEmail user={this.props.user} />;
     } else if (!this.props.user.email && window.storage.getValue('dismiss-user-email-nudge') !== '1') {
       return (
@@ -108,5 +113,9 @@ class UserEmail extends React.Component {
     return null;
   }
 }
+
+UserEmail.contextTypes = {
+  store: PropTypes.object,
+};
 
 export default injectIntl(UserEmail);
