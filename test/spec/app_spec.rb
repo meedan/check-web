@@ -985,12 +985,12 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       el = wait_for_selector('team-members__edit-button',:class)
       el.click
       sleep 5
-      l = wait_for_selector_list('team-members__delete-member',:class)
+      l = wait_for_selector_list('team-members__delete-member', :class)
       old = l.length
       expect(l.length > 1).to be(true)
       l[l.length-1].click
-      sleep 1
-      expect(wait_for_selector_list('team-members__delete-member',:class).length < old).to be(true)
+      page.wait_all_elements(old - 1, 'team-members__delete-member', :class)
+      expect(wait_for_selector_list('team-members__delete-member', :class).length < old).to be(true)
     end
 
     it "should update notes count after delete annotation", bin3: true do
@@ -1230,7 +1230,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
 
       fill_field('textarea[name="response"]', ' edited')
       @driver.find_element(:css, '.task__save').click
-      media_pg.wait_all_elements(8, "annotations__list-item", :class) #Wait for refresh page
+      media_pg.wait_all_elements(9, 'annotations__list-item', :class)
       expect(@driver.page_source.gsub(/<\/?[^>]*>/, '').include?('Task "Foo or bar???" answered by User With Email: "Foo edited"')).to be(true)
 
       # Delete task
