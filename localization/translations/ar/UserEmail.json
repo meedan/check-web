@@ -1,8 +1,8 @@
 {
-  "userEmail.title": "Add your email",
-  "userEmail.submit": "Submit",
-  "userEmail.skip": "Skip",
-  "userEmail.text": "To send you notifications, we need your email address. If you'd like to receive notifications, please enter your email address. Otherwise, click \"Skip\"",
-  "userEmail.emailInputLabel": "Email",
+  "userEmail.title": "أضف بريدك الإلكتروني",
+  "userEmail.submit": "إرسال",
+  "userEmail.skip": "تخطي",
+  "userEmail.text": "من فضلك أدخل بريدك اﻹلكتروني لكي تستقبل الإخطارات. غير ذلك اضغط (تخطي)",
+  "userEmail.emailInputLabel": "البريد الإلكتروني",
   "userEmail.emailInputHint": "email@example.com"
 }
