@@ -41,8 +41,8 @@ class ProjectComponent extends Component {
     const currentContext = this.currentContext();
     const newContext = {};
 
-    newContext.project = this.props.project;
-    if (currentContext.currentUser) {
+    if (currentContext.currentUser &&
+       (!currentContext.project || currentContext.project.dbid !== this.props.project.dbid)) {
       Relay.Store.commitUpdate(
         new UpdateUserMutation({
           current_project_id: this.props.project.dbid,
@@ -51,6 +51,8 @@ class ProjectComponent extends Component {
         { onSuccess: () => {}, onFailure: () => {} },
       );
     }
+
+    newContext.project = this.props.project;
 
     let notFound = false;
     if (!currentContext.team || currentContext.team.slug !== this.props.project.team.slug) {

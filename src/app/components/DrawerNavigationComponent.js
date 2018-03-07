@@ -81,7 +81,6 @@ class DrawerNavigation extends Component {
       drawerProjectsAndFooter: {
         display: 'flex',
         flexDirection: 'column',
-        height: `calc(100vh - ${drawerHeaderHeight})`,
       },
     };
 

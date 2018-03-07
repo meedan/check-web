@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import Relay from 'react-relay';
 import { Link } from 'react-router';
@@ -7,10 +7,10 @@ import MdAddCircleOutline from 'material-ui/svg-icons/content/add-circle-outline
 import MdHighlightOff from 'material-ui/svg-icons/action/highlight-off';
 import styled from 'styled-components';
 import rtlDetect from 'rtl-detect';
+import InfiniteScroll from 'react-infinite-scroller';
 import Can from '../Can';
 import CreateProject from '../project/CreateProject';
 import TeamRoute from '../../relay/TeamRoute';
-import teamFragment from '../../relay/teamFragment';
 
 import {
   Row,
@@ -36,79 +36,120 @@ const StyledAddProj = styled.div`
   }
 `;
 
+const pageSize = 20;
+
 // TODO Fix a11y issues
 /* eslint jsx-a11y/click-events-have-key-events: 0 */
-const DrawerProjectsComponent = (props) => {
-  const projectList = (() => {
-    if (props.team.projects.edges.length === 0) {
-      return (
-        <Text style={{ margin: `0 ${units(2)}` }} font={caption}>
-          <FormattedMessage
-            id="projects.noProjects"
-            defaultMessage="No projects yet."
-          />
-        </Text>
-      );
-    }
+class DrawerProjectsComponent extends Component {
+  loadMore() {
+    this.props.relay.setVariables({ pageSize: this.props.team.projects.edges.length + pageSize });
+  }
 
-    return props.team.projects.edges
-      .sortp((a, b) => a.node.title.localeCompare(b.node.title))
-      .map((p) => {
-        const projectPath = `/${props.team.slug}/project/${p.node.dbid}`;
+  render() {
+    const { props } = this;
+    const projectList = (() => {
+      if (props.team.projects.edges.length === 0) {
         return (
-          <Link to={projectPath} key={p.node.dbid} >
-            <MenuItem primaryText={<Text ellipsis>{p.node.title}</Text>} />
-          </Link>
+          <Text style={{ margin: `0 ${units(2)}` }} font={caption}>
+            <FormattedMessage
+              id="projects.noProjects"
+              defaultMessage="No projects yet."
+            />
+          </Text>
         );
-      });
-  })();
+      }
 
-  // avoid clicks to create project widget to close drawer
-  const createProject = (
-    <div onClick={(e) => { e.stopPropagation(); }} style={{ width: '100%', padding: '16px' }}>
-      <CreateProject className="project-list__input" team={props.team} autofocus />
-    </div>
-  );
+      return props.team.projects.edges
+        .sortp((a, b) => a.node.title.localeCompare(b.node.title))
+        .map((p) => {
+          const projectPath = `/${props.team.slug}/project/${p.node.dbid}`;
+          return (
+            <Link to={projectPath} key={p.node.dbid} >
+              <MenuItem className="project-list__item" primaryText={<Text ellipsis>{p.node.title}</Text>} />
+            </Link>
+          );
+        });
+    })();
 
-  return (
-    <div>
-      <SubHeading>
-        <Row>
-          <FormattedMessage
-            id="projects.projectsSubheading"
-            defaultMessage="Projects"
-          />
-          { props.handleAddProj &&
-            <Can permissions={props.team.permissions} permission="create Project">
-              <StyledAddProj
-                style={{ cursor: 'pointer' }}
-                onClick={props.handleAddProj}
-                isRtl={rtlDetect.isRtlLang(props.intl.locale)}
-                className="drawer__create-project-button"
-              >
-                { props.team.projects.edges.length > 0 ?
-                  <span style={{ color: black54, font: caption }}>PRO</span>
-                  : null
-                }
-                { props.showAddProj ? <MdHighlightOff /> : <MdAddCircleOutline /> }
-              </StyledAddProj>
-            </Can>
-          }
-        </Row>
-      </SubHeading>
-      <div>
-        { props.showAddProj ? createProject : projectList }
+    // avoid clicks to create project widget to close drawer
+    const createProject = (
+      <div onClick={(e) => { e.stopPropagation(); }} style={{ width: '100%', padding: '16px' }}>
+        <CreateProject className="project-list__input" team={props.team} autofocus />
       </div>
-    </div>
-  );
-};
+    );
+
+    const styles = {
+      projectsList: {
+        height: 'calc(100vh - 364px)',
+        overflow: 'auto',
+      },
+    };
+
+    return (
+      <div>
+        <SubHeading>
+          <Row>
+            <FormattedMessage
+              id="projects.projectsSubheading"
+              defaultMessage="Projects"
+            />
+            { props.handleAddProj &&
+              <Can permissions={props.team.permissions} permission="create Project">
+                <StyledAddProj
+                  style={{ cursor: 'pointer' }}
+                  onClick={props.handleAddProj}
+                  isRtl={rtlDetect.isRtlLang(props.intl.locale)}
+                  className="drawer__create-project-button"
+                >
+                  { props.team.projects.edges.length > 0 ?
+                    <span style={{ color: black54, font: caption }}>PRO</span>
+                    : null
+                  }
+                  { props.showAddProj ? <MdHighlightOff /> : <MdAddCircleOutline /> }
+                </StyledAddProj>
+              </Can>
+            }
+          </Row>
+        </SubHeading>
+        <div>
+          { props.showAddProj ?
+            createProject
+            :
+            <div style={styles.projectsList}>
+              <InfiniteScroll hasMore loadMore={this.loadMore.bind(this)} useWindow={false}>
+                {projectList}
+              </InfiniteScroll>
+            </div>
+          }
+        </div>
+      </div>
+    );
+  }
+}
 
 const DrawerProjectsContainer = Relay.createContainer(injectIntl(DrawerProjectsComponent), {
   initialVariables: {
-    pageSize: 10000,
+    pageSize,
   },
   fragments: {
-    team: () => teamFragment,
+    team: () => Relay.QL`
+      fragment on Team {
+        id,
+        dbid,
+        slug,
+        limits,
+        permissions,
+        projects(first: $pageSize) {
+          edges {
+            node {
+              title,
+              dbid,
+              id,
+            }
+          }
+        }
+      }
+    `,
   },
 });
 
