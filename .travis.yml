@@ -90,4 +90,4 @@ notifications:
 env:
   matrix:
     - APP=check
-    - APP=bridge
+#    - APP=bridge
