@@ -4,9 +4,13 @@ import DrawerNavigationComponent from '../../src/app/components/DrawerNavigation
 import DrawerProjects from '../../src/app/components/drawer/Projects';
 import UserMenuItems from '../../src/app/components/UserMenuItems';
 
-import { mountWithIntl } from './helpers/intl-test';
+import { mountWithIntl, getStore } from './helpers/intl-test';
 
 describe('<DrawerNavigationComponent />', () => {
+  const currentUser = {
+    teams: '{"alex":{"id":1,"name":"alex","role":"owner","status":"member"},"new-team":{"id":2,"name":"new team","role":"owner","status":"member"},"team-gets-appended-to-user-with-role":{"id":4,"name":"team gets appended to user with role","role":"owner","status":"member"},"brand-new-team":{"id":5,"name":"brand new team","role":"owner","status":"member"}}',
+  };
+
   const privateTeam = {
     name: 'team',
     avatar: 'http://localhost:3000/images/team.png',
@@ -26,6 +30,7 @@ describe('<DrawerNavigationComponent />', () => {
   it('renders with projects in team context if user is logged in and a member', () => {
     const location = { pathname: '/team/members' };
     const params = { team: 'team' };
+    getStore().currentUser = currentUser;
     const header = mountWithIntl(
       <DrawerNavigationComponent
         inTeamContext
@@ -42,6 +47,7 @@ describe('<DrawerNavigationComponent />', () => {
   it('does not render projects if user is logged in but not in a team context', () => {
     const location = { pathname: '/' };
     const params = { team: 'team' };
+    getStore().currentUser = currentUser;
     const header = mountWithIntl(
       <DrawerNavigationComponent
         loggedIn
@@ -55,6 +61,7 @@ describe('<DrawerNavigationComponent />', () => {
   it('does not render projects if user is logged in and in team context but not a member', () => {
     const location = { pathname: '/team/members' };
     const params = { team: 'team' };
+    getStore().currentUser = currentUser;
     const header = mountWithIntl(
       <DrawerNavigationComponent
         inTeamContext
@@ -71,10 +78,11 @@ describe('<DrawerNavigationComponent />', () => {
   it('renders with projects in team context if user is not logged in and it is a public team', () => {
     const location = { pathname: '/team/members' };
     const params = { team: 'team' };
+    getStore().currentUser = undefined;
     const header = mountWithIntl(
       <DrawerNavigationComponent
         inTeamContext
-        loggedIn
+        loggedIn={false}
         currentUserIsMember={false}
         team={publicTeam}
         location={location}
@@ -82,12 +90,13 @@ describe('<DrawerNavigationComponent />', () => {
       />,
     );
 
-    expect(header.find(UserMenuItems)).to.have.length(1);
+    expect(header.find(DrawerProjects)).to.have.length(1);
   });
 
   it('does not render UserMenuItems if user is not logged in', () => {
     const location = { pathname: '/team/members' };
     const params = { team: 'team' };
+    getStore().currentUser = currentUser;
     const header = mountWithIntl(
       <DrawerNavigationComponent
         inTeamContext

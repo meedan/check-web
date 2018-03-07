@@ -1,4 +1,5 @@
 import { defineMessages } from 'react-intl';
+import { safelyParseJSON } from '../../helpers';
 
 const messages = defineMessages({
   contributor: {
@@ -20,6 +21,11 @@ const messages = defineMessages({
 });
 
 const UserUtil = {
+  myRole: (currentUser, teamSlug) => {
+    const teams = safelyParseJSON(currentUser.teams);
+    return teams[teamSlug] && teams[teamSlug].role;
+  },
+
   userRole: (user, team) => {
     if (!(user && user.team_users) || !(team && team.slug)) {
       return null;

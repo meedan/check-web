@@ -7,6 +7,7 @@ import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import styled from 'styled-components';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
+import UserUtil from '../user/UserUtil';
 import TeamProjectsNudge from '../team/TeamProjectsNudge';
 import CreateProjectMutation from '../../relay/mutations/CreateProjectMutation';
 import CheckContext from '../../CheckContext';
@@ -50,6 +51,10 @@ class CreateProject extends Component {
     if (this.props.autofocus && this.projectInput) {
       this.projectInput.focus();
     }
+  }
+
+  getCurrentUser() {
+    return new CheckContext(this).getContextStore().currentUser;
   }
 
   handleChange = (e) => {
@@ -132,34 +137,39 @@ class CreateProject extends Component {
 
     const { team } = this.props;
 
+    if (team.plan === 'pro' ||
+      team.projects.edges.length < team.limits.max_number_of_projects) {
+      if (this.props.renderCard) {
+        return (
+          <Card
+            style={{ marginTop: units(2), marginBottom: units(2) }}
+            initiallyExpanded
+          >
+            <StyledCardHeader
+              title={this.props.intl.formatMessage(messages.cardTitle)}
+              showExpandableButton
+            />
+            <CardText expandable>
+              <form onSubmit={this.handleSubmit.bind(this)} className="create-project">
+                {textInput}
+              </form>
+            </CardText>
+            <CardActions expandable>
+              {submitButton}
+            </CardActions>
+          </Card>
+        );
+      }
+
+      return form;
+    }
+
     if (config.appName === 'check' &&
-      team.projects.edges.length >= team.limits.max_number_of_projects) {
+      UserUtil.myRole(this.getCurrentUser(), team.slug) === 'owner') {
       return <TeamProjectsNudge renderCard={this.props.renderCard} />;
     }
 
-    if (this.props.renderCard) {
-      return (
-        <Card
-          style={{ marginTop: units(2), marginBottom: units(2) }}
-          initiallyExpanded
-        >
-          <StyledCardHeader
-            title={this.props.intl.formatMessage(messages.cardTitle)}
-            showExpandableButton
-          />
-          <CardText expandable>
-            <form onSubmit={this.handleSubmit.bind(this)} className="create-project">
-              {textInput}
-            </form>
-          </CardText>
-          <CardActions expandable>
-            {submitButton}
-          </CardActions>
-        </Card>
-      );
-    }
-
-    return form;
+    return null;
   }
 }
 
