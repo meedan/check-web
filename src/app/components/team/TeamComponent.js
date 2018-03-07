@@ -13,6 +13,7 @@ import KeyboardArrowRight from 'material-ui/svg-icons/hardware/keyboard-arrow-ri
 import { List, ListItem } from 'material-ui/List';
 import styled from 'styled-components';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
+import UserUtil from '../user/UserUtil';
 import TeamMembers from './TeamMembers';
 import HeaderCard from '../HeaderCard';
 import PageTitle from '../PageTitle';
@@ -292,9 +293,10 @@ class TeamComponent extends Component {
 
     const context = new CheckContext(this).getContextStore();
 
-    const showUpgradeButton = context.currentUser &&
+    const showUpgradeButton =
+      team.plan === 'free' &&
       config.appName === 'check' &&
-      team.limits.max_number_of_projects &&
+      UserUtil.myRole(context.currentUser, team.slug) === 'owner' &&
       team.projects.edges.length &&
       team.projects.edges.find(p => p.node.medias_count > 0);
 

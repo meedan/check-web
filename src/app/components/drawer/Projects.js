@@ -27,6 +27,7 @@ const SubHeading = styled.div`
 `;
 
 const StyledAddProj = styled.div`
+  cursor: pointer;
   display: flex;
   align-items: center;
   margin-${props => props.isRtl ? 'right' : 'left'}: auto;
@@ -70,6 +71,8 @@ const DrawerProjectsComponent = (props) => {
     </div>
   );
 
+  const { team } = props;
+
   return (
     <div>
       <SubHeading>
@@ -79,20 +82,22 @@ const DrawerProjectsComponent = (props) => {
             defaultMessage="Projects"
           />
           { props.handleAddProj &&
-            <Can permissions={props.team.permissions} permission="create Project">
+          (props.userIsOwner ||
+          team.plan === 'pro' ||
+          team.projects.edges.length < team.limits.max_number_of_projects) ?
+            <Can permissions={team.permissions} permission="create Project">
               <StyledAddProj
-                style={{ cursor: 'pointer' }}
                 onClick={props.handleAddProj}
                 isRtl={rtlDetect.isRtlLang(props.intl.locale)}
                 className="drawer__create-project-button"
               >
-                { props.team.projects.edges.length > 0 ?
+                { team.projects.edges.length > 0 && team.plan === 'free' ?
                   <span style={{ color: black54, font: caption }}>PRO</span>
                   : null
                 }
                 { props.showAddProj ? <MdHighlightOff /> : <MdAddCircleOutline /> }
               </StyledAddProj>
-            </Can>
+            </Can> : null
           }
         </Row>
       </SubHeading>

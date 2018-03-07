@@ -6,7 +6,8 @@ const teamPublicFragment = Relay.QL`
       avatar,
       dbid,
       private,
-      slug
+      slug,
+      plan,
     }
 `;
 
