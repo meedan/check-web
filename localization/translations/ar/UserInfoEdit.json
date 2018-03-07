@@ -6,5 +6,7 @@
   "userInfoEdit.editError": "عذراً، لم نستطع تحرير هذا المصدر",
   "userInfoEdit.addLinkLabel": "أضف رابطاً",
   "userInfoEdit.addLinkHelper": "أضف رابطاً لصفحة ويب أو لملف تعريف. لن يغير ذلك طريقة تسجيل الدخول الخاصة بك.",
+  "userInfoEdit.emailConfirmed": "✔ عنوان مؤكد",
+  "userInfoEdit.emailPendingConfirm": "⚠ في انتظار التأكيد",
   "userInfoEdit.invalidLink": "من فضلك أدخل رابطاً صحيحاً"
 }

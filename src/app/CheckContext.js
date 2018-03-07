@@ -122,10 +122,12 @@ class CheckContext {
       path += `/project/${project.dbid}`;
     }
     this.setContextStore(newContext);
-    this.getContextStore().history.push(path);
+
+    this.redirectToPreviousPageOr(path);
   }
 
   // When accessing Check root, redirect to a friendlier location if needed:
+  // - if user was on a previous page before logging in, go to that previous page
   // - if no team, go to `/check/teams/new`
   // - if team but no current project, go to team root
   // - if team and current project, go to project page
@@ -134,14 +136,24 @@ class CheckContext {
 
     const userCurrentTeam = userData.current_team;
     if (!userCurrentTeam) {
-      this.getContextStore().history.push('/check/teams/new');
+      this.redirectToPreviousPageOr('/check/teams/new');
       return;
     }
-    const project = userCurrentTeam.projects[0];
+    const project = userData.current_project || userCurrentTeam.projects[0];
     if (project && project.dbid) {
       this.setContextAndRedirect(userCurrentTeam, project);
     } else {
       this.setContextAndRedirect(userCurrentTeam, null);
+    }
+  }
+
+  redirectToPreviousPageOr(path) {
+    const previousPage = window.storage.getValue('previousPage');
+    if (previousPage && previousPage !== '') {
+      window.storage.set('previousPage', '');
+      this.getContextStore().history.push(previousPage);
+    } else {
+      this.getContextStore().history.push(path);
     }
   }
 }

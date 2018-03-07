@@ -1,0 +1,8 @@
+{
+  "userEmail.title": "أضف بريدك الإلكتروني",
+  "userEmail.submit": "إرسال",
+  "userEmail.skip": "تخطي",
+  "userEmail.text": "من فضلك أدخل بريدك اﻹلكتروني لكي تستقبل الإخطارات. غير ذلك اضغط (تخطي)",
+  "userEmail.emailInputLabel": "البريد الإلكتروني",
+  "userEmail.emailInputHint": "email@example.com"
+}

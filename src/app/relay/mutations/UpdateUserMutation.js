@@ -1,5 +1,4 @@
 import Relay from 'react-relay';
-import userFragment from '../userFragment';
 
 class UpdateUserMutation extends Relay.Mutation {
   getMutation() {
@@ -8,12 +7,15 @@ class UpdateUserMutation extends Relay.Mutation {
     }`;
   }
 
-  static fragments = {
-    user: () => userFragment,
-  };
-
   getVariables() {
-    return { id: this.props.current_user_id, current_team_id: this.props.current_team_id };
+    const vars = { id: this.props.current_user_id };
+    if (this.props.current_team_id) {
+      vars.current_team_id = this.props.current_team_id;
+    }
+    if (this.props.current_project_id) {
+      vars.current_project_id = this.props.current_project_id;
+    }
+    return vars;
   }
 
   getFatQuery() {

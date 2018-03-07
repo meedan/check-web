@@ -153,7 +153,7 @@ class Home extends Component {
 
   loginCallback() {
     this.setState({ error: false });
-    this.forceUpdate();
+    window.location.assign(window.location.origin);
   }
 
   resetMessage() {

@@ -3,5 +3,6 @@
   "headerActions.privacyPolicy": "Privacidad",
   "headerActions.about": "Acerca de",
   "headerActions.contactHuman": "Contacto",
-  "headerActions.productGuides": "Guías del producto"
+  "headerActions.productGuides": "Guías del producto",
+  "drawer.upgradeButton": "Actualizar a la versión PRO"
 }

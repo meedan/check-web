@@ -6,6 +6,8 @@ import { Card, CardActions, CardText, CardHeader } from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import styled from 'styled-components';
+import config from 'config'; // eslint-disable-line require-path-exists/exists
+import TeamProjectsNudge from '../team/TeamProjectsNudge';
 import CreateProjectMutation from '../../relay/mutations/CreateProjectMutation';
 import CheckContext from '../../CheckContext';
 import { safelyParseJSON } from '../../helpers';
@@ -45,7 +47,7 @@ class CreateProject extends Component {
   }
 
   componentDidMount() {
-    if (this.props.autofocus) {
+    if (this.props.autofocus && this.projectInput) {
       this.projectInput.focus();
     }
   }
@@ -127,6 +129,13 @@ class CreateProject extends Component {
         font: ${title1} !important;
       }
     `;
+
+    const { team } = this.props;
+
+    if (config.appName === 'check' &&
+      team.projects.edges.length >= team.limits.max_number_of_projects) {
+      return <TeamProjectsNudge renderCard={this.props.renderCard} />;
+    }
 
     if (this.props.renderCard) {
       return (

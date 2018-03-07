@@ -746,7 +746,10 @@ class SearchResultsComponent extends Component {
   }
 
   loadMore() {
-    this.props.relay.setVariables({ pageSize: this.props.search.medias.edges.length + pageSize });
+    this.props.relay.setVariables({
+      pageSize: this.props.search.medias.edges.length +
+        this.props.search.sources.edges.length + pageSize,
+    });
   }
 
   render() {

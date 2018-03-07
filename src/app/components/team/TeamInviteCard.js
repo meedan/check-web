@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import CopyToClipboard from 'react-copy-to-clipboard';
@@ -8,6 +9,8 @@ import MdPaste from 'react-icons/lib/md/content-paste';
 import MdDone from 'react-icons/lib/md/done';
 import rtlDetect from 'rtl-detect';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
+import TeamSizeNudge from './TeamSizeNudge';
+import CheckContext from '../../CheckContext';
 import { encodeSvgDataUri } from '../../helpers';
 
 import {
@@ -26,6 +29,7 @@ class TeamInviteCard extends Component {
   }
 
   render() {
+    const { team } = this.props;
     const teamUrl = `${window.location.protocol}//${config.selfHost}/${this.props.team.slug}`;
     const joinUrl = `${teamUrl}/join`;
     const { locale } = this.props.intl;
@@ -71,6 +75,21 @@ class TeamInviteCard extends Component {
         margin-${toDirection}: 0!important;
       }
     `;
+
+    const { currentUser } = new CheckContext(this).getContextStore();
+
+    const currentTeamUser = team.team_users.edges.find(tu =>
+      tu.node.user.dbid === currentUser.dbid);
+
+    if ((currentTeamUser && currentTeamUser.node.status) !== 'member') {
+      return null;
+    }
+
+    if (config.appName === 'check' &&
+      (currentTeamUser && currentTeamUser.node.role) === 'owner' &&
+      team.team_users.edges.length >= team.limits.max_number_of_members) {
+      return <TeamSizeNudge renderCard />;
+    }
 
     return (
       <StyledMdCard>
@@ -118,5 +137,9 @@ class TeamInviteCard extends Component {
     );
   }
 }
+
+TeamInviteCard.contextTypes = {
+  store: PropTypes.object,
+};
 
 export default injectIntl(TeamInviteCard);

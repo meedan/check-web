@@ -12,6 +12,7 @@ import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
 import KeyboardArrowRight from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 import { List, ListItem } from 'material-ui/List';
 import styled from 'styled-components';
+import config from 'config'; // eslint-disable-line require-path-exists/exists
 import TeamMembers from './TeamMembers';
 import HeaderCard from '../HeaderCard';
 import PageTitle from '../PageTitle';
@@ -25,6 +26,7 @@ import ParsedText from '../ParsedText';
 import UploadImage from '../UploadImage';
 import globalStrings from '../../globalStrings';
 import { safelyParseJSON } from '../../helpers';
+import { stringHelper } from '../../customHelpers';
 import {
   ContentColumn,
   highlightBlue,
@@ -217,6 +219,10 @@ class TeamComponent extends Component {
     this.setState({ values });
   }
 
+  handleClickUpgrade = () => {
+    window.open(stringHelper('UPGRADE_URL'));
+  };
+
   handleTabChange(value) {
     this.setState({
       showTab: value,
@@ -283,6 +289,14 @@ class TeamComponent extends Component {
     }
 
     const avatarPreview = this.state.avatar && this.state.avatar.preview;
+
+    const context = new CheckContext(this).getContextStore();
+
+    const showUpgradeButton = context.currentUser &&
+      config.appName === 'check' &&
+      team.limits.max_number_of_projects &&
+      team.projects.edges.length &&
+      team.projects.edges.find(p => p.node.medias_count > 0);
 
     return (
       <PageTitle prefix={false} skipTeam={false} team={team}>
@@ -427,6 +441,18 @@ class TeamComponent extends Component {
                         <Row>
                           {contactInfo}
                         </Row>
+                        {showUpgradeButton ?
+                          <FlatButton
+                            label={
+                              <FormattedMessage
+                                id="teamComponent.upgradeButton"
+                                defaultMessage="Upgrade to PRO"
+                              />
+                            }
+                            onClick={this.handleClickUpgrade}
+                            primary
+                          /> : null
+                        }
                       </StyledBigColumn>
                     </StyledTwoColumns>
                     <Tabs value={this.state.showTab} onChange={this.handleTabChange.bind(this)}>

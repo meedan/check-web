@@ -36,6 +36,10 @@
     "defaultMessage": "Date and time"
   },
   {
+    "id": "tasks.teamwideNudge",
+    "defaultMessage": "Teamwide tasks"
+  },
+  {
     "id": "tasks.taskLabel",
     "defaultMessage": "Prompt"
   },

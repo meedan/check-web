@@ -1,0 +1,4 @@
+{
+  "UserInfo.confirmEmail": "Dirección de correo electrónico <code>{unconfirmedEmail}</code> sin confirmar. Has clic en Reenviar para volver a enviar el correo de confirmación a esta dirección.",
+  "UserInfo.resendConfirmation": "Reenviar"
+}

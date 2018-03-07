@@ -13,7 +13,7 @@ import Message from '../Message';
 import UploadImage from '../UploadImage';
 import globalStrings from '../../globalStrings';
 import UpdateSourceMutation from '../../relay/mutations/UpdateSourceMutation';
-import UpdateUserNameEmailMutation from '../../relay/mutations/UpdateUserNameEmailMutation';
+import { updateUserNameEmail } from '../../relay/mutations/UpdateUserNameEmailMutation';
 import CreateAccountSourceMutation from '../../relay/mutations/CreateAccountSourceMutation';
 import DeleteAccountSourceMutation from '../../relay/mutations/DeleteAccountSourceMutation';
 import { safelyParseJSON } from '../../helpers';
@@ -60,6 +60,16 @@ const messages = defineMessages({
     id: 'userInfoEdit.addLinkHelper',
     defaultMessage:
       'Add a link to a web page or social media profile. Note: this does not affect your login method.',
+  },
+  emailConfirmed: {
+    id: 'userInfoEdit.emailConfirmed',
+    defaultMessage:
+      '✔ Address confirmed',
+  },
+  emailPendingConfirm: {
+    id: 'userInfoEdit.emailPendingConfirm',
+    defaultMessage:
+      '⚠ Confirmation pending',
   },
   invalidLink: {
     id: 'userInfoEdit.invalidLink',
@@ -254,16 +264,7 @@ class UserInfoEdit extends React.Component {
     }
 
     this.registerPendingMutation('updateUser');
-
-    Relay.Store.commitUpdate(
-      new UpdateUserNameEmailMutation({
-        id: user.id,
-        name: form.name.value,
-        email: form.email.value,
-      }),
-      { onSuccess, onFailure },
-    );
-
+    updateUserNameEmail(user.id, form.name.value, form.email.value, onSuccess, onFailure);
     return true;
   }
 
@@ -434,6 +435,13 @@ class UserInfoEdit extends React.Component {
     const { user } = this.props;
     const { source } = this.props.user;
 
+    let emailHelperText = '';
+    if (user.unconfirmed_email) {
+      emailHelperText = this.props.intl.formatMessage(messages.emailPendingConfirm);
+    } else if (user.email && !user.unconfirmed_email) {
+      emailHelperText = this.props.intl.formatMessage(messages.emailConfirmed);
+    }
+
     return (
       <ContentColumn noPadding>
         <Message message={this.state.message} />
@@ -493,10 +501,13 @@ class UserInfoEdit extends React.Component {
                 className="source__email-input"
                 name="email"
                 id="source__email-container"
-                defaultValue={user.email}
+                defaultValue={user.unconfirmed_email || user.email}
                 floatingLabelText={this.props.intl.formatMessage(messages.userEmail)}
                 style={{ width: '85%' }}
               />
+              <StyledHelper>
+                {emailHelperText}
+              </StyledHelper>
 
               {this.renderAccountsEdit()}
             </form>

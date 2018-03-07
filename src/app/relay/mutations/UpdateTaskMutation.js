@@ -8,7 +8,7 @@ class UpdateTaskMutation extends Relay.Mutation {
   }
 
   getFatQuery() {
-    return Relay.QL`fragment on UpdateTaskPayload { taskEdge, project_media { verification_statuses, translation_statuses, last_status, last_status_obj, tasks, log, id, log_count } }`;
+    return Relay.QL`fragment on UpdateTaskPayload { task, project_media { last_status, last_status_obj, log, id, log_count } }`;
   }
 
   getVariables() {
@@ -32,7 +32,7 @@ class UpdateTaskMutation extends Relay.Mutation {
     return [
       {
         type: 'FIELDS_CHANGE',
-        fieldIDs: { project_media: this.props.annotated.id },
+        fieldIDs: { project_media: this.props.annotated.id, task: this.props.task.id },
       },
     ];
   }

@@ -15,6 +15,7 @@ const TeamContainer = Relay.createContainer(TeamMembersComponent, {
         name,
         slug,
         permissions,
+        limits,
         team_users(first: $pageSize) {
           edges {
             node {

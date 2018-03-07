@@ -3,8 +3,10 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
+import FlatButton from 'material-ui/FlatButton';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
+import config from 'config'; // eslint-disable-line require-path-exists/exists
 import DrawerProjects from './drawer/Projects';
 import { stringHelper } from '../customHelpers';
 import UserMenuItems from './UserMenuItems';
@@ -41,6 +43,10 @@ class DrawerNavigation extends Component {
     this.setState({ showAddProj: !this.state.showAddProj });
     e.stopPropagation();
   }
+
+  handleClickUpgrade = () => {
+    window.open(stringHelper('UPGRADE_URL'));
+  };
 
   render() {
     const { inTeamContext, loggedIn, drawerToggle } = this.props;
@@ -141,7 +147,7 @@ class DrawerNavigation extends Component {
         style={styles.drawerFooterLink}
         target="_blank"
         rel="noopener noreferrer"
-        href="http://medium.com/meedan-product-guides"
+        href="https://medium.com/meedan-user-guides"
       >
         <MenuItem
           primaryText={
@@ -197,6 +203,19 @@ class DrawerNavigation extends Component {
             {loggedIn ? <div><UserMenuItems hideContactMenuItem {...this.props} /></div> : null}
 
             {productGuidesMenuItem}
+
+            { loggedIn && config.appName === 'check' ?
+              <FlatButton
+                label={
+                  <FormattedMessage
+                    id="drawer.upgradeButton"
+                    defaultMessage="Upgrade to PRO"
+                  />
+                }
+                onClick={this.handleClickUpgrade}
+                primary
+              /> : null
+            }
 
             <div style={styles.drawerFooter}>
               {TosMenuItem}
