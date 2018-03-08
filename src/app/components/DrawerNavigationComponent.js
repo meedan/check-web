@@ -10,6 +10,7 @@ import config from 'config'; // eslint-disable-line require-path-exists/exists
 import DrawerProjects from './drawer/Projects';
 import { stringHelper } from '../customHelpers';
 import UserMenuItems from './UserMenuItems';
+import UserUtil from './user/UserUtil';
 import CheckContext from '../CheckContext';
 import {
   Row,
@@ -35,8 +36,8 @@ class DrawerNavigation extends Component {
     };
   }
 
-  getHistory() {
-    return new CheckContext(this).getContextStore().history;
+  getCurrentUser() {
+    return new CheckContext(this).getContextStore().currentUser;
   }
 
   handleAddProj(e) {
@@ -158,6 +159,16 @@ class DrawerNavigation extends Component {
 
     const checkLogo = <img width={units(8)} alt="Team Logo" src={stringHelper('LOGO_URL')} />;
 
+    const userIsOwner =
+      loggedIn &&
+      inTeamContext &&
+      UserUtil.myRole(this.getCurrentUser(), this.props.team.slug) === 'owner';
+
+    const showUpgradeButton =
+      userIsOwner &&
+      config.appName === 'check' &&
+      this.props.team.plan === 'free';
+
     return (
       <Drawer {...this.props}>
         <div onClick={drawerToggle}>
@@ -193,6 +204,7 @@ class DrawerNavigation extends Component {
               {inTeamContext && (currentUserIsMember || !this.props.team.private)
                 ? <DrawerProjects
                   team={this.props.team.slug}
+                  userIsOwner={userIsOwner}
                   showAddProj={this.state.showAddProj}
                   handleAddProj={this.handleAddProj.bind(this)}
                 />
@@ -203,7 +215,7 @@ class DrawerNavigation extends Component {
 
             {productGuidesMenuItem}
 
-            { loggedIn && config.appName === 'check' ?
+            { showUpgradeButton ?
               <FlatButton
                 label={
                   <FormattedMessage
