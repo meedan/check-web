@@ -12,6 +12,10 @@
     "defaultMessage": "Email"
   },
   {
+    "id": "userInfoEdit.userSendEmailNotification",
+    "defaultMessage": "Send me email notifications"
+  },
+  {
     "id": "userInfoEdit.addLink",
     "defaultMessage": "Add Link"
   },

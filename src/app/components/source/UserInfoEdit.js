@@ -3,6 +3,7 @@ import Relay from 'react-relay';
 import { injectIntl, defineMessages } from 'react-intl';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
+import Checkbox from 'material-ui/Checkbox';
 import TextField from 'material-ui/TextField';
 import MdCancel from 'react-icons/lib/md/cancel';
 import capitalize from 'lodash.capitalize';
@@ -43,6 +44,10 @@ const messages = defineMessages({
   userEmail: {
     id: 'userInfoEdit.userEmail',
     defaultMessage: 'Email',
+  },
+  userSendEmailNotification: {
+    id: 'userInfoEdit.userSendEmailNotification',
+    defaultMessage: 'Send me email notifications',
   },
   addLink: {
     id: 'userInfoEdit.addLink',
@@ -264,7 +269,7 @@ class UserInfoEdit extends React.Component {
     }
 
     this.registerPendingMutation('updateUser');
-    updateUserNameEmail(user.id, form.name.value, form.email.value, onSuccess, onFailure);
+    updateUserNameEmail(user.id, form.name.value, form.email.value, form.sendNotification.checked, onSuccess, onFailure);
     return true;
   }
 
@@ -435,6 +440,12 @@ class UserInfoEdit extends React.Component {
     const { user } = this.props;
     const { source } = this.props.user;
 
+    let sendEmail = user.get_send_email_notifications;
+
+    if (user.get_send_email_notifications == null) {
+      sendEmail = true;
+    }
+
     let emailHelperText = '';
     if (user.unconfirmed_email) {
       emailHelperText = this.props.intl.formatMessage(messages.emailPendingConfirm);
@@ -497,6 +508,11 @@ class UserInfoEdit extends React.Component {
                 rowsMax={4}
                 style={{ width: '85%' }}
               />
+              <Checkbox
+                label={this.props.intl.formatMessage(messages.userSendEmailNotification)}
+                checked={sendEmail}
+                name="sendNotification"
+              />
               <TextField
                 className="source__email-input"
                 name="email"
@@ -508,7 +524,6 @@ class UserInfoEdit extends React.Component {
               <StyledHelper>
                 {emailHelperText}
               </StyledHelper>
-
               {this.renderAccountsEdit()}
             </form>
 
