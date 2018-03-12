@@ -11,6 +11,7 @@ import InfiniteScroll from 'react-infinite-scroller';
 import Can from '../Can';
 import CreateProject from '../project/CreateProject';
 import TeamRoute from '../../relay/TeamRoute';
+import RelayContainer from '../../relay/RelayContainer';
 
 import {
   Row,
@@ -163,7 +164,7 @@ const DrawerProjectsContainer = Relay.createContainer(injectIntl(DrawerProjectsC
 const DrawerProjects = (props) => {
   const route = new TeamRoute({ teamSlug: props.team });
   return (
-    <Relay.RootContainer
+    <RelayContainer
       Component={DrawerProjectsContainer}
       route={route}
       renderFetched={data => <DrawerProjectsContainer {...props} {...data} />}
