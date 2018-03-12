@@ -121,15 +121,6 @@ const ProjectContainer = Relay.createContainer(ProjectComponent, {
           dbid,
           slug,
           search_id,
-          projects(first: 10000) {
-            edges {
-              node {
-                id,
-                dbid,
-                title
-              }
-            }
-          }
         }
       }
     `,

@@ -1,7 +1,6 @@
 import React from 'react';
 import Relay from 'react-relay';
 import TeamRoute from '../../relay/TeamRoute';
-import teamFragment from '../../relay/teamFragment';
 import TeamHeaderComponent from './TeamHeaderComponent';
 
 const TeamHeader = (props) => {
@@ -10,7 +9,25 @@ const TeamHeader = (props) => {
       pageSize: 10000,
     },
     fragments: {
-      team: () => teamFragment,
+      team: () => Relay.QL`
+        fragment on Team {
+          id,
+          dbid,
+          name,
+          avatar,
+          description,
+          slug,
+          plan,
+          permissions,
+          limits,
+          get_suggested_tags,
+          pusher_channel,
+          public_team_id,
+          translation_statuses,
+          media_verification_statuses,
+          source_verification_statuses,
+        }
+      `,
     },
   });
 
