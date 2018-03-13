@@ -1,9 +1,8 @@
 import React from 'react';
 import Relay from 'react-relay';
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
-import RelayContainer from '../../relay/RelayContainer';
-import TeamRoute from '../../relay/TeamRoute';
 import { units } from '../../styles/js/shared';
+import TeamRoute from '../../relay/TeamRoute';
 
 const destinationProjects = (team, projectId) => {
   if (team.projects) {
@@ -59,9 +58,10 @@ const DestinationProjectsContainer = Relay.createContainer(DestinationProjectsCo
 const DestinationProjects = (props) => {
   const teamSlug = props.team.slug;
   const route = new TeamRoute({ teamSlug });
+  console.log(teamSlug);
 
   return (
-    <RelayContainer
+    <Relay.RootContainer
       Component={DestinationProjectsContainer}
       route={route}
       renderFetched={data => <DestinationProjectsContainer {...props} {...data} />}
