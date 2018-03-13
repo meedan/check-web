@@ -59,7 +59,6 @@ const DestinationProjectsContainer = Relay.createContainer(DestinationProjectsCo
 const DestinationProjects = (props) => {
   const teamSlug = props.team.slug;
   const route = new TeamRoute({ teamSlug });
-  console.log(teamSlug);
 
   return (
     <RelayContainer

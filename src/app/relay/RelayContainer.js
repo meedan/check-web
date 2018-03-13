@@ -1,17 +1,10 @@
 import React from 'react';
 import Relay from 'react-relay';
-import CircularProgress from 'material-ui/CircularProgress';
-import { black16, units } from '../styles/js/shared';
+import CircularProgress from '../components/CircularProgress';
 
 const RelayContainer = (props) => {
   const params = Object.assign({}, props);
-  const style = {
-    margin: `${units(1)} 0`,
-    overflow: 'hidden',
-    width: '100%',
-    textAlign: 'center',
-  };
-  const loaderprops = Object.assign({ color: black16, style }, params.loaderProps);
+  const loaderprops = Object.assign({}, params.loaderProps);
   delete params.loaderProps;
 
   return (
