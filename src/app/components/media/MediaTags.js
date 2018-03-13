@@ -110,23 +110,25 @@ class MediaTags extends Component {
     }
   }
 
+  fail = (transaction) => {
+    const error = transaction.getError();
+    let errorMessage = this.props.intl.formatMessage(messages.error);
+    const json = safelyParseJSON(error.source);
+    if (json && json.error) {
+      errorMessage = json.error;
+    }
+    this.setState({ errorMessage });
+  };
+
+  success = () => {
+    this.setState({ message: null, errorMessage: null });
+  };
+
   createTag(tagString) {
     const { media } = this.props;
     const context = new CheckContext(this).getContextStore();
-
-    const onFailure = (transaction) => {
-      const error = transaction.getError();
-      let message = this.props.intl.formatMessage(messages.error);
-      const json = safelyParseJSON(error.source);
-      if (json && json.error) {
-        message = json.error;
-      }
-      this.setState({ message });
-    };
-
-    const onSuccess = () => {
-      this.setState({ message: null });
-    };
+    const onSuccess = () => this.success();
+    const onFailure = transaction => this.fail(transaction);
 
     Relay.Store.commitUpdate(
       new CreateTagMutation({
@@ -146,11 +148,17 @@ class MediaTags extends Component {
 
   deleteTag(tagId) {
     const { media } = this.props;
-    Relay.Store.commitUpdate(new DeleteTagMutation({
-      annotated: media,
-      parent_type: 'project_media',
-      id: tagId,
-    }));
+    const onSuccess = () => this.success();
+    const onFailure = transaction => this.fail(transaction);
+
+    Relay.Store.commitUpdate(
+      new DeleteTagMutation({
+        annotated: media,
+        parent_type: 'project_media',
+        id: tagId,
+      }),
+      { onSuccess, onFailure },
+    );
   }
 
   searchTagUrl(tagString) {
@@ -270,7 +278,8 @@ class MediaTags extends Component {
 
           <Tags
             tags={remainingTags}
-            errorText={this.state.message || this.props.errorText}
+            errorText={this.state.errorMessage || this.props.errorText}
+            helperText={this.state.message}
             options={[]}
             annotated={media}
             annotatedType="ProjectMedia"
