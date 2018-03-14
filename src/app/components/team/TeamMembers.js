@@ -3,7 +3,7 @@ import Relay from 'react-relay';
 import TeamRoute from '../../relay/TeamRoute';
 import TeamMembersComponent from './TeamMembersComponent';
 
-const TeamContainer = Relay.createContainer(TeamMembersComponent, {
+const TeamMembersContainer = Relay.createContainer(TeamMembersComponent, {
   initialVariables: {
     pageSize: 20,
   },
@@ -16,6 +16,7 @@ const TeamContainer = Relay.createContainer(TeamMembersComponent, {
         slug,
         permissions,
         limits,
+        plan,
         team_users(first: $pageSize) {
           edges {
             node {
@@ -48,7 +49,7 @@ const TeamContainer = Relay.createContainer(TeamMembersComponent, {
 const TeamMembers = (props) => {
   const route = new TeamRoute({ teamSlug: props.teamSlug });
   return (<Relay.RootContainer
-    Component={TeamContainer}
+    Component={TeamMembersContainer}
     route={route}
   />);
 };
