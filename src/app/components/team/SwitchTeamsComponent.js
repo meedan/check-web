@@ -8,12 +8,16 @@ import { Card, CardActions, CardText, CardHeader } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import { List, ListItem } from 'material-ui/List';
 import Avatar from 'material-ui/Avatar';
+// import styled from 'styled-components';
 import {
   alertRed,
   highlightBlue,
   checkBlue,
   defaultBorderRadius,
   defaultBorderWidth,
+  // avatarSize,
+  // avatarStyle,
+  // proBadgeStyle,
   titleStyle,
   listStyle,
   listItemButtonStyle,
@@ -89,6 +93,24 @@ class SwitchTeamsComponent extends Component {
     const isUserSelf = (user.id === currentUser.id);
     const otherTeams = [];
     const pendingTeams = [];
+
+    // const TeamAvatar = styled.div`
+    //   ${avatarStyle}
+    //   background-image: url(${props => props.team.avatar});
+    //   width: ${avatarSize};
+    //   height: ${avatarSize};
+    //   position: relative;
+    //   .team__badge {
+    //     ${proBadgeStyle}
+    //   }
+    // `;
+
+    // const Avatar = team => (
+    //   <TeamAvatar team={team}>
+    //     {team.plan === 'pro' ? <span className="team__badge">PRO</span> : null}
+    //   </TeamAvatar>
+    // );
+
     const teamAvatarStyle = {
       border: `${defaultBorderWidth} solid ${black05}`,
       borderRadius: `${defaultBorderRadius}`,

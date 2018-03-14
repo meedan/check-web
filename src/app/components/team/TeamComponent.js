@@ -35,6 +35,7 @@ import {
   title1,
   units,
   avatarStyle,
+  proBadgeStyle,
   Row,
   black54,
 } from '../../styles/js/shared';
@@ -249,6 +250,10 @@ class TeamComponent extends Component {
 
     const TeamAvatar = styled.div`
       ${avatarStyle};
+      position: relative;
+      .team__badge {
+        ${proBadgeStyle}
+      }
     `;
 
     const StyledCardHeader = styled(CardHeader)`
@@ -319,7 +324,9 @@ class TeamComponent extends Component {
                         <StyledSmallColumn>
                           <TeamAvatar
                             style={{ backgroundImage: `url(${avatarPreview || team.avatar})` }}
-                          />
+                          >
+                            { team.plan === 'pro' ? <span className="team__badge">PRO</span> : null}
+                          </TeamAvatar>
                           {!this.state.editProfileImg ?
                             <StyledAvatarEditButton className="team__edit-avatar-button">
                               <FlatButton
@@ -427,7 +434,9 @@ class TeamComponent extends Component {
                   <div>
                     <StyledTwoColumns>
                       <StyledSmallColumn>
-                        <TeamAvatar style={{ backgroundImage: `url(${team.avatar})` }} />
+                        <TeamAvatar style={{ backgroundImage: `url(${team.avatar})` }}>
+                          { team.plan === 'pro' ? <span className="team__badge">PRO</span> : null}
+                        </TeamAvatar>
                       </StyledSmallColumn>
                       <StyledBigColumn>
                         <div className="team__primary-info">
