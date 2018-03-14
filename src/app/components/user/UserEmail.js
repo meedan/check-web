@@ -59,10 +59,13 @@ class UserEmail extends React.Component {
   };
 
   render() {
-    const context = new CheckContext(this).getContextStore();
+    const { currentUser } = new CheckContext(this).getContextStore();
 
-    if (this.props.user.unconfirmed_email &&
-      context.currentUser.dbid === this.props.user.dbid) {
+    if ((currentUser && currentUser.dbid) !== this.props.user.dbid) {
+      return null;
+    }
+
+    if (this.props.user.unconfirmed_email) {
       return <ConfirmEmail user={this.props.user} />;
     } else if (!this.props.user.email && window.storage.getValue('dismiss-user-email-nudge') !== '1') {
       return (

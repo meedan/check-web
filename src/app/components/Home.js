@@ -153,7 +153,7 @@ class Home extends Component {
 
   loginCallback() {
     this.setState({ error: false });
-    this.forceUpdate();
+    window.location.assign(window.location.origin);
   }
 
   resetMessage() {
@@ -251,7 +251,7 @@ class Home extends Component {
               {children}
             </StyledContent>
           </StyledWrapper>
-          <DrawerNavigation
+          { this.state.open ? <DrawerNavigation
             docked={false}
             open={this.state.open}
             drawerToggle={this.handleDrawerToggle.bind(this)}
@@ -260,7 +260,7 @@ class Home extends Component {
             inTeamContext={inTeamContext}
             currentUserIsMember={currentUserIsMember}
             {...this.props}
-          />
+          /> : null }
         </span>
       </MuiThemeProvider>
     );

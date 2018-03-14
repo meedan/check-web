@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import CircularProgress from 'material-ui/CircularProgress';
+import CircularProgress from './CircularProgress';
 import { units } from '../styles/js/shared';
 
 const PenderCardContainer = styled.div`

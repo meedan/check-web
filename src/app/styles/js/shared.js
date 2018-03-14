@@ -188,6 +188,19 @@ export const avatarStyle = `
   background-color: ${white};
 `;
 
+export const proBadgeStyle = `
+  background-color: ${opaqueBlack87};
+  border-radius: ${borderWidthMedium};
+  color: ${white};
+  font: ${tiny};
+  line-height: 1.2;
+  padding: ${units(0.25)} ${units(0.5)};
+  position: absolute;
+  right: -${units(1)};
+  text-transform: uppercase;
+  top: ${units(0.5)};
+`;
+
 // Material UI theme configuration
 //
 // This is passed as a prop to <MuiThemeProvider>

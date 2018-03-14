@@ -81,6 +81,13 @@ const HeaderComponent = (props) => {
 
   const checkLogo = <img width={units(8)} alt="Team Logo" src={stringHelper('LOGO_URL')} />;
 
+  const saveCurrentPage = () => {
+    const path = window.location.pathname;
+    if (path !== '/') {
+      window.storage.set('previousPage', path);
+    }
+  };
+
   const signInButton = (() => {
     if (!loggedIn) {
       return (
@@ -88,6 +95,7 @@ const HeaderComponent = (props) => {
           <RaisedButton
             primary
             className="header__signin-button"
+            onClick={saveCurrentPage}
             label={<FormattedMessage defaultMessage="Sign In" id="headerActions.signIn" />}
           />
         </Link>
