@@ -1538,8 +1538,14 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should paginate project page", bin2: true do
       page = api_create_team_project_claims_sources_and_redirect_to_project_page 21
       page.load
-      el = wait_for_selector("//span[contains(text(), 'Sources')]", :xpath)
-      el.click
+      el = nil
+      begin
+        el = wait_for_selector("//span[contains(text(), 'Sources')]", :xpath)
+        el.click
+      rescue
+        el = wait_for_selector("//span[contains(text(), 'Sources')]", :xpath)
+        el.click
+      end
       wait_for_selector("source-card", :class)
       results = @driver.find_elements(:css, '.medias__item')
       expect(results.size == 40).to be(true)
