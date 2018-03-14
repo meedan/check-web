@@ -11,6 +11,7 @@ import rtlDetect from 'rtl-detect';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import TeamSizeNudge from './TeamSizeNudge';
 import CheckContext from '../../CheckContext';
+import UserUtil from '../user/UserUtil';
 import { encodeSvgDataUri } from '../../helpers';
 
 import {
@@ -28,9 +29,13 @@ class TeamInviteCard extends Component {
     this.state = { copied: false };
   }
 
+  getCurrentUser() {
+    return new CheckContext(this).getContextStore().currentUser;
+  }
+
   render() {
     const { team } = this.props;
-    const teamUrl = `${window.location.protocol}//${config.selfHost}/${this.props.team.slug}`;
+    const teamUrl = `${window.location.protocol}//${config.selfHost}/${team.slug}`;
     const joinUrl = `${teamUrl}/join`;
     const { locale } = this.props.intl;
     const isRtl = rtlDetect.isRtlLang(locale);
@@ -76,21 +81,12 @@ class TeamInviteCard extends Component {
       }
     `;
 
-    const { currentUser } = new CheckContext(this).getContextStore();
-
-    const currentTeamUser = team.team_users.edges.find(tu =>
-      tu.node.user.dbid === currentUser.dbid);
-
-    if ((currentTeamUser && currentTeamUser.node.status) !== 'member') {
-      return null;
-    }
-
-    if (config.appName === 'check' &&
-        (currentTeamUser && currentTeamUser.node.role) === 'owner' &&
-        team.plan !== 'pro' &&
-        team.team_users.edges.length >= team.limits.max_number_of_members
+    if (
+      config.appName === 'check' &&
+      team.plan !== 'pro' &&
+      team.team_users.edges.length >= team.limits.max_number_of_members
     ) {
-      return <TeamSizeNudge renderCard />;
+      return UserUtil.myRole(this.getCurrentUser(), team.slug) === 'owner' ? <TeamSizeNudge renderCard /> : null;
     }
 
     return (
