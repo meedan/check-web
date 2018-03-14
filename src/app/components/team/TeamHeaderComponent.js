@@ -11,6 +11,7 @@ import {
   headerHeight,
   black05,
   avatarStyle,
+  proBadgeStyle,
   avatarSize,
 } from '../../styles/js/shared';
 
@@ -49,6 +50,10 @@ class TeamHeaderComponent extends Component {
       background-image: url(${team.avatar});
       width: ${avatarSize};
       height: ${avatarSize};
+      position: relative;
+      .team__badge {
+        ${proBadgeStyle}
+      }
     `;
 
     return (
@@ -60,12 +65,16 @@ class TeamHeaderComponent extends Component {
         >
           {isProjectUrl ?
             <OffsetBothSides>
-              <TeamAvatar />
+              <TeamAvatar>
+                {team.plan === 'pro' ? <span className="team__badge">PRO</span> : null}
+              </TeamAvatar>
             </OffsetBothSides>
             :
             <Row>
               <OffsetBothSides>
-                <TeamAvatar />
+                <TeamAvatar>
+                  {team.plan === 'pro' ? <span className="team__badge">PRO</span> : null}
+                </TeamAvatar>
               </OffsetBothSides>
               <Offset isRtl={isRtl}>
                 <HeaderTitle>

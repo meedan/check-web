@@ -23,6 +23,7 @@ import {
   caption,
   avatarSize,
   avatarStyle,
+  proBadgeStyle,
 } from '../styles/js/shared';
 
 // TODO Fix a11y issues
@@ -95,6 +96,10 @@ class DrawerNavigation extends Component {
       ${avatarStyle}
       width: ${props => (props.size ? props.size : avatarSize)};
       height: ${props => (props.size ? props.size : avatarSize)};
+      position: relative;
+      .team__badge {
+        ${proBadgeStyle}
+      }
     `;
 
     const TosMenuItem = (
@@ -184,7 +189,9 @@ class DrawerNavigation extends Component {
                   <TeamAvatar
                     style={{ backgroundImage: `url(${this.props.team.avatar})` }}
                     size={units(7)}
-                  />
+                  >
+                    { this.props.team.plan === 'pro' ? <span className="team__badge">PRO</span> : null}
+                  </TeamAvatar>
                   <OffsetBothSides>
                     <HeaderTitle>{this.props.team.name}</HeaderTitle>
                   </OffsetBothSides>
