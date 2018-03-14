@@ -86,8 +86,10 @@ class TeamInviteCard extends Component {
     }
 
     if (config.appName === 'check' &&
-      (currentTeamUser && currentTeamUser.node.role) === 'owner' &&
-      team.team_users.edges.length >= team.limits.max_number_of_members) {
+        (currentTeamUser && currentTeamUser.node.role) === 'owner' &&
+        team.plan !== 'pro' &&
+        team.team_users.edges.length >= team.limits.max_number_of_members
+    ) {
       return <TeamSizeNudge renderCard />;
     }
 
