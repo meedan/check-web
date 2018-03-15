@@ -5,7 +5,6 @@ import Relay from 'react-relay';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
-import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 import TextField from 'material-ui/TextField';
 import { Link } from 'react-router';
 import Tooltip from 'rc-tooltip';
@@ -15,6 +14,7 @@ import MediaTags from './MediaTags';
 import MediaActions from './MediaActions';
 import MediaUtil from './MediaUtil';
 import ClaimReview from './ClaimReview';
+import DestinationProjects from './DestinationProjects';
 import UserTooltip from '../user/UserTooltip';
 import UpdateProjectMediaMutation from '../../relay/mutations/UpdateProjectMediaMutation';
 import DeleteProjectMediaMutation from '../../relay/mutations/DeleteProjectMediaMutation';
@@ -274,7 +274,7 @@ class MediaMetadata extends Component {
   handleMoveProjectMedia() {
     const { media } = this.props;
     const { dstProj: { dbid: projectId } } = this.state;
-    const { node: { dbid: previousProjectId } } = this.currentProject();
+    const { dbid: previousProjectId } = this.currentProject();
     const { history } = this.getContext();
 
     const onFailure = (transaction) => {
@@ -310,7 +310,7 @@ class MediaMetadata extends Component {
       new UpdateProjectMediaMutation({
         project_id: projectId,
         id: media.id,
-        srcProj: this.currentProject().node,
+        srcProj: this.currentProject(),
         dstProj: this.state.dstProj,
       }),
       { onSuccess, onFailure },
@@ -364,24 +364,7 @@ class MediaMetadata extends Component {
   }
 
   currentProject() {
-    const projectId = this.props.media.project_id;
-    const context = this.getContext();
-    const projects = context.team.projects.edges;
-
-    return projects[projects.findIndex(p => p.node.dbid === projectId)];
-  }
-
-  destinationProjects() {
-    const projectId = this.props.media.project_id;
-    const context = this.getContext();
-    if (context.team.projects) {
-      const projects = context.team.projects.edges.sortp((a, b) =>
-        a.node.title.localeCompare(b.node.title));
-
-      return projects.filter(p => p.node.dbid !== projectId);
-    }
-
-    return [];
+    return this.props.media.project;
   }
 
   handleChangeTitle(e) {
@@ -823,19 +806,11 @@ class MediaMetadata extends Component {
               }}
             />
           </small>
-          <RadioButtonGroup
-            name="moveMedia"
-            className="media-detail__dialog-radio-group"
+          <DestinationProjects
+            team={context.team}
+            projectId={media.project.dbid}
             onChange={this.handleSelectDestProject.bind(this)}
-          >
-            {this.destinationProjects().map(proj =>
-              (<RadioButton
-                key={proj.node.dbid}
-                label={proj.node.title}
-                value={proj.node}
-                style={{ padding: units(1) }}
-              />))}
-          </RadioButtonGroup>
+          />
         </Dialog>
 
         <Dialog

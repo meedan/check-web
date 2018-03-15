@@ -408,8 +408,11 @@ class SearchQueryComponent extends Component {
 
   render() {
     const { statuses } = teamStatuses(this.props.team);
-    const projects = this.props.team.projects.edges.sortp((a, b) =>
-      a.node.title.localeCompare(b.node.title));
+    let projects = [];
+    if (this.props.team.projects) {
+      projects = this.props.team.projects.edges.sortp((a, b) =>
+        a.node.title.localeCompare(b.node.title));
+    }
     const suggestedTags = this.props.team.get_suggested_tags
       ? this.props.team.get_suggested_tags.split(',')
       : [];
@@ -604,32 +607,6 @@ SearchQueryComponent.propTypes = {
 SearchQueryComponent.contextTypes = {
   store: PropTypes.object,
 };
-
-const SearchQueryContainer = Relay.createContainer(injectIntl(SearchQueryComponent), {
-  fragments: {
-    team: () => Relay.QL`
-      fragment on Team {
-        id,
-        dbid,
-        media_verification_statuses,
-        translation_statuses,
-        get_suggested_tags,
-        name,
-        slug,
-        projects(first: 10000) {
-          edges {
-            node {
-              title,
-              dbid,
-              id,
-              description
-            }
-          }
-        }
-      }
-    `,
-  },
-});
 
 // eslint-disable-next-line react/no-multi-comp
 class SearchResultsComponent extends Component {
@@ -848,6 +825,48 @@ class Search extends Component {
     const resultsRoute = new SearchRoute({ query: JSON.stringify(query) });
     const { formatMessage } = this.props.intl;
     const { fields } = this.props;
+
+    const queryWithoutProjects = Relay.QL`
+      fragment on Team {
+        id,
+        dbid,
+        media_verification_statuses,
+        translation_statuses,
+        get_suggested_tags,
+        name,
+        slug,
+      }
+    `;
+
+    const queryWithProjects = Relay.QL`
+      fragment on Team {
+        id,
+        dbid,
+        media_verification_statuses,
+        translation_statuses,
+        get_suggested_tags,
+        name,
+        slug,
+        projects(first: 10000) {
+          edges {
+            node {
+              title,
+              dbid,
+              id,
+              description
+            }
+          }
+        }
+      }
+    `;
+
+    const gqlquery = this.props.project ? queryWithoutProjects : queryWithProjects;
+
+    const SearchQueryContainer = Relay.createContainer(injectIntl(SearchQueryComponent), {
+      fragments: {
+        team: () => gqlquery,
+      },
+    });
 
     return (
       <div className="search">

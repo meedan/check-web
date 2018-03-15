@@ -133,7 +133,7 @@ class CreateTeam extends Component {
       this.setState({ message: null });
       const { createTeam: { team } } = response;
       const teams = JSON.parse(context.currentUser.teams);
-      teams[team.slug] = { status: 'member' };
+      teams[team.slug] = { status: 'member', role: 'owner' };
       context.currentUser.teams = JSON.stringify(teams);
       context.currentUser.current_team = team;
 

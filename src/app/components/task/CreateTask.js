@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay';
+import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import Checkbox from 'material-ui/Checkbox';
 import FlatButton from 'material-ui/FlatButton';
@@ -19,6 +20,7 @@ import config from 'config'; // eslint-disable-line require-path-exists/exists
 import Can from '../Can';
 import CreateTaskMutation from '../../relay/mutations/CreateTaskMutation';
 import Message from '../Message';
+import CheckContext from '../../CheckContext';
 import SingleChoiceTask from './SingleChoiceTask';
 import MultiSelectTask from './MultiSelectTask';
 import Attribution from './Attribution';
@@ -41,17 +43,17 @@ const messages = defineMessages({
   },
 });
 
-const getAssignment = () => {
-  let assignment = document.getElementById('attribution-new');
-  if (assignment) {
-    assignment = parseInt(assignment.value, 10);
-  } else {
-    assignment = 0;
-  }
-  return assignment;
-};
-
 class CreateTask extends Component {
+  static getAssignment() {
+    let assignment = document.getElementById('attribution-new');
+    if (assignment) {
+      assignment = parseInt(assignment.value, 10);
+    } else {
+      assignment = 0;
+    }
+    return assignment;
+  }
+
   constructor(props) {
     super(props);
 
@@ -67,6 +69,10 @@ class CreateTask extends Component {
       showAssignmentField: false,
       required: false,
     };
+  }
+
+  getContext() {
+    return new CheckContext(this).getContextStore();
   }
 
   handleClick(event) {
@@ -92,7 +98,13 @@ class CreateTask extends Component {
   }
 
   handleTeamwideNudgeDialog() {
-    this.setState({ nudgeDialogOpen: true, menuOpen: false });
+    const { team } = this.getContext();
+    if (team.plan === 'pro') {
+      this.setState({ nudgeDialogOpen: false, menuOpen: false });
+      window.open(config.restBaseUrl.replace('/api/', `/admin/team/${team.dbid}/edit`), '_blank');
+    } else {
+      this.setState({ nudgeDialogOpen: true, menuOpen: false });
+    }
   }
 
   handleCloseTeamwideNudgeDialog() {
@@ -136,7 +148,7 @@ class CreateTask extends Component {
           annotated_type: 'ProjectMedia',
           annotated_id: this.props.media.id,
           annotated_dbid: `${this.props.media.dbid}`,
-          assigned_to_id: getAssignment(),
+          assigned_to_id: CreateTask.getAssignment(),
         }),
         { onSuccess, onFailure },
       );
@@ -174,7 +186,7 @@ class CreateTask extends Component {
         annotated_type: 'ProjectMedia',
         annotated_id: this.props.media.id,
         annotated_dbid: `${this.props.media.dbid}`,
-        assigned_to_id: getAssignment(),
+        assigned_to_id: CreateTask.getAssignment(),
       }),
       { onSuccess, onFailure },
     );
@@ -183,11 +195,7 @@ class CreateTask extends Component {
   handleLabelChange(e) {
     this.setState({ label: e.target.value });
 
-    if (
-      this.state.type === 'free_text' ||
-      this.state.type === 'geolocation' ||
-      this.state.type === 'datetime'
-    ) {
+    if (['free_text', 'geolocation', 'datetime'].includes(this.state.type)) {
       this.validateShortText(e.target.value);
     }
   }
@@ -330,10 +338,7 @@ class CreateTask extends Component {
           actions={actions}
           modal={false}
           open={
-            this.state.dialogOpen &&
-            (this.state.type === 'free_text' ||
-              this.state.type === 'geolocation' ||
-              this.state.type === 'datetime')
+            this.state.dialogOpen && ['free_text', 'geolocation', 'datetime'].includes(this.state.type)
           }
           onRequestClose={this.handleCloseDialog.bind(this)}
         >
@@ -404,5 +409,9 @@ class CreateTask extends Component {
     );
   }
 }
+
+CreateTask.contextTypes = {
+  store: PropTypes.object,
+};
 
 export default injectIntl(CreateTask);
