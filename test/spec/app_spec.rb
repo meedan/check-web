@@ -1787,7 +1787,7 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(avatar.include?('test.png')).to be(true)
     end
 
-    it "should auto-complete sources for claims attribution bli", bin3: true do
+    it "should create claim", bin3: true do
       api_create_team_and_project
       page = ProjectPage.new(config: @config, driver: @driver).load
       sleep 5
