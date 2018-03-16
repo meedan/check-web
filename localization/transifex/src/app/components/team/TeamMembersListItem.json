@@ -4,6 +4,6 @@
   "TeamMembersListItem.editor": "Editor",
   "TeamMembersListItem.owner": "Owner",
   "TeamMembershipRequestsListItem.approve": "Approve",
-  "TeamMembershipRequestsListItem.deny": "Ignore",
+  "TeamMembershipRequestsListItem.deny": "Reject",
   "TeamMembersListItem.deleteMember": "Delete Member"
 }

@@ -126,7 +126,7 @@ class TeamMembersListItem extends Component {
                     onClick={this.handleTeamMembershipRequest.bind(this, 'banned')}
                     className="team-member-requests__user-button--deny"
                     label={
-                      <FormattedMessage id="TeamMembershipRequestsListItem.deny" defaultMessage="Ignore" />
+                      <FormattedMessage id="TeamMembershipRequestsListItem.deny" defaultMessage="Reject" />
                     }
                   />
                 </FlexRow>
