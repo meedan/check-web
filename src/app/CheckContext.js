@@ -141,7 +141,7 @@ class CheckContext {
     }
     const project = userData.current_project || userCurrentTeam.projects[0];
     if (project && project.dbid) {
-      this.setContextAndRedirect(userCurrentTeam, project);
+      this.setContextAndRedirect(project.team, project);
     } else {
       this.setContextAndRedirect(userCurrentTeam, null);
     }

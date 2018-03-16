@@ -1787,6 +1787,48 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(avatar.include?('test.png')).to be(true)
     end
 
+    it "should create claim", bin3: true do
+      api_create_team_and_project
+      page = ProjectPage.new(config: @config, driver: @driver).load
+      sleep 5
+      claimbutton = wait_for_selector('create-media__quote', :id)
+      claimbutton.click
+      sleep 1
+      @driver.action.send_keys('Test').perform
+      expect((@driver.current_url.to_s =~ /media/).nil?).to be(true)
+      @driver.action.send_keys(:enter).perform
+      press_button('#create-media-submit')
+      sleep 5
+      expect((@driver.current_url.to_s =~ /media/).nil?).to be(false)
+    end
+
+    it "should redirect to last visited project", bin3: true do
+      user = api_register_and_login_with_email
+      api_create_team_and_project(user: user)
+      sleep 1
+      api_create_team_and_project(user: user)
+      
+      @driver.navigate.to(@config['self_url'] + '/check/me')
+      button = wait_for_selector('#teams-tab')
+      button.click
+      link = wait_for_selector_list('.teams a').first
+      link.click
+      link = wait_for_selector('.projects a')
+      link.click
+      sleep 5
+
+      @driver.navigate.to(@config['self_url'] + '/check/me')
+      button = wait_for_selector('#teams-tab')
+      button.click
+      link = wait_for_selector_list('.teams a').last
+      link.click
+      sleep 5
+      
+      @driver.navigate.to(@config['self_url'])
+      sleep 10
+      notfound = @config['self_url'] + '/check/404'
+      expect(@driver.current_url.to_s == notfound).to be(false)
+    end
 
     # Postponed due Alexandre's developement
     # it "should add and remove suggested tags" do

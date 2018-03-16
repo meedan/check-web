@@ -8,13 +8,13 @@ import rtlDetect from 'rtl-detect';
 import { Card, CardText, CardHeader } from 'material-ui/Card';
 import SvgIcon from 'material-ui/SvgIcon';
 import { Tabs, Tab } from 'material-ui/Tabs';
-import AutoComplete from 'material-ui/AutoComplete';
 import IconInsertPhoto from 'material-ui/svg-icons/editor/insert-photo';
 import IconLink from 'material-ui/svg-icons/content/link';
 import FaFeed from 'react-icons/lib/fa/feed';
 import MdFormatQuote from 'react-icons/lib/md/format-quote';
 import styled from 'styled-components';
 import urlRegex from 'url-regex';
+import AutoCompleteClaimAttribution from './AutoCompleteClaimAttribution';
 import UploadImage from '../UploadImage';
 import CreateProjectMediaMutation from '../../relay/mutations/CreateProjectMediaMutation';
 import CreateProjectSourceMutation from '../../relay/mutations/CreateProjectSourceMutation';
@@ -355,14 +355,10 @@ class CreateProjectMedia extends Component {
           autoFocus
           {...defaultInputProps}
         />,
-        <AutoComplete
-          key="createMedia.quoteAttributionSource.input"
-          id="create-media-quote-attribution-source-input"
-          name="quoteAttributionSource"
-          filter={AutoComplete.fuzzyFilter}
+        <AutoCompleteClaimAttribution
+          team={context.team}
           hintText={this.props.intl.formatMessage(messages.quoteAttributionSourceInput)}
-          dataSource={context.team.sources.edges.map(obj => obj.node.name)}
-          {...defaultInputProps}
+          inputProps={defaultInputProps}
         />,
       ];
     }
