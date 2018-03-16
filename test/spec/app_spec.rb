@@ -1802,6 +1802,34 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect((@driver.current_url.to_s =~ /media/).nil?).to be(false)
     end
 
+    it "should redirect to last visited project", bin3: true do
+      user = api_register_and_login_with_email
+      api_create_team_and_project(user: user)
+      sleep 1
+      api_create_team_and_project(user: user)
+      
+      @driver.navigate.to(@config['self_url'] + '/check/me')
+      button = wait_for_selector('#teams-tab')
+      button.click
+      link = wait_for_selector_list('.teams a').first
+      link.click
+      link = wait_for_selector('.projects a')
+      link.click
+      sleep 5
+
+      @driver.navigate.to(@config['self_url'] + '/check/me')
+      button = wait_for_selector('#teams-tab')
+      button.click
+      link = wait_for_selector_list('.teams a').last
+      link.click
+      sleep 5
+      
+      @driver.navigate.to(@config['self_url'])
+      sleep 10
+      notfound = @config['self_url'] + '/check/404'
+      expect(@driver.current_url.to_s == notfound).to be(false)
+    end
+
     # Postponed due Alexandre's developement
     # it "should add and remove suggested tags" do
     #   skip("Needs to be implemented")
