@@ -1787,6 +1787,20 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(avatar.include?('test.png')).to be(true)
     end
 
+    it "should auto-complete sources for claims attribution bli", bin3: true do
+      api_create_team_and_project
+      page = ProjectPage.new(config: @config, driver: @driver).load
+      sleep 5
+      claimbutton = wait_for_selector('create-media__quote', :id)
+      claimbutton.click
+      sleep 1
+      @driver.action.send_keys('Test').perform
+      expect((@driver.current_url.to_s =~ /media/).nil?).to be(true)
+      @driver.action.send_keys(:enter).perform
+      press_button('#create-media-submit')
+      sleep 5
+      expect((@driver.current_url.to_s =~ /media/).nil?).to be(false)
+    end
 
     # Postponed due Alexandre's developement
     # it "should add and remove suggested tags" do
