@@ -73,6 +73,7 @@ const bridgeSearchResultFragment = Relay.QL`
             slug
             search_id,
             get_embed_whitelist
+            get_suggested_tags
           }
           tags(first: 10000) {
             edges {

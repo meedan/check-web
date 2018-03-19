@@ -8,7 +8,7 @@ class UpdateTaskMutation extends Relay.Mutation {
   }
 
   getFatQuery() {
-    return Relay.QL`fragment on UpdateTaskPayload { task, project_media { last_status, last_status_obj, log, id, log_count } }`;
+    return Relay.QL`fragment on UpdateTaskPayload { task, project_media { verification_statuses, last_status, last_status_obj, log, id, log_count } }`;
   }
 
   getVariables() {

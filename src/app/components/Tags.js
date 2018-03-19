@@ -144,7 +144,7 @@ class Tags extends React.Component {
           onUpdateInput={(text) => { updateCallback(text); }}
         />
         <div className="source__helper" style={{ font: caption }}>
-          {this.props.intl.formatMessage(messages.addTagHelper)}
+          {this.props.helperText || this.props.intl.formatMessage(messages.addTagHelper)}
         </div>
         {this.renderTags()}
       </div>

@@ -230,7 +230,7 @@ class Task extends Component {
     const taskObj = {
       id: task.id,
       label: form.label.value,
-      required: this.state.required,
+      required: this.state.required !== null ? this.state.required : task.required,
       assigned_to_id: this.getAssignment(),
     };
 
@@ -606,7 +606,7 @@ class Task extends Component {
 
     const assignedUsers = task.assigned_to ? [{ node: task.assigned_to }] : [];
 
-    const required = this.state.required != null ? this.state.required : task.required;
+    const required = this.state.required !== null ? this.state.required : task.required;
 
     return (
       <StyledWordBreakDiv>

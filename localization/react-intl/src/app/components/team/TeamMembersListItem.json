@@ -21,7 +21,7 @@
   },
   {
     "id": "TeamMembershipRequestsListItem.deny",
-    "defaultMessage": "Ignore"
+    "defaultMessage": "Reject"
   },
   {
     "id": "TeamMembersListItem.deleteMember",

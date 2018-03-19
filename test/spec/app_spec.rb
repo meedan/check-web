@@ -1538,8 +1538,14 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
     it "should paginate project page", bin2: true do
       page = api_create_team_project_claims_sources_and_redirect_to_project_page 21
       page.load
-      el = wait_for_selector("//span[contains(text(), 'Sources')]", :xpath)
-      el.click
+      el = nil
+      begin
+        el = wait_for_selector("//span[contains(text(), 'Sources')]", :xpath)
+        el.click
+      rescue
+        el = wait_for_selector("//span[contains(text(), 'Sources')]", :xpath)
+        el.click
+      end
       wait_for_selector("source-card", :class)
       results = @driver.find_elements(:css, '.medias__item')
       expect(results.size == 40).to be(true)
@@ -1781,6 +1787,48 @@ shared_examples 'app' do |webdriver_url, browser_capabilities|
       expect(avatar.include?('test.png')).to be(true)
     end
 
+    it "should create claim", bin3: true do
+      api_create_team_and_project
+      page = ProjectPage.new(config: @config, driver: @driver).load
+      sleep 5
+      claimbutton = wait_for_selector('create-media__quote', :id)
+      claimbutton.click
+      sleep 1
+      @driver.action.send_keys('Test').perform
+      expect((@driver.current_url.to_s =~ /media/).nil?).to be(true)
+      @driver.action.send_keys(:enter).perform
+      press_button('#create-media-submit')
+      sleep 5
+      expect((@driver.current_url.to_s =~ /media/).nil?).to be(false)
+    end
+
+    it "should redirect to last visited project", bin3: true do
+      user = api_register_and_login_with_email
+      api_create_team_and_project(user: user)
+      sleep 1
+      api_create_team_and_project(user: user)
+      
+      @driver.navigate.to(@config['self_url'] + '/check/me')
+      button = wait_for_selector('#teams-tab')
+      button.click
+      link = wait_for_selector_list('.teams a').first
+      link.click
+      link = wait_for_selector('.projects a')
+      link.click
+      sleep 5
+
+      @driver.navigate.to(@config['self_url'] + '/check/me')
+      button = wait_for_selector('#teams-tab')
+      button.click
+      link = wait_for_selector_list('.teams a').last
+      link.click
+      sleep 5
+      
+      @driver.navigate.to(@config['self_url'])
+      sleep 10
+      notfound = @config['self_url'] + '/check/404'
+      expect(@driver.current_url.to_s == notfound).to be(false)
+    end
 
     # Postponed due Alexandre's developement
     # it "should add and remove suggested tags" do
