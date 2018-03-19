@@ -168,7 +168,7 @@ class SwitchTeamsComponent extends Component {
           <List className="teams" style={listStyle}>
             {otherTeams.map(team => (
               <ListItemContainer key={team.dbid} isRtl={this.props.isRtl}>
-                {team.plan === 'pro' || team.plan !== 'pro' ? <span className="team__badge">PRO</span> : null}
+                {team.plan === 'pro' ? <span className="team__badge">PRO</span> : null}
                 <ListItem
                   hoverColor={highlightBlue}
                   focusRippleColor={checkBlue}

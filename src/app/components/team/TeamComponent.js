@@ -14,6 +14,7 @@ import { List, ListItem } from 'material-ui/List';
 import styled from 'styled-components';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import UserUtil from '../user/UserUtil';
+import TeamAvatar from './TeamAvatar';
 import TeamMembers from './TeamMembers';
 import HeaderCard from '../HeaderCard';
 import PageTitle from '../PageTitle';
@@ -34,8 +35,6 @@ import {
   checkBlue,
   title1,
   units,
-  avatarStyle,
-  proBadgeStyle,
   Row,
   black54,
 } from '../../styles/js/shared';
@@ -248,14 +247,6 @@ class TeamComponent extends Component {
       to: isRtl ? 'left' : 'right',
     };
 
-    const TeamAvatar = styled.div`
-      ${avatarStyle};
-      position: relative;
-      .team__badge {
-        ${proBadgeStyle}
-      }
-    `;
-
     const StyledCardHeader = styled(CardHeader)`
       span {
         font: ${title1} !important;
@@ -324,9 +315,9 @@ class TeamComponent extends Component {
                         <StyledSmallColumn>
                           <TeamAvatar
                             style={{ backgroundImage: `url(${avatarPreview || team.avatar})` }}
-                          >
-                            { team.plan === 'pro' ? <span className="team__badge">PRO</span> : null}
-                          </TeamAvatar>
+                            size={units(9)}
+                            team={team}
+                          />
                           {!this.state.editProfileImg ?
                             <StyledAvatarEditButton className="team__edit-avatar-button">
                               <FlatButton
@@ -434,9 +425,10 @@ class TeamComponent extends Component {
                   <div>
                     <StyledTwoColumns>
                       <StyledSmallColumn>
-                        <TeamAvatar style={{ backgroundImage: `url(${team.avatar})` }}>
-                          { team.plan === 'pro' ? <span className="team__badge">PRO</span> : null}
-                        </TeamAvatar>
+                        <TeamAvatar
+                          size={units(9)}
+                          team={team}
+                        />
                       </StyledSmallColumn>
                       <StyledBigColumn>
                         <div className="team__primary-info">
