@@ -8,16 +8,17 @@ import { Card, CardActions, CardText, CardHeader } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import { List, ListItem } from 'material-ui/List';
 import Avatar from 'material-ui/Avatar';
-// import styled from 'styled-components';
+import styled from 'styled-components';
 import {
   alertRed,
   highlightBlue,
   checkBlue,
   defaultBorderRadius,
   defaultBorderWidth,
-  // avatarSize,
-  // avatarStyle,
-  // proBadgeStyle,
+  opaqueBlack87,
+  borderWidthMedium,
+  tiny,
+  units,
   titleStyle,
   listStyle,
   listItemButtonStyle,
@@ -94,22 +95,22 @@ class SwitchTeamsComponent extends Component {
     const otherTeams = [];
     const pendingTeams = [];
 
-    // const TeamAvatar = styled.div`
-    //   ${avatarStyle}
-    //   background-image: url(${props => props.team.avatar});
-    //   width: ${avatarSize};
-    //   height: ${avatarSize};
-    //   position: relative;
-    //   .team__badge {
-    //     ${proBadgeStyle}
-    //   }
-    // `;
-
-    // const Avatar = team => (
-    //   <TeamAvatar team={team}>
-    //     {team.plan === 'pro' ? <span className="team__badge">PRO</span> : null}
-    //   </TeamAvatar>
-    // );
+    const ListItemContainer = styled.div`
+      position: relative;
+      .team__badge {
+        background-color: ${opaqueBlack87};
+        border-radius: ${borderWidthMedium};
+        color: ${white};
+        font: ${tiny};
+        line-height: 1.2;
+        padding: ${units(0.25)} ${units(0.5)};
+        position: absolute;
+        ${props => props.isRtl ? 'right' : 'left'}: ${units(5)};
+        top: ${units(2.5)};
+        text-transform: uppercase;
+        z-index: 9999;
+      }
+    `;
 
     const teamAvatarStyle = {
       border: `${defaultBorderWidth} solid ${black05}`,
@@ -166,20 +167,22 @@ class SwitchTeamsComponent extends Component {
         { (otherTeams.length + pendingTeams.length) ?
           <List className="teams" style={listStyle}>
             {otherTeams.map(team => (
-              <ListItem
-                key={team.dbid}
-                hoverColor={highlightBlue}
-                focusRippleColor={checkBlue}
-                touchRippleColor={checkBlue}
-                containerElement={<Link to={`/${team.slug}`} />}
-                leftAvatar={<Avatar style={teamAvatarStyle} src={team.avatar} />}
-                onClick={this.setCurrentTeam.bind(this, team, currentUser)}
-                primaryText={team.name}
-                rightIcon={<KeyboardArrowRight />}
-                secondaryText={this.props.intl.formatMessage(messages.switchTeamsMember, {
-                  membersCount: team.members_count,
-                })}
-              />
+              <ListItemContainer key={team.dbid} isRtl={this.props.isRtl}>
+                {team.plan === 'pro' || team.plan !== 'pro' ? <span className="team__badge">PRO</span> : null}
+                <ListItem
+                  hoverColor={highlightBlue}
+                  focusRippleColor={checkBlue}
+                  touchRippleColor={checkBlue}
+                  containerElement={<Link to={`/${team.slug}`} />}
+                  leftAvatar={<Avatar style={teamAvatarStyle} src={team.avatar} />}
+                  onClick={this.setCurrentTeam.bind(this, team, currentUser)}
+                  primaryText={team.name}
+                  rightIcon={<KeyboardArrowRight />}
+                  secondaryText={this.props.intl.formatMessage(messages.switchTeamsMember, {
+                    membersCount: team.members_count,
+                  })}
+                />
+              </ListItemContainer>
             ))}
 
             {pendingTeams.map(team => (
