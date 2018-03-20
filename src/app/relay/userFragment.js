@@ -31,7 +31,8 @@ const userFragment = Relay.QL`
             slug,
             private,
             members_count,
-            permissions
+            permissions,
+            plan
           }
           id,
           status,
