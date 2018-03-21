@@ -264,7 +264,7 @@ class UserInfoEdit extends React.Component {
     };
     const form = document.forms['edit-source-form'];
 
-    if (user.name === form.name.value && user.email === form.email.value) {
+    if (user.name === form.name.value && user.email === form.email.value && user.get_send_email_notifications === form.sendNotification.checked) {
       return false;
     }
 
