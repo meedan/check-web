@@ -1,0 +1,10 @@
+[
+  {
+    "id": "task.confirmRequiredTitle",
+    "defaultMessage": "Confirm required task"
+  },
+  {
+    "id": "task.confirmRequiredText",
+    "defaultMessage": "You are adding a required task to an item marked <strong>{status}</strong>. By adding this, you'll automatically change the status of this item back to <strong>In Progress</strong>"
+  }
+]

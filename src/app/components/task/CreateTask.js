@@ -24,8 +24,10 @@ import CheckContext from '../../CheckContext';
 import SingleChoiceTask from './SingleChoiceTask';
 import MultiSelectTask from './MultiSelectTask';
 import Attribution from './Attribution';
+import ConfirmRequired from './ConfirmRequired';
 import TeamwideTasksNudgeDialog from './TeamwideTasksNudgeDialog';
-import { safelyParseJSON } from '../../helpers';
+import { safelyParseJSON, getStatus } from '../../helpers';
+import { mediaStatuses, mediaLastStatus } from '../../customHelpers';
 import { caption, units, StyledTaskDescription, black05, black54 } from '../../styles/js/shared';
 
 const StyledCreateTaskButton = styled(FlatButton)`
@@ -68,6 +70,7 @@ class CreateTask extends Component {
       submitDisabled: true,
       showAssignmentField: false,
       required: false,
+      confirmRequired: false,
     };
   }
 
@@ -78,6 +81,7 @@ class CreateTask extends Component {
   handleClick(event) {
     this.setState({
       menuOpen: true,
+      required: false,
       anchorEl: event.currentTarget,
     });
   }
@@ -205,7 +209,14 @@ class CreateTask extends Component {
   }
 
   handleSelectRequired(e, inputChecked) {
-    this.setState({ required: inputChecked });
+    const { media } = this.props;
+    const status = getStatus(mediaStatuses(media), mediaLastStatus(media));
+
+    if (status.completed && inputChecked) {
+      this.setState({ required: inputChecked, confirmRequired: true, status });
+    } else {
+      this.setState({ required: inputChecked });
+    }
   }
 
   toggleAssignmentField() {
@@ -364,6 +375,12 @@ class CreateTask extends Component {
             }
             checked={this.state.required}
             onCheck={this.handleSelectRequired.bind(this)}
+          />
+          <ConfirmRequired
+            open={this.state.confirmRequired}
+            status={this.state.status}
+            handleCancel={() => { this.setState({ required: false, confirmRequired: false }); }}
+            handleConfirm={() => { this.setState({ confirmRequired: false }); }}
           />
 
           <StyledTaskDescription>
