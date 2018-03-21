@@ -86,11 +86,16 @@ class UserInfoEdit extends React.Component {
   constructor(props) {
     super(props);
 
+    let sendEmail = props.user.get_send_email_notifications;
+    if (props.user.get_send_email_notifications == null) {
+      sendEmail = true;
+    }
     this.state = {
       submitDisabled: false,
       // TODO eslint false positive
       // eslint-disable-next-line react/no-unused-state
       image: null,
+      sendEmail: sendEmail,
     };
   }
 
@@ -166,6 +171,10 @@ class UserInfoEdit extends React.Component {
     const links = this.state.links ? this.state.links.slice(0) : [];
     links.splice(index, 1);
     this.setState({ links });
+  }
+
+  handleSendEmail(e, inputChecked) {
+    this.setState({ sendEmail: inputChecked });
   }
 
   fail(transaction) {
@@ -440,12 +449,6 @@ class UserInfoEdit extends React.Component {
     const { user } = this.props;
     const { source } = this.props.user;
 
-    let sendEmail = user.get_send_email_notifications;
-
-    if (user.get_send_email_notifications == null) {
-      sendEmail = true;
-    }
-
     let emailHelperText = '';
     if (user.unconfirmed_email) {
       emailHelperText = this.props.intl.formatMessage(messages.emailPendingConfirm);
@@ -510,7 +513,8 @@ class UserInfoEdit extends React.Component {
               />
               <Checkbox
                 label={this.props.intl.formatMessage(messages.userSendEmailNotification)}
-                checked={sendEmail}
+                checked={this.state.sendEmail}
+                onCheck={this.handleSendEmail.bind(this)}
                 name="sendNotification"
               />
               <TextField
