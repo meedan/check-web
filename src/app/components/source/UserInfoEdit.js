@@ -86,16 +86,16 @@ class UserInfoEdit extends React.Component {
   constructor(props) {
     super(props);
 
-    let sendEmail = props.user.get_send_email_notifications;
+    let sendEmailValue = props.user.get_send_email_notifications;
     if (props.user.get_send_email_notifications == null) {
-      sendEmail = true;
+      sendEmailValue = true;
     }
     this.state = {
       submitDisabled: false,
       // TODO eslint false positive
       // eslint-disable-next-line react/no-unused-state
       image: null,
-      sendEmail: sendEmail,
+      sendEmail: sendEmailValue,
     };
   }
 
@@ -273,12 +273,20 @@ class UserInfoEdit extends React.Component {
     };
     const form = document.forms['edit-source-form'];
 
-    if (user.name === form.name.value && user.email === form.email.value && user.get_send_email_notifications === form.sendNotification.checked) {
+    if (user.name === form.name.value &&
+      user.email === form.email.value &&
+      user.get_send_email_notifications === form.sendNotification.checked) {
       return false;
     }
 
     this.registerPendingMutation('updateUser');
-    updateUserNameEmail(user.id, form.name.value, form.email.value, form.sendNotification.checked, onSuccess, onFailure);
+    updateUserNameEmail(
+      user.id,
+      form.name.value,
+      form.email.value,
+      form.sendNotification.checked,
+      onSuccess, onFailure,
+    );
     return true;
   }
 

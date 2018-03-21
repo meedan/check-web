@@ -54,7 +54,13 @@ class UserEmail extends React.Component {
     };
 
     if (email) {
-      updateUserNameEmail(this.props.user.id, this.props.user.name, email, true, onSuccess, onFailure);
+      updateUserNameEmail(
+        this.props.user.id,
+        this.props.user.name,
+        email,
+        true,
+        onSuccess, onFailure,
+      );
     }
   };
 
