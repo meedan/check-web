@@ -160,7 +160,7 @@ class CreateTask extends Component {
     }
   }
 
-  handleSubmitTask2(label, description, required, jsonoptions) {
+  handleSubmitTaskWithArgs(label, description, required, jsonoptions) {
     const onFailure = (transaction) => {
       const error = transaction.getError();
       let message = error.source;
@@ -236,14 +236,16 @@ class CreateTask extends Component {
           {this.state.type === 'single_choice'
             ? <SingleChoiceTask
               mode="create"
-              onSubmit={this.handleSubmitTask2.bind(this)}
+              media={this.props.media}
+              onSubmit={this.handleSubmitTaskWithArgs.bind(this)}
               onDismiss={this.handleCloseDialog.bind(this)}
             />
             : null}
           {this.state.type === 'multiple_choice'
             ? <MultiSelectTask
               mode="create"
-              onSubmit={this.handleSubmitTask2.bind(this)}
+              media={this.props.media}
+              onSubmit={this.handleSubmitTaskWithArgs.bind(this)}
               onDismiss={this.handleCloseDialog.bind(this)}
             />
             : null}
