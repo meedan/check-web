@@ -9,7 +9,9 @@ import MdCancel from 'react-icons/lib/md/cancel';
 import MdCheckBoxOutlineBlank from 'react-icons/lib/md/check-box-outline-blank';
 import Message from '../Message';
 import Attribution from './Attribution';
-import { safelyParseJSON } from '../../helpers';
+import ConfirmRequired from './ConfirmRequired';
+import { safelyParseJSON, getStatus } from '../../helpers';
+import { mediaStatuses, mediaLastStatus } from '../../customHelpers';
 import { units, body2, StyledIconButton, StyledTaskDescription } from '../../styles/js/shared';
 
 // A smaller TextField
@@ -65,6 +67,7 @@ class MultiSelectTask extends Component {
       taskAnswerDisabled: true,
       showAssignmentField: false,
       required: false,
+      confirmRequired: false,
     };
   }
 
@@ -266,7 +269,14 @@ class MultiSelectTask extends Component {
   }
 
   handleSelectRequired(e, inputChecked) {
-    this.setState({ required: inputChecked });
+    const { media } = this.props;
+    const status = getStatus(mediaStatuses(media), mediaLastStatus(media));
+
+    if (status.completed && inputChecked) {
+      this.setState({ required: inputChecked, confirmRequired: true, status });
+    } else {
+      this.setState({ required: inputChecked });
+    }
   }
 
   handleKeyPress(e) {
@@ -329,6 +339,12 @@ class MultiSelectTask extends Component {
             }
             checked={this.state.required}
             onCheck={this.handleSelectRequired.bind(this)}
+          />
+          <ConfirmRequired
+            open={this.state.confirmRequired}
+            status={this.state.status}
+            handleCancel={() => { this.setState({ required: false, confirmRequired: false }); }}
+            handleConfirm={() => { this.setState({ confirmRequired: false }); }}
           />
 
           <div className="create-task__add-options" style={{ marginTop: units(2) }}>

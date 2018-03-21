@@ -8,6 +8,7 @@ import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import DrawerProjects from './drawer/Projects';
+import TeamAvatar from './team/TeamAvatar';
 import { stringHelper } from '../customHelpers';
 import UserMenuItems from './UserMenuItems';
 import UserUtil from './user/UserUtil';
@@ -21,9 +22,6 @@ import {
   black05,
   units,
   caption,
-  avatarSize,
-  avatarStyle,
-  proBadgeStyle,
 } from '../styles/js/shared';
 
 // TODO Fix a11y issues
@@ -92,16 +90,6 @@ class DrawerNavigation extends Component {
       height: ${drawerHeaderHeight};
       background-color: ${black05};
       padding: ${units(2)};
-    `;
-
-    const TeamAvatar = styled.div`
-      ${avatarStyle}
-      width: ${props => (props.size ? props.size : avatarSize)};
-      height: ${props => (props.size ? props.size : avatarSize)};
-      position: relative;
-      .team__badge {
-        ${proBadgeStyle}
-      }
     `;
 
     const TosMenuItem = (
@@ -189,11 +177,9 @@ class DrawerNavigation extends Component {
               >
                 <Row>
                   <TeamAvatar
-                    style={{ backgroundImage: `url(${this.props.team.avatar})` }}
                     size={units(7)}
-                  >
-                    { this.props.team.plan === 'pro' ? <span className="team__badge">PRO</span> : null}
-                  </TeamAvatar>
+                    team={this.props.team}
+                  />
                   <OffsetBothSides>
                     <HeaderTitle>{this.props.team.name}</HeaderTitle>
                   </OffsetBothSides>

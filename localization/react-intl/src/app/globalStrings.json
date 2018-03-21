@@ -16,6 +16,10 @@
     "defaultMessage": "Cancel"
   },
   {
+    "id": "global.confirm",
+    "defaultMessage": "Confirm"
+  },
+  {
     "id": "global.save",
     "defaultMessage": "Save"
   },
