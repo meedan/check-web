@@ -3,6 +3,7 @@ import Relay from 'react-relay';
 import { injectIntl, defineMessages } from 'react-intl';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
+import Checkbox from 'material-ui/Checkbox';
 import TextField from 'material-ui/TextField';
 import MdCancel from 'react-icons/lib/md/cancel';
 import capitalize from 'lodash.capitalize';
@@ -44,6 +45,10 @@ const messages = defineMessages({
     id: 'userInfoEdit.userEmail',
     defaultMessage: 'Email',
   },
+  userSendEmailNotification: {
+    id: 'userInfoEdit.userSendEmailNotification',
+    defaultMessage: 'Send me email notifications',
+  },
   addLink: {
     id: 'userInfoEdit.addLink',
     defaultMessage: 'Add Link',
@@ -81,11 +86,16 @@ class UserInfoEdit extends React.Component {
   constructor(props) {
     super(props);
 
+    let sendEmailValue = props.user.get_send_email_notifications;
+    if (props.user.get_send_email_notifications == null) {
+      sendEmailValue = true;
+    }
     this.state = {
       submitDisabled: false,
       // TODO eslint false positive
       // eslint-disable-next-line react/no-unused-state
       image: null,
+      sendEmail: sendEmailValue,
     };
   }
 
@@ -161,6 +171,10 @@ class UserInfoEdit extends React.Component {
     const links = this.state.links ? this.state.links.slice(0) : [];
     links.splice(index, 1);
     this.setState({ links });
+  }
+
+  handleSendEmail(e, inputChecked) {
+    this.setState({ sendEmail: inputChecked });
   }
 
   fail(transaction) {
@@ -259,12 +273,20 @@ class UserInfoEdit extends React.Component {
     };
     const form = document.forms['edit-source-form'];
 
-    if (user.name === form.name.value && user.email === form.email.value) {
+    if (user.name === form.name.value &&
+      user.email === form.email.value &&
+      user.get_send_email_notifications === form.sendNotification.checked) {
       return false;
     }
 
     this.registerPendingMutation('updateUser');
-    updateUserNameEmail(user.id, form.name.value, form.email.value, onSuccess, onFailure);
+    updateUserNameEmail(
+      user.id,
+      form.name.value,
+      form.email.value,
+      form.sendNotification.checked,
+      onSuccess, onFailure,
+    );
     return true;
   }
 
@@ -497,6 +519,12 @@ class UserInfoEdit extends React.Component {
                 rowsMax={4}
                 style={{ width: '85%' }}
               />
+              <Checkbox
+                label={this.props.intl.formatMessage(messages.userSendEmailNotification)}
+                checked={this.state.sendEmail}
+                onCheck={this.handleSendEmail.bind(this)}
+                name="sendNotification"
+              />
               <TextField
                 className="source__email-input"
                 name="email"
@@ -508,7 +536,6 @@ class UserInfoEdit extends React.Component {
               <StyledHelper>
                 {emailHelperText}
               </StyledHelper>
-
               {this.renderAccountsEdit()}
             </form>
 
