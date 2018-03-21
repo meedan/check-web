@@ -24,7 +24,7 @@ class UpdateUserNameEmailMutation extends Relay.Mutation {
       id: this.props.id,
       name: this.props.name,
       email: this.props.email,
-      set_send_email_notifications: this.props.set_send_email_notifications,
+      send_email_notifications: this.props.send_email_notifications,
     };
   }
 
@@ -46,7 +46,7 @@ const updateUserNameEmail = (id, name, email, sendNotification, onSuccess, onFai
       id,
       name,
       email,
-      set_send_email_notifications: sendNotification,
+      send_email_notifications: sendNotification,
     }),
     { onSuccess, onFailure },
   );
