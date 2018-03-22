@@ -2,6 +2,7 @@
   "userInfoEdit.sourceName": "Nombre",
   "userInfoEdit.sourceBio": "Biografía",
   "userInfoEdit.userEmail": "Correo electrónico",
+  "userInfoEdit.userSendEmailNotification": "Recibir notificaciones por correo electrónico",
   "userInfoEdit.addLink": "Añadir enlace",
   "userInfoEdit.editError": "Lo sentimos, no pudimos editar la fuente",
   "userInfoEdit.addLinkLabel": "Añadir enlace",

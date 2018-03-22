@@ -47,7 +47,7 @@ const messages = defineMessages({
   },
   userSendEmailNotification: {
     id: 'userInfoEdit.userSendEmailNotification',
-    defaultMessage: 'Send me email notifications',
+    defaultMessage: 'Receive email notifications',
   },
   addLink: {
     id: 'userInfoEdit.addLink',
@@ -519,12 +519,6 @@ class UserInfoEdit extends React.Component {
                 rowsMax={4}
                 style={{ width: '85%' }}
               />
-              <Checkbox
-                label={this.props.intl.formatMessage(messages.userSendEmailNotification)}
-                checked={this.state.sendEmail}
-                onCheck={this.handleSendEmail.bind(this)}
-                name="sendNotification"
-              />
               <TextField
                 className="source__email-input"
                 name="email"
@@ -536,6 +530,12 @@ class UserInfoEdit extends React.Component {
               <StyledHelper>
                 {emailHelperText}
               </StyledHelper>
+              <Checkbox
+                label={this.props.intl.formatMessage(messages.userSendEmailNotification)}
+                checked={this.state.sendEmail}
+                onCheck={this.handleSendEmail.bind(this)}
+                name="sendNotification"
+              />
               {this.renderAccountsEdit()}
             </form>
 
