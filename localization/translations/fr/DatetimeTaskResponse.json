@@ -1,4 +1,4 @@
 {
-  "datetimeTaskResponse.timeIs": "Voir ce fuseau horaire sur time.is",
+  "datetimeTaskResponse.timeIs": "Afficher ce fuseau horaire sur time.is",
   "datetimeTaskResponse.taskResponse": "{date} à {timeLink}"
 }

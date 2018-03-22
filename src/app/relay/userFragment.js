@@ -12,6 +12,7 @@ const userFragment = Relay.QL`
     permissions,
     provider,
     profile_image,
+    get_send_email_notifications,
     current_team {
       id,
       dbid,
@@ -31,7 +32,8 @@ const userFragment = Relay.QL`
             slug,
             private,
             members_count,
-            permissions
+            permissions,
+            plan
           }
           id,
           status,

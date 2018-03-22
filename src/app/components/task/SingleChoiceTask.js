@@ -9,7 +9,9 @@ import MdCancel from 'react-icons/lib/md/cancel';
 import MdRadioButtonUnchecked from 'react-icons/lib/md/radio-button-unchecked';
 import Message from '../Message';
 import Attribution from './Attribution';
-import { safelyParseJSON } from '../../helpers';
+import ConfirmRequired from './ConfirmRequired';
+import { safelyParseJSON, getStatus } from '../../helpers';
+import { mediaStatuses, mediaLastStatus } from '../../customHelpers';
 import { StyledTaskDescription, units } from '../../styles/js/shared';
 
 const messages = defineMessages({
@@ -49,6 +51,7 @@ class SingleChoiceTask extends Component {
       taskAnswerDisabled: true,
       showAssignmentField: false,
       required: false,
+      confirmRequired: false,
     };
   }
 
@@ -206,7 +209,14 @@ class SingleChoiceTask extends Component {
   }
 
   handleSelectRequired(e, inputChecked) {
-    this.setState({ required: inputChecked });
+    const { media } = this.props;
+    const status = getStatus(mediaStatuses(media), mediaLastStatus(media));
+
+    if (status.completed && inputChecked) {
+      this.setState({ required: inputChecked, confirmRequired: true, status });
+    } else {
+      this.setState({ required: inputChecked });
+    }
   }
 
   handleKeyPress(e) {
@@ -271,6 +281,13 @@ class SingleChoiceTask extends Component {
             checked={this.state.required}
             onCheck={this.handleSelectRequired.bind(this)}
           />
+          <ConfirmRequired
+            open={this.state.confirmRequired}
+            status={this.state.status}
+            handleCancel={() => { this.setState({ required: false, confirmRequired: false }); }}
+            handleConfirm={() => { this.setState({ confirmRequired: false }); }}
+          />
+
 
           <div style={{ marginTop: units(2) }}>
             {this.state.options.map((item, index) => (

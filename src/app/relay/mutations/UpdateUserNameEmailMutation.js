@@ -11,6 +11,7 @@ class UpdateUserNameEmailMutation extends Relay.Mutation {
         user {
           id,
           name,
+          get_send_email_notifications,
           email,
           unconfirmed_email
         }
@@ -19,7 +20,12 @@ class UpdateUserNameEmailMutation extends Relay.Mutation {
   }
 
   getVariables() {
-    return { id: this.props.id, name: this.props.name, email: this.props.email };
+    return {
+      id: this.props.id,
+      name: this.props.name,
+      email: this.props.email,
+      send_email_notifications: this.props.send_email_notifications,
+    };
   }
 
   getConfigs() {
@@ -34,12 +40,13 @@ class UpdateUserNameEmailMutation extends Relay.Mutation {
   }
 }
 
-const updateUserNameEmail = (id, name, email, onSuccess, onFailure) => {
+const updateUserNameEmail = (id, name, email, sendNotification, onSuccess, onFailure) => {
   Relay.Store.commitUpdate(
     new UpdateUserNameEmailMutation({
       id,
       name,
       email,
+      send_email_notifications: sendNotification,
     }),
     { onSuccess, onFailure },
   );

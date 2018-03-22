@@ -7,7 +7,7 @@
   "tasks.cancelAdd": "إلغاء",
   "tasks.add": "أضف مهمة",
   "tasks.taskPrompt": "السؤال",
-  "tasks.requiredCheckbox": "مطلوب",
+  "tasks.requiredCheckbox": "إجباري",
   "tasks.description": "وصف",
   "tasks.addDescription": "أضف وصفاً",
   "tasks.assign": "توكيل",

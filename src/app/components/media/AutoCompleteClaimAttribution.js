@@ -2,6 +2,7 @@ import React from 'react';
 import Relay from 'react-relay';
 import AutoComplete from 'material-ui/AutoComplete';
 import TeamRoute from '../../relay/TeamRoute';
+import RelayContainer from '../../relay/RelayContainer';
 
 const AutoCompleteComponent = (props) => {
   const sources = props.team.sources.edges.map(obj => obj.node.name);
@@ -43,7 +44,7 @@ const AutoCompleteClaimAttribution = (props) => {
   const route = new TeamRoute({ teamSlug });
 
   return (
-    <Relay.RootContainer
+    <RelayContainer
       Component={AutoCompleteContainer}
       route={route}
       renderFetched={data => <AutoCompleteContainer {...props} {...data} />}

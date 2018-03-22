@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { injectIntl } from 'react-intl';
+import TeamAvatar from './TeamAvatar';
 import CheckContext from '../../CheckContext';
 import {
   Row,
@@ -10,9 +11,6 @@ import {
   HeaderTitle,
   headerHeight,
   black05,
-  avatarStyle,
-  proBadgeStyle,
-  avatarSize,
 } from '../../styles/js/shared';
 
 const DrawerButtonGroup = styled(Row)`
@@ -44,18 +42,6 @@ class TeamHeaderComponent extends Component {
     const isProjectUrl = /(.*\/project\/[0-9]+)/.test(window.location.pathname);
     const { team, isRtl } = this.props;
 
-    // Team Avatar
-    const TeamAvatar = styled.div`
-      ${avatarStyle}
-      background-image: url(${team.avatar});
-      width: ${avatarSize};
-      height: ${avatarSize};
-      position: relative;
-      .team__badge {
-        ${proBadgeStyle}
-      }
-    `;
-
     return (
       <div>
         <DrawerButtonGroup
@@ -65,16 +51,16 @@ class TeamHeaderComponent extends Component {
         >
           {isProjectUrl ?
             <OffsetBothSides>
-              <TeamAvatar>
-                {team.plan === 'pro' ? <span className="team__badge">PRO</span> : null}
-              </TeamAvatar>
+              <TeamAvatar
+                team={team}
+              />
             </OffsetBothSides>
             :
             <Row>
               <OffsetBothSides>
-                <TeamAvatar>
-                  {team.plan === 'pro' ? <span className="team__badge">PRO</span> : null}
-                </TeamAvatar>
+                <TeamAvatar
+                  team={team}
+                />
               </OffsetBothSides>
               <Offset isRtl={isRtl}>
                 <HeaderTitle>

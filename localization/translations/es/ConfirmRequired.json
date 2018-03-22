@@ -1,0 +1,4 @@
+{
+  "task.confirmRequiredTitle": "Confirmar la tarea requerida",
+  "task.confirmRequiredText": "Está agregando una tarea requerida a un elemento marcado <strong>{status}</strong>. Al hacerlo, el elemento volverá automáticamente a su estado original."
+}
