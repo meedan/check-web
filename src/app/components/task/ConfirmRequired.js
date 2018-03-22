@@ -34,7 +34,7 @@ const ConfirmRequired = (props) => {
     >
       <FormattedHTMLMessage
         id="task.confirmRequiredText"
-        defaultMessage="You are adding a required task to an item marked <strong>{status}</strong>. By adding this, you'll automatically change the status of this item back to <strong>In Progress</strong>"
+        defaultMessage="You are adding a required task to an item marked <strong>{status}</strong>. By doing so, the item will automatically be reverted to its original status."
         values={{ status: props.status && props.status.label }}
       />
     </Dialog>
