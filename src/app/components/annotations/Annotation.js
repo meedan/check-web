@@ -902,6 +902,35 @@ class Annotation extends Component {
         );
       }
       break;
+    case 'copy_projectmedia':
+      if (activity.projects.edges.length > 0 && activity.teams.edges.length > 0 && activity.user) {
+        const previousProject = activity.projects.edges[0].node;
+        const previousTeam = activity.teams.edges[0].node;
+        const previousProjectUrl = `/${previousProject.team.slug}/project/`;
+        const previousTeamUrl = `/${previousTeam.slug}/`;
+        contentTemplate = (
+          <span>
+            <FormattedMessage
+              id="annotation.teamCopied"
+              defaultMessage="Copied from project {previousProject} on team {previousTeam} by {author}"
+              values={{
+                previousProject: (
+                  <Link to={previousProjectUrl + previousTeam.dbid}>
+                    <span>{previousProject.title}</span>
+                  </Link>
+                ),
+                previousTeam: (
+                  <Link to={previousTeamUrl}>
+                    <span>{previousTeam.name}</span>
+                  </Link>
+                ),
+                author: authorName,
+              }}
+            />
+          </span>
+        );
+      }
+      break;
     case 'update_task':
       contentTemplate = shouldLogChange(activity) ?
         <TaskUpdate activity={activity} authorName={authorName} /> : null;
