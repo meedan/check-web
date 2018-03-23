@@ -181,12 +181,25 @@ const MediaContainer = Relay.createContainer(MediaParentComponent, {
               object_after,
               object_changes_json,
               meta,
+              teams(first: 2) {
+                edges {
+                  node {
+                    id,
+                    dbid,
+                    name,
+                    slug
+                  }
+                }
+              }
               projects(first: 2) {
                 edges {
                   node {
                     id,
                     dbid,
                     title
+                    team {
+                      slug
+                    }
                   }
                 }
               }
