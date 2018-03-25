@@ -414,7 +414,7 @@ class SearchQueryComponent extends Component {
         a.node.title.localeCompare(b.node.title));
     }
     const suggestedTags = this.props.team.get_suggested_tags
-      ? this.props.team.get_suggested_tags.split(',')
+      ? this.props.team.get_suggested_tags.split(',').map(tag => tag.trim())
       : [];
     const title =
       this.props.title ||
