@@ -59,7 +59,6 @@ export default ({ config, metadata, url }) => `
         ${socialTags(metadata, config, url)}
         <link href="/images/logo/${config.appName || 'favicon'}.ico" rel="icon">
         <script src="/js/config.js" defer="defer"></script>
-        <script src="/js/newrelic.js" defer="defer"></script>
         <script src="/js/vendor.bundle.js" defer="defer"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pusher/4.0.0/pusher.min.js"></script>
         <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Mono" rel="stylesheet" type="text/css">

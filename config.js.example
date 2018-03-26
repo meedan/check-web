@@ -13,8 +13,3 @@ window.config = {
   googleAnalyticsCode: 'UA-00000000-1', // Optional
   mapboxApiKey: '' // Get one at mapbox.com
 }
-// Optional newrelic config
-// NREUM = {
-//     info: {beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",licenseKey:"",applicationID:"",sa:1}
-// }
-// window.NREUM = NREUM;
