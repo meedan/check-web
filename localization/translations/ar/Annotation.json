@@ -28,5 +28,6 @@
   "annotation.flaggedHeader": "تم وسمه #{tag} بواسطة {author}",
   "annotation.projectMoved": "تم نقله من {previousProject} إلى {currentProject} بواسطة {author}",
   "annotation.movedToTrash": "تم الارسال إلى سلة المهملات",
-  "annotation.movedFromTrash": "قام {author} باستعادة هذا العنصر من سلة المهملات"
+  "annotation.movedFromTrash": "قام {author} باستعادة هذا العنصر من سلة المهملات",
+  "annotation.teamCopied": "تم نقله من {previousProject} في الفريق {previousTeam} بواسطة {author}"
 }
