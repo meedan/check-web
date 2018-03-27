@@ -18,6 +18,7 @@ describe('<DatetimeTaskResponse />', () => {
     expect(taskResponse.html()).to.contain('<span class="task__datetime-response"><span><span>March 27, 2018</span><!-- react-text: 4 --> at <!-- /react-text --><a href="https://time.is/2018-03-27 12:34 BRT" target="_blank" rel="noreferrer noopener" title="View this timezone on time.is">12:34 BRT</a></span></span>');
   });
 
+  // Mantis #6787: Item shows as blank, possibly related to date/time task
   it('Displays error if bad data', () => {
     const taskResponse = mountWithIntl(<DatetimeTaskResponse response={badResponse} />);
     expect(taskResponse.html()).to.contain('Error: Invalid timestamp');
