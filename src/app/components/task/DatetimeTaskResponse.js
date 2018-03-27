@@ -13,7 +13,7 @@ const DatetimeTaskResponse = (props) => {
   const response = convertNumbers2English(props.response);
   const values = response.match(/^(\d+-\d+-\d+) (\d+):(\d+) ([+-]?\d+) (.*)$/);
   if (!values) {
-    return <FormattedMessage id="datetimeTaskResponse.invalidTimestamp" defaultMessage="Error: Invalid timestamp" />
+    return <FormattedMessage id="datetimeTaskResponse.invalidTimestamp" defaultMessage="Error: Invalid timestamp" />;
   }
   const noTime = /notime/.test(response);
   let hour = parseInt(values[2], 10);
