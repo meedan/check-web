@@ -81,14 +81,17 @@ class TeamInviteCard extends Component {
       }
     `;
 
+    const role = UserUtil.myRole(this.getCurrentUser(), team.slug);
+    if (!role) {
+      return null;
+    }
     if (
       config.appName === 'check' &&
-      team.plan !== 'pro' &&
+      team.limits.max_number_of_members > 0 &&
       team.team_users.edges.length >= team.limits.max_number_of_members
     ) {
-      return UserUtil.myRole(this.getCurrentUser(), team.slug) === 'owner' ? <TeamSizeNudge renderCard /> : null;
+      return role === 'owner' ? <TeamSizeNudge renderCard /> : null;
     }
-
     return (
       <StyledMdCard>
         <CardText>
