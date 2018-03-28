@@ -1,4 +1,5 @@
 {
   "datetimeTaskResponse.timeIs": "أعرض هذا النطاق الزمني على time.is",
+  "datetimeTaskResponse.invalidTimestamp": "توقيت غير صحيح",
   "datetimeTaskResponse.taskResponse": "{date} في {timeLink}"
 }
